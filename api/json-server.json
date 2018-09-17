@@ -1,0 +1,5 @@
+{
+    "port": 8000,
+    "quiet": true,
+    "routes": "./api/routes.json"
+}

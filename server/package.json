@@ -1,0 +1,26 @@
+{
+  "name": "boomerang-react-scripts-server",
+  "version": "0.0.1",
+  "description": "Boomerang React Scripts Express Server",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "contributors": [
+    {
+      "name": "Tim Bula",
+      "email": "trbula@us.ibm.com"
+    }
+  ],
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "compression": "1.7.1",
+    "debug": "2.2.0",
+    "dotenv": "4.0.0",
+    "express": "4.16.2",
+    "helmet": "^3.4.0",
+    "immutable": "3.8.1",
+    "morgan": "^1.8.0",
+    "newrelic": "^1.40.0",
+    "serialize-javascript": "1.4.0"
+  }
+}

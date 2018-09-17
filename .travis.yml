@@ -1,0 +1,45 @@
+group: bluezone
+sudo: required
+services:
+  - docker
+language: node_js 
+node_js: "9"
+notifications:
+ slack: ibm-aic-offerings:pKEkgH3hXaZQg8UCl6eLWyYB#bmrg-notifications
+branches:
+  only:
+  - /^\d\d?\.\d\d?.\d\d?\d?$/
+cache:
+  yarn: true
+  directories:
+    - node_modules
+before_install:
+ - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.3.2
+ - export PATH=$HOME/.yarn/bin:$PATH
+ - curl -H "X-JFrog-Art-Api:$ARTIFACTORY_API_TOKEN" -O 'https://tools.boomerangplatform.net/artifactory/boomerang/platform/certificates/ca.crt'
+ - curl -H "X-JFrog-Art-Api:$ARTIFACTORY_API_TOKEN" -O 'https://tools.boomerangplatform.net/artifactory/boomerang/platform/certificates/geotrust-root.crt'
+ - curl -H "X-JFrog-Art-Api:$ARTIFACTORY_API_TOKEN" -O 'https://tools.boomerangplatform.net/artifactory/boomerang/platform/certificates/geotrust-int.crt'
+ - curl -H "X-JFrog-Art-Api:$ARTIFACTORY_API_TOKEN" -O 'https://tools.boomerangplatform.net/artifactory/boomerang/platform/config/.npmrc'
+ - ls -altr
+install:
+ - sudo mkdir -p /etc/docker/certs.d/$DOCKER_REGISTRY_HOST\:$DOCKER_REGISTRY_PORT/
+ - sudo cp ca.crt /etc/docker/certs.d/$DOCKER_REGISTRY_HOST\:$DOCKER_REGISTRY_PORT/
+ - sudo cp geotrust-root.crt geotrust-int.crt /usr/local/share/ca-certificates
+ - sudo ls -ltr /usr/local/share/ca-certificates
+ - sudo update-ca-certificates
+ - sudo service docker restart
+ - ping -c 1 $DOCKER_REGISTRY_HOST
+script:
+ - if [ -z "$TRAVIS_TAG" ]; then VERSION=$TRAVIS_BRANCH; else VERSION=$TRAVIS_TAG; fi
+ - yarn install && yarn run build 
+ - sudo docker build -t $CONTAINER_NAME:$VERSION .
+ - sudo docker image ls $CONTAINER_NAME:$VERSION
+before_deploy:
+ - sudo docker tag $CONTAINER_NAME:$TRAVIS_TAG $DOCKER_REGISTRY_HOST:$DOCKER_REGISTRY_PORT/$DOCKER_NAMESPACE/$CONTAINER_NAME:$TRAVIS_TAG
+ - sudo docker image ls $DOCKER_REGISTRY_HOST:$DOCKER_REGISTRY_PORT/$DOCKER_NAMESPACE/$CONTAINER_NAME:$TRAVIS_TAG
+ - sudo docker -D login -u=$DOCKER_REGISTRY_USERNAME -p=$DOCKER_REGISTRY_PASSWORD $DOCKER_REGISTRY_HOST:$DOCKER_REGISTRY_PORT
+deploy:
+ - provider: script
+   script: sudo docker push $DOCKER_REGISTRY_HOST:$DOCKER_REGISTRY_PORT/$DOCKER_NAMESPACE/$CONTAINER_NAME:$TRAVIS_TAG
+   on:
+     tags: true
