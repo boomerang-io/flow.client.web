@@ -6,7 +6,8 @@
     "@boomerang/boomerang-react-scripts": "1.0.1",
     "lodash": "^4.17.11",
     "react": "^16.5.1",
-    "react-dom": "^16.5.1"
+    "react-dom": "^16.5.1",
+    "storm-react-diagrams": "^5.2.1"
   },
   "scripts": {
     "analyze": "source-map-explorer server/build/static/js/main.*",
