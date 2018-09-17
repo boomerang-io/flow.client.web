@@ -14,7 +14,7 @@ import {
 
 // import the custom models
 import { DiamondNodeModel } from "./DiamondNodeModel";
-//import { DiamondNodeFactory } from "./DiamondNode/DiamondNodeFactory";
+import { DiamondNodeFactory } from "./DiamondNode/DiamondNodeFactory";
 import { SimplePortFactory } from "./SimplePortFactory";
 import { DiamondPortModel } from "./DiamondPortModel";
 

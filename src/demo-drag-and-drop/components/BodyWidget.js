@@ -5,6 +5,8 @@ import { Application } from "../Application";
 import { TrayItemWidget } from "./TrayItemWidget";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 
+import { IngestCSVNodeModel } from "../../IngestCSV/IngestCSVNodeModel";
+
 /*export interface BodyWidgetProps {
   app: Application;
 }
@@ -24,12 +26,13 @@ export class BodyWidget extends React.Component {
     return (
       <div className="body">
         <div className="header">
-          <div className="title">Storm React Diagrams - Demo 5</div>
+          <div className="title">Boomerang Workflow</div>
         </div>
         <div className="content">
           <TrayWidget>
             <TrayItemWidget model={{ type: "in" }} name="In Node" color="rgb(192,255,0)" />
             <TrayItemWidget model={{ type: "out" }} name="Out Node" color="rgb(0,192,255)" />
+            <TrayItemWidget model={{ type: "ingestcsv" }} name="Ingest CSV" color="rgb(129,17,81)" />
           </TrayWidget>
           <div
             className="diagram-layer"
@@ -46,9 +49,11 @@ export class BodyWidget extends React.Component {
               if (data.type === "in") {
                 node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(192,255,0)");
                 node.addInPort("In");
-              } else {
+              } else if (data.type === "out") {
                 node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)");
                 node.addOutPort("Out");
+              } else {
+                node = new IngestCSVNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)");
               }
               var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
               node.x = points.x;

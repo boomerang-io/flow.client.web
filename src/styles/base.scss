@@ -1,0 +1,92 @@
+/* Licensed Materials - Property of IBM
+© Copyright IBM Corporation 2017. All Rights Reserved.
+Author: Timothy Bula
+GBS Engineering */
+
+html {
+  font-size: 100%;
+}
+
+@media (max-width: 120em) {
+  html {
+    font-size: 92.5%;
+  }
+}
+
+@media (max-width: 90em) {
+  html {
+    font-size: 87.5%;
+  }
+}
+
+@media (max-width: 50em) {
+  html {
+    font-size: 75%;
+  }
+}
+
+body {
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: $outside-app-blue;
+  min-height: 100%;
+  min-width: 52rem;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* body of the application */
+.c-app {
+  margin: 0 auto;
+}
+
+/* actual content of the app */
+.c-app-content {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 3.125rem);
+  /* margin-top: 3.125rem; */
+}
+
+.c-app-content--not-loaded {
+  align-items: center;
+  justify-content: center;
+}
+
+/* main section i.e. not navbar or sidenav */
+.c-app-main {
+  flex: 1;
+  margin: 4.125rem 2.5rem 2.5rem 18.5rem;
+  min-height: calc(100vh - 6.625rem);
+  background-color: $blue;
+  color: $lightest-gray;
+}
+
+.bmrg--c-sidenav {
+  position: fixed !important;
+  width: 16rem !important;
+  height: calc(100vh - 3.125rem) !important;
+  z-index: 1;
+}
+
+/* don't scroll when modal is open */
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+.s-fullscreen {
+  height: 100vh;
+  width: 100vw;
+}
+
+:focus {
+  outline: none;
+}

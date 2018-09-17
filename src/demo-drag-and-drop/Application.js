@@ -1,5 +1,14 @@
 //import SRD from "storm-react-diagrams";
-import { DiagramEngine, DiagramModel, DefaultNodeModel } from "storm-react-diagrams";
+import { DiagramEngine, DiagramModel, DefaultNodeModel, SimplePortFactory } from "storm-react-diagrams";
+
+//ingestcsv files
+//import { IngestCSVPortModel } from "../IngestCSV/IngestCSVPortModel";
+import { IngestCSVNodeFactory } from "../IngestCSV/IngestCSVNodeFactory";
+import { IngestCSVNodeModel } from "../IngestCSV/IngestCSVNodeModel";
+
+//import { DiamondPortModel } from "../DiamondNode/DiamondPortModel";
+import { DiamondNodeFactory } from "../DiamondNode/DiamondNodeFactory";
+import { DiamondNodeModel } from "../DiamondNode/DiamondNodeModel";
 
 /**
  * @author Dylan Vorster
@@ -11,6 +20,8 @@ export default class Application {
   constructor() {
     this.diagramEngine = new DiagramEngine();
     this.diagramEngine.installDefaultFactories();
+    this.diagramEngine.registerNodeFactory(new IngestCSVNodeFactory());
+    //this.diagramEngine.registerNodeFactory(new DiamondNodeFactory());
 
     this.newModel();
   }
@@ -29,10 +40,14 @@ export default class Application {
     let port2 = node2.addInPort("In");
     node2.setPosition(400, 100);
 
+    //test ingestcsvnode
+    var node3 = new IngestCSVNodeModel("ingestcsv", "rgb(129,17,81)");
+    node3.setPosition(200, 300);
+
     // link the ports
     let link1 = port.link(port2);
 
-    this.activeModel.addAll(node1, node2, link1);
+    this.activeModel.addAll(node1, node2, node3, link1);
   }
 
   getActiveDiagram() {
