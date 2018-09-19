@@ -8,7 +8,7 @@ import Modal from "@boomerang/boomerang-components/lib/Modal";
 import pencilIcon from "../../img/pencil.svg";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as taskActions } from "../demo-drag-and-drop/reducer";
+import { actions as taskActions } from "../BodyWidget/reducer";
 
 const AboutPlatformLI = () => <img src={pencilIcon} />;
 
@@ -66,7 +66,4 @@ const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(IngestCSVNodeWidget);
+export default connect(mapStateToProps, mapDispatchToProps)(IngestCSVNodeWidget);

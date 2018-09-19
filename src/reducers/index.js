@@ -1,12 +1,10 @@
 import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
-import taskReducer from "../features/demo-drag-and-drop/reducer";
-import blogPostsReducer from "../features/BlogPosts/reducer";
+import taskReducer from "../features/BodyWidget/reducer";
 
 const rootReducer = combineReducers({
   routing: routerReducer,
-  tasks: taskReducer,
-  blogPosts: blogPostsReducer
+  tasks: taskReducer
 });
 
 export default rootReducer;

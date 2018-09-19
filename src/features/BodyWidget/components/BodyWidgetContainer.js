@@ -51,7 +51,4 @@ const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BodyWidgetContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BodyWidgetContainer);

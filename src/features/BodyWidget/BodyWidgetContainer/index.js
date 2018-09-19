@@ -2,15 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as blogPostActions } from "../reducer";
-//import { actions as taskActions } from "../../demo-drag-and-drop/reducer";
-//import Loading from '../../../components/Loading';
-import BlogPost from "../BlogPost";
+import { actions as taskActions } from "../reducer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "../../../config/servicesConfig";
+import { BodyWidget } from "../components/BodyWidget";
+import "../styles/main.scss";
+import "storm-react-diagrams/src/sass/main.scss";
 
-import { BodyWidget } from "../../demo-drag-and-drop/components/BodyWidget";
-
-class BlogContainer extends Component {
+class BodyWidgetContainer extends Component {
   static propTypes = {
     taskActions: PropTypes.object.isRequired,
     tasks: PropTypes.object.isRequired
@@ -21,9 +19,9 @@ class BlogContainer extends Component {
   }
 
   componentWillUnmount() {
-    const { blogPosts, blogPostActions } = this.props;
-    if (blogPosts.isFetching) {
-      blogPostActions.cancelFetchPosts();
+    const { taskActions } = this.props;
+    if (taskActions.isFetching) {
+      taskActions.cancelFetchPosts();
     }
   }
 
@@ -43,15 +41,11 @@ class BlogContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  blogPosts: state.blogPosts,
   tasks: state.tasks
 });
 
 const mapDispatchToProps = dispatch => ({
-  taskActions: bindActionCreators(blogPostActions, dispatch)
+  taskActions: bindActionCreators(taskActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BlogContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(BodyWidgetContainer);
