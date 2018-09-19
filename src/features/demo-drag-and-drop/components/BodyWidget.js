@@ -7,12 +7,6 @@ import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 
 import { IngestCSVNodeModel } from "../../IngestCSV/IngestCSVNodeModel";
 
-/*export interface BodyWidgetProps {
-  app: Application;
-}
-
-export interface BodyWidgetState {}*/
-
 /**
  * @author Dylan Vorster
  */
@@ -23,17 +17,25 @@ export class BodyWidget extends React.Component {
   }
 
   render() {
+    let trayItems = this.props.tasks.map(task => (
+      <TrayItemWidget model={{ type: task.id, name: task.name }} name="Ingest CSV" color="rgb(129,17,81)" />
+    ));
+
     return (
       <div className="body">
         <div className="header">
           <div className="title">Boomerang Workflow</div>
         </div>
         <div className="content">
-          <TrayWidget>
-            <TrayItemWidget model={{ type: "in" }} name="In Node" color="rgb(192,255,0)" />
-            <TrayItemWidget model={{ type: "out" }} name="Out Node" color="rgb(0,192,255)" />
-            <TrayItemWidget model={{ type: "ingestcsv" }} name="Ingest CSV" color="rgb(129,17,81)" />
-          </TrayWidget>
+          {
+            //map through list of tasks here and create a trayitem for each one
+            //pass through the id into the model
+            //this.props.tasks.map(task => )
+            //TrayItemWidget model={{ type: "in" }} name="In Node" color="rgb(192,255,0)" />
+            //<TrayItemWidget model={{ type: "out" }} name="Out Node" color="rgb(0,192,255)" />
+            //<TrayItemWidget model={{ type: "ingestcsvs" }} name="Ingest CSV" color="rgb(129,17,81)" />
+          }
+          <TrayWidget>{trayItems}</TrayWidget>
           <div
             className="diagram-layer"
             onDrop={event => {
@@ -46,15 +48,16 @@ export class BodyWidget extends React.Component {
               ).length;
 
               var node = null;
-              if (data.type === "in") {
-                node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(192,255,0)");
-                node.addInPort("In");
-              } else if (data.type === "out") {
-                node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)");
-                node.addOutPort("Out");
-              } else {
-                node = new IngestCSVNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)");
-              }
+              //if (data.type === "in") {
+              //  node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(192,255,0)");
+              //  node.addInPort("In");
+              //} else if (data.type === "out") {
+              //  node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)");
+              //  node.addOutPort("Out");
+              //} else {
+              // pass id as the third parameter
+              node = new IngestCSVNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type, data.name);
+
               var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
               node.x = points.x;
               node.y = points.y;

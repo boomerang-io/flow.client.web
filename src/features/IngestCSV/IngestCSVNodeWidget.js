@@ -1,9 +1,16 @@
-import "../styles/variables.scss";
+import "./styles/styles.scss";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { PortWidget } from "storm-react-diagrams";
-
 import { Tile } from "carbon-components-react";
+
+import Modal from "@boomerang/boomerang-components/lib/Modal";
+import pencilIcon from "../../img/pencil.svg";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actions as taskActions } from "../demo-drag-and-drop/reducer";
+
+const AboutPlatformLI = () => <img src={pencilIcon} />;
 
 export class IngestCSVNodeWidget extends Component {
   state = {};
@@ -15,17 +22,17 @@ export class IngestCSVNodeWidget extends Component {
   };
 
   render() {
+    console.log(this.props.node.taskId);
     return (
       <div
         className={"ingestcsv-node"}
         style={{
           position: "relative",
           width: this.props.size,
-          height: this.props.size,
-          background: "purple"
+          height: this.props.size
         }}
       >
-        <Tile> Ingest CSV </Tile>
+        <Tile className="ingestcsv-tile"> {this.props.taskName} </Tile>
         <div
           style={{
             position: "absolute",
@@ -50,3 +57,16 @@ export class IngestCSVNodeWidget extends Component {
     );
   }
 }
+
+const mapStateToProps = (state, ownProps) => {
+  return { task: state.tasks.filter(task => task.id === ownProps.node.id) };
+};
+
+const mapDispatchToProps = dispatch => ({
+  taskActions: bindActionCreators(taskActions, dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(IngestCSVNodeWidget);

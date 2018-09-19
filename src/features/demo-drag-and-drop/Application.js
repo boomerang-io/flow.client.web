@@ -13,7 +13,7 @@ import { DiamondNodeModel } from "../DiamondNode/DiamondNodeModel";
 /**
  * @author Dylan Vorster
  */
-export default class Application {
+export class Application {
   //protected activeModel: SRD.DiagramModel;
   //protected diagramEngine: SRD.DiagramEngine;
 
@@ -31,12 +31,12 @@ export default class Application {
     this.diagramEngine.setDiagramModel(this.activeModel);
 
     //3-A) create a default node
-    var node1 = new DefaultNodeModel("Node 1", "rgb(0,192,255)");
+    var node1 = new DefaultNodeModel("Start", "rgb(0,192,255)");
     let port = node1.addOutPort("Out");
     node1.setPosition(100, 100);
 
     //3-B) create another default node
-    var node2 = new DefaultNodeModel("Node 2", "rgb(192,255,0)");
+    var node2 = new DefaultNodeModel("End", "rgb(192,255,0)");
     let port2 = node2.addInPort("In");
     node2.setPosition(400, 100);
 
@@ -45,9 +45,9 @@ export default class Application {
     node3.setPosition(200, 300);
 
     // link the ports
-    let link1 = port.link(port2);
+    //let link1 = port.link(port2);
 
-    this.activeModel.addAll(node1, node2, node3, link1);
+    this.activeModel.addAll(node1, node2, node3);
   }
 
   getActiveDiagram() {

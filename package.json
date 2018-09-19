@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@boomerang/boomerang-components": "^5.0.6",
+    "@boomerang/boomerang-components": "^5.0.8",
     "@boomerang/boomerang-react-scripts": "1.0.1",
     "@boomerang/boomerang-utilities": "^1.0.1",
     "carbon-components": "^9.14.0",
@@ -12,6 +12,8 @@
     "lodash": "^4.17.11",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
+    "react-modal": "^3.5.1",
+    "react-tooltip": "^3.8.4",
     "storm-react-diagrams": "^5.2.1"
   },
   "scripts": {

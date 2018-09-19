@@ -1,0 +1,13 @@
+@import "../../../styles/variables.scss";
+
+.ingestcsv-node {
+  background: $blue;
+
+  .ingestcsv-tile {
+    font-size: $base;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 1rem;
+    color: $off-white;
+  }
+}
