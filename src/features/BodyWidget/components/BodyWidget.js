@@ -6,6 +6,7 @@ import { TrayItemWidget } from "./TrayItemWidget";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 
 import { IngestCSVNodeModel } from "../../IngestCSV/IngestCSVNodeModel";
+import Navbar from "@boomerang/boomerang-components/lib/Navbar";
 
 /**
  * @author Dylan Vorster
@@ -23,8 +24,15 @@ export class BodyWidget extends React.Component {
 
     return (
       <div className="body">
-        <div className="header">
-          <div className="title">Boomerang Workflow</div>
+        <div className="title">
+          <Navbar
+            navbarLinks={[]}
+            //user={user}
+            isAdmin={true}
+            hasOnBoardingExperience={true}
+            onboardingExperienceCharacter="?"
+            handleOnOnboardingExperienceClick={{}}
+          />
         </div>
         <div className="content">
           <TrayWidget>{trayItems}</TrayWidget>

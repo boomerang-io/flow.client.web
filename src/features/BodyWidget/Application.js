@@ -14,7 +14,6 @@ export class Application {
     this.diagramEngine = new DiagramEngine();
     this.diagramEngine.installDefaultFactories();
     this.diagramEngine.registerNodeFactory(new IngestCSVNodeFactory());
-    //this.diagramEngine.registerNodeFactory(new DiamondNodeFactory());
 
     this.newModel();
   }
@@ -26,21 +25,14 @@ export class Application {
     //3-A) create a default node
     var node1 = new DefaultNodeModel("Start", "rgb(0,192,255)");
     let port = node1.addOutPort("Out");
-    node1.setPosition(100, 100);
+    node1.setPosition(400, 100);
 
     //3-B) create another default node
     var node2 = new DefaultNodeModel("End", "rgb(192,255,0)");
     let port2 = node2.addInPort("In");
-    node2.setPosition(400, 100);
+    node2.setPosition(800, 100);
 
-    //test ingestcsvnode
-    var node3 = new IngestCSVNodeModel("ingestcsv", "rgb(129,17,81)");
-    node3.setPosition(200, 300);
-
-    // link the ports
-    //let link1 = port.link(port2);
-
-    this.activeModel.addAll(node1, node2, node3);
+    this.activeModel.addAll(node1, node2);
   }
 
   getActiveDiagram() {
