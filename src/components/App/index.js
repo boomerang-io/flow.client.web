@@ -5,7 +5,7 @@ import BodyWidgetContainer from "../../features/BodyWidget";
 var app = new Application();
 class App extends Component {
   render() {
-    return <BodyWidgetContainer app={Application} test={"test"} />;
+    return <BodyWidgetContainer app={app} test={"test"} />;
   }
 }
 

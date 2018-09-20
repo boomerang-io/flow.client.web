@@ -1,5 +1,5 @@
 import { AbstractNodeFactory } from "storm-react-diagrams";
-import { IngestCSVNodeWidget } from "./IngestCSVNodeWidget";
+import IngestCSVNodeWidget from "./IngestCSVNodeWidget";
 import { IngestCSVNodeModel } from "./IngestCSVNodeModel";
 import React from "react";
 

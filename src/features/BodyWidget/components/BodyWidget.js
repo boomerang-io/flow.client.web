@@ -17,8 +17,8 @@ export class BodyWidget extends React.Component {
   }
 
   render() {
-    let trayItems = this.props.tasks.map(task => (
-      <TrayItemWidget model={{ type: task.id, name: task.name }} name="Ingest CSV" color="rgb(129,17,81)" />
+    let trayItems = this.props.tasks.data.map(task => (
+      <TrayItemWidget model={{ type: task.id, name: task.name }} name={task.name} color="rgb(129,17,81)" />
     ));
 
     return (
@@ -27,14 +27,6 @@ export class BodyWidget extends React.Component {
           <div className="title">Boomerang Workflow</div>
         </div>
         <div className="content">
-          {
-            //map through list of tasks here and create a trayitem for each one
-            //pass through the id into the model
-            //this.props.tasks.map(task => )
-            //TrayItemWidget model={{ type: "in" }} name="In Node" color="rgb(192,255,0)" />
-            //<TrayItemWidget model={{ type: "out" }} name="Out Node" color="rgb(0,192,255)" />
-            //<TrayItemWidget model={{ type: "ingestcsvs" }} name="Ingest CSV" color="rgb(129,17,81)" />
-          }
           <TrayWidget>{trayItems}</TrayWidget>
           <div
             className="diagram-layer"

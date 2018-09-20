@@ -6,17 +6,10 @@ import { DiagramEngine, DiagramModel, DefaultNodeModel, SimplePortFactory } from
 import { IngestCSVNodeFactory } from "../IngestCSV/IngestCSVNodeFactory";
 import { IngestCSVNodeModel } from "../IngestCSV/IngestCSVNodeModel";
 
-//import { DiamondPortModel } from "../DiamondNode/DiamondPortModel";
-import { DiamondNodeFactory } from "../DiamondNode/DiamondNodeFactory";
-import { DiamondNodeModel } from "../DiamondNode/DiamondNodeModel";
-
 /**
  * @author Dylan Vorster
  */
 export class Application {
-  //protected activeModel: SRD.DiagramModel;
-  //protected diagramEngine: SRD.DiagramEngine;
-
   constructor() {
     this.diagramEngine = new DiagramEngine();
     this.diagramEngine.installDefaultFactories();

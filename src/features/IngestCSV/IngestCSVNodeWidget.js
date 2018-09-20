@@ -10,34 +10,30 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "../BodyWidget/reducer";
 
+import DisplayForm from "./DisplayForm";
+
 const AboutPlatformLI = () => <img src={pencilIcon} />;
 
 export class IngestCSVNodeWidget extends Component {
   state = {};
 
-  static defaultProps = {
-    size: 125,
-    node: null
-    //title: "ingest csv"
-  };
-
   render() {
-    console.log(this.props.node.taskId);
+    console.log(this.props);
     return (
       <div
         className={"ingestcsv-node"}
         style={{
           position: "relative",
-          width: this.props.size,
-          height: this.props.size
+          width: 125,
+          height: 125
         }}
       >
-        <Tile className="ingestcsv-tile"> {this.props.taskName} </Tile>
+        <Tile className="ingestcsv-tile"> {this.props.node.taskName} </Tile>
         <div
           style={{
             position: "absolute",
             zIndex: 10,
-            top: this.props.size / 2 - 8,
+            top: 125 / 2 - 8,
             left: -8
           }}
         >
@@ -47,11 +43,28 @@ export class IngestCSVNodeWidget extends Component {
           style={{
             position: "absolute",
             zIndex: 10,
-            left: this.props.size - 8,
-            top: this.props.size / 2 - 8
+            left: 125 - 8,
+            top: 125 / 2 - 8
           }}
         >
           <PortWidget name="right" node={this.props.node} />
+        </div>
+
+        <div
+          style={{
+            position: "absolute",
+            zIndex: 10,
+            left: 125 - 15,
+            top: 0
+          }}
+        >
+          <Modal
+            className="bmrg--c-aboutPlatform-modal"
+            ModalTrigger={AboutPlatformLI}
+            modalContent={(closeModal, ...rest) => (
+              <DisplayForm config={this.props.task} closeModal={closeModal} {...rest} />
+            )}
+          />
         </div>
       </div>
     );
@@ -59,11 +72,15 @@ export class IngestCSVNodeWidget extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { task: state.tasks.filter(task => task.id === ownProps.node.id) };
+  console.log("finding the proper task");
+  return { task: state.tasks.data.filter(task => task.id === ownProps.node.taskId)[0] };
 };
 
 const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(IngestCSVNodeWidget);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(IngestCSVNodeWidget);

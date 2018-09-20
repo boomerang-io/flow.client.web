@@ -33,7 +33,7 @@ class BodyWidgetContainer extends Component {
     }
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS) {
-      return <BodyWidget tasks={tasks} />;
+      return <BodyWidget tasks={tasks} app={this.props.app} />;
     }
 
     return null;
@@ -48,4 +48,7 @@ const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BodyWidgetContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BodyWidgetContainer);
