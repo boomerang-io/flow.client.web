@@ -54,7 +54,7 @@ const ValueList = ({ config, onTextInputChange, onToggleChange }) => {
                 minCharText={`Must be more than ${minValueLength} characters`}
                 title={item.label}
                 detail={item.value}
-                theme="bmrg-blue"
+                theme="bmrg-white"
                 type={itemConfig.type}
                 validationFunction={itemConfig.validationFunction}
                 validationText={itemConfig.validationText}

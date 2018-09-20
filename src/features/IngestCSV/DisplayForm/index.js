@@ -117,6 +117,7 @@ class DisplayForm extends Component {
   }*/
 
   render() {
+    console.log(this.props);
     const { config } = this.props;
     //const sectionHeaderConfig = this.determineSectionHeaderConfig();
     return (

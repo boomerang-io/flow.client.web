@@ -1,4 +1,5 @@
 import * as React from "react";
+import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 
 /*export interface TrayWidgetProps {}
 
@@ -16,6 +17,7 @@ export class TrayWidget extends React.Component {
   }
 
   render() {
-    return <div className="tray">{this.props.children}</div>;
+    //return <div className="tray">{this.props.children}</div>;
+    return <Sidenav theme={"bmrg-white"} content={() => this.props.children} />;
   }
 }

@@ -15,6 +15,7 @@
     "react-modal": "^3.5.1",
     "react-toggle": "^4.0.2",
     "react-tooltip": "^3.8.4",
+    "recompose": "^0.30.0",
     "storm-react-diagrams": "^5.2.1",
     "validator": "^10.7.1"
   },

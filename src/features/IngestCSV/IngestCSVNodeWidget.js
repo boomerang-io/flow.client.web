@@ -5,6 +5,7 @@ import { PortWidget } from "storm-react-diagrams";
 import { Tile } from "carbon-components-react";
 
 import Modal from "@boomerang/boomerang-components/lib/Modal";
+import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import pencilIcon from "../../img/pencil.svg";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -59,10 +60,19 @@ export class IngestCSVNodeWidget extends Component {
           }}
         >
           <Modal
-            className="bmrg--c-aboutPlatform-modal"
             ModalTrigger={AboutPlatformLI}
+            //config={this.props.task}
             modalContent={(closeModal, ...rest) => (
-              <DisplayForm config={this.props.task} closeModal={closeModal} {...rest} />
+              <ModalFlow
+                headerTitle="Change Owner"
+                headerSubtitle="It's not really mutiny..."
+                components={[{ step: 0, component: DisplayForm }]}
+                closeModal={closeModal}
+                confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
+                config={this.props.task}
+                //theme={"bmrg-white"}
+                {...rest}
+              />
             )}
           />
         </div>
@@ -73,7 +83,8 @@ export class IngestCSVNodeWidget extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   console.log("finding the proper task");
-  return { task: state.tasks.data.filter(task => task.id === ownProps.node.taskId)[0] };
+  //return { task: state.tasks.data.filter(task => task.id === ownProps.node.taskId)[0] };
+  return { task: state.tasks.data.find(task => task.id === ownProps.node.taskId) };
 };
 
 const mapDispatchToProps = dispatch => ({
