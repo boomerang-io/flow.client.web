@@ -13,7 +13,7 @@ import { actions as taskActions } from "../BodyWidget/reducer";
 
 import DisplayForm from "./DisplayForm";
 
-const AboutPlatformLI = () => <img src={pencilIcon} />;
+const AboutPlatformLI = () => <img src={pencilIcon} className="bmrg-pencil" />;
 
 export class IngestCSVNodeWidget extends Component {
   state = {};
@@ -25,8 +25,8 @@ export class IngestCSVNodeWidget extends Component {
         className={"ingestcsv-node"}
         style={{
           position: "relative",
-          width: 125,
-          height: 125
+          width: 175,
+          height: 100
         }}
       >
         <Tile className="ingestcsv-tile"> {this.props.node.taskName} </Tile>
@@ -34,28 +34,28 @@ export class IngestCSVNodeWidget extends Component {
           style={{
             position: "absolute",
             zIndex: 10,
-            top: 125 / 2 - 8,
-            left: -8
+            top: 0
+            //left: -8
           }}
         >
-          <PortWidget name="left" node={this.props.node} />
+          <PortWidget className="srd-custom-port" name="left" node={this.props.node} />
         </div>
         <div
           style={{
             position: "absolute",
             zIndex: 10,
-            left: 125 - 8,
-            top: 125 / 2 - 8
+            left: 175 - 15, //15 is width of the port widget
+            top: 0
           }}
         >
-          <PortWidget name="right" node={this.props.node} />
+          <PortWidget className="srd-custom-port" name="right" node={this.props.node} />
         </div>
 
         <div
           style={{
             position: "absolute",
             zIndex: 10,
-            left: 125 - 15,
+            left: 175 - 15,
             top: 0
           }}
         >

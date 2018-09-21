@@ -23,7 +23,7 @@
 
     .tray-item {
       position: relative;
-      height: 6.875rem;
+      height: 6rem;
       display: inline-block;
       background-color: #fbfcfc;
       border-top: 0.625rem solid;
@@ -57,6 +57,10 @@
 
     .srd-default-link * {
       stroke: $status-teal;
+    }
+
+    .srd-custom-port {
+      height: 100px;
     }
   }
 }
