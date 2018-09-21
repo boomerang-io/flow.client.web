@@ -55,8 +55,8 @@ export class IngestCSVNodeWidget extends Component {
           style={{
             position: "absolute",
             zIndex: 10,
-            left: 175 - 15,
-            top: 0
+            left: 175 - 15 - 3,
+            top: 5
           }}
         >
           <Modal

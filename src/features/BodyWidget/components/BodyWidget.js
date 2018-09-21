@@ -58,6 +58,14 @@ export class BodyWidget extends React.Component {
                 .getDiagramModel()
                 .addNode(node);
               this.forceUpdate();
+              console.log(
+                JSON.stringify(
+                  this.props.app
+                    .getDiagramEngine()
+                    .getDiagramModel()
+                    .serializeDiagram()
+                )
+              );
             }}
             onDragOver={event => {
               event.preventDefault();

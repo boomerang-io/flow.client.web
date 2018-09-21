@@ -33,6 +33,9 @@ export class Application {
     node2.setPosition(800, 100);
 
     this.activeModel.addAll(node1, node2);
+
+    console.log("serialized diagram:");
+    console.log(JSON.stringify(this.activeModel.serializeDiagram()));
   }
 
   getActiveDiagram() {
