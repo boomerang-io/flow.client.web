@@ -48,14 +48,6 @@ export class BodyWidget extends React.Component {
               ).length;
 
               var node = null;
-              //if (data.type === "in") {
-              //  node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(192,255,0)");
-              //  node.addInPort("In");
-              //} else if (data.type === "out") {
-              //  node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)");
-              //  node.addOutPort("Out");
-              //} else {
-              // pass id as the third parameter
               node = new IngestCSVNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type, data.name);
 
               var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);

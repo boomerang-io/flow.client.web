@@ -61,7 +61,6 @@ export class IngestCSVNodeWidget extends Component {
         >
           <Modal
             ModalTrigger={AboutPlatformLI}
-            //config={this.props.task}
             modalContent={(closeModal, ...rest) => (
               <ModalFlow
                 headerTitle="Change Owner"
@@ -82,8 +81,6 @@ export class IngestCSVNodeWidget extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log("finding the proper task");
-  //return { task: state.tasks.data.filter(task => task.id === ownProps.node.taskId)[0] };
   return { task: state.tasks.data.find(task => task.id === ownProps.node.taskId) };
 };
 
