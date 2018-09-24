@@ -17,7 +17,10 @@ export const initialState = {
 //action handlers
 const actionHandlers = {
   [types.CREATE_NODE]: (state, action) => {
-    return { ...state, data: action.data };
+    return { ...state, data: [...state.data, action.data] };
+  },
+  [types.ADD_NODE]: (state, action) => {
+    return { ...state, data: [...state.data, action.data] };
   }
 };
 

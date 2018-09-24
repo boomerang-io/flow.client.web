@@ -22,6 +22,7 @@ export class BodyWidget extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     let trayItems = this.props.tasks.data.map(task => (
       <TrayItemWidget
         model={{ type: task.id, name: task.name, task_data: task }}
@@ -59,8 +60,7 @@ export class BodyWidget extends React.Component {
               node = new IngestCSVNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type, data.name);
               //add node info to the state
               console.log("adding node to state:");
-              console.log(data.task_data);
-              nodeActions.addNode(data.task_data);
+              this.props.nodeActions.addNode(data.task_data);
 
               var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
               node.x = points.x;
@@ -99,7 +99,4 @@ const mapDispatchToProps = dispatch => ({
   nodeActions: bindActionCreators(nodeActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BodyWidget);
+export default connect(mapStateToProps, mapDispatchToProps)(BodyWidget);
