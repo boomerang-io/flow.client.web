@@ -5,6 +5,10 @@ import { Application } from "../Application";
 import { TrayItemWidget } from "./TrayItemWidget";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 
+import { actions as nodeActions } from "../BodyWidgetContainer/reducer/index";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
 import { IngestCSVNodeModel } from "../../IngestCSV/CustomTaskNodeModel";
 import Navbar from "@boomerang/boomerang-components/lib/Navbar";
 
@@ -19,7 +23,11 @@ export class BodyWidget extends React.Component {
 
   render() {
     let trayItems = this.props.tasks.data.map(task => (
-      <TrayItemWidget model={{ type: task.id, name: task.name }} name={task.name} color="rgb(129,17,81)" />
+      <TrayItemWidget
+        model={{ type: task.id, name: task.name, task_data: task }}
+        name={task.name}
+        color="rgb(129,17,81)"
+      />
     ));
 
     return (
@@ -49,6 +57,10 @@ export class BodyWidget extends React.Component {
 
               var node = null;
               node = new IngestCSVNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type, data.name);
+              //add node info to the state
+              console.log("adding node to state:");
+              console.log(data.task_data);
+              nodeActions.addNode(data.task_data);
 
               var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
               node.x = points.x;
@@ -78,3 +90,16 @@ export class BodyWidget extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { nodes: state };
+};
+
+const mapDispatchToProps = dispatch => ({
+  nodeActions: bindActionCreators(nodeActions, dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BodyWidget);
