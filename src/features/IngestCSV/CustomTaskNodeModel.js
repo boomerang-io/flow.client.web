@@ -1,5 +1,5 @@
 import { NodeModel } from "storm-react-diagrams";
-import { IngestCSVPortModel } from "./IngestCSVPortModel";
+import { IngestCSVPortModel } from "./CustomTaskPortModel";
 
 export class IngestCSVNodeModel extends NodeModel {
   //list all three params

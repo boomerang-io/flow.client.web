@@ -3,8 +3,8 @@ import { DiagramEngine, DiagramModel, DefaultNodeModel, SimplePortFactory } from
 
 //ingestcsv files
 //import { IngestCSVPortModel } from "../IngestCSV/IngestCSVPortModel";
-import { IngestCSVNodeFactory } from "../IngestCSV/IngestCSVNodeFactory";
-import { IngestCSVNodeModel } from "../IngestCSV/IngestCSVNodeModel";
+import { IngestCSVNodeFactory } from "../IngestCSV/customTaskNodeFactory";
+import { IngestCSVNodeModel } from "../IngestCSV/CustomTaskNodeModel";
 
 /**
  * @author Dylan Vorster
@@ -33,9 +33,6 @@ export class Application {
     node2.setPosition(800, 100);
 
     this.activeModel.addAll(node1, node2);
-
-    console.log("serialized diagram:");
-    console.log(JSON.stringify(this.activeModel.serializeDiagram()));
   }
 
   getActiveDiagram() {

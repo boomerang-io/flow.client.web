@@ -41,9 +41,9 @@
       ],
       "description": "Set up the name for this file download",
       "id": "5b92f794844d0700016ea214",
-      "key": "file_download",
+      "key": "Download File",
       "lastModiifed": 1536358745146,
-      "name": "file_download",
+      "name": "Download File",
       "type": "ValuesList"
     },
     {
@@ -69,7 +69,7 @@
       "id": "5b92f794844d0700016ea215",
       "key": "mail",
       "lastModiifed": 1536358737143,
-      "name": "Mail",
+      "name": "Send Mail",
       "type": "ValuesList"
     },
     {
@@ -107,7 +107,7 @@
       "id": "5b92f794844d0700016ea216",
       "key": "apps",
       "lastModiifed": 1536606325494,
-      "name": "Apps",
+      "name": "Ingest CSV",
       "type": "AppsList"
     },
     {
@@ -124,7 +124,7 @@
       "id": "5b92f794844d0700016ea217",
       "key": "slack",
       "lastModiifed": 1536611604684,
-      "name": "Slack",
+      "name": "Send Slack",
       "type": "ValuesList"
     }
   ]

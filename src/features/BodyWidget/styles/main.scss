@@ -22,9 +22,9 @@
     }
 
     .tray-item {
-      position: relative;
+      //position: relative;
       height: 6rem;
-      display: inline-block;
+      display: flex;
       background-color: #fbfcfc;
       border-top: 0.625rem solid;
       border-radius: 0.5rem;
@@ -37,10 +37,18 @@
       text-overflow: ellipsis;
       overflow: hidden;
       border-color: #1b2834;
+      margin-bottom: 1.5rem;
     }
 
     .tray-item_name {
       margin: 0.925rem;
+      padding-top: 1.3rem;
+      padding-left: 1rem;
+    }
+
+    .tray-item-img {
+      padding-top: 2rem;
+      padding-left: 1rem;
     }
 
     .srd-demo-canvas {
@@ -61,9 +69,17 @@
 
     .srd-custom-port {
       height: 100px;
+      & :hover * {
+        background: #fbfcfc;
+      }
+    }
+
+    .srd-port--selected:hover {
+      //background: #fbfcfc;
     }
     .ingestcsv-node {
       border-radius: 15px;
+      border: solid 2px #1b2834;
     }
   }
 }

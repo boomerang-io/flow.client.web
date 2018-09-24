@@ -5,7 +5,7 @@ import { Application } from "../Application";
 import { TrayItemWidget } from "./TrayItemWidget";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 
-import { IngestCSVNodeModel } from "../../IngestCSV/IngestCSVNodeModel";
+import { IngestCSVNodeModel } from "../../IngestCSV/CustomTaskNodeModel";
 import Navbar from "@boomerang/boomerang-components/lib/Navbar";
 
 /**

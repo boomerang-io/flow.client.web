@@ -15,7 +15,7 @@ import DisplayForm from "./DisplayForm";
 
 const AboutPlatformLI = () => <img src={pencilIcon} className="bmrg-pencil" />;
 
-export class IngestCSVNodeWidget extends Component {
+export class CustomTaskNodeWidget extends Component {
   state = {};
 
   render() {
@@ -63,8 +63,8 @@ export class IngestCSVNodeWidget extends Component {
             ModalTrigger={AboutPlatformLI}
             modalContent={(closeModal, ...rest) => (
               <ModalFlow
-                headerTitle="Change Owner"
-                headerSubtitle="It's not really mutiny..."
+                headerTitle="Download File"
+                //headerSubtitle="It's not really mutiny..."
                 components={[{ step: 0, component: DisplayForm }]}
                 closeModal={closeModal}
                 confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
@@ -91,4 +91,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(IngestCSVNodeWidget);
+)(CustomTaskNodeWidget);
