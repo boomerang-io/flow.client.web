@@ -72,15 +72,13 @@ class DisplayForm extends Component {
   };
 
   createConfigToSave() {
-    const configToSave = { ...this.props.config };
     const stateKeys = Object.keys(this.state);
-    configToSave.config.forEach(item => {
-      if (stateKeys.includes(item.key)) {
-        item.value = this.state[item.key].value;
-      }
+    const configToSave = {};
+    stateKeys.forEach(key => {
+      configToSave[key] = this.state[key].value;
     });
 
-    return [configToSave];
+    return configToSave;
   }
 
   determineSectionHeaderConfig() {

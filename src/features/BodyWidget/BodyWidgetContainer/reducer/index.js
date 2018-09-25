@@ -11,18 +11,17 @@ export const types = {
 Object.freeze(types);
 
 export const initialState = {
-  data: []
+  entities: {}
 };
 
 //action handlers
 const actionHandlers = {
   [types.CREATE_NODE]: (state, action) => {
-    return { ...state, data: [...state.data, action.data] };
+    return { ...state, entities: { ...state.entities, [action.data.id]: action.data } };
   },
   [types.UPDATE_NODE]: (state, action) => {
-    console.log(action);
-    const newNodes = state.data.map(node => (node.id === action.data.id ? { ...action.data } : { ...node }));
-    return { ...state, data: newNodes };
+    const updatedNode = { ...state.entities[action.data.id], config: action.data.config };
+    return { ...state, entities: { ...state.entities, [action.data.id]: updatedNode } };
   }
 };
 

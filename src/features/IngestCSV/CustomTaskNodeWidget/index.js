@@ -25,19 +25,18 @@ export class CustomTaskNodeWidget extends Component {
   state = {};
 
   //need to create a save function where we make change to global state
-  handleOnSave = requestBody => {
-    this.props.nodeActions.updateNode({ nodeId: this.props.node.id, requestBody });
+  handleOnSave = config => {
+    this.props.nodeActions.updateNode({ id: this.props.node.id, config: config });
   };
 
   render() {
-    const { node, task } = this.props;
+    const { state_node, task } = this.props;
     return (
       <Tile className="ingestcsv-node">
         <div className="ingestcsv-tile">{this.props.node.taskName}</div>
 
         <PortWidget className="srd-custom-port --left" name="left" node={this.props.node} />
         <PortWidget className="srd-custom-port --right" name="right" node={this.props.node} />
-
         <Modal
           ModalTrigger={EditNode}
           modalContent={(closeModal, ...rest) => (
@@ -51,7 +50,7 @@ export class CustomTaskNodeWidget extends Component {
               onSave={this.handleOnSave}
               theme={"bmrg-white"}
               task={task}
-              node={node}
+              node={state_node}
               {...rest}
             />
           )}
@@ -64,7 +63,7 @@ export class CustomTaskNodeWidget extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    state_node: state.nodes.data.find(n => n.id === ownProps.node.taskId)
+    state_node: state.nodes.entities[ownProps.node.id]
   };
 };
 

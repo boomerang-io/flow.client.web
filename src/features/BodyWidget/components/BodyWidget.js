@@ -61,7 +61,7 @@ export class BodyWidget extends React.Component {
               //add node info to the state
               console.log("adding node to state:");
               const { id, type, taskId, taskName } = node;
-              this.props.nodeActions.addNode({ id, type, taskId, taskName, config: null });
+              this.props.nodeActions.addNode({ id, type, taskId, taskName, config: {} });
 
               var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
               node.x = points.x;
