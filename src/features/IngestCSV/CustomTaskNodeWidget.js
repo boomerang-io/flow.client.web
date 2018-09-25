@@ -10,6 +10,7 @@ import pencilIcon from "../../img/pencil.svg";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "../BodyWidget/reducer";
+import { actions as nodeActions } from "../BodyWidget/BodyWidgetContainer/reducer";
 
 import DisplayForm from "./DisplayForm";
 
@@ -18,7 +19,15 @@ const AboutPlatformLI = () => <img src={pencilIcon} className="bmrg-pencil" />;
 export class CustomTaskNodeWidget extends Component {
   state = {};
 
+  //need to create a save function where we make change to global state
+  handleOnSave = requestBody => {
+    console.log("requestBody:");
+    console.log(requestBody);
+    this.props.nodeActions.updateNode(requestBody);
+  };
+
   render() {
+    console.log("custom widget props");
     console.log(this.props);
     return (
       <div
@@ -68,7 +77,8 @@ export class CustomTaskNodeWidget extends Component {
                 components={[{ step: 0, component: DisplayForm }]}
                 closeModal={closeModal}
                 confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-                config={this.props.task}
+                config={this.props.state_node}
+                onSave={this.handleOnSave}
                 //theme={"bmrg-white"}
                 {...rest}
               />
@@ -81,11 +91,15 @@ export class CustomTaskNodeWidget extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { task: state.tasks.data.find(task => task.id === ownProps.node.taskId) };
+  return {
+    task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
+    state_node: state.nodes.data.find(n => n.id === ownProps.node.taskId)
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
-  taskActions: bindActionCreators(taskActions, dispatch)
+  taskActions: bindActionCreators(taskActions, dispatch),
+  nodeActions: bindActionCreators(nodeActions, dispatch)
 });
 
 export default connect(

@@ -2,11 +2,16 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ValueList from "../ValueList/index.js";
 import { Tile } from "carbon-components-react";
+import { connect } from "net";
+import Button from "@boomerang/boomerang-components/lib/Button";
+import { bindActionCreators } from "redux";
+
+import { actions as nodeActions } from "../../BodyWidget/BodyWidgetContainer/reducer/index";
 
 class DisplayForm extends Component {
   static propTypes = {
-    config: PropTypes.object.isRequired
-    //onSave: PropTypes.func.isRequired
+    config: PropTypes.object.isRequired,
+    onSave: PropTypes.func.isRequired
   };
 
   state = {};
@@ -75,6 +80,17 @@ class DisplayForm extends Component {
     return [configToSave];
   }
 
+  determineSectionHeaderConfig() {
+    //const { config } = this.props;
+    let isValid;
+    let onSaveFunction;
+
+    isValid = this.determineIsValidForm();
+    onSaveFunction = this.handleOnSave;
+
+    return { isValid, onSaveFunction };
+  }
+
   determineIsValidForm = () => {
     const stateKeys = Object.keys(this.state);
     if (!stateKeys.length) return false;
@@ -87,39 +103,10 @@ class DisplayForm extends Component {
     return true;
   };
 
-  /*determineComponentToRender() {
-    const { config } = this.props;
-    if (config.type === CONFIG_TYPES.APPS_LIST) {
-      return <AppsDropdownSettingsContainer config={config} onChange={this.handleAppsDropdownChange} />;
-    } else {
-      return (
-        <ValueList
-          config={config}
-          onTextInputChange={this.handleTextInputChange}
-          onToggleChange={this.handleToggleChange}
-        />
-      );
-    }
-  }*/
-
-  /*determineSectionHeaderConfig() {
-    const { config } = this.props;
-    let isValid;
-    let onSaveFunction;
-    if (config.type === CONFIG_TYPES.APPS_LIST) {
-      isValid = !!this.state.items;
-      onSaveFunction = this.handleSaveAppsDropdown;
-    } else {
-      isValid = this.determineIsValidForm();
-      onSaveFunction = this.handleOnSave;
-    }
-    return { isValid, onSaveFunction };
-  }*/
-
   render() {
-    console.log(this.props);
+    //console.log(this.state);
+    const sectionHeaderConfig = this.determineSectionHeaderConfig();
     const { config } = this.props;
-    //const sectionHeaderConfig = this.determineSectionHeaderConfig();
     return (
       <div className="displayform">
         <Tile className="tile-valuelist"> </Tile>
@@ -128,6 +115,9 @@ class DisplayForm extends Component {
           onTextInputChange={this.handleTextInputChange}
           onToggleChange={this.handleToggleChange}
         />
+        <Button theme="bmrg-black" disabled={!sectionHeaderConfig.isValid} onClick={sectionHeaderConfig.onSaveFunction}>
+          Save
+        </Button>
       </div>
     );
   }

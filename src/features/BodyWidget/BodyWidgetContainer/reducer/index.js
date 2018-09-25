@@ -19,32 +19,20 @@ const actionHandlers = {
   [types.CREATE_NODE]: (state, action) => {
     return { ...state, data: [...state.data, action.data] };
   },
-  [types.ADD_NODE]: (state, action) => {
-    return { ...state, data: [...state.data, action.data] };
+  [types.UPDATE_NODE]: (state, action) => {
+    return state.nodes.map(node => (node.id === action.data.id ? action.data : node));
   }
 };
 
 //reducer exported by default
 export default createReducer(initialState, actionHandlers);
 
-/*
-const nodes = (state = [], action) => {
-  switch (action.type) {
-    case types.CREATE_NODE:
-      return [
-        ...state,
-        {
-          data: action.data
-        }
-      ];
-    default:
-      return state;
-  }
-};
-export default nodes;*/
 export const addNode = data => ({ type: types.CREATE_NODE, data });
+
+export const updateNode = data => ({ type: types.UPDATE_NODE, data });
 
 //actions
 export const actions = {
-  addNode
+  addNode,
+  updateNode
 };
