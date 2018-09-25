@@ -18,6 +18,6 @@ export class TrayWidget extends React.Component {
 
   render() {
     //return <div className="tray">{this.props.children}</div>;
-    return <Sidenav theme={"bmrg-white"} content={() => this.props.children} />;
+    return <Sidenav theme="bmrg-white" styles={{ width: "20rem" }} content={() => this.props.children} />;
   }
 }

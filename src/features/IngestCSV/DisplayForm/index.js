@@ -4,6 +4,9 @@ import ValueList from "../ValueList/index.js";
 import { Tile } from "carbon-components-react";
 import { connect } from "net";
 import Button from "@boomerang/boomerang-components/lib/Button";
+import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
+import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import { bindActionCreators } from "redux";
 
 import { actions as nodeActions } from "../../BodyWidget/BodyWidgetContainer/reducer/index";
@@ -64,7 +67,7 @@ class DisplayForm extends Component {
     };*/
 
   handleOnSave = event => {
-    event.stopPropagation();
+    //event.stopPropagation(); //don't need this here as we don't need to stop the click event from bubbling up
     this.props.onSave(this.createConfigToSave());
   };
 
@@ -106,19 +109,28 @@ class DisplayForm extends Component {
   render() {
     //console.log(this.state);
     const sectionHeaderConfig = this.determineSectionHeaderConfig();
-    const { config } = this.props;
+    const { node, task } = this.props;
     return (
-      <div className="displayform">
-        <Tile className="tile-valuelist"> </Tile>
-        <ValueList
-          config={config}
-          onTextInputChange={this.handleTextInputChange}
-          onToggleChange={this.handleToggleChange}
-        />
-        <Button theme="bmrg-black" disabled={!sectionHeaderConfig.isValid} onClick={sectionHeaderConfig.onSaveFunction}>
-          Save
-        </Button>
-      </div>
+      <>
+        <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "30rem" }}>
+          <ValueList
+            task={task}
+            node={node}
+            onTextInputChange={this.handleTextInputChange}
+            onToggleChange={this.handleToggleChange}
+          />
+        </ModalContentBody>
+        <ModalContentFooter>
+          <ModalConfirmButton
+            theme="bmrg-white"
+            text="Save"
+            disabled={!sectionHeaderConfig.isValid}
+            onClick={sectionHeaderConfig.onSaveFunction}
+          >
+            Save
+          </ModalConfirmButton>
+        </ModalContentFooter>
+      </>
     );
   }
 }

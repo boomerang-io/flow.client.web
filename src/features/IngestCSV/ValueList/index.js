@@ -31,12 +31,12 @@ Toggle.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-const ValueList = ({ config, onTextInputChange, onToggleChange }) => {
+const ValueList = ({ node, task, onTextInputChange, onToggleChange }) => {
   return (
-    <div>
-      <h1 className="s-settings-value-list-header">{config.description}</h1>
+    <>
+      <h1 className="s-settings-value-list-header">{task.config.description}</h1>
       <div className="c-settings-value-list">
-        {config.config.map(item => {
+        {task.config.map(item => {
           if (Object.keys(INPUT_TYPES).includes(item.type)) {
             const itemConfig = INPUT_TYPES[item.type];
             const maxValueLength = item.maxValueLength || 128;
@@ -75,7 +75,7 @@ const ValueList = ({ config, onTextInputChange, onToggleChange }) => {
           }
         })}
       </div>
-    </div>
+    </>
   );
 };
 

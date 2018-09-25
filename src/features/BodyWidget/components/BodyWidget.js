@@ -60,7 +60,8 @@ export class BodyWidget extends React.Component {
               node = new IngestCSVNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type, data.name);
               //add node info to the state
               console.log("adding node to state:");
-              this.props.nodeActions.addNode(data.task_data);
+              const { id, type, taskId, taskName } = node;
+              this.props.nodeActions.addNode({ id, type, taskId, taskName, config: null });
 
               var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
               node.x = points.x;
@@ -99,4 +100,7 @@ const mapDispatchToProps = dispatch => ({
   nodeActions: bindActionCreators(nodeActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BodyWidget);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BodyWidget);

@@ -3,8 +3,9 @@ import React from "react";
 import { render } from "react-dom";
 import configureStore, { history } from "./store/configureStore";
 //import "normalize.css";
-import "./styles/styles.scss";
 import Root from "./components/Root";
+import "storm-react-diagrams/src/sass/main.scss";
+import "./styles/styles.scss";
 import "./config/axiosGlobalConfig";
 import * as serviceWorker from "./serviceWorker";
 
@@ -15,7 +16,7 @@ render(
   <AppContainer>
     <Root store={store} history={history} />
   </AppContainer>,
-  document.getElementById("root")
+  document.getElementById("app")
 );
 
 if (module.hot) {
@@ -25,7 +26,7 @@ if (module.hot) {
       <AppContainer>
         <NewRoot store={store} history={history} />
       </AppContainer>,
-      document.getElementById("root")
+      document.getElementById("app")
     );
   });
 }

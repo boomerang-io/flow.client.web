@@ -20,7 +20,9 @@ const actionHandlers = {
     return { ...state, data: [...state.data, action.data] };
   },
   [types.UPDATE_NODE]: (state, action) => {
-    return state.nodes.map(node => (node.id === action.data.id ? action.data : node));
+    console.log(action);
+    const newNodes = state.data.map(node => (node.id === action.data.id ? { ...action.data } : { ...node }));
+    return { ...state, data: newNodes };
   }
 };
 
