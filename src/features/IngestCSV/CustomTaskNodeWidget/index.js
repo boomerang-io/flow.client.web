@@ -42,7 +42,6 @@ export class CustomTaskNodeWidget extends Component {
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
               headerTitle={task.name}
-              headerSubtitle={task.description}
               components={[{ step: 0, component: DisplayForm }]}
               closeModal={closeModal}
               confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
