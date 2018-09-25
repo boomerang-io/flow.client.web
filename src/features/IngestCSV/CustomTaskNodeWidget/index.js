@@ -41,8 +41,8 @@ export class CustomTaskNodeWidget extends Component {
           ModalTrigger={EditNode}
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
-              headerTitle="Download File"
-              //headerSubtitle="It's not really mutiny..."
+              headerTitle={task.name}
+              headerSubtitle={task.description}
               components={[{ step: 0, component: DisplayForm }]}
               closeModal={closeModal}
               confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
