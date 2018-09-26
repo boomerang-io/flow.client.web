@@ -20,7 +20,11 @@ const actionHandlers = {
     return { ...state, entities: { ...state.entities, [action.data.id]: action.data } };
   },
   [types.UPDATE_NODE]: (state, action) => {
-    const updatedNode = { ...state.entities[action.data.id], config: action.data.config };
+    //const updatedNode = { ...state.entities[action.data.id], config: action.data.config };
+    const updatedNode = {
+      ...state.entities[action.data.id],
+      config: { ...state.entities[action.data.id].config, ...action.data.config }
+    };
     return { ...state, entities: { ...state.entities, [action.data.id]: updatedNode } };
   }
 };

@@ -69,6 +69,7 @@ class DisplayForm extends Component {
   handleOnSave = event => {
     //event.stopPropagation(); //don't need this here as we don't need to stop the click event from bubbling up
     this.props.onSave(this.createConfigToSave());
+    this.props.closeModal();
   };
 
   createConfigToSave() {
