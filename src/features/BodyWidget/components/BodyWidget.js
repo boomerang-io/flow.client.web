@@ -5,7 +5,12 @@ import { Application } from "../Application";
 import { TrayItemWidget } from "./TrayItemWidget";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 
-import { IngestCSVNodeModel } from "../../IngestCSV/IngestCSVNodeModel";
+import { actions as nodeActions } from "../BodyWidgetContainer/reducer/index";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import { IngestCSVNodeModel } from "../../IngestCSV/CustomTaskNodeModel";
+import Navbar from "@boomerang/boomerang-components/lib/Navbar";
 
 /**
  * @author Dylan Vorster
@@ -17,14 +22,26 @@ export class BodyWidget extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     let trayItems = this.props.tasks.data.map(task => (
-      <TrayItemWidget model={{ type: task.id, name: task.name }} name={task.name} color="rgb(129,17,81)" />
+      <TrayItemWidget
+        model={{ type: task.id, name: task.name, task_data: task }}
+        name={task.name}
+        color="rgb(129,17,81)"
+      />
     ));
 
     return (
       <div className="body">
-        <div className="header">
-          <div className="title">Boomerang Workflow</div>
+        <div className="title">
+          <Navbar
+            navbarLinks={[]}
+            //user={user}
+            isAdmin={true}
+            hasOnBoardingExperience={true}
+            onboardingExperienceCharacter="?"
+            handleOnOnboardingExperienceClick={{}}
+          />
         </div>
         <div className="content">
           <TrayWidget>{trayItems}</TrayWidget>
@@ -40,15 +57,21 @@ export class BodyWidget extends React.Component {
               ).length;
 
               var node = null;
-              //if (data.type === "in") {
-              //  node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(192,255,0)");
-              //  node.addInPort("In");
-              //} else if (data.type === "out") {
-              //  node = new DefaultNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)");
-              //  node.addOutPort("Out");
-              //} else {
-              // pass id as the third parameter
               node = new IngestCSVNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type, data.name);
+
+              //want to create a new data structure to pass for node
+              //need node.ID, task_data.key, config = {}
+              let nodeObj = {
+                id: node.getID(),
+                type: data.task_data.key,
+                config: []
+              };
+              console.log("new nodeObj");
+              console.log(nodeObj);
+              //add node info to the state
+              console.log("adding node to state:");
+              const { id, type, taskId, taskName } = node;
+              this.props.nodeActions.addNode({ id, type, taskId, taskName, config: {} });
 
               var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
               node.x = points.x;
@@ -58,6 +81,14 @@ export class BodyWidget extends React.Component {
                 .getDiagramModel()
                 .addNode(node);
               this.forceUpdate();
+              console.log(
+                JSON.stringify(
+                  this.props.app
+                    .getDiagramEngine()
+                    .getDiagramModel()
+                    .serializeDiagram()
+                )
+              );
             }}
             onDragOver={event => {
               event.preventDefault();
@@ -70,3 +101,16 @@ export class BodyWidget extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { nodes: state };
+};
+
+const mapDispatchToProps = dispatch => ({
+  nodeActions: bindActionCreators(nodeActions, dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BodyWidget);

@@ -31,19 +31,21 @@ Toggle.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-const ValueList = ({ config, onTextInputChange, onToggleChange }) => {
+const ValueList = ({ node, task, onTextInputChange, onToggleChange }) => {
+  const { config: nodeConfig } = node;
+  const { config: taskConfig } = task;
   return (
-    <div>
-      <h1 className="s-settings-value-list-header">{config.description}</h1>
+    <>
+      <h1 className="s-settings-value-list-header">{taskConfig.description}</h1>
       <div className="c-settings-value-list">
-        {config.config.map(item => {
+        {taskConfig.map(item => {
           if (Object.keys(INPUT_TYPES).includes(item.type)) {
             const itemConfig = INPUT_TYPES[item.type];
             const maxValueLength = item.maxValueLength || 128;
             const minValueLength = item.minValueLength || 0;
             return (
               <TextInput
-                key={item.id}
+                key={item.key}
                 name={item.key}
                 alwaysShowTitle={true}
                 handleChange={onTextInputChange}
@@ -53,7 +55,7 @@ const ValueList = ({ config, onTextInputChange, onToggleChange }) => {
                 minChar={minValueLength}
                 minCharText={`Must be more than ${minValueLength} characters`}
                 title={item.label}
-                detail={item.value}
+                detail={nodeConfig[item.key] || ""}
                 theme="bmrg-white"
                 type={itemConfig.type}
                 validationFunction={itemConfig.validationFunction}
@@ -63,10 +65,10 @@ const ValueList = ({ config, onTextInputChange, onToggleChange }) => {
           } else {
             return (
               <Toggle
-                key={item.id}
+                key={item.key}
                 name={item.key}
                 id={item.key}
-                defaultChecked={String(item.value) === "true"}
+                defaultChecked={String(nodeConfig[item.key]) === "true" ? true : false}
                 label={item.label}
                 description={item.description}
                 onChange={onToggleChange}
@@ -75,7 +77,7 @@ const ValueList = ({ config, onTextInputChange, onToggleChange }) => {
           }
         })}
       </div>
-    </div>
+    </>
   );
 };
 

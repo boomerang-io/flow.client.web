@@ -1,7 +1,7 @@
-import { AbstractNodeFactory } from "storm-react-diagrams";
-import IngestCSVNodeWidget from "./IngestCSVNodeWidget";
-import { IngestCSVNodeModel } from "./IngestCSVNodeModel";
 import React from "react";
+import { AbstractNodeFactory } from "storm-react-diagrams";
+import IngestCSVNodeWidget from "./CustomTaskNodeWidget";
+import { IngestCSVNodeModel } from "./CustomTaskNodeModel";
 
 export class IngestCSVNodeFactory extends AbstractNodeFactory {
   constructor() {

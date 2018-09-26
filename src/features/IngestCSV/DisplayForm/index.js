@@ -2,11 +2,19 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ValueList from "../ValueList/index.js";
 import { Tile } from "carbon-components-react";
+import { connect } from "net";
+import Button from "@boomerang/boomerang-components/lib/Button";
+import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
+import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import { bindActionCreators } from "redux";
+
+import { actions as nodeActions } from "../../BodyWidget/BodyWidgetContainer/reducer/index";
 
 class DisplayForm extends Component {
   static propTypes = {
-    config: PropTypes.object.isRequired
-    //onSave: PropTypes.func.isRequired
+    config: PropTypes.object.isRequired,
+    onSave: PropTypes.func.isRequired
   };
 
   state = {};
@@ -59,20 +67,29 @@ class DisplayForm extends Component {
     };*/
 
   handleOnSave = event => {
-    event.stopPropagation();
+    //event.stopPropagation(); //don't need this here as we don't need to stop the click event from bubbling up
     this.props.onSave(this.createConfigToSave());
   };
 
   createConfigToSave() {
-    const configToSave = { ...this.props.config };
     const stateKeys = Object.keys(this.state);
-    configToSave.config.forEach(item => {
-      if (stateKeys.includes(item.key)) {
-        item.value = this.state[item.key].value;
-      }
+    const configToSave = {};
+    stateKeys.forEach(key => {
+      configToSave[key] = this.state[key].value;
     });
 
-    return [configToSave];
+    return configToSave;
+  }
+
+  determineSectionHeaderConfig() {
+    //const { config } = this.props;
+    let isValid;
+    let onSaveFunction;
+
+    isValid = this.determineIsValidForm();
+    onSaveFunction = this.handleOnSave;
+
+    return { isValid, onSaveFunction };
   }
 
   determineIsValidForm = () => {
@@ -87,48 +104,31 @@ class DisplayForm extends Component {
     return true;
   };
 
-  /*determineComponentToRender() {
-    const { config } = this.props;
-    if (config.type === CONFIG_TYPES.APPS_LIST) {
-      return <AppsDropdownSettingsContainer config={config} onChange={this.handleAppsDropdownChange} />;
-    } else {
-      return (
-        <ValueList
-          config={config}
-          onTextInputChange={this.handleTextInputChange}
-          onToggleChange={this.handleToggleChange}
-        />
-      );
-    }
-  }*/
-
-  /*determineSectionHeaderConfig() {
-    const { config } = this.props;
-    let isValid;
-    let onSaveFunction;
-    if (config.type === CONFIG_TYPES.APPS_LIST) {
-      isValid = !!this.state.items;
-      onSaveFunction = this.handleSaveAppsDropdown;
-    } else {
-      isValid = this.determineIsValidForm();
-      onSaveFunction = this.handleOnSave;
-    }
-    return { isValid, onSaveFunction };
-  }*/
-
   render() {
-    console.log(this.props);
-    const { config } = this.props;
-    //const sectionHeaderConfig = this.determineSectionHeaderConfig();
+    //console.log(this.state);
+    const sectionHeaderConfig = this.determineSectionHeaderConfig();
+    const { node, task } = this.props;
     return (
-      <div className="displayform">
-        <Tile className="tile-valuelist"> </Tile>
-        <ValueList
-          config={config}
-          onTextInputChange={this.handleTextInputChange}
-          onToggleChange={this.handleToggleChange}
-        />
-      </div>
+      <>
+        <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "30rem" }}>
+          <ValueList
+            task={task}
+            node={node}
+            onTextInputChange={this.handleTextInputChange}
+            onToggleChange={this.handleToggleChange}
+          />
+        </ModalContentBody>
+        <ModalContentFooter>
+          <ModalConfirmButton
+            theme="bmrg-white"
+            text="Save"
+            disabled={!sectionHeaderConfig.isValid}
+            onClick={sectionHeaderConfig.onSaveFunction}
+          >
+            Save
+          </ModalConfirmButton>
+        </ModalContentFooter>
+      </>
     );
   }
 }

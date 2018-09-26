@@ -8,8 +8,7 @@
           "label": "Name",
           "maxValueLength": 128,
           "minValueLength": 0,
-          "type": "text",
-          "value": ""
+          "type": "text"
         },
         {
           "description": "Artifactory Base URL",
@@ -17,8 +16,7 @@
           "label": "Artifactory Base URL",
           "maxValueLength": 128,
           "minValueLength": 0,
-          "type": "url",
-          "value": ""
+          "type": "url"
         },
         {
           "description": "Repository Name",
@@ -26,8 +24,7 @@
           "label": "Repository Name",
           "maxValueLength": 128,
           "minValueLength": 0,
-          "type": "text",
-          "value": ""
+          "type": "text"
         },
         {
           "description": "Repository Path",
@@ -35,15 +32,14 @@
           "label": "Repository Path",
           "maxValueLength": 128,
           "minValueLength": 0,
-          "type": "text",
-          "value": ""
+          "type": "text"
         }
       ],
       "description": "Set up the name for this file download",
       "id": "5b92f794844d0700016ea214",
-      "key": "file_download",
+      "key": "Download File",
       "lastModiifed": 1536358745146,
-      "name": "file_download",
+      "name": "Download File",
       "type": "ValuesList"
     },
     {
@@ -52,8 +48,7 @@
           "description": "Enable Mail Notifications for request processing activities.",
           "key": "enable.mail",
           "label": "Enable Mail Notifications",
-          "type": "boolean",
-          "value": "true"
+          "type": "boolean"
         },
         {
           "description": "SendGrid API Key",
@@ -61,15 +56,14 @@
           "label": "SendGrid API Key",
           "maxValueLength": 512,
           "minValueLength": 0,
-          "type": "secured",
-          "value": "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"
+          "type": "secured"
         }
       ],
       "description": null,
       "id": "5b92f794844d0700016ea215",
       "key": "mail",
       "lastModiifed": 1536358737143,
-      "name": "Mail",
+      "name": "Send Mail",
       "type": "ValuesList"
     },
     {
@@ -78,36 +72,32 @@
           "description": "",
           "key": "ci",
           "label": "CI",
-          "type": "ToolTemplateEntity",
-          "value": "5994b744189c33ed8433d9f6"
+          "type": "ToolTemplateEntity"
         },
         {
           "description": "",
           "key": "scorecard",
           "label": "Scorecard",
-          "type": "ToolTemplateEntity",
-          "value": "5994b767189c33ed8433da17"
+          "type": "ToolTemplateEntity"
         },
         {
           "description": "",
           "key": "insights",
           "label": "Insights",
-          "type": "ToolTemplateEntity",
-          "value": "5994b70c189c33ed8433d9ca"
+          "type": "ToolTemplateEntity"
         },
         {
           "description": "",
           "key": "lib",
           "label": "Lib",
-          "type": "ToolTemplateEntity",
-          "value": "599b4ce1189c33ed843685fd"
+          "type": "ToolTemplateEntity"
         }
       ],
       "description": "Customize what links you see in your Apps dropdown in the nav bar. Changes you make will apply to all the users in your instance of Boomerang. You can select up to 5 apps to show.",
       "id": "5b92f794844d0700016ea216",
       "key": "apps",
       "lastModiifed": 1536606325494,
-      "name": "Apps",
+      "name": "Ingest CSV",
       "type": "AppsList"
     },
     {
@@ -116,15 +106,14 @@
           "description": "Enable Slack Notifications for request processing activities.",
           "key": "enable.slack",
           "label": "Enable Slack Notifications",
-          "type": "boolean",
-          "value": "true"
+          "type": "boolean"
         }
       ],
       "description": null,
       "id": "5b92f794844d0700016ea217",
       "key": "slack",
       "lastModiifed": 1536611604684,
-      "name": "Slack",
+      "name": "Send Slack",
       "type": "ValuesList"
     }
   ]

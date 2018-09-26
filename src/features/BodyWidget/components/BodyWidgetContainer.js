@@ -18,7 +18,6 @@ export class BodyWidgetContainer extends Component {
 
   componentDidMount() {
     this.props.blogPostActions.fetchPosts(`${BASE_SERVICE_URL}/tasks`);
-    console.log("WE ARE FETCHING");
   }
 
   componentWillUnmount() {
@@ -51,4 +50,7 @@ const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BodyWidgetContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BodyWidgetContainer);

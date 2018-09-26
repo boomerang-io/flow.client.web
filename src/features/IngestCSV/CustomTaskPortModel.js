@@ -1,11 +1,11 @@
 import merge from "lodash/merge";
 import { LinkModel, DiagramEngine, PortModel, DefaultLinkModel } from "storm-react-diagrams";
 
-export class DiamondPortModel extends PortModel {
+export default class CustomTaskPortModel extends PortModel {
   //position: string | "top" | "bottom" | "left" | "right";
 
   constructor(pos) {
-    super(pos, "diamond");
+    super(pos, "ingestcsv");
     this.position = pos;
   }
 
