@@ -28,7 +28,7 @@ export class BodyWidgetContainer extends Component {
   }
 
   render() {
-    console.log(this.props);
+    //console.log(this.props);
     const { tasks, app } = this.props;
     if (tasks.isFetching) {
       return <LoadingAnimation />;
