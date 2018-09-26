@@ -71,9 +71,9 @@ ul {
 }
 
 .bmrg--c-sidenav {
-  position: fixed !important;
-  width: 16rem !important;
-  height: calc(100vh - 3.125rem) !important;
+  position: fixed;
+  width: 20rem;
+  height: calc(100vh - 3.125rem);
   z-index: 1;
 }
 

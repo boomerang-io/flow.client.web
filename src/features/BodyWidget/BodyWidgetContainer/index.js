@@ -5,8 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as taskActions } from "../reducer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "../../../config/servicesConfig";
 import BodyWidget from "../components/BodyWidget";
-import "../styles/main.scss";
-import "storm-react-diagrams/src/sass/main.scss";
+import "./styles.scss";
 
 class BodyWidgetContainer extends Component {
   static propTypes = {
@@ -48,4 +47,7 @@ const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BodyWidgetContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BodyWidgetContainer);
