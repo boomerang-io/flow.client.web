@@ -27,6 +27,8 @@ export class CustomTaskNodeWidget extends Component {
   };
 
   render() {
+    //create an object that is the merged version of the node config values and the template
+
     console.log("custom widget props");
     console.log(this.props);
     return (
@@ -77,7 +79,8 @@ export class CustomTaskNodeWidget extends Component {
                 components={[{ step: 0, component: DisplayForm }]}
                 closeModal={closeModal}
                 confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-                config={this.props.state_node}
+                //config={this.props.state_node}
+                config={this.props.task}
                 onSave={this.handleOnSave}
                 //theme={"bmrg-white"}
                 {...rest}
