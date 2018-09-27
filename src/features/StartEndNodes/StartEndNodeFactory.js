@@ -1,5 +1,5 @@
 import { AbstractNodeFactory } from "storm-react-diagrams";
-import StartEndNodeWidget from "./StartEndNodeWidget";
+import StartEndNodeWidget from "./StartEndNodeWidget/index";
 import StartEndNodeModel from "./StartEndNodeModel";
 import React from "react";
 
@@ -9,6 +9,7 @@ export default class StartEndNodeFactory extends AbstractNodeFactory {
   }
 
   generateReactWidget(diagramEngine, node) {
+    //diagramEngine.registerNodeFactory(new StartEndNodeFactory());
     return <StartEndNodeWidget node={node} />;
   }
 

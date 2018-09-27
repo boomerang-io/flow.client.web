@@ -30,6 +30,7 @@ export class CustomTaskNodeWidget extends Component {
   };
 
   render() {
+    console.log(this.props);
     const { state_node, task } = this.props;
     return (
       <Tile className="ingestcsv-node">

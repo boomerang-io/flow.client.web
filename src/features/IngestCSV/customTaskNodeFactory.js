@@ -9,6 +9,7 @@ export class IngestCSVNodeFactory extends AbstractNodeFactory {
   }
 
   generateReactWidget(diagramEngine, node) {
+    diagramEngine.registerNodeFactory(new IngestCSVNodeFactory());
     return <IngestCSVNodeWidget node={node} />;
   }
 
