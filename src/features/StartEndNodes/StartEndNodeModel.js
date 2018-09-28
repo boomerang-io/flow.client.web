@@ -24,13 +24,11 @@ export default class StartEndNodeModel extends NodeModel {
   serialize() {
     return merge(super.serialize(), {
       passed_name: this.passed_name
-      //name: this.name
     });
   }
 
   deSerialize(data, engine) {
     super.deSerialize(data, engine);
     this.passed_name = data.passed_name;
-    //this.name = data.name;
   }
 }
