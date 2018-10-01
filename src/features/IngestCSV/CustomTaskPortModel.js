@@ -22,7 +22,7 @@ export default class CustomTaskPortModel extends PortModel {
   }
 
   createLinkModel() {
-    //return new DefaultLinkModel();
-    return new CustomLink();
+    return new DefaultLinkModel();
+    //return new CustomLink();
   }
 }

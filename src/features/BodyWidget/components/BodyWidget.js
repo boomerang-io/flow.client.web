@@ -94,7 +94,11 @@ export class BodyWidget extends React.Component {
               event.preventDefault();
             }}
           >
-            <DiagramWidget className="srd-demo-canvas" diagramEngine={this.props.app.getDiagramEngine()} />
+            <DiagramWidget
+              className="srd-demo-canvas"
+              diagramEngine={this.props.app.getDiagramEngine()}
+              maxNumberPointsPerLink={0}
+            />
           </div>
         </div>
       </div>
