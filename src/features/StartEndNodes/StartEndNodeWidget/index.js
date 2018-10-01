@@ -7,8 +7,8 @@ import classnames from "classnames";
 
 class StartEndNodeWidget extends Component {
   render() {
-    console.log("startEnd props");
-    console.log(this.props);
+    //console.log("startEnd props");
+    //console.log(this.props);
     return (
       <div className={`${this.props.node.passed_name}-Node`}>
         <Tile className="startend-tile"> {this.props.node.passed_name} </Tile>

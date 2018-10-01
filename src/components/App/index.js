@@ -15,6 +15,7 @@ class App extends Component {
     console.log("we are saving");
     console.log(serialization);
     console.log(this.props.nodes);
+    //placeholder for service call to export serialization and node configs
   };
 
   render() {

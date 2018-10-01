@@ -11,6 +11,7 @@ import StartEndNodeModel from "../StartEndNodes/StartEndNodeModel";
 import StartEndPortModel from "../StartEndNodes/StartEndPortModel";
 import { SimplePortFactory } from "../IngestCSV/SimplePortFactory";
 import CustomTaskPortModel from "../IngestCSV/CustomTaskPortModel";
+import CustomLinkFactory from "./components/CustomLinkFactory";
 
 /**
  * @author Dylan Vorster
@@ -25,6 +26,9 @@ export class Application {
     //need to find a way to register port factory
     this.diagramEngine.registerPortFactory(new SimplePortFactory("startend", config => new StartEndPortModel()));
     this.diagramEngine.registerPortFactory(new SimplePortFactory("ingestcsv", config => new CustomTaskPortModel()));
+
+    //register new custom link
+    this.diagramEngine.registerLinkFactory(new CustomLinkFactory());
 
     this.newModel();
   }
