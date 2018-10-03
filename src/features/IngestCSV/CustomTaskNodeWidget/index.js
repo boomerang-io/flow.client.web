@@ -6,6 +6,7 @@ import { actions as taskActions } from "../../BodyWidget/reducer";
 import { actions as nodeActions } from "../../BodyWidget/BodyWidgetContainer/reducer";
 import { PortWidget } from "storm-react-diagrams";
 import { Tile } from "carbon-components-react";
+import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import DisplayForm from "../DisplayForm";
@@ -29,6 +30,16 @@ export class CustomTaskNodeWidget extends Component {
     this.props.nodeActions.updateNode({ id: this.props.node.id, config: config });
   };
 
+  handleOnDelete = () => {
+    /*
+        want to delete the node in state and then remove it from the diagram
+    */
+    //this.props.nodeActions.deleteNode({})
+    this.props.node.remove();
+    this.props.nodeActions.deleteNode({ id: this.props.node.id });
+    console.log("trying to remove");
+  };
+
   render() {
     console.log(this.props);
     const { state_node, task } = this.props;
@@ -38,6 +49,11 @@ export class CustomTaskNodeWidget extends Component {
 
         <PortWidget className="srd-custom-port --left" name="left" node={this.props.node} />
         <PortWidget className="srd-custom-port --right" name="right" node={this.props.node} />
+        <CloseModalButton
+          className="bmrg-deleteNode"
+          onClick={this.handleOnDelete}
+          //closemodal={() => <div>closemodal</div>}
+        />
         <Modal
           ModalTrigger={EditNode}
           modalContent={(closeModal, ...rest) => (

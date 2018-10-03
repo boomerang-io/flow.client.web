@@ -14,7 +14,9 @@ class App extends Component {
       .serializeDiagram();
     console.log("we are saving");
     console.log(serialization);
-    console.log(this.props.nodes);
+    console.log(this.props.nodes.nodes);
+    console.log(JSON.stringify(serialization));
+    console.log(JSON.stringify(this.props.nodes.nodes));
     //placeholder for service call to export serialization and node configs
   };
 

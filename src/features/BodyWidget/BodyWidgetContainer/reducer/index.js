@@ -26,6 +26,12 @@ const actionHandlers = {
       config: { ...state.entities[action.data.id].config, ...action.data.config }
     };
     return { ...state, entities: { ...state.entities, [action.data.id]: updatedNode } };
+  },
+  [types.DELETE_NODE]: (state, action) => {
+    const {
+      entities: { [action.data.id]: _, ...entities }
+    } = state;
+    return { ...state, entities };
   }
 };
 
@@ -36,8 +42,11 @@ export const addNode = data => ({ type: types.CREATE_NODE, data });
 
 export const updateNode = data => ({ type: types.UPDATE_NODE, data });
 
+export const deleteNode = data => ({ type: types.DELETE_NODE, data });
+
 //actions
 export const actions = {
   addNode,
-  updateNode
+  updateNode,
+  deleteNode
 };

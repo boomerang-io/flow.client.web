@@ -70,35 +70,23 @@
       "config": [
         {
           "description": "",
-          "key": "ci",
-          "label": "CI",
-          "type": "ToolTemplateEntity"
+          "key": "offset",
+          "label": "offset",
+          "type": "text"
         },
         {
           "description": "",
-          "key": "scorecard",
-          "label": "Scorecard",
-          "type": "ToolTemplateEntity"
-        },
-        {
-          "description": "",
-          "key": "insights",
-          "label": "Insights",
-          "type": "ToolTemplateEntity"
-        },
-        {
-          "description": "",
-          "key": "lib",
-          "label": "Lib",
-          "type": "ToolTemplateEntity"
+          "key": "shell",
+          "label": "shell",
+          "type": "text"
         }
       ],
-      "description": "Customize what links you see in your Apps dropdown in the nav bar. Changes you make will apply to all the users in your instance of Boomerang. You can select up to 5 apps to show.",
+      "description": "Specify Shell Script to Ingest CSV",
       "id": "5b92f794844d0700016ea216",
-      "key": "apps",
+      "key": "ingest",
       "lastModiifed": 1536606325494,
       "name": "Ingest CSV",
-      "type": "AppsList"
+      "type": "ValuesList"
     },
     {
       "config": [
