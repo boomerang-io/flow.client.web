@@ -1,8 +1,10 @@
+import "./styles.scss";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Application } from "../../features/BodyWidget/Application";
 import BodyWidgetContainer from "../../features/BodyWidget";
 import Button from "@boomerang/boomerang-components/lib/Button";
+import Navbar from "@boomerang/boomerang-components/lib/Navbar";
 
 class App extends Component {
   app = new Application();
@@ -23,10 +25,24 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Button theme="bmrg-black" onClick={this.onHandleSave}>
-          Save
-        </Button>
-        <BodyWidgetContainer app={this.app} test={"test"} />
+        <div className="bmrg-header-container">
+          <Navbar
+            navbarLinks={[]}
+            //user={user}
+            className="bmrg-workflow-navBar"
+            isAdmin={true}
+            hasOnBoardingExperience={true}
+            onboardingExperienceCharacter="?"
+            handleOnOnboardingExperienceClick={{}}
+          />
+
+          <Button theme="bmrg-black" onClick={this.onHandleSave}>
+            Save
+          </Button>
+        </div>
+        <div className="bmrg--workflow-body">
+          <BodyWidgetContainer app={this.app} test={"test"} />
+        </div>
       </div>
     );
   }

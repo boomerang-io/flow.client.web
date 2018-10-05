@@ -33,16 +33,6 @@ export class BodyWidget extends React.Component {
 
     return (
       <div className="body">
-        <div className="title">
-          <Navbar
-            navbarLinks={[]}
-            //user={user}
-            isAdmin={true}
-            hasOnBoardingExperience={true}
-            onboardingExperienceCharacter="?"
-            handleOnOnboardingExperienceClick={{}}
-          />
-        </div>
         <div className="content">
           <TrayWidget>{trayItems}</TrayWidget>
           <div
@@ -99,6 +89,7 @@ export class BodyWidget extends React.Component {
               diagramEngine={this.props.app.getDiagramEngine()}
               maxNumberPointsPerLink={0}
               smartRouting={true}
+              deleteKeys={[]}
             />
           </div>
         </div>

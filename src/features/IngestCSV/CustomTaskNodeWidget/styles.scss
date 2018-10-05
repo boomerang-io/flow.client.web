@@ -40,8 +40,16 @@
 
   .bmrg-pencil {
     position: absolute;
-    right: 1.5rem;
+    right: 4rem;
     top: 0.6875rem;
     cursor: pointer;
+  }
+
+  .bmrg-deleteNode {
+    position: absolute;
+    right: 1.5rem;
+    top: 0.6875rem;
+    max-width: 0.5rem;
+    max-height: 0.5rem;
   }
 }

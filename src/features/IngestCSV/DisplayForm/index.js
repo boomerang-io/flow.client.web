@@ -122,7 +122,7 @@ class DisplayForm extends Component {
         <ModalContentFooter>
           <ModalConfirmButton
             theme="bmrg-white"
-            text="Save"
+            text="Apply"
             disabled={!sectionHeaderConfig.isValid}
             onClick={sectionHeaderConfig.onSaveFunction}
           >

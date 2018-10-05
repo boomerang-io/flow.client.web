@@ -1,6 +1,6 @@
 import merge from "lodash/merge";
 import { LinkModel, DiagramEngine, PortModel, DefaultLinkModel } from "storm-react-diagrams";
-import CustomLink from "../BodyWidget/components/CustomLink";
+import CustomLinkModel from "../BodyWidget/components/CustomLinkModel";
 
 export default class CustomTaskPortModel extends PortModel {
   //position: string | "top" | "bottom" | "left" | "right";
@@ -22,7 +22,7 @@ export default class CustomTaskPortModel extends PortModel {
   }
 
   createLinkModel() {
-    return new DefaultLinkModel();
-    //return new CustomLink();
+    //return new DefaultLinkModel();
+    return new CustomLinkModel();
   }
 }

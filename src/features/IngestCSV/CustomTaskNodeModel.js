@@ -10,14 +10,12 @@ export class IngestCSVNodeModel extends NodeModel {
     this.addPort(new CustomTaskPortModel("right"));
     this.taskId = taskId;
     this.taskName = taskName;
-    //this.bodyWidget = bodyWidget;
   }
 
   serialize() {
     return merge(super.serialize(), {
       taskId: this.taskId,
       taskName: this.taskName
-      //bodyWidget: this.bodyWidget
     });
   }
 
@@ -25,6 +23,5 @@ export class IngestCSVNodeModel extends NodeModel {
     super.deSerialize(data, engine);
     this.taskId = data.taskId;
     this.taskName = data.taskName;
-    //this.bodyWidget = data.bodyWidget;
   }
 }

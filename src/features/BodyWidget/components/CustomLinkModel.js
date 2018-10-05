@@ -1,11 +1,11 @@
 import { DefaultLinkModel } from "storm-react-diagrams";
 
-export default class CustomLink extends DefaultLinkModel {
+export default class CustomLinkModel extends DefaultLinkModel {
   constructor() {
     super("custom");
   }
 
-  remove() {
+  /*remove() {
     if (this.getSourcePort() != null) {
       console.log("removing source port");
       this.getSourcePort().removeLink(this);
@@ -15,5 +15,5 @@ export default class CustomLink extends DefaultLinkModel {
       this.getTargetPort().removeLink(this);
     }
     //super.remove();
-  }
+  }*/
 }

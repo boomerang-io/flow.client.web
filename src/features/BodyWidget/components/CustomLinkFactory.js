@@ -1,5 +1,7 @@
-import CustomLink from "./CustomLink";
-import { DefaultLinkFactory } from "storm-react-diagrams";
+import React from "react";
+import CustomLinkModel from "./CustomLinkModel";
+import { DefaultLinkFactory, DefaultLinkWidget } from "storm-react-diagrams";
+import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 
 export default class CustomLinkFactory extends DefaultLinkFactory {
   constructor() {
@@ -7,15 +9,18 @@ export default class CustomLinkFactory extends DefaultLinkFactory {
     this.type = "custom";
   }
 
-  getNewInstance = () => {
-    return new CustomLink();
+  handleOnDelete = model => {
+    model.remove();
   };
 
-  /*generateLinkSegment(model: AdvancedLinkModel, widget: DefaultLinkWidget, selected: boolean, path: string) {
-		return (
-			<g>
-				<AdvancedLinkSegment model={model} path={path} />
-			</g>
-		);
-	}*/
+  getNewInstance = () => {
+    return new CustomLinkModel();
+  };
+
+  generateLinkSegment(model, widget, selected, path) {
+    console.log("generate Link Segment");
+
+    //<CloseModalButton className="bmrg-deleteNode" onClick={this.handleOnDelete} model={model} />
+    return super.generateLinkSegment(model, widget, selected, path);
+  }
 }

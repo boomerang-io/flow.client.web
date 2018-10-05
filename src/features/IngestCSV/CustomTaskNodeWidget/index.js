@@ -34,10 +34,8 @@ export class CustomTaskNodeWidget extends Component {
     /*
         want to delete the node in state and then remove it from the diagram
     */
-    //this.props.nodeActions.deleteNode({})
-    this.props.node.remove();
     this.props.nodeActions.deleteNode({ id: this.props.node.id });
-    console.log("trying to remove");
+    this.props.node.remove();
   };
 
   render() {
