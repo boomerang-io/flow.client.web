@@ -11,14 +11,16 @@ class CustomLinkWidget extends React.Component {
   }
 
   render() {
-    let point;
+    let halfwayPoint;
+    let endPoint;
     if (this.path) {
-      point = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
+      halfwayPoint = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
+      endPoint = this.path.getPointAtLength(this.path.getTotalLength());
     }
     return (
       <>
         {this.path && (
-          <g transform={`translate(${point.x}, ${point.y + 5})`}>
+          <g transform={`translate(${halfwayPoint.x}, ${halfwayPoint.y + 5})`}>
             <svg width="13px" height="14px" viewBox="0 0 13 14" version="1.1" xmlns="http://www.w3.org/2000/svg">
               <g id="" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g id="13.20-describe-empty" transform="translate(-1159.000000, -152.000000)" fill="#1D364D">
@@ -38,6 +40,15 @@ class CustomLinkWidget extends React.Component {
           stroke="rgba(255,0,0,0.5)"
           d={this.props.path}
         />
+        {this.path && (
+          <g fill="none" transform={`translate(${endPoint.x - 16}, ${endPoint.y - 9}) scale(1.5)`}>
+            <svg width="8" height="12" xmlns="http://www.w3.org/2000/svg" fill="#40D5BB">
+              <g fill="40D5BB">
+                <path fill="#40D5BB" d="M.571 2.546V0L7.43 6 .57 12V9.454L4.52 6z" />
+              </g>
+            </svg>
+          </g>
+        )}
       </>
     );
   }
