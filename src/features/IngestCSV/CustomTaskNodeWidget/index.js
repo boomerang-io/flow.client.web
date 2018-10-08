@@ -28,6 +28,7 @@ export class CustomTaskNodeWidget extends Component {
   //need to create a save function where we make change to global state
   handleOnSave = config => {
     this.props.nodeActions.updateNode({ id: this.props.node.id, config: config });
+    this.forceUpdate();
   };
 
   handleOnDelete = () => {
@@ -38,12 +39,37 @@ export class CustomTaskNodeWidget extends Component {
     this.props.node.remove();
   };
 
+  /*
+      TODO:
+        essentially what we want to do is put a switch statement on the task.config.name property
+        if it is an empty name then we can display the default name from the pallet
+        otherwise if the user has filled something in, then we can populate it with that
+        given name 
+  */
+
+  //Object.keys(sellers.mergedSellerArray).length === 0
+
   render() {
     console.log(this.props);
     const { state_node, task } = this.props;
+
+    //grab the name property of config
+    let specified_name = "";
+    for (var key in this.props.state_node.config) {
+      if (key.includes(".name")) {
+        specified_name = key;
+      }
+    }
+
+    console.log("specified_name");
+    console.log(specified_name);
     return (
       <Tile className="ingestcsv-node">
-        <div className="ingestcsv-tile">{this.props.node.taskName}</div>
+        {Object.keys(this.props.state_node.config).length === 0 ? (
+          <div className="ingestcsv-tile">{this.props.node.taskName}</div>
+        ) : (
+          <div className="ingestcsv-tile">{this.props.state_node.config[specified_name]}</div>
+        )}
 
         <PortWidget className="srd-custom-port --left" name="left" node={this.props.node} />
         <PortWidget className="srd-custom-port --right" name="right" node={this.props.node} />

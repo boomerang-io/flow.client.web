@@ -10,14 +10,20 @@
     flex-grow: 1;
   }
 
+  .bmrg--c-sidenav {
+    margin-top: unset !important;
+    justify-content: center;
+  }
+
   .bmrg-b-sidenav-content {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   .tray-item {
     //position: relative;
-    height: 6rem;
+    height: 4rem;
     display: flex;
     background-color: $lightest-gray;
     border-radius: 0.5rem;

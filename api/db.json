@@ -45,6 +45,14 @@
     {
       "config": [
         {
+          "description": "Name",
+          "key": "email.name",
+          "label": "Name",
+          "maxValueLength": 128,
+          "minValueLength": 0,
+          "type": "text"
+        },
+        {
           "description": "Enable Mail Notifications for request processing activities.",
           "key": "enable.mail",
           "label": "Enable Mail Notifications",
@@ -69,6 +77,14 @@
     {
       "config": [
         {
+          "description": "Name",
+          "key": "ingest.name",
+          "label": "Name",
+          "maxValueLength": 128,
+          "minValueLength": 0,
+          "type": "text"
+        },
+        {
           "description": "",
           "key": "offset",
           "label": "offset",
@@ -90,6 +106,14 @@
     },
     {
       "config": [
+        {
+          "description": "Name",
+          "key": "slack.name",
+          "label": "Name",
+          "maxValueLength": 128,
+          "minValueLength": 0,
+          "type": "text"
+        },
         {
           "description": "Enable Slack Notifications for request processing activities.",
           "key": "enable.slack",
