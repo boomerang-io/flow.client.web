@@ -9,9 +9,12 @@ import { Tile } from "carbon-components-react";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "../DisplayForm";
 import pencilIcon from "./pencil.svg";
 import "./styles.scss";
+
+import Button from "@boomerang/boomerang-components/lib/Button";
 
 /**
  * TODO
@@ -51,6 +54,7 @@ export class CustomTaskNodeWidget extends Component {
 
   render() {
     console.log(this.props);
+    console.log(this.props.task.description);
     const { state_node, task } = this.props;
 
     //grab the name property of config
@@ -61,14 +65,20 @@ export class CustomTaskNodeWidget extends Component {
       }
     }
 
-    console.log("specified_name");
-    console.log(specified_name);
     return (
       <Tile className="ingestcsv-node">
+        <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
+          {this.props.task.description}
+        </Tooltip>
+
         {Object.keys(this.props.state_node.config).length === 0 ? (
-          <div className="ingestcsv-tile">{this.props.node.taskName}</div>
+          <div className="ingestcsv-tile" data-tip data-for={this.props.node.id}>
+            {this.props.task.name}
+          </div>
         ) : (
-          <div className="ingestcsv-tile">{this.props.state_node.config[specified_name]}</div>
+          <div className="ingestcsv-tile" data-tip data-for={this.props.node.id}>
+            {this.props.state_node.config[specified_name]}
+          </div>
         )}
 
         <PortWidget className="srd-custom-port --left" name="left" node={this.props.node} />

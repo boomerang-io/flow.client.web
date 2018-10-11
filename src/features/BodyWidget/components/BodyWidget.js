@@ -47,21 +47,12 @@ export class BodyWidget extends React.Component {
               ).length;
 
               var node = null;
-              node = new IngestCSVNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type, data.name);
+              node = new IngestCSVNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type); //, data.name);
 
-              //want to create a new data structure to pass for node
-              //need node.ID, task_data.key, config = {}
-              let nodeObj = {
-                id: node.getID(),
-                type: data.task_data.key,
-                config: []
-              };
-              console.log("new nodeObj");
-              console.log(nodeObj);
               //add node info to the state
-              console.log("adding node to state:");
               const { id, type, taskId, taskName } = node;
-              this.props.nodeActions.addNode({ id, type, taskId, taskName, config: {} });
+              //this.props.nodeActions.addNode({ id, type, taskId, taskName, config: {} });
+              this.props.nodeActions.addNode({ id, taskId, config: {} });
 
               var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
               node.x = points.x;
@@ -88,7 +79,7 @@ export class BodyWidget extends React.Component {
               className="srd-demo-canvas"
               diagramEngine={this.props.app.getDiagramEngine()}
               maxNumberPointsPerLink={0}
-              smartRouting={true}
+              //smartRouting={true}
               deleteKeys={[]}
             />
           </div>

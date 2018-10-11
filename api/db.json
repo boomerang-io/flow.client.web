@@ -20,7 +20,7 @@
         },
         {
           "description": "Repository Name",
-          "key": "artifactory.repository.name",
+          "key": "artifactory.repository",
           "label": "Repository Name",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -67,7 +67,7 @@
           "type": "secured"
         }
       ],
-      "description": null,
+      "description": "Specify Instructions for sending Email",
       "id": "5b92f794844d0700016ea215",
       "key": "mail",
       "lastModiifed": 1536358737143,
@@ -121,7 +121,7 @@
           "type": "boolean"
         }
       ],
-      "description": null,
+      "description": "Specify instructions for Slack Message",
       "id": "5b92f794844d0700016ea217",
       "key": "slack",
       "lastModiifed": 1536611604684,

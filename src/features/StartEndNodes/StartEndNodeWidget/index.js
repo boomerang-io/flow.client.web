@@ -12,7 +12,7 @@ class StartEndNodeWidget extends Component {
     return (
       <div className={`${this.props.node.passed_name}-Node`}>
         <Tile className="startend-tile"> {this.props.node.passed_name} </Tile>
-        {this.props.node.passed_name === "End" ? (
+        {this.props.node.passed_name === "Finish" ? (
           <PortWidget className={classnames("srd-custom-port", "--left")} name="left" node={this.props.node} />
         ) : (
           <PortWidget className={classnames("srd-custom-port", "--right")} name="right" node={this.props.node} />

@@ -14,12 +14,25 @@ class App extends Component {
       .getDiagramEngine()
       .getDiagramModel()
       .serializeDiagram();
-    console.log("we are saving");
+    /*console.log("we are saving");
     console.log(serialization);
     console.log(this.props.nodes.nodes);
     console.log(JSON.stringify(serialization));
-    console.log(JSON.stringify(this.props.nodes.nodes));
+    console.log(JSON.stringify(this.props.nodes.nodes));*/
     //placeholder for service call to export serialization and node configs
+
+    /*
+      TODO: create the task configuration structure to be passed back. 
+      -need to turn object of objects into array of objects
+      -grab workflow id
+
+    */
+    //let task_configurations = this.props.nodes.nodes;
+    let task_configurations = Object.values(this.props.nodes.nodes.entities);
+    let workflowId = this.app.getDiagramEngine().getDiagramModel().id;
+    let task_configurations_output = { nodes: task_configurations, workflowId: workflowId };
+    console.log(task_configurations_output);
+    //task_configurations_output to be passed to service call
   };
 
   render() {
