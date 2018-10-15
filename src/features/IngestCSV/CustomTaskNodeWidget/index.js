@@ -33,7 +33,7 @@ export class CustomTaskNodeWidget extends Component {
 
   //need to create a save function where we make change to global state
   handleOnSave = config => {
-    this.props.nodeActions.updateNode({ id: this.props.node.id, config: config });
+    this.props.nodeActions.updateNode({ nodeId: this.props.node.id, config: config });
     this.forceUpdate();
   };
 
@@ -41,7 +41,7 @@ export class CustomTaskNodeWidget extends Component {
     /*
         want to delete the node in state and then remove it from the diagram
     */
-    this.props.nodeActions.deleteNode({ id: this.props.node.id });
+    this.props.nodeActions.deleteNode({ nodeId: this.props.node.id });
     this.props.node.remove();
   };
 
