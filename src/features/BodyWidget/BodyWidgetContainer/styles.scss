@@ -63,7 +63,12 @@
     stroke: $status-teal;
   }
 
-  .srd-port--selected:hover {
-    //background: #fbfcfc;
+  .pallet-category-- {
+    background-color: #1d496d;
+  }
+
+  .pallet-category--header-- {
+    background-color: #40d5bb;
+    text-align: center;
   }
 }

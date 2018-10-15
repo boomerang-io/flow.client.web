@@ -15,6 +15,9 @@ import pencilIcon from "./pencil.svg";
 import "./styles.scss";
 
 import Button from "@boomerang/boomerang-components/lib/Button";
+import downloadIMG from "../../../img/install.svg";
+import emailIMG from "../../../img/email_icon.svg";
+import documentIMG from "../../../img/document_16.svg";
 
 /**
  * TODO
@@ -65,6 +68,17 @@ export class CustomTaskNodeWidget extends Component {
       }
     }
 
+    let img_to_render;
+    if (this.props.task.name === "Download File") {
+      img_to_render = downloadIMG;
+    } else if (this.props.task.name === "Send Mail") {
+      img_to_render = emailIMG;
+    } else if (this.props.task.name === "Ingest CSV") {
+      img_to_render = downloadIMG;
+    } else {
+      img_to_render = emailIMG;
+    }
+
     return (
       <Tile className="ingestcsv-node">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
@@ -88,6 +102,7 @@ export class CustomTaskNodeWidget extends Component {
           onClick={this.handleOnDelete}
           //closemodal={() => <div>closemodal</div>}
         />
+        <img src={img_to_render} className="ingestcsv-img" />
         <Modal
           ModalTrigger={EditNode}
           modalContent={(closeModal, ...rest) => (

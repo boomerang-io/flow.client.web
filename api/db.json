@@ -40,7 +40,8 @@
       "key": "Download File",
       "lastModiifed": 1536358745146,
       "name": "Download File",
-      "type": "ValuesList"
+      "type": "ValuesList",
+      "category": "Utility"
     },
     {
       "config": [
@@ -72,7 +73,8 @@
       "key": "mail",
       "lastModiifed": 1536358737143,
       "name": "Send Mail",
-      "type": "ValuesList"
+      "type": "ValuesList",
+      "category": "Communication"
     },
     {
       "config": [
@@ -102,7 +104,8 @@
       "key": "ingest",
       "lastModiifed": 1536606325494,
       "name": "Ingest CSV",
-      "type": "ValuesList"
+      "type": "ValuesList",
+      "category": "Utility"
     },
     {
       "config": [
@@ -126,7 +129,8 @@
       "key": "slack",
       "lastModiifed": 1536611604684,
       "name": "Send Slack",
-      "type": "ValuesList"
+      "type": "ValuesList",
+      "category": "Communication"
     }
   ]
 }
