@@ -72,9 +72,9 @@ export class BodyWidget extends React.Component {
     ));
 
     return (
-      <div className="body">
+      <>
+        <TrayWidget>{trayItems}</TrayWidget>
         <div className="content">
-          <TrayWidget>{trayItems}</TrayWidget>
           <div
             className="diagram-layer"
             onDrop={event => {
@@ -124,7 +124,7 @@ export class BodyWidget extends React.Component {
             />
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
