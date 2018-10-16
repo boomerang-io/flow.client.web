@@ -17,19 +17,19 @@ export const initialState = {
 //action handlers
 const actionHandlers = {
   [types.CREATE_NODE]: (state, action) => {
-    return { ...state, entities: { ...state.entities, [action.data.id]: action.data } };
+    return { ...state, entities: { ...state.entities, [action.data.nodeId]: action.data } };
   },
   [types.UPDATE_NODE]: (state, action) => {
-    //const updatedNode = { ...state.entities[action.data.id], config: action.data.config };
+    //const updatedNode = { ...state.entities[action.data.nodeId], config: action.data.config };
     const updatedNode = {
-      ...state.entities[action.data.id],
-      config: { ...state.entities[action.data.id].config, ...action.data.config }
+      ...state.entities[action.data.nodeId],
+      config: { ...state.entities[action.data.nodeId].config, ...action.data.config }
     };
-    return { ...state, entities: { ...state.entities, [action.data.id]: updatedNode } };
+    return { ...state, entities: { ...state.entities, [action.data.nodeId]: updatedNode } };
   },
   [types.DELETE_NODE]: (state, action) => {
     const {
-      entities: { [action.data.id]: _, ...entities }
+      entities: { [action.data.nodeId]: _, ...entities }
     } = state;
     return { ...state, entities };
   }

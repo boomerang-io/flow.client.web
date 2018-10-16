@@ -747,15 +747,15 @@
     babel-plugin-transform-dynamic-import "2.0.0"
     babel-plugin-transform-react-remove-prop-types "0.4.15"
 
-"@boomerang/boomerang-components@^5.2.5":
-  version "5.2.5"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-5.2.5.tgz#9d4afd8a4cfc9f398c8cf68768ce21713a3cdd75"
-  integrity sha1-nUr9ikz8nzmMjPaHaM4hcTo83XU=
 
-"@boomerang/boomerang-react-scripts@1.2.8":
-  version "1.2.8"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-react-scripts/-/@boomerang/boomerang-react-scripts-1.2.8.tgz#4f86cb5752aa4d6bf4fcb79af1febc8bd34b9422"
-  integrity sha1-T4bLV1KqTWv0/Lea8f68i9NLlCI=
+"@boomerang/boomerang-components@5.2.17":
+  version "5.2.17"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-5.2.17.tgz#ea9ec7d85863b5f86caa95d5a6769d13b260311e"
+
+"@boomerang/boomerang-react-scripts@1.2.9":
+  version "1.2.9"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-react-scripts/-/@boomerang/boomerang-react-scripts-1.2.9.tgz#eaed417ee00378c1251a0464dc4f7a440ef61525"
+
   dependencies:
     "@babel/core" "7.1.0"
     "@babel/runtime" "7.0.0"

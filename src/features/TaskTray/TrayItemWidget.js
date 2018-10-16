@@ -1,7 +1,8 @@
 import * as React from "react";
 
-import downloadIMG from "../../../img/install.svg";
-import emailIMG from "../../../img/email_icon.svg";
+import downloadIMG from "../../img/install.svg";
+import emailIMG from "../../img/email_icon.svg";
+import documentIMG from "../../img/document_16.svg";
 
 /*export interface TrayItemWidgetProps {
 	model: any;
@@ -19,7 +20,11 @@ export class TrayItemWidget extends React.Component {
 
   render() {
     let img_to_render;
-    if (this.props.name === "file_download") {
+    if (this.props.name === "Download File") {
+      img_to_render = downloadIMG;
+    } else if (this.props.name === "Send Mail") {
+      img_to_render = emailIMG;
+    } else if (this.props.name === "Ingest CSV") {
       img_to_render = downloadIMG;
     } else {
       img_to_render = emailIMG;
@@ -27,7 +32,6 @@ export class TrayItemWidget extends React.Component {
 
     return (
       <div
-        //style={{ borderColor: this.props.color }}
         draggable={true}
         onDragStart={event => {
           event.dataTransfer.setData("storm-diagram-node", JSON.stringify(this.props.model));

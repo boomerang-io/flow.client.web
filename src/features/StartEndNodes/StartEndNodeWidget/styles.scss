@@ -1,14 +1,8 @@
 @import "../../../styles/variables.scss";
 
-.Start-Node {
-  background: $hour-gray;
-}
-.End-Node {
-  background: $hour-gray;
-}
-
 .Start-Node,
-.End-Node {
+.Finish-Node {
+  background: $hour-gray;
   border-radius: 0.5rem;
   width: 12rem;
   height: 8rem;
@@ -17,7 +11,8 @@
   .startend-tile {
     font-size: $base;
     text-align: center;
-    font-weight: bold;
+    font-weight: 400;
+    letter-spacing: 0.1625rem;
     padding-top: 2.3rem;
     color: $off-white;
   }

@@ -3,6 +3,9 @@
 // these class names need to be updated to follow BEM
 
 .ingestcsv-node {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: $blue;
   border-radius: 0.5rem;
   width: 16rem;
@@ -12,10 +15,9 @@
   .ingestcsv-tile {
     font-size: $base;
     text-align: center;
-    font-weight: 500;
-    padding-top: 2.25rem;
+    font-weight: 400;
     color: $off-white;
-    letter-spacing: 0.1875rem;
+    letter-spacing: 0.1675rem;
   }
 
   .srd-custom-port {
@@ -48,16 +50,15 @@
   .bmrg-deleteNode {
     position: absolute;
     right: 1.5rem;
-    top: 0.6875rem;
+    top: 0.2875rem;
     max-width: 0.5rem;
     max-height: 0.5rem;
   }
 
-  .bmrg-deleteLink {
+
+  .ingestcsv-img {
+    bottom: 1rem;
     position: absolute;
-    right: 1.5rem;
-    top: 0.6875rem;
-    max-width: 0.5rem;
-    max-height: 0.5rem;
+    left: 1.5rem;
   }
 }

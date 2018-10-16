@@ -61,15 +61,6 @@ ul {
   justify-content: center;
 }
 
-/* main section i.e. not navbar or sidenav */
-.c-app-main {
-  flex: 1;
-  margin: 4.125rem 2.5rem 2.5rem 18.5rem;
-  min-height: calc(100vh - 6.625rem);
-  background-color: $blue;
-  color: $lightest-gray;
-}
-
 .bmrg--c-sidenav {
   position: fixed;
   width: 20rem;

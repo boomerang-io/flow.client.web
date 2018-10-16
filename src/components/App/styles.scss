@@ -1,5 +1,14 @@
 //@import "../../../styles/variables";
 
 .bmrg--b-navbar {
-  position: unset !important;
+  //position: unset !important;
+}
+
+.c-app-main {
+  padding-top: 3.125rem;
+  height: calc(100vh - 3.125rem);
+}
+
+.c-workflow {
+  margin-top: 4rem;
 }

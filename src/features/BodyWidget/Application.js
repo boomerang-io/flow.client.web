@@ -121,17 +121,7 @@ export class Application {
 
     this.diagramEngine.setDiagramModel(this.activeModel);
 
-    //3-A) create a default node
-    /*var node1 = new DefaultNodeModel("Start", "rgb(0,192,255)");
-    let port = node1.addOutPort("Out");
-    node1.setPosition(400, 100);*/
-
-    //3-B) create another default node
-    /*var node2 = new DefaultNodeModel("End", "rgb(192,255,0)");
-    let port2 = node2.addInPort("In");
-    node2.setPosition(800, 100);*/
-
-    var EndNode = new StartEndNodeModel("End", "rgb(192,255,0)");
+    var EndNode = new StartEndNodeModel("Finish", "rgb(192,255,0)");
     EndNode.setPosition(1300, 400);
     var StartNode = new StartEndNodeModel("Start", "rgb(192,255,0)");
     StartNode.setPosition(300, 400);

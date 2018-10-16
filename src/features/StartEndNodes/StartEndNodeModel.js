@@ -9,7 +9,7 @@ export default class StartEndNodeModel extends NodeModel {
     //console.log("startend props");
     //console.log(this.props);
     super("startend");
-    if (passed_name === "End") {
+    if (passed_name === "Finish") {
       this.addPort(new StartEndPortModel("left"));
       //this.addInPort("left");
       console.log("a left port has been added");

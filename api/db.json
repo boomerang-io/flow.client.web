@@ -4,7 +4,7 @@
       "config": [
         {
           "description": "Name",
-          "key": "file.download.name",
+          "key": "fileDownloadName",
           "label": "Name",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -12,7 +12,7 @@
         },
         {
           "description": "Artifactory Base URL",
-          "key": "artifactory.base.url",
+          "key": "artifactoryBaseUrl",
           "label": "Artifactory Base URL",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -20,7 +20,7 @@
         },
         {
           "description": "Repository Name",
-          "key": "artifactory.repository.name",
+          "key": "artifactoryRepository",
           "label": "Repository Name",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -28,7 +28,7 @@
         },
         {
           "description": "Repository Path",
-          "key": "artifactory.repository.path",
+          "key": "artifactoryRepositoryPath",
           "label": "Repository Path",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -41,35 +41,51 @@
       "lastModiifed": 1536358745146,
       "name": "Download File",
       "type": "ValuesList",
-      "category": "undecided"
+      "category": "Utility"
     },
     {
       "config": [
         {
+          "description": "Name",
+          "key": "emailName",
+          "label": "Name",
+          "maxValueLength": 128,
+          "minValueLength": 0,
+          "type": "text"
+        },
+        {
           "description": "Enable Mail Notifications for request processing activities.",
-          "key": "enable.mail",
+          "key": "enableMail",
           "label": "Enable Mail Notifications",
           "type": "boolean"
         },
         {
           "description": "SendGrid API Key",
-          "key": "sendgrid.apikey",
+          "key": "sendgridApikey",
           "label": "SendGrid API Key",
           "maxValueLength": 512,
           "minValueLength": 0,
           "type": "secured"
         }
       ],
-      "description": null,
+      "description": "Specify Instructions for sending Email",
       "id": "5b92f794844d0700016ea215",
       "key": "mail",
       "lastModiifed": 1536358737143,
       "name": "Send Mail",
       "type": "ValuesList",
-      "category": "undecided"
+      "category": "Communication"
     },
     {
       "config": [
+        {
+          "description": "Name",
+          "key": "ingestName",
+          "label": "Name",
+          "maxValueLength": 128,
+          "minValueLength": 0,
+          "type": "text"
+        },
         {
           "description": "",
           "key": "offset",
@@ -89,24 +105,32 @@
       "lastModiifed": 1536606325494,
       "name": "Ingest CSV",
       "type": "ValuesList",
-      "category": "undecided"
+      "category": "Utility"
     },
     {
       "config": [
         {
+          "description": "Name",
+          "key": "slackName",
+          "label": "Name",
+          "maxValueLength": 128,
+          "minValueLength": 0,
+          "type": "text"
+        },
+        {
           "description": "Enable Slack Notifications for request processing activities.",
-          "key": "enable.slack",
+          "key": "enableSlack",
           "label": "Enable Slack Notifications",
           "type": "boolean"
         }
       ],
-      "description": null,
+      "description": "Specify instructions for Slack Message",
       "id": "5b92f794844d0700016ea217",
       "key": "slack",
       "lastModiifed": 1536611604684,
       "name": "Send Slack",
       "type": "ValuesList",
-      "category": "undecided"
+      "category": "Communication"
     }
   ]
 }
