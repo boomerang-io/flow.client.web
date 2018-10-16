@@ -4,7 +4,7 @@
       "config": [
         {
           "description": "Name",
-          "key": "file.download.name",
+          "key": "fileDownloadName",
           "label": "Name",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -12,7 +12,7 @@
         },
         {
           "description": "Artifactory Base URL",
-          "key": "artifactory.base.url",
+          "key": "artifactoryBaseUrl",
           "label": "Artifactory Base URL",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -20,7 +20,7 @@
         },
         {
           "description": "Repository Name",
-          "key": "artifactory.repository",
+          "key": "artifactoryRepository",
           "label": "Repository Name",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -28,7 +28,7 @@
         },
         {
           "description": "Repository Path",
-          "key": "artifactory.repository.path",
+          "key": "artifactoryRepositoryPath",
           "label": "Repository Path",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -47,7 +47,7 @@
       "config": [
         {
           "description": "Name",
-          "key": "email.name",
+          "key": "emailName",
           "label": "Name",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -55,13 +55,13 @@
         },
         {
           "description": "Enable Mail Notifications for request processing activities.",
-          "key": "enable.mail",
+          "key": "enableMail",
           "label": "Enable Mail Notifications",
           "type": "boolean"
         },
         {
           "description": "SendGrid API Key",
-          "key": "sendgrid.apikey",
+          "key": "sendgridApikey",
           "label": "SendGrid API Key",
           "maxValueLength": 512,
           "minValueLength": 0,
@@ -80,7 +80,7 @@
       "config": [
         {
           "description": "Name",
-          "key": "ingest.name",
+          "key": "ingestName",
           "label": "Name",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -111,7 +111,7 @@
       "config": [
         {
           "description": "Name",
-          "key": "slack.name",
+          "key": "slackName",
           "label": "Name",
           "maxValueLength": 128,
           "minValueLength": 0,
@@ -119,7 +119,7 @@
         },
         {
           "description": "Enable Slack Notifications for request processing activities.",
-          "key": "enable.slack",
+          "key": "enableSlack",
           "label": "Enable Slack Notifications",
           "type": "boolean"
         }

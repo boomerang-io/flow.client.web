@@ -33,6 +33,10 @@ class App extends Component {
     let task_configurations_output = { nodes: task_configurations, workflowId: workflowId };
     console.log(task_configurations_output);
     //task_configurations_output to be passed to service call
+
+    console.log("task_configurations");
+    console.log(task_configurations);
+    console.log(task_configurations.map(({ id }) => ({ nodeId: id })));
   };
 
   render() {

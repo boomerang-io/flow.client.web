@@ -63,7 +63,7 @@ export class CustomTaskNodeWidget extends Component {
     //grab the name property of config
     let specified_name = "";
     for (var key in this.props.state_node.config) {
-      if (key.includes(".name")) {
+      if (key.includes("Name")) {
         specified_name = key;
       }
     }
