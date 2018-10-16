@@ -5,11 +5,11 @@ import merge from "lodash/merge";
 
 export default class StartEndNodeModel extends NodeModel {
   //list all three params
-  constructor(passed_name, color) {
+  constructor(passedName, color) {
     //console.log("startend props");
     //console.log(this.props);
     super("startend");
-    if (passed_name === "Finish") {
+    if (passedName === "Finish") {
       this.addPort(new StartEndPortModel("left"));
       //this.addInPort("left");
       console.log("a left port has been added");
@@ -18,17 +18,17 @@ export default class StartEndNodeModel extends NodeModel {
       //this.addOutPort("left");
       console.log("a right port has been added");
     }
-    this.passed_name = passed_name;
+    this.passedName = passedName;
   }
 
   serialize() {
     return merge(super.serialize(), {
-      passed_name: this.passed_name
+      passedName: this.passedName
     });
   }
 
   deSerialize(data, engine) {
     super.deSerialize(data, engine);
-    this.passed_name = data.passed_name;
+    this.passedName = data.passedName;
   }
 }
