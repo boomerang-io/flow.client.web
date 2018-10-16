@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import downloadIMG from "../../../img/install.svg";
-import emailIMG from "../../../img/email_icon.svg";
-import documentIMG from "../../../img/document_16.svg";
+import downloadIMG from "../../img/install.svg";
+import emailIMG from "../../img/email_icon.svg";
+import documentIMG from "../../img/document_16.svg";
 
 /*export interface TrayItemWidgetProps {
 	model: any;

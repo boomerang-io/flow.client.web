@@ -8,9 +8,10 @@ ActionBar.propTypes = {
 };
 
 function ActionBar({ onSave }) {
+  console.log(onSave);
   return (
     <div className="c-action-bar">
-      <Button theme="bmrg-black" onClick="onSave">
+      <Button theme="bmrg-black" onClick={onSave}>
         Save
       </Button>
     </div>

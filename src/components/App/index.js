@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Application } from "../../features/BodyWidget/Application";
 import BodyWidgetContainer from "../../features/BodyWidget";
+import Button from "@boomerang/boomerang-components/lib/Button";
 import Navbar from "@boomerang/boomerang-components/lib/Navbar";
 import ActionBar from "./ActionBar";
 import "./styles.scss";
@@ -52,6 +53,7 @@ class App extends Component {
         />
         <main className="c-app-main">
           <ActionBar onSave={this.onHandleSave} />
+
           <BodyWidgetContainer app={this.app} test={"test"} />
         </main>
       </>

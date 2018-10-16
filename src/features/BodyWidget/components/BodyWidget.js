@@ -1,8 +1,8 @@
 import React from "react";
 import _ from "lodash";
-import { TrayWidget } from "./TrayWidget";
+import { TrayWidget } from "../../TaskTray/TrayWidget";
 import { Application } from "../Application";
-import { TrayItemWidget } from "./TrayItemWidget";
+import { TrayItemWidget } from "../../TaskTray/TrayItemWidget";
 import { DefaultNodeModel, DiagramWidget } from "storm-react-diagrams";
 
 import { actions as nodeActions } from "../BodyWidgetContainer/reducer/index";
