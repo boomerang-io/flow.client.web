@@ -26,8 +26,13 @@ class CustomLinkWidget extends React.Component {
     return (
       <>
         {this.path && (
-          <g transform={`translate(${halfwayPoint.x}, ${halfwayPoint.y + 5})`}>
-            <CloseModalButton className="bmrg-deleteLink" onClick={() => this.handleOnDelete(this.props.model)} />
+          <g transform={`translate(${halfwayPoint.x}, ${halfwayPoint.y - 15})`}>
+            <circle cx="15" cy="15" r="15" fill="#40d5bb" />
+            <g transform="translate(-10 , -15)">
+              <text x="20" y="35" fill="black">
+                x
+              </text>
+            </g>
           </g>
         )}
         <path
