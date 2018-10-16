@@ -72,9 +72,9 @@ export class BodyWidget extends React.Component {
     ));
 
     return (
-      <div className="body">
+      <>
+        <TrayWidget>{trayItems}</TrayWidget>
         <div className="content">
-          <TrayWidget>{trayItems}</TrayWidget>
           <div
             className="diagram-layer"
             onDrop={event => {
@@ -92,7 +92,7 @@ export class BodyWidget extends React.Component {
               //add node info to the state
               const { id, type, taskId, taskName } = node;
               //this.props.nodeActions.addNode({ id, type, taskId, taskName, config: {} });
-              this.props.nodeActions.addNode({ id, taskId, config: {} });
+              this.props.nodeActions.addNode({ nodeId: id, taskId, config: {} });
 
               var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
               node.x = points.x;
@@ -124,7 +124,7 @@ export class BodyWidget extends React.Component {
             />
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }
