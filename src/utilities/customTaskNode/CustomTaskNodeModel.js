@@ -5,7 +5,7 @@ import merge from "lodash/merge";
 export default class CustomTaskNodeModel extends NodeModel {
   //list all three params
   constructor(name, color, taskId) {
-    super("ingestcsv");
+    super("customTaskNode");
     this.addPort(new CustomTaskPortModel("left"));
     this.addPort(new CustomTaskPortModel("right"));
     this.taskId = taskId;
