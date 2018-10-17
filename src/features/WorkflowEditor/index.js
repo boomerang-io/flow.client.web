@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as nodesActions } from "State/nodes";
-import { actions as taskConfigurationActions } from "State/taskConfig";
-import { actions as workflowActions } from "State/workflow";
+import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
+import { actions as workflowUpdateActions } from "State/workflow/update";
 import { DiagramWidget } from "storm-react-diagrams";
 import ActionBar from "./ActionBar";
 import TaskTray from "./TaskTray";
@@ -18,8 +18,9 @@ class WorkflowEditorContainer extends Component {
   diagramApp = new DiagramApplication();
 
   componentDidMount() {
-    workflowActions.fetchSerialization(`${BASE_SERVICE_URL}/serialization`);
-    taskConfigurationActions.fetchTaskConfiguration(`${BASE_SERVICE_URL}/task_configuration`);
+    const { match } = this.props;
+    const { workflowId } = match.params;
+    this.props.workflowConfigActions.fetch(`${BASE_SERVICE_URL}/taskconfiguration/${workflowId}`);
   }
 
   onHandleSave = () => {
@@ -115,14 +116,14 @@ class WorkflowEditorContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  taskconfiguration: state.taskConfig,
+  workflowConfig: state.workflowConfig,
   workflow: state.workflow
 });
 
 const mapDispatchToProps = dispatch => ({
   nodesActions: bindActionCreators(nodesActions, dispatch),
-  workflowActions: bindActionCreators(workflowActions, dispatch),
-  taskConfigurationActions: bindActionCreators(taskConfigurationActions, dispatch)
+  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch),
+  workflowUpdateActions: bindActionCreators(workflowUpdateActions, dispatch)
 });
 
 export default connect(

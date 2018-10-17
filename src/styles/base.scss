@@ -26,13 +26,7 @@ html {
 }
 
 body {
-  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: $outside-app-blue;
-  min-height: 100%;
-  min-width: 52rem;
-  box-sizing: border-box;
+  background-color: $text-area-gray;
 }
 
 a {

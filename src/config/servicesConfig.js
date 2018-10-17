@@ -4,7 +4,7 @@ const BASE_SERVICE_ENV_URL =
     : window._SERVER_DATA && window._SERVER_DATA.BASE_SERVICE_ENV_URL;
 
 // Standard
-export const BASE_SERVICE_URL = `${BASE_SERVICE_ENV_URL}/api`;
+export const BASE_SERVICE_URL = `${BASE_SERVICE_ENV_URL}/flow`;
 
 export const REQUEST_STATUSES = {
   FAILURE: "failure",

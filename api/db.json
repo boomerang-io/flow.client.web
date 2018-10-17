@@ -132,5 +132,194 @@
       "type": "ValuesList",
       "category": "Communication"
     }
+  ],
+  "workflow": [
+    {
+      "id": "5bc0efa45a5df954adb0e556",
+      "offsetX": 0,
+      "offsetY": 0,
+      "zoom": 100,
+      "gridSize": 0,
+      "links": [
+        {
+          "linkId": "1985fc70-a0ab-48f8-bf12-253bedf2315d",
+          "type": "custom",
+          "selected": "false",
+          "source": "1de54dc4-75fe-431f-8864-7112d3730220",
+          "sourcePort": "e280d5fc-9060-433d-929f-105d6817a9f2",
+          "target": "a0ae83ad-dffd-4dbd-a082-a47b71c9a6d5",
+          "targetPort": "34733da1-70b5-459d-80d4-f22dc6146eb7",
+          "points": [
+            { "id": "ef92ab4a-044d-483e-9699-73474b316fea", "selected": false, "x": 470.09375, "y": 459 },
+            { "id": "0d7d3199-7f5e-4e81-8527-9ea2bbb360cd", "selected": true, "x": 575.5, "y": 444.75 }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50
+        },
+        {
+          "linkId": "a462d17b-ca53-42e7-9fde-2182375f390b",
+          "type": "custom",
+          "selected": "false",
+          "source": "a0ae83ad-dffd-4dbd-a082-a47b71c9a6d5",
+          "sourcePort": "f21fec8d-e9bd-4496-96c5-ebffcfdbddfc",
+          "target": "a27337ab-f400-4111-b12c-d55e6e6d3ce3",
+          "targetPort": "bb7ee322-3a25-4a38-b120-fd0bd41e5640",
+          "points": [
+            { "id": "6061c1b7-e53e-488a-b7b2-81dea8477712", "selected": false, "x": 797.296875, "y": 444.75 },
+            { "id": "44f7ea3b-d634-474b-aca7-588793f153f8", "selected": true, "x": 944.5, "y": 456.75 }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50
+        },
+        {
+          "linkId": "27f4b614-a982-4e98-b567-09d5438971c0",
+          "type": "custom",
+          "selected": "false",
+          "source": "a27337ab-f400-4111-b12c-d55e6e6d3ce3",
+          "sourcePort": "c3d98ead-75c8-4d90-a634-f4e4e4196eb3",
+          "target": "6fca05e3-69d7-480f-8a58-32ec90c11bda",
+          "targetPort": "82b0a4ef-56a3-4f73-a535-76f859179f37",
+          "points": [
+            { "id": "fc0c36cf-bfb4-48dc-a332-9d9b90c8bc97", "selected": false, "x": 1166.296875, "y": 456.75 },
+            { "id": "26dba83a-c4e3-4ec7-85a1-4ae36f33ede0", "selected": true, "x": 1307.5, "y": 459 }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50
+        }
+      ],
+      "nodes": [
+        {
+          "nodeId": "1de54dc4-75fe-431f-8864-7112d3730220",
+          "type": "startend",
+          "selected": false,
+          "x": 300.0,
+          "y": 400.0,
+          "extras": {},
+          "ports": [
+            {
+              "nodePortId": "e280d5fc-9060-433d-929f-105d6817a9f2",
+              "type": "startend",
+              "selected": false,
+              "name": "right",
+              "parentNode": "1de54dc4-75fe-431f-8864-7112d3730220",
+              "links": ["1985fc70-a0ab-48f8-bf12-253bedf2315d"],
+              "position": "right"
+            }
+          ],
+          "passedName": "Start"
+        },
+        {
+          "nodeId": "6fca05e3-69d7-480f-8a58-32ec90c11bda",
+          "type": "startend",
+          "selected": false,
+          "x": 1300.0,
+          "y": 400.0,
+          "extras": {},
+          "ports": [
+            {
+              "nodePortId": "82b0a4ef-56a3-4f73-a535-76f859179f37",
+              "type": "startend",
+              "selected": false,
+              "name": "left",
+              "parentNode": "6fca05e3-69d7-480f-8a58-32ec90c11bda",
+              "links": ["27f4b614-a982-4e98-b567-09d5438971c0"],
+              "position": "left"
+            }
+          ],
+          "passedName": "End"
+        },
+        {
+          "nodeId": "a0ae83ad-dffd-4dbd-a082-a47b71c9a6d5",
+          "type": "ingestcsv",
+          "selected": false,
+          "x": 568.0,
+          "y": 385.75,
+          "extras": {},
+          "ports": [
+            {
+              "nodePortId": "34733da1-70b5-459d-80d4-f22dc6146eb7",
+              "type": "ingestcsv",
+              "selected": false,
+              "name": "left",
+              "parentNode": "a0ae83ad-dffd-4dbd-a082-a47b71c9a6d5",
+              "links": ["1985fc70-a0ab-48f8-bf12-253bedf2315d"],
+              "position": "left"
+            },
+            {
+              "nodePortId": "f21fec8d-e9bd-4496-96c5-ebffcfdbddfc",
+              "type": "ingestcsv",
+              "selected": false,
+              "name": "right",
+              "parentNode": "a0ae83ad-dffd-4dbd-a082-a47b71c9a6d5",
+              "links": ["a462d17b-ca53-42e7-9fde-2182375f390b"],
+              "position": "right"
+            }
+          ]
+        },
+        {
+          "nodeId": "a27337ab-f400-4111-b12c-d55e6e6d3ce3",
+          "type": "ingestcsv",
+          "selected": false,
+          "x": 937.0,
+          "y": 397.75,
+          "extras": {},
+          "ports": [
+            {
+              "nodePortId": "bb7ee322-3a25-4a38-b120-fd0bd41e5640",
+              "type": "ingestcsv",
+              "selected": false,
+              "name": "left",
+              "parentNode": "a27337ab-f400-4111-b12c-d55e6e6d3ce3",
+              "links": ["a462d17b-ca53-42e7-9fde-2182375f390b"],
+              "position": "left"
+            },
+            {
+              "nodePortId": "c3d98ead-75c8-4d90-a634-f4e4e4196eb3",
+              "type": "ingestcsv",
+              "selected": false,
+              "name": "right",
+              "parentNode": "a27337ab-f400-4111-b12c-d55e6e6d3ce3",
+              "links": ["27f4b614-a982-4e98-b567-09d5438971c0"],
+              "position": "right"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "taskconfiguration": [
+    {
+      "id": "5bc0efed5a5df954adb0e766",
+      "workflowId": "5bc0efa45a5df954adb0e556",
+      "nodes": [
+        {
+          "nodeId": "495b8c8a-cd3a-4ede-abd6-8f48284fbe7b",
+          "taskId": "5b92f794844d0700016ea214",
+          "config": {
+            "fileDownloadName": "Ingest CSVs",
+            "artifactoryBaseUrl": "artifactory.com/boomerang",
+            "artifactoryRepositoryName": "testRepo",
+            "artifactoryRepositoryPath": "path/to/repo"
+          }
+        },
+        {
+          "nodeId": "27a791f4-7a35-491a-be1c-3d7e211cacad",
+          "taskId": "5b92f794844d0700016ea216",
+          "config": {
+            "offset": ".",
+            "shell": "ingest csv test"
+          }
+        }
+      ]
+    }
   ]
 }

@@ -1,16 +1,16 @@
 import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
 import nodes from "./nodes";
-import workflow from "./workflow";
 import tasks from "./tasks";
-import taskConfig from "./taskConfig";
+import workflow from "./workflow";
+import workflowConfig from "./workflowConfig";
 
 const rootReducer = combineReducers({
   routing: routerReducer,
   nodes,
-  taskConfig,
   tasks,
-  workflow
+  workflow,
+  workflowConfig
 });
 
 export default rootReducer;

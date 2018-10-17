@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import Navbar from "@boomerang/boomerang-components/lib/Navbar";
+import WorkflowsViewer from "Features/WorkflowsViewer";
 import WorkflowEditor from "Features/WorkflowEditor";
 import "./styles.scss";
 
@@ -15,11 +16,12 @@ class App extends Component {
           isAdmin={true}
           hasOnBoardingExperience={true}
           onboardingExperienceCharacter="?"
-          handleOnOnboardingExperienceClick={{}}
+          handleOnOnboardingExperienceClick={() => {}}
         />
         <main className="c-app-main">
           <Switch>
-            <Route path="/editor/:id" component={WorkflowEditor} />
+            <Route path="/viewer" component={WorkflowsViewer} />
+            <Route path="/editor/:workflowId" component={WorkflowEditor} />
           </Switch>
         </main>
       </>
