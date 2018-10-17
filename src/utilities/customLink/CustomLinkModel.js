@@ -1,8 +1,10 @@
 import { DefaultLinkModel } from "storm-react-diagrams";
+import merge from "lodash/merge";
 
 export default class CustomLinkModel extends DefaultLinkModel {
   constructor() {
     super("custom");
+    this.state = 0;
   }
 
   /*remove() {
@@ -16,4 +18,17 @@ export default class CustomLinkModel extends DefaultLinkModel {
     }
     //super.remove();
   }*/
+
+  serialize() {
+    return merge(super.serialize(), {
+      linkId: this.id,
+      state: this.state
+    });
+  }
+
+  deSerialize(data, engine) {
+    super.deSerialize(data, engine);
+    this.id = data.linkId;
+    this.state = data.state;
+  }
 }

@@ -12,13 +12,15 @@ export default class StartEndPortModel extends PortModel {
 
   serialize() {
     return merge(super.serialize(), {
-      position: this.position
+      position: this.position,
+      portId: this.id
     });
   }
 
   deSerialize(data, engine) {
     super.deSerialize(data, engine);
     this.position = data.position;
+    this.id = data.portId;
   }
 
   createLinkModel() {

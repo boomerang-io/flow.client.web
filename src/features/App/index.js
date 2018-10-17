@@ -19,7 +19,7 @@ class App extends Component {
         />
         <main className="c-app-main">
           <Switch>
-            <Route path="/editor/:id" component={WorkflowEditor} />
+            <Route path="/editor/:workflowId" component={WorkflowEditor} />
           </Switch>
         </main>
       </>

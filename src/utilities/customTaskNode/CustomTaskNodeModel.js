@@ -14,14 +14,14 @@ export default class CustomTaskNodeModel extends NodeModel {
 
   serialize() {
     return merge(super.serialize(), {
-      taskId: this.taskId
-      //taskName: this.taskName
+      taskId: this.taskId,
+      nodeId: this.id
     });
   }
 
   deSerialize(data, engine) {
     super.deSerialize(data, engine);
     this.taskId = data.taskId;
-    //this.taskName = data.taskName;
+    this.id = data.nodeId;
   }
 }
