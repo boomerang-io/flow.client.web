@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $blue;
+  background: $lightest-gray;
   border-radius: 0.5rem;
   width: 16rem;
   height: 8rem;
@@ -16,27 +16,23 @@
     font-size: $base;
     text-align: center;
     font-weight: 400;
-    color: $off-white;
+    color: $dark-blue;
     letter-spacing: 0.1675rem;
   }
 
   .srd-custom-port {
     position: absolute;
-    height: 100%;
-    top: 0;
+    border-radius: 50%;
+    background-color: $teal;
 
     &.--right {
-      right: 0;
-      border-top-right-radius: 0.5rem;
-      border-bottom-right-radius: 0.5rem;
+      right: -0.5rem;
     }
     &.--left {
-      left: 0;
-      border-top-left-radius: 0.5rem;
-      border-bottom-left-radius: 0.5rem;
+      left: -0.5rem;
     }
     &:hover {
-      background: $lightest-gray;
+      background: $teal;
     }
   }
 

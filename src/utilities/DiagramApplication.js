@@ -1,12 +1,12 @@
 //import SRD from "storm-react-diagrams";
 import { DiagramEngine, DiagramModel } from "storm-react-diagrams";
-import CustomTaskNodeFactory from "Utilities/customTaskNode/CustomTaskNodeFactory";
-import StartEndNodeFactory from "Utilities/startEndNode/StartEndNodeFactory";
-import StartEndNodeModel from "Utilities/startEndNode/StartEndNodeModel";
-import StartEndPortModel from "Utilities/startEndNode/StartEndPortModel";
-import SimplePortFactory from "Utilities/simplePort/SimplePortFactory";
-import CustomTaskPortModel from "Utilities/customTaskNode/CustomTaskPortModel";
-import CustomLinkFactory from "Utilities/customLink/CustomLinkFactory";
+import CustomTaskNodeFactory from "./customTaskNode/CustomTaskNodeFactory";
+import StartEndNodeFactory from "./startEndNode/StartEndNodeFactory";
+import StartEndNodeModel from "./startEndNode/StartEndNodeModel";
+import StartEndPortModel from "./startEndNode/StartEndPortModel";
+import SimplePortFactory from "./simplePort/SimplePortFactory";
+import CustomTaskPortModel from "./customTaskNode/CustomTaskPortModel";
+import CustomLinkFactory from "./customLink/CustomLinkFactory";
 
 export default class Application {
   constructor() {

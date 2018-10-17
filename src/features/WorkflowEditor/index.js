@@ -7,10 +7,10 @@ import { actions as taskConfigurationActions } from "State/taskConfig";
 import { actions as workflowActions } from "State/workflow";
 import { DiagramWidget } from "storm-react-diagrams";
 import ActionBar from "./ActionBar";
-import TaskNode from "./TaskNode";
 import TaskTray from "./TaskTray";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
-import DiagramApplication from "./utilities/DiagramApplication";
+import DiagramApplication from "Utilities/DiagramApplication";
+import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import keys from "lodash/keys";
 import "./styles.scss";
 
@@ -53,32 +53,31 @@ class WorkflowEditorContainer extends Component {
   };
 
   createNode = event => {
-    var data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
-    var nodesCount = keys(
+    const data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
+    const nodesCount = keys(
       this.diagramApp
         .getDiagramEngine()
         .getDiagramModel()
         .getNodes()
     ).length;
 
-    var node = null;
-    node = new TaskNode("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type); //, data.name);
+    const node = new CustomTaskNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type);
 
     //add node info to the state
     const { id, taskId } = node;
     this.props.nodesActions.addNode({ nodeId: id, taskId, config: {} });
 
-    var points = this.props.app.getDiagramEngine().getRelativeMousePoint(event);
+    const points = this.diagramApp.getDiagramEngine().getRelativeMousePoint(event);
     node.x = points.x;
     node.y = points.y;
-    this.props.app
+    this.diagramApp
       .getDiagramEngine()
       .getDiagramModel()
       .addNode(node);
     this.forceUpdate();
     console.log(
       JSON.stringify(
-        this.props.app
+        this.diagramApp
           .getDiagramEngine()
           .getDiagramModel()
           .serializeDiagram()
