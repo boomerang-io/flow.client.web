@@ -1,15 +1,9 @@
 //import SRD from "storm-react-diagrams";
 import { DiagramEngine, DiagramModel } from "storm-react-diagrams";
-
-//ingestcsv files
-//import { IngestCSVPortModel } from "Features/IngestCSV/IngestCSVPortModel";
 import CustomTaskNodeFactory from "Utilities/customTaskNode/CustomTaskNodeFactory";
-import { IngestCSVNodeModel } from "Utilities/customTaskNode/CustomTaskNodeModel";
-
 import StartEndNodeFactory from "Utilities/startEndNode/StartEndNodeFactory";
 import StartEndNodeModel from "Utilities/startEndNode/StartEndNodeModel";
 import StartEndPortModel from "Utilities/startEndNode/StartEndPortModel";
-
 import SimplePortFactory from "Utilities/simplePort/SimplePortFactory";
 import CustomTaskPortModel from "Utilities/customTaskNode/CustomTaskPortModel";
 import CustomLinkFactory from "Utilities/customLink/CustomLinkFactory";
@@ -33,12 +27,12 @@ export default class Application {
 
   newModel() {
     this.activeModel = new DiagramModel();
-
     this.diagramEngine.setDiagramModel(this.activeModel);
 
-    var EndNode = new StartEndNodeModel("Finish", "rgb(192,255,0)");
+    const EndNode = new StartEndNodeModel("Finish", "rgb(192,255,0)");
     EndNode.setPosition(1300, 400);
-    var StartNode = new StartEndNodeModel("Start", "rgb(192,255,0)");
+
+    const StartNode = new StartEndNodeModel("Start", "rgb(192,255,0)");
     StartNode.setPosition(300, 400);
 
     this.activeModel.addAll(StartNode, EndNode);
