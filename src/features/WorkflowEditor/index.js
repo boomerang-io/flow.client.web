@@ -23,7 +23,7 @@ class WorkflowEditorContainer extends Component {
     this.props.workflowConfigActions.fetch(`${BASE_SERVICE_URL}/taskconfiguration/${workflowId}`);
   }
 
-  onHandleSave = () => {
+  handleOnSave = () => {
     const serialization = this.diagramApp
       .getDiagramEngine()
       .getDiagramModel()
@@ -91,7 +91,7 @@ class WorkflowEditorContainer extends Component {
 
     return (
       <>
-        <ActionBar onSave={this.onHandleSave} />
+        <ActionBar onSave={this.handleOnSave} />
         <TaskTray />
         <div className="content">
           <div

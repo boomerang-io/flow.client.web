@@ -11,23 +11,23 @@ export default class StartEndNodeModel extends NodeModel {
     if (passedName === "Finish") {
       this.addPort(new StartEndPortModel("left"));
       //this.addInPort("left");
-      console.log("a left port has been added");
     } else {
       this.addPort(new StartEndPortModel("right"));
       //this.addOutPort("left");
-      console.log("a right port has been added");
     }
     this.passedName = passedName;
   }
 
   serialize() {
     return merge(super.serialize(), {
-      passedName: this.passedName
+      passedName: this.passedName,
+      nodeId: this.id
     });
   }
 
   deSerialize(data, engine) {
     super.deSerialize(data, engine);
     this.passedName = data.passedName;
+    this.id = data.nodeId;
   }
 }

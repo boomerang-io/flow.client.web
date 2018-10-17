@@ -18,18 +18,20 @@ class CustomLink extends Component {
     this.mounted = false;
   }
 
-  handleOnDelete = model => {
-    model.remove();
+  handleOnDelete = () => {
+    this.props.model.remove();
     this.setState({});
+    //TODO: remove from link state at this point
   };
 
   incrementState = () => {
-    this.setState(
+    /*this.setState(
       prevState => ({
         count: prevState.count + 1
       }),
       console.log(this.state.count)
-    );
+    );*/
+    this.props.model.state += 1;
   };
 
   render() {
