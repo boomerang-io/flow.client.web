@@ -2,7 +2,7 @@ import { DefaultLinkModel } from "storm-react-diagrams";
 
 export default class CustomLinkModel extends DefaultLinkModel {
   constructor() {
-    super("customLink");
+    super("custom");
   }
 
   /*remove() {

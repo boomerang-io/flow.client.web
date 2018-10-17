@@ -2,7 +2,7 @@ import React from "react";
 import { DefaultLinkFactory, DefaultLinkWidget } from "storm-react-diagrams";
 import CustomLinkModel from "./CustomLinkModel";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import CustomLink from "Components/DiagramLink";
+import CustomLink from "Components/WorkflowLink";
 
 export default class CustomLinkFactory extends DefaultLinkFactory {
   constructor() {

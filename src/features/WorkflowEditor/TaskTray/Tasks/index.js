@@ -17,7 +17,7 @@ export default class Tasks extends Component {
 
     */
   determineTasks = () => {
-    const sortedTasks = sortByProp(this.props.tasks.data, "category");
+    const sortedTasks = sortByProp(this.props.tasks, "category");
     /*let trayItems = this.props.tasks.data.map(task => (
      <TrayItemWidget
        model={{ type: task.id, name: task.name, task_data: task }}
@@ -41,7 +41,7 @@ export default class Tasks extends Component {
       }
     });
 
-    let trayItems = all_tasks.map(arr => (
+    return all_tasks.map(arr => (
       <div className={classNames("pallet-category--", arr[0].category)}>
         <h3 className={classNames("pallet-category--header--", arr[0].category)}> {arr[0].category}</h3>
 
@@ -53,6 +53,6 @@ export default class Tasks extends Component {
   };
 
   render() {
-    return <Sidenav theme="bmrg-white" styles={{ width: "20rem" }} content={() => this.props.children} />;
+    return <Sidenav theme="bmrg-white" styles={{ width: "20rem" }} content={() => this.determineTasks()} />;
   }
 }

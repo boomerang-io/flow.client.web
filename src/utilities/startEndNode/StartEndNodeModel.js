@@ -1,6 +1,5 @@
-import { NodeModel, DefaultPortModel } from "storm-react-diagrams";
+import { NodeModel } from "storm-react-diagrams";
 import StartEndPortModel from "./StartEndPortModel";
-import React, { Component } from "react";
 import merge from "lodash/merge";
 
 export default class StartEndNodeModel extends NodeModel {

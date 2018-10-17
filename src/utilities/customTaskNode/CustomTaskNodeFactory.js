@@ -1,6 +1,6 @@
 import React from "react";
 import { AbstractNodeFactory } from "storm-react-diagrams";
-import CustomTaskNode from "Components/DiagramTaskNode";
+import CustomTaskNode from "Features/WorkflowEditor/TaskNode";
 import CustomTaskNodeModel from "./CustomTaskNodeModel";
 
 export default class CustomTaskNodeFactory extends AbstractNodeFactory {

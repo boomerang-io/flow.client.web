@@ -12,11 +12,10 @@ import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "./DisplayForm";
 import pencilIcon from "./pencil.svg";
-import "./styles.scss";
-
 import downloadIMG from "Assets/svg/install.svg";
 import emailIMG from "Assets/svg/email_icon.svg";
 import documentIMG from "Assets/svg/document_16.svg";
+import "./styles.scss";
 
 /**
  * TODO
@@ -27,7 +26,7 @@ import documentIMG from "Assets/svg/document_16.svg";
  */
 const EditNode = () => <img src={pencilIcon} className="bmrg-pencil" />;
 
-export class CustomTaskNodeWidget extends Component {
+export class TaskNode extends Component {
   static defaultProps = {
     stateNode: {}
   };
@@ -143,4 +142,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CustomTaskNodeWidget);
+)(TaskNode);

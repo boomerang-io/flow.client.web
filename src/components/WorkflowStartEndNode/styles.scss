@@ -2,18 +2,20 @@
 
 .Start-Node,
 .Finish-Node {
-  background: $hour-gray;
-  border-radius: 0.5rem;
-  width: 12rem;
-  height: 8rem;
+  background: $blue;
+  border-radius: 0.225rem;
+  width: 9rem;
+  height: 5rem;
   position: "relative";
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   .startend-tile {
     font-size: $base;
     text-align: center;
     font-weight: 400;
     letter-spacing: 0.1625rem;
-    padding-top: 2.3rem;
     color: $off-white;
   }
 

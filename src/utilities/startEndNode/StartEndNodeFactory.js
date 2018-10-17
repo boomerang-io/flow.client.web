@@ -1,6 +1,6 @@
 import { AbstractNodeFactory } from "storm-react-diagrams";
-import StartEndNode from "Components/DiagramStartEndNode";
-import StartEndNodeModel from "Utilities/customStartEndNode/StartEndNodeModel";
+import StartEndNode from "Components/WorkflowStartEndNode";
+import StartEndNodeModel from "Utilities/startEndNode/StartEndNodeModel";
 import React from "react";
 
 export default class StartEndNodeFactory extends AbstractNodeFactory {

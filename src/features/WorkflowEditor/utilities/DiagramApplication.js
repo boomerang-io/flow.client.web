@@ -6,9 +6,9 @@ import { DiagramEngine, DiagramModel } from "storm-react-diagrams";
 import CustomTaskNodeFactory from "Utilities/customTaskNode/CustomTaskNodeFactory";
 import { IngestCSVNodeModel } from "Utilities/customTaskNode/CustomTaskNodeModel";
 
-import StartEndNodeFactory from "Utilities/customStartEndNode/StartEndNodeFactory";
-import StartEndNodeModel from "Utilities/customStartEndNode/StartEndNodeModel";
-import StartEndPortModel from "Utilities/customStartEndNode/StartEndPortModel";
+import StartEndNodeFactory from "Utilities/startEndNode/StartEndNodeFactory";
+import StartEndNodeModel from "Utilities/startEndNode/StartEndNodeModel";
+import StartEndPortModel from "Utilities/startEndNode/StartEndPortModel";
 
 import SimplePortFactory from "Utilities/simplePort/SimplePortFactory";
 import CustomTaskPortModel from "Utilities/customTaskNode/CustomTaskPortModel";
@@ -23,7 +23,7 @@ export default class Application {
 
     //need to find a way to register port factory
     this.diagramEngine.registerPortFactory(new SimplePortFactory("startend", config => new StartEndPortModel()));
-    this.diagramEngine.registerPortFactory(new SimplePortFactory("ingestcsv", config => new CustomTaskPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory("customTask", config => new CustomTaskPortModel()));
 
     //register new custom link
     this.diagramEngine.registerLinkFactory(new CustomLinkFactory());
