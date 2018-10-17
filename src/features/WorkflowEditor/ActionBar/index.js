@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import NavigateBack from "Components/NavigateBack";
 import Button from "@boomerang/boomerang-components/lib/Button";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+//import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import "./styles.scss";
 
 ActionBar.propTypes = {

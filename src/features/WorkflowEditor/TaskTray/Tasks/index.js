@@ -41,12 +41,17 @@ export default class Tasks extends Component {
       }
     });
 
-    return all_tasks.map(arr => (
-      <div className={classNames("pallet-category--", arr[0].category)}>
+    return all_tasks.map((arr, index) => (
+      <div className={classNames("pallet-category--", arr[0].category)} key={index}>
         <h3 className={classNames("pallet-category--header--", arr[0].category)}> {arr[0].category}</h3>
 
         {arr.map(task => (
-          <Task model={{ type: task.id, name: task.name, task_data: task }} name={task.name} color="rgb(129,17,81)" />
+          <Task
+            model={{ type: task.id, name: task.name, task_data: task }}
+            name={task.name}
+            color="rgb(129,17,81)"
+            key={task.id}
+          />
         ))}
       </div>
     ));

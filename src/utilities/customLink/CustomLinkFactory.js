@@ -1,5 +1,5 @@
 import React from "react";
-import { DefaultLinkFactory, DefaultLinkWidget } from "storm-react-diagrams";
+import { DefaultLinkFactory } from "storm-react-diagrams";
 import CustomLinkModel from "./CustomLinkModel";
 import CustomLink from "Components/WorkflowLink";
 
@@ -16,9 +16,6 @@ export default class CustomLinkFactory extends DefaultLinkFactory {
   getNewInstance = () => {
     return new CustomLinkModel();
   };
-
-  // {super.generateLinkSegment(model, widget, selected, path)}
-  //<CloseModalButton className="bmrg-deleteLink" onClick={() => this.handleOnDelete(model)} />
 
   generateLinkSegment(model, widget, selected, path) {
     console.log("generate Link Segment");

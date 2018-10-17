@@ -14,7 +14,7 @@ import DisplayForm from "./DisplayForm";
 import pencilIcon from "./pencil.svg";
 import downloadIMG from "Assets/svg/install.svg";
 import emailIMG from "Assets/svg/email_icon.svg";
-import documentIMG from "Assets/svg/document_16.svg";
+//import documentIMG from "Assets/svg/document_16.svg";
 import "./styles.scss";
 
 /**
@@ -24,7 +24,7 @@ import "./styles.scss";
  *  - define propTypes
  *  - look at the order of imports above - that is the general order that we follow
  */
-const EditNode = () => <img src={pencilIcon} className="bmrg-pencil" />;
+const EditNode = () => <img src={pencilIcon} className="bmrg-pencil" alt="Task node type" />;
 
 export class TaskNode extends Component {
   static defaultProps = {
@@ -104,7 +104,7 @@ export class TaskNode extends Component {
           onClick={this.handleOnDelete}
           //closemodal={() => <div>closemodal</div>}
         />
-        <img src={img_to_render} className="ingestcsv-img" />
+        <img src={img_to_render} className="ingestcsv-img" alt="Task node type" />
         <Modal
           ModalTrigger={EditNode}
           modalContent={(closeModal, ...rest) => (

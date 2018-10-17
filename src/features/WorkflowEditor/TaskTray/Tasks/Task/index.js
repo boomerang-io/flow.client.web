@@ -30,7 +30,7 @@ export default class Task extends Component {
         className="tray-item"
       >
         <div className="tray-item-img">
-          <img src={img_to_render} />{" "}
+          <img src={img_to_render} alt="Task" />{" "}
         </div>
 
         <div className="tray-item_name"> {this.props.name} </div>

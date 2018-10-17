@@ -25,7 +25,7 @@
   },
   "scripts": {
     "analyze": "source-map-explorer server/build/static/js/main.*",
-    "apiServer": "json-server -c api/json-server.json --watch api/db.json api/routes.json",
+    "apiServer": "json-server -c api/json-server.json --watch api/db.json api/routes.json --middlewares api/middleware/singular.js",
     "cm": "git cz",
     "dev": "run-p apiServer start",
     "start": "react-scripts start",

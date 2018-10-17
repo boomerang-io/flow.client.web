@@ -20,7 +20,7 @@ class WorkflowEditorContainer extends Component {
   componentDidMount() {
     const { match } = this.props;
     const { workflowId } = match.params;
-    this.props.workflowConfigActions.fetch(`${BASE_SERVICE_URL}/taskconfiguration/${workflowId}`);
+    this.props.workflowConfigActions.fetch(`${BASE_SERVICE_URL}/taskconfiguration/workflow/${workflowId}`);
   }
 
   handleOnSave = () => {
@@ -87,8 +87,6 @@ class WorkflowEditorContainer extends Component {
   };
 
   render() {
-    const { tasks } = this.props;
-
     return (
       <>
         <ActionBar onSave={this.handleOnSave} />
@@ -115,9 +113,9 @@ class WorkflowEditorContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   workflowConfig: state.workflowConfig,
-  workflow: state.workflow
+  workflowSerialization: state.workflow.fetch.data.find(workflow => workflow.id === ownProps.match.params.workflowId)
 });
 
 const mapDispatchToProps = dispatch => ({

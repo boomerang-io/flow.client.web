@@ -17,8 +17,7 @@ class WorkflowsViewerContainer extends Component {
 
   formatWorkflows = () => {
     return this.props.workflow.data.map(workflow => (
-      <Link to={`/editor/${workflow.id}`}>
-        {" "}
+      <Link to={`/editor/${workflow.id}`} key={workflow.id}>
         <Tile>{workflow.id}</Tile>
       </Link>
     ));
