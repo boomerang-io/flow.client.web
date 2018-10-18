@@ -3,7 +3,7 @@ import React from "react";
 import { render } from "react-dom";
 import configureStore, { history } from "./store/configureStore";
 import Root from "./components/Root";
-import "storm-react-diagrams/src/sass/main.scss";
+import "@boomerang/boomerang-dag/src/sass/main.scss";
 import "./styles/styles.scss";
 import "./config/axiosGlobalConfig";
 

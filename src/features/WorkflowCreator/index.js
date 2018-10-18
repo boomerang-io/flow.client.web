@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { actions as workflowUpdateActions } from "State/workflow/update";
-import { DiagramWidget } from "storm-react-diagrams";
+import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "./ActionBar";
 import TaskTray from "./TaskTray";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";

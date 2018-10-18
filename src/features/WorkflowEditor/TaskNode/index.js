@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
-import { actions as nodeActions } from "State/nodes";
-import { PortWidget } from "storm-react-diagrams";
+import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
+import { PortWidget } from "@boomerang/boomerang-dag";
 import { Tile } from "carbon-components-react";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
@@ -35,7 +35,7 @@ export class TaskNode extends Component {
 
   //need to create a save function where we make change to global state
   handleOnSave = config => {
-    this.props.nodeActions.updateNode({ nodeId: this.props.node.id, config: config });
+    this.props.workflowConfigActions.updateNode({ nodeId: this.props.node.id, config: config });
     this.forceUpdate();
   };
 
@@ -43,7 +43,7 @@ export class TaskNode extends Component {
     /*
         want to delete the node in state and then remove it from the diagram
     */
-    this.props.nodeActions.deleteNode({ nodeId: this.props.node.id });
+    this.props.workflowConfigActions.deleteNode({ nodeId: this.props.node.id });
     this.props.node.remove();
   };
 
@@ -138,7 +138,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch),
-  nodeActions: bindActionCreators(nodeActions, dispatch)
+  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch)
 });
 
 export default connect(

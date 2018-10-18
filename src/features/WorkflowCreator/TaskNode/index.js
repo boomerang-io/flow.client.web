@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
 import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
-import { PortWidget } from "storm-react-diagrams";
+import { PortWidget } from "@boomerang/boomerang-dag";
 import { Tile } from "carbon-components-react";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";

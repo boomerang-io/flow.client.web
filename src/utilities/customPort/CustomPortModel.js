@@ -1,4 +1,4 @@
-import { PointModel } from "storm-react-diagrams";
+import { PointModel } from "@boomerang/boomerang-dag";
 
 export default class CustomPointModel extends PointModel {
   constructor() {

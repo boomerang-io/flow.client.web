@@ -1,5 +1,5 @@
-//import SRD from "storm-react-diagrams";
-import { DiagramEngine, DiagramModel } from "storm-react-diagrams";
+//import SRD from "@boomerang/boomerang-dag";
+import { DiagramEngine, DiagramModel } from "@boomerang/boomerang-dag";
 import CustomTaskNodeFactory from "./customTaskNode/CustomTaskNodeFactory";
 import StartEndNodeFactory from "./startEndNode/StartEndNodeFactory";
 import StartEndNodeModel from "./startEndNode/StartEndNodeModel";
