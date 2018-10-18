@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@boomerang/boomerang-components": "5.2.17",
+    "@boomerang/boomerang-dag": "5.2.1",
     "@boomerang/boomerang-react-scripts": "1.2.9",
     "@boomerang/boomerang-styles": "^0.2.0",
     "@boomerang/boomerang-utilities": "^1.0.1",
@@ -11,7 +12,6 @@
     "carbon-components-react": "^6.32.1",
     "carbon-icons": "^7.0.7",
     "classnames": "^2.2.6",
-    "json-beautify": "^1.0.1",
     "lodash": "^4.17.11",
     "normalizr": "^3.2.4",
     "react": "^16.5.1",
@@ -20,7 +20,6 @@
     "react-toggle": "^4.0.2",
     "react-tooltip": "^3.8.4",
     "recompose": "^0.30.0",
-    "storm-react-diagrams": "^5.2.1",
     "validator": "^10.7.1"
   },
   "scripts": {
@@ -125,13 +124,25 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "(*.js|*.json)": [
       "prettier --print-width 120 --write",
       "git add"
     ],
     "*.scss": [
       "prettier --write",
       "git add"
+    ]
+  },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
     ]
   }
 }

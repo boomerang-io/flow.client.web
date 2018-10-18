@@ -1,4 +1,4 @@
-import { NodeModel } from "storm-react-diagrams";
+import { NodeModel } from "@boomerang/boomerang-dag";
 import StartEndPortModel from "./StartEndPortModel";
 import merge from "lodash/merge";
 

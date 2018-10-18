@@ -1,7 +1,7 @@
 {
-  "name": "boomerang-react-scripts-server",
+  "name": "boomerang-flow-server",
   "version": "0.0.1",
-  "description": "Boomerang React Scripts Express Server",
+  "description": "Boomerang Flow Express Server",
   "scripts": {
     "start": "node app.js"
   },
@@ -21,6 +21,7 @@
     "immutable": "3.8.1",
     "morgan": "^1.8.0",
     "newrelic": "^1.40.0",
+    "replace-in-file": "^3.4.0",
     "serialize-javascript": "1.4.0"
   }
 }

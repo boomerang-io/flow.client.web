@@ -1,4 +1,4 @@
-import { NodeModel } from "storm-react-diagrams";
+import { NodeModel } from "@boomerang/boomerang-dag";
 import CustomTaskPortModel from "./CustomTaskPortModel";
 import merge from "lodash/merge";
 

@@ -1,4 +1,4 @@
-import { AbstractNodeFactory } from "storm-react-diagrams";
+import { AbstractNodeFactory } from "@boomerang/boomerang-dag";
 import StartEndNode from "Components/WorkflowStartEndNode";
 import StartEndNodeModel from "Utilities/startEndNode/StartEndNodeModel";
 import React from "react";

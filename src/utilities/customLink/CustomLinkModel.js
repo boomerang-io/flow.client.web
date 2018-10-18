@@ -1,4 +1,4 @@
-import { DefaultLinkModel } from "storm-react-diagrams";
+import { DefaultLinkModel } from "@boomerang/boomerang-dag";
 import merge from "lodash/merge";
 
 export default class CustomLinkModel extends DefaultLinkModel {
