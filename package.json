@@ -1,7 +1,8 @@
 {
-  "name": "boomerang.app.workflow",
+  "name": "boomerang.app.flow",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://launch.boomerangplatform.net/BMRG_APP_ROOT_CONTEXT",
   "dependencies": {
     "@boomerang/boomerang-components": "5.2.17",
     "@boomerang/boomerang-dag": "5.2.1",

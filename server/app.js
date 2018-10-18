@@ -16,10 +16,11 @@ const PORT = process.env.PORT;
 const NEW_RELIC_APP_NAME = process.env.NEW_RELIC_APP_NAME;
 const NEW_RELIC_LICENSE_KEY = process.env.NEW_RELIC_LICENSE_KEY;
 const HTML_HEAD_INJECTED_SCRIPTS = process.env.HTML_HEAD_INJECTED_SCRIPTS;
-const BASE_LAUNCH_ENV_PATH = process.env.BASE_LAUNCH_ENV_PATH;
-const BASE_APPS_ENV_PATH = process.env.BASE_APPS_ENV_PATH;
-const SERVICE_TARGET = process.env.SERVICE_TARGET;
-const DEPLOY_TARGET = process.env.DEPLOY_TARGET;
+const BASE_LAUNCH_ENV_URL = process.env.BASE_LAUNCH_ENV_URL;
+const BASE_APPS_ENV_URL = process.env.BASE_APPS_ENV_URL;
+const BASE_SERVICE_ENV_URL = process.env.BASE_SERVICE_ENV_URL;
+const BASE_WWW_ENV_URL = process.env.BASE_WWW_ENV_URL;
+const PLATFORM_VERSION = process.env.PLATFORM_VERSION;
 
 const BUILD_FOLDER = "build";
 
@@ -37,7 +38,7 @@ const compression = require("compression");
 app.use(compression());
 
 // Logging
-app.use(require("morgan")("dev"));
+app.use(require("morgan")("combined"));
 
 // Security middleware
 const helmet = require("helmet");
@@ -105,8 +106,7 @@ function injectEnvDataIntoHTML(req, res) {
   res.type(".html");
 
   // Read in HTML file and add callback functions for EventEmitter events produced by ReadStream
-  fs
-    .createReadStream(path.join(__dirname, BUILD_FOLDER, "index.html"))
+  fs.createReadStream(path.join(__dirname, BUILD_FOLDER, "index.html"))
     .on("end", () => {
       res.end();
     })
@@ -117,10 +117,11 @@ function injectEnvDataIntoHTML(req, res) {
 // Load dynamic data to be injected into the HEAD tag
 const headDynamicData = {
   APP_ROOT,
-  BASE_LAUNCH_ENV_PATH,
-  BASE_APPS_ENV_PATH,
-  DEPLOY_TARGET,
-  SERVICE_TARGET
+  BASE_LAUNCH_ENV_URL,
+  BASE_APPS_ENV_URL,
+  BASE_WWW_ENV_URL,
+  BASE_SERVICE_ENV_URL,
+  PLATFORM_VERSION
 };
 
 // Build up string of scripts to add to the HEAD tag
