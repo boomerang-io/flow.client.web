@@ -1,0 +1,37 @@
+@import "~Styles/variables.scss";
+
+.Start-Node,
+.Finish-Node {
+  background: $blue;
+  border-radius: 0.225rem;
+  width: 9rem;
+  height: 5rem;
+  position: "relative";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .startend-tile {
+    font-size: $base;
+    text-align: center;
+    font-weight: 300;
+    letter-spacing: 0.1625rem;
+    color: $off-white;
+  }
+
+  .srd-custom-port {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+
+    &.--right {
+      right: -0.5rem;
+    }
+    &.--left {
+      left: -0.5rem;
+    }
+    &:hover {
+      background: $lightest-gray;
+    }
+  }
+}

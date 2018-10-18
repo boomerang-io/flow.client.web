@@ -132,5 +132,160 @@
       "type": "ValuesList",
       "category": "Communication"
     }
+  ],
+  "workflow": [
+    {
+      "id": "5bc0efa45a5df954adb0e556",
+      "offsetX": 0,
+      "offsetY": 0,
+      "zoom": 100,
+      "gridSize": 0,
+      "links": [
+        {
+          "id": "5894e008-d674-43d0-bfa7-497cfa9e4b89",
+          "type": "custom",
+          "selected": false,
+          "source": "de796744-5e09-4a59-bb97-222f595c5df2",
+          "sourcePort": "bfc1b48e-0864-4899-b4be-ea7540d702dc",
+          "target": "f823bc01-b5f1-45aa-959f-a1007edf3132",
+          "targetPort": "b23f0ecb-d822-4d57-bed8-e5264706c4a6",
+          "points": [
+            { "id": "c026182b-ae4e-4813-8d39-2dd754b51ad7", "selected": false, "x": 433.078125, "y": 437 },
+            { "id": "e0da6d28-d595-4524-94d1-416b6d224201", "selected": false, "x": 721.109375, "y": 436.6875 }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "5894e008-d674-43d0-bfa7-497cfa9e4b89",
+          "state": 0
+        },
+        {
+          "id": "bce9e37b-2290-464f-a12a-91c7df8dc504",
+          "type": "custom",
+          "selected": false,
+          "source": "f823bc01-b5f1-45aa-959f-a1007edf3132",
+          "sourcePort": "968838a4-e5b7-4167-a549-2d8a8c5da32b",
+          "target": "f8424df7-8323-4250-b6b4-21c65e76c3ff",
+          "targetPort": "d9846db1-c676-41e9-8cfd-8489e6ffcac9",
+          "points": [
+            { "id": "aa3f89bf-f4da-4b96-8fb4-c9df0c712c2a", "selected": false, "x": 957.6875, "y": 436.6875 },
+            { "id": "243ddcbc-8c15-401c-a080-165e0188fe7b", "selected": true, "x": 1300.109375, "y": 437 }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "bce9e37b-2290-464f-a12a-91c7df8dc504",
+          "state": 0
+        }
+      ],
+      "nodes": [
+        {
+          "id": "de796744-5e09-4a59-bb97-222f595c5df2",
+          "type": "startend",
+          "selected": false,
+          "x": 300,
+          "y": 400,
+          "extras": {},
+          "ports": [
+            {
+              "id": "bfc1b48e-0864-4899-b4be-ea7540d702dc",
+              "type": "startend",
+              "selected": false,
+              "name": "right",
+              "parentNode": "de796744-5e09-4a59-bb97-222f595c5df2",
+              "links": ["5894e008-d674-43d0-bfa7-497cfa9e4b89"],
+              "position": "right",
+              "portId": "bfc1b48e-0864-4899-b4be-ea7540d702dc"
+            }
+          ],
+          "passedName": "Start",
+          "nodeId": "de796744-5e09-4a59-bb97-222f595c5df2"
+        },
+        {
+          "id": "f8424df7-8323-4250-b6b4-21c65e76c3ff",
+          "type": "startend",
+          "selected": false,
+          "x": 1300,
+          "y": 400,
+          "extras": {},
+          "ports": [
+            {
+              "id": "d9846db1-c676-41e9-8cfd-8489e6ffcac9",
+              "type": "startend",
+              "selected": false,
+              "name": "left",
+              "parentNode": "f8424df7-8323-4250-b6b4-21c65e76c3ff",
+              "links": ["bce9e37b-2290-464f-a12a-91c7df8dc504"],
+              "position": "left",
+              "portId": "d9846db1-c676-41e9-8cfd-8489e6ffcac9"
+            }
+          ],
+          "passedName": "Finish",
+          "nodeId": "f8424df7-8323-4250-b6b4-21c65e76c3ff"
+        },
+        {
+          "id": "f823bc01-b5f1-45aa-959f-a1007edf3132",
+          "type": "custom",
+          "selected": false,
+          "x": 721,
+          "y": 377.5,
+          "extras": {},
+          "ports": [
+            {
+              "id": "b23f0ecb-d822-4d57-bed8-e5264706c4a6",
+              "type": "custom",
+              "selected": false,
+              "name": "left",
+              "parentNode": "f823bc01-b5f1-45aa-959f-a1007edf3132",
+              "links": ["5894e008-d674-43d0-bfa7-497cfa9e4b89"],
+              "position": "left",
+              "portId": "b23f0ecb-d822-4d57-bed8-e5264706c4a6"
+            },
+            {
+              "id": "968838a4-e5b7-4167-a549-2d8a8c5da32b",
+              "type": "custom",
+              "selected": false,
+              "name": "right",
+              "parentNode": "f823bc01-b5f1-45aa-959f-a1007edf3132",
+              "links": ["bce9e37b-2290-464f-a12a-91c7df8dc504"],
+              "position": "right",
+              "portId": "968838a4-e5b7-4167-a549-2d8a8c5da32b"
+            }
+          ],
+          "taskId": "5b92f794844d0700016ea217",
+          "nodeId": "f823bc01-b5f1-45aa-959f-a1007edf3132"
+        }
+      ]
+    }
+  ],
+  "taskconfiguration": [
+    {
+      "id": "5bc0efed5a5df954adb0e766",
+      "workflowId": "5bc0efa45a5df954adb0e556",
+      "nodes": [
+        {
+          "nodeId": "f823bc01-b5f1-45aa-959f-a1007edf3132",
+          "taskId": "5b92f794844d0700016ea214",
+          "config": {
+            "fileDownloadName": "Ingest CSVs",
+            "artifactoryBaseUrl": "artifactory.com/boomerang",
+            "artifactoryRepositoryName": "testRepo",
+            "artifactoryRepositoryPath": "path/to/repo"
+          }
+        },
+        {
+          "nodeId": "27a791f4-7a35-491a-be1c-3d7e211cacad",
+          "taskId": "5b92f794844d0700016ea216",
+          "config": {
+            "offset": ".",
+            "shell": "ingest csv test"
+          }
+        }
+      ]
+    }
   ]
 }

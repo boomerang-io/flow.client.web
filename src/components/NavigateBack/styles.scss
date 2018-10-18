@@ -1,0 +1,21 @@
+@import "~Styles/variables";
+
+.b-navigate-back {
+  display: flex;
+  align-items: baseline;
+}
+
+.b-navigate-back__chevron {
+  height: 0.75rem;
+  transform: scaleX(-1);
+  margin-right: 0.72rem;
+}
+
+.b-navigate-back__text {
+  color: $dark-blue;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+  line-height: 1.125rem;
+  text-transform: uppercase;
+}

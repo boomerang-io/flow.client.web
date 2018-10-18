@@ -1,3 +1,4 @@
 {
-  "/api/tasks": "/tasks"
+  "/flow/taskconfiguration/workflow/:workflowId": "/taskconfiguration?workflowId=:workflowId&singular=1",
+  "/flow/*": "/$1"
 }
