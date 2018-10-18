@@ -22,7 +22,7 @@ class WorkflowEditorContainer extends Component {
 
   componentDidMount() {
     const { match } = this.props;
-    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/tasks`);
+    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/tasktemplate`);
   }
 
   handleOnSave = () => {
