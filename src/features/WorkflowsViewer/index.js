@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow/fetch";
 import { Link } from "react-router-dom";
-import { Tile } from "carbon-components-react";
+import Button from "@boomerang/boomerang-components/lib/Button";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -18,7 +18,7 @@ class WorkflowsViewerContainer extends Component {
   formatWorkflows = () => {
     return this.props.workflow.data.map(workflow => (
       <Link to={`/editor/${workflow.id}`} key={workflow.id}>
-        <Tile>{workflow.id}</Tile>
+        {workflow.id}
       </Link>
     ));
   };
@@ -29,8 +29,20 @@ class WorkflowsViewerContainer extends Component {
     if (workflow.status === REQUEST_STATUSES.SUCCESS) {
       return (
         <div className="c-workflow-viewer">
-          <Sidenav theme="bmrg-white" content={() => this.formatWorkflows()} />
-          <NoDisplay text="Select a workflow" style={{ paddingTop: "5rem" }} />
+          <Sidenav
+            theme="bmrg-white"
+            content={() => <div className="c-sidenav-section">{this.formatWorkflows()}</div>}
+            header={() => (
+              <div className="c-sidenav-section">
+                <Link to="/editor">
+                  <Button theme="bmrg-black">Create Workflow</Button>
+                </Link>
+              </div>
+            )}
+          />
+          <div style={{ paddingTop: "5rem" }}>
+            <NoDisplay text="Select a workflow" />
+          </div>
         </div>
       );
     }

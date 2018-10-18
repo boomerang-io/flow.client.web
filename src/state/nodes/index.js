@@ -11,27 +11,27 @@ export const types = {
 Object.freeze(types);
 
 export const initialState = {
-  entities: {}
+  nodes: {}
 };
 
 //action handlers
 const actionHandlers = {
   [types.CREATE_NODE]: (state, action) => {
-    return { ...state, entities: { ...state.entities, [action.data.nodeId]: action.data } };
+    return { ...state, nodes: { ...state.nodes, [action.data.nodeId]: action.data } };
   },
   [types.UPDATE_NODE]: (state, action) => {
-    //const updatedNode = { ...state.entities[action.data.nodeId], config: action.data.config };
+    //const updatedNode = { ...state.nodes[action.data.nodeId], config: action.data.config };
     const updatedNode = {
-      ...state.entities[action.data.nodeId],
-      config: { ...state.entities[action.data.nodeId].config, ...action.data.config }
+      ...state.nodes[action.data.nodeId],
+      config: { ...state.nodes[action.data.nodeId].config, ...action.data.config }
     };
-    return { ...state, entities: { ...state.entities, [action.data.nodeId]: updatedNode } };
+    return { ...state, nodes: { ...state.nodes, [action.data.nodeId]: updatedNode } };
   },
   [types.DELETE_NODE]: (state, action) => {
     const {
-      entities: { [action.data.nodeId]: _, ...entities }
+      nodes: { [action.data.nodeId]: _, ...nodes }
     } = state;
-    return { ...state, entities };
+    return { ...state, nodes };
   }
 };
 

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 import Navbar from "@boomerang/boomerang-components/lib/Navbar";
 import WorkflowsViewer from "Features/WorkflowsViewer";
+import WorkflowCreator from "Features/WorkflowCreator";
 import WorkflowEditor from "Features/WorkflowEditor";
 import "./styles.scss";
 
@@ -21,6 +22,7 @@ class App extends Component {
         <main className="c-app-main">
           <Switch>
             <Route path="/viewer" component={WorkflowsViewer} />
+            <Route path="/editor" component={WorkflowCreator} exact />
             <Route path="/editor/:workflowId" component={WorkflowEditor} />
           </Switch>
         </main>

@@ -5,7 +5,7 @@ import CustomTaskNodeModel from "./CustomTaskNodeModel";
 
 export default class CustomTaskNodeFactory extends AbstractNodeFactory {
   constructor() {
-    super("customTaskNode");
+    super("custom");
   }
 
   generateReactWidget(diagramEngine, node) {

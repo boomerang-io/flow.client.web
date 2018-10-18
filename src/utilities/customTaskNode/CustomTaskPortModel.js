@@ -6,7 +6,7 @@ export default class CustomTaskPortModel extends PortModel {
   //position: string | "top" | "bottom" | "left" | "right";
 
   constructor(pos) {
-    super(pos, "customTaskNode");
+    super(pos, "custom");
     this.position = pos;
   }
 

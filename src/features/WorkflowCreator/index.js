@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as nodesActions } from "State/nodes";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { actions as workflowUpdateActions } from "State/workflow/update";
@@ -23,8 +22,6 @@ class WorkflowEditorContainer extends Component {
 
   componentDidMount() {
     const { match } = this.props;
-    const { workflowId } = match.params;
-    this.props.workflowConfigActions.fetch(`${BASE_SERVICE_URL}/taskconfiguration/workflow/${workflowId}`);
     this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/tasks`);
   }
 
@@ -62,46 +59,37 @@ class WorkflowEditorContainer extends Component {
   };
 
   render() {
-    if (
-      this.props.workflowConfig.fetch.status === REQUEST_STATUSES.SUCCESS &&
-      this.props.tasks.status == REQUEST_STATUSES.SUCCESS
-    ) {
-      return (
-        <>
-          <ActionBar onSave={this.handleOnSave} />
-          <TaskTray />
-          <div className="content">
-            <div
-              className="diagram-layer"
-              onDrop={this.createNode}
-              onDragOver={event => {
-                event.preventDefault();
-              }}
-            >
-              <DiagramWidget
-                className="srd-demo-canvas"
-                diagramEngine={this.diagramApp.getDiagramEngine()}
-                maxNumberPointsPerLink={0}
-                //smartRouting={true}
-                deleteKeys={[]}
-              />
-            </div>
+    return (
+      <>
+        <ActionBar onSave={this.handleOnSave} />
+        <TaskTray />
+        <div className="content">
+          <div
+            className="diagram-layer"
+            onDrop={this.createNode}
+            onDragOver={event => {
+              event.preventDefault();
+            }}
+          >
+            <DiagramWidget
+              className="srd-demo-canvas"
+              diagramEngine={this.diagramApp.getDiagramEngine()}
+              maxNumberPointsPerLink={0}
+              //smartRouting={true}
+              deleteKeys={[]}
+            />
           </div>
-        </>
-      );
-    }
-    return null;
+        </div>
+      </>
+    );
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  tasks: state.tasks,
-  workflowConfig: state.workflowConfig,
-  workflowSerialization: state.workflow.fetch.data.find(workflow => workflow.id === ownProps.match.params.workflowId)
+const mapStateToProps = state => ({
+  tasks: state.tasks
 });
 
 const mapDispatchToProps = dispatch => ({
-  nodesActions: bindActionCreators(nodesActions, dispatch),
   tasksActions: bindActionCreators(tasksActions, dispatch),
   workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch),
   workflowUpdateActions: bindActionCreators(workflowUpdateActions, dispatch)
