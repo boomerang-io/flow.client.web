@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as nodesActions } from "State/nodes";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { actions as workflowUpdateActions } from "State/workflow/update";
@@ -101,7 +100,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  nodesActions: bindActionCreators(nodesActions, dispatch),
   tasksActions: bindActionCreators(tasksActions, dispatch),
   workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch),
   workflowUpdateActions: bindActionCreators(workflowUpdateActions, dispatch)
