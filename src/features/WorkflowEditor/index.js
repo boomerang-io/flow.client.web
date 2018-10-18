@@ -24,7 +24,7 @@ class WorkflowEditorContainer extends Component {
     const { match } = this.props;
     const { workflowId } = match.params;
     this.props.workflowConfigActions.fetch(`${BASE_SERVICE_URL}/taskconfiguration/workflow/${workflowId}`);
-    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/tasks`);
+    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/tasktemplate`);
   }
 
   handleOnSave = () => {
