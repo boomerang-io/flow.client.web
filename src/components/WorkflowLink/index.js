@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
+import MultiStateButton from "./MultiStateButton";
 
 class CustomLink extends Component {
   constructor(props) {
@@ -44,12 +45,13 @@ class CustomLink extends Component {
     return (
       <>
         {this.path && (
-          <g transform={`translate(${halfwayPoint.x}, ${halfwayPoint.y - 10})`}>
+          <g transform={`translate(${halfwayPoint.x}, ${halfwayPoint.y - 20})`}>
             <foreignObject>
               <CloseModalButton onClick={this.incrementState} />
             </foreignObject>
           </g>
         )}
+
         <path
           ref={ref => {
             this.path = ref;
