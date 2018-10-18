@@ -269,20 +269,10 @@
       "nodes": [
         {
           "nodeId": "f823bc01-b5f1-45aa-959f-a1007edf3132",
-          "taskId": "5b92f794844d0700016ea214",
+          "taskId": "5b92f794844d0700016ea217",
           "config": {
-            "fileDownloadName": "Ingest CSVs",
-            "artifactoryBaseUrl": "artifactory.com/boomerang",
-            "artifactoryRepositoryName": "testRepo",
-            "artifactoryRepositoryPath": "path/to/repo"
-          }
-        },
-        {
-          "nodeId": "27a791f4-7a35-491a-be1c-3d7e211cacad",
-          "taskId": "5b92f794844d0700016ea216",
-          "config": {
-            "offset": ".",
-            "shell": "ingest csv test"
+            "slackName": "test Slack",
+            "enableSlack": true
           }
         }
       ]
