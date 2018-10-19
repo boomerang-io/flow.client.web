@@ -66,7 +66,7 @@ class WorkflowEditorContainer extends Component {
     axios.put(`${BASE_SERVICE_URL}/workflow`,serialization).then(response => {
           const workflowConfigObj = {
       id: this.state.workflowConfigId,
-      workflowId: response.data.workflowId,
+      workflowId: response.data.id,
       nodes: this.formatWorkflowConfigNodes()
     }
     return axios.put(`${BASE_SERVICE_URL}/taskconfiguration`, workflowConfigObj)}).
