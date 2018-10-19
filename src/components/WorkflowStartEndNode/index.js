@@ -13,12 +13,12 @@ class StartEndNodeWidget extends Component {
     //console.log("startEnd props");
     //console.log(this.props);
     return (
-      <div className={`${this.props.node.passedName}-Node`}>
-        <Tile className="startend-tile"> {this.props.node.passedName} </Tile>
+      <div className="b-StartEndNode">
+        <Tile className="startend__tile"> {this.props.node.passedName} </Tile>
         {this.props.node.passedName === "Finish" ? (
-          <PortWidget className={classnames("srd-custom-port", "--left")} name="left" node={this.props.node} />
+          <PortWidget className={classnames("b-StartEndNode-port", "--left")} name="left" node={this.props.node} />
         ) : (
-          <PortWidget className={classnames("srd-custom-port", "--right")} name="right" node={this.props.node} />
+          <PortWidget className={classnames("b-StartEndNode-port", "--right")} name="right" node={this.props.node} />
         )}
       </div>
     );
