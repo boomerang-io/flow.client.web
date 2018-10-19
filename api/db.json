@@ -217,9 +217,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "de796744-5e09-4a59-bb97-222f595c5df2",
-              "links": [
-                "5894e008-d674-43d0-bfa7-497cfa9e4b89"
-              ],
+              "links": ["5894e008-d674-43d0-bfa7-497cfa9e4b89"],
               "position": "right",
               "portId": "bfc1b48e-0864-4899-b4be-ea7540d702dc"
             }
@@ -241,9 +239,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "f8424df7-8323-4250-b6b4-21c65e76c3ff",
-              "links": [
-                "bce9e37b-2290-464f-a12a-91c7df8dc504"
-              ],
+              "links": ["bce9e37b-2290-464f-a12a-91c7df8dc504"],
               "position": "left",
               "portId": "d9846db1-c676-41e9-8cfd-8489e6ffcac9"
             }
@@ -265,9 +261,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "f823bc01-b5f1-45aa-959f-a1007edf3132",
-              "links": [
-                "5894e008-d674-43d0-bfa7-497cfa9e4b89"
-              ],
+              "links": ["5894e008-d674-43d0-bfa7-497cfa9e4b89"],
               "position": "left",
               "portId": "b23f0ecb-d822-4d57-bed8-e5264706c4a6"
             },
@@ -277,9 +271,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "f823bc01-b5f1-45aa-959f-a1007edf3132",
-              "links": [
-                "bce9e37b-2290-464f-a12a-91c7df8dc504"
-              ],
+              "links": ["bce9e37b-2290-464f-a12a-91c7df8dc504"],
               "position": "right",
               "portId": "968838a4-e5b7-4167-a549-2d8a8c5da32b"
             }
@@ -372,9 +364,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "1d298c74-568e-435e-b725-83370b98445a",
-              "links": [
-                "81af1f93-9172-4fce-ac36-5c7d1ef05195"
-              ],
+              "links": ["81af1f93-9172-4fce-ac36-5c7d1ef05195"],
               "position": "right",
               "portId": "da1856da-d2e2-4117-a708-57a7656ecd8a"
             }
@@ -396,9 +386,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "1b1c8b8b-bb7a-40ae-9d23-87cbacea41ca",
-              "links": [
-                "b2a12fb3-4d65-489f-b2f2-c668746c7842"
-              ],
+              "links": ["b2a12fb3-4d65-489f-b2f2-c668746c7842"],
               "position": "left",
               "portId": "049f1b28-4e6a-4225-9ba3-36acccc1f7a7"
             }
@@ -420,9 +408,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "9758efc8-feca-416b-8daa-5f628cb7617c",
-              "links": [
-                "81af1f93-9172-4fce-ac36-5c7d1ef05195"
-              ],
+              "links": ["81af1f93-9172-4fce-ac36-5c7d1ef05195"],
               "position": "left",
               "portId": "2ca78d9c-6826-4d96-aeee-70e67bc3870a"
             },
@@ -432,9 +418,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "9758efc8-feca-416b-8daa-5f628cb7617c",
-              "links": [
-                "b2a12fb3-4d65-489f-b2f2-c668746c7842"
-              ],
+              "links": ["b2a12fb3-4d65-489f-b2f2-c668746c7842"],
               "position": "right",
               "portId": "d333fb3f-a7fb-4656-bd05-2ff899aa00ef"
             }
@@ -527,9 +511,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "2864fa15-9e59-40ca-8f50-e2391797c666",
-              "links": [
-                "fae6b641-eb30-41ba-8efd-49f4952c058b"
-              ],
+              "links": ["fae6b641-eb30-41ba-8efd-49f4952c058b"],
               "position": "right",
               "portId": "4eb6dded-241e-4d43-8b3b-500508ba02a4"
             }
@@ -551,9 +533,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "18d533a9-4092-49fb-b233-cb59a8181b98",
-              "links": [
-                "73aa0088-15a5-451b-a2b6-fcea93f0c2d8"
-              ],
+              "links": ["73aa0088-15a5-451b-a2b6-fcea93f0c2d8"],
               "position": "left",
               "portId": "0d641c54-f45a-4bc9-9048-7f3c90b892a9"
             }
@@ -575,9 +555,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "10a1d4f2-c0ec-46f6-8020-7b5a2290bb6d",
-              "links": [
-                "fae6b641-eb30-41ba-8efd-49f4952c058b"
-              ],
+              "links": ["fae6b641-eb30-41ba-8efd-49f4952c058b"],
               "position": "left",
               "portId": "4f34e772-c955-4a5d-9919-8ec9284a0922"
             },
@@ -587,9 +565,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "10a1d4f2-c0ec-46f6-8020-7b5a2290bb6d",
-              "links": [
-                "73aa0088-15a5-451b-a2b6-fcea93f0c2d8"
-              ],
+              "links": ["73aa0088-15a5-451b-a2b6-fcea93f0c2d8"],
               "position": "right",
               "portId": "ba40e8df-fbae-425d-9d18-0870d2b64295"
             }
@@ -638,7 +614,6 @@
         },
         {
           "id": "0757b758-b850-4106-839a-18677d3e40d1",
-          "type": "custom",
           "selected": false,
           "source": "bb0b3046-69d0-47b7-93b2-bd43fda1b938",
           "sourcePort": "800abfac-c846-4f59-99f8-10d883fe8b53",
@@ -682,9 +657,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "129e1de7-a289-4f56-898a-0fe95bcc7b47",
-              "links": [
-                "cf6b3cc5-5b86-47c8-9f14-9b326c9f4ced"
-              ],
+              "links": ["cf6b3cc5-5b86-47c8-9f14-9b326c9f4ced"],
               "position": "right",
               "portId": "16353c11-5919-4e35-90d1-254040c86689"
             }
@@ -706,9 +679,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "aae617b2-e43d-4a73-993d-7293b65cf7f2",
-              "links": [
-                "0757b758-b850-4106-839a-18677d3e40d1"
-              ],
+              "links": ["0757b758-b850-4106-839a-18677d3e40d1"],
               "position": "left",
               "portId": "3f393f56-1c69-4489-8ff8-35370718d8de"
             }
@@ -730,9 +701,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "bb0b3046-69d0-47b7-93b2-bd43fda1b938",
-              "links": [
-                "cf6b3cc5-5b86-47c8-9f14-9b326c9f4ced"
-              ],
+              "links": ["cf6b3cc5-5b86-47c8-9f14-9b326c9f4ced"],
               "position": "left",
               "portId": "5174b3b3-45a0-4865-bcb8-3aa571025bd2"
             },
@@ -742,9 +711,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "bb0b3046-69d0-47b7-93b2-bd43fda1b938",
-              "links": [
-                "0757b758-b850-4106-839a-18677d3e40d1"
-              ],
+              "links": ["0757b758-b850-4106-839a-18677d3e40d1"],
               "position": "right",
               "portId": "800abfac-c846-4f59-99f8-10d883fe8b53"
             }

@@ -40,7 +40,7 @@ class WorkflowsViewerContainer extends Component {
               </div>
             )}
           />
-          <div style={{ paddingTop: "5rem" }}>
+          <div className="c-workflow-viewer-content">
             <NoDisplay text="Select a workflow" />
           </div>
         </div>
