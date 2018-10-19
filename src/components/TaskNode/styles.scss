@@ -2,7 +2,7 @@
 
 // these class names need to be updated to follow BEM
 
-.ingestcsv-node {
+.task-node {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
   height: 8rem;
   position: "relative";
 
-  .ingestcsv-tile {
+  .task-node__tile {
     font-size: $base;
     text-align: center;
     font-weight: 400;
@@ -36,7 +36,7 @@
     }
   }
 
-  .bmrg-pencil {
+  .task-node__edit {
     position: absolute;
     right: 3rem;
     top: 0.6875rem;
@@ -51,7 +51,7 @@
     max-height: 0.5rem;
   }
 
-  .ingestcsv-img {
+  .task-node__img {
     bottom: 1rem;
     position: absolute;
     left: 1.5rem;

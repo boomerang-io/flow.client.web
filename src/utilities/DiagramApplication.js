@@ -20,7 +20,7 @@ export default class Application {
     this.diagramEngine.registerPortFactory(new SimplePortFactory("custom", config => new CustomTaskPortModel()));
 
     //register new custom link
-    this.diagramEngine.registerLinkFactory(new CustomLinkFactory());
+    this.diagramEngine.registerLinkFactory(new CustomLinkFactory(this.diagramEngine));
 
     this.newModel(serialization);
   }

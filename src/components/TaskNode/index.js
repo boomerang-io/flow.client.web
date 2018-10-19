@@ -24,8 +24,6 @@ import "./styles.scss";
  *  - define propTypes
  *  - look at the order of imports above - that is the general order that we follow
  */
-const EditNode = () => <img src={pencilIcon} className="bmrg-pencil" alt="Task node type" />;
-
 export class TaskNode extends Component {
   static defaultProps = {
     stateNode: {}
@@ -60,13 +58,13 @@ export class TaskNode extends Component {
   render() {
     const { stateNode, task } = this.props;
 
-    //grab the name property of config
-    let specified_name = "";
-    for (var key in this.props.stateNode.config) {
-      if (key.includes("Name")) {
-        specified_name = key;
-      }
-    }
+    // //grab the name property of config
+    // let specified_name = "";
+    // for (var key in this.props.stateNode.config) {
+    //   if (key.includes("Name")) {
+    //     specified_name = key;
+    //   }
+    // }
 
     let img_to_render;
     if (this.props.task.name === "Download File") {
@@ -79,23 +77,28 @@ export class TaskNode extends Component {
       img_to_render = emailIMG;
     }
 
-    console.log("return");
+    console.log("TaskNode node");
     console.log(this.props.node);
     return (
-      <Tile className="ingestcsv-node">
+      <Tile className="task-node">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
           {this.props.task.description}
         </Tooltip>
+        <div className="task-node__tile" data-tip data-for={this.props.node.id}>
+          {this.props.task.name}
+        </div>
 
-        {Object.keys(this.props.stateNode.config).length === 0 ? (
-          <div className="ingestcsv-tile" data-tip data-for={this.props.node.id}>
-            {this.props.task.name}
-          </div>
-        ) : (
-          <div className="ingestcsv-tile" data-tip data-for={this.props.node.id}>
-            {this.props.stateNode.config[specified_name]}
-          </div>
-        )}
+        {
+          //Object.keys(this.props.stateNode.config).length === 0 ? (
+          //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
+          //     {this.props.task.name}
+          //   </div>
+          // ) : (
+          //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
+          //     {this.props.stateNode.config[specified_name]}
+          //   </div>
+          // )}
+        }
 
         <PortWidget className="srd-custom-port --left" name="left" node={this.props.node} />
         <PortWidget className="srd-custom-port --right" name="right" node={this.props.node} />
@@ -104,9 +107,9 @@ export class TaskNode extends Component {
           onClick={this.handleOnDelete}
           //closemodal={() => <div>closemodal</div>}
         />
-        <img src={img_to_render} className="ingestcsv-img" alt="Task node type" />
+        <img src={img_to_render} className="task-node__img" alt="Task node type" />
         <Modal
-          ModalTrigger={EditNode}
+          ModalTrigger={() => <img src={pencilIcon} className="task-node__edit" alt="Task node type" />}
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
               headerTitle={task.name}

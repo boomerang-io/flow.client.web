@@ -3,14 +3,6 @@ import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButt
 import MultiStateButton from "./MultiStateButton";
 
 class CustomLink extends Component {
-  constructor(props) {
-    super(props);
-    this.percent = 0;
-    this.state = {
-      count: 0
-    };
-  }
-
   componentDidMount() {
     console.log(this.props);
   }
@@ -19,20 +11,9 @@ class CustomLink extends Component {
     this.mounted = false;
   }
 
-  handleOnDelete = () => {
+  handleOnRemove = () => {
     this.props.model.remove();
-    this.setState({});
-    //TODO: remove from link state at this point
-  };
-
-  incrementState = () => {
-    /*this.setState(
-      prevState => ({
-        count: prevState.count + 1
-      }),
-      console.log(this.state.count)
-    );*/
-    this.props.model.state += 1;
+    this.props.diagramEngine.repaintCanvas();
   };
 
   render() {
@@ -45,9 +26,9 @@ class CustomLink extends Component {
     return (
       <>
         {this.path && (
-          <g transform={`translate(${halfwayPoint.x}, ${halfwayPoint.y - 20})`}>
+          <g transform={`translate(${halfwayPoint.x}, ${halfwayPoint.y - 8}) scale(0.75)`}>
             <foreignObject>
-              <CloseModalButton onClick={this.incrementState} />
+              <CloseModalButton onClick={this.handleOnRemove} style={{ height: "1rem" }} />
             </foreignObject>
           </g>
         )}

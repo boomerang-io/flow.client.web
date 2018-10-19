@@ -4,24 +4,20 @@ import CustomLinkModel from "./CustomLinkModel";
 import CustomLink from "Components/WorkflowLink";
 
 export default class CustomLinkFactory extends DefaultLinkFactory {
-  constructor() {
+  constructor(diagramEngine) {
     super();
     this.type = "custom";
+    this.diagramEngine = diagramEngine;
   }
-
-  /*handleOnDelete = model => {
-    model.remove();
-  };*/
 
   getNewInstance = () => {
     return new CustomLinkModel();
   };
 
   generateLinkSegment(model, widget, selected, path) {
-    console.log("generate Link Segment");
     return (
       <g>
-        <CustomLink model={model} path={path} />
+        <CustomLink model={model} path={path} handleRemove={this.handleOnRemove} diagramEngine={this.diagramEngine} />
       </g>
     );
   }

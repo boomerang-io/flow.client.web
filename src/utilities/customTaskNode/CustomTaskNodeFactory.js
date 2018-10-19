@@ -1,6 +1,6 @@
 import React from "react";
 import { AbstractNodeFactory } from "@boomerang/boomerang-dag";
-import CustomTaskNode from "Features/WorkflowEditor/TaskNode";
+import CustomTaskNode from "Components/TaskNode";
 import CustomTaskNodeModel from "./CustomTaskNodeModel";
 
 export default class CustomTaskNodeFactory extends AbstractNodeFactory {
