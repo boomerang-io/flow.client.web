@@ -1,38 +1,63 @@
 import React, { Component } from "react";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-//import MultiStateButton from "./MultiStateButton";
+import MultiStateButton from "./MultiStateButton";
+import { EXECUTION_STATES } from "./constants";
+
+/*
+  -want to update this.props.model.linkState (default, success, failure)
+  -onclick function
+
+*/
 
 class CustomLink extends Component {
-  componentDidMount() {
-    console.log(this.props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      executionCondition: this.props.model.executionCondition //just set here one time
+    };
+
+    this.halfwayPoint = "";
+    this.endPoint = "";
   }
 
   componentWillUnmount() {
     this.mounted = false;
   }
 
-  handleOnRemove = () => {
+  handleOnDelete = () => {
     this.props.model.remove();
     this.props.diagramEngine.repaintCanvas();
   };
 
+  updateExecutionState = executionCondition => {
+    this.props.model.executionCondition = EXECUTION_STATES[executionCondition];
+    console.log(this.props.model);
+  };
+
   render() {
-    let halfwayPoint;
-    let endPoint;
     if (this.path) {
-      halfwayPoint = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
-      endPoint = this.path.getPointAtLength(this.path.getTotalLength());
+      this.halfwayPoint = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
+      this.endPoint = this.path.getPointAtLength(this.path.getTotalLength());
     }
     return (
       <>
         {this.path && (
-          <g transform={`translate(${halfwayPoint.x}, ${halfwayPoint.y - 8}) scale(0.75)`}>
-            <foreignObject>
-              <CloseModalButton onClick={this.handleOnRemove} style={{ height: "1rem" }} />
-            </foreignObject>
-          </g>
+          <>
+            <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y - 20})`}>
+              <foreignObject>
+                <CloseModalButton onClick={this.handleOnDelete} />
+              </foreignObject>
+            </g>
+            <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y + 20})`}>
+              <foreignObject>
+                <MultiStateButton
+                  onClick={this.updateExecutionState}
+                  initialExecutionCondition={this.state.executionCondition}
+                />
+              </foreignObject>
+            </g>
+          </>
         )}
-
         <path
           ref={ref => {
             this.path = ref;
@@ -43,7 +68,7 @@ class CustomLink extends Component {
         />
         {this.path &&
           this.props.model.targetPort && (
-            <g fill="none" transform={`translate(${endPoint.x - 18}, ${endPoint.y - 10}) scale(1.7)`}>
+            <g fill="none" transform={`translate(${this.endPoint.x - 18}, ${this.endPoint.y - 10}) scale(1.7)`}>
               <svg width="8px" height="12px" viewBox="0 0 8 12" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g id="Symbols" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                   <g id="launchpad-/-tool-card" transform="translate(-168.000000, -89.000000)">
