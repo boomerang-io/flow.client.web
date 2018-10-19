@@ -38,7 +38,14 @@ const actionHandlers = {
     action.data.nodes.forEach(node => {
       normalizedNodesObj[node.nodeId] = node;
     });
-    return { ...state, isFetching: false, status: "success", nodes: normalizedNodesObj, workflowId: action.data.workflowId, id:  action.data.id};
+    return {
+      ...state,
+      isFetching: false,
+      status: "success",
+      nodes: normalizedNodesObj,
+      workflowId: action.data.workflowId,
+      id: action.data.id
+    };
   },
   [types.FETCH_WORKFLOW_CONFIG_FAILURE]: (state, action) => {
     return { ...state, isFetching: false, status: "failure", error: action.error };
@@ -56,7 +63,7 @@ const actionHandlers = {
   },
   [types.DELETE_NODE]: (state, action) => {
     const nodes = { ...state.nodes };
-    delete nodes[action.data.nodeId]
+    delete nodes[action.data.nodeId];
     return { ...state, nodes };
   }
 };

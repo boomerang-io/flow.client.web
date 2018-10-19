@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import MultiStateButton from "./MultiStateButton";
+//import MultiStateButton from "./MultiStateButton";
 
 class CustomLink extends Component {
   componentDidMount() {

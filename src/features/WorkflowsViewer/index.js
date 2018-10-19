@@ -11,6 +11,11 @@ import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
 
 class WorkflowsViewerContainer extends Component {
+  static propTypes = {
+    workflow: PropTypes.object.isRequired,
+    workflowActions: PropTypes.object.isRequired
+  };
+
   componentDidMount() {
     this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow`);
   }

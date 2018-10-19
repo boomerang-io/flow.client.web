@@ -41,13 +41,13 @@ export default createReducer(initialState, actionHandlers);
 /*
  action creators declared to be passed into the request generator boilerplate
 */
-const resetFetchTasks = () => ({ type: types.RESET_TASKS });
+const reset = () => ({ type: types.RESET_TASKS });
 const fetchTasksRequest = () => ({ type: types.FETCH_TASKS_REQUEST });
 const fetchTasksSuccess = data => ({ type: types.FETCH_TASKS_SUCCESS, data });
 const fetchTasksFailure = error => ({ type: types.FETCH_TASKS_FAILURE, error });
 
 const fetchTasksCreators = {
-  reset: resetFetchTasks,
+  reset: reset,
   request: fetchTasksRequest,
   success: fetchTasksSuccess,
   failure: fetchTasksFailure
@@ -61,7 +61,7 @@ const cancelFetchTasks = () => dispatch => dispatch(fetchTasksApi.cancelRequest(
 
 //actions
 export const actions = {
-  resetFetchTasks,
+  reset,
   fetchTasksRequest,
   fetchTasksSuccess,
   fetchTasksFailure,

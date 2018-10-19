@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+
 import { Switch, Route, Redirect } from "react-router-dom";
 import Navbar from "@boomerang/boomerang-components/lib/Navbar";
-import { NotificationContainer} from "@boomerang/boomerang-components/lib/Notifications";
+import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
 import WorkflowsViewer from "Features/WorkflowsViewer";
-import WorkflowCreator from "Features/WorkflowCreator";
-import WorkflowEditor from "Features/WorkflowEditor";
+import WorkflowManager from "Features/WorkflowManager";
 import "./styles.scss";
 
 class App extends Component {
@@ -23,8 +22,8 @@ class App extends Component {
         <main className="c-app-main">
           <Switch>
             <Route path="/viewer" component={WorkflowsViewer} />
-            <Route path="/editor" component={WorkflowCreator} exact />
-            <Route path="/editor/:workflowId" component={WorkflowEditor} />
+            <Route path="/editor" component={WorkflowManager} exact />
+            <Route path="/editor/:workflowId" component={WorkflowManager} />
             <Redirect from="/" to="/viewer" />
           </Switch>
         </main>
@@ -34,15 +33,13 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { nodes: state };
-};
+// const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => ({
-  //nodeActions: bindActionCreators(nodeActions, dispatch)
-});
+// const mapDispatchToProps = dispatch => ({});
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(App);
+
+export default App;

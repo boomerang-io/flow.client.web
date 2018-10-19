@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
+import { REQUEST_STATUSES } from "Config/servicesConfig";
 import Tasks from "./Tasks";
 
 class TaskTrayContainer extends Component {
+  static propTypes = {
+    tasks: PropTypes.object.isRequired
+  };
+
   render() {
     const { tasks } = this.props;
 

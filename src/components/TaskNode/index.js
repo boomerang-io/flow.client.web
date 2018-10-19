@@ -25,6 +25,13 @@ import "./styles.scss";
  *  - look at the order of imports above - that is the general order that we follow
  */
 export class TaskNode extends Component {
+  static propTypes = {
+    nodeConfig: PropTypes.object.isRequired,
+    task: PropTypes.object.isRequired,
+    taskActions: PropTypes.object.isRequired,
+    workflowConfigActions: PropTypes.object.isRequired
+  };
+
   static defaultProps = {
     nodeConfig: {}
   };

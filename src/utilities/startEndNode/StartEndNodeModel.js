@@ -12,7 +12,6 @@ export default class StartEndNodeModel extends NodeModel {
     if (this.passedName === "Finish") {
       this.addPort(new StartEndPortModel("left"));
       //this.addInPort("left");
-      console.log("adding left");
     } /*else {
       this.addPort(new StartEndPortModel("right"));
       //this.addOutPort("left");
@@ -22,7 +21,6 @@ export default class StartEndNodeModel extends NodeModel {
     ) {
       this.addPort(new StartEndPortModel("right"));
       //this.addInPort("left");
-      console.log("adding right");
     }
   }
 

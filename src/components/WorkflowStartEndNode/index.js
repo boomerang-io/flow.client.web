@@ -6,6 +6,9 @@ import classnames from "classnames";
 import "./styles.scss";
 
 class StartEndNodeWidget extends Component {
+  static propTypes = {
+    node: PropTypes.object.isRequired
+  };
   render() {
     //console.log("startEnd props");
     //console.log(this.props);
