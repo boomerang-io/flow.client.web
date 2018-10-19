@@ -123,7 +123,7 @@ class WorkflowManagerContainer extends Component {
 
   render() {
     if (this.props.tasks.isFetching) {
-      return <LoadingAnimation />;
+      return <LoadingAnimation theme="bmrg-white" />;
     }
 
     if (this.props.tasks.status === REQUEST_STATUSES.SUCCESS) {

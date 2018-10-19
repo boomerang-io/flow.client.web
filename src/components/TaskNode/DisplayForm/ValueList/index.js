@@ -55,7 +55,7 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
                 minChar={minValueLength}
                 minCharText={`Must be more than ${minValueLength} characters`}
                 title={item.label}
-                detail={nodeConfigObj[item.key] || ""}
+                value={nodeConfigObj[item.key] || ""}
                 theme="bmrg-white"
                 type={itemConfig.type}
                 validationFunction={itemConfig.validationFunction}

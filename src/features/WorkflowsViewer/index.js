@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import Button from "@boomerang/boomerang-components/lib/Button";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
+import ErrorDragon from "Components/ErrorDragon";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
 
@@ -30,6 +31,10 @@ class WorkflowsViewerContainer extends Component {
 
   render() {
     const { workflow } = this.props;
+
+    if (workflow.status === REQUEST_STATUSES.FAILURE) {
+      return <ErrorDragon />;
+    }
 
     if (workflow.status === REQUEST_STATUSES.SUCCESS) {
       return (

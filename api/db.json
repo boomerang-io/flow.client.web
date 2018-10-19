@@ -1729,6 +1729,95 @@
           "nodeId": "d511a0f1-a777-48b4-8898-7e0a499cad16"
         }
       ]
+    },
+    {
+      "id": "c1f2d25e-ab8b-4e08-bd4d-3ac86b4cf736",
+      "offsetX": 0,
+      "offsetY": 0,
+      "zoom": 100,
+      "gridSize": 0,
+      "links": [
+        {
+          "id": "2621ddc4-c280-429a-9ba0-50421888b408",
+          "type": "custom",
+          "selected": true,
+          "source": "e6cb778b-e98a-4ba8-a4f1-1e39584e49c3",
+          "sourcePort": "3168b62f-416b-4ef2-8ae4-753f4fe55e77",
+          "target": "e34a3fce-7afa-476e-8b38-4df4326f35d2",
+          "targetPort": "6d1e87be-9557-4f14-99cc-42d70f087442",
+          "points": [
+            {
+              "id": "93cb1380-28b4-413e-8c48-9a7af9450455",
+              "selected": false,
+              "x": 433.078125,
+              "y": 437
+            },
+            {
+              "id": "35018725-1235-42db-ae41-1a91e76fd3e4",
+              "selected": true,
+              "x": 1300.109375,
+              "y": 437
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "2621ddc4-c280-429a-9ba0-50421888b408",
+          "executionCondition": "SUCCESS"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "e6cb778b-e98a-4ba8-a4f1-1e39584e49c3",
+          "type": "startend",
+          "selected": false,
+          "x": 300,
+          "y": 400,
+          "extras": {},
+          "ports": [
+            {
+              "id": "3168b62f-416b-4ef2-8ae4-753f4fe55e77",
+              "type": "startend",
+              "selected": false,
+              "name": "right",
+              "parentNode": "e6cb778b-e98a-4ba8-a4f1-1e39584e49c3",
+              "links": [
+                "2621ddc4-c280-429a-9ba0-50421888b408"
+              ],
+              "position": "right",
+              "nodePortId": "3168b62f-416b-4ef2-8ae4-753f4fe55e77"
+            }
+          ],
+          "passedName": "Start",
+          "nodeId": "e6cb778b-e98a-4ba8-a4f1-1e39584e49c3"
+        },
+        {
+          "id": "e34a3fce-7afa-476e-8b38-4df4326f35d2",
+          "type": "startend",
+          "selected": false,
+          "x": 1300,
+          "y": 400,
+          "extras": {},
+          "ports": [
+            {
+              "id": "6d1e87be-9557-4f14-99cc-42d70f087442",
+              "type": "startend",
+              "selected": false,
+              "name": "left",
+              "parentNode": "e34a3fce-7afa-476e-8b38-4df4326f35d2",
+              "links": [
+                "2621ddc4-c280-429a-9ba0-50421888b408"
+              ],
+              "position": "left",
+              "nodePortId": "6d1e87be-9557-4f14-99cc-42d70f087442"
+            }
+          ],
+          "passedName": "Finish",
+          "nodeId": "e34a3fce-7afa-476e-8b38-4df4326f35d2"
+        }
+      ]
     }
   ],
   "taskconfiguration": [
@@ -1849,6 +1938,11 @@
         }
       ],
       "id": "f78ORC3"
+    },
+    {
+      "workflowId": "c1f2d25e-ab8b-4e08-bd4d-3ac86b4cf736",
+      "nodes": [],
+      "id": "HmcY5Yg"
     }
   ]
 }
