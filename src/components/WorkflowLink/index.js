@@ -43,12 +43,12 @@ class CustomLink extends Component {
       <>
         {this.path && (
           <>
-            <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y - 20})`}>
+            <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y - 20}) scale(0.7)`}>
               <foreignObject>
                 <CloseModalButton onClick={this.handleOnDelete} />
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y + 20})`}>
+            <g transform={`translate(${this.halfwayPoint.x - 13}, ${this.halfwayPoint.y + 10})`}>
               <foreignObject>
                 <MultiStateButton
                   onClick={this.updateExecutionState}
