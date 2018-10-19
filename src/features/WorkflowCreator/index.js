@@ -37,6 +37,7 @@ class WorkflowEditorContainer extends Component {
     }
   }
 
+ //TODO: should use combined redux store for this
   handleOnCreate = () => {
     const serialization = this.getDiagramSerialization();
     console.log(JSON.stringify(serialization));
@@ -48,30 +49,32 @@ class WorkflowEditorContainer extends Component {
     }
     return axios.post(`${BASE_SERVICE_URL}/taskconfiguration`, workflowConfigObj)})
     .then(response => {
-      notify(<Notification type="success" title="Create Workflow" message="Succssfully saved workflow" />);
+      notify(<Notification type="success" title="Create Workflow" message="Succssfully created workflow" />);
       this.setState({
-        hasCreated: true
+        hasCreated: true,
+        workflowConfigId: response.data.id
       })
     }).catch(error => {
       console.error("Create workflow error:", error);
-      notify(<Notification type="error" title="Something's wrong" message="Failed to saved workflow" />)
+      notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow" />)
     })
   };
 
+  //TODO: should use combined redux store for this
   handleOnSave = () => {
     const serialization = this.getDiagramSerialization();
     axios.put(`${BASE_SERVICE_URL}/workflow`,serialization).then(response => {
           const workflowConfigObj = {
-      id: this.props.workflowConfig.id,
-      workflowId: this.props.workflowConfig.workflowId,
+      id: this.state.workflowConfigId,
+      workflowId: response.data.workflowId,
       nodes: this.formatWorkflowConfigNodes()
     }
-    return axios.post(`${BASE_SERVICE_URL}/taskconfiguration`, workflowConfigObj)}).
+    return axios.put(`${BASE_SERVICE_URL}/taskconfiguration`, workflowConfigObj)}).
     then(() => {
-      notify(<Notification type="success" title="Update Workflow" message="Succssfully updated workflow" />);
+      notify(<Notification type="success" title="Update Workflow" message="Succssfully saved workflow" />);
     }).catch(error => {
       console.error("Create workflow error:", error);
-      notify(<Notification type="error" title="Something's wrong" message="Failed to update workflow" />)
+      notify(<Notification type="error" title="Something's wrong" message="Failed to save workflow" />)
     })
   }
 
