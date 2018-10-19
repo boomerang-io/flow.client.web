@@ -2,7 +2,7 @@
 
 // these class names need to be updated to follow BEM
 
-.task-node {
+.b-taskNode {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
   height: 8rem;
   position: "relative";
 
-  .task-node__tile {
+  .b-taskNode__tile {
     font-size: $base;
     text-align: center;
     font-weight: 400;
@@ -20,7 +20,7 @@
     letter-spacing: 0.1675rem;
   }
 
-  .srd-custom-port {
+  .b-taskNode-port {
     position: absolute;
     border-radius: 50%;
     background-color: $teal;
@@ -36,14 +36,14 @@
     }
   }
 
-  .task-node__edit {
+  .b-taskNode__edit {
     position: absolute;
     right: 3rem;
     top: 0.6875rem;
     cursor: pointer;
   }
 
-  .bmrg-deleteNode {
+  .b-taskNode__delete {
     position: absolute;
     right: 0.5rem;
     top: 0.2875rem;
@@ -51,7 +51,7 @@
     max-height: 0.5rem;
   }
 
-  .task-node__img {
+  .b-taskNode__img {
     bottom: 1rem;
     position: absolute;
     left: 1.5rem;

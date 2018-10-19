@@ -87,11 +87,11 @@ export class TaskNode extends Component {
     console.log("TaskNode props");
     console.log(this.props);
     return (
-      <Tile className="task-node">
+      <Tile className="b-taskNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
           {this.props.task.description}
         </Tooltip>
-        <div className="task-node__tile" data-tip data-for={this.props.node.id}>
+        <div className="b-taskNode__tile" data-tip data-for={this.props.node.id}>
           {this.props.task.name}
         </div>
 
@@ -107,16 +107,16 @@ export class TaskNode extends Component {
           // )}
         }
 
-        <PortWidget className="srd-custom-port --left" name="left" node={this.props.node} />
-        <PortWidget className="srd-custom-port --right" name="right" node={this.props.node} />
+        <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
+        <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
         <CloseModalButton
-          className="bmrg-deleteNode"
+          className="b-taskNode__delete"
           onClick={this.handleOnDelete}
           //closemodal={() => <div>closemodal</div>}
         />
-        <img src={img_to_render} className="task-node__img" alt="Task node type" />
+        <img src={img_to_render} className="b-taskNode__img" alt="Task node type" />
         <Modal
-          ModalTrigger={() => <img src={pencilIcon} className="task-node__edit" alt="Task node type" />}
+          ModalTrigger={() => <img src={pencilIcon} className="b-taskNode__edit" alt="Task node type" />}
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
               headerTitle={task.name}
