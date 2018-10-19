@@ -18,6 +18,7 @@
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-modal": "^3.5.1",
+    "react-toastify": "^4.4.0",
     "react-toggle": "^4.0.2",
     "react-tooltip": "^3.8.4",
     "recompose": "^0.30.0",
@@ -40,9 +41,9 @@
       "last 2 edge versions"
     ],
     "production": [
-      ">0.25%",
-      "not op_mini all",
-      "ie 11"
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
     ]
   },
   "husky": {
@@ -125,25 +126,13 @@
     }
   },
   "lint-staged": {
-    "(*.js|*.json)": [
+    ".js": [
       "prettier --print-width 120 --write",
       "git add"
     ],
     "*.scss": [
       "prettier --write",
       "git add"
-    ]
-  },
-  "browserslist": {
-    "development": [
-      "last 2 chrome versions",
-      "last 2 firefox versions",
-      "last 2 edge versions"
-    ],
-    "production": [
-      "last 2 chrome versions",
-      "last 2 firefox versions",
-      "last 2 edge versions"
     ]
   }
 }

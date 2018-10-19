@@ -133,7 +133,7 @@ export class TaskNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowConfig.fetch.data[ownProps.node.id]
+    nodeConfig: state.workflowConfig.fetch.nodes[ownProps.node.id]
   };
 };
 

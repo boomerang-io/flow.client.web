@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import axios from "axios";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
-import { actions as workflowUpdateActions } from "State/workflow/update";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
+import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import TaskTray from "Components/TaskTray";
 import ActionBar from "./ActionBar";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -18,6 +19,9 @@ class WorkflowEditorContainer extends Component {
   constructor(props) {
     super(props);
     this.diagramApp = new DiagramApplication(props.workflowSerialization);
+    this.state = {
+      hasCreated: false
+    }
   }
 
   componentDidMount() {
@@ -25,13 +29,62 @@ class WorkflowEditorContainer extends Component {
     this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/tasktemplate`);
   }
 
+  handleOnAction = () => {
+    if(this.state.hasCreated) {
+      this.handleOnSave();
+    } else {
+      this.handleOnCreate();
+    }
+  }
+
+  handleOnCreate = () => {
+    const serialization = this.getDiagramSerialization();
+    console.log(JSON.stringify(serialization));
+
+    axios.post(`${BASE_SERVICE_URL}/workflow`,serialization).then(response => {
+    const workflowConfigObj = {
+      workflowId: response.data.id,
+      nodes: this.formatWorkflowConfigNodes()
+    }
+    return axios.post(`${BASE_SERVICE_URL}/taskconfiguration`, workflowConfigObj)})
+    .then(response => {
+      notify(<Notification type="success" title="Create Workflow" message="Succssfully saved workflow" />);
+      this.setState({
+        hasCreated: true
+      })
+    }).catch(error => {
+      console.error("Create workflow error:", error);
+      notify(<Notification type="error" title="Something's wrong" message="Failed to saved workflow" />)
+    })
+  };
+
   handleOnSave = () => {
-    const serialization = this.diagramApp
+    const serialization = this.getDiagramSerialization();
+    axios.put(`${BASE_SERVICE_URL}/workflow`,serialization).then(response => {
+          const workflowConfigObj = {
+      id: this.props.workflowConfig.id,
+      workflowId: this.props.workflowConfig.workflowId,
+      nodes: this.formatWorkflowConfigNodes()
+    }
+    return axios.post(`${BASE_SERVICE_URL}/taskconfiguration`, workflowConfigObj)}).
+    then(() => {
+      notify(<Notification type="success" title="Update Workflow" message="Succssfully updated workflow" />);
+    }).catch(error => {
+      console.error("Create workflow error:", error);
+      notify(<Notification type="error" title="Something's wrong" message="Failed to update workflow" />)
+    })
+  }
+
+  getDiagramSerialization() {
+    return this.diagramApp
       .getDiagramEngine()
       .getDiagramModel()
       .serializeDiagram();
-    console.log(JSON.stringify(serialization));
-  };
+  }
+
+  formatWorkflowConfigNodes(){
+      return Object.values(this.props.workflowConfig.nodes);
+  }
 
   createNode = event => {
     const data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
@@ -61,7 +114,7 @@ class WorkflowEditorContainer extends Component {
   render() {
     return (
       <>
-        <ActionBar onSave={this.handleOnSave} />
+        <ActionBar actionButtonText={this.state.hasCreated ? "Save" : "Create"} onClick={this.handleOnAction} />
         <TaskTray />
         <div className="content">
           <div
@@ -86,13 +139,13 @@ class WorkflowEditorContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  tasks: state.tasks
+  tasks: state.tasks,
+  workflowConfig: state.workflowConfig.fetch
 });
 
 const mapDispatchToProps = dispatch => ({
   tasksActions: bindActionCreators(tasksActions, dispatch),
-  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch),
-  workflowUpdateActions: bindActionCreators(workflowUpdateActions, dispatch)
+  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch)
 });
 
 export default connect(

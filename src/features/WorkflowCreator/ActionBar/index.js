@@ -6,18 +6,19 @@ import Button from "@boomerang/boomerang-components/lib/Button";
 import "./styles.scss";
 
 ActionBar.propTypes = {
-  onSave: PropTypes.func.isRequired
+  actionButtonText: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
-function ActionBar({ onSave }) {
+function ActionBar({ onClick, actionButtonText }) {
   return (
     <div className="c-action-bar">
       <NavigateBack to="/viewer" text={"Back to Workflows"} />
       {
         //<TextInput theme="bmrg-blue" />
       }
-      <Button theme="bmrg-black" onClick={onSave}>
-        Save
+      <Button theme="bmrg-black" onClick={onClick}>
+        {actionButtonText}
       </Button>
     </div>
   );

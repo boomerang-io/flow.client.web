@@ -20,7 +20,9 @@ export const initialState = {
   isFetching: false,
   status: "",
   error: "",
-  data: {}
+  id: "",
+  workflowId: "",
+  nodes: {}
 };
 
 //action handlers
@@ -32,34 +34,30 @@ const actionHandlers = {
     return { ...state, isFetching: true };
   },
   [types.FETCH_WORKFLOW_CONFIG_SUCCESS]: (state, action) => {
-    const normalizedDataObj = {
-      id: action.data.id,
-      workflowId: action.data.workflowId
-    };
+    const normalizedNodesObj = {};
     action.data.nodes.forEach(node => {
-      normalizedDataObj[node.nodeId] = node;
+      normalizedNodesObj[node.nodeId] = node;
     });
-    return { ...state, isFetching: false, status: "success", data: normalizedDataObj };
+    return { ...state, isFetching: false, status: "success", nodes: normalizedNodesObj, workflowId: action.data.workflowId, id:  action.data.id};
   },
   [types.FETCH_WORKFLOW_CONFIG_FAILURE]: (state, action) => {
     return { ...state, isFetching: false, status: "failure", error: action.error };
   },
   [types.CREATE_NODE]: (state, action) => {
-    return { ...state, data: { ...state.data, [action.data.nodeId]: action.data } };
+    return { ...state, nodes: { ...state.nodes, [action.data.nodeId]: action.data } };
   },
   [types.UPDATE_NODE]: (state, action) => {
     //const updatedNode = { ...state.data[action.data.nodeId], config: action.data.config };
     const updatedNode = {
-      ...state.data[action.data.nodeId],
-      config: { ...state.data[action.data.nodeId].config, ...action.data.config }
+      ...state.nodes[action.data.nodeId],
+      config: { ...state.nodes[action.data.nodeId].config, ...action.data.config }
     };
-    return { ...state, data: { ...state.data, [action.data.nodeId]: updatedNode } };
+    return { ...state, nodes: { ...state.nodes, [action.data.nodeId]: updatedNode } };
   },
   [types.DELETE_NODE]: (state, action) => {
-    const {
-      data: { [action.data.nodeId]: _, ...data }
-    } = state;
-    return { ...state, data };
+    const nodes = { ...state.nodes };
+    delete nodes[action.data.nodeId]
+    return { ...state, nodes };
   }
 };
 

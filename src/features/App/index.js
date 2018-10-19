@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Navbar from "@boomerang/boomerang-components/lib/Navbar";
+import { NotificationContainer} from "@boomerang/boomerang-components/lib/Notifications";
 import WorkflowsViewer from "Features/WorkflowsViewer";
 import WorkflowCreator from "Features/WorkflowCreator";
 import WorkflowEditor from "Features/WorkflowEditor";
@@ -27,6 +28,7 @@ class App extends Component {
             <Redirect from="/" to="/viewer" />
           </Switch>
         </main>
+        <NotificationContainer />
       </>
     );
   }
