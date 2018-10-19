@@ -26,7 +26,7 @@ import "./styles.scss";
  */
 export class TaskNode extends Component {
   static defaultProps = {
-    stateNode: {}
+    nodeConfig: {}
   };
 
   state = {};
@@ -56,11 +56,11 @@ export class TaskNode extends Component {
   //Object.keys(sellers.mergedSellerArray).length === 0
 
   render() {
-    const { stateNode, task } = this.props;
+    const { nodeConfig, task } = this.props;
 
     // //grab the name property of config
     // let specified_name = "";
-    // for (var key in this.props.stateNode.config) {
+    // for (var key in this.props.nodeConfig.config) {
     //   if (key.includes("Name")) {
     //     specified_name = key;
     //   }
@@ -77,8 +77,8 @@ export class TaskNode extends Component {
       img_to_render = emailIMG;
     }
 
-    console.log("TaskNode node");
-    console.log(this.props.node);
+    console.log("TaskNode props");
+    console.log(this.props);
     return (
       <Tile className="task-node">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
@@ -89,13 +89,13 @@ export class TaskNode extends Component {
         </div>
 
         {
-          //Object.keys(this.props.stateNode.config).length === 0 ? (
+          //Object.keys(this.props.nodeConfig.config).length === 0 ? (
           //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
           //     {this.props.task.name}
           //   </div>
           // ) : (
           //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
-          //     {this.props.stateNode.config[specified_name]}
+          //     {this.props.nodeConfig.config[specified_name]}
           //   </div>
           // )}
         }
@@ -116,11 +116,11 @@ export class TaskNode extends Component {
               components={[{ step: 0, component: DisplayForm }]}
               closeModal={closeModal}
               confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-              config={this.props.stateNode}
+              config={this.props.nodeConfig}
               onSave={this.handleOnSave}
               theme={"bmrg-white"}
               task={task}
-              node={stateNode}
+              nodeConfig={nodeConfig}
               {...rest}
             />
           )}
@@ -133,7 +133,7 @@ export class TaskNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    stateNode: state.workflowConfig.fetch.data[ownProps.node.id]
+    nodeConfig: state.workflowConfig.fetch.data[ownProps.node.id]
   };
 };
 

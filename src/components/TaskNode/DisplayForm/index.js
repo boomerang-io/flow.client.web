@@ -102,13 +102,13 @@ class DisplayForm extends Component {
   render() {
     //console.log(this.state);
     const sectionHeaderConfig = this.determineSectionHeaderConfig();
-    const { node, task } = this.props;
+    const { nodeConfig, task } = this.props;
     return (
       <>
         <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "30rem" }}>
           <ValueList
             task={task}
-            node={node}
+            nodeConfig={nodeConfig}
             onTextInputChange={this.handleTextInputChange}
             onToggleChange={this.handleToggleChange}
           />

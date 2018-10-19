@@ -31,8 +31,8 @@ Toggle.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-const ValueList = ({ node, task, onTextInputChange, onToggleChange }) => {
-  const { config: nodeConfig } = node;
+const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
+  const { config: nodeConfigObj } = nodeConfig;
   const { config: taskConfig } = task;
   return (
     <>
@@ -55,7 +55,7 @@ const ValueList = ({ node, task, onTextInputChange, onToggleChange }) => {
                 minChar={minValueLength}
                 minCharText={`Must be more than ${minValueLength} characters`}
                 title={item.label}
-                detail={nodeConfig[item.key] || ""}
+                detail={nodeConfigObj[item.key] || ""}
                 theme="bmrg-white"
                 type={itemConfig.type}
                 validationFunction={itemConfig.validationFunction}
@@ -68,7 +68,7 @@ const ValueList = ({ node, task, onTextInputChange, onToggleChange }) => {
                 key={item.key}
                 name={item.key}
                 id={item.key}
-                defaultChecked={String(nodeConfig[item.key]) === "true" ? true : false}
+                defaultChecked={String(nodeConfigObj[item.key]) === "true" ? true : false}
                 label={item.label}
                 description={item.description}
                 onChange={onToggleChange}

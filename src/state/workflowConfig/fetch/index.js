@@ -32,7 +32,10 @@ const actionHandlers = {
     return { ...state, isFetching: true };
   },
   [types.FETCH_WORKFLOW_CONFIG_SUCCESS]: (state, action) => {
-    const normalizedDataObj = {};
+    const normalizedDataObj = {
+      id: action.data.id,
+      workflowId: action.data.workflowId
+    };
     action.data.nodes.forEach(node => {
       normalizedDataObj[node.nodeId] = node;
     });
