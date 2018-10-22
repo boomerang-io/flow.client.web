@@ -3,7 +3,7 @@ import { DefaultLinkModel } from "@boomerang/boomerang-dag";
 export default class CustomLinkModel extends DefaultLinkModel {
   constructor() {
     super("custom");
-    this.executionCondition = "ALWAYS";
+    this.executionCondition = "always";
   }
 
   serialize() {

@@ -30,8 +30,10 @@ class CustomLink extends Component {
   };
 
   updateExecutionState = executionCondition => {
-    this.props.model.executionCondition = EXECUTION_STATES[executionCondition];
+    //this.props.model.executionCondition = EXECUTION_STATES[executionCondition];
+    this.props.model.executionCondition = executionCondition;
     console.log(this.props.model);
+    console.log(executionCondition);
   };
 
   render() {
