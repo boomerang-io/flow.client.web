@@ -1,7 +1,7 @@
 export const EXECUTION_STATES = {
-  SUCCESS: "SUCCESS",
-  FAILURE: "FAILURE",
-  ALWAYS: "ALWAYS"
+  SUCCESS: "success",
+  FAILURE: "failure",
+  ALWAYS: "always"
 };
 
 export const EXECUTION_CONDITIONS = [

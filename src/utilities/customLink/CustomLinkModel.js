@@ -10,7 +10,6 @@ export default class CustomLinkModel extends DefaultLinkModel {
     return {
       ...super.serialize(),
       linkId: this.id,
-      state: this.state,
       executionCondition: this.executionCondition
     };
   }
@@ -18,7 +17,6 @@ export default class CustomLinkModel extends DefaultLinkModel {
   deSerialize(data, engine) {
     super.deSerialize(data, engine);
     this.id = data.linkId;
-    this.state = data.state;
     this.executionCondition = data.executionCondition;
   }
 }
