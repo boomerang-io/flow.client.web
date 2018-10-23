@@ -1,6 +1,6 @@
 @import "~Styles/variables.scss";
 
-.b-StartEndNode {
+.b-startEnd-node {
   background: $blue;
   border-radius: 0.225rem;
   width: 9rem;
@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
 
-  .b-StartEndNode__tile {
+  .b-startEnd-node__title {
     font-size: $base;
     text-align: center;
     font-weight: 300;
@@ -18,7 +18,7 @@
     color: $off-white;
   }
 
-  .b-StartEndNode-port {
+  .b-startEnd-node__port {
     position: absolute;
     background-color: white;
     border-radius: 50%;
