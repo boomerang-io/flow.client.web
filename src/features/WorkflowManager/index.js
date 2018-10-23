@@ -127,6 +127,7 @@ class WorkflowManagerContainer extends Component {
     }
 
     if (this.props.tasks.status === REQUEST_STATUSES.SUCCESS) {
+      console.log(this.props.workflow);
       return (
         <Switch>
           <Route
