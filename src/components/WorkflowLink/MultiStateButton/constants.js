@@ -1,6 +1,6 @@
-import grayCircle from "./assets/pending.svg";
-import redDelete from "./assets/failure.svg";
-import greenCheck from "./assets/success.svg";
+import always from "./assets/backChevron.svg";
+import failure from "./assets/failure.svg";
+import success from "./assets/success.svg";
 
 export const EXECUTION_STATES = {
   SUCCESS: "success",
@@ -11,17 +11,17 @@ export const EXECUTION_STATES = {
 export const EXECUTION_CONDITIONS = [
   {
     text: "Run on success",
-    img: greenCheck,
+    img: success,
     condition: EXECUTION_STATES.SUCCESS
   },
   {
     text: "Run on failure",
-    img: redDelete,
+    img: failure,
     condition: EXECUTION_STATES.FAILURE
   },
   {
     text: "Always run",
-    img: grayCircle,
+    img: always,
     condition: EXECUTION_STATES.ALWAYS
   }
 ];
