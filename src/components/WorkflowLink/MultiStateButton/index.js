@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-//import CloseIcon from "./CloseIcon";
+import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
 import { EXECUTION_CONDITIONS, EXECUTION_STATES } from "./constants";
-// import FailureButton from "./FailureButton";
-// import AlwaysButton from "./AlwaysButton";
-// import SuccessButton from "./SuccessButton";
 import "./styles.scss";
 
 class MultiStateButton extends Component {
@@ -40,13 +37,21 @@ class MultiStateButton extends Component {
 
   render() {
     const executionConditionConfig = EXECUTION_CONDITIONS[this.state.executionConditionIndex];
+    const { modelId } = this.props;
     return (
-      <img
-        src={executionConditionConfig.img}
-        className="b-multistate-button__icon"
-        alt={`${executionConditionConfig.condition} status`}
-        onClick={this.handleOnClick}
-      />
+      <>
+        <img
+          src={executionConditionConfig.img}
+          className="b-multistate-button"
+          alt={`${executionConditionConfig.condition} status`}
+          onClick={this.handleOnClick}
+          data-tip
+          data-for={modelId}
+        />
+        <ToolTip className="b-multistate-button__tooltip" place="bottom" id={modelId}>
+          {executionConditionConfig.text}
+        </ToolTip>
+      </>
     );
   }
 }

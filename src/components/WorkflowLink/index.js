@@ -49,12 +49,12 @@ class CustomLink extends Component {
                 <CloseModalButton onClick={this.handleOnDelete} />
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x - 13}, ${this.halfwayPoint.y + 10})`}>
+            <g transform={`translate(${this.halfwayPoint.x - 16}, ${this.halfwayPoint.y + 5})`}>
               <foreignObject>
                 <MultiStateButton
                   onClick={this.updateExecutionState}
                   initialExecutionCondition={this.state.executionCondition}
-                  key={this.state.count}
+                  modelId={this.props.model.id}
                 />
               </foreignObject>
             </g>

@@ -1,6 +1,6 @@
-import grayCircle from "./assets/gray-circle.svg";
-import redDelete from "./assets/red-delete.svg";
-import greenCheck from "./assets/green-check.svg";
+import grayCircle from "./assets/pending.svg";
+import redDelete from "./assets/failed.svg";
+import greenCheck from "./assets/status_icon.svg";
 
 export const EXECUTION_STATES = {
   SUCCESS: "success",
