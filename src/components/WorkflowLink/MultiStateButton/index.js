@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import CloseIcon from "./CloseIcon";
+//import CloseIcon from "./CloseIcon";
 import { EXECUTION_CONDITIONS, EXECUTION_STATES } from "../constants";
+import grayCircle from "../../../assets/svg/gray-circle.svg";
+import redDelete from "../../../assets/svg/red-delete.svg";
+import greenCheck from "../../../assets/svg/red-delete.svg";
+import FailureButton from "./FailureButton";
+import AlwaysButton from "./AlwaysButton";
+import SuccessButton from "./SuccessButton";
 
 class MultiStateButton extends Component {
   static defaultProps = {
@@ -33,13 +39,21 @@ class MultiStateButton extends Component {
         this.props.onClick(EXECUTION_CONDITIONS[this.state.executionConditionIndex].condition);
       }
     );
+    this.forceUpdate();
   };
 
   render() {
     const executionConditionConfig = EXECUTION_CONDITIONS[this.state.executionConditionIndex];
+    console.log(executionConditionConfig.img);
     return (
       <div className="bmrg--b-multistate-button" onClick={this.handleOnClick}>
-        <CloseIcon className={"bmrg--b-multistate-button__icon"} style={executionConditionConfig.style} />
+        {executionConditionConfig.img === "always" ? (
+          <AlwaysButton className="bmrg--b-multistate-button--always" />
+        ) : executionConditionConfig.img === "failure" ? (
+          <FailureButton className="bmrg--b-multistate-button--failure" />
+        ) : (
+          <SuccessButton className="bmrg--b-multistate-button--success" />
+        )}
       </div>
     );
   }
