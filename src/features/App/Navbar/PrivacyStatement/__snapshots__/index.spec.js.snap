@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<Modal
+  ModalTrigger={null}
+  baseLaunchEnvUrl=""
+  baseServiceUrl="test"
+  baseWWWEnvUrl=""
+  className="bmrg--c-privacy-statement"
+  consentForm={
+    Object {
+      "data": Object {
+        "effectiveDate": 1504627139000,
+        "formContent": Object {
+          "sections": Array [
+            Object {
+              "content": "test",
+              "title": "test",
+            },
+            Object {
+              "content": "test",
+              "title": "test",
+            },
+            Object {
+              "content": "test",
+              "title": "test",
+            },
+            Object {
+              "content": "test",
+              "title": "test",
+            },
+          ],
+        },
+        "id": "1",
+        "version": 1,
+      },
+      "isFetching": false,
+      "status": "success",
+    }
+  }
+  consentFormActions={
+    Object {
+      "cancelFetchConsentForm": [Function],
+      "fetchConsentForm": [Function],
+      "fetchConsentFormFailure": [Function],
+      "fetchConsentFormRequest": [Function],
+      "fetchConsentFormSuccess": [Function],
+      "resetFetchConsentForm": [Function],
+    }
+  }
+  consentResponse={Object {}}
+  consentResponseActions={
+    Object {
+      "cancelSendConsentResponse": [Function],
+      "resetSendConsentResponse": [Function],
+      "sendConsentResponse": [Function],
+      "sendConsentResponseFailure": [Function],
+      "sendConsentResponseRequest": [Function],
+      "sendConsentResponseSuccess": [Function],
+    }
+  }
+  isOpen={true}
+  modalClass="bmrg--c-privacy-statement"
+  modalContent={[Function]}
+  modalOverlayClass="bmrg--c-privacy-statement-overlay"
+  modalProps={
+    Object {
+      "shouldCloseOnEsc": false,
+      "shouldCloseOnOverlayClick": false,
+    }
+  }
+  overlayClassName="bmrg--c-privacy-statement-overlay"
+  setModalClass={[Function]}
+  user={
+    Object {
+      "data": Object {},
+    }
+  }
+  userActions={
+    Object {
+      "cancelFetchUser": [Function],
+      "fetchUser": [Function],
+      "fetchUserFailure": [Function],
+      "fetchUserRequest": [Function],
+      "fetchUserSucccess": [Function],
+      "resetUser": [Function],
+    }
+  }
+/>
+`;
