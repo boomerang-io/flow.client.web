@@ -20,6 +20,10 @@ class CustomLink extends Component {
     this.endPoint = "";
   }
 
+  componentDidMount() {
+    this.props.diagramEngine.repaintCanvas();
+  }
+
   componentWillUnmount() {
     this.mounted = false;
   }
@@ -31,8 +35,6 @@ class CustomLink extends Component {
 
   updateExecutionState = executionCondition => {
     this.props.model.executionCondition = executionCondition;
-    console.log(this.props.model);
-    console.log(executionCondition);
   };
 
   render() {
@@ -49,7 +51,7 @@ class CustomLink extends Component {
                 <CloseModalButton onClick={this.handleOnDelete} />
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x - 16}, ${this.halfwayPoint.y + 5})`}>
+            <g transform={`translate(${this.halfwayPoint.x - 17}, ${this.halfwayPoint.y + 2})`}>
               <foreignObject>
                 <MultiStateButton
                   onClick={this.updateExecutionState}
