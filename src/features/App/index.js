@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as userActions } from "State/user";
 import { actions as navbarLinksActions } from "State/navbarLinks";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import Navbar from "./Navbar";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
 import WorkflowsViewer from "Features/WorkflowsViewer";
@@ -57,7 +57,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);
