@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import MultiStateButton from "./MultiStateButton";
-import { EXECUTION_STATES } from "./constants";
 
 /*
   -want to update this.props.model.linkState (default, success, failure)
@@ -13,7 +12,8 @@ class CustomLink extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      executionCondition: this.props.model.executionCondition //just set here one time
+      executionCondition: this.props.model.executionCondition,
+      count: 0 //just set here one time
     };
 
     this.halfwayPoint = "";
@@ -30,7 +30,6 @@ class CustomLink extends Component {
   };
 
   updateExecutionState = executionCondition => {
-    //this.props.model.executionCondition = EXECUTION_STATES[executionCondition];
     this.props.model.executionCondition = executionCondition;
     console.log(this.props.model);
     console.log(executionCondition);
@@ -55,6 +54,7 @@ class CustomLink extends Component {
                 <MultiStateButton
                   onClick={this.updateExecutionState}
                   initialExecutionCondition={this.state.executionCondition}
+                  key={this.state.count}
                 />
               </foreignObject>
             </g>

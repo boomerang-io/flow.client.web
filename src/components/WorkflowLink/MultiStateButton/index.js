@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 //import CloseIcon from "./CloseIcon";
-import { EXECUTION_CONDITIONS, EXECUTION_STATES } from "../constants";
-import grayCircle from "../../../assets/svg/gray-circle.svg";
-import redDelete from "../../../assets/svg/red-delete.svg";
-import greenCheck from "../../../assets/svg/red-delete.svg";
-import FailureButton from "./FailureButton";
-import AlwaysButton from "./AlwaysButton";
-import SuccessButton from "./SuccessButton";
+import { EXECUTION_CONDITIONS, EXECUTION_STATES } from "./constants";
+// import FailureButton from "./FailureButton";
+// import AlwaysButton from "./AlwaysButton";
+// import SuccessButton from "./SuccessButton";
+import "./styles.scss";
 
 class MultiStateButton extends Component {
   static defaultProps = {
@@ -17,8 +15,7 @@ class MultiStateButton extends Component {
 
   static propTypes = {
     className: PropTypes.string,
-    passedOnClick: PropTypes.func,
-    EXECUTE_CONDITIONS: PropTypes.object
+    passedOnClick: PropTypes.func
   };
 
   constructor(props) {
@@ -39,22 +36,17 @@ class MultiStateButton extends Component {
         this.props.onClick(EXECUTION_CONDITIONS[this.state.executionConditionIndex].condition);
       }
     );
-    this.forceUpdate();
   };
 
   render() {
     const executionConditionConfig = EXECUTION_CONDITIONS[this.state.executionConditionIndex];
-    console.log(executionConditionConfig.img);
     return (
-      <div className="bmrg--b-multistate-button" onClick={this.handleOnClick}>
-        {executionConditionConfig.img === "always" ? (
-          <AlwaysButton className="bmrg--b-multistate-button--always" />
-        ) : executionConditionConfig.img === "failure" ? (
-          <FailureButton className="bmrg--b-multistate-button--failure" />
-        ) : (
-          <SuccessButton className="bmrg--b-multistate-button--success" />
-        )}
-      </div>
+      <img
+        src={executionConditionConfig.img}
+        className="b-multistate-button__icon"
+        alt={`${executionConditionConfig.condition} status`}
+        onClick={this.handleOnClick}
+      />
     );
   }
 }
