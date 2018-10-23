@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import CloseIcon from "./CloseIcon";
-import { EXECUTION_CONDITIONS, EXECUTION_STATES } from "../constants";
+import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
+import { EXECUTION_CONDITIONS, EXECUTION_STATES } from "./constants";
+import "./styles.scss";
 
 class MultiStateButton extends Component {
   static defaultProps = {
@@ -11,8 +12,7 @@ class MultiStateButton extends Component {
 
   static propTypes = {
     className: PropTypes.string,
-    passedOnClick: PropTypes.func,
-    EXECUTE_CONDITIONS: PropTypes.object
+    passedOnClick: PropTypes.func
   };
 
   constructor(props) {
@@ -37,10 +37,21 @@ class MultiStateButton extends Component {
 
   render() {
     const executionConditionConfig = EXECUTION_CONDITIONS[this.state.executionConditionIndex];
+    const { modelId } = this.props;
     return (
-      <div className="bmrg--b-multistate-button" onClick={this.handleOnClick}>
-        <CloseIcon className={"bmrg--b-multistate-button__icon"} style={executionConditionConfig.style} />
-      </div>
+      <>
+        <img
+          src={executionConditionConfig.img}
+          className="b-multistate-button"
+          alt={`${executionConditionConfig.condition} status`}
+          onClick={this.handleOnClick}
+          data-tip
+          data-for={modelId}
+        />
+        <ToolTip className="b-multistate-button__tooltip" place="bottom" id={modelId}>
+          {executionConditionConfig.text}
+        </ToolTip>
+      </>
     );
   }
 }
