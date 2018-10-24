@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow/fetch";
 import { actions as teamsActions } from "State/teams";
 import { Link } from "react-router-dom";
+import { sortBy } from "lodash";
 import Button from "@boomerang/boomerang-components/lib/Button";
 // import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
@@ -23,6 +24,9 @@ class WorkflowsViewerContainer extends Component {
     this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow`);
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   }
+  updateWorkflows = (data) => {
+    this.props.teamsActions.updateWorkflows(data);
+  };
 
   formatWorkflows = () => {
     return this.props.workflow.data.map(workflow => (
@@ -40,6 +44,8 @@ class WorkflowsViewerContainer extends Component {
     }
 
     if (workflow.status === REQUEST_STATUSES.SUCCESS) {
+      const sortedTeams = sortBy(teams.data,['name']);
+
       return (
         <div className="c-workflow-viewer">
           <Sidenav
@@ -56,8 +62,8 @@ class WorkflowsViewerContainer extends Component {
           <div className="c-workflow-viewer-content">
             {/* <NoDisplay text="Select a workflow" /> */}
             {
-              teams.data.map(team=>{
-                return <WorkflowsSection team={team}/>;
+              sortedTeams.map(team=>{
+                return <WorkflowsSection team={team} updateWorkflows={this.updateWorkflows}/>;
               })
             }            
           </div>

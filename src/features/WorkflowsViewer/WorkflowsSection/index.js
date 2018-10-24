@@ -8,7 +8,8 @@ import "./styles.scss";
 class WorkflowSection extends Component {
   static propTypes = {
     team: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    updateWorkflows: PropTypes.func.isRequired
   };
 
   render() {
@@ -24,7 +25,7 @@ class WorkflowSection extends Component {
         <div className="c-workflow-section__workflows">
           {
             team.workflows.map(workflow=>{
-              return <WorkflowCard workflow={workflow}/>
+              return <WorkflowCard workflow={workflow} updateWorkflows={this.props.updateWorkflows} teamId={team.id}/>
             })
           }
         </div>

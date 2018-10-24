@@ -12,7 +12,8 @@ import "carbon-components/scss/components/overflow-menu/_overflow-menu.scss";
 class WorkflowCard extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
-    workflow: PropTypes.object.isRequired
+    workflow: PropTypes.object.isRequired,
+    updateWorkflows: PropTypes.func.isRequired
   };
 
   handleOnDelete = () => {
@@ -20,13 +21,14 @@ class WorkflowCard extends Component {
     //   .delete(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.id}`)
     //   .then(() => {
     //     notify(<Notification type="remove" title="SUCCESS" message="Workflow successfully deleted" />);
+    //     this.props.updateWorkflows({workflowId:this.props.workflow.id, teamId:this.props.teamId});
     //     return;
     //   })
     //   .catch(() => {
     //     notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
     //     return;
     //   });
-    console.log("delete");
+      this.props.updateWorkflows({workflowId:this.props.workflow.id, teamId:this.props.teamId});
   };
 
   render() {
