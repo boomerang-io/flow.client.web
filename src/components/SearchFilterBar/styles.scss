@@ -1,0 +1,180 @@
+@import "~Styles/styles";
+
+.b-search-filter {
+  display: flex;
+  margin: 0 2.5rem;
+}
+
+.b-search-filter__search {
+  width: 85%;
+}
+
+.b-search-filter__filter {
+  width: 15%;
+
+  .bx--list-box {
+    position: relative;
+    width: 100%;
+    height: 2.5rem;
+    max-height: 2.5rem;
+    background-color: $teal-20;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    color: $gray-90;
+
+    &::before {
+      content: url("../../assets/svg/configure.svg");
+      position: absolute;
+      height: 2rem;
+      width: 2rem;
+      right: 1rem;
+      top: 0.2rem;
+    }
+  }
+
+  .bx--list-box__field {
+    font-family: "ibm-plex-sans", Helvetica Neue, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0;
+    display: inline-block;
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    width: 100%;
+    position: relative;
+    display: -webkit-inline-box;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+    cursor: pointer;
+  }
+
+  .bx--list-box__selection--multi {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 2rem;
+    height: 1rem;
+    background-color: $gray-90;
+    font-size: 0.75rem;
+    color: $white;
+    line-height: 0;
+    padding: 0.3125rem;
+    margin-right: 0.625rem;
+    border-radius: 0.8125rem;
+
+    & svg path {
+      fill: $white;
+    }
+  }
+
+  .bx--list-box__menu-icon {
+    display: none;
+  }
+
+  .bx--list-box__menu {
+    box-shadow: 0px 0.1875rem 0.1875rem 0 rgba($black, 0.1);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 2.5rem;
+    width: 100%;
+    background-color: $white;
+    max-height: 7.5rem;
+    overflow-y: auto;
+    z-index: 7000;
+  }
+
+  .bx--list-box__menu-item {
+    font-size: 0.875rem;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 2.5rem;
+    padding: 0 1rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .bx--list-box__menu-item:hover,
+  .bx--list-box__menu-item--highlighted {
+    background-color: color("cerulean", 40, $alpha: 0.1);
+    outline: 0.0625rem solid transparent;
+    text-decoration: underline;
+    color: $gray-90;
+  }
+
+  .bx--list-box__menu-item--active {
+    .bx--checkbox-label::before {
+      background-color: $aqua-10;
+      border-color: $aqua-10;
+    }
+  }
+
+  .bx--form-item {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    flex: 1;
+    -webkit-box-align: start;
+    align-items: flex-start;
+  }
+
+  .bx--list-box__menu-item > .bx--form-item.bx--checkbox-wrapper {
+    margin: 0;
+  }
+
+  .bx--checkbox {
+    position: absolute;
+    width: 0.0625rem;
+    height: 0.0625rem;
+    padding: 0;
+    margin: -0.0625rem;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+    visibility: visible;
+    white-space: nowrap;
+  }
+
+  .bx--checkbox-label {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 0.875rem;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding-left: 1.5rem;
+    min-height: 1rem;
+
+    &::before {
+      box-sizing: border-box;
+      content: "";
+      position: absolute;
+      left: 0;
+      top: calc(50% - 9px);
+      height: 1.125rem;
+      width: 1.125rem;
+      border: 0.125rem solid $gray-60;
+      background-color: $white;
+    }
+  }
+}

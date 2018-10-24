@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow/fetch";
+import { actions as teamsActions } from "State/teams";
 import { Link } from "react-router-dom";
 import Button from "@boomerang/boomerang-components/lib/Button";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import ErrorDragon from "Components/ErrorDragon";
+import SearchFilterBar from "Components/SearchFilterBar";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
 
@@ -19,6 +21,12 @@ class WorkflowsViewerContainer extends Component {
 
   componentDidMount() {
     this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow`);
+    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+  }
+
+  handleSearchFilter = (searchQuery, teams) => {
+    console.log(searchQuery);
+    console.log(teams);
   }
 
   formatWorkflows = () => {
@@ -30,15 +38,16 @@ class WorkflowsViewerContainer extends Component {
   };
 
   render() {
-    const { workflow } = this.props;
+    const { workflow, teams } = this.props;
 
-    if (workflow.status === REQUEST_STATUSES.FAILURE) {
+    if (workflow.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
     }
 
-    if (workflow.status === REQUEST_STATUSES.SUCCESS) {
+    if (workflow.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
       return (
         <div className="c-workflow-viewer">
+          <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data}/>
           <Sidenav
             theme="bmrg-white"
             content={() => <div className="c-sidenav-section">{this.formatWorkflows()}</div>}
@@ -62,11 +71,13 @@ class WorkflowsViewerContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  workflow: state.workflow.fetch
+  workflow: state.workflow.fetch,
+  teams: state.teams
 });
 
 const mapDispatchToProps = dispatch => ({
-  workflowActions: bindActionCreators(workflowActions, dispatch)
+  workflowActions: bindActionCreators(workflowActions, dispatch),
+  teamsActions: bindActionCreators(teamsActions, dispatch)
 });
 
 export default connect(
