@@ -8,6 +8,7 @@ import tasks from "./tasks";
 import user from "./user";
 import workflow from "./workflow";
 import workflowConfig from "./workflowConfig";
+import teams from "./teams";
 
 const rootReducer = combineReducers({
   routing: routerReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   tasks,
   user,
   workflow,
-  workflowConfig
+  workflowConfig,
+  teams
 });
 
 export default rootReducer;

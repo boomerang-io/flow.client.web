@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow/fetch";
+import { actions as teamsActions } from "State/teams";
 import { Link } from "react-router-dom";
 import Button from "@boomerang/boomerang-components/lib/Button";
-import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
+// import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import ErrorDragon from "Components/ErrorDragon";
+import WorkflowsSection from "./WorkflowsSection";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
 
@@ -19,6 +21,7 @@ class WorkflowsViewerContainer extends Component {
 
   componentDidMount() {
     this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow`);
+    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   }
 
   formatWorkflows = () => {
@@ -30,7 +33,7 @@ class WorkflowsViewerContainer extends Component {
   };
 
   render() {
-    const { workflow } = this.props;
+    const { workflow, teams } = this.props;
 
     if (workflow.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
@@ -51,7 +54,12 @@ class WorkflowsViewerContainer extends Component {
             )}
           />
           <div className="c-workflow-viewer-content">
-            <NoDisplay text="Select a workflow" />
+            {/* <NoDisplay text="Select a workflow" /> */}
+            {
+              teams.data.map(team=>{
+                return <WorkflowsSection team={team}/>;
+              })
+            }            
           </div>
         </div>
       );
@@ -62,11 +70,13 @@ class WorkflowsViewerContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  workflow: state.workflow.fetch
+  workflow: state.workflow.fetch,
+  teams: state.teams
 });
 
 const mapDispatchToProps = dispatch => ({
-  workflowActions: bindActionCreators(workflowActions, dispatch)
+  workflowActions: bindActionCreators(workflowActions, dispatch),
+  teamsActions: bindActionCreators(teamsActions, dispatch)
 });
 
 export default connect(
