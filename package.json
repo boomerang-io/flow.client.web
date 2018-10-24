@@ -34,6 +34,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "prod:installServerDependencies": "yarn --cwd server install",
+    "prod:rewriteAssetPaths": "APP_ROOT= node server/scripts/rewriteAssetPaths.js",
+    "prod:server": "NODE_ENV=development node server/app.js",
+    "preprod": "run-s build prod:installServerDependencies prod:rewriteAssetPaths",
+    "prod": "run-p apiServer prod:server",
     "eject": "react-scripts eject"
   },
   "browserslist": {
