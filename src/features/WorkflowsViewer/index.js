@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow/fetch";
 import { actions as teamsActions } from "State/teams";
 import { Link } from "react-router-dom";
-import { sortBy } from "lodash";
+import sortBy from "lodash/sortBy";
 import Button from "@boomerang/boomerang-components/lib/Button";
 // import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
@@ -18,8 +18,15 @@ import "./styles.scss";
 class WorkflowsViewerContainer extends Component {
   static propTypes = {
     workflow: PropTypes.object.isRequired,
-    workflowActions: PropTypes.object.isRequired
+    workflowActions: PropTypes.object.isRequired,
+    teams: PropTypes.object.isRequired,
+    teamsActions: PropTypes.object.isRequired
   };
+
+  state = {
+    searchQuery: "",
+    teamsFilter: []
+  }
 
   componentDidMount() {
     this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow`);
@@ -27,9 +34,20 @@ class WorkflowsViewerContainer extends Component {
   }
 
   handleSearchFilter = (searchQuery, teams) => {
-    console.log(searchQuery);
-    console.log(teams);
+    this.setState({ searchQuery, teamsFilter: teams });
   }
+
+  filterTeams = () => {
+    const { teams } = this.props;
+    const { teamsFilter } = this.state;
+
+    if (teamsFilter.length > 0) {
+      return teams.data.filter(team => teamsFilter.find(filter => filter.text === team.name));
+    } else {
+      return teams.data;
+    }
+  }
+
   updateWorkflows = (data) => {
     this.props.teamsActions.updateWorkflows(data);
   };
@@ -44,17 +62,18 @@ class WorkflowsViewerContainer extends Component {
 
   render() {
     const { workflow, teams } = this.props;
+    const { searchQuery } = this.state;
 
     if (workflow.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
     }
 
     if (workflow.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
-      const sortedTeams = sortBy(teams.data,['name']);
+      const filteredTeams = this.filterTeams();
+      const sortedTeams = sortBy(filteredTeams,["name"]);
 
       return (
         <div className="c-workflow-viewer">
-          <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data}/>
           <Sidenav
             theme="bmrg-white"
             content={() => <div className="c-sidenav-section">{this.formatWorkflows()}</div>}
@@ -68,11 +87,12 @@ class WorkflowsViewerContainer extends Component {
           />
           <div className="c-workflow-viewer-content">
             {/* <NoDisplay text="Select a workflow" /> */}
+            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
             {
               sortedTeams.map(team=>{
-                return <WorkflowsSection team={team} updateWorkflows={this.updateWorkflows}/>;
+                return <WorkflowsSection team={team} searchQuery={searchQuery} updateWorkflows={this.updateWorkflows}/>;
               })
-            }            
+            }
           </div>
         </div>
       );

@@ -9,7 +9,6 @@ import teams from "./teams";
 import user from "./user";
 import workflow from "./workflow";
 import workflowConfig from "./workflowConfig";
-import teams from "./teams";
 
 const rootReducer = combineReducers({
   routing: routerReducer,
@@ -21,8 +20,7 @@ const rootReducer = combineReducers({
   teams,
   user,
   workflow,
-  workflowConfig,
-  teams
+  workflowConfig
 });
 
 export default rootReducer;

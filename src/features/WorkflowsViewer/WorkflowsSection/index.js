@@ -9,28 +9,40 @@ class WorkflowSection extends Component {
   static propTypes = {
     team: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    searchQuery: PropTypes.string.isRequired,
     updateWorkflows: PropTypes.func.isRequired
   };
 
   render() {
-    const { team, history } = this.props;
-    return(
-      <div className="c-workflow-section">
-        <div className="c-workflow-section__header">
-          <label className="b-workflow-section__team">{team.name}</label>
-          <Button onClick={()=> history.push(`/editor`)} theme="bmrg-black">
-            Create Workflow
-          </Button>
+    const { team, history, searchQuery } = this.props;
+    let workflows = [];
+    if(searchQuery) {
+      workflows = team.workflows.filter(workflow => workflow.name.toLowerCase().includes(searchQuery.toLowerCase()));
+    } else {
+      workflows = team.workflows;
+    }
+
+    if(workflows.length > 0) {
+      return(
+        <div className="c-workflow-section">
+          <div className="c-workflow-section__header">
+            <label className="b-workflow-section__team">{team.name}</label>
+            <Button onClick={()=> history.push(`/editor`)} theme="bmrg-black">
+              Create Workflow
+            </Button>
+          </div>
+          <div className="c-workflow-section__workflows">
+            {
+              workflows.map(workflow=>{
+                return <WorkflowCard workflow={workflow} updateWorkflows={this.props.updateWorkflows} teamId={team.id}/>
+              })
+            }
+          </div>
         </div>
-        <div className="c-workflow-section__workflows">
-          {
-            team.workflows.map(workflow=>{
-              return <WorkflowCard workflow={workflow} updateWorkflows={this.props.updateWorkflows} teamId={team.id}/>
-            })
-          }
-        </div>
-      </div>
-    );
+      );
+    }
+
+    return null;
   }
 }
 

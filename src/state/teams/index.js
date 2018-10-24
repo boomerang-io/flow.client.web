@@ -7,12 +7,8 @@ export const types = {
   FETCH_TEAMS_RESET: "FETCH_TEAMS_RESET",
   FETCH_TEAMS_REQUEST: "FETCH_TEAMS_REQUEST",
   FETCH_TEAMS_SUCCESS: "FETCH_TEAMS_SUCCESS",
-<<<<<<< HEAD
-  FETCH_TEAMS_FAILURE: "FETCH_TEAMS_FAILURE"
-=======
   FETCH_TEAMS_FAILURE: "FETCH_TEAMS_FAILURE",
   UPDATE_WORKFLOWS: "UPDATE_WORKFLOWS",
->>>>>>> 9fc1f68849af5ce8ddf01b5c00ad56f6f029da44
 };
 Object.freeze(types);
 
@@ -38,8 +34,6 @@ const actionHandlers = {
   [types.FETCH_TEAMS_FAILURE]: (state, action) => {
     return { ...state, isFetching: false, status: "failure", error: action.error };
   }
-<<<<<<< HEAD
-=======
   ,
   [types.UPDATE_WORKFLOWS]: (state, action) => {
     const unchangedTeam = state.data.filter(team => team.id !== action.data.teamId);
@@ -48,7 +42,6 @@ const actionHandlers = {
     const updatedTeam = { ...teamToUpdate, workflows: updatedWorkflows };
     return { ...state, data: [...unchangedTeam, updatedTeam] };
   }
->>>>>>> 9fc1f68849af5ce8ddf01b5c00ad56f6f029da44
 };
 
 export default createReducer(initialState, actionHandlers);
@@ -60,10 +53,7 @@ const fetchRequest = () => ({ type: types.FETCH_TEAMS_REQUEST });
 const fetchSuccess = data => ({ type: types.FETCH_TEAMS_SUCCESS, data });
 const fetchFailure = error => ({ type: types.FETCH_TEAMS_FAILURE, error });
 const reset = () => ({ type: types.FETCH_TEAMS_RESET });
-<<<<<<< HEAD
-=======
 const updateWorkflows = data => ({ type: types.UPDATE_WORKFLOWS, data });
->>>>>>> 9fc1f68849af5ce8ddf01b5c00ad56f6f029da44
 
 const fetchActionCreators = {
   reset: reset,
@@ -87,11 +77,6 @@ export const actions = {
   fetchFailure,
   fetchSuccess,
   cancel,
-<<<<<<< HEAD
-  reset
-};
-=======
   updateWorkflows,
   reset
 };
->>>>>>> 9fc1f68849af5ce8ddf01b5c00ad56f6f029da44

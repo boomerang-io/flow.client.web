@@ -26,6 +26,7 @@
   .bx--overflow-menu-options--open {
     border: solid 0.125rem $teal-20;
     border-radius: 0.5rem;
+    z-index: 998;
   }
   .bx--overflow-menu-options:before {
     border-top-color: $teal-20;
