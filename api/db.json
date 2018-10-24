@@ -182,8 +182,8 @@
           "id": "789",
           "name": "lucas-workflow-3",
           "description": "blablabla",
-          "status": "published",
-          "type": "utility"
+          "status": "draft",
+          "type": "secure"
         }
       ]
     },
@@ -196,14 +196,14 @@
           "name": "isabela-workflow-1",
           "description": "blablabla",
           "status": "published",
-          "type": "utility"
+          "type": "log"
         },
         {
           "id": "222",
           "name": "isabela-workflow-2",
           "description": "blablabla",
-          "status": "published",
-          "type": "utility"
+          "status": "draft",
+          "type": "template"
         }
       ]
     },
@@ -216,14 +216,14 @@
           "name": "benjamin-workflow-1",
           "description": "blablabla",
           "status": "published",
-          "type": "utility"
+          "type": "docs"
         },
         {
           "id": "444",
           "name": "benjamin-workflow-2",
           "description": "blablabla",
           "status": "published",
-          "type": "utility"
+          "type": "flow"
         }
       ]
     }
