@@ -32,6 +32,8 @@
     border-radius: 0.25rem;
     box-shadow: none;
     cursor: pointer;
+    height: 2.625rem;
+    max-height: 2.625rem;
 
     &::before {
       content: url("~Assets/svg/configure.svg");
