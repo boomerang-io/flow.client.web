@@ -11,6 +11,13 @@
   border-radius: 0.5rem;
   margin: 1rem;
   height: 9.5rem;
+
+  .bx--overflow-menu {
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
   .bx--overflow-menu__icon {
     fill: $teal-20;
     height: 3rem;
@@ -52,7 +59,6 @@
   max-width: 0.75rem;
   min-height: 0.75rem;
   max-height: 0.75rem;
-  border: $gray-20 solid 0.125rem;
   border-radius: 2rem;
   &.--published {
     background-color: $green-40;

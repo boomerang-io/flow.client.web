@@ -8,7 +8,7 @@ class SearchFilterBar extends Component {
   static propTypes = {
     teams: PropTypes.array.isRequired,
     handleSearchFilter: PropTypes.func.isRequired
-  }
+  };
 
   state = {
     searchQuery: "",
@@ -33,17 +33,17 @@ class SearchFilterBar extends Component {
     this.setState({ selectedItems }, () => {
       this.handleSearchFilter();
     });
-  }
+  };
 
   handleSearchFilter = () => {
     const { searchQuery, selectedItems } = this.state;
 
     this.props.handleSearchFilter(searchQuery, selectedItems);
-  }
+  };
 
   formatTeams = teams => {
     return teams.map(team => ({ id: team.id, text: team.name }));
-  }
+  };
 
   render() {
     const { teams } = this.props;
