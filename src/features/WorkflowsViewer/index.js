@@ -7,11 +7,11 @@ import { actions as teamsActions } from "State/teams";
 import { Link } from "react-router-dom";
 import sortBy from "lodash/sortBy";
 import Button from "@boomerang/boomerang-components/lib/Button";
-// import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
+import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import ErrorDragon from "Components/ErrorDragon";
 import SearchFilterBar from "Components/SearchFilterBar";
-import WorkflowsSection from "./WorkflowsSection";
+// import WorkflowsSection from "./WorkflowsSection";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
 
@@ -86,12 +86,12 @@ class WorkflowsViewerContainer extends Component {
             )}
           />
           <div className="c-workflow-viewer-content">
-            {/* <NoDisplay text="Select a workflow" /> */}
-            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
+             <NoDisplay text="Select a workflow" /> 
+            {/*<SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />*/}
             {
-              sortedTeams.map(team=>{
-                return <WorkflowsSection team={team} searchQuery={searchQuery} updateWorkflows={this.updateWorkflows}/>;
-              })
+              // sortedTeams.map(team=>{
+              //   return <WorkflowsSection team={team} searchQuery={searchQuery} updateWorkflows={this.updateWorkflows}/>;
+              // })
             }
           </div>
         </div>
