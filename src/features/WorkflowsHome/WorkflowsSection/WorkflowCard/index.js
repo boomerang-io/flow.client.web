@@ -7,7 +7,6 @@ import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import imgs from "./img";
 import "./styles.scss";
-import "carbon-components/scss/components/overflow-menu/_overflow-menu.scss";
 
 class WorkflowCard extends Component {
   static propTypes = {
@@ -28,35 +27,30 @@ class WorkflowCard extends Component {
     //     notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
     //     return;
     //   });
-      this.props.updateWorkflows({workflowId:this.props.workflow.id, teamId:this.props.teamId});
+    this.props.updateWorkflows({ workflowId: this.props.workflow.id, teamId: this.props.teamId });
   };
 
   render() {
     const { workflow, history } = this.props;
 
     const menuOptions = [
-      {itemText:"View Activity", onClick:()=>history.push(`/activity/${workflow.id}`), primaryFocus:true},
-      {itemText:"Edit Workflow", onClick:()=>history.push(`/editor/${workflow.id}`), primaryFocus:false},
-      {itemText:"Duplicate", onClick:()=>console.log("duplicate"), primaryFocus:false},
-      {itemText:"Export", onClick:()=>console.log("export"), primaryFocus:false},
-      {itemText:"Delete", onClick:()=>this.handleOnDelete(), primaryFocus:false}
+      { itemText: "View Activity", onClick: () => history.push(`/activity/${workflow.id}`), primaryFocus: true },
+      { itemText: "Edit Workflow", onClick: () => history.push(`/editor/${workflow.id}`), primaryFocus: false },
+      { itemText: "Duplicate", onClick: () => console.log("duplicate"), primaryFocus: false },
+      { itemText: "Export", onClick: () => console.log("export"), primaryFocus: false },
+      { itemText: "Delete", onClick: () => this.handleOnDelete(), primaryFocus: false }
     ];
 
-    return(
+    return (
       <div className="c-workflow-card">
         <div className="c-workflow-card__header">
           <div className="c-workflow-card__status">
-            <div className={`b-workflow-card__circle --${workflow.status}`}></div>
-            <label className="b-workflow-card__status">{workflow.status}</label>            
+            <div className={`b-workflow-card__circle --${workflow.status}`} />
+            <label className="b-workflow-card__status">{workflow.status}</label>
           </div>
-          <OverflowMenu
-            className="b-workflow-card__menu"
-            ariaLabel=""
-            iconDescription=""
-          >
-          {
-            menuOptions.map(option=>{
-              return(
+          <OverflowMenu className="b-workflow-card__menu" ariaLabel="" iconDescription="">
+            {menuOptions.map(option => {
+              return (
                 <OverflowMenuItem
                   className="b-workflow-card__option"
                   requireTitle={false}
@@ -65,14 +59,12 @@ class WorkflowCard extends Component {
                   primaryFocus={option.primaryFocus}
                 />
               );
-            })
-          }
-            
+            })}
           </OverflowMenu>
         </div>
         <div className="c-workflow-card__info">
           <div className="c-workflow-card__icon">
-            <img className="b-workflow-card__icon" src={imgs[workflow.type]} alt="icon"/>
+            <img className="b-workflow-card__icon" src={imgs[workflow.type]} alt="icon" />
           </div>
           <div className="c-workflow-card__description">
             <div className="b-workflow-card__name">{workflow.name}</div>
