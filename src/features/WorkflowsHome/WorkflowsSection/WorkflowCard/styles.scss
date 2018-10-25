@@ -40,6 +40,12 @@
     border-top-color: $teal-20;
     border-left-color: $teal-20;
   }
+
+  .bx--overflow-menu-options__option {
+    &:hover {
+      background-color: $cool-gray-1;
+    }
+  }
 }
 .c-workflow-card__header {
   display: flex;
