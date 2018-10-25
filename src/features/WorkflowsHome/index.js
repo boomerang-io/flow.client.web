@@ -9,6 +9,7 @@ import ErrorDragon from "Components/ErrorDragon";
 import SearchFilterBar from "Components/SearchFilterBar";
 import WorkflowsSection from "./WorkflowsSection";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
+import { teams } from "./constants";
 import "./styles.scss";
 
 class WorkflowsHome extends Component {
@@ -20,7 +21,7 @@ class WorkflowsHome extends Component {
   state = {
     searchQuery: "",
     teamsFilter: []
-  }
+  };
 
   componentDidMount() {
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
@@ -28,7 +29,7 @@ class WorkflowsHome extends Component {
 
   handleSearchFilter = (searchQuery, teams) => {
     this.setState({ searchQuery, teamsFilter: teams });
-  }
+  };
 
   filterTeams = () => {
     const { teams } = this.props;
@@ -39,9 +40,9 @@ class WorkflowsHome extends Component {
     } else {
       return teams.data;
     }
-  }
+  };
 
-  updateWorkflows = (data) => {
+  updateWorkflows = data => {
     this.props.teamsActions.updateWorkflows(data);
   };
 
@@ -49,34 +50,32 @@ class WorkflowsHome extends Component {
     const { teams } = this.props;
     const { searchQuery } = this.state;
 
-    if (teams.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon />;
-    }
+    // if (teams.status === REQUEST_STATUSES.FAILURE) {
+    //   return <ErrorDragon />;
+    // }
 
-    if (teams.status === REQUEST_STATUSES.SUCCESS) {
-      const filteredTeams = this.filterTeams();
-      const sortedTeams = sortBy(filteredTeams,["name"]);
+    //if (teams.status === REQUEST_STATUSES.SUCCESS) {
+    const filteredTeams = this.filterTeams();
+    const sortedTeams = sortBy(filteredTeams, ["name"]);
 
-      return (
-        <div className="c-workflow-home">
-          <div className="c-workflow-home-content">
-            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
-            {
-              sortedTeams.map(team=>{
-                return <WorkflowsSection team={team} searchQuery={searchQuery} updateWorkflows={this.updateWorkflows}/>;
-              })
-            }
-          </div>
+    return (
+      <div className="c-workflow-home">
+        <div className="c-workflow-home-content">
+          <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
+          {sortedTeams.map(team => {
+            return <WorkflowsSection team={team} searchQuery={searchQuery} updateWorkflows={this.updateWorkflows} />;
+          })}
         </div>
-      );
-    }
-
-    return null;
+      </div>
+    );
   }
+
+  //return null;
+  //}
 }
 
 const mapStateToProps = state => ({
-  teams: state.teams
+  teams: teams
 });
 
 const mapDispatchToProps = dispatch => ({
