@@ -20,9 +20,10 @@
     }
   }
   .bx--overflow-menu__icon {
+    height: 75%;
     fill: $teal-20;
-    height: 3rem;
-    width: 1.35rem;
+    padding: 0rem;
+    padding-top: 0.5rem;
     &:hover {
       fill: $teal-20;
     }

@@ -3,6 +3,10 @@
 Author: Timothy Bula
 GBS Engineering */
 
+* {
+  box-sizing: unset;
+}
+
 html {
   font-size: 100%;
 }
