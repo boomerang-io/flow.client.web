@@ -45,7 +45,11 @@ class WorkflowCreatorContainer extends Component {
   render() {
     return (
       <>
-        <ActionBar actionButtonText={this.state.hasCreated ? "Update" : "Create"} onClick={this.handleOnAction} />
+        <ActionBar
+          actionButtonText={this.state.hasCreated ? "Update" : "Create"}
+          onClick={this.handleOnAction}
+          diagramApp={this.props.diagramApp}
+        />
         <TaskTray />
         <div className="content">
           <div
