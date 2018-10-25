@@ -1,0 +1,28 @@
+.c-workflow-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  margin-top: 3rem;
+  .bmrg--b-button {
+    margin-right: 1rem;
+  }
+}
+.c-workflow-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.b-workflow-section__team {
+  margin-left: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.b-workflow-section__button {
+  margin-right: 1rem;
+}
+.c-workflow-section__workflows {
+  display: flex;
+  flex-wrap: wrap;
+}
