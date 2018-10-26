@@ -1,3 +1,6 @@
-@import "~@boomerang/boomerang-styles/lib/variables";
-@import "./variables";
-@import "./base";
+@import "config";
+@import "~@boomerang/boomerang-styles";
+@import "~carbon-components/scss/globals/scss/styles";
+@import "~@boomerang/boomerang-dag/src/sass/main.scss";
+@import "variables";
+@import "base";

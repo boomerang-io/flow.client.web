@@ -3,10 +3,6 @@
 Author: Timothy Bula
 GBS Engineering */
 
-* {
-  box-sizing: unset;
-}
-
 html {
   font-size: 100%;
 }
@@ -33,14 +29,6 @@ body {
   background-color: $text-area-gray;
 }
 
-a {
-  text-decoration: none !important;
-}
-
-ul {
-  list-style-type: none;
-}
-
 /* body of the application */
 .c-app {
   margin: 0 auto;
@@ -59,22 +47,7 @@ ul {
   justify-content: center;
 }
 
-.bmrg--c-sidenav {
-  width: 20rem;
-}
-
 /* don't scroll when modal is open */
 .ReactModal__Body--open {
   overflow: hidden;
 }
-
-.s-fullscreen {
-  height: 100vh;
-  width: 100vw;
-}
-
-:focus {
-  outline: none;
-}
-
-$css--reset: true;

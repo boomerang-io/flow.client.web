@@ -2,10 +2,9 @@ import { AppContainer } from "react-hot-loader";
 import React from "react";
 import { render } from "react-dom";
 import configureStore, { history } from "./store/configureStore";
-import Root from "./components/Root";
-import "@boomerang/boomerang-dag/src/sass/main.scss";
-import "./styles/styles.scss";
-import "./config/axiosGlobalConfig";
+import Root from "Components/Root";
+import "Config/axiosGlobalConfig";
+import "Styles/styles.scss";
 
 const store = configureStore();
 

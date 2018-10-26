@@ -770,9 +770,9 @@
     babel-plugin-transform-dynamic-import "2.0.0"
     babel-plugin-transform-react-remove-prop-types "0.4.15"
 
-"@boomerang/boomerang-components@5.2.17":
-  version "5.2.17"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-5.2.17.tgz#ea9ec7d85863b5f86caa95d5a6769d13b260311e"
+"@boomerang/boomerang-components@6.0.0-alpha2":
+  version "6.0.0-alpha2"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.0-alpha2.tgz#180b032377819f99256c32641019542d7734f8a6"
 
 "@boomerang/boomerang-dag@5.2.1":
   version "5.2.1"
@@ -870,12 +870,12 @@
   optionalDependencies:
     fsevents "1.2.4"
 
-"@boomerang/boomerang-styles@^0.2.0":
-  version "0.2.0"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-styles/-/@boomerang/boomerang-styles-0.2.0.tgz#36cb90a6d063dbc448344d1aacb529469f1be0f9"
+"@boomerang/boomerang-styles@^0.9.0":
+  version "0.9.0"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-styles/-/@boomerang/boomerang-styles-0.9.0.tgz#271f3adee802cac754a5ce7bd32cfe2c75716470"
   dependencies:
     ibm-design-colors "^2.0.4"
-    normalize.css "^8.0.0"
+    normalize-scss "^7.0.1"
     rimraf "^2.6.2"
 
 "@boomerang/boomerang-utilities@^1.0.1":
@@ -7285,6 +7285,10 @@ normalize-path@^2.0.1, normalize-path@^2.1.1:
 normalize-range@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
+
+normalize-scss@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/normalize-scss/-/normalize-scss-7.0.1.tgz#74485e82bb5d0526371136422a09fdb868ffc1a4"
 
 normalize-url@^1.4.0:
   version "1.9.1"

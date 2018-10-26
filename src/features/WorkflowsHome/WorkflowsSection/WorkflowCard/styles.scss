@@ -1,5 +1,4 @@
-@import "~Styles/styles.scss";
-@import "~carbon-components/scss/components/overflow-menu/overflow-menu";
+@import "~@boomerang/boomerang-styles/lib/colors";
 
 .c-workflow-card {
   display: flex;
@@ -20,10 +19,7 @@
     }
   }
   .bx--overflow-menu__icon {
-    height: 75%;
     fill: $teal-20;
-    padding: 0rem;
-    padding-top: 0.5rem;
     &:hover {
       fill: $teal-20;
     }
