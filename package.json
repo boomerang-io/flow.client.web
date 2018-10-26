@@ -16,8 +16,6 @@
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "normalize-scss": "^7.0.1",
-    "normalize.css": "^8.0.0",
-    "normalizr": "^3.2.4",
     "react": "^16.5.1",
     "react-debounce-input": "^3.2.0",
     "react-dom": "^16.5.1",
