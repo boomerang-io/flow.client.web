@@ -109,29 +109,33 @@ export class TaskNode extends Component {
 
         <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
-        <CloseModalButton
-          className="b-taskNode__delete"
-          onClick={this.handleOnDelete}
-          //closemodal={() => <div>closemodal</div>}
-        />
+        {!this.props.diagramEngine.diagramModel.locked && (
+          <CloseModalButton
+            className="b-taskNode__delete"
+            onClick={this.handleOnDelete}
+            //closemodal={() => <div>closemodal</div>}
+          />
+        )}
         <img src={img_to_render} className="b-taskNode__img" alt="Task node type" />
-        <Modal
-          ModalTrigger={() => <img src={pencilIcon} className="b-taskNode__edit" alt="Task node type" />}
-          modalContent={(closeModal, ...rest) => (
-            <ModalFlow
-              headerTitle={task.name}
-              components={[{ step: 0, component: DisplayForm }]}
-              closeModal={closeModal}
-              confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-              config={this.props.nodeConfig}
-              onSave={this.handleOnSave}
-              theme={"bmrg-white"}
-              task={task}
-              nodeConfig={nodeConfig}
-              {...rest}
-            />
-          )}
-        />
+        {!this.props.diagramEngine.diagramModel.locked && (
+          <Modal
+            ModalTrigger={() => <img src={pencilIcon} className="b-taskNode__edit" alt="Task node type" />}
+            modalContent={(closeModal, ...rest) => (
+              <ModalFlow
+                headerTitle={task.name}
+                components={[{ step: 0, component: DisplayForm }]}
+                closeModal={closeModal}
+                confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
+                config={this.props.nodeConfig}
+                onSave={this.handleOnSave}
+                theme={"bmrg-white"}
+                task={task}
+                nodeConfig={nodeConfig}
+                {...rest}
+              />
+            )}
+          />
+        )}
       </Tile>
     );
   }
