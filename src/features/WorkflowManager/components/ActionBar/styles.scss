@@ -1,19 +1,54 @@
 @import "~Styles/variables";
-@import "~carbon-components/scss/components/tabs/tabs";
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.c-navigation-bar {
+  padding: 1rem 10rem 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  background-color: $lighter-gray;
+}
 
 .c-action-bar {
-  padding: 0 10rem 0 2rem;
+  padding: 0 10rem 0 1rem;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 3.125rem;
+  justify-content: space-between;
+  height: 3rem;
   background-color: $lighter-gray;
 
-  .bmrg--c-text-input {
-    padding-bottom: 0rem;
-    width: 16rem;
+  .b-action-bar-links {
   }
 
-  .c-action-bar--navigate_back {
+  .b-action-bar-links__link {
+    color: $gray-90;
+    padding-bottom: 0.325rem;
+    margin-right: 2rem;
+
+    &.--active {
+      border-bottom: 2px solid $gray-90;
+      font-weight: 600;
+    }
+  }
+
+  .b-action-bar-actions {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .b-action-bar-actions__zoom {
+    margin-right: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.4s ease;
+    &:active {
+      transform: scale(1.1);
+    }
+
+    img {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
   }
 }

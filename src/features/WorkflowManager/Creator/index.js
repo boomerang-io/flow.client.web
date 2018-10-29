@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { Switch, Route } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
+import Overview from "Features/WorkflowManager/components/Overview";
 import TaskTray from "Features/WorkflowManager/components/TaskTray";
 import "./styles.scss";
 
@@ -43,6 +45,8 @@ class WorkflowCreatorContainer extends Component {
   };
 
   render() {
+    const { match } = this.props;
+    console.log(match);
     return (
       <>
         <ActionBar
@@ -50,24 +54,34 @@ class WorkflowCreatorContainer extends Component {
           onClick={this.handleOnAction}
           diagramApp={this.props.diagramApp}
         />
-        <TaskTray />
-        <div className="content">
-          <div
-            className="diagram-layer"
-            onDrop={this.props.createNode}
-            onDragOver={event => {
-              event.preventDefault();
-            }}
-          >
-            <DiagramWidget
-              className="srd-demo-canvas"
-              diagramEngine={this.props.diagramApp.getDiagramEngine()}
-              maxNumberPointsPerLink={0}
-              //smartRouting={true}
-              deleteKeys={[]}
-            />
-          </div>
-        </div>
+        <Switch>
+          <Route path={`${match.path}/overview`} component={Overview} />
+          <Route
+            path={`${match.path}/designer`}
+            render={() => (
+              <>
+                <TaskTray />
+                <div className="content">
+                  <div
+                    className="diagram-layer"
+                    onDrop={this.props.createNode}
+                    onDragOver={event => {
+                      event.preventDefault();
+                    }}
+                  >
+                    <DiagramWidget
+                      className="srd-demo-canvas"
+                      diagramEngine={this.props.diagramApp.getDiagramEngine()}
+                      maxNumberPointsPerLink={0}
+                      //smartRouting={true}
+                      deleteKeys={[]}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+          />
+        </Switch>
       </>
     );
   }

@@ -32,8 +32,8 @@ class App extends Component {
         <main className="c-app-main">
           <Switch>
             <Route path="/viewer" component={WorkflowsViewer} />
-            <Route path="/editor" component={WorkflowManager} exact />
-            <Route path="/editor/:workflowId" component={WorkflowManager} />
+            <Route path="/editor" component={WorkflowManager} />
+            <Route path="/creator" component={WorkflowManager} />
             <Redirect from="/" to="/viewer" />
           </Switch>
         </main>

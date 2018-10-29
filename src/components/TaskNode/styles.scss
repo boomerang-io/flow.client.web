@@ -46,9 +46,8 @@
   .b-taskNode__delete {
     position: absolute;
     right: 0.5rem;
-    top: 0.2875rem;
-    max-width: 0.5rem;
-    max-height: 0.5rem;
+    top: 0.1rem;
+    transform: scale(0.75);
   }
 
   .b-taskNode__img {
