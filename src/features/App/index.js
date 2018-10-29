@@ -6,9 +6,10 @@ import { actions as navbarLinksActions } from "State/navbarLinks";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import Navbar from "./Navbar";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
-import WorkflowsViewer from "Features/WorkflowsViewer";
+import WorkflowActivity from "Features/WorkflowActivity";
 import WorkflowsHome from "Features/WorkflowsHome";
 import WorkflowManager from "Features/WorkflowManager";
+import WorkflowsViewer from "Features/WorkflowsViewer";
 import { BASE_LAUNCHPAD_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
 
@@ -33,9 +34,10 @@ class App extends Component {
         <main className="c-app-main">
           <Switch>
             <Route path="/home" component={WorkflowsHome} />
-            <Route path="/viewer" component={WorkflowsViewer} />
-            <Route path="/editor/:workflowId" component={WorkflowManager} />
+            <Route path="/activity/:workflowId" component={WorkflowActivity} />
             <Route path="/creator" component={WorkflowManager} />
+            <Route path="/editor/:workflowId" component={WorkflowManager} />
+            <Route path="/viewer" component={WorkflowsViewer} />
             <Redirect from="/" to="/viewer" />
           </Switch>
         </main>

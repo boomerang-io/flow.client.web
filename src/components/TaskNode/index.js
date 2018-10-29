@@ -73,25 +73,28 @@ export class TaskNode extends Component {
     // }
 
     let img_to_render;
-    if (this.props.task.name === "Download File") {
-      img_to_render = downloadIMG;
-    } else if (this.props.task.name === "Send Mail") {
-      img_to_render = emailIMG;
-    } else if (this.props.task.name === "Ingest CSV") {
-      img_to_render = downloadIMG;
+    if (this.props.task) {
+      if (this.props.task.name === "Download File") {
+        img_to_render = downloadIMG;
+      } else if (this.props.task.name === "Send Mail") {
+        img_to_render = emailIMG;
+      } else if (this.props.task.name === "Ingest CSV") {
+        img_to_render = downloadIMG;
+      } else {
+        img_to_render = emailIMG;
+      }
     } else {
       img_to_render = emailIMG;
     }
 
-    console.log("TaskNode props");
-    console.log(this.props);
+    console.log(this.props.diagramEngine.diagramModel);
     return (
       <div className="b-taskNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
-          {this.props.task.description}
+          {this.props.task ? this.props.task.description : "placeholder"}
         </Tooltip>
         <div className="b-taskNode__tile" data-tip data-for={this.props.node.id}>
-          {this.props.task.name}
+          {this.props.task ? this.props.task.name : "placeholder"}
         </div>
 
         {

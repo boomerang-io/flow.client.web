@@ -54,7 +54,7 @@ class WorkflowEditorContainer extends Component {
                         className="srd-demo-canvas"
                         diagramEngine={this.props.diagramApp.getDiagramEngine()}
                         maxNumberPointsPerLink={0}
-                        //smartRouting={true}
+                        smartRouting={true}
                         deleteKeys={[]}
                       />
                     </div>

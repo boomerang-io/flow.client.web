@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
+import { actions as workflowActions } from "State/workflow/fetch";
 import sortBy from "lodash/sortBy";
 // import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import ErrorDragon from "Components/ErrorDragon";
@@ -25,6 +26,7 @@ class WorkflowsHome extends Component {
 
   componentDidMount() {
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+    this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow`);
   }
 
   handleSearchFilter = (searchQuery, teams) => {
@@ -79,7 +81,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  teamsActions: bindActionCreators(teamsActions, dispatch)
+  teamsActions: bindActionCreators(teamsActions, dispatch),
+  workflowActions: bindActionCreators(workflowActions, dispatch)
 });
 
 export default connect(
