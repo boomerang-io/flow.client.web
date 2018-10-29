@@ -6,6 +6,7 @@ import diagram from "./diagram.svg";
 import secure from "./secure.svg";
 import utility from "./utility.svg";
 import template from "./template.svg";
+import playButton from "./playButton.svg";
 
 export default {
   docs,
@@ -15,5 +16,6 @@ export default {
   payment,
   diagram,
   utility,
-  template
+  template,
+  playButton
 };

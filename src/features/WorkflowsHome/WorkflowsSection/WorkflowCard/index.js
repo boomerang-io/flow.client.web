@@ -5,8 +5,12 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
+import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
+import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import imgs from "./img";
 import "./styles.scss";
+import playButton from "./img/playButton.svg";
 
 class WorkflowCard extends Component {
   static propTypes = {
@@ -69,6 +73,19 @@ class WorkflowCard extends Component {
           <div className="c-workflow-card__description">
             <div className="b-workflow-card__name">{workflow.name}</div>
             <div className="b-workflow-card__description">{workflow.description}</div>
+            <Tooltip className="b-workflow-card__toolTip" place="right" id={workflow.id} theme="bmrg-white">
+              Execute workflow
+            </Tooltip>
+
+            <AlertModal
+              data-tip
+              data-for={workflow.id}
+              theme="bmrg-white"
+              ModalTrigger={() => <img className="b-workflow-card__launch" src={playButton} alt="icon" />}
+              modalContent={(closeModal, rest) => (
+                <ConfirmModal title="Execute a Workflow?" subTitleTop="" closeModal={closeModal} {...rest} />
+              )}
+            />
           </div>
         </div>
       </div>
