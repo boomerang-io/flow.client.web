@@ -1,4 +1,4 @@
-@import "~Styles/variables.scss";
+@import "~Styles/variables";
 
 .b-startEnd-node {
   background: $blue;
@@ -11,7 +11,6 @@
   align-items: center;
 
   .b-startEnd-node__title {
-    font-size: $base;
     text-align: center;
     font-weight: 300;
     letter-spacing: 0.1625rem;

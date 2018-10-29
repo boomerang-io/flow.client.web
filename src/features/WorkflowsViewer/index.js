@@ -4,10 +4,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow/fetch";
 import { Link } from "react-router-dom";
+import sortBy from "lodash/sortBy";
 import Button from "@boomerang/boomerang-components/lib/Button";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import ErrorDragon from "Components/ErrorDragon";
+import SearchFilterBar from "Components/SearchFilterBar";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
 

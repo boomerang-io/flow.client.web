@@ -2219,9 +2219,9 @@ capture-stack-trace@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/capture-stack-trace/-/capture-stack-trace-1.0.1.tgz#a6c0bbe1f38f3aa0b92238ecb6ff42c344d4135d"
 
-carbon-components-react@^6.32.1:
-  version "6.41.0"
-  resolved "https://registry.yarnpkg.com/carbon-components-react/-/carbon-components-react-6.41.0.tgz#6fe3390180dc0b1faae850ba2c2ec3f46e27ef71"
+carbon-components-react@^6.42.0:
+  version "6.43.0"
+  resolved "https://registry.yarnpkg.com/carbon-components-react/-/carbon-components-react-6.43.0.tgz#5f679d77e410d871d9fe4be7a982d47a8097c938"
   dependencies:
     classnames "2.2.6"
     downshift "^1.31.14"
@@ -2233,9 +2233,9 @@ carbon-components-react@^6.32.1:
     warning "^3.0.0"
     window-or-global "^1.0.1"
 
-carbon-components@^9.14.0:
-  version "9.31.0"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-9.31.0.tgz#fc83926be24590e7b94dd0bd4828c96e2e9e5e27"
+carbon-components@^9.37.2:
+  version "9.39.0"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-9.39.0.tgz#348c8830c0c0abf74ae0122715cbb5318df961cf"
   dependencies:
     "@carbon/colors" "^0.0.1-alpha.0"
     carbon-icons "^7.0.7"
@@ -6509,7 +6509,7 @@ lodash.clonedeep@^4.3.2:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
 
-lodash.debounce@^4.0.8:
+lodash.debounce@^4, lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
 
@@ -8505,7 +8505,7 @@ prop-types@15.6.1:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -8676,6 +8676,13 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
+
+react-debounce-input@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-debounce-input/-/react-debounce-input-3.2.0.tgz#6978c6061d898f549f40417fb0d2ebbecf50aaaa"
+  dependencies:
+    lodash.debounce "^4"
+    prop-types "^15"
 
 react-dom@^16.5.1:
   version "16.5.2"
