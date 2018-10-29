@@ -22,6 +22,7 @@ class CustomLink extends Component {
 
   componentDidMount() {
     this.props.diagramEngine.repaintCanvas();
+    console.log(this.props.diagramEngine.diagramModel.locked);
   }
 
   componentWillUnmount() {
@@ -44,24 +45,25 @@ class CustomLink extends Component {
     }
     return (
       <>
-        {this.path && (
-          <>
-            <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y - 20}) scale(0.7)`}>
-              <foreignObject>
-                <CloseModalButton onClick={this.handleOnDelete} />
-              </foreignObject>
-            </g>
-            <g transform={`translate(${this.halfwayPoint.x - 17}, ${this.halfwayPoint.y + 2})`}>
-              <foreignObject>
-                <MultiStateButton
-                  onClick={this.updateExecutionState}
-                  initialExecutionCondition={this.state.executionCondition}
-                  modelId={this.props.model.id}
-                />
-              </foreignObject>
-            </g>
-          </>
-        )}
+        {this.path &&
+          !this.props.diagramEngine.diagramModel.locked && (
+            <>
+              <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y - 20}) scale(0.7)`}>
+                <foreignObject>
+                  <CloseModalButton onClick={this.handleOnDelete} />
+                </foreignObject>
+              </g>
+              <g transform={`translate(${this.halfwayPoint.x - 17}, ${this.halfwayPoint.y + 2})`}>
+                <foreignObject>
+                  <MultiStateButton
+                    onClick={this.updateExecutionState}
+                    initialExecutionCondition={this.state.executionCondition}
+                    modelId={this.props.model.id}
+                  />
+                </foreignObject>
+              </g>
+            </>
+          )}
         <path
           ref={ref => {
             this.path = ref;

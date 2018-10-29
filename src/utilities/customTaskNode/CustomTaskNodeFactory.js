@@ -4,16 +4,16 @@ import CustomTaskNode from "Components/TaskNode";
 import CustomTaskNodeModel from "./CustomTaskNodeModel";
 
 export default class CustomTaskNodeFactory extends AbstractNodeFactory {
-  constructor() {
+  constructor(diagramEngine) {
     super("custom");
-  }
-
-  generateReactWidget(diagramEngine, node) {
-    diagramEngine.registerNodeFactory(new CustomTaskNodeFactory());
-    return <CustomTaskNode node={node} />;
+    this.diagramEngine = diagramEngine;
   }
 
   getNewInstance() {
     return new CustomTaskNodeModel();
+  }
+
+  generateReactWidget(diagramEngine, node) {
+    return <CustomTaskNode node={node} diagramEngine={diagramEngine} />;
   }
 }

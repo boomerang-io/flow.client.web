@@ -7,6 +7,7 @@ import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import TaskTray from "Features/WorkflowManager/components/TaskTray";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
+import DiagramApplication from "Utilities/DiagramApplication";
 import "./styles.scss";
 
 class WorkflowEditorContainer extends Component {
@@ -46,6 +47,8 @@ class WorkflowEditorContainer extends Component {
                 maxNumberPointsPerLink={0}
                 //smartRouting={true}
                 deleteKeys={[]}
+                allowLooseLinks={false}
+                allowCanvasTranslation={false}
               />
             </div>
           </div>

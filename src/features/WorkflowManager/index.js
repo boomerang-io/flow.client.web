@@ -25,7 +25,7 @@ class WorkflowManagerContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.diagramApp = new DiagramApplication(props.workflow);
+    this.diagramApp = new DiagramApplication(props.workflow, true);
   }
 
   componentDidMount() {
