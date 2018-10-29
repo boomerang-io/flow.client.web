@@ -770,9 +770,9 @@
     babel-plugin-transform-dynamic-import "2.0.0"
     babel-plugin-transform-react-remove-prop-types "0.4.15"
 
-"@boomerang/boomerang-components@6.0.0-alpha2":
-  version "6.0.0-alpha2"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.0-alpha2.tgz#180b032377819f99256c32641019542d7734f8a6"
+"@boomerang/boomerang-components@6.0.0-alpha6":
+  version "6.0.0-alpha6"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.0-alpha6.tgz#52b0ebca9e6d183cf5cd538913d5d51f2dad898f"
 
 "@boomerang/boomerang-dag@5.2.1":
   version "5.2.1"
@@ -7302,10 +7302,6 @@ normalize-url@^1.4.0:
 normalize-url@^3.0.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-3.3.0.tgz#b2e1c4dc4f7c6d57743df733a4f5978d18650559"
-
-normalize.css@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-8.0.0.tgz#14ac5e461612538a4ce9be90a7da23f86e718493"
 
 normalizr@^3.2.4:
   version "3.3.0"

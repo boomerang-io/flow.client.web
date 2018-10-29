@@ -127,26 +127,27 @@ class WorkflowManagerContainer extends Component {
     }
 
     if (this.props.tasks.status === REQUEST_STATUSES.SUCCESS) {
+      console.log(this.props.workflow);
       return (
         <Switch>
           <Route
-            path="/editor/:workflowId"
+            path="/creator"
             render={props => (
-              <Editor
+              <Creator
                 createNode={this.createNode}
                 diagramApp={this.diagramApp}
+                handleOnCreate={this.handleOnCreate}
                 handleOnUpdate={this.handleOnUpdate}
                 {...props}
               />
             )}
           />
           <Route
-            path="/editor"
+            path="/editor/:workflowId"
             render={props => (
-              <Creator
+              <Editor
                 createNode={this.createNode}
                 diagramApp={this.diagramApp}
-                handleOnCreate={this.handleOnCreate}
                 handleOnUpdate={this.handleOnUpdate}
                 {...props}
               />

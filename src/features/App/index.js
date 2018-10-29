@@ -34,9 +34,9 @@ class App extends Component {
           <Switch>
             <Route path="/home" component={WorkflowsHome} />
             <Route path="/viewer" component={WorkflowsViewer} />
-            <Route path="/editor" component={WorkflowManager} exact />
             <Route path="/editor/:workflowId" component={WorkflowManager} />
-            <Redirect from="/" to="/home" />
+            <Route path="/creator" component={WorkflowManager} />
+            <Redirect from="/" to="/viewer" />
           </Switch>
         </main>
         <NotificationContainer />

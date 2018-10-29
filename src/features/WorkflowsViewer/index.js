@@ -25,7 +25,7 @@ class WorkflowsViewerContainer extends Component {
 
   formatWorkflows = () => {
     return this.props.workflow.data.map(workflow => (
-      <Link to={`/editor/${workflow.id}`} key={workflow.id}>
+      <Link to={`/editor/${workflow.id}/designer`} key={workflow.id}>
         {workflow.id}
       </Link>
     ));
@@ -46,7 +46,7 @@ class WorkflowsViewerContainer extends Component {
             content={() => <div className="c-sidenav-section">{this.formatWorkflows()}</div>}
             header={() => (
               <div className="c-sidenav-section">
-                <Link to="/editor">
+                <Link to="/creator/overview">
                   <Button theme="bmrg-black">Create Workflow</Button>
                 </Link>
               </div>

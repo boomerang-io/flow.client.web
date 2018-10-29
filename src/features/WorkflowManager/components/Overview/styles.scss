@@ -1,0 +1,56 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.c-worklfow-overview {
+  display: flex;
+
+  .c-general-info {
+    display: flex;
+    flex-direction: column;
+    margin: 5rem;
+    padding: 1rem 3rem 2rem;
+    width: 40rem;
+    background: $neutral-white-4;
+    border-radius: 0.25rem;
+  }
+
+  .s-general-info-title {
+    font-size: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .bmrg--b-text-input__input {
+    box-shadow: 0 0 0 62.5rem $white inset !important;
+  }
+
+  .bmrg--c-text-input {
+    margin-top: 1.5rem;
+  }
+
+  .bmrg--b-text-input__input {
+    border-radius: 0.225rem;
+    border: none;
+    &:focus {
+      border: none;
+    }
+  }
+
+  .bmrg--b-textarea__text {
+    background: $white;
+    border: none;
+    caret-color: $gray-90;
+    padding: 0.5rem;
+    transition: border 0.3s ease;
+
+    &:focus {
+      border: none;
+    }
+
+    &::placeholder {
+      color: $cool-gray-20;
+    }
+  }
+
+  .bmrg--b-textarea__title {
+    color: $gray-90;
+  }
+}
