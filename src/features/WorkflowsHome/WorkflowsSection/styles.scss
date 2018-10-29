@@ -1,3 +1,5 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
 .c-workflow-section {
   display: flex;
   flex-direction: column;
@@ -6,6 +8,11 @@
   margin-top: 3rem;
   .bmrg--b-button {
     margin-right: 1rem;
+  }
+
+  .bmrg--b-tooltip.--bmrg-white {
+    border: 0rem;
+    margin-top: 0.625rem;
   }
 }
 .c-workflow-section__header {
@@ -25,4 +32,28 @@
 .c-workflow-section__workflows {
   display: flex;
   flex-wrap: wrap;
+}
+
+.b-workflow-placeholder {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.b-workflow-placeholder__box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20rem;
+  height: 9.325rem;
+  border-radius: 0.25rem;
+  border: 1px dashed $cool-gray-20;
+}
+
+.b-workflow-placeholder__text {
+  font-size: 4rem;
+  line-height: 4rem;
+  font-weight: 200;
+  color: $cool-gray-50;
 }

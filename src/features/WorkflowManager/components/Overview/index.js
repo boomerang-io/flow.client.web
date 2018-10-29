@@ -27,21 +27,21 @@ class Overview extends Component {
           <h1 className="s-general-info-title">General</h1>
           <TextInput
             title="Name"
-            placeholder="Enter a name"
+            placeholder="Name"
             name="name"
             theme="bmrg-white"
             handleChange={this.handleOnChange}
           />
           <TextInput
-            title="Short Description"
-            placeholder="Enter a short description"
+            title="Short description"
+            placeholder="Short description"
             name="shortDescription"
             theme="bmrg-white"
             handleChange={this.handleOnChange}
           />
           <TextArea
             title="Description"
-            placeholder="Enter a description"
+            placeholder="Description"
             name="description"
             theme="bmrg-white"
             handleChange={this.handleOnChange}

@@ -36,8 +36,6 @@ class WorkflowCard extends Component {
     const menuOptions = [
       { itemText: "View Activity", onClick: () => history.push(`/activity/${workflow.id}`), primaryFocus: true },
       { itemText: "Edit Workflow", onClick: () => history.push(`/editor/${workflow.id}`), primaryFocus: false },
-      { itemText: "Duplicate", onClick: () => console.log("duplicate"), primaryFocus: false },
-      { itemText: "Export", onClick: () => console.log("export"), primaryFocus: false },
       { itemText: "Delete", onClick: () => this.handleOnDelete(), primaryFocus: false }
     ];
 

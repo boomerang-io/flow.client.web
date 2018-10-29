@@ -5,7 +5,6 @@ import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
 import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { PortWidget } from "@boomerang/boomerang-dag";
-import { Tile } from "carbon-components-react";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
@@ -87,7 +86,7 @@ export class TaskNode extends Component {
     console.log("TaskNode props");
     console.log(this.props);
     return (
-      <Tile className="b-taskNode">
+      <div className="b-taskNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
           {this.props.task.description}
         </Tooltip>
@@ -136,7 +135,7 @@ export class TaskNode extends Component {
             )}
           />
         )}
-      </Tile>
+      </div>
     );
   }
 }

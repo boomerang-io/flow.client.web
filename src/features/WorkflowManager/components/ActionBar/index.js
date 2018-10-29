@@ -7,7 +7,6 @@ import minusIcon from "./assets/minus";
 import plusIcon from "./assets/plus";
 //import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import "./styles.scss";
-//import "carbon-components/scss/components/tabs/_tabs.scss";
 
 /*function to add add/subtract to the zoom level*/
 
@@ -31,12 +30,9 @@ class ActionBar extends Component {
     return (
       <>
         <div className="c-navigation-bar">
-          <NavigateBack to="/viewer" text={"Back to Workflows"} />
+          <NavigateBack to="/home" text={"Back to Workflows"} />
         </div>
         <div className="c-action-bar">
-          {
-            //<TextInput theme="bmrg-blue" />
-          }
           <div className="b-action-bar-links">
             <NavLink
               className="b-action-bar-links__link"
