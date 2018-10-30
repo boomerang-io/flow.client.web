@@ -19,16 +19,15 @@ class WorkflowCard extends Component {
     updateWorkflows: PropTypes.func.isRequired
   };
 
-  //TODO: fill in axios
   handleExecute = () => {
     return axios
       .post(`${BASE_SERVICE_URL}/execute/:workflowId`, this.props.workflow.id)
       .then(response => {
-        notify(<Notification type="success" title="Create Workflow" message="Succssfully created workflow" />);
-        return Promise.resolve(response.data.id); //workflowConfigId
+        notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
+        return Promise.resolve(response.data.id);
       })
       .catch(error => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow" />);
+        notify(<Notification type="error" title="Something's wrong" message="Failed to run workflow" />);
         return Promise.reject(error);
       });
   };
