@@ -3,6 +3,13 @@
 .bmrg--b-navbar {
   //position: unset !important;
 }
+.bmrg--b-navbar-logo {
+  cursor: pointer;
+}
+
+.c-app-main > .bmrg--c-sidenav {
+  z-index: 2;
+}
 
 .c-app-main {
   padding-top: 3.125rem;
