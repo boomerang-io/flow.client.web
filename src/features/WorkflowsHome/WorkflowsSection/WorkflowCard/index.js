@@ -20,16 +20,9 @@ class WorkflowCard extends Component {
   };
 
   //TODO: fill in axios
-  /*handleExecute = () => {
+  handleExecute = () => {
     return axios
-      .post(`${BASE_SERVICE_URL}/workflow/<workflowId>/execute`, workflow.)
-      .then(response => {
-        const workflowConfigObj = {
-          workflowId: response.data.id, //workflowId
-          nodes: this.formatWorkflowConfigNodes()
-        };
-        return axios.post(`${BASE_SERVICE_URL}/taskconfiguration`, workflowConfigObj);
-      })
+      .post(`${BASE_SERVICE_URL}/execute/:workflowId`, this.props.workflow.id)
       .then(response => {
         notify(<Notification type="success" title="Create Workflow" message="Succssfully created workflow" />);
         return Promise.resolve(response.data.id); //workflowConfigId
@@ -38,7 +31,7 @@ class WorkflowCard extends Component {
         notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow" />);
         return Promise.reject(error);
       });
-  };*/
+  };
 
   handleOnDelete = () => {
     // axios
@@ -94,19 +87,28 @@ class WorkflowCard extends Component {
           <div className="c-workflow-card__description">
             <div className="b-workflow-card__name">{workflow.name}</div>
             <div className="b-workflow-card__description">{workflow.description}</div>
-            <Tooltip className="b-workflow-card__toolTip" place="right" id={workflow.id} theme="bmrg-white">
-              Execute workflow
-            </Tooltip>
 
-            <AlertModal
-              data-tip
-              data-for={workflow.id}
-              theme="bmrg-white"
-              ModalTrigger={() => <img className="b-workflow-card__launch" src={playButton} alt="icon" />}
-              modalContent={(closeModal, rest) => (
-                <ConfirmModal title="Execute a Workflow?" subTitleTop="" closeModal={closeModal} {...rest} />
-              )}
-            />
+            <div className="c-workflow-card__execute" data-tip data-for={workflow.id}>
+              <Tooltip className="b-workflow-card__toolTip" place="right" id={workflow.id} theme="bmrg-white">
+                Execute workflow
+              </Tooltip>
+              <AlertModal
+                data-tip
+                data-for={workflow.id}
+                theme="bmrg-white"
+                ModalTrigger={() => <img className="b-workflow-card__launch" src={playButton} alt="icon" />}
+                modalContent={(closeModal, rest) => (
+                  <ConfirmModal
+                    title="Execute a Workflow?"
+                    subTitleTop=""
+                    closeModal={closeModal}
+                    affirmativeAction={this.handleExecute}
+                    affirmativeText="Run"
+                    {...rest}
+                  />
+                )}
+              />
+            </div>
           </div>
         </div>
       </div>
