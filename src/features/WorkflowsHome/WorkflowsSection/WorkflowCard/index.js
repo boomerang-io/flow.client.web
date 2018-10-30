@@ -19,6 +19,27 @@ class WorkflowCard extends Component {
     updateWorkflows: PropTypes.func.isRequired
   };
 
+  //TODO: fill in axios
+  /*handleExecute = () => {
+    return axios
+      .post(`${BASE_SERVICE_URL}/workflow/<workflowId>/execute`, workflow.)
+      .then(response => {
+        const workflowConfigObj = {
+          workflowId: response.data.id, //workflowId
+          nodes: this.formatWorkflowConfigNodes()
+        };
+        return axios.post(`${BASE_SERVICE_URL}/taskconfiguration`, workflowConfigObj);
+      })
+      .then(response => {
+        notify(<Notification type="success" title="Create Workflow" message="Succssfully created workflow" />);
+        return Promise.resolve(response.data.id); //workflowConfigId
+      })
+      .catch(error => {
+        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow" />);
+        return Promise.reject(error);
+      });
+  };*/
+
   handleOnDelete = () => {
     // axios
     //   .delete(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.id}`)
@@ -36,7 +57,7 @@ class WorkflowCard extends Component {
 
   render() {
     const { workflow, history } = this.props;
-
+    console.log(workflow);
     const menuOptions = [
       { itemText: "View Activity", onClick: () => history.push(`/activity/${workflow.id}`), primaryFocus: true },
       { itemText: "Edit Workflow", onClick: () => history.push(`/editor/${workflow.id}`), primaryFocus: false },
