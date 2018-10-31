@@ -27,7 +27,7 @@ class WorkflowCard extends Component {
       {
         itemText: "View Activity",
         onClick: () => history.push(`/activity/dfb6302b-62e0-4574-9062-727e4a37fc32`),
-        primaryFocus: true
+        primaryFocus: false
       },
       {
         itemText: "Delete",
@@ -64,7 +64,7 @@ class WorkflowCard extends Component {
           </div>
           <div className="c-workflow-card__description">
             <h2 className="b-workflow-card__name">{workflow.name}</h2>
-            <p className="b-workflow-card__description">{workflow.description}</p>
+            <p className="b-workflow-card__description">{workflow.shortDescription}</p>
             <span data-tip data-for={workflow.id} className="b-workflow-card-launch">
               <AlertModal
                 ModalTrigger={() => (
