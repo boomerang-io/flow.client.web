@@ -157,7 +157,7 @@ class WorkflowManagerContainer extends Component {
             path="/creator"
             render={props => (
               <Creator
-                workflow={this.props.workflow.data}
+                workflow={this.props.workflow}
                 createNode={this.createNode}
                 createWorkflow={this.createWorkflow}
                 createWorkflowRevision={this.createWorkflowRevision}
@@ -171,7 +171,6 @@ class WorkflowManagerContainer extends Component {
             path="/editor/:workflowId"
             render={props => (
               <EditorContainer
-                workflow={this.props.workflow.data}
                 createNode={this.createNode}
                 createWorkflowRevision={this.createWorkflowRevision}
                 updateWorkflow={this.updateWorkflow}

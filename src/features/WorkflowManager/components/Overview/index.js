@@ -17,7 +17,7 @@ class Overview extends Component {
 
   constructor(props) {
     super(props);
-    this.state = props.workflow;
+    this.state = props.workflow.data;
   }
 
   handleOnChange = (value, errors, name) => {

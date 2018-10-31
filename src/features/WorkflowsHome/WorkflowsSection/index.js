@@ -36,6 +36,8 @@ class WorkflowSection extends Component {
               updateWorkflows={this.props.updateWorkflows}
               teamId={team.id}
               key={workflow.id}
+              executeWorkflow={this.props.executeWorkflow}
+              deleteWorkflow={this.props.deleteWorkflow}
             />
           ))}
           <Button className="b-workflow-placeholder" onClick={() => setActiveTeamAndRedirect(team.id)}>
