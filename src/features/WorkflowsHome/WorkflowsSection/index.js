@@ -31,7 +31,12 @@ class WorkflowSection extends Component {
           </div>
           <div className="c-workflow-section__workflows">
             {workflows.map(workflow => (
-              <WorkflowCard workflow={workflow} updateWorkflows={this.props.updateWorkflows} teamId={team.id} />
+              <WorkflowCard
+                workflow={workflow}
+                updateWorkflows={this.props.updateWorkflows}
+                teamId={team.id}
+                key={workflow.id}
+              />
             ))}
             <Button className="b-workflow-placeholder" onClick={() => history.push(`/creator/overview`)}>
               <div className="b-workflow-placeholder__box">

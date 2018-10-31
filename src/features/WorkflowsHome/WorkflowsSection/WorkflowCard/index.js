@@ -27,7 +27,7 @@ class WorkflowCard extends Component {
     //     notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
     //     return;
     //   });
-    this.props.updateWorkflows({ workflowId: this.props.workflow.id, teamId: this.props.teamId });
+    //this.props.updateWorkflows({ workflowId: this.props.workflow.id, teamId: this.props.teamId });
   };
 
   render() {
@@ -39,7 +39,11 @@ class WorkflowCard extends Component {
         onClick: () => history.push(`/activity/dfb6302b-62e0-4574-9062-727e4a37fc32`),
         primaryFocus: true
       },
-      { itemText: "Edit Workflow", onClick: () => history.push(`/editor/${workflow.id}`), primaryFocus: false },
+      {
+        itemText: "Edit Workflow",
+        onClick: () => history.push(`/editor/${workflow.id}/designer`),
+        primaryFocus: false
+      },
       { itemText: "Delete", onClick: () => this.handleOnDelete(), primaryFocus: false }
     ];
 

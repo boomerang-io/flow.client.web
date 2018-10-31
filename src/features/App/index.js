@@ -12,38 +12,20 @@ import WorkflowsHome from "Features/WorkflowsHome";
 import WorkflowManager from "Features/WorkflowManager";
 import WorkflowsViewer from "Features/WorkflowsViewer";
 import { BASE_LAUNCHPAD_SERVICE_URL } from "Config/servicesConfig";
+import { navItems } from "./config";
 import "./styles.scss";
 
-const navItems = [
-  {
-    path: "/workflows",
-    exact: false,
-    text: "Workflows"
-  },
-  {
-    path: "/creator",
-    exact: false,
-    text: "Creator"
-  },
-  {
-    path: "/activity",
-    exact: false,
-    text: "Activity"
-  },
-  {
-    path: "/insights",
-    exact: false,
-    text: "Insights"
-  }
-];
-
 class App extends Component {
-  state = {
-    showSidenav: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      sideNavIsOpen: false
+    };
+  }
 
   componentDidMount() {
     this.fetchData();
+    //document.addEventListener("mousedown", this.handleClickOutside);
   }
 
   refreshPage = () => {
@@ -57,9 +39,17 @@ class App extends Component {
 
   handleOnIconClick = ({ on }) => {
     this.setState(() => ({
-      showSidenav: on
+      sideNavIsOpen: !on
     }));
   };
+
+  // handleClickOutside = event => {
+  //   if (this.sideNavRef.current && !this.sideNavRef.current.contains(event.target)) {
+  //     this.setState(() => ({
+  //       sideNavIsOpen: false
+  //     }));
+  //   }
+  // };
 
   render() {
     return (
@@ -71,7 +61,9 @@ class App extends Component {
           handleOnIconClick={this.handleOnIconClick}
         />
         <main className="c-app-main">
-          <Sidenav theme="bmrg-white" hidden={this.state.showSidenav} navItems={navItems} />
+          <div className="s-sidenav-wrapper">
+            <Sidenav theme="bmrg-white" hidden={!this.state.sideNavIsOpen} navItems={navItems} />
+          </div>
           <Switch>
             <Route path="/workflows" component={WorkflowsHome} />
             <Route path="/activity/:workflowId" component={WorkflowActivity} />

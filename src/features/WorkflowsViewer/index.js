@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as workflowActions } from "State/workflow/fetch";
+import { actions as workflowActions } from "State/workflow";
 import { Link } from "react-router-dom";
 import sortBy from "lodash/sortBy";
 import Button from "@boomerang/boomerang-components/lib/Button";

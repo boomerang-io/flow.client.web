@@ -4,63 +4,82 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Switch, Route } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
-import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
+import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
-import TaskTray from "Features/WorkflowManager/components/TaskTray";
+import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
 import "./styles.scss";
 
 class WorkflowCreatorContainer extends Component {
-  static PropTypes = {
+  static propTypes = {
     createNode: PropTypes.func.isRequired,
     diagramApp: PropTypes.object.isRequired,
-    handleOnCreate: PropTypes.func.isRequired,
-    handleOnUpdate: PropTypes.func.isRequired
+    createWorkflow: PropTypes.func.isRequired,
+    createWorkflowRevision: PropTypes.func.isRequired,
+    handleOnOverviewChange: PropTypes.func.isRequired,
+    updateWorkflow: PropTypes.func.isRequired
   };
 
   state = {
-    hasCreated: false
+    hasCreatedWorkflow: false
   };
 
-  handleOnAction = () => {
-    if (this.state.hasCreated) {
-      this.props.handleOnUpdate();
+  overviewAction = () => {
+    if (this.state.hasCreatedWorkflow) {
+      this.props.updateWorkflow();
     } else {
-      this.props.handleOnCreate();
+      this.createWorkflow();
     }
   };
 
-  handleOnCreate = () => {
-    this.props.handleOnCreate().then(workflowConfigId => {
-      this.setState({
-        hasCreated: true,
-        workflowConfigId
-      });
+  designerAction = () => {
+    if (this.state.hasCreatedWorkflow) {
+      this.props.createWorkflowRevision();
+    } else {
+      this.createWorkflow();
+    }
+  };
+
+  createWorkflow = () => {
+    this.props.createWorkflow();
+    this.setState({
+      hasCreatedWorkflow: true
     });
   };
 
-  handleOnUpdate = () => {
-    this.props.handleOnUpdate({ workflowConfigId: this.state.workflowConfigId });
-  };
-
   render() {
-    const { match } = this.props;
-    console.log(match);
+    const { match, handleOnOverviewChange } = this.props;
     return (
       <>
-        <ActionBar
-          actionButtonText={this.state.hasCreated ? "Update" : "Create"}
-          onClick={this.handleOnAction}
-          diagramApp={this.props.diagramApp}
-        />
+        <Navigation />
         <Switch>
-          <Route path={`${match.path}/overview`} component={Overview} />
+          <Route
+            path={`${match.path}/overview`}
+            component={props => (
+              <>
+                <ActionBar
+                  actionButtonText={this.state.hasCreatedWorkflow ? "Update" : "Create"}
+                  onClick={this.overviewAction}
+                  diagramApp={this.props.diagramApp}
+                  {...props}
+                />
+                <Overview handleOnChange={handleOnOverviewChange} workflow={this.props.workflow} />
+              </>
+            )}
+          />
           <Route
             path={`${match.path}/designer`}
-            render={() => (
+            render={props => (
               <>
-                <TaskTray />
+                <ActionBar
+                  actionButtonText={this.state.hasCreatedWorkflow ? "Update" : "Create"}
+                  onClick={this.designerAction}
+                  diagramApp={this.props.diagramApp}
+                  includeZoom
+                  {...props}
+                />
+                <TasksSidenav />
                 <div className="content">
                   <div
                     className="diagram-layer"
@@ -88,13 +107,11 @@ class WorkflowCreatorContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  tasks: state.tasks,
-  workflowConfig: state.workflowConfig.fetch
+  tasks: state.tasks
 });
 
 const mapDispatchToProps = dispatch => ({
-  tasksActions: bindActionCreators(tasksActions, dispatch),
-  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch)
+  tasksActions: bindActionCreators(tasksActions, dispatch)
 });
 
 export default connect(

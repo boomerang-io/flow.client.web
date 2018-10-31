@@ -53,4 +53,26 @@
   .bmrg--b-textarea__title {
     color: $gray-90;
   }
+
+  .s-worklflow-icons-title {
+    font-size: 1rem;
+    color: $gray-90;
+    margin-bottom: 1rem;
+  }
+
+  .b-worklflow-icons {
+    display: flex;
+    flex-flow: wrap;
+  }
+
+  .b-worklflow-icons__icon {
+    width: 3rem;
+    height: 3rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    &.--active {
+      border: 1px solid #40d5bb;
+    }
+  }
 }
