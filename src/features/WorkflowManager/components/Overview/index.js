@@ -41,6 +41,7 @@ class Overview extends Component {
             name="name"
             theme="bmrg-white"
             onChange={this.handleOnChange}
+            noValueText="Enter a name"
           />
           <TextInput
             value={this.state.shortDescription || ""}
@@ -58,11 +59,11 @@ class Overview extends Component {
             theme="bmrg-white"
             handleChange={this.handleOnChange}
           />
-          <h2 className="s-worklflow-icons-title">Icon</h2>
-          <div className="b-worklflow-icons">
+          <h2 className="s-workflow-icons-title">Icon</h2>
+          <div className="b-workflow-icons">
             {assets.map(image => (
               <img
-                className={classnames("b-worklflow-icons__icon", {
+                className={classnames("b-workflow-icons__icon", {
                   "--active": this.state.icon === image.name
                 })}
                 src={image.src}

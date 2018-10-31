@@ -18,18 +18,18 @@
     margin-bottom: 4rem;
   }
 
-  .s-worklflow-icons-title {
+  .s-workflow-icons-title {
     font-size: 1rem;
     color: $gray-90;
     margin-bottom: 1rem;
   }
 
-  .b-worklflow-icons {
+  .b-workflow-icons {
     display: flex;
     flex-flow: wrap;
   }
 
-  .b-worklflow-icons__icon {
+  .b-workflow-icons__icon {
     cursor: pointer;
     width: 3rem;
     height: 3rem;
@@ -37,7 +37,8 @@
     padding: 0.5rem;
 
     &.--active {
-      border: 1px solid #40d5bb;
+      border: 0.0625rem solid #40d5bb;
+      border-radius: 0.125rem;
     }
   }
 }
