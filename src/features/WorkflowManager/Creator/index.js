@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
@@ -109,6 +109,7 @@ class WorkflowCreatorContainer extends Component {
               </>
             )}
           />
+          <Redirect from={`${match.path}`} to={`${match.path}/overview`} />
         </Switch>
       </>
     );
