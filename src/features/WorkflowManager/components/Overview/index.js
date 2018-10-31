@@ -21,7 +21,6 @@ class Overview extends Component {
   }
 
   handleOnChange = (value, errors, name) => {
-    console.log(value, name);
     this.setState(
       () => ({
         [name]: value

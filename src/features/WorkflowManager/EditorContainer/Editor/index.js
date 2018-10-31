@@ -23,7 +23,7 @@ class WorkflowEditor extends Component {
   }
 
   render() {
-    const { createNode, createWorkflowRevision, handleOnOverviewChange, match, workflow } = this.props;
+    const { createNode, createWorkflowRevision, handleOnOverviewChange, match, workflow, updateWorkflow } = this.props;
 
     return (
       <>
@@ -35,7 +35,7 @@ class WorkflowEditor extends Component {
               <>
                 <ActionBar
                   actionButtonText="Update"
-                  onClick={() => createWorkflowRevision(this.diagramApp)}
+                  onClick={() => updateWorkflow(this.diagramApp)}
                   diagramApp={this.diagramApp}
                   {...props}
                 />
@@ -48,7 +48,7 @@ class WorkflowEditor extends Component {
             render={props => (
               <>
                 <ActionBar
-                  actionButtonText="Update"
+                  actionButtonText="Create New Version"
                   onClick={() => createWorkflowRevision(this.diagramApp)}
                   diagramApp={this.diagramApp}
                   includeZoom
