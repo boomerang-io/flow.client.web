@@ -38,8 +38,8 @@ export class TaskNode extends Component {
   state = {};
 
   //need to create a save function where we make change to global state
-  handleOnSave = config => {
-    this.props.workflowRevisionActions.updateNode({ nodeId: this.props.node.id, config: config });
+  handleOnSave = inputs => {
+    this.props.workflowRevisionActions.updateNode({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
 
@@ -127,7 +127,6 @@ export class TaskNode extends Component {
                 components={[{ step: 0, component: DisplayForm }]}
                 closeModal={closeModal}
                 confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-                config={this.props.nodeConfig}
                 onSave={this.handleOnSave}
                 theme={"bmrg-white"}
                 task={task}

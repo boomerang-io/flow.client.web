@@ -136,7 +136,7 @@ class WorkflowManagerContainer extends Component {
 
     //add node info to the state
     const { id, taskId } = node;
-    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, config: {} });
+    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {} });
 
     const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
     node.x = points.x;

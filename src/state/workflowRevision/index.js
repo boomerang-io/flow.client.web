@@ -69,7 +69,7 @@ const actionHandlers = {
     //const updatedNode = { ...state.data[action.data.nodeId], config: action.data.config };
     const updatedNode = {
       ...state.config[action.data.nodeId],
-      config: { ...state.config[action.data.nodeId].config, ...action.data.config }
+      inputs: { ...state.config[action.data.nodeId].inputs, ...action.data.inputs }
     };
     return { ...state, config: { ...state.config, [action.data.nodeId]: updatedNode } };
   },
