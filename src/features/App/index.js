@@ -59,12 +59,14 @@ class App extends Component {
           handleOnIconClick={this.handleOnIconClick}
         />
         <main className="c-app-main">
-          <Sidenav
-            theme="bmrg-white"
-            hidden={!this.state.sideNavIsOpen}
-            navItems={navItems}
-            setSidenavClose={this.handleSetSidenavClose}
-          />
+          <div className="s-sidenav-wrapper">
+            <Sidenav
+              theme="bmrg-white"
+              hidden={!this.state.sideNavIsOpen}
+              navItems={navItems}
+              setSidenavClose={this.handleSetSidenavClose}
+            />
+          </div>
           <Switch>
             <Route path="/workflows" component={WorkflowsHome} />
             <Route path="/activity/:workflowId" component={WorkflowActivity} />
