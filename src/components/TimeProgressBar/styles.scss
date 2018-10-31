@@ -1,0 +1,37 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.c-time-progress-bar {
+  height: 5.25rem;
+  width: 100%;
+  padding: 2rem 1.25rem 1.25rem 1.25rem;
+  background-color: $white;
+}
+
+.b-time-progress-bar {
+  position: relative;
+  height: 2rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  background-color: $gray-20;
+}
+
+.b-time-progress-bar__start {
+  position: absolute;
+  font-size: 1rem;
+  font-weight: 600;
+  top: -1.25rem;
+  left: 0;
+}
+
+.b-time-progress-bar__finish {
+  position: absolute;
+  font-size: 1rem;
+  font-weight: 600;
+  top: -1.25rem;
+  right: 0;
+}
+
+.b-time-progress-bar__fillers {
+  position: relative;
+  height: 100%;
+}

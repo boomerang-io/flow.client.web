@@ -1,0 +1,38 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.c-step-side-info {
+  width: 30%;
+  padding: 2rem;
+  background-color: $white;
+  margin-top: 1rem;
+  align-self: flex-end;
+}
+
+.s-step-side-info-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.c-step-side-info-details {
+  padding: 2rem 0 0 1.75rem;
+  width: 100%;
+}
+
+.b-step-side-info-field {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.b-step-side-info-field__key {
+  width: 30%;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.b-step-side-info-field__value {
+  width: 60%;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+}

@@ -1,0 +1,18 @@
+.b-time-progress-bar-filler {
+  position: absolute;
+  height: 100%;
+  border-radius: 0.5rem;
+
+  &:last-child {
+    .b-time-progress-bar-filler__time {
+      display: none;
+    }
+  }
+}
+
+.b-time-progress-bar-filler__time {
+  position: absolute;
+  font-size: 0.8rem;
+  top: -1rem;
+  right: -1.5rem;
+}

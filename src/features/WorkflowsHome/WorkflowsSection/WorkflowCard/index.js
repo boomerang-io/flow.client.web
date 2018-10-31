@@ -23,7 +23,7 @@ class WorkflowCard extends Component {
     return axios
       .post(`${BASE_SERVICE_URL}/execute/${this.props.workflow.id}`)
       .then(response => {
-        notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
+        notify(<Notification type="success" title="Run Workflow" message="Successfully ran workflow" />);
       })
       .catch(error => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to run workflow" />);
