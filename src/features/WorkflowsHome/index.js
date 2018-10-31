@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
 import sortBy from "lodash/sortBy";
+import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import ErrorDragon from "Components/ErrorDragon";
 import SearchFilterBar from "Components/SearchFilterBar";
@@ -58,6 +59,14 @@ class WorkflowsHome extends Component {
       return <ErrorDragon />;
     }
 
+    if (teams.isFetching) {
+      <div className="c-workflow-home">
+        <div className="c-workflow-home-content">
+          <LoadingAnimation />
+        </div>
+      </div>;
+    }
+
     if (teams.status === REQUEST_STATUSES.SUCCESS) {
       const filteredTeams = this.filterTeams();
       const sortedTeams = sortBy(filteredTeams, ["name"]);
@@ -66,6 +75,7 @@ class WorkflowsHome extends Component {
         return (
           <div className="c-workflow-home">
             <div className="c-workflow-home-content">
+              <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
               <NoDisplay />
             </div>
           </div>

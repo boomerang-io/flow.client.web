@@ -31,18 +31,17 @@ class WorkflowCard extends Component {
   };
 
   handleOnDelete = () => {
-    // axios
-    //   .delete(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.id}`)
-    //   .then(() => {
-    //     notify(<Notification type="remove" title="SUCCESS" message="Workflow successfully deleted" />);
-    //     this.props.updateWorkflows({workflowId:this.props.workflow.id, teamId:this.props.teamId});
-    //     return;
-    //   })
-    //   .catch(() => {
-    //     notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
-    //     return;
-    //   });
-    //this.props.updateWorkflows({ workflowId: this.props.workflow.id, teamId: this.props.teamId });
+    axios
+      .delete(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.id}`)
+      .then(() => {
+        notify(<Notification type="remove" title="SUCCESS" message="Workflow successfully deleted" />);
+        this.props.updateWorkflows({ workflowId: this.props.workflow.id, teamId: this.props.teamId });
+        return;
+      })
+      .catch(() => {
+        notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
+        return;
+      });
   };
 
   render() {
