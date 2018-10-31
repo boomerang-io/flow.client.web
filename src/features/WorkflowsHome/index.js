@@ -69,7 +69,7 @@ class WorkflowsHome extends Component {
       .delete(`${BASE_SERVICE_URL}/workflow/${workflowId}`)
       .then(() => {
         notify(<Notification type="remove" title="SUCCESS" message="Workflow successfully deleted" />);
-        this.props.updateWorkflows({ workflowId, teamId });
+        this.updateWorkflows({ workflowId, teamId });
         return;
       })
       .catch(() => {
