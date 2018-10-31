@@ -14,7 +14,7 @@ class WorkflowActivityContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.diagramApp = new DiagramApplication(props.workflow, true);
+    this.diagramApp = new DiagramApplication({ dag: props.workflow.dag, isLocked: true });
   }
 
   render() {
