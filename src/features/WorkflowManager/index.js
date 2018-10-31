@@ -94,7 +94,7 @@ class WorkflowManagerContainer extends Component {
     const workflowId = workflow.data.id;
 
     return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow/${workflowId}`, this.newOverviewData)
+      .update(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, id: workflowId })
       .then(response => {
         notify(<Notification type="success" title="Update Workflow" message="Succssfully updated workflow" />);
         return Promise.resolve(response);
