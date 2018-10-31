@@ -18,7 +18,7 @@ class WorkflowEditorContainer extends Component {
   componentDidMount() {
     const { match } = this.props;
     const { workflowId } = match.params;
-    this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}`);
+    this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`);
     this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`);
   }
 

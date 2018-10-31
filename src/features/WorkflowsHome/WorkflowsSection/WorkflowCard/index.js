@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-//import axios from "axios";
-//import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import axios from "axios";
+import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
@@ -21,14 +21,12 @@ class WorkflowCard extends Component {
 
   handleExecute = () => {
     return axios
-      .post(`${BASE_SERVICE_URL}/execute/:workflowId`, this.props.workflow.id)
+      .post(`${BASE_SERVICE_URL}/execute/${this.props.workflow.id}`)
       .then(response => {
         notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
-        return Promise.resolve(response.data.id);
       })
       .catch(error => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to run workflow" />);
-        return Promise.reject(error);
       });
   };
 
@@ -49,7 +47,6 @@ class WorkflowCard extends Component {
 
   render() {
     const { workflow, history } = this.props;
-    console.log(workflow);
     const menuOptions = [
       {
         itemText: "View Activity",
@@ -91,30 +88,28 @@ class WorkflowCard extends Component {
             <img className="b-workflow-card__icon" src={imgs[workflow.icon]} alt="icon" />
           </div>
           <div className="c-workflow-card__description">
-            <div className="b-workflow-card__name">{workflow.name}</div>
-            <div className="b-workflow-card__description">{workflow.description}</div>
-
-            <div className="c-workflow-card__execute" data-tip data-for={workflow.id}>
-              <Tooltip className="b-workflow-card__toolTip" place="right" id={workflow.id} theme="bmrg-white">
-                Execute workflow
-              </Tooltip>
+            <h2 className="b-workflow-card__name">{workflow.name}</h2>
+            <p className="b-workflow-card__description">{workflow.description}</p>
+            <span data-tip data-for={workflow.id} className="b-workflow-card-launch">
               <AlertModal
-                data-tip
-                data-for={workflow.id}
-                theme="bmrg-white"
-                ModalTrigger={() => <img className="b-workflow-card__launch" src={playButton} alt="icon" />}
-                modalContent={(closeModal, rest) => (
+                ModalTrigger={() => (
+                  <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                )}
+                modalContent={closeModal => (
                   <ConfirmModal
-                    title="Execute a Workflow?"
-                    subTitleTop=""
+                    title="Execute workflow?"
+                    subTitleTop="It will run"
                     closeModal={closeModal}
                     affirmativeAction={this.handleExecute}
                     affirmativeText="Run"
-                    {...rest}
+                    theme="bmrg-white"
                   />
                 )}
               />
-            </div>
+            </span>
+            <Tooltip id={workflow.id} place="bottom" theme="bmrg-white">
+              Execute workflow
+            </Tooltip>
           </div>
         </div>
       </div>
