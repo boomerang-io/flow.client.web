@@ -42,7 +42,7 @@ const actionHandlers = {
       isFetching: false,
       fetchingStatus: "success",
       dag: action.data.dag,
-      config: normalizeConfigNodes(action.data.config)
+      config: normalizeConfigNodes(action.data.config.nodes)
     };
   },
   [types.FETCH_WORKFLOW_REVISION_FAILURE]: (state, action) => {
@@ -115,7 +115,7 @@ const createActionCreators = {
 };
 
 const createApi = requestGenerator(createActionCreators);
-const create = (url, data) => dispatch => dispatch(createApi.request({ method: "put", url, data }));
+const create = (url, data) => dispatch => dispatch(createApi.request({ method: "post", url, data }));
 const cancelCreate = () => dispatch => dispatch(createApi.cancelRequest());
 
 /*
