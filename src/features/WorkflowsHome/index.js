@@ -105,7 +105,7 @@ class WorkflowsHome extends Component {
           <div className="c-workflow-home">
             <div className="c-workflow-home-content">
               <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
-              <NoDisplay />
+              <NoDisplay style={{ marginTop: "5rem" }} text="Looks like you don't have any workflow teams" />
             </div>
           </div>
         );
