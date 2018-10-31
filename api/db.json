@@ -4369,5 +4369,57 @@
       "workflowTeamId": "9012",
       "id": 2
     }
+  ],
+  "workflowActivity":[
+    {
+      "id":"abc123",
+      "name":"activity1",
+      "teamId": "1234",
+      "description":"test description 1",
+      "icon":"log",
+      "startTime": 1540991190530,
+      "duration":1000,
+      "status": "success"
+    },
+    {
+      "id":"4323b4",
+      "name":"test activity",
+      "teamId": "1234",
+      "description":"test description 2",
+      "icon":"docs",
+      "startTime": 1540990333592,
+      "duration": 45,
+      "status": "failure"
+    },
+    {
+      "id":"98kdk93",
+      "name":"test activity 2",
+      "teamId": "5678",
+      "description":"test description 3",
+      "icon":"secure",
+      "startTime": 1540991188502,
+      "duration": 109,
+      "status": "inprogess"
+    },
+    {
+      "id":"nv83298n3v",
+      "name":"test activity 3",
+      "description":"test description 4",
+      "teamId": "9012",
+      "icon":"utility",
+      "startTime": 1540990108801,
+      "duration": 230,
+      "status": "success"
+    },
+    {
+      "id":"3k4k43243",
+      "name":"test activity 4",
+      "teamId": "5678",
+      "description":"test description 5",
+      "icon":"utility",
+      "startTime": 1540990108161,
+      "duration": 1200,
+      "status": "failure"
+    }
   ]
 }

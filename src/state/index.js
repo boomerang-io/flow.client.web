@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import { routerReducer } from "react-router-redux";
+import activity from "./activity";
 import contactJoe from "./contactJoe";
 import navbarLinks from "./navbarLinks";
 import privacyStatement from "./privacyStatement";
@@ -12,6 +13,7 @@ import workflowRevision from "./workflowRevision";
 
 const rootReducer = combineReducers({
   routing: routerReducer,
+  activity,
   contactJoe,
   navbarLinks,
   privacyStatement,

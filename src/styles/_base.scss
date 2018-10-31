@@ -51,3 +51,7 @@ body {
 .ReactModal__Body--open {
   overflow: hidden;
 }
+/* fix for carbon menu */
+.bx--list-box__menu {
+  z-index: 998;
+}
