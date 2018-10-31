@@ -68,7 +68,7 @@ class WorkflowCreatorContainer extends Component {
             component={props => (
               <>
                 <ActionBar
-                  actionButtonText={this.state.hasCreatedWorkflow ? "Update" : "Create"}
+                  actionButtonText={this.state.hasCreatedWorkflow ? "Update Overview" : "Create Worfklow"}
                   onClick={this.overviewAction}
                   diagramApp={this.diagramApp}
                   {...props}
@@ -82,7 +82,7 @@ class WorkflowCreatorContainer extends Component {
             render={props => (
               <>
                 <ActionBar
-                  actionButtonText={this.state.hasCreatedWorkflow ? "Update" : "Create New Version"}
+                  actionButtonText={this.state.hasCreatedWorkflow ? "Create New Version" : "Create Workflow"}
                   onClick={this.designerAction}
                   diagramApp={this.diagramApp}
                   includeZoom

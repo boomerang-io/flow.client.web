@@ -34,7 +34,7 @@ class WorkflowEditor extends Component {
             component={props => (
               <>
                 <ActionBar
-                  actionButtonText="Update"
+                  actionButtonText="Update Overview"
                   onClick={() => updateWorkflow(this.diagramApp)}
                   diagramApp={this.diagramApp}
                   {...props}
