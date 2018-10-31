@@ -60,15 +60,12 @@ class WorkflowManagerContainer extends Component {
       })
       .then(() => {
         notify(
-          <Notification type="success" title="Create Workflow" message="Succssfully created workflow and revision" />
+          <Notification type="success" title="Create Workflow" message="Succssfully created workflow and version" />
         );
         return Promise.resolve();
       })
       .catch(err => {
-        console.log(err);
-        notify(
-          <Notification type="error" title="Something's wrong" message="Failed to create workflow and revision" />
-        );
+        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow and version" />);
         return Promise.reject();
       });
   };
@@ -82,16 +79,10 @@ class WorkflowManagerContainer extends Component {
     workflowRevisionActions
       .create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body)
       .then(() => {
-        notify(
-          <Notification
-            type="success"
-            title="Create Workflow Revision"
-            message="Succssfully created workflow revision"
-          />
-        );
+        notify(<Notification type="success" title="Create Version" message="Succssfully created workflow version" />);
       })
       .catch(() => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow revision" />);
+        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow version" />);
       });
   };
 
