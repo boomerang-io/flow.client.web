@@ -46,11 +46,17 @@ class WorkflowManagerContainer extends Component {
     const { workflowActions, workflowRevisionActions, activeTeamId } = this.props;
 
     return workflowActions
-      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, workflowTeamId: activeTeamId })
+      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, flowTeamId: activeTeamId })
       .then(response => {
-        const body = this.createWorkflowRevisionBody(diagramApp);
+        const dagProps = this.createWorkflowRevisionBody(diagramApp);
         const workflowId = response.data.id;
-        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body);
+
+        const workflowRevision = {
+          ...dagProps,
+          workflowId
+        };
+
+        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
       })
       .then(() => {
         notify(
@@ -106,10 +112,10 @@ class WorkflowManagerContainer extends Component {
   };
 
   createWorkflowRevisionBody(diagramApp) {
-    const body = {};
-    body["dag"] = this.getDiagramSerialization(diagramApp);
-    body["config"] = this.formatWorkflowConfigNodes();
-    return body;
+    const dagProps = {};
+    dagProps["dag"] = this.getDiagramSerialization(diagramApp);
+    dagProps["config"] = this.formatWorkflowConfigNodes();
+    return dagProps;
   }
 
   getDiagramSerialization(diagramApp) {
