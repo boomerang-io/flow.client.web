@@ -120,7 +120,7 @@ class WorkflowManagerContainer extends Component {
   }
 
   formatWorkflowConfigNodes() {
-    return Object.values(this.props.workflowRevision.config);
+    return { nodes: Object.values(this.props.workflowRevision.config) };
   }
 
   createNode = (diagramApp, event) => {
