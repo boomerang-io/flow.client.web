@@ -4,15 +4,32 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
-//import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
+import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
+import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import imgs from "./img";
 import "./styles.scss";
+import playButton from "./img/playButton.svg";
 
 class WorkflowCard extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
     updateWorkflows: PropTypes.func.isRequired
+  };
+
+  handleExecute = () => {
+    return axios
+      .post(`${BASE_SERVICE_URL}/execute/:workflowId`, this.props.workflow.id)
+      .then(response => {
+        notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
+        return Promise.resolve(response.data.id);
+      })
+      .catch(error => {
+        notify(<Notification type="error" title="Something's wrong" message="Failed to run workflow" />);
+        return Promise.reject(error);
+      });
   };
 
   handleOnDelete = () => {
@@ -32,7 +49,7 @@ class WorkflowCard extends Component {
 
   render() {
     const { workflow, history } = this.props;
-
+    console.log(workflow);
     const menuOptions = [
       {
         itemText: "View Activity",
@@ -76,6 +93,28 @@ class WorkflowCard extends Component {
           <div className="c-workflow-card__description">
             <div className="b-workflow-card__name">{workflow.name}</div>
             <div className="b-workflow-card__description">{workflow.description}</div>
+
+            <div className="c-workflow-card__execute" data-tip data-for={workflow.id}>
+              <Tooltip className="b-workflow-card__toolTip" place="right" id={workflow.id} theme="bmrg-white">
+                Execute workflow
+              </Tooltip>
+              <AlertModal
+                data-tip
+                data-for={workflow.id}
+                theme="bmrg-white"
+                ModalTrigger={() => <img className="b-workflow-card__launch" src={playButton} alt="icon" />}
+                modalContent={(closeModal, rest) => (
+                  <ConfirmModal
+                    title="Execute a Workflow?"
+                    subTitleTop=""
+                    closeModal={closeModal}
+                    affirmativeAction={this.handleExecute}
+                    affirmativeText="Run"
+                    {...rest}
+                  />
+                )}
+              />
+            </div>
           </div>
         </div>
       </div>
