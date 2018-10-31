@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+//import axios from "axios";
+//import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
@@ -44,17 +44,23 @@ class WorkflowCard extends Component {
     //     notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
     //     return;
     //   });
-    this.props.updateWorkflows({ workflowId: this.props.workflow.id, teamId: this.props.teamId });
+    //this.props.updateWorkflows({ workflowId: this.props.workflow.id, teamId: this.props.teamId });
   };
 
   render() {
     const { workflow, history } = this.props;
     console.log(workflow);
     const menuOptions = [
-      { itemText: "View Activity", onClick: () => history.push(`/activity/${workflow.id}`), primaryFocus: true },
-      { itemText: "Edit Workflow", onClick: () => history.push(`/editor/${workflow.id}`), primaryFocus: false },
-      { itemText: "Duplicate", onClick: () => console.log("duplicate"), primaryFocus: false },
-      { itemText: "Export", onClick: () => console.log("export"), primaryFocus: false },
+      {
+        itemText: "View Activity",
+        onClick: () => history.push(`/activity/dfb6302b-62e0-4574-9062-727e4a37fc32`),
+        primaryFocus: true
+      },
+      {
+        itemText: "Edit Workflow",
+        onClick: () => history.push(`/editor/${workflow.id}/designer`),
+        primaryFocus: false
+      },
       { itemText: "Delete", onClick: () => this.handleOnDelete(), primaryFocus: false }
     ];
 
@@ -74,6 +80,7 @@ class WorkflowCard extends Component {
                   onClick={option.onClick}
                   itemText={option.itemText}
                   primaryFocus={option.primaryFocus}
+                  key={option.itemText}
                 />
               );
             })}
@@ -81,7 +88,7 @@ class WorkflowCard extends Component {
         </div>
         <div className="c-workflow-card__info">
           <div className="c-workflow-card__icon">
-            <img className="b-workflow-card__icon" src={imgs[workflow.type]} alt="icon" />
+            <img className="b-workflow-card__icon" src={imgs[workflow.icon]} alt="icon" />
           </div>
           <div className="c-workflow-card__description">
             <div className="b-workflow-card__name">{workflow.name}</div>

@@ -9,34 +9,22 @@
 }
 
 .c-action-bar {
-  padding: 0 10rem 0 1rem;
+  position: absolute;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 3rem;
+  justify-content: flex-end;
   background-color: $lighter-gray;
+  right: 0;
+  top: 5.5rem;
+  z-index: 1;
 
-  .b-action-bar-links {
-  }
-
-  .b-action-bar-links__link {
-    color: $gray-90;
-    padding-bottom: 0.325rem;
-    margin-right: 2rem;
-
-    &.--active {
-      border-bottom: 2px solid $gray-90;
-      font-weight: 600;
-    }
-  }
-
-  .b-action-bar-actions {
+  .b-action-bar {
     display: flex;
     align-items: center;
     padding: 0 1rem;
   }
 
-  .b-action-bar-actions__zoom {
+  .b-action-bar__zoom {
     margin-right: 0.5rem;
     background: none;
     border: none;

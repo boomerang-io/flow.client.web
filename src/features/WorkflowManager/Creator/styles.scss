@@ -4,14 +4,13 @@
   .diagram-layer {
     position: relative;
     height: 100%;
-    min-height: calc(100vh - 6.25rem);
+    min-height: calc(100vh - 10rem);
     margin-left: 20rem;
-    width: calc(100vw);
   }
 
   .srd-demo-canvas {
     height: 100%;
-    min-height: calc(100vh - 6.25rem);
+    min-height: calc(100vh - 10rem);
     width: 100%;
     background-color: $text-area-gray !important;
   }
@@ -23,10 +22,6 @@
   .srd-default-link path {
     stroke: $status-teal;
   }
-}
-
-.bmrg--c-sidenav {
-  margin-top: 0rem;
 }
 
 // .bmrg-b-sidenav-content {
