@@ -60,11 +60,13 @@ class WorkflowsHome extends Component {
     }
 
     if (teams.isFetching) {
-      <div className="c-workflow-home">
-        <div className="c-workflow-home-content">
-          <LoadingAnimation />
+      return (
+        <div className="c-workflow-home">
+          <div className="c-workflow-home-content">
+            <LoadingAnimation />
+          </div>
         </div>
-      </div>;
+      );
     }
 
     if (teams.status === REQUEST_STATUSES.SUCCESS) {

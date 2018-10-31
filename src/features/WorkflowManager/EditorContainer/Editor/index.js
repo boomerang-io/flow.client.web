@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import Navigation from "Features/WorkflowManager/components/Navigation";
@@ -70,7 +67,6 @@ class WorkflowEditor extends Component {
                       className="srd-demo-canvas"
                       diagramEngine={this.diagramApp.getDiagramEngine()}
                       maxNumberPointsPerLink={0}
-                      smartRouting={true}
                       deleteKeys={[]}
                     />
                   </div>
@@ -84,17 +80,4 @@ class WorkflowEditor extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  workflowRevision: state.workflowRevision
-});
-
-const mapDispatchToProps = dispatch => ({
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
-});
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(WorkflowEditor)
-);
+export default withRouter(WorkflowEditor);

@@ -101,7 +101,6 @@ class WorkflowCreatorContainer extends Component {
                       className="srd-demo-canvas"
                       diagramEngine={this.diagramApp.getDiagramEngine()}
                       maxNumberPointsPerLink={0}
-                      smartRouting={true}
                       deleteKeys={[]}
                     />
                   </div>

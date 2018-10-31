@@ -30,7 +30,6 @@ export default class Application {
     if (dag) {
       this.activeModel.deSerializeDiagram(dag, this.diagramEngine);
     } else {
-      console.log("new");
       const EndNode = new StartEndNodeModel("Finish", "rgb(192,255,0)");
       EndNode.setPosition(1300, 400);
 
