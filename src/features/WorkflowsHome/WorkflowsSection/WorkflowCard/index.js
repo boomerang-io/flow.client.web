@@ -31,7 +31,7 @@ class WorkflowCard extends Component {
       },
       {
         itemText: "Delete",
-        onClick: () => this.handleOnDelete({ teamId, workflowId: workflow.id }),
+        onClick: () => this.props.deleteWorkflow({ teamId, workflowId: workflow.id }),
         primaryFocus: false
       }
     ];
@@ -75,7 +75,7 @@ class WorkflowCard extends Component {
                     title="Execute workflow?"
                     subTitleTop="It will run"
                     closeModal={closeModal}
-                    affirmativeAction={() => this.handleExecute(workflow.id)}
+                    affirmativeAction={() => this.props.executeWorkflow(workflow.id)}
                     affirmativeText="Run"
                     theme="bmrg-white"
                   />
