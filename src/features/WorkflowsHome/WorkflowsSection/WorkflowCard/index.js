@@ -20,12 +20,12 @@ class WorkflowCard extends Component {
     const { workflow, history, teamId } = this.props;
     const menuOptions = [
       {
-        itemText: "Edit Workflow",
+        itemText: "Edit",
         onClick: () => history.push(`/editor/${workflow.id}/designer`),
         primaryFocus: false
       },
       {
-        itemText: "View Activity",
+        itemText: "Activity",
         onClick: () => history.push(`/activity/dfb6302b-62e0-4574-9062-727e4a37fc32`),
         primaryFocus: false
       },
