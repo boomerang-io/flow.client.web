@@ -45,8 +45,8 @@ class Overview extends Component {
           />
           <TextInput
             value={this.state.shortDescription || ""}
-            title="Short description"
-            placeholder="Short description"
+            title="Summary"
+            placeholder="Summary"
             name="shortDescription"
             theme="bmrg-white"
             onChange={this.handleOnChange}

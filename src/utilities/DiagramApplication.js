@@ -9,7 +9,7 @@ import CustomTaskPortModel from "./customTaskNode/CustomTaskPortModel";
 import CustomLinkFactory from "./customLink/CustomLinkFactory";
 
 export default class Application {
-  constructor({ serialization, modelIsLocked }) {
+  constructor({ dag, modelIsLocked }) {
     this.diagramEngine = new DiagramEngine();
     this.diagramEngine.installDefaultFactories();
     this.diagramEngine.registerNodeFactory(new CustomTaskNodeFactory());
@@ -22,13 +22,13 @@ export default class Application {
     //register new custom link
     this.diagramEngine.registerLinkFactory(new CustomLinkFactory(this.diagramEngine));
 
-    this.newModel(serialization, modelIsLocked);
+    this.newModel(dag, modelIsLocked);
   }
 
-  newModel(serialization, modelIsLocked) {
+  newModel(dag, modelIsLocked) {
     this.activeModel = new DiagramModel();
-    if (serialization) {
-      this.activeModel.deSerializeDiagram(serialization, this.diagramEngine);
+    if (dag) {
+      this.activeModel.deSerializeDiagram(dag, this.diagramEngine);
     } else {
       console.log("new");
       const EndNode = new StartEndNodeModel("Finish", "rgb(192,255,0)");

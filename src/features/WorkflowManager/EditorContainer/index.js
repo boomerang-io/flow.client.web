@@ -31,7 +31,7 @@ class WorkflowEditorContainer extends Component {
     }
 
     if (this.props.workflowRevision.isFetching) {
-      return <LoadingAnimation />;
+      return <LoadingAnimation theme="bmrg-white" />;
     }
 
     return null;
