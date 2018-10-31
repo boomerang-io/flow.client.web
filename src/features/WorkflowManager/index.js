@@ -9,9 +9,8 @@ import { actions as workflowRevisionActions } from "State/workflowRevision";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import Creator from "./Creator";
-import Editor from "./Editor";
+import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
-import DiagramApplication from "Utilities/DiagramApplication";
 import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import keys from "lodash/keys";
 
@@ -26,7 +25,6 @@ class WorkflowManagerContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.diagramApp = new DiagramApplication({ dag: props.workflow.dag, isLocked: false });
     this.newOverviewData = {};
   }
 
@@ -44,37 +42,39 @@ class WorkflowManagerContainer extends Component {
     this.newOverviewData = overviewData;
   };
 
-  createWorkflow = () => {
-    const { workflowActions, workflowRevisionActions } = this.props;
-    console.log(this.newOverviewData);
+  createWorkflow = diagramApp => {
+    const { workflowActions, workflowRevisionActions, activeTeamId } = this.props;
 
     return workflowActions
-      .create(`${BASE_SERVICE_URL}/workflow`, this.newOverviewData)
+      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, workflowTeamId: activeTeamId })
       .then(response => {
-        const body = this.createWorkflowRevisionBody();
+        const body = this.createWorkflowRevisionBody(diagramApp);
         const workflowId = response.data.id;
-        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/${workflowId}/revision`, body);
+        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body);
       })
       .then(() => {
         notify(
           <Notification type="success" title="Create Workflow" message="Succssfully created workflow and revision" />
         );
+        return Promise.resolve();
       })
-      .catch(() => {
+      .catch(err => {
+        console.log(err);
         notify(
           <Notification type="error" title="Something's wrong" message="Failed to create workflow and revision" />
         );
+        return Promise.reject();
       });
   };
 
-  createWorkflowRevision = () => {
+  createWorkflowRevision = diagramApp => {
     const { workflow, workflowRevisionActions } = this.props;
 
     const workflowId = workflow.data.id;
-    const body = this.createWorkflowRevisionBody();
+    const body = this.createWorkflowRevisionBody(diagramApp);
 
     workflowRevisionActions
-      .create(`${BASE_SERVICE_URL}/${workflowId}/revision`, body)
+      .create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body)
       .then(() => {
         notify(
           <Notification
@@ -105,8 +105,15 @@ class WorkflowManagerContainer extends Component {
       });
   };
 
-  getDiagramSerialization() {
-    return this.diagramApp
+  createWorkflowRevisionBody(diagramApp) {
+    const body = {};
+    body["dag"] = this.getDiagramSerialization(diagramApp);
+    body["config"] = this.formatWorkflowConfigNodes();
+    return body;
+  }
+
+  getDiagramSerialization(diagramApp) {
+    return diagramApp
       .getDiagramEngine()
       .getDiagramModel()
       .serializeDiagram();
@@ -116,17 +123,10 @@ class WorkflowManagerContainer extends Component {
     return Object.values(this.props.workflowRevision.config);
   }
 
-  createWorkflowRevisionBody() {
-    const body = {};
-    body["dag"] = this.getDiagramSerialization();
-    body["config"] = this.formatWorkflowConfigNodes();
-    return body;
-  }
-
-  createNode = event => {
+  createNode = (diagramApp, event) => {
     const data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
     const nodesCount = keys(
-      this.diagramApp
+      diagramApp
         .getDiagramEngine()
         .getDiagramModel()
         .getNodes()
@@ -138,10 +138,10 @@ class WorkflowManagerContainer extends Component {
     const { id, taskId } = node;
     this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, config: {} });
 
-    const points = this.diagramApp.getDiagramEngine().getRelativeMousePoint(event);
+    const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
     node.x = points.x;
     node.y = points.y;
-    this.diagramApp
+    diagramApp
       .getDiagramEngine()
       .getDiagramModel()
       .addNode(node);
@@ -162,7 +162,6 @@ class WorkflowManagerContainer extends Component {
               <Creator
                 workflow={this.props.workflow.data}
                 createNode={this.createNode}
-                diagramApp={this.diagramApp}
                 createWorkflow={this.createWorkflow}
                 createWorkflowRevision={this.createWorkflowRevision}
                 updateWorkflow={this.updateWorkflow}
@@ -174,10 +173,9 @@ class WorkflowManagerContainer extends Component {
           <Route
             path="/editor/:workflowId"
             render={props => (
-              <Editor
+              <EditorContainer
                 workflow={this.props.workflow.data}
                 createNode={this.createNode}
-                diagramApp={this.diagramApp}
                 createWorkflowRevision={this.createWorkflowRevision}
                 updateWorkflow={this.updateWorkflow}
                 handleOnOverviewChange={this.handleOnOverviewChange}
@@ -196,7 +194,8 @@ class WorkflowManagerContainer extends Component {
 const mapStateToProps = state => ({
   tasks: state.tasks,
   workflow: state.workflow,
-  workflowRevision: state.workflowRevision
+  workflowRevision: state.workflowRevision,
+  activeTeamId: state.teams.activeTeamId
 });
 
 const mapDispatchToProps = dispatch => ({

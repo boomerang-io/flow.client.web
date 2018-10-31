@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import Button from "@boomerang/boomerang-components/lib/Button";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import assets from "./assets";
@@ -32,13 +31,12 @@ class Overview extends Component {
   };
 
   render() {
-    const { name, shortDescription, description, icon } = this.state;
     return (
       <div className="c-worklfow-overview">
         <div className="c-general-info">
           <h1 className="s-general-info-title">General</h1>
           <TextInput
-            value={name || ""}
+            value={this.state.name || ""}
             title="Name"
             placeholder="Name"
             name="name"
@@ -46,7 +44,7 @@ class Overview extends Component {
             onChange={this.handleOnChange}
           />
           <TextInput
-            value={shortDescription || ""}
+            value={this.state.shortDescription || ""}
             title="Short description"
             placeholder="Short description"
             name="shortDescription"
@@ -54,7 +52,7 @@ class Overview extends Component {
             onChange={this.handleOnChange}
           />
           <TextArea
-            detail={description || ""}
+            detail={this.state.description || ""}
             title="Description"
             placeholder="Description"
             name="description"
@@ -66,10 +64,11 @@ class Overview extends Component {
             {assets.map(image => (
               <img
                 className={classnames("b-worklflow-icons__icon", {
-                  "--active": icon === image.name
+                  "--active": this.state.icon === image.name
                 })}
                 src={image.src}
                 onClick={() => this.handleOnChange(image.name, {}, "icon")}
+                alt={`${image.name} icon`}
               />
             ))}
           </div>

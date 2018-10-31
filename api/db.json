@@ -165,7 +165,7 @@
       "name": "Lucas' team",
       "workflows": [
         {
-          "id": "123",
+          "id": "hQDkX9v",
           "name": "lucas-workflow-1",
           "description": "blablabla",
           "status": "published",
@@ -3794,6 +3794,372 @@
     },
     {
       "id": "8ahzUy~"
+    },
+    {
+      "name": "Testing",
+      "shortDescription": "Help",
+      "description": "Mes",
+      "icon": "payment",
+      "workflowTeamId": "5678",
+      "id": "ryBBOvL"
+    },
+    {
+      "id": "wHLY0Ke"
+    },
+    {
+      "name": "Hello",
+      "shortDescription": "Sir",
+      "description": "Help me",
+      "icon": "docs",
+      "workflowTeamId": "9012",
+      "id": "oo2NNga"
+    },
+    {
+      "name": "Help",
+      "shortDescription": "Me",
+      "description": "This",
+      "icon": "flow",
+      "workflowTeamId": "9012",
+      "id": "NHgfi51"
+    },
+    {
+      "name": "Help",
+      "shortDescription": "Me",
+      "description": "Now",
+      "icon": "payment",
+      "workflowTeamId": "9012",
+      "id": "jj9c4Lp"
+    },
+    {
+      "name": "Help",
+      "shortDescription": "Me",
+      "description": "Please",
+      "icon": "docs",
+      "workflowTeamId": "9012",
+      "id": "Xht~SBx"
+    },
+    {
+      "name": "asdf",
+      "shortDescription": "asdf",
+      "id": "TUSOzGM"
+    },
+    {
+      "name": "Hlp",
+      "shortDescription": "ME",
+      "description": "Please",
+      "icon": "template",
+      "id": "pXh6Qga"
+    },
+    {
+      "name": "Hlp",
+      "shortDescription": "ME",
+      "description": "Please",
+      "icon": "template",
+      "id": "0n0i2Fb"
+    },
+    {
+      "name": "Hlp",
+      "shortDescription": "ME",
+      "description": "Please",
+      "icon": "template",
+      "id": "7zUu41q"
+    },
+    {
+      "id": "5qLJkOA"
+    },
+    {
+      "id": "bgpvEEs"
+    },
+    {
+      "name": "asfads",
+      "shortDescription": "asdfas",
+      "description": "asdfadsf",
+      "icon": "secure",
+      "workflowTeamId": "9012",
+      "id": "h1Xqhf3"
+    },
+    {
+      "dag": {
+        "id": "b253c70d-0b69-4a82-aaf0-ee184fe3d734",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [
+          {
+            "id": "e0878361-754d-4f5c-823d-b1f90a3cd0a2",
+            "type": "custom",
+            "selected": false,
+            "source": "d2258c3c-f41e-4981-ba2e-7a41e3af4c1d",
+            "sourcePort": "421af73a-af9e-4faf-904d-8a5c2c0c9367",
+            "target": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+            "targetPort": "e912b313-c4ee-4802-8619-1cbdc8536b3f",
+            "points": [
+              {
+                "id": "f13859b0-60e5-4788-a27e-827d7ed51ec1",
+                "selected": false,
+                "x": 433.078125,
+                "y": 437
+              },
+              {
+                "id": "5a36f2db-e9dd-448e-9b57-971709a613a5",
+                "selected": false,
+                "x": 674.109375,
+                "y": 448.359375
+              }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50,
+            "linkId": "e0878361-754d-4f5c-823d-b1f90a3cd0a2",
+            "executionCondition": "always"
+          },
+          {
+            "id": "cedf5ffd-0e79-4368-8463-a8d475827bc0",
+            "type": "custom",
+            "selected": false,
+            "source": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+            "sourcePort": "f30de913-455d-4593-bad5-5ea8f5d2c7ce",
+            "target": "e05d792e-29da-410b-8a86-fbf3652bbf23",
+            "targetPort": "ba82de26-89e8-4f2d-9026-a1a56bb81570",
+            "points": [
+              {
+                "id": "b534884e-97d7-4aab-8f01-e2aed7099c91",
+                "selected": false,
+                "x": 910.6875,
+                "y": 448.359375
+              },
+              {
+                "id": "6a76a393-0343-4ae3-b0e5-e5016ef560d2",
+                "selected": true,
+                "x": 1300.109375,
+                "y": 437
+              }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50,
+            "linkId": "cedf5ffd-0e79-4368-8463-a8d475827bc0",
+            "executionCondition": "always"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "d2258c3c-f41e-4981-ba2e-7a41e3af4c1d",
+            "type": "startend",
+            "selected": false,
+            "x": 300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "421af73a-af9e-4faf-904d-8a5c2c0c9367",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "d2258c3c-f41e-4981-ba2e-7a41e3af4c1d",
+                "links": [
+                  "e0878361-754d-4f5c-823d-b1f90a3cd0a2"
+                ],
+                "position": "right",
+                "nodePortId": "421af73a-af9e-4faf-904d-8a5c2c0c9367"
+              }
+            ],
+            "passedName": "Start",
+            "nodeId": "d2258c3c-f41e-4981-ba2e-7a41e3af4c1d"
+          },
+          {
+            "id": "e05d792e-29da-410b-8a86-fbf3652bbf23",
+            "type": "startend",
+            "selected": false,
+            "x": 1300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "ba82de26-89e8-4f2d-9026-a1a56bb81570",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "e05d792e-29da-410b-8a86-fbf3652bbf23",
+                "links": [
+                  "cedf5ffd-0e79-4368-8463-a8d475827bc0"
+                ],
+                "position": "left",
+                "nodePortId": "ba82de26-89e8-4f2d-9026-a1a56bb81570"
+              }
+            ],
+            "passedName": "Finish",
+            "nodeId": "e05d792e-29da-410b-8a86-fbf3652bbf23"
+          },
+          {
+            "id": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+            "type": "custom",
+            "selected": false,
+            "x": 674,
+            "y": 389.171875,
+            "extras": {},
+            "ports": [
+              {
+                "id": "e912b313-c4ee-4802-8619-1cbdc8536b3f",
+                "type": "custom",
+                "selected": false,
+                "name": "left",
+                "parentNode": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+                "links": [
+                  "e0878361-754d-4f5c-823d-b1f90a3cd0a2"
+                ],
+                "position": "left",
+                "nodePortId": "e912b313-c4ee-4802-8619-1cbdc8536b3f"
+              },
+              {
+                "id": "f30de913-455d-4593-bad5-5ea8f5d2c7ce",
+                "type": "custom",
+                "selected": false,
+                "name": "right",
+                "parentNode": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+                "links": [
+                  "cedf5ffd-0e79-4368-8463-a8d475827bc0"
+                ],
+                "position": "right",
+                "nodePortId": "f30de913-455d-4593-bad5-5ea8f5d2c7ce"
+              }
+            ],
+            "taskId": "5b92f794844d0700016ea215",
+            "nodeId": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0"
+          }
+        ]
+      },
+      "config": [
+        {
+          "nodeId": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+          "taskId": "5b92f794844d0700016ea215",
+          "config": {
+            "emailName": "Testing"
+          }
+        }
+      ],
+      "id": "hQDkX9v"
+    },
+    {
+      "dag": {
+        "id": "388d2843-0935-489c-898f-b138b819e6c4",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [],
+        "nodes": [
+          {
+            "id": "303dbdcf-59da-4cc2-8abe-0aea86130601",
+            "type": "startend",
+            "selected": false,
+            "x": 300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "7b3f0448-82f0-4209-aaf6-7bcf79b429ea",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "303dbdcf-59da-4cc2-8abe-0aea86130601",
+                "links": [],
+                "position": "right",
+                "nodePortId": "7b3f0448-82f0-4209-aaf6-7bcf79b429ea"
+              }
+            ],
+            "passedName": "Start",
+            "nodeId": "303dbdcf-59da-4cc2-8abe-0aea86130601"
+          },
+          {
+            "id": "31867b37-71ac-4389-ae7c-5ef2df487184",
+            "type": "startend",
+            "selected": false,
+            "x": 1300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "552f68df-8cdf-45d3-92c8-f6eaf3a90f5b",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "31867b37-71ac-4389-ae7c-5ef2df487184",
+                "links": [],
+                "position": "left",
+                "nodePortId": "552f68df-8cdf-45d3-92c8-f6eaf3a90f5b"
+              }
+            ],
+            "passedName": "Finish",
+            "nodeId": "31867b37-71ac-4389-ae7c-5ef2df487184"
+          }
+        ]
+      },
+      "config": [],
+      "id": "Rw51HOE"
+    },
+    {
+      "dag": {
+        "id": "2e6432c1-1cb8-45a6-8773-e264bd5fe44b",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [],
+        "nodes": [
+          {
+            "id": "f7ed4354-10fc-454d-8c64-ddd47a3160ff",
+            "type": "startend",
+            "selected": false,
+            "x": 300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "ac22f9d5-bc88-4051-912d-c26c43d11918",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "f7ed4354-10fc-454d-8c64-ddd47a3160ff",
+                "links": [],
+                "position": "right",
+                "nodePortId": "ac22f9d5-bc88-4051-912d-c26c43d11918"
+              }
+            ],
+            "passedName": "Start",
+            "nodeId": "f7ed4354-10fc-454d-8c64-ddd47a3160ff"
+          },
+          {
+            "id": "cea269ca-ada8-4552-ae3f-69a9caad8327",
+            "type": "startend",
+            "selected": false,
+            "x": 1300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "1056785e-1527-4a2c-a573-debd39ba6927",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "cea269ca-ada8-4552-ae3f-69a9caad8327",
+                "links": [],
+                "position": "left",
+                "nodePortId": "1056785e-1527-4a2c-a573-debd39ba6927"
+              }
+            ],
+            "passedName": "Finish",
+            "nodeId": "cea269ca-ada8-4552-ae3f-69a9caad8327"
+          }
+        ]
+      },
+      "config": [],
+      "id": "xMSRRAH"
     }
   ],
   "taskconfiguration": [
@@ -4153,6 +4519,21 @@
       "name": "ADMIN",
       "url": "${BASE_LAUNCH_ENV_URL}/admin",
       "adminOnly": true
+    }
+  ],
+  "workflowSummary": [
+    {
+      "name": "Help",
+      "shortDescription": "Me",
+      "description": "Please",
+      "icon": "template",
+      "workflowTeamId": "9012",
+      "id": 1
+    },
+    {
+      "name": "Testing",
+      "workflowTeamId": "9012",
+      "id": 2
     }
   ]
 }

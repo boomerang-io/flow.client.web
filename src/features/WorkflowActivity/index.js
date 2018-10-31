@@ -34,8 +34,6 @@ class WorkflowActivityContainer extends Component {
         </div>
       </div>
     );
-
-    return null;
   }
 }
 

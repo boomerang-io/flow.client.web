@@ -4,6 +4,10 @@ import { NavLink, withRouter } from "react-router-dom";
 import NavigateBack from "Components/NavigateBack";
 import "./styles.scss";
 
+Navigation.propTypes = {
+  match: PropTypes.object.isRequired
+};
+
 function Navigation(props) {
   return (
     <>

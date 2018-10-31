@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+//import axios from "axios";
+//import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
+//import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import imgs from "./img";
 import "./styles.scss";
 
@@ -63,6 +63,7 @@ class WorkflowCard extends Component {
                   onClick={option.onClick}
                   itemText={option.itemText}
                   primaryFocus={option.primaryFocus}
+                  key={option.itemText}
                 />
               );
             })}

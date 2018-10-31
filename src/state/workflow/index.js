@@ -26,7 +26,7 @@ export const initialState = {
   updatingStatus: "",
   creatingStatus: "",
   error: "",
-  data: []
+  data: {}
 };
 
 //action handlers

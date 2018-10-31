@@ -42,7 +42,7 @@ const actionHandlers = {
       isFetching: false,
       fetchingStatus: "success",
       dag: action.data.dag,
-      config: normalizeConfigNodes(action.data.config.nodes)
+      config: normalizeConfigNodes(action.data.config)
     };
   },
   [types.FETCH_WORKFLOW_REVISION_FAILURE]: (state, action) => {

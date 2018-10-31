@@ -6,8 +6,8 @@ import isURL from "validator/lib/isURL";
 import "./styles.scss";
 
 const INPUT_TYPES = {
-  text: { type: "text", validationFunction: false, validationText: "" },
-  secured: { type: "password", validationFunction: false, validationText: "" },
+  text: { type: "text", validationFunction: () => {}, validationText: "" },
+  secured: { type: "password", validationFunction: () => {}, validationText: "" },
   url: { type: "input", validationFunction: isURL, validationText: "Please enter a valid url" }
 };
 

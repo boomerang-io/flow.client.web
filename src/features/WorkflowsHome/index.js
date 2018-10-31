@@ -45,6 +45,11 @@ class WorkflowsHome extends Component {
     this.props.teamsActions.updateWorkflows(data);
   };
 
+  setActiveTeamAndRedirect = selectedTeamId => {
+    this.props.teamsActions.setActiveTeam({ teamId: selectedTeamId });
+    this.props.history.push(`/creator/overview`);
+  };
+
   render() {
     const { teams } = this.props;
     const { searchQuery } = this.state;
@@ -71,7 +76,15 @@ class WorkflowsHome extends Component {
           <div className="c-workflow-home-content">
             <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
             {sortedTeams.map(team => {
-              return <WorkflowsSection team={team} searchQuery={searchQuery} updateWorkflows={this.updateWorkflows} />;
+              return (
+                <WorkflowsSection
+                  team={team}
+                  searchQuery={searchQuery}
+                  updateWorkflows={this.updateWorkflows}
+                  setActiveTeamAndRedirect={this.setActiveTeamAndRedirect}
+                  key={team.id}
+                />
+              );
             })}
           </div>
         </div>
