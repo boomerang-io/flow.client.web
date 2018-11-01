@@ -1,32 +1,32 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import ActivityCard from "./ActivityCard";
+import ActivityTable from "./ActivityTable";
 import "./styles.scss";
 
 class ActivityList extends Component {
-  
+
   static propTypes = {
     activities: PropTypes.array.isRequired,
+    fetchActivities: PropTypes.func.isRequired,
+    savePageSize: PropTypes.func.isRequired,
     searchQuery: PropTypes.string
   };
 
   render() {
-    const {activities, searchQuery} = this.props;
-    let activitiesList = [];
-    if (searchQuery) {
-      activitiesList = activities.filter(activity => activity.name.toLowerCase().includes(searchQuery.toLowerCase()));
-    } else {
-      activitiesList = activities;
-    }
+    const {activities, fetchActivities, savePageSize,searchQuery} = this.props;
       return (
         <div className="c-activity-list">
-          {
-            activitiesList.map(activity=>{
-              return(
-                <ActivityCard activity={activity}/>
-              );
-            })
-          }          
+          <ActivityTable 
+            activities={activities.records}
+            pageSize={activities.size}
+            pageNumber={activities.number}
+            totalPageCount={activities.totalPages}
+            totalElements={activities.totalElements}
+            sort={activities.sort}
+            fetchActivities={fetchActivities}
+            savePageSize={savePageSize}
+            searchQuery={searchQuery}
+          />      
         </div>
       );
     }

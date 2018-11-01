@@ -21,6 +21,7 @@
     "react-dom": "^16.5.1",
     "react-dropzone": "^6.2.4",
     "react-modal": "^3.5.1",
+    "react-table": "^6.8.6",
     "react-toastify": "^4.4.0",
     "react-toggle": "^4.0.2",
     "react-tooltip": "^3.8.4",

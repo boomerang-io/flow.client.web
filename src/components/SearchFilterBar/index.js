@@ -8,7 +8,11 @@ class SearchFilterBar extends Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
     handleSearchFilter: PropTypes.func.isRequired,
+    debounceTimeout: PropTypes.string,
     filterItems: PropTypes.array
+  };
+  static defaultProps = {
+    debounceTimeout:""
   };
 
   state = {
@@ -46,7 +50,7 @@ class SearchFilterBar extends Component {
   };
 
   render() {
-    const { data } = this.props;
+    const { data, debounceTimeout } = this.props;
 
     return (
       <div className="b-search-filter">
@@ -56,6 +60,7 @@ class SearchFilterBar extends Component {
             onChange={this.handleOnSearchInputChange}
             onClear={this.handleOnSearchClear}
             value={this.state.searchQuery}
+            debounceTimeout={debounceTimeout}
           />
         </div>
         <div className="b-search-filter__filter">

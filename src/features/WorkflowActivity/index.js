@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as activityActions } from "State/activity";
 import { actions as teamsActions } from "State/teams";
-import orderBy from "lodash/orderBy";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import ErrorDragon from "Components/ErrorDragon";
 import SearchFilterBar from "Components/SearchFilterBar";
@@ -20,26 +19,33 @@ class WorkflowsActivity extends Component {
 
   state = {
     searchQuery: "",
-    activityFilter: []
+    teamFilter: [],
+    tableSize: 10
   };
 
   componentDidMount() {
-    this.props.activityActions.fetch(`${BASE_SERVICE_URL}/activity/${this.props.match.params.workflowId}`);
+    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0`);
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   }
-
-  handleSearchFilter = (searchQuery, activity) => {
-    this.setState({ searchQuery, activityFilter: activity });
+  fetchActivities = url => {
+    this.props.activityActions.fetch(url);
+  };
+  savePageSize = size => {
+    this.setState({ tableSize: size });
+  };
+  handleSearchFilter = (searchQuery, team) => {
+    this.setState({ searchQuery, teamFilter: team });
+    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0&query=${searchQuery}`);
   };
 
   filterActivity = () => {
     const { activity } = this.props;
-    const { activityFilter } = this.state;
+    const { teamFilter } = this.state;
 
-    if (activityFilter.length > 0) {
-      return activity.data.filter(item => activityFilter.find(filter => filter.id === item.teamId));
+    if (teamFilter.length > 0) {
+      return activity.data.records.filter(item => teamFilter.find(filter => filter.id === item.teamId));
     } else {
-      return activity.data;
+      return activity.data.records;
     }
   };
 
@@ -57,10 +63,9 @@ class WorkflowsActivity extends Component {
 
     if (activity.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
       const filteredActivities = this.filterActivity();
-      const sortedActivities = orderBy(filteredActivities, ["startTime"],['desc']);
       const teamsList = teams.data.map(team => ({ id: team.id, text: team.name }));
 
-      if (!sortedActivities.length) {
+      if (!filteredActivities.length) {
         return (
           <div className="c-workflow-activity">
             <div className="c-workflow-activity-content">
@@ -72,8 +77,8 @@ class WorkflowsActivity extends Component {
       return (
         <div className="c-workflow-activity">
           <div className="c-workflow-activity-content">
-            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} data={activity.data} filterItems={teamsList} />
-            <ActivityList activities={sortedActivities} searchQuery={searchQuery}/>
+            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} data={activity.data} filterItems={teamsList} debounceTimeout={300} />
+            <ActivityList activities={activity.data} fetchActivities={this.fetchActivities} savePageSize={this.savePageSize} searchQuery={searchQuery}/>
           </div>
         </div>
       );

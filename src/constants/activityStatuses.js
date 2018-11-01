@@ -1,5 +1,5 @@
 export default {
-  SUCCESS: "success",
-  FAILURE: "failure",
+  COMPLETED: "completed",
+  FAILED: "failed",
   INPROGRESS: "inprogress"
 };
