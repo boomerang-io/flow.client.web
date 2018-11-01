@@ -17,7 +17,7 @@ const TimeProgressBar = ({ tasks }) => {
         <div className="b-time-progress-bar__fillers">
           {steps.map((step, index) => (
             <Filler
-              key={step.activityId}
+              key={step.taskId}
               index={index}
               finishPosition={(((step.startTime - tasks.creationDate) + step.duration) / totalDuration) * 100}
               totalDuration={totalDuration}

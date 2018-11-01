@@ -13,7 +13,7 @@ const StepSideInfo = ({ step }) => {
       <div className="c-step-side-info-details">
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Name</div>
-          <div className="b-step-side-info-field__value">{step.stepName}</div>
+          <div className="b-step-side-info-field__value">{step.taskName}</div>
         </div>
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Type</div>
