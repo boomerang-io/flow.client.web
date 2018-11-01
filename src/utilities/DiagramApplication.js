@@ -31,10 +31,10 @@ export default class Application {
       this.activeModel.deSerializeDiagram(dag, this.diagramEngine);
     } else {
       const EndNode = new StartEndNodeModel("Finish", "rgb(192,255,0)");
-      EndNode.setPosition("80%", "40%");
+      EndNode.setPosition(1000, 400);
 
       const StartNode = new StartEndNodeModel("Start", "rgb(192,255,0)");
-      StartNode.setPosition("10%", "40%");
+      StartNode.setPosition(300, 400);
 
       this.activeModel.addAll(StartNode, EndNode);
     }
