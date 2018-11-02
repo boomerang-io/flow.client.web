@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
 import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
+import { actions as activityActions } from "State/activityActiveNode";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
@@ -36,6 +37,13 @@ export class TaskNode extends Component {
   };
 
   state = {};
+
+  handleOnActivityClick = () => {
+    this.props.activityActions.updateActiveNode({
+      workflowId: this.props.diagramEngine.id,
+      nodeId: this.props.node.id
+    });
+  };
 
   //need to create a save function where we make change to global state
   handleOnSave = config => {
@@ -87,57 +95,59 @@ export class TaskNode extends Component {
       img_to_render = emailIMG;
     }
 
-    console.log(this.props.diagramEngine.diagramModel);
+    console.log(this.props);
     return (
-      <div className="b-taskNode">
-        <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
-          {this.props.task ? this.props.task.description : "placeholder"}
-        </Tooltip>
-        <div className="b-taskNode__tile" data-tip data-for={this.props.node.id}>
-          {this.props.task ? this.props.task.name : "placeholder"}
+      <div className="b-taskNode--topLevelActivity" onClick={this.handleOnActivityClick}>
+        <div className="b-taskNode">
+          <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
+            {this.props.task ? this.props.task.description : "placeholder"}
+          </Tooltip>
+          <div className="b-taskNode__tile" data-tip data-for={this.props.node.id}>
+            {this.props.task ? this.props.task.name : "placeholder"}
+          </div>
+
+          {
+            //Object.keys(this.props.nodeConfig.config).length === 0 ? (
+            //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
+            //     {this.props.task.name}
+            //   </div>
+            // ) : (
+            //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
+            //     {this.props.nodeConfig.config[specified_name]}
+            //   </div>
+            // )}
+          }
+
+          <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
+          <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
+          {!this.props.diagramEngine.diagramModel.locked && (
+            <CloseModalButton
+              className="b-taskNode__delete"
+              onClick={this.handleOnDelete}
+              //closemodal={() => <div>closemodal</div>}
+            />
+          )}
+          <img src={img_to_render} className="b-taskNode__img" alt="Task node type" />
+          {!this.props.diagramEngine.diagramModel.locked && (
+            <Modal
+              ModalTrigger={() => <img src={pencilIcon} className="b-taskNode__edit" alt="Task node type" />}
+              modalContent={(closeModal, ...rest) => (
+                <ModalFlow
+                  headerTitle={task.name}
+                  components={[{ step: 0, component: DisplayForm }]}
+                  closeModal={closeModal}
+                  confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
+                  config={this.props.nodeConfig}
+                  onSave={this.handleOnSave}
+                  theme={"bmrg-white"}
+                  task={task}
+                  nodeConfig={nodeConfig}
+                  {...rest}
+                />
+              )}
+            />
+          )}
         </div>
-
-        {
-          //Object.keys(this.props.nodeConfig.config).length === 0 ? (
-          //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
-          //     {this.props.task.name}
-          //   </div>
-          // ) : (
-          //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
-          //     {this.props.nodeConfig.config[specified_name]}
-          //   </div>
-          // )}
-        }
-
-        <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
-        <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
-        {!this.props.diagramEngine.diagramModel.locked && (
-          <CloseModalButton
-            className="b-taskNode__delete"
-            onClick={this.handleOnDelete}
-            //closemodal={() => <div>closemodal</div>}
-          />
-        )}
-        <img src={img_to_render} className="b-taskNode__img" alt="Task node type" />
-        {!this.props.diagramEngine.diagramModel.locked && (
-          <Modal
-            ModalTrigger={() => <img src={pencilIcon} className="b-taskNode__edit" alt="Task node type" />}
-            modalContent={(closeModal, ...rest) => (
-              <ModalFlow
-                headerTitle={task.name}
-                components={[{ step: 0, component: DisplayForm }]}
-                closeModal={closeModal}
-                confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-                config={this.props.nodeConfig}
-                onSave={this.handleOnSave}
-                theme={"bmrg-white"}
-                task={task}
-                nodeConfig={nodeConfig}
-                {...rest}
-              />
-            )}
-          />
-        )}
       </div>
     );
   }
@@ -152,7 +162,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch),
-  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch)
+  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch),
+  activityActions: bindActionCreators(activityActions, dispatch)
 });
 
 export default connect(
