@@ -5,6 +5,9 @@ import { bindActionCreators } from "redux";
 import DiagramApplication from "Utilities/DiagramApplication";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import { actions as workflowActions } from "State/workflow/fetch";
+import { actions as tasksActions } from "State/tasks";
+import StepSideInfo from "../WorkflowExecution/StepSideInfo";
+import TimeProgressBar from "Components/TimeProgressBar";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 
 class WorkflowActivityContainer extends Component {
@@ -17,6 +20,7 @@ class WorkflowActivityContainer extends Component {
     const { match } = this.props;
     const { workflowId } = match.params;
     this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}`);
+    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/activity/${this.props.match.params.workflowId}`);
   }
 
   constructor(props) {
@@ -26,6 +30,7 @@ class WorkflowActivityContainer extends Component {
 
   render() {
     const { workflow } = this.props;
+    const { status, data } = this.props.tasks;
 
     if (workflow.status === REQUEST_STATUSES.SUCCESS) {
       this.diagramApp = new DiagramApplication(workflow.data, true);
@@ -52,11 +57,14 @@ class WorkflowActivityContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  workflow: state.workflow.fetch
+  workflow: state.workflow.fetch,
+  tasks: state.tasks,
+  workflowRevision: state.workflowRevision
 });
 
 const mapDispatchToProps = dispatch => ({
-  workflowActions: bindActionCreators(workflowActions, dispatch)
+  workflowActions: bindActionCreators(workflowActions, dispatch),
+  tasksActions: bindActionCreators(tasksActions, dispatch)
 });
 
 export default connect(
