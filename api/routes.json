@@ -1,5 +1,10 @@
 {
   "/flow/taskconfiguration/workflow/:workflowId": "/taskconfiguration?workflowId=:workflowId&singular=1",
+  "/flow/workflow/:workflowId/revision": "/workflow/:workflowId?singular=1",
+  "/flow/workflow": "/workflowSummary",
+  "/flow/workflow/:id": "/workflowSummary/:id?&singular=1",
+  "/flow/activity/:id": "/workflowTasks",
+  "/flow/activity?size=:value": "/workflowActivity",
   "/flow/*": "/$1",
   "/launchpad/*": "/$1"
 }

@@ -35,19 +35,17 @@ class WorkflowActivityContainer extends Component {
     if (workflow.status === REQUEST_STATUSES.SUCCESS) {
       this.diagramApp = new DiagramApplication(workflow.data, true);
       return (
-        <div className="content">
-          <div className="diagram-layer">
-            <DiagramWidget
-              className="srd-demo-canvas"
-              diagramEngine={this.diagramApp.getDiagramEngine()}
-              maxNumberPointsPerLink={0}
-              smartRouting={true}
-              deleteKeys={[]}
-              allowLooseLinks={false}
-              allowCanvasTranslation={false}
-              allowCanvasZoo={false}
-            />
-          </div>
+        <div className="c-workflow-diagram">
+          <DiagramWidget
+            className="srd-demo-canvas"
+            diagramEngine={this.diagramApp.getDiagramEngine()}
+            maxNumberPointsPerLink={0}
+            smartRouting={true}
+            deleteKeys={[]}
+            allowLooseLinks={false}
+            allowCanvasTranslation={false}
+            allowCanvasZoo={false}
+          />
         </div>
       );
     }

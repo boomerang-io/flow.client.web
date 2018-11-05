@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { NavLink, withRouter } from "react-router-dom";
-import NavigateBack from "Components/NavigateBack";
 import Button from "@boomerang/boomerang-components/lib/Button";
 import minusIcon from "./assets/minus";
 import plusIcon from "./assets/plus";
@@ -11,6 +9,16 @@ import "./styles.scss";
 /*function to add add/subtract to the zoom level*/
 
 class ActionBar extends Component {
+  static propTypes = {
+    actionButtonText: PropTypes.string.isRequired,
+    includeZoom: PropTypes.bool,
+    onClick: PropTypes.func.isRequired
+  };
+
+  static defaultProps = {
+    includeZoom: false
+  };
+
   constructor(props) {
     super(props);
     this.diagramApp = props.diagramApp;
@@ -28,54 +36,23 @@ class ActionBar extends Component {
 
   render() {
     return (
-      <>
-        <div className="c-navigation-bar">
-          <NavigateBack to="/home" text={"Back to Workflows"} />
+      <div className="c-action-bar">
+        <div className="b-action-bar">
+          {this.props.includeZoom && [
+            <Button className="b-action-bar__zoom" onClick={this.handleZoomDecrease} key="out">
+              <img src={minusIcon} alt="Zoom out" />
+            </Button>,
+            <Button className="b-action-bar__zoom" onClick={this.handleZoomIncrease} key="in">
+              <img src={plusIcon} alt="Zoom in" />
+            </Button>
+          ]}
+          <Button theme="bmrg-black" onClick={this.props.onClick} style={{ marginLeft: "2rem" }}>
+            {this.props.actionButtonText}
+          </Button>
         </div>
-        <div className="c-action-bar">
-          <div className="b-action-bar-links">
-            <NavLink
-              className="b-action-bar-links__link"
-              activeClassName="--active"
-              to={`${this.props.match.url}/overview`}
-            >
-              Overview
-            </NavLink>
-            <NavLink
-              className="b-action-bar-links__link"
-              activeClassName="--active"
-              to={`${this.props.match.url}/designer`}
-            >
-              Design
-            </NavLink>
-            <NavLink
-              className="b-action-bar-links__link"
-              activeClassName="--active"
-              to={`${this.props.match.url}/changes`}
-            >
-              Change Log
-            </NavLink>
-          </div>
-          <div className="b-action-bar-actions">
-            <Button className="b-action-bar-actions__zoom" onClick={this.handleZoomDecrease}>
-              <img src={minusIcon} />
-            </Button>
-            <Button className="b-action-bar-actions__zoom" onClick={this.handleZoomIncrease}>
-              <img src={plusIcon} />
-            </Button>
-            <Button theme="bmrg-black" onClick={this.props.onClick} style={{ marginLeft: "2rem" }}>
-              {this.props.actionButtonText}
-            </Button>
-          </div>
-        </div>
-      </>
+      </div>
     );
   }
 }
 
-ActionBar.propTypes = {
-  actionButtonText: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
-};
-
-export default withRouter(ActionBar);
+export default ActionBar;

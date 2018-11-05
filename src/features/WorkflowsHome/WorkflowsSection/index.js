@@ -11,11 +11,12 @@ class WorkflowSection extends Component {
     team: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     searchQuery: PropTypes.string.isRequired,
+    setActiveTeamAndRedirect: PropTypes.func.isRequired,
     updateWorkflows: PropTypes.func.isRequired
   };
 
   render() {
-    const { team, history, searchQuery } = this.props;
+    const { team, searchQuery, setActiveTeamAndRedirect } = this.props;
     let workflows = [];
     if (searchQuery) {
       workflows = team.workflows.filter(workflow => workflow.name.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -23,32 +24,35 @@ class WorkflowSection extends Component {
       workflows = team.workflows;
     }
 
-    if (workflows.length > 0) {
-      return (
-        <div className="c-workflow-section">
-          <div className="c-workflow-section__header">
-            <label className="b-workflow-section__team">{team.name}</label>
-          </div>
-          <div className="c-workflow-section__workflows">
-            {workflows.map(workflow => (
-              <WorkflowCard workflow={workflow} updateWorkflows={this.props.updateWorkflows} teamId={team.id} />
-            ))}
-            <Button className="b-workflow-placeholder" onClick={() => history.push(`/creator/overview`)}>
-              <div className="b-workflow-placeholder__box">
-                <div data-tip data-for={team.id} className="b-workflow-placeholder__text">
-                  +
-                </div>
-              </div>
-              <Tooltip theme="bmrg-white" id={team.id}>
-                Create Workflow
-              </Tooltip>
-            </Button>
-          </div>
+    return (
+      <div className="c-workflow-section">
+        <div className="c-workflow-section__header">
+          <label className="b-workflow-section__team">{team.name}</label>
         </div>
-      );
-    }
-
-    return null;
+        <div className="c-workflow-section__workflows">
+          {workflows.map(workflow => (
+            <WorkflowCard
+              workflow={workflow}
+              updateWorkflows={this.props.updateWorkflows}
+              teamId={team.id}
+              key={workflow.id}
+              executeWorkflow={this.props.executeWorkflow}
+              deleteWorkflow={this.props.deleteWorkflow}
+            />
+          ))}
+          <Button className="b-workflow-placeholder" onClick={() => setActiveTeamAndRedirect(team.id)}>
+            <div className="b-workflow-placeholder__box">
+              <div data-tip data-for={team.id} className="b-workflow-placeholder__text">
+                +
+              </div>
+            </div>
+            <Tooltip theme="bmrg-white" id={team.id}>
+              Create Workflow
+            </Tooltip>
+          </Button>
+        </div>
+      </div>
+    );
   }
 }
 

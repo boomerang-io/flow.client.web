@@ -18,39 +18,27 @@
     margin-bottom: 4rem;
   }
 
-  .bmrg--b-text-input__input {
-    box-shadow: 0 0 0 62.5rem $white inset !important;
-  }
-
-  .bmrg--c-text-input {
-    margin-top: 1.5rem;
-  }
-
-  .bmrg--b-text-input__input {
-    border-radius: 0.225rem;
-    border: none;
-    &:focus {
-      border: none;
-    }
-  }
-
-  .bmrg--b-textarea__text {
-    background: $white;
-    border: none;
-    caret-color: $gray-90;
-    padding: 0.5rem;
-    transition: border 0.3s ease;
-
-    &:focus {
-      border: none;
-    }
-
-    &::placeholder {
-      color: $cool-gray-20;
-    }
-  }
-
-  .bmrg--b-textarea__title {
+  .s-workflow-icons-title {
+    font-size: 1rem;
     color: $gray-90;
+    margin-bottom: 1rem;
+  }
+
+  .b-workflow-icons {
+    display: flex;
+    flex-flow: wrap;
+  }
+
+  .b-workflow-icons__icon {
+    cursor: pointer;
+    width: 3rem;
+    height: 3rem;
+    margin: 0.5rem;
+    padding: 0.5rem;
+
+    &.--active {
+      border: 0.0625rem solid #40d5bb;
+      border-radius: 0.125rem;
+    }
   }
 }

@@ -1,14 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
+import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import { default as BmrgToggle } from "@boomerang/boomerang-components/lib/Toggle";
 import isURL from "validator/lib/isURL";
 import "./styles.scss";
 
 const INPUT_TYPES = {
-  text: { type: "text", validationFunction: false, validationText: "" },
-  secured: { type: "password", validationFunction: false, validationText: "" },
+  text: { type: "text", validationFunction: () => {}, validationText: "" },
+  secured: { type: "password", validationFunction: () => {}, validationText: "" },
   url: { type: "input", validationFunction: isURL, validationText: "Please enter a valid url" }
+};
+
+const TEXT_AREA_TYPES = {
+  textarea: { type: "textarea", validationFunction: () => {}, validationText: "" }
 };
 
 const Toggle = ({ defaultChecked, description, label, name, onChange }) => {
@@ -32,19 +37,41 @@ Toggle.propTypes = {
 };
 
 const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
-  const { config: nodeConfigObj } = nodeConfig;
+  const { inputs } = nodeConfig;
   const { config: taskConfig } = task;
   return (
     <>
       <h1 className="s-settings-value-list-header">{taskConfig.description}</h1>
       <div className="c-settings-value-list">
         {taskConfig.map(item => {
+          const maxValueLength = item.maxValueLength || 128;
+          const minValueLength = item.minValueLength || 0;
           if (Object.keys(INPUT_TYPES).includes(item.type)) {
             const itemConfig = INPUT_TYPES[item.type];
-            const maxValueLength = item.maxValueLength || 128;
-            const minValueLength = item.minValueLength || 0;
             return (
               <TextInput
+                key={item.key}
+                name={item.key}
+                alwaysShowTitle={true}
+                onChange={onTextInputChange}
+                placeholder={item.description}
+                maxChar={maxValueLength}
+                maxCharText={`Must be less than ${maxValueLength} characters`}
+                minChar={minValueLength}
+                minCharText={`Must be more than ${minValueLength} characters`}
+                title={item.label}
+                value={inputs[item.key] || ""}
+                theme="bmrg-white"
+                type={itemConfig.type}
+                validationFunction={itemConfig.validationFunction}
+                validationText={itemConfig.validationText}
+              />
+            );
+          }
+          if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
+            const itemConfig = TEXT_AREA_TYPES[item.type];
+            return (
+              <TextArea
                 key={item.key}
                 name={item.key}
                 alwaysShowTitle={true}
@@ -55,9 +82,8 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
                 minChar={minValueLength}
                 minCharText={`Must be more than ${minValueLength} characters`}
                 title={item.label}
-                value={nodeConfigObj[item.key] || ""}
+                detail={inputs[item.key] || ""}
                 theme="bmrg-white"
-                type={itemConfig.type}
                 validationFunction={itemConfig.validationFunction}
                 validationText={itemConfig.validationText}
               />
@@ -68,7 +94,7 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
                 key={item.key}
                 name={item.key}
                 id={item.key}
-                defaultChecked={String(nodeConfigObj[item.key]) === "true" ? true : false}
+                defaultChecked={String(inputs[item.key]) === "true" ? true : false}
                 label={item.label}
                 description={item.description}
                 onChange={onToggleChange}

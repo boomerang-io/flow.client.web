@@ -6,9 +6,10 @@ import { actions as tasksActions } from "State/tasks";
 import StepSideInfo from "./StepSideInfo";
 import ErrorDragon from "Components/ErrorDragon";
 import TimeProgressBar from "Components/TimeProgressBar";
-// import DiagramApplication from "Utilities/DiagramApplication";
-// import { DiagramWidget } from "@boomerang/boomerang-dag";
+import DiagramApplication from "Utilities/DiagramApplication";
+import { DiagramWidget } from "@boomerang/boomerang-dag";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
+import Main from "./Main";
 import "./styles.scss";
 
 class WorkflowExecutionContainer extends Component {
@@ -19,15 +20,13 @@ class WorkflowExecutionContainer extends Component {
     // workflowConfigActions: PropTypes.object
   };
 
-  // constructor(props) {
-  //   super(props);
-  //   this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: true });
-  // }
-
   componentDidMount() {
     this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/activity/${this.props.match.params.workflowId}`);
   }
-  
+
+  fetchExecution() {
+    this.props.workflowExecutionActions.fetch();
+  }
 
   render() {
     const { status, data } = this.props.tasks;
@@ -35,26 +34,9 @@ class WorkflowExecutionContainer extends Component {
     if (status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
     }
-  
-    if (status === REQUEST_STATUSES.SUCCESS) {;
-      return (
-        <div className="c-workflow-execution">
-          <TimeProgressBar tasks={data}/>
-          <StepSideInfo step={data.steps[0]} />
-          {/* <div className="c-diagram-layer">
-            <DiagramWidget
-              className="srd-demo-canvas"
-              diagramEngine={this.diagramApp.getDiagramEngine()}
-              maxNumberPointsPerLink={0}
-              smartRouting={true}
-              deleteKeys={[]}
-              allowLooseLinks={false}
-              allowCanvasTranslation={false}
-              allowCanvasZoo={false}
-            />
-          </div> */}
-        </div>
-      );
+
+    if (status === REQUEST_STATUSES.SUCCESS) {
+      return <Main workflowRevision={this.props.workflowRevision} />;
     }
 
     return null;

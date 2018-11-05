@@ -2,85 +2,110 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
-import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
+import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
-import TaskTray from "Features/WorkflowManager/components/TaskTray";
-import "./styles.scss";
+import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
+import DiagramApplication from "Utilities/DiagramApplication";
 
 class WorkflowCreatorContainer extends Component {
-  static PropTypes = {
+  static propTypes = {
     createNode: PropTypes.func.isRequired,
     diagramApp: PropTypes.object.isRequired,
-    handleOnCreate: PropTypes.func.isRequired,
-    handleOnUpdate: PropTypes.func.isRequired
+    createWorkflow: PropTypes.func.isRequired,
+    createWorkflowRevision: PropTypes.func.isRequired,
+    handleOnOverviewChange: PropTypes.func.isRequired,
+    updateWorkflow: PropTypes.func.isRequired
   };
 
-  state = {
-    hasCreated: false
-  };
+  constructor(props) {
+    super(props);
+    this.diagramApp = new DiagramApplication({ dag: null, isLocked: false });
+    this.state = {
+      hasCreatedWorkflow: false
+    };
+  }
 
-  handleOnAction = () => {
-    if (this.state.hasCreated) {
-      this.props.handleOnUpdate();
+  overviewAction = () => {
+    if (this.state.hasCreatedWorkflow) {
+      this.props.updateWorkflow();
     } else {
-      this.props.handleOnCreate();
+      this.createWorkflow();
     }
   };
 
-  handleOnCreate = () => {
-    this.props.handleOnCreate().then(workflowConfigId => {
-      this.setState({
-        hasCreated: true,
-        workflowConfigId
-      });
-    });
+  designerAction = () => {
+    if (this.state.hasCreatedWorkflow) {
+      this.props.createWorkflowRevision(this.diagramApp);
+    } else {
+      this.createWorkflow();
+    }
   };
 
-  handleOnUpdate = () => {
-    this.props.handleOnUpdate({ workflowConfigId: this.state.workflowConfigId });
+  createWorkflow = () => {
+    this.props
+      .createWorkflow(this.diagramApp)
+      .then(() => {
+        this.setState({
+          hasCreatedWorkflow: true
+        });
+      })
+      .catch(() => console.error("Failed to create workflow and revision"));
   };
 
   render() {
-    const { match } = this.props;
-    console.log(match);
+    const { createNode, handleOnOverviewChange, match, workflow } = this.props;
     return (
       <>
-        <ActionBar
-          actionButtonText={this.state.hasCreated ? "Update" : "Create"}
-          onClick={this.handleOnAction}
-          diagramApp={this.props.diagramApp}
-        />
+        <Navigation />
         <Switch>
-          <Route path={`${match.path}/overview`} component={Overview} />
+          <Route
+            path={`${match.path}/overview`}
+            component={props => (
+              <>
+                <ActionBar
+                  actionButtonText={this.state.hasCreatedWorkflow ? "Update Overview" : "Create Worfklow"}
+                  onClick={this.overviewAction}
+                  diagramApp={this.diagramApp}
+                  {...props}
+                />
+                <Overview handleOnChange={handleOnOverviewChange} workflow={workflow} />
+              </>
+            )}
+          />
           <Route
             path={`${match.path}/designer`}
-            render={() => (
+            render={props => (
               <>
-                <TaskTray />
-                <div className="content">
-                  <div
-                    className="diagram-layer"
-                    onDrop={this.props.createNode}
-                    onDragOver={event => {
-                      event.preventDefault();
-                    }}
-                  >
-                    <DiagramWidget
-                      className="srd-demo-canvas"
-                      diagramEngine={this.props.diagramApp.getDiagramEngine()}
-                      maxNumberPointsPerLink={0}
-                      smartRouting={true}
-                      deleteKeys={[]}
-                    />
-                  </div>
+                <ActionBar
+                  actionButtonText={this.state.hasCreatedWorkflow ? "Create New Version" : "Create Workflow"}
+                  onClick={this.designerAction}
+                  diagramApp={this.diagramApp}
+                  includeZoom
+                  {...props}
+                />
+                <TasksSidenav />
+                <div
+                  className="c-workflow-diagram-designer"
+                  onDrop={event => createNode(this.diagramApp, event)}
+                  onDragOver={event => {
+                    event.preventDefault();
+                  }}
+                >
+                  <DiagramWidget
+                    className="srd-demo-canvas"
+                    diagramEngine={this.diagramApp.getDiagramEngine()}
+                    maxNumberPointsPerLink={0}
+                    deleteKeys={[]}
+                  />
                 </div>
               </>
             )}
           />
+          <Redirect from={`${match.path}`} to={`${match.path}/overview`} />
         </Switch>
       </>
     );
@@ -88,13 +113,11 @@ class WorkflowCreatorContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  tasks: state.tasks,
-  workflowConfig: state.workflowConfig.fetch
+  tasks: state.tasks
 });
 
 const mapDispatchToProps = dispatch => ({
-  tasksActions: bindActionCreators(tasksActions, dispatch),
-  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch)
+  tasksActions: bindActionCreators(tasksActions, dispatch)
 });
 
 export default connect(

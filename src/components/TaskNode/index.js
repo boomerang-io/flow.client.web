@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
 import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { actions as activityActions } from "State/activityActiveNode";
+import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
@@ -17,19 +18,12 @@ import emailIMG from "Assets/svg/email_icon.svg";
 //import documentIMG from "Assets/svg/document_16.svg";
 import "./styles.scss";
 
-/**
- * TODO
- *  - clean up naming and folder structure, look at our best practices. Shouldn't have nested reducer
- *  - update css classnames to follow BEM style and have the styles be group together
- *  - define propTypes
- *  - look at the order of imports above - that is the general order that we follow
- */
 export class TaskNode extends Component {
   static propTypes = {
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
-    workflowConfigActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -46,8 +40,8 @@ export class TaskNode extends Component {
   };
 
   //need to create a save function where we make change to global state
-  handleOnSave = config => {
-    this.props.workflowConfigActions.updateNode({ nodeId: this.props.node.id, config: config });
+  handleOnSave = inputs => {
+    this.props.workflowRevisionActions.updateNode({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
 
@@ -55,7 +49,7 @@ export class TaskNode extends Component {
     /*
         want to delete the node in state and then remove it from the diagram
     */
-    this.props.workflowConfigActions.deleteNode({ nodeId: this.props.node.id });
+    this.props.workflowRevisionActions.deleteNode({ nodeId: this.props.node.id });
     this.props.node.remove();
   };
 
@@ -106,18 +100,6 @@ export class TaskNode extends Component {
             {this.props.task ? this.props.task.name : "placeholder"}
           </div>
 
-          {
-            //Object.keys(this.props.nodeConfig.config).length === 0 ? (
-            //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
-            //     {this.props.task.name}
-            //   </div>
-            // ) : (
-            //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
-            //     {this.props.nodeConfig.config[specified_name]}
-            //   </div>
-            // )}
-          }
-
           <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
           <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
           {!this.props.diagramEngine.diagramModel.locked && (
@@ -156,14 +138,15 @@ export class TaskNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowConfig.fetch.nodes[ownProps.node.id]
+    nodeConfig: state.workflowRevision.config[ownProps.node.id]
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch),
   workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch),
-  activityActions: bindActionCreators(activityActions, dispatch)
+  activityActions: bindActionCreators(activityActions, dispatch),
+  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 
 export default connect(

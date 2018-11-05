@@ -27,136 +27,99 @@
   },
   "tasktemplate": [
     {
+      "id": "5b92f794844d0700016ea216",
       "config": [
-        {
-          "description": "Name",
-          "key": "fileDownloadName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "Artifactory Base URL",
-          "key": "artifactoryBaseUrl",
-          "label": "Artifactory Base URL",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "url"
-        },
-        {
-          "description": "Repository Name",
-          "key": "artifactoryRepository",
-          "label": "Repository Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "Repository Path",
-          "key": "artifactoryRepositoryPath",
-          "label": "Repository Path",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        }
-      ],
-      "description": "Set up the name for this file download",
-      "id": "5b92f794844d0700016ea214",
-      "key": "Download File",
-      "lastModiifed": 1536358745146,
-      "name": "Download File",
-      "type": "ValuesList",
-      "category": "Utility"
-    },
-    {
-      "config": [
-        {
-          "description": "Name",
-          "key": "emailName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "Enable Mail Notifications for request processing activities.",
-          "key": "enableMail",
-          "label": "Enable Mail Notifications",
-          "type": "boolean"
-        },
-        {
-          "description": "SendGrid API Key",
-          "key": "sendgridApikey",
-          "label": "SendGrid API Key",
-          "maxValueLength": 512,
-          "minValueLength": 0,
-          "type": "secured"
-        }
-      ],
-      "description": "Specify Instructions for sending Email",
-      "id": "5b92f794844d0700016ea215",
-      "key": "mail",
-      "lastModiifed": 1536358737143,
-      "name": "Send Mail",
-      "type": "ValuesList",
-      "category": "Communication"
-    },
-    {
-      "config": [
-        {
-          "description": "Name",
-          "key": "ingestName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "",
-          "key": "offset",
-          "label": "offset",
-          "type": "text"
-        },
-        {
-          "description": "",
-          "key": "shell",
-          "label": "shell",
-          "type": "text"
-        }
+        { "description": "", "key": "offset", "label": "offset", "type": "text" },
+        { "description": "", "key": "shell", "label": "shell", "type": "text" }
       ],
       "description": "Specify Shell Script to Ingest CSV",
-      "id": "5b92f794844d0700016ea216",
       "key": "ingest",
-      "lastModiifed": 1536606325494,
       "name": "Ingest CSV",
       "type": "ValuesList",
-      "category": "Utility"
+      "category": "utilities"
     },
     {
+      "id": "5b92f794844d0700016ea217",
       "config": [
         {
-          "description": "Name",
-          "key": "slackName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
+          "description": "The name of the channel or user as a destination for the messages.",
+          "key": "channel",
+          "label": "Channel",
           "type": "text"
         },
         {
-          "description": "Enable Slack Notifications for request processing activities.",
-          "key": "enableSlack",
-          "label": "Enable Slack Notifications",
-          "type": "boolean"
-        }
+          "description": "Larger, bold text near the top of a message.",
+          "key": "title",
+          "label": "Title",
+          "type": "text"
+        },
+        { "description": "The main text to the message.", "key": "message", "label": "Message", "type": "text" }
       ],
-      "description": "Specify instructions for Slack Message",
-      "id": "5b92f794844d0700016ea217",
+      "description": "Send slack message to webhook",
       "key": "slack",
-      "lastModiifed": 1536611604684,
-      "name": "Send Slack",
+      "name": "Send Slack Message",
       "type": "ValuesList",
-      "category": "Communication"
+      "category": "communication",
+      "arguments": ["sendSlackMessage", "$(INPUTS_PROPS_CHANNEL)", "$(INPUTS_PROPS_TITLE)", "$(INPUTS_PROPS_MESSAGE)"]
+    },
+    {
+      "id": "5bd97bea5a5df954ad592c06",
+      "config": [{ "description": "Duration in milliseconds", "key": "duration", "label": "Duration", "type": "text" }],
+      "description": "Sleep for specified duration in milliseconds",
+      "key": "sleep",
+      "name": "Sleep",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["sleep", "$(INPUTS_PROPS_DURATION)"]
+    },
+    {
+      "id": "5bd98b105a5df954ad599bc2",
+      "config": [
+        { "description": "The email address to send mail to", "key": "to", "label": "To", "type": "text" },
+        { "description": "The email subject", "key": "subject", "label": "Subject", "type": "text" },
+        { "description": "The message inside the email", "key": "message", "label": "Message", "type": "textarea" }
+      ],
+      "description": "Send Email to Member with Subject and Message",
+      "key": "mail",
+      "name": "Send Email",
+      "type": "ValuesList",
+      "category": "boomerang",
+      "arguments": ["sendMailToMember", "$(INPUTS_PROPS_TO)", "$(INPUTS_PROPS_SUBJECT)", "$(INPUTS_PROPS_MESSAGE)"]
+    },
+    {
+      "id": "5bd9b4115a5df954ad5ad8db",
+      "config": [],
+      "description": "Artifactory File Download",
+      "key": "artifactoryDownload",
+      "name": "Artifactory File Download",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["artifactoryDownload"]
+    },
+    {
+      "id": "5bd9d03a5a5df954ad5bb3b5",
+      "config": [
+        { "description": "The file path incl file name", "key": "path", "label": "File Path", "type": "text" },
+        { "description": "The file content", "key": "content", "label": "File Content", "type": "textarea" }
+      ],
+      "description": "Create file in worker",
+      "key": "createFile",
+      "name": "Create File",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["sendMailToMember", "$(INPUTS_PROPS_PATH)", "$(INPUTS_PROPS_CONTENT)"]
+    },
+    {
+      "id": "5bd9d0825a5df954ad5bb5c3",
+      "config": [
+        { "description": "The file path incl file name", "key": "path", "label": "File Path", "type": "text" }
+      ],
+      "description": "Upload file to Artifactory",
+      "key": "artifactoryUpload",
+      "name": "Artifactory File Upload",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["artifactoryUpload", "$(INPUTS_PROPS_PATH)"]
     }
   ],
   "teams": [
@@ -165,25 +128,25 @@
       "name": "Lucas' team",
       "workflows": [
         {
-          "id": "123",
+          "id": "hQDkX9v",
           "name": "lucas-workflow-1",
           "description": "blablabla",
           "status": "published",
-          "type": "utility"
+          "icon": "utility"
         },
         {
           "id": "456",
           "name": "lucas-workflow-2",
           "description": "blablabla",
           "status": "published",
-          "type": "utility"
+          "icon": "utility"
         },
         {
           "id": "789",
           "name": "lucas-workflow-3",
           "description": "blablabla",
           "status": "draft",
-          "type": "secure"
+          "icon": "secure"
         }
       ]
     },
@@ -196,14 +159,14 @@
           "name": "isabela-workflow-1",
           "description": "blablabla",
           "status": "published",
-          "type": "log"
+          "icon": "log"
         },
         {
           "id": "222",
           "name": "isabela-workflow-2",
           "description": "blablabla",
           "status": "draft",
-          "type": "template"
+          "icon": "template"
         }
       ]
     },
@@ -216,14 +179,14 @@
           "name": "benjamin-workflow-1",
           "description": "blablabla",
           "status": "published",
-          "type": "docs"
+          "icon": "docs"
         },
         {
           "id": "444",
           "name": "benjamin-workflow-2",
           "description": "blablabla",
           "status": "published",
-          "type": "flow"
+          "icon": "flow"
         }
       ]
     }
@@ -3552,6 +3515,448 @@
           "nodeId": "b37eb43f-e135-4c3b-97be-25ea20a004ff"
         }
       ]
+    },
+    {
+      "id": "15m3Vfm"
+    },
+    {
+      "id": "81RPy0J"
+    },
+    {
+      "id": "bVLz8mS"
+    },
+    {
+      "shortDescription": "asdfasdf",
+      "description": "asdfasdf",
+      "id": "aCgZlZS"
+    },
+    {
+      "name": "Testing",
+      "shortDescription": "Here",
+      "description": "What is up",
+      "id": "EBIfLHi"
+    },
+    {
+      "name": "Testing",
+      "shortDescription": "What",
+      "description": "Up",
+      "id": "6NoQjCv"
+    },
+    {
+      "name": "asdf",
+      "shortDescription": "asdf",
+      "description": "asdf",
+      "id": "fiv9N8a"
+    },
+    {
+      "name": "hlpe",
+      "shortDescription": "please",
+      "description": "work",
+      "id": "vuW2myH"
+    },
+    {
+      "name": "Helping",
+      "shortDescription": "out",
+      "description": "here",
+      "id": "oA4sfm2"
+    },
+    {
+      "name": "Help",
+      "shortDescription": "Me",
+      "description": "here",
+      "id": "TbgUNQc"
+    },
+    {
+      "name": "kinda works",
+      "shortDescription": "kinda does indeed work",
+      "description": "help me",
+      "id": "Lu0a5CE"
+    },
+    {
+      "icon": "secure",
+      "id": "jF8yMy7"
+    },
+    {
+      "workflow": {
+        "workflow": [],
+        "name": "asdf",
+        "shortDescription": "asdf",
+        "description": "asdfasdf",
+        "id": "xDVvXr7"
+      },
+      "name": "asdf",
+      "shortDescription": "asdf",
+      "description": "asdfasdf",
+      "id": "xDVvXr7",
+      "icon": "log"
+    },
+    {
+      "name": "asdasdf",
+      "shortDescription": "asdfasdf",
+      "description": "asdfasdf",
+      "icon": "template",
+      "id": "Meg_I8Q"
+    },
+    {
+      "id": "8ahzUy~"
+    },
+    {
+      "name": "Testing",
+      "shortDescription": "Help",
+      "description": "Mes",
+      "icon": "payment",
+      "workflowTeamId": "5678",
+      "id": "ryBBOvL"
+    },
+    {
+      "id": "wHLY0Ke"
+    },
+    {
+      "name": "Hello",
+      "shortDescription": "Sir",
+      "description": "Help me",
+      "icon": "docs",
+      "workflowTeamId": "9012",
+      "id": "oo2NNga"
+    },
+    {
+      "name": "Help",
+      "shortDescription": "Me",
+      "description": "This",
+      "icon": "flow",
+      "workflowTeamId": "9012",
+      "id": "NHgfi51"
+    },
+    {
+      "name": "Help",
+      "shortDescription": "Me",
+      "description": "Now",
+      "icon": "payment",
+      "workflowTeamId": "9012",
+      "id": "jj9c4Lp"
+    },
+    {
+      "name": "Help",
+      "shortDescription": "Me",
+      "description": "Please",
+      "icon": "docs",
+      "workflowTeamId": "9012",
+      "id": "Xht~SBx"
+    },
+    {
+      "name": "asdf",
+      "shortDescription": "asdf",
+      "id": "TUSOzGM"
+    },
+    {
+      "name": "Hlp",
+      "shortDescription": "ME",
+      "description": "Please",
+      "icon": "template",
+      "id": "pXh6Qga"
+    },
+    {
+      "name": "Hlp",
+      "shortDescription": "ME",
+      "description": "Please",
+      "icon": "template",
+      "id": "0n0i2Fb"
+    },
+    {
+      "name": "Hlp",
+      "shortDescription": "ME",
+      "description": "Please",
+      "icon": "template",
+      "id": "7zUu41q"
+    },
+    {
+      "id": "5qLJkOA"
+    },
+    {
+      "id": "bgpvEEs"
+    },
+    {
+      "name": "asfads",
+      "shortDescription": "asdfas",
+      "description": "asdfadsf",
+      "icon": "secure",
+      "workflowTeamId": "9012",
+      "id": "h1Xqhf3"
+    },
+    {
+      "dag": {
+        "id": "b253c70d-0b69-4a82-aaf0-ee184fe3d734",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [
+          {
+            "id": "e0878361-754d-4f5c-823d-b1f90a3cd0a2",
+            "type": "custom",
+            "selected": false,
+            "source": "d2258c3c-f41e-4981-ba2e-7a41e3af4c1d",
+            "sourcePort": "421af73a-af9e-4faf-904d-8a5c2c0c9367",
+            "target": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+            "targetPort": "e912b313-c4ee-4802-8619-1cbdc8536b3f",
+            "points": [
+              {
+                "id": "f13859b0-60e5-4788-a27e-827d7ed51ec1",
+                "selected": false,
+                "x": 433.078125,
+                "y": 437
+              },
+              {
+                "id": "5a36f2db-e9dd-448e-9b57-971709a613a5",
+                "selected": false,
+                "x": 674.109375,
+                "y": 448.359375
+              }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50,
+            "linkId": "e0878361-754d-4f5c-823d-b1f90a3cd0a2",
+            "executionCondition": "always"
+          },
+          {
+            "id": "cedf5ffd-0e79-4368-8463-a8d475827bc0",
+            "type": "custom",
+            "selected": false,
+            "source": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+            "sourcePort": "f30de913-455d-4593-bad5-5ea8f5d2c7ce",
+            "target": "e05d792e-29da-410b-8a86-fbf3652bbf23",
+            "targetPort": "ba82de26-89e8-4f2d-9026-a1a56bb81570",
+            "points": [
+              {
+                "id": "b534884e-97d7-4aab-8f01-e2aed7099c91",
+                "selected": false,
+                "x": 910.6875,
+                "y": 448.359375
+              },
+              {
+                "id": "6a76a393-0343-4ae3-b0e5-e5016ef560d2",
+                "selected": true,
+                "x": 1300.109375,
+                "y": 437
+              }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50,
+            "linkId": "cedf5ffd-0e79-4368-8463-a8d475827bc0",
+            "executionCondition": "always"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "d2258c3c-f41e-4981-ba2e-7a41e3af4c1d",
+            "type": "startend",
+            "selected": false,
+            "x": 300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "421af73a-af9e-4faf-904d-8a5c2c0c9367",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "d2258c3c-f41e-4981-ba2e-7a41e3af4c1d",
+                "links": ["e0878361-754d-4f5c-823d-b1f90a3cd0a2"],
+                "position": "right",
+                "nodePortId": "421af73a-af9e-4faf-904d-8a5c2c0c9367"
+              }
+            ],
+            "passedName": "Start",
+            "nodeId": "d2258c3c-f41e-4981-ba2e-7a41e3af4c1d"
+          },
+          {
+            "id": "e05d792e-29da-410b-8a86-fbf3652bbf23",
+            "type": "startend",
+            "selected": false,
+            "x": 1300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "ba82de26-89e8-4f2d-9026-a1a56bb81570",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "e05d792e-29da-410b-8a86-fbf3652bbf23",
+                "links": ["cedf5ffd-0e79-4368-8463-a8d475827bc0"],
+                "position": "left",
+                "nodePortId": "ba82de26-89e8-4f2d-9026-a1a56bb81570"
+              }
+            ],
+            "passedName": "Finish",
+            "nodeId": "e05d792e-29da-410b-8a86-fbf3652bbf23"
+          },
+          {
+            "id": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+            "type": "custom",
+            "selected": false,
+            "x": 674,
+            "y": 389.171875,
+            "extras": {},
+            "ports": [
+              {
+                "id": "e912b313-c4ee-4802-8619-1cbdc8536b3f",
+                "type": "custom",
+                "selected": false,
+                "name": "left",
+                "parentNode": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+                "links": ["e0878361-754d-4f5c-823d-b1f90a3cd0a2"],
+                "position": "left",
+                "nodePortId": "e912b313-c4ee-4802-8619-1cbdc8536b3f"
+              },
+              {
+                "id": "f30de913-455d-4593-bad5-5ea8f5d2c7ce",
+                "type": "custom",
+                "selected": false,
+                "name": "right",
+                "parentNode": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+                "links": ["cedf5ffd-0e79-4368-8463-a8d475827bc0"],
+                "position": "right",
+                "nodePortId": "f30de913-455d-4593-bad5-5ea8f5d2c7ce"
+              }
+            ],
+            "taskId": "5b92f794844d0700016ea215",
+            "nodeId": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0"
+          }
+        ]
+      },
+      "config": [
+        {
+          "nodeId": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
+          "taskId": "5b92f794844d0700016ea215",
+          "config": {
+            "emailName": "Testing"
+          }
+        }
+      ],
+      "id": "hQDkX9v"
+    },
+    {
+      "dag": {
+        "id": "388d2843-0935-489c-898f-b138b819e6c4",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [],
+        "nodes": [
+          {
+            "id": "303dbdcf-59da-4cc2-8abe-0aea86130601",
+            "type": "startend",
+            "selected": false,
+            "x": 300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "7b3f0448-82f0-4209-aaf6-7bcf79b429ea",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "303dbdcf-59da-4cc2-8abe-0aea86130601",
+                "links": [],
+                "position": "right",
+                "nodePortId": "7b3f0448-82f0-4209-aaf6-7bcf79b429ea"
+              }
+            ],
+            "passedName": "Start",
+            "nodeId": "303dbdcf-59da-4cc2-8abe-0aea86130601"
+          },
+          {
+            "id": "31867b37-71ac-4389-ae7c-5ef2df487184",
+            "type": "startend",
+            "selected": false,
+            "x": 1300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "552f68df-8cdf-45d3-92c8-f6eaf3a90f5b",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "31867b37-71ac-4389-ae7c-5ef2df487184",
+                "links": [],
+                "position": "left",
+                "nodePortId": "552f68df-8cdf-45d3-92c8-f6eaf3a90f5b"
+              }
+            ],
+            "passedName": "Finish",
+            "nodeId": "31867b37-71ac-4389-ae7c-5ef2df487184"
+          }
+        ]
+      },
+      "config": [],
+      "id": "Rw51HOE"
+    },
+    {
+      "dag": {
+        "id": "2e6432c1-1cb8-45a6-8773-e264bd5fe44b",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [],
+        "nodes": [
+          {
+            "id": "f7ed4354-10fc-454d-8c64-ddd47a3160ff",
+            "type": "startend",
+            "selected": false,
+            "x": 300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "ac22f9d5-bc88-4051-912d-c26c43d11918",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "f7ed4354-10fc-454d-8c64-ddd47a3160ff",
+                "links": [],
+                "position": "right",
+                "nodePortId": "ac22f9d5-bc88-4051-912d-c26c43d11918"
+              }
+            ],
+            "passedName": "Start",
+            "nodeId": "f7ed4354-10fc-454d-8c64-ddd47a3160ff"
+          },
+          {
+            "id": "cea269ca-ada8-4552-ae3f-69a9caad8327",
+            "type": "startend",
+            "selected": false,
+            "x": 1300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "1056785e-1527-4a2c-a573-debd39ba6927",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "cea269ca-ada8-4552-ae3f-69a9caad8327",
+                "links": [],
+                "position": "left",
+                "nodePortId": "1056785e-1527-4a2c-a573-debd39ba6927"
+              }
+            ],
+            "passedName": "Finish",
+            "nodeId": "cea269ca-ada8-4552-ae3f-69a9caad8327"
+          }
+        ]
+      },
+      "config": [],
+      "id": "xMSRRAH"
     }
   ],
   "taskconfiguration": [
@@ -3912,5 +4317,211 @@
       "url": "${BASE_LAUNCH_ENV_URL}/admin",
       "adminOnly": true
     }
-  ]
+  ],
+  "workflowTasks": {
+    "creationDate": 1540912389131,
+    "duration": 7178,
+    "id": "5bd8750446e4bf790fe60aef",
+    "status": "completed",
+    "workflowId": "5bd6fdf65a5df954ad47bdbe",
+    "workflowRevisionid": "5bd85a2146e4bf444d97417d",
+    "steps": [
+      {
+        "activityId": "5bd8750446e4bf790fe60aef",
+        "duration": 2178,
+        "flowTaskStatus": "completed",
+        "id": "5bd8750546e4bf790fe60af0",
+        "order": 0,
+        "startTime": 1540912389131,
+        "taskId": "cebb4cb2-17fd-4008-aaec-5e5a86fdd2f3",
+        "taskName": "task1"
+      },
+      {
+        "activityId": "5bd8750446e4bf790fe60aef",
+        "duration": 3000,
+        "flowTaskStatus": "completed",
+        "id": "5bd8750546e4bf790fe60af1",
+        "order": 1,
+        "startTime": 1540912391309,
+        "taskId": "cebb4cb2-17fd-4008-aaec-5e5a86fdd2f4",
+        "taskName": "task2"
+      },
+      {
+        "activityId": "5bd8750446e4bf790fe60aef",
+        "duration": 2000,
+        "flowTaskStatus": "completed",
+        "id": "5bd8750546e4bf790fe60af2",
+        "order": 2,
+        "startTime": 1540912394309,
+        "taskId": "cebb4cb2-17fd-4008-aaec-5e5a86fdd2f5",
+        "taskName": "task3"
+      }
+    ]
+  },
+  "workflowSummary": [
+    {
+      "name": "Help",
+      "shortDescription": "Me",
+      "description": "Please",
+      "icon": "template",
+      "workflowTeamId": "9012",
+      "id": 1
+    },
+    {
+      "name": "Testing",
+      "workflowTeamId": "9012",
+      "id": 2
+    }
+  ],
+  "workflowActivity": {
+    "last": false,
+    "totalPages": 9,
+    "totalElements": 90,
+    "size": 10,
+    "number": 0,
+    "numberOfElements": 10,
+    "first": true,
+    "sort": [
+      {
+        "direction": "DESC",
+        "property": "creationDate",
+        "ignoreCase": false,
+        "nullHandling": "NATIVE",
+        "descending": true,
+        "ascending": false
+      }
+    ],
+    "records": [
+      {
+        "creationDate": 1541070397344,
+        "duration": 13886,
+        "id": "5bdade3d37dc4700011b06c3",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "status": "completed",
+        "workflowId": "5bd9d8ab7eb44d0001772e64",
+        "workflowRevisionid": "5bd9e1cfa40f5d0001249bfa",
+        "description": "file ingestion",
+        "icon": "flow",
+        "shortDescription": "file ingestion",
+        "workflowName": "Business Process Test"
+      },
+      {
+        "creationDate": 1541070264765,
+        "duration": 14256,
+        "id": "5bdaddb837dc4700011b06bb",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "status": "completed",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541068437357,
+        "duration": 0,
+        "id": "5bdad695a7e263000116a75f",
+        "status": "failed",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541067633661,
+        "duration": 0,
+        "id": "5bdad371a7e263000116a75b",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "status": "inprogress",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541066619898,
+        "duration": 0,
+        "id": "5bdacf7ba7e263000116a757",
+        "status": "inprogress",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541065823346,
+        "duration": 0,
+        "id": "5bdacc5fa40f5d0001249c8d",
+        "status": "inprogress",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541065012582,
+        "duration": 0,
+        "id": "5bdac934a40f5d0001249c89",
+        "status": "inprogress",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541063602052,
+        "duration": 0,
+        "id": "5bdac3b2a40f5d0001249c85",
+        "status": "failed",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541061910251,
+        "duration": 0,
+        "id": "5bdabd16a40f5d0001249c81",
+        "status": "completed",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541061087542,
+        "duration": 0,
+        "id": "5bdab9dfa40f5d0001249c76",
+        "status": "failed",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bd9de67a40f5d0001249bbd",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      }
+    ]
+  }
 }
