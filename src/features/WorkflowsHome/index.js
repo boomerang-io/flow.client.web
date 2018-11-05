@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
 import sortBy from "lodash/sortBy";
+import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
+import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import ErrorDragon from "Components/ErrorDragon";
 import SearchFilterBar from "Components/SearchFilterBar";
 import WorkflowsSection from "./WorkflowsSection";
@@ -50,12 +53,47 @@ class WorkflowsHome extends Component {
     this.props.history.push(`/creator/overview`);
   };
 
+  handleExecute = workflowId => {
+    return axios
+      .post(`${BASE_SERVICE_URL}/execute/${workflowId}`)
+      .then(response => {
+        notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
+      })
+      .catch(error => {
+        notify(<Notification type="error" title="Something's wrong" message="Failed to run workflow" />);
+      });
+  };
+
+  handleOnDelete = ({ workflowId, teamId }) => {
+    axios
+      .delete(`${BASE_SERVICE_URL}/workflow/${workflowId}`)
+      .then(() => {
+        notify(<Notification type="remove" title="SUCCESS" message="Workflow successfully deleted" />);
+        this.updateWorkflows({ workflowId, teamId });
+        return;
+      })
+      .catch(() => {
+        notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
+        return;
+      });
+  };
+
   render() {
     const { teams } = this.props;
     const { searchQuery } = this.state;
 
     if (teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
+    }
+
+    if (teams.isFetching) {
+      return (
+        <div className="c-workflow-home">
+          <div className="c-workflow-home-content">
+            <LoadingAnimation theme="bmrg-white" />
+          </div>
+        </div>
+      );
     }
 
     if (teams.status === REQUEST_STATUSES.SUCCESS) {
@@ -66,7 +104,8 @@ class WorkflowsHome extends Component {
         return (
           <div className="c-workflow-home">
             <div className="c-workflow-home-content">
-              <NoDisplay />
+              <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
+              <NoDisplay style={{ marginTop: "5rem" }} text="Looks like you don't have any workflow teams" />
             </div>
           </div>
         );
@@ -74,7 +113,7 @@ class WorkflowsHome extends Component {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
-            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
+            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} data={teams.data} />
             {sortedTeams.map(team => {
               return (
                 <WorkflowsSection
@@ -83,6 +122,8 @@ class WorkflowsHome extends Component {
                   updateWorkflows={this.updateWorkflows}
                   setActiveTeamAndRedirect={this.setActiveTeamAndRedirect}
                   key={team.id}
+                  executeWorkflow={this.handleExecute}
+                  deleteWorkflow={this.handleOnDelete}
                 />
               );
             })}

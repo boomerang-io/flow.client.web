@@ -27,136 +27,99 @@
   },
   "tasktemplate": [
     {
+      "id": "5b92f794844d0700016ea216",
       "config": [
-        {
-          "description": "Name",
-          "key": "fileDownloadName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "Artifactory Base URL",
-          "key": "artifactoryBaseUrl",
-          "label": "Artifactory Base URL",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "url"
-        },
-        {
-          "description": "Repository Name",
-          "key": "artifactoryRepository",
-          "label": "Repository Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "Repository Path",
-          "key": "artifactoryRepositoryPath",
-          "label": "Repository Path",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        }
-      ],
-      "description": "Set up the name for this file download",
-      "id": "5b92f794844d0700016ea214",
-      "key": "Download File",
-      "lastModiifed": 1536358745146,
-      "name": "Download File",
-      "type": "ValuesList",
-      "category": "Utility"
-    },
-    {
-      "config": [
-        {
-          "description": "Name",
-          "key": "emailName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "Enable Mail Notifications for request processing activities.",
-          "key": "enableMail",
-          "label": "Enable Mail Notifications",
-          "type": "boolean"
-        },
-        {
-          "description": "SendGrid API Key",
-          "key": "sendgridApikey",
-          "label": "SendGrid API Key",
-          "maxValueLength": 512,
-          "minValueLength": 0,
-          "type": "secured"
-        }
-      ],
-      "description": "Specify Instructions for sending Email",
-      "id": "5b92f794844d0700016ea215",
-      "key": "mail",
-      "lastModiifed": 1536358737143,
-      "name": "Send Mail",
-      "type": "ValuesList",
-      "category": "Communication"
-    },
-    {
-      "config": [
-        {
-          "description": "Name",
-          "key": "ingestName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "",
-          "key": "offset",
-          "label": "offset",
-          "type": "text"
-        },
-        {
-          "description": "",
-          "key": "shell",
-          "label": "shell",
-          "type": "text"
-        }
+        { "description": "", "key": "offset", "label": "offset", "type": "text" },
+        { "description": "", "key": "shell", "label": "shell", "type": "text" }
       ],
       "description": "Specify Shell Script to Ingest CSV",
-      "id": "5b92f794844d0700016ea216",
       "key": "ingest",
-      "lastModiifed": 1536606325494,
       "name": "Ingest CSV",
       "type": "ValuesList",
-      "category": "Utility"
+      "category": "utilities"
     },
     {
+      "id": "5b92f794844d0700016ea217",
       "config": [
         {
-          "description": "Name",
-          "key": "slackName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
+          "description": "The name of the channel or user as a destination for the messages.",
+          "key": "channel",
+          "label": "Channel",
           "type": "text"
         },
         {
-          "description": "Enable Slack Notifications for request processing activities.",
-          "key": "enableSlack",
-          "label": "Enable Slack Notifications",
-          "type": "boolean"
-        }
+          "description": "Larger, bold text near the top of a message.",
+          "key": "title",
+          "label": "Title",
+          "type": "text"
+        },
+        { "description": "The main text to the message.", "key": "message", "label": "Message", "type": "text" }
       ],
-      "description": "Specify instructions for Slack Message",
-      "id": "5b92f794844d0700016ea217",
+      "description": "Send slack message to webhook",
       "key": "slack",
-      "lastModiifed": 1536611604684,
-      "name": "Send Slack",
+      "name": "Send Slack Message",
       "type": "ValuesList",
-      "category": "Communication"
+      "category": "communication",
+      "arguments": ["sendSlackMessage", "$(INPUTS_PROPS_CHANNEL)", "$(INPUTS_PROPS_TITLE)", "$(INPUTS_PROPS_MESSAGE)"]
+    },
+    {
+      "id": "5bd97bea5a5df954ad592c06",
+      "config": [{ "description": "Duration in milliseconds", "key": "duration", "label": "Duration", "type": "text" }],
+      "description": "Sleep for specified duration in milliseconds",
+      "key": "sleep",
+      "name": "Sleep",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["sleep", "$(INPUTS_PROPS_DURATION)"]
+    },
+    {
+      "id": "5bd98b105a5df954ad599bc2",
+      "config": [
+        { "description": "The email address to send mail to", "key": "to", "label": "To", "type": "text" },
+        { "description": "The email subject", "key": "subject", "label": "Subject", "type": "text" },
+        { "description": "The message inside the email", "key": "message", "label": "Message", "type": "textarea" }
+      ],
+      "description": "Send Email to Member with Subject and Message",
+      "key": "mail",
+      "name": "Send Email",
+      "type": "ValuesList",
+      "category": "boomerang",
+      "arguments": ["sendMailToMember", "$(INPUTS_PROPS_TO)", "$(INPUTS_PROPS_SUBJECT)", "$(INPUTS_PROPS_MESSAGE)"]
+    },
+    {
+      "id": "5bd9b4115a5df954ad5ad8db",
+      "config": [],
+      "description": "Artifactory File Download",
+      "key": "artifactoryDownload",
+      "name": "Artifactory File Download",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["artifactoryDownload"]
+    },
+    {
+      "id": "5bd9d03a5a5df954ad5bb3b5",
+      "config": [
+        { "description": "The file path incl file name", "key": "path", "label": "File Path", "type": "text" },
+        { "description": "The file content", "key": "content", "label": "File Content", "type": "textarea" }
+      ],
+      "description": "Create file in worker",
+      "key": "createFile",
+      "name": "Create File",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["sendMailToMember", "$(INPUTS_PROPS_PATH)", "$(INPUTS_PROPS_CONTENT)"]
+    },
+    {
+      "id": "5bd9d0825a5df954ad5bb5c3",
+      "config": [
+        { "description": "The file path incl file name", "key": "path", "label": "File Path", "type": "text" }
+      ],
+      "description": "Upload file to Artifactory",
+      "key": "artifactoryUpload",
+      "name": "Artifactory File Upload",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["artifactoryUpload", "$(INPUTS_PROPS_PATH)"]
     }
   ],
   "teams": [
@@ -4409,5 +4372,156 @@
       "workflowTeamId": "9012",
       "id": 2
     }
-  ]
+  ],
+  "workflowActivity":{
+    "last": false,
+    "totalPages": 9,
+    "totalElements": 90,
+    "size": 10,
+    "number": 0,
+    "numberOfElements": 10,
+    "first": true,
+    "sort": [
+        {
+            "direction": "DESC",
+            "property": "creationDate",
+            "ignoreCase": false,
+            "nullHandling": "NATIVE",
+            "descending": true,
+            "ascending": false
+        }
+    ],
+    "records": [
+        {
+            "creationDate": 1541070397344,
+            "duration": 13886,
+            "id": "5bdade3d37dc4700011b06c3",
+            "initiatedBy": "5bc7b126f7856000012cd95d",
+            "status": "completed",
+            "workflowId": "5bd9d8ab7eb44d0001772e64",
+            "workflowRevisionid": "5bd9e1cfa40f5d0001249bfa",
+            "description": "file ingestion",
+            "icon": "flow",
+            "shortDescription": "file ingestion",
+            "workflowName": "Business Process Test"
+        },
+        {
+            "creationDate": 1541070264765,
+            "duration": 14256,
+            "id": "5bdaddb837dc4700011b06bb",
+            "initiatedBy": "5bc7b126f7856000012cd95d",
+            "status": "completed",
+            "workflowId": "5bd9de16a40f5d0001249bad",
+            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+            "description": "Slack and Mail integration",
+            "icon": "diagram",
+            "shortDescription": "Slack and Mail Integration",
+            "workflowName": "Notifications"
+        },
+        {
+            "creationDate": 1541068437357,
+            "duration": 0,
+            "id": "5bdad695a7e263000116a75f",
+            "status": "failed",
+            "initiatedBy": "5bc7b126f7856000012cd95d",
+            "workflowId": "5bd9de16a40f5d0001249bad",
+            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+            "description": "Slack and Mail integration",
+            "icon": "diagram",
+            "shortDescription": "Slack and Mail Integration",
+            "workflowName": "Notifications"
+        },
+        {
+            "creationDate": 1541067633661,
+            "duration": 0,
+            "id": "5bdad371a7e263000116a75b",
+            "initiatedBy": "5bc7b126f7856000012cd95d",
+            "status": "inprogress",
+            "workflowId": "5bd9de16a40f5d0001249bad",
+            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+            "description": "Slack and Mail integration",
+            "icon": "diagram",
+            "shortDescription": "Slack and Mail Integration",
+            "workflowName": "Notifications"
+        },
+        {
+            "creationDate": 1541066619898,
+            "duration": 0,
+            "id": "5bdacf7ba7e263000116a757",
+            "status": "inprogress",
+            "initiatedBy": "5bc7b126f7856000012cd95d",
+            "workflowId": "5bd9de16a40f5d0001249bad",
+            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+            "description": "Slack and Mail integration",
+            "icon": "diagram",
+            "shortDescription": "Slack and Mail Integration",
+            "workflowName": "Notifications"
+        },
+        {
+            "creationDate": 1541065823346,
+            "duration": 0,
+            "id": "5bdacc5fa40f5d0001249c8d",
+            "status": "inprogress",
+            "initiatedBy": "5bc7b126f7856000012cd95d",
+            "workflowId": "5bd9de16a40f5d0001249bad",
+            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+            "description": "Slack and Mail integration",
+            "icon": "diagram",
+            "shortDescription": "Slack and Mail Integration",
+            "workflowName": "Notifications"
+        },
+        {
+            "creationDate": 1541065012582,
+            "duration": 0,
+            "id": "5bdac934a40f5d0001249c89",
+            "status": "inprogress",
+            "initiatedBy": "5bc7b126f7856000012cd95d",
+            "workflowId": "5bd9de16a40f5d0001249bad",
+            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+            "description": "Slack and Mail integration",
+            "icon": "diagram",
+            "shortDescription": "Slack and Mail Integration",
+            "workflowName": "Notifications"
+        },
+        {
+            "creationDate": 1541063602052,
+            "duration": 0,
+            "id": "5bdac3b2a40f5d0001249c85",
+            "status": "failed",
+            "initiatedBy": "5bc7b126f7856000012cd95d",
+            "workflowId": "5bd9de16a40f5d0001249bad",
+            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+            "description": "Slack and Mail integration",
+            "icon": "diagram",
+            "shortDescription": "Slack and Mail Integration",
+            "workflowName": "Notifications"
+        },
+        {
+            "creationDate": 1541061910251,
+            "duration": 0,
+            "id": "5bdabd16a40f5d0001249c81",
+            "status": "completed",
+            "initiatedBy": "5bc7b126f7856000012cd95d",
+            "workflowId": "5bd9de16a40f5d0001249bad",
+            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+            "description": "Slack and Mail integration",
+            "icon": "diagram",
+            "shortDescription": "Slack and Mail Integration",
+            "workflowName": "Notifications"
+        },
+        {
+            "creationDate": 1541061087542,
+            "duration": 0,
+            "id": "5bdab9dfa40f5d0001249c76",
+            "status": "failed",
+            "initiatedBy": "5bc7b126f7856000012cd95d",
+            "workflowId": "5bd9de16a40f5d0001249bad",
+            "workflowRevisionid": "5bd9de67a40f5d0001249bbd",
+            "description": "Slack and Mail integration",
+            "icon": "diagram",
+            "shortDescription": "Slack and Mail Integration",
+            "workflowName": "Notifications"
+        }
+    ]
+}
 }

@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import Navigation from "Features/WorkflowManager/components/Navigation";
@@ -23,10 +20,11 @@ class WorkflowEditor extends Component {
   constructor(props) {
     super(props);
     this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
+    this.overviewErrors = {};
   }
 
   render() {
-    const { createNode, createWorkflowRevision, handleOnOverviewChange, match, workflow } = this.props;
+    const { createNode, createWorkflowRevision, handleOnOverviewChange, match, workflow, updateWorkflow } = this.props;
 
     return (
       <>
@@ -37,8 +35,8 @@ class WorkflowEditor extends Component {
             component={props => (
               <>
                 <ActionBar
-                  actionButtonText="Update"
-                  onClick={() => createWorkflowRevision(this.diagramApp)}
+                  actionButtonText="Update Overview"
+                  onClick={() => updateWorkflow(this.diagramApp)}
                   diagramApp={this.diagramApp}
                   {...props}
                 />
@@ -51,7 +49,7 @@ class WorkflowEditor extends Component {
             render={props => (
               <>
                 <ActionBar
-                  actionButtonText="Update"
+                  actionButtonText="Create New Version"
                   onClick={() => createWorkflowRevision(this.diagramApp)}
                   diagramApp={this.diagramApp}
                   includeZoom
@@ -70,7 +68,6 @@ class WorkflowEditor extends Component {
                       className="srd-demo-canvas"
                       diagramEngine={this.diagramApp.getDiagramEngine()}
                       maxNumberPointsPerLink={0}
-                      smartRouting={true}
                       deleteKeys={[]}
                     />
                   </div>
@@ -84,17 +81,4 @@ class WorkflowEditor extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  workflowRevision: state.workflowRevision
-});
-
-const mapDispatchToProps = dispatch => ({
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
-});
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(WorkflowEditor)
-);
+export default withRouter(WorkflowEditor);

@@ -24,37 +24,35 @@ class WorkflowSection extends Component {
       workflows = team.workflows;
     }
 
-    if (workflows.length > 0) {
-      return (
-        <div className="c-workflow-section">
-          <div className="c-workflow-section__header">
-            <label className="b-workflow-section__team">{team.name}</label>
-          </div>
-          <div className="c-workflow-section__workflows">
-            {workflows.map(workflow => (
-              <WorkflowCard
-                workflow={workflow}
-                updateWorkflows={this.props.updateWorkflows}
-                teamId={team.id}
-                key={workflow.id}
-              />
-            ))}
-            <Button className="b-workflow-placeholder" onClick={() => setActiveTeamAndRedirect(team.id)}>
-              <div className="b-workflow-placeholder__box">
-                <div data-tip data-for={team.id} className="b-workflow-placeholder__text">
-                  +
-                </div>
-              </div>
-              <Tooltip theme="bmrg-white" id={team.id}>
-                Create Workflow
-              </Tooltip>
-            </Button>
-          </div>
+    return (
+      <div className="c-workflow-section">
+        <div className="c-workflow-section__header">
+          <label className="b-workflow-section__team">{team.name}</label>
         </div>
-      );
-    }
-
-    return null;
+        <div className="c-workflow-section__workflows">
+          {workflows.map(workflow => (
+            <WorkflowCard
+              workflow={workflow}
+              updateWorkflows={this.props.updateWorkflows}
+              teamId={team.id}
+              key={workflow.id}
+              executeWorkflow={this.props.executeWorkflow}
+              deleteWorkflow={this.props.deleteWorkflow}
+            />
+          ))}
+          <Button className="b-workflow-placeholder" onClick={() => setActiveTeamAndRedirect(team.id)}>
+            <div className="b-workflow-placeholder__box">
+              <div data-tip data-for={team.id} className="b-workflow-placeholder__text">
+                +
+              </div>
+            </div>
+            <Tooltip theme="bmrg-white" id={team.id}>
+              Create Workflow
+            </Tooltip>
+          </Button>
+        </div>
+      </div>
+    );
   }
 }
 
