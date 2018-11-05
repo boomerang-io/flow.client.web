@@ -4318,6 +4318,46 @@
       "adminOnly": true
     }
   ],
+  "workflowTasks": {
+    "creationDate": 1540912389131,
+    "duration": 7178,
+    "id": "5bd8750446e4bf790fe60aef",
+    "status": "completed",
+    "workflowId": "5bd6fdf65a5df954ad47bdbe",
+    "workflowRevisionid": "5bd85a2146e4bf444d97417d",
+    "steps": [
+      {
+        "activityId": "5bd8750446e4bf790fe60aef",
+        "duration": 2178,
+        "flowTaskStatus": "completed",
+        "id": "5bd8750546e4bf790fe60af0",
+        "order": 0,
+        "startTime": 1540912389131,
+        "taskId": "cebb4cb2-17fd-4008-aaec-5e5a86fdd2f3",
+        "taskName": "task1"
+      },
+      {
+        "activityId": "5bd8750446e4bf790fe60aef",
+        "duration": 3000,
+        "flowTaskStatus": "completed",
+        "id": "5bd8750546e4bf790fe60af1",
+        "order": 1,
+        "startTime": 1540912391309,
+        "taskId": "cebb4cb2-17fd-4008-aaec-5e5a86fdd2f4",
+        "taskName": "task2"
+      },
+      {
+        "activityId": "5bd8750446e4bf790fe60aef",
+        "duration": 2000,
+        "flowTaskStatus": "completed",
+        "id": "5bd8750546e4bf790fe60af2",
+        "order": 2,
+        "startTime": 1540912394309,
+        "taskId": "cebb4cb2-17fd-4008-aaec-5e5a86fdd2f5",
+        "taskName": "task3"
+      }
+    ]
+  },
   "workflowSummary": [
     {
       "name": "Help",

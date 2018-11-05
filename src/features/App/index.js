@@ -10,6 +10,7 @@ import WorkflowActivity from "Features/WorkflowActivity";
 import WorkflowsHome from "Features/WorkflowsHome";
 import WorkflowManager from "Features/WorkflowManager";
 import WorkflowsViewer from "Features/WorkflowsViewer";
+import WorkflowExecution from "Features/WorkflowExecution";
 import Navbar from "./Navbar";
 import { BASE_LAUNCHPAD_SERVICE_URL } from "Config/servicesConfig";
 import { navItems } from "./config";
@@ -69,6 +70,7 @@ class App extends Component {
           </div>
           <Switch>
             <Route path="/workflows" component={WorkflowsHome} />
+            <Route path="/activity/:workflowId/execution/:executionId" component={WorkflowExecution} />
             <Route path="/activity/:workflowId" component={WorkflowActivity} />
             <Route path="/creator" component={WorkflowManager} />
             <Route path="/editor/:workflowId" component={WorkflowManager} />

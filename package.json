@@ -15,6 +15,7 @@
     "classnames": "^2.2.6",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
+    "moment-duration-format": "^2.2.2",
     "normalize-scss": "^7.0.1",
     "react": "^16.5.1",
     "react-click-outside": "^3.0.1",
