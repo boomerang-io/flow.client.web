@@ -1,0 +1,137 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+.c-activities-table {
+  .ReactTable {
+    border: none;
+  }
+  .rt-tbody {
+    padding-bottom: 1rem;
+  }
+  .ReactTable .rt-tbody .rt-tr-group:last-child {
+    border-bottom: solid 0.125rem $teal-20;
+  }
+  .ReactTable .rt-tbody .rt-tr-group {
+    background-color: $white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 53.5rem;
+    height: 7.5rem;
+    border: solid 0.125rem $teal-20;
+    border-radius: 0.5rem;
+    margin: 1.5rem 1rem;
+    &.--completed {
+      border-color: $teal-20;
+    }
+    &.--failed {
+      border-color: $red-20;
+    }
+    &.--inprogress {
+      border-color: $cerulean-20;
+    }
+  }
+
+  .ReactTable .-pagination {
+    border: none;
+    box-shadow: none;
+  }
+  .ReactTable .-pagination .-pageInfo {
+    color: $cerulean-80;
+  }
+
+  .bmrg--c-table.--bmrg-blue .ReactTable .-pagination .-btn {
+    background-color: $white;
+  }
+
+  .bmrg--c-table.--bmrg-blue .ReactTable .-pagination .-pageJump input {
+    background-color: $white;
+  }
+
+  .bmrg--c-table.--bmrg-blue .ReactTable .-pagination .-pageSizeOptions select {
+    background-color: $white;
+  }
+
+  .bmrg--b-table__header {
+    background-color: $white;
+    color: $blue-90;
+  }
+}
+.c-activities-row__item-workflow {
+  display: flex;
+  align-items: center;
+}
+.c-activities-row__item-activity {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.c-activity-card {
+  background-color: $white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50rem;
+  height: 7.5rem;
+  border: solid 0.125rem $teal-20;
+  border-radius: 0.5rem;
+  margin: 1.5rem 1rem;
+  &.--success {
+    border-color: $teal-20;
+  }
+  &.--failure {
+    border-color: $red-20;
+  }
+  &.--inprogess {
+    border-color: $cerulean-20;
+  }
+}
+.c-activity-card__workflow {
+  display: flex;
+}
+.c-activity-card__workflow-info {
+  margin-left: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+.c-activity-card__icon {
+  margin-left: 1.5rem;
+  width: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.b-activity-card__icon {
+  width: 5rem;
+  height: 4rem;
+}
+.b-activity-card__name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.b-activity-card__label {
+  width: 6rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.b-activity-card__description {
+  color: $gray-60;
+}
+.b-activity-card__status-icon {
+  margin-right: 0.5rem;
+}
+.b-activity-card__data {
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  color: $gray-60;
+}
+.c-activity-card__activity {
+  margin-top: 1rem;
+  margin-right: 3rem;
+}
+.c-activity-card__label {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 0.75rem;
+}

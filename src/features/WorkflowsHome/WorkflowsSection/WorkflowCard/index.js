@@ -5,7 +5,7 @@ import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
-import imgs from "./img";
+import imgs from "Assets/icons";
 import "./styles.scss";
 import playButton from "./img/playButton.svg";
 

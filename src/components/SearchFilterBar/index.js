@@ -6,8 +6,13 @@ import "./styles.scss";
 
 class SearchFilterBar extends Component {
   static propTypes = {
-    teams: PropTypes.array.isRequired,
-    handleSearchFilter: PropTypes.func.isRequired
+    data: PropTypes.array.isRequired,
+    handleSearchFilter: PropTypes.func.isRequired,
+    debounceTimeout: PropTypes.string,
+    filterItems: PropTypes.array
+  };
+  static defaultProps = {
+    debounceTimeout:""
   };
 
   state = {
@@ -37,16 +42,15 @@ class SearchFilterBar extends Component {
 
   handleSearchFilter = () => {
     const { searchQuery, selectedItems } = this.state;
-
     this.props.handleSearchFilter(searchQuery, selectedItems);
   };
 
-  formatTeams = teams => {
-    return teams.map(team => ({ id: team.id, text: team.name }));
+  formatData = data => {
+    return data.map(item => ({ id: item.id, text: item.name }));
   };
 
   render() {
-    const { teams } = this.props;
+    const { data, debounceTimeout } = this.props;
 
     return (
       <div className="b-search-filter">
@@ -56,6 +60,7 @@ class SearchFilterBar extends Component {
             onChange={this.handleOnSearchInputChange}
             onClear={this.handleOnSearchClear}
             value={this.state.searchQuery}
+            debounceTimeout={debounceTimeout}
           />
         </div>
         <div className="b-search-filter__filter">
@@ -64,7 +69,7 @@ class SearchFilterBar extends Component {
             label="Filter"
             invalid={false}
             onChange={this.handleOnMultiSelectChange}
-            items={teams.map(team => ({ id: team.id, text: team.name }))}
+            items={this.props.filterItems || data.map(item => ({ id: item.id, text: item.name }))}
             itemToString={item => (item ? item.text : "")}
           />
         </div>

@@ -113,7 +113,7 @@ class WorkflowsHome extends Component {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
-            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
+            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} data={teams.data} />
             {sortedTeams.map(team => {
               return (
                 <WorkflowsSection
