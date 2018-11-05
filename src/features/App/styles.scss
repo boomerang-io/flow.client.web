@@ -3,6 +3,9 @@
 .bmrg--b-navbar {
   //position: unset !important;
 }
+.bmrg--b-navbar-logo {
+  cursor: pointer;
+}
 
 .c-app-main {
   padding-top: 3.125rem;
@@ -11,4 +14,8 @@
 
 .c-workflow {
   margin-top: 4rem;
+}
+
+.s-sidenav-wrapper > .bmrg--c-sidenav {
+  z-index: 1;
 }

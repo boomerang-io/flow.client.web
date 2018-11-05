@@ -23,6 +23,7 @@ class ErrorDragon extends Component {
         }}
         statusUrl={`${BASE_LAUNCH_ENV_URL}/status`}
         {...this.props}
+        theme="bmrg-white"
       />
     );
   }

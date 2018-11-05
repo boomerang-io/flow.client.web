@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Switch, Route, Redirect } from "react-router-dom";
-import { actions as tasksActions } from "State/tasks";
+import { Route, Switch, withRouter } from "react-router-dom";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import Navigation from "Features/WorkflowManager/components/Navigation";
@@ -12,53 +9,23 @@ import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
 import DiagramApplication from "Utilities/DiagramApplication";
 import "./styles.scss";
 
-class WorkflowCreatorContainer extends Component {
+class WorkflowEditor extends Component {
   static propTypes = {
     createNode: PropTypes.func.isRequired,
     diagramApp: PropTypes.object.isRequired,
-    createWorkflow: PropTypes.func.isRequired,
     createWorkflowRevision: PropTypes.func.isRequired,
-    handleOnOverviewChange: PropTypes.func.isRequired,
-    updateWorkflow: PropTypes.func.isRequired
+    handleOnOverviewChange: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
-    this.diagramApp = new DiagramApplication({ dag: null, isLocked: false });
-    this.state = {
-      hasCreatedWorkflow: false
-    };
+    this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
+    this.overviewErrors = {};
   }
 
-  overviewAction = () => {
-    if (this.state.hasCreatedWorkflow) {
-      this.props.updateWorkflow();
-    } else {
-      this.createWorkflow();
-    }
-  };
-
-  designerAction = () => {
-    if (this.state.hasCreatedWorkflow) {
-      this.props.createWorkflowRevision(this.diagramApp);
-    } else {
-      this.createWorkflow();
-    }
-  };
-
-  createWorkflow = () => {
-    this.props
-      .createWorkflow(this.diagramApp)
-      .then(() => {
-        this.setState({
-          hasCreatedWorkflow: true
-        });
-      })
-      .catch(() => console.error("Failed to create workflow and revision"));
-  };
-
   render() {
-    const { createNode, handleOnOverviewChange, match, workflow } = this.props;
+    const { createNode, createWorkflowRevision, handleOnOverviewChange, match, workflow, updateWorkflow } = this.props;
+
     return (
       <>
         <Navigation />
@@ -68,8 +35,8 @@ class WorkflowCreatorContainer extends Component {
             component={props => (
               <>
                 <ActionBar
-                  actionButtonText={this.state.hasCreatedWorkflow ? "Update Overview" : "Create Worfklow"}
-                  onClick={this.overviewAction}
+                  actionButtonText="Update Overview"
+                  onClick={() => updateWorkflow(this.diagramApp)}
                   diagramApp={this.diagramApp}
                   {...props}
                 />
@@ -82,8 +49,8 @@ class WorkflowCreatorContainer extends Component {
             render={props => (
               <>
                 <ActionBar
-                  actionButtonText={this.state.hasCreatedWorkflow ? "Create New Version" : "Create Workflow"}
-                  onClick={this.designerAction}
+                  actionButtonText="Create New Version"
+                  onClick={() => createWorkflowRevision(this.diagramApp)}
                   diagramApp={this.diagramApp}
                   includeZoom
                   {...props}
@@ -108,22 +75,10 @@ class WorkflowCreatorContainer extends Component {
               </>
             )}
           />
-          <Redirect from={`${match.path}`} to={`${match.path}/overview`} />
         </Switch>
       </>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  tasks: state.tasks
-});
-
-const mapDispatchToProps = dispatch => ({
-  tasksActions: bindActionCreators(tasksActions, dispatch)
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WorkflowCreatorContainer);
+export default withRouter(WorkflowEditor);

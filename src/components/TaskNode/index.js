@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
-import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
+import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
@@ -28,7 +28,7 @@ export class TaskNode extends Component {
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
-    workflowConfigActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -38,8 +38,8 @@ export class TaskNode extends Component {
   state = {};
 
   //need to create a save function where we make change to global state
-  handleOnSave = config => {
-    this.props.workflowConfigActions.updateNode({ nodeId: this.props.node.id, config: config });
+  handleOnSave = inputs => {
+    this.props.workflowRevisionActions.updateNode({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
 
@@ -47,7 +47,7 @@ export class TaskNode extends Component {
     /*
         want to delete the node in state and then remove it from the diagram
     */
-    this.props.workflowConfigActions.deleteNode({ nodeId: this.props.node.id });
+    this.props.workflowRevisionActions.deleteNode({ nodeId: this.props.node.id });
     this.props.node.remove();
   };
 
@@ -87,7 +87,6 @@ export class TaskNode extends Component {
       img_to_render = emailIMG;
     }
 
-    console.log(this.props.diagramEngine.diagramModel);
     return (
       <div className="b-taskNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
@@ -128,7 +127,6 @@ export class TaskNode extends Component {
                 components={[{ step: 0, component: DisplayForm }]}
                 closeModal={closeModal}
                 confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-                config={this.props.nodeConfig}
                 onSave={this.handleOnSave}
                 theme={"bmrg-white"}
                 task={task}
@@ -146,13 +144,13 @@ export class TaskNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowConfig.fetch.nodes[ownProps.node.id]
+    nodeConfig: state.workflowRevision.config[ownProps.node.id]
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch),
-  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch)
+  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 
 export default connect(

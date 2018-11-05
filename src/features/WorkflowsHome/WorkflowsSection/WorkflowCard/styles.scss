@@ -11,6 +11,7 @@
   border-radius: 0.5rem;
   margin: 1rem;
   height: 9.5rem;
+  position: relative;
 
   .bx--overflow-menu {
     &:focus {
@@ -65,7 +66,7 @@
   max-height: 0.75rem;
   border-radius: 2rem;
   &.--published {
-    background-color: $green-40;
+    background-color: $green-30;
   }
   &.--draft {
     background-color: $gray-20;
@@ -104,5 +105,14 @@
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
-.b-workflow-card__description {
+
+.b-workflow-card-launch {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.b-workflow-card-launch__icon {
+  width: 2.5rem;
+  height: 2.5rem;
 }

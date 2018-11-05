@@ -28,9 +28,9 @@ class NavbarContainer extends Component {
   };
 
   render() {
-    const { user, navbarLinks } = this.props;
+    const { user, navbarLinks, handleOnIconClick } = this.props;
     if (user.isFetching || user.isCreating || navbarLinks.isFetching) {
-      return <Navbar />;
+      return <Navbar handleOnIconClick={handleOnIconClick} />;
     }
 
     if (user.status === "success" && navbarLinks.status === "success") {
@@ -45,6 +45,7 @@ class NavbarContainer extends Component {
           isAdmin={user.data.type === userTypes.ADMIN}
           user={user.data}
           onboardingExperienceCharacter="?"
+          handleOnIconClick={handleOnIconClick}
           handleOnOnboardingExperienceClick={this.handleOnQuestionClick}
         >
           <Dropdown {...user.data} options={dropdownOptions} />
@@ -54,7 +55,7 @@ class NavbarContainer extends Component {
 
     if (user.status === "failure" || navbarLinks.status === "failure") {
       return (
-        <Navbar refresh={this.props.refresh}>
+        <Navbar refresh={this.props.refresh} handleOnIconClick={handleOnIconClick}>
           <Dropdown options={dropdownOptions.slice(1, -1)} includeHeader={false} />
         </Navbar>
       );

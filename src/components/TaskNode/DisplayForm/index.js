@@ -7,7 +7,7 @@ import ValueList from "./ValueList";
 
 class DisplayForm extends Component {
   static propTypes = {
-    config: PropTypes.object.isRequired,
+    nodeConfig: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired
   };
 
@@ -60,8 +60,7 @@ class DisplayForm extends Component {
       onSave(configToSave);
     };*/
 
-  handleOnSave = event => {
-    //event.stopPropagation(); //don't need this here as we don't need to stop the click event from bubbling up
+  handleOnSave = () => {
     this.props.onSave(this.createConfigToSave());
     this.props.closeModal();
   };
@@ -77,7 +76,6 @@ class DisplayForm extends Component {
   }
 
   determineSectionHeaderConfig() {
-    //const { config } = this.props;
     let isValid;
     let onSaveFunction;
 
