@@ -46,23 +46,26 @@ class WorkflowManagerContainer extends Component {
     const { workflowActions, workflowRevisionActions, activeTeamId } = this.props;
 
     return workflowActions
-      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, workflowTeamId: activeTeamId })
+      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, flowTeamId: activeTeamId })
       .then(response => {
-        const body = this.createWorkflowRevisionBody(diagramApp);
+        const dagProps = this.createWorkflowRevisionBody(diagramApp);
         const workflowId = response.data.id;
-        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body);
+
+        const workflowRevision = {
+          ...dagProps,
+          workflowId
+        };
+
+        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
       })
       .then(() => {
         notify(
-          <Notification type="success" title="Create Workflow" message="Succssfully created workflow and revision" />
+          <Notification type="success" title="Create Workflow" message="Succssfully created workflow and version" />
         );
         return Promise.resolve();
       })
       .catch(err => {
-        console.log(err);
-        notify(
-          <Notification type="error" title="Something's wrong" message="Failed to create workflow and revision" />
-        );
+        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow and version" />);
         return Promise.reject();
       });
   };
@@ -76,16 +79,10 @@ class WorkflowManagerContainer extends Component {
     workflowRevisionActions
       .create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body)
       .then(() => {
-        notify(
-          <Notification
-            type="success"
-            title="Create Workflow Revision"
-            message="Succssfully created workflow revision"
-          />
-        );
+        notify(<Notification type="success" title="Create Version" message="Succssfully created workflow version" />);
       })
       .catch(() => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow revision" />);
+        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow version" />);
       });
   };
 
@@ -94,7 +91,7 @@ class WorkflowManagerContainer extends Component {
     const workflowId = workflow.data.id;
 
     return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow/${workflowId}`, this.newOverviewData)
+      .update(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, id: workflowId })
       .then(response => {
         notify(<Notification type="success" title="Update Workflow" message="Succssfully updated workflow" />);
         return Promise.resolve(response);
@@ -106,10 +103,10 @@ class WorkflowManagerContainer extends Component {
   };
 
   createWorkflowRevisionBody(diagramApp) {
-    const body = {};
-    body["dag"] = this.getDiagramSerialization(diagramApp);
-    body["config"] = this.formatWorkflowConfigNodes();
-    return body;
+    const dagProps = {};
+    dagProps["dag"] = this.getDiagramSerialization(diagramApp);
+    dagProps["config"] = this.formatWorkflowConfigNodes();
+    return dagProps;
   }
 
   getDiagramSerialization(diagramApp) {
@@ -120,7 +117,7 @@ class WorkflowManagerContainer extends Component {
   }
 
   formatWorkflowConfigNodes() {
-    return Object.values(this.props.workflowRevision.config);
+    return { nodes: Object.values(this.props.workflowRevision.config) };
   }
 
   createNode = (diagramApp, event) => {
@@ -136,7 +133,7 @@ class WorkflowManagerContainer extends Component {
 
     //add node info to the state
     const { id, taskId } = node;
-    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, config: {} });
+    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {} });
 
     const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
     node.x = points.x;
@@ -160,7 +157,7 @@ class WorkflowManagerContainer extends Component {
             path="/creator"
             render={props => (
               <Creator
-                workflow={this.props.workflow.data}
+                workflow={this.props.workflow}
                 createNode={this.createNode}
                 createWorkflow={this.createWorkflow}
                 createWorkflowRevision={this.createWorkflowRevision}
@@ -174,7 +171,6 @@ class WorkflowManagerContainer extends Component {
             path="/editor/:workflowId"
             render={props => (
               <EditorContainer
-                workflow={this.props.workflow.data}
                 createNode={this.createNode}
                 createWorkflowRevision={this.createWorkflowRevision}
                 updateWorkflow={this.updateWorkflow}

@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
@@ -19,46 +16,24 @@ class WorkflowCard extends Component {
     updateWorkflows: PropTypes.func.isRequired
   };
 
-  handleExecute = () => {
-    return axios
-      .post(`${BASE_SERVICE_URL}/execute/${this.props.workflow.id}`)
-      .then(response => {
-        notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
-      })
-      .catch(error => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to run workflow" />);
-      });
-  };
-
-  handleOnDelete = () => {
-    // axios
-    //   .delete(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.id}`)
-    //   .then(() => {
-    //     notify(<Notification type="remove" title="SUCCESS" message="Workflow successfully deleted" />);
-    //     this.props.updateWorkflows({workflowId:this.props.workflow.id, teamId:this.props.teamId});
-    //     return;
-    //   })
-    //   .catch(() => {
-    //     notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
-    //     return;
-    //   });
-    //this.props.updateWorkflows({ workflowId: this.props.workflow.id, teamId: this.props.teamId });
-  };
-
   render() {
-    const { workflow, history } = this.props;
+    const { workflow, history, teamId } = this.props;
     const menuOptions = [
       {
-        itemText: "View Activity",
-        onClick: () => history.push(`/activity/dfb6302b-62e0-4574-9062-727e4a37fc32`),
-        primaryFocus: true
-      },
-      {
-        itemText: "Edit Workflow",
+        itemText: "Edit",
         onClick: () => history.push(`/editor/${workflow.id}/designer`),
         primaryFocus: false
       },
-      { itemText: "Delete", onClick: () => this.handleOnDelete(), primaryFocus: false }
+      {
+        itemText: "Activity",
+        onClick: () => history.push(`/activity/dfb6302b-62e0-4574-9062-727e4a37fc32`),
+        primaryFocus: false
+      },
+      {
+        itemText: "Delete",
+        onClick: () => this.props.deleteWorkflow({ teamId, workflowId: workflow.id }),
+        primaryFocus: false
+      }
     ];
 
     return (
@@ -89,7 +64,7 @@ class WorkflowCard extends Component {
           </div>
           <div className="c-workflow-card__description">
             <h2 className="b-workflow-card__name">{workflow.name}</h2>
-            <p className="b-workflow-card__description">{workflow.description}</p>
+            <p className="b-workflow-card__description">{workflow.shortDescription}</p>
             <span data-tip data-for={workflow.id} className="b-workflow-card-launch">
               <AlertModal
                 ModalTrigger={() => (
@@ -100,7 +75,7 @@ class WorkflowCard extends Component {
                     title="Execute workflow?"
                     subTitleTop="It will run"
                     closeModal={closeModal}
-                    affirmativeAction={this.handleExecute}
+                    affirmativeAction={() => this.props.executeWorkflow(workflow.id)}
                     affirmativeText="Run"
                     theme="bmrg-white"
                   />

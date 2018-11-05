@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
@@ -68,7 +68,7 @@ class WorkflowCreatorContainer extends Component {
             component={props => (
               <>
                 <ActionBar
-                  actionButtonText={this.state.hasCreatedWorkflow ? "Update" : "Create"}
+                  actionButtonText={this.state.hasCreatedWorkflow ? "Update Overview" : "Create Worfklow"}
                   onClick={this.overviewAction}
                   diagramApp={this.diagramApp}
                   {...props}
@@ -82,7 +82,7 @@ class WorkflowCreatorContainer extends Component {
             render={props => (
               <>
                 <ActionBar
-                  actionButtonText={this.state.hasCreatedWorkflow ? "Update" : "Create"}
+                  actionButtonText={this.state.hasCreatedWorkflow ? "Create New Version" : "Create Workflow"}
                   onClick={this.designerAction}
                   diagramApp={this.diagramApp}
                   includeZoom
@@ -101,7 +101,6 @@ class WorkflowCreatorContainer extends Component {
                       className="srd-demo-canvas"
                       diagramEngine={this.diagramApp.getDiagramEngine()}
                       maxNumberPointsPerLink={0}
-                      smartRouting={true}
                       deleteKeys={[]}
                     />
                   </div>
@@ -109,6 +108,7 @@ class WorkflowCreatorContainer extends Component {
               </>
             )}
           />
+          <Redirect from={`${match.path}`} to={`${match.path}/overview`} />
         </Switch>
       </>
     );

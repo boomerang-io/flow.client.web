@@ -7,7 +7,7 @@
     "@boomerang/boomerang-components": "6.0.0-alpha8",
     "@boomerang/boomerang-dag": "5.2.1",
     "@boomerang/boomerang-react-scripts": "1.2.21",
-    "@boomerang/boomerang-styles": "^0.9.0",
+    "@boomerang/boomerang-styles": "0.10.0",
     "@boomerang/boomerang-utilities": "^1.0.1",
     "carbon-components": "^9.37.2",
     "carbon-components-react": "^6.42.0",
@@ -17,6 +17,7 @@
     "moment": "^2.22.2",
     "normalize-scss": "^7.0.1",
     "react": "^16.5.1",
+    "react-click-outside": "^3.0.1",
     "react-debounce-input": "^3.2.0",
     "react-dom": "^16.5.1",
     "react-dropzone": "^6.2.4",
@@ -82,3 +83,4 @@
     ]
   }
 }
+

@@ -27,136 +27,99 @@
   },
   "tasktemplate": [
     {
+      "id": "5b92f794844d0700016ea216",
       "config": [
-        {
-          "description": "Name",
-          "key": "fileDownloadName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "Artifactory Base URL",
-          "key": "artifactoryBaseUrl",
-          "label": "Artifactory Base URL",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "url"
-        },
-        {
-          "description": "Repository Name",
-          "key": "artifactoryRepository",
-          "label": "Repository Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "Repository Path",
-          "key": "artifactoryRepositoryPath",
-          "label": "Repository Path",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        }
-      ],
-      "description": "Set up the name for this file download",
-      "id": "5b92f794844d0700016ea214",
-      "key": "Download File",
-      "lastModiifed": 1536358745146,
-      "name": "Download File",
-      "type": "ValuesList",
-      "category": "Utility"
-    },
-    {
-      "config": [
-        {
-          "description": "Name",
-          "key": "emailName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "Enable Mail Notifications for request processing activities.",
-          "key": "enableMail",
-          "label": "Enable Mail Notifications",
-          "type": "boolean"
-        },
-        {
-          "description": "SendGrid API Key",
-          "key": "sendgridApikey",
-          "label": "SendGrid API Key",
-          "maxValueLength": 512,
-          "minValueLength": 0,
-          "type": "secured"
-        }
-      ],
-      "description": "Specify Instructions for sending Email",
-      "id": "5b92f794844d0700016ea215",
-      "key": "mail",
-      "lastModiifed": 1536358737143,
-      "name": "Send Mail",
-      "type": "ValuesList",
-      "category": "Communication"
-    },
-    {
-      "config": [
-        {
-          "description": "Name",
-          "key": "ingestName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
-          "type": "text"
-        },
-        {
-          "description": "",
-          "key": "offset",
-          "label": "offset",
-          "type": "text"
-        },
-        {
-          "description": "",
-          "key": "shell",
-          "label": "shell",
-          "type": "text"
-        }
+        { "description": "", "key": "offset", "label": "offset", "type": "text" },
+        { "description": "", "key": "shell", "label": "shell", "type": "text" }
       ],
       "description": "Specify Shell Script to Ingest CSV",
-      "id": "5b92f794844d0700016ea216",
       "key": "ingest",
-      "lastModiifed": 1536606325494,
       "name": "Ingest CSV",
       "type": "ValuesList",
-      "category": "Utility"
+      "category": "utilities"
     },
     {
+      "id": "5b92f794844d0700016ea217",
       "config": [
         {
-          "description": "Name",
-          "key": "slackName",
-          "label": "Name",
-          "maxValueLength": 128,
-          "minValueLength": 0,
+          "description": "The name of the channel or user as a destination for the messages.",
+          "key": "channel",
+          "label": "Channel",
           "type": "text"
         },
         {
-          "description": "Enable Slack Notifications for request processing activities.",
-          "key": "enableSlack",
-          "label": "Enable Slack Notifications",
-          "type": "boolean"
-        }
+          "description": "Larger, bold text near the top of a message.",
+          "key": "title",
+          "label": "Title",
+          "type": "text"
+        },
+        { "description": "The main text to the message.", "key": "message", "label": "Message", "type": "text" }
       ],
-      "description": "Specify instructions for Slack Message",
-      "id": "5b92f794844d0700016ea217",
+      "description": "Send slack message to webhook",
       "key": "slack",
-      "lastModiifed": 1536611604684,
-      "name": "Send Slack",
+      "name": "Send Slack Message",
       "type": "ValuesList",
-      "category": "Communication"
+      "category": "communication",
+      "arguments": ["sendSlackMessage", "$(INPUTS_PROPS_CHANNEL)", "$(INPUTS_PROPS_TITLE)", "$(INPUTS_PROPS_MESSAGE)"]
+    },
+    {
+      "id": "5bd97bea5a5df954ad592c06",
+      "config": [{ "description": "Duration in milliseconds", "key": "duration", "label": "Duration", "type": "text" }],
+      "description": "Sleep for specified duration in milliseconds",
+      "key": "sleep",
+      "name": "Sleep",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["sleep", "$(INPUTS_PROPS_DURATION)"]
+    },
+    {
+      "id": "5bd98b105a5df954ad599bc2",
+      "config": [
+        { "description": "The email address to send mail to", "key": "to", "label": "To", "type": "text" },
+        { "description": "The email subject", "key": "subject", "label": "Subject", "type": "text" },
+        { "description": "The message inside the email", "key": "message", "label": "Message", "type": "textarea" }
+      ],
+      "description": "Send Email to Member with Subject and Message",
+      "key": "mail",
+      "name": "Send Email",
+      "type": "ValuesList",
+      "category": "boomerang",
+      "arguments": ["sendMailToMember", "$(INPUTS_PROPS_TO)", "$(INPUTS_PROPS_SUBJECT)", "$(INPUTS_PROPS_MESSAGE)"]
+    },
+    {
+      "id": "5bd9b4115a5df954ad5ad8db",
+      "config": [],
+      "description": "Artifactory File Download",
+      "key": "artifactoryDownload",
+      "name": "Artifactory File Download",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["artifactoryDownload"]
+    },
+    {
+      "id": "5bd9d03a5a5df954ad5bb3b5",
+      "config": [
+        { "description": "The file path incl file name", "key": "path", "label": "File Path", "type": "text" },
+        { "description": "The file content", "key": "content", "label": "File Content", "type": "textarea" }
+      ],
+      "description": "Create file in worker",
+      "key": "createFile",
+      "name": "Create File",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["sendMailToMember", "$(INPUTS_PROPS_PATH)", "$(INPUTS_PROPS_CONTENT)"]
+    },
+    {
+      "id": "5bd9d0825a5df954ad5bb5c3",
+      "config": [
+        { "description": "The file path incl file name", "key": "path", "label": "File Path", "type": "text" }
+      ],
+      "description": "Upload file to Artifactory",
+      "key": "artifactoryUpload",
+      "name": "Artifactory File Upload",
+      "type": "ValuesList",
+      "category": "utilities",
+      "arguments": ["artifactoryUpload", "$(INPUTS_PROPS_PATH)"]
     }
   ],
   "teams": [

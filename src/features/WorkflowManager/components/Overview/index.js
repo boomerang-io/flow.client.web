@@ -17,11 +17,10 @@ class Overview extends Component {
 
   constructor(props) {
     super(props);
-    this.state = props.workflow;
+    this.state = props.workflow.data;
   }
 
   handleOnChange = (value, errors, name) => {
-    console.log(value, name);
     this.setState(
       () => ({
         [name]: value
@@ -42,11 +41,12 @@ class Overview extends Component {
             name="name"
             theme="bmrg-white"
             onChange={this.handleOnChange}
+            noValueText="Enter a name"
           />
           <TextInput
             value={this.state.shortDescription || ""}
-            title="Short description"
-            placeholder="Short description"
+            title="Summary"
+            placeholder="Summary"
             name="shortDescription"
             theme="bmrg-white"
             onChange={this.handleOnChange}
@@ -59,11 +59,11 @@ class Overview extends Component {
             theme="bmrg-white"
             handleChange={this.handleOnChange}
           />
-          <h2 className="s-worklflow-icons-title">Icon</h2>
-          <div className="b-worklflow-icons">
+          <h2 className="s-workflow-icons-title">Icon</h2>
+          <div className="b-workflow-icons">
             {assets.map(image => (
               <img
-                className={classnames("b-worklflow-icons__icon", {
+                className={classnames("b-workflow-icons__icon", {
                   "--active": this.state.icon === image.name
                 })}
                 src={image.src}
