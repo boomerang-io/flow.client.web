@@ -29,12 +29,30 @@
       border-color: $cerulean-20;
     }
   }
+
   .ReactTable .-pagination {
     border: none;
     box-shadow: none;
   }
   .ReactTable .-pagination .-pageInfo {
     color: $cerulean-80;
+  }
+
+  .bmrg--c-table.--bmrg-blue .ReactTable .-pagination .-btn {
+    background-color: $white;
+  }
+
+  .bmrg--c-table.--bmrg-blue .ReactTable .-pagination .-pageJump input {
+    background-color: $white;
+  }
+
+  .bmrg--c-table.--bmrg-blue .ReactTable .-pagination .-pageSizeOptions select {
+    background-color: $white;
+  }
+
+  .bmrg--b-table__header {
+    background-color: $white;
+    color: $blue-90;
   }
 }
 .c-activities-row__item-workflow {

@@ -28,8 +28,8 @@ class ActivityTable extends Component {
     direction: this.props.sort[0] ? this.props.sort[0].direction : ""
   };
 
-  getStatusIcon = (status) => {
-    switch(status){
+  getStatusIcon = status => {
+    switch (status) {
       case activityStatuses.COMPLETED:
         return statusImgs["passed"];
       case activityStatuses.FAILED:
@@ -37,9 +37,9 @@ class ActivityTable extends Component {
       default:
         return statusImgs["pending"];
     }
-  }
-  getStatusText = (status) => {
-    switch(status){
+  };
+  getStatusText = status => {
+    switch (status) {
       case activityStatuses.COMPLETED:
         return "Success";
       case activityStatuses.FAILED:
@@ -47,7 +47,7 @@ class ActivityTable extends Component {
       default:
         return "In Progress";
     }
-  }
+  };
 
   onSortedChange = (newSorted, column) => {
     const direction = newSorted[0].desc ? "DESC" : "ASC";
@@ -77,12 +77,12 @@ class ActivityTable extends Component {
       Header: "Workflow",
       accessor: "workflowName",
       className: "c-activities-row__item-workflow",
-      width: 380,
+      width: 400,
       Cell: row => {
         return (
           <div className="c-activity-card__workflow">
             <div className="c-activity-card__icon">
-              <img className="b-activity-card__icon" src={imgs[row.original.icon]} alt="icon"/>
+              <img className="b-activity-card__icon" src={imgs[row.original.icon]} alt="icon" />
             </div>
             <div className="c-activity-card__workflow-info">
               <label className="b-activity-card__name">{row.original.workflowName}</label>
@@ -96,13 +96,15 @@ class ActivityTable extends Component {
       Header: "Creation Date",
       accessor: "creationDate",
       className: "c-activities-row__item-activity",
-      width: 380,
+      width: 400,
       Cell: row => {
         return (
           <div className="c-activity-card__activity">
             <div className="c-activity-card__label">
               <label className="b-activity-card__label">Start Time</label>
-              <label className="b-activity-card__data">{moment(row.original.creationDate).format("YYYY-MM-DD hh:mm A")}</label>
+              <label className="b-activity-card__data">
+                {moment(row.original.creationDate).format("YYYY-MM-DD hh:mm A")}
+              </label>
             </div>
             <div className="c-activity-card__label">
               <label className="b-activity-card__label">Duration</label>
@@ -111,7 +113,11 @@ class ActivityTable extends Component {
             <div className="c-activity-card__label">
               <label className="b-activity-card__label"> Status</label>
               <label className="b-activity-card__data">
-                <img className="b-activity-card__status-icon" src={this.getStatusIcon(row.original.status)} alt="status" />
+                <img
+                  className="b-activity-card__status-icon"
+                  src={this.getStatusIcon(row.original.status)}
+                  alt="status"
+                />
                 {this.getStatusText(row.original.status)}
               </label>
             </div>
@@ -124,36 +130,35 @@ class ActivityTable extends Component {
   render() {
     const { sort } = this.props;
     return (
-        <div className="c-activities-table">
-          <Table
-            manual
-            className=""
-            data={this.props.activities}
-            columns={this.columns}
-            showPagination={this.props.activities.length > 0 || this.state.pageSize > 0 ? true : false}
-            defaultPageSize={this.state.pageSize}
-            minRows={this.props.activities && this.props.activities.length ? this.props.activities.length : 5}
-            page={this.props.pageNumber}
-            pages={this.props.totalPageCount}
-            onPageChange={this.onPageChange}
-            onPageSizeChange={this.onPageSizeChange}
-            onSortedChange={this.onSortedChange}
-            noDataText="No audit records found"
-            theme="bmrg-blue"
-            getTrGroupProps={(state, rowInfo) => {
-              return {className: `--${rowInfo.original.status}`}
-            }}
-            defaultSorted={
-              sort
-                ? sort.map(sort => ({
-                    id: sort.property,
-                    desc: sort.descending
-                  }))
-                : []
-            }
-            
-          />
-        </div>
+      <div className="c-activities-table">
+        <Table
+          manual
+          className=""
+          data={this.props.activities}
+          columns={this.columns}
+          showPagination={this.props.activities.length > 0 || this.state.pageSize > 0 ? true : false}
+          defaultPageSize={this.state.pageSize}
+          minRows={this.props.activities && this.props.activities.length ? this.props.activities.length : 5}
+          page={this.props.pageNumber}
+          pages={this.props.totalPageCount}
+          onPageChange={this.onPageChange}
+          onPageSizeChange={this.onPageSizeChange}
+          onSortedChange={this.onSortedChange}
+          noDataText="No activity found"
+          theme="bmrg-blue"
+          getTrGroupProps={(state, rowInfo) => {
+            return { className: `--${rowInfo.original.status}` };
+          }}
+          defaultSorted={
+            sort
+              ? sort.map(sort => ({
+                  id: sort.property,
+                  desc: sort.descending
+                }))
+              : []
+          }
+        />
+      </div>
     );
   }
 }
