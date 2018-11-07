@@ -7,6 +7,9 @@ export const BASE_SERVICE_ENV_URL =
 export const BASE_SERVICE_URL = `${BASE_SERVICE_ENV_URL}/flow`;
 export const BASE_LAUNCHPAD_SERVICE_URL = `${BASE_SERVICE_ENV_URL}/launchpad`;
 
+// Profile image
+export const IMG_URL = `${BASE_LAUNCHPAD_SERVICE_URL}/users/image`;
+
 export const REQUEST_STATUSES = {
   FAILURE: "failure",
   SUCCESS: "success"

@@ -9,7 +9,7 @@ import ReportBug from "./ReportBug";
 import PrivacyStatement from "./PrivacyStatement";
 import userTypes from "Constants/userTypes";
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
-import { BASE_SERVICE_ENV_URL } from "Config/servicesConfig";
+import { BASE_SERVICE_ENV_URL, IMG_URL } from "Config/servicesConfig";
 import { PLATFORM_VERSION } from "Config/appConfig";
 
 const dropdownOptions = [
@@ -48,7 +48,7 @@ class NavbarContainer extends Component {
           handleOnIconClick={handleOnIconClick}
           handleOnOnboardingExperienceClick={this.handleOnQuestionClick}
         >
-          <Dropdown {...user.data} options={dropdownOptions} />
+          <Dropdown {...user.data} profileImgUrl={IMG_URL} options={dropdownOptions} />
         </Navbar>
       );
     }
