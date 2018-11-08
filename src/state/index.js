@@ -10,6 +10,7 @@ import tasks from "./tasks";
 import teams from "./teams";
 import user from "./user";
 import workflow from "./workflow";
+import workflowExecution from "./workflowExecution";
 import workflowRevision from "./workflowRevision";
 
 const rootReducer = combineReducers({
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   teams,
   user,
   workflow,
+  workflowExecution,
   workflowRevision
 });
 
