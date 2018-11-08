@@ -12,11 +12,13 @@ class Main extends Component {
   }
 
   render() {
-    const data = { steps: [{}] };
+    const { workflowExecution, nodeId } = this.props;
+    const selectedStep = workflowExecution.steps.find(step => step.taskId === nodeId);
+
     return (
       <div className="c-workflow-execution">
-        <TimeProgressBar tasks={data} />
-        <StepSideInfo step={data.steps[0]} />
+        <TimeProgressBar tasks={workflowExecution} />
+        <StepSideInfo step={selectedStep} />
         <div className="c-workflow-diagram-execution">
           <DiagramWidget
             className="c-diagram-canvas"
@@ -34,6 +36,8 @@ class Main extends Component {
 }
 
 Main.propTypes = {
+  nodeId: PropTypes.string,
+  workflowExecution: PropTypes.object.isRequired,
   workflowRevision: PropTypes.object.isRequired
 };
 

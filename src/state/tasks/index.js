@@ -16,7 +16,7 @@ export const initialState = {
   isFetching: false,
   status: "",
   error: "",
-  data: {}
+  data: []
 };
 
 //action handlers

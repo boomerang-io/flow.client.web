@@ -3,7 +3,7 @@
   "/flow/workflow/:workflowId/revision": "/workflow/:workflowId?singular=1",
   "/flow/workflow": "/workflowSummary",
   "/flow/workflow/:id/summary": "/workflowSummary/:id?&singular=1",
-  "/flow/activity/:id": "/workflowTasks",
+  "/flow/activity/:id": "/workflowExecution",
   "/flow/activity?size=:value": "/workflowActivity",
   "/flow/*": "/$1",
   "/launchpad/*": "/$1"
