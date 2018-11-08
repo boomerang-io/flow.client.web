@@ -14,7 +14,7 @@ import "./styles.scss";
 class WorkflowsActivity extends Component {
   static propTypes = {
     activity: PropTypes.object.isRequired,
-    activityActions: PropTypes.object.isRequired
+    activityActions: PropTypes.object.isRequired,
   };
 
   state = {
@@ -54,7 +54,7 @@ class WorkflowsActivity extends Component {
   };
 
   render() {
-    const { activity, teams } = this.props;
+    const { activity, teams, history } = this.props;
     const { searchQuery } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
@@ -73,7 +73,7 @@ class WorkflowsActivity extends Component {
               !filteredActivities.length?
               <NoDisplay style={{marginTop:"2rem"}} text="No activities found" />
               :
-              <ActivityList activities={activity.data} fetchActivities={this.fetchActivities} savePageSize={this.savePageSize} searchQuery={searchQuery}/>
+              <ActivityList activities={activity.data} fetchActivities={this.fetchActivities} savePageSize={this.savePageSize} searchQuery={searchQuery} history={history}/>
             }
           </div>
         </div>

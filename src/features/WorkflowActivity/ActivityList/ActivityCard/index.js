@@ -10,6 +10,7 @@ import "./styles.scss";
 class ActivityCard extends Component {
   static propTypes = {
     activity: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   };
 
   getStatusIcon = status => {
@@ -33,11 +34,14 @@ class ActivityCard extends Component {
     }
   };
 
+  handleCardClick = (activityId, workflowId) => {
+    this.props.history.push(`/activity/${workflowId}/execution/${activityId}`);
+  };
 
   render() {
-    const { icon, workflowName, description, creationDate, status, duration } = this.props.activity;
+    const { icon, workflowName, description, creationDate, status, duration, id, workflowId } = this.props.activity;
     return (
-      <div className={`c-activities-card --${status}`}>
+      <div className={`c-activities-card --${status}`} onClick={()=>this.handleCardClick(id, workflowId)}>
         <div className="c-activity-card__workflow">
           <div className="c-activity-card__icon">
             <img className="b-activity-card__icon" src={imgs[icon]} alt="icon" />

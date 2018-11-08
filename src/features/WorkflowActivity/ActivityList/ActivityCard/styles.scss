@@ -10,6 +10,7 @@
   border: solid 0.125rem $teal-20;
   border-radius: 0.5rem;
   margin: 1.5rem 1rem;
+  cursor: pointer;
   &.--completed {
     border-color: $teal-20;
   }
