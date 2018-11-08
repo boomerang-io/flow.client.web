@@ -65,20 +65,16 @@ class WorkflowsActivity extends Component {
       const filteredActivities = this.filterActivity();
       const teamsList = teams.data.map(team => ({ id: team.id, text: team.name }));
 
-      if (!filteredActivities.length) {
-        return (
-          <div className="c-workflow-activity">
-            <div className="c-workflow-activity-content">
-              <NoDisplay />
-            </div>
-          </div>
-        );
-      }
       return (
         <div className="c-workflow-activity">
           <div className="c-workflow-activity-content">
             <SearchFilterBar handleSearchFilter={this.handleSearchFilter} data={activity.data} filterItems={teamsList} debounceTimeout={300} />
-            <ActivityList activities={activity.data} fetchActivities={this.fetchActivities} savePageSize={this.savePageSize} searchQuery={searchQuery}/>
+            {
+              !filteredActivities.length?
+              <NoDisplay style={{marginTop:"2rem"}} text="No activities found" />
+              :
+              <ActivityList activities={activity.data} fetchActivities={this.fetchActivities} savePageSize={this.savePageSize} searchQuery={searchQuery}/>
+            }
           </div>
         </div>
       );
