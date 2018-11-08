@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
@@ -21,6 +22,7 @@ import "./styles.scss";
 export class TaskNode extends Component {
   static propTypes = {
     nodeConfig: PropTypes.object.isRequired,
+    step: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired
@@ -117,9 +119,12 @@ export class TaskNode extends Component {
 
   render() {
     console.log(this.props);
+    const { flowTaskStatus } = this.props.step;
+
     return (
       <div className="c-taskNode" onClick={this.handleOnActivityClick}>
-        <div className="b-taskNode">
+        <div className={classnames("b-taskNode", `--${flowTaskStatus}`)}>
+          <div className="b-taskNode__progress-bar"/>
           <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
             {this.props.task ? this.props.task.description : "Task description"}
           </Tooltip>
@@ -141,7 +146,8 @@ export class TaskNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowRevision.config[ownProps.node.id]
+    nodeConfig: state.workflowRevision.config[ownProps.node.id],
+    step: state.workflowExecution.data.steps.find(step => step.taskId === ownProps.node.id)
   };
 };
 

@@ -4558,7 +4558,7 @@
       {
         "activityId": "5bd8750446e4bf790fe60aef",
         "duration": 2178,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "inProgress",
         "id": "5bd8750546e4bf790fe60af0",
         "order": 0,
         "startTime": 1540912389131,
@@ -4568,7 +4568,7 @@
       {
         "activityId": "5bd8750446e4bf790fe60aef",
         "duration": 3000,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "notstarted",
         "id": "5bd8750546e4bf790fe60af1",
         "order": 1,
         "startTime": 1540912391309,
