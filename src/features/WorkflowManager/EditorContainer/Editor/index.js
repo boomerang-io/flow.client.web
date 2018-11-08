@@ -11,7 +11,6 @@ import DiagramApplication from "Utilities/DiagramApplication";
 class WorkflowEditor extends Component {
   static propTypes = {
     createNode: PropTypes.func.isRequired,
-    diagramApp: PropTypes.object.isRequired,
     createWorkflowRevision: PropTypes.func.isRequired,
     handleOnOverviewChange: PropTypes.func.isRequired
   };

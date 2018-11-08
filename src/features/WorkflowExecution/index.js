@@ -19,7 +19,7 @@ class WorkflowExecutionContainer extends Component {
 
   componentDidMount() {
     const { match } = this.props;
-    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/taskstemplates`);
+    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/tasktemplate`);
     this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/revision`);
   }
 
@@ -29,7 +29,7 @@ class WorkflowExecutionContainer extends Component {
 
   render() {
     const { status: tasksStatus } = this.props.tasks;
-    const { status: workflowRevisionStatus } = this.props.workflowRevision;
+    const { fetchingStatus: workflowRevisionStatus } = this.props.workflowRevision;
 
     if (tasksStatus === REQUEST_STATUSES.FAILURE && workflowRevisionStatus === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
