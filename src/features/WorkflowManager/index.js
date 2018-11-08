@@ -30,7 +30,7 @@ class WorkflowManagerContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/tasktemplate`);
+    this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
   }
 
   componentWillUnmount() {

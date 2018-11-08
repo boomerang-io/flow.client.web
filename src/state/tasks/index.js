@@ -55,9 +55,9 @@ const fetchTasksCreators = {
 
 const fetchTasksApi = requestGenerator(fetchTasksCreators);
 
-const fetchTasks = url => dispatch => dispatch(fetchTasksApi.request({ method: "get", url }));
+const fetch = url => dispatch => dispatch(fetchTasksApi.request({ method: "get", url }));
 
-const cancelFetchTasks = () => dispatch => dispatch(fetchTasksApi.cancelRequest());
+const cancel = () => dispatch => dispatch(fetchTasksApi.cancelRequest());
 
 //actions
 export const actions = {
@@ -65,6 +65,6 @@ export const actions = {
   fetchTasksRequest,
   fetchTasksSuccess,
   fetchTasksFailure,
-  fetchTasks,
-  cancelFetchTasks
+  fetch,
+  cancel
 };
