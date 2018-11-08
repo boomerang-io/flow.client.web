@@ -14,7 +14,7 @@ import "./styles.scss";
 class WorkflowsActivity extends Component {
   static propTypes = {
     activity: PropTypes.object.isRequired,
-    activityActions: PropTypes.object.isRequired
+    activityActions: PropTypes.object.isRequired,
   };
 
   state = {
@@ -54,7 +54,7 @@ class WorkflowsActivity extends Component {
   };
 
   render() {
-    const { activity, teams } = this.props;
+    const { activity, teams, history } = this.props;
     const { searchQuery } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
@@ -65,20 +65,16 @@ class WorkflowsActivity extends Component {
       const filteredActivities = this.filterActivity();
       const teamsList = teams.data.map(team => ({ id: team.id, text: team.name }));
 
-      if (!filteredActivities.length) {
-        return (
-          <div className="c-workflow-activity">
-            <div className="c-workflow-activity-content">
-              <NoDisplay />
-            </div>
-          </div>
-        );
-      }
       return (
         <div className="c-workflow-activity">
           <div className="c-workflow-activity-content">
             <SearchFilterBar handleSearchFilter={this.handleSearchFilter} data={activity.data} filterItems={teamsList} debounceTimeout={300} />
-            <ActivityList activities={activity.data} fetchActivities={this.fetchActivities} savePageSize={this.savePageSize} searchQuery={searchQuery}/>
+            {
+              !filteredActivities.length?
+              <NoDisplay style={{marginTop:"2rem"}} text="No activities found" />
+              :
+              <ActivityList activities={activity.data} fetchActivities={this.fetchActivities} savePageSize={this.savePageSize} searchQuery={searchQuery} history={history}/>
+            }
           </div>
         </div>
       );
