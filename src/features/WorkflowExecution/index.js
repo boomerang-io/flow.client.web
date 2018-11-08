@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as tasksActions } from "State/tasks";
-import StepSideInfo from "./StepSideInfo";
+import { actions as workflowRevisionActions } from "State/workflowRevision";
 import ErrorDragon from "Components/ErrorDragon";
-import TimeProgressBar from "Components/TimeProgressBar";
-import DiagramApplication from "Utilities/DiagramApplication";
-import { DiagramWidget } from "@boomerang/boomerang-dag";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import Main from "./Main";
 import "./styles.scss";
@@ -21,7 +18,9 @@ class WorkflowExecutionContainer extends Component {
   };
 
   componentDidMount() {
-    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/activity/${this.props.match.params.workflowId}`);
+    const { match } = this.props;
+    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/taskstemplates`);
+    this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/revision`);
   }
 
   fetchExecution() {
@@ -29,13 +28,14 @@ class WorkflowExecutionContainer extends Component {
   }
 
   render() {
-    const { status, data } = this.props.tasks;
+    const { status: tasksStatus } = this.props.tasks;
+    const { status: workflowRevisionStatus } = this.props.workflowRevision;
 
-    if (status === REQUEST_STATUSES.FAILURE) {
+    if (tasksStatus === REQUEST_STATUSES.FAILURE && workflowRevisionStatus === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
     }
 
-    if (status === REQUEST_STATUSES.SUCCESS) {
+    if (tasksStatus === REQUEST_STATUSES.SUCCESS && workflowRevisionStatus === REQUEST_STATUSES.SUCCESS) {
       return <Main workflowRevision={this.props.workflowRevision} />;
     }
 
@@ -49,7 +49,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  tasksActions: bindActionCreators(tasksActions, dispatch)
+  tasksActions: bindActionCreators(tasksActions, dispatch),
+  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 
 export default connect(

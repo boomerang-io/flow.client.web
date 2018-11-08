@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import TimeProgressBar from "Components/TimeProgressBar";
+import DiagramApplication from "Utilities/DiagramApplication";
+import { DiagramWidget } from "@boomerang/boomerang-dag";
+import StepSideInfo from "./StepSideInfo";
 
 class Main extends Component {
   constructor(props) {
@@ -8,6 +12,7 @@ class Main extends Component {
   }
 
   render() {
+    const data = { steps: [{}] };
     return (
       <div className="c-workflow-execution">
         <TimeProgressBar tasks={data} />

@@ -71,7 +71,7 @@ class App extends Component {
           <Switch>
             <Route path="/workflows" component={WorkflowsHome} />
             <Route path="/activity/:workflowId/execution/:executionId" component={WorkflowExecution} />
-            <Route path="/activity/:workflowId" component={WorkflowActivity} />
+            <Route path="/activity" component={WorkflowActivity} />
             <Route path="/creator" component={WorkflowManager} />
             <Route path="/editor/:workflowId" component={WorkflowManager} />
             <Route path="/viewer" component={WorkflowsViewer} />
