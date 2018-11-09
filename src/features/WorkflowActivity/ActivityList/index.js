@@ -48,10 +48,7 @@ class ActivityList extends Component {
           })}
         </InfiniteScroll>
         <ScrollUpButton ContainerClassName="c-activities__scroll-up" TransitionClassName="--scroll-up-togled">
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <img className="b-activities__scroll-button" src={doubleChevron} alt="chevron" />
-            <label className="b-activities__scroll-label">Go to top</label>
-          </div>
+          <ScrollUp />
         </ScrollUpButton>
       </>
     );
