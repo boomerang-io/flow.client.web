@@ -26,7 +26,7 @@ class WorkflowCard extends Component {
       },
       {
         itemText: "Activity",
-        onClick: () => history.push(`/activity/dfb6302b-62e0-4574-9062-727e4a37fc32`),
+        onClick: () => history.push(`/activity`),
         primaryFocus: false
       },
       {
