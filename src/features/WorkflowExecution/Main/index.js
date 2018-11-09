@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import NavigateBack from "Components/NavigateBack";
 import TimeProgressBar from "Components/TimeProgressBar";
 import DiagramApplication from "Utilities/DiagramApplication";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
@@ -17,8 +18,12 @@ class Main extends Component {
 
     return (
       <div className="c-workflow-execution">
+        <nav style={{ margin: "1rem 0" }}>
+          <NavigateBack to="/activity" text="Back to Activity" />
+        </nav>
+
         <TimeProgressBar tasks={workflowExecution} />
-        <StepSideInfo step={selectedStep} />
+        {selectedStep && <StepSideInfo step={selectedStep} />}
         <div className="c-workflow-diagram-execution">
           <DiagramWidget
             className="c-diagram-canvas"

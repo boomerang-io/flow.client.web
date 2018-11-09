@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import momentDurationFormatSetup from "moment-duration-format";
 import moment from "moment";
+import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/activityStatuses";
 import "./styles.scss";
 
 const StepSideInfo = ({ step }) => {
@@ -13,28 +14,33 @@ const StepSideInfo = ({ step }) => {
       <div className="c-step-side-info-details">
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Name</div>
-          <div className="b-step-side-info-field__value">{step ? step.taskName : ""}</div>
+          <div className="b-step-side-info-field__value">{step.taskName}</div>
         </div>
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Type</div>
-          <div className="b-step-side-info-field__value">{step ? "Task" : ""}</div>
+          <div className="b-step-side-info-field__value">{"Task"}</div>
         </div>
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Status</div>
-          <div className="b-step-side-info-field__value">{step ? step.flowTaskStatus : ""}</div>
+          <div className="b-step-side-info-field__value">
+            {ACTIVITY_STATUSES_TO_TEXT[step.flowTaskStatus]}
+            <img src={ACTIVITY_STATUSES_TO_ICON[step.flowTaskStatus]} alt="Status" />
+          </div>
         </div>
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Start Time</div>
-          <div className="b-step-side-info-field__value">{step ? moment(step.startTime).format("YYYY-MM-DD h:mm A") : ""}</div>
+          <div className="b-step-side-info-field__value">{moment(step.startTime).format("YYYY-MM-DD h:mm A")}</div>
         </div>
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Duration</div>
-          <div className="b-step-side-info-field__value">{step ? moment.duration(step.duration).format("hh:mm [mins]", { trim: false }) : ""}</div>
+          <div className="b-step-side-info-field__value">
+            {step.duration ? moment.duration(step.duration).format("hh:mm [mins]", { trim: false }) : "-----"}
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 StepSideInfo.propTypes = {
   step: PropTypes.object.isRequired
