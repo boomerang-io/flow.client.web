@@ -1,0 +1,35 @@
+@import "~Styles/variables";
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.c-worklfow-log{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid 0.1rem $gray-10;
+  background-color: $light-gray;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 5rem;
+}
+.b-workflow-log__version{
+  font-size: 1.25rem;
+  margin-left: 1.75rem;
+}
+.c-workflow-log__data{
+  width: 27rem;
+  display: flex;
+  justify-content: space-between;
+}
+.b-workflow-log__date{
+  margin-right: 0.25rem;
+  width: 12rem;
+}
+.b-workflow-log__divider{
+  width: 1rem;
+  margin-right: 0.6rem;
+
+}
+.b-workflow-log__user{
+  width: 15rem;
+}
