@@ -26,7 +26,7 @@ function Navigation(props) {
         <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/designer`}>
           Design
         </NavLink>
-        {includeChangeLog && (
+        {props.includeChangeLog && (
           <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/changes`}>
             Change Log
           </NavLink>
