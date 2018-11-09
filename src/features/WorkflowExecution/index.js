@@ -33,7 +33,7 @@ class WorkflowExecutionContainer extends Component {
 
   fetchExecution = () => {
     const { match, workflowExecutionActions } = this.props;
-    workflowExecutionActions.fetch(`${BASE_SERVICE_URL}/activity/${match.params.workflowId}`);
+    workflowExecutionActions.fetch(`${BASE_SERVICE_URL}/activity/${match.params.executionId}`);
   };
 
   render() {
