@@ -45,7 +45,7 @@ class WorkflowExecutionContainer extends Component {
     if (
       workflowExecutionStatus === REQUEST_STATUSES.FAILURE ||
       workflowRevisionStatus === REQUEST_STATUSES.FAILURE ||
-      tasksStatus == REQUEST_STATUSES.FAILURE
+      tasksStatus === REQUEST_STATUSES.FAILURE
     ) {
       return <ErrorDragon />;
     }
