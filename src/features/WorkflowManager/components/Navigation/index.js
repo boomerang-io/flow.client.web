@@ -5,7 +5,12 @@ import NavigateBack from "Components/NavigateBack";
 import "./styles.scss";
 
 Navigation.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  includeChangeLog: PropTypes.bool
+};
+
+Navigation.defaultProps = {
+  includeChangeLog: true
 };
 
 function Navigation(props) {
@@ -21,9 +26,11 @@ function Navigation(props) {
         <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/designer`}>
           Design
         </NavLink>
-        <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/changes`}>
-          Change Log
-        </NavLink>
+        {includeChangeLog && (
+          <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/changes`}>
+            Change Log
+          </NavLink>
+        )}
       </div>
     </>
   );

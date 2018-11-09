@@ -60,7 +60,7 @@ class WorkflowCreatorContainer extends Component {
     const { createNode, handleOnOverviewChange, match, workflow } = this.props;
     return (
       <>
-        <Navigation />
+        <Navigation includeChangeLog={false} />
         <Switch>
           <Route
             path={`${match.path}/overview`}
