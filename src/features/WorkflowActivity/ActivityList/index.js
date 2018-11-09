@@ -6,8 +6,8 @@ import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimati
 import InfiniteScroll from "react-infinite-scroller";
 import ScrollUpButton from "react-scroll-up-button";
 import ActivityCard from "./ActivityCard";
+import ScrollUp from "Components/ScrollUp";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import doubleChevron from "./img/doublechevron.svg";
 import "./styles.scss";
 
 class ActivityList extends Component {
