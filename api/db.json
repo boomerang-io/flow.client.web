@@ -4835,7 +4835,69 @@
       }
     ]
   },
-  "changeLog": {
+  "changeLog": [
+    {
+      "version": "1.1.0",
+      "date": 1541067633661,
+      "userName": "Timothy Bula",
+      "userId": "59aebd0c7424530fce952fde"
+    },
+    {
+      "version": "1.1.1",
+      "date": 1541067633662,
+      "userName": "Timothy Bula",
+      "userId": "59aebd0c7424530fce952fde"
+    },
+    {
+      "version": "1.1.2",
+      "date": 1541067633663,
+      "userName": "Timothy Bula",
+      "userId": "59aebd0c7424530fce952fde"
+    },
+    {
+      "version": "2.0.0",
+      "date": 1541067633664,
+      "userName": "Isabela Kawabata",
+      "userId": "5a30190fce0c0d000771d461"
+    },
+    {
+      "version": "3.0.0",
+      "date": 1541067633665,
+      "userName": "Lucas Grimauth",
+      "userId": "5b6306564bd080000168f0f0"
+    },
+    {
+      "version": "3.0.1",
+      "date": 1541067633666,
+      "userName": "Lucas Grimauth",
+      "userId": "5b6306564bd080000168f0f0"
+    },
+    {
+      "version": "3.1.0",
+      "date": 1541067633667,
+      "userName": "Lucas Grimauth",
+      "userId": "5b6306564bd080000168f0f0"
+    },
+    {
+      "version": "3.1.1",
+      "date": 1541067633668,
+      "userName": "Isabela Kawabata",
+      "userId": "5a30190fce0c0d000771d461"
+    },
+    {
+      "version": "3.1.2",
+      "date": 1541067633668,
+      "userName": "Isabela Kawabata",
+      "userId": "5a30190fce0c0d000771d461"
+    },
+    {
+      "version": "3.1.3",
+      "date": 1541067633670,
+      "userName": "Timothy Bula",
+      "userId": "59aebd0c7424530fce952fde"
+    }
+  ],
+  "changeLogPaginated": {
     "last": false,
     "totalPages": 2,
     "totalElements": 20,
@@ -4853,62 +4915,62 @@
         "ascending": false
       }
     ],
-    "records":[
-      { 
+    "records": [
+      {
         "version": "1.1.0",
         "date": 1541067633661,
         "userName": "Timothy Bula",
         "userId": "59aebd0c7424530fce952fde"
       },
-      { 
+      {
         "version": "1.1.1",
         "date": 1541067633662,
         "userName": "Timothy Bula",
         "userId": "59aebd0c7424530fce952fde"
       },
-      { 
+      {
         "version": "1.1.2",
         "date": 1541067633663,
         "userName": "Timothy Bula",
         "userId": "59aebd0c7424530fce952fde"
       },
-      { 
+      {
         "version": "2.0.0",
         "date": 1541067633664,
         "userName": "Isabela Kawabata",
         "userId": "5a30190fce0c0d000771d461"
       },
-      { 
+      {
         "version": "3.0.0",
         "date": 1541067633665,
         "userName": "Lucas Grimauth",
         "userId": "5b6306564bd080000168f0f0"
       },
-      { 
+      {
         "version": "3.0.1",
         "date": 1541067633666,
         "userName": "Lucas Grimauth",
         "userId": "5b6306564bd080000168f0f0"
       },
-      { 
+      {
         "version": "3.1.0",
         "date": 1541067633667,
         "userName": "Lucas Grimauth",
         "userId": "5b6306564bd080000168f0f0"
       },
-      { 
+      {
         "version": "3.1.1",
         "date": 1541067633668,
         "userName": "Isabela Kawabata",
         "userId": "5a30190fce0c0d000771d461"
       },
-      { 
+      {
         "version": "3.1.2",
         "date": 1541067633668,
         "userName": "Isabela Kawabata",
         "userId": "5a30190fce0c0d000771d461"
       },
-      { 
+      {
         "version": "3.1.3",
         "date": 1541067633670,
         "userName": "Timothy Bula",
@@ -4934,26 +4996,26 @@
         "ascending": false
       }
     ],
-    "records":[
-      { 
+    "records": [
+      {
         "version": "3.2.0",
         "date": 1541067633671,
         "userName": "Lucas Grimauth",
         "userId": "5b6306564bd080000168f0f0"
       },
-      { 
+      {
         "version": "3.2.1",
         "date": 1541067633672,
         "userName": "Isabela Kawabata",
         "userId": "5a30190fce0c0d000771d461"
       },
-      { 
+      {
         "version": "3.3.0",
         "date": 1541067633673,
         "userName": "Isabela Kawabata",
         "userId": "5a30190fce0c0d000771d461"
       },
-      { 
+      {
         "version": "3.4.0",
         "date": 1541067633674,
         "userName": "Timothy Bula",

@@ -20,8 +20,8 @@ class ChangeLog extends Component {
   };
 
   state = {
-    hasMoreLogs: !this.props.changeLog.data.last,
-    changeLogList: this.props.changeLog.data.records
+    hasMoreLogs: false, //!this.props.changeLog.data.last,
+    changeLogList: this.props.changeLog.data
   };
 
   loadMoreLogs = page => {
@@ -39,24 +39,23 @@ class ChangeLog extends Component {
 
     return (
       <div className="c-worklfow-change-log">
-        <label className="b-worklfow-change-log__title">{`${this.props.workflow.data.name} Changes`}</label>
-        <div className="c-worklfow__log-list">
-          {changeLogList.length > 0 ? (
-            <InfiniteScroll
-              pageStart={0}
-              loadMore={this.loadMoreLogs}
-              hasMore={hasMoreLogs}
-              loader={<LoadingAnimation className="s-change-log-loading" />}
-              useWindow={true}
-            >
-              {changeLogList.map(log => {
-                return <LogCard log={log} />;
-              })}
-            </InfiniteScroll>
-          ) : (
-            <NoDisplay text="No changes to display" style={{ marginTop: "2rem" }} />
-          )}
-        </div>
+        <label className="s-worklfow-change-log__title">{`${this.props.workflow.data.name} Changes`}</label>
+        {changeLogList.length > 0 ? (
+          <InfiniteScroll
+            className="c-worklfow__log-list"
+            pageStart={0}
+            loadMore={this.loadMoreLogs}
+            hasMore={hasMoreLogs}
+            loader={<LoadingAnimation className="s-change-log-loading" />}
+            useWindow={true}
+          >
+            {changeLogList.map(log => {
+              return <LogCard log={log} />;
+            })}
+          </InfiniteScroll>
+        ) : (
+          <NoDisplay text="No changes to display" style={{ marginTop: "2rem" }} />
+        )}
         <ScrollUp />
       </div>
     );
