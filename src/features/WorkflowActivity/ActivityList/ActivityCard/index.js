@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import activityStatuses from "Constants/activityStatuses";
@@ -34,14 +35,10 @@ class ActivityCard extends Component {
     }
   };
 
-  handleCardClick = (activityId, workflowId) => {
-    this.props.history.push(`/activity/${workflowId}/execution/${activityId}`);
-  };
-
   render() {
     const { icon, workflowName, description, creationDate, status, duration, id, workflowId } = this.props.activity;
     return (
-      <div className={`c-activities-card --${status}`} onClick={()=>this.handleCardClick(id, workflowId)}>
+      <Link className={`c-activities-card --${status}`} to={`/activity/${workflowId}/execution/${id}`}>
         <div className="c-activity-card__workflow">
           <div className="c-activity-card__icon">
             <img className="b-activity-card__icon" src={imgs[icon]} alt="icon" />
@@ -54,9 +51,7 @@ class ActivityCard extends Component {
         <div className="c-activity-card__activity">
           <div className="c-activity-card__label">
             <label className="b-activity-card__label">Start Time</label>
-            <label className="b-activity-card__data">
-              {moment(creationDate).format("YYYY-MM-DD hh:mm A")}
-            </label>
+            <label className="b-activity-card__data">{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</label>
           </div>
           <div className="c-activity-card__label">
             <label className="b-activity-card__label">Duration</label>
@@ -65,16 +60,12 @@ class ActivityCard extends Component {
           <div className="c-activity-card__label">
             <label className="b-activity-card__label"> Status</label>
             <label className="b-activity-card__data">
-              <img
-                className="b-activity-card__status-icon"
-                src={this.getStatusIcon(status)}
-                alt="status"
-              />
+              <img className="b-activity-card__status-icon" src={this.getStatusIcon(status)} alt="status" />
               {this.getStatusText(status)}
             </label>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
 }
