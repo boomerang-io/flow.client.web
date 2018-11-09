@@ -13,6 +13,7 @@ import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import keys from "lodash/keys";
+import "./styles.scss";
 
 class WorkflowManagerContainer extends Component {
   static propTypes = {
@@ -29,7 +30,7 @@ class WorkflowManagerContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.tasksActions.fetchTasks(`${BASE_SERVICE_URL}/tasktemplate`);
+    this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
   }
 
   componentWillUnmount() {

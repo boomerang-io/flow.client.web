@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
+import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
+import { actions as workflowExecutionActiveNodeActions } from "State/workflowExecutionActiveNode";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
@@ -16,16 +19,10 @@ import emailIMG from "Assets/svg/email_icon.svg";
 //import documentIMG from "Assets/svg/document_16.svg";
 import "./styles.scss";
 
-/**
- * TODO
- *  - clean up naming and folder structure, look at our best practices. Shouldn't have nested reducer
- *  - update css classnames to follow BEM style and have the styles be group together
- *  - define propTypes
- *  - look at the order of imports above - that is the general order that we follow
- */
 export class TaskNode extends Component {
   static propTypes = {
     nodeConfig: PropTypes.object.isRequired,
+    step: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired
@@ -36,6 +33,13 @@ export class TaskNode extends Component {
   };
 
   state = {};
+
+  handleOnActivityClick = () => {
+    this.props.workflowExecutionActiveNodeActions.updateActiveNode({
+      workflowId: this.props.diagramEngine.id,
+      nodeId: this.props.node.id
+    });
+  };
 
   //need to create a save function where we make change to global state
   handleOnSave = inputs => {
@@ -61,81 +65,79 @@ export class TaskNode extends Component {
 
   //Object.keys(sellers.mergedSellerArray).length === 0
 
-  render() {
-    const { nodeConfig, task } = this.props;
-
-    // //grab the name property of config
-    // let specified_name = "";
-    // for (var key in this.props.nodeConfig.config) {
-    //   if (key.includes("Name")) {
-    //     specified_name = key;
-    //   }
-    // }
-
-    let img_to_render;
+  determineNodeIcon() {
+    let nodeIcon;
     if (this.props.task) {
       if (this.props.task.name === "Download File") {
-        img_to_render = downloadIMG;
+        nodeIcon = downloadIMG;
       } else if (this.props.task.name === "Send Mail") {
-        img_to_render = emailIMG;
+        nodeIcon = emailIMG;
       } else if (this.props.task.name === "Ingest CSV") {
-        img_to_render = downloadIMG;
+        nodeIcon = downloadIMG;
       } else {
-        img_to_render = emailIMG;
+        nodeIcon = emailIMG;
       }
     } else {
-      img_to_render = emailIMG;
+      nodeIcon = emailIMG;
     }
 
+    return nodeIcon;
+  }
+
+  renderDeleteNode() {
+    if (!this.props.diagramEngine.diagramModel.locked) {
+      return <CloseModalButton className="b-taskNode__delete" onClick={this.handleOnDelete} />;
+    }
+    return null;
+  }
+
+  renderConfigureNode() {
+    const { nodeConfig, task } = this.props;
+    if (!this.props.diagramEngine.diagramModel.locked) {
+      return (
+        <Modal
+          ModalTrigger={() => <img src={pencilIcon} className="b-taskNode__edit" alt="Task node type" />}
+          modalContent={(closeModal, ...rest) => (
+            <ModalFlow
+              headerTitle={task.name}
+              components={[{ step: 0, component: DisplayForm }]}
+              closeModal={closeModal}
+              confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
+              config={this.props.nodeConfig}
+              onSave={this.handleOnSave}
+              theme={"bmrg-white"}
+              task={task}
+              nodeConfig={nodeConfig}
+              {...rest}
+            />
+          )}
+        />
+      );
+    }
+    return null;
+  }
+
+  render() {
+    console.log(this.props);
+    const { flowTaskStatus } = this.props.step;
+
     return (
-      <div className="b-taskNode">
-        <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
-          {this.props.task ? this.props.task.description : "placeholder"}
-        </Tooltip>
-        <div className="b-taskNode__tile" data-tip data-for={this.props.node.id}>
-          {this.props.task ? this.props.task.name : "placeholder"}
+      <div className="c-taskNode" onClick={this.handleOnActivityClick}>
+        <div className={classnames("b-taskNode", `--${flowTaskStatus}`)}>
+          <div className="b-taskNode__progress-bar"/>
+          <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
+            {this.props.task ? this.props.task.description : "Task description"}
+          </Tooltip>
+          <div className="b-taskNode__tile" data-tip data-for={this.props.node.id}>
+            {this.props.task ? this.props.task.name : "Task"}
+          </div>
+
+          <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
+          <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
+          {this.renderDeleteNode()}
+          <img src={this.determineNodeIcon()} className="b-taskNode__img" alt="Task node type" />
+          {this.renderConfigureNode()}
         </div>
-
-        {
-          //Object.keys(this.props.nodeConfig.config).length === 0 ? (
-          //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
-          //     {this.props.task.name}
-          //   </div>
-          // ) : (
-          //   <div className="task-node__tile" data-tip data-for={this.props.node.id}>
-          //     {this.props.nodeConfig.config[specified_name]}
-          //   </div>
-          // )}
-        }
-
-        <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
-        <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
-        {!this.props.diagramEngine.diagramModel.locked && (
-          <CloseModalButton
-            className="b-taskNode__delete"
-            onClick={this.handleOnDelete}
-            //closemodal={() => <div>closemodal</div>}
-          />
-        )}
-        <img src={img_to_render} className="b-taskNode__img" alt="Task node type" />
-        {!this.props.diagramEngine.diagramModel.locked && (
-          <Modal
-            ModalTrigger={() => <img src={pencilIcon} className="b-taskNode__edit" alt="Task node type" />}
-            modalContent={(closeModal, ...rest) => (
-              <ModalFlow
-                headerTitle={task.name}
-                components={[{ step: 0, component: DisplayForm }]}
-                closeModal={closeModal}
-                confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-                onSave={this.handleOnSave}
-                theme={"bmrg-white"}
-                task={task}
-                nodeConfig={nodeConfig}
-                {...rest}
-              />
-            )}
-          />
-        )}
       </div>
     );
   }
@@ -144,12 +146,15 @@ export class TaskNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowRevision.config[ownProps.node.id]
+    nodeConfig: state.workflowRevision.config[ownProps.node.id],
+    step: state.workflowExecution.data.steps.find(step => step.taskId === ownProps.node.id)
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch),
+  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch),
+  workflowExecutionActiveNodeActions: bindActionCreators(workflowExecutionActiveNodeActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 

@@ -193,151 +193,192 @@
   ],
   "workflow": [
     {
-      "id": "5bc0efa45a5df954adb0e556",
-      "offsetX": 0,
-      "offsetY": 0,
-      "zoom": 100,
-      "gridSize": 0,
-      "links": [
-        {
-          "id": "5894e008-d674-43d0-bfa7-497cfa9e4b89",
-          "type": "custom",
-          "selected": false,
-          "source": "de796744-5e09-4a59-bb97-222f595c5df2",
-          "sourcePort": "bfc1b48e-0864-4899-b4be-ea7540d702dc",
-          "target": "f823bc01-b5f1-45aa-959f-a1007edf3132",
-          "targetPort": "b23f0ecb-d822-4d57-bed8-e5264706c4a6",
-          "points": [
-            {
-              "id": "c026182b-ae4e-4813-8d39-2dd754b51ad7",
-              "selected": false,
-              "x": 433.078125,
-              "y": 437
+      "config": {
+        "nodes": [
+          {
+            "inputs": {
+              "to": "amhudson@us.ibm.com",
+              "subject": "Test email from Boomerang Flow",
+              "message": "Testing"
             },
-            {
-              "id": "e0da6d28-d595-4524-94d1-416b6d224201",
-              "selected": false,
-              "x": 721.109375,
-              "y": 436.6875
-            }
-          ],
-          "extras": {},
-          "labels": [],
-          "width": 3,
-          "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50,
-          "linkId": "5894e008-d674-43d0-bfa7-497cfa9e4b89",
-          "state": 0
-        },
-        {
-          "id": "bce9e37b-2290-464f-a12a-91c7df8dc504",
-          "type": "custom",
-          "selected": false,
-          "source": "f823bc01-b5f1-45aa-959f-a1007edf3132",
-          "sourcePort": "968838a4-e5b7-4167-a549-2d8a8c5da32b",
-          "target": "f8424df7-8323-4250-b6b4-21c65e76c3ff",
-          "targetPort": "d9846db1-c676-41e9-8cfd-8489e6ffcac9",
-          "points": [
-            {
-              "id": "aa3f89bf-f4da-4b96-8fb4-c9df0c712c2a",
-              "selected": false,
-              "x": 957.6875,
-              "y": 436.6875
-            },
-            {
-              "id": "243ddcbc-8c15-401c-a080-165e0188fe7b",
-              "selected": true,
-              "x": 1300.109375,
-              "y": 437
-            }
-          ],
-          "extras": {},
-          "labels": [],
-          "width": 3,
-          "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50,
-          "linkId": "bce9e37b-2290-464f-a12a-91c7df8dc504",
-          "state": 0
-        }
-      ],
-      "nodes": [
-        {
-          "id": "de796744-5e09-4a59-bb97-222f595c5df2",
-          "type": "startend",
-          "selected": false,
-          "x": 300,
-          "y": 400,
-          "extras": {},
-          "ports": [
-            {
-              "id": "bfc1b48e-0864-4899-b4be-ea7540d702dc",
-              "type": "startend",
-              "selected": false,
-              "name": "right",
-              "parentNode": "de796744-5e09-4a59-bb97-222f595c5df2",
-              "links": ["5894e008-d674-43d0-bfa7-497cfa9e4b89"],
-              "position": "right",
-              "portId": "bfc1b48e-0864-4899-b4be-ea7540d702dc"
-            }
-          ],
-          "passedName": "Start",
-          "nodeId": "de796744-5e09-4a59-bb97-222f595c5df2"
-        },
-        {
-          "id": "f8424df7-8323-4250-b6b4-21c65e76c3ff",
-          "type": "startend",
-          "selected": false,
-          "x": 1300,
-          "y": 400,
-          "extras": {},
-          "ports": [
-            {
-              "id": "d9846db1-c676-41e9-8cfd-8489e6ffcac9",
-              "type": "startend",
-              "selected": false,
-              "name": "left",
-              "parentNode": "f8424df7-8323-4250-b6b4-21c65e76c3ff",
-              "links": ["bce9e37b-2290-464f-a12a-91c7df8dc504"],
-              "position": "left",
-              "portId": "d9846db1-c676-41e9-8cfd-8489e6ffcac9"
-            }
-          ],
-          "passedName": "Finish",
-          "nodeId": "f8424df7-8323-4250-b6b4-21c65e76c3ff"
-        },
-        {
-          "id": "f823bc01-b5f1-45aa-959f-a1007edf3132",
-          "type": "custom",
-          "selected": false,
-          "x": 721,
-          "y": 377.5,
-          "extras": {},
-          "ports": [
-            {
-              "id": "b23f0ecb-d822-4d57-bed8-e5264706c4a6",
-              "type": "custom",
-              "selected": false,
-              "name": "left",
-              "parentNode": "f823bc01-b5f1-45aa-959f-a1007edf3132",
-              "links": ["5894e008-d674-43d0-bfa7-497cfa9e4b89"],
-              "position": "left",
-              "portId": "b23f0ecb-d822-4d57-bed8-e5264706c4a6"
-            },
-            {
-              "id": "968838a4-e5b7-4167-a549-2d8a8c5da32b",
-              "type": "custom",
-              "selected": false,
-              "name": "right",
-              "parentNode": "f823bc01-b5f1-45aa-959f-a1007edf3132",
-              "links": ["bce9e37b-2290-464f-a12a-91c7df8dc504"],
-              "position": "right",
-              "portId": "968838a4-e5b7-4167-a549-2d8a8c5da32b"
-            }
-          ],
-          "taskId": "5b92f794844d0700016ea217",
-          "nodeId": "f823bc01-b5f1-45aa-959f-a1007edf3132"
-        }
-      ]
+            "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
+            "taskId": "5bd98b105a5df954ad599bc2"
+          },
+          {
+            "inputs": { "channel": "#bmrg-dev-service", "title": "Hello from Boomerang Flow", "message": "Hi" },
+            "nodeId": "d64fb25d-932a-4894-9087-ded1b63eb672",
+            "taskId": "5b92f794844d0700016ea217"
+          }
+        ]
+      },
+      "dag": {
+        "gridSize": 0,
+        "links": [
+          {
+            "linkId": "8559524e-d3b2-4fca-98f1-a5359bdcd642",
+            "type": "custom",
+            "selected": "false",
+            "source": "58dcb6c8-dfbd-42d8-a7e1-ddd5409e63ff",
+            "sourcePort": "38ac1e1a-c216-4e6f-a952-c32100001adf",
+            "target": "5006c70f-c7f0-4679-940c-82ba89755599",
+            "targetPort": "5afc712a-c52b-477a-a475-2674fe184330",
+            "executionCondition": "always",
+            "points": [
+              { "id": "0fdbdfbd-a7c3-4515-96fc-bcf8df3f86dc", "selected": false, "x": 221.5, "y": 452 },
+              { "id": "42940656-fa28-4d3b-895e-9790b55f73ba", "selected": false, "x": 340.5, "y": 326.25 }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50
+          },
+          {
+            "linkId": "71d4a2b6-fff4-4fdb-907e-9d91b7c3726d",
+            "type": "custom",
+            "selected": "false",
+            "source": "5006c70f-c7f0-4679-940c-82ba89755599",
+            "sourcePort": "f94c96f6-f029-4db5-b125-703f5cd4a398",
+            "target": "d64fb25d-932a-4894-9087-ded1b63eb672",
+            "targetPort": "b2296092-096a-4053-bcf9-aed001d81c35",
+            "executionCondition": "always",
+            "points": [
+              { "id": "920de1a8-4904-452e-b369-dc7874cec20f", "selected": false, "x": 563.5, "y": 326.25 },
+              { "id": "3791a356-e1f5-44f3-81a4-7942c7199d46", "selected": false, "x": 636.5, "y": 402.25 }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50
+          },
+          {
+            "linkId": "9ef1cd6d-4f39-4ab9-98fb-2a91539de839",
+            "type": "custom",
+            "selected": "false",
+            "source": "d64fb25d-932a-4894-9087-ded1b63eb672",
+            "sourcePort": "c38050e9-5892-4bbc-836b-b6a02243b411",
+            "target": "6445dfa8-0693-4567-8fbd-300dfc2d662c",
+            "targetPort": "67e6448b-2908-4a55-ae94-8ca328e1f84f",
+            "executionCondition": "always",
+            "points": [
+              { "id": "7035d8c4-4277-47fb-b451-31f93779abb1", "selected": false, "x": 859.5, "y": 402.25 },
+              { "id": "5d697aae-a553-421a-9a06-91b4015dbc53", "selected": false, "x": 958.5, "y": 312 }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50
+          }
+        ],
+        "nodes": [
+          {
+            "nodeId": "58dcb6c8-dfbd-42d8-a7e1-ddd5409e63ff",
+            "type": "startend",
+            "selected": false,
+            "x": 96.0,
+            "y": 417.0,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "38ac1e1a-c216-4e6f-a952-c32100001adf",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "58dcb6c8-dfbd-42d8-a7e1-ddd5409e63ff",
+                "links": ["8559524e-d3b2-4fca-98f1-a5359bdcd642"],
+                "position": "right"
+              }
+            ],
+            "passedName": "Start"
+          },
+          {
+            "nodeId": "6445dfa8-0693-4567-8fbd-300dfc2d662c",
+            "type": "startend",
+            "selected": true,
+            "x": 958.0,
+            "y": 277.0,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "67e6448b-2908-4a55-ae94-8ca328e1f84f",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "6445dfa8-0693-4567-8fbd-300dfc2d662c",
+                "links": ["9ef1cd6d-4f39-4ab9-98fb-2a91539de839"],
+                "position": "left"
+              }
+            ],
+            "passedName": "Finish"
+          },
+          {
+            "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
+            "taskId": "5bd98b105a5df954ad599bc2",
+            "type": "custom",
+            "selected": false,
+            "x": 340.0,
+            "y": 270.25,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "5afc712a-c52b-477a-a475-2674fe184330",
+                "type": "custom",
+                "selected": false,
+                "name": "left",
+                "parentNode": "5006c70f-c7f0-4679-940c-82ba89755599",
+                "links": ["8559524e-d3b2-4fca-98f1-a5359bdcd642"],
+                "position": "left"
+              },
+              {
+                "nodePortId": "f94c96f6-f029-4db5-b125-703f5cd4a398",
+                "type": "custom",
+                "selected": false,
+                "name": "right",
+                "parentNode": "5006c70f-c7f0-4679-940c-82ba89755599",
+                "links": ["71d4a2b6-fff4-4fdb-907e-9d91b7c3726d"],
+                "position": "right"
+              }
+            ]
+          },
+          {
+            "nodeId": "d64fb25d-932a-4894-9087-ded1b63eb672",
+            "taskId": "5b92f794844d0700016ea217",
+            "type": "custom",
+            "selected": false,
+            "x": 636.0,
+            "y": 346.25,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "b2296092-096a-4053-bcf9-aed001d81c35",
+                "type": "custom",
+                "selected": false,
+                "name": "left",
+                "parentNode": "d64fb25d-932a-4894-9087-ded1b63eb672",
+                "links": ["71d4a2b6-fff4-4fdb-907e-9d91b7c3726d"],
+                "position": "left"
+              },
+              {
+                "nodePortId": "c38050e9-5892-4bbc-836b-b6a02243b411",
+                "type": "custom",
+                "selected": false,
+                "name": "right",
+                "parentNode": "d64fb25d-932a-4894-9087-ded1b63eb672",
+                "links": ["9ef1cd6d-4f39-4ab9-98fb-2a91539de839"],
+                "position": "right"
+              }
+            ]
+          }
+        ],
+        "offsetX": -119,
+        "offsetY": -3,
+        "zoom": 100
+      },
+      "id": "5bdb13ae3a2c5c0001ab2499",
+      "version": 4,
+      "workFlowId": "5bdb10733a2c5c0001ab2478"
     },
     {
       "id": "4020119d-acf3-418e-b20a-adf09364acb6",
@@ -3957,6 +3998,194 @@
       },
       "config": [],
       "id": "xMSRRAH"
+    },
+    {
+      "config": {
+        "nodes": [
+          {
+            "inputs": {
+              "to": "amhudson@us.ibm.com",
+              "subject": "Test email from Boomerang Flow",
+              "message": "Testing"
+            },
+            "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
+            "taskId": "5bd98b105a5df954ad599bc2"
+          },
+          {
+            "inputs": { "channel": "#bmrg-dev-service", "title": "Hello from Boomerang Flow", "message": "Hi" },
+            "nodeId": "d64fb25d-932a-4894-9087-ded1b63eb672",
+            "taskId": "5b92f794844d0700016ea217"
+          }
+        ]
+      },
+      "dag": {
+        "gridSize": 0,
+        "links": [
+          {
+            "linkId": "8559524e-d3b2-4fca-98f1-a5359bdcd642",
+            "type": "custom",
+            "selected": "false",
+            "source": "58dcb6c8-dfbd-42d8-a7e1-ddd5409e63ff",
+            "sourcePort": "38ac1e1a-c216-4e6f-a952-c32100001adf",
+            "target": "5006c70f-c7f0-4679-940c-82ba89755599",
+            "targetPort": "5afc712a-c52b-477a-a475-2674fe184330",
+            "executionCondition": "always",
+            "points": [
+              { "id": "0fdbdfbd-a7c3-4515-96fc-bcf8df3f86dc", "selected": false, "x": 221.5, "y": 452 },
+              { "id": "42940656-fa28-4d3b-895e-9790b55f73ba", "selected": false, "x": 340.5, "y": 326.25 }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50
+          },
+          {
+            "linkId": "71d4a2b6-fff4-4fdb-907e-9d91b7c3726d",
+            "type": "custom",
+            "selected": "false",
+            "source": "5006c70f-c7f0-4679-940c-82ba89755599",
+            "sourcePort": "f94c96f6-f029-4db5-b125-703f5cd4a398",
+            "target": "d64fb25d-932a-4894-9087-ded1b63eb672",
+            "targetPort": "b2296092-096a-4053-bcf9-aed001d81c35",
+            "executionCondition": "always",
+            "points": [
+              { "id": "920de1a8-4904-452e-b369-dc7874cec20f", "selected": false, "x": 563.5, "y": 326.25 },
+              { "id": "3791a356-e1f5-44f3-81a4-7942c7199d46", "selected": false, "x": 636.5, "y": 402.25 }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50
+          },
+          {
+            "linkId": "9ef1cd6d-4f39-4ab9-98fb-2a91539de839",
+            "type": "custom",
+            "selected": "false",
+            "source": "d64fb25d-932a-4894-9087-ded1b63eb672",
+            "sourcePort": "c38050e9-5892-4bbc-836b-b6a02243b411",
+            "target": "6445dfa8-0693-4567-8fbd-300dfc2d662c",
+            "targetPort": "67e6448b-2908-4a55-ae94-8ca328e1f84f",
+            "executionCondition": "always",
+            "points": [
+              { "id": "7035d8c4-4277-47fb-b451-31f93779abb1", "selected": false, "x": 859.5, "y": 402.25 },
+              { "id": "5d697aae-a553-421a-9a06-91b4015dbc53", "selected": false, "x": 958.5, "y": 312 }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50
+          }
+        ],
+        "nodes": [
+          {
+            "nodeId": "58dcb6c8-dfbd-42d8-a7e1-ddd5409e63ff",
+            "type": "startend",
+            "selected": false,
+            "x": 96.0,
+            "y": 417.0,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "38ac1e1a-c216-4e6f-a952-c32100001adf",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "58dcb6c8-dfbd-42d8-a7e1-ddd5409e63ff",
+                "links": ["8559524e-d3b2-4fca-98f1-a5359bdcd642"],
+                "position": "right"
+              }
+            ],
+            "passedName": "Start"
+          },
+          {
+            "nodeId": "6445dfa8-0693-4567-8fbd-300dfc2d662c",
+            "type": "startend",
+            "selected": true,
+            "x": 958.0,
+            "y": 277.0,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "67e6448b-2908-4a55-ae94-8ca328e1f84f",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "6445dfa8-0693-4567-8fbd-300dfc2d662c",
+                "links": ["9ef1cd6d-4f39-4ab9-98fb-2a91539de839"],
+                "position": "left"
+              }
+            ],
+            "passedName": "Finish"
+          },
+          {
+            "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
+            "taskId": "5bd98b105a5df954ad599bc2",
+            "type": "custom",
+            "selected": false,
+            "x": 340.0,
+            "y": 270.25,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "5afc712a-c52b-477a-a475-2674fe184330",
+                "type": "custom",
+                "selected": false,
+                "name": "left",
+                "parentNode": "5006c70f-c7f0-4679-940c-82ba89755599",
+                "links": ["8559524e-d3b2-4fca-98f1-a5359bdcd642"],
+                "position": "left"
+              },
+              {
+                "nodePortId": "f94c96f6-f029-4db5-b125-703f5cd4a398",
+                "type": "custom",
+                "selected": false,
+                "name": "right",
+                "parentNode": "5006c70f-c7f0-4679-940c-82ba89755599",
+                "links": ["71d4a2b6-fff4-4fdb-907e-9d91b7c3726d"],
+                "position": "right"
+              }
+            ]
+          },
+          {
+            "nodeId": "d64fb25d-932a-4894-9087-ded1b63eb672",
+            "taskId": "5b92f794844d0700016ea217",
+            "type": "custom",
+            "selected": false,
+            "x": 636.0,
+            "y": 346.25,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "b2296092-096a-4053-bcf9-aed001d81c35",
+                "type": "custom",
+                "selected": false,
+                "name": "left",
+                "parentNode": "d64fb25d-932a-4894-9087-ded1b63eb672",
+                "links": ["71d4a2b6-fff4-4fdb-907e-9d91b7c3726d"],
+                "position": "left"
+              },
+              {
+                "nodePortId": "c38050e9-5892-4bbc-836b-b6a02243b411",
+                "type": "custom",
+                "selected": false,
+                "name": "right",
+                "parentNode": "d64fb25d-932a-4894-9087-ded1b63eb672",
+                "links": ["9ef1cd6d-4f39-4ab9-98fb-2a91539de839"],
+                "position": "right"
+              }
+            ]
+          }
+        ],
+        "offsetX": -119,
+        "offsetY": -3,
+        "zoom": 100
+      },
+      "id": "5bc0efa45a5df954adb0e556",
+      "version": 4,
+      "workFlowId": "5bdb10733a2c5c0001ab2478"
     }
   ],
   "taskconfiguration": [
@@ -4318,7 +4547,7 @@
       "adminOnly": true
     }
   ],
-  "workflowTasks": {
+  "workflowExecution": {
     "creationDate": 1540912389131,
     "duration": 7178,
     "id": "5bd8750446e4bf790fe60aef",
@@ -4329,21 +4558,21 @@
       {
         "activityId": "5bd8750446e4bf790fe60aef",
         "duration": 2178,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "inProgress",
         "id": "5bd8750546e4bf790fe60af0",
         "order": 0,
         "startTime": 1540912389131,
-        "taskId": "cebb4cb2-17fd-4008-aaec-5e5a86fdd2f3",
+        "taskId": "5006c70f-c7f0-4679-940c-82ba89755599",
         "taskName": "task1"
       },
       {
         "activityId": "5bd8750446e4bf790fe60aef",
         "duration": 3000,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "notstarted",
         "id": "5bd8750546e4bf790fe60af1",
         "order": 1,
         "startTime": 1540912391309,
-        "taskId": "cebb4cb2-17fd-4008-aaec-5e5a86fdd2f4",
+        "taskId": "d64fb25d-932a-4894-9087-ded1b63eb672",
         "taskName": "task2"
       },
       {
@@ -4360,6 +4589,15 @@
   },
   "workflowSummary": [
     {
+      "description": "asdasda",
+      "flowTeamId": "5bd29a451ca2ef241e548b40",
+      "icon": "log",
+      "id": "5bc0efa45a5df954adb0e556",
+      "name": "Marcus' Workflow",
+      "shortDescription": "Summary",
+      "revisionCount": 4
+    },
+    {
       "name": "Help",
       "shortDescription": "Me",
       "description": "Please",
@@ -4373,7 +4611,7 @@
       "id": 2
     }
   ],
-  "workflowActivity":{
+  "workflowActivity": {
     "last": false,
     "totalPages": 9,
     "totalElements": 90,
@@ -4382,147 +4620,148 @@
     "numberOfElements": 10,
     "first": true,
     "sort": [
-        {
-            "direction": "DESC",
-            "property": "creationDate",
-            "ignoreCase": false,
-            "nullHandling": "NATIVE",
-            "descending": true,
-            "ascending": false
-        }
+      {
+        "direction": "DESC",
+        "property": "creationDate",
+        "ignoreCase": false,
+        "nullHandling": "NATIVE",
+        "descending": true,
+        "ascending": false
+      }
     ],
     "records": [
-        {
-            "creationDate": 1541070397344,
-            "duration": 13886,
-            "id": "5bdade3d37dc4700011b06c3",
-            "initiatedBy": "5bc7b126f7856000012cd95d",
-            "status": "completed",
-            "workflowId": "5bd9d8ab7eb44d0001772e64",
-            "workflowRevisionid": "5bd9e1cfa40f5d0001249bfa",
-            "description": "file ingestion",
-            "icon": "flow",
-            "shortDescription": "file ingestion",
-            "workflowName": "Business Process Test"
-        },
-        {
-            "creationDate": 1541070264765,
-            "duration": 14256,
-            "id": "5bdaddb837dc4700011b06bb",
-            "initiatedBy": "5bc7b126f7856000012cd95d",
-            "status": "completed",
-            "workflowId": "5bd9de16a40f5d0001249bad",
-            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
-            "description": "Slack and Mail integration",
-            "icon": "diagram",
-            "shortDescription": "Slack and Mail Integration",
-            "workflowName": "Notifications"
-        },
-        {
-            "creationDate": 1541068437357,
-            "duration": 0,
-            "id": "5bdad695a7e263000116a75f",
-            "status": "failed",
-            "initiatedBy": "5bc7b126f7856000012cd95d",
-            "workflowId": "5bd9de16a40f5d0001249bad",
-            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
-            "description": "Slack and Mail integration",
-            "icon": "diagram",
-            "shortDescription": "Slack and Mail Integration",
-            "workflowName": "Notifications"
-        },
-        {
-            "creationDate": 1541067633661,
-            "duration": 0,
-            "id": "5bdad371a7e263000116a75b",
-            "initiatedBy": "5bc7b126f7856000012cd95d",
-            "status": "inprogress",
-            "workflowId": "5bd9de16a40f5d0001249bad",
-            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
-            "description": "Slack and Mail integration",
-            "icon": "diagram",
-            "shortDescription": "Slack and Mail Integration",
-            "workflowName": "Notifications"
-        },
-        {
-            "creationDate": 1541066619898,
-            "duration": 0,
-            "id": "5bdacf7ba7e263000116a757",
-            "status": "inprogress",
-            "initiatedBy": "5bc7b126f7856000012cd95d",
-            "workflowId": "5bd9de16a40f5d0001249bad",
-            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
-            "description": "Slack and Mail integration",
-            "icon": "diagram",
-            "shortDescription": "Slack and Mail Integration",
-            "workflowName": "Notifications"
-        },
-        {
-            "creationDate": 1541065823346,
-            "duration": 0,
-            "id": "5bdacc5fa40f5d0001249c8d",
-            "status": "inprogress",
-            "initiatedBy": "5bc7b126f7856000012cd95d",
-            "workflowId": "5bd9de16a40f5d0001249bad",
-            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
-            "description": "Slack and Mail integration",
-            "icon": "diagram",
-            "shortDescription": "Slack and Mail Integration",
-            "workflowName": "Notifications"
-        },
-        {
-            "creationDate": 1541065012582,
-            "duration": 0,
-            "id": "5bdac934a40f5d0001249c89",
-            "status": "inprogress",
-            "initiatedBy": "5bc7b126f7856000012cd95d",
-            "workflowId": "5bd9de16a40f5d0001249bad",
-            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
-            "description": "Slack and Mail integration",
-            "icon": "diagram",
-            "shortDescription": "Slack and Mail Integration",
-            "workflowName": "Notifications"
-        },
-        {
-            "creationDate": 1541063602052,
-            "duration": 0,
-            "id": "5bdac3b2a40f5d0001249c85",
-            "status": "failed",
-            "initiatedBy": "5bc7b126f7856000012cd95d",
-            "workflowId": "5bd9de16a40f5d0001249bad",
-            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
-            "description": "Slack and Mail integration",
-            "icon": "diagram",
-            "shortDescription": "Slack and Mail Integration",
-            "workflowName": "Notifications"
-        },
-        {
-            "creationDate": 1541061910251,
-            "duration": 0,
-            "id": "5bdabd16a40f5d0001249c81",
-            "status": "completed",
-            "initiatedBy": "5bc7b126f7856000012cd95d",
-            "workflowId": "5bd9de16a40f5d0001249bad",
-            "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
-            "description": "Slack and Mail integration",
-            "icon": "diagram",
-            "shortDescription": "Slack and Mail Integration",
-            "workflowName": "Notifications"
-        },
-        {
-            "creationDate": 1541061087542,
-            "duration": 0,
-            "id": "5bdab9dfa40f5d0001249c76",
-            "status": "failed",
-            "initiatedBy": "5bc7b126f7856000012cd95d",
-            "workflowId": "5bd9de16a40f5d0001249bad",
-            "workflowRevisionid": "5bd9de67a40f5d0001249bbd",
-            "description": "Slack and Mail integration",
-            "icon": "diagram",
-            "shortDescription": "Slack and Mail Integration",
-            "workflowName": "Notifications"
-        }
+      {
+        "creationDate": 1541070397344,
+        "duration": 13886,
+        "id": "5bdade3d37dc4700011b06c3",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "status": "completed",
+        "workflowId": "5bd9d8ab7eb44d0001772e64",
+        "workflowRevisionid": "5bd9e1cfa40f5d0001249bfa",
+        "description": "file ingestion",
+        "icon": "flow",
+        "shortDescription": "file ingestion",
+        "workflowName": "Business Process Test"
+      },
+      {
+        "creationDate": 1541070264765,
+        "duration": 14256,
+        "id": "5bdaddb837dc4700011b06bb",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "status": "completed",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541068437357,
+        "duration": 0,
+        "id": "5bdad695a7e263000116a75f",
+        "status": "failed",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541067633661,
+        "duration": 0,
+        "id": "5bdad371a7e263000116a75b",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "status": "inprogress",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541066619898,
+        "duration": 0,
+        "id": "5bdacf7ba7e263000116a757",
+        "status": "inprogress",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541065823346,
+        "duration": 0,
+        "id": "5bdacc5fa40f5d0001249c8d",
+        "status": "inprogress",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541065012582,
+        "duration": 0,
+        "id": "5bdac934a40f5d0001249c89",
+        "status": "inprogress",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541063602052,
+        "duration": 0,
+        "id": "5bdac3b2a40f5d0001249c85",
+        "status": "failed",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541061910251,
+        "duration": 0,
+        "id": "5bdabd16a40f5d0001249c81",
+        "status": "completed",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1541061087542,
+        "duration": 0,
+        "id": "5bdab9dfa40f5d0001249c76",
+        "status": "failed",
+        "initiatedBy": "5bc7b126f7856000012cd95d",
+        "workflowId": "5bd9de16a40f5d0001249bad",
+        "workflowRevisionid": "5bd9de67a40f5d0001249bbd",
+        "description": "Slack and Mail integration",
+        "icon": "diagram",
+        "shortDescription": "Slack and Mail Integration",
+        "workflowName": "Notifications"
+      }
     ]
+  }
 },
 "workflowActivityLast":{
   "last": true,
@@ -4596,5 +4835,4 @@
           "workflowName": "Notifications"
       }
   ]
-}
 }

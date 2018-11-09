@@ -7,12 +7,10 @@ import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
 import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
 import DiagramApplication from "Utilities/DiagramApplication";
-import "./styles.scss";
 
 class WorkflowEditor extends Component {
   static propTypes = {
     createNode: PropTypes.func.isRequired,
-    diagramApp: PropTypes.object.isRequired,
     createWorkflowRevision: PropTypes.func.isRequired,
     handleOnOverviewChange: PropTypes.func.isRequired
   };
@@ -56,21 +54,19 @@ class WorkflowEditor extends Component {
                   {...props}
                 />
                 <TasksSidenav />
-                <div className="content">
-                  <div
-                    className="diagram-layer"
-                    onDrop={event => createNode(this.diagramApp, event)}
-                    onDragOver={event => {
-                      event.preventDefault();
-                    }}
-                  >
-                    <DiagramWidget
-                      className="srd-demo-canvas"
-                      diagramEngine={this.diagramApp.getDiagramEngine()}
-                      maxNumberPointsPerLink={0}
-                      deleteKeys={[]}
-                    />
-                  </div>
+                <div
+                  className="c-workflow-diagram-designer"
+                  onDrop={event => createNode(this.diagramApp, event)}
+                  onDragOver={event => {
+                    event.preventDefault();
+                  }}
+                >
+                  <DiagramWidget
+                    className="srd-demo-canvas"
+                    diagramEngine={this.diagramApp.getDiagramEngine()}
+                    maxNumberPointsPerLink={0}
+                    deleteKeys={[]}
+                  />
                 </div>
               </>
             )}

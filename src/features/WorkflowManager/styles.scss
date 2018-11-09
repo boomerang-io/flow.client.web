@@ -1,12 +1,10 @@
 @import "~Styles/variables";
 
-.content {
-  .diagram-layer {
-    position: relative;
-    height: 100%;
-    min-height: calc(100vh - 10rem);
-    margin-left: 20rem;
-  }
+.c-workflow-diagram-designer {
+  position: relative;
+  height: 100%;
+  min-height: calc(100vh - 10rem);
+  margin-left: 20rem;
 
   .srd-demo-canvas {
     height: 100%;
@@ -22,10 +20,6 @@
   .srd-default-link path {
     stroke: $status-teal;
   }
-}
-
-.bmrg--c-sidenav {
-  margin-top: 0rem;
 }
 
 // .bmrg-b-sidenav-content {
@@ -64,6 +58,7 @@
 }
 
 .tray-item_name {
+  font-size: 0.875rem;
   padding-left: 1rem;
 }
 
