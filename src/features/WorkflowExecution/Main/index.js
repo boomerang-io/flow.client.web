@@ -18,7 +18,7 @@ class Main extends Component {
 
     return (
       <div className="c-workflow-execution">
-        <nav style={{ margin: "1rem 0" }}>
+        <nav style={{ marginBottom: "1rem" }}>
           <NavigateBack to="/activity" text="Back to Activity" />
         </nav>
 
