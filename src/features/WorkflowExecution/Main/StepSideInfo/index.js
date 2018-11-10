@@ -32,7 +32,7 @@ const StepSideInfo = ({ step }) => {
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Duration</div>
           <div className="b-step-side-info-field__value">
-            {step.duration ? getHumanizedDuration(step.duration) : "-----"}
+            {step.duration ? getHumanizedDuration(Math.round(step.duration / 1000)) : "-----"}
           </div>
         </div>
       </div>
