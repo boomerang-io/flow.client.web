@@ -49,7 +49,7 @@ class ChangeLog extends Component {
             loader={<LoadingAnimation className="s-change-log-loading" />}
             useWindow={true}
           >
-            {changeLogList.map(log => {
+            {changeLogList.reverse().map(log => {
               return <LogCard log={log} />;
             })}
           </InfiniteScroll>
