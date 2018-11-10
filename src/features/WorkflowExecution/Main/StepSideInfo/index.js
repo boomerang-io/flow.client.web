@@ -6,8 +6,6 @@ import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/
 import "./styles.scss";
 
 const StepSideInfo = ({ step }) => {
-  momentDurationFormatSetup(moment);
-
   return (
     <div className="c-step-side-info">
       <div className="s-step-side-info-title">Summary</div>
