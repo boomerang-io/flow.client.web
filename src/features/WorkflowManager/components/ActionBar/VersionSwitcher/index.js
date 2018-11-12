@@ -12,10 +12,6 @@ class VersionSwitcher extends Component {
     onChangeVersion: PropTypes.func.isRequired
   };
 
-  state = {
-    currentRevision: this.props.currentRevision
-  };
-
   backVersion = () => {
     this.props.onChangeVersion(this.props.currentRevision - 1);
   };

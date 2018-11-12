@@ -91,6 +91,9 @@ class WorkflowManagerContainer extends Component {
       .catch(() => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow version" />);
         return Promise.reject();
+      })
+      .then(() => {
+        this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`);
       });
   };
 
@@ -189,6 +192,7 @@ class WorkflowManagerContainer extends Component {
             path="/editor/:workflowId"
             render={props => (
               <EditorContainer
+                workflow={this.props.workflow}
                 createNode={this.createNode}
                 createWorkflowRevision={this.createWorkflowRevision}
                 fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}

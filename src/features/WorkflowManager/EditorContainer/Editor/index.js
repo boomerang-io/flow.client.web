@@ -27,6 +27,12 @@ class WorkflowEditor extends Component {
     this.overviewErrors = {};
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.workflowRevision.id !== prevProps.workflowRevision.id) {
+      this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked: false });
+    }
+  }
+
   createWorkflowRevision = () => {
     return this.props.createWorkflowRevision(this.diagramApp);
   };
