@@ -31,7 +31,7 @@ class WorkflowEditor extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.workflowRevision.version !== prevProps.workflowRevision.version) {
       this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked: false });
-      this.diagramApp.getDiagramEngine.repaintCanvas();
+      this.diagramApp.getDiagramEngine().repaintCanvas();
     }
   }
 

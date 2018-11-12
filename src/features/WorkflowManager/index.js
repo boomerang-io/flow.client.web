@@ -183,6 +183,7 @@ class WorkflowManagerContainer extends Component {
                 createNode={this.createNode}
                 createWorkflow={this.createWorkflow}
                 createWorkflowRevision={this.createWorkflowRevision}
+                fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
                 updateWorkflow={this.updateWorkflow}
                 handleOnOverviewChange={this.handleOnOverviewChange}
                 handleChangeLogReasonChange={this.handleChangeLogReasonChange}

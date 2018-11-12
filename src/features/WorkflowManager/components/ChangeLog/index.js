@@ -20,20 +20,29 @@ class ChangeLog extends Component {
   };
 
   state = {
-    hasMoreLogs: this.props.changeLog.data.length<10 ? false:true,
+    hasMoreLogs: this.props.changeLog.data.length < 10 ? false : true,
     changeLogList: this.props.changeLog.data
   };
 
   loadMoreLogs = page => {
     let newChangeLog = [].concat(this.state.changeLogList);
-    axios.get(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/changelog?size=10&page=${page}&sort=version&order=DESC`).then(response => {
-      this.setState({changeLogList: newChangeLog.concat(response.data), hasMoreLogs:response.data.length<10 ? false:true});
-    });
-  }
+    axios
+      .get(
+        `${BASE_SERVICE_URL}/workflow/${
+          this.props.workflow.data.id
+        }/changelog?size=10&page=${page}&sort=version&order=DESC`
+      )
+      .then(response => {
+        this.setState({
+          changeLogList: newChangeLog.concat(response.data),
+          hasMoreLogs: response.data.length < 10 ? false : true
+        });
+      });
+  };
 
   render() {
-    const { hasMoreLogs, changeLogList } = this.state; 
-    return(
+    const { hasMoreLogs, changeLogList } = this.state;
+    return (
       <div className="c-worklfow-change-log">
         <label className="s-worklfow-change-log__title">{`${this.props.workflow.data.name} Changes`}</label>
         {changeLogList.length > 0 ? (
@@ -45,7 +54,7 @@ class ChangeLog extends Component {
             loader={<LoadingAnimation className="s-change-log-loading" />}
             useWindow={true}
           >
-            {changeLogList.reverse().map(log => {
+            {changeLogList.map(log => {
               return <LogCard log={log} />;
             })}
           </InfiniteScroll>
