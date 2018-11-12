@@ -166,7 +166,7 @@ class WorkflowManagerContainer extends Component {
   };
 
   render() {
-    const {tasks} = this.props;
+    const { tasks } = this.props;
     if (tasks.isFetching) {
       return <LoadingAnimation theme="bmrg-white" />;
     }
@@ -179,6 +179,7 @@ class WorkflowManagerContainer extends Component {
             render={props => (
               <Creator
                 workflow={this.props.workflow}
+                workflowRevision={this.props.workflowRevision}
                 createNode={this.createNode}
                 createWorkflow={this.createWorkflow}
                 createWorkflowRevision={this.createWorkflowRevision}

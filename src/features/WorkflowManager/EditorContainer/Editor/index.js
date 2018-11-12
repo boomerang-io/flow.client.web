@@ -29,7 +29,7 @@ class WorkflowEditor extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.workflowRevision.id !== prevProps.workflowRevision.id) {
+    if (this.props.workflowRevision.version !== prevProps.workflowRevision.version) {
       this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked: false });
     }
   }
@@ -50,7 +50,6 @@ class WorkflowEditor extends Component {
       handleChangeLogReasonChange,
       handleOnOverviewChange,
       match,
-      updateWorkflow
       workflow,
       workflowRevision
     } = this.props;
@@ -115,7 +114,7 @@ class WorkflowEditor extends Component {
             path={`${match.path}/changes`}
             render={() => (
               <>
-                  <ChangeLog workflow={workflow} changeLog={changeLog} />
+                <ChangeLog workflow={workflow} changeLog={changeLog} />
               </>
             )}
           />

@@ -29,6 +29,12 @@ class WorkflowCreatorContainer extends Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.workflowRevision.version !== prevProps.workflowRevision.version) {
+      this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked: false });
+    }
+  }
+
   overviewAction = () => {
     if (this.state.hasCreatedWorkflow) {
       this.props.updateWorkflow();
@@ -76,7 +82,7 @@ class WorkflowCreatorContainer extends Component {
             component={props => (
               <>
                 <ActionBar
-                  actionButtonText={hasCreatedWorkflow ? "Update Overview" : "Create Worfklow"}
+                  actionButtonText={hasCreatedWorkflow ? "Update Overview" : "Create Workflow"}
                   performAction={this.overviewAction}
                   diagramApp={this.diagramApp}
                   {...props}
