@@ -20,24 +20,20 @@ class ChangeLog extends Component {
   };
 
   state = {
-    hasMoreLogs: false, //!this.props.changeLog.data.last,
+    hasMoreLogs: this.props.changeLog.data.length<10 ? false:true,
     changeLogList: this.props.changeLog.data
   };
 
   loadMoreLogs = page => {
     let newChangeLog = [].concat(this.state.changeLogList);
-    axios
-      .get(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/changelog?size=10&page=${page}`)
-      .then(response => {
-        const { records, last } = response.data;
-        this.setState({ changeLogList: newChangeLog.concat(records), hasMoreLogs: !last });
-      });
-  };
+    axios.get(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/changelog?size=10&page=${page}&sort=version&order=DESC`).then(response => {
+      this.setState({changeLogList: newChangeLog.concat(response.data), hasMoreLogs:response.data.length<10 ? false:true});
+    });
+  }
 
   render() {
-    const { hasMoreLogs, changeLogList } = this.state;
-
-    return (
+    const { hasMoreLogs, changeLogList } = this.state; 
+    return(
       <div className="c-worklfow-change-log">
         <label className="s-worklfow-change-log__title">{`${this.props.workflow.data.name} Changes`}</label>
         {changeLogList.length > 0 ? (

@@ -4964,190 +4964,115 @@
   },
   "changeLog": [
     {
-      "version": "1.1.0",
-      "date": 1541067633661,
-      "userName": "Timothy Bula",
-      "userId": "59aebd0c7424530fce952fde"
+    "date": 1541797433682,
+    "reason": null,
+    "revisionId": "5be5f6396ce1ee637d3afae3",
+    "userId": "5bbcd4f4ee763e00011f5b53",
+    "userName": "Marcus Roy",
+    "version": 12,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-      "version": "1.1.1",
-      "date": 1541067633662,
-      "userName": "Timothy Bula",
-      "userId": "59aebd0c7424530fce952fde"
+    "date": 1541797421290,
+    "reason": "testing",
+    "revisionId": "5be5f62d6ce1ee637d3afae1",
+    "userId": "5bbcd4f4ee763e00011f5b53",
+    "userName": "Marcus Roy",
+    "version": 11,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-      "version": "1.1.2",
-      "date": 1541067633663,
-      "userName": "Timothy Bula",
-      "userId": "59aebd0c7424530fce952fde"
+    "date": 1541797336146,
+    "reason": null,
+    "revisionId": "5be5f5d86ce1ee637d3afade",
+    "userId": "5bbcd4f4ee763e00011f5b53",
+    "userName": "Marcus Roy",
+    "version": 10,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-      "version": "2.0.0",
-      "date": 1541067633664,
-      "userName": "Isabela Kawabata",
-      "userId": "5a30190fce0c0d000771d461"
+    "date": 1541797306076,
+    "reason": null,
+    "revisionId": "5be5f5ba6ce1ee637d3afadc",
+    "userId": "5bbcd4f4ee763e00011f5b53",
+    "userName": "Marcus Roy",
+    "version": 9,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-      "version": "3.0.0",
-      "date": 1541067633665,
-      "userName": "Lucas Grimauth",
-      "userId": "5b6306564bd080000168f0f0"
+    "date": 1541797264166,
+    "reason": null,
+    "revisionId": "5be5f5906ce1ee637d3afad9",
+    "userId": null,
+    "userName": null,
+    "version": 8,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-      "version": "3.0.1",
-      "date": 1541067633666,
-      "userName": "Lucas Grimauth",
-      "userId": "5b6306564bd080000168f0f0"
+    "date": 1541797099270,
+    "reason": null,
+    "revisionId": "5be5f4eb6ce1ee637d3afad4",
+    "userId": null,
+    "userName": null,
+    "version": 7,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-      "version": "3.1.0",
-      "date": 1541067633667,
-      "userName": "Lucas Grimauth",
-      "userId": "5b6306564bd080000168f0f0"
+    "date": null,
+    "reason": null,
+    "revisionId": "5bd9c3d9cfdf8a00012ce5e4",
+    "userId": null,
+    "userName": null,
+    "version": 6,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-      "version": "3.1.1",
-      "date": 1541067633668,
-      "userName": "Isabela Kawabata",
-      "userId": "5a30190fce0c0d000771d461"
+    "date": null,
+    "reason": null,
+    "revisionId": "5bd98b715a5df954ad599e8c",
+    "userId": null,
+    "userName": null,
+    "version": 5,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-      "version": "3.1.2",
-      "date": 1541067633668,
-      "userName": "Isabela Kawabata",
-      "userId": "5a30190fce0c0d000771d461"
+    "date": null,
+    "reason": null,
+    "revisionId": "5bd9742e5a5df954ad58f44e",
+    "userId": null,
+    "userName": null,
+    "version": 4,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-      "version": "3.1.3",
-      "date": 1541067633670,
-      "userName": "Timothy Bula",
-      "userId": "59aebd0c7424530fce952fde"
+    "date": null,
+    "reason": null,
+    "revisionId": "5bd85a2146e4bf444d97417d",
+    "userId": null,
+    "userName": null,
+    "version": 3,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
     }
-  ],
-  "changeLogPaginated": {
-    "last": false,
-    "totalPages": 2,
-    "totalElements": 20,
-    "size": 10,
-    "number": 0,
-    "numberOfElements": 10,
-    "first": true,
-    "sort": [
-      {
-        "direction": "DESC",
-        "property": "version",
-        "ignoreCase": false,
-        "nullHandling": "NATIVE",
-        "descending": true,
-        "ascending": false
-      }
     ],
-    "records": [
-      {
-        "version": "1.1.0",
-        "date": 1541067633661,
-        "userName": "Timothy Bula",
-        "userId": "59aebd0c7424530fce952fde"
-      },
-      {
-        "version": "1.1.1",
-        "date": 1541067633662,
-        "userName": "Timothy Bula",
-        "userId": "59aebd0c7424530fce952fde"
-      },
-      {
-        "version": "1.1.2",
-        "date": 1541067633663,
-        "userName": "Timothy Bula",
-        "userId": "59aebd0c7424530fce952fde"
-      },
-      {
-        "version": "2.0.0",
-        "date": 1541067633664,
-        "userName": "Isabela Kawabata",
-        "userId": "5a30190fce0c0d000771d461"
-      },
-      {
-        "version": "3.0.0",
-        "date": 1541067633665,
-        "userName": "Lucas Grimauth",
-        "userId": "5b6306564bd080000168f0f0"
-      },
-      {
-        "version": "3.0.1",
-        "date": 1541067633666,
-        "userName": "Lucas Grimauth",
-        "userId": "5b6306564bd080000168f0f0"
-      },
-      {
-        "version": "3.1.0",
-        "date": 1541067633667,
-        "userName": "Lucas Grimauth",
-        "userId": "5b6306564bd080000168f0f0"
-      },
-      {
-        "version": "3.1.1",
-        "date": 1541067633668,
-        "userName": "Isabela Kawabata",
-        "userId": "5a30190fce0c0d000771d461"
-      },
-      {
-        "version": "3.1.2",
-        "date": 1541067633668,
-        "userName": "Isabela Kawabata",
-        "userId": "5a30190fce0c0d000771d461"
-      },
-      {
-        "version": "3.1.3",
-        "date": 1541067633670,
-        "userName": "Timothy Bula",
-        "userId": "59aebd0c7424530fce952fde"
-      }
-    ]
-  },
-  "changeLogLast": {
-    "last": true,
-    "totalPages": 2,
-    "totalElements": 20,
-    "size": 10,
-    "number": 0,
-    "numberOfElements": 10,
-    "first": false,
-    "sort": [
-      {
-        "direction": "DESC",
-        "property": "version",
-        "ignoreCase": false,
-        "nullHandling": "NATIVE",
-        "descending": true,
-        "ascending": false
-      }
-    ],
-    "records": [
-      {
-        "version": "3.2.0",
-        "date": 1541067633671,
-        "userName": "Lucas Grimauth",
-        "userId": "5b6306564bd080000168f0f0"
-      },
-      {
-        "version": "3.2.1",
-        "date": 1541067633672,
-        "userName": "Isabela Kawabata",
-        "userId": "5a30190fce0c0d000771d461"
-      },
-      {
-        "version": "3.3.0",
-        "date": 1541067633673,
-        "userName": "Isabela Kawabata",
-        "userId": "5a30190fce0c0d000771d461"
-      },
-      {
-        "version": "3.4.0",
-        "date": 1541067633674,
-        "userName": "Timothy Bula",
-        "userId": "59aebd0c7424530fce952fde"
-      }
-    ]
-  }
+  "changeLogLast": [
+    {
+    "date": null,
+    "reason": null,
+    "revisionId": "5bd85a1b46e4bf444d97417b",
+    "userId": null,
+    "userName": null,
+    "version": 2,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+    },
+    {
+    "date": null,
+    "reason": null,
+    "revisionId": "5bd7112c46e4bf0363d74441",
+    "userId": null,
+    "userName": null,
+    "version": 1,
+    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+    }
+   ]
+  
 }

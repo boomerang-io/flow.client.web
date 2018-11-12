@@ -1,9 +1,9 @@
 {
   "/flow/taskconfiguration/workflow/:workflowId": "/taskconfiguration?workflowId=:workflowId&singular=1",
   "/flow/workflow/:workflowId/revision": "/workflow/:workflowId?singular=1",
+  "/flow/workflow/:workFlowId/changelog?size=:value&page=1&sort=version&order=DESC": "/changeLogLast",
+  "/flow/workflow/:workFlowId/changelog?size=:value&page=0&sort=version&order=DESC": "/changeLog",
   "/flow/workflow/:workflowId/revision/:version": "/workflow/:workflowId?singular=1",
-  "/flow/workflow/:workFlowId/changelog?size=:value&page=3": "/changeLogLast",
-  "/flow/workflow/:workFlowId/changelog?size=:value&page=:page": "/changeLog",
   "/flow/workflow": "/workflowSummary",
   "/flow/workflow/:id/summary": "/workflowSummary/:id?&singular=1",
   "/flow/activity/:id": "/workflowExecution",
