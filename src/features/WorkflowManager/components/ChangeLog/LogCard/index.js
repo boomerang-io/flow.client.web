@@ -11,10 +11,11 @@ class LogCard extends Component {
     log: {}
   };
   render() {
-    const { version, date, userName } = this.props.log;
+    const { version, reason, date, userName } = this.props.log;
     return (
       <div className="c-worklfow-log">
         <label className="b-workflow-log__version">{version}</label>
+        <label className="b-workflow-log__version">{reason}</label>
         <div className="c-workflow-log__data">
           <label className="b-workflow-log__date">{moment(date).format("YYYY-MM-DD hh:mm A")}</label>
           <label className="b-workflow-log__divider">|</label>
