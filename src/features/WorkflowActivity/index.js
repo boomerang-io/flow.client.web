@@ -6,6 +6,7 @@ import { actions as activityActions } from "State/activity";
 import { actions as teamsActions } from "State/teams";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import ErrorDragon from "Components/ErrorDragon";
+import NavigateBack from "Components/NavigateBack";
 import SearchFilterBar from "Components/SearchFilterBar";
 import ActivityList from "./ActivityList";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -14,7 +15,7 @@ import "./styles.scss";
 class WorkflowsActivity extends Component {
   static propTypes = {
     activity: PropTypes.object.isRequired,
-    activityActions: PropTypes.object.isRequired,
+    activityActions: PropTypes.object.isRequired
   };
 
   state = {
@@ -67,14 +68,27 @@ class WorkflowsActivity extends Component {
 
       return (
         <div className="c-workflow-activity">
+          <nav className="s-workflow-activity-navigation">
+            <NavigateBack to="/workflows" text="Back to Workflows" />
+          </nav>
           <div className="c-workflow-activity-content">
-            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} data={activity.data} filterItems={teamsList} debounceTimeout={300} />
-            {
-              !filteredActivities.length?
-              <NoDisplay style={{marginTop:"2rem"}} text="No activities found" />
-              :
-              <ActivityList activities={activity.data} fetchActivities={this.fetchActivities} savePageSize={this.savePageSize} searchQuery={searchQuery} history={history}/>
-            }
+            <SearchFilterBar
+              handleSearchFilter={this.handleSearchFilter}
+              options={teams.data}
+              filterItems={teamsList}
+              debounceTimeout={300}
+            />
+            {!filteredActivities.length ? (
+              <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
+            ) : (
+              <ActivityList
+                activities={activity.data}
+                fetchActivities={this.fetchActivities}
+                savePageSize={this.savePageSize}
+                searchQuery={searchQuery}
+                history={history}
+              />
+            )}
           </div>
         </div>
       );

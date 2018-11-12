@@ -1,11 +1,11 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
-.c-activities-card{
+.c-activities-card {
   background-color: $white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 53.5rem;
+  width: 100%;
   height: 7.5rem;
   border: solid 0.125rem $teal-20;
   border-radius: 0.5rem;

@@ -104,7 +104,7 @@ class WorkflowsHome extends Component {
         return (
           <div className="c-workflow-home">
             <div className="c-workflow-home-content">
-              <SearchFilterBar handleSearchFilter={this.handleSearchFilter} teams={teams.data} />
+              <SearchFilterBar handleSearchFilter={this.handleSearchFilter} options={[]} />
               <NoDisplay style={{ marginTop: "5rem" }} text="Looks like you don't have any workflow teams" />
             </div>
           </div>
@@ -113,7 +113,7 @@ class WorkflowsHome extends Component {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
-            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} data={teams.data} />
+            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} options={teams.data} />
             {sortedTeams.map(team => {
               return (
                 <WorkflowsSection

@@ -38,17 +38,18 @@
   border: none;
   background: none;
   cursor: pointer;
-  margin-left: 1rem;
+  margin: 1rem;
+  padding: 0rem;
 }
 
 .b-workflow-placeholder__box {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 20rem;
+  width: 22rem;
   height: 9.325rem;
-  border-radius: 0.25rem;
-  border: 1px dashed $cool-gray-20;
+  border-radius: 0.5rem;
+  border: 0.125rem dashed $cool-gray-20;
 }
 
 .b-workflow-placeholder__text {

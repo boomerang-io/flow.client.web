@@ -6,13 +6,13 @@ import "./styles.scss";
 
 class SearchFilterBar extends Component {
   static propTypes = {
-    data: PropTypes.array.isRequired,
+    options: PropTypes.array.isRequired,
     handleSearchFilter: PropTypes.func.isRequired,
     debounceTimeout: PropTypes.string,
     filterItems: PropTypes.array
   };
   static defaultProps = {
-    debounceTimeout:""
+    debounceTimeout: ""
   };
 
   state = {
@@ -45,12 +45,8 @@ class SearchFilterBar extends Component {
     this.props.handleSearchFilter(searchQuery, selectedItems);
   };
 
-  formatData = data => {
-    return data.map(item => ({ id: item.id, text: item.name }));
-  };
-
   render() {
-    const { data, debounceTimeout } = this.props;
+    const { options, debounceTimeout } = this.props;
 
     return (
       <div className="b-search-filter">
@@ -69,7 +65,9 @@ class SearchFilterBar extends Component {
             label="Filter"
             invalid={false}
             onChange={this.handleOnMultiSelectChange}
-            items={this.props.filterItems || data.map(item => ({ id: item.id, text: item.name }))}
+            items={
+              this.props.filterItems || options.length ? options.map(item => ({ id: item.id, text: item.name })) : []
+            }
             itemToString={item => (item ? item.text : "")}
           />
         </div>

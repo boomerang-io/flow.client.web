@@ -4,7 +4,7 @@
   //position: unset !important;
 }
 .bmrg--b-navbar-logo {
-  cursor: pointer;
+  display: none;
 }
 
 .c-app-main {
@@ -18,5 +18,4 @@
 
 .s-sidenav-wrapper > .bmrg--c-sidenav {
   z-index: 1;
-  margin-top: 0;
 }

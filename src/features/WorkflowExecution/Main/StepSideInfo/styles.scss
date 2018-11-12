@@ -3,7 +3,7 @@
 .c-step-side-info {
   position: absolute;
   right: 1rem;
-  top: 12rem;
+  top: 14rem;
   padding: 2rem;
   background-color: $white;
   width: 25vw;
@@ -37,4 +37,12 @@
   font-size: 1rem;
   font-weight: 500;
   text-align: left;
+  display: flex;
+  align-items: center;
+
+  img {
+    margin-left: 1rem;
+    height: 1rem;
+    width: 1rem;
+  }
 }

@@ -10,10 +10,12 @@ const Filler = ({ index, finishPosition, totalDuration }) => {
     zIndex: 20 - index,
     backgroundColor: colors[index],
     width: `${finishPosition}%`
-  }
+  };
 
   momentDurationFormatSetup(moment);
-  const finishTime = moment.duration((finishPosition * totalDuration / 100), "millisecond").format("hh:mm:ss", { trim: false });
+  const finishTime = totalDuration
+    ? moment.duration((finishPosition * totalDuration) / 100, "millisecond").format("hh:mm:ss", { trim: false })
+    : "";
 
   return (
     <div className="b-time-progress-bar-filler" style={styles}>

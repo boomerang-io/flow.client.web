@@ -3,36 +3,14 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
-import activityStatuses from "Constants/activityStatuses";
+import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/activityStatuses";
 import imgs from "Assets/icons";
-import statusImgs from "./img";
 import "./styles.scss";
 
 class ActivityCard extends Component {
   static propTypes = {
     activity: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired
-  };
-
-  getStatusIcon = status => {
-    switch (status) {
-      case activityStatuses.COMPLETED:
-        return statusImgs["passed"];
-      case activityStatuses.FAILED:
-        return statusImgs["failed"];
-      default:
-        return statusImgs["pending"];
-    }
-  };
-  getStatusText = status => {
-    switch (status) {
-      case activityStatuses.COMPLETED:
-        return "Success";
-      case activityStatuses.FAILED:
-        return "Failed";
-      default:
-        return "In Progress";
-    }
   };
 
   render() {
@@ -60,8 +38,12 @@ class ActivityCard extends Component {
           <div className="c-activity-card__label">
             <label className="b-activity-card__label"> Status</label>
             <label className="b-activity-card__data">
-              <img className="b-activity-card__status-icon" src={this.getStatusIcon(status)} alt="status" />
-              {this.getStatusText(status)}
+              <img
+                className="b-activity-card__status-icon"
+                src={ACTIVITY_STATUSES_TO_ICON[status]}
+                alt={`Status ${status}`}
+              />
+              {ACTIVITY_STATUSES_TO_TEXT[status]}
             </label>
           </div>
         </div>
