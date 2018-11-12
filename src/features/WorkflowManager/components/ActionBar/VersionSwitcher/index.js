@@ -7,47 +7,29 @@ import "./styles.scss";
 
 class VersionSwitcher extends Component {
   static propTypes = {
-    initialVersion: PropTypes.number,
-    versionsTotal: PropTypes.number.isRequired,
+    currentRevision: PropTypes.number,
+    revisionCount: PropTypes.number.isRequired,
     onChangeVersion: PropTypes.func.isRequired
   };
 
   state = {
-    currentVersion: this.props.initialVersion || 1
+    currentRevision: this.props.currentRevision
   };
 
   backVersion = () => {
-    this.setState(
-      prevState => ({ currentVersion: prevState.currentVersion - 1 }),
-      () => {
-        this.onChangeVersion();
-      }
-    );
+    this.props.onChangeVersion(this.props.currentRevision - 1);
   };
 
   fastBackVersion = () => {
-    this.setState({ currentVersion: 1 }, () => {
-      this.onChangeVersion();
-    });
+    this.props.onChangeVersion(1);
   };
 
   forwardVersion = () => {
-    this.setState(
-      prevState => ({ currentVersion: prevState.currentVersion + 1 }),
-      () => {
-        this.onChangeVersion();
-      }
-    );
+    this.props.onChangeVersion(this.props.currentRevision + 1);
   };
 
   fastForwardVersion = () => {
-    this.setState({ currentVersion: this.props.versionsTotal }, () => {
-      this.onChangeVersion();
-    });
-  };
-
-  onChangeVersion = () => {
-    this.props.onChangeVersion(this.state.currentVersion);
+    this.props.onChangeVersion(this.props.revisionCount);
   };
 
   renderBackButtons = enabled => {
@@ -89,17 +71,16 @@ class VersionSwitcher extends Component {
   };
 
   render() {
-    const { versionsTotal } = this.props;
-    const { currentVersion } = this.state;
+    const { currentRevision, revisionCount } = this.props;
 
     return (
       <div className="c-version-switcher">
         <div className="s-version-switcher-text">
-          Version {currentVersion} of {versionsTotal}
+          Version {currentRevision} of {revisionCount}
         </div>
         <div className="c-version-switcher-buttons">
-          {this.renderBackButtons(currentVersion > 1)}
-          {this.renderForwardButtons(currentVersion < versionsTotal)}
+          {this.renderBackButtons(currentRevision > 1)}
+          {this.renderForwardButtons(currentRevision < revisionCount)}
         </div>
       </div>
     );

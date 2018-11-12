@@ -57,7 +57,16 @@ class WorkflowCreatorContainer extends Component {
   };
 
   render() {
-    const { createNode, handleOnOverviewChange, match, workflow } = this.props;
+    const {
+      createNode,
+      fetchWorkflowRevisionNumber,
+      handleOnOverviewChange,
+      match,
+      workflow,
+      workflowRevision
+    } = this.props;
+
+    const { hasCreatedWorkflow } = this.state;
     return (
       <>
         <Navigation />
@@ -67,8 +76,8 @@ class WorkflowCreatorContainer extends Component {
             component={props => (
               <>
                 <ActionBar
-                  actionButtonText={this.state.hasCreatedWorkflow ? "Update Overview" : "Create Worfklow"}
-                  onClick={this.overviewAction}
+                  actionButtonText={hasCreatedWorkflow ? "Update Overview" : "Create Worfklow"}
+                  performAction={this.overviewAction}
                   diagramApp={this.diagramApp}
                   {...props}
                 />
@@ -81,10 +90,21 @@ class WorkflowCreatorContainer extends Component {
             render={props => (
               <>
                 <ActionBar
-                  actionButtonText={this.state.hasCreatedWorkflow ? "Create New Version" : "Create Workflow"}
-                  onClick={this.designerAction}
+                  actionButtonText={hasCreatedWorkflow ? "Create New Version" : "Create Workflow"}
+                  performAction={this.designerAction}
                   diagramApp={this.diagramApp}
+                  handleChangeLogReasonChange={this.props.handleChangeLogReasonChange}
+                  includeCreateNewVersionComment={
+                    hasCreatedWorkflow ? workflowRevision.version === workflow.data.revisionCount : false
+                  }
+                  includeResetVersionAlert={
+                    hasCreatedWorkflow ? workflowRevision.version < workflow.data.revisionCount : false
+                  }
+                  includeVersionSwitcher={hasCreatedWorkflow}
                   includeZoom
+                  revisionCount={hasCreatedWorkflow ? workflow.data.revisionCount : undefined}
+                  currentRevision={hasCreatedWorkflow ? workflowRevision.version : undefined}
+                  fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
                   {...props}
                 />
                 <TasksSidenav />

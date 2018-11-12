@@ -3,7 +3,7 @@
 module.exports = (req, res, next) => {
   const _send = res.send;
   res.send = function(body) {
-    if (require("url").parse(req.url, true).query["singular"]) {
+    if (require("url").parse(req.url, true).query["singular"] && req.method === "GET") {
       try {
         const json = JSON.parse(body);
         if (Array.isArray(json)) {

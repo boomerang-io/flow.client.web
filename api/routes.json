@@ -1,6 +1,7 @@
 {
   "/flow/taskconfiguration/workflow/:workflowId": "/taskconfiguration?workflowId=:workflowId&singular=1",
   "/flow/workflow/:workflowId/revision": "/workflow/:workflowId?singular=1",
+  "/flow/workflow/:workflowId/revision/:version": "/workflow/:workflowId?singular=1",
   "/flow/workflow": "/workflowSummary",
   "/flow/workflow/:id/summary": "/workflowSummary/:id?&singular=1",
   "/flow/activity/:id": "/workflowExecution",
