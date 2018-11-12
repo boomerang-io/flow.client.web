@@ -1,26 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
-.c-activity-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1.5rem;
-  width: 100%;
-}
-.bmrg--c-loading-animation.s-activities-loading {
-  height: 3rem;
-  justify-content: center;
-}
-.s-activities-loading {
-  .bmrg--b-loading-animation__text {
-    display: none;
-  }
-  .bmrg--b-loading-animation__img {
-    transform: scale(0.3);
-  }
-}
-
 .b-activities__scroll-up-button {
   background-color: red;
   width: 2rem;

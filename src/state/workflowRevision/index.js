@@ -43,7 +43,7 @@ const actionHandlers = {
       isFetching: false,
       fetchingStatus: "success",
       dag: action.data.dag,
-      config: normalizeConfigNodes(action.data.config.nodes),
+      config: action.data.config && action.data.config.nodes ? normalizeConfigNodes(action.data.config.nodes) : {},
       version: action.data.version
     };
   },

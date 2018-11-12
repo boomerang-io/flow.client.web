@@ -5,6 +5,7 @@ import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
+import ChangeLog from "Features/WorkflowManager/components/ChangeLog";
 import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
 import DiagramApplication from "Utilities/DiagramApplication";
 
@@ -43,11 +44,13 @@ class WorkflowEditor extends Component {
 
   render() {
     const {
+      changeLog,
       createNode,
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
       handleOnOverviewChange,
       match,
+      updateWorkflow
       workflow,
       workflowRevision
     } = this.props;
@@ -105,6 +108,14 @@ class WorkflowEditor extends Component {
                     deleteKeys={[]}
                   />
                 </div>
+              </>
+            )}
+          />
+          <Route
+            path={`${match.path}/changes`}
+            render={() => (
+              <>
+                  <ChangeLog workflow={workflow} changeLog={changeLog} />
               </>
             )}
           />

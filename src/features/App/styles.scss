@@ -4,12 +4,16 @@
   //position: unset !important;
 }
 .bmrg--b-navbar-logo {
-  cursor: pointer;
+  display: none;
 }
 
 .c-app-main {
   padding-top: 3.125rem;
   height: 100vh;
+
+  .bmrg--c-sidenav {
+    margin-top: 0rem;
+  }
 }
 
 .c-workflow {
@@ -17,6 +21,5 @@
 }
 
 .s-sidenav-wrapper > .bmrg--c-sidenav {
-  z-index: 1;
-  margin-top: 0;
+  z-index: 999;
 }

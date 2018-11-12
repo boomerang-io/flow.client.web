@@ -1,0 +1,38 @@
+.s-hamburger-menu {
+  position: fixed;
+  z-index: 1000;
+  top: 0.625rem;
+  left: 0.625rem;
+  cursor: pointer;
+  transform: scale(0.75);
+
+  .frstbar {
+    transform-origin: -15% 50%;
+    transition: all 0.35s linear;
+  }
+  .thrdbar {
+    transform-origin: 30% 50%;
+    transition: all 0.35s linear;
+  }
+
+  .scndbar {
+    transition: all 0.2s linear;
+  }
+
+  &.--is-open .frstbar {
+    transform: rotate(42deg);
+  }
+
+  &.--is-open .thrdbar {
+    transform: rotate(-42deg);
+  }
+
+  &.--is-open .scndbar {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+.s-sidenav-wrapper .bmrg--c-sidenav {
+  z-index: 1;
+}

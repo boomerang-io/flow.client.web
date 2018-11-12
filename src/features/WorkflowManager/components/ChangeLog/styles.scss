@@ -1,0 +1,28 @@
+.c-worklfow-change-log {
+  margin: 2.5rem auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 100rem;
+}
+.s-worklfow-change-log__title {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+.c-worklfow__log-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  width: 100%;
+  div:first-child {
+    width: 100%;
+  }
+}
+.s-change-log-loading {
+  .bmrg--b-loading-animation__text {
+    display: none;
+  }
+  .bmrg--b-loading-animation__img {
+    transform: scale(0.3);
+  }
+}
