@@ -5,14 +5,14 @@ export const navItems = [
     text: "Workflows"
   },
   {
-    path: "/creator",
-    exact: false,
-    text: "Creator"
-  },
-  {
     path: "/activity",
     exact: false,
     text: "Activity"
+  },
+  {
+    path: "/creator",
+    exact: false,
+    text: "Creator"
   },
   {
     path: "/insights",

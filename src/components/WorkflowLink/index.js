@@ -23,7 +23,6 @@ class CustomLink extends Component {
 
   componentDidMount() {
     this.props.diagramEngine.repaintCanvas();
-    console.log(this.props.diagramEngine.diagramModel.locked);
   }
 
   componentWillUnmount() {

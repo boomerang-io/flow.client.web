@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ConnectedRouter } from "react-router-redux";
 import { Provider } from "react-redux";
+import ErrorBoundary from "@boomerang/boomerang-components/lib/ErrorBoundary";
 import App from "Features/App";
+import ErrorDragon from "Components/ErrorDragon";
 
 export default class Root extends Component {
   render() {
@@ -10,7 +12,9 @@ export default class Root extends Component {
     return (
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <App />
+          <ErrorBoundary component={ErrorDragon}>
+            <App />
+          </ErrorBoundary>
         </ConnectedRouter>
       </Provider>
     );

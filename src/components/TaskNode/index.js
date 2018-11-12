@@ -122,7 +122,11 @@ export class TaskNode extends Component {
 
     return (
       <div className="c-taskNode" onClick={this.handleOnActivityClick}>
-        <div className={classnames("b-taskNode", `--${flowTaskStatus}`)}>
+        <div
+          className={classnames("b-taskNode", {
+            [`--${flowTaskStatus}`]: flowTaskStatus && this.props.diagramEngine.diagramModel.locked
+          })}
+        >
           <div className="b-taskNode__progress-bar" />
           <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
             {this.props.task ? this.props.task.description : "Task description"}
@@ -149,7 +153,7 @@ const mapStateToProps = (state, ownProps) => {
     step:
       state.workflowExecution.data.steps && state.workflowExecution.data.steps.length
         ? state.workflowExecution.data.steps.find(step => step.taskId === ownProps.node.id)
-        : ""
+        : {}
   };
 };
 

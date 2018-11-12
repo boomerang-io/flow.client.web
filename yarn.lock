@@ -828,10 +828,10 @@
     babel-plugin-transform-dynamic-import "2.0.0"
     babel-plugin-transform-react-remove-prop-types "0.4.15"
 
-"@boomerang/boomerang-components@6.0.10":
-  version "6.0.10"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.10.tgz#9c540fa4eace1099a85d0151e85e848bb9cd7050"
-  integrity sha1-nFQPpOrOEJmoXQFR6F6Ei7nNcFA=
+"@boomerang/boomerang-components@6.0.14":
+  version "6.0.14"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.14.tgz#411637762c0b6b3a14f6396fbb0be4fdb14e06fb"
+  integrity sha1-QRY3diwLazoU9jlvuwvk/bFOBvs=
 
 "@boomerang/boomerang-dag@5.2.1":
   version "5.2.1"
@@ -940,10 +940,10 @@
     normalize-scss "^7.0.1"
     rimraf "^2.6.2"
 
-"@boomerang/boomerang-utilities@^1.0.1":
-  version "1.0.1"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-utilities/-/@boomerang/boomerang-utilities-1.0.1.tgz#0e1ea74467abf797d99b8564b9cfe9762e0274c9"
-  integrity sha1-Dh6nRGer95fZm4Vkuc/pdi4CdMk=
+"@boomerang/boomerang-utilities@2.0.0-alpha0":
+  version "2.0.0-alpha0"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-utilities/-/@boomerang/boomerang-utilities-2.0.0-alpha0.tgz#f281782c46739278cc0ced59a0e363c1e9ff6aa3"
+  integrity sha1-8oF4LEZzknjMDO1ZoONjwen/aqM=
 
 "@boomerang/confusing-browser-globals@1.0.1":
   version "1.0.1"

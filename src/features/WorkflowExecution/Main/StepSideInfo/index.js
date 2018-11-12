@@ -1,13 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import momentDurationFormatSetup from "moment-duration-format";
 import moment from "moment";
+import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/activityStatuses";
 import "./styles.scss";
 
 const StepSideInfo = ({ step }) => {
-  momentDurationFormatSetup(moment);
-
   return (
     <div className="c-step-side-info">
       <div className="s-step-side-info-title">Summary</div>
@@ -34,7 +32,7 @@ const StepSideInfo = ({ step }) => {
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Duration</div>
           <div className="b-step-side-info-field__value">
-            {step.duration ? moment.duration(step.duration).format("hh:mm [mins]", { trim: false }) : "-----"}
+            {step.duration ? getHumanizedDuration(Math.round(step.duration / 1000)) : "-----"}
           </div>
         </div>
       </div>
