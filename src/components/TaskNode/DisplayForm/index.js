@@ -118,7 +118,7 @@ class DisplayForm extends Component {
             disabled={!sectionHeaderConfig.isValid}
             onClick={sectionHeaderConfig.onSaveFunction}
           >
-            Save
+            Apply
           </ModalConfirmButton>
         </ModalContentFooter>
       </>

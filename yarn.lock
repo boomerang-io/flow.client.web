@@ -940,10 +940,10 @@
     normalize-scss "^7.0.1"
     rimraf "^2.6.2"
 
-"@boomerang/boomerang-utilities@^1.0.1":
-  version "1.0.1"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-utilities/-/@boomerang/boomerang-utilities-1.0.1.tgz#0e1ea74467abf797d99b8564b9cfe9762e0274c9"
-  integrity sha1-Dh6nRGer95fZm4Vkuc/pdi4CdMk=
+"@boomerang/boomerang-utilities@2.0.0-alpha0":
+  version "2.0.0-alpha0"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-utilities/-/@boomerang/boomerang-utilities-2.0.0-alpha0.tgz#f281782c46739278cc0ced59a0e363c1e9ff6aa3"
+  integrity sha1-8oF4LEZzknjMDO1ZoONjwen/aqM=
 
 "@boomerang/confusing-browser-globals@1.0.1":
   version "1.0.1"

@@ -13,7 +13,13 @@ class WorkflowEditor extends Component {
   static propTypes = {
     createNode: PropTypes.func.isRequired,
     createWorkflowRevision: PropTypes.func.isRequired,
-    handleOnOverviewChange: PropTypes.func.isRequired
+    fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
+    handleOnOverviewChange: PropTypes.func.isRequired,
+    handleChangeLogReasonChange: PropTypes.func.isRequired,
+    workflow: PropTypes.object.isRequired,
+    workflowActions: PropTypes.object.isRequired,
+    workflowRevision: PropTypes.object.isRequired,
+    workflowRevisionActions: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -22,8 +28,34 @@ class WorkflowEditor extends Component {
     this.overviewErrors = {};
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.workflowRevision.id !== prevProps.workflowRevision.id) {
+      this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked: false });
+    }
+  }
+
+  createWorkflowRevision = () => {
+    return this.props.createWorkflowRevision(this.diagramApp);
+  };
+
+  updateWorkflow = () => {
+    return this.props.updateWorkflow(this.diagramApp);
+  };
+
   render() {
-    const { createNode, createWorkflowRevision, handleOnOverviewChange, match, workflow, updateWorkflow, changeLog } = this.props;
+    const {
+      changeLog,
+      createNode,
+      fetchWorkflowRevisionNumber,
+      handleChangeLogReasonChange,
+      handleOnOverviewChange,
+      match,
+      updateWorkflow
+      workflow,
+      workflowRevision
+    } = this.props;
+    const { revisionCount } = workflow.data;
+    const { version } = workflowRevision;
 
     return (
       <>
@@ -35,7 +67,7 @@ class WorkflowEditor extends Component {
               <>
                 <ActionBar
                   actionButtonText="Update Overview"
-                  onClick={() => updateWorkflow(this.diagramApp)}
+                  performAction={this.updateWorkflow}
                   diagramApp={this.diagramApp}
                   {...props}
                 />
@@ -48,10 +80,17 @@ class WorkflowEditor extends Component {
             render={props => (
               <>
                 <ActionBar
-                  actionButtonText="Create New Version"
-                  onClick={() => createWorkflowRevision(this.diagramApp)}
+                  actionButtonText={version < revisionCount ? "Set Version to Latest" : "Create New Version"}
+                  performAction={this.createWorkflowRevision}
                   diagramApp={this.diagramApp}
+                  handleChangeLogReasonChange={handleChangeLogReasonChange}
+                  includeCreateNewVersionComment={version === revisionCount}
+                  includeResetVersionAlert={version < revisionCount}
+                  includeVersionSwitcher
                   includeZoom
+                  revisionCount={workflow.data.revisionCount}
+                  currentRevision={workflowRevision.version}
+                  fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
                   {...props}
                 />
                 <TasksSidenav />

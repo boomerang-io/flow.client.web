@@ -25,6 +25,7 @@ export const initialState = {
   creatingStatus: "",
   error: "",
   dag: undefined,
+  version: "",
   config: {}
 };
 
@@ -42,7 +43,8 @@ const actionHandlers = {
       isFetching: false,
       fetchingStatus: "success",
       dag: action.data.dag,
-      config: action.data.config && action.data.config.nodes ? normalizeConfigNodes(action.data.config.nodes) : {}
+      config: action.data.config && action.data.config.nodes ? normalizeConfigNodes(action.data.config.nodes) : {},
+      version: action.data.version
     };
   },
   [types.FETCH_WORKFLOW_REVISION_FAILURE]: (state, action) => {
@@ -53,7 +55,8 @@ const actionHandlers = {
     isCreating: false,
     creatingStatus: "success",
     dag: action.data.dag,
-    config: normalizeConfigNodes(action.data.config.nodes)
+    config: normalizeConfigNodes(action.data.config.nodes),
+    version: action.data.version
   }),
   [types.CREATE_WORKFLOW_REVISION_FAILURE]: (state, action) => ({
     ...state,
