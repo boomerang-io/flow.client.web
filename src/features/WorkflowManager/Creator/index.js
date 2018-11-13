@@ -46,6 +46,16 @@ class WorkflowCreatorContainer extends Component {
     }
   };
 
+  determinePerformActionButtonText = () => {
+    if (this.state.hasCreatedWorkflow) {
+      const { revisionCount } = this.props.workflow.data;
+      const { version } = this.props.workflowRevision;
+      return version < revisionCount ? "Set Version to Latest" : "Create New Version";
+    } else {
+      return "Create Workflow";
+    }
+  };
+
   designerAction = () => {
     if (this.state.hasCreatedWorkflow) {
       this.props.createWorkflowRevision(this.diagramApp);
@@ -85,7 +95,7 @@ class WorkflowCreatorContainer extends Component {
             component={props => (
               <>
                 <ActionBar
-                  actionButtonText={hasCreatedWorkflow ? "Update Overview" : "Create Workflow"}
+                  performActionButtonText={hasCreatedWorkflow ? "Update Overview" : "Create Workflow"}
                   performAction={this.overviewAction}
                   diagramApp={this.diagramApp}
                   {...props}
@@ -99,7 +109,7 @@ class WorkflowCreatorContainer extends Component {
             render={props => (
               <>
                 <ActionBar
-                  actionButtonText={hasCreatedWorkflow ? "Create New Version" : "Create Workflow"}
+                  performActionButtonText={this.determinePerformActionButtonText()}
                   performAction={this.designerAction}
                   diagramApp={this.diagramApp}
                   handleChangeLogReasonChange={this.props.handleChangeLogReasonChange}

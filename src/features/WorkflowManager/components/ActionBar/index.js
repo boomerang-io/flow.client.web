@@ -16,7 +16,6 @@ import "./styles.scss";
 
 class ActionBar extends Component {
   static propTypes = {
-    actionButtonText: PropTypes.string.isRequired,
     currentRevision: PropTypes.number.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
@@ -24,6 +23,7 @@ class ActionBar extends Component {
     includeVersionSwitcher: PropTypes.bool,
     includeZoom: PropTypes.bool,
     performAction: PropTypes.func.isRequired,
+    performActionButtonText: PropTypes.string.isRequired,
     revisionCount: PropTypes.number.isRequired
   };
 
@@ -48,7 +48,7 @@ class ActionBar extends Component {
     const {
       includeResetVersionAlert,
       includeCreateNewVersionComment,
-      actionButtonText,
+      performActionButtonText,
       performAction,
       currentRevision
     } = this.props;
@@ -56,7 +56,7 @@ class ActionBar extends Component {
     if (includeResetVersionAlert) {
       return (
         <AlertModal
-          ModalTrigger={() => <Button theme="bmrg-black">{actionButtonText}</Button>}
+          ModalTrigger={() => <Button theme="bmrg-black">{performActionButtonText}</Button>}
           modalContent={closeModal => (
             <ConfirmModal
               title={`Set version ${currentRevision} to latest?`}
@@ -74,7 +74,7 @@ class ActionBar extends Component {
     if (includeCreateNewVersionComment) {
       return (
         <Modal
-          ModalTrigger={() => <Button theme="bmrg-black">{actionButtonText}</Button>}
+          ModalTrigger={() => <Button theme="bmrg-black">{performActionButtonText}</Button>}
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
               headerTitle="Create New Version"
@@ -93,7 +93,7 @@ class ActionBar extends Component {
 
     return (
       <Button theme="bmrg-black" onClick={performAction}>
-        {actionButtonText}
+        {performActionButtonText}
       </Button>
     );
   }

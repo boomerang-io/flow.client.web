@@ -66,7 +66,7 @@ class WorkflowEditor extends Component {
             component={props => (
               <>
                 <ActionBar
-                  actionButtonText="Update Overview"
+                  performActionButtonText="Update Overview"
                   performAction={this.updateWorkflow}
                   diagramApp={this.diagramApp}
                   {...props}
@@ -80,7 +80,7 @@ class WorkflowEditor extends Component {
             render={props => (
               <>
                 <ActionBar
-                  actionButtonText={version < revisionCount ? "Set Version to Latest" : "Create New Version"}
+                  performActionButtonText={version < revisionCount ? "Set Version to Latest" : "Create New Version"}
                   performAction={this.createWorkflowRevision}
                   diagramApp={this.diagramApp}
                   handleChangeLogReasonChange={handleChangeLogReasonChange}

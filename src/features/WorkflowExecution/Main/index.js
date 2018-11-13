@@ -24,7 +24,10 @@ class Main extends Component {
 
   render() {
     const { workflowExecutionData, taskId } = this.props;
-    const selectedStep = workflowExecutionData.steps.find(step => step.taskId === taskId);
+    const selectedStep =
+      workflowExecutionData.steps && workflowExecutionData.steps.length
+        ? workflowExecutionData.steps.find(step => step.taskId === taskId)
+        : undefined;
 
     return (
       <div className="c-workflow-execution">

@@ -60,11 +60,14 @@ class WorkflowExecutionContainer extends Component {
       tasksStatus === REQUEST_STATUSES.SUCCESS &&
       workflowStatus === REQUEST_STATUSES.SUCCESS
     ) {
-      const step = workflowExecutionData.steps
-        .slice(0)
-        .reverse()
-        .find(step => step.flowTaskStatus !== ACTIVITY_STATUSES.NOT_STARTED);
-      const taskId = nodeId ? nodeId : step.taskId;
+      let taskId = "";
+      if (workflowExecutionData.steps && workflowExecutionData.steps.length) {
+        const step = workflowExecutionData.steps
+          .slice(0)
+          .reverse()
+          .find(step => step.flowTaskStatus !== ACTIVITY_STATUSES.NOT_STARTED);
+        taskId = nodeId ? nodeId : step.taskId;
+      }
 
       return (
         <Main
