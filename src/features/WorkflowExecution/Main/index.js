@@ -13,8 +13,8 @@ class Main extends Component {
   }
 
   render() {
-    const { workflowExecution, nodeId } = this.props;
-    const selectedStep = workflowExecution.steps.find(step => step.taskId === nodeId);
+    const { workflowExecution, taskId } = this.props;
+    const selectedStep = workflowExecution.steps.find(step => step.taskId === taskId);
 
     return (
       <div className="c-workflow-execution">
@@ -41,7 +41,7 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-  nodeId: PropTypes.string,
+  taskId: PropTypes.string,
   workflowExecution: PropTypes.object.isRequired,
   workflowRevision: PropTypes.object.isRequired
 };

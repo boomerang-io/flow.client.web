@@ -4694,16 +4694,6 @@
         "startTime": 1540912391309,
         "taskId": "d64fb25d-932a-4894-9087-ded1b63eb672",
         "taskName": "task2"
-      },
-      {
-        "activityId": "5bd8750446e4bf790fe60aef",
-        "duration": 2000,
-        "flowTaskStatus": "completed",
-        "id": "5bd8750546e4bf790fe60af2",
-        "order": 2,
-        "startTime": 1540912394309,
-        "taskId": "cebb4cb2-17fd-4008-aaec-5e5a86fdd2f5",
-        "taskName": "task3"
       }
     ]
   },
@@ -4964,115 +4954,114 @@
   },
   "changeLog": [
     {
-    "date": 1541797433682,
-    "reason": null,
-    "revisionId": "5be5f6396ce1ee637d3afae3",
-    "userId": "5bbcd4f4ee763e00011f5b53",
-    "userName": "Marcus Roy",
-    "version": 12,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": 1541797433682,
+      "reason": null,
+      "revisionId": "5be5f6396ce1ee637d3afae3",
+      "userId": "5bbcd4f4ee763e00011f5b53",
+      "userName": "Marcus Roy",
+      "version": 12,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-    "date": 1541797421290,
-    "reason": "testing",
-    "revisionId": "5be5f62d6ce1ee637d3afae1",
-    "userId": "5bbcd4f4ee763e00011f5b53",
-    "userName": "Marcus Roy",
-    "version": 11,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": 1541797421290,
+      "reason": "testing",
+      "revisionId": "5be5f62d6ce1ee637d3afae1",
+      "userId": "5bbcd4f4ee763e00011f5b53",
+      "userName": "Marcus Roy",
+      "version": 11,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-    "date": 1541797336146,
-    "reason": null,
-    "revisionId": "5be5f5d86ce1ee637d3afade",
-    "userId": "5bbcd4f4ee763e00011f5b53",
-    "userName": "Marcus Roy",
-    "version": 10,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": 1541797336146,
+      "reason": null,
+      "revisionId": "5be5f5d86ce1ee637d3afade",
+      "userId": "5bbcd4f4ee763e00011f5b53",
+      "userName": "Marcus Roy",
+      "version": 10,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-    "date": 1541797306076,
-    "reason": null,
-    "revisionId": "5be5f5ba6ce1ee637d3afadc",
-    "userId": "5bbcd4f4ee763e00011f5b53",
-    "userName": "Marcus Roy",
-    "version": 9,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": 1541797306076,
+      "reason": null,
+      "revisionId": "5be5f5ba6ce1ee637d3afadc",
+      "userId": "5bbcd4f4ee763e00011f5b53",
+      "userName": "Marcus Roy",
+      "version": 9,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-    "date": 1541797264166,
-    "reason": null,
-    "revisionId": "5be5f5906ce1ee637d3afad9",
-    "userId": null,
-    "userName": null,
-    "version": 8,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": 1541797264166,
+      "reason": null,
+      "revisionId": "5be5f5906ce1ee637d3afad9",
+      "userId": null,
+      "userName": null,
+      "version": 8,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-    "date": 1541797099270,
-    "reason": null,
-    "revisionId": "5be5f4eb6ce1ee637d3afad4",
-    "userId": null,
-    "userName": null,
-    "version": 7,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": 1541797099270,
+      "reason": null,
+      "revisionId": "5be5f4eb6ce1ee637d3afad4",
+      "userId": null,
+      "userName": null,
+      "version": 7,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-    "date": null,
-    "reason": null,
-    "revisionId": "5bd9c3d9cfdf8a00012ce5e4",
-    "userId": null,
-    "userName": null,
-    "version": 6,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": null,
+      "reason": null,
+      "revisionId": "5bd9c3d9cfdf8a00012ce5e4",
+      "userId": null,
+      "userName": null,
+      "version": 6,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-    "date": null,
-    "reason": null,
-    "revisionId": "5bd98b715a5df954ad599e8c",
-    "userId": null,
-    "userName": null,
-    "version": 5,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": null,
+      "reason": null,
+      "revisionId": "5bd98b715a5df954ad599e8c",
+      "userId": null,
+      "userName": null,
+      "version": 5,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-    "date": null,
-    "reason": null,
-    "revisionId": "5bd9742e5a5df954ad58f44e",
-    "userId": null,
-    "userName": null,
-    "version": 4,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": null,
+      "reason": null,
+      "revisionId": "5bd9742e5a5df954ad58f44e",
+      "userId": null,
+      "userName": null,
+      "version": 4,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-    "date": null,
-    "reason": null,
-    "revisionId": "5bd85a2146e4bf444d97417d",
-    "userId": null,
-    "userName": null,
-    "version": 3,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": null,
+      "reason": null,
+      "revisionId": "5bd85a2146e4bf444d97417d",
+      "userId": null,
+      "userName": null,
+      "version": 3,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     }
-    ],
+  ],
   "changeLogLast": [
     {
-    "date": null,
-    "reason": null,
-    "revisionId": "5bd85a1b46e4bf444d97417b",
-    "userId": null,
-    "userName": null,
-    "version": 2,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": null,
+      "reason": null,
+      "revisionId": "5bd85a1b46e4bf444d97417b",
+      "userId": null,
+      "userName": null,
+      "version": 2,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     },
     {
-    "date": null,
-    "reason": null,
-    "revisionId": "5bd7112c46e4bf0363d74441",
-    "userId": null,
-    "userName": null,
-    "version": 1,
-    "workflowId": "5bd6fdf65a5df954ad47bdbe"
+      "date": null,
+      "reason": null,
+      "revisionId": "5bd7112c46e4bf0363d74441",
+      "userId": null,
+      "userName": null,
+      "version": 1,
+      "workflowId": "5bd6fdf65a5df954ad47bdbe"
     }
-   ]
-  
+  ]
 }
