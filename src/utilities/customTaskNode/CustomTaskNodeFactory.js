@@ -1,6 +1,7 @@
 import React from "react";
 import { AbstractNodeFactory } from "@boomerang/boomerang-dag";
-import CustomTaskNode from "Components/TaskNode";
+import CustomTaskNodeDesigner from "Components/TaskNodeDesigner";
+import CustomTaskNodeExecution from "Components/TaskNodeExecution";
 import CustomTaskNodeModel from "./CustomTaskNodeModel";
 
 export default class CustomTaskNodeFactory extends AbstractNodeFactory {
@@ -14,6 +15,11 @@ export default class CustomTaskNodeFactory extends AbstractNodeFactory {
   }
 
   generateReactWidget(diagramEngine, node) {
-    return <CustomTaskNode node={node} diagramEngine={diagramEngine} />;
+    // If diagram model is locked we can infer that the app is viewing the activity execution
+    if (diagramEngine.diagramModel.locked) {
+      return <CustomTaskNodeExecution node={node} diagramEngine={diagramEngine} />;
+    } else {
+      return <CustomTaskNodeDesigner node={node} diagramEngine={diagramEngine} />;
+    }
   }
 }
