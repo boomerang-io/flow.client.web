@@ -1,7 +1,7 @@
 import React from "react";
 import { AbstractNodeFactory } from "@boomerang/boomerang-dag";
-import CustomTaskNodeDesigner from "Components/TaskNodeDesigner";
-import CustomTaskNodeExecution from "Components/TaskNodeExecution";
+import CustomTaskNodeDesigner from "Components/TaskNode/designer.js";
+import CustomTaskNodeExecution from "Components/TaskNode/execution.js";
 import CustomTaskNodeModel from "./CustomTaskNodeModel";
 
 export default class CustomTaskNodeFactory extends AbstractNodeFactory {
