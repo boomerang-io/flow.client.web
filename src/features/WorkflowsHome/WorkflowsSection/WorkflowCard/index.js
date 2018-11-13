@@ -17,7 +17,7 @@ class WorkflowCard extends Component {
   };
 
   render() {
-    const { workflow, history, teamId } = this.props;
+    const { workflow, history, teamId, deleteWorkflow } = this.props;
     const menuOptions = [
       {
         itemText: "Edit",
@@ -31,8 +31,8 @@ class WorkflowCard extends Component {
       },
       {
         itemText: "Delete",
-        onClick: () => this.props.deleteWorkflow({ teamId, workflowId: workflow.id }),
-        primaryFocus: false
+        primaryFocus: false,
+        isDelete: true
       }
     ];
 
@@ -46,6 +46,33 @@ class WorkflowCard extends Component {
           <OverflowMenu className="b-workflow-card__menu" ariaLabel="" iconDescription="">
             {menuOptions.map(option => {
               return (
+                option.isDelete?
+                <AlertModal
+                  ModalTrigger={()=>
+                    <OverflowMenuItem 
+                      className="b-workflow-card__option"
+                      requireTitle={false}
+                      onClick={option.onClick}
+                      itemText={option.itemText}
+                      primaryFocus={option.primaryFocus}
+                      key={option.itemText}
+                    />
+                  }
+                  modalContent={(closeModal, rest) => (
+                    <ConfirmModal
+                      closeModal={closeModal}
+                      affirmativeAction={() => {
+                        deleteWorkflow({ teamId, workflowId: workflow.id })
+                      }}
+                      {...rest}
+                    />
+                  )}
+                  title="DELETE THIS WORKFLOW?"
+                  subTitleTop="This workflow will be deleted permanently"
+                  negativeText="NO"
+                  affirmativeText="DELETE"
+                />
+                :
                 <OverflowMenuItem
                   className="b-workflow-card__option"
                   requireTitle={false}
