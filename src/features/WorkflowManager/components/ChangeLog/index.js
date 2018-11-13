@@ -20,7 +20,8 @@ class ChangeLog extends Component {
 
   state = {
     hasMoreLogs: true,
-    changeLogList: []
+    changeLogList: [],
+    hasLoaded: false
   };
 
   componentDidMount() {
@@ -39,17 +40,17 @@ class ChangeLog extends Component {
         console.log(response);
         this.setState({
           changeLogList: [...newChangeLog, ...response.data],
-          hasMoreLogs: response.data.length < 10 ? false : true
+          hasMoreLogs: response.data.length < 10 ? false : true,
+          hasLoaded: true
         });
       });
   };
 
-  render() {
-    const { hasMoreLogs, changeLogList } = this.state;
-    return (
-      <div className="c-worklfow-change-log">
-        <label className="s-worklfow-change-log-title">{`${this.props.workflow.data.name} Changes`}</label>
-        {changeLogList.length > 0 ? (
+  renderChangeLog() {
+    const { hasLoaded, hasMoreLogs, changeLogList } = this.state;
+    if (hasLoaded) {
+      if (changeLogList.length > 0) {
+        return (
           <InfiniteScroll
             className="c-worklfow-log-list"
             pageStart={0}
@@ -62,9 +63,20 @@ class ChangeLog extends Component {
               return <LogCard log={log} />;
             })}
           </InfiniteScroll>
-        ) : (
-          <NoDisplay text="No changes to display" style={{ marginTop: "2rem" }} />
-        )}
+        );
+      } else {
+        return <NoDisplay text="No changes to display" style={{ marginTop: "2rem" }} />;
+      }
+    } else {
+      return <LoadingAnimation theme="bmrg-white" />;
+    }
+  }
+
+  render() {
+    return (
+      <div className="c-worklfow-change-log">
+        <label className="s-worklfow-change-log-title">{`${this.props.workflow.data.name} Changes`}</label>
+        {this.renderChangeLog()}
         <ScrollUp />
       </div>
     );
