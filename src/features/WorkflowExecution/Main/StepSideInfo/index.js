@@ -8,12 +8,8 @@ import "./styles.scss";
 const StepSideInfo = ({ step }) => {
   return (
     <div className="c-step-side-info">
-      <div className="s-step-side-info-title">Summary</div>
+      <div className="s-step-side-info-title">{step.taskName}</div>
       <div className="c-step-side-info-details">
-        <div className="b-step-side-info-field">
-          <div className="b-step-side-info-field__key">Name</div>
-          <div className="b-step-side-info-field__value">{step.taskName}</div>
-        </div>
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Type</div>
           <div className="b-step-side-info-field__value">{"Task"}</div>

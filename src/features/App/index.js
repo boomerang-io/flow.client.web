@@ -17,7 +17,6 @@ import "./styles.scss";
 class App extends Component {
   componentDidMount() {
     this.fetchData();
-    //document.addEventListener("mousedown", this.handleClickOutside);
   }
 
   refreshPage = () => {

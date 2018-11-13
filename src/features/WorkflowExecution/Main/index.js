@@ -5,24 +5,34 @@ import TimeProgressBar from "Components/TimeProgressBar";
 import DiagramApplication from "Utilities/DiagramApplication";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import StepSideInfo from "./StepSideInfo";
+import WorkflowSummary from "./WorfklowSummary";
+import "./styles.scss";
 
 class Main extends Component {
+  static propTypes = {
+    dag: PropTypes.object.isRequired,
+    taskId: PropTypes.string,
+    workflowData: PropTypes.object.isRequired,
+    workflowExecutionData: PropTypes.object.isRequired,
+    version: PropTypes.number
+  };
+
   constructor(props) {
     super(props);
-    this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, modelIsLocked: true });
+    this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
   }
 
   render() {
-    const { workflowExecution, taskId } = this.props;
-    const selectedStep = workflowExecution.steps.find(step => step.taskId === taskId);
+    const { workflowExecutionData, taskId } = this.props;
+    const selectedStep = workflowExecutionData.steps.find(step => step.taskId === taskId);
 
     return (
       <div className="c-workflow-execution">
         <nav style={{ marginBottom: "1rem" }}>
           <NavigateBack to="/activity" text="Back to Activity" />
         </nav>
-
-        <TimeProgressBar tasks={workflowExecution} />
+        <TimeProgressBar tasks={workflowExecutionData} />
+        <WorkflowSummary workflowData={this.props.workflowData} version={this.props.version} />
         {selectedStep && <StepSideInfo step={selectedStep} />}
         <div className="c-workflow-diagram-execution">
           <DiagramWidget
@@ -39,11 +49,5 @@ class Main extends Component {
     );
   }
 }
-
-Main.propTypes = {
-  taskId: PropTypes.string,
-  workflowExecution: PropTypes.object.isRequired,
-  workflowRevision: PropTypes.object.isRequired
-};
 
 export default Main;

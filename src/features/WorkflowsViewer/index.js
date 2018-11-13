@@ -35,7 +35,7 @@ class WorkflowsViewerContainer extends Component {
     const { workflow } = this.props;
 
     if (workflow.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon />;
+      return <ErrorDragon theme="bmrg-white" />;
     }
 
     if (workflow.status === REQUEST_STATUSES.SUCCESS) {

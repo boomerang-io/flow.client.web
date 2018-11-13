@@ -59,7 +59,7 @@ class WorkflowsActivity extends Component {
     const { searchQuery } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon />;
+      return <ErrorDragon theme="bmrg-white" />;
     }
 
     if (activity.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {

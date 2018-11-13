@@ -1,38 +1,38 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
-.c-step-side-info {
+.c-workflow-summary {
   position: absolute;
   right: 1rem;
-  top: 29rem;
+  top: 14rem;
   padding: 1rem;
   background-color: $white;
   width: 25vw;
 }
 
-.s-step-side-info-title {
+.s-workflow-summary-title {
   font-size: 1.25rem;
   font-weight: 700;
   margin-left: 1rem;
 }
 
-.c-step-side-info-details {
+.c-workflow-summary-details {
   padding: 2rem 0 0 1.75rem;
   width: 100%;
 }
 
-.b-step-side-info-field {
+.b-workflow-summary-field {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
 }
 
-.b-step-side-info-field__key {
+.b-workflow-summary-field__key {
   width: 30%;
   font-size: 1rem;
   font-weight: 600;
 }
 
-.b-step-side-info-field__value {
+.b-workflow-summary-field__value {
   width: 60%;
   font-size: 1rem;
   font-weight: 500;

@@ -83,7 +83,7 @@ class WorkflowsHome extends Component {
     const { searchQuery } = this.state;
 
     if (teams.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon />;
+      return <ErrorDragon theme="bmrg-white" />;
     }
 
     if (teams.isFetching) {

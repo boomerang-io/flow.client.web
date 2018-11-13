@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as tasksActions } from "State/tasks";
+import { actions as workflowActions } from "State/workflow";
 import { actions as workflowExecutionActions } from "State/workflowExecution";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import ErrorDragon from "Components/ErrorDragon";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
+import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import Main from "./Main";
 import "./styles.scss";
 
@@ -22,7 +24,8 @@ class WorkflowExecutionContainer extends Component {
   componentDidMount() {
     const { match } = this.props;
     this.fetchExecution();
-    this.executionInterval = setInterval(this.fetchExecution, 10000);
+    this.executionInterval = setInterval(this.fetchExecution, 5000);
+    this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/summary`);
     this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/revision`);
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
   }
@@ -41,30 +44,34 @@ class WorkflowExecutionContainer extends Component {
     const { data: workflowExecutionData, status: workflowExecutionStatus } = this.props.workflowExecution;
     const { fetchingStatus: workflowRevisionStatus } = this.props.workflowRevision;
     const { status: tasksStatus } = this.props.tasks;
+    const { fetchingStatus: workflowStatus } = this.props.workflow;
 
     if (
       workflowExecutionStatus === REQUEST_STATUSES.FAILURE ||
       workflowRevisionStatus === REQUEST_STATUSES.FAILURE ||
       tasksStatus === REQUEST_STATUSES.FAILURE
     ) {
-      return <ErrorDragon />;
+      return <ErrorDragon theme="bmrg-white" />;
     }
 
     if (
       workflowExecutionStatus === REQUEST_STATUSES.SUCCESS &&
       workflowRevisionStatus === REQUEST_STATUSES.SUCCESS &&
-      tasksStatus === REQUEST_STATUSES.SUCCESS
+      tasksStatus === REQUEST_STATUSES.SUCCESS &&
+      workflowStatus === REQUEST_STATUSES.SUCCESS
     ) {
       const step = workflowExecutionData.steps
         .slice(0)
         .reverse()
-        .find(step => step.flowTaskStatus !== "notstarted");
+        .find(step => step.flowTaskStatus !== ACTIVITY_STATUSES.NOT_STARTED);
       const taskId = nodeId ? nodeId : step.taskId;
 
       return (
         <Main
-          workflowRevision={this.props.workflowRevision}
-          workflowExecution={workflowExecutionData}
+          workflowData={this.props.workflow.data}
+          dag={this.props.workflowRevision.dag}
+          version={this.props.workflowRevision.version}
+          workflowExecutionData={workflowExecutionData}
           taskId={taskId}
         />
       );
@@ -76,6 +83,7 @@ class WorkflowExecutionContainer extends Component {
 
 const mapStateToProps = state => ({
   tasks: state.tasks,
+  workflow: state.workflow,
   workflowExecution: state.workflowExecution,
   workflowExecutionActiveNode: state.workflowExecutionActiveNode,
   workflowRevision: state.workflowRevision
@@ -83,6 +91,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   tasksActions: bindActionCreators(tasksActions, dispatch),
+  workflowActions: bindActionCreators(workflowActions, dispatch),
   workflowExecutionActions: bindActionCreators(workflowExecutionActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
