@@ -40,6 +40,7 @@
   }
 
   .bx--overflow-menu-options__option {
+    min-width: 11rem;
     &:hover {
       background-color: $cool-gray-1;
     }
