@@ -1,6 +1,6 @@
 {
   "name": "boomerang.app.flow",
-  "version": "0.1.0",
+  "version": "0.7.0",
   "private": true,
   "homepage": "https://launch.boomerangplatform.net/BMRG_APP_ROOT_CONTEXT",
   "dependencies": {
