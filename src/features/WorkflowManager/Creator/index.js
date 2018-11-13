@@ -6,6 +6,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
+import ChangeLog from "Features/WorkflowManager/components/ChangeLog";
 import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
 import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
@@ -33,6 +34,7 @@ class WorkflowCreatorContainer extends Component {
     if (this.props.workflowRevision.version !== prevProps.workflowRevision.version) {
       this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked: false });
       this.diagramApp.getDiagramEngine().repaintCanvas();
+      this.forceUpdate();
     }
   }
 
@@ -129,6 +131,14 @@ class WorkflowCreatorContainer extends Component {
                     deleteKeys={[]}
                   />
                 </div>
+              </>
+            )}
+          />
+          <Route
+            path={`${match.path}/changes`}
+            render={() => (
+              <>
+                <ChangeLog workflow={workflow} changeLog={changeLog} />
               </>
             )}
           />
