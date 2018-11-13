@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
 import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
-//import { actions as workflowExecutionActiveNodeActions } from "State/workflowExecutionActiveNode";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
@@ -15,13 +14,11 @@ import DisplayForm from "./DisplayForm";
 import pencilIcon from "./pencil.svg";
 import downloadIMG from "Assets/svg/install.svg";
 import emailIMG from "Assets/svg/email_icon.svg";
-//import documentIMG from "Assets/svg/document_16.svg";
 import "./styles.scss";
 
 export class TaskNode extends Component {
   static propTypes = {
     nodeConfig: PropTypes.object.isRequired,
-    //step: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired
@@ -33,29 +30,16 @@ export class TaskNode extends Component {
 
   state = {};
 
-  //need to create a save function where we make change to global state
   handleOnSave = inputs => {
     this.props.workflowRevisionActions.updateNode({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
 
+  // Delete the node in state and then remove it from the diagram
   handleOnDelete = () => {
-    /*
-        want to delete the node in state and then remove it from the diagram
-    */
     this.props.workflowRevisionActions.deleteNode({ nodeId: this.props.node.id });
     this.props.node.remove();
   };
-
-  /*
-      TODO:
-        essentially what we want to do is put a switch statement on the task.config.name property
-        if it is an empty name then we can display the default name from the pallet
-        otherwise if the user has filled something in, then we can populate it with that
-        given name 
-  */
-
-  //Object.keys(sellers.mergedSellerArray).length === 0
 
   determineNodeIcon() {
     let nodeIcon;
@@ -127,14 +111,12 @@ const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
     nodeConfig: state.workflowRevision.config[ownProps.node.id]
-    //step: {}
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch),
   workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch),
-  //workflowExecutionActiveNodeActions: bindActionCreators(workflowExecutionActiveNodeActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 

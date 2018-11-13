@@ -11,7 +11,6 @@ import { PortWidget } from "@boomerang/boomerang-dag";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import downloadIMG from "Assets/svg/install.svg";
 import emailIMG from "Assets/svg/email_icon.svg";
-//import documentIMG from "Assets/svg/document_16.svg";
 import "./styles.scss";
 
 export class TaskNode extends Component {
@@ -35,16 +34,6 @@ export class TaskNode extends Component {
       nodeId: this.props.node.id
     });
   };
-
-  /*
-      TODO:
-        essentially what we want to do is put a switch statement on the task.config.name property
-        if it is an empty name then we can display the default name from the pallet
-        otherwise if the user has filled something in, then we can populate it with that
-        given name 
-  */
-
-  //Object.keys(sellers.mergedSellerArray).length === 0
 
   determineNodeIcon() {
     let nodeIcon;
