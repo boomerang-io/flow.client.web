@@ -55,11 +55,17 @@ class WorkflowExecutionContainer extends Component {
       workflowRevisionStatus === REQUEST_STATUSES.SUCCESS &&
       tasksStatus === REQUEST_STATUSES.SUCCESS
     ) {
+      const step = workflowExecutionData.steps
+        .slice(0)
+        .reverse()
+        .find(step => step.flowTaskStatus !== "notstarted");
+      const taskId = nodeId ? nodeId : step.taskId;
+
       return (
         <Main
           workflowRevision={this.props.workflowRevision}
           workflowExecution={workflowExecutionData}
-          nodeId={nodeId}
+          taskId={taskId}
         />
       );
     }
