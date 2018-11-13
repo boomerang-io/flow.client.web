@@ -1,6 +1,7 @@
 import React from "react";
 import { AbstractNodeFactory } from "@boomerang/boomerang-dag";
-import CustomTaskNode from "Components/TaskNode";
+import CustomTaskNodeDesigner from "Components/TaskNodeDesigner";
+import CustomTaskNodeExecution from "Components/TaskNodeExecution";
 import CustomTaskNodeModel from "./CustomTaskNodeModel";
 
 export default class CustomTaskNodeFactory extends AbstractNodeFactory {
@@ -14,6 +15,13 @@ export default class CustomTaskNodeFactory extends AbstractNodeFactory {
   }
 
   generateReactWidget(diagramEngine, node) {
-    return <CustomTaskNode node={node} diagramEngine={diagramEngine} />;
+    //console.log(diagramEngine.diagramModel.locked);
+    if (diagramEngine.diagramModel.locked) {
+      //console.log("rendering  TaskNode in Execution mode");
+      return <CustomTaskNodeExecution node={node} diagramEngine={diagramEngine} />;
+    } else {
+      //console.log("rendering  TaskNode in Designer mode");
+      return <CustomTaskNodeDesigner node={node} diagramEngine={diagramEngine} />;
+    }
   }
 }
