@@ -12,7 +12,7 @@ export const navItems = [
   {
     path: "/creator",
     exact: false,
-    text: "Creator"
+    text: "Designer"
   },
   {
     path: "/insights",

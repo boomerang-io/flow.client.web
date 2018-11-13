@@ -1,33 +1,54 @@
-.s-hamburger-menu {
+.s-boomerang-logo {
   position: fixed;
   z-index: 1000;
-  top: 0.625rem;
+  width: 8rem;
+  height: 3.125rem;
+  left: 4rem;
+}
+
+@media (max-width: 60rem) {
+  .s-boomerang-logo {
+    display: none;
+  }
+}
+
+.s-hamburger-menu {
+  height: 3.125rem;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
   left: 0.625rem;
   cursor: pointer;
+  transition: all 0.35s linear;
   transform: scale(0.75);
 
-  .frstbar {
+  &.--is-open {
+    transform-origin: 0% 22.5%;
+  }
+
+  .bar1 {
     transform-origin: -15% 50%;
     transition: all 0.35s linear;
   }
-  .thrdbar {
+  .bar3 {
     transform-origin: 30% 50%;
     transition: all 0.35s linear;
   }
 
-  .scndbar {
+  .bar2 {
     transition: all 0.2s linear;
   }
 
-  &.--is-open .frstbar {
+  &.--is-open .bar1 {
     transform: rotate(42deg);
   }
 
-  &.--is-open .thrdbar {
+  &.--is-open .bar3 {
     transform: rotate(-42deg);
   }
 
-  &.--is-open .scndbar {
+  &.--is-open .bar2 {
     width: 0;
     opacity: 0;
   }
