@@ -11,8 +11,7 @@ import "./styles.scss";
 
 class ChangeLog extends Component {
   static propTypes = {
-    workflow: PropTypes.object.isRequired,
-    changeLog: PropTypes.object.isRequired
+    workflow: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -20,8 +19,8 @@ class ChangeLog extends Component {
   };
 
   state = {
-    hasMoreLogs: this.props.changeLog.data.length < 10 ? false : true,
-    changeLogList: this.props.changeLog.data
+    hasMoreLogs: true,
+    changeLogList: []
   };
 
   loadMoreLogs = page => {

@@ -46,7 +46,6 @@ class WorkflowEditor extends Component {
 
   render() {
     const {
-      changeLog,
       createNode,
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
@@ -116,7 +115,7 @@ class WorkflowEditor extends Component {
             path={`${match.path}/changes`}
             render={() => (
               <>
-                <ChangeLog workflow={workflow} changeLog={changeLog} />
+                <ChangeLog workflow={workflow} />
               </>
             )}
           />

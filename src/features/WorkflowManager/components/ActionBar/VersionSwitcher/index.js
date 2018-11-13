@@ -72,7 +72,7 @@ class VersionSwitcher extends Component {
     return (
       <div className="c-version-switcher">
         <div className="s-version-switcher-text">
-          Version {currentRevision} of {revisionCount != 0 ? revisionCount : 1}
+          Version {currentRevision} of {revisionCount !== "0" ? revisionCount : 1}
         </div>
         <div className="c-version-switcher-buttons">
           {this.renderBackButtons(currentRevision > 1)}
