@@ -23,8 +23,12 @@ class ChangeLog extends Component {
     changeLogList: []
   };
 
+  componentDidMount() {
+    this.loadMoreLogs(0);
+  }
+
   loadMoreLogs = page => {
-    let newChangeLog = [].concat(this.state.changeLogList);
+    let newChangeLog = [...this.state.changeLogList];
     axios
       .get(
         `${BASE_SERVICE_URL}/workflow/${
@@ -32,8 +36,9 @@ class ChangeLog extends Component {
         }/changelog?size=10&page=${page}&sort=version&order=DESC`
       )
       .then(response => {
+        console.log(response);
         this.setState({
-          changeLogList: newChangeLog.concat(response.data),
+          changeLogList: [...newChangeLog, ...response.data],
           hasMoreLogs: response.data.length < 10 ? false : true
         });
       });
@@ -43,10 +48,10 @@ class ChangeLog extends Component {
     const { hasMoreLogs, changeLogList } = this.state;
     return (
       <div className="c-worklfow-change-log">
-        <label className="s-worklfow-change-log__title">{`${this.props.workflow.data.name} Changes`}</label>
+        <label className="s-worklfow-change-log-title">{`${this.props.workflow.data.name} Changes`}</label>
         {changeLogList.length > 0 ? (
           <InfiniteScroll
-            className="c-worklfow__log-list"
+            className="c-worklfow-log-list"
             pageStart={0}
             loadMore={this.loadMoreLogs}
             hasMore={hasMoreLogs}

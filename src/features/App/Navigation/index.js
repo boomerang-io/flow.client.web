@@ -51,10 +51,10 @@ class Navigation extends Component {
             onClick={this.handleOnIconClick}
           >
             <svg height="32" id="Layer_1" version="1.1" viewBox="0 0 36 36" width="32">
-              <g class="icon">
-                <rect class="frstbar" x="0" y="0" width="32" height="4" rx="2" fill="#40d5bb" />
-                <rect class="scndbar" x="0" y="12" width="32" height="4" rx="2" fill="#40d5bb" />
-                <rect class="thrdbar" x="0" y="24" width="32" height="4" rx="2" fill="#40d5bb" />
+              <g className="icon">
+                <rect className="frstbar" x="0" y="0" width="32" height="4" rx="2" fill="#40d5bb" />
+                <rect className="scndbar" x="0" y="12" width="32" height="4" rx="2" fill="#40d5bb" />
+                <rect className="thrdbar" x="0" y="24" width="32" height="4" rx="2" fill="#40d5bb" />
               </g>
             </svg>
           </div>

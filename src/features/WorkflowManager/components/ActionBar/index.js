@@ -17,14 +17,14 @@ import "./styles.scss";
 class ActionBar extends Component {
   static propTypes = {
     actionButtonText: PropTypes.string.isRequired,
-    currentRevision: PropTypes.string.isRequired,
+    currentRevision: PropTypes.number.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     includePerformActionAlert: PropTypes.bool,
     includeVersionSwitcher: PropTypes.bool,
     includeZoom: PropTypes.bool,
     performAction: PropTypes.func.isRequired,
-    revisionCount: PropTypes.string.isRequired
+    revisionCount: PropTypes.number.isRequired
   };
 
   static defaultProps = {
