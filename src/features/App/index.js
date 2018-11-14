@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as userActions } from "State/user";
 import { actions as navbarLinksActions } from "State/navbarLinks";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
+import NotificationBanner from "Components/NotificationBanner";
 import WorkflowActivity from "Features/WorkflowActivity";
 import WorkflowsHome from "Features/WorkflowsHome";
 import WorkflowManager from "Features/WorkflowManager";
@@ -15,6 +17,10 @@ import { BASE_LAUNCHPAD_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
 
 class App extends Component {
+  state = {
+    bannerClosed: false
+  };
+
   componentDidMount() {
     this.fetchData();
   }
@@ -28,11 +34,16 @@ class App extends Component {
     this.props.navbarLinksActions.fetch(`${BASE_LAUNCHPAD_SERVICE_URL}/navigation`);
   };
 
+  closeBanner = () => {
+    this.setState({ bannerClosed: true });
+  };
+
   render() {
     return (
       <>
         <Navigation user={this.props.user} navbarLinks={this.props.navbarLinks} refresh={this.refreshPage} />
-        <main className="c-app-main">
+        <NotificationBanner closeBanner={this.closeBanner} />
+        <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
           <Switch>
             <Route path="/workflows" component={WorkflowsHome} />
             <Route path="/activity/:workflowId/execution/:executionId" component={WorkflowExecution} />

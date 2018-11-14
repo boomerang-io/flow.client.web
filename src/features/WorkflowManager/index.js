@@ -173,40 +173,42 @@ class WorkflowManagerContainer extends Component {
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS) {
       return (
-        <Switch>
-          <Route
-            path="/creator"
-            render={props => (
-              <Creator
-                workflow={this.props.workflow}
-                workflowRevision={this.props.workflowRevision}
-                createNode={this.createNode}
-                createWorkflow={this.createWorkflow}
-                createWorkflowRevision={this.createWorkflowRevision}
-                fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-                updateWorkflow={this.updateWorkflow}
-                handleOnOverviewChange={this.handleOnOverviewChange}
-                handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/editor/:workflowId"
-            render={props => (
-              <EditorContainer
-                workflow={this.props.workflow}
-                createNode={this.createNode}
-                createWorkflowRevision={this.createWorkflowRevision}
-                fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-                handleOnOverviewChange={this.handleOnOverviewChange}
-                handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-                updateWorkflow={this.updateWorkflow}
-                {...props}
-              />
-            )}
-          />
-        </Switch>
+        <div className="c-workflow-designer">
+          <Switch>
+            <Route
+              path="/creator"
+              render={props => (
+                <Creator
+                  workflow={this.props.workflow}
+                  workflowRevision={this.props.workflowRevision}
+                  createNode={this.createNode}
+                  createWorkflow={this.createWorkflow}
+                  createWorkflowRevision={this.createWorkflowRevision}
+                  fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
+                  updateWorkflow={this.updateWorkflow}
+                  handleOnOverviewChange={this.handleOnOverviewChange}
+                  handleChangeLogReasonChange={this.handleChangeLogReasonChange}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/editor/:workflowId"
+              render={props => (
+                <EditorContainer
+                  workflow={this.props.workflow}
+                  createNode={this.createNode}
+                  createWorkflowRevision={this.createWorkflowRevision}
+                  fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
+                  handleOnOverviewChange={this.handleOnOverviewChange}
+                  handleChangeLogReasonChange={this.handleChangeLogReasonChange}
+                  updateWorkflow={this.updateWorkflow}
+                  {...props}
+                />
+              )}
+            />
+          </Switch>
+        </div>
       );
     }
 

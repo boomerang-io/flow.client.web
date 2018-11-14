@@ -32,7 +32,7 @@ class Main extends Component {
 
     return (
       <div className="c-workflow-execution">
-        <nav style={{ marginBottom: "1rem" }}>
+        <nav style={{ marginBottom: "1rem", width: "11rem" }}>
           <NavigateBack to="/activity" text="Back to Activity" />
         </nav>
         <TimeProgressBar updateActiveNode={updateActiveNode} tasks={workflowExecutionData} />
