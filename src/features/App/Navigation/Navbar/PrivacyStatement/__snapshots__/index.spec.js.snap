@@ -78,12 +78,12 @@ exports[` 1`] = `
   }
   userActions={
     Object {
-      "cancelFetchUser": [Function],
-      "fetchUser": [Function],
-      "fetchUserFailure": [Function],
-      "fetchUserRequest": [Function],
-      "fetchUserSucccess": [Function],
-      "resetUser": [Function],
+      "cancel": [Function],
+      "fetch": [Function],
+      "fetchFailure": [Function],
+      "fetchRequest": [Function],
+      "fetchSuccess": [Function],
+      "reset": [Function],
     }
   }
 />
