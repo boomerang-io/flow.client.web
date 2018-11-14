@@ -27,24 +27,9 @@ class NotificationBanner extends Component {
         <div className="b-notification-banner__text">
           Welcome to Boomerang Flow! We are excited to have an Alpha release and hope you enjoy using it. You may notice
           a bug or two. Please don't hesitate to reach out to us on Slack at{" "}
-          {
-            <Link openInNewContext href={`slack://user?team=${SLACK_TEAM_ID}&id=W3FECR56F`}>
-              @twlawrie
-            </Link>
-          }
-          ,{" "}
-          {
-            <Link openInNewContext href={`slack://user?team=${SLACK_TEAM_ID}&id=W3FECR45R`}>
-              @trbula
-            </Link>
-          }
-          , or{" "}
-          {
-            <Link openInNewContext href={`slack://user?team=${SLACK_TEAM_ID}&id=W3FJMSSQ4`}>
-              @mdroy
-            </Link>
-          }
-          . Thanks!
+          {<Link href={`slack://user?team=${SLACK_TEAM_ID}&id=W3FECR56F`}>@twlawrie</Link>},{" "}
+          {<Link href={`slack://user?team=${SLACK_TEAM_ID}&id=W3FECR45R`}>@trbula</Link>}, or{" "}
+          {<Link href={`slack://user?team=${SLACK_TEAM_ID}&id=W3FJMSSQ4`}>@mdroy</Link>}. Thanks!
         </div>
         <img onClick={this.closeBanner} src={close} className="b-notification-banner__close-icon" alt="close" />
       </div>
