@@ -12,8 +12,6 @@ import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "./DisplayForm";
 import pencilIcon from "./pencil.svg";
-//import downloadIMG from "Assets/svg/install.svg";
-//import emailIMG from "Assets/svg/email_icon.svg";
 import { TASK_KEYS, TASK_KEYS_TO_ICON } from "Constants/taskIcons";
 import "./styles.scss";
 
