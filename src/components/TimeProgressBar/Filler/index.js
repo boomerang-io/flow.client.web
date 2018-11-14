@@ -3,7 +3,7 @@ import moment from "moment";
 import momentDurationFormatSetup from "moment-duration-format";
 import "./styles.scss";
 
-const Filler = ({ index, finishPosition, totalDuration }) => {
+const Filler = ({ taskId, index, taskName, finishPosition, totalDuration, updateActiveNode }) => {
   const colors = ["#57d785", "#95c4f3", "#e3bc13", "#fc835c", "#f7aac3"];
 
   const styles = {
@@ -18,8 +18,9 @@ const Filler = ({ index, finishPosition, totalDuration }) => {
     : "";
 
   return (
-    <div className="b-time-progress-bar-filler" style={styles}>
+    <div onClick={() => updateActiveNode(taskId)} className="b-time-progress-bar-filler" style={styles}>
       <div className="b-time-progress-bar-filler__time">{finishTime}</div>
+      <div className="b-time-progress-bar-filler__name">{taskName}</div>
     </div>
   );
 };

@@ -4,8 +4,7 @@ import orderBy from "lodash/orderBy";
 import Filler from "./Filler";
 import "./styles.scss";
 
-const TimeProgressBar = ({ tasks }) => {
-
+const TimeProgressBar = ({ tasks, updateActiveNode }) => {
   const steps = orderBy(tasks.steps, ["order"], ["asc"]);
   const totalDuration = tasks.duration;
 
@@ -18,19 +17,23 @@ const TimeProgressBar = ({ tasks }) => {
           {steps.map((step, index) => (
             <Filler
               key={step.taskId}
+              taskId={step.taskId}
               index={index}
-              finishPosition={(((step.startTime - tasks.creationDate) + step.duration) / totalDuration) * 100}
+              taskName={step.taskName}
+              finishPosition={((step.startTime - tasks.creationDate + step.duration) / totalDuration) * 100}
               totalDuration={totalDuration}
+              updateActiveNode={updateActiveNode}
             />
           ))}
         </div>
       </div>
     </div>
   );
-}
+};
 
 TimeProgressBar.propTypes = {
-  tasks: PropTypes.object.isRequired
+  tasks: PropTypes.object.isRequired,
+  updateActiveNode: PropTypes.func
 };
 
 export default TimeProgressBar;
