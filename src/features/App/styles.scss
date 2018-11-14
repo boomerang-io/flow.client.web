@@ -8,8 +8,13 @@
 }
 
 .c-app-main {
-  padding-top: 3.125rem;
+  padding-top: 8.125rem;
   height: 100vh;
+  transition: padding-top 0.5s ease-in;
+
+  &.--banner-closed {
+    padding-top: 3.125rem;
+  }
 
   .bmrg--c-sidenav {
     margin-top: 0rem;
