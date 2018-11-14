@@ -5,15 +5,11 @@ import "./styles.scss";
 const WorkflowSummary = ({ workflowData, version }) => {
   return (
     <div className="c-workflow-summary">
-      <div className="s-workflow-summary-title">Workflow</div>
+      <div className="s-workflow-summary-title">{workflowData.name || "Workflow"}</div>
       <div className="c-workflow-summary-details">
         <div className="b-workflow-summary-field">
-          <div className="b-workflow-summary-field__key">Name</div>
-          <div className="b-workflow-summary-field__value">{workflowData.name}</div>
-        </div>
-        <div className="b-workflow-summary-field">
           <div className="b-workflow-summary-field__key">Description</div>
-          <div className="b-workflow-summary-field__value">{workflowData.shortDescription}</div>
+          <div className="b-workflow-summary-field__value">{workflowData.shortDescription || ""}</div>
         </div>
         <div className="b-workflow-summary-field">
           <div className="b-workflow-summary-field__key">Version</div>

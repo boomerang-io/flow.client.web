@@ -3,7 +3,7 @@
 .c-workflow-summary {
   position: absolute;
   right: 1rem;
-  top: 14rem;
+  top: 13rem;
   padding: 1rem;
   background-color: $white;
   width: 25vw;
@@ -13,6 +13,9 @@
   font-size: 1.25rem;
   font-weight: 700;
   margin-left: 1rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .c-workflow-summary-details {
@@ -39,6 +42,9 @@
   text-align: left;
   display: flex;
   align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 
   img {
     margin-left: 1rem;

@@ -127,18 +127,17 @@
   width: 2rem;
   height: 2rem;
 }
-.bmrg--b-confirm-modal__button.--affirmative.--children{
+.bmrg--b-confirm-modal__button.--affirmative.--children {
   width: 15rem;
   max-width: 13rem;
   position: absolute;
   bottom: 2.45rem;
   right: 12.5rem;
 }
-.bmrg--c-alert-modal.--execute-workflow{
+.bmrg--c-alert-modal.--execute-workflow {
   width: 38rem;
-  .bmrg--b-confirm-modal__buttons{
-    align-self: flex-start;
+  .bmrg--b-confirm-modal__buttons {
+    align-self: center;
     min-width: 35rem;
-    margin-left: 1.5rem;
   }
 }

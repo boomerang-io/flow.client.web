@@ -53,7 +53,7 @@ class WorkflowsHome extends Component {
     this.props.history.push(`/creator/overview`);
   };
 
-  handleExecute = (workflowId, redirect) => {
+  handleExecute = ({ workflowId, redirect }) => {
     return axios
       .post(`${BASE_SERVICE_URL}/execute/${workflowId}`)
       .then(response => {

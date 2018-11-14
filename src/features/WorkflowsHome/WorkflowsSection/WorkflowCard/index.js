@@ -99,16 +99,19 @@ class WorkflowCard extends Component {
                 )}
                 modalContent={closeModal => (
                   <ConfirmModal
-                    style={{width:"35rem"}}
+                    style={{ width: "32rem", height: "28rem" }}
                     title="Execute workflow?"
                     subTitleTop="It will run"
                     closeModal={closeModal}
-                    affirmativeAction={() => this.props.executeWorkflow(workflow.id, false)}
+                    affirmativeAction={() => this.props.executeWorkflow({ workflowId: workflow.id, redirect: false })}
                     affirmativeText="Run"
                     theme="bmrg-white"
                   >
-                    <button className="bmrg--b-confirm-modal__button --affirmative --children" onClick={()=>this.props.executeWorkflow(workflow.id, true)}>
-                      Run and Redirect
+                    <button
+                      className="bmrg--b-confirm-modal__button --affirmative --children"
+                      onClick={() => this.props.executeWorkflow({ workflowId: workflow.id, redirect: true })}
+                    >
+                      Run and View
                     </button>
                   </ConfirmModal>
                 )}
