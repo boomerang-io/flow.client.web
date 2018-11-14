@@ -146,14 +146,16 @@ class WorkflowCreatorContainer extends Component {
               </>
             )}
           />
-          <Route
-            path={`${match.path}/changes`}
-            render={() => (
-              <>
-                <ChangeLog workflow={workflow} />
-              </>
-            )}
-          />
+          {hasCreatedWorkflow && (
+            <Route
+              path={`${match.path}/changes`}
+              render={() => (
+                <>
+                  <ChangeLog workflow={workflow} />
+                </>
+              )}
+            />
+          )}
           <Redirect from={`${match.path}`} to={`${match.path}/overview`} />
         </Switch>
       </>
