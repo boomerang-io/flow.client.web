@@ -20,7 +20,7 @@ class NotificationBanner extends Component {
 
   render() {
     const text =
-      "Welcome to Boomerang Flow. We are excited to release an Alpha release and hope you enjoy using it. Occasionally you may notice a bug or an issue, don’t be alarmed, this is still in active development. Feel free to let us know on slack @twlawrie, @trbula or @mdroy";
+      "Welcome to Boomerang Flow. We are excited to have an Alpha release and hope you enjoy using it. Occasionally, you may notice a bug or an issue. Please let us know what goes wrong on Slack: @twlawrie, @trbula or @mdroy";
 
     return (
       <div className={classnames("b-notification-banner", { "--hidden": !this.state.isOpen })}>

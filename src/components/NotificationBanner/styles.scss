@@ -4,26 +4,28 @@
   position: fixed;
   top: 3.125rem;
   width: 100vw;
-  background-color: $gray-90;
+  background-color: $cerulean-50;
   padding: 1rem 3rem 1rem 1rem;
-  z-index: 998;
-  transition: top 0.5s ease-in;
+  z-index: 2;
+  transition: transform 0.3s ease;
 
   &.--hidden {
-    top: -5rem;
+    transform: translateY(-100%);
   }
 }
 
 .b-notification-banner__text {
   color: $white;
-  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 0.0125rem;
   line-height: 1.75rem;
   text-align: center;
 }
 
 .b-notification-banner__close-icon {
   position: absolute;
-  top: 1rem;
+  top: 1.25rem;
   right: 1rem;
   height: 1rem;
   width: 1rem;
