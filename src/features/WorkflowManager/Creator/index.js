@@ -32,7 +32,10 @@ class WorkflowCreatorContainer extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.workflowRevision.version !== prevProps.workflowRevision.version) {
-      this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked: false });
+      const { revisionCount } = this.props.workflow.data;
+      const { version } = this.props.workflowRevision;
+      const isLocked = version < revisionCount;
+      this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked });
       this.diagramApp.getDiagramEngine().repaintCanvas();
       this.forceUpdate();
     }
