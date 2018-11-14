@@ -30,7 +30,7 @@ class WorkflowsHome extends Component {
   }
 
   handleSearchFilter = (searchQuery, teams) => {
-    this.setState({ searchQuery, teamsFilter: teams });
+    this.setState({ searchQuery, teamsFilter: Array.isArray(teams) && teams.length ? teams : [] });
   };
 
   filterTeams = () => {

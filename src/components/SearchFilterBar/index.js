@@ -21,7 +21,7 @@ class SearchFilterBar extends Component {
 
   state = {
     searchQuery: "",
-    selectedItems: this.props.selectedOption?this.props.selectedOption:[]
+    selectedItems: this.props.selectedOption ? this.props.selectedOption : []
   };
 
   handleOnSearchInputChange = e => {
@@ -52,7 +52,7 @@ class SearchFilterBar extends Component {
 
   handleSearchFilter = () => {
     const { searchQuery, selectedItems } = this.state;
-    console.log(searchQuery,selectedItems,"aff?");
+    console.log(searchQuery, selectedItems);
 
     this.props.handleSearchFilter(searchQuery, selectedItems);
   };
@@ -72,8 +72,7 @@ class SearchFilterBar extends Component {
           />
         </div>
         <div className="b-search-filter__filter">
-        {
-          multiselect?
+          {multiselect ? (
             <MultiSelect
               useTitleInItem={false}
               label="Filter"
@@ -84,7 +83,7 @@ class SearchFilterBar extends Component {
               }
               itemToString={item => (item ? item.text : "")}
             />
-          :
+          ) : (
             <Select
               useTitleInItem={false}
               hideLabel={true}
@@ -92,27 +91,18 @@ class SearchFilterBar extends Component {
               onChange={this.handleOnSelectChange}
               defaultValue={selectedOption}
             >
-              <SelectItem
-                value="none"
-                text="Filter - none"
-              />
-            {
-              options.map(option=>{
-                return(
+              <SelectItem value="none" text="All" />
+              {options.map(option => {
+                return (
                   <SelectItemGroup label={option.name}>
-                    {
-                      option.workflows.map(workflow => {
-                        return(
-                          <SelectItem value={workflow.id} text={workflow.name} />
-                        );
-                      })
-                    }
+                    {option.workflows.map(workflow => {
+                      return <SelectItem value={workflow.id} text={workflow.name} />;
+                    })}
                   </SelectItemGroup>
                 );
-              })
-            }
+              })}
             </Select>
-        }
+          )}
         </div>
       </div>
     );
