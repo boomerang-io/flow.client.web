@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowExecutionActions } from "State/workflowExecution";
+import { actions as workflowExecutionActiveNodeActions } from "State/workflowExecutionActiveNode";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import ErrorDragon from "Components/ErrorDragon";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -17,6 +18,7 @@ class WorkflowExecutionContainer extends Component {
     workflowExecution: PropTypes.object.isRequired,
     workflowExecutionActions: PropTypes.object.isRequired,
     workflowExecutionActiveNode: PropTypes.object.isRequired,
+    workflowExecutionActiveNodeActions: PropTypes.object,
     workflowRevision: PropTypes.object,
     workflowRevisionActions: PropTypes.object
   };
@@ -40,6 +42,13 @@ class WorkflowExecutionContainer extends Component {
   fetchExecution = () => {
     const { match, workflowExecutionActions } = this.props;
     workflowExecutionActions.fetch(`${BASE_SERVICE_URL}/activity/${match.params.executionId}`);
+  };
+
+  updateActiveNode = nodeId => {
+    this.props.workflowExecutionActiveNodeActions.updateActiveNode({
+      workflowId: this.props.match.params.workflowId,
+      nodeId
+    });
   };
 
   render() {
@@ -79,6 +88,7 @@ class WorkflowExecutionContainer extends Component {
           version={this.props.workflowRevision.version}
           workflowExecutionData={workflowExecutionData}
           taskId={taskId}
+          updateActiveNode={this.updateActiveNode}
         />
       );
     }
@@ -99,6 +109,7 @@ const mapDispatchToProps = dispatch => ({
   tasksActions: bindActionCreators(tasksActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch),
   workflowExecutionActions: bindActionCreators(workflowExecutionActions, dispatch),
+  workflowExecutionActiveNodeActions: bindActionCreators(workflowExecutionActiveNodeActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 

@@ -14,6 +14,7 @@ class Main extends Component {
     taskId: PropTypes.string,
     workflowData: PropTypes.object.isRequired,
     workflowExecutionData: PropTypes.object.isRequired,
+    updateActiveNode: PropTypes.func,
     version: PropTypes.number
   };
 
@@ -23,7 +24,7 @@ class Main extends Component {
   }
 
   render() {
-    const { workflowExecutionData, taskId } = this.props;
+    const { workflowExecutionData, taskId, updateActiveNode } = this.props;
     const selectedStep =
       workflowExecutionData.steps && workflowExecutionData.steps.length && taskId
         ? workflowExecutionData.steps.find(step => step.taskId === taskId)
@@ -34,7 +35,7 @@ class Main extends Component {
         <nav style={{ marginBottom: "1rem" }}>
           <NavigateBack to="/activity" text="Back to Activity" />
         </nav>
-        <TimeProgressBar tasks={workflowExecutionData} />
+        <TimeProgressBar updateActiveNode={updateActiveNode} tasks={workflowExecutionData} />
         <WorkflowSummary workflowData={this.props.workflowData} version={this.props.version} />
         {selectedStep && <StepSideInfo step={selectedStep} />}
         <div className="c-workflow-diagram-execution">
