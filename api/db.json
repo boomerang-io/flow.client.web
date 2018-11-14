@@ -4759,6 +4759,7 @@
         "workflowId": "5bd9d8ab7eb44d0001772e64",
         "workflowRevisionid": "5bd9e1cfa40f5d0001249bfa",
         "description": "file ingestion",
+        "teamName": "Isa's Team",
         "icon": "flow",
         "shortDescription": "file ingestion",
         "workflowName": "Business Process Test"
@@ -4772,6 +4773,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
+        "teamName": "Lucas's Team",
         "icon": "diagram",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
@@ -4785,6 +4787,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
+        "teamName": "Ben's Team",
         "icon": "diagram",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"

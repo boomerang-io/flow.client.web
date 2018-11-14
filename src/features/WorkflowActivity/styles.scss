@@ -5,6 +5,10 @@
   flex-direction: column;
   align-items: center;
   max-width: 100rem;
+
+  .b-search-filter__filter{
+    width: 13rem;
+  }
 }
 
 .c-workflow-activity-content {
@@ -17,3 +21,4 @@
   margin-top: 1rem;
   align-self: flex-start;
 }
+

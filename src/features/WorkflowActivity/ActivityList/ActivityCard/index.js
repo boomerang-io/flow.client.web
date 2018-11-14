@@ -14,7 +14,7 @@ class ActivityCard extends Component {
   };
 
   render() {
-    const { icon, workflowName, description, creationDate, status, duration, id, workflowId } = this.props.activity;
+    const { icon, workflowName, description, creationDate, status, duration, id, workflowId, teamName } = this.props.activity;
     return (
       <Link className={`c-activities-card --${status}`} to={`/activity/${workflowId}/execution/${id}`}>
         <div className="c-activity-card__workflow">
@@ -22,6 +22,7 @@ class ActivityCard extends Component {
             <img className="b-activity-card__icon" src={imgs[icon ? icon : "docs"]} alt="icon" />
           </div>
           <div className="c-activity-card__workflow-info">
+            <label className="b-activity-card__team-name">{teamName}</label>
             <label className="b-activity-card__name">{workflowName}</label>
             <label className="b-activity-card__description">{description}</label>
           </div>

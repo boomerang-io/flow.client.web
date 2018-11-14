@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as activityActions } from "State/activity";
 import { actions as teamsActions } from "State/teams";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
+import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
 import SearchFilterBar from "Components/SearchFilterBar";
@@ -20,12 +21,14 @@ class WorkflowsActivity extends Component {
 
   state = {
     searchQuery: "",
-    teamFilter: [],
+    workflowId:this.props.match.params.workflowId?this.props.match.params.workflowId:"",
     tableSize: 10
   };
 
   componentDidMount() {
-    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0`);
+    const { params } = this.props.match;
+    const workflowParam = params.workflowId? `&workflowId=${params.workflowId}`:"";
+    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0${workflowParam}`);
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   }
   fetchActivities = url => {
@@ -34,20 +37,10 @@ class WorkflowsActivity extends Component {
   savePageSize = size => {
     this.setState({ tableSize: size });
   };
-  handleSearchFilter = (searchQuery, team) => {
-    this.setState({ searchQuery, teamFilter: team });
-    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0&query=${searchQuery}`);
-  };
 
-  filterActivity = () => {
-    const { activity } = this.props;
-    const { teamFilter } = this.state;
-
-    if (teamFilter.length > 0) {
-      return activity.data.records.filter(item => teamFilter.find(filter => filter.id === item.teamId));
-    } else {
-      return activity.data.records;
-    }
+  handleSearchFilter = (searchQuery, workflowId) => {
+    this.setState({ searchQuery, workflowId });
+    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0&query=${searchQuery}&workflowId=${workflowId==="none"?"":workflowId}`);
   };
 
   updateWorkflows = data => {
@@ -55,16 +48,18 @@ class WorkflowsActivity extends Component {
   };
 
   render() {
-    const { activity, teams, history } = this.props;
-    const { searchQuery } = this.state;
+    const { activity, teams, history, match } = this.props;
+    const { searchQuery, workflowId } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-white" />;
     }
 
     if (activity.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
-      const filteredActivities = this.filterActivity();
-      const teamsList = teams.data.map(team => ({ id: team.id, text: team.name }));
+      // const filteredActivities = this.filterActivity();
+      let workflowsList = [];
+      teams.data.forEach(team => workflowsList = workflowsList.concat(team.workflows));
+      const workflowsFilter = sortByProp(workflowsList,"name","ASC");
 
       return (
         <div className="c-workflow-activity">
@@ -75,10 +70,12 @@ class WorkflowsActivity extends Component {
             <SearchFilterBar
               handleSearchFilter={this.handleSearchFilter}
               options={teams.data}
-              filterItems={teamsList}
+              filterItems={workflowsFilter}
               debounceTimeout={300}
+              multiselect={false}
+              selectedOption={match.params.workflowId}
             />
-            {!filteredActivities.length ? (
+            {!activity.data.records.length ? (
               <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
             ) : (
               <ActivityList
@@ -86,7 +83,9 @@ class WorkflowsActivity extends Component {
                 fetchActivities={this.fetchActivities}
                 savePageSize={this.savePageSize}
                 searchQuery={searchQuery}
+                workflowId={workflowId}
                 history={history}
+
               />
             )}
           </div>

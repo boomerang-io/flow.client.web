@@ -13,7 +13,8 @@ class ActivityList extends Component {
   static propTypes = {
     activities: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
-    searchQuery: PropTypes.string
+    searchQuery: PropTypes.string,
+    workflowId: PropTypes.string
   };
   state = {
     hasMoreActivities: !this.props.activities.last,
@@ -23,7 +24,7 @@ class ActivityList extends Component {
   loadMoreActivities = page => {
     let newActivities = [].concat(this.state.activitiesList);
     axios
-      .get(`${BASE_SERVICE_URL}/activity?size=10&page=${page}&searchQuery=${this.props.searchQuery}`)
+      .get(`${BASE_SERVICE_URL}/activity?size=10&page=${page}&query=${this.props.searchQuery}&workflowId=${this.props.workflowId}`)
       .then(response => {
         const { records, last } = response.data;
         this.setState({ activitiesList: newActivities.concat(records), hasMoreActivities: !last });
