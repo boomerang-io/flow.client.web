@@ -88,7 +88,7 @@ class WorkflowCreatorContainer extends Component {
     const { hasCreatedWorkflow } = this.state;
     return (
       <>
-        <Navigation />
+        <Navigation includeChangeLog={hasCreatedWorkflow} />
         <Switch>
           <Route
             path={`${match.path}/overview`}
