@@ -55,7 +55,7 @@ export class TaskNode extends Component {
   }
 
   render() {
-    const { flowTaskStatus } = this.props.step;
+    const flowTaskStatus = this.props.step ? this.props.step.flowTaskStatus : "";
 
     return (
       <div className="c-taskNode" onClick={this.handleOnActivityClick}>
