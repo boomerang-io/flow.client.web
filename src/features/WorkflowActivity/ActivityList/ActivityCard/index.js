@@ -40,7 +40,7 @@ class ActivityCard extends Component {
             <label className="b-activity-card__data">
               <img
                 className="b-activity-card__status-icon"
-                src={ACTIVITY_STATUSES_TO_ICON[status]}
+                src={ACTIVITY_STATUSES_TO_ICON[status?status:"notstarted"]}
                 alt={`Status ${status}`}
               />
               {ACTIVITY_STATUSES_TO_TEXT[status]}
