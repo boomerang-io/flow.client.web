@@ -88,7 +88,7 @@ class WorkflowCreatorContainer extends Component {
     const { hasCreatedWorkflow } = this.state;
     return (
       <>
-        <Navigation includeChangeLog={false} />
+        <Navigation />
         <Switch>
           <Route
             path={`${match.path}/overview`}
@@ -114,7 +114,9 @@ class WorkflowCreatorContainer extends Component {
                   diagramApp={this.diagramApp}
                   handleChangeLogReasonChange={this.props.handleChangeLogReasonChange}
                   includeCreateNewVersionComment={
-                    hasCreatedWorkflow ? workflowRevision.version === workflow.data.revisionCount : false
+                    hasCreatedWorkflow
+                      ? workflowRevision.version === workflow.data.revisionCount || workflow.data.revisionCount === 0
+                      : false
                   }
                   includeResetVersionAlert={
                     hasCreatedWorkflow ? workflowRevision.version < workflow.data.revisionCount : false
