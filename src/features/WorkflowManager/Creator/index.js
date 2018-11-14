@@ -58,9 +58,9 @@ class WorkflowCreatorContainer extends Component {
 
   designerAction = () => {
     if (this.state.hasCreatedWorkflow) {
-      this.props.createWorkflowRevision(this.diagramApp);
+      return this.props.createWorkflowRevision(this.diagramApp);
     } else {
-      this.createWorkflow();
+      return this.createWorkflow();
     }
   };
 
