@@ -74,7 +74,11 @@ class ChangeLog extends Component {
   render() {
     return (
       <div className="c-worklfow-change-log">
-        <label className="s-worklfow-change-log-title">{`${this.props.workflow.data.name} Changes`}</label>
+        {this.props.workflow.data.name ? (
+          <label className="s-worklfow-change-log-title">{`${this.props.workflow.data.name} Changes`}</label>
+        ) : (
+          ""
+        )}
         {this.renderChangeLog()}
         <ScrollUp />
       </div>
