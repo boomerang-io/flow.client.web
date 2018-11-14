@@ -8,6 +8,7 @@ import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import imgs from "Assets/icons";
 import "./styles.scss";
 import playButton from "./img/playButton.svg";
+import forwardButton from "./img/forwardButton.svg";
 
 class WorkflowCard extends Component {
   static propTypes = {
@@ -86,7 +87,7 @@ class WorkflowCard extends Component {
         </div>
         <div className="c-workflow-card__info">
           <div className="c-workflow-card__icon">
-            <img className="b-workflow-card__icon" src={imgs[workflow.icon]} alt="icon" />
+            <img className="b-workflow-card__icon" src={imgs[workflow.icon?workflow.icon:"docs"]} alt="icon" />
           </div>
           <div className="c-workflow-card__description">
             <h2 className="b-workflow-card__name">{workflow.name}</h2>
@@ -101,7 +102,24 @@ class WorkflowCard extends Component {
                     title="Execute workflow?"
                     subTitleTop="It will run"
                     closeModal={closeModal}
-                    affirmativeAction={() => this.props.executeWorkflow(workflow.id)}
+                    affirmativeAction={() => this.props.executeWorkflow(workflow.id, false)}
+                    affirmativeText="Run"
+                    theme="bmrg-white"
+                  />
+                )}
+              />
+            </span>
+            <span data-tip data-for={`${workflow.id}-activity`} className="b-workflow-card-activity">
+              <AlertModal
+                ModalTrigger={() => (
+                  <img src={forwardButton} className="b-workflow-card-activity__icon" alt="Run and View Activity" />
+                )}
+                modalContent={closeModal => (
+                  <ConfirmModal
+                    title="Run and View Activity?"
+                    subTitleTop="You will be redirected to activity details"
+                    closeModal={closeModal}
+                    affirmativeAction={() => this.props.executeWorkflow(workflow.id, true)}
                     affirmativeText="Run"
                     theme="bmrg-white"
                   />
@@ -110,6 +128,9 @@ class WorkflowCard extends Component {
             </span>
             <Tooltip id={workflow.id} place="bottom" theme="bmrg-white">
               Execute workflow
+            </Tooltip>
+            <Tooltip id={`${workflow.id}-activity`} place="bottom" theme="bmrg-white">
+              Run and View Activity
             </Tooltip>
           </div>
         </div>

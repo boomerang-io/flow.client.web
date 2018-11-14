@@ -37,7 +37,6 @@ class ChangeLog extends Component {
         }/changelog?size=10&page=${page}&sort=version&order=DESC`
       )
       .then(response => {
-        console.log(response);
         this.setState({
           changeLogList: [...newChangeLog, ...response.data],
           hasMoreLogs: response.data.length < 10 ? false : true,
