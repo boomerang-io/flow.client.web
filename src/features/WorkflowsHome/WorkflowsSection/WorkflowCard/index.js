@@ -87,7 +87,7 @@ class WorkflowCard extends Component {
         </div>
         <div className="c-workflow-card__info">
           <div className="c-workflow-card__icon">
-            <img className="b-workflow-card__icon" src={imgs[workflow.icon?workflow.icon:"docs"]} alt="icon" />
+            <img className="b-workflow-card__icon" src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
           </div>
           <div className="c-workflow-card__description">
             <h2 className="b-workflow-card__name">{workflow.name}</h2>

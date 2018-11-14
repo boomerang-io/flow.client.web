@@ -58,8 +58,7 @@ class WorkflowsHome extends Component {
       .post(`${BASE_SERVICE_URL}/execute/${workflowId}`)
       .then(response => {
         notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
-        if(redirect)
-          this.props.history.push(`/activity/${workflowId}/execution/${response.id}`);
+        if (redirect) this.props.history.push(`/activity/${workflowId}/execution/${response.id}`);
       })
       .catch(error => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to run workflow" />);
