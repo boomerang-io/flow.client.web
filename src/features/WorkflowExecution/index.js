@@ -32,6 +32,9 @@ class WorkflowExecutionContainer extends Component {
 
   componentWillUnmount() {
     clearInterval(this.executionInterval);
+    this.props.workflowActions.reset();
+    this.props.workflowRevisionActions.reset();
+    this.props.tasksActions.reset();
   }
 
   fetchExecution = () => {
