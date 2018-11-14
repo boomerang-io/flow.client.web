@@ -12,8 +12,9 @@ import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "./DisplayForm";
 import pencilIcon from "./pencil.svg";
-import downloadIMG from "Assets/svg/install.svg";
-import emailIMG from "Assets/svg/email_icon.svg";
+//import downloadIMG from "Assets/svg/install.svg";
+//import emailIMG from "Assets/svg/email_icon.svg";
+import { TASK_KEYS, TASK_KEYS_TO_ICON } from "Constants/taskIcons";
 import "./styles.scss";
 
 export class TaskNode extends Component {
@@ -40,25 +41,6 @@ export class TaskNode extends Component {
     this.props.workflowRevisionActions.deleteNode({ nodeId: this.props.node.id });
     this.props.node.remove();
   };
-
-  determineNodeIcon() {
-    let nodeIcon;
-    if (this.props.task) {
-      if (this.props.task.name === "Download File") {
-        nodeIcon = downloadIMG;
-      } else if (this.props.task.name === "Send Mail") {
-        nodeIcon = emailIMG;
-      } else if (this.props.task.name === "Ingest CSV") {
-        nodeIcon = downloadIMG;
-      } else {
-        nodeIcon = emailIMG;
-      }
-    } else {
-      nodeIcon = emailIMG;
-    }
-
-    return nodeIcon;
-  }
 
   renderDeleteNode() {
     return <CloseModalButton className="b-taskNode__delete" onClick={this.handleOnDelete} />;
@@ -88,6 +70,7 @@ export class TaskNode extends Component {
   }
 
   render() {
+    console.log(this.props.task);
     return (
       <div className="b-taskNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
@@ -100,7 +83,7 @@ export class TaskNode extends Component {
         <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
-        <img src={this.determineNodeIcon()} className="b-taskNode__img" alt="Task node type" />
+        <img src={TASK_KEYS_TO_ICON[this.props.task.key]} className="b-taskNode__img" alt="Task node type" />
         {this.renderConfigureNode()}
       </div>
     );
