@@ -117,3 +117,27 @@
   width: 2.5rem;
   height: 2.5rem;
 }
+.b-workflow-card-activity {
+  cursor: pointer;
+  position: absolute;
+  right: 2.5rem;
+  bottom: 0.21rem;
+}
+.b-workflow-card-activity__icon {
+  width: 2rem;
+  height: 2rem;
+}
+.bmrg--b-confirm-modal__button.--affirmative.--children {
+  width: 15rem;
+  max-width: 13rem;
+  position: absolute;
+  bottom: 2.45rem;
+  right: 12.5rem;
+}
+.bmrg--c-alert-modal.--execute-workflow {
+  width: 38rem;
+  .bmrg--b-confirm-modal__buttons {
+    align-self: center;
+    min-width: 35rem;
+  }
+}

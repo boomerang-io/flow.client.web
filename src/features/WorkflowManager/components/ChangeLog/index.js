@@ -37,7 +37,6 @@ class ChangeLog extends Component {
         }/changelog?size=10&page=${page}&sort=version&order=DESC`
       )
       .then(response => {
-        console.log(response);
         this.setState({
           changeLogList: [...newChangeLog, ...response.data],
           hasMoreLogs: response.data.length < 10 ? false : true,
@@ -75,7 +74,11 @@ class ChangeLog extends Component {
   render() {
     return (
       <div className="c-worklfow-change-log">
-        <label className="s-worklfow-change-log-title">{`${this.props.workflow.data.name} Changes`}</label>
+        {this.props.workflow.data.name ? (
+          <label className="s-worklfow-change-log-title">{`${this.props.workflow.data.name} Changes`}</label>
+        ) : (
+          ""
+        )}
         {this.renderChangeLog()}
         <ScrollUp />
       </div>

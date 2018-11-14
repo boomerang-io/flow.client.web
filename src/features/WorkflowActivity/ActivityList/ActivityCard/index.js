@@ -19,7 +19,7 @@ class ActivityCard extends Component {
       <Link className={`c-activities-card --${status}`} to={`/activity/${workflowId}/execution/${id}`}>
         <div className="c-activity-card__workflow">
           <div className="c-activity-card__icon">
-            <img className="b-activity-card__icon" src={imgs[icon]} alt="icon" />
+            <img className="b-activity-card__icon" src={imgs[icon ? icon : "docs"]} alt="icon" />
           </div>
           <div className="c-activity-card__workflow-info">
             <label className="b-activity-card__name">{workflowName}</label>
@@ -40,7 +40,7 @@ class ActivityCard extends Component {
             <label className="b-activity-card__data">
               <img
                 className="b-activity-card__status-icon"
-                src={ACTIVITY_STATUSES_TO_ICON[status]}
+                src={ACTIVITY_STATUSES_TO_ICON[status?status:"notstarted"]}
                 alt={`Status ${status}`}
               />
               {ACTIVITY_STATUSES_TO_TEXT[status]}

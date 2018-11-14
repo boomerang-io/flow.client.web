@@ -58,9 +58,9 @@ class WorkflowCreatorContainer extends Component {
 
   designerAction = () => {
     if (this.state.hasCreatedWorkflow) {
-      this.props.createWorkflowRevision(this.diagramApp);
+      return this.props.createWorkflowRevision(this.diagramApp);
     } else {
-      this.createWorkflow();
+      return this.createWorkflow();
     }
   };
 
@@ -146,14 +146,16 @@ class WorkflowCreatorContainer extends Component {
               </>
             )}
           />
-          <Route
-            path={`${match.path}/changes`}
-            render={() => (
-              <>
-                <ChangeLog workflow={workflow} />
-              </>
-            )}
-          />
+          {hasCreatedWorkflow && (
+            <Route
+              path={`${match.path}/changes`}
+              render={() => (
+                <>
+                  <ChangeLog workflow={workflow} />
+                </>
+              )}
+            />
+          )}
           <Redirect from={`${match.path}`} to={`${match.path}/overview`} />
         </Switch>
       </>
