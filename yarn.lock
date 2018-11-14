@@ -828,10 +828,10 @@
     babel-plugin-transform-dynamic-import "2.0.0"
     babel-plugin-transform-react-remove-prop-types "0.4.15"
 
-"@boomerang/boomerang-components@6.0.14":
-  version "6.0.14"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.14.tgz#411637762c0b6b3a14f6396fbb0be4fdb14e06fb"
-  integrity sha1-QRY3diwLazoU9jlvuwvk/bFOBvs=
+"@boomerang/boomerang-components@6.0.15":
+  version "6.0.15"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.15.tgz#36c5d62beedd4000600ca40353cc82a5cffcc0eb"
+  integrity sha1-NsXWK+7dQABgDKQDU8yCpc/8wOs=
 
 "@boomerang/boomerang-dag@5.2.1":
   version "5.2.1"

@@ -12,7 +12,7 @@ export default class Root extends Component {
     return (
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <ErrorBoundary component={ErrorDragon}>
+          <ErrorBoundary errorComponent={ErrorDragon}>
             <App />
           </ErrorBoundary>
         </ConnectedRouter>
