@@ -33,7 +33,7 @@ describe(">>>REDUCER --- workflowReducer", () => {
   });
 
   it("should handle FETCH_WORKFLOW_FAILURE", () => {
-    const action = { type: types.FETCH_ACTIVITY_FAILURE, error: "" };
+    const action = { type: types.FETCH_WORKFLOW_FAILURE, error: "" };
     const expected = { ...initialState, isFetching: false, fetchingStatus: "failure", error: "" };
 
     expect(workflowReducer(initialState, action)).toEqual(expected);
@@ -58,7 +58,7 @@ describe(">>>REDUCER --- workflowReducer", () => {
   });
 
   it("should handle UPDATE_WORKFLOW_FAILURE", () => {
-    const action = { type: types.FETCH_ACTIVITY_FAILURE, error: "" };
+    const action = { type: types.UPDATE_WORKFLOW_FAILURE, error: "" };
     const expected = { ...initialState, isUpdating: false, updatingStatus: "failure", error: "" };
 
     expect(workflowReducer(initialState, action)).toEqual(expected);

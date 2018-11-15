@@ -39,7 +39,7 @@ describe(">>>REDUCER --- teamsReducer", () => {
     expect(teamsReducer(initialState, action)).toEqual(expected);
   });
 
-  it("should handle UPDATE_WORKFLOWS", () => {
+  /*it("should handle UPDATE_WORKFLOWS", () => {
     const action = { type: types.UPDATE_WORKFLOWS, data: [] };
     const expected = {
       ...initialState,
@@ -48,10 +48,10 @@ describe(">>>REDUCER --- teamsReducer", () => {
     const newState = teamsReducer(initialState, action);
 
     expect(newState).toEqual(expected);
-  });
+  });*/
 
   it("should handle SET_ACTIVE_TEAM_ID", () => {
-    const action = { type: types.SET_ACTIVE_TEAM_ID, data: { activeTeamId: "test" } };
+    const action = { type: types.SET_ACTIVE_TEAM_ID, data: { teamId: "test" } };
     const expected = {
       ...initialState,
       activeTeamId: "test"
