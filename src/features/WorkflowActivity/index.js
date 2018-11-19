@@ -54,8 +54,9 @@ class WorkflowsActivity extends Component {
   setActivityList = (activityList) => {
     this.setState({activityList});
   };
+  
   setMoreActivities = (last) => {
-    this.setState({hasMoreActivities: !last});
+    this.setState({hasMoreActivities: last});
   };
 
   loadMoreActivities = (page) => {
@@ -66,8 +67,6 @@ class WorkflowsActivity extends Component {
       .get(`${BASE_SERVICE_URL}/activity?size=10&page=${page}&query=${searchQuery}${workflowUrl}`)
       .then(response => {
         const { records, last } = response.data;
-        // this.setActivityList(newActivities.concat(records));
-        // this.setMoreActivities(last);
         this.setState({ activitiesList: newActivities.concat(records), hasMoreActivities: !last });
       });
   };
@@ -107,6 +106,7 @@ class WorkflowsActivity extends Component {
                 activities={activityList.length>0?activityList.length: activity.data.records}
                 hasMoreActivities={hasMoreActivities===null? !activity.data.last: hasMoreActivities}
                 fetchActivities={this.fetchActivities}
+                setMoreActivities={this.setMoreActivities}
                 savePageSize={this.savePageSize}
                 searchQuery={searchQuery}
                 workflowId={workflowId}

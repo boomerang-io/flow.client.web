@@ -17,10 +17,14 @@ class ActivityList extends Component {
   };
 
   loadMoreActivities = page => {
-    this.props.loadMoreActivities(page);      
+
+    this.props.loadMoreActivities(page);  
+    this.props.setMoreActivities(false)    
   };
 
   render() {
+    console.log(this.props.hasMoreActivities,"PROPS");
+
     return (
       <>
         <InfiniteScroll
