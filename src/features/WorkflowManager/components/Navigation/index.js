@@ -31,6 +31,9 @@ function Navigation(props) {
             Change Log
           </NavLink>
         )}
+        <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/inputs`}>
+          Inputs
+        </NavLink>
       </div>
     </>
   );

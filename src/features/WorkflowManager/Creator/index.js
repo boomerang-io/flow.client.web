@@ -7,6 +7,7 @@ import { actions as tasksActions } from "State/tasks";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import ChangeLog from "Features/WorkflowManager/components/ChangeLog";
+import Inputs from "Features/WorkflowManager/components/Inputs";
 import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
 import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
@@ -159,6 +160,7 @@ class WorkflowCreatorContainer extends Component {
               )}
             />
           )}
+          <Route path={`${match.path}/inputs`} render={() => <Inputs />} />
           <Redirect from={`${match.path}`} to={`${match.path}/overview`} />
         </Switch>
       </>

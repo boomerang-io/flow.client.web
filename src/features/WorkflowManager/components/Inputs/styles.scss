@@ -1,0 +1,109 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.c-workflow-inputs {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0 2rem 2rem;
+}
+
+.b-workflow-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+}
+
+.b-workflow-input {
+  position: relative;
+  background-color: $white;
+  height: 25rem;
+  width: 20rem;
+  padding: 2rem 2rem 2rem 1.5rem;
+  margin: 0 2rem 2rem 0;
+  border-left: 0.5rem solid;
+
+  &.--textInput {
+    border-left-color: $green-30;
+  }
+  &.--textAreaBox {
+    border-left-color: $ultramarine-30;
+  }
+  &.--boolean {
+    border-left-color: $red-30;
+  }
+  &.--password {
+    border-left-color: $gray-30;
+  }
+  &.--number {
+    border-left-color: $gold-30;
+  }
+  &.--select {
+    border-left-color: $violet-30;
+  }
+}
+
+.b-workflow-input__name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.b-workflow-input-field {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
+.b-workflow-input-field__key {
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.b-workflow-input-field__value {
+  font-weight: 500;
+  text-align: left;
+  line-height: 1.25rem;
+}
+
+.b-workflow-input__delete {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+.b-workflow-input-edit {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  bottom: 2rem;
+  left: 2rem;
+  cursor: pointer;
+}
+
+.b-workflow-input-edit__pencil {
+  height: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.b-workflow-input-create {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 25rem;
+  width: 20rem;
+  border: 0.0625rem dashed $gray-30;
+  color: $gray-30;
+  cursor: pointer;
+}
+
+.b-workflow-input-create__plus {
+  margin-bottom: 2rem;
+}
