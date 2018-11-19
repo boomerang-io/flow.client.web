@@ -68,8 +68,8 @@ class WorkflowsInsights extends Component {
             <NavigateBack to="/workflows" text="Back to Workflows" />
           </nav>
           <div className="c-workflow-insights__header">
-            <SelectDropdown options={teamsList} theme="bmrg-white" />
-            <SelectDropdown options={[]} theme="bmrg-white" />
+            <SelectDropdown options={teamsList} theme="bmrg-white" styles={{width:"22rem", marginTop:"1rem"}} />
+            <SelectDropdown options={[]} theme="bmrg-white" styles={{width:"22rem", marginTop:"1rem"}} />
           </div>
           <div className="c-workflow-insights-content">
 
