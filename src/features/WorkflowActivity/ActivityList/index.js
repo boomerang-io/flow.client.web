@@ -6,7 +6,6 @@ import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimati
 import InfiniteScroll from "react-infinite-scroller";
 import ActivityCard from "./ActivityCard";
 import ScrollUp from "Components/ScrollUp";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
 
 class ActivityList extends Component {
@@ -16,34 +15,23 @@ class ActivityList extends Component {
     searchQuery: PropTypes.string,
     workflowId: PropTypes.string
   };
-  state = {
-    hasMoreActivities: !this.props.activities.last,
-    activitiesList: this.props.activities.records
-  };
 
   loadMoreActivities = page => {
-    let newActivities = [].concat(this.state.activitiesList);
-    axios
-      .get(`${BASE_SERVICE_URL}/activity?size=10&page=${page}&query=${this.props.searchQuery}&workflowId=${this.props.workflowId}`)
-      .then(response => {
-        const { records, last } = response.data;
-        this.setState({ activitiesList: newActivities.concat(records), hasMoreActivities: !last });
-      });
+    this.props.loadMoreActivities(page);      
   };
 
   render() {
-    const { hasMoreActivities, activitiesList } = this.state;
     return (
       <>
         <InfiniteScroll
           className="c-activity-list"
           pageStart={0}
           loadMore={this.loadMoreActivities}
-          hasMore={hasMoreActivities}
+          hasMore={this.props.hasMoreActivities}
           loader={<LoadingAnimation className="s-activities-loading" />}
           useWindow={true}
         >
-          {activitiesList.map(activity => {
+          {this.props.activities.map(activity => {
             return <ActivityCard activity={activity} history={this.props.history} key={activity.id} />;
           })}
         </InfiniteScroll>

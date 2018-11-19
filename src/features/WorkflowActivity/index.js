@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as activityActions } from "State/activity";
@@ -22,7 +23,9 @@ class WorkflowsActivity extends Component {
   state = {
     searchQuery: "",
     workflowId:this.props.match.params.workflowId?this.props.match.params.workflowId:"",
-    tableSize: 10
+    tableSize: 10,
+    activityList:[],
+    hasMoreActivities: null
   };
 
   componentDidMount() {
@@ -40,16 +43,38 @@ class WorkflowsActivity extends Component {
 
   handleSearchFilter = (searchQuery, workflowId) => {
     this.setState({ searchQuery, workflowId });
-    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0&query=${searchQuery}&workflowId=${workflowId==="none"?"":workflowId}`);
+    const workflowUrl = workflowId.length>0 && workflowId!=="none" ?`&workflowId=${workflowId}`:"";
+    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0&query=${searchQuery}${workflowUrl}`);
   };
 
   updateWorkflows = data => {
     this.props.activityActions.updateWorkflows(data);
   };
 
+  setActivityList = (activityList) => {
+    this.setState({activityList});
+  };
+  setMoreActivities = (last) => {
+    this.setState({hasMoreActivities: !last});
+  };
+
+  loadMoreActivities = (page) => {
+    const { searchQuery, workflowId } = this.state;
+    let newActivities = [].concat(this.state.activitiesList);
+    const workflowUrl = workflowId.length>0 && workflowId!=="none" ?`&workflowId=${workflowId}`:"";
+    axios
+      .get(`${BASE_SERVICE_URL}/activity?size=10&page=${page}&query=${searchQuery}${workflowUrl}`)
+      .then(response => {
+        const { records, last } = response.data;
+        // this.setActivityList(newActivities.concat(records));
+        // this.setMoreActivities(last);
+        this.setState({ activitiesList: newActivities.concat(records), hasMoreActivities: !last });
+      });
+  };
+
   render() {
     const { activity, teams, history, match } = this.props;
-    const { searchQuery, workflowId } = this.state;
+    const { searchQuery, workflowId, activityList, hasMoreActivities } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-white" />;
@@ -79,13 +104,14 @@ class WorkflowsActivity extends Component {
               <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
             ) : (
               <ActivityList
-                activities={activity.data}
+                activities={activityList.length>0?activityList.length: activity.data.records}
+                hasMoreActivities={hasMoreActivities===null? !activity.data.last: hasMoreActivities}
                 fetchActivities={this.fetchActivities}
                 savePageSize={this.savePageSize}
                 searchQuery={searchQuery}
                 workflowId={workflowId}
                 history={history}
-
+                loadMoreActivities={this.loadMoreActivities}
               />
             )}
           </div>

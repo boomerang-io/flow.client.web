@@ -52,8 +52,6 @@ class SearchFilterBar extends Component {
 
   handleSearchFilter = () => {
     const { searchQuery, selectedItems } = this.state;
-    console.log(searchQuery, selectedItems);
-
     this.props.handleSearchFilter(searchQuery, selectedItems);
   };
 
