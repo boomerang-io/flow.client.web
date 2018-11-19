@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
+import Inputs from "Features/WorkflowManager/components/Inputs";
 import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
 import ChangeLog from "Features/WorkflowManager/components/ChangeLog";
@@ -122,6 +123,7 @@ class WorkflowEditor extends Component {
               </>
             )}
           />
+          <Route path={`${match.path}/inputs`} render={() => <Inputs />} />
         </Switch>
       </>
     );
