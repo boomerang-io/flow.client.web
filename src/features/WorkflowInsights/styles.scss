@@ -1,0 +1,12 @@
+@import "~Styles/variables";
+
+.c-workflow-insights{
+  display: flex;
+  flex-direction: column;
+}
+.c-workflow-insights__header{
+  display: flex;
+  width: 50rem;
+  align-self: center;
+  justify-content: space-between;
+}

@@ -4,6 +4,7 @@ import { routerReducer as routing } from "react-router-redux";
 import activity from "./activity";
 import changeLog from "./changeLog";
 import contactJoe from "./contactJoe";
+import insights from "./insights";
 import navbarLinks from "./navbarLinks";
 import privacyStatement from "./privacyStatement";
 import reportBug from "./reportBug";
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   activity,
   changeLog,
   contactJoe,
+  insights,
   navbarLinks,
   privacyStatement,
   reportBug,

@@ -11,6 +11,7 @@ import WorkflowActivity from "Features/WorkflowActivity";
 import WorkflowsHome from "Features/WorkflowsHome";
 import WorkflowManager from "Features/WorkflowManager";
 import WorkflowsViewer from "Features/WorkflowsViewer";
+import WorkflowInsights from "Features/WorkflowInsights";
 import WorkflowExecution from "Features/WorkflowExecution";
 import Navigation from "./Navigation";
 import { BASE_LAUNCHPAD_SERVICE_URL } from "Config/servicesConfig";
@@ -50,6 +51,7 @@ class App extends Component {
             <Route path="/activity" component={WorkflowActivity} exact />
             <Route path="/creator" component={WorkflowManager} />
             <Route path="/editor/:workflowId" component={WorkflowManager} />
+            <Route path="/insights" component={WorkflowInsights} />
             <Route path="/viewer" component={WorkflowsViewer} />
             <Redirect from="/" to="/workflows" />
           </Switch>
