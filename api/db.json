@@ -4729,6 +4729,11 @@
     },
     {
       "id": "CZHze8x"
+    },
+    {
+      "icon": "docs",
+      "generatedExpression": "*/2 2,12,22 * * 1-5",
+      "id": "_pEnY0D"
     }
   ],
   "workflowActivity": {

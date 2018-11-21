@@ -3,17 +3,19 @@
 .c-worklfow-overview {
   display: flex;
 
-  .c-general-info {
+  .c-general-info,
+  .c-trigger {
     display: flex;
     flex-direction: column;
     margin: 5rem;
     padding: 1rem 3rem 2rem;
-    width: 40rem;
+    width: 44rem;
     background: $neutral-white-4;
     border-radius: 0.25rem;
   }
 
-  .s-general-info-title {
+  .s-general-info-title,
+  .s-trigger-title {
     font-size: 1.5rem;
     margin-bottom: 4rem;
   }
@@ -40,5 +42,15 @@
       border: 0.0625rem solid #40d5bb;
       border-radius: 0.125rem;
     }
+  }
+  .c-webhook,
+  .c-schedule {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+  }
+
+  .cron-builder {
+    background-color: $neutral-white-4 !important;
   }
 }

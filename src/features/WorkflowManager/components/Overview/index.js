@@ -1,9 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { actions as webhookActions } from "State/webhook/generate";
+import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import classnames from "classnames";
+import Button from "@boomerang/boomerang-components/lib/Button";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import assets from "./assets";
+import CronBuilder from "react-cron-builder";
+import "react-cron-builder/dist/bundle.css";
 import "./styles.scss";
 
 class Overview extends Component {
@@ -18,7 +26,31 @@ class Overview extends Component {
   constructor(props) {
     super(props);
     this.state = { ...props.workflow.data, icon: assets[0].name };
+    this.webhookToken = "";
   }
+
+  handleExpression = generatedExpression => {
+    this.handleOnChange(generatedExpression || "", {}, "generatedExpression");
+  };
+
+  generateToken = () => {
+    const { user, webhookActions } = this.props;
+
+    return webhookActions
+      .create(`${BASE_SERVICE_URL}/user`, { userId: user.id })
+      .then(response => {
+        this.webhookToken = response.data.token;
+        this.handleOnChange(this.webhookToken, {}, "webhookToken");
+        notify(
+          <Notification type="success" title="Create Workflow" message="Succssfully created workflow and version" />
+        );
+        return Promise.resolve();
+      })
+      .catch(err => {
+        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow and version" />);
+        return Promise.reject();
+      });
+  };
 
   handleOnChange = (value, errors, name) => {
     this.setState(
@@ -73,6 +105,40 @@ class Overview extends Component {
             ))}
           </div>
         </div>
+        <div className="c-trigger">
+          <h1 className="s-trigger-title">Triggers</h1>
+          <div className="c-webhook">
+            <p className="s-webhook-title">Enable Webhook</p>
+            <Toggle
+              value={this.state.webhook || false}
+              id="toggle-webhook"
+              name="webhook"
+              title="webhook"
+              onChange={this.handleOnChange}
+              defaultChecked={false}
+              theme="bmrg-white"
+            />
+            <Button theme="bmrg-black" onClick={this.generateToken}>
+              Generate Token
+            </Button>
+          </div>
+          <div className="c-schedule">
+            <p className="s-schedule-title">Enable Scheduler</p>
+            <Toggle
+              value={this.state.schedule || false}
+              id="toggle-schedule"
+              name="schedule"
+              title="schedule"
+              onChange={this.handleOnChange}
+              defaultChecked={false}
+              theme="bmrg-white"
+            />
+            <Button theme="bmrg-black" onClick={this.dummyChange}>
+              Set Schedule
+            </Button>
+          </div>
+          <CronBuilder cronExpression="*/4 2,12,22 * * 1-5" onChange={this.handleExpression} showResult={false} />
+        </div>
       </div>
     );
   }
@@ -82,4 +148,15 @@ Overview.propTypes = {
   handleOnChange: PropTypes.func.isRequired
 };
 
-export default Overview;
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {};
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Overview);
