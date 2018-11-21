@@ -53,4 +53,15 @@
   .cron-builder {
     background-color: $neutral-white-4 !important;
   }
+
+  .c-webhook__token {
+    display: flex;
+    //justify-content: space-between;
+    padding-top: 1rem;
+  }
+
+  .s-webhook__token-value {
+    background-color: white;
+    margin-left: 5 rem;
+  }
 }
