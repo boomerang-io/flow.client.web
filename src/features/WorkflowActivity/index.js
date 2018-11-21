@@ -25,7 +25,8 @@ class WorkflowsActivity extends Component {
     workflowId:this.props.match.params.workflowId?this.props.match.params.workflowId:"",
     tableSize: 10,
     activityList:[],
-    hasMoreActivities: null
+    hasMoreActivities: null,
+    nextPage:1
   };
 
   componentDidMount() {
@@ -42,7 +43,7 @@ class WorkflowsActivity extends Component {
   };
 
   handleSearchFilter = (searchQuery, workflowId) => {
-    this.setState({ searchQuery, workflowId });
+    this.setState({ searchQuery, workflowId, activityList:[], hasMoreActivities:null, nextPage:1 });
     const workflowUrl = workflowId.length>0 && workflowId!=="none" ?`&workflowId=${workflowId}`:"";
     this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0&query=${searchQuery}${workflowUrl}`);
   };
@@ -59,21 +60,21 @@ class WorkflowsActivity extends Component {
     this.setState({hasMoreActivities: last});
   };
 
-  loadMoreActivities = (page) => {
-    const { searchQuery, workflowId } = this.state;
-    let newActivities = [].concat(this.state.activitiesList);
+  loadMoreActivities = (nextPage) => {
+    const { searchQuery, workflowId, activityList } = this.state;
+    let newActivities = [].concat(activityList.length===0? this.props.activity.data.records:activityList);
     const workflowUrl = workflowId.length>0 && workflowId!=="none" ?`&workflowId=${workflowId}`:"";
     axios
-      .get(`${BASE_SERVICE_URL}/activity?size=10&page=${page}&query=${searchQuery}${workflowUrl}`)
+      .get(`${BASE_SERVICE_URL}/activity?size=10&page=${nextPage}&query=${searchQuery}${workflowUrl}`)
       .then(response => {
         const { records, last } = response.data;
-        this.setState({ activitiesList: newActivities.concat(records), hasMoreActivities: !last });
+        this.setState({ activityList: newActivities.concat(records), hasMoreActivities: !last, nextPage: nextPage+1 });
       });
   };
 
   render() {
     const { activity, teams, history, match } = this.props;
-    const { searchQuery, workflowId, activityList, hasMoreActivities } = this.state;
+    const { searchQuery, workflowId, activityList, hasMoreActivities, nextPage } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-white" />;
@@ -103,7 +104,7 @@ class WorkflowsActivity extends Component {
               <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
             ) : (
               <ActivityList
-                activities={activityList.length>0?activityList.length: activity.data.records}
+                activities={activityList.length>0?activityList: activity.data.records}
                 hasMoreActivities={hasMoreActivities===null? !activity.data.last: hasMoreActivities}
                 fetchActivities={this.fetchActivities}
                 setMoreActivities={this.setMoreActivities}
@@ -112,6 +113,7 @@ class WorkflowsActivity extends Component {
                 workflowId={workflowId}
                 history={history}
                 loadMoreActivities={this.loadMoreActivities}
+                nextPage={nextPage}
               />
             )}
           </div>

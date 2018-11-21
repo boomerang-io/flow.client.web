@@ -12,18 +12,17 @@ class ActivityList extends Component {
   static propTypes = {
     activities: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
+    nextPage: PropTypes.number,
     searchQuery: PropTypes.string,
     workflowId: PropTypes.string
   };
 
-  loadMoreActivities = page => {
-
-    this.props.loadMoreActivities(page);  
+  loadMoreActivities = () => {
+    this.props.loadMoreActivities(this.props.nextPage);  
     this.props.setMoreActivities(false)    
   };
 
   render() {
-    console.log(this.props.hasMoreActivities,"PROPS");
 
     return (
       <>
