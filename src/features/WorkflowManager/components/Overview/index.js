@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { actions as webhookActions } from "State/webhook/generate";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -25,8 +26,8 @@ class Overview extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...props.workflow.data, icon: assets[0].name };
-    this.webhookToken = "";
+    this.state = { ...props.workflow.data, icon: assets[0].name, webhookToken: null };
+    //this.webhookToken = "testToken";
   }
 
   handleExpression = generatedExpression => {
@@ -122,6 +123,12 @@ class Overview extends Component {
               Generate Token
             </Button>
           </div>
+          {this.state.webhookToken && (
+            <div className="c-webhook__token">
+              <p className="s-webhook__token-title">Webhook Token:</p>
+              <p className="s-webhook__token-value">{this.state.webhookToken}</p>
+            </div>
+          )}
           <div className="c-schedule">
             <p className="s-schedule-title">Enable Scheduler</p>
             <Toggle
@@ -153,9 +160,9 @@ const mapStateToProps = state => {
     user: state.user
   };
 };
-const mapDispatchToProps = dispatch => {
-  return {};
-};
+const mapDispatchToProps = dispatch => ({
+  webhookActions: bindActionCreators(webhookActions, dispatch)
+});
 export default connect(
   mapStateToProps,
   mapDispatchToProps
