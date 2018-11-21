@@ -11,6 +11,7 @@ import reportBug from "./reportBug";
 import tasks from "./tasks";
 import teams from "./teams";
 import user from "./user";
+import webhook from "./webhook";
 import workflow from "./workflow";
 import workflowExecution from "./workflowExecution";
 import workflowExecutionActiveNode from "./workflowExecutionActiveNode";
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   tasks,
   teams,
   user,
+  webhook,
   workflow,
   workflowExecution,
   workflowExecutionActiveNode,
