@@ -23,14 +23,13 @@ class ActivityList extends Component {
   };
 
   render() {
-
     return (
       <>
         <InfiniteScroll
           className="c-activity-list"
           pageStart={0}
           loadMore={this.loadMoreActivities}
-          hasMore={this.props.hasMoreActivities}
+          hasMore={this.props.hasMoreActivities && !this.props.isLoading}
           loader={<LoadingAnimation className="s-activities-loading" />}
           useWindow={true}
         >

@@ -26,7 +26,8 @@ class WorkflowsActivity extends Component {
     tableSize: 10,
     activityList:[],
     hasMoreActivities: null,
-    nextPage:1
+    nextPage:1,
+    isLoading:false
   };
 
   componentDidMount() {
@@ -61,20 +62,26 @@ class WorkflowsActivity extends Component {
   };
 
   loadMoreActivities = (nextPage) => {
-    const { searchQuery, workflowId, activityList } = this.state;
-    let newActivities = [].concat(activityList.length===0? this.props.activity.data.records:activityList);
-    const workflowUrl = workflowId.length>0 && workflowId!=="none" ?`&workflowId=${workflowId}`:"";
-    axios
-      .get(`${BASE_SERVICE_URL}/activity?size=10&page=${nextPage}&query=${searchQuery}${workflowUrl}`)
-      .then(response => {
-        const { records, last } = response.data;
-        this.setState({ activityList: newActivities.concat(records), hasMoreActivities: !last, nextPage: nextPage+1 });
-      });
+    this.setState({isLoading:true},()=>{
+      const { searchQuery, workflowId, activityList } = this.state;
+      let newActivities = [].concat(activityList.length===0? this.props.activity.data.records:activityList);
+      const workflowUrl = workflowId.length>0 && workflowId!=="none" ?`&workflowId=${workflowId}`:"";
+      axios
+        .get(`${BASE_SERVICE_URL}/activity?size=10&page=${nextPage}&query=${searchQuery}${workflowUrl}`)
+        .then(response => {
+          const { records, last } = response.data;
+          this.setState({ activityList: newActivities.concat(records), hasMoreActivities: !last, nextPage: nextPage+1, isLoading:false });
+        })
+        .catch(error=>{
+          console.log(error);
+          this.setState({hasMoreActivities:false, isLoading:false});
+        });
+    })
   };
 
   render() {
     const { activity, teams, history, match } = this.props;
-    const { searchQuery, workflowId, activityList, hasMoreActivities, nextPage } = this.state;
+    const { searchQuery, workflowId, activityList, hasMoreActivities, nextPage, isLoading } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-white" />;
@@ -114,6 +121,7 @@ class WorkflowsActivity extends Component {
                 history={history}
                 loadMoreActivities={this.loadMoreActivities}
                 nextPage={nextPage}
+                isLoading={isLoading}
               />
             )}
           </div>
