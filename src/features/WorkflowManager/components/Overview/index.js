@@ -27,7 +27,6 @@ class Overview extends Component {
   constructor(props) {
     super(props);
     this.state = { ...props.workflow.data, icon: assets[0].name, webhookToken: null };
-    //this.webhookToken = "testToken";
   }
 
   handleExpression = generatedExpression => {
@@ -40,8 +39,9 @@ class Overview extends Component {
     return webhookActions
       .create(`${BASE_SERVICE_URL}/user`, { userId: user.id })
       .then(response => {
-        this.webhookToken = response.data.token;
-        this.handleOnChange(this.webhookToken, {}, "webhookToken");
+        //this.webhookToken = response.data.token;
+        this.handleOnChange(response.data.token, {}, "webhookToken");
+        this.setState({ webhookToken: response.data.token });
         notify(
           <Notification type="success" title="Create Workflow" message="Succssfully created workflow and version" />
         );
