@@ -1,0 +1,24 @@
+.c-inputs-modal-body {
+  width: 60%;
+  margin: auto;
+  height: 26rem;
+  overflow-y: scroll;
+  padding-top: 2rem;
+}
+
+.b-inputs-modal-toggle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.b-inputs-modal-toggle__title {
+  font-size: 1.2rem;
+  letter-spacing: 0.03125rem;
+  line-height: 1.125rem;
+  font-weight: 300;
+}
+
+.b-inputs-modal-type {
+  margin: 2rem 0;
+}
