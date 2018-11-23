@@ -27,6 +27,7 @@ class Inputs extends Component {
   };
 
   render() {
+    const inputsNames = inputs.map(input => input.name);
     return (
       <div className="c-workflow-inputs">
         <div className="b-workflow-inputs">
@@ -79,6 +80,7 @@ class Inputs extends Component {
                 />
                 <InputsModal
                   isEdit
+                  inputsNames={inputsNames.filter(inputName => inputName !== input.name)}
                   Button={() => (
                     <div className="b-workflow-input-edit">
                       Edit
@@ -91,6 +93,7 @@ class Inputs extends Component {
             ))}
           <InputsModal
             isEdit={false}
+            inputsNames={inputsNames}
             Button={() => (
               <div className="b-workflow-input-create">
                 <img className="b-workflow-input-create__plus" src={plus} alt="create" />
