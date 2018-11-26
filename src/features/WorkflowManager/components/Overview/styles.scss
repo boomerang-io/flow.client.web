@@ -43,11 +43,17 @@
       border-radius: 0.125rem;
     }
   }
-  .c-webhook,
+  .c-webhook {
+    display: flex;
+    //justify-content: space-between;
+    padding-top: 1rem;
+  }
+
   .c-schedule {
     display: flex;
-    justify-content: space-between;
+    //justify-content: space-between;
     padding-top: 1rem;
+    margin-right: 5 rem;
   }
 
   .cron-builder {
@@ -62,6 +68,13 @@
 
   .s-webhook__token-value {
     background-color: white;
-    margin-left: 5 rem;
+    margin-right: 5 rem;
+  }
+
+  .s-schedule-title__toggle {
+    margin-left: 2rem;
+  }
+  .s-webhook-title__toggle {
+    margin-left: 2.2rem;
   }
 }

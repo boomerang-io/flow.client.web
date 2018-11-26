@@ -12,8 +12,8 @@ import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import assets from "./assets";
 import CronBuilder from "react-cron-builder";
-import "react-cron-builder/dist/bundle.css";
 import "./styles.scss";
+import "react-cron-builder/dist/bundle.css";
 
 class Overview extends Component {
   static propTypes = {
@@ -37,9 +37,8 @@ class Overview extends Component {
     const { user, webhookActions } = this.props;
 
     return webhookActions
-      .create(`${BASE_SERVICE_URL}/user`, { userId: user.id })
+      .generate(`${BASE_SERVICE_URL}/user/${user.id}`)
       .then(response => {
-        //this.webhookToken = response.data.token;
         this.handleOnChange(response.data.token, {}, "webhookToken");
         this.setState({ webhookToken: response.data.token });
         notify(
@@ -111,6 +110,7 @@ class Overview extends Component {
           <div className="c-webhook">
             <p className="s-webhook-title">Enable Webhook</p>
             <Toggle
+              className="s-webhook-title__toggle"
               value={this.state.webhook || false}
               id="toggle-webhook"
               name="webhook"
@@ -132,6 +132,7 @@ class Overview extends Component {
           <div className="c-schedule">
             <p className="s-schedule-title">Enable Scheduler</p>
             <Toggle
+              className="s-schedule-title__toggle"
               value={this.state.schedule || false}
               id="toggle-schedule"
               name="schedule"
@@ -140,9 +141,6 @@ class Overview extends Component {
               defaultChecked={false}
               theme="bmrg-white"
             />
-            <Button theme="bmrg-black" onClick={this.dummyChange}>
-              Set Schedule
-            </Button>
           </div>
           <CronBuilder cronExpression="*/4 2,12,22 * * 1-5" onChange={this.handleExpression} showResult={false} />
         </div>
