@@ -46,16 +46,16 @@ const generateRequest = () => ({ type: types.GENERATE_WEBHOOK_REQUEST });
 const generateSuccess = data => ({ type: types.GENERATE_WEBHOOK_SUCCESS, data });
 const generateFailure = error => ({ type: types.GENERATE_WEBHOOK_FAILURE, error });
 
-const fetchActionCreators = {
+const generateActionCreators = {
   reset: reset,
   request: generateRequest,
   success: generateSuccess,
   failure: generateFailure
 };
 
-const fetchApi = requestGenerator(fetchActionCreators);
-const fetch = url => dispatch => dispatch(fetchApi.request({ method: "get", url }));
-const cancel = () => dispatch => dispatch(fetchApi.cancelRequest());
+const generateApi = requestGenerator(generateActionCreators);
+const generate = url => dispatch => dispatch(generateApi.request({ method: "post", url }));
+const cancel = () => dispatch => dispatch(generateApi.cancelRequest());
 
 /*
  action creators declared to be passed into the GET request generator boilerplate
@@ -63,7 +63,7 @@ const cancel = () => dispatch => dispatch(fetchApi.cancelRequest());
 
 //actions
 export const actions = {
-  fetch,
+  generate,
   generateRequest,
   generateFailure,
   generateSuccess,
