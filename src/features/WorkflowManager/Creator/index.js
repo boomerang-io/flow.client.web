@@ -108,6 +108,7 @@ class WorkflowCreatorContainer extends Component {
               </>
             )}
           />
+          <Route path={`${match.path}/inputs`} render={() => <Inputs />} />
           <Route
             path={`${match.path}/designer`}
             render={props => (
@@ -160,7 +161,6 @@ class WorkflowCreatorContainer extends Component {
               )}
             />
           )}
-          <Route path={`${match.path}/inputs`} render={() => <Inputs />} />
           <Redirect from={`${match.path}`} to={`${match.path}/overview`} />
         </Switch>
       </>

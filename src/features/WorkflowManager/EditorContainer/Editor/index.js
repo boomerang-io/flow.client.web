@@ -79,6 +79,7 @@ class WorkflowEditor extends Component {
               </>
             )}
           />
+          <Route path={`${match.path}/inputs`} render={() => <Inputs />} />
           <Route
             path={`${match.path}/designer`}
             render={props => (
@@ -123,7 +124,6 @@ class WorkflowEditor extends Component {
               </>
             )}
           />
-          <Route path={`${match.path}/inputs`} render={() => <Inputs />} />
         </Switch>
       </>
     );

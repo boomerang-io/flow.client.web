@@ -23,6 +23,9 @@ function Navigation(props) {
         <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/overview`}>
           Overview
         </NavLink>
+        <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/inputs`}>
+          Inputs
+        </NavLink>
         <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/designer`}>
           Design
         </NavLink>
@@ -31,9 +34,6 @@ function Navigation(props) {
             Change Log
           </NavLink>
         )}
-        <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/inputs`}>
-          Inputs
-        </NavLink>
       </div>
     </>
   );
