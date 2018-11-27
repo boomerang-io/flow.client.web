@@ -64,7 +64,6 @@ class CustomAreaChart extends Component {
     }
   };
   handleMouseLeave = o => {
-    console.log(o, "leave");
     this.setState({
       offsetFailed1: "5%",
       offsetFailed2: "95%",
@@ -84,7 +83,6 @@ class CustomAreaChart extends Component {
     }
   }
   render() {
-    console.log(this.state, "state");
     const { offsetFailed1, offsetFailed2, offsetSuccess1, offsetSuccess2, offsetTotal1, offsetTotal2 } = this.state;
     const AreaLabel = (
       <text x={-180} y={35} dy={-5} fill={"#4a4a4a"} fontSize={14} transform="rotate(-90)" textAnchor="middle">

@@ -50,7 +50,6 @@ class WorkflowsInsights extends Component {
 
   render() {
     const { insights, teams } = this.props;
-    console.log(this.props, "WOOOOW");
 
     if (insights.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-white" />;
