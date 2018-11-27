@@ -30,6 +30,7 @@
     "react-toastify": "^4.4.0",
     "react-toggle": "^4.0.2",
     "react-tooltip": "^3.8.4",
+    "recharts": "^1.4.1",
     "recompose": "^0.30.0",
     "validator": "^10.7.1"
   },
