@@ -4734,6 +4734,14 @@
       "icon": "docs",
       "generatedExpression": "*/2 2,12,22 * * 1-5",
       "id": "_pEnY0D"
+    },
+    {
+      "icon": "docs",
+      "webhookToken": null,
+      "showScheduleModal": true,
+      "name": "ben unique test",
+      "cronString": "1 1 1 1 1",
+      "id": "VVTlajk"
     }
   ],
   "workflowActivity": {
