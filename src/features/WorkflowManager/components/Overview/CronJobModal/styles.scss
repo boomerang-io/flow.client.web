@@ -1,0 +1,15 @@
+@import "~Styles/variables";
+
+.b-cron-fieldset {
+  height: 100%;
+  margin-top: 2rem;
+}
+
+.b-cron-fieldset__message {
+  font-size: 0.875rem;
+  letter-spacing: 0.0625rem;
+
+  &.--error {
+    color: $red;
+  }
+}
