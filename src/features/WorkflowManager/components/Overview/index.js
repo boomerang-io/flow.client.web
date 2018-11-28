@@ -159,8 +159,6 @@ class Overview extends Component {
                 modalContent={(closeModal, rest) => (
                   <ModalFlow
                     headerTitle="Setup Scheduling"
-                    headerSubtitle=""
-                    getFormData={() => {}}
                     components={components}
                     closeModal={closeModal}
                     confirmModalProps={{ affirmativeAction: closeModal }}

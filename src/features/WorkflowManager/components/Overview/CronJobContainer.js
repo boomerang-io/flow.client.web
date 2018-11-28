@@ -1,68 +1,66 @@
-import React, { Component, Fragment } from "react";
-import Button from "@boomerang/boomerang-components/lib/Button";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentHeader from "@boomerang/boomerang-components/lib/ModalContentHeader";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import ModalNavButton from "@boomerang/boomerang-components/lib/ModalNavButton";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import cronstrue from "cronstrue";
-import assert from "assert";
 import "./styles.scss";
 
 export class CronJobContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { showInterpretation: false };
-  }
-
-  OnClick = () => {
-    let cronstrueOutput;
-    try {
-      cronstrueOutput = cronstrue.toString(this.state.cronString);
-    } catch (e) {
-      console.log("we are in catch");
-      cronstrueOutput = e.message;
-    }
-    console.log(cronstrueOutput);
-    this.setState({ showInterpretation: true, interpretation: cronstrueOutput });
+  static propTypes = {
+    cronExpression: PropTypes.string
   };
 
-  OnSave = () => {
-    this.props.handleOnChange(this.state.cronString, {}, "cronString");
+  constructor(props) {
+    super(props);
+    this.state = { cronExpression: this.props.cronExpression, error: {} };
+  }
+
+  //receives input value from TextInput
+  validateCron = value => {
+    try {
+      cronstrue.toString(value); //just need to run it
+    } catch (e) {
+      console.log("we are in catch");
+      return false;
+    }
+    return true;
+  };
+
+  onSave = () => {
+    this.props.handleOnChange(this.state.cronExpression, {}, "cronString"); //BEN TODO: change this to pass back an object so it can be more understood what those values correspond to
     this.props.closeModal();
   };
 
   render() {
-    console.log(this.props);
     return (
-      <Fragment>
-        <ModalContentHeader title="Cron Scheduling" subtitle="" />
-        <ModalContentBody>
-          <div>
-            <TextInput
-              value={this.state.cron || ""}
-              title="Cron"
-              placeholder="Enter a Cron Expression"
-              name="cron"
-              theme="bmrg-white"
-              onChange={val => this.setState({ cronString: val })}
-            />
-          </div>
-          <Button
-            theme="bmrg-black"
-            onClick={() =>
-              this.setState({ showInterpretation: true, interpretation: cronstrue.toString(this.state.cronString) })
-            }
-          >
-            Check
-          </Button>
-          {this.state.showInterpretation && <p className="cronInterpretation"> {this.state.interpretation}</p>}
+      <>
+        <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-white" />
+        <ModalContentBody style={{ maxWidth: "20rem", margin: "0 auto", alignItems: "center" }}>
+          <TextInput
+            required
+            value={this.state.cronExpression}
+            title="CRON Exrpession"
+            placeholder="Enter a CRON Expression"
+            name="cron"
+            theme="bmrg-white"
+            onChange={(value, error) => this.setState({ cronExpression: value, error })}
+            validationFunction={this.validateCron} //pass validation function here
+            validationText="Enter a valid CRON expression"
+          />
         </ModalContentBody>
         <ModalContentFooter>
-          <ModalConfirmButton onClick={this.OnSave} text="SAVE" confirmModalProps={this.confirmModalProps} />
+          <ModalConfirmButton
+            onClick={this.onSave}
+            text="SAVE"
+            confirmModalProps={this.confirmModalProps}
+            theme="bmrg-white"
+            disabled={!this.state.cronExpression || Object.keys(this.state.error).length} //disable if there is no expression, or if the error object is not empty
+          />
         </ModalContentFooter>
-      </Fragment>
+      </>
     );
   }
 }
