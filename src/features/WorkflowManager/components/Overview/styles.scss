@@ -56,10 +56,6 @@
     margin-right: 5 rem;
   }
 
-  .cron-builder {
-    background-color: $neutral-white-4 !important;
-  }
-
   .c-webhook__token {
     display: flex;
     //justify-content: space-between;
@@ -76,5 +72,15 @@
   }
   .s-webhook-title__toggle {
     margin-left: 2.2rem;
+  }
+
+  .c-schedule__button,
+  .c-webook__button {
+    margin-left: 2.2rem;
+  }
+
+  .cronInterpretation {
+    position: absolute;
+    margin-top: 5rem;
   }
 }

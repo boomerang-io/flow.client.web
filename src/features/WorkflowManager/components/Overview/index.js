@@ -7,13 +7,17 @@ import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifi
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import classnames from "classnames";
 import Button from "@boomerang/boomerang-components/lib/Button";
+import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
+import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import cronstrue from "cronstrue";
+import { CronJobContainer } from "./CronJobContainer";
 import assets from "./assets";
-import CronBuilder from "react-cron-builder";
 import "./styles.scss";
-import "react-cron-builder/dist/bundle.css";
+
+const components = [{ step: 0, component: CronJobContainer }];
 
 class Overview extends Component {
   static propTypes = {
@@ -26,7 +30,7 @@ class Overview extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...props.workflow.data, icon: assets[0].name, webhookToken: null };
+    this.state = { ...props.workflow.data, icon: assets[0].name, webhookToken: null, showScheduleModal: false };
   }
 
   handleExpression = generatedExpression => {
@@ -53,6 +57,8 @@ class Overview extends Component {
   };
 
   handleOnChange = (value, errors, name) => {
+    console.log(value);
+    console.log(name);
     this.setState(
       () => ({
         [name]: value
@@ -62,6 +68,7 @@ class Overview extends Component {
   };
 
   render() {
+    console.log(cronstrue.toString("*  * * *"));
     return (
       <div className="c-worklfow-overview">
         <div className="c-general-info">
@@ -119,7 +126,7 @@ class Overview extends Component {
               defaultChecked={false}
               theme="bmrg-white"
             />
-            <Button theme="bmrg-black" onClick={this.generateToken}>
+            <Button theme="bmrg-black" onClick={this.generateToken} className="c-webook__button">
               Generate Token
             </Button>
           </div>
@@ -137,12 +144,32 @@ class Overview extends Component {
               id="toggle-schedule"
               name="schedule"
               title="schedule"
-              onChange={this.handleOnChange}
+              onChange={event => this.setState({ showScheduleModal: event.target.checked })}
               defaultChecked={false}
               theme="bmrg-white"
             />
+            {this.state.showScheduleModal && (
+              <ModalWrapper
+                initialState={this.state}
+                ModalTrigger={() => <Button>Set Schedule</Button>}
+                shouldCloseOnOverlayClick={false}
+                theme="bmrg-white"
+                //newStageNames={newStageNames}
+                handleOnChange={this.handleOnChange}
+                modalContent={(closeModal, rest) => (
+                  <ModalFlow
+                    headerTitle="Setup Scheduling"
+                    headerSubtitle=""
+                    getFormData={() => {}}
+                    components={components}
+                    closeModal={closeModal}
+                    confirmModalProps={{ affirmativeAction: closeModal }}
+                    {...rest}
+                  />
+                )}
+              />
+            )}
           </div>
-          <CronBuilder cronExpression="*/4 2,12,22 * * 1-5" onChange={this.handleExpression} showResult={false} />
         </div>
       </div>
     );
