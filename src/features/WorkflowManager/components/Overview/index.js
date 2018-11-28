@@ -13,11 +13,11 @@ import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import cronstrue from "cronstrue";
-import { CronJobContainer } from "./CronJobContainer";
+import CronJobModal from "./CronJobModal";
 import assets from "./assets";
 import "./styles.scss";
 
-const components = [{ step: 0, component: CronJobContainer }];
+const components = [{ step: 0, component: CronJobModal }];
 
 class Overview extends Component {
   static propTypes = {
