@@ -1,19 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-// import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as insightsActions } from "State/insights";
 import { actions as teamsActions } from "State/teams";
-// import sortBy from "lodash/sortBy";
+import moment from "moment";
+import queryString from "query-string";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
-// import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import NavigateBack from "Components/NavigateBack";
-// import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import ErrorDragon from "Components/ErrorDragon";
-// import SearchFilterBar from "Components/SearchFilterBar";
-// import WorkflowsSection from "./WorkflowsSection";
 import WidgetCard from "./WidgetCard";
 import CustomAreaChart from "./CustomAreaChart";
 import CustomScatterChart from "./CustomScatterChart";
@@ -27,26 +23,47 @@ import "./styles.scss";
 
 class WorkflowsInsights extends Component {
   static propTypes = {
-    // insights: PropTypes.object.isRequired,
-    // insightsActions: PropTypes.object.isRequired,
-    // teams: PropTypes.object.isRequired,
-    // teamsActions: PropTypes.object.isRequired
+    insights: PropTypes.object.isRequired,
+    insightsActions: PropTypes.object.isRequired,
+    teams: PropTypes.object.isRequired,
+    teamsActions: PropTypes.object.isRequired
   };
+
   state = {
     selectedTimeframe: timeframeOptions[3],
-    selectedTeam: { value: "", label: "All" }
+    selectedTeam: { value: "all", label: "All" }
   };
 
   handleChangeTimeframe = timeframe => {
-    this.setState({ selectedTimeframe: timeframe });
+    this.setState({ selectedTimeframe: timeframe }, () => {
+      this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
+    });
   };
   handleChangeTeam = team => {
-    this.setState({ selectedTeam: team });
+    this.setState({ selectedTeam: team }, () => {
+      this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
+    });
   };
   componentDidMount() {
-    this.props.insightsActions.fetch(`${BASE_SERVICE_URL}/activity`);
+    this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   }
+
+  getFetchQuery = () => {
+    const { selectedTeam, selectedTimeframe } = this.state;
+    const query = queryString.stringify({
+      fromDate: moment()
+        .subtract("days", selectedTimeframe.value)
+        .format("x"),
+      toDate: moment().format("x"),
+      teamId: selectedTeam.value === "all" ? undefined : selectedTeam.value
+    });
+    return query;
+  };
+
+  fetchInsights = url => {
+    this.props.insightsActions.fetch(url);
+  };
 
   render() {
     const { insights, teams } = this.props;
@@ -66,9 +83,7 @@ class WorkflowsInsights extends Component {
     }
 
     if (insights.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
-      // const filteredTeams = this.filterTeams();
-      // const sortedTeams = sortBy(filteredTeams, ["name"]);
-      const teamsList = [{ value: "", label: "All" }].concat(
+      const teamsList = [{ value: "all", label: "All" }].concat(
         teams.data.map(team => ({ label: team.name, value: team.id }))
       );
       const chartData = parseChartsData(insights.data.executions);
@@ -103,7 +118,7 @@ class WorkflowsInsights extends Component {
                 {insights.data.length === 0 ? (
                   <label className="b-workflow-insights__stats-label --no-data">No Data</label>
                 ) : (
-                  <label className="b-workflow-insights__stats-label">{chartData.totalExecuted}</label>
+                  <label className="b-workflow-insights__stats-label">{insights.data.totalActivitiesExecuted}</label>
                 )}
               </WidgetCard>
             </div>

@@ -5068,7 +5068,7 @@
     }
   ],
   "workflowInsights": {
-    "totalActivitiesExecuted": 3,
+    "totalActivitiesExecuted": 107,
     "medianExecutionTime": 24435,
     "executions": [
       {

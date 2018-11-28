@@ -6,7 +6,7 @@
   "dependencies": {
     "@boomerang/boomerang-components": "^6.0.15",
     "@boomerang/boomerang-dag": "5.2.1",
-    "@boomerang/boomerang-react-scripts": "1.2.21",
+    "@boomerang/boomerang-react-scripts": "^1.2.22",
     "@boomerang/boomerang-styles": "0.10.0",
     "@boomerang/boomerang-utilities": "2.0.0-alpha0",
     "carbon-components": "^9.37.2",
@@ -17,6 +17,7 @@
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
     "normalize-scss": "^7.0.1",
+    "query-string": "^6.2.0",
     "react": "^16.5.1",
     "react-click-outside": "^3.0.1",
     "react-debounce-input": "^3.2.0",

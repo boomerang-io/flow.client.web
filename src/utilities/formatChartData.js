@@ -41,12 +41,9 @@ export const parseChartsData = data => {
   const totalExecutions = data.length;
   const successExecutions = success.length;
   const percentageSuccessful = parseFloat(((success.length / totalExecutions) * 100).toFixed(2));
-  const sortedMedianArray = sortBy(medianArray);
   return {
     timeData: sortBy(finalData, ["date"]),
     scatterData: sortBy(scatterData, ["date"]),
-    medianDuration: sortedMedianArray[parseInt(sortedMedianArray.length / 2, 10)],
-    totalExecuted: data.length,
     pieData: [
       { name: "Passed", value: successExecutions },
       { name: "Failed", value: totalExecutions - successExecutions }
