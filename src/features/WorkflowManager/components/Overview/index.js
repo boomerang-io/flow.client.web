@@ -39,9 +39,8 @@ class Overview extends Component {
 
   generateToken = () => {
     const { user, webhookActions } = this.props;
-
     return webhookActions
-      .generate(`${BASE_SERVICE_URL}/user/${user.id}`)
+      .generate(`${BASE_SERVICE_URL}/user/${user.data.id}`)
       .then(response => {
         this.handleOnChange(response.data.token, {}, "webhookToken");
         this.setState({ webhookToken: response.data.token });
@@ -51,7 +50,7 @@ class Overview extends Component {
         return Promise.resolve();
       })
       .catch(err => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow and version" />);
+        notify(<Notification type="error" title="Something's wrong" message="Failed to create webhook token" />);
         return Promise.reject();
       });
   };
@@ -126,7 +125,7 @@ class Overview extends Component {
               defaultChecked={false}
               theme="bmrg-white"
             />
-            <Button theme="bmrg-black" onClick={this.generateToken} className="c-webook__button">
+            <Button theme="bmrg-black" onClick={this.generateToken} style={{ "margin-left": "2.2rem" }}>
               Generate Token
             </Button>
           </div>
@@ -146,12 +145,16 @@ class Overview extends Component {
               title="schedule"
               onChange={event => this.setState({ showScheduleModal: event.target.checked })}
               defaultChecked={false}
-              theme="bmrg-white"
+              theme="bmrg-black"
             />
             {this.state.showScheduleModal && (
               <ModalWrapper
                 initialState={this.state}
-                ModalTrigger={() => <Button>Set Schedule</Button>}
+                ModalTrigger={() => (
+                  <Button theme="bmrg-black" style={{ "margin-left": "2.2rem" }}>
+                    Set Schedule
+                  </Button>
+                )}
                 shouldCloseOnOverlayClick={false}
                 theme="bmrg-white"
                 //newStageNames={newStageNames}
