@@ -7,11 +7,11 @@
   "/flow/workflow": "/workflowSummary",
   "/flow/workflow/:id/summary": "/workflowSummary/5bc0efa45a5df954adb0e556?&singular=1",
   "/flow/activity/:id": "/workflowExecution",
-  "/flow/activity?size=:value": "/workflowActivity",
   "/flow/workflow/:id": "/workflowSummary/5bc0efa45a5df954adb0e556?&singular=1",
-  "/flow/activity?size=:value&page=2&searchQuery=": "/workflowActivityLast",
-  "/flow/activity?size=:value&page=:page&searchQuery=:query": "/workflowActivity",
-  "/flow/activity?size=:value&page=:page": "/workflowActivity",
+  "/flow/activity?size=10&page=0&query=&workflowId=hQDkX9v": "/workflowActivityLast",
+  "/flow/activity?size=:value&page=2&query=": "/workflowActivityLast",
+  "/flow/activity?size=:value&page=:page&query=:query": "/workflowActivity",
+  "/flow/activity?size=:value": "/workflowActivity",
   "/flow/*": "/$1",
   "/launchpad/*": "/$1"
 }
