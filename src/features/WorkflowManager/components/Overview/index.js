@@ -38,9 +38,9 @@ class Overview extends Component {
   };
 
   generateToken = () => {
-    const { user, webhookActions } = this.props;
+    const { webhookActions } = this.props;
     return webhookActions
-      .generate(`${BASE_SERVICE_URL}/user/${user.data.id}`)
+      .generate(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/token`)
       .then(response => {
         this.handleOnChange(response.data.token, {}, "webhookToken");
         this.setState({ webhookToken: response.data.token });
@@ -68,6 +68,7 @@ class Overview extends Component {
 
   render() {
     console.log(cronstrue.toString("*  * * *"));
+    console.log(this.props.workflow.data);
     return (
       <div className="c-worklfow-overview">
         <div className="c-general-info">
