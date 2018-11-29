@@ -12,6 +12,7 @@
   "/flow/activity?size=:value&page=2&searchQuery=": "/workflowActivityLast",
   "/flow/activity?size=:value&page=:page&searchQuery=:query": "/workflowActivity",
   "/flow/activity?size=:value&page=:page": "/workflowActivity",
+  "/flow/user/:id": "/user/5bc0efa45a5df954adb0e556?&webhook=1",
   "/flow/*": "/$1",
   "/launchpad/*": "/$1"
 }
