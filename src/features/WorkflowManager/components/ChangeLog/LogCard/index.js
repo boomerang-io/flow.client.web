@@ -15,7 +15,7 @@ class LogCard extends Component {
     return (
       <div className="c-worklfow-log">
         <label className="b-workflow-log__version">{version}</label>
-        <label className="b-workflow-log__version">{reason}</label>
+        <label className="b-workflow-log__message">{reason}</label>
         <div className="c-workflow-log__data">
           <label className="b-workflow-log__date">{moment(date).format("YYYY-MM-DD hh:mm A")}</label>
           <label className="b-workflow-log__divider">|</label>
