@@ -20,6 +20,40 @@
 .b-search-filter__filter {
   width: 10rem;
 
+  .bx--select{
+    background-color: $teal-20;
+    border-radius: 0.25rem;
+    box-shadow: none;
+    cursor: pointer;
+    height: 2.625rem;
+    max-height: 2.625rem;
+    &::before {
+      content: url("~Assets/svg/configure.svg");
+      position: absolute;
+      height: 2rem;
+      width: 2rem;
+      right: 1rem;
+      top: 0.2rem;
+    }
+    select{
+      box-shadow: none;
+    }
+    .bx--select-input{
+      background-color: $teal-20;
+      border-radius: 0.25rem;
+      box-shadow: none;
+      text-overflow: ellipsis;
+    }
+    .bx--select-optgroup{
+      background-color: $white;
+      box-shadow: none;
+    }
+    .bx--select-option{
+      background-color: $white;
+      font-size: 0.875rem;
+    }
+
+  }
   .bx--list-box {
     background-color: $teal-20;
     border-radius: 0.25rem;
@@ -52,7 +86,7 @@
     }
   }
 
-  .bx--list-box__menu-icon {
+  .bx--list-box__menu-icon,.bx--select__arrow {
     display: none;
   }
 

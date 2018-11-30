@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as activityActions } from "State/activity";
 import { actions as teamsActions } from "State/teams";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
+import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
 import SearchFilterBar from "Components/SearchFilterBar";
@@ -20,12 +22,18 @@ class WorkflowsActivity extends Component {
 
   state = {
     searchQuery: "",
-    teamFilter: [],
-    tableSize: 10
+    workflowId:this.props.match.params.workflowId?this.props.match.params.workflowId:"",
+    tableSize: 10,
+    activityList:[],
+    hasMoreActivities: null,
+    nextPage:1,
+    isLoading:false
   };
 
   componentDidMount() {
-    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0`);
+    const { params } = this.props.match;
+    const workflowParam = params.workflowId? `&workflowId=${params.workflowId}`:"";
+    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0${workflowParam}`);
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   }
   fetchActivities = url => {
@@ -34,37 +42,56 @@ class WorkflowsActivity extends Component {
   savePageSize = size => {
     this.setState({ tableSize: size });
   };
-  handleSearchFilter = (searchQuery, team) => {
-    this.setState({ searchQuery, teamFilter: team });
-    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0&query=${searchQuery}`);
-  };
 
-  filterActivity = () => {
-    const { activity } = this.props;
-    const { teamFilter } = this.state;
-
-    if (teamFilter.length > 0) {
-      return activity.data.records.filter(item => teamFilter.find(filter => filter.id === item.teamId));
-    } else {
-      return activity.data.records;
-    }
+  handleSearchFilter = (searchQuery, workflowId) => {
+    this.setState({ searchQuery, workflowId, activityList:[], hasMoreActivities:null, nextPage:1 });
+    const workflowUrl = workflowId.length>0 && workflowId!=="none" ?`&workflowId=${workflowId}`:"";
+    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0&query=${searchQuery}${workflowUrl}`);
   };
 
   updateWorkflows = data => {
     this.props.activityActions.updateWorkflows(data);
   };
 
+  setActivityList = (activityList) => {
+    this.setState({activityList});
+  };
+  
+  setMoreActivities = (last) => {
+    this.setState({hasMoreActivities: last});
+  };
+
+  loadMoreActivities = (nextPage) => {
+    this.setState({isLoading:true},()=>{
+      const { searchQuery, workflowId, activityList } = this.state;
+      let newActivities = [].concat(activityList.length===0? this.props.activity.data.records:activityList);
+      const workflowUrl = workflowId.length>0 && workflowId!=="none" ?`&workflowId=${workflowId}`:"";
+      axios
+        .get(`${BASE_SERVICE_URL}/activity?size=10&page=${nextPage}&query=${searchQuery}${workflowUrl}`)
+        .then(response => {
+          const { records, last } = response.data;
+          this.setState({ activityList: newActivities.concat(records), hasMoreActivities: !last, nextPage: nextPage+1, isLoading:false });
+        })
+        .catch(error=>{
+          console.log(error);
+          this.setState({hasMoreActivities:false, isLoading:false});
+        });
+    })
+  };
+
   render() {
-    const { activity, teams, history } = this.props;
-    const { searchQuery } = this.state;
+    const { activity, teams, history, match } = this.props;
+    const { searchQuery, workflowId, activityList, hasMoreActivities, nextPage, isLoading } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-white" />;
     }
 
     if (activity.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
-      const filteredActivities = this.filterActivity();
-      const teamsList = teams.data.map(team => ({ id: team.id, text: team.name }));
+      // const filteredActivities = this.filterActivity();
+      let workflowsList = [];
+      teams.data.forEach(team => workflowsList = workflowsList.concat(team.workflows));
+      const workflowsFilter = sortByProp(workflowsList,"name","ASC");
 
       return (
         <div className="c-workflow-activity">
@@ -75,18 +102,26 @@ class WorkflowsActivity extends Component {
             <SearchFilterBar
               handleSearchFilter={this.handleSearchFilter}
               options={teams.data}
-              filterItems={teamsList}
+              filterItems={workflowsFilter}
               debounceTimeout={300}
+              multiselect={false}
+              selectedOption={match.params.workflowId}
             />
-            {!filteredActivities.length ? (
+            {!activity.data.records.length ? (
               <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
             ) : (
               <ActivityList
-                activities={activity.data}
+                activities={activityList.length>0?activityList: activity.data.records}
+                hasMoreActivities={hasMoreActivities===null? !activity.data.last: hasMoreActivities}
                 fetchActivities={this.fetchActivities}
+                setMoreActivities={this.setMoreActivities}
                 savePageSize={this.savePageSize}
                 searchQuery={searchQuery}
+                workflowId={workflowId}
                 history={history}
+                loadMoreActivities={this.loadMoreActivities}
+                nextPage={nextPage}
+                isLoading={isLoading}
               />
             )}
           </div>
