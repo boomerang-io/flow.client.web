@@ -134,7 +134,7 @@ class WorkflowsInsights extends Component {
               </WidgetCard>
             </div>
             <div className="c-workflow-insights__stats">
-              <WidgetCard title="Success Executions">
+              <WidgetCard title="Success Rate">
                 {insights.data.length === 0 ? (
                   <label className="b-workflow-insights__stats-label --no-data">No Data</label>
                 ) : (
