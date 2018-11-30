@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import NavigateBack from "Components/NavigateBack";
 import TimeProgressBar from "Components/TimeProgressBar";
 import DiagramApplication from "Utilities/DiagramApplication";
@@ -25,6 +26,8 @@ class Main extends Component {
 
   render() {
     const { workflowExecutionData, taskId, updateActiveNode } = this.props;
+    const hasStepExecuting =
+      workflowExecutionData.steps && workflowExecutionData.steps.find(step => step.flowTaskStatus !== "notstarted");
     const selectedStep =
       workflowExecutionData.steps && workflowExecutionData.steps.length && taskId
         ? workflowExecutionData.steps.find(step => step.taskId === taskId)
@@ -39,15 +42,19 @@ class Main extends Component {
         <WorkflowSummary workflowData={this.props.workflowData} version={this.props.version} />
         {selectedStep && <StepSideInfo step={selectedStep} />}
         <div className="c-workflow-diagram-execution">
-          <DiagramWidget
-            className="c-diagram-canvas"
-            diagramEngine={this.diagramApp.getDiagramEngine()}
-            maxNumberPointsPerLink={0}
-            deleteKeys={[]}
-            allowLooseLinks={false}
-            allowCanvasTranslation={true}
-            allowCanvasZoo={false}
-          />
+          {hasStepExecuting ? (
+            <DiagramWidget
+              className="c-diagram-canvas"
+              diagramEngine={this.diagramApp.getDiagramEngine()}
+              maxNumberPointsPerLink={0}
+              deleteKeys={[]}
+              allowLooseLinks={false}
+              allowCanvasTranslation={true}
+              allowCanvasZoo={false}
+            />
+          ) : (
+            <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
+          )}
         </div>
       </div>
     );

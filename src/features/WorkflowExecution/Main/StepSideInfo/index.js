@@ -23,7 +23,9 @@ const StepSideInfo = ({ step }) => {
         </div>
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Start Time</div>
-          <div className="b-step-side-info-field__value">{moment(step.startTime).format("YYYY-MM-DD h:mm A")}</div>
+          <div className="b-step-side-info-field__value">
+            {moment(step.startTime).format("MMMM Do YYYY, h:mm:ss a")}
+          </div>
         </div>
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Duration</div>
