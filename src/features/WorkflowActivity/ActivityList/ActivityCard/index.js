@@ -34,14 +34,14 @@ class ActivityCard extends Component {
           </div>
           <div className="c-activity-card__label">
             <label className="b-activity-card__label">Duration</label>
-            <label className="b-activity-card__data">{getHumanizedDuration(duration)}</label>
+            <label className="b-activity-card__data">{getHumanizedDuration(parseInt(duration / 1000, 10))}</label>
           </div>
           <div className="c-activity-card__label">
             <label className="b-activity-card__label"> Status</label>
             <label className="b-activity-card__data">
               <img
                 className="b-activity-card__status-icon"
-                src={ACTIVITY_STATUSES_TO_ICON[status?status:"notstarted"]}
+                src={ACTIVITY_STATUSES_TO_ICON[status ? status : "notstarted"]}
                 alt={`Status ${status}`}
               />
               {ACTIVITY_STATUSES_TO_TEXT[status]}

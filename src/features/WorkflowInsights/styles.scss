@@ -1,0 +1,54 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.c-workflow-insights {
+  display: flex;
+  flex-direction: column;
+  max-width: 100rem;
+  margin: 0 auto;
+  .c-legend {
+    margin-top: 1rem;
+  }
+}
+.c-workflow-insights-header {
+  display: flex;
+  width: 50rem;
+  align-self: center;
+  justify-content: space-between;
+}
+.s-workflow-insights-navigation {
+  margin-top: 1rem;
+  align-self: flex-start;
+}
+.c-workflow-insights__stats {
+  font-size: 1.75rem;
+}
+.c-workflow-insights__stats-widgets {
+  display: flex;
+  justify-content: center;
+}
+.c-workflow-insights__graphs-widgets {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.c-workflow-insights-graph {
+  width: 76rem;
+}
+.b-workflow-insights__stats-label,
+.b-workflow-insights__graphs-label {
+  display: flex;
+  height: 13rem;
+  width: 23rem;
+  justify-content: center;
+  align-items: center;
+  color: $gray-90;
+  font-size: 5rem;
+  font-weight: 500;
+  line-height: 6.5rem;
+  &.--no-data {
+    width: auto;
+    align-self: center;
+    font-size: 2.5rem;
+    line-height: 6.5rem;
+  }
+}
