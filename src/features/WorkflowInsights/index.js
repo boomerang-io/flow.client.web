@@ -154,7 +154,7 @@ class WorkflowsInsights extends Component {
                     data={chartData.timeData}
                     toolTipDateFormat="MMM DD - YYYY"
                     xAxisKey="date"
-                    yAxisText={`Activities`}
+                    yAxisText="Count"
                   />
                 )}
               </WidgetCard>
@@ -164,7 +164,11 @@ class WorkflowsInsights extends Component {
                 {insights.data.length === 0 ? (
                   <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
                 ) : (
-                  <CustomScatterChart data={chartData.scatterData} yAxisText="duration" yAxisDataKey="duration" />
+                  <CustomScatterChart
+                    data={chartData.scatterData}
+                    yAxisText="Duration (seconds)"
+                    yAxisDataKey="duration"
+                  />
                 )}
               </WidgetCard>
             </div>

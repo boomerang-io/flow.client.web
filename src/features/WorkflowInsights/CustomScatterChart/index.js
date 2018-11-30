@@ -86,6 +86,7 @@ class CustomScatterChart extends Component {
             type="number"
             name={this.props.yAxisDataKey}
             unit={this.props.yAxisUnit}
+            allowDecimals={false}
           >
             <Label content={() => ScatterLabel} position={"bottom"} />
           </YAxis>
