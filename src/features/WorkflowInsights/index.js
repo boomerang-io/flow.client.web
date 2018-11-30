@@ -93,7 +93,7 @@ class WorkflowsInsights extends Component {
           <nav className="s-workflow-insights-navigation">
             <NavigateBack to="/workflows" text="Back to Workflows" />
           </nav>
-          <div className="c-workflow-insights__header">
+          <div className="c-workflow-insights-header">
             <SelectDropdown
               options={teamsList}
               theme="bmrg-white"
@@ -144,7 +144,7 @@ class WorkflowsInsights extends Component {
             </div>
           </div>
           <div className="c-workflow-insights__graphs-widgets">
-            <div className="c-workflow-insights__graph">
+            <div className="c-workflow-insights-graph">
               <WidgetCard title="Executions">
                 {insights.data.length === 0 ? (
                   <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
@@ -159,7 +159,7 @@ class WorkflowsInsights extends Component {
                 )}
               </WidgetCard>
             </div>
-            <div className="c-workflow-insights__graph">
+            <div className="c-workflow-insights-graph">
               <WidgetCard title="Average Execution Time">
                 {insights.data.length === 0 ? (
                   <label className="b-workflow-insights__graphs-label --no-data">No Data</label>

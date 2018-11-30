@@ -3,11 +3,13 @@
 .c-workflow-insights {
   display: flex;
   flex-direction: column;
+  max-width: 100rem;
+  margin: 0 auto;
   .c-legend {
     margin-top: 1rem;
   }
 }
-.c-workflow-insights__header {
+.c-workflow-insights-header {
   display: flex;
   width: 50rem;
   align-self: center;
@@ -29,8 +31,8 @@
   flex-direction: column;
   align-items: center;
 }
-.c-workflow-insights__graph {
-  width: 70rem;
+.c-workflow-insights-graph {
+  width: 76rem;
 }
 .b-workflow-insights__stats-label,
 .b-workflow-insights__graphs-label {
