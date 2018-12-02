@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as webhookActions } from "State/webhook/generate";
+import { actions as workflowActions } from "State/workflow";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import classnames from "classnames";
@@ -12,7 +13,6 @@ import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
-import cronstrue from "cronstrue";
 import CronJobModal from "./CronJobModal";
 import assets from "./assets";
 import "./styles.scss";
@@ -30,20 +30,20 @@ class Overview extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...props.workflow.data, icon: assets[0].name, webhookToken: null, showScheduleModal: false };
+    this.state = { ...props.workflow.data, icon: assets[0].name, showScheduleModal: false, showWebhookButton: false };
   }
 
-  handleExpression = generatedExpression => {
+  /*handleExpression = generatedExpression => {
     this.handleOnChange(generatedExpression || "", {}, "generatedExpression");
-  };
+  };*/
 
   generateToken = () => {
-    const { webhookActions } = this.props;
-    return webhookActions
-      .generate(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/token`)
+    const { workflowActions } = this.props;
+    return axios
+      .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/token`)
       .then(response => {
-        this.handleOnChange(response.data.token, {}, "webhookToken");
-        this.setState({ webhookToken: response.data.token });
+        //const webToken = response.data.token;
+        workflowActions.updateWorkflowWebhook({ token: response.data.token });
         notify(
           <Notification type="success" title="Create Workflow" message="Succssfully created workflow and version" />
         );
@@ -56,8 +56,6 @@ class Overview extends Component {
   };
 
   handleOnChange = (value, errors, name) => {
-    console.log(value);
-    console.log(name);
     this.setState(
       () => ({
         [name]: value
@@ -67,8 +65,6 @@ class Overview extends Component {
   };
 
   render() {
-    console.log(cronstrue.toString("*  * * *"));
-    console.log(this.props.workflow.data);
     return (
       <div className="c-worklfow-overview">
         <div className="c-general-info">
@@ -114,26 +110,32 @@ class Overview extends Component {
         </div>
         <div className="c-trigger">
           <h1 className="s-trigger-title">Triggers</h1>
-          <div className="c-webhook">
-            <p className="s-webhook-title">Enable Webhook</p>
-            <Toggle
-              className="s-webhook-title__toggle"
-              value={this.state.webhook || false}
-              id="toggle-webhook"
-              name="webhook"
-              title="webhook"
-              onChange={this.handleOnChange}
-              defaultChecked={false}
-              theme="bmrg-white"
-            />
-            <Button theme="bmrg-black" onClick={this.generateToken} style={{ "margin-left": "2.2rem" }}>
-              Generate Token
-            </Button>
-          </div>
-          {this.state.webhookToken && (
+          {this.props.workflow.data.id && (
+            <div className="c-webhook">
+              <p className="s-webhook-title">Enable Webhook</p>
+              {!this.props.workflow.data.token && (
+                <Toggle
+                  className="s-webhook-title__toggle"
+                  value={this.state.webhook || false}
+                  id="toggle-webhook"
+                  name="webhook"
+                  title="webhook"
+                  onChange={event => this.setState({ showWebhookButton: event.target.checked })}
+                  defaultChecked={false}
+                  theme="bmrg-white"
+                />
+              )}
+              {this.state.showWebhookButton && (
+                <Button theme="bmrg-black" onClick={this.generateToken} style={{ "margin-left": "2.2rem" }}>
+                  Generate Token
+                </Button>
+              )}
+            </div>
+          )}
+          {this.props.workflow.data.token && (
             <div className="c-webhook__token">
               <p className="s-webhook__token-title">Webhook Token:</p>
-              <p className="s-webhook__token-value">{this.state.webhookToken}</p>
+              <p className="s-webhook__token-value">{this.props.workflow.data.token}</p>
             </div>
           )}
           <div className="c-schedule">
@@ -188,7 +190,7 @@ const mapStateToProps = state => {
   };
 };
 const mapDispatchToProps = dispatch => ({
-  webhookActions: bindActionCreators(webhookActions, dispatch)
+  workflowActions: bindActionCreators(workflowActions, dispatch)
 });
 export default connect(
   mapStateToProps,
