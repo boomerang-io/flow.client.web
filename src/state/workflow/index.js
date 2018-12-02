@@ -13,7 +13,8 @@ export const types = {
   UPDATE_WORKFLOW_REQUEST: "UPDATE_WORKFLOW_REQUEST",
   CREATE_WORKFLOW_SUCCESS: "CREATE_WORKFLOW_SUCCESS",
   CREATE_WORKFLOW_FAILURE: "CREATE_WORKFLOW_FAILURE",
-  CREATE_WORKFLOW_REQUEST: "CREATE_WORKFLOW_REQUEST"
+  CREATE_WORKFLOW_REQUEST: "CREATE_WORKFLOW_REQUEST",
+  UPDATE_WORKFLOW_WEBHOOK: "UPDATE_WORKFLOW_WEBHOOK"
 };
 Object.freeze(types);
 
@@ -68,7 +69,16 @@ const actionHandlers = {
     updatingStatus: "failure",
     error: action.error
   }),
-  [types.CREATE_WORKFLOW_REQUEST]: state => ({ ...state, isCreating: true, creatingStatus: "" })
+  [types.CREATE_WORKFLOW_REQUEST]: state => ({ ...state, isCreating: true, creatingStatus: "" }),
+  [types.UPDATE_WORKFLOW_WEBHOOK]: (state, action) => {
+    console.log(action);
+    /*let workflowData = state.workflow.data;
+    const updatedData = { ...workflowData, token: action.token };
+    console.log(state);
+    //return { ...state, workflow: { ...state.workflow.data, webhookToken: action.webhookToken } };
+    return { ...state, workflow: { ...state.workflow, data: updatedData } };*/
+    return { ...state, data: { ...state.data, token: action.data.token } };
+  }
 };
 
 export default createReducer(initialState, actionHandlers);
@@ -86,6 +96,7 @@ const updateFailure = error => ({ type: types.UPDATE_WORKFLOW_FAILURE, error });
 const createRequest = () => ({ type: types.CREATE_WORKFLOW_REQUEST });
 const createSuccess = data => ({ type: types.CREATE_WORKFLOW_SUCCESS, data });
 const createFailure = error => ({ type: types.CREATE_WORKFLOW_FAILURE, error });
+const updateWorkflowWebhook = data => ({ type: types.UPDATE_WORKFLOW_WEBHOOK, data });
 
 const fetchActionCreators = {
   reset: reset,
@@ -141,5 +152,6 @@ export const actions = {
   createFailure,
   createSuccess,
   cancelCreate,
-  reset
+  reset,
+  updateWorkflowWebhook
 };
