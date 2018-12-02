@@ -33,10 +33,6 @@ class Overview extends Component {
     this.state = { ...props.workflow.data, icon: assets[0].name, showScheduleModal: false, showWebhookButton: false };
   }
 
-  /*handleExpression = generatedExpression => {
-    this.handleOnChange(generatedExpression || "", {}, "generatedExpression");
-  };*/
-
   generateToken = () => {
     const { workflowActions } = this.props;
     return axios
