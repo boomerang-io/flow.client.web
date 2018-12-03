@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimeProgressBar --- Snapshot Capturing Snapshot of TimeProgressBar 1`] = `
+<div
+  className="c-time-progress-bar"
+>
+  <div
+    className="b-time-progress-bar"
+  >
+    <div
+      className="b-time-progress-bar__start"
+    >
+      Start
+    </div>
+    <div
+      className="b-time-progress-bar__finish"
+    >
+      Finish
+    </div>
+    <div
+      className="b-time-progress-bar__fillers"
+    >
+      <div
+        className="b-time-progress-bar-filler"
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#57d785",
+            "width": "30.342713847868485%",
+            "zIndex": 20,
+          }
+        }
+      >
+        <div
+          className="b-time-progress-bar-filler__time"
+        >
+          00:00:02
+        </div>
+        <div
+          className="b-time-progress-bar-filler__name"
+        >
+          task1
+        </div>
+      </div>
+      <div
+        className="b-time-progress-bar-filler"
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#95c4f3",
+            "width": "72.13708553914739%",
+            "zIndex": 19,
+          }
+        }
+      >
+        <div
+          className="b-time-progress-bar-filler__time"
+        >
+          00:00:05
+        </div>
+        <div
+          className="b-time-progress-bar-filler__name"
+        >
+          task2
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

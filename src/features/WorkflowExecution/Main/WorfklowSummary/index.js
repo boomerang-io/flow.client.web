@@ -21,7 +21,8 @@ const WorkflowSummary = ({ workflowData, version }) => {
 };
 
 WorkflowSummary.propTypes = {
-  step: PropTypes.object.isRequired
+  workflowData: PropTypes.object,
+  version: PropTypes.number
 };
 
 export default WorkflowSummary;

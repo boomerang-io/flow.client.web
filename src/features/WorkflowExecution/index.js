@@ -13,7 +13,7 @@ import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import Main from "./Main";
 import "./styles.scss";
 
-class WorkflowExecutionContainer extends Component {
+export class WorkflowExecutionContainer extends Component {
   static propTypes = {
     workflowExecution: PropTypes.object.isRequired,
     workflowExecutionActions: PropTypes.object.isRequired,
