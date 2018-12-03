@@ -31,7 +31,9 @@ class WorkflowsInsights extends Component {
 
   state = {
     selectedTimeframe: timeframeOptions[3],
-    selectedTeam: { value: "all", label: "All" }
+    selectedWorkflow: { value: "all", label: "All" },
+    selectedTeam: { value: "all", label: "All" },
+    executionsList: []
   };
 
   handleChangeTimeframe = timeframe => {
@@ -40,8 +42,19 @@ class WorkflowsInsights extends Component {
     });
   };
   handleChangeTeam = team => {
-    this.setState({ selectedTeam: team }, () => {
+    this.setState({ selectedTeam: team, selectedWorkflow: { value: "all", label: "All" } }, () => {
       this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
+    });
+  };
+  handleChangeWorkflow = workflow => {
+    this.setState({ selectedWorkflow: workflow }, () => {
+      const { selectedWorkflow } = this.state;
+      const { insights } = this.props;
+      if (selectedWorkflow.value === "all") this.setState({ executionsList: insights.data.executions });
+      else
+        this.setState({
+          executionsList: insights.data.executions.filter(execution => execution.workflowId === selectedWorkflow.value)
+        });
     });
   };
   componentDidMount() {
@@ -62,7 +75,18 @@ class WorkflowsInsights extends Component {
   };
 
   fetchInsights = url => {
-    this.props.insightsActions.fetch(url);
+    const { selectedWorkflow } = this.state;
+    this.props.insightsActions.fetch(url).then(response => {
+      if (response.status === 200) {
+        if (selectedWorkflow.value === "all") this.setState({ executionsList: response.data.executions });
+        else
+          this.setState({
+            executionsList: response.data.executions.filter(
+              execution => execution.workflowId === selectedWorkflow.value
+            )
+          });
+      }
+    });
   };
 
   render() {
@@ -83,11 +107,17 @@ class WorkflowsInsights extends Component {
     }
 
     if (insights.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
+      const { executionsList, selectedTeam } = this.state;
       const teamsList = [{ value: "all", label: "All" }].concat(
         teams.data.map(team => ({ label: team.name, value: team.id }))
       );
-      const chartData = parseChartsData(insights.data.executions);
-
+      let workflows = [];
+      if (selectedTeam.value === "all") teams.data.forEach(team => (workflows = workflows.concat(team.workflows)));
+      else workflows = teams.data.find(team => team.id === selectedTeam.value).workflows;
+      const chartData = parseChartsData(executionsList);
+      let workflowsList = [{ value: "all", label: "All" }].concat(
+        workflows.map(workflow => ({ ...workflow, value: workflow.id, label: workflow.name }))
+      );
       return (
         <div className="c-workflow-insights">
           <nav className="s-workflow-insights-navigation">
@@ -104,6 +134,15 @@ class WorkflowsInsights extends Component {
               onChange={this.handleChangeTeam}
             />
             <SelectDropdown
+              options={workflowsList}
+              theme="bmrg-white"
+              styles={{ width: "22rem", marginTop: "1rem" }}
+              title="WORKFLOWS"
+              placeholder="Select a workflow"
+              value={this.state.selectedWorkflow}
+              onChange={this.handleChangeWorkflow}
+            />
+            <SelectDropdown
               options={timeframeOptions}
               theme="bmrg-white"
               styles={{ width: "22rem", marginTop: "1rem" }}
@@ -115,27 +154,27 @@ class WorkflowsInsights extends Component {
           <div className="c-workflow-insights__stats-widgets">
             <div className="c-workflow-insights__stats">
               <WidgetCard title="Total Executed">
-                {insights.data.length === 0 ? (
+                {chartData.totalExecutions === 0 ? (
                   <label className="b-workflow-insights__stats-label --no-data">No Data</label>
                 ) : (
-                  <label className="b-workflow-insights__stats-label">{insights.data.totalActivitiesExecuted}</label>
+                  <label className="b-workflow-insights__stats-label">{chartData.totalExecutions}</label>
                 )}
               </WidgetCard>
             </div>
             <div className="c-workflow-insights__stats">
               <WidgetCard title="Median Duration">
-                {insights.data.length === 0 ? (
+                {chartData.totalExecutions === 0 ? (
                   <label className="b-workflow-insights__stats-label --no-data">No Data</label>
                 ) : (
                   <label className="b-workflow-insights__stats-label">
-                    {timeSecondsToTimeUnit(parseInt(insights.data.medianExecutionTime / 1000, 10))}
+                    {chartData.medianDuration === 0 ? "0" : timeSecondsToTimeUnit(chartData.medianDuration)}
                   </label>
                 )}
               </WidgetCard>
             </div>
             <div className="c-workflow-insights__stats">
               <WidgetCard title="Success Rate">
-                {insights.data.length === 0 ? (
+                {chartData.totalExecutions === 0 ? (
                   <label className="b-workflow-insights__stats-label --no-data">No Data</label>
                 ) : (
                   <CustomPieChart data={chartData.pieData} percentageSuccessful={chartData.percentageSuccessful} />
@@ -146,7 +185,7 @@ class WorkflowsInsights extends Component {
           <div className="c-workflow-insights__graphs-widgets">
             <div className="c-workflow-insights-graph">
               <WidgetCard title="Executions">
-                {insights.data.length === 0 ? (
+                {chartData.totalExecutions === 0 ? (
                   <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
                 ) : (
                   <CustomAreaChart
@@ -161,7 +200,7 @@ class WorkflowsInsights extends Component {
             </div>
             <div className="c-workflow-insights-graph">
               <WidgetCard title="Average Execution Time">
-                {insights.data.length === 0 ? (
+                {chartData.totalExecutions === 0 ? (
                   <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
                 ) : (
                   <CustomScatterChart

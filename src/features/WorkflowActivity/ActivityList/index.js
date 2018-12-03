@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
+// import axios from "axios";
 // import ActivityTable from "./ActivityTable";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import InfiniteScroll from "react-infinite-scroller";
@@ -18,8 +18,8 @@ class ActivityList extends Component {
   };
 
   loadMoreActivities = () => {
-    this.props.loadMoreActivities(this.props.nextPage);  
-    this.props.setMoreActivities(false)    
+    this.props.loadMoreActivities(this.props.nextPage);
+    this.props.setMoreActivities(false);
   };
 
   render() {
