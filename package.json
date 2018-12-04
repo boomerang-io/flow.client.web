@@ -13,6 +13,7 @@
     "carbon-components-react": "^6.42.0",
     "carbon-icons": "^7.0.7",
     "classnames": "^2.2.6",
+    "immutability-helper": "^2.8.1",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",

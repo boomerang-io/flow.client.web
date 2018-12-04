@@ -211,14 +211,46 @@
           "name": "isabela-workflow-1",
           "description": "blablabla",
           "status": "published",
-          "icon": "log"
+          "icon": "log",
+          "inputs": [
+            {
+              "description": "A boolean parameter",
+              "key": "toggle.bool",
+              "label": "Boolean Toggle",
+              "type": "boolean",
+              "value": true
+            },
+            {
+              "description": "A select parameter",
+              "key": "select.options",
+              "label": "Select Options",
+              "type": "select",
+              "value": ["op1", "op2"]
+            }
+          ]
         },
         {
           "id": "222",
           "name": "isabela-workflow-2",
           "description": "blablabla",
           "status": "draft",
-          "icon": "template"
+          "icon": "template",
+          "inputs": [
+            {
+              "description": "A boolean parameter",
+              "key": "toggle.bool",
+              "label": "Boolean Toggle",
+              "type": "boolean",
+              "value": false
+            },
+            {
+              "description": "A select parameter",
+              "key": "select.options",
+              "label": "Select Options",
+              "type": "select",
+              "value": []
+            }
+          ]
         }
       ]
     },
@@ -231,14 +263,53 @@
           "name": "benjamin-workflow-1",
           "description": "blablabla",
           "status": "published",
-          "icon": "docs"
+          "icon": "docs",
+          "inputs": [
+            {
+              "description": "Jira REST API URL",
+              "key": "rest.url.base",
+              "label": "Jira REST URL",
+              "maxValueLength": 128,
+              "minValueLength": 0,
+              "type": "textInput",
+              "value": "https://tools.boomerangplatform.net/jira/console"
+            },
+            {
+              "description": "Jira REST API UserName",
+              "key": "rest.username",
+              "label": "Jira REST API Username",
+              "maxValueLength": 128,
+              "minValueLength": 0,
+              "type": "textInput",
+              "value": "jirarestuser"
+            },
+            {
+              "description": "Jira REST API Password",
+              "key": "rest.password",
+              "label": "Jira REST API Password",
+              "maxValueLength": 128,
+              "minValueLength": 0,
+              "type": "password",
+              "value": "P@ssw0rd01"
+            },
+            {
+              "description": "Jira Project Key",
+              "key": "boomerang.platform.project.key",
+              "label": "Jira Project Key",
+              "maxValueLength": 10,
+              "minValueLength": 0,
+              "type": "textInput",
+              "value": "PLT"
+            }
+          ]
         },
         {
           "id": "444",
           "name": "benjamin-workflow-2",
           "description": "blablabla",
           "status": "published",
-          "icon": "flow"
+          "icon": "flow",
+          "inputs": []
         }
       ]
     }
