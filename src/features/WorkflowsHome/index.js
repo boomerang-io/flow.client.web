@@ -14,7 +14,7 @@ import WorkflowsSection from "./WorkflowsSection";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
 
-class WorkflowsHome extends Component {
+export class WorkflowsHome extends Component {
   static propTypes = {
     teams: PropTypes.object.isRequired,
     teamsActions: PropTypes.object.isRequired

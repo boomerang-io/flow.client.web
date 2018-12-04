@@ -21,7 +21,7 @@ import { parseChartsData } from "Utilities/formatChartData";
 import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
 import "./styles.scss";
 
-class WorkflowsInsights extends Component {
+export class WorkflowInsights extends Component {
   static propTypes = {
     insights: PropTypes.object.isRequired,
     insightsActions: PropTypes.object.isRequired,
@@ -194,4 +194,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(WorkflowsInsights);
+)(WorkflowInsights);

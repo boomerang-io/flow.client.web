@@ -1,0 +1,378 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`] = `
+<div
+  className="c-workflow-insights"
+>
+  <nav
+    className="s-workflow-insights-navigation"
+  >
+    <NavigateBack
+      text="Back to Workflows"
+      to="/workflows"
+    />
+  </nav>
+  <div
+    className="c-workflow-insights-header"
+  >
+    <div
+      className="bmrg--c-select-dropdown --bmrg-white"
+      style={
+        Object {
+          "marginTop": "1rem",
+          "width": "22rem",
+        }
+      }
+    >
+      <div
+        className="s-select-dropdown-label"
+      >
+        TEAM
+      </div>
+      <div
+        className="Select has-value is-searchable Select--single"
+      >
+        <div
+          className="Select-control"
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+        >
+          <span
+            className="Select-multi-value-wrapper"
+            id="react-select-2--value"
+          >
+            <div
+              className="Select-value"
+            >
+              <span
+                aria-selected="true"
+                className="Select-value-label"
+                id="react-select-2--value-item"
+                role="option"
+              >
+                All
+              </span>
+            </div>
+            <div
+              className="Select-input"
+              style={
+                Object {
+                  "display": "inline-block",
+                }
+              }
+            >
+              <input
+                aria-activedescendant="react-select-2--value"
+                aria-expanded="false"
+                aria-haspopup="false"
+                aria-owns=""
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={false}
+                role="combobox"
+                style={
+                  Object {
+                    "boxSizing": "content-box",
+                    "width": "5px",
+                  }
+                }
+                value=""
+              />
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "left": 0,
+                    "overflow": "scroll",
+                    "position": "absolute",
+                    "top": 0,
+                    "visibility": "hidden",
+                    "whiteSpace": "pre",
+                  }
+                }
+              >
+                
+              </div>
+            </div>
+          </span>
+          <span
+            className="Select-arrow-zone"
+            onMouseDown={[Function]}
+          >
+            <div
+              className="bmrg--b-select-default-arrow"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="bmrg--c-select-dropdown --bmrg-white"
+      style={
+        Object {
+          "marginTop": "1rem",
+          "width": "22rem",
+        }
+      }
+    >
+      <div
+        className="s-select-dropdown-label"
+      >
+        TIMEFRAME
+      </div>
+      <div
+        className="Select has-value is-searchable Select--single"
+      >
+        <div
+          className="Select-control"
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+        >
+          <span
+            className="Select-multi-value-wrapper"
+            id="react-select-3--value"
+          >
+            <div
+              className="Select-value"
+            >
+              <span
+                aria-selected="true"
+                className="Select-value-label"
+                id="react-select-3--value-item"
+                role="option"
+              >
+                3 months
+              </span>
+            </div>
+            <div
+              className="Select-input"
+              style={
+                Object {
+                  "display": "inline-block",
+                }
+              }
+            >
+              <input
+                aria-activedescendant="react-select-3--value"
+                aria-expanded="false"
+                aria-haspopup="false"
+                aria-owns=""
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={false}
+                role="combobox"
+                style={
+                  Object {
+                    "boxSizing": "content-box",
+                    "width": "5px",
+                  }
+                }
+                value=""
+              />
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "left": 0,
+                    "overflow": "scroll",
+                    "position": "absolute",
+                    "top": 0,
+                    "visibility": "hidden",
+                    "whiteSpace": "pre",
+                  }
+                }
+              >
+                
+              </div>
+            </div>
+          </span>
+          <span
+            className="Select-arrow-zone"
+            onMouseDown={[Function]}
+          >
+            <div
+              className="bmrg--b-select-default-arrow"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="c-workflow-insights__stats-widgets"
+  >
+    <div
+      className="c-workflow-insights__stats"
+    >
+      <div
+        className="c-widget-card"
+      >
+        <div
+          className="b-widget-card__title"
+        >
+          Total Executed
+        </div>
+        <div
+          className="b-widget-card__content"
+        >
+          <label
+            className="b-workflow-insights__stats-label"
+          >
+            107
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="c-workflow-insights__stats"
+    >
+      <div
+        className="c-widget-card"
+      >
+        <div
+          className="b-widget-card__title"
+        >
+          Median Duration
+        </div>
+        <div
+          className="b-widget-card__content"
+        >
+          <label
+            className="b-workflow-insights__stats-label"
+          >
+              24 secs
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="c-workflow-insights__stats"
+    >
+      <div
+        className="c-widget-card"
+      >
+        <div
+          className="b-widget-card__title"
+        >
+          Success Rate
+        </div>
+        <div
+          className="b-widget-card__content"
+        >
+          <CustomPieChart
+            data={
+              Array [
+                Object {
+                  "name": "Passed",
+                  "value": 1,
+                },
+                Object {
+                  "name": "Failed",
+                  "value": 0,
+                },
+              ]
+            }
+            percentageSuccessful={100}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="c-workflow-insights__graphs-widgets"
+  >
+    <div
+      className="c-workflow-insights-graph"
+    >
+      <div
+        className="c-widget-card"
+      >
+        <div
+          className="b-widget-card__title"
+        >
+          Executions
+        </div>
+        <div
+          className="b-widget-card__content"
+        >
+          <CustomAreaChart
+            areaData={
+              Array [
+                Object {
+                  "activeDot": true,
+                  "dataKey": "total",
+                  "gradientFill": "blueGradient",
+                  "stroke": "#047cc0",
+                },
+                Object {
+                  "activeDot": false,
+                  "dataKey": "success",
+                  "gradientFill": "greenGradient",
+                  "stroke": "#82ca9d",
+                },
+                Object {
+                  "activeDot": false,
+                  "dataKey": "failed",
+                  "gradientFill": "redGradient",
+                  "stroke": "#e26665",
+                },
+              ]
+            }
+            data={
+              Array [
+                Object {
+                  "date": 1542292277199,
+                  "failed": 0,
+                  "success": 1,
+                  "total": 1,
+                },
+              ]
+            }
+            toolTipDateFormat="MMM DD - YYYY"
+            xAxisKey="date"
+            yAxisText="Count"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="c-workflow-insights-graph"
+    >
+      <div
+        className="c-widget-card"
+      >
+        <div
+          className="b-widget-card__title"
+        >
+          Average Execution Time
+        </div>
+        <div
+          className="b-widget-card__content"
+        >
+          <CustomScatterChart
+            data={
+              Array [
+                Object {
+                  "date": 1542292277199,
+                  "duration": 20,
+                  "name": "CAI Offering Team - Adrienne3 ",
+                },
+              ]
+            }
+            yAxisDataKey="duration"
+            yAxisText="Duration (seconds)"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

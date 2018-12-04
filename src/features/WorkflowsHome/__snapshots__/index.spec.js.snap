@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
+<div
+  className="c-workflow-home"
+>
+  <div
+    className="c-workflow-home-content"
+  >
+    <div
+      className="b-search-filter"
+    >
+      <div
+        className="b-search-filter__search"
+      >
+        <div
+          className="bmrg--c-search-bar"
+        >
+          <div
+            className="bmrg--b-search-bar --bmrg-white"
+          >
+            <svg
+              className="bmrg--b-search-bar__icon --bmrg-white"
+              height="20px"
+              version="1.1"
+              viewBox="0 0 18 20"
+              width="18px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                fill="none"
+                fillRule="evenodd"
+                id="CI-Sam"
+                stroke="none"
+                strokeWidth="1"
+              >
+                <g
+                  id="CI---Landing---green-Copy-6"
+                  transform="translate(-31.000000, -170.000000)"
+                >
+                  <g
+                    id="Group-11"
+                    transform="translate(30.000000, 170.000000)"
+                  >
+                    <g
+                      id="search"
+                    >
+                      <rect
+                        height="20"
+                        id="Rectangle-2"
+                        width="20"
+                        x="0"
+                        y="0"
+                      />
+                      <path
+                        d="M8.99971488,10.135742 C10.957325,12.1112984 14.1428734,12.111537 16.1007199,10.135742 C18.05833,8.16018553 18.05833,4.9451952 16.1007199,2.96963875 C14.1428734,0.993843756 10.957325,0.994082292 8.99971488,2.96963875 C7.04186838,4.94543374 7.04186838,8.15994699 8.99971488,10.135742 Z M16.8098276,10.8513505 C14.7576698,12.9223214 11.5813398,13.1832799 9.24530253,11.6354188 L1.42857143,19.5238095 L1.42857143,16.1843033 L7.57795384,9.97854665 C5.97655217,7.61250651 6.21173957,4.35195578 8.29060713,2.25403027 C10.6394084,-0.11630352 14.46079,-0.116542056 16.8098276,2.25403027 C19.1586289,4.62436407 19.1586289,8.48101666 16.8098276,10.8513505 Z"
+                        fill="#40D5BB"
+                        id="magnifying-glass"
+                      />
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <input
+              className="bmrg--b-search-bar__textbox --bmrg-white"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Search"
+              type="text"
+              value=""
+            />
+            
+          </div>
+        </div>
+      </div>
+      <div
+        className="b-search-filter__filter"
+      >
+        <div
+          aria-label="Choose an item"
+          className="bx--multi-select bx--list-box"
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="listbox"
+          tabIndex="0"
+        >
+          <div
+            aria-expanded={false}
+            aria-haspopup={true}
+            aria-label="open menu"
+            className="bx--list-box__field"
+            data-toggle={true}
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="bx--list-box__label"
+            >
+              Filter
+            </span>
+            <div
+              className="bx--list-box__menu-icon"
+            >
+              <svg
+                alt="Open menu"
+                aria-label="Open menu"
+                fillRule="evenodd"
+                height="5"
+                role="img"
+                viewBox="0 0 10 5"
+                width="10"
+              >
+                <title>
+                  Open menu
+                </title>
+                <path
+                  d="M0 0l5 4.998L10 0z"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="bmrg--b-no-display --bmrg-white"
+      style={
+        Object {
+          "marginTop": "5rem",
+        }
+      }
+    >
+      <div
+        className="bmrg--b-no-display__text "
+      >
+        Looks like you don't have any workflow teams
+      </div>
+      <img
+        alt="no-display"
+        className="bmrg--b-no-display__img"
+        src="ship_sharks.svg"
+      />
+    </div>
+  </div>
+</div>
+`;

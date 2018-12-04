@@ -5,14 +5,7 @@ import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanize
 import "./styles.scss";
 
 class CustomTooltip extends Component {
-  constructor(props) {
-    super(props);
-
-    this.renderGeneralTooltip = this.renderGeneralTooltip.bind(this);
-    this.renderPieTooltip = this.renderPieTooltip.bind(this);
-  }
-
-  renderGeneralTooltip(tooltipFields) {
+  renderGeneralTooltip = tooltipFields => {
     return tooltipFields.map(field => {
       return field === "date" ? (
         <p className="b-tooltip--data">
@@ -34,15 +27,15 @@ class CustomTooltip extends Component {
         </p>
       );
     });
-  }
-  renderPieTooltip() {
+  };
+  renderPieTooltip = () => {
     return (
       <p className="b-tooltip--data">
         <span className="b-tooltip--field">{`${this.props.payload[0].payload["name"]}: `}</span>
         {`${this.props.payload[0].payload["value"]}`}
       </p>
     );
-  }
+  };
 
   render() {
     const tooltipFields = this.props.payload.length > 0 ? Object.keys(this.props.payload[0].payload) : null;
