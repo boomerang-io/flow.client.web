@@ -8,6 +8,7 @@ import moment from "moment";
 import queryString from "query-string";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
+import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import NavigateBack from "Components/NavigateBack";
 import ErrorDragon from "Components/ErrorDragon";
 import WidgetCard from "./WidgetCard";
@@ -116,7 +117,7 @@ class WorkflowsInsights extends Component {
       else workflows = teams.data.find(team => team.id === selectedTeam.value).workflows;
       const chartData = parseChartsData(executionsList);
       let workflowsList = [{ value: "all", label: "All" }].concat(
-        workflows.map(workflow => ({ ...workflow, value: workflow.id, label: workflow.name }))
+        sortByProp(workflows.map(workflow => ({ ...workflow, value: workflow.id, label: workflow.name })), "label")
       );
       return (
         <div className="c-workflow-insights">
