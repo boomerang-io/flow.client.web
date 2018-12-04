@@ -6,19 +6,19 @@ import "./styles.scss";
 
 class CustomTooltip extends Component {
   renderGeneralTooltip = tooltipFields => {
-    return tooltipFields.map(field => {
+    return tooltipFields.map((field, index) => {
       return field === "date" ? (
-        <p className="b-tooltip--data">
+        <p key={`${field}-${index}`} className="b-tooltip--data">
           <span className="b-tooltip--field">{`${field}: `}</span>
           {`${moment(this.props.payload[0].payload[field]).format(this.props.dateFormat)}`}
         </p>
       ) : field === "duration" ? (
-        <p className="b-tooltip--data">
+        <p key={`${field}-${index}`} className="b-tooltip--data">
           <span className="b-tooltip--field">{`${field}: `}</span>
           {`${getHumanizedDuration(this.props.payload[0].payload[field])}`}
         </p>
       ) : (
-        <p className="b-tooltip--data">
+        <p key={`${field}-${index}`} className="b-tooltip--data">
           {" "}
           <span className="b-tooltip--field">{`${
             field === "passRate" ? "pass rate" : field === "criticalViolations" ? "critical violations" : field
@@ -50,7 +50,7 @@ class CustomTooltip extends Component {
 }
 
 CustomTooltip.propTypes = {
-  payload: PropTypes.object,
+  payload: PropTypes.array,
   dateFormat: PropTypes.string,
   type: PropTypes.string
 };

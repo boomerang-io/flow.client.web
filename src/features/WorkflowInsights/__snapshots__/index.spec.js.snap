@@ -40,7 +40,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
           onTouchMove={[Function]}
           onTouchStart={[Function]}
         >
-          <span
+          <div
             className="Select-multi-value-wrapper"
             id="react-select-2--value"
           >
@@ -98,7 +98,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 
               </div>
             </div>
-          </span>
+          </div>
           <span
             className="Select-arrow-zone"
             onMouseDown={[Function]}
@@ -135,7 +135,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
           onTouchMove={[Function]}
           onTouchStart={[Function]}
         >
-          <span
+          <div
             className="Select-multi-value-wrapper"
             id="react-select-3--value"
           >
@@ -193,7 +193,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 
               </div>
             </div>
-          </span>
+          </div>
           <span
             className="Select-arrow-zone"
             onMouseDown={[Function]}

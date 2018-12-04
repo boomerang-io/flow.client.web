@@ -9,10 +9,11 @@ class CustomTooltip extends Component {
 
     return (
       <div className="c-legend">
-        {this.props.payload.map(data => {
+        {this.props.payload.map((data, index) => {
           let isToggled = this.props.toggledItems.find(item => data.payload.name === item);
           return (
             <div
+              key={`${data.payload.name}-${index}`}
               className="c-legend-icon"
               onMouseEnter={this.props.onMouseEnter}
               onMouseLeave={this.props.onMouseLeave}
@@ -31,7 +32,7 @@ class CustomTooltip extends Component {
 }
 
 CustomTooltip.propTypes = {
-  payload: PropTypes.object,
+  payload: PropTypes.array,
   toggleItem: PropTypes.func,
   toggledItems: PropTypes.array
 };

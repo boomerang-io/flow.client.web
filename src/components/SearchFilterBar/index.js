@@ -15,7 +15,7 @@ class SearchFilterBar extends Component {
   };
   static defaultProps = {
     multiselect: true,
-    debounceTimeout: "",
+    debounceTimeout: null,
     selectedOption: "none"
   };
 
