@@ -47,6 +47,7 @@ class WorkflowCard extends Component {
             {menuOptions.map(option => {
               return option.isDelete ? (
                 <AlertModal
+                  key={option.itemText}
                   ModalTrigger={() => (
                     <OverflowMenuItem
                       className="b-workflow-card__option"

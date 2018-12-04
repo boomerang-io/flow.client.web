@@ -5,27 +5,20 @@ import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanize
 import "./styles.scss";
 
 class CustomTooltip extends Component {
-  constructor(props) {
-    super(props);
-
-    this.renderGeneralTooltip = this.renderGeneralTooltip.bind(this);
-    this.renderPieTooltip = this.renderPieTooltip.bind(this);
-  }
-
-  renderGeneralTooltip(tooltipFields) {
-    return tooltipFields.map(field => {
+  renderGeneralTooltip = tooltipFields => {
+    return tooltipFields.map((field, index) => {
       return field === "date" ? (
-        <p className="b-tooltip--data">
+        <p key={`${field}-${index}`} className="b-tooltip--data">
           <span className="b-tooltip--field">{`${field}: `}</span>
           {`${moment(this.props.payload[0].payload[field]).format(this.props.dateFormat)}`}
         </p>
       ) : field === "duration" ? (
-        <p className="b-tooltip--data">
+        <p key={`${field}-${index}`} className="b-tooltip--data">
           <span className="b-tooltip--field">{`${field}: `}</span>
           {`${getHumanizedDuration(this.props.payload[0].payload[field])}`}
         </p>
       ) : (
-        <p className="b-tooltip--data">
+        <p key={`${field}-${index}`} className="b-tooltip--data">
           {" "}
           <span className="b-tooltip--field">{`${
             field === "passRate" ? "pass rate" : field === "criticalViolations" ? "critical violations" : field
@@ -34,15 +27,15 @@ class CustomTooltip extends Component {
         </p>
       );
     });
-  }
-  renderPieTooltip() {
+  };
+  renderPieTooltip = () => {
     return (
       <p className="b-tooltip--data">
         <span className="b-tooltip--field">{`${this.props.payload[0].payload["name"]}: `}</span>
         {`${this.props.payload[0].payload["value"]}`}
       </p>
     );
-  }
+  };
 
   render() {
     const tooltipFields = this.props.payload.length > 0 ? Object.keys(this.props.payload[0].payload) : null;
@@ -57,7 +50,7 @@ class CustomTooltip extends Component {
 }
 
 CustomTooltip.propTypes = {
-  payload: PropTypes.object,
+  payload: PropTypes.array,
   dateFormat: PropTypes.string,
   type: PropTypes.string
 };

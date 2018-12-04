@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WidgetCard --- Snapshot Capturing Snapshot of WidgetCard 1`] = `
+<div
+  className="c-widget-card"
+>
+  <div
+    className="b-widget-card__title"
+  >
+    test title
+  </div>
+  <div
+    className="b-widget-card__content"
+  >
+    test children
+  </div>
+</div>
+`;

@@ -15,7 +15,7 @@ import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import keys from "lodash/keys";
 import "./styles.scss";
 
-class WorkflowManagerContainer extends Component {
+export class WorkflowManagerContainer extends Component {
   static propTypes = {
     tasks: PropTypes.object.isRequired,
     tasksActions: PropTypes.object.isRequired,
