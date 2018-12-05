@@ -16,8 +16,13 @@ class WorkflowInputModalContent extends Component {
   };
 
   state = {
+    error: false,
     inputs: this.props.inputs
   };
+
+  componentDidMount() {
+    this.validate();
+  }
 
   handleBooleanChange = index => {
     const { inputs } = this.state;
@@ -28,17 +33,28 @@ class WorkflowInputModalContent extends Component {
   handleTextChange = (value, index) => {
     const { inputs } = this.state;
     const newInputs = update(inputs, { [index]: { value: { $set: value } } });
-    this.setState({ inputs: newInputs });
+    this.setState({ inputs: newInputs }, () => this.validate());
   };
 
   handleSelectChange = (value, index) => {
     const { inputs } = this.state;
     const newInputs = update(inputs, { [index]: { value: { $set: value.map(option => option.value) } } });
-    this.setState({ inputs: newInputs });
+    this.setState({ inputs: newInputs }, () => this.validate());
+  };
+
+  validate = () => {
+    const errorInput = this.state.inputs.find(
+      input => input.isRequired && (input.value === undefined || input.value === null || input.value.length < 1)
+    );
+    if (errorInput) {
+      this.setState({ error: true });
+    } else {
+      this.setState({ error: false });
+    }
   };
 
   renderInput = (input, index) => {
-    const { type, value, label } = input;
+    const { type, value, label, isRequired } = input;
     const textType = type === "textInput" || type === "textAreaBox" ? "text" : type;
     const options = typeof value === "object" ? value.map(option => ({ label: option, value: option })) : [];
 
@@ -58,6 +74,7 @@ class WorkflowInputModalContent extends Component {
       case "select":
         return (
           <div className="b-workflow-inputs-modal-select">
+            {isRequired && <div className="s-workflow-inputs-modal-is-required">*</div>}
             <SelectDropdown
               onChange={value => this.handleSelectChange(value, index)}
               options={options}
@@ -72,6 +89,7 @@ class WorkflowInputModalContent extends Component {
       default:
         return (
           <div className="b-workflow-inputs-modal-text-input">
+            {isRequired && <div className="s-workflow-inputs-modal-is-required">*</div>}
             <TextInput
               title={label}
               placeholder={label}
@@ -88,6 +106,8 @@ class WorkflowInputModalContent extends Component {
 
   render() {
     const { executeWorkflow, closeModal } = this.props;
+    const { error } = this.state;
+
     return (
       <>
         <Body className="b-workflow-inputs-modal-body">
@@ -97,6 +117,7 @@ class WorkflowInputModalContent extends Component {
           <ConfirmButton
             style={{ width: "40%" }}
             text={"EXECUTE"}
+            disabled={error}
             onClick={() => {
               executeWorkflow(false);
               closeModal();
@@ -106,6 +127,7 @@ class WorkflowInputModalContent extends Component {
           <ConfirmButton
             style={{ width: "40%" }}
             text={"EXECUTE AND VIEW"}
+            disabled={error}
             onClick={() => {
               executeWorkflow(true);
               closeModal();

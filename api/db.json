@@ -225,6 +225,7 @@
               "key": "select.options",
               "label": "Select Options",
               "type": "select",
+              "isRequired": true,
               "value": ["op1", "op2"]
             }
           ]
@@ -248,6 +249,7 @@
               "key": "select.options",
               "label": "Select Options",
               "type": "select",
+              "isRequired": true,
               "value": []
             }
           ]
@@ -272,6 +274,7 @@
               "maxValueLength": 128,
               "minValueLength": 0,
               "type": "textInput",
+              "isRequired": true,
               "value": "https://tools.boomerangplatform.net/jira/console"
             },
             {
@@ -281,6 +284,7 @@
               "maxValueLength": 128,
               "minValueLength": 0,
               "type": "textInput",
+              "isRequired": false,
               "value": "jirarestuser"
             },
             {
@@ -290,6 +294,7 @@
               "maxValueLength": 128,
               "minValueLength": 0,
               "type": "password",
+              "isRequired": true,
               "value": "P@ssw0rd01"
             },
             {
@@ -299,6 +304,7 @@
               "maxValueLength": 10,
               "minValueLength": 0,
               "type": "textInput",
+              "isRequired": false,
               "value": "PLT"
             }
           ]

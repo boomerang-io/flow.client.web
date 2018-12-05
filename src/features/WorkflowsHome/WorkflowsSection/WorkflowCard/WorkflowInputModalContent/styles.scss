@@ -1,5 +1,8 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
 .b-workflow-inputs-modal-body {
-  width: 60%;
+  width: 100%;
+  padding: 0 20%;
   margin: auto;
   height: 26rem;
   overflow-y: scroll;
@@ -7,6 +10,7 @@
 }
 
 .b-workflow-inputs-modal-toggle {
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -19,7 +23,23 @@
   font-weight: 300;
 }
 
+.b-workflow-inputs-modal-select {
+  position: relative;
+}
+
+.b-workflow-inputs-modal-text-input {
+  position: relative;
+}
+
 .b-workflow-inputs-modal-footer {
   display: flex;
   justify-content: space-around;
+}
+
+.s-workflow-inputs-modal-is-required {
+  position: absolute;
+  top: 30%;
+  left: -2rem;
+  color: $red-30;
+  z-index: 99;
 }
