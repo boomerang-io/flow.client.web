@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
+<div
+  className="c-step-side-info"
+>
+  <div
+    className="s-step-side-info-title"
+  >
+    test
+  </div>
+  <div
+    className="c-step-side-info-details"
+  >
+    <div
+      className="b-step-side-info-field"
+    >
+      <div
+        className="b-step-side-info-field__key"
+      >
+        Type
+      </div>
+      <div
+        className="b-step-side-info-field__value"
+      >
+        Task
+      </div>
+    </div>
+    <div
+      className="b-step-side-info-field"
+    >
+      <div
+        className="b-step-side-info-field__key"
+      >
+        Status
+      </div>
+      <div
+        className="b-step-side-info-field__value"
+      >
+        Succeeded
+        <img
+          alt="Status"
+          src="passed.svg"
+        />
+      </div>
+    </div>
+    <div
+      className="b-step-side-info-field"
+    >
+      <div
+        className="b-step-side-info-field__key"
+      >
+        Start Time
+      </div>
+      <div
+        className="b-step-side-info-field__value"
+      >
+        October 30th 2018, 12:13:09 pm
+      </div>
+    </div>
+    <div
+      className="b-step-side-info-field"
+    >
+      <div
+        className="b-step-side-info-field__key"
+      >
+        Duration
+      </div>
+      <div
+        className="b-step-side-info-field__value"
+      >
+        2 seconds
+      </div>
+    </div>
+  </div>
+</div>
+`;
