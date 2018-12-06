@@ -21,6 +21,7 @@
     "normalize-scss": "^7.0.1",
     "react": "^16.5.1",
     "react-click-outside": "^3.0.1",
+    "react-copy-to-clipboard": "^5.0.1",
     "react-debounce-input": "^3.2.0",
     "react-dom": "^16.5.1",
     "react-dropzone": "^6.2.4",

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Route, Switch } from "react-router-dom";
@@ -28,10 +29,24 @@ class WorkflowManagerContainer extends Component {
     super(props);
     this.newOverviewData = {};
     this.changeLogReason = "";
+    this.overviewData = {};
   }
 
   componentDidMount() {
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
+
+    //axios call to pull in overview information
+    if (this.props.worflow) {
+      axios
+        .get(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/summary`)
+        .then(response => {
+          this.overviewData = response.data;
+          return Promise.resolve();
+        })
+        .catch(err => {
+          return Promise.reject();
+        });
+    }
   }
 
   componentWillUnmount() {
@@ -41,7 +56,23 @@ class WorkflowManagerContainer extends Component {
   }
 
   handleOnOverviewChange = overviewData => {
-    this.newOverviewData = overviewData;
+    this.newOverviewData = {
+      name: overviewData.name,
+      shortDescription: overviewData.shortDescription,
+      description: overviewData.description,
+      icon: overviewData.icon,
+      triggers: {
+        scheduler: {
+          enable: overviewData.schedulerEnable,
+          schedule: overviewData.schedule
+        },
+        webhook: {
+          enable: overviewData.webhookEnable,
+          token: overviewData.token
+        }
+      }
+    };
+    console.log(this.newOverviewData);
   };
 
   handleChangeLogReasonChange = changeLogReason => {
@@ -187,6 +218,7 @@ class WorkflowManagerContainer extends Component {
                   fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
                   updateWorkflow={this.updateWorkflow}
                   handleOnOverviewChange={this.handleOnOverviewChange}
+                  overviewData={this.overviewData}
                   handleChangeLogReasonChange={this.handleChangeLogReasonChange}
                   {...props}
                 />
@@ -201,6 +233,7 @@ class WorkflowManagerContainer extends Component {
                   createWorkflowRevision={this.createWorkflowRevision}
                   fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
                   handleOnOverviewChange={this.handleOnOverviewChange}
+                  overviewData={this.overviewData}
                   handleChangeLogReasonChange={this.handleChangeLogReasonChange}
                   updateWorkflow={this.updateWorkflow}
                   {...props}

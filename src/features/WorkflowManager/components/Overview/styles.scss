@@ -43,46 +43,65 @@
       border-radius: 0.125rem;
     }
   }
-  .c-webhook {
+  .b-webhook {
     display: flex;
     align-items: center;
-    //justify-content: space-between;
     padding-top: 1rem;
   }
 
-  .c-schedule {
+  .b-schedule {
     display: flex;
     align-items: center;
-    //justify-content: space-between;
     padding-top: 1rem;
     margin-right: 5 rem;
   }
 
-  .c-webhook__token {
-    display: flex;
-    //justify-content: space-between;
+  .b-webhook__token {
+    display: block;
     padding-top: 1rem;
+    float: left;
+    .bmrg--c-text-input {
+      display: inline;
+      .bmrg--b-text-input {
+        width: fit-content;
+        margin: 0;
+        float: left;
+      }
+    }
+    div {
+      display: inline;
+    }
+    .b-webhook__token-Modal {
+      position: relative;
+      left: 4.5rem;
+    }
   }
 
-  .s-webhook__token-value {
+  .b-webhook__token-value {
     background-color: $white;
     margin-right: 5 rem;
   }
 
-  .s-schedule-title__toggle {
+  .b-schedule__toggle {
     margin-left: 2rem;
   }
-  .s-webhook-title__toggle {
+  .b-webhook__toggle {
     margin-left: 2.2rem;
   }
 
-  /*.c-schedule__button,
-  .c-webook__button {
-    margin-left: 2.2rem;
-  }*/
+  .b-webhook__token-eyeIcon {
+    position: relative;
+    left: 1.5rem;
+    top: 0.5rem;
+  }
 
-  .cronInterpretation {
-    position: absolute;
-    margin-top: 5rem;
+  .b-webhook__token-copyIcon {
+    position: relative;
+    left: 3rem;
+  }
+
+  .b-webhook__token-refreshIcon {
+    //position: relative;
+    //left: 4.5rem;
   }
 }
