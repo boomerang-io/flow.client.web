@@ -39,14 +39,14 @@ class Overview extends Component {
     const { overviewData } = props;
     this.state = {
       ...props.workflow.data,
-      name: overviewData.name || "",
-      shortDescription: overviewData.name || "",
-      description: overviewData.name || "",
-      icon: overviewData.name || assets[0].name,
-      schedulerEnable: overviewData.triggers ? overviewData.triggers.scheduler.enable : false,
-      webhookEnable: overviewData.triggers ? overviewData.triggers.webhook.enable : false,
-      schedule: overviewData.triggers ? overviewData.triggers.scheduler.schedule : false,
-      token: overviewData.triggers ? overviewData.triggers.webhook.token : false,
+      name: overviewData ? overviewData.name : "",
+      shortDescription: overviewData ? overviewData.name : "",
+      description: overviewData ? overviewData.name : "",
+      icon: overviewData ? overviewData.name : assets[0].name,
+      schedulerEnable: overviewData && overviewData.triggers ? overviewData.triggers.scheduler.enable : false,
+      webhookEnable: overviewData && overviewData.triggers ? overviewData.triggers.webhook.enable : false,
+      schedule: overviewData && overviewData.triggers ? overviewData.triggers.scheduler.schedule : false,
+      token: overviewData && overviewData.triggers ? overviewData.triggers.webhook.token : false,
       tokenTextType: "text"
     };
   }
