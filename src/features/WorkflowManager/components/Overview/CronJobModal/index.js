@@ -40,7 +40,7 @@ export default class CronJobModal extends Component {
   };
 
   handleOnSave = () => {
-    this.props.handleOnChange(this.state.cronExpression, {}, "cronString"); //BEN TODO: change this to pass back an object so it can be more understood what those values correspond to
+    this.props.handleOnChange(this.state.cronExpression, {}, "schedule"); //BEN TODO: change this to pass back an object so it can be more understood what those values correspond to
     this.props.closeModal();
   };
 
@@ -73,7 +73,6 @@ export default class CronJobModal extends Component {
           <ModalConfirmButton
             onClick={this.handleOnSave}
             text="SAVE"
-            confirmModalProps={this.confirmModalProps}
             theme="bmrg-white"
             disabled={!cronExpression || !!Object.keys(inputError).length} //disable if there is no expression, or if the error object is not empty
           />

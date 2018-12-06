@@ -103,7 +103,11 @@ class WorkflowCreatorContainer extends Component {
                   diagramApp={this.diagramApp}
                   {...props}
                 />
-                <Overview handleOnChange={handleOnOverviewChange} workflow={workflow} />
+                <Overview
+                  handleOnChange={handleOnOverviewChange}
+                  workflow={workflow}
+                  overviewData={this.props.overviewData}
+                />
               </>
             )}
           />

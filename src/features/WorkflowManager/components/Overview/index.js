@@ -5,9 +5,11 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
-import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import classnames from "classnames";
+import CopyToClipboard from "react-copy-to-clipboard";
+import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import Button from "@boomerang/boomerang-components/lib/Button";
+import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
@@ -15,6 +17,10 @@ import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import CronJobModal from "./CronJobModal";
 import assets from "./assets";
+import copyIcon from "./assets/copy.svg";
+import eyeIcon from "./assets/eye.svg";
+import refreshIcon from "./assets/refresh.svg";
+import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
 
 const components = [{ step: 0, component: CronJobModal }];
@@ -30,7 +36,19 @@ class Overview extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { ...props.workflow.data, icon: assets[0].name, showScheduleModal: false, showWebhookButton: false };
+    const { overviewData } = props;
+    this.state = {
+      ...props.workflow.data,
+      name: overviewData.name || "",
+      shortDescription: overviewData.name || "",
+      description: overviewData.name || "",
+      icon: overviewData.name || assets[0].name,
+      schedulerEnable: overviewData.triggers ? overviewData.triggers.scheduler.enable : false,
+      webhookEnable: overviewData.triggers ? overviewData.triggers.webhook.enable : false,
+      schedule: overviewData.triggers ? overviewData.triggers.scheduler.schedule : false,
+      token: overviewData.triggers ? overviewData.triggers.webhook.token : false,
+      tokenTextType: "text"
+    };
   }
 
   generateToken = () => {
@@ -38,11 +56,9 @@ class Overview extends Component {
     return axios
       .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/token`)
       .then(response => {
-        //const webToken = response.data.token;
         workflowActions.updateWorkflowWebhook({ token: response.data.token });
-        notify(
-          <Notification type="success" title="Create Workflow" message="Succssfully created workflow and version" />
-        );
+        this.handleOnChange(response.data.token, {}, "token");
+        notify(<Notification type="success" title="Create Workflow" message="Succssfully Generated Webhook Token" />);
         return Promise.resolve();
       })
       .catch(err => {
@@ -58,6 +74,14 @@ class Overview extends Component {
       }),
       () => this.props.handleOnChange(this.state)
     );
+  };
+
+  handleShowToken = () => {
+    if (this.state.tokenTextType === "text") {
+      this.setState({ tokenTextType: "password" });
+    } else {
+      this.setState({ tokenTextType: "text" });
+    }
   };
 
   render() {
@@ -107,65 +131,86 @@ class Overview extends Component {
         <div className="c-trigger">
           <h1 className="s-trigger-title">Triggers</h1>
           {this.props.workflow.data.id && (
-            <div className="c-webhook">
-              <p className="s-webhook-title">Enable Webhook</p>
-              {!this.props.workflow.data.token && (
-                <Toggle
-                  className="s-webhook-title__toggle"
-                  value={this.state.webhook || false}
-                  id="toggle-webhook"
-                  name="webhook"
-                  title="webhook"
-                  onChange={event => this.setState({ showWebhookButton: event.target.checked })}
-                  defaultChecked={false}
-                  theme="bmrg-white"
-                />
-              )}
-              {this.state.showWebhookButton && (
-                <Button theme="bmrg-black" onClick={this.generateToken} style={{ "margin-left": "2.2rem" }}>
-                  Generate Token
-                </Button>
-              )}
+            <div className="b-webhook">
+              <label className="b-webhook__title">Enable Webhook</label>
+
+              <Toggle
+                className="b-webhook__toggle"
+                value={this.state.webhook || false}
+                id="toggle-webhook"
+                name="webhook"
+                title="webhook"
+                onChange={event => this.handleOnChange(event.target.checked, {}, "webhookEnable")}
+                defaultChecked={false}
+                theme="bmrg-white"
+              />
+
+              {this.state.webhookEnable &&
+                !this.props.workflow.data.token && (
+                  <Button theme="bmrg-black" onClick={this.generateToken} style={{ marginLeft: "2.2rem" }}>
+                    Generate Token
+                  </Button>
+                )}
             </div>
           )}
           {this.props.workflow.data.token && (
-            <div className="c-webhook__token">
-              <p className="s-webhook__token-title">Webhook Token:</p>
-              <p className="s-webhook__token-value">{this.props.workflow.data.token}</p>
-            </div>
+            <fieldset className="b-webhook__token">
+              <TextInput
+                value={this.props.workflow.data.token || ""}
+                placeholder="Token"
+                theme="bmrg-white"
+                type={this.state.tokenTextType}
+                disabled={true}
+              />
+              <img src={eyeIcon} onClick={this.handleShowToken} className="b-webhook__token-eyeIcon" />
+              <CopyToClipboard text={this.props.workflow.data.token}>
+                <img src={copyIcon} className="b-webhook__token-copyIcon" />
+              </CopyToClipboard>
+              <div className="b-webhook__token-Modal">
+                <AlertModal
+                  style={{ display: "inline" }}
+                  ModalTrigger={() => <img src={refreshIcon} className="b-webhook__token-refreshIcon" />}
+                  modalContent={(closeModal, rest) => (
+                    <ConfirmModal
+                      closeModal={closeModal}
+                      affirmativeAction={this.generateToken}
+                      title="Generate a new Webhook Token?"
+                      subTitleTop="This previous token will be deleted"
+                      cancelText="NO"
+                      affirmativeText="YES"
+                      {...rest}
+                    />
+                  )}
+                />
+              </div>
+            </fieldset>
           )}
-          <div className="c-schedule">
-            <p className="s-schedule-title">Enable Scheduler</p>
+          <div className="b-schedule">
+            <label className="b-schedule__title">Enable Scheduler</label>
             <Toggle
-              className="s-schedule-title__toggle"
+              className="b-schedule__toggle"
               value={this.state.schedule || false}
               id="toggle-schedule"
               name="schedule"
               title="schedule"
-              onChange={event => this.setState({ showScheduleModal: event.target.checked })}
+              onChange={event => this.handleOnChange(event.target.checked, {}, "schedulerEnable")}
               defaultChecked={false}
               theme="bmrg-black"
             />
-            {this.state.showScheduleModal && (
+            {this.state.schedulerEnable && (
               <ModalWrapper
                 initialState={this.state}
                 ModalTrigger={() => (
-                  <Button theme="bmrg-black" style={{ "margin-left": "2.2rem" }}>
+                  <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
                     Set Schedule
                   </Button>
                 )}
                 shouldCloseOnOverlayClick={false}
                 theme="bmrg-white"
-                //newStageNames={newStageNames}
                 handleOnChange={this.handleOnChange}
+                cronExpression={this.state.schedule}
                 modalContent={(closeModal, rest) => (
-                  <ModalFlow
-                    headerTitle="Setup Scheduling"
-                    components={components}
-                    closeModal={closeModal}
-                    confirmModalProps={{ affirmativeAction: closeModal }}
-                    {...rest}
-                  />
+                  <ModalFlow headerTitle="Setup Scheduling" components={components} closeModal={closeModal} {...rest} />
                 )}
               />
             )}

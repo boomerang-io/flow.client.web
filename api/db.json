@@ -4790,22 +4790,21 @@
       "id": "ruBfb__"
     },
     {
-      "id": "YBKhqI0"
-    },
-    {
-      "id": "9h38~wZ"
-    },
-    {
-      "id": "B8wuFCi"
-    },
-    {
-      "id": "cBjfiif"
-    },
-    {
-      "id": "4iF5VLN"
-    },
-    {
-      "id": "1aUuLLk"
+      "name": "",
+      "shortDescription": "",
+      "description": "",
+      "icon": "docs",
+      "triggers": {
+        "scheduler": {
+          "enable": true,
+          "schedule": "1 1 1 1 2"
+        },
+        "webhook": {
+          "enable": false,
+          "token": false
+        }
+      },
+      "id": "5Mz75WC"
     }
   ],
   "workflowActivity": {

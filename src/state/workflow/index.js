@@ -71,12 +71,6 @@ const actionHandlers = {
   }),
   [types.CREATE_WORKFLOW_REQUEST]: state => ({ ...state, isCreating: true, creatingStatus: "" }),
   [types.UPDATE_WORKFLOW_WEBHOOK]: (state, action) => {
-    console.log(action);
-    /*let workflowData = state.workflow.data;
-    const updatedData = { ...workflowData, token: action.token };
-    console.log(state);
-    //return { ...state, workflow: { ...state.workflow.data, webhookToken: action.webhookToken } };
-    return { ...state, workflow: { ...state.workflow, data: updatedData } };*/
     return { ...state, data: { ...state.data, token: action.data.token } };
   }
 };
