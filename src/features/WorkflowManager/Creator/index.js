@@ -85,7 +85,8 @@ class WorkflowCreatorContainer extends Component {
       handleOnOverviewChange,
       match,
       workflow,
-      workflowRevision
+      workflowRevision,
+      overviewData
     } = this.props;
 
     const { hasCreatedWorkflow } = this.state;
@@ -95,7 +96,7 @@ class WorkflowCreatorContainer extends Component {
         <Switch>
           <Route
             path={`${match.path}/overview`}
-            component={props => (
+            render={props => (
               <>
                 <ActionBar
                   performActionButtonText={hasCreatedWorkflow ? "Update Overview" : "Create Workflow"}
@@ -103,11 +104,7 @@ class WorkflowCreatorContainer extends Component {
                   diagramApp={this.diagramApp}
                   {...props}
                 />
-                <Overview
-                  handleOnChange={handleOnOverviewChange}
-                  workflow={workflow}
-                  overviewData={this.props.overviewData}
-                />
+                <Overview workflow={workflow} />
               </>
             )}
           />
