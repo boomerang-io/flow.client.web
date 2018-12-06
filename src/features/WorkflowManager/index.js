@@ -27,26 +27,11 @@ class WorkflowManagerContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.newOverviewData = {};
     this.changeLogReason = "";
-    this.overviewData = {};
   }
 
   componentDidMount() {
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
-
-    // //axios call to pull in overview information
-    // if (this.props.worflow) {
-    //   axios
-    //     .get(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/summary`)
-    //     .then(response => {
-    //       this.overviewData = response.data;
-    //       return Promise.resolve();
-    //     })
-    //     .catch(err => {
-    //       return Promise.reject();
-    //     });
-    // }
   }
 
   componentWillUnmount() {
@@ -54,26 +39,6 @@ class WorkflowManagerContainer extends Component {
     this.props.workflowActions.reset();
     this.props.workflowRevisionActions.reset();
   }
-
-  // handleOnOverviewChange = overviewData => {
-  //   this.newOverviewData = {
-  //     name: overviewData.name,
-  //     shortDescription: overviewData.shortDescription,
-  //     description: overviewData.description,
-  //     icon: overviewData.icon,
-  //     triggers: {
-  //       scheduler: {
-  //         enable: overviewData.schedulerEnable,
-  //         schedule: overviewData.schedule
-  //       },
-  //       webhook: {
-  //         enable: overviewData.webhookEnable,
-  //         token: overviewData.token
-  //       }
-  //     }
-  //   };
-  //   console.log(this.newOverviewData);
-  // };
 
   handleChangeLogReasonChange = changeLogReason => {
     this.changeLogReason = changeLogReason;
@@ -83,7 +48,7 @@ class WorkflowManagerContainer extends Component {
     const { workflowActions, workflowRevisionActions, activeTeamId } = this.props;
 
     return workflowActions
-      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, flowTeamId: activeTeamId })
+      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, flowTeamId: activeTeamId }) //update all instances of using newOverviewData - probably just need to use workflow.data object
       .then(response => {
         const dagProps = this.createWorkflowRevisionBody(diagramApp);
         const workflowId = response.data.id;
