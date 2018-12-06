@@ -14,7 +14,7 @@ export const types = {
   CREATE_WORKFLOW_SUCCESS: "CREATE_WORKFLOW_SUCCESS",
   CREATE_WORKFLOW_FAILURE: "CREATE_WORKFLOW_FAILURE",
   CREATE_WORKFLOW_REQUEST: "CREATE_WORKFLOW_REQUEST",
-  UPDATE_WORKFLOW_WEBHOOK: "UPDATE_WORKFLOW_WEBHOOK"
+  UPDATE_WORKFLOW_PROPERTY: "UPDATE_WORKFLOW_PROPERTY"
 };
 Object.freeze(types);
 
@@ -70,8 +70,8 @@ const actionHandlers = {
     error: action.error
   }),
   [types.CREATE_WORKFLOW_REQUEST]: state => ({ ...state, isCreating: true, creatingStatus: "" }),
-  [types.UPDATE_WORKFLOW_WEBHOOK]: (state, action) => {
-    return { ...state, data: { ...state.data, token: action.data.token } };
+  [types.UPDATE_WORKFLOW_PROPERTY]: (state, action) => {
+    return { ...state, data: { ...state.data, [action.data.key]: action.data.value } };
   }
 };
 
@@ -90,7 +90,7 @@ const updateFailure = error => ({ type: types.UPDATE_WORKFLOW_FAILURE, error });
 const createRequest = () => ({ type: types.CREATE_WORKFLOW_REQUEST });
 const createSuccess = data => ({ type: types.CREATE_WORKFLOW_SUCCESS, data });
 const createFailure = error => ({ type: types.CREATE_WORKFLOW_FAILURE, error });
-const updateWorkflowWebhook = data => ({ type: types.UPDATE_WORKFLOW_WEBHOOK, data });
+const updateProperty = data => ({ type: types.UPDATE_WORKFLOW_PROPERTY, data });
 
 const fetchActionCreators = {
   reset: reset,
@@ -147,5 +147,5 @@ export const actions = {
   createSuccess,
   cancelCreate,
   reset,
-  updateWorkflowWebhook
+  updateProperty
 };
