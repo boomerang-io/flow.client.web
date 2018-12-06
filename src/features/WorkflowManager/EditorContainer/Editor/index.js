@@ -66,7 +66,7 @@ class WorkflowEditor extends Component {
         <Switch>
           <Route
             path={`${match.path}/overview`}
-            component={props => (
+            render={props => (
               <>
                 <ActionBar
                   performActionButtonText="Update Overview"
