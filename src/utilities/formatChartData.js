@@ -7,7 +7,7 @@ export const parseChartsData = data => {
   let success = [];
   let finalData = [];
   let scatterData = [];
-  let medianArray = [];
+  let sumDuration = 0;
 
   data.map(item => {
     scatterData.push({
@@ -15,7 +15,7 @@ export const parseChartsData = data => {
       duration: parseInt(item.duration / 1000, 10),
       date: parseInt(moment(item.creationDate).format("x"), 10)
     });
-    medianArray.push(parseInt(item.duration / 1000, 10));
+    sumDuration += item.duration;
     if (item.status === "completed") success.push(item);
     if (item.status === "failed" || item.status === "inprogress" || item.status === undefined) failure.push(item);
     if (dateName.find(date => moment(date).format("DD-MM-YY") === moment(item.creationDate).format("DD-MM-YY"))) {
@@ -38,7 +38,9 @@ export const parseChartsData = data => {
       total: fail + succeeded
     });
   });
+
   const totalExecutions = data.length;
+  const medianDuration = parseInt(sumDuration / totalExecutions, 10);
   const successExecutions = success.length;
   const percentageSuccessful = parseFloat(((success.length / totalExecutions) * 100).toFixed(2));
   return {
@@ -48,6 +50,8 @@ export const parseChartsData = data => {
       { name: "Passed", value: successExecutions },
       { name: "Failed", value: totalExecutions - successExecutions }
     ],
-    percentageSuccessful
+    medianDuration: parseInt(medianDuration / 1000, 10),
+    percentageSuccessful,
+    totalExecutions
   };
 };
