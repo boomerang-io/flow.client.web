@@ -48,7 +48,7 @@ export class WorkflowManagerContainer extends Component {
     const { workflowActions, workflowRevisionActions, activeTeamId } = this.props;
 
     return workflowActions
-      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, flowTeamId: activeTeamId }) //update all instances of using newOverviewData - probably just need to use workflow.data object
+      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, flowTeamId: activeTeamId }) //update all instances of using newOverviewData - probably just need to use workflow.data object
       .then(response => {
         const dagProps = this.createWorkflowRevisionBody(diagramApp);
         const workflowId = response.data.id;
