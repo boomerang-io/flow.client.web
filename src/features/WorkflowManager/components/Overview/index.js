@@ -39,8 +39,9 @@ class Overview extends Component {
     return axios
       .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/token`)
       .then(response => {
-        workflowActions.updateWorkflowWebhook({ token: response.data.token });
-        this.handleOnChange(response.data.token, {}, "token");
+        //workflowActions.updateWorkflowWebhook({ token: response.data.token });
+        workflowActions.updateTriggersWebhook({ key: "token", value: response.data.token });
+        //this.handleOnWebhookChange(response.data.token, {}, "token");
         notify(<Notification type="success" title="Create Workflow" message="Succssfully Generated Webhook Token" />);
       })
       .catch(err => {
@@ -50,6 +51,14 @@ class Overview extends Component {
 
   handleOnChange = (value, errors, name) => {
     this.props.workflowActions.updateProperty({ key: name, value });
+  };
+
+  handleOnWebhookChange = (value, errors, name) => {
+    this.props.workflowActions.updateTriggersWebhook({ key: name, value });
+  };
+
+  handleOnSchedulerChange = (value, errors, name) => {
+    this.props.workflowActions.updateTriggersScheduler({ key: name, value });
   };
 
   //Custom functions for updating the triggers state object
@@ -118,12 +127,13 @@ class Overview extends Component {
 
               <Toggle
                 className="b-webhook__toggle"
-                value={workflow.data.triggers ? workflow.data.triggers.webhook.enable : false}
+                //value={workflow.data.triggers ? workflow.data.triggers.webhook.enable : false}
+                value={workflow.data.triggers.webhook.enable}
                 id="toggle-webhook"
                 name="webhook"
                 title="webhook"
-                onChange={event => this.handleOnChange(event.target.checked, {}, "webhookEnable")}
-                defaultChecked={false}
+                onChange={event => this.handleOnWebhookChange(event.target.checked, {}, "enable")}
+                defaultChecked={workflow.data.triggers.webhook.enable}
                 theme="bmrg-white"
               />
 
@@ -173,12 +183,12 @@ class Overview extends Component {
             <label className="b-schedule__title">Enable Scheduler</label>
             <Toggle
               className="b-schedule__toggle"
-              value={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : false}
+              value={workflow.data.triggers.scheduler.enable}
               id="toggle-schedule"
               name="schedule"
               title="schedule"
-              onChange={event => this.handleOnChange(event.target.checked, {}, "schedulerEnable")}
-              defaultChecked={false}
+              onChange={event => this.handleOnSchedulerChange(event.target.checked, {}, "enable")}
+              defaultChecked={workflow.data.triggers.scheduler.enable}
               theme="bmrg-black"
             />
             {workflow.data.triggers &&
@@ -192,7 +202,7 @@ class Overview extends Component {
                   )}
                   shouldCloseOnOverlayClick={false}
                   theme="bmrg-white"
-                  handleOnChange={this.handleOnChange}
+                  handleOnChange={this.handleOnSchedulerChange}
                   cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
                   modalContent={(closeModal, rest) => (
                     <ModalFlow
@@ -212,7 +222,7 @@ class Overview extends Component {
 }
 
 Overview.propTypes = {
-  handleOnChange: PropTypes.func.isRequired
+  //handleOnChange: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {

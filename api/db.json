@@ -4822,6 +4822,83 @@
         }
       },
       "id": "6XDLxbb"
+    },
+    {
+      "id": "yirkZ4c"
+    },
+    {
+      "id": "ZrkyP97"
+    },
+    {
+      "id": "0I4~S6N"
+    },
+    {
+      "id": "6otXkQQ"
+    },
+    {
+      "isFetching": false,
+      "isUpdating": false,
+      "isCreating": false,
+      "fetchingStatus": "",
+      "updatingStatus": "",
+      "creatingStatus": "",
+      "error": "",
+      "data": {
+        "triggers": {
+          "scheduler": {
+            "enable": true,
+            "schedule": "1 1 1 1 1"
+          },
+          "webhook": {
+            "enable": false,
+            "token": ""
+          }
+        },
+        "name": "ben redux test",
+        "shortDescription": "ben summary"
+      },
+      "id": "KqumQ8V"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": true,
+          "schedule": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "name": "ben redux stuff",
+      "shortDescription": "redux summary",
+      "id": "P9iOdec"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "id": "JWhaj~x"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": true,
+          "schedule": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "id": "lAx~JEC"
     }
   ],
   "workflowActivity": {
@@ -5466,6 +5543,18 @@
     },
     {
       "id": 102
+    },
+    {
+      "id": 103
+    },
+    {
+      "id": 104
+    },
+    {
+      "id": 105
+    },
+    {
+      "id": 106
     }
   ]
 }
