@@ -180,6 +180,7 @@ class InputsModalContent extends Component {
               value={type}
               theme="bmrg-white"
               title="TYPE"
+              styles={{ width: "100%" }}
             />
           </div>
           {this.renderDefaultValue()}
