@@ -40,7 +40,7 @@ export default class CronJobModal extends Component {
   };
 
   handleOnSave = () => {
-    this.props.handleOnChange(this.state.cronExpression, {}, "schedule"); //BEN TODO: change this to pass back an object so it can be more understood what those values correspond to
+    this.props.handleOnChange(this.state.cronExpression, {}, "schedule");
     this.props.closeModal();
   };
 
