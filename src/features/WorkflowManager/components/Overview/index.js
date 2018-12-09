@@ -15,8 +15,10 @@ import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
 import assets from "./assets";
+import cronstrue from "cronstrue";
 import copyIcon from "./assets/copy.svg";
 import eyeIcon from "./assets/eye.svg";
 import refreshIcon from "./assets/refresh.svg";
@@ -31,7 +33,8 @@ class Overview extends Component {
   };
 
   state = {
-    tokenTextType: "text"
+    tokenTextType: "text",
+    showTokenText: "Hide Token"
   };
 
   generateToken = () => {
@@ -39,9 +42,7 @@ class Overview extends Component {
     return axios
       .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/token`)
       .then(response => {
-        //workflowActions.updateWorkflowWebhook({ token: response.data.token });
         workflowActions.updateTriggersWebhook({ key: "token", value: response.data.token });
-        //this.handleOnWebhookChange(response.data.token, {}, "token");
         notify(<Notification type="success" title="Create Workflow" message="Succssfully Generated Webhook Token" />);
       })
       .catch(err => {
@@ -61,16 +62,11 @@ class Overview extends Component {
     this.props.workflowActions.updateTriggersScheduler({ key: name, value });
   };
 
-  //Custom functions for updating the triggers state object
-
-  // const webhook = {...this.workflow.data.triggers};
-  // const triggers = { ...this.workflow.data.triggers, webhook: {...webhook, newvalue: ""}}
-
   handleShowToken = () => {
     if (this.state.tokenTextType === "text") {
-      this.setState({ tokenTextType: "password" });
+      this.setState({ tokenTextType: "password", showTokenText: "Show Token" });
     } else {
-      this.setState({ tokenTextType: "text" });
+      this.setState({ tokenTextType: "text", showTokenText: "Hide Token" });
     }
   };
 
@@ -127,7 +123,6 @@ class Overview extends Component {
 
               <Toggle
                 className="b-webhook__toggle"
-                //value={workflow.data.triggers ? workflow.data.triggers.webhook.enable : false}
                 value={workflow.data.triggers.webhook.enable}
                 id="toggle-webhook"
                 name="webhook"
@@ -156,14 +151,42 @@ class Overview extends Component {
                   type={this.state.tokenTextType}
                   disabled={true}
                 />
-                <img src={eyeIcon} onClick={this.handleShowToken} className="b-webhook__token-eyeIcon" />
+                <img
+                  src={eyeIcon}
+                  onClick={this.handleShowToken}
+                  className="b-webhook__token-eyeIcon"
+                  data-tip
+                  data-for={"b-webhook__token-eyeIcon"}
+                />
+                <ToolTip className="b-webhook__eyeTooltip" place="top" id={"b-webhook__token-eyeIcon"}>
+                  {this.state.showTokenText}
+                </ToolTip>
                 <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
-                  <img src={copyIcon} className="b-webhook__token-copyIcon" />
+                  <img
+                    src={copyIcon}
+                    className="b-webhook__token-copyIcon"
+                    data-tip
+                    data-for={"b-webhook__token-copyIcon"}
+                  />
                 </CopyToClipboard>
+                <ToolTip className="b-webhook__copyTooltip" place="top" id={"b-webhook__token-copyIcon"}>
+                  Copy Token
+                </ToolTip>
+
                 <div className="b-webhook__token-Modal">
+                  <ToolTip className="b-webhook__refreshTooltip" place="top" id={"b-webhook__token-refreshIcon"}>
+                    Regenerate Token
+                  </ToolTip>
                   <AlertModal
                     style={{ display: "inline" }}
-                    ModalTrigger={() => <img src={refreshIcon} className="b-webhook__token-refreshIcon" />}
+                    ModalTrigger={() => (
+                      <img
+                        src={refreshIcon}
+                        className="b-webhook__token-refreshIcon"
+                        data-tip
+                        data-for={"b-webhook__token-refreshIcon"}
+                      />
+                    )}
                     modalContent={(closeModal, rest) => (
                       <ConfirmModal
                         closeModal={closeModal}
@@ -214,6 +237,13 @@ class Overview extends Component {
                   )}
                 />
               )}
+          </div>
+          <div className="c-trigger__cronMessage">
+            {workflow.data.triggers &&
+            workflow.data.triggers.scheduler.schedule &&
+            workflow.data.triggers.scheduler.enable
+              ? cronstrue.toString(workflow.data.triggers.scheduler.schedule)
+              : undefined}
           </div>
         </div>
       </div>
