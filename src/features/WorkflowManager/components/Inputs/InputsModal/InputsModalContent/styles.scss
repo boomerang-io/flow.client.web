@@ -1,8 +1,17 @@
 .c-inputs-modal-body {
-  width: 60%;
+  display: flex;
+  width: 80%;
   margin: auto;
   height: 26rem;
-  overflow-y: scroll;
+}
+
+.c-inputs-modal-body-left {
+  width: 60%;
+  padding-right: 5%;
+}
+
+.c-inputs-modal-body-right {
+  width: 40%;
 }
 
 .b-inputs-modal-toggle {
@@ -19,5 +28,5 @@
 }
 
 .b-inputs-modal-type {
-  margin: 2rem 0;
+  margin-bottom: 2rem;
 }

@@ -123,67 +123,71 @@ class InputsModalContent extends Component {
     return (
       <>
         <Body className="c-inputs-modal-body">
-          <TextInput
-            title="Name"
-            placeholder="Name"
-            name="name"
-            type="text"
-            comparisonData={inputsNames || []}
-            noValueText="Enter a name"
-            existValueText="Property name already exist"
-            onChange={this.handleNameChange}
-            detail={name}
-            validationFunction={this.validateName}
-            validationText="Invalid name, space and special characters aren't allowed"
-            theme="bmrg-white"
-          />
-          <TextInput
-            title="Label"
-            placeholder="Label"
-            name="label"
-            type="text"
-            noValueText="Enter a label"
-            onChange={this.handleLabelChange}
-            detail={label}
-            theme="bmrg-white"
-          />
-          <TextInput
-            title="Description"
-            placeholder="Description"
-            name="description"
-            type="text"
-            noValueText="Enter a description"
-            onChange={this.handleDescriptionChange}
-            detail={description}
-            theme="bmrg-white"
-          />
-          <div className="b-inputs-modal-toggle">
-            <div className="b-inputs-modal-toggle__title">Required</div>
-            <Toggle
-              id="input-required-toggle"
-              onChange={this.handleRequiredChange}
-              defaultChecked={required}
+          <div className="c-inputs-modal-body-left">
+            <TextInput
+              title="Name"
+              placeholder="Name"
+              name="name"
+              type="text"
+              comparisonData={inputsNames || []}
+              noValueText="Enter a name"
+              existValueText="Property name already exist"
+              onChange={this.handleNameChange}
+              detail={name}
+              validationFunction={this.validateName}
+              validationText="Invalid name, space and special characters aren't allowed"
               theme="bmrg-white"
             />
-          </div>
-          <div className="b-inputs-modal-type">
-            <SelectDropdown
-              onChange={this.handleTypeChange}
-              options={[
-                { label: "TextInput", value: "textInput" },
-                { label: "TextAreaBox", value: "textAreaBox" },
-                { label: "Boolean", value: "boolean" },
-                { label: "Password", value: "password" },
-                { label: "Number", value: "number" },
-                { label: "Select", value: "select" }
-              ]}
-              value={type}
+            <TextInput
+              title="Label"
+              placeholder="Label"
+              name="label"
+              type="text"
+              noValueText="Enter a label"
+              onChange={this.handleLabelChange}
+              detail={label}
               theme="bmrg-white"
-              title="TYPE"
-              styles={{ width: "100%" }}
             />
+            <TextInput
+              title="Description"
+              placeholder="Description"
+              name="description"
+              type="text"
+              noValueText="Enter a description"
+              onChange={this.handleDescriptionChange}
+              detail={description}
+              theme="bmrg-white"
+            />
+            <div className="b-inputs-modal-toggle">
+              <div className="b-inputs-modal-toggle__title">Required</div>
+              <Toggle
+                id="input-required-toggle"
+                onChange={this.handleRequiredChange}
+                defaultChecked={required}
+                theme="bmrg-white"
+              />
+            </div>
           </div>
-          {this.renderDefaultValue()}
+          <div className="c-inputs-modal-body-right">
+            <div className="b-inputs-modal-type">
+              <SelectDropdown
+                onChange={this.handleTypeChange}
+                options={[
+                  { label: "TextInput", value: "textInput" },
+                  { label: "TextAreaBox", value: "textAreaBox" },
+                  { label: "Boolean", value: "boolean" },
+                  { label: "Password", value: "password" },
+                  { label: "Number", value: "number" },
+                  { label: "Select", value: "select" }
+                ]}
+                value={type}
+                theme="bmrg-white"
+                title="TYPE"
+                styles={{ width: "100%" }}
+              />
+            </div>
+            {this.renderDefaultValue()}
+          </div>
         </Body>
         <Footer style={{ paddingTop: "1rem" }}>
           <ConfirmButton
