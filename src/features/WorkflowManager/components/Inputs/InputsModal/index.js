@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import InputsModalContent from "./InputsModalContent";
+import "./styles.scss";
 
 class InputsModal extends Component {
   static propTypes = {
@@ -17,9 +18,11 @@ class InputsModal extends Component {
 
     return (
       <ModalWrapper
+        className="c-inputs-modal"
         ModalTrigger={() => <Button />}
         modalContent={(closeModal, rest) => (
           <ModalFlow
+            className="c-inputs-modal-content"
             headerTitle={isEdit ? input.name.toUpperCase() : "CREATE PROPERTY"}
             headerSubtitle={isEdit ? "Let's fix it" : "Create new input parameter"}
             components={[{ step: 0, component: InputsModalContent }]}
