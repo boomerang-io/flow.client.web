@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import { default as Body } from "@boomerang/boomerang-components/lib/ModalContentBody";
@@ -68,7 +69,7 @@ class InputsModalContent extends Component {
   renderDefaultValue = () => {
     const { type, defaultValue } = this.state;
 
-    const textType = type === "textInput" || type === "textAreaBox" ? "text" : type;
+    const textType = type === "textInput" ? "text" : type;
     const defaultOptions =
       typeof defaultValue === "object" ? defaultValue.map(option => ({ label: option, value: option })) : [];
 
@@ -89,13 +90,29 @@ class InputsModalContent extends Component {
         return (
           <div className="b-inputs-modal-select">
             <SelectDropdown
+              titleClass="b-inputs-modal-select__title"
+              styles={{ width: "100%" }}
               onChange={this.handleDefaultValueChange}
               options={defaultOptions}
               value={defaultOptions}
               theme="bmrg-white"
-              title="DEFAULT OPTIONS"
+              title="Default Options"
               multi
               isCreatable
+            />
+          </div>
+        );
+      case "textAreaBox":
+        return (
+          <div className="b-inputs-modal-text-area">
+            <TextArea
+              title="Default Value"
+              placeholder="Default Value"
+              name="default value"
+              onChange={this.handleDefaultValueChange}
+              detail={defaultValue || ""}
+              theme="bmrg-white"
+              alwaysShowTitle
             />
           </div>
         );
@@ -110,6 +127,7 @@ class InputsModalContent extends Component {
               onChange={this.handleDefaultValueChange}
               detail={defaultValue || ""}
               theme="bmrg-white"
+              alwaysShowTitle
             />
           </div>
         );
@@ -137,6 +155,7 @@ class InputsModalContent extends Component {
               validationFunction={this.validateName}
               validationText="Invalid name, space and special characters aren't allowed"
               theme="bmrg-white"
+              alwaysShowTitle
             />
             <TextInput
               title="Label"
@@ -147,6 +166,7 @@ class InputsModalContent extends Component {
               onChange={this.handleLabelChange}
               detail={label}
               theme="bmrg-white"
+              alwaysShowTitle
             />
             <TextInput
               title="Description"
@@ -157,6 +177,7 @@ class InputsModalContent extends Component {
               onChange={this.handleDescriptionChange}
               detail={description}
               theme="bmrg-white"
+              alwaysShowTitle
             />
             <div className="b-inputs-modal-toggle">
               <div className="b-inputs-modal-toggle__title">Required</div>
@@ -171,6 +192,7 @@ class InputsModalContent extends Component {
           <div className="c-inputs-modal-body-right">
             <div className="b-inputs-modal-type">
               <SelectDropdown
+                titleClass="b-inputs-modal-type__title"
                 onChange={this.handleTypeChange}
                 options={[
                   { label: "TextInput", value: "textInput" },
@@ -182,7 +204,7 @@ class InputsModalContent extends Component {
                 ]}
                 value={type}
                 theme="bmrg-white"
-                title="TYPE"
+                title="Type"
                 styles={{ width: "100%" }}
               />
             </div>
