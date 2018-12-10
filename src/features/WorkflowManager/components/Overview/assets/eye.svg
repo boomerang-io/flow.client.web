@@ -11,7 +11,7 @@
             <use xlink:href="#path-1"></use>
         </mask>
         <g id="Combined-Shape"></g>
-        <g id="color-/-Cool-Gray-40" mask="url(#mask-2)" fill="#8C9696">
+        <g id="color-/-Cool-Gray-40" mask="url(#mask-2)" fill="#047CC0">
             <rect id="fill" x="0" y="0" width="88" height="88"></rect>
         </g>
     </g>

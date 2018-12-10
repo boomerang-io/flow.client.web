@@ -34,7 +34,8 @@ class Overview extends Component {
 
   state = {
     tokenTextType: "text",
-    showTokenText: "Hide Token"
+    showTokenText: "Hide Token",
+    copyTokenText: "Copy Token"
   };
 
   generateToken = () => {
@@ -143,7 +144,7 @@ class Overview extends Component {
           )}
           {workflow.data.triggers &&
             workflow.data.triggers.webhook.token && (
-              <fieldset className="b-webhook__token">
+              <form className="b-webhook-token">
                 <TextInput
                   value={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}
                   placeholder="Token"
@@ -152,47 +153,62 @@ class Overview extends Component {
                   disabled={true}
                 />
                 <img
+                  className="b-webhook-token__icon"
                   src={eyeIcon}
-                  onClick={this.handleShowToken}
-                  className="b-webhook__token-eyeIcon"
                   data-tip
-                  data-for={"b-webhook__token-eyeIcon"}
+                  data-for={"webhook-token-eyeIcon"}
+                  alt="Show/Hide Token"
+                  onClick={this.handleShowToken}
                 />
-                <ToolTip className="b-webhook__eyeTooltip" place="top" id={"b-webhook__token-eyeIcon"}>
+                <ToolTip
+                  className="b-webhook-token__icon-tooltip"
+                  id="webhook-token-eyeIcon"
+                  theme="bmrg-white"
+                  place="top"
+                >
                   {this.state.showTokenText}
                 </ToolTip>
                 <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
                   <img
+                    className="b-webhook-token__icon"
                     src={copyIcon}
-                    className="b-webhook__token-copyIcon"
                     data-tip
-                    data-for={"b-webhook__token-copyIcon"}
+                    data-for="webhook-token-copyIcon"
+                    alt="Copy Token"
+                    onClick={() => this.setState({ copyTokenText: "Copied Token" })}
+                    onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
                   />
                 </CopyToClipboard>
-                <ToolTip className="b-webhook__copyTooltip" place="top" id={"b-webhook__token-copyIcon"}>
-                  Copy Token
+                <ToolTip
+                  className="b-webhook-token__icon-tooltip"
+                  id="webhook-token-copyIcon"
+                  theme="bmrg-white"
+                  place="top"
+                >
+                  {this.state.copyTokenText}
                 </ToolTip>
 
-                <div className="b-webhook__token-Modal">
-                  <ToolTip className="b-webhook__refreshTooltip" place="top" id={"b-webhook__token-refreshIcon"}>
+                <div>
+                  <ToolTip place="top" id="webhook-token-refreshIcon" theme="bmrg-white">
                     Regenerate Token
                   </ToolTip>
                   <AlertModal
-                    style={{ display: "inline" }}
+                    theme="bmrg-white"
                     ModalTrigger={() => (
                       <img
                         src={refreshIcon}
-                        className="b-webhook__token-refreshIcon"
+                        className="b-webhook-token__icon"
                         data-tip
-                        data-for={"b-webhook__token-refreshIcon"}
+                        data-for="webhook-token-refreshIcon"
+                        alt="Regenerate Token"
                       />
                     )}
                     modalContent={(closeModal, rest) => (
                       <ConfirmModal
                         closeModal={closeModal}
                         affirmativeAction={this.generateToken}
-                        title="Generate a new Webhook Token?"
-                        subTitleTop="This previous token will be deleted"
+                        title="Generate a New Webhook Token?"
+                        subTitleTop="The existing token will be invalidated"
                         cancelText="NO"
                         affirmativeText="YES"
                         {...rest}
@@ -200,7 +216,7 @@ class Overview extends Component {
                     )}
                   />
                 </div>
-              </fieldset>
+              </form>
             )}
           <div className="b-schedule">
             <label className="b-schedule__title">Enable Scheduler</label>

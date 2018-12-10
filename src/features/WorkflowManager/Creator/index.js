@@ -79,15 +79,7 @@ class WorkflowCreatorContainer extends Component {
   };
 
   render() {
-    const {
-      createNode,
-      fetchWorkflowRevisionNumber,
-      handleOnOverviewChange,
-      match,
-      workflow,
-      workflowRevision,
-      overviewData
-    } = this.props;
+    const { createNode, fetchWorkflowRevisionNumber, match, workflow, workflowRevision } = this.props;
 
     const { hasCreatedWorkflow } = this.state;
     return (
