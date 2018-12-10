@@ -5000,6 +5000,19 @@
         }
       },
       "id": "WCc3SEY"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "id": "T9HNh8T"
     }
   ],
   "workflowActivity": {
