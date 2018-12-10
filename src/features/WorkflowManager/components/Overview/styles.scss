@@ -58,29 +58,17 @@
     min-height: 4rem;
   }
 
-  .b-webhook__token {
-    display: block;
-    padding-top: 1rem;
-    float: left;
+  .b-webhook-token {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0rem 2rem;
+
     .bmrg--c-text-input {
-      display: inline;
-      .bmrg--b-text-input {
-        width: fit-content;
-        margin: 0;
-        float: left;
-      }
-    }
-    div {
-      display: inline;
-    }
-    .b-webhook__token-Modal {
-      position: relative;
-      left: 2rem;
-      top: -0.5rem;
+      padding-bottom: 0rem;
     }
   }
 
-  .b-webhook__token-value {
+  .b-webhook-token__value {
     background-color: $white;
     margin-right: 5 rem;
   }
@@ -92,34 +80,21 @@
     margin-left: 2.2rem;
   }
 
-  .b-webhook__token-eyeIcon {
-    position: relative;
-    left: 1rem;
-    top: -0.5rem;
+  .b-webhook-token__icon {
     cursor: pointer;
-    width: 3rem;
-    height: 3rem;
-    margin: 0.5rem;
-    padding: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    margin: 0 1rem;
   }
 
-  .b-webhook__token-copyIcon {
-    position: relative;
-    left: 1.5rem;
-    top: -0.5rem;
-    cursor: pointer;
-    width: 3rem;
-    height: 3rem;
-    margin: 0.5rem;
-    padding: 0.5rem;
-  }
-
-  .b-webhook__token-refreshIcon {
-    cursor: pointer;
-    width: 3rem;
-    height: 3rem;
-    margin: 0.5rem;
-    padding: 0.5rem;
+  .b-webhook-token__icon-tooltip {
+    min-width: 10rem;
+    text-align: center;
+    background-color: $white;
+    color: $black;
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    letter-spacing: 0.125rem;
   }
 
   .c-trigger__cronMessage {
