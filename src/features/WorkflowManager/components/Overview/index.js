@@ -261,6 +261,19 @@ export class Overview extends Component {
               ? cronstrue.toString(workflow.data.triggers.scheduler.schedule)
               : undefined}
           </div>
+          <div className="b-persistence">
+            <label className="b-persistence__title">Enable Persistence Storage</label>
+            <Toggle
+              className="b-persistence__toggle"
+              value={workflow.data.enablePersistentStorage}
+              id="toggle-persistence"
+              name="persistence"
+              title="persistence"
+              onChange={event => this.handleOnChange(event.target.checked, {}, "enablePersistentStorage")}
+              defaultChecked={workflow.data.enablePersistentStorage}
+              theme="bmrg-white"
+            />
+          </div>
         </div>
       </div>
     );
