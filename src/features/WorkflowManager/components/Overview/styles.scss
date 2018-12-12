@@ -58,6 +58,14 @@
     min-height: 4rem;
   }
 
+  .b-persistence {
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+    margin-right: 5 rem;
+    min-height: 4rem;
+  }
+
   .b-webhook-token {
     display: flex;
     align-items: center;
@@ -78,6 +86,10 @@
   }
   .b-webhook__toggle {
     margin-left: 2.2rem;
+  }
+
+  .b-persistence__toggle {
+    margin-left: 2rem;
   }
 
   .b-webhook-token__icon {

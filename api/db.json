@@ -5013,6 +5013,21 @@
         }
       },
       "id": "T9HNh8T"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": true,
+      "name": "ben",
+      "id": "g~QqvSq"
     }
   ],
   "workflowActivity": {

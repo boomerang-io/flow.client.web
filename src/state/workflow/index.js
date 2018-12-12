@@ -40,6 +40,7 @@ export const initialState = {
         token: ""
       }
     }
+    //enablePersistentStorage: false
   }
 };
 
