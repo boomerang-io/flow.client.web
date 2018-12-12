@@ -27,7 +27,7 @@ import "./styles.scss";
 
 const components = [{ step: 0, component: CronJobModal }];
 
-class Overview extends Component {
+export class Overview extends Component {
   static propTypes = {
     workflow: PropTypes.object.isRequired
   };
