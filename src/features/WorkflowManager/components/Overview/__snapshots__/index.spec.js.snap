@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Overview --- Snapshot +++ renders correctly 1`] = `
+<div
+  className="c-worklfow-overview"
+>
+  <div
+    className="c-general-info"
+  >
+    <h1
+      className="s-general-info-title"
+    >
+      General
+    </h1>
+    <div
+      className="bmrg--c-text-input"
+    >
+      <label
+        className="bmrg--s-text-input-title --bmrg-white"
+      >
+        Name
+      </label>
+      <div
+        className="bmrg--b-text-input"
+      >
+        <input
+          className="bmrg--b-text-input__input --bmrg-white"
+          disabled={false}
+          name="name"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="Name"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="bmrg--c-text-input"
+    >
+      <label
+        className="bmrg--s-text-input-title --bmrg-white"
+      >
+        Summary
+      </label>
+      <div
+        className="bmrg--b-text-input"
+      >
+        <input
+          className="bmrg--b-text-input__input --bmrg-white"
+          disabled={false}
+          name="shortDescription"
+          onBlur={[Function]}
+          onChange={[Function]}
+          placeholder="Summary"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="bmrg--b-textarea"
+    >
+      <label
+        className="bmrg--b-textarea__title --bmrg-white"
+      >
+        Description
+      </label>
+      <textarea
+        className="bmrg--b-textarea__text"
+        name="description"
+        onBlur={[Function]}
+        onChange={[Function]}
+        placeholder="Description"
+        value=""
+      />
+    </div>
+    <h2
+      className="s-workflow-icons-title"
+    >
+      Icon
+    </h2>
+    <div
+      className="b-workflow-icons"
+    >
+      <img
+        alt="docs icon"
+        className="b-workflow-icons__icon"
+        onClick={[Function]}
+        src="docs.svg"
+      />
+      <img
+        alt="secure icon"
+        className="b-workflow-icons__icon"
+        onClick={[Function]}
+        src="secure.svg"
+      />
+      <img
+        alt="flow icon"
+        className="b-workflow-icons__icon"
+        onClick={[Function]}
+        src="flow.svg"
+      />
+      <img
+        alt="log icon"
+        className="b-workflow-icons__icon"
+        onClick={[Function]}
+        src="log.svg"
+      />
+      <img
+        alt="payment icon"
+        className="b-workflow-icons__icon"
+        onClick={[Function]}
+        src="payment.svg"
+      />
+      <img
+        alt="diagram icon"
+        className="b-workflow-icons__icon"
+        onClick={[Function]}
+        src="diagram.svg"
+      />
+      <img
+        alt="utility icon"
+        className="b-workflow-icons__icon"
+        onClick={[Function]}
+        src="utility.svg"
+      />
+      <img
+        alt="template icon"
+        className="b-workflow-icons__icon"
+        onClick={[Function]}
+        src="template.svg"
+      />
+    </div>
+  </div>
+  <div
+    className="c-trigger"
+  >
+    <h1
+      className="s-trigger-title"
+    >
+      Triggers
+    </h1>
+    
+    <div
+      className="b-schedule"
+    >
+      <label
+        className="b-schedule__title"
+      >
+        Enable Scheduler
+      </label>
+      <div
+        className="b-schedule__toggle --bmrg-black"
+      >
+        <div
+          className="react-toggle"
+          onClick={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+        >
+          <div
+            className="react-toggle-track"
+          >
+            <div
+              className="react-toggle-track-check"
+            />
+            <div
+              className="react-toggle-track-x"
+            />
+          </div>
+          <div
+            className="react-toggle-thumb"
+          />
+          <input
+            className="react-toggle-screenreader-only"
+            defaultChecked={false}
+            id="toggle-schedule"
+            name="schedule"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            title="schedule"
+            type="checkbox"
+            value={false}
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="c-trigger__cronMessage"
+    />
+  </div>
+</div>
+`;
