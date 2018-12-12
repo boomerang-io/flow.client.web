@@ -41,7 +41,7 @@ export class Overview extends Component {
   generateToken = () => {
     const { workflowActions } = this.props;
     return axios
-      .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/token`)
+      .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/webhook-token`)
       .then(response => {
         workflowActions.updateTriggersWebhook({ key: "token", value: response.data.token });
         notify(<Notification type="success" title="Create Workflow" message="Succssfully Generated Webhook Token" />);
