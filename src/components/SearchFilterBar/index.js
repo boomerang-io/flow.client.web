@@ -8,14 +8,14 @@ class SearchFilterBar extends Component {
   static propTypes = {
     options: PropTypes.array.isRequired,
     handleSearchFilter: PropTypes.func.isRequired,
-    debounceTimeout: PropTypes.string,
+    debounceTimeout: PropTypes.number,
     filterItems: PropTypes.array,
     multiselect: PropTypes.bool,
     selectedOption: PropTypes.string
   };
   static defaultProps = {
     multiselect: true,
-    debounceTimeout: null,
+    debounceTimeout: 0,
     selectedOption: "none"
   };
 
@@ -92,7 +92,7 @@ class SearchFilterBar extends Component {
               <SelectItem value="none" text="All" />
               {options.map(option => {
                 return (
-                  <SelectItemGroup label={option.name}>
+                  <SelectItemGroup label={option.name} key={option.name}>
                     {option.workflows.map(workflow => {
                       return <SelectItem value={workflow.id} text={workflow.name} />;
                     })}

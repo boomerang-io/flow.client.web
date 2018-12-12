@@ -8,7 +8,7 @@
     "@boomerang/boomerang-dag": "5.2.1",
     "@boomerang/boomerang-react-scripts": "2.0.0",
     "@boomerang/boomerang-styles": "0.10.0",
-    "@boomerang/boomerang-utilities": "2.0.0-alpha0",
+    "@boomerang/boomerang-utilities": "2.0.0",
     "carbon-components": "^9.37.2",
     "carbon-components-react": "^6.42.0",
     "carbon-icons": "^7.0.7",

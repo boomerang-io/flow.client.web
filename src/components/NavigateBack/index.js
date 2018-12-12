@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import chevron from "Assets/svg/chevron";
+import chevron from "Assets/svg/chevron.svg";
 import "./styles.scss";
 
 const NavigateBack = ({ className, onClick, style, text, to }) => (
