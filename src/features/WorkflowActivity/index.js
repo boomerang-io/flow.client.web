@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import queryString from "query-string";
+import { MultiSelect } from "carbon-components-react";
 import { actions as activityActions } from "State/activity";
 import { actions as teamsActions } from "State/teams";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
@@ -10,6 +12,7 @@ import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
 import SearchFilterBar from "Components/SearchFilterBar";
+import { executionOptions } from "Constants/filterOptions";
 import ActivityList from "./ActivityList";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
@@ -27,6 +30,7 @@ export class WorkflowActivity extends Component {
     workflowId: this.props.match.params.workflowId ? this.props.match.params.workflowId : "",
     tableSize: 10,
     activityList: [],
+    executionFilter: [],
     hasMoreActivities: null,
     nextPage: 1,
     isLoading: false
@@ -65,6 +69,41 @@ export class WorkflowActivity extends Component {
     this.setState({ hasMoreActivities: last });
   };
 
+  handleExecutionFilter = data => {
+    const { workflowId, searchQuery } = this.state;
+    this.setState(
+      { executionFilter: data.selectedItems, activityList: [], hasMoreActivities: null, nextPage: 1 },
+      () => {
+        const query = queryString.stringify({
+          workflowId: workflowId !== "none" ? workflowId : undefined,
+          query: searchQuery !== "" ? searchQuery : undefined
+        });
+        this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=10&page=0&${query}`);
+      }
+    );
+    // let newActivities = [];
+    // const { activityList } = this.state;
+    // let currentActivities = [].concat(activityList.length === 0 ? this.props.activity.data.records : activityList);
+
+    // if(data.selectedItems.length > 0){
+    //   data.selectedItems.forEach(item => {
+    //     newActivities = newActivities.concat(currentActivities.filter(activity => activity.trigger === item.value));
+    //   });
+    // }
+  };
+
+  applyExecutionFilter = activities => {
+    const { executionFilter } = this.state;
+    let newActivities = [];
+    if (executionFilter.length > 0) {
+      executionFilter.forEach(item => {
+        newActivities = newActivities.concat(activities.filter(activity => activity.trigger === item.value));
+      });
+      return newActivities;
+    }
+    return activities;
+  };
+
   loadMoreActivities = nextPage => {
     this.setState({ isLoading: true }, () => {
       const { searchQuery, workflowId, activityList } = this.state;
@@ -90,7 +129,15 @@ export class WorkflowActivity extends Component {
 
   render() {
     const { activity, teams, history, match } = this.props;
-    const { searchQuery, workflowId, activityList, hasMoreActivities, nextPage, isLoading } = this.state;
+    const {
+      searchQuery,
+      workflowId,
+      activityList,
+      hasMoreActivities,
+      nextPage,
+      isLoading,
+      executionFilter
+    } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-white" />;
@@ -108,19 +155,29 @@ export class WorkflowActivity extends Component {
             <NavigateBack to="/workflows" text="Back to Workflows" />
           </nav>
           <div className="c-workflow-activity-content">
-            <SearchFilterBar
-              handleSearchFilter={this.handleSearchFilter}
-              options={teams.data}
-              filterItems={workflowsFilter}
-              debounceTimeout={300}
-              multiselect={false}
-              selectedOption={match.params.workflowId}
-            />
+            <div className="c-workflow-activity-header">
+              <SearchFilterBar
+                handleSearchFilter={this.handleSearchFilter}
+                options={teams.data}
+                filterItems={workflowsFilter}
+                debounceTimeout={300}
+                multiselect={false}
+                selectedOption={match.params.workflowId}
+              />
+              <MultiSelect
+                useTitleInItem={false}
+                label="Execution type"
+                invalid={false}
+                onChange={this.handleExecutionFilter}
+                items={executionOptions}
+                itemToString={item => (item ? item.value : "")}
+              />
+            </div>
             {!activity.data.records.length ? (
               <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
             ) : (
               <ActivityList
-                activities={activityList.length > 0 ? activityList : activity.data.records}
+                activities={this.applyExecutionFilter(activityList.length > 0 ? activityList : activity.data.records)}
                 hasMoreActivities={hasMoreActivities === null ? !activity.data.last : hasMoreActivities}
                 fetchActivities={this.fetchActivities}
                 setMoreActivities={this.setMoreActivities}

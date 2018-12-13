@@ -20,3 +20,8 @@ export const timeframeOptions = [
   // { label: "6 months", value: sixMonthsAgoInDays },
   // { label: "1 year", value: yearAgoInDays }
 ];
+export const executionOptions = [
+  { label: "cron", value: "cron" },
+  { label: "manual", value: "manual" },
+  { label: "webhook", value: "webhook" }
+];

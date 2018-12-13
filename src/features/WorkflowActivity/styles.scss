@@ -1,3 +1,5 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
 .c-workflow-activity {
   margin: 0 auto;
   display: flex;
@@ -6,8 +8,105 @@
   align-items: center;
   max-width: 100rem;
 
-  .b-search-filter__filter{
+  .b-search-filter {
+    width: 100%;
+  }
+
+  .b-search-filter__filter {
     width: 13rem;
+  }
+  .bx--select {
+    background-color: $teal-20;
+    border-radius: 0.25rem;
+    box-shadow: none;
+    cursor: pointer;
+    height: 2.625rem;
+    max-height: 2.625rem;
+    &::before {
+      content: url("~Assets/svg/configure.svg");
+      position: absolute;
+      height: 2rem;
+      width: 2rem;
+      right: 1rem;
+      top: 0.2rem;
+    }
+    select {
+      box-shadow: none;
+    }
+    .bx--select-input {
+      background-color: $teal-20;
+      border-radius: 0.25rem;
+      box-shadow: none;
+      text-overflow: ellipsis;
+    }
+    .bx--select-optgroup {
+      background-color: $white;
+      box-shadow: none;
+    }
+    .bx--select-option {
+      background-color: $white;
+      font-size: 0.875rem;
+    }
+  }
+  .bx--list-box {
+    background-color: $teal-20;
+    border-radius: 0.25rem;
+    box-shadow: none;
+    cursor: pointer;
+    height: 2.625rem;
+    max-height: 2.625rem;
+    width: 13rem;
+    margin-left: 1rem;
+
+    &::before {
+      content: url("~Assets/svg/configure.svg");
+      position: absolute;
+      height: 2rem;
+      width: 2rem;
+      right: 1rem;
+      top: 0.2rem;
+    }
+  }
+
+  .bx--list-box__field {
+    appearance: none;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .bx--list-box__selection--multi {
+    background-color: $gray-90;
+    &:hover {
+      background-color: $gray-90;
+    }
+  }
+
+  .bx--list-box__menu-icon,
+  .bx--select__arrow {
+    display: none;
+  }
+
+  .bx--list-box__menu {
+    min-width: 10rem;
+    width: max-content;
+    max-width: 15rem;
+    background-color: $white;
+    max-height: 7.5rem;
+    right: 0;
+    left: unset;
+  }
+
+  .bx--list-box__menu-item--highlighted {
+    background: $cool-gray-1;
+    text-decoration: none;
+  }
+
+  .bx--list-box__menu-item--active {
+    .bx--checkbox-label::before {
+      background-color: $teal-20 !important;
+      border-color: $teal-20 !important;
+    }
   }
 }
 
@@ -16,9 +115,11 @@
   max-width: 100rem;
   width: 100%;
 }
+.c-workflow-activity-header {
+  display: flex;
+}
 
 .s-workflow-activity-navigation {
   margin-top: 1rem;
   align-self: flex-start;
 }
-
