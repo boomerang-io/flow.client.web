@@ -20,7 +20,7 @@ const TimeProgressBar = ({ tasks, updateActiveNode }) => {
               taskId={step.taskId}
               index={index}
               taskName={step.taskName}
-              finishPosition={((step.startTime - tasks.creationDate + step.duration) / totalDuration) * 100}
+              finishPosition={Math.round(((step.startTime - tasks.creationDate + step.duration) / totalDuration) * 100)}
               totalDuration={totalDuration}
               updateActiveNode={updateActiveNode}
             />
