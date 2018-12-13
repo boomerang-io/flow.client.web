@@ -33,7 +33,8 @@ export const initialState = {
     triggers: {
       scheduler: {
         enable: false,
-        schedule: ""
+        schedule: "",
+        timezone: ""
       },
       webhook: {
         enable: false,

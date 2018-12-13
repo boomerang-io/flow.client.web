@@ -5041,6 +5041,72 @@
         }
       },
       "id": "yVNORSw"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": true,
+          "schedule": "1 1 1 1 1",
+          "timezone": {
+            "label": "Africa/Addis_Ababa (UTC +03:00)",
+            "value": "Africa/Addis_Ababa (UTC +03:00)",
+            "urlPath": "test",
+            "className": "bmrg--b-repos-dropdown__option"
+          }
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "id": "UzsmzDu"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": true,
+          "schedule": "1 1 1 1 1",
+          "timezone": {
+            "label": "America/Boise (UTC -07:00)",
+            "value": "America/Boise (UTC -07:00)",
+            "urlPath": "test",
+            "className": "bmrg--b-repos-dropdown__option"
+          }
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "id": "RYZ_8q8"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": true,
+          "schedule": "1 1 1 1 1",
+          "timezone": "Africa/Algiers (UTC +01:00)"
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "id": "CMmP0hX"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": true,
+          "schedule": "1 1 1 1 1",
+          "timezone": "Africa/Asmara"
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "id": "Gkkvh2D"
     }
   ],
   "workflowActivity": {
@@ -7526,6 +7592,12 @@
     },
     {
       "id": 124
+    },
+    {
+      "id": 125
+    },
+    {
+      "id": 126
     }
   ]
 >>>>>>> fix: update react router to user render method
