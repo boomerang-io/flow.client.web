@@ -7,8 +7,8 @@ import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
-import minusIcon from "./assets/minus";
-import plusIcon from "./assets/plus";
+import minusIcon from "./assets/minus.svg";
+import plusIcon from "./assets/plus.svg";
 //import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import "./styles.scss";
 

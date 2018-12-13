@@ -4760,6 +4760,7 @@
         "workflowRevisionid": "5bd9e1cfa40f5d0001249bfa",
         "description": "file ingestion",
         "teamName": "Isa's Team",
+        "trigger": "webhook",
         "icon": "flow",
         "shortDescription": "file ingestion",
         "workflowName": "Business Process Test"
@@ -4774,6 +4775,9 @@
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
         "teamName": "Lucas's Team",
+        "trigger": "manual",
+        "autorName": "Isabela Mayumi Kawabata Borges",
+        "autorId": "5bbcf419ee763e00011f5c03",
         "icon": "diagram",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
