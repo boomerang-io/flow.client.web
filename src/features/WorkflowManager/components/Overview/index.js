@@ -33,8 +33,8 @@ export class Overview extends Component {
   };
 
   state = {
-    tokenTextType: "text",
-    showTokenText: "Hide Token",
+    tokenTextType: "password",
+    showTokenText: "Show Token",
     copyTokenText: "Copy Token"
   };
 
@@ -146,7 +146,7 @@ export class Overview extends Component {
             workflow.data.triggers.webhook.token && (
               <form className="b-webhook-token">
                 <TextInput
-                  value={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}
+                  value={workflow.data.triggers.webhook.token}
                   placeholder="Token"
                   theme="bmrg-white"
                   type={this.state.tokenTextType}
