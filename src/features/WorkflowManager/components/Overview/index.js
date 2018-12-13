@@ -242,6 +242,7 @@ export class Overview extends Component {
                   shouldCloseOnOverlayClick={false}
                   theme="bmrg-white"
                   handleOnChange={this.handleOnSchedulerChange}
+                  timeZone={workflow.data.triggers ? workflow.data.triggers.scheduler.timezone : ""}
                   cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
                   modalContent={(closeModal, rest) => (
                     <ModalFlow
