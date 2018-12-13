@@ -108,9 +108,12 @@ export class WorkflowActivity extends Component {
     this.setState({ isLoading: true }, () => {
       const { searchQuery, workflowId, activityList } = this.state;
       let newActivities = [].concat(activityList.length === 0 ? this.props.activity.data.records : activityList);
-      const workflowUrl = workflowId.length > 0 && workflowId !== "none" ? `&workflowId=${workflowId}` : "";
+      const query = queryString.stringify({
+        workflowId: workflowId !== "none" ? workflowId : undefined,
+        query: searchQuery !== "" ? searchQuery : undefined
+      });
       axios
-        .get(`${BASE_SERVICE_URL}/activity?size=10&page=${nextPage}&query=${searchQuery}${workflowUrl}`)
+        .get(`${BASE_SERVICE_URL}/activity?size=10&page=${nextPage}&${query}`)
         .then(response => {
           const { records, last } = response.data;
           this.setState({
