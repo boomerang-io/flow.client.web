@@ -4776,8 +4776,8 @@
         "description": "Slack and Mail integration",
         "teamName": "Lucas's Team",
         "trigger": "manual",
-        "autorName": "Isabela Mayumi Kawabata Borges",
-        "autorId": "5bbcf419ee763e00011f5c03",
+        "initiatedByUserName": "Isabela Mayumi Kawabata Borges",
+        "initiatedByUserId": "5bbcf419ee763e00011f5c03",
         "icon": "diagram",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"

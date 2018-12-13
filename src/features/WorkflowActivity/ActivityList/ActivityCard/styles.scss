@@ -78,11 +78,16 @@
   height: 4rem;
 }
 .b-activity-card__name,
-.b-activity-card__team-name,
+.b-activity-card__team-name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
 .b-activity-card__trigger-label {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+  width: 6rem;
 }
 .b-activity-card__label {
   width: 6rem;

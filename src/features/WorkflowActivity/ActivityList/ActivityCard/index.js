@@ -26,7 +26,7 @@ class ActivityCard extends Component {
       workflowId,
       teamName,
       trigger,
-      autorName
+      initiatedByUserName
     } = this.props.activity;
     return (
       <Link className={`c-activities-card --${status}`} to={`/activity/${workflowId}/execution/${id}`}>
@@ -41,8 +41,11 @@ class ActivityCard extends Component {
           </div>
           <div className="c-activity-card__workflow-trigger">
             {trigger && <label className="b-activity-card__trigger-label">Trigger</label>}
+            {trigger === triggerTypes.MANUAL && <label className="b-activity-card__trigger-label">Initiated by</label>}
+          </div>
+          <div className="c-activity-card__workflow-trigger">
             <label className="b-activity-card__trigger">{trigger}</label>
-            {trigger === triggerTypes.MANUAL && <label className="b-activity-card__autor">{autorName}</label>}
+            {trigger === triggerTypes.MANUAL && <label className="b-activity-card__autor">{initiatedByUserName}</label>}
           </div>
         </div>
         <div className="c-activity-card__activity">
