@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
-import { routerReducer as routing } from "react-router-redux";
-
+import { connectRouter } from "connected-react-router";
 import activity from "./activity";
 import changeLog from "./changeLog";
 import contactJoe from "./contactJoe";
@@ -16,22 +15,23 @@ import workflowExecution from "./workflowExecution";
 import workflowExecutionActiveNode from "./workflowExecutionActiveNode";
 import workflowRevision from "./workflowRevision";
 
-const rootReducer = combineReducers({
-  routing,
-  activity,
-  changeLog,
-  contactJoe,
-  insights,
-  navbarLinks,
-  privacyStatement,
-  reportBug,
-  tasks,
-  teams,
-  user,
-  workflow,
-  workflowExecution,
-  workflowExecutionActiveNode,
-  workflowRevision
-});
+const rootReducer = history =>
+  combineReducers({
+    router: connectRouter(history),
+    activity,
+    changeLog,
+    contactJoe,
+    insights,
+    navbarLinks,
+    privacyStatement,
+    reportBug,
+    tasks,
+    teams,
+    user,
+    workflow,
+    workflowExecution,
+    workflowExecutionActiveNode,
+    workflowRevision
+  });
 
 export default rootReducer;

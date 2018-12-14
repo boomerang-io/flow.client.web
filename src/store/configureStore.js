@@ -20,7 +20,7 @@ function configureStoreProd(initialState) {
   ];
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
-  return createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(...middlewares)));
+  return createStore(rootReducer(history), initialState, composeEnhancers(applyMiddleware(...middlewares)));
 }
 
 function configureStoreDev(initialState) {
@@ -38,7 +38,7 @@ function configureStoreDev(initialState) {
   ];
 
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
-  const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(...middlewares)));
+  const store = createStore(rootReducer(history), initialState, composeEnhancers(applyMiddleware(...middlewares)));
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
