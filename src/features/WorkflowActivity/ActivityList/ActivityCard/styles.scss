@@ -58,7 +58,14 @@
   margin-left: 0.5rem;
   display: flex;
   flex-direction: column;
+  min-width: 12rem;
 }
+.c-activity-card__workflow-trigger {
+  margin-left: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
 .c-activity-card__icon {
   margin-left: 1.5rem;
   width: 5rem;
@@ -70,10 +77,17 @@
   width: 5rem;
   height: 4rem;
 }
-.b-activity-card__name, .b-activity-card__team-name {
+.b-activity-card__name,
+.b-activity-card__team-name {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
+}
+.b-activity-card__trigger-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  width: 6rem;
 }
 .b-activity-card__label {
   width: 6rem;
@@ -81,6 +95,11 @@
   font-weight: 600;
 }
 .b-activity-card__description {
+  color: $gray-60;
+}
+.b-activity-card__trigger,
+.b-activity-card__autor {
+  margin-bottom: 0.5rem;
   color: $gray-60;
 }
 .b-activity-card__status-icon {

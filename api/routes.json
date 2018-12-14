@@ -12,7 +12,7 @@
   "/flow/workflow/:id": "/workflowSummary/5bc0efa45a5df954adb0e556?&singular=1",
   "/flow/activity?size=:value&page=2&searchQuery=": "/workflowActivityLast",
   "/flow/activity?size=:value&page=:page&searchQuery=:query": "/workflowActivity",
-  "/flow/activity?size=:value&page=:page": "/workflowActivity",
+  "/flow/activity?page=:page&size=:size": "/workflowActivity",
   "/flow/insights?*": "/workflowInsights",
   "/flow/*": "/$1",
   "/launchpad/*": "/$1"

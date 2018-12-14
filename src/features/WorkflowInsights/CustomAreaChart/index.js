@@ -137,7 +137,6 @@ class CustomAreaChart extends Component {
             allowDecimals={false}
             unit={this.props.yAxisUnit}
             domain={this.props.yAxisUnit === "%" ? [0, 100] : ["dataMin", "dataMax"]}
-            allowDecimals={false}
           >
             <Label content={() => AreaLabel} />
           </YAxis>

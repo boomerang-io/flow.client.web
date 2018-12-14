@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/activityStatuses";
+import triggerTypes from "Constants/triggerTypes";
 import imgs from "Assets/icons";
 import "./styles.scss";
 
@@ -14,7 +15,19 @@ class ActivityCard extends Component {
   };
 
   render() {
-    const { icon, workflowName, description, creationDate, status, duration, id, workflowId, teamName } = this.props.activity;
+    const {
+      icon,
+      workflowName,
+      description,
+      creationDate,
+      status,
+      duration,
+      id,
+      workflowId,
+      teamName,
+      trigger,
+      initiatedByUserName
+    } = this.props.activity;
     return (
       <Link className={`c-activities-card --${status}`} to={`/activity/${workflowId}/execution/${id}`}>
         <div className="c-activity-card__workflow">
@@ -25,6 +38,14 @@ class ActivityCard extends Component {
             <label className="b-activity-card__team-name">{teamName}</label>
             <label className="b-activity-card__name">{workflowName}</label>
             <label className="b-activity-card__description">{description}</label>
+          </div>
+          <div className="c-activity-card__workflow-trigger">
+            {trigger && <label className="b-activity-card__trigger-label">Trigger</label>}
+            {trigger === triggerTypes.MANUAL && <label className="b-activity-card__trigger-label">Initiated by</label>}
+          </div>
+          <div className="c-activity-card__workflow-trigger">
+            <label className="b-activity-card__trigger">{trigger}</label>
+            {trigger === triggerTypes.MANUAL && <label className="b-activity-card__autor">{initiatedByUserName}</label>}
           </div>
         </div>
         <div className="c-activity-card__activity">
