@@ -35,17 +35,17 @@ class ActionBar extends Component {
   };
 
   handleZoomIncrease = () => {
-    for (let i = 0; i < 250; i++) {
+    for (let i = 0; i < 200; i++) {
       setTimeout(() => {
-        this.handleZoomChange(1.001);
+        this.handleZoomChange(1.0015);
       }, 0);
     }
   };
 
   handleZoomDecrease = () => {
-    for (let i = 0; i < 250; i++) {
+    for (let i = 0; i < 200; i++) {
       setTimeout(() => {
-        this.handleZoomChange(0.999);
+        this.handleZoomChange(0.9985);
       }, 0);
     }
   };

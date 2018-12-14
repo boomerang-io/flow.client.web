@@ -25,7 +25,6 @@ class WorkflowEditor extends Component {
   constructor(props) {
     super(props);
     this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
-    this.overviewErrors = {};
     this.state = {
       diagramBoundingClientRect: {}
     };
