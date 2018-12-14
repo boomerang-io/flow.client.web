@@ -26,8 +26,18 @@ class WorkflowCreatorContainer extends Component {
     super(props);
     this.diagramApp = new DiagramApplication({ dag: null, isLocked: false });
     this.state = {
-      hasCreatedWorkflow: false
+      hasCreatedWorkflow: false,
+      diagramBoundingClientRect: {}
     };
+    this.diagramRef = React.createRef();
+  }
+
+  componentDidMount() {
+    if (this.diagramRef.current) {
+      this.setState({
+        diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect()
+      });
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -115,6 +125,7 @@ class WorkflowCreatorContainer extends Component {
                   performActionButtonText={this.determinePerformActionButtonText()}
                   performAction={this.designerAction}
                   diagramApp={this.diagramApp}
+                  diagramBoundingClientRect={this.state.diagramBoundingClientRect}
                   handleChangeLogReasonChange={this.props.handleChangeLogReasonChange}
                   includeCreateNewVersionComment={
                     hasCreatedWorkflow
@@ -133,6 +144,7 @@ class WorkflowCreatorContainer extends Component {
                 />
                 <TasksSidenav />
                 <div
+                  ref={this.diagramRef}
                   className="c-workflow-diagram-designer"
                   onDrop={event => createNode(this.diagramApp, event)}
                   onDragOver={event => {

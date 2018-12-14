@@ -35,12 +35,54 @@ class ActionBar extends Component {
   };
 
   handleZoomIncrease = () => {
-    this.props.diagramApp.getDiagramEngine().getDiagramModel().zoom += 10;
-    this.props.diagramApp.diagramEngine.repaintCanvas();
+    for (let i = 0; i < 25; i++) {
+      setTimeout(() => {
+        this.handleZoomChange(1);
+      }, 0);
+    }
   };
 
   handleZoomDecrease = () => {
-    this.props.diagramApp.getDiagramEngine().getDiagramModel().zoom -= 10;
+    for (let i = 0; i < 25; i++) {
+      setTimeout(() => {
+        this.handleZoomChange(-1);
+      }, 0);
+    }
+  };
+
+  handleZoomChange = zoomDelta => {
+    const diagramModel = this.props.diagramApp.getDiagramEngine().getDiagramModel();
+    const oldZoomFactor = diagramModel.getZoomLevel() / 100;
+
+    if (diagramModel.getZoomLevel() + zoomDelta > 10) {
+      diagramModel.setZoomLevel(diagramModel.getZoomLevel() + zoomDelta);
+    }
+
+    const zoomFactor = diagramModel.getZoomLevel() / 100;
+    //const currentTarget = Array.from(document.getElementsByClassName("srd-diagram srd-demo-canvas"))[0];
+    //const boundingRect = currentTarget.getBoundingClientRect();
+    const boundingRect = this.props.diagramBoundingClientRect;
+    const clientWidth = boundingRect.width;
+    const clientHeight = boundingRect.height;
+
+    // compute difference between rect before and after
+    const widthDiff = clientWidth * zoomFactor - clientWidth * oldZoomFactor;
+    const heightDiff = clientHeight * zoomFactor - clientHeight * oldZoomFactor;
+
+    // compute coords relative to canvas
+    const clientX = Math.round(boundingRect.left * 2);
+    const clientY = Math.round(boundingRect.top * 2);
+
+    // compute width and height increment factor
+    const xFactor = (clientX - diagramModel.getOffsetX()) / oldZoomFactor / clientWidth;
+    const yFactor = (clientY - diagramModel.getOffsetY()) / oldZoomFactor / clientHeight;
+
+    diagramModel.setOffset(
+      diagramModel.getOffsetX() - widthDiff * xFactor,
+      diagramModel.getOffsetY() - heightDiff * yFactor
+    );
+
+    this.props.diagramApp.getDiagramEngine().enableRepaintEntities([]);
     this.props.diagramApp.diagramEngine.repaintCanvas();
   };
 
