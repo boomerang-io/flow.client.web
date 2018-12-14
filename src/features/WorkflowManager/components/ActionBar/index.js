@@ -35,17 +35,17 @@ class ActionBar extends Component {
   };
 
   handleZoomIncrease = () => {
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 250; i++) {
       setTimeout(() => {
-        this.handleZoomChange(1);
+        this.handleZoomChange(1.001);
       }, 0);
     }
   };
 
   handleZoomDecrease = () => {
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 250; i++) {
       setTimeout(() => {
-        this.handleZoomChange(-1);
+        this.handleZoomChange(0.999);
       }, 0);
     }
   };
@@ -55,7 +55,7 @@ class ActionBar extends Component {
     const oldZoomFactor = diagramModel.getZoomLevel() / 100;
 
     if (diagramModel.getZoomLevel() + zoomDelta > 10) {
-      diagramModel.setZoomLevel(diagramModel.getZoomLevel() + zoomDelta);
+      diagramModel.setZoomLevel(diagramModel.getZoomLevel() * zoomDelta);
     }
 
     const zoomFactor = diagramModel.getZoomLevel() / 100;
