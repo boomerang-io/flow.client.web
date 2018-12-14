@@ -27,7 +27,7 @@ export class WorkflowActivity extends Component {
 
   state = {
     searchQuery: "",
-    workflowId: this.props.match.params.workflowId ? this.props.match.params.workflowId : "",
+    workflowId: this.props.match.params.workflowId ? this.props.match.params.workflowId : undefined,
     tableSize: 10,
     activityList: [],
     executionFilter: [],
@@ -38,8 +38,12 @@ export class WorkflowActivity extends Component {
 
   componentDidMount() {
     const { params } = this.props.match;
-    const workflowParam = params.workflowId ? `&workflowId=${params.workflowId}` : "";
-    this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0${workflowParam}`);
+    const query = queryString.stringify({
+      size: this.state.tableSize,
+      page: 0,
+      workflowId: params.workflowId ? params.workflowId : undefined
+    });
+    this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   }
   fetchActivities = url => {
@@ -51,10 +55,13 @@ export class WorkflowActivity extends Component {
 
   handleSearchFilter = (searchQuery, workflowId) => {
     this.setState({ searchQuery, workflowId, activityList: [], hasMoreActivities: null, nextPage: 1 });
-    const workflowUrl = workflowId.length > 0 && workflowId !== "none" ? `&workflowId=${workflowId}` : "";
-    this.fetchActivities(
-      `${BASE_SERVICE_URL}/activity?size=${this.state.tableSize}&page=0&query=${searchQuery}${workflowUrl}`
-    );
+    const query = queryString.stringify({
+      size: this.state.tableSize,
+      page: 0,
+      workflowId: workflowId !== "none" ? workflowId : undefined,
+      query: searchQuery !== "" ? searchQuery : undefined
+    });
+    this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
   };
 
   updateWorkflows = data => {
@@ -75,10 +82,12 @@ export class WorkflowActivity extends Component {
       { executionFilter: data.selectedItems, activityList: [], hasMoreActivities: null, nextPage: 1 },
       () => {
         const query = queryString.stringify({
+          size: 10,
+          page: 0,
           workflowId: workflowId !== "none" ? workflowId : undefined,
           query: searchQuery !== "" ? searchQuery : undefined
         });
-        this.fetchActivities(`${BASE_SERVICE_URL}/activity?size=10&page=0&${query}`);
+        this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
       }
     );
     // let newActivities = [];
@@ -109,11 +118,13 @@ export class WorkflowActivity extends Component {
       const { searchQuery, workflowId, activityList } = this.state;
       let newActivities = [].concat(activityList.length === 0 ? this.props.activity.data.records : activityList);
       const query = queryString.stringify({
+        size: 10,
+        page: nextPage,
         workflowId: workflowId !== "none" ? workflowId : undefined,
         query: searchQuery !== "" ? searchQuery : undefined
       });
       axios
-        .get(`${BASE_SERVICE_URL}/activity?size=10&page=${nextPage}&${query}`)
+        .get(`${BASE_SERVICE_URL}/activity?${query}`)
         .then(response => {
           const { records, last } = response.data;
           this.setState({
