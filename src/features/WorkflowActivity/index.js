@@ -106,9 +106,13 @@ export class WorkflowActivity extends Component {
     let newActivities = [];
     if (executionFilter.length > 0) {
       executionFilter.forEach(item => {
-        newActivities = newActivities.concat(activities.filter(activity => activity.trigger === item.value));
+        newActivities = sortByProp(
+          newActivities.concat(activities.filter(activity => activity.trigger === item.value)),
+          "creationDate",
+          "DESC"
+        );
       });
-      return sortByProp(newActivities, "creationDate", "DESC");
+      return newActivities;
     }
     return activities;
   };
