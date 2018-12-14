@@ -6,8 +6,10 @@ import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContent
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
+import infoIcon from "../assets/info.svg";
 import "./styles.scss";
 
 export default class CronJobModal extends Component {
@@ -22,7 +24,8 @@ export default class CronJobModal extends Component {
       timeZone: props.timeZone,
       inputError: {},
       errorMessage: undefined,
-      message: props.cronExpression ? cronstrue.toString(props.cronExpression) : undefined
+      message: props.cronExpression ? cronstrue.toString(props.cronExpression) : undefined,
+      defaultTimeZone: moment.tz.guess()
     };
   }
 
@@ -31,7 +34,7 @@ export default class CronJobModal extends Component {
   };
 
   handleTimeChange = (value, error) => {
-    this.setState({ timeZone: value, inputError: error });
+    this.setState({ timeZone: value });
   };
 
   //receives input value from TextInput
@@ -48,7 +51,11 @@ export default class CronJobModal extends Component {
 
   handleOnSave = () => {
     this.props.handleOnChange(this.state.cronExpression, {}, "schedule");
-    this.props.handleOnChange(this.state.timeZone.value, {}, "timezone");
+    this.props.handleOnChange(
+      this.state.timeZone.value ? this.state.timeZone.value : this.state.defaultTimeZone,
+      {},
+      "timezone"
+    );
     this.props.closeModal();
   };
 
@@ -65,7 +72,6 @@ export default class CronJobModal extends Component {
         className: "bmrg--b-repos-dropdown__option"
       });
     });
-    //const filteredSubset = subset.map(item => <li>{`${item} (UTC ${moment.tz(item).format("Z")})`}</li>);
     return (
       <>
         <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-white" />
@@ -87,13 +93,32 @@ export default class CronJobModal extends Component {
             }
             {cronExpression && errorMessage && <div className="b-cron-fieldset__message --error">{errorMessage}</div>}
             {cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}
-            <SelectDropdown
-              options={filteredSubset}
-              theme="bmrg-white"
-              value={timeZone}
-              onChange={this.handleTimeChange}
-              isCreatable={false}
-            />
+            <div className="b-timezone">
+              <SelectDropdown
+                options={filteredSubset}
+                theme="bmrg-white"
+                value={timeZone}
+                onChange={this.handleTimeChange}
+                isCreatable={false}
+                title="Timezone"
+                style={{ width: "100%" }}
+              />
+              <img
+                className="b-cronModal__infoIcon"
+                src={infoIcon}
+                data-tip
+                data-for={"b-cronModal__infoIcon"}
+                alt="Show/Hide Token"
+              />
+              <ToolTip
+                className="b-cronModal__infoIcontooltip"
+                id="b-cronModal__infoIcon"
+                theme="bmrg-white"
+                place="bottom"
+              >
+                {"we have guessed your timezone for a default value"}
+              </ToolTip>
+            </div>
           </fieldset>
         </ModalContentBody>
         <ModalContentFooter>
@@ -101,7 +126,7 @@ export default class CronJobModal extends Component {
             onClick={this.handleOnSave}
             text="SAVE"
             theme="bmrg-white"
-            //disabled={!cronExpression || !timeZone || !!Object.keys(inputError).length} //disable if there is no expression, or if the error object is not empty
+            disabled={!cronExpression || !!Object.keys(inputError).length} //disable if there is no expression, or if the error object is not empty
           />
         </ModalContentFooter>
       </>

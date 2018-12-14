@@ -262,6 +262,11 @@ export class Overview extends Component {
               ? cronstrue.toString(workflow.data.triggers.scheduler.schedule)
               : undefined}
           </div>
+          <div className="c-trigger__timezone">
+            {workflow.data.triggers && workflow.data.triggers.scheduler.timezone
+              ? `Timezone: ${workflow.data.triggers.scheduler.timezone}`
+              : undefined}
+          </div>
           <div className="b-persistence">
             <label className="b-persistence__title">Enable Persistence Storage</label>
             <Toggle
