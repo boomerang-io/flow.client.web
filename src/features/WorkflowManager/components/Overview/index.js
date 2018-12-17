@@ -142,6 +142,7 @@ export class Overview extends Component {
                 )}
             </div>
           )}
+<<<<<<< HEAD
           {workflow.data.triggers && workflow.data.triggers.webhook.token && (
             <form className="b-webhook-token">
               <TextInput
@@ -168,6 +169,19 @@ export class Overview extends Component {
                 {this.state.showTokenText}
               </ToolTip>
               <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
+=======
+          {workflow.data.triggers &&
+            workflow.data.triggers.webhook.token && (
+              <form className="b-webhook-token">
+                <TextInput
+                  value={workflow.data.triggers.webhook.token}
+                  placeholder="Token"
+                  theme="bmrg-white"
+                  type={this.state.tokenTextType}
+                  disabled={true}
+                  externallyControlled={true}
+                />
+>>>>>>> fix: updated textInput component for re-render
                 <img
                   className="b-webhook-token__icon"
                   src={copyIcon}
