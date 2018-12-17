@@ -1,0 +1,23 @@
+@import "~Styles/variables";
+
+.b-cron-fieldset {
+  height: 100%;
+  margin-top: 2rem;
+}
+
+.b-cron-fieldset__message {
+  font-size: 0.875rem;
+  letter-spacing: 0.0625rem;
+
+  &.--error {
+    color: $red;
+  }
+}
+
+.b-cronModal__infoIcon {
+  height: 2rem;
+  width: 5rem;
+  position: relative;
+  bottom: 3.8rem;
+  left: 15.6rem;
+}

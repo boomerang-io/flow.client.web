@@ -3593,6 +3593,11 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+cronstrue@^1.58.0:
+  version "1.58.0"
+  resolved "https://registry.yarnpkg.com/cronstrue/-/cronstrue-1.58.0.tgz#270fc3d36263199728105fb72836a482d6688e47"
+  integrity sha512-/adBU3su1a0X1RS/uzip6nbyywAYN5O6r0BFzFV9Hl7DKQTxR7TPcWOS0udyIWaby22pNIBG53zAiKDW3taOEw==
+
 cross-spawn@6.0.5, cross-spawn@^6.0.0, cross-spawn@^6.0.5:
   version "6.0.5"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-6.0.5.tgz#4a5ec7c64dfae22c3a14124dbacdee846d80cbc4"
@@ -10793,7 +10798,7 @@ recharts-scale@^0.4.2:
   dependencies:
     decimal.js-light "^2.4.1"
 
-recharts@1.4.1, recharts@^1.4.1:
+recharts@1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/recharts/-/recharts-1.4.1.tgz#92df29090b457c34c58beec263dc766c2b9ea300"
   integrity sha512-HtI3B4xGPn591kNDU5MaCcJeUtlSqOH3cOBtHuhXGxDU2MDkS6abaQtgZD1J4mQiUCUZT3LCziTz5+wD7k+pvw==

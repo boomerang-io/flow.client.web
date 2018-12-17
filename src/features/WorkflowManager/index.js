@@ -26,7 +26,6 @@ export class WorkflowManagerContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.newOverviewData = {};
     this.changeLogReason = "";
   }
 
@@ -40,10 +39,6 @@ export class WorkflowManagerContainer extends Component {
     this.props.workflowRevisionActions.reset();
   }
 
-  handleOnOverviewChange = overviewData => {
-    this.newOverviewData = overviewData;
-  };
-
   handleChangeLogReasonChange = changeLogReason => {
     this.changeLogReason = changeLogReason;
   };
@@ -52,7 +47,7 @@ export class WorkflowManagerContainer extends Component {
     const { workflowActions, workflowRevisionActions, activeTeamId } = this.props;
 
     return workflowActions
-      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, flowTeamId: activeTeamId })
+      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, flowTeamId: activeTeamId }) //update all instances of using newOverviewData - probably just need to use workflow.data object
       .then(response => {
         const dagProps = this.createWorkflowRevisionBody(diagramApp);
         const workflowId = response.data.id;
@@ -102,7 +97,7 @@ export class WorkflowManagerContainer extends Component {
     const workflowId = workflow.data.id;
 
     return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow`, { ...this.newOverviewData, id: workflowId })
+      .update(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, id: workflowId })
       .then(response => {
         notify(<Notification type="success" title="Update Workflow" message="Succssfully updated workflow" />);
         return Promise.resolve(response);
@@ -186,7 +181,6 @@ export class WorkflowManagerContainer extends Component {
                   createWorkflowRevision={this.createWorkflowRevision}
                   fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
                   updateWorkflow={this.updateWorkflow}
-                  handleOnOverviewChange={this.handleOnOverviewChange}
                   handleChangeLogReasonChange={this.handleChangeLogReasonChange}
                   {...props}
                 />
@@ -200,7 +194,6 @@ export class WorkflowManagerContainer extends Component {
                   createNode={this.createNode}
                   createWorkflowRevision={this.createWorkflowRevision}
                   fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-                  handleOnOverviewChange={this.handleOnOverviewChange}
                   handleChangeLogReasonChange={this.handleChangeLogReasonChange}
                   updateWorkflow={this.updateWorkflow}
                   {...props}
