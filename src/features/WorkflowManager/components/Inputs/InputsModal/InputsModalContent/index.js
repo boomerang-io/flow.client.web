@@ -97,6 +97,8 @@ class InputsModalContent extends Component {
               value={defaultOptions}
               theme="bmrg-white"
               title="Default Options"
+              placeholder="Enter option"
+              noResultsText="No options entered"
               multi
               isCreatable
             />
