@@ -263,7 +263,9 @@ export class Overview extends Component {
               : undefined}
           </div>
           <div className="c-trigger__timezone">
-            {workflow.data.triggers && workflow.data.triggers.scheduler.timezone
+            {workflow.data.triggers &&
+            workflow.data.triggers.scheduler.timezone &&
+            workflow.data.triggers.scheduler.enable
               ? `Timezone: ${workflow.data.triggers.scheduler.timezone}`
               : undefined}
           </div>
