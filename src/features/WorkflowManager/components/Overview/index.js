@@ -151,6 +151,7 @@ export class Overview extends Component {
                   theme="bmrg-white"
                   type={this.state.tokenTextType}
                   disabled={true}
+                  externallyControlled={true}
                 />
                 <img
                   className="b-webhook-token__icon"
