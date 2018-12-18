@@ -4706,6 +4706,16 @@
       "name": "Marcus' Workflow",
       "shortDescription": "Summary",
       "revisionCount": 4,
+      "properties": [
+        {
+          "defaultValue": "default value here2",
+          "description": "Testing this property",
+          "key": "test.property",
+          "label": "Test Property",
+          "required": true,
+          "type": "text"
+        }
+      ],
       "triggers": {
         "scheduler": {
           "enable": true,

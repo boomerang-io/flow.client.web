@@ -101,7 +101,7 @@ class WorkflowCreatorContainer extends Component {
               </>
             )}
           />
-          <Route path={`${match.path}/inputs`} render={() => <Inputs />} />
+          <Route path={`${match.path}/inputs`} component={Inputs} />
           <Route
             path={`${match.path}/designer`}
             render={props => (

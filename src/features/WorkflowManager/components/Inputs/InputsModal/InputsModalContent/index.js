@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actions as workflowActions } from "State/workflow";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
@@ -6,24 +9,30 @@ import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import { default as Body } from "@boomerang/boomerang-components/lib/ModalContentBody";
 import { default as ConfirmButton } from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import { default as Footer } from "@boomerang/boomerang-components/lib/ModalContentFooter";
-
 import "./styles.scss";
+
+const INPUT_TYPES = {
+  BOOLEAN: "boolean",
+  SELECT: "select",
+  TEXT_AREA: "textarea",
+  TEXT_INPUT: "text"
+};
 
 class InputsModalContent extends Component {
   state = {
-    name: this.props.input ? this.props.input.name : "",
+    key: this.props.input ? this.props.input.key : "",
     description: this.props.input ? this.props.input.description : "",
     label: this.props.input ? this.props.input.label : "",
     required: this.props.input ? this.props.input.required : false,
-    type: this.props.input ? this.props.input.type : "textInput",
+    type: this.props.input ? this.props.input.type : "text",
     defaultValue: this.props.input ? this.props.input.defaultValue : undefined,
-    nameError: "",
+    keyError: "",
     descriptionError: "",
     labelError: ""
   };
 
-  handleNameChange = (value, error) => {
-    this.setState({ name: value, nameError: error.name });
+  handleKeyChange = (value, error) => {
+    this.setState({ key: value, keyError: error.key });
   };
 
   handleDescriptionChange = (value, error) => {
@@ -56,25 +65,35 @@ class InputsModalContent extends Component {
     }
   };
 
-  /* Check if name contains space or special characters, only underline is allowed */
-  validateName = name => {
-    const regexp = new RegExp("[^a-z|^A-Z|^0-9|^_]");
-    return !regexp.test(name);
+  /* Check if key contains space or special characters, only underline is allowed */
+  validateKey = key => {
+    const regexp = new RegExp("[^a-z|^A-Z|^0-9|^_|/.]");
+    return !regexp.test(key);
   };
 
+  // dispatch Redux action to update store
   handleConfirm = () => {
-    console.log(this.state);
+    let inputProperties = { ...this.state };
+    delete inputProperties.keyError;
+    delete inputProperties.descriptionError;
+    delete inputProperties.labelError;
+
+    if (this.props.isEdit) {
+      this.props.workflowActions.updateWorkflowInput(inputProperties);
+    } else {
+      this.props.workflowActions.createWorkflowInput(inputProperties);
+    }
+
+    this.props.closeModal();
   };
 
   renderDefaultValue = () => {
     const { type, defaultValue } = this.state;
-
-    const textType = type === "textInput" ? "text" : type;
     const defaultOptions =
       typeof defaultValue === "object" ? defaultValue.map(option => ({ label: option, value: option })) : [];
 
     switch (type) {
-      case "boolean":
+      case INPUT_TYPES.BOOLEAN:
         return (
           <div className="b-inputs-modal-toggle">
             <div className="b-inputs-modal-toggle__title">Default Value</div>
@@ -86,10 +105,12 @@ class InputsModalContent extends Component {
             />
           </div>
         );
-      case "select":
+      case INPUT_TYPES.SELECT:
         return (
           <div className="b-inputs-modal-select">
             <SelectDropdown
+              multi
+              isCreatable
               titleClass="b-inputs-modal-select__title"
               styles={{ width: "100%" }}
               onChange={this.handleDefaultValueChange}
@@ -99,12 +120,10 @@ class InputsModalContent extends Component {
               title="Default Options"
               placeholder="Enter option"
               noResultsText="No options entered"
-              multi
-              isCreatable
             />
           </div>
         );
-      case "textAreaBox":
+      case INPUT_TYPES.TEXT_AREA:
         return (
           <div className="b-inputs-modal-text-area">
             <TextArea
@@ -112,22 +131,23 @@ class InputsModalContent extends Component {
               placeholder="Default Value"
               name="default value"
               onChange={this.handleDefaultValueChange}
-              detail={defaultValue || ""}
+              value={defaultValue || ""}
               theme="bmrg-white"
               alwaysShowTitle
             />
           </div>
         );
       default:
+        // Fallback to text input here because it covers text, password, and url
         return (
           <div className="b-inputs-modal-text-input">
             <TextInput
               title="Default Value"
               placeholder="Default Value"
               name="default value"
-              type={textType}
+              type={type}
               onChange={this.handleDefaultValueChange}
-              detail={defaultValue || ""}
+              value={defaultValue || ""}
               theme="bmrg-white"
               alwaysShowTitle
             />
@@ -138,24 +158,25 @@ class InputsModalContent extends Component {
 
   render() {
     const { isEdit, inputsNames } = this.props;
-    const { name, description, label, required, type, nameError, descriptionError, labelError } = this.state;
+    const { key, description, label, required, type, keyError, descriptionError, labelError } = this.state;
 
     return (
       <>
         <Body className="c-inputs-modal-body">
           <div className="c-inputs-modal-body-left">
             <TextInput
-              title="Name"
-              placeholder="Name"
-              name="name"
+              disabled={isEdit}
+              title="Key"
+              placeholder="key.value"
+              name="key"
               type="text"
               comparisonData={inputsNames || []}
-              noValueText="Enter a name"
-              existValueText="Property name already exist"
-              onChange={this.handleNameChange}
-              detail={name}
-              validationFunction={this.validateName}
-              validationText="Invalid name, space and special characters aren't allowed"
+              noValueText="Enter a key"
+              existValueText="Property key already exist"
+              onChange={this.handleKeyChange}
+              value={key}
+              validationFunction={this.validateKey}
+              validationText="Invalid key, space and special characters aren't allowed"
               theme="bmrg-white"
               alwaysShowTitle
             />
@@ -197,8 +218,8 @@ class InputsModalContent extends Component {
                 titleClass="b-inputs-modal-type__title"
                 onChange={this.handleTypeChange}
                 options={[
-                  { label: "TextInput", value: "textInput" },
-                  { label: "TextAreaBox", value: "textAreaBox" },
+                  { label: "Text", value: "text" },
+                  { label: "Text Area", value: "textarea" },
                   { label: "Boolean", value: "boolean" },
                   { label: "Password", value: "password" },
                   { label: "Number", value: "number" },
@@ -215,7 +236,7 @@ class InputsModalContent extends Component {
         </Body>
         <Footer style={{ paddingTop: "1rem" }}>
           <ConfirmButton
-            disabled={!(name && description && label) || (nameError || descriptionError || labelError)}
+            disabled={!(key && description && label) || (keyError || descriptionError || labelError)}
             text={isEdit ? "EDIT" : "CREATE"}
             onClick={this.handleConfirm}
             theme="bmrg-white"
@@ -226,4 +247,11 @@ class InputsModalContent extends Component {
   }
 }
 
-export default InputsModalContent;
+const mapDispatchToProps = dispatch => ({
+  workflowActions: bindActionCreators(workflowActions, dispatch)
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(InputsModalContent);

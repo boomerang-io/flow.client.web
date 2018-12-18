@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actions as workflowActions } from "State/workflow";
 import classnames from "classnames";
 import AlertModalWrapper from "@boomerang/boomerang-components/lib/AlertModal";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
@@ -7,7 +10,6 @@ import InputsModal from "./InputsModal";
 import close from "Assets/svg/close_black.svg";
 import pencil from "Assets/svg/pencil.svg";
 import plus from "Assets/svg/plus.svg";
-import { inputs } from "./constants";
 import "./styles.scss";
 
 class Inputs extends Component {
@@ -22,19 +24,24 @@ class Inputs extends Component {
     }
   };
 
-  deleteInput = id => {
-    console.log(`Remove input with id ${id}`);
+  deleteInput = key => {
+    this.props.workflowActions.deleteWorkflowInput({ key });
   };
 
   render() {
-    const inputsNames = inputs.map(input => input.name);
+    const { inputs } = this.props;
+    const inputsNames = inputs.map(input => input.key);
     return (
       <div className="c-workflow-inputs">
         <div className="b-workflow-inputs">
           {inputs.length > 0 &&
             inputs.map(input => (
               <div key={input.id} className={classnames("b-workflow-input", `--${input.type}`)}>
-                <div className="b-workflow-input__name">{input.name}</div>
+                <div className="b-workflow-input__name">{input.key}</div>
+                <div className="b-workflow-input-field">
+                  <div className="b-workflow-input-field__key">Label </div>
+                  <div className="b-workflow-input-field__value">{input.label}</div>
+                </div>
                 <div className="b-workflow-input-field">
                   <div className="b-workflow-input-field__key">Description </div>
                   <div className="b-workflow-input-field__value">{input.description}</div>
@@ -67,7 +74,7 @@ class Inputs extends Component {
                       closeModal={closeModal}
                       affirmativeAction={() => {
                         closeModal();
-                        this.deleteInput(input.id);
+                        this.deleteInput(input.key);
                       }}
                       title="REMOVE THIS PROPERTY?"
                       subTitleTop="This input parameter will be deleted"
@@ -80,11 +87,11 @@ class Inputs extends Component {
                 />
                 <InputsModal
                   isEdit
-                  inputsNames={inputsNames.filter(inputName => inputName !== input.name)}
+                  inputsNames={inputsNames.filter(inputName => inputName !== input.key)}
                   Button={() => (
                     <div className="b-workflow-input-edit">
                       Edit
-                      <img className="b-workflow-input-edit__pencil" src={pencil} alt="edit" />
+                      <img className="b-workflow-input-edit__pencil" src={pencil} alt="Edit input" />
                     </div>
                   )}
                   input={input}
@@ -96,7 +103,7 @@ class Inputs extends Component {
             inputsNames={inputsNames}
             Button={() => (
               <div className="b-workflow-input-create">
-                <img className="b-workflow-input-create__plus" src={plus} alt="create" />
+                <img className="b-workflow-input-create__plus" src={plus} alt="Create input" />
                 Create New Property
               </div>
             )}
@@ -107,4 +114,15 @@ class Inputs extends Component {
   }
 }
 
-export default Inputs;
+const mapStateToProps = state => ({
+  inputs: state.workflow.data.properties
+});
+
+const mapDispatchToProps = dispatch => ({
+  workflowActions: bindActionCreators(workflowActions, dispatch)
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Inputs);

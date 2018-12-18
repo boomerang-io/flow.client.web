@@ -23,7 +23,7 @@ class InputsModal extends Component {
         modalContent={(closeModal, rest) => (
           <ModalFlow
             className="c-inputs-modal-content"
-            headerTitle={isEdit ? input.name.toUpperCase() : "CREATE PROPERTY"}
+            headerTitle={isEdit && input ? input.label.toUpperCase() : "CREATE PROPERTY"}
             headerSubtitle={isEdit ? "Let's fix it" : "Create new input parameter"}
             components={[{ step: 0, component: InputsModalContent }]}
             closeModal={closeModal}

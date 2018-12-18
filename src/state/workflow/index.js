@@ -16,7 +16,10 @@ export const types = {
   CREATE_WORKFLOW_REQUEST: "CREATE_WORKFLOW_REQUEST",
   UPDATE_WORKFLOW_PROPERTY: "UPDATE_WORKFLOW_PROPERTY",
   UPDATE_WORKFLOW_TRIGGERS_WEBHOOK: "UPDATE_WORKFLOW_TRIGGERS_WEBHOOK",
-  UPDATE_WORKFLOW_TRIGGERS_SCHEDULER: "UPDATE_WORKFLOW_TRIGGERS_SCHEDULER"
+  UPDATE_WORKFLOW_TRIGGERS_SCHEDULER: "UPDATE_WORKFLOW_TRIGGERS_SCHEDULER",
+  CREATE_WORKFLOW_INPUT: "CREATE_WORKFLOW_INPUT",
+  UPDATE_WORKFLOW_INPUT: "UPDATE_WORKFLOW_INPUT",
+  DELETE_WORKFLOW_INPUT: "DELETE_WORKFLOW_INPUT"
 };
 Object.freeze(types);
 
@@ -40,8 +43,9 @@ export const initialState = {
         enable: false,
         token: ""
       }
-    }
-    //enablePersistentStorage: false
+    },
+    enablePersistentStorage: false,
+    properties: []
   }
 };
 
@@ -101,6 +105,23 @@ const actionHandlers = {
     const newScheduler = { ...scheduler, [action.data.key]: action.data.value };
     const newTriggers = { ...triggers, scheduler: newScheduler };
     return { ...state, data: { ...state.data, triggers: newTriggers } };
+  },
+  [types.CREATE_WORKFLOW_INPUT]: (state, action) => {
+    const { properties } = state.data;
+    const newProperties = [...properties, action.data];
+    return { ...state, data: { ...state.data, properties: newProperties } };
+  },
+  [types.UPDATE_WORKFLOW_INPUT]: (state, action) => {
+    // Replace matching input
+    const properties = state.data.properties.map(input => (input.key === action.data.key ? action.data : input));
+    const newProperties = [...properties];
+    return { ...state, data: { ...state.data, properties: newProperties } };
+  },
+  [types.DELETE_WORKFLOW_INPUT]: (state, action) => {
+    // Remove matching input
+    const properties = state.data.properties.filter(input => input.key !== action.data.key);
+    const newProperties = [...properties];
+    return { ...state, data: { ...state.data, properties: newProperties } };
   }
 };
 
@@ -122,6 +143,9 @@ const createFailure = error => ({ type: types.CREATE_WORKFLOW_FAILURE, error });
 const updateProperty = data => ({ type: types.UPDATE_WORKFLOW_PROPERTY, data });
 const updateTriggersWebhook = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_WEBHOOK, data });
 const updateTriggersScheduler = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_SCHEDULER, data });
+const createWorkflowInput = data => ({ type: types.CREATE_WORKFLOW_INPUT, data });
+const updateWorkflowInput = data => ({ type: types.UPDATE_WORKFLOW_INPUT, data });
+const deleteWorkflowInput = data => ({ type: types.DELETE_WORKFLOW_INPUT, data });
 
 const fetchActionCreators = {
   reset: reset,
@@ -180,5 +204,8 @@ export const actions = {
   reset,
   updateProperty,
   updateTriggersWebhook,
-  updateTriggersScheduler
+  updateTriggersScheduler,
+  createWorkflowInput,
+  updateWorkflowInput,
+  deleteWorkflowInput
 };
