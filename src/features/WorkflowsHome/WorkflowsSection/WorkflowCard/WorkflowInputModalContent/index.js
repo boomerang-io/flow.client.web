@@ -17,6 +17,7 @@ class WorkflowInputModalContent extends Component {
 
   state = {
     error: false,
+    hasUpdated: false,
     inputs: this.props.inputs
   };
 
@@ -27,19 +28,31 @@ class WorkflowInputModalContent extends Component {
   handleBooleanChange = index => {
     const { inputs } = this.state;
     const newInputs = update(inputs, { [index]: { value: { $set: !inputs[index].value } } });
-    this.setState({ inputs: newInputs });
+    this.setState({ inputs: newInputs, hasUpdated: true });
   };
 
   handleTextChange = (value, index) => {
     const { inputs } = this.state;
     const newInputs = update(inputs, { [index]: { value: { $set: value } } });
-    this.setState({ inputs: newInputs }, () => this.validate());
+    this.setState({ inputs: newInputs, hasUpdated: true }, () => this.validate());
   };
 
   handleSelectChange = (value, index) => {
     const { inputs } = this.state;
     const newInputs = update(inputs, { [index]: { value: { $set: value.map(option => option.value) } } });
-    this.setState({ inputs: newInputs }, () => this.validate());
+    this.setState({ inputs: newInputs, hasUpdated: true }, () => this.validate());
+  };
+  handleExecute = redirect => {
+    const { executeWorkflow, closeModal } = this.props;
+
+    let inputProps = {};
+
+    this.state.inputs.forEach(input => {
+      inputProps[input.key] = input.value;
+    });
+    if (this.state.hasUpdated) executeWorkflow(redirect, inputProps);
+    else executeWorkflow(redirect);
+    closeModal();
   };
 
   validate = () => {
@@ -105,7 +118,6 @@ class WorkflowInputModalContent extends Component {
   };
 
   render() {
-    const { executeWorkflow, closeModal } = this.props;
     const { error } = this.state;
 
     return (
@@ -119,8 +131,7 @@ class WorkflowInputModalContent extends Component {
             text={"EXECUTE"}
             disabled={error}
             onClick={() => {
-              executeWorkflow(false);
-              closeModal();
+              this.handleExecute(false);
             }}
             theme="bmrg-white"
           />
@@ -129,8 +140,7 @@ class WorkflowInputModalContent extends Component {
             text={"EXECUTE AND VIEW"}
             disabled={error}
             onClick={() => {
-              executeWorkflow(true);
-              closeModal();
+              this.handleExecute(true);
             }}
             theme="bmrg-white"
           />
