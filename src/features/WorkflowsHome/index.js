@@ -55,7 +55,7 @@ class WorkflowsHome extends Component {
 
   handleExecute = ({ workflowId, redirect, inputProps }) => {
     const body = {
-      properties: inputProps ? inputProps : {}
+      properties: inputProps ? inputProps : []
     };
     return axios
       .post(`${BASE_SERVICE_URL}/execute/${workflowId}`, body)

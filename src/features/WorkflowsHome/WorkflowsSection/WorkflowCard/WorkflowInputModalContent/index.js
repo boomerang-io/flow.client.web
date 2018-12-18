@@ -45,11 +45,12 @@ class WorkflowInputModalContent extends Component {
   handleExecute = redirect => {
     const { executeWorkflow, closeModal } = this.props;
 
-    let inputProps = {};
-
-    this.state.inputs.forEach(input => {
-      inputProps[input.key] = input.value;
+    let inputProps = this.state.inputs.map(input => {
+      let inputObject = {};
+      inputObject[input.key] = input.value;
+      return inputObject;
     });
+
     if (this.state.hasUpdated) executeWorkflow(redirect, inputProps);
     else executeWorkflow(redirect);
     closeModal();
