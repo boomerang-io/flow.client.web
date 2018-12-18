@@ -885,10 +885,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@boomerang/boomerang-components@^6.0.26":
-  version "6.0.27"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.27.tgz#48a174b9681e35caef67bb85c300f0b29f7cbba0"
-  integrity sha1-SKF0uWgeNcrvZ7uFwwDwsp98u6A=
+"@boomerang/boomerang-components@^6.0.28":
+  version "6.0.28"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.28.tgz#27e6de8f6efe9a85945aa774ea178aeb68b30bbc"
+  integrity sha1-J+bej27+moWUWqd06heK62izC7w=
   dependencies:
     axios "0.18.0"
     classnames "2.2.6"
@@ -2639,14 +2639,14 @@ capture-stack-trace@^1.0.0:
   integrity sha512-mYQLZnx5Qt1JgB1WEiMCf2647plpGeQ2NMR/5L0HNZzGQo4fuSPnK+wjfPnKZV0aiJDgzmWqqkV/g7JD+DW0qw==
 
 carbon-components-react@^6.42.0:
-  version "6.62.0"
-  resolved "https://registry.yarnpkg.com/carbon-components-react/-/carbon-components-react-6.62.0.tgz#8961116dd87f1fe609c9fb83f50930a76f7941e6"
-  integrity sha512-DNvUrGOdVzTIXPJa4c0gm2Uvbhm/gji6eYgv+H6EsV/vov0VNGzGvejIBxWyRMo7d1SncMI/t4SiLrcnph6uyQ==
+  version "6.62.2"
+  resolved "https://registry.yarnpkg.com/carbon-components-react/-/carbon-components-react-6.62.2.tgz#2db3888086779f384ea2a0e168978c07ee79b213"
+  integrity sha512-/un/6JXExXnbsmoDZhzBGexFEF93ZtPFPJIDby4w09s0w82gWHFyKYn6JyVzdL3MeH3Nlk4paj+j0W1pLPjPyQ==
   dependencies:
     "@carbon/icons-react" "^0.0.1-alpha.26"
     classnames "2.2.6"
     downshift "^1.31.14"
-    flatpickr "4.5.1"
+    flatpickr "4.5.2"
     invariant "^2.2.3"
     lodash.debounce "^4.0.8"
     lodash.isequal "^4.5.0"
@@ -2655,9 +2655,9 @@ carbon-components-react@^6.42.0:
     window-or-global "^1.0.1"
 
 carbon-components@^9.37.2:
-  version "9.62.1"
-  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-9.62.1.tgz#88893995192692df73c0abd116ef5159ac5bec4a"
-  integrity sha512-drsSbP9Bsnd6UP+n8JYdLoyHbra4jIFn/FCXndeuvdHEYjiWSnRh8aVF/AWkbVFrZ8/wS//zp/xofls2YIootg==
+  version "9.62.2"
+  resolved "https://registry.yarnpkg.com/carbon-components/-/carbon-components-9.62.2.tgz#e49fc41bf76032ff06f03c2dc5455b24ade51a1c"
+  integrity sha512-igMvAWVvZarQov0Niy+grEYmnQ6O5H5BkQD0EDFhAaOIGynQJ8zdhhDto+kG2tJbViZXjkqGWsM+ifv/K/vZgg==
   dependencies:
     carbon-icons "^7.0.7"
     flatpickr "4.5.2"
@@ -3197,9 +3197,9 @@ core-js@^1.0.0:
   integrity sha1-ZSKUwUZR2yj6k70tX/KYOk8IxjY=
 
 core-js@^2.4.0, core-js@^2.5.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.0.tgz#1e30793e9ee5782b307e37ffa22da0eacddd84d4"
-  integrity sha512-kLRC6ncVpuEW/1kwrOXYX6KQASCVtrh1gQr/UiaVgFlf9WE5Vp+lNe5+h3LuMr5PAucWnnEXwH0nQHRH/gpGtw==
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.1.tgz#87416ae817de957a3f249b3b5ca475d4aaed6042"
+  integrity sha512-L72mmmEayPJBejKIWe2pYtGis5r0tQ5NaJekdhyXgeMQTpJoBsH0NL4ElY2LfSoV15xeQWKQ+XTTOZdyero5Xg==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -4120,9 +4120,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.62, electron-to-chromium@^1.3.92:
-  version "1.3.93"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.93.tgz#70bee859e9a0da365cb5ae23ab498a3bb8ec1681"
-  integrity sha512-H+tt+fedI+C5zl4yGtzdk17e6mOYAyawolXuAojWBULIbqOz9VR7h0cG5YcivQ1yCXrpw+Rjk6cBw47HlYtnKg==
+  version "1.3.94"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.94.tgz#896dba14f6fefb431295b90543874925ee0cd46e"
+  integrity sha512-miQqXALb6eBD3OetCtg3UM5XTLMwHISux0l6mh14iiV5SE+qvftgOCXT9Vvp53fWaCLET4sfA/SmIMYHXkaNmw==
 
 elegant-spinner@^1.0.1:
   version "1.0.1"
@@ -4979,11 +4979,6 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     rimraf "~2.6.2"
     write "^0.2.1"
-
-flatpickr@4.5.1:
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.1.tgz#f65eaf54c07538f87d6f68a67b03cf816d7fb82f"
-  integrity sha512-dsLTFmRg6mlqYfJ35A7gLlbq+8fOqRty3cWncl6rwU4pMe//i0WKxKLVyBbSYAZry93Lg+yqsOph9haltcxCqQ==
 
 flatpickr@4.5.2:
   version "4.5.2"
@@ -5906,6 +5901,13 @@ immer@1.7.2:
   resolved "https://registry.yarnpkg.com/immer/-/immer-1.7.2.tgz#a51e9723c50b27e132f6566facbec1c85fc69547"
   integrity sha512-4Urocwu9+XLDJw4Tc6ZCg7APVjjLInCFvO4TwGsAYV5zT6YYSor14dsZR0+0tHlDIN92cFUOq+i7fC00G5vTxA==
 
+immutability-helper@^2.8.1:
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.9.0.tgz#04a1c646300cd3a68aa5dc1daa7758da2ca75292"
+  integrity sha512-2LYtDuGugMLyoFV0qGvblnq39E2VVQ9m4dDktlRLVBBVV1LnUMK0rlqkbtlUjfT1UJO876OobtPlNZTEbOOYVQ==
+  dependencies:
+    invariant "^2.2.0"
+
 immutable@^3.8.1:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
@@ -6060,7 +6062,7 @@ interpret@^1.0.0:
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
   integrity sha1-ftGxQQxqDg94z5XTuEQMY/eLhhQ=
 
-invariant@^2.1.0, invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.3, invariant@^2.2.4:
+invariant@^2.1.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2, invariant@^2.2.3, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -6942,9 +6944,9 @@ joi@^11.1.1:
     topo "2.x.x"
 
 js-base64@^2.1.8:
-  version "2.4.9"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.4.9.tgz#748911fb04f48a60c4771b375cac45a80df11c03"
-  integrity sha512-xcinL3AuDJk7VSzsHgb9DvvIXayBbadtMZ4HFPx8rUszbW1MuNMlwYVC4zzCZ6e1sqZpnNS5ZFYOhXqA39T7LQ==
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.0.tgz#42255ba183ab67ce59a0dee640afdc00ab5ae93e"
+  integrity sha512-wlEBIZ5LP8usDylWbDNhKPEFVFdI5hCHpnVoT/Ysvoi/PRhJENm/Rlh9TvjYB38HFfKZN7OzEbRjmjvLkFw11g==
 
 js-levenshtein@^1.1.3:
   version "1.1.4"

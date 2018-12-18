@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://launch.boomerangplatform.net/BMRG_APP_ROOT_CONTEXT",
   "dependencies": {
-    "@boomerang/boomerang-components": "^6.0.26",
+    "@boomerang/boomerang-components": "^6.0.28",
     "@boomerang/boomerang-dag": "5.2.1",
     "@boomerang/boomerang-react-scripts": "2.0.4",
     "@boomerang/boomerang-styles": "0.10.0",
@@ -14,6 +14,7 @@
     "carbon-icons": "^7.0.7",
     "classnames": "^2.2.6",
     "cronstrue": "^1.58.0",
+    "immutability-helper": "^2.8.1",
     "moment-duration-format": "^2.2.2",
     "moment-timezone": "^0.5.23",
     "react": "^16.5.1",

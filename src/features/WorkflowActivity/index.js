@@ -153,8 +153,8 @@ export class WorkflowActivity extends Component {
       activityList,
       hasMoreActivities,
       nextPage,
-      isLoading,
-      executionFilter
+      isLoading
+      //executionFilter
     } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {

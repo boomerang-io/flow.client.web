@@ -101,7 +101,20 @@ class WorkflowCreatorContainer extends Component {
               </>
             )}
           />
-          <Route path={`${match.path}/inputs`} component={Inputs} />
+          <Route
+            path={`${match.path}/inputs`}
+            render={props => (
+              <>
+                <ActionBar
+                  performActionButtonText={hasCreatedWorkflow ? "Update Overview" : "Create Workflow"}
+                  performAction={this.overviewAction}
+                  diagramApp={this.diagramApp}
+                  {...props}
+                />
+                <Inputs />
+              </>
+            )}
+          />
           <Route
             path={`${match.path}/designer`}
             render={props => (

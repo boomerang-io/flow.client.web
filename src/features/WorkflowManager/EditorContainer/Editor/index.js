@@ -83,7 +83,20 @@ class WorkflowEditor extends Component {
               </>
             )}
           />
-          <Route path={`${match.path}/inputs`} component={Inputs} />
+          <Route
+            path={`${match.path}/inputs`}
+            render={props => (
+              <>
+                <ActionBar
+                  performActionButtonText="Update Inputs"
+                  performAction={this.updateWorkflow}
+                  diagramApp={this.diagramApp}
+                  {...props}
+                />
+                <Inputs />
+              </>
+            )}
+          />
           <Route
             path={`${match.path}/designer`}
             render={props => (

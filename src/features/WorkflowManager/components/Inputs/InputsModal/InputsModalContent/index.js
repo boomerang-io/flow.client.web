@@ -9,14 +9,8 @@ import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import { default as Body } from "@boomerang/boomerang-components/lib/ModalContentBody";
 import { default as ConfirmButton } from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import { default as Footer } from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
-
-const INPUT_TYPES = {
-  BOOLEAN: "boolean",
-  SELECT: "select",
-  TEXT_AREA: "textarea",
-  TEXT_INPUT: "text"
-};
 
 class InputsModalContent extends Component {
   state = {
@@ -24,8 +18,8 @@ class InputsModalContent extends Component {
     description: this.props.input ? this.props.input.description : "",
     label: this.props.input ? this.props.input.label : "",
     required: this.props.input ? this.props.input.required : false,
-    type: this.props.input ? this.props.input.type : "text",
-    defaultValue: this.props.input ? this.props.input.defaultValue : undefined,
+    type: this.props.input ? this.props.input.type : INPUT_TYPES.TEXT,
+    defaultValue: this.props.input ? this.props.input.defaultValue : "",
     keyError: "",
     descriptionError: "",
     labelError: ""
@@ -48,21 +42,25 @@ class InputsModalContent extends Component {
   };
 
   handleTypeChange = option => {
-    this.setState({ type: option.value, defaultValue: option.value === "boolean" ? false : undefined });
+    this.setState({ type: option.value, defaultValue: option.value === INPUT_TYPES.BOOLEAN ? false : undefined });
   };
 
   handleDefaultValueChange = value => {
     switch (this.state.type) {
-      case "boolean":
-        this.setState(prevState => ({ defaultValue: !prevState.defaultValue }));
+      case INPUT_TYPES.BOOLEAN:
+        this.setState({ defaultValue: value.target.checked.toString() });
         return;
-      case "select":
-        this.setState({ defaultValue: value.map(option => option.value) });
+      case INPUT_TYPES.SELECT:
+        this.setState({ defaultValue: value });
         return;
       default:
         this.setState({ defaultValue: value });
         return;
     }
+  };
+
+  handleValidValuesChange = value => {
+    this.setState({ validValues: value });
   };
 
   /* Check if key contains space or special characters, only underline is allowed */
@@ -83,14 +81,11 @@ class InputsModalContent extends Component {
     } else {
       this.props.workflowActions.createWorkflowInput(inputProperties);
     }
-
     this.props.closeModal();
   };
 
   renderDefaultValue = () => {
-    const { type, defaultValue } = this.state;
-    const defaultOptions =
-      typeof defaultValue === "object" ? defaultValue.map(option => ({ label: option, value: option })) : [];
+    const { type, defaultValue, validValues } = this.state;
 
     switch (type) {
       case INPUT_TYPES.BOOLEAN:
@@ -100,28 +95,44 @@ class InputsModalContent extends Component {
             <Toggle
               id="input-default-value-toggle"
               onChange={this.handleDefaultValueChange}
-              defaultChecked={defaultValue}
+              defaultChecked={defaultValue === "true"}
               theme="bmrg-white"
             />
           </div>
         );
       case INPUT_TYPES.SELECT:
         return (
-          <div className="b-inputs-modal-select">
-            <SelectDropdown
-              multi
-              isCreatable
-              titleClass="b-inputs-modal-select__title"
-              styles={{ width: "100%" }}
-              onChange={this.handleDefaultValueChange}
-              options={defaultOptions}
-              value={defaultOptions}
-              theme="bmrg-white"
-              title="Default Options"
-              placeholder="Enter option"
-              noResultsText="No options entered"
-            />
-          </div>
+          <>
+            <div className="b-inputs-modal-select">
+              <SelectDropdown
+                multi
+                isCreatable
+                titleClass="b-inputs-modal-select__title"
+                styles={{ width: "100%", marginBottom: "2rem" }}
+                onChange={this.handleValidValuesChange}
+                options={validValues || []}
+                value={validValues || []}
+                theme="bmrg-white"
+                title="Options"
+                placeholder="Enter option"
+                noResultsText="No options entered"
+              />
+            </div>
+            <div className="b-inputs-modal-select">
+              <SelectDropdown
+                titleClass="b-inputs-modal-select__title"
+                styles={{ width: "100%" }}
+                onChange={this.handleDefaultValueChange}
+                options={validValues || []}
+                value={defaultValue || []}
+                theme="bmrg-white"
+                title="Default Option"
+                placeholder="Select option"
+                noResultsText="No options entered"
+                clearable
+              />
+            </div>
+          </>
         );
       case INPUT_TYPES.TEXT_AREA:
         return (
@@ -165,6 +176,18 @@ class InputsModalContent extends Component {
         <Body className="c-inputs-modal-body">
           <div className="c-inputs-modal-body-left">
             <TextInput
+              alwaysShowTitle
+              title="Label"
+              placeholder="Label"
+              name="label"
+              type="text"
+              noValueText="Enter a label"
+              onChange={this.handleLabelChange}
+              detail={label}
+              theme="bmrg-white"
+            />
+            <TextInput
+              alwaysShowTitle
               disabled={isEdit}
               title="Key"
               placeholder="key.value"
@@ -178,20 +201,9 @@ class InputsModalContent extends Component {
               validationFunction={this.validateKey}
               validationText="Invalid key, space and special characters aren't allowed"
               theme="bmrg-white"
-              alwaysShowTitle
             />
             <TextInput
-              title="Label"
-              placeholder="Label"
-              name="label"
-              type="text"
-              noValueText="Enter a label"
-              onChange={this.handleLabelChange}
-              detail={label}
-              theme="bmrg-white"
               alwaysShowTitle
-            />
-            <TextInput
               title="Description"
               placeholder="Description"
               name="description"
@@ -200,7 +212,6 @@ class InputsModalContent extends Component {
               onChange={this.handleDescriptionChange}
               detail={description}
               theme="bmrg-white"
-              alwaysShowTitle
             />
             <div className="b-inputs-modal-toggle">
               <div className="b-inputs-modal-toggle__title">Required</div>
@@ -218,12 +229,12 @@ class InputsModalContent extends Component {
                 titleClass="b-inputs-modal-type__title"
                 onChange={this.handleTypeChange}
                 options={[
-                  { label: "Text", value: "text" },
-                  { label: "Text Area", value: "textarea" },
                   { label: "Boolean", value: "boolean" },
-                  { label: "Password", value: "password" },
                   { label: "Number", value: "number" },
-                  { label: "Select", value: "select" }
+                  { label: "Password", value: "password" },
+                  { label: "Select", value: "select" },
+                  { label: "Text", value: "text" },
+                  { label: "Text Area", value: "textarea" }
                 ]}
                 value={type}
                 theme="bmrg-white"

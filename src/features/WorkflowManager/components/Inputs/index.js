@@ -17,8 +17,6 @@ class Inputs extends Component {
     switch (typeof value) {
       case "boolean":
         return value.toString();
-      case "object":
-        return value.join(", ");
       default:
         return value;
     }
@@ -37,10 +35,10 @@ class Inputs extends Component {
           {inputs.length > 0 &&
             inputs.map(input => (
               <div key={input.id} className={classnames("b-workflow-input", `--${input.type}`)}>
-                <div className="b-workflow-input__name">{input.key}</div>
+                <div className="b-workflow-input__name">{input.label}</div>
                 <div className="b-workflow-input-field">
-                  <div className="b-workflow-input-field__key">Label </div>
-                  <div className="b-workflow-input-field__value">{input.label}</div>
+                  <div className="b-workflow-input-field__key">Key </div>
+                  <div className="b-workflow-input-field__value">{input.key}</div>
                 </div>
                 <div className="b-workflow-input-field">
                   <div className="b-workflow-input-field__key">Description </div>
