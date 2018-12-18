@@ -32,11 +32,11 @@ export default class CronJobModal extends Component {
   }
 
   handleOnChange = (value, error) => {
-    this.setState({ cronExpression: value, inputError: error });
+    this.setState({ cronExpression: value, inputError: error }, () => this.props.shouldConfirmExit(true));
   };
 
   handleTimeChange = (value, error) => {
-    this.setState({ timeZone: value });
+    this.setState({ timeZone: value }, () => this.props.shouldConfirmExit(true));
   };
 
   //receives input value from TextInput
@@ -77,7 +77,7 @@ export default class CronJobModal extends Component {
     return (
       <>
         <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-white" />
-        <ModalContentBody style={{ maxWidth: "20rem", margin: "0 auto", flexDirection: "column" }}>
+        <ModalContentBody style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}>
           <fieldset className="b-cron-fieldset">
             <div className="b-cron">
               <TextInput
@@ -114,39 +114,18 @@ export default class CronJobModal extends Component {
                 data-for={"b-cronModal__infoIcon"}
                 alt="Show/Hide Token"
               />
-              <ToolTip
-                className="b-cronModal__infoIcontooltip"
-                id="b-cronModal__infoIcon"
-                theme="bmrg-white"
-                place="bottom"
-              >
+              <ToolTip id="b-cronModal__infoIcon" theme="bmrg-white" place="bottom">
                 we have guessed your timezone for a default value
               </ToolTip>
             </div>
           </fieldset>
         </ModalContentBody>
         <ModalContentFooter>
-          <AlertModal
+          <ModalConfirmButton
+            onClick={this.handleOnSave}
+            text="SAVE"
             theme="bmrg-white"
-            ModalTrigger={() => (
-              <ModalConfirmButton
-                //onClick={this.handleOnSave}
-                text="SAVE"
-                theme="bmrg-white"
-                disabled={!cronExpression || !!Object.keys(inputError).length} //disable if there is no expression, or if the error object is not empty
-              />
-            )}
-            modalContent={(closeModal, rest) => (
-              <ConfirmModal
-                closeModal={closeModal}
-                affirmativeAction={this.handleOnSave}
-                title="Schedule Workflow to Run?"
-                subTitleTop="Workflow will execute on inputted schedule"
-                cancelText="NO"
-                affirmativeText="YES"
-                {...rest}
-              />
-            )}
+            disabled={!cronExpression || !!Object.keys(inputError).length} //disable if there is no expression, or if the error object is not empty
           />
         </ModalContentFooter>
       </>
