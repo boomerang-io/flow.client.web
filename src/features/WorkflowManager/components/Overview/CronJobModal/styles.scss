@@ -1,3 +1,4 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/variables";
 
 .b-cron-fieldset {
@@ -15,9 +16,24 @@
 }
 
 .b-cronModal__infoIcon {
-  height: 2rem;
+  height: 1.6rem;
   width: 5rem;
   position: relative;
   bottom: 3.8rem;
   left: 15.6rem;
+}
+
+.b-cron {
+  min-height: 8rem;
+  max-height: 10rem;
+}
+
+.b-cronModal__infoIcontooltip {
+  min-width: 10rem;
+  text-align: center;
+  background-color: $white;
+  color: $black;
+  font-size: 0.875rem;
+  line-height: 1.0625rem;
+  letter-spacing: 0.125rem;
 }
