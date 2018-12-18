@@ -237,21 +237,22 @@ export class Overview extends Component {
                 workflow.data.triggers.scheduler.enable && (
                   <ModalWrapper
                     initialState={this.props.workflow.data}
+                    shouldCloseOnOverlayClick={false}
+                    theme="bmrg-white"
                     ModalTrigger={() => (
                       <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
                         Set Schedule
                       </Button>
                     )}
-                    shouldCloseOnOverlayClick={false}
-                    theme="bmrg-white"
-                    handleOnChange={this.handleOnSchedulerChange}
-                    timeZone={workflow.data.triggers ? workflow.data.triggers.scheduler.timezone : ""}
-                    cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
                     modalContent={(closeModal, rest) => (
                       <ModalFlow
                         headerTitle="Setup Scheduling"
                         components={components}
                         closeModal={closeModal}
+                        handleOnChange={this.handleOnSchedulerChange}
+                        timeZone={workflow.data.triggers ? workflow.data.triggers.scheduler.timezone : ""}
+                        cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
+                        confirmModalProps={{ affirmativeAction: () => closeModal(), theme: "bmrg-white" }}
                         {...rest}
                       />
                     )}
@@ -277,16 +278,6 @@ export class Overview extends Component {
             <h1 className="b-options-title">Options</h1>
             <div className="b-persistence">
               <label className="b-persistence__title">Enable Persistent Storage</label>
-              <img
-                className="b-options__infoIcon"
-                src={infoIcon}
-                data-tip
-                data-for={"b-options__infoIcon"}
-                alt="Show/Hide Token"
-              />
-              <ToolTip className="b-options__icon-tooltip" id="b-options__infoIcon" theme="bmrg-white" place="bottom">
-                Persist workflow data between executions
-              </ToolTip>
               <Toggle
                 className="b-persistence__toggle"
                 value={workflow.data.enablePersistentStorage}
@@ -297,6 +288,16 @@ export class Overview extends Component {
                 defaultChecked={workflow.data.enablePersistentStorage}
                 theme="bmrg-white"
               />
+              <img
+                className="b-options__infoIcon"
+                src={infoIcon}
+                data-tip
+                data-for="b-options__infoIcon"
+                alt="Show/Hide Token"
+              />
+              <ToolTip className="b-options__icon-tooltip" id="b-options__infoIcon" theme="bmrg-white" place="bottom">
+                Persist workflow data between executions
+              </ToolTip>
             </div>
           </div>
         </div>
