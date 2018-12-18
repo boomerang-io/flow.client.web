@@ -21,6 +21,7 @@ import assets from "./assets";
 import cronstrue from "cronstrue";
 import copyIcon from "./assets/copy.svg";
 import eyeIcon from "./assets/eye.svg";
+import infoIcon from "./assets/info.svg";
 import refreshIcon from "./assets/refresh.svg";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
@@ -142,7 +143,6 @@ export class Overview extends Component {
                 )}
             </div>
           )}
-<<<<<<< HEAD
           {workflow.data.triggers && workflow.data.triggers.webhook.token && (
             <form className="b-webhook-token">
               <TextInput
@@ -151,6 +151,7 @@ export class Overview extends Component {
                 theme="bmrg-white"
                 type={this.state.tokenTextType}
                 disabled={true}
+                externallyControlled={true}
               />
               <img
                 className="b-webhook-token__icon"
@@ -169,19 +170,6 @@ export class Overview extends Component {
                 {this.state.showTokenText}
               </ToolTip>
               <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
-=======
-          {workflow.data.triggers &&
-            workflow.data.triggers.webhook.token && (
-              <form className="b-webhook-token">
-                <TextInput
-                  value={workflow.data.triggers.webhook.token}
-                  placeholder="Token"
-                  theme="bmrg-white"
-                  type={this.state.tokenTextType}
-                  disabled={true}
-                  externallyControlled={true}
-                />
->>>>>>> fix: updated textInput component for re-render
                 <img
                   className="b-webhook-token__icon"
                   src={copyIcon}
@@ -231,63 +219,84 @@ export class Overview extends Component {
               </div>
             </form>
           )}
-          <div className="b-schedule">
-            <label className="b-schedule__title">Enable Scheduler</label>
-            <Toggle
-              className="b-schedule__toggle"
-              value={workflow.data.triggers.scheduler.enable}
-              id="toggle-schedule"
-              name="schedule"
-              title="schedule"
-              onChange={event => this.handleOnSchedulerChange(event.target.checked, {}, "enable")}
-              defaultChecked={workflow.data.triggers.scheduler.enable}
-              theme="bmrg-black"
-            />
-            {workflow.data.triggers && workflow.data.triggers.scheduler.enable && (
-              <ModalWrapper
-                initialState={this.props.workflow.data}
-                ModalTrigger={() => (
-                  <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
-                    Set Schedule
-                  </Button>
-                )}
-                shouldCloseOnOverlayClick={false}
-                theme="bmrg-white"
-                handleOnChange={this.handleOnSchedulerChange}
-                timeZone={workflow.data.triggers ? workflow.data.triggers.scheduler.timezone : ""}
-                cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
-                modalContent={(closeModal, rest) => (
-                  <ModalFlow headerTitle="Setup Scheduling" components={components} closeModal={closeModal} {...rest} />
-                )}
+          <div className="c-scheduler">
+            <div className="b-schedule">
+              <label className="b-schedule__title">Enable Scheduler</label>
+              <Toggle
+                className="b-schedule__toggle"
+                value={workflow.data.triggers.scheduler.enable}
+                id="toggle-schedule"
+                name="schedule"
+                title="schedule"
+                onChange={event => this.handleOnSchedulerChange(event.target.checked, {}, "enable")}
+                defaultChecked={workflow.data.triggers.scheduler.enable}
+                theme="bmrg-black"
               />
-            )}
+              {workflow.data.triggers && workflow.data.triggers.scheduler.enable && (
+                <ModalWrapper
+                  initialState={this.props.workflow.data}
+                  shouldCloseOnOverlayClick={false}
+                  theme="bmrg-white"
+                  ModalTrigger={() => (
+                    <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
+                      Set Schedule
+                    </Button>
+                  )}
+                  modalContent={(closeModal, rest) => (
+                    <ModalFlow
+                      headerTitle="Setup Scheduling"
+                      components={components}
+                      closeModal={closeModal}
+                      handleOnChange={this.handleOnSchedulerChange}
+                      timeZone={workflow.data.triggers ? workflow.data.triggers.scheduler.timezone : ""}
+                      cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
+                      confirmModalProps={{ affirmativeAction: () => closeModal(), theme: "bmrg-white" }}
+                      {...rest}
+                    />
+                  )}
+                />
+              )}
+            </div>
+            <div className="c-trigger__cronMessage">
+              {workflow.data.triggers &&
+              workflow.data.triggers.scheduler.schedule &&
+              workflow.data.triggers.scheduler.enable
+                ? cronstrue.toString(workflow.data.triggers.scheduler.schedule)
+                : undefined}
+            </div>
+            <div className="c-trigger__timezone">
+              {workflow.data.triggers &&
+              workflow.data.triggers.scheduler.timezone &&
+              workflow.data.triggers.scheduler.enable
+                ? `Timezone: ${workflow.data.triggers.scheduler.timezone}`
+                : undefined}
+            </div>
           </div>
-          <div className="c-trigger__cronMessage">
-            {workflow.data.triggers &&
-            workflow.data.triggers.scheduler.schedule &&
-            workflow.data.triggers.scheduler.enable
-              ? cronstrue.toString(workflow.data.triggers.scheduler.schedule)
-              : undefined}
-          </div>
-          <div className="c-trigger__timezone">
-            {workflow.data.triggers &&
-            workflow.data.triggers.scheduler.timezone &&
-            workflow.data.triggers.scheduler.enable
-              ? `Timezone: ${workflow.data.triggers.scheduler.timezone}`
-              : undefined}
-          </div>
-          <div className="b-persistence">
-            <label className="b-persistence__title">Enable Persistence Storage</label>
-            <Toggle
-              className="b-persistence__toggle"
-              value={workflow.data.enablePersistentStorage}
-              id="toggle-persistence"
-              name="persistence"
-              title="persistence"
-              onChange={event => this.handleOnChange(event.target.checked, {}, "enablePersistentStorage")}
-              defaultChecked={workflow.data.enablePersistentStorage}
-              theme="bmrg-white"
-            />
+          <div className="b-options">
+            <h1 className="b-options-title">Options</h1>
+            <div className="b-persistence">
+              <label className="b-persistence__title">Enable Persistent Storage</label>
+              <Toggle
+                className="b-persistence__toggle"
+                value={workflow.data.enablePersistentStorage}
+                id="toggle-persistence"
+                name="persistence"
+                title="persistence"
+                onChange={event => this.handleOnChange(event.target.checked, {}, "enablePersistentStorage")}
+                defaultChecked={workflow.data.enablePersistentStorage}
+                theme="bmrg-white"
+              />
+              <img
+                className="b-options__infoIcon"
+                src={infoIcon}
+                data-tip
+                data-for="b-options__infoIcon"
+                alt="Show/Hide Token"
+              />
+              <ToolTip className="b-options__icon-tooltip" id="b-options__infoIcon" theme="bmrg-white" place="bottom">
+                Persist workflow data between executions
+              </ToolTip>
+            </div>
           </div>
         </div>
       </div>

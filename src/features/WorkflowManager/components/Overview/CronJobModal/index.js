@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
+import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentHeader from "@boomerang/boomerang-components/lib/ModalContentHeader";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
@@ -77,22 +79,24 @@ export default class CronJobModal extends Component {
         <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-white" />
         <ModalContentBody style={{ maxWidth: "20rem", margin: "0 auto", flexDirection: "column" }}>
           <fieldset className="b-cron-fieldset">
-            <TextInput
-              required
-              value={cronExpression}
-              title="CRON Expression"
-              placeholder="Enter a CRON Expression"
-              name="cron"
-              theme="bmrg-white"
-              onChange={this.handleOnChange}
-              validationFunction={this.validateCron} //pass validation function here
-              style={{ paddingBottom: "1rem" }}
-            />
-            {
-              // check for cronExpression being present for both bc validation function doesn't always run and state is stale
-            }
-            {cronExpression && errorMessage && <div className="b-cron-fieldset__message --error">{errorMessage}</div>}
-            {cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}
+            <div className="b-cron">
+              <TextInput
+                required
+                value={cronExpression}
+                title="CRON Expression"
+                placeholder="Enter a CRON Expression"
+                name="cron"
+                theme="bmrg-white"
+                onChange={this.handleOnChange}
+                validationFunction={this.validateCron} //pass validation function here
+                style={{ paddingBottom: "1rem" }}
+              />
+              {
+                // check for cronExpression being present for both bc validation function doesn't always run and state is stale
+              }
+              {cronExpression && errorMessage && <div className="b-cron-fieldset__message --error">{errorMessage}</div>}
+              {cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}
+            </div>
             <div className="b-timezone">
               <SelectDropdown
                 options={filteredSubset}
@@ -116,17 +120,33 @@ export default class CronJobModal extends Component {
                 theme="bmrg-white"
                 place="bottom"
               >
-                {"we have guessed your timezone for a default value"}
+                we have guessed your timezone for a default value
               </ToolTip>
             </div>
           </fieldset>
         </ModalContentBody>
         <ModalContentFooter>
-          <ModalConfirmButton
-            onClick={this.handleOnSave}
-            text="SAVE"
+          <AlertModal
             theme="bmrg-white"
-            disabled={!cronExpression || !!Object.keys(inputError).length} //disable if there is no expression, or if the error object is not empty
+            ModalTrigger={() => (
+              <ModalConfirmButton
+                //onClick={this.handleOnSave}
+                text="SAVE"
+                theme="bmrg-white"
+                disabled={!cronExpression || !!Object.keys(inputError).length} //disable if there is no expression, or if the error object is not empty
+              />
+            )}
+            modalContent={(closeModal, rest) => (
+              <ConfirmModal
+                closeModal={closeModal}
+                affirmativeAction={this.handleOnSave}
+                title="Schedule Workflow to Run?"
+                subTitleTop="Workflow will execute on inputted schedule"
+                cancelText="NO"
+                affirmativeText="YES"
+                {...rest}
+              />
+            )}
           />
         </ModalContentFooter>
       </>

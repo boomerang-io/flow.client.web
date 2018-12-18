@@ -14,10 +14,16 @@
     border-radius: 0.25rem;
   }
 
+  .b-options {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+
   .s-general-info-title,
-  .s-trigger-title {
+  .s-trigger-title,
+  .b-options-title {
     font-size: 1.5rem;
-    margin-bottom: 4rem;
   }
 
   .s-workflow-icons-title {
@@ -43,26 +49,13 @@
       border-radius: 0.125rem;
     }
   }
-  .b-webhook {
-    display: flex;
-    align-items: center;
-    padding-top: 1rem;
-    min-height: 4rem;
-  }
-
-  .b-schedule {
-    display: flex;
-    align-items: center;
-    padding-top: 1rem;
-    margin-right: 5 rem;
-    min-height: 4rem;
-  }
-
+  .b-webhook,
+  .b-schedule,
   .b-persistence {
     display: flex;
     align-items: center;
     padding-top: 1rem;
-    margin-right: 5 rem;
+    margin-right: 5rem;
     min-height: 4rem;
   }
 
@@ -89,7 +82,7 @@
   }
 
   .b-persistence__toggle {
-    margin-left: 2rem;
+    margin-left: 2.5rem;
   }
 
   .b-webhook-token__icon {
@@ -99,7 +92,8 @@
     margin: 0 1rem;
   }
 
-  .b-webhook-token__icon-tooltip {
+  .b-webhook-token__icon-tooltip,
+  .b-options__icon-tooltip {
     min-width: 10rem;
     text-align: center;
     background-color: $white;
@@ -111,7 +105,17 @@
 
   .c-trigger__cronMessage {
     padding-top: 1rem;
-    font-size: 0.875rem;
-    letter-spacing: 0.0625rem;
+    padding-bottom: 0.1rem;
+  }
+
+  .b-options__infoIcon {
+    height: 1.6rem;
+    left: 0.5rem;
+    position: relative;
+  }
+
+  .c-scheduler {
+    max-height: 8rem;
+    min-height: 8rem;
   }
 }
