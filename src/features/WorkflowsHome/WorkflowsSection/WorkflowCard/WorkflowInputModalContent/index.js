@@ -85,7 +85,11 @@ class WorkflowInputModalContent extends Component {
                   label: value,
                   value: value
                 }))}
-                value={defaultValue}
+                value={
+                  this.state.inputs[key]
+                    ? { label: this.state.inputs[key], value: this.state.inputs[key] }
+                    : defaultValue
+                }
                 theme="bmrg-white"
                 title={label}
                 id={key}
