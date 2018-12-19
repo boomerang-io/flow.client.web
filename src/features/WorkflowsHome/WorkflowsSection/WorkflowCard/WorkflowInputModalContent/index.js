@@ -21,6 +21,10 @@ class WorkflowInputModalContent extends Component {
     inputs: {}
   };
 
+  componentDidMount() {
+    this.validate();
+  }
+
   handleBooleanChange = (e, key) => {
     const checked = e.target.checked;
     this.setState(prevState => ({ inputs: { ...prevState.inputs, [key]: checked } }), () => this.validate());
