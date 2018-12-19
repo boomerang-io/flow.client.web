@@ -19,6 +19,7 @@ const TimeProgressBar = ({ tasks, updateActiveNode }) => {
             <Filler
               key={step.taskId}
               taskId={step.taskId}
+              status={step.flowTaskStatus}
               index={index}
               taskName={step.taskName}
               finishPosition={
@@ -27,6 +28,7 @@ const TimeProgressBar = ({ tasks, updateActiveNode }) => {
                   : Math.round(((step.startTime - tasks.creationDate + step.duration) / totalDuration) * 100)
               }
               totalDuration={totalDuration}
+              currentDuration={step.duration}
               updateActiveNode={updateActiveNode}
             />
           ))}
