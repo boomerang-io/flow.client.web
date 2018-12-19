@@ -40,7 +40,7 @@
   bottom: -1.2rem;
   top: 2rem;
   right: 0;
-  height: 3.5rem;
+  height: 5rem;
   background-color: $white;
   border: solid 0.0625rem $gray-10;
   border-radius: 0.375rem;
@@ -67,8 +67,8 @@
 .b-time-progress-bar-filler__label {
   font-weight: 600;
   margin-right: 1rem;
-  margin-bottom: 0.25rem;
+  padding: 0.25rem;
 }
 .b-time-progress-bar-filler__info {
-  margin-bottom: 0.25rem;
+  padding: 0.25rem;
 }
