@@ -50,12 +50,13 @@ class WorkflowInputModalContent extends Component {
   }
 
   renderInput = input => {
-    const { key, type, defaultValue, label, isRequired } = input;
+    const { key, type, defaultValue, label, required, validValues } = input;
 
     switch (type) {
       case INPUT_TYPES.BOOLEAN:
         return (
           <div className="b-workflow-inputs-modal-toggle">
+            {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
             <div className="b-workflow-inputs-modal-toggle__title">Value</div>
             <Toggle
               id={key}
@@ -67,21 +68,23 @@ class WorkflowInputModalContent extends Component {
         );
       case INPUT_TYPES.SELECT:
         return (
-          <div className="b-workflow-inputs-modal-select">
-            {isRequired && <div className="s-workflow-inputs-modal-is-required">*</div>}
-            <SelectDropdown
-              multi
-              isCreatable
-              simpleValue
-              onChange={value => this.handleSelectChange(value, key)}
-              options={defaultValue}
-              value={defaultValue}
-              theme="bmrg-white"
-              title={label}
-              id={key}
-              name={key}
-            />
-          </div>
+          Array.isArray(validValues) && (
+            <div className="b-workflow-inputs-modal-select">
+              {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
+              <SelectDropdown
+                onChange={value => this.handleSelectChange(value, key)}
+                options={validValues.map(value => ({
+                  label: value,
+                  value: value
+                }))}
+                value={defaultValue}
+                theme="bmrg-white"
+                title={label}
+                id={key}
+                name={key}
+              />
+            </div>
+          )
         );
       case INPUT_TYPES.TEXT_AREA:
         return (
@@ -100,7 +103,7 @@ class WorkflowInputModalContent extends Component {
       default:
         return (
           <div className="b-workflow-inputs-modal-text-input">
-            {isRequired && <div className="s-workflow-inputs-modal-is-required">*</div>}
+            {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
             <TextInput
               title={label}
               placeholder={label}

@@ -15,11 +15,9 @@ import "./styles.scss";
 
 class Inputs extends Component {
   formatDefaultValue = value => {
-    switch (typeof value) {
+    switch (value) {
       case INPUT_TYPES.BOOLEAN:
         return value.toString();
-      case INPUT_TYPES.SELECT:
-        return value;
       default:
         return value;
     }

@@ -20,7 +20,7 @@ class InputsModalContent extends Component {
     required: this.props.input ? this.props.input.required : false,
     type: this.props.input ? this.props.input.type : INPUT_TYPES.TEXT,
     defaultValue: this.props.input ? this.props.input.defaultValue : "",
-    validValues: this.props.input && this.props.input.validValues ? this.props.input.validValues : [],
+    validValues: this.props.input && this.props.input.validValues ? this.props.input.validValues : undefined,
     keyError: "",
     descriptionError: "",
     labelError: ""
@@ -47,12 +47,10 @@ class InputsModalContent extends Component {
   };
 
   handleDefaultValueChange = value => {
+    console.log(value);
     switch (this.state.type) {
       case INPUT_TYPES.BOOLEAN:
         this.setState({ defaultValue: value.target.checked.toString() });
-        return;
-      case INPUT_TYPES.SELECT:
-        this.setState({ defaultValue: value });
         return;
       default:
         this.setState({ defaultValue: value });
@@ -79,7 +77,7 @@ class InputsModalContent extends Component {
     delete inputProperties.labelError;
 
     //transform data for Select
-    if (INPUT_TYPES.SELECT) {
+    if (inputProperties.type === INPUT_TYPES.SELECT) {
       inputProperties.validValues = inputProperties.validValues.map(option => option.value);
       inputProperties.defaultValue = inputProperties.defaultValue.value;
     } else {
@@ -187,17 +185,6 @@ class InputsModalContent extends Component {
           <div className="c-inputs-modal-body-left">
             <TextInput
               alwaysShowTitle
-              title="Label"
-              placeholder="Label"
-              name="label"
-              type="text"
-              noValueText="Enter a label"
-              onChange={this.handleLabelChange}
-              detail={label}
-              theme="bmrg-white"
-            />
-            <TextInput
-              alwaysShowTitle
               disabled={isEdit}
               title="Key"
               placeholder="key.value"
@@ -210,6 +197,17 @@ class InputsModalContent extends Component {
               value={key}
               validationFunction={this.validateKey}
               validationText="Invalid key, space and special characters aren't allowed"
+              theme="bmrg-white"
+            />
+            <TextInput
+              alwaysShowTitle
+              title="Label"
+              placeholder="Label"
+              name="label"
+              type="text"
+              noValueText="Enter a label"
+              onChange={this.handleLabelChange}
+              detail={label}
               theme="bmrg-white"
             />
             <TextInput

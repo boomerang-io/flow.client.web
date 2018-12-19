@@ -192,7 +192,7 @@
               "key": "test.property",
               "label": "Test Property",
               "required": true,
-              "type": "text"
+              "type": "select"
             }
           ]
         },
