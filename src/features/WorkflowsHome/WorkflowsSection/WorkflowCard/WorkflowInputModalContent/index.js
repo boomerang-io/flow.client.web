@@ -51,8 +51,8 @@ class WorkflowInputModalContent extends Component {
 
   formatInputs = () => {
     let inputObject = {};
-    this.state.inputs.forEach(input => {
-      inputObject[input.key] = input.value;
+    Object.keys(this.state.inputs).forEach(key => {
+      inputObject[key] = this.state.inputs[key];
     });
     return inputObject;
   };
