@@ -21,6 +21,7 @@ class ActionBar extends Component {
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     includePerformActionAlert: PropTypes.bool,
     includeZoom: PropTypes.bool,
+    isValidOverview: PropTypes.bool.isRequired,
     performAction: PropTypes.func.isRequired,
     performActionButtonText: PropTypes.string.isRequired,
     revisionCount: PropTypes.number.isRequired
@@ -45,11 +46,12 @@ class ActionBar extends Component {
 
   determinePerformActionRender() {
     const {
+      currentRevision,
       includeResetVersionAlert,
       includeCreateNewVersionComment,
+      isValidOverview,
       performActionButtonText,
-      performAction,
-      currentRevision
+      performAction
     } = this.props;
 
     if (includeResetVersionAlert) {
@@ -89,16 +91,24 @@ class ActionBar extends Component {
         />
       );
     }
-
-    return (
-      <Button theme="bmrg-black" onClick={performAction}>
-        {performActionButtonText}
-      </Button>
-    );
+    if (isValidOverview) {
+      return (
+        <Button theme="bmrg-black" onClick={performAction}>
+          {performActionButtonText}
+        </Button>
+      );
+    }
+    return null;
   }
 
   render() {
-    const { fetchWorkflowRevisionNumber, includeZoom, currentRevision, revisionCount } = this.props;
+    const {
+      fetchWorkflowRevisionNumber,
+      includeVersionSwitcher,
+      includeZoom,
+      currentRevision,
+      revisionCount
+    } = this.props;
 
     return (
       <div className="c-action-bar">
@@ -111,11 +121,13 @@ class ActionBar extends Component {
               <img src={plusIcon} alt="Zoom in" />
             </Button>
           ]}
-          <VersionSwitcher
-            revisionCount={revisionCount}
-            currentRevision={currentRevision}
-            onChangeVersion={fetchWorkflowRevisionNumber}
-          />
+          {includeVersionSwitcher && (
+            <VersionSwitcher
+              revisionCount={revisionCount}
+              currentRevision={currentRevision}
+              onChangeVersion={fetchWorkflowRevisionNumber}
+            />
+          )}
           {this.determinePerformActionRender()}
         </div>
       </div>

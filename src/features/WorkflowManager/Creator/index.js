@@ -4,13 +4,9 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
-import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
-import ChangeLog from "Features/WorkflowManager/components/ChangeLog";
-import Inputs from "Features/WorkflowManager/components/Inputs";
 import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
-import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
 import DiagramApplication from "Utilities/DiagramApplication";
 
 class WorkflowCreatorContainer extends Component {
@@ -20,6 +16,8 @@ class WorkflowCreatorContainer extends Component {
     createWorkflow: PropTypes.func.isRequired,
     createWorkflowRevision: PropTypes.func.isRequired,
     handleOnOverviewChange: PropTypes.func.isRequired,
+    isValidOverview: PropTypes.bool.isRequired,
+    setIsValidOveriew: PropTypes.func.isRequired,
     updateWorkflow: PropTypes.func.isRequired
   };
 
@@ -30,7 +28,7 @@ class WorkflowCreatorContainer extends Component {
   };
 
   render() {
-    const { match, workflow } = this.props;
+    const { match, workflow, isValidOverview, setIsValidOveriew } = this.props;
 
     return (
       <>
@@ -41,12 +39,13 @@ class WorkflowCreatorContainer extends Component {
             render={props => (
               <>
                 <ActionBar
-                  performActionButtonText={"Create Workflow"}
-                  performAction={this.createWorkflow}
                   diagramApp={this.diagramApp}
+                  performActionButtonText="Create Workflow"
+                  performAction={this.createWorkflow}
+                  isValidOverview={isValidOverview}
                   {...props}
                 />
-                <Overview workflow={workflow} />
+                <Overview workflow={workflow} setIsValidOveriew={setIsValidOveriew} />
               </>
             )}
           />
@@ -58,7 +57,8 @@ class WorkflowCreatorContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  tasks: state.tasks
+  tasks: state.tasks,
+  workflow: state.workflow
 });
 
 const mapDispatchToProps = dispatch => ({

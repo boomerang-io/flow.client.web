@@ -24,10 +24,11 @@ export class WorkflowManagerContainer extends Component {
     workflow: PropTypes.object
   };
 
-  constructor(props) {
-    super(props);
-    this.changeLogReason = "";
-  }
+  state = {
+    isValidOverview: false
+  };
+
+  changeLogReason = "";
 
   componentDidMount() {
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
@@ -38,6 +39,12 @@ export class WorkflowManagerContainer extends Component {
     this.props.workflowActions.reset();
     this.props.workflowRevisionActions.reset();
   }
+
+  setIsValidOveriew = isValid => {
+    this.setState({
+      isValidOverview: isValid
+    });
+  };
 
   handleChangeLogReasonChange = changeLogReason => {
     this.changeLogReason = changeLogReason;
@@ -182,6 +189,8 @@ export class WorkflowManagerContainer extends Component {
                   fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
                   updateWorkflow={this.updateWorkflow}
                   handleChangeLogReasonChange={this.handleChangeLogReasonChange}
+                  setIsValidOveriew={this.setIsValidOveriew}
+                  isValidOverview={this.state.isValidOverview}
                   {...props}
                 />
               )}
@@ -196,6 +205,8 @@ export class WorkflowManagerContainer extends Component {
                   fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
                   handleChangeLogReasonChange={this.handleChangeLogReasonChange}
                   updateWorkflow={this.updateWorkflow}
+                  setIsValidOveriew={this.setIsValidOveriew}
+                  isValidOverview={this.state.isValidOverview}
                   {...props}
                 />
               )}
