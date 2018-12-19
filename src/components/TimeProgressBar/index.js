@@ -7,6 +7,7 @@ import "./styles.scss";
 const TimeProgressBar = ({ tasks, updateActiveNode }) => {
   const steps = orderBy(tasks.steps, ["order"], ["asc"]);
   const totalDuration = tasks.duration;
+  const allCompleted = !steps.filter(step => step.flowTaskStatus !== "completed").length;
 
   return (
     <div className="c-time-progress-bar">
@@ -20,7 +21,11 @@ const TimeProgressBar = ({ tasks, updateActiveNode }) => {
               taskId={step.taskId}
               index={index}
               taskName={step.taskName}
-              finishPosition={Math.round(((step.startTime - tasks.creationDate + step.duration) / totalDuration) * 100)}
+              finishPosition={
+                allCompleted
+                  ? 100
+                  : Math.round(((step.startTime - tasks.creationDate + step.duration) / totalDuration) * 100)
+              }
               totalDuration={totalDuration}
               updateActiveNode={updateActiveNode}
             />
