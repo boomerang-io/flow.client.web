@@ -34,8 +34,8 @@ class WorkflowInputModalContent extends Component {
     this.setState(prevState => ({ inputs: { ...prevState.inputs, [key]: value } }), () => this.validate());
   };
 
-  handleSelectChange = (value, key) => {
-    this.setState(prevState => ({ inputs: { ...prevState.inputs, [key]: value } }), () => this.validate());
+  handleSelectChange = (option, key) => {
+    this.setState(prevState => ({ inputs: { ...prevState.inputs, [key]: option.value } }), () => this.validate());
   };
 
   validate() {
@@ -80,7 +80,7 @@ class WorkflowInputModalContent extends Component {
             <div className="b-workflow-inputs-modal-select">
               {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
               <SelectDropdown
-                onChange={value => this.handleSelectChange(value, key)}
+                onChange={option => this.handleSelectChange(option, key)}
                 options={validValues.map(value => ({
                   label: value,
                   value: value
@@ -113,6 +113,7 @@ class WorkflowInputModalContent extends Component {
           <div className="b-workflow-inputs-modal-text-input">
             {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
             <TextInput
+              alwaysShowTitle
               title={label}
               placeholder={label}
               name={key}
