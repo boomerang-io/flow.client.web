@@ -10,13 +10,16 @@ import InputsModal from "./InputsModal";
 import close from "Assets/svg/close_black.svg";
 import pencil from "Assets/svg/pencil.svg";
 import plus from "Assets/svg/plus.svg";
+import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
 class Inputs extends Component {
   formatDefaultValue = value => {
     switch (typeof value) {
-      case "boolean":
+      case INPUT_TYPES.BOOLEAN:
         return value.toString();
+      case INPUT_TYPES.SELECT:
+        return value;
       default:
         return value;
     }
@@ -52,6 +55,14 @@ class Inputs extends Component {
                   <div className="b-workflow-input-field__key">Default value </div>
                   <div className="b-workflow-input-field__value">{this.formatDefaultValue(input.defaultValue)}</div>
                 </div>
+                {input.validValues && (
+                  <div className="b-workflow-input-field">
+                    <div className="b-workflow-input-field__key">Valid values </div>
+                    <div className="b-workflow-input-field__value">
+                      {this.formatDefaultValue(input.validValues.join(", "))}
+                    </div>
+                  </div>
+                )}
                 <AlertModalWrapper
                   ModalTrigger={() => (
                     <>

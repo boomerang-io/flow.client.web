@@ -55,7 +55,7 @@ export class WorkflowsHome extends Component {
 
   handleExecute = ({ workflowId, redirect, properties }) => {
     return axios
-      .post(`${BASE_SERVICE_URL}/execute/${workflowId}`, properties)
+      .post(`${BASE_SERVICE_URL}/execute/${workflowId}`, { properties })
       .then(response => {
         notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
         console.log(response);

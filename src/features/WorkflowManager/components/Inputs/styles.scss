@@ -17,7 +17,7 @@
   background-color: $white;
   height: 25rem;
   width: 20rem;
-  padding: 2rem 2rem 2rem 1.5rem;
+  padding: 1rem;
   margin: 0 2rem 2rem 0;
   border-left: 0.5rem solid;
 
@@ -46,7 +46,7 @@
   font-weight: 700;
   text-overflow: ellipsis;
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   line-height: 1.5rem;
 }
 
@@ -56,11 +56,12 @@
   font-size: 1rem;
   text-overflow: ellipsis;
   overflow: hidden;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .b-workflow-input-field__key {
   font-weight: 700;
+  line-height: 1.125rem;
   margin-bottom: 0.75rem;
   text-overflow: ellipsis;
   overflow: hidden;

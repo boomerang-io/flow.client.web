@@ -40,7 +40,7 @@ class WorkflowInputModalContent extends Component {
         input.required &&
         (this.state.inputs[input.key] === undefined ||
           this.state.inputs[input.key] === null ||
-          this.state.inputs[input.key].length < 1)
+          (this.state.inputs[input.key] === "string" && this.state.inputs[input.key].length === 0))
     );
     this.setState({ error: !!errorInput });
   }

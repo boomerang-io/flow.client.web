@@ -20,6 +20,7 @@ class InputsModalContent extends Component {
     required: this.props.input ? this.props.input.required : false,
     type: this.props.input ? this.props.input.type : INPUT_TYPES.TEXT,
     defaultValue: this.props.input ? this.props.input.defaultValue : "",
+    validValues: this.props.input && this.props.input.validValues ? this.props.input.validValues : [],
     keyError: "",
     descriptionError: "",
     labelError: ""
@@ -72,9 +73,18 @@ class InputsModalContent extends Component {
   // dispatch Redux action to update store
   handleConfirm = () => {
     let inputProperties = { ...this.state };
+
     delete inputProperties.keyError;
     delete inputProperties.descriptionError;
     delete inputProperties.labelError;
+
+    //transform data for Select
+    if (INPUT_TYPES.SELECT) {
+      inputProperties.validValues = inputProperties.validValues.map(option => option.value);
+      inputProperties.defaultValue = inputProperties.defaultValue.value;
+    } else {
+      delete inputProperties.validValues; //remove in case they are present
+    }
 
     if (this.props.isEdit) {
       this.props.workflowActions.updateWorkflowInput(inputProperties);
@@ -124,7 +134,7 @@ class InputsModalContent extends Component {
                 styles={{ width: "100%" }}
                 onChange={this.handleDefaultValueChange}
                 options={validValues || []}
-                value={defaultValue || []}
+                value={defaultValue || {}}
                 theme="bmrg-white"
                 title="Default Option"
                 placeholder="Select option"
