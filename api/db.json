@@ -5124,6 +5124,22 @@
         }
       },
       "id": "uldozQz"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": "",
+          "timezone": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": false,
+      "properties": [],
+      "id": "7Kw9MLP"
     }
   ],
   "workflowActivity": {
