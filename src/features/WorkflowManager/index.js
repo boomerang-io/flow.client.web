@@ -45,12 +45,12 @@ export class WorkflowManagerContainer extends Component {
 
   createWorkflow = diagramApp => {
     const { workflowActions, workflowRevisionActions, activeTeamId } = this.props;
-
+    let workflowId;
     return workflowActions
       .create(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, flowTeamId: activeTeamId }) //update all instances of using newOverviewData - probably just need to use workflow.data object
       .then(response => {
         const dagProps = this.createWorkflowRevisionBody(diagramApp);
-        const workflowId = response.data.id;
+        workflowId = response.data.id;
 
         const workflowRevision = {
           ...dagProps,
@@ -63,7 +63,7 @@ export class WorkflowManagerContainer extends Component {
         notify(
           <Notification type="success" title="Create Workflow" message="Succssfully created workflow and version" />
         );
-        return Promise.resolve();
+        this.props.history.push(`/editor/${workflowId}/designer`);
       })
       .catch(err => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow and version" />);
