@@ -95,6 +95,13 @@ class InputsModalContent extends Component {
   renderDefaultValue = () => {
     const { type, defaultValue, validValues } = this.state;
 
+    if (Array.isArray(validValues)) {
+      validValues = validValues.map(value => ({
+        value,
+        label: value
+      }));
+    }
+
     switch (type) {
       case INPUT_TYPES.BOOLEAN:
         return (
