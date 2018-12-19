@@ -49,13 +49,13 @@ class WorkflowInputModalContent extends Component {
     this.setState({ error: !!errorInput });
   }
 
-  formatInputs() {
+  formatInputs = () => {
     let inputObject = {};
     this.state.inputs.forEach(input => {
       inputObject[input.key] = input.value;
     });
     return inputObject;
-  }
+  };
 
   renderInput = input => {
     const { key, type, defaultValue, label, required, validValues } = input;
