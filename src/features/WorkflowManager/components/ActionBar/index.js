@@ -20,7 +20,6 @@ class ActionBar extends Component {
     handleChangeLogReasonChange: PropTypes.func.isRequired,
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     includePerformActionAlert: PropTypes.bool,
-    includeVersionSwitcher: PropTypes.bool,
     includeZoom: PropTypes.bool,
     performAction: PropTypes.func.isRequired,
     performActionButtonText: PropTypes.string.isRequired,
@@ -99,13 +98,7 @@ class ActionBar extends Component {
   }
 
   render() {
-    const {
-      fetchWorkflowRevisionNumber,
-      includeZoom,
-      includeVersionSwitcher,
-      currentRevision,
-      revisionCount
-    } = this.props;
+    const { fetchWorkflowRevisionNumber, includeZoom, currentRevision, revisionCount } = this.props;
 
     return (
       <div className="c-action-bar">
@@ -118,13 +111,11 @@ class ActionBar extends Component {
               <img src={plusIcon} alt="Zoom in" />
             </Button>
           ]}
-          {includeVersionSwitcher && (
-            <VersionSwitcher
-              revisionCount={revisionCount}
-              currentRevision={currentRevision}
-              onChangeVersion={fetchWorkflowRevisionNumber}
-            />
-          )}
+          <VersionSwitcher
+            revisionCount={revisionCount}
+            currentRevision={currentRevision}
+            onChangeVersion={fetchWorkflowRevisionNumber}
+          />
           {this.determinePerformActionRender()}
         </div>
       </div>

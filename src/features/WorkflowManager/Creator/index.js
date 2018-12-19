@@ -23,10 +23,11 @@ class WorkflowCreatorContainer extends Component {
     updateWorkflow: PropTypes.func.isRequired
   };
 
-  constructor(props) {
-    super(props);
-    this.diagramApp = new DiagramApplication({ dag: null, isLocked: false });
-  }
+  diagramApp = new DiagramApplication({ dag: null, isLocked: false });
+
+  createWorkflow = () => {
+    this.props.createWorkflow(this.diagramApp);
+  };
 
   render() {
     const { match, workflow } = this.props;

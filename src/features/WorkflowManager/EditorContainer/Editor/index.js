@@ -108,7 +108,6 @@ class WorkflowEditor extends Component {
                   handleChangeLogReasonChange={handleChangeLogReasonChange}
                   includeCreateNewVersionComment={version === revisionCount}
                   includeResetVersionAlert={version < revisionCount}
-                  includeVersionSwitcher
                   includeZoom
                   revisionCount={workflow.data.revisionCount}
                   currentRevision={workflowRevision.version}

@@ -4585,6 +4585,70 @@
       },
       "workflowId": "DZiIBXT",
       "id": "ZrqoY7P"
+    },
+    {
+      "dag": {
+        "id": "d044bd88-b8e8-4e0e-8698-e16fa63f371b",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [],
+        "nodes": [
+          {
+            "id": "a1ebb002-39ad-42d7-bd9a-2997b8a50d41",
+            "type": "startend",
+            "selected": false,
+            "x": 300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "670d9848-66ec-4414-83a1-87c7f2bfcff4",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "a1ebb002-39ad-42d7-bd9a-2997b8a50d41",
+                "links": [],
+                "position": "right",
+                "nodePortId": "670d9848-66ec-4414-83a1-87c7f2bfcff4"
+              }
+            ],
+            "passedName": "Start",
+            "nodeId": "a1ebb002-39ad-42d7-bd9a-2997b8a50d41"
+          },
+          {
+            "id": "4342a626-23b3-4680-a8cd-96a9c49de13b",
+            "type": "startend",
+            "selected": false,
+            "x": 1000,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "917b7c4a-4aaa-493f-ac57-11485cbe47ad",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "4342a626-23b3-4680-a8cd-96a9c49de13b",
+                "links": [],
+                "position": "left",
+                "nodePortId": "917b7c4a-4aaa-493f-ac57-11485cbe47ad"
+              }
+            ],
+            "passedName": "Finish",
+            "nodeId": "4342a626-23b3-4680-a8cd-96a9c49de13b"
+          }
+        ]
+      },
+      "config": {
+        "nodes": []
+      },
+      "changelog": {
+        "reason": ""
+      },
+      "workflowId": "P5iVzOz",
+      "id": "0uQs6yK"
     }
   ],
   "taskconfiguration": [
@@ -5244,6 +5308,22 @@
       "description": "Here",
       "icon": "template",
       "id": "DZiIBXT"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": "",
+          "timezone": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": false,
+      "properties": [],
+      "id": "P5iVzOz"
     }
   ],
   "workflowActivity": {
