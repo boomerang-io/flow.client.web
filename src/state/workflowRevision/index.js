@@ -26,7 +26,8 @@ export const initialState = {
   error: "",
   dag: undefined,
   version: "",
-  config: {}
+  config: {},
+  hasUnsavedWorkflowRevisionUpdates: false
 };
 
 //action handlers
@@ -56,7 +57,8 @@ const actionHandlers = {
     creatingStatus: "success",
     dag: action.data.dag,
     config: normalizeConfigNodes(action.data.config.nodes),
-    version: action.data.version
+    version: action.data.version,
+    hasUnsavedWorkflowRevisionUpdates: false
   }),
   [types.CREATE_WORKFLOW_REVISION_FAILURE]: (state, action) => ({
     ...state,
@@ -66,7 +68,11 @@ const actionHandlers = {
   }),
   [types.CREATE_WORKFLOW_REVISION_REQUEST]: state => ({ ...state, isCreating: true, creatingStatus: "" }),
   [types.CREATE_NODE]: (state, action) => {
-    return { ...state, config: { ...state.config, [action.data.nodeId]: action.data } };
+    return {
+      ...state,
+      hasUnsavedWorkflowRevisionUpdates: true,
+      config: { ...state.config, [action.data.nodeId]: action.data }
+    };
   },
   [types.UPDATE_NODE]: (state, action) => {
     //const updatedNode = { ...state.data[action.data.nodeId], config: action.data.config };
@@ -74,12 +80,16 @@ const actionHandlers = {
       ...state.config[action.data.nodeId],
       inputs: { ...state.config[action.data.nodeId].inputs, ...action.data.inputs }
     };
-    return { ...state, config: { ...state.config, [action.data.nodeId]: updatedNode } };
+    return {
+      ...state,
+      hasUnsavedWorkflowRevisionUpdates: true,
+      config: { ...state.config, [action.data.nodeId]: updatedNode }
+    };
   },
   [types.DELETE_NODE]: (state, action) => {
     const nodes = { ...state.nodes };
     delete nodes[action.data.nodeId];
-    return { ...state, nodes };
+    return { ...state, hasUnsavedWorkflowRevisionUpdates: true, nodes };
   }
 };
 

@@ -88,7 +88,7 @@ export class Overview extends Component {
     const { workflow } = this.props;
     return (
       <div className="c-worklfow-overview">
-        <div className="c-general-info">
+        <div className="c-overview-card">
           <h1 className="s-general-info-title">General</h1>
           <TextInput
             required
@@ -138,7 +138,7 @@ export class Overview extends Component {
             ))}
           </div>
         </div>
-        <div className="c-trigger">
+        <div className="c-overview-card">
           <h1 className="s-trigger-title">Triggers</h1>
           {workflow.data.id && (
             <div className="b-webhook">

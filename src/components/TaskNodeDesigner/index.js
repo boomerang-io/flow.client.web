@@ -68,7 +68,6 @@ export class TaskNode extends Component {
   }
 
   render() {
-    console.log(this.props.task);
     return (
       <div className="b-taskNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>

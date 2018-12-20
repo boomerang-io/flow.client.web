@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Prompt } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
@@ -34,6 +34,14 @@ export class WorkflowManagerContainer extends Component {
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.workflow.data.id !== this.props.workflow.data.id) {
+      this.setState({
+        isValidOverview: !!this.props.workflow.data.name
+      });
+    }
+  }
+
   componentWillUnmount() {
     this.props.tasksActions.reset();
     this.props.workflowActions.reset();
@@ -63,7 +71,7 @@ export class WorkflowManagerContainer extends Component {
           ...dagProps,
           workflowId
         };
-
+        workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
         return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
       })
       .then(() => {
@@ -102,15 +110,34 @@ export class WorkflowManagerContainer extends Component {
   updateWorkflow = () => {
     const { workflow, workflowActions } = this.props;
     const workflowId = workflow.data.id;
+    const workflowData = { ...this.props.workflow.data };
+    delete workflowData.properties; //delete properties property so its not updated - for situation where user updates inputs, but doesn't save them
 
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, id: workflowId })
       .then(response => {
         notify(<Notification type="success" title="Update Workflow" message="Succssfully updated workflow" />);
+        workflowActions.setHasUnsavedInputUpdates({ hasUpdates: false });
         return Promise.resolve(response);
       })
       .catch(error => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to update workflow" />);
+        return Promise.reject(error);
+      });
+  };
+
+  updateInputs = () => {
+    const { workflow, workflowActions } = this.props;
+
+    return workflowActions
+      .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}`, this.props.workflow.data.properties)
+      .then(response => {
+        notify(<Notification type="success" title="Update Inputs" message="Succssfully updated inputs" />);
+        workflowActions.setHasUnsavedInputUpdates({ hasUpdates: false });
+        return Promise.resolve(response);
+      })
+      .catch(error => {
+        notify(<Notification type="error" title="Something's wrong" message="Failed to update inputs" />);
         return Promise.reject(error);
       });
   };
@@ -174,45 +201,60 @@ export class WorkflowManagerContainer extends Component {
     }
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS) {
+      const { hasUnsavedWorkflowUpdates, hasUnsavedInputUpdates } = this.props.workflow;
+      const { hasUnsavedWorkflowRevisionUpdates } = this.props.workflowRevision;
       return (
-        <div className="c-workflow-designer">
-          <Switch>
-            <Route
-              path="/creator"
-              render={props => (
-                <Creator
-                  workflow={this.props.workflow}
-                  workflowRevision={this.props.workflowRevision}
-                  createNode={this.createNode}
-                  createWorkflow={this.createWorkflow}
-                  createWorkflowRevision={this.createWorkflowRevision}
-                  fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-                  updateWorkflow={this.updateWorkflow}
-                  handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-                  setIsValidOveriew={this.setIsValidOveriew}
-                  isValidOverview={this.state.isValidOverview}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              path="/editor/:workflowId"
-              render={props => (
-                <EditorContainer
-                  workflow={this.props.workflow}
-                  createNode={this.createNode}
-                  createWorkflowRevision={this.createWorkflowRevision}
-                  fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-                  handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-                  updateWorkflow={this.updateWorkflow}
-                  setIsValidOveriew={this.setIsValidOveriew}
-                  isValidOverview={this.state.isValidOverview}
-                  {...props}
-                />
-              )}
-            />
-          </Switch>
-        </div>
+        <>
+          <Prompt
+            when={hasUnsavedWorkflowUpdates || hasUnsavedWorkflowRevisionUpdates || hasUnsavedInputUpdates}
+            message={location =>
+              location.pathname.includes("editor")
+                ? true
+                : `Are you sure? You have unsaved changes for: ${hasUnsavedWorkflowUpdates ? "Overview" : ""} ${
+                    hasUnsavedWorkflowRevisionUpdates ? "Designer" : ""
+                  } ${hasUnsavedInputUpdates ? "Input" : ""}`
+            }
+          />
+          <div className="c-workflow-designer">
+            <Switch>
+              <Route
+                path="/creator"
+                render={props => (
+                  <Creator
+                    workflow={this.props.workflow}
+                    workflowRevision={this.props.workflowRevision}
+                    createNode={this.createNode}
+                    createWorkflow={this.createWorkflow}
+                    createWorkflowRevision={this.createWorkflowRevision}
+                    fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
+                    updateWorkflow={this.updateWorkflow}
+                    handleChangeLogReasonChange={this.handleChangeLogReasonChange}
+                    setIsValidOveriew={this.setIsValidOveriew}
+                    isValidOverview={this.state.isValidOverview}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/editor/:workflowId"
+                render={props => (
+                  <EditorContainer
+                    workflow={this.props.workflow}
+                    createNode={this.createNode}
+                    createWorkflowRevision={this.createWorkflowRevision}
+                    fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
+                    handleChangeLogReasonChange={this.handleChangeLogReasonChange}
+                    updateInputs={this.updateInputs}
+                    updateWorkflow={this.updateWorkflow}
+                    setIsValidOveriew={this.setIsValidOveriew}
+                    isValidOverview={this.state.isValidOverview}
+                    {...props}
+                  />
+                )}
+              />
+            </Switch>
+          </div>
+        </>
       );
     }
 

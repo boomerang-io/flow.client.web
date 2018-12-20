@@ -107,9 +107,9 @@ class WorkflowEditor extends Component {
               <>
                 <ActionBar
                   performActionButtonText="Update Inputs"
-                  performAction={this.updateWorkflow}
+                  performAction={this.props.updateInputs}
                   diagramApp={this.diagramApp}
-                  isValidOverview={isValidOverview}
+                  isValidOverview={true}
                   {...props}
                 />
                 <Inputs />
@@ -130,7 +130,7 @@ class WorkflowEditor extends Component {
                   includeResetVersionAlert={version < revisionCount}
                   includeVersionSwitcher
                   includeZoom
-                  isValidOverview={isValidOverview}
+                  isValidOverview={true}
                   revisionCount={workflow.data.revisionCount}
                   currentRevision={workflowRevision.version}
                   fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
-import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
+import cronstrue from "cronstrue";
+import moment from "moment-timezone";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentHeader from "@boomerang/boomerang-components/lib/ModalContentHeader";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
@@ -9,10 +9,10 @@ import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirm
 import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
-import cronstrue from "cronstrue";
-import moment from "moment-timezone";
 import infoIcon from "../assets/info.svg";
 import "./styles.scss";
+
+const exludedTimezones = ["GMT+0", "GMT-0", "ROC"];
 
 export default class CronJobModal extends Component {
   static propTypes = {
@@ -23,12 +23,20 @@ export default class CronJobModal extends Component {
     super(props);
     this.state = {
       cronExpression: props.cronExpression,
-      timeZone: props.timeZone,
+      timeZone: props.timeZone || moment.tz.guess(),
       inputError: {},
       errorMessage: undefined,
       message: props.cronExpression ? cronstrue.toString(props.cronExpression) : undefined,
       defaultTimeZone: moment.tz.guess()
     };
+
+    this.timezoneOptions = moment.tz
+      .names()
+      .filter(tz => !exludedTimezones.includes(tz))
+      .map(element => ({
+        label: `${element} (UTC ${moment.tz(element).format("Z")})`,
+        value: element
+      }));
   }
 
   handleOnChange = (value, error) => {
@@ -63,17 +71,6 @@ export default class CronJobModal extends Component {
 
   render() {
     const { cronExpression, inputError, errorMessage, message, timeZone } = this.state;
-    const exludedTimezones = ["GMT+0", "GMT-0", "ROC"];
-    let subset = moment.tz.names().filter(tz => !exludedTimezones.includes(tz));
-    const filteredSubset = [];
-    subset.forEach(element => {
-      filteredSubset.push({
-        label: `${element} (UTC ${moment.tz(element).format("Z")})`,
-        value: `${element}`,
-        urlPath: "test",
-        className: "bmrg--b-repos-dropdown__option"
-      });
-    });
     return (
       <>
         <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-white" />
@@ -99,7 +96,7 @@ export default class CronJobModal extends Component {
             </div>
             <div className="b-timezone">
               <SelectDropdown
-                options={filteredSubset}
+                options={this.timezoneOptions}
                 theme="bmrg-white"
                 value={timeZone}
                 onChange={this.handleTimeChange}

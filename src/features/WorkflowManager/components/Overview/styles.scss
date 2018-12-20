@@ -3,8 +3,7 @@
 .c-worklfow-overview {
   display: flex;
 
-  .c-general-info,
-  .c-trigger {
+  .c-overview-card {
     display: flex;
     flex-direction: column;
     margin: 5rem;
@@ -24,6 +23,10 @@
   .s-trigger-title,
   .b-options-title {
     font-size: 1.5rem;
+  }
+
+  .s-general-info-title {
+    margin-bottom: 1rem;
   }
 
   .s-workflow-icons-title {
