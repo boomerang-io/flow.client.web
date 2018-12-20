@@ -20,7 +20,7 @@ class WorkflowCard extends Component {
     executeWorkflows: PropTypes.func.isRequired
   };
 
-  executeWorkflow = ({ redirect, properties }) => {
+  executeWorkflow = (redirect, properties) => {
     this.props.executeWorkflow({ workflowId: this.props.workflow.id, redirect, properties });
   };
 

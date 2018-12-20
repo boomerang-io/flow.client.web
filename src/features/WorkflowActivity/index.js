@@ -9,6 +9,7 @@ import { actions as activityActions } from "State/activity";
 import { actions as teamsActions } from "State/teams";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
+import orderBy from "lodash/orderBy";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
 import SearchFilterBar from "Components/SearchFilterBar";
@@ -112,7 +113,7 @@ export class WorkflowActivity extends Component {
           "DESC"
         );
       });
-      return newActivities;
+      return orderBy(newActivities, ["creationDate"], ["desc"]);
     }
     return activities;
   };
