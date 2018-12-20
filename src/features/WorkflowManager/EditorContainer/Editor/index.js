@@ -28,7 +28,18 @@ class WorkflowEditor extends Component {
   constructor(props) {
     super(props);
     this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
-    this.overviewErrors = {};
+    this.state = {
+      diagramBoundingClientRect: {}
+    };
+    this.diagramRef = React.createRef();
+  }
+
+  componentDidMount() {
+    if (this.diagramRef.current) {
+      this.setState({
+        diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect()
+      });
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -113,6 +124,7 @@ class WorkflowEditor extends Component {
                   performActionButtonText={version < revisionCount ? "Set Version to Latest" : "Create New Version"}
                   performAction={this.createWorkflowRevision}
                   diagramApp={this.diagramApp}
+                  diagramBoundingClientRect={this.state.diagramBoundingClientRect}
                   handleChangeLogReasonChange={handleChangeLogReasonChange}
                   includeCreateNewVersionComment={version === revisionCount}
                   includeResetVersionAlert={version < revisionCount}
@@ -126,6 +138,7 @@ class WorkflowEditor extends Component {
                 />
                 <TasksSidenav />
                 <div
+                  ref={this.diagramRef}
                   className="c-workflow-diagram-designer"
                   onDrop={event => createNode(this.diagramApp, event)}
                   onDragOver={event => {
