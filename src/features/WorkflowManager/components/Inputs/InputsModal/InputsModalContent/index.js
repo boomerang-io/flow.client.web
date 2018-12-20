@@ -47,10 +47,12 @@ class InputsModalContent extends Component {
   };
 
   handleDefaultValueChange = value => {
-    console.log(value);
     switch (this.state.type) {
       case INPUT_TYPES.BOOLEAN:
         this.setState({ defaultValue: value.target.checked.toString() });
+        return;
+      case INPUT_TYPES.SELECT:
+        this.setState({ defaultValue: value.value }); //save string value from object to simplify sending to service
         return;
       default:
         this.setState({ defaultValue: value });
@@ -58,8 +60,9 @@ class InputsModalContent extends Component {
     }
   };
 
-  handleValidValuesChange = value => {
-    this.setState({ validValues: value });
+  // Only save an array of strings to match api and simplify renderDefaultValue()
+  handleValidValuesChange = values => {
+    this.setState({ validValues: values.map(option => option.value) });
   };
 
   /* Check if key contains space or special characters, only underline is allowed */
@@ -76,12 +79,9 @@ class InputsModalContent extends Component {
     delete inputProperties.descriptionError;
     delete inputProperties.labelError;
 
-    //transform data for Select
-    if (inputProperties.type === INPUT_TYPES.SELECT) {
-      inputProperties.validValues = inputProperties.validValues.map(option => option.value);
-      inputProperties.defaultValue = inputProperties.defaultValue.value;
-    } else {
-      delete inputProperties.validValues; //remove in case they are present
+    //remove in case they are present if the user changed their mind
+    if (inputProperties.type !== INPUT_TYPES.SELECT) {
+      delete inputProperties.validValues;
     }
 
     if (this.props.isEdit) {
@@ -95,9 +95,10 @@ class InputsModalContent extends Component {
   renderDefaultValue = () => {
     let { type, defaultValue, validValues } = this.state;
 
+    //convert to object so it works with SelectDropdown component
     if (Array.isArray(validValues)) {
       validValues = validValues.map(value => ({
-        value,
+        value: value,
         label: value
       }));
     }
@@ -262,7 +263,7 @@ class InputsModalContent extends Component {
         </Body>
         <Footer style={{ paddingTop: "1rem" }}>
           <ConfirmButton
-            disabled={!(key && description && label) || (keyError || descriptionError || labelError)}
+            disabled={!(key && description && label) || (!!keyError || !!descriptionError || !!labelError)}
             text={isEdit ? "EDIT" : "CREATE"}
             onClick={this.handleConfirm}
             theme="bmrg-white"
