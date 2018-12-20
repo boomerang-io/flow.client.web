@@ -38,24 +38,28 @@ class Inputs extends Component {
               <div key={input.id} className={classnames("b-workflow-input", `--${input.type}`)}>
                 <div className="b-workflow-input__name">{input.label}</div>
                 <div className="b-workflow-input-field">
-                  <div className="b-workflow-input-field__key">Key </div>
+                  <div className="b-workflow-input-field__key">Key</div>
                   <div className="b-workflow-input-field__value">{input.key}</div>
                 </div>
                 <div className="b-workflow-input-field">
-                  <div className="b-workflow-input-field__key">Description </div>
+                  <div className="b-workflow-input-field__key">Description</div>
                   <div className="b-workflow-input-field__value">{input.description}</div>
                 </div>
                 <div className="b-workflow-input-field">
-                  <div className="b-workflow-input-field__key">Type </div>
+                  <div className="b-workflow-input-field__key">Type</div>
                   <div className="b-workflow-input-field__value">{input.type}</div>
                 </div>
                 <div className="b-workflow-input-field">
-                  <div className="b-workflow-input-field__key">Default value </div>
+                  <div className="b-workflow-input-field__key">Required</div>
+                  <div className="b-workflow-input-field__value">{input.required}</div>
+                </div>
+                <div className="b-workflow-input-field">
+                  <div className="b-workflow-input-field__key">Default value</div>
                   <div className="b-workflow-input-field__value">{this.formatDefaultValue(input.defaultValue)}</div>
                 </div>
                 {input.validValues && (
                   <div className="b-workflow-input-field">
-                    <div className="b-workflow-input-field__key">Valid values </div>
+                    <div className="b-workflow-input-field__key">Valid values</div>
                     <div className="b-workflow-input-field__value">
                       {this.formatDefaultValue(input.validValues.join(", "))}
                     </div>

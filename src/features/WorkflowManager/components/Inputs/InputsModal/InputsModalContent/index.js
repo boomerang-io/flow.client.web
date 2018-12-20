@@ -84,6 +84,11 @@ class InputsModalContent extends Component {
       delete inputProperties.validValues;
     }
 
+    //default state to false if falsy
+    if (inputProperties.type === INPUT_TYPES.BOOLEAN) {
+      if (!inputProperties.defaultValue) inputProperties.defaultValue = false;
+    }
+
     if (this.props.isEdit) {
       this.props.workflowActions.updateWorkflowInput(inputProperties);
     } else {
