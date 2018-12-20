@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
+import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentHeader from "@boomerang/boomerang-components/lib/ModalContentHeader";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
@@ -30,11 +32,11 @@ export default class CronJobModal extends Component {
   }
 
   handleOnChange = (value, error) => {
-    this.setState({ cronExpression: value, inputError: error });
+    this.setState({ cronExpression: value, inputError: error }, () => this.props.shouldConfirmExit(true));
   };
 
   handleTimeChange = (value, error) => {
-    this.setState({ timeZone: value });
+    this.setState({ timeZone: value }, () => this.props.shouldConfirmExit(true));
   };
 
   //receives input value from TextInput
@@ -75,24 +77,26 @@ export default class CronJobModal extends Component {
     return (
       <>
         <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-white" />
-        <ModalContentBody style={{ maxWidth: "20rem", margin: "0 auto", flexDirection: "column" }}>
+        <ModalContentBody style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}>
           <fieldset className="b-cron-fieldset">
-            <TextInput
-              required
-              value={cronExpression}
-              title="CRON Expression"
-              placeholder="Enter a CRON Expression"
-              name="cron"
-              theme="bmrg-white"
-              onChange={this.handleOnChange}
-              validationFunction={this.validateCron} //pass validation function here
-              style={{ paddingBottom: "1rem" }}
-            />
-            {
-              // check for cronExpression being present for both bc validation function doesn't always run and state is stale
-            }
-            {cronExpression && errorMessage && <div className="b-cron-fieldset__message --error">{errorMessage}</div>}
-            {cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}
+            <div className="b-cron">
+              <TextInput
+                required
+                value={cronExpression}
+                title="CRON Expression"
+                placeholder="Enter a CRON Expression"
+                name="cron"
+                theme="bmrg-white"
+                onChange={this.handleOnChange}
+                validationFunction={this.validateCron} //pass validation function here
+                style={{ paddingBottom: "1rem" }}
+              />
+              {
+                // check for cronExpression being present for both bc validation function doesn't always run and state is stale
+              }
+              {cronExpression && errorMessage && <div className="b-cron-fieldset__message --error">{errorMessage}</div>}
+              {cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}
+            </div>
             <div className="b-timezone">
               <SelectDropdown
                 options={filteredSubset}
@@ -110,13 +114,8 @@ export default class CronJobModal extends Component {
                 data-for={"b-cronModal__infoIcon"}
                 alt="Show/Hide Token"
               />
-              <ToolTip
-                className="b-cronModal__infoIcontooltip"
-                id="b-cronModal__infoIcon"
-                theme="bmrg-white"
-                place="bottom"
-              >
-                {"we have guessed your timezone for a default value"}
+              <ToolTip id="b-cronModal__infoIcon" theme="bmrg-white" place="bottom">
+                we have guessed your timezone for a default value
               </ToolTip>
             </div>
           </fieldset>
