@@ -30,6 +30,7 @@ const components = [{ step: 0, component: CronJobModal }];
 
 export class Overview extends Component {
   static propTypes = {
+    setIsValidOveriew: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired
   };
 
@@ -54,14 +55,17 @@ export class Overview extends Component {
 
   handleOnChange = (value, errors, name) => {
     this.props.workflowActions.updateProperty({ key: name, value });
+    this.determineIsValidForm(errors);
   };
 
   handleOnWebhookChange = (value, errors, name) => {
     this.props.workflowActions.updateTriggersWebhook({ key: name, value });
+    this.determineIsValidForm(errors);
   };
 
   handleOnSchedulerChange = (value, errors, name) => {
     this.props.workflowActions.updateTriggersScheduler({ key: name, value });
+    this.determineIsValidForm(errors);
   };
 
   handleShowToken = () => {
@@ -72,6 +76,14 @@ export class Overview extends Component {
     }
   };
 
+  determineIsValidForm(errors) {
+    if (Object.keys(errors).length) {
+      this.props.setIsValidOveriew(false);
+    } else {
+      this.props.setIsValidOveriew(true);
+    }
+  }
+
   render() {
     const { workflow } = this.props;
     return (
@@ -79,6 +91,7 @@ export class Overview extends Component {
         <div className="c-general-info">
           <h1 className="s-general-info-title">General</h1>
           <TextInput
+            required
             value={workflow.data.name || ""}
             title="Name"
             placeholder="Name"
@@ -86,6 +99,8 @@ export class Overview extends Component {
             theme="bmrg-white"
             onChange={this.handleOnChange}
             noValueText="Enter a name"
+            maxChar={64}
+            maxCharText={"Name must not be greater than 64 characters"}
           />
           <TextInput
             value={workflow.data.shortDescription || ""}
@@ -94,6 +109,9 @@ export class Overview extends Component {
             name="shortDescription"
             theme="bmrg-white"
             onChange={this.handleOnChange}
+            maxChar={128}
+            maxCharText={"Summary must not be greater than 128 characters"}
+            required={false}
           />
           <TextArea
             detail={workflow.data.description || ""}
@@ -102,6 +120,9 @@ export class Overview extends Component {
             name="description"
             theme="bmrg-white"
             handleChange={this.handleOnChange}
+            maxChar={256}
+            maxCharText={"Description must not be greater than 256 characters"}
+            required={false}
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
           <div className="b-workflow-icons">

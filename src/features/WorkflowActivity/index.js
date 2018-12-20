@@ -184,7 +184,7 @@ export class WorkflowActivity extends Component {
               />
               <MultiSelect
                 useTitleInItem={false}
-                label="Execution type"
+                label="Execution"
                 invalid={false}
                 onChange={this.handleExecutionFilter}
                 items={executionOptions}

@@ -17,6 +17,8 @@ class WorkflowEditor extends Component {
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     handleOnOverviewChange: PropTypes.func.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
+    isValidOverview: PropTypes.bool.isRequired,
+    setIsValidOveriew: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,
@@ -54,7 +56,10 @@ class WorkflowEditor extends Component {
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
       handleOnOverviewChange,
+      isValidOverview,
       match,
+      overviewData,
+      setIsValidOveriew,
       workflow,
       workflowRevision
     } = this.props;
@@ -73,12 +78,14 @@ class WorkflowEditor extends Component {
                   performActionButtonText="Update Overview"
                   performAction={this.updateWorkflow}
                   diagramApp={this.diagramApp}
+                  isValidOverview={isValidOverview}
                   {...props}
                 />
                 <Overview
                   handleOnChange={handleOnOverviewChange}
                   workflow={workflow}
-                  overviewData={this.props.overviewData}
+                  overviewData={overviewData}
+                  setIsValidOveriew={setIsValidOveriew}
                 />
               </>
             )}
@@ -91,6 +98,7 @@ class WorkflowEditor extends Component {
                   performActionButtonText="Update Inputs"
                   performAction={this.updateWorkflow}
                   diagramApp={this.diagramApp}
+                  isValidOverview={isValidOverview}
                   {...props}
                 />
                 <Inputs />
@@ -110,6 +118,7 @@ class WorkflowEditor extends Component {
                   includeResetVersionAlert={version < revisionCount}
                   includeVersionSwitcher
                   includeZoom
+                  isValidOverview={isValidOverview}
                   revisionCount={workflow.data.revisionCount}
                   currentRevision={workflowRevision.version}
                   fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
