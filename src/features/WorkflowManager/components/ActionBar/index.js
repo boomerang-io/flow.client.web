@@ -20,8 +20,8 @@ class ActionBar extends Component {
     handleChangeLogReasonChange: PropTypes.func.isRequired,
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     includePerformActionAlert: PropTypes.bool,
-    includeVersionSwitcher: PropTypes.bool,
     includeZoom: PropTypes.bool,
+    isValidOverview: PropTypes.bool.isRequired,
     performAction: PropTypes.func.isRequired,
     performActionButtonText: PropTypes.string.isRequired,
     revisionCount: PropTypes.number.isRequired
@@ -46,11 +46,12 @@ class ActionBar extends Component {
 
   determinePerformActionRender() {
     const {
+      currentRevision,
       includeResetVersionAlert,
       includeCreateNewVersionComment,
+      isValidOverview,
       performActionButtonText,
-      performAction,
-      currentRevision
+      performAction
     } = this.props;
 
     if (includeResetVersionAlert) {
@@ -90,19 +91,21 @@ class ActionBar extends Component {
         />
       );
     }
-
-    return (
-      <Button theme="bmrg-black" onClick={performAction}>
-        {performActionButtonText}
-      </Button>
-    );
+    if (isValidOverview) {
+      return (
+        <Button theme="bmrg-black" onClick={performAction}>
+          {performActionButtonText}
+        </Button>
+      );
+    }
+    return null;
   }
 
   render() {
     const {
       fetchWorkflowRevisionNumber,
-      includeZoom,
       includeVersionSwitcher,
+      includeZoom,
       currentRevision,
       revisionCount
     } = this.props;

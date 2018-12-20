@@ -1,6 +1,7 @@
 {
   "/flow/taskconfiguration/workflow/:workflowId": "/taskconfiguration?workflowId=:workflowId&singular=1",
-  "/flow/workflow/:workflowId/revision": "/workflow/5bd9d8ab7eb44d0001772e64?singular=1",
+
+  "/flow/workflow/:workflowId/revision": "/workflow",
   "/flow/workflow/:workFlowId/changelog?size=:value&page=1&sort=version&order=DESC": "/changeLogLast",
   "/flow/workflow/:workFlowId/changelog?size=:value&page=0&sort=version&order=DESC": "/changeLog",
   "/flow/workflow/:workflowId/revision/:version": "/workflow/:workflowId?singular=1",

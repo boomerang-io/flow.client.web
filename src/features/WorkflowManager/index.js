@@ -24,10 +24,11 @@ export class WorkflowManagerContainer extends Component {
     workflow: PropTypes.object
   };
 
-  constructor(props) {
-    super(props);
-    this.changeLogReason = "";
-  }
+  state = {
+    isValidOverview: false
+  };
+
+  changeLogReason = "";
 
   componentDidMount() {
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
@@ -39,18 +40,24 @@ export class WorkflowManagerContainer extends Component {
     this.props.workflowRevisionActions.reset();
   }
 
+  setIsValidOveriew = isValid => {
+    this.setState({
+      isValidOverview: isValid
+    });
+  };
+
   handleChangeLogReasonChange = changeLogReason => {
     this.changeLogReason = changeLogReason;
   };
 
   createWorkflow = diagramApp => {
     const { workflowActions, workflowRevisionActions, activeTeamId } = this.props;
-
+    let workflowId;
     return workflowActions
       .create(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, flowTeamId: activeTeamId }) //update all instances of using newOverviewData - probably just need to use workflow.data object
       .then(response => {
         const dagProps = this.createWorkflowRevisionBody(diagramApp);
-        const workflowId = response.data.id;
+        workflowId = response.data.id;
 
         const workflowRevision = {
           ...dagProps,
@@ -63,7 +70,7 @@ export class WorkflowManagerContainer extends Component {
         notify(
           <Notification type="success" title="Create Workflow" message="Succssfully created workflow and version" />
         );
-        return Promise.resolve();
+        this.props.history.push(`/editor/${workflowId}/designer`);
       })
       .catch(err => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow and version" />);
@@ -182,6 +189,8 @@ export class WorkflowManagerContainer extends Component {
                   fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
                   updateWorkflow={this.updateWorkflow}
                   handleChangeLogReasonChange={this.handleChangeLogReasonChange}
+                  setIsValidOveriew={this.setIsValidOveriew}
+                  isValidOverview={this.state.isValidOverview}
                   {...props}
                 />
               )}
@@ -196,6 +205,8 @@ export class WorkflowManagerContainer extends Component {
                   fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
                   handleChangeLogReasonChange={this.handleChangeLogReasonChange}
                   updateWorkflow={this.updateWorkflow}
+                  setIsValidOveriew={this.setIsValidOveriew}
+                  isValidOverview={this.state.isValidOverview}
                   {...props}
                 />
               )}

@@ -39,14 +39,14 @@ class WorkflowInputModalContent extends Component {
   };
 
   validate() {
-    const errorInput = this.props.inputs.find(
+    const errorInput = this.props.inputs.some(
       input =>
         input.required &&
         (this.state.inputs[input.key] === undefined ||
           this.state.inputs[input.key] === null ||
           (this.state.inputs[input.key] === "string" && this.state.inputs[input.key].length === 0))
     );
-    this.setState({ error: !!errorInput });
+    this.setState({ error: errorInput });
   }
 
   formatInputs = () => {
@@ -85,7 +85,11 @@ class WorkflowInputModalContent extends Component {
                   label: value,
                   value: value
                 }))}
-                value={defaultValue}
+                value={
+                  this.state.inputs[key]
+                    ? { label: this.state.inputs[key], value: this.state.inputs[key] }
+                    : defaultValue
+                }
                 theme="bmrg-white"
                 title={label}
                 id={key}

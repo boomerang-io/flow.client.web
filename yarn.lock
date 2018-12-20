@@ -885,10 +885,10 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@boomerang/boomerang-components@^6.0.28":
-  version "6.0.28"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.28.tgz#27e6de8f6efe9a85945aa774ea178aeb68b30bbc"
-  integrity sha1-J+bej27+moWUWqd06heK62izC7w=
+"@boomerang/boomerang-components@^6.0.30":
+  version "6.0.30"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/boomerang-components/-/@boomerang/boomerang-components-6.0.30.tgz#35116ef58f16d32f5b5813d0246bf2b30a5ccc38"
+  integrity sha1-NRFu9Y8W0y9bWBPQJGvyswpczDg=
   dependencies:
     axios "0.18.0"
     classnames "2.2.6"
