@@ -2,7 +2,7 @@ import { AppContainer } from "react-hot-loader";
 import React from "react";
 import { render } from "react-dom";
 import configureStore, { history } from "./store/configureStore";
-import Root from "Components/Root";
+import Root from "./Root";
 import "Config/axiosGlobalConfig";
 import "Styles/styles.scss";
 
@@ -17,8 +17,8 @@ render(
 );
 
 if (module.hot) {
-  module.hot.accept("./components/Root", () => {
-    const NewRoot = require("./components/Root").default;
+  module.hot.accept("./Root", () => {
+    const NewRoot = require("./Root").default;
     render(
       <AppContainer>
         <NewRoot store={store} history={history} />

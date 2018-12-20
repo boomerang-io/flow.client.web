@@ -10,7 +10,7 @@ export const navItems = [
     text: "Activity"
   },
   {
-    path: "/creator",
+    path: "/creator/overview",
     exact: false,
     text: "Designer"
   },

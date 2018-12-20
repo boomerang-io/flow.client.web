@@ -14,6 +14,7 @@ class WorkflowEditorContainer extends Component {
     createNode: PropTypes.func.isRequired,
     createWorkflowRevision: PropTypes.func.isRequired,
     handleOnOverviewChange: PropTypes.func.isRequired,
+    overviewData: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,
@@ -25,14 +26,16 @@ class WorkflowEditorContainer extends Component {
     const { workflowId } = match.params;
     this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`);
     this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`);
-    this.props.changeLogActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/changelog?size=10&page=0&sort=version&order=DESC`);
+    this.props.changeLogActions.fetch(
+      `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog?size=10&page=0&sort=version&order=DESC`
+    );
   }
 
   render() {
     if (
       this.props.workflowRevision.fetchingStatus === REQUEST_STATUSES.SUCCESS &&
       this.props.workflow.fetchingStatus === REQUEST_STATUSES.SUCCESS &&
-      this.props.changeLog.status === REQUEST_STATUSES.SUCCESS 
+      this.props.changeLog.status === REQUEST_STATUSES.SUCCESS
     ) {
       return <Editor {...this.props} />;
     }

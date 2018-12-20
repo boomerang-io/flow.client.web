@@ -6,30 +6,35 @@ import "./styles.scss";
 
 Navigation.propTypes = {
   match: PropTypes.object.isRequired,
-  includeChangeLog: PropTypes.bool
+  onlyShowOverviewLink: PropTypes.bool
 };
 
 Navigation.defaultProps = {
-  includeChangeLog: true
+  onlyShowOverviewLink: false
 };
 
-function Navigation(props) {
+function Navigation({ match, onlyShowOverviewLink }) {
   return (
     <>
       <div className="c-navigation-bar">
         <NavigateBack to="/workflows" text={"Back to Workflows"} />
       </div>
       <div className="b-navigation-links">
-        <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/overview`}>
+        <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/overview`}>
           Overview
         </NavLink>
-        <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/designer`}>
-          Design
-        </NavLink>
-        {props.includeChangeLog && (
-          <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${props.match.url}/changes`}>
-            Change Log
-          </NavLink>
+        {!onlyShowOverviewLink && (
+          <>
+            <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/inputs`}>
+              Inputs
+            </NavLink>
+            <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/designer`}>
+              Design
+            </NavLink>
+            <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/changes`}>
+              Change Log
+            </NavLink>
+          </>
         )}
       </div>
     </>

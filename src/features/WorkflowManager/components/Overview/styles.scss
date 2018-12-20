@@ -3,19 +3,27 @@
 .c-worklfow-overview {
   display: flex;
 
-  .c-general-info {
+  .c-general-info,
+  .c-trigger {
     display: flex;
     flex-direction: column;
     margin: 5rem;
     padding: 1rem 3rem 2rem;
-    width: 40rem;
+    width: 44rem;
     background: $neutral-white-4;
     border-radius: 0.25rem;
   }
 
-  .s-general-info-title {
+  .b-options {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+
+  .s-general-info-title,
+  .s-trigger-title,
+  .b-options-title {
     font-size: 1.5rem;
-    margin-bottom: 4rem;
   }
 
   .s-workflow-icons-title {
@@ -40,5 +48,74 @@
       border: 0.0625rem solid #40d5bb;
       border-radius: 0.125rem;
     }
+  }
+  .b-webhook,
+  .b-schedule,
+  .b-persistence {
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+    margin-right: 5rem;
+    min-height: 4rem;
+  }
+
+  .b-webhook-token {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0rem 2rem;
+
+    .bmrg--c-text-input {
+      padding-bottom: 0rem;
+    }
+  }
+
+  .b-webhook-token__value {
+    background-color: $white;
+    margin-right: 5 rem;
+  }
+
+  .b-schedule__toggle {
+    margin-left: 2rem;
+  }
+  .b-webhook__toggle {
+    margin-left: 2.2rem;
+  }
+
+  .b-persistence__toggle {
+    margin-left: 2.5rem;
+    height: 1.125rem;
+  }
+
+  .b-webhook-token__icon {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    margin: 0 1rem;
+  }
+
+  .b-webhook-token__icon-tooltip,
+  .b-options__icon-tooltip {
+    min-width: 10rem;
+    text-align: center;
+    background-color: $white;
+    color: $black;
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    letter-spacing: 0.125rem;
+  }
+
+  .c-trigger__cronMessage {
+    padding-top: 1rem;
+    padding-bottom: 0.1rem;
+  }
+
+  .b-options__infoIcon {
+    height: 1.5rem;
+    left: 0.5rem;
+    position: relative;
+  }
+
+  .c-scheduler {
+    height: 8rem;
   }
 }

@@ -13,7 +13,13 @@ export const types = {
   UPDATE_WORKFLOW_REQUEST: "UPDATE_WORKFLOW_REQUEST",
   CREATE_WORKFLOW_SUCCESS: "CREATE_WORKFLOW_SUCCESS",
   CREATE_WORKFLOW_FAILURE: "CREATE_WORKFLOW_FAILURE",
-  CREATE_WORKFLOW_REQUEST: "CREATE_WORKFLOW_REQUEST"
+  CREATE_WORKFLOW_REQUEST: "CREATE_WORKFLOW_REQUEST",
+  UPDATE_WORKFLOW_PROPERTY: "UPDATE_WORKFLOW_PROPERTY",
+  UPDATE_WORKFLOW_TRIGGERS_WEBHOOK: "UPDATE_WORKFLOW_TRIGGERS_WEBHOOK",
+  UPDATE_WORKFLOW_TRIGGERS_SCHEDULER: "UPDATE_WORKFLOW_TRIGGERS_SCHEDULER",
+  CREATE_WORKFLOW_INPUT: "CREATE_WORKFLOW_INPUT",
+  UPDATE_WORKFLOW_INPUT: "UPDATE_WORKFLOW_INPUT",
+  DELETE_WORKFLOW_INPUT: "DELETE_WORKFLOW_INPUT"
 };
 Object.freeze(types);
 
@@ -26,7 +32,21 @@ export const initialState = {
   updatingStatus: "",
   creatingStatus: "",
   error: "",
-  data: {}
+  data: {
+    triggers: {
+      scheduler: {
+        enable: false,
+        schedule: "",
+        timezone: ""
+      },
+      webhook: {
+        enable: false,
+        token: ""
+      }
+    },
+    enablePersistentStorage: false,
+    properties: []
+  }
 };
 
 //action handlers
@@ -68,7 +88,41 @@ const actionHandlers = {
     updatingStatus: "failure",
     error: action.error
   }),
-  [types.CREATE_WORKFLOW_REQUEST]: state => ({ ...state, isCreating: true, creatingStatus: "" })
+  [types.CREATE_WORKFLOW_REQUEST]: state => ({ ...state, isCreating: true, creatingStatus: "" }),
+  [types.UPDATE_WORKFLOW_PROPERTY]: (state, action) => {
+    return { ...state, data: { ...state.data, [action.data.key]: action.data.value } };
+  },
+  [types.UPDATE_WORKFLOW_TRIGGERS_WEBHOOK]: (state, action) => {
+    let { triggers } = state.data;
+    let { webhook } = triggers;
+    const newWebhook = { ...webhook, [action.data.key]: action.data.value };
+    const newTriggers = { ...triggers, webhook: newWebhook };
+    return { ...state, data: { ...state.data, triggers: newTriggers } };
+  },
+  [types.UPDATE_WORKFLOW_TRIGGERS_SCHEDULER]: (state, action) => {
+    let { triggers } = state.data;
+    let { scheduler } = triggers;
+    const newScheduler = { ...scheduler, [action.data.key]: action.data.value };
+    const newTriggers = { ...triggers, scheduler: newScheduler };
+    return { ...state, data: { ...state.data, triggers: newTriggers } };
+  },
+  [types.CREATE_WORKFLOW_INPUT]: (state, action) => {
+    const { properties } = state.data;
+    const newProperties = [...properties, action.data];
+    return { ...state, data: { ...state.data, properties: newProperties } };
+  },
+  [types.UPDATE_WORKFLOW_INPUT]: (state, action) => {
+    // Replace matching input
+    const properties = state.data.properties.map(input => (input.key === action.data.key ? action.data : input));
+    const newProperties = [...properties];
+    return { ...state, data: { ...state.data, properties: newProperties } };
+  },
+  [types.DELETE_WORKFLOW_INPUT]: (state, action) => {
+    // Remove matching input
+    const properties = state.data.properties.filter(input => input.key !== action.data.key);
+    const newProperties = [...properties];
+    return { ...state, data: { ...state.data, properties: newProperties } };
+  }
 };
 
 export default createReducer(initialState, actionHandlers);
@@ -86,6 +140,12 @@ const updateFailure = error => ({ type: types.UPDATE_WORKFLOW_FAILURE, error });
 const createRequest = () => ({ type: types.CREATE_WORKFLOW_REQUEST });
 const createSuccess = data => ({ type: types.CREATE_WORKFLOW_SUCCESS, data });
 const createFailure = error => ({ type: types.CREATE_WORKFLOW_FAILURE, error });
+const updateProperty = data => ({ type: types.UPDATE_WORKFLOW_PROPERTY, data });
+const updateTriggersWebhook = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_WEBHOOK, data });
+const updateTriggersScheduler = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_SCHEDULER, data });
+const createWorkflowInput = data => ({ type: types.CREATE_WORKFLOW_INPUT, data });
+const updateWorkflowInput = data => ({ type: types.UPDATE_WORKFLOW_INPUT, data });
+const deleteWorkflowInput = data => ({ type: types.DELETE_WORKFLOW_INPUT, data });
 
 const fetchActionCreators = {
   reset: reset,
@@ -141,5 +201,11 @@ export const actions = {
   createFailure,
   createSuccess,
   cancelCreate,
-  reset
+  reset,
+  updateProperty,
+  updateTriggersWebhook,
+  updateTriggersScheduler,
+  createWorkflowInput,
+  updateWorkflowInput,
+  deleteWorkflowInput
 };

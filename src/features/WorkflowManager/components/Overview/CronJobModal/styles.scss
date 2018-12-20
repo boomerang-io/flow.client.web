@@ -1,0 +1,31 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
+
+.b-cron-fieldset {
+  height: 100%;
+  margin-top: 2rem;
+}
+
+.b-cron-fieldset__message {
+  font-size: 0.875rem;
+  letter-spacing: 0.0625rem;
+
+  &.--error {
+    color: $red;
+  }
+}
+.b-timezone {
+  position: relative;
+}
+
+.b-cronModal__infoIcon {
+  height: 1.5rem;
+  position: absolute;
+  right: -2rem;
+  top: calc(50% - 0.75rem);
+}
+
+.b-cron {
+  min-height: 8rem;
+  max-height: 10rem;
+}
