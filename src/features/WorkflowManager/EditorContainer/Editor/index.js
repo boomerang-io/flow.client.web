@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
+import Inputs from "Features/WorkflowManager/components/Inputs";
 import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
 import ChangeLog from "Features/WorkflowManager/components/ChangeLog";
@@ -16,6 +17,8 @@ class WorkflowEditor extends Component {
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     handleOnOverviewChange: PropTypes.func.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
+    isValidOverview: PropTypes.bool.isRequired,
+    setIsValidOveriew: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,
@@ -53,7 +56,10 @@ class WorkflowEditor extends Component {
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
       handleOnOverviewChange,
+      isValidOverview,
       match,
+      overviewData,
+      setIsValidOveriew,
       workflow,
       workflowRevision
     } = this.props;
@@ -66,15 +72,36 @@ class WorkflowEditor extends Component {
         <Switch>
           <Route
             path={`${match.path}/overview`}
-            component={props => (
+            render={props => (
               <>
                 <ActionBar
                   performActionButtonText="Update Overview"
                   performAction={this.updateWorkflow}
                   diagramApp={this.diagramApp}
+                  isValidOverview={isValidOverview}
                   {...props}
                 />
-                <Overview handleOnChange={handleOnOverviewChange} workflow={workflow} />
+                <Overview
+                  handleOnChange={handleOnOverviewChange}
+                  workflow={workflow}
+                  overviewData={overviewData}
+                  setIsValidOveriew={setIsValidOveriew}
+                />
+              </>
+            )}
+          />
+          <Route
+            path={`${match.path}/inputs`}
+            render={props => (
+              <>
+                <ActionBar
+                  performActionButtonText="Update Inputs"
+                  performAction={this.updateWorkflow}
+                  diagramApp={this.diagramApp}
+                  isValidOverview={isValidOverview}
+                  {...props}
+                />
+                <Inputs />
               </>
             )}
           />
@@ -91,6 +118,7 @@ class WorkflowEditor extends Component {
                   includeResetVersionAlert={version < revisionCount}
                   includeVersionSwitcher
                   includeZoom
+                  isValidOverview={isValidOverview}
                   revisionCount={workflow.data.revisionCount}
                   currentRevision={workflowRevision.version}
                   fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}

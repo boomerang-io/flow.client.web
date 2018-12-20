@@ -3,17 +3,19 @@
 .c-worklfow-overview {
   display: flex;
 
-  .c-general-info {
+  .c-general-info,
+  .c-trigger {
     display: flex;
     flex-direction: column;
     margin: 5rem;
     padding: 1rem 3rem 2rem;
-    width: 40rem;
+    width: 44rem;
     background: $neutral-white-4;
     border-radius: 0.25rem;
   }
 
-  .s-general-info-title {
+  .s-general-info-title,
+  .s-trigger-title {
     font-size: 1.5rem;
     margin-bottom: 4rem;
   }
@@ -40,5 +42,76 @@
       border: 0.0625rem solid #40d5bb;
       border-radius: 0.125rem;
     }
+  }
+  .b-webhook {
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+    min-height: 4rem;
+  }
+
+  .b-schedule {
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+    margin-right: 5 rem;
+    min-height: 4rem;
+  }
+
+  .b-persistence {
+    display: flex;
+    align-items: center;
+    padding-top: 1rem;
+    margin-right: 5 rem;
+    min-height: 4rem;
+  }
+
+  .b-webhook-token {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0rem 2rem;
+
+    .bmrg--c-text-input {
+      padding-bottom: 0rem;
+    }
+  }
+
+  .b-webhook-token__value {
+    background-color: $white;
+    margin-right: 5 rem;
+  }
+
+  .b-schedule__toggle {
+    margin-left: 2rem;
+  }
+  .b-webhook__toggle {
+    margin-left: 2.2rem;
+  }
+
+  .b-persistence__toggle {
+    margin-left: 2rem;
+  }
+
+  .b-webhook-token__icon {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    margin: 0 1rem;
+  }
+
+  .b-webhook-token__icon-tooltip {
+    min-width: 10rem;
+    text-align: center;
+    background-color: $white;
+    color: $black;
+    font-size: 0.875rem;
+    line-height: 1.0625rem;
+    letter-spacing: 0.125rem;
+  }
+
+  .c-trigger__cronMessage {
+    padding-top: 1rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.0625rem;
   }
 }
