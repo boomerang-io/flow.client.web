@@ -8,6 +8,8 @@ const TimeProgressBar = ({ tasks, updateActiveNode }) => {
   const steps = orderBy(tasks.steps, ["order"], ["asc"]);
   const totalDuration = tasks.duration;
   const allCompleted = !steps.filter(step => step.flowTaskStatus !== "completed").length;
+  let durationSum = 0;
+  tasks.steps.forEach(step => (durationSum += step.duration));
 
   return (
     <div className="c-time-progress-bar">
@@ -19,14 +21,15 @@ const TimeProgressBar = ({ tasks, updateActiveNode }) => {
             <Filler
               key={step.taskId}
               taskId={step.taskId}
+              status={step.flowTaskStatus}
               index={index}
               taskName={step.taskName}
-              finishPosition={
-                allCompleted
-                  ? 100
-                  : Math.round(((step.startTime - tasks.creationDate + step.duration) / totalDuration) * 100)
-              }
-              totalDuration={totalDuration}
+              finishPosition={Math.round(
+                ((step.startTime - tasks.creationDate + step.duration) / (allCompleted ? durationSum : totalDuration)) *
+                  100
+              )}
+              totalDuration={allCompleted ? durationSum : totalDuration}
+              currentDuration={step.duration}
               updateActiveNode={updateActiveNode}
             />
           ))}
