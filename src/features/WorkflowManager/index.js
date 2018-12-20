@@ -117,7 +117,7 @@ export class WorkflowManagerContainer extends Component {
       .update(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, id: workflowId })
       .then(response => {
         notify(<Notification type="success" title="Update Workflow" message="Succssfully updated workflow" />);
-        workflowActions.setHasUnsavedInputUpdates({ hasUpdates: false });
+        workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
         return Promise.resolve(response);
       })
       .catch(error => {
@@ -130,7 +130,7 @@ export class WorkflowManagerContainer extends Component {
     const { workflow, workflowActions } = this.props;
 
     return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}`, this.props.workflow.data.properties)
+      .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, this.props.workflow.data.properties)
       .then(response => {
         notify(<Notification type="success" title="Update Inputs" message="Succssfully updated inputs" />);
         workflowActions.setHasUnsavedInputUpdates({ hasUpdates: false });
