@@ -107,7 +107,7 @@ const actionHandlers = {
     let { webhook } = triggers;
     const newWebhook = { ...webhook, [action.data.key]: action.data.value };
     const newTriggers = { ...triggers, webhook: newWebhook };
-    return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, triggers: newTriggers } };
+    return { ...state, data: { ...state.data, triggers: newTriggers } };
   },
   [types.UPDATE_WORKFLOW_TRIGGERS_SCHEDULER]: (state, action) => {
     let { triggers } = state.data;

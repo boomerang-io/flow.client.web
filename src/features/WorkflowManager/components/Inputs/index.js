@@ -51,7 +51,7 @@ class Inputs extends Component {
                 </div>
                 <div className="b-workflow-input-field">
                   <div className="b-workflow-input-field__key">Required</div>
-                  <div className="b-workflow-input-field__value">{input.required}</div>
+                  <div className="b-workflow-input-field__value">{input.required.toString()}</div>
                 </div>
                 <div className="b-workflow-input-field">
                   <div className="b-workflow-input-field__key">Default value</div>
