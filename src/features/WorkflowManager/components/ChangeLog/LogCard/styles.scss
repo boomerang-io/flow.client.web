@@ -29,6 +29,7 @@
 }
 .c-workflow-log__data {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 .b-workflow-log__date {
@@ -40,7 +41,8 @@
   margin-right: 0.6rem;
 }
 .b-workflow-log__user {
-  width: 15rem;
+  line-height: 1.25rem;
+  width: 20rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

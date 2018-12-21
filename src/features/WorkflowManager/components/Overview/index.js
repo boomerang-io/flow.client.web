@@ -40,7 +40,8 @@ export class Overview extends Component {
       tokenTextType: "password",
       showTokenText: "Show Token",
       copyTokenText: "Copy Token",
-      selectedTeam: { label: selectedTeam.name, value: selectedTeam.id }
+      selectedTeam: { label: selectedTeam.name, value: selectedTeam.id },
+      errors: {}
     };
   }
   static propTypes = {
@@ -62,23 +63,25 @@ export class Overview extends Component {
   };
 
   handleOnChange = (value, errors, name) => {
-    this.props.workflowActions.updateProperty({ key: name, value });
-    this.determineIsValidForm(errors);
+    this.props.workflowActions.updateProperty({ value, key: name });
+    this.setState({ errors: { ...this.state.errors, [name]: errors } }, () => this.determineIsValidForm());
   };
+
   handleTeamChange = selectedTeam => {
     this.setState({ selectedTeam }, () => {
       this.props.teamsActions.setActiveTeam({ teamId: selectedTeam.value });
       this.props.workflowActions.updateProperty({ key: "flowTeamId", value: selectedTeam.value });
     });
   };
+
   handleOnWebhookChange = (value, errors, name) => {
-    this.props.workflowActions.updateTriggersWebhook({ key: name, value });
-    this.determineIsValidForm(errors);
+    this.props.workflowActions.updateTriggersWebhook({ value, key: name });
+    this.setState({ errors: { ...this.state.errors, [name]: errors } }, () => this.determineIsValidForm());
   };
 
   handleOnSchedulerChange = (value, errors, name) => {
     this.props.workflowActions.updateTriggersScheduler({ key: name, value });
-    this.determineIsValidForm(errors);
+    this.setState({ errors: { ...this.state.errors, [name]: errors } }, () => this.determineIsValidForm());
   };
 
   handleShowToken = () => {
@@ -89,12 +92,19 @@ export class Overview extends Component {
     }
   };
 
-  determineIsValidForm(errors) {
-    if (Object.keys(errors).length) {
-      this.props.setIsValidOveriew(false);
-    } else {
+  determineIsValidForm() {
+    const errorKeys = Object.keys(this.state.errors);
+    if (!errorKeys.length) {
       this.props.setIsValidOveriew(true);
     }
+    let isValidOveriew = true;
+    errorKeys.forEach(errorKey => {
+      if (Object.keys(this.state.errors[errorKey]).length) {
+        isValidOveriew = false;
+      }
+    });
+
+    this.props.setIsValidOveriew(isValidOveriew);
   }
 
   render() {
