@@ -188,7 +188,7 @@ export class WorkflowActivity extends Component {
                 label="Execution"
                 invalid={false}
                 onChange={this.handleExecutionFilter}
-                items={executionOptions}
+                items={executionOptions.map(item => ({ label: item.label, value: item.value }))}
                 itemToString={item => (item ? item.value : "")}
               />
             </div>
