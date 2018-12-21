@@ -9,6 +9,7 @@
 .b-cron-fieldset__message {
   font-size: 0.875rem;
   letter-spacing: 0.0625rem;
+  line-height: 1rem;
 
   &.--error {
     color: $red;
@@ -22,7 +23,7 @@
   height: 1.5rem;
   position: absolute;
   right: -2rem;
-  top: calc(50% - 0.75rem);
+  top: 2rem;
 }
 
 .b-cron {

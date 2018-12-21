@@ -196,6 +196,8 @@ export class WorkflowManagerContainer extends Component {
     this.forceUpdate();
   };
 
+  determineChangesString() {}
+
   render() {
     const { tasks, teams } = this.props;
     if (tasks.isFetching || teams.isFetching) {
@@ -212,9 +214,9 @@ export class WorkflowManagerContainer extends Component {
             message={location =>
               location.pathname.includes("editor")
                 ? true
-                : `Are you sure? You have unsaved changes for: ${hasUnsavedWorkflowUpdates ? "Overview" : ""} ${
-                    hasUnsavedWorkflowRevisionUpdates ? "Designer" : ""
-                  } ${hasUnsavedInputUpdates ? "Input" : ""}`
+                : `Are you sure? You have unsaved changes that will be lost for:\n ${
+                    hasUnsavedWorkflowUpdates ? "Overview\n" : ""
+                  } ${hasUnsavedWorkflowRevisionUpdates ? "Design\n" : ""} ${hasUnsavedInputUpdates ? "Input\n" : ""}`
             }
           />
           <div className="c-workflow-designer">

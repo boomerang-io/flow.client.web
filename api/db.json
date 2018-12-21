@@ -187,12 +187,21 @@
           "icon": "utility",
           "properties": [
             {
-              "defaultValue": "default value here2",
+              "defaultValue": "test",
               "description": "Testing this property",
               "key": "test.property",
               "label": "Test Property",
               "required": true,
-              "type": "select"
+              "type": "select",
+              "validValues": ["test", "this"]
+            },
+            {
+              "defaultValue": "test",
+              "description": "Testing this propertys",
+              "key": "test.property1",
+              "label": "Test Property1",
+              "required": true,
+              "type": "text"
             }
           ]
         },
@@ -5163,7 +5172,8 @@
       "triggers": {
         "scheduler": {
           "enable": true,
-          "schedule": "1 1 1 1 2"
+          "schedule": "1 1 1 1 2",
+          "timezone": "America/Chicago"
         },
         "webhook": {
           "enable": false,

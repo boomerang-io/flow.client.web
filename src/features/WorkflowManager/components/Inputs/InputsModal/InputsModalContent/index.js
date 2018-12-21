@@ -72,7 +72,8 @@ class InputsModalContent extends Component {
   };
 
   // dispatch Redux action to update store
-  handleConfirm = () => {
+  handleConfirm = e => {
+    e.preventDefault();
     let inputProperties = { ...this.state };
 
     delete inputProperties.keyError;
@@ -193,7 +194,7 @@ class InputsModalContent extends Component {
     const { key, description, label, required, type, keyError, descriptionError, labelError } = this.state;
 
     return (
-      <>
+      <form onSubmit={this.handleConfirm}>
         <Body className="c-inputs-modal-body">
           <div className="c-inputs-modal-body-left">
             <TextInput
@@ -270,11 +271,11 @@ class InputsModalContent extends Component {
           <ConfirmButton
             disabled={!(key && description && label) || (!!keyError || !!descriptionError || !!labelError)}
             text={isEdit ? "EDIT" : "CREATE"}
-            onClick={this.handleConfirm}
             theme="bmrg-white"
+            type="submit"
           />
         </Footer>
-      </>
+      </form>
     );
   }
 }

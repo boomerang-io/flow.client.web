@@ -59,7 +59,8 @@ export default class CronJobModal extends Component {
     return true;
   };
 
-  handleOnSave = () => {
+  handleOnSave = e => {
+    e.preventDefault();
     this.props.handleOnChange(this.state.cronExpression, {}, "schedule");
     this.props.handleOnChange(
       this.state.timeZone.value ? this.state.timeZone.value : this.state.defaultTimeZone,
@@ -72,12 +73,13 @@ export default class CronJobModal extends Component {
   render() {
     const { cronExpression, inputError, errorMessage, message, timeZone } = this.state;
     return (
-      <>
+      <form onSubmit={this.handleOnSave}>
         <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-white" />
         <ModalContentBody style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}>
-          <fieldset className="b-cron-fieldset">
+          <div className="b-cron-fieldset">
             <div className="b-cron">
               <TextInput
+                alwaysShowTitle
                 required
                 value={cronExpression}
                 title="CRON Expression"
@@ -103,6 +105,7 @@ export default class CronJobModal extends Component {
                 isCreatable={false}
                 title="Timezone"
                 style={{ width: "100%" }}
+                noResultsText="No timezones found"
               />
               <img
                 className="b-cronModal__infoIcon"
@@ -112,20 +115,20 @@ export default class CronJobModal extends Component {
                 alt="Show/Hide Token"
               />
               <ToolTip id="b-cronModal__infoIcon" theme="bmrg-white" place="bottom">
-                we have guessed your timezone for a default value
+                We have guessed your timezone for a default value
               </ToolTip>
             </div>
-          </fieldset>
+          </div>
         </ModalContentBody>
         <ModalContentFooter>
           <ModalConfirmButton
-            onClick={this.handleOnSave}
             text="SAVE"
             theme="bmrg-white"
             disabled={!cronExpression || !!Object.keys(inputError).length} //disable if there is no expression, or if the error object is not empty
+            type="submit"
           />
         </ModalContentFooter>
-      </>
+      </form>
     );
   }
 }

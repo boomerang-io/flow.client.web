@@ -42,20 +42,13 @@ class WorkflowInputModalContent extends Component {
     const errorInput = this.props.inputs.some(
       input =>
         input.required &&
+        !input.defaultValue &&
         (this.state.inputs[input.key] === undefined ||
           this.state.inputs[input.key] === null ||
           (this.state.inputs[input.key] === "string" && this.state.inputs[input.key].length === 0))
     );
     this.setState({ error: errorInput });
   }
-
-  formatInputs = () => {
-    let inputObject = {};
-    Object.keys(this.state.inputs).forEach(key => {
-      inputObject[key] = this.state.inputs[key];
-    });
-    return inputObject;
-  };
 
   renderInput = input => {
     const { key, type, defaultValue, label, required, validValues } = input;
@@ -78,7 +71,7 @@ class WorkflowInputModalContent extends Component {
         return (
           Array.isArray(validValues) && (
             <div className="b-workflow-inputs-modal-select">
-              {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
+              {required && <div className="b-workflow-inputs-modal-select__required">*</div>}
               <SelectDropdown
                 onChange={option => this.handleSelectChange(option, key)}
                 options={validValues.map(value => ({
@@ -109,6 +102,8 @@ class WorkflowInputModalContent extends Component {
               onChange={this.handleTextChange}
               value={defaultValue || ""}
               theme="bmrg-white"
+              noValueText={`Enter a ${label}`}
+              required={required}
             />
           </div>
         );
@@ -125,6 +120,8 @@ class WorkflowInputModalContent extends Component {
               onChange={this.handleTextChange}
               value={defaultValue || ""}
               theme="bmrg-white"
+              noValueText={`Enter a ${label}`}
+              required={required}
             />
           </div>
         );
@@ -136,37 +133,41 @@ class WorkflowInputModalContent extends Component {
     const { error } = this.state;
 
     return (
-      <>
+      <form>
         <Body className="b-workflow-inputs-modal-body">{this.props.inputs.map(this.renderInput)}</Body>
         <Footer className="b-workflow-inputs-modal-footer">
           <ConfirmButton
+            type="submit"
             style={{ width: "40%" }}
             text={"EXECUTE"}
             disabled={error}
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               executeWorkflow({
                 redirect: false,
-                properties: this.formatInputs()
+                properties: this.state.inputs
               });
               closeModal();
             }}
             theme="bmrg-white"
           />
           <ConfirmButton
+            type="submit"
             style={{ width: "40%" }}
             text={"EXECUTE AND VIEW"}
             disabled={error}
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               executeWorkflow({
                 redirect: true,
-                properties: this.formatInputs()
+                properties: this.state.inputs
               });
               closeModal();
             }}
             theme="bmrg-white"
           />
         </Footer>
-      </>
+      </form>
     );
   }
 }

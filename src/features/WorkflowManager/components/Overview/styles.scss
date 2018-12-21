@@ -2,13 +2,17 @@
 
 .c-worklfow-overview {
   display: flex;
+  flex-flow: row wrap;
+  padding: 1rem;
 
   .c-overview-card {
     display: flex;
     flex-direction: column;
-    margin: 5rem;
-    padding: 1rem 3rem 2rem;
-    width: 44rem;
+    margin: 1rem;
+    padding: 2rem;
+    width: calc(100vw * 0.3);
+    min-width: 30rem;
+    max-width: 40rem;
     background: $neutral-white-4;
     border-radius: 0.25rem;
     height: 40rem;
@@ -17,12 +21,11 @@
   .b-options {
     display: flex;
     flex-direction: column;
-    margin-top: 2rem;
   }
 
   .s-general-info-title,
   .s-trigger-title,
-  .b-options-title {
+  .b-options__title {
     font-size: 1.5rem;
   }
 
@@ -53,6 +56,7 @@
       border-radius: 0.125rem;
     }
   }
+
   .b-webhook,
   .b-schedule,
   .b-persistence {
@@ -108,32 +112,14 @@
     letter-spacing: 0.125rem;
   }
 
-  .c-trigger__cronMessage {
+  .b-schedule__cronMessage {
     padding-top: 1rem;
-    padding-bottom: 0.1rem;
+    padding-bottom: 0.5rem;
   }
 
   .b-options__infoIcon {
     height: 1.5rem;
     left: 0.5rem;
     position: relative;
-  }
-
-  .c-scheduler {
-    height: 8rem;
-  }
-  .b-overview-modal-select {
-    .b-overview-modal-select__title {
-      font-size: 0.875rem;
-      letter-spacing: 0.03125rem;
-      line-height: 1.125rem;
-      font-weight: 300;
-      margin-bottom: 0.3125rem;
-    }
-
-    .Select-control {
-      height: 2.15625rem;
-      border-radius: 0.2rem;
-    }
   }
 }

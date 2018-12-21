@@ -2,14 +2,8 @@
 
 .c-workflow-inputs {
   display: flex;
-  justify-content: center;
-  padding: 2rem 0 2rem 2rem;
-}
-
-.b-workflow-inputs {
-  display: flex;
-  flex-wrap: wrap;
-  width: 95%;
+  flex-flow: row wrap;
+  padding: 2rem;
 }
 
 .b-workflow-input {
@@ -21,10 +15,10 @@
   margin: 0 2rem 2rem 0;
   border-left: 0.5rem solid;
 
-  &.--textInput {
+  &.--text {
     border-left-color: $green-30;
   }
-  &.--textAreaBox {
+  &.--textarea {
     border-left-color: $ultramarine-30;
   }
   &.--boolean {
