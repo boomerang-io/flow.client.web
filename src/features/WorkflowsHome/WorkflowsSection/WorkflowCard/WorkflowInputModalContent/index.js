@@ -16,10 +16,19 @@ class WorkflowInputModalContent extends Component {
     executeWorkflow: PropTypes.func.isRequired
   };
 
-  state = {
-    error: false,
-    inputs: {}
-  };
+  constructor(props) {
+    super(props);
+
+    const inputs = {};
+    props.inputs.forEach(input => {
+      inputs[input.key] = input.value;
+    });
+
+    state = {
+      inputs,
+      error: false
+    };
+  }
 
   componentDidMount() {
     this.validate();
@@ -42,7 +51,6 @@ class WorkflowInputModalContent extends Component {
     const errorInput = this.props.inputs.some(
       input =>
         input.required &&
-        !input.defaultValue &&
         (this.state.inputs[input.key] === undefined ||
           this.state.inputs[input.key] === null ||
           (this.state.inputs[input.key] === "string" && this.state.inputs[input.key].length === 0))
