@@ -11,6 +11,7 @@
     width: 44rem;
     background: $neutral-white-4;
     border-radius: 0.25rem;
+    height: 40rem;
   }
 
   .b-options {
@@ -120,5 +121,19 @@
 
   .c-scheduler {
     height: 8rem;
+  }
+  .b-overview-modal-select {
+    .b-overview-modal-select__title {
+      font-size: 0.875rem;
+      letter-spacing: 0.03125rem;
+      line-height: 1.125rem;
+      font-weight: 300;
+      margin-bottom: 0.3125rem;
+    }
+
+    .Select-control {
+      height: 2.15625rem;
+      border-radius: 0.2rem;
+    }
   }
 }

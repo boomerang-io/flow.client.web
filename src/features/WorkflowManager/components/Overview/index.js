@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
+import { actions as teamsActions } from "State/teams";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import classnames from "classnames";
 import CopyToClipboard from "react-copy-to-clipboard";
@@ -12,6 +13,7 @@ import Button from "@boomerang/boomerang-components/lib/Button";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
@@ -29,15 +31,21 @@ import "./styles.scss";
 const components = [{ step: 0, component: CronJobModal }];
 
 export class Overview extends Component {
+  constructor(props) {
+    super(props);
+    const selectedTeam = this.props.activeTeamId
+      ? this.props.teams.find(team => team.id === this.props.activeTeamId)
+      : this.props.teams[0];
+    this.state = {
+      tokenTextType: "password",
+      showTokenText: "Show Token",
+      copyTokenText: "Copy Token",
+      selectedTeam: { label: selectedTeam.name, value: selectedTeam.id }
+    };
+  }
   static propTypes = {
     setIsValidOveriew: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired
-  };
-
-  state = {
-    tokenTextType: "password",
-    showTokenText: "Show Token",
-    copyTokenText: "Copy Token"
   };
 
   generateToken = () => {
@@ -57,7 +65,12 @@ export class Overview extends Component {
     this.props.workflowActions.updateProperty({ key: name, value });
     this.determineIsValidForm(errors);
   };
-
+  handleTeamChange = selectedTeam => {
+    this.setState({ selectedTeam }, () => {
+      this.props.teamsActions.setActiveTeam({ teamId: selectedTeam.value });
+      this.props.workflowActions.updateProperty({ key: "flowTeamId", value: selectedTeam.value });
+    });
+  };
   handleOnWebhookChange = (value, errors, name) => {
     this.props.workflowActions.updateTriggersWebhook({ key: name, value });
     this.determineIsValidForm(errors);
@@ -85,11 +98,27 @@ export class Overview extends Component {
   }
 
   render() {
-    const { workflow } = this.props;
+    const { workflow, teams } = this.props;
+    const { selectedTeam } = this.state;
+
     return (
       <div className="c-worklfow-overview">
         <div className="c-overview-card">
           <h1 className="s-general-info-title">General</h1>
+          <div className="b-overview-modal-select">
+            <SelectDropdown
+              isCreatable
+              titleClass="b-overview-modal-select__title"
+              styles={{ width: "100%", marginBottom: "2rem" }}
+              onChange={this.handleTeamChange}
+              options={teams.map(team => ({ label: team.name, value: team.id }))}
+              value={selectedTeam}
+              theme="bmrg-white"
+              title="Team"
+              placeholder="Select a team"
+              noResultsText="No options entered"
+            />
+          </div>
           <TextInput
             required
             value={workflow.data.name || ""}
@@ -331,10 +360,13 @@ Overview.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    teams: state.teams.data,
+    activeTeamId: state.teams.activeTeamId
   };
 };
 const mapDispatchToProps = dispatch => ({
+  teamsActions: bindActionCreators(teamsActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch)
 });
 export default connect(

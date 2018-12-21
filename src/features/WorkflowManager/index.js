@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Route, Switch, Prompt } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
+import { actions as teamsActions } from "State/teams";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
@@ -32,6 +33,7 @@ export class WorkflowManagerContainer extends Component {
 
   componentDidMount() {
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
+    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   }
 
   componentDidUpdate(prevProps) {
@@ -195,12 +197,12 @@ export class WorkflowManagerContainer extends Component {
   };
 
   render() {
-    const { tasks } = this.props;
-    if (tasks.isFetching) {
+    const { tasks, teams } = this.props;
+    if (tasks.isFetching || teams.isFetching) {
       return <LoadingAnimation theme="bmrg-white" />;
     }
 
-    if (tasks.status === REQUEST_STATUSES.SUCCESS) {
+    if (tasks.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
       const { hasUnsavedWorkflowUpdates, hasUnsavedInputUpdates } = this.props.workflow;
       const { hasUnsavedWorkflowRevisionUpdates } = this.props.workflowRevision;
       return (
@@ -264,6 +266,7 @@ export class WorkflowManagerContainer extends Component {
 
 const mapStateToProps = state => ({
   tasks: state.tasks,
+  teams: state.teams,
   workflow: state.workflow,
   workflowRevision: state.workflowRevision,
   activeTeamId: state.teams.activeTeamId
@@ -271,6 +274,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   tasksActions: bindActionCreators(tasksActions, dispatch),
+  teamsActions: bindActionCreators(teamsActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
