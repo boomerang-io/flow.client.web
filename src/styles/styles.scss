@@ -4,29 +4,3 @@
 @import "~@boomerang/boomerang-dag/src/sass/main.scss";
 @import "variables";
 @import "base";
-
-//overide SelectDropdown styles
-.bmrg--c-select-dropdown.--bmrg-white {
-  .Select-multi-value-wrapper .Select-value-label {
-    color: $gray-90 !important;
-    font-size: 1.125rem !important;
-    font-weight: 300 !important;
-    letter-spacing: 0.125rem !important;
-  }
-
-  .s-select-dropdown-label {
-    font-size: 0.875rem;
-    letter-spacing: 0.03125rem;
-    line-height: 1.125rem;
-    font-weight: 300;
-    margin-bottom: 0.3125rem;
-    background-color: initial;
-    color: initial;
-    padding: 0;
-  }
-
-  .Select-control {
-    height: 2.15625rem;
-    border-radius: 0.2rem;
-  }
-}

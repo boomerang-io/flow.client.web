@@ -47,33 +47,59 @@ body {
 }
 
 .bmrg--b-text-input__input.--bmrg-white {
-  border-radius: 0.225rem;
-  border: none;
+  border-radius: 0.225rem !important;
+  border: none !important;
   &:focus {
-    border: none;
+    border: none !important;
   }
 }
 
 .bmrg--b-textarea__text {
-  background: $white;
-  border: none;
-  caret-color: $gray-90;
-  padding: 0.5rem;
-  transition: border 0.3s ease;
+  background: $white !important;
+  border: none !important;
+  caret-color: $gray-90 !important;
+  padding: 0.5rem !important;
+  transition: border 0.3s ease !important;
 
   &:focus {
-    border: none;
+    border: none !important;
   }
 
   &::placeholder {
-    color: $cool-gray-20;
+    color: $cool-gray-20 !important;
   }
 }
 
 .bmrg--b-textarea__title {
-  color: $gray-90;
+  color: $gray-90 !important;
 }
 
 .bmrg--b-tooltip {
-  border: 0rem;
+  border: 0rem !important;
+}
+
+//overide SelectDropdown styles
+.bmrg--c-select-dropdown.--bmrg-white {
+  .Select-multi-value-wrapper .Select-value-label {
+    color: $gray-90 !important;
+    font-size: 1.125rem !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.125rem !important;
+  }
+
+  .s-select-dropdown-label {
+    font-size: 0.875rem !important;
+    letter-spacing: 0.03125rem !important;
+    line-height: 1.125rem !important;
+    font-weight: 300 !important;
+    margin-bottom: 0.3125rem !important;
+    background-color: initial !important;
+    color: initial !important;
+    padding: 0 !important;
+  }
+
+  .Select-control {
+    height: 2.15625rem !important;
+    border-radius: 0.2rem !important;
+  }
 }

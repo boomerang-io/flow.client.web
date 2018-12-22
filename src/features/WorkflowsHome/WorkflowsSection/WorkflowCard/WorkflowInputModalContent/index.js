@@ -21,12 +21,13 @@ class WorkflowInputModalContent extends Component {
 
     const inputs = {};
     props.inputs.forEach(input => {
-      inputs[input.key] = input.value;
+      inputs[input.key] = input.defaultValue;
     });
 
     this.state = {
       inputs,
-      error: false
+      error: false,
+      errors: {}
     };
   }
 
@@ -40,7 +41,10 @@ class WorkflowInputModalContent extends Component {
   };
 
   handleTextChange = (value, errors, key) => {
-    this.setState(prevState => ({ inputs: { ...prevState.inputs, [key]: value } }), () => this.validate());
+    this.setState(
+      prevState => ({ inputs: { ...prevState.inputs, [key]: value }, errors: { ...prevState.errors, [key]: errors } }),
+      () => this.validate()
+    );
   };
 
   handleSelectChange = (option, key) => {
@@ -48,14 +52,35 @@ class WorkflowInputModalContent extends Component {
   };
 
   validate() {
-    const errorInput = this.props.inputs.some(
-      input =>
-        input.required &&
-        (this.state.inputs[input.key] === undefined ||
-          this.state.inputs[input.key] === null ||
-          (this.state.inputs[input.key] === "string" && this.state.inputs[input.key].length === 0))
-    );
-    this.setState({ error: errorInput });
+    //Check for missing required fields
+    if (this.props.inputs.some(input => input.required && !this.state.inputs[input.key])) {
+      this.setState({ error: true });
+      return;
+    }
+
+    //If there are no errors say so
+    const errorKeys = Object.keys(this.state.errors);
+    if (!errorKeys.length) {
+      this.setState({ error: false });
+      return;
+    }
+
+    //Look through all of the keys and see if there are errors present
+    //Keys will still be present with a value of an empty object for inputs that have been changed
+    let hasError = false;
+    errorKeys.forEach(errorKey => {
+      if (Object.keys(this.state.errors[errorKey]).length) {
+        hasError = true;
+      }
+    });
+
+    if (hasError) {
+      this.setState({ error: true });
+      return;
+    }
+
+    // return no errors if we get here
+    this.setState({ error: false });
   }
 
   renderInput = input => {

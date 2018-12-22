@@ -196,8 +196,6 @@ export class WorkflowManagerContainer extends Component {
     this.forceUpdate();
   };
 
-  determineChangesString() {}
-
   render() {
     const { tasks, teams } = this.props;
     if (tasks.isFetching || teams.isFetching) {
