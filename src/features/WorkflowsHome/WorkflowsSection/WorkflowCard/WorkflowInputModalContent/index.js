@@ -24,7 +24,7 @@ class WorkflowInputModalContent extends Component {
       inputs[input.key] = input.value;
     });
 
-    state = {
+    this.state = {
       inputs,
       error: false
     };
