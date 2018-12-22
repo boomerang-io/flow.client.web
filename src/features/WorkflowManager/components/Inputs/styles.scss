@@ -14,6 +14,7 @@
   padding: 1rem;
   margin: 0 2rem 2rem 0;
   border-left: 0.5rem solid;
+  border-radius: 0.25rem;
 
   &.--text {
     border-left-color: $green-30;
@@ -104,6 +105,7 @@
   border: 0.0625rem dashed $gray-30;
   color: $gray-30;
   cursor: pointer;
+  border-radius: 0.25rem;
 }
 
 .b-workflow-input-create__plus {

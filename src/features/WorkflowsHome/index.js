@@ -53,13 +53,14 @@ export class WorkflowsHome extends Component {
     this.props.history.push(`/creator/overview`);
   };
 
-  handleExecute = ({ workflowId, redirect, properties }) => {
+  handleExecute = ({ workflowId, redirect = false, properties = {} }) => {
     return axios
       .post(`${BASE_SERVICE_URL}/execute/${workflowId}`, { properties })
       .then(response => {
         notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
-        console.log(response);
-        if (redirect) this.props.history.push(`/activity/${workflowId}/execution/${response.data.id}`);
+        if (redirect) {
+          this.props.history.push(`/activity/${workflowId}/execution/${response.data.id}`);
+        }
       })
       .catch(error => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to run workflow" />);
