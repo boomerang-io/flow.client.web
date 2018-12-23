@@ -61,7 +61,7 @@ export class WorkflowsHome extends Component {
         if (redirect) {
           this.props.history.push({
             pathname: `/activity/${workflowId}/execution/${response.data.id}`,
-            state: { from: "/workflows", fromText: "Workflows" }
+            state: { fromUrl: "/workflows", fromText: "Workflows" }
           });
         }
       })
