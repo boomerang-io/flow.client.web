@@ -104,7 +104,7 @@ class WorkflowCard extends Component {
               {workflow.properties && workflow.properties.length > 0 ? (
                 <Modal
                   ModalTrigger={() => (
-                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Run workflow" />
                   )}
                   modalContent={(closeModal, rest) => (
                     <ModalFlow
@@ -124,16 +124,17 @@ class WorkflowCard extends Component {
                 <AlertModal
                   className="bmrg--c-alert-modal --execute-workflow"
                   ModalTrigger={() => (
-                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Run workflow" />
                   )}
                   modalContent={closeModal => (
                     <ConfirmModal
                       style={{ width: "32rem", height: "28rem" }}
-                      title="Execute workflow?"
+                      title="Run workflow?"
                       subTitleTop="It will run"
                       closeModal={closeModal}
                       affirmativeAction={() => this.executeWorkflow({ redirect: false })}
                       affirmativeText="Run"
+                      negativeText="No"
                       theme="bmrg-white"
                     >
                       <button

@@ -204,6 +204,7 @@ export class WorkflowActivity extends Component {
                 searchQuery={searchQuery}
                 workflowId={workflowId}
                 history={history}
+                match={match}
                 loadMoreActivities={this.loadMoreActivities}
                 nextPage={nextPage}
                 isLoading={isLoading}

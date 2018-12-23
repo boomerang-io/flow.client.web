@@ -59,7 +59,10 @@ export class WorkflowsHome extends Component {
       .then(response => {
         notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
         if (redirect) {
-          this.props.history.push(`/activity/${workflowId}/execution/${response.data.id}`);
+          this.props.history.push({
+            pathname: `/activity/${workflowId}/execution/${response.data.id}`,
+            state: { from: "/workflows", fromText: "Workflows" }
+          });
         }
       })
       .catch(error => {

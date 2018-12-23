@@ -172,7 +172,7 @@ class WorkflowInputModalContent extends Component {
           <ConfirmButton
             type="submit"
             style={{ width: "40%" }}
-            text={"EXECUTE"}
+            text={"Run"}
             disabled={error}
             onClick={e => {
               e.preventDefault();
@@ -187,7 +187,7 @@ class WorkflowInputModalContent extends Component {
           <ConfirmButton
             type="submit"
             style={{ width: "40%" }}
-            text={"EXECUTE AND VIEW"}
+            text={"Run and View"}
             disabled={error}
             onClick={e => {
               e.preventDefault();
