@@ -5121,34 +5121,34 @@
     }
   ],
   "workflowExecution": {
-    "creationDate": 1546518188929,
-    "duration": 11475,
-    "id": "5c2dfeacd86c810001420d7a",
+    "creationDate": 1546518590128,
+    "duration": 0,
+    "id": "5c2e003ed86c81000142103f",
     "initiatedByUserId": "5c26001979c6b50001e6e912",
     "initiatedByUserName": "Isabela Mayumi Kawabata Borges",
-    "status": "completed",
+    "status": "inProgress",
     "workflowId": "5c1b871e05a20800016f4abe",
     "workflowRevisionid": "5c2dfea5d86c810001420d6f",
     "trigger": "manual",
     "properties": [],
     "steps": [
       {
-        "activityId": "5c2dfeacd86c810001420d7a",
-        "duration": 5738,
+        "activityId": "5c2e003ed86c81000142103f",
+        "duration": 5733,
         "flowTaskStatus": "completed",
-        "id": "5c2dfeacd86c810001420d83",
+        "id": "5c2e003ed86c810001421048",
         "order": 1,
-        "startTime": 1546518188955,
+        "startTime": 1546518590156,
         "taskId": "c9b43f5f-d5e5-479c-a651-77cd5bb2df24",
         "taskName": "Send Email"
       },
       {
-        "activityId": "5c2dfeacd86c810001420d7a",
-        "duration": 5596,
-        "flowTaskStatus": "completed",
-        "id": "5c2dfeacd86c810001420d85",
+        "activityId": "5c2e003ed86c81000142103f",
+        "duration": 0,
+        "flowTaskStatus": "inProgress",
+        "id": "5c2e003ed86c81000142104b",
         "order": 2,
-        "startTime": 1546518194699,
+        "startTime": 1546518595900,
         "taskId": "3ac80e74-c852-4e7d-b5ef-689b11e4f84b",
         "taskName": "Send Email"
       }

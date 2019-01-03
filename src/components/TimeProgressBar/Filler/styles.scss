@@ -36,6 +36,7 @@
   position: absolute;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   font-size: 0.8rem;
   bottom: -1.2rem;
   top: 2rem;
@@ -62,7 +63,9 @@
 .c-time-progress-bar-filler__infos {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
+  height: 6rem;
 }
 .b-time-progress-bar-filler__label {
   font-weight: 600;
@@ -71,4 +74,6 @@
 }
 .b-time-progress-bar-filler__info {
   padding: 0.25rem;
+  min-height: 1.2rem;
+  min-width: 2rem;
 }
