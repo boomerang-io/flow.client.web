@@ -9,7 +9,7 @@
 .b-workflow-input {
   position: relative;
   background-color: $white;
-  height: 25rem;
+  min-height: 25rem;
   width: 20rem;
   padding: 1rem;
   margin: 0 2rem 2rem 0;
@@ -100,7 +100,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 25rem;
+  min-height: 25rem;
+  height: calc(100% - 1.75rem);
   width: 20rem;
   border: 0.0625rem dashed $gray-30;
   color: $gray-30;
