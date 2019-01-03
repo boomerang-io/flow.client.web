@@ -5167,6 +5167,15 @@
           "label": "Test Property",
           "required": true,
           "type": "text"
+        },
+        {
+          "defaultValue": "tyson",
+          "validValues": ["tyson", "marcus"],
+          "description": "asd",
+          "key": "dropdowntest",
+          "label": "Tyson's Drop Down Test",
+          "required": false,
+          "type": "select"
         }
       ],
       "triggers": {
