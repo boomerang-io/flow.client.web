@@ -17,11 +17,18 @@ class WorkflowCard extends Component {
     history: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
     updateWorkflows: PropTypes.func.isRequired,
-    executeWorkflows: PropTypes.func.isRequired
+    executeWorkflows: PropTypes.func.isRequired,
+    setActiveTeam: PropTypes.func.isRequired
   };
 
   executeWorkflow = ({ redirect, properties }) => {
     this.props.executeWorkflow({ workflowId: this.props.workflow.id, redirect, properties });
+  };
+
+  handleEdit = () => {
+    const { workflow, history, teamId, setActiveTeam } = this.props;
+    setActiveTeam(teamId);
+    history.push(`/editor/${workflow.id}/designer`);
   };
 
   render() {
@@ -29,7 +36,7 @@ class WorkflowCard extends Component {
     const menuOptions = [
       {
         itemText: "Edit",
-        onClick: () => history.push(`/editor/${workflow.id}/designer`),
+        onClick: () => this.handleEdit(),
         primaryFocus: false
       },
       {

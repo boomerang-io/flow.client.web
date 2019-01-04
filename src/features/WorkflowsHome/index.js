@@ -27,6 +27,7 @@ export class WorkflowsHome extends Component {
 
   componentDidMount() {
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+    this.props.teamsActions.setActiveTeam({ teamId: undefined });
   }
 
   handleSearchFilter = (searchQuery, teams) => {
@@ -51,6 +52,9 @@ export class WorkflowsHome extends Component {
   setActiveTeamAndRedirect = selectedTeamId => {
     this.props.teamsActions.setActiveTeam({ teamId: selectedTeamId });
     this.props.history.push(`/creator/overview`);
+  };
+  setActiveTeam = selectedTeamId => {
+    this.props.teamsActions.setActiveTeam({ teamId: selectedTeamId });
   };
 
   handleExecute = ({ workflowId, redirect = false, properties = {} }) => {
@@ -127,6 +131,7 @@ export class WorkflowsHome extends Component {
                   searchQuery={searchQuery}
                   updateWorkflows={this.updateWorkflows}
                   setActiveTeamAndRedirect={this.setActiveTeamAndRedirect}
+                  setActiveTeam={this.setActiveTeam}
                   key={team.id}
                   executeWorkflow={this.handleExecute}
                   deleteWorkflow={this.handleOnDelete}

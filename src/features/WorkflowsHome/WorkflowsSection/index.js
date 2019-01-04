@@ -12,6 +12,7 @@ class WorkflowSection extends Component {
     history: PropTypes.object.isRequired,
     searchQuery: PropTypes.string.isRequired,
     setActiveTeamAndRedirect: PropTypes.func.isRequired,
+    setActiveTeam: PropTypes.func.isRequired,
     updateWorkflows: PropTypes.func.isRequired
   };
 
@@ -38,6 +39,7 @@ class WorkflowSection extends Component {
               key={workflow.id}
               executeWorkflow={this.props.executeWorkflow}
               deleteWorkflow={this.props.deleteWorkflow}
+              setActiveTeam={this.props.setActiveTeam}
             />
           ))}
           <Button className="b-workflow-placeholder" onClick={() => setActiveTeamAndRedirect(team.id)}>
