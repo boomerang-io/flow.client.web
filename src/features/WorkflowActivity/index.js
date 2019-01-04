@@ -182,6 +182,7 @@ export class WorkflowActivity extends Component {
                 debounceTimeout={300}
                 multiselect={false}
                 selectedOption={match.params.workflowId}
+                searchbar={false}
               />
               <MultiSelect
                 useTitleInItem={false}

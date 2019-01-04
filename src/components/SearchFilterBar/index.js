@@ -16,7 +16,8 @@ class SearchFilterBar extends Component {
   static defaultProps = {
     multiselect: true,
     debounceTimeout: 0,
-    selectedOption: "none"
+    selectedOption: "none",
+    searchbar: true
   };
 
   state = {
@@ -56,18 +57,20 @@ class SearchFilterBar extends Component {
   };
 
   render() {
-    const { options, debounceTimeout, multiselect, selectedOption } = this.props;
+    const { options, debounceTimeout, multiselect, selectedOption, searchbar } = this.props;
 
     return (
       <div className="b-search-filter">
         <div className="b-search-filter__search">
-          <SearchBar
-            theme="bmrg-white"
-            onChange={this.handleOnSearchInputChange}
-            onClear={this.handleOnSearchClear}
-            value={this.state.searchQuery}
-            debounceTimeout={debounceTimeout}
-          />
+          {searchbar ? (
+            <SearchBar
+              theme="bmrg-white"
+              onChange={this.handleOnSearchInputChange}
+              onClear={this.handleOnSearchClear}
+              value={this.state.searchQuery}
+              debounceTimeout={debounceTimeout}
+            />
+          ) : null}
         </div>
         <div className="b-search-filter__filter">
           {multiselect ? (

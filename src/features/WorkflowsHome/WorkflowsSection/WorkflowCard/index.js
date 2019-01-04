@@ -48,8 +48,8 @@ class WorkflowCard extends Component {
       <div className="c-workflow-card">
         <div className="c-workflow-card__header">
           <div className="c-workflow-card__status">
-            <div className={`b-workflow-card__circle --${workflow.status}`} />
-            <label className="b-workflow-card__status">{workflow.status}</label>
+            {/* <div className={`b-workflow-card__circle --${workflow.status}`} />
+            <label className="b-workflow-card__status">{workflow.status}</label> */}
           </div>
           <OverflowMenu className="b-workflow-card__menu" ariaLabel="" iconDescription="">
             {menuOptions.map(option => {
