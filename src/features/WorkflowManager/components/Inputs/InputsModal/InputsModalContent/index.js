@@ -119,6 +119,7 @@ class InputsModalContent extends Component {
               onChange={this.handleDefaultValueChange}
               defaultChecked={defaultValue === "true"}
               theme="bmrg-white"
+              red
             />
           </div>
         );
@@ -242,6 +243,7 @@ class InputsModalContent extends Component {
                 onChange={this.handleRequiredChange}
                 defaultChecked={required}
                 theme="bmrg-white"
+                red
               />
             </div>
           </div>

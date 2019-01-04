@@ -192,6 +192,7 @@ export class Overview extends Component {
                   onChange={event => this.handleOnWebhookChange(event.target.checked, {}, "enable")}
                   defaultChecked={workflow.data.triggers.webhook.enable}
                   theme="bmrg-white"
+                  red
                 />
 
                 {workflow.data.triggers &&
@@ -291,6 +292,7 @@ export class Overview extends Component {
                   onChange={event => this.handleOnSchedulerChange(event.target.checked, {}, "enable")}
                   defaultChecked={workflow.data.triggers.scheduler.enable}
                   theme="bmrg-black"
+                  red
                 />
                 {workflow.data.triggers && workflow.data.triggers.scheduler.enable && (
                   <ModalWrapper
@@ -348,6 +350,7 @@ export class Overview extends Component {
                 onChange={event => this.handleOnChange(event.target.checked, {}, "enablePersistentStorage")}
                 defaultChecked={workflow.data.enablePersistentStorage}
                 theme="bmrg-white"
+                red
               />
               <img
                 className="b-options__infoIcon"

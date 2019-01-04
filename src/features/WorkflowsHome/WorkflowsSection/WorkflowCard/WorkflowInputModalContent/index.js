@@ -97,6 +97,7 @@ class WorkflowInputModalContent extends Component {
               onChange={e => this.handleBooleanChange(e, key)}
               defaultChecked={defaultValue === "true" || false}
               theme="bmrg-white"
+              red
             />
           </div>
         );

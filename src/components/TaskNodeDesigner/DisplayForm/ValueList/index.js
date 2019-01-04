@@ -19,7 +19,7 @@ const TEXT_AREA_TYPES = {
 const Toggle = ({ defaultChecked, description, label, name, onChange }) => {
   return (
     <div className="b-settings-toggle">
-      <BmrgToggle onChange={onChange} name={name} defaultChecked={defaultChecked} />
+      <BmrgToggle red onChange={onChange} name={name} defaultChecked={defaultChecked} />
       <div className="b-setting-toggle__info">
         <label className="b-settings-toggle__label">{label}</label>
         <label className="b-settings-toggle__description">{description}</label>
