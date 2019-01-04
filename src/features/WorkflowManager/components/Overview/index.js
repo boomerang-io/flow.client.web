@@ -179,31 +179,31 @@ export class Overview extends Component {
         <div className="c-overview-card">
           <h1 className="s-trigger-title">Triggers</h1>
           <div className="c-webhook">
-            {workflow.data.id && (
-              <div className="b-webhook">
-                <label className="b-webhook__title">Enable Webhook</label>
+            <div className="b-webhook">
+              <label className="b-webhook__title">Enable Webhook</label>
 
-                <Toggle
-                  className="b-webhook__toggle"
-                  value={workflow.data.triggers.webhook.enable}
-                  id="toggle-webhook"
-                  name="webhook"
-                  title="webhook"
-                  onChange={event => this.handleOnWebhookChange(event.target.checked, {}, "enable")}
-                  defaultChecked={workflow.data.triggers.webhook.enable}
-                  theme="bmrg-white"
-                  red
-                />
+              <Toggle
+                className="b-webhook__toggle"
+                value={workflow.data.triggers.webhook.enable}
+                id="toggle-webhook"
+                name="webhook"
+                title="webhook"
+                onChange={event => this.handleOnWebhookChange(event.target.checked, {}, "enable")}
+                defaultChecked={workflow.data.triggers.webhook.enable}
+                theme="bmrg-white"
+                red
+              />
 
-                {workflow.data.triggers &&
-                  workflow.data.triggers.webhook.enable &&
-                  !workflow.data.triggers.webhook.token && (
-                    <Button theme="bmrg-black" onClick={this.generateToken} style={{ marginLeft: "2.2rem" }}>
-                      Generate Token
-                    </Button>
-                  )}
-              </div>
-            )}
+              {workflow.data.id &&
+                workflow.data.triggers &&
+                workflow.data.triggers.webhook.enable &&
+                !workflow.data.triggers.webhook.token && (
+                  <Button theme="bmrg-black" onClick={this.generateToken} style={{ marginLeft: "2.2rem" }}>
+                    Generate Token
+                  </Button>
+                )}
+            </div>
+
             {workflow.data.triggers && workflow.data.triggers.webhook.token && workflow.data.triggers.webhook.enable && (
               <form className="b-webhook-token">
                 <TextInput
