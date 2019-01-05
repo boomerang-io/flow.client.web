@@ -186,7 +186,7 @@ export class WorkflowActivity extends Component {
               />
               <MultiSelect
                 useTitleInItem={false}
-                label="Execution"
+                label="Trigger"
                 invalid={false}
                 onChange={this.handleExecutionFilter}
                 items={executionOptions.map(item => ({ label: item.label, value: item.value }))}
