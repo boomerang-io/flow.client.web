@@ -108,13 +108,14 @@ body {
   .bmrg--b-button.--disabled {
     opacity: 0.6;
   }
+}
 
-  .bmrg--c-modal-flow {
-    border-radius: 0.25rem;
-  }
+//Portals are not children of #app
+.bmrg--c-modal-flow {
+  border-radius: 0.25rem !important;
+}
 
-  .bmrg--c-confirm-modal.--bmrg-white {
-    border-radius: 0.25rem;
-    border: none;
-  }
+.bmrg--c-confirm-modal.--bmrg-white {
+  border-radius: 0.25rem !important;
+  border: none !important;
 }
