@@ -108,17 +108,23 @@ export class Overview extends Component {
 
   determineIsValidForm() {
     const errorKeys = Object.keys(this.state.errors);
-    if (!errorKeys.length) {
-      this.props.setIsValidOveriew(true);
+
+    //harcoding the check for the team name being present
+    if (!this.props.workflow.data.name) {
+      return this.props.setIsValidOveriew(false);
     }
+    //if there are no keys on the error object than no need to check anything
+    if (!errorKeys.length) {
+      return this.props.setIsValidOveriew(true);
+    }
+    //look for at least error key that is set to an object with keys aka has errors
     let isValidOveriew = true;
     errorKeys.forEach(errorKey => {
       if (Object.keys(this.state.errors[errorKey]).length) {
         isValidOveriew = false;
       }
     });
-
-    this.props.setIsValidOveriew(isValidOveriew);
+    return this.props.setIsValidOveriew(isValidOveriew);
   }
 
   render() {
@@ -152,6 +158,10 @@ export class Overview extends Component {
             noValueText="Enter a name"
             maxChar={64}
             maxCharText={"Name must not be greater than 64 characters"}
+            // comparisonData={this.props.teams
+            //   .find(team => team.id === this.state.selectedTeam.value)
+            //   .workflows.map(workflow => workflow.name)}
+            // existValueText="Enter a unique name"
           />
           <TextInput
             alwaysShowTitle
@@ -164,7 +174,6 @@ export class Overview extends Component {
             onChange={this.handleOnChange}
             maxChar={128}
             maxCharText={"Summary must not be greater than 128 characters"}
-            required={false}
           />
           <TextArea
             alwaysShowTitle
@@ -177,7 +186,6 @@ export class Overview extends Component {
             handleChange={this.handleOnChange}
             maxChar={256}
             maxCharText={"Description must not be greater than 256 characters"}
-            required={false}
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
           <div className="b-workflow-icons">

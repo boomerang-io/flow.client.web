@@ -37,6 +37,7 @@ export class WorkflowManagerContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    // Check here for when you switch workflows and component doesn't unmount
     if (prevProps.workflow.data.id !== this.props.workflow.data.id) {
       this.setState({
         isValidOverview: !!this.props.workflow.data.name

@@ -133,6 +133,7 @@ class ActionBar extends Component {
         />
       );
     }
+    console.log("action", isValidOverview);
     if (isValidOverview) {
       return (
         <Button theme="bmrg-black" onClick={performAction}>
@@ -140,8 +141,10 @@ class ActionBar extends Component {
         </Button>
       );
     }
+
+    // If not valid overview, return as disabled button
     return (
-      <Button disabled theme="bmrg-black" onClick={performAction}>
+      <Button disabled theme="bmrg-black">
         {performActionButtonText}
       </Button>
     );
