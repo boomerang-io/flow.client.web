@@ -16,10 +16,20 @@ class WorkflowInputModalContent extends Component {
     executeWorkflow: PropTypes.func.isRequired
   };
 
-  state = {
-    error: false,
-    inputs: {}
-  };
+  constructor(props) {
+    super(props);
+
+    const inputs = {};
+    props.inputs.forEach(input => {
+      inputs[input.key] = input.defaultValue;
+    });
+
+    this.state = {
+      inputs,
+      error: false,
+      errors: {}
+    };
+  }
 
   componentDidMount() {
     this.validate();
@@ -31,7 +41,10 @@ class WorkflowInputModalContent extends Component {
   };
 
   handleTextChange = (value, errors, key) => {
-    this.setState(prevState => ({ inputs: { ...prevState.inputs, [key]: value } }), () => this.validate());
+    this.setState(
+      prevState => ({ inputs: { ...prevState.inputs, [key]: value }, errors: { ...prevState.errors, [key]: errors } }),
+      () => this.validate()
+    );
   };
 
   handleSelectChange = (option, key) => {
@@ -39,23 +52,36 @@ class WorkflowInputModalContent extends Component {
   };
 
   validate() {
-    const errorInput = this.props.inputs.some(
-      input =>
-        input.required &&
-        (this.state.inputs[input.key] === undefined ||
-          this.state.inputs[input.key] === null ||
-          (this.state.inputs[input.key] === "string" && this.state.inputs[input.key].length === 0))
-    );
-    this.setState({ error: errorInput });
-  }
+    //Check for missing required fields
+    if (this.props.inputs.some(input => input.required && !this.state.inputs[input.key])) {
+      this.setState({ error: true });
+      return;
+    }
 
-  formatInputs = () => {
-    let inputObject = {};
-    Object.keys(this.state.inputs).forEach(key => {
-      inputObject[key] = this.state.inputs[key];
+    //If there are no errors say so
+    const errorKeys = Object.keys(this.state.errors);
+    if (!errorKeys.length) {
+      this.setState({ error: false });
+      return;
+    }
+
+    //Look through all of the keys and see if there are errors present
+    //Keys will still be present with a value of an empty object for inputs that have been changed
+    let hasError = false;
+    errorKeys.forEach(errorKey => {
+      if (Object.keys(this.state.errors[errorKey]).length) {
+        hasError = true;
+      }
     });
-    return inputObject;
-  };
+
+    if (hasError) {
+      this.setState({ error: true });
+      return;
+    }
+
+    // return no errors if we get here
+    this.setState({ error: false });
+  }
 
   renderInput = input => {
     const { key, type, defaultValue, label, required, validValues } = input;
@@ -71,6 +97,7 @@ class WorkflowInputModalContent extends Component {
               onChange={e => this.handleBooleanChange(e, key)}
               defaultChecked={defaultValue === "true" || false}
               theme="bmrg-white"
+              red
             />
           </div>
         );
@@ -78,7 +105,7 @@ class WorkflowInputModalContent extends Component {
         return (
           Array.isArray(validValues) && (
             <div className="b-workflow-inputs-modal-select">
-              {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
+              {required && <div className="b-workflow-inputs-modal-select__required">*</div>}
               <SelectDropdown
                 onChange={option => this.handleSelectChange(option, key)}
                 options={validValues.map(value => ({
@@ -109,6 +136,8 @@ class WorkflowInputModalContent extends Component {
               onChange={this.handleTextChange}
               value={defaultValue || ""}
               theme="bmrg-white"
+              noValueText={`Enter a ${label}`}
+              required={required}
             />
           </div>
         );
@@ -125,6 +154,8 @@ class WorkflowInputModalContent extends Component {
               onChange={this.handleTextChange}
               value={defaultValue || ""}
               theme="bmrg-white"
+              noValueText={`Enter a ${label}`}
+              required={required}
             />
           </div>
         );
@@ -136,37 +167,41 @@ class WorkflowInputModalContent extends Component {
     const { error } = this.state;
 
     return (
-      <>
+      <form>
         <Body className="b-workflow-inputs-modal-body">{this.props.inputs.map(this.renderInput)}</Body>
         <Footer className="b-workflow-inputs-modal-footer">
           <ConfirmButton
+            type="submit"
             style={{ width: "40%" }}
-            text={"EXECUTE"}
+            text={"Run"}
             disabled={error}
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               executeWorkflow({
                 redirect: false,
-                properties: this.formatInputs()
+                properties: this.state.inputs
               });
               closeModal();
             }}
             theme="bmrg-white"
           />
           <ConfirmButton
+            type="submit"
             style={{ width: "40%" }}
-            text={"EXECUTE AND VIEW"}
+            text={"Run and View"}
             disabled={error}
-            onClick={() => {
+            onClick={e => {
+              e.preventDefault();
               executeWorkflow({
                 redirect: true,
-                properties: this.formatInputs()
+                properties: this.state.inputs
               });
               closeModal();
             }}
             theme="bmrg-white"
           />
         </Footer>
-      </>
+      </form>
     );
   }
 }

@@ -9,6 +9,7 @@ import { actions as activityActions } from "State/activity";
 import { actions as teamsActions } from "State/teams";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
+import orderBy from "lodash/orderBy";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
 import SearchFilterBar from "Components/SearchFilterBar";
@@ -112,7 +113,7 @@ export class WorkflowActivity extends Component {
           "DESC"
         );
       });
-      return newActivities;
+      return orderBy(newActivities, ["creationDate"], ["desc"]);
     }
     return activities;
   };
@@ -181,13 +182,14 @@ export class WorkflowActivity extends Component {
                 debounceTimeout={300}
                 multiselect={false}
                 selectedOption={match.params.workflowId}
+                searchbar={false}
               />
               <MultiSelect
                 useTitleInItem={false}
-                label="Execution"
+                label="Trigger"
                 invalid={false}
                 onChange={this.handleExecutionFilter}
-                items={executionOptions}
+                items={executionOptions.map(item => ({ label: item.label, value: item.value }))}
                 itemToString={item => (item ? item.value : "")}
               />
             </div>
@@ -203,6 +205,7 @@ export class WorkflowActivity extends Component {
                 searchQuery={searchQuery}
                 workflowId={workflowId}
                 history={history}
+                match={match}
                 loadMoreActivities={this.loadMoreActivities}
                 nextPage={nextPage}
                 isLoading={isLoading}

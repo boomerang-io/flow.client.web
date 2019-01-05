@@ -11,7 +11,8 @@ import "./styles.scss";
 class ActivityCard extends Component {
   static propTypes = {
     activity: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired
   };
 
   render() {
@@ -29,7 +30,13 @@ class ActivityCard extends Component {
       initiatedByUserName
     } = this.props.activity;
     return (
-      <Link className={`c-activities-card --${status}`} to={`/activity/${workflowId}/execution/${id}`}>
+      <Link
+        className={`c-activities-card --${status}`}
+        to={{
+          pathname: `/activity/${workflowId}/execution/${id}`,
+          state: { fromUrl: this.props.match.url, fromText: "Activity" }
+        }}
+      >
         <div className="c-activity-card__workflow">
           <div className="c-activity-card__icon">
             <img className="b-activity-card__icon" src={imgs[icon ? icon : "docs"]} alt="icon" />

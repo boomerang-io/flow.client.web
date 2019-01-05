@@ -27,6 +27,7 @@ export class WorkflowsHome extends Component {
 
   componentDidMount() {
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+    this.props.teamsActions.setActiveTeam({ teamId: undefined });
   }
 
   handleSearchFilter = (searchQuery, teams) => {
@@ -52,14 +53,21 @@ export class WorkflowsHome extends Component {
     this.props.teamsActions.setActiveTeam({ teamId: selectedTeamId });
     this.props.history.push(`/creator/overview`);
   };
+  setActiveTeam = selectedTeamId => {
+    this.props.teamsActions.setActiveTeam({ teamId: selectedTeamId });
+  };
 
-  handleExecute = ({ workflowId, redirect, properties }) => {
+  handleExecute = ({ workflowId, redirect = false, properties = {} }) => {
     return axios
       .post(`${BASE_SERVICE_URL}/execute/${workflowId}`, { properties })
       .then(response => {
         notify(<Notification type="success" title="Run Workflow" message="Succssfully ran workflow" />);
-        console.log(response);
-        if (redirect) this.props.history.push(`/activity/${workflowId}/execution/${response.data.id}`);
+        if (redirect) {
+          this.props.history.push({
+            pathname: `/activity/${workflowId}/execution/${response.data.id}`,
+            state: { fromUrl: "/workflows", fromText: "Workflows" }
+          });
+        }
       })
       .catch(error => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to run workflow" />);
@@ -123,6 +131,7 @@ export class WorkflowsHome extends Component {
                   searchQuery={searchQuery}
                   updateWorkflows={this.updateWorkflows}
                   setActiveTeamAndRedirect={this.setActiveTeamAndRedirect}
+                  setActiveTeam={this.setActiveTeam}
                   key={team.id}
                   executeWorkflow={this.handleExecute}
                   deleteWorkflow={this.handleOnDelete}

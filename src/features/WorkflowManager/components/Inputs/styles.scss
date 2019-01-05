@@ -2,29 +2,24 @@
 
 .c-workflow-inputs {
   display: flex;
-  justify-content: center;
-  padding: 2rem 0 2rem 2rem;
-}
-
-.b-workflow-inputs {
-  display: flex;
-  flex-wrap: wrap;
-  width: 95%;
+  flex-flow: row wrap;
+  padding: 2rem;
 }
 
 .b-workflow-input {
   position: relative;
   background-color: $white;
-  height: 25rem;
+  min-height: 25rem;
   width: 20rem;
   padding: 1rem;
   margin: 0 2rem 2rem 0;
-  border-left: 0.5rem solid;
+  border-left: 0.3125rem solid;
+  border-radius: 0.25rem;
 
-  &.--textInput {
+  &.--text {
     border-left-color: $green-30;
   }
-  &.--textAreaBox {
+  &.--textarea {
     border-left-color: $ultramarine-30;
   }
   &.--boolean {
@@ -105,11 +100,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 25rem;
+  min-height: 25rem;
+  height: calc(100% - 1.75rem);
   width: 20rem;
   border: 0.0625rem dashed $gray-30;
   color: $gray-30;
   cursor: pointer;
+  border-radius: 0.25rem;
 }
 
 .b-workflow-input-create__plus {

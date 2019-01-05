@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Prompt, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
+import { actions as teamsActions } from "State/teams";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
@@ -28,10 +29,25 @@ export class WorkflowManagerContainer extends Component {
     isValidOverview: false
   };
 
-  changeLogReason = "";
+  changeLogReason = "Create workflow"; //default changelog value at creation time
 
   componentDidMount() {
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
+    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+  }
+
+  componentDidUpdate(prevProps) {
+    // Check here for when you switch workflows and component doesn't unmount
+    if (prevProps.workflow.data.id !== this.props.workflow.data.id) {
+      this.setState({
+        isValidOverview: !!this.props.workflow.data.name
+      });
+    }
+
+    if (this.props.match.url !== prevProps.match.url) {
+      this.props.workflowActions.reset();
+      this.props.workflowRevisionActions.reset();
+    }
   }
 
   componentWillUnmount() {
@@ -63,7 +79,7 @@ export class WorkflowManagerContainer extends Component {
           ...dagProps,
           workflowId
         };
-
+        workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
         return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
       })
       .then(() => {
@@ -102,15 +118,34 @@ export class WorkflowManagerContainer extends Component {
   updateWorkflow = () => {
     const { workflow, workflowActions } = this.props;
     const workflowId = workflow.data.id;
+    const workflowData = { ...this.props.workflow.data };
+    delete workflowData.properties; //delete properties property so its not updated - for situation where user updates inputs, but doesn't save them
 
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, id: workflowId })
       .then(response => {
         notify(<Notification type="success" title="Update Workflow" message="Succssfully updated workflow" />);
+        workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
         return Promise.resolve(response);
       })
       .catch(error => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to update workflow" />);
+        return Promise.reject(error);
+      });
+  };
+
+  updateInputs = () => {
+    const { workflow, workflowActions } = this.props;
+
+    return workflowActions
+      .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, this.props.workflow.data.properties)
+      .then(response => {
+        notify(<Notification type="success" title="Update Inputs" message="Succssfully updated inputs" />);
+        workflowActions.setHasUnsavedInputUpdates({ hasUpdates: false });
+        return Promise.resolve(response);
+      })
+      .catch(error => {
+        notify(<Notification type="error" title="Something's wrong" message="Failed to update inputs" />);
         return Promise.reject(error);
       });
   };
@@ -168,51 +203,61 @@ export class WorkflowManagerContainer extends Component {
   };
 
   render() {
-    const { tasks } = this.props;
-    if (tasks.isFetching) {
+    const { tasks, teams } = this.props;
+    if (tasks.isFetching || teams.isFetching) {
       return <LoadingAnimation theme="bmrg-white" />;
     }
 
-    if (tasks.status === REQUEST_STATUSES.SUCCESS) {
+    if (tasks.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
+      const { hasUnsavedWorkflowUpdates, hasUnsavedInputUpdates } = this.props.workflow;
+      const { hasUnsavedWorkflowRevisionUpdates } = this.props.workflowRevision;
       return (
-        <div className="c-workflow-designer">
-          <Switch>
-            <Route
-              path="/creator"
-              render={props => (
-                <Creator
-                  workflow={this.props.workflow}
-                  workflowRevision={this.props.workflowRevision}
-                  createNode={this.createNode}
-                  createWorkflow={this.createWorkflow}
-                  createWorkflowRevision={this.createWorkflowRevision}
-                  fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-                  updateWorkflow={this.updateWorkflow}
-                  handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-                  setIsValidOveriew={this.setIsValidOveriew}
-                  isValidOverview={this.state.isValidOverview}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              path="/editor/:workflowId"
-              render={props => (
-                <EditorContainer
-                  workflow={this.props.workflow}
-                  createNode={this.createNode}
-                  createWorkflowRevision={this.createWorkflowRevision}
-                  fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-                  handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-                  updateWorkflow={this.updateWorkflow}
-                  setIsValidOveriew={this.setIsValidOveriew}
-                  isValidOverview={this.state.isValidOverview}
-                  {...props}
-                />
-              )}
-            />
-          </Switch>
-        </div>
+        <>
+          <Prompt
+            when={hasUnsavedWorkflowUpdates || hasUnsavedWorkflowRevisionUpdates || hasUnsavedInputUpdates}
+            message={location =>
+              location.pathname === this.props.match.url || location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
+                ? true
+                : `Are you sure? You have unsaved changes that will be lost on:\n${
+                    hasUnsavedWorkflowUpdates ? "- Overview\n" : ""
+                  }${hasUnsavedWorkflowRevisionUpdates ? "- Design\n" : ""}${hasUnsavedInputUpdates ? "- Input\n" : ""}`
+            }
+          />
+          <div className="c-workflow-designer">
+            <Switch>
+              <Route
+                path="/creator/overview"
+                render={props => (
+                  <Creator
+                    workflow={this.props.workflow}
+                    createWorkflow={this.createWorkflow}
+                    setIsValidOveriew={this.setIsValidOveriew}
+                    isValidOverview={this.state.isValidOverview}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/editor/:workflowId"
+                render={props => (
+                  <EditorContainer
+                    workflow={this.props.workflow}
+                    createNode={this.createNode}
+                    createWorkflowRevision={this.createWorkflowRevision}
+                    fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
+                    handleChangeLogReasonChange={this.handleChangeLogReasonChange}
+                    updateInputs={this.updateInputs}
+                    updateWorkflow={this.updateWorkflow}
+                    setIsValidOveriew={this.setIsValidOveriew}
+                    isValidOverview={this.state.isValidOverview}
+                    {...props}
+                  />
+                )}
+              />
+              <Redirect from="/creator" to="/creator/overview" />
+            </Switch>
+          </div>
+        </>
       );
     }
 
@@ -222,6 +267,7 @@ export class WorkflowManagerContainer extends Component {
 
 const mapStateToProps = state => ({
   tasks: state.tasks,
+  teams: state.teams,
   workflow: state.workflow,
   workflowRevision: state.workflowRevision,
   activeTeamId: state.teams.activeTeamId
@@ -229,6 +275,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   tasksActions: bindActionCreators(tasksActions, dispatch),
+  teamsActions: bindActionCreators(teamsActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });

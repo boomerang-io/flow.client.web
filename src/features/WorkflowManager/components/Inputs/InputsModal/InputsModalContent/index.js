@@ -72,7 +72,8 @@ class InputsModalContent extends Component {
   };
 
   // dispatch Redux action to update store
-  handleConfirm = () => {
+  handleConfirm = e => {
+    e.preventDefault();
     let inputProperties = { ...this.state };
 
     delete inputProperties.keyError;
@@ -82,6 +83,11 @@ class InputsModalContent extends Component {
     //remove in case they are present if the user changed their mind
     if (inputProperties.type !== INPUT_TYPES.SELECT) {
       delete inputProperties.validValues;
+    }
+
+    //default state to false if falsy
+    if (inputProperties.type === INPUT_TYPES.BOOLEAN) {
+      if (!inputProperties.defaultValue) inputProperties.defaultValue = false;
     }
 
     if (this.props.isEdit) {
@@ -113,6 +119,7 @@ class InputsModalContent extends Component {
               onChange={this.handleDefaultValueChange}
               defaultChecked={defaultValue === "true"}
               theme="bmrg-white"
+              red
             />
           </div>
         );
@@ -188,7 +195,7 @@ class InputsModalContent extends Component {
     const { key, description, label, required, type, keyError, descriptionError, labelError } = this.state;
 
     return (
-      <>
+      <form onSubmit={this.handleConfirm}>
         <Body className="c-inputs-modal-body">
           <div className="c-inputs-modal-body-left">
             <TextInput
@@ -236,6 +243,7 @@ class InputsModalContent extends Component {
                 onChange={this.handleRequiredChange}
                 defaultChecked={required}
                 theme="bmrg-white"
+                red
               />
             </div>
           </div>
@@ -265,11 +273,11 @@ class InputsModalContent extends Component {
           <ConfirmButton
             disabled={!(key && description && label) || (!!keyError || !!descriptionError || !!labelError)}
             text={isEdit ? "EDIT" : "CREATE"}
-            onClick={this.handleConfirm}
             theme="bmrg-white"
+            type="submit"
           />
         </Footer>
-      </>
+      </form>
     );
   }
 }

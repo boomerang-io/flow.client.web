@@ -1,12 +1,10 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
 .c-workflow-summary {
-  position: absolute;
-  right: 1rem;
-  top: 10rem;
+  margin-top: 1rem;
   padding: 1rem;
   background-color: $white;
-  width: 25vw;
+  border-radius: 0.25rem;
 }
 
 .s-workflow-summary-title {
@@ -34,12 +32,14 @@
   width: 30%;
   font-size: 1rem;
   font-weight: 600;
+  line-height: 1.25rem;
 }
 
 .b-workflow-summary-field__value {
   width: 60%;
   font-size: 1rem;
   font-weight: 500;
+  line-height: 1.25rem;
   text-align: left;
   display: flex;
   align-items: center;

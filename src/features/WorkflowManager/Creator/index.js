@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Switch, Route, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import Navigation from "Features/WorkflowManager/components/Navigation";
@@ -11,14 +10,11 @@ import DiagramApplication from "Utilities/DiagramApplication";
 
 class WorkflowCreatorContainer extends Component {
   static propTypes = {
-    createNode: PropTypes.func.isRequired,
-    diagramApp: PropTypes.object.isRequired,
     createWorkflow: PropTypes.func.isRequired,
-    createWorkflowRevision: PropTypes.func.isRequired,
-    handleOnOverviewChange: PropTypes.func.isRequired,
     isValidOverview: PropTypes.bool.isRequired,
+    match: PropTypes.object.isRequired,
     setIsValidOveriew: PropTypes.func.isRequired,
-    updateWorkflow: PropTypes.func.isRequired
+    workflow: PropTypes.object.isRequired
   };
 
   diagramApp = new DiagramApplication({ dag: null, isLocked: false });
@@ -28,29 +24,18 @@ class WorkflowCreatorContainer extends Component {
   };
 
   render() {
-    const { match, workflow, isValidOverview, setIsValidOveriew } = this.props;
+    const { workflow, isValidOverview, setIsValidOveriew } = this.props;
 
     return (
       <>
-        <Navigation onlyShowOverviewLink />
-        <Switch>
-          <Route
-            path={`${match.path}/overview`}
-            render={props => (
-              <>
-                <ActionBar
-                  diagramApp={this.diagramApp}
-                  performActionButtonText="Create Workflow"
-                  performAction={this.createWorkflow}
-                  isValidOverview={isValidOverview}
-                  {...props}
-                />
-                <Overview workflow={workflow} setIsValidOveriew={setIsValidOveriew} />
-              </>
-            )}
-          />
-          <Redirect from={`${match.path}`} to={`${match.path}/overview`} />
-        </Switch>
+        <Navigation onlyShowBackLink />
+        <ActionBar
+          diagramApp={this.diagramApp}
+          performActionButtonText="Create Workflow"
+          performAction={this.createWorkflow}
+          isValidOverview={isValidOverview}
+        />
+        <Overview workflow={workflow} setIsValidOveriew={setIsValidOveriew} />
       </>
     );
   }

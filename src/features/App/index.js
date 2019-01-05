@@ -1,19 +1,22 @@
-import React, { Component } from "react";
+import React, { Suspense, Component } from "react";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as userActions } from "State/user";
 import { actions as navbarLinksActions } from "State/navbarLinks";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
 import NotificationBanner from "Components/NotificationBanner";
-import WorkflowActivity from "Features/WorkflowActivity";
-import WorkflowsHome from "Features/WorkflowsHome";
-import WorkflowManager from "Features/WorkflowManager";
-import WorkflowsViewer from "Features/WorkflowsViewer";
-import WorkflowInsights from "Features/WorkflowInsights";
-import WorkflowExecution from "Features/WorkflowExecution";
 import Navigation from "./Navigation";
+import {
+  AsyncHome,
+  AsyncActivity,
+  AsyncManager,
+  AsyncViewer,
+  AsyncInsights,
+  AsyncExecution
+} from "./config/lazyComponents";
 import { BASE_LAUNCHPAD_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
 
@@ -45,17 +48,19 @@ class App extends Component {
         <Navigation user={this.props.user} navbarLinks={this.props.navbarLinks} refresh={this.refreshPage} />
         <NotificationBanner closeBanner={this.closeBanner} />
         <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
-          <Switch>
-            <Route path="/workflows" component={WorkflowsHome} />
-            <Route path="/activity/:workflowId/execution/:executionId" component={WorkflowExecution} />
-            <Route path="/activity/:workflowId" component={WorkflowActivity} />
-            <Route path="/activity" component={WorkflowActivity} exact />
-            <Route path="/creator" component={WorkflowManager} />
-            <Route path="/editor/:workflowId" component={WorkflowManager} />
-            <Route path="/insights" component={WorkflowInsights} />
-            <Route path="/viewer" component={WorkflowsViewer} />
-            <Redirect from="/" to="/workflows" />
-          </Switch>
+          <Suspense fallback={<LoadingAnimation theme="bmrg-white" />}>
+            <Switch>
+              <Route path="/workflows" component={AsyncHome} />
+              <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
+              <Route path="/activity/:workflowId" component={AsyncActivity} />
+              <Route path="/activity" component={AsyncActivity} exact />
+              <Route path="/creator/overview" component={AsyncManager} />
+              <Route path="/editor/:workflowId" component={AsyncManager} />
+              <Route path="/insights" component={AsyncInsights} />
+              <Route path="/viewer" component={AsyncViewer} />
+              <Redirect from="/" to="/workflows" />
+            </Switch>
+          </Suspense>
         </main>
         <NotificationContainer />
       </>

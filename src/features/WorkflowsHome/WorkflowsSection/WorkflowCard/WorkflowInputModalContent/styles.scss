@@ -27,6 +27,14 @@
   position: relative;
 }
 
+.b-workflow-inputs-modal-select__required {
+  position: absolute;
+  top: 60%;
+  left: -1rem;
+  color: $red-30;
+  z-index: 99;
+}
+
 .b-workflow-inputs-modal-text-input {
   position: relative;
 }
@@ -38,8 +46,8 @@
 
 .s-workflow-inputs-modal-is-required {
   position: absolute;
-  top: 30%;
-  left: -2rem;
+  top: 40%;
+  left: -1rem;
   color: $red-30;
   z-index: 99;
 }

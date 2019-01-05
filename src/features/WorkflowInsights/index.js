@@ -129,7 +129,7 @@ export class WorkflowInsights extends Component {
               options={teamsList}
               theme="bmrg-white"
               styles={{ width: "22rem", marginTop: "1rem" }}
-              title="TEAM"
+              title="Team"
               placeholder="Select a team"
               value={this.state.selectedTeam}
               onChange={this.handleChangeTeam}
@@ -138,7 +138,7 @@ export class WorkflowInsights extends Component {
               options={workflowsList}
               theme="bmrg-white"
               styles={{ width: "22rem", marginTop: "1rem" }}
-              title="WORKFLOWS"
+              title="Workflows"
               placeholder="Select a workflow"
               value={this.state.selectedWorkflow}
               onChange={this.handleChangeWorkflow}
@@ -148,7 +148,7 @@ export class WorkflowInsights extends Component {
               theme="bmrg-white"
               styles={{ width: "22rem", marginTop: "1rem" }}
               value={this.state.selectedTimeframe}
-              title="TIMEFRAME"
+              title="Timeframe"
               onChange={this.handleChangeTimeframe}
             />
           </div>

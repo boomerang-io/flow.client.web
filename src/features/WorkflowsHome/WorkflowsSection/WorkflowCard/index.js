@@ -17,11 +17,18 @@ class WorkflowCard extends Component {
     history: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
     updateWorkflows: PropTypes.func.isRequired,
-    executeWorkflows: PropTypes.func.isRequired
+    executeWorkflows: PropTypes.func.isRequired,
+    setActiveTeam: PropTypes.func.isRequired
   };
 
   executeWorkflow = ({ redirect, properties }) => {
     this.props.executeWorkflow({ workflowId: this.props.workflow.id, redirect, properties });
+  };
+
+  handleEdit = () => {
+    const { workflow, history, teamId, setActiveTeam } = this.props;
+    setActiveTeam(teamId);
+    history.push(`/editor/${workflow.id}/designer`);
   };
 
   render() {
@@ -29,7 +36,7 @@ class WorkflowCard extends Component {
     const menuOptions = [
       {
         itemText: "Edit",
-        onClick: () => history.push(`/editor/${workflow.id}/designer`),
+        onClick: () => this.handleEdit(),
         primaryFocus: false
       },
       {
@@ -48,8 +55,8 @@ class WorkflowCard extends Component {
       <div className="c-workflow-card">
         <div className="c-workflow-card__header">
           <div className="c-workflow-card__status">
-            <div className={`b-workflow-card__circle --${workflow.status}`} />
-            <label className="b-workflow-card__status">{workflow.status}</label>
+            {/* <div className={`b-workflow-card__circle --${workflow.status}`} />
+            <label className="b-workflow-card__status">{workflow.status}</label> */}
           </div>
           <OverflowMenu className="b-workflow-card__menu" ariaLabel="" iconDescription="">
             {menuOptions.map(option => {
@@ -104,7 +111,7 @@ class WorkflowCard extends Component {
               {workflow.properties && workflow.properties.length > 0 ? (
                 <Modal
                   ModalTrigger={() => (
-                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Run workflow" />
                   )}
                   modalContent={(closeModal, rest) => (
                     <ModalFlow
@@ -124,21 +131,22 @@ class WorkflowCard extends Component {
                 <AlertModal
                   className="bmrg--c-alert-modal --execute-workflow"
                   ModalTrigger={() => (
-                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Run workflow" />
                   )}
                   modalContent={closeModal => (
                     <ConfirmModal
                       style={{ width: "32rem", height: "28rem" }}
-                      title="Execute workflow?"
+                      title="Run workflow?"
                       subTitleTop="It will run"
                       closeModal={closeModal}
-                      affirmativeAction={() => this.executeWorkflow(false)}
+                      affirmativeAction={() => this.executeWorkflow({ redirect: false })}
                       affirmativeText="Run"
+                      negativeText="No"
                       theme="bmrg-white"
                     >
                       <button
                         className="bmrg--b-confirm-modal__button --affirmative --children"
-                        onClick={() => this.executeWorkflow(true)}
+                        onClick={() => this.executeWorkflow({ redirect: true })}
                       >
                         Run and View
                       </button>

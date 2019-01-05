@@ -12,6 +12,7 @@ class ActivityList extends Component {
   static propTypes = {
     activities: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
     nextPage: PropTypes.number,
     searchQuery: PropTypes.string,
     workflowId: PropTypes.string
@@ -34,7 +35,14 @@ class ActivityList extends Component {
           useWindow={true}
         >
           {this.props.activities.map(activity => {
-            return <ActivityCard activity={activity} history={this.props.history} key={activity.id} />;
+            return (
+              <ActivityCard
+                activity={activity}
+                history={this.props.history}
+                key={activity.id}
+                match={this.props.match}
+              />
+            );
           })}
         </InfiniteScroll>
         <ScrollUp />

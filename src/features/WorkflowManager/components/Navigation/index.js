@@ -6,25 +6,21 @@ import "./styles.scss";
 
 Navigation.propTypes = {
   match: PropTypes.object.isRequired,
-  onlyShowOverviewLink: PropTypes.bool
+  onlyShowBackLink: PropTypes.bool
 };
 
-Navigation.defaultProps = {
-  onlyShowOverviewLink: false
-};
-
-function Navigation({ match, onlyShowOverviewLink }) {
+function Navigation({ match, onlyShowBackLink }) {
   return (
     <>
       <div className="c-navigation-bar">
         <NavigateBack to="/workflows" text={"Back to Workflows"} />
       </div>
       <div className="b-navigation-links">
-        <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/overview`}>
-          Overview
-        </NavLink>
-        {!onlyShowOverviewLink && (
+        {!onlyShowBackLink && (
           <>
+            <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/overview`}>
+              Overview
+            </NavLink>
             <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/inputs`}>
               Inputs
             </NavLink>

@@ -29,17 +29,18 @@
   position: absolute;
   font-size: 0.8rem;
   top: -1rem;
-  right: -1.5rem;
+  right: 50%;
 }
 
 .c-time-progress-bar-filler__info {
   position: absolute;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   font-size: 0.8rem;
   bottom: -1.2rem;
   top: 2rem;
-  right: 0;
+  right: 50%;
   height: 5rem;
   background-color: $white;
   border: solid 0.0625rem $gray-10;
@@ -62,7 +63,9 @@
 .c-time-progress-bar-filler__infos {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
+  height: 6rem;
 }
 .b-time-progress-bar-filler__label {
   font-weight: 600;
@@ -71,4 +74,6 @@
 }
 .b-time-progress-bar-filler__info {
   padding: 0.25rem;
+  min-height: 1.2rem;
+  min-width: 2rem;
 }

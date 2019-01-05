@@ -16,15 +16,15 @@ import "./styles.scss";
 
 class ActionBar extends Component {
   static propTypes = {
-    currentRevision: PropTypes.number.isRequired,
-    handleChangeLogReasonChange: PropTypes.func.isRequired,
-    fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
+    currentRevision: PropTypes.number,
+    handleChangeLogReasonChange: PropTypes.func,
+    fetchWorkflowRevisionNumber: PropTypes.func,
     includePerformActionAlert: PropTypes.bool,
     includeZoom: PropTypes.bool,
     isValidOverview: PropTypes.bool.isRequired,
     performAction: PropTypes.func.isRequired,
     performActionButtonText: PropTypes.string.isRequired,
-    revisionCount: PropTypes.number.isRequired
+    revisionCount: PropTypes.number
   };
 
   static defaultProps = {
@@ -133,6 +133,7 @@ class ActionBar extends Component {
         />
       );
     }
+    console.log("action", isValidOverview);
     if (isValidOverview) {
       return (
         <Button theme="bmrg-black" onClick={performAction}>
@@ -140,7 +141,13 @@ class ActionBar extends Component {
         </Button>
       );
     }
-    return null;
+
+    // If not valid overview, return as disabled button
+    return (
+      <Button disabled theme="bmrg-black">
+        {performActionButtonText}
+      </Button>
+    );
   }
 
   render() {
