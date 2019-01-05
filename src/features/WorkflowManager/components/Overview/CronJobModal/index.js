@@ -12,11 +12,15 @@ import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
 import infoIcon from "../assets/info.svg";
 import "./styles.scss";
 
+//Timezones that don't have a match in Java and can't be saved via the service
 const exludedTimezones = ["GMT+0", "GMT-0", "ROC"];
 
 export default class CronJobModal extends Component {
   static propTypes = {
-    cronExpression: PropTypes.string
+    closeModal: PropTypes.func.isRequired,
+    cronExpression: PropTypes.string,
+    handleOnChange: PropTypes.func.isRequired,
+    shouldConfirmExit: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -91,7 +95,7 @@ export default class CronJobModal extends Component {
                 style={{ paddingBottom: "1rem" }}
               />
               {
-                // check for cronExpression being present for both bc validation function doesn't always run and state is stale
+                // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
               }
               {cronExpression && errorMessage && <div className="b-cron-fieldset__message --error">{errorMessage}</div>}
               {cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}

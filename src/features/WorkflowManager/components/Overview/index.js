@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as teamsActions } from "State/teams";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
-import classnames from "classnames";
 import CopyToClipboard from "react-copy-to-clipboard";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import Button from "@boomerang/boomerang-components/lib/Button";
@@ -57,7 +57,10 @@ export class Overview extends Component {
     return axios
       .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/webhook-token`)
       .then(response => {
-        workflowActions.updateTriggersWebhook({ key: "token", value: response.data.token });
+        workflowActions.updateTriggersWebhook({
+          key: "token",
+          value: response.data.token
+        });
         notify(<Notification type="success" title="Create Workflow" message="Succssfully Generated Webhook Token" />);
       })
       .catch(err => {
@@ -73,18 +76,26 @@ export class Overview extends Component {
   handleTeamChange = selectedTeam => {
     this.setState({ selectedTeam }, () => {
       this.props.teamsActions.setActiveTeam({ teamId: selectedTeam.value });
-      this.props.workflowActions.updateProperty({ key: "flowTeamId", value: selectedTeam.value });
+      this.props.workflowActions.updateProperty({
+        key: "flowTeamId",
+        value: selectedTeam.value
+      });
     });
   };
 
   handleOnWebhookChange = (value, errors, name) => {
     this.props.workflowActions.updateTriggersWebhook({ value, key: "enable" });
-    this.setState({ errors: { ...this.state.errors, [name]: errors } }, () => this.determineIsValidForm());
+    this.setState({ errors: { ...this.state.errors, [`webook-${name}`]: errors } }, () => this.determineIsValidForm());
   };
 
   handleOnSchedulerChange = (value, errors, name) => {
-    this.props.workflowActions.updateTriggersScheduler({ value, key: "enable" });
-    this.setState({ errors: { ...this.state.errors, [name]: errors } }, () => this.determineIsValidForm());
+    this.props.workflowActions.updateTriggersScheduler({
+      value,
+      key: name
+    });
+    this.setState({ errors: { ...this.state.errors, [`scheduler-${name}`]: errors } }, () =>
+      this.determineIsValidForm()
+    );
   };
 
   handleShowToken = () => {
@@ -195,11 +206,20 @@ export class Overview extends Component {
                 className="b-webhook__toggle"
                 name="webhook"
                 checked={workflow.data.triggers.webhook.enable}
-                onChange={event => this.handleOnWebhookChange(event.target.checked, {}, "webhook")}
+                onChange={event => this.handleOnWebhookChange(event.target.checked, {}, "enable")}
                 theme="bmrg-white"
                 red
               />
-
+              <img
+                className="b-options__infoIcon"
+                src={infoIcon}
+                data-tip
+                data-for="triggers-webhook-info"
+                alt="Toggle webhook"
+              />
+              <ToolTip className="b-options__icon-tooltip" id="triggers-webhook-info" theme="bmrg-white" place="top">
+                Enable workflow to be executed via webhook
+              </ToolTip>
               {workflow.data.id &&
                 workflow.data.triggers &&
                 workflow.data.triggers.webhook.enable &&
@@ -224,16 +244,11 @@ export class Overview extends Component {
                   className="b-webhook-token__icon"
                   src={eyeIcon}
                   data-tip
-                  data-for={"webhook-token-eyeIcon"}
-                  alt="Show/Hide Token"
+                  data-for="webhook-token-eyeIcon"
+                  alt="Show/Hide token"
                   onClick={this.handleShowToken}
                 />
-                <ToolTip
-                  className="b-webhook-token__icon-tooltip"
-                  id="webhook-token-eyeIcon"
-                  theme="bmrg-white"
-                  place="top"
-                >
+                <ToolTip className="b-options__icon-tooltip" id="webhook-token-eyeIcon" theme="bmrg-white" place="top">
                   {this.state.showTokenText}
                 </ToolTip>
                 <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
@@ -242,22 +257,21 @@ export class Overview extends Component {
                     src={copyIcon}
                     data-tip
                     data-for="webhook-token-copyIcon"
-                    alt="Copy Token"
+                    alt="Copy token"
                     onClick={() => this.setState({ copyTokenText: "Copied Token" })}
                     onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
                   />
                 </CopyToClipboard>
-                <ToolTip
-                  className="b-webhook-token__icon-tooltip"
-                  id="webhook-token-copyIcon"
-                  theme="bmrg-white"
-                  place="top"
-                >
+                <ToolTip className="b-options__icon-tooltip" id="webhook-token-copyIcon" theme="bmrg-white" place="top">
                   {this.state.copyTokenText}
                 </ToolTip>
-
                 <div>
-                  <ToolTip place="top" id="webhook-token-refreshIcon" theme="bmrg-white">
+                  <ToolTip
+                    className="b-options__icon-tooltip"
+                    place="top"
+                    id="webhook-token-refreshIcon"
+                    theme="bmrg-white"
+                  >
                     Regenerate Token
                   </ToolTip>
                   <AlertModal
@@ -268,7 +282,7 @@ export class Overview extends Component {
                         className="b-webhook-token__icon"
                         data-tip
                         data-for="webhook-token-refreshIcon"
-                        alt="Regenerate Token"
+                        alt="Regenerate token"
                       />
                     )}
                     modalContent={(closeModal, rest) => (
@@ -296,16 +310,35 @@ export class Overview extends Component {
                   className="b-schedule__toggle"
                   checked={workflow.data.triggers.scheduler.enable}
                   name="schedule"
-                  onChange={event => this.handleOnSchedulerChange(event.target.checked, {}, "scheduler")}
+                  onChange={event => this.handleOnSchedulerChange(event.target.checked, {}, "enable")}
                   theme="bmrg-black"
                   red
                 />
+                <img
+                  className="b-options__infoIcon"
+                  src={infoIcon}
+                  data-tip
+                  data-for="triggers-scheduler-info"
+                  alt="Toggle scheduler"
+                />
+                <ToolTip
+                  className="b-options__icon-tooltip"
+                  id="triggers-scheduler-info"
+                  theme="bmrg-white"
+                  place="top"
+                >
+                  Enable workflow to be executed by a schedule
+                </ToolTip>
                 {workflow.data.triggers && workflow.data.triggers.scheduler.enable && (
                   <ModalWrapper
                     initialState={this.props.workflow.data}
                     shouldCloseOnOverlayClick={false}
                     theme="bmrg-white"
-                    ModalTrigger={() => <Button theme="bmrg-black">Set Schedule</Button>}
+                    ModalTrigger={() => (
+                      <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
+                        Set Schedule
+                      </Button>
+                    )}
                     modalContent={(closeModal, rest) => (
                       <ModalFlow
                         headerTitle="Setup Scheduling"
@@ -358,10 +391,10 @@ export class Overview extends Component {
                 className="b-options__infoIcon"
                 src={infoIcon}
                 data-tip
-                data-for="options-persistence"
-                alt="Show/Hide Token"
+                data-for="options-persistence-info"
+                alt="Toggle persistence"
               />
-              <ToolTip className="b-options__icon-tooltip" id="options-persistence" theme="bmrg-white" place="bottom">
+              <ToolTip className="b-options__icon-tooltip" id="options-persistence-info" theme="bmrg-white" place="top">
                 Persist workflow data between executions
               </ToolTip>
             </div>
@@ -383,6 +416,7 @@ const mapDispatchToProps = dispatch => ({
   teamsActions: bindActionCreators(teamsActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch)
 });
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
