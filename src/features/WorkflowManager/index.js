@@ -215,7 +215,7 @@ export class WorkflowManagerContainer extends Component {
           <Prompt
             when={hasUnsavedWorkflowUpdates || hasUnsavedWorkflowRevisionUpdates || hasUnsavedInputUpdates}
             message={location =>
-              location.pathname === this.props.match.url || location.pathname.contains("editor") //Return true to navigate if going to the same route we are currently on
+              location.pathname === this.props.match.url || location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
                 ? true
                 : `Are you sure? You have unsaved changes that will be lost on:\n${
                     hasUnsavedWorkflowUpdates ? "- Overview\n" : ""
