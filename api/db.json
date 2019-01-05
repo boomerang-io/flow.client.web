@@ -4759,6 +4759,70 @@
         "reason": ""
       },
       "id": "NwbNk47"
+    },
+    {
+      "dag": {
+        "id": "ed16d94c-e4d6-4d83-ad42-123c9ff5e926",
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [],
+        "nodes": [
+          {
+            "id": "400f949b-47ba-4280-84cd-95a5672610e2",
+            "type": "startend",
+            "selected": false,
+            "x": 300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "30c42a1d-ff01-4926-b44f-6cc345b4d1bb",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "400f949b-47ba-4280-84cd-95a5672610e2",
+                "links": [],
+                "position": "right",
+                "nodePortId": "30c42a1d-ff01-4926-b44f-6cc345b4d1bb"
+              }
+            ],
+            "passedName": "Start",
+            "nodeId": "400f949b-47ba-4280-84cd-95a5672610e2"
+          },
+          {
+            "id": "007ab2bf-e419-49ec-9080-70a1e42206b6",
+            "type": "startend",
+            "selected": false,
+            "x": 1000,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "4f21ea7e-b7e7-4827-b111-bebc39be4844",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "007ab2bf-e419-49ec-9080-70a1e42206b6",
+                "links": [],
+                "position": "left",
+                "nodePortId": "4f21ea7e-b7e7-4827-b111-bebc39be4844"
+              }
+            ],
+            "passedName": "Finish",
+            "nodeId": "007ab2bf-e419-49ec-9080-70a1e42206b6"
+          }
+        ]
+      },
+      "config": {
+        "nodes": []
+      },
+      "changelog": {
+        "reason": ""
+      },
+      "workflowId": "o95XKY3",
+      "id": "BBqwgz1"
     }
   ],
   "taskconfiguration": [
@@ -5420,6 +5484,22 @@
       "enablePersistentStorage": false,
       "properties": [],
       "id": "7Kw9MLP"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": "",
+          "timezone": ""
+        },
+        "webhook": {
+          "enable": true,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": false,
+      "properties": [],
+      "id": "o95XKY3"
     }
   ],
   "workflowActivity": {

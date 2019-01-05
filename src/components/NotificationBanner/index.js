@@ -25,7 +25,7 @@ class NotificationBanner extends Component {
     return (
       <div className={classnames("b-notification-banner", { "--hidden": !this.state.isOpen })}>
         <div className="b-notification-banner__text">
-          Welcome to Boomerang Flow! We are excited to have an Alpha release and hope you enjoy using it. You may notice
+          Welcome to Boomerang Flow! We are excited to have an Beta release and hope you enjoy using it. You may notice
           a bug or two. Please don't hesitate to reach out to us on Slack at{" "}
           {<Link href={`slack://user?team=${SLACK_TEAM_ID}&id=W3FECR56F`}>@twlawrie</Link>},{" "}
           {<Link href={`slack://user?team=${SLACK_TEAM_ID}&id=W3FECR45R`}>@trbula</Link>}, or{" "}
