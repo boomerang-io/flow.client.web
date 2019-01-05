@@ -13,8 +13,6 @@ class WorkflowEditorContainer extends Component {
   static propTypes = {
     createNode: PropTypes.func.isRequired,
     createWorkflowRevision: PropTypes.func.isRequired,
-    handleOnOverviewChange: PropTypes.func.isRequired,
-    overviewData: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,

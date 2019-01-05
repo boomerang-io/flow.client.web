@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Route, Switch, Prompt } from "react-router-dom";
+import { Route, Switch, Prompt, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
 import { actions as teamsActions } from "State/teams";
 import { actions as workflowActions } from "State/workflow";
@@ -29,7 +29,7 @@ export class WorkflowManagerContainer extends Component {
     isValidOverview: false
   };
 
-  changeLogReason = "";
+  changeLogReason = "Create workflow"; //default changelog value at creation time
 
   componentDidMount() {
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
@@ -41,6 +41,11 @@ export class WorkflowManagerContainer extends Component {
       this.setState({
         isValidOverview: !!this.props.workflow.data.name
       });
+    }
+
+    if (this.props.match.url !== prevProps.match.url) {
+      this.props.workflowActions.reset();
+      this.props.workflowRevisionActions.reset();
     }
   }
 
@@ -210,27 +215,21 @@ export class WorkflowManagerContainer extends Component {
           <Prompt
             when={hasUnsavedWorkflowUpdates || hasUnsavedWorkflowRevisionUpdates || hasUnsavedInputUpdates}
             message={location =>
-              location.pathname.includes("editor")
+              location.pathname === this.props.match.url || location.pathname.contains("editor") //Return true to navigate if going to the same route we are currently on
                 ? true
-                : `Are you sure? You have unsaved changes that will be lost for:\n ${
-                    hasUnsavedWorkflowUpdates ? "Overview\n" : ""
-                  } ${hasUnsavedWorkflowRevisionUpdates ? "Design\n" : ""} ${hasUnsavedInputUpdates ? "Input\n" : ""}`
+                : `Are you sure? You have unsaved changes that will be lost on:\n${
+                    hasUnsavedWorkflowUpdates ? "- Overview\n" : ""
+                  }${hasUnsavedWorkflowRevisionUpdates ? "- Design\n" : ""}${hasUnsavedInputUpdates ? "- Input\n" : ""}`
             }
           />
           <div className="c-workflow-designer">
             <Switch>
               <Route
-                path="/creator"
+                path="/creator/overview"
                 render={props => (
                   <Creator
                     workflow={this.props.workflow}
-                    workflowRevision={this.props.workflowRevision}
-                    createNode={this.createNode}
                     createWorkflow={this.createWorkflow}
-                    createWorkflowRevision={this.createWorkflowRevision}
-                    fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-                    updateWorkflow={this.updateWorkflow}
-                    handleChangeLogReasonChange={this.handleChangeLogReasonChange}
                     setIsValidOveriew={this.setIsValidOveriew}
                     isValidOverview={this.state.isValidOverview}
                     {...props}
@@ -254,6 +253,7 @@ export class WorkflowManagerContainer extends Component {
                   />
                 )}
               />
+              <Redirect from="/creator" to="/creator/overview" />
             </Switch>
           </div>
         </>

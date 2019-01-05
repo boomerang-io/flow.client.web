@@ -1,12 +1,10 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
 .c-workflow-summary {
-  position: absolute;
-  right: 1rem;
-  top: 10rem;
+  margin-top: 1rem;
   padding: 1rem;
   background-color: $white;
-  width: 25vw;
+  border-radius: 0.25rem;
 }
 
 .s-workflow-summary-title {

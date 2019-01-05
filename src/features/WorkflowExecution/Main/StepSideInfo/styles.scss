@@ -1,12 +1,10 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
 .c-step-side-info {
-  position: absolute;
-  right: 1rem;
-  top: 22rem;
+  margin-top: 1rem;
   padding: 1rem;
   background-color: $white;
-  width: 25vw;
+  border-radius: 0.25rem;
 }
 
 .s-step-side-info-title {
@@ -40,6 +38,7 @@
   width: 60%;
   font-size: 1rem;
   font-weight: 500;
+  line-height: 1.25rem;
   text-align: left;
   display: flex;
   align-items: center;

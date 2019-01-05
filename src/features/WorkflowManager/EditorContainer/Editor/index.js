@@ -15,7 +15,6 @@ class WorkflowEditor extends Component {
     createNode: PropTypes.func.isRequired,
     createWorkflowRevision: PropTypes.func.isRequired,
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
-    handleOnOverviewChange: PropTypes.func.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
     isValidOverview: PropTypes.bool.isRequired,
     setIsValidOveriew: PropTypes.func.isRequired,
@@ -66,7 +65,6 @@ class WorkflowEditor extends Component {
       createNode,
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
-      handleOnOverviewChange,
       isValidOverview,
       match,
       overviewData,
@@ -92,12 +90,7 @@ class WorkflowEditor extends Component {
                   isValidOverview={isValidOverview}
                   {...props}
                 />
-                <Overview
-                  handleOnChange={handleOnOverviewChange}
-                  workflow={workflow}
-                  overviewData={overviewData}
-                  setIsValidOveriew={setIsValidOveriew}
-                />
+                <Overview workflow={workflow} overviewData={overviewData} setIsValidOveriew={setIsValidOveriew} />
               </>
             )}
           />

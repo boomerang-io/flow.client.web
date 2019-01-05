@@ -7,17 +7,17 @@
   align-items: center;
   width: 100%;
   height: 7.5rem;
-  border: solid 0.125rem $teal-20;
-  border-radius: 0.5rem;
+  border: solid 0.05rem $teal-20;
+  border-radius: 0.25rem;
   margin: 1.5rem 1rem;
   cursor: pointer;
   &.--completed {
     border-color: $teal-20;
   }
-  &.--failed {
+  &.--failure {
     border-color: $red-20;
   }
-  &.--inprogress {
+  &.--inProgress {
     border-color: $cerulean-20;
   }
 }

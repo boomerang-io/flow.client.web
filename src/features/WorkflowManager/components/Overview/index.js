@@ -46,7 +46,10 @@ export class Overview extends Component {
   }
   static propTypes = {
     setIsValidOveriew: PropTypes.func.isRequired,
-    workflow: PropTypes.object.isRequired
+    teams: PropTypes.array.isRequired,
+    teamsActions: PropTypes.object.isRequired,
+    workflow: PropTypes.object.isRequired,
+    workflowActions: PropTypes.object.isRequired
   };
 
   generateToken = () => {
@@ -75,12 +78,12 @@ export class Overview extends Component {
   };
 
   handleOnWebhookChange = (value, errors, name) => {
-    this.props.workflowActions.updateTriggersWebhook({ value, key: name });
+    this.props.workflowActions.updateTriggersWebhook({ value, key: "enable" });
     this.setState({ errors: { ...this.state.errors, [name]: errors } }, () => this.determineIsValidForm());
   };
 
   handleOnSchedulerChange = (value, errors, name) => {
-    this.props.workflowActions.updateTriggersScheduler({ key: name, value });
+    this.props.workflowActions.updateTriggersScheduler({ value, key: "enable" });
     this.setState({ errors: { ...this.state.errors, [name]: errors } }, () => this.determineIsValidForm());
   };
 
@@ -127,6 +130,7 @@ export class Overview extends Component {
           />
           <TextInput
             alwaysShowTitle
+            externallyControlled
             required
             value={workflow.data.name || ""}
             title="Name"
@@ -140,6 +144,7 @@ export class Overview extends Component {
           />
           <TextInput
             alwaysShowTitle
+            externallyControlled
             value={workflow.data.shortDescription || ""}
             title="Summary"
             placeholder="Summary"
@@ -152,7 +157,8 @@ export class Overview extends Component {
           />
           <TextArea
             alwaysShowTitle
-            detail={workflow.data.description || ""}
+            externallyControlled
+            value={workflow.data.description || ""}
             title="Description"
             placeholder="Description"
             name="description"
@@ -164,8 +170,9 @@ export class Overview extends Component {
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
           <div className="b-workflow-icons">
-            {assets.map(image => (
+            {assets.map((image, index) => (
               <img
+                key={`${image.name}-${index}`}
                 className={classnames("b-workflow-icons__icon", {
                   "--active": workflow.data.icon === image.name
                 })}
@@ -181,16 +188,15 @@ export class Overview extends Component {
           <div className="c-webhook">
             {workflow.data.id && (
               <div className="b-webhook">
-                <label className="b-webhook__title">Enable Webhook</label>
-
+                <label id="toggle-webhook" className="b-webhook__title">
+                  Enable Webhook
+                </label>
                 <Toggle
+                  aria-labelledby="toggle-webhook"
                   className="b-webhook__toggle"
-                  value={workflow.data.triggers.webhook.enable}
-                  id="toggle-webhook"
                   name="webhook"
-                  title="webhook"
-                  onChange={event => this.handleOnWebhookChange(event.target.checked, {}, "enable")}
-                  defaultChecked={workflow.data.triggers.webhook.enable}
+                  checked={workflow.data.triggers.webhook.enable}
+                  onChange={event => this.handleOnWebhookChange(event.target.checked, {}, "webhook")}
                   theme="bmrg-white"
                   red
                 />
@@ -207,12 +213,12 @@ export class Overview extends Component {
             {workflow.data.triggers && workflow.data.triggers.webhook.token && workflow.data.triggers.webhook.enable && (
               <form className="b-webhook-token">
                 <TextInput
+                  disabled
+                  externallyControlled
                   value={workflow.data.triggers.webhook.token}
                   placeholder="Token"
                   theme="bmrg-white"
                   type={this.state.tokenTextType}
-                  disabled={true}
-                  externallyControlled={true}
                 />
                 <img
                   className="b-webhook-token__icon"
@@ -282,15 +288,15 @@ export class Overview extends Component {
             )}
             <div className="c-scheduler">
               <div className="b-schedule">
-                <label className="b-schedule__title">Enable Scheduler</label>
+                <label id="toggle-scheduler" className="b-schedule__title">
+                  Enable Scheduler
+                </label>
                 <Toggle
+                  aria-labelledby="toggle-scheduler"
                   className="b-schedule__toggle"
-                  value={workflow.data.triggers.scheduler.enable}
-                  id="toggle-schedule"
+                  checked={workflow.data.triggers.scheduler.enable}
                   name="schedule"
-                  title="schedule"
-                  onChange={event => this.handleOnSchedulerChange(event.target.checked, {}, "enable")}
-                  defaultChecked={workflow.data.triggers.scheduler.enable}
+                  onChange={event => this.handleOnSchedulerChange(event.target.checked, {}, "scheduler")}
                   theme="bmrg-black"
                   red
                 />
@@ -299,11 +305,7 @@ export class Overview extends Component {
                     initialState={this.props.workflow.data}
                     shouldCloseOnOverlayClick={false}
                     theme="bmrg-white"
-                    ModalTrigger={() => (
-                      <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
-                        Set Schedule
-                      </Button>
-                    )}
+                    ModalTrigger={() => <Button theme="bmrg-black">Set Schedule</Button>}
                     modalContent={(closeModal, rest) => (
                       <ModalFlow
                         headerTitle="Setup Scheduling"
@@ -340,15 +342,15 @@ export class Overview extends Component {
           <h1 className="s-trigger-title">Options</h1>
           <div className="b-options">
             <div className="b-persistence">
-              <label className="b-persistence__title">Enable Persistent Storage</label>
+              <label id="toggle-persistence-storage" className="b-persistence__title">
+                Enable Persistent Storage
+              </label>
               <Toggle
+                aria-labelledby="toggle-persistence-storage"
                 className="b-persistence__toggle"
-                value={workflow.data.enablePersistentStorage}
-                id="toggle-persistence"
+                checked={workflow.data.enablePersistentStorage}
                 name="persistence"
-                title="persistence"
                 onChange={event => this.handleOnChange(event.target.checked, {}, "enablePersistentStorage")}
-                defaultChecked={workflow.data.enablePersistentStorage}
                 theme="bmrg-white"
                 red
               />
@@ -369,10 +371,6 @@ export class Overview extends Component {
     );
   }
 }
-
-Overview.propTypes = {
-  //handleOnChange: PropTypes.func.isRequired
-};
 
 const mapStateToProps = state => {
   return {

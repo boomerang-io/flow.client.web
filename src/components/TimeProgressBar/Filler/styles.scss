@@ -29,7 +29,7 @@
   position: absolute;
   font-size: 0.8rem;
   top: -1rem;
-  right: -1.5rem;
+  right: 50%;
 }
 
 .c-time-progress-bar-filler__info {
@@ -40,7 +40,7 @@
   font-size: 0.8rem;
   bottom: -1.2rem;
   top: 2rem;
-  right: 0;
+  right: 50%;
   height: 5rem;
   background-color: $white;
   border: solid 0.0625rem $gray-10;

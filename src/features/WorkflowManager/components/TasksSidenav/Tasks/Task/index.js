@@ -27,13 +27,13 @@ export default class Task extends Component {
         onDragStart={event => {
           event.dataTransfer.setData("storm-diagram-node", JSON.stringify(this.props.model));
         }}
-        className="tray-item"
+        className="b-task"
       >
-        <div className="tray-item-img">
-          <img src={img_to_render} alt="Task" />{" "}
+        <div className="b-task__img">
+          <img src={img_to_render} alt="Task" />
         </div>
 
-        <div className="tray-item_name"> {this.props.name} </div>
+        <div className="b-task__name"> {this.props.name} </div>
       </div>
     );
   }

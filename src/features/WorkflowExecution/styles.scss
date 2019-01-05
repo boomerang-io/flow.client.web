@@ -1,22 +1,36 @@
 @import "~Styles/variables";
 
 .c-workflow-execution {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   padding: 1rem;
   position: relative;
+  margin: 0 auto;
+  grid-template-columns: auto 30rem;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "header header"
+    "progress progress"
+    "main sidebar";
+}
+
+@media (max-width: 50rem) {
+  .c-workflow-execution {
+    grid-template-columns: auto;
+    grid-template-areas:
+      "header"
+      "progress"
+      "sidebar"
+      "main";
+  }
 }
 
 .c-workflow-diagram-execution {
-  position: relative;
-  min-height: calc(100vh - 1rem);
-  width: 74vw;
-  top: 1rem;
-
+  grid-area: main;
+  grid-row-end: span;
   .c-diagram-canvas {
     height: 100%;
-    min-height: calc(100vh - 15rem);
     width: 100%;
+    min-height: calc(100vh - 25vh);
     background-color: $text-area-gray !important;
   }
 }

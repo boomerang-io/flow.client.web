@@ -204,6 +204,7 @@ const cancelCreate = () => dispatch => dispatch(createApi.cancelRequest());
 
 //actions
 export const actions = {
+  reset,
   fetch,
   fetchRequest,
   fetchFailure,
@@ -219,7 +220,6 @@ export const actions = {
   createFailure,
   createSuccess,
   cancelCreate,
-  reset,
   updateProperty,
   updateTriggersWebhook,
   updateTriggersScheduler,

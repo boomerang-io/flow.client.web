@@ -48,13 +48,13 @@ class App extends Component {
         <Navigation user={this.props.user} navbarLinks={this.props.navbarLinks} refresh={this.refreshPage} />
         <NotificationBanner closeBanner={this.closeBanner} />
         <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
-          <Suspense fallback={<LoadingAnimation />}>
+          <Suspense fallback={<LoadingAnimation theme="bmrg-white" />}>
             <Switch>
               <Route path="/workflows" component={AsyncHome} />
               <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
               <Route path="/activity/:workflowId" component={AsyncActivity} />
               <Route path="/activity" component={AsyncActivity} exact />
-              <Route path="/creator" component={AsyncManager} />
+              <Route path="/creator/overview" component={AsyncManager} />
               <Route path="/editor/:workflowId" component={AsyncManager} />
               <Route path="/insights" component={AsyncInsights} />
               <Route path="/viewer" component={AsyncViewer} />

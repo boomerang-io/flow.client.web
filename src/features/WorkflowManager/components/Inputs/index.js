@@ -33,8 +33,8 @@ class Inputs extends Component {
     return (
       <div className="c-workflow-inputs">
         {inputs.length > 0 &&
-          inputs.map(input => (
-            <div key={input.id} className={classnames("b-workflow-input", `--${input.type}`)}>
+          inputs.map((input, index) => (
+            <div key={`${input.id}-${index}`} className={classnames("b-workflow-input", `--${input.type}`)}>
               <div className="b-workflow-input__name">{input.label}</div>
               <div className="b-workflow-input-field">
                 <div className="b-workflow-input-field__key">Key</div>

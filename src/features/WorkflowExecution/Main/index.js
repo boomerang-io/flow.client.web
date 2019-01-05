@@ -36,15 +36,13 @@ class Main extends Component {
 
     return (
       <div className="c-workflow-execution">
-        <nav style={{ marginBottom: "1rem", width: "15rem" }}>
+        <nav style={{ marginBottom: "1rem", width: "15rem", gridArea: "header" }}>
           <NavigateBack
             to={this.props.location.state.fromUrl || "/activity"}
             text={`Back to ${this.props.location.state.fromText || "Activity"}`}
           />
         </nav>
         <TimeProgressBar updateActiveNode={updateActiveNode} tasks={workflowExecutionData} />
-        <WorkflowSummary workflowData={this.props.workflowData} version={this.props.version} />
-        {selectedStep && <StepSideInfo step={selectedStep} />}
         <div className="c-workflow-diagram-execution">
           {hasStepExecuting ? (
             <DiagramWidget
@@ -60,6 +58,10 @@ class Main extends Component {
             <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
           )}
         </div>
+        <aside style={{ gridArea: "sidebar" }}>
+          <WorkflowSummary workflowData={this.props.workflowData} version={this.props.version} />
+          {selectedStep && <StepSideInfo step={selectedStep} />}
+        </aside>
       </div>
     );
   }
