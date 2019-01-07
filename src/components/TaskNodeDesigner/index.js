@@ -17,6 +17,7 @@ import "./styles.scss";
 
 export class TaskNode extends Component {
   static propTypes = {
+    node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
@@ -52,16 +53,18 @@ export class TaskNode extends Component {
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={task.name}
-            components={[{ step: 0, component: DisplayForm }]}
             closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-            config={this.props.nodeConfig}
-            onSave={this.handleOnSave}
             theme={"bmrg-white"}
-            task={task}
-            nodeConfig={nodeConfig}
             {...rest}
-          />
+          >
+            <DisplayForm
+              config={this.props.nodeConfig}
+              onSave={this.handleOnSave}
+              task={task}
+              nodeConfig={nodeConfig}
+            />
+          </ModalFlow>
         )}
       />
     );
