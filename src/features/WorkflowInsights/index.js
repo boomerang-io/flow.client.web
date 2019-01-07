@@ -5,13 +5,13 @@ import { bindActionCreators } from "redux";
 import { actions as insightsActions } from "State/insights";
 import { actions as teamsActions } from "State/teams";
 import moment from "moment";
-import { Select, SelectItem } from "carbon-components-react";
 import queryString from "query-string";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
 import SearchFilterBar from "Components/SearchFilterBar";
+import SimpleSelectFilter from "Components/SimpleSelectFilter";
 import WidgetCard from "./WidgetCard";
 import CustomAreaChart from "./CustomAreaChart";
 import CustomScatterChart from "./CustomScatterChart";
@@ -138,23 +138,14 @@ export class WorkflowInsights extends Component {
         sortByProp(workflows.map(workflow => ({ ...workflow, value: workflow.id, label: workflow.name })), "label")
       );
       const workflowsFilter = sortByProp(workflowsList, "name", "ASC");
+
       return (
         <div className="c-workflow-insights">
           <nav className="s-workflow-insights-navigation">
             <NavigateBack to="/workflows" text="Back to Workflows" />
           </nav>
           <div className="c-workflow-insights-header">
-            <Select
-              useTitleInItem={false}
-              hideLabel={true}
-              invalid={false}
-              onChange={this.handleChangeTeam}
-              defaultValue={selectedTeam.value}
-            >
-              {teamsList.map(team => (
-                <SelectItem value={team.value} text={team.label} key={team.value} />
-              ))}
-            </Select>
+            <SimpleSelectFilter onChange={this.handleChangeTeam} selectedOption={selectedTeam} options={teamsList} />
             <SearchFilterBar
               handleSearchFilter={this.handleChangeWorkflow}
               options={
@@ -166,17 +157,11 @@ export class WorkflowInsights extends Component {
               selectedOption={this.state.selectedWorkflow.value}
               searchbar={false}
             />
-            <Select
-              useTitleInItem={false}
-              hideLabel={true}
-              invalid={false}
+            <SimpleSelectFilter
               onChange={this.handleChangeTimeframe}
-              defaultValue={this.state.selectedTimeframe.value}
-            >
-              {timeframeOptions.map(option => (
-                <SelectItem value={option.value} text={option.label} key={option.value} />
-              ))}
-            </Select>
+              selectedOption={this.state.selectedTimeframe}
+              options={timeframeOptions}
+            />
           </div>
           <div className="c-workflow-insights__stats-widgets">
             <div className="c-workflow-insights__stats">
