@@ -5185,39 +5185,58 @@
     }
   ],
   "workflowExecution": {
-    "creationDate": 1546518590128,
-    "duration": 0,
-    "id": "5c2e003ed86c81000142103f",
-    "initiatedByUserId": "5c26001979c6b50001e6e912",
-    "initiatedByUserName": "Isabela Mayumi Kawabata Borges",
-    "status": "inProgress",
-    "workflowId": "5c1b871e05a20800016f4abe",
-    "workflowRevisionid": "5c2dfea5d86c810001420d6f",
+    "creationDate": 1546873531679,
+    "duration": 71739,
+    "id": "5c336abb4e46c63b3894e8de",
+    "initiatedByUserId": "5c253dea79c6b50001e6e8e1",
+    "initiatedByUserName": "Marcus Roy",
+    "status": "completed",
+    "workflowId": "5c2e7ccc53c9250001a0ee0d",
+    "workflowRevisionid": "5c336ab253c9250001a1add5",
     "trigger": "manual",
-    "properties": [],
     "steps": [
       {
-        "activityId": "5c2e003ed86c81000142103f",
-        "duration": 5733,
+        "activityId": "5c336abb4e46c63b3894e8de",
+        "duration": 3014,
         "flowTaskStatus": "completed",
-        "id": "5c2e003ed86c810001421048",
+        "id": "5c336abb4e46c63b3894e8e9",
         "order": 1,
-        "startTime": 1546518590156,
-        "taskId": "c9b43f5f-d5e5-479c-a651-77cd5bb2df24",
-        "taskName": "Send Email"
+        "startTime": 1546873531755,
+        "taskId": "15ce27bd-8149-409d-85f6-3ef5eb1e63e8",
+        "taskName": "Send Slack Message"
       },
       {
-        "activityId": "5c2e003ed86c81000142103f",
-        "duration": 0,
-        "flowTaskStatus": "inProgress",
-        "id": "5c2e003ed86c81000142104b",
+        "activityId": "5c336abb4e46c63b3894e8de",
+        "duration": 64436,
+        "flowTaskStatus": "completed",
+        "id": "5c336abb4e46c63b3894e8ec",
         "order": 2,
-        "startTime": 1546518595900,
-        "taskId": "3ac80e74-c852-4e7d-b5ef-689b11e4f84b",
-        "taskName": "Send Email"
+        "startTime": 1546873534847,
+        "taskId": "bb3f952e-0474-4b02-a5d2-53e95613968c",
+        "taskName": "Sleep"
+      },
+      {
+        "activityId": "5c336abb4e46c63b3894e8de",
+        "duration": 63208,
+        "flowTaskStatus": "completed",
+        "id": "5c336abb4e46c63b3894e8ef",
+        "order": 3,
+        "startTime": 1546873534845,
+        "taskId": "77aa0a6a-c9ad-40ce-ac72-fe15342ddeef",
+        "taskName": "Sleep"
+      },
+      {
+        "activityId": "5c336abb4e46c63b3894e8de",
+        "duration": 4007,
+        "flowTaskStatus": "completed",
+        "id": "5c336abb4e46c63b3894e8f2",
+        "order": 4,
+        "startTime": 1546873599359,
+        "taskId": "b3585091-b5cf-4c8a-a49a-6f63fdf996a9",
+        "taskName": "Send Slack Message"
       }
     ],
-    "teamName": "Flow team 2"
+    "teamName": "IBM Engineering Automation Team"
   },
   "workflowSummary": [
     {
