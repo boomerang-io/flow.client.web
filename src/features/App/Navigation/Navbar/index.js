@@ -28,7 +28,7 @@ class NavbarContainer extends Component {
   };
 
   render() {
-    const { user, navbarLinks, handleOnIconClick } = this.props;
+    const { user, navbarLinks, handleOnIconClick, handleOnQuestionClick, page } = this.props;
     if (user.isFetching || user.isCreating || navbarLinks.isFetching) {
       return <Navbar handleOnIconClick={handleOnIconClick} />;
     }
@@ -44,9 +44,10 @@ class NavbarContainer extends Component {
           navbarLinks={links}
           isAdmin={user.data.type === userTypes.ADMIN}
           user={user.data}
-          onboardingExperienceCharacter="?"
           handleOnIconClick={handleOnIconClick}
-          handleOnOnboardingExperienceClick={this.handleOnQuestionClick}
+          hasOnBoardingExperience
+          onboardingExperienceCharacter="?"
+          handleOnOnboardingExperienceClick={() => handleOnQuestionClick(page)}
         >
           <Dropdown {...user.data} profileImgUrl={IMG_URL} options={dropdownOptions} />
         </Navbar>
