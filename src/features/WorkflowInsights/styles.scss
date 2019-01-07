@@ -5,13 +5,16 @@
   flex-direction: column;
   max-width: 100rem;
   margin: 0 auto;
+  padding: 2rem 1rem 1rem 1rem;
   .c-legend {
     margin-top: 1rem;
+  }
+  .b-search-filter {
+    margin-right: 2rem;
   }
 }
 .c-workflow-insights-header {
   display: flex;
-  width: 75rem;
   align-self: center;
   justify-content: space-between;
 }
@@ -32,7 +35,8 @@
   align-items: center;
 }
 .c-workflow-insights-graph {
-  width: 76rem;
+  width: 100%;
+  min-width: 50vw;
 }
 .b-workflow-insights__stats-label,
 .b-workflow-insights__graphs-label {

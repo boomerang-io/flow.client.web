@@ -11,6 +11,12 @@
   background-color: $cool-white-2;
   margin: 1rem;
 }
+.c-workflow-insights__stats-widgets {
+  .c-widget-card {
+    width: 24rem;
+    height: 19rem;
+  }
+}
 
 .b-widget-card__title {
   min-height: 1.25rem;
