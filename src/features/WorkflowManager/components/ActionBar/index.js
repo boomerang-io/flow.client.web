@@ -86,14 +86,20 @@ class ActionBar extends Component {
     this.props.diagramApp.diagramEngine.repaintCanvas();
   };
 
+  // Need to hardcode that the version is being reset in the change log for now based on the current implementation
+  resetVersionToLatestWithMessage = () => {
+    this.props.handleChangeLogReasonChange(`Reverting ${this.props.currentRevision} to the latest version`);
+    this.props.performAction();
+  };
+
   determinePerformActionRender() {
     const {
       currentRevision,
       includeResetVersionAlert,
       includeCreateNewVersionComment,
       isValidOverview,
-      performActionButtonText,
-      performAction
+      performAction,
+      performActionButtonText
     } = this.props;
 
     if (includeResetVersionAlert) {
@@ -105,7 +111,7 @@ class ActionBar extends Component {
               title={`Set version ${currentRevision} to latest?`}
               subTitleTop="A new version will be created"
               closeModal={closeModal}
-              affirmativeAction={performAction}
+              affirmativeAction={this.resetVersionToLatestWithMessage}
               affirmativeText="Yes"
               theme="bmrg-white"
             />
@@ -120,20 +126,18 @@ class ActionBar extends Component {
           ModalTrigger={() => <Button theme="bmrg-black">{performActionButtonText}</Button>}
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
+              closeModal={closeModal}
               headerTitle="Create New Version"
               headerSubtitle="Enter a comment for record keeping"
-              components={[{ step: 0, component: VersionCommentForm }]}
-              closeModal={closeModal}
-              onSave={performAction}
-              handleOnChange={this.props.handleChangeLogReasonChange}
               theme={"bmrg-white"}
               {...rest}
-            />
+            >
+              <VersionCommentForm onSave={performAction} handleOnChange={this.props.handleChangeLogReasonChange} />
+            </ModalFlow>
           )}
         />
       );
     }
-    console.log("action", isValidOverview);
     if (isValidOverview) {
       return (
         <Button theme="bmrg-black" onClick={performAction}>
