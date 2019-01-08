@@ -87,6 +87,9 @@ class OnBoardExpContainer extends Component {
       screens = executionScreens;
       guideConfig = executionGuideConfig;
       message = messageConfig.welcomeExecution;
+    } else {
+      this.closeModal();
+      return null;
     }
 
     if (index === screens.WELCOME) {
