@@ -5,6 +5,7 @@ import changeLog from "./changeLog";
 import contactJoe from "./contactJoe";
 import insights from "./insights";
 import navbarLinks from "./navbarLinks";
+import onBoard from "./onBoard";
 import privacyStatement from "./privacyStatement";
 import reportBug from "./reportBug";
 import tasks from "./tasks";
@@ -23,6 +24,7 @@ const rootReducer = history =>
     contactJoe,
     insights,
     navbarLinks,
+    onBoard,
     privacyStatement,
     reportBug,
     tasks,

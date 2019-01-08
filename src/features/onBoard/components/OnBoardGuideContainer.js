@@ -35,6 +35,45 @@ const OnBoardGuideContainer = ({ index, nextScreen, previousScreen, closeModal, 
         return { ...basicConfig, ...guideConfig.design };
       case screens.CHANGE_LOG:
         return { ...basicConfig, ...guideConfig.change_log };
+      case screens.GENERAL:
+        return {
+          index,
+          nextScreen,
+          closeModal,
+          screens,
+          guideConfig,
+          ...guideConfig.general
+        };
+      case screens.TRIGGERS:
+        return { ...basicConfig, ...guideConfig.triggers };
+      case screens.OPTIONS:
+        return { ...basicConfig, ...guideConfig.options };
+      case screens.FILTER:
+        return {
+          index,
+          nextScreen,
+          closeModal,
+          screens,
+          guideConfig,
+          ...guideConfig.filter
+        };
+      case screens.CARDS:
+        return { ...basicConfig, ...guideConfig.cards };
+      case screens.SCROLLING:
+        return { ...basicConfig, ...guideConfig.scrolling };
+      case screens.PROGRESS_BAR:
+        return {
+          index,
+          nextScreen,
+          closeModal,
+          screens,
+          guideConfig,
+          ...guideConfig.progress_bar
+        };
+      case screens.SIDE_INFO:
+        return { ...basicConfig, ...guideConfig.side_info };
+      case screens.DIAGRAM:
+        return { ...basicConfig, ...guideConfig.diagram };
       default:
         return null;
     }

@@ -21,23 +21,29 @@ const OnBoardGuide = props => {
     <div key={i} className={`b-onboard-screen-circle ${index === i + 1 ? "b-onboard-screen-circle--filled" : ""}`} />
   ));
 
+  const lastScreen =
+    index === screens.SIDENAV ||
+    index === screens.CHANGE_LOG ||
+    index === screens.OPTIONS ||
+    index === screens.SCROLLING ||
+    index === screens.DIAGRAM;
+
   const leftAction =
-    index === screens.TEAMS || index === screens.OVERVIEW ? null : (
+    index === 1 ? null : (
       <div className="b-onboard-screen-arrow" onClick={previousScreen}>
         <i className="b-onboard-screen-arrow--left" />
       </div>
     );
 
-  const rightAction =
-    index === screens.SIDENAV || index === screens.CHANGE_LOG ? (
-      <div className="b-onboard-screen-button" onClick={nextScreen}>
-        <div className="b-onboard-screen-button__text">DONE</div>
-      </div>
-    ) : (
-      <div className="b-onboard-screen-arrow" onClick={nextScreen}>
-        <i className="b-onboard-screen-arrow--right" />
-      </div>
-    );
+  const rightAction = lastScreen ? (
+    <div className="b-onboard-screen-button" onClick={nextScreen}>
+      <div className="b-onboard-screen-button__text">DONE</div>
+    </div>
+  ) : (
+    <div className="b-onboard-screen-arrow" onClick={nextScreen}>
+      <i className="b-onboard-screen-arrow--right" />
+    </div>
+  );
 
   return (
     <div className={`c-onboard-screen ${containerClassName}`}>

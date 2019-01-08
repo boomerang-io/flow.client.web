@@ -43,16 +43,10 @@ class Navigation extends Component {
   };
 
   render() {
-    const { user, navbarLinks, refreshPage, handleOnQuestionClick, page } = this.props;
+    const { user, navbarLinks, refreshPage } = this.props;
     return (
       <>
-        <Navbar
-          user={user}
-          navbarLinks={navbarLinks}
-          refresh={refreshPage}
-          handleOnQuestionClick={handleOnQuestionClick}
-          page={page}
-        />
+        <Navbar user={user} navbarLinks={navbarLinks} refresh={refreshPage} />
         <img className="s-boomerang-logo" src={boomerangLogo} alt="Boomerang Logo" />
         <div className="s-sidenav-wrapper" ref={this.sidenavRef}>
           <div

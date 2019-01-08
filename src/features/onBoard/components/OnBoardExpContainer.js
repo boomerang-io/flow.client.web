@@ -2,23 +2,31 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { actions } from "State/user";
-import { homeScreens, designerScreens, messageConfig, homeGuideConfig, designerGuideConfig } from "../constants";
+import { actions } from "State/onBoard";
+import { withRouter } from "react-router-dom";
+import {
+  homeScreens,
+  designerScreens,
+  creatorScreens,
+  activityScreens,
+  executionScreens,
+  messageConfig,
+  homeGuideConfig,
+  designerGuideConfig,
+  creatorGuideConfig,
+  activityGuideConfig,
+  executionGuideConfig
+} from "../constants";
 import OnBoardGuideContainer from "./OnBoardGuideContainer";
 import OnBoardMessage from "./OnBoardMessage";
 import "../styles/onBoardExpContainer.scss";
 
 class OnBoardExpContainer extends Component {
   static propTypes = {
-    handleGuideFinish: PropTypes.func.isRequired,
-    actions: PropTypes.object.isRequired,
     userEmail: PropTypes.string,
     userUpdateData: PropTypes.object,
-    homeFirstVisit: PropTypes.bool,
-    designerFirstVisit: PropTypes.bool,
-    showHomeFirstTimeExperience: PropTypes.bool,
-    showDesignerFirstTimeExperience: PropTypes.bool,
-    page: PropTypes.string
+    onBoard: PropTypes.object,
+    actions: PropTypes.object
   };
 
   state = {
@@ -42,38 +50,43 @@ class OnBoardExpContainer extends Component {
   };
 
   closeModal = () => {
-    this.props.handleGuideFinish(this.props.page);
     this.setState({ screen: 0 });
+    this.props.actions.hideOnBoardExp();
   };
 
   render() {
-    const {
-      page,
-      showHomeFirstTimeExperience,
-      showDesignerFirstTimeExperience,
-      homeFirstVisit,
-      designerFirstVisit
-    } = this.props;
+    const { onBoard } = this.props;
 
-    if (
-      !(
-        ((homeFirstVisit || showHomeFirstTimeExperience) && page === "home") ||
-        ((designerFirstVisit || showDesignerFirstTimeExperience) && page === "designer")
-      )
-    ) {
+    if (!onBoard.show) {
       return null;
     }
 
     const index = this.state.screen;
+    const path = this.props.location.pathname;
     let screens = {};
     let guideConfig = {};
+    let message = {};
 
-    if (page === "home") {
+    if (path.includes("/workflows")) {
       screens = homeScreens;
       guideConfig = homeGuideConfig;
-    } else if (page === "designer") {
+      message = messageConfig.welcomeHome;
+    } else if (path.includes("/editor")) {
       screens = designerScreens;
       guideConfig = designerGuideConfig;
+      message = messageConfig.welcomeDesigner;
+    } else if (path.includes("/creator/overview")) {
+      screens = creatorScreens;
+      guideConfig = creatorGuideConfig;
+      message = messageConfig.welcomeCreator;
+    } else if (path.includes("/activity") && !path.includes("/execution")) {
+      screens = activityScreens;
+      guideConfig = activityGuideConfig;
+      message = messageConfig.welcomeActivity;
+    } else if (path.includes("/execution")) {
+      screens = executionScreens;
+      guideConfig = executionGuideConfig;
+      message = messageConfig.welcomeExecution;
     }
 
     if (index === screens.WELCOME) {
@@ -84,11 +97,7 @@ class OnBoardExpContainer extends Component {
             closeModal={this.closeModal}
             goToScreen={this.goToScreen}
             returnScreen={screens.RETURN}
-            {...(page === "home"
-              ? messageConfig.welcomeHome
-              : page === "designer"
-              ? messageConfig.welcomeDesigner
-              : null)}
+            {...message}
           />
         </div>
       );
@@ -126,14 +135,17 @@ class OnBoardExpContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  userEmail: state.user.data.email
+  userEmail: state.user.data.email,
+  onBoard: state.onBoard
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OnBoardExpContainer);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(OnBoardExpContainer)
+);
