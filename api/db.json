@@ -339,7 +339,7 @@
       ]
     }
   ],
-  "workflow": {
+  "workflowSingle": {
     "version": 4,
     "config": {
       "nodes": [
@@ -783,7 +783,7 @@
     "id": "5bd9d8ab7eb44d0001772e64",
     "workFlowId": "5bd9d8ab7eb44d0001772e64"
   },
-  "test": [
+  "workflow": [
     {
       "id": "4020119d-acf3-418e-b20a-adf09364acb6",
       "offsetX": 0,
