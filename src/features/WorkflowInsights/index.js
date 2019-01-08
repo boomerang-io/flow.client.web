@@ -211,7 +211,7 @@ export class WorkflowInsights extends Component {
               </WidgetCard>
             </div>
             <div className="c-workflow-insights-graph">
-              <WidgetCard title="Average Execution Time">
+              <WidgetCard title="Execution Time">
                 {chartData.totalExecutions === 0 ? (
                   <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
                 ) : (
