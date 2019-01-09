@@ -6,7 +6,7 @@
   "dependencies": {
     "@boomerang/boomerang-components": "6.1.0",
     "@boomerang/boomerang-dag": "5.2.1",
-    "@boomerang/boomerang-react-scripts": "2.0.4",
+    "@boomerang/boomerang-react-scripts": "2.0.13",
     "@boomerang/boomerang-styles": "0.11.0-beta",
     "@boomerang/boomerang-utilities": "2.0.1",
     "carbon-components": "^9.37.2",
@@ -20,6 +20,7 @@
     "react-click-outside": "^3.0.1",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.5.1",
+    "react-hot-loader": "^4.6.3",
     "react-infinite-scroller": "^1.2.2",
     "react-scroll-up-button": "^1.6.4",
     "validator": "^10.7.1"
