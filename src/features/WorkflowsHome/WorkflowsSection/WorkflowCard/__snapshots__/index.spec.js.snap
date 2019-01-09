@@ -9,16 +9,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
   >
     <div
       className="c-workflow-card__status"
-    >
-      <div
-        className="b-workflow-card__circle --draft"
-      />
-      <label
-        className="b-workflow-card__status"
-      >
-        draft
-      </label>
-    </div>
+    />
     <div
       aria-expanded={false}
       aria-haspopup={true}
@@ -84,7 +75,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
           onClick={[Function]}
         >
           <img
-            alt="Execute workflow"
+            alt="Run workflow"
             className="b-workflow-card-launch__icon"
             src="playButton.svg"
           />

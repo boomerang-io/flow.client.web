@@ -8,8 +8,16 @@
   align-items: center;
   max-width: 100rem;
 
+  .bx--select-input {
+    width: 12rem;
+  }
+
   .b-search-filter {
-    width: 100%;
+    width: auto;
+    margin-left: 2.2rem;
+  }
+  .b-search-filter__search {
+    display: none;
   }
 
   .b-search-filter__filter {
@@ -55,7 +63,7 @@
     cursor: pointer;
     height: 2.625rem;
     max-height: 2.625rem;
-    width: 15rem;
+    width: 12rem;
     margin-left: 1rem;
 
     &::before {
@@ -89,7 +97,7 @@
   }
 
   .bx--list-box__menu {
-    min-width: 10rem;
+    min-width: 12rem;
     width: max-content;
     max-width: 15rem;
     background-color: $white;
@@ -112,12 +120,15 @@
 }
 
 .c-workflow-activity-content {
+  display: flex;
+  flex-direction: column;
   padding: 2rem 1rem 1rem 1rem;
   max-width: 100rem;
   width: 100%;
 }
 .c-workflow-activity-header {
   display: flex;
+  align-self: flex-end;
 }
 
 .s-workflow-activity-navigation {
