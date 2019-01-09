@@ -58,22 +58,10 @@ class SwitchLink extends Component {
                 <EditSwitchButton
                   onClick={this.updateswitchState}
                   initialSwitchCondition={this.state.switchCondition}
-                  modelId={this.props.model.id}
                 />
               </foreignObject>
             </g>
             <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y + 8})`}>
-              {/*
-              <foreignObject>
-                <TextInput
-                  disabled
-                  externallyControlled
-                  value={this.state.switchCondition}
-                  placeholder="default"
-                  theme="bmrg-white"
-                />
-              </foreignObject>
-        */}
               <text x="55" y="55" class="small">
                 {this.state.switchCondition}
               </text>

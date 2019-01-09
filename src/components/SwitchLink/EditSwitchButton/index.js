@@ -9,7 +9,7 @@ import SwitchLabelModal from "./SwitchLabelModal";
 
 class EditSwitchButton extends Component {
   static defaultProps = {
-    fullscreen: false,
+    onClick: PropTypes.func,
     initialSwitchCondition: PropTypes.string
   };
 
@@ -33,29 +33,26 @@ class EditSwitchButton extends Component {
   };
 
   render() {
-    //const executionConditionConfig = EXECUTION_CONDITIONS[this.state.executionConditionIndex];
-    const { modelId } = this.props;
     return (
       <>
-        <foreignObject>
+        <div className="b-editswitch-button">
           <Modal
-            ModalTrigger={() => <img src={pencilIcon} className="b-editswitch-button" alt="Task node type" />}
+            ModalTrigger={() => <img src={pencilIcon} className="b-editswitch-button__img" alt="Task node type" />}
             modalContent={(closeModal, ...rest) => (
               <ModalFlow
                 headerTitle="Edit Properties"
                 components={[{ step: 0, component: SwitchLabelModal }]}
                 closeModal={closeModal}
                 confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-                //config={this.props.nodeConfig}
-                onSave={this.handleOnSave}
+                handleOnChange={this.handleOnSave}
                 theme={"bmrg-white"}
                 initialSwitchCondition={this.state.initialSwitchCondition}
-                //nodeConfig={nodeConfig}
+                //confirmModalProps={{ affirmativeAction: () => closeModal(), theme: "bmrg-white" }}
                 {...rest}
               />
             )}
           />
-        </foreignObject>
+        </div>
       </>
     );
   }
