@@ -9,6 +9,12 @@
   grid-area: progress;
   display: flex;
   align-items: center;
+
+  //override default styles
+  .bmrg--b-tooltip {
+    max-width: initial;
+    opacity: 1;
+  }
 }
 
 .b-time-progress-bar {
@@ -38,4 +44,5 @@
 .b-time-progress-bar__fillers {
   position: relative;
   height: 100%;
+  display: flex;
 }

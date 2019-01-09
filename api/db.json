@@ -5758,39 +5758,57 @@
     }
   ],
   "workflowExecution": {
-    "creationDate": 1546518590128,
-    "duration": 0,
-    "id": "5c2e003ed86c81000142103f",
-    "initiatedByUserId": "5c26001979c6b50001e6e912",
-    "initiatedByUserName": "Isabela Mayumi Kawabata Borges",
-    "status": "inProgress",
-    "workflowId": "5c1b871e05a20800016f4abe",
-    "workflowRevisionid": "5c2dfea5d86c810001420d6f",
-    "trigger": "manual",
+    "creationDate": 1547053200027,
+    "duration": 904934,
+    "id": "5c36289096052900012cc81d",
+    "status": "completed",
+    "workflowId": "5c3048ba53c9250001a17eb0",
+    "workflowRevisionid": "5c33ecca53c9250001a2dfe8",
+    "trigger": "cron",
     "properties": [],
     "steps": [
       {
-        "activityId": "5c2e003ed86c81000142103f",
-        "duration": 5733,
+        "activityId": "5c36289096052900012cc81d",
+        "duration": 300190,
         "flowTaskStatus": "completed",
-        "id": "5c2e003ed86c810001421048",
+        "id": "5c36289096052900012cc81e",
         "order": 1,
-        "startTime": 1546518590156,
-        "taskId": "c9b43f5f-d5e5-479c-a651-77cd5bb2df24",
-        "taskName": "Send Email"
+        "startTime": 1547053504488,
+        "taskId": "515c8b05-cbb0-470a-a58e-b8740b332a6a",
+        "taskName": "Send Slack Message"
       },
       {
-        "activityId": "5c2e003ed86c81000142103f",
-        "duration": 0,
-        "flowTaskStatus": "inProgress",
-        "id": "5c2e003ed86c81000142104b",
+        "activityId": "5c36289096052900012cc81d",
+        "duration": 300178,
+        "flowTaskStatus": "completed",
+        "id": "5c36289096052900012cc81f",
         "order": 2,
-        "startTime": 1546518595900,
-        "taskId": "3ac80e74-c852-4e7d-b5ef-689b11e4f84b",
-        "taskName": "Send Email"
+        "startTime": 1547053804683,
+        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
+        "taskName": "Send Slack Message"
+      },
+      {
+        "activityId": "5c36289096052900012cc81c",
+        "duration": 3000,
+        "flowTaskStatus": "completed",
+        "id": "5c36289096052900012cc8ff",
+        "order": 3,
+        "startTime": 1547054104861,
+        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
+        "taskName": "Send Slack Message"
+      },
+      {
+        "activityId": "5c36289096052900012cc81c",
+        "duration": 3000,
+        "flowTaskStatus": "completed",
+        "id": "5c36289096052900012cc8ff",
+        "order": 3,
+        "startTime": 1547054104861,
+        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
+        "taskName": "Send Slack Message"
       }
     ],
-    "teamName": "Flow team 2"
+    "teamName": "CAI Offering Team"
   },
   "workflowSummary": [
     {
