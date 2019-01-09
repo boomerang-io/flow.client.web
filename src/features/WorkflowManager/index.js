@@ -194,12 +194,17 @@ export class WorkflowManagerContainer extends Component {
     let node;
     if (data.task_data.key === "switch") {
       node = new SwitchNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type);
+      const { id, taskId } = node;
+      //this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, name: "", value: "" });
+      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {}, type: "decision" });
     } else {
       node = new CustomTaskNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type);
+      const { id, taskId } = node;
+      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {}, type: "custom" });
     }
     //add node info to the state
-    const { id, taskId } = node;
-    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {} });
+    //const { id, taskId } = node;
+    //this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {} });
 
     const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
     node.x = points.x - 120;
