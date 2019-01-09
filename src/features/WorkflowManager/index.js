@@ -14,6 +14,11 @@ import Creator from "./Creator";
 import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
+<<<<<<< HEAD
+=======
+import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
+import keys from "lodash/keys";
+>>>>>>> feat: in progress, missing edit switch link modal
 import "./styles.scss";
 
 export class WorkflowManagerContainer extends Component {
@@ -185,11 +190,13 @@ export class WorkflowManagerContainer extends Component {
         .getNodes()
     ).filter(node => node.taskId === taskData.id).length;
 
-    const node = new CustomTaskNodeModel({
-      taskId: taskData.id,
-      taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
-    });
-
+    //check for type and create switchNode if type===switch
+    let node;
+    if (data.task_data.key === "switch") {
+      node = new SwitchNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type);
+    } else {
+      node = new CustomTaskNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type);
+    }
     //add node info to the state
     const { id, taskId } = node;
     this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {} });
