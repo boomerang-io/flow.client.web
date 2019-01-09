@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/activityStatuses";
-// import triggerTypes from "Constants/triggerTypes";
 import imgs from "Assets/icons";
 import "./styles.scss";
 
@@ -40,7 +39,7 @@ class ActivityCard extends Component {
         <div className="c-activity-card__workflow">
           <div className="c-activity-card__workflow--left">
             <div className="c-activity-card__icon">
-              <img className="b-activity-card__icon" src={imgs[icon ? icon : "docs"]} alt="icon" />
+              <img className="b-activity-card__icon" src={imgs[icon ? icon : "docs"]} alt="Worklflow icon" />
             </div>
             <div className="c-activity-card__workflow-info">
               <label className="b-activity-card__name">{workflowName}</label>
@@ -57,8 +56,8 @@ class ActivityCard extends Component {
                 </div>
                 <div className="c-activity-card__workflow-trigger-info">
                   <label className="b-activity-card__team-name">{teamName}</label>
-                  <label className="b-activity-card__trigger">{trigger || "—"}</label>
-                  <label className="b-activity-card__autor">{initiatedByUserName || "—"}</label>
+                  <label className="b-activity-card__trigger">{trigger || "---"}</label>
+                  <label className="b-activity-card__autor">{initiatedByUserName || "---"}</label>
                 </div>
               </div>
             </div>
