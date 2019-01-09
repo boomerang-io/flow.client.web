@@ -5758,58 +5758,57 @@
     }
   ],
   "workflowExecution": {
-    "creationDate": 1546873531679,
-    "duration": 71739,
-    "id": "5c336abb4e46c63b3894e8de",
-    "initiatedByUserId": "5c253dea79c6b50001e6e8e1",
-    "initiatedByUserName": "Marcus Roy",
+    "creationDate": 1547053200027,
+    "duration": 904934,
+    "id": "5c36289096052900012cc81d",
     "status": "completed",
-    "workflowId": "5c2e7ccc53c9250001a0ee0d",
-    "workflowRevisionid": "5c336ab253c9250001a1add5",
-    "trigger": "manual",
+    "workflowId": "5c3048ba53c9250001a17eb0",
+    "workflowRevisionid": "5c33ecca53c9250001a2dfe8",
+    "trigger": "cron",
+    "properties": [],
     "steps": [
       {
-        "activityId": "5c336abb4e46c63b3894e8de",
-        "duration": 3014,
+        "activityId": "5c36289096052900012cc81d",
+        "duration": 300190,
         "flowTaskStatus": "completed",
-        "id": "5c336abb4e46c63b3894e8e9",
+        "id": "5c36289096052900012cc81e",
         "order": 1,
-        "startTime": 1546873531755,
-        "taskId": "15ce27bd-8149-409d-85f6-3ef5eb1e63e8",
+        "startTime": 1547053504488,
+        "taskId": "515c8b05-cbb0-470a-a58e-b8740b332a6a",
         "taskName": "Send Slack Message"
       },
       {
-        "activityId": "5c336abb4e46c63b3894e8de",
-        "duration": 64436,
+        "activityId": "5c36289096052900012cc81d",
+        "duration": 300178,
         "flowTaskStatus": "completed",
-        "id": "5c336abb4e46c63b3894e8ec",
+        "id": "5c36289096052900012cc81f",
         "order": 2,
-        "startTime": 1546873534847,
-        "taskId": "bb3f952e-0474-4b02-a5d2-53e95613968c",
-        "taskName": "Sleep"
+        "startTime": 1547053804683,
+        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
+        "taskName": "Send Slack Message"
       },
       {
-        "activityId": "5c336abb4e46c63b3894e8de",
-        "duration": 63208,
+        "activityId": "5c36289096052900012cc81c",
+        "duration": 3000,
         "flowTaskStatus": "completed",
-        "id": "5c336abb4e46c63b3894e8ef",
+        "id": "5c36289096052900012cc8ff",
         "order": 3,
-        "startTime": 1546873534845,
-        "taskId": "77aa0a6a-c9ad-40ce-ac72-fe15342ddeef",
-        "taskName": "Sleep"
+        "startTime": 1547054104861,
+        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
+        "taskName": "Send Slack Message"
       },
       {
-        "activityId": "5c336abb4e46c63b3894e8de",
-        "duration": 4007,
+        "activityId": "5c36289096052900012cc81c",
+        "duration": 3000,
         "flowTaskStatus": "completed",
-        "id": "5c336abb4e46c63b3894e8f2",
-        "order": 4,
-        "startTime": 1546873599359,
-        "taskId": "b3585091-b5cf-4c8a-a49a-6f63fdf996a9",
+        "id": "5c36289096052900012cc8ff",
+        "order": 3,
+        "startTime": 1547054104861,
+        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
         "taskName": "Send Slack Message"
       }
     ],
-    "teamName": "IBM Engineering Automation Team"
+    "teamName": "CAI Offering Team"
   },
   "workflowSummary": [
     {

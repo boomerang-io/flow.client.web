@@ -5,8 +5,7 @@ import Filler from "./Filler";
 import "./styles.scss";
 
 const TimeProgressBar = ({ tasks, updateActiveNode }) => {
-  const steps = orderBy(tasks.steps, ["order"], ["asc"]);
-  const allCompleted = !steps.filter(step => step.flowTaskStatus !== "completed").length;
+  const steps = orderBy(tasks.steps, ["order"], ["asc"]).filter(step => step.flowTaskStatus === "completed");
   let durationSum = 0;
   tasks.steps.forEach(step => (durationSum += step.duration));
 
@@ -18,21 +17,15 @@ const TimeProgressBar = ({ tasks, updateActiveNode }) => {
         <div className="b-time-progress-bar__fillers">
           {steps.map((step, index) => (
             <Filler
+              id={step.id}
               key={step.taskId}
               taskId={step.taskId}
               status={step.flowTaskStatus}
               index={index}
               taskName={step.taskName}
-              finishPosition={
-                allCompleted && steps.length === 1
-                  ? 100
-                  : Math.round(
-                      ((step.startTime - tasks.creationDate + step.duration) /
-                        (allCompleted ? tasks.duration : durationSum)) *
-                        100
-                    )
-              }
-              totalDuration={allCompleted ? tasks.duration : durationSum}
+              duration={step.duration}
+              finishTime={step.startTime + step.duration}
+              percentOfTotal={(step.duration / durationSum) * 100}
               currentDuration={step.duration}
               updateActiveNode={updateActiveNode}
             />
