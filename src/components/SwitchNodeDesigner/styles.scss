@@ -1,0 +1,87 @@
+@import "~Styles/variables";
+
+// these class names need to be updated to follow BEM
+
+.b-taskNode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $lightest-gray;
+  border-radius: 0.25rem;
+  width: 16rem;
+  height: 8rem;
+  position: "relative";
+
+  .b-taskNode__tile {
+    text-align: center;
+    font-weight: 400;
+    color: $dark-blue;
+    letter-spacing: 0.1675rem;
+  }
+
+  .b-taskNode-port {
+    position: absolute;
+    border-radius: 50%;
+    background-color: $teal;
+
+    &.--right {
+      right: -0.5rem;
+    }
+    &.--left {
+      left: -0.5rem;
+    }
+    &:hover {
+      background: $teal;
+    }
+  }
+
+  .b-taskNode__edit {
+    position: absolute;
+    right: 3rem;
+    top: 0.6875rem;
+    cursor: pointer;
+  }
+
+  .b-taskNode__delete {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.1rem;
+    transform: scale(0.75);
+  }
+
+  .b-taskNode__img {
+    bottom: 1rem;
+    position: absolute;
+    left: 1.5rem;
+  }
+}
+
+@keyframes indeterminate {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+
+@keyframes indeterminate-short {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+  60% {
+    left: 107%;
+    right: -8%;
+  }
+  100% {
+    left: 107%;
+    right: -8%;
+  }
+}
