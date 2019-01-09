@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import MultiStateButton from "./MultiStateButton";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import EditSwitchButton from "./EditSwitchButton";
 import TriangleArrow from "./TriangleArrow";
 
 /*
@@ -9,12 +10,11 @@ import TriangleArrow from "./TriangleArrow";
 
 */
 
-class CustomLink extends Component {
+class SwitchLink extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      executionCondition: this.props.model.executionCondition,
-      count: 0 //just set here one time
+      switchCondition: props.model.switchCondition
     };
 
     this.halfwayPoint = "";
@@ -34,11 +34,12 @@ class CustomLink extends Component {
     this.props.diagramEngine.repaintCanvas();
   };
 
-  updateExecutionState = executionCondition => {
-    this.props.model.executionCondition = executionCondition;
+  updateSwitchState = switchCondition => {
+    this.props.model.switchCondition = switchCondition;
   };
 
   render() {
+    console.log(this.state);
     if (this.path) {
       this.halfwayPoint = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
       this.endPoint = this.path.getPointAtLength(this.path.getTotalLength());
@@ -54,12 +55,28 @@ class CustomLink extends Component {
             </g>
             <g transform={`translate(${this.halfwayPoint.x - 17}, ${this.halfwayPoint.y + 2})`}>
               <foreignObject>
-                <MultiStateButton
-                  onClick={this.updateExecutionState}
-                  initialExecutionCondition={this.state.executionCondition}
+                <EditSwitchButton
+                  onClick={this.updateswitchState}
+                  initialSwitchCondition={this.state.switchCondition}
                   modelId={this.props.model.id}
                 />
               </foreignObject>
+            </g>
+            <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y + 8})`}>
+              {/*
+              <foreignObject>
+                <TextInput
+                  disabled
+                  externallyControlled
+                  value={this.state.switchCondition}
+                  placeholder="default"
+                  theme="bmrg-white"
+                />
+              </foreignObject>
+        */}
+              <text x="55" y="55" class="small">
+                {this.state.switchCondition}
+              </text>
             </g>
           </>
         )}
@@ -81,4 +98,4 @@ class CustomLink extends Component {
   }
 }
 
-export default CustomLink;
+export default SwitchLink;
