@@ -22,11 +22,15 @@ const activities = [
   }
 ];
 
+const match = {
+  url: "test.url"
+};
+
 describe("ActivityList --- Snapshot", () => {
   it("Capturing Snapshot of ActivityList", () => {
     const renderedValue = renderer.create(
       <MemoryRouter>
-        <ActivityList activities={activities} history={history} />
+        <ActivityList activities={activities} history={history} match={match} />
       </MemoryRouter>
     );
     expect(renderedValue).toMatchSnapshot();
@@ -39,7 +43,7 @@ describe("ActivityList --- Shallow render", () => {
   beforeEach(() => {
     wrapper = shallow(
       <MemoryRouter>
-        <ActivityList activities={activities} history={history} />
+        <ActivityList activities={activities} history={history} match={match} />
       </MemoryRouter>
     );
   });

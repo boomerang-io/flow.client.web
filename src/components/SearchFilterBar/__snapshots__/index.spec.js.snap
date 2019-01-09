@@ -95,7 +95,7 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
             hidden={false}
             value="none"
           >
-            All
+            All workflows
           </option>
           <optgroup
             className="bx--select-optgroup"
