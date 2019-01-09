@@ -1,25 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
-
-.b-search-filter {
-  display: flex;
-}
-
-.b-search-filter__search {
-  flex: 1 1 auto;
-  margin-right: 2rem;
-
-  .bmrg--b-search-bar {
-    background: $white;
-  }
-
-  .bmrg--b-search-bar__textbox.--bmrg-white {
-    background: $white;
-  }
-}
-
-.b-search-filter__filter {
-  width: 12rem;
-
+.c-simple-select-filter {
   .bx--select {
     background-color: $teal-20;
     border-radius: 0.25rem;
@@ -41,6 +21,7 @@
     .bx--select-input {
       background-color: $teal-20;
       border-radius: 0.25rem;
+      width: 12rem;
       box-shadow: none;
       text-overflow: ellipsis;
     }

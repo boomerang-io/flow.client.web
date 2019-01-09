@@ -2,10 +2,10 @@ import { createStore, compose, applyMiddleware } from "redux";
 import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
 import thunk from "redux-thunk";
 import createHistory from "history/createBrowserHistory";
-import { routerMiddleware } from "react-router-redux";
+// 'routerMiddleware': the new way of storing route changes with redux middleware since rrV4.
+import { routerMiddleware } from "connected-react-router";
 import rootReducer from "State";
-import { APP_ROOT } from "../config/appConfig";
-// Configure history object to use APP_ROOT as the prefix for all React Router routes and links
+import { APP_ROOT } from "Config/appConfig";
 export const history = createHistory({ basename: APP_ROOT });
 
 function configureStoreProd(initialState) {
@@ -19,7 +19,7 @@ function configureStoreProd(initialState) {
     reactRouterMiddleware
   ];
 
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose; // add support for Redux dev tools
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   return createStore(rootReducer(history), initialState, composeEnhancers(applyMiddleware(...middlewares)));
 }
 
@@ -42,8 +42,8 @@ function configureStoreDev(initialState) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept("../state", () => {
-      const nextReducer = require("../state").default; // eslint-disable-line global-require
+    module.hot.accept("State", () => {
+      const nextReducer = require("State").default; // eslint-disable-line global-require
       store.replaceReducer(nextReducer);
     });
   }

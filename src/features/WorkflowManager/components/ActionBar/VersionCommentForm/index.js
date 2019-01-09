@@ -54,7 +54,7 @@ class VersionCommentForm extends Component {
           <ModalConfirmButton
             theme="bmrg-white"
             text="Create"
-            disabled={!this.state.comment}
+            disabled={!this.state.comment || Object.keys(this.state.errors).length}
             onClick={this.handleOnSave}
           />
         </ModalContentFooter>

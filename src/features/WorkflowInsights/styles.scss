@@ -5,14 +5,17 @@
   flex-direction: column;
   max-width: 100rem;
   margin: 0 auto;
+  padding: 0rem 1rem 1rem 1rem;
   .c-legend {
     margin-top: 1rem;
+  }
+  .b-search-filter {
+    margin-right: 2rem;
   }
 }
 .c-workflow-insights-header {
   display: flex;
-  width: 75rem;
-  align-self: center;
+  align-self: flex-end;
   justify-content: space-between;
 }
 .s-workflow-insights-navigation {
@@ -28,11 +31,11 @@
 }
 .c-workflow-insights__graphs-widgets {
   display: flex;
-  flex-direction: column;
+  flex-flow: row wrap;
   align-items: center;
 }
 .c-workflow-insights-graph {
-  width: 76rem;
+  width: 50%;
 }
 .b-workflow-insights__stats-label,
 .b-workflow-insights__graphs-label {

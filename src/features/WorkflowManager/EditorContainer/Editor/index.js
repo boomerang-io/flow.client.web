@@ -102,7 +102,7 @@ class WorkflowEditor extends Component {
                   performActionButtonText="Update Inputs"
                   performAction={this.props.updateInputs}
                   diagramApp={this.diagramApp}
-                  isValidOverview={true}
+                  isValidOverview={isValidOverview}
                   {...props}
                 />
                 <Inputs />
@@ -119,11 +119,11 @@ class WorkflowEditor extends Component {
                   diagramApp={this.diagramApp}
                   diagramBoundingClientRect={this.state.diagramBoundingClientRect}
                   handleChangeLogReasonChange={handleChangeLogReasonChange}
-                  includeCreateNewVersionComment={version === revisionCount}
+                  includeCreateNewVersionComment={true || version === revisionCount}
                   includeResetVersionAlert={version < revisionCount}
                   includeVersionSwitcher
                   includeZoom
-                  isValidOverview={true}
+                  isValidOverview={isValidOverview}
                   revisionCount={workflow.data.revisionCount}
                   currentRevision={workflowRevision.version}
                   fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}

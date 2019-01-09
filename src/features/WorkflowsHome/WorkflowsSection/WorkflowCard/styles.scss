@@ -94,17 +94,26 @@
 .c-workflow-card__description {
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
   margin-right: 1rem;
-  width: 100%;
+  width: 15rem;
   color: $gray-60;
+  font-size: 0.875rem;
 }
 .b-workflow-card__name {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.125rem;
   margin-bottom: 0.5rem;
   letter-spacing: 0.0625rem;
   font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.b-workflow-card__description {
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .b-workflow-card-launch {
