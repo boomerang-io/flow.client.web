@@ -193,7 +193,7 @@
       "key": "switch",
       "name": "Switch",
       "type": "ValuesList",
-      "category": "utilities",
+      "category": "boomerang",
       "arguments": ["switch"]
     }
   ],
