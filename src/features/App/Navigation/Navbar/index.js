@@ -9,7 +9,7 @@ import ReportBug from "./ReportBug";
 import PrivacyStatement from "./PrivacyStatement";
 import userTypes from "Constants/userTypes";
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
-import { BASE_SERVICE_ENV_URL, IMG_URL } from "Config/servicesConfig";
+import { BASE_SERVICE_ENV_URL, IMG_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import { PLATFORM_VERSION } from "Config/appConfig";
 
 const dropdownOptions = [
@@ -33,7 +33,7 @@ class NavbarContainer extends Component {
       return <Navbar handleOnIconClick={handleOnIconClick} />;
     }
 
-    if (user.status === "success" && navbarLinks.status === "success") {
+    if (user.status === REQUEST_STATUSES.SUCCESS && navbarLinks.status === REQUEST_STATUSES.SUCCESS) {
       const links = navbarLinks.data.map(link => {
         // eslint-disable-next-line
         if (link.url) return { ...link, url: link.url.replace("${BASE_LAUNCH_ENV_URL}", BASE_LAUNCH_ENV_URL) };
@@ -53,7 +53,7 @@ class NavbarContainer extends Component {
       );
     }
 
-    if (user.status === "failure" || navbarLinks.status === "failure") {
+    if (user.status === REQUEST_STATUSES.FAILURE || navbarLinks.status === REQUEST_STATUSES.FAILURE) {
       return (
         <Navbar refresh={this.props.refresh} handleOnIconClick={handleOnIconClick}>
           <Dropdown options={dropdownOptions.slice(1, -1)} includeHeader={false} />
