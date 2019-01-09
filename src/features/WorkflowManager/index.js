@@ -14,11 +14,8 @@ import Creator from "./Creator";
 import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
-<<<<<<< HEAD
-=======
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
 import keys from "lodash/keys";
->>>>>>> feat: in progress, missing edit switch link modal
 import "./styles.scss";
 
 export class WorkflowManagerContainer extends Component {
@@ -196,8 +193,8 @@ export class WorkflowManagerContainer extends Component {
     });
 
     //add node info to the state
-    const { id, taskId } = node;
-    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {} });
+    //const { id, taskId } = node;
+    //this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {} });
 
     const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
     node.x = points.x - 120;
