@@ -13,6 +13,7 @@ import orderBy from "lodash/orderBy";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
 import SearchFilterBar from "Components/SearchFilterBar";
+import SimpleSelectFilter from "Components/SimpleSelectFilter";
 import { executionOptions } from "Constants/filterOptions";
 import ActivityList from "./ActivityList";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -34,7 +35,8 @@ export class WorkflowActivity extends Component {
     executionFilter: [],
     hasMoreActivities: null,
     nextPage: 1,
-    isLoading: false
+    isLoading: false,
+    selectedTeam: { value: "none", label: "All" }
   };
 
   componentDidMount() {
@@ -75,6 +77,15 @@ export class WorkflowActivity extends Component {
 
   setMoreActivities = last => {
     this.setState({ hasMoreActivities: last });
+  };
+
+  handleChangeTeam = team => {
+    const teamId = team.target.value;
+    const selectedTeam = this.props.teams.data.find(team => team.id === teamId);
+    this.setState({
+      selectedTeam:
+        teamId === "none" ? { value: "none", label: "All teams" } : { value: selectedTeam.id, label: selectedTeam.name }
+    });
   };
 
   handleExecutionFilter = data => {
@@ -154,7 +165,8 @@ export class WorkflowActivity extends Component {
       activityList,
       hasMoreActivities,
       nextPage,
-      isLoading
+      isLoading,
+      selectedTeam
       //executionFilter
     } = this.state;
 
@@ -164,6 +176,9 @@ export class WorkflowActivity extends Component {
 
     if (activity.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
       // const filteredActivities = this.filterActivity();
+      const teamsList = [{ value: "none", label: "All teams" }].concat(
+        teams.data.map(team => ({ label: team.name, value: team.id }))
+      );
       let workflowsList = [];
       teams.data.forEach(team => (workflowsList = workflowsList.concat(team.workflows)));
       const workflowsFilter = sortByProp(workflowsList, "name", "ASC");
@@ -175,9 +190,12 @@ export class WorkflowActivity extends Component {
           </nav>
           <div className="c-workflow-activity-content">
             <div className="c-workflow-activity-header">
+              <SimpleSelectFilter onChange={this.handleChangeTeam} selectedOption={selectedTeam} options={teamsList} />
               <SearchFilterBar
                 handleSearchFilter={this.handleSearchFilter}
-                options={teams.data}
+                options={
+                  selectedTeam.value !== "none" ? teams.data.filter(team => team.id === selectedTeam.value) : teams.data
+                }
                 filterItems={workflowsFilter}
                 debounceTimeout={300}
                 multiselect={false}

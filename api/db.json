@@ -6113,6 +6113,28 @@
     ],
     "records": [
       {
+        "creationDate": 1546897508945,
+        "duration": 398083,
+        "id": "5c33c86453c9250001a24bbe",
+        "initiatedByUserId": "5c2bf6c079c6b50001e6eaef",
+        "initiatedByUserName": "Tyson Lawrie",
+        "status": "completed",
+        "workflowId": "5c2d3653d86c81000142020b",
+        "workflowRevisionid": "5c33c85c53c9250001a24bb3",
+        "trigger": "manual",
+        "properties": [
+          {
+            "key": "SLACK_CHANNEL",
+            "value": "@twlawrie"
+          }
+        ],
+        "description": "test description",
+        "icon": "diagram",
+        "shortDescription": "To test Workflow Inputs",
+        "workflowName": "Tyson Test 1",
+        "teamName": "IBM Engineering Automation Team"
+      },
+      {
         "creationDate": 1541070397344,
         "duration": 13886,
         "id": "5bdade3d37dc4700011b06c3",
@@ -6248,6 +6270,21 @@
         "icon": "diagram",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
+      },
+      {
+        "creationDate": 1546932000016,
+        "duration": 8990,
+        "id": "5c344f2053c9250001a2dff7",
+        "status": "completed",
+        "workflowId": "5c1035bad4e0510001b5af5d",
+        "workflowRevisionid": "5c181970d54d7100017e92ec",
+        "trigger": "cron",
+        "properties": [],
+        "description": "asdsadsa",
+        "icon": "docs",
+        "shortDescription": "adas",
+        "workflowName": "Marcus Testing",
+        "teamName": "CAI Offering Team"
       }
     ]
   },

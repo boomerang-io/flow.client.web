@@ -55,11 +55,15 @@ const activity = {
   workflowName: "Business Process Test"
 };
 
+const match = {
+  url: "test.url"
+};
+
 describe("ActivityCard --- Snapshot", () => {
   it("Capturing Snapshot of ActivityCard", () => {
     const renderedValue = renderer.create(
       <MemoryRouter>
-        <ActivityCard activity={activity} history={history} />
+        <ActivityCard activity={activity} history={history} match={match} />
       </MemoryRouter>
     );
     expect(renderedValue).toMatchSnapshot();
@@ -72,7 +76,7 @@ describe("ActivityCard --- Shallow render", () => {
   beforeEach(() => {
     wrapper = shallow(
       <MemoryRouter>
-        <ActivityCard activity={activity} history={history} />
+        <ActivityCard activity={activity} history={history} match={match} />
       </MemoryRouter>
     );
   });
