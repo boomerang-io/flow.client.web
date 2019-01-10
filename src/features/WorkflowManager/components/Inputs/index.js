@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
@@ -14,6 +15,10 @@ import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
 class Inputs extends Component {
+  static propTypes = {
+    updateInputs: PropTypes.func.isRequired
+  };
+
   formatDefaultValue = value => {
     switch (value) {
       case INPUT_TYPES.BOOLEAN:
@@ -24,7 +29,9 @@ class Inputs extends Component {
   };
 
   deleteInput = key => {
-    this.props.workflowActions.deleteWorkflowInput({ key });
+    new Promise(resolve => {
+      resolve(this.props.workflowActions.deleteWorkflowInput({ key }));
+    }).then(() => this.props.updateInputs());
   };
 
   render() {
@@ -105,6 +112,7 @@ class Inputs extends Component {
                   </div>
                 )}
                 input={input}
+                updateInputs={this.props.updateInputs}
               />
             </div>
           ))}
@@ -117,6 +125,7 @@ class Inputs extends Component {
               Create New Property
             </div>
           )}
+          updateInputs={this.props.updateInputs}
         />
       </div>
     );

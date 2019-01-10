@@ -24,14 +24,16 @@ class ActionBar extends Component {
     isValidOverview: PropTypes.bool.isRequired,
     performAction: PropTypes.func.isRequired,
     performActionButtonText: PropTypes.string.isRequired,
-    revisionCount: PropTypes.number
+    revisionCount: PropTypes.number,
+    showActionButton: PropTypes.bool
   };
 
   static defaultProps = {
     includeCreateNewVersionComment: false,
     includeResetVersionAlert: false,
     includeVersionSwitcher: false,
-    includeZoom: false
+    includeZoom: false,
+    showActionButton: true
   };
 
   handleZoomIncrease = () => {
@@ -99,7 +101,8 @@ class ActionBar extends Component {
       includeCreateNewVersionComment,
       isValidOverview,
       performAction,
-      performActionButtonText
+      performActionButtonText,
+      showActionButton
     } = this.props;
 
     if (includeResetVersionAlert) {
@@ -138,20 +141,15 @@ class ActionBar extends Component {
         />
       );
     }
-    if (isValidOverview) {
+    if (showActionButton) {
       return (
-        <Button theme="bmrg-black" onClick={performAction}>
+        <Button theme="bmrg-black" onClick={performAction} disabled={!isValidOverview}>
           {performActionButtonText}
         </Button>
       );
     }
 
-    // If not valid overview, return as disabled button
-    return (
-      <Button disabled theme="bmrg-black">
-        {performActionButtonText}
-      </Button>
-    );
+    return null;
   }
 
   render() {

@@ -163,66 +163,56 @@ export class WorkflowInsights extends Component {
               options={timeframeOptions}
             />
           </div>
-          <div className="c-workflow-insights__stats-widgets">
-            <div className="c-workflow-insights__stats">
-              <WidgetCard title="Total Executed">
-                {chartData.totalExecutions === 0 ? (
-                  <label className="b-workflow-insights__stats-label --no-data">No Data</label>
-                ) : (
-                  <label className="b-workflow-insights__stats-label">{chartData.totalExecutions}</label>
-                )}
-              </WidgetCard>
-            </div>
-            <div className="c-workflow-insights__stats">
-              <WidgetCard title="Median Duration">
-                {chartData.totalExecutions === 0 ? (
-                  <label className="b-workflow-insights__stats-label --no-data">No Data</label>
-                ) : (
-                  <label className="b-workflow-insights__stats-label">
-                    {chartData.medianDuration === 0 ? "0" : timeSecondsToTimeUnit(chartData.medianDuration)}
-                  </label>
-                )}
-              </WidgetCard>
-            </div>
-            <div className="c-workflow-insights__stats">
-              <WidgetCard title="Success Rate">
-                {chartData.totalExecutions === 0 ? (
-                  <label className="b-workflow-insights__stats-label --no-data">No Data</label>
-                ) : (
-                  <CustomPieChart data={chartData.pieData} percentageSuccessful={chartData.percentageSuccessful} />
-                )}
-              </WidgetCard>
-            </div>
+          <div className="c-workflow-insights-stats-widgets">
+            <WidgetCard title="Total Executed" type="stat">
+              {chartData.totalExecutions === 0 ? (
+                <label className="b-workflow-insights__stats-label --no-data">No Data</label>
+              ) : (
+                <label className="b-workflow-insights__stats-label">{chartData.totalExecutions}</label>
+              )}
+            </WidgetCard>
+            <WidgetCard title="Median Duration" type="stat">
+              {chartData.totalExecutions === 0 ? (
+                <label className="b-workflow-insights__stats-label --no-data">No Data</label>
+              ) : (
+                <label className="b-workflow-insights__stats-label">
+                  {chartData.medianDuration === 0 ? "0" : timeSecondsToTimeUnit(chartData.medianDuration)}
+                </label>
+              )}
+            </WidgetCard>
+            <WidgetCard title="Success Rate" type="stat">
+              {chartData.totalExecutions === 0 ? (
+                <label className="b-workflow-insights__stats-label --no-data">No Data</label>
+              ) : (
+                <CustomPieChart data={chartData.pieData} percentageSuccessful={chartData.percentageSuccessful} />
+              )}
+            </WidgetCard>
           </div>
-          <div className="c-workflow-insights__graphs-widgets">
-            <div className="c-workflow-insights-graph">
-              <WidgetCard title="Executions">
-                {chartData.totalExecutions === 0 ? (
-                  <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
-                ) : (
-                  <CustomAreaChart
-                    areaData={executeDataLines}
-                    data={chartData.timeData}
-                    toolTipDateFormat="MMM DD - YYYY"
-                    xAxisKey="date"
-                    yAxisText="Count"
-                  />
-                )}
-              </WidgetCard>
-            </div>
-            <div className="c-workflow-insights-graph">
-              <WidgetCard title="Execution Time">
-                {chartData.totalExecutions === 0 ? (
-                  <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
-                ) : (
-                  <CustomScatterChart
-                    data={chartData.scatterData}
-                    yAxisText="Duration (seconds)"
-                    yAxisDataKey="duration"
-                  />
-                )}
-              </WidgetCard>
-            </div>
+          <div className="c-workflow-insights-graphs-widgets">
+            <WidgetCard title="Executions" type="graph">
+              {chartData.totalExecutions === 0 ? (
+                <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
+              ) : (
+                <CustomAreaChart
+                  areaData={executeDataLines}
+                  data={chartData.timeData}
+                  toolTipDateFormat="MMM DD - YYYY"
+                  xAxisKey="date"
+                  yAxisText="Count"
+                />
+              )}
+            </WidgetCard>
+            <WidgetCard title="Execution Time" type="graph">
+              {chartData.totalExecutions === 0 ? (
+                <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
+              ) : (
+                <CustomScatterChart
+                  data={chartData.scatterData}
+                  yAxisText="Duration (seconds)"
+                  yAxisDataKey="duration"
+                />
+              )}
+            </WidgetCard>
           </div>
         </div>
       );

@@ -4,6 +4,8 @@ import orderBy from "lodash/orderBy";
 import Filler from "./Filler";
 import "./styles.scss";
 
+const colors = ["#57d785", "#95c4f3", "#fbeaae", "#fc835c", "#f7aac3"];
+
 const TimeProgressBar = ({ tasks, updateActiveNode }) => {
   const steps = orderBy(tasks.steps, ["order"], ["asc"]).filter(
     step => step.flowTaskStatus === "completed" || step.flowTaskStatus === "skipped"
@@ -19,16 +21,15 @@ const TimeProgressBar = ({ tasks, updateActiveNode }) => {
         <div className="b-time-progress-bar__fillers">
           {steps.map((step, index) => (
             <Filler
-              id={step.id}
-              key={step.taskId}
-              taskId={step.taskId}
-              status={step.flowTaskStatus}
-              index={index}
-              taskName={step.taskName}
+              backgroundColor={colors[index % colors.length]}
               duration={step.duration}
               finishTime={step.startTime + step.duration}
+              id={step.id}
+              key={step.id}
               percentOfTotal={(step.duration / durationSum) * 100}
-              currentDuration={step.duration}
+              status={step.flowTaskStatus}
+              taskId={step.taskId}
+              taskName={step.taskName}
               updateActiveNode={updateActiveNode}
             />
           ))}

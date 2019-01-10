@@ -2,10 +2,6 @@
 
 .c-workflow-activity {
   margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
   max-width: 100rem;
 
   .bx--select-input {
@@ -122,13 +118,34 @@
 .c-workflow-activity-content {
   display: flex;
   flex-direction: column;
-  padding: 2rem 1rem 1rem 1rem;
+  padding: 1rem 0rem;
   max-width: 100rem;
   width: 100%;
 }
 .c-workflow-activity-header {
+  margin-top: 1rem;
   display: flex;
   align-self: flex-end;
+  justify-content: space-between;
+  width: 40rem;
+
+  & .b-search-filter__search {
+    margin-right: 0rem;
+  }
+}
+
+@media (max-width: 32rem) {
+  .c-workflow-activity-header {
+    flex-direction: column;
+    align-items: center;
+    height: 10rem;
+    width: 100%;
+
+    & .b-search-filter__search {
+      margin: 0rem;
+      padding-top: 1rem;
+    }
+  }
 }
 
 .s-workflow-activity-navigation {

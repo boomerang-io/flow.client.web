@@ -2,7 +2,7 @@
 
 exports[`WidgetCard --- Snapshot Capturing Snapshot of WidgetCard 1`] = `
 <div
-  className="c-widget-card"
+  className="b-widget-card"
 >
   <div
     className="b-widget-card__title"
