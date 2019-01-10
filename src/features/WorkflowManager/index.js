@@ -84,7 +84,7 @@ export class WorkflowManagerContainer extends Component {
       })
       .then(() => {
         notify(
-          <Notification type="success" title="Create Workflow" message="Succssfully created workflow and version" />
+          <Notification type="success" title="Create Workflow" message="Successfully created workflow and version" />
         );
         this.props.history.push(`/editor/${workflowId}/designer`);
       })
@@ -103,7 +103,7 @@ export class WorkflowManagerContainer extends Component {
     return workflowRevisionActions
       .create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body)
       .then(response => {
-        notify(<Notification type="success" title="Create Version" message="Succssfully created workflow version" />);
+        notify(<Notification type="success" title="Create Version" message="Successfully created workflow version" />);
         return Promise.resolve();
       })
       .catch(() => {
@@ -124,7 +124,7 @@ export class WorkflowManagerContainer extends Component {
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, id: workflowId })
       .then(response => {
-        notify(<Notification type="success" title="Update Workflow" message="Succssfully updated workflow" />);
+        notify(<Notification type="success" title="Update Workflow" message="Successfully updated workflow" />);
         workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
         return Promise.resolve(response);
       })
@@ -140,8 +140,7 @@ export class WorkflowManagerContainer extends Component {
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, this.props.workflow.data.properties)
       .then(response => {
-        notify(<Notification type="success" title="Update Inputs" message="Succssfully updated inputs" />);
-        workflowActions.setHasUnsavedInputUpdates({ hasUpdates: false });
+        notify(<Notification type="success" title="Update Inputs" message="Successfully updated inputs" />);
         return Promise.resolve(response);
       })
       .catch(error => {
@@ -209,18 +208,18 @@ export class WorkflowManagerContainer extends Component {
     }
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
-      const { hasUnsavedWorkflowUpdates, hasUnsavedInputUpdates } = this.props.workflow;
+      const { hasUnsavedWorkflowUpdates } = this.props.workflow;
       const { hasUnsavedWorkflowRevisionUpdates } = this.props.workflowRevision;
       return (
         <>
           <Prompt
-            when={hasUnsavedWorkflowUpdates || hasUnsavedWorkflowRevisionUpdates || hasUnsavedInputUpdates}
+            when={hasUnsavedWorkflowUpdates || hasUnsavedWorkflowRevisionUpdates}
             message={location =>
               location.pathname === this.props.match.url || location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
                 ? true
                 : `Are you sure? You have unsaved changes that will be lost on:\n${
                     hasUnsavedWorkflowUpdates ? "- Overview\n" : ""
-                  }${hasUnsavedWorkflowRevisionUpdates ? "- Design\n" : ""}${hasUnsavedInputUpdates ? "- Input\n" : ""}`
+                  }${hasUnsavedWorkflowRevisionUpdates ? "- Design\n" : ""}`
             }
           />
           <div className="c-workflow-designer">

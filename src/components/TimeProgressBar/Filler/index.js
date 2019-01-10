@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import classnames from "classnames";
 import moment from "moment";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
@@ -6,23 +7,35 @@ import { ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import "./styles.scss";
 
-const Filler = ({
-  id,
-  taskId,
-  index,
-  isFirstTask,
-  isLastTask,
-  taskName,
+Filler.propTypes = {
+  backgroundColor: PropTypes.string.isRequired,
+  duration: PropTypes.number.isRequired,
+  finishTime: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  isFirstTask: PropTypes.bool,
+  isLastTask: PropTypes.bool,
+  percentOfTotal: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  taskId: PropTypes.string.isRequired,
+  taskName: PropTypes.string.isRequired,
+  updateActiveNode: PropTypes.func.isRequired
+};
+
+function Filler({
+  backgroundColor,
   duration,
   finishTime,
+  id,
+  isFirstTask, //TODO: for styling
+  isLastTask, //TODO
   percentOfTotal,
-  updateActiveNode,
-  status
-}) => {
-  const colors = ["#57d785", "#95c4f3", "#e3bc13", "#fc835c", "#f7aac3"];
-
+  status,
+  taskId,
+  taskName,
+  updateActiveNode
+}) {
   const styles = {
-    backgroundColor: colors[index],
+    backgroundColor: backgroundColor,
     width: `${percentOfTotal}%`
   };
 
@@ -49,7 +62,7 @@ const Filler = ({
           <div className="b-time-progress-bar-filler-info">
             <label className="b-time-progress-bar-filler-info__value">{taskName}</label>
             <label className="b-time-progress-bar-filler-info__value">
-              {getHumanizedDuration(parseInt(duration / 1000, 10))}
+              {getHumanizedDuration(Math.round(parseInt(duration / 1000), 10))}
             </label>
             <label className="b-time-progress-bar-filler-info__value">{ACTIVITY_STATUSES_TO_TEXT[status]}</label>
           </div>
@@ -57,6 +70,6 @@ const Filler = ({
       </Tooltip>
     </>
   );
-};
+}
 
 export default Filler;

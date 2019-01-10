@@ -10,7 +10,8 @@ class InputsModal extends Component {
     isEdit: PropTypes.bool.isRequired,
     Button: PropTypes.func.isRequired,
     inputsNames: PropTypes.array,
-    input: PropTypes.object
+    input: PropTypes.object,
+    updateInputs: PropTypes.func.isRequired
   };
 
   render() {
@@ -30,7 +31,7 @@ class InputsModal extends Component {
             theme="bmrg-white"
             {...rest}
           >
-            <InputsModalContent />
+            <InputsModalContent updateInputs={this.props.updateInputs} />
           </ModalFlow>
         )}
         {...this.props}

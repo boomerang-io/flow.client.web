@@ -36,7 +36,6 @@ export const initialState = {
   creatingStatus: "",
   error: "",
   hasUnsavedWorkflowUpdates: false,
-  hasUnsavedInputUpdates: false,
   data: {
     triggers: {
       scheduler: {
@@ -132,12 +131,6 @@ const actionHandlers = {
     const properties = state.data.properties.filter(input => input.key !== action.data.key);
     const newProperties = [...properties];
     return { ...state, hasUnsavedInputUpdates: true, data: { ...state.data, properties: newProperties } };
-  },
-  [types.SET_HAS_UNSAVED_WORKFLOW_UPDATES]: (state, action) => {
-    return { ...state, hasUnsavedWorkflowUpdates: action.data.hasUpdates };
-  },
-  [types.SET_HAS_UNSAVED_INPUT_UPDATES]: (state, action) => {
-    return { ...state, hasUnsavedInputUpdates: action.data.hasUpdates };
   }
 };
 
@@ -163,7 +156,6 @@ const createWorkflowInput = data => ({ type: types.CREATE_WORKFLOW_INPUT, data }
 const updateWorkflowInput = data => ({ type: types.UPDATE_WORKFLOW_INPUT, data });
 const deleteWorkflowInput = data => ({ type: types.DELETE_WORKFLOW_INPUT, data });
 const setHasUnsavedWorkflowUpdates = data => ({ type: types.SET_HAS_UNSAVED_WORKFLOW_UPDATES, data });
-const setHasUnsavedInputUpdates = data => ({ type: types.SET_HAS_UNSAVED_INPUT_UPDATES, data });
 
 const fetchActionCreators = {
   reset: reset,
@@ -226,6 +218,5 @@ export const actions = {
   createWorkflowInput,
   updateWorkflowInput,
   deleteWorkflowInput,
-  setHasUnsavedWorkflowUpdates,
-  setHasUnsavedInputUpdates
+  setHasUnsavedWorkflowUpdates
 };

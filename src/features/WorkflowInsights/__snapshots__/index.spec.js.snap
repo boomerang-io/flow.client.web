@@ -207,13 +207,13 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
     </div>
   </div>
   <div
-    className="c-workflow-insights__stats-widgets"
+    className="c-workflow-insights-stats-widgets"
   >
     <div
       className="c-workflow-insights__stats"
     >
       <div
-        className="c-widget-card"
+        className="b-widget-card"
       >
         <div
           className="b-widget-card__title"
@@ -235,7 +235,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
       className="c-workflow-insights__stats"
     >
       <div
-        className="c-widget-card"
+        className="b-widget-card"
       >
         <div
           className="b-widget-card__title"
@@ -257,7 +257,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
       className="c-workflow-insights__stats"
     >
       <div
-        className="c-widget-card"
+        className="b-widget-card"
       >
         <div
           className="b-widget-card__title"
@@ -287,13 +287,13 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
     </div>
   </div>
   <div
-    className="c-workflow-insights__graphs-widgets"
+    className="c-workflow-insights-graphs-widgets"
   >
     <div
       className="c-workflow-insights-graph"
     >
       <div
-        className="c-widget-card"
+        className="b-widget-card"
       >
         <div
           className="b-widget-card__title"
@@ -347,7 +347,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
       className="c-workflow-insights-graph"
     >
       <div
-        className="c-widget-card"
+        className="b-widget-card"
       >
         <div
           className="b-widget-card__title"

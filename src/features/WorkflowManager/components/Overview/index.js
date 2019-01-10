@@ -61,7 +61,7 @@ export class Overview extends Component {
           key: "token",
           value: response.data.token
         });
-        notify(<Notification type="success" title="Create Workflow" message="Succssfully Generated Webhook Token" />);
+        notify(<Notification type="success" title="Create Workflow" message="Successfully Generated Webhook Token" />);
       })
       .catch(err => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to create webhook token" />);
