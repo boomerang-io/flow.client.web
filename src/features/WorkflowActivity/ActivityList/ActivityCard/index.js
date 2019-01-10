@@ -78,7 +78,7 @@ class ActivityCard extends Component {
                     src={ACTIVITY_STATUSES_TO_ICON[status ? status : "notstarted"]}
                     alt={`Status ${status}`}
                   />
-                  {ACTIVITY_STATUSES_TO_TEXT[status]}
+                  {ACTIVITY_STATUSES_TO_TEXT[status ? status : "notstarted"]}
                 </label>
               </div>
             </div>

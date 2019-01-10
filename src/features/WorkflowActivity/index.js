@@ -36,7 +36,8 @@ export class WorkflowActivity extends Component {
     hasMoreActivities: null,
     nextPage: 1,
     isLoading: false,
-    selectedTeam: { value: "none", label: "All" }
+    selectedTeam: { value: "none", label: "All" },
+    emptyActivities: false
   };
 
   componentDidMount() {
@@ -124,8 +125,11 @@ export class WorkflowActivity extends Component {
           "DESC"
         );
       });
+      if (!!newActivities.length) this.setState({ emptyActivities: true });
+      else this.setState({ emptyActivities: false });
       return orderBy(newActivities, ["creationDate"], ["desc"]);
     }
+    this.setState({ emptyActivities: false });
     return activities;
   };
 
@@ -166,8 +170,9 @@ export class WorkflowActivity extends Component {
       hasMoreActivities,
       nextPage,
       isLoading,
-      selectedTeam
+      selectedTeam,
       //executionFilter
+      emptyActivities
     } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
@@ -211,7 +216,7 @@ export class WorkflowActivity extends Component {
                 itemToString={item => (item ? item.value : "")}
               />
             </div>
-            {!activity.data.records.length ? (
+            {!activity.data.records.length || emptyActivities ? (
               <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
             ) : (
               <ActivityList

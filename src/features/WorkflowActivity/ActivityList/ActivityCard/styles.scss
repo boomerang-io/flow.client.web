@@ -20,6 +20,9 @@
   &.--inProgress {
     border-color: $cerulean-20;
   }
+  &.--invalid {
+    border-color: $gray-20;
+  }
 }
 .c-activities-row__item-workflow {
   display: flex;

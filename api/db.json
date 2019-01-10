@@ -6118,7 +6118,7 @@
         "id": "5c33c86453c9250001a24bbe",
         "initiatedByUserId": "5c2bf6c079c6b50001e6eaef",
         "initiatedByUserName": "Tyson Lawrie",
-        "status": "completed",
+        "status": "invalid",
         "workflowId": "5c2d3653d86c81000142020b",
         "workflowRevisionid": "5c33c85c53c9250001a24bb3",
         "trigger": "manual",
