@@ -77,6 +77,10 @@ class SwitchLink extends Component {
     return true;
   };
 
+  handleClick = () => {
+    console.log("we have been clicked");
+  };
+
   render() {
     //console.log(this.state);
     if (this.path) {
