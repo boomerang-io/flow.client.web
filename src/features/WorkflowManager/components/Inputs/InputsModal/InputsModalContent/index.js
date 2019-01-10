@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
@@ -13,6 +14,10 @@ import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
 class InputsModalContent extends Component {
+  static propTypes = {
+    updateInputs: PropTypes.func.isRequired
+  };
+
   state = {
     key: this.props.input ? this.props.input.key : "",
     description: this.props.input ? this.props.input.description : "",
@@ -91,9 +96,13 @@ class InputsModalContent extends Component {
     }
 
     if (this.props.isEdit) {
-      this.props.workflowActions.updateWorkflowInput(inputProperties);
+      new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties))).then(() =>
+        this.props.updateInputs()
+      );
     } else {
-      this.props.workflowActions.createWorkflowInput(inputProperties);
+      new Promise(resolve => resolve(this.props.workflowActions.createWorkflowInput(inputProperties))).then(() =>
+        this.props.updateInputs()
+      );
     }
     this.props.closeModal();
   };
