@@ -104,7 +104,7 @@ class WorkflowCard extends Component {
           <div className="c-workflow-card__icon">
             <img className="b-workflow-card__icon" src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
           </div>
-          <div className="c-workflow-card__description">
+          <div className="c-workflow-card__description" onClick={this.handleEdit}>
             <h2 className="b-workflow-card__name">{workflow.name}</h2>
             <p className="b-workflow-card__description">{workflow.shortDescription}</p>
             <span data-tip data-for={workflow.id} className="b-workflow-card-launch">
