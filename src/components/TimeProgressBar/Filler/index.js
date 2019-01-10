@@ -20,9 +20,9 @@ const Filler = ({
   status
 }) => {
   const colors = ["#57d785", "#95c4f3", "#e3bc13", "#fc835c", "#f7aac3"];
-
+  const skippedColor = "#6f7878";
   const styles = {
-    backgroundColor: colors[index],
+    backgroundColor: status === "skipped" ? skippedColor : colors[index],
     width: `${percentOfTotal}%`
   };
 

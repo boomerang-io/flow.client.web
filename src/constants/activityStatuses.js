@@ -9,7 +9,8 @@ export const ACTIVITY_STATUSES = {
   FAILURE: "failure",
   IN_PROGRESS: "inProgress",
   NOT_STARTED: "notstarted",
-  INVALID: "invalid"
+  INVALID: "invalid",
+  SKIPPED: "skipped"
 };
 
 export const ACTIVITY_STATUSES_TO_TEXT = {
@@ -17,7 +18,8 @@ export const ACTIVITY_STATUSES_TO_TEXT = {
   [ACTIVITY_STATUSES.FAILURE]: "Failed",
   [ACTIVITY_STATUSES.IN_PROGRESS]: "In Progress",
   [ACTIVITY_STATUSES.NOT_STARTED]: "Not Started",
-  [ACTIVITY_STATUSES.INVALID]: "Invalid"
+  [ACTIVITY_STATUSES.INVALID]: "Invalid",
+  [ACTIVITY_STATUSES.SKIPPED]: "Skipped"
 };
 
 export const ACTIVITY_STATUSES_TO_ICON = {

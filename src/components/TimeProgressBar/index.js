@@ -5,7 +5,9 @@ import Filler from "./Filler";
 import "./styles.scss";
 
 const TimeProgressBar = ({ tasks, updateActiveNode }) => {
-  const steps = orderBy(tasks.steps, ["order"], ["asc"]).filter(step => step.flowTaskStatus === "completed");
+  const steps = orderBy(tasks.steps, ["order"], ["asc"]).filter(
+    step => step.flowTaskStatus === "completed" || step.flowTaskStatus === "skipped"
+  );
   let durationSum = 0;
   tasks.steps.forEach(step => (durationSum += step.duration));
 
