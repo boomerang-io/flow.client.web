@@ -32,10 +32,15 @@ class EditSwitchButton extends Component {
     });
   };
 
+  testFunc = () => {
+    this.props.onClick();
+  };
+
   render() {
     return (
       <>
-        <div className="b-editswitch-button">
+        {/*
+        <foreignObject>
           <Modal
             ModalTrigger={() => <img src={pencilIcon} className="b-editswitch-button__img" alt="Task node type" />}
             modalContent={(closeModal, ...rest) => (
@@ -52,7 +57,9 @@ class EditSwitchButton extends Component {
               />
             )}
           />
-        </div>
+        </foreignObject>
+          */}
+        <img src={pencilIcon} className="b-editswitch-button__img" alt="Task node type" onclick={this.testFunc} />
       </>
     );
   }
