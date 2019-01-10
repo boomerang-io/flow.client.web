@@ -36,8 +36,7 @@ export class WorkflowActivity extends Component {
     hasMoreActivities: null,
     nextPage: 1,
     isLoading: false,
-    selectedTeam: { value: "none", label: "All" },
-    emptyActivities: false
+    selectedTeam: { value: "none", label: "All" }
   };
 
   componentDidMount() {
@@ -125,11 +124,8 @@ export class WorkflowActivity extends Component {
           "DESC"
         );
       });
-      if (!!newActivities.length) this.setState({ emptyActivities: true });
-      else this.setState({ emptyActivities: false });
       return orderBy(newActivities, ["creationDate"], ["desc"]);
     }
-    this.setState({ emptyActivities: false });
     return activities;
   };
 
