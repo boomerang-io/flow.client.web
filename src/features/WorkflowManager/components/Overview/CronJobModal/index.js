@@ -26,11 +26,11 @@ export default class CronJobModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cronExpression: props.cronExpression || "20 18 * * *",
+      cronExpression: props.cronExpression || "0 18 * * *",
       timeZone: props.timeZone || moment.tz.guess(),
       inputError: {},
       errorMessage: undefined,
-      message: props.cronExpression ? cronstrue.toString(props.cronExpression) : cronstrue.toString("20 18 * * *"),
+      message: props.cronExpression ? cronstrue.toString(props.cronExpression) : cronstrue.toString("0 18 * * *"),
       defaultTimeZone: moment.tz.guess()
     };
 
@@ -54,7 +54,7 @@ export default class CronJobModal extends Component {
   //receives input value from TextInput
   validateCron = value => {
     if (value === "1 1 1 1 1" || value === "* * * * *") {
-      this.setState({ message: undefined, errorMessage: "1 1 1 1 1 and * * * * * expressions are invalid" });
+      this.setState({ message: undefined, errorMessage: `${value} expression is not allowed for Boomerang Flow` });
       return false;
     }
     try {

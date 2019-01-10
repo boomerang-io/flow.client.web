@@ -56,7 +56,7 @@ class CustomLink extends Component {
           <>
             <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y - 20}) scale(0.7)`}>
               <foreignObject>
-                <CloseModalButton onClick={this.handleOnDelete} />
+                <CloseModalButton onClick={this.handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
               </foreignObject>
             </g>
             <g transform={`translate(${this.halfwayPoint.x - 17}, ${this.halfwayPoint.y + 2})`}>
@@ -65,6 +65,7 @@ class CustomLink extends Component {
                   onClick={this.updateExecutionState}
                   initialExecutionCondition={this.state.executionCondition}
                   modelId={this.props.model.id}
+                  xmlns="http://www.w3.org/1999/xhtml"
                 />
               </foreignObject>
             </g>
