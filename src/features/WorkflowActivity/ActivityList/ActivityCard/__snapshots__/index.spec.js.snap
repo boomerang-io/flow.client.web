@@ -7,10 +7,10 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
   onClick={[Function]}
 >
   <div
-    className="c-activity-card__workflow"
+    className="c-activity-card-workflow"
   >
     <div
-      className="c-activity-card__workflow--left"
+      className="c-activity-card-section--left"
     >
       <div
         className="c-activity-card__icon"
@@ -22,7 +22,7 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
         />
       </div>
       <div
-        className="c-activity-card__workflow-info"
+        className="c-activity-card-workflow-info"
       >
         <label
           className="b-activity-card__name"
@@ -37,16 +37,16 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
       </div>
     </div>
     <div
-      className="c-activity-card__workflow--right"
+      className="c-activity-card-section--right"
     >
       <div
-        className="c-activity-card__workflow-first-column"
+        className="c-activity-card-workflow-first-column"
       >
         <div
           className="c-activity-card__trigger-info"
         >
           <div
-            className="c-activity-card__workflow-trigger-label"
+            className="c-activity-card-workflow-trigger-label"
           >
             <label
               className="b-activity-card__trigger-label"
@@ -65,7 +65,7 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
             </label>
           </div>
           <div
-            className="c-activity-card__workflow-trigger-info"
+            className="c-activity-card-workflow-trigger-info"
           >
             <label
               className="b-activity-card__team-name"
@@ -86,10 +86,10 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
         </div>
       </div>
       <div
-        className="c-activity-card__workflow-second-column"
+        className="c-activity-card-workflow-second-column"
       >
         <div
-          className="c-activity-card__label"
+          className="b-activity-card__row"
         >
           <label
             className="b-activity-card__label"
@@ -103,7 +103,7 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
           </label>
         </div>
         <div
-          className="c-activity-card__label"
+          className="b-activity-card__row"
         >
           <label
             className="b-activity-card__label"
@@ -117,7 +117,7 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
           </label>
         </div>
         <div
-          className="c-activity-card__label"
+          className="b-activity-card__row"
         >
           <label
             className="b-activity-card__label"

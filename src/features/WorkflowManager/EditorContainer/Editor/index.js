@@ -99,13 +99,12 @@ class WorkflowEditor extends Component {
             render={props => (
               <>
                 <ActionBar
-                  performActionButtonText="Update Inputs"
-                  performAction={this.props.updateInputs}
                   diagramApp={this.diagramApp}
                   isValidOverview={isValidOverview}
                   {...props}
+                  showActionButton={false}
                 />
-                <Inputs />
+                <Inputs updateInputs={this.props.updateInputs} />
               </>
             )}
           />

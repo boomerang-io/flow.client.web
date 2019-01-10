@@ -6,10 +6,11 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  min-width: 75rem;
   height: 7.5rem;
   border: solid 0.05rem $teal-20;
   border-radius: 0.25rem;
-  margin: 1.5rem 1rem;
+  margin: 1.5rem 0rem;
   cursor: pointer;
   &.--completed {
     border-color: $teal-20;
@@ -19,6 +20,9 @@
   }
   &.--inProgress {
     border-color: $cerulean-20;
+  }
+  &.--invalid {
+    border-color: $gray-20;
   }
 }
 .c-activities-row__item-workflow {
@@ -51,28 +55,24 @@
     border-color: $cerulean-20;
   }
 }
-.c-activity-card__workflow {
+.c-activity-card-workflow {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-.c-activity-card__workflow--left {
+.c-activity-card-section--left {
   display: flex;
+  min-width: 25rem;
 }
-.c-activity-card__workflow--right {
+.c-activity-card-section--right {
   display: flex;
-  margin-top: 0.75rem;
-  margin-right: 2rem;
+  align-items: center;
+  margin-right: 1rem;
+  min-width: 50rem;
 }
-.c-activity-card__workflow-first-column {
-  width: 17rem;
-  margin-right: 4rem;
-}
-.c-activity-card__trigger-info {
-  display: flex;
-}
-.c-activity-card__workflow-info {
+
+.c-activity-card-workflow-info {
   margin-left: 0.5rem;
   justify-content: center;
   display: flex;
@@ -81,18 +81,17 @@
   min-width: 12rem;
 }
 
-.c-activity-card__workflow-column {
-  margin-top: 1rem;
-  display: flex;
-}
-.c-activity-card__workflow-trigger-label {
-  display: flex;
-  flex-direction: column;
-}
-.c-activity-card__workflow-trigger-info {
-  display: flex;
-  flex-direction: column;
+.c-activity-card-execution-info {
   margin-left: 1rem;
+  min-width: 20rem;
+
+  &.--first {
+    width: 30rem;
+  }
+
+  li:last-of-type {
+    margin-bottom: 0rem;
+  }
 }
 
 .c-activity-card__icon {
@@ -115,56 +114,32 @@
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
-.b-activity-card__team-name {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  display: block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 13rem;
-  min-height: 1rem;
-}
-.b-activity-card__trigger-label {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  width: 6rem;
-}
+
 .b-activity-card__label {
-  width: 6rem;
-  font-size: 1rem;
+  min-width: 6rem;
+  line-height: 1.25rem;
   font-weight: 600;
-}
-.b-activity-card__team-name,
-.b-activity-card__trigger {
-  margin-bottom: 0.75rem;
-  font-weight: initial;
-  color: $gray-60;
-}
-.b-activity-card__autor {
-  margin-bottom: 0.5rem;
-  color: $gray-60;
   white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
-  width: 10rem;
+  text-overflow: ellipsis;
 }
+
 .b-activity-card__status-icon {
   margin-right: 0.5rem;
 }
+
 .b-activity-card__data {
+  line-height: 1.25rem;
   margin-left: 2rem;
   display: flex;
   align-items: center;
   color: $gray-60;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.c-activity-card__activity {
-  margin-top: 1rem;
-  margin-right: 3rem;
-}
-.c-activity-card__label {
+
+.b-activity-card__row {
   display: flex;
   justify-content: flex-start;
   margin-bottom: 0.75rem;

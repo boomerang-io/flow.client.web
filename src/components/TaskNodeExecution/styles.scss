@@ -25,6 +25,9 @@
   &.--notstarted {
     border-top: 0.625rem solid $pale-slate;
   }
+  &.--skipped {
+    border-top: 0.625rem solid $status-yellow;
+  }
   &.--inProgress {
     border-top: 0.625rem solid $ongoing-blue;
 

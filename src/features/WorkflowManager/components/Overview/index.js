@@ -61,7 +61,7 @@ export class Overview extends Component {
           key: "token",
           value: response.data.token
         });
-        notify(<Notification type="success" title="Create Workflow" message="Succssfully Generated Webhook Token" />);
+        notify(<Notification type="success" title="Create Workflow" message="Successfully Generated Webhook Token" />);
       })
       .catch(err => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to create webhook token" />);
@@ -237,7 +237,9 @@ export class Overview extends Component {
                   </Button>
                 )}
             </div>
-
+            {!workflow.data.id && workflow.data.triggers && workflow.data.triggers.webhook.enable && (
+              <div className="s-webhook-token-message">An API token will be generated on creation of the workflow.</div>
+            )}
             {workflow.data.triggers && workflow.data.triggers.webhook.token && workflow.data.triggers.webhook.enable && (
               <form className="b-webhook-token">
                 <TextInput

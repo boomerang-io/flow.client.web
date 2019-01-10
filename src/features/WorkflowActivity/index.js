@@ -166,8 +166,9 @@ export class WorkflowActivity extends Component {
       hasMoreActivities,
       nextPage,
       isLoading,
-      selectedTeam
+      selectedTeam,
       //executionFilter
+      emptyActivities
     } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
@@ -211,7 +212,7 @@ export class WorkflowActivity extends Component {
                 itemToString={item => (item ? item.value : "")}
               />
             </div>
-            {!activity.data.records.length ? (
+            {!activity.data.records.length || emptyActivities ? (
               <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
             ) : (
               <ActivityList

@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://launch.boomerangplatform.net/BMRG_APP_ROOT_CONTEXT",
   "dependencies": {
-    "@boomerang/boomerang-components": "6.1.0",
+    "@boomerang/boomerang-components": "6.1.1",
     "@boomerang/boomerang-dag": "5.2.1",
     "@boomerang/boomerang-react-scripts": "2.0.13",
     "@boomerang/boomerang-styles": "0.11.0-beta",
@@ -14,13 +14,11 @@
     "carbon-icons": "^7.0.7",
     "classnames": "^2.2.6",
     "cronstrue": "^1.58.0",
-    "moment-duration-format": "^2.2.2",
     "moment-timezone": "^0.5.23",
     "react": "^16.5.1",
     "react-click-outside": "^3.0.1",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.5.1",
-    "react-hot-loader": "^4.6.3",
     "react-infinite-scroller": "^1.2.2",
     "react-scroll-up-button": "^1.6.4",
     "validator": "^10.7.1"

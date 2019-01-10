@@ -39,7 +39,7 @@ class MultiStateButton extends Component {
     const executionConditionConfig = EXECUTION_CONDITIONS[this.state.executionConditionIndex];
     const { modelId } = this.props;
     return (
-      <>
+      <div xmlns={this.props.xmlns}>
         <img
           src={executionConditionConfig.img}
           className="b-multistate-button"
@@ -51,7 +51,7 @@ class MultiStateButton extends Component {
         <ToolTip className="b-multistate-button__tooltip" place="bottom" id={modelId}>
           {executionConditionConfig.text}
         </ToolTip>
-      </>
+      </div>
     );
   }
 }

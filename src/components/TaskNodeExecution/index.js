@@ -61,7 +61,7 @@ export class TaskNode extends Component {
       <div className="c-taskNode" onClick={this.handleOnActivityClick}>
         <div
           className={classnames("b-taskNode", {
-            [`--${flowTaskStatus}`]: flowTaskStatus && this.props.diagramEngine.diagramModel.locked
+            [`--${flowTaskStatus}`]: flowTaskStatus
           })}
         >
           <div className="b-taskNode__progress-bar" />
