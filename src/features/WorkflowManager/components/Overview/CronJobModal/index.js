@@ -54,7 +54,7 @@ export default class CronJobModal extends Component {
   //receives input value from TextInput
   validateCron = value => {
     if (value === "1 1 1 1 1" || value === "* * * * *") {
-      this.setState({ message: undefined, errorMessage: `${value} expression is not allowed for Boomerang Flow` });
+      this.setState({ message: undefined, errorMessage: `Expression ${value} is not allowed for Boomerang Flow` });
       return false;
     }
     try {
