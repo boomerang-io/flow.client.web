@@ -3,6 +3,9 @@ import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButt
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import EditSwitchButton from "./EditSwitchButton";
 import TriangleArrow from "./TriangleArrow";
+import pencilIcon from "./EditSwitchButton/pencil.svg";
+
+import MultiStateButton from "../WorkflowLink/MultiStateButton";
 
 /*
   -want to update this.props.model.linkState (default, success, failure)
@@ -38,8 +41,12 @@ class SwitchLink extends Component {
     this.props.model.switchCondition = switchCondition;
   };
 
+  handleClick = () => {
+    console.log("we have been clicked");
+  };
+
   render() {
-    console.log(this.state);
+    //console.log(this.state);
     if (this.path) {
       this.halfwayPoint = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
       this.endPoint = this.path.getPointAtLength(this.path.getTotalLength());
@@ -55,10 +62,7 @@ class SwitchLink extends Component {
             </g>
             <g transform={`translate(${this.halfwayPoint.x - 17}, ${this.halfwayPoint.y + 2})`}>
               <foreignObject>
-                <EditSwitchButton
-                  onClick={this.updateswitchState}
-                  initialSwitchCondition={this.state.switchCondition}
-                />
+                <EditSwitchButton onClick={this.handleClick} initialSwitchCondition={this.state.switchCondition} />
               </foreignObject>
             </g>
             <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y + 8})`}>

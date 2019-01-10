@@ -41,14 +41,14 @@ export class SwitchNode extends Component {
   };
 
   renderDeleteNode() {
-    return <CloseModalButton className="b-taskNode__delete" onClick={this.handleOnDelete} />;
+    return <CloseModalButton className="b-switchNode__delete" onClick={this.handleOnDelete} />;
   }
 
   renderConfigureNode() {
     const { nodeConfig, task } = this.props;
     return (
       <Modal
-        ModalTrigger={() => <img src={pencilIcon} className="b-taskNode__edit" alt="Task node type" />}
+        ModalTrigger={() => <img src={pencilIcon} className="b-switchNode__edit" alt="Task node type" />}
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={task.name}
@@ -69,16 +69,18 @@ export class SwitchNode extends Component {
 
   render() {
     return (
-      <div className="b-taskNode">
+      <div className="b-switchNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
           {this.props.task ? this.props.task.description : "Task description"}
         </Tooltip>
-        <div className="b-taskNode__tile" data-tip data-for={this.props.node.id}>
-          {this.props.task ? this.props.task.name : "Task"}
+        <div className="b-switchNode__tile" data-tip data-for={this.props.node.id}>
+          {this.props.nodeConfig.inputs && this.props.nodeConfig.inputs.value
+            ? this.props.nodeConfig.inputs.value
+            : this.props.task.name}
         </div>
 
-        <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
-        <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
+        <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
+        <PortWidget className="b-switchNode-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
         {this.renderConfigureNode()}
       </div>

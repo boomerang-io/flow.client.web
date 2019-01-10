@@ -2,24 +2,24 @@
 
 // these class names need to be updated to follow BEM
 
-.b-taskNode {
+.b-switchNode {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $lightest-gray;
+  background: $status-gray;
   border-radius: 0.25rem;
-  width: 16rem;
+  width: 13rem;
   height: 8rem;
   position: "relative";
 
-  .b-taskNode__tile {
+  .b-switchNode__tile {
     text-align: center;
     font-weight: 400;
     color: $dark-blue;
     letter-spacing: 0.1675rem;
   }
 
-  .b-taskNode-port {
+  .b-switchNode-port {
     position: absolute;
     border-radius: 50%;
     background-color: $teal;
@@ -35,21 +35,21 @@
     }
   }
 
-  .b-taskNode__edit {
+  .b-switchNode__edit {
     position: absolute;
     right: 3rem;
     top: 0.6875rem;
     cursor: pointer;
   }
 
-  .b-taskNode__delete {
+  .b-switchNode__delete {
     position: absolute;
     right: 0.5rem;
     top: 0.1rem;
     transform: scale(0.75);
   }
 
-  .b-taskNode__img {
+  .b-switchNode__img {
     bottom: 1rem;
     position: absolute;
     left: 1.5rem;
