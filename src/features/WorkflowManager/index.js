@@ -134,17 +134,17 @@ export class WorkflowManagerContainer extends Component {
       });
   };
 
-  updateInputs = () => {
+  updateInputs = ({ title = "Update Inputs", message = "Successfully updated inputs", type = "update" }) => {
     const { workflow, workflowActions } = this.props;
 
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, this.props.workflow.data.properties)
       .then(response => {
-        notify(<Notification type="success" title="Update Inputs" message="Successfully updated inputs" />);
+        notify(<Notification type="success" title={title} message={message} />);
         return Promise.resolve(response);
       })
       .catch(error => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to update inputs" />);
+        notify(<Notification type="error" title="Something's wrong" message={`Failed to ${type} input`} />);
         return Promise.reject(error);
       });
   };
