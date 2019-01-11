@@ -186,7 +186,7 @@ export class WorkflowManagerContainer extends Component {
 
     const node = new CustomTaskNodeModel({
       taskId: taskData.id,
-      taskName: `${taskData.name} ${nodesOfSameTypeCount}`
+      taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
     });
 
     //add node info to the state
