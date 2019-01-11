@@ -57,7 +57,7 @@ export class WorkflowsHome extends Component {
     this.props.teamsActions.setActiveTeam({ teamId: selectedTeamId });
   };
 
-  handleExecute = ({ workflowId, redirect = false, properties = {} }) => {
+  handleExecuteWorkflow = ({ workflowId, redirect = false, properties = {} }) => {
     return axios
       .post(`${BASE_SERVICE_URL}/execute/${workflowId}`, { properties })
       .then(response => {
@@ -74,7 +74,7 @@ export class WorkflowsHome extends Component {
       });
   };
 
-  handleOnDelete = ({ workflowId, teamId }) => {
+  handleDeleteWorkflow = ({ workflowId, teamId }) => {
     axios
       .delete(`${BASE_SERVICE_URL}/workflow/${workflowId}`)
       .then(() => {
@@ -133,8 +133,8 @@ export class WorkflowsHome extends Component {
                   setActiveTeamAndRedirect={this.setActiveTeamAndRedirect}
                   setActiveTeam={this.setActiveTeam}
                   key={team.id}
-                  executeWorkflow={this.handleExecute}
-                  deleteWorkflow={this.handleOnDelete}
+                  executeWorkflow={this.handleExecuteWorkflow}
+                  deleteWorkflow={this.handleDeleteWorkflow}
                 />
               );
             })}
