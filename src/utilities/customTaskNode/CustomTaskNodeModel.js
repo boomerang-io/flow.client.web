@@ -4,12 +4,12 @@ import merge from "lodash/merge";
 
 export default class CustomTaskNodeModel extends NodeModel {
   //list all three params
-  constructor(name, color, taskId) {
+  constructor(name, color, taskId, taskName) {
     super("custom");
     this.addPort(new CustomTaskPortModel("left"));
     this.addPort(new CustomTaskPortModel("right"));
     this.taskId = taskId;
-    //this.taskName = taskName;
+    this.taskName = "";
   }
 
   serialize() {

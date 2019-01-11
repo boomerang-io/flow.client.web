@@ -52,13 +52,14 @@ export class TaskNode extends Component {
         ModalTrigger={() => <img src={pencilIcon} className="b-taskNode__edit" alt="Task node type" />}
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
-            headerTitle={task.name}
+            headerTitle={`Edit properties for ${task.name}`}
             closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
             theme={"bmrg-white"}
             {...rest}
           >
             <DisplayForm
+              node={this.props.node}
               config={this.props.nodeConfig}
               onSave={this.handleOnSave}
               task={task}
@@ -93,7 +94,8 @@ export class TaskNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowRevision.config[ownProps.node.id]
+    nodeConfig: state.workflowRevision.config[ownProps.node.id],
+    nodeTaskNames: state.workflowRevision
   };
 };
 

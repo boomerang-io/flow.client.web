@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import ValueList from "./ValueList";
 
 class DisplayForm extends Component {
@@ -32,6 +33,17 @@ class DisplayForm extends Component {
     const { checked } = event.target;
     if (checked !== undefined && checked !== "undefined") {
       this.setState(() => ({ [field]: { value: checked } }));
+    }
+  };
+
+  updateNodeTaskName = (value, errors, field) => {
+    if (!Object.keys(errors).length) {
+      this.props.node.taskName = value;
+    }
+    if (field !== undefined && field !== "undefined") {
+      this.setState(() => ({
+        [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
+      }));
     }
   };
 
@@ -98,12 +110,24 @@ class DisplayForm extends Component {
   };
 
   render() {
-    //console.log(this.state);
     const sectionHeaderConfig = this.determineSectionHeaderConfig();
     const { nodeConfig, task } = this.props;
     return (
       <>
-        <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "30rem" }}>
+        <ModalContentBody
+          style={{ maxWidth: "35rem", margin: "auto", height: "30rem", display: "flex", flexDirection: "column" }}
+        >
+          <TextInput
+            required
+            noValueText="Name is required"
+            externallyControlled
+            name="taskName"
+            placeholder="Enter a task name"
+            value={"test"}
+            title="Task Name"
+            onChange={this.updateNodeTaskName}
+            theme="bmrg-white"
+          />
           <ValueList
             task={task}
             nodeConfig={nodeConfig}
