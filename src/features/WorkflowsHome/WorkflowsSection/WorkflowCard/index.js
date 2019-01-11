@@ -139,13 +139,13 @@ class WorkflowCard extends Component {
                       title="Execute workflow?"
                       subTitleTop="It will run"
                       closeModal={closeModal}
-                      affirmativeAction={() => this.executeWorkflow(false)}
+                      affirmativeAction={() => this.executeWorkflow({redirect:false})}
                       affirmativeText="Run"
                       theme="bmrg-white"
                     >
                       <button
                         className="bmrg--b-confirm-modal__button --affirmative --children"
-                        onClick={() => this.executeWorkflow(true)}
+                        onClick={() => this.executeWorkflow({redirect:true})}
                       >
                         Run and View
                       </button>
