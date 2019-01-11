@@ -79,7 +79,9 @@ class DisplayForm extends Component {
 
   handleOnSave = e => {
     e.preventDefault();
-    this.props.node.taskName = this.state["name"].value;
+    if (this.state["taskName"]) {
+      this.props.node.taskName = this.state["taskName"].value;
+    }
     this.props.onSave(this.createConfigToSave());
     this.props.closeModal();
   };
