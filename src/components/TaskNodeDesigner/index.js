@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
-import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
@@ -31,7 +30,7 @@ export class TaskNode extends Component {
   state = {};
 
   handleOnSave = inputs => {
-    this.props.workflowRevisionActions.updateNode({ nodeId: this.props.node.id, inputs });
+    this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
 
@@ -42,19 +41,19 @@ export class TaskNode extends Component {
   };
 
   renderDeleteNode() {
-    return <CloseModalButton className="b-taskNode__delete" onClick={this.handleOnDelete} />;
+    return <CloseModalButton className="b-task-node__delete" onClick={this.handleOnDelete} />;
   }
 
   renderConfigureNode() {
     const { nodeConfig, task } = this.props;
     return (
       <Modal
-        ModalTrigger={() => <img src={pencilIcon} className="b-taskNode__edit" alt="Task node type" />}
+        ModalTrigger={() => <img src={pencilIcon} className="b-task-node__edit" alt="Task node type" />}
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={`Edit properties for ${task.name}`}
             closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
+            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
             theme={"bmrg-white"}
             {...rest}
           >
@@ -64,6 +63,7 @@ export class TaskNode extends Component {
               onSave={this.handleOnSave}
               task={task}
               nodeConfig={nodeConfig}
+              taskNames={this.props.taskNames}
             />
           </ModalFlow>
         )}
@@ -73,18 +73,18 @@ export class TaskNode extends Component {
 
   render() {
     return (
-      <div className="b-taskNode">
-        <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
+      <div className="b-task-node">
+        <Tooltip place="left" id={this.props.node.id}>
           {this.props.task ? this.props.task.description : "Task description"}
         </Tooltip>
-        <div className="b-taskNode__tile" data-tip data-for={this.props.node.id}>
+        <div className="b-task-node__tile" data-tip data-for={this.props.node.id}>
           {this.props.task ? this.props.task.name : "Task"}
         </div>
 
-        <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
-        <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
+        <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
+        <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
-        <img src={TASK_KEYS_TO_ICON[this.props.task.key]} className="b-taskNode__img" alt="Task node type" />
+        <img src={TASK_KEYS_TO_ICON[this.props.task.key]} className="b-task-node__img" alt="Task node type" />
         {this.renderConfigureNode()}
       </div>
     );
@@ -95,13 +95,14 @@ const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    nodeTaskNames: state.workflowRevision
+    taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
+      .map(node => node.taskName)
+      .filter(name => !!name)
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch),
-  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 

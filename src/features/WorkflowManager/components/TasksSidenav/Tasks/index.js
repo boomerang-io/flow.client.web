@@ -3,6 +3,7 @@ import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import classNames from "classnames";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import Task from "./Task";
+import "./styles.scss";
 
 export default class Tasks extends Component {
   constructor(props) {
@@ -60,6 +61,10 @@ export default class Tasks extends Component {
   };
 
   render() {
-    return <Sidenav theme="bmrg-white" styles={{ width: "20rem" }} content={() => this.determineTasks()} />;
+    return (
+      <div className="c-tasks-sidenav">
+        <Sidenav theme="bmrg-white" content={() => this.determineTasks()} />
+      </div>
+    );
   }
 }

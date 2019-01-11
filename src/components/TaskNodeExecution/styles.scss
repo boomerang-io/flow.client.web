@@ -2,7 +2,7 @@
 
 // these class names need to be updated to follow BEM
 
-.b-taskNode {
+.b-task-node {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,7 +12,7 @@
   height: 8rem;
   position: "relative";
 
-  .b-taskNode__progress-bar {
+  .b-task-node__progress-bar {
     display: none;
   }
 
@@ -31,7 +31,7 @@
   &.--inProgress {
     border-top: 0.625rem solid $ongoing-blue;
 
-    .b-taskNode__progress-bar {
+    .b-task-node__progress-bar {
       position: absolute;
       display: block;
       height: 0.625rem;
@@ -67,14 +67,14 @@
     }
   }
 
-  .b-taskNode__tile {
+  .b-task-node__tile {
     text-align: center;
     font-weight: 400;
     color: $dark-blue;
     letter-spacing: 0.1675rem;
   }
 
-  .b-taskNode-port {
+  .b-task-node-port {
     position: absolute;
     border-radius: 50%;
     background-color: $teal;
@@ -90,7 +90,7 @@
     }
   }
 
-  .b-taskNode__img {
+  .b-task-node__img {
     bottom: 1rem;
     position: absolute;
     left: 1.5rem;

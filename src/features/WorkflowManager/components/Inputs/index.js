@@ -95,8 +95,8 @@ class Inputs extends Component {
                       closeModal();
                       this.deleteInput(input.key);
                     }}
-                    title="REMOVE THIS PROPERTY?"
-                    subTitleTop="This input parameter will be deleted"
+                    title="DELETE THIS PROPERTY?"
+                    subTitleTop="It will be gone. Forever."
                     cancelText="NO"
                     affirmativeText="YES"
                     theme="bmrg-white"

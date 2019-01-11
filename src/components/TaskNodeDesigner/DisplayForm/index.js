@@ -8,8 +8,10 @@ import ValueList from "./ValueList";
 
 class DisplayForm extends Component {
   static propTypes = {
+    node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
-    onSave: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired,
+    taskNames: PropTypes.array.isRequired
   };
 
   state = {};
@@ -22,9 +24,12 @@ class DisplayForm extends Component {
 
   handleTextInputChange = (value, errors, field) => {
     if (field !== undefined && field !== "undefined") {
-      this.setState(() => ({
-        [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
-      }));
+      this.setState(
+        () => ({
+          [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
+        }),
+        this.props.shouldConfirmExit(true)
+      );
     }
   };
 
@@ -32,18 +37,18 @@ class DisplayForm extends Component {
     const { name: field } = event.target;
     const { checked } = event.target;
     if (checked !== undefined && checked !== "undefined") {
-      this.setState(() => ({ [field]: { value: checked } }));
+      this.setState(() => ({ [field]: { value: checked } }), this.props.shouldConfirmExit(true));
     }
   };
 
   updateNodeTaskName = (value, errors, field) => {
-    if (!Object.keys(errors).length) {
-      this.props.node.taskName = value;
-    }
     if (field !== undefined && field !== "undefined") {
-      this.setState(() => ({
-        [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
-      }));
+      this.setState(
+        () => ({
+          [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
+        }),
+        this.props.shouldConfirmExit(true)
+      );
     }
   };
 
@@ -72,7 +77,9 @@ class DisplayForm extends Component {
       onSave(configToSave);
     };*/
 
-  handleOnSave = () => {
+  handleOnSave = e => {
+    e.preventDefault();
+    this.props.node.taskName = this.state["name"].value;
     this.props.onSave(this.createConfigToSave());
     this.props.closeModal();
   };
@@ -113,17 +120,19 @@ class DisplayForm extends Component {
     const sectionHeaderConfig = this.determineSectionHeaderConfig();
     const { nodeConfig, task } = this.props;
     return (
-      <>
+      <form>
         <ModalContentBody
           style={{ maxWidth: "35rem", margin: "auto", height: "30rem", display: "flex", flexDirection: "column" }}
         >
           <TextInput
             required
             noValueText="Name is required"
+            comparisonData={this.props.taskNames}
+            existValueText="Task name must be unique per workflow"
             externallyControlled
             name="taskName"
             placeholder="Enter a task name"
-            value={"test"}
+            value={this.props.node.taskName}
             title="Task Name"
             onChange={this.updateNodeTaskName}
             theme="bmrg-white"
@@ -145,7 +154,7 @@ class DisplayForm extends Component {
             Apply
           </ModalConfirmButton>
         </ModalContentFooter>
-      </>
+      </form>
     );
   }
 }

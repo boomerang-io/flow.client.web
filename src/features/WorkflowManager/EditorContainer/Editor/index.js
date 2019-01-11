@@ -101,8 +101,8 @@ class WorkflowEditor extends Component {
                 <ActionBar
                   diagramApp={this.diagramApp}
                   isValidOverview={isValidOverview}
-                  {...props}
                   showActionButton={false}
+                  {...props}
                 />
                 <Inputs updateInputs={this.props.updateInputs} />
               </>

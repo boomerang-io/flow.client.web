@@ -42,8 +42,8 @@
   padding: 0.375rem 2rem;
 }
 
-.b-task {
-  //position: relative;
+.b-task-template {
+  cursor: grab;
   height: 4rem;
   display: flex;
   background-color: $lightest-gray;
@@ -60,11 +60,11 @@
   align-items: center;
 }
 
-.b-task__name {
+.b-task-template__name {
   font-size: 0.875rem;
   padding-left: 1rem;
 }
 
-.b-task__img {
+.b-task-template__img {
   padding-left: 1rem;
 }
