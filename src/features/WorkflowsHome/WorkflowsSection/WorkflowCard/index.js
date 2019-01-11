@@ -9,6 +9,7 @@ import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import imgs from "Assets/icons";
+import deployIcon from "Assets/icons/deploy.svg";
 import playButton from "./img/playButton.svg";
 import "./styles.scss";
 
@@ -138,14 +139,15 @@ class WorkflowCard extends Component {
                       style={{ width: "32rem", height: "28rem" }}
                       title="Execute workflow?"
                       subTitleTop="It will run"
+                      img={deployIcon}
                       closeModal={closeModal}
-                      affirmativeAction={() => this.executeWorkflow({redirect:false})}
+                      affirmativeAction={() => this.executeWorkflow({ redirect: false })}
                       affirmativeText="Run"
                       theme="bmrg-white"
                     >
                       <button
                         className="bmrg--b-confirm-modal__button --affirmative --children"
-                        onClick={() => this.executeWorkflow({redirect:true})}
+                        onClick={() => this.executeWorkflow({ redirect: true })}
                       >
                         Run and View
                       </button>
