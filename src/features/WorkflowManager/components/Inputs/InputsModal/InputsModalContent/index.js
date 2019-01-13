@@ -97,11 +97,11 @@ class InputsModalContent extends Component {
 
     if (this.props.isEdit) {
       new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties))).then(() =>
-        this.props.updateInputs()
+        this.props.updateInputs({ title: "Edit Input", message: "Successfully edited input", type: "edit" })
       );
     } else {
       new Promise(resolve => resolve(this.props.workflowActions.createWorkflowInput(inputProperties))).then(() =>
-        this.props.updateInputs()
+        this.props.updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
       );
     }
     this.props.closeModal();
@@ -281,7 +281,7 @@ class InputsModalContent extends Component {
         <Footer style={{ paddingTop: "1rem" }}>
           <ConfirmButton
             disabled={!(key && description && label) || (!!keyError || !!descriptionError || !!labelError)}
-            text={isEdit ? "EDIT" : "CREATE"}
+            text={isEdit ? "SAVE" : "CREATE"}
             theme="bmrg-white"
             type="submit"
           />

@@ -1,4 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .c-workflow-card {
   display: flex;
@@ -101,20 +102,17 @@
   cursor: pointer;
 }
 .b-workflow-card__name {
+  color: $gray-80;
   font-size: 1.125rem;
   margin-bottom: 0.5rem;
   letter-spacing: 0.0625rem;
   font-weight: 400;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @include text-overflow-ellipsis();
 }
 
 .b-workflow-card__description {
   font-size: 0.875rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @include text-overflow-ellipsis();
 }
 
 .b-workflow-card-launch {
