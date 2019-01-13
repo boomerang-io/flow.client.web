@@ -12,8 +12,9 @@ import "./styles.scss";
 
 class WorkflowInputModalContent extends Component {
   static propTypes = {
-    inputs: PropTypes.array.isRequired,
-    executeWorkflow: PropTypes.func.isRequired
+    closeModal: PropTypes.func.isRequired,
+    executeWorkflow: PropTypes.func.isRequired,
+    inputs: PropTypes.array.isRequired
   };
 
   constructor(props) {
