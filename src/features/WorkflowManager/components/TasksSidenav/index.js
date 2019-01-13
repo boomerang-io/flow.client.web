@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
 import Tasks from "./Tasks";
 
-class TaskTrayContainer extends Component {
+class TasksSidenavContainer extends Component {
   static propTypes = {
     tasks: PropTypes.object.isRequired
   };
@@ -27,4 +27,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   null
-)(TaskTrayContainer);
+)(TasksSidenavContainer);

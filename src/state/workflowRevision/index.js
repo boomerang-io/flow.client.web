@@ -12,7 +12,8 @@ export const types = {
   CREATE_WORKFLOW_REVISION_FAILURE: "CREATE_WORKFLOW_REVISION_FAILURE",
   CREATE_WORKFLOW_REVISION_REQUEST: "CREATE_WORKFLOW_REVISION_REQUEST",
   CREATE_NODE: "CREATE_NODE",
-  UPDATE_NODE: "UPDATE_NODE",
+  UPDATE_NODE_CONFIG: "UPDATE_NODE_CONFIG",
+  UPDATE_NODE_DAG: "UPDATE_NODE_DAG",
   DELETE_NODE: "DELETE_NODE"
 };
 Object.freeze(types);
@@ -27,7 +28,8 @@ export const initialState = {
   dag: undefined,
   version: "",
   config: {},
-  hasUnsavedWorkflowRevisionUpdates: false
+  hasUnsavedWorkflowRevisionUpdates: false,
+  taskNames: []
 };
 
 //action handlers
@@ -74,7 +76,7 @@ const actionHandlers = {
       config: { ...state.config, [action.data.nodeId]: action.data }
     };
   },
-  [types.UPDATE_NODE]: (state, action) => {
+  [types.UPDATE_NODE_CONFIG]: (state, action) => {
     //const updatedNode = { ...state.data[action.data.nodeId], config: action.data.config };
     const updatedNode = {
       ...state.config[action.data.nodeId],
@@ -86,6 +88,12 @@ const actionHandlers = {
       config: { ...state.config, [action.data.nodeId]: updatedNode }
     };
   },
+  // [types.UPDATE_NODE_DAG]: (state, action) => {
+  //   const updatedNode = {
+  //     ...state.dag[action.data.nodeId],
+  //     inputs: { ...state.config[action.data.nodeId].inputs, ...action.data.inputs }
+  //   };
+  // },
   [types.DELETE_NODE]: (state, action) => {
     const nodes = { ...state.nodes };
     delete nodes[action.data.nodeId];
@@ -106,7 +114,8 @@ const createRequest = () => ({ type: types.CREATE_WORKFLOW_REVISION_REQUEST });
 const createSuccess = data => ({ type: types.CREATE_WORKFLOW_REVISION_SUCCESS, data });
 const createFailure = error => ({ type: types.CREATE_WORKFLOW_REVISION_FAILURE, error });
 const addNode = data => ({ type: types.CREATE_NODE, data });
-const updateNode = data => ({ type: types.UPDATE_NODE, data });
+const updateNodeConfig = data => ({ type: types.UPDATE_NODE_CONFIG, data });
+const updateNodeDag = data => ({ type: types.UPDATE_NODE_DAG, data });
 const deleteNode = data => ({ type: types.DELETE_NODE, data });
 
 const fetchActionCreators = {
@@ -148,7 +157,8 @@ export const actions = {
   createSuccess,
   cancelCreate,
   addNode,
-  updateNode,
+  updateNodeConfig,
+  updateNodeDag,
   deleteNode,
   reset
 };
@@ -163,3 +173,7 @@ function normalizeConfigNodes(nodes) {
 
   return normalizedNodesObj;
 }
+
+// function getNodeTaskNames(nodes) {
+//   nodes.map(node => node.taskName);
+// }

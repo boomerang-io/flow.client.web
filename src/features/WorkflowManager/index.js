@@ -13,7 +13,6 @@ import Creator from "./Creator";
 import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
-import keys from "lodash/keys";
 import "./styles.scss";
 
 export class WorkflowManagerContainer extends Component {
@@ -177,23 +176,26 @@ export class WorkflowManagerContainer extends Component {
   }
 
   createNode = (diagramApp, event) => {
-    const data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
-    const nodesCount = keys(
+    const { task_data: taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
+    const nodesOfSameTypeCount = Object.values(
       diagramApp
         .getDiagramEngine()
         .getDiagramModel()
         .getNodes()
-    ).length;
+    ).filter(node => node.taskId === taskData.id).length;
 
-    const node = new CustomTaskNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type);
+    const node = new CustomTaskNodeModel({
+      taskId: taskData.id,
+      taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
+    });
 
     //add node info to the state
     const { id, taskId } = node;
     this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {} });
 
     const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
-    node.x = points.x;
-    node.y = points.y;
+    node.x = points.x - 120;
+    node.y = points.y - 80;
     diagramApp
       .getDiagramEngine()
       .getDiagramModel()

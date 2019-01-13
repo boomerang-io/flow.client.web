@@ -78,12 +78,17 @@ exports[` 1`] = `
   }
   userActions={
     Object {
-      "cancel": [Function],
-      "fetch": [Function],
-      "fetchFailure": [Function],
-      "fetchRequest": [Function],
-      "fetchSuccess": [Function],
-      "reset": [Function],
+      "cancelFetchUser": [Function],
+      "cancelUpdateUser": [Function],
+      "fetchUser": [Function],
+      "fetchUserFailure": [Function],
+      "fetchUserRequest": [Function],
+      "fetchUserSuccess": [Function],
+      "resetUser": [Function],
+      "updateUser": [Function],
+      "updateUserFailure": [Function],
+      "updateUserRequest": [Function],
+      "updateUserSuccess": [Function],
     }
   }
 />

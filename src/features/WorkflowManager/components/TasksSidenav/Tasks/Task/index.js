@@ -1,40 +1,41 @@
-import React, { Component } from "react";
-
+import React from "react";
+import PropTypes from "prop-types";
 import downloadIMG from "Assets/svg/install.svg";
 import emailIMG from "Assets/svg/email_icon.svg";
 
-export default class Task extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+Task.propTypes = {
+  name: PropTypes.string.isRequired,
+  model: PropTypes.object.isRequired
+};
+
+function Task({ name, model }) {
+  //TOOD: improve this
+  let img;
+  if (name === "Download File") {
+    img = downloadIMG;
+  } else if (name === "Send Mail") {
+    img = emailIMG;
+  } else if (name === "Ingest CSV") {
+    img = downloadIMG;
+  } else {
+    img = emailIMG;
   }
 
-  render() {
-    let img_to_render;
-    if (this.props.name === "Download File") {
-      img_to_render = downloadIMG;
-    } else if (this.props.name === "Send Mail") {
-      img_to_render = emailIMG;
-    } else if (this.props.name === "Ingest CSV") {
-      img_to_render = downloadIMG;
-    } else {
-      img_to_render = emailIMG;
-    }
-
-    return (
-      <div
-        draggable={true}
-        onDragStart={event => {
-          event.dataTransfer.setData("storm-diagram-node", JSON.stringify(this.props.model));
-        }}
-        className="b-task"
-      >
-        <div className="b-task__img">
-          <img src={img_to_render} alt="Task" />
-        </div>
-
-        <div className="b-task__name"> {this.props.name} </div>
+  return (
+    <div
+      draggable={true}
+      onDragStart={event => {
+        event.dataTransfer.setData("storm-diagram-node", JSON.stringify(model));
+      }}
+      className="b-task-template"
+    >
+      <div className="b-task-template__img">
+        <img src={img} alt={`Task ${name}`} />
       </div>
-    );
-  }
+
+      <div className="b-task-template__name"> {name} </div>
+    </div>
+  );
 }
+
+export default Task;
