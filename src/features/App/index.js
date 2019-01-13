@@ -7,6 +7,7 @@ import { actions as navbarLinksActions } from "State/navbarLinks";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
+import OnBoardExpContainer from "Features/onBoard/components/OnBoardExpContainer";
 import NotificationBanner from "Components/NotificationBanner";
 import Navigation from "./Navigation";
 import {
@@ -34,7 +35,7 @@ class App extends Component {
   };
 
   fetchData = () => {
-    this.props.userActions.fetch(`${BASE_LAUNCHPAD_SERVICE_URL}/users`);
+    this.props.userActions.fetchUser(`${BASE_LAUNCHPAD_SERVICE_URL}/users`);
     this.props.navbarLinksActions.fetch(`${BASE_LAUNCHPAD_SERVICE_URL}/navigation`);
   };
 
@@ -45,6 +46,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <OnBoardExpContainer />
         <Navigation user={this.props.user} navbarLinks={this.props.navbarLinks} refresh={this.refreshPage} />
         <NotificationBanner closeBanner={this.closeBanner} />
         <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>

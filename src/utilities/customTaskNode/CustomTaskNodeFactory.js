@@ -11,7 +11,7 @@ export default class CustomTaskNodeFactory extends AbstractNodeFactory {
   }
 
   getNewInstance() {
-    return new CustomTaskNodeModel();
+    return new CustomTaskNodeModel({});
   }
 
   generateReactWidget(diagramEngine, node) {

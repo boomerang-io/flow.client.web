@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actions as onBoardActions } from "State/onBoard";
 import Navbar from "@boomerang/boomerang-components/lib/Navbar";
 import Dropdown from "@boomerang/boomerang-components/lib/Dropdown";
 import AboutPlatformComponent from "@boomerang/boomerang-components/lib/AboutPlatform";
@@ -24,11 +27,12 @@ class NavbarContainer extends Component {
   static propTypes = {
     user: PropTypes.object,
     navbarLinks: PropTypes.object,
-    refresh: PropTypes.func
+    refresh: PropTypes.func,
+    onBoardActions: PropTypes.object
   };
 
   render() {
-    const { user, navbarLinks, handleOnIconClick } = this.props;
+    const { user, navbarLinks, handleOnIconClick, onBoardActions } = this.props;
     if (user.isFetching || user.isCreating || navbarLinks.isFetching) {
       return <Navbar handleOnIconClick={handleOnIconClick} />;
     }
@@ -44,9 +48,10 @@ class NavbarContainer extends Component {
           navbarLinks={links}
           isAdmin={user.data.type === userTypes.ADMIN}
           user={user.data}
-          onboardingExperienceCharacter="?"
           handleOnIconClick={handleOnIconClick}
-          handleOnOnboardingExperienceClick={this.handleOnQuestionClick}
+          hasOnBoardingExperience
+          onboardingExperienceCharacter="?"
+          handleOnOnboardingExperienceClick={() => onBoardActions.showOnBoardExp()}
         >
           <Dropdown {...user.data} profileImgUrl={IMG_URL} options={dropdownOptions} />
         </Navbar>
@@ -64,4 +69,13 @@ class NavbarContainer extends Component {
   }
 }
 
-export default NavbarContainer;
+const mapDispatchToProps = dispatch => {
+  return {
+    onBoardActions: bindActionCreators(onBoardActions, dispatch)
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(NavbarContainer);

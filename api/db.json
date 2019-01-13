@@ -498,6 +498,7 @@
         {
           "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
           "taskId": "5bd98b105a5df954ad599bc2",
+          "taskName": "Send email 1",
           "type": "custom",
           "selected": false,
           "x": 340,
@@ -528,6 +529,7 @@
           "nodeId": "d64fb25d-932a-4894-9087-ded1b63eb672",
           "taskId": "5b92f794844d0700016ea217",
           "type": "custom",
+          "taskName": "Send message 2",
           "selected": false,
           "x": 636,
           "y": 346.25,
@@ -720,6 +722,7 @@
         {
           "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
           "taskId": "5bd98b105a5df954ad599bc2",
+          "taskName": "Testing",
           "type": "custom",
           "selected": false,
           "x": 340,
@@ -749,6 +752,7 @@
         {
           "nodeId": "d64fb25d-932a-4894-9087-ded1b63eb672",
           "taskId": "5b92f794844d0700016ea217",
+          "taskName": "This",
           "type": "custom",
           "selected": false,
           "x": 636,
@@ -4561,6 +4565,7 @@
           {
             "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
             "taskId": "5bd98b105a5df954ad599bc2",
+            "taskName": "Send message 1",
             "type": "custom",
             "selected": false,
             "x": 340,
@@ -4591,6 +4596,7 @@
             "nodeId": "d64fb25d-932a-4894-9087-ded1b63eb672",
             "taskId": "5b92f794844d0700016ea217",
             "type": "custom",
+            "taskName": "Send message 2",
             "selected": false,
             "x": 636,
             "y": 346.25,

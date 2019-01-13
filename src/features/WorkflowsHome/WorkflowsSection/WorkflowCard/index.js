@@ -17,8 +17,7 @@ class WorkflowCard extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
-    updateWorkflows: PropTypes.func.isRequired,
-    executeWorkflows: PropTypes.func.isRequired
+    executeWorkflow: PropTypes.func.isRequired
   };
 
   executeWorkflow = ({ redirect, properties }) => {

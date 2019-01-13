@@ -20,7 +20,7 @@ Array [
             className="c-activity-card__icon"
           >
             <img
-              alt="icon"
+              alt="Worklflow icon"
               className="b-activity-card__icon"
               src="flow.svg"
             />
@@ -43,56 +43,56 @@ Array [
         <div
           className="c-activity-card-section--right"
         >
-          <div
-            className="c-activity-card-workflow-first-column"
+          <ul
+            className="c-activity-card-execution-info --first"
           >
-            <div
-              className="c-activity-card__trigger-info"
+            <li
+              className="b-activity-card__row"
             >
-              <div
-                className="c-activity-card-workflow-trigger-label"
+              <label
+                className="b-activity-card__label"
               >
-                <label
-                  className="b-activity-card__trigger-label"
-                >
-                  Team
-                </label>
-                <label
-                  className="b-activity-card__trigger-label"
-                >
-                  Trigger
-                </label>
-                <label
-                  className="b-activity-card__trigger-label"
-                >
-                  Initiated by
-                </label>
-              </div>
-              <div
-                className="c-activity-card-workflow-trigger-info"
+                Team
+              </label>
+              <label
+                className="b-activity-card__data"
               >
-                <label
-                  className="b-activity-card__team-name"
-                >
-                  Isa's Team
-                </label>
-                <label
-                  className="b-activity-card__trigger"
-                >
-                  —
-                </label>
-                <label
-                  className="b-activity-card__autor"
-                >
-                  —
-                </label>
-              </div>
-            </div>
-          </div>
-          <div
-            className="c-activity-card-workflow-second-column"
+                Isa's Team
+              </label>
+            </li>
+            <li
+              className="b-activity-card__row"
+            >
+              <label
+                className="b-activity-card__label"
+              >
+                Trigger
+              </label>
+              <label
+                className="b-activity-card__data"
+              >
+                ---
+              </label>
+            </li>
+            <li
+              className="b-activity-card__row"
+            >
+              <label
+                className="b-activity-card__label"
+              >
+                Initiated by
+              </label>
+              <label
+                className="b-activity-card__data"
+              >
+                ---
+              </label>
+            </li>
+          </ul>
+          <ul
+            className="c-activity-card-execution-info"
           >
-            <div
+            <li
               className="b-activity-card__row"
             >
               <label
@@ -103,10 +103,10 @@ Array [
               <label
                 className="b-activity-card__data"
               >
-                2018-11-01 08:06 AM
+                2018-11-01 07:06 AM
               </label>
-            </div>
-            <div
+            </li>
+            <li
               className="b-activity-card__row"
             >
               <label
@@ -119,8 +119,8 @@ Array [
               >
                 13 seconds
               </label>
-            </div>
-            <div
+            </li>
+            <li
               className="b-activity-card__row"
             >
               <label
@@ -138,8 +138,8 @@ Array [
                 />
                 Succeeded
               </label>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
     </a>
