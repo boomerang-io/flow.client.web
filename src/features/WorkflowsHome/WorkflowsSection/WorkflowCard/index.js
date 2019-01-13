@@ -117,14 +117,19 @@ class WorkflowCard extends Component {
                     <ModalFlow
                       headerTitle="Workflow Inputs"
                       headerSubtitle="Supply some values"
-                      components={[{ step: 0, component: WorkflowInputModalContent }]}
                       closeModal={closeModal}
                       confirmModalProps={{ affirmativeAction: closeModal }}
                       inputs={workflow.properties}
                       executeWorkflow={this.executeWorkflow}
                       theme="bmrg-white"
                       {...rest}
-                    />
+                    >
+                      <WorkflowInputModalContent
+                        executeWorkflow={this.executeWorkflow}
+                        closeModal={closeModal}
+                        inputs={workflow.properties}
+                      />
+                    </ModalFlow>
                   )}
                 />
               ) : (

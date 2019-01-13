@@ -188,24 +188,26 @@ export class Overview extends Component {
             maxCharText={"Description must not be greater than 256 characters"}
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
-          <div className="b-workflow-icons">
+          <ul className="b-workflow-icons">
             {assets.map((image, index) => (
-              <img
-                key={`${image.name}-${index}`}
-                className={classnames("b-workflow-icons__icon", {
-                  "--active": workflow.data.icon === image.name
-                })}
-                src={image.src}
-                onClick={() => this.handleOnChange(image.name, {}, "icon")}
-                alt={`${image.name} icon`}
-              />
+              <li key={index}>
+                <img
+                  key={`${image.name}-${index}`}
+                  className={classnames("b-workflow-icons__icon", {
+                    "--active": workflow.data.icon === image.name
+                  })}
+                  src={image.src}
+                  onClick={() => this.handleOnChange(image.name, {}, "icon")}
+                  alt={`${image.name} icon`}
+                />
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
         <div className="c-overview-card">
           <h1 className="s-trigger-title">Triggers</h1>
           <div className="c-webhook">
-            <div className="b-webhook">
+            <form className="b-webhook">
               <label id="toggle-webhook" className="b-webhook__title">
                 Enable Webhook
               </label>
@@ -236,7 +238,7 @@ export class Overview extends Component {
                     Generate Token
                   </Button>
                 )}
-            </div>
+            </form>
             {!workflow.data.id && workflow.data.triggers && workflow.data.triggers.webhook.enable && (
               <div className="s-webhook-token-message">An API token will be generated on creation of the workflow.</div>
             )}
@@ -311,7 +313,7 @@ export class Overview extends Component {
               </form>
             )}
             <div className="c-scheduler">
-              <div className="b-schedule">
+              <form className="b-schedule">
                 <label id="toggle-scheduler" className="b-schedule__title">
                   Enable Scheduler
                 </label>
@@ -363,7 +365,7 @@ export class Overview extends Component {
                     )}
                   />
                 )}
-              </div>
+              </form>
               <div className="b-schedule__cronMessage">
                 {workflow.data.triggers &&
                 workflow.data.triggers.scheduler.schedule &&
@@ -384,7 +386,7 @@ export class Overview extends Component {
         <div className="c-overview-card">
           <h1 className="s-trigger-title">Options</h1>
           <div className="b-options">
-            <div className="b-persistence">
+            <form className="b-persistence">
               <label id="toggle-persistence-storage" className="b-persistence__title">
                 Enable Persistent Storage
               </label>
@@ -407,7 +409,7 @@ export class Overview extends Component {
               <ToolTip className="b-options__icon-tooltip" id="options-persistence-info" theme="bmrg-white" place="top">
                 Persist workflow data between executions
               </ToolTip>
-            </div>
+            </form>
           </div>
         </div>
       </div>

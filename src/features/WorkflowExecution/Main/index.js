@@ -38,8 +38,8 @@ class Main extends Component {
       <div className="c-workflow-execution">
         <nav style={{ marginBottom: "1rem", width: "15rem", gridArea: "header" }}>
           <NavigateBack
-            to={this.props.location.state.fromUrl || "/activity"}
-            text={`Back to ${this.props.location.state.fromText || "Activity"}`}
+            to={this.props.location.state ? this.props.location.state.fromUrl : "/activity"}
+            text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Activity"}`}
           />
         </nav>
         <TimeProgressBar updateActiveNode={updateActiveNode} tasks={workflowExecutionData} />
