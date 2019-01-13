@@ -27,6 +27,7 @@ export class WorkflowInsights extends Component {
   static propTypes = {
     insights: PropTypes.object.isRequired,
     insightsActions: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     teams: PropTypes.object.isRequired,
     teamsActions: PropTypes.object.isRequired
   };
@@ -142,7 +143,10 @@ export class WorkflowInsights extends Component {
       return (
         <div className="c-workflow-insights">
           <nav className="s-workflow-insights-navigation">
-            <NavigateBack to="/workflows" text="Back to Workflows" />
+            <NavigateBack
+              to={this.props.location.state ? this.props.location.state.fromUrl : "/workflows"}
+              text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Workflows"}`}
+            />
           </nav>
           <div className="c-workflow-insights-header">
             <SimpleSelectFilter onChange={this.handleChangeTeam} selectedOption={selectedTeam} options={teamsList} />

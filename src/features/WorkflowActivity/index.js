@@ -23,6 +23,7 @@ export class WorkflowActivity extends Component {
   static propTypes = {
     activity: PropTypes.object.isRequired,
     activityActions: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     teams: PropTypes.object.isRequired,
     teamsActions: PropTypes.object.isRequired
   };
@@ -187,7 +188,10 @@ export class WorkflowActivity extends Component {
       return (
         <div className="c-workflow-activity">
           <nav className="s-workflow-activity-navigation">
-            <NavigateBack to="/workflows" text="Back to Workflows" />
+            <NavigateBack
+              to={this.props.location.state ? this.props.location.state.fromUrl : "/workflows"}
+              text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Workflows"}`}
+            />
           </nav>
           <div className="c-workflow-activity-content">
             <div className="c-workflow-activity-header">

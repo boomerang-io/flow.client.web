@@ -29,8 +29,8 @@ export const creatorScreens = {
 
 export const activityScreens = {
   WELCOME: 0,
-  FILTER: 1,
-  CARDS: 2,
+  CARDS: 1,
+  FILTER: 2,
   SCROLLING: 3,
   DONE: 4,
   RETURN: 5
@@ -159,17 +159,17 @@ export const homeGuideConfig = {
   teams: {
     containerClassName: "c-onboard-screen--teams",
     title: "Teams' workflows",
-    message: "Here you can create, edit, delete, check activity and execute all teams' workflows"
+    message: "See all of your workflows by team and execute them."
   },
   search_filter: {
     containerClassName: "c-onboard-screen--search_filter",
     title: "Search and Filter",
-    message: "Search a workflow's name or filter workflows by team"
+    message: "Search a workflow's name or filter workflows by team."
   },
   sidenav: {
     containerClassName: "c-onboard-screen--sidenav",
     title: "Sidenav",
-    message: "The sidenav enables easy access to the workflows, activity, designer and insights pages"
+    message: "Access the different screens of Boomerang Flow."
   }
 };
 
@@ -177,22 +177,22 @@ export const designerGuideConfig = {
   overview: {
     containerClassName: "c-onboard-screen--overview",
     title: "Overview",
-    message: "Here you can check and update general information about the workflow."
+    message: "Check and update general information about the workflow, set triggers, and configure options."
   },
   inputs: {
     containerClassName: "c-onboard-screen--inputs",
     title: "Inputs",
-    message: "Here you can create, edit and delete input parameters used when executing the workflow."
+    message: "Edit and delete input properties that can be used by the workflow as it executes steps."
   },
   design: {
     containerClassName: "c-onboard-screen--design",
     title: "Design",
-    message: ""
+    message: "Create your workflow using plugins and utlities."
   },
   change_log: {
     containerClassName: "c-onboard-screen--change_log",
     title: "Change Log",
-    message: "See a log of all changes in the workflow"
+    message: "See a version change log of your workflow."
   }
 };
 
@@ -200,35 +200,35 @@ export const creatorGuideConfig = {
   general: {
     containerClassName: "c-onboard-screen--general",
     title: "General",
-    message: ""
+    message: "Configure the general properties for your workflow like name and description."
   },
   triggers: {
     containerClassName: "c-onboard-screen--triggers",
     title: "Triggers",
-    message: ""
+    message: "Set the different ways that your workflow can be triggered e.g. webhook or schedule."
   },
   options: {
     containerClassName: "c-onboard-screen--options",
     title: "Options",
-    message: ""
+    message: "Set additional options for the workflow."
   }
 };
 
 export const activityGuideConfig = {
+  cards: {
+    containerClassName: "c-onboard-screen--cards",
+    title: "Workflow Activity",
+    message: "See all of your workflow activity."
+  },
   filter: {
     containerClassName: "c-onboard-screen--filter",
     title: "Filter",
-    message: ""
-  },
-  cards: {
-    containerClassName: "c-onboard-screen--cards",
-    title: "Workflow Cards",
-    message: ""
+    message: "Filter activity by team, workflow and trigger."
   },
   scrolling: {
     containerClassName: "c-onboard-screen--scrolling",
     title: "Infinite Scrolling",
-    message: ""
+    message: "Keep scrolling to see more activity."
   }
 };
 
@@ -236,16 +236,16 @@ export const executionGuideConfig = {
   progress_bar: {
     containerClassName: "c-onboard-screen--progress_bar",
     title: "Progress Bar",
-    message: ""
+    message: "As your tasks complete, they will fill the progress bar."
   },
   side_info: {
     containerClassName: "c-onboard-screen--side_info",
     title: "Side Info",
-    message: ""
+    message: "See information about the completed tasks."
   },
   diagram: {
     containerClassName: "c-onboard-screen--diagram",
     title: "Workflow Diagram",
-    message: ""
+    message: "See your workflow execution in action."
   }
 };
