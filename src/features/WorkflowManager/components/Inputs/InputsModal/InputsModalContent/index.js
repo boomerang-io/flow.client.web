@@ -104,7 +104,7 @@ class InputsModalContent extends Component {
         )
         .then(() => this.props.closeModal());
     } else {
-      new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties)))
+      new Promise(resolve => resolve(this.props.workflowActions.createWorkflowInput(inputProperties)))
         .then(() =>
           this.props.updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
         )
