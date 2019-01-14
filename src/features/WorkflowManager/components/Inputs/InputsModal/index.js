@@ -25,7 +25,7 @@ class InputsModal extends Component {
           <ModalFlow
             className="c-inputs-modal-content"
             headerTitle={isEdit && input ? input.label.toUpperCase() : "CREATE PROPERTY"}
-            headerSubtitle={isEdit ? "Let's fix it" : "Create new input parameter"}
+            headerSubtitle={isEdit ? "Let's update it" : "Create new input property"}
             closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal }}
             theme="bmrg-white"
