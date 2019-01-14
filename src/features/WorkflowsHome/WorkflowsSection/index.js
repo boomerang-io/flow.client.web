@@ -12,8 +12,7 @@ class WorkflowSection extends Component {
     history: PropTypes.object.isRequired,
     searchQuery: PropTypes.string.isRequired,
     setActiveTeamAndRedirect: PropTypes.func.isRequired,
-    setActiveTeam: PropTypes.func.isRequired,
-    updateWorkflows: PropTypes.func.isRequired
+    setActiveTeam: PropTypes.func.isRequired
   };
 
   render() {
@@ -34,7 +33,6 @@ class WorkflowSection extends Component {
           {workflows.map(workflow => (
             <WorkflowCard
               workflow={workflow}
-              updateWorkflows={this.props.updateWorkflows}
               teamId={team.id}
               key={workflow.id}
               executeWorkflow={this.props.executeWorkflow}
@@ -48,9 +46,7 @@ class WorkflowSection extends Component {
                 +
               </div>
             </div>
-            <Tooltip theme="bmrg-white" id={team.id}>
-              Create Workflow
-            </Tooltip>
+            <Tooltip id={team.id}>Create Workflow</Tooltip>
           </Button>
         </div>
       </div>

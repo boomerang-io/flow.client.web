@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
@@ -14,6 +15,10 @@ import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
 class Inputs extends Component {
+  static propTypes = {
+    updateInputs: PropTypes.func.isRequired
+  };
+
   formatDefaultValue = value => {
     switch (value) {
       case INPUT_TYPES.BOOLEAN:
@@ -24,7 +29,11 @@ class Inputs extends Component {
   };
 
   deleteInput = key => {
-    this.props.workflowActions.deleteWorkflowInput({ key });
+    new Promise(resolve => {
+      resolve(this.props.workflowActions.deleteWorkflowInput({ key }));
+    }).then(() =>
+      this.props.updateInputs({ title: "Delete Input", message: "Successfully deleted input", type: "delete" })
+    );
   };
 
   render() {
@@ -74,7 +83,7 @@ class Inputs extends Component {
                       src={close}
                       alt="delete"
                     />
-                    <Tooltip id={`${input.id}`} place="top" theme="bmrg-white">
+                    <Tooltip id={`${input.id}`} place="top">
                       Delete Input
                     </Tooltip>
                   </>
@@ -86,8 +95,8 @@ class Inputs extends Component {
                       closeModal();
                       this.deleteInput(input.key);
                     }}
-                    title="REMOVE THIS PROPERTY?"
-                    subTitleTop="This input parameter will be deleted"
+                    title="DELETE THIS PROPERTY?"
+                    subTitleTop="It will be gone. Forever."
                     cancelText="NO"
                     affirmativeText="YES"
                     theme="bmrg-white"
@@ -105,6 +114,7 @@ class Inputs extends Component {
                   </div>
                 )}
                 input={input}
+                updateInputs={this.props.updateInputs}
               />
             </div>
           ))}
@@ -117,6 +127,7 @@ class Inputs extends Component {
               Create New Property
             </div>
           )}
+          updateInputs={this.props.updateInputs}
         />
       </div>
     );

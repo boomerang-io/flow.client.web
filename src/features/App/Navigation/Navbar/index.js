@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actions as onBoardActions } from "State/onBoard";
 import Navbar from "@boomerang/boomerang-components/lib/Navbar";
 import Dropdown from "@boomerang/boomerang-components/lib/Dropdown";
 import AboutPlatformComponent from "@boomerang/boomerang-components/lib/AboutPlatform";
@@ -9,7 +12,7 @@ import ReportBug from "./ReportBug";
 import PrivacyStatement from "./PrivacyStatement";
 import userTypes from "Constants/userTypes";
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
-import { BASE_SERVICE_ENV_URL, IMG_URL } from "Config/servicesConfig";
+import { BASE_SERVICE_ENV_URL, IMG_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import { PLATFORM_VERSION } from "Config/appConfig";
 
 const dropdownOptions = [
@@ -24,16 +27,17 @@ class NavbarContainer extends Component {
   static propTypes = {
     user: PropTypes.object,
     navbarLinks: PropTypes.object,
-    refresh: PropTypes.func
+    refresh: PropTypes.func,
+    onBoardActions: PropTypes.object
   };
 
   render() {
-    const { user, navbarLinks, handleOnIconClick } = this.props;
+    const { user, navbarLinks, handleOnIconClick, onBoardActions } = this.props;
     if (user.isFetching || user.isCreating || navbarLinks.isFetching) {
       return <Navbar handleOnIconClick={handleOnIconClick} />;
     }
 
-    if (user.status === "success" && navbarLinks.status === "success") {
+    if (user.status === REQUEST_STATUSES.SUCCESS && navbarLinks.status === REQUEST_STATUSES.SUCCESS) {
       const links = navbarLinks.data.map(link => {
         // eslint-disable-next-line
         if (link.url) return { ...link, url: link.url.replace("${BASE_LAUNCH_ENV_URL}", BASE_LAUNCH_ENV_URL) };
@@ -44,16 +48,17 @@ class NavbarContainer extends Component {
           navbarLinks={links}
           isAdmin={user.data.type === userTypes.ADMIN}
           user={user.data}
-          onboardingExperienceCharacter="?"
           handleOnIconClick={handleOnIconClick}
-          handleOnOnboardingExperienceClick={this.handleOnQuestionClick}
+          hasOnBoardingExperience
+          onboardingExperienceCharacter="?"
+          handleOnOnboardingExperienceClick={() => onBoardActions.showOnBoardExp()}
         >
           <Dropdown {...user.data} profileImgUrl={IMG_URL} options={dropdownOptions} />
         </Navbar>
       );
     }
 
-    if (user.status === "failure" || navbarLinks.status === "failure") {
+    if (user.status === REQUEST_STATUSES.FAILURE || navbarLinks.status === REQUEST_STATUSES.FAILURE) {
       return (
         <Navbar refresh={this.props.refresh} handleOnIconClick={handleOnIconClick}>
           <Dropdown options={dropdownOptions.slice(1, -1)} includeHeader={false} />
@@ -64,4 +69,13 @@ class NavbarContainer extends Component {
   }
 }
 
-export default NavbarContainer;
+const mapDispatchToProps = dispatch => {
+  return {
+    onBoardActions: bindActionCreators(onBoardActions, dispatch)
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(NavbarContainer);

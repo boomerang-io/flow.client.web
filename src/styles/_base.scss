@@ -35,9 +35,6 @@ body {
 
 #app {
   //overwrite bmrg components
-  .bmrg--c-modal-flow.--bmrg-white {
-    background: $neutral-white-4;
-  }
 
   .bmrg--b-text-input__input.--bmrg-white {
     box-shadow: 0 0 0 62.5rem $white inset !important;
@@ -68,6 +65,12 @@ body {
 
     &::placeholder {
       color: $cool-gray-20;
+      font-style: initial;
+      font-weight: 200;
+      letter-spacing: 0.125rem;
+    }
+    .bmrg--b-textarea__error {
+      color: $orange-pink;
     }
   }
 
@@ -77,6 +80,8 @@ body {
 
   .bmrg--b-tooltip {
     border: 0rem;
+    opacity: 1;
+    max-width: 30rem;
   }
 
   //overide SelectDropdown styles
@@ -115,7 +120,95 @@ body {
   border-radius: 0.25rem !important;
 }
 
+.bmrg--c-modal-flow.--bmrg-white {
+  background: $neutral-white-4;
+
+  .bmrg--b-text-input__input.--bmrg-white {
+    box-shadow: 0 0 0 62.5rem $white inset !important;
+  }
+
+  .bmrg--c-text-input {
+    //padding-bottom: 3.125rem;
+  }
+
+  .bmrg--b-text-input__input.--bmrg-white {
+    border-radius: 0.225rem;
+    border: none;
+    &:focus {
+      border: none;
+    }
+  }
+
+  .bmrg--b-textarea__text {
+    background: $white;
+    border: none;
+    caret-color: $gray-90;
+    padding: 0.5rem;
+    transition: border 0.3s ease;
+
+    &:focus {
+      border: none;
+    }
+
+    &::placeholder {
+      color: $cool-gray-20;
+      font-style: initial;
+      font-weight: 300;
+      letter-spacing: 0.125rem;
+    }
+  }
+
+  .bmrg--b-textarea__title {
+    color: $gray-90;
+  }
+
+  .bmrg--b-textarea__error {
+    color: $orange-pink;
+  }
+
+  .bmrg--b-tooltip {
+    border: 0rem;
+    opacity: 1;
+    max-width: 30rem;
+  }
+
+  //overide SelectDropdown styles
+  .bmrg--c-select-dropdown.--bmrg-white {
+    .Select-multi-value-wrapper .Select-value-label {
+      color: $gray-90;
+      font-size: 1.125rem;
+      font-weight: 300;
+      letter-spacing: 0.125rem;
+    }
+
+    .s-select-dropdown-label {
+      font-size: 0.875rem;
+      letter-spacing: 0.03125rem;
+      line-height: 1.125rem;
+      font-weight: 300;
+      margin-bottom: 0.3125rem;
+      background-color: initial;
+      color: initial;
+      padding: 0;
+    }
+
+    .Select-control {
+      height: 2.15625rem;
+      border-radius: 0.2rem;
+    }
+  }
+
+  .bmrg--b-button.--disabled {
+    opacity: 0.6;
+  }
+}
+
 .bmrg--c-confirm-modal.--bmrg-white {
+  background: $neutral-white-4;
   border-radius: 0.25rem !important;
   border: none !important;
+}
+
+.bmrg--b-modal-confirm-button {
+  align-self: center;
 }

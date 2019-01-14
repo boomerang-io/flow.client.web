@@ -2,11 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import orderBy from "lodash/orderBy";
 import Filler from "./Filler";
+import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import "./styles.scss";
 
+const colors = ["#57d785", "#95c4f3", "#fbeaae", "#fc835c", "#f7aac3"];
+
 const TimeProgressBar = ({ tasks, updateActiveNode }) => {
-  const steps = orderBy(tasks.steps, ["order"], ["asc"]);
-  const allCompleted = !steps.filter(step => step.flowTaskStatus !== "completed").length;
+  const steps = orderBy(tasks.steps, ["order"], ["asc"]).filter(
+    step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED
+  );
   let durationSum = 0;
   tasks.steps.forEach(step => (durationSum += step.duration));
 
@@ -18,18 +22,15 @@ const TimeProgressBar = ({ tasks, updateActiveNode }) => {
         <div className="b-time-progress-bar__fillers">
           {steps.map((step, index) => (
             <Filler
-              key={step.taskId}
-              taskId={step.taskId}
+              backgroundColor={colors[index % colors.length]}
+              duration={step.duration}
+              finishTime={step.startTime + step.duration}
+              id={step.id}
+              key={step.id}
+              percentOfTotal={(step.duration / durationSum) * 100}
               status={step.flowTaskStatus}
-              index={index}
+              taskId={step.taskId}
               taskName={step.taskName}
-              finishPosition={
-                allCompleted && steps.length === 1
-                  ? 100
-                  : Math.round(((step.startTime - tasks.creationDate + step.duration) / durationSum) * 100)
-              }
-              totalDuration={durationSum}
-              currentDuration={step.duration}
               updateActiveNode={updateActiveNode}
             />
           ))}

@@ -3,6 +3,7 @@ import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import classNames from "classnames";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import Task from "./Task";
+import "./styles.scss";
 
 export default class Tasks extends Component {
   constructor(props) {
@@ -42,8 +43,10 @@ export default class Tasks extends Component {
     });
 
     return all_tasks.map((arr, index) => (
-      <div className={classNames("pallet-category--", arr[0].category)} key={index}>
-        <h3 className={classNames("pallet-category--header--", arr[0].category)}> {arr[0].category}</h3>
+      <div className={classNames("b-task-category", { [`--${arr[0].category}`]: arr[0].category })} key={index}>
+        <h3 className={classNames("b-task-category__header", { [`--${arr[0].category}`]: arr[0].category })}>
+          {arr[0].category}
+        </h3>
 
         {arr.map(task => (
           <Task
@@ -58,6 +61,10 @@ export default class Tasks extends Component {
   };
 
   render() {
-    return <Sidenav theme="bmrg-white" styles={{ width: "20rem" }} content={() => this.determineTasks()} />;
+    return (
+      <div className="c-tasks-sidenav">
+        <Sidenav theme="bmrg-white" content={() => this.determineTasks()} />
+      </div>
+    );
   }
 }

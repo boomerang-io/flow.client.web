@@ -3,12 +3,15 @@ import PropTypes from "prop-types";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import ValueList from "./ValueList";
 
 class DisplayForm extends Component {
   static propTypes = {
+    node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
-    onSave: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired,
+    taskNames: PropTypes.array.isRequired
   };
 
   state = {};
@@ -21,9 +24,12 @@ class DisplayForm extends Component {
 
   handleTextInputChange = (value, errors, field) => {
     if (field !== undefined && field !== "undefined") {
-      this.setState(() => ({
-        [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
-      }));
+      this.setState(
+        () => ({
+          [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
+        }),
+        this.props.shouldConfirmExit(true)
+      );
     }
   };
 
@@ -31,7 +37,18 @@ class DisplayForm extends Component {
     const { name: field } = event.target;
     const { checked } = event.target;
     if (checked !== undefined && checked !== "undefined") {
-      this.setState(() => ({ [field]: { value: checked } }));
+      this.setState(() => ({ [field]: { value: checked } }), this.props.shouldConfirmExit(true));
+    }
+  };
+
+  updateNodeTaskName = (value, errors, field) => {
+    if (field !== undefined && field !== "undefined") {
+      this.setState(
+        () => ({
+          [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
+        }),
+        this.props.shouldConfirmExit(true)
+      );
     }
   };
 
@@ -60,7 +77,11 @@ class DisplayForm extends Component {
       onSave(configToSave);
     };*/
 
-  handleOnSave = () => {
+  handleOnSave = e => {
+    e.preventDefault();
+    if (this.state["taskName"]) {
+      this.props.node.taskName = this.state["taskName"].value;
+    }
     this.props.onSave(this.createConfigToSave());
     this.props.closeModal();
   };
@@ -98,12 +119,26 @@ class DisplayForm extends Component {
   };
 
   render() {
-    //console.log(this.state);
     const sectionHeaderConfig = this.determineSectionHeaderConfig();
     const { nodeConfig, task } = this.props;
     return (
-      <>
-        <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "30rem" }}>
+      <form>
+        <ModalContentBody
+          style={{ maxWidth: "35rem", margin: "auto", height: "30rem", display: "flex", flexDirection: "column" }}
+        >
+          <TextInput
+            required
+            noValueText="Name is required"
+            comparisonData={this.props.taskNames}
+            existValueText="Task name must be unique per workflow"
+            externallyControlled
+            name="taskName"
+            placeholder="Enter a task name"
+            value={this.props.node.taskName}
+            title="Task Name"
+            onChange={this.updateNodeTaskName}
+            theme="bmrg-white"
+          />
           <ValueList
             task={task}
             nodeConfig={nodeConfig}
@@ -121,7 +156,7 @@ class DisplayForm extends Component {
             Apply
           </ModalConfirmButton>
         </ModalContentFooter>
-      </>
+      </form>
     );
   }
 }

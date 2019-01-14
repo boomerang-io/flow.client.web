@@ -4,7 +4,6 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
-import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { actions as workflowExecutionActiveNodeActions } from "State/workflowExecutionActiveNode";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
@@ -60,21 +59,21 @@ export class TaskNode extends Component {
     return (
       <div className="c-taskNode" onClick={this.handleOnActivityClick}>
         <div
-          className={classnames("b-taskNode", {
-            [`--${flowTaskStatus}`]: flowTaskStatus && this.props.diagramEngine.diagramModel.locked
+          className={classnames("b-task-node", {
+            [`--${flowTaskStatus}`]: flowTaskStatus
           })}
         >
-          <div className="b-taskNode__progress-bar" />
-          <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
+          <div className="b-task-node__progress-bar" />
+          <Tooltip place="left" id={this.props.node.id}>
             {this.props.task ? this.props.task.description : "Task description"}
           </Tooltip>
-          <div className="b-taskNode__tile" data-tip data-for={this.props.node.id}>
+          <div className="b-task-node__tile" data-tip data-for={this.props.node.id}>
             {this.props.task ? this.props.task.name : "Task"}
           </div>
 
-          <PortWidget className="b-taskNode-port --left" name="left" node={this.props.node} />
-          <PortWidget className="b-taskNode-port --right" name="right" node={this.props.node} />
-          <img src={this.determineNodeIcon()} className="b-taskNode__img" alt="Task node type" />
+          <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
+          <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
+          <img src={this.determineNodeIcon()} className="b-task-node__img" alt="Task node type" />
         </div>
       </div>
     );
@@ -94,7 +93,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   taskActions: bindActionCreators(taskActions, dispatch),
-  workflowConfigActions: bindActionCreators(workflowConfigActions, dispatch),
   workflowExecutionActiveNodeActions: bindActionCreators(workflowExecutionActiveNodeActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });

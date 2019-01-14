@@ -39,6 +39,13 @@ class CustomLink extends Component {
   };
 
   render() {
+    const { model } = this.props;
+    let linkStyle = {};
+
+    if (!model.sourcePort || !model.targetPort) {
+      linkStyle = { opacity: "0.25" };
+    }
+
     if (this.path) {
       this.halfwayPoint = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
       this.endPoint = this.path.getPointAtLength(this.path.getTotalLength());
@@ -67,6 +74,7 @@ class CustomLink extends Component {
           ref={ref => {
             this.path = ref;
           }}
+          style={linkStyle}
           strokeWidth={this.props.model.width}
           stroke="rgba(255,0,0,0.5)"
           d={this.props.path}

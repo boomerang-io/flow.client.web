@@ -50,6 +50,7 @@ class SwitchLink extends Component {
   openModal = () => {
     this.setState({ modalIsOpen: true });
   };
+
   closeModal = () => {
     this.setState({ modalIsOpen: false });
     //also save back the state

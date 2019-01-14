@@ -23,15 +23,17 @@ class ActionBar extends Component {
     includeZoom: PropTypes.bool,
     isValidOverview: PropTypes.bool.isRequired,
     performAction: PropTypes.func.isRequired,
-    performActionButtonText: PropTypes.string.isRequired,
-    revisionCount: PropTypes.number
+    performActionButtonText: PropTypes.string,
+    revisionCount: PropTypes.number,
+    showActionButton: PropTypes.bool
   };
 
   static defaultProps = {
     includeCreateNewVersionComment: false,
     includeResetVersionAlert: false,
     includeVersionSwitcher: false,
-    includeZoom: false
+    includeZoom: false,
+    showActionButton: true
   };
 
   handleZoomIncrease = () => {
@@ -86,14 +88,21 @@ class ActionBar extends Component {
     this.props.diagramApp.diagramEngine.repaintCanvas();
   };
 
+  // Need to hardcode that the version is being reset in the change log for now based on the current implementation
+  resetVersionToLatestWithMessage = () => {
+    this.props.handleChangeLogReasonChange(`Reverting ${this.props.currentRevision} to the latest version`);
+    this.props.performAction();
+  };
+
   determinePerformActionRender() {
     const {
       currentRevision,
       includeResetVersionAlert,
       includeCreateNewVersionComment,
       isValidOverview,
+      performAction,
       performActionButtonText,
-      performAction
+      showActionButton
     } = this.props;
 
     if (includeResetVersionAlert) {
@@ -105,7 +114,7 @@ class ActionBar extends Component {
               title={`Set version ${currentRevision} to latest?`}
               subTitleTop="A new version will be created"
               closeModal={closeModal}
-              affirmativeAction={performAction}
+              affirmativeAction={this.resetVersionToLatestWithMessage}
               affirmativeText="Yes"
               theme="bmrg-white"
             />
@@ -120,34 +129,27 @@ class ActionBar extends Component {
           ModalTrigger={() => <Button theme="bmrg-black">{performActionButtonText}</Button>}
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
+              closeModal={closeModal}
               headerTitle="Create New Version"
               headerSubtitle="Enter a comment for record keeping"
-              components={[{ step: 0, component: VersionCommentForm }]}
-              closeModal={closeModal}
-              onSave={performAction}
-              handleOnChange={this.props.handleChangeLogReasonChange}
               theme={"bmrg-white"}
               {...rest}
-            />
+            >
+              <VersionCommentForm onSave={performAction} handleOnChange={this.props.handleChangeLogReasonChange} />
+            </ModalFlow>
           )}
         />
       );
     }
-    console.log("action", isValidOverview);
-    if (isValidOverview) {
+    if (showActionButton) {
       return (
-        <Button theme="bmrg-black" onClick={performAction}>
+        <Button theme="bmrg-black" onClick={performAction} disabled={!isValidOverview}>
           {performActionButtonText}
         </Button>
       );
     }
 
-    // If not valid overview, return as disabled button
-    return (
-      <Button disabled theme="bmrg-black">
-        {performActionButtonText}
-      </Button>
-    );
+    return null;
   }
 
   render() {

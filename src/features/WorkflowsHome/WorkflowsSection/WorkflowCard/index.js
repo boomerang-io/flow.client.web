@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
@@ -9,26 +9,19 @@ import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import imgs from "Assets/icons";
-import "./styles.scss";
+import deployIcon from "Assets/icons/deploy.svg";
 import playButton from "./img/playButton.svg";
+import "./styles.scss";
 
 class WorkflowCard extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
-    updateWorkflows: PropTypes.func.isRequired,
-    executeWorkflows: PropTypes.func.isRequired,
-    setActiveTeam: PropTypes.func.isRequired
+    executeWorkflow: PropTypes.func.isRequired
   };
 
   executeWorkflow = ({ redirect, properties }) => {
     this.props.executeWorkflow({ workflowId: this.props.workflow.id, redirect, properties });
-  };
-
-  handleEdit = () => {
-    const { workflow, history, teamId, setActiveTeam } = this.props;
-    setActiveTeam(teamId);
-    history.push(`/editor/${workflow.id}/designer`);
   };
 
   render() {
@@ -36,7 +29,7 @@ class WorkflowCard extends Component {
     const menuOptions = [
       {
         itemText: "Edit",
-        onClick: () => this.handleEdit(),
+        onClick: () => history.push(`/editor/${workflow.id}/designer`),
         primaryFocus: false
       },
       {
@@ -54,11 +47,11 @@ class WorkflowCard extends Component {
     return (
       <div className="c-workflow-card">
         <div className="c-workflow-card__header">
-          <div className="c-workflow-card__status">
-            {/* <div className={`b-workflow-card__circle --${workflow.status}`} />
-            <label className="b-workflow-card__status">{workflow.status}</label> */}
-          </div>
-          <OverflowMenu className="b-workflow-card__menu" ariaLabel="" iconDescription="">
+          {/* <div className="c-workflow-card__status">
+            <div className={`b-workflow-card__circle --${workflow.status}`} />
+            <label className="b-workflow-card__status">{workflow.status}</label>
+          </div> */}
+          <OverflowMenu className="b-workflow-card__menu" ariaLabel="card menu" iconDescription="overflow menu icon ">
             {menuOptions.map(option => {
               return option.isDelete ? (
                 <AlertModal
@@ -105,43 +98,48 @@ class WorkflowCard extends Component {
             <img className="b-workflow-card__icon" src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
           </div>
           <div className="c-workflow-card__description">
-            <h2 className="b-workflow-card__name">{workflow.name}</h2>
+            <Link to={`/editor/${workflow.id}/designer`}>
+              <h2 className="b-workflow-card__name">{workflow.name}</h2>
+            </Link>
             <p className="b-workflow-card__description">{workflow.shortDescription}</p>
             <span data-tip data-for={workflow.id} className="b-workflow-card-launch">
               {workflow.properties && workflow.properties.length > 0 ? (
                 <Modal
                   ModalTrigger={() => (
-                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Run workflow" />
+                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
                   )}
                   modalContent={(closeModal, rest) => (
                     <ModalFlow
                       headerTitle="Workflow Inputs"
                       headerSubtitle="Supply some values"
-                      components={[{ step: 0, component: WorkflowInputModalContent }]}
                       closeModal={closeModal}
                       confirmModalProps={{ affirmativeAction: closeModal }}
-                      inputs={workflow.properties}
-                      executeWorkflow={this.executeWorkflow}
                       theme="bmrg-white"
                       {...rest}
-                    />
+                    >
+                      <WorkflowInputModalContent
+                        closeModal={closeModal}
+                        executeWorkflow={this.executeWorkflow}
+                        inputs={workflow.properties}
+                      />
+                    </ModalFlow>
                   )}
                 />
               ) : (
                 <AlertModal
                   className="bmrg--c-alert-modal --execute-workflow"
                   ModalTrigger={() => (
-                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Run workflow" />
+                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
                   )}
                   modalContent={closeModal => (
                     <ConfirmModal
                       style={{ width: "32rem", height: "28rem" }}
-                      title="Run workflow?"
+                      title="Execute workflow?"
                       subTitleTop="It will run"
+                      img={deployIcon}
                       closeModal={closeModal}
                       affirmativeAction={() => this.executeWorkflow({ redirect: false })}
                       affirmativeText="Run"
-                      negativeText="No"
                       theme="bmrg-white"
                     >
                       <button
@@ -155,7 +153,7 @@ class WorkflowCard extends Component {
                 />
               )}
             </span>
-            <Tooltip id={workflow.id} place="bottom" theme="bmrg-white">
+            <Tooltip id={workflow.id} place="bottom">
               Execute workflow
             </Tooltip>
           </div>

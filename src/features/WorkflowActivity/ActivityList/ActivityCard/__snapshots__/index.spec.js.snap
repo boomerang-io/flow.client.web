@@ -7,86 +7,135 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
   onClick={[Function]}
 >
   <div
-    className="c-activity-card__workflow"
+    className="c-activity-card-workflow"
   >
     <div
-      className="c-activity-card__icon"
+      className="c-activity-card-section--left"
     >
-      <img
-        alt="icon"
-        className="b-activity-card__icon"
-        src="flow.svg"
-      />
-    </div>
-    <div
-      className="c-activity-card__workflow-info"
-    >
-      <label
-        className="b-activity-card__team-name"
-      >
-        Isa's Team
-      </label>
-      <label
-        className="b-activity-card__name"
-      >
-        Business Process Test
-      </label>
-      <label
-        className="b-activity-card__description"
-      >
-        file ingestion
-      </label>
-    </div>
-  </div>
-  <div
-    className="c-activity-card__activity"
-  >
-    <div
-      className="c-activity-card__label"
-    >
-      <label
-        className="b-activity-card__label"
-      >
-        Start Time
-      </label>
-      <label
-        className="b-activity-card__data"
-      >
-        2018-11-01 08:06 AM
-      </label>
-    </div>
-    <div
-      className="c-activity-card__label"
-    >
-      <label
-        className="b-activity-card__label"
-      >
-        Duration
-      </label>
-      <label
-        className="b-activity-card__data"
-      >
-        13 seconds
-      </label>
-    </div>
-    <div
-      className="c-activity-card__label"
-    >
-      <label
-        className="b-activity-card__label"
-      >
-         Status
-      </label>
-      <label
-        className="b-activity-card__data"
+      <div
+        className="c-activity-card__icon"
       >
         <img
-          alt="Status completed"
-          className="b-activity-card__status-icon"
-          src="passed.svg"
+          alt="Worklflow icon"
+          className="b-activity-card__icon"
+          src="flow.svg"
         />
-        Succeeded
-      </label>
+      </div>
+      <div
+        className="c-activity-card-workflow-info"
+      >
+        <label
+          className="b-activity-card__name"
+        >
+          Business Process Test
+        </label>
+        <label
+          className="b-activity-card__description"
+        >
+          file ingestion
+        </label>
+      </div>
+    </div>
+    <div
+      className="c-activity-card-section--right"
+    >
+      <ul
+        className="c-activity-card-execution-info --first"
+      >
+        <li
+          className="b-activity-card__row"
+        >
+          <label
+            className="b-activity-card__label"
+          >
+            Team
+          </label>
+          <label
+            className="b-activity-card__data"
+          >
+            Isa's Team
+          </label>
+        </li>
+        <li
+          className="b-activity-card__row"
+        >
+          <label
+            className="b-activity-card__label"
+          >
+            Trigger
+          </label>
+          <label
+            className="b-activity-card__data"
+          >
+            ---
+          </label>
+        </li>
+        <li
+          className="b-activity-card__row"
+        >
+          <label
+            className="b-activity-card__label"
+          >
+            Initiated by
+          </label>
+          <label
+            className="b-activity-card__data"
+          >
+            ---
+          </label>
+        </li>
+      </ul>
+      <ul
+        className="c-activity-card-execution-info"
+      >
+        <li
+          className="b-activity-card__row"
+        >
+          <label
+            className="b-activity-card__label"
+          >
+            Start Time
+          </label>
+          <label
+            className="b-activity-card__data"
+          >
+            2018-11-01 07:06 AM
+          </label>
+        </li>
+        <li
+          className="b-activity-card__row"
+        >
+          <label
+            className="b-activity-card__label"
+          >
+            Duration
+          </label>
+          <label
+            className="b-activity-card__data"
+          >
+            13 seconds
+          </label>
+        </li>
+        <li
+          className="b-activity-card__row"
+        >
+          <label
+            className="b-activity-card__label"
+          >
+             Status
+          </label>
+          <label
+            className="b-activity-card__data"
+          >
+            <img
+              alt="Status completed"
+              className="b-activity-card__status-icon"
+              src="passed.svg"
+            />
+            Succeeded
+          </label>
+        </li>
+      </ul>
     </div>
   </div>
 </a>

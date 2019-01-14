@@ -9,6 +9,7 @@ import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import ErrorDragon from "Components/ErrorDragon";
 import Creator from "./Creator";
 import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -85,7 +86,7 @@ export class WorkflowManagerContainer extends Component {
       })
       .then(() => {
         notify(
-          <Notification type="success" title="Create Workflow" message="Succssfully created workflow and version" />
+          <Notification type="success" title="Create Workflow" message="Successfully created workflow and version" />
         );
         this.props.history.push(`/editor/${workflowId}/designer`);
       })
@@ -104,7 +105,7 @@ export class WorkflowManagerContainer extends Component {
     return workflowRevisionActions
       .create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body)
       .then(response => {
-        notify(<Notification type="success" title="Create Version" message="Succssfully created workflow version" />);
+        notify(<Notification type="success" title="Create Version" message="Successfully created workflow version" />);
         return Promise.resolve();
       })
       .catch(() => {
@@ -125,7 +126,7 @@ export class WorkflowManagerContainer extends Component {
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, id: workflowId })
       .then(response => {
-        notify(<Notification type="success" title="Update Workflow" message="Succssfully updated workflow" />);
+        notify(<Notification type="success" title="Update Workflow" message="Successfully updated workflow" />);
         workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
         return Promise.resolve(response);
       })
@@ -135,18 +136,17 @@ export class WorkflowManagerContainer extends Component {
       });
   };
 
-  updateInputs = () => {
+  updateInputs = ({ title = "Update Inputs", message = "Successfully updated inputs", type = "update" }) => {
     const { workflow, workflowActions } = this.props;
 
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, this.props.workflow.data.properties)
       .then(response => {
-        notify(<Notification type="success" title="Update Inputs" message="Succssfully updated inputs" />);
-        workflowActions.setHasUnsavedInputUpdates({ hasUpdates: false });
+        notify(<Notification type="success" title={title} message={message} />);
         return Promise.resolve(response);
       })
       .catch(error => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to update inputs" />);
+        notify(<Notification type="error" title="Something's wrong" message={`Failed to ${type} input`} />);
         return Promise.reject(error);
       });
   };
@@ -179,35 +179,34 @@ export class WorkflowManagerContainer extends Component {
   }
 
   createNode = (diagramApp, event) => {
-    const data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
-    const nodesCount = keys(
+    const { task_data: taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
+    const nodesOfSameTypeCount = Object.values(
       diagramApp
         .getDiagramEngine()
         .getDiagramModel()
         .getNodes()
-    ).length;
+    ).filter(node => node.taskId === taskData.id).length;
 
     //check for type and create switchNode if type===switch
-    console.log("data");
-    console.log(data);
+    console.log("taskData", taskData);
     let node;
-    if (data.task_data.key === "switch") {
-      node = new SwitchNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type);
-      const { id, taskId } = node;
-      //this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, name: "", value: "" });
-      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {}, type: "decision" });
+    let nodeType;
+    if (taskData.key === "switch") {
+      nodeType = "decision";
+      node = new SwitchNodeModel("Switch " + (nodesOfSameTypeCount + 1), "rgb(0,192,255)", taskData.type);
     } else {
-      node = new CustomTaskNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type);
-      const { id, taskId } = node;
-      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {}, type: "custom" });
+      nodeType = "custom";
+      node = node = new CustomTaskNodeModel({
+        taskId: taskData.id,
+        taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
+      });
     }
-    //add node info to the state
-    //const { id, taskId } = node;
-    //this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {} });
+    const { id, taskId } = node;
+    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {}, type: nodeType });
 
     const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
-    node.x = points.x;
-    node.y = points.y;
+    node.x = points.x - 120;
+    node.y = points.y - 80;
     diagramApp
       .getDiagramEngine()
       .getDiagramModel()
@@ -221,19 +220,23 @@ export class WorkflowManagerContainer extends Component {
       return <LoadingAnimation theme="bmrg-white" />;
     }
 
+    if (tasks.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
+      return <ErrorDragon theme="bmrg-white" />;
+    }
+
     if (tasks.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
-      const { hasUnsavedWorkflowUpdates, hasUnsavedInputUpdates } = this.props.workflow;
+      const { hasUnsavedWorkflowUpdates } = this.props.workflow;
       const { hasUnsavedWorkflowRevisionUpdates } = this.props.workflowRevision;
       return (
         <>
           <Prompt
-            when={hasUnsavedWorkflowUpdates || hasUnsavedWorkflowRevisionUpdates || hasUnsavedInputUpdates}
+            when={hasUnsavedWorkflowUpdates || hasUnsavedWorkflowRevisionUpdates}
             message={location =>
               location.pathname === this.props.match.url || location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
                 ? true
                 : `Are you sure? You have unsaved changes that will be lost on:\n${
                     hasUnsavedWorkflowUpdates ? "- Overview\n" : ""
-                  }${hasUnsavedWorkflowRevisionUpdates ? "- Design\n" : ""}${hasUnsavedInputUpdates ? "- Input\n" : ""}`
+                  }${hasUnsavedWorkflowRevisionUpdates ? "- Design\n" : ""}`
             }
           />
           <div className="c-workflow-designer">

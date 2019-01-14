@@ -92,7 +92,7 @@ class SearchFilterBar extends Component {
               onChange={this.handleOnSelectChange}
               defaultValue={selectedOption}
             >
-              <SelectItem value="none" text="All" />
+              <SelectItem value="none" text="All workflows" />
               {options.map(option => {
                 return (
                   <SelectItemGroup label={option.name} key={option.name}>

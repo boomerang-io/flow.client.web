@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
-import Editor from "./Editor";
 import { actions as changeLogActions } from "State/changeLog";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
+import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
+import ErrorDragon from "Components/ErrorDragon";
+import Editor from "./Editor";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 
 class WorkflowEditorContainer extends Component {
@@ -30,6 +31,14 @@ class WorkflowEditorContainer extends Component {
   }
 
   render() {
+    if (
+      this.props.workflowRevision.fetchingStatus === REQUEST_STATUSES.FAILURE ||
+      this.props.workflow.fetchingStatus === REQUEST_STATUSES.FAILURE ||
+      this.props.changeLog.status === REQUEST_STATUSES.FAILURE
+    ) {
+      return <ErrorDragon theme="bmrg-white" />;
+    }
+
     if (
       this.props.workflowRevision.fetchingStatus === REQUEST_STATUSES.SUCCESS &&
       this.props.workflow.fetchingStatus === REQUEST_STATUSES.SUCCESS &&

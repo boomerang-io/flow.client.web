@@ -13,6 +13,7 @@ import orderBy from "lodash/orderBy";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
 import SearchFilterBar from "Components/SearchFilterBar";
+import SimpleSelectFilter from "Components/SimpleSelectFilter";
 import { executionOptions } from "Constants/filterOptions";
 import ActivityList from "./ActivityList";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -22,6 +23,7 @@ export class WorkflowActivity extends Component {
   static propTypes = {
     activity: PropTypes.object.isRequired,
     activityActions: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     teams: PropTypes.object.isRequired,
     teamsActions: PropTypes.object.isRequired
   };
@@ -34,7 +36,8 @@ export class WorkflowActivity extends Component {
     executionFilter: [],
     hasMoreActivities: null,
     nextPage: 1,
-    isLoading: false
+    isLoading: false,
+    selectedTeam: { value: "none", label: "All" }
   };
 
   componentDidMount() {
@@ -75,6 +78,15 @@ export class WorkflowActivity extends Component {
 
   setMoreActivities = last => {
     this.setState({ hasMoreActivities: last });
+  };
+
+  handleChangeTeam = team => {
+    const teamId = team.target.value;
+    const selectedTeam = this.props.teams.data.find(team => team.id === teamId);
+    this.setState({
+      selectedTeam:
+        teamId === "none" ? { value: "none", label: "All teams" } : { value: selectedTeam.id, label: selectedTeam.name }
+    });
   };
 
   handleExecutionFilter = data => {
@@ -154,8 +166,10 @@ export class WorkflowActivity extends Component {
       activityList,
       hasMoreActivities,
       nextPage,
-      isLoading
+      isLoading,
+      selectedTeam,
       //executionFilter
+      emptyActivities
     } = this.state;
 
     if (activity.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
@@ -164,6 +178,9 @@ export class WorkflowActivity extends Component {
 
     if (activity.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
       // const filteredActivities = this.filterActivity();
+      const teamsList = [{ value: "none", label: "All teams" }].concat(
+        teams.data.map(team => ({ label: team.name, value: team.id }))
+      );
       let workflowsList = [];
       teams.data.forEach(team => (workflowsList = workflowsList.concat(team.workflows)));
       const workflowsFilter = sortByProp(workflowsList, "name", "ASC");
@@ -171,13 +188,19 @@ export class WorkflowActivity extends Component {
       return (
         <div className="c-workflow-activity">
           <nav className="s-workflow-activity-navigation">
-            <NavigateBack to="/workflows" text="Back to Workflows" />
+            <NavigateBack
+              to={this.props.location.state ? this.props.location.state.fromUrl : "/workflows"}
+              text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Workflows"}`}
+            />
           </nav>
           <div className="c-workflow-activity-content">
             <div className="c-workflow-activity-header">
+              <SimpleSelectFilter onChange={this.handleChangeTeam} selectedOption={selectedTeam} options={teamsList} />
               <SearchFilterBar
                 handleSearchFilter={this.handleSearchFilter}
-                options={teams.data}
+                options={
+                  selectedTeam.value !== "none" ? teams.data.filter(team => team.id === selectedTeam.value) : teams.data
+                }
                 filterItems={workflowsFilter}
                 debounceTimeout={300}
                 multiselect={false}
@@ -193,7 +216,7 @@ export class WorkflowActivity extends Component {
                 itemToString={item => (item ? item.value : "")}
               />
             </div>
-            {!activity.data.records.length ? (
+            {!activity.data.records.length || emptyActivities ? (
               <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
             ) : (
               <ActivityList

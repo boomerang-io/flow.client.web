@@ -26,11 +26,11 @@ export default class CronJobModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cronExpression: props.cronExpression,
+      cronExpression: props.cronExpression || "0 18 * * *",
       timeZone: props.timeZone || moment.tz.guess(),
       inputError: {},
       errorMessage: undefined,
-      message: props.cronExpression ? cronstrue.toString(props.cronExpression) : undefined,
+      message: props.cronExpression ? cronstrue.toString(props.cronExpression) : cronstrue.toString("0 18 * * *"),
       defaultTimeZone: moment.tz.guess()
     };
 
@@ -53,6 +53,10 @@ export default class CronJobModal extends Component {
 
   //receives input value from TextInput
   validateCron = value => {
+    if (value === "1 1 1 1 1" || value === "* * * * *") {
+      this.setState({ message: undefined, errorMessage: `Expression ${value} is not allowed for Boomerang Flow` });
+      return false;
+    }
     try {
       const message = cronstrue.toString(value); //just need to run it
       this.setState({ message, errorMessage: undefined });
@@ -118,8 +122,8 @@ export default class CronJobModal extends Component {
                 data-for={"b-cronModal__infoIcon"}
                 alt="Show/Hide Token"
               />
-              <ToolTip id="b-cronModal__infoIcon" theme="bmrg-white" place="bottom">
-                We have guessed your timezone for a default value
+              <ToolTip id="b-cronModal__infoIcon" place="bottom">
+                We make an educated guess at your timezone as a default value
               </ToolTip>
             </div>
           </div>

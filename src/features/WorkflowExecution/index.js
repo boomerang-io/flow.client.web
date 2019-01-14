@@ -10,6 +10,7 @@ import { actions as workflowRevisionActions } from "State/workflowRevision";
 import ErrorDragon from "Components/ErrorDragon";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
+import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import Main from "./Main";
 import "./styles.scss";
 
@@ -30,6 +31,16 @@ export class WorkflowExecutionContainer extends Component {
     this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/summary`);
     this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/revision`);
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { data: workflowExecutionData } = this.props.workflowExecution;
+    if (
+      workflowExecutionData.status !== prevProps.workflowExecution.data.status &&
+      workflowExecutionData === EXECUTION_STATUSES.COMPLETED
+    ) {
+      clearInterval(this.executionInterval);
+    }
   }
 
   componentWillUnmount() {
@@ -86,7 +97,7 @@ export class WorkflowExecutionContainer extends Component {
           workflowData={this.props.workflow.data}
           dag={this.props.workflowRevision.dag}
           version={this.props.workflowRevision.version}
-          workflowExecutionData={workflowExecutionData}
+          workflowExecutionData={`workflowExecutionData`}
           taskId={taskId}
           updateActiveNode={this.updateActiveNode}
         />

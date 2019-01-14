@@ -1,15 +1,30 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/variables";
 
-.c-widget-card {
-  box-sizing: border-box;
+.b-widget-card {
   height: auto;
-  min-width: 21.75rem;
-  width: auto;
-  min-height: 17.5rem;
+  width: 24rem;
+  height: 19rem;
+  box-sizing: border-box;
   border-radius: 0.25rem;
   background-color: $cool-white-2;
   margin: 1rem;
+
+  &.--stat {
+    font-size: 1.75rem;
+  }
+
+  &.--graph {
+    width: 48%;
+    height: auto;
+  }
+}
+
+@media (max-width: 80rem) {
+  .b-widget-card.--graph {
+    width: 100%;
+    min-width: 50rem;
+  }
 }
 
 .b-widget-card__title {

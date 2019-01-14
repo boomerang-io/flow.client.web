@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 // import axios from "axios";
 // import ActivityTable from "./ActivityTable";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
+import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import InfiniteScroll from "react-infinite-scroller";
 import ActivityCard from "./ActivityCard";
 import ScrollUp from "Components/ScrollUp";
@@ -34,16 +35,20 @@ class ActivityList extends Component {
           loader={<LoadingAnimation className="s-activities-loading" />}
           useWindow={true}
         >
-          {this.props.activities.map(activity => {
-            return (
-              <ActivityCard
-                activity={activity}
-                history={this.props.history}
-                key={activity.id}
-                match={this.props.match}
-              />
-            );
-          })}
+          {!this.props.activities.length ? (
+            <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
+          ) : (
+            this.props.activities.map(activity => {
+              return (
+                <ActivityCard
+                  activity={activity}
+                  history={this.props.history}
+                  key={activity.id}
+                  match={this.props.match}
+                />
+              );
+            })
+          )}
         </InfiniteScroll>
         <ScrollUp />
       </>

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import classnames from "classnames";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import Navbar from "./Navbar";
@@ -7,14 +8,11 @@ import boomerangLogo from "./assets/boomerang-logo.svg";
 import "./styles.scss";
 
 class Navigation extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sideNavIsOpen: false
-    };
+  state = {
+    sideNavIsOpen: false
+  };
 
-    this.sidenavRef = React.createRef();
-  }
+  sidenavRef = React.createRef();
 
   handleOnIconClick = () => {
     this.setState(prevState => ({
@@ -43,9 +41,10 @@ class Navigation extends Component {
   };
 
   render() {
+    const { user, navbarLinks, refreshPage } = this.props;
     return (
       <>
-        <Navbar user={this.props.user} navbarLinks={this.props.navbarLinks} refresh={this.props.refreshPage} />
+        <Navbar user={user} navbarLinks={navbarLinks} refresh={refreshPage} />
         <img className="s-boomerang-logo" src={boomerangLogo} alt="Boomerang Logo" />
         <div className="s-sidenav-wrapper" ref={this.sidenavRef}>
           <div
@@ -61,7 +60,7 @@ class Navigation extends Component {
             </svg>
           </div>
           <div onClick={this.handleSetSidenavClose}>
-            <Sidenav theme="bmrg-white" hidden={!this.state.sideNavIsOpen} navItems={navItems} />
+            <Sidenav theme="bmrg-white" hidden={!this.state.sideNavIsOpen} navItems={navItems(this.props.location)} />
           </div>
         </div>
       </>
@@ -69,4 +68,4 @@ class Navigation extends Component {
   }
 }
 
-export default Navigation;
+export default withRouter(Navigation);

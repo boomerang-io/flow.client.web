@@ -6,10 +6,11 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  min-width: 75rem;
   height: 7.5rem;
   border: solid 0.05rem $teal-20;
   border-radius: 0.25rem;
-  margin: 1.5rem 1rem;
+  margin: 1.5rem 0rem;
   cursor: pointer;
   &.--completed {
     border-color: $teal-20;
@@ -19,6 +20,9 @@
   }
   &.--inProgress {
     border-color: $cerulean-20;
+  }
+  &.--invalid {
+    border-color: $gray-20;
   }
 }
 .c-activities-row__item-workflow {
@@ -51,19 +55,43 @@
     border-color: $cerulean-20;
   }
 }
-.c-activity-card__workflow {
+.c-activity-card-workflow {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
-.c-activity-card__workflow-info {
-  margin-left: 0.5rem;
+.c-activity-card-section--left {
   display: flex;
+  min-width: 25rem;
+}
+.c-activity-card-section--right {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  min-width: 50rem;
+}
+
+.c-activity-card-workflow-info {
+  margin-left: 0.5rem;
+  justify-content: center;
+  display: flex;
+  align-items: flex-start;
   flex-direction: column;
   min-width: 12rem;
 }
-.c-activity-card__workflow-trigger {
-  margin-left: 2.5rem;
-  display: flex;
-  flex-direction: column;
+
+.c-activity-card-execution-info {
+  margin-left: 1rem;
+  min-width: 20rem;
+
+  &.--first {
+    width: 30rem;
+  }
+
+  li:last-of-type {
+    margin-bottom: 0rem;
+  }
 }
 
 .c-activity-card__icon {
@@ -77,45 +105,41 @@
   width: 5rem;
   height: 4rem;
 }
-.b-activity-card__name,
-.b-activity-card__team-name {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-.b-activity-card__trigger-label {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  width: 6rem;
-}
-.b-activity-card__label {
-  width: 6rem;
-  font-size: 1rem;
-  font-weight: 600;
-}
 .b-activity-card__description {
   color: $gray-60;
+  font-size: 1.1rem;
 }
-.b-activity-card__trigger,
-.b-activity-card__autor {
+.b-activity-card__name {
+  font-size: 1.25rem;
+  font-weight: 600;
   margin-bottom: 0.5rem;
-  color: $gray-60;
 }
+
+.b-activity-card__label {
+  min-width: 6rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .b-activity-card__status-icon {
   margin-right: 0.5rem;
 }
+
 .b-activity-card__data {
+  line-height: 1.25rem;
   margin-left: 2rem;
   display: flex;
   align-items: center;
   color: $gray-60;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.c-activity-card__activity {
-  margin-top: 1rem;
-  margin-right: 3rem;
-}
-.c-activity-card__label {
+
+.b-activity-card__row {
   display: flex;
   justify-content: flex-start;
   margin-bottom: 0.75rem;

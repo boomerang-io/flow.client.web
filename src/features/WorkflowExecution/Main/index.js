@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import { DiagramWidget } from "@boomerang/boomerang-dag";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import NavigateBack from "Components/NavigateBack";
 import TimeProgressBar from "Components/TimeProgressBar";
 import DiagramApplication from "Utilities/DiagramApplication";
-import { DiagramWidget } from "@boomerang/boomerang-dag";
 import StepSideInfo from "./StepSideInfo";
 import WorkflowSummary from "./WorfklowSummary";
 import "./styles.scss";
@@ -38,8 +38,8 @@ class Main extends Component {
       <div className="c-workflow-execution">
         <nav style={{ marginBottom: "1rem", width: "15rem", gridArea: "header" }}>
           <NavigateBack
-            to={this.props.location.state.fromUrl || "/activity"}
-            text={`Back to ${this.props.location.state.fromText || "Activity"}`}
+            to={this.props.location.state ? this.props.location.state.fromUrl : "/activity"}
+            text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Activity"}`}
           />
         </nav>
         <TimeProgressBar updateActiveNode={updateActiveNode} tasks={workflowExecutionData} />
