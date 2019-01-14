@@ -7,12 +7,13 @@ import "./styles.scss";
 
 const colors = ["#57d785", "#95c4f3", "#fbeaae", "#fc835c", "#f7aac3"];
 
-const TimeProgressBar = ({ tasks, updateActiveNode }) => {
-  const steps = orderBy(tasks.steps, ["order"], ["asc"]).filter(
-    step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED
+const TimeProgressBar = ({ workflowExecution, updateActiveNode }) => {
+  const steps = orderBy(workflowExecution.steps, ["order"], ["asc"]).filter(
+    step =>
+      step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED && step.flowTaskStatus !== EXECUTION_STATUSES.IN_PROGRESS
   );
   let durationSum = 0;
-  tasks.steps.forEach(step => (durationSum += step.duration));
+  steps.forEach(step => (durationSum += step.duration));
 
   return (
     <div className="c-time-progress-bar">
@@ -41,8 +42,8 @@ const TimeProgressBar = ({ tasks, updateActiveNode }) => {
 };
 
 TimeProgressBar.propTypes = {
-  tasks: PropTypes.object.isRequired,
-  updateActiveNode: PropTypes.func
+  workflowExecution: PropTypes.object.isRequired,
+  updateActiveNode: PropTypes.func.isRequired
 };
 
 export default TimeProgressBar;

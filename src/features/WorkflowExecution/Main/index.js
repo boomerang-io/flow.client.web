@@ -8,6 +8,7 @@ import TimeProgressBar from "Components/TimeProgressBar";
 import DiagramApplication from "Utilities/DiagramApplication";
 import StepSideInfo from "./StepSideInfo";
 import WorkflowSummary from "./WorfklowSummary";
+import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import "./styles.scss";
 
 class Main extends Component {
@@ -27,8 +28,9 @@ class Main extends Component {
 
   render() {
     const { workflowExecutionData, taskId, updateActiveNode } = this.props;
-    const hasStepExecuting =
-      workflowExecutionData.steps && workflowExecutionData.steps.find(step => step.flowTaskStatus !== "notstarted");
+    const hasStarted =
+      workflowExecutionData.steps &&
+      workflowExecutionData.steps.find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
     const selectedStep =
       workflowExecutionData.steps && workflowExecutionData.steps.length && taskId
         ? workflowExecutionData.steps.find(step => step.taskId === taskId)
@@ -42,9 +44,9 @@ class Main extends Component {
             text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Activity"}`}
           />
         </nav>
-        <TimeProgressBar updateActiveNode={updateActiveNode} tasks={workflowExecutionData} />
+        <TimeProgressBar updateActiveNode={updateActiveNode} workflowExecution={workflowExecutionData} />
         <div className="c-workflow-diagram-execution">
-          {hasStepExecuting ? (
+          {hasStarted ? (
             <DiagramWidget
               className="c-diagram-canvas"
               diagramEngine={this.diagramApp.getDiagramEngine()}
