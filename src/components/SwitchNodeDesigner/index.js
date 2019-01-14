@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
-//import { actions as workflowConfigActions } from "State/workflowConfig/fetch";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
