@@ -95,13 +95,19 @@ class InputsModalContent extends Component {
       if (!inputProperties.defaultValue) inputProperties.defaultValue = false;
     }
 
+    // need to update state, then make request
+    // only close on success
     if (this.props.isEdit) {
-      this.props
-        .updateInputs({ title: "Edit Input", message: "Successfully edited input", type: "edit" })
+      new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties)))
+        .then(() =>
+          this.props.updateInputs({ title: "Edit Input", message: "Successfully edited input", type: "edit" })
+        )
         .then(() => this.props.closeModal());
     } else {
-      this.props
-        .updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
+      new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties)))
+        .then(() =>
+          this.props.updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
+        )
         .then(() => this.props.closeModal());
     }
   };
