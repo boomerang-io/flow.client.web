@@ -6998,6 +6998,139 @@
         "reason": "Create workflow"
       },
       "id": "EMZAdTy"
+    },
+    {
+      "dag": {
+        "id": "036aa420-4c62-42df-a5a8-e6a516ef18fd",
+        "offsetX": 1,
+        "offsetY": -2,
+        "zoom": 100,
+        "gridSize": 0,
+        "links": [
+          {
+            "id": "c0df4db3-ea35-4c8e-a289-2d02d74a73e3",
+            "type": "decision",
+            "selected": false,
+            "source": "54cedfc6-b869-4694-aa9d-0a109556069b",
+            "sourcePort": "3d7940aa-4b07-4cc3-a816-a397d05fa9a5",
+            "target": "699fa730-92f6-4c2f-83c1-0c52c8973949",
+            "targetPort": "c7f810ae-9ecf-4ce6-a989-082a97f23294",
+            "points": [
+              {
+                "id": "af656699-6f79-4437-b6a9-575ab8153f3d",
+                "selected": false,
+                "x": 631.28125,
+                "y": 206.109375
+              },
+              {
+                "id": "313f0b1a-2368-45d4-8a42-cdc5dded23db",
+                "selected": true,
+                "x": 1000.109375,
+                "y": 437
+              }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50,
+            "linkId": "c0df4db3-ea35-4c8e-a289-2d02d74a73e3",
+            "switchCondition": "sunday switch check"
+          }
+        ],
+        "nodes": [
+          {
+            "id": "19e71ab3-e2a8-48e8-92d5-c78d00bb96cd",
+            "type": "startend",
+            "selected": false,
+            "x": 300,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "f13526d4-cada-4f07-8919-f643c13c7418",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "19e71ab3-e2a8-48e8-92d5-c78d00bb96cd",
+                "links": [],
+                "position": "right",
+                "nodePortId": "f13526d4-cada-4f07-8919-f643c13c7418"
+              }
+            ],
+            "passedName": "Start",
+            "nodeId": "19e71ab3-e2a8-48e8-92d5-c78d00bb96cd"
+          },
+          {
+            "id": "699fa730-92f6-4c2f-83c1-0c52c8973949",
+            "type": "startend",
+            "selected": false,
+            "x": 1000,
+            "y": 400,
+            "extras": {},
+            "ports": [
+              {
+                "id": "c7f810ae-9ecf-4ce6-a989-082a97f23294",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "699fa730-92f6-4c2f-83c1-0c52c8973949",
+                "links": ["c0df4db3-ea35-4c8e-a289-2d02d74a73e3"],
+                "position": "left",
+                "nodePortId": "c7f810ae-9ecf-4ce6-a989-082a97f23294"
+              }
+            ],
+            "passedName": "Finish",
+            "nodeId": "699fa730-92f6-4c2f-83c1-0c52c8973949"
+          },
+          {
+            "id": "54cedfc6-b869-4694-aa9d-0a109556069b",
+            "type": "decision",
+            "selected": false,
+            "x": 439,
+            "y": 146.921875,
+            "extras": {},
+            "ports": [
+              {
+                "id": "eb715671-e1d5-4c23-a90c-db7bcca4b989",
+                "type": "decision",
+                "selected": false,
+                "name": "left",
+                "parentNode": "54cedfc6-b869-4694-aa9d-0a109556069b",
+                "links": [],
+                "position": "left",
+                "nodePortId": "eb715671-e1d5-4c23-a90c-db7bcca4b989"
+              },
+              {
+                "id": "3d7940aa-4b07-4cc3-a816-a397d05fa9a5",
+                "type": "decision",
+                "selected": false,
+                "name": "right",
+                "parentNode": "54cedfc6-b869-4694-aa9d-0a109556069b",
+                "links": ["c0df4db3-ea35-4c8e-a289-2d02d74a73e3"],
+                "position": "right",
+                "nodePortId": "3d7940aa-4b07-4cc3-a816-a397d05fa9a5"
+              }
+            ],
+            "taskId": "7be9d03a8a5df958ad58b3b8",
+            "nodeId": "54cedfc6-b869-4694-aa9d-0a109556069b"
+          }
+        ]
+      },
+      "config": {
+        "nodes": [
+          {
+            "nodeId": "54cedfc6-b869-4694-aa9d-0a109556069b",
+            "taskId": "7be9d03a8a5df958ad58b3b8",
+            "inputs": {},
+            "type": "decision"
+          }
+        ]
+      },
+      "changelog": {
+        "reason": "Create workflow"
+      },
+      "id": "yh8x_ID"
     }
   ],
   "taskconfiguration": [
