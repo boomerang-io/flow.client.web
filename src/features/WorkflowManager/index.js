@@ -193,7 +193,10 @@ export class WorkflowManagerContainer extends Component {
     let nodeType;
     if (taskData.key === "switch") {
       nodeType = "decision";
-      node = new SwitchNodeModel("Switch " + (nodesOfSameTypeCount + 1), "rgb(0,192,255)", taskData.type);
+      node = new SwitchNodeModel({
+        taskId: taskData.id,
+        taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
+      });
     } else {
       nodeType = "custom";
       node = node = new CustomTaskNodeModel({

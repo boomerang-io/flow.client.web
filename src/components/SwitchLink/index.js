@@ -5,7 +5,7 @@ import TriangleArrow from "./TriangleArrow";
 import pencilIcon from "./pencil.svg";
 import Modal from "react-modal";
 import classnames from "classnames";
-
+import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentHeader from "@boomerang/boomerang-components/lib/ModalContentHeader";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
@@ -58,7 +58,8 @@ class SwitchLink extends Component {
     //this.props.diagramEngine.repaintCanvas();
   };
 
-  handleSave = () => {
+  handleSave = e => {
+    e.preventDefault();
     this.setState({ modalIsOpen: false });
     //also save back the state
     this.props.model.switchCondition = this.state.switchCondition;
@@ -66,12 +67,15 @@ class SwitchLink extends Component {
   };
 
   updateDefaultState = () => {
-    this.setState(prevState => ({ defaultState: !prevState.defaultState }));
-    console.log(this.state);
-    if (this.state.defaultState === true) {
-      console.log("changing state");
-      this.setState({ switchCondition: "default" });
-    }
+    this.setState(
+      prevState => ({ defaultState: !prevState.defaultState }),
+      () => {
+        if (this.state.defaultState) {
+          console.log("changing state");
+          this.setState({ switchCondition: "default" });
+        }
+      }
+    );
   };
 
   render() {
@@ -104,56 +108,62 @@ class SwitchLink extends Component {
                     onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
                     style={{ backgroundColor: "#fbfcfc", color: "#272727" }}
-                    fullScree
                     contentLabel="Example Modal"
                     contentLabel="Modal"
                     documentRootTagId="app"
                     overlayClassName="bmrg--c-modal-overlay"
                     ariaHideApp={true}
                     //className={classnames("bmrg--c-modal", { "--full-screen": false })}
-                    className={"bmrg--c-modal"}
+                    className="bmrg--c-modal"
                     defaultState={this.state.default}
                   >
-                    <form onSubmit={this.handleSave}>
-                      <ModalContentHeader title="Edit Switch Value" subtitle="" theme="bmrg-white" />
-                      <CloseModalButton onClick={this.closeModal} />
-                      <ModalContentBody
-                        style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}
-                      >
-                        <div className="b-default">
-                          <div className="b-default__desc">Default?</div>
-                          <Toggle
-                            aria-labelledby="toggle-default"
-                            className="b-default__toggle"
-                            name="default"
-                            checked={this.state.defaultState}
-                            onChange={this.updateDefaultState}
-                            theme="bmrg-white"
-                            red
-                          />
-                          <div className="b-default__explanation">
-                            When this switch is on, this connection will be taken only when no others are matched.
+                    <ModalFlow
+                      theme="bmrg-white"
+                      title
+                      closeModal={this.closeModal}
+                      headerTitle="Switch"
+                      headerSubtitle="Set it up"
+                      isFetching={false}
+                    >
+                      <form onSubmit={this.handleSave}>
+                        <ModalContentBody
+                          style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}
+                        >
+                          <div className="b-default">
+                            <div className="b-default__desc">Default?</div>
+                            <Toggle
+                              aria-labelledby="toggle-default"
+                              className="b-default__toggle"
+                              name="default"
+                              checked={this.state.defaultState}
+                              onChange={this.updateDefaultState}
+                              theme="bmrg-white"
+                              red
+                            />
+                            <div className="b-default__explanation">
+                              When this switch is on, this connection will be taken only when no others are matched.
+                            </div>
                           </div>
-                        </div>
 
-                        {!this.state.defaultState && (
-                          <TextInput
-                            alwaysShowTitle
-                            required
-                            value={this.state.switchCondition}
-                            title="Switch Property Value"
-                            placeholder="Enter a value"
-                            name="cron"
-                            theme="bmrg-white"
-                            onChange={this.updateSwitchState}
-                            style={{ paddingBottom: "1rem" }}
-                          />
-                        )}
-                      </ModalContentBody>
-                      <ModalContentFooter>
-                        <ModalConfirmButton text="SAVE" theme="bmrg-white" disabled={false} type="submit" />
-                      </ModalContentFooter>
-                    </form>
+                          {!this.state.defaultState && (
+                            <TextInput
+                              alwaysShowTitle
+                              required
+                              value={this.state.switchCondition}
+                              title="Switch Property Value"
+                              placeholder="Enter a value"
+                              name="cron"
+                              theme="bmrg-white"
+                              onChange={this.updateSwitchState}
+                              style={{ paddingBottom: "1rem" }}
+                            />
+                          )}
+                        </ModalContentBody>
+                        <ModalContentFooter>
+                          <ModalConfirmButton text="SAVE" theme="bmrg-white" disabled={false} type="submit" />
+                        </ModalContentFooter>
+                      </form>
+                    </ModalFlow>
                   </Modal>
                 </g>
               </foreignObject>

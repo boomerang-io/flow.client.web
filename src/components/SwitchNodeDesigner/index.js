@@ -51,22 +51,26 @@ export class SwitchNode extends Component {
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={task.name}
-            components={[{ step: 0, component: DisplayForm }]}
             closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
-            config={this.props.nodeConfig}
-            onSave={this.handleOnSave}
-            theme={"bmrg-white"}
-            task={task}
-            nodeConfig={nodeConfig}
+            theme="bmrg-white"
             {...rest}
-          />
+          >
+            <DisplayForm
+              closeModal={closeModal}
+              config={this.props.nodeConfig}
+              nodeConfig={nodeConfig}
+              onSave={this.handleOnSave}
+              task={task}
+            />
+          </ModalFlow>
         )}
       />
     );
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="b-switchNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
