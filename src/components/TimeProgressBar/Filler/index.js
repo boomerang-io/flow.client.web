@@ -52,7 +52,7 @@ function Filler({
         {percentOfTotal > 5 && <div className="b-time-progress-bar-filler__time">{finishTimeFormatted}</div>}
       </div>
 
-      <Tooltip id={id} theme="bmrg-white" place="bottom">
+      <Tooltip id={id} place="bottom">
         <div className="c-time-progress-bar-filler-info">
           <div className="b-time-progress-bar-filler-info">
             <label className="b-time-progress-bar-filler-info__label">Task name:</label>

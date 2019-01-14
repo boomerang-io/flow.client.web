@@ -46,9 +46,7 @@ class WorkflowSection extends Component {
                 +
               </div>
             </div>
-            <Tooltip theme="bmrg-white" id={team.id}>
-              Create Workflow
-            </Tooltip>
+            <Tooltip id={team.id}>Create Workflow</Tooltip>
           </Button>
         </div>
       </div>

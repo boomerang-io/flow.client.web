@@ -2,13 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import orderBy from "lodash/orderBy";
 import Filler from "./Filler";
+import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import "./styles.scss";
 
 const colors = ["#57d785", "#95c4f3", "#fbeaae", "#fc835c", "#f7aac3"];
 
 const TimeProgressBar = ({ tasks, updateActiveNode }) => {
   const steps = orderBy(tasks.steps, ["order"], ["asc"]).filter(
-    step => step.flowTaskStatus === "completed" || step.flowTaskStatus === "skipped"
+    step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED
   );
   let durationSum = 0;
   tasks.steps.forEach(step => (durationSum += step.duration));

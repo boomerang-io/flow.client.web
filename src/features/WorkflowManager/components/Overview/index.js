@@ -28,8 +28,6 @@ import refreshIcon from "./assets/refresh.svg";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
 
-const components = [{ step: 0, component: CronJobModal }];
-
 export class Overview extends Component {
   constructor(props) {
     super(props);
@@ -227,7 +225,7 @@ export class Overview extends Component {
                 data-for="triggers-webhook-info"
                 alt="Toggle webhook"
               />
-              <ToolTip className="b-options__icon-tooltip" id="triggers-webhook-info" theme="bmrg-white" place="top">
+              <ToolTip id="triggers-webhook-info" place="top">
                 Enable workflow to be executed by a webhook
               </ToolTip>
               {workflow.data.id &&
@@ -260,7 +258,7 @@ export class Overview extends Component {
                   alt="Show/Hide token"
                   onClick={this.handleShowToken}
                 />
-                <ToolTip className="b-options__icon-tooltip" id="webhook-token-eyeIcon" theme="bmrg-white" place="top">
+                <ToolTip id="webhook-token-eyeIcon" place="top">
                   {this.state.showTokenText}
                 </ToolTip>
                 <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
@@ -274,16 +272,11 @@ export class Overview extends Component {
                     onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
                   />
                 </CopyToClipboard>
-                <ToolTip className="b-options__icon-tooltip" id="webhook-token-copyIcon" theme="bmrg-white" place="top">
+                <ToolTip id="webhook-token-copyIcon" place="top">
                   {this.state.copyTokenText}
                 </ToolTip>
                 <div>
-                  <ToolTip
-                    className="b-options__icon-tooltip"
-                    place="top"
-                    id="webhook-token-refreshIcon"
-                    theme="bmrg-white"
-                  >
+                  <ToolTip place="top" id="webhook-token-refreshIcon">
                     Regenerate Token
                   </ToolTip>
                   <AlertModal
@@ -313,7 +306,7 @@ export class Overview extends Component {
               </form>
             )}
             <div className="c-scheduler">
-              <form className="b-schedule">
+              <div className="b-schedule">
                 <label id="toggle-scheduler" className="b-schedule__title">
                   Enable Scheduler
                 </label>
@@ -333,12 +326,7 @@ export class Overview extends Component {
                   data-for="triggers-scheduler-info"
                   alt="Toggle scheduler"
                 />
-                <ToolTip
-                  className="b-options__icon-tooltip"
-                  id="triggers-scheduler-info"
-                  theme="bmrg-white"
-                  place="top"
-                >
+                <ToolTip id="triggers-scheduler-info" place="top">
                   Enable workflow to be executed by a schedule
                 </ToolTip>
                 {workflow.data.triggers && workflow.data.triggers.scheduler.enable && (
@@ -353,19 +341,22 @@ export class Overview extends Component {
                     )}
                     modalContent={(closeModal, rest) => (
                       <ModalFlow
-                        headerTitle="Setup Scheduling"
-                        components={components}
                         closeModal={closeModal}
-                        handleOnChange={this.handleOnSchedulerChange}
-                        timeZone={workflow.data.triggers ? workflow.data.triggers.scheduler.timezone : ""}
-                        cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
+                        headerTitle="Set Schedule"
                         confirmModalProps={{ affirmativeAction: () => closeModal(), theme: "bmrg-white" }}
                         {...rest}
-                      />
+                      >
+                        <CronJobModal
+                          closeModal={closeModal}
+                          cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
+                          handleOnChange={this.handleOnSchedulerChange}
+                          timeZone={workflow.data.triggers ? workflow.data.triggers.scheduler.timezone : ""}
+                        />
+                      </ModalFlow>
                     )}
                   />
                 )}
-              </form>
+              </div>
               <div className="b-schedule__cronMessage">
                 {workflow.data.triggers &&
                 workflow.data.triggers.scheduler.schedule &&
@@ -406,7 +397,7 @@ export class Overview extends Component {
                 data-for="options-persistence-info"
                 alt="Toggle persistence"
               />
-              <ToolTip className="b-options__icon-tooltip" id="options-persistence-info" theme="bmrg-white" place="top">
+              <ToolTip id="options-persistence-info" place="top">
                 Persist workflow data between executions
               </ToolTip>
             </form>

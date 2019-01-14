@@ -153,7 +153,7 @@ class WorkflowCard extends Component {
                 />
               )}
             </span>
-            <Tooltip id={workflow.id} place="bottom" theme="bmrg-white">
+            <Tooltip id={workflow.id} place="bottom">
               Execute workflow
             </Tooltip>
           </div>

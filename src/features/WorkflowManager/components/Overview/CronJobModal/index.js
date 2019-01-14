@@ -122,8 +122,8 @@ export default class CronJobModal extends Component {
                 data-for={"b-cronModal__infoIcon"}
                 alt="Show/Hide Token"
               />
-              <ToolTip id="b-cronModal__infoIcon" theme="bmrg-white" place="bottom">
-                We have guessed your timezone for a default value
+              <ToolTip id="b-cronModal__infoIcon" place="bottom">
+                We make an educated guess at your timezone as a default value
               </ToolTip>
             </div>
           </div>

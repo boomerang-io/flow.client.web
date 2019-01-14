@@ -83,7 +83,7 @@ class Inputs extends Component {
                       src={close}
                       alt="delete"
                     />
-                    <Tooltip id={`${input.id}`} place="top" theme="bmrg-white">
+                    <Tooltip id={`${input.id}`} place="top">
                       Delete Input
                     </Tooltip>
                   </>
