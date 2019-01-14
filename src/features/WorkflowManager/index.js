@@ -9,6 +9,7 @@ import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import ErrorDragon from "Components/ErrorDragon";
 import Creator from "./Creator";
 import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -207,6 +208,10 @@ export class WorkflowManagerContainer extends Component {
     const { tasks, teams } = this.props;
     if (tasks.isFetching || teams.isFetching) {
       return <LoadingAnimation theme="bmrg-white" />;
+    }
+
+    if (tasks.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
+      return <ErrorDragon theme="bmrg-white" />;
     }
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
