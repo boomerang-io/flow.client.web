@@ -15,13 +15,20 @@ ConfigureSwitchModal.propTypes = {
   updateSwitchState: PropTypes.func.isRequired
 };
 
-function ConfigureSwitchModal({ defaultState, onSubmit, switchCondition, updateDefaultState, updateSwitchState }) {
+function ConfigureSwitchModal({
+  defaultState,
+  onSubmit,
+  switchCondition,
+  updateDefaultState,
+  updateSwitchState,
+  validateSwitch
+}) {
   return (
     <>
       <form onSubmit={onSubmit}>
         <ModalContentBody style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}>
+          <div className="b-switch-config__desc">Default?</div>
           <div className="b-switch-config">
-            <div className="b-switch-config__desc">Default?</div>
             <Toggle
               aria-labelledby="toggle-default"
               className="b-switch-config__toggle"
@@ -36,19 +43,22 @@ function ConfigureSwitchModal({ defaultState, onSubmit, switchCondition, updateD
             </div>
           </div>
 
-          {!defaultState && (
-            <TextInput
-              alwaysShowTitle
-              required
-              value={switchCondition}
-              title="Switch Property Value"
-              placeholder="Enter a value"
-              name="property"
-              theme="bmrg-white"
-              onChange={updateSwitchState}
-              style={{ paddingBottom: "1rem" }}
-            />
-          )}
+          <div className="b-switch-customvalue">
+            {!defaultState && (
+              <TextInput
+                alwaysShowTitle
+                required
+                value={switchCondition === "default" ? "" : switchCondition}
+                title="Switch Property Value"
+                placeholder="Enter a value"
+                name="property"
+                theme="bmrg-white"
+                onChange={updateSwitchState}
+                style={{ paddingBottom: "1rem" }}
+                validationFunction={validateSwitch}
+              />
+            )}
+          </div>
         </ModalContentBody>
         <ModalContentFooter>
           <ModalConfirmButton text="SAVE" theme="bmrg-white" type="submit" />

@@ -3,3 +3,21 @@
 .b-editswitch-button__img {
   cursor: pointer;
 }
+
+.b-switch-config {
+  min-height: 5rem;
+  padding-top: 1rem;
+}
+
+.b-switch-config__explanation {
+  margin-left: 1rem;
+}
+
+.b-switch-customvalue {
+  min-height: 5rem;
+}
+
+.b-switch-linkvalue {
+  border-style: solid;
+  border-width: 2px;
+}
