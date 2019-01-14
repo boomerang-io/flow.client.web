@@ -197,16 +197,14 @@ export class WorkflowManagerContainer extends Component {
         taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
       });
     } else {
-      node = new CustomTaskNodeModel({
+      nodeType = "custom";
+      node = node = new CustomTaskNodeModel({
         taskId: taskData.id,
         taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
       });
-      const { id, taskId } = node;
-      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {}, type: "custom" });
     }
-    //add node info to the state
-    //const { id, taskId } = node;
-    //this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {} });
+    const { id, taskId } = node;
+    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {}, type: nodeType });
 
     const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
     node.x = points.x - 120;
