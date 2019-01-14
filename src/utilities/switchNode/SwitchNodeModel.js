@@ -4,18 +4,19 @@ import merge from "lodash/merge";
 
 export default class SwitchNodeModel extends NodeModel {
   //list all three params
-  constructor(name, color, taskId) {
+  constructor({ taskId, taskName }) {
     super("decision");
     this.addPort(new SwitchPortModel("left"));
     this.addPort(new SwitchPortModel("right"));
     this.taskId = taskId;
-    //this.taskName = taskName;
+    this.taskName = taskName;
   }
 
   serialize() {
     return merge(super.serialize(), {
       taskId: this.taskId,
-      nodeId: this.id
+      nodeId: this.id,
+      taskName: this.taskName
     });
   }
 
@@ -23,5 +24,6 @@ export default class SwitchNodeModel extends NodeModel {
     super.deSerialize(data, engine);
     this.taskId = data.taskId;
     this.id = data.nodeId;
+    this.taskName = data.taskName;
   }
 }

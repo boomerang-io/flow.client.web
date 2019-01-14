@@ -192,11 +192,13 @@ export class WorkflowManagerContainer extends Component {
 
     //check for type and create switchNode if type===switch
     let node;
-    if (data.task_data.key === "switch") {
-      node = new SwitchNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type);
-      const { id, taskId } = node;
-      //this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, name: "", value: "" });
-      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {}, type: "decision" });
+    let nodeType;
+    if (taskData.key === "switch") {
+      nodeType = "decision";
+      node = new SwitchNodeModel({
+        taskId: taskData.id,
+        taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
+      });
     } else {
       node = new CustomTaskNodeModel("Node " + (nodesCount + 1), "rgb(0,192,255)", data.type);
       const { id, taskId } = node;
