@@ -96,15 +96,14 @@ class InputsModalContent extends Component {
     }
 
     if (this.props.isEdit) {
-      new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties))).then(() =>
-        this.props.updateInputs({ title: "Edit Input", message: "Successfully edited input", type: "edit" })
-      );
+      this.props
+        .updateInputs({ title: "Edit Input", message: "Successfully edited input", type: "edit" })
+        .then(() => this.props.closeModal());
     } else {
-      new Promise(resolve => resolve(this.props.workflowActions.createWorkflowInput(inputProperties))).then(() =>
-        this.props.updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
-      );
+      this.props
+        .updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
+        .then(() => this.props.closeModal());
     }
-    this.props.closeModal();
   };
 
   renderDefaultValue = () => {

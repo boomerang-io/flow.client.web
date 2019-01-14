@@ -29,11 +29,7 @@ class Inputs extends Component {
   };
 
   deleteInput = key => {
-    new Promise(resolve => {
-      resolve(this.props.workflowActions.deleteWorkflowInput({ key }));
-    }).then(() =>
-      this.props.updateInputs({ title: "Delete Input", message: "Successfully deleted input", type: "delete" })
-    );
+    this.props.updateInputs({ title: "Delete Input", message: "Successfully deleted input", type: "delete" });
   };
 
   render() {
