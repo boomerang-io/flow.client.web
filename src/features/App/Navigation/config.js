@@ -1,35 +1,34 @@
-export const navItems = location =>
-  console.log(location.pathname) || [
-    {
-      path: {
-        pathname: "/workflows",
-        state: { fromUrl: location.pathname, fromText: location.pathname.split("/")[1] }
-      },
-      exact: false,
-      text: "Workflows"
+export const navItems = location => [
+  {
+    path: {
+      pathname: "/workflows",
+      state: { fromUrl: location.pathname, fromText: location.pathname.split("/")[1] }
     },
-    {
-      path: {
-        pathname: "/activity",
-        state: { fromUrl: location.pathname, fromText: location.pathname.split("/")[1] }
-      },
-      exact: false,
-      text: "Activity"
+    exact: false,
+    text: "Workflows"
+  },
+  {
+    path: {
+      pathname: "/activity",
+      state: { fromUrl: location.pathname, fromText: location.pathname.split("/")[1] }
     },
-    {
-      path: {
-        pathname: "/creator/overview",
-        state: { fromUrl: location.pathname, fromText: location.pathname.split("/")[1] }
-      },
-      exact: false,
-      text: "Creator"
+    exact: false,
+    text: "Activity"
+  },
+  {
+    path: {
+      pathname: "/creator/overview",
+      state: { fromUrl: location.pathname, fromText: location.pathname.split("/")[1] }
     },
-    {
-      path: {
-        pathname: "/insights",
-        state: { fromUrl: location.pathname, fromText: location.pathname.split("/")[1] }
-      },
-      exact: false,
-      text: "Insights"
-    }
-  ];
+    exact: false,
+    text: "Creator"
+  },
+  {
+    path: {
+      pathname: "/insights",
+      state: { fromUrl: location.pathname, fromText: location.pathname.split("/")[1] }
+    },
+    exact: false,
+    text: "Insights"
+  }
+];
