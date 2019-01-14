@@ -65,6 +65,12 @@ body {
 
     &::placeholder {
       color: $cool-gray-20;
+      font-style: initial;
+      font-weight: 200;
+      letter-spacing: 0.125rem;
+    }
+    .bmrg--b-textarea__error {
+      color: $orange-pink;
     }
   }
 
@@ -144,11 +150,18 @@ body {
 
     &::placeholder {
       color: $cool-gray-20;
+      font-style: initial;
+      font-weight: 300;
+      letter-spacing: 0.125rem;
     }
   }
 
   .bmrg--b-textarea__title {
     color: $gray-90;
+  }
+
+  .bmrg--b-textarea__error {
+    color: $orange-pink;
   }
 
   .bmrg--b-tooltip {
