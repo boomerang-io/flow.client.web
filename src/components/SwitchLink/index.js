@@ -1,17 +1,12 @@
 import React, { Component } from "react";
-import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
-import TriangleArrow from "./TriangleArrow";
-import pencilIcon from "./pencil.svg";
+import PropTypes from "prop-types"; //to implement
 import Modal from "react-modal";
-import classnames from "classnames";
+import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalContentHeader from "@boomerang/boomerang-components/lib/ModalContentHeader";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-//import TextInput from "@boomerang/boomerang-components/lib/TextInput";
-import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import ConfigureSwitchModal from "./ConfigureSwitchModal";
+import TriangleArrowIcon from "./TriangleArrow";
+import pencilIcon from "./pencil.svg";
+import "./styles.scss";
 
 class SwitchLink extends Component {
   constructor(props) {
@@ -27,11 +22,7 @@ class SwitchLink extends Component {
   }
 
   componentDidMount() {
-    this.props.diagramEngine.repaintCanvas();
-    //For accessibility: https://github.com/reactjs/react-modal#app-element
-    if (document.getElementById(this.props.documentRootTagId)) {
-      Modal.setAppElement(`#${this.props.documentRootTagId}`);
-    }
+    //this.props.diagramEngine.repaintCanvas();
   }
 
   componentWillUnmount() {
@@ -94,7 +85,6 @@ class SwitchLink extends Component {
             </g>
             <g transform={`translate(${this.halfwayPoint.x - 17}, ${this.halfwayPoint.y + 2})`}>
               <foreignObject>
-                {/* <EditSwitchButton onClick={this.handleClick} initialSwitchCondition={this.state.switchCondition} /> */}
                 <g>
                   <img
                     src={pencilIcon}
@@ -106,15 +96,12 @@ class SwitchLink extends Component {
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
-                    style={{ backgroundColor: "#fbfcfc", color: "#272727" }}
                     contentLabel="Example Modal"
                     contentLabel="Modal"
                     documentRootTagId="app"
                     overlayClassName="bmrg--c-modal-overlay"
                     ariaHideApp={true}
-                    //className={classnames("bmrg--c-modal", { "--full-screen": false })}
                     className="bmrg--c-modal"
-                    defaultState={this.state.default}
                   >
                     <ModalFlow
                       theme="bmrg-white"
@@ -123,52 +110,22 @@ class SwitchLink extends Component {
                       headerTitle="Switch"
                       headerSubtitle="Set it up"
                       isFetching={false}
+                      fullscreen={false}
                     >
-                      <form onSubmit={this.handleSave}>
-                        <ModalContentBody
-                          style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}
-                        >
-                          <div className="b-default">
-                            <div className="b-default__desc">Default?</div>
-                            <Toggle
-                              aria-labelledby="toggle-default"
-                              className="b-default__toggle"
-                              name="default"
-                              checked={this.state.defaultState}
-                              onChange={this.updateDefaultState}
-                              theme="bmrg-white"
-                              red
-                            />
-                            <div className="b-default__explanation">
-                              When this switch is on, this connection will be taken only when no others are matched.
-                            </div>
-                          </div>
-
-                          {!this.state.defaultState && (
-                            <TextInput
-                              alwaysShowTitle
-                              required
-                              value={this.state.switchCondition}
-                              title="Switch Property Value"
-                              placeholder="Enter a value"
-                              name="cron"
-                              theme="bmrg-white"
-                              onChange={this.updateSwitchState}
-                              style={{ paddingBottom: "1rem" }}
-                            />
-                          )}
-                        </ModalContentBody>
-                        <ModalContentFooter>
-                          <ModalConfirmButton text="SAVE" theme="bmrg-white" disabled={false} type="submit" />
-                        </ModalContentFooter>
-                      </form>
+                      <ConfigureSwitchModal
+                        defaultState={this.state.defaultState}
+                        onSubmit={this.handleSave}
+                        switchCondition={this.state.switchCondition}
+                        updateDefaultState={this.updateDefaultState}
+                        updateSwitchState={this.updateSwitchState}
+                      />
                     </ModalFlow>
                   </Modal>
                 </g>
               </foreignObject>
             </g>
             <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y + 8})`}>
-              <text x="55" y="55" class="small">
+              <text x="55" y="55" className="small">
                 {this.props.model.switchCondition}
               </text>
             </g>
@@ -184,7 +141,7 @@ class SwitchLink extends Component {
         />
         {this.path && this.props.model.targetPort && (
           <g fill="none" transform={`translate(${this.endPoint.x - 19}, ${this.endPoint.y - 10}) scale(.0375)`}>
-            <TriangleArrow />
+            <TriangleArrowIcon />
           </g>
         )}
       </>
