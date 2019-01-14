@@ -11,7 +11,7 @@ export default class SwitchNodeFactory extends AbstractNodeFactory {
   }
 
   getNewInstance() {
-    return new SwitchNodeModel();
+    return new SwitchNodeModel({});
   }
 
   generateReactWidget(diagramEngine, node) {
