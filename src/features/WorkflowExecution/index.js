@@ -9,7 +9,6 @@ import { actions as workflowExecutionActiveNodeActions } from "State/workflowExe
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import ErrorDragon from "Components/ErrorDragon";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
-import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import Main from "./Main";
 import "./styles.scss";
@@ -88,7 +87,7 @@ export class WorkflowExecutionContainer extends Component {
         const step = workflowExecutionData.steps
           .slice(0)
           .reverse()
-          .find(step => step.flowTaskStatus !== ACTIVITY_STATUSES.NOT_STARTED);
+          .find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
         taskId = nodeId ? nodeId : step && step.taskId ? step.taskId : undefined;
       }
 
@@ -97,7 +96,7 @@ export class WorkflowExecutionContainer extends Component {
           workflowData={this.props.workflow.data}
           dag={this.props.workflowRevision.dag}
           version={this.props.workflowRevision.version}
-          workflowExecutionData={`workflowExecutionData`}
+          workflowExecutionData={workflowExecutionData}
           taskId={taskId}
           updateActiveNode={this.updateActiveNode}
         />
