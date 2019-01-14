@@ -43,10 +43,13 @@ class SwitchLink extends Component {
   };
 
   closeModal = () => {
-    this.setState({ modalIsOpen: false });
-    //also save back the state
-    //this.props.model.switchCondition = this.state.switchCondition;
-    //this.props.diagramEngine.repaintCanvas();
+    this.setState({ modalIsOpen: false, switchCondition: this.props.model.switchCondition }, () => {
+      if (this.props.model.switchCondition === "default") {
+        this.setState({ defaultState: true });
+      } else {
+        this.setState({ defaultState: false });
+      }
+    });
   };
 
   handleSave = e => {
@@ -62,11 +65,17 @@ class SwitchLink extends Component {
       prevState => ({ defaultState: !prevState.defaultState }),
       () => {
         if (this.state.defaultState) {
-          console.log("changing state");
           this.setState({ switchCondition: "default" });
         }
       }
     );
+  };
+
+  validateSwitch = value => {
+    if (value === undefined || value === "" || value === " ") {
+      return false;
+    }
+    return true;
   };
 
   render() {
@@ -119,16 +128,20 @@ class SwitchLink extends Component {
                         switchCondition={this.state.switchCondition}
                         updateDefaultState={this.updateDefaultState}
                         updateSwitchState={this.updateSwitchState}
+                        validateSwitch={this.validateSwitch}
                       />
                     </ModalFlow>
                   </Modal>
                 </g>
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y + 8})`}>
-              <text x="55" y="55" className="small">
-                {this.props.model.switchCondition}
-              </text>
+            <g transform={`translate(${this.halfwayPoint.x + 18}, ${this.halfwayPoint.y - 6})`}>
+              <text className="small">{this.props.model.switchCondition}</text>
+              {/*<foreignObject>
+                <div className="b-switch-linkvalue">
+                  <text className="small">{this.props.model.switchCondition}</text>
+                </div>
+              </foreignObject>*/}
             </g>
           </>
         )}
@@ -141,7 +154,7 @@ class SwitchLink extends Component {
           d={this.props.path}
         />
         {this.path && this.props.model.targetPort && (
-          <g fill="none" transform={`translate(${this.endPoint.x - 19}, ${this.endPoint.y - 10}) scale(.0375)`}>
+          <g fill="none" transform={`translate(${this.endPoint.x - 19}, ${this.endPoint.y - 0}) scale(.0375)`}>
             <TriangleArrowIcon />
           </g>
         )}
