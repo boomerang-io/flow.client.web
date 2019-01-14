@@ -228,7 +228,7 @@ export class Overview extends Component {
                 alt="Toggle webhook"
               />
               <ToolTip className="b-options__icon-tooltip" id="triggers-webhook-info" theme="bmrg-white" place="top">
-                Enable workflow to be executed via webhook
+                Enable workflow to be executed by a webhook
               </ToolTip>
               {workflow.data.id &&
                 workflow.data.triggers &&
