@@ -50,7 +50,7 @@ class App extends Component {
         <Navigation user={this.props.user} navbarLinks={this.props.navbarLinks} refresh={this.refreshPage} />
         <NotificationBanner closeBanner={this.closeBanner} />
         <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
-          <Suspense fallback={<LoadingAnimation theme="bmrg-white" />}>
+          <Suspense fallback={<div />}>
             <Switch>
               <Route path="/workflows" component={AsyncHome} />
               <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
