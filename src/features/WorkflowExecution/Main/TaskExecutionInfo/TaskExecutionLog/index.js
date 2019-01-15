@@ -66,6 +66,9 @@ class TaskExecutionLog extends React.Component {
                     stream
                     follow={follow}
                     onScroll={onScroll}
+                    fetchOptions={{
+                      credentials: "include"
+                    }}
                   />
                 )}
               />

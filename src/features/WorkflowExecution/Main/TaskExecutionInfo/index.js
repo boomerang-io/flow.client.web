@@ -43,7 +43,7 @@ const TaskExecutionInfo = ({ flowActivityId, task }) => {
           flowActivityId={flowActivityId}
           flowTaskName={task.taskName}
         />
-        {task.outputs && Object.keys(task.outputs).length && (
+        {task.outputs && Object.keys(task.outputs).length > 0 && (
           <OutputPropertiesLog flowTaskName={task.taskName} flowTaskOutputs={task.outputs} />
         )}
       </div>

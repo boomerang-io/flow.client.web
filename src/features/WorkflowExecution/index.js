@@ -34,11 +34,11 @@ export class WorkflowExecutionContainer extends Component {
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     const { data: workflowExecutionData } = this.props.workflowExecution;
     if (
-      workflowExecutionData !== EXECUTION_STATUSES.IN_PROGRESS &&
-      workflowExecutionData !== EXECUTION_STATUSES.NOT_STARTED
+      workflowExecutionData.status !== EXECUTION_STATUSES.IN_PROGRESS &&
+      workflowExecutionData.status !== EXECUTION_STATUSES.NOT_STARTED
     ) {
       clearInterval(this.executionInterval);
     }
