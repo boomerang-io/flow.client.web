@@ -46,9 +46,7 @@ export class SwitchNode extends Component {
           {this.props.task ? this.props.task.description : "Task description"}
         </Tooltip>
         <div className="b-switchNode__tile" data-tip data-for={this.props.node.id}>
-          {this.props.nodeConfig.inputs && this.props.nodeConfig.inputs.value
-            ? this.props.nodeConfig.inputs.value
-            : this.props.task.name}
+          {this.props.task ? this.props.task.name : "Task"}
         </div>
 
         <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
