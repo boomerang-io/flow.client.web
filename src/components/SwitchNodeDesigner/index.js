@@ -29,7 +29,6 @@ export class SwitchNode extends Component {
   state = {};
 
   handleOnSave = inputs => {
-    //this.props.workflowRevisionActions.updateNode({ nodeId: this.props.node.id, inputs });
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
@@ -71,7 +70,6 @@ export class SwitchNode extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="b-switchNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>

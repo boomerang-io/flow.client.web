@@ -382,8 +382,8 @@
             {
               "id": "62b4de2b-03aa-4348-bc64-4c7b212d8885",
               "selected": false,
-              "x": 597.28125,
-              "y": 153.109375
+              "x": 714.28125,
+              "y": 193.109375
             },
             {
               "id": "86e307a3-075a-4f9b-99d9-33a781e1862c",
@@ -399,6 +399,96 @@
           "curvyness": 50,
           "linkId": "b6f35dea-1fb6-4b96-a2f8-4d9879fd671e",
           "switchCondition": "brn"
+        },
+        {
+          "id": "fab450b0-05a4-4144-b09b-218276c4782f",
+          "type": "custom",
+          "selected": false,
+          "source": "0f6ee82d-f63b-4001-b7fd-509691bb369c",
+          "sourcePort": "ec772c43-d7b4-4c3a-9a05-d4c464a6edb7",
+          "target": "28ee69ba-22e5-4578-9034-d6910f8c2d89",
+          "targetPort": "c6989c7b-cc21-4bc4-9b38-5ca2f29aedb8",
+          "points": [
+            {
+              "id": "9a8734be-225c-469a-be75-8dfc90d37522",
+              "selected": false,
+              "x": 395.078125,
+              "y": 437
+            },
+            {
+              "id": "3624912d-95eb-4dbc-b322-a9f866460627",
+              "selected": false,
+              "x": 522.109375,
+              "y": 193.109375
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "fab450b0-05a4-4144-b09b-218276c4782f",
+          "executionCondition": "always"
+        },
+        {
+          "id": "bd04079e-fd8a-492d-a7ef-1b13970f83e0",
+          "type": "custom",
+          "selected": false,
+          "source": "0f6ee82d-f63b-4001-b7fd-509691bb369c",
+          "sourcePort": "ec772c43-d7b4-4c3a-9a05-d4c464a6edb7",
+          "target": "84991d64-1c7d-40e9-9442-9c228330e276",
+          "targetPort": "96792175-5d04-496e-a01a-44d0acbc874d",
+          "points": [
+            {
+              "id": "2294cd8f-46b1-44fa-9b1b-ed56701c4308",
+              "selected": false,
+              "x": 395.078125,
+              "y": 437
+            },
+            {
+              "id": "5738bcaa-e5c1-42c5-a6f8-d552a3c5f20e",
+              "selected": true,
+              "x": 493.109375,
+              "y": 465.109375
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "bd04079e-fd8a-492d-a7ef-1b13970f83e0",
+          "executionCondition": "always"
+        },
+        {
+          "id": "e717dee1-c587-4b19-a4c4-0cbb8b5d70da",
+          "type": "custom",
+          "selected": false,
+          "source": "84991d64-1c7d-40e9-9442-9c228330e276",
+          "sourcePort": "74e55070-a570-4910-9fc3-14a52a1fefd5",
+          "target": "6ca6b0ef-5ca5-4f51-8bfe-ab040fb6d311",
+          "targetPort": "67670afc-a7a9-4a57-b4f7-ef4f5906e406",
+          "points": [
+            {
+              "id": "9460e04c-cca0-4e6a-8c5e-1334a931c319",
+              "selected": false,
+              "x": 729.6875,
+              "y": 465.109375
+            },
+            {
+              "id": "22e24d49-d1ff-4a41-a57a-f0d2e10074dc",
+              "selected": true,
+              "x": 1000.109375,
+              "y": 437
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "e717dee1-c587-4b19-a4c4-0cbb8b5d70da",
+          "executionCondition": "always"
         }
       ],
       "nodes": [
@@ -406,7 +496,7 @@
           "id": "0f6ee82d-f63b-4001-b7fd-509691bb369c",
           "type": "startend",
           "selected": false,
-          "x": 300,
+          "x": 262,
           "y": 400,
           "extras": {},
           "ports": [
@@ -416,7 +506,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "0f6ee82d-f63b-4001-b7fd-509691bb369c",
-              "links": [],
+              "links": ["fab450b0-05a4-4144-b09b-218276c4782f", "bd04079e-fd8a-492d-a7ef-1b13970f83e0"],
               "position": "right",
               "nodePortId": "ec772c43-d7b4-4c3a-9a05-d4c464a6edb7"
             }
@@ -438,7 +528,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "6ca6b0ef-5ca5-4f51-8bfe-ab040fb6d311",
-              "links": ["b6f35dea-1fb6-4b96-a2f8-4d9879fd671e"],
+              "links": ["b6f35dea-1fb6-4b96-a2f8-4d9879fd671e", "e717dee1-c587-4b19-a4c4-0cbb8b5d70da"],
               "position": "left",
               "nodePortId": "67670afc-a7a9-4a57-b4f7-ef4f5906e406"
             }
@@ -450,8 +540,8 @@
           "id": "28ee69ba-22e5-4578-9034-d6910f8c2d89",
           "type": "decision",
           "selected": false,
-          "x": 405,
-          "y": 93.921875,
+          "x": 522,
+          "y": 133.921875,
           "extras": {},
           "ports": [
             {
@@ -460,7 +550,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "28ee69ba-22e5-4578-9034-d6910f8c2d89",
-              "links": [],
+              "links": ["fab450b0-05a4-4144-b09b-218276c4782f"],
               "position": "left",
               "nodePortId": "c6989c7b-cc21-4bc4-9b38-5ca2f29aedb8"
             },
@@ -478,6 +568,39 @@
           "taskId": "7be9d03a8a5df958ad58b3b8",
           "nodeId": "28ee69ba-22e5-4578-9034-d6910f8c2d89",
           "taskName": "Switch 1"
+        },
+        {
+          "id": "84991d64-1c7d-40e9-9442-9c228330e276",
+          "type": "custom",
+          "selected": false,
+          "x": 493,
+          "y": 405.921875,
+          "extras": {},
+          "ports": [
+            {
+              "id": "96792175-5d04-496e-a01a-44d0acbc874d",
+              "type": "custom",
+              "selected": false,
+              "name": "left",
+              "parentNode": "84991d64-1c7d-40e9-9442-9c228330e276",
+              "links": ["bd04079e-fd8a-492d-a7ef-1b13970f83e0"],
+              "position": "left",
+              "nodePortId": "96792175-5d04-496e-a01a-44d0acbc874d"
+            },
+            {
+              "id": "74e55070-a570-4910-9fc3-14a52a1fefd5",
+              "type": "custom",
+              "selected": false,
+              "name": "right",
+              "parentNode": "84991d64-1c7d-40e9-9442-9c228330e276",
+              "links": ["e717dee1-c587-4b19-a4c4-0cbb8b5d70da"],
+              "position": "right",
+              "nodePortId": "74e55070-a570-4910-9fc3-14a52a1fefd5"
+            }
+          ],
+          "taskId": "5bd98b105a5df954ad599bc2",
+          "nodeId": "84991d64-1c7d-40e9-9442-9c228330e276",
+          "taskName": "Send Email 1"
         }
       ]
     },
@@ -486,13 +609,22 @@
         {
           "nodeId": "28ee69ba-22e5-4578-9034-d6910f8c2d89",
           "taskId": "7be9d03a8a5df958ad58b3b8",
-          "inputs": {},
+          "inputs": {
+            "name": "ben",
+            "value": "ben.value"
+          },
           "type": "decision"
+        },
+        {
+          "nodeId": "84991d64-1c7d-40e9-9442-9c228330e276",
+          "taskId": "5bd98b105a5df954ad599bc2",
+          "inputs": {},
+          "type": "custom"
         }
       ]
     },
     "changelog": {
-      "reason": "fsda"
+      "reason": "updated switch"
     }
   },
   "workflowRevision": {

@@ -39,14 +39,15 @@ export class SwitchNode extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className="b-switchNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
           {this.props.task ? this.props.task.description : "Task description"}
         </Tooltip>
         <div className="b-switchNode__tile" data-tip data-for={this.props.node.id}>
-          {this.props.task ? this.props.task.name : "Task"}
+          {this.props.nodeConfig.inputs && this.props.nodeConfig.inputs.value
+            ? this.props.nodeConfig.inputs.value
+            : this.props.task.name}
         </div>
 
         <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />

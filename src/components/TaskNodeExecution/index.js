@@ -10,6 +10,7 @@ import { PortWidget } from "@boomerang/boomerang-dag";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import downloadIMG from "Assets/svg/install.svg";
 import emailIMG from "Assets/svg/email_icon.svg";
+import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
 import "./styles.scss";
 
 export class TaskNode extends Component {
@@ -34,25 +35,6 @@ export class TaskNode extends Component {
     });
   };
 
-  determineNodeIcon() {
-    let nodeIcon;
-    if (this.props.task) {
-      if (this.props.task.name === "Download File") {
-        nodeIcon = downloadIMG;
-      } else if (this.props.task.name === "Send Mail") {
-        nodeIcon = emailIMG;
-      } else if (this.props.task.name === "Ingest CSV") {
-        nodeIcon = downloadIMG;
-      } else {
-        nodeIcon = emailIMG;
-      }
-    } else {
-      nodeIcon = emailIMG;
-    }
-
-    return nodeIcon;
-  }
-
   render() {
     const flowTaskStatus = this.props.step ? this.props.step.flowTaskStatus : "";
 
@@ -73,7 +55,7 @@ export class TaskNode extends Component {
 
           <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
           <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
-          <img src={this.determineNodeIcon()} className="b-task-node__img" alt="Task node type" />
+          <img src={TASK_KEYS_TO_ICON[this.props.task.category]} className="b-task-node__img" alt="Task node type" />
         </div>
       </div>
     );

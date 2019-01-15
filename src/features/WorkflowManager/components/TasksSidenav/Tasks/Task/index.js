@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import downloadIMG from "Assets/svg/install.svg";
 import emailIMG from "Assets/svg/email_icon.svg";
+import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
 
 Task.propTypes = {
   name: PropTypes.string.isRequired,
@@ -10,7 +11,7 @@ Task.propTypes = {
 
 function Task({ name, model }) {
   //TOOD: improve this
-  let img;
+  /*let img;
   if (name === "Download File") {
     img = downloadIMG;
   } else if (name === "Send Mail") {
@@ -19,7 +20,9 @@ function Task({ name, model }) {
     img = downloadIMG;
   } else {
     img = emailIMG;
-  }
+  }*/
+
+  //{TASK_KEYS_TO_ICON[this.props.model.task_data.category]}
 
   return (
     <div
@@ -30,7 +33,11 @@ function Task({ name, model }) {
       className="b-task-template"
     >
       <div className="b-task-template__img">
-        <img src={img} alt={`Task ${name}`} />
+        <img
+          src={TASK_KEYS_TO_ICON[model.task_data.category]}
+          alt={`Task ${name}`}
+          className="b-task-template__img-svg"
+        />
       </div>
 
       <div className="b-task-template__name"> {name} </div>
