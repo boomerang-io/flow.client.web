@@ -37,8 +37,9 @@ export class WorkflowExecutionContainer extends Component {
   componentDidUpdate() {
     const { data: workflowExecutionData } = this.props.workflowExecution;
     if (
-      workflowExecutionData.status !== EXECUTION_STATUSES.IN_PROGRESS &&
-      workflowExecutionData.status !== EXECUTION_STATUSES.NOT_STARTED
+      workflowExecutionData.status === EXECUTION_STATUSES.COMPLETED ||
+      workflowExecutionData.status === EXECUTION_STATUSES.SKIPPED ||
+      workflowExecutionData.status === EXECUTION_STATUSES.FAILED
     ) {
       clearInterval(this.executionInterval);
     }
