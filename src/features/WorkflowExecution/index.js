@@ -94,16 +94,14 @@ export class WorkflowExecutionContainer extends Component {
       }
 
       return (
-        <ActivityIdContext.Provider value={workflowExecutionData.id}>
-          <Main
-            workflowData={this.props.workflow.data}
-            dag={this.props.workflowRevision.dag}
-            version={this.props.workflowRevision.version}
-            workflowExecutionData={workflowExecutionData}
-            taskId={taskId}
-            updateActiveNode={this.updateActiveNode}
-          />
-        </ActivityIdContext.Provider>
+        <Main
+          workflowData={this.props.workflow.data}
+          dag={this.props.workflowRevision.dag}
+          version={this.props.workflowRevision.version}
+          workflowExecutionData={workflowExecutionData}
+          taskId={taskId}
+          updateActiveNode={this.updateActiveNode}
+        />
       );
     }
 

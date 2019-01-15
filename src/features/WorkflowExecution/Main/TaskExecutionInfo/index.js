@@ -39,7 +39,7 @@ const TaskExecutionInfo = ({ flowActivityId, task }) => {
       <div className="c-step-side-info-actions">
         <TaskExecutionLog
           flowTaskStatus={task.flowTaskStatus}
-          flowTaskId={task.id}
+          flowTaskId={task.taskId}
           flowActivityId={flowActivityId}
           flowTaskName={task.taskName}
         />

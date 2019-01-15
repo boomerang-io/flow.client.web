@@ -28,7 +28,6 @@ class Main extends Component {
 
   render() {
     const { workflowExecutionData, taskId, updateActiveNode } = this.props;
-    console.log(workflowExecutionData);
     const hasStarted =
       workflowExecutionData.steps &&
       workflowExecutionData.steps.find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
