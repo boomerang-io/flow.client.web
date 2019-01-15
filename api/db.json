@@ -7523,7 +7523,8 @@
         "order": 1,
         "startTime": 1547053504488,
         "taskId": "515c8b05-cbb0-470a-a58e-b8740b332a6a",
-        "taskName": "Send Slack Message"
+        "taskName": "Send Slack Message",
+        "outputs": { "content": "Tyson is awesome", "this": "Tyson is awesome", "that": "Tyson is awesome" }
       },
       {
         "activityId": "5c36289096052900012cc81d",
@@ -7533,7 +7534,8 @@
         "order": 2,
         "startTime": 1547053804683,
         "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
+        "taskName": "Send Slack Message",
+        "outputs": { "content": "Tyson is awesome", "this": "Tyson is awesome", "that": "Tyson is awesome" }
       },
       {
         "activityId": "5c36289096052900012cc81c",
@@ -7543,7 +7545,8 @@
         "order": 3,
         "startTime": 1547054104861,
         "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
+        "taskName": "Send Slack Message",
+        "outputs": { "content": "Tyson is awesome", "this": "Tyson is awesome", "that": "Tyson is awesome" }
       },
       {
         "activityId": "5c36289096052900012cc81c",
@@ -7553,7 +7556,8 @@
         "order": 3,
         "startTime": 1547054104861,
         "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
+        "taskName": "Send Slack Message",
+        "outputs": { "content": "Tyson is awesome", "this": "Tyson is awesome", "that": "Tyson is awesome" }
       },
       {
         "activityId": "5c36289096052900012cc81c",
@@ -7563,7 +7567,8 @@
         "order": 3,
         "startTime": 15470541047861,
         "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
+        "taskName": "Send Slack Message",
+        "outputs": { "content": "Tyson is awesome", "this": "Tyson is awesome", "that": "Tyson is awesome" }
       },
       {
         "activityId": "5c36289096052900012cc81c",
@@ -7573,7 +7578,8 @@
         "order": 3,
         "startTime": 15470541050861,
         "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
+        "taskName": "Send Slack Message",
+        "outputs": { "content": "Tyson is awesome", "this": "Tyson is awesome", "that": "Tyson is awesome" }
       },
       {
         "activityId": "5c36289096052900012cc81c",
@@ -7583,7 +7589,9 @@
         "order": 3,
         "startTime": 15470541070861,
         "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
+        "taskName": "Send Slack Message",
+        "outputs": { "content": "Tyson is awesome", "this": "Tyson is awesome" },
+        "that": "Tyson is awesome"
       }
     ],
     "teamName": "CAI Offering Team"
@@ -10109,5 +10117,8 @@
       }
     ]
   },
-  "workflowToken": {}
+  "workflowToken": {},
+  "activityLog": {
+    "logs": "01/15/19 14:17:09 \n [ '..2019_01_15_14_17_07.972238288', '..data', 'task.input.properties', 'task.system.properties', 'workflow.input.properties', 'workflow.system.properties' ] 01/15/19 14:17:09 { 'task.input.properties': { subject: 'Hi Adrienne!', taskName: 'Send Email to Adrienne', to: 'amhudson@us.ibm.com', message: 'Hello!' }, 'task.system.properties': { taskName: 'Send Email to Adrienne', taskId: '4c5c0561-93a3-49e3-8947-2ee297f97fd7' }, 'workflow.input.properties': {}, 'workflow.system.properties': { activityId: '5c3deb55d8c54c000175d536', controllerServiceUrl: 'bmrg-flow-services-controller', workflowId: '5c3dea40d8c54c000175d433' } } 01/15/19 14:17:09 Start of CLI commands 🤖 mail sendMailToMember 01/15/19 14:17:09 Starting Send Mail to Member Plugin (node:1) UnhandledPromiseRejectionWarning: TypeError: Cannot read property 'subject' of undefined at Object.sendMailToMember (/cli/commands/mail.js:9:20) at Command.program.arguments.action (/cli/cli.js:25:28) at Command.listener (/cli/node_modules/commander/index.js:315:8) at emitOne (events.js:116:13) at Command.emit (events.js:211:7) at Command.parseArgs (/cli/node_modules/commander/index.js:656:12) at Command.parse (/cli/node_modules/commander/index.js:474:21) at cli (/cli/cli.js:28:11) at Object.<anonymous> (/cli/cli.js:31:1) at Module._compile (module.js:653:30) at Object.Module._extensions..js (module.js:664:10) at Module.load (module.js:566:32) at tryModuleLoad (module.js:506:12) at Function.Module._load (module.js:498:3) at Function.Module.runMain (module.js:694:10) at startup (bootstrap_node.js:204:16) (node:1) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1) (node:1) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code. "
+  }
 }

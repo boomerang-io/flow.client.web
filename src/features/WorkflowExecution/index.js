@@ -13,6 +13,8 @@ import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import Main from "./Main";
 import "./styles.scss";
 
+export const ActivityIdContext = React.createContext("");
+
 export class WorkflowExecutionContainer extends Component {
   static propTypes = {
     workflowExecution: PropTypes.object.isRequired,
@@ -34,7 +36,10 @@ export class WorkflowExecutionContainer extends Component {
 
   componentDidUpdate(prevProps) {
     const { data: workflowExecutionData } = this.props.workflowExecution;
-    if (workflowExecutionData === EXECUTION_STATUSES.COMPLETED) {
+    if (
+      workflowExecutionData !== EXECUTION_STATUSES.IN_PROGRESS &&
+      workflowExecutionData !== EXECUTION_STATUSES.NOT_STARTED
+    ) {
       clearInterval(this.executionInterval);
     }
   }
@@ -89,14 +94,16 @@ export class WorkflowExecutionContainer extends Component {
       }
 
       return (
-        <Main
-          workflowData={this.props.workflow.data}
-          dag={this.props.workflowRevision.dag}
-          version={this.props.workflowRevision.version}
-          workflowExecutionData={workflowExecutionData}
-          taskId={taskId}
-          updateActiveNode={this.updateActiveNode}
-        />
+        <ActivityIdContext.Provider value={workflowExecutionData.id}>
+          <Main
+            workflowData={this.props.workflow.data}
+            dag={this.props.workflowRevision.dag}
+            version={this.props.workflowRevision.version}
+            workflowExecutionData={workflowExecutionData}
+            taskId={taskId}
+            updateActiveNode={this.updateActiveNode}
+          />
+        </ActivityIdContext.Provider>
       );
     }
 

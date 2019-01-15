@@ -6,7 +6,7 @@ import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimati
 import NavigateBack from "Components/NavigateBack";
 import TimeProgressBar from "Components/TimeProgressBar";
 import DiagramApplication from "Utilities/DiagramApplication";
-import StepSideInfo from "./StepSideInfo";
+import TaskExecutionInfo from "./TaskExecutionInfo";
 import WorkflowSummary from "./WorfklowSummary";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import "./styles.scss";
@@ -28,10 +28,11 @@ class Main extends Component {
 
   render() {
     const { workflowExecutionData, taskId, updateActiveNode } = this.props;
+    console.log(workflowExecutionData);
     const hasStarted =
       workflowExecutionData.steps &&
       workflowExecutionData.steps.find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
-    const selectedStep =
+    const selectedTask =
       workflowExecutionData.steps && workflowExecutionData.steps.length && taskId
         ? workflowExecutionData.steps.find(step => step.taskId === taskId)
         : undefined;
@@ -62,7 +63,7 @@ class Main extends Component {
         </div>
         <aside style={{ gridArea: "sidebar" }}>
           <WorkflowSummary workflowData={this.props.workflowData} version={this.props.version} />
-          {selectedStep && <StepSideInfo step={selectedStep} />}
+          {selectedTask && <TaskExecutionInfo task={selectedTask} flowActivityId={workflowExecutionData.id} />}
         </aside>
       </div>
     );
