@@ -28,7 +28,7 @@ export class WorkflowExecutionContainer extends Component {
   componentDidMount() {
     const { match } = this.props;
     this.fetchExecution();
-    this.executionInterval = setInterval(this.fetchExecution, 5000);
+    this.executionInterval = setInterval(() => this.fetchExecution(), 5000);
     this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/summary`);
     this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/revision`);
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
@@ -37,10 +37,11 @@ export class WorkflowExecutionContainer extends Component {
   componentDidUpdate() {
     const { data: workflowExecutionData } = this.props.workflowExecution;
     if (
-      workflowExecutionData.status === EXECUTION_STATUSES.COMPLETED ||
-      workflowExecutionData.status === EXECUTION_STATUSES.SKIPPED ||
-      workflowExecutionData.status === EXECUTION_STATUSES.FAILED
+      workflowExecutionData.status && //need to check that it is no undefined
+      workflowExecutionData.status !== EXECUTION_STATUSES.NOT_STARTED &&
+      workflowExecutionData.status !== EXECUTION_STATUSES.IN_PROGRESS
     ) {
+      console.log("reached this");
       clearInterval(this.executionInterval);
     }
   }

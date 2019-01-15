@@ -18,18 +18,24 @@ class TaskExecutionLog extends React.Component {
 
   state = {
     log: "",
-    error: undefined
+    error: undefined,
+    fetchCount: 0
   };
 
   componentDidMount() {
     //this.fetchLog();
-    //this.interval = setInterval(() => this.fetchLog(), 3000);
+    this.fetchCountInterval = setInterval(() => this.setState(prevState => ({ fetchCount: prevState + 1 })), 3000); //to trick it into fetching multiple times by passing a different url
   }
 
+  //TODO: update code below to check if task has completed and clear interval
   componentDidUpdate() {
     // if (this.props.flowTaskStatus === EXECUTION_STATUSES.COMPLETED) {
     //   clearInterval(this.interval);
     // }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.fetchCountInterval);
   }
 
   // fetchLog() {
@@ -62,13 +68,15 @@ class TaskExecutionLog extends React.Component {
                 startFollowing={true}
                 render={({ follow, onScroll }) => (
                   <LazyLog
-                    url={`${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`}
-                    stream
+                    url={`${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}?count=${
+                      this.state.fetchCount
+                    }`}
                     follow={follow}
                     onScroll={onScroll}
                     fetchOptions={{
                       credentials: "include"
                     }}
+                    onError={err => console.log(err)}
                   />
                 )}
               />
