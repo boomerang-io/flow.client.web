@@ -188,8 +188,6 @@ export class WorkflowManagerContainer extends Component {
     ).filter(node => node.taskId === taskData.id).length;
 
     //check for type and create switchNode if type===switch
-
-    console.log("taskData", taskData);
     let node;
     let nodeType;
     console.log("task data");
@@ -207,7 +205,6 @@ export class WorkflowManagerContainer extends Component {
         taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
       });
     }
-
     const { id, taskId } = node;
     this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {}, type: nodeType });
 

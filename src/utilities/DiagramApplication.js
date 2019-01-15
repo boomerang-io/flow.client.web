@@ -22,7 +22,7 @@ export default class Application {
     //need to find a way to register port factory
     this.diagramEngine.registerPortFactory(new SimplePortFactory("startend", config => new StartEndPortModel()));
     this.diagramEngine.registerPortFactory(new SimplePortFactory("custom", config => new CustomTaskPortModel()));
-    this.diagramEngine.registerPortFactory(new SimplePortFactory("decision", config => new CustomTaskPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory("decision", config => new SwitchPortModel()));
 
     //register new custom link
     this.diagramEngine.registerLinkFactory(new CustomLinkFactory(this.diagramEngine));
