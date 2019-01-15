@@ -190,6 +190,8 @@ export class WorkflowManagerContainer extends Component {
     //check for type and create switchNode if type===switch
     let node;
     let nodeType;
+    console.log("task data");
+    console.log(taskData);
     if (taskData.key === "switch") {
       nodeType = "decision";
       node = new SwitchNodeModel({

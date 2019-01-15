@@ -78,7 +78,13 @@ class SwitchLink extends Component {
   };
 
   render() {
-    //console.log(this.state);
+    const { model } = this.props;
+    let linkStyle = {};
+
+    if (!model.sourcePort || !model.targetPort) {
+      linkStyle = { opacity: "0.25" };
+    }
+
     if (this.path) {
       this.halfwayPoint = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
       this.endPoint = this.path.getPointAtLength(this.path.getTotalLength());
@@ -134,7 +140,7 @@ class SwitchLink extends Component {
                 </g>
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x + 18}, ${this.halfwayPoint.y - 6})`}>
+            <g transform={`translate(${this.halfwayPoint.x + 10}, ${this.halfwayPoint.y + 10})`}>
               <text className="small">{this.props.model.switchCondition}</text>
               {/*<foreignObject>
                 <div className="b-switch-linkvalue">
@@ -148,6 +154,7 @@ class SwitchLink extends Component {
           ref={ref => {
             this.path = ref;
           }}
+          style={linkStyle}
           strokeWidth={this.props.model.width}
           stroke="rgba(255,0,0,0.5)"
           d={this.props.path}
