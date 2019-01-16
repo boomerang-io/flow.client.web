@@ -15,7 +15,6 @@ import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
-import keys from "lodash/keys";
 import "./styles.scss";
 
 export class WorkflowManagerContainer extends Component {

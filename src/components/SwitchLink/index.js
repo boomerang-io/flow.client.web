@@ -142,11 +142,6 @@ class SwitchLink extends Component {
             </g>
             <g transform={`translate(${this.halfwayPoint.x + 10}, ${this.halfwayPoint.y + 10})`}>
               <text className="small">{this.props.model.switchCondition}</text>
-              {/*<foreignObject>
-                <div className="b-switch-linkvalue">
-                  <text className="small">{this.props.model.switchCondition}</text>
-                </div>
-              </foreignObject>*/}
             </g>
           </>
         )}
@@ -160,7 +155,7 @@ class SwitchLink extends Component {
           d={this.props.path}
         />
         {this.path && this.props.model.targetPort && (
-          <g fill="none" transform={`translate(${this.endPoint.x - 19}, ${this.endPoint.y - 0}) scale(.0375)`}>
+          <g fill="none" transform={`translate(${this.endPoint.x - 19}, ${this.endPoint.y - 10}) scale(.0375)`}>
             <TriangleArrowIcon />
           </g>
         )}

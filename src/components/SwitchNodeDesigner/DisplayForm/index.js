@@ -35,31 +35,6 @@ class DisplayForm extends Component {
     }
   };
 
-  /*handleSaveAppsDropdown = event => {
-      event.stopPropagation();
-      const { config, onSave } = this.props;
-      const toolTemplates = this.state.items.map(item => {
-        return {
-          description: "",
-          key: item.name.toLowerCase(),
-          label: item.name,
-          type: "ToolTemplateEntity", //hardcoding this TODO: improve
-          value: item.id
-        };
-      });
-      const configToSave = [
-        {
-          config: toolTemplates,
-          description: config.description,
-          id: config.id,
-          key: config.key,
-          name: config.name,
-          type: config.type
-        }
-      ];
-      onSave(configToSave);
-    };*/
-
   handleOnSave = () => {
     this.props.onSave(this.createConfigToSave());
     this.props.closeModal();
@@ -98,7 +73,6 @@ class DisplayForm extends Component {
   };
 
   render() {
-    //console.log(this.state);
     const sectionHeaderConfig = this.determineSectionHeaderConfig();
     const { nodeConfig, task } = this.props;
     return (

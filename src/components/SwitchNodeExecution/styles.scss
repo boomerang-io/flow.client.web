@@ -10,7 +10,7 @@
   border-radius: 0.25rem;
   width: 13rem;
   height: 8rem;
-  position: "relative";
+  position: relative;
 
   .b-switchNode__tile {
     text-align: center;
@@ -53,35 +53,5 @@
     bottom: 1rem;
     position: absolute;
     left: 1.5rem;
-  }
-}
-
-@keyframes indeterminate {
-  0% {
-    left: -35%;
-    right: 100%;
-  }
-  60% {
-    left: 100%;
-    right: -90%;
-  }
-  100% {
-    left: 100%;
-    right: -90%;
-  }
-}
-
-@keyframes indeterminate-short {
-  0% {
-    left: -200%;
-    right: 100%;
-  }
-  60% {
-    left: 107%;
-    right: -8%;
-  }
-  100% {
-    left: 107%;
-    right: -8%;
   }
 }
