@@ -15,6 +15,7 @@
   "/flow/workflow/:id": "/workflowSummary/5bc0efa45a5df954adb0e556?&singular=1",
   "/flow/activity?size=:value&page=:page&searchQuery=:query": "/workflowActivity",
   "/flow/activity?page=:page&size=:size": "/workflowActivity",
+  "/flow/activity/5c36289096052900012cc81d/log/5c36289096052900012cc81f": "/activityLog",
   "/flow/insights?*": "/workflowInsights",
   "/flow/*": "/$1",
   "/launchpad/*": "/$1"

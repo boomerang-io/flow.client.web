@@ -1,6 +1,8 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .c-step-side-info {
+  position: relative;
   margin-top: 1rem;
   padding: 1rem;
   background-color: $white;
@@ -12,9 +14,16 @@
   font-weight: 700;
   line-height: 1.5rem;
   margin-left: 1rem;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  @include text-overflow-ellipsis();
+}
+
+.c-step-side-info-actions {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 11rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .c-step-side-info-details {
@@ -42,9 +51,7 @@
   text-align: left;
   display: flex;
   align-items: center;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  @include text-overflow-ellipsis();
 
   img {
     margin-left: 1rem;

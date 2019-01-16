@@ -5,7 +5,6 @@ import { bindActionCreators } from "redux";
 import { actions as userActions } from "State/user";
 import { actions as navbarLinksActions } from "State/navbarLinks";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
 import OnBoardExpContainer from "Features/onBoard/components/OnBoardExpContainer";
 import NotificationBanner from "Components/NotificationBanner";

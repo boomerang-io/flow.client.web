@@ -3,5 +3,6 @@ export const EXECUTION_STATUSES = {
   FAILURE: "failure",
   IN_PROGRESS: "inProgress",
   NOT_STARTED: "notstarted",
-  SKIPPED: "skipped"
+  SKIPPED: "skipped",
+  INVALID: "invalid"
 };

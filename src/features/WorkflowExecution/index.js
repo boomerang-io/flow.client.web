@@ -13,6 +13,8 @@ import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import Main from "./Main";
 import "./styles.scss";
 
+export const ActivityIdContext = React.createContext("");
+
 export class WorkflowExecutionContainer extends Component {
   static propTypes = {
     workflowExecution: PropTypes.object.isRequired,
@@ -26,21 +28,26 @@ export class WorkflowExecutionContainer extends Component {
   componentDidMount() {
     const { match } = this.props;
     this.fetchExecution();
-    this.executionInterval = setInterval(this.fetchExecution, 5000);
+    this.executionInterval = setInterval(() => this.fetchExecution(), 5000);
     this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/summary`);
     this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/revision`);
     this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     const { data: workflowExecutionData } = this.props.workflowExecution;
-    if (workflowExecutionData === EXECUTION_STATUSES.COMPLETED) {
+    if (
+      workflowExecutionData.status && //need to check that it is no undefined
+      workflowExecutionData.status !== EXECUTION_STATUSES.NOT_STARTED &&
+      workflowExecutionData.status !== EXECUTION_STATUSES.IN_PROGRESS
+    ) {
       clearInterval(this.executionInterval);
     }
   }
 
   componentWillUnmount() {
     clearInterval(this.executionInterval);
+    this.props.workflowExecutionActions.reset();
     this.props.workflowActions.reset();
     this.props.workflowRevisionActions.reset();
     this.props.tasksActions.reset();
