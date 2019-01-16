@@ -1,7 +1,8 @@
-import downloadIMG from "Assets/svg/install.svg";
-import emailIMG from "Assets/svg/email_icon.svg";
+import downloadSVG from "Assets/svg/install.svg";
+import emailSVG from "Assets/svg/email_icon.svg";
+import boomerangSVG from "Assets/svg/apps-icon-launchpad.svg";
 
-export const TASK_KEYS = {
+/*export const TASK_KEYS = {
   INGEST: "ingest",
   SLACK: "slack",
   SLEEP: "sleep",
@@ -19,4 +20,16 @@ export const TASK_KEYS_TO_ICON = {
   [TASK_KEYS.ARTIFACTORYDOWNLOAD]: emailIMG,
   [TASK_KEYS.CREATEFILE]: emailIMG,
   [TASK_KEYS.ARTIFACTORYUPLOAD]: emailIMG
+};*/
+
+export const TASK_KEYS = {
+  BOOMERANG: "boomerang",
+  COMMUNICATION: "communication",
+  UTILITIES: "utilities"
+};
+
+export const TASK_KEYS_TO_ICON = {
+  [TASK_KEYS.BOOMERANG]: boomerangSVG,
+  [TASK_KEYS.COMMUNICATION]: emailSVG,
+  [TASK_KEYS.UTILITIES]: downloadSVG
 };

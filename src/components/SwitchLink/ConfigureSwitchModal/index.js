@@ -8,8 +8,8 @@ import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import "./styles.scss";
 
 ConfigureSwitchModal.propTypes = {
-  defaultState: PropTypes.string.isRequired,
-  handleSave: PropTypes.func.isRequired,
+  defaultState: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   switchCondition: PropTypes.string.isRequired,
   updateDefaultState: PropTypes.func.isRequired,
   updateSwitchState: PropTypes.func.isRequired
@@ -38,9 +38,7 @@ function ConfigureSwitchModal({
               theme="bmrg-white"
               red
             />
-            <div className="b-switch-config__explanation">
-              When this switch is on, this connection will be taken only when no others are matched.
-            </div>
+            <div className="b-switch-config__explanation">This path will be taken when no others are matched</div>
           </div>
 
           <div className="b-switch-customvalue">

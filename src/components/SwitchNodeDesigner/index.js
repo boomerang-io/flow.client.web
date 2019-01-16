@@ -11,12 +11,13 @@ import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "./DisplayForm";
 import pencilIcon from "./pencil.svg";
-import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
+import switchSVG from "Assets/svg/parent-relationship_32.svg";
 import "./styles.scss";
 
 export class SwitchNode extends Component {
   static propTypes = {
     nodeConfig: PropTypes.object.isRequired,
+    node: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired
@@ -29,7 +30,6 @@ export class SwitchNode extends Component {
   state = {};
 
   handleOnSave = inputs => {
-    //this.props.workflowRevisionActions.updateNode({ nodeId: this.props.node.id, inputs });
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
@@ -71,7 +71,6 @@ export class SwitchNode extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div className="b-switchNode">
         <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
@@ -86,6 +85,7 @@ export class SwitchNode extends Component {
         <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-switchNode-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
+        <img src={switchSVG} className="b-switchNode__img" alt="Task node type" />
         {this.renderConfigureNode()}
       </div>
     );

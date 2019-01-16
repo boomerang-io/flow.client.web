@@ -451,7 +451,69 @@
           "labels": [],
           "width": 3,
           "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50
+          "curvyness": 50,
+          "linkId": "36d0f4d0-3cd5-42d7-8fc6-e22cf2c40ce4",
+          "executionCondition": "always"
+        },
+        {
+          "id": "bdf8ac27-66b6-4558-b001-8fa377e7fb89",
+          "type": "decision",
+          "selected": false,
+          "source": "db693075-9a09-4128-a9f3-ff20bc35352f",
+          "sourcePort": "898f464c-c9ae-4ef5-8d88-77de6cbc4626",
+          "target": "66e036bd-98ad-4731-8ef8-3d1893d117b9",
+          "targetPort": "957beaca-eaad-44e2-9c6b-263526f77a31",
+          "points": [
+            {
+              "id": "431c5c56-73b4-4734-b1f3-625fd73ef9c9",
+              "selected": false,
+              "x": 622.3437138626693,
+              "y": 360.03124264717013
+            },
+            {
+              "id": "596db3b9-9387-480d-a1e5-bfe599ffb8ae",
+              "selected": true,
+              "x": 915.0780874201097,
+              "y": 157.68748838845792
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "bdf8ac27-66b6-4558-b001-8fa377e7fb89",
+          "switchCondition": "stiff"
+        },
+        {
+          "id": "be20a5bd-0362-430c-9964-e163bfb65683",
+          "type": "decision",
+          "selected": false,
+          "source": "db693075-9a09-4128-a9f3-ff20bc35352f",
+          "sourcePort": "898f464c-c9ae-4ef5-8d88-77de6cbc4626",
+          "target": "a2f7734a-12c4-4acb-a919-27bef2af0876",
+          "targetPort": "607a98c9-a020-4b46-a65a-f65c1f2251be",
+          "points": [
+            {
+              "id": "547c5366-5032-4742-94e6-b109843947a0",
+              "selected": false,
+              "x": 622.3437138626693,
+              "y": 360.03124264717013
+            },
+            {
+              "id": "2373143c-b36f-4446-a768-5bd2f13d9103",
+              "selected": true,
+              "x": 911.4375485447076,
+              "y": 564.2031660459108
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "be20a5bd-0362-430c-9964-e163bfb65683",
+          "switchCondition": "test"
         }
       ],
       "nodes": [
@@ -562,6 +624,9 @@
     },
     "id": "5bd9d8ab7eb44d0001772e64",
     "workFlowId": "5bd9d8ab7eb44d0001772e64"
+    "changelog": {
+      "reason": "new verison"
+    }
   },
   "workflowRevision": {
     "version": 3,
@@ -6127,6 +6192,131 @@
       "enablePersistentStorage": false,
       "properties": [],
       "id": "o95XKY3"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": "",
+          "timezone": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": false,
+      "properties": [],
+      "name": "ben test",
+      "id": "CUEPHZL"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": "",
+          "timezone": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": false,
+      "properties": [],
+      "name": "Ben Switch Test",
+      "flowTeamId": "9012",
+      "id": "cdZdGLY"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": "",
+          "timezone": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": false,
+      "properties": [],
+      "flowTeamId": "9012",
+      "name": "ben test",
+      "id": "Bjw4jrZ"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": "",
+          "timezone": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": false,
+      "properties": [],
+      "flowTeamId": "9012",
+      "name": "ben test",
+      "id": "BusI5bl"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": "",
+          "timezone": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": false,
+      "properties": [],
+      "name": "fdsafdsa",
+      "id": "P2rciXp"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": "",
+          "timezone": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": false,
+      "properties": [],
+      "name": "fsda",
+      "id": "LYGQAUk"
+    },
+    {
+      "triggers": {
+        "scheduler": {
+          "enable": false,
+          "schedule": "",
+          "timezone": ""
+        },
+        "webhook": {
+          "enable": false,
+          "token": ""
+        }
+      },
+      "enablePersistentStorage": false,
+      "properties": [],
+      "name": "Ben Testing Dag breaks",
+      "shortDescription": "",
+      "description": "looking to find where the breaking is happening",
+      "flowTeamId": "9012",
+      "id": "ByJagIS"
     }
   ],
   "workflowActivity": {

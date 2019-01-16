@@ -1,13 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import MultiStateButton from "./MultiStateButton";
 import TriangleArrow from "./TriangleArrow";
-
-/*
-  -want to update this.props.model.linkState (default, success, failure)
-  -onclick function
-
-*/
 
 class CustomLink extends Component {
   constructor(props) {
@@ -88,5 +83,11 @@ class CustomLink extends Component {
     );
   }
 }
+
+CustomLink.propTypes = {
+  model: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired,
+  diagramEngine: PropTypes.object.isRequired
+};
 
 export default CustomLink;

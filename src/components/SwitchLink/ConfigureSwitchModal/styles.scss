@@ -1,3 +1,15 @@
+@import "~Styles/variables";
+
 .b-switch-config {
+  min-height: 5rem;
+  padding-top: 1rem;
   display: flex;
+}
+
+.b-switch-config__explanation {
+  margin-left: 1rem;
+}
+
+.b-switch-customvalue {
+  min-height: 5rem;
 }

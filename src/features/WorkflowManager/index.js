@@ -15,7 +15,6 @@ import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
-import keys from "lodash/keys";
 import "./styles.scss";
 
 export class WorkflowManagerContainer extends Component {
@@ -190,8 +189,7 @@ export class WorkflowManagerContainer extends Component {
     //check for type and create switchNode if type===switch
     let node;
     let nodeType;
-    console.log("task data");
-    console.log(taskData);
+
     if (taskData.key === "switch") {
       nodeType = "decision";
       node = new SwitchNodeModel({

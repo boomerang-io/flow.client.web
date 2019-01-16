@@ -9,8 +9,6 @@ class StartEndNodeWidget extends Component {
     node: PropTypes.object.isRequired
   };
   render() {
-    //console.log("startEnd props");
-    //console.log(this.props);
     return (
       <div className="b-startEnd-node">
         <div className="b-startEnd-node__title"> {this.props.node.passedName} </div>
