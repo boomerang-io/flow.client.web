@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import downloadIMG from "Assets/svg/install.svg";
-import emailIMG from "Assets/svg/email_icon.svg";
+import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
+import switchSVG from "Assets/svg/parent-relationship_32.svg";
 
 Task.propTypes = {
   name: PropTypes.string.isRequired,
@@ -9,18 +9,6 @@ Task.propTypes = {
 };
 
 function Task({ name, model }) {
-  //TOOD: improve this
-  let img;
-  if (name === "Download File") {
-    img = downloadIMG;
-  } else if (name === "Send Mail") {
-    img = emailIMG;
-  } else if (name === "Ingest CSV") {
-    img = downloadIMG;
-  } else {
-    img = emailIMG;
-  }
-
   return (
     <div
       draggable={true}
@@ -30,7 +18,11 @@ function Task({ name, model }) {
       className="b-task-template"
     >
       <div className="b-task-template__img">
-        <img src={img} alt={`Task ${name}`} />
+        <img
+          src={model.task_data.key === "switch" ? switchSVG : TASK_KEYS_TO_ICON[model.task_data.category]}
+          alt={`Task ${name}`}
+          className="b-task-template__img-svg"
+        />
       </div>
 
       <div className="b-task-template__name"> {name} </div>

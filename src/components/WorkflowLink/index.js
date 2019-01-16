@@ -1,13 +1,8 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import MultiStateButton from "./MultiStateButton";
 import TriangleArrow from "./TriangleArrow";
-
-/*
-  -want to update this.props.model.linkState (default, success, failure)
-  -onclick function
-
-*/
 
 class CustomLink extends Component {
   constructor(props) {
@@ -56,7 +51,7 @@ class CustomLink extends Component {
           <>
             <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y - 20}) scale(0.7)`}>
               <foreignObject>
-                <CloseModalButton onClick={this.handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
+                <CloseModalButton onClick={this.handleOnDelete} />
               </foreignObject>
             </g>
             <g transform={`translate(${this.halfwayPoint.x - 17}, ${this.halfwayPoint.y + 2})`}>
@@ -65,7 +60,6 @@ class CustomLink extends Component {
                   onClick={this.updateExecutionState}
                   initialExecutionCondition={this.state.executionCondition}
                   modelId={this.props.model.id}
-                  xmlns="http://www.w3.org/1999/xhtml"
                 />
               </foreignObject>
             </g>
@@ -89,5 +83,11 @@ class CustomLink extends Component {
     );
   }
 }
+
+CustomLink.propTypes = {
+  model: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired,
+  diagramEngine: PropTypes.object.isRequired
+};
 
 export default CustomLink;

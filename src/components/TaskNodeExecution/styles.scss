@@ -1,16 +1,20 @@
 @import "~Styles/variables";
 
-// these class names need to be updated to follow BEM
+.c-workflow-diagram-execution {
+  .node.srd-node {
+    cursor: initial;
+  }
+}
 
 .b-task-node {
   display: flex;
   justify-content: center;
   align-items: center;
   background: $lightest-gray;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
   width: 16rem;
   height: 8rem;
-  position: "relative";
+  position: relative;
 
   .b-task-node__progress-bar {
     display: none;
