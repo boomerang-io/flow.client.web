@@ -17,7 +17,7 @@ export default class SwitchLinkFactory extends DefaultLinkFactory {
   generateLinkSegment(model, widget, selected, path) {
     return (
       <g>
-        <SwitchLink model={model} path={path} handleRemove={this.handleOnRemove} diagramEngine={this.diagramEngine} />
+        <SwitchLink model={model} path={path} diagramEngine={this.diagramEngine} />
       </g>
     );
   }

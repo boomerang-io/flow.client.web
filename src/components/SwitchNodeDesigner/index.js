@@ -11,7 +11,7 @@ import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "./DisplayForm";
 import pencilIcon from "./pencil.svg";
-import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
+import switchSVG from "Assets/svg/parent-relationship_32.svg";
 import "./styles.scss";
 
 export class SwitchNode extends Component {
@@ -84,6 +84,7 @@ export class SwitchNode extends Component {
         <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-switchNode-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
+        <img src={switchSVG} className="b-switchNode__img" alt="Task node type" />
         {this.renderConfigureNode()}
       </div>
     );

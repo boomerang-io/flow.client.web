@@ -5,12 +5,8 @@ import { bindActionCreators } from "redux";
 import { actions as taskActions } from "State/tasks";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
-import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import Modal from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
-import pencilIcon from "./pencil.svg";
-import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
+import switchSVG from "Assets/svg/parent-relationship_32.svg";
 import "./styles.scss";
 
 export class SwitchNode extends Component {
@@ -52,6 +48,7 @@ export class SwitchNode extends Component {
 
         <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-switchNode-port --right" name="right" node={this.props.node} />
+        <img src={switchSVG} className="b-switchNode__img" alt="Task node type" />
       </div>
     );
   }

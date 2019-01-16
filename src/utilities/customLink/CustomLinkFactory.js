@@ -17,7 +17,7 @@ export default class CustomLinkFactory extends DefaultLinkFactory {
   generateLinkSegment(model, widget, selected, path) {
     return (
       <g>
-        <CustomLink model={model} path={path} handleRemove={this.handleOnRemove} diagramEngine={this.diagramEngine} />
+        <CustomLink model={model} path={path} diagramEngine={this.diagramEngine} />
       </g>
     );
   }

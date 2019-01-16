@@ -8,8 +8,8 @@ import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import "./styles.scss";
 
 ConfigureSwitchModal.propTypes = {
-  defaultState: PropTypes.string.isRequired,
-  handleSave: PropTypes.func.isRequired,
+  defaultState: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   switchCondition: PropTypes.string.isRequired,
   updateDefaultState: PropTypes.func.isRequired,
   updateSwitchState: PropTypes.func.isRequired

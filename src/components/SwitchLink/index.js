@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types"; //to implement
+import PropTypes from "prop-types";
 import Modal from "react-modal";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
@@ -100,7 +100,7 @@ class SwitchLink extends Component {
             </g>
             <g transform={`translate(${this.halfwayPoint.x - 17}, ${this.halfwayPoint.y + 2})`}>
               <foreignObject>
-                <g>
+                <div>
                   <img
                     src={pencilIcon}
                     className="b-editswitch-button__img"
@@ -111,7 +111,6 @@ class SwitchLink extends Component {
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
-                    contentLabel="Example Modal"
                     contentLabel="Modal"
                     documentRootTagId="app"
                     overlayClassName="bmrg--c-modal-overlay"
@@ -137,7 +136,7 @@ class SwitchLink extends Component {
                       />
                     </ModalFlow>
                   </Modal>
-                </g>
+                </div>
               </foreignObject>
             </g>
             <g transform={`translate(${this.halfwayPoint.x + 10}, ${this.halfwayPoint.y + 10})`}>
@@ -163,5 +162,11 @@ class SwitchLink extends Component {
     );
   }
 }
+
+SwitchLink.propTypes = {
+  model: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired,
+  diagramEngine: PropTypes.object.isRequired
+};
 
 export default SwitchLink;
