@@ -17,6 +17,7 @@ import "./styles.scss";
 export class SwitchNode extends Component {
   static propTypes = {
     nodeConfig: PropTypes.object.isRequired,
+    node: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired

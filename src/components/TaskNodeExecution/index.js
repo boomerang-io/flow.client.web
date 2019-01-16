@@ -11,7 +11,7 @@ import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
 import "./styles.scss";
 
-export class TaskNode extends Component {
+export class TaskNodeExecution extends Component {
   static propTypes = {
     nodeConfig: PropTypes.object.isRequired,
     step: PropTypes.object,
@@ -80,4 +80,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskNode);
+)(TaskNodeExecution);

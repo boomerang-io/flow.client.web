@@ -9,9 +9,10 @@ import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import switchSVG from "Assets/svg/parent-relationship_32.svg";
 import "./styles.scss";
 
-export class SwitchNode extends Component {
+export class SwitchNodeExecution extends Component {
   static propTypes = {
     nodeConfig: PropTypes.object.isRequired,
+    node: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskActions: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired
@@ -22,17 +23,6 @@ export class SwitchNode extends Component {
   };
 
   state = {};
-
-  handleOnSave = inputs => {
-    this.props.workflowRevisionActions.updateNode({ nodeId: this.props.node.id, inputs });
-    this.forceUpdate();
-  };
-
-  // Delete the node in state and then remove it from the diagram
-  handleOnDelete = () => {
-    this.props.workflowRevisionActions.deleteNode({ nodeId: this.props.node.id });
-    this.props.node.remove();
-  };
 
   render() {
     return (
@@ -69,4 +59,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SwitchNode);
+)(SwitchNodeExecution);
