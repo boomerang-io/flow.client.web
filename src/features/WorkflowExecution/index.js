@@ -41,13 +41,13 @@ export class WorkflowExecutionContainer extends Component {
       workflowExecutionData.status !== EXECUTION_STATUSES.NOT_STARTED &&
       workflowExecutionData.status !== EXECUTION_STATUSES.IN_PROGRESS
     ) {
-      console.log("reached this");
       clearInterval(this.executionInterval);
     }
   }
 
   componentWillUnmount() {
     clearInterval(this.executionInterval);
+    this.props.workflowExecutionActions.reset();
     this.props.workflowActions.reset();
     this.props.workflowRevisionActions.reset();
     this.props.tasksActions.reset();
