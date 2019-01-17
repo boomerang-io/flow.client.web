@@ -27,4 +27,11 @@ export default class SwitchPortModel extends PortModel {
     //return new DefaultLinkModel();
     return new SwitchLinkModel();
   }
+
+  link(port) {
+    let link = this.createLinkModel();
+    link.setSourcePort(this);
+    link.setTargetPort(port);
+    return link;
+  }
 }
