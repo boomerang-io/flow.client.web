@@ -1,8 +1,8 @@
-import { PortModel } from "@boomerang/boomerang-dag";
+import { DefaultPortModel } from "@boomerang/boomerang-dag";
 import SwitchLinkModel from "Utilities/switchLink/SwitchLinkModel";
 import merge from "lodash/merge";
 
-export default class SwitchPortModel extends PortModel {
+export default class SwitchPortModel extends DefaultPortModel {
   //position: string | "top" | "bottom" | "left" | "right";
 
   constructor(pos) {
