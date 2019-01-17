@@ -21,7 +21,7 @@ class ActivityCard extends Component {
       description,
       creationDate,
       status,
-      duration,
+      duration = 0,
       id,
       workflowId,
       teamName,
