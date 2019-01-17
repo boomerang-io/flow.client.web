@@ -11,6 +11,10 @@ import SwitchLinkFactory from "./switchLink/SwitchLinkFactory";
 import SwitchNodeFactory from "./switchNode/SwitchNodeFactory";
 import SwitchPortModel from "./switchNode/SwitchPortModel";
 
+import CustomTaskPortFactory from "./customTaskNode/CustomTaskPortFactory";
+import StartEndPortFactory from "./startEndNode/StartEndPortFactory";
+import SwitchPortFactory from "./switchNode/SwitchPortFactory";
+
 export default class Application {
   constructor({ dag, modelIsLocked }) {
     this.diagramEngine = new DiagramEngine();
@@ -20,9 +24,12 @@ export default class Application {
     this.diagramEngine.registerNodeFactory(new SwitchNodeFactory());
 
     //need to find a way to register port factory
-    this.diagramEngine.registerPortFactory(new SimplePortFactory("startend", config => new StartEndPortModel()));
-    this.diagramEngine.registerPortFactory(new SimplePortFactory("custom", config => new CustomTaskPortModel()));
-    this.diagramEngine.registerPortFactory(new SimplePortFactory("decision", config => new SwitchPortModel()));
+    //this.diagramEngine.registerPortFactory(new SimplePortFactory("startend", config => new StartEndPortModel()));
+    //this.diagramEngine.registerPortFactory(new SimplePortFactory("custom", config => new CustomTaskPortModel()));
+    //this.diagramEngine.registerPortFactory(new SimplePortFactory("decision", config => new SwitchPortModel()));
+    this.diagramEngine.registerPortFactory(new CustomTaskPortFactory());
+    this.diagramEngine.registerPortFactory(new StartEndPortFactory());
+    this.diagramEngine.registerPortFactory(new SwitchPortFactory());
 
     //register new custom link
     this.diagramEngine.registerLinkFactory(new CustomLinkFactory(this.diagramEngine));
