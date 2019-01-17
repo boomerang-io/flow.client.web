@@ -16,17 +16,17 @@ class ActivityCard extends Component {
 
   render() {
     const {
-      icon,
-      workflowName,
       description,
-      creationDate,
-      status,
       duration,
+      creationDate,
+      icon,
       id,
-      workflowId,
+      initiatedByUserName,
+      status,
       teamName,
       trigger,
-      initiatedByUserName
+      workflowId,
+      workflowName
     } = this.props.activity;
     return (
       <Link
@@ -68,7 +68,9 @@ class ActivityCard extends Component {
               </li>
               <li className="b-activity-card__row">
                 <label className="b-activity-card__label">Duration</label>
-                <label className="b-activity-card__data">{getHumanizedDuration(parseInt(duration / 1000, 10))}</label>
+                <label className="b-activity-card__data">
+                  {duration ? getHumanizedDuration(parseInt(duration / 1000, 10)) : "---"}
+                </label>
               </li>
               <li className="b-activity-card__row">
                 <label className="b-activity-card__label"> Status</label>
