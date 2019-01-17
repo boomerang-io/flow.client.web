@@ -9,10 +9,13 @@ const step = {
   startTime: 1540912389131,
   duration: 2178
 };
+const task = {
+  taskName: "test task"
+};
 
 describe("StepSideInfo --- Snapshot", () => {
   it("Capturing Snapshot of StepSideInfo", () => {
-    const renderedValue = renderer.create(<StepSideInfo step={step} />);
+    const renderedValue = renderer.create(<StepSideInfo step={step} task={task} />);
     expect(renderedValue).toMatchSnapshot();
   });
 });
@@ -21,7 +24,7 @@ describe("StepSideInfo --- Shallow render", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<StepSideInfo step={step} />);
+    wrapper = shallow(<StepSideInfo step={step} task={task} />);
   });
 
   it("Render the DUMB component", () => {

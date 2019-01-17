@@ -7,8 +7,9 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
   <nav
     style={
       Object {
+        "gridArea": "header",
         "marginBottom": "1rem",
-        "width": "11rem",
+        "width": "15rem",
       }
     }
   >
@@ -39,48 +40,56 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
     </div>
   </div>
   <div
-    className="c-workflow-summary"
-  >
-    <div
-      className="s-workflow-summary-title"
-    >
-      Workflow
-    </div>
-    <div
-      className="c-workflow-summary-details"
-    >
-      <div
-        className="b-workflow-summary-field"
-      >
-        <div
-          className="b-workflow-summary-field__key"
-        >
-          Description
-        </div>
-        <div
-          className="b-workflow-summary-field__value"
-        >
-          
-        </div>
-      </div>
-      <div
-        className="b-workflow-summary-field"
-      >
-        <div
-          className="b-workflow-summary-field__key"
-        >
-          Version
-        </div>
-        <div
-          className="b-workflow-summary-field__value"
-        >
-          1
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
     className="c-workflow-diagram-execution"
   />
+  <aside
+    style={
+      Object {
+        "gridArea": "sidebar",
+      }
+    }
+  >
+    <div
+      className="c-workflow-summary"
+    >
+      <div
+        className="s-workflow-summary-title"
+      >
+        Workflow
+      </div>
+      <div
+        className="c-workflow-summary-details"
+      >
+        <div
+          className="b-workflow-summary-field"
+        >
+          <div
+            className="b-workflow-summary-field__key"
+          >
+            Description
+          </div>
+          <div
+            className="b-workflow-summary-field__value"
+          >
+            
+          </div>
+        </div>
+        <div
+          className="b-workflow-summary-field"
+        >
+          <div
+            className="b-workflow-summary-field__key"
+          >
+            Version
+          </div>
+          <div
+            className="b-workflow-summary-field__value"
+          >
+            1
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
 </div>
 `;

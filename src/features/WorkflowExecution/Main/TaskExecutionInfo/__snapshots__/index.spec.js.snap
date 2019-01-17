@@ -7,7 +7,7 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
   <div
     className="s-step-side-info-title"
   >
-    test
+    test task
   </div>
   <div
     className="c-step-side-info-details"
@@ -37,10 +37,8 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
       <div
         className="b-step-side-info-field__value"
       >
-        Succeeded
         <img
           alt="Status"
-          src="passed.svg"
         />
       </div>
     </div>
@@ -55,7 +53,7 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
       <div
         className="b-step-side-info-field__value"
       >
-        October 30th 2018, 11:13:09 am
+        January 17th 2019, 12:50:27 pm
       </div>
     </div>
     <div
@@ -69,7 +67,20 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
       <div
         className="b-step-side-info-field__value"
       >
-        2 seconds
+        -----
+      </div>
+    </div>
+  </div>
+  <div
+    className="c-step-side-info-actions"
+  >
+    <div
+      onClick={[Function]}
+    >
+      <div
+        className="s-task-log-trigger"
+      >
+        Log
       </div>
     </div>
   </div>

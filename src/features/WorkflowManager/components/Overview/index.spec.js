@@ -31,10 +31,58 @@ const enabledWorkflow = {
     }
   }
 };
+const teams = [
+  {
+    id: "1234",
+    name: "Lucas' team",
+    workflows: [
+      {
+        id: "5bd6fdf65a5df954ad47bdbe",
+        name: "lucas-workflow-1",
+        description: "blablabla",
+        status: "published",
+        icon: "utility",
+        properties: [
+          {
+            defaultValue: "test",
+            description: "Testing this property",
+            key: "test.property",
+            label: "Test Property",
+            required: true,
+            type: "select",
+            validValues: ["test", "this"]
+          },
+          {
+            defaultValue: "test",
+            description: "Testing this propertys",
+            key: "test.property1",
+            label: "Test Property1",
+            required: true,
+            type: "text"
+          }
+        ]
+      },
+      {
+        id: "456",
+        name: "lucas-workflow-2",
+        description: "blablabla",
+        status: "published",
+        icon: "utility"
+      },
+      {
+        id: "789",
+        name: "lucas-workflow-3",
+        description: "blablabla",
+        status: "draft",
+        icon: "secure"
+      }
+    ]
+  }
+];
 
 describe("Overview --- Snapshot", () => {
   it("+++ renders correctly", () => {
-    const renderedValue = renderer.create(<Overview workflow={workflow} />).toJSON();
+    const renderedValue = renderer.create(<Overview workflow={workflow} teams={teams} />).toJSON();
     expect(renderedValue).toMatchSnapshot();
   });
 });
@@ -42,7 +90,7 @@ describe("Overview --- Snapshot", () => {
 describe("Overview --- Shallow render", () => {
   let wrapper;
 
-  wrapper = shallow(<Overview workflow={workflow} />);
+  wrapper = shallow(<Overview workflow={workflow} teams={teams} />);
 
   it("renders with correct container class", () => {
     expect(wrapper.find(".c-worklfow-overview").length).toEqual(1);
