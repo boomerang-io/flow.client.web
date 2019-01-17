@@ -50,7 +50,8 @@ export class Overview extends Component {
     workflowActions: PropTypes.object.isRequired
   };
 
-  generateToken = () => {
+  generateToken = e => {
+    e.preventDefault();
     const { workflowActions } = this.props;
     return axios
       .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/webhook-token`)
