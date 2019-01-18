@@ -8,6 +8,9 @@ jest.mock("Components/NavigateBack", () => "NavigateBack");
 jest.mock("./CustomAreaChart", () => "CustomAreaChart");
 jest.mock("./CustomScatterChart", () => "CustomScatterChart");
 jest.mock("./CustomPieChart", () => "CustomPieChart");
+jest.mock("./WidgetCard", () => "WidgetCard");
+jest.mock("Components/SearchFilterBar", () => "SearchFilterBar");
+jest.mock("Components/SimpleSelectFilter", () => "SimpleSelectFilter");
 
 const mockfn = jest.fn();
 const location = {};

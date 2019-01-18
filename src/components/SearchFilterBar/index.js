@@ -85,6 +85,7 @@ class SearchFilterBar extends Component {
             />
           ) : (
             <Select
+              id="select"
               useTitleInItem={false}
               hideLabel={true}
               invalid={false}

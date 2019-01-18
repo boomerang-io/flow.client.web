@@ -15,282 +15,126 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
   <div
     className="c-workflow-insights-header"
   >
-    <div
-      className="c-simple-select-filter"
-    >
-      <div
-        className="bx--form-item"
-      >
-        <div
-          className="bx--select"
-        >
-          <label
-            className="bx--label bx--visually-hidden"
-          >
-            Select
-          </label>
-          <select
-            className="bx--select-input"
-            defaultValue="none"
-            onChange={[Function]}
-            useTitleInItem={false}
-          >
-            <option
-              className="bx--select-option"
-              disabled={false}
-              hidden={false}
-              value="none"
-            >
-              All teams
-            </option>
-          </select>
-          <svg
-            alt="open list of options"
-            aria-label="open list of options"
-            className="bx--select__arrow"
-            fillRule="evenodd"
-            height="5"
-            role="img"
-            viewBox="0 0 10 5"
-            width="10"
-          >
-            <title>
-              open list of options
-            </title>
-            <path
-              d="M0 0l5 4.998L10 0z"
-            />
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div
-      className="b-search-filter"
-    >
-      <div
-        className="b-search-filter__search"
-      />
-      <div
-        className="b-search-filter__filter"
-      >
-        <div
-          className="bx--form-item"
-        >
-          <div
-            className="bx--select"
-          >
-            <label
-              className="bx--label bx--visually-hidden"
-            >
-              Select
-            </label>
-            <select
-              className="bx--select-input"
-              defaultValue="none"
-              onChange={[Function]}
-              useTitleInItem={false}
-            >
-              <option
-                className="bx--select-option"
-                disabled={false}
-                hidden={false}
-                value="none"
-              >
-                All workflows
-              </option>
-            </select>
-            <svg
-              alt="open list of options"
-              aria-label="open list of options"
-              className="bx--select__arrow"
-              fillRule="evenodd"
-              height="5"
-              role="img"
-              viewBox="0 0 10 5"
-              width="10"
-            >
-              <title>
-                open list of options
-              </title>
-              <path
-                d="M0 0l5 4.998L10 0z"
-              />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="c-simple-select-filter"
-    >
-      <div
-        className="bx--form-item"
-      >
-        <div
-          className="bx--select"
-        >
-          <label
-            className="bx--label bx--visually-hidden"
-          >
-            Select
-          </label>
-          <select
-            className="bx--select-input"
-            defaultValue={92}
-            onChange={[Function]}
-            useTitleInItem={false}
-          >
-            <option
-              className="bx--select-option"
-              disabled={false}
-              hidden={false}
-              value={1}
-            >
-              1 day
-            </option>
-            <option
-              className="bx--select-option"
-              disabled={false}
-              hidden={false}
-              value={7}
-            >
-              1 week
-            </option>
-            <option
-              className="bx--select-option"
-              disabled={false}
-              hidden={false}
-              value={31}
-            >
-              1 month
-            </option>
-            <option
-              className="bx--select-option"
-              disabled={false}
-              hidden={false}
-              value={92}
-            >
-              3 months
-            </option>
-          </select>
-          <svg
-            alt="open list of options"
-            aria-label="open list of options"
-            className="bx--select__arrow"
-            fillRule="evenodd"
-            height="5"
-            role="img"
-            viewBox="0 0 10 5"
-            width="10"
-          >
-            <title>
-              open list of options
-            </title>
-            <path
-              d="M0 0l5 4.998L10 0z"
-            />
-          </svg>
-        </div>
-      </div>
-    </div>
+    <SimpleSelectFilter
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "All teams",
+            "value": "none",
+          },
+        ]
+      }
+      selectedOption={
+        Object {
+          "label": "All teams",
+          "value": "none",
+        }
+      }
+    />
+    <SearchFilterBar
+      debounceTimeout={300}
+      filterItems={
+        Array [
+          Object {
+            "label": "All workflows",
+            "value": "none",
+          },
+        ]
+      }
+      handleSearchFilter={[Function]}
+      multiselect={false}
+      options={Array []}
+      searchbar={false}
+      selectedOption="none"
+    />
+    <SimpleSelectFilter
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "1 day",
+            "value": 1,
+          },
+          Object {
+            "label": "1 week",
+            "value": 7,
+          },
+          Object {
+            "label": "1 month",
+            "value": 31,
+          },
+          Object {
+            "label": "3 months",
+            "value": 92,
+          },
+        ]
+      }
+      selectedOption={
+        Object {
+          "label": "3 months",
+          "value": 92,
+        }
+      }
+    />
   </div>
   <div
     className="c-workflow-insights-stats-widgets"
   >
-    <div
-      className="b-widget-card --stat"
+    <WidgetCard
+      title="Total Executed"
+      type="stat"
     >
-      <div
-        className="b-widget-card__title"
+      <label
+        className="b-workflow-insights__stats-label --no-data"
       >
-        Total Executed
-      </div>
-      <div
-        className="b-widget-card__content"
-      >
-        <label
-          className="b-workflow-insights__stats-label --no-data"
-        >
-          No Data
-        </label>
-      </div>
-    </div>
-    <div
-      className="b-widget-card --stat"
+        No Data
+      </label>
+    </WidgetCard>
+    <WidgetCard
+      title="Median Duration"
+      type="stat"
     >
-      <div
-        className="b-widget-card__title"
+      <label
+        className="b-workflow-insights__stats-label --no-data"
       >
-        Median Duration
-      </div>
-      <div
-        className="b-widget-card__content"
-      >
-        <label
-          className="b-workflow-insights__stats-label --no-data"
-        >
-          No Data
-        </label>
-      </div>
-    </div>
-    <div
-      className="b-widget-card --stat"
+        No Data
+      </label>
+    </WidgetCard>
+    <WidgetCard
+      title="Success Rate"
+      type="stat"
     >
-      <div
-        className="b-widget-card__title"
+      <label
+        className="b-workflow-insights__stats-label --no-data"
       >
-        Success Rate
-      </div>
-      <div
-        className="b-widget-card__content"
-      >
-        <label
-          className="b-workflow-insights__stats-label --no-data"
-        >
-          No Data
-        </label>
-      </div>
-    </div>
+        No Data
+      </label>
+    </WidgetCard>
   </div>
   <div
     className="c-workflow-insights-graphs-widgets"
   >
-    <div
-      className="b-widget-card --graph"
+    <WidgetCard
+      title="Executions"
+      type="graph"
     >
-      <div
-        className="b-widget-card__title"
+      <label
+        className="b-workflow-insights__graphs-label --no-data"
       >
-        Executions
-      </div>
-      <div
-        className="b-widget-card__content"
-      >
-        <label
-          className="b-workflow-insights__graphs-label --no-data"
-        >
-          No Data
-        </label>
-      </div>
-    </div>
-    <div
-      className="b-widget-card --graph"
+        No Data
+      </label>
+    </WidgetCard>
+    <WidgetCard
+      title="Execution Time"
+      type="graph"
     >
-      <div
-        className="b-widget-card__title"
+      <label
+        className="b-workflow-insights__graphs-label --no-data"
       >
-        Execution Time
-      </div>
-      <div
-        className="b-widget-card__content"
-      >
-        <label
-          className="b-workflow-insights__graphs-label --no-data"
-        >
-          No Data
-        </label>
-      </div>
-    </div>
+        No Data
+      </label>
+    </WidgetCard>
   </div>
 </div>
 `;

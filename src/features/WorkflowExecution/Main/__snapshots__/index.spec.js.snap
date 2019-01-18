@@ -39,9 +39,6 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
       />
     </div>
   </div>
-  <div
-    className="c-workflow-diagram-execution"
-  />
   <aside
     style={
       Object {
@@ -86,6 +83,39 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
             className="b-workflow-summary-field__value"
           >
             1
+          </div>
+        </div>
+        <div
+          className="b-workflow-summary-field"
+        >
+          <div
+            className="b-workflow-summary-field__key"
+          >
+            Status
+          </div>
+          <div
+            className="b-workflow-summary-field__value"
+          >
+            Not Started
+            <img
+              alt="Status undefined"
+              className="b-activity-card__status-icon"
+              src="pending.svg"
+            />
+          </div>
+        </div>
+        <div
+          className="b-workflow-summary-field"
+        >
+          <div
+            className="b-workflow-summary-field__key"
+          >
+            Duration
+          </div>
+          <div
+            className="b-workflow-summary-field__value"
+          >
+            
           </div>
         </div>
       </div>

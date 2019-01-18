@@ -53,7 +53,7 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
       <div
         className="b-step-side-info-field__value"
       >
-        January 17th 2019, 12:50:27 pm
+        January 18th 2019, 11:27:59 am
       </div>
     </div>
     <div
@@ -74,15 +74,10 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
   <div
     className="c-step-side-info-actions"
   >
-    <div
-      onClick={[Function]}
-    >
-      <div
-        className="s-task-log-trigger"
-      >
-        Log
-      </div>
-    </div>
+    <TaskExecutionLog
+      flowActivityId="1"
+      flowTaskName="test task"
+    />
   </div>
 </div>
 `;

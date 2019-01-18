@@ -2,6 +2,8 @@ import React from "react";
 import renderer from "react-test-renderer";
 import { Overview } from "./index";
 
+const mockfn = jest.fn();
+
 const workflow = {
   data: {
     triggers: {
@@ -80,9 +82,17 @@ const teams = [
   }
 ];
 
+const props = {
+  teams,
+  workflow,
+  workflowActions: {},
+  teamsActions: {},
+  setIsValidOverview: mockfn
+};
+
 describe("Overview --- Snapshot", () => {
   it("+++ renders correctly", () => {
-    const renderedValue = renderer.create(<Overview workflow={workflow} teams={teams} />).toJSON();
+    const renderedValue = renderer.create(<Overview {...props} />).toJSON();
     expect(renderedValue).toMatchSnapshot();
   });
 });
@@ -90,7 +100,7 @@ describe("Overview --- Snapshot", () => {
 describe("Overview --- Shallow render", () => {
   let wrapper;
 
-  wrapper = shallow(<Overview workflow={workflow} teams={teams} />);
+  wrapper = shallow(<Overview {...props} />);
 
   it("renders with correct container class", () => {
     expect(wrapper.find(".c-worklfow-overview").length).toEqual(1);
