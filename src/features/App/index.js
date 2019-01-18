@@ -2,12 +2,14 @@ import React, { Suspense, Component } from "react";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { detect } from "detect-browser";
 import { actions as userActions } from "State/user";
 import { actions as navbarLinksActions } from "State/navbarLinks";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
 import OnBoardExpContainer from "Features/onBoard/components/OnBoardExpContainer";
 import NotificationBanner from "Components/NotificationBanner";
+import BrowserModal from "./BrowserModal";
 import Navigation from "./Navigation";
 import {
   AsyncHome,
@@ -19,6 +21,8 @@ import {
 } from "./config/lazyComponents";
 import { BASE_LAUNCHPAD_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
+
+const browser = detect();
 
 class App extends Component {
   state = {
@@ -45,6 +49,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <BrowserModal isOpen={browser.name === "chrome" ? false : true} />
         <OnBoardExpContainer />
         <Navigation user={this.props.user} navbarLinks={this.props.navbarLinks} refresh={this.refreshPage} />
         <NotificationBanner closeBanner={this.closeBanner} />

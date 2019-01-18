@@ -24,7 +24,7 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    // this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
+    this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
   }
 
   render() {
@@ -46,21 +46,23 @@ class Main extends Component {
           />
         </nav>
         <TimeProgressBar updateActiveNode={updateActiveNode} workflowExecution={workflowExecutionData} />
-        {/* <div className="c-workflow-diagram-execution">
-          {hasStarted ? (
-            <DiagramWidget
-              className="c-diagram-canvas"
-              diagramEngine={this.diagramApp.getDiagramEngine()}
-              maxNumberPointsPerLink={0}
-              deleteKeys={[]}
-              allowLooseLinks={false}
-              allowCanvasTranslation={true}
-              allowCanvasZoo={false}
-            />
-          ) : (
-            <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
-          )}
-        </div> */}
+        {
+          <div className="c-workflow-diagram-execution">
+            {hasStarted ? (
+              <DiagramWidget
+                className="c-diagram-canvas"
+                diagramEngine={this.diagramApp.getDiagramEngine()}
+                maxNumberPointsPerLink={0}
+                deleteKeys={[]}
+                allowLooseLinks={false}
+                allowCanvasTranslation={true}
+                allowCanvasZoo={false}
+              />
+            ) : (
+              <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
+            )}
+          </div>
+        }
         <aside style={{ gridArea: "sidebar" }}>
           <WorkflowSummary
             workflowData={this.props.workflowData}
