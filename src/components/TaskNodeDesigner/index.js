@@ -53,7 +53,7 @@ export class TaskNode extends Component {
             headerTitle={`Edit properties for ${task.name}`}
             closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
-            theme={"bmrg-white"}
+            theme="bmrg-white"
             {...rest}
           >
             <DisplayForm
