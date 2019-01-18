@@ -19,9 +19,14 @@ import "./styles.scss";
 
 export class WorkflowManagerContainer extends Component {
   static propTypes = {
+    activeTeamId: PropTypes.string,
+    teams: PropTypes.object.isRequired,
     tasks: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
     tasksActions: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
+    workflowRevision: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired,
     workflow: PropTypes.object
   };

@@ -70,7 +70,9 @@ OnBoardGuide.propTypes = {
   index: PropTypes.number,
   nextScreen: PropTypes.func,
   previousScreen: PropTypes.func,
-  closeModal: PropTypes.func
+  closeModal: PropTypes.func,
+  screens: PropTypes.array,
+  guideConfig: PropTypes.object
 };
 
 export default OnBoardGuide;

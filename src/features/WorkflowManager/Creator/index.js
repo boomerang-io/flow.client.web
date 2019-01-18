@@ -12,7 +12,6 @@ class WorkflowCreatorContainer extends Component {
   static propTypes = {
     createWorkflow: PropTypes.func.isRequired,
     isValidOverview: PropTypes.bool.isRequired,
-    match: PropTypes.object.isRequired,
     setIsValidOveriew: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired
   };

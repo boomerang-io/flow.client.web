@@ -7,7 +7,9 @@ import { WorkflowsHome } from "./index";
 const mockfn = jest.fn();
 
 const teamsActions = {
-  fetch: mockfn
+  fetch: mockfn,
+  setActiveTeam: mockfn,
+  updateWorkflows: mockfn
 };
 const teams = {
   isFetching: false,

@@ -15,7 +15,12 @@ import "./styles.scss";
 
 class InputsModalContent extends Component {
   static propTypes = {
-    updateInputs: PropTypes.func.isRequired
+    updateInputs: PropTypes.func.isRequired,
+    input: PropTypes.object,
+    isEdit: PropTypes.bool,
+    workflowActions: PropTypes.object.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    inputsNames: PropTypes.array
   };
 
   state = {

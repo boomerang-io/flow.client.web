@@ -80,12 +80,14 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
       >
         <label
           className="bx--label bx--visually-hidden"
+          htmlFor="select"
         >
           Select
         </label>
         <select
           className="bx--select-input"
           defaultValue="test"
+          id="select"
           onChange={[Function]}
           useTitleInItem={false}
         >

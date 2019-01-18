@@ -11,7 +11,8 @@ class SearchFilterBar extends Component {
     debounceTimeout: PropTypes.number,
     filterItems: PropTypes.array,
     multiselect: PropTypes.bool,
-    selectedOption: PropTypes.string
+    selectedOption: PropTypes.string,
+    searchbar: PropTypes.bool
   };
   static defaultProps = {
     multiselect: true,
@@ -57,7 +58,7 @@ class SearchFilterBar extends Component {
   };
 
   render() {
-    const { options, debounceTimeout, multiselect, selectedOption, searchbar } = this.props;
+    const { options, debounceTimeout, multiselect, selectedOption, searchbar, filterItems } = this.props;
 
     return (
       <div className="b-search-filter">
@@ -79,13 +80,12 @@ class SearchFilterBar extends Component {
               label="Filter"
               invalid={false}
               onChange={this.handleOnMultiSelectChange}
-              items={
-                this.props.filterItems || options.length ? options.map(item => ({ id: item.id, text: item.name })) : []
-              }
+              items={filterItems || options.length ? options.map(item => ({ id: item.id, text: item.name })) : []}
               itemToString={item => (item ? item.text : "")}
             />
           ) : (
             <Select
+              id="select"
               useTitleInItem={false}
               hideLabel={true}
               invalid={false}

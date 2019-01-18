@@ -10,8 +10,11 @@ class DisplayForm extends Component {
   static propTypes = {
     node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
+    task: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
-    taskNames: PropTypes.array.isRequired
+    closeModal: PropTypes.func.isRequired,
+    taskNames: PropTypes.array.isRequired,
+    shouldConfirmExit: PropTypes.func.isRequired
   };
 
   state = {};

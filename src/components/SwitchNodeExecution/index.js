@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actions as taskActions } from "State/tasks";
-import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import switchSVG from "Assets/svg/parent-relationship_32.svg";
@@ -13,9 +10,7 @@ export class SwitchNodeExecution extends Component {
   static propTypes = {
     nodeConfig: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    task: PropTypes.object.isRequired,
-    taskActions: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    task: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -51,12 +46,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  taskActions: bindActionCreators(taskActions, dispatch),
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(SwitchNodeExecution);

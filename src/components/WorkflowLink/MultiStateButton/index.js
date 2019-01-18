@@ -11,8 +11,9 @@ class MultiStateButton extends Component {
   };
 
   static propTypes = {
-    className: PropTypes.string,
-    passedOnClick: PropTypes.func
+    modelId: PropTypes.string,
+    onClick: PropTypes.func,
+    xmlns: PropTypes.string
   };
 
   constructor(props) {
