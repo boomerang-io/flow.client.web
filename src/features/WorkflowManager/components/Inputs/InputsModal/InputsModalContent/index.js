@@ -304,7 +304,7 @@ class InputsModalContent extends Component {
           </Body>
           <Footer style={{ paddingTop: "1rem" }}>
             <ConfirmButton
-              disabled={!(key && label) || (!!keyError || !!labelError)}
+              disabled={!(key && label && type) || (!!keyError || !!labelError)}
               text={isEdit ? "SAVE" : "CREATE"}
               theme="bmrg-white"
               type="submit"
