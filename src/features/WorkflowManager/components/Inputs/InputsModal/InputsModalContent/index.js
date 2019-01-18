@@ -247,6 +247,7 @@ class InputsModalContent extends Component {
                 validationFunction={this.validateKey}
                 validationText="Invalid key, space and special characters aren't allowed"
                 theme="bmrg-white"
+                required
               />
               <TextInput
                 alwaysShowTitle
@@ -258,6 +259,7 @@ class InputsModalContent extends Component {
                 onChange={this.handleLabelChange}
                 value={label}
                 theme="bmrg-white"
+                required
               />
               <TextInput
                 alwaysShowTitle
@@ -268,6 +270,7 @@ class InputsModalContent extends Component {
                 onChange={this.handleDescriptionChange}
                 value={description}
                 theme="bmrg-white"
+                required={false}
               />
               <div className="b-inputs-modal-toggle">
                 <div className="b-inputs-modal-toggle__title">Required</div>
