@@ -26,13 +26,13 @@ class WorkflowEditor extends Component {
 
   constructor(props) {
     super(props);
-    this.translatedDag = this.updateJSON(props.workflowRevision.dag);
-    console.log("translated dag");
+    //this.translatedDag = this.updateJSON(props.workflowRevision.dag);
+    /*console.log("translated dag");
     console.log(typeof this.translatedDag);
     console.log("foo");
-    console.log(typeof props.workflowRevision.dag);
-    //this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
-    this.diagramApp = new DiagramApplication({ dag: this.translatedDag, isLocked: false });
+    console.log(typeof props.workflowRevision.dag);*/
+    this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
+    //this.diagramApp = new DiagramApplication({ dag: this.translatedDag, isLocked: false });
     this.state = {
       diagramBoundingClientRect: {}
     };
