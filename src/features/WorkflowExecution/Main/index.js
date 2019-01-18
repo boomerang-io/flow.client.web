@@ -23,7 +23,18 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
+    //this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
+    this.diagramApp = new DiagramApplication({ dag: this.updateJSON(props.dag), modelIsLocked: true });
+  }
+
+  //test function to replace linkId with id in dag structure
+  updateJSON(dag) {
+    const dagStr = JSON.stringify(dag).replace(/linkId/g, "id");
+    //const dagStrReplace = dagStr.replace(/linkId/g, "id");
+    //console.log("updated JSON");
+    //console.log(JSON.parse(dagStr));
+    const retJSON = JSON.parse(dagStr);
+    return retJSON;
   }
 
   render() {
