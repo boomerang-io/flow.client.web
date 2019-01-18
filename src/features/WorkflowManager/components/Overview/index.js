@@ -344,7 +344,7 @@ export class Overview extends Component {
                       <ModalFlow
                         closeModal={closeModal}
                         headerTitle="Set Schedule"
-                        confirmModalProps={{ affirmativeAction: () => closeModal(), theme: "bmrg-white" }}
+                        confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
                         {...rest}
                       >
                         <CronJobModal
