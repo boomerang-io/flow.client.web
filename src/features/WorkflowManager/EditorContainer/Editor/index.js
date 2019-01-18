@@ -26,11 +26,27 @@ class WorkflowEditor extends Component {
 
   constructor(props) {
     super(props);
-    this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
+    this.translatedDag = this.updateJSON(props.workflowRevision.dag);
+    console.log("translated dag");
+    console.log(typeof this.translatedDag);
+    console.log("foo");
+    console.log(typeof props.workflowRevision.dag);
+    //this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
+    this.diagramApp = new DiagramApplication({ dag: this.translatedDag, isLocked: false });
     this.state = {
       diagramBoundingClientRect: {}
     };
     this.diagramRef = React.createRef();
+  }
+
+  //test function to replace linkId with id in dag structure
+  updateJSON(dag) {
+    const dagStr = JSON.stringify(dag).replace(/linkId/g, "id");
+    //const dagStrReplace = dagStr.replace(/linkId/g, "id");
+    console.log("updated JSON");
+    console.log(JSON.parse(dagStr));
+    const retJSON = JSON.parse(dagStr);
+    return retJSON;
   }
 
   componentDidMount() {
