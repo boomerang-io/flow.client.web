@@ -15,6 +15,7 @@ class VersionCommentForm extends Component {
 
   state = {
     comment: "",
+    loading: false,
     saveError: false
   };
 
@@ -29,6 +30,7 @@ class VersionCommentForm extends Component {
   };
 
   handleOnSave = () => {
+    this.setState({ loading: true });
     this.props
       .onSave()
       .then(() => {
@@ -36,10 +38,14 @@ class VersionCommentForm extends Component {
       })
       .catch(() => {
         this.setState({ saveError: true });
+      })
+      .finally(() => {
+        this.setState({ loading: false });
       });
   };
 
   render() {
+    const { loading } = this.state;
     return (
       <>
         <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "28rem", padding: "2rem" }}>
@@ -55,7 +61,7 @@ class VersionCommentForm extends Component {
           <ModalConfirmButton
             theme="bmrg-white"
             text="Create"
-            disabled={!this.state.comment || Object.keys(this.state.errors).length}
+            disabled={!this.state.comment || Object.keys(this.state.errors).length || loading}
             onClick={this.handleOnSave}
           />
         </ModalContentFooter>
