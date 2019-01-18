@@ -47,7 +47,7 @@ function ConfigureSwitchModal({
               <TextInput
                 alwaysShowTitle
                 required
-                value={switchCondition === "default" ? "" : switchCondition}
+                value={switchCondition === null ? "" : switchCondition}
                 title="Switch Property Value"
                 placeholder="Enter a value"
                 name="property"

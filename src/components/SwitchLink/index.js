@@ -14,7 +14,7 @@ class SwitchLink extends Component {
     this.state = {
       switchCondition: props.model.switchCondition,
       modalIsOpen: false,
-      defaultState: props.model.switchCondition === "default" ? true : false
+      defaultState: props.model.switchCondition === null ? true : false
     };
 
     this.halfwayPoint = "";
@@ -43,7 +43,7 @@ class SwitchLink extends Component {
   };
   closeModal = () => {
     this.setState({ modalIsOpen: false, switchCondition: this.props.model.switchCondition }, () => {
-      if (this.props.model.switchCondition === "default") {
+      if (this.props.model.switchCondition === null) {
         this.setState({ defaultState: true });
       } else {
         this.setState({ defaultState: false });
@@ -64,7 +64,7 @@ class SwitchLink extends Component {
       prevState => ({ defaultState: !prevState.defaultState }),
       () => {
         if (this.state.defaultState) {
-          this.setState({ switchCondition: "default" });
+          this.setState({ switchCondition: null });
         }
       }
     );
@@ -140,7 +140,9 @@ class SwitchLink extends Component {
               </foreignObject>
             </g>
             <g transform={`translate(${this.halfwayPoint.x + 10}, ${this.halfwayPoint.y + 10})`}>
-              <text className="small">{this.props.model.switchCondition}</text>
+              <text className="small">
+                {this.props.model.switchCondition === null ? "default" : this.props.model.switchCondition}
+              </text>
             </g>
           </>
         )}
