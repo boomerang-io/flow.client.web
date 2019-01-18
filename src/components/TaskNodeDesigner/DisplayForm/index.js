@@ -29,7 +29,7 @@ class DisplayForm extends Component {
     if (field !== undefined && field !== "undefined") {
       this.setState(
         () => ({
-          [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
+          [field]: { value, errors } //filter out undefined errors
         }),
         this.props.shouldConfirmExit(true)
       );

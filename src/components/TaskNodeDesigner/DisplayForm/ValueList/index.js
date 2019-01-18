@@ -1,10 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-import TextArea from "@boomerang/boomerang-components/lib/TextArea";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import {
+  AutoSuggestInput,
+  AutoSuggestTextInput,
+  AutoSuggestTextArea
+} from "@boomerang/boomerang-components/lib/AutoSuggestInput";
 import { default as BmrgToggle } from "@boomerang/boomerang-components/lib/Toggle";
 import isURL from "validator/lib/isURL";
 import "./styles.scss";
+
+const validateInput = (value, maxValueLength, minValueLength, validationFunction, validationText) => {
+  if (value.length > maxValueLength) {
+    return `Must be less than ${maxValueLength} characters`;
+  } else if (value.length < minValueLength) {
+    return `Must be more than ${minValueLength} characters`;
+  } else if (!validationFunction(value)) {
+    return validationText;
+  } else {
+    return "";
+  }
+};
 
 const INPUT_TYPES = {
   text: { type: "text", validationFunction: () => {}, validationText: "" },
@@ -49,44 +64,67 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
           if (Object.keys(INPUT_TYPES).includes(item.type)) {
             const itemConfig = INPUT_TYPES[item.type];
             return (
-              <TextInput
-                key={item.key}
-                name={item.key}
-                alwaysShowTitle={true}
-                onChange={onTextInputChange}
-                placeholder={item.description}
-                maxChar={maxValueLength}
-                maxCharText={`Must be less than ${maxValueLength} characters`}
-                minChar={minValueLength}
-                minCharText={`Must be more than ${minValueLength} characters`}
-                title={item.label}
-                value={inputs[item.key] || ""}
-                theme="bmrg-white"
-                type={itemConfig.type}
-                validationFunction={itemConfig.validationFunction}
-                validationText={itemConfig.validationText}
-              />
+              <div style={{ paddingBottom: "2.125rem" }}>
+                <AutoSuggestInput
+                  key={item.key}
+                  name={item.key}
+                  autoSuggestions={[]}
+                  inputProps={{
+                    placeholder: item.description,
+                    alwaysShowTitle: true,
+                    title: item.label,
+                    type: itemConfig.type,
+                    theme: "bmrg-white"
+                  }}
+                  theme="bmrg-white"
+                  initialValue={inputs[item.key] || ""}
+                  handleChange={onTextInputChange}
+                  validationFunction={value =>
+                    validateInput(
+                      value,
+                      maxValueLength,
+                      minValueLength,
+                      itemConfig.validationFunction,
+                      itemConfig.validationText
+                    )
+                  }
+                >
+                  {inputProps => <AutoSuggestTextInput {...inputProps} />}
+                </AutoSuggestInput>
+              </div>
             );
           }
           if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
             const itemConfig = TEXT_AREA_TYPES[item.type];
             return (
-              <TextArea
-                key={item.key}
-                name={item.key}
-                alwaysShowTitle={true}
-                handleChange={onTextInputChange}
-                placeholder={item.description}
-                maxChar={maxValueLength}
-                maxCharText={`Must be less than ${maxValueLength} characters`}
-                minChar={minValueLength}
-                minCharText={`Must be more than ${minValueLength} characters`}
-                title={item.label}
-                detail={inputs[item.key] || ""}
-                theme="bmrg-white"
-                validationFunction={itemConfig.validationFunction}
-                validationText={itemConfig.validationText}
-              />
+              <div style={{ paddingBottom: "2.125rem" }}>
+                <AutoSuggestInput
+                  key={item.key}
+                  name={item.key}
+                  autoSuggestions={[]}
+                  inputProps={{
+                    placeholder: item.description,
+                    alwaysShowTitle: true,
+                    title: item.label,
+                    type: itemConfig.type,
+                    theme: "bmrg-white"
+                  }}
+                  theme="bmrg-white"
+                  initialValue={inputs[item.key] || ""}
+                  handleChange={onTextInputChange}
+                  validationFunction={value =>
+                    validateInput(
+                      value,
+                      maxValueLength,
+                      minValueLength,
+                      itemConfig.validationFunction,
+                      itemConfig.validationText
+                    )
+                  }
+                >
+                  {inputProps => <AutoSuggestTextArea {...inputProps} />}
+                </AutoSuggestInput>
+              </div>
             );
           } else {
             return (
