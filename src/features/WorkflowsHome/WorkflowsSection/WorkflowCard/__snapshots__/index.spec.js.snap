@@ -15,7 +15,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
       onClose={[Function]}
       onKeyDown={[Function]}
       open={false}
-      role="button"
+      role="menu"
       tabIndex={0}
     >
       <svg

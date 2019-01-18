@@ -1,19 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
+// import axios from "axios";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import { LazyLog, ScrollFollow } from "react-lazylog";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
+// import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import "./styles.scss";
 
 class TaskExecutionLog extends React.Component {
   static propTypes = {
     flowActivityId: PropTypes.string.isRequired,
     flowTaskId: PropTypes.string.isRequired,
-    flowTaskName: PropTypes.string.isRequired,
-    flowTaskStatus: PropTypes.string.isRequired
+    flowTaskName: PropTypes.string.isRequired
+    // flowTaskStatus: PropTypes.string.isRequired
   };
 
   state = {

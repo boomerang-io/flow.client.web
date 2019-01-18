@@ -5,7 +5,7 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
   className="c-worklfow-overview"
 >
   <div
-    className="c-general-info"
+    className="c-overview-card"
   >
     <h1
       className="s-general-info-title"
@@ -13,10 +13,104 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
       General
     </h1>
     <div
+      className="bmrg--c-select-dropdown --bmrg-white"
+      style={
+        Object {
+          "marginBottom": "2rem",
+        }
+      }
+    >
+      <div
+        className="s-select-dropdown-label"
+      >
+        Team
+      </div>
+      <div
+        className="Select has-value is-searchable Select--single"
+      >
+        <div
+          className="Select-control"
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+        >
+          <span
+            className="Select-multi-value-wrapper"
+            id="react-select-2--value"
+          >
+            <div
+              className="Select-value"
+            >
+              <span
+                aria-selected="true"
+                className="Select-value-label"
+                id="react-select-2--value-item"
+                role="option"
+              >
+                Lucas' team
+              </span>
+            </div>
+            <div
+              className="Select-input"
+              style={
+                Object {
+                  "display": "inline-block",
+                }
+              }
+            >
+              <input
+                aria-activedescendant="react-select-2--value"
+                aria-expanded="false"
+                aria-haspopup="false"
+                aria-owns=""
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={false}
+                role="combobox"
+                style={
+                  Object {
+                    "boxSizing": "content-box",
+                    "width": "5px",
+                  }
+                }
+                value=""
+              />
+              <div
+                style={
+                  Object {
+                    "height": 0,
+                    "left": 0,
+                    "overflow": "scroll",
+                    "position": "absolute",
+                    "top": 0,
+                    "visibility": "hidden",
+                    "whiteSpace": "pre",
+                  }
+                }
+              >
+                
+              </div>
+            </div>
+          </span>
+          <span
+            className="Select-arrow-zone"
+            onMouseDown={[Function]}
+          >
+            <div
+              className="bmrg--b-select-default-arrow"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
       className="bmrg--c-text-input"
     >
       <label
-        className="bmrg--s-text-input-title --bmrg-white"
+        className="bmrg--s-text-input-title --visible --bmrg-white"
       >
         Name
       </label>
@@ -30,6 +124,7 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
           onBlur={[Function]}
           onChange={[Function]}
           placeholder="Name"
+          required={true}
           type="text"
           value=""
         />
@@ -39,7 +134,7 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
       className="bmrg--c-text-input"
     >
       <label
-        className="bmrg--s-text-input-title --bmrg-white"
+        className="bmrg--s-text-input-title --visible --bmrg-white"
       >
         Summary
       </label>
@@ -53,6 +148,7 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
           onBlur={[Function]}
           onChange={[Function]}
           placeholder="Summary"
+          required={false}
           type="text"
           value=""
         />
@@ -62,7 +158,7 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
       className="bmrg--b-textarea"
     >
       <label
-        className="bmrg--b-textarea__title --bmrg-white"
+        className="bmrg--b-textarea__title --visible --bmrg-white"
       >
         Description
       </label>
@@ -72,6 +168,7 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
         onBlur={[Function]}
         onChange={[Function]}
         placeholder="Description"
+        required={false}
         value=""
       />
     </div>
@@ -80,117 +177,287 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
     >
       Icon
     </h2>
-    <div
+    <ul
       className="b-workflow-icons"
     >
-      <img
-        alt="docs icon"
-        className="b-workflow-icons__icon"
-        onClick={[Function]}
-        src="docs.svg"
-      />
-      <img
-        alt="secure icon"
-        className="b-workflow-icons__icon"
-        onClick={[Function]}
-        src="secure.svg"
-      />
-      <img
-        alt="flow icon"
-        className="b-workflow-icons__icon"
-        onClick={[Function]}
-        src="flow.svg"
-      />
-      <img
-        alt="log icon"
-        className="b-workflow-icons__icon"
-        onClick={[Function]}
-        src="log.svg"
-      />
-      <img
-        alt="payment icon"
-        className="b-workflow-icons__icon"
-        onClick={[Function]}
-        src="payment.svg"
-      />
-      <img
-        alt="diagram icon"
-        className="b-workflow-icons__icon"
-        onClick={[Function]}
-        src="diagram.svg"
-      />
-      <img
-        alt="utility icon"
-        className="b-workflow-icons__icon"
-        onClick={[Function]}
-        src="utility.svg"
-      />
-      <img
-        alt="template icon"
-        className="b-workflow-icons__icon"
-        onClick={[Function]}
-        src="template.svg"
-      />
-    </div>
+      <li>
+        <img
+          alt="docs icon"
+          className="b-workflow-icons__icon"
+          onClick={[Function]}
+          src="docs.svg"
+        />
+      </li>
+      <li>
+        <img
+          alt="secure icon"
+          className="b-workflow-icons__icon"
+          onClick={[Function]}
+          src="secure.svg"
+        />
+      </li>
+      <li>
+        <img
+          alt="flow icon"
+          className="b-workflow-icons__icon"
+          onClick={[Function]}
+          src="flow.svg"
+        />
+      </li>
+      <li>
+        <img
+          alt="log icon"
+          className="b-workflow-icons__icon"
+          onClick={[Function]}
+          src="log.svg"
+        />
+      </li>
+      <li>
+        <img
+          alt="payment icon"
+          className="b-workflow-icons__icon"
+          onClick={[Function]}
+          src="payment.svg"
+        />
+      </li>
+      <li>
+        <img
+          alt="diagram icon"
+          className="b-workflow-icons__icon"
+          onClick={[Function]}
+          src="diagram.svg"
+        />
+      </li>
+      <li>
+        <img
+          alt="utility icon"
+          className="b-workflow-icons__icon"
+          onClick={[Function]}
+          src="utility.svg"
+        />
+      </li>
+      <li>
+        <img
+          alt="template icon"
+          className="b-workflow-icons__icon"
+          onClick={[Function]}
+          src="template.svg"
+        />
+      </li>
+    </ul>
   </div>
   <div
-    className="c-trigger"
+    className="c-overview-card"
   >
     <h1
       className="s-trigger-title"
     >
       Triggers
     </h1>
-    
     <div
-      className="b-schedule"
+      className="c-webhook"
     >
-      <label
-        className="b-schedule__title"
+      <form
+        className="b-webhook"
       >
-        Enable Scheduler
-      </label>
-      <div
-        className="b-schedule__toggle --bmrg-black"
-      >
+        <label
+          className="b-webhook__title"
+          id="toggle-webhook"
+        >
+          Enable Webhook
+        </label>
         <div
-          className="react-toggle"
-          onClick={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
+          className="b-webhook__toggle --bmrg-white --red"
         >
           <div
-            className="react-toggle-track"
+            className="react-toggle"
+            onClick={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
           >
             <div
-              className="react-toggle-track-check"
-            />
+              className="react-toggle-track"
+            >
+              <div
+                className="react-toggle-track-check"
+              />
+              <div
+                className="react-toggle-track-x"
+              />
+            </div>
             <div
-              className="react-toggle-track-x"
+              className="react-toggle-thumb"
+            />
+            <input
+              aria-labelledby="toggle-webhook"
+              checked={false}
+              className="react-toggle-screenreader-only"
+              name="webhook"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              type="checkbox"
             />
           </div>
-          <div
-            className="react-toggle-thumb"
-          />
-          <input
-            className="react-toggle-screenreader-only"
-            defaultChecked={false}
-            id="toggle-schedule"
-            name="schedule"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            title="schedule"
-            type="checkbox"
-            value={false}
-          />
         </div>
+        <img
+          alt="Toggle webhook"
+          className="b-options__infoIcon"
+          data-for="triggers-webhook-info"
+          data-tip={true}
+          src="info.svg"
+        />
+        <div
+          className="__react_component_tooltip place-top type-dark "
+          data-id="tooltip"
+          id="triggers-webhook-info"
+        >
+          Enable workflow to be executed by a webhook
+        </div>
+      </form>
+      
+      <div
+        className="c-scheduler"
+      >
+        <div
+          className="b-schedule"
+        >
+          <label
+            className="b-schedule__title"
+            id="toggle-scheduler"
+          >
+            Enable Scheduler
+          </label>
+          <div
+            className="b-schedule__toggle --bmrg-black --red"
+          >
+            <div
+              className="react-toggle"
+              onClick={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+            >
+              <div
+                className="react-toggle-track"
+              >
+                <div
+                  className="react-toggle-track-check"
+                />
+                <div
+                  className="react-toggle-track-x"
+                />
+              </div>
+              <div
+                className="react-toggle-thumb"
+              />
+              <input
+                aria-labelledby="toggle-scheduler"
+                checked={false}
+                className="react-toggle-screenreader-only"
+                name="schedule"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                type="checkbox"
+              />
+            </div>
+          </div>
+          <img
+            alt="Toggle scheduler"
+            className="b-options__infoIcon"
+            data-for="triggers-scheduler-info"
+            data-tip={true}
+            src="info.svg"
+          />
+          <div
+            className="__react_component_tooltip place-top type-dark "
+            data-id="tooltip"
+            id="triggers-scheduler-info"
+          >
+            Enable workflow to be executed by a schedule
+          </div>
+        </div>
+        <div
+          className="b-schedule__cronMessage"
+        />
+        <div
+          className="b-schedule__timezone"
+        />
       </div>
     </div>
+  </div>
+  <div
+    className="c-overview-card"
+  >
+    <h1
+      className="s-trigger-title"
+    >
+      Options
+    </h1>
     <div
-      className="c-trigger__cronMessage"
-    />
+      className="b-options"
+    >
+      <form
+        className="b-persistence"
+      >
+        <label
+          className="b-persistence__title"
+          id="toggle-persistence-storage"
+        >
+          Enable Persistent Storage
+        </label>
+        <div
+          className="b-persistence__toggle --bmrg-white --red"
+        >
+          <div
+            className="react-toggle"
+            onClick={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+          >
+            <div
+              className="react-toggle-track"
+            >
+              <div
+                className="react-toggle-track-check"
+              />
+              <div
+                className="react-toggle-track-x"
+              />
+            </div>
+            <div
+              className="react-toggle-thumb"
+            />
+            <input
+              aria-labelledby="toggle-persistence-storage"
+              className="react-toggle-screenreader-only"
+              name="persistence"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              type="checkbox"
+            />
+          </div>
+        </div>
+        <img
+          alt="Toggle persistence"
+          className="b-options__infoIcon"
+          data-for="options-persistence-info"
+          data-tip={true}
+          src="info.svg"
+        />
+        <div
+          className="__react_component_tooltip place-top type-dark "
+          data-id="tooltip"
+          id="options-persistence-info"
+        >
+          Persist workflow data between executions
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 `;

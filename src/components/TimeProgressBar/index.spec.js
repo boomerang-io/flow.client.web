@@ -5,7 +5,7 @@ import TimeProgressBar from "./index";
 
 const mockfn = jest.fn();
 
-const tasks = {
+const workflowExecution = {
   creationDate: 1540912389131,
   duration: 7178,
   id: "5bd8750446e4bf790fe60aef",
@@ -38,7 +38,9 @@ const tasks = {
 
 describe("TimeProgressBar --- Snapshot", () => {
   it("Capturing Snapshot of TimeProgressBar", () => {
-    const renderedValue = renderer.create(<TimeProgressBar tasks={tasks} updateActiveNode={mockfn} />);
+    const renderedValue = renderer.create(
+      <TimeProgressBar workflowExecution={workflowExecution} updateActiveNode={mockfn} />
+    );
     expect(renderedValue).toMatchSnapshot();
   });
 });
@@ -47,7 +49,7 @@ describe("TimeProgressBar --- Shallow render", () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<TimeProgressBar tasks={tasks} updateActiveNode={mockfn} />);
+    wrapper = shallow(<TimeProgressBar workflowExecution={workflowExecution} updateActiveNode={mockfn} />);
   });
 
   it("Render the DUMB component", () => {

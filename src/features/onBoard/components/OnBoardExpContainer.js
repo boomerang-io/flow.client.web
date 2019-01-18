@@ -23,8 +23,7 @@ import "../styles/onBoardExpContainer.scss";
 
 class OnBoardExpContainer extends Component {
   static propTypes = {
-    userEmail: PropTypes.string,
-    userUpdateData: PropTypes.object,
+    location: PropTypes.object,
     onBoard: PropTypes.object,
     actions: PropTypes.object
   };

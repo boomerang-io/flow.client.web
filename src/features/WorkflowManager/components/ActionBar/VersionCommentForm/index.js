@@ -9,7 +9,8 @@ import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 class VersionCommentForm extends Component {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
-    handleOnChange: PropTypes.func.isRequired
+    handleOnChange: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired
   };
 
   state = {

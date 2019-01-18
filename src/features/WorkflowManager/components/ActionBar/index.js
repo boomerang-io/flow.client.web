@@ -16,10 +16,12 @@ import "./styles.scss";
 
 class ActionBar extends Component {
   static propTypes = {
+    diagramApp: PropTypes.object.isRequired,
+    diagramBoundingClientRect: PropTypes.object,
     currentRevision: PropTypes.number,
     handleChangeLogReasonChange: PropTypes.func,
     fetchWorkflowRevisionNumber: PropTypes.func,
-    includePerformActionAlert: PropTypes.bool,
+    // includePerformActionAlert: PropTypes.bool,
     includeZoom: PropTypes.bool,
     isValidOverview: PropTypes.bool.isRequired,
     performAction: PropTypes.func.isRequired,

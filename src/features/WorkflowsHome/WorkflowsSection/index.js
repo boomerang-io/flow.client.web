@@ -9,14 +9,15 @@ import "./styles.scss";
 class WorkflowSection extends Component {
   static propTypes = {
     team: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
     searchQuery: PropTypes.string.isRequired,
     setActiveTeamAndRedirect: PropTypes.func.isRequired,
+    executeWorkflow: PropTypes.func.isRequired,
+    deleteWorkflow: PropTypes.func.isRequired,
     setActiveTeam: PropTypes.func.isRequired
   };
 
   render() {
-    const { team, searchQuery, setActiveTeamAndRedirect } = this.props;
+    const { team, searchQuery, setActiveTeamAndRedirect, executeWorkflow, deleteWorkflow, setActiveTeam } = this.props;
     let workflows = [];
     if (searchQuery) {
       workflows = team.workflows.filter(workflow => workflow.name.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -35,9 +36,9 @@ class WorkflowSection extends Component {
               workflow={workflow}
               teamId={team.id}
               key={workflow.id}
-              executeWorkflow={this.props.executeWorkflow}
-              deleteWorkflow={this.props.deleteWorkflow}
-              setActiveTeam={this.props.setActiveTeam}
+              executeWorkflow={executeWorkflow}
+              deleteWorkflow={deleteWorkflow}
+              setActiveTeam={setActiveTeam}
             />
           ))}
           <Button className="b-workflow-placeholder" onClick={() => setActiveTeamAndRedirect(team.id)}>

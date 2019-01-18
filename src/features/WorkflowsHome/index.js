@@ -17,6 +17,7 @@ import "./styles.scss";
 export class WorkflowsHome extends Component {
   static propTypes = {
     teams: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
     teamsActions: PropTypes.object.isRequired
   };
 

@@ -8,7 +8,9 @@ import ValueList from "./ValueList";
 class DisplayForm extends Component {
   static propTypes = {
     nodeConfig: PropTypes.object.isRequired,
-    onSave: PropTypes.func.isRequired
+    onSave: PropTypes.func.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    task: PropTypes.object.isRequired
   };
 
   state = {};

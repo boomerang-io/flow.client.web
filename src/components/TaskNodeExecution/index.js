@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as taskActions } from "State/tasks";
 import { actions as workflowExecutionActiveNodeActions } from "State/workflowExecutionActiveNode";
-import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
@@ -13,11 +11,11 @@ import "./styles.scss";
 
 export class TaskNodeExecution extends Component {
   static propTypes = {
-    nodeConfig: PropTypes.object.isRequired,
+    node: PropTypes.object.isRequired,
     step: PropTypes.object,
     task: PropTypes.object.isRequired,
-    taskActions: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    diagramEngine: PropTypes.object.isRequired,
+    workflowExecutionActiveNodeActions: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -72,9 +70,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  taskActions: bindActionCreators(taskActions, dispatch),
-  workflowExecutionActiveNodeActions: bindActionCreators(workflowExecutionActiveNodeActions, dispatch),
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
+  workflowExecutionActiveNodeActions: bindActionCreators(workflowExecutionActiveNodeActions, dispatch)
 });
 
 export default connect(

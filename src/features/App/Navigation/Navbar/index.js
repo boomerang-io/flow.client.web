@@ -28,11 +28,12 @@ class NavbarContainer extends Component {
     user: PropTypes.object,
     navbarLinks: PropTypes.object,
     refresh: PropTypes.func,
-    onBoardActions: PropTypes.object
+    onBoardActions: PropTypes.object,
+    handleOnIconClick: PropTypes.func
   };
 
   render() {
-    const { user, navbarLinks, handleOnIconClick, onBoardActions } = this.props;
+    const { user, navbarLinks, handleOnIconClick, onBoardActions, refresh } = this.props;
     if (user.isFetching || user.isCreating || navbarLinks.isFetching) {
       return <Navbar handleOnIconClick={handleOnIconClick} />;
     }
@@ -60,7 +61,7 @@ class NavbarContainer extends Component {
 
     if (user.status === REQUEST_STATUSES.FAILURE || navbarLinks.status === REQUEST_STATUSES.FAILURE) {
       return (
-        <Navbar refresh={this.props.refresh} handleOnIconClick={handleOnIconClick}>
+        <Navbar refresh={refresh} handleOnIconClick={handleOnIconClick}>
           <Dropdown options={dropdownOptions.slice(1, -1)} includeHeader={false} />
         </Navbar>
       );

@@ -7,7 +7,7 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
   <div
     className="s-step-side-info-title"
   >
-    test
+    test task
   </div>
   <div
     className="c-step-side-info-details"
@@ -37,10 +37,8 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
       <div
         className="b-step-side-info-field__value"
       >
-        Succeeded
         <img
           alt="Status"
-          src="passed.svg"
         />
       </div>
     </div>
@@ -55,7 +53,7 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
       <div
         className="b-step-side-info-field__value"
       >
-        October 30th 2018, 11:13:09 am
+        January 18th 2019, 11:27:59 am
       </div>
     </div>
     <div
@@ -69,9 +67,17 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
       <div
         className="b-step-side-info-field__value"
       >
-        2 seconds
+        -----
       </div>
     </div>
+  </div>
+  <div
+    className="c-step-side-info-actions"
+  >
+    <TaskExecutionLog
+      flowActivityId="1"
+      flowTaskName="test task"
+    />
   </div>
 </div>
 `;

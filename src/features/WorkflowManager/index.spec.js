@@ -20,7 +20,20 @@ const tasks = {
   error: "",
   data: []
 };
+const teams = {
+  isFetching: false,
+  status: "success",
+  error: "",
+  data: []
+};
 const workflow = {
+  isFetching: false,
+  status: "success",
+  error: "",
+  data: []
+};
+
+const workflowRevision = {
   isFetching: false,
   status: "success",
   error: "",
@@ -34,9 +47,12 @@ describe("WorkflowManager --- Snapshot", () => {
         <MemoryRouter>
           <WorkflowManager
             tasks={tasks}
+            teams={teams}
             workflow={workflow}
             tasksActions={actions}
+            teamsActions={actions}
             workflowRevisionActions={actions}
+            workflowRevision={workflowRevision}
             workflowActions={actions}
           />
         </MemoryRouter>
@@ -54,9 +70,12 @@ describe("WorkflowManager --- Shallow render", () => {
       <MemoryRouter>
         <WorkflowManager
           tasks={tasks}
+          teams={teams}
           workflow={workflow}
           tasksActions={actions}
+          teamsActions={actions}
           workflowActions={actions}
+          workflowRevision={workflowRevision}
           workflowRevisionActions={actions}
         />
       </MemoryRouter>

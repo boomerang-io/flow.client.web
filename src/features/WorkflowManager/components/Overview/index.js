@@ -43,11 +43,12 @@ export class Overview extends Component {
     };
   }
   static propTypes = {
-    setIsValidOveriew: PropTypes.func.isRequired,
+    setIsValidOverview: PropTypes.func.isRequired,
     teams: PropTypes.array.isRequired,
     teamsActions: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
-    workflowActions: PropTypes.object.isRequired
+    workflowActions: PropTypes.object.isRequired,
+    activeTeamId: PropTypes.string
   };
 
   generateToken = e => {

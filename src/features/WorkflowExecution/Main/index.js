@@ -14,6 +14,7 @@ import "./styles.scss";
 class Main extends Component {
   static propTypes = {
     dag: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
     taskId: PropTypes.string,
     workflowData: PropTypes.object.isRequired,
     workflowExecutionData: PropTypes.object.isRequired,
@@ -23,11 +24,11 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
+    // this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
   }
 
   render() {
-    const { workflowExecutionData, taskId, updateActiveNode } = this.props;
+    const { workflowExecutionData, taskId, updateActiveNode, location } = this.props;
     const hasStarted =
       workflowExecutionData.steps &&
       workflowExecutionData.steps.find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
@@ -40,12 +41,12 @@ class Main extends Component {
       <div className="c-workflow-execution">
         <nav style={{ marginBottom: "1rem", width: "15rem", gridArea: "header" }}>
           <NavigateBack
-            to={this.props.location.state ? this.props.location.state.fromUrl : "/activity"}
-            text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Activity"}`}
+            to={location.state ? location.state.fromUrl : "/activity"}
+            text={`Back to ${location.state ? location.state.fromText : "Activity"}`}
           />
         </nav>
         <TimeProgressBar updateActiveNode={updateActiveNode} workflowExecution={workflowExecutionData} />
-        <div className="c-workflow-diagram-execution">
+        {/* <div className="c-workflow-diagram-execution">
           {hasStarted ? (
             <DiagramWidget
               className="c-diagram-canvas"
@@ -59,9 +60,14 @@ class Main extends Component {
           ) : (
             <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
           )}
-        </div>
+        </div> */}
         <aside style={{ gridArea: "sidebar" }}>
-          <WorkflowSummary workflowData={this.props.workflowData} version={this.props.version} />
+          <WorkflowSummary
+            workflowData={this.props.workflowData}
+            version={this.props.version}
+            duration={workflowExecutionData.duration}
+            status={workflowExecutionData.status}
+          />
           {selectedTask && <TaskExecutionInfo task={selectedTask} flowActivityId={workflowExecutionData.id} />}
         </aside>
       </div>

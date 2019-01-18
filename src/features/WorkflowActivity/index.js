@@ -25,7 +25,9 @@ export class WorkflowActivity extends Component {
     activityActions: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     teams: PropTypes.object.isRequired,
-    teamsActions: PropTypes.object.isRequired
+    teamsActions: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
   };
 
   state = {
