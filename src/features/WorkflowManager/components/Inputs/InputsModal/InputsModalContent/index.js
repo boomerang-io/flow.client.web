@@ -111,10 +111,9 @@ class InputsModalContent extends Component {
           this.props.updateInputs({ title: "Edit Input", message: "Successfully edited input", type: "edit" })
         )
         .then(() => {
-          this.setState({ loading: false });
           this.props.closeModal();
         })
-        .catch(e => {
+        .finally(() => {
           this.setState({ loading: false });
         });
     } else {
@@ -123,10 +122,9 @@ class InputsModalContent extends Component {
           this.props.updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
         )
         .then(() => {
-          this.setState({ loading: false });
           this.props.closeModal();
         })
-        .catch(e => {
+        .finally(() => {
           this.setState({ loading: false });
         });
     }
