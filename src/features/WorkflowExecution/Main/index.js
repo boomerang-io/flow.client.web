@@ -62,7 +62,12 @@ class Main extends Component {
           )}
         </div> */}
         <aside style={{ gridArea: "sidebar" }}>
-          <WorkflowSummary workflowData={this.props.workflowData} version={this.props.version} />
+          <WorkflowSummary
+            workflowData={this.props.workflowData}
+            version={this.props.version}
+            duration={workflowExecutionData.duration}
+            status={workflowExecutionData.status}
+          />
           {selectedTask && <TaskExecutionInfo task={selectedTask} flowActivityId={workflowExecutionData.id} />}
         </aside>
       </div>

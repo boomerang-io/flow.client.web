@@ -5832,7 +5832,7 @@
     "creationDate": 1547053200027,
     "duration": 904934,
     "id": "5c36289096052900012cc81d",
-    "status": "notstarted",
+    "status": "invalid",
     "workflowId": "5c3048ba53c9250001a17eb0",
     "workflowRevisionid": "5c33ecca53c9250001a2dfe8",
     "trigger": "cron",
