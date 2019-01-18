@@ -16,7 +16,7 @@ export default class SwitchLinkModel extends DefaultLinkModel {
 
   deSerialize(data, engine) {
     super.deSerialize(data, engine);
-    this.id = data.linkId;
+    //this.id = data.linkId;
     this.switchCondition = data.switchCondition;
   }
 }
