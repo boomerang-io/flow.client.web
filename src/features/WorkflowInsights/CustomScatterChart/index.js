@@ -16,23 +16,18 @@ import CustomTooltip from "../CustomTooltip";
 import CustomLegend from "../CustomLegend";
 
 class CustomScatterChart extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    toggledScatters: []
+  };
 
-    this.state = {
-      toggledScatters: []
-    };
-    this.toggleScatter = this.toggleScatter.bind(this);
-  }
-
-  toggleScatter(value) {
+  toggleScatter = value => {
     const selectedScatter = this.state.toggledScatters.find(scatter => scatter === value.payload.name);
     if (!selectedScatter) {
       this.setState({ toggledScatters: this.state.toggledScatters.concat(value.payload.name) });
     } else {
       this.setState({ toggledScatters: this.state.toggledScatters.filter(scatter => scatter !== value.payload.name) });
     }
-  }
+  };
 
   render() {
     const ScatterCircle = color => {

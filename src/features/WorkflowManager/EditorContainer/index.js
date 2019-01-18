@@ -12,12 +12,15 @@ import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 
 class WorkflowEditorContainer extends Component {
   static propTypes = {
+    changeLog: PropTypes.object.isRequired,
     createNode: PropTypes.func.isRequired,
     createWorkflowRevision: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired,
+    changeLogActions: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired
   };
 
   componentDidMount() {

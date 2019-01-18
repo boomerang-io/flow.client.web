@@ -19,9 +19,7 @@ class WorkflowEditor extends Component {
     isValidOverview: PropTypes.bool.isRequired,
     setIsValidOveriew: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
-    workflowActions: PropTypes.object.isRequired,
-    workflowRevision: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevision: PropTypes.object.isRequired
   };
 
   constructor(props) {

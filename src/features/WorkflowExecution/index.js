@@ -22,7 +22,12 @@ export class WorkflowExecutionContainer extends Component {
     workflowExecutionActiveNode: PropTypes.object.isRequired,
     workflowExecutionActiveNodeActions: PropTypes.object,
     workflowRevision: PropTypes.object,
-    workflowRevisionActions: PropTypes.object
+    workflowRevisionActions: PropTypes.object,
+    workflowActions: PropTypes.object,
+    tasksActions: PropTypes.object,
+    tasks: PropTypes.object,
+    workflow: PropTypes.object,
+    match: PropTypes.object.isRequired
   };
 
   componentDidMount() {

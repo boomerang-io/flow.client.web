@@ -47,7 +47,8 @@ export class Overview extends Component {
     teams: PropTypes.array.isRequired,
     teamsActions: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
-    workflowActions: PropTypes.object.isRequired
+    workflowActions: PropTypes.object.isRequired,
+    activeTeamId: PropTypes.string
   };
 
   generateToken = () => {

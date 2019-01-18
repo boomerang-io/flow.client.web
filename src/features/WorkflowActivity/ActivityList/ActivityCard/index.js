@@ -10,7 +10,6 @@ import "./styles.scss";
 class ActivityCard extends Component {
   static propTypes = {
     activity: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired
   };
 

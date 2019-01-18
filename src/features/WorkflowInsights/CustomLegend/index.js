@@ -34,7 +34,9 @@ class CustomTooltip extends Component {
 CustomTooltip.propTypes = {
   payload: PropTypes.array,
   toggleItem: PropTypes.func,
-  toggledItems: PropTypes.array
+  toggledItems: PropTypes.array,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func
 };
 
 export default CustomTooltip;

@@ -16,7 +16,9 @@ import "./styles.scss";
 
 class Inputs extends Component {
   static propTypes = {
-    updateInputs: PropTypes.func.isRequired
+    inputs: PropTypes.array.isRequired,
+    updateInputs: PropTypes.func.isRequired,
+    workflowActions: PropTypes.object.isRequired
   };
 
   formatDefaultValue = value => {

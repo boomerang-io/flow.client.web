@@ -12,7 +12,8 @@ ConfigureSwitchModal.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   switchCondition: PropTypes.string.isRequired,
   updateDefaultState: PropTypes.func.isRequired,
-  updateSwitchState: PropTypes.func.isRequired
+  updateSwitchState: PropTypes.func.isRequired,
+  validateSwitch: PropTypes.func.isRequired
 };
 
 function ConfigureSwitchModal({
