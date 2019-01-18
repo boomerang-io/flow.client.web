@@ -16,7 +16,6 @@ class ActivityCard extends Component {
   render() {
     const {
       description,
-      duration,
       creationDate,
       icon,
       duration = 0,
