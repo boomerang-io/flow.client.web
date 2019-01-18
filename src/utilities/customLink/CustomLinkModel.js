@@ -16,7 +16,7 @@ export default class CustomLinkModel extends DefaultLinkModel {
 
   deSerialize(data, engine) {
     super.deSerialize(data, engine);
-    this.id = data.linkId;
+    //this.id = data.linkId;
     this.executionCondition = data.executionCondition;
   }
 }

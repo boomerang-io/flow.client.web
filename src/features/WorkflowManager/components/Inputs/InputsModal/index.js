@@ -9,7 +9,7 @@ class InputsModal extends Component {
   static propTypes = {
     isEdit: PropTypes.bool.isRequired,
     Button: PropTypes.func.isRequired,
-    inputsNames: PropTypes.array,
+    inputsKeys: PropTypes.array,
     input: PropTypes.object,
     updateInputs: PropTypes.func.isRequired
   };
@@ -20,6 +20,7 @@ class InputsModal extends Component {
     return (
       <ModalWrapper
         className="c-inputs-modal"
+        modalProps={{ shouldCloseOnOverlayClick: false }}
         ModalTrigger={() => <Button />}
         modalContent={(closeModal, rest) => (
           <ModalFlow
@@ -27,7 +28,7 @@ class InputsModal extends Component {
             headerTitle={isEdit && input ? input.label.toUpperCase() : "CREATE PROPERTY"}
             headerSubtitle={isEdit ? "Let's update it" : "Create new input property"}
             closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal }}
+            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
             theme="bmrg-white"
             {...rest}
           >

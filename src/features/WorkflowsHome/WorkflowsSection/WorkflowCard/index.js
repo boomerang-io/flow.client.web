@@ -115,7 +115,7 @@ class WorkflowCard extends Component {
                       headerTitle="Workflow Inputs"
                       headerSubtitle="Supply some values"
                       closeModal={closeModal}
-                      confirmModalProps={{ affirmativeAction: closeModal }}
+                      confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
                       theme="bmrg-white"
                       {...rest}
                     >
