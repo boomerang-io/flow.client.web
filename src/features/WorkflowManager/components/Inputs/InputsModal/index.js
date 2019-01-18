@@ -9,7 +9,7 @@ class InputsModal extends Component {
   static propTypes = {
     isEdit: PropTypes.bool.isRequired,
     Button: PropTypes.func.isRequired,
-    inputsNames: PropTypes.array,
+    inputsKeys: PropTypes.array,
     input: PropTypes.object,
     updateInputs: PropTypes.func.isRequired
   };
@@ -20,6 +20,7 @@ class InputsModal extends Component {
     return (
       <ModalWrapper
         className="c-inputs-modal"
+        modalProps={{ shouldCloseOnOverlayClick: false }}
         ModalTrigger={() => <Button />}
         modalContent={(closeModal, rest) => (
           <ModalFlow
