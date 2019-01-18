@@ -15,7 +15,6 @@ class VersionCommentForm extends Component {
 
   state = {
     comment: "",
-    loading: false,
     saveError: false
   };
 
@@ -30,7 +29,6 @@ class VersionCommentForm extends Component {
   };
 
   handleOnSave = () => {
-    this.setState({ loading: true });
     this.props
       .onSave()
       .then(() => {
@@ -38,14 +36,12 @@ class VersionCommentForm extends Component {
       })
       .catch(() => {
         this.setState({ saveError: true });
-      })
-      .finally(() => {
-        this.setState({ loading: false });
       });
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading } = this.props;
+
     return (
       <>
         <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "28rem", padding: "2rem" }}>
