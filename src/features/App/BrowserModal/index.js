@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import BrowserModalContent from "./BrowserModalContent";
-import "./styles.scss";
 
 class BrowserModal extends Component {
   static propTypes = {
@@ -17,8 +16,8 @@ class BrowserModal extends Component {
   render() {
     return (
       <ModalWrapper
-        className="c-browser-modal"
         isOpen={this.props.isOpen}
+        fullscreen={true}
         modalContent={closeModal => (
           <ModalFlow
             className="c-browser-modal-content"

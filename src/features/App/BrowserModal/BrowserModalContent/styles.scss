@@ -2,5 +2,12 @@
   display: flex;
   width: 100%;
   margin: auto;
-  height: 26rem;
+  height: 30rem;
+  .bmrg--b-no-display__img {
+    height: 25rem;
+  }
+  .bmrg--b-no-display__text {
+    margin-top: 8rem;
+    width: 100vw;
+  }
 }

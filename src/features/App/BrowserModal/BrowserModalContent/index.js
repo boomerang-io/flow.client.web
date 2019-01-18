@@ -17,7 +17,7 @@ class BrowserModalContent extends Component {
         <Body className="c-browser-modal-body">
           <NoDisplay
             text="Your experience might be less than ideal if you aren't using Chrome"
-            style={{ width: "50rem", height: "25rem" }}
+            style={{ width: "30rem", height: "20rem" }}
           />
         </Body>
         <Footer style={{ paddingTop: "1rem" }}>
