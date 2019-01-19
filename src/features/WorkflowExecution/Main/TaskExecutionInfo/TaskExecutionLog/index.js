@@ -42,7 +42,7 @@ class TaskExecutionLog extends React.Component {
   fetchLog() {
     const { flowActivityId, flowTaskId } = this.props;
     axios
-      .get(`${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`)
+      .get(`${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}?count=${this.state.fetchCount}`)
       .then(response => {
         this.setState({
           log: response.data.log
@@ -85,10 +85,10 @@ class TaskExecutionLog extends React.Component {
               <TextArea
                 //alwaysShowTitle
                 externallyControlled
-                value={log || "No Log to display"}
+                value={this.state.log || "No Log to display"}
                 //title="Description"
-                placeholder="Description"
-                name="description"
+                placeholder="log"
+                name="log"
                 theme="bmrg-white"
                 //handleChange={console.log()}
                 //maxChar={256}
