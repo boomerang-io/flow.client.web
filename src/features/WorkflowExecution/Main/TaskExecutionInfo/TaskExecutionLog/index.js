@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import axios from "axios";
+import axios from "axios";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import { LazyLog, ScrollFollow } from "react-lazylog";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 // import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import "./styles.scss";
 
@@ -23,7 +24,7 @@ class TaskExecutionLog extends React.Component {
   };
 
   componentDidMount() {
-    //this.fetchLog();
+    this.fetchLog();
     this.fetchCountInterval = setInterval(() => this.setState(prevState => ({ fetchCount: prevState + 1 })), 3000); //to trick it into fetching multiple times by passing a different url
   }
 
@@ -38,20 +39,20 @@ class TaskExecutionLog extends React.Component {
     clearInterval(this.fetchCountInterval);
   }
 
-  // fetchLog() {
-  //   const { flowActivityId, flowTaskId } = this.props;
-  //   axios
-  //     .get(`${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`)
-  //     .then(response => {
-  //       this.setState({
-  //         log: response.data.log
-  //       });
-  //     })
-  //     .catch(err => this.setState({ error: err }));
-  // }
+  fetchLog() {
+    const { flowActivityId, flowTaskId } = this.props;
+    axios
+      .get(`${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`)
+      .then(response => {
+        this.setState({
+          log: response.data.log
+        });
+      })
+      .catch(err => this.setState({ error: err }));
+  }
 
   render() {
-    const { flowActivityId, flowTaskId } = this.props;
+    const { flowActivityId, flowTaskId, log } = this.props;
     return (
       <Modal
         ModalTrigger={() => <div className="s-task-log-trigger">Log</div>}
@@ -64,7 +65,7 @@ class TaskExecutionLog extends React.Component {
             {...rest}
           >
             <div className="c-task-log-viewer">
-              <ScrollFollow
+              {/*<ScrollFollow
                 startFollowing={true}
                 render={({ follow, onScroll }) => (
                   <LazyLog
@@ -77,8 +78,21 @@ class TaskExecutionLog extends React.Component {
                       credentials: "include"
                     }}
                     onError={err => console.log(err)}
+                    stream
                   />
                 )}
+              />*/}
+              <TextArea
+                //alwaysShowTitle
+                externallyControlled
+                value={log || "No Log to display"}
+                //title="Description"
+                placeholder="Description"
+                name="description"
+                theme="bmrg-white"
+                //handleChange={console.log()}
+                //maxChar={256}
+                //maxCharText={"Description must not be greater than 256 characters"}
               />
             </div>
           </ModalFlow>
