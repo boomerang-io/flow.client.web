@@ -4,7 +4,7 @@ import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import "./styles.scss";
 
-const WorkflowSummary = ({ workflowData, version, duration = 0, status }) => {
+const WorkflowSummary = ({ workflowData, version, duration, status }) => {
   return (
     <div className="c-workflow-summary">
       <div className="s-workflow-summary-title">{workflowData.name || "Workflow"}</div>
@@ -30,7 +30,9 @@ const WorkflowSummary = ({ workflowData, version, duration = 0, status }) => {
         </div>
         <div className="b-workflow-summary-field">
           <div className="b-workflow-summary-field__key">Duration</div>
-          <div className="b-workflow-summary-field__value">{getHumanizedDuration(parseInt(duration / 1000, 10))}</div>
+          <div className="b-workflow-summary-field__value">
+            {duration ? getHumanizedDuration(parseInt(duration / 1000, 10)) : "---"}
+          </div>
         </div>
       </div>
     </div>
