@@ -9,6 +9,9 @@ const mockfn = jest.fn();
 const searchQuery = "test";
 const setActiveTeamAndRedirect = mockfn;
 const updateWorkflows = mockfn;
+const setActiveTeam = mockfn;
+const executeWorkflow = mockfn;
+const deleteWorkflow = mockfn;
 const team = {
   id: "1234",
   name: "Lucas' team",
@@ -47,6 +50,9 @@ describe("WorkflowsSection --- Snapshot", () => {
           searchQuery={searchQuery}
           team={team}
           updateWorkflows={updateWorkflows}
+          executeWorkflow={executeWorkflow}
+          deleteWorkflow={deleteWorkflow}
+          setActiveTeam={setActiveTeam}
           setActiveTeamAndRedirect={setActiveTeamAndRedirect}
         />
       </MemoryRouter>
@@ -66,6 +72,9 @@ describe("WorkflowsSection --- Shallow render", () => {
           searchQuery={searchQuery}
           team={team}
           updateWorkflows={updateWorkflows}
+          executeWorkflow={executeWorkflow}
+          deleteWorkflow={deleteWorkflow}
+          setActiveTeam={setActiveTeam}
           setActiveTeamAndRedirect={setActiveTeamAndRedirect}
         />
       </MemoryRouter>

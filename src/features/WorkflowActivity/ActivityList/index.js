@@ -15,8 +15,10 @@ class ActivityList extends Component {
     history: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
     nextPage: PropTypes.number,
-    searchQuery: PropTypes.string,
-    workflowId: PropTypes.string
+    loadMoreActivities: PropTypes.func.isRequired,
+    setMoreActivities: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool,
+    hasMoreActivities: PropTypes.bool
   };
 
   loadMoreActivities = () => {

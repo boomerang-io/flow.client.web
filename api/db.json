@@ -172,6 +172,29 @@
       "type": "ValuesList",
       "category": "utilities",
       "arguments": ["artifactoryUpload", "$(INPUTS_PROPS_PATH)"]
+    },
+    {
+      "id": "7be9d03a8a5df958ad58b3b8",
+      "config": [
+        {
+          "description": "Name",
+          "key": "name",
+          "label": "Name",
+          "type": "text"
+        },
+        {
+          "description": "Property to be Switched Upon",
+          "key": "value",
+          "label": "Value",
+          "type": "text"
+        }
+      ],
+      "description": "Create a Switch Component",
+      "key": "switch",
+      "name": "Switch",
+      "type": "ValuesList",
+      "category": "boomerang",
+      "arguments": ["switch"]
     }
   ],
   "teams": [
@@ -5704,7 +5727,7 @@
     "creationDate": 1547053200027,
     "duration": 904934,
     "id": "5c36289096052900012cc81d",
-    "status": "notstarted",
+    "status": "invalid",
     "workflowId": "5c3048ba53c9250001a17eb0",
     "workflowRevisionid": "5c33ecca53c9250001a2dfe8",
     "trigger": "cron",

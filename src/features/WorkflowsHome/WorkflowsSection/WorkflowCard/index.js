@@ -17,7 +17,9 @@ class WorkflowCard extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
-    executeWorkflow: PropTypes.func.isRequired
+    executeWorkflow: PropTypes.func.isRequired,
+    deleteWorkflow: PropTypes.func.isRequired,
+    teamId: PropTypes.string.isRequired
   };
 
   executeWorkflow = ({ redirect, properties }) => {
@@ -113,7 +115,7 @@ class WorkflowCard extends Component {
                       headerTitle="Workflow Inputs"
                       headerSubtitle="Supply some values"
                       closeModal={closeModal}
-                      confirmModalProps={{ affirmativeAction: closeModal }}
+                      confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
                       theme="bmrg-white"
                       {...rest}
                     >

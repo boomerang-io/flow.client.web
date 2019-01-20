@@ -26,11 +26,21 @@ const match = {
   url: "test.url"
 };
 
+const mockfn = jest.fn();
+
+const props = {
+  activities,
+  history,
+  match,
+  loadMoreActivities: mockfn,
+  setMoreActivities: mockfn
+};
+
 describe("ActivityList --- Snapshot", () => {
   it("Capturing Snapshot of ActivityList", () => {
     const renderedValue = renderer.create(
       <MemoryRouter>
-        <ActivityList activities={activities} history={history} match={match} />
+        <ActivityList {...props} />
       </MemoryRouter>
     );
     expect(renderedValue).toMatchSnapshot();
@@ -43,7 +53,7 @@ describe("ActivityList --- Shallow render", () => {
   beforeEach(() => {
     wrapper = shallow(
       <MemoryRouter>
-        <ActivityList activities={activities} history={history} match={match} />
+        <ActivityList {...props} />
       </MemoryRouter>
     );
   });

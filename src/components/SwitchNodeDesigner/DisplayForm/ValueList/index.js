@@ -107,8 +107,9 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
   );
 };
 
-Toggle.propTypes = {
-  config: PropTypes.object.isRequired,
+ValueList.propTypes = {
+  task: PropTypes.object.isRequired,
+  nodeConfig: PropTypes.object.isRequired,
   onTextInputChange: PropTypes.func.isRequired,
   onToggleChange: PropTypes.func.isRequired
 };

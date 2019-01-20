@@ -43,14 +43,16 @@ export class Overview extends Component {
     };
   }
   static propTypes = {
-    setIsValidOveriew: PropTypes.func.isRequired,
+    setIsValidOverview: PropTypes.func.isRequired,
     teams: PropTypes.array.isRequired,
     teamsActions: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
-    workflowActions: PropTypes.object.isRequired
+    workflowActions: PropTypes.object.isRequired,
+    activeTeamId: PropTypes.string
   };
 
-  generateToken = () => {
+  generateToken = e => {
+    e.preventDefault();
     const { workflowActions } = this.props;
     return axios
       .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/webhook-token`)
@@ -343,7 +345,7 @@ export class Overview extends Component {
                       <ModalFlow
                         closeModal={closeModal}
                         headerTitle="Set Schedule"
-                        confirmModalProps={{ affirmativeAction: () => closeModal(), theme: "bmrg-white" }}
+                        confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
                         {...rest}
                       >
                         <CronJobModal

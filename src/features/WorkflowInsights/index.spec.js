@@ -8,11 +8,14 @@ jest.mock("Components/NavigateBack", () => "NavigateBack");
 jest.mock("./CustomAreaChart", () => "CustomAreaChart");
 jest.mock("./CustomScatterChart", () => "CustomScatterChart");
 jest.mock("./CustomPieChart", () => "CustomPieChart");
+jest.mock("./WidgetCard", () => "WidgetCard");
+jest.mock("Components/SearchFilterBar", () => "SearchFilterBar");
+jest.mock("Components/SimpleSelectFilter", () => "SimpleSelectFilter");
 
 const mockfn = jest.fn();
-
+const location = {};
 const insightsActions = {
-  fetch: mockfn
+  fetch: () => new Promise(resolve => resolve({ test: "test" }))
 };
 const teamsActions = {
   fetch: mockfn
@@ -60,6 +63,7 @@ describe("WorkflowInsights --- Snapshot", () => {
             teams={teams}
             insightsActions={insightsActions}
             teamsActions={teamsActions}
+            location={location}
           />
         </MemoryRouter>
       )
@@ -79,6 +83,7 @@ describe("WorkflowInsights --- Shallow render", () => {
           teams={teams}
           insightsActions={insightsActions}
           teamsActions={teamsActions}
+          location={location}
         />
       </MemoryRouter>
     );

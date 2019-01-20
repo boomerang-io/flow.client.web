@@ -16,10 +16,12 @@ import "./styles.scss";
 
 class ActionBar extends Component {
   static propTypes = {
+    diagramApp: PropTypes.object.isRequired,
+    diagramBoundingClientRect: PropTypes.object,
     currentRevision: PropTypes.number,
     handleChangeLogReasonChange: PropTypes.func,
     fetchWorkflowRevisionNumber: PropTypes.func,
-    includePerformActionAlert: PropTypes.bool,
+    // includePerformActionAlert: PropTypes.bool,
     includeZoom: PropTypes.bool,
     isValidOverview: PropTypes.bool.isRequired,
     performAction: PropTypes.func.isRequired,
@@ -102,13 +104,18 @@ class ActionBar extends Component {
       isValidOverview,
       performAction,
       performActionButtonText,
-      showActionButton
+      showActionButton,
+      loading
     } = this.props;
 
     if (includeResetVersionAlert) {
       return (
         <AlertModal
-          ModalTrigger={() => <Button theme="bmrg-black">{performActionButtonText}</Button>}
+          ModalTrigger={() => (
+            <Button disabled={loading} theme="bmrg-black">
+              {performActionButtonText}
+            </Button>
+          )}
           modalContent={closeModal => (
             <ConfirmModal
               title={`Set version ${currentRevision} to latest?`}
@@ -135,7 +142,11 @@ class ActionBar extends Component {
               theme={"bmrg-white"}
               {...rest}
             >
-              <VersionCommentForm onSave={performAction} handleOnChange={this.props.handleChangeLogReasonChange} />
+              <VersionCommentForm
+                onSave={performAction}
+                loading={loading}
+                handleOnChange={this.props.handleChangeLogReasonChange}
+              />
             </ModalFlow>
           )}
         />
@@ -143,7 +154,7 @@ class ActionBar extends Component {
     }
     if (showActionButton) {
       return (
-        <Button theme="bmrg-black" onClick={performAction} disabled={!isValidOverview}>
+        <Button theme="bmrg-black" onClick={performAction} disabled={!isValidOverview || loading}>
           {performActionButtonText}
         </Button>
       );

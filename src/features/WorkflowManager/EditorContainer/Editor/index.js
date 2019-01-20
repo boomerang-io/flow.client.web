@@ -19,9 +19,7 @@ class WorkflowEditor extends Component {
     isValidOverview: PropTypes.bool.isRequired,
     setIsValidOveriew: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
-    workflowActions: PropTypes.object.isRequired,
-    workflowRevision: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevision: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -74,6 +72,7 @@ class WorkflowEditor extends Component {
     } = this.props;
     const { revisionCount } = workflow.data;
     const { version } = workflowRevision;
+    const workflowLoading = workflow.isFetching || workflow.isUpdating || workflow.isCreating;
 
     return (
       <>
@@ -88,6 +87,7 @@ class WorkflowEditor extends Component {
                   performAction={this.updateWorkflow}
                   diagramApp={this.diagramApp}
                   isValidOverview={isValidOverview}
+                  loading={workflowLoading}
                   {...props}
                 />
                 <Overview workflow={workflow} overviewData={overviewData} setIsValidOveriew={setIsValidOveriew} />
@@ -102,6 +102,7 @@ class WorkflowEditor extends Component {
                   diagramApp={this.diagramApp}
                   isValidOverview={isValidOverview}
                   showActionButton={false}
+                  loading={workflowLoading}
                   {...props}
                 />
                 <Inputs updateInputs={this.props.updateInputs} />
@@ -126,6 +127,7 @@ class WorkflowEditor extends Component {
                   revisionCount={workflow.data.revisionCount}
                   currentRevision={workflowRevision.version}
                   fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
+                  loading={workflowLoading}
                   {...props}
                 />
                 <TasksSidenav />

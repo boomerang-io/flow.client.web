@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as taskActions } from "State/tasks";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
@@ -19,7 +18,7 @@ export class TaskNode extends Component {
     node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
-    taskActions: PropTypes.object.isRequired,
+    taskNames: PropTypes.array.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired
   };
 
@@ -54,7 +53,7 @@ export class TaskNode extends Component {
             headerTitle={`Edit properties for ${task.name}`}
             closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
-            theme={"bmrg-white"}
+            theme="bmrg-white"
             {...rest}
           >
             <DisplayForm
@@ -102,7 +101,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  taskActions: bindActionCreators(taskActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 

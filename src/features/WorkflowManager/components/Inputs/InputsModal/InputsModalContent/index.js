@@ -15,7 +15,12 @@ import "./styles.scss";
 
 class InputsModalContent extends Component {
   static propTypes = {
-    updateInputs: PropTypes.func.isRequired
+    updateInputs: PropTypes.func.isRequired,
+    input: PropTypes.object,
+    isEdit: PropTypes.bool,
+    workflowActions: PropTypes.object.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    inputsNames: PropTypes.array
   };
 
   state = {
@@ -27,31 +32,37 @@ class InputsModalContent extends Component {
     defaultValue: this.props.input ? this.props.input.defaultValue : "",
     validValues: this.props.input && this.props.input.validValues ? this.props.input.validValues : undefined,
     keyError: "",
-    descriptionError: "",
-    labelError: ""
+    labelError: "",
+    loading: false
   };
 
   handleKeyChange = (value, error) => {
+    this.props.shouldConfirmExit(true);
     this.setState({ key: value, keyError: error.key });
   };
 
   handleDescriptionChange = (value, error) => {
-    this.setState({ description: value, descriptionError: error.description });
+    this.props.shouldConfirmExit(true);
+    this.setState({ description: value });
   };
 
   handleLabelChange = (value, error) => {
+    this.props.shouldConfirmExit(true);
     this.setState({ label: value, labelError: error.label });
   };
 
   handleRequiredChange = () => {
+    this.props.shouldConfirmExit(true);
     this.setState(prevState => ({ required: !prevState.required }));
   };
 
   handleTypeChange = option => {
+    this.props.shouldConfirmExit(true);
     this.setState({ type: option.value, defaultValue: option.value === INPUT_TYPES.BOOLEAN ? false : undefined });
   };
 
   handleDefaultValueChange = value => {
+    this.props.shouldConfirmExit(true);
     switch (this.state.type) {
       case INPUT_TYPES.BOOLEAN:
         this.setState({ defaultValue: value.target.checked.toString() });
@@ -67,6 +78,7 @@ class InputsModalContent extends Component {
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
   handleValidValuesChange = values => {
+    this.props.shouldConfirmExit(true);
     this.setState({ validValues: values.map(option => option.value) });
   };
 
@@ -97,18 +109,29 @@ class InputsModalContent extends Component {
 
     // need to update state, then make request
     // only close on success
+    this.setState({ loading: true });
     if (this.props.isEdit) {
       new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties)))
         .then(() =>
           this.props.updateInputs({ title: "Edit Input", message: "Successfully edited input", type: "edit" })
         )
-        .then(() => this.props.closeModal());
+        .then(() => {
+          this.props.closeModal();
+        })
+        .finally(() => {
+          this.setState({ loading: false });
+        });
     } else {
       new Promise(resolve => resolve(this.props.workflowActions.createWorkflowInput(inputProperties)))
         .then(() =>
           this.props.updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
         )
-        .then(() => this.props.closeModal());
+        .then(() => {
+          this.props.closeModal();
+        })
+        .finally(() => {
+          this.setState({ loading: false });
+        });
     }
   };
 
@@ -205,92 +228,95 @@ class InputsModalContent extends Component {
   };
 
   render() {
-    const { isEdit, inputsNames } = this.props;
-    const { key, description, label, required, type, keyError, descriptionError, labelError } = this.state;
+    const { isEdit, inputsKeys } = this.props;
+    const { key, description, label, required, type, keyError, labelError, loading } = this.state;
 
     return (
       <form onSubmit={this.handleConfirm}>
-        <Body className="c-inputs-modal-body">
-          <div className="c-inputs-modal-body-left">
-            <TextInput
-              alwaysShowTitle
-              disabled={isEdit}
-              title="Key"
-              placeholder="key.value"
-              name="key"
-              type="text"
-              comparisonData={inputsNames || []}
-              noValueText="Enter a key"
-              existValueText="Property key already exist"
-              onChange={this.handleKeyChange}
-              value={key}
-              validationFunction={this.validateKey}
-              validationText="Invalid key, space and special characters aren't allowed"
-              theme="bmrg-white"
-            />
-            <TextInput
-              alwaysShowTitle
-              title="Label"
-              placeholder="Label"
-              name="label"
-              type="text"
-              noValueText="Enter a label"
-              onChange={this.handleLabelChange}
-              detail={label}
-              theme="bmrg-white"
-            />
-            <TextInput
-              alwaysShowTitle
-              title="Description"
-              placeholder="Description"
-              name="description"
-              type="text"
-              noValueText="Enter a description"
-              onChange={this.handleDescriptionChange}
-              detail={description}
-              theme="bmrg-white"
-            />
-            <div className="b-inputs-modal-toggle">
-              <div className="b-inputs-modal-toggle__title">Required</div>
-              <Toggle
-                id="input-required-toggle"
-                onChange={this.handleRequiredChange}
-                defaultChecked={required}
+        <fieldset disabled={loading}>
+          <Body className="c-inputs-modal-body">
+            <div className="c-inputs-modal-body-left">
+              <TextInput
+                alwaysShowTitle
+                title="Key"
+                placeholder="key.value"
+                name="key"
+                type="text"
+                comparisonData={inputsKeys || []}
+                noValueText="Enter a key"
+                existValueText="Property key already exist"
+                onChange={this.handleKeyChange}
+                value={key}
+                validationFunction={this.validateKey}
+                validationText="Invalid key, space and special characters aren't allowed"
                 theme="bmrg-white"
-                red
+                required
               />
-            </div>
-          </div>
-          <div className="c-inputs-modal-body-right">
-            <div className="b-inputs-modal-type">
-              <SelectDropdown
-                titleClass="b-inputs-modal-type__title"
-                onChange={this.handleTypeChange}
-                options={[
-                  { label: "Boolean", value: "boolean" },
-                  { label: "Number", value: "number" },
-                  { label: "Password", value: "password" },
-                  { label: "Select", value: "select" },
-                  { label: "Text", value: "text" },
-                  { label: "Text Area", value: "textarea" }
-                ]}
-                value={type}
+              <TextInput
+                alwaysShowTitle
+                title="Label"
+                placeholder="Label"
+                name="label"
+                type="text"
+                noValueText="Enter a label"
+                onChange={this.handleLabelChange}
+                value={label}
                 theme="bmrg-white"
-                title="Type"
-                styles={{ width: "100%" }}
+                required
               />
+              <TextInput
+                alwaysShowTitle
+                title="Description"
+                placeholder="Description"
+                name="description"
+                type="text"
+                onChange={this.handleDescriptionChange}
+                value={description}
+                theme="bmrg-white"
+                required={false}
+              />
+              <div className="b-inputs-modal-toggle">
+                <div className="b-inputs-modal-toggle__title">Required</div>
+                <Toggle
+                  id="input-required-toggle"
+                  onChange={this.handleRequiredChange}
+                  defaultChecked={required}
+                  theme="bmrg-white"
+                  red
+                />
+              </div>
             </div>
-            {this.renderDefaultValue()}
-          </div>
-        </Body>
-        <Footer style={{ paddingTop: "1rem" }}>
-          <ConfirmButton
-            disabled={!(key && description && label) || (!!keyError || !!descriptionError || !!labelError)}
-            text={isEdit ? "SAVE" : "CREATE"}
-            theme="bmrg-white"
-            type="submit"
-          />
-        </Footer>
+            <div className="c-inputs-modal-body-right">
+              <div className="b-inputs-modal-type">
+                <SelectDropdown
+                  titleClass="b-inputs-modal-type__title"
+                  onChange={this.handleTypeChange}
+                  options={[
+                    { label: "Boolean", value: "boolean" },
+                    { label: "Number", value: "number" },
+                    { label: "Password", value: "password" },
+                    { label: "Select", value: "select" },
+                    { label: "Text", value: "text" },
+                    { label: "Text Area", value: "textarea" }
+                  ]}
+                  value={type}
+                  theme="bmrg-white"
+                  title="Type"
+                  styles={{ width: "100%" }}
+                />
+              </div>
+              {this.renderDefaultValue()}
+            </div>
+          </Body>
+          <Footer style={{ paddingTop: "1rem" }}>
+            <ConfirmButton
+              disabled={!(key && label && type) || (!!keyError || !!labelError)}
+              text={isEdit ? "SAVE" : "CREATE"}
+              theme="bmrg-white"
+              type="submit"
+            />
+          </Footer>
+        </fieldset>
       </form>
     );
   }

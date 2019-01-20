@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as taskActions } from "State/tasks";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
@@ -19,7 +18,6 @@ export class SwitchNode extends Component {
     nodeConfig: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
-    taskActions: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired
   };
 
@@ -53,7 +51,7 @@ export class SwitchNode extends Component {
           <ModalFlow
             headerTitle={task.name}
             closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-black" }}
+            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
             theme="bmrg-white"
             {...rest}
           >
@@ -73,7 +71,7 @@ export class SwitchNode extends Component {
   render() {
     return (
       <div className="b-switchNode">
-        <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
+        <Tooltip place="left" id={this.props.node.id}>
           {this.props.task ? this.props.task.description : "Task description"}
         </Tooltip>
         <div className="b-switchNode__tile" data-tip data-for={this.props.node.id}>
@@ -100,7 +98,6 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  taskActions: bindActionCreators(taskActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 
