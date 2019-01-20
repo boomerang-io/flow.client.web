@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 //import axios from "axios";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import { LazyLog, ScrollFollow } from "react-lazylog/es5";
+import { LazyLog, ScrollFollow } from "react-lazylog";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 //import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 // import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
@@ -25,10 +25,10 @@ class TaskExecutionLog extends React.Component {
 
   componentDidMount() {
     //this.fetchLog();
-    this.fetchCountInterval = setInterval(
-      () => this.setState(prevState => ({ fetchCount: prevState.fetchCount + 1 })),
-      3000
-    ); //to trick it into fetching multiple times by passing a different url
+    // this.fetchCountInterval = setInterval(
+    //   () => this.setState(prevState => ({ fetchCount: prevState.fetchCount + 1 })),
+    //   10000
+    // ); //to trick it into fetching multiple times by passing a different url
   }
 
   //TODO: update code below to check if task has completed and clear interval
