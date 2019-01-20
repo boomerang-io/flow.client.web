@@ -27,4 +27,11 @@ export default class CustomTaskPortModel extends PortModel {
     //return new DefaultLinkModel();
     return new CustomLinkModel();
   }
+
+  link(port) {
+    let link = this.createLinkModel();
+    link.setSourcePort(this);
+    link.setTargetPort(port);
+    return link;
+  }
 }

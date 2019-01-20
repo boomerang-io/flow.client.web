@@ -5944,7 +5944,7 @@
       {
         "activityId": "5c36289096052900012cc81d",
         "duration": 300190,
-        "flowTaskStatus": "notstarted",
+        "flowTaskStatus": "completed",
         "id": "5c36289096052900012cc81e",
         "order": 1,
         "startTime": 1547053504488,
