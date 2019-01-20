@@ -67,6 +67,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Create endpoint for the app to handle user authentication and serve application
 const appRouter = express.Router();
 
+// For testing logs locally. Add "log.txt file to public or build dir for it to be available for prod and dev builds respectively"
+
+// const apiRouter = express.Router();
+
+// apiRouter.use("/log", function(req, res) {
+//   res.sendFile(path.join(__dirname, BUILD_FOLDER, "log.txt"), {
+//     index: false
+//   });
+// });
+
+// app.use(`${APP_ROOT}/api`, apiRouter);
+
 appRouter.use("/failure", function(req, res, next) {
   res.send(
     "Something went wrong. Please try again. If the problem persists, please reach out to the Boomerang engineering team."

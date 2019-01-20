@@ -1,7 +1,12 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
-.bmrg--c-modal-flow-content {
-  height: auto;
+.c-modal-task-log {
+  max-width: 70rem;
+  max-height: 50rem;
+
+  .bmrg--c-modal-flow-content {
+    margin-bottom: 2rem;
+  }
 }
 
 .s-task-log-trigger {
@@ -11,10 +16,10 @@
 
 .c-task-log-viewer {
   height: 30rem;
-  pointer-events: none;
 }
 
 .react-lazylog {
+  padding: 1rem 1rem 1rem 0rem;
   a {
     width: 1.25rem;
     min-width: 1.25rem;
