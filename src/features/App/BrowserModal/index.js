@@ -25,6 +25,7 @@ class BrowserModal extends Component {
             headerSubtitle="Sorry, we are working on it"
             closeModal={closeModal}
             theme="bmrg-white"
+            fullscreen={true}
           >
             <BrowserModalContent closeModal={closeModal} />
           </ModalFlow>
