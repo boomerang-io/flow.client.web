@@ -4,6 +4,7 @@ import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Styles from "react-lazylog"; //TODO: remove need for this. imported to get the styles but not used. es5 doesn't import styles for whatever reason
 import { LazyLog, ScrollFollow } from "react-lazylog/es5";
+import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
 
 class TaskExecutionLog extends React.Component {
@@ -14,11 +15,11 @@ class TaskExecutionLog extends React.Component {
     // flowTaskStatus: PropTypes.string.isRequired
   };
 
-  state = {
-    log: "",
-    error: undefined,
-    fetchCount: 0
-  };
+  // state = {
+  //   log: "",
+  //   error: undefined,
+  //   fetchCount: 0
+  // };
 
   // componentDidMount() {
   //   //this.fetchLog();
@@ -52,7 +53,7 @@ class TaskExecutionLog extends React.Component {
   }*/
 
   render() {
-    //const { flowActivityId, flowTaskId } = this.props;
+    const { flowActivityId, flowTaskId } = this.props;
     return (
       <Modal
         className="bmrg--c-modal c-modal-task-log"
@@ -69,12 +70,12 @@ class TaskExecutionLog extends React.Component {
               startFollowing={true}
               render={({ follow, onScroll }) => (
                 <LazyLog
-                  url={`http://localhost:3000/api/log`}
+                  url={`${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`}
                   follow={follow}
                   onScroll={onScroll}
-                  // fetchOptions={{
-                  //   credentials: "include"
-                  // }}
+                  fetchOptions={{
+                    credentials: "include"
+                  }}
                   onError={err => console.log(err)}
                 />
               )}
