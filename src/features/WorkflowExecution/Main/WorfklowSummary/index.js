@@ -11,7 +11,7 @@ const WorkflowSummary = ({ workflowData, version, duration, status }) => {
       <div className="c-workflow-summary-details">
         <div className="b-workflow-summary-field">
           <div className="b-workflow-summary-field__key">Description</div>
-          <div className="b-workflow-summary-field__value">{workflowData.shortDescription || ""}</div>
+          <div className="b-workflow-summary-field__value">{workflowData.shortDescription || "---"}</div>
         </div>
         <div className="b-workflow-summary-field">
           <div className="b-workflow-summary-field__key">Version</div>
