@@ -40,6 +40,8 @@ class VersionCommentForm extends Component {
   };
 
   render() {
+    const { loading } = this.props;
+
     return (
       <>
         <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "28rem", padding: "2rem" }}>
@@ -55,7 +57,7 @@ class VersionCommentForm extends Component {
           <ModalConfirmButton
             theme="bmrg-white"
             text="Create"
-            disabled={!this.state.comment || Object.keys(this.state.errors).length}
+            disabled={!this.state.comment || Object.keys(this.state.errors).length || loading}
             onClick={this.handleOnSave}
           />
         </ModalContentFooter>
