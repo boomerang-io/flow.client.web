@@ -71,7 +71,7 @@ export class SwitchNode extends Component {
   render() {
     return (
       <div className="b-switchNode">
-        <Tooltip className="custom-node-toolTip" place="left" id={this.props.node.id}>
+        <Tooltip place="left" id={this.props.node.id}>
           {this.props.task ? this.props.task.description : "Task description"}
         </Tooltip>
         <div className="b-switchNode__tile" data-tip data-for={this.props.node.id}>
