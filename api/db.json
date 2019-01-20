@@ -5935,7 +5935,7 @@
     "creationDate": 1547053200027,
     "duration": 904934,
     "id": "5c36289096052900012cc81d",
-    "status": "invalid",
+    "status": "completed",
     "workflowId": "5c3048ba53c9250001a17eb0",
     "workflowRevisionid": "5c33ecca53c9250001a2dfe8",
     "trigger": "cron",
@@ -5944,7 +5944,7 @@
       {
         "activityId": "5c36289096052900012cc81d",
         "duration": 300190,
-        "flowTaskStatus": "skipped",
+        "flowTaskStatus": "notstarted",
         "id": "5c36289096052900012cc81e",
         "order": 1,
         "startTime": 1547053504488,
@@ -5954,7 +5954,7 @@
       {
         "activityId": "5c36289096052900012cc81d",
         "duration": 300178,
-        "flowTaskStatus": "skipped",
+        "flowTaskStatus": "notstarted",
         "id": "5c36289096052900012cc81f",
         "order": 2,
         "startTime": 1547053804683,
@@ -5964,7 +5964,7 @@
       {
         "activityId": "5c36289096052900012cc81c",
         "duration": 3000,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "notstarted",
         "id": "5c36289096052900012cc8fc",
         "order": 3,
         "startTime": 1547054104861,
@@ -5974,7 +5974,7 @@
       {
         "activityId": "5c36289096052900012cc81c",
         "duration": 3000,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "notstarted",
         "id": "5c36289096052900012cc8fa",
         "order": 3,
         "startTime": 1547054104861,
@@ -5984,7 +5984,7 @@
       {
         "activityId": "5c36289096052900012cc81c",
         "duration": 3000,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "notstarted",
         "id": "5c36289096052900012cc8fh",
         "order": 3,
         "startTime": 15470541047861,
@@ -5994,7 +5994,7 @@
       {
         "activityId": "5c36289096052900012cc81c",
         "duration": 20000,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "notstarted",
         "id": "5c36289096052900012cc8fg",
         "order": 3,
         "startTime": 15470541050861,
@@ -6004,7 +6004,7 @@
       {
         "activityId": "5c36289096052900012cc81c",
         "duration": 20000,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "notstarted",
         "id": "5c36289096052900012cc8fe",
         "order": 3,
         "startTime": 15470541070861,

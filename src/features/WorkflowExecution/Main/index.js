@@ -29,9 +29,14 @@ class Main extends Component {
 
   render() {
     const { workflowExecutionData, taskId, updateActiveNode, location } = this.props;
+    const hasFinished = [EXECUTION_STATUSES.COMPLETED, EXECUTION_STATUSES.INVALID, EXECUTION_STATUSES.FAILURE].includes(
+      workflowExecutionData.status
+    );
+
     const hasStarted =
       workflowExecutionData.steps &&
       workflowExecutionData.steps.find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
+
     const selectedTask =
       workflowExecutionData.steps && workflowExecutionData.steps.length && taskId
         ? workflowExecutionData.steps.find(step => step.taskId === taskId)
@@ -48,7 +53,7 @@ class Main extends Component {
         <TimeProgressBar updateActiveNode={updateActiveNode} workflowExecution={workflowExecutionData} />
         {
           <div className="c-workflow-diagram-execution">
-            {hasStarted ? (
+            {hasStarted || hasFinished ? (
               <DiagramWidget
                 className="c-diagram-canvas"
                 diagramEngine={this.diagramApp.getDiagramEngine()}
