@@ -83,7 +83,9 @@ export class TaskNode extends Component {
         <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
-        <img src={TASK_KEYS_TO_ICON[this.props.task.category]} className="b-task-node__img" alt="Task node type" />
+        {TASK_KEYS_TO_ICON[this.props.task.category] && (
+          <img src={TASK_KEYS_TO_ICON[this.props.task.category]} className="b-task-node__img" alt="Task node type" />
+        )}
         {this.renderConfigureNode()}
       </div>
     );

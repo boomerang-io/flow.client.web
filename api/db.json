@@ -46,7 +46,7 @@
       "key": "ingest",
       "name": "Ingest CSV",
       "type": "ValuesList",
-      "category": "utilities"
+      "category": "file utilities"
     },
     {
       "id": "5b92f794844d0700016ea217",
