@@ -30,13 +30,7 @@ export class SwitchNode extends Component {
 
   handleOnSave = inputs => {
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
-    this.props.workflowRevisionActions.isModalOpen({ modalOpen: false });
     this.forceUpdate();
-  };
-
-  handleOnClose = closeModal => {
-    this.props.workflowRevisionActions.isModalOpen({ modalOpen: false });
-    closeModal();
   };
 
   // Delete the node in state and then remove it from the diagram
@@ -57,7 +51,7 @@ export class SwitchNode extends Component {
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={task.name}
-            closeModal={() => this.handleOnClose(closeModal)}
+            closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
             theme="bmrg-white"
             {...rest}
