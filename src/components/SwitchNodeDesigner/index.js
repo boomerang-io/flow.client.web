@@ -18,7 +18,8 @@ export class SwitchNode extends Component {
     nodeConfig: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired,
+    modalOpen: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
@@ -29,7 +30,13 @@ export class SwitchNode extends Component {
 
   handleOnSave = inputs => {
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
+    this.props.workflowRevisionActions.isModalOpen({ modalOpen: false });
     this.forceUpdate();
+  };
+
+  handleOnClose = closeModal => {
+    this.props.workflowRevisionActions.isModalOpen({ modalOpen: false });
+    closeModal();
   };
 
   // Delete the node in state and then remove it from the diagram
@@ -50,7 +57,7 @@ export class SwitchNode extends Component {
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={task.name}
-            closeModal={closeModal}
+            closeModal={() => this.handleOnClose(closeModal)}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
             theme="bmrg-white"
             {...rest}
@@ -61,6 +68,7 @@ export class SwitchNode extends Component {
               nodeConfig={nodeConfig}
               onSave={this.handleOnSave}
               task={task}
+              isModalOpen={this.props.workflowRevisionActions.isModalOpen}
             />
           </ModalFlow>
         )}
@@ -93,7 +101,8 @@ export class SwitchNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowRevision.config[ownProps.node.id]
+    nodeConfig: state.workflowRevision.config[ownProps.node.id],
+    modalOpen: state.workflowRevision.modalOpen
   };
 };
 

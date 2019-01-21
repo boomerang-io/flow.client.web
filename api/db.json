@@ -114,6 +114,24 @@
           "key": "message",
           "label": "Message",
           "type": "textarea"
+        },
+        {
+          "description": "The message inside the email2",
+          "key": "message2",
+          "label": "Message2",
+          "type": "textarea"
+        },
+        {
+          "description": "The main text to the message.",
+          "key": "message3",
+          "label": "Message3",
+          "type": "text"
+        },
+        {
+          "description": "The main text to the message.",
+          "key": "message4",
+          "label": "Message4",
+          "type": "text"
         }
       ],
       "description": "Send Email to Member with Subject and Message",
@@ -121,7 +139,13 @@
       "name": "Send Email",
       "type": "ValuesList",
       "category": "boomerang",
-      "arguments": ["sendMailToMember", "$(INPUTS_PROPS_TO)", "$(INPUTS_PROPS_SUBJECT)", "$(INPUTS_PROPS_MESSAGE)"]
+      "arguments": [
+        "sendMailToMember",
+        "$(INPUTS_PROPS_TO)",
+        "$(INPUTS_PROPS_SUBJECT)",
+        "$(INPUTS_PROPS_MESSAGE)",
+        "$(INPUTS_PROPS_MESSAGE)"
+      ]
     },
     {
       "id": "5bd9b4115a5df954ad5ad8db",
@@ -6208,7 +6232,7 @@
         "trigger": "webhook",
         "icon": "flow",
         "shortDescription": "file ingestion",
-        "workflowName": "Business Process Test"
+        "workflowName": "Business Process TesS"
       },
       {
         "creationDate": 1541070264765,

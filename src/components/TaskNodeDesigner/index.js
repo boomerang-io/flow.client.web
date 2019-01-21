@@ -19,7 +19,8 @@ export class TaskNode extends Component {
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired,
+    modalOpen: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
@@ -30,7 +31,13 @@ export class TaskNode extends Component {
 
   handleOnSave = inputs => {
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
+    this.props.workflowRevisionActions.isModalOpen({ modalOpen: false });
     this.forceUpdate();
+  };
+
+  handleOnClose = closeModal => {
+    this.props.workflowRevisionActions.isModalOpen({ modalOpen: false });
+    closeModal();
   };
 
   // Delete the node in state and then remove it from the diagram
@@ -51,7 +58,7 @@ export class TaskNode extends Component {
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={`Edit properties for ${task.name}`}
-            closeModal={closeModal}
+            closeModal={() => this.handleOnClose(closeModal)}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
             theme="bmrg-white"
             {...rest}
@@ -63,6 +70,7 @@ export class TaskNode extends Component {
               task={task}
               nodeConfig={nodeConfig}
               taskNames={this.props.taskNames}
+              isModalOpen={this.props.workflowRevisionActions.isModalOpen}
             />
           </ModalFlow>
         )}
@@ -98,7 +106,8 @@ const mapStateToProps = (state, ownProps) => {
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
       .map(node => node.taskName)
-      .filter(name => !!name)
+      .filter(name => !!name),
+    modalOpen: state.workflowRevision.modalOpen
   };
 };
 
