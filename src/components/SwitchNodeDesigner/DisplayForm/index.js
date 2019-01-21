@@ -19,6 +19,9 @@ class DisplayForm extends Component {
   componentDidMount() {
     this.props.isModalOpen({ modalOpen: true });
   }
+  componentWillUnmount() {
+    this.props.isModalOpen({ modalOpen: false });
+  }
 
   handleAppsDropdownChange = items => {
     this.setState(() => ({
