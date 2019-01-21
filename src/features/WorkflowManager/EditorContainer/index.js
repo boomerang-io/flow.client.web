@@ -61,7 +61,8 @@ class WorkflowEditorContainer extends Component {
 const mapStateToProps = state => ({
   changeLog: state.changeLog,
   workflow: state.workflow,
-  workflowRevision: state.workflowRevision
+  workflowRevision: state.workflowRevision,
+  modalOpen: state.workflowRevision.modalOpen
 });
 
 const mapDispatchToProps = dispatch => ({

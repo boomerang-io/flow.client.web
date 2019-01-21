@@ -14,11 +14,15 @@ class DisplayForm extends Component {
     onSave: PropTypes.func.isRequired,
     closeModal: PropTypes.func.isRequired,
     taskNames: PropTypes.array.isRequired,
-    shouldConfirmExit: PropTypes.func.isRequired
+    shouldConfirmExit: PropTypes.func.isRequired,
+    isModalOpen: PropTypes.func.isRequired
   };
 
   state = {};
 
+  componentDidMount() {
+    this.props.isModalOpen({ modalOpen: true });
+  }
   handleAppsDropdownChange = items => {
     this.setState(() => ({
       items
@@ -127,27 +131,36 @@ class DisplayForm extends Component {
     return (
       <form>
         <ModalContentBody
-          style={{ maxWidth: "35rem", margin: "auto", height: "30rem", display: "flex", flexDirection: "column" }}
+          style={{
+            maxWidth: "35rem",
+            margin: "auto",
+            height: "30rem",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden"
+          }}
         >
-          <TextInput
-            required
-            noValueText="Name is required"
-            comparisonData={this.props.taskNames}
-            existValueText="Task name must be unique per workflow"
-            externallyControlled
-            name="taskName"
-            placeholder="Enter a task name"
-            value={this.props.node.taskName}
-            title="Task Name"
-            onChange={this.updateNodeTaskName}
-            theme="bmrg-white"
-          />
-          <ValueList
-            task={task}
-            nodeConfig={nodeConfig}
-            onTextInputChange={this.handleTextInputChange}
-            onToggleChange={this.handleToggleChange}
-          />
+          <div style={{ overflow: "scroll" }}>
+            <TextInput
+              required
+              noValueText="Name is required"
+              comparisonData={this.props.taskNames}
+              existValueText="Task name must be unique per workflow"
+              externallyControlled
+              name="taskName"
+              placeholder="Enter a task name"
+              value={this.props.node.taskName}
+              title="Task Name"
+              onChange={this.updateNodeTaskName}
+              theme="bmrg-white"
+            />
+            <ValueList
+              task={task}
+              nodeConfig={nodeConfig}
+              onTextInputChange={this.handleTextInputChange}
+              onToggleChange={this.handleToggleChange}
+            />
+          </div>
         </ModalContentBody>
         <ModalContentFooter>
           <ModalConfirmButton
