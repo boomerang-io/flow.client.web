@@ -132,6 +132,14 @@ export class WorkflowActivity extends Component {
     return activities;
   };
 
+  applyTeamFilter = activities => {
+    const { selectedTeam } = this.state;
+    if (selectedTeam.value !== "none") {
+      let filteredActivities = activities.filter(activity => activity.teamName === selectedTeam.label);
+      return filteredActivities;
+    } else return activities;
+  };
+
   loadMoreActivities = nextPage => {
     this.setState({ isLoading: true }, () => {
       const { searchQuery, workflowId, activityList } = this.state;
@@ -222,7 +230,9 @@ export class WorkflowActivity extends Component {
               <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
             ) : (
               <ActivityList
-                activities={this.applyExecutionFilter(activityList.length > 0 ? activityList : activity.data.records)}
+                activities={this.applyTeamFilter(
+                  this.applyExecutionFilter(activityList.length > 0 ? activityList : activity.data.records)
+                )}
                 hasMoreActivities={hasMoreActivities === null ? !activity.data.last : hasMoreActivities}
                 fetchActivities={this.fetchActivities}
                 setMoreActivities={this.setMoreActivities}
