@@ -2,9 +2,17 @@
 
 .b-properties-table {
   color: $cerulean-50;
+  .ReactTable .rt-tbody,
+  .ReactTable .rt-tbody .rt-tr-group {
+    word-wrap: break-word;
+    white-space: normal;
+  }
 }
 .bmrg--b-table__cell {
   color: $cerulean-70 !important;
+  word-wrap: break-word;
+  white-space: normal;
+  height: auto;
 }
 .bmrg--c-table {
   margin-top: 1rem;

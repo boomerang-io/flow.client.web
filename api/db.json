@@ -5668,24 +5668,22 @@
         "startTime": 1547053504488,
         "taskId": "515c8b05-cbb0-470a-a58e-b8740b332a6a",
         "outputs": {
-          "this": "that",
-          "this2": {
-            "test1": 1,
-            "test2": 2
+          "args": { "test": "true" },
+          "data": "",
+          "files": {},
+          "form": {},
+          "headers": {
+            "Accept": "/",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "text/http",
+            "Host": "httpbin.org",
+            "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
           },
-          "array1": ["a1", "a2"],
-          "this3": "that",
-          "this4": {
-            "test1": 1,
-            "test2": 2
-          },
-          "array2": ["a1", "a2"],
-          "this5": "that",
-          "this6": {
-            "test1": 1,
-            "test2": 2
-          },
-          "array3": ["a1", "a2"]
+          "json": null,
+          "method": "GET",
+          "origin": "147.10.60.191",
+          "url": "https://httpbin.org/anything?test=true"
         },
         "taskName": "Send Slack Message"
       },

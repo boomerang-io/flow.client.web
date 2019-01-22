@@ -19,7 +19,8 @@ class PropertiesTable extends Component {
       {
         Header: "Value",
         id: "value",
-        accessor: "value"
+        accessor: "value",
+        Cell: row => <span style={{ width: "18rem", whiteSpace: "normal" }}>{row.value}</span>
       }
     ];
 
@@ -39,6 +40,7 @@ class PropertiesTable extends Component {
           noDataText="No data to display"
           theme="bmrg-white"
           className="b-properties-table"
+          style={{ whiteSpace: "unset" }}
         />
       </div>
     );
