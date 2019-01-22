@@ -53,7 +53,9 @@ class ActivityCard extends Component {
               </li>
               <li className="b-activity-card__row">
                 <label className="b-activity-card__label">Trigger</label>
-                <label className="b-activity-card__data">{trigger || "---"}</label>
+                <label className="b-activity-card__data">
+                  {trigger ? trigger.slice(0, 1).toUpperCase() + trigger.slice(1) : "---"}
+                </label>
               </li>
               <li className="b-activity-card__row">
                 <label className="b-activity-card__label">Initiated by</label>

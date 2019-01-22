@@ -178,37 +178,6 @@ body {
     max-width: 30rem;
   }
 
-  .bmrg-c-modal {
-    ::-webkit-scrollbar {
-      display: initial;
-      height: 15px;
-      width: 15px;
-    }
-
-    ::-webkit-scrollbar-button {
-      height: 0px;
-      width: 0px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background-clip: padding-box;
-      background-color: $gray-70;
-      opacity: 0.3;
-      border: 5px solid transparent;
-      border-radius: 10px;
-      min-height: 20px;
-      min-width: 20px;
-      height: 5px;
-      width: 5px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover,
-    ::-webkit-scrollbar-thumb:active {
-      background-color: $gray-70;
-      opacity: 0.4;
-    }
-  }
-
   //overide SelectDropdown styles
   .bmrg--c-select-dropdown.--bmrg-white {
     .Select-multi-value-wrapper .Select-value-label {
