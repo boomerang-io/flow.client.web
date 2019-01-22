@@ -5866,6 +5866,24 @@
         "order": 1,
         "startTime": 1547053504488,
         "taskId": "515c8b05-cbb0-470a-a58e-b8740b332a6a",
+        "outputs": {
+          "args": { "test": "true" },
+          "data": "",
+          "files": {},
+          "form": {},
+          "headers": {
+            "Accept": "/",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "text/http",
+            "Host": "httpbin.org",
+            "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
+          },
+          "json": null,
+          "method": "GET",
+          "origin": "147.10.60.191",
+          "url": "https://httpbin.org/anything?test=true"
+        },
         "taskName": "Send Slack Message"
       },
       {
@@ -5929,7 +5947,10 @@
         "taskName": "Send Slack Message"
       }
     ],
-    "teamName": "CAI Offering Team"
+    "teamName": "CAI Offering Team",
+    "output": {
+      "this": "that"
+    }
   },
   "workflowSummary": [
     {
