@@ -105,6 +105,7 @@ class WorkflowCard extends Component {
             <span data-tip data-for={workflow.id} className="b-workflow-card-launch">
               {workflow.properties && workflow.properties.length > 0 ? (
                 <Modal
+                  modalProps={{ shouldCloseOnOverlayClick: false }}
                   ModalTrigger={() => (
                     <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
                   )}
@@ -128,6 +129,7 @@ class WorkflowCard extends Component {
               ) : (
                 <AlertModal
                   className="bmrg--c-alert-modal --execute-workflow"
+                  modalProps={{ shouldCloseOnOverlayClick: false }}
                   ModalTrigger={() => (
                     <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
                   )}

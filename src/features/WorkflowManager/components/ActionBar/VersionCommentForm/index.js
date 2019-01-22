@@ -24,7 +24,10 @@ class VersionCommentForm extends Component {
         comment: value,
         errors: errors
       }),
-      () => this.props.handleOnChange(value)
+      () => {
+        this.props.shouldConfirmExit(true);
+        this.props.handleOnChange(value);
+      }
     );
   };
 

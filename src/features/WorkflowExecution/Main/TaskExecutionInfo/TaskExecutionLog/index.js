@@ -57,6 +57,7 @@ class TaskExecutionLog extends React.Component {
     const { flowActivityId, flowTaskId } = this.props;
     return (
       <Modal
+        modalProps={{ shouldCloseOnOverlayClick: false }}
         className="bmrg--c-modal c-modal-task-log"
         ModalTrigger={() => <div className="s-task-log-trigger">Log</div>}
         modalContent={(closeModal, rest) => (

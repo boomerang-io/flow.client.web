@@ -111,6 +111,7 @@ class ActionBar extends Component {
     if (includeResetVersionAlert) {
       return (
         <AlertModal
+          modalProps={{ shouldCloseOnOverlayClick: false }}
           ModalTrigger={() => (
             <Button disabled={loading} theme="bmrg-black">
               {performActionButtonText}
@@ -133,6 +134,7 @@ class ActionBar extends Component {
     if (includeCreateNewVersionComment) {
       return (
         <Modal
+          modalProps={{ shouldCloseOnOverlayClick: false }}
           ModalTrigger={() => <Button theme="bmrg-black">{performActionButtonText}</Button>}
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
@@ -140,6 +142,7 @@ class ActionBar extends Component {
               headerTitle="Create New Version"
               headerSubtitle="Enter a comment for record keeping"
               theme={"bmrg-white"}
+              confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
               {...rest}
             >
               <VersionCommentForm

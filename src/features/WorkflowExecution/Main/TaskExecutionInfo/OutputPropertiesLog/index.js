@@ -21,6 +21,7 @@ class OutputPropertiesLog extends React.Component {
     const { flowTaskName, flowTaskOutputs } = this.props;
     return (
       <Modal
+        modalProps={{ shouldCloseOnOverlayClick: false }}
         ModalTrigger={() => <div className="s-task-log-trigger">Output Properties</div>}
         modalContent={(closeModal, rest) => (
           <ModalFlow
