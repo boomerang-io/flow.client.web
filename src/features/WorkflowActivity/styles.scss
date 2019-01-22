@@ -4,21 +4,22 @@
   margin: 0 auto;
   max-width: 100rem;
 
+  .c-simple-select-filter {
+    margin-left: 1rem;
+  }
+
   .bx--select-input {
     width: 12rem;
   }
 
   .b-search-filter {
     width: auto;
-    margin-left: 2.2rem;
+    margin-left: 1rem;
   }
   .b-search-filter__search {
     display: none;
   }
 
-  .b-search-filter__filter {
-    width: 13rem;
-  }
   .bx--select {
     background-color: $teal-20;
     border-radius: 0.25rem;
