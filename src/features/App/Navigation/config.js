@@ -21,7 +21,7 @@ export const navItems = location => [
       state: { fromUrl: location.pathname, fromText: location.pathname.split("/")[1] }
     },
     exact: false,
-    text: "Creator"
+    text: "Designer"
   },
   {
     path: {
