@@ -139,13 +139,23 @@ class SwitchLink extends Component {
                 </div>
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x + 10}, ${this.halfwayPoint.y + 10})`}>
-              <text className="small">
-                {this.props.model.switchCondition === null ? "default" : this.props.model.switchCondition}
-              </text>
-            </g>
           </>
         )}
+        {!this.props.diagramEngine.diagramModel.locked && (
+          <g transform={`translate(${this.halfwayPoint.x + 10}, ${this.halfwayPoint.y + 10})`}>
+            <text className="small">
+              {this.props.model.switchCondition === null ? "default" : this.props.model.switchCondition}
+            </text>
+          </g>
+        )}
+        {this.props.diagramEngine.diagramModel.locked && (
+          <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y})`}>
+            <text className="small">
+              {this.props.model.switchCondition === null ? "default" : this.props.model.switchCondition}
+            </text>
+          </g>
+        )}
+
         <path
           ref={ref => {
             this.path = ref;

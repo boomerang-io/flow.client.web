@@ -60,8 +60,8 @@ class Main extends Component {
                 maxNumberPointsPerLink={0}
                 deleteKeys={[]}
                 allowLooseLinks={false}
-                allowCanvasTranslation={true}
-                allowCanvasZoo={false}
+                //allowCanvasTranslation={true}
+                allowCanvasZoom={false}
               />
             ) : (
               <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
