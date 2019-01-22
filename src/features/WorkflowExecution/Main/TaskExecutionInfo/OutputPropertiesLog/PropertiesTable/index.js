@@ -12,7 +12,7 @@ class PropertiesTable extends Component {
   render() {
     const columns = [
       {
-        Header: "Key",
+        Header: "Property",
         id: "key",
         accessor: "key"
       },
@@ -41,6 +41,12 @@ class PropertiesTable extends Component {
           theme="bmrg-white"
           className="b-properties-table"
           style={{ whiteSpace: "unset" }}
+          defaultSorting={[
+            {
+              id: "key",
+              desc: false
+            }
+          ]}
         />
       </div>
     );
