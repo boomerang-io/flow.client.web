@@ -60,7 +60,7 @@ class Main extends Component {
                 maxNumberPointsPerLink={0}
                 deleteKeys={[]}
                 allowLooseLinks={false}
-                //allowCanvasTranslation={true}
+                allowCanvasTranslation={true}
                 allowCanvasZoom={false}
               />
             ) : (
