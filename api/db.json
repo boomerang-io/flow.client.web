@@ -5667,6 +5667,26 @@
         "order": 1,
         "startTime": 1547053504488,
         "taskId": "515c8b05-cbb0-470a-a58e-b8740b332a6a",
+        "outputs": {
+          "this": "that",
+          "this2": {
+            "test1": 1,
+            "test2": 2
+          },
+          "array1": ["a1", "a2"],
+          "this3": "that",
+          "this4": {
+            "test1": 1,
+            "test2": 2
+          },
+          "array2": ["a1", "a2"],
+          "this5": "that",
+          "this6": {
+            "test1": 1,
+            "test2": 2
+          },
+          "array3": ["a1", "a2"]
+        },
         "taskName": "Send Slack Message"
       },
       {
@@ -5730,7 +5750,10 @@
         "taskName": "Send Slack Message"
       }
     ],
-    "teamName": "CAI Offering Team"
+    "teamName": "CAI Offering Team",
+    "output": {
+      "this": "that"
+    }
   },
   "workflowSummary": [
     {

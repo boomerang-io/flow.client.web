@@ -1,0 +1,33 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.b-properties-table {
+  color: $cerulean-50;
+}
+.bmrg--b-table__cell {
+  color: $cerulean-70 !important;
+}
+.bmrg--c-table {
+  margin-top: 1rem;
+}
+.bmrg--b-table__header {
+  ::before {
+    border-bottom: 0.4375rem solid $cerulean-50;
+  }
+  background-color: $white;
+  color: $cerulean-60;
+}
+.ReactTable .rt-thead .rt-th.-sort-asc,
+.ReactTable .rt-thead .rt-td.-sort-asc,
+.ReactTable .rt-thead .rt-th.-sort-desc,
+.ReactTable .rt-thead .rt-td.-sort-desc {
+  background-color: $cerulean-50;
+  color: $white;
+}
+.ReactTable .rt-thead .rt-th.-sort-desc:before,
+.ReactTable .rt-thead .rt-td.-sort-desc:before {
+  border-top-color: $cerulean-50 !important;
+}
+.ReactTable .rt-thead .rt-th.-sort-asc:before,
+.ReactTable .rt-thead .rt-td.-sort-asc:before {
+  border-bottom-color: $cerulean-50 !important;
+}
