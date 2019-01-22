@@ -22,6 +22,10 @@ class WorkflowCard extends Component {
     teamId: PropTypes.string.isRequired
   };
 
+  state = {
+    deleteModalIsOpen: false
+  };
+
   executeWorkflow = ({ redirect, properties }) => {
     this.props.executeWorkflow({ workflowId: this.props.workflow.id, redirect, properties });
   };
@@ -41,6 +45,7 @@ class WorkflowCard extends Component {
       },
       {
         itemText: "Delete",
+        onClick: () => this.setState({ deleteModalIsOpen: true }),
         primaryFocus: false,
         isDelete: true
       }
@@ -54,47 +59,40 @@ class WorkflowCard extends Component {
             <label className="b-workflow-card__status">{workflow.status}</label>
           </div> */}
           <OverflowMenu className="b-workflow-card__menu" ariaLabel="card menu" iconDescription="overflow menu icon ">
-            {menuOptions.map(option => {
-              return option.isDelete ? (
-                <AlertModal
-                  key={option.itemText}
-                  ModalTrigger={() => (
-                    <OverflowMenuItem
-                      className="b-workflow-card__option"
-                      requireTitle={false}
-                      onClick={option.onClick}
-                      itemText={option.itemText}
-                      primaryFocus={option.primaryFocus}
-                      key={option.itemText}
-                    />
-                  )}
-                  modalContent={(closeModal, rest) => (
-                    <ConfirmModal
-                      closeModal={closeModal}
-                      affirmativeAction={() => {
-                        deleteWorkflow({ teamId, workflowId: workflow.id });
-                      }}
-                      title="DELETE THIS WORKFLOW?"
-                      subTitleTop="It will be gone. Forever."
-                      negativeText="NO"
-                      affirmativeText="DELETE"
-                      theme="bmrg-white"
-                    />
-                  )}
-                />
-              ) : (
-                <OverflowMenuItem
-                  className="b-workflow-card__option"
-                  requireTitle={false}
-                  onClick={option.onClick}
-                  itemText={option.itemText}
-                  primaryFocus={option.primaryFocus}
-                  key={option.itemText}
-                />
-              );
-            })}
+            {menuOptions.map(option => (
+              <OverflowMenuItem
+                className="b-workflow-card__option"
+                requireTitle={false}
+                closeMenu={() => {}}
+                onClick={option.onClick}
+                itemText={option.itemText}
+                primaryFocus={option.primaryFocus}
+                key={option.itemText}
+              />
+            ))}
           </OverflowMenu>
         </div>
+        {this.state.deleteModalIsOpen && (
+          <AlertModal
+            isOpen
+            modalProps={{ shouldCloseOnOverlayClick: false }}
+            handleCloseModal={() => this.setState({ deleteModalIsOpen: false })}
+            ModalTrigger={null}
+            modalContent={closeModal => (
+              <ConfirmModal
+                closeModal={closeModal}
+                affirmativeAction={() => {
+                  deleteWorkflow({ teamId, workflowId: workflow.id });
+                }}
+                title="DELETE THIS WORKFLOW?"
+                subTitleTop="It will be gone. Forever."
+                negativeText="NO"
+                affirmativeText="DELETE"
+                theme="bmrg-white"
+              />
+            )}
+          />
+        )}
         <div className="c-workflow-card__info">
           <div className="c-workflow-card__icon">
             <img className="b-workflow-card__icon" src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
