@@ -20,12 +20,9 @@
 
 .react-lazylog {
   ::-webkit-scrollbar {
+    display: initial;
     height: 15px;
     width: 15px;
-
-    &:window-inactive {
-      opacity: 0;
-    }
   }
 
   ::-webkit-scrollbar-button {
