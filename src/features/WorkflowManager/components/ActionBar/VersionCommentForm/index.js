@@ -32,14 +32,16 @@ class VersionCommentForm extends Component {
   };
 
   handleOnSave = () => {
-    this.props
-      .onSave()
-      .then(() => {
-        this.props.closeModal();
-      })
-      .catch(() => {
-        this.setState({ saveError: true });
-      });
+    if (!this.props.loading) {
+      this.props
+        .onSave()
+        .then(() => {
+          this.props.closeModal();
+        })
+        .catch(() => {
+          this.setState({ saveError: true });
+        });
+    }
   };
 
   render() {

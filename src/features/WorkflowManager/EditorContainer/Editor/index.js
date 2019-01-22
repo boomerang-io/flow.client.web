@@ -74,7 +74,7 @@ class WorkflowEditor extends Component {
     } = this.props;
     const { revisionCount } = workflow.data;
     const { version } = workflowRevision;
-    const workflowLoading = workflow.isFetching || workflow.isUpdating || workflow.isCreating;
+    const workflowLoading = workflowRevision.isFetching || workflowRevision.isCreating;
 
     return (
       <>
@@ -107,7 +107,7 @@ class WorkflowEditor extends Component {
                   loading={workflowLoading}
                   {...props}
                 />
-                <Inputs updateInputs={this.props.updateInputs} />
+                <Inputs updateInputs={this.props.updateInputs} loading={workflow.isUpdating} />
               </>
             )}
           />

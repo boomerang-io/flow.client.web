@@ -20,7 +20,8 @@ class InputsModalContent extends Component {
     isEdit: PropTypes.bool,
     workflowActions: PropTypes.object.isRequired,
     closeModal: PropTypes.func.isRequired,
-    inputsNames: PropTypes.array
+    inputsNames: PropTypes.array,
+    loading: PropTypes.bool.isRequired
   };
 
   state = {
@@ -107,9 +108,6 @@ class InputsModalContent extends Component {
       if (!inputProperties.defaultValue) inputProperties.defaultValue = false;
     }
 
-    // need to update state, then make request
-    // only close on success
-    this.setState({ loading: true });
     if (this.props.isEdit) {
       new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties)))
         .then(() =>
@@ -117,9 +115,6 @@ class InputsModalContent extends Component {
         )
         .then(() => {
           this.props.closeModal();
-        })
-        .finally(() => {
-          this.setState({ loading: false });
         });
     } else {
       new Promise(resolve => resolve(this.props.workflowActions.createWorkflowInput(inputProperties)))
@@ -128,9 +123,6 @@ class InputsModalContent extends Component {
         )
         .then(() => {
           this.props.closeModal();
-        })
-        .finally(() => {
-          this.setState({ loading: false });
         });
     }
   };
@@ -228,8 +220,8 @@ class InputsModalContent extends Component {
   };
 
   render() {
-    const { isEdit, inputsKeys } = this.props;
-    const { key, description, label, required, type, keyError, labelError, loading } = this.state;
+    const { isEdit, inputsKeys, loading } = this.props;
+    const { key, description, label, required, type, keyError, labelError } = this.state;
 
     return (
       <form onSubmit={this.handleConfirm}>
@@ -310,7 +302,7 @@ class InputsModalContent extends Component {
           </Body>
           <Footer style={{ paddingTop: "1rem" }}>
             <ConfirmButton
-              disabled={!(key && label && type) || (!!keyError || !!labelError)}
+              disabled={!(key && label && type) || (!!keyError || !!labelError) || loading}
               text={isEdit ? "SAVE" : "CREATE"}
               theme="bmrg-white"
               type="submit"

@@ -9,13 +9,14 @@ class InputsModal extends Component {
   static propTypes = {
     isEdit: PropTypes.bool.isRequired,
     Button: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
     inputsKeys: PropTypes.array,
     input: PropTypes.object,
     updateInputs: PropTypes.func.isRequired
   };
 
   render() {
-    const { isEdit, Button, input } = this.props;
+    const { isEdit, Button, input, loading } = this.props;
 
     return (
       <ModalWrapper
@@ -32,7 +33,7 @@ class InputsModal extends Component {
             theme="bmrg-white"
             {...rest}
           >
-            <InputsModalContent updateInputs={this.props.updateInputs} />
+            <InputsModalContent updateInputs={this.props.updateInputs} loading={loading} />
           </ModalFlow>
         )}
         {...this.props}

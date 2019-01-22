@@ -645,7 +645,7 @@
       ]
     },
     "changelog": {
-      "reason": "new version"
+      "reason": "l;klk"
     }
   },
   "workflowRevision": {
@@ -5867,7 +5867,9 @@
         "startTime": 1547053504488,
         "taskId": "515c8b05-cbb0-470a-a58e-b8740b332a6a",
         "outputs": {
-          "args": { "test": "true" },
+          "args": {
+            "test": "true"
+          },
           "data": "",
           "files": {},
           "form": {},
