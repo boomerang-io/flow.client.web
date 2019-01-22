@@ -142,7 +142,11 @@ class ActionBar extends Component {
               headerTitle="Create New Version"
               headerSubtitle="Enter a comment for record keeping"
               theme={"bmrg-white"}
-              confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
+              confirmModalProps={{
+                affirmativeAction: closeModal,
+                theme: "bmrg-white",
+                subTitleTop: "A new version will not be created"
+              }}
               {...rest}
             >
               <VersionCommentForm

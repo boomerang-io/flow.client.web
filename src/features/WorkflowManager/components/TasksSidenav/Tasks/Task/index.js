@@ -17,9 +17,9 @@ function Task({ name, model }) {
       className="b-task-template"
     >
       <div className="b-task-template__img">
-        {TASK_KEYS_TO_ICON[model.task_data.category] && (
+        {TASK_KEYS_TO_ICON[model.taskData.category] && (
           <img
-            src={TASK_KEYS_TO_ICON[model.task_data.category]}
+            src={TASK_KEYS_TO_ICON[model.taskData.category]}
             alt={`Task ${name}`}
             className="b-task-template__img-svg"
           />

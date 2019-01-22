@@ -183,7 +183,9 @@ export class WorkflowManagerContainer extends Component {
   }
 
   createNode = (diagramApp, event) => {
-    const { task_data: taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
+    const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
+
+    // For naming purposes
     const nodesOfSameTypeCount = Object.values(
       diagramApp
         .getDiagramEngine()
@@ -192,24 +194,36 @@ export class WorkflowManagerContainer extends Component {
     ).filter(node => node.taskId === taskData.id).length;
 
     //check for type and create switchNode if type===switch
+
     let node;
     let nodeType;
 
+    //TODO: probably should be a case staement or an object that maps the type to the model to support more types and set that to a variable and only have one call
     if (taskData.key === "switch") {
-      nodeType = "decision";
+      nodeType = "decision"; //TODO: should this have to be manually set or should it be a part of the taskData? a part of a mapping?
       node = new SwitchNodeModel({
         taskId: taskData.id,
         taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
       });
     } else {
-      nodeType = "custom";
-      node = node = new CustomTaskNodeModel({
+      nodeType = "custom"; //TODO: should this have to be manually set or should it be a part of the taskData? a part of a mapping?
+      node = new CustomTaskNodeModel({
         taskId: taskData.id,
         taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
       });
     }
     const { id, taskId } = node;
-    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs: {}, type: nodeType });
+
+    // Create inputs object with empty string values by default for service to process easily
+    const inputs =
+      taskData.config && taskData.config.length
+        ? taskData.config.reduce((accu, item) => {
+            accu[item.key] = "";
+            return accu;
+          }, {})
+        : {};
+
+    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: nodeType });
 
     const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
     node.x = points.x - 120;

@@ -336,7 +336,7 @@ export class Overview extends Component {
                 {workflow.data.triggers && workflow.data.triggers.scheduler.enable && (
                   <ModalWrapper
                     initialState={this.props.workflow.data}
-                    shouldCloseOnOverlayClick={false}
+                    modalProps={{ shouldCloseOnOverlayClick: false }}
                     theme="bmrg-white"
                     ModalTrigger={() => (
                       <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
@@ -347,7 +347,11 @@ export class Overview extends Component {
                       <ModalFlow
                         closeModal={closeModal}
                         headerTitle="Set Schedule"
-                        confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
+                        confirmModalProps={{
+                          affirmativeAction: closeModal,
+                          theme: "bmrg-white",
+                          subTitleTop: "Your changes will not be saved"
+                        }}
                         {...rest}
                       >
                         <CronJobModal

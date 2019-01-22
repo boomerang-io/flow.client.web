@@ -29,7 +29,11 @@ class InputsModal extends Component {
             headerTitle={isEdit && input ? input.label.toUpperCase() : "CREATE PROPERTY"}
             headerSubtitle={isEdit ? "Let's update it" : "Create new input property"}
             closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
+            confirmModalProps={{
+              affirmativeAction: closeModal,
+              theme: "bmrg-white",
+              subTitleTop: "Your input will not be saved"
+            }}
             theme="bmrg-white"
             {...rest}
           >

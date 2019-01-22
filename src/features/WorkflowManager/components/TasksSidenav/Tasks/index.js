@@ -21,7 +21,7 @@ export default class Tasks extends Component {
     const sortedTasks = sortByProp(this.props.tasks, "category");
     /*let trayItems = this.props.tasks.data.map(task => (
      <TrayItemWidget
-       model={{ type: task.id, name: task.name, task_data: task }}
+       model={{ type: task.id, name: task.name, taskData: task }}
        name={task.name}
        color="rgb(129,17,81)"
      />
@@ -50,7 +50,7 @@ export default class Tasks extends Component {
 
         {arr.map(task => (
           <Task
-            model={{ type: task.id, name: task.name, task_data: task }}
+            model={{ type: task.id, name: task.name, taskData: task }}
             name={task.name}
             color="rgb(129,17,81)"
             key={task.id}
