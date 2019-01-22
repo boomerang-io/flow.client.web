@@ -61,7 +61,7 @@ class Main extends Component {
                 deleteKeys={[]}
                 allowLooseLinks={false}
                 allowCanvasTranslation={true}
-                allowCanvasZoo={false}
+                allowCanvasZoom={false}
               />
             ) : (
               <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />

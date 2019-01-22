@@ -389,18 +389,139 @@
   "workflowSingle": {
     "dag": {
       "id": "4f3b1116-6f28-42ae-879a-c4bad90467aa",
-      "offsetX": 0,
-      "offsetY": 0,
+      "offsetX": 1,
+      "offsetY": -1,
       "zoom": 100,
       "gridSize": 0,
-      "links": [],
+      "links": [
+        {
+          "id": "be077e6d-5d0e-4c08-836d-728a8b2d9394",
+          "type": "custom",
+          "selected": false,
+          "source": "d02a023a-518b-42f3-8b0f-2ddc4c657e61",
+          "sourcePort": "a626188b-4d57-4c5e-afad-76af40aa7ae3",
+          "target": "ca5baeea-06e3-42d5-ba1b-c736c754c67c",
+          "targetPort": "143283b4-fe00-42e4-a8aa-eb01fc3c4e53",
+          "points": [
+            {
+              "id": "e86b4df8-b2c2-4dae-980b-6a23e7816dd7",
+              "selected": false,
+              "x": 218.078125,
+              "y": 353
+            },
+            {
+              "id": "0a9b54a3-03c1-42df-8730-ed5790eda0a0",
+              "selected": true,
+              "x": 349.109375,
+              "y": 338.109375
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "be077e6d-5d0e-4c08-836d-728a8b2d9394",
+          "executionCondition": "always"
+        },
+        {
+          "id": "35ca224e-d61d-435d-999f-c070e0a4ab26",
+          "type": "decision",
+          "selected": false,
+          "source": "ca5baeea-06e3-42d5-ba1b-c736c754c67c",
+          "sourcePort": "55eff4c2-f110-4b2d-881b-3ad80272ebbd",
+          "target": "3fb8d7d0-2d06-4123-97a1-8a9d9844b92a",
+          "targetPort": "6209cc13-45ec-45db-a159-52058653679c",
+          "points": [
+            {
+              "id": "d5d97e0a-ea5a-4942-b4c0-2c03b594ed0d",
+              "selected": false,
+              "x": 541.28125,
+              "y": 338.109375
+            },
+            {
+              "id": "ad4f6e5c-915b-4760-9a07-7f0f26cd19e7",
+              "selected": true,
+              "x": 646.109375,
+              "y": 185.109375
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "35ca224e-d61d-435d-999f-c070e0a4ab26",
+          "switchCondition": "sleep"
+        },
+        {
+          "id": "f6a17b74-8ce8-49c2-bf0b-711d22ca6d93",
+          "type": "decision",
+          "selected": false,
+          "source": "ca5baeea-06e3-42d5-ba1b-c736c754c67c",
+          "sourcePort": "55eff4c2-f110-4b2d-881b-3ad80272ebbd",
+          "target": "e99ac271-fd9d-42c5-be47-d84561eca949",
+          "targetPort": "47bbd457-ad1a-4764-a9e8-f264819383fe",
+          "points": [
+            {
+              "id": "ebeef54c-533e-41eb-beaa-227949e9b3ff",
+              "selected": false,
+              "x": 541.28125,
+              "y": 338.109375
+            },
+            {
+              "id": "a162d3bb-f952-49cf-831d-911d85b1c349",
+              "selected": true,
+              "x": 986.109375,
+              "y": 370
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "f6a17b74-8ce8-49c2-bf0b-711d22ca6d93",
+          "switchCondition": null
+        },
+        {
+          "id": "0c4a95e1-fa5f-4490-a74f-74659110e317",
+          "type": "custom",
+          "selected": false,
+          "source": "3fb8d7d0-2d06-4123-97a1-8a9d9844b92a",
+          "sourcePort": "eda28149-e066-47a7-84d7-87dd4f47e6fa",
+          "target": "e99ac271-fd9d-42c5-be47-d84561eca949",
+          "targetPort": "47bbd457-ad1a-4764-a9e8-f264819383fe",
+          "points": [
+            {
+              "id": "11d47708-a4d9-48e2-a9c6-43e2f48ef971",
+              "selected": false,
+              "x": 882.6875,
+              "y": 185.109375
+            },
+            {
+              "id": "7f4d93d8-f354-4227-a337-f53c1c028565",
+              "selected": true,
+              "x": 986.109375,
+              "y": 370
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "0c4a95e1-fa5f-4490-a74f-74659110e317",
+          "executionCondition": "always"
+        }
+      ],
       "nodes": [
         {
           "id": "d02a023a-518b-42f3-8b0f-2ddc4c657e61",
           "type": "startend",
           "selected": false,
-          "x": 300,
-          "y": 400,
+          "x": 85,
+          "y": 316,
           "extras": {},
           "ports": [
             {
@@ -409,7 +530,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "d02a023a-518b-42f3-8b0f-2ddc4c657e61",
-              "links": [],
+              "links": ["be077e6d-5d0e-4c08-836d-728a8b2d9394"],
               "position": "right",
               "nodePortId": "a626188b-4d57-4c5e-afad-76af40aa7ae3"
             }
@@ -421,8 +542,8 @@
           "id": "e99ac271-fd9d-42c5-be47-d84561eca949",
           "type": "startend",
           "selected": false,
-          "x": 1000,
-          "y": 400,
+          "x": 986,
+          "y": 333,
           "extras": {},
           "ports": [
             {
@@ -431,23 +552,101 @@
               "selected": false,
               "name": "left",
               "parentNode": "e99ac271-fd9d-42c5-be47-d84561eca949",
-              "links": [],
+              "links": ["f6a17b74-8ce8-49c2-bf0b-711d22ca6d93", "0c4a95e1-fa5f-4490-a74f-74659110e317"],
               "position": "left",
               "nodePortId": "47bbd457-ad1a-4764-a9e8-f264819383fe"
             }
           ],
           "passedName": "Finish",
           "nodeId": "e99ac271-fd9d-42c5-be47-d84561eca949"
+        },
+        {
+          "id": "ca5baeea-06e3-42d5-ba1b-c736c754c67c",
+          "type": "decision",
+          "selected": false,
+          "x": 349,
+          "y": 278.921875,
+          "extras": {},
+          "ports": [
+            {
+              "id": "143283b4-fe00-42e4-a8aa-eb01fc3c4e53",
+              "type": "decision",
+              "selected": false,
+              "name": "left",
+              "parentNode": "ca5baeea-06e3-42d5-ba1b-c736c754c67c",
+              "links": ["be077e6d-5d0e-4c08-836d-728a8b2d9394"],
+              "position": "left",
+              "nodePortId": "143283b4-fe00-42e4-a8aa-eb01fc3c4e53"
+            },
+            {
+              "id": "55eff4c2-f110-4b2d-881b-3ad80272ebbd",
+              "type": "decision",
+              "selected": false,
+              "name": "right",
+              "parentNode": "ca5baeea-06e3-42d5-ba1b-c736c754c67c",
+              "links": ["35ca224e-d61d-435d-999f-c070e0a4ab26", "f6a17b74-8ce8-49c2-bf0b-711d22ca6d93"],
+              "position": "right",
+              "nodePortId": "55eff4c2-f110-4b2d-881b-3ad80272ebbd"
+            }
+          ],
+          "taskId": "7be9d03a8a5df958ad58b3b8",
+          "nodeId": "ca5baeea-06e3-42d5-ba1b-c736c754c67c",
+          "taskName": "Switch 1"
+        },
+        {
+          "id": "3fb8d7d0-2d06-4123-97a1-8a9d9844b92a",
+          "type": "custom",
+          "selected": false,
+          "x": 646,
+          "y": 125.921875,
+          "extras": {},
+          "ports": [
+            {
+              "id": "6209cc13-45ec-45db-a159-52058653679c",
+              "type": "custom",
+              "selected": false,
+              "name": "left",
+              "parentNode": "3fb8d7d0-2d06-4123-97a1-8a9d9844b92a",
+              "links": ["35ca224e-d61d-435d-999f-c070e0a4ab26"],
+              "position": "left",
+              "nodePortId": "6209cc13-45ec-45db-a159-52058653679c"
+            },
+            {
+              "id": "eda28149-e066-47a7-84d7-87dd4f47e6fa",
+              "type": "custom",
+              "selected": false,
+              "name": "right",
+              "parentNode": "3fb8d7d0-2d06-4123-97a1-8a9d9844b92a",
+              "links": ["0c4a95e1-fa5f-4490-a74f-74659110e317"],
+              "position": "right",
+              "nodePortId": "eda28149-e066-47a7-84d7-87dd4f47e6fa"
+            }
+          ],
+          "taskId": "5bd97bea5a5df954ad592c06",
+          "nodeId": "3fb8d7d0-2d06-4123-97a1-8a9d9844b92a",
+          "taskName": "Sleep 1"
         }
       ]
     },
     "config": {
-      "nodes": []
+      "nodes": [
+        {
+          "nodeId": "ca5baeea-06e3-42d5-ba1b-c736c754c67c",
+          "taskId": "7be9d03a8a5df958ad58b3b8",
+          "inputs": {},
+          "type": "decision"
+        },
+        {
+          "nodeId": "3fb8d7d0-2d06-4123-97a1-8a9d9844b92a",
+          "taskId": "5bd97bea5a5df954ad592c06",
+          "inputs": {},
+          "type": "custom"
+        }
+      ]
     },
     "changelog": {
-      "reason": "Create workflow"
-    },
-    "workflowId": "25RwDNH"
+      "reason": "new version"
+    }
   },
   "workflowRevision": {
     "version": 3,
