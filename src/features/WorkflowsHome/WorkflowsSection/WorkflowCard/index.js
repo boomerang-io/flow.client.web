@@ -141,14 +141,14 @@ class WorkflowCard extends Component {
                       img={deployIcon}
                       closeModal={closeModal}
                       affirmativeAction={() => this.executeWorkflow({ redirect: false })}
-                      affirmativeText="Run"
+                      affirmativeText="RUN"
                       theme="bmrg-white"
                     >
                       <button
                         className="bmrg--b-confirm-modal__button --affirmative --children"
                         onClick={() => this.executeWorkflow({ redirect: true })}
                       >
-                        Run and View
+                        RUN & VIEW
                       </button>
                     </ConfirmModal>
                   )}

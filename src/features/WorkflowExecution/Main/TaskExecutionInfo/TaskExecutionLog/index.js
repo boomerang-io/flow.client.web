@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import Styles from "react-lazylog"; //TODO: remove need for this. imported to get the styles but not used. es5 doesn't import styles for whatever reason
+// eslint-disable-next-line
+import ReactLazyLog from "react-lazylog"; //TODO: remove need for this. imported to get the styles but not used. es5 doesn't import styles for whatever reason
 import { LazyLog, ScrollFollow } from "react-lazylog/es5";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
