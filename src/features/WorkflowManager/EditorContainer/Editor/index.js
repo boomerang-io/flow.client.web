@@ -147,6 +147,7 @@ class WorkflowEditor extends Component {
                     maxNumberPointsPerLink={0}
                     deleteKeys={[]}
                     allowCanvasZoom={!modalOpen}
+                    allowCanvasTranslation={!modalOpen}
                   />
                 </div>
               </>
