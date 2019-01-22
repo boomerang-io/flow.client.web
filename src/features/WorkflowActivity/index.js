@@ -52,9 +52,15 @@ export class WorkflowActivity extends Component {
     this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   }
+
+  componentWillUnmount() {
+    this.props.activityActions.reset();
+  }
+
   fetchActivities = url => {
     this.props.activityActions.fetch(url);
   };
+
   savePageSize = size => {
     this.setState({ tableSize: size });
   };

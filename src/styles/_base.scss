@@ -34,7 +34,13 @@ body {
 }
 
 #app {
-  //overwrite bmrg components
+  //overwrite carbon components
+  .bx--list-box__label {
+    color: $black;
+    font-weight: 400;
+  }
+
+  //overwrite boomerang components
 
   .bmrg--b-text-input__input.--bmrg-white {
     box-shadow: 0 0 0 62.5rem $white inset !important;
@@ -170,6 +176,37 @@ body {
     border: 0rem;
     opacity: 1;
     max-width: 30rem;
+  }
+
+  .bmrg-c-modal {
+    ::-webkit-scrollbar {
+      display: initial;
+      height: 15px;
+      width: 15px;
+    }
+
+    ::-webkit-scrollbar-button {
+      height: 0px;
+      width: 0px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-clip: padding-box;
+      background-color: $gray-70;
+      opacity: 0.3;
+      border: 5px solid transparent;
+      border-radius: 10px;
+      min-height: 20px;
+      min-width: 20px;
+      height: 5px;
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover,
+    ::-webkit-scrollbar-thumb:active {
+      background-color: $gray-70;
+      opacity: 0.4;
+    }
   }
 
   //overide SelectDropdown styles
