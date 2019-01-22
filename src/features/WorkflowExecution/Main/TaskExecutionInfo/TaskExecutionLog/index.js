@@ -79,6 +79,7 @@ class TaskExecutionLog extends React.Component {
                     credentials: "include"
                   }}
                   onError={err => console.log(err)}
+                  selectableLines={true}
                 />
               )}
             />
