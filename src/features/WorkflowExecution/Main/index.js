@@ -28,7 +28,7 @@ class Main extends Component {
   }
 
   render() {
-    const { workflowExecutionData, taskId, updateActiveNode, location } = this.props;
+    const { workflowData, workflowExecutionData, taskId, updateActiveNode, location, version } = this.props;
     const hasFinished = [EXECUTION_STATUSES.COMPLETED, EXECUTION_STATUSES.INVALID, EXECUTION_STATUSES.FAILURE].includes(
       workflowExecutionData.status
     );
@@ -70,9 +70,9 @@ class Main extends Component {
         }
         <aside style={{ gridArea: "sidebar" }}>
           <WorkflowSummary
-            workflowData={this.props.workflowData}
-            workflowExecutionData={this.props.workflowExecutionData}
-            version={this.props.version}
+            workflowData={workflowData}
+            workflowExecutionData={workflowExecutionData}
+            version={version}
           />
           {selectedTask && <TaskExecutionInfo task={selectedTask} flowActivityId={workflowExecutionData.id} />}
         </aside>
