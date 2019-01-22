@@ -23,7 +23,7 @@ class WorkflowCard extends Component {
   };
 
   state = {
-    deleteModalOpen: false
+    deleteModalIsOpen: false
   };
 
   executeWorkflow = ({ redirect, properties }) => {
@@ -45,7 +45,7 @@ class WorkflowCard extends Component {
       },
       {
         itemText: "Delete",
-        onClick: () => this.setState({ deleteModalOpen: true }),
+        onClick: () => this.setState({ deleteModalIsOpen: true }),
         primaryFocus: false,
         isDelete: true
       }
@@ -72,11 +72,11 @@ class WorkflowCard extends Component {
             ))}
           </OverflowMenu>
         </div>
-        {this.state.deleteModalOpen ? (
+        {this.state.deleteModalIsOpen && (
           <AlertModal
-            modalProps={{ shouldCloseOnOverlayClick: false }}
-            handleCloseModal={() => this.setState({ deleteModalOpen: false })}
             isOpen
+            modalProps={{ shouldCloseOnOverlayClick: false }}
+            handleCloseModal={() => this.setState({ deleteModalIsOpen: false })}
             ModalTrigger={null}
             modalContent={closeModal => (
               <ConfirmModal
@@ -92,7 +92,7 @@ class WorkflowCard extends Component {
               />
             )}
           />
-        ) : null}
+        )}
         <div className="c-workflow-card__info">
           <div className="c-workflow-card__icon">
             <img className="b-workflow-card__icon" src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
