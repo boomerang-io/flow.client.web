@@ -63,7 +63,7 @@ export class Overview extends Component {
           key: "token",
           value: response.data.token
         });
-        notify(<Notification type="success" title="Create Workflow" message="Successfully Generated Webhook Token" />);
+        notify(<Notification type="success" title="Generate Token" message="Successfully generated webhook token" />);
       })
       .catch(err => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to create webhook token" />);
@@ -298,7 +298,7 @@ export class Overview extends Component {
                       <ConfirmModal
                         closeModal={closeModal}
                         affirmativeAction={this.generateToken}
-                        title="Generate a New Webhook Token?"
+                        title="Generate a new Webhook Token?"
                         subTitleTop="The existing token will be invalidated"
                         cancelText="NO"
                         affirmativeText="YES"

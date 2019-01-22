@@ -61,7 +61,7 @@ class Main extends Component {
                 deleteKeys={[]}
                 allowLooseLinks={false}
                 allowCanvasTranslation={true}
-                allowCanvasZoom={false}
+                allowCanvasZoom={true}
               />
             ) : (
               <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
@@ -71,9 +71,8 @@ class Main extends Component {
         <aside style={{ gridArea: "sidebar" }}>
           <WorkflowSummary
             workflowData={this.props.workflowData}
+            workflowExecutionData={this.props.workflowExecutionData}
             version={this.props.version}
-            duration={workflowExecutionData.duration}
-            status={workflowExecutionData.status}
           />
           {selectedTask && <TaskExecutionInfo task={selectedTask} flowActivityId={workflowExecutionData.id} />}
         </aside>

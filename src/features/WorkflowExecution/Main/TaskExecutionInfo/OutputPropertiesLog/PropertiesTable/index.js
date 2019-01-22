@@ -37,6 +37,7 @@ class PropertiesTable extends Component {
           data={this.props.data}
           columns={columns}
           showPagination={false}
+          minRows={5}
           noDataText="No data to display"
           theme="bmrg-white"
           className="b-properties-table"

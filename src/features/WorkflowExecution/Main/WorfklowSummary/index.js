@@ -5,7 +5,7 @@ import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import "./styles.scss";
 
-const WorkflowSummary = ({ workflowData, version }) => {
+const WorkflowSummary = ({ workflowData, workflowExecutionData, version }) => {
   return (
     <div className="c-workflow-summary">
       <div className="s-workflow-summary-title">{workflowData.name || "Workflow"}</div>
@@ -21,24 +21,28 @@ const WorkflowSummary = ({ workflowData, version }) => {
         <div className="b-workflow-summary-field">
           <div className="b-workflow-summary-field__key">Status</div>
           <div className="b-workflow-summary-field__value">
-            {ACTIVITY_STATUSES_TO_TEXT[workflowData.status ? workflowData.status : "notstarted"]}
+            {ACTIVITY_STATUSES_TO_TEXT[workflowExecutionData.status ? workflowExecutionData.status : "notstarted"]}
             <img
               className="b-activity-card__status-icon"
-              src={ACTIVITY_STATUSES_TO_ICON[workflowData.status ? workflowData.status : "notstarted"]}
-              alt={`Status ${workflowData.status}`}
+              src={
+                ACTIVITY_STATUSES_TO_ICON[workflowExecutionData.status ? workflowExecutionData.status : "notstarted"]
+              }
+              alt={`Status ${workflowExecutionData.status}`}
             />
           </div>
         </div>
         <div className="b-workflow-summary-field">
           <div className="b-workflow-summary-field__key">Start Time</div>
           <div className="b-workflow-summary-field__value">
-            {moment(workflowData.creationDate).format("MMMM Do YYYY, h:mm:ss a")}
+            {moment(workflowExecutionData.creationDate).format("MMMM Do YYYY, h:mm:ss a")}
           </div>
         </div>
         <div className="b-workflow-summary-field">
           <div className="b-workflow-summary-field__key">Duration</div>
           <div className="b-workflow-summary-field__value">
-            {workflowData.duration ? getHumanizedDuration(parseInt(workflowData.duration / 1000, 10)) : "---"}
+            {workflowExecutionData.duration
+              ? getHumanizedDuration(parseInt(workflowExecutionData.duration / 1000, 10))
+              : "---"}
           </div>
         </div>
       </div>
@@ -47,8 +51,9 @@ const WorkflowSummary = ({ workflowData, version }) => {
 };
 
 WorkflowSummary.propTypes = {
-  workflowData: PropTypes.object,
-  version: PropTypes.number
+  workflowData: PropTypes.object.isRequired,
+  workflowExecutionData: PropTypes.object.isRequired,
+  version: PropTypes.number.isRequired
 };
 
 export default WorkflowSummary;
