@@ -11,5 +11,16 @@
 }
 
 .b-switch-customvalue {
-  min-height: 5rem;
+  min-height: 13rem;
+}
+
+.b-switch-customvalue-desc {
+  font-size: 0.875rem;
+  letter-spacing: 0.0625rem;
+}
+
+.b-switch-customvalue-wildcard {
+  padding-top: 0.5rem;
+  //font-size: 0.875rem;
+  //letter-spacing: 0.0625rem;
 }

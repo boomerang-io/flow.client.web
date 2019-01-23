@@ -14,7 +14,7 @@ class SwitchLink extends Component {
     this.state = {
       switchCondition: props.model.switchCondition,
       modalIsOpen: false,
-      defaultState: props.model.switchCondition === null ? true : false
+      defaultState: props.model.switchCondition === null || undefined ? true : false
     };
 
     this.halfwayPoint = "";
@@ -89,6 +89,12 @@ class SwitchLink extends Component {
       this.halfwayPoint = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
       this.endPoint = this.path.getPointAtLength(this.path.getTotalLength());
     }
+
+    let seperatedLinkState;
+    if (this.props.model.switchCondition) {
+      seperatedLinkState = this.props.model.switchCondition.replace(/\n/g, ",");
+      console.log(seperatedLinkState);
+    }
     return (
       <>
         {this.path && !this.props.diagramEngine.diagramModel.locked && (
@@ -143,16 +149,12 @@ class SwitchLink extends Component {
         )}
         {!this.props.diagramEngine.diagramModel.locked && (
           <g transform={`translate(${this.halfwayPoint.x + 10}, ${this.halfwayPoint.y + 10})`}>
-            <text className="small">
-              {this.props.model.switchCondition === null ? "default" : this.props.model.switchCondition}
-            </text>
+            <text className="small">{this.props.model.switchCondition === null ? "default" : seperatedLinkState}</text>
           </g>
         )}
         {this.props.diagramEngine.diagramModel.locked && (
           <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y})`}>
-            <text className="small">
-              {this.props.model.switchCondition === null ? "default" : this.props.model.switchCondition}
-            </text>
+            <text className="small">{this.props.model.switchCondition === null ? "default" : seperatedLinkState}</text>
           </g>
         )}
 
