@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
-import { actions as appActions } from "State/application";
+import { actions as appActions } from "State/app";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
@@ -21,7 +21,7 @@ export class TaskNode extends Component {
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired,
-    modalOpen: PropTypes.bool.isRequired
+    isModalOpen: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
@@ -66,7 +66,7 @@ export class TaskNode extends Component {
               task={task}
               nodeConfig={nodeConfig}
               taskNames={this.props.taskNames}
-              isModalOpen={this.props.appActions.isModalOpen}
+              setIsModalOpen={this.props.appActions.setIsModalOpen}
             />
           </ModalFlow>
         )}
@@ -103,7 +103,7 @@ const mapStateToProps = (state, ownProps) => {
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
       .map(node => node.taskName)
       .filter(name => !!name),
-    modalOpen: state.application.modalOpen
+    isModalOpen: state.app.isModalOpen
   };
 };
 

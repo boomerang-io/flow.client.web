@@ -307,7 +307,7 @@ const mapStateToProps = state => ({
   teams: state.teams,
   workflow: state.workflow,
   workflowRevision: state.workflowRevision,
-  activeTeamId: state.application.activeTeamId
+  activeTeamId: state.app.activeTeamId
 });
 
 const mapDispatchToProps = dispatch => ({

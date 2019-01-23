@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
-import { actions as appActions } from "State/application";
+import { actions as appActions } from "State/app";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
@@ -20,7 +20,7 @@ export class SwitchNode extends Component {
     node: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired,
-    modalOpen: PropTypes.bool.isRequired
+    isModalOpen: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
@@ -63,7 +63,7 @@ export class SwitchNode extends Component {
               nodeConfig={nodeConfig}
               onSave={this.handleOnSave}
               task={task}
-              isModalOpen={this.props.appActions.isModalOpen}
+              setIsModalOpen={this.props.appActions.setIsModalOpen}
             />
           </ModalFlow>
         )}
@@ -97,7 +97,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    modalOpen: state.application.modalOpen
+    isModalOpen: state.app.isModalOpen
   };
 };
 

@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { connectRouter } from "connected-react-router";
 import activity from "./activity";
-import application from "./application";
+import app from "./app";
 import changeLog from "./changeLog";
 import contactJoe from "./contactJoe";
 import insights from "./insights";
@@ -20,7 +20,7 @@ const rootReducer = history =>
   combineReducers({
     router: connectRouter(history),
     activity,
-    application,
+    app,
     changeLog,
     contactJoe,
     insights,

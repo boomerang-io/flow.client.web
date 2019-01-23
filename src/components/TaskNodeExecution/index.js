@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as appActions } from "State/application";
+import { actions as appActions } from "State/app";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";

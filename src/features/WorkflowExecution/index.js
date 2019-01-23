@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowExecutionActions } from "State/workflowExecution";
-import { actions as appActions } from "State/application";
+import { actions as appActions } from "State/app";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import ErrorDragon from "Components/ErrorDragon";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -19,7 +19,7 @@ export class WorkflowExecutionContainer extends Component {
   static propTypes = {
     workflowExecution: PropTypes.object.isRequired,
     workflowExecutionActions: PropTypes.object.isRequired,
-    application: PropTypes.object.isRequired,
+    app: PropTypes.object.isRequired,
     appActions: PropTypes.object,
     workflowRevision: PropTypes.object,
     workflowRevisionActions: PropTypes.object,
@@ -71,7 +71,7 @@ export class WorkflowExecutionContainer extends Component {
   };
 
   render() {
-    const { nodeId } = this.props.application.activeNode;
+    const { nodeId } = this.props.app.activeNode;
     const { data: workflowExecutionData, status: workflowExecutionStatus } = this.props.workflowExecution;
     const { fetchingStatus: workflowRevisionStatus } = this.props.workflowRevision;
     const { status: tasksStatus } = this.props.tasks;
@@ -117,7 +117,7 @@ export class WorkflowExecutionContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  application: state.application,
+  app: state.app,
   tasks: state.tasks,
   workflow: state.workflow,
   workflowExecution: state.workflowExecution,

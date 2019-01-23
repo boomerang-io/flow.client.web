@@ -6,7 +6,7 @@ export const types = {
   SET_ACTIVE_TEAM_ID: "SET_ACTIVE_TEAM_ID",
   UPDATE_ACTIVE_NODE: "UPDATE_ACTIVE_NODE",
   RESET_ACTIVE_NODE: "RESET_ACTIVE_NODE",
-  MODAL_OPEN: "MODAL_OPEN"
+  SET_IS_MODAL_OPEN: "SET_IS_MODAL_OPEN"
 };
 Object.freeze(types);
 
@@ -14,7 +14,7 @@ Object.freeze(types);
 export const initialState = {
   activeTeamId: "",
   activeNode: {},
-  modalOpen: false
+  isModalOpen: false
 };
 
 const actionHandlers = {
@@ -30,8 +30,8 @@ const actionHandlers = {
   [types.RESET_ACTIVE_NODE]: (state, action) => {
     return { ...state, activeNode: { ...state.activeNode, workflowId: "", nodeId: "" } };
   },
-  [types.MODAL_OPEN]: (state, action) => {
-    return { ...state, modalOpen: action.data.modalOpen };
+  [types.SET_IS_MODAL_OPEN]: (state, action) => {
+    return { ...state, isModalOpen: action.data.isModalOpen };
   }
 };
 
@@ -43,11 +43,11 @@ export default createReducer(initialState, actionHandlers);
 export const setActiveTeam = data => ({ type: types.SET_ACTIVE_TEAM_ID, data });
 export const updateActiveNode = data => ({ type: types.UPDATE_ACTIVE_NODE, data });
 export const resetActiveNode = data => ({ type: types.RESET_ACTIVE_NODE, data });
-export const isModalOpen = data => ({ type: types.MODAL_OPEN, data });
+export const setIsModalOpen = data => ({ type: types.SET_IS_MODAL_OPEN, data });
 
 export const actions = {
   setActiveTeam,
   updateActiveNode,
   resetActiveNode,
-  isModalOpen
+  setIsModalOpen
 };

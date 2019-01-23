@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
-import { actions as appActions } from "State/application";
+import { actions as appActions } from "State/app";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import CopyToClipboard from "react-copy-to-clipboard";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
@@ -420,7 +420,7 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     teams: state.teams.data,
-    activeTeamId: state.application.activeTeamId
+    activeTeamId: state.app.activeTeamId
   };
 };
 const mapDispatchToProps = dispatch => ({

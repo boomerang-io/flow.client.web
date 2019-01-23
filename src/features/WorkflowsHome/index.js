@@ -4,7 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
-import { actions as appActions } from "State/application";
+import { actions as appActions } from "State/app";
 import sortBy from "lodash/sortBy";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
