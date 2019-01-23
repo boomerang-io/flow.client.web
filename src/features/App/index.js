@@ -7,7 +7,7 @@ import { actions as userActions } from "State/user";
 import { actions as navbarLinksActions } from "State/navbarLinks";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
-import OnBoardExpContainer from "Features/onBoard/components/OnBoardExpContainer";
+import OnBoardExpContainer from "Features/OnBoard";
 import NotificationBanner from "Components/NotificationBanner";
 import BrowserModal from "./BrowserModal";
 import Navigation from "./Navigation";
