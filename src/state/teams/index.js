@@ -8,8 +8,7 @@ export const types = {
   FETCH_TEAMS_REQUEST: "FETCH_TEAMS_REQUEST",
   FETCH_TEAMS_SUCCESS: "FETCH_TEAMS_SUCCESS",
   FETCH_TEAMS_FAILURE: "FETCH_TEAMS_FAILURE",
-  UPDATE_WORKFLOWS: "UPDATE_WORKFLOWS",
-  SET_ACTIVE_TEAM_ID: "SET_ACTIVE_TEAM_ID"
+  UPDATE_WORKFLOWS: "UPDATE_WORKFLOWS"
 };
 Object.freeze(types);
 
@@ -18,8 +17,7 @@ export const initialState = {
   isFetching: false,
   status: "",
   error: "",
-  data: [],
-  activeTeam: ""
+  data: []
 };
 
 //action handlers
@@ -42,9 +40,6 @@ const actionHandlers = {
     const updatedWorkflows = teamToUpdate.workflows.filter(workflow => workflow.id !== action.data.workflowId);
     const updatedTeam = { ...teamToUpdate, workflows: updatedWorkflows };
     return { ...state, data: [...unchangedTeam, updatedTeam] };
-  },
-  [types.SET_ACTIVE_TEAM_ID]: (state, action) => {
-    return { ...state, activeTeamId: action.data.teamId };
   }
 };
 
@@ -58,7 +53,6 @@ const fetchSuccess = data => ({ type: types.FETCH_TEAMS_SUCCESS, data });
 const fetchFailure = error => ({ type: types.FETCH_TEAMS_FAILURE, error });
 const reset = () => ({ type: types.FETCH_TEAMS_RESET });
 const updateWorkflows = data => ({ type: types.UPDATE_WORKFLOWS, data });
-const setActiveTeam = data => ({ type: types.SET_ACTIVE_TEAM_ID, data });
 
 const fetchActionCreators = {
   reset: reset,
@@ -83,6 +77,5 @@ export const actions = {
   fetchSuccess,
   cancel,
   updateWorkflows,
-  setActiveTeam,
   reset
 };

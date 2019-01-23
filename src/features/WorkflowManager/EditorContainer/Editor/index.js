@@ -20,7 +20,7 @@ class WorkflowEditor extends Component {
     setIsValidOveriew: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,
-    modalOpen: PropTypes.bool.isRequired
+    isModalOpen: PropTypes.bool.isRequired
   };
 
   constructor(props) {
@@ -66,7 +66,7 @@ class WorkflowEditor extends Component {
       handleChangeLogReasonChange,
       isValidOverview,
       match,
-      modalOpen,
+      isModalOpen,
       overviewData,
       setIsValidOveriew,
       workflow,
@@ -146,8 +146,8 @@ class WorkflowEditor extends Component {
                     diagramEngine={this.diagramApp.getDiagramEngine()}
                     maxNumberPointsPerLink={0}
                     deleteKeys={[]}
-                    allowCanvasZoom={!modalOpen}
-                    allowCanvasTranslation={!modalOpen}
+                    allowCanvasZoom={!isModalOpen}
+                    allowCanvasTranslation={!isModalOpen}
                   />
                 </div>
               </>
