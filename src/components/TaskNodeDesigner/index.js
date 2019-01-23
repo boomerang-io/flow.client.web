@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
+import { actions as appActions } from "State/application";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
@@ -65,7 +66,7 @@ export class TaskNode extends Component {
               task={task}
               nodeConfig={nodeConfig}
               taskNames={this.props.taskNames}
-              isModalOpen={this.props.workflowRevisionActions.isModalOpen}
+              isModalOpen={this.props.appActions.isModalOpen}
             />
           </ModalFlow>
         )}
@@ -102,11 +103,12 @@ const mapStateToProps = (state, ownProps) => {
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
       .map(node => node.taskName)
       .filter(name => !!name),
-    modalOpen: state.workflowRevision.modalOpen
+    modalOpen: state.application.modalOpen
   };
 };
 
 const mapDispatchToProps = dispatch => ({
+  appActions: bindActionCreators(appActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 

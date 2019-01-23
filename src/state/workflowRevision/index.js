@@ -14,8 +14,7 @@ export const types = {
   CREATE_NODE: "CREATE_NODE",
   UPDATE_NODE_CONFIG: "UPDATE_NODE_CONFIG",
   UPDATE_NODE_DAG: "UPDATE_NODE_DAG",
-  DELETE_NODE: "DELETE_NODE",
-  MODAL_OPEN: "MODAL_OPEN"
+  DELETE_NODE: "DELETE_NODE"
 };
 Object.freeze(types);
 
@@ -30,8 +29,7 @@ export const initialState = {
   version: "",
   config: {},
   hasUnsavedWorkflowRevisionUpdates: false,
-  taskNames: [],
-  modalOpen: false
+  taskNames: []
 };
 
 //action handlers
@@ -100,9 +98,6 @@ const actionHandlers = {
     const nodes = { ...state.nodes };
     delete nodes[action.data.nodeId];
     return { ...state, hasUnsavedWorkflowRevisionUpdates: true, nodes };
-  },
-  [types.MODAL_OPEN]: (state, action) => {
-    return { ...state, modalOpen: action.data.modalOpen };
   }
 };
 
@@ -122,7 +117,6 @@ const addNode = data => ({ type: types.CREATE_NODE, data });
 const updateNodeConfig = data => ({ type: types.UPDATE_NODE_CONFIG, data });
 const updateNodeDag = data => ({ type: types.UPDATE_NODE_DAG, data });
 const deleteNode = data => ({ type: types.DELETE_NODE, data });
-const isModalOpen = data => ({ type: types.MODAL_OPEN, data });
 
 const fetchActionCreators = {
   reset: reset,
@@ -166,7 +160,6 @@ export const actions = {
   updateNodeConfig,
   updateNodeDag,
   deleteNode,
-  isModalOpen,
   reset
 };
 
