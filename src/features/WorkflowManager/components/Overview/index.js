@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
-import { actions as teamsActions } from "State/teams";
+import { actions as appActions } from "State/application";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import CopyToClipboard from "react-copy-to-clipboard";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
@@ -77,7 +77,7 @@ export class Overview extends Component {
 
   handleTeamChange = selectedTeam => {
     this.setState({ selectedTeam }, () => {
-      this.props.teamsActions.setActiveTeam({ teamId: selectedTeam.value });
+      this.props.appActions.setActiveTeam({ teamId: selectedTeam.value });
       this.props.workflowActions.updateProperty({
         key: "flowTeamId",
         value: selectedTeam.value
@@ -420,11 +420,11 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     teams: state.teams.data,
-    activeTeamId: state.teams.activeTeamId
+    activeTeamId: state.application.activeTeamId
   };
 };
 const mapDispatchToProps = dispatch => ({
-  teamsActions: bindActionCreators(teamsActions, dispatch),
+  appActions: bindActionCreators(appActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch)
 });
 

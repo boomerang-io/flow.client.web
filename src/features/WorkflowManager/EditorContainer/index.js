@@ -62,7 +62,7 @@ const mapStateToProps = state => ({
   changeLog: state.changeLog,
   workflow: state.workflow,
   workflowRevision: state.workflowRevision,
-  modalOpen: state.workflowRevision.modalOpen
+  modalOpen: state.application.modalOpen
 });
 
 const mapDispatchToProps = dispatch => ({
