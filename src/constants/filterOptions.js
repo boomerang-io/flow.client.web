@@ -25,3 +25,10 @@ export const executionOptions = [
   { label: "manual", value: "manual" },
   { label: "webhook", value: "webhook" }
 ];
+export const statusOptions = [
+  { label: "Succeeded", value: "completed" },
+  { label: "Failed", value: "failure" },
+  { label: "Invalid", value: "invalid" },
+  { label: "In Progress", value: "inProgress" },
+  { label: "Not Started", value: "notstarted" }
+];
