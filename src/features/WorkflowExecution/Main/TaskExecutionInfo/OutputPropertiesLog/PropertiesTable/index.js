@@ -24,7 +24,7 @@ class PropertiesTable extends Component {
       }
     ];
 
-    if (!this.props.data.length) {
+    if (!this.props.data || !this.props.data.length) {
       return (
         <div className="c-properties-table">
           <NoDisplay text="No properties to display" />
@@ -37,7 +37,7 @@ class PropertiesTable extends Component {
           data={this.props.data}
           columns={columns}
           showPagination={false}
-          minRows={5}
+          minRows={this.props.data.length}
           noDataText="No data to display"
           theme="bmrg-white"
           className="b-properties-table"
