@@ -16,10 +16,10 @@ import {
   creatorGuideConfig,
   activityGuideConfig,
   executionGuideConfig
-} from "../constants";
+} from "./constants";
 import OnBoardGuideContainer from "./OnBoardGuideContainer";
 import OnBoardMessage from "./OnBoardMessage";
-import "../styles/onBoardExpContainer.scss";
+import "./styles.scss";
 
 class OnBoardExpContainer extends Component {
   static propTypes = {
