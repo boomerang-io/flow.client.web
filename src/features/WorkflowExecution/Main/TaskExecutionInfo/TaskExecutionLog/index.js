@@ -13,45 +13,7 @@ class TaskExecutionLog extends React.Component {
     flowActivityId: PropTypes.string.isRequired,
     flowTaskId: PropTypes.string.isRequired,
     flowTaskName: PropTypes.string.isRequired
-    // flowTaskStatus: PropTypes.string.isRequired
   };
-
-  // state = {
-  //   log: "",
-  //   error: undefined,
-  //   fetchCount: 0
-  // };
-
-  // componentDidMount() {
-  //   //this.fetchLog();
-  //   // this.fetchCountInterval = setInterval(
-  //   //   () => this.setState(prevState => ({ fetchCount: prevState.fetchCount + 1 })),
-  //   //   10000
-  //   // ); //to trick it into fetching multiple times by passing a different url
-  // }
-
-  //TODO: update code below to check if task has completed and clear interval
-  // componentDidUpdate() {
-  //   // if (this.props.flowTaskStatus === EXECUTION_STATUSES.COMPLETED) {
-  //   //   clearInterval(this.interval);
-  //   // }
-  // }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.fetchCountInterval);
-  // }
-
-  /*fetchLog() {
-    const { flowActivityId, flowTaskId } = this.props;
-    axios
-      .get(`${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}?count=${this.state.fetchCount}`)
-      .then(response => {
-        this.setState({
-          log: response.data.log
-        });
-      })
-      .catch(err => this.setState({ error: err }));
-  }*/
 
   render() {
     const { flowActivityId, flowTaskId } = this.props;
