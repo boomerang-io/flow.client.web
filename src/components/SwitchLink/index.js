@@ -14,7 +14,7 @@ class SwitchLink extends Component {
     this.state = {
       switchCondition: props.model.switchCondition,
       modalIsOpen: false,
-      defaultState: props.model.switchCondition === null ? true : false
+      defaultState: props.model.switchCondition === null || undefined ? true : false
     };
 
     this.halfwayPoint = "";

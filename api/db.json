@@ -453,6 +453,36 @@
           "curvyness": 50,
           "linkId": "8e1328ad-7d50-4841-9447-31ebaccd6f3b",
           "switchCondition": null
+        },
+        {
+          "id": "e702239b-f47f-4e2a-bca7-6cda545b2c1f",
+          "type": "decision",
+          "selected": false,
+          "source": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
+          "sourcePort": "7deb4038-a535-42cd-abb7-2c651d5b18a2",
+          "target": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
+          "targetPort": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095",
+          "points": [
+            {
+              "id": "3dc7fad8-455f-4048-9735-ea7f3b1b6ed0",
+              "selected": false,
+              "x": 647.281258787598,
+              "y": 118.10939241246251
+            },
+            {
+              "id": "f8eaff55-a099-49d9-874b-b1d43e3ab600",
+              "selected": true,
+              "x": 1058.109393877062,
+              "y": 150.9999982913004
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "e702239b-f47f-4e2a-bca7-6cda545b2c1f",
+          "switchCondition": "finish\nend"
         }
       ],
       "nodes": [
@@ -492,7 +522,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
-              "links": ["bacb9be5-a49f-41f4-8c5b-5f5fb0881aad"],
+              "links": ["bacb9be5-a49f-41f4-8c5b-5f5fb0881aad", "e702239b-f47f-4e2a-bca7-6cda545b2c1f"],
               "position": "left",
               "nodePortId": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095"
             }
@@ -524,7 +554,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-              "links": ["8e1328ad-7d50-4841-9447-31ebaccd6f3b"],
+              "links": ["8e1328ad-7d50-4841-9447-31ebaccd6f3b", "e702239b-f47f-4e2a-bca7-6cda545b2c1f"],
               "position": "right",
               "nodePortId": "7deb4038-a535-42cd-abb7-2c651d5b18a2"
             }
@@ -595,7 +625,7 @@
       ]
     },
     "changelog": {
-      "reason": "fdsa"
+      "reason": "fds"
     }
   },
   "workflowRevision": {
