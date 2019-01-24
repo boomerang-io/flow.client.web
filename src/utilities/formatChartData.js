@@ -5,6 +5,8 @@ export const parseChartsData = data => {
   let dateName = [];
   let failure = [];
   let success = [];
+  let inprogress = [];
+  let invalid = [];
   let finalData = [];
   let scatterData = [];
   let sumDuration = 0;
@@ -17,7 +19,9 @@ export const parseChartsData = data => {
     });
     sumDuration += item.duration;
     if (item.status === "completed") success.push(item);
-    if (item.status === "failed" || item.status === "inprogress" || item.status === undefined) failure.push(item);
+    if (item.status === "failure") failure.push(item);
+    if (item.status === "inProgress") inprogress.push(item);
+    if (item.status === "invalid" || item.status === undefined) invalid.push(item);
     if (dateName.find(date => moment(date).format("DD-MM-YY") === moment(item.creationDate).format("DD-MM-YY"))) {
       return null;
     } else {
@@ -31,10 +35,18 @@ export const parseChartsData = data => {
     let succeeded = success.filter(
       item => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY")
     ).length;
+    let inProgress = inprogress.filter(
+      item => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY")
+    ).length;
+    let invalidStatus = invalid.filter(
+      item => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY")
+    ).length;
     return finalData.push({
       date: parseInt(moment(date).format("x"), 10),
       failed: fail,
       success: succeeded,
+      inProgress,
+      invalid: invalidStatus,
       total: fail + succeeded
     });
   });

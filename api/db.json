@@ -6816,1772 +6816,3914 @@
     }
   ],
   "workflowInsights": {
-    "totalActivitiesExecuted": 196,
-    "medianExecutionTime": 48058,
+    "totalActivitiesExecuted": 434,
+    "medianExecutionTime": 42378,
     "executions": [
       {
-        "activityId": "5c018a95e0713800018030ba",
-        "duration": 15662,
-        "status": "completed",
-        "creationDate": 1543604885356,
+        "activityId": "5c499ab01e22c4000107b898",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548327600006,
         "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5c017dcae071380001802eed",
-        "duration": 13262,
-        "status": "completed",
-        "creationDate": 1543601610223,
+        "activityId": "5c4954601e22c4000107b897",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548309600006,
         "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5c00ab56cb223f00010cb730",
-        "duration": 15710,
-        "status": "completed",
-        "creationDate": 1543547734302,
+        "activityId": "5c491c201e22c4000107b83a",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548295200006,
         "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5c006973cb223f00010cb5f9",
-        "duration": 13646,
-        "status": "completed",
-        "creationDate": 1543530867867,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus",
-        "workflowId": "5bec2f67bc73ed0001292953"
-      },
-      {
-        "activityId": "5c001beccb223f00010cb227",
-        "duration": 11834,
-        "status": "completed",
-        "creationDate": 1543511020193,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
-      },
-      {
-        "activityId": "5c001a88cb223f00010cb21b",
-        "duration": 0,
+        "activityId": "5c4900001e22c4000107b838",
+        "duration": null,
         "status": null,
-        "creationDate": 1543510664195,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "creationDate": 1548288000007,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
       },
       {
-        "activityId": "5c001a84cb223f00010cb211",
-        "duration": 0,
+        "activityId": "5c4900001e22c4000107b839",
+        "duration": null,
         "status": null,
-        "creationDate": 1543510660288,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "creationDate": 1548288000007,
+        "teamName": "Flow team 2",
+        "workflowName": "More workflows",
+        "workflowId": "5c4519789b90f5000126967a"
       },
       {
-        "activityId": "5bed8335b336a5000103aa2b",
-        "duration": 20825,
+        "activityId": "5c48d5d01e22c4000107a5e1",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548277200009,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c48cf0e1e22c40001077be8",
+        "duration": 9729,
         "status": "completed",
-        "creationDate": 1542292277199,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Adrienne3",
-        "workflowId": "5bed82f6b336a5000103aa1d"
+        "creationDate": 1548275470888,
+        "teamName": "Flow team 2",
+        "workflowName": "Automation T-Shirt Example Workflow",
+        "workflowId": "5c48cb331e22c40001077b54"
       },
       {
-        "activityId": "5bed8285b336a5000103aa15",
-        "duration": 18421,
+        "activityId": "5c48ce2b1e22c40001077b91",
+        "duration": 18767,
         "status": "completed",
-        "creationDate": 1542292101204,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Adrienne Workflow2",
-        "workflowId": "5bed7fc8b336a5000103aa00"
+        "creationDate": 1548275243062,
+        "teamName": "Flow team 2",
+        "workflowName": "Automation T-Shirt Example Workflow",
+        "workflowId": "5c48cb331e22c40001077b54"
       },
       {
-        "activityId": "5bec9780b336a5000103a982",
-        "duration": 34060,
+        "activityId": "5c48b9b01e22c40001075755",
+        "duration": 19446,
         "status": "completed",
-        "creationDate": 1542231936451,
+        "creationDate": 1548270000075,
         "teamName": "CAI Offering Team",
-        "workflowName": "Tysons Test 1",
-        "workflowId": "5be63abc6d116c0001e69990"
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
       },
       {
-        "activityId": "5bec945349f048000153a140",
-        "duration": 22593,
+        "activityId": "5c48b5e51e22c40001074285",
+        "duration": 21565,
         "status": "completed",
-        "creationDate": 1542231123926,
+        "creationDate": 1548269029172,
         "teamName": "CAI Offering Team",
-        "workflowName": "Tysons Test 1",
-        "workflowId": "5be63abc6d116c0001e69990"
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
       },
       {
-        "activityId": "5bec73dfe3b45bd4461912c6",
-        "duration": 0,
+        "activityId": "5c48b58a1e22c40001074214",
+        "duration": 50448,
+        "status": "completed",
+        "creationDate": 1548268938476,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c48b2d01e22c4000107410c",
+        "duration": 24176,
+        "status": "completed",
+        "creationDate": 1548268240472,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c48b26a1e22c400010740b5",
+        "duration": 30584,
+        "status": "completed",
+        "creationDate": 1548268138990,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c48a0788037f4139de6bf99",
+        "duration": 9262,
+        "status": "completed",
+        "creationDate": 1548263545417,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c48a0458037f4139de6bf80",
+        "duration": 15176,
+        "status": "completed",
+        "creationDate": 1548263494301,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c489f2e8037f4139de6bf65",
+        "duration": 10145,
+        "status": "completed",
+        "creationDate": 1548263214969,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c489d288037f4139de6bf4a",
+        "duration": 12058,
+        "status": "completed",
+        "creationDate": 1548262696741,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c489c3d8037f4139de6bf2f",
+        "duration": 15533,
+        "status": "completed",
+        "creationDate": 1548262462182,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c489bc48037f4139de6bf13",
+        "duration": 15288,
+        "status": "completed",
+        "creationDate": 1548262341550,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c489b9c8037f4135098af74",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548262300926,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c489b688037f4135098af58",
+        "duration": 16810,
+        "status": "completed",
+        "creationDate": 1548262249267,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c489b528037f4135098af3e",
+        "duration": null,
         "status": null,
-        "creationDate": 1542222815875,
+        "creationDate": 1548262226542,
         "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
       },
       {
-        "activityId": "5bec72a5e3b45bd4461912bb",
-        "duration": 0,
+        "activityId": "5c489adb8037f4135098af20",
+        "duration": 14082,
+        "status": "completed",
+        "creationDate": 1548262108392,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c4899e78037f4135098af05",
+        "duration": 12460,
+        "status": "completed",
+        "creationDate": 1548261864384,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c4899578037f4135098aeec",
+        "duration": 11651,
+        "status": "completed",
+        "creationDate": 1548261720371,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c48990e8037f4135098aed1",
+        "duration": 11049,
+        "status": "completed",
+        "creationDate": 1548261646912,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c4898528037f4135098aeb6",
+        "duration": 14087,
+        "status": "completed",
+        "creationDate": 1548261459217,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c4897458037f4135098ae9b",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548261189805,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c4896ae8037f4135098ae81",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548261039479,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c4896758037f4135098ae67",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548260982398,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c4895570a65560001794850",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548260695550,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Complex Switch Example",
+        "workflowId": "5c4892740a65560001794838"
+      },
+      {
+        "activityId": "5c488f800a65560001794829",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548259200034,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c48493018b56600018d2e1e",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548241200008,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c4802e018b56600018d2e1d",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548223200004,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c47caa018b56600018d2e1c",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548208800010,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c47af2d18b56600018d2e07",
+        "duration": null,
         "status": null,
-        "creationDate": 1542222500797,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "creationDate": 1548201773202,
+        "teamName": "Flow team 2",
+        "workflowName": "More workflows",
+        "workflowId": "5c4519789b90f5000126967a"
       },
       {
-        "activityId": "5bec724ee3b45bd4461912ae",
-        "duration": 0,
+        "activityId": "5c47ae8160ec2cfbb87e6b53",
+        "duration": null,
         "status": null,
-        "creationDate": 1542222413977,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "creationDate": 1548201601692,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
       },
       {
-        "activityId": "5bec6f91c8f6de00016e3c67",
-        "duration": 0,
+        "activityId": "5c47ae8160ec2cfbb87e6b52",
+        "duration": null,
         "status": null,
-        "creationDate": 1542221713335,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "creationDate": 1548201601547,
+        "teamName": "Flow team 2",
+        "workflowName": "More workflows",
+        "workflowId": "5c4519789b90f5000126967a"
       },
       {
-        "activityId": "5bec6f75c8f6de00016e3c65",
-        "duration": 0,
+        "activityId": "5c47ae8018b56600018d2df8",
+        "duration": null,
         "status": null,
-        "creationDate": 1542221685983,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "creationDate": 1548201600043,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
       },
       {
-        "activityId": "5bec5442bc73ed0001292e82",
-        "duration": 13833,
-        "status": "completed",
-        "creationDate": 1542214722151,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Adrienne's Workflow",
-        "workflowId": "5bdb25733a2c5c0001ab24ad"
-      },
-      {
-        "activityId": "5bec5100bc73ed0001292df4",
-        "duration": 8284,
-        "status": "completed",
-        "creationDate": 1542213888201,
-        "teamName": "CAI Offering Team",
-        "workflowName": "isa-test",
-        "workflowId": "5bec0c68bc73ed0001292583"
-      },
-      {
-        "activityId": "5bec4e14bc73ed0001292d91",
-        "duration": 529855,
-        "status": "completed",
-        "creationDate": 1542213140931,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bec4e11bc73ed0001292d8e",
-        "duration": 343109,
-        "status": "completed",
-        "creationDate": 1542213137292,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bec4d80bc73ed0001292d4e",
-        "duration": 484008,
-        "status": "completed",
-        "creationDate": 1542212992125,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bec3cb0bc73ed0001292d1b",
-        "duration": 0,
+        "activityId": "5c47ae8018b56600018d2df9",
+        "duration": null,
         "status": null,
-        "creationDate": 1542208688942,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "creationDate": 1548201600043,
+        "teamName": "Flow team 2",
+        "workflowName": "More workflows",
+        "workflowId": "5c4519789b90f5000126967a"
       },
       {
-        "activityId": "5bec3cacbc73ed0001292d17",
-        "duration": 26698,
-        "status": "completed",
-        "creationDate": 1542208684893,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus",
-        "workflowId": "5bec2f67bc73ed0001292953"
-      },
-      {
-        "activityId": "5bec3ae1bc73ed0001292cb0",
-        "duration": 9356,
-        "status": "completed",
-        "creationDate": 1542208225417,
-        "teamName": "CAI Offering Team",
-        "workflowName": "isa-test",
-        "workflowId": "5bec0c68bc73ed0001292583"
-      },
-      {
-        "activityId": "5bec2f92bc73ed000129296b",
-        "duration": 30567,
-        "status": "completed",
-        "creationDate": 1542205330912,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus",
-        "workflowId": "5bec2f67bc73ed0001292953"
-      },
-      {
-        "activityId": "5bec2f2dbc73ed000129293c",
-        "duration": 0,
+        "activityId": "5c47ae2c18b56600018d2d99",
+        "duration": null,
         "status": null,
-        "creationDate": 1542205229923,
-        "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "creationDate": 1548201516379,
+        "teamName": "Flow team 2",
+        "workflowName": "More workflows",
+        "workflowId": "5c4519789b90f5000126967a"
       },
       {
-        "activityId": "5bec2f14bc73ed0001292932",
-        "duration": 0,
+        "activityId": "5c47a6ea18b56600018d2748",
+        "duration": 23939,
+        "status": "completed",
+        "creationDate": 1548199658428,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Hello World",
+        "workflowId": "5c474436cf227a000192aacc"
+      },
+      {
+        "activityId": "5c47a63418b56600018d2610",
+        "duration": 8841,
+        "status": "completed",
+        "creationDate": 1548199476723,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Hello World",
+        "workflowId": "5c474436cf227a000192aacc"
+      },
+      {
+        "activityId": "5c47a4b618b56600018d240c",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548199094695,
+        "teamName": "Flow team 2",
+        "workflowName": "More workflows",
+        "workflowId": "5c4519789b90f5000126967a"
+      },
+      {
+        "activityId": "5c47a30e18b56600018d22b7",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548198670423,
+        "teamName": "Flow team 2",
+        "workflowName": "Links testing",
+        "workflowId": "5c42015e58d0fb00013336a9"
+      },
+      {
+        "activityId": "5c47a30b18b56600018d22b2",
+        "duration": null,
         "status": null,
-        "creationDate": 1542205204385,
+        "creationDate": 1548198667321,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c47845060ec2cfbb87e6b43",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548190800241,
         "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5bec2edbbc73ed0001292927",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542205147412,
+        "activityId": "5c47845055fbb50001431dc2",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548190800052,
         "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5bec2ec7bc73ed0001292920",
-        "duration": 14008,
-        "status": "completed",
-        "creationDate": 1542205128005,
+        "activityId": "5c475c3d60ec2cfbb87e6b39",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548180542523,
         "teamName": "CAI Offering Team",
-        "workflowName": "Adrienne's Workflow",
-        "workflowId": "5bdb25733a2c5c0001ab24ad"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5bec2eb3bc73ed0001292915",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542205107420,
+        "activityId": "5c47567c55fbb50001430c27",
+        "duration": 6403,
+        "status": "completed",
+        "creationDate": 1548179068139,
         "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "workflowName": "Hello World",
+        "workflowId": "5c474436cf227a000192aacc"
       },
       {
-        "activityId": "5bec1bcabc73ed0001292616",
-        "duration": 11703,
+        "activityId": "5c4755ea55fbb50001430ba0",
+        "duration": 41298,
         "status": "completed",
-        "creationDate": 1542200266907,
+        "creationDate": 1548178922711,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c4755bb60ec2cf8e3a2bd1c",
+        "duration": 92773,
+        "status": "completed",
+        "creationDate": 1548178876152,
         "teamName": "CAI Offering Team",
-        "workflowName": "isa-test",
-        "workflowId": "5bec0c68bc73ed0001292583"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5bec1baabc73ed000129260c",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542200234073,
+        "activityId": "5c47554160ec2ce885750583",
+        "duration": 69639,
+        "status": "completed",
+        "creationDate": 1548178753750,
         "teamName": "CAI Offering Team",
-        "workflowName": "isa-test",
-        "workflowId": "5bec0c68bc73ed0001292583"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5bec139fbc73ed00012925e8",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542198175216,
+        "activityId": "5c4754cb60ec2ce885750578",
+        "duration": 14187,
+        "status": "completed",
+        "creationDate": 1548178635622,
         "teamName": "CAI Offering Team",
-        "workflowName": "isa-test",
-        "workflowId": "5bec0c68bc73ed0001292583"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5bec1347bc73ed00012925c8",
-        "duration": 15560,
+        "activityId": "5c47540660ec2ce88575056c",
+        "duration": 5146,
         "status": "completed",
-        "creationDate": 1542198087924,
+        "creationDate": 1548178439481,
         "teamName": "CAI Offering Team",
-        "workflowName": "isa-test",
-        "workflowId": "5bec0c68bc73ed0001292583"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb7f78bc73ed0001292561",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542160248412,
+        "activityId": "5c47539660ec2ce885750560",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548178326962,
         "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb7f56bc73ed0001292534",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542160214654,
+        "activityId": "5c4752fe60ec2ce885750555",
+        "duration": 4928,
+        "status": "completed",
+        "creationDate": 1548178174378,
         "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb7f4cbc73ed000129250e",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542160204343,
+        "activityId": "5c4752a160ec2ce885750549",
+        "duration": 25963,
+        "status": "completed",
+        "creationDate": 1548178082270,
         "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb7f24bc73ed00012924d1",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542160164518,
+        "activityId": "5c474b7acf227a000192adb1",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548176250224,
         "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "workflowName": "Hello World",
+        "workflowId": "5c474436cf227a000192aacc"
       },
       {
-        "activityId": "5beb7f1bbc73ed00012924c2",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542160155242,
+        "activityId": "5c47460760ec2ce88575053e",
+        "duration": 24680,
+        "status": "completed",
+        "creationDate": 1548174855536,
         "teamName": "CAI Offering Team",
-        "workflowName": "Marcus Demo",
-        "workflowId": "5beb7eedbc73ed00012924a3"
+        "workflowName": "Hello World",
+        "workflowId": "5c474436cf227a000192aacc"
       },
       {
-        "activityId": "5beb7f1abc73ed00012924bf",
-        "duration": 483897,
+        "activityId": "5c4745bd60ec2ce885750532",
+        "duration": 32222,
         "status": "completed",
-        "creationDate": 1542160154972,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5beb79a4bc73ed00012923d8",
-        "duration": 18545,
-        "status": "completed",
-        "creationDate": 1542158756473,
+        "creationDate": 1548174782082,
         "teamName": "CAI Offering Team",
-        "workflowName": "Tysons Test 1",
-        "workflowId": "5be63abc6d116c0001e69990"
+        "workflowName": "Hello World",
+        "workflowId": "5c474436cf227a000192aacc"
       },
       {
-        "activityId": "5beb795cbc73ed00012923a5",
-        "duration": 20895,
-        "status": "completed",
-        "creationDate": 1542158684164,
+        "activityId": "5c47444ecf227a000192aae4",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548174414524,
         "teamName": "CAI Offering Team",
-        "workflowName": "Tysons Test 1",
-        "workflowId": "5be63abc6d116c0001e69990"
+        "workflowName": "Hello World",
+        "workflowId": "5c474436cf227a000192aacc"
       },
       {
-        "activityId": "5beb7904bc73ed000129235e",
-        "duration": 17780,
-        "status": "completed",
-        "creationDate": 1542158596194,
+        "activityId": "5c4742f8cf227a000192a95a",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548174072794,
         "teamName": "CAI Offering Team",
-        "workflowName": "Tysons Test 1",
-        "workflowId": "5be63abc6d116c0001e69990"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb7868bc73ed000129230e",
-        "duration": 370265,
-        "status": "completed",
-        "creationDate": 1542158440958,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5beb77efbc73ed00012922db",
-        "duration": 14195,
-        "status": "completed",
-        "creationDate": 1542158319672,
+        "activityId": "5c473e0060ec2ccf7520bb41",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548172800179,
         "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5beb7594bc73ed00012922af",
-        "duration": 22084,
-        "status": "completed",
-        "creationDate": 1542157716189,
+        "activityId": "5c473e00cf227a000192a952",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548172800139,
         "teamName": "CAI Offering Team",
-        "workflowName": "Tysons Test 1",
-        "workflowId": "5be63abc6d116c0001e69990"
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5beb742abc73ed0001292296",
-        "duration": 15643,
+        "activityId": "5c4739318698d900017146ea",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548171569884,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c4738f18698d90001714633",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548171505612,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c4738528698d90001714514",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548171346379,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c47384c8698d900017144f2",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548171340558,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c4738128698d90001714493",
+        "duration": 301000,
         "status": "completed",
-        "creationDate": 1542157354982,
+        "creationDate": 1548171282542,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c472e24edcf680001b7700b",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548168740442,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c472dfdedcf680001b76ef3",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548168701334,
+        "teamName": "Flow team 2",
+        "workflowName": "Links testing",
+        "workflowId": "5c42015e58d0fb00013336a9"
+      },
+      {
+        "activityId": "5c472deeedcf680001b76e95",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548168686963,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c472de3edcf680001b76e79",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548168675868,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c472c9fedcf680001b76e05",
+        "duration": 34489,
+        "status": "completed",
+        "creationDate": 1548168351330,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c472c3aedcf680001b76d86",
+        "duration": 18213,
+        "status": "completed",
+        "creationDate": 1548168250728,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c472ad2edcf680001b76c85",
+        "duration": 77730,
+        "status": "completed",
+        "creationDate": 1548167890433,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c47292b60ec2ccf7520bb2b",
+        "duration": 302619,
+        "status": "completed",
+        "creationDate": 1548167467511,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c47252a60ec2ccf7520bb20",
+        "duration": 301915,
+        "status": "completed",
+        "creationDate": 1548166442533,
         "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb6b7abc73ed0001292259",
-        "duration": 14921,
+        "activityId": "5c47246660ec2ccf7520bb14",
+        "duration": 302513,
         "status": "completed",
-        "creationDate": 1542155130856,
+        "creationDate": 1548166247084,
         "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb6b57bc73ed0001292237",
-        "duration": 13949,
-        "status": "completed",
-        "creationDate": 1542155095139,
+        "activityId": "5c47243860ec2ccab3352d2c",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548166200790,
         "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb6b39bc73ed0001292227",
-        "duration": 15074,
-        "status": "completed",
-        "creationDate": 1542155065404,
+        "activityId": "5c4723cc60ec2ccab3352d21",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548166092911,
         "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb5972bc73ed0001292165",
-        "duration": 13534,
-        "status": "completed",
-        "creationDate": 1542150514696,
+        "activityId": "5c4723bb60ec2ccab3352d15",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548166075901,
         "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb594ebc73ed0001292146",
-        "duration": 16079,
+        "activityId": "5c471ecd60ec2ccab3352d08",
+        "duration": 302897,
         "status": "completed",
-        "creationDate": 1542150478201,
+        "creationDate": 1548164814033,
         "teamName": "CAI Offering Team",
-        "workflowName": "Testing this here",
-        "workflowId": "5beb58fdbc73ed0001292122"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb548bbc73ed0001292097",
-        "duration": 20287,
+        "activityId": "5c471daeedcf680001b765d9",
+        "duration": 133786,
         "status": "completed",
-        "creationDate": 1542149259865,
+        "creationDate": 1548164526944,
         "teamName": "CAI Offering Team",
-        "workflowName": "Tim Testing some more",
-        "workflowId": "5beb3e94bc73ed0001292068"
+        "workflowName": "HTTP Test",
+        "workflowId": "5c471b92edcf680001b765b9"
       },
       {
-        "activityId": "5beb3db5bc73ed000129205a",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542143413742,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "activityId": "5c46f7b0edcf680001b7609e",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548154800082,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5beb3d43bc73ed000129204f",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542143299168,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5beb3c65bc73ed000129200b",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542143077370,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5beb3babbc73ed0001291ffd",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542142891288,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5beb3ba5bc73ed0001291ffb",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542142885974,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5beb3ab6bc73ed0001291fa9",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1542142646844,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5beb376fbc73ed0001291f1b",
-        "duration": 22870,
+        "activityId": "5c46b9cbef57af0001017ccf",
+        "duration": 27342,
         "status": "completed",
-        "creationDate": 1542141808059,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548138955571,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5beb35e0bc73ed0001291ebf",
-        "duration": 20123,
+        "activityId": "5c46b160ef57af0001017bee",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548136800009,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c46afa3ef57af0001017ba7",
+        "duration": 16515,
         "status": "completed",
-        "creationDate": 1542141408322,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548136355824,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5beb278bbc73ed0001291e7c",
-        "duration": 19254,
+        "activityId": "5c46ad5bef57af0001017ad4",
+        "duration": 135501,
         "status": "completed",
-        "creationDate": 1542137739854,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548135771861,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5beb2765bc73ed0001291e60",
-        "duration": 21382,
+        "activityId": "5c467920ef57af00010176c1",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548122400011,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c465d00ef57af0001016a2f",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1548115200057,
+        "teamName": "Flow team 2",
+        "workflowName": "More workflows",
+        "workflowId": "5c4519789b90f5000126967a"
+      },
+      {
+        "activityId": "5c465d00ef57af0001016a30",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548115200009,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c4632d0ec58e90d6e098aaf",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548104400590,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c4632d0ef57af0001015b1a",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548104400022,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c462433ef57af0001015408",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548100659395,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c462427ef57af00010153ab",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548100647755,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Input Test",
+        "workflowId": "5c38ea6596052900012db2f0"
+      },
+      {
+        "activityId": "5c46241def57af0001015390",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548100637906,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c45ec80ec58e908d82cbfdf",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548086400522,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c45ec8060ec2c47225d29af",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548086400196,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c45ec809b90f5000126c015",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548086400005,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c45a6309b90f5000126a7c3",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548068400006,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c457a739b90f5000126a650",
+        "duration": 31299,
         "status": "completed",
-        "creationDate": 1542137701514,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548057203329,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5beafe14bc73ed0001291e14",
-        "duration": 21634,
+        "activityId": "5c4578c89b90f5000126a5b2",
+        "duration": 9325,
         "status": "completed",
-        "creationDate": 1542127124740,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548056776531,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5bea29b8bc73ed0001291c90",
-        "duration": 12638,
+        "activityId": "5c4578739b90f5000126a565",
+        "duration": 28987,
         "status": "completed",
-        "creationDate": 1542072760781,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548056691637,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5bea17bebc73ed0001291bfe",
-        "duration": 15857,
+        "activityId": "5c45771f9b90f5000126a511",
+        "duration": 23991,
         "status": "completed",
-        "creationDate": 1542068158143,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548056351227,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5bea1759bc73ed0001291be0",
-        "duration": 23523,
+        "activityId": "5c4575e99b90f5000126a45e",
+        "duration": 33689,
         "status": "completed",
-        "creationDate": 1542068057984,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548056041335,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5bea16fabc73ed0001291bc7",
-        "duration": 8426,
+        "activityId": "5c45757e9b90f5000126a3d1",
+        "duration": 29246,
         "status": "completed",
-        "creationDate": 1542067962568,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548055934928,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be9aabf6d116c0001e699d3",
-        "duration": 27374,
+        "activityId": "5c45705b9b90f5000126a380",
+        "duration": 35143,
         "status": "completed",
-        "creationDate": 1542040255070,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548054619081,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be6287a6d116c0001e698d5",
-        "duration": 25727,
+        "activityId": "5c456d3d9b90f5000126a338",
+        "duration": 12933,
         "status": "completed",
-        "creationDate": 1541810298662,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548053821129,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be628626d116c0001e698a8",
-        "duration": 21649,
+        "activityId": "5c456c1a9b90f5000126a2b7",
+        "duration": 17066,
         "status": "completed",
-        "creationDate": 1541810274263,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548053530601,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be628486d116c0001e69897",
-        "duration": 20169,
+        "activityId": "5c4568699b90f5000126a231",
+        "duration": 11335,
         "status": "completed",
-        "creationDate": 1541810248160,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548052585929,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be618056d116c0001e6986e",
-        "duration": 25685,
+        "activityId": "5c4561a99b90f5000126a1fc",
+        "duration": 10436,
         "status": "completed",
-        "creationDate": 1541806085829,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548050857630,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be612246d116c0001e697e6",
-        "duration": 16027,
+        "activityId": "5c455fea9b90f5000126a1a8",
+        "duration": 20739,
         "status": "completed",
-        "creationDate": 1541804580204,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548050410729,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be611866d116c0001e6978b",
-        "duration": 27397,
+        "activityId": "5c455fe09b90f5000126a1a0",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548050400020,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c455edc9b90f5000126a15f",
+        "duration": 13436,
         "status": "completed",
-        "creationDate": 1541804422410,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548050140628,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be60ffa6d116c0001e696d0",
-        "duration": 22398,
+        "activityId": "5c4556f49b90f5000126a0c9",
+        "duration": 27422,
         "status": "completed",
-        "creationDate": 1541804026699,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548048117030,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be60fa46d116c0001e69689",
-        "duration": 15387,
+        "activityId": "5c4554bf9b90f50001269f6c",
+        "duration": 14290,
         "status": "completed",
-        "creationDate": 1541803941005,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548047551123,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be60f886d116c0001e69675",
-        "duration": 17550,
+        "activityId": "5c4554bc9b90f50001269f5a",
+        "duration": 14334,
         "status": "completed",
-        "creationDate": 1541803912695,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548047548527,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be60f686d116c0001e6965b",
-        "duration": 20132,
+        "activityId": "5c4552529b90f50001269ee7",
+        "duration": 9730,
         "status": "completed",
-        "creationDate": 1541803880817,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548046930529,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be60f476d116c0001e6964c",
-        "duration": 24011,
+        "activityId": "5c4552149b90f50001269e43",
+        "duration": 11135,
         "status": "completed",
-        "creationDate": 1541803847770,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548046868330,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be60db06d116c0001e695a7",
-        "duration": 13247,
+        "activityId": "5c4551979b90f50001269df6",
+        "duration": 11835,
         "status": "completed",
-        "creationDate": 1541803440219,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548046744029,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be60d5d6d116c0001e69575",
-        "duration": 15070,
+        "activityId": "5c454d929b90f50001269dae",
+        "duration": 11499,
         "status": "completed",
-        "creationDate": 1541803357381,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548045714572,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be60d1f6d116c0001e69539",
-        "duration": 18591,
+        "activityId": "5c45476a9b90f50001269914",
+        "duration": 8332,
         "status": "completed",
-        "creationDate": 1541803295674,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548044138730,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be60ce56d116c0001e69521",
-        "duration": 18279,
+        "activityId": "5c45470f9b90f500012698cd",
+        "duration": 6931,
         "status": "completed",
-        "creationDate": 1541803237908,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
+        "creationDate": 1548044047328,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
       },
       {
-        "activityId": "5be608db6d116c0001e694b0",
+        "activityId": "5c4527a09b90f50001269792",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548036000009,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c451a199b90f500012696b7",
+        "duration": 11388,
+        "status": "completed",
+        "creationDate": 1548032537725,
+        "teamName": "Flow team 2",
+        "workflowName": "More workflows",
+        "workflowId": "5c4519789b90f5000126967a"
+      },
+      {
+        "activityId": "5c450b809b90f50001269192",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548028800037,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c44e150cdae8b000191a713",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548018000009,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c449b00cdae8b000191a469",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1548000000006,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c4454b0cdae8b000191a396",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547982000007,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c440e60cdae8b000191a395",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547964000006,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c43d620cdae8b000191a394",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547949600006,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c43ba00cdae8b0001919d63",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547942400006,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c43917ecdae8b0001919c6e",
+        "duration": 9523,
+        "status": "completed",
+        "creationDate": 1547932030932,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c438fd0cdae8b0001919c54",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547931600009,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c436b54cdae8b0001919c12",
+        "duration": 11021,
+        "status": "completed",
+        "creationDate": 1547922260952,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c434980cdae8b0001919baa",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547913600008,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c430330cdae8b0001919ba9",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547895600006,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c42bce0cdae8b0001919ba8",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547877600008,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c4284a0cdae8b0001919ba7",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547863200007,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c426880cdae8b000191995c",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547856000219,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c42688060ec2c47225d29ad",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547856000119,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c4264d160ec2c47225d299b",
+        "duration": 15688,
+        "status": "completed",
+        "creationDate": 1547855057880,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c4263f060ec2c47225d2985",
+        "duration": 133566,
+        "status": "completed",
+        "creationDate": 1547854833350,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c425e3660ec2c47225d296e",
+        "duration": 65092,
+        "status": "completed",
+        "creationDate": 1547853366875,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c425da460ec2c47225d2958",
+        "duration": 51175,
+        "status": "completed",
+        "creationDate": 1547853220686,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c425d5160ec2c47225d2942",
+        "duration": 65078,
+        "status": "completed",
+        "creationDate": 1547853138322,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c425cf460ec2c47225d292c",
+        "duration": 75826,
+        "status": "completed",
+        "creationDate": 1547853044664,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c425c3660ec2c47225d2916",
+        "duration": 177207,
+        "status": "completed",
+        "creationDate": 1547852854837,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c425bc460ec2c47225d2900",
+        "duration": 77476,
+        "status": "completed",
+        "creationDate": 1547852740893,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c425b5360ec2c47225d28ea",
+        "duration": 79802,
+        "status": "completed",
+        "creationDate": 1547852628651,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c425a8060ec2c4643b1c44f",
+        "duration": 30650,
+        "status": "completed",
+        "creationDate": 1547852416826,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c42587e60ec2c4643b1c437",
+        "duration": 41175,
+        "status": "completed",
+        "creationDate": 1547851903307,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c42579c58d0fb0001333a6b",
+        "duration": 15941,
+        "status": "completed",
+        "creationDate": 1547851676937,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c42457058d0fb00013339c2",
+        "duration": 17799,
+        "status": "completed",
+        "creationDate": 1547847024852,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c4243eb58d0fb0001333960",
+        "duration": 19516,
+        "status": "completed",
+        "creationDate": 1547846635930,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c423ed558d0fb000133390d",
+        "duration": 17512,
+        "status": "completed",
+        "creationDate": 1547845333739,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Testing New Format",
+        "workflowId": "5c423bbd58d0fb00013338b5"
+      },
+      {
+        "activityId": "5c423e5058d0fb00013338ec",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547845200021,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c42026b58d0fb0001333735",
+        "duration": 7902,
+        "status": "completed",
+        "creationDate": 1547829867734,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben testing new format",
+        "workflowId": "5c41fe9158d0fb00013335ee"
+      },
+      {
+        "activityId": "5c42022458d0fb00013336de",
+        "duration": null,
+        "status": "inProgress",
+        "creationDate": 1547829796947,
+        "teamName": "Flow team 2",
+        "workflowName": "Links testing",
+        "workflowId": "5c42015e58d0fb00013336a9"
+      },
+      {
+        "activityId": "5c41f80012c3d8000134ae03",
+        "duration": 71180,
+        "status": "completed",
+        "creationDate": 1547827200018,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c41b1b012c3d8000134aca7",
+        "duration": 63976,
+        "status": "completed",
+        "creationDate": 1547809200024,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c416b6012c3d8000134ac70",
+        "duration": 150007,
+        "status": "completed",
+        "creationDate": 1547791200024,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c4155e612c3d8000134abd3",
+        "duration": 5573,
+        "status": "completed",
+        "creationDate": 1547785702987,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "breaking links test",
+        "workflowId": "5c4155a112c3d8000134abab"
+      },
+      {
+        "activityId": "5c41332012c3d8000134aad3",
+        "duration": 86701,
+        "status": "completed",
+        "creationDate": 1547776800025,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c41170012c3d8000134aa8e",
+        "duration": 31198,
+        "status": "completed",
+        "creationDate": 1547769600024,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c41140d12c3d8000134aa5e",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547768845386,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Empty Workflow Test",
+        "workflowId": "5c4113fd12c3d8000134aa4a"
+      },
+      {
+        "activityId": "5c40ecd012c3d8000134a9a0",
+        "duration": 85790,
+        "status": "completed",
+        "creationDate": 1547758800016,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c40a68012c3d8000134a517",
+        "duration": 40134,
+        "status": "completed",
+        "creationDate": 1547740800026,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c406f4512c3d8000134a21a",
+        "duration": null,
+        "status": "invalid",
+        "creationDate": 1547726661064,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Isa-test-2",
+        "workflowId": "5c3dc2aad8c54c000175d19e"
+      },
+      {
+        "activityId": "5c40603012c3d8000134a0eb",
+        "duration": 144627,
+        "status": "completed",
+        "creationDate": 1547722800023,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c4019e012c3d8000134a0e0",
+        "duration": 84632,
+        "status": "completed",
+        "creationDate": 1547704800026,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c400b3c12c3d80001349d23",
+        "duration": null,
+        "status": "failure",
+        "creationDate": 1547701052849,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
+      },
+      {
+        "activityId": "5c40024512c3d80001349c36",
+        "duration": null,
+        "status": "failure",
+        "creationDate": 1547698757070,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
+      },
+      {
+        "activityId": "5c3fe1a012c3d80001349bd7",
+        "duration": 50010,
+        "status": "completed",
+        "creationDate": 1547690400062,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c3fd75c12c3d80001349b07",
+        "duration": null,
+        "status": "failure",
+        "creationDate": 1547687772736,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3fc58012c3d800013498c5",
+        "duration": 75527,
+        "status": "completed",
+        "creationDate": 1547683200023,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c3fbf5912c3d80001349844",
+        "duration": 31482,
+        "status": "completed",
+        "creationDate": 1547681625728,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
+      },
+      {
+        "activityId": "5c3fae3c12c3d800013497a8",
+        "duration": 74966,
+        "status": "completed",
+        "creationDate": 1547677244221,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
+      },
+      {
+        "activityId": "5c3fa6b312c3d800013496f6",
+        "duration": 72749,
+        "status": "completed",
+        "creationDate": 1547675315926,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
+      },
+      {
+        "activityId": "5c3fa12012c3d800013495ab",
+        "duration": 164207,
+        "status": "completed",
+        "creationDate": 1547673888102,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
+      },
+      {
+        "activityId": "5c3f9c5812c3d8000134944b",
+        "duration": 72514,
+        "status": "completed",
+        "creationDate": 1547672664727,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
+      },
+      {
+        "activityId": "5c3f9b514e5a3607f9e1d7a8",
         "duration": 0,
         "status": "inProgress",
-        "creationDate": 1541802203893,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5be601756d116c0001e6943e",
-        "duration": 900771,
-        "status": "completed",
-        "creationDate": 1541800309639,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5be5fc28f0f89a0001a611b0",
-        "duration": 602035,
-        "status": "completed",
-        "creationDate": 1541798952939,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5be5f35f3b5243000131352c",
-        "duration": 904270,
-        "status": "completed",
-        "creationDate": 1541796703889,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5be5bf7a3b52430001313414",
-        "duration": 900559,
-        "status": "completed",
-        "creationDate": 1541783418190,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5be5bf513b524300013133e7",
-        "duration": 909466,
-        "status": "completed",
-        "creationDate": 1541783377894,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5be5b65d3b524300013132a9",
-        "duration": 903326,
-        "status": "completed",
-        "creationDate": 1541781085194,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5be4b98fdab95f0001fbea06",
-        "duration": 901409,
-        "status": "completed",
-        "creationDate": 1541716367279,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5be347b90c115400011e7898",
-        "duration": 16187,
-        "status": "completed",
-        "creationDate": 1541621689885,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5be3369f0c115400011e782c",
-        "duration": 19711,
-        "status": "completed",
-        "creationDate": 1541617312015,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5be08a1e267e550001ffc586",
-        "duration": 9919,
-        "status": "completed",
-        "creationDate": 1541442078368,
+        "creationDate": 1547672403613,
         "teamName": "CAI Offering Team",
-        "workflowName": "Adrienne's Workflow",
-        "workflowId": "5bdb25733a2c5c0001ab24ad"
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5be089ea267e550001ffc57e",
-        "duration": 10969,
-        "status": "completed",
-        "creationDate": 1541442026159,
+        "activityId": "5c3f9b514e5a3607f9e1d7a7",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547672403137,
         "teamName": "CAI Offering Team",
-        "workflowName": "Adrienne's Workflow",
-        "workflowId": "5bdb25733a2c5c0001ab24ad"
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
       },
       {
-        "activityId": "5bdc1c273a2c5c0001ab24d9",
-        "duration": 13486,
+        "activityId": "5c3f9b5012c3d80001349327",
+        "duration": 251838,
         "status": "completed",
-        "creationDate": 1541151783784,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdb25bf3a2c5c0001ab24b3",
-        "duration": 11228,
-        "status": "completed",
-        "creationDate": 1541088703749,
+        "creationDate": 1547672400021,
         "teamName": "CAI Offering Team",
-        "workflowName": "Adrienne's Workflow",
-        "workflowId": "5bdb25733a2c5c0001ab24ad"
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5bdb10f53a2c5c0001ab2480",
-        "duration": 15301,
+        "activityId": "5c3f968312c3d80001348d51",
+        "duration": 83311,
         "status": "completed",
-        "creationDate": 1541083381362,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdb08f53a2c5c0001ab246f",
-        "duration": 26668,
-        "status": "completed",
-        "creationDate": 1541081333663,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdb00a12f35850001c8de29",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541079201433,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdb00882f35850001c8de22",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541079176205,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdb00792f35850001c8de20",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541079161258,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdafc38d6c8c100019fa6de",
-        "duration": 13983,
-        "status": "completed",
-        "creationDate": 1541078072859,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdafb65d6c8c100019fa6d7",
-        "duration": 13091,
-        "status": "completed",
-        "creationDate": 1541077861431,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdafad2d6c8c100019fa6cf",
-        "duration": 14373,
-        "status": "completed",
-        "creationDate": 1541077714391,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdade3d37dc4700011b06c3",
-        "duration": 13886,
-        "status": "completed",
-        "creationDate": 1541070397344,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdaddb837dc4700011b06bb",
-        "duration": 14256,
-        "status": "completed",
-        "creationDate": 1541070264765,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdad695a7e263000116a75f",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541068437357,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdad371a7e263000116a75b",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541067633661,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdacf7ba7e263000116a757",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541066619898,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdacc5fa40f5d0001249c8d",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541065823346,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdac934a40f5d0001249c89",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541065012582,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdac3b2a40f5d0001249c85",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541063602052,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdabd16a40f5d0001249c81",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541061910251,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdab9dfa40f5d0001249c76",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541061087542,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bdab64ea40f5d0001249c72",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541060174269,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bda10f2a40f5d0001249c3d",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541017842690,
+        "creationDate": 1547671171750,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
       },
       {
-        "activityId": "5bd9ed4ba40f5d0001249c33",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541008715348,
+        "activityId": "5c3f92e412c3d80001348c83",
+        "duration": 72506,
+        "status": "completed",
+        "creationDate": 1547670244931,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Blaine workflow",
-        "workflowId": "5bd9eceaa40f5d0001249c2b"
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
       },
       {
-        "activityId": "5bd9e74aa40f5d0001249c1c",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541007178077,
+        "activityId": "5c3f925012c3d80001348bfb",
+        "duration": null,
+        "status": "failure",
+        "creationDate": 1547670096936,
         "teamName": "CAI Offering Team",
-        "workflowName": "Blaines Demo",
-        "workflowId": "5bd9e6e5a40f5d0001249c15"
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd9e179a40f5d0001249bf3",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541005689013,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9df47a40f5d0001249bd1",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541005127722,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9de8ba40f5d0001249bc6",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541004939189,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9dd16a40f5d0001249b8b",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541004566372,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9dcf6a40f5d0001249b7e",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541004534648,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9cd417eb44d0001772e17",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541000513116,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9cb6bda28ac11fbbd708a",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1541000043714,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9cb1dda28ac11fbbd7086",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540999965211,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9c9efda28ac11fbbd7082",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540999663426,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9c86fcfdf8a00012ce637",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540999279395,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9c82fcfdf8a00012ce62f",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540999215160,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9c7d2cfdf8a00012ce626",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540999122106,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9c5c6cfdf8a00012ce612",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540998598092,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9c55ecfdf8a00012ce604",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540998494038,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9c512da28ac11fbbd707d",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540998418374,
+        "activityId": "5c3f90a512c3d80001348a86",
+        "duration": 86751,
+        "status": "completed",
+        "creationDate": 1547669670032,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
       },
       {
-        "activityId": "5bd9c4c5da28ac11fbbd707a",
+        "activityId": "5c3f7f304e5a3607f9e1d7a5",
         "duration": 0,
-        "status": null,
-        "creationDate": 1540998341455,
+        "status": "inProgress",
+        "creationDate": 1547665201137,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f7f3012c3d80001348751",
+        "duration": 4934,
+        "status": "completed",
+        "creationDate": 1547665200066,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f71204e5a3607f9e1d7a3",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547661601081,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f712012c3d8000134874f",
+        "duration": 4888,
+        "status": "completed",
+        "creationDate": 1547661600417,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f6cfe015ca1245436fff6",
+        "duration": 15526,
+        "status": "completed",
+        "creationDate": 1547660542949,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f6cb9015ca1245436ffde",
+        "duration": 5566,
+        "status": "completed",
+        "creationDate": 1547660474404,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f6c6d015ca1245436ffc7",
+        "duration": 6785,
+        "status": "completed",
+        "creationDate": 1547660398225,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f6c3a015ca1245436ffaf",
+        "duration": 6672,
+        "status": "completed",
+        "creationDate": 1547660347402,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f6bc8015ca1245436ff95",
+        "duration": 5964,
+        "status": "completed",
+        "creationDate": 1547660233297,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f6b96015ca1245436ff7e",
+        "duration": 5903,
+        "status": "completed",
+        "creationDate": 1547660183127,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f6b5a015ca1245436ff65",
+        "duration": 6079,
+        "status": "completed",
+        "creationDate": 1547660123709,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f6b0e015ca1245436ff4d",
+        "duration": 6079,
+        "status": "completed",
+        "creationDate": 1547660047496,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f6ac8015ca1245436ff35",
+        "duration": 5821,
+        "status": "completed",
+        "creationDate": 1547659977643,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f6a84015ca1245436ff1e",
+        "duration": 5529,
+        "status": "completed",
+        "creationDate": 1547659909096,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f6a27015ca1245436ff06",
+        "duration": 5957,
+        "status": "completed",
+        "creationDate": 1547659816668,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f69ce83e4a151979b2696",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547659727164,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f68c683e4a151979b2649",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547659463208,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f681522aaa400019d1082",
+        "duration": 4798,
+        "status": "completed",
+        "creationDate": 1547659285635,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f674f83e4a151979b2614",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547659088171,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f663383e4a151979b25fd",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547658803774,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f64e483e4a151979b25df",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547658469544,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f637583e4a151979b25c8",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547658101809,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f63104e5a3607f9e1d7a1",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547658001836,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f631083e4a151979b25b6",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547658000326,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f631022aaa400019d0adc",
+        "duration": 4535,
+        "status": "completed",
+        "creationDate": 1547658000016,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f604183e4a151979b2599",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547657282595,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f600b22aaa400019d06fc",
+        "duration": 4288,
+        "status": "completed",
+        "creationDate": 1547657227440,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f5fd322aaa400019d0687",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547657171332,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 3",
+        "workflowId": "5c3f5efc22aaa400019d0636"
+      },
+      {
+        "activityId": "5c3f550083e4a151979b2581",
+        "duration": 32865,
+        "status": "completed",
+        "creationDate": 1547654400481,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c3f550083e4a151979b2582",
+        "duration": 19314,
+        "status": "completed",
+        "creationDate": 1547654400398,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f550022aaa400019d056d",
+        "duration": 600950,
+        "status": "completed",
+        "creationDate": 1547654400026,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c3f550022aaa400019d056e",
+        "duration": 5294,
+        "status": "completed",
+        "creationDate": 1547654400026,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f46f083e4a151979b257f",
+        "duration": 28049,
+        "status": "completed",
+        "creationDate": 1547650800360,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f46f022aaa400019d056b",
+        "duration": 4996,
+        "status": "completed",
+        "creationDate": 1547650800016,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f38e083e4a151979b257d",
+        "duration": 20233,
+        "status": "completed",
+        "creationDate": 1547647200383,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f38e022aaa400019d0569",
+        "duration": 4892,
+        "status": "completed",
+        "creationDate": 1547647200017,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f2ad083e4a151979b257b",
+        "duration": 8415,
+        "status": "completed",
+        "creationDate": 1547643600351,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f2ad022aaa400019d0567",
+        "duration": 5545,
+        "status": "completed",
+        "creationDate": 1547643600017,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f1cc083e4a151979b2579",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547640000317,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f1cc022aaa400019d0565",
+        "duration": 4481,
+        "status": "completed",
+        "creationDate": 1547640000023,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f0eb083e4a151979b2574",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547636400493,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f0eb083e4a151979b2575",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547636400420,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c3f0eb022aaa400019d0561",
+        "duration": 600970,
+        "status": "completed",
+        "creationDate": 1547636400029,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c3f0eb022aaa400019d0560",
+        "duration": 4975,
+        "status": "completed",
+        "creationDate": 1547636400026,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f00a083e4a151979b2572",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547632800328,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3f00a022aaa400019d055e",
+        "duration": 4704,
+        "status": "completed",
+        "creationDate": 1547632800016,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3ef29083e4a151979b2570",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547629200334,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3ef29022aaa400019d055c",
+        "duration": 4889,
+        "status": "completed",
+        "creationDate": 1547629200016,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3ee48083e4a151979b256e",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547625600343,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3ee48022aaa400019d0558",
+        "duration": 5286,
+        "status": "completed",
+        "creationDate": 1547625600018,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3ed67083e4a151979b256c",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547622000328,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3ed67022aaa400019d0556",
+        "duration": 4754,
+        "status": "completed",
+        "creationDate": 1547622000018,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3ec86083e4a151979b2567",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547618400496,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c3ec86083e4a151979b2568",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547618400356,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3ec86022aaa400019d0551",
+        "duration": 601105,
+        "status": "completed",
+        "creationDate": 1547618400045,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c3ec86022aaa400019d0552",
+        "duration": 4296,
+        "status": "completed",
+        "creationDate": 1547618400028,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3eba5083e4a151979b2565",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547614800341,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3eba5022aaa400019d054f",
+        "duration": 5129,
+        "status": "completed",
+        "creationDate": 1547614800015,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3eac4083e4a151979b2563",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547611200881,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3eac4022aaa400019d0537",
+        "duration": 4527,
+        "status": "completed",
+        "creationDate": 1547611200016,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e9e3022aaa400019d0535",
+        "duration": 5047,
+        "status": "completed",
+        "creationDate": 1547607600017,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e9acb83e4a151979b255f",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547606732398,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c3e9acb83e4a151979b255e",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547606732240,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e902022aaa400019d0530",
+        "duration": 600992,
+        "status": "completed",
+        "creationDate": 1547604000032,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
+      },
+      {
+        "activityId": "5c3e902022aaa400019d0531",
+        "duration": 5257,
+        "status": "completed",
+        "creationDate": 1547604000027,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e821083e4a151979b255c",
+        "duration": 5754,
+        "status": "completed",
+        "creationDate": 1547600400333,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e821022aaa400019d0528",
+        "duration": 5431,
+        "status": "completed",
+        "creationDate": 1547600400016,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e7c5f22aaa400019d044f",
+        "duration": 137983,
+        "status": "completed",
+        "creationDate": 1547598943121,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
       },
       {
-        "activityId": "5bd9c45eda28ac11fbbd7077",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540998237891,
+        "activityId": "5c3e7c5522aaa400019d042f",
+        "duration": 134136,
+        "status": "completed",
+        "creationDate": 1547598933827,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
       },
       {
-        "activityId": "5bd9c43fcfdf8a00012ce5f6",
+        "activityId": "5c3e7bac22aaa400019d03e6",
+        "duration": 16532,
+        "status": "completed",
+        "creationDate": 1547598764326,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c3e7a9b22aaa400019d02e7",
         "duration": 0,
-        "status": null,
-        "creationDate": 1540998207667,
+        "status": "failure",
+        "creationDate": 1547598492001,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3e75e122aaa400019d00f4",
+        "duration": 47181,
+        "status": "completed",
+        "creationDate": 1547597281885,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c3e74a322aaa400019cfeea",
+        "duration": 138016,
+        "status": "completed",
+        "creationDate": 1547596963927,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
       },
       {
-        "activityId": "5bd9c434cfdf8a00012ce5f3",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540998196781,
+        "activityId": "5c3e744a22aaa400019cfeb9",
+        "duration": 80637,
+        "status": "completed",
+        "creationDate": 1547596874752,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c3e742622aaa400019cfe7b",
+        "duration": 48034,
+        "status": "completed",
+        "creationDate": 1547596838061,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
       },
       {
-        "activityId": "5bd9c42acfdf8a00012ce5f1",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540998186677,
+        "activityId": "5c3e740083e4a151979b255a",
+        "duration": 5695,
+        "status": "completed",
+        "creationDate": 1547596800611,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e740022aaa400019cfe38",
+        "duration": 600938,
+        "status": "completed",
+        "creationDate": 1547596800029,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c3e740022aaa400019cfe39",
+        "duration": 9415,
+        "status": "completed",
+        "creationDate": 1547596800025,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e666f22aaa400019cfddc",
+        "duration": 80910,
+        "status": "completed",
+        "creationDate": 1547593327726,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c3e65f083e4a151979b2558",
+        "duration": 6448,
+        "status": "completed",
+        "creationDate": 1547593200456,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e65f022aaa400019cfdd3",
+        "duration": 10004,
+        "status": "completed",
+        "creationDate": 1547593200024,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e5e2e22aaa400019cfc18",
+        "duration": 44203,
+        "status": "completed",
+        "creationDate": 1547591214427,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c3e5d7a22aaa400019cfb7f",
+        "duration": 44140,
+        "status": "completed",
+        "creationDate": 1547591034526,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c3e5c6c22aaa400019cf9cb",
+        "duration": 29439,
+        "status": "completed",
+        "creationDate": 1547590764639,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c3e57e083e4a151979b2556",
+        "duration": 5979,
+        "status": "completed",
+        "creationDate": 1547589600323,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e57e022aaa400019cf88c",
+        "duration": 8090,
+        "status": "completed",
+        "creationDate": 1547589600018,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
+      },
+      {
+        "activityId": "5c3e569a22aaa400019cf84c",
+        "duration": 49605,
+        "status": "completed",
+        "creationDate": 1547589274225,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
+      },
+      {
+        "activityId": "5c3e54d722aaa400019cf6ca",
+        "duration": 22306,
+        "status": "completed",
+        "creationDate": 1547588823226,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
       },
       {
-        "activityId": "5bd9c41dcfdf8a00012ce5ed",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540998173097,
+        "activityId": "5c3e53c522aaa400019cf5fc",
+        "duration": 45428,
+        "status": "completed",
+        "creationDate": 1547588549927,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
       },
       {
-        "activityId": "5bd9c40dcfdf8a00012ce5eb",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540998157254,
+        "activityId": "5c3e52e922aaa400019cf5b0",
+        "duration": 25782,
+        "status": "completed",
+        "creationDate": 1547588329529,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Chris Test",
+        "workflowId": "5c3e51cf22aaa400019cf57e"
       },
       {
-        "activityId": "5bd9be17cfdf8a00012ce579",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540996631234,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9bc0acfdf8a00012ce55b",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540996106518,
-        "teamName": null,
-        "workflowName": null,
-        "workflowId": null
-      },
-      {
-        "activityId": "5bd9ba5bcfdf8a00012ce547",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540995675758,
+        "activityId": "5c3e4cf722aaa400019cebe2",
+        "duration": 7137,
+        "status": "completed",
+        "creationDate": 1547586807326,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c393f092571d60001fff9f5"
       },
       {
-        "activityId": "5bd9ba09cfdf8a00012ce53f",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540995593984,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e4b0b22aaa400019ce994",
+        "duration": 600915,
+        "status": "completed",
+        "creationDate": 1547586315852,
+        "teamName": "Flow team 2",
+        "workflowName": "Tim's Test",
+        "workflowId": "5c3e4a7e22aaa400019ce948"
       },
       {
-        "activityId": "5bd9b8f7cfdf8a00012ce535",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540995319441,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e49d083e4a151979b2552",
+        "duration": 604802,
+        "status": "completed",
+        "creationDate": 1547586000625,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5bd9b17fd36c8c0001dba254",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540993407959,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e49d083e4a151979b2551",
+        "duration": 5712,
+        "status": "completed",
+        "creationDate": 1547586000460,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
       },
       {
-        "activityId": "5bd9ad7cd36c8c0001dba246",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540992380282,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e49d022aaa400019ce84f",
+        "duration": 323650,
+        "status": "completed",
+        "creationDate": 1547586000456,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5bd9aaaed36c8c0001dba242",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540991662654,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e49d022aaa400019ce84e",
+        "duration": 10445,
+        "status": "completed",
+        "creationDate": 1547586000456,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
       },
       {
-        "activityId": "5bd9a9aed36c8c0001dba23e",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540991406525,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e43b67b3bc50001e0ed34",
+        "duration": 29291,
+        "status": "completed",
+        "creationDate": 1547584438483,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch 2",
+        "workflowId": "5c3e425b7b3bc50001e0eb5e"
       },
       {
-        "activityId": "5bd9a164a0c27b00010c07e8",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540989284847,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e3bc01a9b2c0f5f12cd60",
+        "duration": 6179,
+        "status": "completed",
+        "creationDate": 1547582402926,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
       },
       {
-        "activityId": "5bd99546da28ac11fbbd7063",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540986182731,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e3bc083e4a151979b254f",
+        "duration": 5876,
+        "status": "completed",
+        "creationDate": 1547582400406,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
       },
       {
-        "activityId": "5bd9952eda28ac11fbbd705e",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540986158582,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e3bc07b3bc50001e0e9fa",
+        "duration": 8443,
+        "status": "completed",
+        "creationDate": 1547582400022,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
       },
       {
-        "activityId": "5bd9925ea0c27b00010c07ba",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540985438154,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e326683e4a151979b253a",
+        "duration": 841,
+        "status": "completed",
+        "creationDate": 1547580006555,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch",
+        "workflowId": "5c3d039abc521b00011b7aac"
       },
       {
-        "activityId": "5bd991aca0c27b00010c07b3",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540985260803,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e31f583e4a151979b2524",
+        "duration": 740,
+        "status": "completed",
+        "creationDate": 1547579894488,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch",
+        "workflowId": "5c3d039abc521b00011b7aac"
       },
       {
-        "activityId": "5bd99142a0c27b00010c07af",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540985154109,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e31b683e4a151979b2511",
+        "duration": 736,
+        "status": "completed",
+        "creationDate": 1547579830998,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch",
+        "workflowId": "5c3d039abc521b00011b7aac"
       },
       {
-        "activityId": "5bd99087ae58a3000173b538",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540984967651,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e313f83e4a148bbbbceea",
+        "duration": 624,
+        "status": "completed",
+        "creationDate": 1547579712400,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch",
+        "workflowId": "5c3d039abc521b00011b7aac"
       },
       {
-        "activityId": "5bd98fe7ae58a3000173b52f",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540984807686,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e30f883e4a148bbbbced5",
+        "duration": 716,
+        "status": "completed",
+        "creationDate": 1547579640880,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch",
+        "workflowId": "5c3d039abc521b00011b7aac"
       },
       {
-        "activityId": "5bd98dbaae58a3000173b51a",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540984250871,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e2fcf83e4a148bbbbceb6",
+        "duration": 884,
+        "status": "completed",
+        "creationDate": 1547579344343,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch",
+        "workflowId": "5c3d039abc521b00011b7aac"
       },
       {
-        "activityId": "5bd98d58ae58a3000173b512",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540984152527,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e2f4483e4a148bbbbce95",
+        "duration": 846,
+        "status": "completed",
+        "creationDate": 1547579205366,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch",
+        "workflowId": "5c3d039abc521b00011b7aac"
       },
       {
-        "activityId": "5bd98ce0ae58a3000173b50a",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540984032623,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e2dcc7b3bc50001e0d4a6",
+        "duration": 54,
+        "status": "completed",
+        "creationDate": 1547578828396,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Switch",
+        "workflowId": "5c3d039abc521b00011b7aac"
       },
       {
-        "activityId": "5bd98c7dda28ac11fbbd704b",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540983933253,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e2db083e4a148bbbbce93",
+        "duration": 6236,
+        "status": "completed",
+        "creationDate": 1547578801021,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
       },
       {
-        "activityId": "5bd98a3bda28ac11fbbd7047",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540983355308,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e2db07b3bc50001e0d45e",
+        "duration": 9107,
+        "status": "completed",
+        "creationDate": 1547578800034,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
       },
       {
-        "activityId": "5bd98a00da28ac11fbbd7043",
+        "activityId": "5c3e2b317b3bc50001e0cc2e",
         "duration": 0,
-        "status": null,
-        "creationDate": 1540983296208,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "status": "failure",
+        "creationDate": 1547578162005,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd98618da28ac11fbbd703b",
+        "activityId": "5c3e25cf83e4a148bbbbce76",
         "duration": 0,
-        "status": null,
-        "creationDate": 1540982296572,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "status": "failure",
+        "creationDate": 1547576783625,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd984a9da28ac11fbbd7037",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540981929285,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e1ec783e4a148bbbbce45",
+        "duration": 10073,
+        "status": "failure",
+        "creationDate": 1547574984274,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd9847bda28ac11fbbd7033",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540981883386,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e1de283e4a148bbbbce2a",
+        "duration": 6055,
+        "status": "failure",
+        "creationDate": 1547574755219,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd983dcda28ac11fbbd702f",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540981723844,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e1d7983e4a148bbbbce15",
+        "duration": 9940,
+        "status": "completed",
+        "creationDate": 1547574650177,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd982f2da28ac11fbbd702a",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540981490277,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e1d2f83e4a148bbbbcded",
+        "duration": 9972,
+        "status": "completed",
+        "creationDate": 1547574575448,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd9814dda28ac11fbbd7025",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540981069189,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e1ce683e4a148bbbbcdd9",
+        "duration": 10455,
+        "status": "completed",
+        "creationDate": 1547574503556,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd98057b287500001121a28",
+        "activityId": "5c3e0cdad8c54c000175f141",
         "duration": 0,
-        "status": null,
-        "creationDate": 1540980823175,
+        "status": "inProgress",
+        "creationDate": 1547570394181,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "ben testing",
+        "workflowId": "5c3e05fbd8c54c000175eff3"
       },
       {
-        "activityId": "5bd98032da28ac11fbbd7020",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540980786534,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3e05e3015ca12f05017ce1",
+        "duration": 9560,
+        "status": "completed",
+        "creationDate": 1547568611770,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd97f1eda28ac11fbbd701b",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540980510150,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3dfeae015ca12f05017cc9",
+        "duration": 10758,
+        "status": "completed",
+        "creationDate": 1547566766891,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd97d7eb287500001121a22",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540980094838,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3df953015ca12f05017ca7",
+        "duration": 8855,
+        "status": "completed",
+        "creationDate": 1547565396030,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd97d74da28ac11fbbd7017",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540980084197,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3df90c015ca12f05017c97",
+        "duration": 15089,
+        "status": "completed",
+        "creationDate": 1547565324913,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd97b7fda28ac11fbbd7013",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540979583565,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3df8d7015ca12f05017c86",
+        "duration": 9593,
+        "status": "completed",
+        "creationDate": 1547565271935,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd97b1fda28ac07e0781d95",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540979487135,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3df83c015ca12f05017c76",
+        "duration": 19657,
+        "status": "completed",
+        "creationDate": 1547565116810,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd97a5bb287500001121a1e",
+        "activityId": "5c3df803015ca12f05017c67",
         "duration": 0,
         "status": null,
-        "creationDate": 1540979291178,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "creationDate": 1547565058857,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd97971b287500001121a1a",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540979057394,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3df711015ca12f05017c57",
+        "duration": 10585,
+        "status": "completed",
+        "creationDate": 1547564818344,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd97725da28ac07e0781d91",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540978469791,
+        "activityId": "5c3df50b1a9b2c06d76ffaf6",
+        "duration": 5602,
+        "status": "completed",
+        "creationDate": 1547564300736,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Adrienne Test 1",
+        "workflowId": "5c3dea40d8c54c000175d433"
       },
       {
-        "activityId": "5bd974b9da28ac07e0781d7d",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540977849056,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3deb57d8c54c000175d541",
+        "duration": 600933,
+        "status": "completed",
+        "creationDate": 1547561815305,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5bd96e37da28ac07e0781d7a",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540976183172,
+        "activityId": "5c3deb55d8c54c000175d536",
+        "duration": 6896,
+        "status": "completed",
+        "creationDate": 1547561813524,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Adrienne Test 1",
+        "workflowId": "5c3dea40d8c54c000175d433"
       },
       {
-        "activityId": "5bd96da9da28ac07e0781d73",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540976041701,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3dde48015ca12f05017c51",
+        "duration": 8880,
+        "status": "completed",
+        "creationDate": 1547558473215,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd96d57da28ac07e0781d70",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540975959506,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3ddb4b015ca1e86a24339a",
+        "duration": 59124,
+        "status": "completed",
+        "creationDate": 1547557708329,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd96bd7897cce0001c9443c",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540975575053,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3dc03dd8c54c000175c130",
+        "duration": 9010,
+        "status": "completed",
+        "creationDate": 1547550781824,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
       },
       {
-        "activityId": "5bd96980da28ac07e0781d63",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540974976845,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3dc027d8c54c000175c113",
+        "duration": 10026,
+        "status": "completed",
+        "creationDate": 1547550759251,
+        "teamName": "CAI Offering Team",
+        "workflowName": "isa-testt",
+        "workflowId": "5c3dbfd5d8c54c000175c0e6"
       },
       {
-        "activityId": "5bd96867da28ac07e0781d5d",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540974695045,
+        "activityId": "5c3d75e7d8c54c0001759d60",
+        "duration": 79442,
+        "status": "completed",
+        "creationDate": 1547531751929,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
       },
       {
-        "activityId": "5bd96329da28ac07e0781d3f",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540973353783,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3d2280015ca1e86a243396",
+        "duration": 604466,
+        "status": "completed",
+        "creationDate": 1547510400753,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5bd87dda46e4bfad407d0f1a",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540914650776,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3d07d6015ca1dbae5dc1e2",
+        "duration": 9889,
+        "status": "completed",
+        "creationDate": 1547503575442,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd87d8b46e4bfad407d0f16",
+        "activityId": "5c3d078b015ca1dbae5dc1d2",
         "duration": 0,
-        "status": null,
-        "creationDate": 1540914571026,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "status": "inProgress",
+        "creationDate": 1547503500397,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd87c5c46e4bf790fe60b18",
+        "activityId": "5c3d0777015ca1dbae5dc1c1",
         "duration": 0,
         "status": null,
-        "creationDate": 1540914268655,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "creationDate": 1547503479659,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd87b0646e4bf790fe60b0f",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540913926023,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3d0736015ca1dbae5dc1b1",
+        "duration": 8748,
+        "status": "completed",
+        "creationDate": 1547503415221,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd8750446e4bf790fe60aef",
-        "duration": 0,
-        "status": null,
-        "creationDate": 1540912388386,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "activityId": "5c3d070dbc521b00011b7db2",
+        "duration": 92248,
+        "status": "completed",
+        "creationDate": 1547503373374,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Tim Testing Slacks",
+        "workflowId": "5c3cf9ffbc521b00011b70aa"
       },
       {
-        "activityId": "5bd864d646e4bf12e07f437e",
+        "activityId": "5c3d06ad015ca1b7febb06e4",
         "duration": 0,
-        "status": null,
-        "creationDate": 1540908246726,
-        "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "status": "inProgress",
+        "creationDate": 1547503277942,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
       },
       {
-        "activityId": "5bd8621246e4bf03e601aef8",
+        "activityId": "5c3d0682015ca1b7febb06d4",
         "duration": 0,
-        "status": null,
-        "creationDate": 1540907538624,
+        "status": "inProgress",
+        "creationDate": 1547503234608,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3d0615015ca1b7febb06c5",
+        "duration": 22959,
+        "status": "completed",
+        "creationDate": 1547503125618,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3cc696015ca1b7febb06b6",
+        "duration": 23876,
+        "status": "completed",
+        "creationDate": 1547486870531,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3cc684015ca1b7febb06a1",
+        "duration": 905799,
+        "status": "completed",
+        "creationDate": 1547486853446,
         "teamName": "IBM Engineering Automation Team",
-        "workflowName": "Marcus Workflow",
-        "workflowId": "5bd6fdf65a5df954ad47bdbe"
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c3c8a32015ca1b7febb068d",
+        "duration": 906292,
+        "status": "completed",
+        "creationDate": 1547471411305,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c3c8882015ca1b7febb067d",
+        "duration": 9302,
+        "status": "completed",
+        "creationDate": 1547470978834,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c87f6015ca1b7febb066b",
+        "duration": 20910,
+        "status": "completed",
+        "creationDate": 1547470838848,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c85db015ca1b7febb065b",
+        "duration": 9524,
+        "status": "completed",
+        "creationDate": 1547470300060,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c859b015ca1b7febb064b",
+        "duration": 11628,
+        "status": "completed",
+        "creationDate": 1547470236442,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c855f015ca1b7febb063c",
+        "duration": 9296,
+        "status": "completed",
+        "creationDate": 1547470175895,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c8304015ca1b7febb062c",
+        "duration": 19411,
+        "status": "completed",
+        "creationDate": 1547469572864,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c804e015ca1b7febb061b",
+        "duration": 11078,
+        "status": "completed",
+        "creationDate": 1547468879500,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c7fe5015ca1af825093f3",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547468773701,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c7fc1015ca1af825093e4",
+        "duration": 10174,
+        "status": "completed",
+        "creationDate": 1547468738382,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c7f30015ca1af825093d1",
+        "duration": 10601,
+        "status": "completed",
+        "creationDate": 1547468593243,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c7ec8015ca1af825093c2",
+        "duration": 31008,
+        "status": "completed",
+        "creationDate": 1547468488775,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c7e80015ca1af825093b2",
+        "duration": 10493,
+        "status": "completed",
+        "creationDate": 1547468416480,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c7df2015ca1af825093a3",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547468275082,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3c0066ff239b0001f2e85d",
+        "duration": 40758,
+        "status": "completed",
+        "creationDate": 1547436134051,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c3bffbdff239b0001f2e733",
+        "duration": 157069,
+        "status": "completed",
+        "creationDate": 1547435965455,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c3bf34aff239b0001f2d891",
+        "duration": 45537,
+        "status": "completed",
+        "creationDate": 1547432778894,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Task Name Test",
+        "workflowId": "5c3bf31aff239b0001f2d874"
+      },
+      {
+        "activityId": "5c3bece20b96be0001461f57",
+        "duration": 100284,
+        "status": "completed",
+        "creationDate": 1547431138157,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c3bec24015ca1af82509393",
+        "duration": 13528,
+        "status": "completed",
+        "creationDate": 1547430948988,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3be8dc0b96be0001461a14",
+        "duration": 49230,
+        "status": "completed",
+        "creationDate": 1547430108648,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c3be6c5015ca1aacaae536a",
+        "duration": 44475,
+        "status": "completed",
+        "creationDate": 1547429573948,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3be402015ca1aacaae5359",
+        "duration": 263226,
+        "status": "completed",
+        "creationDate": 1547428867219,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3be271015ca1aacaae5346",
+        "duration": 212440,
+        "status": "completed",
+        "creationDate": 1547428466258,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3bcfc70b96be000145e627",
+        "duration": 64100,
+        "status": "completed",
+        "creationDate": 1547423687309,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c3bc9510b96be000145d700",
+        "duration": 14825,
+        "status": "completed",
+        "creationDate": 1547422033088,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3bc9130b96be000145d6aa",
+        "duration": 15150,
+        "status": "completed",
+        "creationDate": 1547421971413,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack tests",
+        "workflowId": "5c3b5e510b96be000145cd06"
+      },
+      {
+        "activityId": "5c3bc6d80b96be000145d4aa",
+        "duration": 45250,
+        "status": "completed",
+        "creationDate": 1547421400585,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c3bc5c00b96be000145d379",
+        "duration": 5698,
+        "status": "completed",
+        "creationDate": 1547421120981,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c393f092571d60001fff9f5"
+      },
+      {
+        "activityId": "5c3bc59d0b96be000145d309",
+        "duration": 6107,
+        "status": "completed",
+        "creationDate": 1547421085982,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c393f092571d60001fff9f5"
+      },
+      {
+        "activityId": "5c3bc5870b96be000145d2da",
+        "duration": 8785,
+        "status": "completed",
+        "creationDate": 1547421063933,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c393f092571d60001fff9f5"
+      },
+      {
+        "activityId": "5c395e642571d6000100087c",
+        "duration": 29613,
+        "status": "completed",
+        "creationDate": 1547263589027,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c395c112571d60001000849",
+        "duration": 82743,
+        "status": "completed",
+        "creationDate": 1547262993935,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c39594f2571d600010004e5",
+        "duration": 81184,
+        "status": "completed",
+        "creationDate": 1547262287428,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c3946b02571d60001000491",
+        "duration": 45951,
+        "status": "completed",
+        "creationDate": 1547257520033,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c39423f83e4a140f905abb5",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547256384317,
+        "teamName": "CAI Offering Team",
+        "workflowName": "parallel test 3",
+        "workflowId": "5c393e6d2571d60001fff920"
+      },
+      {
+        "activityId": "5c393fd72571d60001fffc51",
+        "duration": 33818,
+        "status": "completed",
+        "creationDate": 1547255768040,
+        "teamName": "CAI Offering Team",
+        "workflowName": "parallel test 3",
+        "workflowId": "5c393e6d2571d60001fff920"
+      },
+      {
+        "activityId": "5c393fad2571d60001fffbaf",
+        "duration": 600908,
+        "status": "completed",
+        "creationDate": 1547255725906,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Test PVC and Files",
+        "workflowId": "5c393f752571d60001ffface"
+      },
+      {
+        "activityId": "5c393fa72571d60001fffb6b",
+        "duration": 33287,
+        "status": "completed",
+        "creationDate": 1547255719549,
+        "teamName": "CAI Offering Team",
+        "workflowName": "parallel test 3",
+        "workflowId": "5c393e6d2571d60001fff920"
+      },
+      {
+        "activityId": "5c393f792571d60001fffadb",
+        "duration": 36055,
+        "status": "completed",
+        "creationDate": 1547255673446,
+        "teamName": "CAI Offering Team",
+        "workflowName": "parallel test 3",
+        "workflowId": "5c393e6d2571d60001fff920"
+      },
+      {
+        "activityId": "5c393f422571d60001fffa3f",
+        "duration": 32112,
+        "status": "completed",
+        "creationDate": 1547255618247,
+        "teamName": "CAI Offering Team",
+        "workflowName": "parallel test 3",
+        "workflowId": "5c393e6d2571d60001fff920"
+      },
+      {
+        "activityId": "5c393f242571d60001fffa17",
+        "duration": 7836,
+        "status": "completed",
+        "creationDate": 1547255588423,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c393f092571d60001fff9f5"
+      },
+      {
+        "activityId": "5c393ed02571d60001fff99e",
+        "duration": 7983,
+        "status": "completed",
+        "creationDate": 1547255504393,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c38faf896052900012db72f"
+      },
+      {
+        "activityId": "5c393ea32571d60001fff970",
+        "duration": 5583,
+        "status": "completed",
+        "creationDate": 1547255459224,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c38faf896052900012db72f"
+      },
+      {
+        "activityId": "5c393e552571d60001fff8f2",
+        "duration": 9029,
+        "status": "completed",
+        "creationDate": 1547255382007,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c38faf896052900012db72f"
+      },
+      {
+        "activityId": "5c393d412571d60001fff6a2",
+        "duration": 7454,
+        "status": "completed",
+        "creationDate": 1547255105798,
+        "teamName": "CAI Offering Team",
+        "workflowName": "slack",
+        "workflowId": "5c393d142571d60001fff644"
+      },
+      {
+        "activityId": "5c393d172571d60001fff652",
+        "duration": 8156,
+        "status": "completed",
+        "creationDate": 1547255063426,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c38faf896052900012db72f"
+      },
+      {
+        "activityId": "5c393d0d2571d60001fff617",
+        "duration": 6055,
+        "status": "completed",
+        "creationDate": 1547255053425,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c38faf896052900012db72f"
+      },
+      {
+        "activityId": "5c393c802571d60001fff51e",
+        "duration": 51690,
+        "status": "completed",
+        "creationDate": 1547254912744,
+        "teamName": "CAI Offering Team",
+        "workflowName": "parallel testing",
+        "workflowId": "5c393a5b2571d60001fff219"
+      },
+      {
+        "activityId": "5c393c082571d60001fff435",
+        "duration": 56899,
+        "status": "completed",
+        "creationDate": 1547254792898,
+        "teamName": "CAI Offering Team",
+        "workflowName": "parallel testing",
+        "workflowId": "5c393a5b2571d60001fff219"
+      },
+      {
+        "activityId": "5c3939492571d60001ffef84",
+        "duration": 7063,
+        "status": "completed",
+        "creationDate": 1547254089612,
+        "teamName": "CAI Offering Team",
+        "workflowName": "testing",
+        "workflowId": "5c3925eb477e5e00017d62c1"
+      },
+      {
+        "activityId": "5c3939432571d60001ffef62",
+        "duration": 6502,
+        "status": "completed",
+        "creationDate": 1547254083425,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c38faf896052900012db72f"
+      },
+      {
+        "activityId": "5c39393a2571d60001ffef34",
+        "duration": 6593,
+        "status": "completed",
+        "creationDate": 1547254074365,
+        "teamName": "CAI Offering Team",
+        "workflowName": "testing",
+        "workflowId": "5c3925eb477e5e00017d62c1"
+      },
+      {
+        "activityId": "5c3939282571d60001ffeed8",
+        "duration": 10626,
+        "status": "completed",
+        "creationDate": 1547254056323,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c38faf896052900012db72f"
+      },
+      {
+        "activityId": "5c3938f02571d60001ffee3d",
+        "duration": 21435,
+        "status": "completed",
+        "creationDate": 1547254001424,
+        "teamName": "CAI Offering Team",
+        "workflowName": "testing",
+        "workflowId": "5c3925eb477e5e00017d62c1"
+      },
+      {
+        "activityId": "5c39335a477e5e00017d6b73",
+        "duration": 10249,
+        "status": "completed",
+        "creationDate": 1547252570173,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "Tyson Shell Test",
+        "workflowId": "5c38faf896052900012db72f"
+      },
+      {
+        "activityId": "5c3932c9477e5e00017d6a96",
+        "duration": 9475,
+        "status": "completed",
+        "creationDate": 1547252425485,
+        "teamName": "CAI Offering Team",
+        "workflowName": "testing",
+        "workflowId": "5c3925eb477e5e00017d62c1"
+      },
+      {
+        "activityId": "5c39091883e4a140f905ab9c",
+        "duration": 34985,
+        "status": "completed",
+        "creationDate": 1547241753331,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c39058f83e4a140c709ec62",
+        "duration": 393134,
+        "status": "completed",
+        "creationDate": 1547240847856,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c3904bb83e4a140ae552d66",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547240635736,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c3903be83e4a140ae552d59",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547240382524,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c3901f283e4a13e778488b8",
+        "duration": 34566,
+        "status": "completed",
+        "creationDate": 1547239923190,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c39012a83e4a13e778488ac",
+        "duration": 34273,
+        "status": "completed",
+        "creationDate": 1547239722938,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c38f63183e4a13e778488a0",
+        "duration": 38833,
+        "status": "completed",
+        "creationDate": 1547236913963,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c38f4a083e4a13e77848894",
+        "duration": 51233,
+        "status": "completed",
+        "creationDate": 1547236512793,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c38f33183e4a13e77848888",
+        "duration": 16479,
+        "status": "completed",
+        "creationDate": 1547236145913,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c38f2bd83e4a13e7784887b",
+        "duration": 6863,
+        "status": "completed",
+        "creationDate": 1547236029903,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c38f1f783e4a13e77848870",
+        "duration": 20156,
+        "status": "completed",
+        "creationDate": 1547235831804,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c38efd483e4a13e77848864",
+        "duration": 164022,
+        "status": "completed",
+        "creationDate": 1547235284466,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c38ef4e83e4a13e77848858",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547235150730,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c38ee6883e4a13e77848849",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547234920634,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c38ec2e83e4a13c95d7dc94",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547234350736,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Input Test",
+        "workflowId": "5c38ea6596052900012db2f0"
+      },
+      {
+        "activityId": "5c38eb6583e4a13c6ce48e95",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547234150200,
+        "teamName": "CAI Offering Team",
+        "workflowName": "Input Test",
+        "workflowId": "5c38ea6596052900012db2f0"
+      },
+      {
+        "activityId": "5c38e52a96052900012daedd",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547232554850,
+        "teamName": "CAI Offering Team",
+        "workflowName": "test",
+        "workflowId": "5c38e50396052900012dae84"
+      },
+      {
+        "activityId": "5c38e51496052900012dae9f",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547232532623,
+        "teamName": "CAI Offering Team",
+        "workflowName": "test",
+        "workflowId": "5c38e50396052900012dae84"
+      },
+      {
+        "activityId": "5c38e4c096052900012dae0f",
+        "duration": 62,
+        "status": "completed",
+        "creationDate": 1547232448702,
+        "teamName": "CAI Offering Team",
+        "workflowName": "asfsafas",
+        "workflowId": "5c38c6e496052900012d9ec4"
+      },
+      {
+        "activityId": "5c38e31596052900012dad8b",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547232021625,
+        "teamName": "Flow team 2",
+        "workflowName": "new test",
+        "workflowId": "5c38c79c96052900012d9f94"
+      },
+      {
+        "activityId": "5c38df6c96052900012dad28",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547231084925,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38d66496052900012dab2a",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547228773026,
+        "teamName": "Tim Testing Jira",
+        "workflowName": "Tims",
+        "workflowId": "5c38c75396052900012d9f4c"
+      },
+      {
+        "activityId": "5c38d66096052900012daae6",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547228768223,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38d2db96052900012da81f",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547228022135,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38d28f96052900012da81d",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547227988450,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38d18f96052900012da5ea",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547227721693,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38d12e96052900012da5e8",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547227687890,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38d1fa83e4a138d5443cf2",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547227643554,
+        "teamName": "Flow team 2",
+        "workflowName": "new test",
+        "workflowId": "5c38c79c96052900012d9f94"
+      },
+      {
+        "activityId": "5c38d0b296052900012da585",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547227420608,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38d07596052900012da583",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547227387342,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38d02296052900012da582",
+        "duration": 92,
+        "status": "completed",
+        "creationDate": 1547227387179,
+        "teamName": "CAI Offering Team",
+        "workflowName": "asfsafas",
+        "workflowId": "5c38c6e496052900012d9ec4"
+      },
+      {
+        "activityId": "5c38d0052faac330d1ab50c5",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547227143081,
+        "teamName": "Flow team 2",
+        "workflowName": "new test",
+        "workflowId": "5c38c79c96052900012d9f94"
+      },
+      {
+        "activityId": "5c38cf8e96052900012da539",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547227120053,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38ceb896052900012da52b",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547227086626,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38ceae96052900012da529",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547226819438,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38cea296052900012da520",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547226786121,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38cd9696052900012da4a7",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547226518928,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38cd7296052900012da499",
+        "duration": 126,
+        "status": "completed",
+        "creationDate": 1547226482740,
+        "teamName": "CAI Offering Team",
+        "workflowName": "asfsafas",
+        "workflowId": "5c38c6e496052900012d9ec4"
+      },
+      {
+        "activityId": "5c38cd6696052900012da48b",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547226470823,
+        "teamName": "IBM Engineering Automation Team",
+        "workflowName": "ben-test",
+        "workflowId": "5c38cce996052900012da43b"
+      },
+      {
+        "activityId": "5c38c9eb96052900012da18c",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547225579829,
+        "teamName": "Flow team 2",
+        "workflowName": "new test",
+        "workflowId": "5c38c79c96052900012d9f94"
+      },
+      {
+        "activityId": "5c38c9dd96052900012da16b",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547225565120,
+        "teamName": "Flow team 2",
+        "workflowName": "new test",
+        "workflowId": "5c38c79c96052900012d9f94"
+      },
+      {
+        "activityId": "5c38c55a96052900012d9e62",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547224410734,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
+      },
+      {
+        "activityId": "5c38c4b42faac330d1ab50a9",
+        "duration": 0,
+        "status": "inProgress",
+        "creationDate": 1547224245737,
+        "teamName": "Flow team 2",
+        "workflowName": "Test",
+        "workflowId": "5c38b49c96052900012d9d92"
       }
     ]
   },
