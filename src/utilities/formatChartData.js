@@ -1,5 +1,6 @@
 import { sortBy } from "lodash";
 import moment from "moment";
+import { ACTIVITY_STATUSES, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
 
 export const parseChartsData = data => {
   let dateName = [];
@@ -18,10 +19,10 @@ export const parseChartsData = data => {
       date: parseInt(moment(item.creationDate).format("x"), 10)
     });
     sumDuration += item.duration;
-    if (item.status === "completed") success.push(item);
-    if (item.status === "failure") failure.push(item);
-    if (item.status === "inProgress" || item.status === undefined) inprogress.push(item);
-    if (item.status === "invalid") invalid.push(item);
+    if (item.status === ACTIVITY_STATUSES.COMPLETED) success.push(item);
+    if (item.status === ACTIVITY_STATUSES.FAILURE) failure.push(item);
+    if (item.status === ACTIVITY_STATUSES.IN_PROGRESS || item.status === undefined) inprogress.push(item);
+    if (item.status === ACTIVITY_STATUSES.INVALID) invalid.push(item);
     if (dateName.find(date => moment(date).format("DD-MM-YY") === moment(item.creationDate).format("DD-MM-YY"))) {
       return null;
     } else {
@@ -62,10 +63,10 @@ export const parseChartsData = data => {
     timeData: sortBy(finalData, ["date"]),
     scatterData: sortBy(scatterData, ["date"]),
     pieData: [
-      { name: "Passed", value: successExecutions },
-      { name: "Failed", value: failExecutions },
-      { name: "In Progress", value: inProgressExecutions },
-      { name: "Invalid", value: invalidExecutions }
+      { name: ACTIVITY_STATUSES_TO_TEXT.completed, value: successExecutions },
+      { name: ACTIVITY_STATUSES_TO_TEXT.failure, value: failExecutions },
+      { name: ACTIVITY_STATUSES.inProgress, value: inProgressExecutions },
+      { name: ACTIVITY_STATUSES_TO_TEXT.invalid, value: invalidExecutions }
     ],
     medianDuration: parseInt(medianDuration / 1000, 10),
     percentageSuccessful,
