@@ -19,8 +19,7 @@ export class SwitchNode extends Component {
     nodeConfig: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired,
-    isModalOpen: PropTypes.bool.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -96,8 +95,7 @@ export class SwitchNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    isModalOpen: state.app.isModalOpen
+    nodeConfig: state.workflowRevision.config[ownProps.node.id]
   };
 };
 

@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actions as appActions } from "State/app";
 import Modal from "react-modal";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
@@ -41,6 +44,7 @@ class SwitchLink extends Component {
   openModal = () => {
     this.setState({ modalIsOpen: true });
   };
+
   closeModal = () => {
     this.setState({ modalIsOpen: false, switchCondition: this.props.model.switchCondition }, () => {
       if (this.props.model.switchCondition === null) {
@@ -139,6 +143,7 @@ class SwitchLink extends Component {
                         updateDefaultState={this.updateDefaultState}
                         updateSwitchState={this.updateSwitchState}
                         validateSwitch={this.validateSwitch}
+                        setIsModalOpen={this.props.appActions.setIsModalOpen}
                       />
                     </ModalFlow>
                   </Modal>
@@ -183,4 +188,11 @@ SwitchLink.propTypes = {
   diagramEngine: PropTypes.object.isRequired
 };
 
-export default SwitchLink;
+const mapDispatchToProps = dispatch => ({
+  appActions: bindActionCreators(appActions, dispatch)
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SwitchLink);
