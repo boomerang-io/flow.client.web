@@ -76,6 +76,7 @@
 
   .bx--list-box__field {
     appearance: none;
+    width: 12rem;
     &:focus {
       box-shadow: none;
     }
@@ -99,7 +100,8 @@
     width: max-content;
     max-width: 15rem;
     background-color: $white;
-    max-height: 7.5rem;
+    height: auto;
+    max-height: unset;
     right: 0;
     left: unset;
   }
@@ -129,7 +131,7 @@
   display: flex;
   align-self: flex-end;
   justify-content: space-between;
-  width: 40rem;
+  width: 55rem;
 
   & .b-search-filter__search {
     margin-right: 0rem;

@@ -14,7 +14,7 @@ import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
 import SearchFilterBar from "Components/SearchFilterBar";
 import SimpleSelectFilter from "Components/SimpleSelectFilter";
-import { executionOptions } from "Constants/filterOptions";
+import { executionOptions, statusOptions } from "Constants/filterOptions";
 import ActivityList from "./ActivityList";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
@@ -36,6 +36,7 @@ export class WorkflowActivity extends Component {
     tableSize: 10,
     activityList: [],
     executionFilter: [],
+    statusFilter: [],
     hasMoreActivities: null,
     nextPage: 1,
     isLoading: false,
@@ -111,28 +112,39 @@ export class WorkflowActivity extends Component {
         this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
       }
     );
-    // let newActivities = [];
-    // const { activityList } = this.state;
-    // let currentActivities = [].concat(activityList.length === 0 ? this.props.activity.data.records : activityList);
-
-    // if(data.selectedItems.length > 0){
-    //   data.selectedItems.forEach(item => {
-    //     newActivities = newActivities.concat(currentActivities.filter(activity => activity.trigger === item.value));
-    //   });
-    // }
+  };
+  handleStatusFilter = data => {
+    const { workflowId, searchQuery } = this.state;
+    this.setState({ statusFilter: data.selectedItems, activityList: [], hasMoreActivities: null, nextPage: 1 }, () => {
+      const query = queryString.stringify({
+        size: 10,
+        page: 0,
+        workflowId: workflowId !== "none" ? workflowId : undefined,
+        query: searchQuery !== "" ? searchQuery : undefined
+      });
+      this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
+    });
   };
 
   applyExecutionFilter = activities => {
     const { executionFilter } = this.state;
-    let newActivities = [];
     if (executionFilter.length > 0) {
-      executionFilter.forEach(item => {
-        newActivities = sortByProp(
-          newActivities.concat(activities.filter(activity => activity.trigger === item.value)),
-          "creationDate",
-          "DESC"
-        );
-      });
+      const newActivities = executionFilter.reduce((accumulator, currentVal) => {
+        accumulator = accumulator.concat(activities.filter(activity => activity.trigger === currentVal.value));
+        return accumulator;
+      }, []);
+      return orderBy(newActivities, ["creationDate"], ["desc"]);
+    }
+    return activities;
+  };
+
+  applyStatusFilter = activities => {
+    const { statusFilter } = this.state;
+    if (statusFilter.length > 0) {
+      const newActivities = statusFilter.reduce((accumulator, currentVal) => {
+        accumulator = accumulator.concat(activities.filter(activity => activity.status === currentVal.value));
+        return accumulator;
+      }, []);
       return orderBy(newActivities, ["creationDate"], ["desc"]);
     }
     return activities;
@@ -231,13 +243,23 @@ export class WorkflowActivity extends Component {
                 items={executionOptions.map(item => ({ label: item.label, value: item.value }))}
                 itemToString={item => (item ? item.value : "")}
               />
+              <MultiSelect
+                useTitleInItem={false}
+                label="Status"
+                invalid={false}
+                onChange={this.handleStatusFilter}
+                items={statusOptions.map(item => ({ label: item.label, value: item.value }))}
+                itemToString={item => (item ? item.label : "")}
+              />
             </div>
             {!activity.data.records.length || emptyActivities ? (
               <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
             ) : (
               <ActivityList
                 activities={this.applyTeamFilter(
-                  this.applyExecutionFilter(activityList.length > 0 ? activityList : activity.data.records)
+                  this.applyStatusFilter(
+                    this.applyExecutionFilter(activityList.length > 0 ? activityList : activity.data.records)
+                  )
                 )}
                 hasMoreActivities={hasMoreActivities === null ? !activity.data.last : hasMoreActivities}
                 fetchActivities={this.fetchActivities}
