@@ -17,6 +17,11 @@ const TEXT_AREA_TYPES = {
   textarea: { type: "textarea", validationFunction: () => {}, validationText: "" }
 };
 
+const SELECT_DROPDOWN_TYPES = {
+  select: "select",
+  multiselect: "multiselect"
+};
+
 const Toggle = ({ defaultChecked, description, label, name, onChange }) => {
   return (
     <div className="b-settings-toggle">
@@ -88,7 +93,7 @@ const ValueList = ({ form, nodeConfig, task, onSelectTextInputChange, onToggleCh
                 validationText={itemConfig.validationText}
               />
             );
-          } else if (item.type === "select") {
+          } else if (Object.keys(SELECT_DROPDOWN_TYPES).includes(item.type)) {
             return (
               <div style={{ marginBottom: "2.125rem" }}>
                 <SelectDropdown
@@ -100,6 +105,7 @@ const ValueList = ({ form, nodeConfig, task, onSelectTextInputChange, onToggleCh
                   theme="bmrg-white"
                   title={item.label}
                   styles={{ width: "100%" }}
+                  multi={item.type === SELECT_DROPDOWN_TYPES.multiselect}
                 />
               </div>
             );
