@@ -32,5 +32,7 @@ export const compilationDataScatter = [{ name: "warnings", fill: "#047cc0" }, { 
 export const executeDataLines = [
   { dataKey: "total", stroke: "#047cc0", activeDot: true, gradientFill: "blueGradient" },
   { dataKey: "success", stroke: "#82ca9d", activeDot: false, gradientFill: "greenGradient" },
-  { dataKey: "failed", stroke: "#e26665", activeDot: false, gradientFill: "redGradient" }
+  { dataKey: "failed", stroke: "#e26665", activeDot: false, gradientFill: "redGradient" },
+  { dataKey: "inProgress", stroke: "#00baa1", activeDot: false, gradientFill: "tealGradient" },
+  { dataKey: "invalid", stroke: "#6f7878", activeDot: false, gradientFill: "grayGradient" }
 ];
