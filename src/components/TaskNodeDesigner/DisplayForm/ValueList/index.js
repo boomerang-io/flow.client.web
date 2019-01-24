@@ -18,8 +18,8 @@ const TEXT_AREA_TYPES = {
 };
 
 const SELECT_DROPDOWN_TYPES = {
-  select: "select",
-  multiselect: "multiselect"
+  select: { type: "select", isMulitselect: false },
+  multiselect: { type: "multiselect", isMultiselect: true }
 };
 
 const Toggle = ({ defaultChecked, description, label, name, onChange }) => {
@@ -42,13 +42,34 @@ Toggle.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-const ValueList = ({ form, nodeConfig, task, onSelectTextInputChange, onToggleChange }) => {
+const ValueList = ({
+  form,
+  nodeConfig,
+  task,
+  onSelectTextInputChange,
+  onToggleChange,
+  taskNames,
+  node,
+  updateNodeTaskName
+}) => {
   const { inputs } = nodeConfig;
   const { config: taskConfig } = task;
   return (
     <>
-      <h1 className="s-settings-value-list-header">{taskConfig.description}</h1>
       <div className="c-settings-value-list">
+        <TextInput
+          required
+          noValueText="Name is required"
+          comparisonData={taskNames}
+          existValueText="Task name must be unique per workflow"
+          externallyControlled
+          name="taskName"
+          placeholder="Enter a task name"
+          value={node.taskName}
+          title="Task Name"
+          onChange={updateNodeTaskName}
+          theme="bmrg-white"
+        />
         {taskConfig.map(item => {
           const maxValueLength = item.maxValueLength || 128;
           const minValueLength = item.minValueLength || 0;
@@ -87,7 +108,7 @@ const ValueList = ({ form, nodeConfig, task, onSelectTextInputChange, onToggleCh
                 minChar={minValueLength}
                 minCharText={`Must be more than ${minValueLength} characters`}
                 title={item.label}
-                detail={inputs[item.key] || ""}
+                value={inputs[item.key] || ""}
                 theme="bmrg-white"
                 validationFunction={itemConfig.validationFunction}
                 validationText={itemConfig.validationText}
@@ -97,15 +118,16 @@ const ValueList = ({ form, nodeConfig, task, onSelectTextInputChange, onToggleCh
             return (
               <div style={{ marginBottom: "2.125rem" }}>
                 <SelectDropdown
+                  simpleValue
+                  multi={item.isMulitselect}
                   key={item.key}
                   name={item.key}
                   onChange={onSelectTextInputChange}
-                  options={item.options}
-                  value={form[item.key] ? form[item.key].value : inputs[item.key] || []}
+                  options={item.options.map(option => ({ value: option, label: option }))}
+                  value={form[item.key] ? form[item.key].value : ""}
                   theme="bmrg-white"
                   title={item.label}
                   styles={{ width: "100%" }}
-                  multi={item.type === SELECT_DROPDOWN_TYPES.multiselect}
                 />
               </div>
             );
@@ -133,7 +155,10 @@ ValueList.propTypes = {
   task: PropTypes.object.isRequired,
   nodeConfig: PropTypes.object.isRequired,
   handleSelectTextInputChange: PropTypes.func.isRequired,
-  onToggleChange: PropTypes.func.isRequired
+  onToggleChange: PropTypes.func.isRequired,
+  updateNodeTaskName: PropTypes.func.isRequired,
+  taskNames: PropTypes.array.isRequired,
+  node: PropTypes.object.isRequired
 };
 
 export default ValueList;

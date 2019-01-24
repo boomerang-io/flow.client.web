@@ -85,6 +85,13 @@
           "key": "duration",
           "label": "Duration",
           "type": "text"
+        },
+        {
+          "description": "The name of the channel or user as a destination for the messages.",
+          "key": "select",
+          "label": "select",
+          "type": "select",
+          "options": ["testing", "this", "here"]
         }
       ],
       "description": "Sleep for specified duration in milliseconds",
