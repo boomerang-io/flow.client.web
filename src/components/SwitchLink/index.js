@@ -46,11 +46,11 @@ class SwitchLink extends Component {
     this.setState({ modalIsOpen: true });
   };
 
-  updateSwitchState = (switchCondition, f) => {
+  updateSwitchState = (switchCondition, saveFunction) => {
     this.setState(
       { switchCondition: switchCondition },
 
-      () => f()
+      () => saveFunction()
     );
   };
 
