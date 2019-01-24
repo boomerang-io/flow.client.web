@@ -17,6 +17,15 @@ class ConfigureSwitchModal extends React.Component {
     validateSwitch: PropTypes.func.isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      switchCondition: props.switchCondition
+      //modalIsOpen: false,
+      //defaultState: props.model.switchCondition === null || undefined ? true : false
+    };
+  }
+
   componentDidMount() {
     this.props.setIsModalOpen({ isModalOpen: true });
   }
@@ -25,13 +34,18 @@ class ConfigureSwitchModal extends React.Component {
     this.props.setIsModalOpen({ isModalOpen: false });
   }
 
+  updateStateWrapper = value => {
+    this.setState({ switchCondition: value });
+    this.props.updateSwitchState(value);
+  };
+
   render() {
     const {
       defaultState,
       onSubmit,
-      switchCondition,
+      //switchCondition,
       updateDefaultState,
-      updateSwitchState,
+      //updateSwitchState,
       validateSwitch
     } = this.props;
     return (
@@ -62,13 +76,13 @@ class ConfigureSwitchModal extends React.Component {
                   <TextArea
                     alwaysShowTitle
                     required
-                    value={switchCondition === null ? "" : switchCondition}
+                    value={this.state.switchCondition === null ? "" : this.state.switchCondition}
                     title="Switch Property Value"
                     placeholder="Enter a value"
                     name="property"
                     theme="bmrg-white"
                     //onChange={updateSwitchState}
-                    handleChange={updateSwitchState}
+                    handleChange={this.updateStateWrapper}
                     style={{ paddingBottom: "1rem" }}
                     validationFunction={validateSwitch}
                   />
