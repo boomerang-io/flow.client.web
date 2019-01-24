@@ -65,7 +65,7 @@ export const parseChartsData = data => {
     pieData: [
       { name: ACTIVITY_STATUSES_TO_TEXT.completed, value: successExecutions },
       { name: ACTIVITY_STATUSES_TO_TEXT.failure, value: failExecutions },
-      { name: ACTIVITY_STATUSES.inProgress, value: inProgressExecutions },
+      { name: ACTIVITY_STATUSES_TO_TEXT.inProgress, value: inProgressExecutions },
       { name: ACTIVITY_STATUSES_TO_TEXT.invalid, value: invalidExecutions }
     ],
     medianDuration: parseInt(medianDuration / 1000, 10),
