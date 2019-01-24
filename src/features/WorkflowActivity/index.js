@@ -128,15 +128,11 @@ export class WorkflowActivity extends Component {
 
   applyExecutionFilter = activities => {
     const { executionFilter } = this.state;
-    let newActivities = [];
     if (executionFilter.length > 0) {
-      executionFilter.forEach(item => {
-        newActivities = sortByProp(
-          newActivities.concat(activities.filter(activity => activity.trigger === item.value)),
-          "creationDate",
-          "DESC"
-        );
-      });
+      const newActivities = executionFilter.reduce((accumulator, currentVal) => {
+        accumulator = accumulator.concat(activities.filter(activity => activity.trigger === currentVal.value));
+        return accumulator;
+      }, []);
       return orderBy(newActivities, ["creationDate"], ["desc"]);
     }
     return activities;
@@ -144,15 +140,11 @@ export class WorkflowActivity extends Component {
 
   applyStatusFilter = activities => {
     const { statusFilter } = this.state;
-    let newActivities = [];
     if (statusFilter.length > 0) {
-      statusFilter.forEach(item => {
-        newActivities = sortByProp(
-          newActivities.concat(activities.filter(activity => activity.status === item.value)),
-          "creationDate",
-          "DESC"
-        );
-      });
+      const newActivities = statusFilter.reduce((accumulator, currentVal) => {
+        accumulator = accumulator.concat(activities.filter(activity => activity.status === currentVal.value));
+        return accumulator;
+      }, []);
       return orderBy(newActivities, ["creationDate"], ["desc"]);
     }
     return activities;
