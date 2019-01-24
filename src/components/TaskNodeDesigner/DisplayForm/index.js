@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import ValueList from "./ValueList";
 
 class DisplayForm extends Component {
@@ -33,7 +32,7 @@ class DisplayForm extends Component {
     }));
   };
 
-  handleTextInputChange = (value, errors, field) => {
+  handleSelectTextInputChange = (value, errors, field) => {
     if (field !== undefined && field !== "undefined") {
       this.setState(
         () => ({
@@ -63,31 +62,6 @@ class DisplayForm extends Component {
     }
   };
 
-  /*handleSaveAppsDropdown = event => {
-      event.stopPropagation();
-      const { config, onSave } = this.props;
-      const toolTemplates = this.state.items.map(item => {
-        return {
-          description: "",
-          key: item.name.toLowerCase(),
-          label: item.name,
-          type: "ToolTemplateEntity", //hardcoding this TODO: improve
-          value: item.id
-        };
-      });
-      const configToSave = [
-        {
-          config: toolTemplates,
-          description: config.description,
-          id: config.id,
-          key: config.key,
-          name: config.name,
-          type: config.type
-        }
-      ];
-      onSave(configToSave);
-    };*/
-
   handleOnSave = e => {
     e.preventDefault();
     if (this.state["taskName"]) {
@@ -107,16 +81,6 @@ class DisplayForm extends Component {
     return configToSave;
   }
 
-  determineSectionHeaderConfig() {
-    let isValid;
-    let onSaveFunction;
-
-    isValid = this.determineIsValidForm();
-    onSaveFunction = this.handleOnSave;
-
-    return { isValid, onSaveFunction };
-  }
-
   determineIsValidForm = () => {
     const stateKeys = Object.keys(this.state);
     if (!stateKeys.length) return false;
@@ -130,49 +94,34 @@ class DisplayForm extends Component {
   };
 
   render() {
-    const sectionHeaderConfig = this.determineSectionHeaderConfig();
     const { nodeConfig, task } = this.props;
     return (
-      <form>
+      <form onSubmit={this.handleOnSave}>
         <ModalContentBody
           style={{
             maxWidth: "35rem",
-            margin: "auto",
             height: "30rem",
+            width: "100%",
+            margin: "auto",
+            overflow: "scroll",
             display: "flex",
             flexDirection: "column",
-            overflow: "hidden"
+            justifyContent: "flex-start"
           }}
         >
-          <div style={{ overflow: "scroll" }}>
-            <TextInput
-              required
-              noValueText="Name is required"
-              comparisonData={this.props.taskNames}
-              existValueText="Task name must be unique per workflow"
-              externallyControlled
-              name="taskName"
-              placeholder="Enter a task name"
-              value={this.props.node.taskName}
-              title="Task Name"
-              onChange={this.updateNodeTaskName}
-              theme="bmrg-white"
-            />
-            <ValueList
-              task={task}
-              nodeConfig={nodeConfig}
-              onTextInputChange={this.handleTextInputChange}
-              onToggleChange={this.handleToggleChange}
-            />
-          </div>
+          <ValueList
+            updateNodeTaskName={this.updateNodeTaskName}
+            taskNames={this.props.taskNames}
+            node={this.props.node}
+            task={task}
+            nodeConfig={nodeConfig}
+            form={this.state}
+            onSelectTextInputChange={this.handleSelectTextInputChange}
+            onToggleChange={this.handleToggleChange}
+          />
         </ModalContentBody>
         <ModalContentFooter>
-          <ModalConfirmButton
-            theme="bmrg-white"
-            text="Apply"
-            disabled={!sectionHeaderConfig.isValid}
-            onClick={sectionHeaderConfig.onSaveFunction}
-          >
+          <ModalConfirmButton theme="bmrg-white" text="Apply" disabled={!this.determineIsValidForm()} type="submit">
             Apply
           </ModalConfirmButton>
         </ModalContentFooter>

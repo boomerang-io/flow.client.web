@@ -54,6 +54,7 @@ export class TaskNode extends Component {
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={`Edit properties for ${task.name}`}
+            //headerSubtitle={`Edit properties for ${task.description}`}
             closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
             theme="bmrg-white"

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import { default as BmrgToggle } from "@boomerang/boomerang-components/lib/Toggle";
 import isURL from "validator/lib/isURL";
 import "./styles.scss";
@@ -14,6 +15,11 @@ const INPUT_TYPES = {
 
 const TEXT_AREA_TYPES = {
   textarea: { type: "textarea", validationFunction: () => {}, validationText: "" }
+};
+
+const SELECT_DROPDOWN_TYPES = {
+  select: { type: "select", isMulitselect: false },
+  multiselect: { type: "multiselect", isMultiselect: true }
 };
 
 const Toggle = ({ defaultChecked, description, label, name, onChange }) => {
@@ -36,13 +42,34 @@ Toggle.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
+const ValueList = ({
+  form,
+  nodeConfig,
+  task,
+  onSelectTextInputChange,
+  onToggleChange,
+  taskNames,
+  node,
+  updateNodeTaskName
+}) => {
   const { inputs } = nodeConfig;
   const { config: taskConfig } = task;
   return (
     <>
-      <h1 className="s-settings-value-list-header">{taskConfig.description}</h1>
       <div className="c-settings-value-list">
+        <TextInput
+          required
+          noValueText="Name is required"
+          comparisonData={taskNames}
+          existValueText="Task name must be unique per workflow"
+          externallyControlled
+          name="taskName"
+          placeholder="Enter a task name"
+          value={node.taskName}
+          title="Task Name"
+          onChange={updateNodeTaskName}
+          theme="bmrg-white"
+        />
         {taskConfig.map(item => {
           const maxValueLength = item.maxValueLength || 128;
           const minValueLength = item.minValueLength || 0;
@@ -53,7 +80,7 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
                 key={item.key}
                 name={item.key}
                 alwaysShowTitle={true}
-                onChange={onTextInputChange}
+                onChange={onSelectTextInputChange}
                 placeholder={item.description}
                 maxChar={maxValueLength}
                 maxCharText={`Must be less than ${maxValueLength} characters`}
@@ -67,26 +94,42 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
                 validationText={itemConfig.validationText}
               />
             );
-          }
-          if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
+          } else if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
             const itemConfig = TEXT_AREA_TYPES[item.type];
             return (
               <TextArea
                 key={item.key}
                 name={item.key}
                 alwaysShowTitle={true}
-                handleChange={onTextInputChange}
+                handleChange={onSelectTextInputChange}
                 placeholder={item.description}
                 maxChar={maxValueLength}
                 maxCharText={`Must be less than ${maxValueLength} characters`}
                 minChar={minValueLength}
                 minCharText={`Must be more than ${minValueLength} characters`}
                 title={item.label}
-                detail={inputs[item.key] || ""}
+                value={inputs[item.key] || ""}
                 theme="bmrg-white"
                 validationFunction={itemConfig.validationFunction}
                 validationText={itemConfig.validationText}
               />
+            );
+          } else if (Object.keys(SELECT_DROPDOWN_TYPES).includes(item.type)) {
+            return (
+              <div style={{ marginBottom: "2.125rem" }}>
+                <SelectDropdown
+                  simpleValue
+                  multi={item.isMulitselect}
+                  key={item.key}
+                  name={item.key}
+                  onChange={onSelectTextInputChange}
+                  options={item.options.map(option => ({ value: option, label: option }))}
+                  value={form[item.key] ? form[item.key].value : ""}
+                  theme="bmrg-white"
+                  title={item.label}
+                  styles={{ width: "100%" }}
+                />
+              </div>
             );
           } else {
             return (
@@ -108,10 +151,14 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
 };
 
 ValueList.propTypes = {
+  form: PropTypes.object.isRequired,
   task: PropTypes.object.isRequired,
   nodeConfig: PropTypes.object.isRequired,
-  onTextInputChange: PropTypes.func.isRequired,
-  onToggleChange: PropTypes.func.isRequired
+  handleSelectTextInputChange: PropTypes.func.isRequired,
+  onToggleChange: PropTypes.func.isRequired,
+  updateNodeTaskName: PropTypes.func.isRequired,
+  taskNames: PropTypes.array.isRequired,
+  node: PropTypes.object.isRequired
 };
 
 export default ValueList;
