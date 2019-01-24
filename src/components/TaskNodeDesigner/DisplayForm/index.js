@@ -100,7 +100,7 @@ class DisplayForm extends Component {
         <ModalContentBody
           style={{
             maxWidth: "35rem",
-            height: "28rem",
+            height: "30rem",
             width: "100%",
             margin: "auto",
             overflow: "scroll",
