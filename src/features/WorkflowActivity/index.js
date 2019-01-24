@@ -148,9 +148,7 @@ export class WorkflowActivity extends Component {
     if (statusFilter.length > 0) {
       statusFilter.forEach(item => {
         newActivities = sortByProp(
-          newActivities.concat(
-            activities.filter(activity => (activity.status ? activity.status : "notstarted" === item.value))
-          ),
+          newActivities.concat(activities.filter(activity => activity.status === item.value)),
           "creationDate",
           "DESC"
         );

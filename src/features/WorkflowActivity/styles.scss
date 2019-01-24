@@ -99,7 +99,8 @@
     width: max-content;
     max-width: 15rem;
     background-color: $white;
-    max-height: 7.5rem;
+    height: auto;
+    max-height: unset;
     right: 0;
     left: unset;
   }
