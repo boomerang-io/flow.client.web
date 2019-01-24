@@ -20,8 +20,8 @@ export const parseChartsData = data => {
     sumDuration += item.duration;
     if (item.status === "completed") success.push(item);
     if (item.status === "failure") failure.push(item);
-    if (item.status === "inProgress") inprogress.push(item);
-    if (item.status === "invalid" || item.status === undefined) invalid.push(item);
+    if (item.status === "inProgress" || item.status === undefined) inprogress.push(item);
+    if (item.status === "invalid") invalid.push(item);
     if (dateName.find(date => moment(date).format("DD-MM-YY") === moment(item.creationDate).format("DD-MM-YY"))) {
       return null;
     } else {
@@ -47,20 +47,25 @@ export const parseChartsData = data => {
       success: succeeded,
       inProgress,
       invalid: invalidStatus,
-      total: fail + succeeded
+      total: fail + succeeded + inProgress + invalidStatus
     });
   });
 
   const totalExecutions = data.length;
-  const medianDuration = parseInt(sumDuration / totalExecutions, 10);
   const successExecutions = success.length;
+  const failExecutions = failure.length;
+  const inProgressExecutions = inprogress.length;
+  const invalidExecutions = invalid.length;
+  const medianDuration = parseInt(sumDuration / totalExecutions, 10);
   const percentageSuccessful = parseFloat(((success.length / totalExecutions) * 100).toFixed(2));
   return {
     timeData: sortBy(finalData, ["date"]),
     scatterData: sortBy(scatterData, ["date"]),
     pieData: [
       { name: "Passed", value: successExecutions },
-      { name: "Failed", value: totalExecutions - successExecutions }
+      { name: "Failed", value: failExecutions },
+      { name: "In Progress", value: inProgressExecutions },
+      { name: "Invalid", value: invalidExecutions }
     ],
     medianDuration: parseInt(medianDuration / 1000, 10),
     percentageSuccessful,

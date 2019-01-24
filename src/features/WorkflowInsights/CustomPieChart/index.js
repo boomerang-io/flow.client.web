@@ -5,7 +5,7 @@ import CustomTooltip from "../CustomTooltip";
 
 class CustomPieChart extends Component {
   render() {
-    const colors = ["#82ca9d", "#e26665"];
+    const colors = ["#82ca9d", "#e26665", "#40d5bb", "#c0bfc0"];
 
     return (
       <ResponsiveContainer height={200}>
