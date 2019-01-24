@@ -17,7 +17,7 @@ class SwitchLink extends Component {
     this.state = {
       switchCondition: props.model.switchCondition,
       modalIsOpen: false,
-      defaultState: props.model.switchCondition === null || undefined ? true : false
+      defaultState: props.model.switchCondition === null ? true : false
     };
 
     this.halfwayPoint = "";
@@ -25,7 +25,12 @@ class SwitchLink extends Component {
   }
 
   componentDidMount() {
-    //this.props.diagramEngine.repaintCanvas();
+    this.forceUpdate();
+    this.props.diagramEngine.repaintCanvas();
+  }
+
+  componentDidUpdate() {
+    this.props.diagramEngine.repaintCanvas();
   }
 
   componentWillUnmount() {
@@ -37,12 +42,16 @@ class SwitchLink extends Component {
     this.props.diagramEngine.repaintCanvas();
   };
 
-  updateSwitchState = switchCondition => {
-    this.setState({ switchCondition: switchCondition });
-  };
-
   openModal = () => {
     this.setState({ modalIsOpen: true });
+  };
+
+  updateSwitchState = (switchCondition, saveFunction) => {
+    this.setState(
+      { switchCondition: switchCondition },
+
+      () => saveFunction()
+    );
   };
 
   closeModal = () => {
@@ -55,11 +64,14 @@ class SwitchLink extends Component {
     });
   };
 
-  handleSave = e => {
-    e.preventDefault();
+  handleSave = () => {
     this.setState({ modalIsOpen: false });
     //also save back the state
-    this.props.model.switchCondition = this.state.switchCondition;
+    if (this.state.defaultState) {
+      this.props.model.switchCondition = null;
+    } else {
+      this.props.model.switchCondition = this.state.switchCondition;
+    }
     this.props.diagramEngine.repaintCanvas();
   };
 
@@ -97,7 +109,6 @@ class SwitchLink extends Component {
     let seperatedLinkState;
     if (this.props.model.switchCondition) {
       seperatedLinkState = this.props.model.switchCondition.replace(/\n/g, ",");
-      console.log(seperatedLinkState);
     }
     return (
       <>

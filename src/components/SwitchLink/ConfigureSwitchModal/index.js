@@ -17,6 +17,13 @@ class ConfigureSwitchModal extends React.Component {
     validateSwitch: PropTypes.func.isRequired
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      switchCondition: props.switchCondition
+    };
+  }
+
   componentDidMount() {
     this.props.setIsModalOpen({ isModalOpen: true });
   }
@@ -25,18 +32,16 @@ class ConfigureSwitchModal extends React.Component {
     this.props.setIsModalOpen({ isModalOpen: false });
   }
 
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.updateSwitchState(this.state.switchCondition, this.props.onSubmit);
+  };
+
   render() {
-    const {
-      defaultState,
-      onSubmit,
-      switchCondition,
-      updateDefaultState,
-      updateSwitchState,
-      validateSwitch
-    } = this.props;
+    const { defaultState, updateDefaultState, validateSwitch } = this.props;
     return (
       <>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <ModalContentBody
             style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}
           >
@@ -62,21 +67,20 @@ class ConfigureSwitchModal extends React.Component {
                   <TextArea
                     alwaysShowTitle
                     required
-                    value={switchCondition === null ? "" : switchCondition}
+                    value={this.state.switchCondition === null ? "" : this.state.switchCondition}
                     title="Switch Property Value"
                     placeholder="Enter a value"
                     name="property"
                     theme="bmrg-white"
-                    //onChange={updateSwitchState}
-                    handleChange={updateSwitchState}
+                    handleChange={value => this.setState({ switchCondition: value })}
                     style={{ paddingBottom: "1rem" }}
                     validationFunction={validateSwitch}
                   />
-                  <div className="b-switch-customvalue-desc">
+                  <div className="s-switch-customvalue-desc">
                     Enter the value(s) to match to take this arrow. Multiple values can be entered, one per line. Only
                     one must match for this connection to be valid
                   </div>
-                  <div className="b-switch-customvalue-wildcard">* can be used as a wildcard</div>
+                  <div className="s-switch-customvalue-wildcard">* can be used as a wildcard</div>
                 </div>
               )}
             </div>

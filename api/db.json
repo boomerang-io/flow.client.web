@@ -443,8 +443,8 @@
             {
               "id": "b5cc4c80-c383-43fd-8c1b-db4a0096fbe1",
               "selected": false,
-              "x": 647.281258787598,
-              "y": 118.10939241246251
+              "x": 484.2968872049971,
+              "y": 142.09373730680304
             },
             {
               "id": "564c9219-6aff-42bc-8288-39e4a8e597cd",
@@ -459,7 +459,7 @@
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
           "linkId": "8e1328ad-7d50-4841-9447-31ebaccd6f3b",
-          "switchCondition": null
+          "switchCondition": "ben\ntwo\nthree"
         },
         {
           "id": "e702239b-f47f-4e2a-bca7-6cda545b2c1f",
@@ -473,8 +473,8 @@
             {
               "id": "3dc7fad8-455f-4048-9735-ea7f3b1b6ed0",
               "selected": false,
-              "x": 647.281258787598,
-              "y": 118.10939241246251
+              "x": 484.2968872049971,
+              "y": 142.09373730680304
             },
             {
               "id": "f8eaff55-a099-49d9-874b-b1d43e3ab600",
@@ -489,7 +489,7 @@
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
           "linkId": "e702239b-f47f-4e2a-bca7-6cda545b2c1f",
-          "switchCondition": "finish\nend"
+          "switchCondition": null
         }
       ],
       "nodes": [
@@ -541,8 +541,8 @@
           "id": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
           "type": "decision",
           "selected": false,
-          "x": 455,
-          "y": 58.921875,
+          "x": 292.0271621396434,
+          "y": 82.91787566655557,
           "extras": {},
           "ports": [
             {
@@ -632,7 +632,7 @@
       ]
     },
     "changelog": {
-      "reason": "fds"
+      "reason": "fdsa"
     }
   },
   "workflowRevision": {
