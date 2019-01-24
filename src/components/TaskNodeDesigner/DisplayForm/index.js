@@ -33,7 +33,7 @@ class DisplayForm extends Component {
     }));
   };
 
-  handleTextInputChange = (value, errors, field) => {
+  handleSelectTextInputChange = (value, errors, field) => {
     if (field !== undefined && field !== "undefined") {
       this.setState(
         () => ({
@@ -161,7 +161,8 @@ class DisplayForm extends Component {
             <ValueList
               task={task}
               nodeConfig={nodeConfig}
-              onTextInputChange={this.handleTextInputChange}
+              form={this.state}
+              onSelectTextInputChange={this.handleSelectTextInputChange}
               onToggleChange={this.handleToggleChange}
             />
           </div>

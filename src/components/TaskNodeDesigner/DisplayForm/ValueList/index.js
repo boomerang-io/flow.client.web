@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import { default as BmrgToggle } from "@boomerang/boomerang-components/lib/Toggle";
 import isURL from "validator/lib/isURL";
 import "./styles.scss";
@@ -36,7 +37,7 @@ Toggle.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
+const ValueList = ({ form, nodeConfig, task, onSelectTextInputChange, onToggleChange }) => {
   const { inputs } = nodeConfig;
   const { config: taskConfig } = task;
   return (
@@ -53,7 +54,7 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
                 key={item.key}
                 name={item.key}
                 alwaysShowTitle={true}
-                onChange={onTextInputChange}
+                onChange={onSelectTextInputChange}
                 placeholder={item.description}
                 maxChar={maxValueLength}
                 maxCharText={`Must be less than ${maxValueLength} characters`}
@@ -67,15 +68,14 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
                 validationText={itemConfig.validationText}
               />
             );
-          }
-          if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
+          } else if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
             const itemConfig = TEXT_AREA_TYPES[item.type];
             return (
               <TextArea
                 key={item.key}
                 name={item.key}
                 alwaysShowTitle={true}
-                handleChange={onTextInputChange}
+                handleChange={onSelectTextInputChange}
                 placeholder={item.description}
                 maxChar={maxValueLength}
                 maxCharText={`Must be less than ${maxValueLength} characters`}
@@ -87,6 +87,21 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
                 validationFunction={itemConfig.validationFunction}
                 validationText={itemConfig.validationText}
               />
+            );
+          } else if (item.type === "select") {
+            return (
+              <div style={{ marginBottom: "2.125rem" }}>
+                <SelectDropdown
+                  key={item.key}
+                  name={item.key}
+                  onChange={onSelectTextInputChange}
+                  options={item.options}
+                  value={form[item.key] ? form[item.key].value : inputs[item.key] || []}
+                  theme="bmrg-white"
+                  title={item.label}
+                  styles={{ width: "100%" }}
+                />
+              </div>
             );
           } else {
             return (
@@ -108,9 +123,10 @@ const ValueList = ({ nodeConfig, task, onTextInputChange, onToggleChange }) => {
 };
 
 ValueList.propTypes = {
+  form: PropTypes.object.isRequired,
   task: PropTypes.object.isRequired,
   nodeConfig: PropTypes.object.isRequired,
-  onTextInputChange: PropTypes.func.isRequired,
+  handleSelectTextInputChange: PropTypes.func.isRequired,
   onToggleChange: PropTypes.func.isRequired
 };
 
