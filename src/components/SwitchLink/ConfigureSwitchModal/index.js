@@ -32,7 +32,9 @@ class ConfigureSwitchModal extends React.Component {
     this.props.setIsModalOpen({ isModalOpen: false });
   }
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log("called");
     this.props.updateSwitchState(this.state.switchCondition, this.props.onSubmit);
   };
 
@@ -40,48 +42,54 @@ class ConfigureSwitchModal extends React.Component {
     const { defaultState, updateDefaultState, validateSwitch } = this.props;
     return (
       <>
-        <ModalContentBody style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}>
-          <div className="b-switch-config__desc">Default?</div>
-          <div className="b-switch-config">
-            <Toggle
-              aria-labelledby="toggle-default"
-              className="b-switch-config__toggle"
-              name="default"
-              checked={defaultState}
-              onChange={updateDefaultState}
-              theme="bmrg-white"
-              red
-            />
-            <div className="b-switch-config__explanation">This path will be taken when no others are matched line.</div>
-          </div>
-
-          <div className="b-switch-customvalue">
-            {!defaultState && (
-              <div>
-                <TextArea
-                  alwaysShowTitle
-                  required
-                  value={this.state.switchCondition === null ? "" : this.state.switchCondition}
-                  title="Switch Property Value"
-                  placeholder="Enter a value"
-                  name="property"
-                  theme="bmrg-white"
-                  handleChange={value => this.setState({ switchCondition: value })}
-                  style={{ paddingBottom: "1rem" }}
-                  validationFunction={validateSwitch}
-                />
-                <div className="b-switch-customvalue-desc">
-                  Enter the value(s) to match to take this arrow. Multiple values can be entered, one per line. Only one
-                  must match for this connection to be valid
-                </div>
-                <div className="b-switch-customvalue-wildcard">* can be used as a wildcard</div>
+        <form onSubmit={this.handleSubmit}>
+          <ModalContentBody
+            style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}
+          >
+            <div className="b-switch-config__desc">Default?</div>
+            <div className="b-switch-config">
+              <Toggle
+                aria-labelledby="toggle-default"
+                className="b-switch-config__toggle"
+                name="default"
+                checked={defaultState}
+                onChange={updateDefaultState}
+                theme="bmrg-white"
+                red
+              />
+              <div className="b-switch-config__explanation">
+                This path will be taken when no others are matched line.
               </div>
-            )}
-          </div>
-        </ModalContentBody>
-        <ModalContentFooter>
-          <ModalConfirmButton text="SAVE" theme="bmrg-white" onClick={this.handleSubmit} />
-        </ModalContentFooter>
+            </div>
+
+            <div className="b-switch-customvalue">
+              {!defaultState && (
+                <div>
+                  <TextArea
+                    alwaysShowTitle
+                    required
+                    value={this.state.switchCondition === null ? "" : this.state.switchCondition}
+                    title="Switch Property Value"
+                    placeholder="Enter a value"
+                    name="property"
+                    theme="bmrg-white"
+                    handleChange={value => this.setState({ switchCondition: value })}
+                    style={{ paddingBottom: "1rem" }}
+                    validationFunction={validateSwitch}
+                  />
+                  <div className="b-switch-customvalue-desc">
+                    Enter the value(s) to match to take this arrow. Multiple values can be entered, one per line. Only
+                    one must match for this connection to be valid
+                  </div>
+                  <div className="b-switch-customvalue-wildcard">* can be used as a wildcard</div>
+                </div>
+              )}
+            </div>
+          </ModalContentBody>
+          <ModalContentFooter>
+            <ModalConfirmButton text="SAVE" theme="bmrg-white" type="submit" />
+          </ModalContentFooter>
+        </form>
       </>
     );
   }
