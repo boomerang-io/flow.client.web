@@ -10,6 +10,7 @@ export default class Tasks extends Component {
     super(props);
     this.state = {};
   }
+
   /*
         New Feature to Display the lefthand component pallet organized by category
         Incoming tasks are sorted and then broken into an array that contained arrays

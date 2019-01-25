@@ -14,15 +14,13 @@ class TasksSidenavContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasksToDisplay: props.tasks,
+      tasksToDisplay: props.tasks.data,
       searchQuery: ""
     };
   }
 
   handleClear = () => {
-    this.setState({ tasksToDisplay: this.props.tasks, searchQuery: "" }, () => {
-      this.forceUpdate();
-    });
+    this.setState({ tasksToDisplay: this.props.tasks.data, searchQuery: "" });
   };
 
   handleOnSearchInputChange = e => {
@@ -43,16 +41,17 @@ class TasksSidenavContainer extends Component {
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS) {
       return (
-        <div>
-          <SearchBar
-            theme="bmrg-white"
-            onChange={this.handleOnSearchInputChange}
-            onClear={this.handleClear}
-            value={this.state.searchQuery}
-            debounceTimeout={false}
-          />
+        <aside className="b-taskSideNav" style={{ width: "20rem", position: "absolute" }}>
+          <div className="b-taskSearchBar" style={{ width: "20rem", overflow: "hidden" }}>
+            <SearchBar
+              theme="bmrg-white"
+              onChange={this.handleOnSearchInputChange}
+              onClear={this.handleClear}
+              value={this.state.searchQuery}
+            />
+          </div>
           <Tasks tasks={this.state.tasksToDisplay} />
-        </div>
+        </aside>
       );
     }
 
