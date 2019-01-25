@@ -42,7 +42,10 @@ class TasksSidenavContainer extends Component {
     if (tasks.status === REQUEST_STATUSES.SUCCESS) {
       return (
         <aside className="b-taskSideNav" style={{ width: "20rem", position: "absolute" }}>
-          <div className="b-taskSearchBar" style={{ width: "20rem", overflow: "hidden" }}>
+          <div
+            className="b-taskSearchBar"
+            style={{ width: "20rem", overflow: "hidden", borderRight: "1px solid", borderColor: "#1b2834" }}
+          >
             <SearchBar
               theme="bmrg-white"
               onChange={this.handleOnSearchInputChange}
