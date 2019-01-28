@@ -1,60 +1,51 @@
 import React, { Component } from "react";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import classNames from "classnames";
+import matchSorter from "match-sorter";
+import SearchBar from "@boomerang/boomerang-components/lib/SearchBar";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import Task from "./Task";
-import "./styles.scss";
 
 export default class Tasks extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  /*
-        New Feature to Display the lefthand component pallet organized by category
-        Incoming tasks are sorted and then broken into an array that contained arrays
-        of task objects split by each category
-        -Each category is displayed in its own container on the pallet
+  state = {
+    tasksToDisplay: this.props.tasks.data,
+    searchQuery: ""
+  };
 
-    */
-  determineTasks = () => {
-    const sortedTasks = sortByProp(this.props.tasks, "category");
-    /*let trayItems = this.props.tasks.data.map(task => (
-     <TrayItemWidget
-       model={{ type: task.id, name: task.name, taskData: task }}
-       name={task.name}
-       color="rgb(129,17,81)"
-     />
-   ));*/
+  handleClear = () => {
+    this.setState({ tasksToDisplay: this.props.tasks.data, searchQuery: "" });
+  };
 
-    let all_tasks = [];
-    let list_of_unique_categories = [];
-    let index = -1;
-
-    Object.keys(sortedTasks).forEach(key => {
-      if (list_of_unique_categories.includes(sortedTasks[key].category) === false) {
-        index++;
-        list_of_unique_categories.push(sortedTasks[key].category);
-        all_tasks[index] = [];
-        all_tasks[index].push(sortedTasks[key]);
-      } else {
-        all_tasks[index].push(sortedTasks[key]);
-      }
+  handleOnSearchInputChange = e => {
+    const searchQuery = e.target.value;
+    this.setState({
+      searchQuery,
+      tasksToDisplay: this.handleSearchFilter(searchQuery)
     });
+  };
 
-    return all_tasks.map((arr, index) => (
-      <div className={classNames("b-task-category", { [`--${arr[0].category}`]: arr[0].category })} key={index}>
-        <h3 className={classNames("b-task-category__header", { [`--${arr[0].category}`]: arr[0].category })}>
-          {arr[0].category}
-        </h3>
+  handleSearchFilter = searchQuery => matchSorter(this.props.tasks.data, searchQuery, { keys: ["category", "name"] });
 
-        {arr.map(task => (
-          <Task
-            model={{ type: task.id, name: task.name, taskData: task }}
-            name={task.name}
-            color="rgb(129,17,81)"
-            key={task.id}
-          />
+  determineTasks = () => {
+    //Create object with keys as the categories and values as tasks
+    const sortedTasksByCategory = sortByProp(this.state.tasksToDisplay, "category");
+    const catgegoriesWithTasks = sortedTasksByCategory.reduce((accum, task) => {
+      if (!accum[task.category]) {
+        accum[task.category] = [task];
+      } else {
+        accum[task.category].push(task);
+      }
+      return accum;
+    }, {});
+
+    //Iterate through all of the categories and render header with associated tasks
+    const uniqueCategories = Object.keys(catgegoriesWithTasks);
+    return uniqueCategories.map(category => (
+      <div className={classNames("b-task-category", { [`--${category}`]: category })} key={category}>
+        <h3 className={classNames("b-task-category__header", { [`--${category}`]: category })}>{category}</h3>
+
+        {catgegoriesWithTasks[category].map(task => (
+          <Task model={{ type: task.id, name: task.name, taskData: task }} name={task.name} key={task.id} />
         ))}
       </div>
     ));
@@ -62,9 +53,19 @@ export default class Tasks extends Component {
 
   render() {
     return (
-      <div className="c-tasks-sidenav">
-        <Sidenav theme="bmrg-white" content={() => this.determineTasks()} />
-      </div>
+      <Sidenav
+        theme="bmrg-white"
+        header={() => (
+          <SearchBar
+            theme="bmrg-white"
+            placeholder="Search tasks"
+            onChange={this.handleOnSearchInputChange}
+            onClear={this.handleClear}
+            value={this.state.searchQuery}
+          />
+        )}
+        content={() => this.determineTasks()}
+      />
     );
   }
 }
