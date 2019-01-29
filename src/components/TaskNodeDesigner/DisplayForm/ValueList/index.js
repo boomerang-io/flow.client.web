@@ -18,7 +18,7 @@ const TEXT_AREA_TYPES = {
 };
 
 const SELECT_DROPDOWN_TYPES = {
-  select: { type: "select", isMulitselect: false },
+  select: { type: "select", isMultiselect: false },
   multiselect: { type: "multiselect", isMultiselect: true }
 };
 
@@ -119,7 +119,7 @@ const ValueList = ({
               <div style={{ marginBottom: "2.125rem" }}>
                 <SelectDropdown
                   simpleValue
-                  multi={item.isMulitselect}
+                  multi={item.isMultiselect}
                   key={item.key}
                   name={item.key}
                   onChange={onSelectTextInputChange}
