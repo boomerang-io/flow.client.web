@@ -109,64 +109,22 @@ export class WorkflowInsights extends Component {
     });
   };
 
-  render() {
-    const { insights, teams } = this.props;
+  renderWidgets = () => {
+    const { insights } = this.props;
 
-    if (insights.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
+    if (insights.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-white" />;
     }
 
-    if (insights.isFetching || teams.isFetching) {
-      return (
-        <div className="c-workflow-insights">
-          <div className="c-workflow-insights-content">
-            <LoadingAnimation theme="bmrg-white" />
-          </div>
-        </div>
-      );
+    if (insights.isFetching) {
+      return <LoadingAnimation theme="bmrg-white" />;
     }
 
-    if (insights.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
-      const { executionsList, selectedTeam } = this.state;
-      const teamsList = [{ value: "none", label: "All teams" }].concat(
-        teams.data.map(team => ({ label: team.name, value: team.id }))
-      );
-      let workflows = [];
-      if (selectedTeam.value === "none") teams.data.forEach(team => (workflows = workflows.concat(team.workflows)));
-      else workflows = teams.data.find(team => team.id === selectedTeam.value).workflows;
+    if (insights.status === REQUEST_STATUSES.SUCCESS) {
+      const { executionsList } = this.state;
       const chartData = parseChartsData(executionsList);
-      let workflowsList = [{ value: "none", label: "All workflows" }].concat(
-        sortByProp(workflows.map(workflow => ({ ...workflow, value: workflow.id, label: workflow.name })), "label")
-      );
-      const workflowsFilter = sortByProp(workflowsList, "name", "ASC");
-
       return (
-        <div className="c-workflow-insights">
-          <nav className="s-workflow-insights-navigation">
-            <NavigateBack
-              to={this.props.location.state ? this.props.location.state.fromUrl : "/workflows"}
-              text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Workflows"}`}
-            />
-          </nav>
-          <div className="c-workflow-insights-header">
-            <SimpleSelectFilter onChange={this.handleChangeTeam} selectedOption={selectedTeam} options={teamsList} />
-            <SearchFilterBar
-              handleSearchFilter={this.handleChangeWorkflow}
-              options={
-                selectedTeam.value !== "none" ? teams.data.filter(team => team.id === selectedTeam.value) : teams.data
-              }
-              filterItems={workflowsFilter}
-              debounceTimeout={300}
-              multiselect={false}
-              selectedOption={this.state.selectedWorkflow.value}
-              searchbar={false}
-            />
-            <SimpleSelectFilter
-              onChange={this.handleChangeTimeframe}
-              selectedOption={this.state.selectedTimeframe}
-              options={timeframeOptions}
-            />
-          </div>
+        <>
           <div className="c-workflow-insights-stats-widgets">
             <WidgetCard title="Total Executed" type="stat">
               {chartData.totalExecutions === 0 ? (
@@ -218,6 +176,71 @@ export class WorkflowInsights extends Component {
               )}
             </WidgetCard>
           </div>
+        </>
+      );
+    }
+
+    return null;
+  };
+
+  render() {
+    const { teams } = this.props;
+
+    if (teams.status === REQUEST_STATUSES.FAILURE) {
+      return <ErrorDragon theme="bmrg-white" />;
+    }
+
+    if (teams.isFetching) {
+      return (
+        <div className="c-workflow-insights">
+          <div className="c-workflow-insights-content">
+            <LoadingAnimation theme="bmrg-white" />
+          </div>
+        </div>
+      );
+    }
+
+    if (teams.status === REQUEST_STATUSES.SUCCESS) {
+      const { selectedTeam } = this.state;
+      const teamsList = [{ value: "none", label: "All teams" }].concat(
+        teams.data.map(team => ({ label: team.name, value: team.id }))
+      );
+      let workflows = [];
+      if (selectedTeam.value === "none") teams.data.forEach(team => (workflows = workflows.concat(team.workflows)));
+      else workflows = teams.data.find(team => team.id === selectedTeam.value).workflows;
+      let workflowsList = [{ value: "none", label: "All workflows" }].concat(
+        sortByProp(workflows.map(workflow => ({ ...workflow, value: workflow.id, label: workflow.name })), "label")
+      );
+      const workflowsFilter = sortByProp(workflowsList, "name", "ASC");
+
+      return (
+        <div className="c-workflow-insights">
+          <nav className="s-workflow-insights-navigation">
+            <NavigateBack
+              to={this.props.location.state ? this.props.location.state.fromUrl : "/workflows"}
+              text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Workflows"}`}
+            />
+          </nav>
+          <div className="c-workflow-insights-header">
+            <SimpleSelectFilter onChange={this.handleChangeTeam} selectedOption={selectedTeam} options={teamsList} />
+            <SearchFilterBar
+              handleSearchFilter={this.handleChangeWorkflow}
+              options={
+                selectedTeam.value !== "none" ? teams.data.filter(team => team.id === selectedTeam.value) : teams.data
+              }
+              filterItems={workflowsFilter}
+              debounceTimeout={300}
+              multiselect={false}
+              selectedOption={this.state.selectedWorkflow.value}
+              searchbar={false}
+            />
+            <SimpleSelectFilter
+              onChange={this.handleChangeTimeframe}
+              selectedOption={this.state.selectedTimeframe}
+              options={timeframeOptions}
+            />
+          </div>
+          {this.renderWidgets()}
         </div>
       );
     }
