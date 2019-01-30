@@ -17,10 +17,8 @@ class AutoSuggest extends Component {
   // Each time the component updates we want to refocus the input and keep the cursor in the correct place
   // Needed for when cycling through mutliple suggestions with the arrow keys and the cursor resets to the end of the input. We don't want that.
   componentDidUpdate(prevProps) {
-    if (this.props.value !== prevProps.value) {
-      this.inputRef.current.focus();
-      this.inputRef.current.setSelectionRange(this.state.caretIndex, this.state.caretIndex);
-    }
+    this.inputRef.current.focus();
+    this.inputRef.current.setSelectionRange(this.state.caretIndex, this.state.caretIndex);
   }
 
   renderSuggestion = suggestion => <div>{suggestion.label}</div>;
