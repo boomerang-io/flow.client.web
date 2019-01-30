@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
-import { actions as teamsActions } from "State/teams";
+import { actions as appActions } from "State/app";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import CopyToClipboard from "react-copy-to-clipboard";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
@@ -52,7 +52,9 @@ export class Overview extends Component {
   };
 
   generateToken = e => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     const { workflowActions } = this.props;
     return axios
       .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/webhook-token`)
@@ -61,7 +63,7 @@ export class Overview extends Component {
           key: "token",
           value: response.data.token
         });
-        notify(<Notification type="success" title="Create Workflow" message="Successfully Generated Webhook Token" />);
+        notify(<Notification type="success" title="Generate Token" message="Successfully generated webhook token" />);
       })
       .catch(err => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to create webhook token" />);
@@ -75,7 +77,7 @@ export class Overview extends Component {
 
   handleTeamChange = selectedTeam => {
     this.setState({ selectedTeam }, () => {
-      this.props.teamsActions.setActiveTeam({ teamId: selectedTeam.value });
+      this.props.appActions.setActiveTeam({ teamId: selectedTeam.value });
       this.props.workflowActions.updateProperty({
         key: "flowTeamId",
         value: selectedTeam.value
@@ -296,7 +298,7 @@ export class Overview extends Component {
                       <ConfirmModal
                         closeModal={closeModal}
                         affirmativeAction={this.generateToken}
-                        title="Generate a New Webhook Token?"
+                        title="Generate a new Webhook Token?"
                         subTitleTop="The existing token will be invalidated"
                         cancelText="NO"
                         affirmativeText="YES"
@@ -334,7 +336,7 @@ export class Overview extends Component {
                 {workflow.data.triggers && workflow.data.triggers.scheduler.enable && (
                   <ModalWrapper
                     initialState={this.props.workflow.data}
-                    shouldCloseOnOverlayClick={false}
+                    modalProps={{ shouldCloseOnOverlayClick: false }}
                     theme="bmrg-white"
                     ModalTrigger={() => (
                       <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
@@ -345,7 +347,11 @@ export class Overview extends Component {
                       <ModalFlow
                         closeModal={closeModal}
                         headerTitle="Set Schedule"
-                        confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
+                        confirmModalProps={{
+                          affirmativeAction: closeModal,
+                          theme: "bmrg-white",
+                          subTitleTop: "Your changes will not be saved"
+                        }}
                         {...rest}
                       >
                         <CronJobModal
@@ -414,11 +420,11 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     teams: state.teams.data,
-    activeTeamId: state.teams.activeTeamId
+    activeTeamId: state.app.activeTeamId
   };
 };
 const mapDispatchToProps = dispatch => ({
-  teamsActions: bindActionCreators(teamsActions, dispatch),
+  appActions: bindActionCreators(appActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch)
 });
 

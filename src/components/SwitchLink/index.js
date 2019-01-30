@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actions as appActions } from "State/app";
 import Modal from "react-modal";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
@@ -14,7 +17,7 @@ class SwitchLink extends Component {
     this.state = {
       switchCondition: props.model.switchCondition,
       modalIsOpen: false,
-      defaultState: props.model.switchCondition === "default" ? true : false
+      defaultState: props.model.switchCondition === null ? true : false
     };
 
     this.halfwayPoint = "";
@@ -22,7 +25,12 @@ class SwitchLink extends Component {
   }
 
   componentDidMount() {
-    //this.props.diagramEngine.repaintCanvas();
+    this.forceUpdate();
+    this.props.diagramEngine.repaintCanvas();
+  }
+
+  componentDidUpdate() {
+    this.props.diagramEngine.repaintCanvas();
   }
 
   componentWillUnmount() {
@@ -34,16 +42,21 @@ class SwitchLink extends Component {
     this.props.diagramEngine.repaintCanvas();
   };
 
-  updateSwitchState = switchCondition => {
-    this.setState({ switchCondition: switchCondition });
-  };
-
   openModal = () => {
     this.setState({ modalIsOpen: true });
   };
+
+  updateSwitchState = (switchCondition, saveFunction) => {
+    this.setState(
+      { switchCondition: switchCondition },
+
+      () => saveFunction()
+    );
+  };
+
   closeModal = () => {
     this.setState({ modalIsOpen: false, switchCondition: this.props.model.switchCondition }, () => {
-      if (this.props.model.switchCondition === "default") {
+      if (this.props.model.switchCondition === null) {
         this.setState({ defaultState: true });
       } else {
         this.setState({ defaultState: false });
@@ -51,11 +64,14 @@ class SwitchLink extends Component {
     });
   };
 
-  handleSave = e => {
-    e.preventDefault();
+  handleSave = () => {
     this.setState({ modalIsOpen: false });
     //also save back the state
-    this.props.model.switchCondition = this.state.switchCondition;
+    if (this.state.defaultState) {
+      this.props.model.switchCondition = null;
+    } else {
+      this.props.model.switchCondition = this.state.switchCondition;
+    }
     this.props.diagramEngine.repaintCanvas();
   };
 
@@ -64,7 +80,7 @@ class SwitchLink extends Component {
       prevState => ({ defaultState: !prevState.defaultState }),
       () => {
         if (this.state.defaultState) {
-          this.setState({ switchCondition: "default" });
+          this.setState({ switchCondition: null });
         }
       }
     );
@@ -88,6 +104,11 @@ class SwitchLink extends Component {
     if (this.path) {
       this.halfwayPoint = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
       this.endPoint = this.path.getPointAtLength(this.path.getTotalLength());
+    }
+
+    let seperatedLinkState;
+    if (this.props.model.switchCondition) {
+      seperatedLinkState = this.props.model.switchCondition.replace(/\n/g, ",");
     }
     return (
       <>
@@ -133,17 +154,26 @@ class SwitchLink extends Component {
                         updateDefaultState={this.updateDefaultState}
                         updateSwitchState={this.updateSwitchState}
                         validateSwitch={this.validateSwitch}
+                        setIsModalOpen={this.props.appActions.setIsModalOpen}
                       />
                     </ModalFlow>
                   </Modal>
                 </div>
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x + 10}, ${this.halfwayPoint.y + 10})`}>
-              <text className="small">{this.props.model.switchCondition}</text>
-            </g>
           </>
         )}
+        {!this.props.diagramEngine.diagramModel.locked && (
+          <g transform={`translate(${this.halfwayPoint.x + 10}, ${this.halfwayPoint.y + 10})`}>
+            <text className="small">{this.props.model.switchCondition === null ? "default" : seperatedLinkState}</text>
+          </g>
+        )}
+        {this.props.diagramEngine.diagramModel.locked && (
+          <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y})`}>
+            <text className="small">{this.props.model.switchCondition === null ? "default" : seperatedLinkState}</text>
+          </g>
+        )}
+
         <path
           ref={ref => {
             this.path = ref;
@@ -169,4 +199,11 @@ SwitchLink.propTypes = {
   diagramEngine: PropTypes.object.isRequired
 };
 
-export default SwitchLink;
+const mapDispatchToProps = dispatch => ({
+  appActions: bindActionCreators(appActions, dispatch)
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SwitchLink);

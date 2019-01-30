@@ -17,6 +17,7 @@ import "./styles.scss";
 class Inputs extends Component {
   static propTypes = {
     inputs: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
     updateInputs: PropTypes.func.isRequired,
     workflowActions: PropTypes.object.isRequired
   };
@@ -117,6 +118,7 @@ class Inputs extends Component {
                 )}
                 input={input}
                 updateInputs={this.props.updateInputs}
+                loading={this.props.loading}
               />
             </div>
           ))}
@@ -130,6 +132,7 @@ class Inputs extends Component {
             </div>
           )}
           updateInputs={this.props.updateInputs}
+          loading={this.props.loading}
         />
       </div>
     );

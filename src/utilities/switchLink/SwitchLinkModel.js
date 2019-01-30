@@ -3,7 +3,7 @@ import { DefaultLinkModel } from "@boomerang/boomerang-dag";
 export default class SwitchLinkModel extends DefaultLinkModel {
   constructor() {
     super("decision");
-    this.switchCondition = "default";
+    this.switchCondition = null;
   }
 
   serialize() {
@@ -16,7 +16,7 @@ export default class SwitchLinkModel extends DefaultLinkModel {
 
   deSerialize(data, engine) {
     super.deSerialize(data, engine);
-    this.id = data.linkId;
+    //this.id = data.linkId;
     this.switchCondition = data.switchCondition;
   }
 }

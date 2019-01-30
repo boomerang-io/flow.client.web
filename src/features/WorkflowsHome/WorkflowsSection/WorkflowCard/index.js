@@ -19,7 +19,12 @@ class WorkflowCard extends Component {
     workflow: PropTypes.object.isRequired,
     executeWorkflow: PropTypes.func.isRequired,
     deleteWorkflow: PropTypes.func.isRequired,
+    setActiveTeam: PropTypes.func.isRequired,
     teamId: PropTypes.string.isRequired
+  };
+
+  state = {
+    deleteModalIsOpen: false
   };
 
   executeWorkflow = ({ redirect, properties }) => {
@@ -27,11 +32,14 @@ class WorkflowCard extends Component {
   };
 
   render() {
-    const { workflow, history, teamId, deleteWorkflow } = this.props;
+    const { workflow, history, teamId, deleteWorkflow, setActiveTeam } = this.props;
     const menuOptions = [
       {
         itemText: "Edit",
-        onClick: () => history.push(`/editor/${workflow.id}/designer`),
+        onClick: () => {
+          setActiveTeam(teamId);
+          history.push(`/editor/${workflow.id}/designer`);
+        },
         primaryFocus: false
       },
       {
@@ -41,6 +49,7 @@ class WorkflowCard extends Component {
       },
       {
         itemText: "Delete",
+        onClick: () => this.setState({ deleteModalIsOpen: true }),
         primaryFocus: false,
         isDelete: true
       }
@@ -54,47 +63,40 @@ class WorkflowCard extends Component {
             <label className="b-workflow-card__status">{workflow.status}</label>
           </div> */}
           <OverflowMenu className="b-workflow-card__menu" ariaLabel="card menu" iconDescription="overflow menu icon ">
-            {menuOptions.map(option => {
-              return option.isDelete ? (
-                <AlertModal
-                  key={option.itemText}
-                  ModalTrigger={() => (
-                    <OverflowMenuItem
-                      className="b-workflow-card__option"
-                      requireTitle={false}
-                      onClick={option.onClick}
-                      itemText={option.itemText}
-                      primaryFocus={option.primaryFocus}
-                      key={option.itemText}
-                    />
-                  )}
-                  modalContent={(closeModal, rest) => (
-                    <ConfirmModal
-                      closeModal={closeModal}
-                      affirmativeAction={() => {
-                        deleteWorkflow({ teamId, workflowId: workflow.id });
-                      }}
-                      title="DELETE THIS WORKFLOW?"
-                      subTitleTop="It will be gone. Forever."
-                      negativeText="NO"
-                      affirmativeText="DELETE"
-                      theme="bmrg-white"
-                    />
-                  )}
-                />
-              ) : (
-                <OverflowMenuItem
-                  className="b-workflow-card__option"
-                  requireTitle={false}
-                  onClick={option.onClick}
-                  itemText={option.itemText}
-                  primaryFocus={option.primaryFocus}
-                  key={option.itemText}
-                />
-              );
-            })}
+            {menuOptions.map(option => (
+              <OverflowMenuItem
+                className="b-workflow-card__option"
+                requireTitle={false}
+                closeMenu={() => {}}
+                onClick={option.onClick}
+                itemText={option.itemText}
+                primaryFocus={option.primaryFocus}
+                key={option.itemText}
+              />
+            ))}
           </OverflowMenu>
         </div>
+        {this.state.deleteModalIsOpen && (
+          <AlertModal
+            isOpen
+            modalProps={{ shouldCloseOnOverlayClick: false }}
+            handleCloseModal={() => this.setState({ deleteModalIsOpen: false })}
+            ModalTrigger={null}
+            modalContent={closeModal => (
+              <ConfirmModal
+                closeModal={closeModal}
+                affirmativeAction={() => {
+                  deleteWorkflow({ teamId, workflowId: workflow.id });
+                }}
+                title="DELETE THIS WORKFLOW?"
+                subTitleTop="It will be gone. Forever."
+                negativeText="NO"
+                affirmativeText="DELETE"
+                theme="bmrg-white"
+              />
+            )}
+          />
+        )}
         <div className="c-workflow-card__info">
           <div className="c-workflow-card__icon">
             <img className="b-workflow-card__icon" src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
@@ -107,6 +109,7 @@ class WorkflowCard extends Component {
             <span data-tip data-for={workflow.id} className="b-workflow-card-launch">
               {workflow.properties && workflow.properties.length > 0 ? (
                 <Modal
+                  modalProps={{ shouldCloseOnOverlayClick: false }}
                   ModalTrigger={() => (
                     <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
                   )}
@@ -130,6 +133,7 @@ class WorkflowCard extends Component {
               ) : (
                 <AlertModal
                   className="bmrg--c-alert-modal --execute-workflow"
+                  modalProps={{ shouldCloseOnOverlayClick: false }}
                   ModalTrigger={() => (
                     <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
                   )}
@@ -141,14 +145,14 @@ class WorkflowCard extends Component {
                       img={deployIcon}
                       closeModal={closeModal}
                       affirmativeAction={() => this.executeWorkflow({ redirect: false })}
-                      affirmativeText="Run"
+                      affirmativeText="RUN"
                       theme="bmrg-white"
                     >
                       <button
                         className="bmrg--b-confirm-modal__button --affirmative --children"
                         onClick={() => this.executeWorkflow({ redirect: true })}
                       >
-                        Run and View
+                        RUN & VIEW
                       </button>
                     </ConfirmModal>
                   )}

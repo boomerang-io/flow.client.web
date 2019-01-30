@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
+import { actions as appActions } from "State/app";
 import sortBy from "lodash/sortBy";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
@@ -28,7 +29,7 @@ export class WorkflowsHome extends Component {
 
   componentDidMount() {
     this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
-    this.props.teamsActions.setActiveTeam({ teamId: undefined });
+    this.props.appActions.setActiveTeam({ teamId: undefined });
   }
 
   handleSearchFilter = (searchQuery, teams) => {
@@ -51,11 +52,11 @@ export class WorkflowsHome extends Component {
   };
 
   setActiveTeamAndRedirect = selectedTeamId => {
-    this.props.teamsActions.setActiveTeam({ teamId: selectedTeamId });
+    this.props.appActions.setActiveTeam({ teamId: selectedTeamId });
     this.props.history.push(`/creator/overview`);
   };
   setActiveTeam = selectedTeamId => {
-    this.props.teamsActions.setActiveTeam({ teamId: selectedTeamId });
+    this.props.appActions.setActiveTeam({ teamId: selectedTeamId });
   };
 
   handleExecuteWorkflow = ({ workflowId, redirect = false, properties = {} }) => {
@@ -153,6 +154,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  appActions: bindActionCreators(appActions, dispatch),
   teamsActions: bindActionCreators(teamsActions, dispatch)
 });
 

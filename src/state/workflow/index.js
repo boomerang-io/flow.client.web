@@ -21,8 +21,7 @@ export const types = {
   CREATE_WORKFLOW_INPUT: "CREATE_WORKFLOW_INPUT",
   UPDATE_WORKFLOW_INPUT: "UPDATE_WORKFLOW_INPUT",
   DELETE_WORKFLOW_INPUT: "DELETE_WORKFLOW_INPUT",
-  SET_HAS_UNSAVED_WORKFLOW_UPDATES: "SET_HAS_UNSAVED_WORKFLOW_UPDATES",
-  SET_HAS_UNSAVED_INPUT_UPDATES: "SET_HAS_UNSAVED_INPUT_UPDATES"
+  SET_HAS_UNSAVED_WORKFLOW_UPDATES: "SET_HAS_UNSAVED_WORKFLOW_UPDATES"
 };
 Object.freeze(types);
 
@@ -119,19 +118,19 @@ const actionHandlers = {
   [types.CREATE_WORKFLOW_INPUT]: (state, action) => {
     const { properties } = state.data;
     const newProperties = [...properties, action.data];
-    return { ...state, hasUnsavedInputUpdates: true, data: { ...state.data, properties: newProperties } };
+    return { ...state, data: { ...state.data, properties: newProperties } };
   },
   [types.UPDATE_WORKFLOW_INPUT]: (state, action) => {
     // Replace matching input
     const properties = state.data.properties.map(input => (input.key === action.data.key ? action.data : input));
     const newProperties = [...properties];
-    return { ...state, hasUnsavedInputUpdates: true, data: { ...state.data, properties: newProperties } };
+    return { ...state, data: { ...state.data, properties: newProperties } };
   },
   [types.DELETE_WORKFLOW_INPUT]: (state, action) => {
     // Remove matching input
     const properties = state.data.properties.filter(input => input.key !== action.data.key);
     const newProperties = [...properties];
-    return { ...state, hasUnsavedInputUpdates: true, data: { ...state.data, properties: newProperties } };
+    return { ...state, data: { ...state.data, properties: newProperties } };
   }
 };
 

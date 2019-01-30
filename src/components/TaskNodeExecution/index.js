@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as workflowExecutionActiveNodeActions } from "State/workflowExecutionActiveNode";
+import { actions as appActions } from "State/app";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
@@ -15,7 +15,7 @@ export class TaskNodeExecution extends Component {
     step: PropTypes.object,
     task: PropTypes.object.isRequired,
     diagramEngine: PropTypes.object.isRequired,
-    workflowExecutionActiveNodeActions: PropTypes.object.isRequired
+    appActions: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -25,7 +25,7 @@ export class TaskNodeExecution extends Component {
   state = {};
 
   handleOnActivityClick = () => {
-    this.props.workflowExecutionActiveNodeActions.updateActiveNode({
+    this.props.appActions.updateActiveNode({
       workflowId: this.props.diagramEngine.id,
       nodeId: this.props.node.id
     });
@@ -51,7 +51,9 @@ export class TaskNodeExecution extends Component {
 
           <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
           <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
-          <img src={TASK_KEYS_TO_ICON[this.props.task.category]} className="b-task-node__img" alt="Task node type" />
+          {TASK_KEYS_TO_ICON[this.props.task.category] && (
+            <img src={TASK_KEYS_TO_ICON[this.props.task.category]} className="b-task-node__img" alt="Task node type" />
+          )}
         </div>
       </div>
     );
@@ -70,7 +72,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  workflowExecutionActiveNodeActions: bindActionCreators(workflowExecutionActiveNodeActions, dispatch)
+  appActions: bindActionCreators(appActions, dispatch)
 });
 
 export default connect(

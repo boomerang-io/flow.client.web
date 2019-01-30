@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { REQUEST_STATUSES } from "Config/servicesConfig";
 import Tasks from "./Tasks";
+import { REQUEST_STATUSES } from "Config/servicesConfig";
+import "./styles.scss";
 
 class TasksSidenavContainer extends Component {
   static propTypes = {
@@ -13,7 +14,11 @@ class TasksSidenavContainer extends Component {
     const { tasks } = this.props;
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS) {
-      return <Tasks tasks={tasks.data} />;
+      return (
+        <div className="c-tasks-sidenav">
+          <Tasks tasks={tasks} />
+        </div>
+      );
     }
 
     return null;

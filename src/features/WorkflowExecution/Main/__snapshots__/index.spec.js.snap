@@ -39,6 +39,9 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
       />
     </div>
   </div>
+  <div
+    className="c-workflow-diagram-execution"
+  />
   <aside
     style={
       Object {
@@ -68,7 +71,7 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
           <div
             className="b-workflow-summary-field__value"
           >
-            
+            ---
           </div>
         </div>
         <div
@@ -115,7 +118,7 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
           <div
             className="b-workflow-summary-field__value"
           >
-            
+            ---
           </div>
         </div>
       </div>

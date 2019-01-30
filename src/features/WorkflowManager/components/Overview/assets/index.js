@@ -1,4 +1,4 @@
-import docs from "./docs.svg";
+import docs from "./document_32.svg";
 import flow from "./flow.svg";
 import log from "./log.svg";
 import payment from "./payment.svg";

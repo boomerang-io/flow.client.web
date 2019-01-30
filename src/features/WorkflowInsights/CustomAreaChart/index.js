@@ -25,7 +25,11 @@ class CustomAreaChart extends Component {
       offsetSuccess1: "5%",
       offsetSuccess2: "95%",
       offsetTotal1: "5%",
-      offsetTotal2: "95%"
+      offsetTotal2: "95%",
+      offsetInProgress1: "5%",
+      offsetInProgress2: "95%",
+      offsetInvalid1: "5%",
+      offsetInvalid2: "95%"
     };
     this.toggleArea = this.toggleArea.bind(this);
   }
@@ -40,7 +44,11 @@ class CustomAreaChart extends Component {
           offsetSuccess1: "0%",
           offsetSuccess2: "0%",
           offsetTotal1: "0%",
-          offsetTotal2: "0%"
+          offsetTotal2: "0%",
+          offsetInProgress1: "0%",
+          offsetInProgress2: "0%",
+          offsetInvalid1: "0%",
+          offsetInvalid2: "0%"
         });
       case "success":
         return this.setState({
@@ -49,7 +57,11 @@ class CustomAreaChart extends Component {
           offsetSuccess1: "100%",
           offsetSuccess2: "0%",
           offsetTotal1: "0%",
-          offsetTotal2: "0%"
+          offsetTotal2: "0%",
+          offsetInProgress1: "0%",
+          offsetInProgress2: "0%",
+          offsetInvalid1: "0%",
+          offsetInvalid2: "0%"
         });
       case "total":
         return this.setState({
@@ -58,7 +70,37 @@ class CustomAreaChart extends Component {
           offsetSuccess1: "0%",
           offsetSuccess2: "0%",
           offsetTotal1: "100%",
-          offsetTotal2: "0%"
+          offsetTotal2: "0%",
+          offsetInProgress1: "0%",
+          offsetInProgress2: "0%",
+          offsetInvalid1: "0%",
+          offsetInvalid2: "0%"
+        });
+      case "inProgress":
+        return this.setState({
+          offsetFailed1: "0%",
+          offsetFailed2: "0%",
+          offsetSuccess1: "0%",
+          offsetSuccess2: "0%",
+          offsetTotal1: "0%",
+          offsetTotal2: "0%",
+          offsetInProgress1: "100%",
+          offsetInProgress2: "0%",
+          offsetInvalid1: "0%",
+          offsetInvalid2: "0%"
+        });
+      case "invalid":
+        return this.setState({
+          offsetFailed1: "0%",
+          offsetFailed2: "0%",
+          offsetSuccess1: "0%",
+          offsetSuccess2: "0%",
+          offsetTotal1: "0%",
+          offsetTotal2: "0%",
+          offsetInProgress1: "0%",
+          offsetInProgress2: "0%",
+          offsetInvalid1: "100%",
+          offsetInvalid2: "0%"
         });
       default:
     }
@@ -70,7 +112,11 @@ class CustomAreaChart extends Component {
       offsetSuccess1: "5%",
       offsetSuccess2: "95%",
       offsetTotal1: "5%",
-      offsetTotal2: "95%"
+      offsetTotal2: "95%",
+      offsetInProgress1: "5%",
+      offsetInProgress2: "95%",
+      offsetInvalid1: "5%",
+      offsetInvalid2: "95%"
     });
   };
 
@@ -83,7 +129,18 @@ class CustomAreaChart extends Component {
     }
   }
   render() {
-    const { offsetFailed1, offsetFailed2, offsetSuccess1, offsetSuccess2, offsetTotal1, offsetTotal2 } = this.state;
+    const {
+      offsetFailed1,
+      offsetFailed2,
+      offsetSuccess1,
+      offsetSuccess2,
+      offsetTotal1,
+      offsetTotal2,
+      offsetInProgress1,
+      offsetInProgress2,
+      offsetInvalid1,
+      offsetInvalid2
+    } = this.state;
     const AreaLabel = (
       <text x={-180} y={35} dy={-5} fill={"#4a4a4a"} fontSize={14} transform="rotate(-90)" textAnchor="middle">
         {this.props.yAxisText}
@@ -123,6 +180,14 @@ class CustomAreaChart extends Component {
             <linearGradient id="blueGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset={offsetTotal1} stopColor="#5285C1" stopOpacity={0.8} />
               <stop offset={offsetTotal2} stopColor="#5285C1" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="grayGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset={offsetInvalid1} stopColor="#c0bfc0" stopOpacity={0.8} />
+              <stop offset={offsetInvalid2} stopColor="#c0bfc0" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="tealGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset={offsetInProgress1} stopColor="#40d5bb" stopOpacity={0.8} />
+              <stop offset={offsetInProgress2} stopColor="#40d5bb" stopOpacity={0} />
             </linearGradient>
           </defs>
           <XAxis

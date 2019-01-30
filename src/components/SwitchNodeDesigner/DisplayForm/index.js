@@ -10,10 +10,18 @@ class DisplayForm extends Component {
     nodeConfig: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
     closeModal: PropTypes.func.isRequired,
-    task: PropTypes.object.isRequired
+    task: PropTypes.object.isRequired,
+    setIsModalOpen: PropTypes.func.isRequired
   };
 
   state = {};
+
+  componentDidMount() {
+    this.props.setIsModalOpen({ isModalOpen: true });
+  }
+  componentWillUnmount() {
+    this.props.setIsModalOpen({ isModalOpen: false });
+  }
 
   handleAppsDropdownChange = items => {
     this.setState(() => ({

@@ -1,0 +1,13 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.c-tasks-sidenav {
+  .bmrg--c-sidenav {
+    height: calc(100vh - 12rem);
+    overflow: scroll;
+    min-height: 0rem;
+  }
+
+  .bmrg--b-search-bar .bmrg--b-search-bar__textbox {
+    background: $cool-white-1;
+  }
+}

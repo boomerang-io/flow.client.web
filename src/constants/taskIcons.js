@@ -1,6 +1,7 @@
-import downloadSVG from "Assets/svg/install.svg";
-import emailSVG from "Assets/svg/email_icon.svg";
-import boomerangSVG from "Assets/svg/apps-icon-launchpad.svg";
+import boomerangIcon from "Assets/svg/boomerang_icon.svg";
+import emailIcon from "Assets/svg/email_icon.svg";
+import fileIcon from "Assets/svg/file_icon.svg";
+import settingsIcon from "Assets/svg/settings_icon.svg";
 
 /*export const TASK_KEYS = {
   INGEST: "ingest",
@@ -25,11 +26,13 @@ export const TASK_KEYS_TO_ICON = {
 export const TASK_KEYS = {
   BOOMERANG: "boomerang",
   COMMUNICATION: "communication",
-  UTILITIES: "utilities"
+  UTILITIES: "utilities",
+  FILE_UTILITIES: "file utilities"
 };
 
 export const TASK_KEYS_TO_ICON = {
-  [TASK_KEYS.BOOMERANG]: boomerangSVG,
-  [TASK_KEYS.COMMUNICATION]: emailSVG,
-  [TASK_KEYS.UTILITIES]: downloadSVG
+  [TASK_KEYS.BOOMERANG]: boomerangIcon,
+  [TASK_KEYS.COMMUNICATION]: emailIcon,
+  [TASK_KEYS.FILE_UTILITIES]: fileIcon,
+  [TASK_KEYS.UTILITIES]: settingsIcon
 };

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import CloseIcon from "Assets/icons/CloseIcon";
 import bkgskyline from "../img/bkg-skyline.svg";
 import FadeAnimation from "Components/FadeAnimation";
-import "../styles/onBoardMessage.scss";
+import "./styles.scss";
 
 const OnBoardMessage = props => {
   const {

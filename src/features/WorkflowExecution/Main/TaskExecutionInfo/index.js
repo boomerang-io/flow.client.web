@@ -32,7 +32,7 @@ const TaskExecutionInfo = ({ flowActivityId, task }) => {
         <div className="b-step-side-info-field">
           <div className="b-step-side-info-field__key">Duration</div>
           <div className="b-step-side-info-field__value">
-            {task.duration ? getHumanizedDuration(Math.round(parseInt(task.duration / 1000), 10)) : "-----"}
+            {task.duration ? getHumanizedDuration(Math.round(parseInt(task.duration / 1000), 10)) : "---"}
           </div>
         </div>
       </div>

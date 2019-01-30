@@ -24,14 +24,19 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    // this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
+    this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
   }
 
   render() {
-    const { workflowExecutionData, taskId, updateActiveNode, location } = this.props;
+    const { workflowData, workflowExecutionData, taskId, updateActiveNode, location, version } = this.props;
+    const hasFinished = [EXECUTION_STATUSES.COMPLETED, EXECUTION_STATUSES.INVALID, EXECUTION_STATUSES.FAILURE].includes(
+      workflowExecutionData.status
+    );
+
     const hasStarted =
       workflowExecutionData.steps &&
       workflowExecutionData.steps.find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
+
     const selectedTask =
       workflowExecutionData.steps && workflowExecutionData.steps.length && taskId
         ? workflowExecutionData.steps.find(step => step.taskId === taskId)
@@ -46,27 +51,28 @@ class Main extends Component {
           />
         </nav>
         <TimeProgressBar updateActiveNode={updateActiveNode} workflowExecution={workflowExecutionData} />
-        {/* <div className="c-workflow-diagram-execution">
-          {hasStarted ? (
-            <DiagramWidget
-              className="c-diagram-canvas"
-              diagramEngine={this.diagramApp.getDiagramEngine()}
-              maxNumberPointsPerLink={0}
-              deleteKeys={[]}
-              allowLooseLinks={false}
-              allowCanvasTranslation={true}
-              allowCanvasZoo={false}
-            />
-          ) : (
-            <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
-          )}
-        </div> */}
+        {
+          <div className="c-workflow-diagram-execution">
+            {hasStarted || hasFinished ? (
+              <DiagramWidget
+                className="c-diagram-canvas"
+                diagramEngine={this.diagramApp.getDiagramEngine()}
+                maxNumberPointsPerLink={0}
+                deleteKeys={[]}
+                allowLooseLinks={false}
+                allowCanvasTranslation={true}
+                allowCanvasZoom={true}
+              />
+            ) : (
+              <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
+            )}
+          </div>
+        }
         <aside style={{ gridArea: "sidebar" }}>
           <WorkflowSummary
-            workflowData={this.props.workflowData}
-            version={this.props.version}
-            duration={workflowExecutionData.duration}
-            status={workflowExecutionData.status}
+            workflowData={workflowData}
+            workflowExecutionData={workflowExecutionData}
+            version={version}
           />
           {selectedTask && <TaskExecutionInfo task={selectedTask} flowActivityId={workflowExecutionData.id} />}
         </aside>

@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowExecutionActions } from "State/workflowExecution";
-import { actions as workflowExecutionActiveNodeActions } from "State/workflowExecutionActiveNode";
+import { actions as appActions } from "State/app";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import ErrorDragon from "Components/ErrorDragon";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -19,8 +19,8 @@ export class WorkflowExecutionContainer extends Component {
   static propTypes = {
     workflowExecution: PropTypes.object.isRequired,
     workflowExecutionActions: PropTypes.object.isRequired,
-    workflowExecutionActiveNode: PropTypes.object.isRequired,
-    workflowExecutionActiveNodeActions: PropTypes.object,
+    app: PropTypes.object.isRequired,
+    appActions: PropTypes.object,
     workflowRevision: PropTypes.object,
     workflowRevisionActions: PropTypes.object,
     workflowActions: PropTypes.object,
@@ -64,14 +64,14 @@ export class WorkflowExecutionContainer extends Component {
   };
 
   updateActiveNode = nodeId => {
-    this.props.workflowExecutionActiveNodeActions.updateActiveNode({
+    this.props.appActions.updateActiveNode({
       workflowId: this.props.match.params.workflowId,
       nodeId
     });
   };
 
   render() {
-    const { nodeId } = this.props.workflowExecutionActiveNode.activeNode;
+    const { nodeId } = this.props.app.activeNode;
     const { data: workflowExecutionData, status: workflowExecutionStatus } = this.props.workflowExecution;
     const { fetchingStatus: workflowRevisionStatus } = this.props.workflowRevision;
     const { status: tasksStatus } = this.props.tasks;
@@ -117,18 +117,18 @@ export class WorkflowExecutionContainer extends Component {
 }
 
 const mapStateToProps = state => ({
+  app: state.app,
   tasks: state.tasks,
   workflow: state.workflow,
   workflowExecution: state.workflowExecution,
-  workflowExecutionActiveNode: state.workflowExecutionActiveNode,
   workflowRevision: state.workflowRevision
 });
 
 const mapDispatchToProps = dispatch => ({
+  appActions: bindActionCreators(appActions, dispatch),
   tasksActions: bindActionCreators(tasksActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch),
   workflowExecutionActions: bindActionCreators(workflowExecutionActions, dispatch),
-  workflowExecutionActiveNodeActions: bindActionCreators(workflowExecutionActiveNodeActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 

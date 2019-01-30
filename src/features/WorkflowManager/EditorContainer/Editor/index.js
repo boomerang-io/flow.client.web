@@ -19,7 +19,8 @@ class WorkflowEditor extends Component {
     isValidOverview: PropTypes.bool.isRequired,
     setIsValidOveriew: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
-    workflowRevision: PropTypes.object.isRequired
+    workflowRevision: PropTypes.object.isRequired,
+    isModalOpen: PropTypes.bool.isRequired
   };
 
   constructor(props) {
@@ -65,6 +66,7 @@ class WorkflowEditor extends Component {
       handleChangeLogReasonChange,
       isValidOverview,
       match,
+      isModalOpen,
       overviewData,
       setIsValidOveriew,
       workflow,
@@ -72,6 +74,7 @@ class WorkflowEditor extends Component {
     } = this.props;
     const { revisionCount } = workflow.data;
     const { version } = workflowRevision;
+    const workflowLoading = workflowRevision.isFetching || workflowRevision.isCreating;
 
     return (
       <>
@@ -86,6 +89,7 @@ class WorkflowEditor extends Component {
                   performAction={this.updateWorkflow}
                   diagramApp={this.diagramApp}
                   isValidOverview={isValidOverview}
+                  loading={workflowLoading}
                   {...props}
                 />
                 <Overview workflow={workflow} overviewData={overviewData} setIsValidOveriew={setIsValidOveriew} />
@@ -100,9 +104,10 @@ class WorkflowEditor extends Component {
                   diagramApp={this.diagramApp}
                   isValidOverview={isValidOverview}
                   showActionButton={false}
+                  loading={workflowLoading}
                   {...props}
                 />
-                <Inputs updateInputs={this.props.updateInputs} />
+                <Inputs updateInputs={this.props.updateInputs} loading={workflow.isUpdating} />
               </>
             )}
           />
@@ -124,6 +129,7 @@ class WorkflowEditor extends Component {
                   revisionCount={workflow.data.revisionCount}
                   currentRevision={workflowRevision.version}
                   fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
+                  loading={workflowLoading}
                   {...props}
                 />
                 <TasksSidenav />
@@ -140,6 +146,8 @@ class WorkflowEditor extends Component {
                     diagramEngine={this.diagramApp.getDiagramEngine()}
                     maxNumberPointsPerLink={0}
                     deleteKeys={[]}
+                    allowCanvasZoom={!isModalOpen}
+                    allowCanvasTranslation={!isModalOpen}
                   />
                 </div>
               </>

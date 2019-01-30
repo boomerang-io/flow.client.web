@@ -4,21 +4,23 @@
   margin: 0 auto;
   max-width: 100rem;
 
+  .c-simple-select-filter {
+    margin-left: 1rem;
+  }
+
   .bx--select-input {
-    width: 12rem;
+    width: 11rem;
+    margin-right: 1rem;
   }
 
   .b-search-filter {
     width: auto;
-    margin-left: 2.2rem;
+    margin-left: 1rem;
   }
   .b-search-filter__search {
     display: none;
   }
 
-  .b-search-filter__filter {
-    width: 13rem;
-  }
   .bx--select {
     background-color: $teal-20;
     border-radius: 0.25rem;
@@ -74,6 +76,7 @@
 
   .bx--list-box__field {
     appearance: none;
+    width: 12rem;
     &:focus {
       box-shadow: none;
     }
@@ -97,7 +100,8 @@
     width: max-content;
     max-width: 15rem;
     background-color: $white;
-    max-height: 7.5rem;
+    height: auto;
+    max-height: unset;
     right: 0;
     left: unset;
   }
@@ -127,7 +131,7 @@
   display: flex;
   align-self: flex-end;
   justify-content: space-between;
-  width: 40rem;
+  width: 55rem;
 
   & .b-search-filter__search {
     margin-right: 0rem;

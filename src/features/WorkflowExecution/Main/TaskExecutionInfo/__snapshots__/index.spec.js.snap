@@ -53,7 +53,7 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
       <div
         className="b-step-side-info-field__value"
       >
-        January 18th 2019, 11:27:59 am
+        December 31st 2017, 7:00:00 pm
       </div>
     </div>
     <div
@@ -67,7 +67,7 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
       <div
         className="b-step-side-info-field__value"
       >
-        -----
+        ---
       </div>
     </div>
   </div>

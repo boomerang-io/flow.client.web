@@ -104,13 +104,19 @@ class ActionBar extends Component {
       isValidOverview,
       performAction,
       performActionButtonText,
-      showActionButton
+      showActionButton,
+      loading
     } = this.props;
 
     if (includeResetVersionAlert) {
       return (
         <AlertModal
-          ModalTrigger={() => <Button theme="bmrg-black">{performActionButtonText}</Button>}
+          modalProps={{ shouldCloseOnOverlayClick: false }}
+          ModalTrigger={() => (
+            <Button disabled={loading} theme="bmrg-black">
+              {performActionButtonText}
+            </Button>
+          )}
           modalContent={closeModal => (
             <ConfirmModal
               title={`Set version ${currentRevision} to latest?`}
@@ -128,6 +134,7 @@ class ActionBar extends Component {
     if (includeCreateNewVersionComment) {
       return (
         <Modal
+          modalProps={{ shouldCloseOnOverlayClick: false }}
           ModalTrigger={() => <Button theme="bmrg-black">{performActionButtonText}</Button>}
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
@@ -135,9 +142,18 @@ class ActionBar extends Component {
               headerTitle="Create New Version"
               headerSubtitle="Enter a comment for record keeping"
               theme={"bmrg-white"}
+              confirmModalProps={{
+                affirmativeAction: closeModal,
+                theme: "bmrg-white",
+                subTitleTop: "A new version will not be created"
+              }}
               {...rest}
             >
-              <VersionCommentForm onSave={performAction} handleOnChange={this.props.handleChangeLogReasonChange} />
+              <VersionCommentForm
+                onSave={performAction}
+                loading={loading}
+                handleOnChange={this.props.handleChangeLogReasonChange}
+              />
             </ModalFlow>
           )}
         />
@@ -145,7 +161,7 @@ class ActionBar extends Component {
     }
     if (showActionButton) {
       return (
-        <Button theme="bmrg-black" onClick={performAction} disabled={!isValidOverview}>
+        <Button theme="bmrg-black" onClick={performAction} disabled={!isValidOverview || loading}>
           {performActionButtonText}
         </Button>
       );

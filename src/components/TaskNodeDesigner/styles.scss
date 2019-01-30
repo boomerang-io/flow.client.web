@@ -1,4 +1,5 @@
 @import "~Styles/variables";
+@import "~Styles/mixins";
 
 .b-task-node {
   display: flex;
@@ -11,10 +12,13 @@
   position: relative;
 
   .b-task-node__tile {
+    line-height: 1.25rem;
     text-align: center;
     font-weight: 400;
     color: $dark-blue;
     letter-spacing: 0.1675rem;
+    width: 90;
+    @include text-overflow-ellipsis;
   }
 
   .b-task-node-port {
@@ -52,5 +56,6 @@
     position: absolute;
     left: 1.5rem;
     height: 1.7rem;
+    pointer-events: none;
   }
 }

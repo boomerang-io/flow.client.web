@@ -34,7 +34,13 @@ body {
 }
 
 #app {
-  //overwrite bmrg components
+  //overwrite carbon components
+  .bx--list-box__label {
+    color: $black;
+    font-weight: 400;
+  }
+
+  //overwrite boomerang components
 
   .bmrg--b-text-input__input.--bmrg-white {
     box-shadow: 0 0 0 62.5rem $white inset !important;
@@ -75,6 +81,32 @@ body {
   }
 
   .bmrg--b-textarea__title {
+    color: $gray-90;
+  }
+
+  .bmrg--b-auto-suggest-textarea__text {
+    background: $white;
+    border: none;
+    caret-color: $gray-90;
+    padding: 0.5rem;
+    transition: border 0.3s ease;
+
+    &:focus {
+      border: none;
+    }
+
+    &::placeholder {
+      color: $cool-gray-20;
+      font-style: initial;
+      font-weight: 200;
+      letter-spacing: 0.125rem;
+    }
+    .bmrg--b-auto-suggest-textarea__error {
+      color: $orange-pink;
+    }
+  }
+
+  .bmrg--b-auto-suggest-textarea__title {
     color: $gray-90;
   }
 
@@ -163,6 +195,33 @@ body {
   }
 
   .bmrg--b-textarea__error {
+    color: $orange-pink;
+  }
+
+  .bmrg--b-auto-suggest-textarea__text {
+    background: $white;
+    border: none;
+    caret-color: $gray-90;
+    padding: 0.5rem;
+    transition: border 0.3s ease;
+
+    &:focus {
+      border: none;
+    }
+
+    &::placeholder {
+      color: $cool-gray-20;
+      font-style: initial;
+      font-weight: 300;
+      letter-spacing: 0.125rem;
+    }
+  }
+
+  .bmrg--b-auto-suggest-textarea__title {
+    color: $gray-90;
+  }
+
+  .bmrg--b-auto-suggest-textarea__error {
     color: $orange-pink;
   }
 

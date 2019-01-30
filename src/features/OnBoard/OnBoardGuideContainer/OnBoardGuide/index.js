@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import CloseIcon from "Assets/icons/CloseIcon";
-import "../styles/onBoardGuide.scss";
+import "./styles.scss";
 
 const OnBoardGuide = props => {
   const {

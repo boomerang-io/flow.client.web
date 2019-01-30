@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
+import { actions as appActions } from "State/app";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
@@ -19,7 +20,8 @@ export class TaskNode extends Component {
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired,
+    isModalOpen: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
@@ -47,10 +49,12 @@ export class TaskNode extends Component {
     const { nodeConfig, task } = this.props;
     return (
       <Modal
+        modalProps={{ shouldCloseOnOverlayClick: false }}
         ModalTrigger={() => <img src={pencilIcon} className="b-task-node__edit" alt="Task node type" />}
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={`Edit properties for ${task.name}`}
+            //headerSubtitle={`Edit properties for ${task.description}`}
             closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
             theme="bmrg-white"
@@ -63,6 +67,7 @@ export class TaskNode extends Component {
               task={task}
               nodeConfig={nodeConfig}
               taskNames={this.props.taskNames}
+              setIsModalOpen={this.props.appActions.setIsModalOpen}
             />
           </ModalFlow>
         )}
@@ -83,7 +88,9 @@ export class TaskNode extends Component {
         <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
-        <img src={TASK_KEYS_TO_ICON[this.props.task.category]} className="b-task-node__img" alt="Task node type" />
+        {TASK_KEYS_TO_ICON[this.props.task.category] && (
+          <img src={TASK_KEYS_TO_ICON[this.props.task.category]} className="b-task-node__img" alt="Task node type" />
+        )}
         {this.renderConfigureNode()}
       </div>
     );
@@ -96,11 +103,13 @@ const mapStateToProps = (state, ownProps) => {
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
       .map(node => node.taskName)
-      .filter(name => !!name)
+      .filter(name => !!name),
+    isModalOpen: state.app.isModalOpen
   };
 };
 
 const mapDispatchToProps = dispatch => ({
+  appActions: bindActionCreators(appActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 
