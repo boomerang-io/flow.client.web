@@ -61,13 +61,15 @@ export class TaskNode extends Component {
             {...rest}
           >
             <DisplayForm
-              node={this.props.node}
+              closeModal={closeModal}
               config={this.props.nodeConfig}
-              onSave={this.handleOnSave}
-              task={task}
+              inputProperties={this.props.inputProperties}
+              node={this.props.node}
               nodeConfig={nodeConfig}
-              taskNames={this.props.taskNames}
+              onSave={this.handleOnSave}
               setIsModalOpen={this.props.appActions.setIsModalOpen}
+              taskNames={this.props.taskNames}
+              task={task}
             />
           </ModalFlow>
         )}
@@ -104,7 +106,8 @@ const mapStateToProps = (state, ownProps) => {
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
       .map(node => node.taskName)
       .filter(name => !!name),
-    isModalOpen: state.app.isModalOpen
+    isModalOpen: state.app.isModalOpen,
+    inputProperties: state.workflow.data.properties
   };
 };
 

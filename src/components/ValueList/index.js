@@ -1,40 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { AutoSuggestTextInput, AutoSuggestTextArea } from "@boomerang/boomerang-components/lib/AutoSuggestInput";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
-import { default as BmrgToggle } from "@boomerang/boomerang-components/lib/Toggle";
-import AutoSuggest from "./AutoSuggest";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import AutoSuggest from "Components/AutoSuggest";
+import Toggle from "./Toggle";
 import isURL from "validator/lib/isURL";
+import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import "./styles.scss";
-
-const SUGGESTION_OPTIONS = [
-  {
-    value: `\${p:javascript}`,
-    label: "javascript"
-  },
-  { value: `\${p:elm}`, label: "elm" },
-  { value: `\${p:java}`, label: "java" },
-  { value: `\${p:elixir}`, label: "elixir" },
-  { value: `\${p:bash}`, label: "bash" },
-  { value: `\${p:nodejs}`, label: "nodejs" },
-  { value: `\${p:python}`, label: "python" },
-  { value: `\${p:size}`, label: "size" },
-  { value: `\${p:color}`, label: "color" },
-  { value: `\${p:workflow/activity.id}`, label: "workflow/activity.id" }
-];
-
-const validateInput = (value, maxValueLength, minValueLength, validationFunction, validationText) => {
-  if (value.length > maxValueLength) {
-    return `Must be less than ${maxValueLength} characters`;
-  } else if (value.length < minValueLength) {
-    return `Must be more than ${minValueLength} characters`;
-  } else if (!validationFunction(value)) {
-    return validationText;
-  } else {
-    return "";
-  }
-};
 
 const INPUT_TYPES = {
   text: { type: "text", validationFunction: () => {}, validationText: "" },
@@ -51,38 +24,32 @@ const SELECT_DROPDOWN_TYPES = {
   multiselect: { type: "multiselect", isMultiselect: true }
 };
 
-const Toggle = ({ defaultChecked, description, label, name, onChange }) => {
-  return (
-    <div className="b-settings-toggle">
-      <BmrgToggle red onChange={onChange} name={name} defaultChecked={defaultChecked} />
-      <div className="b-setting-toggle__info">
-        <label className="b-settings-toggle__label">{label}</label>
-        <label className="b-settings-toggle__description">{description}</label>
-      </div>
-    </div>
-  );
-};
-
-Toggle.propTypes = {
-  defaultChecked: PropTypes.bool,
-  description: PropTypes.string,
-  label: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
-};
+function validateInput({ value, maxValueLength, minValueLength, validationFunction, validationText }) {
+  if (value.length > maxValueLength) {
+    return `Must be less than ${maxValueLength} characters`;
+  } else if (value.length < minValueLength) {
+    return `Must be more than ${minValueLength} characters`;
+  } else if (!validationFunction(value)) {
+    return validationText;
+  } else {
+    return "";
+  }
+}
 
 const ValueList = ({
   form,
+  inputProperties,
+  node,
   nodeConfig,
-  task,
   onSelectTextInputChange,
   onToggleChange,
+  task,
   taskNames,
-  node,
   updateNodeTaskName
 }) => {
   const { inputs } = nodeConfig;
   const { config: taskConfig } = task;
+
   return (
     <>
       <div className="c-settings-value-list">
@@ -99,36 +66,35 @@ const ValueList = ({
           onChange={updateNodeTaskName}
           theme="bmrg-white"
         />
-        {taskConfig.map(item => {
+        {taskConfig.map((item, index) => {
           const maxValueLength = item.maxValueLength || 128;
           const minValueLength = item.minValueLength || 0;
           if (Object.keys(INPUT_TYPES).includes(item.type)) {
             const itemConfig = INPUT_TYPES[item.type];
             return (
-              <div style={{ paddingBottom: "2.125rem" }}>
+              <div style={{ paddingBottom: "2.125rem", position: "relative" }}>
                 <AutoSuggest
-                  key={item.key}
+                  key={item.key + index}
                   name={item.key}
-                  autoSuggestions={SUGGESTION_OPTIONS}
+                  autoSuggestions={formatAutoSuggestProperties(inputProperties)}
                   inputProps={{
                     placeholder: item.description,
                     alwaysShowTitle: true,
                     title: item.label,
                     type: itemConfig.type,
-                    theme: "bmrg-white"
+                    theme: "bmrg-white",
+                    validationFunction: value =>
+                      validateInput({
+                        value,
+                        maxValueLength,
+                        minValueLength,
+                        [itemConfig.validationFunction]: itemConfig.validationFunction,
+                        [itemConfig.validationText]: itemConfig.validationText
+                      })
                   }}
                   theme="bmrg-white"
                   initialValue={inputs[item.key] || ""}
                   handleChange={onSelectTextInputChange}
-                  validationFunction={value =>
-                    validateInput(
-                      value,
-                      maxValueLength,
-                      minValueLength,
-                      itemConfig.validationFunction,
-                      itemConfig.validationText
-                    )
-                  }
                 >
                   <AutoSuggestTextInput />
                 </AutoSuggest>
@@ -137,30 +103,29 @@ const ValueList = ({
           } else if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
             const itemConfig = TEXT_AREA_TYPES[item.type];
             return (
-              <div style={{ paddingBottom: "2.125rem" }}>
+              <div style={{ paddingBottom: "2.125rem", position: "relative" }}>
                 <AutoSuggest
-                  key={item.key}
+                  key={item.key + index}
                   name={item.key}
-                  autoSuggestions={SUGGESTION_OPTIONS}
+                  autoSuggestions={formatAutoSuggestProperties(inputProperties)}
                   inputProps={{
                     placeholder: item.description,
                     alwaysShowTitle: true,
                     title: item.label,
                     type: itemConfig.type,
-                    theme: "bmrg-white"
+                    theme: "bmrg-white",
+                    validationFunction: value =>
+                      validateInput({
+                        value,
+                        maxValueLength,
+                        minValueLength,
+                        [itemConfig.validationFunction]: itemConfig.validationFunction,
+                        [itemConfig.validationText]: itemConfig.validationText
+                      })
                   }}
                   theme="bmrg-white"
                   initialValue={inputs[item.key] || ""}
                   handleChange={onSelectTextInputChange}
-                  validationFunction={value =>
-                    validateInput(
-                      value,
-                      maxValueLength,
-                      minValueLength,
-                      itemConfig.validationFunction,
-                      itemConfig.validationText
-                    )
-                  }
                 >
                   <AutoSuggestTextArea />
                 </AutoSuggest>
@@ -172,7 +137,7 @@ const ValueList = ({
                 <SelectDropdown
                   simpleValue
                   multi={item.isMultiselect}
-                  key={item.key}
+                  key={item.key + index}
                   name={item.key}
                   onChange={onSelectTextInputChange}
                   options={item.options.map(option => ({ value: option, label: option }))}
@@ -186,7 +151,7 @@ const ValueList = ({
           } else {
             return (
               <Toggle
-                key={item.key}
+                key={item.key + index}
                 name={item.key}
                 id={item.key}
                 defaultChecked={String(inputs[item.key]) === "true" ? true : false}

@@ -59,10 +59,13 @@ export class SwitchNode extends Component {
             <DisplayForm
               closeModal={closeModal}
               config={this.props.nodeConfig}
+              inputProperties={this.props.inputProperties}
+              node={this.props.node}
               nodeConfig={nodeConfig}
               onSave={this.handleOnSave}
-              task={task}
               setIsModalOpen={this.props.appActions.setIsModalOpen}
+              taskNames={this.props.taskNames}
+              task={task}
             />
           </ModalFlow>
         )}
@@ -95,7 +98,12 @@ export class SwitchNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowRevision.config[ownProps.node.id]
+    nodeConfig: state.workflowRevision.config[ownProps.node.id],
+    taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
+      .map(node => node.taskName)
+      .filter(name => !!name),
+    isModalOpen: state.app.isModalOpen,
+    inputProperties: state.workflow.data.properties
   };
 };
 

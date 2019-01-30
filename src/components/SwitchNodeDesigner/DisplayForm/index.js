@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import ValueList from "./ValueList";
+import ValueList from "Components/ValueList";
 
 class DisplayForm extends Component {
   static propTypes = {
@@ -29,7 +29,7 @@ class DisplayForm extends Component {
     }));
   };
 
-  handleTextInputChange = (value, errors, field) => {
+  onSelectTextInputChange = (value, errors, field) => {
     if (field !== undefined && field !== "undefined") {
       this.setState(() => ({
         [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
@@ -45,7 +45,8 @@ class DisplayForm extends Component {
     }
   };
 
-  handleOnSave = () => {
+  handleOnSave = e => {
+    e.preventDefault();
     this.props.onSave(this.createConfigToSave());
     this.props.closeModal();
   };
@@ -58,16 +59,6 @@ class DisplayForm extends Component {
     });
 
     return configToSave;
-  }
-
-  determineSectionHeaderConfig() {
-    let isValid;
-    let onSaveFunction;
-
-    isValid = this.determineIsValidForm();
-    onSaveFunction = this.handleOnSave;
-
-    return { isValid, onSaveFunction };
   }
 
   determineIsValidForm = () => {
@@ -83,29 +74,27 @@ class DisplayForm extends Component {
   };
 
   render() {
-    const sectionHeaderConfig = this.determineSectionHeaderConfig();
-    const { nodeConfig, task } = this.props;
     return (
-      <>
+      <form onSubmit={this.handleOnSave}>
         <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "30rem" }}>
           <ValueList
-            task={task}
-            nodeConfig={nodeConfig}
-            onTextInputChange={this.handleTextInputChange}
+            form={this.state}
+            inputProperties={this.props.inputProperties}
+            node={this.props.node}
+            nodeConfig={this.props.nodeConfig}
+            onSelectTextInputChange={this.handleSelectTextInputChange}
             onToggleChange={this.handleToggleChange}
+            task={this.props.task}
+            taskNames={this.props.taskNames}
+            updateNodeTaskName={this.updateNodeTaskName}
           />
         </ModalContentBody>
         <ModalContentFooter>
-          <ModalConfirmButton
-            theme="bmrg-white"
-            text="Apply"
-            disabled={!sectionHeaderConfig.isValid}
-            onClick={sectionHeaderConfig.onSaveFunction}
-          >
+          <ModalConfirmButton theme="bmrg-white" text="Apply" disabled={this.determineIsValidForm()}>
             Apply
           </ModalConfirmButton>
         </ModalContentFooter>
-      </>
+      </form>
     );
   }
 }
