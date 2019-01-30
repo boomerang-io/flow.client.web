@@ -34,6 +34,7 @@ class DisplayForm extends Component {
   };
 
   handleSelectTextInputChange = (value, errors, field) => {
+    console.log(value, errors, field);
     if (field !== undefined && field !== "undefined") {
       this.setState(
         () => ({
@@ -96,7 +97,7 @@ class DisplayForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleOnSave}>
+      <>
         <ModalContentBody
           style={{
             maxWidth: "35rem",
@@ -122,11 +123,16 @@ class DisplayForm extends Component {
           />
         </ModalContentBody>
         <ModalContentFooter>
-          <ModalConfirmButton theme="bmrg-white" text="Apply" disabled={!this.determineIsValidForm()} type="submit">
+          <ModalConfirmButton
+            theme="bmrg-white"
+            text="Apply"
+            disabled={!this.determineIsValidForm()}
+            onClick={this.handleOnSave}
+          >
             Apply
           </ModalConfirmButton>
         </ModalContentFooter>
-      </form>
+      </>
     );
   }
 }

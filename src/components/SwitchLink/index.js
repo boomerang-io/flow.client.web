@@ -12,6 +12,12 @@ import pencilIcon from "./pencil.svg";
 import "./styles.scss";
 
 class SwitchLink extends Component {
+  static propTypes = {
+    model: PropTypes.object.isRequired,
+    path: PropTypes.string.isRequired,
+    diagramEngine: PropTypes.object.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -192,12 +198,6 @@ class SwitchLink extends Component {
     );
   }
 }
-
-SwitchLink.propTypes = {
-  model: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired,
-  diagramEngine: PropTypes.object.isRequired
-};
 
 const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch)

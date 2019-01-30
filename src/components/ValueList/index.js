@@ -25,14 +25,15 @@ const SELECT_DROPDOWN_TYPES = {
 };
 
 function validateInput({ value, maxValueLength, minValueLength, validationFunction, validationText }) {
+  console.log(validationFunction);
   if (value.length > maxValueLength) {
-    return `Must be less than ${maxValueLength} characters`;
+    return { message: `Must be less than ${maxValueLength} characters` };
   } else if (value.length < minValueLength) {
-    return `Must be more than ${minValueLength} characters`;
-  } else if (!validationFunction(value)) {
-    return validationText;
+    return { message: `Must be more than ${minValueLength} characters` };
+  } else if (validationFunction && !validationFunction(value)) {
+    return { message: validationText };
   } else {
-    return "";
+    return { message: "" };
   }
 }
 
@@ -54,17 +55,18 @@ const ValueList = ({
     <>
       <div className="c-settings-value-list">
         <TextInput
+          alwaysShowTitle
           required
-          noValueText="Name is required"
           comparisonData={taskNames}
           existValueText="Task name must be unique per workflow"
           externallyControlled
           name="taskName"
-          placeholder="Enter a task name"
-          value={node.taskName}
-          title="Task Name"
           onChange={updateNodeTaskName}
+          noValueText="Name is required"
+          placeholder="Enter a task name"
           theme="bmrg-white"
+          title="Task Name"
+          value={node.taskName}
         />
         {taskConfig.map((item, index) => {
           const maxValueLength = item.maxValueLength || 128;
@@ -75,26 +77,27 @@ const ValueList = ({
               <div style={{ paddingBottom: "2.125rem", position: "relative" }}>
                 <AutoSuggest
                   key={item.key + index}
-                  name={item.key}
                   autoSuggestions={formatAutoSuggestProperties(inputProperties)}
+                  handleChange={onSelectTextInputChange}
+                  initialValue={inputs[item.key] || ""}
                   inputProps={{
                     placeholder: item.description,
                     alwaysShowTitle: true,
                     title: item.label,
                     type: itemConfig.type,
-                    theme: "bmrg-white",
-                    validationFunction: value =>
-                      validateInput({
-                        value,
-                        maxValueLength,
-                        minValueLength,
-                        [itemConfig.validationFunction]: itemConfig.validationFunction,
-                        [itemConfig.validationText]: itemConfig.validationText
-                      })
+                    theme: "bmrg-white"
                   }}
+                  name={item.key}
                   theme="bmrg-white"
-                  initialValue={inputs[item.key] || ""}
-                  handleChange={onSelectTextInputChange}
+                  validationFunction={value =>
+                    validateInput({
+                      value,
+                      maxValueLength,
+                      minValueLength,
+                      validationFunction: itemConfig.validationFunction,
+                      validationText: itemConfig.validationText
+                    })
+                  }
                 >
                   <AutoSuggestTextInput />
                 </AutoSuggest>
@@ -106,26 +109,27 @@ const ValueList = ({
               <div style={{ paddingBottom: "2.125rem", position: "relative" }}>
                 <AutoSuggest
                   key={item.key + index}
-                  name={item.key}
                   autoSuggestions={formatAutoSuggestProperties(inputProperties)}
+                  handleChange={onSelectTextInputChange}
+                  initialValue={inputs[item.key] || ""}
                   inputProps={{
                     placeholder: item.description,
                     alwaysShowTitle: true,
                     title: item.label,
                     type: itemConfig.type,
-                    theme: "bmrg-white",
-                    validationFunction: value =>
-                      validateInput({
-                        value,
-                        maxValueLength,
-                        minValueLength,
-                        [itemConfig.validationFunction]: itemConfig.validationFunction,
-                        [itemConfig.validationText]: itemConfig.validationText
-                      })
+                    theme: "bmrg-white"
                   }}
+                  name={item.key}
                   theme="bmrg-white"
-                  initialValue={inputs[item.key] || ""}
-                  handleChange={onSelectTextInputChange}
+                  validationFunction={value =>
+                    validateInput({
+                      value,
+                      maxValueLength,
+                      minValueLength,
+                      validationFunction: itemConfig.validationFunction,
+                      validationText: itemConfig.validationText
+                    })
+                  }
                 >
                   <AutoSuggestTextArea />
                 </AutoSuggest>
@@ -136,27 +140,27 @@ const ValueList = ({
               <div style={{ marginBottom: "2.125rem" }}>
                 <SelectDropdown
                   simpleValue
-                  multi={item.isMultiselect}
                   key={item.key + index}
+                  multi={item.isMultiselect}
                   name={item.key}
                   onChange={onSelectTextInputChange}
                   options={item.options.map(option => ({ value: option, label: option }))}
-                  value={form[item.key] ? form[item.key].value : ""}
+                  styles={{ width: "100%" }}
                   theme="bmrg-white"
                   title={item.label}
-                  styles={{ width: "100%" }}
+                  value={form[item.key] ? form[item.key].value : ""}
                 />
               </div>
             );
           } else {
             return (
               <Toggle
-                key={item.key + index}
-                name={item.key}
-                id={item.key}
                 defaultChecked={String(inputs[item.key]) === "true" ? true : false}
-                label={item.label}
                 description={item.description}
+                id={item.key}
+                key={item.key + index}
+                label={item.label}
+                name={item.key}
                 onChange={onToggleChange}
               />
             );

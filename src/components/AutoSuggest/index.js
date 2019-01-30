@@ -93,7 +93,7 @@ class AutoSuggest extends Component {
   }
 
   render() {
-    const { autoSuggestions, inputProps, children, ...rest } = this.props;
+    const { inputProps, children, ...rest } = this.props;
     const finalInputProps = {
       onChange: this.onChange,
       value: this.state.value,
@@ -102,7 +102,6 @@ class AutoSuggest extends Component {
     return (
       <AutoSuggestInput
         isExternallyControlled
-        autoSuggestions={autoSuggestions}
         getSuggestionValue={this.getSuggestionValue}
         inputProps={finalInputProps}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}

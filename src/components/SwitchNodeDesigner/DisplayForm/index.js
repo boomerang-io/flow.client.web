@@ -29,11 +29,25 @@ class DisplayForm extends Component {
     }));
   };
 
-  onSelectTextInputChange = (value, errors, field) => {
+  handleSelectTextInputChange = (value, errors, field) => {
     if (field !== undefined && field !== "undefined") {
-      this.setState(() => ({
-        [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
-      }));
+      this.setState(
+        () => ({
+          [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
+        }),
+        () => this.props.shouldConfirmExit(true)
+      );
+    }
+  };
+
+  updateNodeTaskName = (value, errors, field) => {
+    if (field !== undefined && field !== "undefined") {
+      this.setState(
+        () => ({
+          [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
+        }),
+        () => this.props.shouldConfirmExit(true)
+      );
     }
   };
 
@@ -41,12 +55,15 @@ class DisplayForm extends Component {
     const { name: field } = event.target;
     const { checked } = event.target;
     if (checked !== undefined && checked !== "undefined") {
-      this.setState(() => ({ [field]: { value: checked } }));
+      this.setState(() => ({ [field]: { value: checked } }), () => this.props.shouldConfirmExit(true));
     }
   };
 
   handleOnSave = e => {
     e.preventDefault();
+    if (this.state["taskName"]) {
+      this.props.node.taskName = this.state["taskName"].value;
+    }
     this.props.onSave(this.createConfigToSave());
     this.props.closeModal();
   };
@@ -75,7 +92,7 @@ class DisplayForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleOnSave}>
+      <>
         <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "30rem" }}>
           <ValueList
             form={this.state}
@@ -90,11 +107,16 @@ class DisplayForm extends Component {
           />
         </ModalContentBody>
         <ModalContentFooter>
-          <ModalConfirmButton theme="bmrg-white" text="Apply" disabled={this.determineIsValidForm()}>
+          <ModalConfirmButton
+            theme="bmrg-white"
+            text="Apply"
+            disabled={!this.determineIsValidForm()}
+            onClick={this.handleOnSave}
+          >
             Apply
           </ModalConfirmButton>
         </ModalContentFooter>
-      </form>
+      </>
     );
   }
 }
