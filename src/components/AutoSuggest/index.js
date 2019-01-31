@@ -38,7 +38,7 @@ class AutoSuggest extends Component {
    * Shift based on the change in length of the value b/c of different length suggestions
    */
 
-  onChange = (event, { newValue, method }) => {
+  onInputChange = (event, { newValue, method }) => {
     this.setState(prevState => ({
       value: newValue,
       caretIndex: SELECT_METHODS.includes(method)
@@ -96,7 +96,7 @@ class AutoSuggest extends Component {
   render() {
     const { inputProps, children, ...rest } = this.props;
     const finalInputProps = {
-      onChange: this.onChange,
+      handleChange: this.onInputChange,
       value: this.state.value,
       ...inputProps
     };

@@ -175,7 +175,7 @@ ValueList.propTypes = {
   form: PropTypes.object.isRequired,
   task: PropTypes.object.isRequired,
   nodeConfig: PropTypes.object.isRequired,
-  handleSelectTextInputChange: PropTypes.func.isRequired,
+  onSelectTextInputChange: PropTypes.func.isRequired,
   onToggleChange: PropTypes.func.isRequired,
   updateNodeTaskName: PropTypes.func.isRequired,
   taskNames: PropTypes.array.isRequired,
