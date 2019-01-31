@@ -23,6 +23,12 @@
   .srd-default-link path {
     stroke: $status-teal;
   }
+
+  srd-link-layer {
+    svg:not(:root) {
+      overflow: overlay;
+    }
+  }
 }
 
 // .bmrg-b-sidenav-content {
