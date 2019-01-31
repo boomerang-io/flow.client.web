@@ -7,11 +7,16 @@ import Modal from "react-modal";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import ConfigureSwitchModal from "./ConfigureSwitchModal";
-import TriangleArrowIcon from "./TriangleArrow";
 import pencilIcon from "./pencil.svg";
 import "./styles.scss";
 
 class SwitchLink extends Component {
+  static propTypes = {
+    diagramEngine: PropTypes.object.isRequired,
+    model: PropTypes.object.isRequired,
+    path: PropTypes.string.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +24,8 @@ class SwitchLink extends Component {
       modalIsOpen: false,
       defaultState: props.model.switchCondition === null ? true : false
     };
+
+    this.path = React.createRef();
 
     this.halfwayPoint = "";
     this.endPoint = "";
@@ -101,9 +108,9 @@ class SwitchLink extends Component {
       linkStyle = { opacity: "0.25" };
     }
 
-    if (this.path) {
-      this.halfwayPoint = this.path.getPointAtLength(this.path.getTotalLength() * 0.5);
-      this.endPoint = this.path.getPointAtLength(this.path.getTotalLength());
+    if (this.path.current) {
+      this.halfwayPoint = this.path.current.getPointAtLength(this.path.current.getTotalLength() * 0.5);
+      this.endPoint = this.path.current.getPointAtLength(this.path.current.getTotalLength());
     }
 
     let seperatedLinkState;
@@ -111,17 +118,29 @@ class SwitchLink extends Component {
       seperatedLinkState = this.props.model.switchCondition.replace(/\n/g, ",");
     }
     return (
-      <>
-        {this.path && !this.props.diagramEngine.diagramModel.locked && (
+      <svg>
+        {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
           <>
-            <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y - 20}) scale(0.7)`}>
-              <foreignObject>
-                <CloseModalButton onClick={this.handleOnDelete} />
+            <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30}) scale(0.7)`}>
+              <foreignObject
+                width="2.875rem"
+                height="2.875rem"
+                x="0"
+                y="0"
+                requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+              >
+                <CloseModalButton onClick={this.handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x - 17}, ${this.halfwayPoint.y + 2})`}>
-              <foreignObject>
-                <div>
+            <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y + 10})`}>
+              <foreignObject
+                width="2rem"
+                height="2rem"
+                x="0"
+                y="0"
+                requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+              >
+                <div xmlns="http://www.w3.org/1999/xhtml">
                   <img
                     src={pencilIcon}
                     className="b-editswitch-button__img"
@@ -163,41 +182,46 @@ class SwitchLink extends Component {
             </g>
           </>
         )}
-        {!this.props.diagramEngine.diagramModel.locked && (
-          <g transform={`translate(${this.halfwayPoint.x + 10}, ${this.halfwayPoint.y + 10})`}>
+        {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
+          <g
+            transform={`translate(${this.halfwayPoint.x + 20}, ${this.halfwayPoint.y + 25})`}
+            style={{ cursor: "initial" }}
+          >
             <text className="small">{this.props.model.switchCondition === null ? "default" : seperatedLinkState}</text>
           </g>
         )}
-        {this.props.diagramEngine.diagramModel.locked && (
-          <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y})`}>
+        {this.path.current && this.props.diagramEngine.diagramModel.locked && (
+          <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y})`} style={{ cursor: "initial" }}>
             <text className="small">{this.props.model.switchCondition === null ? "default" : seperatedLinkState}</text>
           </g>
         )}
 
         <path
-          ref={ref => {
-            this.path = ref;
-          }}
+          ref={this.path}
           style={linkStyle}
           strokeWidth={this.props.model.width}
           stroke="rgba(255,0,0,0.5)"
           d={this.props.path}
         />
-        {this.path && this.props.model.targetPort && (
-          <g fill="none" transform={`translate(${this.endPoint.x - 19}, ${this.endPoint.y - 10}) scale(.0375)`}>
-            <TriangleArrowIcon />
+        {this.path.current && this.props.model.targetPort && (
+          <g fill="none" transform={`translate(${this.endPoint.x - 20}, ${this.endPoint.y - 10}) scale(.0375)`}>
+            <svg
+              version="1.1"
+              id="Layer_1"
+              width="460.5"
+              height="531.74"
+              viewBox="0 0 460.5 531.74"
+              overflow="visible"
+              enableBackground="new 0 0 460.5 531.74"
+            >
+              <polygon fill="#40d5bb" points="0.5,0.866 459.5,265.87 0.5,530.874" />
+            </svg>
           </g>
         )}
-      </>
+      </svg>
     );
   }
 }
-
-SwitchLink.propTypes = {
-  model: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired,
-  diagramEngine: PropTypes.object.isRequired
-};
 
 const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch)
