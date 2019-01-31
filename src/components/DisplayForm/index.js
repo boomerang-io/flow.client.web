@@ -45,14 +45,6 @@ class DisplayForm extends Component {
     }
   };
 
-  handleToggleChange = event => {
-    const { name: field } = event.target;
-    const { checked } = event.target;
-    if (checked !== undefined && checked !== "undefined") {
-      this.setState(() => ({ [field]: { value: checked } }), this.props.shouldConfirmExit(true));
-    }
-  };
-
   updateNodeTaskName = (value, errors, field) => {
     if (field !== undefined && field !== "undefined") {
       this.setState(
@@ -61,6 +53,14 @@ class DisplayForm extends Component {
         }),
         this.props.shouldConfirmExit(true)
       );
+    }
+  };
+
+  handleToggleChange = event => {
+    const { name: field } = event.target;
+    const { checked } = event.target;
+    if (checked !== undefined && checked !== "undefined") {
+      this.setState(() => ({ [field]: { value: checked } }), this.props.shouldConfirmExit(true));
     }
   };
 

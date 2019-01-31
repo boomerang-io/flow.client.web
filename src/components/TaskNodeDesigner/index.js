@@ -9,7 +9,7 @@ import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButt
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
-import DisplayForm from "./DisplayForm";
+import DisplayForm from "Components/DisplayForm";
 import pencilIcon from "./pencil.svg";
 import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
 import "./styles.scss";
@@ -46,15 +46,13 @@ export class TaskNode extends Component {
   }
 
   renderConfigureNode() {
-    const { nodeConfig, task } = this.props;
     return (
       <Modal
         modalProps={{ shouldCloseOnOverlayClick: false }}
         ModalTrigger={() => <img src={pencilIcon} className="b-task-node__edit" alt="Task node type" />}
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
-            headerTitle={`Edit properties for ${task.name}`}
-            //headerSubtitle={`Edit properties for ${task.description}`}
+            headerTitle={`Edit properties for ${this.props.task.name}`}
             closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
             theme="bmrg-white"
@@ -62,14 +60,13 @@ export class TaskNode extends Component {
           >
             <DisplayForm
               closeModal={closeModal}
-              config={this.props.nodeConfig}
               inputProperties={this.props.inputProperties}
               node={this.props.node}
-              nodeConfig={nodeConfig}
+              nodeConfig={this.props.nodeConfig}
               onSave={this.handleOnSave}
               setIsModalOpen={this.props.appActions.setIsModalOpen}
               taskNames={this.props.taskNames}
-              task={task}
+              task={this.props.task}
             />
           </ModalFlow>
         )}
