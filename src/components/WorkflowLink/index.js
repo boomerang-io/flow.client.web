@@ -51,8 +51,9 @@ class CustomLink extends Component {
       this.halfwayPoint = this.path.current.getPointAtLength(this.path.current.getTotalLength() * 0.5);
       this.endPoint = this.path.current.getPointAtLength(this.path.current.getTotalLength());
     }
+
     return (
-      <g>
+      <svg>
         {this.path.current && !this.props.diagramEngine.diagramModel.locked && this.props.model.targetPort && (
           <>
             <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30}) scale(0.7)`}>
@@ -64,10 +65,10 @@ class CustomLink extends Component {
                 <CloseModalButton onClick={this.handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x - 125}, ${this.halfwayPoint.y + 5})`}>
+            <g transform={`translate(${this.halfwayPoint.x - 2}, ${this.halfwayPoint.y + 5})`}>
               <foreignObject
-                width="18rem"
-                height="6rem"
+                width="1.625rem"
+                height="1.625rem"
                 requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
                 style={{ cursor: "pointer" }}
               >
@@ -103,7 +104,7 @@ class CustomLink extends Component {
             />
           </g>
         )}
-      </g>
+      </svg>
     );
   }
 }

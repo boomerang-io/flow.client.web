@@ -49,9 +49,9 @@ class MultiStateButton extends Component {
           data-tip
           data-for={modelId}
         />
-        <ToolTip className="bmrg--b-tooltip b-multistate-button__tooltip" place="bottom" id={modelId}>
+        {/* <ToolTip className="bmrg--b-tooltip b-multistate-button__tooltip" place="bottom" id={modelId}>
           {executionConditionConfig.text}
-        </ToolTip>
+        </ToolTip> */}
       </div>
     );
   }
