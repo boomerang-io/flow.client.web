@@ -101,7 +101,9 @@ class CustomLink extends Component {
               viewBox="0 0 460.5 531.74"
               overflow="visible"
               enableBackground="new 0 0 460.5 531.74"
-            />
+            >
+              <polygon fill="#40d5bb" points="0.5,0.866 459.5,265.87 0.5,530.874" />
+            </svg>
           </g>
         )}
       </svg>
