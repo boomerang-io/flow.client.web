@@ -9,15 +9,15 @@ class AutoSuggest extends Component {
   state = {
     // Used if we want to have some of the functions external instead of
     // the default ones in the wrapper
-    value: "",
+    value: this.props.initialValue || "",
     caretIndex: 0,
     suggestions: []
   };
 
   // Each time the component updates we want to refocus the input and keep the cursor in the correct place
   // Needed for when cycling through mutliple suggestions with the arrow keys and the cursor resets to the end of the input. We don't want that.
-  componentDidUpdate() {
-    if (this.state.value) {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.value && prevState.value !== this.state.value) {
       //prevent it from focusing on initial render / empty
       this.inputRef.current.focus();
       this.inputRef.current.setSelectionRange(this.state.caretIndex, this.state.caretIndex);

@@ -25,7 +25,6 @@ const SELECT_DROPDOWN_TYPES = {
 };
 
 function validateInput({ value, maxValueLength, minValueLength, validationFunction, validationText }) {
-  console.log(validationFunction);
   if (value.length > maxValueLength) {
     return { message: `Must be less than ${maxValueLength} characters` };
   } else if (value.length < minValueLength) {
@@ -74,9 +73,8 @@ const ValueList = ({
           if (Object.keys(INPUT_TYPES).includes(item.type)) {
             const itemConfig = INPUT_TYPES[item.type];
             return (
-              <div style={{ paddingBottom: "2.125rem", position: "relative" }}>
+              <div key={item.key + index} style={{ paddingBottom: "2.125rem", position: "relative" }}>
                 <AutoSuggest
-                  key={item.key + index}
                   autoSuggestions={formatAutoSuggestProperties(inputProperties)}
                   handleChange={onSelectTextInputChange}
                   initialValue={inputs[item.key] || ""}
@@ -106,9 +104,8 @@ const ValueList = ({
           } else if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
             const itemConfig = TEXT_AREA_TYPES[item.type];
             return (
-              <div style={{ paddingBottom: "2.125rem", position: "relative" }}>
+              <div key={item.key + index} style={{ paddingBottom: "2.125rem", position: "relative" }}>
                 <AutoSuggest
-                  key={item.key + index}
                   autoSuggestions={formatAutoSuggestProperties(inputProperties)}
                   handleChange={onSelectTextInputChange}
                   initialValue={inputs[item.key] || ""}
@@ -137,7 +134,7 @@ const ValueList = ({
             );
           } else if (Object.keys(SELECT_DROPDOWN_TYPES).includes(item.type)) {
             return (
-              <div style={{ marginBottom: "2.125rem" }}>
+              <div key={item.key + index} style={{ marginBottom: "2.125rem" }}>
                 <SelectDropdown
                   simpleValue
                   key={item.key + index}

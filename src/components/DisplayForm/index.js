@@ -34,7 +34,6 @@ class DisplayForm extends Component {
   };
 
   handleSelectTextInputChange = (value, errors, field) => {
-    console.log(value, errors, field);
     if (field !== undefined && field !== "undefined") {
       this.setState(
         () => ({
