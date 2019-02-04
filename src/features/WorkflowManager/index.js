@@ -132,8 +132,9 @@ export class WorkflowManagerContainer extends Component {
       .then(response => {
         notify(<Notification type="success" title="Update Workflow" message="Successfully updated workflow" />);
         workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
-        workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`);
-        return Promise.resolve(response);
+        return workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`).then(response => {
+          return Promise.resolve(response);
+        });
       })
       .catch(error => {
         notify(<Notification type="error" title="Something's wrong" message="Failed to update workflow" />);
