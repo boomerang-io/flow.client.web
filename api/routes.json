@@ -5,7 +5,7 @@
   "/flow/workflow/:workFlowId/changelog?size=:value&page=1&sort=version&order=DESC": "/changeLogLast",
   "/flow/workflow/:workFlowId/changelog?size=:value&page=0&sort=version&order=DESC": "/changeLog",
   "/flow/workflow/:workflowId/revision/:version": "/workflow/:workflowId?singular=1",
-  "/flow/workflow": "/workflowSummary",
+  "/flow/workflow": "/workflowSummary/5bc0efa45a5df954adb0e556?&singular=1",
   "/flow/workflow/:id/summary": "/workflowSummary/5bc0efa45a5df954adb0e556?&singular=1",
   "/flow/workflow/:id/webhook-token": "/workflowToken?webhook=1",
   "/flow/activity/:id": "/workflowExecution",
