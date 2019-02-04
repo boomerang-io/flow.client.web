@@ -25,6 +25,10 @@
   }
 }
 
+svg:not(:root) {
+  overflow: overlay !important;
+}
+
 // .bmrg-b-sidenav-content {
 //   display: flex;
 //   flex-direction: column;
