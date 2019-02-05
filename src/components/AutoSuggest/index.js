@@ -87,10 +87,7 @@ class AutoSuggest extends Component {
   // Get array of distinct words prior to the current location of entered text
   // Use the inputRef instead of state becuase of asnychronous updating of state and calling of these functions :(
   findWordsBeforeCurrentLocation() {
-    return this.inputRef.current.value
-      .trim()
-      .slice(0, this.inputRef.current.selectionStart)
-      .split(" ");
+    return this.inputRef.current.value.slice(0, this.inputRef.current.selectionStart).split(" ");
   }
 
   render() {
