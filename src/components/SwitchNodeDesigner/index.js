@@ -48,6 +48,7 @@ export class SwitchNode extends Component {
   renderConfigureNode() {
     return (
       <Modal
+        modalProps={{ shouldCloseOnOverlayClick: false }}
         ModalTrigger={() => <img src={pencilIcon} className="b-switchNode__edit" alt="Task node type" />}
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
