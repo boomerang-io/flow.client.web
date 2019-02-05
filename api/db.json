@@ -394,6 +394,7 @@
     }
   ],
   "workflowSingle": {
+    "version": 1,
     "dag": {
       "id": "3f58d302-2a3c-4765-b606-7573d313a2fa",
       "offsetX": -51.15583333333335,
