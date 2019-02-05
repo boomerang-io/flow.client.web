@@ -27,28 +27,23 @@ class ActivityList extends Component {
   };
 
   render() {
+    const { activities, hasMoreActivities, history, isLoading, match } = this.props;
+
     return (
       <>
         <InfiniteScroll
           className="c-activity-list"
           pageStart={0}
           loadMore={this.loadMoreActivities}
-          hasMore={this.props.hasMoreActivities && !this.props.isLoading}
+          hasMore={hasMoreActivities && !isLoading}
           loader={<LoadingAnimation className="s-activities-loading" />}
           useWindow={true}
         >
-          {!this.props.activities.length ? (
+          {!activities.length && !hasMoreActivities && !isLoading ? (
             <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
           ) : (
-            this.props.activities.map(activity => {
-              return (
-                <ActivityCard
-                  activity={activity}
-                  history={this.props.history}
-                  key={activity.id}
-                  match={this.props.match}
-                />
-              );
+            activities.map(activity => {
+              return <ActivityCard activity={activity} history={history} key={activity.id} match={match} />;
             })
           )}
         </InfiniteScroll>
