@@ -620,12 +620,12 @@
           "nodeId": "311a727c-691d-4c50-b24f-d4818895f6a3",
           "taskId": "5bd98b105a5df954ad599bc2",
           "inputs": {
-            "to": "",
-            "subject": "",
-            "message": "",
-            "message2": "",
-            "message3": "",
-            "message4": ""
+            "to": "1",
+            "subject": "2",
+            "message": "3",
+            "message2": "4",
+            "message3": "5",
+            "message4": "6"
           },
           "type": "custom"
         }

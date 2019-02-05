@@ -148,14 +148,15 @@ class SwitchLink extends Component {
                     onClick={this.openModal}
                   />
                   <Modal
+                    className="bmrg--c-modal"
+                    contentLabel="Modal"
+                    documentRootTagId="app"
+                    ariaHideApp={true}
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}
                     onRequestClose={this.closeModal}
-                    contentLabel="Modal"
-                    documentRootTagId="app"
                     overlayClassName="bmrg--c-modal-overlay"
-                    ariaHideApp={true}
-                    className="bmrg--c-modal"
+                    shouldCloseOnOverlayClick={false}
                   >
                     <ModalFlow
                       theme="bmrg-white"

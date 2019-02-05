@@ -57,9 +57,9 @@ class InputsModalContent extends Component {
     this.setState(prevState => ({ required: !prevState.required }));
   };
 
-  handleTypeChange = option => {
+  handleTypeChange = (value, error, name) => {
     this.props.shouldConfirmExit(true);
-    this.setState({ type: option.value, defaultValue: option.value === INPUT_TYPES.BOOLEAN ? false : undefined });
+    this.setState({ type: value.value, defaultValue: value.value === INPUT_TYPES.BOOLEAN ? false : undefined });
   };
 
   handleDefaultValueChange = value => {
@@ -78,7 +78,7 @@ class InputsModalContent extends Component {
   };
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
-  handleValidValuesChange = values => {
+  handleValidValuesChange = (values, errors, name) => {
     this.props.shouldConfirmExit(true);
     this.setState({ validValues: values.map(option => option.value) });
   };

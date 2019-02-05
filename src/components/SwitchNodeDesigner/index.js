@@ -9,17 +9,19 @@ import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButt
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
-import DisplayForm from "./DisplayForm";
+import DisplayForm from "Components/DisplayForm";
 import pencilIcon from "./pencil.svg";
 import switchSVG from "Assets/svg/parent-relationship_32.svg";
 import "./styles.scss";
 
 export class SwitchNode extends Component {
   static propTypes = {
-    nodeConfig: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
+    nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    taskNames: PropTypes.array.isRequired,
+    workflowRevisionActions: PropTypes.object.isRequired,
+    isModalOpen: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
@@ -44,13 +46,13 @@ export class SwitchNode extends Component {
   }
 
   renderConfigureNode() {
-    const { nodeConfig, task } = this.props;
     return (
       <Modal
+        modalProps={{ shouldCloseOnOverlayClick: false }}
         ModalTrigger={() => <img src={pencilIcon} className="b-switchNode__edit" alt="Task node type" />}
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
-            headerTitle={task.name}
+            headerTitle={this.props.task.name}
             closeModal={closeModal}
             confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
             theme="bmrg-white"
@@ -58,11 +60,13 @@ export class SwitchNode extends Component {
           >
             <DisplayForm
               closeModal={closeModal}
-              config={this.props.nodeConfig}
-              nodeConfig={nodeConfig}
+              inputProperties={this.props.inputProperties}
+              node={this.props.node}
+              nodeConfig={this.props.nodeConfig}
               onSave={this.handleOnSave}
-              task={task}
               setIsModalOpen={this.props.appActions.setIsModalOpen}
+              taskNames={this.props.taskNames}
+              task={this.props.task}
             />
           </ModalFlow>
         )}
@@ -95,7 +99,12 @@ export class SwitchNode extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowRevision.config[ownProps.node.id]
+    nodeConfig: state.workflowRevision.config[ownProps.node.id],
+    taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
+      .map(node => node.taskName)
+      .filter(name => !!name),
+    isModalOpen: state.app.isModalOpen,
+    inputProperties: state.workflow.data.properties
   };
 };
 

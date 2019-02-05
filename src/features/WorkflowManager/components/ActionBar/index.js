@@ -24,7 +24,7 @@ class ActionBar extends Component {
     // includePerformActionAlert: PropTypes.bool,
     includeZoom: PropTypes.bool,
     isValidOverview: PropTypes.bool.isRequired,
-    performAction: PropTypes.func.isRequired,
+    performAction: PropTypes.func,
     performActionButtonText: PropTypes.string,
     revisionCount: PropTypes.number,
     showActionButton: PropTypes.bool

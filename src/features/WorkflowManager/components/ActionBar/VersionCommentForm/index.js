@@ -10,7 +10,7 @@ class VersionCommentForm extends Component {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
     handleOnChange: PropTypes.func.isRequired,
-    closeModal: PropTypes.func.isRequired
+    closeModal: PropTypes.func
   };
 
   state = {

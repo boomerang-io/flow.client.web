@@ -84,6 +84,32 @@ body {
     color: $gray-90;
   }
 
+  .bmrg--b-auto-suggest-textarea__text {
+    background: $white;
+    border: none;
+    caret-color: $gray-90;
+    padding: 0.5rem;
+    transition: border 0.3s ease;
+
+    &:focus {
+      border: none;
+    }
+
+    &::placeholder {
+      color: $cool-gray-20;
+      font-style: initial;
+      font-weight: 200;
+      letter-spacing: 0.125rem;
+    }
+    .bmrg--b-auto-suggest-textarea__error {
+      color: $orange-pink;
+    }
+  }
+
+  .bmrg--b-auto-suggest-textarea__title {
+    color: $gray-90;
+  }
+
   .bmrg--b-tooltip {
     border: 0rem;
     opacity: 1;
@@ -169,6 +195,33 @@ body {
   }
 
   .bmrg--b-textarea__error {
+    color: $orange-pink;
+  }
+
+  .bmrg--b-auto-suggest-textarea__text {
+    background: $white;
+    border: none;
+    caret-color: $gray-90;
+    padding: 0.5rem;
+    transition: border 0.3s ease;
+
+    &:focus {
+      border: none;
+    }
+
+    &::placeholder {
+      color: $cool-gray-20;
+      font-style: initial;
+      font-weight: 300;
+      letter-spacing: 0.125rem;
+    }
+  }
+
+  .bmrg--b-auto-suggest-textarea__title {
+    color: $gray-90;
+  }
+
+  .bmrg--b-auto-suggest-textarea__error {
     color: $orange-pink;
   }
 

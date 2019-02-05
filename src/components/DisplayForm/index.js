@@ -3,18 +3,19 @@ import PropTypes from "prop-types";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import ValueList from "./ValueList";
+import ValueList from "Components/ValueList";
 
 class DisplayForm extends Component {
   static propTypes = {
+    closeModal: PropTypes.func,
+    inputProperties: PropTypes.array,
     node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
-    task: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
-    closeModal: PropTypes.func.isRequired,
-    taskNames: PropTypes.array.isRequired,
-    shouldConfirmExit: PropTypes.func.isRequired,
-    setIsModalOpen: PropTypes.func.isRequired
+    setIsModalOpen: PropTypes.func.isRequired,
+    shouldConfirmExit: PropTypes.func,
+    task: PropTypes.object.isRequired,
+    taskNames: PropTypes.array.isRequired
   };
 
   state = {};
@@ -36,6 +37,17 @@ class DisplayForm extends Component {
     if (field !== undefined && field !== "undefined") {
       this.setState(
         () => ({
+          [field]: { value, errors } //filter out undefined errors
+        }),
+        this.props.shouldConfirmExit(true)
+      );
+    }
+  };
+
+  updateNodeTaskName = (value, errors, field) => {
+    if (field !== undefined && field !== "undefined") {
+      this.setState(
+        () => ({
           [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
         }),
         this.props.shouldConfirmExit(true)
@@ -48,17 +60,6 @@ class DisplayForm extends Component {
     const { checked } = event.target;
     if (checked !== undefined && checked !== "undefined") {
       this.setState(() => ({ [field]: { value: checked } }), this.props.shouldConfirmExit(true));
-    }
-  };
-
-  updateNodeTaskName = (value, errors, field) => {
-    if (field !== undefined && field !== "undefined") {
-      this.setState(
-        () => ({
-          [field]: { value, errors: Object.values(errors).filter(error => error) } //filter out undefined errors
-        }),
-        this.props.shouldConfirmExit(true)
-      );
     }
   };
 
@@ -94,9 +95,8 @@ class DisplayForm extends Component {
   };
 
   render() {
-    const { nodeConfig, task } = this.props;
     return (
-      <form onSubmit={this.handleOnSave}>
+      <>
         <ModalContentBody
           style={{
             maxWidth: "35rem",
@@ -110,22 +110,28 @@ class DisplayForm extends Component {
           }}
         >
           <ValueList
-            updateNodeTaskName={this.updateNodeTaskName}
-            taskNames={this.props.taskNames}
-            node={this.props.node}
-            task={task}
-            nodeConfig={nodeConfig}
             form={this.state}
+            inputProperties={this.props.inputProperties}
+            node={this.props.node}
+            nodeConfig={this.props.nodeConfig}
             onSelectTextInputChange={this.handleSelectTextInputChange}
             onToggleChange={this.handleToggleChange}
+            task={this.props.task}
+            taskNames={this.props.taskNames}
+            updateNodeTaskName={this.updateNodeTaskName}
           />
         </ModalContentBody>
         <ModalContentFooter>
-          <ModalConfirmButton theme="bmrg-white" text="Apply" disabled={!this.determineIsValidForm()} type="submit">
+          <ModalConfirmButton
+            theme="bmrg-white"
+            text="Apply"
+            disabled={!this.determineIsValidForm()}
+            onClick={this.handleOnSave}
+          >
             Apply
           </ModalConfirmButton>
         </ModalContentFooter>
-      </form>
+      </>
     );
   }
 }
