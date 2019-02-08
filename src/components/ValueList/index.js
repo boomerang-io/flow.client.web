@@ -145,7 +145,7 @@ const ValueList = ({
                   styles={{ width: "100%" }}
                   theme="bmrg-white"
                   title={item.label}
-                  value={form[item.key] ? form[item.key].value : ""}
+                  value={form[item.key] ? form[item.key].value : inputs[item.key] ? inputs[item.key] : ""}
                 />
               </div>
             );
