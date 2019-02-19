@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { iconMapping } from "Constants/taskIcons";
+import { Icon } from "carbon-components-react";
 
 Task.propTypes = {
   name: PropTypes.string.isRequired,
@@ -19,8 +20,9 @@ function Task({ name, model }) {
     >
       <div className="b-task-template__img">
         {iconMapping(model.taskData.name, model.taskData.category) && (
-          <img
-            src={iconMapping(model.taskData.name, model.taskData.category)}
+          <Icon
+            fill="#40D5BB"
+            name={iconMapping(model.taskData.name, model.taskData.category)}
             alt={`Task ${name}`}
             className="b-task-template__img-svg"
           />

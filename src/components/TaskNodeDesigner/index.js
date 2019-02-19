@@ -13,6 +13,7 @@ import DisplayForm from "Components/DisplayForm";
 import pencilIcon from "./pencil.svg";
 import { iconMapping } from "Constants/taskIcons";
 import "./styles.scss";
+import { Icon } from "carbon-components-react";
 
 export class TaskNode extends Component {
   static propTypes = {
@@ -89,8 +90,9 @@ export class TaskNode extends Component {
         <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
         {iconMapping(this.props.task.name, this.props.task.category) && (
-          <img
-            src={iconMapping(this.props.task.name, this.props.task.category)}
+          <Icon
+            fill="#40D5BB"
+            name={iconMapping(this.props.task.name, this.props.task.category)}
             className="b-task-node__img"
             alt="Task node type"
           />

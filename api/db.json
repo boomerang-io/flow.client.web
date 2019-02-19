@@ -44,7 +44,7 @@
       ],
       "description": "Specify Shell Script to Ingest CSV",
       "key": "ingest",
-      "name": "Ingest CSV",
+      "name": "read Ingest CSV",
       "type": "ValuesList",
       "category": "file utilities"
     },
@@ -72,7 +72,7 @@
       ],
       "description": "Send slack message to webhook",
       "key": "slack",
-      "name": "Send Slack Message",
+      "name": "approval Send Slack Message",
       "type": "ValuesList",
       "category": "communication",
       "arguments": ["sendSlackMessage", "$(INPUTS_PROPS_CHANNEL)", "$(INPUTS_PROPS_TITLE)", "$(INPUTS_PROPS_MESSAGE)"]
@@ -96,7 +96,7 @@
       ],
       "description": "Sleep for specified duration in milliseconds",
       "key": "sleep",
-      "name": "Sleep",
+      "name": "update Sleep",
       "type": "ValuesList",
       "category": "utilities",
       "arguments": ["sleep", "$(INPUTS_PROPS_DURATION)"]
@@ -143,7 +143,7 @@
       ],
       "description": "Send Email to Member with Subject and Message",
       "key": "mail",
-      "name": "Send Email",
+      "name": "launch Send Email",
       "type": "ValuesList",
       "category": "boomerang",
       "arguments": [
@@ -159,7 +159,7 @@
       "config": [],
       "description": "Artifactory File Download",
       "key": "artifactoryDownload",
-      "name": "Artifactory File Download",
+      "name": "shell Artifactory File Download",
       "type": "ValuesList",
       "category": "utilities",
       "arguments": ["artifactoryDownload"]
@@ -182,7 +182,7 @@
       ],
       "description": "Create file in worker",
       "key": "createFile",
-      "name": "Create File",
+      "name": "enable Create File",
       "type": "ValuesList",
       "category": "utilities",
       "arguments": ["sendMailToMember", "$(INPUTS_PROPS_PATH)", "$(INPUTS_PROPS_CONTENT)"]
@@ -199,7 +199,7 @@
       ],
       "description": "Upload file to Artifactory",
       "key": "artifactoryUpload",
-      "name": "Artifactory File Upload",
+      "name": "download Artifactory File Upload",
       "type": "ValuesList",
       "category": "utilities",
       "arguments": ["artifactoryUpload", "$(INPUTS_PROPS_PATH)"]

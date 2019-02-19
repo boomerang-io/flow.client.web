@@ -21,32 +21,82 @@ export const TASK_KEYS = {
   FILE_UTILITIES: "file utilities"
 };
 
-export const TASK_KEYS_TO_ICON = {
+/*export const TASK_KEYS_TO_ICON = {
   [TASK_KEYS.BOOMERANG]: boomerangIcon,
   [TASK_KEYS.COMMUNICATION]: emailIcon,
   [TASK_KEYS.FILE_UTILITIES]: fileIcon,
   [TASK_KEYS.UTILITIES]: settingsIcon
-};
+};*/
 
 // TODO: confirm these actually map to icons
 export const TASK_KEYS_TO_CARBON_ICON = {
-  [TASK_KEYS.BOOMERANG]: "platform",
+  [TASK_KEYS.BOOMERANG]: "financial",
   [TASK_KEYS.COMMUNICATION]: "email",
-  [TASK_KEYS.FILE_UTILITIES]: "file",
+  [TASK_KEYS.FILE_UTILITIES]: "document",
   [TASK_KEYS.UTILITIES]: "settings"
 };
 
 // TODO: finish mapping
 const iconToTaskName = [
   {
-    icon: "get",
-    startsWith: ["get"],
-    includes: ["read"]
+    icon: "search",
+    startsWithConditions: ["get"],
+    includesConditions: ["read"]
   },
   {
-    icon: "status",
-    startsWithConditions: ["get", "validate"],
+    icon: "checkmark--outline",
+    startsWithConditions: ["submit", "validate"],
     includesConditions: ["approval"]
+  },
+  {
+    icon: "restart",
+    startsWithConditions: ["update", "sync"],
+    includesConditions: []
+  },
+  {
+    icon: "launch",
+    startsWithConditions: ["launch"],
+    includesConditions: ["deploy"]
+  },
+  {
+    icon: "terminal",
+    startsWithConditions: ["shell", "appcmd"],
+    includesConditions: []
+  },
+  {
+    icon: "power",
+    startsWithConditions: ["enable", "start", "activate"],
+    includesConditions: []
+  },
+  {
+    icon: "back-to-top",
+    startsWithConditions: ["export"],
+    includesConditions: []
+  },
+  {
+    icon: "download",
+    startsWithConditions: [],
+    includesConditions: ["download"]
+  },
+  {
+    icon: "edit",
+    startsWithConditions: [],
+    includesConditions: ["edit", "define", "modify"]
+  },
+  {
+    icon: "add--outline",
+    startsWithConditions: ["create", "register"],
+    includesConditions: []
+  },
+  {
+    icon: "close--outline",
+    startsWithConditions: ["stop", "cancel", "disable", "terminate"],
+    includesConditions: []
+  },
+  {
+    icon: "filter",
+    startsWithConditions: ["configure"],
+    includesConditions: []
   }
 ];
 
@@ -56,7 +106,7 @@ const iconToTaskName = [
  * @param {string} categoryName
  * @return {string} Used in Carbon <Icon /> "name" prop
  */
-export function iconMapping2(taskName, categoryName) {
+export function iconMapping(taskName, categoryName) {
   const taskNameFormatted = taskName.toLowerCase();
   const categoryFormatted = categoryName.toLowerCase();
 
@@ -79,7 +129,7 @@ export function iconMapping2(taskName, categoryName) {
 }
 
 // TODO: confirm the above works and we dont need this
-export function iconMapping(taskName, categoryName) {
+/*export function iconMapping(taskName, categoryName) {
   let taskLower = taskName.toLowerCase();
   let categoryLower = categoryName.toLowerCase();
 
@@ -107,4 +157,4 @@ export function iconMapping(taskName, categoryName) {
   else {
     return TASK_KEYS_TO_ICON[categoryLower];
   }
-}
+}*/
