@@ -74,6 +74,8 @@ export function iconMapping2(taskName, categoryName) {
       return true;
     }
   });
+
+  return iconName;
 }
 
 // TODO: confirm the above works and we dont need this
