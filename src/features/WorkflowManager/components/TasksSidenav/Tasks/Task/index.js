@@ -8,9 +8,6 @@ Task.propTypes = {
 };
 
 function Task({ name, model }) {
-  console.log(model);
-  console.log("sep");
-  console.log(name);
   return (
     <div
       draggable={true}
