@@ -11,7 +11,7 @@ import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "Components/DisplayForm";
 import pencilIcon from "./pencil.svg";
-import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
+import { iconMapping } from "Constants/taskIcons";
 import "./styles.scss";
 
 export class TaskNode extends Component {
@@ -87,8 +87,12 @@ export class TaskNode extends Component {
         <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
-        {TASK_KEYS_TO_ICON[this.props.task.category] && (
-          <img src={TASK_KEYS_TO_ICON[this.props.task.category]} className="b-task-node__img" alt="Task node type" />
+        {iconMapping(this.props.task.name, this.props.task.category) && (
+          <img
+            src={iconMapping(this.props.task.name, this.props.task.category)}
+            className="b-task-node__img"
+            alt="Task node type"
+          />
         )}
         {this.renderConfigureNode()}
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { TASK_KEYS_TO_ICON } from "Constants/taskIcons";
+import { iconMapping } from "Constants/taskIcons";
 
 Task.propTypes = {
   name: PropTypes.string.isRequired,
@@ -8,6 +8,9 @@ Task.propTypes = {
 };
 
 function Task({ name, model }) {
+  console.log(model);
+  console.log("sep");
+  console.log(name);
   return (
     <div
       draggable={true}
@@ -17,9 +20,9 @@ function Task({ name, model }) {
       className="b-task-template"
     >
       <div className="b-task-template__img">
-        {TASK_KEYS_TO_ICON[model.taskData.category] && (
+        {iconMapping(model.taskData.name, model.taskData.category) && (
           <img
-            src={TASK_KEYS_TO_ICON[model.taskData.category]}
+            src={iconMapping(model.taskData.name, model.taskData.category)}
             alt={`Task ${name}`}
             className="b-task-template__img-svg"
           />

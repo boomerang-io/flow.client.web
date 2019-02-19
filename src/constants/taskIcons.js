@@ -48,13 +48,13 @@ export function iconMapping(taskName, categoryName) {
   let taskLower = taskName.toLowerCase();
   let categoryLower = categoryName.toLowerCase();
 
-  if (taskLower.includes("get")) {
+  if (taskLower.includes("get") || taskLower.includes("read")) {
     return getIcon;
-  } else if (taskLower.includes("update")) {
+  } else if (taskLower.includes("update") || taskLower.includes("sync")) {
     return updateIcon;
-  } else if (taskLower.includes("deploy")) {
+  } else if (taskLower.includes("deploy") || taskLower.includes("launch")) {
     return deployIcon;
-  } else if (taskLower.includes("validate")) {
+  } else if (taskLower.includes("validate") || taskLower.includes("verify") || taskLower.includes("check")) {
     return validateIcon;
   }
 
