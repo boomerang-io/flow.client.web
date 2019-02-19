@@ -95,9 +95,12 @@ const actionHandlers = {
   //   };
   // },
   [types.DELETE_NODE]: (state, action) => {
-    const nodes = { ...state.nodes };
-    delete nodes[action.data.nodeId];
-    return { ...state, hasUnsavedWorkflowRevisionUpdates: true, nodes };
+    const { nodeId } = action.data;
+    const config = { ...state.config };
+    delete config[nodeId];
+    const filteredDagNodes = state.dag.nodes.filter(node => node.nodeId !== nodeId);
+    const updatedDag = { ...state.dag, nodes: filteredDagNodes };
+    return { ...state, dag: updatedDag, config, hasUnsavedWorkflowRevisionUpdates: true };
   }
 };
 
