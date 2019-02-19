@@ -31,6 +31,7 @@ export class TaskNodeExecution extends Component {
     });
   };
 
+  // TODO: confirm use of Carbon <Icon /> below
   render() {
     const flowTaskStatus = this.props.step ? this.props.step.flowTaskStatus : "";
 

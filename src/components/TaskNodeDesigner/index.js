@@ -74,6 +74,7 @@ export class TaskNode extends Component {
     );
   }
 
+  // TODO: confirm use of Carbon <Icon /> below
   render() {
     return (
       <div className="b-task-node">

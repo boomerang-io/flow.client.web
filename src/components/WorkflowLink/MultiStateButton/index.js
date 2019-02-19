@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
+//import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
 import { EXECUTION_CONDITIONS, EXECUTION_STATES } from "./constants";
 import "./styles.scss";
 

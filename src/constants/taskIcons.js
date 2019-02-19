@@ -28,6 +28,55 @@ export const TASK_KEYS_TO_ICON = {
   [TASK_KEYS.UTILITIES]: settingsIcon
 };
 
+// TODO: confirm these actually map to icons
+export const TASK_KEYS_TO_CARBON_ICON = {
+  [TASK_KEYS.BOOMERANG]: "platform",
+  [TASK_KEYS.COMMUNICATION]: "email",
+  [TASK_KEYS.FILE_UTILITIES]: "file",
+  [TASK_KEYS.UTILITIES]: "settings"
+};
+
+// TODO: finish mapping
+const iconToTaskName = [
+  {
+    icon: "get",
+    startsWith: ["get"],
+    includes: ["read"]
+  },
+  {
+    icon: "status",
+    startsWithConditions: ["get", "validate"],
+    includesConditions: ["approval"]
+  }
+];
+
+/**
+ *
+ * @param {string} taskName
+ * @param {string} categoryName
+ * @return {string} Used in Carbon <Icon /> "name" prop
+ */
+export function iconMapping2(taskName, categoryName) {
+  const taskNameFormatted = taskName.toLowerCase();
+  const categoryFormatted = categoryName.toLowerCase();
+
+  // Set default
+  let iconName = TASK_KEYS_TO_CARBON_ICON[categoryFormatted];
+
+  // Some will interate through array until true is returned
+  iconToTaskName.some(iconConfig => {
+    if (iconConfig.startsWithConditions.find(condition => taskNameFormatted.startsWith(condition))) {
+      iconName = iconConfig.icon;
+      return true;
+    }
+    if (iconConfig.includesConditions.find(condition => taskNameFormatted.includes(condition))) {
+      iconName = iconConfig.icon;
+      return true;
+    }
+  });
+}
+
+// TODO: confirm the above works and we dont need this
 export function iconMapping(taskName, categoryName) {
   let taskLower = taskName.toLowerCase();
   let categoryLower = categoryName.toLowerCase();

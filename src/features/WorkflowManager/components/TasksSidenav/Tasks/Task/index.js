@@ -7,6 +7,7 @@ Task.propTypes = {
   model: PropTypes.object.isRequired
 };
 
+// TODO: confirm use of Carbon <Icon /> below
 function Task({ name, model }) {
   console.log(model);
   console.log("sep");
