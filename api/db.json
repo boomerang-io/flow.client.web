@@ -44,7 +44,7 @@
       ],
       "description": "Specify Shell Script to Ingest CSV",
       "key": "ingest",
-      "name": "Ingest CSV",
+      "name": "read Ingest CSV",
       "type": "ValuesList",
       "category": "file utilities"
     },
@@ -72,7 +72,7 @@
       ],
       "description": "Send slack message to webhook",
       "key": "slack",
-      "name": "Send Slack Message",
+      "name": "approval Send Slack Message",
       "type": "ValuesList",
       "category": "communication",
       "arguments": ["sendSlackMessage", "$(INPUTS_PROPS_CHANNEL)", "$(INPUTS_PROPS_TITLE)", "$(INPUTS_PROPS_MESSAGE)"]
@@ -96,7 +96,7 @@
       ],
       "description": "Sleep for specified duration in milliseconds",
       "key": "sleep",
-      "name": "Sleep",
+      "name": "update Sleep",
       "type": "ValuesList",
       "category": "utilities",
       "arguments": ["sleep", "$(INPUTS_PROPS_DURATION)"]
@@ -143,7 +143,7 @@
       ],
       "description": "Send Email to Member with Subject and Message",
       "key": "mail",
-      "name": "Send Email",
+      "name": "launch Send Email",
       "type": "ValuesList",
       "category": "boomerang",
       "arguments": [
@@ -159,7 +159,7 @@
       "config": [],
       "description": "Artifactory File Download",
       "key": "artifactoryDownload",
-      "name": "Artifactory File Download",
+      "name": "shell Artifactory File Download",
       "type": "ValuesList",
       "category": "utilities",
       "arguments": ["artifactoryDownload"]
@@ -182,7 +182,7 @@
       ],
       "description": "Create file in worker",
       "key": "createFile",
-      "name": "Create File",
+      "name": "enable Create File",
       "type": "ValuesList",
       "category": "utilities",
       "arguments": ["sendMailToMember", "$(INPUTS_PROPS_PATH)", "$(INPUTS_PROPS_CONTENT)"]
@@ -199,7 +199,7 @@
       ],
       "description": "Upload file to Artifactory",
       "key": "artifactoryUpload",
-      "name": "Artifactory File Upload",
+      "name": "download Artifactory File Upload",
       "type": "ValuesList",
       "category": "utilities",
       "arguments": ["artifactoryUpload", "$(INPUTS_PROPS_PATH)"]
@@ -394,7 +394,6 @@
     }
   ],
   "workflowSingle": {
-    "version": 1,
     "dag": {
       "id": "3f58d302-2a3c-4765-b606-7573d313a2fa",
       "offsetX": -51.15583333333335,
@@ -603,6 +602,39 @@
           "taskId": "5bd98b105a5df954ad599bc2",
           "nodeId": "311a727c-691d-4c50-b24f-d4818895f6a3",
           "taskName": "Send Email 1"
+        },
+        {
+          "id": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
+          "type": "custom",
+          "selected": false,
+          "x": 128.11448091984673,
+          "y": 256.86971702632894,
+          "extras": {},
+          "ports": [
+            {
+              "id": "fa40ea57-d9ed-4833-a7ca-812824899db1",
+              "type": "custom",
+              "selected": false,
+              "name": "left",
+              "parentNode": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
+              "links": [],
+              "position": "left",
+              "nodePortId": "fa40ea57-d9ed-4833-a7ca-812824899db1"
+            },
+            {
+              "id": "db149132-52f3-4564-baf4-9c96aad8368d",
+              "type": "custom",
+              "selected": false,
+              "name": "right",
+              "parentNode": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
+              "links": [],
+              "position": "right",
+              "nodePortId": "db149132-52f3-4564-baf4-9c96aad8368d"
+            }
+          ],
+          "taskId": "5b92f794844d0700016ea216",
+          "nodeId": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
+          "taskName": "Ingest CSV Shell 1"
         }
       ]
     },
@@ -629,11 +661,20 @@
             "message4": "6"
           },
           "type": "custom"
+        },
+        {
+          "nodeId": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
+          "taskId": "5b92f794844d0700016ea216",
+          "inputs": {
+            "offset": "",
+            "shell": ""
+          },
+          "type": "custom"
         }
       ]
     },
     "changelog": {
-      "reason": "fdsa"
+      "reason": "Reverting 1 to the latest version"
     }
   },
   "workflowRevision": {

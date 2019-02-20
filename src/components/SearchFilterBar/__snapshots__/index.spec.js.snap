@@ -58,6 +58,8 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
         </svg>
         <input
           className="bmrg--b-search-bar__textbox --bmrg-white"
+          id="bmrg-search-input"
+          name="bmrg-search-input"
           onBlur={[Function]}
           onChange={[Function]}
           onKeyDown={[Function]}
