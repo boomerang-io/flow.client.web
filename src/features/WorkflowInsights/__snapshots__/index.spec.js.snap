@@ -62,18 +62,18 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
           },
           Object {
             "label": "1 month",
-            "value": 31,
+            "value": 0,
           },
           Object {
             "label": "3 months",
-            "value": 92,
+            "value": 0,
           },
         ]
       }
       selectedOption={
         Object {
           "label": "3 months",
-          "value": 92,
+          "value": 0,
         }
       }
     />

@@ -4,7 +4,6 @@ import renderer from "react-test-renderer";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowExecutionActions } from "State/workflowExecution";
-import { actions as workflowExecutionActiveNodeActions } from "State/workflowExecutionActiveNode";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { WorkflowExecutionContainer } from "./index";
 
@@ -63,8 +62,6 @@ describe("WorkflowExecutionContainer --- Snapshot", () => {
         workflowActions={workflowActions}
         workflowExecution={workflowExecution}
         workflowExecutionActions={workflowExecutionActions}
-        workflowExecutionActiveNode={workflowExecutionActiveNode}
-        workflowExecutionActiveNodeActions={workflowExecutionActiveNodeActions}
         workflowRevision={workflowRevision}
         workflowRevisionActions={workflowRevisionActions}
       />
@@ -86,8 +83,6 @@ describe("WorkflowExecutionContainer --- Shallow render", () => {
         workflowActions={workflowActions}
         workflowExecution={workflowExecution}
         workflowExecutionActions={workflowExecutionActions}
-        workflowExecutionActiveNode={workflowExecutionActiveNode}
-        workflowExecutionActiveNodeActions={workflowExecutionActiveNodeActions}
         workflowRevision={workflowRevision}
         workflowRevisionActions={workflowRevisionActions}
       />
