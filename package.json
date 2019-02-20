@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://launch.boomerangplatform.net/BMRG_APP_ROOT_CONTEXT",
   "dependencies": {
-    "@boomerang/boomerang-components": "^6.2.3",
+    "@boomerang/boomerang-components": "^6.2.7",
     "@boomerang/boomerang-dag": "5.2.1",
     "@boomerang/boomerang-react-scripts": "2.0.13",
     "@boomerang/boomerang-styles": "0.11.0-beta",
@@ -26,6 +26,9 @@
     "react-scroll-up-button": "^1.6.4",
     "validator": "^10.7.1"
   },
+  "devDependencies": {
+    "cross-env": "^5.2.0"
+  },
   "scripts": {
     "analyze": "source-map-explorer server/build/static/js/main.*",
     "apiServer": "json-server -c api/json-server.json --watch api/db.json api/routes.json --middlewares api/middleware/singular.js api/middleware/webhook.js",
@@ -34,12 +37,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "prod:installServerDependencies": "yarn --cwd server install",
-    "prod:rewriteAssetPaths": "APP_ROOT= node server/scripts/rewriteAssetPaths.js",
-    "prod:server": "NODE_ENV=development node server/app.js",
+    "eject": "react-scripts eject",
+    "prod:installServerDependencies": "npm --prefix ./server install ./server",
+    "prod:rewriteAssetPaths": "cross-env APP_ROOT=/flow node server/scripts/rewriteAssetPaths.js",
+    "prod:server": "cd server && npm run-script dev",
     "preprod": "run-s build prod:installServerDependencies prod:rewriteAssetPaths",
     "prod": "run-p apiServer prod:server",
-    "eject": "react-scripts eject"
+    "docker:build": "docker build -t flow:next .",
+    "docker:run": "docker run -i -t -p 3000:3000 -e APP_ROOT=/flow -e BASE_SERVICE_ENV_URL=http://localhost:8000 flow:next",
+    "predocker": "run-s build docker:build",
+    "docker": "run-p docker:run apiServer"
   },
   "browserslist": {
     "development": [

@@ -4,6 +4,8 @@ WORKDIR /opt/boomerang/server
 
 COPY server .
 
+COPY .npmrc .
+
 RUN npm install --production
 
 EXPOSE 3000
