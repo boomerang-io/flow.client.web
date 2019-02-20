@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { iconMapping } from "Constants/taskIcons";
+import mapTaskNametoIcon from "Utilities/taskIcons";
 import { Icon } from "carbon-components-react";
 
 Task.propTypes = {
@@ -19,10 +19,10 @@ function Task({ name, model }) {
       className="b-task-template"
     >
       <div className="b-task-template__img">
-        {iconMapping(model.taskData.name, model.taskData.category) && (
+        {mapTaskNametoIcon(model.taskData.name, model.taskData.category) && (
           <Icon
             fill="#40D5BB"
-            name={iconMapping(model.taskData.name, model.taskData.category)}
+            name={mapTaskNametoIcon(model.taskData.name, model.taskData.category)}
             alt={`Task ${name}`}
             className="b-task-template__img-svg"
           />

@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
 import { PortWidget } from "@boomerang/boomerang-dag";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
-import { iconMapping } from "Constants/taskIcons";
+import mapTaskNametoIcon from "Utilities/taskIcons";
 import { Icon } from "carbon-components-react";
 import "./styles.scss";
 
@@ -55,7 +55,7 @@ export class TaskNodeExecution extends Component {
           <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
           <Icon
             fill="#40D5BB"
-            name={iconMapping(this.props.task.name, this.props.task.category)}
+            name={mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
             className="b-task-node__img"
             alt="Task node type"
           />

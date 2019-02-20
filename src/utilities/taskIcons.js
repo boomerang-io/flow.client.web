@@ -1,18 +1,7 @@
-export const TASK_KEYS = {
-  BOOMERANG: "boomerang",
-  COMMUNICATION: "communication",
-  UTILITIES: "utilities",
-  FILE_UTILITIES: "file utilities"
-};
-
-export const TASK_KEYS_TO_CARBON_ICON = {
-  [TASK_KEYS.BOOMERANG]: "services",
-  [TASK_KEYS.COMMUNICATION]: "email",
-  [TASK_KEYS.FILE_UTILITIES]: "document",
-  [TASK_KEYS.UTILITIES]: "settings"
-};
-
-// Icon to task mapping
+/**
+ * Carbon Icon icon name to the conditions it matches for
+ * @todo: think about giving startsWith precedence over includes, how to overall make smarter
+ */
 const iconToTaskName = [
   {
     icon: "search",
@@ -79,15 +68,13 @@ const iconToTaskName = [
 /**
  *
  * @param {string} taskName
- * @param {string} categoryName
  * @return {string} Used in Carbon <Icon /> "name" prop
  */
-export function iconMapping(taskName, categoryName) {
+export default function mapTaskNametoIcon(taskName) {
   const taskNameFormatted = taskName.toLowerCase();
-  const categoryFormatted = categoryName.toLowerCase();
 
   // Set default as matched category or fallback icon if none
-  let iconName = TASK_KEYS_TO_CARBON_ICON[categoryFormatted] || "predictive";
+  let iconName = "predictive";
 
   // Some will interate through array until true is returned
   iconToTaskName.some(iconConfig => {
