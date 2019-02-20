@@ -53,14 +53,12 @@ export class TaskNodeExecution extends Component {
 
           <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
           <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
-          {iconMapping(this.props.task.name, this.props.task.category) && (
-            <Icon
-              fill="#40D5BB"
-              name={iconMapping(this.props.task.name, this.props.task.category)}
-              className="b-task-node__img"
-              alt="Task node type"
-            />
-          )}
+          <Icon
+            fill="#40D5BB"
+            name={iconMapping(this.props.task.name, this.props.task.category)}
+            className="b-task-node__img"
+            alt="Task node type"
+          />
         </div>
       </div>
     );
