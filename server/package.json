@@ -13,7 +13,7 @@
     }
   ],
   "dependencies": {
-    "@boomerang/boomerang-webapp-server": "^1.1.0",
+    "@boomerang/boomerang-webapp-server": "^1.2.0",
     "replace-in-file": "^3.4.3"
   }
 }

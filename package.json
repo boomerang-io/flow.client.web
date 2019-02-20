@@ -44,7 +44,7 @@
     "preprod": "run-s build prod:installServerDependencies prod:rewriteAssetPaths",
     "prod": "run-p apiServer prod:server",
     "docker:build": "docker build -t flow:next .",
-    "docker:run": "docker run -i -t -p 3000:3000 -e APP_ROOT=/flow -e BASE_SERVICE_ENV_URL=http://localhost:8000 flow:next",
+    "docker:run": "docker run -i -t -p 3000:3000 -e APP_ROOT=/flow -e BASE_SERVICE_ENV_URL=http://localhost:8000 -e PRODUCT_SERVICE_ENV_URL=http://localhost:8000 flow:next",
     "predocker": "run-s build docker:build",
     "docker": "run-p docker:run apiServer"
   },
