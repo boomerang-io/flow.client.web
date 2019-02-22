@@ -4,6 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
+import { actions as importWorkflowActions } from "State/importWorkflow";
 import { actions as appActions } from "State/app";
 import sortBy from "lodash/sortBy";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
@@ -19,6 +20,9 @@ export class WorkflowsHome extends Component {
   static propTypes = {
     teams: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    importWorkflow: PropTypes.object.isRequired,
+    appActions: PropTypes.object.isRequired,
+    importWorkflowActions: PropTypes.object.isRequired,
     teamsActions: PropTypes.object.isRequired
   };
 
@@ -28,12 +32,16 @@ export class WorkflowsHome extends Component {
   };
 
   componentDidMount() {
-    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+    this.fetchTeams();
     this.props.appActions.setActiveTeam({ teamId: undefined });
   }
 
   handleSearchFilter = (searchQuery, teams) => {
     this.setState({ searchQuery, teamsFilter: Array.isArray(teams) && teams.length ? teams : [] });
+  };
+
+  fetchTeams = () => {
+    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   };
 
   filterTeams = () => {
@@ -90,8 +98,12 @@ export class WorkflowsHome extends Component {
       });
   };
 
+  handleImportWorkflow = (data, isUpdate) => {
+    this.props.importWorkflowActions.post(`${BASE_SERVICE_URL}/workflow/import?update=${isUpdate}`, JSON.parse(data));
+  };
+
   render() {
-    const { teams } = this.props;
+    const { teams, importWorkflow } = this.props;
     const { searchQuery } = this.state;
 
     if (teams.status === REQUEST_STATUSES.FAILURE) {
@@ -130,11 +142,14 @@ export class WorkflowsHome extends Component {
               return (
                 <WorkflowsSection
                   team={team}
+                  importWorkflow={importWorkflow}
                   searchQuery={searchQuery}
                   updateWorkflows={this.updateWorkflows}
+                  fetchTeams={this.fetchTeams}
                   setActiveTeamAndRedirect={this.setActiveTeamAndRedirect}
                   setActiveTeam={this.setActiveTeam}
                   key={team.id}
+                  handleImportWorkflow={this.handleImportWorkflow}
                   executeWorkflow={this.handleExecuteWorkflow}
                   deleteWorkflow={this.handleDeleteWorkflow}
                 />
@@ -150,11 +165,13 @@ export class WorkflowsHome extends Component {
 }
 
 const mapStateToProps = state => ({
-  teams: state.teams
+  teams: state.teams,
+  importWorkflow: state.importWorkflow
 });
 
 const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch),
+  importWorkflowActions: bindActionCreators(importWorkflowActions, dispatch),
   teamsActions: bindActionCreators(teamsActions, dispatch)
 });
 

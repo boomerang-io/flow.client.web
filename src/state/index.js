@@ -4,6 +4,7 @@ import activity from "./activity";
 import app from "./app";
 import changeLog from "./changeLog";
 import contactJoe from "./contactJoe";
+import importWorkflow from "./importWorkflow";
 import insights from "./insights";
 import navbarLinks from "./navbarLinks";
 import onBoard from "./onBoard";
@@ -23,6 +24,7 @@ const rootReducer = history =>
     app,
     changeLog,
     contactJoe,
+    importWorkflow,
     insights,
     navbarLinks,
     onBoard,

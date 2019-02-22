@@ -3,21 +3,35 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import Button from "@boomerang/boomerang-components/lib/Button";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
+import ImportWorkflow from "./ImportWorkflow";
 import WorkflowCard from "./WorkflowCard";
 import "./styles.scss";
 
 class WorkflowSection extends Component {
   static propTypes = {
     team: PropTypes.object.isRequired,
+    importWorkflow: PropTypes.object.isRequired,
     searchQuery: PropTypes.string.isRequired,
     setActiveTeamAndRedirect: PropTypes.func.isRequired,
+    fetchTeams: PropTypes.func.isRequired,
     executeWorkflow: PropTypes.func.isRequired,
     deleteWorkflow: PropTypes.func.isRequired,
+    handleImportWorkflow: PropTypes.func.isRequired,
     setActiveTeam: PropTypes.func.isRequired
   };
 
   render() {
-    const { team, searchQuery, setActiveTeamAndRedirect, executeWorkflow, deleteWorkflow, setActiveTeam } = this.props;
+    const {
+      team,
+      searchQuery,
+      setActiveTeamAndRedirect,
+      executeWorkflow,
+      deleteWorkflow,
+      setActiveTeam,
+      importWorkflow,
+      handleImportWorkflow,
+      fetchTeams
+    } = this.props;
     let workflows = [];
     if (searchQuery) {
       workflows = team.workflows.filter(workflow => workflow.name.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -29,6 +43,11 @@ class WorkflowSection extends Component {
       <div className="c-workflow-section">
         <div className="c-workflow-section__header">
           <label className="b-workflow-section__team">{team.name}</label>
+          <ImportWorkflow
+            handleImportWorkflow={handleImportWorkflow}
+            importWorkflow={importWorkflow}
+            fetchTeams={fetchTeams}
+          />
         </div>
         <div className="c-workflow-section__workflows">
           {workflows.map(workflow => (
