@@ -38,7 +38,7 @@ class WorkflowCard extends Component {
   handleExportWorkflow = workflow => {
     notify(<Notification type="notify" title="Export Workflow" message="Your download will start soon." />);
     axios
-      .get(`${BASE_SERVICE_URL}/wrkflow/export/${workflow.id}`)
+      .get(`${BASE_SERVICE_URL}/workflow/export/${workflow.id}`)
       .then(res => {
         if (res.status !== 200)
           notify(<Notification type="error" title="Export Workflow" message="Something went wrong." />);
