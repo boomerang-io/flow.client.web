@@ -47,7 +47,9 @@ class WorkflowSection extends Component {
             handleImportWorkflow={handleImportWorkflow}
             importWorkflow={importWorkflow}
             fetchTeams={fetchTeams}
+            teamId={team.name}
           />
+          <Tooltip id={team.name}>Import Workflow</Tooltip>
         </div>
         <div className="c-workflow-section__workflows">
           {workflows.map(workflow => (
