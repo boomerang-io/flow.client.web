@@ -1,8 +1,8 @@
 /**
  * Carbon Icon icon name to the conditions it matches for
- * @todo: think about giving startsWith precedence over includes, how to overall make smarter
+ * @todo: think about giving startsWith precedence over includes
  */
-const iconToTaskName = [
+const iconToTaskNames = [
   {
     icon: "search",
     startsWithConditions: ["get"],
@@ -73,11 +73,11 @@ const iconToTaskName = [
 export default function mapTaskNametoIcon(taskName) {
   const taskNameFormatted = taskName.toLowerCase();
 
-  // Set default as matched category or fallback icon if none
+  // Set default as fallback icon if none
   let iconName = "predictive";
 
-  // Some will interate through array until true is returned
-  iconToTaskName.some(iconConfig => {
+  // Some will iterate through array until true is returned
+  iconToTaskNames.some(iconConfig => {
     if (iconConfig.startsWithConditions.find(condition => taskNameFormatted.startsWith(condition))) {
       iconName = iconConfig.icon;
       return true;
