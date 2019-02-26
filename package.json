@@ -7,7 +7,7 @@
     "@boomerang/boomerang-components": "^6.2.7",
     "@boomerang/boomerang-dag": "5.2.1",
     "@boomerang/boomerang-react-scripts": "2.0.13",
-    "@boomerang/boomerang-styles": "0.11.0-beta",
+    "@boomerang/boomerang-styles": "1.0.0",
     "@boomerang/boomerang-utilities": "2.0.1",
     "carbon-components": "^9.37.2",
     "carbon-components-react": "^6.42.0",
