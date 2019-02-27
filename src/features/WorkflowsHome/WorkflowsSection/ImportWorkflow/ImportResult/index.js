@@ -47,7 +47,7 @@ class ImportResult extends Component {
       );
     }
 
-    if (!!this.props.importWorkflow.error) {
+    if (this.props.importWorkflow.status === REQUEST_STATUSES.FAILURE) {
       return (
         <form onSubmit={() => this.props.goToStep(options.IMPORT_WORKFLOW_TYPE)}>
           <Body
