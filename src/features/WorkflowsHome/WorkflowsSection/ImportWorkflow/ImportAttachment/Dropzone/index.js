@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Dropzone from "react-dropzone";
+import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import image from "Assets/icons/docs.svg";
 import closeBlack from "Assets/svg/close_black.svg";
 import "./styles.scss";
@@ -51,13 +52,13 @@ class DropZone extends Component {
     }
   };
 
-  resetMaxFileSizeFlag = () => {
+  resetErrorFlag = () => {
     this.setState(() => ({
       errorFlag: false
     }));
   };
 
-  onDrop = async files => {
+  onDrop = files => {
     if (files.length === 0 || files[0].size > MAX_FILE_SIZE) {
       this.setState(() => ({
         errorFlag: true
@@ -108,75 +109,39 @@ class DropZone extends Component {
   showDragEnterOrDrop = () => {
     if (this.state.dragEnter) {
       return (
-        <div>
-          <div className="b-import-dropzone-attachment">
-            <div className="b-import-dropzone-attachment__dragEnter">{DROP_MESSAGE}</div>
-          </div>
-        </div>
+        <section className="b-import-dropzone" id="import-dropzone__drop-area">
+          <h1 className="b-import-dropzone__dragEnter">{DROP_MESSAGE}</h1>
+        </section>
       );
     } else {
-      if (this.props.state.uploading) {
+      // Attached file
+      if (!this.state.errorFlag) {
         return (
-          <div>
+          <section id="import-dropzone__file-info">
             {this.state.files.map(file => (
-              <div className="b-import-dropzone-attachment" key={file.name}>
-                <div className="b-import-dropzone-attachment__left">
-                  <img src={file.preview} alt={file.preview} className="b-import-dropzone-attachment__img" />
+              <div className="b-import-dropzone" key={file.name}>
+                <div className="b-import-dropzone__left">
+                  <img src={file.preview} alt={file.preview} className="b-import-dropzone__img" />
                 </div>
-                <div className="b-import-dropzone-attachment__center">
-                  <div
-                    id="importWorkflowAttachment-progress"
-                    ref={progress => {
-                      this.progress = progress;
-                    }}
-                  >
-                    <div
-                      id="importWorkflowAttachment-progress-bar"
-                      ref={progressBar => {
-                        this.progressBar = progressBar;
-                      }}
-                    />
-                  </div>
+                <label className="b-import-dropzone__center">{file.name}</label>
+                <div className="b-import-dropzone__right" data-tip data-for="remove" onClick={this.removeFile}>
+                  <img src={closeBlack} className="b-import-dropzone-close__img" alt="close-dropzone" />
                 </div>
-                <div className="b-import-dropzone-attachment__right" onClick={this.removeFile}>
-                  <img src={closeBlack} className="b-import-dropzone-close__img" alt="dropzone" />
-                </div>
+                <Tooltip id="remove">Remove</Tooltip>
               </div>
             ))}
-          </div>
+          </section>
         );
       } else {
-        // Attached file
-        if (!this.state.errorFlag) {
-          return (
-            <div>
-              {this.state.files.map(file => (
-                <div className="b-import-dropzone-attachment" key={file.name}>
-                  <div className="b-import-dropzone-attachment__left">
-                    <img src={file.preview} alt={file.preview} className="b-import-dropzone-attachment__img" />
-                  </div>
-                  <div className="b-import-dropzone-attachment__center">{file.name}</div>
-                  <div className="b-import-dropzone-attachment__right" onClick={this.removeFile}>
-                    <img src={closeBlack} className="b-import-dropzone-close__img" alt="close-dropzone" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          );
-        } else {
-          // Attached file too large
-          if (this.state.files.length > 0) {
-            this.removeFile();
-          }
-          return (
-            <div
-              className="b-import-dropzone-attachment b-import-dropzone-attachment-error"
-              onClick={this.resetMaxFileSizeFlag}
-            >
-              {ERROR_MESSAGE}
-            </div>
-          );
+        // Attached file too large
+        if (this.state.files.length > 0) {
+          this.removeFile();
         }
+        return (
+          <div className="b-import-dropzone b-import-dropzone-error" onClick={this.resetErrorFlag}>
+            {ERROR_MESSAGE}
+          </div>
+        );
       }
     }
   };
@@ -211,7 +176,6 @@ class DropZone extends Component {
           <div className="b-import-dropzone__message">{fileSizeMessage}</div>
         </Dropzone>
         {this.showDragEnterOrDrop()}
-        {this.uploadProgress()}
       </section>
     );
   }

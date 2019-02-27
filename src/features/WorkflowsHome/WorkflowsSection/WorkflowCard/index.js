@@ -40,7 +40,8 @@ class WorkflowCard extends Component {
     axios
       .get(`${BASE_SERVICE_URL}/workflow/export/${workflow.id}`)
       .then(res => {
-        if (res.status !== 200)
+        const status = res.status.toString();
+        if (status.startsWith("4") || status.startsWith("5"))
           notify(<Notification type="error" title="Export Workflow" message="Something went wrong." />);
         else fileDownload(JSON.stringify(res.data, null, 4), `${workflow.name}.json`);
       })

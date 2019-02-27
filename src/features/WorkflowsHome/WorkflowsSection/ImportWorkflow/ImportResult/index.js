@@ -8,6 +8,7 @@ import Error from "@boomerang/boomerang-components/lib/Error";
 import RequestMessage from "@boomerang/boomerang-components/lib/RequestMessage";
 import successDarkestBlueIcon from "Assets/svg/success_darkest_blue.svg";
 import { options } from "Constants/importWorkflowOptions";
+import { REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
 
 class ImportResult extends Component {
@@ -46,7 +47,7 @@ class ImportResult extends Component {
       );
     }
 
-    if (this.props.importWorkflow.error !== "") {
+    if (!!this.props.importWorkflow.error) {
       return (
         <form onSubmit={() => this.props.goToStep(options.IMPORT_WORKFLOW_TYPE)}>
           <Body
@@ -69,7 +70,7 @@ class ImportResult extends Component {
       );
     }
 
-    if (this.props.importWorkflow.status === "success") {
+    if (this.props.importWorkflow.status === REQUEST_STATUSES.SUCCESS) {
       return (
         <form onSubmit={this.handleCloseModal}>
           <Body

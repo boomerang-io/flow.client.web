@@ -87,14 +87,14 @@ class WorkflowAttachment extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.addFile(this.state.files);
+    // this.addFile(this.state.files);
 
-    if (this.state.loaded) {
-      setTimeout(this.uploadingFile, 1);
-      setTimeout(this.uploadingFile, 1);
-    } else {
-      this.props.requestNextStep();
-    }
+    // if (this.state.loaded) {
+    //   setTimeout(this.uploadingFile, 1);
+    //   setTimeout(this.uploadingFile, 1);
+    // } else {
+    this.props.requestNextStep();
+    // }
   };
 
   showWizardText = () => {
