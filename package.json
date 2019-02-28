@@ -15,6 +15,7 @@
     "classnames": "^2.2.6",
     "cronstrue": "^1.58.0",
     "detect-browser": "^4.0.3",
+    "js-file-download": "^0.4.4",
     "match-sorter": "^2.3.0",
     "moment-timezone": "^0.5.23",
     "react": "^16.7.0",

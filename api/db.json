@@ -10776,5 +10776,301 @@
       }
     ]
   },
-  "workflowToken": {}
+  "workflowToken": {},
+  "workflowExport": {
+    "properties": [
+      {
+        "description": "",
+        "key": "username",
+        "label": "ServiceNow Username",
+        "type": "text",
+        "defaultValue": "admin",
+        "required": true,
+        "validValues": null
+      },
+      {
+        "description": "",
+        "key": "password",
+        "label": "ServiceNow Password",
+        "type": "password",
+        "defaultValue": "Iww500m!",
+        "required": true,
+        "validValues": null
+      },
+      {
+        "description": "",
+        "key": "instance",
+        "label": "ServiceNow Instance ID",
+        "type": "text",
+        "defaultValue": "dev56083",
+        "required": true,
+        "validValues": null
+      }
+    ],
+    "description": "Currently implemented at ANZ",
+    "flowTeamId": "5c46528713ea86000197d57f",
+    "icon": "utility",
+    "id": "5c693fc726800b0001154513",
+    "name": "Service Now Auto Ticket Acknowledgement",
+    "shortDescription": "Move incidents from New to In Progress",
+    "status": "active",
+    "triggers": {
+      "scheduler": {
+        "enable": false,
+        "schedule": "",
+        "timezone": ""
+      },
+      "webhook": {
+        "enable": false,
+        "token": ""
+      }
+    },
+    "enablePersistentStorage": false,
+    "revisionCount": 11,
+    "latestRevision": {
+      "config": {
+        "nodes": [
+          {
+            "inputs": {
+              "instanceId": "${p:instanceId}",
+              "username": "${p:username}",
+              "password": "${p:password}",
+              "state": "New",
+              "tag": "Boomerang",
+              "taskName": "Get Incidents 1"
+            },
+            "nodeId": "7b8992d7-c814-47ce-b709-800874b72a1a",
+            "taskId": "5c69365b20cfafa2eaeed89c"
+          },
+          {
+            "inputs": {
+              "instanceId": "${p:instanceId}",
+              "username": "${p:username}",
+              "password": "${p:password}",
+              "state": "In Progress",
+              "incidents": "${p:Get Incidents 1/incidents}"
+            },
+            "nodeId": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
+            "taskId": "5c6939c620cfafa2eaeef2ad"
+          },
+          {
+            "inputs": {
+              "instanceId": "${p:instanceId}",
+              "username": "${p:username}",
+              "password": "${p:password}",
+              "state": "In Progress",
+              "tag": "Boomerang"
+            },
+            "nodeId": "21c652ab-4cbd-4f50-8448-098c1e2df4b7",
+            "taskId": "5c69365b20cfafa2eaeed89c"
+          }
+        ]
+      },
+      "dag": {
+        "gridSize": 0,
+        "links": [
+          {
+            "type": "custom",
+            "id": "29865ec9-6bd2-4e24-af65-c169172bb27a",
+            "selected": "false",
+            "source": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
+            "sourcePort": "8842e9e7-2e52-408f-b046-605426d724d5",
+            "target": "77305f1d-31d5-412a-a065-51d57dc7e796",
+            "targetPort": "fe75bba5-07a7-40e1-92e8-c738ec3a3d78",
+            "points": [
+              {
+                "id": "f10bc582-183a-4661-a3db-e33b11aa4f58",
+                "selected": false,
+                "x": 1132.6875,
+                "y": 418.109375
+              },
+              {
+                "id": "3cbfde9a-d9f1-4d6d-939e-d3bf967c0996",
+                "selected": false,
+                "x": 1268.109375,
+                "y": 418
+              }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50,
+            "executionCondition": "success"
+          },
+          {
+            "type": "custom",
+            "id": "5a7dd08b-81e7-467c-bd3a-ce408d3afa37",
+            "selected": "false",
+            "source": "9484e84c-20a1-4ef1-ba8a-ecd7d9f3060f",
+            "sourcePort": "8fd85ba9-bff8-44ae-a854-d779edfbeccc",
+            "target": "21c652ab-4cbd-4f50-8448-098c1e2df4b7",
+            "targetPort": "836f05aa-a1c2-4663-97cf-7c7252183b66",
+            "points": [
+              {
+                "id": "86a3e546-e741-4611-9969-66bc22106af4",
+                "selected": false,
+                "x": 411.078125,
+                "y": 417
+              },
+              {
+                "id": "e2ac1d2e-73a0-4b7c-9a38-177a59159d6e",
+                "selected": false,
+                "x": 481.109375,
+                "y": 386.109375
+              }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50,
+            "executionCondition": "always"
+          },
+          {
+            "type": "custom",
+            "id": "74b0c35e-f2ea-4461-8b45-8034dc4ae6fe",
+            "selected": "false",
+            "source": "21c652ab-4cbd-4f50-8448-098c1e2df4b7",
+            "sourcePort": "dfe5c163-a3cf-4ed9-ab00-4593506b91c6",
+            "target": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
+            "targetPort": "a7b8cfd2-4193-4921-899a-20260132a1fd",
+            "points": [
+              {
+                "id": "03908e2d-5160-4ccf-84e6-3b963dff6ba4",
+                "selected": false,
+                "x": 717.6875,
+                "y": 386.109375
+              },
+              {
+                "id": "aa3091b2-3cdc-4b56-9871-5e9bbe9fe273",
+                "selected": false,
+                "x": 896.109375,
+                "y": 418.109375
+              }
+            ],
+            "extras": {},
+            "labels": [],
+            "width": 3,
+            "color": "rgba(255,255,255,0.5)",
+            "curvyness": 50,
+            "executionCondition": "success"
+          }
+        ],
+        "nodes": [
+          {
+            "nodeId": "9484e84c-20a1-4ef1-ba8a-ecd7d9f3060f",
+            "type": "startend",
+            "selected": false,
+            "x": 278,
+            "y": 380,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "8fd85ba9-bff8-44ae-a854-d779edfbeccc",
+                "type": "startend",
+                "selected": false,
+                "name": "right",
+                "parentNode": "9484e84c-20a1-4ef1-ba8a-ecd7d9f3060f",
+                "links": ["5a7dd08b-81e7-467c-bd3a-ce408d3afa37"],
+                "position": "right"
+              }
+            ],
+            "passedName": "Start"
+          },
+          {
+            "nodeId": "77305f1d-31d5-412a-a065-51d57dc7e796",
+            "type": "startend",
+            "selected": false,
+            "x": 1268,
+            "y": 381,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "fe75bba5-07a7-40e1-92e8-c738ec3a3d78",
+                "type": "startend",
+                "selected": false,
+                "name": "left",
+                "parentNode": "77305f1d-31d5-412a-a065-51d57dc7e796",
+                "links": ["29865ec9-6bd2-4e24-af65-c169172bb27a"],
+                "position": "left"
+              }
+            ],
+            "passedName": "Finish"
+          },
+          {
+            "nodeId": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
+            "taskId": "5c6939c620cfafa2eaeef2ad",
+            "type": "custom",
+            "selected": false,
+            "x": 896,
+            "y": 358.921875,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "a7b8cfd2-4193-4921-899a-20260132a1fd",
+                "type": "custom",
+                "selected": false,
+                "name": "left",
+                "parentNode": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
+                "links": ["74b0c35e-f2ea-4461-8b45-8034dc4ae6fe"],
+                "position": "left"
+              },
+              {
+                "nodePortId": "8842e9e7-2e52-408f-b046-605426d724d5",
+                "type": "custom",
+                "selected": false,
+                "name": "right",
+                "parentNode": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
+                "links": ["29865ec9-6bd2-4e24-af65-c169172bb27a"],
+                "position": "right"
+              }
+            ],
+            "taskName": "Update Incidents 1"
+          },
+          {
+            "nodeId": "21c652ab-4cbd-4f50-8448-098c1e2df4b7",
+            "taskId": "5c69365b20cfafa2eaeed89c",
+            "type": "custom",
+            "selected": false,
+            "x": 481,
+            "y": 326.921875,
+            "extras": {},
+            "ports": [
+              {
+                "nodePortId": "836f05aa-a1c2-4663-97cf-7c7252183b66",
+                "type": "custom",
+                "selected": false,
+                "name": "left",
+                "parentNode": "21c652ab-4cbd-4f50-8448-098c1e2df4b7",
+                "links": ["5a7dd08b-81e7-467c-bd3a-ce408d3afa37"],
+                "position": "left"
+              },
+              {
+                "nodePortId": "dfe5c163-a3cf-4ed9-ab00-4593506b91c6",
+                "type": "custom",
+                "selected": false,
+                "name": "right",
+                "parentNode": "21c652ab-4cbd-4f50-8448-098c1e2df4b7",
+                "links": ["74b0c35e-f2ea-4461-8b45-8034dc4ae6fe"],
+                "position": "right"
+              }
+            ],
+            "taskName": "Get Incidents 1"
+          }
+        ],
+        "offsetX": 0,
+        "offsetY": 0,
+        "zoom": 100
+      },
+      "id": "5c6c5ff626800b0001154c40",
+      "version": 11,
+      "workFlowId": "5c693fc726800b0001154513",
+      "changelog": {
+        "userId": "59aebd0b7424530fce952fdd",
+        "reason": "Updated to use workflow property",
+        "date": 1550606326562
+      }
+    }
+  }
 }

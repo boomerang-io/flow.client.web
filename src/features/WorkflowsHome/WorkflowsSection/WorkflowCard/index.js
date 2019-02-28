@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { Link, withRouter } from "react-router-dom";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
@@ -7,8 +8,11 @@ import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import fileDownload from "js-file-download";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import imgs from "Assets/icons";
+import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import deployIcon from "Assets/icons/deploy.svg";
 import playButton from "./img/playButton.svg";
 import "./styles.scss";
@@ -31,6 +35,21 @@ class WorkflowCard extends Component {
     this.props.executeWorkflow({ workflowId: this.props.workflow.id, redirect, properties });
   };
 
+  handleExportWorkflow = workflow => {
+    notify(<Notification type="notify" title="Export Workflow" message="Your download will start soon." />);
+    axios
+      .get(`${BASE_SERVICE_URL}/workflow/export/${workflow.id}`)
+      .then(res => {
+        const status = res.status.toString();
+        if (status.startsWith("4") || status.startsWith("5"))
+          notify(<Notification type="error" title="Export Workflow" message="Something went wrong." />);
+        else fileDownload(JSON.stringify(res.data, null, 4), `${workflow.name}.json`);
+      })
+      .catch(error => {
+        notify(<Notification type="error" title="Export Workflow" message="Something went wrong." />);
+      });
+  };
+
   render() {
     const { workflow, history, teamId, deleteWorkflow, setActiveTeam } = this.props;
     const menuOptions = [
@@ -46,6 +65,12 @@ class WorkflowCard extends Component {
         itemText: "Activity",
         onClick: () => history.push(`/activity/${workflow.id}`),
         primaryFocus: false
+      },
+      {
+        itemText: "Export",
+        onClick: () => this.handleExportWorkflow(workflow),
+        primaryFocus: false,
+        isDelete: true
       },
       {
         itemText: "Delete",

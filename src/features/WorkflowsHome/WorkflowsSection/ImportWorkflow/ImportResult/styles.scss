@@ -1,0 +1,19 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.b-import-workflow-result__img {
+  border: 0.5rem solid $white;
+  border-radius: 50%;
+  margin-top: 2rem;
+  height: 10rem;
+}
+.b-import-workflow-result__text {
+  color: $gray-90;
+  font-size: 1.75rem;
+  font-weight: 500;
+  height: 2.063rem;
+  letter-spacing: 0.125rem;
+  line-height: 2.125rem;
+  margin-top: 2.111rem;
+  text-align: center;
+  text-transform: uppercase;
+}
