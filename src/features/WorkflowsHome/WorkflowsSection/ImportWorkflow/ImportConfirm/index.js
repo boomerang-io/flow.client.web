@@ -64,7 +64,7 @@ class ImportConfirm extends Component {
           />
         </Body>
         <Footer>
-          <ConfirmButton text="SUBMIT REPORT" type="submit" theme="bmrg-white" />
+          <ConfirmButton text="SUBMIT WORKFLOW" type="submit" theme="bmrg-white" />
         </Footer>
       </form>
     );
