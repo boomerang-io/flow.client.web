@@ -4,9 +4,9 @@
   "private": true,
   "homepage": "https://launch.boomerangplatform.net/BMRG_APP_ROOT_CONTEXT",
   "dependencies": {
-    "@boomerang/boomerang-components": "^7.0.0-beta.1",
+    "@boomerang/boomerang-components": "7.0.4",
     "@boomerang/boomerang-dag": "5.2.1",
-    "@boomerang/boomerang-react-scripts": "2.2.1",
+    "@boomerang/boomerang-react-scripts": "2.2.2",
     "@boomerang/boomerang-styles": "1.0.0",
     "@boomerang/boomerang-utilities": "2.0.1",
     "axios": "0.18.0",
@@ -37,9 +37,6 @@
     "redux-immutable-state-invariant": "2.1.0",
     "redux-thunk": "2.3.0",
     "validator": "^10.7.1"
-  },
-  "devDependencies": {
-    "cross-env": "^5.2.0"
   },
   "scripts": {
     "analyze": "source-map-explorer server/build/static/js/main.*",
