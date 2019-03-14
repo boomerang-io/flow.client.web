@@ -53,10 +53,24 @@ exports[`WorkflowSummary --- Snapshot Capturing Snapshot of WorkflowSummary 1`] 
       >
         Not Started
         <img
-          alt="Status undefined"
+          alt="Status "
           className="b-activity-card__status-icon"
           src="pending.svg"
         />
+      </div>
+    </div>
+    <div
+      className="b-workflow-summary-field"
+    >
+      <div
+        className="b-workflow-summary-field__key"
+      >
+        Start Time
+      </div>
+      <div
+        className="b-workflow-summary-field__value"
+      >
+        Invalid date
       </div>
     </div>
     <div
@@ -70,7 +84,7 @@ exports[`WorkflowSummary --- Snapshot Capturing Snapshot of WorkflowSummary 1`] 
       <div
         className="b-workflow-summary-field__value"
       >
-        
+        ---
       </div>
     </div>
   </div>

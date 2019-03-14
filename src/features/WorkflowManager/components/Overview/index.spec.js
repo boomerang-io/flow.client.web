@@ -85,7 +85,11 @@ const teams = [
 const props = {
   teams,
   workflow,
-  workflowActions: {},
+  workflowActions: {
+    updateTriggersWebhook: mockfn,
+    updateProperty: mockfn,
+    updateTriggersScheduler: mockfn
+  },
   teamsActions: {},
   setIsValidOverview: mockfn
 };

@@ -113,11 +113,11 @@ export class Overview extends Component {
 
     //harcoding the check for the team name being present
     if (!this.props.workflow.data.name) {
-      return this.props.setIsValidOveriew(false);
+      return this.props.setIsValidOverview(false);
     }
     //if there are no keys on the error object than no need to check anything
     if (!errorKeys.length) {
-      return this.props.setIsValidOveriew(true);
+      return this.props.setIsValidOverview(true);
     }
     //look for at least error key that is set to an object with keys aka has errors
     let isValidOveriew = true;
@@ -126,7 +126,7 @@ export class Overview extends Component {
         isValidOveriew = false;
       }
     });
-    return this.props.setIsValidOveriew(isValidOveriew);
+    return this.props.setIsValidOverview(isValidOveriew);
   }
 
   render() {

@@ -99,7 +99,7 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
           <label
             className="b-activity-card__data"
           >
-            2017-12-31 07:00 PM
+            2017-12-31 10:00 PM
           </label>
         </li>
         <li

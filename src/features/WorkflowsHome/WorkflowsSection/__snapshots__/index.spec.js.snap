@@ -12,6 +12,41 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
     >
       Lucas' team
     </label>
+    <div
+      onClick={[Function]}
+      onKeyPress={[Function]}
+    >
+      <svg
+        alt="Provide a description that will be used as the title"
+        aria-label="Provide a description that will be used as the title"
+        className="b-workflow-import__icon"
+        data-for="Lucas' team"
+        data-tip={true}
+        fillRule="evenodd"
+        height="24"
+        name="icon--upload"
+        role="img"
+        viewBox="0 0 24 24"
+        width="24"
+      >
+        <title>
+          Provide a description that will be used as the title
+        </title>
+        <path
+          d="M5 6.6l1.2 1.1L11 3v13h2V3l4.8 4.7L19 6.6 12 0z"
+        />
+        <path
+          d="M22 14v6H2v-6H0v10h24V14z"
+        />
+      </svg>
+    </div>
+    <div
+      className="__react_component_tooltip place-top type-dark "
+      data-id="tooltip"
+      id="Lucas' team"
+    >
+      Import Workflow
+    </div>
   </div>
   <div
     className="c-workflow-section__workflows"
