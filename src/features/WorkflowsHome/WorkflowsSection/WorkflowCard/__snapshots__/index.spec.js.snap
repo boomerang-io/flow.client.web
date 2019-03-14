@@ -78,6 +78,8 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
         <div
           onClick={[Function]}
           onKeyPress={[Function]}
+          role="button"
+          tabIndex="0"
         >
           <img
             alt="Execute workflow"

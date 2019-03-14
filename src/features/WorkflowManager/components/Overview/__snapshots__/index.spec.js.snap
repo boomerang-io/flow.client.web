@@ -20,11 +20,11 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
         }
       }
     >
-      <label
+      <div
         className="s-select-dropdown-label"
       >
         Team
-      </label>
+      </div>
       <div
         className="Select has-value is-searchable Select--single"
       >
@@ -268,96 +268,38 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
         </label>
         <div
           className="b-webhook__toggle --bmrg-white --red"
-          style={
-            Object {
-              "MozTransition": "opacity 0.25s",
-              "MozUserSelect": "none",
-              "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
-              "WebkitTransition": "opacity 0.25s",
-              "WebkitUserSelect": "none",
-              "borderRadius": 10,
-              "display": "inline-block",
-              "msUserSelect": "none",
-              "opacity": 1,
-              "position": "relative",
-              "textAlign": "left",
-              "touchAction": "none",
-              "transition": "opacity 0.25s",
-              "userSelect": "none",
-            }
-          }
         >
           <div
-            className="react-switch-bg"
+            className="react-toggle"
             onClick={[Function]}
-            onMouseDown={[Function]}
-            style={
-              Object {
-                "MozTransition": "background 0.25s",
-                "WebkitTransition": "background 0.25s",
-                "background": "#486c89",
-                "borderRadius": 10,
-                "cursor": "pointer",
-                "height": 20,
-                "margin": 0,
-                "position": "relative",
-                "transition": "background 0.25s",
-                "width": 40,
-              }
-            }
-          />
-          <div
-            className="react-switch-handle"
-            onClick={[Function]}
-            onMouseDown={[Function]}
-            onTouchCancel={[Function]}
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
-            style={
-              Object {
-                "MozTransition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-                "WebkitTransition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-                "background": "#ff806c",
-                "border": 0,
-                "borderRadius": "50%",
-                "boxShadow": null,
-                "cursor": "pointer",
-                "display": "inline-block",
-                "height": 18,
-                "outline": 0,
-                "position": "absolute",
-                "top": 1,
-                "transform": "translateX(1px)",
-                "transition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-                "width": 18,
-              }
-            }
-          />
-          <input
-            aria-labelledby="toggle-webhook"
-            checked={false}
-            disabled={false}
-            name="webhook"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyUp={[Function]}
-            role="switch"
-            style={
-              Object {
-                "border": 0,
-                "clip": "rect(0 0 0 0)",
-                "height": 1,
-                "margin": -1,
-                "overflow": "hidden",
-                "padding": 0,
-                "position": "absolute",
-                "width": 1,
-              }
-            }
-            type="checkbox"
-          />
+          >
+            <div
+              className="react-toggle-track"
+            >
+              <div
+                className="react-toggle-track-check"
+              />
+              <div
+                className="react-toggle-track-x"
+              />
+            </div>
+            <div
+              className="react-toggle-thumb"
+            />
+            <input
+              aria-labelledby="toggle-webhook"
+              checked={false}
+              className="react-toggle-screenreader-only"
+              name="webhook"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              type="checkbox"
+            />
+          </div>
         </div>
         <img
           alt="Toggle webhook"
@@ -389,96 +331,38 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
           </label>
           <div
             className="b-schedule__toggle --bmrg-black --red"
-            style={
-              Object {
-                "MozTransition": "opacity 0.25s",
-                "MozUserSelect": "none",
-                "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
-                "WebkitTransition": "opacity 0.25s",
-                "WebkitUserSelect": "none",
-                "borderRadius": 10,
-                "display": "inline-block",
-                "msUserSelect": "none",
-                "opacity": 1,
-                "position": "relative",
-                "textAlign": "left",
-                "touchAction": "none",
-                "transition": "opacity 0.25s",
-                "userSelect": "none",
-              }
-            }
           >
             <div
-              className="react-switch-bg"
+              className="react-toggle"
               onClick={[Function]}
-              onMouseDown={[Function]}
-              style={
-                Object {
-                  "MozTransition": "background 0.25s",
-                  "WebkitTransition": "background 0.25s",
-                  "background": "#486c89",
-                  "borderRadius": 10,
-                  "cursor": "pointer",
-                  "height": 20,
-                  "margin": 0,
-                  "position": "relative",
-                  "transition": "background 0.25s",
-                  "width": 40,
-                }
-              }
-            />
-            <div
-              className="react-switch-handle"
-              onClick={[Function]}
-              onMouseDown={[Function]}
-              onTouchCancel={[Function]}
               onTouchEnd={[Function]}
               onTouchMove={[Function]}
               onTouchStart={[Function]}
-              style={
-                Object {
-                  "MozTransition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-                  "WebkitTransition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-                  "background": "#ff806c",
-                  "border": 0,
-                  "borderRadius": "50%",
-                  "boxShadow": null,
-                  "cursor": "pointer",
-                  "display": "inline-block",
-                  "height": 18,
-                  "outline": 0,
-                  "position": "absolute",
-                  "top": 1,
-                  "transform": "translateX(1px)",
-                  "transition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-                  "width": 18,
-                }
-              }
-            />
-            <input
-              aria-labelledby="toggle-scheduler"
-              checked={false}
-              disabled={false}
-              name="schedule"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              onKeyUp={[Function]}
-              role="switch"
-              style={
-                Object {
-                  "border": 0,
-                  "clip": "rect(0 0 0 0)",
-                  "height": 1,
-                  "margin": -1,
-                  "overflow": "hidden",
-                  "padding": 0,
-                  "position": "absolute",
-                  "width": 1,
-                }
-              }
-              type="checkbox"
-            />
+            >
+              <div
+                className="react-toggle-track"
+              >
+                <div
+                  className="react-toggle-track-check"
+                />
+                <div
+                  className="react-toggle-track-x"
+                />
+              </div>
+              <div
+                className="react-toggle-thumb"
+              />
+              <input
+                aria-labelledby="toggle-scheduler"
+                checked={false}
+                className="react-toggle-screenreader-only"
+                name="schedule"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                type="checkbox"
+              />
+            </div>
           </div>
           <img
             alt="Toggle scheduler"
@@ -526,96 +410,37 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
         </label>
         <div
           className="b-persistence__toggle --bmrg-white --red"
-          style={
-            Object {
-              "MozTransition": "opacity 0.25s",
-              "MozUserSelect": "none",
-              "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
-              "WebkitTransition": "opacity 0.25s",
-              "WebkitUserSelect": "none",
-              "borderRadius": 10,
-              "display": "inline-block",
-              "msUserSelect": "none",
-              "opacity": 1,
-              "position": "relative",
-              "textAlign": "left",
-              "touchAction": "none",
-              "transition": "opacity 0.25s",
-              "userSelect": "none",
-            }
-          }
         >
           <div
-            className="react-switch-bg"
+            className="react-toggle"
             onClick={[Function]}
-            onMouseDown={[Function]}
-            style={
-              Object {
-                "MozTransition": "background 0.25s",
-                "WebkitTransition": "background 0.25s",
-                "background": "#486c89",
-                "borderRadius": 10,
-                "cursor": "pointer",
-                "height": 20,
-                "margin": 0,
-                "position": "relative",
-                "transition": "background 0.25s",
-                "width": 40,
-              }
-            }
-          />
-          <div
-            className="react-switch-handle"
-            onClick={[Function]}
-            onMouseDown={[Function]}
-            onTouchCancel={[Function]}
             onTouchEnd={[Function]}
             onTouchMove={[Function]}
             onTouchStart={[Function]}
-            style={
-              Object {
-                "MozTransition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-                "WebkitTransition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-                "background": "#ff806c",
-                "border": 0,
-                "borderRadius": "50%",
-                "boxShadow": null,
-                "cursor": "pointer",
-                "display": "inline-block",
-                "height": 18,
-                "outline": 0,
-                "position": "absolute",
-                "top": 1,
-                "transform": "translateX(1px)",
-                "transition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-                "width": 18,
-              }
-            }
-          />
-          <input
-            aria-labelledby="toggle-persistence-storage"
-            checked={false}
-            disabled={false}
-            name="persistence"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyUp={[Function]}
-            role="switch"
-            style={
-              Object {
-                "border": 0,
-                "clip": "rect(0 0 0 0)",
-                "height": 1,
-                "margin": -1,
-                "overflow": "hidden",
-                "padding": 0,
-                "position": "absolute",
-                "width": 1,
-              }
-            }
-            type="checkbox"
-          />
+          >
+            <div
+              className="react-toggle-track"
+            >
+              <div
+                className="react-toggle-track-check"
+              />
+              <div
+                className="react-toggle-track-x"
+              />
+            </div>
+            <div
+              className="react-toggle-thumb"
+            />
+            <input
+              aria-labelledby="toggle-persistence-storage"
+              className="react-toggle-screenreader-only"
+              name="persistence"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              type="checkbox"
+            />
+          </div>
         </div>
         <img
           alt="Toggle persistence"

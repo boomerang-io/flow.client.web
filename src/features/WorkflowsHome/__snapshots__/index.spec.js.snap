@@ -140,11 +140,11 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
         }
       }
     >
-      <p
+      <div
         className="bmrg--b-no-display__text "
       >
         Looks like you don't have any workflow teams
-      </p>
+      </div>
       <img
         alt="no-display"
         className="bmrg--b-no-display__img"
