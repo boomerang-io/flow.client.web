@@ -1,10 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import TextArea from "@boomerang/boomerang-components/lib/TextArea";
-import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import { ModalContentBody, ModalContentFooter, ModalConfirmButton, TextArea, Toggle } from "@boomerang/boomerang-components";
 import "./styles.scss";
 
 class ConfigureSwitchModal extends React.Component {
@@ -54,7 +50,6 @@ class ConfigureSwitchModal extends React.Component {
                 checked={defaultState}
                 onChange={updateDefaultState}
                 theme="bmrg-white"
-                red
               />
               <div className="b-switch-config__explanation">
                 This path will be taken when no others are matched line.

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import { ModalContentBody, ModalContentFooter, ModalConfirmButton } from "@boomerang/boomerang-components";
 import ValueList from "Components/ValueList";
 
 class DisplayForm extends Component {
@@ -55,12 +53,9 @@ class DisplayForm extends Component {
     }
   };
 
-  handleToggleChange = event => {
+  handleToggleChange = (checked, event, id) => {
     const { name: field } = event.target;
-    const { checked } = event.target;
-    if (checked !== undefined && checked !== "undefined") {
-      this.setState(() => ({ [field]: { value: checked } }), this.props.shouldConfirmExit(true));
-    }
+    this.setState(() => ({ [field]: { value: checked } }), this.props.shouldConfirmExit(true));
   };
 
   handleOnSave = e => {
