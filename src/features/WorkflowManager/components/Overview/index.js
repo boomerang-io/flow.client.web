@@ -6,18 +6,21 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import CopyToClipboard from "react-copy-to-clipboard";
-import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
-import Button from "@boomerang/boomerang-components/lib/Button";
-import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
-import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
-import TextArea from "@boomerang/boomerang-components/lib/TextArea";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
-import Toggle from "@boomerang/boomerang-components/lib/Toggle";
-import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
+import {
+  AlertModal,
+  Button,
+  ConfirmModal,
+  Modal as ModalWrapper,
+  ModalFlow,
+  SelectDropdown,
+  notify,
+  Notification,
+  TextArea,
+  TextInput,
+  Toggle,
+  Tooltip
+} from "@boomerang/boomerang-components";
 import CronJobModal from "./CronJobModal";
 import assets from "./assets";
 import cronstrue from "cronstrue";
@@ -218,9 +221,8 @@ export class Overview extends Component {
                 className="b-webhook__toggle"
                 name="webhook"
                 checked={workflow.data.triggers.webhook.enable}
-                onChange={event => this.handleOnWebhookChange(event.target.checked, {}, "enable")}
+                onChange={(checked, event, id) => this.handleOnWebhookChange(checked, {}, "enable")}
                 theme="bmrg-white"
-                red
               />
               <img
                 className="b-options__infoIcon"
@@ -229,9 +231,9 @@ export class Overview extends Component {
                 data-for="triggers-webhook-info"
                 alt="Toggle webhook"
               />
-              <ToolTip id="triggers-webhook-info" place="top">
+              <Tooltip id="triggers-webhook-info" place="top">
                 Enable workflow to be executed by a webhook
-              </ToolTip>
+              </Tooltip>
               {workflow.data.id &&
                 workflow.data.triggers &&
                 workflow.data.triggers.webhook.enable &&
@@ -262,9 +264,9 @@ export class Overview extends Component {
                   alt="Show/Hide token"
                   onClick={this.handleShowToken}
                 />
-                <ToolTip id="webhook-token-eyeIcon" place="top">
+                <Tooltip id="webhook-token-eyeIcon" place="top">
                   {this.state.showTokenText}
-                </ToolTip>
+                </Tooltip>
                 <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
                   <img
                     className="b-webhook-token__icon"
@@ -276,13 +278,13 @@ export class Overview extends Component {
                     onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
                   />
                 </CopyToClipboard>
-                <ToolTip id="webhook-token-copyIcon" place="top">
+                <Tooltip id="webhook-token-copyIcon" place="top">
                   {this.state.copyTokenText}
-                </ToolTip>
+                </Tooltip>
                 <div>
-                  <ToolTip place="top" id="webhook-token-refreshIcon">
+                  <Tooltip place="top" id="webhook-token-refreshIcon">
                     Regenerate Token
-                  </ToolTip>
+                  </Tooltip>
                   <AlertModal
                     theme="bmrg-white"
                     ModalTrigger={() => (
@@ -319,9 +321,8 @@ export class Overview extends Component {
                   className="b-schedule__toggle"
                   checked={workflow.data.triggers.scheduler.enable}
                   name="schedule"
-                  onChange={event => this.handleOnSchedulerChange(event.target.checked, {}, "enable")}
-                  theme="bmrg-black"
-                  red
+                  onChange={(checked, event, id) => this.handleOnSchedulerChange(checked, {}, "enable")}
+                  theme="bmrg-white"
                 />
                 <img
                   className="b-options__infoIcon"
@@ -330,9 +331,9 @@ export class Overview extends Component {
                   data-for="triggers-scheduler-info"
                   alt="Toggle scheduler"
                 />
-                <ToolTip id="triggers-scheduler-info" place="top">
+                <Tooltip id="triggers-scheduler-info" place="top">
                   Enable workflow to be executed by a schedule
-                </ToolTip>
+                </Tooltip>
                 {workflow.data.triggers && workflow.data.triggers.scheduler.enable && (
                   <ModalWrapper
                     initialState={this.props.workflow.data}
@@ -394,9 +395,8 @@ export class Overview extends Component {
                 className="b-persistence__toggle"
                 checked={workflow.data.enablePersistentStorage}
                 name="persistence"
-                onChange={event => this.handleOnChange(event.target.checked, {}, "enablePersistentStorage")}
+                onChange={(checked, event, id) => this.handleOnChange(checked, {}, "enablePersistentStorage")}
                 theme="bmrg-white"
-                red
               />
               <img
                 className="b-options__infoIcon"
@@ -405,9 +405,9 @@ export class Overview extends Component {
                 data-for="options-persistence-info"
                 alt="Toggle persistence"
               />
-              <ToolTip id="options-persistence-info" place="top">
+              <Tooltip id="options-persistence-info" place="top">
                 Persist workflow data between executions
-              </ToolTip>
+              </Tooltip>
             </form>
           </div>
         </div>

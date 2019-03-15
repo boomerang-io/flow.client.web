@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { AutoSuggestTextInput, AutoSuggestTextArea } from "@boomerang/boomerang-components/lib/AutoSuggestInput";
-import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import { AutoSuggestTextInput, AutoSuggestTextArea, SelectDropdown, TextInput } from "@boomerang/boomerang-components";
 import AutoSuggest from "Components/AutoSuggest";
 import Toggle from "./Toggle";
 import isURL from "validator/lib/isURL";
@@ -152,7 +150,7 @@ const ValueList = ({
           } else {
             return (
               <Toggle
-                defaultChecked={String(inputs[item.key]) === "true" ? true : false}
+                checked={String(inputs[item.key]) === "true" ? true : false}
                 description={item.description}
                 id={item.key}
                 key={item.key + index}

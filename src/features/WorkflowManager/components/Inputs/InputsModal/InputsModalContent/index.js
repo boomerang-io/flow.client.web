@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
-import TextArea from "@boomerang/boomerang-components/lib/TextArea";
-import Toggle from "@boomerang/boomerang-components/lib/Toggle";
-import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
-import { default as Body } from "@boomerang/boomerang-components/lib/ModalContentBody";
-import { default as ConfirmButton } from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import { default as Footer } from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import {
+  TextInput,
+  TextArea,
+  Toggle,
+  SelectDropdown,
+  ModalContentBody as Body,
+  ModalConfirmButton as ConfirmButton,
+  ModalContentFooter as Footer
+} from "@boomerang/boomerang-components";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
@@ -146,9 +148,8 @@ class InputsModalContent extends Component {
             <Toggle
               id="input-default-value-toggle"
               onChange={this.handleDefaultValueChange}
-              defaultChecked={defaultValue === "true"}
+              checked={defaultValue === "true"}
               theme="bmrg-white"
-              red
             />
           </div>
         );
@@ -272,9 +273,8 @@ class InputsModalContent extends Component {
                 <Toggle
                   id="input-required-toggle"
                   onChange={this.handleRequiredChange}
-                  defaultChecked={required}
+                  checked={required}
                   theme="bmrg-white"
-                  red
                 />
               </div>
             </div>
