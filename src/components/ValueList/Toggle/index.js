@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { default as BmrgToggle } from "@boomerang/boomerang-components/lib/Toggle";
+import { Toggle as BmrgToggle } from "@boomerang/boomerang-components";
 
-const Toggle = ({ defaultChecked, description, label, name, onChange }) => {
+const Toggle = ({ checked, description, label, name, onChange }) => {
   return (
     <div className="b-settings-toggle">
-      <BmrgToggle red onChange={onChange} name={name} defaultChecked={defaultChecked} />
+      <BmrgToggle theme="bmrg-white" onChange={onChange} name={name} checked={checked} />
       <div className="b-setting-toggle__info">
         <label className="b-settings-toggle__label">{label}</label>
         <label className="b-settings-toggle__description">{description}</label>
@@ -15,7 +15,7 @@ const Toggle = ({ defaultChecked, description, label, name, onChange }) => {
 };
 
 Toggle.propTypes = {
-  defaultChecked: PropTypes.bool,
+  checked: PropTypes.bool,
   description: PropTypes.string,
   label: PropTypes.string,
   name: PropTypes.string.isRequired,

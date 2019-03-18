@@ -38,9 +38,6 @@
     "redux-thunk": "2.3.0",
     "validator": "^10.7.1"
   },
-  "devDependencies": {
-    "cross-env": "^5.2.0"
-  },
   "scripts": {
     "analyze": "source-map-explorer server/build/static/js/main.*",
     "apiServer": "json-server -c api/json-server.json --watch api/db.json api/routes.json --middlewares api/middleware/singular.js api/middleware/webhook.js",

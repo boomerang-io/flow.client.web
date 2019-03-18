@@ -5,6 +5,9 @@ import { MemoryRouter } from "react-router";
 import Main from "./index";
 
 jest.mock("Components/NavigateBack", () => "NavigateBack");
+jest.mock("@boomerang/boomerang-components", () => ({
+  LoadingAnimation: "LoadingAnimation"
+}));
 
 const mockfn = jest.fn();
 

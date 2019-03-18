@@ -5,6 +5,12 @@ import { MemoryRouter } from "react-router";
 import { WorkflowsHome } from "./index";
 
 const mockfn = jest.fn();
+jest.mock("@boomerang/boomerang-components", () => ({
+  NoDisplay: "NoDisplay",
+  LoadingAnimation: "LoadingAnimation",
+  notify: "notify",
+  Notification: "Notification"
+}));
 
 const teamsActions = {
   fetch: mockfn,
