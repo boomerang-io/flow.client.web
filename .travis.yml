@@ -1,5 +1,7 @@
 group: bluezone
 sudo: required
+before_install:
+  - export TZ=Etc/UTC
 language: node_js
 node_js: "8"
 notifications:
