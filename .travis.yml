@@ -1,11 +1,9 @@
 group: bluezone
 sudo: required
-services:
-  - docker
 language: node_js
 node_js: "8"
-#notifications:
-#  slack: ibm-aic-offerings:pKEkgH3hXaZQg8UCl6eLWyYB
+notifications:
+  slack: ibm-aic-offerings:pKEkgH3hXaZQg8UCl6eLWyYB
 cache:
   yarn: true
   directories:

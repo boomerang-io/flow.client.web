@@ -20,9 +20,15 @@ global.localStorage = storageMock;
 global.sessionStorage = storageMock;
 
 //Dates
-const DATE_TO_USE = new Date("2018");
+const DATE_TO_USE = new Date("Jan 1 2019 00:00:00 UTC");
 const _Date = Date;
 global.Date = jest.fn(() => DATE_TO_USE);
 global.Date.UTC = _Date.UTC;
 global.Date.parse = _Date.parse;
 global.Date.now = _Date.now;
+
+const moment = require.requireActual("moment-timezone");
+jest.doMock("moment", () => {
+  moment.tz.setDefault("UTC");
+  return moment;
+});
