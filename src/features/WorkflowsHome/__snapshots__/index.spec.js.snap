@@ -64,6 +64,8 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             </svg>
             <input
               className="bmrg--b-search-bar__textbox --bmrg-white"
+              id="bmrg-search-input"
+              name="bmrg-search-input"
               onBlur={[Function]}
               onChange={[Function]}
               onKeyDown={[Function]}
@@ -84,7 +86,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
           onClick={[Function]}
           onKeyDown={[Function]}
           role="listbox"
-          tabIndex="0"
+          tabIndex={0}
         >
           <div
             aria-expanded={false}
@@ -112,6 +114,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 alt="Open menu"
                 aria-label="Open menu"
                 fillRule="evenodd"
+                focusable="false"
                 height="5"
                 role="img"
                 viewBox="0 0 10 5"
@@ -137,11 +140,11 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
         }
       }
     >
-      <div
+      <p
         className="bmrg--b-no-display__text "
       >
         Looks like you don't have any workflow teams
-      </div>
+      </p>
       <img
         alt="no-display"
         className="bmrg--b-no-display__img"

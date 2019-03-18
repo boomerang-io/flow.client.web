@@ -5,6 +5,10 @@ import { MemoryRouter } from "react-router";
 import WorkflowsSection from "./index";
 
 const mockfn = jest.fn();
+jest.mock("@boomerang/boomerang-components", () => ({
+  Button: "Button",
+  Tooltip: "Tooltip"
+}));
 
 const searchQuery = "test";
 const setActiveTeamAndRedirect = mockfn;

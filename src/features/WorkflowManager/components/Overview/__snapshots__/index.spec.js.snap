@@ -12,166 +12,70 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
     >
       General
     </h1>
-    <div
-      className="bmrg--c-select-dropdown --bmrg-white"
-      style={
+    <SelectDropdown
+      noResultsText="No options entered"
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "Lucas' team",
+            "value": "1234",
+          },
+        ]
+      }
+      placeholder="Select a team"
+      styles={
         Object {
           "marginBottom": "2rem",
         }
       }
-    >
-      <div
-        className="s-select-dropdown-label"
-      >
-        Team
-      </div>
-      <div
-        className="Select has-value is-searchable Select--single"
-      >
-        <div
-          className="Select-control"
-          onKeyDown={[Function]}
-          onMouseDown={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-        >
-          <span
-            className="Select-multi-value-wrapper"
-            id="react-select-2--value"
-          >
-            <div
-              className="Select-value"
-            >
-              <span
-                aria-selected="true"
-                className="Select-value-label"
-                id="react-select-2--value-item"
-                role="option"
-              >
-                Lucas' team
-              </span>
-            </div>
-            <div
-              className="Select-input"
-              style={
-                Object {
-                  "display": "inline-block",
-                }
-              }
-            >
-              <input
-                aria-activedescendant="react-select-2--value"
-                aria-expanded="false"
-                aria-haspopup="false"
-                aria-owns=""
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={false}
-                role="combobox"
-                style={
-                  Object {
-                    "boxSizing": "content-box",
-                    "width": "5px",
-                  }
-                }
-                value=""
-              />
-              <div
-                style={
-                  Object {
-                    "height": 0,
-                    "left": 0,
-                    "overflow": "scroll",
-                    "position": "absolute",
-                    "top": 0,
-                    "visibility": "hidden",
-                    "whiteSpace": "pre",
-                  }
-                }
-              >
-                
-              </div>
-            </div>
-          </span>
-          <span
-            className="Select-arrow-zone"
-            onMouseDown={[Function]}
-          >
-            <div
-              className="bmrg--b-select-default-arrow"
-            />
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
-      className="bmrg--c-text-input"
-    >
-      <label
-        className="bmrg--s-text-input-title --visible --bmrg-white"
-      >
-        Name
-      </label>
-      <div
-        className="bmrg--b-text-input"
-      >
-        <input
-          className="bmrg--b-text-input__input --bmrg-white"
-          disabled={false}
-          name="name"
-          onBlur={[Function]}
-          onChange={[Function]}
-          placeholder="Name"
-          required={true}
-          type="text"
-          value=""
-        />
-      </div>
-    </div>
-    <div
-      className="bmrg--c-text-input"
-    >
-      <label
-        className="bmrg--s-text-input-title --visible --bmrg-white"
-      >
-        Summary
-      </label>
-      <div
-        className="bmrg--b-text-input"
-      >
-        <input
-          className="bmrg--b-text-input__input --bmrg-white"
-          disabled={false}
-          name="shortDescription"
-          onBlur={[Function]}
-          onChange={[Function]}
-          placeholder="Summary"
-          required={false}
-          type="text"
-          value=""
-        />
-      </div>
-    </div>
-    <div
-      className="bmrg--b-textarea"
-    >
-      <label
-        className="bmrg--b-textarea__title --visible --bmrg-white"
-      >
-        Description
-      </label>
-      <textarea
-        className="bmrg--b-textarea__text"
-        name="description"
-        onBlur={[Function]}
-        onChange={[Function]}
-        placeholder="Description"
-        required={false}
-        value=""
-      />
-    </div>
+      theme="bmrg-white"
+      title="Team"
+      value={
+        Object {
+          "label": "Lucas' team",
+          "value": "1234",
+        }
+      }
+    />
+    <TextInput
+      alwaysShowTitle={true}
+      externallyControlled={true}
+      maxChar={64}
+      maxCharText="Name must not be greater than 64 characters"
+      name="name"
+      noValueText="Enter a name"
+      onChange={[Function]}
+      placeholder="Name"
+      required={true}
+      theme="bmrg-white"
+      title="Name"
+      value=""
+    />
+    <TextInput
+      alwaysShowTitle={true}
+      externallyControlled={true}
+      maxChar={128}
+      maxCharText="Summary must not be greater than 128 characters"
+      name="shortDescription"
+      onChange={[Function]}
+      placeholder="Summary"
+      theme="bmrg-white"
+      title="Summary"
+      value=""
+    />
+    <TextArea
+      alwaysShowTitle={true}
+      externallyControlled={true}
+      handleChange={[Function]}
+      maxChar={256}
+      maxCharText="Description must not be greater than 256 characters"
+      name="description"
+      placeholder="Description"
+      theme="bmrg-white"
+      title="Description"
+      value=""
+    />
     <h2
       className="s-workflow-icons-title"
     >
@@ -185,7 +89,7 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
           alt="docs icon"
           className="b-workflow-icons__icon"
           onClick={[Function]}
-          src="docs.svg"
+          src="document_32.svg"
         />
       </li>
       <li>
@@ -266,41 +170,14 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
         >
           Enable Webhook
         </label>
-        <div
-          className="b-webhook__toggle --bmrg-white --red"
-        >
-          <div
-            className="react-toggle"
-            onClick={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-          >
-            <div
-              className="react-toggle-track"
-            >
-              <div
-                className="react-toggle-track-check"
-              />
-              <div
-                className="react-toggle-track-x"
-              />
-            </div>
-            <div
-              className="react-toggle-thumb"
-            />
-            <input
-              aria-labelledby="toggle-webhook"
-              checked={false}
-              className="react-toggle-screenreader-only"
-              name="webhook"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              type="checkbox"
-            />
-          </div>
-        </div>
+        <Toggle
+          aria-labelledby="toggle-webhook"
+          checked={false}
+          className="b-webhook__toggle"
+          name="webhook"
+          onChange={[Function]}
+          theme="bmrg-white"
+        />
         <img
           alt="Toggle webhook"
           className="b-options__infoIcon"
@@ -308,13 +185,12 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
           data-tip={true}
           src="info.svg"
         />
-        <div
-          className="__react_component_tooltip place-top type-dark "
-          data-id="tooltip"
+        <Tooltip
           id="triggers-webhook-info"
+          place="top"
         >
           Enable workflow to be executed by a webhook
-        </div>
+        </Tooltip>
       </form>
       
       <div
@@ -329,41 +205,14 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
           >
             Enable Scheduler
           </label>
-          <div
-            className="b-schedule__toggle --bmrg-black --red"
-          >
-            <div
-              className="react-toggle"
-              onClick={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-            >
-              <div
-                className="react-toggle-track"
-              >
-                <div
-                  className="react-toggle-track-check"
-                />
-                <div
-                  className="react-toggle-track-x"
-                />
-              </div>
-              <div
-                className="react-toggle-thumb"
-              />
-              <input
-                aria-labelledby="toggle-scheduler"
-                checked={false}
-                className="react-toggle-screenreader-only"
-                name="schedule"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                type="checkbox"
-              />
-            </div>
-          </div>
+          <Toggle
+            aria-labelledby="toggle-scheduler"
+            checked={false}
+            className="b-schedule__toggle"
+            name="schedule"
+            onChange={[Function]}
+            theme="bmrg-white"
+          />
           <img
             alt="Toggle scheduler"
             className="b-options__infoIcon"
@@ -371,13 +220,12 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
             data-tip={true}
             src="info.svg"
           />
-          <div
-            className="__react_component_tooltip place-top type-dark "
-            data-id="tooltip"
+          <Tooltip
             id="triggers-scheduler-info"
+            place="top"
           >
             Enable workflow to be executed by a schedule
-          </div>
+          </Tooltip>
         </div>
         <div
           className="b-schedule__cronMessage"
@@ -408,40 +256,13 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
         >
           Enable Persistent Storage
         </label>
-        <div
-          className="b-persistence__toggle --bmrg-white --red"
-        >
-          <div
-            className="react-toggle"
-            onClick={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-          >
-            <div
-              className="react-toggle-track"
-            >
-              <div
-                className="react-toggle-track-check"
-              />
-              <div
-                className="react-toggle-track-x"
-              />
-            </div>
-            <div
-              className="react-toggle-thumb"
-            />
-            <input
-              aria-labelledby="toggle-persistence-storage"
-              className="react-toggle-screenreader-only"
-              name="persistence"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              type="checkbox"
-            />
-          </div>
-        </div>
+        <Toggle
+          aria-labelledby="toggle-persistence-storage"
+          className="b-persistence__toggle"
+          name="persistence"
+          onChange={[Function]}
+          theme="bmrg-white"
+        />
         <img
           alt="Toggle persistence"
           className="b-options__infoIcon"
@@ -449,13 +270,12 @@ exports[`Overview --- Snapshot +++ renders correctly 1`] = `
           data-tip={true}
           src="info.svg"
         />
-        <div
-          className="__react_component_tooltip place-top type-dark "
-          data-id="tooltip"
+        <Tooltip
           id="options-persistence-info"
+          place="top"
         >
           Persist workflow data between executions
-        </div>
+        </Tooltip>
       </form>
     </div>
   </div>

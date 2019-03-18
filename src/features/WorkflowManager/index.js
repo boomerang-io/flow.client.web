@@ -62,7 +62,7 @@ export class WorkflowManagerContainer extends Component {
     this.props.workflowRevisionActions.reset();
   }
 
-  setIsValidOveriew = isValid => {
+  setIsValidOverview = isValid => {
     this.setState({
       isValidOverview: isValid
     });
@@ -269,7 +269,7 @@ export class WorkflowManagerContainer extends Component {
                   <Creator
                     workflow={this.props.workflow}
                     createWorkflow={this.createWorkflow}
-                    setIsValidOveriew={this.setIsValidOveriew}
+                    setIsValidOverview={this.setIsValidOverview}
                     isValidOverview={this.state.isValidOverview}
                     {...props}
                   />
@@ -286,7 +286,7 @@ export class WorkflowManagerContainer extends Component {
                     handleChangeLogReasonChange={this.handleChangeLogReasonChange}
                     updateInputs={this.updateInputs}
                     updateWorkflow={this.updateWorkflow}
-                    setIsValidOveriew={this.setIsValidOveriew}
+                    setIsValidOverview={this.setIsValidOverview}
                     isValidOverview={this.state.isValidOverview}
                     {...props}
                   />

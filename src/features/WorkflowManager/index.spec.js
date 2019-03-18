@@ -7,6 +7,12 @@ import { WorkflowManagerContainer as WorkflowManager } from "./index";
 jest.mock("Components/NavigateBack", () => "NavigateBack");
 jest.mock("./Creator", () => "Creator");
 jest.mock("./components/ActionBar", () => "ActionBar");
+jest.mock("@boomerang/boomerang-components", () => ({
+  NoDisplay: "NoDisplay",
+  LoadingAnimation: "LoadingAnimation",
+  notify: "notify",
+  Notification: "Notification"
+}));
 
 const mockfn = jest.fn();
 

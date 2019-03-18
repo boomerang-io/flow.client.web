@@ -49,15 +49,4 @@ describe(">>>REDUCER --- teamsReducer", () => {
 
     expect(newState).toEqual(expected);
   });*/
-
-  it("should handle SET_ACTIVE_TEAM_ID", () => {
-    const action = { type: types.SET_ACTIVE_TEAM_ID, data: { teamId: "test" } };
-    const expected = {
-      ...initialState,
-      activeTeamId: "test"
-    };
-    const newState = teamsReducer(initialState, action);
-
-    expect(newState).toEqual(expected);
-  });
 });

@@ -12,7 +12,7 @@ class WorkflowCreatorContainer extends Component {
   static propTypes = {
     createWorkflow: PropTypes.func.isRequired,
     isValidOverview: PropTypes.bool.isRequired,
-    setIsValidOveriew: PropTypes.func.isRequired,
+    setIsValidOverview: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired
   };
 
@@ -23,7 +23,7 @@ class WorkflowCreatorContainer extends Component {
   };
 
   render() {
-    const { workflow, isValidOverview, setIsValidOveriew } = this.props;
+    const { workflow, isValidOverview, setIsValidOverview } = this.props;
 
     return (
       <>
@@ -34,7 +34,7 @@ class WorkflowCreatorContainer extends Component {
           performAction={this.createWorkflow}
           isValidOverview={isValidOverview}
         />
-        <Overview workflow={workflow} setIsValidOveriew={setIsValidOveriew} />
+        <Overview workflow={workflow} setIsValidOverview={setIsValidOverview} />
       </>
     );
   }

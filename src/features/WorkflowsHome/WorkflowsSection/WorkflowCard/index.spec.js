@@ -4,6 +4,8 @@ import renderer from "react-test-renderer";
 import { MemoryRouter } from "react-router";
 import WorkflowCard from "./index";
 
+jest.mock("./WorkflowInputModalContent", () => "WorkflowInputModalContent");
+
 const mockfn = jest.fn();
 
 const history = {};

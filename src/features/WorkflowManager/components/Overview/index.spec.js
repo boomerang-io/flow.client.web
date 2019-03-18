@@ -2,6 +2,22 @@ import React from "react";
 import renderer from "react-test-renderer";
 import { Overview } from "./index";
 
+jest.mock("./CronJobModal", () => "CronJobModal");
+jest.mock("@boomerang/boomerang-components", () => ({
+  AlertModal: "AlertModal",
+  Button: "Button",
+  ConfirmModal: "ConfirmModal",
+  Modal: "ModalWrapper",
+  ModalFlow: "ModalFlow",
+  SelectDropdown: "SelectDropdown",
+  notify: "notify",
+  Notification: "Notification",
+  TextArea: "TextArea",
+  TextInput: "TextInput",
+  Toggle: "Toggle",
+  Tooltip: "Tooltip"
+}));
+
 const mockfn = jest.fn();
 
 const workflow = {
@@ -85,7 +101,11 @@ const teams = [
 const props = {
   teams,
   workflow,
-  workflowActions: {},
+  workflowActions: {
+    updateTriggersWebhook: mockfn,
+    updateProperty: mockfn,
+    updateTriggersScheduler: mockfn
+  },
   teamsActions: {},
   setIsValidOverview: mockfn
 };

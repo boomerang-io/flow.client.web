@@ -51,10 +51,48 @@ const workflowRevision = {
   config: {}
 };
 
+const app = {
+  activeNode: {
+    dag: {
+      id: "3f58d302-2a3c-4765-b606-7573d313a2fa",
+      offsetX: -51.15583333333335,
+      offsetY: 2.996013020833331,
+      zoom: 100.01666666666667,
+      gridSize: 0,
+      links: [],
+      nodes: [
+        {
+          id: "cbdc30f0-f8d5-4674-87d3-117787fe8263",
+          type: "startend",
+          selected: false,
+          x: 300,
+          y: 400,
+          extras: {},
+          ports: [
+            {
+              id: "6f1f5e66-9bc1-4675-a654-5f580036a173",
+              type: "startend",
+              selected: false,
+              name: "right",
+              parentNode: "cbdc30f0-f8d5-4674-87d3-117787fe8263",
+              links: [],
+              position: "right",
+              nodePortId: "6f1f5e66-9bc1-4675-a654-5f580036a173"
+            }
+          ],
+          passedName: "Start",
+          nodeId: "cbdc30f0-f8d5-4674-87d3-117787fe8263"
+        }
+      ]
+    }
+  }
+};
+
 describe("WorkflowExecutionContainer --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowExecutionContainer", () => {
     const renderedValue = renderer.create(
       <WorkflowExecutionContainer
+        app={app}
         match={match}
         tasks={tasks}
         tasksActions={tasksActions}
@@ -76,6 +114,7 @@ describe("WorkflowExecutionContainer --- Shallow render", () => {
   beforeEach(() => {
     wrapper = shallow(
       <WorkflowExecutionContainer
+        app={app}
         match={match}
         tasks={tasks}
         tasksActions={tasksActions}

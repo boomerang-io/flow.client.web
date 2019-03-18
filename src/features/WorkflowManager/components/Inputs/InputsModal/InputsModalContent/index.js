@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
-import { 
-  TextInput, 
-  TextArea, 
-  Toggle, 
-  SelectDropdown, 
-  ModalContentBody as Body, 
+import {
+  TextInput,
+  TextArea,
+  Toggle,
+  SelectDropdown,
+  ModalContentBody as Body,
   ModalConfirmButton as ConfirmButton,
   ModalContentFooter as Footer
 } from "@boomerang/boomerang-components";

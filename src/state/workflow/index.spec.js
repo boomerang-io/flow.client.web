@@ -45,12 +45,27 @@ describe(">>>REDUCER --- workflowReducer", () => {
     expect(workflowReducer(initialState, action)).toEqual(expected);
   });
   it("should handle UPDATE_WORKFLOW_SUCCESS", () => {
+    const updateData = {
+      enablePersistentStorage: false,
+      properties: [],
+      triggers: {
+        scheduler: {
+          enable: false,
+          schedule: "",
+          timezone: ""
+        },
+        webhook: {
+          enable: false,
+          token: ""
+        }
+      }
+    };
     const action = { type: types.UPDATE_WORKFLOW_SUCCESS, data: [] };
     const expected = {
       ...initialState,
       isFetching: false,
       updatingStatus: "success",
-      data: []
+      data: updateData
     };
     const newState = workflowReducer(initialState, action);
 

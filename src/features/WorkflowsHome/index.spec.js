@@ -5,11 +5,20 @@ import { MemoryRouter } from "react-router";
 import { WorkflowsHome } from "./index";
 
 const mockfn = jest.fn();
+jest.mock("@boomerang/boomerang-components", () => ({
+  NoDisplay: "NoDisplay",
+  LoadingAnimation: "LoadingAnimation",
+  notify: "notify",
+  Notification: "Notification"
+}));
 
 const teamsActions = {
   fetch: mockfn,
   setActiveTeam: mockfn,
   updateWorkflows: mockfn
+};
+const appActions = {
+  setActiveTeam: mockfn
 };
 const teams = {
   isFetching: false,
@@ -23,7 +32,7 @@ describe("WorkflowsHome --- Snapshot", () => {
     const renderedValue = renderer
       .create(
         <MemoryRouter>
-          <WorkflowsHome teams={teams} teamsActions={teamsActions} />
+          <WorkflowsHome teams={teams} appActions={appActions} teamsActions={teamsActions} />
         </MemoryRouter>
       )
       .toJSON();
@@ -37,7 +46,7 @@ describe("WorkflowsHome --- Shallow render", () => {
   beforeEach(() => {
     wrapper = shallow(
       <MemoryRouter>
-        <WorkflowsHome teams={teams} teamsActions={teamsActions} />
+        <WorkflowsHome teams={teams} appActions={appActions} teamsActions={teamsActions} />
       </MemoryRouter>
     );
   });
