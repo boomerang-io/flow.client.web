@@ -52,6 +52,7 @@ class ConfigureSwitchModal extends React.Component {
               <Toggle
                 aria-labelledby="toggle-default"
                 className="b-switch-config__toggle"
+                id="default"
                 name="default"
                 checked={defaultState}
                 onChange={updateDefaultState}
