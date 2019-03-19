@@ -54,9 +54,9 @@ class InputsModalContent extends Component {
     this.setState({ label: value, labelError: error.label });
   };
 
-  handleRequiredChange = () => {
+  handleRequiredChange = (checked, event, id) => {
     this.props.shouldConfirmExit(true);
-    this.setState(prevState => ({ required: !prevState.required }));
+    this.setState({ required: checked });
   };
 
   handleTypeChange = (value, error, name) => {
@@ -68,7 +68,7 @@ class InputsModalContent extends Component {
     this.props.shouldConfirmExit(true);
     switch (this.state.type) {
       case INPUT_TYPES.BOOLEAN:
-        this.setState({ defaultValue: value.target.checked.toString() });
+        this.setState({ defaultValue: value.toString() });
         return;
       case INPUT_TYPES.SELECT:
         this.setState({ defaultValue: value.value }); //save string value from object to simplify sending to service

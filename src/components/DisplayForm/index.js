@@ -54,8 +54,7 @@ class DisplayForm extends Component {
   };
 
   handleToggleChange = (checked, event, id) => {
-    const { name: field } = event.target;
-    this.setState(() => ({ [field]: { value: checked } }), this.props.shouldConfirmExit(true));
+    this.setState(() => ({ [id]: { value: checked } }), this.props.shouldConfirmExit(true));
   };
 
   handleOnSave = e => {
