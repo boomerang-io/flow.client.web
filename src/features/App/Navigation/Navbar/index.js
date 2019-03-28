@@ -39,7 +39,7 @@ class NavbarContainer extends Component {
     }
 
     if (user.status === REQUEST_STATUSES.SUCCESS && navbarLinks.status === REQUEST_STATUSES.SUCCESS) {
-      const links = navbarLinks.data.map(link => {
+      const links = navbarLinks.data.navigation.map(link => {
         // eslint-disable-next-line
         if (link.url) return { ...link, url: link.url.replace("${BASE_LAUNCH_ENV_URL}", BASE_LAUNCH_ENV_URL) };
         else return link;
