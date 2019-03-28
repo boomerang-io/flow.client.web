@@ -19,7 +19,7 @@ import {
   AsyncInsights,
   AsyncExecution
 } from "./config/lazyComponents";
-import { BASE_LAUNCHPAD_SERVICE_URL } from "Config/servicesConfig";
+import { BASE_USERS_URL } from "Config/servicesConfig";
 import "./styles.scss";
 
 const browser = detect();
@@ -38,8 +38,8 @@ class App extends Component {
   };
 
   fetchData = () => {
-    this.props.userActions.fetchUser(`${BASE_LAUNCHPAD_SERVICE_URL}/users`);
-    this.props.navbarLinksActions.fetch(`${BASE_LAUNCHPAD_SERVICE_URL}/navigation`);
+    this.props.userActions.fetchUser(`${BASE_USERS_URL}/profile`);
+    this.props.navbarLinksActions.fetch(`${BASE_USERS_URL}/navigation`);
   };
 
   closeBanner = () => {
