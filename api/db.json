@@ -1,5 +1,5 @@
 {
-  "users": {
+  "profile": {
     "id": "59aebd0c7424530fce952fde",
     "email": "trbula@us.ibm.com",
     "name": "Timothy Bula",
@@ -5838,19 +5838,19 @@
         "url": "https://launch.boomerangplatform.net/launchpad"
       },
       {
-        "name": "STATUS",
+        "name": "Status",
         "url": "${BASE_LAUNCH_ENV_URL}/status"
       },
       {
-        "name": "DOCS",
+        "name": "Docs",
         "url": "${BASE_LAUNCH_ENV_URL}/docs"
       },
       {
-        "name": "NEXT",
+        "name": "Next",
         "url": "${BASE_LAUNCH_ENV_URL}/next"
       },
       {
-        "name": "ADMIN",
+        "name": "Admin",
         "url": "${BASE_LAUNCH_ENV_URL}/admin"
       }
     ],
