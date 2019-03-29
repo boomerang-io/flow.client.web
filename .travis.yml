@@ -7,8 +7,8 @@ node_js: "8"
 notifications:
   slack: ibm-aic-offerings:pKEkgH3hXaZQg8UCl6eLWyYB
 cache:
-  yarn: true
+  npm: true
   directories:
     - node_modules
 script:
-  - yarn install && npm run test
+  - npm install && npm run test
