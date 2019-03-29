@@ -5831,52 +5831,36 @@
       "id": "pb5_Koh"
     }
   ],
-  "navigation": [
-    {
-      "name": "LAUNCHPAD",
-      "url": "${BASE_LAUNCH_ENV_URL}/launchpad",
-      "adminOnly": false
-    },
-    {
-      "name": "APPS",
-      "isDropdown": true,
-      "adminOnly": false,
-      "options": [
-        {
-          "name": "Artifactory",
-          "url": "https://tools.boomerangplatform.net/artifactory"
-        },
-        {
-          "name": "DataTheorem",
-          "url": "https://www.securetheorem.com"
-        },
-        {
-          "name": "CI",
-          "url": "https://apps.boomerangplatform.net/ci"
-        }
-      ]
-    },
-    {
-      "name": "STATUS",
-      "url": "${BASE_LAUNCH_ENV_URL}/status",
-      "adminOnly": false
-    },
-    {
-      "name": "DOCS",
-      "url": "${BASE_LAUNCH_ENV_URL}/docs",
-      "adminOnly": false
-    },
-    {
-      "name": "NEXT",
-      "url": "${BASE_LAUNCH_ENV_URL}/next",
-      "adminOnly": false
-    },
-    {
-      "name": "ADMIN",
-      "url": "${BASE_LAUNCH_ENV_URL}/admin",
-      "adminOnly": true
+  "navigation": {
+    "navigation": [
+      {
+        "name": "Launchpad",
+        "url": "https://launch.boomerangplatform.net/launchpad"
+      },
+      {
+        "name": "STATUS",
+        "url": "${BASE_LAUNCH_ENV_URL}/status"
+      },
+      {
+        "name": "DOCS",
+        "url": "${BASE_LAUNCH_ENV_URL}/docs"
+      },
+      {
+        "name": "NEXT",
+        "url": "${BASE_LAUNCH_ENV_URL}/next"
+      },
+      {
+        "name": "ADMIN",
+        "url": "${BASE_LAUNCH_ENV_URL}/admin"
+      }
+    ],
+    "features": { "notifications.enabled": true },
+    "platform": {
+      "name": "IBM Boomerang Platform",
+      "version": "5.0.0",
+      "signOutUrl": "ibm.com"
     }
-  ],
+  },
   "workflowExecution": {
     "creationDate": 1547053200027,
     "duration": 904934,

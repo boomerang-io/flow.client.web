@@ -19,5 +19,5 @@
   "/flow/activity/5c36289096052900012cc81d/log/5c36289096052900012cc81f": "/activityLog",
   "/flow/insights?*": "/workflowInsights",
   "/flow/*": "/$1",
-  "/launchpad/*": "/$1"
+  "/users/*": "/$1"
 }
