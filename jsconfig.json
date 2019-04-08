@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./src",
+    "paths": {
+      "Assets/*": ["assets/*"],
+      "Components/*": ["components/*"],
+      "Config/*": ["config/*"],
+      "Constants/*": ["constants/*"],
+      "Features/*": ["features/*"],
+      "State/*": ["state/*"],
+      "Styles/*": ["styles/*"],
+      "Utilities/*": ["utilities/*"],
+      "Utils/*": ["utils/*"],
+      "~Assets/*": ["assets/*"],
+      "~Components/*": ["components/*"],
+      "~Config/*": ["config/*"],
+      "~Constants/*": ["constants/*"],
+      "~Features/*": ["features/*"],
+      "~State/*": ["state/*"],
+      "~Styles/*": ["styles/*"],
+      "~Utilities/*": ["utilities/*"],
+      "~Utils/*": ["utils/*"]
+    }
+  },
+  "exclude": ["dist", "node_modules", "public", "server"]
+}

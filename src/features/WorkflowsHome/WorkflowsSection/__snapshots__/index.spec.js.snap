@@ -15,6 +15,11 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
     <div
       onClick={[Function]}
       onKeyPress={[Function]}
+      style={
+        Object {
+          "width": "fit-content",
+        }
+      }
     >
       <svg
         alt="Provide a description that will be used as the title"

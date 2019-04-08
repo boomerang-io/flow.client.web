@@ -9,6 +9,7 @@ export const PRODUCT_SERVICE_ENV_URL =
     : window._SERVER_DATA && window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL;
 
 // Standard
+export const BASE_URL = BASE_SERVICE_ENV_URL;
 export const BASE_SERVICE_URL = `${PRODUCT_SERVICE_ENV_URL}/flow`;
 export const BASE_USERS_URL = `${BASE_SERVICE_ENV_URL}/users`;
 

@@ -1,15 +1,5 @@
-.s-boomerang-logo {
-  position: fixed;
-  z-index: 1000;
-  width: 8rem;
-  height: 3.125rem;
-  left: 4rem;
-}
-
-@media (max-width: 60rem) {
-  .s-boomerang-logo {
-    display: none;
-  }
+.bx--bmrg-header-brand__text {
+  padding-left: 1.75rem;
 }
 
 .s-hamburger-menu {

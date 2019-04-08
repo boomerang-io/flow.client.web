@@ -4,12 +4,18 @@ import classnames from "classnames";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import Navbar from "./Navbar";
 import { navItems } from "./config";
-import boomerangLogo from "./assets/boomerang-logo.svg";
 import "./styles.scss";
 
 class Navigation extends Component {
   state = {
-    sideNavIsOpen: false
+    sideNavIsOpen: false,
+    showFirstTimeExperience: false
+  };
+
+  handleOnQuestionClick = () => {
+    this.setState({
+      showFirstTimeExperience: true
+    });
   };
 
   sidenavRef = React.createRef();
@@ -41,11 +47,10 @@ class Navigation extends Component {
   };
 
   render() {
-    const { user, navbarLinks, refreshPage } = this.props;
+    const { navigation } = this.props;
     return (
       <>
-        <Navbar user={user} navbarLinks={navbarLinks} refresh={refreshPage} />
-        <img className="s-boomerang-logo" src={boomerangLogo} alt="Boomerang Logo" />
+        <Navbar navigation={navigation} handleOnTutorialClick={this.handleOnQuestionClick} />
         <div className="s-sidenav-wrapper" ref={this.sidenavRef}>
           <div
             className={classnames("s-hamburger-menu", { "--is-open": this.state.sideNavIsOpen })}

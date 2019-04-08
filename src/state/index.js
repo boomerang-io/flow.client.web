@@ -3,13 +3,10 @@ import { connectRouter } from "connected-react-router";
 import activity from "./activity";
 import app from "./app";
 import changeLog from "./changeLog";
-import contactJoe from "./contactJoe";
 import importWorkflow from "./importWorkflow";
 import insights from "./insights";
-import navbarLinks from "./navbarLinks";
+import navigation from "./navigation";
 import onBoard from "./onBoard";
-import privacyStatement from "./privacyStatement";
-import reportBug from "./reportBug";
 import tasks from "./tasks";
 import teams from "./teams";
 import user from "./user";
@@ -23,13 +20,10 @@ const rootReducer = history =>
     activity,
     app,
     changeLog,
-    contactJoe,
     importWorkflow,
     insights,
-    navbarLinks,
+    navigation,
     onBoard,
-    privacyStatement,
-    reportBug,
     tasks,
     teams,
     user,

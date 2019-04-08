@@ -1,0 +1,15 @@
+//BMRG theme: variables must be set before importing
+
+$bmrg-primary-color: #1b2834; //#07192b;
+$bmrg-secondary-color: #40d5bb; // #20d5d2;
+$bmrg-tertiary-color: $bmrg-primary-color;
+$bmrg-brand-white: #f2f4f8;
+$bmrg-header-active-background-color: $bmrg-secondary-color;
+$bmrg-header-active-text-color: $bmrg-primary-color;
+$bmrg-header-hover-background-color: $bmrg-primary-color;
+$bmrg-header-menu-options-top-border-color: $bmrg-secondary-color;
+$bmrg-header-menu-options-accent-color: $bmrg-secondary-color;
+$bmrg-header-menu-options-active-background-color: #002b50;
+$bmrg-header-notification-default: $bmrg-secondary-color;
+
+@import "~@boomerang/carbon-addons-boomerang/scss/styles";
