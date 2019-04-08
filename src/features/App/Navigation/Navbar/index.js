@@ -7,8 +7,9 @@ import { BASE_URL } from "Config/servicesConfig";
 
 const defaultUIShellProps = {
   baseServiceUrl: BASE_URL,
-  companyName: "Boomerang",
-  productName: "Admin"
+  //companyName: "Boomerang",
+  //productName: "Admin"
+  renderLogo: true
 };
 
 class NavbarContainer extends Component {
