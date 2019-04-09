@@ -1076,10 +1076,10 @@
     warning "^3.0.0"
     window-or-global "^1.0.1"
 
-"@boomerang/carbon-addons-boomerang@1.1.0":
-  version "1.1.0"
-  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/carbon-addons-boomerang/-/@boomerang/carbon-addons-boomerang-1.1.0.tgz#94b3b0da042d7a0e33a9c7c43e5b2f84b35a675c"
-  integrity sha1-lLOw2gQteg4zqcfEPlsvhLNaZ1w=
+"@boomerang/carbon-addons-boomerang@1.1.1":
+  version "1.1.1"
+  resolved "https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/@boomerang/carbon-addons-boomerang/-/@boomerang/carbon-addons-boomerang-1.1.1.tgz#1aa5ca9ee1526a5009c67ebc0508a69b43013caa"
+  integrity sha1-GqXKnuFSalAJxn68BQimm0MBPKo=
   dependencies:
     carbon-components "^9.84.15"
     carbon-icons "^7.0.7"
