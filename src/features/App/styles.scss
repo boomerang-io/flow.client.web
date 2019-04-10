@@ -8,13 +8,13 @@
 }
 
 .c-app-main {
-  padding-top: 6.25rem;
+  padding-top: 6rem;
   height: 100vh;
   transition: padding-top 0.3s ease;
   position: relative;
 
   &.--banner-closed {
-    padding-top: 3.125rem;
+    padding-top: 3rem;
   }
 
   .bmrg--c-sidenav {
