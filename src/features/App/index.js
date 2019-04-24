@@ -61,7 +61,7 @@ class App extends Component {
     if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
       return (
         <>
-          <Navigation user={this.props.user} navigation={this.props.navigation} refresh={this.refreshPage} />
+          <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
           <BrowserModal isOpen={browser.name === "chrome" ? false : true} />
           <OnBoardExpContainer />
           <NotificationBanner closeBanner={this.closeBanner} />
