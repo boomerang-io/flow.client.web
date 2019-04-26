@@ -47,10 +47,10 @@ class Navigation extends Component {
   };
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, user } = this.props;
     return (
       <>
-        <Navbar navigation={navigation} handleOnTutorialClick={this.handleOnQuestionClick} />
+        <Navbar navigation={navigation} user={user} handleOnTutorialClick={this.handleOnQuestionClick} />
         <div className="s-sidenav-wrapper" ref={this.sidenavRef}>
           <div
             className={classnames("s-hamburger-menu", { "--is-open": this.state.sideNavIsOpen })}
