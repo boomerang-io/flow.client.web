@@ -6,7 +6,7 @@
   "dependencies": {
     "@boomerang/boomerang-components": "8.1.11",
     "@boomerang/boomerang-dag": "5.2.1",
-    "@boomerang/boomerang-react-scripts": "^2.6.0",
+    "@boomerang/boomerang-react-scripts": "3.1.0",
     "@boomerang/boomerang-styles": "1.0.0",
     "@boomerang/boomerang-utilities": "2.2.0",
     "@boomerang/carbon-addons-boomerang": "^1.3.2",
@@ -98,7 +98,7 @@
     ],
     "src/**/*.{js,jsx}": [
       "npm run-script lint",
-      "cross-env CI=true npm test"
+      "cross-env CI=true npm test -- --passWithNoTests"
     ],
     "*": [
       "git add"
