@@ -4,6 +4,7 @@ import CloseIcon from "Assets/icons/CloseIcon";
 import bkgskyline from "../img/bkg-skyline.svg";
 import FadeAnimation from "Components/FadeAnimation";
 import "./styles.scss";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 const OnBoardMessage = props => {
   const {
@@ -30,7 +31,14 @@ const OnBoardMessage = props => {
     <FadeAnimation animationDuration={100} timeout={100} animationDelay={0} animationFunction="ease-in">
       <div className="c-onboard-wrapper">
         <div className="c-onboardExp">
-          <div className={modalClassName} onClick={closeModal}>
+          <div
+            className={modalClassName}
+            onClick={closeModal}
+            onKeyDown={e => isAccessibleEvent(e) && closeModal}
+            role="button"
+            tabIndex="0"
+          >
+            >
             <CloseIcon className="b-onboardExp-screen-modal-close__img" />
           </div>
           <div className={finishImgsClassName}>

@@ -13,6 +13,7 @@ const teamId = "1";
 const updateWorkflows = mockfn;
 const executeWorkflow = mockfn;
 const deleteWorkflow = mockfn;
+const setActiveTeam = mockfn;
 const workflow = {
   id: "789",
   name: "lucas-workflow-3",
@@ -32,6 +33,7 @@ describe("WorkflowCard --- Snapshot", () => {
           executeWorkflow={executeWorkflow}
           deleteWorkflow={deleteWorkflow}
           teamId={teamId}
+          setActiveTeam={setActiveTeam}
         />
       </MemoryRouter>
     );
@@ -52,6 +54,7 @@ describe("WorkflowCard --- Shallow render", () => {
           executeWorkflow={executeWorkflow}
           deleteWorkflow={deleteWorkflow}
           teamId={teamId}
+          setActiveTeam={setActiveTeam}
         />
       </MemoryRouter>
     );

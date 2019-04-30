@@ -70,6 +70,8 @@ describe("WorkflowActivity --- Snapshot", () => {
             activityActions={activityActions}
             teamsActions={teamsActions}
             match={match}
+            location={{}}
+            history={{}}
           />
         </MemoryRouter>
       )
@@ -90,6 +92,8 @@ describe("WorkflowActivity --- Shallow render", () => {
           activityActions={activityActions}
           teamsActions={teamsActions}
           match={match}
+          location={{}}
+          history={{}}
         />
       </MemoryRouter>
     );

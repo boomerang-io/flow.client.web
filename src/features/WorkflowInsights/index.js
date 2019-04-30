@@ -128,23 +128,23 @@ export class WorkflowInsights extends Component {
           <div className="c-workflow-insights-stats-widgets">
             <WidgetCard title="Total Executed" type="stat">
               {chartData.totalExecutions === 0 ? (
-                <label className="b-workflow-insights__stats-label --no-data">No Data</label>
+                <p className="b-workflow-insights__stats-label --no-data">No Data</p>
               ) : (
-                <label className="b-workflow-insights__stats-label">{chartData.totalExecutions}</label>
+                <p className="b-workflow-insights__stats-label">{chartData.totalExecutions}</p>
               )}
             </WidgetCard>
             <WidgetCard title="Median Duration" type="stat">
               {chartData.totalExecutions === 0 ? (
-                <label className="b-workflow-insights__stats-label --no-data">No Data</label>
+                <p className="b-workflow-insights__stats-label --no-data">No Data</p>
               ) : (
-                <label className="b-workflow-insights__stats-label">
+                <p className="b-workflow-insights__stats-label">
                   {chartData.medianDuration === 0 ? "0" : timeSecondsToTimeUnit(chartData.medianDuration)}
-                </label>
+                </p>
               )}
             </WidgetCard>
             <WidgetCard title="Success Rate" type="stat">
               {chartData.totalExecutions === 0 ? (
-                <label className="b-workflow-insights__stats-label --no-data">No Data</label>
+                <p className="b-workflow-insights__stats-label --no-data">No Data</p>
               ) : (
                 <CustomPieChart data={chartData.pieData} percentageSuccessful={chartData.percentageSuccessful} />
               )}
@@ -153,7 +153,7 @@ export class WorkflowInsights extends Component {
           <div className="c-workflow-insights-graphs-widgets">
             <WidgetCard title="Executions" type="graph">
               {chartData.totalExecutions === 0 ? (
-                <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
+                <p className="b-workflow-insights__graphs-label --no-data">No Data</p>
               ) : (
                 <CustomAreaChart
                   areaData={executeDataLines}
@@ -166,7 +166,7 @@ export class WorkflowInsights extends Component {
             </WidgetCard>
             <WidgetCard title="Execution Time" type="graph">
               {chartData.totalExecutions === 0 ? (
-                <label className="b-workflow-insights__graphs-label --no-data">No Data</label>
+                <p className="b-workflow-insights__graphs-label --no-data">No Data</p>
               ) : (
                 <CustomScatterChart
                   data={chartData.scatterData}

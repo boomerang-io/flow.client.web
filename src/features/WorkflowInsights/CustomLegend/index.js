@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import LegendIcon from "./LegendIcon";
 import "./styles.scss";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 class CustomTooltip extends Component {
   render() {
@@ -18,6 +19,9 @@ class CustomTooltip extends Component {
               onMouseEnter={this.props.onMouseEnter}
               onMouseLeave={this.props.onMouseLeave}
               onClick={() => this.props.toggleItem(data)}
+              onKeyDown={e => isAccessibleEvent(e) && this.props.toggleItem(data)}
+              role="button"
+              tabIndex="0"
             >
               <LegendIcon className="b-legend-icon" strokeColor={data.payload.fill} />
               <span className={`b-legend-label${isToggled ? " --toggled" : ""}`} key={data.dataKey}>

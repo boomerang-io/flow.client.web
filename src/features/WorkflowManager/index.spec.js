@@ -60,6 +60,8 @@ describe("WorkflowManager --- Snapshot", () => {
             workflowRevisionActions={actions}
             workflowRevision={workflowRevision}
             workflowActions={actions}
+            match={{}}
+            history={{}}
           />
         </MemoryRouter>
       )
@@ -83,6 +85,8 @@ describe("WorkflowManager --- Shallow render", () => {
           workflowActions={actions}
           workflowRevision={workflowRevision}
           workflowRevisionActions={actions}
+          match={{}}
+          history={{}}
         />
       </MemoryRouter>
     );

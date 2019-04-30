@@ -46,45 +46,45 @@ class ActivityCard extends Component {
             </div>
           </div>
           <div className="c-activity-card-section--right">
-            <ul className="c-activity-card-execution-info --first">
-              <li className="b-activity-card__row">
-                <label className="b-activity-card__label">Team</label>
-                <label className="b-activity-card__data">{teamName}</label>
-              </li>
-              <li className="b-activity-card__row">
-                <label className="b-activity-card__label">Trigger</label>
-                <label className="b-activity-card__data">
+            <div className="c-activity-card-execution-info --first">
+              <section className="b-activity-card__row">
+                <p className="b-activity-card__label">Team</p>
+                <p className="b-activity-card__data">{teamName}</p>
+              </section>
+              <section className="b-activity-card__row">
+                <p className="b-activity-card__label">Trigger</p>
+                <p className="b-activity-card__data">
                   {trigger ? trigger.slice(0, 1).toUpperCase() + trigger.slice(1) : "---"}
-                </label>
-              </li>
-              <li className="b-activity-card__row">
-                <label className="b-activity-card__label">Initiated by</label>
-                <label className="b-activity-card__data">{initiatedByUserName || "---"}</label>
-              </li>
-            </ul>
-            <ul className="c-activity-card-execution-info">
-              <li className="b-activity-card__row">
-                <label className="b-activity-card__label">Start Time</label>
-                <label className="b-activity-card__data">{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</label>
-              </li>
-              <li className="b-activity-card__row">
-                <label className="b-activity-card__label">Duration</label>
-                <label className="b-activity-card__data">
+                </p>
+              </section>
+              <section className="b-activity-card__row">
+                <p className="b-activity-card__label">Initiated by</p>
+                <p className="b-activity-card__data">{initiatedByUserName || "---"}</p>
+              </section>
+            </div>
+            <div className="c-activity-card-execution-info">
+              <section className="b-activity-card__row">
+                <p className="b-activity-card__label">Start Time</p>
+                <p className="b-activity-card__data">{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</p>
+              </section>
+              <section className="b-activity-card__row">
+                <p className="b-activity-card__label">Duration</p>
+                <p className="b-activity-card__data">
                   {duration ? getHumanizedDuration(parseInt(duration / 1000, 10)) : "---"}
-                </label>
-              </li>
-              <li className="b-activity-card__row">
-                <label className="b-activity-card__label"> Status</label>
-                <label className="b-activity-card__data">
+                </p>
+              </section>
+              <section className="b-activity-card__row">
+                <p className="b-activity-card__label"> Status</p>
+                <p className="b-activity-card__data">
                   <img
                     className="b-activity-card__status-icon"
                     src={ACTIVITY_STATUSES_TO_ICON[status ? status : "notstarted"]}
                     alt={`Status ${status}`}
                   />
                   {ACTIVITY_STATUSES_TO_TEXT[status ? status : "notstarted"]}
-                </label>
-              </li>
-            </ul>
+                </p>
+              </section>
+            </div>
           </div>
         </div>
       </Link>

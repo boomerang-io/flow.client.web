@@ -36,9 +36,10 @@ const workflowExecution = {
   data: {}
 };
 
-const workflowExecutionActiveNode = {
-  activeNode: {}
-};
+// TO DO: To be removed if not used in future development
+// const workflowExecutionActiveNode = {
+//   activeNode: {}
+// };
 
 const workflowRevision = {
   isFetching: false,

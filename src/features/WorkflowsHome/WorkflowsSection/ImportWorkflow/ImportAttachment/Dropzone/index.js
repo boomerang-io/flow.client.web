@@ -5,6 +5,7 @@ import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import image from "Assets/icons/docs.svg";
 import closeBlack from "Assets/svg/close_black.svg";
 import "./styles.scss";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 const MAX_FILE_SIZE = 1048576;
 const ERROR_MESSAGE = "The file must be a .json under 1MB.";
@@ -124,7 +125,15 @@ class DropZone extends Component {
                   <img src={file.preview} alt={file.preview} className="b-import-dropzone__img" />
                 </div>
                 <label className="b-import-dropzone__center">{file.name}</label>
-                <div className="b-import-dropzone__right" data-tip data-for="remove" onClick={this.removeFile}>
+                <div
+                  className="b-import-dropzone__right"
+                  data-tip
+                  data-for="remove"
+                  onClick={this.removeFile}
+                  onKeyDown={e => isAccessibleEvent(e) && this.removeFile()}
+                  role="button"
+                  tabIndex="0"
+                >
                   <img src={closeBlack} className="b-import-dropzone-close__img" alt="close-dropzone" />
                 </div>
                 <Tooltip id="remove">Remove</Tooltip>
@@ -138,7 +147,13 @@ class DropZone extends Component {
           this.removeFile();
         }
         return (
-          <div className="b-import-dropzone b-import-dropzone-error" onClick={this.resetErrorFlag}>
+          <div
+            className="b-import-dropzone b-import-dropzone-error"
+            onClick={this.resetErrorFlag}
+            onKeyDown={e => isAccessibleEvent(e) && this.resetErrorFlag()}
+            role="button"
+            tabIndex="0"
+          >
             {ERROR_MESSAGE}
           </div>
         );

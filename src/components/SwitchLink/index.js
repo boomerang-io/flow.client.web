@@ -141,12 +141,9 @@ class SwitchLink extends Component {
                 requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
               >
                 <div xmlns="http://www.w3.org/1999/xhtml">
-                  <img
-                    src={pencilIcon}
-                    className="b-editswitch-button__img"
-                    alt="Edit Switch Property"
-                    onClick={this.openModal}
-                  />
+                  <button className="b-img-button" onClick={this.openModal}>
+                    <img src={pencilIcon} className="b-editswitch-button__img" alt="Edit Switch Property" />
+                  </button>
                   <Modal
                     className="bmrg--c-modal"
                     contentLabel="Modal"

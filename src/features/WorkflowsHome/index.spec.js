@@ -32,7 +32,14 @@ describe("WorkflowsHome --- Snapshot", () => {
     const renderedValue = renderer
       .create(
         <MemoryRouter>
-          <WorkflowsHome teams={teams} appActions={appActions} teamsActions={teamsActions} />
+          <WorkflowsHome
+            teams={teams}
+            appActions={appActions}
+            teamsActions={teamsActions}
+            history={{}}
+            importWorkflow={{}}
+            importWorkflowActions={{}}
+          />
         </MemoryRouter>
       )
       .toJSON();
@@ -46,7 +53,14 @@ describe("WorkflowsHome --- Shallow render", () => {
   beforeEach(() => {
     wrapper = shallow(
       <MemoryRouter>
-        <WorkflowsHome teams={teams} appActions={appActions} teamsActions={teamsActions} />
+        <WorkflowsHome
+          teams={teams}
+          appActions={appActions}
+          teamsActions={teamsActions}
+          history={{}}
+          importWorkflow={{}}
+          importWorkflowActions={{}}
+        />
       </MemoryRouter>
     );
   });

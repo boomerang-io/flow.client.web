@@ -196,15 +196,20 @@ export class Overview extends Component {
           <ul className="b-workflow-icons">
             {assets.map((image, index) => (
               <li key={index}>
-                <img
-                  key={`${image.name}-${index}`}
-                  className={classnames("b-workflow-icons__icon", {
-                    "--active": workflow.data.icon === image.name
-                  })}
-                  src={image.src}
+                <button
+                  className="b-img-button"
+                  tabIndex="0"
                   onClick={() => this.handleOnChange(image.name, {}, "icon")}
-                  alt={`${image.name} icon`}
-                />
+                >
+                  <img
+                    key={`${image.name}-${index}`}
+                    className={classnames("b-workflow-icons__icon", {
+                      "--active": workflow.data.icon === image.name
+                    })}
+                    src={image.src}
+                    alt={`${image.name} icon`}
+                  />
+                </button>
               </li>
             ))}
           </ul>
@@ -213,9 +218,9 @@ export class Overview extends Component {
           <h1 className="s-trigger-title">Triggers</h1>
           <div className="c-webhook">
             <form className="b-webhook">
-              <label id="toggle-webhook" className="b-webhook__title">
+              <p id="toggle-webhook" className="b-webhook__title">
                 Enable Webhook
-              </label>
+              </p>
               <Toggle
                 aria-labelledby="toggle-webhook"
                 className="b-webhook__toggle"
@@ -256,27 +261,32 @@ export class Overview extends Component {
                   theme="bmrg-white"
                   type={this.state.tokenTextType}
                 />
-                <img
-                  className="b-webhook-token__icon"
-                  src={eyeIcon}
-                  data-tip
-                  data-for="webhook-token-eyeIcon"
-                  alt="Show/Hide token"
-                  onClick={this.handleShowToken}
-                />
+                <button className="b-img-button" onClick={this.handleShowToken}>
+                  <img
+                    className="b-webhook-token__icon"
+                    src={eyeIcon}
+                    data-tip
+                    data-for="webhook-token-eyeIcon"
+                    alt="Show/Hide token"
+                  />
+                </button>
                 <Tooltip id="webhook-token-eyeIcon" place="top">
                   {this.state.showTokenText}
                 </Tooltip>
                 <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
-                  <img
-                    className="b-webhook-token__icon"
-                    src={copyIcon}
-                    data-tip
-                    data-for="webhook-token-copyIcon"
-                    alt="Copy token"
+                  <button
+                    className="b-img-button"
                     onClick={() => this.setState({ copyTokenText: "Copied Token" })}
                     onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
-                  />
+                  >
+                    <img
+                      className="b-webhook-token__icon"
+                      src={copyIcon}
+                      data-tip
+                      data-for="webhook-token-copyIcon"
+                      alt="Copy token"
+                    />
+                  </button>
                 </CopyToClipboard>
                 <Tooltip id="webhook-token-copyIcon" place="top">
                   {this.state.copyTokenText}
@@ -313,9 +323,9 @@ export class Overview extends Component {
             )}
             <div className="c-scheduler">
               <div className="b-schedule">
-                <label id="toggle-scheduler" className="b-schedule__title">
+                <p id="toggle-scheduler" className="b-schedule__title">
                   Enable Scheduler
-                </label>
+                </p>
                 <Toggle
                   aria-labelledby="toggle-scheduler"
                   className="b-schedule__toggle"
@@ -387,9 +397,9 @@ export class Overview extends Component {
           <h1 className="s-trigger-title">Options</h1>
           <div className="b-options">
             <form className="b-persistence">
-              <label id="toggle-persistence-storage" className="b-persistence__title">
+              <p id="toggle-persistence-storage" className="b-persistence__title">
                 Enable Persistent Storage
-              </label>
+              </p>
               <Toggle
                 aria-labelledby="toggle-persistence-storage"
                 className="b-persistence__toggle"

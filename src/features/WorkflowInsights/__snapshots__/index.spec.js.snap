@@ -85,31 +85,31 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
       title="Total Executed"
       type="stat"
     >
-      <label
+      <p
         className="b-workflow-insights__stats-label --no-data"
       >
         No Data
-      </label>
+      </p>
     </WidgetCard>
     <WidgetCard
       title="Median Duration"
       type="stat"
     >
-      <label
+      <p
         className="b-workflow-insights__stats-label --no-data"
       >
         No Data
-      </label>
+      </p>
     </WidgetCard>
     <WidgetCard
       title="Success Rate"
       type="stat"
     >
-      <label
+      <p
         className="b-workflow-insights__stats-label --no-data"
       >
         No Data
-      </label>
+      </p>
     </WidgetCard>
   </div>
   <div
@@ -119,21 +119,21 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
       title="Executions"
       type="graph"
     >
-      <label
+      <p
         className="b-workflow-insights__graphs-label --no-data"
       >
         No Data
-      </label>
+      </p>
     </WidgetCard>
     <WidgetCard
       title="Execution Time"
       type="graph"
     >
-      <label
+      <p
         className="b-workflow-insights__graphs-label --no-data"
       >
         No Data
-      </label>
+      </p>
     </WidgetCard>
   </div>
 </div>

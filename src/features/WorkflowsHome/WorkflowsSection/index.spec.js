@@ -16,6 +16,9 @@ const updateWorkflows = mockfn;
 const setActiveTeam = mockfn;
 const executeWorkflow = mockfn;
 const deleteWorkflow = mockfn;
+const fetchTeams = mockfn;
+const handleImportWorkflow = mockfn;
+const closeModal = mockfn;
 const team = {
   id: "1234",
   name: "Lucas' team",
@@ -58,6 +61,10 @@ describe("WorkflowsSection --- Snapshot", () => {
           deleteWorkflow={deleteWorkflow}
           setActiveTeam={setActiveTeam}
           setActiveTeamAndRedirect={setActiveTeamAndRedirect}
+          importWorkflow={{}}
+          fetchTeams={fetchTeams}
+          handleImportWorkflow={handleImportWorkflow}
+          closeModal={closeModal}
         />
       </MemoryRouter>
     );
@@ -80,6 +87,8 @@ describe("WorkflowsSection --- Shallow render", () => {
           deleteWorkflow={deleteWorkflow}
           setActiveTeam={setActiveTeam}
           setActiveTeamAndRedirect={setActiveTeamAndRedirect}
+          handleImportWorkflow={handleImportWorkflow}
+          closeModal={closeModal}
         />
       </MemoryRouter>
     );

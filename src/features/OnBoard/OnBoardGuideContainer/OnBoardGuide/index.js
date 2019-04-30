@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import CloseIcon from "Assets/icons/CloseIcon";
 import "./styles.scss";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 const OnBoardGuide = props => {
   const {
@@ -30,24 +31,50 @@ const OnBoardGuide = props => {
 
   const leftAction =
     index === 1 ? null : (
-      <div className="b-onboard-screen-arrow" onClick={previousScreen}>
+      <div
+        className="b-onboard-screen-arrow"
+        onClick={previousScreen}
+        onKeyDown={e => isAccessibleEvent(e) && previousScreen}
+        role="button"
+        tabIndex="0"
+      >
         <i className="b-onboard-screen-arrow--left" />
       </div>
     );
 
   const rightAction = lastScreen ? (
-    <div className="b-onboard-screen-button" onClick={nextScreen}>
+    <div
+      className="b-onboard-screen-button"
+      onClick={nextScreen}
+      onKeyDown={e => isAccessibleEvent(e) && nextScreen}
+      role="button"
+      tabIndex="0"
+    >
       <div className="b-onboard-screen-button__text">DONE</div>
     </div>
   ) : (
-    <div className="b-onboard-screen-arrow" onClick={nextScreen}>
+    <div
+      className="b-onboard-screen-arrow"
+      onClick={nextScreen}
+      onKeyDown={e => isAccessibleEvent(e) && nextScreen}
+      role="button"
+      tabIndex="0"
+    >
+      >
       <i className="b-onboard-screen-arrow--right" />
     </div>
   );
 
   return (
     <div className={`c-onboard-screen ${containerClassName}`}>
-      <div className="b-onboard-screen-modal-close" onClick={closeModal}>
+      <div
+        className="b-onboard-screen-modal-close"
+        onClick={closeModal}
+        onKeyDown={e => isAccessibleEvent(e) && closeModal}
+        role="button"
+        tabIndex="0"
+      >
+        >
         <CloseIcon className="b-onboard-screen-modal-close__img" />
       </div>
       <div className="b-onboard-screen-title">{title}</div>

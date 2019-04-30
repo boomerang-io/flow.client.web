@@ -35,7 +35,9 @@ class NotificationBanner extends Component {
           }
           . Thanks!
         </div>
-        <img onClick={this.closeBanner} src={close} className="b-notification-banner__close-icon" alt="Close" />
+        <button className="b-img-button" onClick={this.closeBanner}>
+          <img src={close} className="b-notification-banner__close-icon" alt="Close" />
+        </button>
       </div>
     );
   }

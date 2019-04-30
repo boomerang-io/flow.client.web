@@ -39,92 +39,92 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
     <div
       className="c-activity-card-section--right"
     >
-      <ul
+      <div
         className="c-activity-card-execution-info --first"
       >
-        <li
+        <section
           className="b-activity-card__row"
         >
-          <label
+          <p
             className="b-activity-card__label"
           >
             Team
-          </label>
-          <label
+          </p>
+          <p
             className="b-activity-card__data"
           >
             Isa's Team
-          </label>
-        </li>
-        <li
+          </p>
+        </section>
+        <section
           className="b-activity-card__row"
         >
-          <label
+          <p
             className="b-activity-card__label"
           >
             Trigger
-          </label>
-          <label
+          </p>
+          <p
             className="b-activity-card__data"
           >
             ---
-          </label>
-        </li>
-        <li
+          </p>
+        </section>
+        <section
           className="b-activity-card__row"
         >
-          <label
+          <p
             className="b-activity-card__label"
           >
             Initiated by
-          </label>
-          <label
+          </p>
+          <p
             className="b-activity-card__data"
           >
             ---
-          </label>
-        </li>
-      </ul>
-      <ul
+          </p>
+        </section>
+      </div>
+      <div
         className="c-activity-card-execution-info"
       >
-        <li
+        <section
           className="b-activity-card__row"
         >
-          <label
+          <p
             className="b-activity-card__label"
           >
             Start Time
-          </label>
-          <label
+          </p>
+          <p
             className="b-activity-card__data"
           >
             2019-01-01 12:00 AM
-          </label>
-        </li>
-        <li
+          </p>
+        </section>
+        <section
           className="b-activity-card__row"
         >
-          <label
+          <p
             className="b-activity-card__label"
           >
             Duration
-          </label>
-          <label
+          </p>
+          <p
             className="b-activity-card__data"
           >
             13 seconds
-          </label>
-        </li>
-        <li
+          </p>
+        </section>
+        <section
           className="b-activity-card__row"
         >
-          <label
+          <p
             className="b-activity-card__label"
           >
              Status
-          </label>
-          <label
+          </p>
+          <p
             className="b-activity-card__data"
           >
             <img
@@ -133,9 +133,9 @@ exports[`ActivityCard --- Snapshot Capturing Snapshot of ActivityCard 1`] = `
               src="passed.svg"
             />
             Succeeded
-          </label>
-        </li>
-      </ul>
+          </p>
+        </section>
+      </div>
     </div>
   </div>
 </a>

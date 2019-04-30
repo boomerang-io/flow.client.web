@@ -41,14 +41,15 @@ class MultiStateButton extends Component {
     const { modelId } = this.props;
     return (
       <div xmlns={this.props.xmlns}>
-        <img
-          src={executionConditionConfig.img}
-          className="b-multistate-button"
-          alt={`${executionConditionConfig.condition} status`}
-          onClick={this.handleOnClick}
-          data-tip
-          data-for={modelId}
-        />
+        <button className="b-img-button" onClick={this.handleOnClick}>
+          <img
+            src={executionConditionConfig.img}
+            className="b-multistate-button"
+            alt={`${executionConditionConfig.condition} status`}
+            data-tip
+            data-for={modelId}
+          />
+        </button>
         {/* <ToolTip className="bmrg--b-tooltip b-multistate-button__tooltip" place="bottom" id={modelId}>
           {executionConditionConfig.text}
         </ToolTip> */}

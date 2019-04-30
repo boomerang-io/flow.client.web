@@ -6,6 +6,7 @@ import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import { ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import "./styles.scss";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 Filler.propTypes = {
   backgroundColor: PropTypes.string.isRequired,
@@ -44,6 +45,9 @@ function Filler({
     <>
       <div
         onClick={() => updateActiveNode(taskId)}
+        onKeyDown={e => isAccessibleEvent(e) && updateActiveNode(taskId)}
+        role="button"
+        tabIndex="0"
         data-tip
         data-for={id}
         className={classnames("b-time-progress-bar-filler", { "--first": isFirstTask, "--last": isLastTask })}
@@ -54,18 +58,18 @@ function Filler({
 
       <Tooltip id={id} place="bottom">
         <div className="c-time-progress-bar-filler-info">
-          <div className="b-time-progress-bar-filler-info">
-            <label className="b-time-progress-bar-filler-info__label">Task name:</label>
-            <label className="b-time-progress-bar-filler-info__label">Duration:</label>
-            <label className="b-time-progress-bar-filler-info__label">Status:</label>
-          </div>
-          <div className="b-time-progress-bar-filler-info">
-            <label className="b-time-progress-bar-filler-info__value">{taskName}</label>
-            <label className="b-time-progress-bar-filler-info__value">
+          <section className="b-time-progress-bar-filler-info">
+            <p className="b-time-progress-bar-filler-info__label">Task name:</p>
+            <p className="b-time-progress-bar-filler-info__label">Duration:</p>
+            <p className="b-time-progress-bar-filler-info__label">Status:</p>
+          </section>
+          <section className="b-time-progress-bar-filler-info">
+            <p className="b-time-progress-bar-filler-info__value">{taskName}</p>
+            <p className="b-time-progress-bar-filler-info__value">
               {getHumanizedDuration(Math.round(parseInt(duration / 1000), 10))}
-            </label>
-            <label className="b-time-progress-bar-filler-info__value">{ACTIVITY_STATUSES_TO_TEXT[status]}</label>
-          </div>
+            </p>
+            <p className="b-time-progress-bar-filler-info__value">{ACTIVITY_STATUSES_TO_TEXT[status]}</p>
+          </section>
         </div>
       </Tooltip>
     </>

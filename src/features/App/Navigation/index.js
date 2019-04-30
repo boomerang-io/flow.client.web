@@ -5,6 +5,7 @@ import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import Navbar from "./Navbar";
 import { navItems } from "./config";
 import "./styles.scss";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 class Navigation extends Component {
   state = {
@@ -55,6 +56,9 @@ class Navigation extends Component {
           <div
             className={classnames("s-hamburger-menu", { "--is-open": this.state.sideNavIsOpen })}
             onClick={this.handleOnIconClick}
+            onKeyDown={e => isAccessibleEvent(e) && this.handleOnIconClick()}
+            role="button"
+            tabIndex="0"
           >
             <svg height="32" id="Layer_1" version="1.1" viewBox="0 0 36 36" width="32">
               <g className="icon">
@@ -64,7 +68,12 @@ class Navigation extends Component {
               </g>
             </svg>
           </div>
-          <div onClick={this.handleSetSidenavClose}>
+          <div
+            onClick={this.handleSetSidenavClose}
+            onKeyDown={e => isAccessibleEvent(e) && this.handleSetSidenavClose()}
+            role="button"
+            tabIndex="0"
+          >
             <Sidenav theme="bmrg-white" hidden={!this.state.sideNavIsOpen} navItems={navItems(this.props.location)} />
           </div>
         </div>
