@@ -2,6 +2,8 @@
  * Replace all placeholder root context values with env variable
  */
 
+console.log(process.env);
+
 const path = require("path");
 const replace = require("replace-in-file");
 
