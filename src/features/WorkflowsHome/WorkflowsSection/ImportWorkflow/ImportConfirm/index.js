@@ -38,9 +38,9 @@ class ImportConfirm extends Component {
         <Header title="CONFIRM IMPORT" theme="bmrg-white" />
         <Body
           style={{
-            height: "20rem",
+            height: "21rem",
             width: "36rem",
-            margin: "0 auto 3rem",
+            margin: "auto",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",

@@ -113,9 +113,9 @@ class WorkflowAttachment extends Component {
         <Header theme="bmrg-white" title="ADD A WORKFLOW" subtitle="Select the Workflow file you want to upload" />
         <Body
           style={{
-            height: "19rem",
+            height: "22rem",
             width: "29rem",
-            margin: "2rem auto 3rem",
+            margin: "auto",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",

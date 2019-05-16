@@ -33,9 +33,9 @@ class ImportResult extends Component {
       return (
         <Body
           style={{
-            height: "20rem",
+            height: "26rem",
             width: "36rem",
-            margin: "0 auto 3rem",
+            margin: "auto",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-start",
@@ -52,9 +52,9 @@ class ImportResult extends Component {
         <form onSubmit={() => this.props.goToStep(options.IMPORT_WORKFLOW_TYPE)}>
           <Body
             style={{
-              height: "25rem",
+              height: "26rem",
               width: "36rem",
-              margin: "2.5rem auto 0rem",
+              margin: "auto",
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
@@ -75,9 +75,9 @@ class ImportResult extends Component {
         <form onSubmit={this.handleCloseModal}>
           <Body
             style={{
-              height: "20rem",
+              height: "26rem",
               width: "36rem",
-              margin: "4rem auto 3.2rem",
+              margin: "auto",
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",

@@ -164,7 +164,6 @@ class WorkflowCard extends Component {
                   )}
                   modalContent={closeModal => (
                     <ConfirmModal
-                      style={{ width: "32rem", height: "28rem" }}
                       title="Execute workflow?"
                       subTitleTop="It will run"
                       img={deployIcon}

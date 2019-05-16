@@ -1,6 +1,9 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
 .b-notification-banner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
   position: fixed;
   top: 3rem;
   width: 100vw;
@@ -21,17 +24,22 @@
   letter-spacing: 0.03125rem;
   line-height: 1.75rem;
   text-align: center;
+  width: calc(100% - 2rem);
 
   a {
     color: $teal-10;
   }
 }
 
+.b-notification-banner__button {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
 .b-notification-banner__close-icon {
-  position: absolute;
-  top: 1.25rem;
-  right: 1rem;
   height: 1rem;
   width: 1rem;
-  cursor: pointer;
 }
