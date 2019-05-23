@@ -44,6 +44,15 @@
   }
 }
 
-.s-sidenav-wrapper .bmrg--c-sidenav {
+.bmrg--c-sidenav {
   z-index: 21;
+  top: 0rem;
+}
+
+.bx--bmrg-header__app-menu-wrapper.--is-hidden > :first-child {
+  transform: translateX(-101%) !important;
+}
+
+.bx--bmrg-header__app-menu-wrapper > :first-child {
+  transform: translateX(-1%) !important;
 }

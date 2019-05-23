@@ -19,7 +19,7 @@ class Navigation extends Component {
     });
   };
 
-  sidenavRef = React.createRef();
+  //sidenavRef = React.createRef();
 
   handleOnIconClick = () => {
     this.setState(prevState => ({
@@ -33,26 +33,31 @@ class Navigation extends Component {
     }));
   };
 
-  componentDidMount() {
+  /*componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
   }
 
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
-  }
+  }*/
 
-  handleClickOutside = event => {
+  /*handleClickOutside = event => {
     if (this.sidenavRef && !this.sidenavRef.current.contains(event.target)) {
       this.handleSetSidenavClose();
     }
-  };
+  };*/
 
   render() {
     const { navigation, user } = this.props;
     return (
       <>
-        <Navbar navigation={navigation} user={user} handleOnTutorialClick={this.handleOnQuestionClick} />
-        <div className="s-sidenav-wrapper" ref={this.sidenavRef}>
+        <Navbar
+          navigation={navigation}
+          user={user}
+          handleOnTutorialClick={this.handleOnQuestionClick}
+          location={this.props.location}
+        />
+        {/*<div className="s-sidenav-wrapper" ref={this.sidenavRef}>
           <div
             className={classnames("s-hamburger-menu", { "--is-open": this.state.sideNavIsOpen })}
             onClick={this.handleOnIconClick}
@@ -76,7 +81,7 @@ class Navigation extends Component {
           >
             <Sidenav theme="bmrg-white" hidden={!this.state.sideNavIsOpen} navItems={navItems(this.props.location)} />
           </div>
-        </div>
+    </div>*/}
       </>
     );
   }
