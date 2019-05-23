@@ -4,9 +4,9 @@
   "private": true,
   "homepage": "https://launch.boomerangplatform.net/BMRG_APP_ROOT_CONTEXT",
   "dependencies": {
-    "@boomerang/boomerang-components": "8.1.11",
+    "@boomerang/boomerang-components": "9.2.0",
     "@boomerang/boomerang-dag": "5.2.1",
-    "@boomerang/boomerang-react-scripts": "3.2.1",
+    "@boomerang/boomerang-react-scripts": "3.2.3",
     "@boomerang/boomerang-styles": "1.0.0",
     "@boomerang/boomerang-utilities": "2.2.0",
     "@boomerang/carbon-addons-boomerang": "1.4.0",
@@ -64,6 +64,7 @@
     "test:ci": "react-scripts test --env=jsdom  --coverage --outputFile=mocha.json --json",
     "test:ci-cypress": "start-server-and-test dev http://localhost:3000 cypress:run",
     "test:coverage": "react-scripts test --env=jsdom --coverage",
+    "test:staged": "cross-env CI=true react-scripts test --env=jsdom --passWithNoTests",
     "test:watch": "react-scripts test --env=jsdom",
     "upgradePackage": "react-scripts upgradePackage"
   },
@@ -101,7 +102,7 @@
     ],
     "src/**/*.{js,jsx}": [
       "npm run-script lint",
-      "cross-env CI=true npm test -- --passWithNoTests"
+      "npm run test:staged"
     ],
     "*": [
       "git add"

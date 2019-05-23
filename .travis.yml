@@ -1,14 +1,18 @@
 group: bluezone
 sudo: required
+dist: trusty
 before_install:
   - export TZ=Etc/UTC
 language: node_js
-node_js: "8"
+node_js:
+  - "lts/*"
 notifications:
   slack: ibm-aic-offerings:pKEkgH3hXaZQg8UCl6eLWyYB
 cache:
-  npm: true
   directories:
-    - node_modules
+    - ~/.npm
+    - ~/.cache
+install:
+  - npm ci
 script:
-  - npm install && npm run test
+  - npm run test
