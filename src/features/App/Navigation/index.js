@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import classnames from "classnames";
-import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import Navbar from "./Navbar";
-import { navItems } from "./config";
-import "./styles.scss";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
+//import "./styles.scss";
 
 class Navigation extends Component {
   state = {
@@ -19,34 +15,6 @@ class Navigation extends Component {
     });
   };
 
-  //sidenavRef = React.createRef();
-
-  handleOnIconClick = () => {
-    this.setState(prevState => ({
-      sideNavIsOpen: !prevState.sideNavIsOpen
-    }));
-  };
-
-  handleSetSidenavClose = () => {
-    this.setState(() => ({
-      sideNavIsOpen: false
-    }));
-  };
-
-  /*componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
-  }*/
-
-  /*handleClickOutside = event => {
-    if (this.sidenavRef && !this.sidenavRef.current.contains(event.target)) {
-      this.handleSetSidenavClose();
-    }
-  };*/
-
   render() {
     const { navigation, user } = this.props;
     return (
@@ -57,31 +25,6 @@ class Navigation extends Component {
           handleOnTutorialClick={this.handleOnQuestionClick}
           location={this.props.location}
         />
-        {/*<div className="s-sidenav-wrapper" ref={this.sidenavRef}>
-          <div
-            className={classnames("s-hamburger-menu", { "--is-open": this.state.sideNavIsOpen })}
-            onClick={this.handleOnIconClick}
-            onKeyDown={e => isAccessibleEvent(e) && this.handleOnIconClick()}
-            role="button"
-            tabIndex="0"
-          >
-            <svg height="32" id="Layer_1" version="1.1" viewBox="0 0 36 36" width="32">
-              <g className="icon">
-                <rect className="bar1" x="0" y="0" width="32" height="4" rx="2" fill="#40d5bb" />
-                <rect className="bar2" x="0" y="12" width="32" height="4" rx="2" fill="#40d5bb" />
-                <rect className="bar3" x="0" y="24" width="32" height="4" rx="2" fill="#40d5bb" />
-              </g>
-            </svg>
-          </div>
-          <div
-            onClick={this.handleSetSidenavClose}
-            onKeyDown={e => isAccessibleEvent(e) && this.handleSetSidenavClose()}
-            role="button"
-            tabIndex="0"
-          >
-            <Sidenav theme="bmrg-white" hidden={!this.state.sideNavIsOpen} navItems={navItems(this.props.location)} />
-          </div>
-    </div>*/}
       </>
     );
   }
