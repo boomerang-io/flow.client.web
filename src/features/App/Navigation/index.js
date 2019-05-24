@@ -5,7 +5,6 @@ import Navbar from "./Navbar";
 
 class Navigation extends Component {
   state = {
-    sideNavIsOpen: false,
     showFirstTimeExperience: false
   };
 
