@@ -1,15 +1,40 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { UIShell } from "@boomerang/carbon-addons-boomerang-react";
+import { UIShell, InteriorLeftNav, InteriorLeftNavItem } from "@boomerang/carbon-addons-boomerang-react";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
-import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
+import { BASE_APPS_ENV_URL, BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
 import { BASE_URL } from "Config/servicesConfig";
+import { NavLink } from "react-router-dom";
+
+const onMenuClick = ({ isOpen, onMenuClose }) => (
+  <InteriorLeftNav isOpen={isOpen} onMenuClose={onMenuClose}>
+    <InteriorLeftNavItem href={`${BASE_APPS_ENV_URL}/workflows/`} label="Workflows">
+      <NavLink to="/workflows" exact={false}>
+        Workflows
+      </NavLink>
+    </InteriorLeftNavItem>
+    <InteriorLeftNavItem href={`${BASE_APPS_ENV_URL}/activity/`} label="Activity">
+      <NavLink to="/activity" exact={false}>
+        Activity
+      </NavLink>
+    </InteriorLeftNavItem>
+    <InteriorLeftNavItem href={`${BASE_APPS_ENV_URL}/creator/overview/`} label="Designer">
+      <NavLink to="/creator/overview" exact={false}>
+        Designer
+      </NavLink>
+    </InteriorLeftNavItem>
+    <InteriorLeftNavItem href={`${BASE_APPS_ENV_URL}/insights/`} label="Insights">
+      <NavLink to="/insights" exact={false}>
+        Insights
+      </NavLink>
+    </InteriorLeftNavItem>
+  </InteriorLeftNav>
+);
 
 const defaultUIShellProps = {
   baseServiceUrl: BASE_URL,
-  //companyName: "Boomerang",
-  //productName: "Admin"
-  renderLogo: true
+  renderLogo: true,
+  onMenuClick: onMenuClick
 };
 
 class NavbarContainer extends Component {
