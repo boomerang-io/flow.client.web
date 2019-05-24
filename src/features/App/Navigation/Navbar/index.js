@@ -6,24 +6,26 @@ import { BASE_APPS_ENV_URL, BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig
 import { BASE_URL } from "Config/servicesConfig";
 import { NavLink } from "react-router-dom";
 
+const FLOW_PATH = `${BASE_APPS_ENV_URL}/flow/apps/flow`;
+
 const onMenuClick = ({ isOpen, onMenuClose }) => (
   <InteriorLeftNav isOpen={isOpen} onMenuClose={onMenuClose}>
-    <InteriorLeftNavItem href={`${BASE_APPS_ENV_URL}/workflows/`} label="Workflows">
+    <InteriorLeftNavItem href={`${FLOW_PATH}/workflows/`} label="Workflows">
       <NavLink to="/workflows" exact={false}>
         Workflows
       </NavLink>
     </InteriorLeftNavItem>
-    <InteriorLeftNavItem href={`${BASE_APPS_ENV_URL}/activity/`} label="Activity">
+    <InteriorLeftNavItem href={`${FLOW_PATH}/activity/`} label="Activity">
       <NavLink to="/activity" exact={false}>
         Activity
       </NavLink>
     </InteriorLeftNavItem>
-    <InteriorLeftNavItem href={`${BASE_APPS_ENV_URL}/creator/overview/`} label="Designer">
+    <InteriorLeftNavItem href={`${FLOW_PATH}/creator/overview/`} label="Designer">
       <NavLink to="/creator/overview" exact={false}>
         Designer
       </NavLink>
     </InteriorLeftNavItem>
-    <InteriorLeftNavItem href={`${BASE_APPS_ENV_URL}/insights/`} label="Insights">
+    <InteriorLeftNavItem href={`${FLOW_PATH}/insights/`} label="Insights">
       <NavLink to="/insights" exact={false}>
         Insights
       </NavLink>
