@@ -5,11 +5,14 @@ import { bindActionCreators } from "redux";
 import { detect } from "detect-browser";
 import { actions as userActions } from "State/user";
 import { actions as navigationActions } from "State/navigation";
+import { actions as teamsActions } from "State/teams";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
+import Modal from "@boomerang/boomerang-components/lib/Modal";
 import OnBoardExpContainer from "Features/OnBoard";
 import NotificationBanner from "Components/NotificationBanner";
 import BrowserModal from "./BrowserModal";
+import FlowRedirectModalContent from "./flowRedirectModalContent";
 import Navigation from "./Navigation";
 import {
   AsyncHome,
@@ -19,11 +22,11 @@ import {
   AsyncInsights,
   AsyncExecution
 } from "./config/lazyComponents";
-import { BASE_USERS_URL } from "Config/servicesConfig";
-import "./styles.scss";
+import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import ErrorDragon from "Components/ErrorDragon";
+import "./styles.scss";
 
 const browser = detect();
 
@@ -43,6 +46,7 @@ class App extends Component {
   fetchData = () => {
     this.props.userActions.fetchUser(`${BASE_USERS_URL}/profile`);
     this.props.navigationActions.fetchNavigation(`${BASE_USERS_URL}/navigation`);
+    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
   };
 
   closeBanner = () => {
@@ -50,11 +54,23 @@ class App extends Component {
   };
 
   renderApp() {
-    const { user, navigation } = this.props;
+    const { user, navigation, teams } = this.props;
     if (user.isFetching || user.isCreating || navigation.isFetching) {
       return (
         <div className="c-app-content c-app-content--not-loaded">
           <LoadingAnimation />
+        </div>
+      );
+    }
+
+    if (teams.status === SERVICE_REQUEST_STATUSES.SUCCESS && Object.keys(teams.data).length === 0) {
+      return (
+        <div style={{ backgroundColor: "#1c496d" }}>
+          <Modal
+            isOpen={true}
+            modalContent={() => <FlowRedirectModalContent />}
+            modalProps={{ shouldCloseOnOverlayClick: false, shouldCloseOnEsc: false, backgroundColor: "#1c496d" }}
+          />
         </div>
       );
     }
@@ -102,14 +118,16 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    navigation: state.navigation
+    navigation: state.navigation,
+    teams: state.teams
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     userActions: bindActionCreators(userActions, dispatch),
-    navigationActions: bindActionCreators(navigationActions, dispatch)
+    navigationActions: bindActionCreators(navigationActions, dispatch),
+    teamsActions: bindActionCreators(teamsActions, dispatch)
   };
 };
 
