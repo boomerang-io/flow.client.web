@@ -61,7 +61,7 @@ class App extends Component {
 
   renderApp() {
     const { user, navigation, teams } = this.props;
-    if (user.isFetching || user.isCreating || navigation.isFetching) {
+    if (user.isFetching || user.isCreating || navigation.isFetching || teams.isFetching) {
       return (
         <div className="c-app-content c-app-content--not-loaded">
           <LoadingAnimation theme="brmg-white" />
@@ -80,7 +80,11 @@ class App extends Component {
         </div>
       );
     }
-    if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
+    if (
+      user.status === SERVICE_REQUEST_STATUSES.SUCCESS &&
+      navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS &&
+      teams.status === SERVICE_REQUEST_STATUSES.SUCCESS
+    ) {
       return (
         <>
           <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
@@ -106,7 +110,11 @@ class App extends Component {
         </>
       );
     }
-    if (user.status === SERVICE_REQUEST_STATUSES.FAILURE || navigation.status === SERVICE_REQUEST_STATUSES.FAILURE) {
+    if (
+      user.status === SERVICE_REQUEST_STATUSES.FAILURE ||
+      navigation.status === SERVICE_REQUEST_STATUSES.FAILURE ||
+      teams.status === SERVICE_REQUEST_STATUSES.FAILURE
+    ) {
       return (
         <div className="c-app-content c-app-content--not-loaded">
           <ErrorDragon style={{ margin: "3.5rem 0" }} />
