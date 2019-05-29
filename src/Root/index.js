@@ -6,12 +6,13 @@ import { Provider } from "react-redux";
 import ErrorBoundary from "@boomerang/boomerang-components/lib/ErrorBoundary";
 import App from "Features/App";
 import ErrorDragon from "Components/ErrorDragon";
+import { APP_ROOT } from "Config/appConfig";
 
 const Root = props => {
   const { store } = props;
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename={APP_ROOT}>
         <ErrorBoundary errorComponent={ErrorDragon}>
           <App />
         </ErrorBoundary>
