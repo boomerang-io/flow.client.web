@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import { connectRouter } from "connected-react-router";
 import activity from "./activity";
 import app from "./app";
 import changeLog from "./changeLog";
@@ -14,9 +13,8 @@ import workflow from "./workflow";
 import workflowExecution from "./workflowExecution";
 import workflowRevision from "./workflowRevision";
 
-const rootReducer = history =>
+const rootReducer = () =>
   combineReducers({
-    router: connectRouter(history),
     activity,
     app,
     changeLog,
