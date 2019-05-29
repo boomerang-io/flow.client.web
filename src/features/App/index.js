@@ -40,10 +40,16 @@ class App extends Component {
     this.fetchData();
   };
 
-  fetchData = () => {
-    this.props.userActions.fetchUser(`${BASE_USERS_URL}/profile`);
-    this.props.navigationActions.fetchNavigation(`${BASE_USERS_URL}/navigation`);
-  };
+  async fetchData() {
+    try {
+      await Promise.all([
+        this.props.userActions.fetchUser(`${BASE_USERS_URL}/profile`),
+        this.props.navigationActions.fetchNavigation(`${BASE_USERS_URL}/navigation`)
+      ]);
+    } catch (e) {
+      // noop
+    }
+  }
 
   closeBanner = () => {
     this.setState({ bannerClosed: true });

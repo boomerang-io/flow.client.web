@@ -30,13 +30,20 @@ export class WorkflowExecutionContainer extends Component {
     match: PropTypes.object.isRequired
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { match } = this.props;
     this.fetchExecution();
     this.executionInterval = setInterval(() => this.fetchExecution(), 5000);
-    this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/summary`);
-    this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/revision`);
-    this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
+
+    try {
+      await Promise.all([
+        this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/summary`),
+        this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${match.params.workflowId}/revision`),
+        this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`)
+      ]);
+    } catch (e) {
+      // noop
+    }
   }
 
   componentDidUpdate() {
@@ -60,7 +67,9 @@ export class WorkflowExecutionContainer extends Component {
 
   fetchExecution = () => {
     const { match, workflowExecutionActions } = this.props;
-    workflowExecutionActions.fetch(`${BASE_SERVICE_URL}/activity/${match.params.executionId}`);
+    workflowExecutionActions.fetch(`${BASE_SERVICE_URL}/activity/${match.params.executionId}`).catch(err => {
+      // noop
+    });
   };
 
   updateActiveNode = nodeId => {

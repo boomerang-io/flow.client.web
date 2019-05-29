@@ -37,9 +37,15 @@ export class WorkflowManagerContainer extends Component {
 
   changeLogReason = "Create workflow"; //default changelog value at creation time
 
-  componentDidMount() {
-    this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`);
-    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+  async componentDidMount() {
+    try {
+      await Promise.all([
+        this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`),
+        this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`)
+      ]);
+    } catch (e) {
+      // noop
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -117,7 +123,9 @@ export class WorkflowManagerContainer extends Component {
         return Promise.reject();
       })
       .then(() => {
-        this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`);
+        this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`).catch(err => {
+          // noop
+        });
       });
   };
 
@@ -159,7 +167,9 @@ export class WorkflowManagerContainer extends Component {
   fetchWorkflowRevisionNumber = revision => {
     const { workflow, workflowRevisionActions } = this.props;
     const workflowId = workflow.data.id;
-    workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision/${revision}`);
+    workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision/${revision}`).catch(err => {
+      // noop
+    });
   };
 
   createWorkflowRevisionBody(diagramApp) {

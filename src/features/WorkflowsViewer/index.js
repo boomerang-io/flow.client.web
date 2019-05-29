@@ -20,7 +20,9 @@ class WorkflowsViewerContainer extends Component {
   };
 
   componentDidMount() {
-    this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow`);
+    this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow`).catch(err => {
+      // noop
+    });
   }
 
   formatWorkflows = () => {

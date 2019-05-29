@@ -41,7 +41,9 @@ export class WorkflowsHome extends Component {
   };
 
   fetchTeams = () => {
-    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`).catch(err => {
+      // noop
+    });
   };
 
   filterTeams = () => {
@@ -99,7 +101,11 @@ export class WorkflowsHome extends Component {
   };
 
   handleImportWorkflow = (data, isUpdate) => {
-    this.props.importWorkflowActions.post(`${BASE_SERVICE_URL}/workflow/import?update=${isUpdate}`, JSON.parse(data));
+    this.props.importWorkflowActions
+      .post(`${BASE_SERVICE_URL}/workflow/import?update=${isUpdate}`, JSON.parse(data))
+      .catch(err => {
+        // noop
+      });
   };
 
   render() {

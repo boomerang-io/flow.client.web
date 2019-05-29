@@ -13,13 +13,15 @@ jest.mock("@boomerang/boomerang-components", () => ({
 }));
 
 const teamsActions = {
-  fetch: mockfn,
+  fetch: () => new Promise(() => {}),
   setActiveTeam: mockfn,
   updateWorkflows: mockfn
 };
+
 const appActions = {
   setActiveTeam: mockfn
 };
+
 const teams = {
   isFetching: false,
   status: "success",

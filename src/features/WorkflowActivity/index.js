@@ -51,7 +51,9 @@ export class WorkflowActivity extends Component {
       workflowId: params.workflowId ? params.workflowId : undefined
     });
     this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
-    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`).catch(err => {
+      // noop
+    });
   }
 
   componentWillUnmount() {
@@ -59,7 +61,9 @@ export class WorkflowActivity extends Component {
   }
 
   fetchActivities = url => {
-    this.props.activityActions.fetch(url);
+    this.props.activityActions.fetch(url).catch(err => {
+      //noop
+    });
   };
 
   savePageSize = size => {

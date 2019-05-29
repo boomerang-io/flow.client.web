@@ -79,7 +79,9 @@ export class WorkflowInsights extends Component {
   };
   componentDidMount() {
     this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
-    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`).catch(err => {
+      // noop
+    });
   }
 
   getFetchQuery = () => {
@@ -96,17 +98,22 @@ export class WorkflowInsights extends Component {
 
   fetchInsights = url => {
     const { selectedWorkflow } = this.state;
-    this.props.insightsActions.fetch(url).then(response => {
-      if (response.status === 200) {
-        if (selectedWorkflow.value === "none") this.setState({ executionsList: response.data.executions });
-        else
-          this.setState({
-            executionsList: response.data.executions.filter(
-              execution => execution.workflowId === selectedWorkflow.value
-            )
-          });
-      }
-    });
+    this.props.insightsActions
+      .fetch(url)
+      .then(response => {
+        if (response.status === 200) {
+          if (selectedWorkflow.value === "none") this.setState({ executionsList: response.data.executions });
+          else
+            this.setState({
+              executionsList: response.data.executions.filter(
+                execution => execution.workflowId === selectedWorkflow.value
+              )
+            });
+        }
+      })
+      .catch(err => {
+        // noop
+      });
   };
 
   renderWidgets = () => {
