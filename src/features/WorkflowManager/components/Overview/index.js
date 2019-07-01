@@ -252,7 +252,7 @@ export class Overview extends Component {
               <div className="s-webhook-token-message">An API token will be generated on creation of the workflow.</div>
             )}
             {workflow.data.triggers && workflow.data.triggers.webhook.token && workflow.data.triggers.webhook.enable && (
-              <form className="b-webhook-token">
+              <form className="b-webhook-token" onSubmit={e => e.preventDefault()}>
                 <TextInput
                   disabled
                   externallyControlled
