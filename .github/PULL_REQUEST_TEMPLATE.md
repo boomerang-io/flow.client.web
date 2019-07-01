@@ -13,10 +13,11 @@ Build Number:
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If an item is not relevant to your change, you can put down "N/A" -->
 
-- [ ] Has been verified in an integrated environment
-- [ ] Has relevant unit and integration tests passing
-- [ ] Has no linting, test console, or browser console errors (best effort)
-- [ ] Has JSDoc comment blocks for complex code
+- [ ] Verified in an integrated environment
+- [ ] Unit and integration tests passing
+- [ ] Semantic HTML with accessibility support
+- [ ] No linting, test console, or browser console errors (best effort)
+- [ ] JSDoc comment blocks for complex code
 
 
 ## PR Review Guidance
