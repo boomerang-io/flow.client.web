@@ -299,7 +299,7 @@ export class Overview extends Component {
                   <AlertModal
                     theme="bmrg-white"
                     ModalTrigger={() => (
-                      <button className="b-webhook-token__generate">
+                      <button className="b-webhook-token__generate" type="button">
                         <img
                           src={refreshIcon}
                           className="b-webhook-token__icon"
