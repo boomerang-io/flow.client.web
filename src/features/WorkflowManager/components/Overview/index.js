@@ -261,7 +261,7 @@ export class Overview extends Component {
                   theme="bmrg-white"
                   type={this.state.tokenTextType}
                 />
-                <button className="b-img-button" onClick={this.handleShowToken}>
+                <button className="b-img-button" onClick={this.handleShowToken} type="button">
                   <img
                     className="b-webhook-token__icon"
                     src={eyeIcon}
@@ -278,6 +278,7 @@ export class Overview extends Component {
                     className="b-img-button"
                     onClick={() => this.setState({ copyTokenText: "Copied Token" })}
                     onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                    type="button"
                   >
                     <img
                       className="b-webhook-token__icon"
@@ -298,13 +299,15 @@ export class Overview extends Component {
                   <AlertModal
                     theme="bmrg-white"
                     ModalTrigger={() => (
-                      <img
-                        src={refreshIcon}
-                        className="b-webhook-token__icon"
-                        data-tip
-                        data-for="webhook-token-refreshIcon"
-                        alt="Regenerate token"
-                      />
+                      <button className="b-webhook-token__generate">
+                        <img
+                          src={refreshIcon}
+                          className="b-webhook-token__icon"
+                          data-tip
+                          data-for="webhook-token-refreshIcon"
+                          alt="Regenerate token"
+                        />
+                      </button>
                     )}
                     modalContent={(closeModal, rest) => (
                       <ConfirmModal
