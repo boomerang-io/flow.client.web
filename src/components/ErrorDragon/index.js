@@ -3,7 +3,9 @@ import ErrorDragonComponent from "@boomerang/boomerang-components/lib/ErrorDrago
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
 
 function ErrorDragon() {
-  return <ErrorDragonComponent includeReportBug={false} statusUrl={`${BASE_LAUNCH_ENV_URL}/status`} />;
+  return (
+    <ErrorDragonComponent includeReportBug={false} statusUrl={`${BASE_LAUNCH_ENV_URL}/status`} theme="bmrg-white" />
+  );
 }
 
 export default ErrorDragon;

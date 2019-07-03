@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import configureStore, { history } from "./store/configureStore";
+import configureStore from "./store/configureStore";
 import Root from "./Root";
 import "Config/axiosGlobalConfig";
 import "Styles/styles.scss";
@@ -8,7 +8,7 @@ import "Styles/styles.scss";
 const store = configureStore();
 
 // Setup hot module reloading to improve dev experience
-render(<Root store={store} history={history} />, document.getElementById("app"));
+render(<Root store={store} />, document.getElementById("app"));
 
 // if (module.hot) {
 //   module.hot.accept("./Root", () => {

@@ -12,13 +12,12 @@ jest.mock("./WidgetCard", () => "WidgetCard");
 jest.mock("Components/SearchFilterBar", () => "SearchFilterBar");
 jest.mock("Components/SimpleSelectFilter", () => "SimpleSelectFilter");
 
-const mockfn = jest.fn();
 const location = {};
 const insightsActions = {
   fetch: () => new Promise(resolve => resolve({ test: "test" }))
 };
 const teamsActions = {
-  fetch: mockfn
+  fetch: () => new Promise(() => {})
 };
 const teams = {
   isFetching: false,

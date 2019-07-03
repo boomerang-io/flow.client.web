@@ -23,14 +23,20 @@ class WorkflowEditorContainer extends Component {
     match: PropTypes.object.isRequired
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { match } = this.props;
     const { workflowId } = match.params;
-    this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`);
-    this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`);
-    this.props.changeLogActions.fetch(
-      `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog?size=10&page=0&sort=version&order=DESC`
-    );
+    try {
+      await Promise.all([
+        this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`),
+        this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`),
+        this.props.changeLogActions.fetch(
+          `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog?size=10&page=0&sort=version&order=DESC`
+        )
+      ]);
+    } catch (e) {
+      // noop
+    }
   }
 
   render() {

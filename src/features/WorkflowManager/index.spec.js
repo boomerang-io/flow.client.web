@@ -17,7 +17,7 @@ jest.mock("@boomerang/boomerang-components", () => ({
 const mockfn = jest.fn();
 
 const actions = {
-  fetch: mockfn,
+  fetch: () => new Promise(() => {}),
   reset: mockfn
 };
 const tasks = {

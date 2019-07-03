@@ -252,7 +252,7 @@ export class Overview extends Component {
               <div className="s-webhook-token-message">An API token will be generated on creation of the workflow.</div>
             )}
             {workflow.data.triggers && workflow.data.triggers.webhook.token && workflow.data.triggers.webhook.enable && (
-              <form className="b-webhook-token">
+              <form className="b-webhook-token" onSubmit={e => e.preventDefault()}>
                 <TextInput
                   disabled
                   externallyControlled
@@ -261,7 +261,7 @@ export class Overview extends Component {
                   theme="bmrg-white"
                   type={this.state.tokenTextType}
                 />
-                <button className="b-img-button" onClick={this.handleShowToken}>
+                <button className="b-img-button" onClick={this.handleShowToken} type="button">
                   <img
                     className="b-webhook-token__icon"
                     src={eyeIcon}
@@ -278,6 +278,7 @@ export class Overview extends Component {
                     className="b-img-button"
                     onClick={() => this.setState({ copyTokenText: "Copied Token" })}
                     onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                    type="button"
                   >
                     <img
                       className="b-webhook-token__icon"
@@ -298,13 +299,15 @@ export class Overview extends Component {
                   <AlertModal
                     theme="bmrg-white"
                     ModalTrigger={() => (
-                      <img
-                        src={refreshIcon}
-                        className="b-webhook-token__icon"
-                        data-tip
-                        data-for="webhook-token-refreshIcon"
-                        alt="Regenerate token"
-                      />
+                      <button className="b-webhook-token__generate" type="button">
+                        <img
+                          src={refreshIcon}
+                          className="b-webhook-token__icon"
+                          data-tip
+                          data-for="webhook-token-refreshIcon"
+                          alt="Regenerate token"
+                        />
+                      </button>
                     )}
                     modalContent={(closeModal, rest) => (
                       <ConfirmModal

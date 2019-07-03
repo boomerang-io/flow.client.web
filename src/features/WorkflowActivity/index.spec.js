@@ -6,13 +6,11 @@ import { WorkflowActivity } from "./index";
 
 jest.mock("Components/NavigateBack", () => "NavigateBack");
 
-const mockfn = jest.fn();
-
 const activityActions = {
-  fetch: mockfn
+  fetch: () => new Promise(() => {})
 };
 const teamsActions = {
-  fetch: mockfn
+  fetch: () => new Promise(() => {})
 };
 const match = {
   params: "testid"

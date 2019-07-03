@@ -1,21 +1,37 @@
 import React from "react";
 import { shallow } from "enzyme";
 import renderer from "react-test-renderer";
-import { actions as tasksActions } from "State/tasks";
-import { actions as workflowActions } from "State/workflow";
-import { actions as workflowExecutionActions } from "State/workflowExecution";
-import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { WorkflowExecutionContainer } from "./index";
 
 jest.mock("./Main", () => "Main");
 
 const match = { params: {} };
-
+const mockfn = jest.fn();
 const tasks = {
   isFetching: false,
   status: "",
   error: "",
   data: []
+};
+
+const tasksActions = {
+  fetch: () => new Promise(() => {}),
+  reset: mockfn
+};
+
+const workflowActions = {
+  fetch: () => new Promise(() => {}),
+  reset: mockfn
+};
+
+const workflowExecutionActions = {
+  fetch: () => new Promise(() => {}),
+  reset: mockfn
+};
+
+const workflowRevisionActions = {
+  fetch: () => new Promise(() => {}),
+  reset: mockfn
 };
 
 const workflow = {
