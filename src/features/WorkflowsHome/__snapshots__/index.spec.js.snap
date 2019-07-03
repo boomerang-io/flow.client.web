@@ -86,7 +86,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
           onClick={[Function]}
           onKeyDown={[Function]}
           role="listbox"
-          tabIndex={0}
+          tabIndex={null}
         >
           <div
             aria-expanded={false}
