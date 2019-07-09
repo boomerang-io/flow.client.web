@@ -60,7 +60,6 @@ const OnBoardGuide = props => {
       role="button"
       tabIndex="0"
     >
-      >
       <i className="b-onboard-screen-arrow--right" />
     </div>
   );
@@ -74,7 +73,6 @@ const OnBoardGuide = props => {
         role="button"
         tabIndex="0"
       >
-        >
         <CloseIcon className="b-onboard-screen-modal-close__img" />
       </div>
       <div className="b-onboard-screen-title">{title}</div>
