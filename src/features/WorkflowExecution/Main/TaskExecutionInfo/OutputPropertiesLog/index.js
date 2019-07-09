@@ -7,7 +7,18 @@ import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBo
 import Tab from "@boomerang/boomerang-components/lib/Tab";
 import Tabs from "@boomerang/boomerang-components/lib/Tabs";
 import PropertiesTable from "./PropertiesTable";
+import SettingsIcon from "@carbon/icons-react/lib/settings/16";
+
 import "./styles.scss";
+
+function OutputPropertiesTrigger() {
+  return (
+    <div className="b-activity__section">
+      <SettingsIcon className="b-activity-actions__icon" alt="Output Properties" />
+      <div className="b-activity-actions__text">OUTPUT PROPERTIES</div>
+    </div>
+  );
+}
 
 class OutputPropertiesLog extends React.Component {
   static propTypes = {
@@ -29,7 +40,7 @@ class OutputPropertiesLog extends React.Component {
     return (
       <Modal
         modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => <div className="s-task-log-trigger">Output Properties</div>}
+        ModalTrigger={OutputPropertiesTrigger}
         modalContent={(closeModal, rest) => (
           <ModalFlow
             style={{ display: "flex", flexDirection: "column", height: "auto" }}
