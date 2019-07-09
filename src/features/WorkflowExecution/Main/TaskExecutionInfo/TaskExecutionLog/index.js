@@ -6,7 +6,7 @@ import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import ViewIcon from "@carbon/icons-react/lib/view/16";
 import { LazyLog, ScrollFollow } from "react-lazylog";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import { BASE_SERVICE_URL, PRODUCT_SERVICE_ENV_URL } from "Config/servicesConfig";
 import "./styles.scss";
 
 TaskExecutionLog.propTypes = {
@@ -23,50 +23,6 @@ function LogViewerTrigger() {
     </div>
   );
 }
-
-/*class TaskExecutionLog extends React.Component {
-  static propTypes = {
-    flowActivityId: PropTypes.string.isRequired,
-    flowTaskId: PropTypes.string.isRequired,
-    flowTaskName: PropTypes.string.isRequired
-  };
-
-  render() {
-    const { flowActivityId, flowTaskId } = this.props;
-    return (
-      <Modal
-        modalProps={{ shouldCloseOnOverlayClick: false }}
-        className="bmrg--c-modal c-modal-task-log"
-        ModalTrigger={() => <div className="s-task-log-trigger">Log</div>}
-        modalContent={(closeModal, rest) => (
-          <ModalFlow
-            headerTitle="Execution Log"
-            headerSubtitle={this.props.flowTaskName}
-            closeModal={closeModal}
-            theme="bmrg-white"
-            {...rest}
-          >
-            <ScrollFollow
-              startFollowing={true}
-              render={({ follow, onScroll }) => (
-                <LazyLog
-                  url={`${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`}
-                  follow={follow}
-                  onScroll={onScroll}
-                  fetchOptions={{
-                    credentials: "include"
-                  }}
-                  onError={err => console.log(err)}
-                  selectableLines={true}
-                />
-              )}
-            />
-          </ModalFlow>
-        )}
-      />
-    );
-  }
-}*/
 
 export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskName }) {
   const [follow, setFollow] = React.useState(true);
@@ -106,16 +62,21 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
 
                 <LazyLog
                   enableSearch={true}
-                  fetchOptions={{
-                    credentials: "include"
-                  }}
+                  fetchOptions={
+                    PRODUCT_SERVICE_ENV_URL === "http://localhost:8000"
+                      ? { credentials: "omit" }
+                      : { credentials: "include" }
+                  }
                   follow={follow}
                   onScroll={onScroll}
                   onError={err => setError(err)}
                   selectableLines={true}
                   stream={true}
-                  url={`${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`}
-                  //fetchOptions={{ credentials: "same-origin" }}
+                  url={
+                    PRODUCT_SERVICE_ENV_URL === "http://localhost:8000"
+                      ? "https://gist.githubusercontent.com/helfi92/96d4444aa0ed46c5f9060a789d316100/raw/ba0d30a9877ea5cc23c7afcd44505dbc2bab1538/typical-live_backing.log"
+                      : `${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`
+                  }
                 />
               </>
             )}
