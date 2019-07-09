@@ -1,38 +1,86 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~@boomerang/boomerang-styles/lib/base";
 
 .c-modal-task-log {
   max-width: 70rem;
   max-height: 50rem;
 
+  h1 {
+    margin: 0;
+  }
+
+  .bmrg--b-modal-flow-header {
+    margin: 1.875rem auto;
+  }
+
   .bmrg--c-modal-flow-content {
     margin-bottom: 2rem;
   }
-}
 
-.s-task-log-trigger {
-  cursor: pointer;
-  color: $cerulean-40;
-}
-
-.c-task-log-viewer {
-  height: 30rem;
-}
-
-.react-lazylog {
-  padding: 1rem 1rem 1rem 0rem;
-
-  ::-webkit-scrollbar-thumb {
-    background-color: $gray-20;
+  .react-lazylog-searchbar {
+    padding: 0.625rem;
+    font-family: $font-family;
   }
 
-  ::-webkit-scrollbar-thumb:hover,
-  ::-webkit-scrollbar-thumb:active {
-    background-color: $gray-20;
+  .react-lazylog-searchbar-input {
+    border-radius: 0.125rem;
+    color: white;
+    letter-spacing: 0.0625rem;
+    font-family: $font-family;
+    font-size: 0.75rem;
+    &:active {
+      outline: none;
+    }
   }
 
-  a {
-    width: 1.25rem;
-    min-width: 1.25rem;
+  .react-lazylog-searchbar-matches {
+    color: white;
+    font-family: $font-family;
+    font-size: 0.75rem;
+    letter-spacing: 0.0625rem;
+    min-width: 80px;
+  }
+
+  .react-lazylog {
+    color: white;
+    padding: 1rem 1rem 1rem 0;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .b-task-log-toggle {
+    align-items: center;
+    display: flex;
+    position: absolute;
+    line-height: 1.5;
+    padding: 0.625rem;
+    right: 345px;
+  }
+
+  .b-task-log-toggle__text {
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.0625rem;
     margin-right: 0.5rem;
+    &.--disabled {
+      opacity: 0.5;
+    }
   }
+}
+
+.b-activity__section {
+  cursor: pointer;
+  margin: 0 0.625rem;
+  text-align: center;
+}
+
+.b-activity-actions__text {
+  color: #047cc0;
+  font-size: 0.7rem;
+  line-height: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+  text-transform: uppercase;
 }
