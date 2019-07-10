@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Navbar from "./Navbar";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { actions as OnBoardActions } from "State/onBoard";
 //import "./styles.scss";
 
 class Navigation extends Component {
@@ -12,6 +15,7 @@ class Navigation extends Component {
     this.setState({
       showFirstTimeExperience: true
     });
+    this.props.OnBoardActions.showOnBoardExp();
   };
 
   render() {
@@ -29,4 +33,21 @@ class Navigation extends Component {
   }
 }
 
-export default withRouter(Navigation);
+const mapStateToProps = state => {
+  return {
+    onBoard: state.onBoard
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    OnBoardActions: bindActionCreators(OnBoardActions, dispatch)
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Navigation)
+);
