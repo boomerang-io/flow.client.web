@@ -10,7 +10,7 @@
     "@boomerang/boomerang-styles": "1.0.0",
     "@boomerang/boomerang-utilities": "2.2.0",
     "@boomerang/carbon-addons-boomerang": "0.0.26",
-    "@boomerang/carbon-addons-boomerang-react": "0.0.46",
+    "@boomerang/carbon-addons-boomerang-react": "0.0.47",
     "axios": "0.18.0",
     "carbon-components": "^9.91.0",
     "carbon-components-react": "^6.114.0",
