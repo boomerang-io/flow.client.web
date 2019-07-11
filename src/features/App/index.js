@@ -47,8 +47,8 @@ class App extends Component {
     try {
       await Promise.all([
         this.props.userActions.fetchUser(`${BASE_USERS_URL}/profile`),
-        this.props.navigationActions.fetchNavigation(`${BASE_USERS_URL}/navigation`)
-        this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`);
+        this.props.navigationActions.fetchNavigation(`${BASE_USERS_URL}/navigation`),
+        this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`)
       ]);
     } catch (e) {
       // noop
