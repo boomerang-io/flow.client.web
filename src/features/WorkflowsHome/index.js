@@ -4,7 +4,6 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
-import { actions as importWorkflowActions } from "State/importWorkflow";
 import { actions as appActions } from "State/app";
 import sortBy from "lodash/sortBy";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
@@ -18,11 +17,9 @@ import "./styles.scss";
 
 export class WorkflowsHome extends Component {
   static propTypes = {
-    teams: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
-    importWorkflow: PropTypes.object.isRequired,
     appActions: PropTypes.object.isRequired,
-    importWorkflowActions: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    teamsState: PropTypes.object.isRequired,
     teamsActions: PropTypes.object.isRequired
   };
 
@@ -47,13 +44,13 @@ export class WorkflowsHome extends Component {
   };
 
   filterTeams = () => {
-    const { teams } = this.props;
+    const { teamsState } = this.props;
     const { teamsFilter } = this.state;
 
     if (teamsFilter.length > 0) {
-      return teams.data.filter(team => teamsFilter.find(filter => filter.text === team.name));
+      return teamsState.data.filter(team => teamsFilter.find(filter => filter.text === team.name));
     } else {
-      return teams.data;
+      return teamsState.data;
     }
   };
 
@@ -65,6 +62,7 @@ export class WorkflowsHome extends Component {
     this.props.appActions.setActiveTeam({ teamId: selectedTeamId });
     this.props.history.push(`/creator/overview`);
   };
+
   setActiveTeam = selectedTeamId => {
     this.props.appActions.setActiveTeam({ teamId: selectedTeamId });
   };
@@ -90,7 +88,7 @@ export class WorkflowsHome extends Component {
     axios
       .delete(`${BASE_SERVICE_URL}/workflow/${workflowId}`)
       .then(() => {
-        notify(<Notification type="remove" title="SUCCESS" message="Workflow successfully deleted" />);
+        notify(<Notification type="remove" title="Delete Workflow" message="Workflow successfully deleted" />);
         this.updateWorkflows({ workflowId, teamId });
         return;
       })
@@ -100,23 +98,15 @@ export class WorkflowsHome extends Component {
       });
   };
 
-  handleImportWorkflow = (data, isUpdate) => {
-    this.props.importWorkflowActions
-      .post(`${BASE_SERVICE_URL}/workflow/import?update=${isUpdate}`, JSON.parse(data))
-      .catch(err => {
-        // noop
-      });
-  };
-
   render() {
-    const { teams, importWorkflow } = this.props;
+    const { teamsState } = this.props;
     const { searchQuery } = this.state;
 
-    if (teams.status === REQUEST_STATUSES.FAILURE) {
+    if (teamsState.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-white" />;
     }
 
-    if (teams.isFetching) {
+    if (teamsState.isFetching) {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
@@ -126,7 +116,7 @@ export class WorkflowsHome extends Component {
       );
     }
 
-    if (teams.status === REQUEST_STATUSES.SUCCESS) {
+    if (teamsState.status === REQUEST_STATUSES.SUCCESS) {
       const filteredTeams = this.filterTeams();
       const sortedTeams = sortBy(filteredTeams, ["name"]);
 
@@ -143,21 +133,19 @@ export class WorkflowsHome extends Component {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
-            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} options={teams.data} />
+            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} options={teamsState.data} />
             {sortedTeams.map(team => {
               return (
                 <WorkflowsSection
-                  team={team}
-                  importWorkflow={importWorkflow}
-                  searchQuery={searchQuery}
-                  updateWorkflows={this.updateWorkflows}
-                  fetchTeams={this.fetchTeams}
-                  setActiveTeamAndRedirect={this.setActiveTeamAndRedirect}
-                  setActiveTeam={this.setActiveTeam}
                   key={team.id}
-                  handleImportWorkflow={this.handleImportWorkflow}
-                  executeWorkflow={this.handleExecuteWorkflow}
                   deleteWorkflow={this.handleDeleteWorkflow}
+                  executeWorkflow={this.handleExecuteWorkflow}
+                  fetchTeams={this.fetchTeams}
+                  setActiveTeam={this.setActiveTeam}
+                  setActiveTeamAndRedirect={this.setActiveTeamAndRedirect}
+                  searchQuery={searchQuery}
+                  team={team}
+                  updateWorkflows={this.updateWorkflows}
                 />
               );
             })}
@@ -171,13 +159,11 @@ export class WorkflowsHome extends Component {
 }
 
 const mapStateToProps = state => ({
-  teams: state.teams,
-  importWorkflow: state.importWorkflow
+  teamsState: state.teams
 });
 
 const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch),
-  importWorkflowActions: bindActionCreators(importWorkflowActions, dispatch),
   teamsActions: bindActionCreators(teamsActions, dispatch)
 });
 

@@ -41,13 +41,15 @@ export default class Tasks extends Component {
     //Iterate through all of the categories and render header with associated tasks
     const uniqueCategories = Object.keys(catgegoriesWithTasks);
     return uniqueCategories.map(category => (
-      <div className={classNames("b-task-category", { [`--${category}`]: category })} key={category}>
+      <section className={classNames("b-task-category", { [`--${category}`]: category })} key={category}>
         <h3 className={classNames("b-task-category__header", { [`--${category}`]: category })}>{category}</h3>
 
-        {catgegoriesWithTasks[category].map(task => (
-          <Task model={{ type: task.id, name: task.name, taskData: task }} name={task.name} key={task.id} />
-        ))}
-      </div>
+        <ul role="listbox">
+          {catgegoriesWithTasks[category].map(task => (
+            <Task model={{ type: task.id, name: task.name, taskData: task }} name={task.name} key={task.id} />
+          ))}
+        </ul>
+      </section>
     ));
   };
 

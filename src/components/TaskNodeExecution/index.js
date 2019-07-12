@@ -9,7 +9,6 @@ import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import mapTaskNametoIcon from "Utilities/taskIcons";
 import { Icon } from "carbon-components-react";
 import "./styles.scss";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 export class TaskNodeExecution extends Component {
   static propTypes = {
@@ -38,13 +37,7 @@ export class TaskNodeExecution extends Component {
     const flowTaskStatus = this.props.step ? this.props.step.flowTaskStatus : "";
 
     return (
-      <div
-        className="c-taskNode"
-        onClick={this.handleOnActivityClick}
-        onKeyDown={e => isAccessibleEvent(e) && this.handleOnActivityClick()}
-        role="button"
-        tabindex="0"
-      >
+      <div className="c-taskNode">
         <div
           className={classnames("b-task-node", {
             [`--${flowTaskStatus}`]: flowTaskStatus

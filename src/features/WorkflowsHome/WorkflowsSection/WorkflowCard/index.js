@@ -82,25 +82,29 @@ class WorkflowCard extends Component {
 
     return (
       <div className="c-workflow-card">
-        <div className="c-workflow-card__header">
-          {/* <div className="c-workflow-card__status">
+        {/* <div className="c-workflow-card__status">
             <div className={`b-workflow-card__circle --${workflow.status}`} />
             <label className="b-workflow-card__status">{workflow.status}</label>
           </div> */}
-          <OverflowMenu className="b-workflow-card__menu" ariaLabel="card menu" iconDescription="overflow menu icon ">
-            {menuOptions.map(option => (
-              <OverflowMenuItem
-                className="b-workflow-card__option"
-                requireTitle={false}
-                closeMenu={() => {}}
-                onClick={option.onClick}
-                itemText={option.itemText}
-                primaryFocus={option.primaryFocus}
-                key={option.itemText}
-              />
-            ))}
-          </OverflowMenu>
-        </div>
+        <OverflowMenu
+          className="b-workflow-card__menu"
+          ariaLabel="card menu"
+          iconDescription="overflow menu icon"
+          style={{ position: "absolute", right: "0" }}
+          floatingMenu={true}
+        >
+          {menuOptions.map(option => (
+            <OverflowMenuItem
+              className="b-workflow-card__option"
+              requireTitle={false}
+              closeMenu={() => {}}
+              onClick={option.onClick}
+              itemText={option.itemText}
+              primaryFocus={option.primaryFocus}
+              key={option.itemText}
+            />
+          ))}
+        </OverflowMenu>
         {this.state.deleteModalIsOpen && (
           <AlertModal
             isOpen
@@ -136,7 +140,9 @@ class WorkflowCard extends Component {
                 <Modal
                   modalProps={{ shouldCloseOnOverlayClick: false }}
                   ModalTrigger={() => (
-                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                    <button>
+                      <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                    </button>
                   )}
                   modalContent={(closeModal, rest) => (
                     <ModalFlow
@@ -160,7 +166,9 @@ class WorkflowCard extends Component {
                   className="bmrg--c-alert-modal --execute-workflow"
                   modalProps={{ shouldCloseOnOverlayClick: false }}
                   ModalTrigger={() => (
-                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                    <button>
+                      <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                    </button>
                   )}
                   modalContent={closeModal => (
                     <ConfirmModal
