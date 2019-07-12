@@ -5,11 +5,16 @@ import Header from "@boomerang/boomerang-components/lib/ModalContentHeader";
 import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import ConfirmEdit from "@boomerang/boomerang-components/lib/ModalConfirmEdit";
+import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
+import Error from "@boomerang/boomerang-components/lib/Error";
 import { options } from "Constants/importWorkflowOptions";
+import { REQUEST_STATUSES } from "Config/servicesConfig";
 
 class ImportConfirm extends Component {
   static propTypes = {
-    handleImportWorkflow: PropTypes.func.isRequired
+    handleImportWorkflow: PropTypes.func.isRequired,
+    importWorkflowActions: PropTypes.object.isRequired,
+    importWorkflowState: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -22,16 +27,60 @@ class ImportConfirm extends Component {
     let reader = new FileReader();
     reader.onload = e => {
       let contents = e.target.result;
-      this.props.handleImportWorkflow(contents, this.props.formData.isUpdate);
+      this.props.handleImportWorkflow(contents, this.props.formData.isUpdate, this.props.closeModal);
     };
     reader.readAsText(file);
-    this.props.shouldConfirmExit(false);
-    this.props.requestNextStep();
   };
 
   render() {
     const confirmUpdate = [this.props.formData.isUpdate ? "Update Workflow" : "New Workflow"];
     const confirmAttachment = [this.props.formData.files[0].name];
+
+    if (this.props.importWorkflowState.isPosting === true) {
+      return (
+        <Body
+          style={{
+            height: "26rem",
+            width: "36rem",
+            margin: "auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            alignItems: "center"
+          }}
+        >
+          <LoadingAnimation theme="bmrg-white" />
+        </Body>
+      );
+    }
+
+    if (this.props.importWorkflowState.status === REQUEST_STATUSES.FAILURE) {
+      return (
+        <form
+          onSubmit={() => {
+            this.props.importWorkflowActions.reset();
+            this.props.goToStep(options.IMPORT_WORKFLOW_TYPE);
+          }}
+        >
+          <Body
+            style={{
+              height: "26rem",
+              width: "36rem",
+              margin: "auto",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              alignItems: "center"
+            }}
+          >
+            <Error theme="bmrg-white" />
+          </Body>
+          <Footer>
+            <ConfirmButton text="Try again?" theme="bmrg-white" />
+          </Footer>
+        </form>
+      );
+    }
 
     return (
       <form onSubmit={this.handleSubmit}>

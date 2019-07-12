@@ -41,7 +41,7 @@ class MultiStateButton extends Component {
     const { modelId } = this.props;
     return (
       <div xmlns={this.props.xmlns}>
-        <button className="b-img-button" onClick={this.handleOnClick}>
+        <button onClick={this.handleOnClick}>
           <img
             src={executionConditionConfig.img}
             className="b-multistate-button"

@@ -15,8 +15,7 @@
 
   .bx--overflow-menu {
     &:focus {
-      outline: none;
-      box-shadow: none;
+      box-shadow: 0 0 0 1px $teal-20;
     }
   }
   .bx--overflow-menu__icon {

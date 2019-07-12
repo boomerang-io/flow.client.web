@@ -36,7 +36,7 @@ class ActivityList extends Component {
           pageStart={0}
           loadMore={this.loadMoreActivities}
           hasMore={hasMoreActivities && !isLoading}
-          loader={<LoadingAnimation className="s-activities-loading" />}
+          loader={<LoadingAnimation className="s-activities-loading" theme="brmg-white" />}
           useWindow={true}
         >
           {!activities.length && !hasMoreActivities && !isLoading ? (
