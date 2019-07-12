@@ -4,7 +4,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import queryString from "query-string";
-import { MultiSelect } from "carbon-components-react";
+import { MultiSelect, DropdownV2 as Dropdown } from "carbon-components-react";
 import { actions as activityActions } from "State/activity";
 import { actions as teamsActions } from "State/teams";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
@@ -12,8 +12,6 @@ import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import orderBy from "lodash/orderBy";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
-import SearchFilterBar from "Components/SearchFilterBar";
-import SimpleSelectFilter from "Components/SimpleSelectFilter";
 import { executionOptions, statusOptions } from "Constants/filterOptions";
 import ActivityList from "./ActivityList";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -40,7 +38,7 @@ export class WorkflowActivity extends Component {
     hasMoreActivities: null,
     nextPage: 1,
     isLoading: false,
-    selectedTeam: { value: "none", label: "All" }
+    selectedTeams: []
   };
 
   componentDidMount() {
@@ -51,9 +49,14 @@ export class WorkflowActivity extends Component {
       workflowId: params.workflowId ? params.workflowId : undefined
     });
     this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
-    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`).catch(err => {
-      // noop
-    });
+    this.props.teamsActions
+      .fetch(`${BASE_SERVICE_URL}/teams`)
+      .then(res => {
+        this.setState({ selectedTeams: res.data }); /** Set initial selected teams */
+      })
+      .catch(err => {
+        // noop
+      });
   }
 
   componentWillUnmount() {
@@ -70,13 +73,13 @@ export class WorkflowActivity extends Component {
     this.setState({ tableSize: size });
   };
 
-  handleSearchFilter = (searchQuery, workflowId) => {
-    this.setState({ searchQuery, workflowId, activityList: [], hasMoreActivities: null, nextPage: 1 });
+  handleSelectWorkflows = workflow => {
+    const workflowId = workflow.selectedItem.id;
+    this.setState({ workflowId, activityList: [], hasMoreActivities: null, nextPage: 1 });
     const query = queryString.stringify({
       size: this.state.tableSize,
       page: 0,
-      workflowId: workflowId !== "none" ? workflowId : undefined,
-      query: searchQuery !== "" ? searchQuery : undefined
+      workflowId: workflowId !== "none" ? workflowId : undefined
     });
     this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
   };
@@ -93,12 +96,9 @@ export class WorkflowActivity extends Component {
     this.setState({ hasMoreActivities: last });
   };
 
-  handleChangeTeam = team => {
-    const teamId = team.target.value;
-    const selectedTeam = this.props.teams.data.find(team => team.id === teamId);
+  handleSelectTeams = teams => {
     this.setState({
-      selectedTeam:
-        teamId === "none" ? { value: "none", label: "All teams" } : { value: selectedTeam.id, label: selectedTeam.name }
+      selectedTeams: teams.selectedItems
     });
   };
 
@@ -155,11 +155,17 @@ export class WorkflowActivity extends Component {
   };
 
   applyTeamFilter = activities => {
-    const { selectedTeam } = this.state;
-    if (selectedTeam.value !== "none") {
-      let filteredActivities = activities.filter(activity => activity.teamName === selectedTeam.label);
-      return filteredActivities;
-    } else return activities;
+    const { selectedTeams } = this.state;
+    const filteredActivities = activities.filter(activity => {
+      let keepActivity = false;
+      selectedTeams.forEach(selectedTeam => {
+        if (activity.teamName === selectedTeam.name) {
+          keepActivity = true;
+        }
+      });
+      return keepActivity;
+    });
+    return filteredActivities;
   };
 
   loadMoreActivities = nextPage => {
@@ -199,7 +205,7 @@ export class WorkflowActivity extends Component {
       hasMoreActivities,
       nextPage,
       isLoading,
-      selectedTeam,
+      selectedTeams,
       //executionFilter
       emptyActivities
     } = this.state;
@@ -210,11 +216,9 @@ export class WorkflowActivity extends Component {
 
     if (activity.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
       // const filteredActivities = this.filterActivity();
-      const teamsList = [{ value: "none", label: "All teams" }].concat(
-        teams.data.map(team => ({ label: team.name, value: team.id }))
-      );
+      const teamsList = JSON.parse(JSON.stringify(teams.data));
       let workflowsList = [];
-      teams.data.forEach(team => (workflowsList = workflowsList.concat(team.workflows)));
+      selectedTeams.forEach(team => (workflowsList = workflowsList.concat(team.workflows)));
       const workflowsFilter = sortByProp(workflowsList, "name", "ASC");
 
       return (
@@ -227,18 +231,27 @@ export class WorkflowActivity extends Component {
           </nav>
           <div className="c-workflow-activity-content">
             <div className="c-workflow-activity-header">
-              <SimpleSelectFilter onChange={this.handleChangeTeam} selectedOption={selectedTeam} options={teamsList} />
-              <SearchFilterBar
-                handleSearchFilter={this.handleSearchFilter}
-                options={
-                  selectedTeam.value !== "none" ? teams.data.filter(team => team.id === selectedTeam.value) : teams.data
-                }
-                filterItems={workflowsFilter}
-                debounceTimeout={300}
-                multiselect={false}
-                selectedOption={match.params.workflowId}
-                searchbar={false}
+              <MultiSelect
+                useTitleInItem={false}
+                label="Teams"
+                invalid={false}
+                onChange={this.handleSelectTeams}
+                items={teamsList}
+                itemToString={team => (team ? team.name : "")}
+                initialSelectedItems={teamsList}
               />
+              <div>
+                <Dropdown
+                  placeholder="Workflows"
+                  onChange={this.handleSelectWorkflows}
+                  items={[...workflowsFilter, { id: "none", name: "All Workflows" }]}
+                  itemToString={workflow => {
+                    const team = selectedTeams.find(selectedTeam => selectedTeam.id === workflow.flowTeamId);
+                    return workflow ? (team ? `${workflow.name}[${team.name}]` : workflow.name) : "";
+                  }}
+                  initialSelectedItem={{ id: "none", name: "All Workflows" }}
+                />
+              </div>
               <MultiSelect
                 useTitleInItem={false}
                 label="Trigger"

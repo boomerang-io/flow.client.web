@@ -239,6 +239,7 @@
           "description": "blablabla",
           "status": "published",
           "icon": "utility",
+          "flowTeamId": "1234",
           "properties": [
             {
               "defaultValue": "test",
@@ -264,14 +265,16 @@
           "name": "lucas-workflow-2",
           "description": "blablabla",
           "status": "published",
-          "icon": "utility"
+          "icon": "utility",
+          "flowTeamId": "1234"
         },
         {
           "id": "789",
           "name": "lucas-workflow-3",
           "description": "blablabla",
           "status": "draft",
-          "icon": "secure"
+          "icon": "secure",
+          "flowTeamId": "1234"
         }
       ]
     },
@@ -285,6 +288,7 @@
           "description": "blablabla",
           "status": "published",
           "icon": "log",
+          "flowTeamId": "5678",
           "inputs": [
             {
               "description": "A boolean parameter",
@@ -309,6 +313,7 @@
           "description": "blablabla",
           "status": "draft",
           "icon": "template",
+          "flowTeamId": "5678",
           "inputs": [
             {
               "description": "A boolean parameter",
@@ -339,6 +344,7 @@
           "description": "blablabla",
           "status": "published",
           "icon": "docs",
+          "flowTeamId": "9012",
           "inputs": [
             {
               "description": "Jira REST API URL",
@@ -388,6 +394,7 @@
           "description": "blablabla",
           "status": "published",
           "icon": "flow",
+          "flowTeamId": "9012",
           "inputs": []
         }
       ]
