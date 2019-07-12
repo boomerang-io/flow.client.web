@@ -49,7 +49,7 @@ class VersionCommentForm extends Component {
 
     return (
       <>
-        <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "28rem", padding: "2rem" }}>
+        <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "24rem", padding: "2rem" }}>
           {this.state.saveError ? (
             <Error theme="bmrg-white" />
           ) : (
