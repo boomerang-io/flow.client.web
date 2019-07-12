@@ -36,7 +36,8 @@ const onMenuClick = ({ isOpen, onMenuClose }) => (
 const defaultUIShellProps = {
   baseServiceUrl: BASE_URL,
   renderLogo: true,
-  onMenuClick: onMenuClick
+  onMenuClick: onMenuClick,
+  baseLaunchEnvUrl: BASE_LAUNCH_ENV_URL
 };
 
 class NavbarContainer extends Component {
