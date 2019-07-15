@@ -4,7 +4,6 @@ import cx from "classnames";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
-import ViewIcon from "@carbon/icons-react/lib/view/16";
 import { LazyLog, ScrollFollow } from "react-lazylog";
 import { BASE_SERVICE_URL, PRODUCT_SERVICE_ENV_URL } from "Config/servicesConfig";
 import "./styles.scss";
@@ -15,15 +14,6 @@ TaskExecutionLog.propTypes = {
   flowTaskName: PropTypes.string.isRequired
 };
 
-function LogViewerTrigger() {
-  return (
-    <div className="b-activity__section">
-      <ViewIcon className="b-activity-actions__icon" alt="View Log" />
-      <div className="b-activity-actions__text">VIEW LOG</div>
-    </div>
-  );
-}
-
 export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskName }) {
   const [follow, setFollow] = React.useState(true);
   const [error, setError] = React.useState(false);
@@ -33,7 +23,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
       className={cx("bmrg--c-modal", "c-modal-task-log")}
       modalProps={{ shouldCloseOnOverlayClick: false }}
       modalTriggerProps={{ tabIndex: "0" }}
-      ModalTrigger={LogViewerTrigger}
+      ModalTrigger={() => <div className="s-task-log-trigger">View Log</div>}
       modalContent={(closeModal, rest) => (
         <ModalFlow
           headerTitle="Execution Log"
