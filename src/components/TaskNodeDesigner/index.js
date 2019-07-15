@@ -50,7 +50,11 @@ export class TaskNode extends Component {
     return (
       <Modal
         modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => <img src={pencilIcon} className="b-task-node__edit" alt="Task node type" />}
+        ModalTrigger={() => (
+          <button className="b-task-node__edit">
+            <img src={pencilIcon} alt="Task node type" />
+          </button>
+        )}
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={`Edit properties for ${this.props.task.name}`}

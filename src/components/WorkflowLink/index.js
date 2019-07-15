@@ -60,6 +60,7 @@ class CustomLink extends Component {
               <foreignObject
                 width="2.875rem"
                 height="2.875rem"
+                padding="0.125rem"
                 requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
               >
                 <CloseModalButton onClick={this.handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />

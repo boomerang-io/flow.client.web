@@ -22,7 +22,7 @@ const appActions = {
   setActiveTeam: mockfn
 };
 
-const teams = {
+const teamsState = {
   isFetching: false,
   status: "success",
   error: "",
@@ -35,7 +35,7 @@ describe("WorkflowsHome --- Snapshot", () => {
       .create(
         <MemoryRouter>
           <WorkflowsHome
-            teams={teams}
+            teamsState={teamsState}
             appActions={appActions}
             teamsActions={teamsActions}
             history={{}}
@@ -56,7 +56,7 @@ describe("WorkflowsHome --- Shallow render", () => {
     wrapper = shallow(
       <MemoryRouter>
         <WorkflowsHome
-          teams={teams}
+          teamsState={teamsState}
           appActions={appActions}
           teamsActions={teamsActions}
           history={{}}

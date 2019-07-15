@@ -88,7 +88,7 @@ export class WorkflowInsights extends Component {
     const { selectedTeam, selectedTimeframe } = this.state;
     const query = queryString.stringify({
       fromDate: moment()
-        .subtract("days", selectedTimeframe.value)
+        .subtract(selectedTimeframe.value, "days")
         .format("x"),
       toDate: moment().format("x"),
       teamId: selectedTeam.value === "none" ? undefined : selectedTeam.value

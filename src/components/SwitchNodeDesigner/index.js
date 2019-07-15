@@ -49,7 +49,11 @@ export class SwitchNode extends Component {
     return (
       <Modal
         modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => <img src={pencilIcon} className="b-switchNode__edit" alt="Task node type" />}
+        ModalTrigger={() => (
+          <button className="b-switchNode__edit">
+            <img src={pencilIcon} alt="Task node type" />
+          </button>
+        )}
         modalContent={(closeModal, ...rest) => (
           <ModalFlow
             headerTitle={this.props.task.name}
@@ -89,7 +93,9 @@ export class SwitchNode extends Component {
         <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-switchNode-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
-        <img src={switchSVG} className="b-switchNode__img" alt="Task node type" />
+        <button>
+          <img src={switchSVG} className="b-switchNode__img" alt="Task node type" />
+        </button>
         {this.renderConfigureNode()}
       </div>
     );
