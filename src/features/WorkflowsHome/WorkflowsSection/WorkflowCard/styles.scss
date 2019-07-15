@@ -9,9 +9,13 @@
   min-width: 22rem;
   width: 22rem;
   border-radius: 0.25rem;
-  margin: 1rem;
+  margin: 1rem 0.75rem;
   height: 9.5rem;
   position: relative;
+
+  &:first-of-type {
+    margin-left: 0rem;
+  }
 
   .bx--overflow-menu {
     &:focus {
@@ -41,9 +45,9 @@
 
   .bx--overflow-menu-options__option {
     min-width: 11.125rem;
-    &:hover {
-      background-color: $cool-gray-1;
-    }
+    // &:hover {
+    //   background-color: $cool-gray-1;
+    // }
   }
 }
 .c-workflow-card__header {
@@ -72,8 +76,7 @@
     background-color: $gray-20;
   }
 }
-.b-workflow-card__menu {
-}
+
 .c-workflow-card__info {
   display: flex;
   justify-content: space-between;

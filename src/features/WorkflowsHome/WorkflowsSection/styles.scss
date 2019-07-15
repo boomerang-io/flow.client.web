@@ -19,12 +19,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
 }
 .b-workflow-section__team {
   margin-left: 1rem;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin: 0rem;
+  letter-spacing: 0.0625rem;
 }
 .b-workflow-section__button {
   margin-right: 1rem;
@@ -38,7 +39,7 @@
   border: none;
   background: none;
   cursor: pointer;
-  margin: 1rem;
+  margin: 1rem 0.75rem;
   padding: 0rem;
 }
 
@@ -50,11 +51,12 @@
   height: 9.325rem;
   border-radius: 0.25rem;
   border: 0.125rem dashed $cool-gray-20;
+  position: relative;
 }
 
 .b-workflow-placeholder__text {
-  font-size: 4rem;
-  line-height: 4rem;
+  font-size: 3.5rem;
+  line-height: 1rem;
   font-weight: 200;
   color: $cool-gray-50;
 }

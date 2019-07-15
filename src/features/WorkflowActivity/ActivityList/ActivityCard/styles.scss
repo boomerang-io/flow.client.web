@@ -10,7 +10,7 @@
   height: 7.5rem;
   border: solid 0.05rem $teal-20;
   border-radius: 0.25rem;
-  margin: 1.5rem 0rem;
+  margin: 0.75rem 0rem;
   cursor: pointer;
   &.--completed {
     border-color: $teal-20;
@@ -111,14 +111,14 @@
 }
 .b-activity-card__name {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 0.5rem;
 }
 
 .b-activity-card__label {
   min-width: 6rem;
   line-height: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

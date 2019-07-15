@@ -9,9 +9,10 @@
 
 .s-workflow-summary-title {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5rem;
   margin-left: 1rem;
+  letter-spacing: 0.0625rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -43,9 +44,6 @@
   text-align: left;
   display: flex;
   align-items: center;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 
   img {
     margin-left: 1rem;
