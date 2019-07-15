@@ -1,92 +1,92 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
-<div
+<aside
   className="c-step-side-info"
 >
-  <div
+  <h1
     className="s-step-side-info-title"
   >
     test task
-  </div>
-  <div
+  </h1>
+  <section
     className="c-step-side-info-details"
   >
-    <div
+    <dl
       className="b-step-side-info-field"
     >
-      <div
+      <dt
         className="b-step-side-info-field__key"
       >
         Type
-      </div>
-      <div
+      </dt>
+      <dd
         className="b-step-side-info-field__value"
       >
         Task
-      </div>
-    </div>
-    <div
+      </dd>
+    </dl>
+    <dl
       className="b-step-side-info-field"
     >
-      <div
+      <dt
         className="b-step-side-info-field__key"
       >
         Status
-      </div>
-      <div
+      </dt>
+      <dd
         className="b-step-side-info-field__value"
       >
         <img
           alt="Status"
         />
-      </div>
-    </div>
-    <div
+      </dd>
+    </dl>
+    <dl
       className="b-step-side-info-field"
     >
-      <div
+      <dt
         className="b-step-side-info-field__key"
       >
         Start Time
-      </div>
-      <div
+      </dt>
+      <dd
         className="b-step-side-info-field__value"
       >
         January 1st 2019, 12:00:00 am
-      </div>
-    </div>
-    <div
+      </dd>
+    </dl>
+    <dl
       className="b-step-side-info-field"
     >
-      <div
+      <dt
         className="b-step-side-info-field__key"
       >
         Duration
-      </div>
-      <div
+      </dt>
+      <dd
         className="b-step-side-info-field__value"
       >
         ---
-      </div>
-    </div>
-    <div
+      </dd>
+    </dl>
+    <dl
       className="b-step-side-info-field"
     >
-      <div
+      <dt
         className="b-step-side-info-field__key"
       >
         Log
-      </div>
-      <div
+      </dt>
+      <dd
         className="b-step-side-info-field__value"
       >
         <TaskExecutionLog
           flowActivityId="1"
           flowTaskName="test task"
         />
-      </div>
-    </div>
-  </div>
-</div>
+      </dd>
+    </dl>
+  </section>
+</aside>
 `;

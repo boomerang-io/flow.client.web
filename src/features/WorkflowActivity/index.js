@@ -247,7 +247,7 @@ export class WorkflowActivity extends Component {
                   items={[...workflowsFilter, { id: "none", name: "All Workflows" }]}
                   itemToString={workflow => {
                     const team = selectedTeams.find(selectedTeam => selectedTeam.id === workflow.flowTeamId);
-                    return workflow ? (team ? `${workflow.name}[${team.name}]` : workflow.name) : "";
+                    return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
                   }}
                   initialSelectedItem={{ id: "none", name: "All Workflows" }}
                 />

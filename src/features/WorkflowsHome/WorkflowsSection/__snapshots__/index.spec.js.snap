@@ -3,17 +3,17 @@
 exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`] = `
 <body>
   <div>
-    <div
+    <section
       class="c-workflow-section"
     >
       <div
         class="c-workflow-section__header"
       >
-        <label
+        <h1
           class="b-workflow-section__team"
         >
           Lucas' team
-        </label>
+        </h1>
         <div>
           <button>
             <svg
@@ -77,7 +77,7 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
           </div>
         </button>
       </div>
-    </div>
+    </section>
   </div>
   <div
     class="ReactModalPortal"
