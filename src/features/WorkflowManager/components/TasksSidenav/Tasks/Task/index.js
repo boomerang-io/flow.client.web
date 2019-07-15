@@ -10,13 +10,19 @@ Task.propTypes = {
 
 // TODO: confirm use of Carbon <Icon /> below
 function Task({ name, model }) {
+  const [isDragActive, setIsDragActive] = React.useState(false);
   return (
-    <div
+    <li
+      aria-selected={isDragActive}
+      role="option"
+      className="b-task-template"
       draggable={true}
       onDragStart={event => {
+        setIsDragActive(true);
         event.dataTransfer.setData("storm-diagram-node", JSON.stringify(model));
       }}
-      className="b-task-template"
+      onDragEnd={() => setIsDragActive(false)}
+      tabIndex="0"
     >
       <div className="b-task-template__img">
         {mapTaskNametoIcon(model.taskData.name, model.taskData.category) && (
@@ -30,7 +36,7 @@ function Task({ name, model }) {
       </div>
 
       <div className="b-task-template__name"> {name} </div>
-    </div>
+    </li>
   );
 }
 

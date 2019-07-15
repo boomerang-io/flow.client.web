@@ -22,16 +22,15 @@ class WorkflowSection extends Component {
 
   render() {
     const {
-      team,
-      searchQuery,
-      setActiveTeamAndRedirect,
-      executeWorkflow,
       deleteWorkflow,
+      executeWorkflow,
+      fetchTeams,
       setActiveTeam,
-      importWorkflow,
-      handleImportWorkflow,
-      fetchTeams
+      setActiveTeamAndRedirect,
+      searchQuery,
+      team
     } = this.props;
+
     let workflows = [];
     if (searchQuery) {
       workflows = team.workflows.filter(workflow => workflow.name.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -43,23 +42,18 @@ class WorkflowSection extends Component {
       <div className="c-workflow-section">
         <div className="c-workflow-section__header">
           <label className="b-workflow-section__team">{team.name}</label>
-          <ImportWorkflow
-            handleImportWorkflow={handleImportWorkflow}
-            importWorkflow={importWorkflow}
-            fetchTeams={fetchTeams}
-            teamId={team.name}
-          />
+          <ImportWorkflow fetchTeams={fetchTeams} teamId={team.name} />
           <Tooltip id={team.name}>Import Workflow</Tooltip>
         </div>
         <div className="c-workflow-section__workflows">
           {workflows.map(workflow => (
             <WorkflowCard
-              workflow={workflow}
-              teamId={team.id}
-              key={workflow.id}
-              executeWorkflow={executeWorkflow}
               deleteWorkflow={deleteWorkflow}
+              executeWorkflow={executeWorkflow}
+              key={workflow.id}
               setActiveTeam={setActiveTeam}
+              teamId={team.id}
+              workflow={workflow}
             />
           ))}
           <Button className="b-workflow-placeholder" onClick={() => setActiveTeamAndRedirect(team.id)}>

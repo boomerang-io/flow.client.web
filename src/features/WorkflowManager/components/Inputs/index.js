@@ -47,27 +47,27 @@ class Inputs extends Component {
         {inputs.length > 0 &&
           inputs.map((input, index) => (
             <div key={`${input.id}-${index}`} className={classnames("b-workflow-input", `--${input.type}`)}>
-              <div className="b-workflow-input__name">{input.label}</div>
-              <div className="b-workflow-input-field">
+              <h1 className="b-workflow-input__name">{input.label}</h1>
+              <section className="b-workflow-input-field">
                 <div className="b-workflow-input-field__key">Key</div>
                 <div className="b-workflow-input-field__value">{input.key}</div>
-              </div>
-              <div className="b-workflow-input-field">
+              </section>
+              <section className="b-workflow-input-field">
                 <div className="b-workflow-input-field__key">Description</div>
                 <div className="b-workflow-input-field__value">{input.description}</div>
-              </div>
-              <div className="b-workflow-input-field">
+              </section>
+              <section className="b-workflow-input-field">
                 <div className="b-workflow-input-field__key">Type</div>
                 <div className="b-workflow-input-field__value">{input.type}</div>
-              </div>
-              <div className="b-workflow-input-field">
+              </section>
+              <section className="b-workflow-input-field">
                 <div className="b-workflow-input-field__key">Required</div>
                 <div className="b-workflow-input-field__value">{input.required.toString()}</div>
-              </div>
-              <div className="b-workflow-input-field">
+              </section>
+              <section className="b-workflow-input-field">
                 <div className="b-workflow-input-field__key">Default value</div>
                 <div className="b-workflow-input-field__value">{this.formatDefaultValue(input.defaultValue)}</div>
-              </div>
+              </section>
               {input.validValues && (
                 <div className="b-workflow-input-field">
                   <div className="b-workflow-input-field__key">Valid values</div>
@@ -78,18 +78,12 @@ class Inputs extends Component {
               )}
               <AlertModalWrapper
                 ModalTrigger={() => (
-                  <>
-                    <img
-                      data-tip
-                      data-for={`${input.id}`}
-                      className="b-workflow-input__delete"
-                      src={close}
-                      alt="delete"
-                    />
+                  <button className="b-workflow-input__delete">
+                    <img data-tip data-for={`${input.id}`} src={close} alt="delete" />
                     <Tooltip id={`${input.id}`} place="top">
                       Delete Input
                     </Tooltip>
-                  </>
+                  </button>
                 )}
                 modalContent={(closeModal, rest) => (
                   <ConfirmModal
@@ -111,10 +105,10 @@ class Inputs extends Component {
                 isEdit
                 inputsKeys={inputsKeys.filter(inputName => inputName !== input.key)}
                 Button={() => (
-                  <div className="b-workflow-input-edit">
+                  <button className="b-workflow-input-edit">
                     Edit
                     <img className="b-workflow-input-edit__pencil" src={pencil} alt="Edit input" />
-                  </div>
+                  </button>
                 )}
                 input={input}
                 updateInputs={this.props.updateInputs}
@@ -127,7 +121,9 @@ class Inputs extends Component {
           inputsKeys={inputsKeys}
           Button={() => (
             <div className="b-workflow-input-create">
-              <img className="b-workflow-input-create__plus" src={plus} alt="Create input" />
+              <button className="b-workflow-input-create__plus">
+                <img src={plus} alt="Create input" />
+              </button>
               Create New Property
             </div>
           )}

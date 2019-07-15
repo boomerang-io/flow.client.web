@@ -50,7 +50,7 @@ const history = {};
 
 describe("WorkflowsSection --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowsSection", () => {
-    const renderedValue = renderer.create(
+    const { baseElement } = global.rtlReduxRouterRender(
       <MemoryRouter>
         <WorkflowsSection
           history={history}
@@ -68,33 +68,6 @@ describe("WorkflowsSection --- Snapshot", () => {
         />
       </MemoryRouter>
     );
-    expect(renderedValue).toMatchSnapshot();
-  });
-});
-
-describe("WorkflowsSection --- Shallow render", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = shallow(
-      <MemoryRouter>
-        <WorkflowsSection
-          history={history}
-          searchQuery={searchQuery}
-          team={team}
-          updateWorkflows={updateWorkflows}
-          executeWorkflow={executeWorkflow}
-          deleteWorkflow={deleteWorkflow}
-          setActiveTeam={setActiveTeam}
-          setActiveTeamAndRedirect={setActiveTeamAndRedirect}
-          handleImportWorkflow={handleImportWorkflow}
-          closeModal={closeModal}
-        />
-      </MemoryRouter>
-    );
-  });
-
-  it("Render the DUMB component", () => {
-    expect(wrapper.length).toEqual(1);
+    expect(baseElement).toMatchSnapshot();
   });
 });

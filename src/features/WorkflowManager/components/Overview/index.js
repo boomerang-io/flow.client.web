@@ -48,7 +48,6 @@ export class Overview extends Component {
   static propTypes = {
     setIsValidOverview: PropTypes.func.isRequired,
     teams: PropTypes.array.isRequired,
-    teamsActions: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
     activeTeamId: PropTypes.string
@@ -196,11 +195,7 @@ export class Overview extends Component {
           <ul className="b-workflow-icons">
             {assets.map((image, index) => (
               <li key={index}>
-                <button
-                  className="b-img-button"
-                  tabIndex="0"
-                  onClick={() => this.handleOnChange(image.name, {}, "icon")}
-                >
+                <button onClick={() => this.handleOnChange(image.name, {}, "icon")}>
                   <img
                     key={`${image.name}-${index}`}
                     className={classnames("b-workflow-icons__icon", {
@@ -261,7 +256,7 @@ export class Overview extends Component {
                   theme="bmrg-white"
                   type={this.state.tokenTextType}
                 />
-                <button className="b-img-button" onClick={this.handleShowToken} type="button">
+                <button onClick={this.handleShowToken} type="button">
                   <img
                     className="b-webhook-token__icon"
                     src={eyeIcon}
@@ -275,7 +270,6 @@ export class Overview extends Component {
                 </Tooltip>
                 <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
                   <button
-                    className="b-img-button"
                     onClick={() => this.setState({ copyTokenText: "Copied Token" })}
                     onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
                     type="button"

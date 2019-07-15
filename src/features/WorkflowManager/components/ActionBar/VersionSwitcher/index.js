@@ -30,43 +30,51 @@ class VersionSwitcher extends Component {
 
   renderBackButtons = enabled => {
     return (
-      <div className="b-version-switcher-buttons">
-        <button className="b-img-button" onClick={enabled ? this.fastBackVersion : () => {}}>
-          <img
-            src={doubleChevron}
-            className={classnames("b-version-switcher-buttons__backward", { "--disabled": !enabled })}
-            alt="fastbackward"
-          />
-        </button>
-        <button className="b-img-button" onClick={enabled ? this.backVersion : () => {}}>
-          <img
-            src={chevron}
-            className={classnames("b-version-switcher-buttons__backward", { "--disabled": !enabled })}
-            alt="backward"
-          />
-        </button>
-      </div>
+      <ul className="b-version-switcher-buttons">
+        <li>
+          <button disabled={!enabled} onClick={this.fastBackVersion}>
+            <img
+              src={doubleChevron}
+              className={classnames("b-version-switcher-buttons__backward", { "--disabled": !enabled })}
+              alt="fastbackward"
+            />
+          </button>
+        </li>
+        <li>
+          <button disabled={!enabled} onClick={this.backVersion}>
+            <img
+              src={chevron}
+              className={classnames("b-version-switcher-buttons__backward", { "--disabled": !enabled })}
+              alt="backward"
+            />
+          </button>
+        </li>
+      </ul>
     );
   };
 
   renderForwardButtons = enabled => {
     return (
-      <div className="b-version-switcher-buttons">
-        <button className="b-img-button" onClick={enabled ? this.forwardVersion : () => {}}>
-          <img
-            src={chevron}
-            className={classnames("b-version-switcher-buttons__forward", { "--disabled": !enabled })}
-            alt="forward"
-          />
-        </button>
-        <button className="b-img-button" onClick={enabled ? this.fastForwardVersion : () => {}}>
-          <img
-            src={doubleChevron}
-            className={classnames("b-version-switcher-buttons__forward", { "--disabled": !enabled })}
-            alt="fastforward"
-          />
-        </button>
-      </div>
+      <ul className="b-version-switcher-buttons">
+        <li>
+          <button disabled={!enabled} onClick={this.forwardVersion}>
+            <img
+              src={chevron}
+              className={classnames("b-version-switcher-buttons__forward", { "--disabled": !enabled })}
+              alt="forward"
+            />
+          </button>
+        </li>
+        <li>
+          <button disabled={!enabled} onClick={this.forwardVersion}>
+            <img
+              src={doubleChevron}
+              className={classnames("b-version-switcher-buttons__forward", { "--disabled": !enabled })}
+              alt="fastforward"
+            />
+          </button>
+        </li>
+      </ul>
     );
   };
 
