@@ -60,7 +60,7 @@ class App extends Component {
     if (user.isFetching || user.isCreating || navigation.isFetching) {
       return (
         <div className="c-app-content c-app-content--not-loaded">
-          <LoadingAnimation />
+          <LoadingAnimation theme="brmg-white" />
         </div>
       );
     }

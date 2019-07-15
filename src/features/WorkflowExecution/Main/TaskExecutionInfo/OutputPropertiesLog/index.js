@@ -29,7 +29,7 @@ class OutputPropertiesLog extends React.Component {
     return (
       <Modal
         modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => <div className="s-task-log-trigger">Output Properties</div>}
+        ModalTrigger={() => <div className="s-task-log-trigger">View Properties</div>}
         modalContent={(closeModal, rest) => (
           <ModalFlow
             style={{ display: "flex", flexDirection: "column", height: "auto" }}

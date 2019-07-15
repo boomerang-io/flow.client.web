@@ -3,6 +3,13 @@ body {
   line-height: 1.2;
 }
 
+button {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+}
+
 /* body of the application */
 .c-app {
   margin: 0 auto;

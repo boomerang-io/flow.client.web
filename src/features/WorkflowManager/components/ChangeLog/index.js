@@ -55,11 +55,11 @@ class ChangeLog extends Component {
             pageStart={0}
             loadMore={this.loadMoreLogs}
             hasMore={hasMoreLogs}
-            loader={<LoadingAnimation className="s-change-log-loading" />}
+            loader={<LoadingAnimation className="s-change-log-loading" theme="brmg-white" key="loading" />}
             useWindow={true}
           >
-            {changeLogList.map(log => {
-              return <LogCard log={log} />;
+            {changeLogList.map((log, index) => {
+              return <LogCard log={log} key={index + log.revisionId} />;
             })}
           </InfiniteScroll>
         );

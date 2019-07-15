@@ -35,16 +35,24 @@ const TaskExecutionInfo = ({ flowActivityId, task }) => {
             {task.duration ? getHumanizedDuration(Math.round(parseInt(task.duration / 1000), 10)) : "---"}
           </div>
         </div>
-      </div>
-      <div className="c-step-side-info-actions">
-        <TaskExecutionLog
-          flowTaskStatus={task.flowTaskStatus}
-          flowTaskId={task.taskId}
-          flowActivityId={flowActivityId}
-          flowTaskName={task.taskName}
-        />
+        <div className="b-step-side-info-field">
+          <div className="b-step-side-info-field__key">Log</div>
+          <div className="b-step-side-info-field__value">
+            <TaskExecutionLog
+              flowTaskStatus={task.flowTaskStatus}
+              flowTaskId={task.taskId}
+              flowActivityId={flowActivityId}
+              flowTaskName={task.taskName}
+            />
+          </div>
+        </div>
         {task.outputs && Object.keys(task.outputs).length > 0 && (
-          <OutputPropertiesLog flowTaskName={task.taskName} flowTaskOutputs={task.outputs} />
+          <div className="b-step-side-info-field">
+            <div className="b-step-side-info-field__key">Properties</div>
+            <div className="b-step-side-info-field__value">
+              <OutputPropertiesLog flowTaskName={task.taskName} flowTaskOutputs={task.outputs} />
+            </div>
+          </div>
         )}
       </div>
     </div>
