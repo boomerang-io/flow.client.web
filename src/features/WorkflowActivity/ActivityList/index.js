@@ -40,7 +40,11 @@ class ActivityList extends Component {
           useWindow={true}
         >
           {!activities.length && !hasMoreActivities && !isLoading ? (
-            <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
+            <NoDisplay
+              style={{ marginTop: "4rem" }}
+              text="Looks like you need to run some workflows!"
+              textLocation="below"
+            />
           ) : (
             activities.map(activity => {
               return <ActivityCard activity={activity} history={history} key={activity.id} match={match} />;

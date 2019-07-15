@@ -18,7 +18,7 @@
     color: $dark-blue;
     letter-spacing: 0.1675rem;
     width: 90%;
-    @include text-overflow-ellipsis;
+    @include text-overflow-ellipsis();
   }
 
   .b-task-node-port {

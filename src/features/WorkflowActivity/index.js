@@ -244,7 +244,7 @@ export class WorkflowActivity extends Component {
                 <Dropdown
                   placeholder="Workflows"
                   onChange={this.handleSelectWorkflows}
-                  items={[...workflowsFilter, { id: "none", name: "All Workflows" }]}
+                  items={[{ id: "none", name: "All Workflows" }, ...workflowsFilter]}
                   itemToString={workflow => {
                     const team = selectedTeams.find(selectedTeam => selectedTeam.id === workflow.flowTeamId);
                     return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
@@ -271,11 +271,12 @@ export class WorkflowActivity extends Component {
             </div>
             {!activity.data.records.length || emptyActivities || !selectedTeams.length ? (
               <NoDisplay
-                style={{ marginTop: "2rem" }}
+                style={{ marginTop: "4rem" }}
+                textLocation="below"
                 text={
                   selectedTeams.length
                     ? "Looks like you need to run some workflows!"
-                    : "Please, select at least one team to check its workflows' activity"
+                    : "Please select at least one team to check its workflows' activity"
                 }
               />
             ) : (
