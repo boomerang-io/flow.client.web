@@ -7,20 +7,24 @@ import "./styles.scss";
 
 const WorkflowSummary = ({ workflowData, workflowExecutionData, version }) => {
   return (
-    <div className="c-workflow-summary">
-      <div className="s-workflow-summary-title">{workflowData.name || "Workflow"}</div>
-      <div className="c-workflow-summary-details">
-        <div className="b-workflow-summary-field">
-          <div className="b-workflow-summary-field__key">Description</div>
-          <div className="b-workflow-summary-field__value">{workflowData.shortDescription || "---"}</div>
-        </div>
-        <div className="b-workflow-summary-field">
-          <div className="b-workflow-summary-field__key">Version</div>
-          <div className="b-workflow-summary-field__value">{version}</div>
-        </div>
-        <div className="b-workflow-summary-field">
-          <div className="b-workflow-summary-field__key">Status</div>
-          <div className="b-workflow-summary-field__value">
+    <aside className="c-workflow-summary">
+      <h1 className="s-workflow-summary-title">{workflowData.name || "Workflow"}</h1>
+      <section className="c-workflow-summary-details">
+        <dl className="b-workflow-summary-field">
+          <dt className="b-workflow-summary-field__key">Summary</dt>
+          <dd className="b-workflow-summary-field__value">{workflowData.shortDescription || "---"}</dd>
+        </dl>
+        <dl className="b-workflow-summary-field">
+          <dt className="b-workflow-summary-field__key">Description</dt>
+          <dd className="b-workflow-summary-field__value">{workflowData.description || "---"}</dd>
+        </dl>
+        <dl className="b-workflow-summary-field">
+          <dt className="b-workflow-summary-field__key">Version</dt>
+          <dd className="b-workflow-summary-field__value">{version}</dd>
+        </dl>
+        <dl className="b-workflow-summary-field">
+          <dt className="b-workflow-summary-field__key">Status</dt>
+          <dd className="b-workflow-summary-field__value">
             {ACTIVITY_STATUSES_TO_TEXT[workflowExecutionData.status ? workflowExecutionData.status : "notstarted"]}
             <img
               className="b-activity-card__status-icon"
@@ -29,24 +33,24 @@ const WorkflowSummary = ({ workflowData, workflowExecutionData, version }) => {
               }
               alt={`Status ${workflowExecutionData.status}`}
             />
-          </div>
-        </div>
-        <div className="b-workflow-summary-field">
-          <div className="b-workflow-summary-field__key">Start Time</div>
-          <div className="b-workflow-summary-field__value">
+          </dd>
+        </dl>
+        <dl className="b-workflow-summary-field">
+          <dt className="b-workflow-summary-field__key">Start Time</dt>
+          <dd className="b-workflow-summary-field__value">
             {moment(workflowExecutionData.creationDate).format("MMMM Do YYYY, h:mm:ss a")}
-          </div>
-        </div>
-        <div className="b-workflow-summary-field">
-          <div className="b-workflow-summary-field__key">Duration</div>
-          <div className="b-workflow-summary-field__value">
+          </dd>
+        </dl>
+        <dl className="b-workflow-summary-field">
+          <dt className="b-workflow-summary-field__key">Duration</dt>
+          <dd className="b-workflow-summary-field__value">
             {workflowExecutionData.duration
               ? getHumanizedDuration(parseInt(workflowExecutionData.duration / 1000, 10))
               : "---"}
-          </div>
-        </div>
-      </div>
-    </div>
+          </dd>
+        </dl>
+      </section>
+    </aside>
   );
 };
 

@@ -75,7 +75,7 @@ class ChangeLog extends Component {
     return (
       <div className="c-worklfow-change-log">
         {this.props.workflow.data.name ? (
-          <label className="s-worklfow-change-log-title">{`${this.props.workflow.data.name} Changes`}</label>
+          <h1 className="s-worklfow-change-log-title">{`${this.props.workflow.data.name} Changes`}</h1>
         ) : (
           ""
         )}

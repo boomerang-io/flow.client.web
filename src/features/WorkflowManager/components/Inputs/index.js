@@ -48,33 +48,33 @@ class Inputs extends Component {
           inputs.map((input, index) => (
             <div key={`${input.id}-${index}`} className={classnames("b-workflow-input", `--${input.type}`)}>
               <h1 className="b-workflow-input__name">{input.label}</h1>
-              <section className="b-workflow-input-field">
-                <div className="b-workflow-input-field__key">Key</div>
-                <div className="b-workflow-input-field__value">{input.key}</div>
-              </section>
-              <section className="b-workflow-input-field">
-                <div className="b-workflow-input-field__key">Description</div>
-                <div className="b-workflow-input-field__value">{input.description}</div>
-              </section>
-              <section className="b-workflow-input-field">
-                <div className="b-workflow-input-field__key">Type</div>
-                <div className="b-workflow-input-field__value">{input.type}</div>
-              </section>
-              <section className="b-workflow-input-field">
-                <div className="b-workflow-input-field__key">Required</div>
-                <div className="b-workflow-input-field__value">{input.required.toString()}</div>
-              </section>
-              <section className="b-workflow-input-field">
-                <div className="b-workflow-input-field__key">Default value</div>
-                <div className="b-workflow-input-field__value">{this.formatDefaultValue(input.defaultValue)}</div>
-              </section>
+              <dl className="b-workflow-input-field">
+                <dt className="b-workflow-input-field__key">Key</dt>
+                <dd className="b-workflow-input-field__value">{input.key}</dd>
+              </dl>
+              <dl className="b-workflow-input-field">
+                <dt className="b-workflow-input-field__key">Description</dt>
+                <dd className="b-workflow-input-field__value">{input.description}</dd>
+              </dl>
+              <dl className="b-workflow-input-field">
+                <dt className="b-workflow-input-field__key">Type</dt>
+                <dd className="b-workflow-input-field__value">{input.type}</dd>
+              </dl>
+              <dl className="b-workflow-input-field">
+                <dt className="b-workflow-input-field__key">Required</dt>
+                <dd className="b-workflow-input-field__value">{input.required.toString()}</dd>
+              </dl>
+              <dl className="b-workflow-input-field">
+                <dt className="b-workflow-input-field__key">Default value</dt>
+                <dd className="b-workflow-input-field__value">{this.formatDefaultValue(input.defaultValue)}</dd>
+              </dl>
               {input.validValues && (
-                <div className="b-workflow-input-field">
-                  <div className="b-workflow-input-field__key">Valid values</div>
-                  <div className="b-workflow-input-field__value">
+                <dl className="b-workflow-input-field">
+                  <dt className="b-workflow-input-field__key">Valid values</dt>
+                  <dd className="b-workflow-input-field__value">
                     {this.formatDefaultValue(input.validValues.join(", "))}
-                  </div>
-                </div>
+                  </dd>
+                </dl>
               )}
               <AlertModalWrapper
                 ModalTrigger={() => (

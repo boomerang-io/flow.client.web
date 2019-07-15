@@ -70,12 +70,13 @@ class WorkflowCard extends Component {
         itemText: "Export",
         onClick: () => this.handleExportWorkflow(workflow),
         primaryFocus: false,
-        isDelete: true
+        isDelete: false
       },
       {
         itemText: "Delete",
         onClick: () => this.setState({ deleteModalIsOpen: true }),
         primaryFocus: false,
+        hasDivider: true,
         isDelete: true
       }
     ];
@@ -95,7 +96,6 @@ class WorkflowCard extends Component {
         >
           {menuOptions.map(option => (
             <OverflowMenuItem
-              className="b-workflow-card__option"
               requireTitle={false}
               closeMenu={() => {}}
               onClick={option.onClick}
