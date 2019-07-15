@@ -17,15 +17,6 @@
   @include text-overflow-ellipsis();
 }
 
-.c-step-side-info-actions {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  width: 11rem;
-  display: flex;
-  justify-content: space-between;
-}
-
 .c-step-side-info-details {
   padding: 2rem 0 0 1.75rem;
   width: 100%;
