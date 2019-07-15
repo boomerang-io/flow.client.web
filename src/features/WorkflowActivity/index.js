@@ -269,8 +269,15 @@ export class WorkflowActivity extends Component {
                 itemToString={item => (item ? item.label : "")}
               />
             </div>
-            {!activity.data.records.length || emptyActivities ? (
-              <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
+            {!activity.data.records.length || emptyActivities || !selectedTeams.length ? (
+              <NoDisplay
+                style={{ marginTop: "2rem" }}
+                text={
+                  selectedTeams.length
+                    ? "Looks like you need to run some workflows!"
+                    : "Please, select at least one team to check its workflows' activity"
+                }
+              />
             ) : (
               <ActivityList
                 activities={this.applyTeamFilter(
