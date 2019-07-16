@@ -137,7 +137,7 @@ export class WorkflowActivity extends Component {
       return activities;
     }
     const filteredActivities = activities.filter(activity => {
-      if (executionFilter.find(selectedTeam => activity.teamName === selectedTeam.name)) {
+      if (executionFilter.find(trigger => trigger.value === activity.trigger)) {
         return true;
       } else {
         return false;
@@ -149,11 +149,12 @@ export class WorkflowActivity extends Component {
 
   applyStatusFilter = activities => {
     const { statusFilter } = this.state;
+    console.log(statusFilter);
     if (!statusFilter.length) {
       return activities;
     }
     const filteredActivities = activities.filter(activity => {
-      if (statusFilter.find(selectedTeam => activity.teamName === selectedTeam.name)) {
+      if (statusFilter.find(status => status.value === activity.status)) {
         return true;
       } else {
         return false;
@@ -293,7 +294,6 @@ export class WorkflowActivity extends Component {
         </div>
       );
     }
-
     return null;
   }
 }
