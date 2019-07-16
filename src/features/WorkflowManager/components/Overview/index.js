@@ -383,22 +383,19 @@ export class Overview extends Component {
                   />
                 )}
               </div>
-              <div className="b-schedule__information">
-                <div className="b-schedule__information--cronMessage">
-                  {workflow.data.triggers &&
-                  workflow.data.triggers.scheduler.schedule &&
-                  workflow.data.triggers.scheduler.enable
-                    ? cronstrue.toString(workflow.data.triggers.scheduler.schedule)
-                    : undefined}
-                </div>
-                <div className="b-schedule__information--timezone">
-                  {workflow.data.triggers &&
-                  workflow.data.triggers.scheduler.timezone &&
-                  workflow.data.triggers.scheduler.enable
-                    ? `${workflow.data.triggers.scheduler.timezone} Timezone`
-                    : undefined}
-                </div>
-              </div>
+              {workflow.data.triggers &&
+                workflow.data.triggers.scheduler.schedule &&
+                workflow.data.triggers.scheduler.enable &&
+                workflow.data.triggers.scheduler.timezone && (
+                  <div className="b-schedule__information">
+                    <div className="b-schedule__information--cronMessage">
+                      {cronstrue.toString(workflow.data.triggers.scheduler.schedule)}
+                    </div>
+                    <div className="b-schedule__information--timezone">
+                      {`${workflow.data.triggers.scheduler.timezone} Timezone`}
+                    </div>
+                  </div>
+                )}
             </div>
             <div className="c-event">
               <div className="b-event">

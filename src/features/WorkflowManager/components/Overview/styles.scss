@@ -117,6 +117,12 @@
   .b-schedule__information--cronMessage {
     padding-top: 1rem;
     padding-bottom: 0.5rem;
+    font-style: italic;
+  }
+
+  .b-schedule__information--timezone {
+    font-style: italic;
+    padding-bottom: 1rem;
   }
 
   .b-options__infoIcon {
@@ -127,7 +133,7 @@
   .b-event {
     display: flex;
     padding-top: 2rem;
-    padding-bottom: 0.7rem;
+    padding-bottom: 1rem;
     min-height: 4rem;
   }
 
