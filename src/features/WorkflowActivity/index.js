@@ -70,7 +70,7 @@ export class WorkflowActivity extends Component {
       size: 10,
       workflowId: selectedWorkflow.id !== "all" ? selectedWorkflow.id : undefined,
       query: searchQuery !== "" ? searchQuery : undefined,
-      page: activityState.data.number
+      page: activityState.data.number + 1
     });
 
     this.props.activityActions.fetchMore(`${BASE_SERVICE_URL}/activity?${query}`).catch(err => {
