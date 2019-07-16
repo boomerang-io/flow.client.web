@@ -1,8 +1,11 @@
 .c-worklfow-change-log {
-  margin: 2.5rem auto;
+  padding: 2rem 2rem 1rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   max-width: 100rem;
+  overflow: auto;
+  height: calc(100vh - 10rem);
 }
 .s-worklfow-change-log-title {
   font-size: 1.25rem;

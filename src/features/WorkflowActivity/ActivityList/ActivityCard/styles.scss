@@ -143,4 +143,8 @@
   display: flex;
   justify-content: flex-start;
   margin-bottom: 0.75rem;
+
+  &:last-of-type {
+    margin-bottom: 0rem;
+  }
 }

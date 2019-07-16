@@ -1,4 +1,17 @@
+$carbon-addons-bmrg-theme: boomerang;
+$carbon--theme--bmrg-light: true;
+
+@import "~@boomerang/carbon-addons-boomerang/scss/styles.scss";
+
 @import "~carbon-components/scss/components/multi-select/multi-select";
 @import "~carbon-components/scss/components/select/select";
 @import "~carbon-components/scss/components/overflow-menu/overflow-menu";
 @import "~carbon-components/scss/components/checkbox/checkbox";
+
+.bx--list-box__field {
+  background-color: #40d5bb !important;
+}
+
+.bx--list-box__menu-icon > svg {
+  fill: black;
+}

@@ -18,7 +18,7 @@
 }
 
 .b-search-filter__filter {
-  width: 12rem;
+  width: 15rem;
 
   .bx--select {
     background-color: $teal-20;
@@ -28,14 +28,14 @@
     height: 2.625rem;
     max-height: 2.625rem;
     width: 100%;
-    &::before {
-      content: url("~Assets/svg/configure.svg");
-      position: absolute;
-      height: 2rem;
-      width: 2rem;
-      right: 1rem;
-      top: 0.2rem;
-    }
+    // &::before {
+    //   content: url("~Assets/svg/configure.svg");
+    //   position: absolute;
+    //   height: 2rem;
+    //   width: 2rem;
+    //   right: 1rem;
+    //   top: 0.2rem;
+    // }
     select {
       box-shadow: none;
     }
@@ -63,14 +63,14 @@
     height: 2.625rem;
     max-height: 2.625rem;
 
-    &::before {
-      content: url("~Assets/svg/configure.svg");
-      position: absolute;
-      height: 2rem;
-      width: 2rem;
-      right: 1rem;
-      top: 0.2rem;
-    }
+    // &::before {
+    //   content: url("~Assets/svg/configure.svg");
+    //   position: absolute;
+    //   height: 2rem;
+    //   width: 2rem;
+    //   right: 1rem;
+    //   top: 0.2rem;
+    // }
   }
 
   .bx--list-box__field {
@@ -87,19 +87,18 @@
     }
   }
 
-  .bx--list-box__menu-icon,
-  .bx--select__arrow {
-    display: none;
-  }
-
   .bx--list-box__menu {
-    min-width: 12rem;
-    width: max-content;
+    width: 15rem;
     max-width: 15rem;
     background-color: $white;
-    max-height: 7.5rem;
+    max-height: 20rem;
     right: 0;
     left: unset;
+  }
+
+  .bx--list-box__menu-item {
+    height: fit-content;
+    min-height: 2.5rem;
   }
 
   .bx--list-box__menu-item--highlighted {

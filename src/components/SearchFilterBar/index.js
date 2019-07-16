@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { MultiSelect, Select, SelectItem, SelectItemGroup } from "carbon-components-react";
-import SearchBar from "@boomerang/boomerang-components/lib/SearchBar";
+import { MultiSelect, Select, SelectItem, SelectItemGroup, Search } from "carbon-components-react";
 import "./styles.scss";
 
 class SearchFilterBar extends Component {
@@ -58,13 +57,21 @@ class SearchFilterBar extends Component {
   };
 
   render() {
-    const { options, debounceTimeout, multiselect, selectedOption, searchbar, filterItems } = this.props;
+    const {
+      label = "Filter",
+      options,
+      debounceTimeout,
+      multiselect,
+      selectedOption,
+      searchbar,
+      filterItems
+    } = this.props;
 
     return (
       <div className="b-search-filter">
         <div className="b-search-filter__search">
           {searchbar ? (
-            <SearchBar
+            <Search
               theme="bmrg-white"
               onChange={this.handleOnSearchInputChange}
               onClear={this.handleOnSearchClear}
@@ -77,7 +84,7 @@ class SearchFilterBar extends Component {
           {multiselect ? (
             <MultiSelect
               useTitleInItem={false}
-              label="Filter"
+              label={label}
               invalid={false}
               onChange={this.handleOnMultiSelectChange}
               items={filterItems || options.length ? options.map(item => ({ id: item.id, text: item.name })) : []}
@@ -92,7 +99,7 @@ class SearchFilterBar extends Component {
               onChange={this.handleOnSelectChange}
               defaultValue={selectedOption}
             >
-              <SelectItem value="none" text="All workflows" />
+              <SelectItem value="none" text="All Workflows" />
               {options.map(option => {
                 return (
                   <SelectItemGroup label={option.name} key={option.name}>

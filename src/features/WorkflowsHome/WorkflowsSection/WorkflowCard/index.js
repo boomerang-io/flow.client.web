@@ -74,10 +74,10 @@ class WorkflowCard extends Component {
       },
       {
         itemText: "Delete",
-        onClick: () => this.setState({ deleteModalIsOpen: true }),
-        primaryFocus: false,
         hasDivider: true,
-        isDelete: true
+        isDelete: true,
+        onClick: () => this.setState({ deleteModalIsOpen: true }),
+        primaryFocus: false
       }
     ];
 
@@ -94,14 +94,15 @@ class WorkflowCard extends Component {
           style={{ position: "absolute", right: "0" }}
           floatingMenu={true}
         >
-          {menuOptions.map(option => (
+          {menuOptions.map(({ onClick, itemText, primaryFocus, ...rest }) => (
             <OverflowMenuItem
               requireTitle={false}
               closeMenu={() => {}}
-              onClick={option.onClick}
-              itemText={option.itemText}
-              primaryFocus={option.primaryFocus}
-              key={option.itemText}
+              onClick={onClick}
+              itemText={itemText}
+              primaryFocus={primaryFocus}
+              key={itemText}
+              {...rest}
             />
           ))}
         </OverflowMenu>

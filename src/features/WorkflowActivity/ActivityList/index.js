@@ -14,16 +14,13 @@ class ActivityList extends Component {
     activities: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
-    nextPage: PropTypes.number,
     loadMoreActivities: PropTypes.func.isRequired,
-    setMoreActivities: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
     hasMoreActivities: PropTypes.bool
   };
 
   loadMoreActivities = () => {
-    this.props.loadMoreActivities(this.props.nextPage);
-    this.props.setMoreActivities(false);
+    this.props.loadMoreActivities();
   };
 
   render() {

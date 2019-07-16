@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  TextInput,
-  TextArea,
-  Toggle,
-  SelectDropdown,
-  ModalContentBody as Body,
-  ModalConfirmButton as ConfirmButton,
-  ModalContentFooter as Footer
-} from "@boomerang/boomerang-components";
+import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
+import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
+import TextArea from "@boomerang/boomerang-components/lib/TextArea";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 

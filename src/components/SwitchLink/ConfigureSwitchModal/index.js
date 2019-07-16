@@ -1,12 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  ModalContentBody,
-  ModalContentFooter,
-  ModalConfirmButton,
-  TextArea,
-  Toggle
-} from "@boomerang/boomerang-components";
+import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
+import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import TextArea from "@boomerang/boomerang-components/lib/TextArea";
+import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import "./styles.scss";
 
 class ConfigureSwitchModal extends React.Component {

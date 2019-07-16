@@ -3,15 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
-import {
-  TextInput,
-  TextArea,
-  Toggle,
-  SelectDropdown,
-  ModalContentBody as Body,
-  ModalConfirmButton as ConfirmButton,
-  ModalContentFooter as Footer
-} from "@boomerang/boomerang-components";
+import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
+import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
+import TextArea from "@boomerang/boomerang-components/lib/TextArea";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
@@ -227,7 +225,7 @@ class InputsModalContent extends Component {
     return (
       <form onSubmit={this.handleConfirm}>
         <fieldset disabled={loading}>
-          <Body className="c-inputs-modal-body">
+          <ModalContentBody className="c-inputs-modal-body">
             <div className="c-inputs-modal-body-left">
               <TextInput
                 alwaysShowTitle
@@ -299,15 +297,15 @@ class InputsModalContent extends Component {
               </div>
               {this.renderDefaultValue()}
             </div>
-          </Body>
-          <Footer style={{ paddingTop: "1rem" }}>
-            <ConfirmButton
+          </ModalContentBody>
+          <ModalContentFooter style={{ paddingTop: "1rem" }}>
+            <ModalConfirmButton
               disabled={!(key && label && type) || (!!keyError || !!labelError) || loading}
               text={isEdit ? "SAVE" : "CREATE"}
               theme="bmrg-white"
               type="submit"
             />
-          </Footer>
+          </ModalContentFooter>
         </fieldset>
       </form>
     );

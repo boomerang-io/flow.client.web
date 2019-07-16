@@ -7,20 +7,17 @@ import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
-import {
-  AlertModal,
-  Button,
-  ConfirmModal,
-  Modal as ModalWrapper,
-  ModalFlow,
-  SelectDropdown,
-  notify,
-  Notification,
-  TextArea,
-  TextInput,
-  Toggle,
-  Tooltip
-} from "@boomerang/boomerang-components";
+import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
+import Button from "@boomerang/boomerang-components/lib/Button";
+import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
+import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
+import { Notification, notify } from "@boomerang/boomerang-components/lib/Notifications";
+import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
+import TextArea from "@boomerang/boomerang-components/lib/TextArea";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
 import assets from "./assets";
 import cronstrue from "cronstrue";

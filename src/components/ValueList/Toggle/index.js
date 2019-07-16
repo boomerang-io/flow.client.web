@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Toggle as BmrgToggle } from "@boomerang/boomerang-components";
+import { default as BmrgToggle } from "@boomerang/boomerang-components/lib/Toggle";
 
 const Toggle = ({ checked, description, id, label, name, onChange }) => {
   return (

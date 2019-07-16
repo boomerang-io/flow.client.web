@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { AutoSuggestTextInput, AutoSuggestTextArea, SelectDropdown, TextInput } from "@boomerang/boomerang-components";
+import { AutoSuggestTextArea, AutoSuggestTextInput } from "@boomerang/boomerang-components/lib/AutoSuggestInput";
+import SelectDropdown from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import AutoSuggest from "Components/AutoSuggest";
 import Toggle from "./Toggle";
 import isURL from "validator/lib/isURL";

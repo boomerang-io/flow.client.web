@@ -44,7 +44,7 @@ class Main extends Component {
 
     return (
       <div className="c-workflow-execution">
-        <nav style={{ marginBottom: "1rem", width: "15rem", gridArea: "header" }}>
+        <nav style={{ marginBottom: "1rem", width: "fit-content", gridArea: "header", height: "fit-content" }}>
           <NavigateBack
             to={location.state ? location.state.fromUrl : "/activity"}
             text={`Back to ${location.state ? location.state.fromText : "Activity"}`}
