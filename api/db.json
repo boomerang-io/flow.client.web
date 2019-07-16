@@ -236,9 +236,9 @@
         {
           "id": "5bd6fdf65a5df954ad47bdbe",
           "name": "lucas-workflow-1",
-          "description": "blablabla",
+          "shortDescription": "qweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldkl",
           "status": "published",
-          "icon": "utility",
+          "icon": "api",
           "flowTeamId": "1234",
           "properties": [
             {
@@ -263,17 +263,17 @@
         {
           "id": "456",
           "name": "lucas-workflow-2",
-          "description": "blablabla",
+          "shortDescription": "blablabla",
           "status": "published",
-          "icon": "utility",
+          "icon": "notify",
           "flowTeamId": "1234"
         },
         {
           "id": "789",
           "name": "lucas-workflow-3",
-          "description": "blablabla",
+          "shortDescription": "blablabla",
           "status": "draft",
-          "icon": "secure",
+          "icon": "upload",
           "flowTeamId": "1234"
         }
       ]
@@ -285,9 +285,9 @@
         {
           "id": "111",
           "name": "isabela-workflow-1",
-          "description": "blablabla",
+          "shortDescription": "blablabla",
           "status": "published",
-          "icon": "log",
+          "icon": "mail",
           "flowTeamId": "5678",
           "inputs": [
             {
@@ -310,9 +310,9 @@
         {
           "id": "222",
           "name": "isabela-workflow-2",
-          "description": "blablabla",
+          "shortDescription": "blablabla",
           "status": "draft",
-          "icon": "template",
+          "icon": "schedule",
           "flowTeamId": "5678",
           "inputs": [
             {
@@ -341,7 +341,7 @@
         {
           "id": "333",
           "name": "benjamin-workflow-1",
-          "description": "blablabla",
+          "shortDescription": "Here is a shorter description. Here is a shorter description. Here is a shorter description. ",
           "status": "published",
           "icon": "docs",
           "flowTeamId": "9012",
@@ -391,7 +391,7 @@
         {
           "id": "444",
           "name": "benjamin-workflow-2",
-          "description": "blablabla",
+          "shortDescription": "Here is a shorter description",
           "status": "published",
           "icon": "flow",
           "flowTeamId": "9012",
@@ -4143,7 +4143,7 @@
       "id": "Lu0a5CE"
     },
     {
-      "icon": "secure",
+      "icon": "upload",
       "id": "jF8yMy7"
     },
     {
@@ -4158,7 +4158,7 @@
       "shortDescription": "asdf",
       "description": "asdfasdf",
       "id": "xDVvXr7",
-      "icon": "log"
+      "icon": "mail"
     },
     {
       "name": "asdasdf",
@@ -4249,7 +4249,7 @@
       "name": "asfads",
       "shortDescription": "asdfas",
       "description": "asdfadsf",
-      "icon": "secure",
+      "icon": "upload",
       "workflowTeamId": "9012",
       "id": "h1Xqhf3"
     },
@@ -5980,7 +5980,7 @@
     {
       "description": "Here is my description here.",
       "flowTeamId": "5bd29a451ca2ef241e548b40",
-      "icon": "utility",
+      "icon": "api",
       "id": "5bc0efa45a5df954adb0e556",
       "name": "Marcus' Workflow",
       "shortDescription": "Summary",
@@ -6513,7 +6513,7 @@
           }
         ],
         "description": "test description",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "To test Workflow Inputs",
         "workflowName": "Tyson Test 1",
         "teamName": "IBM Engineering Automation Team"
@@ -6546,7 +6546,7 @@
         "trigger": "manual",
         "initiatedByUserName": "Isabela Mayumi Kawabata Borges",
         "initiatedByUserId": "5bbcf419ee763e00011f5c03",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6560,7 +6560,7 @@
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
         "teamName": "Ben's Team",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6573,7 +6573,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6586,7 +6586,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6599,7 +6599,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6612,7 +6612,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6625,7 +6625,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6638,7 +6638,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6651,7 +6651,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bd9de67a40f5d0001249bbd",
         "description": "Slack and Mail integration",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6713,7 +6713,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6726,7 +6726,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       },
@@ -6739,7 +6739,7 @@
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
-        "icon": "diagram",
+        "icon": "api",
         "shortDescription": "Slack and Mail Integration",
         "workflowName": "Notifications"
       }
@@ -10802,7 +10802,7 @@
     ],
     "description": "Currently implemented at ANZ",
     "flowTeamId": "5c46528713ea86000197d57f",
-    "icon": "utility",
+    "icon": "api",
     "id": "5c693fc726800b0001154513",
     "name": "Service Now Auto Ticket Acknowledgement",
     "shortDescription": "Move incidents from New to In Progress",

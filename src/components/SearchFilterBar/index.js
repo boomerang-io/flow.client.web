@@ -57,26 +57,16 @@ class SearchFilterBar extends Component {
   };
 
   render() {
-    const {
-      label = "Filter",
-      options,
-      debounceTimeout,
-      multiselect,
-      selectedOption,
-      searchbar,
-      filterItems
-    } = this.props;
+    const { label = "Filter", options, multiselect, selectedOption, searchbar, filterItems } = this.props;
 
     return (
       <div className="b-search-filter">
         <div className="b-search-filter__search">
           {searchbar ? (
             <Search
-              theme="bmrg-white"
               onChange={this.handleOnSearchInputChange}
               onClear={this.handleOnSearchClear}
               value={this.state.searchQuery}
-              debounceTimeout={debounceTimeout}
             />
           ) : null}
         </div>

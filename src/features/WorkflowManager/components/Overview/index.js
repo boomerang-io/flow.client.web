@@ -189,22 +189,24 @@ export class Overview extends Component {
             maxCharText={"Description must not be greater than 256 characters"}
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
-          <ul className="b-workflow-icons">
+          <radiogroup className="b-workflow-icons">
             {assets.map((image, index) => (
-              <li key={index}>
-                <button onClick={() => this.handleOnChange(image.name, {}, "icon")}>
-                  <img
-                    key={`${image.name}-${index}`}
-                    className={classnames("b-workflow-icons__icon", {
-                      "--active": workflow.data.icon === image.name
-                    })}
-                    src={image.src}
-                    alt={`${image.name} icon`}
-                  />
-                </button>
-              </li>
+              <label
+                key={index}
+                className={classnames("b-workflow-icons__icon", {
+                  "--active": workflow.data.icon === image.name
+                })}
+              >
+                <input
+                  type="radio"
+                  value={image.name}
+                  onClick={() => this.handleOnChange(image.name, {}, "icon")}
+                  checked={workflow.data.icon === image.name}
+                />
+                <img key={`${image.name}-${index}`} src={image.src} alt={`${image.name} icon`} />
+              </label>
             ))}
-          </ul>
+          </radiogroup>
         </div>
         <div className="c-overview-card">
           <h1 className="s-trigger-title">Triggers</h1>

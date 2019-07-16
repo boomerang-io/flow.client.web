@@ -1,19 +1,9 @@
-import docs from "./docs.svg";
+import docs from "./document.svg";
 import flow from "./flow.svg";
-import log from "./log.svg";
-import payment from "./payment.svg";
-import diagram from "./diagram.svg";
-import secure from "./secure.svg";
-import utility from "./utility.svg";
-import template from "./template.svg";
+import mail from "./mail.svg";
+import api from "./api.svg";
+import upload from "./upload.svg";
+import notify from "./notify.svg";
+import schedule from "./schedule.svg";
 
-export default {
-  docs,
-  secure,
-  flow,
-  log,
-  payment,
-  diagram,
-  utility,
-  template
-};
+export default { flow, api, upload, schedule, notify, mail, docs };

@@ -73,21 +73,20 @@
   }
 }
 
-.c-workflow-card__info {
+.c-workflow-card-info {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   height: 100%;
+  padding: 0.5rem;
 }
 .c-workflow-card__icon {
-  margin-left: 0.5rem;
   width: 5rem;
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
 }
 .b-workflow-card__icon {
-  width: 5rem;
-  height: 4rem;
+  width: 4rem;
+  height: 3rem;
   margin-bottom: 1rem;
 }
 .c-workflow-card__description {
@@ -98,19 +97,21 @@
   color: $gray-60;
   font-size: 0.875rem;
   cursor: pointer;
+  margin-top: 1rem;
 }
 .b-workflow-card__name {
   color: $gray-80;
   font-size: 1.125rem;
   margin-bottom: 0.5rem;
   letter-spacing: 0.0625rem;
-  font-weight: 400;
+  font-weight: 500;
   @include text-overflow-ellipsis();
 }
 
 .b-workflow-card__description {
   font-size: 0.875rem;
-  @include text-overflow-ellipsis();
+  letter-spacing: 0.0625rem;
+  word-wrap: break-word;
 }
 
 .b-workflow-card-launch {
@@ -127,7 +128,7 @@
   cursor: pointer;
   position: absolute;
   right: 2.5rem;
-  bottom: 0.21rem;
+  bottom: 0.25rem;
 }
 .b-workflow-card-activity__icon {
   width: 2rem;

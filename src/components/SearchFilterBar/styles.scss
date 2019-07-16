@@ -8,12 +8,8 @@
   flex: 1 1 auto;
   margin-right: 2rem;
 
-  .bmrg--b-search-bar {
-    background: $white;
-  }
-
-  .bmrg--b-search-bar__textbox.--bmrg-white {
-    background: $white;
+  & .bx--search--lg.bx--search-input {
+    height: 2.75rem !important;
   }
 }
 
@@ -25,8 +21,6 @@
     border-radius: 0.25rem;
     box-shadow: none;
     cursor: pointer;
-    height: 2.625rem;
-    max-height: 2.625rem;
     width: 100%;
     // &::before {
     //   content: url("~Assets/svg/configure.svg");
@@ -60,8 +54,6 @@
     border-radius: 0.25rem;
     box-shadow: none;
     cursor: pointer;
-    height: 2.625rem;
-    max-height: 2.625rem;
 
     // &::before {
     //   content: url("~Assets/svg/configure.svg");
