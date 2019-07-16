@@ -15,7 +15,7 @@ class ActivityCard extends Component {
 
   render() {
     const {
-      description,
+      shortDescription,
       creationDate,
       icon,
       duration = 0,
@@ -42,7 +42,7 @@ class ActivityCard extends Component {
             </div>
             <div className="c-activity-card-workflow-info">
               <label className="b-activity-card__name">{workflowName}</label>
-              <label className="b-activity-card__description">{description}</label>
+              <label className="b-activity-card__description">{shortDescription}</label>
             </div>
           </div>
           <div className="c-activity-card-section--right">
