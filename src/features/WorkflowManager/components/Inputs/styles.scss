@@ -37,11 +37,12 @@
 }
 
 .b-workflow-input__name {
-  font-size: 1.125rem;
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: 600;
   letter-spacing: 0.0625rem;
   text-overflow: ellipsis;
   overflow: hidden;
+  margin: 0;
   margin-bottom: 1rem;
   line-height: 1.5rem;
 }
@@ -56,7 +57,7 @@
 }
 
 .b-workflow-input-field__key {
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.125rem;
   margin-bottom: 0.75rem;
   text-overflow: ellipsis;
