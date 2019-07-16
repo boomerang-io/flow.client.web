@@ -66,6 +66,7 @@ class SearchFilterBar extends Component {
             <Search
               onChange={this.handleOnSearchInputChange}
               onClear={this.handleOnSearchClear}
+              placeHolderText="Search workflows"
               value={this.state.searchQuery}
             />
           ) : null}
