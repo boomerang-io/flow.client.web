@@ -17,6 +17,7 @@ export const types = {
   CREATE_WORKFLOW_REQUEST: "CREATE_WORKFLOW_REQUEST",
   UPDATE_WORKFLOW_PROPERTY: "UPDATE_WORKFLOW_PROPERTY",
   UPDATE_WORKFLOW_TRIGGERS_WEBHOOK: "UPDATE_WORKFLOW_TRIGGERS_WEBHOOK",
+  UPDATE_WORKFLOW_TRIGGERS_EVENT: "UPDATE_WORKFLOW_TRIGGERS_EVENT",
   UPDATE_WORKFLOW_TRIGGERS_SCHEDULER: "UPDATE_WORKFLOW_TRIGGERS_SCHEDULER",
   CREATE_WORKFLOW_INPUT: "CREATE_WORKFLOW_INPUT",
   UPDATE_WORKFLOW_INPUT: "UPDATE_WORKFLOW_INPUT",
@@ -45,6 +46,10 @@ export const initialState = {
       webhook: {
         enable: false,
         token: ""
+      },
+      event: {
+        enable: false,
+        topic: ""
       }
     },
     enablePersistentStorage: false,
@@ -107,6 +112,13 @@ const actionHandlers = {
     const newTriggers = { ...triggers, webhook: newWebhook };
     return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, triggers: newTriggers } };
   },
+  [types.UPDATE_WORKFLOW_TRIGGERS_EVENT]: (state, action) => {
+    let { triggers } = state.data;
+    let { event } = triggers;
+    const newEvent = { ...event, [action.data.key]: action.data.value };
+    const newTriggers = { ...triggers, event: newEvent };
+    return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, triggers: newTriggers } };
+  },
   [types.UPDATE_WORKFLOW_TRIGGERS_SCHEDULER]: (state, action) => {
     let { triggers } = state.data;
     let { scheduler } = triggers;
@@ -150,6 +162,7 @@ const createSuccess = data => ({ type: types.CREATE_WORKFLOW_SUCCESS, data });
 const createFailure = error => ({ type: types.CREATE_WORKFLOW_FAILURE, error });
 const updateProperty = data => ({ type: types.UPDATE_WORKFLOW_PROPERTY, data });
 const updateTriggersWebhook = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_WEBHOOK, data });
+const updateTriggersEvent = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_EVENT, data });
 const updateTriggersScheduler = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_SCHEDULER, data });
 const createWorkflowInput = data => ({ type: types.CREATE_WORKFLOW_INPUT, data });
 const updateWorkflowInput = data => ({ type: types.UPDATE_WORKFLOW_INPUT, data });
@@ -213,6 +226,7 @@ export const actions = {
   cancelCreate,
   updateProperty,
   updateTriggersWebhook,
+  updateTriggersEvent,
   updateTriggersScheduler,
   createWorkflowInput,
   updateWorkflowInput,

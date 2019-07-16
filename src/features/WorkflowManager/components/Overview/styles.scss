@@ -114,7 +114,7 @@
     padding: 0;
   }
 
-  .b-schedule__cronMessage {
+  .b-schedule__information--cronMessage {
     padding-top: 1rem;
     padding-bottom: 0.5rem;
   }
@@ -123,5 +123,15 @@
     height: 1.5rem;
     left: 0.5rem;
     position: relative;
+  }
+  .b-event {
+    display: flex;
+    padding-top: 2rem;
+    padding-bottom: 0.7rem;
+    min-height: 4rem;
+  }
+
+  .b-event__toggle {
+    margin-left: 2rem;
   }
 }
