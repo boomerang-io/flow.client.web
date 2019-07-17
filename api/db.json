@@ -5887,7 +5887,67 @@
         "id": "5c36289096052900012cc81e",
         "order": 1,
         "startTime": 1547053504488,
-        "taskId": "515c8b05-cbb0-470a-a58e-b8740b332a6a",
+        "taskId": "515c8b05-ceb0-470a-a58e-b8740b332a6a",
+        "outputs": {
+          "args": {
+            "test": "true"
+          },
+          "data": "",
+          "files": {},
+          "form": {},
+          "headers": {
+            "Accept": "/",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "text/http",
+            "Host": "httpbin.org",
+            "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
+          },
+          "json": null,
+          "method": "GET",
+          "origin": "147.10.60.191",
+          "url": "https://httpbin.org/anything?test=true"
+        },
+        "taskName": "Send Slack Message"
+      },
+      {
+        "activityId": "5c36289096052900012cc81s",
+        "duration": 300190,
+        "flowTaskStatus": "completed",
+        "id": "5c3628909605290001dcc81e",
+        "order": 1,
+        "startTime": 1547053504488,
+        "taskId": "515c8b05-cbf0-470a-a58e-b8740b332a6a",
+        "outputs": {
+          "args": {
+            "test": "true"
+          },
+          "data": "",
+          "files": {},
+          "form": {},
+          "headers": {
+            "Accept": "/",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "text/http",
+            "Host": "httpbin.org",
+            "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
+          },
+          "json": null,
+          "method": "GET",
+          "origin": "147.10.60.191",
+          "url": "https://httpbin.org/anything?test=true"
+        },
+        "taskName": "Send Slack Message"
+      },
+      {
+        "activityId": "5c36289096052900012cc81d",
+        "duration": 300190,
+        "flowTaskStatus": "failure",
+        "id": "5cd6289096052900012cc81e",
+        "order": 1,
+        "startTime": 1547053504488,
+        "taskId": "515c8bw5-cbb0-470a-a58e-b8740b332a6a",
         "outputs": {
           "args": {
             "test": "true"
@@ -5978,37 +6038,16 @@
   },
   "workflowSummary": [
     {
-      "description": "Here is my description here.",
-      "flowTeamId": "5bd29a451ca2ef241e548b40",
-      "icon": "api",
-      "id": "5bc0efa45a5df954adb0e556",
-      "name": "Marcus' Workflow",
-      "shortDescription": "Summary",
-      "revisionCount": 4,
-      "properties": [
-        {
-          "defaultValue": "default value here2",
-          "description": "Testing this property",
-          "key": "test.property",
-          "label": "Test Property",
-          "required": true,
-          "type": "text"
-        },
-        {
-          "defaultValue": "tyson",
-          "validValues": ["tyson", "marcus"],
-          "description": "asd",
-          "key": "dropdowntest",
-          "label": "Tyson's Drop Down Test",
-          "required": false,
-          "type": "select"
-        }
-      ],
+      "name": "",
+      "shortDescription": "",
+      "description": "",
+      "icon": "docs",
+      "version": 2,
       "triggers": {
         "scheduler": {
           "enable": true,
           "schedule": "1 1 1 1 2",
-          "timezone": "America/Chicago"
+          "timezone": "Africa/Addis_Ababa"
         },
         "webhook": {
           "enable": false,
@@ -6018,467 +6057,18 @@
           "enable": false,
           "topic": ""
         }
-      }
-    },
-    {
-      "name": "Help",
-      "shortDescription": "Me",
-      "description": "Please",
-      "icon": "template",
-      "workflowTeamId": "9012",
-      "id": 1
-    },
-    {
-      "name": "Testing",
-      "workflowTeamId": "9012",
-      "id": 2
-    },
-    {
-      "name": "Testing",
-      "shortDescription": "name",
-      "description": "here",
-      "icon": "docs",
-      "id": "5J6bmsC"
-    },
-    {
-      "name": "",
-      "shortDescription": "",
-      "description": "",
-      "icon": "docs",
-      "triggers": {
-        "scheduler": {
-          "enable": true,
-          "schedule": "1 1 1 1 2"
-        },
-        "webhook": {
-          "enable": false,
-          "token": false
-        }
       },
-      "id": "5Mz75WC"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": true,
-          "schedule": "1 1 1 1 1",
-          "timezone": "Africa/Addis_Ababa"
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
+      "properties": [
+        {
+          "description": "testing",
+          "key": "hello",
+          "label": "hello",
+          "type": "text",
+          "required": false
         }
-      },
+      ],
       "enablePersistentStorage": true,
-      "id": "ZC4jNZV"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "id": "R4187LY"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": true,
-          "schedule": "1 1 1 1 1",
-          "timezone": "America/Chicago"
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "id": "sB~95Xv"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "id": "niSMUtV"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "id": "zL3UgV~"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "id": "QHWX4bE"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": true,
-          "schedule": "1 1 1 1 1",
-          "timezone": "America/Chicago"
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "id": "BbHVTGm"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "id": "e_xVGim"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": true,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "id": "thWM2lM"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "id": "3B7qnuh"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": true,
-          "schedule": "1 1 1 1 1",
-          "timezone": "America/Chicago"
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "properties": [],
-      "name": "Testing",
-      "shortDescription": "Dude",
-      "description": "Here",
-      "id": "ZZ9lBbw"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": true,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      }
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "id": "7Kw9MLP"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": true,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "id": "o95XKY3"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "name": "ben test",
-      "id": "CUEPHZL"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "name": "Ben Switch Test",
-      "flowTeamId": "9012",
-      "id": "cdZdGLY"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "flowTeamId": "9012",
-      "name": "ben test",
-      "id": "Bjw4jrZ"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "flowTeamId": "9012",
-      "name": "ben test",
-      "id": "BusI5bl"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "name": "fdsafdsa",
-      "id": "P2rciXp"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "name": "fsda",
-      "id": "LYGQAUk"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "name": "Ben Testing Dag breaks",
-      "shortDescription": "",
-      "description": "looking to find where the breaking is happening",
-      "flowTeamId": "9012",
-      "id": "ByJagIS"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "name": "fdsa",
-      "flowTeamId": "9012",
-      "id": "MU2nmyO"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "name": "fdsa",
-      "shortDescription": "fdsa",
-      "description": "",
-      "flowTeamId": "9012",
-      "id": "25RwDNH"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "name": "fdsa",
-      "description": "",
-      "flowTeamId": "9012",
-      "id": "14A3BPH"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "name": "ben flow",
-      "flowTeamId": "9012",
-      "id": "X_1r69y"
-    },
-    {
-      "triggers": {
-        "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": ""
-        },
-        "webhook": {
-          "enable": false,
-          "token": ""
-        }
-      },
-      "enablePersistentStorage": false,
-      "properties": [],
-      "name": "ben test",
-      "flowTeamId": "9012",
-      "id": "WKv4cYe"
+      "id": "5Mz75WC"
     }
   ],
   "workflowActivity": {

@@ -12,9 +12,9 @@ import { REQUEST_STATUSES } from "Config/servicesConfig";
 
 class ImportConfirm extends Component {
   static propTypes = {
-    handleImportWorkflow: PropTypes.func.isRequired,
-    importWorkflowActions: PropTypes.object.isRequired,
-    importWorkflowState: PropTypes.object.isRequired
+    handleImportWorkflow: PropTypes.func,
+    importWorkflowActions: PropTypes.object,
+    importWorkflowState: PropTypes.object
   };
 
   componentDidMount() {

@@ -6,6 +6,7 @@ import { detect } from "detect-browser";
 import { actions as userActions } from "State/user";
 import { actions as navigationActions } from "State/navigation";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import ErrorBoundary from "@boomerang/boomerang-components/lib/ErrorBoundary";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
 import OnBoardExpContainer from "Features/OnBoard";
 import NotificationBanner from "Components/NotificationBanner";
@@ -69,10 +70,6 @@ class App extends Component {
     if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
       return (
         <>
-          <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
-          <BrowserModal isOpen={browser.name === "chrome" ? false : true} />
-          <OnBoardExpContainer />
-          <NotificationBanner closeBanner={this.closeBanner} />
           <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
             <Suspense fallback={<div />}>
               <Switch>
@@ -104,7 +101,16 @@ class App extends Component {
   }
 
   render() {
-    return <div className="c-app">{this.renderApp()}</div>;
+    const { user, navigation } = this.props;
+    return (
+      <div className="c-app">
+        <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
+        <BrowserModal isOpen={browser.name === "chrome" ? false : true} />
+        <OnBoardExpContainer />
+        <NotificationBanner closeBanner={this.closeBanner} />
+        <ErrorBoundary errorComponent={ErrorDragon}>{this.renderApp()}</ErrorBoundary>
+      </div>
+    );
   }
 }
 
