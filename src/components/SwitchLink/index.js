@@ -185,7 +185,9 @@ class SwitchLink extends Component {
             transform={`translate(${this.halfwayPoint.x + 20}, ${this.halfwayPoint.y + 25})`}
             style={{ cursor: "initial" }}
           >
-            <text className="small">{this.props.model.switchCondition === null ? "default" : seperatedLinkState}</text>
+            <text className="s-small-text">
+              {this.props.model.switchCondition === null ? "default" : seperatedLinkState}
+            </text>
           </g>
         )}
         {this.path.current && this.props.diagramEngine.diagramModel.locked && (
