@@ -71,6 +71,7 @@ class App extends Component {
       return (
         <>
           <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
+            <NotificationBanner closeBanner={this.closeBanner} />
             <Suspense fallback={<div />}>
               <Switch>
                 <ProtectedRoute path="/configuration" userRole={user.data.type} component={AsyncGlobalConfiguration} />
@@ -107,7 +108,6 @@ class App extends Component {
         <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
         <BrowserModal isOpen={browser.name === "chrome" ? false : true} />
         <OnBoardExpContainer />
-        <NotificationBanner closeBanner={this.closeBanner} />
         <ErrorBoundary errorComponent={ErrorDragon}>{this.renderApp()}</ErrorBoundary>
       </div>
     );
