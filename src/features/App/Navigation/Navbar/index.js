@@ -12,8 +12,8 @@ import { BASE_URL } from "Config/servicesConfig";
 import { NavLink } from "react-router-dom";
 
 const FLOW_PATH = `${BASE_APPS_ENV_URL}/flow/apps/flow`;
-const baseLaunchUrl = new URL(BASE_LAUNCH_ENV_URL);
-const baseURL = baseLaunchUrl.origin;
+// const baseLaunchUrl = new URL(BASE_LAUNCH_ENV_URL);
+// const baseURL = baseLaunchUrl.origin;
 
 const onMenuClick = ({ isOpen, onMenuClose }) => (
   <InteriorLeftNav isOpen={isOpen} onMenuClose={onMenuClose}>
