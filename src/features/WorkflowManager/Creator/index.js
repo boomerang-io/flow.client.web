@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as tasksActions } from "State/tasks";
@@ -11,8 +13,6 @@ import DiagramApplication from "Utilities/DiagramApplication";
 class WorkflowCreatorContainer extends Component {
   static propTypes = {
     createWorkflow: PropTypes.func.isRequired,
-    isValidOverview: PropTypes.bool.isRequired,
-    setIsValidOverview: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired
   };
 
@@ -23,18 +23,49 @@ class WorkflowCreatorContainer extends Component {
   };
 
   render() {
-    const { workflow, isValidOverview, setIsValidOverview } = this.props;
+    const { workflow } = this.props;
 
     return (
       <>
         <Navigation onlyShowBackLink />
-        <ActionBar
-          diagramApp={this.diagramApp}
-          performActionButtonText="Create Workflow"
-          performAction={this.createWorkflow}
-          isValidOverview={isValidOverview}
-        />
-        <Overview workflow={workflow} setIsValidOverview={setIsValidOverview} />
+        <Formik
+          initialValues={{
+            name: workflow.data.name || "",
+            shortDescription: workflow.data.shortDescription || "",
+            description: workflow.data.description || "",
+            webhook: workflow.data.triggers.webhook.enable || false,
+            token: workflow.data.triggers.webhook.token || "",
+            schedule: workflow.data.triggers.scheduler.enable || false,
+            event: workflow.data.triggers.event.enable || false,
+            topic: workflow.data.triggers.event.topic || "",
+            persistence: workflow.data.enablePersistentStorage || false
+          }}
+          validationSchema={Yup.object().shape({
+            name: Yup.string()
+              .required("Enter a name")
+              .max(64, "Name must not be greater than 64 characters"),
+            shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
+            description: Yup.string().max(256, "Description must not be greater than 256 characters"),
+            webhook: Yup.boolean(),
+            token: Yup.string(),
+            schedule: Yup.boolean(),
+            event: Yup.boolean(),
+            topic: Yup.string(),
+            persistence: Yup.boolean()
+          })}
+        >
+          {formikProps => (
+            <>
+              <ActionBar
+                diagramApp={this.diagramApp}
+                performActionButtonText="Create Workflow"
+                performAction={this.createWorkflow}
+                isValidOverview={formikProps.isValid}
+              />
+              <Overview workflow={workflow} formikProps={formikProps} />
+            </>
+          )}
+        </Formik>
       </>
     );
   }

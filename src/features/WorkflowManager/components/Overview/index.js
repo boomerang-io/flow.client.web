@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { TextArea, TextInput } from "carbon-components-react";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import Button from "@boomerang/boomerang-components/lib/Button";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
@@ -14,8 +15,6 @@ import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
 import { Notification, notify } from "@boomerang/boomerang-components/lib/Notifications";
 import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
-import TextArea from "@boomerang/boomerang-components/lib/TextArea";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
@@ -43,11 +42,11 @@ export class Overview extends Component {
     };
   }
   static propTypes = {
-    setIsValidOverview: PropTypes.func.isRequired,
+    activeTeamId: PropTypes.string,
+    formikProps: PropTypes.object.isRequired,
     teams: PropTypes.array.isRequired,
     workflow: PropTypes.object.isRequired,
-    workflowActions: PropTypes.object.isRequired,
-    activeTeamId: PropTypes.string
+    workflowActions: PropTypes.object.isRequired
   };
 
   generateToken = e => {
@@ -62,6 +61,7 @@ export class Overview extends Component {
           key: "token",
           value: response.data.token
         });
+        this.props.formikProps.handleChange({ target: { value: response.data.token, id: "token" } });
         notify(<Notification type="success" title="Generate Token" message="Successfully generated webhook token" />);
       })
       .catch(err => {
@@ -69,9 +69,52 @@ export class Overview extends Component {
       });
   };
 
-  handleOnChange = (value, errors, name) => {
-    this.props.workflowActions.updateProperty({ value, key: name });
-    this.setState({ errors: { ...this.state.errors, [name]: errors } }, () => this.determineIsValidForm());
+  handleOnChange = e => {
+    const { value, id } = e.target;
+    this.props.workflowActions.updateProperty({ value, key: id });
+    this.props.formikProps.handleChange(e);
+  };
+
+  handleOnIconChange = (value, id) => {
+    this.props.workflowActions.updateProperty({ value, key: id });
+  };
+
+  handleOnWebhookChange = value => {
+    this.props.workflowActions.updateTriggersWebhook({ value, key: "enable" });
+    this.props.formikProps.setFieldValue("webhook", value);
+  };
+
+  handleShowToken = () => {
+    if (this.state.tokenTextType === "text") {
+      this.setState({ tokenTextType: "password", showTokenText: "Show Token" });
+    } else {
+      this.setState({ tokenTextType: "text", showTokenText: "Hide Token" });
+    }
+  };
+
+  handleOnSchedulerChange = value => {
+    this.props.workflowActions.updateTriggersScheduler({ value, key: "enable" });
+    this.props.formikProps.setFieldValue("schedule", value);
+  };
+
+  handleOnCronChange = (value, id) => {
+    this.props.workflowActions.updateTriggersScheduler({ value, key: id });
+  };
+
+  handleOnEventChange = value => {
+    this.props.workflowActions.updateTriggersEvent({ value, key: "enable" });
+    this.props.formikProps.setFieldValue("event", value);
+  };
+
+  handleOnTopicChange = e => {
+    const { value, id } = e.target;
+    this.props.workflowActions.updateTriggersEvent({ value, key: id });
+    this.props.formikProps.handleChange(e);
+  };
+
+  handleOnPersistenceChange = (value, id) => {
+    this.props.workflowActions.updateProperty({ value, key: "enablePersistentStorage" });
+    this.props.formikProps.setFieldValue(id, value);
   };
 
   handleTeamChange = selectedTeam => {
@@ -84,66 +127,16 @@ export class Overview extends Component {
     });
   };
 
-  handleOnWebhookChange = (value, errors, name) => {
-    this.props.workflowActions.updateTriggersWebhook({ value, key: "enable" });
-    this.setState({ errors: { ...this.state.errors, [`webook-${name}`]: errors } }, () => this.determineIsValidForm());
-  };
-
-  handleOnEventChange = (value, errors, name) => {
-    this.props.workflowActions.updateTriggersEvent({
-      value,
-      key: name
-    });
-    this.setState({ errors: { ...this.state.errors, [`scheduler-${name}`]: errors } }, () =>
-      this.determineIsValidForm()
-    );
-  };
-
-  handleOnSchedulerChange = (value, errors, name) => {
-    this.props.workflowActions.updateTriggersScheduler({
-      value,
-      key: name
-    });
-    this.setState({ errors: { ...this.state.errors, [`scheduler-${name}`]: errors } }, () =>
-      this.determineIsValidForm()
-    );
-  };
-
-  handleShowToken = () => {
-    if (this.state.tokenTextType === "text") {
-      this.setState({ tokenTextType: "password", showTokenText: "Show Token" });
-    } else {
-      this.setState({ tokenTextType: "text", showTokenText: "Hide Token" });
-    }
-  };
-
-  determineIsValidForm() {
-    const errorKeys = Object.keys(this.state.errors);
-
-    //harcoding the check for the team name being present
-    if (!this.props.workflow.data.name) {
-      return this.props.setIsValidOverview(false);
-    }
-    //if there are no keys on the error object than no need to check anything
-    if (!errorKeys.length) {
-      return this.props.setIsValidOverview(true);
-    }
-    //look for at least error key that is set to an object with keys aka has errors
-    let isValidOveriew = true;
-    errorKeys.forEach(errorKey => {
-      if (Object.keys(this.state.errors[errorKey]).length) {
-        isValidOveriew = false;
-      }
-    });
-    return this.props.setIsValidOverview(isValidOveriew);
-  }
-
   render() {
-    const { workflow, teams } = this.props;
+    const {
+      workflow,
+      teams,
+      formikProps: { values, touched, errors, handleBlur }
+    } = this.props;
     const { selectedTeam } = this.state;
 
     return (
-      <div className="c-worklfow-overview">
+      <div className="c-workflow-overview">
         <div className="c-overview-card">
           <h1 className="s-general-info-title">General</h1>
           <SelectDropdown
@@ -157,46 +150,30 @@ export class Overview extends Component {
             noResultsText="No options entered"
           />
           <TextInput
-            alwaysShowTitle
-            externallyControlled
-            required
-            value={workflow.data.name || ""}
-            title="Name"
+            id="name"
+            labelText="Name"
             placeholder="Name"
-            name="name"
-            theme="bmrg-white"
+            value={values.name}
+            onBlur={handleBlur}
             onChange={this.handleOnChange}
-            noValueText="Enter a name"
-            maxChar={64}
-            maxCharText={"Name must not be greater than 64 characters"}
-            // comparisonData={this.props.teams
-            //   .find(team => team.id === this.state.selectedTeam.value)
-            //   .workflows.map(workflow => workflow.name)}
-            // existValueText="Enter a unique name"
+            invalid={errors.name && touched.name}
+            invalidText={errors.name}
           />
           <TextInput
-            alwaysShowTitle
-            externallyControlled
-            value={workflow.data.shortDescription || ""}
-            title="Summary"
+            id="shortDescription"
+            labelText="Summary"
             placeholder="Summary"
-            name="shortDescription"
-            theme="bmrg-white"
+            value={values.shortDescription}
+            onBlur={handleBlur}
             onChange={this.handleOnChange}
-            maxChar={128}
-            maxCharText={"Summary must not be greater than 128 characters"}
           />
           <TextArea
-            alwaysShowTitle
-            externallyControlled
-            value={workflow.data.description || ""}
-            title="Description"
+            id="description"
+            labelText="Description"
             placeholder="Description"
-            name="description"
-            theme="bmrg-white"
-            handleChange={this.handleOnChange}
-            maxChar={256}
-            maxCharText={"Description must not be greater than 256 characters"}
+            value={values.description}
+            onBlur={handleBlur}
+            onChange={this.handleOnChange}
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
           <radiogroup className="b-workflow-icons">
@@ -210,7 +187,8 @@ export class Overview extends Component {
                 <input
                   type="radio"
                   value={image.name}
-                  onClick={() => this.handleOnChange(image.name, {}, "icon")}
+                  readOnly
+                  onClick={() => this.handleOnIconChange(image.name, "icon")}
                   checked={workflow.data.icon === image.name}
                 />
                 <img key={`${image.name}-${index}`} src={image.src} alt={`${image.name} icon`} />
@@ -221,16 +199,17 @@ export class Overview extends Component {
         <div className="c-overview-card">
           <h1 className="s-trigger-title">Triggers</h1>
           <div className="c-webhook">
-            <form className="b-webhook">
+            <div className="b-webhook">
               <p id="toggle-webhook" className="b-webhook__title">
                 Enable Webhook
               </p>
               <Toggle
+                id="webhook"
+                name="webhook"
                 aria-labelledby="toggle-webhook"
                 className="b-webhook__toggle"
-                name="webhook"
-                checked={workflow.data.triggers.webhook.enable}
-                onChange={(checked, event, id) => this.handleOnWebhookChange(checked, {}, "enable")}
+                checked={values.webhook}
+                onChange={checked => this.handleOnWebhookChange(checked)}
                 theme="bmrg-white"
               />
               <img
@@ -247,22 +226,26 @@ export class Overview extends Component {
                 workflow.data.triggers &&
                 workflow.data.triggers.webhook.enable &&
                 !workflow.data.triggers.webhook.token && (
-                  <Button theme="bmrg-black" onClick={this.generateToken} style={{ marginLeft: "2.2rem" }}>
+                  <Button
+                    theme="bmrg-black"
+                    type="button"
+                    onClick={this.generateToken}
+                    style={{ marginLeft: "2.2rem" }}
+                  >
                     Generate Token
                   </Button>
                 )}
-            </form>
+            </div>
             {!workflow.data.id && workflow.data.triggers && workflow.data.triggers.webhook.enable && (
               <div className="s-webhook-token-message">An API token will be generated on creation of the workflow.</div>
             )}
             {workflow.data.triggers && workflow.data.triggers.webhook.token && workflow.data.triggers.webhook.enable && (
-              <form className="b-webhook-token" onSubmit={e => e.preventDefault()}>
+              <div className="b-webhook-token">
                 <TextInput
-                  disabled
-                  externallyControlled
-                  value={workflow.data.triggers.webhook.token}
+                  id="token"
                   placeholder="Token"
-                  theme="bmrg-white"
+                  disabled
+                  value={values.token}
                   type={this.state.tokenTextType}
                 />
                 <button onClick={this.handleShowToken} type="button">
@@ -325,7 +308,7 @@ export class Overview extends Component {
                     )}
                   />
                 </div>
-              </form>
+              </div>
             )}
             <div className="c-scheduler">
               <div className="b-schedule">
@@ -333,11 +316,12 @@ export class Overview extends Component {
                   Enable Scheduler
                 </p>
                 <Toggle
+                  id="schedule"
+                  name="schedule"
                   aria-labelledby="toggle-scheduler"
                   className="b-schedule__toggle"
-                  checked={workflow.data.triggers.scheduler.enable}
-                  name="schedule"
-                  onChange={(checked, event, id) => this.handleOnSchedulerChange(checked, {}, "enable")}
+                  checked={values.schedule}
+                  onChange={checked => this.handleOnSchedulerChange(checked)}
                   theme="bmrg-white"
                 />
                 <img
@@ -356,7 +340,7 @@ export class Overview extends Component {
                     modalProps={{ shouldCloseOnOverlayClick: false }}
                     theme="bmrg-white"
                     ModalTrigger={() => (
-                      <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
+                      <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }} type="button">
                         Set Schedule
                       </Button>
                     )}
@@ -374,7 +358,7 @@ export class Overview extends Component {
                         <CronJobModal
                           closeModal={closeModal}
                           cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
-                          handleOnChange={this.handleOnSchedulerChange}
+                          handleOnChange={this.handleOnCronChange}
                           timeZone={workflow.data.triggers ? workflow.data.triggers.scheduler.timezone : ""}
                         />
                       </ModalFlow>
@@ -402,11 +386,12 @@ export class Overview extends Component {
                   Enable Event Subscription
                 </p>
                 <Toggle
+                  id="event"
+                  name="event"
                   aria-labelledby="toggle-event"
                   className="b-event__toggle"
-                  checked={workflow.data.triggers.event.enable}
-                  name="event"
-                  onChange={(checked, event, id) => this.handleOnEventChange(checked, {}, "enable")}
+                  checked={values.event}
+                  onChange={checked => this.handleOnEventChange(checked)}
                   theme="bmrg-white"
                 />
                 <img
@@ -423,10 +408,11 @@ export class Overview extends Component {
               {workflow.data.triggers && workflow.data.triggers.event.enable && (
                 <div className="b-event-topic">
                   <TextInput
-                    value={workflow.data.triggers.event.topic}
+                    id="topic"
                     placeholder="Topic"
-                    theme="bmrg-white"
-                    onChange={(value, event, id) => this.handleOnEventChange(value, {}, "topic")}
+                    value={values.topic}
+                    onBlur={handleBlur}
+                    onChange={this.handleOnTopicChange}
                   />
                 </div>
               )}
@@ -436,16 +422,17 @@ export class Overview extends Component {
         <div className="c-overview-card">
           <h1 className="s-trigger-title">Options</h1>
           <div className="b-options">
-            <form className="b-persistence">
+            <div className="b-persistence">
               <p id="toggle-persistence-storage" className="b-persistence__title">
                 Enable Persistent Storage
               </p>
               <Toggle
+                id="persistence"
+                name="persistence"
                 aria-labelledby="toggle-persistence-storage"
                 className="b-persistence__toggle"
-                checked={workflow.data.enablePersistentStorage}
-                name="persistence"
-                onChange={(checked, event, id) => this.handleOnChange(checked, {}, "enablePersistentStorage")}
+                checked={values.persistence}
+                onChange={(checked, event, id) => this.handleOnPersistenceChange(checked, id)}
                 theme="bmrg-white"
               />
               <img
@@ -458,7 +445,7 @@ export class Overview extends Component {
               <Tooltip id="options-persistence-info" place="top">
                 Persist workflow data between executions
               </Tooltip>
-            </form>
+            </div>
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import Inputs from "Features/WorkflowManager/components/Inputs";
@@ -16,8 +18,6 @@ class WorkflowEditor extends Component {
     createWorkflowRevision: PropTypes.func.isRequired,
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
-    isValidOverview: PropTypes.bool.isRequired,
-    setIsValidOverview: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,
     isModalOpen: PropTypes.bool.isRequired
@@ -67,8 +67,6 @@ class WorkflowEditor extends Component {
       isValidOverview,
       match,
       isModalOpen,
-      overviewData,
-      setIsValidOverview,
       workflow,
       workflowRevision
     } = this.props;
@@ -83,17 +81,46 @@ class WorkflowEditor extends Component {
           <Route
             path={`${match.path}/overview`}
             render={props => (
-              <>
-                <ActionBar
-                  performActionButtonText="Update Overview"
-                  performAction={this.updateWorkflow}
-                  diagramApp={this.diagramApp}
-                  isValidOverview={isValidOverview}
-                  loading={workflowLoading}
-                  {...props}
-                />
-                <Overview workflow={workflow} overviewData={overviewData} setIsValidOverview={setIsValidOverview} />
-              </>
+              <Formik
+                initialValues={{
+                  name: workflow.data.name || "",
+                  shortDescription: workflow.data.shortDescription || "",
+                  description: workflow.data.description || "",
+                  webhook: workflow.data.triggers.webhook.enable || false,
+                  token: workflow.data.triggers.webhook.token || "",
+                  schedule: workflow.data.triggers.scheduler.enable || false,
+                  event: workflow.data.triggers.event.enable || false,
+                  topic: workflow.data.triggers.event.topic || "",
+                  persistence: workflow.data.enablePersistentStorage || false
+                }}
+                validationSchema={Yup.object().shape({
+                  name: Yup.string()
+                    .required("Enter a name")
+                    .max(64, "Name must not be greater than 64 characters"),
+                  shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
+                  description: Yup.string().max(256, "Description must not be greater than 256 characters"),
+                  webhook: Yup.boolean(),
+                  token: Yup.string(),
+                  schedule: Yup.boolean(),
+                  event: Yup.boolean(),
+                  topic: Yup.string(),
+                  persistence: Yup.boolean()
+                })}
+              >
+                {formikProps => (
+                  <>
+                    <ActionBar
+                      diagramApp={this.diagramApp}
+                      performActionButtonText="Update Overview"
+                      performAction={this.updateWorkflow}
+                      isValidOverview={formikProps.isValid}
+                      loading={workflowLoading}
+                      {...props}
+                    />
+                    <Overview workflow={workflow} formikProps={formikProps} />
+                  </>
+                )}
+              </Formik>
             )}
           />
           <Route

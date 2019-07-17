@@ -70,10 +70,9 @@ export default class CronJobModal extends Component {
 
   handleOnSave = e => {
     e.preventDefault();
-    this.props.handleOnChange(this.state.cronExpression, {}, "schedule");
+    this.props.handleOnChange(this.state.cronExpression, "schedule");
     this.props.handleOnChange(
       this.state.timeZone.value ? this.state.timeZone.value : this.state.defaultTimeZone,
-      {},
       "timezone"
     );
     this.props.closeModal();
