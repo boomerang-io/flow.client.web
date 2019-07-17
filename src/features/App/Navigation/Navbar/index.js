@@ -8,10 +8,11 @@ import {
 } from "@boomerang/carbon-addons-boomerang-react";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import { BASE_APPS_ENV_URL, BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
+import { APP_ROOT } from "Config/appConfig";
 import { BASE_URL } from "Config/servicesConfig";
 import { NavLink } from "react-router-dom";
 
-const FLOW_PATH = `${BASE_APPS_ENV_URL}/flow/apps/flow`;
+const FLOW_PATH = `${BASE_APPS_ENV_URL}${APP_ROOT}`;
 // const baseLaunchUrl = new URL(BASE_LAUNCH_ENV_URL);
 // const baseURL = baseLaunchUrl.origin;
 

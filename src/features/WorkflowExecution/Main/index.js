@@ -55,13 +55,13 @@ class Main extends Component {
           <div className="c-workflow-diagram-execution">
             {hasStarted || hasFinished ? (
               <DiagramWidget
-                className="c-diagram-canvas"
-                diagramEngine={this.diagramApp.getDiagramEngine()}
-                maxNumberPointsPerLink={0}
-                deleteKeys={[]}
                 allowLooseLinks={false}
                 allowCanvasTranslation={true}
                 allowCanvasZoom={true}
+                className="c-diagram-canvas"
+                deleteKeys={[]}
+                diagramEngine={this.diagramApp.getDiagramEngine()}
+                maxNumberPointsPerLink={0}
               />
             ) : (
               <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />

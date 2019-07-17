@@ -6,18 +6,12 @@
 
   &.--banner-closed {
     padding-top: 3rem;
-  }
-
-  .bmrg--c-sidenav {
-    margin-top: 0rem;
-    width: 20rem;
+    .c-tasks-sidenav .bmrg--c-sidenav {
+      height: calc(100vh - 8.75rem);
+    }
   }
 }
 
 .c-workflow {
   margin-top: 4rem;
-}
-
-.s-sidenav-wrapper > .bmrg--c-sidenav {
-  z-index: 999;
 }

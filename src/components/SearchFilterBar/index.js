@@ -32,12 +32,6 @@ class SearchFilterBar extends Component {
     });
   };
 
-  handleOnSearchClear = () => {
-    this.setState({ searchQuery: "" }, () => {
-      this.handleSearchFilter();
-    });
-  };
-
   handleOnMultiSelectChange = e => {
     const selectedItems = e.selectedItems;
     this.setState({ selectedItems }, () => {
@@ -67,7 +61,6 @@ class SearchFilterBar extends Component {
               id="search-worfklows"
               labelText="Search workflows"
               onChange={this.handleOnSearchInputChange}
-              onClear={this.handleOnSearchClear}
               placeHolderText="Search workflows"
               value={this.state.searchQuery}
             />
