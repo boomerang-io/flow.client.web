@@ -12,7 +12,11 @@ import { APP_ROOT } from "Config/appConfig";
 import { BASE_URL } from "Config/servicesConfig";
 import { NavLink } from "react-router-dom";
 
+<<<<<<< HEAD
 const FLOW_PATH = `${BASE_APPS_ENV_URL}${APP_ROOT}`;
+=======
+const FLOW_PATH = `${BASE_APPS_ENV_URL}/flow/apps/flow`;
+>>>>>>> feat(changelog): table
 // const baseLaunchUrl = new URL(BASE_LAUNCH_ENV_URL);
 // const baseURL = baseLaunchUrl.origin;
 

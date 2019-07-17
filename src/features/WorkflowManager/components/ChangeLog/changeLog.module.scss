@@ -1,0 +1,21 @@
+.container {
+  padding: 2rem 2rem 1rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 100rem;
+  overflow: auto;
+  height: calc(100vh - 10rem);
+
+  :global .bmrg--b-loading-animation__text {
+    display: none;
+  }
+  :global .bmrg--b-loading-animation__img {
+    transform: scale(0.3);
+  }
+}
+.title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.0625rem;
+}
