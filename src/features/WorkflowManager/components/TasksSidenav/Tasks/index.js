@@ -59,6 +59,7 @@ export default class Tasks extends Component {
         theme="bmrg-white"
         header={() => (
           <Search
+            labelText="Search tasks"
             placeHolderText="Search tasks"
             onChange={this.handleOnSearchInputChange}
             onClear={this.handleClear}

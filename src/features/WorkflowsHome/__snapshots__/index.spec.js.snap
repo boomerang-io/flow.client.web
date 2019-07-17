@@ -14,67 +14,65 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
         className="b-search-filter__search"
       >
         <div
-          className="bmrg--c-search-bar"
+          aria-labelledby="search-worfklows-label"
+          className="bx--search bx--search--lg"
+          role="search"
         >
-          <div
-            className="bmrg--b-search-bar --bmrg-white"
+          <svg
+            alt="Search workflows"
+            aria-label="Search workflows"
+            className="bx--search-magnifier"
+            fillRule="evenodd"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <title>
+              Search workflows
+            </title>
+            <path
+              d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm4.936-1.27l4.563 4.557-.707.708-4.563-4.558a6.5 6.5 0 1 1 .707-.707z"
+            />
+          </svg>
+          <label
+            className="bx--label"
+            htmlFor="search-worfklows"
+            id="search-worfklows-label"
+          >
+            Search workflows
+          </label>
+          <input
+            className="bx--search-input"
+            id="search-worfklows"
+            onChange={[Function]}
+            onClear={[Function]}
+            placeholder="Search workflows"
+            type="text"
+            value=""
+          />
+          <button
+            className="bx--search-close bx--search-close--hidden"
+            onClick={[Function]}
+            type="button"
           >
             <svg
-              className="bmrg--b-search-bar__icon --bmrg-white"
-              height="20px"
-              version="1.1"
-              viewBox="0 0 18 20"
-              width="18px"
-              xmlns="http://www.w3.org/2000/svg"
+              alt="Provide a description that will be used as the title"
+              aria-label="Provide a description that will be used as the title"
+              fillRule="evenodd"
+              height="16"
+              role="img"
+              viewBox="0 0 16 16"
+              width="16"
             >
-              <g
-                fill="none"
-                fillRule="evenodd"
-                id="CI-Sam"
-                stroke="none"
-                strokeWidth="1"
-              >
-                <g
-                  id="CI---Landing---green-Copy-6"
-                  transform="translate(-31.000000, -170.000000)"
-                >
-                  <g
-                    id="Group-11"
-                    transform="translate(30.000000, 170.000000)"
-                  >
-                    <g
-                      id="search"
-                    >
-                      <rect
-                        height="20"
-                        id="Rectangle-2"
-                        width="20"
-                        x="0"
-                        y="0"
-                      />
-                      <path
-                        d="M8.99971488,10.135742 C10.957325,12.1112984 14.1428734,12.111537 16.1007199,10.135742 C18.05833,8.16018553 18.05833,4.9451952 16.1007199,2.96963875 C14.1428734,0.993843756 10.957325,0.994082292 8.99971488,2.96963875 C7.04186838,4.94543374 7.04186838,8.15994699 8.99971488,10.135742 Z M16.8098276,10.8513505 C14.7576698,12.9223214 11.5813398,13.1832799 9.24530253,11.6354188 L1.42857143,19.5238095 L1.42857143,16.1843033 L7.57795384,9.97854665 C5.97655217,7.61250651 6.21173957,4.35195578 8.29060713,2.25403027 C10.6394084,-0.11630352 14.46079,-0.116542056 16.8098276,2.25403027 C19.1586289,4.62436407 19.1586289,8.48101666 16.8098276,10.8513505 Z"
-                        fill="#40D5BB"
-                        id="magnifying-glass"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
+              <title>
+                Provide a description that will be used as the title
+              </title>
+              <path
+                d="M8 6.586L5.879 4.464 4.464 5.88 6.586 8l-2.122 2.121 1.415 1.415L8 9.414l2.121 2.122 1.415-1.415L9.414 8l2.122-2.121-1.415-1.415L8 6.586zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+              />
             </svg>
-            <input
-              className="bmrg--b-search-bar__textbox --bmrg-white"
-              id="bmrg-search-input"
-              name="bmrg-search-input"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onKeyDown={[Function]}
-              placeholder="Search"
-              type="text"
-              value=""
-            />
-            
-          </div>
+          </button>
         </div>
       </div>
       <div
@@ -105,7 +103,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             <span
               className="bx--list-box__label"
             >
-              Filter
+              Teams
             </span>
             <div
               className="bx--list-box__menu-icon"

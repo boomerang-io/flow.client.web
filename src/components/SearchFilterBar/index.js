@@ -64,6 +64,8 @@ class SearchFilterBar extends Component {
         <div className="b-search-filter__search">
           {searchbar ? (
             <Search
+              id="search-worfklows"
+              labelText="Search workflows"
               onChange={this.handleOnSearchInputChange}
               onClear={this.handleOnSearchClear}
               placeHolderText="Search workflows"

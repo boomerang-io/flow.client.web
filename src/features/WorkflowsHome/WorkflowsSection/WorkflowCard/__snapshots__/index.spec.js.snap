@@ -45,7 +45,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
     </svg>
   </div>
   <div
-    className="c-workflow-card__info"
+    className="c-workflow-card-info"
   >
     <div
       className="c-workflow-card__icon"
@@ -53,55 +53,51 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
       <img
         alt="icon"
         className="b-workflow-card__icon"
-        src="secure.svg"
       />
     </div>
-    <div
+    <a
       className="c-workflow-card__description"
+      href="/editor/789/designer"
+      onClick={[Function]}
     >
-      <a
-        href="/editor/789/designer"
-        onClick={[Function]}
+      <h2
+        className="b-workflow-card__name"
       >
-        <h2
-          className="b-workflow-card__name"
-        >
-          lucas-workflow-3
-        </h2>
-      </a>
+        lucas-workflow-3
+      </h2>
       <p
         className="b-workflow-card__description"
       />
-      <span
-        className="b-workflow-card-launch"
-        data-for="789"
-        data-tip={true}
-      >
-        <div
-          onClick={[Function]}
-          onKeyPress={[Function]}
-          style={
-            Object {
-              "width": "fit-content",
-            }
-          }
-        >
-          <button>
-            <img
-              alt="Execute workflow"
-              className="b-workflow-card-launch__icon"
-              src="playButton.svg"
-            />
-          </button>
-        </div>
-      </span>
+    </a>
+    <div
+      className="b-workflow-card-launch"
+      data-for="789"
+      data-tip={true}
+    >
       <div
-        className="__react_component_tooltip place-bottom type-dark "
-        data-id="tooltip"
-        id="789"
+        onClick={[Function]}
+        onKeyPress={[Function]}
+        style={
+          Object {
+            "width": "fit-content",
+          }
+        }
       >
-        Execute workflow
+        <button>
+          <img
+            alt="Execute workflow"
+            className="b-workflow-card-launch__icon"
+            src="playButton.svg"
+          />
+        </button>
       </div>
+    </div>
+    <div
+      className="__react_component_tooltip place-bottom type-dark "
+      data-id="tooltip"
+      id="789"
+    >
+      Execute workflow
     </div>
   </div>
 </div>

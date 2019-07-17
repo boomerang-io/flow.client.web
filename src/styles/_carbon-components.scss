@@ -13,6 +13,7 @@ $carbon--theme--bmrg-light: true;
 @import "~carbon-components/scss/components/pagination/pagination";
 @import "~carbon-components/scss/components/search/search";
 
+// Global overrides
 .bx--list-box__field {
   background-color: #40d5bb !important;
 }

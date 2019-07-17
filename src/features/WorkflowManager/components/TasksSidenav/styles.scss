@@ -2,8 +2,8 @@
 
 .c-tasks-sidenav {
   .bmrg--c-sidenav {
-    height: calc(100vh - 8.75rem);
-    overflow: scroll;
+    height: 100%;
+    overflow: auto;
     min-height: 0rem;
   }
 

@@ -4,7 +4,6 @@ import Navbar from "./Navbar";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as OnBoardActions } from "State/onBoard";
-//import "./styles.scss";
 
 class Navigation extends Component {
   state = {

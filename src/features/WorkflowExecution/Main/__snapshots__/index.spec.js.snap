@@ -8,8 +8,9 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
     style={
       Object {
         "gridArea": "header",
+        "height": "fit-content",
         "marginBottom": "1rem",
-        "width": "15rem",
+        "width": "fit-content",
       }
     }
   >

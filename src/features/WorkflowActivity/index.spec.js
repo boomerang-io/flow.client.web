@@ -15,13 +15,13 @@ const teamsActions = {
 const match = {
   params: "testid"
 };
-const teams = {
+const teamsState = {
   isFetching: false,
   status: "success",
   error: "",
   data: []
 };
-const activity = {
+const activityState = {
   last: false,
   totalPages: 9,
   totalElements: 90,
@@ -63,8 +63,8 @@ describe("WorkflowActivity --- Snapshot", () => {
       .create(
         <MemoryRouter>
           <WorkflowActivity
-            activity={activity}
-            teams={teams}
+            activityState={activityState}
+            teamsState={teamsState}
             activityActions={activityActions}
             teamsActions={teamsActions}
             match={match}
@@ -85,8 +85,8 @@ describe("WorkflowActivity --- Shallow render", () => {
     wrapper = shallow(
       <MemoryRouter>
         <WorkflowActivity
-          activity={activity}
-          teams={teams}
+          activityState={activityState}
+          teamsState={teamsState}
           activityActions={activityActions}
           teamsActions={teamsActions}
           match={match}

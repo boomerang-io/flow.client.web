@@ -12,7 +12,7 @@ import orderBy from "lodash/orderBy";
 import flow from "lodash/flow";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
-import { ALL_OPTIONS, executionOptions, statusOptions } from "Constants/filterOptions";
+import { executionOptions, statusOptions } from "Constants/filterOptions";
 import ActivityList from "./ActivityList";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
@@ -118,6 +118,7 @@ export class WorkflowActivity extends Component {
       this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
     });
   };
+
   handleStatusFilter = ({ selectedItems }) => {
     const { selectedWorkflow, searchQuery } = this.state;
     this.setState({ statusFilter: selectedItems }, () => {
@@ -186,23 +187,18 @@ export class WorkflowActivity extends Component {
 
     let workflowsList = [];
     if (!selectedTeams.length) {
-      workflowsList = teamsData.reduce(
-        (acc, team) => {
-          acc = acc.concat(team.workflows);
-          return acc;
-        },
-        [{ id: "all", name: "All workflows" }]
-      );
+      workflowsList = teamsData.reduce((acc, team) => {
+        acc = acc.concat(team.workflows);
+        return acc;
+      }, []);
     } else {
-      workflowsList = selectedTeams.reduce(
-        (acc, team) => {
-          acc = acc.concat(team.workflows);
-          return acc;
-        },
-        [{ id: "all", name: "All workflows" }]
-      );
+      workflowsList = selectedTeams.reduce((acc, team) => {
+        acc = acc.concat(team.workflows);
+        return acc;
+      }, []);
     }
-    const workflowsFilter = sortByProp(workflowsList, "name", "ASC");
+    let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
+    workflowsFilter = [{ id: "all", name: "All workflows" }, ...workflowsFilter];
     return workflowsFilter;
   }
 
@@ -239,7 +235,6 @@ export class WorkflowActivity extends Component {
                 <Dropdown
                   label="Workflows"
                   placeholder="Workflows"
-                  label="Workflows"
                   onChange={this.handleSelectWorkflows}
                   items={workflowsFilter}
                   itemToString={workflow => {
