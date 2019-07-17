@@ -134,14 +134,30 @@
     padding: 0;
   }
 
-  .b-schedule__cronMessage {
+  .b-schedule__information--cronMessage {
     padding-top: 1rem;
     padding-bottom: 0.5rem;
+    font-style: italic;
+  }
+
+  .b-schedule__information--timezone {
+    font-style: italic;
+    padding-bottom: 1rem;
   }
 
   .b-options__infoIcon {
     height: 1.25rem;
     left: 0.5rem;
     position: relative;
+  }
+  .b-event {
+    display: flex;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    min-height: 4rem;
+  }
+
+  .b-event__toggle {
+    margin-left: 2rem;
   }
 }

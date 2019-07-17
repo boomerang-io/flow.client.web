@@ -89,6 +89,16 @@ export class Overview extends Component {
     this.setState({ errors: { ...this.state.errors, [`webook-${name}`]: errors } }, () => this.determineIsValidForm());
   };
 
+  handleOnEventChange = (value, errors, name) => {
+    this.props.workflowActions.updateTriggersEvent({
+      value,
+      key: name
+    });
+    this.setState({ errors: { ...this.state.errors, [`scheduler-${name}`]: errors } }, () =>
+      this.determineIsValidForm()
+    );
+  };
+
   handleOnSchedulerChange = (value, errors, name) => {
     this.props.workflowActions.updateTriggersScheduler({
       value,
@@ -372,20 +382,54 @@ export class Overview extends Component {
                   />
                 )}
               </div>
-              <div className="b-schedule__cronMessage">
-                {workflow.data.triggers &&
+              {workflow.data.triggers &&
                 workflow.data.triggers.scheduler.schedule &&
-                workflow.data.triggers.scheduler.enable
-                  ? cronstrue.toString(workflow.data.triggers.scheduler.schedule)
-                  : undefined}
+                workflow.data.triggers.scheduler.enable &&
+                workflow.data.triggers.scheduler.timezone && (
+                  <div className="b-schedule__information">
+                    <div className="b-schedule__information--cronMessage">
+                      {cronstrue.toString(workflow.data.triggers.scheduler.schedule)}
+                    </div>
+                    <div className="b-schedule__information--timezone">
+                      {`${workflow.data.triggers.scheduler.timezone} Timezone`}
+                    </div>
+                  </div>
+                )}
+            </div>
+            <div className="c-event">
+              <div className="b-event">
+                <p id="toggle-event" className="b-event__title">
+                  Enable Event Subscription
+                </p>
+                <Toggle
+                  aria-labelledby="toggle-event"
+                  className="b-event__toggle"
+                  checked={workflow.data.triggers.event.enable}
+                  name="event"
+                  onChange={(checked, event, id) => this.handleOnEventChange(checked, {}, "enable")}
+                  theme="bmrg-white"
+                />
+                <img
+                  className="b-options__infoIcon"
+                  src={infoIcon}
+                  data-tip
+                  data-for="triggers-event-info"
+                  alt="Toggle event"
+                />
+                <Tooltip id="triggers-event-info" place="top">
+                  Enable workflow to be triggered by platform events
+                </Tooltip>
               </div>
-              <div className="b-schedule__timezone">
-                {workflow.data.triggers &&
-                workflow.data.triggers.scheduler.timezone &&
-                workflow.data.triggers.scheduler.enable
-                  ? `${workflow.data.triggers.scheduler.timezone} Timezone`
-                  : undefined}
-              </div>
+              {workflow.data.triggers && workflow.data.triggers.event.enable && (
+                <div className="b-event-topic">
+                  <TextInput
+                    value={workflow.data.triggers.event.topic}
+                    placeholder="Topic"
+                    theme="bmrg-white"
+                    onChange={(value, event, id) => this.handleOnEventChange(value, {}, "topic")}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

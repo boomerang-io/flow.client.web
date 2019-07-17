@@ -6013,6 +6013,10 @@
         "webhook": {
           "enable": false,
           "token": false
+        },
+        "event": {
+          "enable": false,
+          "topic": ""
         }
       }
     },
