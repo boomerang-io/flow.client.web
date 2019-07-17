@@ -281,3 +281,17 @@ button {
 .bmrg--b-modal-nav-button.--bmrg-white {
   background: #f3f3f3;
 }
+
+//Overwrite carbon
+.bx--pagination .bx--select-input {
+  padding: 0 1.25rem 0 0.625rem;
+}
+
+.bx--table-header-label {
+  color: $tab-blue;
+  padding-right: 0.5rem;
+}
+
+.bx--overflow-menu {
+  height: auto;
+}

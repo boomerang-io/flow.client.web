@@ -1,0 +1,239 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of CreateEditPropertiesContent 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <main
+    className="bmrg--c-modal-content-body"
+    style={
+      Object {
+        "display": "block",
+        "height": "28rem",
+        "margin": "auto",
+        "overflowY": "auto",
+        "width": "60%",
+      }
+    }
+  >
+    <div
+      className="input"
+    >
+      <div
+        className="bx--form-item"
+      >
+        <label
+          className="bx--label"
+          htmlFor="label"
+        >
+          Label
+        </label>
+        <input
+          className="bx--text-input bx--text__input"
+          disabled={false}
+          id="label"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          placeholder="Label"
+          type="text"
+        />
+      </div>
+    </div>
+    <div
+      className="input"
+    >
+      <div
+        className="bx--form-item"
+      >
+        <label
+          className="bx--label"
+          htmlFor="key"
+        >
+          key
+        </label>
+        <input
+          className="bx--text-input bx--text__input"
+          disabled={false}
+          id="key"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          placeholder="Key"
+          type="text"
+          value="test.key"
+        />
+      </div>
+    </div>
+    <div
+      className="input"
+    >
+      <div
+        className="bx--form-item"
+      >
+        <label
+          className="bx--label"
+          htmlFor="description"
+        >
+          Description
+        </label>
+        <input
+          className="bx--text-input bx--text__input"
+          disabled={false}
+          id="description"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          placeholder="Description"
+          type="text"
+        />
+      </div>
+    </div>
+    <div
+      className="input"
+    >
+      <div
+        className="bx--form-item"
+      >
+        <label
+          className="bx--label"
+          htmlFor="value"
+        >
+          Value
+        </label>
+        <input
+          className="bx--text-input bx--text__input"
+          disabled={false}
+          id="value"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onClick={[Function]}
+          placeholder="Value"
+          type="text"
+          value="testing"
+        />
+      </div>
+    </div>
+    <div
+      className="toggleContainer"
+    >
+      <label
+        className="toggleLabel"
+        htmlFor="secured"
+      >
+        Secured
+      </label>
+      <div
+        className="toggle --bmrg-white"
+        style={
+          Object {
+            "MozTransition": "opacity 0.25s",
+            "MozUserSelect": "none",
+            "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
+            "WebkitTransition": "opacity 0.25s",
+            "WebkitUserSelect": "none",
+            "borderRadius": 10,
+            "display": "inline-block",
+            "msUserSelect": "none",
+            "opacity": 1,
+            "position": "relative",
+            "textAlign": "left",
+            "touchAction": "none",
+            "transition": "opacity 0.25s",
+            "userSelect": "none",
+          }
+        }
+      >
+        <div
+          className="react-switch-bg"
+          onClick={[Function]}
+          onMouseDown={[Function]}
+          style={
+            Object {
+              "MozTransition": "background 0.25s",
+              "WebkitTransition": "background 0.25s",
+              "background": "#486c89",
+              "borderRadius": 10,
+              "cursor": "pointer",
+              "height": 20,
+              "margin": 0,
+              "position": "relative",
+              "transition": "background 0.25s",
+              "width": 40,
+            }
+          }
+        />
+        <div
+          className="react-switch-handle"
+          onClick={[Function]}
+          onMouseDown={[Function]}
+          onTouchCancel={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "MozTransition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
+              "WebkitTransition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
+              "background": "#ff806c",
+              "border": 0,
+              "borderRadius": "50%",
+              "boxShadow": null,
+              "cursor": "pointer",
+              "display": "inline-block",
+              "height": 18,
+              "outline": 0,
+              "position": "absolute",
+              "top": 1,
+              "transform": "translateX(1px)",
+              "transition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
+              "width": 18,
+            }
+          }
+        />
+        <input
+          checked={false}
+          disabled={false}
+          id="secured"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyUp={[Function]}
+          role="switch"
+          style={
+            Object {
+              "border": 0,
+              "clip": "rect(0 0 0 0)",
+              "height": 1,
+              "margin": -1,
+              "overflow": "hidden",
+              "padding": 0,
+              "position": "absolute",
+              "width": 1,
+            }
+          }
+          type="checkbox"
+        />
+      </div>
+    </div>
+  </main>
+  <footer
+    className="bmrg--c-modal-content-footer"
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "justifyContent": "flex-start",
+      }
+    }
+  >
+    <button
+      className="bmrg--b-modal-confirm-button --disabled --bmrg-white --disabled"
+      disabled={true}
+      type="submit"
+    >
+      SAVE
+    </button>
+  </footer>
+</form>
+`;

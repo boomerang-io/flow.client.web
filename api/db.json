@@ -11069,5 +11069,61 @@
         "date": 1550606326562
       }
     }
-  }
+  },
+  "globalConfiguration": [
+    {
+      "value": "2345",
+      "id": "5cdc5ad7460edb4a230b579b",
+      "key": "mail.account",
+      "label": "Mail Account",
+      "type": "password"
+    },
+    {
+      "label": "Boomerang Accounts1",
+      "key": "boomerang.account",
+      "value": "a long value to test",
+      "type": "text",
+      "id": "5cdc5ad7460edb4a230b579d"
+    },
+    {
+      "label": "Hello",
+      "description": "is",
+      "key": "thias",
+      "value": "cool",
+      "type": "text",
+      "id": "z04ZywD"
+    },
+    {
+      "label": "Tim Testing",
+      "description": "asdffasdfasdf",
+      "key": "aaaaaa",
+      "value": "1",
+      "type": "password",
+      "id": "w96RHlq"
+    },
+    {
+      "label": "sdfasdf",
+      "description": "asdfasdf",
+      "key": "asdfasdf",
+      "value": "asdfasdf",
+      "type": "text",
+      "id": "8brJkol"
+    },
+    {
+      "label": "asdfasdfasdfasdf55",
+      "description": "asdfasdfasdfasdf2323",
+      "key": "asdfasdfadfasd55",
+      "value": "44555",
+      "type": "password",
+      "id": "s6KdbOd"
+    },
+    {
+      "label": "test",
+      "description": "sdadasd",
+      "key": "adasd",
+      "value": "asdasdad",
+      "type": "text",
+      "id": "McDeh1k"
+    }
+  ]
 }

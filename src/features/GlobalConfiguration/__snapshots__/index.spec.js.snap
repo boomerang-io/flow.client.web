@@ -1,0 +1,616 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlobalConfigurationContainer --- Snapshot Test Capturing Snapshot of GlobalConfigurationContainer 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <div
+      class="container"
+    >
+      <div
+        class="container"
+      >
+        <div
+          class="content"
+        >
+          <div
+            class="info"
+          >
+            <h1
+              class="title"
+            >
+              Configuration
+            </h1>
+            <p
+              class="description"
+            >
+              Set global properties that are accessible in flow processes.
+            </p>
+          </div>
+          <section
+            class="buttons"
+          >
+            <div>
+              <button
+                class="bx--btn bx--btn--primary"
+                style="width: 9rem;"
+                tabindex="0"
+                type="button"
+              >
+                Create Property
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div
+        class="tableContainer"
+      >
+        <div
+          aria-labelledby="properties-table-search-label"
+          class="bx--search bx--search--lg search"
+          role="search"
+        >
+          <svg
+            alt="Search"
+            aria-label="Search"
+            class="bx--search-magnifier"
+            fill-rule="evenodd"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <title>
+              Search
+            </title>
+            <path
+              d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm4.936-1.27l4.563 4.557-.707.708-4.563-4.558a6.5 6.5 0 1 1 .707-.707z"
+            />
+          </svg>
+          <label
+            class="bx--label"
+            for="properties-table-search"
+            id="properties-table-search-label"
+          >
+            Search
+          </label>
+          <input
+            class="bx--search-input"
+            id="properties-table-search"
+            placeholder="Search"
+            type="text"
+          />
+          <button
+            class="bx--search-close bx--search-close--hidden"
+            type="button"
+          >
+            <svg
+              alt="Provide a description that will be used as the title"
+              aria-label="Provide a description that will be used as the title"
+              fill-rule="evenodd"
+              height="16"
+              role="img"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <title>
+                Provide a description that will be used as the title
+              </title>
+              <path
+                d="M8 6.586L5.879 4.464 4.464 5.88 6.586 8l-2.122 2.121 1.415 1.415L8 9.414l2.121 2.122 1.415-1.415L9.414 8l2.122-2.121-1.415-1.415L8 6.586zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="bx--data-table-v2-container"
+        >
+          <table
+            class="bx--data-table-v2"
+          >
+            <thead>
+              <tr
+                class="tableHeadRow"
+              >
+                <th
+                  aria-sort="none"
+                  class="tableHeadHeader label"
+                  scope="col"
+                >
+                  <button
+                    class="tableHeadHeader label bx--table-sort-v2"
+                    id="label"
+                  >
+                    <span
+                      class="bx--table-header-label"
+                    >
+                      Label
+                    </span>
+                    <svg
+                      alt="Sort rows by this header in ascending order"
+                      aria-label="Sort rows by this header in ascending order"
+                      class="bx--table-sort-v2__icon"
+                      fill-rule="evenodd"
+                      height="5"
+                      role="img"
+                      viewBox="0 0 10 5"
+                      width="10"
+                    >
+                      <title>
+                        Sort rows by this header in ascending order
+                      </title>
+                      <path
+                        d="M0 5L5 .002 10 5z"
+                      />
+                    </svg>
+                  </button>
+                </th>
+                <th
+                  aria-sort="none"
+                  class="tableHeadHeader key"
+                  scope="col"
+                >
+                  <button
+                    class="tableHeadHeader key bx--table-sort-v2"
+                    id="key"
+                  >
+                    <span
+                      class="bx--table-header-label"
+                    >
+                      Key
+                    </span>
+                    <svg
+                      alt="Sort rows by this header in ascending order"
+                      aria-label="Sort rows by this header in ascending order"
+                      class="bx--table-sort-v2__icon"
+                      fill-rule="evenodd"
+                      height="5"
+                      role="img"
+                      viewBox="0 0 10 5"
+                      width="10"
+                    >
+                      <title>
+                        Sort rows by this header in ascending order
+                      </title>
+                      <path
+                        d="M0 5L5 .002 10 5z"
+                      />
+                    </svg>
+                  </button>
+                </th>
+                <th
+                  aria-sort="none"
+                  class="tableHeadHeader description"
+                  scope="col"
+                >
+                  <button
+                    class="tableHeadHeader description bx--table-sort-v2"
+                    id="description"
+                  >
+                    <span
+                      class="bx--table-header-label"
+                    >
+                      Description
+                    </span>
+                    <svg
+                      alt="Sort rows by this header in ascending order"
+                      aria-label="Sort rows by this header in ascending order"
+                      class="bx--table-sort-v2__icon"
+                      fill-rule="evenodd"
+                      height="5"
+                      role="img"
+                      viewBox="0 0 10 5"
+                      width="10"
+                    >
+                      <title>
+                        Sort rows by this header in ascending order
+                      </title>
+                      <path
+                        d="M0 5L5 .002 10 5z"
+                      />
+                    </svg>
+                  </button>
+                </th>
+                <th
+                  aria-sort="none"
+                  class="tableHeadHeader value"
+                  scope="col"
+                >
+                  <button
+                    class="tableHeadHeader value bx--table-sort-v2"
+                    id="value"
+                  >
+                    <span
+                      class="bx--table-header-label"
+                    >
+                      Value
+                    </span>
+                    <svg
+                      alt="Sort rows by this header in ascending order"
+                      aria-label="Sort rows by this header in ascending order"
+                      class="bx--table-sort-v2__icon"
+                      fill-rule="evenodd"
+                      height="5"
+                      role="img"
+                      viewBox="0 0 10 5"
+                      width="10"
+                    >
+                      <title>
+                        Sort rows by this header in ascending order
+                      </title>
+                      <path
+                        d="M0 5L5 .002 10 5z"
+                      />
+                    </svg>
+                  </button>
+                </th>
+                <th
+                  aria-sort="none"
+                  class="tableHeadHeader secured"
+                  scope="col"
+                >
+                  <button
+                    class="tableHeadHeader secured bx--table-sort-v2"
+                    id="secured"
+                  >
+                    <span
+                      class="bx--table-header-label"
+                    >
+                      Secured
+                    </span>
+                    <svg
+                      alt="Sort rows by this header in ascending order"
+                      aria-label="Sort rows by this header in ascending order"
+                      class="bx--table-sort-v2__icon"
+                      fill-rule="evenodd"
+                      height="5"
+                      role="img"
+                      viewBox="0 0 10 5"
+                      width="10"
+                    >
+                      <title>
+                        Sort rows by this header in ascending order
+                      </title>
+                      <path
+                        d="M0 5L5 .002 10 5z"
+                      />
+                    </svg>
+                  </button>
+                </th>
+                <th
+                  aria-sort="none"
+                  class="tableHeadHeader actions "
+                  scope="col"
+                >
+                  <button
+                    class="tableHeadHeader actions  bx--table-sort-v2"
+                    id="actions "
+                  >
+                    <span
+                      class="bx--table-header-label"
+                    >
+                      Actions
+                    </span>
+                    <svg
+                      alt="Sort rows by this header in ascending order"
+                      aria-label="Sort rows by this header in ascending order"
+                      class="bx--table-sort-v2__icon"
+                      fill-rule="evenodd"
+                      height="5"
+                      role="img"
+                      viewBox="0 0 10 5"
+                      width="10"
+                    >
+                      <title>
+                        Sort rows by this header in ascending order
+                      </title>
+                      <path
+                        d="M0 5L5 .002 10 5z"
+                      />
+                    </svg>
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              class="tableBody"
+            >
+              <tr
+                data-testid="configuration-property-table-row"
+              >
+                <td
+                  style="padding: 0px;"
+                >
+                  <div
+                    class="tableCell"
+                  >
+                    <p
+                      class="tableTextarea"
+                    >
+                      Test RTL
+                    </p>
+                  </div>
+                </td>
+                <td
+                  style="padding: 0px;"
+                >
+                  <div
+                    class="tableCell"
+                  >
+                    <p
+                      class="tableTextarea"
+                    >
+                      test.rtl
+                    </p>
+                  </div>
+                </td>
+                <td
+                  style="padding: 0px;"
+                >
+                  <div
+                    class="tableCell"
+                  >
+                    <p
+                      class="tableTextarea"
+                    >
+                      ---
+                    </p>
+                  </div>
+                </td>
+                <td
+                  style="padding: 0px;"
+                >
+                  <div
+                    class="tableCell"
+                  >
+                    <p
+                      class="tableTextarea"
+                    >
+                      12345
+                    </p>
+                  </div>
+                </td>
+                <td
+                  style="padding: 0px;"
+                >
+                  <div
+                    class="tableCell"
+                  >
+                    <svg
+                      alt="unsecured"
+                      aria-hidden="true"
+                      class="tableSecured unsecured"
+                      focusable="false"
+                      height="32"
+                      preserveAspectRatio="xMidYMid meet"
+                      style="will-change: transform;"
+                      viewBox="0 0 32 32"
+                      width="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                      />
+                    </svg>
+                  </div>
+                </td>
+                <td
+                  style="padding: 0px;"
+                >
+                  <div
+                    class="tableCell"
+                  >
+                    <div
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      aria-label="Overflow menu"
+                      class="bx--overflow-menu"
+                      data-testid="configuration-property-table-overflow-menu"
+                      role="menu"
+                      tabindex="0"
+                    >
+                      <svg
+                        alt="Overflow menu icon"
+                        aria-label="Overflow menu icon"
+                        class="bx--overflow-menu__icon"
+                        fill-rule="evenodd"
+                        focusable="false"
+                        height="15"
+                        role="img"
+                        viewBox="0 0 3 15"
+                        width="3"
+                      >
+                        <title>
+                          Overflow menu icon
+                        </title>
+                        <path
+                          d="M0 1.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0M0 7.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0M0 13.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          class="bx--pagination"
+        >
+          <div
+            class="bx--pagination__left"
+          >
+            <span
+              class="bx--pagination__text"
+            >
+              Items per page:
+            </span>
+            <div
+              class="bx--form-item"
+            >
+              <div
+                class="bx--select bx--select--inline"
+              >
+                <label
+                  class="bx--label bx--visually-hidden"
+                  for="bx-pagination-select-1"
+                >
+                  Items per page:
+                </label>
+                <select
+                  class="bx--select-input"
+                  id="bx-pagination-select-1"
+                >
+                  <option
+                    class="bx--select-option"
+                    value="10"
+                  >
+                    10
+                  </option>
+                  <option
+                    class="bx--select-option"
+                    value="25"
+                  >
+                    25
+                  </option>
+                  <option
+                    class="bx--select-option"
+                    value="50"
+                  >
+                    50
+                  </option>
+                </select>
+                <svg
+                  alt="open list of options"
+                  aria-label="open list of options"
+                  class="bx--select__arrow"
+                  fill-rule="evenodd"
+                  height="5"
+                  role="img"
+                  viewBox="0 0 10 5"
+                  width="10"
+                >
+                  <title>
+                    open list of options
+                  </title>
+                  <path
+                    d="M0 0l5 4.998L10 0z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <span
+              class="bx--pagination__text"
+            >
+               |  
+              1–1 of 1 items
+            </span>
+          </div>
+          <div
+            class="bx--pagination__right bx--pagination--inline"
+          >
+            <span
+              class="bx--pagination__text"
+            >
+              1 of 1 pages
+            </span>
+            <button
+              aria-label="Previous page"
+              class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index"
+              disabled=""
+            >
+              <svg
+                alt="Previous page"
+                aria-label="Previous page"
+                class="bx--pagination__button-icon"
+                fill-rule="evenodd"
+                height="12"
+                role="img"
+                viewBox="0 0 7 12"
+                width="7"
+              >
+                <title>
+                  Previous page
+                </title>
+                <path
+                  d="M1.45 6.002L7 11.27l-.685.726L0 6.003 6.315 0 7 .726z"
+                />
+              </svg>
+            </button>
+            <div
+              class="bx--form-item"
+            >
+              <div
+                class="bx--select bx--select--inline"
+              >
+                <label
+                  class="bx--label bx--visually-hidden"
+                  for="bx-pagination-select-3"
+                >
+                  Items per page:
+                </label>
+                <select
+                  class="bx--select-input"
+                  id="bx-pagination-select-3"
+                >
+                  <option
+                    class="bx--select-option"
+                    value="1"
+                  >
+                    1
+                  </option>
+                </select>
+                <svg
+                  alt="open list of options"
+                  aria-label="open list of options"
+                  class="bx--select__arrow"
+                  fill-rule="evenodd"
+                  height="5"
+                  role="img"
+                  viewBox="0 0 10 5"
+                  width="10"
+                >
+                  <title>
+                    open list of options
+                  </title>
+                  <path
+                    d="M0 0l5 4.998L10 0z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <button
+              aria-label="Next page"
+              class="bx--pagination__button bx--pagination__button--forward"
+              disabled=""
+            >
+              <svg
+                alt="Next page"
+                aria-label="Next page"
+                class="bx--pagination__button-icon"
+                fill-rule="evenodd"
+                height="12"
+                role="img"
+                viewBox="0 0 7 12"
+                width="7"
+              >
+                <title>
+                  Next page
+                </title>
+                <path
+                  d="M5.569 5.994L0 .726.687 0l6.336 5.994-6.335 6.002L0 11.27z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ReactModalPortal"
+  />
+</body>
+`;

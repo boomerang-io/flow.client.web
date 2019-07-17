@@ -17,8 +17,10 @@ import {
   AsyncManager,
   AsyncViewer,
   AsyncInsights,
-  AsyncExecution
+  AsyncExecution,
+  AsyncGlobalConfiguration
 } from "./config/lazyComponents";
+import ProtectedRoute from "Components/ProtectedRoute";
 import { BASE_USERS_URL } from "Config/servicesConfig";
 import "./styles.scss";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
@@ -74,6 +76,7 @@ class App extends Component {
           <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
             <Suspense fallback={<div />}>
               <Switch>
+                <ProtectedRoute path="/configuration" userRole={user.data.type} component={AsyncGlobalConfiguration} />
                 <Route path="/workflows" component={AsyncHome} />
                 <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
                 <Route path="/activity/:workflowId" component={AsyncActivity} />

@@ -6,3 +6,6 @@ export const AsyncManager = lazy(() => import(/* webpackChunkName: "Manager" */ 
 export const AsyncViewer = lazy(() => import(/* webpackChunkName: "Viewer" */ "Features/WorkflowsViewer"));
 export const AsyncInsights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/WorkflowInsights"));
 export const AsyncExecution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/WorkflowExecution"));
+export const AsyncGlobalConfiguration = lazy(() =>
+  import(/* webpackChunkName: "GlobalConfiguration" */ "Features/GlobalConfiguration")
+);

@@ -18,7 +18,9 @@
     "classnames": "^2.2.6",
     "cronstrue": "^1.58.0",
     "detect-browser": "^4.0.3",
+    "formik": "^1.5.8",
     "history": "4.9.0",
+    "immutability-helper": "^3.0.1",
     "js-file-download": "^0.4.4",
     "match-sorter": "^2.3.0",
     "moment-timezone": "^0.5.23",
@@ -37,7 +39,8 @@
     "redux": "4.0.1",
     "redux-immutable-state-invariant": "2.1.0",
     "redux-thunk": "2.3.0",
-    "validator": "^10.7.1"
+    "validator": "^10.7.1",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "analyze": "source-map-explorer server/build/static/js/main.*",
@@ -98,7 +101,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,json,scss,css,md}": [
-      "prettier --print-width 120 --write"
+      "prettier --print-width 120 --write",
+      "git add"
     ],
     "src/**/*.{js,jsx}": [
       "npm run-script lint",
