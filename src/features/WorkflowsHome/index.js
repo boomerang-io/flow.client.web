@@ -92,7 +92,8 @@ export class WorkflowsHome extends Component {
         notify(<Notification type="remove" title="Delete Workflow" message="Workflow successfully deleted" />);
         return;
       })
-      .catch(() => {
+      .catch(e => {
+        console.log(e);
         notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
         return;
       });

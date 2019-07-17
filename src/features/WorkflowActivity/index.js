@@ -78,10 +78,6 @@ export class WorkflowActivity extends Component {
     });
   };
 
-  updateWorkflows = data => {
-    this.props.activityActions.updateWorkflows(data);
-  };
-
   handleSelectTeams = teams => {
     this.setState(
       {

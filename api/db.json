@@ -5997,7 +5997,15 @@
           "topic": ""
         }
       },
-      "properties": [{ "description": "testing", "key": "hello", "label": "hello", "type": "text", "required": false }],
+      "properties": [
+        {
+          "description": "testing",
+          "key": "hello",
+          "label": "hello",
+          "type": "text",
+          "required": false
+        }
+      ],
       "enablePersistentStorage": true,
       "id": "5Mz75WC"
     }

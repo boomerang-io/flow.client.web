@@ -6,6 +6,7 @@ import { detect } from "detect-browser";
 import { actions as userActions } from "State/user";
 import { actions as navigationActions } from "State/navigation";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import ErrorBoundary from "@boomerang/boomerang-components/lib/ErrorBoundary";
 import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
 import OnBoardExpContainer from "Features/OnBoard";
 import NotificationBanner from "Components/NotificationBanner";
@@ -104,7 +105,11 @@ class App extends Component {
   }
 
   render() {
-    return <div className="c-app">{this.renderApp()}</div>;
+    return (
+      <div className="c-app">
+        <ErrorBoundary errorComponent={ErrorDragon}>{this.renderApp()}</ErrorBoundary>
+      </div>
+    );
   }
 }
 
