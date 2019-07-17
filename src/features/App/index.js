@@ -93,10 +93,6 @@ class App extends Component {
     if (user.status === SERVICE_REQUEST_STATUSES.FAILURE || navigation.status === SERVICE_REQUEST_STATUSES.FAILURE) {
       return (
         <div className="c-app-content c-app-content--not-loaded">
-          <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
-          <BrowserModal isOpen={browser.name === "chrome" ? false : true} />
-          <OnBoardExpContainer />
-          <NotificationBanner closeBanner={this.closeBanner} />
           <ErrorDragon style={{ margin: "3.5rem 0" }} />
         </div>
       );
@@ -105,8 +101,13 @@ class App extends Component {
   }
 
   render() {
+    const { user, navigation } = this.props;
     return (
       <div className="c-app">
+        <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
+        <BrowserModal isOpen={browser.name === "chrome" ? false : true} />
+        <OnBoardExpContainer />
+        <NotificationBanner closeBanner={this.closeBanner} />
         <ErrorBoundary errorComponent={ErrorDragon}>{this.renderApp()}</ErrorBoundary>
       </div>
     );
