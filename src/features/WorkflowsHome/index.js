@@ -88,8 +88,8 @@ export class WorkflowsHome extends Component {
     axios
       .delete(`${BASE_SERVICE_URL}/workflow/${workflowId}`)
       .then(() => {
-        notify(<Notification type="remove" title="Delete Workflow" message="Workflow successfully deleted" />);
         this.updateWorkflows({ workflowId, teamId });
+        notify(<Notification type="remove" title="Delete Workflow" message="Workflow successfully deleted" />);
         return;
       })
       .catch(() => {

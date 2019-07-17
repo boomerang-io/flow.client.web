@@ -199,7 +199,7 @@ export class Overview extends Component {
             maxCharText={"Description must not be greater than 256 characters"}
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
-          <radiogroup className="b-workflow-icons">
+          <div className="b-workflow-icons">
             {assets.map((image, index) => (
               <label
                 key={index}
@@ -216,7 +216,7 @@ export class Overview extends Component {
                 <img key={`${image.name}-${index}`} src={image.src} alt={`${image.name} icon`} />
               </label>
             ))}
-          </radiogroup>
+          </div>
         </div>
         <div className="c-overview-card">
           <h1 className="s-trigger-title">Triggers</h1>
