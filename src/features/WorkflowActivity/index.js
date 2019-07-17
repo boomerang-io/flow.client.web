@@ -146,7 +146,6 @@ export class WorkflowActivity extends Component {
 
   applyStatusFilter = activities => {
     const { statusFilter } = this.state;
-    console.log(statusFilter);
     if (!statusFilter.length) {
       return activities;
     }

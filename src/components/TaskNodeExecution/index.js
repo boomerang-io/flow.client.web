@@ -8,6 +8,7 @@ import { PortWidget } from "@boomerang/boomerang-dag";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import mapTaskNametoIcon from "Utilities/taskIcons";
 import { Icon } from "carbon-components-react";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import "./styles.scss";
 
 export class TaskNodeExecution extends Component {
@@ -37,7 +38,7 @@ export class TaskNodeExecution extends Component {
     const flowTaskStatus = this.props.step ? this.props.step.flowTaskStatus : "";
 
     return (
-      <div className="c-taskNode">
+      <button className="c-taskNode" onClick={this.handleOnActivityClick} style={{ cursor: "pointer" }}>
         <div
           className={classnames("b-task-node", {
             [`--${flowTaskStatus}`]: flowTaskStatus
@@ -60,7 +61,7 @@ export class TaskNodeExecution extends Component {
             alt="Task node type"
           />
         </div>
-      </div>
+      </button>
     );
   }
 }

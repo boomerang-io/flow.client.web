@@ -5982,6 +5982,7 @@
       "shortDescription": "",
       "description": "",
       "icon": "docs",
+      "version": 2,
       "triggers": {
         "scheduler": {
           "enable": true,
