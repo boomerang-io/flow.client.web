@@ -35,12 +35,12 @@ class ChangeLogTable extends Component {
       key: "userName"
     },
     {
-      header: "Date",
-      key: "date"
-    },
-    {
       header: "Reason",
       key: "reason"
+    },
+    {
+      header: "Date",
+      key: "date"
     }
   ];
 
@@ -125,7 +125,7 @@ class ChangeLogTable extends Component {
                       {rows.map(row => (
                         <TableRow key={row.id} data-testid="change-log-table-row">
                           {row.cells.map((cell, cellIndex) => (
-                            <TableCell key={cell.id} style={{ padding: "0" }}>
+                            <TableCell key={cell.id} style={{ padding: "0" }} className={styles[cell.info.header]}>
                               <div className={styles.tableCell}>{this.renderCell(cellIndex, cell.value)}</div>
                             </TableCell>
                           ))}

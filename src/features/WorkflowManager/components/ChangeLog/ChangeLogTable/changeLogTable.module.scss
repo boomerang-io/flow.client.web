@@ -7,7 +7,7 @@
 }
 
 .tableContainer {
-  margin: 2.5rem 2.5rem 4.5rem 2.5rem;
+  margin-bottom: 4.5rem;
 }
 
 .tableHeadHeader {
@@ -29,6 +29,15 @@
   background-color: #f2f2f2;
   color: $darkest-gray;
   font-weight: 300;
+  .version {
+    width: 10%;
+  }
+  .date {
+    width: 20%;
+  }
+  .userName {
+    width: 20%;
+  }
 }
 
 .tableCell {

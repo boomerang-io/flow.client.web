@@ -1,11 +1,10 @@
 .c-app-main {
-  padding-top: 6.5rem;
-  height: 100vh;
+  padding-top: 3rem;
+  height: calc(100vh - 3rem);
   transition: padding-top 0.3s ease;
   position: relative;
 
   &.--banner-closed {
-    padding-top: 3rem;
     .c-tasks-sidenav .bmrg--c-sidenav {
       height: calc(100vh - 8.75rem);
     }

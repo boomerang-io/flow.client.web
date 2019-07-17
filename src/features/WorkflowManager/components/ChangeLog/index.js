@@ -23,9 +23,6 @@ class ChangeLog extends Component {
       `${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/changelog?sort=version&order=DESC`
     );
   }
-  componentWillUnmount() {
-    this.props.actions.reset();
-  }
 
   render() {
     const { changeLog } = this.props;
@@ -35,11 +32,6 @@ class ChangeLog extends Component {
     if (changeLog.status === REQUEST_STATUSES.SUCCESS)
       return (
         <div className={styles.container}>
-          {this.props.workflow.data.name ? (
-            <h1 className={styles.title}>{`${this.props.workflow.data.name} Changes`}</h1>
-          ) : (
-            ""
-          )}
           <ChangeLogTable changeLog={changeLog.data} />
         </div>
       );
