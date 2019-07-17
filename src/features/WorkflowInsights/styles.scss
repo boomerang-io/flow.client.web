@@ -6,6 +6,7 @@
   flex-direction: column;
   max-width: 100rem;
   margin: 0 auto;
+  padding: 2rem;
   .c-legend {
     margin-top: 1rem;
   }
@@ -99,8 +100,7 @@
   }
 }
 .s-workflow-insights-navigation {
-  margin-top: 2rem;
-  align-self: flex-start;
+  position: absolute;
 }
 
 .c-workflow-insights-stats-widgets {
