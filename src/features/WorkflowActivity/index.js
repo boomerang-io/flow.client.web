@@ -12,7 +12,7 @@ import orderBy from "lodash/orderBy";
 import flow from "lodash/flow";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
-import { executionOptions, statusOptions } from "Constants/filterOptions";
+import { ALL_OPTIONS, executionOptions, statusOptions } from "Constants/filterOptions";
 import ActivityList from "./ActivityList";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import "./styles.scss";
@@ -237,6 +237,7 @@ export class WorkflowActivity extends Component {
               />
               <div>
                 <Dropdown
+                  label="Workflows"
                   placeholder="Workflows"
                   label="Workflows"
                   onChange={this.handleSelectWorkflows}

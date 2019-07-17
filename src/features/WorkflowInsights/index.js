@@ -6,19 +6,18 @@ import { actions as insightsActions } from "State/insights";
 import { actions as teamsActions } from "State/teams";
 import moment from "moment";
 import queryString from "query-string";
+import { DropdownV2 as Dropdown } from "carbon-components-react";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
-import SearchFilterBar from "Components/SearchFilterBar";
-import SimpleSelectFilter from "Components/SimpleSelectFilter";
 import WidgetCard from "./WidgetCard";
 import CustomAreaChart from "./CustomAreaChart";
 import CustomScatterChart from "./CustomScatterChart";
 import CustomPieChart from "./CustomPieChart";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import { executeDataLines } from "Constants/chartsConfig";
-import { timeframeOptions } from "Constants/filterOptions";
+import { timeframeOptions, ALL_OPTIONS } from "Constants/filterOptions";
 import { parseChartsData } from "Utilities/formatChartData";
 import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
 import "./styles.scss";
@@ -34,46 +33,42 @@ export class WorkflowInsights extends Component {
 
   state = {
     selectedTimeframe: timeframeOptions[3],
-    selectedWorkflow: { value: "none", label: "All workflows" },
-    selectedTeam: { value: "none", label: "All teams" },
+    selectedWorkflow: ALL_OPTIONS.WORKFLOWS,
+    selectedTeam: ALL_OPTIONS.TEAMS,
     executionsList: []
   };
 
   handleChangeTimeframe = timeframe => {
-    const timeframeValue = timeframe.target.value;
-    this.setState({ selectedTimeframe: timeframeOptions.find(tf => tf.value.toString() === timeframeValue) }, () => {
+    const timeframeValue = timeframe.selectedItem.value;
+    this.setState({ selectedTimeframe: timeframeOptions.find(tf => tf.value === timeframeValue) }, () => {
       this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
     });
   };
   handleChangeTeam = team => {
-    const teamId = team.target.value;
-    const selectedTeam = this.props.teams.data.find(team => team.id === teamId);
+    const teamId = team.selectedItem.id;
+    const selectedTeam =
+      teamId !== ALL_OPTIONS.TEAMS.id ? this.props.teams.data.find(team => team.id === teamId) : team.selectedItem;
     this.setState(
       {
-        selectedTeam:
-          teamId === "none"
-            ? { value: "none", label: "All teams" }
-            : { value: selectedTeam.id, label: selectedTeam.name },
-        selectedWorkflow: { value: "none", label: "All workflows" }
+        selectedTeam,
+        selectedWorkflow: ALL_OPTIONS.WORKFLOWS
       },
       () => {
         this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
       }
     );
   };
-  handleChangeWorkflow = (query, workflow) => {
+  handleChangeWorkflow = workflow => {
     let workflows = [];
     this.props.teams.data.forEach(team => (workflows = workflows.concat(team.workflows)));
-    let workflowsList = [{ value: "none", label: "All workflows" }].concat(
-      sortByProp(workflows.map(workflow => ({ ...workflow, value: workflow.id, label: workflow.name })), "label")
-    );
-    this.setState({ selectedWorkflow: workflowsList.find(wf => wf.value === workflow) }, () => {
+    let workflowsList = [ALL_OPTIONS.WORKFLOWS].concat(sortByProp(workflows, "name"));
+    this.setState({ selectedWorkflow: workflowsList.find(wf => wf.id === workflow.selectedItem.id) }, () => {
       const { selectedWorkflow } = this.state;
       const { insights } = this.props;
-      if (selectedWorkflow.value === "none") this.setState({ executionsList: insights.data.executions });
+      if (selectedWorkflow.id === ALL_OPTIONS.WORKFLOWS.id) this.setState({ executionsList: insights.data.executions });
       else
         this.setState({
-          executionsList: insights.data.executions.filter(execution => execution.workflowId === selectedWorkflow.value)
+          executionsList: insights.data.executions.filter(execution => execution.workflowId === selectedWorkflow.id)
         });
     });
   };
@@ -91,7 +86,7 @@ export class WorkflowInsights extends Component {
         .subtract(selectedTimeframe.value, "days")
         .format("x"),
       toDate: moment().format("x"),
-      teamId: selectedTeam.value === "none" ? undefined : selectedTeam.value
+      teamId: selectedTeam.id === ALL_OPTIONS.TEAMS.id ? undefined : selectedTeam.id
     });
     return query;
   };
@@ -102,12 +97,11 @@ export class WorkflowInsights extends Component {
       .fetch(url)
       .then(response => {
         if (response.status === 200) {
-          if (selectedWorkflow.value === "none") this.setState({ executionsList: response.data.executions });
+          if (selectedWorkflow.id === ALL_OPTIONS.WORKFLOWS.id)
+            this.setState({ executionsList: response.data.executions });
           else
             this.setState({
-              executionsList: response.data.executions.filter(
-                execution => execution.workflowId === selectedWorkflow.value
-              )
+              executionsList: response.data.executions.filter(execution => execution.workflowId === selectedWorkflow.id)
             });
         }
       })
@@ -209,15 +203,12 @@ export class WorkflowInsights extends Component {
 
     if (teams.status === REQUEST_STATUSES.SUCCESS) {
       const { selectedTeam } = this.state;
-      const teamsList = [{ value: "none", label: "All teams" }].concat(
-        teams.data.map(team => ({ label: team.name, value: team.id }))
-      );
+      const teamsList = [ALL_OPTIONS.TEAMS].concat(teams.data);
       let workflows = [];
-      if (selectedTeam.value === "none") teams.data.forEach(team => (workflows = workflows.concat(team.workflows)));
-      else workflows = teams.data.find(team => team.id === selectedTeam.value).workflows;
-      let workflowsList = [{ value: "none", label: "All workflows" }].concat(
-        sortByProp(workflows.map(workflow => ({ ...workflow, value: workflow.id, label: workflow.name })), "label")
-      );
+      if (selectedTeam.id === ALL_OPTIONS.TEAMS.id)
+        teams.data.forEach(team => (workflows = workflows.concat(team.workflows)));
+      else workflows = teams.data.find(team => team.id === selectedTeam.id).workflows;
+      let workflowsList = [ALL_OPTIONS.WORKFLOWS].concat(sortByProp(workflows, "name"));
       const workflowsFilter = sortByProp(workflowsList, "name", "ASC");
 
       return (
@@ -229,22 +220,32 @@ export class WorkflowInsights extends Component {
             />
           </nav>
           <div className="c-workflow-insights-header">
-            <SimpleSelectFilter onChange={this.handleChangeTeam} selectedOption={selectedTeam} options={teamsList} />
-            <SearchFilterBar
-              handleSearchFilter={this.handleChangeWorkflow}
-              options={
-                selectedTeam.value !== "none" ? teams.data.filter(team => team.id === selectedTeam.value) : teams.data
-              }
-              filterItems={workflowsFilter}
-              debounceTimeout={300}
-              multiselect={false}
-              selectedOption={this.state.selectedWorkflow.value}
-              searchbar={false}
+            <Dropdown
+              label="Teams"
+              placeholder="Teams"
+              onChange={this.handleChangeTeam}
+              items={teamsList}
+              itemToString={team => (team ? team.name : "")}
+              initialSelectedItem={ALL_OPTIONS.TEAMS}
             />
-            <SimpleSelectFilter
+            <Dropdown
+              label="Workflows"
+              placeholder="Workflows"
+              onChange={this.handleChangeWorkflow}
+              items={workflowsFilter}
+              itemToString={workflow => {
+                const team = teams.data.find(team => team.id === workflow.flowTeamId);
+                return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+              }}
+              initialSelectedItem={ALL_OPTIONS.WORKFLOWS}
+            />
+            <Dropdown
+              label="Time Frame"
+              placeholder="Time Frame"
               onChange={this.handleChangeTimeframe}
-              selectedOption={this.state.selectedTimeframe}
-              options={timeframeOptions}
+              items={timeframeOptions}
+              itemToString={time => (time ? time.label : "")}
+              initialSelectedItem={timeframeOptions[3]}
             />
           </div>
           {this.renderWidgets()}
