@@ -70,10 +70,6 @@ class App extends Component {
     if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
       return (
         <>
-          <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
-          <BrowserModal isOpen={browser.name === "chrome" ? false : true} />
-          <OnBoardExpContainer />
-          <NotificationBanner closeBanner={this.closeBanner} />
           <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
             <Suspense fallback={<div />}>
               <Switch>
@@ -97,6 +93,10 @@ class App extends Component {
     if (user.status === SERVICE_REQUEST_STATUSES.FAILURE || navigation.status === SERVICE_REQUEST_STATUSES.FAILURE) {
       return (
         <div className="c-app-content c-app-content--not-loaded">
+          <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
+          <BrowserModal isOpen={browser.name === "chrome" ? false : true} />
+          <OnBoardExpContainer />
+          <NotificationBanner closeBanner={this.closeBanner} />
           <ErrorDragon style={{ margin: "3.5rem 0" }} />
         </div>
       );
