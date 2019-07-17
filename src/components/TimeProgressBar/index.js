@@ -5,8 +5,6 @@ import Filler from "./Filler";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import "./styles.scss";
 
-const colors = ["#57d785", "#95c4f3", "#fbeaae", "#fc835c", "#f7aac3"];
-
 const TimeProgressBar = ({ workflowExecution, updateActiveNode }) => {
   const steps = orderBy(workflowExecution.steps, ["order"], ["asc"]).filter(
     step =>
@@ -23,7 +21,6 @@ const TimeProgressBar = ({ workflowExecution, updateActiveNode }) => {
         <div className="b-time-progress-bar__fillers">
           {steps.map((step, index) => (
             <Filler
-              backgroundColor={colors[index % colors.length]}
               duration={step.duration}
               finishTime={step.startTime + step.duration}
               id={step.id}

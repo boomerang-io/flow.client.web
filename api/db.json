@@ -5887,7 +5887,67 @@
         "id": "5c36289096052900012cc81e",
         "order": 1,
         "startTime": 1547053504488,
-        "taskId": "515c8b05-cbb0-470a-a58e-b8740b332a6a",
+        "taskId": "515c8b05-ceb0-470a-a58e-b8740b332a6a",
+        "outputs": {
+          "args": {
+            "test": "true"
+          },
+          "data": "",
+          "files": {},
+          "form": {},
+          "headers": {
+            "Accept": "/",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "text/http",
+            "Host": "httpbin.org",
+            "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
+          },
+          "json": null,
+          "method": "GET",
+          "origin": "147.10.60.191",
+          "url": "https://httpbin.org/anything?test=true"
+        },
+        "taskName": "Send Slack Message"
+      },
+      {
+        "activityId": "5c36289096052900012cc81s",
+        "duration": 300190,
+        "flowTaskStatus": "completed",
+        "id": "5c3628909605290001dcc81e",
+        "order": 1,
+        "startTime": 1547053504488,
+        "taskId": "515c8b05-cbf0-470a-a58e-b8740b332a6a",
+        "outputs": {
+          "args": {
+            "test": "true"
+          },
+          "data": "",
+          "files": {},
+          "form": {},
+          "headers": {
+            "Accept": "/",
+            "Accept-Encoding": "gzip,deflate",
+            "Connection": "close",
+            "Content-Type": "text/http",
+            "Host": "httpbin.org",
+            "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
+          },
+          "json": null,
+          "method": "GET",
+          "origin": "147.10.60.191",
+          "url": "https://httpbin.org/anything?test=true"
+        },
+        "taskName": "Send Slack Message"
+      },
+      {
+        "activityId": "5c36289096052900012cc81d",
+        "duration": 300190,
+        "flowTaskStatus": "failure",
+        "id": "5cd6289096052900012cc81e",
+        "order": 1,
+        "startTime": 1547053504488,
+        "taskId": "515c8bw5-cbb0-470a-a58e-b8740b332a6a",
         "outputs": {
           "args": {
             "test": "true"
