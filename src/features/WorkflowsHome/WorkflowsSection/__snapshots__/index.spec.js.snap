@@ -59,14 +59,14 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
           <div
             class="b-workflow-placeholder__box"
           >
-            <div
+            <img
+              alt="Create workflow"
               class="b-workflow-placeholder__text"
               currentitem="false"
               data-for="1234"
               data-tip="true"
-            >
-              +
-            </div>
+              src="plus.svg"
+            />
           </div>
           <div
             class="__react_component_tooltip place-top type-dark "
