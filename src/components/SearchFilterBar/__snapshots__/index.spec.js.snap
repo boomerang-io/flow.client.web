@@ -40,7 +40,6 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
         className="bx--search-input"
         id="search-worfklows"
         onChange={[Function]}
-        onClear={[Function]}
         placeholder="Search workflows"
         type="text"
         value=""

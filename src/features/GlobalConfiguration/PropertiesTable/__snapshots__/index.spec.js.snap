@@ -24,80 +24,24 @@ Array [
       </div>
       <section
         className="buttons"
-      >
-        <div
-          onClick={[Function]}
-          onKeyPress={[Function]}
-          style={
-            Object {
-              "width": "fit-content",
-            }
-          }
-        >
-          <button
-            className="bx--btn bx--btn--primary"
-            disabled={false}
-            style={
-              Object {
-                "width": "9rem",
-              }
-            }
-            tabIndex={0}
-            type="button"
-          >
-            Create Property
-          </button>
-        </div>
-      </section>
+      />
     </div>
   </div>,
   <div
     className="tableContainer"
   >
     <div
-      aria-labelledby="properties-table-search-label"
-      className="bx--search bx--search--lg search"
-      role="search"
+      className="header"
     >
-      <svg
-        alt="Search"
-        aria-label="Search"
-        className="bx--search-magnifier"
-        fillRule="evenodd"
-        height="16"
-        role="img"
-        viewBox="0 0 16 16"
-        width="16"
-      >
-        <title>
-          Search
-        </title>
-        <path
-          d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm4.936-1.27l4.563 4.557-.707.708-4.563-4.558a6.5 6.5 0 1 1 .707-.707z"
-        />
-      </svg>
-      <label
-        className="bx--label"
-        htmlFor="properties-table-search"
-        id="properties-table-search-label"
-      >
-        Search
-      </label>
-      <input
-        className="bx--search-input"
-        id="properties-table-search"
-        onChange={[Function]}
-        placeholder="Search"
-        type="text"
-      />
-      <button
-        className="bx--search-close bx--search-close--hidden"
-        onClick={[Function]}
-        type="button"
+      <div
+        aria-labelledby="properties-table-search-label"
+        className="bx--search bx--search--lg search"
+        role="search"
       >
         <svg
-          alt="Provide a description that will be used as the title"
-          aria-label="Provide a description that will be used as the title"
+          alt="Search"
+          aria-label="Search"
+          className="bx--search-magnifier"
           fillRule="evenodd"
           height="16"
           role="img"
@@ -105,13 +49,72 @@ Array [
           width="16"
         >
           <title>
-            Provide a description that will be used as the title
+            Search
           </title>
           <path
-            d="M8 6.586L5.879 4.464 4.464 5.88 6.586 8l-2.122 2.121 1.415 1.415L8 9.414l2.121 2.122 1.415-1.415L9.414 8l2.122-2.121-1.415-1.415L8 6.586zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+            d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm4.936-1.27l4.563 4.557-.707.708-4.563-4.558a6.5 6.5 0 1 1 .707-.707z"
           />
         </svg>
-      </button>
+        <label
+          className="bx--label"
+          htmlFor="properties-table-search"
+          id="properties-table-search-label"
+        >
+          Search
+        </label>
+        <input
+          className="bx--search-input"
+          id="properties-table-search"
+          onChange={[Function]}
+          placeholder="Search"
+          type="text"
+        />
+        <button
+          className="bx--search-close bx--search-close--hidden"
+          onClick={[Function]}
+          type="button"
+        >
+          <svg
+            alt="Provide a description that will be used as the title"
+            aria-label="Provide a description that will be used as the title"
+            fillRule="evenodd"
+            height="16"
+            role="img"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <title>
+              Provide a description that will be used as the title
+            </title>
+            <path
+              d="M8 6.586L5.879 4.464 4.464 5.88 6.586 8l-2.122 2.121 1.415 1.415L8 9.414l2.121 2.122 1.415-1.415L9.414 8l2.122-2.121-1.415-1.415L8 6.586zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        onClick={[Function]}
+        onKeyPress={[Function]}
+        style={
+          Object {
+            "width": "fit-content",
+          }
+        }
+      >
+        <button
+          className="bx--btn bx--btn--primary"
+          disabled={false}
+          style={
+            Object {
+              "width": "9rem",
+            }
+          }
+          tabIndex={0}
+          type="button"
+        >
+          Create Property
+        </button>
+      </div>
     </div>
     <div
       className="bx--data-table-v2-container"
