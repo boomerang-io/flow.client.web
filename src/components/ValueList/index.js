@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { AutoSuggestTextArea, AutoSuggestTextInput } from "@boomerang/boomerang-components/lib/AutoSuggestInput";
-import SelectDropdown from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import { AutoSuggestTextInput, SelectDropdown, TextInput } from "@boomerang/boomerang-components";
 import AutoSuggest from "Components/AutoSuggest";
 import Toggle from "./Toggle";
+import TextAreaModal from "./TextAreaModal";
 import isURL from "validator/lib/isURL";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import "./styles.scss";
@@ -104,32 +103,17 @@ const ValueList = ({
           } else if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
             const itemConfig = TEXT_AREA_TYPES[item.type];
             return (
-              <div key={item.key + index} style={{ paddingBottom: "2.125rem", position: "relative" }}>
-                <AutoSuggest
-                  autoSuggestions={formatAutoSuggestProperties(inputProperties)}
-                  handleChange={onSelectTextInputChange}
-                  initialValue={inputs[item.key] || ""}
-                  inputProps={{
-                    placeholder: item.description,
-                    alwaysShowTitle: true,
-                    title: item.label,
-                    type: itemConfig.type,
-                    theme: "bmrg-white"
-                  }}
-                  name={item.key}
-                  theme="bmrg-white"
-                  validationFunction={value =>
-                    validateInput({
-                      value,
-                      maxValueLength,
-                      minValueLength,
-                      validationFunction: itemConfig.validationFunction,
-                      validationText: itemConfig.validationText
-                    })
-                  }
-                >
-                  <AutoSuggestTextArea />
-                </AutoSuggest>
+              <div key={item.key + index} style={{ position: "relative", cursor: "pointer" }}>
+                <TextAreaModal
+                  inputs={inputs}
+                  inputProperties={inputProperties}
+                  item={item}
+                  itemConfig={itemConfig}
+                  minValueLength={minValueLength}
+                  maxValueLength={maxValueLength}
+                  onSelectTextInputChange={onSelectTextInputChange}
+                  validateInput={validateInput}
+                />
               </div>
             );
           } else if (Object.keys(SELECT_DROPDOWN_TYPES).includes(item.type)) {

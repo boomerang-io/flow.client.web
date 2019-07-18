@@ -383,7 +383,7 @@ export class Overview extends Component {
             <div className="c-event">
               <div className="b-event">
                 <p id="toggle-event" className="b-event__title">
-                  Enable Event Subscription
+                  Enable Action Subscription
                 </p>
                 <Toggle
                   id="event"
@@ -402,7 +402,7 @@ export class Overview extends Component {
                   alt="Toggle event"
                 />
                 <Tooltip id="triggers-event-info" place="top">
-                  Enable workflow to be triggered by platform events
+                  Enable workflow to be triggered by platform actions
                 </Tooltip>
               </div>
               {get(workflow, "data.triggers.event.enable", false) && (

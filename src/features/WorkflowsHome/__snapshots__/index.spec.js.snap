@@ -46,7 +46,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             className="bx--search-input"
             id="search-worfklows"
             onChange={[Function]}
-            onClear={[Function]}
             placeholder="Search workflows"
             type="text"
             value=""

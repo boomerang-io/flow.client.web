@@ -15,10 +15,7 @@ class BrowserModalContent extends Component {
     return (
       <>
         <Body className="c-browser-modal-body">
-          <NoDisplay
-            text="Your experience might be less than ideal if you aren't using Chrome"
-            style={{ width: "30rem", height: "20rem" }}
-          />
+          <NoDisplay text="Your experience may be degraded if you aren't using a recent version of Chrome or Firefox" />
         </Body>
         <Footer style={{ paddingTop: "1rem" }}>
           <ConfirmButton onClick={() => this.props.closeModal()} text="Continue, anyway" theme="bmrg-white" />
