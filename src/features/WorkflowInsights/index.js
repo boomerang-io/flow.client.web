@@ -208,8 +208,7 @@ export class WorkflowInsights extends Component {
       if (selectedTeam.id === ALL_OPTIONS.TEAMS.id)
         teams.data.forEach(team => (workflows = workflows.concat(team.workflows)));
       else workflows = teams.data.find(team => team.id === selectedTeam.id).workflows;
-      let workflowsList = [ALL_OPTIONS.WORKFLOWS].concat(sortByProp(workflows, "name"));
-      const workflowsFilter = sortByProp(workflowsList, "name", "ASC");
+      const workflowsFilter = [ALL_OPTIONS.WORKFLOWS, ...sortByProp(workflows, "name", "ASC")];
 
       return (
         <div className="c-workflow-insights">
