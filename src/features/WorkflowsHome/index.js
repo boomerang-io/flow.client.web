@@ -29,7 +29,6 @@ export class WorkflowsHome extends Component {
   };
 
   componentDidMount() {
-    this.fetchTeams();
     this.props.appActions.setActiveTeam({ teamId: undefined });
   }
 

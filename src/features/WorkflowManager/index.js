@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Route, Switch, Prompt, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
-import { actions as teamsActions } from "State/teams";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
@@ -39,10 +38,7 @@ export class WorkflowManagerContainer extends Component {
 
   async componentDidMount() {
     try {
-      await Promise.all([
-        this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`),
-        this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`)
-      ]);
+      await Promise.all([this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`)]);
     } catch (e) {
       // noop
     }
@@ -323,7 +319,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   tasksActions: bindActionCreators(tasksActions, dispatch),
-  teamsActions: bindActionCreators(teamsActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch),
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });

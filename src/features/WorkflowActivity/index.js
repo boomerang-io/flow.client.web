@@ -6,7 +6,6 @@ import { bindActionCreators } from "redux";
 import queryString from "query-string";
 import { MultiSelect } from "carbon-components-react";
 import { actions as activityActions } from "State/activity";
-import { actions as teamsActions } from "State/teams";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import orderBy from "lodash/orderBy";
@@ -25,7 +24,6 @@ export class WorkflowActivity extends Component {
     activityActions: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     teams: PropTypes.object.isRequired,
-    teamsActions: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired
   };
@@ -51,9 +49,6 @@ export class WorkflowActivity extends Component {
       workflowId: params.workflowId ? params.workflowId : undefined
     });
     this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
-    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`).catch(err => {
-      // noop
-    });
   }
 
   componentWillUnmount() {
@@ -293,8 +288,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  activityActions: bindActionCreators(activityActions, dispatch),
-  teamsActions: bindActionCreators(teamsActions, dispatch)
+  activityActions: bindActionCreators(activityActions, dispatch)
 });
 
 export default connect(
