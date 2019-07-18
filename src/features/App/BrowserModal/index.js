@@ -16,6 +16,7 @@ class BrowserModal extends Component {
   render() {
     return (
       <ModalWrapper
+        theme="bmrg-white"
         isOpen={this.props.isOpen}
         fullscreen={true}
         modalContent={closeModal => (

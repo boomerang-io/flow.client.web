@@ -106,7 +106,7 @@ class App extends Component {
     return (
       <div className="c-app">
         <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
-        <BrowserModal isOpen={browser.name === "chrome" ? false : true} />
+        <BrowserModal isOpen={browser.name === "chrome" || browser.name === "firefox" ? false : true} />
         <OnBoardExpContainer />
         <ErrorBoundary errorComponent={ErrorDragon}>{this.renderApp()}</ErrorBoundary>
       </div>

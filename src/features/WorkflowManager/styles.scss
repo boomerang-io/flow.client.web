@@ -5,16 +5,17 @@
 .c-workflow-designer {
   position: relative;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .c-workflow-diagram-designer {
+  display: flex;
   position: relative;
   margin-left: 22rem;
-  height: calc(100% - 5.625rem);
+  flex-grow: 1;
 
   .srd-demo-canvas {
-    height: 100%;
-    width: 100%;
     background-color: $text-area-gray !important;
   }
 
@@ -61,7 +62,6 @@ svg:not(:root) {
   font-size: 1.25rem;
   letter-spacing: 0.2px;
   color: $darkest-gray;
-  width: 90%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

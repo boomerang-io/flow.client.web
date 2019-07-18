@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import configureStore from "./store/configureStore";
 import Root from "./Root";
 import "Config/axiosGlobalConfig";
+import "typeface-ibm-plex-sans";
 import "Styles/styles.scss";
 
 const store = configureStore();
