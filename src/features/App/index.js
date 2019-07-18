@@ -25,8 +25,7 @@ import {
   AsyncGlobalConfiguration
 } from "./config/lazyComponents";
 import ProtectedRoute from "Components/ProtectedRoute";
-import { BASE_USERS_URL } from "Config/servicesConfig";
-import "./styles.scss";
+import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import ErrorDragon from "Components/ErrorDragon";
