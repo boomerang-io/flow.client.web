@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import matchSorter from "match-sorter";
@@ -169,25 +169,22 @@ class PropertiesTable extends Component {
 
     return (
       <>
-        <Header
-          title="Configuration"
-          description="Set global properties that are accessible in flow processes."
-          Button={() => (
+        <Header title="Configuration" description="Set global properties that are accessible in flow processes." />
+        <div className={styles.tableContainer}>
+          <div className={styles.header}>
+            <Search
+              className={styles.search}
+              id="properties-table-search"
+              labelText="Search"
+              placeHolderText="Search"
+              onChange={this.handleSearchChange}
+            />
             <CreateEditPropertiesModal
               addPropertyInStore={this.addPropertyInStore}
               properties={this.props.properties}
               updatePropertyInStore={this.updatePropertyInStore}
             />
-          )}
-        />
-        <div className={styles.tableContainer}>
-          <Search
-            className={styles.search}
-            id="properties-table-search"
-            labelText="Search"
-            placeHolderText="Search"
-            onChange={this.handleSearchChange}
-          />
+          </div>
           {totalItems > 0 ? (
             <>
               <DataTable
@@ -236,14 +233,34 @@ class PropertiesTable extends Component {
               />
             </>
           ) : (
-            <NoDisplay
-              text={
-                this.props.properties.length > 0
-                  ? "No properties found"
-                  : "Looks like there aren't any properties. Create one above!"
-              }
-              style={{ marginTop: "5rem", height: "30rem" }}
-            />
+            <Fragment>
+              <DataTable
+                rows={properties}
+                headers={this.headers}
+                render={({ headers }) => (
+                  <TableContainer>
+                    <Table zebra={false}>
+                      <TableHead>
+                        <TableRow className={styles.tableHeadRow}>
+                          {headers.map(header => (
+                            <TableHeader id={header.key}>{header.header}</TableHeader>
+                          ))}
+                        </TableRow>
+                      </TableHead>
+                    </Table>
+                  </TableContainer>
+                )}
+              />
+              <NoDisplay
+                textLocation="below"
+                text={
+                  this.props.properties.length > 0
+                    ? "No properties found"
+                    : "Looks like there aren't any properties. Create one above!"
+                }
+                style={{ marginTop: "5rem", height: "30rem" }}
+              />
+            </Fragment>
           )}
         </div>
       </>

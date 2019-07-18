@@ -4,11 +4,10 @@ import styles from "./header.module.scss";
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  Button: PropTypes.func.isRequired
+  description: PropTypes.string
 };
 
-function Header({ title, description, Button }) {
+function Header({ title, description }) {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -16,9 +15,7 @@ function Header({ title, description, Button }) {
           <h1 className={styles.title}>{title}</h1>
           {description && <p className={styles.description}>{description}</p>}
         </div>
-        <section className={styles.buttons}>
-          <Button />
-        </section>
+        <section className={styles.buttons} />
       </div>
     </div>
   );
