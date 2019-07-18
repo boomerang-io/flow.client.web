@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import get from "lodash.get";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import Inputs from "Features/WorkflowManager/components/Inputs";
@@ -83,15 +84,15 @@ class WorkflowEditor extends Component {
             render={props => (
               <Formik
                 initialValues={{
-                  name: workflow.data.name || "",
-                  shortDescription: workflow.data.shortDescription || "",
-                  description: workflow.data.description || "",
-                  webhook: workflow.data.triggers.webhook.enable || false,
-                  token: workflow.data.triggers.webhook.token || "",
-                  schedule: workflow.data.triggers.scheduler.enable || false,
-                  event: workflow.data.triggers.event.enable || false,
-                  topic: workflow.data.triggers.event.topic || "",
-                  persistence: workflow.data.enablePersistentStorage || false
+                  name: get(workflow, "data.name", ""),
+                  shortDescription: get(workflow, "data.shortDescription", ""),
+                  description: get(workflow, "data.description", ""),
+                  webhook: get(workflow, "data.triggers.webhook.enable", false),
+                  token: get(workflow, "data.triggers.webhook.token", ""),
+                  schedule: get(workflow, "data.triggers.scheduler.enable", false),
+                  event: get(workflow, "data.triggers.event.enable", false),
+                  topic: get(workflow, "data.triggers.event.topic", ""),
+                  persistence: get(workflow, "data.enablePersistentStorage", false)
                 }}
                 validationSchema={Yup.object().shape({
                   name: Yup.string()

@@ -8,7 +8,6 @@ import { PortWidget } from "@boomerang/boomerang-dag";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import mapTaskNametoIcon from "Utilities/taskIcons";
 import { Icon } from "carbon-components-react";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import "./styles.scss";
 
 export class TaskNodeExecution extends Component {

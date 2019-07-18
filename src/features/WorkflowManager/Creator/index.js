@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import get from "lodash.get";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as tasksActions } from "State/tasks";
@@ -30,15 +31,15 @@ class WorkflowCreatorContainer extends Component {
         <Navigation onlyShowBackLink />
         <Formik
           initialValues={{
-            name: workflow.data.name || "",
-            shortDescription: workflow.data.shortDescription || "",
-            description: workflow.data.description || "",
-            webhook: workflow.data.triggers.webhook.enable || false,
-            token: workflow.data.triggers.webhook.token || "",
-            schedule: workflow.data.triggers.scheduler.enable || false,
-            event: workflow.data.triggers.event.enable || false,
-            topic: workflow.data.triggers.event.topic || "",
-            persistence: workflow.data.enablePersistentStorage || false
+            name: get(workflow, "data.name", ""),
+            shortDescription: get(workflow, "data.shortDescription", ""),
+            description: get(workflow, "data.description", ""),
+            webhook: get(workflow, "data.triggers.webhook.enable", false),
+            token: get(workflow, "data.triggers.webhook.token", ""),
+            schedule: get(workflow, "data.triggers.scheduler.enable", false),
+            event: get(workflow, "data.triggers.event.enable", false),
+            topic: get(workflow, "data.triggers.event.topic", ""),
+            persistence: get(workflow, "data.enablePersistentStorage", false)
           }}
           validationSchema={Yup.object().shape({
             name: Yup.string()

@@ -6,7 +6,6 @@ import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import { ACTIVITY_STATUSES, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import "./styles.scss";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 Filler.propTypes = {
   backgroundColor: PropTypes.string.isRequired,

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import classnames from "classnames";
+import get from "lodash.get";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
@@ -181,7 +182,7 @@ export class Overview extends Component {
               <label
                 key={index}
                 className={classnames("b-workflow-icons__icon", {
-                  "--active": workflow.data.icon === image.name
+                  "--active": get(workflow, "data.icon", "") === image.name
                 })}
               >
                 <input
@@ -189,7 +190,7 @@ export class Overview extends Component {
                   value={image.name}
                   readOnly
                   onClick={() => this.handleOnIconChange(image.name, "icon")}
-                  checked={workflow.data.icon === image.name}
+                  checked={get(workflow, "data.icon", "") === image.name}
                 />
                 <img key={`${image.name}-${index}`} src={image.src} alt={`${image.name} icon`} />
               </label>
@@ -222,10 +223,9 @@ export class Overview extends Component {
               <Tooltip id="triggers-webhook-info" place="top">
                 Enable workflow to be executed by a webhook
               </Tooltip>
-              {workflow.data.id &&
-                workflow.data.triggers &&
-                workflow.data.triggers.webhook.enable &&
-                !workflow.data.triggers.webhook.token && (
+              {get(workflow, "data.id", false) &&
+                get(workflow, "data.triggers.webhook.enable", false) &&
+                !get(workflow, "data.triggers.webhook.token", false) && (
                   <Button
                     theme="bmrg-black"
                     type="button"
@@ -236,80 +236,81 @@ export class Overview extends Component {
                   </Button>
                 )}
             </div>
-            {!workflow.data.id && workflow.data.triggers && workflow.data.triggers.webhook.enable && (
+            {!get(workflow, "data.id", false) && get(workflow, "data.triggers.webhook.enable", false) && (
               <div className="s-webhook-token-message">An API token will be generated on creation of the workflow.</div>
             )}
-            {workflow.data.triggers && workflow.data.triggers.webhook.token && workflow.data.triggers.webhook.enable && (
-              <div className="b-webhook-token">
-                <TextInput
-                  id="token"
-                  placeholder="Token"
-                  disabled
-                  value={values.token}
-                  type={this.state.tokenTextType}
-                />
-                <button onClick={this.handleShowToken} type="button">
-                  <img
-                    className="b-webhook-token__icon"
-                    src={eyeIcon}
-                    data-tip
-                    data-for="webhook-token-eyeIcon"
-                    alt="Show/Hide token"
+            {get(workflow, "data.triggers.webhook.enable", false) &&
+              get(workflow, "data.triggers.webhook.token", false) && (
+                <div className="b-webhook-token">
+                  <TextInput
+                    id="token"
+                    placeholder="Token"
+                    disabled
+                    value={values.token}
+                    type={this.state.tokenTextType}
                   />
-                </button>
-                <Tooltip id="webhook-token-eyeIcon" place="top">
-                  {this.state.showTokenText}
-                </Tooltip>
-                <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
-                  <button
-                    onClick={() => this.setState({ copyTokenText: "Copied Token" })}
-                    onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
-                    type="button"
-                  >
+                  <button onClick={this.handleShowToken} type="button">
                     <img
                       className="b-webhook-token__icon"
-                      src={copyIcon}
+                      src={eyeIcon}
                       data-tip
-                      data-for="webhook-token-copyIcon"
-                      alt="Copy token"
+                      data-for="webhook-token-eyeIcon"
+                      alt="Show/Hide token"
                     />
                   </button>
-                </CopyToClipboard>
-                <Tooltip id="webhook-token-copyIcon" place="top">
-                  {this.state.copyTokenText}
-                </Tooltip>
-                <div>
-                  <Tooltip place="top" id="webhook-token-refreshIcon">
-                    Regenerate Token
+                  <Tooltip id="webhook-token-eyeIcon" place="top">
+                    {this.state.showTokenText}
                   </Tooltip>
-                  <AlertModal
-                    theme="bmrg-white"
-                    ModalTrigger={() => (
-                      <button className="b-webhook-token__generate" type="button">
-                        <img
-                          src={refreshIcon}
-                          className="b-webhook-token__icon"
-                          data-tip
-                          data-for="webhook-token-refreshIcon"
-                          alt="Regenerate token"
-                        />
-                      </button>
-                    )}
-                    modalContent={(closeModal, rest) => (
-                      <ConfirmModal
-                        closeModal={closeModal}
-                        affirmativeAction={this.generateToken}
-                        title="Generate a new Webhook Token?"
-                        subTitleTop="The existing token will be invalidated"
-                        cancelText="NO"
-                        affirmativeText="YES"
-                        {...rest}
+                  <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
+                    <button
+                      onClick={() => this.setState({ copyTokenText: "Copied Token" })}
+                      onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                      type="button"
+                    >
+                      <img
+                        className="b-webhook-token__icon"
+                        src={copyIcon}
+                        data-tip
+                        data-for="webhook-token-copyIcon"
+                        alt="Copy token"
                       />
-                    )}
-                  />
+                    </button>
+                  </CopyToClipboard>
+                  <Tooltip id="webhook-token-copyIcon" place="top">
+                    {this.state.copyTokenText}
+                  </Tooltip>
+                  <div>
+                    <Tooltip place="top" id="webhook-token-refreshIcon">
+                      Regenerate Token
+                    </Tooltip>
+                    <AlertModal
+                      theme="bmrg-white"
+                      ModalTrigger={() => (
+                        <button className="b-webhook-token__generate" type="button">
+                          <img
+                            src={refreshIcon}
+                            className="b-webhook-token__icon"
+                            data-tip
+                            data-for="webhook-token-refreshIcon"
+                            alt="Regenerate token"
+                          />
+                        </button>
+                      )}
+                      modalContent={(closeModal, rest) => (
+                        <ConfirmModal
+                          closeModal={closeModal}
+                          affirmativeAction={this.generateToken}
+                          title="Generate a new Webhook Token?"
+                          subTitleTop="The existing token will be invalidated"
+                          cancelText="NO"
+                          affirmativeText="YES"
+                          {...rest}
+                        />
+                      )}
+                    />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
             <div className="c-scheduler">
               <div className="b-schedule">
                 <p id="toggle-scheduler" className="b-schedule__title">
@@ -334,9 +335,9 @@ export class Overview extends Component {
                 <Tooltip id="triggers-scheduler-info" place="top">
                   Enable workflow to be executed by a schedule
                 </Tooltip>
-                {workflow.data.triggers && workflow.data.triggers.scheduler.enable && (
+                {get(workflow, "data.triggers.scheduler.enable", false) && (
                   <ModalWrapper
-                    initialState={this.props.workflow.data}
+                    initialState={workflow.data}
                     modalProps={{ shouldCloseOnOverlayClick: false }}
                     theme="bmrg-white"
                     ModalTrigger={() => (
@@ -357,25 +358,24 @@ export class Overview extends Component {
                       >
                         <CronJobModal
                           closeModal={closeModal}
-                          cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
+                          cronExpression={get(workflow, "data.trigger.scheduler.schedule", "")}
                           handleOnChange={this.handleOnCronChange}
-                          timeZone={workflow.data.triggers ? workflow.data.triggers.scheduler.timezone : ""}
+                          timeZone={get(workflow, "data.triggers.scheduler.timezone", "")}
                         />
                       </ModalFlow>
                     )}
                   />
                 )}
               </div>
-              {workflow.data.triggers &&
-                workflow.data.triggers.scheduler.schedule &&
-                workflow.data.triggers.scheduler.enable &&
-                workflow.data.triggers.scheduler.timezone && (
+              {get(workflow, "data.triggers.scheduler.schedule", false) &&
+                get(workflow, "data.triggers.scheduler.enable", false) &&
+                get(workflow, "data.triggers.scheduler.timezone", false) && (
                   <div className="b-schedule__information">
                     <div className="b-schedule__information--cronMessage">
-                      {cronstrue.toString(workflow.data.triggers.scheduler.schedule)}
+                      {cronstrue.toString(get(workflow, "data.triggers.scheduler.schedule", ""))}
                     </div>
                     <div className="b-schedule__information--timezone">
-                      {`${workflow.data.triggers.scheduler.timezone} Timezone`}
+                      {`${get(workflow, "data.triggers.scheduler.timezone", "")} Timezone`}
                     </div>
                   </div>
                 )}
@@ -405,7 +405,7 @@ export class Overview extends Component {
                   Enable workflow to be triggered by platform events
                 </Tooltip>
               </div>
-              {workflow.data.triggers && workflow.data.triggers.event.enable && (
+              {get(workflow, "data.triggers.event.enable", false) && (
                 <div className="b-event-topic">
                   <TextInput
                     id="topic"

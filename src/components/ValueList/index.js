@@ -25,9 +25,9 @@ const SELECT_DROPDOWN_TYPES = {
 };
 
 function validateInput({ value, maxValueLength, minValueLength, validationFunction, validationText }) {
-  if (value.length > maxValueLength) {
+  if (maxValueLength !== undefined && value.length > maxValueLength) {
     return { message: `Must be less than ${maxValueLength} characters` };
-  } else if (value.length < minValueLength) {
+  } else if (minValueLength !== undefined && value.length < minValueLength) {
     return { message: `Must be more than ${minValueLength} characters` };
   } else if (validationFunction && !validationFunction(value)) {
     return { message: validationText };
@@ -68,8 +68,8 @@ const ValueList = ({
           value={node.taskName}
         />
         {taskConfig.map((item, index) => {
-          const maxValueLength = item.maxValueLength || 128;
-          const minValueLength = item.minValueLength || 0;
+          const maxValueLength = item.maxValueLength;
+          const minValueLength = item.minValueLength;
           if (Object.keys(INPUT_TYPES).includes(item.type)) {
             const itemConfig = INPUT_TYPES[item.type];
             return (
