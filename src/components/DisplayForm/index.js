@@ -119,7 +119,7 @@ class DisplayForm extends Component {
         </ModalContentBody>
         <ModalContentFooter>
           <ModalConfirmButton
-            theme="bmrg-white"
+            theme="bmrg-flow"
             text="Apply"
             disabled={!this.determineIsValidForm()}
             onClick={this.handleOnSave}

@@ -58,8 +58,8 @@ export class SwitchNode extends Component {
           <ModalFlow
             headerTitle={this.props.task.name}
             closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
-            theme="bmrg-white"
+            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
+            theme="bmrg-flow"
             {...rest}
           >
             <DisplayForm

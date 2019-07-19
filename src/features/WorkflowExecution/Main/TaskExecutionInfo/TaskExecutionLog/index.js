@@ -31,7 +31,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
           headerTitle="Execution Log"
           headerSubtitle={flowTaskName}
           closeModal={closeModal}
-          theme="bmrg-white"
+          theme="bmrg-flow"
           {...rest}
         >
           <ScrollFollow
@@ -48,7 +48,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
                     onChange={() => setFollow(!follow)}
                     defaultValue={follow}
                     disabled={!!error}
-                    theme="bmrg-white"
+                    theme="bmrg-flow"
                   />
                 </div>
                 <LazyLog

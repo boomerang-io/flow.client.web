@@ -18,7 +18,7 @@ class BrowserModalContent extends Component {
           <NoDisplay text="Your experience may be degraded if you aren't using a recent version of Chrome or Firefox" />
         </Body>
         <Footer style={{ paddingTop: "1rem" }}>
-          <ConfirmButton onClick={() => this.props.closeModal()} text="Continue, anyway" theme="bmrg-white" />
+          <ConfirmButton onClick={() => this.props.closeModal()} text="Continue, anyway" theme="bmrg-flow" />
         </Footer>
       </>
     );

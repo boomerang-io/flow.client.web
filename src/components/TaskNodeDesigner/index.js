@@ -59,8 +59,8 @@ export class TaskNode extends Component {
           <ModalFlow
             headerTitle={`Edit ${this.props.task.name}`}
             closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
-            theme="bmrg-white"
+            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
+            theme="bmrg-flow"
             {...rest}
           >
             <DisplayForm

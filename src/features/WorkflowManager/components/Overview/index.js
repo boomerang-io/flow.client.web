@@ -152,7 +152,7 @@ export class Overview extends Component {
             onChange={this.handleTeamChange}
             options={teams.map(team => ({ label: team.name, value: team.id }))}
             value={selectedTeam}
-            theme="bmrg-white"
+            theme="bmrg-flow"
             title="Team"
             placeholder="Select a team"
             noResultsText="No options entered"
@@ -165,7 +165,7 @@ export class Overview extends Component {
             title="Name"
             placeholder="Name"
             name="name"
-            theme="bmrg-white"
+            theme="bmrg-flow"
             onChange={this.handleOnChange}
             noValueText="Enter a name"
             maxChar={64}
@@ -182,7 +182,7 @@ export class Overview extends Component {
             title="Summary"
             placeholder="Summary"
             name="shortDescription"
-            theme="bmrg-white"
+            theme="bmrg-flow"
             onChange={this.handleOnChange}
             maxChar={128}
             maxCharText={"Summary must not be greater than 128 characters"}
@@ -194,7 +194,7 @@ export class Overview extends Component {
             title="Description"
             placeholder="Description"
             name="description"
-            theme="bmrg-white"
+            theme="bmrg-flow"
             handleChange={this.handleOnChange}
             maxChar={256}
             maxCharText={"Description must not be greater than 256 characters"}
@@ -232,7 +232,7 @@ export class Overview extends Component {
                 name="webhook"
                 checked={get(workflow, "data.triggers.webhook.enable", false)}
                 onChange={(checked, event, id) => this.handleOnWebhookChange(checked, {}, "enable")}
-                theme="bmrg-white"
+                theme="bmrg-flow"
               />
               <img
                 className="b-options__infoIcon"
@@ -247,7 +247,7 @@ export class Overview extends Component {
               {get(workflow, "data.id", false) &&
                 get(workflow, "data.triggers.webhook.enable", false) &&
                 !get(workflow, "data.triggers.webhook.token", false) && (
-                  <Button theme="bmrg-black" onClick={this.generateToken} style={{ marginLeft: "2.2rem" }}>
+                  <Button theme="bmrg-flow" onClick={this.generateToken} style={{ marginLeft: "2.2rem" }}>
                     Generate Token
                   </Button>
                 )}
@@ -263,7 +263,7 @@ export class Overview extends Component {
                     externallyControlled
                     value={get(workflow, "data.triggers.webhook.token", "")}
                     placeholder="Token"
-                    theme="bmrg-white"
+                    theme="bmrg-flow"
                     type={this.state.tokenTextType}
                   />
                   <button onClick={this.handleShowToken} type="button">
@@ -301,7 +301,7 @@ export class Overview extends Component {
                       Regenerate Token
                     </Tooltip>
                     <AlertModal
-                      theme="bmrg-white"
+                      theme="bmrg-flow"
                       ModalTrigger={() => (
                         <button className="b-webhook-token__generate" type="button">
                           <img
@@ -339,7 +339,7 @@ export class Overview extends Component {
                   checked={get(workflow, "data.triggers.scheduler.enable", false)}
                   name="schedule"
                   onChange={(checked, event, id) => this.handleOnSchedulerChange(checked, {}, "enable")}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                 />
                 <img
                   className="b-options__infoIcon"
@@ -355,9 +355,9 @@ export class Overview extends Component {
                   <ModalWrapper
                     initialState={this.props.workflow.data}
                     modalProps={{ shouldCloseOnOverlayClick: false }}
-                    theme="bmrg-white"
+                    theme="bmrg-flow"
                     ModalTrigger={() => (
-                      <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
+                      <Button theme="bmrg-flow" style={{ marginLeft: "2.2rem" }}>
                         Set Schedule
                       </Button>
                     )}
@@ -367,7 +367,7 @@ export class Overview extends Component {
                         headerTitle="Set Schedule"
                         confirmModalProps={{
                           affirmativeAction: closeModal,
-                          theme: "bmrg-white",
+                          theme: "bmrg-flow",
                           subTitleTop: "Your changes will not be saved"
                         }}
                         {...rest}
@@ -407,7 +407,7 @@ export class Overview extends Component {
                   checked={get(workflow, "data.triggers.event.enable", false)}
                   name="event"
                   onChange={(checked, event, id) => this.handleOnEventChange(checked, {}, "enable")}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                 />
                 <img
                   className="b-options__infoIcon"
@@ -425,7 +425,7 @@ export class Overview extends Component {
                   <TextInput
                     value={get(workflow, "data.triggers.event.topic", false)}
                     placeholder="Topic"
-                    theme="bmrg-white"
+                    theme="bmrg-flow"
                     onChange={(value, event, id) => this.handleOnEventChange(value, {}, "topic")}
                   />
                 </div>
@@ -446,7 +446,7 @@ export class Overview extends Component {
                 checked={get(workflow, "data.enablePersistentStorage", false)}
                 name="persistence"
                 onChange={(checked, event, id) => this.handleOnChange(checked, {}, "enablePersistentStorage")}
-                theme="bmrg-white"
+                theme="bmrg-flow"
               />
               <img
                 className="b-options__infoIcon"

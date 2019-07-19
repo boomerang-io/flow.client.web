@@ -51,9 +51,9 @@ class CreateEditPropertiesModal extends Component {
             confirmModalProps={{
               affirmativeAction: isEdit ? handleEditClose : closeModal,
               subTitleTop: "Your property will not be saved",
-              theme: "bmrg-white"
+              theme: "bmrg-flow"
             }}
-            theme="bmrg-white"
+            theme="bmrg-flow"
           >
             <CreateEditPropertiesContent
               addPropertyInStore={addPropertyInStore}

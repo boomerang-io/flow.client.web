@@ -64,7 +64,7 @@ class Main extends Component {
                 maxNumberPointsPerLink={0}
               />
             ) : (
-              <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
+              <LoadingAnimation theme="bmrg-flow" message="Your workflow will be with you shortly" />
             )}
           </div>
         }

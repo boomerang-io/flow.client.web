@@ -45,7 +45,7 @@ class WorkflowEditorContainer extends Component {
       this.props.workflow.fetchingStatus === REQUEST_STATUSES.FAILURE ||
       this.props.changeLog.status === REQUEST_STATUSES.FAILURE
     ) {
-      return <ErrorDragon theme="bmrg-white" />;
+      return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (
@@ -57,7 +57,7 @@ class WorkflowEditorContainer extends Component {
     }
 
     if (this.props.workflowRevision.isFetching) {
-      return <LoadingAnimation theme="bmrg-white" />;
+      return <LoadingAnimation theme="bmrg-flow" />;
     }
 
     return null;

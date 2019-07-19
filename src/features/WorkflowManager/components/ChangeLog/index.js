@@ -27,7 +27,7 @@ class ChangeLog extends Component {
   render() {
     const { changeLog } = this.props;
 
-    if (changeLog.isFetching) return <LoadingAnimation theme="bmrg-white" />;
+    if (changeLog.isFetching) return <LoadingAnimation theme="bmrg-flow" />;
 
     if (changeLog.status === REQUEST_STATUSES.SUCCESS)
       return (
@@ -35,7 +35,7 @@ class ChangeLog extends Component {
           <ChangeLogTable changeLog={changeLog.data} />
         </div>
       );
-    if (changeLog.status === REQUEST_STATUSES.FAILURE) return <ErrorDragon theme="bmrg-white" />;
+    if (changeLog.status === REQUEST_STATUSES.FAILURE) return <ErrorDragon theme="bmrg-flow" />;
     return null;
   }
 }

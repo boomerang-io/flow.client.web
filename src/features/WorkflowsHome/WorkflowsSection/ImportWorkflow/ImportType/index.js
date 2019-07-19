@@ -15,16 +15,16 @@ class ImportType extends Component {
   render() {
     return (
       <form onSubmit={e => e.preventDefault()}>
-        <Header title="IMPORT TYPE" subtitle="What do you want to do?" theme="bmrg-white" />
+        <Header title="IMPORT TYPE" subtitle="What do you want to do?" theme="bmrg-flow" />
         <Body>
           <OptionButton
             text="NEW WORKFLOW"
-            theme="bmrg-white"
+            theme="bmrg-flow"
             onClick={() => this.handleNextStep({ isUpdate: false })}
           />
           <OptionButton
             text="UPDATE WORKFLOW"
-            theme="bmrg-white"
+            theme="bmrg-flow"
             onClick={() => this.handleNextStep({ isUpdate: true })}
           />
         </Body>

@@ -43,10 +43,10 @@ const TextAreaView = props => {
             placeholder: props.item.description,
             alwaysShowTitle: true,
             type: props.itemConfig.type,
-            theme: "bmrg-white"
+            theme: "bmrg-flow"
           }}
           name={props.item.key}
-          theme="bmrg-white"
+          theme="bmrg-flow"
           validationFunction={value =>
             props.validateInput({
               value,
@@ -61,7 +61,7 @@ const TextAreaView = props => {
         </AutoSuggest>
       </ModalContentBody>
       <ModalContentFooter>
-        <ModalConfirmButton text="UPDATE" onClick={closeModal} theme="bmrg-white" />
+        <ModalConfirmButton text="UPDATE" onClick={closeModal} theme="bmrg-flow" />
       </ModalContentFooter>
     </>
   );

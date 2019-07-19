@@ -147,7 +147,7 @@ class InputsModalContent extends Component {
               id="input-default-value-toggle"
               onChange={this.handleDefaultValueChange}
               checked={defaultValue === "true"}
-              theme="bmrg-white"
+              theme="bmrg-flow"
             />
           </div>
         );
@@ -163,7 +163,7 @@ class InputsModalContent extends Component {
                 onChange={this.handleValidValuesChange}
                 options={validValues || []}
                 value={validValues || []}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 title="Options"
                 placeholder="Enter option"
                 noResultsText="No options entered"
@@ -176,7 +176,7 @@ class InputsModalContent extends Component {
                 onChange={this.handleDefaultValueChange}
                 options={validValues || []}
                 value={defaultValue || {}}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 title="Default Option"
                 placeholder="Select option"
                 noResultsText="No options entered"
@@ -194,7 +194,7 @@ class InputsModalContent extends Component {
               name="default value"
               onChange={this.handleDefaultValueChange}
               value={defaultValue || ""}
-              theme="bmrg-white"
+              theme="bmrg-flow"
               alwaysShowTitle
             />
           </div>
@@ -210,7 +210,7 @@ class InputsModalContent extends Component {
               type={type}
               onChange={this.handleDefaultValueChange}
               value={defaultValue || ""}
-              theme="bmrg-white"
+              theme="bmrg-flow"
               alwaysShowTitle
             />
           </div>
@@ -240,7 +240,7 @@ class InputsModalContent extends Component {
                 value={key}
                 validationFunction={this.validateKey}
                 validationText="Invalid key, space and special characters aren't allowed"
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 required
               />
               <TextInput
@@ -252,7 +252,7 @@ class InputsModalContent extends Component {
                 noValueText="Enter a label"
                 onChange={this.handleLabelChange}
                 value={label}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 required
               />
               <TextInput
@@ -263,7 +263,7 @@ class InputsModalContent extends Component {
                 type="text"
                 onChange={this.handleDescriptionChange}
                 value={description}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 required={false}
               />
               <div className="b-inputs-modal-toggle">
@@ -272,7 +272,7 @@ class InputsModalContent extends Component {
                   id="input-required-toggle"
                   onChange={this.handleRequiredChange}
                   checked={required}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                 />
               </div>
             </div>
@@ -290,7 +290,7 @@ class InputsModalContent extends Component {
                     { label: "Text Area", value: "textarea" }
                   ]}
                   value={type}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                   title="Type"
                   styles={{ width: "100%" }}
                 />
@@ -302,7 +302,7 @@ class InputsModalContent extends Component {
             <ModalConfirmButton
               disabled={!(key && label && type) || (!!keyError || !!labelError) || loading}
               text={isEdit ? "SAVE" : "CREATE"}
-              theme="bmrg-white"
+              theme="bmrg-flow"
               type="submit"
             />
           </ModalContentFooter>

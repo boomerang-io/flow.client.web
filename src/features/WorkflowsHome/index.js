@@ -104,14 +104,14 @@ export class WorkflowsHome extends Component {
     const { searchQuery } = this.state;
 
     if (teamsState.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon theme="bmrg-white" />;
+      return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (teamsState.isFetching) {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
-            <LoadingAnimation theme="bmrg-white" />
+            <LoadingAnimation theme="bmrg-flow" />
           </div>
         </div>
       );

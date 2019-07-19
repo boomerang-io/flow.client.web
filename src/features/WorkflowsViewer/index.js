@@ -37,19 +37,19 @@ class WorkflowsViewerContainer extends Component {
     const { workflow } = this.props;
 
     if (workflow.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon theme="bmrg-white" />;
+      return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (workflow.status === REQUEST_STATUSES.SUCCESS) {
       return (
         <div className="c-workflow-viewer">
           <Sidenav
-            theme="bmrg-white"
+            theme="bmrg-flow"
             content={() => <div className="c-sidenav-section">{this.formatWorkflows()}</div>}
             header={() => (
               <div className="c-sidenav-section">
                 <Link to="/creator/overview">
-                  <Button theme="bmrg-black">Create Workflow</Button>
+                  <Button theme="bmrg-flow">Create Workflow</Button>
                 </Link>
               </div>
             )}

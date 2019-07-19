@@ -202,7 +202,7 @@ export class WorkflowActivity extends Component {
     const { searchQuery, selectedWorkflow } = this.state;
 
     if (activityState.status === REQUEST_STATUSES.FAILURE || teamsState.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon theme="bmrg-white" />;
+      return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (activityState.status === REQUEST_STATUSES.SUCCESS && teamsState.status === REQUEST_STATUSES.SUCCESS) {

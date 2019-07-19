@@ -62,7 +62,7 @@ const ValueList = ({
           onChange={updateNodeTaskName}
           noValueText="Name is required"
           placeholder="Enter a task name"
-          theme="bmrg-white"
+          theme="bmrg-flow"
           title="Task Name"
           value={node.taskName}
         />
@@ -82,10 +82,10 @@ const ValueList = ({
                     alwaysShowTitle: true,
                     title: item.label,
                     type: itemConfig.type,
-                    theme: "bmrg-white"
+                    theme: "bmrg-flow"
                   }}
                   name={item.key}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                   validationFunction={value =>
                     validateInput({
                       value,
@@ -127,7 +127,7 @@ const ValueList = ({
                   onChange={onSelectTextInputChange}
                   options={item.options.map(option => ({ value: option, label: option }))}
                   styles={{ width: "100%" }}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                   title={item.label}
                   value={form[item.key] ? form[item.key].value : inputs[item.key] ? inputs[item.key] : ""}
                 />

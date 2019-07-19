@@ -91,7 +91,7 @@ export class WorkflowExecutionContainer extends Component {
       workflowRevisionStatus === REQUEST_STATUSES.FAILURE ||
       tasksStatus === REQUEST_STATUSES.FAILURE
     ) {
-      return <ErrorDragon theme="bmrg-white" />;
+      return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (

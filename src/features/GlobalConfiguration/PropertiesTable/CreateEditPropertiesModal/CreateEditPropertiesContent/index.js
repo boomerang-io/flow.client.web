@@ -102,7 +102,7 @@ class CreateEditPropertiesContent extends Component {
           } = props;
 
           if (isSubmitting) {
-            return <LoadingAnimation theme="bmrg-white" message="We'll be right with you" />;
+            return <LoadingAnimation theme="bmrg-flow" message="We'll be right with you" />;
           }
 
           return (
@@ -171,7 +171,7 @@ class CreateEditPropertiesContent extends Component {
                     id="secured"
                     checked={values.secured}
                     onChange={checked => setFieldValue("secured", checked)}
-                    theme="bmrg-white"
+                    theme="bmrg-flow"
                   />
                 </div>
               </Body>
@@ -180,7 +180,7 @@ class CreateEditPropertiesContent extends Component {
                   text={isEdit ? "SAVE" : "CREATE"}
                   type="submit"
                   disabled={!isValid || isSubmitting}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                 />
               </Footer>
             </form>

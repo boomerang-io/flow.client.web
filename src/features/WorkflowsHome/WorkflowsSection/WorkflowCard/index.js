@@ -122,7 +122,7 @@ class WorkflowCard extends Component {
                 subTitleTop="It will be gone. Forever."
                 negativeText="NO"
                 affirmativeText="DELETE"
-                theme="bmrg-white"
+                theme="bmrg-flow"
               />
             )}
           />
@@ -149,8 +149,8 @@ class WorkflowCard extends Component {
                     headerTitle="Workflow Inputs"
                     headerSubtitle="Supply some values"
                     closeModal={closeModal}
-                    confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
-                    theme="bmrg-white"
+                    confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
+                    theme="bmrg-flow"
                     {...rest}
                   >
                     <WorkflowInputModalContent
@@ -178,7 +178,7 @@ class WorkflowCard extends Component {
                     closeModal={closeModal}
                     affirmativeAction={() => this.executeWorkflow({ redirect: false })}
                     affirmativeText="RUN"
-                    theme="bmrg-white"
+                    theme="bmrg-flow"
                   >
                     <button
                       className="bmrg--b-confirm-modal__button --affirmative --children"

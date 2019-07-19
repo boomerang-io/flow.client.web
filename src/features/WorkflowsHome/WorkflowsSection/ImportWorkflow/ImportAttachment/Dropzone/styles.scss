@@ -16,8 +16,8 @@
 
   .b-import-dropzone-button {
     align-items: center;
-    background-color: $cerulean-50;
-    border: 0.063rem solid $cerulean-50;
+    background-color: $teal-20;
+    border: 0.063rem solid $teal-20;
     color: $white;
     border-radius: 0.25rem;
     cursor: pointer;
@@ -34,7 +34,7 @@
 
     &:hover {
       background-color: $white;
-      border: 0.063rem solid $cerulean-50;
+      border: 0.063rem solid $teal-20;
       color: $gray-90;
     }
   }
@@ -52,9 +52,9 @@
   .b-import-dropzone-error {
     align-items: center;
     background-color: $white;
-    border: 0.0625rem solid $cerulean-50;
+    border: 0.0625rem solid $teal-20;
     border-radius: 0.25rem;
-    color: $cerulean-50;
+    color: $teal-20;
     cursor: pointer;
     display: flex;
     font-size: 1.125rem;
@@ -71,7 +71,7 @@
     }
 
     &:hover {
-      background-color: $cerulean-50;
+      background-color: $teal-20;
       color: $white;
     }
   }
@@ -85,7 +85,7 @@
   .b-import-dropzone__dragEnter {
     align-items: center;
     background-color: transparent;
-    border: 0.063rem dashed $cerulean-50;
+    border: 0.063rem dashed $teal-20;
     display: flex;
     height: 3.938rem;
     justify-content: center;
@@ -136,7 +136,7 @@
   }
 
   .b-import-dropzone__message {
-    color: $cerulean-50;
+    color: $teal-20;
     font-size: 0.875rem;
     padding: 0.313rem 0 0 0;
     z-index: 999;
@@ -154,7 +154,7 @@
   #importWorkflowAttachment-progress-bar {
     width: 0;
     height: 0.625rem;
-    background-color: $cerulean-50;
+    background-color: $teal-20;
     border-radius: 6.25rem;
   }
 }

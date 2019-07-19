@@ -249,11 +249,11 @@ export class WorkflowManagerContainer extends Component {
   render() {
     const { tasks, teams } = this.props;
     if (tasks.isFetching || teams.isFetching) {
-      return <LoadingAnimation theme="bmrg-white" />;
+      return <LoadingAnimation theme="bmrg-flow" />;
     }
 
     if (tasks.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon theme="bmrg-white" />;
+      return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
