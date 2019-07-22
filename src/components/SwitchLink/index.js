@@ -156,7 +156,7 @@ class SwitchLink extends Component {
                     shouldCloseOnOverlayClick={false}
                   >
                     <ModalFlow
-                      theme="bmrg-white"
+                      theme="bmrg-flow"
                       title
                       closeModal={this.closeModal}
                       headerTitle="Switch"

@@ -56,7 +56,7 @@ export default class Tasks extends Component {
   render() {
     return (
       <Sidenav
-        theme="bmrg-white"
+        theme="bmrg-flow"
         header={() => (
           <Search
             labelText="Search tasks"

@@ -82,7 +82,7 @@ export default class CronJobModal extends Component {
     const { cronExpression, inputError, errorMessage, message, timeZone } = this.state;
     return (
       <form onSubmit={this.handleOnSave}>
-        <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-white" />
+        <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-flow" />
         <ModalContentBody style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}>
           <div className="b-cron-fieldset">
             <div className="b-cron">
@@ -93,7 +93,7 @@ export default class CronJobModal extends Component {
                 title="CRON Expression"
                 placeholder="Enter a CRON Expression"
                 name="cron"
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 onChange={this.handleOnChange}
                 validationFunction={this.validateCron} //pass validation function here
                 style={{ paddingBottom: "1rem" }}
@@ -107,7 +107,7 @@ export default class CronJobModal extends Component {
             <div className="b-timezone">
               <SelectDropdown
                 options={this.timezoneOptions}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 value={timeZone}
                 onChange={this.handleTimeChange}
                 isCreatable={false}
@@ -131,7 +131,7 @@ export default class CronJobModal extends Component {
         <ModalContentFooter>
           <ModalConfirmButton
             text="SAVE"
-            theme="bmrg-white"
+            theme="bmrg-flow"
             disabled={!cronExpression || !!Object.keys(inputError).length} //disable if there is no expression, or if the error object is not empty
             type="submit"
           />

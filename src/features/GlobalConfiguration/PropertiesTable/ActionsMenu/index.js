@@ -65,7 +65,7 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty, addProper
               subTitleTop="It will be gone. Forever."
               negativeText="NO"
               affirmativeText="YES"
-              theme="bmrg-white"
+              theme="bmrg-flow"
             />
           )}
         />

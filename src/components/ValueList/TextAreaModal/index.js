@@ -8,7 +8,7 @@ const TextAreaContainer = ({ closeModal, setValue, title, ...rest }) => {
   return (
     <ModalFlow
       headerTitle={`Update ${title}`}
-      theme="bmrg-white"
+      theme="bmrg-flow"
       closeModal={closeModal}
       setTextAreaValue={setValue}
       {...rest}

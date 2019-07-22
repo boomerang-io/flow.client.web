@@ -49,7 +49,7 @@ class ImportConfirm extends Component {
             alignItems: "center"
           }}
         >
-          <LoadingAnimation theme="bmrg-white" />
+          <LoadingAnimation theme="bmrg-flow" />
         </Body>
       );
     }
@@ -73,10 +73,10 @@ class ImportConfirm extends Component {
               alignItems: "center"
             }}
           >
-            <Error theme="bmrg-white" />
+            <Error theme="bmrg-flow" />
           </Body>
           <Footer>
-            <ConfirmButton text="Try again?" theme="bmrg-white" />
+            <ConfirmButton text="Try again?" theme="bmrg-flow" />
           </Footer>
         </form>
       );
@@ -84,7 +84,7 @@ class ImportConfirm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <Header title="CONFIRM IMPORT" theme="bmrg-white" />
+        <Header title="CONFIRM IMPORT" theme="bmrg-flow" />
         <Body
           style={{
             height: "21rem",
@@ -101,7 +101,7 @@ class ImportConfirm extends Component {
             title="Import Type"
             onPencilClick={() => this.props.goToStep(options.IMPORT_WORKFLOW_TYPE)}
             arrayItems={confirmUpdate}
-            theme="bmrg-white"
+            theme="bmrg-flow"
             style={{ marginBottom: "1rem" }}
           />
           <ConfirmEdit
@@ -109,11 +109,11 @@ class ImportConfirm extends Component {
             title={`Attachment`}
             onPencilClick={() => this.props.goToStep(options.IMPORT_WORKFLOW_ATTACHMENT)}
             arrayItems={confirmAttachment}
-            theme="bmrg-white"
+            theme="bmrg-flow"
           />
         </Body>
         <Footer>
-          <ConfirmButton text="SUBMIT WORKFLOW" type="submit" theme="bmrg-white" />
+          <ConfirmButton text="SUBMIT WORKFLOW" type="submit" theme="bmrg-flow" />
         </Footer>
       </form>
     );

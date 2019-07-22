@@ -124,7 +124,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
         Secured
       </label>
       <div
-        className="toggle --bmrg-white"
+        className="toggle --bmrg-flow"
         style={
           Object {
             "MozTransition": "opacity 0.25s",
@@ -228,7 +228,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
     }
   >
     <button
-      className="bmrg--b-modal-confirm-button --disabled --bmrg-white --disabled"
+      className="bmrg--b-modal-confirm-button --disabled --bmrg-flow --disabled"
       disabled={true}
       type="submit"
     >

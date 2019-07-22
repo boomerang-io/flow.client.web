@@ -18,21 +18,23 @@ const TimeProgressBar = ({ workflowExecution, updateActiveNode }) => {
       <div className="b-time-progress-bar">
         <div className="b-time-progress-bar__start">Start</div>
         <div className="b-time-progress-bar__finish">Finish</div>
-        <div className="b-time-progress-bar__fillers">
-          {steps.map((step, index) => (
-            <Filler
-              duration={step.duration}
-              finishTime={step.startTime + step.duration}
-              id={step.id}
-              key={step.id}
-              percentOfTotal={(step.duration / durationSum) * 100}
-              status={step.flowTaskStatus}
-              taskId={step.taskId}
-              taskName={step.taskName}
-              updateActiveNode={updateActiveNode}
-            />
-          ))}
-        </div>
+        {steps.length > 0 && (
+          <div className="b-time-progress-bar__fillers">
+            {steps.map(step => (
+              <Filler
+                duration={step.duration}
+                finishTime={step.startTime + step.duration}
+                id={step.id}
+                key={step.id}
+                percentOfTotal={(step.duration / durationSum) * 100}
+                status={step.flowTaskStatus}
+                taskId={step.taskId}
+                taskName={step.taskName}
+                updateActiveNode={updateActiveNode}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

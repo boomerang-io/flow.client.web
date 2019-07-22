@@ -114,11 +114,11 @@ export class WorkflowInsights extends Component {
     const { insights } = this.props;
 
     if (insights.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon theme="bmrg-white" />;
+      return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (insights.isFetching) {
-      return <LoadingAnimation theme="bmrg-white" />;
+      return <LoadingAnimation theme="bmrg-flow" />;
     }
 
     if (insights.status === REQUEST_STATUSES.SUCCESS) {
@@ -188,14 +188,14 @@ export class WorkflowInsights extends Component {
     const { teams } = this.props;
 
     if (teams.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon theme="bmrg-white" />;
+      return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (teams.isFetching) {
       return (
         <div className="c-workflow-insights">
           <div className="c-workflow-insights-content">
-            <LoadingAnimation theme="bmrg-white" />
+            <LoadingAnimation theme="bmrg-flow" />
           </div>
         </div>
       );

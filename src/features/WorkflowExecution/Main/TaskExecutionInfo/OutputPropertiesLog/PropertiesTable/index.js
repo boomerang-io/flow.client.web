@@ -39,7 +39,7 @@ class PropertiesTable extends Component {
           showPagination={false}
           minRows={this.props.data.length}
           noDataText="No data to display"
-          theme="bmrg-white"
+          theme="bmrg-flow"
           className="b-properties-table"
           style={{ whiteSpace: "unset" }}
           defaultSorting={[

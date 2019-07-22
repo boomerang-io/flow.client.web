@@ -96,7 +96,7 @@ class WorkflowInputModalContent extends Component {
               id={key}
               onChange={(checked, event, id) => this.handleBooleanChange(checked, key)}
               defaultChecked={defaultValue === "true" || false}
-              theme="bmrg-white"
+              theme="bmrg-flow"
             />
           </div>
         );
@@ -116,7 +116,7 @@ class WorkflowInputModalContent extends Component {
                     ? { label: this.state.inputs[key], value: this.state.inputs[key] }
                     : defaultValue
                 }
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 title={label}
                 id={key}
                 name={key}
@@ -134,7 +134,7 @@ class WorkflowInputModalContent extends Component {
               name={key}
               onChange={this.handleTextChange}
               value={defaultValue || ""}
-              theme="bmrg-white"
+              theme="bmrg-flow"
               noValueText={`Enter a ${label}`}
               required={required}
             />
@@ -152,7 +152,7 @@ class WorkflowInputModalContent extends Component {
               type={type}
               onChange={this.handleTextChange}
               value={defaultValue || ""}
-              theme="bmrg-white"
+              theme="bmrg-flow"
               noValueText={`Enter a ${label}`}
               required={required}
             />
@@ -182,7 +182,7 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
-            theme="bmrg-white"
+            theme="bmrg-flow"
           />
           <ConfirmButton
             type="submit"
@@ -197,7 +197,7 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
-            theme="bmrg-white"
+            theme="bmrg-flow"
           />
         </Footer>
       </form>

@@ -31,10 +31,10 @@ class InputsModal extends Component {
             closeModal={closeModal}
             confirmModalProps={{
               affirmativeAction: closeModal,
-              theme: "bmrg-white",
+              theme: "bmrg-flow",
               subTitleTop: "Your input will not be saved"
             }}
-            theme="bmrg-white"
+            theme="bmrg-flow"
             {...rest}
           >
             <InputsModalContent updateInputs={this.props.updateInputs} loading={loading} />

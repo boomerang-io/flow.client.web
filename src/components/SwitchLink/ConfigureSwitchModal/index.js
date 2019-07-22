@@ -51,7 +51,7 @@ class ConfigureSwitchModal extends React.Component {
               name="default"
               checked={defaultState}
               onChange={updateDefaultState}
-              theme="bmrg-white"
+              theme="bmrg-flow"
             />
             <div className="b-switch-config__explanation">This path will be taken when no others are matched line.</div>
           </div>
@@ -66,7 +66,7 @@ class ConfigureSwitchModal extends React.Component {
                   title="Switch Property Value"
                   placeholder="Enter a value"
                   name="property"
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                   handleChange={value => this.setState({ switchCondition: value })}
                   style={{ paddingBottom: "1rem" }}
                   validationFunction={validateSwitch}
@@ -81,7 +81,7 @@ class ConfigureSwitchModal extends React.Component {
           </div>
         </ModalContentBody>
         <ModalContentFooter>
-          <ModalConfirmButton text="SAVE" theme="bmrg-white" type="submit" />
+          <ModalConfirmButton text="SAVE" theme="bmrg-flow" type="submit" />
         </ModalContentFooter>
       </form>
     );

@@ -145,7 +145,7 @@ export class Overview extends Component {
             onChange={this.handleTeamChange}
             options={teams.map(team => ({ label: team.name, value: team.id }))}
             value={selectedTeam}
-            theme="bmrg-white"
+            theme="bmrg-flow"
             title="Team"
             placeholder="Select a team"
             noResultsText="No options entered"
@@ -211,7 +211,7 @@ export class Overview extends Component {
                 className="b-webhook__toggle"
                 checked={values.webhook}
                 onChange={checked => this.handleOnWebhookChange(checked)}
-                theme="bmrg-white"
+                theme="bmrg-flow"
               />
               <img
                 className="b-options__infoIcon"
@@ -226,12 +226,7 @@ export class Overview extends Component {
               {get(workflow, "data.id", false) &&
                 get(workflow, "data.triggers.webhook.enable", false) &&
                 !get(workflow, "data.triggers.webhook.token", false) && (
-                  <Button
-                    theme="bmrg-black"
-                    type="button"
-                    onClick={this.generateToken}
-                    style={{ marginLeft: "2.2rem" }}
-                  >
+                  <Button theme="bmrg-flow" type="button" onClick={this.generateToken} style={{ marginLeft: "2.2rem" }}>
                     Generate Token
                   </Button>
                 )}
@@ -284,7 +279,7 @@ export class Overview extends Component {
                       Regenerate Token
                     </Tooltip>
                     <AlertModal
-                      theme="bmrg-white"
+                      theme="bmrg-flow"
                       ModalTrigger={() => (
                         <button className="b-webhook-token__generate" type="button">
                           <img
@@ -323,7 +318,7 @@ export class Overview extends Component {
                   className="b-schedule__toggle"
                   checked={values.schedule}
                   onChange={checked => this.handleOnSchedulerChange(checked)}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                 />
                 <img
                   className="b-options__infoIcon"
@@ -339,9 +334,9 @@ export class Overview extends Component {
                   <ModalWrapper
                     initialState={workflow.data}
                     modalProps={{ shouldCloseOnOverlayClick: false }}
-                    theme="bmrg-white"
+                    theme="bmrg-flow"
                     ModalTrigger={() => (
-                      <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }} type="button">
+                      <Button theme="bmrg-flow" style={{ marginLeft: "2.2rem" }} type="button">
                         Set Schedule
                       </Button>
                     )}
@@ -351,7 +346,7 @@ export class Overview extends Component {
                         headerTitle="Set Schedule"
                         confirmModalProps={{
                           affirmativeAction: closeModal,
-                          theme: "bmrg-white",
+                          theme: "bmrg-flow",
                           subTitleTop: "Your changes will not be saved"
                         }}
                         {...rest}
@@ -392,7 +387,7 @@ export class Overview extends Component {
                   className="b-event__toggle"
                   checked={values.event}
                   onChange={checked => this.handleOnEventChange(checked)}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                 />
                 <img
                   className="b-options__infoIcon"
@@ -433,7 +428,7 @@ export class Overview extends Component {
                 className="b-persistence__toggle"
                 checked={values.persistence}
                 onChange={(checked, event, id) => this.handleOnPersistenceChange(checked, id)}
-                theme="bmrg-white"
+                theme="bmrg-flow"
               />
               <img
                 className="b-options__infoIcon"

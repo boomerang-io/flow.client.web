@@ -113,7 +113,7 @@ class ActionBar extends Component {
         <AlertModal
           modalProps={{ shouldCloseOnOverlayClick: false }}
           ModalTrigger={() => (
-            <Button disabled={loading} theme="bmrg-black">
+            <Button disabled={loading} theme="bmrg-flow">
               {performActionButtonText}
             </Button>
           )}
@@ -124,7 +124,7 @@ class ActionBar extends Component {
               closeModal={closeModal}
               affirmativeAction={this.resetVersionToLatestWithMessage}
               affirmativeText="Yes"
-              theme="bmrg-white"
+              theme="bmrg-flow"
             />
           )}
         />
@@ -135,16 +135,16 @@ class ActionBar extends Component {
       return (
         <Modal
           modalProps={{ shouldCloseOnOverlayClick: false }}
-          ModalTrigger={() => <Button theme="bmrg-black">{performActionButtonText}</Button>}
+          ModalTrigger={() => <Button theme="bmrg-flow">{performActionButtonText}</Button>}
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
               closeModal={closeModal}
               headerTitle="Create New Version"
               headerSubtitle="Enter a comment for record keeping"
-              theme={"bmrg-white"}
+              theme={"bmrg-flow"}
               confirmModalProps={{
                 affirmativeAction: closeModal,
-                theme: "bmrg-white",
+                theme: "bmrg-flow",
                 subTitleTop: "A new version will not be created"
               }}
               {...rest}
@@ -161,7 +161,7 @@ class ActionBar extends Component {
     }
     if (showActionButton) {
       return (
-        <Button theme="bmrg-black" onClick={performAction} disabled={!isValidOverview || loading}>
+        <Button theme="bmrg-flow" onClick={performAction} disabled={!isValidOverview || loading}>
           {performActionButtonText}
         </Button>
       );

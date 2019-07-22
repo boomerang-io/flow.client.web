@@ -96,7 +96,7 @@ class Inputs extends Component {
                     subTitleTop="It will be gone. Forever."
                     cancelText="NO"
                     affirmativeText="YES"
-                    theme="bmrg-white"
+                    theme="bmrg-flow"
                     {...rest}
                   />
                 )}

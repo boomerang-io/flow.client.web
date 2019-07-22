@@ -111,7 +111,7 @@ class InputsModalContent extends Component {
               aria-labelledby="toggle-default-value"
               onChange={(checked, event, id) => this.handleOnFieldValueChange(checked.toString(), id, setFieldValue)}
               checked={values.defaultValue === "true"}
-              theme="bmrg-white"
+              theme="bmrg-flow"
             />
           </div>
         );
@@ -137,7 +137,7 @@ class InputsModalContent extends Component {
                 onChange={values => this.handleValidValuesChange(values, setFieldValue)}
                 options={validValues || []}
                 value={validValues || []}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 title="Options"
                 placeholder="Enter option"
                 noResultsText="No options entered"
@@ -151,7 +151,7 @@ class InputsModalContent extends Component {
                 onChange={value => this.handleOnFieldValueChange(value.value, FIELD.DEFAULT_VALUE, setFieldValue)}
                 options={validValues || []}
                 value={values.defaultValue || {}}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 title="Default Option"
                 placeholder="Select option"
                 noResultsText="No options entered"
@@ -265,7 +265,7 @@ class InputsModalContent extends Component {
                       aria-labelledby="toggle-required"
                       checked={values.required}
                       onChange={(checked, event, id) => this.handleOnFieldValueChange(checked, id, setFieldValue)}
-                      theme="bmrg-white"
+                      theme="bmrg-flow"
                     />
                   </div>
                 </div>
@@ -284,7 +284,7 @@ class InputsModalContent extends Component {
                         { label: "Text Area", value: "textarea" }
                       ]}
                       value={values.type}
-                      theme="bmrg-white"
+                      theme="bmrg-flow"
                       title="Type"
                       styles={{ width: "100%" }}
                     />
@@ -296,7 +296,7 @@ class InputsModalContent extends Component {
                 <ModalConfirmButton
                   disabled={!isValid || loading}
                   text={isEdit ? "SAVE" : "CREATE"}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                   type="submit"
                   onClick={() => this.handleConfirm(formikProps)}
                 />

@@ -63,14 +63,14 @@ class ImportWorkflow extends Component {
           </button>
         )}
         initialState={initialState}
-        theme="bmrg-white"
+        theme="bmrg-flow"
         modalContent={(closeModal, rest) => (
           <ModalFlow
             headerTitle="Workflow Import"
             headerSubtitle="Import your own workflow"
             closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
-            theme="bmrg-white"
+            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
+            theme="bmrg-flow"
             {...rest}
           >
             <ImportType />
