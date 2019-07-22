@@ -77,8 +77,6 @@ class InputsModalContent extends Component {
       if (!inputProperties.defaultValue) inputProperties.defaultValue = false;
     }
 
-    console.log(inputProperties);
-
     if (this.props.isEdit) {
       new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties)))
         .then(() =>
@@ -104,7 +102,7 @@ class InputsModalContent extends Component {
     switch (values.type) {
       case INPUT_TYPES.BOOLEAN:
         return (
-          <div className="b-inputs-modal-toggle">
+          <div className="b-inputs-modal-toggle" data-testid="toggle">
             <div className="b-inputs-modal-toggle__title">Default Value</div>
             <Toggle
               id={FIELD.DEFAULT_VALUE}
@@ -127,7 +125,7 @@ class InputsModalContent extends Component {
         }
         return (
           <>
-            <div className="b-inputs-modal-select">
+            <div className="b-inputs-modal-select" data-testid="select">
               <SelectDropdown
                 id={FIELD.VALID_VALUES}
                 multi
@@ -162,7 +160,7 @@ class InputsModalContent extends Component {
         );
       case INPUT_TYPES.TEXT_AREA:
         return (
-          <div className="b-inputs-modal-text-area">
+          <div className="b-inputs-modal-text-area" data-testid="text-area">
             <TextArea
               id={FIELD.DEFAULT_VALUE}
               labelText="Default Value"
@@ -176,7 +174,7 @@ class InputsModalContent extends Component {
       default:
         // Fallback to text input here because it covers text, password, and url
         return (
-          <div className="b-inputs-modal-text-input">
+          <div className="b-inputs-modal-text-input" data-testid="text-input">
             <TextInput
               id={FIELD.DEFAULT_VALUE}
               labelText="Default Value"
