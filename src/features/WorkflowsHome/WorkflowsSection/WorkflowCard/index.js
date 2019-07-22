@@ -74,10 +74,10 @@ class WorkflowCard extends Component {
       },
       {
         itemText: "Delete",
-        onClick: () => this.setState({ deleteModalIsOpen: true }),
-        primaryFocus: false,
         hasDivider: true,
-        isDelete: true
+        isDelete: true,
+        onClick: () => this.setState({ deleteModalIsOpen: true }),
+        primaryFocus: false
       }
     ];
 
@@ -94,14 +94,15 @@ class WorkflowCard extends Component {
           style={{ position: "absolute", right: "0" }}
           floatingMenu={true}
         >
-          {menuOptions.map(option => (
+          {menuOptions.map(({ onClick, itemText, primaryFocus, ...rest }) => (
             <OverflowMenuItem
               requireTitle={false}
               closeMenu={() => {}}
-              onClick={option.onClick}
-              itemText={option.itemText}
-              primaryFocus={option.primaryFocus}
-              key={option.itemText}
+              onClick={onClick}
+              itemText={itemText}
+              primaryFocus={primaryFocus}
+              key={itemText}
+              {...rest}
             />
           ))}
         </OverflowMenu>
@@ -121,80 +122,78 @@ class WorkflowCard extends Component {
                 subTitleTop="It will be gone. Forever."
                 negativeText="NO"
                 affirmativeText="DELETE"
-                theme="bmrg-white"
+                theme="bmrg-flow"
               />
             )}
           />
         )}
-        <div className="c-workflow-card__info">
+        <div className="c-workflow-card-info">
           <div className="c-workflow-card__icon">
             <img className="b-workflow-card__icon" src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
           </div>
-          <div className="c-workflow-card__description">
-            <Link to={`/editor/${workflow.id}/designer`}>
-              <h2 className="b-workflow-card__name">{workflow.name}</h2>
-            </Link>
+          <Link to={`/editor/${workflow.id}/designer`} className="c-workflow-card__description">
+            <h2 className="b-workflow-card__name">{workflow.name}</h2>
             <p className="b-workflow-card__description">{workflow.shortDescription}</p>
-            <span data-tip data-for={workflow.id} className="b-workflow-card-launch">
-              {workflow.properties && workflow.properties.length > 0 ? (
-                <Modal
-                  modalProps={{ shouldCloseOnOverlayClick: false }}
-                  ModalTrigger={() => (
-                    <button>
-                      <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
-                    </button>
-                  )}
-                  modalContent={(closeModal, rest) => (
-                    <ModalFlow
-                      headerTitle="Workflow Inputs"
-                      headerSubtitle="Supply some values"
+          </Link>
+          <div data-tip data-for={workflow.id} className="b-workflow-card-launch">
+            {workflow.properties && workflow.properties.length > 0 ? (
+              <Modal
+                modalProps={{ shouldCloseOnOverlayClick: false }}
+                ModalTrigger={() => (
+                  <button>
+                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                  </button>
+                )}
+                modalContent={(closeModal, rest) => (
+                  <ModalFlow
+                    headerTitle="Workflow Inputs"
+                    headerSubtitle="Supply some values"
+                    closeModal={closeModal}
+                    confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
+                    theme="bmrg-flow"
+                    {...rest}
+                  >
+                    <WorkflowInputModalContent
                       closeModal={closeModal}
-                      confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-white" }}
-                      theme="bmrg-white"
-                      {...rest}
+                      executeWorkflow={this.executeWorkflow}
+                      inputs={workflow.properties}
+                    />
+                  </ModalFlow>
+                )}
+              />
+            ) : (
+              <AlertModal
+                className="bmrg--c-alert-modal --execute-workflow"
+                modalProps={{ shouldCloseOnOverlayClick: false }}
+                ModalTrigger={() => (
+                  <button>
+                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                  </button>
+                )}
+                modalContent={closeModal => (
+                  <ConfirmModal
+                    title="Execute workflow?"
+                    subTitleTop="It will run"
+                    img={deployIcon}
+                    closeModal={closeModal}
+                    affirmativeAction={() => this.executeWorkflow({ redirect: false })}
+                    affirmativeText="RUN"
+                    theme="bmrg-flow"
+                  >
+                    <button
+                      className="bmrg--b-confirm-modal__button --affirmative --children"
+                      onClick={() => this.executeWorkflow({ redirect: true })}
                     >
-                      <WorkflowInputModalContent
-                        closeModal={closeModal}
-                        executeWorkflow={this.executeWorkflow}
-                        inputs={workflow.properties}
-                      />
-                    </ModalFlow>
-                  )}
-                />
-              ) : (
-                <AlertModal
-                  className="bmrg--c-alert-modal --execute-workflow"
-                  modalProps={{ shouldCloseOnOverlayClick: false }}
-                  ModalTrigger={() => (
-                    <button>
-                      <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                      RUN & VIEW
                     </button>
-                  )}
-                  modalContent={closeModal => (
-                    <ConfirmModal
-                      title="Execute workflow?"
-                      subTitleTop="It will run"
-                      img={deployIcon}
-                      closeModal={closeModal}
-                      affirmativeAction={() => this.executeWorkflow({ redirect: false })}
-                      affirmativeText="RUN"
-                      theme="bmrg-white"
-                    >
-                      <button
-                        className="bmrg--b-confirm-modal__button --affirmative --children"
-                        onClick={() => this.executeWorkflow({ redirect: true })}
-                      >
-                        RUN & VIEW
-                      </button>
-                    </ConfirmModal>
-                  )}
-                />
-              )}
-            </span>
-            <Tooltip id={workflow.id} place="bottom">
-              Execute workflow
-            </Tooltip>
+                  </ConfirmModal>
+                )}
+              />
+            )}
           </div>
+          <Tooltip id={workflow.id} place="bottom">
+            Execute workflow
+          </Tooltip>
         </div>
       </div>
     );

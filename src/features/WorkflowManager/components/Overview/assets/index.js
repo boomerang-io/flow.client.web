@@ -1,22 +1,20 @@
-import docs from "./document_32.svg";
+import docs from "./document.svg";
 import flow from "./flow.svg";
-import log from "./log.svg";
-import payment from "./payment.svg";
-import diagram from "./diagram.svg";
-import secure from "./secure.svg";
-import utility from "./utility.svg";
-import template from "./template.svg";
+import mail from "./mail.svg";
+import api from "./api.svg";
+import upload from "./upload.svg";
+import notify from "./notify.svg";
+import schedule from "./schedule.svg";
 
 export default [
+  { src: flow, name: "flow" },
+  { src: api, name: "api" },
+  { src: upload, name: "upload" },
+  { src: schedule, name: "schedule" },
+  { src: notify, name: "notify" },
+  { src: mail, name: "mail" },
   {
     src: docs,
     name: "docs"
-  },
-  { src: secure, name: "secure" },
-  { src: flow, name: "flow" },
-  { src: log, name: "log" },
-  { src: payment, name: "payment" },
-  { src: diagram, name: "diagram" },
-  { src: utility, name: "utility" },
-  { src: template, name: "template" }
+  }
 ];

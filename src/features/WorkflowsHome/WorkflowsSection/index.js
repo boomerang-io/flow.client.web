@@ -5,18 +5,17 @@ import Button from "@boomerang/boomerang-components/lib/Button";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import ImportWorkflow from "./ImportWorkflow";
 import WorkflowCard from "./WorkflowCard";
+import plusIcon from "Assets/svg/plus.svg";
 import "./styles.scss";
 
 class WorkflowSection extends Component {
   static propTypes = {
     team: PropTypes.object.isRequired,
-    importWorkflow: PropTypes.object.isRequired,
     searchQuery: PropTypes.string.isRequired,
     setActiveTeamAndRedirect: PropTypes.func.isRequired,
     fetchTeams: PropTypes.func.isRequired,
     executeWorkflow: PropTypes.func.isRequired,
     deleteWorkflow: PropTypes.func.isRequired,
-    handleImportWorkflow: PropTypes.func.isRequired,
     setActiveTeam: PropTypes.func.isRequired
   };
 
@@ -58,9 +57,13 @@ class WorkflowSection extends Component {
           ))}
           <Button className="b-workflow-placeholder" onClick={() => setActiveTeamAndRedirect(team.id)}>
             <div className="b-workflow-placeholder__box">
-              <div data-tip data-for={team.id} className="b-workflow-placeholder__text">
-                +
-              </div>
+              <img
+                data-tip
+                data-for={team.id}
+                alt="Create workflow"
+                src={plusIcon}
+                className="b-workflow-placeholder__text"
+              />
             </div>
             <Tooltip id={team.id}>Create Workflow</Tooltip>
           </Button>

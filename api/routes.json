@@ -3,11 +3,10 @@
   "/flow/workflow/export/:id": "/workflowExport",
   "/flow/workflow/:workflowId/revision": "/workflowSingle?singular=1",
   "/flow/workflow/:workflowId/revision/:number": "/workflowRevision?singular=1",
-  "/flow/workflow/:workFlowId/changelog?size=:value&page=1&sort=version&order=DESC": "/changeLogLast",
-  "/flow/workflow/:workFlowId/changelog?size=:value&page=0&sort=version&order=DESC": "/changeLog",
+  "/flow/workflow/:workFlowId/changelog?sort=version&order=DESC": "/changeLog",
   "/flow/workflow/:workflowId/revision/:version": "/workflow/:workflowId?singular=1",
   "/flow/workflow": "/workflowSummary/5bc0efa45a5df954adb0e556?&singular=1",
-  "/flow/workflow/:id/summary": "/workflowSummary/5bc0efa45a5df954adb0e556?&singular=1",
+  "/flow/workflow/:id/summary": "/workflowSummary/5Mz75WC?&singular=1",
   "/flow/workflow/:id/webhook-token": "/workflowToken?webhook=1",
   "/flow/activity/:id": "/workflowExecution",
   "/flow/activity?page=:value&size=:size&workflowId=:id": "/workflowActivityLast",
@@ -18,6 +17,8 @@
   "/flow/activity?page=:page&size=:size": "/workflowActivity",
   "/flow/activity/5c36289096052900012cc81d/log/5c36289096052900012cc81f": "/activityLog",
   "/flow/insights?*": "/workflowInsights",
+  "/flow/config": "/globalConfiguration",
+  "/flow/config/*": "/globalConfiguration/$1",
   "/flow/*": "/$1",
   "/users/*": "/$1"
 }

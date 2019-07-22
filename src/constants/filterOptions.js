@@ -31,3 +31,8 @@ export const statusOptions = [
   { label: "Invalid", value: "invalid" },
   { label: "In Progress", value: "inProgress" }
 ];
+
+export const ALL_OPTIONS = {
+  TEAMS: { id: "none", name: "All Teams" },
+  WORKFLOWS: { id: "none", name: "All Workflows" }
+};

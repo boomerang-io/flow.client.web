@@ -2,25 +2,23 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import classnames from "classnames";
+import get from "lodash.get";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
-import {
-  AlertModal,
-  Button,
-  ConfirmModal,
-  Modal as ModalWrapper,
-  ModalFlow,
-  SelectDropdown,
-  notify,
-  Notification,
-  TextArea,
-  TextInput,
-  Toggle,
-  Tooltip
-} from "@boomerang/boomerang-components";
+import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
+import Button from "@boomerang/boomerang-components/lib/Button";
+import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
+import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
+import { Notification, notify } from "@boomerang/boomerang-components/lib/Notifications";
+import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
+import TextArea from "@boomerang/boomerang-components/lib/TextArea";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
 import assets from "./assets";
 import cronstrue from "cronstrue";
@@ -92,6 +90,16 @@ export class Overview extends Component {
     this.setState({ errors: { ...this.state.errors, [`webook-${name}`]: errors } }, () => this.determineIsValidForm());
   };
 
+  handleOnEventChange = (value, errors, name) => {
+    this.props.workflowActions.updateTriggersEvent({
+      value,
+      key: name
+    });
+    this.setState({ errors: { ...this.state.errors, [`scheduler-${name}`]: errors } }, () =>
+      this.determineIsValidForm()
+    );
+  };
+
   handleOnSchedulerChange = (value, errors, name) => {
     this.props.workflowActions.updateTriggersScheduler({
       value,
@@ -144,7 +152,7 @@ export class Overview extends Component {
             onChange={this.handleTeamChange}
             options={teams.map(team => ({ label: team.name, value: team.id }))}
             value={selectedTeam}
-            theme="bmrg-white"
+            theme="bmrg-flow"
             title="Team"
             placeholder="Select a team"
             noResultsText="No options entered"
@@ -153,11 +161,11 @@ export class Overview extends Component {
             alwaysShowTitle
             externallyControlled
             required
-            value={workflow.data.name || ""}
+            value={get(workflow, "data.name", "")}
             title="Name"
             placeholder="Name"
             name="name"
-            theme="bmrg-white"
+            theme="bmrg-flow"
             onChange={this.handleOnChange}
             noValueText="Enter a name"
             maxChar={64}
@@ -170,11 +178,11 @@ export class Overview extends Component {
           <TextInput
             alwaysShowTitle
             externallyControlled
-            value={workflow.data.shortDescription || ""}
+            value={get(workflow, "data.shortDescription", "")}
             title="Summary"
             placeholder="Summary"
             name="shortDescription"
-            theme="bmrg-white"
+            theme="bmrg-flow"
             onChange={this.handleOnChange}
             maxChar={128}
             maxCharText={"Summary must not be greater than 128 characters"}
@@ -182,32 +190,34 @@ export class Overview extends Component {
           <TextArea
             alwaysShowTitle
             externallyControlled
-            value={workflow.data.description || ""}
+            value={get(workflow, "data.description", "")}
             title="Description"
             placeholder="Description"
             name="description"
-            theme="bmrg-white"
+            theme="bmrg-flow"
             handleChange={this.handleOnChange}
             maxChar={256}
             maxCharText={"Description must not be greater than 256 characters"}
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
-          <ul className="b-workflow-icons">
+          <div className="b-workflow-icons">
             {assets.map((image, index) => (
-              <li key={index}>
-                <button onClick={() => this.handleOnChange(image.name, {}, "icon")}>
-                  <img
-                    key={`${image.name}-${index}`}
-                    className={classnames("b-workflow-icons__icon", {
-                      "--active": workflow.data.icon === image.name
-                    })}
-                    src={image.src}
-                    alt={`${image.name} icon`}
-                  />
-                </button>
-              </li>
+              <label
+                key={index}
+                className={classnames("b-workflow-icons__icon", {
+                  "--active": get(workflow, "data.icon", "") === image.name
+                })}
+              >
+                <input
+                  type="radio"
+                  value={image.name}
+                  onClick={() => this.handleOnChange(image.name, {}, "icon")}
+                  checked={get(workflow, "data.icon", "") === image.name}
+                />
+                <img key={`${image.name}-${index}`} src={image.src} alt={`${image.name} icon`} />
+              </label>
             ))}
-          </ul>
+          </div>
         </div>
         <div className="c-overview-card">
           <h1 className="s-trigger-title">Triggers</h1>
@@ -220,9 +230,9 @@ export class Overview extends Component {
                 aria-labelledby="toggle-webhook"
                 className="b-webhook__toggle"
                 name="webhook"
-                checked={workflow.data.triggers.webhook.enable}
+                checked={get(workflow, "data.triggers.webhook.enable", false)}
                 onChange={(checked, event, id) => this.handleOnWebhookChange(checked, {}, "enable")}
-                theme="bmrg-white"
+                theme="bmrg-flow"
               />
               <img
                 className="b-options__infoIcon"
@@ -234,90 +244,90 @@ export class Overview extends Component {
               <Tooltip id="triggers-webhook-info" place="top">
                 Enable workflow to be executed by a webhook
               </Tooltip>
-              {workflow.data.id &&
-                workflow.data.triggers &&
-                workflow.data.triggers.webhook.enable &&
-                !workflow.data.triggers.webhook.token && (
-                  <Button theme="bmrg-black" onClick={this.generateToken} style={{ marginLeft: "2.2rem" }}>
+              {get(workflow, "data.id", false) &&
+                get(workflow, "data.triggers.webhook.enable", false) &&
+                !get(workflow, "data.triggers.webhook.token", false) && (
+                  <Button theme="bmrg-flow" onClick={this.generateToken} style={{ marginLeft: "2.2rem" }}>
                     Generate Token
                   </Button>
                 )}
             </form>
-            {!workflow.data.id && workflow.data.triggers && workflow.data.triggers.webhook.enable && (
+            {!get(workflow, "data.id", false) && get(workflow, "data.triggers.webhook.enable", false) && (
               <div className="s-webhook-token-message">An API token will be generated on creation of the workflow.</div>
             )}
-            {workflow.data.triggers && workflow.data.triggers.webhook.token && workflow.data.triggers.webhook.enable && (
-              <form className="b-webhook-token" onSubmit={e => e.preventDefault()}>
-                <TextInput
-                  disabled
-                  externallyControlled
-                  value={workflow.data.triggers.webhook.token}
-                  placeholder="Token"
-                  theme="bmrg-white"
-                  type={this.state.tokenTextType}
-                />
-                <button onClick={this.handleShowToken} type="button">
-                  <img
-                    className="b-webhook-token__icon"
-                    src={eyeIcon}
-                    data-tip
-                    data-for="webhook-token-eyeIcon"
-                    alt="Show/Hide token"
+            {get(workflow, "data.triggers.webhook.token", false) &&
+              get(workflow, "data.triggers.webhook.enable", false) && (
+                <form className="b-webhook-token" onSubmit={e => e.preventDefault()}>
+                  <TextInput
+                    disabled
+                    externallyControlled
+                    value={get(workflow, "data.triggers.webhook.token", "")}
+                    placeholder="Token"
+                    theme="bmrg-flow"
+                    type={this.state.tokenTextType}
                   />
-                </button>
-                <Tooltip id="webhook-token-eyeIcon" place="top">
-                  {this.state.showTokenText}
-                </Tooltip>
-                <CopyToClipboard text={workflow.data.triggers ? workflow.data.triggers.webhook.token : ""}>
-                  <button
-                    onClick={() => this.setState({ copyTokenText: "Copied Token" })}
-                    onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
-                    type="button"
-                  >
+                  <button onClick={this.handleShowToken} type="button">
                     <img
                       className="b-webhook-token__icon"
-                      src={copyIcon}
+                      src={eyeIcon}
                       data-tip
-                      data-for="webhook-token-copyIcon"
-                      alt="Copy token"
+                      data-for="webhook-token-eyeIcon"
+                      alt="Show/Hide token"
                     />
                   </button>
-                </CopyToClipboard>
-                <Tooltip id="webhook-token-copyIcon" place="top">
-                  {this.state.copyTokenText}
-                </Tooltip>
-                <div>
-                  <Tooltip place="top" id="webhook-token-refreshIcon">
-                    Regenerate Token
+                  <Tooltip id="webhook-token-eyeIcon" place="top">
+                    {this.state.showTokenText}
                   </Tooltip>
-                  <AlertModal
-                    theme="bmrg-white"
-                    ModalTrigger={() => (
-                      <button className="b-webhook-token__generate" type="button">
-                        <img
-                          src={refreshIcon}
-                          className="b-webhook-token__icon"
-                          data-tip
-                          data-for="webhook-token-refreshIcon"
-                          alt="Regenerate token"
-                        />
-                      </button>
-                    )}
-                    modalContent={(closeModal, rest) => (
-                      <ConfirmModal
-                        closeModal={closeModal}
-                        affirmativeAction={this.generateToken}
-                        title="Generate a new Webhook Token?"
-                        subTitleTop="The existing token will be invalidated"
-                        cancelText="NO"
-                        affirmativeText="YES"
-                        {...rest}
+                  <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
+                    <button
+                      onClick={() => this.setState({ copyTokenText: "Copied Token" })}
+                      onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                      type="button"
+                    >
+                      <img
+                        className="b-webhook-token__icon"
+                        src={copyIcon}
+                        data-tip
+                        data-for="webhook-token-copyIcon"
+                        alt="Copy token"
                       />
-                    )}
-                  />
-                </div>
-              </form>
-            )}
+                    </button>
+                  </CopyToClipboard>
+                  <Tooltip id="webhook-token-copyIcon" place="top">
+                    {this.state.copyTokenText}
+                  </Tooltip>
+                  <div>
+                    <Tooltip place="top" id="webhook-token-refreshIcon">
+                      Regenerate Token
+                    </Tooltip>
+                    <AlertModal
+                      theme="bmrg-flow"
+                      ModalTrigger={() => (
+                        <button className="b-webhook-token__generate" type="button">
+                          <img
+                            src={refreshIcon}
+                            className="b-webhook-token__icon"
+                            data-tip
+                            data-for="webhook-token-refreshIcon"
+                            alt="Regenerate token"
+                          />
+                        </button>
+                      )}
+                      modalContent={(closeModal, rest) => (
+                        <ConfirmModal
+                          closeModal={closeModal}
+                          affirmativeAction={this.generateToken}
+                          title="Generate a new Webhook Token?"
+                          subTitleTop="The existing token will be invalidated"
+                          cancelText="NO"
+                          affirmativeText="YES"
+                          {...rest}
+                        />
+                      )}
+                    />
+                  </div>
+                </form>
+              )}
             <div className="c-scheduler">
               <div className="b-schedule">
                 <p id="toggle-scheduler" className="b-schedule__title">
@@ -326,10 +336,10 @@ export class Overview extends Component {
                 <Toggle
                   aria-labelledby="toggle-scheduler"
                   className="b-schedule__toggle"
-                  checked={workflow.data.triggers.scheduler.enable}
+                  checked={get(workflow, "data.triggers.scheduler.enable", false)}
                   name="schedule"
                   onChange={(checked, event, id) => this.handleOnSchedulerChange(checked, {}, "enable")}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                 />
                 <img
                   className="b-options__infoIcon"
@@ -341,13 +351,13 @@ export class Overview extends Component {
                 <Tooltip id="triggers-scheduler-info" place="top">
                   Enable workflow to be executed by a schedule
                 </Tooltip>
-                {workflow.data.triggers && workflow.data.triggers.scheduler.enable && (
+                {get(workflow, "data.triggers.scheduler.enable", false) && (
                   <ModalWrapper
                     initialState={this.props.workflow.data}
                     modalProps={{ shouldCloseOnOverlayClick: false }}
-                    theme="bmrg-white"
+                    theme="bmrg-flow"
                     ModalTrigger={() => (
-                      <Button theme="bmrg-black" style={{ marginLeft: "2.2rem" }}>
+                      <Button theme="bmrg-flow" style={{ marginLeft: "2.2rem" }}>
                         Set Schedule
                       </Button>
                     )}
@@ -357,36 +367,69 @@ export class Overview extends Component {
                         headerTitle="Set Schedule"
                         confirmModalProps={{
                           affirmativeAction: closeModal,
-                          theme: "bmrg-white",
+                          theme: "bmrg-flow",
                           subTitleTop: "Your changes will not be saved"
                         }}
                         {...rest}
                       >
                         <CronJobModal
                           closeModal={closeModal}
-                          cronExpression={workflow.data.triggers ? workflow.data.triggers.scheduler.schedule : ""}
+                          cronExpression={get(workflow, "data.trigger.scheduler.schedule", "")}
                           handleOnChange={this.handleOnSchedulerChange}
-                          timeZone={workflow.data.triggers ? workflow.data.triggers.scheduler.timezone : ""}
+                          timeZone={get(workflow, "data.triggers.scheduler.timezone", "")}
                         />
                       </ModalFlow>
                     )}
                   />
                 )}
               </div>
-              <div className="b-schedule__cronMessage">
-                {workflow.data.triggers &&
-                workflow.data.triggers.scheduler.schedule &&
-                workflow.data.triggers.scheduler.enable
-                  ? cronstrue.toString(workflow.data.triggers.scheduler.schedule)
-                  : undefined}
+              {get(workflow, "data.triggers.scheduler.schedule", false) &&
+                get(workflow, "data.triggers.scheduler.enable", false) &&
+                get(workflow, "data.triggers.scheduler.timezone", false) && (
+                  <div className="b-schedule__information">
+                    <div className="b-schedule__information--cronMessage">
+                      {cronstrue.toString(get(workflow, "data.triggers.scheduler.schedule", ""))}
+                    </div>
+                    <div className="b-schedule__information--timezone">
+                      {`${get(workflow, "data.triggers.scheduler.timezone", "")} Timezone`}
+                    </div>
+                  </div>
+                )}
+            </div>
+            <div className="c-event">
+              <div className="b-event">
+                <p id="toggle-event" className="b-event__title">
+                  Enable Action Subscription
+                </p>
+                <Toggle
+                  aria-labelledby="toggle-event"
+                  className="b-event__toggle"
+                  checked={get(workflow, "data.triggers.event.enable", false)}
+                  name="event"
+                  onChange={(checked, event, id) => this.handleOnEventChange(checked, {}, "enable")}
+                  theme="bmrg-flow"
+                />
+                <img
+                  className="b-options__infoIcon"
+                  src={infoIcon}
+                  data-tip
+                  data-for="triggers-event-info"
+                  alt="Toggle event"
+                />
+                <Tooltip id="triggers-event-info" place="top">
+                  Enable workflow to be triggered by platform actions
+                </Tooltip>
               </div>
-              <div className="b-schedule__timezone">
-                {workflow.data.triggers &&
-                workflow.data.triggers.scheduler.timezone &&
-                workflow.data.triggers.scheduler.enable
-                  ? `${workflow.data.triggers.scheduler.timezone} Timezone`
-                  : undefined}
-              </div>
+              {get(workflow, "data.triggers.event.enable", false) && (
+                <div className="b-event-topic">
+                  <TextInput
+                    value={get(workflow, "data.triggers.event.topic", false)}
+                    placeholder="Topic"
+                    theme="bmrg-flow"
+                    onChange={(value, event, id) => this.handleOnEventChange(value, {}, "topic")}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -400,10 +443,10 @@ export class Overview extends Component {
               <Toggle
                 aria-labelledby="toggle-persistence-storage"
                 className="b-persistence__toggle"
-                checked={workflow.data.enablePersistentStorage}
+                checked={get(workflow, "data.enablePersistentStorage", false)}
                 name="persistence"
                 onChange={(checked, event, id) => this.handleOnChange(checked, {}, "enablePersistentStorage")}
-                theme="bmrg-white"
+                theme="bmrg-flow"
               />
               <img
                 className="b-options__infoIcon"

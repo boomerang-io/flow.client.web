@@ -18,7 +18,7 @@
     color: $dark-blue;
     letter-spacing: 0.1675rem;
     width: 90%;
-    @include text-overflow-ellipsis;
+    @include text-overflow-ellipsis();
   }
 
   .b-task-node-port {
@@ -42,6 +42,10 @@
     right: 3rem;
     top: 0.6875rem;
     cursor: pointer;
+    img {
+      height: 1rem;
+      width: 1rem;
+    }
   }
 
   .b-task-node__delete {

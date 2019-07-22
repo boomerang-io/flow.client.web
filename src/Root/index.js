@@ -11,13 +11,13 @@ import { APP_ROOT } from "Config/appConfig";
 const Root = props => {
   const { store } = props;
   return (
-    <Provider store={store}>
-      <BrowserRouter basename={APP_ROOT}>
-        <ErrorBoundary errorComponent={ErrorDragon}>
+    <ErrorBoundary errorComponent={ErrorDragon}>
+      <Provider store={store}>
+        <BrowserRouter basename={APP_ROOT}>
           <App />
-        </ErrorBoundary>
-      </BrowserRouter>
-    </Provider>
+        </BrowserRouter>
+      </Provider>
+    </ErrorBoundary>
   );
 };
 

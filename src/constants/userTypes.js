@@ -1,4 +1,6 @@
 export default {
   ADMIN: "admin",
-  EXTERNAL: "externalUser"
+  EXTERNAL: "externalUser",
+  OPERATOR: "operator",
+  USER: "user"
 };

@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import moment from "moment";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
-import { ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
+import { ACTIVITY_STATUSES, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import "./styles.scss";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 Filler.propTypes = {
   backgroundColor: PropTypes.string.isRequired,
@@ -23,7 +22,6 @@ Filler.propTypes = {
 };
 
 function Filler({
-  backgroundColor,
   duration,
   finishTime,
   id,
@@ -36,25 +34,18 @@ function Filler({
   updateActiveNode
 }) {
   const styles = {
-    backgroundColor: backgroundColor,
+    backgroundColor: status === ACTIVITY_STATUSES.COMPLETED ? "#57d785" : "#e06768",
     width: `${percentOfTotal}%`
   };
 
   const finishTimeFormatted = moment.unix(finishTime / 1000).format("hh:mm:ss a", { trim: false });
   return (
-    <>
-      <div
+    <div className="c-time-progress-bar-filler" style={styles} data-tip data-for={id}>
+      <button
         onClick={() => updateActiveNode(taskId)}
-        onKeyDown={e => isAccessibleEvent(e) && updateActiveNode(taskId)}
-        role="button"
-        tabIndex="0"
-        data-tip
-        data-for={id}
         className={classnames("b-time-progress-bar-filler", { "--first": isFirstTask, "--last": isLastTask })}
-        style={styles}
-      >
-        {percentOfTotal > 5 && <div className="b-time-progress-bar-filler__time">{finishTimeFormatted}</div>}
-      </div>
+      />
+      {percentOfTotal > 5 && <div className="b-time-progress-bar-filler__time">{finishTimeFormatted}</div>}
 
       <Tooltip id={id} place="bottom">
         <div className="c-time-progress-bar-filler-info">
@@ -72,7 +63,7 @@ function Filler({
           </section>
         </div>
       </Tooltip>
-    </>
+    </div>
   );
 }
 

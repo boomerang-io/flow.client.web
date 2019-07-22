@@ -44,7 +44,7 @@ class Main extends Component {
 
     return (
       <div className="c-workflow-execution">
-        <nav style={{ marginBottom: "1rem", width: "15rem", gridArea: "header" }}>
+        <nav style={{ marginBottom: "1rem", width: "fit-content", gridArea: "header", height: "fit-content" }}>
           <NavigateBack
             to={location.state ? location.state.fromUrl : "/activity"}
             text={`Back to ${location.state ? location.state.fromText : "Activity"}`}
@@ -55,16 +55,16 @@ class Main extends Component {
           <div className="c-workflow-diagram-execution">
             {hasStarted || hasFinished ? (
               <DiagramWidget
-                className="c-diagram-canvas"
-                diagramEngine={this.diagramApp.getDiagramEngine()}
-                maxNumberPointsPerLink={0}
-                deleteKeys={[]}
                 allowLooseLinks={false}
                 allowCanvasTranslation={true}
                 allowCanvasZoom={true}
+                className="c-diagram-canvas"
+                deleteKeys={[]}
+                diagramEngine={this.diagramApp.getDiagramEngine()}
+                maxNumberPointsPerLink={0}
               />
             ) : (
-              <LoadingAnimation theme="bmrg-white" message="Your workflow will be with you shortly" />
+              <LoadingAnimation theme="bmrg-flow" message="Your workflow will be with you shortly" />
             )}
           </div>
         }

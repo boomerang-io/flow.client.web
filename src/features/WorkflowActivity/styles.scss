@@ -1,16 +1,14 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .c-workflow-activity {
   margin: 0 auto;
-  max-width: 100rem;
+  max-width: 120rem;
+  position: relative;
+  width: 100%;
 
   .c-simple-select-filter {
     margin-left: 1rem;
-  }
-
-  .bx--select-input {
-    width: 11rem;
-    margin-right: 1rem;
   }
 
   .b-search-filter {
@@ -26,16 +24,14 @@
     border-radius: 0.25rem;
     box-shadow: none;
     cursor: pointer;
-    height: 2.625rem;
-    max-height: 2.625rem;
-    &::before {
-      content: url("~Assets/svg/configure.svg");
-      position: absolute;
-      height: 2rem;
-      width: 2rem;
-      right: 1rem;
-      top: 0.2rem;
-    }
+    // &::before {
+    //   content: url("~Assets/svg/configure.svg");
+    //   position: absolute;
+    //   height: 2rem;
+    //   width: 2rem;
+    //   right: 1rem;
+    //   top: 0.2rem;
+    // }
     select {
       box-shadow: none;
     }
@@ -59,27 +55,29 @@
     border-radius: 0.25rem;
     box-shadow: none;
     cursor: pointer;
-    height: 2.625rem;
-    max-height: 2.625rem;
-    width: 12rem;
+    width: 14rem;
     margin-left: 1rem;
 
-    &::before {
-      content: url("~Assets/svg/configure.svg");
-      position: absolute;
-      height: 2rem;
-      width: 2rem;
-      right: 1rem;
-      top: 0.2rem;
-    }
+    // &::before {
+    //   content: url("~Assets/svg/configure.svg");
+    //   position: absolute;
+    //   height: 2rem;
+    //   width: 2rem;
+    //   right: 1rem;
+    //   top: 0.2rem;
+    // }
   }
 
   .bx--list-box__field {
     appearance: none;
-    width: 12rem;
+    width: 14rem;
     &:focus {
       box-shadow: none;
     }
+  }
+
+  .bx--list-box__label {
+    @include text-overflow-ellipsis();
   }
 
   .bx--list-box__selection--multi {
@@ -89,21 +87,18 @@
     }
   }
 
-  .bx--list-box__menu-icon,
-  .bx--select__arrow {
-    display: none;
-    z-index: 1;
-  }
-
   .bx--list-box__menu {
-    min-width: 12rem;
-    width: max-content;
-    max-width: 15rem;
+    width: 14rem;
+    max-width: 14rem;
     background-color: $white;
-    height: auto;
-    max-height: unset;
+    max-height: 20rem;
     right: 0;
     left: unset;
+  }
+
+  .bx--list-box__menu-item {
+    height: fit-content;
+    min-height: 2.5rem;
   }
 
   .bx--list-box__menu-item--highlighted {
@@ -122,27 +117,25 @@
 .c-workflow-activity-content {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  max-width: 100rem;
+  padding: 3rem 2rem 2rem;
+  max-width: 120rem;
   width: 100%;
 }
 .c-workflow-activity-header {
-  margin-top: 1rem;
   display: flex;
   align-self: flex-end;
   justify-content: space-between;
-  width: 55rem;
 
   & .b-search-filter__search {
     margin-right: 0rem;
   }
 }
 
-@media (max-width: 32rem) {
+@media (max-width: 48rem) {
   .c-workflow-activity-header {
     flex-direction: column;
-    align-items: center;
-    height: 10rem;
+    align-items: flex-end;
+    height: 15rem;
     width: 100%;
 
     & .b-search-filter__search {
@@ -154,5 +147,6 @@
 
 .s-workflow-activity-navigation {
   margin-top: 2rem;
-  align-self: flex-start;
+  position: absolute;
+  left: 2rem;
 }

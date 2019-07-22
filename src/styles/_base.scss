@@ -1,6 +1,7 @@
 body {
   background-color: $text-area-gray;
-  line-height: 1.2;
+  line-height: 1.3;
+  letter-spacing: 0.0375rem;
 }
 
 button {
@@ -46,7 +47,7 @@ button {
 
   //overwrite boomerang components
 
-  .bmrg--b-text-input__input.--bmrg-white {
+  .bmrg--b-text-input__input.--bmrg-flow {
     box-shadow: 0 0 0 62.5rem $white inset !important;
   }
 
@@ -54,7 +55,7 @@ button {
     //padding-bottom: 3.125rem;
   }
 
-  .bmrg--b-text-input__input.--bmrg-white {
+  .bmrg--b-text-input__input.--bmrg-flow {
     border-radius: 0.225rem;
     border: none;
     &:focus {
@@ -120,8 +121,7 @@ button {
     max-width: 30rem;
   }
 
-  //overide SelectDropdown styles
-  .bmrg--c-select-dropdown.--bmrg-white {
+  .bmrg--c-select-dropdown.--bmrg-flow {
     .Select-multi-value-wrapper .Select-value-label {
       color: $gray-90;
       font-size: 1.125rem;
@@ -156,10 +156,10 @@ button {
   border-radius: 0.25rem !important;
 }
 
-.bmrg--c-modal-flow.--bmrg-white {
+.bmrg--c-modal-flow.--bmrg-flow {
   background: $neutral-white-4;
 
-  .bmrg--b-text-input__input.--bmrg-white {
+  .bmrg--b-text-input__input.--bmrg-flow {
     box-shadow: 0 0 0 62.5rem $white inset !important;
   }
 
@@ -167,7 +167,7 @@ button {
     //padding-bottom: 3.125rem;
   }
 
-  .bmrg--b-text-input__input.--bmrg-white {
+  .bmrg--b-text-input__input.--bmrg-flow {
     border-radius: 0.225rem;
     border: none;
     &:focus {
@@ -237,7 +237,7 @@ button {
   }
 
   //overide SelectDropdown styles
-  .bmrg--c-select-dropdown.--bmrg-white {
+  .bmrg--c-select-dropdown.--bmrg-flow {
     .Select-multi-value-wrapper .Select-value-label {
       color: $gray-90;
       font-size: 1.125rem;
@@ -267,7 +267,7 @@ button {
   }
 }
 
-.bmrg--c-confirm-modal.--bmrg-white {
+.bmrg--c-confirm-modal.--bmrg-flow {
   background: $neutral-white-4;
   border-radius: 0.25rem !important;
   border: none !important;
@@ -277,6 +277,20 @@ button {
   align-self: center;
 }
 
-.bmrg--b-modal-nav-button.--bmrg-white {
+.bmrg--b-modal-nav-button.--bmrg-flow {
   background: #f3f3f3;
+}
+
+//Overwrite carbon
+.bx--pagination .bx--select-input {
+  padding: 0 1.25rem 0 0.625rem;
+}
+
+.bx--table-header-label {
+  color: $tab-blue;
+  padding-right: 0.5rem;
+}
+
+.bx--overflow-menu {
+  height: auto;
 }

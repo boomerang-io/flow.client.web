@@ -16,14 +16,23 @@ const taskId = "test";
 const workflowData = {};
 const workflowExecutionData = {};
 const version = 1;
+const activityState = {
+  status: "success"
+};
+
+const teamsState = {
+  status: "success"
+};
 
 describe("Main --- Snapshot", () => {
   it("Capturing Snapshot of Main", () => {
     const renderedValue = renderer.create(
       <MemoryRouter>
         <Main
+          activityState={activityState}
           dag={dag}
           taskId={taskId}
+          teamsState={teamsState}
           workflowData={workflowData}
           workflowExecutionData={workflowExecutionData}
           updateActiveNode={mockfn}
@@ -42,8 +51,10 @@ describe("Main --- Shallow render", () => {
     wrapper = shallow(
       <MemoryRouter>
         <Main
+          activityState={activityState}
           dag={dag}
           taskId={taskId}
+          teamsState={teamsState}
           workflowData={workflowData}
           workflowExecutionData={workflowExecutionData}
           updateActiveNode={mockfn}

@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  TextInput,
-  TextArea,
-  Toggle,
-  SelectDropdown,
-  ModalContentBody as Body,
-  ModalConfirmButton as ConfirmButton,
-  ModalContentFooter as Footer
-} from "@boomerang/boomerang-components";
+import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
+import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
+import TextArea from "@boomerang/boomerang-components/lib/TextArea";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
@@ -98,7 +96,7 @@ class WorkflowInputModalContent extends Component {
               id={key}
               onChange={(checked, event, id) => this.handleBooleanChange(checked, key)}
               defaultChecked={defaultValue === "true" || false}
-              theme="bmrg-white"
+              theme="bmrg-flow"
             />
           </div>
         );
@@ -118,7 +116,7 @@ class WorkflowInputModalContent extends Component {
                     ? { label: this.state.inputs[key], value: this.state.inputs[key] }
                     : defaultValue
                 }
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 title={label}
                 id={key}
                 name={key}
@@ -136,7 +134,7 @@ class WorkflowInputModalContent extends Component {
               name={key}
               onChange={this.handleTextChange}
               value={defaultValue || ""}
-              theme="bmrg-white"
+              theme="bmrg-flow"
               noValueText={`Enter a ${label}`}
               required={required}
             />
@@ -154,7 +152,7 @@ class WorkflowInputModalContent extends Component {
               type={type}
               onChange={this.handleTextChange}
               value={defaultValue || ""}
-              theme="bmrg-white"
+              theme="bmrg-flow"
               noValueText={`Enter a ${label}`}
               required={required}
             />
@@ -184,7 +182,7 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
-            theme="bmrg-white"
+            theme="bmrg-flow"
           />
           <ConfirmButton
             type="submit"
@@ -199,7 +197,7 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
-            theme="bmrg-white"
+            theme="bmrg-flow"
           />
         </Footer>
       </form>

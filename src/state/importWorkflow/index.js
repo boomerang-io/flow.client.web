@@ -7,8 +7,7 @@ export const types = {
   IMPORT_WORKFLOW_RESET: "IMPORT_WORKFLOW_RESET",
   IMPORT_WORKFLOW_REQUEST: "IMPORT_WORKFLOW_REQUEST",
   IMPORT_WORKFLOW_SUCCESS: "IMPORT_WORKFLOW_SUCCESS",
-  IMPORT_WORKFLOW_FAILURE: "IMPORT_WORKFLOW_FAILURE",
-  UPDATE_WORKFLOWS: "UPDATE_WORKFLOWS"
+  IMPORT_WORKFLOW_FAILURE: "IMPORT_WORKFLOW_FAILURE"
 };
 Object.freeze(types);
 
@@ -33,13 +32,6 @@ const actionHandlers = {
   },
   [types.IMPORT_WORKFLOW_FAILURE]: (state, action) => {
     return { ...state, isPosting: false, status: "failure", error: action.error };
-  },
-  [types.UPDATE_WORKFLOWS]: (state, action) => {
-    const unchangedTeam = state.data.filter(team => team.id !== action.data.teamId);
-    const teamToUpdate = state.data.find(team => team.id === action.data.teamId);
-    const updatedWorkflows = teamToUpdate.workflows.filter(workflow => workflow.id !== action.data.workflowId);
-    const updatedTeam = { ...teamToUpdate, workflows: updatedWorkflows };
-    return { ...state, data: [...unchangedTeam, updatedTeam] };
   }
 };
 
@@ -52,7 +44,6 @@ const postRequest = () => ({ type: types.IMPORT_WORKFLOW_REQUEST });
 const postSuccess = data => ({ type: types.IMPORT_WORKFLOW_SUCCESS, data });
 const postFailure = error => ({ type: types.IMPORT_WORKFLOW_FAILURE, error });
 const reset = () => ({ type: types.IMPORT_WORKFLOW_RESET });
-const updateWorkflows = data => ({ type: types.UPDATE_WORKFLOWS, data });
 
 const postActionCreators = {
   reset: reset,
@@ -76,6 +67,5 @@ export const actions = {
   postFailure,
   postSuccess,
   cancel,
-  updateWorkflows,
   reset
 };

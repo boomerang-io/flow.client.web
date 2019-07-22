@@ -1,54 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WorkflowSummary --- Snapshot Capturing Snapshot of WorkflowSummary 1`] = `
-<div
+<aside
   className="c-workflow-summary"
 >
-  <div
+  <h1
     className="s-workflow-summary-title"
   >
     test
-  </div>
-  <div
+  </h1>
+  <section
     className="c-workflow-summary-details"
   >
-    <div
+    <dl
       className="b-workflow-summary-field"
     >
-      <div
+      <dt
         className="b-workflow-summary-field__key"
       >
-        Description
-      </div>
-      <div
+        Summary
+      </dt>
+      <dd
         className="b-workflow-summary-field__value"
       >
         test
-      </div>
-    </div>
-    <div
+      </dd>
+    </dl>
+    <dl
       className="b-workflow-summary-field"
     >
-      <div
+      <dt
+        className="b-workflow-summary-field__key"
+      >
+        Description
+      </dt>
+      <dd
+        className="b-workflow-summary-field__value"
+      >
+        ---
+      </dd>
+    </dl>
+    <dl
+      className="b-workflow-summary-field"
+    >
+      <dt
         className="b-workflow-summary-field__key"
       >
         Version
-      </div>
-      <div
+      </dt>
+      <dd
         className="b-workflow-summary-field__value"
       >
         1
-      </div>
-    </div>
-    <div
+      </dd>
+    </dl>
+    <dl
       className="b-workflow-summary-field"
     >
-      <div
+      <dt
         className="b-workflow-summary-field__key"
       >
         Status
-      </div>
-      <div
+      </dt>
+      <dd
         className="b-workflow-summary-field__value"
       >
         Not Started
@@ -57,36 +71,36 @@ exports[`WorkflowSummary --- Snapshot Capturing Snapshot of WorkflowSummary 1`] 
           className="b-activity-card__status-icon"
           src="pending.svg"
         />
-      </div>
-    </div>
-    <div
+      </dd>
+    </dl>
+    <dl
       className="b-workflow-summary-field"
     >
-      <div
+      <dt
         className="b-workflow-summary-field__key"
       >
         Start Time
-      </div>
-      <div
+      </dt>
+      <dd
         className="b-workflow-summary-field__value"
       >
         Invalid date
-      </div>
-    </div>
-    <div
+      </dd>
+    </dl>
+    <dl
       className="b-workflow-summary-field"
     >
-      <div
+      <dt
         className="b-workflow-summary-field__key"
       >
         Duration
-      </div>
-      <div
+      </dt>
+      <dd
         className="b-workflow-summary-field__value"
       >
         ---
-      </div>
-    </div>
-  </div>
-</div>
+      </dd>
+    </dl>
+  </section>
+</aside>
 `;

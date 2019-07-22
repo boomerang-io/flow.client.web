@@ -110,7 +110,7 @@ class WorkflowAttachment extends Component {
   render() {
     return (
       <form className="c-workflow-import" onSubmit={e => e.preventDefault()}>
-        <Header theme="bmrg-white" title="ADD A WORKFLOW" subtitle="Select the Workflow file you want to upload" />
+        <Header theme="bmrg-flow" title="ADD A WORKFLOW" subtitle="Select the Workflow file you want to upload" />
         <Body
           style={{
             height: "22rem",
@@ -134,10 +134,10 @@ class WorkflowAttachment extends Component {
           />
         </Body>
         <Footer>
-          <NavButton reversed text="BACK" theme="bmrg-white" onClick={this.props.requestPreviousStep} />
+          <NavButton reversed text="BACK" theme="bmrg-flow" onClick={this.props.requestPreviousStep} />
           <NavButton
             text={this.showWizardText()}
-            theme="bmrg-white"
+            theme="bmrg-flow"
             onClick={this.handleSubmit}
             disabled={this.state.files.length === 0}
           />

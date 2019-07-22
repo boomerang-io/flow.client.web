@@ -15,68 +15,159 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
   <div
     className="c-workflow-insights-header"
   >
-    <SimpleSelectFilter
-      onChange={[Function]}
-      options={
-        Array [
-          Object {
-            "label": "All teams",
-            "value": "none",
-          },
-        ]
-      }
-      selectedOption={
-        Object {
-          "label": "All teams",
-          "value": "none",
-        }
-      }
-    />
-    <SearchFilterBar
-      debounceTimeout={300}
-      filterItems={
-        Array [
-          Object {
-            "label": "All workflows",
-            "value": "none",
-          },
-        ]
-      }
-      handleSearchFilter={[Function]}
-      multiselect={false}
-      options={Array []}
-      searchbar={false}
-      selectedOption="none"
-    />
-    <SimpleSelectFilter
-      onChange={[Function]}
-      options={
-        Array [
-          Object {
-            "label": "1 day",
-            "value": 1,
-          },
-          Object {
-            "label": "1 week",
-            "value": 7,
-          },
-          Object {
-            "label": "1 month",
-            "value": 0,
-          },
-          Object {
-            "label": "3 months",
-            "value": 0,
-          },
-        ]
-      }
-      selectedOption={
-        Object {
-          "label": "3 months",
-          "value": 0,
-        }
-      }
-    />
+    <div
+      aria-label="Choose an item"
+      className="bx--dropdown bx--list-box"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="listbox"
+      tabIndex={null}
+    >
+      <div
+        aria-expanded={false}
+        aria-haspopup={true}
+        aria-label="open menu"
+        className="bx--list-box__field"
+        data-toggle={true}
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="bx--list-box__label"
+          htmlFor="downshift-0-input"
+        >
+          All Teams
+        </span>
+        <div
+          className="bx--list-box__menu-icon"
+        >
+          <svg
+            alt="Open menu"
+            aria-label="Open menu"
+            fillRule="evenodd"
+            focusable="false"
+            height="5"
+            role="img"
+            viewBox="0 0 10 5"
+            width="10"
+          >
+            <title>
+              Open menu
+            </title>
+            <path
+              d="M0 0l5 4.998L10 0z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-label="Choose an item"
+      className="bx--dropdown bx--list-box"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="listbox"
+      tabIndex={null}
+    >
+      <div
+        aria-expanded={false}
+        aria-haspopup={true}
+        aria-label="open menu"
+        className="bx--list-box__field"
+        data-toggle={true}
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="bx--list-box__label"
+          htmlFor="downshift-1-input"
+        >
+          All Workflows
+        </span>
+        <div
+          className="bx--list-box__menu-icon"
+        >
+          <svg
+            alt="Open menu"
+            aria-label="Open menu"
+            fillRule="evenodd"
+            focusable="false"
+            height="5"
+            role="img"
+            viewBox="0 0 10 5"
+            width="10"
+          >
+            <title>
+              Open menu
+            </title>
+            <path
+              d="M0 0l5 4.998L10 0z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-label="Choose an item"
+      className="bx--dropdown bx--list-box"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="listbox"
+      tabIndex={null}
+    >
+      <div
+        aria-expanded={false}
+        aria-haspopup={true}
+        aria-label="open menu"
+        className="bx--list-box__field"
+        data-toggle={true}
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onKeyDown={[Function]}
+        role="button"
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="bx--list-box__label"
+          htmlFor="downshift-2-input"
+        >
+          3 months
+        </span>
+        <div
+          className="bx--list-box__menu-icon"
+        >
+          <svg
+            alt="Open menu"
+            aria-label="Open menu"
+            fillRule="evenodd"
+            focusable="false"
+            height="5"
+            role="img"
+            viewBox="0 0 10 5"
+            width="10"
+          >
+            <title>
+              Open menu
+            </title>
+            <path
+              d="M0 0l5 4.998L10 0z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
   </div>
   <div
     className="c-workflow-insights-stats-widgets"

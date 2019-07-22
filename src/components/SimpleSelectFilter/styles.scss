@@ -5,16 +5,14 @@
     border-radius: 0.25rem;
     box-shadow: none;
     cursor: pointer;
-    height: 2.625rem;
-    max-height: 2.625rem;
-    &::before {
-      content: url("~Assets/svg/configure.svg");
-      position: absolute;
-      height: 2rem;
-      width: 2rem;
-      right: 1rem;
-      top: 0.2rem;
-    }
+    // &::before {
+    //   content: url("~Assets/svg/configure.svg");
+    //   position: absolute;
+    //   height: 2rem;
+    //   width: 2rem;
+    //   right: 1rem;
+    //   top: 0.2rem;
+    // }
     select {
       box-shadow: none;
     }
@@ -39,17 +37,15 @@
     border-radius: 0.25rem;
     box-shadow: none;
     cursor: pointer;
-    height: 2.625rem;
-    max-height: 2.625rem;
 
-    &::before {
-      content: url("~Assets/svg/configure.svg");
-      position: absolute;
-      height: 2rem;
-      width: 2rem;
-      right: 1rem;
-      top: 0.2rem;
-    }
+    // &::before {
+    //   content: url("~Assets/svg/configure.svg");
+    //   position: absolute;
+    //   height: 2rem;
+    //   width: 2rem;
+    //   right: 1rem;
+    //   top: 0.2rem;
+    // }
   }
 
   .bx--list-box__field {
@@ -64,11 +60,6 @@
     &:hover {
       background-color: $gray-90;
     }
-  }
-
-  .bx--list-box__menu-icon,
-  .bx--select__arrow {
-    display: none;
   }
 
   .bx--list-box__menu {

@@ -7,7 +7,10 @@ export const types = {
   FETCH_ACTIVITY_RESET: "FETCH_ACTIVITY_RESET",
   FETCH_ACTIVITY_REQUEST: "FETCH_ACTIVITY_REQUEST",
   FETCH_ACTIVITY_SUCCESS: "FETCH_ACTIVITY_SUCCESS",
-  FETCH_ACTIVITY_FAILURE: "FETCH_ACTIVITY_FAILURE"
+  FETCH_ACTIVITY_FAILURE: "FETCH_ACTIVITY_FAILURE",
+  FETCH_MORE_ACTIVITY_REQUEST: "FETCH_MORE_ACTIVITY_REQUEST",
+  FETCH_MORE_ACTIVITY_SUCCESS: "FETCH_MORE_ACTIVITY_SUCCESS",
+  FETCH_MORE_ACTIVITY_FAILURE: "FETCH_MORE_ACTIVITY_FAILURE"
 };
 Object.freeze(types);
 
@@ -16,7 +19,10 @@ export const initialState = {
   isFetching: false,
   status: "",
   error: "",
-  data: []
+  data: [],
+  isFetchingMore: false,
+  moreStatus: "",
+  moreError: ""
 };
 
 //action handlers
@@ -32,6 +38,20 @@ const actionHandlers = {
   },
   [types.FETCH_ACTIVITY_FAILURE]: (state, action) => {
     return { ...state, isFetching: false, status: "failure", error: action.error };
+  },
+  [types.FETCH_MORE_ACTIVITY_REQUEST]: state => {
+    return { ...state, isFetchingMore: true };
+  },
+  [types.FETCH_MORE_ACTIVITY_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      isFetchingMore: false,
+      moreStatus: "success",
+      data: { ...action.data, records: [...state.data.records, ...action.data.records] }
+    };
+  },
+  [types.FETCH_MORE_ACTIVITY_FAILURE]: (state, action) => {
+    return { ...state, isFetchingMore: false, moreStatus: "failure", moreError: action.error };
   }
 };
 
@@ -56,6 +76,21 @@ const fetchApi = requestGenerator(fetchActionCreators);
 const fetch = url => dispatch => dispatch(fetchApi.request({ method: "get", url }));
 const cancel = () => dispatch => dispatch(fetchApi.cancelRequest());
 
+const fetchMoreRequest = () => ({ type: types.FETCH_MORE_ACTIVITY_REQUEST });
+const fetchMoreSuccess = data => ({ type: types.FETCH_MORE_ACTIVITY_SUCCESS, data });
+const fetchMoreFailure = error => ({ type: types.FETCH_MORE_ACTIVITY_FAILURE, error });
+
+const fetchMoreActionCreators = {
+  reset: reset,
+  request: fetchMoreRequest,
+  success: fetchMoreSuccess,
+  failure: fetchMoreFailure
+};
+
+const fetchMoreApi = requestGenerator(fetchMoreActionCreators);
+const fetchMore = url => dispatch => dispatch(fetchMoreApi.request({ method: "get", url }));
+const cancelMore = () => dispatch => dispatch(fetchMoreApi.cancelRequest());
+
 /*
  action creators declared to be passed into the GET request generator boilerplate
 */
@@ -67,5 +102,7 @@ export const actions = {
   fetchFailure,
   fetchSuccess,
   cancel,
+  fetchMore,
+  cancelMore,
   reset
 };

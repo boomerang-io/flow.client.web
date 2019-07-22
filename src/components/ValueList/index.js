@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { AutoSuggestTextInput, AutoSuggestTextArea, SelectDropdown, TextInput } from "@boomerang/boomerang-components";
+import { AutoSuggestTextInput, SelectDropdown, TextInput } from "@boomerang/boomerang-components";
 import AutoSuggest from "Components/AutoSuggest";
 import Toggle from "./Toggle";
+import TextAreaModal from "./TextAreaModal";
 import isURL from "validator/lib/isURL";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import "./styles.scss";
@@ -23,9 +24,9 @@ const SELECT_DROPDOWN_TYPES = {
 };
 
 function validateInput({ value, maxValueLength, minValueLength, validationFunction, validationText }) {
-  if (value.length > maxValueLength) {
+  if (maxValueLength !== undefined && value.length > maxValueLength) {
     return { message: `Must be less than ${maxValueLength} characters` };
-  } else if (value.length < minValueLength) {
+  } else if (minValueLength !== undefined && value.length < minValueLength) {
     return { message: `Must be more than ${minValueLength} characters` };
   } else if (validationFunction && !validationFunction(value)) {
     return { message: validationText };
@@ -61,13 +62,13 @@ const ValueList = ({
           onChange={updateNodeTaskName}
           noValueText="Name is required"
           placeholder="Enter a task name"
-          theme="bmrg-white"
+          theme="bmrg-flow"
           title="Task Name"
           value={node.taskName}
         />
         {taskConfig.map((item, index) => {
-          const maxValueLength = item.maxValueLength || 128;
-          const minValueLength = item.minValueLength || 0;
+          const maxValueLength = item.maxValueLength;
+          const minValueLength = item.minValueLength;
           if (Object.keys(INPUT_TYPES).includes(item.type)) {
             const itemConfig = INPUT_TYPES[item.type];
             return (
@@ -81,10 +82,10 @@ const ValueList = ({
                     alwaysShowTitle: true,
                     title: item.label,
                     type: itemConfig.type,
-                    theme: "bmrg-white"
+                    theme: "bmrg-flow"
                   }}
                   name={item.key}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                   validationFunction={value =>
                     validateInput({
                       value,
@@ -102,32 +103,17 @@ const ValueList = ({
           } else if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
             const itemConfig = TEXT_AREA_TYPES[item.type];
             return (
-              <div key={item.key + index} style={{ paddingBottom: "2.125rem", position: "relative" }}>
-                <AutoSuggest
-                  autoSuggestions={formatAutoSuggestProperties(inputProperties)}
-                  handleChange={onSelectTextInputChange}
-                  initialValue={inputs[item.key] || ""}
-                  inputProps={{
-                    placeholder: item.description,
-                    alwaysShowTitle: true,
-                    title: item.label,
-                    type: itemConfig.type,
-                    theme: "bmrg-white"
-                  }}
-                  name={item.key}
-                  theme="bmrg-white"
-                  validationFunction={value =>
-                    validateInput({
-                      value,
-                      maxValueLength,
-                      minValueLength,
-                      validationFunction: itemConfig.validationFunction,
-                      validationText: itemConfig.validationText
-                    })
-                  }
-                >
-                  <AutoSuggestTextArea />
-                </AutoSuggest>
+              <div key={item.key + index} style={{ position: "relative", cursor: "pointer" }}>
+                <TextAreaModal
+                  inputs={inputs}
+                  inputProperties={inputProperties}
+                  item={item}
+                  itemConfig={itemConfig}
+                  minValueLength={minValueLength}
+                  maxValueLength={maxValueLength}
+                  onSelectTextInputChange={onSelectTextInputChange}
+                  validateInput={validateInput}
+                />
               </div>
             );
           } else if (Object.keys(SELECT_DROPDOWN_TYPES).includes(item.type)) {
@@ -141,7 +127,7 @@ const ValueList = ({
                   onChange={onSelectTextInputChange}
                   options={item.options.map(option => ({ value: option, label: option }))}
                   styles={{ width: "100%" }}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                   title={item.label}
                   value={form[item.key] ? form[item.key].value : inputs[item.key] ? inputs[item.key] : ""}
                 />

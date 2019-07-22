@@ -51,7 +51,7 @@ class VersionCommentForm extends Component {
       <>
         <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "24rem", padding: "2rem" }}>
           {this.state.saveError ? (
-            <Error theme="bmrg-white" />
+            <Error theme="bmrg-flow" />
           ) : (
             <div style={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <TextArea title="Version comment" placeholder="Enter version comment" onChange={this.handleOnChange} />
@@ -60,7 +60,7 @@ class VersionCommentForm extends Component {
         </ModalContentBody>
         <ModalContentFooter>
           <ModalConfirmButton
-            theme="bmrg-white"
+            theme="bmrg-flow"
             text="Create"
             disabled={!this.state.comment || Object.keys(this.state.errors).length || loading}
             onClick={this.handleOnSave}

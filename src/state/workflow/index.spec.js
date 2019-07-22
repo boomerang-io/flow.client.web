@@ -57,6 +57,10 @@ describe(">>>REDUCER --- workflowReducer", () => {
         webhook: {
           enable: false,
           token: ""
+        },
+        event: {
+          enable: false,
+          topic: ""
         }
       }
     };

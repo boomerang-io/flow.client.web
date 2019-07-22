@@ -3,15 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
-import {
-  TextInput,
-  TextArea,
-  Toggle,
-  SelectDropdown,
-  ModalContentBody as Body,
-  ModalConfirmButton as ConfirmButton,
-  ModalContentFooter as Footer
-} from "@boomerang/boomerang-components";
+import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
+import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
+import TextArea from "@boomerang/boomerang-components/lib/TextArea";
+import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
@@ -149,7 +147,7 @@ class InputsModalContent extends Component {
               id="input-default-value-toggle"
               onChange={this.handleDefaultValueChange}
               checked={defaultValue === "true"}
-              theme="bmrg-white"
+              theme="bmrg-flow"
             />
           </div>
         );
@@ -165,7 +163,7 @@ class InputsModalContent extends Component {
                 onChange={this.handleValidValuesChange}
                 options={validValues || []}
                 value={validValues || []}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 title="Options"
                 placeholder="Enter option"
                 noResultsText="No options entered"
@@ -178,7 +176,7 @@ class InputsModalContent extends Component {
                 onChange={this.handleDefaultValueChange}
                 options={validValues || []}
                 value={defaultValue || {}}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 title="Default Option"
                 placeholder="Select option"
                 noResultsText="No options entered"
@@ -196,7 +194,7 @@ class InputsModalContent extends Component {
               name="default value"
               onChange={this.handleDefaultValueChange}
               value={defaultValue || ""}
-              theme="bmrg-white"
+              theme="bmrg-flow"
               alwaysShowTitle
             />
           </div>
@@ -212,7 +210,7 @@ class InputsModalContent extends Component {
               type={type}
               onChange={this.handleDefaultValueChange}
               value={defaultValue || ""}
-              theme="bmrg-white"
+              theme="bmrg-flow"
               alwaysShowTitle
             />
           </div>
@@ -227,7 +225,7 @@ class InputsModalContent extends Component {
     return (
       <form onSubmit={this.handleConfirm}>
         <fieldset disabled={loading}>
-          <Body className="c-inputs-modal-body">
+          <ModalContentBody className="c-inputs-modal-body">
             <div className="c-inputs-modal-body-left">
               <TextInput
                 alwaysShowTitle
@@ -242,7 +240,7 @@ class InputsModalContent extends Component {
                 value={key}
                 validationFunction={this.validateKey}
                 validationText="Invalid key, space and special characters aren't allowed"
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 required
               />
               <TextInput
@@ -254,7 +252,7 @@ class InputsModalContent extends Component {
                 noValueText="Enter a label"
                 onChange={this.handleLabelChange}
                 value={label}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 required
               />
               <TextInput
@@ -265,7 +263,7 @@ class InputsModalContent extends Component {
                 type="text"
                 onChange={this.handleDescriptionChange}
                 value={description}
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 required={false}
               />
               <div className="b-inputs-modal-toggle">
@@ -274,7 +272,7 @@ class InputsModalContent extends Component {
                   id="input-required-toggle"
                   onChange={this.handleRequiredChange}
                   checked={required}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                 />
               </div>
             </div>
@@ -292,22 +290,22 @@ class InputsModalContent extends Component {
                     { label: "Text Area", value: "textarea" }
                   ]}
                   value={type}
-                  theme="bmrg-white"
+                  theme="bmrg-flow"
                   title="Type"
                   styles={{ width: "100%" }}
                 />
               </div>
               {this.renderDefaultValue()}
             </div>
-          </Body>
-          <Footer style={{ paddingTop: "1rem" }}>
-            <ConfirmButton
+          </ModalContentBody>
+          <ModalContentFooter style={{ paddingTop: "1rem" }}>
+            <ModalConfirmButton
               disabled={!(key && label && type) || (!!keyError || !!labelError) || loading}
               text={isEdit ? "SAVE" : "CREATE"}
-              theme="bmrg-white"
+              theme="bmrg-flow"
               type="submit"
             />
-          </Footer>
+          </ModalContentFooter>
         </fieldset>
       </form>
     );

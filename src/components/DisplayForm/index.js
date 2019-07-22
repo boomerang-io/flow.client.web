@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ModalContentBody, ModalContentFooter, ModalConfirmButton } from "@boomerang/boomerang-components";
+import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
+import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import ValueList from "Components/ValueList";
 
 class DisplayForm extends Component {
@@ -117,7 +119,7 @@ class DisplayForm extends Component {
         </ModalContentBody>
         <ModalContentFooter>
           <ModalConfirmButton
-            theme="bmrg-white"
+            theme="bmrg-flow"
             text="Apply"
             disabled={!this.determineIsValidForm()}
             onClick={this.handleOnSave}

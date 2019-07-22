@@ -16,6 +16,7 @@ class BrowserModal extends Component {
   render() {
     return (
       <ModalWrapper
+        theme="bmrg-flow"
         isOpen={this.props.isOpen}
         fullscreen={true}
         modalContent={closeModal => (
@@ -24,7 +25,7 @@ class BrowserModal extends Component {
             headerTitle="UNSUPPORTED BROWSER"
             headerSubtitle="Sorry, we are working on it"
             closeModal={closeModal}
-            theme="bmrg-white"
+            theme="bmrg-flow"
             fullscreen={true}
           >
             <BrowserModalContent closeModal={closeModal} />

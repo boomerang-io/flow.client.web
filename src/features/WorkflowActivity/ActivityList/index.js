@@ -14,16 +14,13 @@ class ActivityList extends Component {
     activities: PropTypes.array.isRequired,
     history: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
-    nextPage: PropTypes.number,
     loadMoreActivities: PropTypes.func.isRequired,
-    setMoreActivities: PropTypes.func.isRequired,
     isLoading: PropTypes.bool,
     hasMoreActivities: PropTypes.bool
   };
 
   loadMoreActivities = () => {
-    this.props.loadMoreActivities(this.props.nextPage);
-    this.props.setMoreActivities(false);
+    this.props.loadMoreActivities();
   };
 
   render() {
@@ -40,7 +37,11 @@ class ActivityList extends Component {
           useWindow={true}
         >
           {!activities.length && !hasMoreActivities && !isLoading ? (
-            <NoDisplay style={{ marginTop: "2rem" }} text="Looks like you need to run some workflows!" />
+            <NoDisplay
+              style={{ marginTop: "4rem" }}
+              text="Looks like you need to run some workflows!"
+              textLocation="below"
+            />
           ) : (
             activities.map(activity => {
               return <ActivityCard activity={activity} history={history} key={activity.id} match={match} />;

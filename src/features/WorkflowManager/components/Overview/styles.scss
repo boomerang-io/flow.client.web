@@ -50,18 +50,38 @@
   .b-workflow-icons {
     display: flex;
     flex-flow: wrap;
+    justify-content: space-between;
   }
 
   .b-workflow-icons__icon {
+    border: 2px solid transparent;
     cursor: pointer;
-    width: 3rem;
-    height: 3rem;
-    margin: 0.5rem;
-    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: all 0.15s ease;
+
+    [type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    [type="radio"] + img {
+      cursor: pointer;
+    }
+
+    img {
+      width: 3rem;
+      height: 3rem;
+      padding: 0.25rem 0.425rem;
+    }
+
+    &:focus {
+      outline: default;
+    }
 
     &.--active {
-      border: 0.0625rem solid #40d5bb;
-      border-radius: 0.125rem;
+      border: 2px solid $teal-20;
     }
   }
 
@@ -103,9 +123,9 @@
 
   .b-webhook-token__icon {
     cursor: pointer;
-    width: 2rem;
-    height: 2rem;
-    margin: 0 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0 0.75rem;
   }
 
   .b-webhook-token__generate {
@@ -114,14 +134,30 @@
     padding: 0;
   }
 
-  .b-schedule__cronMessage {
+  .b-schedule__information--cronMessage {
     padding-top: 1rem;
     padding-bottom: 0.5rem;
+    font-style: italic;
+  }
+
+  .b-schedule__information--timezone {
+    font-style: italic;
+    padding-bottom: 1rem;
   }
 
   .b-options__infoIcon {
-    height: 1.5rem;
+    height: 1.25rem;
     left: 0.5rem;
     position: relative;
+  }
+  .b-event {
+    display: flex;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    min-height: 4rem;
+  }
+
+  .b-event__toggle {
+    margin-left: 2rem;
   }
 }

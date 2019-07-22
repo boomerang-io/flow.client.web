@@ -88,11 +88,12 @@ export class WorkflowsHome extends Component {
     axios
       .delete(`${BASE_SERVICE_URL}/workflow/${workflowId}`)
       .then(() => {
-        notify(<Notification type="remove" title="Delete Workflow" message="Workflow successfully deleted" />);
         this.updateWorkflows({ workflowId, teamId });
+        notify(<Notification type="remove" title="Delete Workflow" message="Workflow successfully deleted" />);
         return;
       })
-      .catch(() => {
+      .catch(e => {
+        console.log(e);
         notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
         return;
       });
@@ -103,14 +104,14 @@ export class WorkflowsHome extends Component {
     const { searchQuery } = this.state;
 
     if (teamsState.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon theme="bmrg-white" />;
+      return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (teamsState.isFetching) {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
-            <LoadingAnimation theme="bmrg-white" />
+            <LoadingAnimation theme="bmrg-flow" />
           </div>
         </div>
       );
@@ -124,7 +125,7 @@ export class WorkflowsHome extends Component {
         return (
           <div className="c-workflow-home">
             <div className="c-workflow-home-content">
-              <SearchFilterBar handleSearchFilter={this.handleSearchFilter} options={[]} />
+              <SearchFilterBar handleSearchFilter={this.handleSearchFilter} label="Teams" options={[]} />
               <NoDisplay style={{ marginTop: "5rem" }} text="Looks like you don't have any workflow teams" />
             </div>
           </div>
@@ -133,7 +134,7 @@ export class WorkflowsHome extends Component {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
-            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} options={teamsState.data} />
+            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} label="Teams" options={teamsState.data} />
             {sortedTeams.map(team => {
               return (
                 <WorkflowsSection

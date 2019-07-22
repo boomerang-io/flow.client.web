@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import classNames from "classnames";
 import matchSorter from "match-sorter";
-import SearchBar from "@boomerang/boomerang-components/lib/SearchBar";
+import { Search } from "carbon-components-react";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import Task from "./Task";
 
@@ -56,11 +56,11 @@ export default class Tasks extends Component {
   render() {
     return (
       <Sidenav
-        theme="bmrg-white"
+        theme="bmrg-flow"
         header={() => (
-          <SearchBar
-            theme="bmrg-white"
-            placeholder="Search tasks"
+          <Search
+            labelText="Search tasks"
+            placeHolderText="Search tasks"
             onChange={this.handleOnSearchInputChange}
             onClear={this.handleClear}
             value={this.state.searchQuery}
