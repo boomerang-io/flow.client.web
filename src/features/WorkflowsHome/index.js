@@ -117,6 +117,16 @@ export class WorkflowsHome extends Component {
       );
     }
 
+    if (teamsState.status === REQUEST_STATUSES.SUCCESS && Object.keys(teamsState.data).length === 0) {
+      /**
+       * security check, we don't want to show anything to a user who does not belong to any teams
+       *
+       * This only protects against users who are new to the platform
+       * TODO: prevent a user from accesing a flow associated to a different team
+       */
+      return null;
+    }
+
     if (teamsState.status === REQUEST_STATUSES.SUCCESS) {
       const filteredTeams = this.filterTeams();
       const sortedTeams = sortBy(filteredTeams, ["name"]);

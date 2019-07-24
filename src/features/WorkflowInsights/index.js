@@ -201,6 +201,16 @@ export class WorkflowInsights extends Component {
       );
     }
 
+    if (teams.status === REQUEST_STATUSES.SUCCESS && Object.keys(teams.data).length === 0) {
+      /**
+       * security check, we don't want to show anything to a user who does not belong to any teams
+       *
+       * This only protects against users who are new to the platform
+       * TODO: prevent a user from accesing a flow associated to a different team
+       */
+      return null;
+    }
+
     if (teams.status === REQUEST_STATUSES.SUCCESS) {
       const { selectedTeam } = this.state;
       const teamsList = [ALL_OPTIONS.TEAMS].concat(teams.data);

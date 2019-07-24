@@ -67,6 +67,14 @@ class App extends Component {
         </div>
       );
     }
+
+    if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && !user.data.email) {
+      /**
+       * don't show anything to a user that doesn't exist
+       */
+      return null;
+    }
+
     if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
       return (
         <>
