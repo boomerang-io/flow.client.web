@@ -256,16 +256,6 @@ export class WorkflowManagerContainer extends Component {
       return <ErrorDragon theme="bmrg-flow" />;
     }
 
-    if (teams.status === REQUEST_STATUSES.SUCCESS && Object.keys(teams.data).length === 0) {
-      /**
-       * security check, we don't want to show anything to a user who does not belong to any teams
-       *
-       * This only protects against users who are new to the platform
-       * TODO: prevent a user from accesing a flow associated to a different team
-       */
-      return null;
-    }
-
     if (tasks.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
       const { hasUnsavedWorkflowUpdates } = this.props.workflow;
       const { hasUnsavedWorkflowRevisionUpdates } = this.props.workflowRevision;
