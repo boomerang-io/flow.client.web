@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as insightsActions } from "State/insights";
-import { actions as teamsActions } from "State/teams";
 import moment from "moment";
 import queryString from "query-string";
 import { DropdownV2 as Dropdown } from "carbon-components-react";
@@ -27,8 +26,7 @@ export class WorkflowInsights extends Component {
     insights: PropTypes.object.isRequired,
     insightsActions: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    teams: PropTypes.object.isRequired,
-    teamsActions: PropTypes.object.isRequired
+    teams: PropTypes.object.isRequired
   };
 
   state = {
@@ -74,9 +72,6 @@ export class WorkflowInsights extends Component {
   };
   componentDidMount() {
     this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
-    this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`).catch(err => {
-      // noop
-    });
   }
 
   getFetchQuery = () => {
@@ -262,8 +257,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  insightsActions: bindActionCreators(insightsActions, dispatch),
-  teamsActions: bindActionCreators(teamsActions, dispatch)
+  insightsActions: bindActionCreators(insightsActions, dispatch)
 });
 
 export default connect(
