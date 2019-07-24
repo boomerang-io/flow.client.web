@@ -17,9 +17,6 @@ exports[`TimeProgressBar --- Snapshot Capturing Snapshot of TimeProgressBar 1`] 
     >
       Finish
     </div>
-    <div
-      className="b-time-progress-bar__fillers"
-    />
   </div>
 </div>
 `;

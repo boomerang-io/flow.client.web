@@ -35,9 +35,6 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
       >
         Finish
       </div>
-      <div
-        className="b-time-progress-bar__fillers"
-      />
     </div>
   </div>
   <div
