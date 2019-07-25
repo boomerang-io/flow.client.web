@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import get from "lodash.get";
 import { DiagramWidget } from "@boomerang/boomerang-dag";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import Inputs from "Features/WorkflowManager/components/Inputs";
@@ -16,8 +19,6 @@ class WorkflowEditor extends Component {
     createWorkflowRevision: PropTypes.func.isRequired,
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
-    isValidOverview: PropTypes.bool.isRequired,
-    setIsValidOverview: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,
     isModalOpen: PropTypes.bool.isRequired
@@ -61,17 +62,18 @@ class WorkflowEditor extends Component {
 
   render() {
     const {
+      activeTeamId,
       createNode,
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
       isValidOverview,
       match,
       isModalOpen,
-      overviewData,
-      setIsValidOverview,
+      teamsState,
       workflow,
       workflowRevision
     } = this.props;
+
     const { revisionCount } = workflow.data;
     const { version } = workflowRevision;
     const workflowLoading = workflowRevision.isFetching || workflowRevision.isCreating;
@@ -83,17 +85,49 @@ class WorkflowEditor extends Component {
           <Route
             path={`${match.path}/overview`}
             render={props => (
-              <>
-                <ActionBar
-                  performActionButtonText="Update Overview"
-                  performAction={this.updateWorkflow}
-                  diagramApp={this.diagramApp}
-                  isValidOverview={isValidOverview}
-                  loading={workflowLoading}
-                  {...props}
-                />
-                <Overview workflow={workflow} overviewData={overviewData} setIsValidOverview={setIsValidOverview} />
-              </>
+              <Formik
+                initialValues={{
+                  name: get(workflow, "data.name", ""),
+                  shortDescription: get(workflow, "data.shortDescription", ""),
+                  description: get(workflow, "data.description", ""),
+                  webhook: get(workflow, "data.triggers.webhook.enable", false),
+                  token: get(workflow, "data.triggers.webhook.token", ""),
+                  schedule: get(workflow, "data.triggers.scheduler.enable", false),
+                  event: get(workflow, "data.triggers.event.enable", false),
+                  topic: get(workflow, "data.triggers.event.topic", ""),
+                  persistence: get(workflow, "data.enablePersistentStorage", false),
+                  selectedTeam: activeTeamId
+                    ? teamsState.data.find(team => team.id === activeTeamId)
+                    : teamsState.data[0]
+                }}
+                validationSchema={Yup.object().shape({
+                  name: Yup.string()
+                    .required("Name is required")
+                    .max(64, "Name must not be greater than 64 characters"),
+                  shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
+                  description: Yup.string().max(256, "Description must not be greater than 256 characters"),
+                  webhook: Yup.boolean(),
+                  token: Yup.string(),
+                  schedule: Yup.boolean(),
+                  event: Yup.boolean(),
+                  topic: Yup.string(),
+                  persistence: Yup.boolean()
+                })}
+              >
+                {formikProps => (
+                  <>
+                    <ActionBar
+                      diagramApp={this.diagramApp}
+                      performActionButtonText="Update Overview"
+                      performAction={this.updateWorkflow}
+                      isValidOverview={formikProps.isValid}
+                      loading={workflowLoading}
+                      {...props}
+                    />
+                    <Overview workflow={workflow} formikProps={formikProps} teams={teamsState.data} />
+                  </>
+                )}
+              </Formik>
             )}
           />
           <Route

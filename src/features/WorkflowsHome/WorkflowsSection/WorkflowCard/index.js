@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
@@ -50,15 +50,18 @@ class WorkflowCard extends Component {
       });
   };
 
+  setActiveTeamAndRedirect = () => {
+    const { history, setActiveTeam, teamId, workflow } = this.props;
+    setActiveTeam(teamId);
+    history.push(`/editor/${workflow.id}/designer`);
+  };
+
   render() {
-    const { workflow, history, teamId, deleteWorkflow, setActiveTeam } = this.props;
+    const { workflow, history, teamId, deleteWorkflow } = this.props;
     const menuOptions = [
       {
         itemText: "Edit",
-        onClick: () => {
-          setActiveTeam(teamId);
-          history.push(`/editor/${workflow.id}/designer`);
-        },
+        onClick: this.setActiveTeamAndRedirect,
         primaryFocus: false
       },
       {
@@ -131,10 +134,10 @@ class WorkflowCard extends Component {
           <div className="c-workflow-card__icon">
             <img className="b-workflow-card__icon" src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
           </div>
-          <Link to={`/editor/${workflow.id}/designer`} className="c-workflow-card__description">
+          <button onClick={this.setActiveTeamAndRedirect} className="c-workflow-card__description">
             <h2 className="b-workflow-card__name">{workflow.name}</h2>
             <p className="b-workflow-card__description">{workflow.shortDescription}</p>
-          </Link>
+          </button>
           <div data-tip data-for={workflow.id} className="b-workflow-card-launch">
             {workflow.properties && workflow.properties.length > 0 ? (
               <Modal

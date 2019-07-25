@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
+<body>
+  <div>
+    <fieldset>
+      <main
+        class="c-inputs-modal-body"
+      >
+        <div
+          class="c-inputs-modal-body-left"
+        >
+          <div
+            class="b-inputs-modal-text"
+          >
+            <div
+              class="bx--form-item"
+            >
+              <label
+                class="bx--label"
+                for="key"
+              >
+                Key
+              </label>
+              <input
+                class="bx--text-input bx--text__input"
+                id="key"
+                placeholder="key.value"
+                type="text"
+                value="tim.property"
+              />
+            </div>
+          </div>
+          <div
+            class="b-inputs-modal-text"
+          >
+            <div
+              class="bx--form-item"
+            >
+              <label
+                class="bx--label"
+                for="label"
+              >
+                Label
+              </label>
+              <input
+                class="bx--text-input bx--text__input"
+                id="label"
+                placeholder="Label"
+                type="text"
+                value="Tim Property"
+              />
+            </div>
+          </div>
+          <div
+            class="b-inputs-modal-text"
+          >
+            <div
+              class="bx--form-item"
+            >
+              <label
+                class="bx--label"
+                for="description"
+              >
+                Description
+              </label>
+              <input
+                class="bx--text-input bx--text__input"
+                id="description"
+                placeholder="Description"
+                type="text"
+                value="Tim property"
+              />
+            </div>
+          </div>
+          <div
+            class="b-inputs-modal-toggle"
+          >
+            <div
+              class="b-inputs-modal-toggle__title"
+            >
+              Required
+            </div>
+            <div
+              class="bmrg--b-toggle --bmrg-flow"
+              style="position: relative; display: inline-block; text-align: left; opacity: 1; border-radius: 10px; transition: opacity 0.25s; user-select: none;"
+            >
+              <div
+                class="react-switch-bg"
+                style="height: 20px; width: 40px; margin: 0px; position: relative; background: rgb(72, 108, 137); border-radius: 10px; cursor: pointer; transition: background 0.25s;"
+              />
+              <div
+                class="react-switch-handle"
+                style="height: 18px; width: 18px; background: rgb(255, 128, 108); display: inline-block; cursor: pointer; border-radius: 50%; position: absolute; transform: translateX(1px); top: 1px; outline: 0; border: 0px; transition: background-color 0.25s, transform 0.25s, box-shadow 0.15s;"
+              />
+              <input
+                aria-labelledby="toggle-required"
+                id="required"
+                role="switch"
+                style="border: 0px; height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px;"
+                type="checkbox"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="c-inputs-modal-body-right"
+        >
+          <div
+            class="b-inputs-modal-type"
+          >
+            <div
+              class="bmrg--c-select-dropdown --bmrg-flow"
+              style="width: 100%;"
+            >
+              <label
+                class="b-inputs-modal-type__title"
+                for="type"
+              >
+                Type
+              </label>
+              <div
+                class="Select has-value is-searchable Select--single"
+              >
+                <div
+                  class="Select-control"
+                >
+                  <span
+                    class="Select-multi-value-wrapper"
+                    id="react-select-2--value"
+                  >
+                    <div
+                      class="Select-value bmrg--b-select-dropdown__option"
+                    >
+                      <span
+                        aria-selected="true"
+                        class="Select-value-label"
+                        id="react-select-2--value-item"
+                        role="option"
+                      >
+                        Text
+                      </span>
+                    </div>
+                    <div
+                      class="Select-input"
+                      style="display: inline-block;"
+                    >
+                      <input
+                        aria-activedescendant="react-select-2--value"
+                        aria-expanded="false"
+                        aria-haspopup="false"
+                        aria-owns=""
+                        id="type"
+                        role="combobox"
+                        style="box-sizing: content-box; width: 5px;"
+                        value=""
+                      />
+                      <div
+                        style="position: absolute; top: 0px; left: 0px; visibility: hidden; height: 0px; overflow: scroll; white-space: pre; font-family: -webkit-small-control; letter-spacing: normal; text-transform: none;"
+                      />
+                    </div>
+                  </span>
+                  <span
+                    class="Select-arrow-zone"
+                  >
+                    <div
+                      class="bmrg--b-select-default-arrow"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="b-inputs-modal-text-input"
+            data-testid="text-input"
+          >
+            <div
+              class="bx--form-item"
+            >
+              <label
+                class="bx--label"
+                for="defaultValue"
+              >
+                Default Value
+              </label>
+              <input
+                class="bx--text-input bx--text__input"
+                id="defaultValue"
+                placeholder="Default Value"
+                type="text"
+                value="dogs"
+              />
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer
+        class="bmrg--c-modal-content-footer"
+        style="padding-top: 1rem;"
+      >
+        <button
+          class="bmrg--b-modal-confirm-button --disabled --bmrg-flow --disabled"
+          disabled=""
+          type="submit"
+        >
+          SAVE
+        </button>
+      </footer>
+    </fieldset>
+  </div>
+</body>
+`;
