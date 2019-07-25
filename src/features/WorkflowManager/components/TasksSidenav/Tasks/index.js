@@ -12,10 +12,6 @@ export default class Tasks extends Component {
     searchQuery: ""
   };
 
-  handleClear = () => {
-    this.setState({ tasksToDisplay: this.props.tasks.data, searchQuery: "" });
-  };
-
   handleOnSearchInputChange = e => {
     const searchQuery = e.target.value;
     this.setState({
@@ -62,7 +58,6 @@ export default class Tasks extends Component {
             labelText="Search tasks"
             placeHolderText="Search tasks"
             onChange={this.handleOnSearchInputChange}
-            onClear={this.handleClear}
             value={this.state.searchQuery}
           />
         )}

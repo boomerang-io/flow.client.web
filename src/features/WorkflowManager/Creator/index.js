@@ -24,26 +24,28 @@ class WorkflowCreatorContainer extends Component {
   };
 
   render() {
-    const { workflow } = this.props;
+    const { activeTeamId, teamsState, workflowState } = this.props;
 
+    console.log(teamsState);
     return (
       <>
         <Navigation onlyShowBackLink />
         <Formik
           initialValues={{
-            name: get(workflow, "data.name", ""),
-            shortDescription: get(workflow, "data.shortDescription", ""),
-            description: get(workflow, "data.description", ""),
-            webhook: get(workflow, "data.triggers.webhook.enable", false),
-            token: get(workflow, "data.triggers.webhook.token", ""),
-            schedule: get(workflow, "data.triggers.scheduler.enable", false),
-            event: get(workflow, "data.triggers.event.enable", false),
-            topic: get(workflow, "data.triggers.event.topic", ""),
-            persistence: get(workflow, "data.enablePersistentStorage", false)
+            name: get(workflowState, "data.name", ""),
+            shortDescription: get(workflowState, "data.shortDescription", ""),
+            description: get(workflowState, "data.description", ""),
+            webhook: get(workflowState, "data.triggers.webhook.enable", false),
+            token: get(workflowState, "data.triggers.webhook.token", ""),
+            schedule: get(workflowState, "data.triggers.scheduler.enable", false),
+            event: get(workflowState, "data.triggers.event.enable", false),
+            topic: get(workflowState, "data.triggers.event.topic", ""),
+            persistence: get(workflowState, "data.enablePersistentStorage", false),
+            selectedTeam: activeTeamId ? teamsState.data.find(team => team.id === activeTeamId) : teamsState.data[0]
           }}
           validationSchema={Yup.object().shape({
             name: Yup.string()
-              .required("Enter a name")
+              .required("Name is required")
               .max(64, "Name must not be greater than 64 characters"),
             shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
             description: Yup.string().max(256, "Description must not be greater than 256 characters"),
@@ -52,7 +54,10 @@ class WorkflowCreatorContainer extends Component {
             schedule: Yup.boolean(),
             event: Yup.boolean(),
             topic: Yup.string(),
-            persistence: Yup.boolean()
+            persistence: Yup.boolean(),
+            selectedTeam: Yup.object()
+              .shape({ id: Yup.string() })
+              .required()
           })}
         >
           {formikProps => (
@@ -63,7 +68,7 @@ class WorkflowCreatorContainer extends Component {
                 performAction={this.createWorkflow}
                 isValidOverview={formikProps.isValid}
               />
-              <Overview workflow={workflow} formikProps={formikProps} />
+              <Overview workflow={workflowState} formikProps={formikProps} teams={this.props.teamsState.data} />
             </>
           )}
         </Formik>
@@ -73,8 +78,9 @@ class WorkflowCreatorContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  tasks: state.tasks,
-  workflow: state.workflow
+  activeTeamId: state.app.activeTeamId,
+  teamsState: state.teams,
+  workflowState: state.workflow
 });
 
 const mapDispatchToProps = dispatch => ({

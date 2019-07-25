@@ -62,15 +62,18 @@ class WorkflowEditor extends Component {
 
   render() {
     const {
+      activeTeamId,
       createNode,
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
       isValidOverview,
       match,
       isModalOpen,
+      teamsState,
       workflow,
       workflowRevision
     } = this.props;
+
     const { revisionCount } = workflow.data;
     const { version } = workflowRevision;
     const workflowLoading = workflowRevision.isFetching || workflowRevision.isCreating;
@@ -92,11 +95,14 @@ class WorkflowEditor extends Component {
                   schedule: get(workflow, "data.triggers.scheduler.enable", false),
                   event: get(workflow, "data.triggers.event.enable", false),
                   topic: get(workflow, "data.triggers.event.topic", ""),
-                  persistence: get(workflow, "data.enablePersistentStorage", false)
+                  persistence: get(workflow, "data.enablePersistentStorage", false),
+                  selectedTeam: activeTeamId
+                    ? teamsState.data.find(team => team.id === activeTeamId)
+                    : teamsState.data[0]
                 }}
                 validationSchema={Yup.object().shape({
                   name: Yup.string()
-                    .required("Enter a name")
+                    .required("Name is required")
                     .max(64, "Name must not be greater than 64 characters"),
                   shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
                   description: Yup.string().max(256, "Description must not be greater than 256 characters"),
@@ -118,7 +124,7 @@ class WorkflowEditor extends Component {
                       loading={workflowLoading}
                       {...props}
                     />
-                    <Overview workflow={workflow} formikProps={formikProps} />
+                    <Overview workflow={workflow} formikProps={formikProps} teams={teamsState.data} />
                   </>
                 )}
               </Formik>

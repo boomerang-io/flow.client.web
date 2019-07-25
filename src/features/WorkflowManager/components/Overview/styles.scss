@@ -6,21 +6,29 @@
   padding: 1rem;
 
   .bx--text-area {
-    resize: vertical;
+    resize: none;
     width: 100%;
   }
 
   .c-overview-card {
-    display: flex;
-    flex-direction: column;
+    //display: flex;
+    // flex-direction: column;
     margin: 1rem;
-    padding: 2rem;
+    padding: 0rem 2rem 2rem;
     width: calc(100vw * 0.3);
     min-width: 30rem;
     max-width: 40rem;
     background: $neutral-white-4;
     border-radius: 0.25rem;
     height: 40rem;
+
+    .bx--form-item {
+      margin: 2rem 0rem;
+    }
+
+    .b-overview__text-area {
+      height: 4rem;
+    }
   }
 
   .b-options {
@@ -41,9 +49,10 @@
   }
 
   .s-workflow-icons-title {
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: $gray-90;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
   }
 
   .s-webhook-token-message {

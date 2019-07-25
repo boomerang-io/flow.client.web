@@ -8,14 +8,13 @@ import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { TextArea, TextInput } from "carbon-components-react";
+import { ComboBox, TextArea, TextInput } from "carbon-components-react";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import Button from "@boomerang/boomerang-components/lib/Button";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
 import { Notification, notify } from "@boomerang/boomerang-components/lib/Notifications";
-import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
@@ -31,14 +30,10 @@ import "./styles.scss";
 export class Overview extends Component {
   constructor(props) {
     super(props);
-    const selectedTeam = this.props.activeTeamId
-      ? this.props.teams.find(team => team.id === this.props.activeTeamId)
-      : this.props.teams[0];
     this.state = {
       tokenTextType: "password",
       showTokenText: "Show Token",
       copyTokenText: "Copy Token",
-      selectedTeam: { label: selectedTeam.name, value: selectedTeam.id },
       errors: {}
     };
   }
@@ -118,14 +113,13 @@ export class Overview extends Component {
     this.props.formikProps.setFieldValue(id, value);
   };
 
-  handleTeamChange = selectedTeam => {
-    this.setState({ selectedTeam }, () => {
-      this.props.appActions.setActiveTeam({ teamId: selectedTeam.value });
-      this.props.workflowActions.updateProperty({
-        key: "flowTeamId",
-        value: selectedTeam.value
-      });
+  handleTeamChange = ({ selectedItem }) => {
+    this.props.appActions.setActiveTeam({ teamId: selectedItem && selectedItem.id });
+    this.props.workflowActions.updateProperty({
+      key: "flowTeamId",
+      value: selectedItem && selectedItem.id
     });
+    this.props.formikProps.setFieldValue("selectedTeam", selectedItem);
   };
 
   render() {
@@ -134,23 +128,25 @@ export class Overview extends Component {
       teams,
       formikProps: { values, touched, errors, handleBlur }
     } = this.props;
-    const { selectedTeam } = this.state;
 
+    console.log(values.selectedTeam);
     return (
       <div className="c-workflow-overview">
         <div className="c-overview-card">
           <h1 className="s-general-info-title">General</h1>
-          <SelectDropdown
-            styles={{ marginBottom: "2rem" }}
+          <ComboBox
+            styles={{ marginBottom: "2.5rem" }}
             onChange={this.handleTeamChange}
-            options={teams.map(team => ({ label: team.name, value: team.id }))}
-            value={selectedTeam}
-            theme="bmrg-flow"
+            items={teams}
+            initialSelectedItem={values.selectedTeam}
+            itemToString={item => (item ? item.name : "")}
+            value={values.selectedTeam}
             title="Team"
+            label="Team"
             placeholder="Select a team"
-            noResultsText="No options entered"
           />
           <TextInput
+            className="b-overview__text-input"
             id="name"
             labelText="Name"
             placeholder="Name"
@@ -161,20 +157,27 @@ export class Overview extends Component {
             invalidText={errors.name}
           />
           <TextInput
+            className="b-overview__text-input"
             id="shortDescription"
             labelText="Summary"
             placeholder="Summary"
             value={values.shortDescription}
             onBlur={handleBlur}
             onChange={this.handleOnChange}
+            invalid={errors.shortDescription && touched.shortDescription}
+            invalidText={errors.shortDescription}
           />
           <TextArea
+            className="b-overview__text-area"
             id="description"
             labelText="Description"
             placeholder="Description"
             value={values.description}
             onBlur={handleBlur}
             onChange={this.handleOnChange}
+            invalid={errors.description && touched.description}
+            invalidText={errors.description}
+            resize={false}
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
           <div className="b-workflow-icons">
@@ -448,19 +451,12 @@ export class Overview extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user,
-    teams: state.teams.data,
-    activeTeamId: state.app.activeTeamId
-  };
-};
 const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch)
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Overview);
