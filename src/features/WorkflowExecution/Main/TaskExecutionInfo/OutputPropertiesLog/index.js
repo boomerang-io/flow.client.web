@@ -36,12 +36,12 @@ class OutputPropertiesLog extends React.Component {
             headerTitle="Output Properties"
             headerSubtitle={flowTaskName}
             closeModal={closeModal}
-            theme="bmrg-white"
+            theme="bmrg-flow"
             {...rest}
           >
             <ModalContentBody style={{ width: "40rem", display: "block", alignSelf: "center", height: "30rem" }}>
               <Tabs
-                theme="bmrg-white"
+                theme="bmrg-flow"
                 tabsListProps={{ style: { width: "100%", justifyContent: "space-around", marginBottom: "1rem" } }}
               >
                 <Tab value="Table" name="table">

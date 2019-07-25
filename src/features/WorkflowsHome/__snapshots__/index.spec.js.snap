@@ -130,7 +130,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
       </div>
     </div>
     <div
-      className="bmrg--b-no-display --bmrg-flow"
+      className="bmrg--b-no-display --bmrg-white"
       style={
         Object {
           "marginTop": "5rem",

@@ -30,10 +30,6 @@ export class WorkflowManagerContainer extends Component {
     workflow: PropTypes.object
   };
 
-  state = {
-    isValidOverview: false
-  };
-
   changeLogReason = "Create workflow"; //default changelog value at creation time
 
   async componentDidMount() {
@@ -45,13 +41,6 @@ export class WorkflowManagerContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Check here for when you switch workflows and component doesn't unmount
-    if (prevProps.workflow.data.id !== this.props.workflow.data.id) {
-      this.setState({
-        isValidOverview: !!this.props.workflow.data.name
-      });
-    }
-
     if (this.props.match.url !== prevProps.match.url) {
       this.props.workflowActions.reset();
       this.props.workflowRevisionActions.reset();
@@ -63,12 +52,6 @@ export class WorkflowManagerContainer extends Component {
     this.props.workflowActions.reset();
     this.props.workflowRevisionActions.reset();
   }
-
-  setIsValidOverview = isValid => {
-    this.setState({
-      isValidOverview: isValid
-    });
-  };
 
   handleChangeLogReasonChange = changeLogReason => {
     this.changeLogReason = changeLogReason;
@@ -272,13 +255,7 @@ export class WorkflowManagerContainer extends Component {
               <Route
                 path="/creator/overview"
                 render={props => (
-                  <Creator
-                    workflow={this.props.workflow}
-                    createWorkflow={this.createWorkflow}
-                    setIsValidOverview={this.setIsValidOverview}
-                    isValidOverview={this.state.isValidOverview}
-                    {...props}
-                  />
+                  <Creator workflow={this.props.workflow} createWorkflow={this.createWorkflow} {...props} />
                 )}
               />
               <Route
@@ -292,8 +269,6 @@ export class WorkflowManagerContainer extends Component {
                     handleChangeLogReasonChange={this.handleChangeLogReasonChange}
                     updateInputs={this.updateInputs}
                     updateWorkflow={this.updateWorkflow}
-                    setIsValidOverview={this.setIsValidOverview}
-                    isValidOverview={this.state.isValidOverview}
                     {...props}
                   />
                 )}

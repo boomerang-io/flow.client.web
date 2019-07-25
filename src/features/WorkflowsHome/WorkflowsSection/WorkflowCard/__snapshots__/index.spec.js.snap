@@ -55,9 +55,8 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
         className="b-workflow-card__icon"
       />
     </div>
-    <a
+    <button
       className="c-workflow-card__description"
-      href="/editor/789/designer"
       onClick={[Function]}
     >
       <h2
@@ -68,7 +67,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
       <p
         className="b-workflow-card__description"
       />
-    </a>
+    </button>
     <div
       className="b-workflow-card-launch"
       data-for="789"
