@@ -72,6 +72,13 @@ class App extends Component {
       );
     }
 
+    if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && !user.data.id) {
+      /**
+       * don't show anything to a user that doesn't exist
+       */
+      return null;
+    }
+
     if (teams.status === SERVICE_REQUEST_STATUSES.SUCCESS && Object.keys(teams.data).length === 0) {
       return (
         <div style={{ backgroundColor: "#1c496d" }}>
@@ -83,6 +90,7 @@ class App extends Component {
         </div>
       );
     }
+
     if (
       user.status === SERVICE_REQUEST_STATUSES.SUCCESS &&
       navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS &&
@@ -111,6 +119,7 @@ class App extends Component {
         </>
       );
     }
+    
     if (
       user.status === SERVICE_REQUEST_STATUSES.FAILURE ||
       navigation.status === SERVICE_REQUEST_STATUSES.FAILURE ||
@@ -122,6 +131,7 @@ class App extends Component {
         </div>
       );
     }
+
     return null;
   }
 
