@@ -231,7 +231,7 @@ export class WorkflowActivity extends Component {
                   return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
                 }}
                 initialSelectedItems={workflowsFilter.filter(workflow => {
-                  if (selectedWorkflowIds.find(id => id === workflow.value)) {
+                  if (selectedWorkflowIds.find(id => id === workflow.id)) {
                     return true;
                   } else {
                     return false;
