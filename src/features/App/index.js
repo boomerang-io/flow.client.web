@@ -105,8 +105,7 @@ class App extends Component {
                 <ProtectedRoute path="/configuration" userRole={user.data.type} component={AsyncGlobalConfiguration} />
                 <Route path="/workflows" component={AsyncHome} />
                 <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
-                <Route path="/activity/:workflowId" component={AsyncActivity} />
-                <Route path="/activity" component={AsyncActivity} exact />
+                <Route path="/activity" component={AsyncActivity} />
                 <Route path="/creator/overview" component={AsyncManager} />
                 <Route path="/editor/:workflowId" component={AsyncManager} />
                 <Route path="/insights" component={AsyncInsights} />

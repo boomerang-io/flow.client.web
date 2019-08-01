@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import queryString from "query-string";
-import { MultiSelect, DropdownV2 as Dropdown } from "carbon-components-react";
+import { MultiSelect } from "carbon-components-react";
 import { actions as activityActions } from "State/activity";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import orderBy from "lodash/orderBy";
-import flow from "lodash/flow";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
 import { executionOptions, statusOptions } from "Constants/filterOptions";
@@ -22,36 +21,53 @@ export class WorkflowActivity extends Component {
     activityState: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired,
     teamsActions: PropTypes.object.isRequired,
     teamsState: PropTypes.object.isRequired
   };
 
-  state = {
-    searchQuery: "",
-    selectedWorkflow: this.props.match.params.workflowId
-      ? { id: this.props.match.params.workflowId }
-      : { id: "all", name: "All workflows" },
-    tableSize: 10,
-    executionFilter: [],
-    statusFilter: [],
-    selectedTeams: [],
-    teams: []
-  };
-
   componentDidMount() {
-    const { params } = this.props.match;
+    const { page = 0, size = 10, workflowIds, triggers, statuses, teamIds } = queryString.parse(
+      this.props.location.search
+    );
+
     const query = queryString.stringify({
-      size: this.state.tableSize,
-      page: 0,
-      workflowId: params.workflowId ? params.workflowId : undefined
+      size,
+      page,
+      workflowIds,
+      triggers,
+      statuses,
+      teamIds
     });
+
     this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
   }
+
+  componentDidUpdate = prevProps => {
+    if (prevProps.location.search !== this.props.location.search) {
+      const { page = 0, size = 10, workflowIds, triggers, statuses, teamIds } = queryString.parse(
+        this.props.location.search
+      );
+
+      const query = queryString.stringify({
+        size,
+        page,
+        workflowIds,
+        triggers,
+        statuses,
+        teamIds
+      });
+
+      this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
+    }
+  };
 
   componentWillUnmount() {
     this.props.activityActions.reset();
   }
+
+  updateHistory = queryStr => {
+    this.props.history.push({ search: queryStr });
+  };
 
   fetchActivities = url => {
     this.props.activityActions.fetch(url).catch(err => {
@@ -61,121 +77,85 @@ export class WorkflowActivity extends Component {
 
   fetchMoreActivities = () => {
     const { activityState } = this.props;
-    const { searchQuery, selectedWorkflow } = this.state;
+    const { workflowIds, triggers, statuses, teamIds } = queryString.parse(this.props.location.search);
+
     const query = queryString.stringify({
       size: 10,
-      workflowId: selectedWorkflow.id !== "all" ? selectedWorkflow.id : undefined,
-      query: searchQuery !== "" ? searchQuery : undefined,
-      page: activityState.data.number + 1
+      page: activityState.data.number + 1,
+      workflowIds,
+      triggers,
+      statuses,
+      teamIds
     });
+
+    console.log(query);
 
     this.props.activityActions.fetchMore(`${BASE_SERVICE_URL}/activity?${query}`).catch(err => {
       //noop
     });
   };
 
-  handleSelectTeams = teams => {
-    this.setState(
-      {
-        selectedTeams: teams.selectedItems
-      },
-      () => {
-        this.handleSelectWorkflows({ selectedItem: { id: "all", name: "All workflows" } });
-      }
-    );
-  };
+  handleSelectTeams = ({ selectedItems }) => {
+    const { triggers, statuses } = queryString.parse(this.props.location.search);
 
-  handleSelectWorkflows = ({ selectedItem: selectedWorkflow }) => {
-    this.setState({
-      selectedWorkflow
-    });
-
-    const query = queryString.stringify({
-      size: this.state.tableSize,
+    const queryStr = `?${queryString.stringify({
       page: 0,
-      workflowId: selectedWorkflow.id !== "all" ? selectedWorkflow.id : undefined
-    });
-    this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
+      size: 10,
+      workflowIds: undefined,
+      triggers,
+      statuses,
+      teamIds: selectedItems.length > 0 ? selectedItems.map(team => team.id).join() : undefined
+    })}`;
+
+    this.updateHistory(queryStr);
   };
 
-  handleExecutionFilter = ({ selectedItems }) => {
-    const { selectedWorkflow, searchQuery } = this.state;
-    this.setState({ executionFilter: selectedItems }, () => {
-      const query = queryString.stringify({
-        size: 10,
-        page: 0,
-        workflowId: selectedWorkflow.id !== "all" ? selectedWorkflow.id : undefined,
-        query: searchQuery !== "" ? searchQuery : undefined
-      });
-      this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
-    });
+  handleSelectWorkflows = ({ selectedItems }) => {
+    const { teamIds, triggers, statuses } = queryString.parse(this.props.location.search);
+
+    const queryStr = `?${queryString.stringify({
+      page: 0,
+      size: 10,
+      workflowIds: selectedItems.length > 0 ? selectedItems.map(worflow => worflow.id).join() : undefined,
+      triggers,
+      statuses,
+      teamIds
+    })}`;
+
+    this.updateHistory(queryStr);
   };
 
-  handleStatusFilter = ({ selectedItems }) => {
-    const { selectedWorkflow, searchQuery } = this.state;
-    this.setState({ statusFilter: selectedItems }, () => {
-      const query = queryString.stringify({
-        size: 10,
-        page: 0,
-        workflowId: selectedWorkflow.id !== "all" ? selectedWorkflow.id : undefined,
-        query: searchQuery !== "" ? searchQuery : undefined
-      });
-      this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
-    });
+  handleSelectTriggers = ({ selectedItems }) => {
+    const { teamIds, workflowIds, statuses } = queryString.parse(this.props.location.search);
+
+    const queryStr = `?${queryString.stringify({
+      page: 0,
+      size: 10,
+      workflowIds,
+      triggers: selectedItems.length > 0 ? selectedItems.map(trigger => trigger.value).join() : undefined,
+      statuses,
+      teamIds
+    })}`;
+
+    this.updateHistory(queryStr);
   };
 
-  applyExecutionFilter = activities => {
-    const { executionFilter } = this.state;
-    if (!executionFilter.length) {
-      return activities;
-    }
-    const filteredActivities = activities.filter(activity => {
-      if (executionFilter.find(trigger => trigger.value === activity.trigger)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+  handleSelectStatuses = ({ selectedItems }) => {
+    const { teamIds, triggers, workflowIds } = queryString.parse(this.props.location.search);
 
-    return filteredActivities;
+    const queryStr = `?${queryString.stringify({
+      page: 0,
+      size: 10,
+      workflowIds,
+      triggers,
+      statuses: selectedItems.length > 0 ? selectedItems.map(status => status.value).join() : undefined,
+      teamIds
+    })}`;
+
+    this.updateHistory(queryStr);
   };
 
-  applyStatusFilter = activities => {
-    const { statusFilter } = this.state;
-    if (!statusFilter.length) {
-      return activities;
-    }
-    const filteredActivities = activities.filter(activity => {
-      if (statusFilter.find(status => status.value === activity.status)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-
-    return filteredActivities;
-  };
-
-  applyTeamFilter = activities => {
-    const { selectedTeams } = this.state;
-    const sortedActivities = orderBy(activities, ["creationDate"], ["desc"]);
-    if (!selectedTeams.length) {
-      return sortedActivities;
-    }
-    const filteredActivities = sortedActivities.filter(activity => {
-      if (selectedTeams.find(selectedTeam => activity.teamName === selectedTeam.name)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
-
-    return filteredActivities;
-  };
-
-  getWorkflowFilter(teamsData) {
-    const { selectedTeams } = this.state;
-
+  getWorkflowFilter(teamsData, selectedTeams) {
     let workflowsList = [];
     if (!selectedTeams.length) {
       workflowsList = teamsData.reduce((acc, team) => {
@@ -189,21 +169,38 @@ export class WorkflowActivity extends Component {
       }, []);
     }
     let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
-    workflowsFilter = [{ id: "all", name: "All workflows" }, ...workflowsFilter];
     return workflowsFilter;
   }
 
   render() {
     const { activityState, history, match, teamsState } = this.props;
-    const { searchQuery, selectedWorkflow } = this.state;
 
     if (activityState.status === REQUEST_STATUSES.FAILURE || teamsState.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (activityState.status === REQUEST_STATUSES.SUCCESS && teamsState.status === REQUEST_STATUSES.SUCCESS) {
+      const { workflowIds = "", triggers = "", statuses = "", teamIds = "" } = queryString.parse(
+        this.props.location.search
+      );
+
+      const selectedTeamIds = teamIds.split(",");
+      const selectedWorkflowIds = workflowIds.split(",");
+      const selectedTriggers = triggers.split(",");
+      const selectedStatuses = statuses.split(",");
+
       const teamsData = JSON.parse(JSON.stringify(teamsState.data));
-      const workflowsFilter = this.getWorkflowFilter(teamsData);
+
+      const selectedTeams = teamsData.filter(team => {
+        if (selectedTeamIds.find(id => id === team.id)) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      const workflowsFilter = this.getWorkflowFilter(teamsData, selectedTeams);
+
       return (
         <div className="c-workflow-activity">
           <nav className="s-workflow-activity-navigation">
@@ -221,39 +218,55 @@ export class WorkflowActivity extends Component {
                 onChange={this.handleSelectTeams}
                 items={teamsData}
                 itemToString={team => (team ? team.name : "")}
+                initialSelectedItems={selectedTeams}
               />
-              <div>
-                <Dropdown
-                  label="Workflows"
-                  placeholder="Workflows"
-                  onChange={this.handleSelectWorkflows}
-                  items={workflowsFilter}
-                  itemToString={workflow => {
-                    const team = workflow ? teamsData.find(team => team.id === workflow.flowTeamId) : undefined;
-                    return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
-                  }}
-                  selectedItem={
-                    selectedWorkflow.name
-                      ? selectedWorkflow
-                      : workflowsFilter.find(workflow => workflow.id === selectedWorkflow.id)
+              <MultiSelect
+                useTitleInItem={false}
+                label="Workflows"
+                invalid={false}
+                onChange={this.handleSelectWorkflows}
+                items={workflowsFilter}
+                itemToString={workflow => {
+                  const team = workflow ? teamsData.find(team => team.id === workflow.flowTeamId) : undefined;
+                  return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                }}
+                initialSelectedItems={workflowsFilter.filter(workflow => {
+                  if (selectedWorkflowIds.find(id => id === workflow.id)) {
+                    return true;
+                  } else {
+                    return false;
                   }
-                />
-              </div>
+                })}
+              />
               <MultiSelect
                 useTitleInItem={false}
                 label="Trigger"
                 invalid={false}
-                onChange={this.handleExecutionFilter}
-                items={executionOptions.map(item => ({ label: item.label, value: item.value }))}
+                onChange={this.handleSelectTriggers}
+                items={executionOptions}
                 itemToString={item => (item ? item.value : "")}
+                initialSelectedItems={executionOptions.filter(option => {
+                  if (selectedTriggers.find(trigger => trigger === option.value)) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                })}
               />
               <MultiSelect
                 useTitleInItem={false}
                 label="Status"
                 invalid={false}
-                onChange={this.handleStatusFilter}
-                items={statusOptions.map(item => ({ label: item.label, value: item.value }))}
+                onChange={this.handleSelectStatuses}
+                items={statusOptions}
                 itemToString={item => (item ? item.label : "")}
+                initialSelectedItems={statusOptions.filter(option => {
+                  if (selectedStatuses.find(status => status === option.value)) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                })}
               />
             </div>
             {!activityState.data.records.length ? (
@@ -264,13 +277,10 @@ export class WorkflowActivity extends Component {
               />
             ) : (
               <ActivityList
-                activities={flow([this.applyExecutionFilter, this.applyStatusFilter, this.applyTeamFilter])(
-                  activityState.data.records
-                )}
+                activities={orderBy(activityState.data.records, ["creationDate"], ["desc"])}
                 hasMoreActivities={!activityState.data.last}
                 fetchActivities={this.fetchActivities}
-                searchQuery={searchQuery}
-                workflowId={selectedWorkflow.id !== "all" ? selectedWorkflow.id : undefined}
+                workflowId={workflowIds}
                 history={history}
                 isLoading={activityState.isFetchingMore}
                 match={match}
