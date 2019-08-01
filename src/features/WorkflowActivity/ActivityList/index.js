@@ -24,7 +24,7 @@ class ActivityList extends Component {
   };
 
   render() {
-    const { activities, hasMoreActivities, history, isLoading, match } = this.props;
+    const { activities, hasMoreActivities, history, isLoading, match, location } = this.props;
 
     return (
       <>
@@ -44,7 +44,15 @@ class ActivityList extends Component {
             />
           ) : (
             activities.map(activity => {
-              return <ActivityCard activity={activity} history={history} key={activity.id} match={match} />;
+              return (
+                <ActivityCard
+                  activity={activity}
+                  history={history}
+                  key={activity.id}
+                  match={match}
+                  location={location}
+                />
+              );
             })
           )}
         </InfiniteScroll>

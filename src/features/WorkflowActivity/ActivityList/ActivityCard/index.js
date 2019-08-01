@@ -32,7 +32,7 @@ class ActivityCard extends Component {
         className={`c-activities-card --${status}`}
         to={{
           pathname: `/activity/${workflowId}/execution/${id}`,
-          state: { fromUrl: this.props.match.url, fromText: "Activity" }
+          state: { fromUrl: `${this.props.match.url}${this.props.location.search}`, fromText: "Activity" }
         }}
       >
         <div className="c-activity-card-workflow">

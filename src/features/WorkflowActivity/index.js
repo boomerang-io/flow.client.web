@@ -173,7 +173,7 @@ export class WorkflowActivity extends Component {
   }
 
   render() {
-    const { activityState, history, match, teamsState } = this.props;
+    const { activityState, history, location, match, teamsState } = this.props;
 
     if (activityState.status === REQUEST_STATUSES.FAILURE || teamsState.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-flow" />;
@@ -284,6 +284,7 @@ export class WorkflowActivity extends Component {
                 history={history}
                 isLoading={activityState.isFetchingMore}
                 match={match}
+                location={location}
                 loadMoreActivities={this.fetchMoreActivities}
               />
             )}
