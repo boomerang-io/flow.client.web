@@ -4,9 +4,15 @@ WORKDIR /opt/boomerang/server
 
 COPY server .
 
-COPY .npmrc .
+ARG ART_USER
+ARG ART_PASSWORD
+ARG ART_URL
 
-RUN npm install --production
+RUN apk add --no-cache --virtual .build-deps curl && \
+    curl -k -v -u $ART_USER:$ART_PASSWORD $ART_URL/api/npm/boomeranglib-npm/auth/boomerang -o .npmrc && \
+    npm install --production && \
+    rm -f .npmrc && \
+    apk del .build-deps
 
 EXPOSE 3000
 
