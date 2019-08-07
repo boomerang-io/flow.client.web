@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as insightsActions } from "State/insights";
 import moment from "moment";
 import queryString from "query-string";
-import { DropdownV2 as Dropdown } from "carbon-components-react";
+import { Dropdown } from "carbon-components-react";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
