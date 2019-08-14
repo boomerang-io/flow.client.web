@@ -14,6 +14,7 @@
   position: relative;
 
   .bx--overflow-menu {
+    height: 2rem;
     &:focus {
       box-shadow: 0 0 0 1px $teal-20;
     }
