@@ -8,21 +8,19 @@ import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { ComboBox, TextArea, TextInput } from "carbon-components-react";
+import { ComboBox, TextArea, TextInput, Toggle } from "@boomerang/carbon-addons-boomerang-react";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import Button from "@boomerang/boomerang-components/lib/Button";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
 import { Notification, notify } from "@boomerang/boomerang-components/lib/Notifications";
-import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
 import assets from "./assets";
 import cronstrue from "cronstrue";
 import copyIcon from "./assets/copy.svg";
 import eyeIcon from "./assets/eye.svg";
-import infoIcon from "./assets/info.svg";
 import refreshIcon from "./assets/refresh.svg";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
@@ -129,7 +127,6 @@ export class Overview extends Component {
       formikProps: { values, touched, errors, handleBlur }
     } = this.props;
 
-    console.log(values.selectedTeam);
     return (
       <div className="c-workflow-overview">
         <div className="c-overview-card">
@@ -172,12 +169,13 @@ export class Overview extends Component {
             id="description"
             labelText="Description"
             placeholder="Description"
-            value={values.description}
             onBlur={handleBlur}
             onChange={this.handleOnChange}
             invalid={errors.description && touched.description}
             invalidText={errors.description}
             resize={false}
+            style={{ resize: "none" }}
+            value={values.description}
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
           <div className="b-workflow-icons">
@@ -204,28 +202,16 @@ export class Overview extends Component {
           <h1 className="s-trigger-title">Triggers</h1>
           <div className="c-webhook">
             <div className="b-webhook">
-              <p id="toggle-webhook" className="b-webhook__title">
-                Enable Webhook
-              </p>
-              <Toggle
-                id="webhook"
-                name="webhook"
-                aria-labelledby="toggle-webhook"
-                className="b-webhook__toggle"
-                checked={values.webhook}
-                onChange={checked => this.handleOnWebhookChange(checked)}
-                theme="bmrg-flow"
-              />
-              <img
-                className="b-options__infoIcon"
-                src={infoIcon}
-                data-tip
-                data-for="triggers-webhook-info"
-                alt="Toggle webhook"
-              />
-              <Tooltip id="triggers-webhook-info" place="top">
-                Enable workflow to be executed by a webhook
-              </Tooltip>
+              <div className="b-webhook__toggle">
+                <Toggle
+                  id="webhook"
+                  labelText="Enable Webhook"
+                  toggled={values.webhook}
+                  onToggle={checked => this.handleOnWebhookChange(checked)}
+                  tooltipContent="Enable workflow to be executed by a webhook"
+                  tooltipProps={{ direction: "top" }}
+                />
+              </div>
               {get(workflow, "data.id", false) &&
                 get(workflow, "data.triggers.webhook.enable", false) &&
                 !get(workflow, "data.triggers.webhook.token", false) && (
@@ -311,28 +297,16 @@ export class Overview extends Component {
               )}
             <div className="c-scheduler">
               <div className="b-schedule">
-                <p id="toggle-scheduler" className="b-schedule__title">
-                  Enable Scheduler
-                </p>
-                <Toggle
-                  id="schedule"
-                  name="schedule"
-                  aria-labelledby="toggle-scheduler"
-                  className="b-schedule__toggle"
-                  checked={values.schedule}
-                  onChange={checked => this.handleOnSchedulerChange(checked)}
-                  theme="bmrg-flow"
-                />
-                <img
-                  className="b-options__infoIcon"
-                  src={infoIcon}
-                  data-tip
-                  data-for="triggers-scheduler-info"
-                  alt="Toggle scheduler"
-                />
-                <Tooltip id="triggers-scheduler-info" place="top">
-                  Enable workflow to be executed by a schedule
-                </Tooltip>
+                <div className="b-schedule__toggle">
+                  <Toggle
+                    id="schedule"
+                    labelText="Enable Scheduler"
+                    toggled={values.schedule}
+                    onToggle={checked => this.handleOnSchedulerChange(checked)}
+                    tooltipContent="Enable workflow to be executed by a schedule"
+                    tooltipProps={{ direction: "top" }}
+                  />
+                </div>
                 {get(workflow, "data.triggers.scheduler.enable", false) && (
                   <ModalWrapper
                     initialState={workflow.data}
@@ -380,33 +354,22 @@ export class Overview extends Component {
             </div>
             <div className="c-event">
               <div className="b-event">
-                <p id="toggle-event" className="b-event__title">
-                  Enable Action Subscription
-                </p>
-                <Toggle
-                  id="event"
-                  name="event"
-                  aria-labelledby="toggle-event"
-                  className="b-event__toggle"
-                  checked={values.event}
-                  onChange={checked => this.handleOnEventChange(checked)}
-                  theme="bmrg-flow"
-                />
-                <img
-                  className="b-options__infoIcon"
-                  src={infoIcon}
-                  data-tip
-                  data-for="triggers-event-info"
-                  alt="Toggle event"
-                />
-                <Tooltip id="triggers-event-info" place="top">
-                  Enable workflow to be triggered by platform actions
-                </Tooltip>
+                <div className="b-event__toggle">
+                  <Toggle
+                    id="event"
+                    labelText="Enable Action Subscription"
+                    toggled={values.event}
+                    onToggle={checked => this.handleOnEventChange(checked)}
+                    tooltipContent="Enable workflow to be triggered by platform actions"
+                    tooltipProps={{ direction: "top" }}
+                  />
+                </div>
               </div>
               {get(workflow, "data.triggers.event.enable", false) && (
                 <div className="b-event-topic">
                   <TextInput
                     id="topic"
+                    labelText=""
                     placeholder="Topic"
                     value={values.topic}
                     onBlur={handleBlur}
@@ -421,28 +384,16 @@ export class Overview extends Component {
           <h1 className="s-trigger-title">Options</h1>
           <div className="b-options">
             <div className="b-persistence">
-              <p id="toggle-persistence-storage" className="b-persistence__title">
-                Enable Persistent Storage
-              </p>
-              <Toggle
-                id="persistence"
-                name="persistence"
-                aria-labelledby="toggle-persistence-storage"
-                className="b-persistence__toggle"
-                checked={values.persistence}
-                onChange={(checked, event, id) => this.handleOnPersistenceChange(checked, id)}
-                theme="bmrg-flow"
-              />
-              <img
-                className="b-options__infoIcon"
-                src={infoIcon}
-                data-tip
-                data-for="options-persistence-info"
-                alt="Toggle persistence"
-              />
-              <Tooltip id="options-persistence-info" place="top">
-                Persist workflow data between executions
-              </Tooltip>
+              <div className="b-persistence__toggle">
+                <Toggle
+                  id="persistence"
+                  labelText="Enable Persistent Storage"
+                  toggled={values.persistence}
+                  onToggle={checked => this.handleOnPersistenceChange(checked, "persistence")}
+                  tooltipContent="Persist workflow data between executions"
+                  tooltipProps={{ direction: "top" }}
+                />
+              </div>
             </div>
           </div>
         </div>

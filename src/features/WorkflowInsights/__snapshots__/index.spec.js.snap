@@ -16,155 +16,188 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
     className="c-workflow-insights-header"
   >
     <div
-      aria-label="Choose an item"
-      className="bx--dropdown bx--list-box"
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      role="listbox"
-      tabIndex={null}
+      className="bx--dropdown__wrapper bx--list-box__wrapper"
     >
       <div
-        aria-expanded={false}
-        aria-haspopup={true}
-        aria-label="open menu"
-        className="bx--list-box__field"
-        data-toggle={true}
-        disabled={false}
-        onBlur={[Function]}
+        className="bx--dropdown bx--list-box"
         onClick={[Function]}
         onKeyDown={[Function]}
-        role="button"
-        tabIndex="0"
-        type="button"
+        role="listbox"
+        tabIndex="-1"
       >
-        <span
-          className="bx--list-box__label"
-          htmlFor="downshift-0-input"
-        >
-          All Teams
-        </span>
         <div
-          className="bx--list-box__menu-icon"
+          aria-controls={null}
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-haspopup={true}
+          aria-label="Open menu"
+          aria-owns={null}
+          className="bx--list-box__field"
+          data-toggle={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex="0"
+          type="button"
         >
-          <svg
-            alt="Open menu"
-            aria-label="Open menu"
-            fillRule="evenodd"
-            focusable="false"
-            height="5"
-            role="img"
-            viewBox="0 0 10 5"
-            width="10"
+          <span
+            className="bx--list-box__label"
+            htmlFor="downshift-0-input"
           >
-            <title>
-              Open menu
-            </title>
-            <path
-              d="M0 0l5 4.998L10 0z"
-            />
-          </svg>
+            All Teams
+          </span>
+          <div
+            className="bx--list-box__menu-icon"
+          >
+            <svg
+              aria-label="Open menu"
+              focusable="false"
+              height={16}
+              name="chevron--down"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              style={
+                Object {
+                  "willChange": "transform",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+              />
+              <title>
+                Open menu
+              </title>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
     <div
-      aria-label="Choose an item"
-      className="bx--dropdown bx--list-box"
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      role="listbox"
-      tabIndex={null}
+      className="bx--dropdown__wrapper bx--list-box__wrapper"
     >
       <div
-        aria-expanded={false}
-        aria-haspopup={true}
-        aria-label="open menu"
-        className="bx--list-box__field"
-        data-toggle={true}
-        disabled={false}
-        onBlur={[Function]}
+        className="bx--dropdown bx--list-box"
         onClick={[Function]}
         onKeyDown={[Function]}
-        role="button"
-        tabIndex="0"
-        type="button"
+        role="listbox"
+        tabIndex="-1"
       >
-        <span
-          className="bx--list-box__label"
-          htmlFor="downshift-1-input"
-        >
-          All Workflows
-        </span>
         <div
-          className="bx--list-box__menu-icon"
+          aria-controls={null}
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-haspopup={true}
+          aria-label="Open menu"
+          aria-owns={null}
+          className="bx--list-box__field"
+          data-toggle={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex="0"
+          type="button"
         >
-          <svg
-            alt="Open menu"
-            aria-label="Open menu"
-            fillRule="evenodd"
-            focusable="false"
-            height="5"
-            role="img"
-            viewBox="0 0 10 5"
-            width="10"
+          <span
+            className="bx--list-box__label"
+            htmlFor="downshift-1-input"
           >
-            <title>
-              Open menu
-            </title>
-            <path
-              d="M0 0l5 4.998L10 0z"
-            />
-          </svg>
+            All Workflows
+          </span>
+          <div
+            className="bx--list-box__menu-icon"
+          >
+            <svg
+              aria-label="Open menu"
+              focusable="false"
+              height={16}
+              name="chevron--down"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              style={
+                Object {
+                  "willChange": "transform",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+              />
+              <title>
+                Open menu
+              </title>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
     <div
-      aria-label="Choose an item"
-      className="bx--dropdown bx--list-box"
-      onClick={[Function]}
-      onKeyDown={[Function]}
-      role="listbox"
-      tabIndex={null}
+      className="bx--dropdown__wrapper bx--list-box__wrapper"
     >
       <div
-        aria-expanded={false}
-        aria-haspopup={true}
-        aria-label="open menu"
-        className="bx--list-box__field"
-        data-toggle={true}
-        disabled={false}
-        onBlur={[Function]}
+        className="bx--dropdown bx--list-box"
         onClick={[Function]}
         onKeyDown={[Function]}
-        role="button"
-        tabIndex="0"
-        type="button"
+        role="listbox"
+        tabIndex="-1"
       >
-        <span
-          className="bx--list-box__label"
-          htmlFor="downshift-2-input"
-        >
-          3 months
-        </span>
         <div
-          className="bx--list-box__menu-icon"
+          aria-controls={null}
+          aria-disabled={false}
+          aria-expanded={false}
+          aria-haspopup={true}
+          aria-label="Open menu"
+          aria-owns={null}
+          className="bx--list-box__field"
+          data-toggle={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex="0"
+          type="button"
         >
-          <svg
-            alt="Open menu"
-            aria-label="Open menu"
-            fillRule="evenodd"
-            focusable="false"
-            height="5"
-            role="img"
-            viewBox="0 0 10 5"
-            width="10"
+          <span
+            className="bx--list-box__label"
+            htmlFor="downshift-2-input"
           >
-            <title>
-              Open menu
-            </title>
-            <path
-              d="M0 0l5 4.998L10 0z"
-            />
-          </svg>
+            3 months
+          </span>
+          <div
+            className="bx--list-box__menu-icon"
+          >
+            <svg
+              aria-label="Open menu"
+              focusable="false"
+              height={16}
+              name="chevron--down"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              style={
+                Object {
+                  "willChange": "transform",
+                }
+              }
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+              />
+              <title>
+                Open menu
+              </title>
+            </svg>
+          </div>
         </div>
       </div>
     </div>

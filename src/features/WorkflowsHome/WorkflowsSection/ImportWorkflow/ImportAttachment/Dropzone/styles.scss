@@ -111,15 +111,11 @@
 
   .b-import-dropzone__right {
     align-items: center;
-    border: 0.063rem solid $gray-80;
-    color: $gray-90;
-    border-radius: 100%;
     cursor: pointer;
     display: flex;
-    height: 1.25rem;
+    height: 1.5rem;
     justify-content: space-around;
     margin-top: 0.625rem;
-    padding: 0.063rem;
     width: 1.5rem;
     z-index: 1;
 
@@ -129,9 +125,8 @@
   }
 
   .b-import-dropzone-close__img {
-    display: flex;
-    height: 0.6rem;
-    width: 0.6rem;
+    height: 1.5rem;
+    width: 1.5rem;
     z-index: 1;
   }
 

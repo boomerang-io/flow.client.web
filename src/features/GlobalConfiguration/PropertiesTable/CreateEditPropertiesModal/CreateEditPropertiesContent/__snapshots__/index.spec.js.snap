@@ -20,7 +20,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
       className="input"
     >
       <div
-        className="bx--form-item"
+        className="bx--form-item bx--text-input-wrapper"
       >
         <label
           className="bx--label"
@@ -28,23 +28,28 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
         >
           Label
         </label>
-        <input
-          className="bx--text-input bx--text__input"
-          disabled={false}
-          id="label"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          placeholder="Label"
-          type="text"
-        />
+        <div
+          className="bx--text-input__field-wrapper"
+          data-invalid={null}
+        >
+          <input
+            className="bx--text-input bx--text__input"
+            disabled={false}
+            id="label"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            placeholder="Label"
+            type="text"
+          />
+        </div>
       </div>
     </div>
     <div
       className="input"
     >
       <div
-        className="bx--form-item"
+        className="bx--form-item bx--text-input-wrapper"
       >
         <label
           className="bx--label"
@@ -52,24 +57,29 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
         >
           key
         </label>
-        <input
-          className="bx--text-input bx--text__input"
-          disabled={false}
-          id="key"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          placeholder="Key"
-          type="text"
-          value="test.key"
-        />
+        <div
+          className="bx--text-input__field-wrapper"
+          data-invalid={null}
+        >
+          <input
+            className="bx--text-input bx--text__input"
+            disabled={false}
+            id="key"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            placeholder="Key"
+            type="text"
+            value="test.key"
+          />
+        </div>
       </div>
     </div>
     <div
       className="input"
     >
       <div
-        className="bx--form-item"
+        className="bx--form-item bx--text-input-wrapper"
       >
         <label
           className="bx--label"
@@ -77,23 +87,28 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
         >
           Description
         </label>
-        <input
-          className="bx--text-input bx--text__input"
-          disabled={false}
-          id="description"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          placeholder="Description"
-          type="text"
-        />
+        <div
+          className="bx--text-input__field-wrapper"
+          data-invalid={null}
+        >
+          <input
+            className="bx--text-input bx--text__input"
+            disabled={false}
+            id="description"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            placeholder="Description"
+            type="text"
+          />
+        </div>
       </div>
     </div>
     <div
       className="input"
     >
       <div
-        className="bx--form-item"
+        className="bx--form-item bx--text-input-wrapper"
       >
         <label
           className="bx--label"
@@ -101,17 +116,22 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
         >
           Value
         </label>
-        <input
-          className="bx--text-input bx--text__input"
-          disabled={false}
-          id="value"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          placeholder="Value"
-          type="text"
-          value="testing"
-        />
+        <div
+          className="bx--text-input__field-wrapper"
+          data-invalid={null}
+        >
+          <input
+            className="bx--text-input bx--text__input"
+            disabled={false}
+            id="value"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            placeholder="Value"
+            type="text"
+            value="testing"
+          />
+        </div>
       </div>
     </div>
     <div

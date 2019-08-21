@@ -54,9 +54,8 @@
   position: relative;
 }
 
-.b-workflow-placeholder__text {
-  font-size: 3.5rem;
-  line-height: 1rem;
-  font-weight: 200;
-  color: $cool-gray-50;
+.b-workflow-placeholder__plus {
+  height: 3rem;
+  width: 3rem;
+  fill: $gray-30;
 }

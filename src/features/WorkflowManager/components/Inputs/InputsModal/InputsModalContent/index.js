@@ -7,12 +7,10 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import get from "lodash.get";
 import clonedeep from "lodash.clonedeep";
-import { TextArea, TextInput } from "carbon-components-react";
+import { ComboBox, Creatable, TextArea, TextInput, Toggle } from "@boomerang/carbon-addons-boomerang-react";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
-import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
@@ -25,6 +23,16 @@ const FIELD = {
   DEFAULT_VALUE: "defaultValue",
   VALID_VALUES: "validValues"
 };
+
+const INPUT_TYPES_LABELS = [
+  { label: "Boolean", value: "boolean" },
+  { label: "Number", value: "number" },
+  { label: "Password", value: "password" },
+  { label: "Select", value: "select" },
+  { label: "Text", value: "text" },
+  { label: "Text Area", value: "textarea" }
+];
+
 class InputsModalContent extends Component {
   static propTypes = {
     updateInputs: PropTypes.func.isRequired,
@@ -46,16 +54,16 @@ class InputsModalContent extends Component {
     setFieldValue(id, value);
   };
 
-  handleOnTypeChange = (value, setFieldValue) => {
+  handleOnTypeChange = (selectedItem, setFieldValue) => {
     this.props.shouldConfirmExit(true);
-    setFieldValue(FIELD.TYPE, value.value);
-    setFieldValue(FIELD.DEFAULT_VALUE, value.value === INPUT_TYPES.BOOLEAN ? false : undefined);
+    setFieldValue(FIELD.TYPE, selectedItem);
+    setFieldValue(FIELD.DEFAULT_VALUE, selectedItem.value === INPUT_TYPES.BOOLEAN ? false : undefined);
   };
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
   handleValidValuesChange = (values, setFieldValue) => {
     this.props.shouldConfirmExit(true);
-    setFieldValue(FIELD.VALID_VALUES, values.map(option => option.value));
+    setFieldValue(FIELD.VALID_VALUES, values);
   };
 
   /* Check if key contains space or special characters, only underline is allowed */
@@ -66,7 +74,8 @@ class InputsModalContent extends Component {
 
   // dispatch Redux action to update store
   handleConfirm = formikProps => {
-    const inputProperties = clonedeep(formikProps.values);
+    let inputProperties = clonedeep(formikProps.values);
+    inputProperties.type = inputProperties.type.value;
 
     //remove in case they are present if the user changed their mind
     if (inputProperties.type !== INPUT_TYPES.SELECT) {
@@ -99,61 +108,41 @@ class InputsModalContent extends Component {
   renderDefaultValue = formikProps => {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
 
-    switch (values.type) {
+    switch (values.type.value) {
       case INPUT_TYPES.BOOLEAN:
         return (
           <div className="b-inputs-modal-toggle" data-testid="toggle">
-            <div className="b-inputs-modal-toggle__title">Default Value</div>
             <Toggle
               id={FIELD.DEFAULT_VALUE}
-              aria-labelledby="toggle-default-value"
-              onChange={(checked, event, id) => this.handleOnFieldValueChange(checked.toString(), id, setFieldValue)}
-              checked={values.defaultValue === "true"}
-              theme="bmrg-flow"
+              toggled={values.defaultValue === "true"}
+              labelText="Default Value"
+              onToggle={value => this.handleOnFieldValueChange(value.toString(), FIELD.DEFAULT_VALUE, setFieldValue)}
             />
           </div>
         );
       case INPUT_TYPES.SELECT:
         let validValues = clonedeep(values.validValues);
-
-        //convert to object so it works with SelectDropdown component
-        if (Array.isArray(validValues)) {
-          validValues = validValues.map(value => ({
-            value: value,
-            label: value
-          }));
-        }
         return (
           <>
             <div className="b-inputs-modal-select" data-testid="select">
-              <SelectDropdown
+              <Creatable
                 id={FIELD.VALID_VALUES}
-                multi
-                isCreatable
-                titleClass="b-inputs-modal-select__title"
-                styles={{ width: "100%", marginBottom: "2rem" }}
-                onChange={values => this.handleValidValuesChange(values, setFieldValue)}
-                options={validValues || []}
-                value={validValues || []}
-                theme="bmrg-flow"
-                title="Options"
+                onChange={createdItems => this.handleValidValuesChange(createdItems, setFieldValue)}
+                values={validValues || []}
+                labelText="Options"
                 placeholder="Enter option"
-                noResultsText="No options entered"
               />
             </div>
             <div className="b-inputs-modal-select">
-              <SelectDropdown
+              <ComboBox
                 id={FIELD.DEFAULT_VALUE}
-                titleClass="b-inputs-modal-select__title"
-                styles={{ width: "100%" }}
-                onChange={value => this.handleOnFieldValueChange(value.value, FIELD.DEFAULT_VALUE, setFieldValue)}
-                options={validValues || []}
-                value={values.defaultValue || {}}
-                theme="bmrg-flow"
-                title="Default Option"
+                onChange={({ selectedItem }) =>
+                  this.handleOnFieldValueChange(selectedItem, FIELD.DEFAULT_VALUE, setFieldValue)
+                }
+                items={validValues || []}
+                initialSelectedItem={values.defaultValue || {}}
+                titleText="Default Option"
                 placeholder="Select option"
-                noResultsText="No options entered"
-                clearable
               />
             </div>
           </>
@@ -168,6 +157,7 @@ class InputsModalContent extends Component {
               value={values.defaultValue || ""}
               onBlur={handleBlur}
               onChange={e => this.handleOnChange(e, handleChange)}
+              style={{ resize: "none" }}
             />
           </div>
         );
@@ -179,7 +169,7 @@ class InputsModalContent extends Component {
               id={FIELD.DEFAULT_VALUE}
               labelText="Default Value"
               placeholder="Default Value"
-              type={values.type}
+              type={values.type.value}
               value={values.defaultValue || ""}
               onBlur={handleBlur}
               onChange={e => this.handleOnChange(e, handleChange)}
@@ -199,7 +189,7 @@ class InputsModalContent extends Component {
           [FIELD.LABEL]: get(input, "label", ""),
           [FIELD.DESCRIPTION]: get(input, "description", ""),
           [FIELD.REQUIRED]: get(input, "required", false),
-          [FIELD.TYPE]: get(input, "type", INPUT_TYPES.TEXT),
+          [FIELD.TYPE]: input ? INPUT_TYPES_LABELS.find(type => type.value === input.type) : INPUT_TYPES_LABELS[4],
           [FIELD.DEFAULT_VALUE]: get(input, "defaultValue", ""),
           [FIELD.VALID_VALUES]: get(input, "validValues", [])
         }}
@@ -211,7 +201,7 @@ class InputsModalContent extends Component {
           [FIELD.LABEL]: Yup.string().required("Enter a label"),
           [FIELD.DESCRIPTION]: Yup.string(),
           [FIELD.REQUIRED]: Yup.boolean(),
-          [FIELD.TYPE]: Yup.string(),
+          [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
           [FIELD.VALID_VALUES]: Yup.array()
         })}
       >
@@ -257,34 +247,29 @@ class InputsModalContent extends Component {
                     />
                   </div>
                   <div className="b-inputs-modal-toggle">
-                    <div className="b-inputs-modal-toggle__title">Required</div>
                     <Toggle
                       id={FIELD.REQUIRED}
-                      aria-labelledby="toggle-required"
-                      checked={values.required}
-                      onChange={(checked, event, id) => this.handleOnFieldValueChange(checked, id, setFieldValue)}
-                      theme="bmrg-flow"
+                      toggled={values.required}
+                      labelText="Required"
+                      onToggle={value => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
                     />
                   </div>
                 </div>
                 <div className="c-inputs-modal-body-right">
                   <div className="b-inputs-modal-type">
-                    <SelectDropdown
+                    <ComboBox
                       id={FIELD.TYPE}
-                      titleClass="b-inputs-modal-type__title"
-                      onChange={value => this.handleOnTypeChange(value, setFieldValue)}
-                      options={[
-                        { label: "Boolean", value: "boolean" },
-                        { label: "Number", value: "number" },
-                        { label: "Password", value: "password" },
-                        { label: "Select", value: "select" },
-                        { label: "Text", value: "text" },
-                        { label: "Text Area", value: "textarea" }
-                      ]}
-                      value={values.type}
-                      theme="bmrg-flow"
-                      title="Type"
-                      styles={{ width: "100%" }}
+                      onChange={({ selectedItem }) =>
+                        this.handleOnTypeChange(
+                          selectedItem !== null ? selectedItem : { label: "", value: "" },
+                          setFieldValue
+                        )
+                      }
+                      items={INPUT_TYPES_LABELS}
+                      initialSelectedItem={values.type}
+                      itemToString={item => item && item.label}
+                      placeholder="Select an item"
+                      titleText="Type"
                     />
                   </div>
                   {this.renderDefaultValue(formikProps)}

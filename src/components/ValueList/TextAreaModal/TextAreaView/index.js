@@ -11,7 +11,7 @@ const TextAreaView = props => {
 
   const closeModal = () => {
     props.setTextAreaValue(value);
-    props.onSelectTextInputChange(value, errors, field);
+    props.formikSetFieldValue(value, errors, field);
     props.closeModal.call();
   };
 
@@ -38,7 +38,7 @@ const TextAreaView = props => {
         <AutoSuggest
           autoSuggestions={formatAutoSuggestProperties(props.inputProperties)}
           handleChange={saveValue}
-          initialValue={props.inputs[props.item.key] || ""}
+          initialValue={props.initialValue}
           inputProps={{
             placeholder: props.item.description,
             alwaysShowTitle: true,

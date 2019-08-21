@@ -19,12 +19,14 @@ const TextAreaContainer = ({ closeModal, setValue, title, ...rest }) => {
 };
 
 const TextAreaModal = props => {
-  const [value, setValue] = useState(props.inputs[props.item.key] || "");
+  const [value, setValue] = useState(props.initialValue);
   return (
     <ModalWrapper
       modalTriggerProps={{ style: { width: "100%" } }}
       ModalTrigger={() => (
         <TextArea
+          id={props.item.key}
+          name={props.item.key}
           alwaysShowTitle
           title={props.item.label}
           placeholder={props.item.description}

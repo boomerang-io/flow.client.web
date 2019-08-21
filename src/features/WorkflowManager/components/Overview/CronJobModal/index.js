@@ -2,14 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+import { ComboBox, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentHeader from "@boomerang/boomerang-components/lib/ModalContentHeader";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
-import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
-import infoIcon from "../assets/info.svg";
 import "./styles.scss";
 
 //Timezones that don't have a match in Java and can't be saved via the service
@@ -27,9 +26,6 @@ export default class CronJobModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cronExpression: props.cronExpression || "0 18 * * *",
-      timeZone: props.timeZone || moment.tz.guess(),
-      inputError: {},
       errorMessage: undefined,
       message: props.cronExpression ? cronstrue.toString(props.cronExpression) : cronstrue.toString("0 18 * * *"),
       defaultTimeZone: moment.tz.guess()
@@ -38,18 +34,18 @@ export default class CronJobModal extends Component {
     this.timezoneOptions = moment.tz
       .names()
       .filter(tz => !exludedTimezones.includes(tz))
-      .map(element => ({
-        label: `${element} (UTC ${moment.tz(element).format("Z")})`,
-        value: element
-      }));
+      .map(element => this.transformTimeZone(element));
   }
 
-  handleOnChange = (value, error) => {
-    this.setState({ cronExpression: value, inputError: error }, () => this.props.shouldConfirmExit(true));
+  handleOnChange = (e, handleChange) => {
+    this.props.shouldConfirmExit(true);
+    this.validateCron(e.target.value);
+    handleChange(e);
   };
 
-  handleTimeChange = (value, error) => {
-    this.setState({ timeZone: value }, () => this.props.shouldConfirmExit(true));
+  handleTimeChange = (selectedItem, id, setFieldValue) => {
+    this.props.shouldConfirmExit(true);
+    setFieldValue(id, selectedItem);
   };
 
   //receives input value from TextInput
@@ -68,75 +64,93 @@ export default class CronJobModal extends Component {
     return true;
   };
 
-  handleOnSave = e => {
-    e.preventDefault();
-    this.props.handleOnChange(this.state.cronExpression, "schedule");
-    this.props.handleOnChange(
-      this.state.timeZone.value ? this.state.timeZone.value : this.state.defaultTimeZone,
-      "timezone"
-    );
+  // transform timeZone in { label, value } object
+  transformTimeZone = timeZone => {
+    return { label: `${timeZone} (UTC ${moment.tz(timeZone).format("Z")})`, value: timeZone };
+  };
+
+  handleOnSave = values => {
+    this.props.handleOnChange(values.cronExpression, "schedule");
+    this.props.handleOnChange(values.timeZone.value ? values.timeZone.value : this.state.defaultTimeZone, "timezone");
     this.props.closeModal();
   };
 
   render() {
-    const { cronExpression, inputError, errorMessage, message, timeZone } = this.state;
+    const { defaultTimeZone, errorMessage, message } = this.state;
+    const { cronExpression, timeZone } = this.props;
+
     return (
-      <form onSubmit={this.handleOnSave}>
-        <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-flow" />
-        <ModalContentBody style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}>
-          <div className="b-cron-fieldset">
-            <div className="b-cron">
-              <TextInput
-                alwaysShowTitle
-                required
-                value={cronExpression}
-                title="CRON Expression"
-                placeholder="Enter a CRON Expression"
-                name="cron"
-                theme="bmrg-flow"
-                onChange={this.handleOnChange}
-                validationFunction={this.validateCron} //pass validation function here
-                style={{ paddingBottom: "1rem" }}
-              />
-              {
-                // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
-              }
-              {cronExpression && errorMessage && <div className="b-cron-fieldset__message --error">{errorMessage}</div>}
-              {cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}
-            </div>
-            <div className="b-timezone">
-              <SelectDropdown
-                options={this.timezoneOptions}
-                theme="bmrg-flow"
-                value={timeZone}
-                onChange={this.handleTimeChange}
-                isCreatable={false}
-                title="Timezone"
-                style={{ width: "100%" }}
-                noResultsText="No timezones found"
-              />
-              <img
-                className="b-cronModal__infoIcon"
-                src={infoIcon}
-                data-tip
-                data-for={"b-cronModal__infoIcon"}
-                alt="Show/Hide Token"
-              />
-              <ToolTip id="b-cronModal__infoIcon" place="bottom">
-                We make an educated guess at your timezone as a default value
-              </ToolTip>
-            </div>
-          </div>
-        </ModalContentBody>
-        <ModalContentFooter>
-          <ModalConfirmButton
-            text="SAVE"
-            theme="bmrg-flow"
-            disabled={!cronExpression || !!Object.keys(inputError).length} //disable if there is no expression, or if the error object is not empty
-            type="submit"
-          />
-        </ModalContentFooter>
-      </form>
+      <Formik
+        initialValues={{
+          cronExpression: cronExpression || "0 18 * * *",
+          timeZone: timeZone ? this.transformTimeZone(timeZone) : this.transformTimeZone(defaultTimeZone)
+        }}
+        validationSchema={Yup.object().shape({
+          cronExpression: Yup.string().required(),
+          timeZone: Yup.object().shape({ label: Yup.string(), value: Yup.string() })
+        })}
+        onSubmit={this.handleOnSave}
+        isInitialValid
+      >
+        {formikProps => {
+          const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
+
+          return (
+            <Form>
+              <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-flow" />
+              <ModalContentBody
+                style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}
+              >
+                <div className="b-cron-fieldset">
+                  <div className="b-cron">
+                    <TextInput
+                      id="cronExpression"
+                      labelText="CRON Expression"
+                      value={values.cronExpression}
+                      placeholder="Enter a CRON Expression"
+                      onBlur={handleBlur}
+                      onChange={e => this.handleOnChange(e, handleChange)}
+                      invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
+                    />
+                    {
+                      // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
+                    }
+                    {values.cronExpression && errorMessage && (
+                      <div className="b-cron-fieldset__message --error">{errorMessage}</div>
+                    )}
+                    {values.cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}
+                  </div>
+                  <div className="b-timezone">
+                    <ComboBox
+                      id="timeZone"
+                      items={this.timezoneOptions}
+                      initialSelectedItem={values.timeZone}
+                      onChange={({ selectedItem }) =>
+                        this.handleTimeChange(
+                          selectedItem !== null ? selectedItem : { label: "", value: "" },
+                          "timeZone",
+                          setFieldValue
+                        )
+                      }
+                      titleText="Timezone"
+                      placeholder="Timezone"
+                      tooltipContent="We make an educated guess at your timezone as a default value"
+                    />
+                  </div>
+                </div>
+              </ModalContentBody>
+              <ModalContentFooter>
+                <ModalConfirmButton
+                  text="SAVE"
+                  theme="bmrg-flow"
+                  disabled={!isValid || errorMessage} //disable if the form is invalid or if there is an error message
+                  type="submit"
+                />
+              </ModalContentFooter>
+            </Form>
+          );
+        }}
+      </Formik>
     );
   }
 }

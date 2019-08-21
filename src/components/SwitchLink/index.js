@@ -93,13 +93,6 @@ class SwitchLink extends Component {
     );
   };
 
-  validateSwitch = value => {
-    if (value === undefined || value === "" || value === " ") {
-      return false;
-    }
-    return true;
-  };
-
   render() {
     const { model } = this.props;
     let linkStyle = {};
@@ -170,7 +163,6 @@ class SwitchLink extends Component {
                         switchCondition={this.state.switchCondition}
                         updateDefaultState={this.updateDefaultState}
                         updateSwitchState={this.updateSwitchState}
-                        validateSwitch={this.validateSwitch}
                         setIsModalOpen={this.props.appActions.setIsModalOpen}
                       />
                     </ModalFlow>
