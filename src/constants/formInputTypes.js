@@ -2,7 +2,7 @@ import isURL from "validator/lib/isURL";
 
 export const INPUT_TYPES = {
   text: { type: "text", validationFunction: () => {}, validationText: "" },
-  secured: { type: "password", validationFunction: () => {}, validationText: "" },
+  password: { type: "password", validationFunction: () => {}, validationText: "" },
   url: { type: "input", validationFunction: isURL, validationText: "Please enter a valid url" }
 };
 

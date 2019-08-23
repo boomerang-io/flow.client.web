@@ -141,6 +141,9 @@ export class Overview extends Component {
             title="Team"
             label="Team"
             placeholder="Select a team"
+            shouldFilterItem={({ item, inputValue }) =>
+              item && item.name.toLowerCase().includes(inputValue.toLowerCase())
+            }
           />
           <TextInput
             className="b-overview__text-input"
