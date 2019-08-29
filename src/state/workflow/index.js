@@ -49,7 +49,8 @@ export const initialState = {
       },
       event: {
         enable: false,
-        topic: ""
+        topic: "",
+        enableIAMIntegration: false
       }
     },
     enablePersistentStorage: false,

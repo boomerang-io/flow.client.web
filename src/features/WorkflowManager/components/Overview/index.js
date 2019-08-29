@@ -100,6 +100,11 @@ export class Overview extends Component {
     this.props.formikProps.setFieldValue("event", value);
   };
 
+  handleOnIamChange = value => {
+    this.props.workflowActions.updateTriggersEvent({ value, key: "enableIAMIntegration" });
+    this.props.formikProps.setFieldValue("enableIAMIntegration", value);
+  };
+
   handleOnTopicChange = e => {
     const { value, id } = e.target;
     this.props.workflowActions.updateTriggersEvent({ value, key: id });
@@ -378,6 +383,16 @@ export class Overview extends Component {
                     onBlur={handleBlur}
                     onChange={this.handleOnTopicChange}
                   />
+                  <div className="b-event-iamIntegration">
+                    <Toggle
+                      id="enableIAMIntegration"
+                      labelText="Enable IBM Services IAM Integration"
+                      toggled={values.enableIAMIntegration}
+                      onToggle={checked => this.handleOnIamChange(checked)}
+                      tooltipContent="Enable workflow to be triggered by IAM subscription"
+                      tooltipProps={{ direction: "top" }}
+                    />
+                  </div>
                 </div>
               )}
             </div>
