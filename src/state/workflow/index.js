@@ -49,11 +49,12 @@ export const initialState = {
       },
       event: {
         enable: false,
-        topic: "",
-        enableIAMIntegration: false
+        topic: ""
+        //enableIAMIntegration: false
       }
     },
     enablePersistentStorage: false,
+    enableIAMIntegration: false,
     properties: []
   }
 };

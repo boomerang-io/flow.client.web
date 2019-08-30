@@ -101,7 +101,8 @@ export class Overview extends Component {
   };
 
   handleOnIamChange = value => {
-    this.props.workflowActions.updateTriggersEvent({ value, key: "enableIAMIntegration" });
+    //this.props.workflowActions.updateTriggersEvent({ value, key: "enableIAMIntegration" });
+    this.props.workflowActions.updateProperty({ value, key: "enableIAMIntegration" });
     this.props.formikProps.setFieldValue("enableIAMIntegration", value);
   };
 
