@@ -14,56 +14,8 @@
   width: 40%;
 }
 
+.b-inputs-modal-type,
+.b-inputs-modal-select,
 .b-inputs-modal-text {
   margin-bottom: 1rem;
-}
-
-.b-inputs-modal-toggle {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.b-inputs-modal-toggle__title {
-  font-size: 1.2rem;
-  letter-spacing: 0.03125rem;
-  line-height: 1.125rem;
-  font-weight: 300;
-}
-
-.b-inputs-modal-type {
-  margin-bottom: 2rem;
-
-  .b-inputs-modal-type__title {
-    font-size: 0.875rem;
-    letter-spacing: 0.03125rem;
-    line-height: 1.125rem;
-    font-weight: 300;
-    margin-bottom: 0.3125rem;
-  }
-
-  .Select-control {
-    height: 2.15625rem;
-    border-radius: 0.2rem;
-  }
-}
-
-.b-inputs-modal-select {
-  .b-inputs-modal-select__title {
-    font-size: 0.875rem;
-    letter-spacing: 0.03125rem;
-    line-height: 1.125rem;
-    font-weight: 300;
-    margin-bottom: 0.3125rem;
-  }
-
-  .Select-control {
-    height: 2.15625rem;
-    border-radius: 0.2rem;
-  }
-}
-
-.bx--text-area {
-  resize: vertical;
-  width: 100%;
 }

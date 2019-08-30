@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CloseIcon from "Assets/icons/CloseIcon";
+import { Close32 } from "@carbon/icons-react";
 import "./styles.scss";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
@@ -73,7 +73,7 @@ const OnBoardGuide = props => {
         role="button"
         tabIndex="0"
       >
-        <CloseIcon className="b-onboard-screen-modal-close__img" />
+        <Close32 className="b-onboard-screen-modal-close__img" />
       </div>
       <div className="b-onboard-screen-title">{title}</div>
       <div className="b-onboard-screen-content">{message}</div>

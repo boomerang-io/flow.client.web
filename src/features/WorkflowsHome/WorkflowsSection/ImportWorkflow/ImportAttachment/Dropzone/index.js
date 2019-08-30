@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Dropzone from "react-dropzone";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
+import { CloseOutline16 } from "@carbon/icons-react";
 import image from "Assets/icons/docs.svg";
-import closeBlack from "Assets/svg/close_black.svg";
 import "./styles.scss";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
@@ -134,7 +134,7 @@ class DropZone extends Component {
                   role="button"
                   tabIndex="0"
                 >
-                  <img src={closeBlack} className="b-import-dropzone-close__img" alt="close-dropzone" />
+                  <CloseOutline16 className="b-import-dropzone-close__img" />
                 </div>
                 <Tooltip id="remove">Remove</Tooltip>
               </div>

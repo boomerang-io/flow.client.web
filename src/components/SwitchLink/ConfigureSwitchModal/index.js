@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import TextArea from "@boomerang/boomerang-components/lib/TextArea";
-import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import { TextArea, Toggle } from "@boomerang/carbon-addons-boomerang-react";
+// import TextArea from "@boomerang/boomerang-components/lib/TextArea";
+// import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import "./styles.scss";
 
 class ConfigureSwitchModal extends React.Component {
@@ -38,21 +39,24 @@ class ConfigureSwitchModal extends React.Component {
   };
 
   render() {
-    const { defaultState, updateDefaultState, validateSwitch } = this.props;
+    const { defaultState, updateDefaultState } = this.props;
+
+    const { switchCondition } = this.state;
+
     return (
       <form onSubmit={this.handleSubmit}>
         <ModalContentBody style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}>
           <div className="b-switch-config__desc">Default?</div>
           <div className="b-switch-config">
-            <Toggle
-              aria-labelledby="toggle-default"
-              className="b-switch-config__toggle"
-              id="default"
-              name="default"
-              checked={defaultState}
-              onChange={updateDefaultState}
-              theme="bmrg-flow"
-            />
+            <div className="b-switch-config__toggle">
+              <Toggle
+                aria-labelledby="toggle-default"
+                id="default"
+                name="default"
+                toggled={defaultState}
+                onToggle={updateDefaultState}
+              />
+            </div>
             <div className="b-switch-config__explanation">This path will be taken when no others are matched line.</div>
           </div>
 
@@ -60,16 +64,14 @@ class ConfigureSwitchModal extends React.Component {
             {!defaultState && (
               <div>
                 <TextArea
-                  alwaysShowTitle
-                  required
-                  value={this.state.switchCondition === null ? "" : this.state.switchCondition}
-                  title="Switch Property Value"
-                  placeholder="Enter a value"
+                  id="property"
+                  invalid={switchCondition === undefined || switchCondition === "" || switchCondition === " "}
+                  labelText="Switch Property Value"
                   name="property"
-                  theme="bmrg-flow"
-                  handleChange={value => this.setState({ switchCondition: value })}
-                  style={{ paddingBottom: "1rem" }}
-                  validationFunction={validateSwitch}
+                  placeholder="Enter a value"
+                  onChange={e => this.setState({ switchCondition: e.target.value })}
+                  style={{ resize: "none" }}
+                  value={switchCondition === null ? "" : switchCondition}
                 />
                 <div className="s-switch-customvalue-desc">
                   Enter the value(s) to match to take this arrow. Multiple values can be entered, one per line. Only one

@@ -34,31 +34,31 @@ Array [
       className="header"
     >
       <div
-        aria-labelledby="properties-table-search-label"
-        className="bx--search bx--search--lg search"
-        role="search"
+        className="bx--search bx--search--xl search"
       >
         <svg
-          alt="Search"
-          aria-label="Search"
+          aria-hidden={true}
           className="bx--search-magnifier"
-          fillRule="evenodd"
-          height="16"
+          focusable="false"
+          height={16}
+          preserveAspectRatio="xMidYMid meet"
           role="img"
+          style={
+            Object {
+              "willChange": "transform",
+            }
+          }
           viewBox="0 0 16 16"
-          width="16"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <title>
-            Search
-          </title>
           <path
-            d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm4.936-1.27l4.563 4.557-.707.708-4.563-4.558a6.5 6.5 0 1 1 .707-.707z"
+            d="M15 14.3L10.7 10c1.9-2.3 1.6-5.8-.7-7.7S4.2.7 2.3 3 .7 8.8 3 10.7c2 1.7 5 1.7 7 0l4.3 4.3.7-.7zM2 6.5C2 4 4 2 6.5 2S11 4 11 6.5 9 11 6.5 11 2 9 2 6.5z"
           />
         </svg>
         <label
           className="bx--label"
           htmlFor="properties-table-search"
-          id="properties-table-search-label"
         >
           Search
         </label>
@@ -70,24 +70,28 @@ Array [
           type="text"
         />
         <button
+          aria-label="Clear search input"
           className="bx--search-close bx--search-close--hidden"
           onClick={[Function]}
           type="button"
         >
           <svg
-            alt="Provide a description that will be used as the title"
-            aria-label="Provide a description that will be used as the title"
-            fillRule="evenodd"
-            height="16"
+            aria-label="Clear search input"
+            focusable="false"
+            height={20}
+            preserveAspectRatio="xMidYMid meet"
             role="img"
-            viewBox="0 0 16 16"
-            width="16"
+            style={
+              Object {
+                "willChange": "transform",
+              }
+            }
+            viewBox="0 0 32 32"
+            width={20}
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <title>
-              Provide a description that will be used as the title
-            </title>
             <path
-              d="M8 6.586L5.879 4.464 4.464 5.88 6.586 8l-2.122 2.121 1.415 1.415L8 9.414l2.121 2.122 1.415-1.415L9.414 8l2.122-2.121-1.415-1.415L8 6.586zM8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+              d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
             />
           </svg>
         </button>
@@ -104,11 +108,6 @@ Array [
         <button
           className="bx--btn bx--btn--primary"
           disabled={false}
-          style={
-            Object {
-              "width": "9rem",
-            }
-          }
           tabIndex={0}
           type="button"
         >
@@ -117,222 +116,86 @@ Array [
       </div>
     </div>
     <div
-      className="bx--data-table-v2-container"
+      className="bx--data-table-container"
     >
       <table
-        className="bx--data-table-v2"
+        className="bx--data-table bx--data-table--no-border"
+        zebra={false}
       >
         <thead>
           <tr
             className="tableHeadRow"
           >
             <th
-              aria-sort="none"
               className="tableHeadHeader label"
+              id="label"
               scope="col"
             >
-              <button
-                className="tableHeadHeader label bx--table-sort-v2"
-                id="label"
-                onClick={[Function]}
+              <span
+                className="bx--table-header-label"
               >
-                <span
-                  className="bx--table-header-label"
-                >
-                  Label
-                </span>
-                <svg
-                  alt="Sort rows by this header in ascending order"
-                  aria-label="Sort rows by this header in ascending order"
-                  className="bx--table-sort-v2__icon"
-                  fillRule="evenodd"
-                  height="5"
-                  role="img"
-                  viewBox="0 0 10 5"
-                  width="10"
-                >
-                  <title>
-                    Sort rows by this header in ascending order
-                  </title>
-                  <path
-                    d="M0 5L5 .002 10 5z"
-                  />
-                </svg>
-              </button>
+                Label
+              </span>
             </th>
             <th
-              aria-sort="none"
               className="tableHeadHeader key"
+              id="key"
               scope="col"
             >
-              <button
-                className="tableHeadHeader key bx--table-sort-v2"
-                id="key"
-                onClick={[Function]}
+              <span
+                className="bx--table-header-label"
               >
-                <span
-                  className="bx--table-header-label"
-                >
-                  Key
-                </span>
-                <svg
-                  alt="Sort rows by this header in ascending order"
-                  aria-label="Sort rows by this header in ascending order"
-                  className="bx--table-sort-v2__icon"
-                  fillRule="evenodd"
-                  height="5"
-                  role="img"
-                  viewBox="0 0 10 5"
-                  width="10"
-                >
-                  <title>
-                    Sort rows by this header in ascending order
-                  </title>
-                  <path
-                    d="M0 5L5 .002 10 5z"
-                  />
-                </svg>
-              </button>
+                Key
+              </span>
             </th>
             <th
-              aria-sort="none"
               className="tableHeadHeader description"
+              id="description"
               scope="col"
             >
-              <button
-                className="tableHeadHeader description bx--table-sort-v2"
-                id="description"
-                onClick={[Function]}
+              <span
+                className="bx--table-header-label"
               >
-                <span
-                  className="bx--table-header-label"
-                >
-                  Description
-                </span>
-                <svg
-                  alt="Sort rows by this header in ascending order"
-                  aria-label="Sort rows by this header in ascending order"
-                  className="bx--table-sort-v2__icon"
-                  fillRule="evenodd"
-                  height="5"
-                  role="img"
-                  viewBox="0 0 10 5"
-                  width="10"
-                >
-                  <title>
-                    Sort rows by this header in ascending order
-                  </title>
-                  <path
-                    d="M0 5L5 .002 10 5z"
-                  />
-                </svg>
-              </button>
+                Description
+              </span>
             </th>
             <th
-              aria-sort="none"
               className="tableHeadHeader value"
+              id="value"
               scope="col"
             >
-              <button
-                className="tableHeadHeader value bx--table-sort-v2"
-                id="value"
-                onClick={[Function]}
+              <span
+                className="bx--table-header-label"
               >
-                <span
-                  className="bx--table-header-label"
-                >
-                  Value
-                </span>
-                <svg
-                  alt="Sort rows by this header in ascending order"
-                  aria-label="Sort rows by this header in ascending order"
-                  className="bx--table-sort-v2__icon"
-                  fillRule="evenodd"
-                  height="5"
-                  role="img"
-                  viewBox="0 0 10 5"
-                  width="10"
-                >
-                  <title>
-                    Sort rows by this header in ascending order
-                  </title>
-                  <path
-                    d="M0 5L5 .002 10 5z"
-                  />
-                </svg>
-              </button>
+                Value
+              </span>
             </th>
             <th
-              aria-sort="none"
               className="tableHeadHeader secured"
+              id="secured"
               scope="col"
             >
-              <button
-                className="tableHeadHeader secured bx--table-sort-v2"
-                id="secured"
-                onClick={[Function]}
+              <span
+                className="bx--table-header-label"
               >
-                <span
-                  className="bx--table-header-label"
-                >
-                  Secured
-                </span>
-                <svg
-                  alt="Sort rows by this header in ascending order"
-                  aria-label="Sort rows by this header in ascending order"
-                  className="bx--table-sort-v2__icon"
-                  fillRule="evenodd"
-                  height="5"
-                  role="img"
-                  viewBox="0 0 10 5"
-                  width="10"
-                >
-                  <title>
-                    Sort rows by this header in ascending order
-                  </title>
-                  <path
-                    d="M0 5L5 .002 10 5z"
-                  />
-                </svg>
-              </button>
+                Secured
+              </span>
             </th>
             <th
-              aria-sort="none"
               className="tableHeadHeader actions "
+              id="actions "
               scope="col"
             >
-              <button
-                className="tableHeadHeader actions  bx--table-sort-v2"
-                id="actions "
-                onClick={[Function]}
+              <span
+                className="bx--table-header-label"
               >
-                <span
-                  className="bx--table-header-label"
-                >
-                  Actions
-                </span>
-                <svg
-                  alt="Sort rows by this header in ascending order"
-                  aria-label="Sort rows by this header in ascending order"
-                  className="bx--table-sort-v2__icon"
-                  fillRule="evenodd"
-                  height="5"
-                  role="img"
-                  viewBox="0 0 10 5"
-                  width="10"
-                >
-                  <title>
-                    Sort rows by this header in ascending order
-                  </title>
-                  <path
-                    d="M0 5L5 .002 10 5z"
-                  />
-                </svg>
-              </button>
+                Actions
+              </span>
             </th>
           </tr>
         </thead>
         <tbody
+          aria-live="polite"
           className="tableBody"
         >
           <tr
@@ -482,87 +345,158 @@ Array [
       <div
         className="bx--pagination__left"
       >
-        <span
+        <label
           className="bx--pagination__text"
+          htmlFor="bx-pagination-select-1"
+          id="bx-pagination-select-1-count-label"
         >
           Items per page:
-        </span>
+        </label>
         <div
           className="bx--form-item"
         >
           <div
-            className="bx--select bx--select--inline"
+            className="bx--select bx--select--inline bx--select__item-count"
           >
-            <label
-              className="bx--label bx--visually-hidden"
-              htmlFor="bx-pagination-select-1"
+            <div
+              className="bx--select-input--inline__wrapper"
             >
-              Items per page:
-            </label>
-            <select
-              className="bx--select-input"
-              id="bx-pagination-select-1"
-              onChange={[Function]}
-              value={10}
-            >
-              <option
-                className="bx--select-option"
-                disabled={false}
-                hidden={false}
-                value={10}
+              <div
+                className="bx--select-input__wrapper"
+                data-invalid={null}
               >
-                10
-              </option>
-              <option
-                className="bx--select-option"
-                disabled={false}
-                hidden={false}
-                value={25}
-              >
-                25
-              </option>
-              <option
-                className="bx--select-option"
-                disabled={false}
-                hidden={false}
-                value={50}
-              >
-                50
-              </option>
-            </select>
-            <svg
-              alt="open list of options"
-              aria-label="open list of options"
-              className="bx--select__arrow"
-              fillRule="evenodd"
-              height="5"
-              role="img"
-              viewBox="0 0 10 5"
-              width="10"
-            >
-              <title>
-                open list of options
-              </title>
-              <path
-                d="M0 0l5 4.998L10 0z"
-              />
-            </svg>
+                <select
+                  className="bx--select-input"
+                  id="bx-pagination-select-1"
+                  onChange={[Function]}
+                  value={10}
+                >
+                  <option
+                    className="bx--select-option"
+                    disabled={false}
+                    hidden={false}
+                    value={10}
+                  >
+                    10
+                  </option>
+                  <option
+                    className="bx--select-option"
+                    disabled={false}
+                    hidden={false}
+                    value={25}
+                  >
+                    25
+                  </option>
+                  <option
+                    className="bx--select-option"
+                    disabled={false}
+                    hidden={false}
+                    value={50}
+                  >
+                    50
+                  </option>
+                </select>
+                <svg
+                  aria-label="open list of options"
+                  className="bx--select__arrow"
+                  focusable="false"
+                  height={16}
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  style={
+                    Object {
+                      "willChange": "transform",
+                    }
+                  }
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                  />
+                  <title>
+                    open list of options
+                  </title>
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
         <span
           className="bx--pagination__text"
         >
-           |  
           1–1 of 1 items
         </span>
       </div>
       <div
-        className="bx--pagination__right bx--pagination--inline"
+        className="bx--pagination__right"
       >
+        <div
+          className="bx--form-item"
+        >
+          <div
+            className="bx--select bx--select--inline bx--select__page-number"
+          >
+            <label
+              className="bx--label bx--visually-hidden"
+              htmlFor="bx-pagination-select-3"
+            >
+              Page number, of 1 pages
+            </label>
+            <div
+              className="bx--select-input--inline__wrapper"
+            >
+              <div
+                className="bx--select-input__wrapper"
+                data-invalid={null}
+              >
+                <select
+                  className="bx--select-input"
+                  id="bx-pagination-select-3"
+                  onChange={[Function]}
+                  value={1}
+                >
+                  <option
+                    className="bx--select-option"
+                    disabled={false}
+                    hidden={false}
+                    value={1}
+                  >
+                    1
+                  </option>
+                </select>
+                <svg
+                  aria-label="open list of options"
+                  className="bx--select__arrow"
+                  focusable="false"
+                  height={16}
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  style={
+                    Object {
+                      "willChange": "transform",
+                    }
+                  }
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                  />
+                  <title>
+                    open list of options
+                  </title>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
         <span
           className="bx--pagination__text"
         >
-          1 of 1 pages
+          of 1 pages
         </span>
         <button
           aria-label="Previous page"
@@ -571,90 +505,46 @@ Array [
           onClick={[Function]}
         >
           <svg
-            alt="Previous page"
-            aria-label="Previous page"
-            className="bx--pagination__button-icon"
-            fillRule="evenodd"
-            height="12"
-            role="img"
-            viewBox="0 0 7 12"
-            width="7"
+            aria-hidden={true}
+            focusable="false"
+            height={24}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "willChange": "transform",
+              }
+            }
+            viewBox="0 0 32 32"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <title>
-              Previous page
-            </title>
             <path
-              d="M1.45 6.002L7 11.27l-.685.726L0 6.003 6.315 0 7 .726z"
+              d="M19 23l-8-7 8-7v14z"
             />
           </svg>
         </button>
-        <div
-          className="bx--form-item"
-        >
-          <div
-            className="bx--select bx--select--inline"
-          >
-            <label
-              className="bx--label bx--visually-hidden"
-              htmlFor="bx-pagination-select-3"
-            >
-              Items per page:
-            </label>
-            <select
-              className="bx--select-input"
-              id="bx-pagination-select-3"
-              onChange={[Function]}
-              value={1}
-            >
-              <option
-                className="bx--select-option"
-                disabled={false}
-                hidden={false}
-                value={1}
-              >
-                1
-              </option>
-            </select>
-            <svg
-              alt="open list of options"
-              aria-label="open list of options"
-              className="bx--select__arrow"
-              fillRule="evenodd"
-              height="5"
-              role="img"
-              viewBox="0 0 10 5"
-              width="10"
-            >
-              <title>
-                open list of options
-              </title>
-              <path
-                d="M0 0l5 4.998L10 0z"
-              />
-            </svg>
-          </div>
-        </div>
         <button
           aria-label="Next page"
-          className="bx--pagination__button bx--pagination__button--forward"
+          className="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index"
           disabled={true}
           onClick={[Function]}
         >
           <svg
-            alt="Next page"
-            aria-label="Next page"
-            className="bx--pagination__button-icon"
-            fillRule="evenodd"
-            height="12"
-            role="img"
-            viewBox="0 0 7 12"
-            width="7"
+            aria-hidden={true}
+            focusable="false"
+            height={24}
+            preserveAspectRatio="xMidYMid meet"
+            style={
+              Object {
+                "willChange": "transform",
+              }
+            }
+            viewBox="0 0 32 32"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <title>
-              Next page
-            </title>
             <path
-              d="M5.569 5.994L0 .726.687 0l6.336 5.994-6.335 6.002L0 11.27z"
+              d="M13 9l8 7-8 7V9z"
             />
           </svg>
         </button>

@@ -17,27 +17,23 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
         <div>
           <button>
             <svg
-              alt="Provide a description that will be used as the title"
-              aria-label="Provide a description that will be used as the title"
+              alt="Import Workflow"
+              aria-hidden="true"
               class="b-workflow-import__icon"
               currentItem="false"
               data-for="Lucas' team"
               data-tip="true"
-              fill-rule="evenodd"
-              height="24"
-              name="icon--upload"
-              role="img"
-              viewBox="0 0 24 24"
-              width="24"
+              focusable="false"
+              height="16"
+              iconTitle="icon--upload"
+              preserveAspectRatio="xMidYMid meet"
+              style="will-change: transform;"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <title>
-                Provide a description that will be used as the title
-              </title>
               <path
-                d="M5 6.6l1.2 1.1L11 3v13h2V3l4.8 4.7L19 6.6 12 0z"
-              />
-              <path
-                d="M22 14v6H2v-6H0v10h24V14z"
+                d="M3 9l.7.7 3.8-3.8V15h1V5.9l3.8 3.8.7-.7-5-5zm0-5V2h10v2h1V2c0-.6-.4-1-1-1H3c-.6 0-1 .4-1 1v2h1z"
               />
             </svg>
           </button>
@@ -59,14 +55,24 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
           <div
             class="b-workflow-placeholder__box"
           >
-            <img
-              alt="Create workflow"
-              class="b-workflow-placeholder__text"
-              currentitem="false"
+            <svg
+              aria-hidden="true"
+              class="b-workflow-placeholder__plus"
+              currentItem="false"
               data-for="1234"
               data-tip="true"
-              src="plus.svg"
-            />
+              focusable="false"
+              height="32"
+              preserveAspectRatio="xMidYMid meet"
+              style="will-change: transform;"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
+              />
+            </svg>
           </div>
           <div
             class="__react_component_tooltip place-top type-dark "

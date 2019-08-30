@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import Link from "@boomerang/boomerang-components/lib/Link";
-import close from "Assets/svg/close.svg";
+import { Close32 } from "@carbon/icons-react";
 import "./styles.scss";
 
 const SLACK_TEAM_ID = "T27TLPNS1";
@@ -36,7 +36,7 @@ class NotificationBanner extends Component {
           . Thanks!
         </div>
         <button className="b-notification-banner__button" onClick={this.closeBanner}>
-          <img src={close} className="b-notification-banner__close-icon" alt="Close" />
+          <Close32 className="b-notification-banner__close-icon" />
         </button>
       </div>
     );

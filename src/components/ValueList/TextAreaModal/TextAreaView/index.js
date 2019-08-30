@@ -64,7 +64,7 @@ const TextAreaView = props => {
 
   const saveValue = () => {
     props.setTextAreaValue(value);
-    props.onSelectTextInputChange(value, [], props.item.key);
+    props.formikSetFieldValue(value, errors, field);
     props.closeModal.call();
   };
 
@@ -365,7 +365,6 @@ TextAreaView.propTypes = {
   item: PropTypes.shape({
     name: PropTypes.string.isRequired
   }).isRequired,
-  onSelectTextInputChange: PropTypes.func.isRequired,
   setTextAreaValue: PropTypes.func.isRequired,
   shouldConfirmExit: PropTypes.func.isRequired,
   value: PropTypes.func.isRequired

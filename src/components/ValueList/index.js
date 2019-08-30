@@ -1,27 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { AutoSuggestTextInput, SelectDropdown, TextInput } from "@boomerang/boomerang-components";
+import { AutoSuggestTextInput } from "@boomerang/boomerang-components";
+import { ComboBox, ComboBoxMultiSelect, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import AutoSuggest from "Components/AutoSuggest";
 import Toggle from "./Toggle";
 import TextAreaModal from "./TextAreaModal";
-import isURL from "validator/lib/isURL";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
+import { INPUT_TYPES, TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
 import "./styles.scss";
-
-const INPUT_TYPES = {
-  text: { type: "text", validationFunction: () => {}, validationText: "" },
-  secured: { type: "password", validationFunction: () => {}, validationText: "" },
-  url: { type: "input", validationFunction: isURL, validationText: "Please enter a valid url" }
-};
-
-const TEXT_AREA_TYPES = {
-  textarea: { type: "textarea", validationFunction: () => {}, validationText: "" }
-};
-
-const SELECT_DROPDOWN_TYPES = {
-  select: { type: "select", isMultiselect: false },
-  multiselect: { type: "multiselect", isMultiselect: true }
-};
 
 function validateInput({ value, maxValueLength, minValueLength, validationFunction, validationText }) {
   if (maxValueLength !== undefined && value.length > maxValueLength) {
@@ -35,48 +21,41 @@ function validateInput({ value, maxValueLength, minValueLength, validationFuncti
   }
 }
 
-const ValueList = ({
-  form,
-  inputProperties,
-  node,
-  nodeConfig,
-  onSelectTextInputChange,
-  onToggleChange,
-  task,
-  taskNames,
-  updateNodeTaskName
-}) => {
-  const { inputs } = nodeConfig;
+const ValueList = ({ formikHandleChange, formikProps, formikSetFieldValue, inputProperties, task }) => {
   const { config: taskConfig } = task;
+  const { values, touched, errors, handleBlur, handleChange, setFieldValue } = formikProps;
 
   return (
     <>
       <div className="c-settings-value-list">
-        <TextInput
-          alwaysShowTitle
-          required
-          comparisonData={taskNames}
-          existValueText="Task name must be unique per workflow"
-          externallyControlled
-          name="taskName"
-          onChange={updateNodeTaskName}
-          noValueText="Name is required"
-          placeholder="Enter a task name"
-          theme="bmrg-flow"
-          title="Task Name"
-          value={node.taskName}
-        />
+        <div style={{ paddingBottom: "2.125rem" }}>
+          <TextInput
+            id="taskName"
+            labelText="Task Name"
+            name="taskName"
+            onBlur={handleBlur}
+            onChange={e => formikHandleChange(e, handleChange)}
+            placeholder="Enter a task name"
+            value={values.taskName}
+            invalid={errors.taskName && touched.taskName}
+            invalidText={errors.taskName}
+          />
+        </div>
         {taskConfig.map((item, index) => {
           const maxValueLength = item.maxValueLength;
           const minValueLength = item.minValueLength;
+          const key = item.key;
+          const inputValue = values[key];
+
           if (Object.keys(INPUT_TYPES).includes(item.type)) {
             const itemConfig = INPUT_TYPES[item.type];
             return (
-              <div key={item.key + index} style={{ paddingBottom: "2.125rem", position: "relative" }}>
+              <div key={key + index} style={{ paddingBottom: "2.125rem", position: "relative" }}>
                 <AutoSuggest
                   autoSuggestions={formatAutoSuggestProperties(inputProperties)}
-                  handleChange={onSelectTextInputChange}
-                  initialValue={inputs[item.key] || ""}
+                  handleChange={value => formikSetFieldValue(value, key, setFieldValue)}
+                  id={key}
+                  initialValue={inputValue}
                   inputProps={{
                     placeholder: item.description,
                     alwaysShowTitle: true,
@@ -84,7 +63,7 @@ const ValueList = ({
                     type: itemConfig.type,
                     theme: "bmrg-flow"
                   }}
-                  name={item.key}
+                  name={key}
                   theme="bmrg-flow"
                   validationFunction={value =>
                     validateInput({
@@ -103,43 +82,63 @@ const ValueList = ({
           } else if (Object.keys(TEXT_AREA_TYPES).includes(item.type)) {
             const itemConfig = TEXT_AREA_TYPES[item.type];
             return (
-              <div key={item.key + index} style={{ position: "relative", cursor: "pointer" }}>
+              <div key={key + index} style={{ position: "relative", cursor: "pointer" }}>
                 <TextAreaModal
-                  inputs={inputs}
+                  formikSetFieldValue={value => formikSetFieldValue(value, key, setFieldValue)}
+                  initialValue={inputValue}
                   inputProperties={inputProperties}
                   item={item}
                   itemConfig={itemConfig}
-                  onSelectTextInputChange={onSelectTextInputChange}
+                  minValueLength={minValueLength}
+                  maxValueLength={maxValueLength}
+                  validateInput={validateInput}
                 />
               </div>
             );
-          } else if (Object.keys(SELECT_DROPDOWN_TYPES).includes(item.type)) {
+          } else if (item.type === SELECT_TYPES.select.type) {
             return (
-              <div key={item.key + index} style={{ marginBottom: "2.125rem" }}>
-                <SelectDropdown
-                  simpleValue
-                  key={item.key + index}
-                  multi={item.isMultiselect}
-                  name={item.key}
-                  onChange={onSelectTextInputChange}
-                  options={item.options.map(option => ({ value: option, label: option }))}
-                  styles={{ width: "100%" }}
-                  theme="bmrg-flow"
-                  title={item.label}
-                  value={form[item.key] ? form[item.key].value : inputs[item.key] ? inputs[item.key] : ""}
+              <div key={key + index} style={{ marginBottom: "2.125rem" }}>
+                <ComboBox
+                  id={key}
+                  key={key + index}
+                  items={item.options.map(option => ({ value: option, label: option }))}
+                  itemToString={item => item && item.label}
+                  initialSelectedItem={inputValue}
+                  onChange={({ selectedItem }) =>
+                    formikSetFieldValue(
+                      selectedItem !== null ? selectedItem : { label: "", value: "" },
+                      key,
+                      setFieldValue
+                    )
+                  }
+                  titleText={item.label}
+                />
+              </div>
+            );
+          } else if (item.type === SELECT_TYPES.multiselect.type) {
+            return (
+              <div key={key + index} style={{ marginBottom: "2.125rem" }}>
+                <ComboBoxMultiSelect
+                  id={key}
+                  key={key + index}
+                  items={item.options.map(option => ({ value: option, label: option }))}
+                  itemToString={item => item && item.label}
+                  selectedItems={inputValue}
+                  onChange={({ selectedItems }) => formikSetFieldValue(selectedItems, key, setFieldValue)}
+                  titleText={item.label}
                 />
               </div>
             );
           } else {
             return (
               <Toggle
-                checked={String(inputs[item.key]) === "true" ? true : false}
+                checked={inputValue}
                 description={item.description}
-                id={item.key}
-                key={item.key + index}
+                id={key}
+                key={key + index}
                 label={item.label}
-                name={item.key}
-                onChange={onToggleChange}
+                name={key}
+                onChange={(checked, event, id) => formikSetFieldValue(checked, id, setFieldValue)}
               />
             );
           }
@@ -153,9 +152,9 @@ ValueList.propTypes = {
   form: PropTypes.object.isRequired,
   task: PropTypes.object.isRequired,
   nodeConfig: PropTypes.object.isRequired,
-  onSelectTextInputChange: PropTypes.func.isRequired,
+  formikSetFieldValue: PropTypes.func.isRequired,
   onToggleChange: PropTypes.func.isRequired,
-  updateNodeTaskName: PropTypes.func.isRequired,
+  formikHandleChange: PropTypes.func.isRequired,
   taskNames: PropTypes.array.isRequired,
   node: PropTypes.object.isRequired
 };

@@ -5,8 +5,7 @@
   flex-flow: row wrap;
   padding: 1rem;
 
-  .bx--text-area {
-    resize: none;
+  .bx--text-area__wrapper {
     width: 100%;
   }
 
@@ -23,7 +22,7 @@
     height: 40rem;
 
     .bx--form-item {
-      margin: 2rem 0rem;
+      margin: 1rem 0rem;
     }
 
     .b-overview__text-area {
@@ -101,21 +100,28 @@
 
   .b-webhook,
   .b-schedule,
+  .b-event,
   .b-persistence {
     display: flex;
     align-items: center;
-    padding-top: 1rem;
     min-height: 4rem;
+  }
+
+  .b-webhook__toggle {
+    width: 14rem;
+  }
+
+  .b-webhook-token__generate {
+    border: none;
+    background: none;
+    padding: 0;
   }
 
   .b-webhook-token {
     display: flex;
     align-items: center;
-    padding: 1rem 0rem 2rem;
-
-    .bmrg--c-text-input {
-      padding-bottom: 0rem;
-    }
+    padding: 0;
+    width: 100%;
   }
 
   .b-webhook-token__value {
@@ -123,29 +129,11 @@
     margin-right: 5 rem;
   }
 
-  .b-schedule__toggle {
-    margin-left: 2rem;
-  }
-  .b-webhook__toggle {
-    margin-left: 2.2rem;
-  }
-
-  .b-persistence__toggle {
-    margin-left: 2.5rem;
-    height: 1.125rem;
-  }
-
   .b-webhook-token__icon {
     cursor: pointer;
     width: 1.5rem;
     height: 1.5rem;
     margin: 0 0.75rem;
-  }
-
-  .b-webhook-token__generate {
-    border: none;
-    background: none;
-    padding: 0;
   }
 
   .b-schedule__information--cronMessage {
@@ -159,19 +147,21 @@
     padding-bottom: 1rem;
   }
 
+  .b-schedule__toggle {
+    width: 14rem;
+  }
+
   .b-options__infoIcon {
     height: 1.25rem;
     left: 0.5rem;
     position: relative;
   }
-  .b-event {
-    display: flex;
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-    min-height: 4rem;
-  }
 
   .b-event__toggle {
-    margin-left: 2rem;
+    width: 17rem;
+  }
+
+  .b-persistence__toggle {
+    width: 17rem;
   }
 }

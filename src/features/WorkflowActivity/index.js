@@ -21,7 +21,6 @@ export class WorkflowActivity extends Component {
     activityState: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    teamsActions: PropTypes.object.isRequired,
     teamsState: PropTypes.object.isRequired
   };
 
@@ -212,6 +211,7 @@ export class WorkflowActivity extends Component {
           <div className="c-workflow-activity-content">
             <div className="c-workflow-activity-header">
               <MultiSelect
+                id="teams-select"
                 useTitleInItem={false}
                 label="Teams"
                 invalid={false}
@@ -221,6 +221,7 @@ export class WorkflowActivity extends Component {
                 initialSelectedItems={selectedTeams}
               />
               <MultiSelect
+                id="workflows-select"
                 useTitleInItem={false}
                 label="Workflows"
                 invalid={false}
@@ -239,6 +240,7 @@ export class WorkflowActivity extends Component {
                 })}
               />
               <MultiSelect
+                id="triggers-select"
                 useTitleInItem={false}
                 label="Trigger"
                 invalid={false}
@@ -254,6 +256,7 @@ export class WorkflowActivity extends Component {
                 })}
               />
               <MultiSelect
+                id="status-select"
                 useTitleInItem={false}
                 label="Status"
                 invalid={false}

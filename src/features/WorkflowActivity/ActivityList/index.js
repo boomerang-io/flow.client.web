@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 // import axios from "axios";
 // import ActivityTable from "./ActivityTable";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
@@ -62,4 +63,4 @@ class ActivityList extends Component {
   }
 }
 
-export default ActivityList;
+export default withRouter(ActivityList);

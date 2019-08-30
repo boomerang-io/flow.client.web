@@ -8,9 +8,7 @@ import AlertModalWrapper from "@boomerang/boomerang-components/lib/AlertModal";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import InputsModal from "./InputsModal";
-import close from "Assets/svg/close_black.svg";
-import pencil from "Assets/svg/pencil.svg";
-import plus from "Assets/svg/plus.svg";
+import { Add32, Close32, Edit32 } from "@carbon/icons-react";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
@@ -79,7 +77,7 @@ class Inputs extends Component {
               <AlertModalWrapper
                 ModalTrigger={() => (
                   <button className="b-workflow-input__delete">
-                    <img data-tip data-for={`${input.id}`} src={close} alt="delete" />
+                    <Close32 data-tip data-for={`${input.id}`} className="b-workflow-input__delete-icon" />
                     <Tooltip id={`${input.id}`} place="top">
                       Delete Input
                     </Tooltip>
@@ -107,7 +105,7 @@ class Inputs extends Component {
                 Button={() => (
                   <button className="b-workflow-input-edit">
                     Edit
-                    <img className="b-workflow-input-edit__pencil" src={pencil} alt="Edit input" />
+                    <Edit32 className="b-workflow-input-edit__pencil" />
                   </button>
                 )}
                 input={input}
@@ -122,7 +120,7 @@ class Inputs extends Component {
           Button={() => (
             <div className="b-workflow-input-create">
               <button className="b-workflow-input-create__plus">
-                <img src={plus} alt="Create input" />
+                <Add32 className="b-workflow-input-create__plus-icon" />
               </button>
               Create New Property
             </div>
