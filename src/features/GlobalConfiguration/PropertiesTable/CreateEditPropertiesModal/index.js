@@ -43,7 +43,7 @@ class CreateEditPropertiesModal extends Component {
       <ModalWrapper
         isOpen={isOpen}
         modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => (!isEdit ? <Button style={{ width: "9rem" }}>Create Property</Button> : null)}
+        ModalTrigger={() => (!isEdit ? <Button>Create Property</Button> : null)}
         modalContent={closeModal => (
           <ModalFlow
             headerTitle={isEdit && property ? `EDIT ${property.label.toUpperCase()}` : "CREATE PROPERTY"}

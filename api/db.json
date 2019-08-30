@@ -5862,7 +5862,7 @@
       }
     ],
     "features": {
-      "notifications.enabled": true
+      "notifications.enabled": false
     },
     "platform": {
       "name": "IBM Boomerang Platform",

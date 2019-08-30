@@ -1,6 +1,6 @@
 {
   "port": 8000,
-  "quiet": false,
+  "quiet": true,
   "routes": "./api/routes.json",
   "middlewares": "./api/middleware/index.js"
 }

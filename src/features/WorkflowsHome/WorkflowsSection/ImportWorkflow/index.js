@@ -6,7 +6,7 @@ import { actions as importWorkflowActions } from "State/importWorkflow";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
-import { Icon } from "carbon-components-react";
+import { Upload16 } from "@carbon/icons-react";
 import ImportAttachment from "./ImportAttachment";
 import ImportConfirm from "./ImportConfirm";
 import ImportType from "./ImportType";
@@ -53,11 +53,12 @@ class ImportWorkflow extends Component {
         modalProps={{ shouldCloseOnOverlayClick: false }}
         ModalTrigger={() => (
           <button>
-            <Icon
+            <Upload16
               data-tip
               data-for={this.props.teamId}
               className="b-workflow-import__icon"
-              name="icon--upload"
+              //name="icon--upload"
+              iconTitle="icon--upload"
               alt="Import Workflow"
             />
           </button>

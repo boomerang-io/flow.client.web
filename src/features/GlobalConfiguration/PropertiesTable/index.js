@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import matchSorter from "match-sorter";
-import { DataTable, Search, PaginationV2 as Pagination } from "carbon-components-react";
+import { DataTable, Search, Pagination } from "carbon-components-react";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import CreateEditPropertiesModal from "./CreateEditPropertiesModal";

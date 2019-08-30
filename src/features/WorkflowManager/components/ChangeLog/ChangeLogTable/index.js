@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import matchSorter from "match-sorter";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { DataTable, Search, PaginationV2 as Pagination } from "carbon-components-react";
+import { DataTable, Search, Pagination } from "carbon-components-react";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import { arrayPagination } from "Utilities/arrayHelper";
 import styles from "./changeLogTable.module.scss";

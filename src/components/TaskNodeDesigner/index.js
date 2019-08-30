@@ -13,7 +13,6 @@ import DisplayForm from "Components/DisplayForm";
 import pencilIcon from "./pencil.svg";
 import mapTaskNametoIcon from "Utilities/taskIcons";
 import "./styles.scss";
-import { Icon } from "carbon-components-react";
 
 export class TaskNode extends Component {
   static propTypes = {
@@ -93,12 +92,7 @@ export class TaskNode extends Component {
         <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
-        <Icon
-          fill="#40D5BB"
-          name={mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
-          className="b-task-node__img"
-          alt="Task node type"
-        />
+        {mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
         {this.renderConfigureNode()}
       </div>
     );

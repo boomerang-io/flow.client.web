@@ -109,10 +109,7 @@ const ValueList = ({
                   inputProperties={inputProperties}
                   item={item}
                   itemConfig={itemConfig}
-                  minValueLength={minValueLength}
-                  maxValueLength={maxValueLength}
                   onSelectTextInputChange={onSelectTextInputChange}
-                  validateInput={validateInput}
                 />
               </div>
             );
