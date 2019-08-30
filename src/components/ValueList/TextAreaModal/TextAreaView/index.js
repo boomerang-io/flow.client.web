@@ -64,7 +64,7 @@ const TextAreaView = props => {
 
   const saveValue = () => {
     props.setTextAreaValue(value);
-    props.formikSetFieldValue(value, errors, field);
+    props.formikSetFieldValue(value);
     props.closeModal.call();
   };
 
