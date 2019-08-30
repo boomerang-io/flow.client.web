@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { ModalContentBody, ModalContentFooter, ModalConfirmButton } from "@boomerang/boomerang-components";
 import { Controlled as CodeMirrorReact } from "react-codemirror2";
@@ -18,49 +18,49 @@ import "codemirror/addon/fold/brace-fold.js";
 import "codemirror/addon/fold/indent-fold.js";
 import "codemirror/addon/fold/comment-fold.js";
 import "codemirror/addon/comment/comment.js";
-import "./styles.scss";
-import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16, Chat20 } from "@carbon/icons-react";
+import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16 } from "@carbon/icons-react";
 import { Toolbar, ToolbarItem, Search, Dropdown, Button } from "carbon-components-react";
 import CodeMirror from "codemirror";
-
-const dictionary = [
-  { text: "${p:test}", displayText: "test" },
-  { text: "${p:tester}", displayText: "tester" },
-  { text: "${p:testers}", displayText: "testers" },
-  { text: "${p:testing}", displayText: "testing" },
-  { text: "${p:testinging}", displayText: "testinging" }
-];
+import "./styles.scss";
 
 function escapeRegExp(val) {
   return val && val.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-CodeMirror.registerHelper("hint", "dictionaryHint", function(editor) {
-  const cur = editor.getCursor();
-  const curLine = editor.getLine(cur.line);
-  let start = cur.ch;
-  let end = start;
-  while (end < curLine.length && /[\w${:]/.test(curLine.charAt(end))) ++end;
-  while (start && /[\w${:]/.test(curLine.charAt(start - 1))) --start;
-  const curWord = start !== end && curLine.slice(start, end);
-  const regex = new RegExp("^" + escapeRegExp(curWord), "i");
-  return {
-    list: (!curWord || !curWord.startsWith("${p:") ? [] : dictionary.filter(item => item.text.match(regex))).sort(), //|| item.displayText.match(regex)
-    from: CodeMirror.Pos(cur.line, start),
-    to: CodeMirror.Pos(cur.line, end)
-  };
-});
-
 const TextAreaView = props => {
   const [value, setValue] = useState(props.value);
   const editor = useRef(null);
-  // const [errors, setErrors] = useState({});
   const [doc, setDoc] = useState();
   const [searchText, setSearchText] = useState("");
   const [clipboard, setClipboard] = useState("");
-  // const [replaceText, setReplaceText] = useState();
-  // const [language, setLanguage] = useState({ id: "text", label: "Text" });
   const [languageParams, setLanguageParams] = useState({});
+
+  useEffect(() => {
+    const autoSuggestions = props.autoSuggestions.map(elm => {
+      return { text: elm.value, displayText: elm.label };
+    });
+
+    CodeMirror.registerHelper("hint", "dictionaryHint", function(editor) {
+      const cur = editor.getCursor();
+      const curLine = editor.getLine(cur.line);
+      let start = cur.ch;
+      let end = start;
+      while (end < curLine.length && /[\w${:]/.test(curLine.charAt(end))) ++end;
+      while (start && /[\w${:]/.test(curLine.charAt(start - 1))) --start;
+      const curWord = start !== end && curLine.slice(start, end);
+      const regex = new RegExp("^" + escapeRegExp(curWord), "i");
+      return {
+        list: (!curWord
+          ? []
+          : autoSuggestions.filter(
+              item => (curWord.startsWith("${p:") && item.text.match(regex)) || item.displayText.match(regex)
+            )
+        ).sort(),
+        from: CodeMirror.Pos(cur.line, start),
+        to: CodeMirror.Pos(cur.line, end)
+      };
+    });
+  }, [props.autoSuggestions]);
 
   const saveValue = () => {
     props.setTextAreaValue(value);
@@ -118,12 +118,6 @@ const TextAreaView = props => {
     editor.current.focus();
   };
 
-  // const replace = () => {
-  //   const cursor = doc.getSearchCursor(searchText, { line: 0, ch: 0 });
-  //   cursor.findNext();
-  //   cursor.replace(replaceText);
-  // };
-
   const languages = [
     {
       id: "javascript",
@@ -138,13 +132,12 @@ const TextAreaView = props => {
   const languageOptions = languages.map(language => ({ id: language.id, text: language.text }));
 
   const onChangeLanguge = language => {
-    // setLanguage(language);
     setLanguageParams(languages.find(value => value.id === language.selectedItem.id).params);
   };
 
-  const commentCode = () => {
-    editor.current.toggleComment();
-  };
+  // const commentCode = () => {
+  //   editor.current.toggleComment();
+  // };
 
   //TB trying to get autocomplete to work
   const autoComplete = cm => {
@@ -154,6 +147,7 @@ const TextAreaView = props => {
   const foldCode = cm => {
     cm.foldCode(cm.getCursor());
   };
+
   const toggleComment = cm => {
     cm.toggleComment();
   };
@@ -194,7 +188,7 @@ const TextAreaView = props => {
               hasIconOnly
               renderIcon={Undo20}
               onClick={undo}
-              style={{ padding: "0.6875rem 0.75rem 0.6875rem 0.75rem", margin: "0.125rem" }}
+              className="b-task-text-area__button"
             />
           </ToolbarItem>
           <ToolbarItem>
@@ -207,7 +201,7 @@ const TextAreaView = props => {
               hasIconOnly
               renderIcon={Redo20}
               onClick={redo}
-              style={{ padding: "0.6875rem 0.75rem 0.6875rem 0.75rem", margin: "0.125rem" }}
+              className="b-task-text-area__button"
             />
           </ToolbarItem>
           <ToolbarItem>
@@ -220,7 +214,7 @@ const TextAreaView = props => {
               hasIconOnly
               renderIcon={Copy20}
               onClick={copy}
-              style={{ padding: "0.6875rem 0.75rem 0.6875rem 0.75rem", margin: "0.125rem" }}
+              className="b-task-text-area__button"
             />
           </ToolbarItem>
           <ToolbarItem>
@@ -233,7 +227,7 @@ const TextAreaView = props => {
               hasIconOnly
               renderIcon={Cut20}
               onClick={cut}
-              style={{ padding: "0.6875rem 0.75rem 0.6875rem 0.75rem", margin: "0.125rem" }}
+              className="b-task-text-area__button"
             />
           </ToolbarItem>
           <ToolbarItem>
@@ -246,7 +240,7 @@ const TextAreaView = props => {
               hasIconOnly
               renderIcon={Paste20}
               onClick={paste}
-              style={{ padding: "0.6875rem 0.75rem 0.6875rem 0.75rem", margin: "0.125rem" }}
+              className="b-task-text-area__button"
             />
           </ToolbarItem>
           <ToolbarItem>
@@ -271,7 +265,7 @@ const TextAreaView = props => {
               hasIconOnly
               renderIcon={ArrowUp16}
               onClick={findPrevious}
-              style={{ padding: "0.6875rem 0.75rem 0.6875rem 0.75rem", margin: "0.125rem" }}
+              className="b-task-text-area__button"
             />
           </ToolbarItem>
           <ToolbarItem>
@@ -284,10 +278,10 @@ const TextAreaView = props => {
               hasIconOnly
               renderIcon={ArrowDown16}
               onClick={findNext}
-              style={{ padding: "0.6875rem 0.75rem 0.6875rem 0.75rem", margin: "0.125rem" }}
+              className="b-task-text-area__button"
             />
           </ToolbarItem>
-          <ToolbarItem>
+          {/* <ToolbarItem>
             <Button
               size="small"
               kind="ghost"
@@ -297,9 +291,9 @@ const TextAreaView = props => {
               hasIconOnly
               renderIcon={Chat20}
               onClick={commentCode}
-              style={{ padding: "0.6875rem 0.75rem 0.6875rem 0.75rem", margin: "0.125rem" }}
+              className="b-task-text-area__button"
             />
-          </ToolbarItem>
+          </ToolbarItem> */}
           <ToolbarItem>
             <div className="b-task-text-area__language-dropdown">
               <Dropdown

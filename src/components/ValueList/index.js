@@ -4,7 +4,7 @@ import { AutoSuggestTextInput } from "@boomerang/boomerang-components";
 import { ComboBox, ComboBoxMultiSelect, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import AutoSuggest from "Components/AutoSuggest";
 import Toggle from "./Toggle";
-import TextAreaModal from "./TextAreaModal";
+import TextAreaModal from "Components/TextAreaModal";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import { INPUT_TYPES, TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
 import "./styles.scss";
@@ -84,6 +84,7 @@ const ValueList = ({ formikHandleChange, formikProps, formikSetFieldValue, input
             return (
               <div key={key + index} style={{ position: "relative", cursor: "pointer" }}>
                 <TextAreaModal
+                  autoSuggestions={formatAutoSuggestProperties(inputProperties)}
                   formikSetFieldValue={value => formikSetFieldValue(value, key, setFieldValue)}
                   initialValue={inputValue}
                   inputProperties={inputProperties}
