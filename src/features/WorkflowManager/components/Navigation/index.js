@@ -25,8 +25,8 @@ function Navigation({ location, match, onlyShowBackLink }) {
             <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/overview`}>
               Overview
             </NavLink>
-            <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/inputs`}>
-              Inputs
+            <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/properties`}>
+              Properties
             </NavLink>
             <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/designer`}>
               Design

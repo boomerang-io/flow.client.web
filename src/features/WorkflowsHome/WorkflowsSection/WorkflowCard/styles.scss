@@ -91,14 +91,17 @@
   margin-bottom: 1rem;
 }
 .c-workflow-card__description {
-  display: flex;
-  flex-direction: column;
-  margin-right: 1rem;
-  width: 15rem;
   color: $gray-60;
-  font-size: 0.875rem;
   cursor: pointer;
-  margin-top: 1rem;
+  display: flex;
+  font-size: 0.875rem;
+  flex-direction: column;
+  margin: 1rem 2rem 0.625rem 0;
+  overflow: hidden;
+  width: 15rem;
+  &:focus {
+    outline: none;
+  }
 }
 .b-workflow-card__name {
   color: $gray-80;
@@ -106,12 +109,13 @@
   margin-bottom: 0.5rem;
   letter-spacing: 0.0625rem;
   font-weight: 500;
-  @include text-overflow-ellipsis();
+  text-align: left;
 }
 
 .b-workflow-card__description {
   font-size: 0.875rem;
   letter-spacing: 0.0625rem;
+  text-align: left;
   word-break: break-word;
 }
 

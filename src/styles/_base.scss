@@ -11,6 +11,10 @@ button {
   background: transparent;
 }
 
+a {
+  color: $cerulean-50;
+}
+
 /* body of the application */
 .c-app {
   margin: 0 auto;
@@ -282,10 +286,6 @@ button {
 }
 
 //Overwrite carbon
-.bx--pagination .bx--select-input {
-  padding: 0 1.25rem 0 0.625rem;
-}
-
 .bx--table-header-label {
   color: $tab-blue;
   padding-right: 0.5rem;
@@ -293,4 +293,18 @@ button {
 
 .bx--overflow-menu {
   height: auto;
+}
+
+.bx--search-input,
+.bx--search-close {
+  height: 2.5rem !important;
+}
+
+.bx--data-table th {
+  background-color: #fbfcfc !important;
+  border-bottom: 1px solid #ececec !important;
+}
+
+.bx--toggle-input:checked + .bx--toggle-input__label > .bx--toggle__switch::before {
+  background: $teal-20;
 }
