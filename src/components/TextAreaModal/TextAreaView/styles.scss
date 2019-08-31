@@ -1,9 +1,15 @@
 .CodeMirror {
   height: 36rem;
+  font-size: 1rem;
+}
+
+.CodeMirror-sizer {
+  font-size: 1rem;
 }
 
 .CodeMirror-hints {
   border: none;
+  border-radius: 0.25rem;
   letter-spacing: 0.0625rem;
   box-shadow: 0px 3px 3px 0 rgba(0, 0, 0, 0.1);
   position: absolute;
