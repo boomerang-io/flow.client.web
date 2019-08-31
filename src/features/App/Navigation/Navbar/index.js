@@ -13,33 +13,33 @@ import { BASE_URL } from "Config/servicesConfig";
 import { NavLink } from "react-router-dom";
 
 const FLOW_PATH = `${BASE_APPS_ENV_URL}${APP_ROOT}`;
-// const baseLaunchUrl = new URL(BASE_LAUNCH_ENV_URL);
-// const baseURL = baseLaunchUrl.origin;
+const baseLaunchUrl = new URL(BASE_LAUNCH_ENV_URL);
+const baseURL = baseLaunchUrl.origin;
 
 const onMenuClick = ({ isOpen, onMenuClose }) => (
   <InteriorLeftNav isOpen={isOpen} onMenuClose={onMenuClose}>
-    <InteriorLeftNavItem href={`${FLOW_PATH}/workflows/`} label="Workflows">
+    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/workflows/`} label="Workflows">
       <NavLink to="/workflows" exact={false}>
         Workflows
       </NavLink>
     </InteriorLeftNavItem>
-    <InteriorLeftNavItem href={`${FLOW_PATH}/activity/`} label="Activity">
+    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/activity/`} label="Activity">
       <NavLink to="/activity" exact={false}>
         Activity
       </NavLink>
     </InteriorLeftNavItem>
-    <InteriorLeftNavItem href={`${FLOW_PATH}/creator/overview/`} label="Designer">
+    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/creator/overview/`} label="Designer">
       <NavLink to="/creator/overview" exact={false}>
         Designer
       </NavLink>
     </InteriorLeftNavItem>
-    <InteriorLeftNavItem href={`${FLOW_PATH}/insights/`} label="Insights">
+    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/insights/`} label="Insights">
       <NavLink to="/insights" exact={false}>
         Insights
       </NavLink>
     </InteriorLeftNavItem>
     <InteriorLeftNavList title="Manage">
-      <InteriorLeftNavItem href={`${FLOW_PATH}/configuration/`} label="Insights">
+      <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/configuration/`} label="Insights">
         <NavLink to="/configuration/" exact={false}>
           Configurations
         </NavLink>
