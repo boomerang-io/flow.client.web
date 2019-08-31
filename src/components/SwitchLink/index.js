@@ -115,24 +115,14 @@ class SwitchLink extends Component {
         {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
           <>
             <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30}) scale(0.7)`}>
-              <foreignObject
-                width="2.875rem"
-                height="2.875rem"
-                x="0"
-                y="0"
-                requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
-              >
-                <CloseModalButton onClick={this.handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
+              <foreignObject width="46" height="36" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <CloseModalButton onClick={this.handleOnDelete} />
+                </div>
               </foreignObject>
             </g>
             <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y + 10})`}>
-              <foreignObject
-                width="2rem"
-                height="2rem"
-                x="0"
-                y="0"
-                requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
-              >
+              <foreignObject width="32" height="32" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
                 <div xmlns="http://www.w3.org/1999/xhtml">
                   <button className="b-editswitch-button__img" onClick={this.openModal}>
                     <img src={pencilIcon} alt="Edit Switch Property" />
@@ -153,7 +143,7 @@ class SwitchLink extends Component {
                       title
                       closeModal={this.closeModal}
                       headerTitle="Switch"
-                      headerSubtitle="Set it up"
+                      headerSubtitle="Set it up the conditions"
                       isFetching={false}
                       fullscreen={false}
                     >

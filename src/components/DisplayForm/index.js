@@ -45,6 +45,7 @@ class DisplayForm extends Component {
 
   componentDidMount() {
     this.props.setIsModalOpen({ isModalOpen: true });
+    this.props.shouldConfirmExit(false);
   }
   componentWillUnmount() {
     this.props.setIsModalOpen({ isModalOpen: false });
@@ -124,7 +125,7 @@ class DisplayForm extends Component {
   customProps = (input, formikProps) => {
     const { handleChange } = formikProps;
     return {
-      onChange: handleChange,
+      onChange: e => this.formikHandleChange(e, handleChange),
       type: "text"
     };
   };

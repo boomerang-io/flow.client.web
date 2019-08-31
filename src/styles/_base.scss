@@ -308,3 +308,7 @@ a {
 .bx--toggle-input:checked + .bx--toggle-input__label > .bx--toggle__switch::before {
   background: $teal-20;
 }
+
+foreignObject {
+  overflow: visible;
+}
