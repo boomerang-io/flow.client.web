@@ -8,9 +8,9 @@ import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
+import { Button } from "carbon-components-react";
 import { ComboBox, TextArea, TextInput, Toggle } from "@boomerang/carbon-addons-boomerang-react";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
-import Button from "@boomerang/boomerang-components/lib/Button";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
@@ -23,6 +23,7 @@ import copyIcon from "./assets/copy.svg";
 import eyeIcon from "./assets/eye.svg";
 import refreshIcon from "./assets/refresh.svg";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import { Save16 } from "@carbon/icons-react";
 import "./styles.scss";
 
 export class Overview extends Component {
@@ -211,6 +212,7 @@ export class Overview extends Component {
                   labelText="Enable Webhook"
                   toggled={values.webhook}
                   onToggle={checked => this.handleOnWebhookChange(checked)}
+                  Up
                   tooltipContent="Enable workflow to be executed by a webhook"
                   tooltipProps={{ direction: "top" }}
                 />
@@ -218,7 +220,13 @@ export class Overview extends Component {
               {get(workflow, "data.id", false) &&
                 get(workflow, "data.triggers.webhook.enable", false) &&
                 !get(workflow, "data.triggers.webhook.token", false) && (
-                  <Button theme="bmrg-flow" type="button" onClick={this.generateToken} style={{ marginLeft: "2.2rem" }}>
+                  <Button
+                    onClick={this.generateToken}
+                    renderIcon={Save16}
+                    style={{ marginLeft: "2.2rem" }}
+                    size="field"
+                    type="button"
+                  >
                     Generate Token
                   </Button>
                 )}
@@ -316,7 +324,13 @@ export class Overview extends Component {
                     modalProps={{ shouldCloseOnOverlayClick: false }}
                     theme="bmrg-flow"
                     ModalTrigger={() => (
-                      <Button theme="bmrg-flow" style={{ marginLeft: "2.2rem" }} type="button">
+                      <Button
+                        iconDescription="Add"
+                        renderIcon={Save16}
+                        style={{ marginLeft: "2.2rem" }}
+                        size="field"
+                        type="button"
+                      >
                         Set Schedule
                       </Button>
                     )}
