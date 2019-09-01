@@ -285,30 +285,6 @@ a {
   background: #f3f3f3;
 }
 
-//Overwrite carbon
-.bx--table-header-label {
-  color: $tab-blue;
-  padding-right: 0.5rem;
-}
-
-.bx--overflow-menu {
-  height: auto;
-}
-
-.bx--search-input,
-.bx--search-close {
-  height: 2.5rem !important;
-}
-
-.bx--data-table th {
-  background-color: #fbfcfc !important;
-  border-bottom: 1px solid #ececec !important;
-}
-
-.bx--toggle-input:checked + .bx--toggle-input__label > .bx--toggle__switch::before {
-  background: $teal-20;
-}
-
 foreignObject {
   overflow: visible;
 }

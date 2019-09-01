@@ -1,3 +1,5 @@
+$css--reset: false !default;
+
 $carbon-addons-bmrg-theme: boomerang;
 $carbon--theme--bmrg-light: true;
 
@@ -20,4 +22,17 @@ $carbon--theme--bmrg-light: true;
 
 .bx--list-box__menu-icon > svg {
   fill: black;
+}
+
+.bx--table-header-label {
+  color: $tab-blue;
+  padding-right: 0.5rem;
+}
+
+.bx--overflow-menu {
+  height: auto;
+}
+
+.bx--toggle-input:checked + .bx--toggle-input__label > .bx--toggle__switch::before {
+  background: #40d5bb;
 }

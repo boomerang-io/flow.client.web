@@ -23,7 +23,7 @@ import copyIcon from "./assets/copy.svg";
 import eyeIcon from "./assets/eye.svg";
 import refreshIcon from "./assets/refresh.svg";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import { Save16 } from "@carbon/icons-react";
+import { Add16, SettingsAdjust20 } from "@carbon/icons-react";
 import "./styles.scss";
 
 export class Overview extends Component {
@@ -222,7 +222,7 @@ export class Overview extends Component {
                 !get(workflow, "data.triggers.webhook.token", false) && (
                   <Button
                     onClick={this.generateToken}
-                    renderIcon={Save16}
+                    renderIcon={Add16}
                     style={{ marginLeft: "2.2rem" }}
                     size="field"
                     type="button"
@@ -326,8 +326,8 @@ export class Overview extends Component {
                     ModalTrigger={() => (
                       <Button
                         iconDescription="Add"
-                        renderIcon={Save16}
-                        style={{ marginLeft: "2.2rem" }}
+                        renderIcon={SettingsAdjust20}
+                        style={{ marginLeft: "2.2rem", width: "11rem" }}
                         size="field"
                         type="button"
                       >

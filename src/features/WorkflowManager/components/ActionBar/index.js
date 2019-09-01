@@ -170,10 +170,11 @@ class ActionBar extends Component {
     if (showActionButton) {
       return (
         <Button
-          iconDescription="Save"
-          renderIcon={Save16}
-          onClick={performAction}
           disabled={!isValidOverview || loading}
+          iconDescription="Save"
+          onClick={performAction}
+          renderIcon={Save16}
+          size="field"
         >
           {performActionButtonText}
         </Button>

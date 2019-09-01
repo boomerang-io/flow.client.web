@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import { Toggle } from "@boomerang/carbon-addons-boomerang-react";
 import { LazyLog, ScrollFollow } from "react-lazylog";
 import { BASE_SERVICE_URL, PRODUCT_SERVICE_ENV_URL } from "Config/servicesConfig";
 import "./styles.scss";
@@ -44,11 +44,10 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
                   </label>
                   <Toggle
                     id="task-log-toggle"
-                    checked={follow}
                     onChange={() => setFollow(!follow)}
                     defaultValue={follow}
                     disabled={!!error}
-                    theme="bmrg-flow"
+                    toggled={follow}
                   />
                 </div>
                 <LazyLog

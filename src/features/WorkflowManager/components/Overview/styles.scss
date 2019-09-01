@@ -135,15 +135,19 @@
     margin: 0 0.75rem;
   }
 
+  .b-schedule__information {
+    font-size: 0.875rem;
+  }
+
   .b-schedule__information--cronMessage {
-    padding-top: 1rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
     font-style: italic;
   }
 
   .b-schedule__information--timezone {
     font-style: italic;
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
   }
 
   .b-schedule__toggle {

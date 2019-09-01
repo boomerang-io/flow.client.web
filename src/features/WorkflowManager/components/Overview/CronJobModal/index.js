@@ -111,13 +111,11 @@ export default class CronJobModal extends Component {
                       onBlur={handleBlur}
                       onChange={e => this.handleOnChange(e, handleChange)}
                       invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
+                      invalidText={errorMessage}
                     />
                     {
                       // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
                     }
-                    {values.cronExpression && errorMessage && (
-                      <div className="b-cron-fieldset__message --error">{errorMessage}</div>
-                    )}
                     {values.cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}
                   </div>
                   <div className="b-timezone">
