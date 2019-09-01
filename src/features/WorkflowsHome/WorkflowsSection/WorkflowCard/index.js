@@ -14,7 +14,6 @@ import imgs from "Assets/icons";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import { Run20 } from "@carbon/icons-react";
 import deployIcon from "Assets/icons/deploy.svg";
-import playButton from "./img/playButton.svg";
 import "./styles.scss";
 
 class WorkflowCard extends Component {

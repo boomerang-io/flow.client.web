@@ -102,7 +102,7 @@ class App extends Component {
             <NotificationBanner closeBanner={this.closeBanner} />
             <Suspense fallback={<div />}>
               <Switch>
-                <ProtectedRoute path="/configuration" userRole={user.data.type} component={AsyncGlobalConfiguration} />
+                <ProtectedRoute path="/properties" userRole={user.data.type} component={AsyncGlobalConfiguration} />
                 <Route path="/workflows" component={AsyncHome} />
                 <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
                 <Route path="/activity" component={AsyncActivity} />
@@ -118,7 +118,7 @@ class App extends Component {
         </>
       );
     }
-    
+
     if (
       user.status === SERVICE_REQUEST_STATUSES.FAILURE ||
       navigation.status === SERVICE_REQUEST_STATUSES.FAILURE ||

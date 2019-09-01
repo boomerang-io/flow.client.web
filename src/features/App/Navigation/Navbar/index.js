@@ -18,30 +18,30 @@ const baseURL = baseLaunchUrl.origin;
 
 const onMenuClick = ({ isOpen, onMenuClose }) => (
   <InteriorLeftNav isOpen={isOpen} onMenuClose={onMenuClose}>
-    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/workflows/`} label="Workflows">
+    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/workflows`} label="Workflows">
       <NavLink to="/workflows" exact={false}>
         Workflows
       </NavLink>
     </InteriorLeftNavItem>
-    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/activity/`} label="Activity">
+    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/activity`} label="Activity">
       <NavLink to="/activity" exact={false}>
         Activity
       </NavLink>
     </InteriorLeftNavItem>
-    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/creator/overview/`} label="Designer">
+    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/creator/overview`} label="Designer">
       <NavLink to="/creator/overview" exact={false}>
         Designer
       </NavLink>
     </InteriorLeftNavItem>
-    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/insights/`} label="Insights">
+    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/insights`} label="Insights">
       <NavLink to="/insights" exact={false}>
         Insights
       </NavLink>
     </InteriorLeftNavItem>
     <InteriorLeftNavList title="Manage">
-      <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/configuration/`} label="Insights">
-        <NavLink to="/configuration/" exact={false}>
-          Configurations
+      <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/properties`} label="Properties">
+        <NavLink to="/properties" exact={false}>
+          Properties
         </NavLink>
       </InteriorLeftNavItem>
     </InteriorLeftNavList>
