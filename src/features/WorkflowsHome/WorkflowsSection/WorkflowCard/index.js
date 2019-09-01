@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
-import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
+import { Button, OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
@@ -13,6 +12,7 @@ import fileDownload from "js-file-download";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import imgs from "Assets/icons";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import { Run20 } from "@carbon/icons-react";
 import deployIcon from "Assets/icons/deploy.svg";
 import playButton from "./img/playButton.svg";
 import "./styles.scss";
@@ -138,65 +138,62 @@ class WorkflowCard extends Component {
             <h2 className="b-workflow-card__name">{workflow.name}</h2>
             <p className="b-workflow-card__description">{workflow.shortDescription}</p>
           </button>
-          <div data-tip data-for={workflow.id} className="b-workflow-card-launch">
-            {workflow.properties && workflow.properties.length > 0 ? (
-              <Modal
-                modalProps={{ shouldCloseOnOverlayClick: false }}
-                ModalTrigger={() => (
-                  <button>
-                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
-                  </button>
-                )}
-                modalContent={(closeModal, rest) => (
-                  <ModalFlow
-                    headerTitle="Workflow Inputs"
-                    headerSubtitle="Supply some values"
+        </div>
+        <div className="b-workflow-card-launch">
+          {workflow.properties && workflow.properties.length > 0 ? (
+            <Modal
+              modalProps={{ shouldCloseOnOverlayClick: false }}
+              ModalTrigger={() => (
+                <Button iconDecscription="Run Workflow" renderIcon={Run20} size="small">
+                  Execute Workflow
+                </Button>
+              )}
+              modalContent={(closeModal, rest) => (
+                <ModalFlow
+                  headerTitle="Workflow Inputs"
+                  headerSubtitle="Supply some values"
+                  closeModal={closeModal}
+                  confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
+                  theme="bmrg-flow"
+                  {...rest}
+                >
+                  <WorkflowInputModalContent
                     closeModal={closeModal}
-                    confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
-                    theme="bmrg-flow"
-                    {...rest}
+                    executeWorkflow={this.executeWorkflow}
+                    inputs={workflow.properties}
+                  />
+                </ModalFlow>
+              )}
+            />
+          ) : (
+            <AlertModal
+              className="bmrg--c-alert-modal --execute-workflow"
+              modalProps={{ shouldCloseOnOverlayClick: false }}
+              ModalTrigger={() => (
+                <Button iconDescription="Run Workflow" renderIcon={Run20} size="small">
+                  Execute Workflow
+                </Button>
+              )}
+              modalContent={closeModal => (
+                <ConfirmModal
+                  title="Execute workflow?"
+                  subTitleTop="It will run"
+                  img={deployIcon}
+                  closeModal={closeModal}
+                  affirmativeAction={() => this.executeWorkflow({ redirect: false })}
+                  affirmativeText="RUN"
+                  theme="bmrg-flow"
+                >
+                  <button
+                    className="bmrg--b-confirm-modal__button --affirmative --children"
+                    onClick={() => this.executeWorkflow({ redirect: true })}
                   >
-                    <WorkflowInputModalContent
-                      closeModal={closeModal}
-                      executeWorkflow={this.executeWorkflow}
-                      inputs={workflow.properties}
-                    />
-                  </ModalFlow>
-                )}
-              />
-            ) : (
-              <AlertModal
-                className="bmrg--c-alert-modal --execute-workflow"
-                modalProps={{ shouldCloseOnOverlayClick: false }}
-                ModalTrigger={() => (
-                  <button>
-                    <img src={playButton} className="b-workflow-card-launch__icon" alt="Execute workflow" />
+                    RUN & VIEW
                   </button>
-                )}
-                modalContent={closeModal => (
-                  <ConfirmModal
-                    title="Execute workflow?"
-                    subTitleTop="It will run"
-                    img={deployIcon}
-                    closeModal={closeModal}
-                    affirmativeAction={() => this.executeWorkflow({ redirect: false })}
-                    affirmativeText="RUN"
-                    theme="bmrg-flow"
-                  >
-                    <button
-                      className="bmrg--b-confirm-modal__button --affirmative --children"
-                      onClick={() => this.executeWorkflow({ redirect: true })}
-                    >
-                      RUN & VIEW
-                    </button>
-                  </ConfirmModal>
-                )}
-              />
-            )}
-          </div>
-          <Tooltip id={workflow.id} place="bottom">
-            Execute workflow
-          </Tooltip>
+                </ConfirmModal>
+              )}
+            />
+          )}
         </div>
       </div>
     );
