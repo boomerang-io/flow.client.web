@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 import orderBy from "lodash/orderBy";
 import Filler from "./Filler";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
@@ -23,7 +24,7 @@ const TimeProgressBar = ({ workflowExecution, updateActiveNode }) => {
             {steps.map(step => (
               <Filler
                 duration={step.duration}
-                finishTime={step.startTime + step.duration}
+                finishTime={moment(step.startTime).valueOf() + step.duration}
                 id={step.id}
                 key={step.id}
                 percentOfTotal={(step.duration / durationSum) * 100}

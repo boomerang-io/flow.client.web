@@ -38,7 +38,7 @@ function Filler({
     width: `${percentOfTotal}%`
   };
 
-  const finishTimeFormatted = moment.unix(finishTime / 1000).format("hh:mm:ss a", { trim: false });
+  const finishTimeFormatted = moment(finishTime).format("hh:mm:ss a", { trim: false });
   return (
     <div className="c-time-progress-bar-filler" style={styles} data-tip data-for={id}>
       <button

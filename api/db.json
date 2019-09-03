@@ -5871,7 +5871,7 @@
     }
   },
   "workflowExecution": {
-    "creationDate": 1547053200027,
+    "creationDate": "2019-09-03T15:00:00.049+0000",
     "duration": 904934,
     "id": "5c36289096052900012cc81d",
     "status": "completed",
@@ -5886,7 +5886,7 @@
         "flowTaskStatus": "completed",
         "id": "5c36289096052900012cc81e",
         "order": 1,
-        "startTime": 1547053504488,
+        "startTime": "2019-09-03T15:00:00.230+0000",
         "taskId": "515c8b05-ceb0-470a-a58e-b8740b332a6a",
         "outputs": {
           "args": {
@@ -5916,7 +5916,7 @@
         "flowTaskStatus": "completed",
         "id": "5c3628909605290001dcc81e",
         "order": 1,
-        "startTime": 1547053504488,
+        "startTime": "2019-09-03T15:00:26.103+0000",
         "taskId": "515c8b05-cbf0-470a-a58e-b8740b332a6a",
         "outputs": {
           "args": {
@@ -5946,7 +5946,7 @@
         "flowTaskStatus": "failure",
         "id": "5cd6289096052900012cc81e",
         "order": 1,
-        "startTime": 1547053504488,
+        "startTime": "2019-09-03T15:01:00.103+0000",
         "taskId": "515c8bw5-cbb0-470a-a58e-b8740b332a6a",
         "outputs": {
           "args": {
@@ -5968,66 +5968,6 @@
           "origin": "147.10.60.191",
           "url": "https://httpbin.org/anything?test=true"
         },
-        "taskName": "Send Slack Message"
-      },
-      {
-        "activityId": "5c36289096052900012cc81d",
-        "duration": 300178,
-        "flowTaskStatus": "notstarted",
-        "id": "5c36289096052900012cc81f",
-        "order": 2,
-        "startTime": 1547053804683,
-        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
-      },
-      {
-        "activityId": "5c36289096052900012cc81c",
-        "duration": 3000,
-        "flowTaskStatus": "notstarted",
-        "id": "5c36289096052900012cc8fc",
-        "order": 3,
-        "startTime": 1547054104861,
-        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
-      },
-      {
-        "activityId": "5c36289096052900012cc81c",
-        "duration": 3000,
-        "flowTaskStatus": "notstarted",
-        "id": "5c36289096052900012cc8fa",
-        "order": 3,
-        "startTime": 1547054104861,
-        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
-      },
-      {
-        "activityId": "5c36289096052900012cc81c",
-        "duration": 3000,
-        "flowTaskStatus": "notstarted",
-        "id": "5c36289096052900012cc8fh",
-        "order": 3,
-        "startTime": 15470541047861,
-        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
-      },
-      {
-        "activityId": "5c36289096052900012cc81c",
-        "duration": 20000,
-        "flowTaskStatus": "notstarted",
-        "id": "5c36289096052900012cc8fg",
-        "order": 3,
-        "startTime": 15470541050861,
-        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
-        "taskName": "Send Slack Message"
-      },
-      {
-        "activityId": "5c36289096052900012cc81c",
-        "duration": 20000,
-        "flowTaskStatus": "notstarted",
-        "id": "5c36289096052900012cc8fe",
-        "order": 3,
-        "startTime": 15470541070861,
-        "taskId": "54d909e6-5bdf-4eb5-ac1d-3213bd8ebb72",
         "taskName": "Send Slack Message"
       }
     ],
