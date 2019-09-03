@@ -20,7 +20,7 @@ exports[`GlobalConfigurationContainer --- Snapshot Test Capturing Snapshot of Gl
             <h1
               class="title"
             >
-              Configuration
+              Properties
             </h1>
             <p
               class="description"
@@ -94,11 +94,28 @@ exports[`GlobalConfigurationContainer --- Snapshot Test Capturing Snapshot of Gl
           </div>
           <div>
             <button
-              class="bx--btn bx--btn--primary"
+              class="bx--btn bx--btn--field bx--btn--primary"
               tabindex="0"
               type="button"
             >
               Create Property
+              <svg
+                aria-hidden="true"
+                aria-label="Create Property"
+                class="bx--btn__icon"
+                focusable="false"
+                height="16"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 7V3H7v4H3v2h4v4h2V9h4V7z"
+                />
+              </svg>
             </button>
           </div>
         </div>

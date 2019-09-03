@@ -12,6 +12,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
         "height": "28rem",
         "margin": "auto",
         "overflowY": "auto",
+        "padding": "0 0.25rem 2rem",
         "width": "60%",
       }
     }
@@ -137,103 +138,43 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
     <div
       className="toggleContainer"
     >
-      <label
-        className="toggleLabel"
-        htmlFor="secured"
-      >
-        Secured
-      </label>
       <div
-        className="toggle --bmrg-flow"
-        style={
-          Object {
-            "MozTransition": "opacity 0.25s",
-            "MozUserSelect": "none",
-            "WebkitTapHighlightColor": "rgba(0, 0, 0, 0)",
-            "WebkitTransition": "opacity 0.25s",
-            "WebkitUserSelect": "none",
-            "borderRadius": 10,
-            "display": "inline-block",
-            "msUserSelect": "none",
-            "opacity": 1,
-            "position": "relative",
-            "textAlign": "left",
-            "touchAction": "none",
-            "transition": "opacity 0.25s",
-            "userSelect": "none",
-          }
-        }
+        className="bx--form-item"
       >
-        <div
-          className="react-switch-bg"
-          onClick={[Function]}
-          onMouseDown={[Function]}
-          style={
-            Object {
-              "MozTransition": "background 0.25s",
-              "WebkitTransition": "background 0.25s",
-              "background": "#486c89",
-              "borderRadius": 10,
-              "cursor": "pointer",
-              "height": 20,
-              "margin": 0,
-              "position": "relative",
-              "transition": "background 0.25s",
-              "width": 40,
-            }
-          }
-        />
-        <div
-          className="react-switch-handle"
-          onClick={[Function]}
-          onMouseDown={[Function]}
-          onTouchCancel={[Function]}
-          onTouchEnd={[Function]}
-          onTouchMove={[Function]}
-          onTouchStart={[Function]}
-          style={
-            Object {
-              "MozTransition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-              "WebkitTransition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-              "background": "#ff806c",
-              "border": 0,
-              "borderRadius": "50%",
-              "boxShadow": null,
-              "cursor": "pointer",
-              "display": "inline-block",
-              "height": 18,
-              "outline": 0,
-              "position": "absolute",
-              "top": 1,
-              "transform": "translateX(1px)",
-              "transition": "background-color 0.25s, transform 0.25s, box-shadow 0.15s",
-              "width": 18,
-            }
-          }
-        />
         <input
+          aria-label={null}
           checked={false}
-          disabled={false}
-          id="secured"
-          onBlur={[Function]}
+          className="bx--toggle-input"
+          defaultChecked={false}
+          id="__carbon-toggle_1"
+          name="secured"
           onChange={[Function]}
-          onFocus={[Function]}
           onKeyUp={[Function]}
-          role="switch"
-          style={
-            Object {
-              "border": 0,
-              "clip": "rect(0 0 0 0)",
-              "height": 1,
-              "margin": -1,
-              "overflow": "hidden",
-              "padding": 0,
-              "position": "absolute",
-              "width": 1,
-            }
-          }
           type="checkbox"
         />
+        <label
+          aria-label={null}
+          className="bx--toggle-input__label"
+          htmlFor="__carbon-toggle_1"
+        >
+          Secured
+          <span
+            className="bx--toggle__switch"
+          >
+            <span
+              aria-hidden="true"
+              className="bx--toggle__text--off"
+            >
+              Off
+            </span>
+            <span
+              aria-hidden="true"
+              className="bx--toggle__text--on"
+            >
+              On
+            </span>
+          </span>
+        </label>
       </div>
     </div>
   </main>

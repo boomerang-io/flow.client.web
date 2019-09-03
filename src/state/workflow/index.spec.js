@@ -47,6 +47,7 @@ describe(">>>REDUCER --- workflowReducer", () => {
   it("should handle UPDATE_WORKFLOW_SUCCESS", () => {
     const updateData = {
       enablePersistentStorage: false,
+      enableIAMIntegration: false,
       properties: [],
       triggers: {
         scheduler: {

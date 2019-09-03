@@ -6064,7 +6064,8 @@
           "key": "hello",
           "label": "hello",
           "type": "text",
-          "required": false
+          "required": false,
+          "readOnly": true
         }
       ],
       "enablePersistentStorage": true,

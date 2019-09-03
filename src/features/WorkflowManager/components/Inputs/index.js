@@ -44,7 +44,10 @@ class Inputs extends Component {
       <div className="c-workflow-inputs">
         {inputs.length > 0 &&
           inputs.map((input, index) => (
-            <div key={`${input.id}-${index}`} className={classnames("b-workflow-input", `--${input.type}`)}>
+            <div
+              key={`${input.id}-${index}`}
+              className={classnames("b-workflow-input", `--${input.type}`, `--${input.readOnly}`)}
+            >
               <h1 className="b-workflow-input__name">{input.label}</h1>
               <dl className="b-workflow-input-field">
                 <dt className="b-workflow-input-field__key">Key</dt>
@@ -74,44 +77,48 @@ class Inputs extends Component {
                   </dd>
                 </dl>
               )}
-              <AlertModalWrapper
-                ModalTrigger={() => (
-                  <button className="b-workflow-input__delete">
-                    <Close32 data-tip data-for={`${input.id}`} className="b-workflow-input__delete-icon" />
-                    <Tooltip id={`${input.id}`} place="top">
-                      Delete Input
-                    </Tooltip>
-                  </button>
-                )}
-                modalContent={(closeModal, rest) => (
-                  <ConfirmModal
-                    closeModal={closeModal}
-                    affirmativeAction={() => {
-                      closeModal();
-                      this.deleteInput(input.key);
-                    }}
-                    title="DELETE THIS PROPERTY?"
-                    subTitleTop="It will be gone. Forever."
-                    cancelText="NO"
-                    affirmativeText="YES"
-                    theme="bmrg-flow"
-                    {...rest}
-                  />
-                )}
-              />
-              <InputsModal
-                isEdit
-                inputsKeys={inputsKeys.filter(inputName => inputName !== input.key)}
-                Button={() => (
-                  <button className="b-workflow-input-edit">
-                    Edit
-                    <Edit32 className="b-workflow-input-edit__pencil" />
-                  </button>
-                )}
-                input={input}
-                updateInputs={this.props.updateInputs}
-                loading={this.props.loading}
-              />
+              {!input.readOnly ? (
+                <AlertModalWrapper
+                  ModalTrigger={() => (
+                    <button className="b-workflow-input__delete">
+                      <Close32 data-tip data-for={`${input.id}`} className="b-workflow-input__delete-icon" />
+                      <Tooltip id={`${input.id}`} place="top">
+                        Delete Input
+                      </Tooltip>
+                    </button>
+                  )}
+                  modalContent={(closeModal, rest) => (
+                    <ConfirmModal
+                      closeModal={closeModal}
+                      affirmativeAction={() => {
+                        closeModal();
+                        this.deleteInput(input.key);
+                      }}
+                      title="DELETE THIS PROPERTY?"
+                      subTitleTop="It will be gone. Forever."
+                      cancelText="NO"
+                      affirmativeText="YES"
+                      theme="bmrg-flow"
+                      {...rest}
+                    />
+                  )}
+                />
+              ) : null}
+              {!input.readOnly ? (
+                <InputsModal
+                  isEdit
+                  inputsKeys={inputsKeys.filter(inputName => inputName !== input.key)}
+                  Button={() => (
+                    <button className="b-workflow-input-edit">
+                      Edit
+                      <Edit32 className="b-workflow-input-edit__pencil" />
+                    </button>
+                  )}
+                  input={input}
+                  updateInputs={this.props.updateInputs}
+                  loading={this.props.loading}
+                />
+              ) : null}
             </div>
           ))}
         <InputsModal

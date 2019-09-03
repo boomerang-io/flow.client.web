@@ -14,7 +14,7 @@ Array [
         <h1
           className="title"
         >
-          Configuration
+          Properties
         </h1>
         <p
           className="description"
@@ -106,12 +106,33 @@ Array [
         }
       >
         <button
-          className="bx--btn bx--btn--primary"
+          className="bx--btn bx--btn--field bx--btn--primary"
           disabled={false}
           tabIndex={0}
           type="button"
         >
           Create Property
+          <svg
+            aria-hidden="true"
+            aria-label="Create Property"
+            className="bx--btn__icon"
+            focusable="false"
+            height={16}
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            style={
+              Object {
+                "willChange": "transform",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9 7V3H7v4H3v2h4v4h2V9h4V7z"
+            />
+          </svg>
         </button>
       </div>
     </div>
@@ -314,6 +335,7 @@ Array [
                 <ActionsMenu
                   addPropertyInStore={[Function]}
                   deleteProperty={[Function]}
+                  flipped={true}
                   properties={
                     Array [
                       Object {
