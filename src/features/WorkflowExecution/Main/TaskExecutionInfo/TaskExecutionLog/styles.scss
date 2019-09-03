@@ -54,7 +54,6 @@
     display: flex;
     position: absolute;
     line-height: 1.5;
-    padding: 0.625rem;
     right: 345px;
   }
 
@@ -64,6 +63,7 @@
     font-weight: 400;
     letter-spacing: 0.0625rem;
     margin-right: 0.5rem;
+    white-space: nowrap;
     &.--disabled {
       opacity: 0.5;
     }

@@ -145,6 +145,7 @@ class PropertiesTable extends Component {
       case "Actions":
         return (
           <ActionsMenu
+            flipped
             addPropertyInStore={this.addPropertyInStore}
             deleteProperty={this.deleteProperty}
             property={property}
@@ -169,7 +170,7 @@ class PropertiesTable extends Component {
 
     return (
       <>
-        <Header title="Configuration" description="Set global properties that are accessible in flow processes." />
+        <Header title="Properties" description="Set global properties that are accessible in flow processes." />
         <div className={styles.tableContainer}>
           <div className={styles.header}>
             <Search

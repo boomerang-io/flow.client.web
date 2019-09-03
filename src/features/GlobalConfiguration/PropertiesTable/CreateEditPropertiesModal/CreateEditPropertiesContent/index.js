@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { TextInput } from "carbon-components-react";
+import { TextInput, Toggle } from "carbon-components-react";
 import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
-import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import INPUT_TYPES from "Constants/inputTypes";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import styles from "./createEditPropertiesContent.module.scss";
@@ -89,17 +88,7 @@ class CreateEditPropertiesContent extends Component {
         })}
       >
         {props => {
-          const {
-            values,
-            touched,
-            errors,
-            isSubmitting,
-            isValid,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            setFieldValue
-          } = props;
+          const { values, touched, errors, isSubmitting, isValid, handleChange, handleBlur, handleSubmit } = props;
 
           if (isSubmitting) {
             return <LoadingAnimation theme="bmrg-flow" message="We'll be right with you" />;
@@ -113,6 +102,7 @@ class CreateEditPropertiesContent extends Component {
                   margin: "auto",
                   width: "60%",
                   height: "28rem",
+                  padding: "0 0.25rem 2rem",
                   overflowY: "auto"
                 }}
               >
@@ -163,16 +153,7 @@ class CreateEditPropertiesContent extends Component {
                   />
                 </div>
                 <div className={styles.toggleContainer}>
-                  <label htmlFor="secured" className={styles.toggleLabel}>
-                    Secured
-                  </label>
-                  <Toggle
-                    className={styles.toggle}
-                    id="secured"
-                    checked={values.secured}
-                    onChange={checked => setFieldValue("secured", checked)}
-                    theme="bmrg-flow"
-                  />
+                  <Toggle name="secured" checked={values.secured} onChange={handleChange} labelText="Secured" />
                 </div>
               </Body>
               <Footer style={{ flexDirection: "column", alignItems: "center", justifyContent: "flex-start" }}>

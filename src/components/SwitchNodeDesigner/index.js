@@ -8,7 +8,7 @@ import { PortWidget } from "@boomerang/boomerang-dag";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
+//import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "Components/DisplayForm";
 import pencilIcon from "./pencil.svg";
 import switchSVG from "Assets/svg/parent-relationship_32.svg";
@@ -81,9 +81,9 @@ export class SwitchNode extends Component {
   render() {
     return (
       <div className="b-switchNode">
-        <Tooltip place="left" id={this.props.node.id}>
+        {/* <Tooltip place="left" id={this.props.node.id}>
           {this.props.task ? this.props.task.description : "Task description"}
-        </Tooltip>
+        </Tooltip> */}
         <div className="b-switchNode__tile" data-tip data-for={this.props.node.id}>
           {this.props.nodeConfig.inputs && this.props.nodeConfig.inputs.value
             ? this.props.nodeConfig.inputs.value

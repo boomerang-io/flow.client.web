@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Button } from "carbon-components-react";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
-import Button from "@boomerang/boomerang-components/lib/Button";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
@@ -9,7 +9,7 @@ import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
 import minusIcon from "./assets/minus.svg";
 import plusIcon from "./assets/plus.svg";
-//import TextInput from "@boomerang/boomerang-components/lib/TextInput";
+import { Add16, Save16 } from "@carbon/icons-react";
 import "./styles.scss";
 
 /*function to add add/subtract to the zoom level*/
@@ -113,9 +113,11 @@ class ActionBar extends Component {
         <AlertModal
           modalProps={{ shouldCloseOnOverlayClick: false }}
           ModalTrigger={() => (
-            <Button disabled={loading} theme="bmrg-flow">
-              {performActionButtonText}
-            </Button>
+            <div style={{ minWidth: "13rem" }}>
+              <Button disabled={loading} iconDescription="Add" renderIcon={Add16} size="field">
+                {performActionButtonText}
+              </Button>
+            </div>
           )}
           modalContent={closeModal => (
             <ConfirmModal
@@ -135,7 +137,13 @@ class ActionBar extends Component {
       return (
         <Modal
           modalProps={{ shouldCloseOnOverlayClick: false }}
-          ModalTrigger={() => <Button theme="bmrg-flow">{performActionButtonText}</Button>}
+          ModalTrigger={() => (
+            <div style={{ minWidth: "13rem" }}>
+              <Button iconDescription="Add" renderIcon={Add16} size="field">
+                {performActionButtonText}
+              </Button>
+            </div>
+          )}
           modalContent={(closeModal, ...rest) => (
             <ModalFlow
               closeModal={closeModal}
@@ -161,7 +169,13 @@ class ActionBar extends Component {
     }
     if (showActionButton) {
       return (
-        <Button theme="bmrg-flow" onClick={performAction} disabled={!isValidOverview || loading}>
+        <Button
+          disabled={!isValidOverview || loading}
+          iconDescription="Save"
+          onClick={performAction}
+          renderIcon={Save16}
+          size="field"
+        >
           {performActionButtonText}
         </Button>
       );
@@ -183,10 +197,10 @@ class ActionBar extends Component {
       <div className="c-action-bar">
         <div className="b-action-bar">
           {includeZoom && [
-            <Button className="b-action-bar__zoom" onClick={this.handleZoomDecrease} key="out">
+            <Button iconOnly className="b-action-bar__zoom" onClick={this.handleZoomDecrease} key="out" kind="ghost">
               <img src={minusIcon} alt="Zoom out" />
             </Button>,
-            <Button className="b-action-bar__zoom" onClick={this.handleZoomIncrease} key="in">
+            <Button iconOnly className="b-action-bar__zoom" onClick={this.handleZoomIncrease} key="in" kind="ghost">
               <img src={plusIcon} alt="Zoom in" />
             </Button>
           ]}

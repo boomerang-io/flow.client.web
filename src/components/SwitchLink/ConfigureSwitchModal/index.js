@@ -21,7 +21,7 @@ class ConfigureSwitchModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      switchCondition: props.switchCondition
+      switchCondition: props.switchCondition || ""
     };
   }
 
@@ -45,33 +45,33 @@ class ConfigureSwitchModal extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <ModalContentBody style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}>
-          <div className="b-switch-config__desc">Default?</div>
-          <div className="b-switch-config">
-            <div className="b-switch-config__toggle">
-              <Toggle
-                aria-labelledby="toggle-default"
-                id="default"
-                name="default"
-                toggled={defaultState}
-                onToggle={updateDefaultState}
-              />
-            </div>
-            <div className="b-switch-config__explanation">This path will be taken when no others are matched line.</div>
-          </div>
+        <ModalContentBody
+          style={{ maxWidth: "25rem", height: "24rem", margin: "0 auto", display: "block", overflow: "visible" }}
+        >
+          <Toggle
+            aria-labelledby="toggle-default"
+            id="default"
+            name="default"
+            orientation="vertical"
+            toggled={defaultState}
+            labelText="Default?"
+            helperText="This path will be taken when no others are matched line."
+            onToggle={updateDefaultState}
+          />
 
           <div className="b-switch-customvalue">
             {!defaultState && (
               <div>
                 <TextArea
                   id="property"
-                  invalid={switchCondition === undefined || switchCondition === "" || switchCondition === " "}
+                  invalid={!switchCondition}
+                  invalidText="Value is required"
                   labelText="Switch Property Value"
                   name="property"
                   placeholder="Enter a value"
                   onChange={e => this.setState({ switchCondition: e.target.value })}
                   style={{ resize: "none" }}
-                  value={switchCondition === null ? "" : switchCondition}
+                  value={switchCondition}
                 />
                 <div className="s-switch-customvalue-desc">
                   Enter the value(s) to match to take this arrow. Multiple values can be entered, one per line. Only one
@@ -83,7 +83,12 @@ class ConfigureSwitchModal extends React.Component {
           </div>
         </ModalContentBody>
         <ModalContentFooter>
-          <ModalConfirmButton text="SAVE" theme="bmrg-flow" type="submit" />
+          <ModalConfirmButton
+            disabled={!defaultState && !switchCondition}
+            text="SAVE"
+            theme="bmrg-flow"
+            type="submit"
+          />
         </ModalContentFooter>
       </form>
     );

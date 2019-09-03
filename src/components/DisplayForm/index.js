@@ -7,7 +7,7 @@ import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContent
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import AutoSuggest from "Components/AutoSuggest";
 import Toggle from "./Toggle";
-import TextAreaModal from "./TextAreaModal";
+import TextAreaModal from "Components/TextAreaModal";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import { INPUT_TYPES, TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
 import "./styles.scss";
@@ -45,6 +45,7 @@ class DisplayForm extends Component {
 
   componentDidMount() {
     this.props.setIsModalOpen({ isModalOpen: true });
+    this.props.shouldConfirmExit(false);
   }
   componentWillUnmount() {
     this.props.setIsModalOpen({ isModalOpen: false });
@@ -61,10 +62,9 @@ class DisplayForm extends Component {
   };
 
   handleOnSave = values => {
-    console.log(values);
-    // this.props.node.taskName = values.taskName;
-    // this.props.onSave(values);
-    // this.props.closeModal();
+    this.props.node.taskName = values.taskName;
+    this.props.onSave(values);
+    this.props.closeModal();
   };
 
   validateInput = ({ value, maxValueLength, minValueLength, validationFunction, validationText }) => {
@@ -125,7 +125,7 @@ class DisplayForm extends Component {
   customProps = (input, formikProps) => {
     const { handleChange } = formikProps;
     return {
-      onChange: handleChange,
+      onChange: e => this.formikHandleChange(e, handleChange),
       type: "text"
     };
   };
@@ -158,6 +158,7 @@ class DisplayForm extends Component {
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
+      autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
       formikSetFieldValue: value => this.formikSetFieldValue(value, key, setFieldValue),
       initialValue: values[key],
       inputProperties: this.props.inputProperties,

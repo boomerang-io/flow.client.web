@@ -4,6 +4,7 @@ import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import { Button } from "carbon-components-react";
 import CreateEditPropertiesContent from "./CreateEditPropertiesContent";
+import { Add16 } from "@carbon/icons-react";
 
 class CreateEditPropertiesModal extends Component {
   static propTypes = {
@@ -43,7 +44,13 @@ class CreateEditPropertiesModal extends Component {
       <ModalWrapper
         isOpen={isOpen}
         modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => (!isEdit ? <Button>Create Property</Button> : null)}
+        ModalTrigger={() =>
+          !isEdit ? (
+            <Button iconDescription="Create Property" renderIcon={Add16} size="field">
+              Create Property
+            </Button>
+          ) : null
+        }
         modalContent={closeModal => (
           <ModalFlow
             headerTitle={isEdit && property ? `EDIT ${property.label.toUpperCase()}` : "CREATE PROPERTY"}

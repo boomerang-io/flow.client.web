@@ -134,7 +134,7 @@ class WorkflowEditor extends Component {
             )}
           />
           <Route
-            path={`${match.path}/inputs`}
+            path={`${match.path}/properties`}
             render={props => (
               <>
                 <ActionBar

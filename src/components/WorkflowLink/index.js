@@ -56,29 +56,34 @@ class CustomLink extends Component {
       <svg>
         {this.path.current && !this.props.diagramEngine.diagramModel.locked && this.props.model.targetPort && (
           <>
-            <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30}) scale(0.7)`}>
-              <foreignObject
-                width="2.875rem"
-                height="2.875rem"
-                padding="0.125rem"
-                requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
-              >
-                <CloseModalButton onClick={this.handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
+            <g
+              transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30}) scale(0.7)`}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <foreignObject width="48" height="48" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <CloseModalButton onClick={this.handleOnDelete} />
+                </div>
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x - 2}, ${this.halfwayPoint.y + 5})`}>
+            <g
+              transform={`translate(${this.halfwayPoint.x - 2}, ${this.halfwayPoint.y + 5})`}
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <foreignObject
-                width="1.625rem"
-                height="1.625rem"
+                width="28"
+                height="28"
                 requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
                 style={{ cursor: "pointer" }}
               >
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div
+                  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+                  xmlns="http://www.w3.org/1999/xhtml"
+                >
                   <MultiStateButton
                     onClick={this.updateExecutionState}
                     initialExecutionCondition={this.state.executionCondition}
                     modelId={this.props.model.id}
-                    xmlns="http://www.w3.org/1999/xhtml"
                   />
                 </div>
               </foreignObject>
