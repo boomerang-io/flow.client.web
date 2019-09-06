@@ -69,6 +69,7 @@ class SearchFilterBar extends Component {
         <div className="b-search-filter__filter">
           {multiselect ? (
             <MultiSelect
+              id="b-search-filter__filter"
               useTitleInItem={false}
               label={label}
               invalid={false}

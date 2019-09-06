@@ -86,6 +86,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
         >
           <div
             className="bx--multi-select bx--list-box"
+            id="b-search-filter__filter"
             onClick={[Function]}
             onKeyDown={[Function]}
             role="listbox"

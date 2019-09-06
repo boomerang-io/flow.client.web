@@ -53,14 +53,7 @@ class ImportWorkflow extends Component {
         modalProps={{ shouldCloseOnOverlayClick: false }}
         ModalTrigger={() => (
           <button>
-            <Upload16
-              data-tip
-              data-for={this.props.teamId}
-              className="b-workflow-import__icon"
-              //name="icon--upload"
-              iconTitle="icon--upload"
-              alt="Import Workflow"
-            />
+            <Upload16 data-tip data-for={this.props.teamId} className="b-workflow-import__icon" alt="Import Workflow" />
           </button>
         )}
         initialState={initialState}
