@@ -29,7 +29,6 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty, addProper
   return (
     <>
       <OverflowMenu
-        floatingMenu
         ariaLabel="Overflow menu"
         iconDescription="Overflow menu icon"
         data-testid="configuration-property-table-overflow-menu"

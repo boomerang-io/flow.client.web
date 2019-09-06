@@ -9,7 +9,6 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
     aria-haspopup={true}
     aria-label="card menu"
     className="b-workflow-card__menu bx--overflow-menu"
-    floatingMenu={true}
     onClick={[Function]}
     onClose={[Function]}
     onKeyDown={[Function]}

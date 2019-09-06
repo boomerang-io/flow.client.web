@@ -141,7 +141,6 @@ Array [
     >
       <table
         className="bx--data-table bx--data-table--no-border"
-        zebra={false}
       >
         <thead>
           <tr

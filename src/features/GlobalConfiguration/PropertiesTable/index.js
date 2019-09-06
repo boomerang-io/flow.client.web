@@ -194,7 +194,7 @@ class PropertiesTable extends Component {
                 headers={this.headers}
                 render={({ rows, headers, getHeaderProps }) => (
                   <TableContainer>
-                    <Table zebra={false}>
+                    <Table>
                       <TableHead>
                         <TableRow className={styles.tableHeadRow}>
                           {headers.map(header => (
@@ -240,7 +240,7 @@ class PropertiesTable extends Component {
                 headers={this.headers}
                 render={({ headers }) => (
                   <TableContainer>
-                    <Table zebra={false}>
+                    <Table>
                       <TableHead>
                         <TableRow className={styles.tableHeadRow}>
                           {headers.map(header => (

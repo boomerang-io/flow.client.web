@@ -105,7 +105,7 @@ class ChangeLogTable extends Component {
               headers={this.headers}
               render={({ rows, headers, getHeaderProps }) => (
                 <TableContainer>
-                  <Table zebra={false}>
+                  <Table>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
                         {headers.map(header => (
