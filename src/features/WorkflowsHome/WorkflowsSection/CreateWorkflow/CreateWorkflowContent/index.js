@@ -114,7 +114,7 @@ class CreateEditModeModalContent extends Component {
                   style={{ resize: "none", width: "100%" }}
                   value={values.description}
                 />
-                <h2 className={styles.iconsTitle}>Icon</h2>
+                <h2 className={styles.iconsTitle}>Pick an icon (any icon)</h2>
                 <div className={styles.icons}>
                   {workflowIcons.map((image, index) => (
                     <label
