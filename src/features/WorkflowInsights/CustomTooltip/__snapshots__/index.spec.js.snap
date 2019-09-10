@@ -1,53 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CustomTooltip --- Snapshot Capturing Snapshot of CustomTooltip 1`] = `
-<div
-  className="c-tooltip"
->
+<body>
   <div>
-    <p
-      className="b-tooltip--data"
+    <div
+      class="c-tooltip"
     >
-      <span
-        className="b-tooltip--field"
-      >
-        date: 
-      </span>
-      Jan 01 - 2019, 00:00
-    </p>
-    <p
-      className="b-tooltip--data"
-    >
-       
-      <span
-        className="b-tooltip--field"
-      >
-        failed: 
-      </span>
-      5
-    </p>
-    <p
-      className="b-tooltip--data"
-    >
-       
-      <span
-        className="b-tooltip--field"
-      >
-        success: 
-      </span>
-      12
-    </p>
-    <p
-      className="b-tooltip--data"
-    >
-       
-      <span
-        className="b-tooltip--field"
-      >
-        total: 
-      </span>
-      17
-    </p>
+      <div>
+        <p
+          class="b-tooltip--data"
+        >
+          <span
+            class="b-tooltip--field"
+          >
+            date: 
+          </span>
+          Jan 01 - 2019, 00:00
+        </p>
+        <p
+          class="b-tooltip--data"
+        >
+           
+          <span
+            class="b-tooltip--field"
+          >
+            failed: 
+          </span>
+          5
+        </p>
+        <p
+          class="b-tooltip--data"
+        >
+           
+          <span
+            class="b-tooltip--field"
+          >
+            success: 
+          </span>
+          12
+        </p>
+        <p
+          class="b-tooltip--data"
+        >
+           
+          <span
+            class="b-tooltip--field"
+          >
+            total: 
+          </span>
+          17
+        </p>
+      </div>
+    </div>
   </div>
-</div>
+</body>
 `;

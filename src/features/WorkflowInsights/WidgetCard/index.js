@@ -14,7 +14,7 @@ const WidgetCard = ({ title, type, children }) => {
 
 WidgetCard.propTypes = {
   title: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(["stats", "graph"]),
+  type: PropTypes.oneOf(["stat", "graph"]),
   children: PropTypes.any.isRequired
 };
 

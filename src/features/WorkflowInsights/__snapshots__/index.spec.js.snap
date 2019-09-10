@@ -1,264 +1,301 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`] = `
-<div
-  className="c-workflow-insights"
->
-  <nav
-    className="s-workflow-insights-navigation"
-  >
-    <NavigateBack
-      text="Back to Workflows"
-      to="/workflows"
-    />
-  </nav>
-  <div
-    className="c-workflow-insights-header"
-  >
+<body>
+  <div>
     <div
-      className="bx--dropdown__wrapper bx--list-box__wrapper"
+      class="c-workflow-insights"
     >
-      <div
-        className="bx--dropdown bx--list-box"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        role="listbox"
-        tabIndex="-1"
+      <nav
+        class="s-workflow-insights-navigation"
       >
-        <div
-          aria-controls={null}
-          aria-disabled={false}
-          aria-expanded={false}
-          aria-haspopup={true}
-          aria-label="Open menu"
-          aria-owns={null}
-          className="bx--list-box__field"
-          data-toggle={true}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="button"
-          tabIndex="0"
-          type="button"
-        >
-          <span
-            className="bx--list-box__label"
-            htmlFor="downshift-0-input"
-          >
-            All Teams
-          </span>
-          <div
-            className="bx--list-box__menu-icon"
+        <button>
+          <a
+            class="b-navigate-back"
+            href="/workflows"
           >
             <svg
-              aria-label="Open menu"
+              aria-hidden="true"
+              class="b-navigate-back__chevron"
               focusable="false"
-              height={16}
-              name="chevron--down"
+              height="32"
               preserveAspectRatio="xMidYMid meet"
-              role="img"
-              style={
-                Object {
-                  "willChange": "transform",
-                }
-              }
-              viewBox="0 0 16 16"
-              width={16}
+              style="will-change: transform;"
+              viewBox="0 0 32 32"
+              width="32"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                d="M10 16L20 6l1.4 1.4-8.6 8.6 8.6 8.6L20 26z"
               />
-              <title>
-                Open menu
-              </title>
             </svg>
+            <div
+              class="b-navigate-back__text"
+            >
+              Back to Workflows
+            </div>
+          </a>
+        </button>
+      </nav>
+      <div
+        class="c-workflow-insights-header"
+      >
+        <div
+          class="bx--dropdown__wrapper bx--list-box__wrapper"
+        >
+          <div
+            class="bx--dropdown bx--list-box"
+            id="teams-dropdown"
+            role="listbox"
+            tabindex="-1"
+          >
+            <div
+              aria-disabled="false"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-label="Open menu"
+              class="bx--list-box__field"
+              data-toggle="true"
+              role="button"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="bx--list-box__label"
+                for="downshift-0-input"
+              >
+                All Teams
+              </span>
+              <div
+                class="bx--list-box__menu-icon"
+              >
+                <svg
+                  aria-label="Open menu"
+                  focusable="false"
+                  height="16"
+                  name="chevron--down"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  style="will-change: transform;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                  />
+                  <title>
+                    Open menu
+                  </title>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--dropdown__wrapper bx--list-box__wrapper"
+        >
+          <div
+            class="bx--dropdown bx--list-box"
+            id="workflows-dropdown"
+            role="listbox"
+            tabindex="-1"
+          >
+            <div
+              aria-disabled="false"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-label="Open menu"
+              class="bx--list-box__field"
+              data-toggle="true"
+              role="button"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="bx--list-box__label"
+                for="downshift-1-input"
+              >
+                All Workflows
+              </span>
+              <div
+                class="bx--list-box__menu-icon"
+              >
+                <svg
+                  aria-label="Open menu"
+                  focusable="false"
+                  height="16"
+                  name="chevron--down"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  style="will-change: transform;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                  />
+                  <title>
+                    Open menu
+                  </title>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--dropdown__wrapper bx--list-box__wrapper"
+        >
+          <div
+            class="bx--dropdown bx--list-box"
+            id="time-frame-dropdown"
+            role="listbox"
+            tabindex="-1"
+          >
+            <div
+              aria-disabled="false"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-label="Open menu"
+              class="bx--list-box__field"
+              data-toggle="true"
+              role="button"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="bx--list-box__label"
+                for="downshift-2-input"
+              >
+                3 months
+              </span>
+              <div
+                class="bx--list-box__menu-icon"
+              >
+                <svg
+                  aria-label="Open menu"
+                  focusable="false"
+                  height="16"
+                  name="chevron--down"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  style="will-change: transform;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                  />
+                  <title>
+                    Open menu
+                  </title>
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      className="bx--dropdown__wrapper bx--list-box__wrapper"
-    >
       <div
-        className="bx--dropdown bx--list-box"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        role="listbox"
-        tabIndex="-1"
+        class="c-workflow-insights-stats-widgets"
       >
         <div
-          aria-controls={null}
-          aria-disabled={false}
-          aria-expanded={false}
-          aria-haspopup={true}
-          aria-label="Open menu"
-          aria-owns={null}
-          className="bx--list-box__field"
-          data-toggle={true}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="button"
-          tabIndex="0"
-          type="button"
+          class="b-widget-card --stat"
         >
-          <span
-            className="bx--list-box__label"
-            htmlFor="downshift-1-input"
-          >
-            All Workflows
-          </span>
           <div
-            className="bx--list-box__menu-icon"
+            class="b-widget-card__title"
           >
-            <svg
-              aria-label="Open menu"
-              focusable="false"
-              height={16}
-              name="chevron--down"
-              preserveAspectRatio="xMidYMid meet"
-              role="img"
-              style={
-                Object {
-                  "willChange": "transform",
-                }
-              }
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
+            Total Executed
+          </div>
+          <div
+            class="b-widget-card__content"
+          >
+            <p
+              class="b-workflow-insights__stats-label --no-data"
             >
-              <path
-                d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
-              />
-              <title>
-                Open menu
-              </title>
-            </svg>
+              No Data
+            </p>
+          </div>
+        </div>
+        <div
+          class="b-widget-card --stat"
+        >
+          <div
+            class="b-widget-card__title"
+          >
+            Median Duration
+          </div>
+          <div
+            class="b-widget-card__content"
+          >
+            <p
+              class="b-workflow-insights__stats-label --no-data"
+            >
+              No Data
+            </p>
+          </div>
+        </div>
+        <div
+          class="b-widget-card --stat"
+        >
+          <div
+            class="b-widget-card__title"
+          >
+            Success Rate
+          </div>
+          <div
+            class="b-widget-card__content"
+          >
+            <p
+              class="b-workflow-insights__stats-label --no-data"
+            >
+              No Data
+            </p>
           </div>
         </div>
       </div>
-    </div>
-    <div
-      className="bx--dropdown__wrapper bx--list-box__wrapper"
-    >
       <div
-        className="bx--dropdown bx--list-box"
-        onClick={[Function]}
-        onKeyDown={[Function]}
-        role="listbox"
-        tabIndex="-1"
+        class="c-workflow-insights-graphs-widgets"
       >
         <div
-          aria-controls={null}
-          aria-disabled={false}
-          aria-expanded={false}
-          aria-haspopup={true}
-          aria-label="Open menu"
-          aria-owns={null}
-          className="bx--list-box__field"
-          data-toggle={true}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="button"
-          tabIndex="0"
-          type="button"
+          class="b-widget-card --graph"
         >
-          <span
-            className="bx--list-box__label"
-            htmlFor="downshift-2-input"
-          >
-            3 months
-          </span>
           <div
-            className="bx--list-box__menu-icon"
+            class="b-widget-card__title"
           >
-            <svg
-              aria-label="Open menu"
-              focusable="false"
-              height={16}
-              name="chevron--down"
-              preserveAspectRatio="xMidYMid meet"
-              role="img"
-              style={
-                Object {
-                  "willChange": "transform",
-                }
-              }
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
+            Executions
+          </div>
+          <div
+            class="b-widget-card__content"
+          >
+            <p
+              class="b-workflow-insights__graphs-label --no-data"
             >
-              <path
-                d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
-              />
-              <title>
-                Open menu
-              </title>
-            </svg>
+              No Data
+            </p>
+          </div>
+        </div>
+        <div
+          class="b-widget-card --graph"
+        >
+          <div
+            class="b-widget-card__title"
+          >
+            Execution Time
+          </div>
+          <div
+            class="b-widget-card__content"
+          >
+            <p
+              class="b-workflow-insights__graphs-label --no-data"
+            >
+              No Data
+            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div
-    className="c-workflow-insights-stats-widgets"
-  >
-    <WidgetCard
-      title="Total Executed"
-      type="stat"
-    >
-      <p
-        className="b-workflow-insights__stats-label --no-data"
-      >
-        No Data
-      </p>
-    </WidgetCard>
-    <WidgetCard
-      title="Median Duration"
-      type="stat"
-    >
-      <p
-        className="b-workflow-insights__stats-label --no-data"
-      >
-        No Data
-      </p>
-    </WidgetCard>
-    <WidgetCard
-      title="Success Rate"
-      type="stat"
-    >
-      <p
-        className="b-workflow-insights__stats-label --no-data"
-      >
-        No Data
-      </p>
-    </WidgetCard>
-  </div>
-  <div
-    className="c-workflow-insights-graphs-widgets"
-  >
-    <WidgetCard
-      title="Executions"
-      type="graph"
-    >
-      <p
-        className="b-workflow-insights__graphs-label --no-data"
-      >
-        No Data
-      </p>
-    </WidgetCard>
-    <WidgetCard
-      title="Execution Time"
-      type="graph"
-    >
-      <p
-        className="b-workflow-insights__graphs-label --no-data"
-      >
-        No Data
-      </p>
-    </WidgetCard>
-  </div>
-</div>
+</body>
 `;

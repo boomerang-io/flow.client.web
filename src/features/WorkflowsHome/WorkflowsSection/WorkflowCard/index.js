@@ -30,6 +30,10 @@ class WorkflowCard extends Component {
     deleteModalIsOpen: false
   };
 
+  componentWillUnmount() {
+    this.handleOverflowMenuClose();
+  }
+
   executeWorkflow = ({ redirect, properties }) => {
     this.props.executeWorkflow({ workflowId: this.props.workflow.id, redirect, properties });
   };
@@ -55,52 +59,57 @@ class WorkflowCard extends Component {
     history.push(`/editor/${workflow.id}/designer`);
   };
 
+  /* prevent page scroll when up or down arrows are pressed **/
+  preventKeyScrolling = e => {
+    if ([38, 40].indexOf(e.keyCode) > -1) {
+      e.preventDefault();
+    }
+  };
+
+  handleOverflowMenuOpen = () => {
+    window.addEventListener("keydown", this.preventKeyScrolling, false);
+  };
+
+  handleOverflowMenuClose = () => {
+    window.removeEventListener("keydown", this.preventKeyScrolling, false);
+  };
+
   render() {
     const { workflow, history, teamId, deleteWorkflow } = this.props;
     const menuOptions = [
       {
         itemText: "Edit",
         onClick: this.setActiveTeamAndRedirect,
-        primaryFocus: false
+        primaryFocus: true
       },
       {
         itemText: "Activity",
-        onClick: () => history.push(`/activity?page=0&size=10&workflowIds=${workflow.id}`),
-        primaryFocus: false
+        onClick: () => history.push(`/activity?page=0&size=10&workflowIds=${workflow.id}`)
       },
       {
         itemText: "Export",
         onClick: () => this.handleExportWorkflow(workflow),
-        primaryFocus: false,
         isDelete: false
       },
       {
         itemText: "Delete",
         hasDivider: true,
         isDelete: true,
-        onClick: () => this.setState({ deleteModalIsOpen: true }),
-        primaryFocus: false
+        onClick: () => this.setState({ deleteModalIsOpen: true })
       }
     ];
 
     return (
       <div className="c-workflow-card">
         <OverflowMenu
-          className="b-workflow-card__menu"
-          ariaLabel="card menu"
-          iconDescription="overflow menu icon"
+          ariaLabel="Overflow card menu"
+          iconDescription="Overflow menu icon"
+          onOpen={this.handleOverflowMenuOpen}
+          onClose={this.handleOverflowMenuClose}
           style={{ position: "absolute", right: "0" }}
         >
-          {menuOptions.map(({ onClick, itemText, primaryFocus, ...rest }) => (
-            <OverflowMenuItem
-              requireTitle={false}
-              closeMenu={() => {}}
-              onClick={onClick}
-              itemText={itemText}
-              primaryFocus={primaryFocus}
-              key={itemText}
-              {...rest}
-            />
+          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
           ))}
         </OverflowMenu>
         {this.state.deleteModalIsOpen && (

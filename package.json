@@ -6,7 +6,7 @@
   "dependencies": {
     "@boomerang/boomerang-components": "9.3.4",
     "@boomerang/boomerang-dag": "5.2.1",
-    "@boomerang/boomerang-react-scripts": "4.0.0",
+    "@boomerang/boomerang-react-scripts": "^4.1.2",
     "@boomerang/boomerang-styles": "1.1.0",
     "@boomerang/boomerang-utilities": "2.2.0",
     "@boomerang/carbon-addons-boomerang": "2.0.0-rc.8",
