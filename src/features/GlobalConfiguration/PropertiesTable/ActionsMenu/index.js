@@ -12,7 +12,8 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty, addProper
   const menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => setEditModalIsOpen(true)
+      onClick: () => setEditModalIsOpen(true),
+      primaryFocus: true
     },
     {
       itemText: "Delete",
@@ -32,6 +33,7 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty, addProper
         ariaLabel="Overflow menu"
         iconDescription="Overflow menu icon"
         data-testid="configuration-property-table-overflow-menu"
+        flipped
       >
         {menuOptions.map((option, index) => (
           <OverflowMenuItem key={index} {...option} />

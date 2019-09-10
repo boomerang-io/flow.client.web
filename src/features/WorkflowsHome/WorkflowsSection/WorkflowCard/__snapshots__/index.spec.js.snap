@@ -7,8 +7,8 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
   <div
     aria-expanded={false}
     aria-haspopup={true}
-    aria-label="card menu"
-    className="b-workflow-card__menu bx--overflow-menu"
+    aria-label="Overflow card menu"
+    className="bx--overflow-menu"
     onClick={[Function]}
     onClose={[Function]}
     onKeyDown={[Function]}
@@ -23,7 +23,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
     tabIndex={0}
   >
     <svg
-      aria-label="overflow menu icon"
+      aria-label="Overflow menu icon"
       className="bx--overflow-menu__icon"
       focusable="false"
       height={16}
@@ -56,7 +56,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
         r="1"
       />
       <title>
-        overflow menu icon
+        Overflow menu icon
       </title>
     </svg>
   </div>
