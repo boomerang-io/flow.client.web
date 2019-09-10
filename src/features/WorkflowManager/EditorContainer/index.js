@@ -57,7 +57,7 @@ class WorkflowEditorContainer extends Component {
       return team.workflows.find(workflow => workflow.id === workflowId);
     });
 
-    appActions.setActiveTeam({ teamId: activeTeam.id });
+    appActions.setActiveTeam({ teamId: activeTeam ? activeTeam.id : "" });
   }
 
   render() {

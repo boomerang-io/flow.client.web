@@ -9,7 +9,7 @@ import { actions as workflowRevisionActions } from "State/workflowRevision";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
 import ErrorDragon from "Components/ErrorDragon";
-import Creator from "./Creator";
+// import Creator from "./Creator";
 import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
@@ -30,7 +30,7 @@ export class WorkflowManagerContainer extends Component {
     workflow: PropTypes.object
   };
 
-  changeLogReason = "Create workflow"; //default changelog value at creation time
+  changeLogReason = "Update workflow"; //default changelog value
 
   async componentDidMount() {
     try {
@@ -55,34 +55,6 @@ export class WorkflowManagerContainer extends Component {
 
   handleChangeLogReasonChange = changeLogReason => {
     this.changeLogReason = changeLogReason;
-  };
-
-  createWorkflow = diagramApp => {
-    const { workflowActions, workflowRevisionActions, activeTeamId } = this.props;
-    let workflowId;
-    return workflowActions
-      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, flowTeamId: activeTeamId }) //update all instances of using newOverviewData - probably just need to use workflow.data object
-      .then(response => {
-        const dagProps = this.createWorkflowRevisionBody(diagramApp);
-        workflowId = response.data.id;
-
-        const workflowRevision = {
-          ...dagProps,
-          workflowId
-        };
-        workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
-        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
-      })
-      .then(() => {
-        notify(
-          <Notification type="success" title="Create Workflow" message="Successfully created workflow and version" />
-        );
-        this.props.history.push(`/editor/${workflowId}/designer`);
-      })
-      .catch(err => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow and version" />);
-        return Promise.reject();
-      });
   };
 
   createWorkflowRevision = diagramApp => {
@@ -252,12 +224,6 @@ export class WorkflowManagerContainer extends Component {
           />
           <div className="c-workflow-designer">
             <Switch>
-              <Route
-                path="/creator/overview"
-                render={props => (
-                  <Creator workflow={this.props.workflow} createWorkflow={this.createWorkflow} {...props} />
-                )}
-              />
               <Route
                 path="/editor/:workflowId"
                 render={props => (

@@ -28,11 +28,11 @@ const onMenuClick = ({ isOpen, onMenuClose }) => (
         Activity
       </NavLink>
     </InteriorLeftNavItem>
-    <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/creator/overview`} label="Designer">
+    {/*  <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/creator/overview`} label="Designer">
       <NavLink to="/creator/overview" exact={false}>
         Designer
       </NavLink>
-    </InteriorLeftNavItem>
+    </InteriorLeftNavItem> */}
     <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/insights`} label="Insights">
       <NavLink to="/insights" exact={false}>
         Insights

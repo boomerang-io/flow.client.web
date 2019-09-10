@@ -11,6 +11,7 @@ import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
 import ChangeLog from "Features/WorkflowManager/components/ChangeLog";
 import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
+import ErrorDragon from "Components/ErrorDragon";
 import DiagramApplication from "Utilities/DiagramApplication";
 
 class WorkflowEditor extends Component {
@@ -77,6 +78,8 @@ class WorkflowEditor extends Component {
     const { revisionCount } = workflow.data;
     const { version } = workflowRevision;
     const workflowLoading = workflowRevision.isFetching || workflowRevision.isCreating;
+
+    if (!activeTeamId) return <ErrorDragon />;
 
     return (
       <>
