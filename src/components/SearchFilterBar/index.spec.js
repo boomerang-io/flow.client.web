@@ -1,5 +1,4 @@
 import React from "react";
-import renderer from "react-test-renderer";
 import SearchFilterBar from "./index";
 
 const props = {
@@ -13,7 +12,7 @@ const props = {
 
 describe("SearchFilterBar --- Snapshot", () => {
   it("Capturing Snapshot of SearchFilterBar", () => {
-    const renderedValue = renderer.create(<SearchFilterBar {...props} />);
-    expect(renderedValue).toMatchSnapshot();
+    const { baseElement } = rtlRender(<SearchFilterBar {...props} />);
+    expect(baseElement).toMatchSnapshot();
   });
 });

@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WorkflowManager --- Snapshot Capturing Snapshot of WorkflowManager 1`] = `
-<div
-  className="c-workflow-designer"
-/>
+<body>
+  <div>
+    <div
+      class="c-workflow-designer"
+    />
+  </div>
+</body>
 `;

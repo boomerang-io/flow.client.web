@@ -1,7 +1,4 @@
 import React from "react";
-import { shallow } from "enzyme";
-import renderer from "react-test-renderer";
-import { MemoryRouter } from "react-router";
 import ActivityList from "./index";
 
 const history = {};
@@ -38,27 +35,7 @@ const props = {
 
 describe("ActivityList --- Snapshot", () => {
   it("Capturing Snapshot of ActivityList", () => {
-    const renderedValue = renderer.create(
-      <MemoryRouter>
-        <ActivityList {...props} />
-      </MemoryRouter>
-    );
-    expect(renderedValue).toMatchSnapshot();
-  });
-});
-
-describe("ActivityList --- Shallow render", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = shallow(
-      <MemoryRouter>
-        <ActivityList {...props} />
-      </MemoryRouter>
-    );
-  });
-
-  it("Render the DUMB component", () => {
-    expect(wrapper.length).toEqual(1);
+    const { baseElement } = rtlRouterRender(<ActivityList {...props} />);
+    expect(baseElement).toMatchSnapshot();
   });
 });

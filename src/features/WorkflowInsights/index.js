@@ -215,6 +215,7 @@ export class WorkflowInsights extends Component {
           </nav>
           <div className="c-workflow-insights-header">
             <Dropdown
+              id="teams-dropdown"
               label="Teams"
               placeholder="Teams"
               onChange={this.handleChangeTeam}
@@ -223,6 +224,7 @@ export class WorkflowInsights extends Component {
               initialSelectedItem={ALL_OPTIONS.TEAMS}
             />
             <Dropdown
+              id="workflows-dropdown"
               label="Workflows"
               placeholder="Workflows"
               onChange={this.handleChangeWorkflow}
@@ -234,6 +236,7 @@ export class WorkflowInsights extends Component {
               initialSelectedItem={ALL_OPTIONS.WORKFLOWS}
             />
             <Dropdown
+              id="time-frame-dropdown"
               label="Time Frame"
               placeholder="Time Frame"
               onChange={this.handleChangeTimeframe}

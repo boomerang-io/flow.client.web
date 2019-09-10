@@ -1,7 +1,4 @@
 import React from "react";
-import { shallow } from "enzyme";
-import renderer from "react-test-renderer";
-import { MemoryRouter } from "react-router";
 import CustomTooltip from "./index";
 
 const payload = [
@@ -21,27 +18,7 @@ const payload = [
 
 describe("CustomTooltip --- Snapshot", () => {
   it("Capturing Snapshot of CustomTooltip", () => {
-    const renderedValue = renderer.create(
-      <MemoryRouter>
-        <CustomTooltip payload={payload} />
-      </MemoryRouter>
-    );
-    expect(renderedValue).toMatchSnapshot();
-  });
-});
-
-describe("CustomTooltip --- Shallow render", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = shallow(
-      <MemoryRouter>
-        <CustomTooltip payload={payload} />
-      </MemoryRouter>
-    );
-  });
-
-  it("Render the DUMB component", () => {
-    expect(wrapper.length).toEqual(1);
+    const { baseElement } = rtlRouterRender(<CustomTooltip payload={payload} />);
+    expect(baseElement).toMatchSnapshot();
   });
 });

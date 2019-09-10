@@ -153,7 +153,13 @@ class CreateEditPropertiesContent extends Component {
                   />
                 </div>
                 <div className={styles.toggleContainer}>
-                  <Toggle name="secured" checked={values.secured} onChange={handleChange} labelText="Secured" />
+                  <Toggle
+                    id="secured"
+                    name="secured"
+                    toggled={values.secured}
+                    onChange={handleChange}
+                    labelText="Secured"
+                  />
                 </div>
               </Body>
               <Footer style={{ flexDirection: "column", alignItems: "center", justifyContent: "flex-start" }}>

@@ -1,169 +1,148 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
-<div
-  className="c-workflow-home"
->
-  <div
-    className="c-workflow-home-content"
-  >
+<body>
+  <div>
     <div
-      className="b-search-filter"
+      class="c-workflow-home"
     >
       <div
-        className="b-search-filter__search"
+        class="c-workflow-home-content"
       >
         <div
-          className="bx--search bx--search--xl"
-        >
-          <svg
-            aria-hidden={true}
-            className="bx--search-magnifier"
-            focusable="false"
-            height={16}
-            preserveAspectRatio="xMidYMid meet"
-            role="img"
-            style={
-              Object {
-                "willChange": "transform",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15 14.3L10.7 10c1.9-2.3 1.6-5.8-.7-7.7S4.2.7 2.3 3 .7 8.8 3 10.7c2 1.7 5 1.7 7 0l4.3 4.3.7-.7zM2 6.5C2 4 4 2 6.5 2S11 4 11 6.5 9 11 6.5 11 2 9 2 6.5z"
-            />
-          </svg>
-          <label
-            className="bx--label"
-            htmlFor="search-worfklows"
-          >
-            Search workflows
-          </label>
-          <input
-            className="bx--search-input"
-            id="search-worfklows"
-            onChange={[Function]}
-            placeholder="Search workflows"
-            type="text"
-            value=""
-          />
-          <button
-            aria-label="Clear search input"
-            className="bx--search-close bx--search-close--hidden"
-            onClick={[Function]}
-            type="button"
-          >
-            <svg
-              aria-label="Clear search input"
-              focusable="false"
-              height={20}
-              preserveAspectRatio="xMidYMid meet"
-              role="img"
-              style={
-                Object {
-                  "willChange": "transform",
-                }
-              }
-              viewBox="0 0 32 32"
-              width={20}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
-      <div
-        className="b-search-filter__filter"
-      >
-        <div
-          className="bx--multi-select__wrapper bx--list-box__wrapper"
+          class="b-search-filter"
         >
           <div
-            className="bx--multi-select bx--list-box"
-            id="b-search-filter__filter"
-            onClick={[Function]}
-            onKeyDown={[Function]}
-            role="listbox"
-            tabIndex="-1"
+            class="b-search-filter__search"
           >
             <div
-              aria-controls={null}
-              aria-disabled={false}
-              aria-expanded={false}
-              aria-haspopup={true}
-              aria-label="Open menu"
-              aria-owns={null}
-              className="bx--list-box__field"
-              data-toggle={true}
-              onBlur={[Function]}
-              onClick={[Function]}
-              onKeyDown={[Function]}
-              role="button"
-              tabIndex="0"
-              type="button"
+              class="bx--search bx--search--xl"
             >
-              <span
-                className="bx--list-box__label"
+              <svg
+                aria-hidden="true"
+                class="bx--search-magnifier"
+                focusable="false"
+                height="16"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                Teams
-              </span>
-              <div
-                className="bx--list-box__menu-icon"
+                <path
+                  d="M15 14.3L10.7 10c1.9-2.3 1.6-5.8-.7-7.7S4.2.7 2.3 3 .7 8.8 3 10.7c2 1.7 5 1.7 7 0l4.3 4.3.7-.7zM2 6.5C2 4 4 2 6.5 2S11 4 11 6.5 9 11 6.5 11 2 9 2 6.5z"
+                />
+              </svg>
+              <label
+                class="bx--label"
+                for="search-worfklows"
+              >
+                Search workflows
+              </label>
+              <input
+                class="bx--search-input"
+                id="search-worfklows"
+                placeholder="Search workflows"
+                type="text"
+                value=""
+              />
+              <button
+                aria-label="Clear search input"
+                class="bx--search-close bx--search-close--hidden"
+                type="button"
               >
                 <svg
-                  aria-label="Open menu"
+                  aria-label="Clear search input"
                   focusable="false"
-                  height={16}
-                  name="chevron--down"
+                  height="20"
                   preserveAspectRatio="xMidYMid meet"
                   role="img"
-                  style={
-                    Object {
-                      "willChange": "transform",
-                    }
-                  }
-                  viewBox="0 0 16 16"
-                  width={16}
+                  style="will-change: transform;"
+                  viewBox="0 0 32 32"
+                  width="20"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                    d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
                   />
-                  <title>
-                    Open menu
-                  </title>
                 </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="b-search-filter__filter"
+          >
+            <div
+              class="bx--multi-select__wrapper bx--list-box__wrapper"
+            >
+              <div
+                class="bx--multi-select bx--list-box"
+                id="b-search-filter__filter"
+                role="listbox"
+                tabindex="-1"
+              >
+                <div
+                  aria-disabled="false"
+                  aria-expanded="false"
+                  aria-haspopup="true"
+                  aria-label="Open menu"
+                  class="bx--list-box__field"
+                  data-toggle="true"
+                  role="button"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bx--list-box__label"
+                  >
+                    Teams
+                  </span>
+                  <div
+                    class="bx--list-box__menu-icon"
+                  >
+                    <svg
+                      aria-label="Open menu"
+                      focusable="false"
+                      height="16"
+                      name="chevron--down"
+                      preserveAspectRatio="xMidYMid meet"
+                      role="img"
+                      style="will-change: transform;"
+                      viewBox="0 0 16 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                      />
+                      <title>
+                        Open menu
+                      </title>
+                    </svg>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <div
+          class="bmrg--b-no-display --bmrg-white"
+          style="margin-top: 5rem;"
+        >
+          <p
+            class="bmrg--b-no-display__text --above"
+          >
+            Looks like you don't have any workflow teams
+          </p>
+          <img
+            alt="no-display"
+            class="bmrg--b-no-display__img"
+            src="ship_sharks.svg"
+          />
+        </div>
       </div>
     </div>
-    <div
-      className="bmrg--b-no-display --bmrg-white"
-      style={
-        Object {
-          "marginTop": "5rem",
-        }
-      }
-    >
-      <p
-        className="bmrg--b-no-display__text --above"
-      >
-        Looks like you don't have any workflow teams
-      </p>
-      <img
-        alt="no-display"
-        className="bmrg--b-no-display__img"
-        src="ship_sharks.svg"
-      />
-    </div>
   </div>
-</div>
+</body>
 `;

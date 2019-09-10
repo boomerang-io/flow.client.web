@@ -1,6 +1,6 @@
 import React from "react";
 import { GlobalConfigurationContainer } from ".";
-import { render, fireEvent, waitForElement } from "react-testing-library";
+import { render, fireEvent } from "react-testing-library";
 
 const mockfn = jest.fn();
 
@@ -61,7 +61,7 @@ describe("GlobalConfigurationContainer --- RTL", () => {
   });
 
   it("Opens edit property modal", async () => {
-    const { getByText, queryByText, getByTestId } = render(<GlobalConfigurationContainer {...props} />);
+    const { findByText, queryByText, getByTestId } = render(<GlobalConfigurationContainer {...props} />);
 
     expect(queryByText(/EDIT TEST RTL/i)).not.toBeInTheDocument();
 
@@ -70,14 +70,14 @@ describe("GlobalConfigurationContainer --- RTL", () => {
     const actionsMenu = getByTestId("configuration-property-table-overflow-menu");
     fireEvent.click(actionsMenu);
 
-    const modalTrigger = await waitForElement(() => getByText(/Edit/i));
+    const modalTrigger = await findByText(/Edit/i);
     fireEvent.click(modalTrigger);
 
     expect(queryByText(/EDIT TEST RTL/i)).toBeInTheDocument();
   });
 
   it("Opens delete property modal", async () => {
-    const { getByText, queryByText, getByTestId } = render(<GlobalConfigurationContainer {...props} />);
+    const { findByText, queryByText, getByTestId } = render(<GlobalConfigurationContainer {...props} />);
 
     expect(queryByText(/DELETE TEST RTL/i)).not.toBeInTheDocument();
 
@@ -86,7 +86,7 @@ describe("GlobalConfigurationContainer --- RTL", () => {
     const actionsMenu = getByTestId("configuration-property-table-overflow-menu");
     fireEvent.click(actionsMenu);
 
-    const modalTrigger = await waitForElement(() => getByText(/Delete/i));
+    const modalTrigger = await findByText(/Delete/i);
     fireEvent.click(modalTrigger);
 
     expect(queryByText(/DELETE TEST RTL/i)).toBeInTheDocument();

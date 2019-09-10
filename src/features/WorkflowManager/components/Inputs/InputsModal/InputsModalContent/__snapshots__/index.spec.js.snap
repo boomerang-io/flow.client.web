@@ -279,6 +279,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
       >
         <button
           class="bmrg--b-modal-confirm-button --disabled --bmrg-flow --disabled"
+          data-testid="inputs-modal-confirm-button"
           disabled=""
           type="submit"
         >
