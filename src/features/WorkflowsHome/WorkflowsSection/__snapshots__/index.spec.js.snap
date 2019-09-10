@@ -48,42 +48,47 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
       <div
         class="c-workflow-section__workflows"
       >
-        <button
-          class="b-workflow-placeholder"
-        >
-          <div
-            class="b-workflow-placeholder__box"
+        <div>
+          <button
+            class="b-workflow-placeholder"
           >
-            <svg
-              aria-hidden="true"
-              class="b-workflow-placeholder__plus"
-              currentItem="false"
-              data-for="1234"
-              data-tip="true"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="b-workflow-placeholder__box"
             >
-              <path
-                d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
-              />
-            </svg>
-          </div>
-          <div
-            class="__react_component_tooltip place-top type-dark "
-            data-id="tooltip"
-            id="1234"
-          >
-            Create Workflow
-          </div>
-        </button>
+              <svg
+                aria-hidden="true"
+                class="b-workflow-placeholder__plus"
+                currentItem="false"
+                data-for="1234"
+                data-tip="true"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
+                />
+              </svg>
+            </div>
+            <div
+              class="__react_component_tooltip place-top type-dark "
+              data-id="tooltip"
+              id="1234"
+            >
+              Create Workflow
+            </div>
+          </button>
+        </div>
       </div>
     </section>
   </div>
+  <div
+    class="ReactModalPortal"
+  />
   <div
     class="ReactModalPortal"
   />
