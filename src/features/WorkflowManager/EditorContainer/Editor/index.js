@@ -4,7 +4,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import get from "lodash.get";
-import { DiagramWidget } from "@boomerang/boomerang-dag";
+import { DiagramWidget } from "@projectstorm/react-diagrams";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import Inputs from "Features/WorkflowManager/components/Inputs";
 import Navigation from "Features/WorkflowManager/components/Navigation";

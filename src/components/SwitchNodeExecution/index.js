@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { PortWidget } from "@boomerang/boomerang-dag";
+import { PortWidget } from "@projectstorm/react-diagrams";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import switchSVG from "Assets/svg/parent-relationship_32.svg";
 import "./styles.scss";

@@ -4,7 +4,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
-import { PortWidget } from "@boomerang/boomerang-dag";
+import { PortWidget } from "@projectstorm/react-diagrams";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import mapTaskNametoIcon from "Utilities/taskIcons";
 import "./styles.scss";

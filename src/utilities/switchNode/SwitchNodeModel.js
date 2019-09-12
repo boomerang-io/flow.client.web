@@ -1,4 +1,4 @@
-import { NodeModel } from "@boomerang/boomerang-dag";
+import { NodeModel } from "@projectstorm/react-diagrams";
 import SwitchPortModel from "./SwitchPortModel";
 import merge from "lodash/merge";
 

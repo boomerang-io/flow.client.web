@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
-import { PortWidget } from "@boomerang/boomerang-dag";
+import { PortWidget } from "@projectstorm/react-diagrams";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";

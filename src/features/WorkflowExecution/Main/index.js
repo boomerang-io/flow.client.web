@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import { DiagramWidget } from "@boomerang/boomerang-dag";
+import { DiagramWidget } from "@projectstorm/react-diagrams";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import NavigateBack from "Components/NavigateBack";
 import TimeProgressBar from "Components/TimeProgressBar";

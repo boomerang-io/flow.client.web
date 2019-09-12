@@ -1,5 +1,5 @@
 import React from "react";
-import { AbstractNodeFactory } from "@boomerang/boomerang-dag";
+import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import CustomTaskNodeDesigner from "Components/TaskNodeDesigner";
 import CustomTaskNodeExecution from "Components/TaskNodeExecution";
 import CustomTaskNodeModel from "./CustomTaskNodeModel";

@@ -1,5 +1,5 @@
 import merge from "lodash/merge";
-import { PortModel } from "@boomerang/boomerang-dag";
+import { PortModel } from "@projectstorm/react-diagrams";
 import CustomLinkModel from "Utilities/customLink/CustomLinkModel";
 
 export default class StartEndPortModel extends PortModel {

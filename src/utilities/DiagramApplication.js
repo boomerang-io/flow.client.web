@@ -1,5 +1,5 @@
-//import SRD from "@boomerang/boomerang-dag";
-import { DiagramEngine, DiagramModel } from "@boomerang/boomerang-dag";
+//import SRD from "@projectstorm/react-diagrams";
+import { DiagramEngine, DiagramModel } from "@projectstorm/react-diagrams";
 import CustomTaskNodeFactory from "./customTaskNode/CustomTaskNodeFactory";
 import StartEndNodeFactory from "./startEndNode/StartEndNodeFactory";
 import StartEndNodeModel from "./startEndNode/StartEndNodeModel";
@@ -50,6 +50,24 @@ export default class Application {
     if (modelIsLocked) {
       this.activeModel.setLocked(true);
     }
+
+    // Register event listeners for linkUpdated
+    // We are listenigng on the create event and deleting it if
+    // it doesn't have a target port
+    this.activeModel.addListener({
+      linksUpdated: event => {
+        if (event.isCreated) {
+          document.addEventListener("mouseup", e => {
+            console.log(event);
+            if (!event.link.targetPort) {
+              this.activeModel.removeLink(event.link);
+              this.diagramEngine.repaintCanvas();
+              document.removeEventListener("mouseup", null);
+            }
+          });
+        }
+      }
+    });
   }
 
   getActiveDiagram() {

@@ -1,4 +1,4 @@
-import { AbstractPortFactory } from "@boomerang/boomerang-dag";
+import { AbstractPortFactory } from "@projectstorm/react-diagrams";
 
 export default class SimplePortFactory extends AbstractPortFactory {
   //cb: (initialConfig?: any) => PortModel;

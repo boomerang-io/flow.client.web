@@ -1,4 +1,4 @@
-import { PortModel } from "@boomerang/boomerang-dag";
+import { PortModel } from "@projectstorm/react-diagrams";
 import CustomLinkModel from "Utilities/customLink/CustomLinkModel";
 import merge from "lodash/merge";
 

@@ -1,4 +1,4 @@
-import { DefaultLinkModel } from "@boomerang/boomerang-dag";
+import { DefaultLinkModel } from "@projectstorm/react-diagrams";
 
 export default class CustomLinkModel extends DefaultLinkModel {
   constructor() {
