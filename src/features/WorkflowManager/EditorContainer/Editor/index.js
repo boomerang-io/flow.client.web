@@ -66,7 +66,6 @@ class WorkflowEditor extends Component {
       createNode,
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
-      isValidOverview,
       match,
       isModalOpen,
       teamsState,
@@ -137,13 +136,7 @@ class WorkflowEditor extends Component {
             path={`${match.path}/properties`}
             render={props => (
               <>
-                <ActionBar
-                  diagramApp={this.diagramApp}
-                  isValidOverview={isValidOverview}
-                  showActionButton={false}
-                  loading={workflowLoading}
-                  {...props}
-                />
+                <ActionBar diagramApp={this.diagramApp} showActionButton={false} loading={workflowLoading} {...props} />
                 <Inputs updateInputs={this.props.updateInputs} loading={workflow.isUpdating} />
               </>
             )}
@@ -162,7 +155,6 @@ class WorkflowEditor extends Component {
                   includeResetVersionAlert={version < revisionCount}
                   includeVersionSwitcher
                   includeZoom
-                  isValidOverview={isValidOverview}
                   revisionCount={workflow.data.revisionCount}
                   currentRevision={workflowRevision.version}
                   fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}

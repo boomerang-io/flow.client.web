@@ -87,11 +87,26 @@
           "type": "text"
         },
         {
+          "description": "Testing multiselect",
+          "key": "multiselect",
+          "label": "multiselect",
+          "type": "multiselect",
+          "options": [
+            { "key": "testing", "value": "testing" },
+            { "key": "something", "value": "something" },
+            { "key": "hello", "value": "hello" }
+          ]
+        },
+        {
           "description": "The name of the channel or user as a destination for the messages.",
           "key": "select",
           "label": "select",
           "type": "select",
-          "options": ["testing", "this", "here"]
+          "options": [
+            { "key": "testing", "value": "testing" },
+            { "key": "something", "value": "something" },
+            { "key": "hello", "value": "hello" }
+          ]
         }
       ],
       "description": "Sleep for specified duration in milliseconds",
@@ -120,13 +135,15 @@
           "description": "The message inside the email",
           "key": "message",
           "label": "Message",
-          "type": "textarea"
+          "type": "textarea",
+          "language": null
         },
         {
           "description": "The message inside the email2",
           "key": "message2",
           "label": "Message2",
-          "type": "textarea"
+          "type": "textarea",
+          "language": "yaml"
         },
         {
           "description": "The main text to the message.",

@@ -4,7 +4,7 @@ import { default as BmrgToggle } from "@boomerang/boomerang-components/lib/Toggl
 
 const Toggle = ({ checked, description, id, label, name, onChange }) => {
   return (
-    <div className="b-settings-toggle">
+    <div key={id} className="b-settings-toggle">
       <BmrgToggle theme="bmrg-flow" id={id} onChange={onChange} name={name} checked={checked} />
       <div className="b-setting-toggle__info">
         <label className="b-settings-toggle__label">{label}</label>

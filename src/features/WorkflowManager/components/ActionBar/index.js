@@ -23,7 +23,7 @@ class ActionBar extends Component {
     fetchWorkflowRevisionNumber: PropTypes.func,
     // includePerformActionAlert: PropTypes.bool,
     includeZoom: PropTypes.bool,
-    isValidOverview: PropTypes.bool.isRequired,
+    isValidOverview: PropTypes.bool,
     performAction: PropTypes.func,
     performActionButtonText: PropTypes.string,
     revisionCount: PropTypes.number,

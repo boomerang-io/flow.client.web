@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { transformAll } from "@overgear/yup-ast";
-import { DynamicFormik, TextInput } from "@boomerang/carbon-addons-boomerang-react";
-import { AutoSuggestTextInput } from "@boomerang/boomerang-components";
+import { AutoSuggest, DynamicFormik, TextInput } from "@boomerang/carbon-addons-boomerang-react";
+import { TextInput as CarbonTextInput } from "carbon-components-react";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import AutoSuggest from "Components/AutoSuggest";
 import Toggle from "./Toggle";
 import TextAreaModal from "Components/TextAreaModal";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
-import { INPUT_TYPES, TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
+import { TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
 import "./styles.scss";
 
 const AutoSuggestInput = props => {
   return (
-    <div key={props.key} style={{ paddingBottom: "2.125rem", position: "relative" }}>
+    <div key={props.id} style={{ paddingBottom: "2.125rem", position: "relative" }}>
       <AutoSuggest {...props}>
-        <AutoSuggestTextInput />
+        <CarbonTextInput />
       </AutoSuggest>
     </div>
   );
@@ -24,7 +23,7 @@ const AutoSuggestInput = props => {
 
 const TextAreaInput = props => {
   return (
-    <div key={props.key} style={{ position: "relative", cursor: "pointer" }}>
+    <div key={props.id} style={{ position: "relative", cursor: "pointer" }}>
       <TextAreaModal {...props} />
     </div>
   );
@@ -108,10 +107,19 @@ class DisplayForm extends Component {
       }
 
       if (item.minValueLength) {
-        yupValidationArray.push(["yup.min", item.minValueLength]);
+        yupValidationArray.push(["yup.required", `${item.label} is required`]);
+        yupValidationArray.push([
+          "yup.min",
+          item.minValueLength,
+          `${item.label} must be at least ${item.minValueLength} characters`
+        ]);
       }
       if (item.maxValueLength) {
-        yupValidationArray.push(["yup.max", item.maxValueLength]);
+        yupValidationArray.push([
+          "yup.max",
+          item.maxValueLength,
+          `${item.label} must be less than ${item.maxValueLength} characters`
+        ]);
       }
 
       if (yupValidationArray.length > 0) {
@@ -135,8 +143,7 @@ class DisplayForm extends Component {
     const { key } = input;
 
     return {
-      itemToString: item => item,
-      onChange: ({ selectedItem }) => this.formikSetFieldValue(selectedItem, key, setFieldValue),
+      onChange: ({ selectedItem }) => this.formikSetFieldValue(selectedItem ? selectedItem : "", key, setFieldValue),
       shouldFilterItem: () => true
     };
   };
@@ -146,15 +153,13 @@ class DisplayForm extends Component {
     const { key } = input;
 
     return {
-      itemToString: item => item,
-      onChange: ({ selectedItems }) => this.formikSetFieldValue(selectedItems, key, setFieldValue),
-      shouldFilterItem: () => true
+      onChange: ({ selectedItems }) => this.formikSetFieldValue(selectedItems.map(item => item.key), key, setFieldValue)
     };
   };
 
   textAreaProps = (input, formikProps) => {
     const { values, setFieldValue } = formikProps;
-    const { key, maxValueLength, minValueLength, type } = input;
+    const { key, language, maxValueLength, minValueLength, type } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
@@ -164,6 +169,7 @@ class DisplayForm extends Component {
       inputProperties: this.props.inputProperties,
       item: input,
       itemConfig,
+      language,
       minValueLength,
       maxValueLength,
       validateInput: this.validateInput
@@ -171,30 +177,22 @@ class DisplayForm extends Component {
   };
 
   textInputProps = (input, formikProps) => {
-    const { values, setFieldValue } = formikProps;
-    const { description, key, label, maxValueLength, minValueLength, type } = input;
-    const itemConfig = INPUT_TYPES[type];
+    const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
+    const { description, key, label, type } = input;
 
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
-      handleChange: value => this.formikSetFieldValue(value, key, setFieldValue),
+      onChange: value => this.formikSetFieldValue(value, key, setFieldValue),
       initialValue: values[key],
       inputProps: {
+        id: key,
         placeholder: description,
-        alwaysShowTitle: true,
-        title: label,
+        labelText: label,
+        onBlur: handleBlur,
         type,
-        theme: "bmrg-flow"
-      },
-      theme: "bmrg-flow",
-      validationFunction: value =>
-        this.validateInput({
-          value,
-          maxValueLength,
-          minValueLength,
-          validationFunction: itemConfig.validationFunction,
-          validationText: itemConfig.validationText
-        })
+        invalid: touched[key] && errors[key],
+        invalidText: errors[key]
+      }
     };
   };
 

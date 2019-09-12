@@ -28,12 +28,25 @@ function escapeRegExp(val) {
 }
 
 const TextAreaView = props => {
+  const languages = [
+    {
+      id: "javascript",
+      text: "JavaScript/JSON",
+      params: { hint: CodeMirror.hint.javascript, mode: { name: "javascript" } }
+    },
+    { id: "shell", text: "Shell", params: { mode: "shell" } },
+    { id: "text", text: "Text", params: { mode: "text/plain" } },
+    { id: "yaml", text: "YAML", params: { mode: "yaml" } }
+  ];
+
   const [value, setValue] = useState(props.value);
   const editor = useRef(null);
   const [doc, setDoc] = useState();
   const [searchText, setSearchText] = useState("");
   const [clipboard, setClipboard] = useState("");
-  const [languageParams, setLanguageParams] = useState({});
+  const [languageParams, setLanguageParams] = useState(
+    props.language ? languages.find(value => value.id === props.language).params : {}
+  );
 
   useEffect(() => {
     const autoSuggestions = props.autoSuggestions.map(elm => {
@@ -118,20 +131,9 @@ const TextAreaView = props => {
     editor.current.focus();
   };
 
-  const languages = [
-    {
-      id: "javascript",
-      text: "JavaScript/JSON",
-      params: { hint: CodeMirror.hint.javascript, mode: { name: "javascript" } }
-    },
-    { id: "shell", text: "Shell", params: { mode: "shell" } },
-    { id: "text", text: "Text", params: { mode: "text/plain" } },
-    { id: "yaml", text: "YAML", params: { mode: "yaml" } }
-  ];
-
   const languageOptions = languages.map(language => ({ id: language.id, text: language.text }));
 
-  const onChangeLanguge = language => {
+  const onChangeLanguage = language => {
     setLanguageParams(languages.find(value => value.id === language.selectedItem.id).params);
   };
 
@@ -302,10 +304,14 @@ const TextAreaView = props => {
                 label="Language selection"
                 ariaLabel="Dropdown"
                 light={false}
-                initialSelectedItem={languageOptions[0]}
+                initialSelectedItem={
+                  props.language
+                    ? languageOptions.find(languageOption => languageOption.id === props.language)
+                    : languageOptions[0]
+                }
                 items={languageOptions}
                 itemToString={item => (item ? item.text : "")}
-                onChange={onChangeLanguge}
+                onChange={onChangeLanguage}
               />
             </div>
           </ToolbarItem>

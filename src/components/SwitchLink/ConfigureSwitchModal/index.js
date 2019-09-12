@@ -14,8 +14,7 @@ class ConfigureSwitchModal extends React.Component {
     onSubmit: PropTypes.func.isRequired,
     switchCondition: PropTypes.string,
     updateDefaultState: PropTypes.func.isRequired,
-    updateSwitchState: PropTypes.func.isRequired,
-    validateSwitch: PropTypes.func.isRequired
+    updateSwitchState: PropTypes.func.isRequired
   };
 
   constructor(props) {
