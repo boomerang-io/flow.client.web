@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import matchSorter from "match-sorter";
 import { DataTable, Search, Pagination } from "carbon-components-react";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import CreateEditPropertiesModal from "./CreateEditPropertiesModal";
 import ActionsMenu from "./ActionsMenu";
 import Header from "Components/Header";
@@ -97,15 +97,15 @@ class PropertiesTable extends Component {
       .then(response => {
         this.deletePropertyInStore(property.id);
         notify(
-          <Notification
-            type="success"
+          <ToastNotification
+            kind="success"
             title={"Property Deleted"}
-            message={`Request to delete ${property.label} succeeded`}
+            subtitle={`Request to delete ${property.label} succeeded`}
           />
         );
       })
       .catch(error => {
-        notify(<Notification type="error" title={"Delete Property Failed"} message={"Something went wrong"} />);
+        notify(<ToastNotification kind="error" title={"Delete Property Failed"} subtitle={"Something went wrong"} />);
       });
   };
 

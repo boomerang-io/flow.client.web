@@ -8,8 +8,8 @@ import { actions as navigationActions } from "State/navigation";
 import { actions as teamsActions } from "State/teams";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import ErrorBoundary from "@boomerang/boomerang-components/lib/ErrorBoundary";
-import { NotificationContainer } from "@boomerang/boomerang-components/lib/Notifications";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
+import { NotificationsContainer } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import NotificationBanner from "Components/NotificationBanner";
 import BrowserModal from "./BrowserModal";
@@ -114,7 +114,7 @@ class App extends Component {
               </Switch>
             </Suspense>
           </main>
-          <NotificationContainer />
+          <NotificationsContainer enableMultiContainer />
         </>
       );
     }

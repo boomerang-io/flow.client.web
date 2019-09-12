@@ -212,7 +212,6 @@ export class WorkflowActivity extends Component {
             <div className="c-workflow-activity-header">
               <MultiSelect
                 id="teams-select"
-                useTitleInItem={false}
                 label="Teams"
                 invalid={false}
                 onChange={this.handleSelectTeams}
@@ -222,7 +221,6 @@ export class WorkflowActivity extends Component {
               />
               <MultiSelect
                 id="workflows-select"
-                useTitleInItem={false}
                 label="Workflows"
                 invalid={false}
                 onChange={this.handleSelectWorkflows}
@@ -241,7 +239,6 @@ export class WorkflowActivity extends Component {
               />
               <MultiSelect
                 id="triggers-select"
-                useTitleInItem={false}
                 label="Trigger"
                 invalid={false}
                 onChange={this.handleSelectTriggers}
@@ -257,7 +254,6 @@ export class WorkflowActivity extends Component {
               />
               <MultiSelect
                 id="status-select"
-                useTitleInItem={false}
                 label="Status"
                 invalid={false}
                 onChange={this.handleSelectStatuses}

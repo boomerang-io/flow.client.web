@@ -8,7 +8,7 @@ import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import INPUT_TYPES from "Constants/inputTypes";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import styles from "./createEditPropertiesContent.module.scss";
@@ -39,10 +39,10 @@ class CreateEditPropertiesContent extends Component {
       .then(response => {
         storeUpdate(newProperty);
         notify(
-          <Notification
-            type="success"
+          <ToastNotification
+            kind="success"
             title={isEdit ? "Property Updated" : "Property Created"}
-            message={
+            subtitle={
               isEdit ? `Request to update ${newProperty.label} succeeded` : "Request to create property succeeded"
             }
           />
@@ -54,10 +54,10 @@ class CreateEditPropertiesContent extends Component {
       })
       .catch(error => {
         notify(
-          <Notification
-            type="error"
+          <ToastNotification
+            kind="error"
             title={isEdit ? "Update Property Failed" : "Create Property Failed"}
-            message={"Something went wrong"}
+            subtitle={"Something went wrong"}
           />
         );
         options.setSubmitting(false);

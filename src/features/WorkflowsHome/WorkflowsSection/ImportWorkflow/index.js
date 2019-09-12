@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as importWorkflowActions } from "State/importWorkflow";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import { Upload16 } from "@carbon/icons-react";
 import ImportAttachment from "./ImportAttachment";
 import ImportConfirm from "./ImportConfirm";
@@ -25,10 +25,10 @@ class ImportWorkflow extends Component {
       .post(`${BASE_SERVICE_URL}/workflow/import?update=${isUpdate}`, JSON.parse(data))
       .then(() => {
         notify(
-          <Notification
-            type="success"
+          <ToastNotification
+            kind="success"
             title={` ${isUpdate ? "Update" : "Import"} Workflow`}
-            message={`Workflow successfully ${isUpdate ? "updated" : "imported"}`}
+            subtitle={`Workflow successfully ${isUpdate ? "updated" : "imported"}`}
           />
         );
         closeModal();

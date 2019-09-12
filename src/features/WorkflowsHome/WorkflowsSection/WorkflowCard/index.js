@@ -7,7 +7,7 @@ import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import fileDownload from "js-file-download";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import imgs from "Assets/icons";
@@ -39,17 +39,17 @@ class WorkflowCard extends Component {
   };
 
   handleExportWorkflow = workflow => {
-    notify(<Notification type="notify" title="Export Workflow" message="Your download will start soon." />);
+    notify(<ToastNotification kind="info" title="Export Workflow" subtitle="Your download will start soon." />);
     axios
       .get(`${BASE_SERVICE_URL}/workflow/export/${workflow.id}`)
       .then(res => {
         const status = res.status.toString();
         if (status.startsWith("4") || status.startsWith("5"))
-          notify(<Notification type="error" title="Export Workflow" message="Something went wrong." />);
+          notify(<ToastNotification kind="error" title="Export Workflow" subtitle="Something went wrong." />);
         else fileDownload(JSON.stringify(res.data, null, 4), `${workflow.name}.json`);
       })
       .catch(error => {
-        notify(<Notification type="error" title="Export Workflow" message="Something went wrong." />);
+        notify(<ToastNotification kind="error" title="Export Workflow" subtitle="Something went wrong." />);
       });
   };
 
