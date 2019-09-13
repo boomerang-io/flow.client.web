@@ -7,7 +7,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { render as rtlRender } from "react-testing-library";
 import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
-import "jest-dom/extend-expect";
+import "@testing-library/jest-dom/extend-expect";
 import "react-testing-library/cleanup-after-each";
 
 /**
