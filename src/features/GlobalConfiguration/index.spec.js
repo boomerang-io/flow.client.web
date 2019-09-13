@@ -1,6 +1,6 @@
 import React from "react";
 import { GlobalConfigurationContainer } from ".";
-import { render, fireEvent } from "react-testing-library";
+import { render, fireEvent } from "@testing-library/react";
 
 const mockfn = jest.fn();
 

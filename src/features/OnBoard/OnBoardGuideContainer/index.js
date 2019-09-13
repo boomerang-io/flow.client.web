@@ -49,14 +49,7 @@ const OnBoardGuideContainer = ({ index, nextScreen, previousScreen, closeModal, 
       case screens.OPTIONS:
         return { ...basicConfig, ...guideConfig.options };
       case screens.FILTER:
-        return {
-          index,
-          nextScreen,
-          closeModal,
-          screens,
-          guideConfig,
-          ...guideConfig.filter
-        };
+        return { ...basicConfig, ...guideConfig.filter };
       case screens.CARDS:
         return { ...basicConfig, ...guideConfig.cards };
       case screens.SCROLLING:

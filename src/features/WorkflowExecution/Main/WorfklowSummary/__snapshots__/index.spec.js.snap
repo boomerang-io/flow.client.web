@@ -1,276 +1,108 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WorkflowSummary --- Snapshot Capturing Snapshot of WorkflowSummary 1`] = `
-Object {
-  "asFragment": [Function],
-  "baseElement": <body>
-    <div>
-      <aside
-        class="c-workflow-summary"
+<div>
+  <aside
+    class="c-workflow-summary"
+  >
+    <h1
+      class="s-workflow-summary-title"
+    >
+      test
+    </h1>
+    <section
+      class="c-workflow-summary-details"
+    >
+      <dl
+        class="b-workflow-summary-field"
       >
-        <h1
-          class="s-workflow-summary-title"
+        <dt
+          class="b-workflow-summary-field__key"
+        >
+          Summary
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
         >
           test
-        </h1>
-        <section
-          class="c-workflow-summary-details"
-        >
-          <dl
-            class="b-workflow-summary-field"
-          >
-            <dt
-              class="b-workflow-summary-field__key"
-            >
-              Summary
-            </dt>
-            <dd
-              class="b-workflow-summary-field__value"
-            >
-              test
-            </dd>
-          </dl>
-          <dl
-            class="b-workflow-summary-field"
-          >
-            <dt
-              class="b-workflow-summary-field__key"
-            >
-              Description
-            </dt>
-            <dd
-              class="b-workflow-summary-field__value"
-            >
-              ---
-            </dd>
-          </dl>
-          <dl
-            class="b-workflow-summary-field"
-          >
-            <dt
-              class="b-workflow-summary-field__key"
-            >
-              Version
-            </dt>
-            <dd
-              class="b-workflow-summary-field__value"
-            >
-              1
-            </dd>
-          </dl>
-          <dl
-            class="b-workflow-summary-field"
-          >
-            <dt
-              class="b-workflow-summary-field__key"
-            >
-              Status
-            </dt>
-            <dd
-              class="b-workflow-summary-field__value"
-            >
-              Not Started
-              <img
-                alt="Status "
-                class="b-activity-card__status-icon"
-                src="pending.svg"
-              />
-            </dd>
-          </dl>
-          <dl
-            class="b-workflow-summary-field"
-          >
-            <dt
-              class="b-workflow-summary-field__key"
-            >
-              Start Time
-            </dt>
-            <dd
-              class="b-workflow-summary-field__value"
-            >
-              Invalid date
-            </dd>
-          </dl>
-          <dl
-            class="b-workflow-summary-field"
-          >
-            <dt
-              class="b-workflow-summary-field__key"
-            >
-              Duration
-            </dt>
-            <dd
-              class="b-workflow-summary-field__value"
-            >
-              ---
-            </dd>
-          </dl>
-        </section>
-      </aside>
-    </div>
-  </body>,
-  "container": <div>
-    <aside
-      class="c-workflow-summary"
-    >
-      <h1
-        class="s-workflow-summary-title"
+        </dd>
+      </dl>
+      <dl
+        class="b-workflow-summary-field"
       >
-        test
-      </h1>
-      <section
-        class="c-workflow-summary-details"
+        <dt
+          class="b-workflow-summary-field__key"
+        >
+          Description
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
+        >
+          ---
+        </dd>
+      </dl>
+      <dl
+        class="b-workflow-summary-field"
       >
-        <dl
-          class="b-workflow-summary-field"
+        <dt
+          class="b-workflow-summary-field__key"
         >
-          <dt
-            class="b-workflow-summary-field__key"
-          >
-            Summary
-          </dt>
-          <dd
-            class="b-workflow-summary-field__value"
-          >
-            test
-          </dd>
-        </dl>
-        <dl
-          class="b-workflow-summary-field"
+          Version
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
         >
-          <dt
-            class="b-workflow-summary-field__key"
-          >
-            Description
-          </dt>
-          <dd
-            class="b-workflow-summary-field__value"
-          >
-            ---
-          </dd>
-        </dl>
-        <dl
-          class="b-workflow-summary-field"
+          1
+        </dd>
+      </dl>
+      <dl
+        class="b-workflow-summary-field"
+      >
+        <dt
+          class="b-workflow-summary-field__key"
         >
-          <dt
-            class="b-workflow-summary-field__key"
-          >
-            Version
-          </dt>
-          <dd
-            class="b-workflow-summary-field__value"
-          >
-            1
-          </dd>
-        </dl>
-        <dl
-          class="b-workflow-summary-field"
+          Status
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
         >
-          <dt
-            class="b-workflow-summary-field__key"
-          >
-            Status
-          </dt>
-          <dd
-            class="b-workflow-summary-field__value"
-          >
-            Not Started
-            <img
-              alt="Status "
-              class="b-activity-card__status-icon"
-              src="pending.svg"
-            />
-          </dd>
-        </dl>
-        <dl
-          class="b-workflow-summary-field"
+          Not Started
+          <img
+            alt="Status "
+            class="b-activity-card__status-icon"
+            src="pending.svg"
+          />
+        </dd>
+      </dl>
+      <dl
+        class="b-workflow-summary-field"
+      >
+        <dt
+          class="b-workflow-summary-field__key"
         >
-          <dt
-            class="b-workflow-summary-field__key"
-          >
-            Start Time
-          </dt>
-          <dd
-            class="b-workflow-summary-field__value"
-          >
-            Invalid date
-          </dd>
-        </dl>
-        <dl
-          class="b-workflow-summary-field"
+          Start Time
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
         >
-          <dt
-            class="b-workflow-summary-field__key"
-          >
-            Duration
-          </dt>
-          <dd
-            class="b-workflow-summary-field__value"
-          >
-            ---
-          </dd>
-        </dl>
-      </section>
-    </aside>
-  </div>,
-  "debug": [Function],
-  "findAllByAltText": [Function],
-  "findAllByDisplayValue": [Function],
-  "findAllByLabelText": [Function],
-  "findAllByPlaceholderText": [Function],
-  "findAllByRole": [Function],
-  "findAllByTestId": [Function],
-  "findAllByText": [Function],
-  "findAllByTitle": [Function],
-  "findByAltText": [Function],
-  "findByDisplayValue": [Function],
-  "findByLabelText": [Function],
-  "findByPlaceholderText": [Function],
-  "findByRole": [Function],
-  "findByTestId": [Function],
-  "findByText": [Function],
-  "findByTitle": [Function],
-  "getAllByAltText": [Function],
-  "getAllByDisplayValue": [Function],
-  "getAllByLabelText": [Function],
-  "getAllByPlaceholderText": [Function],
-  "getAllByRole": [Function],
-  "getAllBySelectText": [Function],
-  "getAllByTestId": [Function],
-  "getAllByText": [Function],
-  "getAllByTitle": [Function],
-  "getAllByValue": [Function],
-  "getByAltText": [Function],
-  "getByDisplayValue": [Function],
-  "getByLabelText": [Function],
-  "getByPlaceholderText": [Function],
-  "getByRole": [Function],
-  "getBySelectText": [Function],
-  "getByTestId": [Function],
-  "getByText": [Function],
-  "getByTitle": [Function],
-  "getByValue": [Function],
-  "queryAllByAltText": [Function],
-  "queryAllByDisplayValue": [Function],
-  "queryAllByLabelText": [Function],
-  "queryAllByPlaceholderText": [Function],
-  "queryAllByRole": [Function],
-  "queryAllBySelectText": [Function],
-  "queryAllByTestId": [Function],
-  "queryAllByText": [Function],
-  "queryAllByTitle": [Function],
-  "queryAllByValue": [Function],
-  "queryByAltText": [Function],
-  "queryByDisplayValue": [Function],
-  "queryByLabelText": [Function],
-  "queryByPlaceholderText": [Function],
-  "queryByRole": [Function],
-  "queryBySelectText": [Function],
-  "queryByTestId": [Function],
-  "queryByText": [Function],
-  "queryByTitle": [Function],
-  "queryByValue": [Function],
-  "rerender": [Function],
-  "unmount": [Function],
-}
+          Invalid date
+        </dd>
+      </dl>
+      <dl
+        class="b-workflow-summary-field"
+      >
+        <dt
+          class="b-workflow-summary-field__key"
+        >
+          Duration
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
+        >
+          ---
+        </dd>
+      </dl>
+    </section>
+  </aside>
+</div>
 `;

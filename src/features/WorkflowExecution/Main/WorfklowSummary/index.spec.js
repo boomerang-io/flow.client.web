@@ -16,7 +16,7 @@ const props = {
 
 describe("WorkflowSummary --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowSummary", () => {
-    const renderedValue = rtlRender(<WorkflowSummary {...props} />);
-    expect(renderedValue).toMatchSnapshot();
+    const { container } = rtlRender(<WorkflowSummary {...props} />);
+    expect(container).toMatchSnapshot();
   });
 });

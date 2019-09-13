@@ -181,7 +181,7 @@ export const designerGuideConfig = {
   },
   inputs: {
     containerClassName: "c-onboard-screen--inputs",
-    title: "Inputs",
+    title: "Properties",
     message: "Edit and delete input properties that can be used by the workflow as it executes steps."
   },
   design: {
