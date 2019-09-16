@@ -54,20 +54,21 @@ export default class Application {
     // Register event listeners for linkUpdated
     // We are listenigng on the create event and deleting it if
     // it doesn't have a target port
-    // this.activeModel.addListener({
-    //   linksUpdated: event => {
-    //     if (event.isCreated) {
-    //       document.addEventListener("mouseup", e => {
-    //         console.log(event);
-    //         if (!event.link.targetPort) {
-    //           this.activeModel.removeLink(event.link);
-    //           this.diagramEngine.repaintCanvas();
-    //           document.removeEventListener("mouseup", null);
-    //         }
-    //       });
-    //     }
-    //   }
-    // });
+    this.activeModel.addListener({
+      linksUpdated: event => {
+        if (event.isCreated) {
+          document.addEventListener("mouseup", e => {
+            setTimeout(() => {
+              if (!event.link.targetPort) {
+                this.activeModel.removeLink(event.link);
+                this.diagramEngine.repaintCanvas();
+                document.removeEventListener("mouseup", null);
+              }
+            }, 0);
+          });
+        }
+      }
+    });
   }
 
   getActiveDiagram() {
