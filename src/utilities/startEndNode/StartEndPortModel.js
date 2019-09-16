@@ -23,15 +23,15 @@ export default class StartEndPortModel extends PortModel {
     this.id = data.nodePortId;
   }
 
-  createLinkModel() {
-    //return new DefaultLinkModel();
-    return new CustomLinkModel();
+  canLinkToPort(target) {
+    console.log(this, target);
+    if (this.position === "right" && target.position === "left") {
+      return true;
+    }
+    return false;
   }
 
-  link(port) {
-    let link = this.createLinkModel();
-    link.setSourcePort(this);
-    link.setTargetPort(port);
-    return link;
+  createLinkModel() {
+    return new CustomLinkModel();
   }
 }

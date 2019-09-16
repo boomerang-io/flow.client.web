@@ -24,14 +24,15 @@ export default class CustomTaskPortModel extends PortModel {
   }
 
   createLinkModel() {
-    //return new DefaultLinkModel();
     return new CustomLinkModel();
   }
 
-  link(port) {
-    let link = this.createLinkModel();
-    link.setSourcePort(this);
-    link.setTargetPort(port);
-    return link;
+  canLinkToPort(target) {
+    if (target.type === "custom") {
+      return target.position === "left" && this.position === "right";
+    }
+    if (target.type === "startend") {
+      return target.position === "left" && this.position === "right";
+    }
   }
 }
