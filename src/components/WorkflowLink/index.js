@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import MultiStateButton from "./MultiStateButton";
+import "./styles.scss";
 
 class CustomLink extends Component {
   static propTypes = {
@@ -39,8 +40,23 @@ class CustomLink extends Component {
     this.props.model.executionCondition = executionCondition;
   };
 
+  getArrowAngle = (cx, cy, ex, ey) => {
+    const dy = ey - cy;
+    const dx = ex - cx;
+    let theta = Math.atan2(dy, dx); // range (-PI, PI]
+    theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+    //if (theta < 0) theta = 360 + theta; // range [0, 360)
+    return theta;
+  };
+
   render() {
     const { model } = this.props;
+    let theta = 0;
+    // if (this.path.current && model.targetPort) {
+    //   theta = this.getArrowAngle(model.sourcePort.x, model.sourcePort.y, model.targetPort.x, model.targetPort.y);
+    // }
+    // console.log(theta);
+
     let linkStyle = {};
 
     if (!model.sourcePort || !model.targetPort) {
@@ -97,8 +113,14 @@ class CustomLink extends Component {
           stroke="rgba(255,0,0,0.5)"
           d={this.props.path}
         />
-        {this.path.current && this.props.model.targetPort && (
-          <g fill="none" transform={`translate(${this.endPoint.x - 20}, ${this.endPoint.y - 10}) scale(.0375)`}>
+        {/* {this.path.current && this.props.model.targetPort && (
+          <g
+            x="0"
+            y="0"
+            fill="none"
+            transform={`translate(${this.endPoint.x - 32 + 32 * Math.abs(theta / 90)}, ${this.endPoint.y -
+              10}) scale(.0375) rotate(${theta})`}
+          >
             <svg
               version="1.1"
               id="Layer_1"
@@ -111,7 +133,7 @@ class CustomLink extends Component {
               <polygon fill="#40d5bb" points="0.5,0.866 459.5,265.87 0.5,530.874" />
             </svg>
           </g>
-        )}
+        )} */}
       </svg>
     );
   }

@@ -89,7 +89,9 @@ export class TaskNode extends Component {
           {this.props.task ? this.props.task.name : "Task"}
         </div>
 
-        <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} port="left" />
+        <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} port="left">
+          <div style={{ width: "5rem", height: "2rem", background: "orange" }}>test</div>
+        </PortWidget>
         <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} port="right" />
         {this.renderDeleteNode()}
         {mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
