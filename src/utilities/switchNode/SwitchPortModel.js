@@ -3,8 +3,6 @@ import SwitchLinkModel from "Utilities/switchLink/SwitchLinkModel";
 import merge from "lodash/merge";
 
 export default class SwitchPortModel extends PortModel {
-  //position: string | "top" | "bottom" | "left" | "right";
-
   constructor(pos) {
     super(pos, "decision");
     this.position = pos;
@@ -24,8 +22,11 @@ export default class SwitchPortModel extends PortModel {
   }
 
   createLinkModel() {
-    //return new DefaultLinkModel();
     return new SwitchLinkModel();
+  }
+
+  canLinkToPort(target) {
+    return target.position === "left" && this.position === "right";
   }
 
   link(port) {

@@ -28,11 +28,6 @@ export default class CustomTaskPortModel extends PortModel {
   }
 
   canLinkToPort(target) {
-    if (target.type === "custom") {
-      return target.position === "left" && this.position === "right";
-    }
-    if (target.type === "startend") {
-      return target.position === "left" && this.position === "right";
-    }
+    return target.position === "left" && this.position === "right";
   }
 }
