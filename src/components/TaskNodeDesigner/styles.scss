@@ -2,8 +2,8 @@
 @import "~Styles/mixins";
 @import "~@boomerang/boomerang-styles/lib/colors";
 
-.srd-node--selected .b-task-node {
-  border-color: $teal-40;
+.srd-node--selected > .b-task-node {
+  border-color: $teal-50 !important;
 }
 
 .b-task-node {
