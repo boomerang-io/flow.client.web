@@ -4,18 +4,20 @@
 // these class names need to be updated to follow BEM
 
 .b-switchNode {
+  border: 1px solid $teal-20;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $status-gray;
+  background: white;
   border-radius: 0.25rem;
   width: 13rem;
   height: 8rem;
   position: "relative";
 
-  .b-switchNode__tile {
+  .b-switchNode__title {
     text-align: center;
     font-weight: 400;
+    font-size: 1rem;
     color: $dark-blue;
     letter-spacing: 0.1675rem;
   }

@@ -63,7 +63,7 @@ class VersionCommentForm extends Component {
               <TextArea
                 required
                 id="versionComment"
-                invalid={this.statet.error}
+                invalid={this.state.error}
                 invalidText="Value is required"
                 labelText="Version comment"
                 name="versionComment"

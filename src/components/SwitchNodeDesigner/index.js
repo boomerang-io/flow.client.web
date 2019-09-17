@@ -81,15 +81,11 @@ export class SwitchNode extends Component {
   render() {
     return (
       <div className="b-switchNode">
-        {/* <Tooltip place="left" id={this.props.node.id}>
-          {this.props.task ? this.props.task.description : "Task description"}
-        </Tooltip> */}
-        <div className="b-switchNode__tile" data-tip data-for={this.props.node.id}>
+        <h1 className="b-switchNode__title">
           {this.props.nodeConfig.inputs && this.props.nodeConfig.inputs.value
             ? this.props.nodeConfig.inputs.value
             : this.props.task.name}
-        </div>
-
+        </h1>
         <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-switchNode-port --right" name="right" node={this.props.node} />
         {this.renderDeleteNode()}
