@@ -55,23 +55,23 @@ class VersionCommentForm extends Component {
 
     return (
       <>
-        <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "24rem", padding: "2rem" }}>
+        <ModalContentBody
+          style={{ maxWidth: "35rem", margin: "auto", height: "24rem", padding: "2rem 5rem", display: "block" }}
+        >
           {this.state.saveError ? (
             <Error theme="bmrg-flow" />
           ) : (
-            <div style={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <TextArea
-                required
-                id="versionComment"
-                invalid={this.state.error}
-                invalidText="Value is required"
-                labelText="Version comment"
-                name="versionComment"
-                onChange={this.handleOnChange}
-                placeholder="Enter version comment"
-                value={this.state.versionComment}
-              />
-            </div>
+            <TextArea
+              required
+              id="versionComment"
+              invalid={this.state.error}
+              invalidText="Comment is required"
+              labelText="Version comment"
+              name="versionComment"
+              onChange={this.handleOnChange}
+              placeholder="Enter version comment"
+              value={this.state.versionComment}
+            />
           )}
         </ModalContentBody>
         <ModalContentFooter>
