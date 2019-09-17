@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import queryString from "query-string";
 import { actions as importWorkflowActions } from "State/importWorkflow";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
@@ -21,8 +22,9 @@ class ImportWorkflow extends Component {
   };
 
   handleImportWorkflow = (data, isUpdate, closeModal) => {
+    const query = queryString.stringify({ update: isUpdate, flowTeamId: isUpdate ? undefined : this.props.teamId });
     return this.props.importWorkflowActions
-      .post(`${BASE_SERVICE_URL}/workflow/import?update=${isUpdate}`, JSON.parse(data))
+      .post(`${BASE_SERVICE_URL}/workflow/import?${query}`, JSON.parse(data))
       .then(() => {
         notify(
           <ToastNotification

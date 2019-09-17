@@ -185,21 +185,6 @@ class SwitchLink extends Component {
           stroke="rgba(255,0,0,0.5)"
           d={this.props.path}
         />
-        {/* {this.path.current && this.props.model.targetPort && (
-          <g fill="none" transform={`translate(${this.endPoint.x - 32}, ${this.endPoint.y - 10}) scale(.0375)`}>
-            <svg
-              version="1.1"
-              id="Layer_1"
-              width="460.5"
-              height="531.74"
-              viewBox="0 0 460.5 531.74"
-              overflow="visible"
-              enableBackground="new 0 0 460.5 531.74"
-            >
-              <polygon fill="#40d5bb" points="0.5,0.866 459.5,265.87 0.5,530.874" />
-            </svg>
-          </g>
-        )} */}
       </svg>
     );
   }

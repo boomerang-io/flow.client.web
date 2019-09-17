@@ -4,7 +4,7 @@ import Error from "@boomerang/boomerang-components/lib/Error";
 import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import TextArea from "@boomerang/boomerang-components/lib/TextArea";
+import { TextArea } from "@boomerang/carbon-addons-boomerang-react";
 
 class VersionCommentForm extends Component {
   static propTypes = {
@@ -14,15 +14,21 @@ class VersionCommentForm extends Component {
   };
 
   state = {
-    comment: "",
+    versionComment: "",
+    error: false,
     saveError: false
   };
 
-  handleOnChange = (value, errors, name) => {
+  handleOnChange = e => {
+    const { value } = e.target;
+    let error = false;
+    if (!value || value.length > 128) {
+      error = true;
+    }
     this.setState(
       () => ({
-        comment: value,
-        errors: errors
+        versionComment: value,
+        error: error
       }),
       () => {
         this.props.shouldConfirmExit(true);
@@ -54,7 +60,17 @@ class VersionCommentForm extends Component {
             <Error theme="bmrg-flow" />
           ) : (
             <div style={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <TextArea title="Version comment" placeholder="Enter version comment" onChange={this.handleOnChange} />
+              <TextArea
+                required
+                id="versionComment"
+                invalid={this.statet.error}
+                invalidText="Value is required"
+                labelText="Version comment"
+                name="versionComment"
+                onChange={this.handleOnChange}
+                placeholder="Enter version comment"
+                value={this.state.versionComment}
+              />
             </div>
           )}
         </ModalContentBody>
@@ -62,7 +78,7 @@ class VersionCommentForm extends Component {
           <ModalConfirmButton
             theme="bmrg-flow"
             text="Create"
-            disabled={!this.state.comment || Object.keys(this.state.errors).length || loading}
+            disabled={this.state.error || loading}
             onClick={this.handleOnSave}
           />
         </ModalContentFooter>
