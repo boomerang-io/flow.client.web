@@ -401,10 +401,10 @@ export class Overview extends Component {
                   <div className="b-event-iamIntegration">
                     <Toggle
                       id="enableIAMIntegration"
-                      labelText="Enable IBM Services IAM Integration"
+                      labelText="Enable IBM Services ACC Integration"
                       toggled={values.enableIAMIntegration}
                       onToggle={checked => this.handleOnIamChange(checked)}
-                      tooltipContent="Enable workflow to be triggered by IAM subscription"
+                      tooltipContent="Enable workflow to be triggered by ACC subscription"
                       tooltipProps={{ direction: "top" }}
                     />
                   </div>
