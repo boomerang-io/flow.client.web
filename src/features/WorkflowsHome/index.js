@@ -30,6 +30,7 @@ export class WorkflowsHome extends Component {
 
   componentDidMount() {
     this.props.appActions.setActiveTeam({ teamId: undefined });
+    this.fetchTeams();
   }
 
   handleSearchFilter = (searchQuery, teams) => {
