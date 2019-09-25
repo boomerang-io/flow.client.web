@@ -1,4 +1,4 @@
-import { DefaultLinkModel } from "@boomerang/boomerang-dag";
+import { DefaultLinkModel } from "@projectstorm/react-diagrams";
 
 export default class SwitchLinkModel extends DefaultLinkModel {
   constructor() {

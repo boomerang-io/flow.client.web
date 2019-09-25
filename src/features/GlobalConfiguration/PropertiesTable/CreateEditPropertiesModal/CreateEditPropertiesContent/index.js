@@ -7,8 +7,7 @@ import { TextInput, Toggle } from "carbon-components-react";
 import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
 import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
-import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { LoadingAnimation, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import INPUT_TYPES from "Constants/inputTypes";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import styles from "./createEditPropertiesContent.module.scss";
@@ -91,7 +90,7 @@ class CreateEditPropertiesContent extends Component {
           const { values, touched, errors, isSubmitting, isValid, handleChange, handleBlur, handleSubmit } = props;
 
           if (isSubmitting) {
-            return <LoadingAnimation theme="bmrg-flow" message="We'll be right with you" />;
+            return <LoadingAnimation message="We'll be right with you" />;
           }
 
           return (

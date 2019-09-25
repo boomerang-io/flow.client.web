@@ -113,7 +113,7 @@ class ActionBar extends Component {
         <AlertModal
           modalProps={{ shouldCloseOnOverlayClick: false }}
           ModalTrigger={() => (
-            <div style={{ minWidth: "13rem" }}>
+            <div style={{ minWidth: "14rem" }}>
               <Button disabled={loading} iconDescription="Add" renderIcon={Add16} size="field">
                 {performActionButtonText}
               </Button>
@@ -138,7 +138,7 @@ class ActionBar extends Component {
         <Modal
           modalProps={{ shouldCloseOnOverlayClick: false }}
           ModalTrigger={() => (
-            <div style={{ minWidth: "13rem" }}>
+            <div style={{ minWidth: "14rem" }}>
               <Button iconDescription="Add" renderIcon={Add16} size="field">
                 {performActionButtonText}
               </Button>

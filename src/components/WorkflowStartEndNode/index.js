@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { PortWidget } from "@boomerang/boomerang-dag";
+import { PortWidget } from "@projectstorm/react-diagrams";
 import classnames from "classnames";
 import "./styles.scss";
 

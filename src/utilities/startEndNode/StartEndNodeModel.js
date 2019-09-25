@@ -1,4 +1,4 @@
-import { NodeModel } from "@boomerang/boomerang-dag";
+import { NodeModel } from "@projectstorm/react-diagrams";
 import StartEndPortModel from "./StartEndPortModel";
 import merge from "lodash/merge";
 
@@ -9,7 +9,7 @@ export default class StartEndNodeModel extends NodeModel {
 
     this.passedName = passedName;
     if (this.passedName === "Finish") {
-      this.addPort(new StartEndPortModel("left"));
+      this.addPort(new StartEndPortModel("left", false));
       //this.addInPort("left");
     } /*else {
       this.addPort(new StartEndPortModel("right"));
@@ -17,7 +17,7 @@ export default class StartEndNodeModel extends NodeModel {
     }*/ else if (
       this.passedName === "Start"
     ) {
-      this.addPort(new StartEndPortModel("right"));
+      this.addPort(new StartEndPortModel("right", true));
       //this.addInPort("left");
     }
   }

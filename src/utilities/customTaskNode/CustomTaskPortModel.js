@@ -1,4 +1,4 @@
-import { PortModel } from "@boomerang/boomerang-dag";
+import { PortModel } from "@projectstorm/react-diagrams";
 import CustomLinkModel from "Utilities/customLink/CustomLinkModel";
 import merge from "lodash/merge";
 
@@ -24,14 +24,10 @@ export default class CustomTaskPortModel extends PortModel {
   }
 
   createLinkModel() {
-    //return new DefaultLinkModel();
     return new CustomLinkModel();
   }
 
-  link(port) {
-    let link = this.createLinkModel();
-    link.setSourcePort(this);
-    link.setTargetPort(port);
-    return link;
+  canLinkToPort(target) {
+    return target.position === "left" && this.position === "right";
   }
 }

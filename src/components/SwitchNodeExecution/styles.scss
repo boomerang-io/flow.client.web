@@ -1,37 +1,54 @@
 @import "~Styles/variables";
+@import "~@boomerang/boomerang-styles/lib/colors";
 
 // these class names need to be updated to follow BEM
 
 .b-switchNode {
+  border: 1px solid $teal-20;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $status-gray;
+  background: white;
   border-radius: 0.25rem;
   width: 13rem;
   height: 8rem;
   position: relative;
 
-  .b-switchNode__tile {
+  .b-switchNode__title {
     text-align: center;
     font-weight: 400;
+    font-size: 1rem;
     color: $dark-blue;
     letter-spacing: 0.1675rem;
   }
 
   .b-switchNode-port {
     position: absolute;
-    border-radius: 50%;
-    background-color: $teal;
+    height: 2.25rem;
+    width: 2rem;
 
     &.--right {
-      right: -0.5rem;
+      background-color: $teal-20;
+      border: 0.125rem solid $teal-30;
+      right: -2rem;
+      border-bottom-right-radius: 50%;
+      border-top-right-radius: 50%;
+      background-image: url("../../assets/icons/chevron.svg");
+      background-position: center;
+      background-repeat: no-repeat;
     }
     &.--left {
-      left: -0.5rem;
+      background-color: $teal-10;
+      border: 0.125rem solid $teal-20;
+      border-bottom-left-radius: 50%;
+      border-top-left-radius: 50%;
+      left: -2rem;
+      background-image: url("../../assets/icons/chevron.svg");
+      background-position: center;
+      background-repeat: no-repeat;
     }
     &:hover {
-      background: $teal;
+      filter: brightness(110%);
     }
   }
 

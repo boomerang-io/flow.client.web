@@ -6,8 +6,7 @@ import { Route, Switch, Prompt, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
-import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { LoadingAnimation, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import Creator from "./Creator";
 import EditorContainer from "./EditorContainer";
@@ -238,7 +237,7 @@ export class WorkflowManagerContainer extends Component {
   render() {
     const { tasks, teams } = this.props;
     if (tasks.isFetching || teams.isFetching) {
-      return <LoadingAnimation theme="bmrg-flow" />;
+      return <LoadingAnimation centered message="Retrieving your workflow. Please hold." />;
     }
 
     if (tasks.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {

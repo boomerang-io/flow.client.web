@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import MultiStateButton from "./MultiStateButton";
+import "./styles.scss";
 
 class CustomLink extends Component {
   static propTypes = {
@@ -97,20 +98,6 @@ class CustomLink extends Component {
           stroke="rgba(255,0,0,0.5)"
           d={this.props.path}
         />
-        {this.path.current && this.props.model.targetPort && (
-          <g fill="none" transform={`translate(${this.endPoint.x - 20}, ${this.endPoint.y - 10}) scale(.0375)`}>
-            <svg
-              version="1.1"
-              id="Layer_1"
-              width="460.5"
-              height="531.74"
-              viewBox="0 0 460.5 531.74"
-              overflow="visible"
-              enableBackground="new 0 0 460.5 531.74"
-            >
-              <polygon fill="#40d5bb" points="0.5,0.866 459.5,265.87 0.5,530.874" />
-            </svg>
-          </g>
         )}
       </svg>
     );

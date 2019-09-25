@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import queryString from "query-string";
 import { MultiSelect } from "carbon-components-react";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import { actions as activityActions } from "State/activity";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
@@ -86,8 +87,6 @@ export class WorkflowActivity extends Component {
       statuses,
       teamIds
     });
-
-    console.log(query);
 
     this.props.activityActions.fetchMore(`${BASE_SERVICE_URL}/activity?${query}`).catch(err => {
       //noop
@@ -173,6 +172,10 @@ export class WorkflowActivity extends Component {
 
   render() {
     const { activityState, history, location, match, teamsState } = this.props;
+
+    if (activityState.isFetching) {
+      return <LoadingAnimation centered />;
+    }
 
     if (activityState.status === REQUEST_STATUSES.FAILURE || teamsState.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-flow" />;

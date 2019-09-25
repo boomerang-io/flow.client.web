@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-// import axios from "axios";
-// import ActivityTable from "./ActivityTable";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import InfiniteScroll from "react-infinite-scroller";
 import ActivityCard from "./ActivityCard";
@@ -34,7 +32,7 @@ class ActivityList extends Component {
           pageStart={0}
           loadMore={this.loadMoreActivities}
           hasMore={hasMoreActivities && !isLoading}
-          loader={<LoadingAnimation className="s-activities-loading" theme="brmg-white" />}
+          loader={<LoadingAnimation className="s-activities-loading" />}
           useWindow={true}
         >
           {!activities.length && !hasMoreActivities && !isLoading ? (
