@@ -5,8 +5,8 @@ import Header from "@boomerang/boomerang-components/lib/ModalContentHeader";
 import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import ConfirmEdit from "@boomerang/boomerang-components/lib/ModalConfirmEdit";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import Error from "@boomerang/boomerang-components/lib/Error";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import { options } from "Constants/importWorkflowOptions";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
 
@@ -49,7 +49,7 @@ class ImportConfirm extends Component {
             alignItems: "center"
           }}
         >
-          <LoadingAnimation theme="bmrg-flow" />
+          <LoadingAnimation />
         </Body>
       );
     }

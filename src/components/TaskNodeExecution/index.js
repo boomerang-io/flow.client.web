@@ -4,8 +4,7 @@ import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
-import { PortWidget } from "@boomerang/boomerang-dag";
-import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
+import { PortWidget } from "@projectstorm/react-diagrams";
 import mapTaskNametoIcon from "Utilities/taskIcons";
 import "./styles.scss";
 
@@ -42,13 +41,7 @@ export class TaskNodeExecution extends Component {
           })}
         >
           <div className="b-task-node__progress-bar" />
-          <Tooltip place="left" id={this.props.node.id}>
-            {this.props.task ? this.props.task.description : "Task description"}
-          </Tooltip>
-          <div className="b-task-node__tile" data-tip data-for={this.props.node.id}>
-            {this.props.task ? this.props.task.name : "Task"}
-          </div>
-
+          <h1 className="b-task-node__title">{this.props.task ? this.props.task.name : "Task"}</h1>
           <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
           <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
           {mapTaskNametoIcon(this.props.task.name, this.props.task.category)}

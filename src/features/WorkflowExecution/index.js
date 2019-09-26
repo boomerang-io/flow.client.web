@@ -7,6 +7,7 @@ import { actions as workflowActions } from "State/workflow";
 import { actions as workflowExecutionActions } from "State/workflowExecution";
 import { actions as appActions } from "State/app";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
@@ -82,9 +83,17 @@ export class WorkflowExecutionContainer extends Component {
   render() {
     const { nodeId } = this.props.app.activeNode;
     const { data: workflowExecutionData, status: workflowExecutionStatus } = this.props.workflowExecution;
-    const { fetchingStatus: workflowRevisionStatus } = this.props.workflowRevision;
-    const { status: tasksStatus } = this.props.tasks;
-    const { fetchingStatus: workflowStatus } = this.props.workflow;
+    const {
+      fetchingStatus: workflowRevisionStatus,
+      isFetching: workflowRevisionIsFetching
+    } = this.props.workflowRevision;
+    const { status: tasksStatus, isFetching: tasksIsFetching } = this.props.tasks;
+    const { fetchingStatus: workflowStatus, isFetching: workflowsIsFetching } = this.props.workflow;
+
+    // Don't wait on the execution data bc we fetch it multiple times until we have it all
+    if (workflowRevisionIsFetching || tasksIsFetching || workflowsIsFetching) {
+      return <LoadingAnimation centered message="Fetching your workflow execution data." />;
+    }
 
     if (
       workflowExecutionStatus === REQUEST_STATUSES.FAILURE ||

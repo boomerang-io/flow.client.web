@@ -9,7 +9,7 @@ import { actions as teamsActions } from "State/teams";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import ErrorBoundary from "@boomerang/boomerang-components/lib/ErrorBoundary";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
-import { NotificationsContainer } from "@boomerang/carbon-addons-boomerang-react";
+import { LoadingAnimation, NotificationsContainer, ProtectedRoute } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import NotificationBanner from "Components/NotificationBanner";
 import BrowserModal from "./BrowserModal";
@@ -24,10 +24,9 @@ import {
   AsyncExecution,
   AsyncGlobalConfiguration
 } from "./config/lazyComponents";
-import ProtectedRoute from "Components/ProtectedRoute";
 import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
+import USER_TYPES from "Constants/userTypes";
 import ErrorDragon from "Components/ErrorDragon";
 import "./styles.scss";
 
@@ -65,11 +64,7 @@ class App extends Component {
   renderApp() {
     const { user, navigation, teams } = this.props;
     if (user.isFetching || user.isCreating || navigation.isFetching || teams.isFetching) {
-      return (
-        <div className="c-app-content c-app-content--not-loaded">
-          <LoadingAnimation theme="brmg-white" />
-        </div>
-      );
+      return <LoadingAnimation centered message="Booting up the app. We'll be right with you" />;
     }
 
     if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && !user.data.id) {
@@ -91,18 +86,21 @@ class App extends Component {
       );
     }
 
-    if (
-      user.status === SERVICE_REQUEST_STATUSES.SUCCESS &&
-      navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS &&
-      teams.status === SERVICE_REQUEST_STATUSES.SUCCESS
-    ) {
+    if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
       return (
         <>
           <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
             <NotificationBanner closeBanner={this.closeBanner} />
-            <Suspense fallback={<div />}>
+            <Suspense
+              fallback={<LoadingAnimation centered message="Loading a feature for you. Just a moment, please." />}
+            >
               <Switch>
-                <ProtectedRoute path="/properties" userRole={user.data.type} component={AsyncGlobalConfiguration} />
+                <ProtectedRoute
+                  path="/properties"
+                  allowedUserRoles={[USER_TYPES.ADMIN, USER_TYPES.OPERATOR]}
+                  userRole={user.data.type}
+                  component={AsyncGlobalConfiguration}
+                />
                 <Route path="/workflows" component={AsyncHome} />
                 <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
                 <Route path="/activity" component={AsyncActivity} />
@@ -119,11 +117,7 @@ class App extends Component {
       );
     }
 
-    if (
-      user.status === SERVICE_REQUEST_STATUSES.FAILURE ||
-      navigation.status === SERVICE_REQUEST_STATUSES.FAILURE ||
-      teams.status === SERVICE_REQUEST_STATUSES.FAILURE
-    ) {
+    if (user.status === SERVICE_REQUEST_STATUSES.FAILURE || navigation.status === SERVICE_REQUEST_STATUSES.FAILURE) {
       return (
         <div className="c-app-content c-app-content--not-loaded">
           <ErrorDragon style={{ margin: "3.5rem 0" }} />

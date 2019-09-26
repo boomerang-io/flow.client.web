@@ -1,5 +1,5 @@
 import React from "react";
-import { DefaultLinkFactory } from "@boomerang/boomerang-dag";
+import { DefaultLinkFactory } from "@projectstorm/react-diagrams";
 import CustomLinkModel from "./CustomLinkModel";
 import CustomLink from "Components/WorkflowLink";
 

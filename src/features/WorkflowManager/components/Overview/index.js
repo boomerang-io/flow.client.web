@@ -9,12 +9,18 @@ import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Button } from "carbon-components-react";
-import { ComboBox, TextArea, TextInput, Toggle } from "@boomerang/carbon-addons-boomerang-react";
+import {
+  ComboBox,
+  TextArea,
+  TextInput,
+  Toggle,
+  notify,
+  ToastNotification
+} from "@boomerang/carbon-addons-boomerang-react";
 import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
 import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
 import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
 import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
-import { Notification, notify } from "@boomerang/boomerang-components/lib/Notifications";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
 import assets from "./assets";
@@ -57,10 +63,12 @@ export class Overview extends Component {
           value: response.data.token
         });
         this.props.formikProps.handleChange({ target: { value: response.data.token, id: "token" } });
-        notify(<Notification type="success" title="Generate Token" message="Successfully generated webhook token" />);
+        notify(
+          <ToastNotification kind="success" title="Generate Token" subtitle="Successfully generated webhook token" />
+        );
       })
       .catch(err => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to create webhook token" />);
+        notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create webhook token" />);
       });
   };
 
@@ -403,10 +411,10 @@ export class Overview extends Component {
                   <div className="b-event-iamIntegration">
                     <Toggle
                       id="enableIAMIntegration"
-                      labelText="Enable IBM Services IAM Integration"
+                      labelText="Enable IBM Services ACC Integration"
                       toggled={values.enableIAMIntegration}
                       onToggle={checked => this.handleOnIamChange(checked)}
-                      tooltipContent="Enable workflow to be triggered by IAM subscription"
+                      tooltipContent="Enable workflow to be triggered by ACC subscription"
                       tooltipProps={{ direction: "top" }}
                     />
                   </div>

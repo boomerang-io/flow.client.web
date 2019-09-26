@@ -92,9 +92,18 @@
           "label": "multiselect",
           "type": "multiselect",
           "options": [
-            { "key": "testing", "value": "testing" },
-            { "key": "something", "value": "something" },
-            { "key": "hello", "value": "hello" }
+            {
+              "key": "testing",
+              "value": "testing"
+            },
+            {
+              "key": "something",
+              "value": "something"
+            },
+            {
+              "key": "hello",
+              "value": "hello"
+            }
           ]
         },
         {
@@ -103,9 +112,18 @@
           "label": "select",
           "type": "select",
           "options": [
-            { "key": "testing", "value": "testing" },
-            { "key": "something", "value": "something" },
-            { "key": "hello", "value": "hello" }
+            {
+              "key": "testing",
+              "value": "testing"
+            },
+            {
+              "key": "something",
+              "value": "something"
+            },
+            {
+              "key": "hello",
+              "value": "hello"
+            }
           ]
         }
       ],
