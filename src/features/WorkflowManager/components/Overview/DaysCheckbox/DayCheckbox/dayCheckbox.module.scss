@@ -1,0 +1,52 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.container {
+  align-items: center;
+  background-color: $white;
+  border-right: solid $teal-30 0.1rem;
+  color: $teal-30;
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  height: 100%;
+  justify-content: center;
+  width: 100% !important;
+  transition: background-color 0.1s ease;
+  transition: border-color 0.1s ease;
+
+  :global .bx--checkbox-label {
+    font-size: 0.875rem;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+  }
+  :global .bx--checkbox-label::after,
+  :global .bx--checkbox-label::before {
+    background-color: transparent !important;
+    border-color: transparent !important;
+  }
+  :global .bx--checkbox:focus + .bx--checkbox-label::before {
+    border-color: $teal-20 !important;
+    height: 2.1rem;
+    width: 4.9rem;
+    top: -0.4rem;
+    left: -0.1rem;
+  }
+
+  :global .bx--checkbox-label-text {
+    width: 100%;
+  }
+}
+:global .bx--checkbox-wrapper {
+  margin-top: 0rem !important;
+  :global .bx--checkbox {
+    &:focus {
+      border-color: red !important;
+      background-color: red !important;
+    }
+  }
+}
+:global .--is-checkbox-true {
+  background-color: $teal-30;
+  color: $white;
+}

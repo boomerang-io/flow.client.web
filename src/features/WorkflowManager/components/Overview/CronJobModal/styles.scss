@@ -32,3 +32,15 @@
   min-height: 8rem;
   max-height: 10rem;
 }
+.c-cron-advanced {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  .bx--list-box__field {
+    width: 23rem;
+  }
+}
+.b-advanced-cron__toggle {
+  margin-bottom: 1rem;
+}

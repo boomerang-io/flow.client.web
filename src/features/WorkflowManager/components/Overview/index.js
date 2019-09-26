@@ -353,7 +353,9 @@ export class Overview extends Component {
                       >
                         <CronJobModal
                           closeModal={closeModal}
-                          cronExpression={get(workflow, "data.trigger.scheduler.schedule", "")}
+                          advancedCron={get(workflow, "data.triggers.scheduler.advancedCron", false)}
+                          test={get(workflow, "data.triggers.scheduler", {})}
+                          cronExpression={get(workflow, "data.triggers.scheduler.schedule", "0 18 * * *")}
                           handleOnChange={this.handleOnCronChange}
                           timeZone={get(workflow, "data.triggers.scheduler.timezone", "")}
                         />

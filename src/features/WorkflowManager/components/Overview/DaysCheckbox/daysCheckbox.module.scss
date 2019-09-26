@@ -1,0 +1,11 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.container {
+  border-bottom: solid $teal-30 0.125rem;
+  border-left: solid $teal-30 0.125rem;
+  border-radius: 0.25rem;
+  border-top: solid $teal-30 0.125rem;
+  display: flex;
+  height: 2.25rem;
+  justify-content: flex-start;
+}
