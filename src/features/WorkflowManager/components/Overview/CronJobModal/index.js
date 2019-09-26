@@ -53,7 +53,7 @@ export default class CronJobModal extends Component {
 
   //receives input value from TextInput
   validateCron = value => {
-    if (value === "1 1 1 1 1" || value === "* * * * *") {
+    if (value.trim() === "1 1 1 1 1" || value.trim() === "* * * * *") {
       this.setState({ message: undefined, errorMessage: `Expression ${value} is not allowed for Boomerang Flow` });
       return false;
     }
@@ -99,7 +99,7 @@ export default class CronJobModal extends Component {
       <Formik
         initialValues={{
           cronExpression: cronExpression || "0 18 * * *",
-          advancedCron: advancedCron,
+          advancedCron: !!advancedCron,
           days: selectedDays,
           time: cronTime || "18:00",
           timeZone: timeZone ? this.transformTimeZone(timeZone) : this.transformTimeZone(defaultTimeZone)
@@ -119,7 +119,6 @@ export default class CronJobModal extends Component {
       >
         {formikProps => {
           const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
-
           return (
             <Form>
               <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-flow" />

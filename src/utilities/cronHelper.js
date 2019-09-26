@@ -4,7 +4,7 @@ export const cronToDateTime = (hasSchedule, cronExp) => {
   if (!cronExp) return { selectedDays: {}, cronTime: "" };
   const cronToData = hasSchedule ? cronExp.split(" ") : undefined;
   let daysSlot = cronToData.length === 5 ? 4 : 5;
-  let cronDays = cronToData ? (cronToData[daysSlot] === "*" ? [] : cronToData[daysSlot].split(",")) : [];
+  let cronDays = cronToData ? (cronToData[daysSlot] === "*" || !cronToData[daysSlot] ? [] : cronToData[daysSlot].split(",")) : [];
   let selectedDays = {};
 
   DAYS_OF_WEEK.forEach(
