@@ -63,7 +63,7 @@ class App extends Component {
 
   renderApp() {
     const { user, navigation, teams } = this.props;
-    if (user.isFetching || user.isCreating || navigation.isFetching || teams.isFetching) {
+    if (user.isFetching || user.isCreating || navigation.isFetching) {
       return <LoadingAnimation centered message="Booting up the app. We'll be right with you" />;
     }
 
