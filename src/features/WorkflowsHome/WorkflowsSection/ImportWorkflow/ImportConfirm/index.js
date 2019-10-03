@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ModalBody, ModalFooter, Button } from "carbon-components-react";
 import Error from "@boomerang/boomerang-components/lib/Error";
-import { LoadingAnimation, ModalConfirmEdit } from "@boomerang/carbon-addons-boomerang-react";
+import { LoadingAnimation, ModalConfirmEdit, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import { options } from "Constants/importWorkflowOptions";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
 
@@ -34,17 +34,7 @@ class ImportConfirm extends Component {
 
     if (this.props.importWorkflowState.isPosting === true) {
       return (
-        <ModalBody
-          style={{
-            height: "26rem",
-            width: "36rem",
-            margin: "auto",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "center"
-          }}
-        >
+        <ModalBody>
           <LoadingAnimation />
         </ModalBody>
       );
@@ -52,42 +42,28 @@ class ImportConfirm extends Component {
 
     if (this.props.importWorkflowState.status === REQUEST_STATUSES.FAILURE) {
       return (
-        <form
+        <ModalFlowForm
           onSubmit={() => {
             this.props.importWorkflowActions.reset();
             this.props.goToStep(options.IMPORT_WORKFLOW_TYPE);
           }}
         >
-          <ModalBody
-            style={{
-              height: "26rem",
-              width: "36rem",
-              margin: "auto",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              alignItems: "center"
-            }}
-          >
+          <ModalBody>
             <Error theme="bmrg-flow" />
           </ModalBody>
           <ModalFooter>
             <Button type="submit">Try again</Button>
           </ModalFooter>
-        </form>
+        </ModalFlowForm>
       );
     }
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <ModalFlowForm onSubmit={this.handleSubmit}>
         <ModalBody
           style={{
-            height: "21.5rem",
-            width: "36rem",
-            margin: "auto",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "flex-start",
             alignItems: "center"
           }}
         >
@@ -108,9 +84,9 @@ class ImportConfirm extends Component {
           />
         </ModalBody>
         <ModalFooter>
-          <Button type="submit">SUBMIT WORKFLOW</Button>
+          <Button type="submit">Submit Workflow</Button>
         </ModalFooter>
-      </form>
+      </ModalFlowForm>
     );
   }
 }

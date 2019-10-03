@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
-import { ComboBox, TextInput } from "@boomerang/carbon-addons-boomerang-react";
+import { ComboBox, TextInput, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import "./styles.scss";
 
@@ -94,9 +94,8 @@ export default class CronJobModal extends Component {
           const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
 
           return (
-            <Form>
-              {/*<ModalHeader title="CRON Schedule" subtitle="" theme="bmrg-flow" />*/}
-              <ModalBody style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}>
+            <ModalFlowForm>
+              <ModalBody style={{ maxWidth: "40rem", margin: "0 2rem", flexDirection: "column", overflow: "visible" }}>
                 <div className="b-cron-fieldset">
                   <div className="b-cron">
                     <TextInput
@@ -138,10 +137,10 @@ export default class CronJobModal extends Component {
                   disabled={!isValid || errorMessage} //disable if the form is invalid or if there is an error message
                   type="submit"
                 >
-                  SAVE
+                  Save
                 </Button>
               </ModalFooter>
-            </Form>
+            </ModalFlowForm>
           );
         }}
       </Formik>
