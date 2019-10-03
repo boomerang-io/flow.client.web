@@ -56,7 +56,7 @@ class ImportWorkflow extends Component {
         }}
         modalHeaderProps={{
           title: "Workflow Import",
-          subTitle: "Import your own workflow"
+          subtitle: "Import your own workflow"
         }}
         modalTrigger={({ openModal }) => (
           <button>

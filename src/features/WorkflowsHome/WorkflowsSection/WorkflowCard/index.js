@@ -141,7 +141,7 @@ class WorkflowCard extends Component {
             <ModalFlow
               modalHeaderProps={{
                 title: "Workflow Inputs",
-                subTitle: "Provide input values for your workflow"
+                subtitle: "Provide input values for your workflow"
               }}
               modalTrigger={({ openModal }) => (
                 <Button iconDecscription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
@@ -156,7 +156,7 @@ class WorkflowCard extends Component {
               composedModalProps={{ containerClassName: "c-execute-workflow-modal" }}
               modalHeaderProps={{
                 title: "Execute workflow?",
-                subTitle: '"Run and View" will navigate you to the workflow exeuction view.'
+                subtitle: '"Run and View" will navigate you to the workflow exeuction view.'
               }}
               modalTrigger={({ openModal }) => (
                 <Button iconDescription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
