@@ -4,9 +4,7 @@ import axios from "axios";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { TextInput, Toggle } from "carbon-components-react";
-import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { LoadingAnimation, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import INPUT_TYPES from "Constants/inputTypes";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
@@ -95,14 +93,15 @@ class CreateEditPropertiesContent extends Component {
 
           return (
             <form onSubmit={handleSubmit}>
-              <Body
+              <ModalBody
                 style={{
                   display: "block",
                   margin: "auto",
-                  width: "60%",
-                  height: "28rem",
-                  padding: "0 0.25rem 2rem",
-                  overflowY: "auto"
+                  width: "90%",
+                  height: "24rem",
+                  overflowY: "auto",
+                  padding: "0 0.25rem",
+                  marginBottom: "2rem"
                 }}
               >
                 <div className={styles.input}>
@@ -160,15 +159,12 @@ class CreateEditPropertiesContent extends Component {
                     labelText="Secured"
                   />
                 </div>
-              </Body>
-              <Footer style={{ flexDirection: "column", alignItems: "center", justifyContent: "flex-start" }}>
-                <ConfirmButton
-                  text={isEdit ? "SAVE" : "CREATE"}
-                  type="submit"
-                  disabled={!isValid || isSubmitting}
-                  theme="bmrg-flow"
-                />
-              </Footer>
+              </ModalBody>
+              <ModalFooter style={{ position: "absolute", bottom: "0", width: "100%" }}>
+                <Button type="submit" disabled={!isValid || isSubmitting}>
+                  {isEdit ? "SAVE" : "CREATE"}
+                </Button>
+              </ModalFooter>
             </form>
           );
         }}

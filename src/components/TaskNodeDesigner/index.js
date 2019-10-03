@@ -6,8 +6,8 @@ import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
 import { PortWidget } from "@projectstorm/react-diagrams";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import Modal from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
+
 //import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "Components/DisplayForm";
 import pencilIcon from "./pencil.svg";
@@ -47,7 +47,7 @@ export class TaskNode extends Component {
 
   renderConfigureNode() {
     return (
-      <Modal
+      /*<Modal
         modalProps={{ shouldCloseOnOverlayClick: false }}
         ModalTrigger={() => (
           <button className="b-task-node__edit">
@@ -74,7 +74,33 @@ export class TaskNode extends Component {
             />
           </ModalFlow>
         )}
-      />
+      />*/
+      <ModalFlow
+        rootNodeId="c-app-main"
+        confirmModalProps={{
+          title: "Close Modal Flow?"
+          //children: <div>You will need to start from the first component</div>,
+        }}
+        modalHeaderProps={{
+          title: this.props.task.name
+          //label: 'Change between components and persisted data',
+        }}
+        modalTrigger={({ openModal }) => (
+          <button className="b-switchNode__edit" onClick={openModal}>
+            <img src={pencilIcon} alt="Task node type" />
+          </button>
+        )}
+      >
+        <DisplayForm
+          inputProperties={this.props.inputProperties}
+          node={this.props.node}
+          nodeConfig={this.props.nodeConfig}
+          onSave={this.handleOnSave}
+          setIsModalOpen={this.props.appActions.setIsModalOpen}
+          taskNames={this.props.taskNames}
+          task={this.props.task}
+        />
+      </ModalFlow>
     );
   }
 

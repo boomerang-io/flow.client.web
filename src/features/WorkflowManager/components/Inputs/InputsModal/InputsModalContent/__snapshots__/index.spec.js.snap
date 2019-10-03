@@ -4,8 +4,8 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
 <body>
   <div>
     <fieldset>
-      <main
-        class="c-inputs-modal-body"
+      <div
+        class="bx--modal-content c-inputs-modal-body"
       >
         <div
           class="c-inputs-modal-body-left"
@@ -272,20 +272,20 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
             </div>
           </div>
         </div>
-      </main>
-      <footer
-        class="bmrg--c-modal-content-footer"
-        style="padding-top: 1rem;"
+      </div>
+      <div
+        class="bx--modal-footer"
       >
         <button
-          class="bmrg--b-modal-confirm-button --disabled --bmrg-flow --disabled"
+          class="bx--btn bx--btn--primary bx--btn--disabled"
           data-testid="inputs-modal-confirm-button"
           disabled=""
+          tabindex="0"
           type="submit"
         >
           SAVE
         </button>
-      </footer>
+      </div>
     </fieldset>
   </div>
 </body>

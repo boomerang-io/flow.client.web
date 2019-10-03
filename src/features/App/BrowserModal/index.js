@@ -1,39 +1,34 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import BrowserModalContent from "./BrowserModalContent";
 
-class BrowserModal extends Component {
-  static propTypes = {
-    isOpen: PropTypes.bool.isRequired
-  };
+const BrowserModal = ({ isOpen }) => {
+  return (
+    <ModalFlow
+      confirmModalProps={{
+        title: "Are you sure?"
+      }}
+      modalHeaderProps={{
+        title: "UNSUPPORTED BROWSER",
+        label: "Sorry, we are working on it"
+      }}
+      isOpen={isOpen}
+      onCloseModal={() => {
+        isOpen = false;
+      }}
+    >
+      <BrowserModalContent />
+    </ModalFlow>
+  );
+};
 
-  static defaultProps = {
-    isOpen: false
-  };
+BrowserModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired
+};
 
-  render() {
-    return (
-      <ModalWrapper
-        theme="bmrg-flow"
-        isOpen={this.props.isOpen}
-        fullscreen={true}
-        modalContent={closeModal => (
-          <ModalFlow
-            className="c-browser-modal-content"
-            headerTitle="UNSUPPORTED BROWSER"
-            headerSubtitle="Sorry, we are working on it"
-            closeModal={closeModal}
-            theme="bmrg-flow"
-            fullscreen={true}
-          >
-            <BrowserModalContent closeModal={closeModal} />
-          </ModalFlow>
-        )}
-      />
-    );
-  }
-}
+BrowserModal.defaultProps = {
+  isOpen: false
+};
 
 export default BrowserModal;

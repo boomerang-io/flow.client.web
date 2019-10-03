@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import { Button } from "carbon-components-react";
 import CreateEditPropertiesContent from "./CreateEditPropertiesContent";
 import { Add16 } from "@carbon/icons-react";
@@ -41,38 +40,39 @@ class CreateEditPropertiesModal extends Component {
     }
 
     return (
-      <ModalWrapper
+      <ModalFlow
         isOpen={isOpen}
-        modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() =>
+        modalTrigger={({ openModal }) =>
           !isEdit ? (
-            <Button iconDescription="Create Property" renderIcon={Add16} size="field">
+            <Button
+              iconDescription="Create Property"
+              renderIcon={Add16}
+              style={{ width: "12rem" }}
+              size="field"
+              onClick={openModal}
+            >
               Create Property
             </Button>
           ) : null
         }
-        modalContent={closeModal => (
-          <ModalFlow
-            headerTitle={isEdit && property ? `EDIT ${property.label.toUpperCase()}` : "CREATE PROPERTY"}
-            closeModal={isEdit ? handleEditClose : closeModal}
-            confirmModalProps={{
-              affirmativeAction: isEdit ? handleEditClose : closeModal,
-              subTitleTop: "Your property will not be saved",
-              theme: "bmrg-flow"
-            }}
-            theme="bmrg-flow"
-          >
-            <CreateEditPropertiesContent
-              addPropertyInStore={addPropertyInStore}
-              handleEditClose={handleEditClose}
-              isEdit={isEdit}
-              property={property}
-              propertyKeys={propertyKeys}
-              updatePropertyInStore={updatePropertyInStore}
-            />
-          </ModalFlow>
-        )}
-      />
+        modalHeaderProps={{
+          title: isEdit && property ? `Edit ${property.label}` : "Create Property"
+        }}
+        confirmModalProps={{
+          title: "Close this?",
+          children: "Your property will not be saved",
+          affirmativeAction: isEdit ? handleEditClose : null
+        }}
+      >
+        <CreateEditPropertiesContent
+          addPropertyInStore={addPropertyInStore}
+          handleEditClose={handleEditClose}
+          isEdit={isEdit}
+          property={property}
+          propertyKeys={propertyKeys}
+          updatePropertyInStore={updatePropertyInStore}
+        />
+      </ModalFlow>
     );
   }
 }

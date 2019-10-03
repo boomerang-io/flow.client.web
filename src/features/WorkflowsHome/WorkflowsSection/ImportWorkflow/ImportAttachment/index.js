@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
-import Header from "@boomerang/boomerang-components/lib/ModalContentHeader";
-import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import NavButton from "@boomerang/boomerang-components/lib/ModalNavButton";
+import { ModalBody, ModalFooter, Button } from "carbon-components-react";
 import DropZone from "./Dropzone";
 
 class WorkflowAttachment extends Component {
@@ -20,7 +17,7 @@ class WorkflowAttachment extends Component {
   };
 
   componentDidMount() {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
   }
 
   appendFile = files => {
@@ -110,8 +107,8 @@ class WorkflowAttachment extends Component {
   render() {
     return (
       <form className="c-workflow-import" onSubmit={e => e.preventDefault()}>
-        <Header theme="bmrg-flow" title="ADD A WORKFLOW" subtitle="Select the Workflow file you want to upload" />
-        <Body
+        {/*<Header theme="bmrg-flow" title="ADD A WORKFLOW" subtitle="Select the Workflow file you want to upload" />*/}
+        <ModalBody
           style={{
             height: "22rem",
             width: "29rem",
@@ -132,16 +129,15 @@ class WorkflowAttachment extends Component {
             goToStep={this.props.requestNextStep}
             state={this.state}
           />
-        </Body>
-        <Footer>
-          <NavButton reversed text="BACK" theme="bmrg-flow" onClick={this.props.requestPreviousStep} />
-          <NavButton
-            text={this.showWizardText()}
-            theme="bmrg-flow"
-            onClick={this.handleSubmit}
-            disabled={this.state.files.length === 0}
-          />
-        </Footer>
+        </ModalBody>
+        <ModalFooter>
+          <Button onClick={this.props.requestPreviousStep} kind="secondary">
+            BACK
+          </Button>
+          <Button onClick={this.handleSubmit} disabled={this.state.files.length === 0} kind="primary">
+            {this.showWizardText()}
+          </Button>
+        </ModalFooter>
       </form>
     );
   }

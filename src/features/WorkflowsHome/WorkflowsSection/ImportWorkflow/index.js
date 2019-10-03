@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import queryString from "query-string";
 import { actions as importWorkflowActions } from "State/importWorkflow";
-import Modal from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { notify, ToastNotification, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import { Upload16 } from "@carbon/icons-react";
 import ImportAttachment from "./ImportAttachment";
 import ImportConfirm from "./ImportConfirm";
@@ -51,35 +49,38 @@ class ImportWorkflow extends Component {
     };
 
     return (
-      <Modal
-        modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => (
+      <ModalFlow
+        confirmModalProps={{
+          title: "Close this?",
+          children: <div>You request will not be saved</div>
+        }}
+        modalHeaderProps={{
+          title: "Workflow Import",
+          label: "Import your own workflow"
+        }}
+        modalTrigger={({ openModal }) => (
           <button>
-            <Upload16 data-tip data-for={this.props.teamId} className="b-workflow-import__icon" alt="Import Workflow" />
+            <Upload16
+              data-tip
+              data-for={this.props.teamId}
+              className="b-workflow-import__icon"
+              alt="Import Workflow"
+              onClick={openModal}
+            />
           </button>
         )}
+        progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
         initialState={initialState}
-        theme="bmrg-flow"
-        modalContent={(closeModal, rest) => (
-          <ModalFlow
-            headerTitle="Workflow Import"
-            headerSubtitle="Import your own workflow"
-            closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
-            theme="bmrg-flow"
-            {...rest}
-          >
-            <ImportType />
-            <ImportAttachment />
-            <ImportConfirm
-              fetchTeams={this.props.fetchTeams}
-              handleImportWorkflow={this.handleImportWorkflow}
-              importWorkflowActions={this.props.importWorkflowActions}
-              importWorkflowState={this.props.importWorkflowState}
-            />
-          </ModalFlow>
-        )}
-      />
+      >
+        <ImportType />
+        <ImportAttachment />
+        <ImportConfirm
+          fetchTeams={this.props.fetchTeams}
+          handleImportWorkflow={this.handleImportWorkflow}
+          importWorkflowActions={this.props.importWorkflowActions}
+          importWorkflowState={this.props.importWorkflowState}
+        />
+      </ModalFlow>
     );
   }
 }

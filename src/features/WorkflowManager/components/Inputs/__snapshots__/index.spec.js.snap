@@ -100,96 +100,407 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
             pandas, dogs
           </dd>
         </dl>
-        <div>
-          <button
-            class="b-workflow-input__delete"
+        <button
+          class="b-workflow-input__delete"
+        >
+          <svg
+            aria-hidden="true"
+            class="b-workflow-input__delete-icon"
+            currentItem="false"
+            data-for="undefined"
+            data-tip="true"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            style="will-change: transform;"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              aria-hidden="true"
-              class="b-workflow-input__delete-icon"
-              currentItem="false"
-              data-for="undefined"
-              data-tip="true"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
-              />
-            </svg>
+            <path
+              d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+            />
+          </svg>
+          <div
+            class="__react_component_tooltip place-top type-dark "
+            data-id="tooltip"
+            id="undefined"
+          >
+            Delete Input
+          </div>
+        </button>
+        <div
+          class="bx--modal bx--bmrg-modal-confirm-container"
+          role="presentation"
+          tabindex="-1"
+        >
+          <div
+            class="bx--modal-container"
+          >
             <div
-              class="__react_component_tooltip place-top type-dark "
-              data-id="tooltip"
-              id="undefined"
+              class="bx--modal-header"
             >
-              Delete Input
+              <p
+                class="bx--modal-header__label bx--type-delta"
+              >
+                It will be gone. Forever.
+              </p>
+              <p
+                class="bx--modal-header__heading bx--type-beta"
+              >
+                DELETE THIS PROPERTY?
+              </p>
+              <button
+                class="bx--modal-close"
+                title="Close"
+                type="button"
+              >
+                <svg
+                  aria-label="Close"
+                  class="bx--modal-close__icon"
+                  focusable="false"
+                  height="20"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  style="will-change: transform;"
+                  viewBox="0 0 32 32"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                  />
+                </svg>
+              </button>
             </div>
-          </button>
-        </div>
-        <div>
-          <button
-            class="b-workflow-input-edit"
-          >
-            Edit
-            <svg
-              aria-hidden="true"
-              class="b-workflow-input-edit__pencil"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              id="confirm-modal-container"
             >
-              <path
-                d="M2 27h28v2H2zM25.41 9a2 2 0 0 0 0-2.83l-3.58-3.58a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22v-3.59l10-10L19.59 12l-10 10z"
-              />
-            </svg>
-          </button>
+              <div
+                class="bx--modal-content"
+              >
+                <p
+                  class="bx--modal-content__text"
+                />
+              </div>
+            </div>
+            <div
+              class="bx--modal-footer"
+              inputref="[object Object]"
+            >
+              <button
+                class="bx--btn bx--btn--secondary"
+                id="bx--bmrg-confirm-modal-secondary-button"
+                tabindex="0"
+                type="button"
+              >
+                NO
+              </button>
+              <button
+                class="bx--btn bx--btn--primary"
+                id="bx--bmrg-confirm-modal-primary-button"
+                tabindex="0"
+                type="button"
+              >
+                YES
+              </button>
+            </div>
+          </div>
+        </div>
+        <button
+          class="b-workflow-input-edit"
+        >
+          Edit
+          <svg
+            aria-hidden="true"
+            class="b-workflow-input-edit__pencil"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            style="will-change: transform;"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 27h28v2H2zM25.41 9a2 2 0 0 0 0-2.83l-3.58-3.58a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22v-3.59l10-10L19.59 12l-10 10z"
+            />
+          </svg>
+        </button>
+        <div
+          class="bx--modal bx--bmrg-modal-flow"
+          role="presentation"
+          tabindex="-1"
+        >
+          <div
+            class="bx--modal-container bx--bmrg-modal-flow-container c-inputs-modal"
+          >
+            <div
+              class="bx--modal-header"
+              subtitle="Let's update it"
+            >
+              <p
+                class="bx--modal-header__heading bx--type-beta"
+              >
+                TIM PROPERTY
+              </p>
+              <p
+                class="bx--bmrg-modal-flow-subtitle"
+              >
+                Let's update it
+              </p>
+              <button
+                class="bx--modal-close"
+                title="Close the modal"
+                type="button"
+              >
+                <svg
+                  aria-label="Close the modal"
+                  class="bx--modal-close__icon"
+                  focusable="false"
+                  height="20"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  style="will-change: transform;"
+                  viewBox="0 0 32 32"
+                  width="20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="bx--modal bx--bmrg-modal-confirm-container"
+              role="presentation"
+              tabindex="-1"
+            >
+              <div
+                class="bx--modal-container"
+              >
+                <div
+                  class="bx--modal-header"
+                >
+                  <p
+                    class="bx--modal-header__heading bx--type-beta"
+                  >
+                    Close this?
+                  </p>
+                  <button
+                    class="bx--modal-close"
+                    title="Close"
+                    type="button"
+                  >
+                    <svg
+                      aria-label="Close"
+                      class="bx--modal-close__icon"
+                      focusable="false"
+                      height="20"
+                      preserveAspectRatio="xMidYMid meet"
+                      role="img"
+                      style="will-change: transform;"
+                      viewBox="0 0 32 32"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <div
+                  id="confirm-modal-container"
+                >
+                  <div
+                    class="bx--modal-content"
+                  >
+                    <p
+                      class="bx--modal-content__text"
+                    >
+                      <div>
+                        Your input will not be saved
+                      </div>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="bx--modal-footer"
+                  inputref="[object Object]"
+                >
+                  <button
+                    class="bx--btn bx--btn--secondary"
+                    id="bx--bmrg-confirm-modal-secondary-button"
+                    tabindex="0"
+                    type="button"
+                  >
+                    NO
+                  </button>
+                  <button
+                    class="bx--btn bx--btn--primary"
+                    id="bx--bmrg-confirm-modal-primary-button"
+                    tabindex="0"
+                    type="button"
+                  >
+                    YES
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div>
-        <div
-          class="b-workflow-input-create"
+      <div
+        class="b-workflow-input-create"
+      >
+        <button
+          class="b-workflow-input-create__plus"
         >
-          <button
-            class="b-workflow-input-create__plus"
+          <svg
+            aria-hidden="true"
+            class="b-workflow-input-create__plus-icon"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            style="will-change: transform;"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              aria-hidden="true"
-              class="b-workflow-input-create__plus-icon"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
+            <path
+              d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
+            />
+          </svg>
+        </button>
+        Create New Property
+      </div>
+      <div
+        class="bx--modal bx--bmrg-modal-flow"
+        role="presentation"
+        tabindex="-1"
+      >
+        <div
+          class="bx--modal-container bx--bmrg-modal-flow-container c-inputs-modal"
+        >
+          <div
+            class="bx--modal-header"
+            subtitle="Create new input property"
+          >
+            <p
+              class="bx--modal-header__heading bx--type-beta"
             >
-              <path
-                d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
-              />
-            </svg>
-          </button>
-          Create New Property
+              CREATE PROPERTY
+            </p>
+            <p
+              class="bx--bmrg-modal-flow-subtitle"
+            >
+              Create new input property
+            </p>
+            <button
+              class="bx--modal-close"
+              title="Close the modal"
+              type="button"
+            >
+              <svg
+                aria-label="Close the modal"
+                class="bx--modal-close__icon"
+                focusable="false"
+                height="20"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="bx--modal bx--bmrg-modal-confirm-container"
+            role="presentation"
+            tabindex="-1"
+          >
+            <div
+              class="bx--modal-container"
+            >
+              <div
+                class="bx--modal-header"
+              >
+                <p
+                  class="bx--modal-header__heading bx--type-beta"
+                >
+                  Close this?
+                </p>
+                <button
+                  class="bx--modal-close"
+                  title="Close"
+                  type="button"
+                >
+                  <svg
+                    aria-label="Close"
+                    class="bx--modal-close__icon"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div
+                id="confirm-modal-container"
+              >
+                <div
+                  class="bx--modal-content"
+                >
+                  <p
+                    class="bx--modal-content__text"
+                  >
+                    <div>
+                      Your input will not be saved
+                    </div>
+                  </p>
+                </div>
+              </div>
+              <div
+                class="bx--modal-footer"
+                inputref="[object Object]"
+              >
+                <button
+                  class="bx--btn bx--btn--secondary"
+                  id="bx--bmrg-confirm-modal-secondary-button"
+                  tabindex="0"
+                  type="button"
+                >
+                  NO
+                </button>
+                <button
+                  class="bx--btn bx--btn--primary"
+                  id="bx--bmrg-confirm-modal-primary-button"
+                  tabindex="0"
+                  type="button"
+                >
+                  YES
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div
-    class="ReactModalPortal"
-  />
-  <div
-    class="ReactModalPortal"
-  />
-  <div
-    class="ReactModalPortal"
-  />
 </body>
 `;

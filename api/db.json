@@ -455,14 +455,14 @@
             {
               "id": "a12d634d-a003-48f7-8503-fd66ad12526f",
               "selected": false,
-              "x": 991.5000120422638,
-              "y": 457.92183659494253
+              "x": 1018.2968791684257,
+              "y": 461.4687677060492
             },
             {
               "id": "57fc0bab-4620-4e43-a107-e27631bf6471",
               "selected": true,
-              "x": 1058.4999537837443,
-              "y": 148.99999593166763
+              "x": 1043.4062723999054,
+              "y": 150.84374454639484
             }
           ],
           "extras": {},
@@ -485,14 +485,14 @@
             {
               "id": "b5cc4c80-c383-43fd-8c1b-db4a0096fbe1",
               "selected": false,
-              "x": 473.5156640559907,
-              "y": 138.90624975590003
+              "x": 498.4062709958855,
+              "y": 142.4531314381519
             },
             {
               "id": "564c9219-6aff-42bc-8288-39e4a8e597cd",
               "selected": false,
-              "x": 768.500008299398,
-              "y": 457.92183659494253
+              "x": 754.4062898471569,
+              "y": 461.4687677060492
             }
           ],
           "extras": {},
@@ -515,14 +515,14 @@
             {
               "id": "3dc7fad8-455f-4048-9735-ea7f3b1b6ed0",
               "selected": false,
-              "x": 473.5156640559907,
-              "y": 138.90624975590003
+              "x": 498.4062709958855,
+              "y": 142.4531314381519
             },
             {
               "id": "f8eaff55-a099-49d9-874b-b1d43e3ab600",
               "selected": true,
-              "x": 1058.4999537837443,
-              "y": 148.99999593166763
+              "x": 1043.4062723999054,
+              "y": 150.84374454639484
             }
           ],
           "extras": {},
@@ -716,7 +716,7 @@
       ]
     },
     "changelog": {
-      "reason": "AAA"
+      "reason": "fdsa"
     }
   },
   "workflowRevision": {
@@ -6041,6 +6041,14 @@
           "type": "text",
           "required": false,
           "readOnly": true
+        },
+        {
+          "description": "prop",
+          "key": "ben",
+          "label": "hello",
+          "type": "text",
+          "required": true,
+          "readOnly": false
         }
       ],
       "enablePersistentStorage": true,
@@ -10643,21 +10651,6 @@
       "type": "password"
     },
     {
-      "label": "Boomerang Accounts1",
-      "key": "boomerang.account",
-      "value": "a long value to test",
-      "type": "text",
-      "id": "5cdc5ad7460edb4a230b579d"
-    },
-    {
-      "label": "Hello",
-      "description": "is",
-      "key": "thias",
-      "value": "cool",
-      "type": "text",
-      "id": "z04ZywD"
-    },
-    {
       "label": "Tim Testing",
       "description": "asdffasdfasdf",
       "key": "aaaaaa",
@@ -10680,14 +10673,6 @@
       "value": "44555",
       "type": "password",
       "id": "s6KdbOd"
-    },
-    {
-      "label": "test",
-      "description": "sdadasd",
-      "key": "adasd",
-      "value": "asdasdad",
-      "type": "text",
-      "id": "McDeh1k"
     }
   ]
 }

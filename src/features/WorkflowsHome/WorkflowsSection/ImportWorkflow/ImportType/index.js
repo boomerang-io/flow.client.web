@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import OptionButton from "@boomerang/boomerang-components/lib/ModalOptionButton";
-import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
-import Header from "@boomerang/boomerang-components/lib/ModalContentHeader";
+import { ModalBody } from "carbon-components-react";
+import "./styles.scss";
 
 class ImportType extends Component {
   handleNextStep = ({ isUpdate }) => {
@@ -15,19 +14,20 @@ class ImportType extends Component {
   render() {
     return (
       <form onSubmit={e => e.preventDefault()}>
-        <Header title="IMPORT TYPE" subtitle="What do you want to do?" theme="bmrg-flow" />
-        <Body>
-          <OptionButton
-            text="NEW WORKFLOW"
-            theme="bmrg-flow"
+        <ModalBody>
+          <button
+            className="bmrg--b-flow-export-options-button --bmrg-flow"
             onClick={() => this.handleNextStep({ isUpdate: false })}
-          />
-          <OptionButton
-            text="UPDATE WORKFLOW"
-            theme="bmrg-flow"
+          >
+            NEW WORKFLOW
+          </button>
+          <button
+            className="bmrg--b-flow-export-options-button --bmrg-flow"
             onClick={() => this.handleNextStep({ isUpdate: true })}
-          />
-        </Body>
+          >
+            UPDATE WORKFLOW
+          </button>
+        </ModalBody>
       </form>
     );
   }

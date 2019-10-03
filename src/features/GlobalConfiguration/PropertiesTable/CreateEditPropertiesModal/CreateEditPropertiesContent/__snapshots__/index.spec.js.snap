@@ -4,9 +4,9 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
 <body>
   <div>
     <form>
-      <main
-        class="bmrg--c-modal-content-body"
-        style="display: block; margin: auto; width: 60%; height: 28rem; padding: 0px 0.25rem 2rem; overflow-y: auto;"
+      <div
+        class="bx--modal-content"
+        style="display: block; margin: auto auto 2rem auto; width: 90%; height: 24rem; overflow-y: auto; padding: 0px 0.25rem;"
       >
         <div
           class="input"
@@ -144,19 +144,20 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
             </label>
           </div>
         </div>
-      </main>
-      <footer
-        class="bmrg--c-modal-content-footer"
-        style="flex-direction: column; align-items: center; justify-content: flex-start;"
+      </div>
+      <div
+        class="bx--modal-footer"
+        style="position: absolute; bottom: 0px; width: 100%;"
       >
         <button
-          class="bmrg--b-modal-confirm-button --disabled --bmrg-flow --disabled"
+          class="bx--btn bx--btn--primary bx--btn--disabled"
           disabled=""
+          tabindex="0"
           type="submit"
         >
           SAVE
         </button>
-      </footer>
+      </div>
     </form>
   </div>
 </body>

@@ -44,25 +44,26 @@ class DisplayForm extends Component {
 
   componentDidMount() {
     this.props.setIsModalOpen({ isModalOpen: true });
-    this.props.shouldConfirmExit(false);
+    this.props.setShouldConfirmModalClose(false);
   }
   componentWillUnmount() {
     this.props.setIsModalOpen({ isModalOpen: false });
   }
 
   formikSetFieldValue = (value, id, setFieldValue) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     setFieldValue(id, value);
   };
 
   formikHandleChange = (e, handleChange) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     handleChange(e);
   };
 
   handleOnSave = values => {
     this.props.node.taskName = values.taskName;
     this.props.onSave(values);
+    this.props.setShouldConfirmModalClose(true);
     this.props.closeModal();
   };
 

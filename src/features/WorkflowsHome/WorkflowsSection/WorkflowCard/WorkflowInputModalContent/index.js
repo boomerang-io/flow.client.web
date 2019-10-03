@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
@@ -14,7 +12,7 @@ class WorkflowInputModalContent extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
     executeWorkflow: PropTypes.func.isRequired,
-    inputs: PropTypes.array.isRequired
+    inputxfs: PropTypes.array.isRequired
   };
 
   constructor(props) {
@@ -167,12 +165,11 @@ class WorkflowInputModalContent extends Component {
 
     return (
       <form>
-        <Body className="b-workflow-inputs-modal-body">{this.props.inputs.map(this.renderInput)}</Body>
-        <Footer className="b-workflow-inputs-modal-footer">
-          <ConfirmButton
+        <ModalBody className="b-workflow-inputs-modal-body">{this.props.inputs.map(this.renderInput)}</ModalBody>
+        <ModalFooter className="b-workflow-inputs-modal-footer">
+          <Button
             type="submit"
             style={{ width: "40%" }}
-            text="RUN"
             disabled={error}
             onClick={e => {
               e.preventDefault();
@@ -182,12 +179,12 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
-            theme="bmrg-flow"
-          />
-          <ConfirmButton
+          >
+            RUN
+          </Button>
+          <Button
             type="submit"
             style={{ width: "40%" }}
-            text={"RUN & VIEW"}
             disabled={error}
             onClick={e => {
               e.preventDefault();
@@ -197,9 +194,10 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
-            theme="bmrg-flow"
-          />
-        </Footer>
+          >
+            RUN & VIEW
+          </Button>
+        </ModalFooter>
       </form>
     );
   }

@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
-import Header from "@boomerang/boomerang-components/lib/ModalContentHeader";
-import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import ConfirmEdit from "@boomerang/boomerang-components/lib/ModalConfirmEdit";
+import { ModalBody, ModalFooter, Button } from "carbon-components-react";
 import Error from "@boomerang/boomerang-components/lib/Error";
-import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
+import { LoadingAnimation, ModalConfirmEdit } from "@boomerang/carbon-addons-boomerang-react";
 import { options } from "Constants/importWorkflowOptions";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
 
@@ -18,7 +14,7 @@ class ImportConfirm extends Component {
   };
 
   componentDidMount() {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
   }
 
   handleSubmit = event => {
@@ -38,7 +34,7 @@ class ImportConfirm extends Component {
 
     if (this.props.importWorkflowState.isPosting === true) {
       return (
-        <Body
+        <ModalBody
           style={{
             height: "26rem",
             width: "36rem",
@@ -50,7 +46,7 @@ class ImportConfirm extends Component {
           }}
         >
           <LoadingAnimation />
-        </Body>
+        </ModalBody>
       );
     }
 
@@ -62,7 +58,7 @@ class ImportConfirm extends Component {
             this.props.goToStep(options.IMPORT_WORKFLOW_TYPE);
           }}
         >
-          <Body
+          <ModalBody
             style={{
               height: "26rem",
               width: "36rem",
@@ -74,20 +70,19 @@ class ImportConfirm extends Component {
             }}
           >
             <Error theme="bmrg-flow" />
-          </Body>
-          <Footer>
-            <ConfirmButton text="Try again?" theme="bmrg-flow" />
-          </Footer>
+          </ModalBody>
+          <ModalFooter>
+            <Button type="submit">Try again</Button>
+          </ModalFooter>
         </form>
       );
     }
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <Header title="CONFIRM IMPORT" theme="bmrg-flow" />
-        <Body
+        <ModalBody
           style={{
-            height: "21rem",
+            height: "21.5rem",
             width: "36rem",
             margin: "auto",
             display: "flex",
@@ -96,7 +91,7 @@ class ImportConfirm extends Component {
             alignItems: "center"
           }}
         >
-          <ConfirmEdit
+          <ModalConfirmEdit
             type="array"
             title="Import Type"
             onPencilClick={() => this.props.goToStep(options.IMPORT_WORKFLOW_TYPE)}
@@ -104,17 +99,17 @@ class ImportConfirm extends Component {
             theme="bmrg-flow"
             style={{ marginBottom: "1rem" }}
           />
-          <ConfirmEdit
+          <ModalConfirmEdit
             type="array"
             title={`Attachment`}
             onPencilClick={() => this.props.goToStep(options.IMPORT_WORKFLOW_ATTACHMENT)}
             arrayItems={confirmAttachment}
             theme="bmrg-flow"
           />
-        </Body>
-        <Footer>
-          <ConfirmButton text="SUBMIT WORKFLOW" type="submit" theme="bmrg-flow" />
-        </Footer>
+        </ModalBody>
+        <ModalFooter>
+          <Button type="submit">SUBMIT WORKFLOW</Button>
+        </ModalFooter>
       </form>
     );
   }

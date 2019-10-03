@@ -3,14 +3,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
+import { ComboBox, Creatable, TextArea, TextInput, Toggle } from "@boomerang/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import get from "lodash.get";
 import clonedeep from "lodash/cloneDeep";
-import { ComboBox, Creatable, TextArea, TextInput, Toggle } from "@boomerang/carbon-addons-boomerang-react";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
@@ -45,24 +43,24 @@ class InputsModalContent extends Component {
   };
 
   handleOnChange = (e, formikChange) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     formikChange(e);
   };
 
   handleOnFieldValueChange = (value, id, setFieldValue) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     setFieldValue(id, value);
   };
 
   handleOnTypeChange = (selectedItem, setFieldValue) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     setFieldValue(FIELD.TYPE, selectedItem);
     setFieldValue(FIELD.DEFAULT_VALUE, selectedItem.value === INPUT_TYPES.BOOLEAN ? false : undefined);
   };
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
   handleValidValuesChange = (values, setFieldValue) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     setFieldValue(FIELD.VALID_VALUES, values);
   };
 
@@ -210,7 +208,7 @@ class InputsModalContent extends Component {
 
           return (
             <fieldset disabled={loading}>
-              <ModalContentBody className="c-inputs-modal-body">
+              <ModalBody className="c-inputs-modal-body">
                 <div className="c-inputs-modal-body-left">
                   <div className="b-inputs-modal-text">
                     <TextInput
@@ -274,17 +272,17 @@ class InputsModalContent extends Component {
                   </div>
                   {this.renderDefaultValue(formikProps)}
                 </div>
-              </ModalContentBody>
-              <ModalContentFooter style={{ paddingTop: "1rem" }}>
-                <ModalConfirmButton
+              </ModalBody>
+              <ModalFooter>
+                <Button
                   data-testid="inputs-modal-confirm-button"
                   disabled={!isValid || loading}
-                  text={isEdit ? "SAVE" : "CREATE"}
-                  theme="bmrg-flow"
                   type="submit"
                   onClick={() => this.handleConfirm(formikProps)}
-                />
-              </ModalContentFooter>
+                >
+                  {isEdit ? "SAVE" : "CREATE"}
+                </Button>
+              </ModalFooter>
             </fieldset>
           );
         }}
