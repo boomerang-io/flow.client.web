@@ -28,7 +28,6 @@
     "lodash.get": "^4.4.2",
     "match-sorter": "^2.3.0",
     "moment-timezone": "^0.5.23",
-    "node-sass": "^4.12.0",
     "prop-types": "15.7.2",
     "react": "16.9.0",
     "react-codemirror2": "^6.0.0",
