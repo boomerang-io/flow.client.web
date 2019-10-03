@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ModalBody, ModalFooter, Button } from "carbon-components-react";
+import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import DropZone from "./Dropzone";
 
 class WorkflowAttachment extends Component {
@@ -96,7 +97,7 @@ class WorkflowAttachment extends Component {
 
   showWizardText = () => {
     const BLANK = "";
-    const ONWARD = "ONWARD";
+    const ONWARD = "Onward";
 
     if (this.state.loaded) {
       return ONWARD;
@@ -106,8 +107,11 @@ class WorkflowAttachment extends Component {
 
   render() {
     return (
-      <form className="c-workflow-import" onSubmit={e => e.preventDefault()}>
-        {/*<Header theme="bmrg-flow" title="ADD A WORKFLOW" subtitle="Select the Workflow file you want to upload" />*/}
+      <ModalFlowForm
+        title="Add a Workflow - Select the Workflow file you want to upload"
+        className="c-workflow-import"
+        onSubmit={e => e.preventDefault()}
+      >
         <ModalBody
           style={{
             height: "22rem",
@@ -132,13 +136,13 @@ class WorkflowAttachment extends Component {
         </ModalBody>
         <ModalFooter>
           <Button onClick={this.props.requestPreviousStep} kind="secondary">
-            BACK
+            Back
           </Button>
           <Button onClick={this.handleSubmit} disabled={this.state.files.length === 0} kind="primary">
             {this.showWizardText()}
           </Button>
         </ModalFooter>
-      </form>
+      </ModalFlowForm>
     );
   }
 }

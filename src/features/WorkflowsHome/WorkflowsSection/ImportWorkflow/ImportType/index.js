@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ModalBody } from "carbon-components-react";
+import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import "./styles.scss";
 
 class ImportType extends Component {
@@ -13,7 +14,7 @@ class ImportType extends Component {
 
   render() {
     return (
-      <form onSubmit={e => e.preventDefault()}>
+      <ModalFlowForm onSubmit={e => e.preventDefault()}>
         <ModalBody>
           <button
             className="bmrg--b-flow-export-options-button --bmrg-flow"
@@ -28,7 +29,7 @@ class ImportType extends Component {
             UPDATE WORKFLOW
           </button>
         </ModalBody>
-      </form>
+      </ModalFlowForm>
     );
   }
 }
