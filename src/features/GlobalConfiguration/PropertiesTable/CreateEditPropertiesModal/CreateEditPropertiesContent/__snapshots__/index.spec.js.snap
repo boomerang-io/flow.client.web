@@ -3,10 +3,11 @@
 exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of CreateEditPropertiesContent 1`] = `
 <body>
   <div>
-    <form>
+    <form
+      class="bx--bmrg-modal-flow-form"
+    >
       <div
         class="bx--modal-content"
-        style="display: block; margin: auto auto 2rem auto; width: 90%; height: 24rem; overflow-y: auto; padding: 0px 0.25rem;"
       >
         <div
           class="input"
@@ -147,7 +148,6 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
       </div>
       <div
         class="bx--modal-footer"
-        style="position: absolute; bottom: 0px; width: 100%;"
       >
         <button
           class="bx--btn bx--btn--primary bx--btn--disabled"
@@ -155,7 +155,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
           tabindex="0"
           type="submit"
         >
-          SAVE
+          Save
         </button>
       </div>
     </form>
