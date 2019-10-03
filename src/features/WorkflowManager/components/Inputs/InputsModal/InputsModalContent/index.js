@@ -285,6 +285,9 @@ class InputsModalContent extends Component {
                 </ModalBody>
               </fieldset>
               <ModalFooter>
+                <Button kind="secondary" onClick={this.props.closeModal} type="button">
+                  Cancel
+                </Button>
                 <Button
                   data-testid="inputs-modal-confirm-button"
                   disabled={!isValid || loading}

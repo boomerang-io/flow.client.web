@@ -133,6 +133,9 @@ export default class CronJobModal extends Component {
                 </div>
               </ModalBody>
               <ModalFooter style={{ bottom: "0", position: "absolute", width: "100%" }}>
+                <Button kind="secondary" type="button">
+                  Cancel
+                </Button>
                 <Button
                   disabled={!isValid || errorMessage} //disable if the form is invalid or if there is an error message
                   type="submit"
