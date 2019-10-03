@@ -40,13 +40,13 @@ const INPUT_TYPES_LABELS = [
 
 class InputsModalContent extends Component {
   static propTypes = {
-    updateInputs: PropTypes.func.isRequired,
-    input: PropTypes.object,
-    isEdit: PropTypes.bool,
-    workflowActions: PropTypes.object.isRequired,
     closeModal: PropTypes.func.isRequired,
+    input: PropTypes.object,
     inputsNames: PropTypes.array,
-    loading: PropTypes.bool.isRequired
+    isEdit: PropTypes.bool,
+    loading: PropTypes.bool.isRequired,
+    updateInputs: PropTypes.func.isRequired,
+    workflowActions: PropTypes.object.isRequired
   };
 
   handleOnChange = (e, formikChange) => {

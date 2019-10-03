@@ -5,7 +5,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { TextInput, Toggle } from "carbon-components-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
-import { LoadingAnimation, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { LoadingAnimation, ModalFlowForm, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import INPUT_TYPES from "Constants/inputTypes";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import styles from "./createEditPropertiesContent.module.scss";
@@ -92,18 +92,8 @@ class CreateEditPropertiesContent extends Component {
           }
 
           return (
-            <form onSubmit={handleSubmit}>
-              <ModalBody
-                style={{
-                  display: "block",
-                  margin: "auto",
-                  width: "90%",
-                  height: "24rem",
-                  overflowY: "auto",
-                  padding: "0 0.25rem",
-                  marginBottom: "2rem"
-                }}
-              >
+            <ModalFlowForm onSubmit={handleSubmit}>
+              <ModalBody>
                 <div className={styles.input}>
                   <TextInput
                     id="label"
@@ -160,12 +150,12 @@ class CreateEditPropertiesContent extends Component {
                   />
                 </div>
               </ModalBody>
-              <ModalFooter style={{ position: "absolute", bottom: "0", width: "100%" }}>
+              <ModalFooter>
                 <Button type="submit" disabled={!isValid || isSubmitting}>
-                  {isEdit ? "SAVE" : "CREATE"}
+                  {isEdit ? "Save" : "Create"}
                 </Button>
               </ModalFooter>
-            </form>
+            </ModalFlowForm>
           );
         }}
       </Formik>

@@ -59,7 +59,7 @@ describe("Inputs --- RTL", () => {
     const { getByText, getByPlaceholderText, getByLabelText } = rtlReduxRender(
       <Inputs {...props} isEdit={false} input={undefined} />
     );
-    expect(getByText("Create")).toBeDisabled();
+    expect(getByText(/create/i)).toBeDisabled();
 
     const keyInput = getByPlaceholderText("key.value");
     const labelInput = getByPlaceholderText(/Label/i);
@@ -70,6 +70,6 @@ describe("Inputs --- RTL", () => {
     fireEvent.click(typeSelect);
     fireEvent.click(getByText(/boolean/i));
 
-    expect(getByText("Create")).toBeEnabled();
+    expect(getByText(/create/i)).toBeEnabled();
   });
 });

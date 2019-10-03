@@ -123,7 +123,7 @@
 .b-workflow-card-launch {
   cursor: pointer;
   width: 100%;
-  .bx--btn {
+  > .bx--btn {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
     justify-content: center;
