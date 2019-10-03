@@ -166,7 +166,7 @@ class WorkflowInputModalContent extends Component {
       <ModalFlowForm>
         <ModalBody>{this.props.inputs.map(this.renderInput)}</ModalBody>
         <ModalFooter>
-          <Button disabled={error} kind="secondary" onClick={closeModal} type="submit">
+          <Button disabled={error} kind="secondary" onClick={closeModal} type="button">
             Cancel
           </Button>
           <Button
@@ -179,7 +179,7 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
-            type="submit"
+            type="button"
           >
             Run
           </Button>
@@ -193,7 +193,7 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
-            type="submit"
+            type="button"
           >
             Run and View
           </Button>

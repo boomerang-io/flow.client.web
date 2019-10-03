@@ -130,7 +130,7 @@ class ActionBar extends Component {
           }}
           modalHeaderProps={{
             title: "Create New Version",
-            label: "Enter a comment for record keeping"
+            subtitle: "Enter a comment for record keeping"
           }}
           modalTrigger={({ openModal }) => (
             <div style={{ minWidth: "14rem" }}>

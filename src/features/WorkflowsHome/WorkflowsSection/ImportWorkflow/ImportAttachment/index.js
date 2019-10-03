@@ -95,16 +95,6 @@ class WorkflowAttachment extends Component {
     // }
   };
 
-  showWizardText = () => {
-    const BLANK = "";
-    const ONWARD = "Onward";
-
-    if (this.state.loaded) {
-      return ONWARD;
-    }
-    return BLANK;
-  };
-
   render() {
     return (
       <ModalFlowForm
@@ -139,7 +129,7 @@ class WorkflowAttachment extends Component {
             Back
           </Button>
           <Button onClick={this.handleSubmit} disabled={this.state.files.length === 0} kind="primary">
-            {this.showWizardText()}
+            Onward
           </Button>
         </ModalFooter>
       </ModalFlowForm>

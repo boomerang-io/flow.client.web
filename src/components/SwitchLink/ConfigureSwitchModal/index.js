@@ -1,11 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import { TextArea, Toggle } from "@boomerang/carbon-addons-boomerang-react";
-// import TextArea from "@boomerang/boomerang-components/lib/TextArea";
-// import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import { ModalFlowForm, TextArea, Toggle } from "@boomerang/carbon-addons-boomerang-react";
 import "./styles.scss";
 
 class ConfigureSwitchModal extends React.Component {
@@ -43,10 +39,8 @@ class ConfigureSwitchModal extends React.Component {
     const { switchCondition } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <ModalContentBody
-          style={{ maxWidth: "25rem", height: "24rem", margin: "0 auto", display: "block", overflow: "visible" }}
-        >
+      <ModalFlowForm onSubmit={this.handleSubmit}>
+        <ModalBody>
           <Toggle
             aria-labelledby="toggle-default"
             id="default"
@@ -80,16 +74,13 @@ class ConfigureSwitchModal extends React.Component {
               </div>
             )}
           </div>
-        </ModalContentBody>
-        <ModalContentFooter>
-          <ModalConfirmButton
-            disabled={!defaultState && !switchCondition}
-            text="SAVE"
-            theme="bmrg-flow"
-            type="submit"
-          />
-        </ModalContentFooter>
-      </form>
+        </ModalBody>
+        <ModalFooter>
+          <Button disabled={!defaultState && !switchCondition} type="submit">
+            Save
+          </Button>
+        </ModalFooter>
+      </ModalFlowForm>
     );
   }
 }

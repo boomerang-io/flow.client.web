@@ -329,8 +329,7 @@ export class Overview extends Component {
                     }}
                     modalHeaderProps={{
                       title: "Set Schedule",
-                      //label: 'Change between components and persisted data',
-                      label: "CRON Schedule"
+                      subtitle: "Configure a CRON schedule for your workflow"
                     }}
                     modalTrigger={({ openModal }) => (
                       <Button

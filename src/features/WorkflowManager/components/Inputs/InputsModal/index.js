@@ -46,7 +46,7 @@ class InputsModal extends Component {
         }}
         modalHeaderProps={{
           title: isEdit && input ? input.label : "Create Property",
-          subTitle: isEdit ? "Let's update it" : "Create new input property"
+          subtitle: isEdit ? "Let's update it" : "Create new input property"
         }}
         modalTrigger={this.editTrigger}
       >
