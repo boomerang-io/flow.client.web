@@ -164,7 +164,7 @@ class SwitchLink extends Component {
                     }}
                     modalHeaderProps={{
                       title: "Switch",
-                      label: "Set it up the conditions"
+                      subtitle: "Set it up the conditions"
                     }}
                     isOpen={this.state.modalIsOpen}
                     onCloseModal={() => {
