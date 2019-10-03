@@ -79,11 +79,9 @@ export class TaskNode extends Component {
         rootNodeId="c-app-main"
         confirmModalProps={{
           title: "Close Modal Flow?"
-          //children: <div>You will need to start from the first component</div>,
         }}
         modalHeaderProps={{
           title: this.props.task.name
-          //label: 'Change between components and persisted data',
         }}
         modalTrigger={({ openModal }) => (
           <button className="b-switchNode__edit" onClick={openModal}>

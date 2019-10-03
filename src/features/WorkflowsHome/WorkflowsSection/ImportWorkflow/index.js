@@ -52,7 +52,7 @@ class ImportWorkflow extends Component {
       <ModalFlow
         confirmModalProps={{
           title: "Close this?",
-          children: <div>You request will not be saved</div>
+          children: "Your request will not be saved"
         }}
         modalHeaderProps={{
           title: "Workflow Import",

@@ -157,10 +157,8 @@ class SwitchLink extends Component {
                     </ModalFlow>
                   </Modal>*/}
                   <ModalFlow
-                    //rootNodeId="c-app-main"
                     confirmModalProps={{
                       title: "Close Modal Flow?"
-                      //children: <div>You will need to start from the first component</div>,
                     }}
                     modalHeaderProps={{
                       title: "Switch",

@@ -42,7 +42,7 @@ class InputsModal extends Component {
         composedModalProps={{ containerClassName: "c-inputs-modal" }}
         confirmModalProps={{
           title: "Close this?",
-          children: <div>Your input will not be saved</div>
+          children: "Your input will not be saved"
         }}
         modalHeaderProps={{
           title: isEdit && input ? input.label : "Create Property",

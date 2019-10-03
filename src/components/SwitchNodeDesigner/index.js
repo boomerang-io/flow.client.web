@@ -78,11 +78,9 @@ export class SwitchNode extends Component {
       <ModalFlow
         confirmModalProps={{
           title: "Are you sure?"
-          //children: <div>You will need to start from the first component</div>,
         }}
         modalHeaderProps={{
           title: this.props.task.name
-          //label: 'Change between components and persisted data',
         }}
         modalTrigger={({ openModal }) => (
           <button className="b-switchNode__edit" onClick={openModal}>

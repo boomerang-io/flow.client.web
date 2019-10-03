@@ -325,7 +325,7 @@ export class Overview extends Component {
                   <ModalFlow
                     confirmModalProps={{
                       title: "Close Modal Flow?",
-                      children: <div>Your changes will not be saved</div>
+                      children: "Your changes will not be saved"
                     }}
                     modalHeaderProps={{
                       title: "Set Schedule",
