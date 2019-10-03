@@ -30,7 +30,7 @@ class ImportType extends Component {
           </button>
         </ModalBody>
         <ModalFooter>
-          <Button kind="secondary" type="button">
+          <Button kind="secondary" type="button" onClick={this.props.closeModal}>
             Cancel
           </Button>
         </ModalFooter>

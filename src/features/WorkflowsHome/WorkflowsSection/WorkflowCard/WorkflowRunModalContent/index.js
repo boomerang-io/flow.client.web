@@ -8,7 +8,7 @@ const WorkflowRunModalContent = ({ closeModal, executeWorkflow }) => {
   return (
     <ModalFlowForm>
       <ModalFooter>
-        <Button kind="secondary" onClick={closeModal}>
+        <Button kind="secondary" type="button" onClick={closeModal}>
           Cancel
         </Button>
         <Button

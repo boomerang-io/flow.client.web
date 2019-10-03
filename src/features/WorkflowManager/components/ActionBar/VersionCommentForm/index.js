@@ -72,6 +72,9 @@ class VersionCommentForm extends Component {
           )}
         </ModalBody>
         <ModalFooter>
+          <Button kind="secondary" type="button" onClick={this.props.closeModal}>
+            Cancel
+          </Button>
           <Button disabled={this.state.error || loading} onClick={this.handleOnSave}>
             Create
           </Button>

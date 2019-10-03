@@ -76,6 +76,9 @@ class ConfigureSwitchModal extends React.Component {
           </div>
         </ModalBody>
         <ModalFooter>
+          <Button kind="secondary" type="button" onClick={this.props.closeModal}>
+            Cancel
+          </Button>
           <Button disabled={!defaultState && !switchCondition} type="submit">
             Save
           </Button>

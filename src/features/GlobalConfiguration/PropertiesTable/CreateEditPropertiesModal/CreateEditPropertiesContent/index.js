@@ -151,6 +151,9 @@ class CreateEditPropertiesContent extends Component {
                 </div>
               </ModalBody>
               <ModalFooter>
+                <Button kind="secondary" type="button" onClick={this.props.closeModal}>
+                  Cancel
+                </Button>
                 <Button type="submit" disabled={!isValid || isSubmitting}>
                   {isEdit ? "Save" : "Create"}
                 </Button>
