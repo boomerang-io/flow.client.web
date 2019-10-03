@@ -2,24 +2,24 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import fileDownload from "js-file-download";
 import { Button, OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import { notify, ToastNotification, ModalFlow, ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
-import fileDownload from "js-file-download";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
 import imgs from "Assets/icons";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import { Run20 } from "@carbon/icons-react";
+import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import "./styles.scss";
 
 class WorkflowCard extends Component {
   static propTypes = {
-    history: PropTypes.object.isRequired,
-    workflow: PropTypes.object.isRequired,
-    executeWorkflow: PropTypes.func.isRequired,
     deleteWorkflow: PropTypes.func.isRequired,
+    executeWorkflow: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
     setActiveTeam: PropTypes.func.isRequired,
-    teamId: PropTypes.string.isRequired
+    teamId: PropTypes.string.isRequired,
+    workflow: PropTypes.object.isRequired
   };
 
   state = {
@@ -113,18 +113,18 @@ class WorkflowCard extends Component {
             affirmativeAction={() => {
               deleteWorkflow({ teamId, workflowId: workflow.id });
             }}
-            negativeText="NO"
-            affirmativeText="DELETE"
-            title="DELETE THIS WORKFLOW?"
+            affirmativeText="Delete"
             isOpen={this.state.deleteModalIsOpen}
             negativeAction={() => {
               this.setState({ deleteModalIsOpen: false });
             }}
+            negativeText="No"
             onCloseModal={() => {
               this.setState({ deleteModalIsOpen: false });
             }}
+            title="Delete this workflow?"
           >
-            <div>It will be gone. Forever. </div>
+            It will be gone. Forever.
           </ConfirmModal>
         )}
         <div className="c-workflow-card-info">
@@ -137,41 +137,32 @@ class WorkflowCard extends Component {
           </button>
         </div>
         <div className="b-workflow-card-launch">
-          {workflow.properties && workflow.properties.length === 0 ? (
+          {workflow.properties && workflow.properties.length !== 0 ? (
             <ModalFlow
-              composedModalProps={{ containerClassName: "" }}
-              confirmModalProps={{
-                title: "Close this?",
-                children: <div>Your request will not be saved</div>
+              modalHeaderProps={{
+                title: "Workflow Inputs",
+                subTitle: "Provide input values for your workflow"
               }}
-              ModalTrigger={({ openModal }) => (
+              modalTrigger={({ openModal }) => (
                 <Button iconDecscription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
                   Execute Workflow
                 </Button>
               )}
-              modalHeaderProps={{
-                title: "Workflow Inputs",
-                subTitle: "Supply some values"
-              }}
             >
               <WorkflowInputModalContent executeWorkflow={this.executeWorkflow} inputs={workflow.properties} />
             </ModalFlow>
           ) : (
             <ModalFlow
-              composedModalProps={{ containerClassName: "run-modal" }}
-              confirmModalProps={{
-                title: "Close this?",
-                children: <div>Your request will not be saved</div>
+              composedModalProps={{ containerClassName: "c-execute-workflow-modal" }}
+              modalHeaderProps={{
+                title: "Execute workflow?",
+                subTitle: '"Run and View" will navigate you to the workflow exeuction view.'
               }}
               modalTrigger={({ openModal }) => (
                 <Button iconDescription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
                   Execute Workflow
                 </Button>
               )}
-              modalHeaderProps={{
-                title: "Execute workflow?",
-                subTitle: "It will run"
-              }}
             >
               <WorkflowRunModalContent executeWorkflow={this.executeWorkflow} />
             </ModalFlow>

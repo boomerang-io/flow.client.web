@@ -23,9 +23,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
 
   return (
     <ModalFlow
-      containerClassName="c-modal-task-log"
-      confirmModalProps={{
-        title: "Close Modal Flow?",
+      composedModalProps={{
         containerClassName: "c-modal-task-log"
       }}
       modalHeaderProps={{
@@ -38,41 +36,43 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
         </button>
       )}
     >
-      <ScrollFollow
-        startFollowing={true}
-        render={({ onScroll }) => (
-          <>
-            <div className="b-task-log-toggle">
-              <label className={cx("b-task-log-toggle__text", { "--disabled": !!error })} htmlFor="task-log-toggle">
-                Follow log
-              </label>
-              <Toggle
-                id="task-log-toggle"
-                onChange={() => setFollow(!follow)}
-                defaultValue={follow}
-                disabled={!!error}
-                toggled={follow}
+      <ModalBody>
+        <ScrollFollow
+          startFollowing={true}
+          render={({ onScroll }) => (
+            <>
+              <div className="b-task-log-toggle">
+                <label className={cx("b-task-log-toggle__text", { "--disabled": !!error })} htmlFor="task-log-toggle">
+                  Follow log
+                </label>
+                <Toggle
+                  defaultValue={follow}
+                  disabled={!!error}
+                  id="task-log-toggle"
+                  onChange={() => setFollow(!follow)}
+                  toggled={follow}
+                />
+              </div>
+              <LazyLog
+                enableSearch={true}
+                fetchOptions={
+                  PRODUCT_SERVICE_ENV_URL.includes("localhost") ? { credentials: "omit" } : { credentials: "include" }
+                }
+                follow={follow}
+                onScroll={onScroll}
+                onError={err => setError(err)}
+                selectableLines={true}
+                stream={true}
+                url={
+                  PRODUCT_SERVICE_ENV_URL.includes("localhost")
+                    ? DEV_STREAM_URL
+                    : `${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`
+                }
               />
-            </div>
-            <LazyLog
-              enableSearch={true}
-              fetchOptions={
-                PRODUCT_SERVICE_ENV_URL.includes("localhost") ? { credentials: "omit" } : { credentials: "include" }
-              }
-              follow={follow}
-              onScroll={onScroll}
-              onError={err => setError(err)}
-              selectableLines={true}
-              stream={true}
-              url={
-                PRODUCT_SERVICE_ENV_URL.includes("localhost")
-                  ? DEV_STREAM_URL
-                  : `${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`
-              }
-            />
-          </>
-        )}
-      />
+            </>
+          )}
+        />
+      </ModalBody>
     </ModalFlow>
   );
 }

@@ -8,7 +8,6 @@ import "./styles.scss";
 class InputsModal extends Component {
   static propTypes = {
     isEdit: PropTypes.bool.isRequired,
-    Button: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     inputsKeys: PropTypes.array,
     input: PropTypes.object,
@@ -45,13 +44,13 @@ class InputsModal extends Component {
           title: "Close this?",
           children: <div>Your input will not be saved</div>
         }}
-        modalTrigger={this.editTrigger}
         modalHeaderProps={{
-          title: isEdit && input ? input.label.toUpperCase() : "CREATE PROPERTY",
+          title: isEdit && input ? input.label : "Create Property",
           subTitle: isEdit ? "Let's update it" : "Create new input property"
         }}
+        modalTrigger={this.editTrigger}
       >
-        <InputsModalContent updateInputs={this.props.updateInputs} loading={loading} {...this.props} />
+        <InputsModalContent loading={loading} updateInputs={this.props.updateInputs} {...this.props} />
       </ModalFlow>
     );
   }

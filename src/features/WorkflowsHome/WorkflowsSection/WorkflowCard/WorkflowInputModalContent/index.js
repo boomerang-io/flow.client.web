@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
@@ -8,6 +9,7 @@ import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
+//TODO: needs to be refactored to use data driven inputs and formik if possible
 class WorkflowInputModalContent extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
@@ -88,7 +90,6 @@ class WorkflowInputModalContent extends Component {
       case INPUT_TYPES.BOOLEAN:
         return (
           <div className="b-workflow-inputs-modal-toggle">
-            {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
             <div className="b-workflow-inputs-modal-toggle__title">Value</div>
             <Toggle
               id={key}
@@ -102,7 +103,6 @@ class WorkflowInputModalContent extends Component {
         return (
           Array.isArray(validValues) && (
             <div className="b-workflow-inputs-modal-select">
-              {required && <div className="b-workflow-inputs-modal-select__required">*</div>}
               <SelectDropdown
                 onChange={option => this.handleSelectChange(option, key)}
                 options={validValues.map(value => ({
@@ -141,7 +141,6 @@ class WorkflowInputModalContent extends Component {
       default:
         return (
           <div className="b-workflow-inputs-modal-text-input">
-            {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
             <TextInput
               alwaysShowTitle
               title={label}
@@ -164,12 +163,13 @@ class WorkflowInputModalContent extends Component {
     const { error } = this.state;
 
     return (
-      <form>
-        <ModalBody className="b-workflow-inputs-modal-body">{this.props.inputs.map(this.renderInput)}</ModalBody>
-        <ModalFooter className="b-workflow-inputs-modal-footer">
+      <ModalFlowForm>
+        <ModalBody>{this.props.inputs.map(this.renderInput)}</ModalBody>
+        <ModalFooter>
+          <Button disabled={error} kind="secondary" onClick={closeModal} type="submit">
+            Cancel
+          </Button>
           <Button
-            type="submit"
-            style={{ width: "40%" }}
             disabled={error}
             onClick={e => {
               e.preventDefault();
@@ -179,12 +179,11 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
+            type="submit"
           >
-            RUN
+            Run
           </Button>
           <Button
-            type="submit"
-            style={{ width: "40%" }}
             disabled={error}
             onClick={e => {
               e.preventDefault();
@@ -194,11 +193,12 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
+            type="submit"
           >
-            RUN & VIEW
+            Run and View
           </Button>
         </ModalFooter>
-      </form>
+      </ModalFlowForm>
     );
   }
 }
