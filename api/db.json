@@ -340,6 +340,17 @@
               "isRequired": true,
               "value": ["op1", "op2"]
             }
+          ],
+          "properties": [
+            {
+              "readOnly": false,
+              "description": "Please help me",
+              "key": "what.this",
+              "label": "Boomerang incoming webhook",
+              "type": "boolean",
+              "defaultValue": "false",
+              "required": true
+            }
           ]
         },
         {

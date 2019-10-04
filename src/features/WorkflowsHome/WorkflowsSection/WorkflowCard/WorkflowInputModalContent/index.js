@@ -53,7 +53,11 @@ class WorkflowInputModalContent extends Component {
 
   validate() {
     //Check for missing required fields
-    if (this.props.inputs.some(input => input.required && !this.state.inputs[input.key])) {
+    if (
+      this.props.inputs.some(
+        input => input.required && !this.state.inputs[input.key] && input.type !== INPUT_TYPES.BOOLEAN
+      )
+    ) {
       this.setState({ error: true });
       return;
     }
@@ -161,7 +165,6 @@ class WorkflowInputModalContent extends Component {
   render() {
     const { executeWorkflow, closeModal } = this.props;
     const { error } = this.state;
-
     return (
       <ModalFlowForm>
         <ModalBody>{this.props.inputs.map(this.renderInput)}</ModalBody>

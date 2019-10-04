@@ -59,14 +59,8 @@ class ImportWorkflow extends Component {
           subtitle: "Import your own workflow"
         }}
         modalTrigger={({ openModal }) => (
-          <button>
-            <Upload16
-              data-tip
-              data-for={this.props.teamId}
-              className="b-workflow-import__icon"
-              alt="Import Workflow"
-              onClick={openModal}
-            />
+          <button onClick={openModal}>
+            <Upload16 data-tip data-for={this.props.teamId} className="b-workflow-import__icon" alt="Import Workflow" />
           </button>
         )}
         progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
