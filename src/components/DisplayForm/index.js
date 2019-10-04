@@ -62,7 +62,7 @@ class DisplayForm extends Component {
   handleOnSave = values => {
     this.props.node.taskName = values.taskName;
     this.props.onSave(values);
-    this.props.setShouldConfirmModalClose(true);
+    this.props.setShouldConfirmModalClose(false);
     this.props.closeModal();
   };
 
@@ -210,6 +210,9 @@ class DisplayForm extends Component {
 
   submitButton = ({ form, isValid }) => (
     <ModalFooter>
+      <Button kind="secondary" onClick={this.props.closeModal}>
+        Cancel
+      </Button>
       <Button type="submit" disabled={!isValid}>
         Apply
       </Button>
