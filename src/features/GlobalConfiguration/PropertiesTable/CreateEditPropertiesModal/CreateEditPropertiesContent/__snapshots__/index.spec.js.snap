@@ -150,6 +150,13 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
         class="bx--modal-footer"
       >
         <button
+          class="bx--btn bx--btn--secondary"
+          tabindex="0"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
           class="bx--btn bx--btn--primary bx--btn--disabled"
           disabled=""
           tabindex="0"

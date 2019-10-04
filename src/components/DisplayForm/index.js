@@ -23,7 +23,7 @@ const AutoSuggestInput = props => {
 
 const TextAreaInput = props => {
   return (
-    <div key={props.id} style={{ position: "relative", cursor: "pointer" }}>
+    <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "2.125rem" }}>
       <TextAreaModal {...props} />
     </div>
   );

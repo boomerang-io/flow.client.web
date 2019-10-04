@@ -7,7 +7,6 @@ import { actions as appActions } from "State/app";
 import { PortWidget } from "@projectstorm/react-diagrams";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
-
 //import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "Components/DisplayForm";
 import pencilIcon from "./pencil.svg";
@@ -47,44 +46,16 @@ export class TaskNode extends Component {
 
   renderConfigureNode() {
     return (
-      /*<Modal
-        modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => (
-          <button className="b-task-node__edit">
-            <img src={pencilIcon} alt="Task node type" />
-          </button>
-        )}
-        modalContent={(closeModal, ...rest) => (
-          <ModalFlow
-            headerTitle={`Edit ${this.props.task.name}`}
-            closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
-            theme="bmrg-flow"
-            {...rest}
-          >
-            <DisplayForm
-              closeModal={closeModal}
-              inputProperties={this.props.inputProperties}
-              node={this.props.node}
-              nodeConfig={this.props.nodeConfig}
-              onSave={this.handleOnSave}
-              setIsModalOpen={this.props.appActions.setIsModalOpen}
-              taskNames={this.props.taskNames}
-              task={this.props.task}
-            />
-          </ModalFlow>
-        )}
-      />*/
       <ModalFlow
         rootNodeId="c-app-main"
         confirmModalProps={{
           title: "Close Modal Flow?"
         }}
         modalHeaderProps={{
-          title: this.props.task.name
+          title: `Edit ${this.props.task.name}`
         }}
         modalTrigger={({ openModal }) => (
-          <button className="b-switchNode__edit" onClick={openModal}>
+          <button className="b-task-node__edit" onClick={openModal}>
             <img src={pencilIcon} alt="Task node type" />
           </button>
         )}
