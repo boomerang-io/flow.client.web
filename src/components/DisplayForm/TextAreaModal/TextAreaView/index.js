@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { ModalContentBody, ModalContentFooter, ModalConfirmButton } from "@boomerang/boomerang-components";
+//import { ModalContentBody, ModalContentFooter, ModalConfirmButton } from "@boomerang/boomerang-components";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { AutoSuggestTextArea } from "@boomerang/boomerang-components";
 import AutoSuggest from "Components/AutoSuggest";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
@@ -23,7 +24,7 @@ const TextAreaView = props => {
 
   return (
     <>
-      <ModalContentBody
+      <ModalBody
         style={{
           maxWidth: "35rem",
           height: "26rem",
@@ -59,10 +60,12 @@ const TextAreaView = props => {
         >
           <AutoSuggestTextArea style={{ height: "23rem", resize: "none" }} />
         </AutoSuggest>
-      </ModalContentBody>
-      <ModalContentFooter>
-        <ModalConfirmButton text="UPDATE" onClick={closeModal} theme="bmrg-flow" />
-      </ModalContentFooter>
+      </ModalBody>
+      <ModalFooter>
+        <Button text="UPDATE" onClick={closeModal} type="submit">
+          UPDATE{" "}
+        </Button>
+      </ModalFooter>
     </>
   );
 };

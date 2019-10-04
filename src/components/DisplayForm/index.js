@@ -6,7 +6,9 @@ import { TextInput as CarbonTextInput } from "carbon-components-react";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import Toggle from "./Toggle";
-import TextAreaModal from "Components/TextAreaModal";
+//import TextAreaModal from "Components/TextAreaModal";
+import TextAreaModal from "./TextAreaModal/index.js";
+
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import { TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
 import "./styles.scss";
