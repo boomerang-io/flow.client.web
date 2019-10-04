@@ -6,9 +6,7 @@ import { TextInput as CarbonTextInput } from "carbon-components-react";
 import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
 import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import Toggle from "./Toggle";
-//import TextAreaModal from "Components/TextAreaModal";
-import TextAreaModal from "./TextAreaModal/index.js";
-
+import TextAreaModal from "Components/TextAreaModal";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import { TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
 import "./styles.scss";
@@ -25,7 +23,7 @@ const AutoSuggestInput = props => {
 
 const TextAreaInput = props => {
   return (
-    <div key={props.id} style={{ position: "relative", cursor: "pointer" }}>
+    <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "2.125rem" }}>
       <TextAreaModal {...props} />
     </div>
   );

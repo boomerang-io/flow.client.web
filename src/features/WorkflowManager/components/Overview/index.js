@@ -108,9 +108,9 @@ export class Overview extends Component {
   };
 
   handleOnIamChange = value => {
-    //this.props.workflowActions.updateTriggersEvent({ value, key: "enableIAMIntegration" });
-    this.props.workflowActions.updateProperty({ value, key: "enableIAMIntegration" });
-    this.props.formikProps.setFieldValue("enableIAMIntegration", value);
+    //this.props.workflowActions.updateTriggersEvent({ value, key: "enableACCIntegration" });
+    this.props.workflowActions.updateProperty({ value, key: "enableACCIntegration" });
+    this.props.formikProps.setFieldValue("enableACCIntegration", value);
   };
 
   handleOnTopicChange = e => {
@@ -390,9 +390,9 @@ export class Overview extends Component {
                   />
                   <div className="b-event-iamIntegration">
                     <Toggle
-                      id="enableIAMIntegration"
+                      id="enableACCIntegration"
                       labelText="Enable IBM Services ACC Integration"
-                      toggled={values.enableIAMIntegration}
+                      toggled={values.enableACCIntegration}
                       onToggle={checked => this.handleOnIamChange(checked)}
                       tooltipContent="Enable workflow to be triggered by ACC subscription"
                       tooltipProps={{ direction: "top" }}

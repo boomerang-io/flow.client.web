@@ -1,7 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-//import { ModalContentBody, ModalContentFooter, ModalConfirmButton } from "@boomerang/boomerang-components";
 import { Controlled as CodeMirrorReact } from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
@@ -76,10 +75,11 @@ const TextAreaView = props => {
   }, [props.autoSuggestions]);
 
   const saveValue = () => {
+    props.setShouldConfirmModalClose(false);
     props.setTextAreaValue(value);
     props.formikSetFieldValue(value);
-    props.setShouldConfirmModalClose(false);
-    props.closeModal.call();
+    //props.closeModal.call();
+    props.closeModal();
   };
 
   const undo = () => {

@@ -45,36 +45,6 @@ export class SwitchNode extends Component {
 
   renderConfigureNode() {
     return (
-      /*
-      <Modal
-        modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => (
-          <button className="b-switchNode__edit">
-            <img src={pencilIcon} alt="Task node type" />
-          </button>
-        )}
-        modalContent={(closeModal, ...rest) => (
-          <ModalFlow
-            headerTitle={this.props.task.name}
-            closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
-            theme="bmrg-flow"
-            {...rest}
-          >
-            <DisplayForm
-              closeModal={closeModal}
-              inputProperties={this.props.inputProperties}
-              node={this.props.node}
-              nodeConfig={this.props.nodeConfig}
-              onSave={this.handleOnSave}
-              setIsModalOpen={this.props.appActions.setIsModalOpen}
-              taskNames={this.props.taskNames}
-              task={this.props.task}
-            />
-          </ModalFlow>
-        )}
-      />
-      */
       <ModalFlow
         confirmModalProps={{
           title: "Are you sure?"

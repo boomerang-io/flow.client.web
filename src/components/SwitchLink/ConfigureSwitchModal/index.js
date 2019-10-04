@@ -50,11 +50,12 @@ class ConfigureSwitchModal extends React.Component {
             labelText="Default?"
             helperText="This path will be taken when no others are matched line."
             onToggle={updateDefaultState}
+            style={{ padding: "1rem 0rem 1rem 0rem" }}
           />
 
           <div className="b-switch-customvalue">
             {!defaultState && (
-              <div>
+              <div style={{ padding: "1rem 0rem 1rem 0rem" }}>
                 <TextArea
                   id="property"
                   invalid={!switchCondition}

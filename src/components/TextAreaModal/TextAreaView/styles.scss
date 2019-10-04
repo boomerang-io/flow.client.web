@@ -85,3 +85,10 @@ li.CodeMirror-hint-active {
     height: 2.625rem !important;
   }
 }
+
+.bmrg-c-text-area-modal-wrapper {
+  cursor: pointer;
+  .bx--text-area__wrapper {
+    width: 100%;
+  }
+}
