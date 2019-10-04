@@ -94,7 +94,7 @@ export default class CronJobModal extends Component {
           const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
 
           return (
-            <ModalFlowForm>
+            <ModalFlowForm onSubmit={e => e.preventDefault()}>
               <ModalBody style={{ maxWidth: "40rem", margin: "0 2rem", flexDirection: "column", overflow: "visible" }}>
                 <div className="b-cron-fieldset">
                   <div className="b-cron">
@@ -133,12 +133,13 @@ export default class CronJobModal extends Component {
                 </div>
               </ModalBody>
               <ModalFooter style={{ bottom: "0", position: "absolute", width: "100%" }}>
-                <Button kind="secondary" type="button">
+                <Button kind="secondary" type="button" onClick={this.props.closeModal}>
                   Cancel
                 </Button>
                 <Button
                   disabled={!isValid || errorMessage} //disable if the form is invalid or if there is an error message
                   type="submit"
+                  onClick={() => this.handleOnSave(values)}
                 >
                   Save
                 </Button>

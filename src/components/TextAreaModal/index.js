@@ -13,8 +13,7 @@ const TextAreaModal = props => {
         //subtitle: ""
       }}
       modalTrigger={({ openModal }) => (
-        // eslint-disable-line
-        /* eslint-disable-line */ <div onClick={openModal} className="bmrg-c-text-area-modal-wrapper" role="button">
+        /* eslint-disable-line */ <button onClick={openModal} className="bmrg-c-text-area-modal-wrapper">
           <TextArea
             id={props.item.key}
             //name={props.item.key}
@@ -26,7 +25,7 @@ const TextAreaModal = props => {
             disabled
             style={{ cursor: "pointer" }}
           />
-        </div>
+        </button>
       )}
     >
       <TextAreaView {...props} setTextAreaValue={setValue} />

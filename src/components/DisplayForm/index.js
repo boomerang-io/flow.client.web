@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { transformAll } from "@overgear/yup-ast";
 import { AutoSuggest, DynamicFormik, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { TextInput as CarbonTextInput } from "carbon-components-react";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import { ModalFooter, Button } from "carbon-components-react";
 import Toggle from "./Toggle";
 import TextAreaModal from "Components/TextAreaModal";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
@@ -210,9 +209,11 @@ class DisplayForm extends Component {
   };
 
   submitButton = ({ form, isValid }) => (
-    <ModalContentFooter>
-      <ModalConfirmButton form={form} theme="bmrg-flow" text="Apply" type="submit" disabled={!isValid} />
-    </ModalContentFooter>
+    <ModalFooter>
+      <Button type="submit" disabled={!isValid}>
+        Apply
+      </Button>
+    </ModalFooter>
   );
 
   render() {
@@ -234,7 +235,7 @@ class DisplayForm extends Component {
           TextArea: TextAreaInput,
           Toggle
         }}
-        formProps={{ className: "c-display-form", id: "display-form" }}
+        formProps={{ className: "c-display-form", id: "display-form", style: { marginTop: "3rem" } }}
         initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
         inputs={inputs}
         inputsWrapperProps={{ className: "b-display-form__inputs" }}
