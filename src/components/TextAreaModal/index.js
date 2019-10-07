@@ -8,12 +8,14 @@ const TextAreaModal = props => {
   const [value, setValue] = useState(props.initialValue);
   return (
     <ModalFlow
+      composedModalProps={{
+        containerClassName: "c-task-text-area-modal"
+      }}
       modalHeaderProps={{
         title: `Update ${props.item.label}`
-        //subtitle: ""
       }}
       modalTrigger={({ openModal }) => (
-        /* eslint-disable-line */ <button onClick={openModal} className="bmrg-c-text-area-modal-wrapper">
+        /* eslint-disable-line */ <button onClick={openModal} className="bmrg-c-text-area-modal-wrapper" type="button">
           <TextArea
             id={props.item.key}
             //name={props.item.key}

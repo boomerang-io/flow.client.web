@@ -66,7 +66,7 @@ class VersionSwitcher extends Component {
           </button>
         </li>
         <li>
-          <button disabled={!enabled} onClick={this.forwardVersion}>
+          <button disabled={!enabled} onClick={this.fastForwardVersion}>
             <img
               src={doubleChevron}
               className={classnames("b-version-switcher-buttons__forward", { "--disabled": !enabled })}

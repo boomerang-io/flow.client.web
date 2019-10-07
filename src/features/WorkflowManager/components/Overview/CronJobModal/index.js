@@ -96,40 +96,38 @@ export default class CronJobModal extends Component {
           return (
             <ModalFlowForm>
               <ModalBody>
-                <div className="b-cron-fieldset">
-                  <div className="b-cron">
-                    <TextInput
-                      id="cronExpression"
-                      labelText="CRON Expression"
-                      value={values.cronExpression}
-                      placeholder="Enter a CRON Expression"
-                      onBlur={handleBlur}
-                      onChange={e => this.handleOnChange(e, handleChange)}
-                      invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
-                      invalidText={errorMessage}
-                    />
-                    {
-                      // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
+                <div className="b-cron">
+                  <TextInput
+                    id="cronExpression"
+                    labelText="CRON Expression"
+                    value={values.cronExpression}
+                    placeholder="Enter a CRON Expression"
+                    onBlur={handleBlur}
+                    onChange={e => this.handleOnChange(e, handleChange)}
+                    invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
+                    invalidText={errorMessage}
+                  />
+                  {
+                    // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
+                  }
+                  {values.cronExpression && message && <div className="b-cron__message">{message}</div>}
+                </div>
+                <div className="b-timezone">
+                  <ComboBox
+                    id="timeZone"
+                    items={this.timezoneOptions}
+                    initialSelectedItem={values.timeZone}
+                    onChange={({ selectedItem }) =>
+                      this.handleTimeChange(
+                        selectedItem !== null ? selectedItem : { label: "", value: "" },
+                        "timeZone",
+                        setFieldValue
+                      )
                     }
-                    {values.cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}
-                  </div>
-                  <div className="b-timezone">
-                    <ComboBox
-                      id="timeZone"
-                      items={this.timezoneOptions}
-                      initialSelectedItem={values.timeZone}
-                      onChange={({ selectedItem }) =>
-                        this.handleTimeChange(
-                          selectedItem !== null ? selectedItem : { label: "", value: "" },
-                          "timeZone",
-                          setFieldValue
-                        )
-                      }
-                      titleText="Timezone"
-                      placeholder="Timezone"
-                      helperText="We make an educated guess at your timezone as a default value"
-                    />
-                  </div>
+                    titleText="Timezone"
+                    placeholder="Timezone"
+                    helperText="We make an educated guess at your timezone as a default value"
+                  />
                 </div>
               </ModalBody>
               <ModalFooter style={{ bottom: "0", position: "absolute", width: "100%" }}>

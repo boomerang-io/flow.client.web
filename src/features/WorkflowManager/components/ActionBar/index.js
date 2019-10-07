@@ -96,21 +96,21 @@ class ActionBar extends Component {
   determinePerformActionRender() {
     const {
       currentRevision,
+      loading,
       includeResetVersionAlert,
       includeCreateNewVersionComment,
       isValidOverview,
       performAction,
       performActionButtonText,
-      showActionButton,
-      loading
+      showActionButton
     } = this.props;
 
     if (includeResetVersionAlert) {
       return (
         <ConfirmModal
           affirmativeAction={this.resetVersionToLatestWithMessage}
-          label="A new version will be created"
-          title={`Set version ${currentRevision} to latest?`}
+          children="A new version will be created"
+          title={`Set version ${currentRevision} to be the latest?`}
           modalTrigger={({ openModal }) => (
             <div style={{ minWidth: "14rem" }}>
               <Button disabled={loading} iconDescription="Add" renderIcon={Add16} size="field" onClick={openModal}>

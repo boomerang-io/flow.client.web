@@ -1,10 +1,7 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/variables";
 
-.b-cron-fieldset {
-}
-
-.b-cron-fieldset__message {
+.b-cron__message {
   font-size: 0.875rem;
   font-size: 0.875rem;
   font-weight: 400;
@@ -16,6 +13,7 @@
   }
 }
 .b-timezone {
+  height: 16rem;
   position: relative;
 }
 
