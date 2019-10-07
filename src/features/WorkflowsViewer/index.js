@@ -6,7 +6,7 @@ import { actions as workflowActions } from "State/workflow";
 import { Link } from "react-router-dom";
 //import sortBy from "lodash/sortBy";
 import Button from "@boomerang/boomerang-components/lib/Button";
-import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
+import { NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
 import Sidenav from "@boomerang/boomerang-components/lib/Sidenav";
 import ErrorDragon from "Components/ErrorDragon";
 //import SearchFilterBar from "Components/SearchFilterBar";

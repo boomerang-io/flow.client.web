@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
+import { NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import "./styles.scss";
 

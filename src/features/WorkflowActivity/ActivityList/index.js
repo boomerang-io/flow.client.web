@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
-import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
+import { LoadingAnimation, NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
 import InfiniteScroll from "react-infinite-scroller";
 import ActivityCard from "./ActivityCard";
 import ScrollUp from "Components/ScrollUp";
