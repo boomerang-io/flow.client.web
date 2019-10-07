@@ -51,12 +51,12 @@ class ImportWorkflow extends Component {
     return (
       <ModalFlow
         confirmModalProps={{
-          title: "Close this?",
+          title: "Are you sure?",
           children: "Your request will not be saved"
         }}
         modalHeaderProps={{
           title: "Workflow Import",
-          subtitle: "Import your own workflow"
+          subtitle: "Import a workflow"
         }}
         modalTrigger={({ openModal }) => (
           <button onClick={openModal}>

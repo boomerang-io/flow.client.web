@@ -109,7 +109,7 @@ export class WorkflowsHome extends Component {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
-            <LoadingAnimation />
+            <LoadingAnimation centered />
           </div>
         </div>
       );

@@ -126,6 +126,7 @@ class ActionBar extends Component {
       return (
         <ModalFlow
           confirmModalProps={{
+            title: "Are you sure?",
             children: "A new version will not be created"
           }}
           modalHeaderProps={{

@@ -3,14 +3,13 @@ import PropTypes from "prop-types";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import { Add32, Edit32 } from "@carbon/icons-react";
 import InputsModalContent from "./InputsModalContent";
-import "./styles.scss";
 
 class InputsModal extends Component {
   static propTypes = {
+    input: PropTypes.object,
+    inputsKeys: PropTypes.array,
     isEdit: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
-    inputsKeys: PropTypes.array,
-    input: PropTypes.object,
     updateInputs: PropTypes.func.isRequired
   };
 
@@ -45,12 +44,12 @@ class InputsModal extends Component {
       <ModalFlow
         composedModalProps={{ containerClassName: "c-inputs-modal" }}
         confirmModalProps={{
-          title: "Close this?",
-          children: "Your input will not be saved"
+          title: "Are you sure?",
+          children: "Your property will not be saved"
         }}
         modalHeaderProps={{
           title: isEdit && input ? input.label : "Create Property",
-          subtitle: isEdit ? "Let's update it" : "Create new input property"
+          subtitle: isEdit ? "Let's update it" : "Let's create a new one"
         }}
         modalTrigger={this.editTrigger}
       >

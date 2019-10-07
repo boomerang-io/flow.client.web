@@ -95,7 +95,7 @@ export default class CronJobModal extends Component {
 
           return (
             <ModalFlowForm>
-              <ModalBody style={{ maxWidth: "40rem", margin: "0 2rem", flexDirection: "column", overflow: "visible" }}>
+              <ModalBody>
                 <div className="b-cron-fieldset">
                   <div className="b-cron">
                     <TextInput
@@ -127,7 +127,7 @@ export default class CronJobModal extends Component {
                       }
                       titleText="Timezone"
                       placeholder="Timezone"
-                      tooltipContent="We make an educated guess at your timezone as a default value"
+                      helperText="We make an educated guess at your timezone as a default value"
                     />
                   </div>
                 </div>

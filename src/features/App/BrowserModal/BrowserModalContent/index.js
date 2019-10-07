@@ -11,7 +11,7 @@ const BrowserModalContent = ({ closeModal }) => {
         <NoDisplay text="Your experience may be degraded if you aren't using a recent version of Chrome or Firefox" />
       </ModalBody>
       <ModalFooter>
-        <Button onClick={() => closeModal()}>Continue, anyway </Button>
+        <Button onClick={closeModal}>Continue, anyway </Button>
       </ModalFooter>
     </>
   );

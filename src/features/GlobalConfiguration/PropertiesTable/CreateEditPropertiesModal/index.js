@@ -60,7 +60,7 @@ class CreateEditPropertiesModal extends Component {
           title: isEdit && property ? `Edit ${property.label}` : "Create Property"
         }}
         confirmModalProps={{
-          title: "Close this?",
+          title: "Are you sure?",
           children: "Your property will not be saved",
           affirmativeAction: isEdit ? handleEditClose : null
         }}

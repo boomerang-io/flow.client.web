@@ -72,7 +72,6 @@ class ImportConfirm extends Component {
             title="Import Type"
             onPencilClick={() => this.props.goToStep(options.IMPORT_WORKFLOW_TYPE)}
             arrayItems={confirmUpdate}
-            theme="bmrg-flow"
             style={{ marginBottom: "1rem" }}
           />
           <ModalConfirmEdit
@@ -80,11 +79,10 @@ class ImportConfirm extends Component {
             title={`Attachment`}
             onPencilClick={() => this.props.goToStep(options.IMPORT_WORKFLOW_ATTACHMENT)}
             arrayItems={confirmAttachment}
-            theme="bmrg-flow"
           />
         </ModalBody>
         <ModalFooter>
-          <Button type="submit">Submit Workflow</Button>
+          <Button type="submit">Import</Button>
         </ModalFooter>
       </ModalFlowForm>
     );

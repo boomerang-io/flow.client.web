@@ -158,7 +158,8 @@ class SwitchLink extends Component {
                   </Modal>*/}
                   <ModalFlow
                     confirmModalProps={{
-                      title: "Close Modal Flow?"
+                      title: "Are you sure?",
+                      children: "Your changes will not be saved"
                     }}
                     modalHeaderProps={{
                       title: "Switch",

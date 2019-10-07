@@ -15,19 +15,16 @@ class ImportType extends Component {
   render() {
     return (
       <ModalFlowForm onSubmit={e => e.preventDefault()}>
-        <ModalBody>
-          <button
-            className="bmrg--b-flow-export-options-button --bmrg-flow"
+        <ModalBody style={{ display: "flex", flexDirection: "column" }}>
+          <Button
             onClick={() => this.handleNextStep({ isUpdate: false })}
+            style={{ marginBottom: "1rem", maxWidth: "100%" }}
           >
-            NEW WORKFLOW
-          </button>
-          <button
-            className="bmrg--b-flow-export-options-button --bmrg-flow"
-            onClick={() => this.handleNextStep({ isUpdate: true })}
-          >
-            UPDATE WORKFLOW
-          </button>
+            New Workflow
+          </Button>
+          <Button onClick={() => this.handleNextStep({ isUpdate: true })} style={{ maxWidth: "100%" }}>
+            Update Workflow
+          </Button>
         </ModalBody>
         <ModalFooter>
           <Button kind="secondary" type="button" onClick={this.props.closeModal}>

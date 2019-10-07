@@ -165,7 +165,7 @@ class DropZone extends Component {
     const imageSubString = "image/";
     const files = this.state.files.length > 0 ? this.state.files : [];
     const fileSizeMessage = "File must be a .json under 1MB.";
-    const buttonMessage = "CHOOSE A FILE OR DRAG ONE HERE";
+    const buttonMessage = "Choose a file or drag one here";
 
     // Updates the file preview for non-image files.
     if (files.length > 0) {

@@ -105,12 +105,7 @@ class WorkflowAttachment extends Component {
         <ModalBody
           style={{
             height: "22rem",
-            width: "29rem",
-            margin: "auto",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-start",
-            alignItems: "center"
+            width: "100%"
           }}
         >
           <DropZone

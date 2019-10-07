@@ -28,7 +28,8 @@ class OutputPropertiesLog extends React.Component {
     return (
       <ModalFlow
         confirmModalProps={{
-          title: "Close Modal Flow?"
+          title: "Are you sure?",
+          children: "Your changes will not be saved"
         }}
         modalHeaderProps={{
           title: "Output Properties",

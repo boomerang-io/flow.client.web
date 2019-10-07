@@ -10,7 +10,7 @@ const BrowserModal = ({ isOpen }) => {
         title: "Are you sure?"
       }}
       modalHeaderProps={{
-        title: "UNSUPPORTED BROWSER",
+        title: "Unsupported Browser",
         label: "Sorry, we are working on it"
       }}
       isOpen={isOpen}

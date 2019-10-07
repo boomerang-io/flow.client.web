@@ -69,9 +69,9 @@ class ConfigureSwitchModal extends React.Component {
                 />
                 <div className="s-switch-customvalue-desc">
                   Enter the value(s) to match to take this arrow. Multiple values can be entered, one per line. Only one
-                  must match for this connection to be valid
+                  must match for this connection to be valid.
                 </div>
-                <div className="s-switch-customvalue-wildcard">* can be used as a wildcard</div>
+                <div className="s-switch-customvalue-wildcard">* can be used as a wildcard.</div>
               </div>
             )}
           </div>

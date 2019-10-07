@@ -224,7 +224,7 @@ class DisplayForm extends Component {
 
     const otherTaskNames = taskNames.filter(name => name !== node.taskName);
     const inputs = [
-      { key: "taskName", label: "Task Name", placeholder: "Enter a task name", type: "taskName" },
+      { key: "taskName", labelText: "Task Name", placeholder: "Enter a task name", type: "taskName" },
       ...task.config
     ];
 
@@ -238,7 +238,7 @@ class DisplayForm extends Component {
           TextArea: TextAreaInput,
           Toggle
         }}
-        formProps={{ className: "c-display-form", id: "display-form", style: { marginTop: "3rem" } }}
+        formProps={{ className: "c-display-form", id: "display-form", style: { marginTop: "1rem" } }}
         initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
         inputs={inputs}
         inputsWrapperProps={{ className: "b-display-form__inputs" }}

@@ -47,7 +47,8 @@ export class SwitchNode extends Component {
     return (
       <ModalFlow
         confirmModalProps={{
-          title: "Are you sure?"
+          title: "Are you sure?",
+          children: "Your changes will not be saved"
         }}
         modalHeaderProps={{
           title: this.props.task.name

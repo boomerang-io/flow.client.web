@@ -324,7 +324,7 @@ export class Overview extends Component {
                 {get(workflow, "data.triggers.scheduler.enable", false) && (
                   <ModalFlow
                     confirmModalProps={{
-                      title: "Close Modal Flow?",
+                      title: "Are you sure?",
                       children: "Your changes will not be saved"
                     }}
                     modalHeaderProps={{

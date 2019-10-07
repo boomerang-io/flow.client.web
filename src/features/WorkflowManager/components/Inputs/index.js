@@ -81,8 +81,8 @@ class Inputs extends Component {
                   affirmativeAction={() => {
                     this.deleteInput(input.key);
                   }}
-                  label="It will be gone. Forever."
-                  title="DELETE THIS PROPERTY?"
+                  children="It will be gone. Forever."
+                  title="Delete This Property?"
                   modalTrigger={({ openModal }) => (
                     <button className="b-workflow-input__delete" onClick={openModal}>
                       <Close32 data-tip data-for={`${input.id}`} className="b-workflow-input__delete-icon" />
