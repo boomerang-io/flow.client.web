@@ -1,6 +1,5 @@
 import React from "react";
 import CreateEditPropertiesContent from ".";
-import renderer from "react-test-renderer";
 
 const mockfn = jest.fn();
 const props = {
@@ -14,7 +13,7 @@ const props = {
 
 describe("CreateEditPropertiesContent --- Snapshot Test", () => {
   it("Capturing Snapshot of CreateEditPropertiesContent", () => {
-    const component = renderer.create(<CreateEditPropertiesContent {...props} />).toJSON();
-    expect(component).toMatchSnapshot();
+    const { baseElement } = rtlRender(<CreateEditPropertiesContent {...props} />);
+    expect(baseElement).toMatchSnapshot();
   });
 });

@@ -6,7 +6,7 @@ import { actions as appActions } from "State/app";
 import { actions as changeLogActions } from "State/changeLog";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import Editor from "./Editor";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -78,7 +78,7 @@ class WorkflowEditorContainer extends Component {
     }
 
     if (this.props.workflowRevision.isFetching) {
-      return <LoadingAnimation theme="bmrg-flow" />;
+      return <LoadingAnimation centered message="Retrieving your workflow. Please hold." />;
     }
 
     return null;

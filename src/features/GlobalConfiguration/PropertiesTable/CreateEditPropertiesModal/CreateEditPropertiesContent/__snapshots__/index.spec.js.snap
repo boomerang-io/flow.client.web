@@ -1,200 +1,171 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of CreateEditPropertiesContent 1`] = `
-<form
-  onSubmit={[Function]}
->
-  <main
-    className="bmrg--c-modal-content-body"
-    style={
-      Object {
-        "display": "block",
-        "height": "28rem",
-        "margin": "auto",
-        "overflowY": "auto",
-        "padding": "0 0.25rem 2rem",
-        "width": "60%",
-      }
-    }
-  >
-    <div
-      className="input"
+<body>
+  <div>
+    <form
+      class="bx--bmrg-modal-flow-form"
     >
       <div
-        className="bx--form-item bx--text-input-wrapper"
+        class="bx--modal-content"
       >
-        <label
-          className="bx--label"
-          htmlFor="label"
-        >
-          Label
-        </label>
         <div
-          className="bx--text-input__field-wrapper"
-          data-invalid={null}
+          class="input"
         >
-          <input
-            className="bx--text-input bx--text__input"
-            disabled={false}
-            id="label"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onClick={[Function]}
-            placeholder="Label"
-            type="text"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="input"
-    >
-      <div
-        className="bx--form-item bx--text-input-wrapper"
-      >
-        <label
-          className="bx--label"
-          htmlFor="key"
-        >
-          key
-        </label>
-        <div
-          className="bx--text-input__field-wrapper"
-          data-invalid={null}
-        >
-          <input
-            className="bx--text-input bx--text__input"
-            disabled={false}
-            id="key"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onClick={[Function]}
-            placeholder="Key"
-            type="text"
-            value="test.key"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="input"
-    >
-      <div
-        className="bx--form-item bx--text-input-wrapper"
-      >
-        <label
-          className="bx--label"
-          htmlFor="description"
-        >
-          Description
-        </label>
-        <div
-          className="bx--text-input__field-wrapper"
-          data-invalid={null}
-        >
-          <input
-            className="bx--text-input bx--text__input"
-            disabled={false}
-            id="description"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onClick={[Function]}
-            placeholder="Description"
-            type="text"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="input"
-    >
-      <div
-        className="bx--form-item bx--text-input-wrapper"
-      >
-        <label
-          className="bx--label"
-          htmlFor="value"
-        >
-          Value
-        </label>
-        <div
-          className="bx--text-input__field-wrapper"
-          data-invalid={null}
-        >
-          <input
-            className="bx--text-input bx--text__input"
-            disabled={false}
-            id="value"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onClick={[Function]}
-            placeholder="Value"
-            type="text"
-            value="testing"
-          />
-        </div>
-      </div>
-    </div>
-    <div
-      className="toggleContainer"
-    >
-      <div
-        className="bx--form-item"
-      >
-        <input
-          aria-label={null}
-          checked={false}
-          className="bx--toggle-input"
-          defaultChecked={false}
-          id="__carbon-toggle_1"
-          name="secured"
-          onChange={[Function]}
-          onKeyUp={[Function]}
-          type="checkbox"
-        />
-        <label
-          aria-label={null}
-          className="bx--toggle-input__label"
-          htmlFor="__carbon-toggle_1"
-        >
-          Secured
-          <span
-            className="bx--toggle__switch"
+          <div
+            class="bx--form-item bx--text-input-wrapper"
           >
-            <span
-              aria-hidden="true"
-              className="bx--toggle__text--off"
+            <label
+              class="bx--label"
+              for="label"
             >
-              Off
-            </span>
-            <span
-              aria-hidden="true"
-              className="bx--toggle__text--on"
+              Label
+            </label>
+            <div
+              class="bx--text-input__field-wrapper"
             >
-              On
-            </span>
-          </span>
-        </label>
+              <input
+                class="bx--text-input bx--text__input"
+                id="label"
+                placeholder="Label"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="key"
+            >
+              key
+            </label>
+            <div
+              class="bx--text-input__field-wrapper"
+            >
+              <input
+                class="bx--text-input bx--text__input"
+                id="key"
+                placeholder="Key"
+                type="text"
+                value="test.key"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="description"
+            >
+              Description
+            </label>
+            <div
+              class="bx--text-input__field-wrapper"
+            >
+              <input
+                class="bx--text-input bx--text__input"
+                id="description"
+                placeholder="Description"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="value"
+            >
+              Value
+            </label>
+            <div
+              class="bx--text-input__field-wrapper"
+            >
+              <input
+                class="bx--text-input bx--text__input"
+                id="value"
+                placeholder="Value"
+                type="text"
+                value="testing"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="toggleContainer"
+        >
+          <div
+            class="bx--form-item"
+          >
+            <input
+              class="bx--toggle-input"
+              id="secured"
+              name="secured"
+              type="checkbox"
+            />
+            <label
+              class="bx--toggle-input__label"
+              for="secured"
+            >
+              Secured
+              <span
+                class="bx--toggle__switch"
+              >
+                <span
+                  aria-hidden="true"
+                  class="bx--toggle__text--off"
+                >
+                  Off
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="bx--toggle__text--on"
+                >
+                  On
+                </span>
+              </span>
+            </label>
+          </div>
+        </div>
       </div>
-    </div>
-  </main>
-  <footer
-    className="bmrg--c-modal-content-footer"
-    style={
-      Object {
-        "alignItems": "center",
-        "flexDirection": "column",
-        "justifyContent": "flex-start",
-      }
-    }
-  >
-    <button
-      className="bmrg--b-modal-confirm-button --disabled --bmrg-flow --disabled"
-      disabled={true}
-      type="submit"
-    >
-      SAVE
-    </button>
-  </footer>
-</form>
+      <div
+        class="bx--modal-footer"
+      >
+        <button
+          class="bx--btn bx--btn--secondary"
+          tabindex="0"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="bx--btn bx--btn--primary bx--btn--disabled"
+          disabled=""
+          tabindex="0"
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
 `;

@@ -1,5 +1,5 @@
 import React from "react";
-import { AbstractNodeFactory } from "@boomerang/boomerang-dag";
+import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import SwitchNodeDesigner from "Components/SwitchNodeDesigner";
 import SwitchNodeExecution from "Components/SwitchNodeExecution";
 import SwitchNodeModel from "./SwitchNodeModel";

@@ -4,7 +4,7 @@ import { Route, Switch, withRouter } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import get from "lodash.get";
-import { DiagramWidget } from "@boomerang/boomerang-dag";
+import { DiagramWidget } from "@projectstorm/react-diagrams";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
 import Inputs from "Features/WorkflowManager/components/Inputs";
 import Navigation from "Features/WorkflowManager/components/Navigation";
@@ -66,7 +66,6 @@ class WorkflowEditor extends Component {
       createNode,
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
-      isValidOverview,
       match,
       isModalOpen,
       teamsState,
@@ -95,8 +94,8 @@ class WorkflowEditor extends Component {
                   schedule: get(workflow, "data.triggers.scheduler.enable", false),
                   event: get(workflow, "data.triggers.event.enable", false),
                   topic: get(workflow, "data.triggers.event.topic", ""),
-                  //enableIAMIntegration: get(workflow, "data.triggers.event.enableIAMIntegration", false),
-                  enableIAMIntegration: get(workflow, "data.enableIAMIntegration", false),
+                  //enableACCIntegration: get(workflow, "data.triggers.event.enableACCIntegration", false),
+                  enableACCIntegration: get(workflow, "data.enableACCIntegration", false),
                   persistence: get(workflow, "data.enablePersistentStorage", false),
                   selectedTeam: activeTeamId
                     ? teamsState.data.find(team => team.id === activeTeamId)
@@ -113,7 +112,7 @@ class WorkflowEditor extends Component {
                   schedule: Yup.boolean(),
                   event: Yup.boolean(),
                   topic: Yup.string(),
-                  enableIAMIntegration: Yup.boolean(),
+                  enableACCIntegration: Yup.boolean(),
                   persistence: Yup.boolean()
                 })}
               >
@@ -137,13 +136,7 @@ class WorkflowEditor extends Component {
             path={`${match.path}/properties`}
             render={props => (
               <>
-                <ActionBar
-                  diagramApp={this.diagramApp}
-                  isValidOverview={isValidOverview}
-                  showActionButton={false}
-                  loading={workflowLoading}
-                  {...props}
-                />
+                <ActionBar diagramApp={this.diagramApp} showActionButton={false} loading={workflowLoading} {...props} />
                 <Inputs updateInputs={this.props.updateInputs} loading={workflow.isUpdating} />
               </>
             )}
@@ -162,7 +155,6 @@ class WorkflowEditor extends Component {
                   includeResetVersionAlert={version < revisionCount}
                   includeVersionSwitcher
                   includeZoom
-                  isValidOverview={isValidOverview}
                   revisionCount={workflow.data.revisionCount}
                   currentRevision={workflowRevision.version}
                   fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}

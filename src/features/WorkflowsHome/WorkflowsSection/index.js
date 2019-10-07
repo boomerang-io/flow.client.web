@@ -42,7 +42,7 @@ class WorkflowSection extends Component {
       <section className="c-workflow-section">
         <div className="c-workflow-section__header">
           <h1 className="b-workflow-section__team">{team.name}</h1>
-          <ImportWorkflow fetchTeams={fetchTeams} teamId={team.name} />
+          <ImportWorkflow fetchTeams={fetchTeams} teamId={team.id} />
           <Tooltip id={team.name}>Import Workflow</Tooltip>
         </div>
         <div className="c-workflow-section__workflows">

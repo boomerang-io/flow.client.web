@@ -7,32 +7,11 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 11.25rem;
+  height: 12.25rem;
   width: 19rem;
   z-index: 999999;
   transition: all 0.5s ease;
   opacity: 1;
-}
-
-.b-onboard-screen-modal-close {
-  align-items: center;
-  background-color: $teal-20;
-  border: 0;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  height: 1.25rem;
-  justify-content: center;
-  position: absolute;
-  right: -0.6rem;
-  top: -0.6rem;
-  width: 1.25rem;
-  z-index: 99;
-}
-
-.b-onboard-screen-modal-close__img {
-  height: 1rem;
-  width: 1rem;
 }
 
 .b-onboard-screen-title {
@@ -65,7 +44,7 @@
   background-color: $white;
   border-radius: 0 0 0.25rem 0.25rem;
   display: flex;
-  height: 2.5rem;
+  height: 3rem;
   justify-content: space-between;
   width: 100%;
 }
@@ -89,39 +68,9 @@
 }
 
 .b-onboard-screen-arrow {
-  align-items: center;
-  background-color: $teal-20;
-  border-radius: 3.125rem;
-  cursor: pointer;
-  display: flex;
-  height: 1.25rem;
-  justify-content: space-between;
-  margin-left: 1.25rem;
-  width: 1.25rem;
-}
-
-.b-onboard-screen-arrow--left {
-  border: solid $cerulean-80;
-  border-width: 0 0.125rem 0.125rem 0;
-  display: flex;
-  padding: 0.188rem;
-  height: 0.02rem;
-  margin: 0 0 0 0.438rem;
-  transform: rotate(135deg);
-  width: 0.02rem;
-  -webkit-transform: rotate(135deg);
-}
-
-.b-onboard-screen-arrow--right {
-  border: solid $cerulean-80;
-  border-width: 0 0.125rem 0.125rem 0;
-  display: flex;
-  padding: 0.188rem;
-  height: 0.02rem;
-  margin: 0 0 0 0.313rem;
-  transform: rotate(-45deg);
-  width: 0.02rem;
-  -webkit-transform: rotate(-45deg);
+  .bx--btn__icon {
+    width: inherit !important;
+  }
 }
 
 .b-onboard-screen-circle {
@@ -162,14 +111,14 @@
 //teams
 .c-onboard-screen--teams {
   position: fixed;
-  top: 12rem;
+  top: 13rem;
   left: calc(100% - 25rem);
 }
 
 //search_filter
 .c-onboard-screen--search_filter {
   position: fixed;
-  top: 12rem;
+  top: 13.2rem;
   left: 30%;
 }
 
@@ -185,9 +134,9 @@
 
 //sidenav
 .c-onboard-screen--sidenav {
-  left: 1rem;
+  left: 0.7rem;
   position: fixed;
-  top: 4.5rem;
+  top: 3.8rem;
 }
 
 .c-onboard-screen--sidenav:after {
@@ -204,7 +153,7 @@
 .c-onboard-screen--overview {
   left: 1rem;
   position: fixed;
-  top: 11.8rem;
+  top: 12.5rem;
 }
 
 .c-onboard-screen--overview:after {
@@ -219,9 +168,9 @@
 
 //inputs
 .c-onboard-screen--inputs {
-  left: 6.5rem;
+  left: 7.5rem;
   position: fixed;
-  top: 11.8rem;
+  top: 12.5rem;
 }
 
 .c-onboard-screen--inputs:after {
@@ -236,9 +185,9 @@
 
 //design
 .c-onboard-screen--design {
-  left: 12rem;
+  left: 14.2rem;
   position: fixed;
-  top: 11.8rem;
+  top: 12.5em;
 }
 
 .c-onboard-screen--design:after {
@@ -253,9 +202,9 @@
 
 //change_log
 .c-onboard-screen--change_log {
-  left: 18rem;
+  left: 21rem;
   position: fixed;
-  top: 11.8rem;
+  top: 12.5rem;
 }
 
 .c-onboard-screen--change_log:after {
@@ -321,9 +270,9 @@
 
 //filter
 .c-onboard-screen--filter {
-  left: 72%;
   position: fixed;
-  top: 12rem;
+  top: 13.2rem;
+  left: 73rem;
 }
 
 .c-onboard-screen--filter:after {
@@ -364,7 +313,7 @@
 .c-onboard-screen--progress_bar {
   left: 40%;
   position: fixed;
-  top: 14rem;
+  top: 17rem;
 }
 
 .c-onboard-screen--progress_bar:after {
@@ -379,7 +328,7 @@
 
 //side_info
 .c-onboard-screen--side_info {
-  left: 54%;
+  left: 52%;
   position: fixed;
   top: 20rem;
 }

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
 import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 import TextInput from "@boomerang/boomerang-components/lib/TextInput";
@@ -10,11 +9,12 @@ import Toggle from "@boomerang/boomerang-components/lib/Toggle";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
+//TODO: needs to be refactored to use data driven inputs and formik if possible
 class WorkflowInputModalContent extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
     executeWorkflow: PropTypes.func.isRequired,
-    inputs: PropTypes.array.isRequired
+    inputxfs: PropTypes.array.isRequired
   };
 
   constructor(props) {
@@ -53,7 +53,11 @@ class WorkflowInputModalContent extends Component {
 
   validate() {
     //Check for missing required fields
-    if (this.props.inputs.some(input => input.required && !this.state.inputs[input.key])) {
+    if (
+      this.props.inputs.some(
+        input => input.required && !this.state.inputs[input.key] && input.type !== INPUT_TYPES.BOOLEAN
+      )
+    ) {
       this.setState({ error: true });
       return;
     }
@@ -90,7 +94,6 @@ class WorkflowInputModalContent extends Component {
       case INPUT_TYPES.BOOLEAN:
         return (
           <div className="b-workflow-inputs-modal-toggle">
-            {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
             <div className="b-workflow-inputs-modal-toggle__title">Value</div>
             <Toggle
               id={key}
@@ -104,7 +107,6 @@ class WorkflowInputModalContent extends Component {
         return (
           Array.isArray(validValues) && (
             <div className="b-workflow-inputs-modal-select">
-              {required && <div className="b-workflow-inputs-modal-select__required">*</div>}
               <SelectDropdown
                 onChange={option => this.handleSelectChange(option, key)}
                 options={validValues.map(value => ({
@@ -143,7 +145,6 @@ class WorkflowInputModalContent extends Component {
       default:
         return (
           <div className="b-workflow-inputs-modal-text-input">
-            {required && <div className="s-workflow-inputs-modal-is-required">*</div>}
             <TextInput
               alwaysShowTitle
               title={label}
@@ -164,15 +165,14 @@ class WorkflowInputModalContent extends Component {
   render() {
     const { executeWorkflow, closeModal } = this.props;
     const { error } = this.state;
-
     return (
-      <form>
-        <Body className="b-workflow-inputs-modal-body">{this.props.inputs.map(this.renderInput)}</Body>
-        <Footer className="b-workflow-inputs-modal-footer">
-          <ConfirmButton
-            type="submit"
-            style={{ width: "40%" }}
-            text="RUN"
+      <ModalFlowForm>
+        <ModalBody>{this.props.inputs.map(this.renderInput)}</ModalBody>
+        <ModalFooter>
+          <Button disabled={error} kind="secondary" onClick={closeModal} type="button">
+            Cancel
+          </Button>
+          <Button
             disabled={error}
             onClick={e => {
               e.preventDefault();
@@ -182,12 +182,11 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
-            theme="bmrg-flow"
-          />
-          <ConfirmButton
-            type="submit"
-            style={{ width: "40%" }}
-            text={"RUN & VIEW"}
+            type="button"
+          >
+            Run
+          </Button>
+          <Button
             disabled={error}
             onClick={e => {
               e.preventDefault();
@@ -197,10 +196,12 @@ class WorkflowInputModalContent extends Component {
               });
               closeModal();
             }}
-            theme="bmrg-flow"
-          />
-        </Footer>
-      </form>
+            type="button"
+          >
+            Run and View
+          </Button>
+        </ModalFooter>
+      </ModalFlowForm>
     );
   }
 }

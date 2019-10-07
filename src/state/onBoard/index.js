@@ -6,8 +6,7 @@ import createReducer from "@boomerang/boomerang-utilities/lib/createReducer";
 export const types = {
   RESET_ONBOARD_EXP: "RESET_ONBOARD_EXP",
   ONBOARD_EXP_SHOW: "ONBOARD_EXP_SHOW",
-  ONBOARD_EXP_HIDE: "ONBOARD_EXP_HIDE",
-  FETCH_ONBOARD_EXP_FAILURE: "FETCH_ONBOARD_EXP_FAILURE"
+  ONBOARD_EXP_HIDE: "ONBOARD_EXP_HIDE"
 };
 
 //initial state

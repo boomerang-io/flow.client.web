@@ -4,11 +4,8 @@ import axios from "axios";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { TextInput, Toggle } from "carbon-components-react";
-import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import { LoadingAnimation, ModalFlowForm, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import INPUT_TYPES from "Constants/inputTypes";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import styles from "./createEditPropertiesContent.module.scss";
@@ -39,10 +36,10 @@ class CreateEditPropertiesContent extends Component {
       .then(response => {
         storeUpdate(newProperty);
         notify(
-          <Notification
-            type="success"
+          <ToastNotification
+            kind="success"
             title={isEdit ? "Property Updated" : "Property Created"}
-            message={
+            subtitle={
               isEdit ? `Request to update ${newProperty.label} succeeded` : "Request to create property succeeded"
             }
           />
@@ -54,10 +51,10 @@ class CreateEditPropertiesContent extends Component {
       })
       .catch(error => {
         notify(
-          <Notification
-            type="error"
+          <ToastNotification
+            kind="error"
             title={isEdit ? "Update Property Failed" : "Create Property Failed"}
-            message={"Something went wrong"}
+            subtitle={"Something went wrong"}
           />
         );
         options.setSubmitting(false);
@@ -91,21 +88,12 @@ class CreateEditPropertiesContent extends Component {
           const { values, touched, errors, isSubmitting, isValid, handleChange, handleBlur, handleSubmit } = props;
 
           if (isSubmitting) {
-            return <LoadingAnimation theme="bmrg-flow" message="We'll be right with you" />;
+            return <LoadingAnimation message="We'll be right with you" />;
           }
 
           return (
-            <form onSubmit={handleSubmit}>
-              <Body
-                style={{
-                  display: "block",
-                  margin: "auto",
-                  width: "60%",
-                  height: "28rem",
-                  padding: "0 0.25rem 2rem",
-                  overflowY: "auto"
-                }}
-              >
+            <ModalFlowForm onSubmit={handleSubmit}>
+              <ModalBody>
                 <div className={styles.input}>
                   <TextInput
                     id="label"
@@ -153,18 +141,24 @@ class CreateEditPropertiesContent extends Component {
                   />
                 </div>
                 <div className={styles.toggleContainer}>
-                  <Toggle name="secured" checked={values.secured} onChange={handleChange} labelText="Secured" />
+                  <Toggle
+                    id="secured"
+                    name="secured"
+                    toggled={values.secured}
+                    onChange={handleChange}
+                    labelText="Secured"
+                  />
                 </div>
-              </Body>
-              <Footer style={{ flexDirection: "column", alignItems: "center", justifyContent: "flex-start" }}>
-                <ConfirmButton
-                  text={isEdit ? "SAVE" : "CREATE"}
-                  type="submit"
-                  disabled={!isValid || isSubmitting}
-                  theme="bmrg-flow"
-                />
-              </Footer>
-            </form>
+              </ModalBody>
+              <ModalFooter>
+                <Button kind="secondary" type="button" onClick={this.props.closeModal}>
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={!isValid || isSubmitting}>
+                  {isEdit ? "Save" : "Create"}
+                </Button>
+              </ModalFooter>
+            </ModalFlowForm>
           );
         }}
       </Formik>

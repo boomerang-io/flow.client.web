@@ -4,10 +4,9 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
-import { PortWidget } from "@boomerang/boomerang-dag";
+import { PortWidget } from "@projectstorm/react-diagrams";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import Modal from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 //import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import DisplayForm from "Components/DisplayForm";
 import pencilIcon from "./pencil.svg";
@@ -47,34 +46,30 @@ export class TaskNode extends Component {
 
   renderConfigureNode() {
     return (
-      <Modal
-        modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => (
-          <button className="b-task-node__edit">
+      <ModalFlow
+        rootNodeId="c-app-main"
+        confirmModalProps={{
+          title: "Close Modal Flow?"
+        }}
+        modalHeaderProps={{
+          title: `Edit ${this.props.task.name}`
+        }}
+        modalTrigger={({ openModal }) => (
+          <button className="b-task-node__edit" onClick={openModal}>
             <img src={pencilIcon} alt="Task node type" />
           </button>
         )}
-        modalContent={(closeModal, ...rest) => (
-          <ModalFlow
-            headerTitle={`Edit ${this.props.task.name}`}
-            closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
-            theme="bmrg-flow"
-            {...rest}
-          >
-            <DisplayForm
-              closeModal={closeModal}
-              inputProperties={this.props.inputProperties}
-              node={this.props.node}
-              nodeConfig={this.props.nodeConfig}
-              onSave={this.handleOnSave}
-              setIsModalOpen={this.props.appActions.setIsModalOpen}
-              taskNames={this.props.taskNames}
-              task={this.props.task}
-            />
-          </ModalFlow>
-        )}
-      />
+      >
+        <DisplayForm
+          inputProperties={this.props.inputProperties}
+          node={this.props.node}
+          nodeConfig={this.props.nodeConfig}
+          onSave={this.handleOnSave}
+          setIsModalOpen={this.props.appActions.setIsModalOpen}
+          taskNames={this.props.taskNames}
+          task={this.props.task}
+        />
+      </ModalFlow>
     );
   }
 
@@ -82,15 +77,9 @@ export class TaskNode extends Component {
   render() {
     return (
       <div className="b-task-node">
-        {/* <Tooltip place="left" id={this.props.node.id}>
-          {this.props.task ? this.props.task.description : "Task description"}
-        </Tooltip> */}
-        <div className="b-task-node__tile" data-tip data-for={this.props.node.id}>
-          {this.props.task ? this.props.task.name : "Task"}
-        </div>
-
-        <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
-        <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
+        <h1 className="b-task-node__title">{this.props.task ? this.props.task.name : "Task"}</h1>
+        <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} port="left" />
+        <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} port="right" />
         {this.renderDeleteNode()}
         {mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
         {this.renderConfigureNode()}

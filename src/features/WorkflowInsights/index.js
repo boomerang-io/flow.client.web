@@ -6,7 +6,7 @@ import { actions as insightsActions } from "State/insights";
 import moment from "moment";
 import queryString from "query-string";
 import { Dropdown } from "carbon-components-react";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
 import NavigateBack from "Components/NavigateBack";
@@ -113,7 +113,7 @@ export class WorkflowInsights extends Component {
     }
 
     if (insights.isFetching) {
-      return <LoadingAnimation theme="bmrg-flow" />;
+      return <LoadingAnimation centered message="Getting your workflow data. This might take a bit." />;
     }
 
     if (insights.status === REQUEST_STATUSES.SUCCESS) {
@@ -190,7 +190,7 @@ export class WorkflowInsights extends Component {
       return (
         <div className="c-workflow-insights">
           <div className="c-workflow-insights-content">
-            <LoadingAnimation theme="bmrg-flow" />
+            <LoadingAnimation />
           </div>
         </div>
       );
@@ -215,6 +215,7 @@ export class WorkflowInsights extends Component {
           </nav>
           <div className="c-workflow-insights-header">
             <Dropdown
+              id="teams-dropdown"
               label="Teams"
               placeholder="Teams"
               onChange={this.handleChangeTeam}
@@ -223,6 +224,7 @@ export class WorkflowInsights extends Component {
               initialSelectedItem={ALL_OPTIONS.TEAMS}
             />
             <Dropdown
+              id="workflows-dropdown"
               label="Workflows"
               placeholder="Workflows"
               onChange={this.handleChangeWorkflow}
@@ -234,6 +236,7 @@ export class WorkflowInsights extends Component {
               initialSelectedItem={ALL_OPTIONS.WORKFLOWS}
             />
             <Dropdown
+              id="time-frame-dropdown"
               label="Time Frame"
               placeholder="Time Frame"
               onChange={this.handleChangeTimeframe}

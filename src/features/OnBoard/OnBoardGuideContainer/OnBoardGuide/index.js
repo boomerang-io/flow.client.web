@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Close32 } from "@carbon/icons-react";
+import { Button } from "carbon-components-react";
+import { ArrowRight16, ArrowLeft16, Close20 } from "@carbon/icons-react";
 import "./styles.scss";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 const OnBoardGuide = props => {
   const {
@@ -31,60 +31,60 @@ const OnBoardGuide = props => {
 
   const leftAction =
     index === 1 ? null : (
-      <div
+      <Button
+        hasIconOnly
         className="b-onboard-screen-arrow"
+        data-cy="onboardArrowLeft"
+        iconDescription="back"
         onClick={previousScreen}
-        onKeyDown={e => isAccessibleEvent(e) && previousScreen}
-        role="button"
-        tabIndex="0"
-      >
-        <i className="b-onboard-screen-arrow--left" />
-      </div>
+        renderIcon={ArrowLeft16}
+        size="small"
+        style={{ width: "2rem", height: "1rem", marginRight: "1rem" }}
+        tooltipAlignment="center"
+        tooltipPosition="bottom"
+      />
     );
 
   const rightAction = lastScreen ? (
-    <div
-      className="b-onboard-screen-button"
+    <Button
+      kind="primary"
       onClick={nextScreen}
-      onKeyDown={e => isAccessibleEvent(e) && nextScreen}
-      role="button"
-      tabIndex="0"
+      size="small"
+      style={{ backgroundColor: "#40d5bb", color: "white", width: "1rem" }} //will have to change
     >
-      <div className="b-onboard-screen-button__text">DONE</div>
-    </div>
+      DONE
+    </Button>
   ) : (
-    <div
+    <Button
+      hasIconOnly
       className="b-onboard-screen-arrow"
+      iconDescription="forward"
       onClick={nextScreen}
-      onKeyDown={e => isAccessibleEvent(e) && nextScreen}
-      role="button"
-      tabIndex="0"
-    >
-      <i className="b-onboard-screen-arrow--right" />
-    </div>
+      renderIcon={ArrowRight16}
+      size="small"
+      style={{ width: "2rem", height: "1rem" }}
+      tooltipAlignment="center"
+      tooltipPosition="bottom"
+    />
   );
 
   return (
-    <div className={`c-onboard-screen ${containerClassName}`}>
-      <div
-        className="b-onboard-screen-modal-close"
+    <main className={`c-onboard-screen ${containerClassName}`}>
+      <Button
+        renderIcon={Close20}
         onClick={closeModal}
-        onKeyDown={e => isAccessibleEvent(e) && closeModal}
-        role="button"
-        tabIndex="0"
-      >
-        <Close32 className="b-onboard-screen-modal-close__img" />
-      </div>
-      <div className="b-onboard-screen-title">{title}</div>
-      <div className="b-onboard-screen-content">{message}</div>
-      <div className="b-onboard-screen-bottom">
+        style={{ position: "absolute", right: "0", backgroundColor: "transparent" }}
+      />
+      <h1 className="b-onboard-screen-title">{title}</h1>
+      <p className="b-onboard-screen-content">{message}</p>
+      <footer className="b-onboard-screen-bottom">
         <div className="b-onboard-screen-bottom--left">{circles}</div>
         <div className="b-onboard-screen-bottom--right">
           {leftAction}
           {rightAction}
         </div>
-      </div>
-    </div>
+      </footer>
+    </main>
   );
 };
 

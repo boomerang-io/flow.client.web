@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import queryString from "query-string";
 import { MultiSelect } from "carbon-components-react";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import { actions as activityActions } from "State/activity";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
@@ -86,8 +87,6 @@ export class WorkflowActivity extends Component {
       statuses,
       teamIds
     });
-
-    console.log(query);
 
     this.props.activityActions.fetchMore(`${BASE_SERVICE_URL}/activity?${query}`).catch(err => {
       //noop
@@ -174,6 +173,10 @@ export class WorkflowActivity extends Component {
   render() {
     const { activityState, history, location, match, teamsState } = this.props;
 
+    if (activityState.isFetching) {
+      return <LoadingAnimation centered />;
+    }
+
     if (activityState.status === REQUEST_STATUSES.FAILURE || teamsState.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-flow" />;
     }
@@ -212,7 +215,6 @@ export class WorkflowActivity extends Component {
             <div className="c-workflow-activity-header">
               <MultiSelect
                 id="teams-select"
-                useTitleInItem={false}
                 label="Teams"
                 invalid={false}
                 onChange={this.handleSelectTeams}
@@ -222,7 +224,6 @@ export class WorkflowActivity extends Component {
               />
               <MultiSelect
                 id="workflows-select"
-                useTitleInItem={false}
                 label="Workflows"
                 invalid={false}
                 onChange={this.handleSelectWorkflows}
@@ -241,7 +242,6 @@ export class WorkflowActivity extends Component {
               />
               <MultiSelect
                 id="triggers-select"
-                useTitleInItem={false}
                 label="Trigger"
                 invalid={false}
                 onChange={this.handleSelectTriggers}
@@ -257,7 +257,6 @@ export class WorkflowActivity extends Component {
               />
               <MultiSelect
                 id="status-select"
-                useTitleInItem={false}
                 label="Status"
                 invalid={false}
                 onChange={this.handleSelectStatuses}

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions } from "State/globalConfiguration";
 import ErrorDragon from "Components/ErrorDragon";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import PropertiesTable from "./PropertiesTable";
 import REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";

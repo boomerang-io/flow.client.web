@@ -14,7 +14,6 @@ class SimpleSelectFilter extends Component {
     return (
       <div className="c-simple-select-filter">
         <Select
-          useTitleInItem={false}
           hideLabel={true}
           invalid={false}
           onChange={this.props.onChange}

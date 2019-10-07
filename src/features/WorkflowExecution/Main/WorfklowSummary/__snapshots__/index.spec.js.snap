@@ -1,106 +1,108 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WorkflowSummary --- Snapshot Capturing Snapshot of WorkflowSummary 1`] = `
-<aside
-  className="c-workflow-summary"
->
-  <h1
-    className="s-workflow-summary-title"
+<div>
+  <aside
+    class="c-workflow-summary"
   >
-    test
-  </h1>
-  <section
-    className="c-workflow-summary-details"
-  >
-    <dl
-      className="b-workflow-summary-field"
+    <h1
+      class="s-workflow-summary-title"
     >
-      <dt
-        className="b-workflow-summary-field__key"
-      >
-        Summary
-      </dt>
-      <dd
-        className="b-workflow-summary-field__value"
-      >
-        test
-      </dd>
-    </dl>
-    <dl
-      className="b-workflow-summary-field"
+      test
+    </h1>
+    <section
+      class="c-workflow-summary-details"
     >
-      <dt
-        className="b-workflow-summary-field__key"
+      <dl
+        class="b-workflow-summary-field"
       >
-        Description
-      </dt>
-      <dd
-        className="b-workflow-summary-field__value"
+        <dt
+          class="b-workflow-summary-field__key"
+        >
+          Summary
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
+        >
+          test
+        </dd>
+      </dl>
+      <dl
+        class="b-workflow-summary-field"
       >
-        ---
-      </dd>
-    </dl>
-    <dl
-      className="b-workflow-summary-field"
-    >
-      <dt
-        className="b-workflow-summary-field__key"
+        <dt
+          class="b-workflow-summary-field__key"
+        >
+          Description
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
+        >
+          ---
+        </dd>
+      </dl>
+      <dl
+        class="b-workflow-summary-field"
       >
-        Version
-      </dt>
-      <dd
-        className="b-workflow-summary-field__value"
+        <dt
+          class="b-workflow-summary-field__key"
+        >
+          Version
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
+        >
+          1
+        </dd>
+      </dl>
+      <dl
+        class="b-workflow-summary-field"
       >
-        1
-      </dd>
-    </dl>
-    <dl
-      className="b-workflow-summary-field"
-    >
-      <dt
-        className="b-workflow-summary-field__key"
+        <dt
+          class="b-workflow-summary-field__key"
+        >
+          Status
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
+        >
+          Not Started
+          <img
+            alt="Status "
+            class="b-activity-card__status-icon"
+            src="pending.svg"
+          />
+        </dd>
+      </dl>
+      <dl
+        class="b-workflow-summary-field"
       >
-        Status
-      </dt>
-      <dd
-        className="b-workflow-summary-field__value"
+        <dt
+          class="b-workflow-summary-field__key"
+        >
+          Start Time
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
+        >
+          Invalid date
+        </dd>
+      </dl>
+      <dl
+        class="b-workflow-summary-field"
       >
-        Not Started
-        <img
-          alt="Status "
-          className="b-activity-card__status-icon"
-          src="pending.svg"
-        />
-      </dd>
-    </dl>
-    <dl
-      className="b-workflow-summary-field"
-    >
-      <dt
-        className="b-workflow-summary-field__key"
-      >
-        Start Time
-      </dt>
-      <dd
-        className="b-workflow-summary-field__value"
-      >
-        Invalid date
-      </dd>
-    </dl>
-    <dl
-      className="b-workflow-summary-field"
-    >
-      <dt
-        className="b-workflow-summary-field__key"
-      >
-        Duration
-      </dt>
-      <dd
-        className="b-workflow-summary-field__value"
-      >
-        ---
-      </dd>
-    </dl>
-  </section>
-</aside>
+        <dt
+          class="b-workflow-summary-field__key"
+        >
+          Duration
+        </dt>
+        <dd
+          class="b-workflow-summary-field__value"
+        >
+          ---
+        </dd>
+      </dl>
+    </section>
+  </aside>
+</div>
 `;

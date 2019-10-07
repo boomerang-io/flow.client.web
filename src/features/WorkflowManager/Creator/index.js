@@ -6,25 +6,32 @@
 // import { connect } from "react-redux";
 // import { bindActionCreators } from "redux";
 // import { actions as tasksActions } from "State/tasks";
+// import { actions as teamActions } from "State/teams";
 // import ActionBar from "Features/WorkflowManager/components/ActionBar";
 // import Navigation from "Features/WorkflowManager/components/Navigation";
 // import Overview from "Features/WorkflowManager/components/Overview";
 // import DiagramApplication from "Utilities/DiagramApplication";
+// import { BASE_SERVICE_URL } from "Config/servicesConfig";
 
-// class WorkflowCreatorContainer extends Component {
-//   static propTypes = {
-//     createWorkflow: PropTypes.func.isRequired,
-//     workflow: PropTypes.object.isRequired
+// // class WorkflowCreatorContainer extends Component {
+// //   static propTypes = {
+// //     createWorkflow: PropTypes.func.isRequired,
+// //     workflow: PropTypes.object.isRequired
+// //   };
+
+// //   diagramApp = new DiagramApplication({ dag: null, isLocked: false });
+
+//   createWorkflow = async () => {
+//     try {
+//       await this.props.createWorkflow(this.diagramApp);
+//       await this.props.teamActions.fetch(`${BASE_SERVICE_URL}/teams`);
+//     } catch (e) {
+//       //no-op
+//     }
 //   };
 
-//   diagramApp = new DiagramApplication({ dag: null, isLocked: false });
-
-//   createWorkflow = () => {
-//     this.props.createWorkflow(this.diagramApp);
-//   };
-
-//   render() {
-//     const { activeTeamId, teamsState, workflowState } = this.props;
+// //   render() {
+// //     const { activeTeamId, teamsState, workflowState } = this.props;
 
 //     return (
 //       <>
@@ -76,17 +83,18 @@
 //   }
 // }
 
-// const mapStateToProps = state => ({
-//   activeTeamId: state.app.activeTeamId,
-//   teamsState: state.teams,
-//   workflowState: state.workflow
-// });
+// // const mapStateToProps = state => ({
+// //   activeTeamId: state.app.activeTeamId,
+// //   teamsState: state.teams,
+// //   workflowState: state.workflow
+// // });
 
 // const mapDispatchToProps = dispatch => ({
-//   tasksActions: bindActionCreators(tasksActions, dispatch)
+//   tasksActions: bindActionCreators(tasksActions, dispatch),
+//   teamActions: bindActionCreators(teamActions, dispatch)
 // });
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(WorkflowCreatorContainer);
+// // export default connect(
+// //   mapStateToProps,
+// //   mapDispatchToProps
+// // )(WorkflowCreatorContainer);

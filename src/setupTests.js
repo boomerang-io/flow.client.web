@@ -4,11 +4,11 @@ import Enzyme, { shallow, render, mount } from "enzyme";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import Adapter from "enzyme-adapter-react-16";
-import { render as rtlRender } from "react-testing-library";
+import { render as rtlRender } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureStore from "./store/configureStore";
-import "jest-dom/extend-expect";
-import "react-testing-library/cleanup-after-each";
+import "@testing-library/jest-dom/extend-expect";
+//import "@testing-library/react/cleanup-after-each";
 
 /**
  * Setup store w/ same config we use for the app so things like thunks work

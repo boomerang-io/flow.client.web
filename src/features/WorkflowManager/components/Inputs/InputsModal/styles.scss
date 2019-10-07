@@ -1,11 +1,17 @@
 .c-inputs-modal {
   position: relative;
-  max-height: 44.375rem;
+  //max-height: 44.375rem;
+  max-height: 40.375rem;
   height: 100vh;
   max-width: 70rem;
   width: 100vw;
   outline: none;
   border-radius: 0.25rem;
+
+  fieldset {
+    margin-top: 6rem;
+    padding: 0;
+  }
 }
 
 .c-inputs-modal-content {

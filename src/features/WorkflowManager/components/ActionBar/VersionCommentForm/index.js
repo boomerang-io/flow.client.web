@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { TextArea } from "@boomerang/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import Error from "@boomerang/boomerang-components/lib/Error";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import TextArea from "@boomerang/boomerang-components/lib/TextArea";
 
 class VersionCommentForm extends Component {
   static propTypes = {
@@ -14,18 +12,24 @@ class VersionCommentForm extends Component {
   };
 
   state = {
-    comment: "",
+    versionComment: "",
+    error: false,
     saveError: false
   };
 
-  handleOnChange = (value, errors, name) => {
+  handleOnChange = e => {
+    const { value } = e.target;
+    let error = false;
+    if (!value || value.length > 128) {
+      error = true;
+    }
     this.setState(
       () => ({
-        comment: value,
-        errors: errors
+        versionComment: value,
+        error: error
       }),
       () => {
-        this.props.shouldConfirmExit(true);
+        this.props.setShouldConfirmModalClose(true);
         this.props.handleOnChange(value);
       }
     );
@@ -36,6 +40,7 @@ class VersionCommentForm extends Component {
       this.props
         .onSave()
         .then(() => {
+          this.props.setShouldConfirmModalClose(false);
           this.props.closeModal();
         })
         .catch(() => {
@@ -49,23 +54,31 @@ class VersionCommentForm extends Component {
 
     return (
       <>
-        <ModalContentBody style={{ maxWidth: "35rem", margin: "auto", height: "24rem", padding: "2rem" }}>
+        <ModalBody>
           {this.state.saveError ? (
             <Error theme="bmrg-flow" />
           ) : (
-            <div style={{ width: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <TextArea title="Version comment" placeholder="Enter version comment" onChange={this.handleOnChange} />
-            </div>
+            <TextArea
+              required
+              id="versionComment"
+              invalid={this.state.error}
+              invalidText="Comment is required"
+              labelText="Version comment"
+              name="versionComment"
+              onChange={this.handleOnChange}
+              placeholder="Enter version comment"
+              value={this.state.versionComment}
+            />
           )}
-        </ModalContentBody>
-        <ModalContentFooter>
-          <ModalConfirmButton
-            theme="bmrg-flow"
-            text="Create"
-            disabled={!this.state.comment || Object.keys(this.state.errors).length || loading}
-            onClick={this.handleOnSave}
-          />
-        </ModalContentFooter>
+        </ModalBody>
+        <ModalFooter>
+          <Button kind="secondary" type="button" onClick={this.props.closeModal}>
+            Cancel
+          </Button>
+          <Button disabled={this.state.error || loading} onClick={this.handleOnSave}>
+            Create
+          </Button>
+        </ModalFooter>
       </>
     );
   }

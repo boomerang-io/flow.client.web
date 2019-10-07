@@ -1,7 +1,9 @@
 @import "~Styles/variables";
 
 .c-display-form {
-  .bx--bmrg-text-input {
+  .bx--bmrg-text-input,
+  .bx--bmrg-select,
+  .bx--bmrg-multi-select {
     padding-bottom: 2.125rem;
   }
 

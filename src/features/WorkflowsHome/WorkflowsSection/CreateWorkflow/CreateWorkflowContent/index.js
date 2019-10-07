@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import { TextInput, ComboBox, TextArea } from "@boomerang/carbon-addons-boomerang-react";
+import {
+  TextInput,
+  ComboBox,
+  TextArea,
+  ModalFlowForm,
+  LoadingAnimation
+} from "@boomerang/carbon-addons-boomerang-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import Body from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import Footer from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import workflowIcons from "Assets/workflowIcons";
 import { defaultWorkflowConfig } from "./constants.js";
 import styles from "./createWorkflow.module.scss";
@@ -62,8 +65,8 @@ class CreateEditModeModalContent extends Component {
           }
 
           return (
-            <form onSubmit={handleSubmit}>
-              <Body className={styles.formBody}>
+            <ModalFlowForm onSubmit={handleSubmit}>
+              <ModalBody className={styles.formBody}>
                 <div className={styles.teamAndName}>
                   <ComboBox
                     id="selectedTeam"
@@ -135,11 +138,16 @@ class CreateEditModeModalContent extends Component {
                     </label>
                   ))}
                 </div>
-              </Body>
-              <Footer>
-                <ConfirmButton text="SAVE" type="submit" disabled={!isValid || isCreating} theme="bmrg-white" />
-              </Footer>
-            </form>
+              </ModalBody>
+              <ModalFooter>
+                <Button kind="secondary" onClick={this.props.closeModal} type="button">
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={!isValid || isCreating}>
+                  Save
+                </Button>
+              </ModalFooter>
+            </ModalFlowForm>
           );
         }}
       </Formik>

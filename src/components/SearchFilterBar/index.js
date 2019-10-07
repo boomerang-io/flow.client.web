@@ -70,7 +70,6 @@ class SearchFilterBar extends Component {
           {multiselect ? (
             <MultiSelect
               id="b-search-filter__filter"
-              useTitleInItem={false}
               label={label}
               invalid={false}
               onChange={this.handleOnMultiSelectChange}
@@ -80,7 +79,6 @@ class SearchFilterBar extends Component {
           ) : (
             <Select
               id="select"
-              useTitleInItem={false}
               hideLabel={true}
               invalid={false}
               onChange={this.handleOnSelectChange}

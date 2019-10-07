@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CloseIcon from "Assets/icons/CloseIcon";
+import { Button } from "carbon-components-react";
+import { Close20 } from "@carbon/icons-react";
 import bkgskyline from "../img/bkg-skyline.svg";
 import FadeAnimation from "Components/FadeAnimation";
 import "./styles.scss";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 const OnBoardMessage = props => {
   const {
@@ -13,7 +13,6 @@ const OnBoardMessage = props => {
     leftButton,
     rightButton,
     finishButton,
-    modalClassName,
     contentClassName,
     finishImgsClassName,
     finishButtonClassName,
@@ -30,20 +29,15 @@ const OnBoardMessage = props => {
   return (
     <FadeAnimation animationDuration={100} timeout={100} animationDelay={0} animationFunction="ease-in">
       <div className="c-onboard-wrapper">
-        <div className="c-onboardExp">
-          <div
-            className={modalClassName}
+        <main className="c-onboardExp">
+          <Button
+            renderIcon={Close20}
             onClick={closeModal}
-            onKeyDown={e => isAccessibleEvent(e) && closeModal}
-            role="button"
-            tabIndex="0"
-          >
-            >
-            <CloseIcon className="b-onboardExp-screen-modal-close__img" />
-          </div>
+            style={{ position: "absolute", right: "0", backgroundColor: "transparent" }}
+          />
           <div className={finishImgsClassName}>
             <div className={finishButtonClassName}>
-              <div className="b-onboardExp-finish__title">{title}</div>
+              <h1 className="b-onboardExp-finish__title">{title}</h1>
               <div className={subtitleClassName}>
                 <div className="b-onboardExp-finish__subtitle">
                   {subTitle}
@@ -54,28 +48,28 @@ const OnBoardMessage = props => {
                 </div>
               </div>
               <div className={buttonsClassName}>
-                <button className="b-onboardExp-finish__button " onClick={closeModal}>
+                <Button onClick={closeModal} size="field" style={{ marginTop: "2.6rem" }}>
                   {finishButton}
-                </button>
+                </Button>
               </div>
             </div>
           </div>
-          <div className={contentClassName}>
+          <section className={contentClassName}>
             <div className="b-onboardExp__title">{title}</div>
             <div className={subtitleClassName}>{subTitle}</div>
             <div className={buttonsClassName}>
-              <button className="b-onboardExp__button" onClick={() => goToScreen(returnScreen)}>
+              <Button size="field" onClick={() => goToScreen(returnScreen)}>
                 {leftButton}
-              </button>
-              <button className="b-onboardExp__button b-onboardExp__button--right" onClick={nextScreen}>
+              </Button>
+              <Button size="field" onClick={nextScreen} style={{ marginLeft: "1rem" }}>
                 {rightButton}
-              </button>
+              </Button>
             </div>
-          </div>
+          </section>
           <footer className="b-onboardExp-footer">
             <img alt="" className="b-onboardExp-footer__img" src={bkgskyline} />
           </footer>
-        </div>
+        </main>
       </div>
     </FadeAnimation>
   );

@@ -3,14 +3,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
+import {
+  ComboBox,
+  Creatable,
+  TextArea,
+  TextInput,
+  Toggle,
+  ModalFlowForm
+} from "@boomerang/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import get from "lodash.get";
-import clonedeep from "lodash.clonedeep";
-import { ComboBox, Creatable, TextArea, TextInput, Toggle } from "@boomerang/carbon-addons-boomerang-react";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import clonedeep from "lodash/cloneDeep";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
@@ -35,34 +40,34 @@ const INPUT_TYPES_LABELS = [
 
 class InputsModalContent extends Component {
   static propTypes = {
-    updateInputs: PropTypes.func.isRequired,
-    input: PropTypes.object,
-    isEdit: PropTypes.bool,
-    workflowActions: PropTypes.object.isRequired,
     closeModal: PropTypes.func.isRequired,
+    input: PropTypes.object,
     inputsNames: PropTypes.array,
-    loading: PropTypes.bool.isRequired
+    isEdit: PropTypes.bool,
+    loading: PropTypes.bool.isRequired,
+    updateInputs: PropTypes.func.isRequired,
+    workflowActions: PropTypes.object.isRequired
   };
 
   handleOnChange = (e, formikChange) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     formikChange(e);
   };
 
   handleOnFieldValueChange = (value, id, setFieldValue) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     setFieldValue(id, value);
   };
 
   handleOnTypeChange = (selectedItem, setFieldValue) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     setFieldValue(FIELD.TYPE, selectedItem);
     setFieldValue(FIELD.DEFAULT_VALUE, selectedItem.value === INPUT_TYPES.BOOLEAN ? false : undefined);
   };
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
   handleValidValuesChange = (values, setFieldValue) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     setFieldValue(FIELD.VALID_VALUES, values);
   };
 
@@ -92,6 +97,7 @@ class InputsModalContent extends Component {
           this.props.updateInputs({ title: "Edit Input", message: "Successfully edited input", type: "edit" })
         )
         .then(() => {
+          this.props.setShouldConfirmModalClose(false);
           this.props.closeModal();
         });
     } else {
@@ -100,6 +106,7 @@ class InputsModalContent extends Component {
           this.props.updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
         )
         .then(() => {
+          this.props.setShouldConfirmModalClose(false);
           this.props.closeModal();
         });
     }
@@ -209,82 +216,88 @@ class InputsModalContent extends Component {
           const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
 
           return (
-            <fieldset disabled={loading}>
-              <ModalContentBody className="c-inputs-modal-body">
-                <div className="c-inputs-modal-body-left">
-                  <div className="b-inputs-modal-text">
-                    <TextInput
-                      id={FIELD.KEY}
-                      labelText="Key"
-                      placeholder="key.value"
-                      value={values.key}
-                      onBlur={handleBlur}
-                      onChange={e => this.handleOnChange(e, handleChange)}
-                      invalid={errors.key && touched.key}
-                      invalidText={errors.key}
-                    />
+            <ModalFlowForm>
+              <fieldset disabled={loading}>
+                <ModalBody className="c-inputs-modal-body">
+                  <div className="c-inputs-modal-body-left">
+                    <div className="b-inputs-modal-text">
+                      <TextInput
+                        id={FIELD.KEY}
+                        labelText="Key"
+                        placeholder="key.value"
+                        value={values.key}
+                        onBlur={handleBlur}
+                        onChange={e => this.handleOnChange(e, handleChange)}
+                        invalid={errors.key && touched.key}
+                        invalidText={errors.key}
+                      />
+                    </div>
+                    <div className="b-inputs-modal-text">
+                      <TextInput
+                        id={FIELD.LABEL}
+                        labelText="Label"
+                        placeholder="Label"
+                        value={values.label}
+                        onBlur={handleBlur}
+                        onChange={e => this.handleOnChange(e, handleChange)}
+                        invalid={errors.label && touched.label}
+                        invalidText={errors.label}
+                      />
+                    </div>
+                    <div className="b-inputs-modal-text">
+                      <TextInput
+                        id={FIELD.DESCRIPTION}
+                        labelText="Description"
+                        placeholder="Description"
+                        value={values.description}
+                        onBlur={handleBlur}
+                        onChange={e => this.handleOnChange(e, handleChange)}
+                      />
+                    </div>
+                    <div className="b-inputs-modal-toggle">
+                      <Toggle
+                        id={FIELD.REQUIRED}
+                        toggled={values.required}
+                        labelText="Required"
+                        onToggle={value => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
+                      />
+                    </div>
                   </div>
-                  <div className="b-inputs-modal-text">
-                    <TextInput
-                      id={FIELD.LABEL}
-                      labelText="Label"
-                      placeholder="Label"
-                      value={values.label}
-                      onBlur={handleBlur}
-                      onChange={e => this.handleOnChange(e, handleChange)}
-                      invalid={errors.label && touched.label}
-                      invalidText={errors.label}
-                    />
+                  <div className="c-inputs-modal-body-right">
+                    <div className="b-inputs-modal-type">
+                      <ComboBox
+                        id={FIELD.TYPE}
+                        onChange={({ selectedItem }) =>
+                          this.handleOnTypeChange(
+                            selectedItem !== null ? selectedItem : { label: "", value: "" },
+                            setFieldValue
+                          )
+                        }
+                        items={INPUT_TYPES_LABELS}
+                        initialSelectedItem={values.type}
+                        itemToString={item => item && item.label}
+                        placeholder="Select an item"
+                        titleText="Type"
+                      />
+                    </div>
+                    {this.renderDefaultValue(formikProps)}
                   </div>
-                  <div className="b-inputs-modal-text">
-                    <TextInput
-                      id={FIELD.DESCRIPTION}
-                      labelText="Description"
-                      placeholder="Description"
-                      value={values.description}
-                      onBlur={handleBlur}
-                      onChange={e => this.handleOnChange(e, handleChange)}
-                    />
-                  </div>
-                  <div className="b-inputs-modal-toggle">
-                    <Toggle
-                      id={FIELD.REQUIRED}
-                      toggled={values.required}
-                      labelText="Required"
-                      onToggle={value => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
-                    />
-                  </div>
-                </div>
-                <div className="c-inputs-modal-body-right">
-                  <div className="b-inputs-modal-type">
-                    <ComboBox
-                      id={FIELD.TYPE}
-                      onChange={({ selectedItem }) =>
-                        this.handleOnTypeChange(
-                          selectedItem !== null ? selectedItem : { label: "", value: "" },
-                          setFieldValue
-                        )
-                      }
-                      items={INPUT_TYPES_LABELS}
-                      initialSelectedItem={values.type}
-                      itemToString={item => item && item.label}
-                      placeholder="Select an item"
-                      titleText="Type"
-                    />
-                  </div>
-                  {this.renderDefaultValue(formikProps)}
-                </div>
-              </ModalContentBody>
-              <ModalContentFooter style={{ paddingTop: "1rem" }}>
-                <ModalConfirmButton
+                </ModalBody>
+              </fieldset>
+              <ModalFooter>
+                <Button kind="secondary" onClick={this.props.closeModal} type="button">
+                  Cancel
+                </Button>
+                <Button
+                  data-testid="inputs-modal-confirm-button"
                   disabled={!isValid || loading}
-                  text={isEdit ? "SAVE" : "CREATE"}
-                  theme="bmrg-flow"
                   type="submit"
                   onClick={() => this.handleConfirm(formikProps)}
-                />
-              </ModalContentFooter>
-            </fieldset>
+                >
+                  {isEdit ? "Save" : "Create"}
+                </Button>
+              </ModalFooter>
+            </ModalFlowForm>
           );
         }}
       </Formik>

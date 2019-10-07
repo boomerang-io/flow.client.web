@@ -1,92 +1,100 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
-<aside
-  className="c-step-side-info"
->
-  <h1
-    className="s-step-side-info-title"
-  >
-    test task
-  </h1>
-  <section
-    className="c-step-side-info-details"
-  >
-    <dl
-      className="b-step-side-info-field"
+<body>
+  <div>
+    <aside
+      class="c-step-side-info"
     >
-      <dt
-        className="b-step-side-info-field__key"
+      <h1
+        class="s-step-side-info-title"
       >
-        Type
-      </dt>
-      <dd
-        className="b-step-side-info-field__value"
+        test task
+      </h1>
+      <section
+        class="c-step-side-info-details"
       >
-        Task
-      </dd>
-    </dl>
-    <dl
-      className="b-step-side-info-field"
-    >
-      <dt
-        className="b-step-side-info-field__key"
-      >
-        Status
-      </dt>
-      <dd
-        className="b-step-side-info-field__value"
-      >
-        <img
-          alt="Status"
-        />
-      </dd>
-    </dl>
-    <dl
-      className="b-step-side-info-field"
-    >
-      <dt
-        className="b-step-side-info-field__key"
-      >
-        Start Time
-      </dt>
-      <dd
-        className="b-step-side-info-field__value"
-      >
-        January 1st 2019, 12:00:00 am
-      </dd>
-    </dl>
-    <dl
-      className="b-step-side-info-field"
-    >
-      <dt
-        className="b-step-side-info-field__key"
-      >
-        Duration
-      </dt>
-      <dd
-        className="b-step-side-info-field__value"
-      >
-        ---
-      </dd>
-    </dl>
-    <dl
-      className="b-step-side-info-field"
-    >
-      <dt
-        className="b-step-side-info-field__key"
-      >
-        Log
-      </dt>
-      <dd
-        className="b-step-side-info-field__value"
-      >
-        <TaskExecutionLog
-          flowActivityId="1"
-          flowTaskName="test task"
-        />
-      </dd>
-    </dl>
-  </section>
-</aside>
+        <dl
+          class="b-step-side-info-field"
+        >
+          <dt
+            class="b-step-side-info-field__key"
+          >
+            Type
+          </dt>
+          <dd
+            class="b-step-side-info-field__value"
+          >
+            Task
+          </dd>
+        </dl>
+        <dl
+          class="b-step-side-info-field"
+        >
+          <dt
+            class="b-step-side-info-field__key"
+          >
+            Status
+          </dt>
+          <dd
+            class="b-step-side-info-field__value"
+          >
+            <img
+              alt="Status"
+            />
+          </dd>
+        </dl>
+        <dl
+          class="b-step-side-info-field"
+        >
+          <dt
+            class="b-step-side-info-field__key"
+          >
+            Start Time
+          </dt>
+          <dd
+            class="b-step-side-info-field__value"
+          >
+            January 1st 2019, 12:00:00 am
+          </dd>
+        </dl>
+        <dl
+          class="b-step-side-info-field"
+        >
+          <dt
+            class="b-step-side-info-field__key"
+          >
+            Duration
+          </dt>
+          <dd
+            class="b-step-side-info-field__value"
+          >
+            ---
+          </dd>
+        </dl>
+        <dl
+          class="b-step-side-info-field"
+        >
+          <dt
+            class="b-step-side-info-field__key"
+          >
+            Log
+          </dt>
+          <dd
+            class="b-step-side-info-field__value"
+          >
+            <button
+              class="s-task-log-trigger"
+            >
+              View
+            </button>
+          </dd>
+        </dl>
+      </section>
+    </aside>
+  </div>
+  <div
+    class="ReactModalPortal"
+  />
+</body>
 `;

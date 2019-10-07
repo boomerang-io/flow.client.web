@@ -1,28 +1,24 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
-import { default as Body } from "@boomerang/boomerang-components/lib/ModalContentBody";
-import { default as ConfirmButton } from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import { default as Footer } from "@boomerang/boomerang-components/lib/ModalContentFooter";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import "./styles.scss";
 
-class BrowserModalContent extends Component {
-  static propTypes = {
-    closeModal: PropTypes.func.isRequired
-  };
+const BrowserModalContent = ({ closeModal }) => {
+  return (
+    <>
+      <ModalBody className="c-browser-modal-body">
+        <NoDisplay text="Your experience may be degraded if you aren't using a recent version of Chrome or Firefox" />
+      </ModalBody>
+      <ModalFooter>
+        <Button onClick={() => closeModal()}>Continue, anyway </Button>
+      </ModalFooter>
+    </>
+  );
+};
 
-  render() {
-    return (
-      <>
-        <Body className="c-browser-modal-body">
-          <NoDisplay text="Your experience may be degraded if you aren't using a recent version of Chrome or Firefox" />
-        </Body>
-        <Footer style={{ paddingTop: "1rem" }}>
-          <ConfirmButton onClick={() => this.props.closeModal()} text="Continue, anyway" theme="bmrg-flow" />
-        </Footer>
-      </>
-    );
-  }
-}
+BrowserModalContent.propTypes = {
+  closeModal: PropTypes.func.isRequired
+};
 
 export default BrowserModalContent;

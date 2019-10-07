@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
-import Modal from "react-modal";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import ConfigureSwitchModal from "./ConfigureSwitchModal";
 import pencilIcon from "./pencil.svg";
 import "./styles.scss";
@@ -127,7 +126,7 @@ class SwitchLink extends Component {
                   <button className="b-editswitch-button__img" onClick={this.openModal}>
                     <img src={pencilIcon} alt="Edit Switch Property" />
                   </button>
-                  <Modal
+                  {/*<Modal
                     className="bmrg--c-modal"
                     contentLabel="Modal"
                     documentRootTagId="app"
@@ -156,7 +155,29 @@ class SwitchLink extends Component {
                         setIsModalOpen={this.props.appActions.setIsModalOpen}
                       />
                     </ModalFlow>
-                  </Modal>
+                  </Modal>*/}
+                  <ModalFlow
+                    confirmModalProps={{
+                      title: "Close Modal Flow?"
+                    }}
+                    modalHeaderProps={{
+                      title: "Switch",
+                      subtitle: "Set it up the conditions"
+                    }}
+                    isOpen={this.state.modalIsOpen}
+                    onCloseModal={() => {
+                      this.setState({ modalIsOpen: false });
+                    }}
+                  >
+                    <ConfigureSwitchModal
+                      defaultState={this.state.defaultState}
+                      onSubmit={this.handleSave}
+                      switchCondition={this.state.switchCondition}
+                      updateDefaultState={this.updateDefaultState}
+                      updateSwitchState={this.updateSwitchState}
+                      setIsModalOpen={this.props.appActions.setIsModalOpen}
+                    />
+                  </ModalFlow>
                 </div>
               </foreignObject>
             </g>
@@ -185,21 +206,6 @@ class SwitchLink extends Component {
           stroke="rgba(255,0,0,0.5)"
           d={this.props.path}
         />
-        {this.path.current && this.props.model.targetPort && (
-          <g fill="none" transform={`translate(${this.endPoint.x - 20}, ${this.endPoint.y - 10}) scale(.0375)`}>
-            <svg
-              version="1.1"
-              id="Layer_1"
-              width="460.5"
-              height="531.74"
-              viewBox="0 0 460.5 531.74"
-              overflow="visible"
-              enableBackground="new 0 0 460.5 531.74"
-            >
-              <polygon fill="#40d5bb" points="0.5,0.866 459.5,265.87 0.5,530.874" />
-            </svg>
-          </g>
-        )}
       </svg>
     );
   }

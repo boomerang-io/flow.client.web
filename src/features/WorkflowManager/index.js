@@ -6,8 +6,7 @@ import { Route, Switch, Prompt, Redirect } from "react-router-dom";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import { LoadingAnimation, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 // import Creator from "./Creator";
 import EditorContainer from "./EditorContainer";
@@ -57,6 +56,40 @@ export class WorkflowManagerContainer extends Component {
     this.changeLogReason = changeLogReason;
   };
 
+  createWorkflow = diagramApp => {
+    const { workflowActions, workflowRevisionActions, activeTeamId } = this.props;
+    let workflowId;
+    return workflowActions
+      .create(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, flowTeamId: activeTeamId }) //update all instances of using newOverviewData - probably just need to use workflow.data object
+      .then(response => {
+        const dagProps = this.createWorkflowRevisionBody(diagramApp);
+        workflowId = response.data.id;
+
+        const workflowRevision = {
+          ...dagProps,
+          workflowId
+        };
+        workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
+        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
+      })
+      .then(() => {
+        notify(
+          <ToastNotification
+            kind="success"
+            title="Create Workflow"
+            subtitle="Successfully created workflow and version"
+          />
+        );
+        this.props.history.push(`/editor/${workflowId}/designer`);
+      })
+      .catch(err => {
+        notify(
+          <ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow and version" />
+        );
+        return Promise.reject();
+      });
+  };
+
   createWorkflowRevision = diagramApp => {
     const { workflow, workflowRevisionActions } = this.props;
 
@@ -66,11 +99,15 @@ export class WorkflowManagerContainer extends Component {
     return workflowRevisionActions
       .create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body)
       .then(response => {
-        notify(<Notification type="success" title="Create Version" message="Successfully created workflow version" />);
+        notify(
+          <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
+        );
         return Promise.resolve();
       })
       .catch(() => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow version" />);
+        notify(
+          <ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow version" />
+        );
         return Promise.reject();
       })
       .then(() => {
@@ -89,13 +126,13 @@ export class WorkflowManagerContainer extends Component {
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, id: workflowId })
       .then(response => {
-        notify(<Notification type="success" title="Update Workflow" message="Successfully updated workflow" />);
+        notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Successfully updated workflow" />);
         workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
         return workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`);
       })
       .then(response => Promise.resolve(response))
       .catch(error => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to update workflow" />);
+        notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to update workflow" />);
         return Promise.reject(error);
       });
   };
@@ -106,11 +143,11 @@ export class WorkflowManagerContainer extends Component {
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, this.props.workflow.data.properties)
       .then(response => {
-        notify(<Notification type="success" title={title} message={message} />);
+        notify(<ToastNotification kind="success" title={title} subtitle={message} />);
         return Promise.resolve(response);
       })
       .catch(error => {
-        notify(<Notification type="error" title="Something's wrong" message={`Failed to ${type} input`} />);
+        notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} input`} />);
         return Promise.reject(error);
       });
   };
@@ -200,7 +237,7 @@ export class WorkflowManagerContainer extends Component {
   render() {
     const { tasks, teams } = this.props;
     if (tasks.isFetching || teams.isFetching) {
-      return <LoadingAnimation theme="bmrg-flow" />;
+      return <LoadingAnimation centered message="Retrieving your workflow. Please hold." />;
     }
 
     if (tasks.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {

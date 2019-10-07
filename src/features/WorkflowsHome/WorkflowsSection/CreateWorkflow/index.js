@@ -4,9 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
-import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import { ModalFlow, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import Button from "@boomerang/boomerang-components/lib/Button";
 import { Add32 } from "@carbon/icons-react";
@@ -42,12 +40,18 @@ export class CreateWorkflow extends Component {
       })
       .then(res => {
         notify(
-          <Notification type="success" title="Create Workflow" message="Successfully created workflow and version" />
+          <ToastNotification
+            kind="success"
+            title="Create Workflow"
+            subtitle="Successfully created workflow and version"
+          />
         );
         this.props.history.push(`/editor/${workflowId}/designer`);
       })
       .catch(err => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to create workflow and version" />);
+        notify(
+          <ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow and version" />
+        );
         return Promise.reject();
       });
   };
@@ -55,32 +59,26 @@ export class CreateWorkflow extends Component {
     const { team, teams, isCreating } = this.props;
 
     return (
-      <ModalWrapper
-        ModalTrigger={() => (
-          <Button className="b-workflow-placeholder">
+      <ModalFlow
+        modalTrigger={({ openModal }) => (
+          <Button className="b-workflow-placeholder" onClick={openModal}>
             <div className="b-workflow-placeholder__box">
               <Add32 data-tip data-for={team.id} className="b-workflow-placeholder__plus" />
             </div>
             <Tooltip id={team.id}>Create Workflow</Tooltip>
           </Button>
         )}
-        modalContent={(closeModal, rest) => (
-          <ModalFlow
-            headerTitle="Create a new Workflow"
-            headerSubtitle="Get started with these basics, then proceed to designing it out."
-            closeModal={closeModal}
-            createWorkflow={this.createWorkflow}
-            confirmModalProps={{ affirmativeAction: closeModal }}
-            team={team}
-            teams={teams}
-            isCreating={isCreating}
-            theme="bmrg-white"
-            {...rest}
-          >
-            <CreateWorkflowContent />
-          </ModalFlow>
-        )}
-      />
+        confirmModalProps={{
+          title: "Close this?",
+          children: "Your request will not be saved"
+        }}
+        modalHeaderProps={{
+          title: "Create a new Workflow",
+          subtitle: "Get started with these basics, then proceed to designing it out."
+        }}
+      >
+        <CreateWorkflowContent createWorkflow={this.createWorkflow} team={team} teams={teams} isCreating={isCreating} />
+      </ModalFlow>
     );
   }
 }

@@ -1,6 +1,4 @@
 import React from "react";
-import { shallow } from "enzyme";
-import renderer from "react-test-renderer";
 import TimeProgressBar from "./index";
 
 const mockfn = jest.fn();
@@ -38,21 +36,9 @@ const workflowExecution = {
 
 describe("TimeProgressBar --- Snapshot", () => {
   it("Capturing Snapshot of TimeProgressBar", () => {
-    const renderedValue = renderer.create(
+    const { baseElement } = rtlRender(
       <TimeProgressBar workflowExecution={workflowExecution} updateActiveNode={mockfn} />
     );
-    expect(renderedValue).toMatchSnapshot();
-  });
-});
-
-describe("TimeProgressBar --- Shallow render", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = shallow(<TimeProgressBar workflowExecution={workflowExecution} updateActiveNode={mockfn} />);
-  });
-
-  it("Render the DUMB component", () => {
-    expect(wrapper.length).toEqual(1);
+    expect(baseElement).toMatchSnapshot();
   });
 });

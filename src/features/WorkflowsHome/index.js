@@ -6,9 +6,8 @@ import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
 import { actions as appActions } from "State/app";
 import sortBy from "lodash/sortBy";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
 import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import { LoadingAnimation, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import SearchFilterBar from "Components/SearchFilterBar";
 import WorkflowsSection from "./WorkflowsSection";
@@ -30,6 +29,7 @@ export class WorkflowsHome extends Component {
 
   componentDidMount() {
     this.props.appActions.setActiveTeam({ teamId: undefined });
+    this.fetchTeams();
   }
 
   handleSearchFilter = (searchQuery, teams) => {
@@ -70,7 +70,7 @@ export class WorkflowsHome extends Component {
     return axios
       .post(`${BASE_SERVICE_URL}/execute/${workflowId}`, { properties })
       .then(response => {
-        notify(<Notification type="success" title="Run Workflow" message="Successfully ran workflow" />);
+        notify(<ToastNotification kind="success" title="Run Workflow" subtitle="Successfully ran workflow" />);
         if (redirect) {
           this.props.history.push({
             pathname: `/activity/${workflowId}/execution/${response.data.id}`,
@@ -79,7 +79,7 @@ export class WorkflowsHome extends Component {
         }
       })
       .catch(error => {
-        notify(<Notification type="error" title="Something's wrong" message="Failed to run workflow" />);
+        notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to run workflow" />);
       });
   };
 
@@ -88,12 +88,12 @@ export class WorkflowsHome extends Component {
       .delete(`${BASE_SERVICE_URL}/workflow/${workflowId}`)
       .then(() => {
         this.updateWorkflows({ workflowId, teamId });
-        notify(<Notification type="remove" title="Delete Workflow" message="Workflow successfully deleted" />);
+        notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
         return;
       })
       .catch(e => {
         console.log(e);
-        notify(<Notification type="error" title="SOMETHING'S WRONG" message="Your delete request has failed" />);
+        notify(<ToastNotification kind="error" title="SOMETHING'S WRONG" subtitle="Your delete request has failed" />);
         return;
       });
   };
@@ -110,7 +110,7 @@ export class WorkflowsHome extends Component {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
-            <LoadingAnimation theme="bmrg-flow" />
+            <LoadingAnimation />
           </div>
         </div>
       );

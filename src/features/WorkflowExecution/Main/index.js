@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import { DiagramWidget } from "@boomerang/boomerang-dag";
-import LoadingAnimation from "@boomerang/boomerang-components/lib/LoadingAnimation";
+import { DiagramWidget } from "@projectstorm/react-diagrams";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import NavigateBack from "Components/NavigateBack";
 import TimeProgressBar from "Components/TimeProgressBar";
 import DiagramApplication from "Utilities/DiagramApplication";
@@ -64,7 +64,7 @@ class Main extends Component {
                 maxNumberPointsPerLink={0}
               />
             ) : (
-              <LoadingAnimation theme="bmrg-flow" message="Your workflow will be with you shortly" />
+              <LoadingAnimation message="Your workflow will be with you shortly" />
             )}
           </div>
         }

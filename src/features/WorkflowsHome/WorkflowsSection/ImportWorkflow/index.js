@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import queryString from "query-string";
 import { actions as importWorkflowActions } from "State/importWorkflow";
-import Modal from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import { notify, Notification } from "@boomerang/boomerang-components/lib/Notifications";
+import { notify, ToastNotification, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import { Upload16 } from "@carbon/icons-react";
 import ImportAttachment from "./ImportAttachment";
 import ImportConfirm from "./ImportConfirm";
@@ -21,14 +20,15 @@ class ImportWorkflow extends Component {
   };
 
   handleImportWorkflow = (data, isUpdate, closeModal) => {
+    const query = queryString.stringify({ update: isUpdate, flowTeamId: isUpdate ? undefined : this.props.teamId });
     return this.props.importWorkflowActions
-      .post(`${BASE_SERVICE_URL}/workflow/import?update=${isUpdate}`, JSON.parse(data))
+      .post(`${BASE_SERVICE_URL}/workflow/import?${query}`, JSON.parse(data))
       .then(() => {
         notify(
-          <Notification
-            type="success"
+          <ToastNotification
+            kind="success"
             title={` ${isUpdate ? "Update" : "Import"} Workflow`}
-            message={`Workflow successfully ${isUpdate ? "updated" : "imported"}`}
+            subtitle={`Workflow successfully ${isUpdate ? "updated" : "imported"}`}
           />
         );
         closeModal();
@@ -49,35 +49,32 @@ class ImportWorkflow extends Component {
     };
 
     return (
-      <Modal
-        modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => (
-          <button>
+      <ModalFlow
+        confirmModalProps={{
+          title: "Close this?",
+          children: "Your request will not be saved"
+        }}
+        modalHeaderProps={{
+          title: "Workflow Import",
+          subtitle: "Import your own workflow"
+        }}
+        modalTrigger={({ openModal }) => (
+          <button onClick={openModal}>
             <Upload16 data-tip data-for={this.props.teamId} className="b-workflow-import__icon" alt="Import Workflow" />
           </button>
         )}
+        progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
         initialState={initialState}
-        theme="bmrg-flow"
-        modalContent={(closeModal, rest) => (
-          <ModalFlow
-            headerTitle="Workflow Import"
-            headerSubtitle="Import your own workflow"
-            closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
-            theme="bmrg-flow"
-            {...rest}
-          >
-            <ImportType />
-            <ImportAttachment />
-            <ImportConfirm
-              fetchTeams={this.props.fetchTeams}
-              handleImportWorkflow={this.handleImportWorkflow}
-              importWorkflowActions={this.props.importWorkflowActions}
-              importWorkflowState={this.props.importWorkflowState}
-            />
-          </ModalFlow>
-        )}
-      />
+      >
+        <ImportType />
+        <ImportAttachment />
+        <ImportConfirm
+          fetchTeams={this.props.fetchTeams}
+          handleImportWorkflow={this.handleImportWorkflow}
+          importWorkflowActions={this.props.importWorkflowActions}
+          importWorkflowState={this.props.importWorkflowState}
+        />
+      </ModalFlow>
     );
   }
 }

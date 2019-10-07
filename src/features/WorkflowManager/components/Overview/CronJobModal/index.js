@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
-import { ComboBox, TextInput } from "@boomerang/carbon-addons-boomerang-react";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalContentHeader from "@boomerang/boomerang-components/lib/ModalContentHeader";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import { ComboBox, TextInput, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import "./styles.scss";
 
 //Timezones that don't have a match in Java and can't be saved via the service
@@ -38,13 +35,13 @@ export default class CronJobModal extends Component {
   }
 
   handleOnChange = (e, handleChange) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     this.validateCron(e.target.value);
     handleChange(e);
   };
 
   handleTimeChange = (selectedItem, id, setFieldValue) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     setFieldValue(id, selectedItem);
   };
 
@@ -72,6 +69,7 @@ export default class CronJobModal extends Component {
   handleOnSave = values => {
     this.props.handleOnChange(values.cronExpression, "schedule");
     this.props.handleOnChange(values.timeZone.value ? values.timeZone.value : this.state.defaultTimeZone, "timezone");
+    this.props.setShouldConfirmModalClose(false);
     this.props.closeModal();
   };
 
@@ -96,11 +94,8 @@ export default class CronJobModal extends Component {
           const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
 
           return (
-            <Form>
-              <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-flow" />
-              <ModalContentBody
-                style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}
-              >
+            <ModalFlowForm onSubmit={e => e.preventDefault()}>
+              <ModalBody style={{ maxWidth: "40rem", margin: "0 2rem", flexDirection: "column", overflow: "visible" }}>
                 <div className="b-cron-fieldset">
                   <div className="b-cron">
                     <TextInput
@@ -136,16 +131,20 @@ export default class CronJobModal extends Component {
                     />
                   </div>
                 </div>
-              </ModalContentBody>
-              <ModalContentFooter>
-                <ModalConfirmButton
-                  text="SAVE"
-                  theme="bmrg-flow"
+              </ModalBody>
+              <ModalFooter style={{ bottom: "0", position: "absolute", width: "100%" }}>
+                <Button kind="secondary" type="button" onClick={this.props.closeModal}>
+                  Cancel
+                </Button>
+                <Button
                   disabled={!isValid || errorMessage} //disable if the form is invalid or if there is an error message
                   type="submit"
-                />
-              </ModalContentFooter>
-            </Form>
+                  onClick={() => this.handleOnSave(values)}
+                >
+                  Save
+                </Button>
+              </ModalFooter>
+            </ModalFlowForm>
           );
         }}
       </Formik>

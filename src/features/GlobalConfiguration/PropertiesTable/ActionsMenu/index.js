@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
-import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
-import AlertModalWrapper from "@boomerang/boomerang-components/lib/AlertModal";
+import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
 import CreateEditPropertiesModal from "../CreateEditPropertiesModal";
 import "./actionMenu.module.scss";
 
@@ -12,7 +11,8 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty, addProper
   const menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => setEditModalIsOpen(true)
+      onClick: () => setEditModalIsOpen(true),
+      primaryFocus: true
     },
     {
       itemText: "Delete",
@@ -32,6 +32,7 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty, addProper
         ariaLabel="Overflow menu"
         iconDescription="Overflow menu icon"
         data-testid="configuration-property-table-overflow-menu"
+        flipped
       >
         {menuOptions.map((option, index) => (
           <OverflowMenuItem key={index} {...option} />
@@ -49,25 +50,24 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty, addProper
         />
       )}
       {deleteModalIsOpen && (
-        <AlertModalWrapper
-          isOpen
-          modalContent={closeModal => (
-            <ConfirmModal
-              closeModal={() => {
-                setDeleteModalIsOpen(false);
-              }}
-              affirmativeAction={() => {
-                deleteProperty(property);
-                setDeleteModalIsOpen(false);
-              }}
-              title={`DELETE ${property.label.toUpperCase()}?`}
-              subTitleTop="It will be gone. Forever."
-              negativeText="NO"
-              affirmativeText="YES"
-              theme="bmrg-flow"
-            />
-          )}
-        />
+        <ConfirmModal
+          affirmativeAction={() => {
+            deleteProperty(property);
+            setDeleteModalIsOpen(false);
+          }}
+          negativeText="NO"
+          affirmativeText="YES"
+          title={`DELETE ${property.label.toUpperCase()}?`}
+          onCloseModal={() => {
+            setDeleteModalIsOpen(false);
+          }}
+          isOpen={deleteModalIsOpen}
+          negativeAction={() => {
+            setDeleteModalIsOpen(false);
+          }}
+        >
+          <div>It will be gone. Forever.</div>
+        </ConfirmModal>
       )}
     </>
   );
