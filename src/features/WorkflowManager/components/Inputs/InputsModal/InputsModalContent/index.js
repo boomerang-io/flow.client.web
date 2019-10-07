@@ -97,8 +97,7 @@ class InputsModalContent extends Component {
           this.props.updateInputs({ title: "Edit Input", message: "Successfully edited input", type: "edit" })
         )
         .then(() => {
-          this.props.setShouldConfirmModalClose(false);
-          this.props.closeModal();
+          this.props.forceCloseModal();
         });
     } else {
       new Promise(resolve => resolve(this.props.workflowActions.createWorkflowInput(inputProperties)))
@@ -106,8 +105,7 @@ class InputsModalContent extends Component {
           this.props.updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
         )
         .then(() => {
-          this.props.setShouldConfirmModalClose(false);
-          this.props.closeModal();
+          this.props.forceCloseModal();
         });
     }
   };

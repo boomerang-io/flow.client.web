@@ -66,11 +66,11 @@ export default class CronJobModal extends Component {
     return { label: `${timeZone} (UTC ${moment.tz(timeZone).format("Z")})`, value: timeZone };
   };
 
-  handleOnSave = values => {
+  handleOnSave = (e, values) => {
+    e.preventDefault();
     this.props.handleOnChange(values.cronExpression, "schedule");
     this.props.handleOnChange(values.timeZone.value ? values.timeZone.value : this.state.defaultTimeZone, "timezone");
-    this.props.setShouldConfirmModalClose(false);
-    this.props.closeModal();
+    this.props.forceCloseModal();
   };
 
   render() {
@@ -94,7 +94,7 @@ export default class CronJobModal extends Component {
           const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
 
           return (
-            <ModalFlowForm onSubmit={e => e.preventDefault()}>
+            <ModalFlowForm>
               <ModalBody style={{ maxWidth: "40rem", margin: "0 2rem", flexDirection: "column", overflow: "visible" }}>
                 <div className="b-cron-fieldset">
                   <div className="b-cron">
@@ -139,7 +139,9 @@ export default class CronJobModal extends Component {
                 <Button
                   disabled={!isValid || errorMessage} //disable if the form is invalid or if there is an error message
                   type="submit"
-                  onClick={() => this.handleOnSave(values)}
+                  onClick={e => {
+                    this.handleOnSave(e, values);
+                  }}
                 >
                   Save
                 </Button>
