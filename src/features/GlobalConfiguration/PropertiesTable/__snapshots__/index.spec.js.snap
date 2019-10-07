@@ -89,6 +89,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
         </div>
         <button
           class="bx--btn bx--btn--field bx--btn--primary"
+          data-testid="create-global-configurations-property-button"
           style="width: 12rem;"
           tabindex="0"
           type="button"

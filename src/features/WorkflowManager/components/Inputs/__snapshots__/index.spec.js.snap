@@ -155,6 +155,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
       >
         <button
           class="b-workflow-input-create__plus"
+          data-testid="create-new-workflow-input-button"
         >
           <svg
             aria-hidden="true"

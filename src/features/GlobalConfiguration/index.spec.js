@@ -51,13 +51,13 @@ describe("GlobalConfigurationContainer --- RTL", () => {
   });
 
   it("Opens create property modal", async () => {
-    const { getByText, queryByText } = render(<GlobalConfigurationContainer {...props} />);
+    const { getByTestId, queryByText } = render(<GlobalConfigurationContainer {...props} />);
     expect(queryByText(/CREATE PROPERTY/)).not.toBeInTheDocument();
 
-    const modalTrigger = getByText(/Create Property/i);
+    const modalTrigger = getByTestId("create-global-configurations-property-button");
     fireEvent.click(modalTrigger);
 
-    expect(queryByText(/CREATE PROPERTY/)).toBeInTheDocument();
+    expect(queryByText(/Cancel/)).toBeInTheDocument();
   });
 
   it("Opens edit property modal", async () => {

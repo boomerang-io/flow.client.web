@@ -94,6 +94,7 @@ exports[`GlobalConfigurationContainer --- Snapshot Test Capturing Snapshot of Gl
           </div>
           <button
             class="bx--btn bx--btn--field bx--btn--primary"
+            data-testid="create-global-configurations-property-button"
             style="width: 12rem;"
             tabindex="0"
             type="button"

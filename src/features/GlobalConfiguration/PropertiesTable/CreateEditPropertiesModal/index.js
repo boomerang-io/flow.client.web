@@ -50,6 +50,7 @@ class CreateEditPropertiesModal extends Component {
               style={{ width: "12rem" }}
               size="field"
               onClick={openModal}
+              data-testid="create-global-configurations-property-button"
             >
               Create Property
             </Button>

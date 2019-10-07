@@ -25,7 +25,11 @@ class InputsModal extends Component {
         ))
       : (output = (
           <div className="b-workflow-input-create">
-            <button className="b-workflow-input-create__plus" onClick={openModal}>
+            <button
+              className="b-workflow-input-create__plus"
+              onClick={openModal}
+              data-testid="create-new-workflow-input-button"
+            >
               <Add32 className="b-workflow-input-create__plus-icon" />
             </button>
             Create New Property
