@@ -5,10 +5,9 @@ import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
 import { PortWidget } from "@projectstorm/react-diagrams";
-import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import DisplayForm from "Components/DisplayForm";
-import pencilIcon from "./pencil.svg";
+import { Close16, Edit16 } from "@carbon/icons-react";
 import switchSVG from "Assets/svg/parent-relationship_32.svg";
 import "./styles.scss";
 
@@ -40,7 +39,11 @@ export class SwitchNode extends Component {
   };
 
   renderDeleteNode() {
-    return <CloseModalButton className="b-switchNode__delete" onClick={this.handleOnDelete} />;
+    return (
+      <button className="b-switchNode__delete" onClick={this.handleOnDelete}>
+        <Close16 alt="Delete switch node" />
+      </button>
+    );
   }
 
   renderConfigureNode() {
@@ -55,7 +58,7 @@ export class SwitchNode extends Component {
         }}
         modalTrigger={({ openModal }) => (
           <button className="b-switchNode__edit" onClick={openModal}>
-            <img src={pencilIcon} alt="Switch node type" />
+            <Edit16 alt="Edit switch node" />
           </button>
         )}
       >
@@ -75,6 +78,7 @@ export class SwitchNode extends Component {
   render() {
     return (
       <div className="b-switchNode">
+        <img src={switchSVG} className="b-switchNode__img" alt="Task node type" />
         <h1 className="b-switchNode__title">
           {this.props.nodeConfig.inputs && this.props.nodeConfig.inputs.value
             ? this.props.nodeConfig.inputs.value
@@ -82,11 +86,8 @@ export class SwitchNode extends Component {
         </h1>
         <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
         <PortWidget className="b-switchNode-port --right" name="right" node={this.props.node} />
-        {this.renderDeleteNode()}
-        <button>
-          <img src={switchSVG} className="b-switchNode__img" alt="Task node type" />
-        </button>
         {this.renderConfigureNode()}
+        {this.renderDeleteNode()}
       </div>
     );
   }

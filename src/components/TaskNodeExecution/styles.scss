@@ -1,4 +1,5 @@
 @import "~Styles/variables";
+@import "~Styles/mixins";
 @import "~@boomerang/boomerang-styles/lib/colors";
 
 .c-workflow-diagram-execution {
@@ -10,13 +11,12 @@
 .b-task-node {
   display: flex;
   justify-content: center;
-  align-items: center;
   background: $lightest-gray;
-  border-radius: 0.25rem;
-  width: 16rem;
-  height: 8rem;
+  width: 13.75rem;
+  height: 5rem;
+  padding: 1rem;
   position: relative;
-  border: 1px solid $teal-20;
+  border: 1px solid $interactive-01;
 
   .b-task-node__progress-bar {
     display: none;
@@ -74,11 +74,28 @@
   }
 
   .b-task-node__title {
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 400;
-    color: $dark-blue;
-    letter-spacing: 0.1675rem;
+    height: 1.125rem;
+    color: $text-01;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    margin: 0;
+    width: 90%;
+    @include text-overflow-ellipsis();
+  }
+
+  .b-task-node__img {
+    bottom: 1rem;
+    left: 1.5rem;
+    pointer-events: none;
+  }
+
+  .b-task-node__subtitle {
+    height: 1.125rem;
+    color: $text-01;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    width: 90%;
+    @include text-overflow-ellipsis();
   }
 
   .b-task-node-port {
@@ -87,19 +104,21 @@
     width: 2rem;
 
     &.--right {
-      background-color: $teal;
+      background-color: $interactive-01;
       right: -2rem;
+      top: 1.25rem;
       border-bottom-right-radius: 50%;
       border-top-right-radius: 50%;
-      background-image: url("../../assets/icons/chevron.svg");
+      background-image: url("../../assets/icons/chevron_white.svg");
       background-position: center;
       background-repeat: no-repeat;
     }
     &.--left {
-      background-color: $teal-10;
+      background-color: #b3e6ff;
       border-bottom-left-radius: 50%;
       border-top-left-radius: 50%;
       left: -2rem;
+      top: 1.25rem;
       background-image: url("../../assets/icons/chevron.svg");
       background-position: center;
       background-repeat: no-repeat;
@@ -107,13 +126,6 @@
     &:hover {
       filter: brightness(110%);
     }
-  }
-
-  .b-task-node__img {
-    bottom: 1rem;
-    position: absolute;
-    left: 1.5rem;
-    pointer-events: none;
   }
 }
 

@@ -16,7 +16,7 @@
   flex-grow: 1;
 
   .srd-demo-canvas {
-    background-color: $text-area-gray !important;
+    background-color: $ui-background !important;
   }
 
   .srd-diagram {
@@ -24,7 +24,7 @@
   }
 
   .srd-default-link path {
-    stroke: $status-teal;
+    stroke: $interactive-01;
   }
 }
 

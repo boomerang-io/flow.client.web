@@ -1,17 +1,16 @@
 @import "~Styles/variables";
 @import "~@boomerang/boomerang-styles/lib/colors";
 
-.b-navigation-links {
-  position: relative;
-  padding: 0 1rem 0 1rem;
-  display: flex;
+.links {
   align-items: center;
-  height: 3rem;
+  display: flex;
+  margin-top: 2rem;
+  position: relative;
 }
 
-.b-navigation-links__link {
+.link {
   border-bottom: 2px solid #b9bfc7;
-  color: $text-01;
+  color: $icon-02;
   font-size: 0.875rem;
   letter-spacing: 0.16px;
   line-height: 1.125rem;
@@ -19,6 +18,7 @@
 
   &.--active {
     border-bottom: 2px solid $support-02;
+    color: $text-01;
     font-weight: 600;
   }
 }

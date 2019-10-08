@@ -11,20 +11,11 @@
   margin: 0 2.5rem;
 }
 
-.s-version-switcher-text {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-right: 1rem;
-}
-
 .c-version-switcher-buttons {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 10rem;
+  width: 13.75rem;
   height: 100%;
 }
 
@@ -34,14 +25,24 @@
   justify-content: space-between;
   width: 4rem;
   height: 100%;
+  button {
+    line-height: 0;
+  }
 }
 
 .b-version-switcher-buttons__button {
-  height: 1.25rem;
+  height: 1.5rem;
+  width: 1.5rem;
   cursor: pointer;
 
   &.--disabled {
     opacity: 0.3;
     cursor: default;
   }
+}
+
+.b-version-switcher-buttons__text {
+  color: $text-01;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
 }

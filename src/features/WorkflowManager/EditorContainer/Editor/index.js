@@ -67,6 +67,7 @@ class WorkflowEditor extends Component {
       createNode,
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
+      location,
       match,
       isModalOpen,
       teamsState,
@@ -77,7 +78,7 @@ class WorkflowEditor extends Component {
     const { revisionCount } = workflow.data;
     const { version } = workflowRevision;
     const workflowLoading = workflowRevision.isFetching || workflowRevision.isCreating;
-
+    console.log(this.props.location);
     return (
       <>
         <FeatureHeader>
@@ -90,7 +91,7 @@ class WorkflowEditor extends Component {
             includeCreateNewVersionComment={true || version === revisionCount}
             includeResetVersionAlert={version < revisionCount}
             includeVersionSwitcher
-            includeZoom
+            includeZoom={location.pathname.includes("designer")}
             revisionCount={workflow.data.revisionCount}
             currentRevision={workflowRevision.version}
             fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}

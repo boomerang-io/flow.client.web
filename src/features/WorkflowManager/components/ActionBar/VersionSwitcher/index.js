@@ -29,47 +29,39 @@ class VersionSwitcher extends Component {
 
   renderBackButtons = enabled => {
     return (
-      <ul className="b-version-switcher-buttons">
-        <li>
-          <button disabled={!enabled} onClick={this.fastBackVersion}>
-            <PageFirst16
-              className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
-              alt="first version"
-            />
-          </button>
-        </li>
-        <li>
-          <button disabled={!enabled} onClick={this.backVersion}>
-            <ChevronLeft16
-              className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
-              alt="back one version"
-            />
-          </button>
-        </li>
-      </ul>
+      <div className="b-version-switcher-buttons">
+        <button disabled={!enabled} onClick={this.fastBackVersion}>
+          <PageFirst16
+            className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
+            alt="first version"
+          />
+        </button>
+        <button disabled={!enabled} onClick={this.backVersion}>
+          <ChevronLeft16
+            className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
+            alt="back one version"
+          />
+        </button>
+      </div>
     );
   };
 
   renderForwardButtons = enabled => {
     return (
-      <ul className="b-version-switcher-buttons">
-        <li>
-          <button disabled={!enabled} onClick={this.forwardVersion}>
-            <ChevronRight16
-              className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
-              alt="forward one version"
-            />
-          </button>
-        </li>
-        <li>
-          <button disabled={!enabled} onClick={this.fastForwardVersion}>
-            <PageLast16
-              className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
-              alt="last version"
-            />
-          </button>
-        </li>
-      </ul>
+      <div className="b-version-switcher-buttons">
+        <button disabled={!enabled} onClick={this.forwardVersion}>
+          <ChevronRight16
+            className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
+            alt="forward one version"
+          />
+        </button>
+        <button disabled={!enabled} onClick={this.fastForwardVersion}>
+          <PageLast16
+            className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
+            alt="last version"
+          />
+        </button>
+      </div>
     );
   };
 
@@ -78,11 +70,9 @@ class VersionSwitcher extends Component {
 
     return (
       <div className="c-version-switcher">
-        <div className="s-version-switcher-text">
-          Version {currentRevision} of {revisionCount !== 0 ? revisionCount : 1}
-        </div>
         <div className="c-version-switcher-buttons">
           {this.renderBackButtons(currentRevision > 1)}
+          <p className="b-version-switcher-buttons__text">{`Version ${currentRevision || 1}`}</p>
           {this.renderForwardButtons(currentRevision < revisionCount)}
         </div>
       </div>

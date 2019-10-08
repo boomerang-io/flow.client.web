@@ -2,25 +2,52 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
 .container {
+  align-items: flex-end;
   display: flex;
-  right: 0;
-  top: 2.5rem;
-  z-index: 1;
+}
 
-  .bar {
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-  }
+.title {
+  color: $text-01;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.625rem;
+  margin: 0rem;
+}
 
-  .zoomIcons {
-    display: flex;
-    width: 7.5rem;
-    justify-content: space-between;
-  }
+.label {
+  color: $text-01;
+  font-size: 1.5 rem;
+  font-weight: 300;
+  line-height: 1.67rem;
+}
 
-  .zoomIcon {
-    height: 1.5rem;
-    width: 1.5rem;
-  }
+.bar {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.zoomIcons {
+  display: flex;
+  width: 4.5rem;
+  justify-content: space-between;
+  position: absolute;
+  right: 1.5rem;
+  bottom: 0.625rem;
+}
+
+.zoomButton {
+  line-height: 0rem;
+}
+
+.zoomIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: $ui-04;
+}
+
+.workflowButtons {
+  align-items: flex-end;
+  display: flex;
+  margin-left: auto;
 }

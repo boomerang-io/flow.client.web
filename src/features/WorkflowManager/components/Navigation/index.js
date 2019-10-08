@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { NavLink, withRouter } from "react-router-dom";
-import "./styles.scss";
+import styles from "./Navigation.module.scss";
 
 Navigation.propTypes = {
   location: PropTypes.object.isRequired,
@@ -10,17 +10,17 @@ Navigation.propTypes = {
 
 function Navigation({ location, match }) {
   return (
-    <nav className="b-navigation-links">
-      <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/designer`}>
+    <nav className={styles.links}>
+      <NavLink className={styles.link} activeClassName={styles["--active"]} to={`${match.url}/designer`}>
         Workflow
       </NavLink>
-      <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/properties`}>
+      <NavLink className={styles.link} activeClassName={styles["--active"]} to={`${match.url}/properties`}>
         Properties
       </NavLink>
-      <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/changes`}>
+      <NavLink className={styles.link} activeClassName={styles["--active"]} to={`${match.url}/changes`}>
         Change Log
       </NavLink>
-      <NavLink className="b-navigation-links__link" activeClassName="--active" to={`${match.url}/overview`}>
+      <NavLink className={styles.link} activeClassName={styles["--active"]} to={`${match.url}/overview`}>
         Settings
       </NavLink>
     </nav>

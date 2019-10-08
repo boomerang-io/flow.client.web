@@ -5,10 +5,9 @@ import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
 import { PortWidget } from "@projectstorm/react-diagrams";
-import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import DisplayForm from "Components/DisplayForm";
-import pencilIcon from "./pencil.svg";
+import { Close16, Edit16 } from "@carbon/icons-react";
 import mapTaskNametoIcon from "Utilities/taskIcons";
 import "./styles.scss";
 
@@ -40,7 +39,11 @@ export class TaskNode extends Component {
   };
 
   renderDeleteNode() {
-    return <CloseModalButton className="b-task-node__delete" onClick={this.handleOnDelete} />;
+    return (
+      <button className="b-task-node__delete">
+        <Close16 onClick={this.handleOnDelete} />
+      </button>
+    );
   }
 
   renderConfigureNode() {
@@ -56,7 +59,7 @@ export class TaskNode extends Component {
         }}
         modalTrigger={({ openModal }) => (
           <button className="b-task-node__edit" onClick={openModal}>
-            <img src={pencilIcon} alt="Task node type" />
+            <Edit16 alt="Task node type" />
           </button>
         )}
       >
@@ -77,12 +80,12 @@ export class TaskNode extends Component {
   render() {
     return (
       <div className="b-task-node">
+        {mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
         <h1 className="b-task-node__title">{this.props.task ? this.props.task.name : "Task"}</h1>
         <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} port="left" />
         <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} port="right" />
-        {this.renderDeleteNode()}
-        {mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
         {this.renderConfigureNode()}
+        {this.renderDeleteNode()}
       </div>
     );
   }

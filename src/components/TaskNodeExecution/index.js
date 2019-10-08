@@ -41,10 +41,10 @@ export class TaskNodeExecution extends Component {
           })}
         >
           <div className="b-task-node__progress-bar" />
+          {mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
           <h1 className="b-task-node__title">{this.props.task ? this.props.task.name : "Task"}</h1>
           <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} />
           <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} />
-          {mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
         </div>
       </button>
     );
