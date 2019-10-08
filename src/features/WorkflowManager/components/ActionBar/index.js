@@ -60,8 +60,6 @@ class ActionBar extends Component {
     }
 
     const zoomFactor = diagramModel.getZoomLevel() / 100;
-    //const currentTarget = Array.from(document.getElementsByClassName("srd-diagram srd-demo-canvas"))[0];
-    //const boundingRect = currentTarget.getBoundingClientRect();
     const boundingRect = this.props.diagramBoundingClientRect;
     const clientWidth = boundingRect.width;
     const clientHeight = boundingRect.height;
@@ -177,6 +175,8 @@ class ActionBar extends Component {
 
     return (
       <div className="c-action-bar">
+        <p>WorkflowEditor</p>
+        <h1>Name here</h1>
         <div className="b-action-bar">
           {includeZoom && [
             <Button iconOnly className="b-action-bar__zoom" onClick={this.handleZoomDecrease} key="out" kind="ghost">
