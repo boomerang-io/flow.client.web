@@ -1,7 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { ModalContentBody, ModalContentFooter, ModalConfirmButton } from "@boomerang/boomerang-components";
 import { Controlled as CodeMirrorReact } from "react-codemirror2";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
@@ -19,7 +18,7 @@ import "codemirror/addon/fold/indent-fold.js";
 import "codemirror/addon/fold/comment-fold.js";
 import "codemirror/addon/comment/comment.js";
 import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16 } from "@carbon/icons-react";
-import { Toolbar, ToolbarItem, Search, Dropdown, Button } from "carbon-components-react";
+import { ModalBody, ModalFooter, Toolbar, ToolbarItem, Search, Dropdown, Button } from "carbon-components-react";
 import CodeMirror from "codemirror";
 import "./styles.scss";
 
@@ -76,9 +75,11 @@ const TextAreaView = props => {
   }, [props.autoSuggestions]);
 
   const saveValue = () => {
+    props.setShouldConfirmModalClose(false);
     props.setTextAreaValue(value);
     props.formikSetFieldValue(value);
-    props.closeModal.call();
+    //props.closeModal.call();
+    props.closeModal();
   };
 
   const undo = () => {
@@ -165,7 +166,7 @@ const TextAreaView = props => {
 
   return (
     <>
-      <ModalContentBody
+      <ModalBody
         style={{
           maxWidth: "80rem",
           maxHeight: "42rem",
@@ -339,7 +340,7 @@ const TextAreaView = props => {
             ...languageParams
           }}
           onBeforeChange={(editor, data, value) => {
-            props.shouldConfirmExit(true);
+            props.setShouldConfirmModalClose(true);
             setValue(value);
           }}
           //TB: trying to get autocomplete to work
@@ -353,10 +354,10 @@ const TextAreaView = props => {
             }
           }}
         />
-      </ModalContentBody>
-      <ModalContentFooter>
-        <ModalConfirmButton text="UPDATE" onClick={saveValue} theme="bmrg-flow" />
-      </ModalContentFooter>
+      </ModalBody>
+      <ModalFooter>
+        <Button onClick={saveValue}>UPDATE</Button>
+      </ModalFooter>
     </>
   );
 };
@@ -366,7 +367,7 @@ TextAreaView.propTypes = {
     name: PropTypes.string.isRequired
   }).isRequired,
   setTextAreaValue: PropTypes.func.isRequired,
-  shouldConfirmExit: PropTypes.func.isRequired,
+  setShouldConfirmModalClose: PropTypes.func.isRequired,
   value: PropTypes.func.isRequired
 };
 

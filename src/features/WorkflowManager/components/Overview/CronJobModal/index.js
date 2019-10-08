@@ -2,13 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
-import { ComboBox, TextInput } from "@boomerang/carbon-addons-boomerang-react";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalContentHeader from "@boomerang/boomerang-components/lib/ModalContentHeader";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import { ComboBox, TextInput, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import "./styles.scss";
 
 //Timezones that don't have a match in Java and can't be saved via the service
@@ -38,13 +35,13 @@ export default class CronJobModal extends Component {
   }
 
   handleOnChange = (e, handleChange) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     this.validateCron(e.target.value);
     handleChange(e);
   };
 
   handleTimeChange = (selectedItem, id, setFieldValue) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     setFieldValue(id, selectedItem);
   };
 
@@ -69,10 +66,11 @@ export default class CronJobModal extends Component {
     return { label: `${timeZone} (UTC ${moment.tz(timeZone).format("Z")})`, value: timeZone };
   };
 
-  handleOnSave = values => {
+  handleOnSave = (e, values) => {
+    e.preventDefault();
     this.props.handleOnChange(values.cronExpression, "schedule");
     this.props.handleOnChange(values.timeZone.value ? values.timeZone.value : this.state.defaultTimeZone, "timezone");
-    this.props.closeModal();
+    this.props.forceCloseModal();
   };
 
   render() {
@@ -96,56 +94,57 @@ export default class CronJobModal extends Component {
           const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
 
           return (
-            <Form>
-              <ModalContentHeader title="CRON Schedule" subtitle="" theme="bmrg-flow" />
-              <ModalContentBody
-                style={{ maxWidth: "25rem", margin: "0 auto", flexDirection: "column", overflow: "visible" }}
-              >
-                <div className="b-cron-fieldset">
-                  <div className="b-cron">
-                    <TextInput
-                      id="cronExpression"
-                      labelText="CRON Expression"
-                      value={values.cronExpression}
-                      placeholder="Enter a CRON Expression"
-                      onBlur={handleBlur}
-                      onChange={e => this.handleOnChange(e, handleChange)}
-                      invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
-                      invalidText={errorMessage}
-                    />
-                    {
-                      // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
-                    }
-                    {values.cronExpression && message && <div className="b-cron-fieldset__message">{message}</div>}
-                  </div>
-                  <div className="b-timezone">
-                    <ComboBox
-                      id="timeZone"
-                      items={this.timezoneOptions}
-                      initialSelectedItem={values.timeZone}
-                      onChange={({ selectedItem }) =>
-                        this.handleTimeChange(
-                          selectedItem !== null ? selectedItem : { label: "", value: "" },
-                          "timeZone",
-                          setFieldValue
-                        )
-                      }
-                      titleText="Timezone"
-                      placeholder="Timezone"
-                      tooltipContent="We make an educated guess at your timezone as a default value"
-                    />
-                  </div>
+            <ModalFlowForm>
+              <ModalBody>
+                <div className="b-cron">
+                  <TextInput
+                    id="cronExpression"
+                    labelText="CRON Expression"
+                    value={values.cronExpression}
+                    placeholder="Enter a CRON Expression"
+                    onBlur={handleBlur}
+                    onChange={e => this.handleOnChange(e, handleChange)}
+                    invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
+                    invalidText={errorMessage}
+                  />
+                  {
+                    // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
+                  }
+                  {values.cronExpression && message && <div className="b-cron__message">{message}</div>}
                 </div>
-              </ModalContentBody>
-              <ModalContentFooter>
-                <ModalConfirmButton
-                  text="SAVE"
-                  theme="bmrg-flow"
+                <div className="b-timezone">
+                  <ComboBox
+                    id="timeZone"
+                    items={this.timezoneOptions}
+                    initialSelectedItem={values.timeZone}
+                    onChange={({ selectedItem }) =>
+                      this.handleTimeChange(
+                        selectedItem !== null ? selectedItem : { label: "", value: "" },
+                        "timeZone",
+                        setFieldValue
+                      )
+                    }
+                    titleText="Timezone"
+                    placeholder="Timezone"
+                    helperText="We make an educated guess at your timezone as a default value"
+                  />
+                </div>
+              </ModalBody>
+              <ModalFooter style={{ bottom: "0", position: "absolute", width: "100%" }}>
+                <Button kind="secondary" type="button" onClick={this.props.closeModal}>
+                  Cancel
+                </Button>
+                <Button
                   disabled={!isValid || errorMessage} //disable if the form is invalid or if there is an error message
                   type="submit"
-                />
-              </ModalContentFooter>
-            </Form>
+                  onClick={e => {
+                    this.handleOnSave(e, values);
+                  }}
+                >
+                  Save
+                </Button>
+              </ModalFooter>
+            </ModalFlowForm>
           );
         }}
       </Formik>

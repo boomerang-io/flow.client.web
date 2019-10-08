@@ -10,6 +10,9 @@ const props = {
 };
 
 describe("PropertiesTable --- Snapshot Test", () => {
+  beforeEach(() => {
+    document.body.setAttribute("id", "app");
+  });
   it("Capturing Snapshot of PropertiesTable", () => {
     const { baseElement } = rtlRender(<PropertiesTable {...props} />);
     expect(baseElement).toMatchSnapshot();

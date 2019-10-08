@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Error from "@boomerang/boomerang-components/lib/Error";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
 import { TextArea } from "@boomerang/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import Error from "@boomerang/boomerang-components/lib/Error";
 
 class VersionCommentForm extends Component {
   static propTypes = {
@@ -31,7 +29,7 @@ class VersionCommentForm extends Component {
         error: error
       }),
       () => {
-        this.props.shouldConfirmExit(true);
+        this.props.setShouldConfirmModalClose(true);
         this.props.handleOnChange(value);
       }
     );
@@ -42,6 +40,7 @@ class VersionCommentForm extends Component {
       this.props
         .onSave()
         .then(() => {
+          this.props.setShouldConfirmModalClose(false);
           this.props.closeModal();
         })
         .catch(() => {
@@ -55,9 +54,7 @@ class VersionCommentForm extends Component {
 
     return (
       <>
-        <ModalContentBody
-          style={{ maxWidth: "35rem", margin: "auto", height: "24rem", padding: "2rem 5rem", display: "block" }}
-        >
+        <ModalBody>
           {this.state.saveError ? (
             <Error theme="bmrg-flow" />
           ) : (
@@ -73,15 +70,15 @@ class VersionCommentForm extends Component {
               value={this.state.versionComment}
             />
           )}
-        </ModalContentBody>
-        <ModalContentFooter>
-          <ModalConfirmButton
-            theme="bmrg-flow"
-            text="Create"
-            disabled={this.state.error || loading}
-            onClick={this.handleOnSave}
-          />
-        </ModalContentFooter>
+        </ModalBody>
+        <ModalFooter>
+          <Button kind="secondary" type="button" onClick={this.props.closeModal}>
+            Cancel
+          </Button>
+          <Button disabled={this.state.error || loading} onClick={this.handleOnSave}>
+            Create
+          </Button>
+        </ModalFooter>
       </>
     );
   }

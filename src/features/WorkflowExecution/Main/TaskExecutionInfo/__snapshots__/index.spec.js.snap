@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
-<body>
+<body
+  id="app"
+>
   <div>
     <aside
       class="c-step-side-info"
@@ -83,13 +85,11 @@ exports[`StepSideInfo --- Snapshot Capturing Snapshot of StepSideInfo 1`] = `
           <dd
             class="b-step-side-info-field__value"
           >
-            <div>
-              <button
-                class="s-task-log-trigger"
-              >
-                View
-              </button>
-            </div>
+            <button
+              class="s-task-log-trigger"
+            >
+              View
+            </button>
           </dd>
         </dl>
       </section>

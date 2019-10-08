@@ -11,16 +11,14 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { Button } from "carbon-components-react";
 import {
   ComboBox,
+  ConfirmModal,
+  ModalFlow,
   TextArea,
   TextInput,
   Toggle,
   notify,
   ToastNotification
 } from "@boomerang/carbon-addons-boomerang-react";
-import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
-import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
 import assets from "./assets";
@@ -110,9 +108,9 @@ export class Overview extends Component {
   };
 
   handleOnIamChange = value => {
-    //this.props.workflowActions.updateTriggersEvent({ value, key: "enableIAMIntegration" });
-    this.props.workflowActions.updateProperty({ value, key: "enableIAMIntegration" });
-    this.props.formikProps.setFieldValue("enableIAMIntegration", value);
+    //this.props.workflowActions.updateTriggersEvent({ value, key: "enableACCIntegration" });
+    this.props.workflowActions.updateProperty({ value, key: "enableACCIntegration" });
+    this.props.formikProps.setFieldValue("enableACCIntegration", value);
   };
 
   handleOnTopicChange = e => {
@@ -292,10 +290,12 @@ export class Overview extends Component {
                     <Tooltip place="top" id="webhook-token-refreshIcon">
                       Regenerate Token
                     </Tooltip>
-                    <AlertModal
-                      theme="bmrg-flow"
-                      ModalTrigger={() => (
-                        <button className="b-webhook-token__generate" type="button">
+                    <ConfirmModal
+                      affirmativeAction={this.generateToken}
+                      label="The existing token will be invalidated"
+                      title="Generate a new Webhook Token?"
+                      modalTrigger={({ openModal }) => (
+                        <button className="b-webhook-token__generate" type="button" onClick={openModal}>
                           <img
                             src={refreshIcon}
                             className="b-webhook-token__icon"
@@ -304,17 +304,6 @@ export class Overview extends Component {
                             alt="Regenerate token"
                           />
                         </button>
-                      )}
-                      modalContent={(closeModal, rest) => (
-                        <ConfirmModal
-                          closeModal={closeModal}
-                          affirmativeAction={this.generateToken}
-                          title="Generate a new Webhook Token?"
-                          subTitleTop="The existing token will be invalidated"
-                          cancelText="NO"
-                          affirmativeText="YES"
-                          {...rest}
-                        />
                       )}
                     />
                   </div>
@@ -333,41 +322,34 @@ export class Overview extends Component {
                   />
                 </div>
                 {get(workflow, "data.triggers.scheduler.enable", false) && (
-                  <ModalWrapper
-                    initialState={workflow.data}
-                    modalProps={{ shouldCloseOnOverlayClick: false }}
-                    theme="bmrg-flow"
-                    ModalTrigger={() => (
+                  <ModalFlow
+                    confirmModalProps={{
+                      title: "Are you sure?",
+                      children: "Your changes will not be saved"
+                    }}
+                    modalHeaderProps={{
+                      title: "Set Schedule",
+                      subtitle: "Configure a CRON schedule for your workflow"
+                    }}
+                    modalTrigger={({ openModal }) => (
                       <Button
                         iconDescription="Add"
                         renderIcon={SettingsAdjust20}
                         style={{ marginLeft: "2.2rem", width: "11rem" }}
                         size="field"
                         type="button"
+                        onClick={openModal}
                       >
                         Set Schedule
                       </Button>
                     )}
-                    modalContent={(closeModal, rest) => (
-                      <ModalFlow
-                        closeModal={closeModal}
-                        headerTitle="Set Schedule"
-                        confirmModalProps={{
-                          affirmativeAction: closeModal,
-                          theme: "bmrg-flow",
-                          subTitleTop: "Your changes will not be saved"
-                        }}
-                        {...rest}
-                      >
-                        <CronJobModal
-                          closeModal={closeModal}
-                          cronExpression={get(workflow, "data.triggers.scheduler.schedule", "")}
-                          handleOnChange={this.handleOnCronChange}
-                          timeZone={get(workflow, "data.triggers.scheduler.timezone", "")}
-                        />
-                      </ModalFlow>
-                    )}
-                  />
+                  >
+                    <CronJobModal
+                      cronExpression={get(workflow, "data.triggers.scheduler.schedule", "")}
+                      handleOnChange={this.handleOnCronChange}
+                      timeZone={get(workflow, "data.triggers.scheduler.timezone", "")}
+                    />
+                  </ModalFlow>
                 )}
               </div>
               {get(workflow, "data.triggers.scheduler.schedule", false) &&
@@ -408,9 +390,9 @@ export class Overview extends Component {
                   />
                   <div className="b-event-iamIntegration">
                     <Toggle
-                      id="enableIAMIntegration"
+                      id="enableACCIntegration"
                       labelText="Enable IBM Services ACC Integration"
-                      toggled={values.enableIAMIntegration}
+                      toggled={values.enableACCIntegration}
                       onToggle={checked => this.handleOnIamChange(checked)}
                       tooltipContent="Enable workflow to be triggered by ACC subscription"
                       tooltipProps={{ direction: "top" }}

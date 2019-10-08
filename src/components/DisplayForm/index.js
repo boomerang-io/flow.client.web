@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { transformAll } from "@overgear/yup-ast";
 import { AutoSuggest, DynamicFormik, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { TextInput as CarbonTextInput } from "carbon-components-react";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
+import { ModalFooter, Button } from "carbon-components-react";
 import Toggle from "./Toggle";
 import TextAreaModal from "Components/TextAreaModal";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
@@ -23,7 +22,7 @@ const AutoSuggestInput = props => {
 
 const TextAreaInput = props => {
   return (
-    <div key={props.id} style={{ position: "relative", cursor: "pointer" }}>
+    <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "2.125rem" }}>
       <TextAreaModal {...props} />
     </div>
   );
@@ -44,25 +43,26 @@ class DisplayForm extends Component {
 
   componentDidMount() {
     this.props.setIsModalOpen({ isModalOpen: true });
-    this.props.shouldConfirmExit(false);
+    this.props.setShouldConfirmModalClose(false);
   }
   componentWillUnmount() {
     this.props.setIsModalOpen({ isModalOpen: false });
   }
 
   formikSetFieldValue = (value, id, setFieldValue) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     setFieldValue(id, value);
   };
 
   formikHandleChange = (e, handleChange) => {
-    this.props.shouldConfirmExit(true);
+    this.props.setShouldConfirmModalClose(true);
     handleChange(e);
   };
 
   handleOnSave = values => {
     this.props.node.taskName = values.taskName;
     this.props.onSave(values);
+    this.props.setShouldConfirmModalClose(false);
     this.props.closeModal();
   };
 
@@ -209,9 +209,14 @@ class DisplayForm extends Component {
   };
 
   submitButton = ({ form, isValid }) => (
-    <ModalContentFooter>
-      <ModalConfirmButton form={form} theme="bmrg-flow" text="Apply" type="submit" disabled={!isValid} />
-    </ModalContentFooter>
+    <ModalFooter>
+      <Button kind="secondary" onClick={this.props.closeModal}>
+        Cancel
+      </Button>
+      <Button type="submit" disabled={!isValid}>
+        Apply
+      </Button>
+    </ModalFooter>
   );
 
   render() {
@@ -219,7 +224,7 @@ class DisplayForm extends Component {
 
     const otherTaskNames = taskNames.filter(name => name !== node.taskName);
     const inputs = [
-      { key: "taskName", label: "Task Name", placeholder: "Enter a task name", type: "taskName" },
+      { key: "taskName", labelText: "Task Name", placeholder: "Enter a task name", type: "taskName" },
       ...task.config
     ];
 
@@ -233,7 +238,7 @@ class DisplayForm extends Component {
           TextArea: TextAreaInput,
           Toggle
         }}
-        formProps={{ className: "c-display-form", id: "display-form" }}
+        formProps={{ className: "c-display-form", id: "display-form", style: { marginTop: "1rem" } }}
         initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
         inputs={inputs}
         inputsWrapperProps={{ className: "b-display-form__inputs" }}

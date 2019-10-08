@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
-import Modal from "react-modal";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import ConfigureSwitchModal from "./ConfigureSwitchModal";
 import pencilIcon from "./pencil.svg";
 import "./styles.scss";
@@ -127,7 +126,7 @@ class SwitchLink extends Component {
                   <button className="b-editswitch-button__img" onClick={this.openModal}>
                     <img src={pencilIcon} alt="Edit Switch Property" />
                   </button>
-                  <Modal
+                  {/*<Modal
                     className="bmrg--c-modal"
                     contentLabel="Modal"
                     documentRootTagId="app"
@@ -156,7 +155,30 @@ class SwitchLink extends Component {
                         setIsModalOpen={this.props.appActions.setIsModalOpen}
                       />
                     </ModalFlow>
-                  </Modal>
+                  </Modal>*/}
+                  <ModalFlow
+                    confirmModalProps={{
+                      title: "Are you sure?",
+                      children: "Your changes will not be saved"
+                    }}
+                    modalHeaderProps={{
+                      title: "Switch",
+                      subtitle: "Set it up the conditions"
+                    }}
+                    isOpen={this.state.modalIsOpen}
+                    onCloseModal={() => {
+                      this.setState({ modalIsOpen: false });
+                    }}
+                  >
+                    <ConfigureSwitchModal
+                      defaultState={this.state.defaultState}
+                      onSubmit={this.handleSave}
+                      switchCondition={this.state.switchCondition}
+                      updateDefaultState={this.updateDefaultState}
+                      updateSwitchState={this.updateSwitchState}
+                      setIsModalOpen={this.props.appActions.setIsModalOpen}
+                    />
+                  </ModalFlow>
                 </div>
               </foreignObject>
             </g>

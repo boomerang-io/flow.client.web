@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Table from "@boomerang/boomerang-components/lib/Table";
-import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
+import { NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
 import "./styles.scss";
 
 class PropertiesTable extends Component {

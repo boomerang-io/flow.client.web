@@ -1,58 +1,37 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-import { TextArea } from "@boomerang/boomerang-components";
-import ModalWrapper from "@boomerang/boomerang-components/lib/Modal";
-import TextAreaView from "./TextAreaView";
+import { ModalFlow, TextArea } from "@boomerang/carbon-addons-boomerang-react";
+import TextAreaView from "./TextAreaView/index.js";
 import "./styles.scss";
-
-const TextAreaContainer = ({ closeModal, setValue, title, ...rest }) => {
-  return (
-    <ModalFlow
-      headerTitle={`Update ${title}`}
-      theme="bmrg-flow"
-      closeModal={closeModal}
-      confirmModalProps={{
-        affirmativeAction: closeModal,
-        theme: "bmrg-flow",
-        subTitleTop: "Your input will not be saved"
-      }}
-      setTextAreaValue={setValue}
-      {...rest}
-    >
-      <TextAreaView />
-    </ModalFlow>
-  );
-};
 
 const TextAreaModal = props => {
   const [value, setValue] = useState(props.initialValue);
   return (
-    <ModalWrapper
-      className="c-task-text-area-modal"
-      modalTriggerProps={{ style: { width: "100%" } }}
-      ModalTrigger={() => (
-        <TextArea
-          id={props.item.key}
-          name={props.item.key}
-          alwaysShowTitle
-          title={props.item.label}
-          placeholder={props.item.description}
-          value={value}
-          readOnly
-        />
+    <ModalFlow
+      composedModalProps={{
+        containerClassName: "c-task-text-area-modal"
+      }}
+      modalHeaderProps={{
+        title: `Update ${props.item.label}`
+      }}
+      modalTrigger={({ openModal }) => (
+        /* eslint-disable-line */ <button onClick={openModal} className="bmrg-c-text-area-modal-wrapper" type="button">
+          <TextArea
+            id={props.item.key}
+            //name={props.item.key}
+            //helperText={props.item.key}
+            //title={props.item.label}
+            labelText={props.item.label}
+            placeholder={props.item.description}
+            value={value}
+            disabled
+            style={{ cursor: "pointer" }}
+          />
+        </button>
       )}
-      modalContent={(closeModal, rest) => (
-        <TextAreaContainer
-          closeModal={closeModal}
-          value={value}
-          setValue={setValue}
-          title={props.item.label}
-          {...rest}
-        />
-      )}
-      {...props}
-    />
+    >
+      <TextAreaView {...props} setTextAreaValue={setValue} />
+    </ModalFlow>
   );
 };
 

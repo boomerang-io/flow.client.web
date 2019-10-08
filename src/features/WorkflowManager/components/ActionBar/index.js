@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button } from "carbon-components-react";
-import AlertModal from "@boomerang/boomerang-components/lib/AlertModal";
-import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
-import Modal from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
+import { ConfirmModal, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
 import minusIcon from "./assets/minus.svg";
@@ -99,35 +96,27 @@ class ActionBar extends Component {
   determinePerformActionRender() {
     const {
       currentRevision,
+      loading,
       includeResetVersionAlert,
       includeCreateNewVersionComment,
       isValidOverview,
       performAction,
       performActionButtonText,
-      showActionButton,
-      loading
+      showActionButton
     } = this.props;
 
     if (includeResetVersionAlert) {
       return (
-        <AlertModal
-          modalProps={{ shouldCloseOnOverlayClick: false }}
-          ModalTrigger={() => (
+        <ConfirmModal
+          affirmativeAction={this.resetVersionToLatestWithMessage}
+          children="A new version will be created"
+          title={`Set version ${currentRevision} to be the latest?`}
+          modalTrigger={({ openModal }) => (
             <div style={{ minWidth: "14rem" }}>
-              <Button disabled={loading} iconDescription="Add" renderIcon={Add16} size="field">
+              <Button disabled={loading} iconDescription="Add" renderIcon={Add16} size="field" onClick={openModal}>
                 {performActionButtonText}
               </Button>
             </div>
-          )}
-          modalContent={closeModal => (
-            <ConfirmModal
-              title={`Set version ${currentRevision} to latest?`}
-              subTitleTop="A new version will be created"
-              closeModal={closeModal}
-              affirmativeAction={this.resetVersionToLatestWithMessage}
-              affirmativeText="Yes"
-              theme="bmrg-flow"
-            />
           )}
         />
       );
@@ -135,36 +124,29 @@ class ActionBar extends Component {
 
     if (includeCreateNewVersionComment) {
       return (
-        <Modal
-          modalProps={{ shouldCloseOnOverlayClick: false }}
-          ModalTrigger={() => (
+        <ModalFlow
+          confirmModalProps={{
+            title: "Are you sure?",
+            children: "A new version will not be created"
+          }}
+          modalHeaderProps={{
+            title: "Create New Version",
+            subtitle: "Enter a comment for record keeping"
+          }}
+          modalTrigger={({ openModal }) => (
             <div style={{ minWidth: "14rem" }}>
-              <Button iconDescription="Add" renderIcon={Add16} size="field">
+              <Button iconDescription="Add" renderIcon={Add16} size="field" onClick={openModal}>
                 {performActionButtonText}
               </Button>
             </div>
           )}
-          modalContent={(closeModal, ...rest) => (
-            <ModalFlow
-              closeModal={closeModal}
-              headerTitle="Create New Version"
-              headerSubtitle="Enter a comment for record keeping"
-              theme={"bmrg-flow"}
-              confirmModalProps={{
-                affirmativeAction: closeModal,
-                theme: "bmrg-flow",
-                subTitleTop: "A new version will not be created"
-              }}
-              {...rest}
-            >
-              <VersionCommentForm
-                onSave={performAction}
-                loading={loading}
-                handleOnChange={this.props.handleChangeLogReasonChange}
-              />
-            </ModalFlow>
-          )}
-        />
+        >
+          <VersionCommentForm
+            onSave={performAction}
+            loading={loading}
+            handleOnChange={this.props.handleChangeLogReasonChange}
+          />
+        </ModalFlow>
       );
     }
     if (showActionButton) {

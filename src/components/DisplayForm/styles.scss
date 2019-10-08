@@ -1,10 +1,14 @@
 @import "~Styles/variables";
 
 .c-display-form {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+
   .bx--bmrg-text-input,
   .bx--bmrg-select,
   .bx--bmrg-multi-select {
-    padding-bottom: 2.125rem;
+    padding-bottom: 1rem;
   }
 
   .bmrg--b-textarea__text {
@@ -13,12 +17,7 @@
 }
 
 .b-display-form__inputs {
-  display: flex;
-  flex-direction: column;
-  height: 26rem;
-  justify-content: flex-start;
-  margin: auto;
-  max-width: 35rem;
+  padding: 0rem 1rem;
   overflow-y: auto;
   width: 100%;
 }

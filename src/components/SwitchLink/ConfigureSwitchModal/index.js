@@ -1,11 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ModalContentBody from "@boomerang/boomerang-components/lib/ModalContentBody";
-import ModalContentFooter from "@boomerang/boomerang-components/lib/ModalContentFooter";
-import ModalConfirmButton from "@boomerang/boomerang-components/lib/ModalConfirmButton";
-import { TextArea, Toggle } from "@boomerang/carbon-addons-boomerang-react";
-// import TextArea from "@boomerang/boomerang-components/lib/TextArea";
-// import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import { ModalFlowForm, TextArea, Toggle } from "@boomerang/carbon-addons-boomerang-react";
 import "./styles.scss";
 
 class ConfigureSwitchModal extends React.Component {
@@ -43,10 +39,8 @@ class ConfigureSwitchModal extends React.Component {
     const { switchCondition } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <ModalContentBody
-          style={{ maxWidth: "25rem", height: "24rem", margin: "0 auto", display: "block", overflow: "visible" }}
-        >
+      <ModalFlowForm onSubmit={this.handleSubmit}>
+        <ModalBody>
           <Toggle
             aria-labelledby="toggle-default"
             id="default"
@@ -56,11 +50,12 @@ class ConfigureSwitchModal extends React.Component {
             labelText="Default?"
             helperText="This path will be taken when no others are matched line."
             onToggle={updateDefaultState}
+            style={{ padding: "1rem 0rem 1rem 0rem" }}
           />
 
           <div className="b-switch-customvalue">
             {!defaultState && (
-              <div>
+              <div style={{ padding: "1rem 0rem 1rem 0rem" }}>
                 <TextArea
                   id="property"
                   invalid={!switchCondition}
@@ -74,22 +69,22 @@ class ConfigureSwitchModal extends React.Component {
                 />
                 <div className="s-switch-customvalue-desc">
                   Enter the value(s) to match to take this arrow. Multiple values can be entered, one per line. Only one
-                  must match for this connection to be valid
+                  must match for this connection to be valid.
                 </div>
-                <div className="s-switch-customvalue-wildcard">* can be used as a wildcard</div>
+                <div className="s-switch-customvalue-wildcard">* can be used as a wildcard.</div>
               </div>
             )}
           </div>
-        </ModalContentBody>
-        <ModalContentFooter>
-          <ModalConfirmButton
-            disabled={!defaultState && !switchCondition}
-            text="SAVE"
-            theme="bmrg-flow"
-            type="submit"
-          />
-        </ModalContentFooter>
-      </form>
+        </ModalBody>
+        <ModalFooter>
+          <Button kind="secondary" type="button" onClick={this.props.closeModal}>
+            Cancel
+          </Button>
+          <Button disabled={!defaultState && !switchCondition} type="submit">
+            Save
+          </Button>
+        </ModalFooter>
+      </ModalFlowForm>
     );
   }
 }

@@ -6,8 +6,7 @@ import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
 import { actions as appActions } from "State/app";
 import sortBy from "lodash/sortBy";
-import NoDisplay from "@boomerang/boomerang-components/lib/NoDisplay";
-import { LoadingAnimation, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { LoadingAnimation, notify, ToastNotification, NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import SearchFilterBar from "Components/SearchFilterBar";
 import WorkflowsSection from "./WorkflowsSection";
@@ -110,7 +109,7 @@ export class WorkflowsHome extends Component {
       return (
         <div className="c-workflow-home">
           <div className="c-workflow-home-content">
-            <LoadingAnimation />
+            <LoadingAnimation centered />
           </div>
         </div>
       );

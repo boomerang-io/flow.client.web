@@ -20,6 +20,9 @@ const props = {
 };
 
 describe("WorkflowCard --- Snapshot", () => {
+  beforeEach(() => {
+    document.body.setAttribute("id", "app");
+  });
   it("Capturing Snapshot of WorkflowCard", () => {
     const { baseElement } = rtlRouterRender(<WorkflowCard {...props} />);
     expect(baseElement).toMatchSnapshot();

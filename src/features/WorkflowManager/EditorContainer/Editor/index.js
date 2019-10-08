@@ -94,8 +94,8 @@ class WorkflowEditor extends Component {
                   schedule: get(workflow, "data.triggers.scheduler.enable", false),
                   event: get(workflow, "data.triggers.event.enable", false),
                   topic: get(workflow, "data.triggers.event.topic", ""),
-                  //enableIAMIntegration: get(workflow, "data.triggers.event.enableIAMIntegration", false),
-                  enableIAMIntegration: get(workflow, "data.enableIAMIntegration", false),
+                  //enableACCIntegration: get(workflow, "data.triggers.event.enableACCIntegration", false),
+                  enableACCIntegration: get(workflow, "data.enableACCIntegration", false),
                   persistence: get(workflow, "data.enablePersistentStorage", false),
                   selectedTeam: activeTeamId
                     ? teamsState.data.find(team => team.id === activeTeamId)
@@ -112,7 +112,7 @@ class WorkflowEditor extends Component {
                   schedule: Yup.boolean(),
                   event: Yup.boolean(),
                   topic: Yup.string(),
-                  enableIAMIntegration: Yup.boolean(),
+                  enableACCIntegration: Yup.boolean(),
                   persistence: Yup.boolean()
                 })}
               >

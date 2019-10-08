@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import classnames from "classnames";
-import AlertModalWrapper from "@boomerang/boomerang-components/lib/AlertModal";
-import ConfirmModal from "@boomerang/boomerang-components/lib/ConfirmModal";
+import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import InputsModal from "./InputsModal";
-import { Add32, Close32, Edit32 } from "@carbon/icons-react";
+import { Close32 } from "@carbon/icons-react";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import "./styles.scss";
 
@@ -78,29 +77,19 @@ class Inputs extends Component {
                 </dl>
               )}
               {!input.readOnly ? (
-                <AlertModalWrapper
-                  ModalTrigger={() => (
-                    <button className="b-workflow-input__delete">
+                <ConfirmModal
+                  affirmativeAction={() => {
+                    this.deleteInput(input.key);
+                  }}
+                  children="It will be gone. Forever."
+                  title="Delete This Property?"
+                  modalTrigger={({ openModal }) => (
+                    <button className="b-workflow-input__delete" onClick={openModal}>
                       <Close32 data-tip data-for={`${input.id}`} className="b-workflow-input__delete-icon" />
                       <Tooltip id={`${input.id}`} place="top">
                         Delete Input
                       </Tooltip>
                     </button>
-                  )}
-                  modalContent={(closeModal, rest) => (
-                    <ConfirmModal
-                      closeModal={closeModal}
-                      affirmativeAction={() => {
-                        closeModal();
-                        this.deleteInput(input.key);
-                      }}
-                      title="DELETE THIS PROPERTY?"
-                      subTitleTop="It will be gone. Forever."
-                      cancelText="NO"
-                      affirmativeText="YES"
-                      theme="bmrg-flow"
-                      {...rest}
-                    />
                   )}
                 />
               ) : null}
@@ -108,12 +97,6 @@ class Inputs extends Component {
                 <InputsModal
                   isEdit
                   inputsKeys={inputsKeys.filter(inputName => inputName !== input.key)}
-                  Button={() => (
-                    <button className="b-workflow-input-edit">
-                      Edit
-                      <Edit32 className="b-workflow-input-edit__pencil" />
-                    </button>
-                  )}
                   input={input}
                   updateInputs={this.props.updateInputs}
                   loading={this.props.loading}
@@ -124,14 +107,6 @@ class Inputs extends Component {
         <InputsModal
           isEdit={false}
           inputsKeys={inputsKeys}
-          Button={() => (
-            <div className="b-workflow-input-create">
-              <button className="b-workflow-input-create__plus">
-                <Add32 className="b-workflow-input-create__plus-icon" />
-              </button>
-              Create New Property
-            </div>
-          )}
           updateInputs={this.props.updateInputs}
           loading={this.props.loading}
         />

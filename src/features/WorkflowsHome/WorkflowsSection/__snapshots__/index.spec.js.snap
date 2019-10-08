@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`] = `
-<body>
+<body
+  id="app"
+>
   <div>
     <section
       class="c-workflow-section"
@@ -14,29 +16,27 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
         >
           Lucas' team
         </h1>
-        <div>
-          <button>
-            <svg
-              alt="Import Workflow"
-              aria-hidden="true"
-              class="b-workflow-import__icon"
-              currentItem="false"
-              data-for="1234"
-              data-tip="true"
-              focusable="false"
-              height="16"
-              preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
-              viewBox="0 0 16 16"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M3 9l.7.7 3.8-3.8V15h1V5.9l3.8 3.8.7-.7-5-5zm0-5V2h10v2h1V2c0-.6-.4-1-1-1H3c-.6 0-1 .4-1 1v2h1z"
-              />
-            </svg>
-          </button>
-        </div>
+        <button>
+          <svg
+            alt="Import Workflow"
+            aria-hidden="true"
+            class="b-workflow-import__icon"
+            currentItem="false"
+            data-for="1234"
+            data-tip="true"
+            focusable="false"
+            height="16"
+            preserveAspectRatio="xMidYMid meet"
+            style="will-change: transform;"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 9l.7.7 3.8-3.8V15h1V5.9l3.8 3.8.7-.7-5-5zm0-5V2h10v2h1V2c0-.6-.4-1-1-1H3c-.6 0-1 .4-1 1v2h1z"
+            />
+          </svg>
+        </button>
         <div
           class="__react_component_tooltip place-top type-dark "
           data-id="tooltip"

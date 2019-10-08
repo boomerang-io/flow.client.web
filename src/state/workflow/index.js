@@ -50,11 +50,11 @@ export const initialState = {
       event: {
         enable: false,
         topic: ""
-        //enableIAMIntegration: false
+        //enableACCIntegration: false
       }
     },
     enablePersistentStorage: false,
-    enableIAMIntegration: false,
+    enableACCIntegration: false,
     properties: []
   }
 };

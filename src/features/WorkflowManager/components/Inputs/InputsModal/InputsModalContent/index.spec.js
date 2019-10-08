@@ -16,7 +16,7 @@ const props = {
   },
   loading: false,
   updateInputs: mockfn,
-  shouldConfirmExit: mockfn,
+  setShouldConfirmModalClose: mockfn,
   closeModal: mockfn,
   inputsName: [],
   workflowActions: { updateWorkflowInput: mockfn, createWorkflowInput: mockfn }
@@ -59,7 +59,7 @@ describe("Inputs --- RTL", () => {
     const { getByText, getByPlaceholderText, getByLabelText } = rtlReduxRender(
       <Inputs {...props} isEdit={false} input={undefined} />
     );
-    expect(getByText("CREATE")).toBeDisabled();
+    expect(getByText(/create/i)).toBeDisabled();
 
     const keyInput = getByPlaceholderText("key.value");
     const labelInput = getByPlaceholderText(/Label/i);
@@ -70,6 +70,6 @@ describe("Inputs --- RTL", () => {
     fireEvent.click(typeSelect);
     fireEvent.click(getByText(/boolean/i));
 
-    expect(getByText("CREATE")).toBeEnabled();
+    expect(getByText(/create/i)).toBeEnabled();
   });
 });

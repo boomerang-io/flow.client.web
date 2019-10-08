@@ -1,21 +1,7 @@
-.c-inputs-modal-body {
-  display: flex;
-  width: 80%;
-  margin: auto;
-  height: 24rem;
-}
-
-.c-inputs-modal-body-left {
-  width: 60%;
-  padding-right: 5%;
-}
-
-.c-inputs-modal-body-right {
-  width: 40%;
-}
-
-.b-inputs-modal-type,
-.b-inputs-modal-select,
-.b-inputs-modal-text {
+.bx--bmrg-text-input,
+.bx--bmrg-select,
+.bx--bmrg-multi-select,
+.bx--bmrg-toggle,
+.bx--bmrg-creatable {
   margin-bottom: 1rem;
 }

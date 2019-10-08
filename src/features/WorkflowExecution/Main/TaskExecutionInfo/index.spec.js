@@ -16,6 +16,9 @@ const props = {
 };
 
 describe("StepSideInfo --- Snapshot", () => {
+  beforeEach(() => {
+    document.body.setAttribute("id", "app");
+  });
   it("Capturing Snapshot of StepSideInfo", () => {
     const { baseElement } = rtlRender(<StepSideInfo {...props} />);
     expect(baseElement).toMatchSnapshot();

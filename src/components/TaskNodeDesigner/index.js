@@ -6,9 +6,7 @@ import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
 import { PortWidget } from "@projectstorm/react-diagrams";
 import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import Modal from "@boomerang/boomerang-components/lib/Modal";
-import ModalFlow from "@boomerang/boomerang-components/lib/ModalFlow";
-//import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
+import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import DisplayForm from "Components/DisplayForm";
 import pencilIcon from "./pencil.svg";
 import mapTaskNametoIcon from "Utilities/taskIcons";
@@ -47,34 +45,31 @@ export class TaskNode extends Component {
 
   renderConfigureNode() {
     return (
-      <Modal
-        modalProps={{ shouldCloseOnOverlayClick: false }}
-        ModalTrigger={() => (
-          <button className="b-task-node__edit">
+      <ModalFlow
+        confirmModalProps={{
+          title: "Are you sure?",
+          children: "Your changes will not be saved"
+        }}
+        modalHeaderProps={{
+          title: `Edit ${this.props.task.name}`,
+          subtitle: "Configure the inputs"
+        }}
+        modalTrigger={({ openModal }) => (
+          <button className="b-task-node__edit" onClick={openModal}>
             <img src={pencilIcon} alt="Task node type" />
           </button>
         )}
-        modalContent={(closeModal, ...rest) => (
-          <ModalFlow
-            headerTitle={`Edit ${this.props.task.name}`}
-            closeModal={closeModal}
-            confirmModalProps={{ affirmativeAction: closeModal, theme: "bmrg-flow" }}
-            theme="bmrg-flow"
-            {...rest}
-          >
-            <DisplayForm
-              closeModal={closeModal}
-              inputProperties={this.props.inputProperties}
-              node={this.props.node}
-              nodeConfig={this.props.nodeConfig}
-              onSave={this.handleOnSave}
-              setIsModalOpen={this.props.appActions.setIsModalOpen}
-              taskNames={this.props.taskNames}
-              task={this.props.task}
-            />
-          </ModalFlow>
-        )}
-      />
+      >
+        <DisplayForm
+          inputProperties={this.props.inputProperties}
+          node={this.props.node}
+          nodeConfig={this.props.nodeConfig}
+          onSave={this.handleOnSave}
+          setIsModalOpen={this.props.appActions.setIsModalOpen}
+          taskNames={this.props.taskNames}
+          task={this.props.task}
+        />
+      </ModalFlow>
     );
   }
 

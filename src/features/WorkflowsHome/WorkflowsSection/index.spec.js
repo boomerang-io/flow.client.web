@@ -49,6 +49,9 @@ const team = {
 const history = {};
 
 describe("WorkflowsSection --- Snapshot", () => {
+  beforeEach(() => {
+    document.body.setAttribute("id", "app");
+  });
   it("Capturing Snapshot of WorkflowsSection", () => {
     const { baseElement } = global.rtlReduxRouterRender(
       <MemoryRouter>
