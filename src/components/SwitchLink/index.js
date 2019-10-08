@@ -126,36 +126,7 @@ class SwitchLink extends Component {
                   <button className="b-editswitch-button__img" onClick={this.openModal}>
                     <img src={pencilIcon} alt="Edit Switch Property" />
                   </button>
-                  {/*<Modal
-                    className="bmrg--c-modal"
-                    contentLabel="Modal"
-                    documentRootTagId="app"
-                    ariaHideApp={true}
-                    isOpen={this.state.modalIsOpen}
-                    onAfterOpen={this.afterOpenModal}
-                    onRequestClose={this.closeModal}
-                    overlayClassName="bmrg--c-modal-overlay"
-                    shouldCloseOnOverlayClick={false}
-                  >
-                    <ModalFlow
-                      theme="bmrg-flow"
-                      title
-                      closeModal={this.closeModal}
-                      headerTitle="Switch"
-                      headerSubtitle="Set it up the conditions"
-                      isFetching={false}
-                      fullscreen={false}
-                    >
-                      <ConfigureSwitchModal
-                        defaultState={this.state.defaultState}
-                        onSubmit={this.handleSave}
-                        switchCondition={this.state.switchCondition}
-                        updateDefaultState={this.updateDefaultState}
-                        updateSwitchState={this.updateSwitchState}
-                        setIsModalOpen={this.props.appActions.setIsModalOpen}
-                      />
-                    </ModalFlow>
-                  </Modal>*/}
+
                   <ModalFlow
                     confirmModalProps={{
                       title: "Are you sure?",

@@ -249,7 +249,7 @@
           "type": "text"
         },
         {
-          "description": "Property to be Switched Upon",
+          "description": "Property to switch on",
           "key": "value",
           "label": "Value",
           "type": "text"
