@@ -1,19 +1,8 @@
 @import "~Styles/variables";
 @import "~@boomerang/boomerang-styles/lib/colors";
 
-.c-navigation-bar {
-  padding: 1rem 10rem 0.5rem 1rem;
-  display: flex;
-  align-items: center;
-  background-color: white;
-}
-
 .c-action-bar {
-  position: absolute;
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  background-color: white;
   right: 0;
   top: 2.5rem;
   z-index: 1;
