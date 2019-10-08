@@ -4,10 +4,8 @@ import { Button } from "carbon-components-react";
 import { ConfirmModal, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
-import minusIcon from "./assets/minus.svg";
-import plusIcon from "./assets/plus.svg";
-import { Add16, Save16 } from "@carbon/icons-react";
-import "./styles.scss";
+import { Add16, Save16, ZoomIn16, ZoomOut16 } from "@carbon/icons-react";
+import styles from "./ActionBar.module.scss";
 
 /*function to add add/subtract to the zoom level*/
 
@@ -174,18 +172,22 @@ class ActionBar extends Component {
     } = this.props;
 
     return (
-      <div className="c-action-bar">
-        <p>WorkflowEditor</p>
-        <h1>Name here</h1>
-        <div className="b-action-bar">
-          {includeZoom && [
-            <Button iconOnly className="b-action-bar__zoom" onClick={this.handleZoomDecrease} key="out" kind="ghost">
-              <img src={minusIcon} alt="Zoom out" />
-            </Button>,
-            <Button iconOnly className="b-action-bar__zoom" onClick={this.handleZoomIncrease} key="in" kind="ghost">
-              <img src={plusIcon} alt="Zoom in" />
-            </Button>
-          ]}
+      <div className={styles.container}>
+        <header>
+          <p>WorkflowEditor</p>
+          <h1>Name here</h1>
+        </header>
+        <section className={styles.bar}>
+          {includeZoom && (
+            <div className={styles.zoomIcons}>
+              <button onClick={this.handleZoomDecrease}>
+                <ZoomOut16 className={styles.zoomIcon} />
+              </button>
+              <button onClick={this.handleZoomIncrease}>
+                <ZoomIn16 className={styles.zoomIcon} />
+              </button>
+            </div>
+          )}
           {includeVersionSwitcher && (
             <VersionSwitcher
               revisionCount={revisionCount}
@@ -194,7 +196,7 @@ class ActionBar extends Component {
             />
           )}
           {this.determinePerformActionRender()}
-        </div>
+        </section>
       </div>
     );
   }

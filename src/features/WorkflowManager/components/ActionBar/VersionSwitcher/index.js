@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import classnames from "classnames";
-import chevron from "Assets/svg/chevron_gray.svg";
-import doubleChevron from "Assets/svg/double_chevron.svg";
+import cx from "classnames";
+import { ChevronLeft16, ChevronRight16, PageFirst16, PageLast16 } from "@carbon/icons-react";
 import "./styles.scss";
 
 class VersionSwitcher extends Component {
@@ -33,19 +32,17 @@ class VersionSwitcher extends Component {
       <ul className="b-version-switcher-buttons">
         <li>
           <button disabled={!enabled} onClick={this.fastBackVersion}>
-            <img
-              src={doubleChevron}
-              className={classnames("b-version-switcher-buttons__backward", { "--disabled": !enabled })}
-              alt="fastbackward"
+            <PageFirst16
+              className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
+              alt="first version"
             />
           </button>
         </li>
         <li>
           <button disabled={!enabled} onClick={this.backVersion}>
-            <img
-              src={chevron}
-              className={classnames("b-version-switcher-buttons__backward", { "--disabled": !enabled })}
-              alt="backward"
+            <ChevronLeft16
+              className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
+              alt="back one version"
             />
           </button>
         </li>
@@ -58,19 +55,17 @@ class VersionSwitcher extends Component {
       <ul className="b-version-switcher-buttons">
         <li>
           <button disabled={!enabled} onClick={this.forwardVersion}>
-            <img
-              src={chevron}
-              className={classnames("b-version-switcher-buttons__forward", { "--disabled": !enabled })}
-              alt="forward"
+            <ChevronRight16
+              className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
+              alt="forward one version"
             />
           </button>
         </li>
         <li>
           <button disabled={!enabled} onClick={this.fastForwardVersion}>
-            <img
-              src={doubleChevron}
-              className={classnames("b-version-switcher-buttons__forward", { "--disabled": !enabled })}
-              alt="fastforward"
+            <PageLast16
+              className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
+              alt="last version"
             />
           </button>
         </li>
