@@ -75,11 +75,9 @@ const TextAreaView = props => {
   }, [props.autoSuggestions]);
 
   const saveValue = () => {
-    props.setShouldConfirmModalClose(false);
     props.setTextAreaValue(value);
     props.formikSetFieldValue(value);
-    //props.closeModal.call();
-    props.closeModal();
+    props.forceCloseModal();
   };
 
   const undo = () => {

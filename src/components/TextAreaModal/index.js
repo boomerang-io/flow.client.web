@@ -14,13 +14,14 @@ const TextAreaModal = props => {
       modalHeaderProps={{
         title: `Update ${props.item.label}`
       }}
+      confirmModalProps={{
+        title: "Are you sure?",
+        children: "Your changes will not be saved"
+      }}
       modalTrigger={({ openModal }) => (
         /* eslint-disable-line */ <button onClick={openModal} className="bmrg-c-text-area-modal-wrapper" type="button">
           <TextArea
             id={props.item.key}
-            //name={props.item.key}
-            //helperText={props.item.key}
-            //title={props.item.label}
             labelText={props.item.label}
             placeholder={props.item.description}
             value={value}
