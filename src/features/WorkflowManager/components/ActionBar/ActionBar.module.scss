@@ -1,0 +1,26 @@
+@import "~Styles/variables";
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.container {
+  display: flex;
+  right: 0;
+  top: 2.5rem;
+  z-index: 1;
+
+  .bar {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .zoomIcons {
+    display: flex;
+    width: 7.5rem;
+    justify-content: space-between;
+  }
+
+  .zoomIcon {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+}

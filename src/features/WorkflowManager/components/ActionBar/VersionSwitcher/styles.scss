@@ -1,4 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
 
 .c-version-switcher {
   display: flex;
@@ -35,18 +36,7 @@
   height: 100%;
 }
 
-.b-version-switcher-buttons__backward {
-  height: 1.25rem;
-  transform: scaleX(-1);
-  cursor: pointer;
-
-  &.--disabled {
-    opacity: 0.3;
-    cursor: default;
-  }
-}
-
-.b-version-switcher-buttons__forward {
+.b-version-switcher-buttons__button {
   height: 1.25rem;
   cursor: pointer;
 
