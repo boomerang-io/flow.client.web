@@ -1,7 +1,7 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/variables";
 
-.c-version-switcher {
+.wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@
   margin: 0 2.5rem;
 }
 
-.c-version-switcher-buttons {
+.buttonListWrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,7 +19,7 @@
   height: 100%;
 }
 
-.b-version-switcher-buttons {
+.buttonList {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,18 +30,18 @@
   }
 }
 
-.b-version-switcher-buttons__button {
+.button {
   height: 1.5rem;
   width: 1.5rem;
   cursor: pointer;
 
-  &.--disabled {
+  &.disabled {
     opacity: 0.3;
     cursor: default;
   }
 }
 
-.b-version-switcher-buttons__text {
+.versionText {
   color: $text-01;
   font-size: 0.875rem;
   line-height: 1.125rem;

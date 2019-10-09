@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { ChevronLeft16, ChevronRight16, PageFirst16, PageLast16 } from "@carbon/icons-react";
-import "./styles.scss";
+import styles from "./VersionSwitcher.module.scss";
 
 class VersionSwitcher extends Component {
   static propTypes = {
@@ -29,18 +29,12 @@ class VersionSwitcher extends Component {
 
   renderBackButtons = enabled => {
     return (
-      <div className="b-version-switcher-buttons">
+      <div className={styles.buttonList}>
         <button disabled={!enabled} onClick={this.fastBackVersion}>
-          <PageFirst16
-            className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
-            alt="first version"
-          />
+          <PageFirst16 className={cx(styles.button, { [styles.disabled]: !enabled })} alt="first version" />
         </button>
         <button disabled={!enabled} onClick={this.backVersion}>
-          <ChevronLeft16
-            className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
-            alt="back one version"
-          />
+          <ChevronLeft16 className={cx(styles.button, { [styles.disabled]: !enabled })} alt="back one version" />
         </button>
       </div>
     );
@@ -48,18 +42,12 @@ class VersionSwitcher extends Component {
 
   renderForwardButtons = enabled => {
     return (
-      <div className="b-version-switcher-buttons">
+      <div className={styles.buttonList}>
         <button disabled={!enabled} onClick={this.forwardVersion}>
-          <ChevronRight16
-            className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
-            alt="forward one version"
-          />
+          <ChevronRight16 className={cx(styles.button, { [styles.disabled]: !enabled })} alt="forward one version" />
         </button>
         <button disabled={!enabled} onClick={this.fastForwardVersion}>
-          <PageLast16
-            className={cx("b-version-switcher-buttons__button", { "--disabled": !enabled })}
-            alt="last version"
-          />
+          <PageLast16 className={cx(styles.button, { [styles.disabled]: !enabled })} alt="last version" />
         </button>
       </div>
     );
@@ -69,10 +57,10 @@ class VersionSwitcher extends Component {
     const { currentRevision, revisionCount } = this.props;
 
     return (
-      <div className="c-version-switcher">
-        <div className="c-version-switcher-buttons">
+      <div className={styles.wrapper}>
+        <div className={styles.buttonListWrapper}>
           {this.renderBackButtons(currentRevision > 1)}
-          <p className="b-version-switcher-buttons__text">{`Version ${currentRevision || 1}`}</p>
+          <p className={styles.versionText}>{`Version ${currentRevision || 1}`}</p>
           {this.renderForwardButtons(currentRevision < revisionCount)}
         </div>
       </div>
