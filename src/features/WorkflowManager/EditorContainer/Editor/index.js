@@ -96,6 +96,7 @@ class WorkflowEditor extends Component {
             currentRevision={workflowRevision.version}
             fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
             loading={workflowLoading}
+            workflowName={get(workflow, "data.name", "")}
           />
           <Navigation />
         </FeatureHeader>

@@ -70,8 +70,9 @@ export class SwitchNode extends Component {
   }
 
   render() {
+    const { node } = this.props;
     return (
-      <WorkflowNode title={"Switch"} icon={<Fork16 alt="Switch icon" />} node={this.props.node}>
+      <WorkflowNode icon={<Fork16 alt="Switch icon" />} node={node} subtitle={node.taskName} title={"Switch"}>
         {this.renderConfigureNode()}
         {this.renderDeleteNode()}
       </WorkflowNode>

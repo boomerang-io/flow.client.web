@@ -22,7 +22,8 @@ class ActionBar extends Component {
     performAction: PropTypes.func,
     performActionButtonText: PropTypes.string,
     revisionCount: PropTypes.number,
-    showActionButton: PropTypes.bool
+    showActionButton: PropTypes.bool,
+    workflowName: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -95,10 +96,10 @@ class ActionBar extends Component {
       loading,
       includeResetVersionAlert,
       includeCreateNewVersionComment,
-      isValidOverview,
+      //isValidOverview,
       performAction,
-      performActionButtonText,
-      showActionButton
+      performActionButtonText
+      //showActionButton
     } = this.props;
 
     if (includeResetVersionAlert) {
@@ -155,13 +156,13 @@ class ActionBar extends Component {
   }
 
   render() {
-    const { fetchWorkflowRevisionNumber, includeZoom, currentRevision, revisionCount } = this.props;
+    const { fetchWorkflowRevisionNumber, includeZoom, currentRevision, revisionCount, workflowName } = this.props;
 
     return (
       <div className={styles.container}>
         <header className={styles.header}>
-          <p className={styles.label}>WorkflowEditor</p>
-          <h1 className={styles.title}>Name here</h1>
+          <p className={styles.label}>Workflow Editor</p>
+          <h1 className={styles.title}>{workflowName}</h1>
         </header>
         <section className={styles.bar}>
           {includeZoom && (
