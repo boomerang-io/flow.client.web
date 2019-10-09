@@ -78,7 +78,7 @@ class WorkflowEditor extends Component {
     const { revisionCount } = workflow.data;
     const { version } = workflowRevision;
     const workflowLoading = workflowRevision.isFetching || workflowRevision.isCreating;
-    console.log(this.props.location);
+
     return (
       <>
         <FeatureHeader>

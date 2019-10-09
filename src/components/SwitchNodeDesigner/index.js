@@ -4,12 +4,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
-import { PortWidget } from "@projectstorm/react-diagrams";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import DisplayForm from "Components/DisplayForm";
-import { Close16, Edit16 } from "@carbon/icons-react";
-import switchSVG from "Assets/svg/parent-relationship_32.svg";
-import "./styles.scss";
+import WorkflowCloseButton from "Components/WorkflowCloseButton";
+import WorkflowEditButton from "Components/WorkflowEditButton";
+import WorkflowNode from "Components/WorkflowNode";
+import { Fork16 } from "@carbon/icons-react";
+
+import styles from "./SwitchNodeDesigner.module.scss";
 
 export class SwitchNode extends Component {
   static propTypes = {
@@ -39,11 +41,7 @@ export class SwitchNode extends Component {
   };
 
   renderDeleteNode() {
-    return (
-      <button className="b-switchNode__delete" onClick={this.handleOnDelete}>
-        <Close16 alt="Delete switch node" />
-      </button>
-    );
+    return <WorkflowCloseButton className={styles.deleteButton} onClick={this.handleOnDelete} />;
   }
 
   renderConfigureNode() {
@@ -56,11 +54,7 @@ export class SwitchNode extends Component {
         modalHeaderProps={{
           title: this.props.task.name
         }}
-        modalTrigger={({ openModal }) => (
-          <button className="b-switchNode__edit" onClick={openModal}>
-            <Edit16 alt="Edit switch node" />
-          </button>
-        )}
+        modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
         <DisplayForm
           inputProperties={this.props.inputProperties}
@@ -77,18 +71,10 @@ export class SwitchNode extends Component {
 
   render() {
     return (
-      <div className="b-switchNode">
-        <img src={switchSVG} className="b-switchNode__img" alt="Task node type" />
-        <h1 className="b-switchNode__title">
-          {this.props.nodeConfig.inputs && this.props.nodeConfig.inputs.value
-            ? this.props.nodeConfig.inputs.value
-            : this.props.task.name}
-        </h1>
-        <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
-        <PortWidget className="b-switchNode-port --right" name="right" node={this.props.node} />
+      <WorkflowNode title={"Switch"} icon={<Fork16 alt="Switch icon" />} node={this.props.node}>
         {this.renderConfigureNode()}
         {this.renderDeleteNode()}
-      </div>
+      </WorkflowNode>
     );
   }
 }

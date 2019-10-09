@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
-import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
+import WorkFlowCloseButton from "Components/WorkflowCloseButton";
+import WorkflowEditButton from "Components/WorkflowEditButton";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import ConfigureSwitchModal from "./ConfigureSwitchModal";
-import pencilIcon from "./pencil.svg";
-import "./styles.scss";
+import styles from "./SwitchLink.module.scss";
 
 class SwitchLink extends Component {
   static propTypes = {
@@ -113,44 +113,39 @@ class SwitchLink extends Component {
       <svg>
         {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
           <>
-            <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30}) scale(0.7)`}>
-              <foreignObject width="46" height="36" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+            <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30})`}>
+              <foreignObject width="24" height="24" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
                 <div xmlns="http://www.w3.org/1999/xhtml">
-                  <CloseModalButton onClick={this.handleOnDelete} />
+                  <WorkFlowCloseButton onClick={this.handleOnDelete} />
                 </div>
               </foreignObject>
             </g>
             <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y + 10})`}>
               <foreignObject width="32" height="32" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-                <div xmlns="http://www.w3.org/1999/xhtml">
-                  <button className="b-editswitch-button__img" onClick={this.openModal}>
-                    <img src={pencilIcon} alt="Edit Switch Property" />
-                  </button>
-
-                  <ModalFlow
-                    confirmModalProps={{
-                      title: "Are you sure?",
-                      children: "Your changes will not be saved"
-                    }}
-                    modalHeaderProps={{
-                      title: "Switch",
-                      subtitle: "Set it up the conditions"
-                    }}
-                    isOpen={this.state.modalIsOpen}
-                    onCloseModal={() => {
-                      this.setState({ modalIsOpen: false });
-                    }}
-                  >
-                    <ConfigureSwitchModal
-                      defaultState={this.state.defaultState}
-                      onSubmit={this.handleSave}
-                      switchCondition={this.state.switchCondition}
-                      updateDefaultState={this.updateDefaultState}
-                      updateSwitchState={this.updateSwitchState}
-                      setIsModalOpen={this.props.appActions.setIsModalOpen}
-                    />
-                  </ModalFlow>
-                </div>
+                <WorkflowEditButton onClick={this.openModal} xmlns="http://www.w3.org/1999/xhtml" />
+                <ModalFlow
+                  confirmModalProps={{
+                    title: "Are you sure?",
+                    children: "Your changes will not be saved"
+                  }}
+                  modalHeaderProps={{
+                    title: "Switch",
+                    subtitle: "Set it up the conditions"
+                  }}
+                  isOpen={this.state.modalIsOpen}
+                  onCloseModal={() => {
+                    this.setState({ modalIsOpen: false });
+                  }}
+                >
+                  <ConfigureSwitchModal
+                    defaultState={this.state.defaultState}
+                    onSubmit={this.handleSave}
+                    switchCondition={this.state.switchCondition}
+                    updateDefaultState={this.updateDefaultState}
+                    updateSwitchState={this.updateSwitchState}
+                    setIsModalOpen={this.props.appActions.setIsModalOpen}
+                  />
+                </ModalFlow>
               </foreignObject>
             </g>
           </>
@@ -160,7 +155,7 @@ class SwitchLink extends Component {
             transform={`translate(${this.halfwayPoint.x + 20}, ${this.halfwayPoint.y + 25})`}
             style={{ cursor: "initial" }}
           >
-            <text className="s-small-text">
+            <text className={styles.text}>
               {this.props.model.switchCondition === null ? "default" : seperatedLinkState}
             </text>
           </g>
@@ -172,6 +167,7 @@ class SwitchLink extends Component {
         )}
 
         <path
+          className={styles.path}
           ref={this.path}
           style={linkStyle}
           strokeWidth={this.props.model.width}
