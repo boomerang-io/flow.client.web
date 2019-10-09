@@ -4,10 +4,8 @@ import { Button } from "carbon-components-react";
 import { ConfirmModal, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
-import minusIcon from "./assets/minus.svg";
-import plusIcon from "./assets/plus.svg";
-import { Add16, Save16 } from "@carbon/icons-react";
-import "./styles.scss";
+import { Add16, CheckmarkOutline16, Flash16, ZoomIn16, ZoomOut16 } from "@carbon/icons-react";
+import styles from "./ActionBar.module.scss";
 
 /*function to add add/subtract to the zoom level*/
 
@@ -24,7 +22,8 @@ class ActionBar extends Component {
     performAction: PropTypes.func,
     performActionButtonText: PropTypes.string,
     revisionCount: PropTypes.number,
-    showActionButton: PropTypes.bool
+    showActionButton: PropTypes.bool,
+    workflowName: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -60,8 +59,6 @@ class ActionBar extends Component {
     }
 
     const zoomFactor = diagramModel.getZoomLevel() / 100;
-    //const currentTarget = Array.from(document.getElementsByClassName("srd-diagram srd-demo-canvas"))[0];
-    //const boundingRect = currentTarget.getBoundingClientRect();
     const boundingRect = this.props.diagramBoundingClientRect;
     const clientWidth = boundingRect.width;
     const clientHeight = boundingRect.height;
@@ -99,10 +96,10 @@ class ActionBar extends Component {
       loading,
       includeResetVersionAlert,
       includeCreateNewVersionComment,
-      isValidOverview,
+      //isValidOverview,
       performAction,
-      performActionButtonText,
-      showActionButton
+      performActionButtonText
+      //showActionButton
     } = this.props;
 
     if (includeResetVersionAlert) {
@@ -112,11 +109,16 @@ class ActionBar extends Component {
           children="A new version will be created"
           title={`Set version ${currentRevision} to be the latest?`}
           modalTrigger={({ openModal }) => (
-            <div style={{ minWidth: "14rem" }}>
-              <Button disabled={loading} iconDescription="Add" renderIcon={Add16} size="field" onClick={openModal}>
-                {performActionButtonText}
-              </Button>
-            </div>
+            <Button
+              disabled={loading}
+              kind="ghost"
+              iconDescription="Add"
+              renderIcon={Add16}
+              size="field"
+              onClick={openModal}
+            >
+              {performActionButtonText}
+            </Button>
           )}
         />
       );
@@ -135,7 +137,7 @@ class ActionBar extends Component {
           }}
           modalTrigger={({ openModal }) => (
             <div style={{ minWidth: "14rem" }}>
-              <Button iconDescription="Add" renderIcon={Add16} size="field" onClick={openModal}>
+              <Button iconDescription="Add" kind="ghost" renderIcon={Add16} size="field" onClick={openModal}>
                 {performActionButtonText}
               </Button>
             </div>
@@ -149,52 +151,45 @@ class ActionBar extends Component {
         </ModalFlow>
       );
     }
-    if (showActionButton) {
-      return (
-        <Button
-          disabled={!isValidOverview || loading}
-          iconDescription="Save"
-          onClick={performAction}
-          renderIcon={Save16}
-          size="field"
-        >
-          {performActionButtonText}
-        </Button>
-      );
-    }
 
     return null;
   }
 
   render() {
-    const {
-      fetchWorkflowRevisionNumber,
-      includeVersionSwitcher,
-      includeZoom,
-      currentRevision,
-      revisionCount
-    } = this.props;
+    const { fetchWorkflowRevisionNumber, includeZoom, currentRevision, revisionCount, workflowName } = this.props;
 
     return (
-      <div className="c-action-bar">
-        <div className="b-action-bar">
-          {includeZoom && [
-            <Button iconOnly className="b-action-bar__zoom" onClick={this.handleZoomDecrease} key="out" kind="ghost">
-              <img src={minusIcon} alt="Zoom out" />
-            </Button>,
-            <Button iconOnly className="b-action-bar__zoom" onClick={this.handleZoomIncrease} key="in" kind="ghost">
-              <img src={plusIcon} alt="Zoom in" />
-            </Button>
-          ]}
-          {includeVersionSwitcher && (
-            <VersionSwitcher
-              revisionCount={revisionCount}
-              currentRevision={currentRevision}
-              onChangeVersion={fetchWorkflowRevisionNumber}
-            />
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <p className={styles.label}>Workflow Editor</p>
+          <h1 className={styles.title}>{workflowName}</h1>
+        </header>
+        <section className={styles.bar}>
+          {includeZoom && (
+            <div className={styles.zoomIcons}>
+              <button className={styles.zoomButton} onClick={this.handleZoomDecrease}>
+                <ZoomOut16 className={styles.zoomIcon} />
+              </button>
+              <button className={styles.zoomButton} onClick={this.handleZoomIncrease}>
+                <ZoomIn16 className={styles.zoomIcon} />
+              </button>
+            </div>
           )}
+          <VersionSwitcher
+            revisionCount={revisionCount}
+            currentRevision={currentRevision}
+            onChangeVersion={fetchWorkflowRevisionNumber}
+          />
           {this.determinePerformActionRender()}
-        </div>
+        </section>
+        <section className={styles.workflowButtons}>
+          <Button kind="ghost" iconDescription="Test workflow" renderIcon={Flash16} size="field">
+            Test this workflow
+          </Button>
+          <Button kind="ghost" iconDescription="Publish workflow" renderIcon={CheckmarkOutline16} size="field">
+            Publish this version
+          </Button>
+        </section>
       </div>
     );
   }

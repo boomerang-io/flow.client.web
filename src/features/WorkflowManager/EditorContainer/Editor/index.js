@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import get from "lodash.get";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import ActionBar from "Features/WorkflowManager/components/ActionBar";
+import FeatureHeader from "Features/WorkflowManager/components/FeatureHeader";
 import Inputs from "Features/WorkflowManager/components/Inputs";
 import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
@@ -66,6 +67,7 @@ class WorkflowEditor extends Component {
       createNode,
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
+      location,
       match,
       isModalOpen,
       teamsState,
@@ -79,7 +81,25 @@ class WorkflowEditor extends Component {
 
     return (
       <>
-        <Navigation />
+        <FeatureHeader>
+          <ActionBar
+            performActionButtonText={version < revisionCount ? "Set Version to Latest" : "Create New Version"}
+            performAction={this.createWorkflowRevision}
+            diagramApp={this.diagramApp}
+            diagramBoundingClientRect={this.state.diagramBoundingClientRect}
+            handleChangeLogReasonChange={handleChangeLogReasonChange}
+            includeCreateNewVersionComment={true || version === revisionCount}
+            includeResetVersionAlert={version < revisionCount}
+            includeVersionSwitcher
+            includeZoom={location.pathname.includes("designer")}
+            revisionCount={workflow.data.revisionCount}
+            currentRevision={workflowRevision.version}
+            fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
+            loading={workflowLoading}
+            workflowName={get(workflow, "data.name", "")}
+          />
+          <Navigation />
+        </FeatureHeader>
         <Switch>
           <Route
             path={`${match.path}/overview`}
@@ -118,14 +138,14 @@ class WorkflowEditor extends Component {
               >
                 {formikProps => (
                   <>
-                    <ActionBar
+                    {/* <ActionBar
                       diagramApp={this.diagramApp}
                       performActionButtonText="Update Overview"
                       performAction={this.updateWorkflow}
                       isValidOverview={formikProps.isValid}
                       loading={workflowLoading}
                       {...props}
-                    />
+                    /> */}
                     <Overview workflow={workflow} formikProps={formikProps} teams={teamsState.data} />
                   </>
                 )}
@@ -136,7 +156,7 @@ class WorkflowEditor extends Component {
             path={`${match.path}/properties`}
             render={props => (
               <>
-                <ActionBar diagramApp={this.diagramApp} showActionButton={false} loading={workflowLoading} {...props} />
+                {/* <ActionBar diagramApp={this.diagramApp} showActionButton={false} loading={workflowLoading} {...props} /> */}
                 <Inputs updateInputs={this.props.updateInputs} loading={workflow.isUpdating} />
               </>
             )}
@@ -145,7 +165,7 @@ class WorkflowEditor extends Component {
             path={`${match.path}/designer`}
             render={props => (
               <>
-                <ActionBar
+                {/* <ActionBar
                   performActionButtonText={version < revisionCount ? "Set Version to Latest" : "Create New Version"}
                   performAction={this.createWorkflowRevision}
                   diagramApp={this.diagramApp}
@@ -160,7 +180,7 @@ class WorkflowEditor extends Component {
                   fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
                   loading={workflowLoading}
                   {...props}
-                />
+                /> */}
                 <TasksSidenav />
                 <div
                   ref={this.diagramRef}

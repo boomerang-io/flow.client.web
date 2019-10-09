@@ -1,0 +1,55 @@
+@import "~Styles/variables";
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.container {
+  align-items: flex-end;
+  display: flex;
+}
+
+.title {
+  color: $text-01;
+  font-size: 2rem;
+  font-weight: 600;
+  height: 2.625rem;
+  line-height: 2.625rem;
+  margin: 0rem;
+}
+
+.label {
+  color: $text-01;
+  font-size: 1.25rem;
+  font-weight: 300;
+  height: 1.67rem;
+  line-height: 1.67rem;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.zoomIcons {
+  display: flex;
+  width: 4.5rem;
+  justify-content: space-between;
+  position: absolute;
+  right: 1.5rem;
+  bottom: 0.625rem;
+}
+
+.zoomButton {
+  line-height: 0rem;
+}
+
+.zoomIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: $ui-04;
+}
+
+.workflowButtons {
+  align-items: flex-end;
+  display: flex;
+  margin-left: auto;
+}
