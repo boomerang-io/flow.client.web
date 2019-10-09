@@ -1,0 +1,36 @@
+@import "~Styles/variables";
+@import "~Styles/mixins";
+
+.node {
+  background: $lightest-gray;
+  width: 13.75rem;
+  height: 5rem;
+  padding: 1rem;
+  position: relative;
+  border: 0.125rem solid $interactive-01;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  height: 1.125rem;
+  color: $text-01;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  margin: 0;
+  margin-left: 0.5rem;
+  @include text-overflow-ellipsis();
+}
+
+.subtitle {
+  height: 0.9375rem;
+  color: $text-01;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+  @include text-overflow-ellipsis();
+}

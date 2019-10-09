@@ -4,28 +4,28 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
-import { PortWidget } from "@projectstorm/react-diagrams";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import DisplayForm from "Components/DisplayForm";
-import { Close16, Edit16 } from "@carbon/icons-react";
-import mapTaskNametoIcon from "Utilities/taskIcons";
-import "./styles.scss";
+import WorkflowCloseButton from "Components/WorkflowCloseButton";
+import WorkflowEditButton from "Components/WorkflowEditButton";
+import WorkflowNode from "Components/WorkflowNode";
+import styles from "./TaskNodeDesigner.module.scss";
 
 export class TaskNode extends Component {
   static propTypes = {
+    isModalOpen: PropTypes.bool.isRequired,
     node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired,
-    isModalOpen: PropTypes.bool.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired
   };
 
   static defaultProps = {
-    nodeConfig: {}
+    node: {},
+    nodeConfig: {},
+    task: {}
   };
-
-  state = {};
 
   handleOnSave = inputs => {
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
@@ -38,14 +38,6 @@ export class TaskNode extends Component {
     this.props.node.remove();
   };
 
-  renderDeleteNode() {
-    return (
-      <button className="b-task-node__delete">
-        <Close16 onClick={this.handleOnDelete} />
-      </button>
-    );
-  }
-
   renderConfigureNode() {
     return (
       <ModalFlow
@@ -57,11 +49,7 @@ export class TaskNode extends Component {
           title: `Edit ${this.props.task.name}`,
           subtitle: "Configure the inputs"
         }}
-        modalTrigger={({ openModal }) => (
-          <button className="b-task-node__edit" onClick={openModal}>
-            <Edit16 alt="Task node type" />
-          </button>
-        )}
+        modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
         <DisplayForm
           inputProperties={this.props.inputProperties}
@@ -76,30 +64,26 @@ export class TaskNode extends Component {
     );
   }
 
-  // TODO: confirm use of Carbon <Icon /> below
   render() {
+    const { task, node } = this.props;
     return (
-      <div className="b-task-node">
-        {mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
-        <h1 className="b-task-node__title">{this.props.task ? this.props.task.name : "Task"}</h1>
-        <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} port="left" />
-        <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} port="right" />
+      <WorkflowNode title={task.name} subtitle={node.taskName} name={task.name} category={task.category} node={node}>
         {this.renderConfigureNode()}
-        {this.renderDeleteNode()}
-      </div>
+        <WorkflowCloseButton className={styles.closeButton} onClick={this.handleOnDelete} />
+      </WorkflowNode>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
-      .map(node => node.taskName)
-      .filter(name => !!name),
     isModalOpen: state.app.isModalOpen,
-    inputProperties: state.workflow.data.properties
+    inputProperties: state.workflow.data.properties,
+    nodeConfig: state.workflowRevision.config[ownProps.node.id],
+    task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
+    taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) // get the taskNames names from the nodes on the model
+      .map(node => node.taskName)
+      .filter(name => !!name)
   };
 };
 

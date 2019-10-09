@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
+import WorkFlowCloseButton from "Components/WorkflowCloseButton";
 import MultiStateButton from "./MultiStateButton";
 import "./styles.scss";
 
@@ -58,17 +58,17 @@ class CustomLink extends Component {
         {this.path.current && !this.props.diagramEngine.diagramModel.locked && this.props.model.targetPort && (
           <>
             <g
-              transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30}) scale(0.7)`}
+              transform={`translate(${this.halfwayPoint.x - 20}, ${this.halfwayPoint.y - 12})`}
               xmlns="http://www.w3.org/2000/svg"
             >
-              <foreignObject width="48" height="48" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+              <foreignObject width="24" height="24" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
                 <div xmlns="http://www.w3.org/1999/xhtml">
-                  <CloseModalButton onClick={this.handleOnDelete} />
+                  <WorkFlowCloseButton onClick={this.handleOnDelete} />
                 </div>
               </foreignObject>
             </g>
             <g
-              transform={`translate(${this.halfwayPoint.x - 2}, ${this.halfwayPoint.y + 5})`}
+              transform={`translate(${this.halfwayPoint.x + 20}, ${this.halfwayPoint.y - 12})`}
               xmlns="http://www.w3.org/2000/svg"
             >
               <foreignObject
