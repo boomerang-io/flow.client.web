@@ -38,14 +38,14 @@ const INPUT_TYPES_LABELS = [
   { label: "Text Area", value: "textarea" }
 ];
 
-class InputsModalContent extends Component {
+class WorkflowPropertiesModalContent extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
     input: PropTypes.object,
-    inputsNames: PropTypes.array,
+    inputsKeys: PropTypes.array,
     isEdit: PropTypes.bool,
     loading: PropTypes.bool.isRequired,
-    updateInputs: PropTypes.func.isRequired,
+    updateWorkflowProperties: PropTypes.func.isRequired,
     workflowActions: PropTypes.object.isRequired
   };
 
@@ -94,7 +94,11 @@ class InputsModalContent extends Component {
     if (this.props.isEdit) {
       new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties)))
         .then(() =>
-          this.props.updateInputs({ title: "Edit Input", message: "Successfully edited input", type: "edit" })
+          this.props.updateWorkflowProperties({
+            title: "Edit Input",
+            message: "Successfully edited input",
+            type: "edit"
+          })
         )
         .then(() => {
           this.props.forceCloseModal();
@@ -102,7 +106,11 @@ class InputsModalContent extends Component {
     } else {
       new Promise(resolve => resolve(this.props.workflowActions.createWorkflowInput(inputProperties)))
         .then(() =>
-          this.props.updateInputs({ title: "Create Input", message: "Successfully created input", type: "create" })
+          this.props.updateWorkflowProperties({
+            title: "Create Input",
+            message: "Successfully created input",
+            type: "create"
+          })
         )
         .then(() => {
           this.props.forceCloseModal();
@@ -297,4 +305,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(InputsModalContent);
+)(WorkflowPropertiesModalContent);

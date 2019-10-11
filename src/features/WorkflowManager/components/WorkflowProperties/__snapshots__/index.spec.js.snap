@@ -11,11 +11,20 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
       <div
         class="b-workflow-input --select --undefined"
       >
-        <h1
-          class="b-workflow-input__name"
+        <dl
+          class="b-workflow-input-field"
         >
-          Tim Property
-        </h1>
+          <dt
+            class="b-workflow-input-field__key"
+          >
+            Label
+          </dt>
+          <dd
+            class="b-workflow-input-field__value"
+          >
+            Tim Property
+          </dd>
+        </dl>
         <dl
           class="b-workflow-input-field"
         >
@@ -101,14 +110,31 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           </dd>
         </dl>
         <button
+          class="b-workflow-input-edit"
+        >
+          <svg
+            aria-label="Edit"
+            class="b-workflow-input-edit__pencil"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            style="will-change: transform;"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M2 27h28v2H2zM25.41 9a2 2 0 0 0 0-2.83l-3.58-3.58a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22v-3.59l10-10L19.59 12l-10 10z"
+            />
+          </svg>
+        </button>
+        <button
           class="b-workflow-input__delete"
         >
           <svg
             aria-hidden="true"
             class="b-workflow-input__delete-icon"
-            currentItem="false"
-            data-for="undefined"
-            data-tip="true"
             focusable="false"
             height="32"
             preserveAspectRatio="xMidYMid meet"
@@ -121,48 +147,22 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
             />
           </svg>
-          <div
-            class="__react_component_tooltip place-top type-dark "
-            data-id="tooltip"
-            id="undefined"
-          >
-            Delete Input
-          </div>
-        </button>
-        <button
-          class="b-workflow-input-edit"
-        >
-          Edit
-          <svg
-            aria-hidden="true"
-            class="b-workflow-input-edit__pencil"
-            focusable="false"
-            height="32"
-            preserveAspectRatio="xMidYMid meet"
-            style="will-change: transform;"
-            viewBox="0 0 32 32"
-            width="32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2 27h28v2H2zM25.41 9a2 2 0 0 0 0-2.83l-3.58-3.58a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22v-3.59l10-10L19.59 12l-10 10z"
-            />
-          </svg>
         </button>
       </div>
-      <div
+      <button
         class="b-workflow-input-create"
+        data-testid="create-new-workflow-input-button"
       >
-        <button
+        <div
           class="b-workflow-input-create__plus"
-          data-testid="create-new-workflow-input-button"
         >
           <svg
-            aria-hidden="true"
+            aria-label="Add"
             class="b-workflow-input-create__plus-icon"
             focusable="false"
             height="32"
             preserveAspectRatio="xMidYMid meet"
+            role="img"
             style="will-change: transform;"
             viewBox="0 0 32 32"
             width="32"
@@ -172,9 +172,13 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
             />
           </svg>
-        </button>
-        Create New Property
-      </div>
+          <p
+            class="b-workflow-input-create__plus-text"
+          >
+            Create a new property
+          </p>
+        </div>
+      </button>
     </div>
   </div>
   <div

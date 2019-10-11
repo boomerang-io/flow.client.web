@@ -5,14 +5,14 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import get from "lodash.get";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
-import ActionBar from "Features/WorkflowManager/components/ActionBar";
-import FeatureHeader from "Features/WorkflowManager/components/FeatureHeader";
-import Inputs from "Features/WorkflowManager/components/Inputs";
-import Navigation from "Features/WorkflowManager/components/Navigation";
-import Overview from "Features/WorkflowManager/components/Overview";
 import ChangeLog from "Features/WorkflowManager/components/ChangeLog";
+import DesignerHeader from "Features/WorkflowManager/components/DesignerHeader";
+import WorkflowProperties from "Features/WorkflowManager/components/WorkflowProperties";
+import Overview from "Features/WorkflowManager/components/Overview";
 import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
+import WorkflowZoom from "Features/WorkflowManager/components/WorkflowZoom";
 import DiagramApplication from "Utilities/DiagramApplication";
+import styles from "./Editor.module.scss";
 
 class WorkflowEditor extends Component {
   static propTypes = {
@@ -20,9 +20,10 @@ class WorkflowEditor extends Component {
     createWorkflowRevision: PropTypes.func.isRequired,
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
+    isModalOpen: PropTypes.bool.isRequired,
+    updateWorkflowProperties: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
-    workflowRevision: PropTypes.object.isRequired,
-    isModalOpen: PropTypes.bool.isRequired
+    workflowRevision: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -81,71 +82,56 @@ class WorkflowEditor extends Component {
 
     return (
       <>
-        <FeatureHeader>
-          <ActionBar
-            performActionButtonText={version < revisionCount ? "Set Version to Latest" : "Create New Version"}
-            performAction={this.createWorkflowRevision}
-            diagramApp={this.diagramApp}
-            diagramBoundingClientRect={this.state.diagramBoundingClientRect}
-            handleChangeLogReasonChange={handleChangeLogReasonChange}
-            includeCreateNewVersionComment={true || version === revisionCount}
-            includeResetVersionAlert={version < revisionCount}
-            includeVersionSwitcher
-            includeZoom={location.pathname.includes("designer")}
-            revisionCount={workflow.data.revisionCount}
-            currentRevision={workflowRevision.version}
-            fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
-            loading={workflowLoading}
-            workflowName={get(workflow, "data.name", "")}
-          />
-          <Navigation />
-        </FeatureHeader>
+        <DesignerHeader
+          currentRevision={workflowRevision.version}
+          fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
+          handleChangeLogReasonChange={handleChangeLogReasonChange}
+          includeResetVersionAlert={version < revisionCount}
+          loading={workflowLoading}
+          onDesigner={location.pathname.endsWith("/designer")}
+          performAction={this.createWorkflowRevision}
+          performActionButtonText={version < revisionCount ? "Set Version to Latest" : "Create New Version"}
+          revisionCount={workflow.data.revisionCount}
+          workflowName={get(workflow, "data.name", "")}
+        />
         <Switch>
           <Route
             path={`${match.path}/overview`}
             render={props => (
               <Formik
                 initialValues={{
-                  name: get(workflow, "data.name", ""),
-                  shortDescription: get(workflow, "data.shortDescription", ""),
                   description: get(workflow, "data.description", ""),
-                  webhook: get(workflow, "data.triggers.webhook.enable", false),
-                  token: get(workflow, "data.triggers.webhook.token", ""),
-                  schedule: get(workflow, "data.triggers.scheduler.enable", false),
-                  event: get(workflow, "data.triggers.event.enable", false),
-                  topic: get(workflow, "data.triggers.event.topic", ""),
-                  //enableACCIntegration: get(workflow, "data.triggers.event.enableACCIntegration", false),
                   enableACCIntegration: get(workflow, "data.enableACCIntegration", false),
+                  event: get(workflow, "data.triggers.event.enable", false),
+                  name: get(workflow, "data.name", ""),
                   persistence: get(workflow, "data.enablePersistentStorage", false),
+                  schedule: get(workflow, "data.triggers.scheduler.enable", false),
                   selectedTeam: activeTeamId
                     ? teamsState.data.find(team => team.id === activeTeamId)
-                    : teamsState.data[0]
+                    : teamsState.data[0],
+                  shortDescription: get(workflow, "data.shortDescription", ""),
+                  token: get(workflow, "data.triggers.webhook.token", ""),
+                  topic: get(workflow, "data.triggers.event.topic", ""),
+                  webhook: get(workflow, "data.triggers.webhook.enable", false)
                 }}
                 validationSchema={Yup.object().shape({
+                  description: Yup.string().max(256, "Description must not be greater than 256 characters"),
+                  enableACCIntegration: Yup.boolean(),
+                  event: Yup.boolean(),
                   name: Yup.string()
                     .required("Name is required")
                     .max(64, "Name must not be greater than 64 characters"),
-                  shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
-                  description: Yup.string().max(256, "Description must not be greater than 256 characters"),
-                  webhook: Yup.boolean(),
-                  token: Yup.string(),
+                  persistence: Yup.boolean(),
+                  selectedTeam: Yup.object().required(),
                   schedule: Yup.boolean(),
-                  event: Yup.boolean(),
+                  shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
+                  token: Yup.string(),
                   topic: Yup.string(),
-                  enableACCIntegration: Yup.boolean(),
-                  persistence: Yup.boolean()
+                  webhook: Yup.boolean()
                 })}
               >
                 {formikProps => (
                   <>
-                    {/* <ActionBar
-                      diagramApp={this.diagramApp}
-                      performActionButtonText="Update Overview"
-                      performAction={this.updateWorkflow}
-                      isValidOverview={formikProps.isValid}
-                      loading={workflowLoading}
-                      {...props}
-                    /> */}
                     <Overview workflow={workflow} formikProps={formikProps} teams={teamsState.data} />
                   </>
                 )}
@@ -155,41 +141,29 @@ class WorkflowEditor extends Component {
           <Route
             path={`${match.path}/properties`}
             render={props => (
-              <>
-                {/* <ActionBar diagramApp={this.diagramApp} showActionButton={false} loading={workflowLoading} {...props} /> */}
-                <Inputs updateInputs={this.props.updateInputs} loading={workflow.isUpdating} />
-              </>
+              <WorkflowProperties
+                updateWorkflowProperties={this.props.updateWorkflowProperties}
+                loading={workflow.isUpdating}
+              />
             )}
           />
           <Route
             path={`${match.path}/designer`}
             render={props => (
               <>
-                {/* <ActionBar
-                  performActionButtonText={version < revisionCount ? "Set Version to Latest" : "Create New Version"}
-                  performAction={this.createWorkflowRevision}
-                  diagramApp={this.diagramApp}
-                  diagramBoundingClientRect={this.state.diagramBoundingClientRect}
-                  handleChangeLogReasonChange={handleChangeLogReasonChange}
-                  includeCreateNewVersionComment={true || version === revisionCount}
-                  includeResetVersionAlert={version < revisionCount}
-                  includeVersionSwitcher
-                  includeZoom
-                  revisionCount={workflow.data.revisionCount}
-                  currentRevision={workflowRevision.version}
-                  fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
-                  loading={workflowLoading}
-                  {...props}
-                /> */}
                 <TasksSidenav />
                 <div
-                  ref={this.diagramRef}
-                  className="c-workflow-diagram-designer"
+                  className={styles.container}
                   onDrop={event => createNode(this.diagramApp, event)}
                   onDragOver={event => {
                     event.preventDefault();
                   }}
+                  ref={this.diagramRef}
                 >
+                  <WorkflowZoom
+                    diagramApp={this.diagramApp}
+                    diagramBoundingClientRect={this.state.diagramBoundingClientRect}
+                  />
                   <DiagramWidget
                     className="srd-demo-canvas"
                     diagramEngine={this.diagramApp.getDiagramEngine()}
@@ -202,14 +176,7 @@ class WorkflowEditor extends Component {
               </>
             )}
           />
-          <Route
-            path={`${match.path}/changes`}
-            render={() => (
-              <>
-                <ChangeLog workflow={workflow} />
-              </>
-            )}
-          />
+          <Route path={`${match.path}/changes`} render={() => <ChangeLog workflow={workflow} />} />
         </Switch>
       </>
     );
