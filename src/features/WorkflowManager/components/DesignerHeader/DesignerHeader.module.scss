@@ -29,25 +29,6 @@
   padding: 0 1rem;
 }
 
-.zoomIcons {
-  display: flex;
-  width: 4.5rem;
-  justify-content: space-between;
-  position: absolute;
-  right: 1.5rem;
-  bottom: 0.625rem;
-}
-
-.zoomButton {
-  line-height: 0rem;
-}
-
-.zoomIcon {
-  height: 1.5rem;
-  width: 1.5rem;
-  fill: $ui-04;
-}
-
 .workflowButtons {
   align-items: flex-end;
   display: flex;

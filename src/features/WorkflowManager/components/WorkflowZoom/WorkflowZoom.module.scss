@@ -1,0 +1,21 @@
+@import "~Styles/variables";
+
+.zoomIcons {
+  display: flex;
+  width: 4.5rem;
+  justify-content: space-between;
+  position: absolute;
+  right: 1.5rem;
+  top: 1rem;
+  z-index: 1;
+}
+
+.zoomButton {
+  line-height: 1;
+}
+
+.zoomIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  fill: $ui-04;
+}

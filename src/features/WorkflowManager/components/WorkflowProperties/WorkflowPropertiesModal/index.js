@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
+import WorkflowPropertiesModalContent from "./WorkflowPropertiesModalContent";
 import { Add32, Edit32 } from "@carbon/icons-react";
-import InputsModalContent from "./InputsModalContent";
 
-class InputsModal extends Component {
+class WorkflowProperties extends Component {
   static propTypes = {
     input: PropTypes.object,
     inputsKeys: PropTypes.array,
     isEdit: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
-    updateInputs: PropTypes.func.isRequired
+    updateWorkflowProperties: PropTypes.func.isRequired
   };
 
   editTrigger = ({ openModal }) => {
@@ -18,21 +18,20 @@ class InputsModal extends Component {
     this.props.isEdit
       ? (output = (
           <button className="b-workflow-input-edit" onClick={openModal}>
-            Edit
-            <Edit32 className="b-workflow-input-edit__pencil" />
+            <Edit32 className="b-workflow-input-edit__pencil" aria-label="Edit" />
           </button>
         ))
       : (output = (
-          <div className="b-workflow-input-create">
-            <button
-              className="b-workflow-input-create__plus"
-              onClick={openModal}
-              data-testid="create-new-workflow-input-button"
-            >
-              <Add32 className="b-workflow-input-create__plus-icon" />
-            </button>
-            Create New Property
-          </div>
+          <button
+            className="b-workflow-input-create"
+            onClick={openModal}
+            data-testid="create-new-workflow-input-button"
+          >
+            <div className={"b-workflow-input-create__plus"}>
+              <Add32 className="b-workflow-input-create__plus-icon" aria-label="Add" />
+              <p className="b-workflow-input-create__plus-text">Create a new property</p>
+            </div>
+          </button>
         ));
     return output;
   };
@@ -53,10 +52,14 @@ class InputsModal extends Component {
         }}
         modalTrigger={this.editTrigger}
       >
-        <InputsModalContent loading={loading} updateInputs={this.props.updateInputs} {...this.props} />
+        <WorkflowPropertiesModalContent
+          loading={loading}
+          updateWorkflowProperties={this.props.updateWorkflowProperties}
+          {...this.props}
+        />
       </ModalFlow>
     );
   }
 }
 
-export default InputsModal;
+export default WorkflowProperties;

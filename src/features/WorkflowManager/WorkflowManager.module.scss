@@ -1,0 +1,10 @@
+@import "~Styles/variables";
+@import "~Styles/mixins";
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.container {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}

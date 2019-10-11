@@ -54,15 +54,15 @@ describe("Inputs --- RTL", () => {
     const modalTrigger = getByTestId("create-new-workflow-input-button");
     fireEvent.click(modalTrigger);
 
-    expect(queryByText(/Create new property/i)).toBeInTheDocument();
+    expect(queryByText(/Create a new property/i)).toBeInTheDocument();
   });
 
   it("Opens edit property modal", () => {
-    const { getByText, queryByText } = rtlReduxRender(<Inputs {...props} />, { initialState });
+    const { getByLabelText, queryByText } = rtlReduxRender(<Inputs {...props} />, { initialState });
 
     //expect(queryByText(/Let's update it/i)).not.toBeInTheDocument();
 
-    const modalTrigger = getByText(/Edit/i);
+    const modalTrigger = getByLabelText(/Edit/i);
     fireEvent.click(modalTrigger);
 
     expect(queryByText(/Let's update it/i)).toBeInTheDocument();
