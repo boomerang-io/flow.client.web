@@ -54,6 +54,14 @@
   :global .bx--text-area__wrapper {
     width: 100%;
   }
+
+  :global .bx--bmrg-text-input,
+  :global .bx--bmrg-select,
+  :global .bx--bmrg-multi-select,
+  :global .bx--bmrg-toggle,
+  :global .bx--bmrg-creatable {
+    padding-bottom: 1rem;
+  }
 }
 
 .header {
@@ -98,13 +106,19 @@
   display: flex;
   flex-flow: wrap;
   justify-content: space-between;
+  width: 60%;
 }
 
 .icon {
+  align-items: center;
   border: 2px solid transparent;
+  border-radius: 5rem;
   cursor: pointer;
-  border-radius: 0.25rem;
+  display: flex;
+  height: 2.7rem;
+  justify-content: center;
   transition: all 0.15s ease;
+  width: 2.7rem;
 
   [type="radio"] {
     position: absolute;
@@ -118,8 +132,8 @@
   }
 
   img {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     padding: 0.25rem 0.425rem;
   }
 
@@ -129,7 +143,8 @@
 }
 
 .active {
-  background: $teal-20;
+  background: $support-02;
+  fill: white;
 }
 
 .toggleContainer {

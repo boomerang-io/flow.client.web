@@ -27,7 +27,6 @@ import eyeIcon from "Assets/workflowIcons/eye.svg";
 import refreshIcon from "Assets/workflowIcons/refresh.svg";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import { Add16, SettingsAdjust20 } from "@carbon/icons-react";
-//import "./styles.scss";
 import styles from "./overview.module.scss";
 
 export class Overview extends Component {
