@@ -1,0 +1,17 @@
+@import "~Styles/variables";
+
+.button {
+  background: $ui-01;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.125rem;
+  border-radius: 50%;
+  border: 0.0625rem solid #000000;
+  cursor: pointer;
+  height: 1.5rem;
+
+  path {
+    fill: black;
+  }
+}

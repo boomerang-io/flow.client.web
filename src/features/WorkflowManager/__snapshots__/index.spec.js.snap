@@ -4,7 +4,7 @@ exports[`WorkflowManager --- Snapshot Capturing Snapshot of WorkflowManager 1`] 
 <body>
   <div>
     <div
-      class="c-workflow-designer"
+      class="container"
     />
   </div>
 </body>

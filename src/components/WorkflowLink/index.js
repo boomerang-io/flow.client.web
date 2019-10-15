@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
+import WorkFlowCloseButton from "Components/WorkflowCloseButton";
 import MultiStateButton from "./MultiStateButton";
-import "./styles.scss";
+import styles from "./WorkflowLink.module.scss";
 
 class CustomLink extends Component {
   static propTypes = {
@@ -40,9 +40,31 @@ class CustomLink extends Component {
     this.props.model.executionCondition = executionCondition;
   };
 
+  determineAngleBetweenPorts(cx, cy, ex, ey) {
+    const { model } = this.props;
+    const { x: targetX, y: targetY } = model.targetPort;
+    const { x: sourceX, y: sourceY } = model.sourcePort;
+    var dy = targetY - sourceY;
+    var dx = targetX - sourceX;
+    var theta = Math.atan2(dy, dx); // range (-PI, PI]
+    theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
+    //if (theta < 0) theta = 360 + theta; // range [0, 360)
+    return theta;
+  }
+
   render() {
     const { model } = this.props;
+
+    let xAdjustment = 0;
+    let yAdjustment = 0;
     let linkStyle = {};
+
+    if (model.sourcePort && model.targetPort) {
+      const angle = this.determineAngleBetweenPorts();
+
+      xAdjustment = (90 - angle) / 90;
+      yAdjustment = angle / 90;
+    }
 
     if (!model.sourcePort || !model.targetPort) {
       linkStyle = { opacity: "0.25" };
@@ -58,17 +80,19 @@ class CustomLink extends Component {
         {this.path.current && !this.props.diagramEngine.diagramModel.locked && this.props.model.targetPort && (
           <>
             <g
-              transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30}) scale(0.7)`}
+              transform={`translate(${this.halfwayPoint.x - 12 - 24 * xAdjustment}, ${this.halfwayPoint.y -
+                12 -
+                24 * yAdjustment})`}
               xmlns="http://www.w3.org/2000/svg"
             >
-              <foreignObject width="48" height="48" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-                <div xmlns="http://www.w3.org/1999/xhtml">
-                  <CloseModalButton onClick={this.handleOnDelete} />
-                </div>
+              <foreignObject width="24" height="24" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                <WorkFlowCloseButton onClick={this.handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
               </foreignObject>
             </g>
             <g
-              transform={`translate(${this.halfwayPoint.x - 2}, ${this.halfwayPoint.y + 5})`}
+              transform={`translate(${this.halfwayPoint.x - 12 + 24 * xAdjustment}, ${this.halfwayPoint.y -
+                12 +
+                24 * yAdjustment})`}
               xmlns="http://www.w3.org/2000/svg"
             >
               <foreignObject
@@ -92,6 +116,7 @@ class CustomLink extends Component {
           </>
         )}
         <path
+          className={styles.path}
           ref={this.path}
           style={linkStyle}
           strokeWidth={this.props.model.width}
