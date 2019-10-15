@@ -1,59 +1,45 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
 
-.c-workflow-insights {
+.container {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
   max-width: 120rem;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   width: 100%;
-  .c-legend {
+  :global .c-legend {
     margin-top: 1rem;
   }
-  // .b-search-filter {
-  //   margin-right: 2rem;
-  // }
-  .bx--list-box {
-    background-color: $teal-20;
-    border-radius: 0.25rem;
+  :global .bx--list-box {
     box-shadow: none;
     cursor: pointer;
-    height: 2.625rem;
-    max-height: 2.625rem;
-    width: 12rem;
-    margin-left: 1rem;
-
-    &::before {
-      content: url("~Assets/svg/configure.svg");
-      position: absolute;
-      height: 2rem;
-      width: 2rem;
-      right: 1rem;
-      top: 0.2rem;
-    }
+    height: 2.5rem;
+    max-height: 2.5rem;
+    width: 14rem;
   }
 
-  .bx--list-box__field {
+  :global .bx--list-box__field {
     appearance: none;
-    width: 11rem;
+    width: 14rem;
     &:focus {
       box-shadow: none;
     }
   }
 
-  .bx--list-box__label {
+  :global .bx--list-box__label {
     @include text-overflow-ellipsis();
   }
 
-  .bx--list-box__selection--multi {
+  :global .bx--list-box__selection--multi {
     background-color: $gray-90;
     &:hover {
       background-color: $gray-90;
     }
   }
 
-  .bx--list-box__menu {
+  :global .bx--list-box__menu {
     min-width: 12rem;
     width: max-content;
     background-color: $white;
@@ -63,68 +49,70 @@
     left: unset;
   }
 
-  .bx--list-box__menu-item--highlighted {
+  :global .bx--list-box__menu-item--highlighted {
     background: $cool-gray-1;
     text-decoration: none;
   }
 
-  .bx--list-box__menu-item--active {
-    .bx--checkbox-label::before {
+  :global .bx--list-box__menu-item--active {
+    :global .bx--checkbox-label::before {
       background-color: $teal-20 !important;
       border-color: $teal-20 !important;
     }
   }
 }
-.c-workflow-insights-header {
-  margin-top: 2rem;
+.header {
+  margin-top: 0rem;
   display: flex;
-  align-self: flex-end;
+  align-self: flex-start;
   justify-content: space-between;
-  width: 40rem;
+  width: 45rem;
 
-  & .b-search-filter__search {
+  & :global .b-search-filter__search {
     margin-right: 0rem;
   }
 }
 
 @media (max-width: 32rem) {
-  .c-workflow-insights-header {
+  .header {
     flex-direction: column;
     align-items: center;
     height: 10rem;
     width: 100%;
 
-    & .b-search-filter__search {
+    & :global .b-search-filter__search {
       margin: 0rem;
       padding-top: 1rem;
     }
   }
 }
-.s-workflow-insights-navigation {
+.navigation {
   position: absolute;
 }
 
-.c-workflow-insights-stats-widgets {
+.statsWidgets {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  margin-left: -1.25rem;
   margin-top: 2rem;
 }
-.c-workflow-insights-graphs-widgets {
+.graphsWidgets {
+  align-items: center;
   display: flex;
   flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-left: -1.25rem;
 }
 
 @media (max-width: 50rem) {
-  .c-workflow-insights-graphs-widgets {
+  .graphsWidgets {
     justify-content: initial;
   }
 }
 
-.b-workflow-insights__stats-label,
-.b-workflow-insights__graphs-label {
+.statsLabel,
+.graphsLabel {
   display: flex;
   height: 13rem;
   width: 23rem;

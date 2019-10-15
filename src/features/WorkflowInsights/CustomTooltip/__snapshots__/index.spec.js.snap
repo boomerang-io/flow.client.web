@@ -6,47 +6,47 @@ exports[`CustomTooltip --- Snapshot Capturing Snapshot of CustomTooltip 1`] = `
 >
   <div>
     <div
-      class="c-tooltip"
+      class="container"
     >
       <div>
         <p
-          class="b-tooltip--data"
+          class="data"
         >
           <span
-            class="b-tooltip--field"
+            class="field"
           >
             date: 
           </span>
           Jan 01 - 2019, 00:00
         </p>
         <p
-          class="b-tooltip--data"
+          class="data"
         >
            
           <span
-            class="b-tooltip--field"
+            class="field"
           >
             failed: 
           </span>
           5
         </p>
         <p
-          class="b-tooltip--data"
+          class="data"
         >
            
           <span
-            class="b-tooltip--field"
+            class="field"
           >
             success: 
           </span>
           12
         </p>
         <p
-          class="b-tooltip--data"
+          class="data"
         >
            
           <span
-            class="b-tooltip--field"
+            class="field"
           >
             total: 
           </span>

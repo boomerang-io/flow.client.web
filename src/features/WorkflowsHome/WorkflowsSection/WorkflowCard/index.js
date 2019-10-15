@@ -162,11 +162,11 @@ class WorkflowCard extends Component {
                 <Button iconDescription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
                   Run it
                 </Button>
-                )}
-              >
-                <WorkflowRunModalContent executeWorkflow={this.executeWorkflow} />
-              </ModalFlow>
-            )}
+              )}
+            >
+              <WorkflowRunModalContent executeWorkflow={this.executeWorkflow} />
+            </ModalFlow>
+          )}
         </div>
       </div>
     );

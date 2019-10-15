@@ -1,7 +1,7 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/variables";
 
-.c-tooltip {
+.container {
   display: flex;
   flex-direction: column;
   background-color: $white;
@@ -11,11 +11,11 @@
   border: solid $gray-20 1px;
   border-radius: 0.325rem;
 }
-.b-tooltip--data {
+.data {
   text-align: start;
   margin: 1rem;
   word-wrap: break-word;
 }
-.b-tooltip--field {
+.field {
   font-weight: bold;
 }

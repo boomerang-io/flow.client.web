@@ -1,4 +1,5 @@
 export const timeSecondsToTimeUnit = seconds => {
+  if (!seconds) return "0 secs";
   const hoursCount = Math.floor(seconds / 3600);
   const minutesCount = Math.floor((seconds % 3600) / 60);
   const secondsCount = Math.floor(seconds % 60);

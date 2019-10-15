@@ -1,24 +1,32 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { PieChart, Pie, Tooltip, Cell, Label, ResponsiveContainer } from "recharts/lib";
-import CustomTooltip from "../CustomTooltip";
-
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from "recharts/lib";
+// import CustomTooltip from "../CustomTooltip";
+import CustomPieLegend from "../CustomPieLegend";
+import styles from "./customPieChart.module.scss";
 class CustomPieChart extends Component {
   render() {
-    const colors = ["#82ca9d", "#e26665", "#40d5bb", "#c0bfc0"];
+    const colors = ["#009C98", "#FFA4A9", "#50565B", "#B9BFC7"];
 
     return (
-      <ResponsiveContainer height={200}>
-        <PieChart>
-          <Pie data={this.props.data} dataKey="value" outerRadius={"80%"} innerRadius={"60%"}>
+      <ResponsiveContainer height={220}>
+        <PieChart className={styles.container}>
+          <Pie
+            align="left"
+            data={this.props.data}
+            dataKey="value"
+            outerRadius={"80%"}
+            innerRadius={"62%"}
+            startAngle={90}
+            endAngle={450}
+            blendStroke={true}
+          >
             {this.props.data.map((sector, index) => (
               <Cell key={index} fill={colors[index]} />
             ))}
-            <Label width={50} position="center">
-              {`${this.props.percentageSuccessful}%`}
-            </Label>
           </Pie>
-          <Tooltip content={<CustomTooltip type="pie" />} />
+          {/* <Tooltip content={<CustomTooltip type="pie" />} /> */}
+          <Legend content={<CustomPieLegend />} align="right" verticalAlign="middle" width={50} />
         </PieChart>
       </ResponsiveContainer>
     );

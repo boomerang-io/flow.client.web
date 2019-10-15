@@ -6,115 +6,115 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
 >
   <div>
     <div
-      class="c-workflow-inputs"
+      class="container"
     >
       <div
-        class="b-workflow-input"
+        class="property"
       >
         <dl
-          class="b-workflow-input-field"
+          class="fieldContainer"
         >
           <dt
-            class="b-workflow-input-field__key"
+            class="fieldKey"
           >
             Label
           </dt>
           <dd
-            class="b-workflow-input-field__value"
+            class="fieldValue"
           >
             Tim Property
           </dd>
         </dl>
         <dl
-          class="b-workflow-input-field"
+          class="fieldContainer"
         >
           <dt
-            class="b-workflow-input-field__key"
+            class="fieldKey"
           >
             Key
           </dt>
           <dd
-            class="b-workflow-input-field__value"
+            class="fieldValue"
           >
             tim.property
           </dd>
         </dl>
         <dl
-          class="b-workflow-input-field"
+          class="fieldContainer"
         >
           <dt
-            class="b-workflow-input-field__key"
+            class="fieldKey"
           >
             Description
           </dt>
           <dd
-            class="b-workflow-input-field__value"
+            class="fieldValue"
           >
             Tim property
           </dd>
         </dl>
         <dl
-          class="b-workflow-input-field"
+          class="fieldContainer"
         >
           <dt
-            class="b-workflow-input-field__key"
+            class="fieldKey"
           >
             Type
           </dt>
           <dd
-            class="b-workflow-input-field__value"
+            class="fieldValue"
           >
             select
           </dd>
         </dl>
         <dl
-          class="b-workflow-input-field"
+          class="fieldContainer"
         >
           <dt
-            class="b-workflow-input-field__key"
+            class="fieldKey"
           >
             Required
           </dt>
           <dd
-            class="b-workflow-input-field__value"
+            class="fieldValue"
           >
             true
           </dd>
         </dl>
         <dl
-          class="b-workflow-input-field"
+          class="fieldContainer"
         >
           <dt
-            class="b-workflow-input-field__key"
+            class="fieldKey"
           >
             Default value
           </dt>
           <dd
-            class="b-workflow-input-field__value"
+            class="fieldValue"
           >
             pandas
           </dd>
         </dl>
         <dl
-          class="b-workflow-input-field"
+          class="fieldContainer"
         >
           <dt
-            class="b-workflow-input-field__key"
+            class="fieldKey"
           >
             Valid values
           </dt>
           <dd
-            class="b-workflow-input-field__value"
+            class="fieldValue"
           >
             pandas, dogs
           </dd>
         </dl>
         <button
-          class="b-workflow-input-edit"
+          class="editContainer"
         >
           <svg
             aria-label="Edit"
-            class="b-workflow-input-edit__pencil"
+            class="editIcon"
             focusable="false"
             height="32"
             preserveAspectRatio="xMidYMid meet"
@@ -130,11 +130,11 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           </svg>
         </button>
         <button
-          class="b-workflow-input__delete"
+          class="deleteContainer"
         >
           <svg
             aria-hidden="true"
-            class="b-workflow-input__delete-icon"
+            class="deleteIcon"
             focusable="false"
             height="32"
             preserveAspectRatio="xMidYMid meet"
@@ -150,15 +150,15 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
         </button>
       </div>
       <button
-        class="b-workflow-input-create"
+        class="createPropertyCard"
         data-testid="create-new-workflow-input-button"
       >
         <div
-          class="b-workflow-input-create__plus"
+          class="createContainer"
         >
           <svg
             aria-label="Add"
-            class="b-workflow-input-create__plus-icon"
+            class="createIcon"
             focusable="false"
             height="32"
             preserveAspectRatio="xMidYMid meet"
@@ -173,7 +173,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
             />
           </svg>
           <p
-            class="b-workflow-input-create__plus-text"
+            class="createText"
           >
             Create a new property
           </p>

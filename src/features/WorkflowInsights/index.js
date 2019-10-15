@@ -9,8 +9,9 @@ import { Dropdown } from "carbon-components-react";
 import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
-import NavigateBack from "Components/NavigateBack";
-import WidgetCard from "./WidgetCard";
+import ChartsTile from "./ChartsTile";
+import InsightsHeader from "./InsightsHeader";
+import InsightsTile from "./InsightsTile";
 import CustomAreaChart from "./CustomAreaChart";
 import CustomScatterChart from "./CustomScatterChart";
 import CustomPieChart from "./CustomPieChart";
@@ -19,7 +20,7 @@ import { executeDataLines } from "Constants/chartsConfig";
 import { timeframeOptions, ALL_OPTIONS } from "Constants/filterOptions";
 import { parseChartsData } from "Utilities/formatChartData";
 import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
-import "./styles.scss";
+import styles from "./workflowInsights.module.scss";
 
 export class WorkflowInsights extends Component {
   static propTypes = {
@@ -106,50 +107,54 @@ export class WorkflowInsights extends Component {
   };
 
   renderWidgets = () => {
-    const { insights } = this.props;
+    const { insights, teams } = this.props;
 
     if (insights.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (insights.isFetching) {
-      return <LoadingAnimation centered message="Getting your workflow data. This might take a bit." />;
+      return (
+        <LoadingAnimation message="Getting your workflow data. This might take a bit." style={{ marginTop: "3rem" }} />
+      );
     }
 
     if (insights.status === REQUEST_STATUSES.SUCCESS) {
       const { executionsList } = this.state;
-      const chartData = parseChartsData(executionsList);
+      const chartData = parseChartsData(executionsList, teams.data.map(team => team.name));
       return (
         <>
-          <div className="c-workflow-insights-stats-widgets">
-            <WidgetCard title="Total Executed" type="stat">
+          <div className={styles.statsWidgets}>
+            <InsightsTile
+              title="Executions"
+              type="runs"
+              totalCount={chartData.totalExecutions}
+              infoList={chartData.dataByTeams}
+            />
+            <InsightsTile
+              title="Duration (median)"
+              type=""
+              totalCount={timeSecondsToTimeUnit(chartData.medianDuration)}
+              infoList={chartData.durationData}
+              valueWidth="7rem"
+            />
+            <ChartsTile
+              title="Status"
+              totalCount={chartData.totalExecutions === 0 ? "" : `${chartData.percentageSuccessful}%`}
+              type={chartData.totalExecutions === 0 ? "" : "successful"}
+              tileWidth="27rem"
+            >
               {chartData.totalExecutions === 0 ? (
-                <p className="b-workflow-insights__stats-label --no-data">No Data</p>
-              ) : (
-                <p className="b-workflow-insights__stats-label">{chartData.totalExecutions}</p>
-              )}
-            </WidgetCard>
-            <WidgetCard title="Median Duration" type="stat">
-              {chartData.totalExecutions === 0 ? (
-                <p className="b-workflow-insights__stats-label --no-data">No Data</p>
-              ) : (
-                <p className="b-workflow-insights__stats-label">
-                  {chartData.medianDuration === 0 ? "0" : timeSecondsToTimeUnit(chartData.medianDuration)}
-                </p>
-              )}
-            </WidgetCard>
-            <WidgetCard title="Success Rate" type="stat">
-              {chartData.totalExecutions === 0 ? (
-                <p className="b-workflow-insights__stats-label --no-data">No Data</p>
+                <p className={`${styles.statsLabel} --no-data`}>No Data</p>
               ) : (
                 <CustomPieChart data={chartData.pieData} percentageSuccessful={chartData.percentageSuccessful} />
               )}
-            </WidgetCard>
+            </ChartsTile>
           </div>
-          <div className="c-workflow-insights-graphs-widgets">
-            <WidgetCard title="Executions" type="graph">
+          <div className={styles.graphsWidgets}>
+            <ChartsTile title="Executions" totalCount="" type="" tileWidth="50rem">
               {chartData.totalExecutions === 0 ? (
-                <p className="b-workflow-insights__graphs-label --no-data">No Data</p>
+                <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
               ) : (
                 <CustomAreaChart
                   areaData={executeDataLines}
@@ -159,10 +164,10 @@ export class WorkflowInsights extends Component {
                   yAxisText="Count"
                 />
               )}
-            </WidgetCard>
-            <WidgetCard title="Execution Time" type="graph">
+            </ChartsTile>
+            <ChartsTile title="Execution Time" totalCount="" type="" tileWidth="50rem">
               {chartData.totalExecutions === 0 ? (
-                <p className="b-workflow-insights__graphs-label --no-data">No Data</p>
+                <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
               ) : (
                 <CustomScatterChart
                   data={chartData.scatterData}
@@ -170,7 +175,7 @@ export class WorkflowInsights extends Component {
                   yAxisDataKey="duration"
                 />
               )}
-            </WidgetCard>
+            </ChartsTile>
           </div>
         </>
       );
@@ -188,10 +193,8 @@ export class WorkflowInsights extends Component {
 
     if (teams.isFetching) {
       return (
-        <div className="c-workflow-insights">
-          <div className="c-workflow-insights-content">
-            <LoadingAnimation />
-          </div>
+        <div className={styles.container}>
+          <LoadingAnimation />
         </div>
       );
     }
@@ -206,47 +209,47 @@ export class WorkflowInsights extends Component {
       const workflowsFilter = [ALL_OPTIONS.WORKFLOWS, ...sortByProp(workflows, "name", "ASC")];
 
       return (
-        <div className="c-workflow-insights">
-          <nav className="s-workflow-insights-navigation">
-            <NavigateBack
-              to={this.props.location.state ? this.props.location.state.fromUrl : "/workflows"}
-              text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Workflows"}`}
-            />
-          </nav>
-          <div className="c-workflow-insights-header">
-            <Dropdown
-              id="teams-dropdown"
-              label="Teams"
-              placeholder="Teams"
-              onChange={this.handleChangeTeam}
-              items={teamsList}
-              itemToString={team => (team ? team.name : "")}
-              initialSelectedItem={ALL_OPTIONS.TEAMS}
-            />
-            <Dropdown
-              id="workflows-dropdown"
-              label="Workflows"
-              placeholder="Workflows"
-              onChange={this.handleChangeWorkflow}
-              items={workflowsFilter}
-              itemToString={workflow => {
-                const team = teams.data.find(team => team.id === workflow.flowTeamId);
-                return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
-              }}
-              initialSelectedItem={ALL_OPTIONS.WORKFLOWS}
-            />
-            <Dropdown
-              id="time-frame-dropdown"
-              label="Time Frame"
-              placeholder="Time Frame"
-              onChange={this.handleChangeTimeframe}
-              items={timeframeOptions}
-              itemToString={time => (time ? time.label : "")}
-              initialSelectedItem={timeframeOptions[3]}
-            />
+        <>
+          <InsightsHeader />
+          <div className={styles.container}>
+            <div className={styles.header}>
+              <Dropdown
+                id="teams-dropdown"
+                titleText="Filter by team"
+                label="Teams"
+                placeholder="Teams"
+                onChange={this.handleChangeTeam}
+                items={teamsList}
+                itemToString={team => (team ? team.name : "")}
+                initialSelectedItem={ALL_OPTIONS.TEAMS}
+              />
+              <Dropdown
+                id="workflows-dropdown"
+                titleText="Filter by Workflow"
+                label="Workflows"
+                placeholder="Workflows"
+                onChange={this.handleChangeWorkflow}
+                items={workflowsFilter}
+                itemToString={workflow => {
+                  const team = teams.data.find(team => team.id === workflow.flowTeamId);
+                  return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                }}
+                initialSelectedItem={ALL_OPTIONS.WORKFLOWS}
+              />
+              <Dropdown
+                id="time-frame-dropdown"
+                titleText="Time period"
+                label="Time Frame"
+                placeholder="Time Frame"
+                onChange={this.handleChangeTimeframe}
+                items={timeframeOptions}
+                itemToString={time => (time ? time.label : "")}
+                initialSelectedItem={timeframeOptions[3]}
+              />
+            </div>
+            {this.renderWidgets()}
           </div>
-          {this.renderWidgets()}
-        </div>
+        </>
       );
     }
 

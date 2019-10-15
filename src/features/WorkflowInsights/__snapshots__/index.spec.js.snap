@@ -6,45 +6,42 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
 >
   <div>
     <div
-      class="c-workflow-insights"
+      class="container"
     >
-      <nav
-        class="s-workflow-insights-navigation"
-      >
-        <button>
-          <a
-            class="b-navigate-back"
-            href="/workflows"
-          >
-            <svg
-              aria-hidden="true"
-              class="b-navigate-back__chevron"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 16L20 6l1.4 1.4-8.6 8.6 8.6 8.6L20 26z"
-              />
-            </svg>
-            <div
-              class="b-navigate-back__text"
-            >
-              Back to Workflows
-            </div>
-          </a>
-        </button>
-      </nav>
       <div
-        class="c-workflow-insights-header"
+        class="content"
+      >
+        <div
+          class="info"
+        >
+          <h1
+            class="title"
+          >
+            There are some
+          </h1>
+          <h2
+            class="subtitle"
+          >
+            Insights
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div
+      class="container"
+    >
+      <div
+        class="header"
       >
         <div
           class="bx--dropdown__wrapper bx--list-box__wrapper"
         >
+          <label
+            class="bx--label"
+            for="teams-dropdown"
+          >
+            Filter by team
+          </label>
           <div
             class="bx--dropdown bx--list-box"
             id="teams-dropdown"
@@ -97,6 +94,12 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
         <div
           class="bx--dropdown__wrapper bx--list-box__wrapper"
         >
+          <label
+            class="bx--label"
+            for="workflows-dropdown"
+          >
+            Filter by Workflow
+          </label>
           <div
             class="bx--dropdown bx--list-box"
             id="workflows-dropdown"
@@ -149,6 +152,12 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
         <div
           class="bx--dropdown__wrapper bx--list-box__wrapper"
         >
+          <label
+            class="bx--label"
+            for="time-frame-dropdown"
+          >
+            Time period
+          </label>
           <div
             class="bx--dropdown bx--list-box"
             id="time-frame-dropdown"
@@ -200,101 +209,192 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
         </div>
       </div>
       <div
-        class="c-workflow-insights-stats-widgets"
+        class="statsWidgets"
       >
         <div
-          class="b-widget-card --stat"
+          class="bx--tile container"
         >
-          <div
-            class="b-widget-card__title"
-          >
-            Total Executed
-          </div>
-          <div
-            class="b-widget-card__content"
-          >
-            <p
-              class="b-workflow-insights__stats-label --no-data"
+          <div>
+            <h3
+              class="title"
             >
-              No Data
-            </p>
+              Executions
+            </h3>
+            <div
+              class="totalCountContainer"
+            >
+              <p
+                class="totalCount"
+              >
+                0
+              </p>
+              <p
+                class="type"
+              >
+                runs
+              </p>
+            </div>
           </div>
+          <ul
+            class="list"
+          />
         </div>
         <div
-          class="b-widget-card --stat"
+          class="bx--tile container"
         >
-          <div
-            class="b-widget-card__title"
-          >
-            Median Duration
-          </div>
-          <div
-            class="b-widget-card__content"
-          >
-            <p
-              class="b-workflow-insights__stats-label --no-data"
+          <div>
+            <h3
+              class="title"
             >
-              No Data
-            </p>
+              Duration (median)
+            </h3>
+            <div
+              class="totalCountContainer"
+            >
+              <p
+                class="totalCount"
+              >
+                0 secs
+              </p>
+              <p
+                class="type"
+              />
+            </div>
           </div>
+          <ul
+            class="list"
+          >
+            <li
+              class="row"
+            >
+              <p
+                class="itemValue"
+                style="width: 7rem;"
+              >
+                0 secs
+              </p>
+              <p
+                class="itemLabel"
+              >
+                Minimum
+              </p>
+            </li>
+            <li
+              class="row"
+            >
+              <p
+                class="itemValue"
+                style="width: 7rem;"
+              >
+                0 secs
+              </p>
+              <p
+                class="itemLabel"
+              >
+                Maximum
+              </p>
+            </li>
+            <li
+              class="row"
+            >
+              <p
+                class="itemValue"
+                style="width: 7rem;"
+              >
+                0 secs
+              </p>
+              <p
+                class="itemLabel"
+              >
+                Avarage
+              </p>
+            </li>
+          </ul>
         </div>
         <div
-          class="b-widget-card --stat"
+          class="bx--tile container"
+          style="width: 27rem;"
         >
-          <div
-            class="b-widget-card__title"
-          >
-            Success Rate
-          </div>
-          <div
-            class="b-widget-card__content"
-          >
-            <p
-              class="b-workflow-insights__stats-label --no-data"
+          <div>
+            <h3
+              class="title"
             >
-              No Data
-            </p>
+              Status
+            </h3>
+            <div
+              class="totalCountContainer"
+            >
+              <p
+                class="totalCount"
+              />
+              <p
+                class="type"
+              />
+            </div>
           </div>
+          <p
+            class="statsLabel --no-data"
+          >
+            No Data
+          </p>
         </div>
       </div>
       <div
-        class="c-workflow-insights-graphs-widgets"
+        class="graphsWidgets"
       >
         <div
-          class="b-widget-card --graph"
+          class="bx--tile container"
+          style="width: 50rem;"
         >
-          <div
-            class="b-widget-card__title"
-          >
-            Executions
-          </div>
-          <div
-            class="b-widget-card__content"
-          >
-            <p
-              class="b-workflow-insights__graphs-label --no-data"
+          <div>
+            <h3
+              class="title"
             >
-              No Data
-            </p>
+              Executions
+            </h3>
+            <div
+              class="totalCountContainer"
+            >
+              <p
+                class="totalCount"
+              />
+              <p
+                class="type"
+              />
+            </div>
           </div>
+          <p
+            class="graphsLabel --no-data"
+          >
+            No Data
+          </p>
         </div>
         <div
-          class="b-widget-card --graph"
+          class="bx--tile container"
+          style="width: 50rem;"
         >
-          <div
-            class="b-widget-card__title"
-          >
-            Execution Time
-          </div>
-          <div
-            class="b-widget-card__content"
-          >
-            <p
-              class="b-workflow-insights__graphs-label --no-data"
+          <div>
+            <h3
+              class="title"
             >
-              No Data
-            </p>
+              Execution Time
+            </h3>
+            <div
+              class="totalCountContainer"
+            >
+              <p
+                class="totalCount"
+              />
+              <p
+                class="type"
+              />
+            </div>
           </div>
+          <p
+            class="graphsLabel --no-data"
+          >
+            No Data
+          </p>
         </div>
       </div>
     </div>

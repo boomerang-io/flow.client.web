@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import LegendIcon from "./LegendIcon";
-import "./styles.scss";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
-
+import styles from "./customLegend.module.scss";
 class CustomTooltip extends Component {
   render() {
     // const tooltipFields = this.props.payload.length > 0 ? Object.keys(this.props.payload[0].payload) : null;
 
     return (
-      <div className="c-legend">
+      <div className={styles.container}>
         {this.props.payload.map((data, index) => {
           let isToggled = this.props.toggledItems.find(item => data.payload.name === item);
           return (
             <div
               key={`${data.payload.name}-${index}`}
-              className="c-legend-icon"
+              className={styles.iconContainer}
               onMouseEnter={this.props.onMouseEnter}
               onMouseLeave={this.props.onMouseLeave}
               onClick={() => this.props.toggleItem(data)}
@@ -23,8 +22,8 @@ class CustomTooltip extends Component {
               role="button"
               tabIndex="0"
             >
-              <LegendIcon className="b-legend-icon" strokeColor={data.payload.fill} />
-              <span className={`b-legend-label${isToggled ? " --toggled" : ""}`} key={data.dataKey}>
+              <LegendIcon className={styles.icon} strokeColor={data.payload.fill} />
+              <span className={`${styles.label} ${isToggled ? " --toggled" : ""}`} key={data.dataKey}>
                 {data.payload.name}
               </span>
             </div>

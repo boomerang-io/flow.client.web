@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
-import TaskNode from "Components/TaskNode";
+import TaskNode from "Components/WorkflowNode";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import styles from "./TemplateNodeExecution.module.scss";
 

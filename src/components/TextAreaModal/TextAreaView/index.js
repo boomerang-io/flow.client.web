@@ -52,21 +52,21 @@ const TextAreaView = props => {
       return { text: elm.value, displayText: elm.label };
     });
 
-    CodeMirror.registerHelper("hint", "dictionaryHint", function (editor) {
+    CodeMirror.registerHelper("hint", "dictionaryHint", function(editor) {
       const cur = editor.getCursor();
       const curLine = editor.getLine(cur.line);
       let start = cur.ch;
       let end = start;
-      while (end < curLine.length && /[\w${:]/.test(curLine.charAt(end)))++end;
-      while (start && /[\w${:]/.test(curLine.charAt(start - 1)))--start;
+      while (end < curLine.length && /[\w${:]/.test(curLine.charAt(end))) ++end;
+      while (start && /[\w${:]/.test(curLine.charAt(start - 1))) --start;
       const curWord = start !== end && curLine.slice(start, end);
       const regex = new RegExp("^" + escapeRegExp(curWord), "i");
       return {
         list: (!curWord
           ? []
           : autoSuggestions.filter(
-            item => (curWord.startsWith("${p:") && item.text.match(regex)) || item.displayText.match(regex)
-          )
+              item => (curWord.startsWith("${p:") && item.text.match(regex)) || item.displayText.match(regex)
+            )
         ).sort(),
         from: CodeMirror.Pos(cur.line, start),
         to: CodeMirror.Pos(cur.line, end)

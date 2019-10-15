@@ -8,7 +8,7 @@ import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import DisplayForm from "Components/DisplayForm";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
-import TaskNode from "Components/TaskNode";
+import TaskNode from "Components/WorkflowNode";
 import styles from "./TemplateNodeDesigner.module.scss";
 
 export class TemplateNodeDesigner extends Component {

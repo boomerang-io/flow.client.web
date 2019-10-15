@@ -468,6 +468,26 @@
           "inputs": []
         }
       ]
+    },
+    {
+      "id": "6254",
+      "name": "CAI Offering Team",
+      "workflows": [
+        {
+          "id": "3331",
+          "name": "CAI offer workflow",
+          "shortDescription": "Here is a shorter description. Here is a shorter description. Here is a shorter description. ",
+          "status": "published",
+          "icon": "docs",
+          "flowTeamId": "6254",
+          "inputs": []
+        }
+      ]
+    },
+    {
+      "id": "6234",
+      "name": "IBM Engineering Automation Team",
+      "workflows": []
     }
   ],
   "workflowSingle": {

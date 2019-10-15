@@ -9,7 +9,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
       class="bx--bmrg-modal-flow-form"
     >
       <div
-        class="bx--modal-content"
+        class="bx--modal-content container"
       >
         <div
           class="bx--bmrg-text-input"
