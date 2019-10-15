@@ -47,7 +47,12 @@ export class Overview extends Component {
     workflowActions: PropTypes.object.isRequired
   };
 
+  componentDidMount() {
+    document.addEventListener("beforeunload", this.props.updateWorkflow);
+  }
+
   componentWillUnmount() {
+    document.removeEventListener("beforeunload");
     this.props.updateWorkflow();
   }
 
