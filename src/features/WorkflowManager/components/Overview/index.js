@@ -52,7 +52,7 @@ export class Overview extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener("beforeunload");
+    document.removeEventListener("beforeunload", this.props.updateWorkflow);
     this.props.updateWorkflow();
   }
 
