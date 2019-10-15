@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] = `
-<body>
+<body
+  id="app"
+>
   <div>
     <div
       class="b-search-filter"

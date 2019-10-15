@@ -1,0 +1,61 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.container {
+  background-color: $white;
+  border-bottom: 0.0625rem solid #b9bfc7;
+  display: flex;
+  height: 7.31rem;
+  justify-content: space-between;
+  position: absolute;
+  width: 100%;
+}
+
+.headline {
+  margin: 1.5rem 0 1.5rem 1.5rem;
+}
+
+.subtitle {
+  color: $gray-90;
+  display: flex;
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title {
+  color: $gray-90;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.625rem;
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  margin: 2.625rem 1.5rem 2.06rem 0;
+}
+
+.data {
+  color: $gray-90;
+  margin-left: 2.5rem;
+}
+
+.dataTitle {
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+
+.dataValue {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
+}

@@ -25,7 +25,9 @@ describe(">>>REDUCER --- activityReducer", () => {
       ...initialState,
       isFetching: false,
       status: "success",
-      data: []
+      updateStatus: "success",
+      data: [],
+      tableData: []
     };
     const newState = activityReducer(initialState, action);
 

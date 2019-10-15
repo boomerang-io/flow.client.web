@@ -12,7 +12,6 @@ import ErrorDragon from "Components/ErrorDragon";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import Main from "./Main";
-import "./styles.scss";
 
 export const ActivityIdContext = React.createContext("");
 
@@ -80,6 +79,10 @@ export class WorkflowExecutionContainer extends Component {
     });
   };
 
+  setActiveTeam = selectedTeamId => {
+    this.props.appActions.setActiveTeam({ teamId: selectedTeamId });
+  };
+
   render() {
     const { nodeId } = this.props.app.activeNode;
     const { data: workflowExecutionData, status: workflowExecutionStatus } = this.props.workflowExecution;
@@ -126,6 +129,7 @@ export class WorkflowExecutionContainer extends Component {
           workflowExecutionData={workflowExecutionData}
           taskId={taskId}
           updateActiveNode={this.updateActiveNode}
+          setActiveTeam={this.setActiveTeam}
         />
       );
     }

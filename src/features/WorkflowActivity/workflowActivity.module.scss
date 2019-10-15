@@ -1,0 +1,56 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
+
+.container {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 1.875rem 1.5rem 1.5rem;
+  width: 100%;
+}
+
+.tabs {
+  margin-bottom: 1.125rem;
+}
+
+.filters {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dataFilters {
+  display: flex;
+}
+
+.timeFilters {
+  display: flex;
+}
+
+.startDate {
+  margin-right: 0.125rem;
+  position: relative;
+}
+
+.endDate {
+  position: relative;
+}
+
+.calendar {
+  bottom: 0.8rem;
+  height: 1rem;
+  left: 6.875rem;
+  position: absolute;
+  width: 1rem;
+}
+
+@-moz-document url-prefix() {
+  .calendar {
+    left: 8rem;
+  }
+}

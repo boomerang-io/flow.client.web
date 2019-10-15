@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TimeProgressBar --- Snapshot Capturing Snapshot of TimeProgressBar 1`] = `
-<body>
+<body
+  id="app"
+>
   <div>
     <div
       class="c-time-progress-bar"

@@ -55,6 +55,11 @@ function rtlReduxRouterRender(
   };
 }
 
+// Fix "react-modal: No elements were found for selector #app." error
+beforeEach(() => {
+  document.body.setAttribute("id", "app");
+});
+
 // RTL globals
 // Open question if we want to attach these to the global or required users to import
 global.rtlRender = rtlRender;

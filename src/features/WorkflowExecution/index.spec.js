@@ -11,6 +11,9 @@ jest.mock("@boomerang/boomerang-components", () => ({
 const mockfn = jest.fn();
 
 const props = {
+  appActions: {
+    setActiveTeam: mockfn
+  },
   match: { params: {} },
   tasks: {
     isFetching: false,
@@ -42,14 +45,19 @@ const props = {
     updatingStatus: "",
     creatingStatus: "",
     error: "",
-    data: {}
+    data: {
+      name: "Sparkle Flow with extra glitter and donuts on the side"
+    }
   },
 
   workflowExecution: {
     isFetching: false,
     status: "success",
     error: "",
-    data: {}
+    data: {
+      status: "inProgress",
+      setps: []
+    }
   },
   // TO DO: To be removed if not used in future development
   // workflowExecutionActiveNode: {

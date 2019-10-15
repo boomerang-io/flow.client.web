@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WidgetCard --- Snapshot Capturing Snapshot of WidgetCard 1`] = `
-<body>
+<body
+  id="app"
+>
   <div>
     <div
       class="b-widget-card"

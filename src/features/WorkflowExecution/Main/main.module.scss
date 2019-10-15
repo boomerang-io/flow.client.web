@@ -1,0 +1,15 @@
+@import "~Styles/variables";
+
+.container {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.diagram {
+  background-color: $text-area-gray !important;
+  height: calc(100% - 7.31rem);
+  position: absolute;
+  top: 7.31rem;
+  width: 100%;
+}

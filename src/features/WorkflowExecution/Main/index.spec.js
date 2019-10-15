@@ -10,12 +10,18 @@ const mockfn = jest.fn();
 const props = {
   dag: {},
   taskId: "test",
-  workflowData: {},
-  workflowExecutionData: {},
+  workflowData: {
+    name: "Sparkle Flow with extra glitter and donuts on the side"
+  },
+  workflowExecutionData: {
+    status: "inProgress",
+    steps: []
+  },
   version: 1,
   activityState: {
     status: "success"
   },
+  setActiveTeam: mockfn,
   teamsState: {
     status: "success"
   },

@@ -1,22 +1,160 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowExecutionContainer 1`] = `
-<body>
+<body
+  id="app"
+>
   <div>
     <div
-      class="c-workflow-execution"
+      class="container"
     >
-      <nav
-        style="margin-bottom: 1rem; grid-area: header;"
+      <header
+        class="container"
       >
-        <button>
-          <a
-            class="b-navigate-back"
-            href="/activity"
+        <div
+          class="headline"
+        >
+          <div
+            class="subtitle"
+          >
+            <a
+              href="/activity"
+            >
+              Activity
+            </a>
+            <p
+              style="margin: 0px 0.5rem;"
+            >
+              /
+            </p>
+            <p>
+              Sparkle Flow with extra glitter and donuts on the side
+            </p>
+          </div>
+          <p
+            class="title"
+          >
+            Workflow run detail
+          </p>
+        </div>
+        <div
+          class="content"
+        >
+          <div
+            class="data"
+          >
+            <p
+              class="dataTitle"
+            >
+              Team
+            </p>
+            <p
+              class="dataValue"
+            />
+          </div>
+          <div
+            class="data"
+          >
+            <p
+              class="dataTitle"
+            >
+              Initiated by
+            </p>
+            <p
+              class="dataValue"
+            />
+          </div>
+          <div
+            class="data"
+          >
+            <p
+              class="dataTitle"
+            >
+              Trigger
+            </p>
+            <p
+              class="dataValue"
+            />
+          </div>
+          <div
+            class="data"
+          >
+            <p
+              class="dataTitle"
+            >
+              Start time
+            </p>
+            <p
+              class="dataValue"
+            >
+              2019-01-01 12:00 AM
+            </p>
+          </div>
+        </div>
+      </header>
+      <aside
+        class="container "
+      >
+        <section
+          class="statusBlock inProgress"
+        >
+          <div
+            class="duration"
+          >
+            <p
+              class="title"
+            >
+              Duration
+            </p>
+            <time
+              class="value"
+            >
+              NaNs
+            </time>
+          </div>
+          <div
+            class="status"
+          >
+            <p
+              class="title"
+            >
+              Status
+            </p>
+            <div
+              class="statusData"
+            >
+              <svg
+                aria-label="inProgress"
+                class="statusIcon"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 11h2v9h-2zm-2-9h6v2h-6z"
+                />
+                <path
+                  d="M28 9l-1.42-1.41-2.25 2.25a10.94 10.94 0 1 0 1.18 1.65zM16 26a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"
+                />
+              </svg>
+              <p
+                class="value"
+              >
+                In Progress
+              </p>
+            </div>
+          </div>
+          <button
+            class="collapseButton"
           >
             <svg
               aria-hidden="true"
-              class="b-navigate-back__chevron"
+              class="chevron"
               focusable="false"
               height="32"
               preserveAspectRatio="xMidYMid meet"
@@ -29,140 +167,72 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
                 d="M10 16L20 6l1.4 1.4-8.6 8.6 8.6 8.6L20 26z"
               />
             </svg>
-            <div
-              class="b-navigate-back__text"
-            >
-              Back to Activity
-            </div>
-          </a>
-        </button>
-      </nav>
-      <div
-        class="c-time-progress-bar"
-      >
-        <div
-          class="b-time-progress-bar"
+          </button>
+        </section>
+        <section
+          class="taskbar"
         >
-          <div
-            class="b-time-progress-bar__start"
+          <p
+            class="taskbarTitle"
           >
-            Start
-          </div>
-          <div
-            class="b-time-progress-bar__finish"
+            Task log
+          </p>
+          <button
+            class="taskbarButton"
           >
-            Finish
-          </div>
-        </div>
-      </div>
-      <div
-        class="c-workflow-diagram-execution"
-      />
-      <aside
-        style="grid-area: sidebar;"
-      >
-        <aside
-          class="c-workflow-summary"
+            <svg
+              aria-hidden="true"
+              class="taskbarArrows"
+              focusable="false"
+              height="32"
+              preserveAspectRatio="xMidYMid meet"
+              style="will-change: transform;"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
+              />
+            </svg>
+          </button>
+        </section>
+        <section
+          class="tasklog"
+        />
+        <section
+          class="diagram"
         >
-          <h1
-            class="s-workflow-summary-title"
+          <p
+            class="flowStatus"
           >
-            Workflow
-          </h1>
-          <section
-            class="c-workflow-summary-details"
+            Read-only
+          </p>
+          <button
+            class="edit"
           >
-            <dl
-              class="b-workflow-summary-field"
+            <svg
+              aria-hidden="true"
+              class="editIcon"
+              focusable="false"
+              height="32"
+              preserveAspectRatio="xMidYMid meet"
+              style="will-change: transform;"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <dt
-                class="b-workflow-summary-field__key"
-              >
-                Summary
-              </dt>
-              <dd
-                class="b-workflow-summary-field__value"
-              >
-                ---
-              </dd>
-            </dl>
-            <dl
-              class="b-workflow-summary-field"
+              <path
+                d="M2 27h28v2H2zM25.41 9a2 2 0 0 0 0-2.83l-3.58-3.58a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22v-3.59l10-10L19.59 12l-10 10z"
+              />
+            </svg>
+            <p
+              class="editText"
             >
-              <dt
-                class="b-workflow-summary-field__key"
-              >
-                Description
-              </dt>
-              <dd
-                class="b-workflow-summary-field__value"
-              >
-                ---
-              </dd>
-            </dl>
-            <dl
-              class="b-workflow-summary-field"
-            >
-              <dt
-                class="b-workflow-summary-field__key"
-              >
-                Version
-              </dt>
-              <dd
-                class="b-workflow-summary-field__value"
-              >
-                1
-              </dd>
-            </dl>
-            <dl
-              class="b-workflow-summary-field"
-            >
-              <dt
-                class="b-workflow-summary-field__key"
-              >
-                Status
-              </dt>
-              <dd
-                class="b-workflow-summary-field__value"
-              >
-                Not Started
-                <img
-                  alt="Status undefined"
-                  class="b-activity-card__status-icon"
-                  src="pending.svg"
-                />
-              </dd>
-            </dl>
-            <dl
-              class="b-workflow-summary-field"
-            >
-              <dt
-                class="b-workflow-summary-field__key"
-              >
-                Start Time
-              </dt>
-              <dd
-                class="b-workflow-summary-field__value"
-              >
-                January 1st 2019, 12:00:00 am
-              </dd>
-            </dl>
-            <dl
-              class="b-workflow-summary-field"
-            >
-              <dt
-                class="b-workflow-summary-field__key"
-              >
-                Duration
-              </dt>
-              <dd
-                class="b-workflow-summary-field__value"
-              >
-                ---
-              </dd>
-            </dl>
-          </section>
-        </aside>
+              Edit Workflow
+            </p>
+          </button>
+        </section>
       </aside>
     </div>
   </div>

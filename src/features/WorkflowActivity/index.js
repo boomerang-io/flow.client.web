@@ -3,17 +3,20 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import queryString from "query-string";
-import { MultiSelect } from "carbon-components-react";
-import { LoadingAnimation, NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
+import { MultiSelect as Select, Tabs, Tab } from "carbon-components-react";
+import { Calendar32 } from "@carbon/icons-react";
+import { LoadingAnimation, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { actions as activityActions } from "State/activity";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
-import orderBy from "lodash/orderBy";
+import ActivityHeader from "./ActivityHeader";
+import ActivityTable from "./ActivityTable";
 import ErrorDragon from "Components/ErrorDragon";
-import NavigateBack from "Components/NavigateBack";
-import { executionOptions, statusOptions } from "Constants/filterOptions";
-import ActivityList from "./ActivityList";
+import { executionOptions } from "Constants/filterOptions";
+import { ACTIVITY_STATUSES, ACTIVITY_STATUSES_TO_INDEX } from "Constants/activityStatuses";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
-import "./styles.scss";
+import styles from "./workflowActivity.module.scss";
+
+const MultiSelect = Select.Filterable;
 
 export class WorkflowActivity extends Component {
   static propTypes = {
@@ -56,7 +59,7 @@ export class WorkflowActivity extends Component {
         teamIds
       });
 
-      this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
+      this.updateActivities(`${BASE_SERVICE_URL}/activity?${query}`);
     }
   };
 
@@ -74,20 +77,8 @@ export class WorkflowActivity extends Component {
     });
   };
 
-  fetchMoreActivities = () => {
-    const { activityState } = this.props;
-    const { workflowIds, triggers, statuses, teamIds } = queryString.parse(this.props.location.search);
-
-    const query = queryString.stringify({
-      size: 10,
-      page: activityState.data.number + 1,
-      workflowIds,
-      triggers,
-      statuses,
-      teamIds
-    });
-
-    this.props.activityActions.fetchMore(`${BASE_SERVICE_URL}/activity?${query}`).catch(err => {
+  updateActivities = url => {
+    this.props.activityActions.update(url).catch(err => {
       //noop
     });
   };
@@ -137,7 +128,7 @@ export class WorkflowActivity extends Component {
     this.updateHistory(queryStr);
   };
 
-  handleSelectStatuses = ({ selectedItems }) => {
+  handleSelectStatuses = statusIndex => {
     const { teamIds, triggers, workflowIds } = queryString.parse(this.props.location.search);
 
     const queryStr = `?${queryString.stringify({
@@ -145,7 +136,7 @@ export class WorkflowActivity extends Component {
       size: 10,
       workflowIds,
       triggers,
-      statuses: selectedItems.length > 0 ? selectedItems.map(status => status.value).join() : undefined,
+      statuses: statusIndex > 0 ? ACTIVITY_STATUSES_TO_INDEX[statusIndex - 1] : undefined,
       teamIds
     })}`;
 
@@ -176,7 +167,11 @@ export class WorkflowActivity extends Component {
       return <LoadingAnimation centered />;
     }
 
-    if (activityState.status === REQUEST_STATUSES.FAILURE || teamsState.status === REQUEST_STATUSES.FAILURE) {
+    if (
+      activityState.status === REQUEST_STATUSES.FAILURE ||
+      activityState.updateStatus === REQUEST_STATUSES.FAILURE ||
+      teamsState.status === REQUEST_STATUSES.FAILURE
+    ) {
       return <ErrorDragon theme="bmrg-flow" />;
     }
 
@@ -189,6 +184,7 @@ export class WorkflowActivity extends Component {
       const selectedWorkflowIds = workflowIds.split(",");
       const selectedTriggers = triggers.split(",");
       const selectedStatuses = statuses.split(",");
+      const statusIndex = ACTIVITY_STATUSES_TO_INDEX.indexOf(selectedStatuses[0]);
 
       const teamsData = JSON.parse(JSON.stringify(teamsState.data));
 
@@ -202,93 +198,122 @@ export class WorkflowActivity extends Component {
 
       const workflowsFilter = this.getWorkflowFilter(teamsData, selectedTeams);
 
+      const activities = activityState.data.records;
+      const tableActivities = activityState.tableData.records;
+      const sort = activityState.tableData.sort;
+      const runActivities = activities.length;
+      let inProgressActivities = 0;
+      let succeededActivities = 0;
+      let failedActivities = 0;
+      let invalidActivities = 0;
+
+      activities.forEach(activity => {
+        if (activity.status === ACTIVITY_STATUSES.COMPLETED) {
+          succeededActivities++;
+        } else if (activity.status === ACTIVITY_STATUSES.FAILURE) {
+          failedActivities++;
+        } else if (activity.status === ACTIVITY_STATUSES.IN_PROGRESS) {
+          inProgressActivities++;
+        } else if (activity.status === ACTIVITY_STATUSES.INVALID) {
+          invalidActivities++;
+        }
+      });
+
       return (
-        <div className="c-workflow-activity">
-          <nav className="s-workflow-activity-navigation">
-            <NavigateBack
-              to={this.props.location.state ? this.props.location.state.fromUrl : "/workflows"}
-              text={`Back to ${this.props.location.state ? this.props.location.state.fromText : "Workflows"}`}
+        <div className={styles.container}>
+          <ActivityHeader
+            runActivities={runActivities}
+            succeededActivities={succeededActivities}
+            failedActivities={failedActivities}
+          />
+          <div className={styles.content}>
+            <Tabs className={styles.tabs} selected={statusIndex + 1} onSelectionChange={this.handleSelectStatuses}>
+              <Tab label={`All (${runActivities})`} />
+              <Tab label={`In Progress (${inProgressActivities})`} />
+              <Tab label={`Succeeded (${succeededActivities})`} />
+              <Tab label={`Failed (${failedActivities})`} />
+              <Tab label={`Invalid (${invalidActivities})`} />
+            </Tabs>
+            <section className={styles.filters}>
+              <div className={styles.dataFilters}>
+                <div style={{ marginRight: "1.4rem", width: "14.125rem" }}>
+                  <MultiSelect
+                    id="activity-teams-select"
+                    label="Choose team(s)"
+                    placeholder="Choose team(s)"
+                    invalid={false}
+                    onChange={this.handleSelectTeams}
+                    items={teamsData}
+                    itemToString={team => (team ? team.name : "")}
+                    initialSelectedItems={selectedTeams}
+                    titleText="Filter by team"
+                  />
+                </div>
+                <div style={{ marginRight: "1.4rem", width: "14.125rem" }}>
+                  <MultiSelect
+                    id="activity-workflows-select"
+                    label="Choose Workflow(s)"
+                    placeholder="Choose Workflow(s)"
+                    invalid={false}
+                    onChange={this.handleSelectWorkflows}
+                    items={workflowsFilter}
+                    itemToString={workflow => {
+                      const team = workflow ? teamsData.find(team => team.id === workflow.flowTeamId) : undefined;
+                      return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                    }}
+                    initialSelectedItems={workflowsFilter.filter(workflow => {
+                      if (selectedWorkflowIds.find(id => id === workflow.id)) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    })}
+                    titleText="Filter by workflow"
+                  />
+                </div>
+                <div style={{ width: "14.125rem" }}>
+                  <MultiSelect
+                    id="activity-triggers-select"
+                    label="Choose trigger type(s)"
+                    placeholder="Choose trigger type(s)"
+                    invalid={false}
+                    onChange={this.handleSelectTriggers}
+                    items={executionOptions}
+                    itemToString={item => (item ? item.value : "")}
+                    initialSelectedItems={executionOptions.filter(option => {
+                      if (selectedTriggers.find(trigger => trigger === option.value)) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    })}
+                    titleText="Filter by trigger"
+                  />
+                </div>
+              </div>
+              <div className={styles.timeFilters}>
+                <div className={styles.startDate}>
+                  <TextInput id="activity-start-date" labelText="Start date" placeholder="mm/dd/yyyy" type="date" />
+                  <Calendar32 aria-label="Calendar-start" className={styles.calendar} />
+                </div>
+                <div className={styles.endDate}>
+                  <TextInput id="activity-end-date" labelText="End date" placeholder="mm/dd/yyyy" type="date" />
+                  <Calendar32 aria-label="Calendar-end" className={styles.calendar} />
+                </div>
+              </div>
+            </section>
+            <ActivityTable
+              activities={tableActivities}
+              isUpdating={activityState.isUpdating}
+              sort={
+                Array.isArray(sort)
+                  ? { key: sort[0].property, sortDirection: sort[0].direction }
+                  : { key: "creationDate", sortDirection: "desc" }
+              }
+              history={history}
+              match={match}
+              location={location}
             />
-          </nav>
-          <div className="c-workflow-activity-content">
-            <div className="c-workflow-activity-header">
-              <MultiSelect
-                id="teams-select"
-                label="Teams"
-                invalid={false}
-                onChange={this.handleSelectTeams}
-                items={teamsData}
-                itemToString={team => (team ? team.name : "")}
-                initialSelectedItems={selectedTeams}
-              />
-              <MultiSelect
-                id="workflows-select"
-                label="Workflows"
-                invalid={false}
-                onChange={this.handleSelectWorkflows}
-                items={workflowsFilter}
-                itemToString={workflow => {
-                  const team = workflow ? teamsData.find(team => team.id === workflow.flowTeamId) : undefined;
-                  return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
-                }}
-                initialSelectedItems={workflowsFilter.filter(workflow => {
-                  if (selectedWorkflowIds.find(id => id === workflow.id)) {
-                    return true;
-                  } else {
-                    return false;
-                  }
-                })}
-              />
-              <MultiSelect
-                id="triggers-select"
-                label="Trigger"
-                invalid={false}
-                onChange={this.handleSelectTriggers}
-                items={executionOptions}
-                itemToString={item => (item ? item.value : "")}
-                initialSelectedItems={executionOptions.filter(option => {
-                  if (selectedTriggers.find(trigger => trigger === option.value)) {
-                    return true;
-                  } else {
-                    return false;
-                  }
-                })}
-              />
-              <MultiSelect
-                id="status-select"
-                label="Status"
-                invalid={false}
-                onChange={this.handleSelectStatuses}
-                items={statusOptions}
-                itemToString={item => (item ? item.label : "")}
-                initialSelectedItems={statusOptions.filter(option => {
-                  if (selectedStatuses.find(status => status === option.value)) {
-                    return true;
-                  } else {
-                    return false;
-                  }
-                })}
-              />
-            </div>
-            {!activityState.data.records.length ? (
-              <NoDisplay
-                style={{ marginTop: "5.5rem" }}
-                textLocation="below"
-                text="Looks like you need to run some workflows!"
-              />
-            ) : (
-              <ActivityList
-                activities={orderBy(activityState.data.records, ["creationDate"], ["desc"])}
-                hasMoreActivities={!activityState.data.last}
-                fetchActivities={this.fetchActivities}
-                workflowId={workflowIds}
-                history={history}
-                isLoading={activityState.isFetchingMore}
-                match={match}
-                location={location}
-                loadMoreActivities={this.fetchMoreActivities}
-              />
-            )}
           </div>
         </div>
       );

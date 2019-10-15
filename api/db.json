@@ -5934,6 +5934,7 @@
   },
   "workflowExecution": {
     "creationDate": "2019-09-03T15:00:00.049+0000",
+    "initiatedByUserName": "Tyson Lawrie",
     "duration": 904934,
     "id": "5c36289096052900012cc81d",
     "status": "completed",
@@ -5975,10 +5976,10 @@
       {
         "activityId": "5c36289096052900012cc81s",
         "duration": 300190,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "failure",
         "id": "5c3628909605290001dcc81e",
         "order": 1,
-        "startTime": "2019-09-03T15:00:26.103+0000",
+        "startTime": "2019-09-03T15:01:00.103+0000",
         "taskId": "515c8b05-cbf0-470a-a58e-b8740b332a6a",
         "outputs": {
           "args": {
@@ -6005,10 +6006,10 @@
       {
         "activityId": "5c36289096052900012cc81d",
         "duration": 300190,
-        "flowTaskStatus": "failure",
+        "flowTaskStatus": "inProgress",
         "id": "5cd6289096052900012cc81e",
         "order": 1,
-        "startTime": "2019-09-03T15:01:00.103+0000",
+        "startTime": "2019-09-03T15:02:00.103+0000",
         "taskId": "515c8bw5-cbb0-470a-a58e-b8740b332a6a",
         "outputs": {
           "args": {
@@ -6040,8 +6041,9 @@
   },
   "workflowSummary": [
     {
-      "name": "",
+      "name": "Sparkle Flow with extra glitter and donuts on the side",
       "shortDescription": "",
+      "flowTeamId": "5d5ad2d9ac60050001c5095b",
       "description": "",
       "icon": "docs",
       "version": 2,
@@ -6174,7 +6176,7 @@
         "duration": 0,
         "id": "5bdad371a7e263000116a75b",
         "initiatedBy": "5bc7b126f7856000012cd95d",
-        "status": "inProgress",
+        "status": "invalid",
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
@@ -6199,7 +6201,7 @@
         "creationDate": 1541065823346,
         "duration": 0,
         "id": "5bdacc5fa40f5d0001249c8d",
-        "status": "inProgress",
+        "status": "skipped",
         "initiatedBy": "5bc7b126f7856000012cd95d",
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",

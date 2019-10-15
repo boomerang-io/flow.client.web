@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of CreateEditPropertiesContent 1`] = `
-<body>
+<body
+  id="app"
+>
   <div>
     <form
       class="bx--bmrg-modal-flow-form"

@@ -8,9 +8,9 @@ export const types = {
   FETCH_ACTIVITY_REQUEST: "FETCH_ACTIVITY_REQUEST",
   FETCH_ACTIVITY_SUCCESS: "FETCH_ACTIVITY_SUCCESS",
   FETCH_ACTIVITY_FAILURE: "FETCH_ACTIVITY_FAILURE",
-  FETCH_MORE_ACTIVITY_REQUEST: "FETCH_MORE_ACTIVITY_REQUEST",
-  FETCH_MORE_ACTIVITY_SUCCESS: "FETCH_MORE_ACTIVITY_SUCCESS",
-  FETCH_MORE_ACTIVITY_FAILURE: "FETCH_MORE_ACTIVITY_FAILURE"
+  UPDATE_ACTIVITY_REQUEST: "UPDATE_ACTIVITY_REQUEST",
+  UPDATE_ACTIVITY_SUCCESS: "UPDATE_ACTIVITY_SUCCESS",
+  UPDATE_ACTIVITY_FAILURE: "UPDATE_ACTIVITY_FAILURE"
 };
 Object.freeze(types);
 
@@ -20,9 +20,10 @@ export const initialState = {
   status: "",
   error: "",
   data: [],
-  isFetchingMore: false,
-  moreStatus: "",
-  moreError: ""
+  isUpdating: false,
+  updateStatus: "",
+  updateError: "",
+  tableData: []
 };
 
 //action handlers
@@ -34,24 +35,31 @@ const actionHandlers = {
     return { ...state, isFetching: true };
   },
   [types.FETCH_ACTIVITY_SUCCESS]: (state, action) => {
-    return { ...state, isFetching: false, status: "success", data: action.data };
+    return {
+      ...state,
+      isFetching: false,
+      status: "success",
+      updateStatus: "success",
+      data: action.data,
+      tableData: action.data
+    };
   },
   [types.FETCH_ACTIVITY_FAILURE]: (state, action) => {
     return { ...state, isFetching: false, status: "failure", error: action.error };
   },
-  [types.FETCH_MORE_ACTIVITY_REQUEST]: state => {
-    return { ...state, isFetchingMore: true };
+  [types.UPDATE_ACTIVITY_REQUEST]: state => {
+    return { ...state, isUpdating: true };
   },
-  [types.FETCH_MORE_ACTIVITY_SUCCESS]: (state, action) => {
+  [types.UPDATE_ACTIVITY_SUCCESS]: (state, action) => {
     return {
       ...state,
-      isFetchingMore: false,
-      moreStatus: "success",
-      data: { ...action.data, records: [...state.data.records, ...action.data.records] }
+      isUpdating: false,
+      updateStatus: "success",
+      tableData: action.data
     };
   },
-  [types.FETCH_MORE_ACTIVITY_FAILURE]: (state, action) => {
-    return { ...state, isFetchingMore: false, moreStatus: "failure", moreError: action.error };
+  [types.UPDATE_ACTIVITY_FAILURE]: (state, action) => {
+    return { ...state, isUpdating: false, updateStatus: "failure", updateError: action.error };
   }
 };
 
@@ -76,20 +84,20 @@ const fetchApi = requestGenerator(fetchActionCreators);
 const fetch = url => dispatch => dispatch(fetchApi.request({ method: "get", url }));
 const cancel = () => dispatch => dispatch(fetchApi.cancelRequest());
 
-const fetchMoreRequest = () => ({ type: types.FETCH_MORE_ACTIVITY_REQUEST });
-const fetchMoreSuccess = data => ({ type: types.FETCH_MORE_ACTIVITY_SUCCESS, data });
-const fetchMoreFailure = error => ({ type: types.FETCH_MORE_ACTIVITY_FAILURE, error });
+const updateRequest = () => ({ type: types.UPDATE_ACTIVITY_REQUEST });
+const updateSuccess = data => ({ type: types.UPDATE_ACTIVITY_SUCCESS, data });
+const updateFailure = error => ({ type: types.UPDATE_ACTIVITY_FAILURE, error });
 
-const fetchMoreActionCreators = {
+const updateActionCreators = {
   reset: reset,
-  request: fetchMoreRequest,
-  success: fetchMoreSuccess,
-  failure: fetchMoreFailure
+  request: updateRequest,
+  success: updateSuccess,
+  failure: updateFailure
 };
 
-const fetchMoreApi = requestGenerator(fetchMoreActionCreators);
-const fetchMore = url => dispatch => dispatch(fetchMoreApi.request({ method: "get", url }));
-const cancelMore = () => dispatch => dispatch(fetchMoreApi.cancelRequest());
+const updateApi = requestGenerator(updateActionCreators);
+const update = url => dispatch => dispatch(updateApi.request({ method: "get", url }));
+const cancelMore = () => dispatch => dispatch(updateApi.cancelRequest());
 
 /*
  action creators declared to be passed into the GET request generator boilerplate
@@ -102,7 +110,7 @@ export const actions = {
   fetchFailure,
   fetchSuccess,
   cancel,
-  fetchMore,
+  update,
   cancelMore,
   reset
 };

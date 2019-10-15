@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
-<body>
+<body
+  id="app"
+>
   <div>
     <form
       class="bx--bmrg-modal-flow-form"
