@@ -4,28 +4,29 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
+import { PortWidget } from "@projectstorm/react-diagrams";
+import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import DisplayForm from "Components/DisplayForm";
-import WorkflowCloseButton from "Components/WorkflowCloseButton";
-import WorkflowEditButton from "Components/WorkflowEditButton";
-import WorkflowNode from "Components/WorkflowNode";
-import styles from "./TaskNodeDesigner.module.scss";
+import pencilIcon from "./pencil.svg";
+import mapTaskNametoIcon from "Utilities/taskIcons";
+import "./styles.scss";
 
 export class TaskNode extends Component {
   static propTypes = {
-    isModalOpen: PropTypes.bool.isRequired,
     node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired,
+    isModalOpen: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
-    node: {},
-    nodeConfig: {},
-    task: {}
+    nodeConfig: {}
   };
+
+  state = {};
 
   handleOnSave = inputs => {
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
@@ -38,6 +39,10 @@ export class TaskNode extends Component {
     this.props.node.remove();
   };
 
+  renderDeleteNode() {
+    return <CloseModalButton className="b-task-node__delete" onClick={this.handleOnDelete} />;
+  }
+
   renderConfigureNode() {
     return (
       <ModalFlow
@@ -49,7 +54,11 @@ export class TaskNode extends Component {
           title: `Edit ${this.props.task.name}`,
           subtitle: "Configure the inputs"
         }}
-        modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
+        modalTrigger={({ openModal }) => (
+          <button className="b-task-node__edit" onClick={openModal}>
+            <img src={pencilIcon} alt="Task node type" />
+          </button>
+        )}
       >
         <DisplayForm
           inputProperties={this.props.inputProperties}
@@ -64,26 +73,30 @@ export class TaskNode extends Component {
     );
   }
 
+  // TODO: confirm use of Carbon <Icon /> below
   render() {
-    const { task, node } = this.props;
     return (
-      <WorkflowNode title={task.name} subtitle={node.taskName} name={task.name} category={task.category} node={node}>
+      <div className="b-task-node">
+        <h1 className="b-task-node__title">{this.props.task ? this.props.task.name : "Task"}</h1>
+        <PortWidget className="b-task-node-port --left" name="left" node={this.props.node} port="left" />
+        <PortWidget className="b-task-node-port --right" name="right" node={this.props.node} port="right" />
+        {this.renderDeleteNode()}
+        {mapTaskNametoIcon(this.props.task.name, this.props.task.category)}
         {this.renderConfigureNode()}
-        <WorkflowCloseButton className={styles.closeButton} onClick={this.handleOnDelete} />
-      </WorkflowNode>
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isModalOpen: state.app.isModalOpen,
-    inputProperties: state.workflow.data.properties,
-    nodeConfig: state.workflowRevision.config[ownProps.node.id],
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) // get the taskNames names from the nodes on the model
+    nodeConfig: state.workflowRevision.config[ownProps.node.id],
+    taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
       .map(node => node.taskName)
-      .filter(name => !!name)
+      .filter(name => !!name),
+    isModalOpen: state.app.isModalOpen,
+    inputProperties: state.workflow.data.properties
   };
 };
 

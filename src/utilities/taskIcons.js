@@ -21,74 +21,74 @@ import {
  */
 const iconToTaskNames = [
   {
-    iconName: "Search",
-    icon: <Search16 alt="Task node type get, read" />,
+    //icon: "search",
+    icon: <Search16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: ["get"],
     includesConditions: ["read"]
   },
   {
-    iconName: "Checkmark",
-    icon: <CheckmarkOutline16 alt="Task node type submit, validate, approval" />,
+    //icon: "checkmark--outline",
+    icon: <CheckmarkOutline16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: ["submit", "validate"],
     includesConditions: ["approval"]
   },
   {
-    iconName: "Restart",
-    icon: <Restart16 alt="Task node type update, sync" />,
+    //icon: "restart",
+    icon: <Restart16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: ["update", "sync"],
     includesConditions: []
   },
   {
-    iconName: "Launch",
-    icon: <Launch16 alt="Task node type launch, deploy" />,
+    //icon: "launch",
+    icon: <Launch16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: ["launch"],
     includesConditions: ["deploy"]
   },
   {
-    iconName: "Terminal",
-    icon: <Terminal20 alt="Task node type shell, appcmd" />,
+    //icon: "terminal",
+    icon: <Terminal20 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: ["shell", "appcmd"],
     includesConditions: []
   },
   {
-    iconName: "Power",
-    icon: <Power16 alt="Task node type enable, start, activate" />,
+    //icon: "power",
+    icon: <Power16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: ["enable", "start", "activate"],
     includesConditions: []
   },
   {
-    iconName: "Export",
-    icon: <BackToTop16 alt="Task node type export" />,
+    //icon: "back-to-top",
+    icon: <BackToTop16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: ["export"],
     includesConditions: []
   },
   {
-    iconName: "Download",
-    icon: <Download16 alt="Task node type download" />,
+    //icon: "download",
+    icon: <Download16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: [],
     includesConditions: ["download"]
   },
   {
-    iconName: "Edit",
-    icon: <Edit16 alt="Task node type edit, define, modify" />,
+    //icon: "edit",
+    icon: <Edit16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: [],
     includesConditions: ["edit", "define", "modify"]
   },
   {
-    iconName: "Add",
-    icon: <AddAlt16 alt="Task node type create, register" />,
+    //icon: "add--outline",
+    icon: <AddAlt16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: ["create", "register"],
     includesConditions: []
   },
   {
-    iconName: "Close",
-    icon: <CloseOutline16 alt="Task node type stop, cancel, disable, terminate" />,
+    //icon: "close--outline",
+    icon: <CloseOutline16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: ["stop", "cancel", "disable", "terminate"],
     includesConditions: []
   },
   {
-    iconName: "Filter",
-    icon: <Filter16 alt="Task node type configure" />,
+    //icon: "filter",
+    icon: <Filter16 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />,
     startsWithConditions: ["configure"],
     includesConditions: []
   }
@@ -103,25 +103,21 @@ export default function mapTaskNametoIcon(taskName) {
   const taskNameFormatted = taskName.toLowerCase();
 
   // Set default as fallback icon if none
-  let iconImg = <Concept20 alt="Task node type concept" />;
-  let iconName = "Concept";
+  //let iconName = "predictive"; //not in carbon 10
+  let iconName = <Concept20 fill="#40D5BB" className="b-task-node__img" alt="Task node type" />;
 
   // Some will iterate through array until true is returned
   iconToTaskNames.some(iconConfig => {
     if (iconConfig.startsWithConditions.find(condition => taskNameFormatted.startsWith(condition))) {
-      iconImg = iconConfig.icon;
-      iconName = iconConfig.iconName;
-
+      iconName = iconConfig.icon;
       return true;
     }
     if (iconConfig.includesConditions.find(condition => taskNameFormatted.includes(condition))) {
-      iconImg = iconConfig.icon;
-      iconName = iconConfig.iconName;
-
+      iconName = iconConfig.icon;
       return true;
     }
     return false;
   });
 
-  return { iconName, iconImg };
+  return iconName;
 }

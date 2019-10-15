@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import classnames from "classnames";
 import get from "lodash.get";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { Button, Tooltip as CarbonTooltip } from "carbon-components-react";
+import { Button } from "carbon-components-react";
 import {
   ComboBox,
   ConfirmModal,
@@ -20,15 +21,14 @@ import {
 } from "@boomerang/carbon-addons-boomerang-react";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
-import workflowIcons from "Assets/workflowIcons";
+import assets from "./assets";
 import cronstrue from "cronstrue";
-import copyIcon from "Assets/workflowIcons/copy.svg";
-import eyeIcon from "Assets/workflowIcons/eye.svg";
-import refreshIcon from "Assets/workflowIcons/refresh.svg";
+import copyIcon from "./assets/copy.svg";
+import eyeIcon from "./assets/eye.svg";
+import refreshIcon from "./assets/refresh.svg";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import { Add16, SettingsAdjust20 } from "@carbon/icons-react";
-//import "./styles.scss";
-import styles from "./overview.module.scss";
+import "./styles.scss";
 
 export class Overview extends Component {
   constructor(props) {
@@ -141,31 +141,27 @@ export class Overview extends Component {
     } = this.props;
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.largeCol}>
-          <h1 className={styles.header}>General info</h1>
-          <h2 className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</h2>
+      <div className="c-workflow-overview">
+        <div className="c-overview-card">
+          <h1 className="s-general-info-title">General</h1>
           <ComboBox
+            styles={{ marginBottom: "2.5rem" }}
             onChange={this.handleTeamChange}
             items={teams}
             initialSelectedItem={values.selectedTeam}
             itemToString={item => (item ? item.name : "")}
             value={values.selectedTeam}
-            titleText={
-              <div style={{ display: "flex" }}>
-                <p style={{ marginRight: "0.5rem" }}>Team</p>
-                <CarbonTooltip tooltipText="test" />
-              </div>
-            }
+            title="Team"
+            label="Team"
             placeholder="Select a team"
             shouldFilterItem={({ item, inputValue }) =>
               item && item.name.toLowerCase().includes(inputValue.toLowerCase())
             }
           />
           <TextInput
+            className="b-overview__text-input"
             id="name"
             labelText="Name"
-            helperText="Must be unique, or special characters"
             placeholder="Name"
             value={values.name}
             onBlur={handleBlur}
@@ -174,6 +170,7 @@ export class Overview extends Component {
             invalidText={errors.name}
           />
           <TextInput
+            className="b-overview__text-input"
             id="shortDescription"
             labelText="Summary"
             placeholder="Summary"
@@ -184,6 +181,7 @@ export class Overview extends Component {
             invalidText={errors.shortDescription}
           />
           <TextArea
+            className="b-overview__text-area"
             id="description"
             labelText="Description"
             placeholder="Description"
@@ -195,12 +193,14 @@ export class Overview extends Component {
             style={{ resize: "none" }}
             value={values.description}
           />
-          <h2 className={styles.iconTitle}>Pick an icon (any icon)</h2>
-          <div className={styles.iconsWrapper}>
-            {workflowIcons.map((image, index) => (
+          <h2 className="s-workflow-icons-title">Icon</h2>
+          <div className="b-workflow-icons">
+            {assets.map((image, index) => (
               <label
-                key={`icon-number-${index}`}
-                className={`${styles.icon} ${get(workflow, "data.icon", "") === image.name ? styles.active : ""}`}
+                key={index}
+                className={classnames("b-workflow-icons__icon", {
+                  "--active": get(workflow, "data.icon", "") === image.name
+                })}
               >
                 <input
                   type="radio"
@@ -214,12 +214,11 @@ export class Overview extends Component {
             ))}
           </div>
         </div>
-        <div className={styles.smallCol}>
-          <h1 className={styles.header}>Triggers</h1>
-          <h2 className={styles.subTitle}>Off - until you turn them on. (Feel the power).</h2>
-          <div>
-            <div className={styles.triggerSection}>
-              <div className={styles.toggleContainer}>
+        <div className="c-overview-card">
+          <h1 className="s-trigger-title">Triggers</h1>
+          <div className="c-webhook">
+            <div className="b-webhook">
+              <div className="b-webhook__toggle">
                 <Toggle
                   id="webhook"
                   labelText="Enable Webhook"
@@ -228,7 +227,6 @@ export class Overview extends Component {
                   Up
                   tooltipContent="Enable workflow to be executed by a webhook"
                   tooltipProps={{ direction: "top" }}
-                  reversed
                 />
               </div>
               {get(workflow, "data.id", false) &&
@@ -237,148 +235,151 @@ export class Overview extends Component {
                   <Button
                     onClick={this.generateToken}
                     renderIcon={Add16}
-                    style={{ marginBottom: "1rem" }}
+                    style={{ marginLeft: "2.2rem" }}
                     size="field"
                     type="button"
                   >
                     Generate Token
                   </Button>
                 )}
-
-              {get(workflow, "data.triggers.webhook.enable", false) &&
-                get(workflow, "data.triggers.webhook.token", false) && (
-                  <div className={styles.webhookWrapper}>
-                    <TextInput
-                      readOnly
-                      id="token"
-                      placeholder="Token"
-                      value={values.token}
-                      type={this.state.tokenTextType}
+            </div>
+            {!get(workflow, "data.id", false) && get(workflow, "data.triggers.webhook.enable", false) && (
+              <div className="s-webhook-token-message">An API token will be generated on creation of the workflow.</div>
+            )}
+            {get(workflow, "data.triggers.webhook.enable", false) &&
+              get(workflow, "data.triggers.webhook.token", false) && (
+                <div className="b-webhook-token">
+                  <TextInput
+                    id="token"
+                    placeholder="Token"
+                    disabled
+                    value={values.token}
+                    type={this.state.tokenTextType}
+                  />
+                  <button onClick={this.handleShowToken} type="button">
+                    <img
+                      className="b-webhook-token__icon"
+                      src={eyeIcon}
+                      data-tip
+                      data-for="webhook-token-eyeIcon"
+                      alt="Show/Hide token"
                     />
-                    <button onClick={this.handleShowToken} type="button">
+                  </button>
+                  <Tooltip id="webhook-token-eyeIcon" place="top">
+                    {this.state.showTokenText}
+                  </Tooltip>
+                  <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
+                    <button
+                      onClick={() => this.setState({ copyTokenText: "Copied Token" })}
+                      onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                      type="button"
+                    >
                       <img
-                        alt="Show/Hide token"
-                        className={styles.webhookImg}
+                        className="b-webhook-token__icon"
+                        src={copyIcon}
                         data-tip
-                        data-for="webhook-token-eyeIcon"
-                        src={eyeIcon}
+                        data-for="webhook-token-copyIcon"
+                        alt="Copy token"
                       />
                     </button>
-                    <Tooltip id="webhook-token-eyeIcon" place="top">
-                      {this.state.showTokenText}
+                  </CopyToClipboard>
+                  <Tooltip id="webhook-token-copyIcon" place="top">
+                    {this.state.copyTokenText}
+                  </Tooltip>
+                  <div>
+                    <Tooltip place="top" id="webhook-token-refreshIcon">
+                      Regenerate Token
                     </Tooltip>
-                    <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
-                      <button
-                        onClick={() => this.setState({ copyTokenText: "Copied Token" })}
-                        onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
-                        type="button"
-                      >
-                        <img
-                          alt="Copy token"
-                          className={styles.webhookImg}
-                          data-tip
-                          data-for="webhook-token-copyIcon"
-                          src={copyIcon}
-                        />
-                      </button>
-                    </CopyToClipboard>
-                    <Tooltip id="webhook-token-copyIcon" place="top">
-                      {this.state.copyTokenText}
-                    </Tooltip>
-                    <div>
-                      <Tooltip place="top" id="webhook-token-refreshIcon">
-                        Regenerate Token
-                      </Tooltip>
-                      <ConfirmModal
-                        affirmativeAction={this.generateToken}
-                        children="The existing token will be invalidated."
-                        title="Generate a new Webhook Token?"
-                        modalTrigger={({ openModal }) => (
-                          <button type="button" onClick={openModal}>
-                            <img
-                              src={refreshIcon}
-                              className={styles.webhookImg}
-                              data-tip
-                              data-for="webhook-token-refreshIcon"
-                              alt="Regenerate token"
-                            />
-                          </button>
-                        )}
-                      />
-                    </div>
+                    <ConfirmModal
+                      affirmativeAction={this.generateToken}
+                      label="The existing token will be invalidated"
+                      title="Generate a new Webhook Token?"
+                      modalTrigger={({ openModal }) => (
+                        <button className="b-webhook-token__generate" type="button" onClick={openModal}>
+                          <img
+                            src={refreshIcon}
+                            className="b-webhook-token__icon"
+                            data-tip
+                            data-for="webhook-token-refreshIcon"
+                            alt="Regenerate token"
+                          />
+                        </button>
+                      )}
+                    />
                   </div>
-                )}
-            </div>
-
-            <div className={styles.triggerSection}>
-              <div className={styles.toggleContainer}>
-                <Toggle
-                  id="schedule"
-                  labelText="Enable Scheduler"
-                  toggled={values.schedule}
-                  onToggle={checked => this.handleOnSchedulerChange(checked)}
-                  tooltipContent="Enable workflow to be executed by a schedule"
-                  tooltipProps={{ direction: "top" }}
-                  reversed
-                />
-              </div>
-              {get(workflow, "data.triggers.scheduler.enable", false) && (
-                <ModalFlow
-                  confirmModalProps={{
-                    title: "Are you sure?",
-                    children: "Your changes will not be saved"
-                  }}
-                  modalHeaderProps={{
-                    title: "Set Schedule",
-                    subtitle: "Configure a CRON schedule for your workflow"
-                  }}
-                  modalTrigger={({ openModal }) => (
-                    <Button
-                      style={{ marginBottom: "1rem" }}
-                      iconDescription="Add"
-                      renderIcon={SettingsAdjust20}
-                      size="field"
-                      type="button"
-                      onClick={openModal}
-                    >
-                      Set Schedule
-                    </Button>
-                  )}
-                >
-                  <CronJobModal
-                    cronExpression={get(workflow, "data.triggers.scheduler.schedule", "")}
-                    handleOnChange={this.handleOnCronChange}
-                    timeZone={get(workflow, "data.triggers.scheduler.timezone", "")}
-                  />
-                </ModalFlow>
+                </div>
               )}
+            <div className="c-scheduler">
+              <div className="b-schedule">
+                <div className="b-schedule__toggle">
+                  <Toggle
+                    id="schedule"
+                    labelText="Enable Scheduler"
+                    toggled={values.schedule}
+                    onToggle={checked => this.handleOnSchedulerChange(checked)}
+                    tooltipContent="Enable workflow to be executed by a schedule"
+                    tooltipProps={{ direction: "top" }}
+                  />
+                </div>
+                {get(workflow, "data.triggers.scheduler.enable", false) && (
+                  <ModalFlow
+                    confirmModalProps={{
+                      title: "Are you sure?",
+                      children: "Your changes will not be saved"
+                    }}
+                    modalHeaderProps={{
+                      title: "Set Schedule",
+                      subtitle: "Configure a CRON schedule for your workflow"
+                    }}
+                    modalTrigger={({ openModal }) => (
+                      <Button
+                        iconDescription="Add"
+                        renderIcon={SettingsAdjust20}
+                        style={{ marginLeft: "2.2rem", width: "11rem" }}
+                        size="field"
+                        type="button"
+                        onClick={openModal}
+                      >
+                        Set Schedule
+                      </Button>
+                    )}
+                  >
+                    <CronJobModal
+                      cronExpression={get(workflow, "data.triggers.scheduler.schedule", "")}
+                      handleOnChange={this.handleOnCronChange}
+                      timeZone={get(workflow, "data.triggers.scheduler.timezone", "")}
+                    />
+                  </ModalFlow>
+                )}
+              </div>
               {get(workflow, "data.triggers.scheduler.schedule", false) &&
                 get(workflow, "data.triggers.scheduler.enable", false) &&
                 get(workflow, "data.triggers.scheduler.timezone", false) && (
-                  <div className={styles.informationWrapper}>
-                    <div className={styles.informationCronMessage}>
+                  <div className="b-schedule__information">
+                    <div className="b-schedule__information--cronMessage">
                       {cronstrue.toString(get(workflow, "data.triggers.scheduler.schedule", ""))}
                     </div>
-                    <div className={styles.informationTimeZone}>
+                    <div className="b-schedule__information--timezone">
                       {`${get(workflow, "data.triggers.scheduler.timezone", "")} Timezone`}
                     </div>
                   </div>
                 )}
             </div>
-            <div className={styles.triggerSection}>
-              <div className={styles.toggleContainer}>
-                <Toggle
-                  id="event"
-                  labelText="Enable Action Subscription"
-                  toggled={values.event}
-                  onToggle={checked => this.handleOnEventChange(checked)}
-                  tooltipContent="Enable workflow to be triggered by platform actions"
-                  tooltipProps={{ direction: "top" }}
-                  reversed
-                />
+            <div className="c-event">
+              <div className="b-event">
+                <div className="b-event__toggle">
+                  <Toggle
+                    id="event"
+                    labelText="Enable Action Subscription"
+                    toggled={values.event}
+                    onToggle={checked => this.handleOnEventChange(checked)}
+                    tooltipContent="Enable workflow to be triggered by platform actions"
+                    tooltipProps={{ direction: "top" }}
+                  />
+                </div>
               </div>
               {get(workflow, "data.triggers.event.enable", false) && (
-                <div>
+                <div className="b-event-topic">
                   <TextInput
                     id="topic"
                     labelText=""
@@ -387,7 +388,7 @@ export class Overview extends Component {
                     onBlur={handleBlur}
                     onChange={this.handleOnTopicChange}
                   />
-                  <div className={styles.toggleContainer}>
+                  <div className="b-event-iamIntegration">
                     <Toggle
                       id="enableACCIntegration"
                       labelText="Enable IBM Services ACC Integration"
@@ -395,34 +396,30 @@ export class Overview extends Component {
                       onToggle={checked => this.handleOnIamChange(checked)}
                       tooltipContent="Enable workflow to be triggered by ACC subscription"
                       tooltipProps={{ direction: "top" }}
-                      reversed
                     />
                   </div>
                 </div>
               )}
             </div>
           </div>
-
-          <div className={styles.delimiter} />
-          <div>
-            <h1 className={styles.header}>Other Options</h1>
-            <h2 className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</h2>
-            <div className={styles.toggleContainer}>
-              <Toggle
-                id="persistence"
-                labelText="Enable Persistent Storage"
-                toggled={values.persistence}
-                onToggle={checked => this.handleOnPersistenceChange(checked, "persistence")}
-                tooltipContent="Persist workflow data between executions"
-                tooltipProps={{ direction: "top" }}
-                reversed
-              />
+        </div>
+        <div className="c-overview-card">
+          <h1 className="s-trigger-title">Options</h1>
+          <div className="b-options">
+            <div className="b-persistence">
+              <div className="b-persistence__toggle">
+                <Toggle
+                  id="persistence"
+                  labelText="Enable Persistent Storage"
+                  toggled={values.persistence}
+                  onToggle={checked => this.handleOnPersistenceChange(checked, "persistence")}
+                  tooltipContent="Persist workflow data between executions"
+                  tooltipProps={{ direction: "top" }}
+                />
+              </div>
             </div>
           </div>
-
-          <div className={styles.delimiter} />
         </div>
-        <div className={styles.largeCol} />
       </div>
     );
   }

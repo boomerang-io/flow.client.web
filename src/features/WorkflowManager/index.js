@@ -8,22 +8,21 @@ import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { LoadingAnimation, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
+import Creator from "./Creator";
 import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
-import TASK_TYPES from "Constants/taskTypes";
-import NODE_TYPES from "Constants/nodeTypes";
-import styles from "./WorkflowManager.module.scss";
+import "./styles.scss";
 
 export class WorkflowManagerContainer extends Component {
   static propTypes = {
     activeTeamId: PropTypes.string,
-    history: PropTypes.object.isRequired,
-    match: PropTypes.object.isRequired,
-    tasks: PropTypes.object.isRequired,
-    tasksActions: PropTypes.object.isRequired,
     teams: PropTypes.object.isRequired,
+    tasks: PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    tasksActions: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired,
@@ -53,7 +52,6 @@ export class WorkflowManagerContainer extends Component {
     this.props.workflowRevisionActions.reset();
   }
 
-  // Not updating state to prevent re-renders. Need a better approach here
   handleChangeLogReasonChange = changeLogReason => {
     this.changeLogReason = changeLogReason;
   };
@@ -139,11 +137,7 @@ export class WorkflowManagerContainer extends Component {
       });
   };
 
-  updateWorkflowProperties = ({
-    title = "Update Inputs",
-    message = "Successfully updated inputs",
-    type = "update"
-  }) => {
+  updateInputs = ({ title = "Update Inputs", message = "Successfully updated inputs", type = "update" }) => {
     const { workflow, workflowActions } = this.props;
 
     return workflowActions
@@ -198,18 +192,20 @@ export class WorkflowManagerContainer extends Component {
         .getNodes()
     ).filter(node => node.taskId === taskData.id).length;
 
+    //check for type and create switchNode if type===switch
+
     let node;
     let nodeType;
 
     //TODO: probably should be a case staement or an object that maps the type to the model to support more types and set that to a variable and only have one call
-    if (taskData.key === TASK_TYPES.SWITCH) {
-      nodeType = NODE_TYPES.SWITCH; //TODO: should this have to be manually set or should it be a part of the taskData? a part of a mapping?
+    if (taskData.key === "switch") {
+      nodeType = "decision"; //TODO: should this have to be manually set or should it be a part of the taskData? a part of a mapping?
       node = new SwitchNodeModel({
         taskId: taskData.id,
         taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
       });
     } else {
-      nodeType = NODE_TYPES.CUSTOM; //TODO: should this have to be manually set or should it be a part of the taskData? a part of a mapping?
+      nodeType = "custom"; //TODO: should this have to be manually set or should it be a part of the taskData? a part of a mapping?
       node = new CustomTaskNodeModel({
         taskId: taskData.id,
         taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
@@ -229,8 +225,8 @@ export class WorkflowManagerContainer extends Component {
     this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: nodeType });
 
     const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
-    node.x = points.x - 110;
-    node.y = points.y - 40;
+    node.x = points.x - 120;
+    node.y = points.y - 80;
     diagramApp
       .getDiagramEngine()
       .getDiagramModel()
@@ -245,7 +241,7 @@ export class WorkflowManagerContainer extends Component {
     }
 
     if (tasks.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon />;
+      return <ErrorDragon theme="bmrg-flow" />;
     }
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
@@ -263,19 +259,25 @@ export class WorkflowManagerContainer extends Component {
                   }${hasUnsavedWorkflowRevisionUpdates ? "- Design\n" : ""}`
             }
           />
-          <div className={styles.container}>
+          <div className="c-workflow-designer">
             <Switch>
+              <Route
+                path="/creator/overview"
+                render={props => (
+                  <Creator workflow={this.props.workflow} createWorkflow={this.createWorkflow} {...props} />
+                )}
+              />
               <Route
                 path="/editor/:workflowId"
                 render={props => (
                   <EditorContainer
+                    workflow={this.props.workflow}
                     createNode={this.createNode}
                     createWorkflowRevision={this.createWorkflowRevision}
                     fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
                     handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-                    updateWorkflowProperties={this.updateWorkflowProperties}
+                    updateInputs={this.updateInputs}
                     updateWorkflow={this.updateWorkflow}
-                    workflow={this.props.workflow}
                     {...props}
                   />
                 )}
@@ -292,11 +294,11 @@ export class WorkflowManagerContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  activeTeamId: state.app.activeTeamId,
   tasks: state.tasks,
   teams: state.teams,
   workflow: state.workflow,
-  workflowRevision: state.workflowRevision
+  workflowRevision: state.workflowRevision,
+  activeTeamId: state.app.activeTeamId
 });
 
 const mapDispatchToProps = dispatch => ({

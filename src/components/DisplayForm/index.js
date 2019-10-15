@@ -12,7 +12,7 @@ import "./styles.scss";
 
 const AutoSuggestInput = props => {
   return (
-    <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
+    <div key={props.id} style={{ paddingBottom: "2.125rem", position: "relative" }}>
       <AutoSuggest {...props}>
         <CarbonTextInput />
       </AutoSuggest>
@@ -22,7 +22,7 @@ const AutoSuggestInput = props => {
 
 const TextAreaInput = props => {
   return (
-    <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
+    <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "2.125rem" }}>
       <TextAreaModal {...props} />
     </div>
   );

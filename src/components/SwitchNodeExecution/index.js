@@ -1,24 +1,36 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import WorkflowNode from "Components/WorkflowNode";
-import { Fork16 } from "@carbon/icons-react";
+import { PortWidget } from "@projectstorm/react-diagrams";
+import switchSVG from "Assets/svg/parent-relationship_32.svg";
 import "./styles.scss";
 
 export class SwitchNodeExecution extends Component {
   static propTypes = {
-    node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
+    node: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired
   };
 
   static defaultProps = {
-    node: {},
     nodeConfig: {}
   };
 
+  state = {};
+
   render() {
-    return <WorkflowNode title={"Switch"} icon={<Fork16 alt="Switch icon" />} node={this.props.node} />;
+    return (
+      <div className="b-switchNode">
+        <h1 className="b-switchNode__title">
+          {this.props.nodeConfig.inputs && this.props.nodeConfig.inputs.value
+            ? this.props.nodeConfig.inputs.value
+            : this.props.task.name}
+        </h1>
+        <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
+        <PortWidget className="b-switchNode-port --right" name="right" node={this.props.node} />
+        <img src={switchSVG} className="b-switchNode__img" alt="Task node type" />
+      </div>
+    );
   }
 }
 

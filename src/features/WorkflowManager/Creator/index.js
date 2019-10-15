@@ -7,8 +7,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as tasksActions } from "State/tasks";
 import { actions as teamActions } from "State/teams";
-import DesignerHeader from "Features/WorkflowManager/components/DesignerHeader";
-import Navigation from "Features/WorkflowManager/components/DesignerHeader/Navigation";
+import ActionBar from "Features/WorkflowManager/components/ActionBar";
+import Navigation from "Features/WorkflowManager/components/Navigation";
 import Overview from "Features/WorkflowManager/components/Overview";
 import DiagramApplication from "Utilities/DiagramApplication";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
@@ -68,7 +68,7 @@ class WorkflowCreatorContainer extends Component {
         >
           {formikProps => (
             <>
-              <DesignerHeader
+              <ActionBar
                 diagramApp={this.diagramApp}
                 performActionButtonText="Create Workflow"
                 performAction={this.createWorkflow}

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions } from "State/changeLog";
-import { DataTableSkeleton, SearchSkeleton } from "carbon-components-react";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import ChangeLogTable from "./ChangeLogTable";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
@@ -27,15 +27,7 @@ class ChangeLog extends Component {
   render() {
     const { changeLog } = this.props;
 
-    if (changeLog.isFetching)
-      return (
-        <div className={styles.container}>
-          <div style={{ width: "300px", marginBottom: "1rem" }}>
-            <SearchSkeleton small />
-          </div>
-          <DataTableSkeleton />
-        </div>
-      );
+    if (changeLog.isFetching) return <LoadingAnimation centered />;
 
     if (changeLog.status === REQUEST_STATUSES.SUCCESS)
       return (

@@ -2,7 +2,8 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
 .b-startEnd-node {
-  background: #002b50;
+  background: #697077;
+  border-radius: 0.25rem;
   width: 9rem;
   height: 5rem;
   position: "relative";
@@ -12,7 +13,9 @@
 
   .b-startEnd-node__title {
     text-align: center;
-    color: $ui-01;
+    font-weight: 300;
+    letter-spacing: 0.1625rem;
+    color: $off-white;
   }
 
   .b-startEnd-node__port {
@@ -21,23 +24,21 @@
     width: 2rem;
 
     &.--right {
-      background-color: $interactive-01;
-      border: 0.0625rem solid $interactive-01;
+      background-color: $teal-20;
+      border: 0.125rem solid $teal-30;
       right: -2rem;
-      top: 1.25rem;
       border-bottom-right-radius: 50%;
       border-top-right-radius: 50%;
-      background-image: url("../../assets/icons/chevron_white.svg");
+      background-image: url("../../assets/icons/chevron.svg");
       background-position: center;
       background-repeat: no-repeat;
     }
     &.--left {
-      background-color: #b3e6ff;
-      border: 0.0625rem solid $interactive-01;
+      background-color: $teal-10;
+      border: 0.125rem solid $teal-20;
       border-bottom-left-radius: 50%;
       border-top-left-radius: 50%;
       left: -2rem;
-      top: 1.25rem;
       background-image: url("../../assets/icons/chevron.svg");
       background-position: center;
       background-repeat: no-repeat;

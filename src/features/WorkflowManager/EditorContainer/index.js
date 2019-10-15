@@ -20,7 +20,6 @@ class WorkflowEditorContainer extends Component {
     createWorkflowRevision: PropTypes.func.isRequired,
     match: PropTypes.object.isRequired,
     teamsState: PropTypes.object.isRequired,
-    updateWorkflowProperties: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,

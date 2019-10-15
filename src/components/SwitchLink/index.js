@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
-import WorkFlowCloseButton from "Components/WorkflowCloseButton";
-import WorkflowEditButton from "Components/WorkflowEditButton";
+import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import ConfigureSwitchModal from "./ConfigureSwitchModal";
-import styles from "./SwitchLink.module.scss";
+import pencilIcon from "./pencil.svg";
+import "./styles.scss";
 
 class SwitchLink extends Component {
   static propTypes = {
@@ -113,39 +113,73 @@ class SwitchLink extends Component {
       <svg>
         {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
           <>
-            <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30})`}>
-              <foreignObject width="24" height="24" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+            <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30}) scale(0.7)`}>
+              <foreignObject width="46" height="36" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
                 <div xmlns="http://www.w3.org/1999/xhtml">
-                  <WorkFlowCloseButton onClick={this.handleOnDelete} />
+                  <CloseModalButton onClick={this.handleOnDelete} />
                 </div>
               </foreignObject>
             </g>
             <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y + 10})`}>
               <foreignObject width="32" height="32" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-                <WorkflowEditButton onClick={this.openModal} xmlns="http://www.w3.org/1999/xhtml" />
-                <ModalFlow
-                  confirmModalProps={{
-                    title: "Are you sure?",
-                    children: "Your changes will not be saved"
-                  }}
-                  modalHeaderProps={{
-                    title: "Switch",
-                    subtitle: "Set it up the conditions"
-                  }}
-                  isOpen={this.state.modalIsOpen}
-                  onCloseModal={() => {
-                    this.setState({ modalIsOpen: false });
-                  }}
-                >
-                  <ConfigureSwitchModal
-                    defaultState={this.state.defaultState}
-                    onSubmit={this.handleSave}
-                    switchCondition={this.state.switchCondition}
-                    updateDefaultState={this.updateDefaultState}
-                    updateSwitchState={this.updateSwitchState}
-                    setIsModalOpen={this.props.appActions.setIsModalOpen}
-                  />
-                </ModalFlow>
+                <div xmlns="http://www.w3.org/1999/xhtml">
+                  <button className="b-editswitch-button__img" onClick={this.openModal}>
+                    <img src={pencilIcon} alt="Edit Switch Property" />
+                  </button>
+                  {/*<Modal
+                    className="bmrg--c-modal"
+                    contentLabel="Modal"
+                    documentRootTagId="app"
+                    ariaHideApp={true}
+                    isOpen={this.state.modalIsOpen}
+                    onAfterOpen={this.afterOpenModal}
+                    onRequestClose={this.closeModal}
+                    overlayClassName="bmrg--c-modal-overlay"
+                    shouldCloseOnOverlayClick={false}
+                  >
+                    <ModalFlow
+                      theme="bmrg-flow"
+                      title
+                      closeModal={this.closeModal}
+                      headerTitle="Switch"
+                      headerSubtitle="Set it up the conditions"
+                      isFetching={false}
+                      fullscreen={false}
+                    >
+                      <ConfigureSwitchModal
+                        defaultState={this.state.defaultState}
+                        onSubmit={this.handleSave}
+                        switchCondition={this.state.switchCondition}
+                        updateDefaultState={this.updateDefaultState}
+                        updateSwitchState={this.updateSwitchState}
+                        setIsModalOpen={this.props.appActions.setIsModalOpen}
+                      />
+                    </ModalFlow>
+                  </Modal>*/}
+                  <ModalFlow
+                    confirmModalProps={{
+                      title: "Are you sure?",
+                      children: "Your changes will not be saved"
+                    }}
+                    modalHeaderProps={{
+                      title: "Switch",
+                      subtitle: "Set it up the conditions"
+                    }}
+                    isOpen={this.state.modalIsOpen}
+                    onCloseModal={() => {
+                      this.setState({ modalIsOpen: false });
+                    }}
+                  >
+                    <ConfigureSwitchModal
+                      defaultState={this.state.defaultState}
+                      onSubmit={this.handleSave}
+                      switchCondition={this.state.switchCondition}
+                      updateDefaultState={this.updateDefaultState}
+                      updateSwitchState={this.updateSwitchState}
+                      setIsModalOpen={this.props.appActions.setIsModalOpen}
+                    />
+                  </ModalFlow>
+                </div>
               </foreignObject>
             </g>
           </>
@@ -155,7 +189,7 @@ class SwitchLink extends Component {
             transform={`translate(${this.halfwayPoint.x + 20}, ${this.halfwayPoint.y + 25})`}
             style={{ cursor: "initial" }}
           >
-            <text className={styles.text}>
+            <text className="s-small-text">
               {this.props.model.switchCondition === null ? "default" : seperatedLinkState}
             </text>
           </g>
@@ -167,7 +201,6 @@ class SwitchLink extends Component {
         )}
 
         <path
-          className={styles.path}
           ref={this.path}
           style={linkStyle}
           strokeWidth={this.props.model.width}

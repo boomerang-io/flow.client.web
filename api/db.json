@@ -45,7 +45,7 @@
       "description": "Specify Shell Script to Ingest CSV",
       "key": "ingest",
       "name": "read Ingest CSV",
-      "type": "sendStuff",
+      "type": "ValuesList",
       "category": "file utilities"
     },
     {
@@ -130,7 +130,7 @@
       "description": "Sleep for specified duration in milliseconds",
       "key": "sleep",
       "name": "update Sleep",
-      "type": "sendStuff",
+      "type": "ValuesList",
       "category": "utilities",
       "arguments": ["sleep", "$(INPUTS_PROPS_DURATION)"]
     },
@@ -249,7 +249,7 @@
           "type": "text"
         },
         {
-          "description": "Property to switch on",
+          "description": "Property to be Switched Upon",
           "key": "value",
           "label": "Value",
           "type": "text"
@@ -10655,12 +10655,11 @@
   },
   "globalConfiguration": [
     {
-      "label": "Mail Account",
-      "description": "ben testing",
-      "key": "mail.account",
       "value": "2345",
-      "type": "password",
-      "id": "5cdc5ad7460edb4a230b579b"
+      "id": "5cdc5ad7460edb4a230b579b",
+      "key": "mail.account",
+      "label": "Mail Account",
+      "type": "password"
     },
     {
       "label": "Tim Testing",
@@ -10685,14 +10684,6 @@
       "value": "44555",
       "type": "password",
       "id": "s6KdbOd"
-    },
-    {
-      "label": "fdsafdsa",
-      "description": "fdsafds",
-      "key": "fdsa",
-      "value": "fdsaf",
-      "type": "text",
-      "id": "rlw_MDS"
     }
   ]
 }
