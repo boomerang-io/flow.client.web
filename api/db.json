@@ -928,7 +928,7 @@
               "position": "left"
             }
           ],
-          "passedName": "Finish"
+          "passedName": "End"
         },
         {
           "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
@@ -4771,7 +4771,7 @@
                 "position": "left"
               }
             ],
-            "passedName": "Finish"
+            "passedName": "End"
           },
           {
             "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
@@ -10622,7 +10622,7 @@
                 "position": "left"
               }
             ],
-            "passedName": "Finish"
+            "passedName": "End"
           },
           {
             "nodeId": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
