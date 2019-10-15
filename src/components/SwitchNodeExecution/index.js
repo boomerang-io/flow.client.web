@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import WorkflowNode from "Components/WorkflowNode";
 import { Fork16 } from "@carbon/icons-react";
-import "./styles.scss";
 
 export class SwitchNodeExecution extends Component {
   static propTypes = {

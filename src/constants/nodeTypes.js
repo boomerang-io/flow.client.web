@@ -1,4 +1,5 @@
 export default {
+  TEMPLATE: "templateTask",
   DECISION: "decision",
-  CUSTOM: "custom"
+  CUSTOM: "customTask"
 };

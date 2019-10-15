@@ -1,12 +1,12 @@
 import React from "react";
 import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
-import CustomTaskNodeDesigner from "Components/TaskNodeDesigner";
-import CustomTaskNodeExecution from "Components/TaskNodeExecution";
+import CustomTaskNodeDesigner from "Components/CustomTaskNodeDesigner";
+import CustomTaskNodeExecution from "Components/CustomTaskNodeExecution";
 import CustomTaskNodeModel from "./CustomTaskNodeModel";
 
 export default class CustomTaskNodeFactory extends AbstractNodeFactory {
   constructor(diagramEngine) {
-    super("custom");
+    super("customTask");
     this.diagramEngine = diagramEngine;
   }
 

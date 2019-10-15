@@ -1,30 +1,28 @@
 import { PortModel } from "@projectstorm/react-diagrams";
-import CustomLinkModel from "Utilities/customLink/CustomLinkModel";
+import TaskLinkModel from "Utilities/taskLink/TaskLinkModel";
 import merge from "lodash/merge";
 
-export default class CustomTaskPortModel extends PortModel {
-  //position: string | "top" | "bottom" | "left" | "right";
-
-  constructor(pos) {
-    super(pos, "custom");
-    this.position = pos;
+export default class TemplatePortModel extends PortModel {
+  constructor(position) {
+    super(position, "template");
+    this.position = position;
   }
 
   serialize() {
     return merge(super.serialize(), {
-      position: this.position,
-      nodePortId: this.id
+      nodePortId: this.id,
+      position: this.position
     });
   }
 
   deSerialize(data, engine) {
     super.deSerialize(data, engine);
-    this.position = data.position;
     this.id = data.nodePortId;
+    this.position = data.position;
   }
 
   createLinkModel() {
-    return new CustomLinkModel();
+    return new TaskLinkModel();
   }
 
   canLinkToPort(target) {

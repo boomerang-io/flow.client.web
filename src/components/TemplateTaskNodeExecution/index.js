@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
-import WorkflowNode from "Components/WorkflowNode";
+import TaskNode from "Components/TaskNode";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
-import styles from "./TaskNodeExecution.module.scss";
+import styles from "./TemplateNodeExecution.module.scss";
 
-export class TaskNodeExecution extends Component {
+export class TemplateNodeExecution extends Component {
   static propTypes = {
     appActions: PropTypes.object.isRequired,
     diagramEngine: PropTypes.object.isRequired,
@@ -34,7 +34,7 @@ export class TaskNodeExecution extends Component {
     const { task, node } = this.props;
 
     return (
-      <WorkflowNode
+      <TaskNode
         category={task.category}
         className={styles[flowTaskStatus]}
         name={task.name}
@@ -45,7 +45,7 @@ export class TaskNodeExecution extends Component {
         title={task.name}
       >
         <div className={styles.progressBar} />
-      </WorkflowNode>
+      </TaskNode>
     );
   }
 }
@@ -68,4 +68,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskNodeExecution);
+)(TemplateNodeExecution);

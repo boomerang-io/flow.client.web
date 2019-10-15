@@ -10,15 +10,8 @@ export default class StartEndNodeModel extends NodeModel {
     this.passedName = passedName;
     if (this.passedName === "Finish") {
       this.addPort(new StartEndPortModel("left", false));
-      //this.addInPort("left");
-    } /*else {
-      this.addPort(new StartEndPortModel("right"));
-      //this.addOutPort("left");
-    }*/ else if (
-      this.passedName === "Start"
-    ) {
+    } else if (this.passedName === "Start") {
       this.addPort(new StartEndPortModel("right", true));
-      //this.addInPort("left");
     }
   }
 

@@ -10,9 +10,8 @@ import { LoadingAnimation, notify, ToastNotification } from "@boomerang/carbon-a
 import ErrorDragon from "Components/ErrorDragon";
 import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
-import CustomTaskNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
+import TemplateNodeModel from "Utilities/templateTaskNode/TemplateTaskNodeModel";
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
-import TASK_TYPES from "Constants/taskTypes";
 import NODE_TYPES from "Constants/nodeTypes";
 import styles from "./WorkflowManager.module.scss";
 
@@ -199,43 +198,45 @@ export class WorkflowManagerContainer extends Component {
     ).filter(node => node.taskId === taskData.id).length;
 
     let node;
-    let nodeType;
-
-    //TODO: probably should be a case staement or an object that maps the type to the model to support more types and set that to a variable and only have one call
-    if (taskData.key === TASK_TYPES.SWITCH) {
-      nodeType = NODE_TYPES.SWITCH; //TODO: should this have to be manually set or should it be a part of the taskData? a part of a mapping?
-      node = new SwitchNodeModel({
-        taskId: taskData.id,
-        taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
-      });
-    } else {
-      nodeType = NODE_TYPES.CUSTOM; //TODO: should this have to be manually set or should it be a part of the taskData? a part of a mapping?
-      node = new CustomTaskNodeModel({
-        taskId: taskData.id,
-        taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
-      });
+    console.log(taskData);
+    // eslint-disable-next-line default-case
+    switch (taskData.nodeType) {
+      case NODE_TYPES.DECISION:
+        node = new SwitchNodeModel({
+          taskId: taskData.id,
+          taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
+        });
+        break;
+      case NODE_TYPES.TEMPLATE:
+        node = new TemplateNodeModel({
+          taskId: taskData.id,
+          taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
+        });
     }
-    const { id, taskId } = node;
 
-    // Create inputs object with empty string values by default for service to process easily
-    const inputs =
-      taskData.config && taskData.config.length
-        ? taskData.config.reduce((accu, item) => {
-            accu[item.key] = "";
-            return accu;
-          }, {})
-        : {};
+    if (node) {
+      const { id, taskId } = node;
 
-    this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: nodeType });
+      // Create inputs object with empty string values by default for service to process easily
+      const inputs =
+        taskData.config && taskData.config.length
+          ? taskData.config.reduce((accu, item) => {
+              accu[item.key] = "";
+              return accu;
+            }, {})
+          : {};
 
-    const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
-    node.x = points.x - 110;
-    node.y = points.y - 40;
-    diagramApp
-      .getDiagramEngine()
-      .getDiagramModel()
-      .addNode(node);
-    this.forceUpdate();
+      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: taskData.nodeType });
+
+      const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
+      node.x = points.x - 110;
+      node.y = points.y - 40;
+      diagramApp
+        .getDiagramEngine()
+        .getDiagramModel()
+        .addNode(node);
+      this.forceUpdate();
+    }
   };
 
   render() {

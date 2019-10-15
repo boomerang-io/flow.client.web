@@ -1,16 +1,16 @@
 import { DefaultLinkModel } from "@projectstorm/react-diagrams";
 
-export default class CustomLinkModel extends DefaultLinkModel {
+export default class TaskLinkModel extends DefaultLinkModel {
   constructor() {
-    super("custom");
+    super("task");
     this.executionCondition = "always";
   }
 
   serialize() {
     return {
       ...super.serialize(),
-      linkId: this.id,
-      executionCondition: this.executionCondition
+      executionCondition: this.executionCondition,
+      linkId: this.id
     };
   }
 

@@ -1,5 +1,5 @@
 import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
-import StartEndNode from "Components/WorkflowStartEndNode";
+import StartEndNode from "Components/StartEndNode";
 import StartEndNodeModel from "Utilities/startEndNode/StartEndNodeModel";
 import React from "react";
 

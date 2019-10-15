@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import WorkFlowCloseButton from "Components/WorkflowCloseButton";
 import MultiStateButton from "./MultiStateButton";
-import styles from "./WorkflowLink.module.scss";
+import styles from "./TaskLink.module.scss";
 
-class CustomLink extends Component {
+class TaskLink extends Component {
   static propTypes = {
     model: PropTypes.object.isRequired,
     path: PropTypes.string.isRequired,
@@ -129,4 +129,4 @@ class CustomLink extends Component {
   }
 }
 
-export default CustomLink;
+export default TaskLink;

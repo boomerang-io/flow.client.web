@@ -9,9 +9,9 @@ import DisplayForm from "Components/DisplayForm";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowNode from "Components/WorkflowNode";
-import styles from "./TaskNodeDesigner.module.scss";
+import styles from "./CustomTaskNodeDesigner.module.scss";
 
-export class TaskNode extends Component {
+export class CustomTaskNodeDesigner extends Component {
   static propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
     node: PropTypes.object.isRequired,
@@ -95,4 +95,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TaskNode);
+)(CustomTaskNodeDesigner);

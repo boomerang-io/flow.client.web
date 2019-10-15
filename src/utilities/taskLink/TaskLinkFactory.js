@@ -1,23 +1,23 @@
 import React from "react";
 import { DefaultLinkFactory } from "@projectstorm/react-diagrams";
-import CustomLinkModel from "./CustomLinkModel";
-import CustomLink from "Components/WorkflowLink";
+import TaskLinkModel from "./TaskLinkModel";
+import TaskLink from "Components/TaskLink";
 
-export default class CustomLinkFactory extends DefaultLinkFactory {
+export default class TaskLinkFactory extends DefaultLinkFactory {
   constructor(diagramEngine) {
     super();
-    this.type = "custom";
     this.diagramEngine = diagramEngine;
+    this.type = "task";
   }
 
   getNewInstance = () => {
-    return new CustomLinkModel();
+    return new TaskLinkModel();
   };
 
   generateLinkSegment(model, widget, selected, path) {
     return (
       <g>
-        <CustomLink model={model} path={path} diagramEngine={this.diagramEngine} />
+        <TaskLink model={model} path={path} diagramEngine={this.diagramEngine} />
       </g>
     );
   }

@@ -4,7 +4,7 @@ import { PortWidget } from "@projectstorm/react-diagrams";
 import classnames from "classnames";
 import "./styles.scss";
 
-class StartEndNodeWidget extends Component {
+class StartEndNode extends Component {
   static propTypes = {
     node: PropTypes.object.isRequired
   };
@@ -22,4 +22,4 @@ class StartEndNodeWidget extends Component {
   }
 }
 
-export default StartEndNodeWidget;
+export default StartEndNode;
