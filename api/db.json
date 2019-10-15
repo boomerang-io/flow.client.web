@@ -196,13 +196,13 @@
     {
       "id": "5bd9b4115a5df954ad5ad8db",
       "config": [],
-      "description": "Artifactory File Download",
-      "key": "artifactoryDownload",
-      "name": "shell Artifactory File Download",
+      "description": "Custom Task",
+      "key": "customTask",
+      "name": "Custom Task",
       "type": "ValuesList",
       "category": "utilities",
-      "arguments": ["artifactoryDownload"],
-      "nodeType": "templateTask"
+      "arguments": [],
+      "nodeType": "customTask"
     },
     {
       "id": "5bd9d03a5a5df954ad5bb3b5",
@@ -631,7 +631,7 @@
               "nodePortId": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb"
         },
         {
@@ -1109,7 +1109,7 @@
               "portId": "049f1b28-4e6a-4225-9ba3-36acccc1f7a7"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "1b1c8b8b-bb7a-40ae-9d23-87cbacea41ca"
         },
         {
@@ -1256,7 +1256,7 @@
               "portId": "0d641c54-f45a-4bc9-9048-7f3c90b892a9"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "18d533a9-4092-49fb-b233-cb59a8181b98"
         },
         {
@@ -1402,7 +1402,7 @@
               "portId": "3f393f56-1c69-4489-8ff8-35370718d8de"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "aae617b2-e43d-4a73-993d-7293b65cf7f2"
         },
         {
@@ -1549,7 +1549,7 @@
               "nodePortId": "fb0df435-fa76-41d9-8436-3bbe034d6fa5"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "7f232ec9-1562-42f2-bca3-24fc32a78a59"
         },
         {
@@ -1696,7 +1696,7 @@
               "nodePortId": "f8515b19-ad5d-422c-b502-b0b3474616c7"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "0d365390-639b-4bb6-9498-aa9e77b376bc"
         },
         {
@@ -1782,7 +1782,7 @@
               "nodePortId": "472b5875-38ce-4793-96bc-5b6f63737a95"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "19b85229-2f9b-46f5-9dce-0fff4fa0e0d1"
         },
         {
@@ -1929,7 +1929,7 @@
               "nodePortId": "66247f78-b979-4ce4-bd1a-dd6356f11fda"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "9a59ab8e-b760-4909-8953-cd3d7be22043"
         },
         {
@@ -2076,7 +2076,7 @@
               "nodePortId": "42f78d42-5ff7-4d2a-aa49-ec77e0c9f8bd"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "783e9acd-0f13-4111-9f6c-023f4a9b298b"
         },
         {
@@ -2223,7 +2223,7 @@
               "nodePortId": "b2348b67-5087-4c7f-b88d-26360400c269"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "cf5684e8-ccf3-47b4-af53-c3df3a4bc510"
         },
         {
@@ -2309,7 +2309,7 @@
               "nodePortId": "0d016f50-44e2-44d2-9fa9-0d180d62b53c"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "d4394c21-9eca-44a8-916c-39f34fb7e83c"
         },
         {
@@ -2458,7 +2458,7 @@
               "nodePortId": "6d1e87be-9557-4f14-99cc-42d70f087442"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "e34a3fce-7afa-476e-8b38-4df4326f35d2"
         }
       ]
@@ -2603,7 +2603,7 @@
               "nodePortId": "1cb62ca3-a466-4989-bd4d-aeb34ed40331"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "46865cc5-640c-43a0-86b7-3596e2567fa9"
         },
         {
@@ -2812,7 +2812,7 @@
               "nodePortId": "8ed32a20-2725-49c3-9486-5284a3bd703e"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "b7ff9bfd-ee4f-4c5a-b7b5-7d819c664570"
         },
         {
@@ -2960,7 +2960,7 @@
               "nodePortId": "67058e8f-9c83-4528-aaeb-7de401ee3f44"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "0bbedc0f-c2e0-4206-bfad-7923600bdf43"
         }
       ]
@@ -3044,7 +3044,7 @@
               "nodePortId": "97d31d7b-921f-4fcd-a9c2-9d9b59e47291"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "db11627f-009b-4e98-a9bb-1184c2bc43e6"
         }
       ]
@@ -3128,7 +3128,7 @@
               "nodePortId": "9f3243fb-4aaf-4759-8578-24c8b3765955"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "cebcec6e-5b5e-41c5-a524-fcdf512b38c6"
         }
       ]
@@ -3212,7 +3212,7 @@
               "nodePortId": "fa411527-4e68-401e-baf8-bebf66aa4f68"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "a745feba-6907-4cab-97ef-9ceba6314d26"
         },
         {
@@ -3328,7 +3328,7 @@
               "nodePortId": "be2e5517-d57f-4a09-b3f9-390dc261aa81"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "f7a14851-74f9-4b43-af37-248608c54d2f"
         }
       ]
@@ -3442,7 +3442,7 @@
               "nodePortId": "ad2e6463-53cc-43f3-85ba-b3d412e66cde"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "dbb12e5d-da08-4b65-84b7-28b01d4553a1"
         },
         {
@@ -3590,7 +3590,7 @@
               "nodePortId": "4d56727c-ce81-45c3-b18b-daedf058aab6"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "83ec6879-be56-400d-9871-22a9d72c1005"
         }
       ]
@@ -3705,7 +3705,7 @@
               "nodePortId": "bb51d8d5-517e-4e58-bcd7-788a41b4a398"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "f4f9759a-313d-4cc0-8830-833350935f46"
         },
         {
@@ -3823,7 +3823,7 @@
               "nodePortId": "b5bb46dd-e57c-4589-bf09-d32b94798249"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "2df38f92-0d09-4343-ba60-194404df5378"
         }
       ]
@@ -3877,7 +3877,7 @@
               "nodePortId": "58681bdb-995c-415d-9fdf-ef2617458398"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "ecdbddd7-603e-4191-b7f7-e0c22e8a7db6"
         }
       ]
@@ -3992,7 +3992,7 @@
               "nodePortId": "04a85686-aacf-47cb-b410-74137ac986a1"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "07607b02-40de-46c2-8303-535bfd6fa7d0"
         },
         {
@@ -4139,7 +4139,7 @@
               "nodePortId": "1d975507-20bc-4811-b429-4ea8097cd0db"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "338adc87-f16f-423e-b847-c89c302d27f6"
         },
         {
@@ -4454,7 +4454,7 @@
                 "nodePortId": "ba82de26-89e8-4f2d-9026-a1a56bb81570"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "e05d792e-29da-410b-8a86-fbf3652bbf23"
           },
           {
@@ -4552,7 +4552,7 @@
                 "nodePortId": "552f68df-8cdf-45d3-92c8-f6eaf3a90f5b"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "31867b37-71ac-4389-ae7c-5ef2df487184"
           }
         ]
@@ -4610,7 +4610,7 @@
                 "nodePortId": "1056785e-1527-4a2c-a573-debd39ba6927"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "cea269ca-ada8-4552-ae3f-69a9caad8327"
           }
         ]
@@ -4892,7 +4892,7 @@
                 "nodePortId": "542c60c5-0cff-433c-8fe1-887b6413ffd3"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "52c79437-d966-49b2-94fe-15d74e8e7f20"
           }
         ]
@@ -4956,7 +4956,7 @@
                 "nodePortId": "237f6ee6-7139-46d5-b7a7-7d0bd8f2b301"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "ce0dd41b-ad52-4e41-8590-7d2b1f14548d"
           }
         ]
@@ -5020,7 +5020,7 @@
                 "nodePortId": "d171538b-b235-4575-885e-0be820ec68cb"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "398bef07-5be1-4050-81ed-81a1d6aa5a92"
           }
         ]
@@ -5084,7 +5084,7 @@
                 "nodePortId": "917b7c4a-4aaa-493f-ac57-11485cbe47ad"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "4342a626-23b3-4680-a8cd-96a9c49de13b"
           }
         ]
@@ -5148,7 +5148,7 @@
                 "nodePortId": "0d517fa3-b117-4839-80df-c1bbcdd092e5"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "3ef6cccb-88a1-48b1-a0df-9e7749479252"
           },
           {
@@ -5249,7 +5249,7 @@
                 "nodePortId": "4f21ea7e-b7e7-4827-b111-bebc39be4844"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "007ab2bf-e419-49ec-9080-70a1e42206b6"
           }
         ]
@@ -5313,7 +5313,7 @@
                 "nodePortId": "b837adde-228e-4b20-91f5-36129162c3fa"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "8d31e662-84df-4991-9d19-7e58b87befb8"
           }
         ]
@@ -5437,7 +5437,7 @@
                 "nodePortId": "b837adde-228e-4b20-91f5-36129162c3fa"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "8d31e662-84df-4991-9d19-7e58b87befb8"
           },
           {
@@ -5538,7 +5538,7 @@
                 "nodePortId": "de321d9e-e061-4993-af9f-530d45761fb6"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "8c6c4127-a65f-45cd-abf1-b8423f189eca"
           }
         ]
@@ -5601,7 +5601,7 @@
                 "nodePortId": "63239642-1e33-4a2b-a945-b396ae746efa"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "63bb0fb1-afee-4bfe-8025-289312c21305"
           }
         ]

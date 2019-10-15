@@ -67,7 +67,14 @@ export class CustomTaskNodeDesigner extends Component {
   render() {
     const { task, node } = this.props;
     return (
-      <WorkflowNode title={task.name} subtitle={node.taskName} name={task.name} category={task.category} node={node}>
+      <WorkflowNode
+        className={styles.node}
+        title={task.name}
+        subtitle={node.taskName}
+        name={task.name}
+        category={task.category}
+        node={node}
+      >
         {this.renderConfigureNode()}
         <WorkflowCloseButton className={styles.closeButton} onClick={this.handleOnDelete} />
       </WorkflowNode>

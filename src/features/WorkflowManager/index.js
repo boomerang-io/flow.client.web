@@ -10,8 +10,9 @@ import { LoadingAnimation, notify, ToastNotification } from "@boomerang/carbon-a
 import ErrorDragon from "Components/ErrorDragon";
 import EditorContainer from "./EditorContainer";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
-import TemplateNodeModel from "Utilities/templateTaskNode/TemplateTaskNodeModel";
+import CustomNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
+import TemplateNodeModel from "Utilities/templateTaskNode/TemplateTaskNodeModel";
 import NODE_TYPES from "Constants/nodeTypes";
 import styles from "./WorkflowManager.module.scss";
 
@@ -207,11 +208,18 @@ export class WorkflowManagerContainer extends Component {
           taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
         });
         break;
-      case NODE_TYPES.TEMPLATE:
+      case NODE_TYPES.TEMPLATE_TASK:
         node = new TemplateNodeModel({
           taskId: taskData.id,
           taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
         });
+        break;
+      case NODE_TYPES.CUSTOM_TASK:
+        node = new CustomNodeModel({
+          taskId: taskData.id,
+          taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
+        });
+        break;
     }
 
     if (node) {

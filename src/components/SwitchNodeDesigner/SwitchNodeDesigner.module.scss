@@ -2,6 +2,12 @@
 @import "~Styles/mixins";
 @import "~@boomerang/boomerang-styles/lib/colors";
 
+.node {
+  background: #ffa0c2;
+  border-color: #ffa0c2;
+  width: 11rem;
+}
+
 .editButton {
   position: absolute;
   right: 1.75rem;

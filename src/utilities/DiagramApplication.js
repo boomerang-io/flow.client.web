@@ -1,22 +1,23 @@
-//import SRD from "@projectstorm/react-diagrams";
 import { DiagramEngine, DiagramModel } from "@projectstorm/react-diagrams";
-import TaskLinkFactory from "./taskLink/TaskLinkFactory";
-import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
-import TaskPortModel from "./taskPort/TaskPortModel";
+import CustomTaskNodeFactory from "./customTaskNode/CustomTaskNodeFactory";
+import SimplePortFactory from "./simplePort/SimplePortFactory";
 import StartEndNodeFactory from "./startEndNode/StartEndNodeFactory";
 import StartEndNodeModel from "./startEndNode/StartEndNodeModel";
 import StartEndPortModel from "./startEndNode/StartEndPortModel";
-import SimplePortFactory from "./simplePort/SimplePortFactory";
 import SwitchLinkFactory from "./switchLink/SwitchLinkFactory";
 import SwitchNodeFactory from "./switchNode/SwitchNodeFactory";
 import SwitchPortModel from "./switchNode/SwitchPortModel";
+import TaskLinkFactory from "./taskLink/TaskLinkFactory";
+import TaskPortModel from "./taskPort/TaskPortModel";
+import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
 
 export default class Application {
   constructor({ dag, modelIsLocked }) {
     this.diagramEngine = new DiagramEngine();
     this.diagramEngine.installDefaultFactories();
-    this.diagramEngine.registerNodeFactory(new TemplateTaskNodeFactory());
+    this.diagramEngine.registerNodeFactory(new CustomTaskNodeFactory());
     this.diagramEngine.registerNodeFactory(new StartEndNodeFactory());
+    this.diagramEngine.registerNodeFactory(new TemplateTaskNodeFactory());
     this.diagramEngine.registerNodeFactory(new SwitchNodeFactory());
 
     //need to find a way to register port factory

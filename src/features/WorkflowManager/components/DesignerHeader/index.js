@@ -106,7 +106,7 @@ class DesignerHeader extends Component {
             <p className={styles.label}>Workflow Editor</p>
             <h1 className={styles.title}>{workflowName}</h1>
           </header>
-          <section className={styles.bar}>
+          <section className={styles.versionSwitcherContainer}>
             <VersionSwitcher
               disabled={!onDesigner}
               currentRevision={currentRevision}
