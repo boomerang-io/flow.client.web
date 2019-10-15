@@ -21,11 +21,11 @@ import {
 } from "@boomerang/carbon-addons-boomerang-react";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
-import assets from "./assets";
+import workflowIcons from "Assets/workflowIcons";
 import cronstrue from "cronstrue";
-import copyIcon from "./assets/copy.svg";
-import eyeIcon from "./assets/eye.svg";
-import refreshIcon from "./assets/refresh.svg";
+import copyIcon from "Assets/workflowIcons/copy.svg";
+import eyeIcon from "Assets/workflowIcons/eye.svg";
+import refreshIcon from "Assets/workflowIcons/refresh.svg";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import { Add16, SettingsAdjust20 } from "@carbon/icons-react";
 import "./styles.scss";
@@ -195,7 +195,7 @@ export class Overview extends Component {
           />
           <h2 className="s-workflow-icons-title">Icon</h2>
           <div className="b-workflow-icons">
-            {assets.map((image, index) => (
+            {workflowIcons.map((image, index) => (
               <label
                 key={index}
                 className={classnames("b-workflow-icons__icon", {
@@ -209,7 +209,7 @@ export class Overview extends Component {
                   onClick={() => this.handleOnIconChange(image.name, "icon")}
                   checked={get(workflow, "data.icon", "") === image.name}
                 />
-                <img key={`${image.name}-${index}`} src={image.src} alt={`${image.name} icon`} />
+                <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} />
               </label>
             ))}
           </div>

@@ -8,10 +8,10 @@ import { actions as appActions } from "State/app";
 import sortBy from "lodash/sortBy";
 import { LoadingAnimation, notify, ToastNotification, NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
-import SearchFilterBar from "Components/SearchFilterBar";
+import WorkflowsHeader from "./WorkflowsHeader";
 import WorkflowsSection from "./WorkflowsSection";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
-import "./styles.scss";
+import styles from "./workflowHome.module.scss";
 
 export class WorkflowsHome extends Component {
   static propTypes = {
@@ -107,8 +107,8 @@ export class WorkflowsHome extends Component {
 
     if (teamsState.isFetching) {
       return (
-        <div className="c-workflow-home">
-          <div className="c-workflow-home-content">
+        <div className={styles.container}>
+          <div className={styles.content}>
             <LoadingAnimation centered />
           </div>
         </div>
@@ -118,21 +118,26 @@ export class WorkflowsHome extends Component {
     if (teamsState.status === REQUEST_STATUSES.SUCCESS) {
       const filteredTeams = this.filterTeams();
       const sortedTeams = sortBy(filteredTeams, ["name"]);
+      const workflowsLength = teamsState.data.reduce((acc, team) => team.workflows.length + acc, 0);
 
       if (!sortedTeams.length) {
         return (
-          <div className="c-workflow-home">
-            <div className="c-workflow-home-content">
-              <SearchFilterBar handleSearchFilter={this.handleSearchFilter} label="Teams" options={[]} />
+          <div className={styles.container}>
+            <WorkflowsHeader handleSearchFilter={this.handleSearchFilter} workflowsLength={0} options={[]} />
+            <div className={styles.content}>
               <NoDisplay style={{ marginTop: "5rem" }} text="Looks like you don't have any workflow teams" />
             </div>
           </div>
         );
       }
       return (
-        <div className="c-workflow-home">
-          <div className="c-workflow-home-content">
-            <SearchFilterBar handleSearchFilter={this.handleSearchFilter} label="Teams" options={teamsState.data} />
+        <div className={styles.container}>
+          <WorkflowsHeader
+            handleSearchFilter={this.handleSearchFilter}
+            workflowsLength={workflowsLength}
+            options={teamsState.data}
+          />
+          <div className={styles.content}>
             {sortedTeams.map(team => {
               return (
                 <WorkflowsSection

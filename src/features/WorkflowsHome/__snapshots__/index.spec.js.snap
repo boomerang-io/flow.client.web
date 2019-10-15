@@ -4,128 +4,156 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
 <body>
   <div>
     <div
-      class="c-workflow-home"
+      class="container"
     >
       <div
-        class="c-workflow-home-content"
+        class="container"
       >
         <div
-          class="b-search-filter"
+          class="content"
         >
           <div
-            class="b-search-filter__search"
+            class="info"
+          >
+            <h1
+              class="title"
+            >
+              These are your
+            </h1>
+            <h2
+              class="subtitle"
+            >
+              Workflows (0)
+            </h2>
+          </div>
+          <div
+            class="b-search-filter"
           >
             <div
-              class="bx--search bx--search--xl"
+              class="b-search-filter__search"
             >
-              <svg
-                aria-hidden="true"
-                class="bx--search-magnifier"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                role="img"
-                style="will-change: transform;"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M15 14.3L10.7 10c1.9-2.3 1.6-5.8-.7-7.7S4.2.7 2.3 3 .7 8.8 3 10.7c2 1.7 5 1.7 7 0l4.3 4.3.7-.7zM2 6.5C2 4 4 2 6.5 2S11 4 11 6.5 9 11 6.5 11 2 9 2 6.5z"
-                />
-              </svg>
-              <label
-                class="bx--label"
-                for="search-worfklows"
-              >
-                Search workflows
-              </label>
-              <input
-                class="bx--search-input"
-                id="search-worfklows"
-                placeholder="Search workflows"
-                type="text"
-                value=""
-              />
-              <button
-                aria-label="Clear search input"
-                class="bx--search-close bx--search-close--hidden"
-                type="button"
+              <div
+                class="bx--search bx--search--xl"
               >
                 <svg
-                  aria-label="Clear search input"
+                  aria-hidden="true"
+                  class="bx--search-magnifier"
                   focusable="false"
-                  height="20"
+                  height="16"
                   preserveAspectRatio="xMidYMid meet"
                   role="img"
                   style="will-change: transform;"
-                  viewBox="0 0 32 32"
-                  width="20"
+                  viewBox="0 0 16 16"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                    d="M15 14.3L10.7 10c1.9-2.3 1.6-5.8-.7-7.7S4.2.7 2.3 3 .7 8.8 3 10.7c2 1.7 5 1.7 7 0l4.3 4.3.7-.7zM2 6.5C2 4 4 2 6.5 2S11 4 11 6.5 9 11 6.5 11 2 9 2 6.5z"
                   />
                 </svg>
-              </button>
-            </div>
-          </div>
-          <div
-            class="b-search-filter__filter"
-          >
-            <div
-              class="bx--multi-select__wrapper bx--list-box__wrapper"
-            >
-              <div
-                class="bx--multi-select bx--list-box"
-                id="b-search-filter__filter"
-                role="listbox"
-                tabindex="-1"
-              >
-                <div
-                  aria-disabled="false"
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-label="Open menu"
-                  class="bx--list-box__field"
-                  data-toggle="true"
-                  role="button"
-                  tabindex="0"
+                <label
+                  class="bx--label"
+                  for="search-worfklows"
+                >
+                  Search for a workflow
+                </label>
+                <input
+                  class="bx--search-input"
+                  id="search-worfklows"
+                  placeholder="Search for a workflow"
+                  type="text"
+                  value=""
+                />
+                <button
+                  aria-label="Clear search input"
+                  class="bx--search-close bx--search-close--hidden"
                   type="button"
                 >
-                  <span
-                    class="bx--list-box__label"
+                  <svg
+                    aria-label="Clear search input"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    Teams
-                  </span>
+                    <path
+                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="b-search-filter__filter"
+            >
+              <div
+                class="bx--multi-select__wrapper bx--list-box__wrapper"
+              >
+                <label
+                  class="bx--label"
+                  for="b-search-filter__filter"
+                >
+                  Filter by team
+                </label>
+                <div
+                  class="bx--multi-select bx--list-box"
+                  id="b-search-filter__filter"
+                  role="listbox"
+                  tabindex="-1"
+                >
                   <div
-                    class="bx--list-box__menu-icon"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-label="Open menu"
+                    class="bx--list-box__field"
+                    data-toggle="true"
+                    role="button"
+                    tabindex="0"
+                    type="button"
                   >
-                    <svg
-                      aria-label="Open menu"
-                      focusable="false"
-                      height="16"
-                      name="chevron--down"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      style="will-change: transform;"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <span
+                      class="bx--list-box__label"
                     >
-                      <path
-                        d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
-                      />
-                      <title>
-                        Open menu
-                      </title>
-                    </svg>
+                      Choose a team
+                    </span>
+                    <div
+                      class="bx--list-box__menu-icon"
+                    >
+                      <svg
+                        aria-label="Open menu"
+                        focusable="false"
+                        height="16"
+                        name="chevron--down"
+                        preserveAspectRatio="xMidYMid meet"
+                        role="img"
+                        style="will-change: transform;"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                        />
+                        <title>
+                          Open menu
+                        </title>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        class="content"
+      >
         <div
           class="bx--bmrg-no-display"
           style="margin-top: 5rem;"

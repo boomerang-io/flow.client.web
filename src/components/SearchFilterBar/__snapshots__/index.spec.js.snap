@@ -32,12 +32,12 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
             class="bx--label"
             for="search-worfklows"
           >
-            Search workflows
+            Search for a workflow
           </label>
           <input
             class="bx--search-input"
             id="search-worfklows"
-            placeholder="Search workflows"
+            placeholder="Search for a workflow"
             type="text"
             value=""
           />

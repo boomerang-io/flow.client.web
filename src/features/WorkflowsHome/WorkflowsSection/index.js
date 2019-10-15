@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import Button from "@boomerang/boomerang-components/lib/Button";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
+import CreateWorkflow from "./CreateWorkflow";
 import ImportWorkflow from "./ImportWorkflow";
 import WorkflowCard from "./WorkflowCard";
-import { Add32 } from "@carbon/icons-react";
-import "./styles.scss";
+import styles from "./workflowsSection.module.scss";
 
 class WorkflowSection extends Component {
   static propTypes = {
     team: PropTypes.object.isRequired,
+    teams: PropTypes.array.isRequired,
     searchQuery: PropTypes.string.isRequired,
     setActiveTeamAndRedirect: PropTypes.func.isRequired,
     fetchTeams: PropTypes.func.isRequired,
@@ -24,6 +24,7 @@ class WorkflowSection extends Component {
       deleteWorkflow,
       executeWorkflow,
       fetchTeams,
+      history,
       setActiveTeam,
       setActiveTeamAndRedirect,
       searchQuery,
@@ -38,13 +39,13 @@ class WorkflowSection extends Component {
     }
 
     return (
-      <section className="c-workflow-section">
-        <div className="c-workflow-section__header">
-          <h1 className="b-workflow-section__team">{team.name}</h1>
+      <section className={styles.container}>
+        <div className={styles.header}>
+          <h1 className={styles.team}>{`${team.name} (${workflows.length})`}</h1>
           <ImportWorkflow fetchTeams={fetchTeams} teamId={team.id} />
           <Tooltip id={team.name}>Import Workflow</Tooltip>
         </div>
-        <div className="c-workflow-section__workflows">
+        <div className={styles.workflows}>
           {workflows.map(workflow => (
             <WorkflowCard
               deleteWorkflow={deleteWorkflow}
@@ -55,12 +56,12 @@ class WorkflowSection extends Component {
               workflow={workflow}
             />
           ))}
-          <Button className="b-workflow-placeholder" onClick={() => setActiveTeamAndRedirect(team.id)}>
-            <div className="b-workflow-placeholder__box">
-              <Add32 data-tip data-for={team.id} className="b-workflow-placeholder__plus" />
-            </div>
-            <Tooltip id={team.id}>Create Workflow</Tooltip>
-          </Button>
+          <CreateWorkflow
+            team={team}
+            setActiveTeamAndRedirect={setActiveTeamAndRedirect}
+            history={history}
+            fetchTeams={fetchTeams}
+          />
         </div>
       </section>
     );

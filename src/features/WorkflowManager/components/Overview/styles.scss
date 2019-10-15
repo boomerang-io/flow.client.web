@@ -1,4 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
 
 .c-workflow-overview {
   display: flex;
@@ -82,9 +83,9 @@
       cursor: pointer;
     }
 
-    img {
-      width: 3rem;
-      height: 3rem;
+    svg {
+      width: 2.5rem;
+      height: 2.5rem;
       padding: 0.25rem 0.425rem;
     }
 
@@ -93,7 +94,10 @@
     }
 
     &.--active {
-      background: $teal-20;
+      background: $support-02;
+      svg {
+        fill: $white;
+      }
     }
   }
 

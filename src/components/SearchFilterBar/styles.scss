@@ -17,8 +17,7 @@
   width: 15rem;
 
   .bx--select {
-    background-color: $teal-20;
-    border-radius: 0.25rem;
+    // background-color: $teal-20;
     box-shadow: none;
     cursor: pointer;
     width: 100%;
@@ -34,8 +33,7 @@
       box-shadow: none;
     }
     .bx--select-input {
-      background-color: $teal-20;
-      border-radius: 0.25rem;
+      // background-color: $teal-20;
       box-shadow: none;
       text-overflow: ellipsis;
     }
@@ -50,8 +48,7 @@
   }
 
   .bx--list-box {
-    background-color: $teal-20;
-    border-radius: 0.25rem;
+    // background-color: $teal-20;
     box-shadow: none;
     cursor: pointer;
 
@@ -98,10 +95,10 @@
     text-decoration: none;
   }
 
-  .bx--list-box__menu-item--active {
-    .bx--checkbox-label::before {
-      background-color: $teal-20 !important;
-      border-color: $teal-20 !important;
-    }
-  }
+  // .bx--list-box__menu-item--active {
+  //   .bx--checkbox-label::before {
+  //     background-color: $teal-20 !important;
+  //     border-color: $teal-20 !important;
+  //   }
+  // }
 }

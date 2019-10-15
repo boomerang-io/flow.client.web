@@ -94,7 +94,7 @@ class App extends Component {
       return (
         <>
           <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
-            <NotificationBanner closeBanner={this.closeBanner} />
+            {<NotificationBanner closeBanner={this.closeBanner} />}
             <Suspense
               fallback={<LoadingAnimation centered message="Loading a feature for you. Just a moment, please." />}
             >

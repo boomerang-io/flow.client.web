@@ -10,7 +10,7 @@ import ImportAttachment from "./ImportAttachment";
 import ImportConfirm from "./ImportConfirm";
 import ImportType from "./ImportType";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import "./styles.scss";
+import styles from "./importType.module.scss";
 
 class ImportWorkflow extends Component {
   static propTypes = {
@@ -60,7 +60,7 @@ class ImportWorkflow extends Component {
         }}
         modalTrigger={({ openModal }) => (
           <button onClick={openModal}>
-            <Upload16 data-tip data-for={this.props.teamId} className="b-workflow-import__icon" alt="Import Workflow" />
+            <Upload16 data-tip data-for={this.props.teamId} className={styles.importIcon} alt="Import Workflow" />
           </button>
         )}
         progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}

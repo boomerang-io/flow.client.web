@@ -30,7 +30,7 @@ export class WorkflowManagerContainer extends Component {
     workflow: PropTypes.object
   };
 
-  changeLogReason = "Create workflow"; //default changelog value at creation time
+  changeLogReason = "Update workflow"; //default changelog value
 
   async componentDidMount() {
     try {

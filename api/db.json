@@ -292,6 +292,22 @@
               "label": "Test Property1",
               "required": true,
               "type": "text"
+            },
+            {
+              "defaultValue": "test2",
+              "description": "Testing this propertys area",
+              "key": "test.property2",
+              "label": "Test Property2",
+              "required": true,
+              "type": "textarea"
+            },
+            {
+              "defaultValue": false,
+              "description": "Testing this propertys area",
+              "key": "test.property.bool",
+              "label": "Test Property Bool",
+              "required": true,
+              "type": "boolean"
             }
           ]
         },

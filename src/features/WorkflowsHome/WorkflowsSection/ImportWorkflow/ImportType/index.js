@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
-import "./styles.scss";
+import { Add20, DocumentImport20 } from "@carbon/icons-react";
 
 class ImportType extends Component {
   handleNextStep = ({ isUpdate }) => {
@@ -19,10 +19,15 @@ class ImportType extends Component {
           <Button
             onClick={() => this.handleNextStep({ isUpdate: false })}
             style={{ marginBottom: "1rem", maxWidth: "100%" }}
+            renderIcon={Add20}
           >
             New Workflow
           </Button>
-          <Button onClick={() => this.handleNextStep({ isUpdate: true })} style={{ maxWidth: "100%" }}>
+          <Button
+            onClick={() => this.handleNextStep({ isUpdate: true })}
+            style={{ maxWidth: "100%" }}
+            renderIcon={DocumentImport20}
+          >
             Update Workflow
           </Button>
         </ModalBody>

@@ -1,0 +1,27 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  margin-top: 1.25rem;
+  margin-bottom: 2.75rem;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.team {
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0rem;
+  letter-spacing: 0.0625rem;
+}
+.workflows {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -0.75rem;
+}

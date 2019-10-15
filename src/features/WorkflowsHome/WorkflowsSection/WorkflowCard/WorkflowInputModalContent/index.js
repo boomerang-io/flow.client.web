@@ -1,14 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import { Button, ModalBody, ModalFooter, TextInput, TextArea, Toggle } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
-import SelectDropdown from "@boomerang/boomerang-components/lib/SelectDropdown";
-import TextArea from "@boomerang/boomerang-components/lib/TextArea";
-import TextInput from "@boomerang/boomerang-components/lib/TextInput";
-import Toggle from "@boomerang/boomerang-components/lib/Toggle";
+import { ComboBox } from "@boomerang/carbon-addons-boomerang-react";
 import INPUT_TYPES from "Constants/workflowInputTypes";
-import "./styles.scss";
-
+import styles from "./workflowInputModalContent.module.scss";
 //TODO: needs to be refactored to use data driven inputs and formik if possible
 class WorkflowInputModalContent extends Component {
   static propTypes = {
@@ -93,68 +89,62 @@ class WorkflowInputModalContent extends Component {
     switch (type) {
       case INPUT_TYPES.BOOLEAN:
         return (
-          <div className="b-workflow-inputs-modal-toggle">
-            <div className="b-workflow-inputs-modal-toggle__title">Value</div>
+          <div className={styles.toggle}>
+            <div className={styles.toggleTitle}>Value</div>
             <Toggle
               id={key}
-              onChange={(checked, event, id) => this.handleBooleanChange(checked, key)}
+              onChange={e => this.handleBooleanChange(e.target.checked, key)}
               defaultChecked={defaultValue === "true" || false}
-              theme="bmrg-flow"
             />
           </div>
         );
       case INPUT_TYPES.SELECT:
         return (
           Array.isArray(validValues) && (
-            <div className="b-workflow-inputs-modal-select">
-              <SelectDropdown
-                onChange={option => this.handleSelectChange(option, key)}
-                options={validValues.map(value => ({
+            <div className={styles.select}>
+              <ComboBox
+                id={key}
+                items={validValues.map(value => ({
                   label: value,
                   value: value
                 }))}
-                value={
-                  this.state.inputs[key]
-                    ? { label: this.state.inputs[key], value: this.state.inputs[key] }
-                    : defaultValue
+                titleText={label}
+                onChange={({ selectedItem }) =>
+                  this.handleSelectChange(selectedItem ? selectedItem : { label: null, value: null }, key)
                 }
-                theme="bmrg-flow"
-                title={label}
-                id={key}
-                name={key}
+                initialSelectedItem={{ label: defaultValue, value: defaultValue }}
+                placeholder="Select an item"
               />
             </div>
           )
         );
       case INPUT_TYPES.TEXT_AREA:
         return (
-          <div className="b-inputs-modal-text-area">
+          <div className={styles.textArea}>
             <TextArea
-              alwaysShowTitle
-              title="Default Value"
+              labelText="Default Value"
               placeholder="Default Value"
-              name={key}
-              onChange={this.handleTextChange}
-              value={defaultValue || ""}
-              theme="bmrg-flow"
-              noValueText={`Enter a ${label}`}
+              id={key}
+              onChange={e => this.handleTextChange(e.target.value, e.target.value.length === 0, key)}
+              value={this.state.inputs[key]}
+              defaultValue={defaultValue || ""}
+              invalidText={`Enter a ${label}`}
               required={required}
             />
           </div>
         );
       default:
         return (
-          <div className="b-workflow-inputs-modal-text-input">
+          <div className={styles.textInput}>
             <TextInput
-              alwaysShowTitle
-              title={label}
+              labelText={label}
               placeholder={label}
-              name={key}
+              id={key}
               type={type}
-              onChange={this.handleTextChange}
-              value={defaultValue || ""}
-              theme="bmrg-flow"
-              noValueText={`Enter a ${label}`}
+              onChange={e => this.handleTextChange(e.target.value, e.target.value.length === 0, key)}
+              value={this.state.inputs[key]}
+              defaultValue={defaultValue || ""}
+              invalidText={`Enter a ${label}`}
               required={required}
             />
           </div>
@@ -167,7 +157,7 @@ class WorkflowInputModalContent extends Component {
     const { error } = this.state;
     return (
       <ModalFlowForm>
-        <ModalBody>{this.props.inputs.map(this.renderInput)}</ModalBody>
+        <ModalBody className={styles.container}>{this.props.inputs.map(this.renderInput)}</ModalBody>
         <ModalFooter>
           <Button disabled={error} kind="secondary" onClick={closeModal} type="button">
             Cancel

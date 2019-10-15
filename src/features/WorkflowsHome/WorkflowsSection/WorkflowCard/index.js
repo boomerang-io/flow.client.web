@@ -10,7 +10,7 @@ import WorkflowRunModalContent from "./WorkflowRunModalContent";
 import imgs from "Assets/icons";
 import { Run20 } from "@carbon/icons-react";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import "./styles.scss";
+import styles from "./workflowCard.module.scss";
 
 class WorkflowCard extends Component {
   static propTypes = {
@@ -96,7 +96,7 @@ class WorkflowCard extends Component {
     ];
 
     return (
-      <div className="c-workflow-card">
+      <div className={styles.container}>
         <OverflowMenu
           ariaLabel="Overflow card menu"
           iconDescription="Overflow menu icon"
@@ -127,16 +127,16 @@ class WorkflowCard extends Component {
             It will be gone. Forever.
           </ConfirmModal>
         )}
-        <div className="c-workflow-card-info">
-          <div className="c-workflow-card__icon">
-            <img className="b-workflow-card__icon" src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
+        <div className={styles.cardInfo}>
+          <div className={styles.cardIconContainer}>
+            <img className={styles.cardIcon} src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
           </div>
-          <button onClick={this.setActiveTeamAndRedirect} className="c-workflow-card__description">
-            <h2 className="b-workflow-card__name">{workflow.name}</h2>
-            <p className="b-workflow-card__description">{workflow.shortDescription}</p>
+          <button onClick={this.setActiveTeamAndRedirect} className={styles.cardDescriptionContainer}>
+            <h2 className={styles.cardName}>{workflow.name}</h2>
+            <p className={styles.cardDescription}>{workflow.shortDescription}</p>
           </button>
         </div>
-        <div className="b-workflow-card-launch">
+        <div className={styles.cardLaunch}>
           {workflow.properties && workflow.properties.length !== 0 ? (
             <ModalFlow
               modalHeaderProps={{
@@ -145,7 +145,7 @@ class WorkflowCard extends Component {
               }}
               modalTrigger={({ openModal }) => (
                 <Button iconDecscription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
-                  Execute Workflow
+                  Run it
                 </Button>
               )}
             >
@@ -153,14 +153,14 @@ class WorkflowCard extends Component {
             </ModalFlow>
           ) : (
             <ModalFlow
-              composedModalProps={{ containerClassName: "c-execute-workflow-modal" }}
+              composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
               modalHeaderProps={{
                 title: "Execute workflow?",
                 subtitle: '"Run and View" will navigate you to the workflow exeuction view.'
               }}
               modalTrigger={({ openModal }) => (
                 <Button iconDescription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
-                  Execute Workflow
+                  Run it
                 </Button>
               )}
             >

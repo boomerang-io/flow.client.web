@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button, ModalFooter } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
-import "./styles.scss";
 
 const WorkflowRunModalContent = ({ closeModal, executeWorkflow }) => {
   return (

@@ -99,7 +99,6 @@ class WorkflowAttachment extends Component {
     return (
       <ModalFlowForm
         title="Add a Workflow - Select the Workflow file you want to upload"
-        className="c-workflow-import"
         onSubmit={e => e.preventDefault()}
       >
         <ModalBody

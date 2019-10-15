@@ -79,3 +79,24 @@ export default class Application {
     return this.diagramEngine;
   }
 }
+
+export const createWorkflowRevisionBody = (diagramApp, changeLogReason, workflowRevisionConfig = {}) => {
+  const dagProps = {};
+  dagProps["dag"] = getDiagramSerialization(diagramApp);
+  dagProps["config"] = formatWorkflowConfigNodes(workflowRevisionConfig);
+  dagProps["changelog"] = {
+    reason: changeLogReason
+  };
+  return dagProps;
+};
+
+const getDiagramSerialization = diagramApp => {
+  return diagramApp
+    .getDiagramEngine()
+    .getDiagramModel()
+    .serializeDiagram();
+};
+
+const formatWorkflowConfigNodes = workflowRevisionConfig => {
+  return { nodes: Object.values(workflowRevisionConfig) };
+};

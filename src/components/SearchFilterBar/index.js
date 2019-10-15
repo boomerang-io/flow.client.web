@@ -51,7 +51,16 @@ class SearchFilterBar extends Component {
   };
 
   render() {
-    const { label = "Filter", options, multiselect, selectedOption, searchbar, filterItems } = this.props;
+    const {
+      label = "Filter",
+      options,
+      multiselect,
+      placeholder,
+      selectedOption,
+      searchbar,
+      filterItems,
+      title = ""
+    } = this.props;
 
     return (
       <div className="b-search-filter">
@@ -59,20 +68,22 @@ class SearchFilterBar extends Component {
           {searchbar ? (
             <Search
               id="search-worfklows"
-              labelText="Search workflows"
+              labelText="Search for a workflow"
               onChange={this.handleOnSearchInputChange}
-              placeHolderText="Search workflows"
+              placeHolderText="Search for a workflow"
               value={this.state.searchQuery}
             />
           ) : null}
         </div>
         <div className="b-search-filter__filter">
           {multiselect ? (
-            <MultiSelect
+            <MultiSelect.Filterable
               id="b-search-filter__filter"
+              titleText={title}
               label={label}
               invalid={false}
               onChange={this.handleOnMultiSelectChange}
+              placeholder={placeholder}
               items={filterItems || options.length ? options.map(item => ({ id: item.id, text: item.name })) : []}
               itemToString={item => (item ? item.text : "")}
             />
@@ -82,6 +93,7 @@ class SearchFilterBar extends Component {
               hideLabel={true}
               invalid={false}
               onChange={this.handleOnSelectChange}
+              placeholder={placeholder}
               defaultValue={selectedOption}
             >
               <SelectItem value="none" text="All Workflows" />

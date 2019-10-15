@@ -6,22 +6,21 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
 >
   <div>
     <section
-      class="c-workflow-section"
+      class="container"
     >
       <div
-        class="c-workflow-section__header"
+        class="header"
       >
         <h1
-          class="b-workflow-section__team"
+          class="team"
         >
-          Lucas' team
+          Lucas' team (0)
         </h1>
         <button>
           <svg
             alt="Import Workflow"
             aria-hidden="true"
-            class="b-workflow-import__icon"
-            currentItem="false"
+            class="importIcon"
             data-for="1234"
             data-tip="true"
             focusable="false"
@@ -46,20 +45,18 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
         </div>
       </div>
       <div
-        class="c-workflow-section__workflows"
+        class="workflows"
       >
         <button
-          class="b-workflow-placeholder"
+          class="placeholder"
+          id="create-wokflow"
         >
           <div
-            class="b-workflow-placeholder__box"
+            class="placeholderBox"
           >
             <svg
               aria-hidden="true"
-              class="b-workflow-placeholder__plus"
-              currentItem="false"
-              data-for="1234"
-              data-tip="true"
+              class="placeholderPlus"
               focusable="false"
               height="32"
               preserveAspectRatio="xMidYMid meet"
@@ -72,18 +69,20 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
                 d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
               />
             </svg>
-          </div>
-          <div
-            class="__react_component_tooltip place-top type-dark "
-            data-id="tooltip"
-            id="1234"
-          >
-            Create Workflow
+            <label
+              class="placeholderLabel"
+              for="create-wokflow"
+            >
+              Create a new workflow
+            </label>
           </div>
         </button>
       </div>
     </section>
   </div>
+  <div
+    class="ReactModalPortal"
+  />
   <div
     class="ReactModalPortal"
   />

@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import Dropzone from "react-dropzone";
 import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import { CloseOutline16 } from "@carbon/icons-react";
+import { Button } from "carbon-components-react";
+import { Attachment16 } from "@carbon/icons-react";
 import image from "Assets/icons/docs.svg";
-import "./styles.scss";
+import styles from "./dropzone.module.scss";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 
 const MAX_FILE_SIZE = 1048576;
@@ -110,8 +112,8 @@ class DropZone extends Component {
   showDragEnterOrDrop = () => {
     if (this.state.dragEnter) {
       return (
-        <section className="b-import-dropzone" id="import-dropzone__drop-area">
-          <h1 className="b-import-dropzone__dragEnter">{DROP_MESSAGE}</h1>
+        <section className={styles.importDropzone} id="import-dropzone__drop-area">
+          <h1 className={styles.dragEnter}>{DROP_MESSAGE}</h1>
         </section>
       );
     } else {
@@ -120,13 +122,13 @@ class DropZone extends Component {
         return (
           <section id="import-dropzone__file-info">
             {this.state.files.map(file => (
-              <div className="b-import-dropzone" key={file.name}>
-                <div className="b-import-dropzone__left">
-                  <img src={file.preview} alt={file.preview} className="b-import-dropzone__img" />
+              <div className={styles.importDropzone} key={file.name}>
+                <div className={styles.dropzoneLeft}>
+                  <img src={file.preview} alt={file.preview} className={styles.dropzoneImg} />
                 </div>
-                <label className="b-import-dropzone__center">{file.name}</label>
+                <label className={styles.dropzoneCenter}>{file.name}</label>
                 <div
-                  className="b-import-dropzone__right"
+                  className={styles.dropzoneRight}
                   data-tip
                   data-for="remove"
                   onClick={this.removeFile}
@@ -134,7 +136,7 @@ class DropZone extends Component {
                   role="button"
                   tabIndex="0"
                 >
-                  <CloseOutline16 className="b-import-dropzone-close__img" />
+                  <CloseOutline16 className={styles.dropzoneCloseImg} />
                 </div>
                 <Tooltip id="remove">Remove</Tooltip>
               </div>
@@ -148,7 +150,7 @@ class DropZone extends Component {
         }
         return (
           <div
-            className="b-import-dropzone b-import-dropzone-error"
+            className={`${styles.importDropzone} ${styles.dropzoneError}`}
             onClick={this.resetErrorFlag}
             onKeyDown={e => isAccessibleEvent(e) && this.resetErrorFlag()}
             role="button"
@@ -175,23 +177,23 @@ class DropZone extends Component {
     }
 
     return (
-      <section
-        className="b-importWorkflowDropzoneSection"
-        id="importWorkflowDropzoneSection"
-        onDragEnter={this.onDragEnter}
-      >
-        <Dropzone
-          className="dropzone b-import-dropzone__button-text"
-          onDrop={this.onDrop}
-          onDragLeave={this.onDragLeave}
-          onDragEnter={this.onDragEnter}
-          accept=".json"
-        >
-          <div className="b-import-dropzone-button">{buttonMessage}</div>
-          <div className="b-import-dropzone__message">{fileSizeMessage}</div>
-        </Dropzone>
-        {this.showDragEnterOrDrop()}
-      </section>
+      <div className={styles.container}>
+        <section className={styles.dropzoneSection} id="importWorkflowDropzoneSection" onDragEnter={this.onDragEnter}>
+          <Dropzone
+            className="dropzone"
+            onDrop={this.onDrop}
+            onDragLeave={this.onDragLeave}
+            onDragEnter={this.onDragEnter}
+            accept=".json"
+          >
+            <Button className={styles.dropzoneButton} renderIcon={Attachment16} iconDescription="Add file">
+              {buttonMessage}
+            </Button>
+            <div className={styles.dropzoneMessage}>{fileSizeMessage}</div>
+          </Dropzone>
+          {this.showDragEnterOrDrop()}
+        </section>
+      </div>
     );
   }
 }

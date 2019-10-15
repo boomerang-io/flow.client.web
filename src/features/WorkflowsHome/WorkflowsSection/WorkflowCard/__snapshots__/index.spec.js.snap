@@ -6,7 +6,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
 >
   <div>
     <div
-      class="c-workflow-card"
+      class="container"
     >
       <div
         aria-expanded="false"
@@ -50,38 +50,38 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
         </svg>
       </div>
       <div
-        class="c-workflow-card-info"
+        class="cardInfo"
       >
         <div
-          class="c-workflow-card__icon"
+          class="cardIconContainer"
         >
           <img
             alt="icon"
-            class="b-workflow-card__icon"
+            class="cardIcon"
           />
         </div>
         <button
-          class="c-workflow-card__description"
+          class="cardDescriptionContainer"
         >
           <h2
-            class="b-workflow-card__name"
+            class="cardName"
           >
             lucas-workflow-3
           </h2>
           <p
-            class="b-workflow-card__description"
+            class="cardDescription"
           />
         </button>
       </div>
       <div
-        class="b-workflow-card-launch"
+        class="cardLaunch"
       >
         <button
           class="bx--btn bx--btn--sm bx--btn--primary"
           tabindex="0"
           type="button"
         >
-          Execute Workflow
+          Run it
           <svg
             aria-hidden="true"
             aria-label="Run Workflow"

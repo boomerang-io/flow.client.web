@@ -1,0 +1,32 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.placeholder {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin: 1rem 0.75rem;
+  padding: 0rem;
+}
+
+.placeholderBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 19.375rem;
+  height: 10.3125rem;
+  border: 0.0625rem solid $cool-gray-80;
+  position: relative;
+}
+
+.placeholderPlus {
+  height: 1.75rem;
+  width: 1.75rem;
+  fill: $cool-gray-80;
+}
+.placeholderLabel {
+  color: $cool-gray-80;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.0625rem;
+  margin-left: 0.5rem;
+}
