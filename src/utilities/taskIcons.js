@@ -21,73 +21,73 @@ import {
  */
 const iconToTaskNames = [
   {
-    //icon: "search",
+    iconName: "Search",
     icon: <Search16 alt="Task node type get, read" />,
     startsWithConditions: ["get"],
     includesConditions: ["read"]
   },
   {
-    //icon: "checkmark--outline",
+    iconName: "Checkmark",
     icon: <CheckmarkOutline16 alt="Task node type submit, validate, approval" />,
     startsWithConditions: ["submit", "validate"],
     includesConditions: ["approval"]
   },
   {
-    //icon: "restart",
+    iconName: "Restart",
     icon: <Restart16 alt="Task node type update, sync" />,
     startsWithConditions: ["update", "sync"],
     includesConditions: []
   },
   {
-    //icon: "launch",
+    iconName: "Launch",
     icon: <Launch16 alt="Task node type launch, deploy" />,
     startsWithConditions: ["launch"],
     includesConditions: ["deploy"]
   },
   {
-    //icon: "terminal",
+    iconName: "Terminal",
     icon: <Terminal20 alt="Task node type shell, appcmd" />,
     startsWithConditions: ["shell", "appcmd"],
     includesConditions: []
   },
   {
-    //icon: "power",
+    iconName: "Power",
     icon: <Power16 alt="Task node type enable, start, activate" />,
     startsWithConditions: ["enable", "start", "activate"],
     includesConditions: []
   },
   {
-    //icon: "back-to-top",
+    iconName: "Export",
     icon: <BackToTop16 alt="Task node type export" />,
     startsWithConditions: ["export"],
     includesConditions: []
   },
   {
-    //icon: "download",
+    iconName: "Download",
     icon: <Download16 alt="Task node type download" />,
     startsWithConditions: [],
     includesConditions: ["download"]
   },
   {
-    //icon: "edit",
+    iconName: "Edit",
     icon: <Edit16 alt="Task node type edit, define, modify" />,
     startsWithConditions: [],
     includesConditions: ["edit", "define", "modify"]
   },
   {
-    //icon: "add--outline",
+    iconName: "Add",
     icon: <AddAlt16 alt="Task node type create, register" />,
     startsWithConditions: ["create", "register"],
     includesConditions: []
   },
   {
-    //icon: "close--outline",
+    iconName: "Close",
     icon: <CloseOutline16 alt="Task node type stop, cancel, disable, terminate" />,
     startsWithConditions: ["stop", "cancel", "disable", "terminate"],
     includesConditions: []
   },
   {
-    //icon: "filter",
+    iconName: "Filter",
     icon: <Filter16 alt="Task node type configure" />,
     startsWithConditions: ["configure"],
     includesConditions: []
@@ -103,21 +103,25 @@ export default function mapTaskNametoIcon(taskName) {
   const taskNameFormatted = taskName.toLowerCase();
 
   // Set default as fallback icon if none
-  //let iconName = "predictive"; //not in carbon 10
-  let iconName = <Concept20 alt="Task node type concept" />;
+  let iconImg = <Concept20 alt="Task node type concept" />;
+  let iconName = "Concept";
 
   // Some will iterate through array until true is returned
   iconToTaskNames.some(iconConfig => {
     if (iconConfig.startsWithConditions.find(condition => taskNameFormatted.startsWith(condition))) {
-      iconName = iconConfig.icon;
+      iconImg = iconConfig.icon;
+      iconName = iconConfig.iconName;
+
       return true;
     }
     if (iconConfig.includesConditions.find(condition => taskNameFormatted.includes(condition))) {
-      iconName = iconConfig.icon;
+      iconImg = iconConfig.icon;
+      iconName = iconConfig.iconName;
+
       return true;
     }
     return false;
   });
 
-  return iconName;
+  return { iconName, iconImg };
 }

@@ -1,0 +1,47 @@
+@import "~Styles/variables";
+
+.editContainer {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  top: 1.125rem;
+  right: 3.5rem;
+  cursor: pointer;
+}
+
+.editIcon {
+  height: 1.125rem;
+  width: 1.125rem;
+}
+
+.createPropertyCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25rem;
+  width: 20rem;
+  border: 0.0625rem solid #373d42;
+  color: $brand-02;
+  cursor: pointer;
+}
+
+.createContainer {
+  display: flex;
+  align-items: center;
+}
+
+.createText {
+  color: $brand-02;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-left: 0.5rem;
+}
+
+.createIcon {
+  fill: $brand-02;
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+}

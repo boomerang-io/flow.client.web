@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
-import classnames from "classnames";
 import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowPropertiesModal from "./WorkflowPropertiesModal";
 import { Close32 } from "@carbon/icons-react";
 import INPUT_TYPES from "Constants/workflowInputTypes";
-import "./styles.scss";
+import styles from "./WorkflowProperties.module.scss";
 
 WorkflowProperties.propTypes = {
   inputs: PropTypes.array.isRequired,
@@ -19,9 +18,9 @@ WorkflowProperties.propTypes = {
 
 function WorkflowPropertyRow({ title, value }) {
   return (
-    <dl className="b-workflow-input-field">
-      <dt className="b-workflow-input-field__key">{title}</dt>
-      <dd className="b-workflow-input-field__value">{value}</dd>
+    <dl className={styles.fieldContainer}>
+      <dt className={styles.fieldKey}>{title}</dt>
+      <dd className={styles.fieldValue}>{value}</dd>
     </dl>
   );
 }
@@ -47,46 +46,46 @@ function WorkflowProperties(props) {
   const { inputs } = props;
   const inputsKeys = inputs.map(input => input.key);
   return (
-    <div className="c-workflow-inputs">
+    <div className={styles.container}>
       {inputs.length > 0 &&
         inputs.map((input, index) => (
-          <div
-            key={`${input.id}-${index}`}
-            className={classnames("b-workflow-input", `--${input.type}`, `--${input.readOnly}`)}
-          >
+          <div key={`${input.id}-${index}`} className={styles.property}>
             <WorkflowPropertyRow title="Label" value={input.label} />
             <WorkflowPropertyRow title="Key" value={input.key} />
             <WorkflowPropertyRow title="Description" value={input.description} />
             <WorkflowPropertyRow title="Type" value={input.type} />
             <WorkflowPropertyRow title="Required" value={input.required.toString()} />
-            <WorkflowPropertyRow title="Default value" value={formatDefaultValue(input.defaultValue)} />
+            {formatDefaultValue(input.defaultValue) && (
+              <WorkflowPropertyRow title="Default value" value={formatDefaultValue(input.defaultValue)} />
+            )}
             {input.validValues && (
               <WorkflowPropertyRow title="Valid values" value={formatDefaultValue(input.validValues.join(", "))} />
             )}
             {!input.readOnly ? (
-              <WorkflowPropertiesModal
-                isEdit
-                inputsKeys={inputsKeys.filter(inputName => inputName !== input.key)}
-                input={input}
-                updateWorkflowProperties={props.updateWorkflowProperties}
-                loading={props.loading}
-              />
-            ) : null}
-
-            {!input.readOnly ? (
-              <ConfirmModal
-                affirmativeAction={() => {
-                  deleteInput(input.key);
-                }}
-                children="It will be gone. Forever."
-                title="Delete This Property?"
-                modalTrigger={({ openModal }) => (
-                  <button className="b-workflow-input__delete" onClick={openModal}>
-                    <Close32 className="b-workflow-input__delete-icon" />
-                  </button>
-                )}
-              />
-            ) : null}
+              <>
+                <WorkflowPropertiesModal
+                  isEdit
+                  inputsKeys={inputsKeys.filter(inputName => inputName !== input.key)}
+                  input={input}
+                  updateWorkflowProperties={props.updateWorkflowProperties}
+                  loading={props.loading}
+                />
+                <ConfirmModal
+                  affirmativeAction={() => {
+                    deleteInput(input.key);
+                  }}
+                  children="It will be gone. Forever."
+                  title="Delete This Property?"
+                  modalTrigger={({ openModal }) => (
+                    <button className={styles.deleteContainer} onClick={openModal}>
+                      <Close32 className={styles.deleteIcon} />
+                    </button>
+                  )}
+                />
+              </>
+            ) : (
+              <p className={styles.readOnlyText}>Read-only</p>
+            )}
           </div>
         ))}
       <WorkflowPropertiesModal

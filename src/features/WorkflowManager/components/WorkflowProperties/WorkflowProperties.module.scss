@@ -2,20 +2,20 @@
 @import "~Styles/variables";
 @import "~Styles/mixins";
 
-.c-workflow-inputs {
+.container {
   display: flex;
   flex-flow: row wrap;
   padding: 2rem;
 }
 
-.b-workflow-input {
+.property {
   position: relative;
   background-color: $white;
   height: 25rem;
   width: 20rem;
   padding: 1rem;
   margin: 0 2rem 2rem 0;
-  border-left: 0.3125rem solid $support-02;
+  //border-left: 0.3125rem solid $support-02;
 
   // &.--text {
   //   border-left-color: $green-30;
@@ -35,12 +35,9 @@
   // &.--select {
   //   border-left-color: $violet-30;
   // }
-  &.--true {
-    opacity: 0.65;
-  }
 }
 
-.b-workflow-input__name {
+.name {
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.0625rem;
@@ -51,7 +48,7 @@
   line-height: 1.5rem;
 }
 
-.b-workflow-input-field {
+.fieldContainer {
   display: flex;
   flex-direction: column;
   font-size: 1rem;
@@ -60,7 +57,7 @@
   margin-top: 1rem;
 }
 
-.b-workflow-input-field__key {
+.fieldKey {
   color: $text-01;
   font-size: 12px;
   font-weight: 300;
@@ -68,14 +65,14 @@
   @include text-overflow-ellipsis();
 }
 
-.b-workflow-input-field__value {
+.fieldValue {
   color: $text-01;
   font-size: 16px;
   line-height: 20px;
   @include text-overflow-ellipsis();
 }
 
-.b-workflow-input__delete {
+.deleteContainer {
   position: absolute;
   display: flex;
   align-items: center;
@@ -84,53 +81,13 @@
   cursor: pointer;
 }
 
-.b-workflow-input__delete-icon {
+.deleteIcon {
   height: 1.5rem;
   width: 1.5rem;
 }
 
-.b-workflow-input-edit {
+.readOnlyText {
   position: absolute;
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-  top: 1.125rem;
-  right: 3.5rem;
-  cursor: pointer;
-}
-
-.b-workflow-input-edit__pencil {
-  height: 1.125rem;
-  width: 1.125rem;
-}
-
-.b-workflow-input-create {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 25rem;
-  width: 20rem;
-  border: 0.0625rem solid #373d42;
-  color: $brand-02;
-  cursor: pointer;
-}
-
-.b-workflow-input-create__plus {
-  display: flex;
-  align-items: center;
-}
-
-.b-workflow-input-create__plus-text {
-  color: $brand-02;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 20px;
-  margin-left: 0.5rem;
-}
-
-.b-workflow-input-create__plus-icon {
-  fill: $brand-02;
-  height: 1.5rem;
-  width: 1.5rem;
-  cursor: pointer;
+  top: 1rem;
+  right: 1rem;
 }

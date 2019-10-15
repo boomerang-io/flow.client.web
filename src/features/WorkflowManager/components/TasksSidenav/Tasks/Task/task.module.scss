@@ -1,0 +1,24 @@
+@import "~Styles/mixins";
+@import "~Styles/variables";
+
+.container {
+  align-items: center;
+  background-color: $ui-01;
+  border: 0.125rem solid #7fb8e1;
+  cursor: grab;
+  display: flex;
+  height: 3.1875rem;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  padding: 1rem;
+  white-space: nowrap;
+
+  .taskName {
+    color: $darkest-gray;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    padding-left: 1rem;
+    width: 90%;
+    @include text-overflow-ellipsis();
+  }
+}

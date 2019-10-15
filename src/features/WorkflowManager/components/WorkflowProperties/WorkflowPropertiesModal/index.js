@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowPropertiesModalContent from "./WorkflowPropertiesModalContent";
 import { Add32, Edit32 } from "@carbon/icons-react";
+import styles from "./WorkflowPropertiesModal.module.scss";
 
 class WorkflowProperties extends Component {
   static propTypes = {
@@ -17,19 +18,19 @@ class WorkflowProperties extends Component {
     let output = null;
     this.props.isEdit
       ? (output = (
-          <button className="b-workflow-input-edit" onClick={openModal}>
-            <Edit32 className="b-workflow-input-edit__pencil" aria-label="Edit" />
+          <button className={styles.editContainer} onClick={openModal}>
+            <Edit32 className={styles.editIcon} aria-label="Edit" />
           </button>
         ))
       : (output = (
           <button
-            className="b-workflow-input-create"
+            className={styles.createPropertyCard}
             onClick={openModal}
             data-testid="create-new-workflow-input-button"
           >
-            <div className={"b-workflow-input-create__plus"}>
-              <Add32 className="b-workflow-input-create__plus-icon" aria-label="Add" />
-              <p className="b-workflow-input-create__plus-text">Create a new property</p>
+            <div className={styles.createContainer}>
+              <Add32 className={styles.createIcon} aria-label="Add" />
+              <p className={styles.createText}>Create a new property</p>
             </div>
           </button>
         ));

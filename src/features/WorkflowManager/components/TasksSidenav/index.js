@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Tasks from "./Tasks";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
-import "./styles.scss";
 
 class TasksSidenavContainer extends Component {
   static propTypes = {

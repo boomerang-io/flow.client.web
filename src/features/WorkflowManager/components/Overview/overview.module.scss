@@ -1,0 +1,188 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
+
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .largeCol {
+    border: 0;
+    width: 100%;
+    border-bottom: 2px solid;
+  }
+
+  .smallCol {
+    border: 0;
+    width: 100%;
+  }
+
+  .delimiter {
+    width: 100%;
+    border-bottom: 1px solid $section-gray;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .largeCol {
+    border-right: 2px solid $section-gray;
+    // padding: 0 2rem 2rem 2rem;
+    width: 35%;
+  }
+
+  .smallCol {
+    border-right: 2px solid $section-gray;
+    // padding: 0 2rem 2rem 2rem;
+    width: 30%;
+  }
+
+  .delimiter {
+    width: calc(100% + 4rem);
+    border: 1px solid $section-gray;
+    margin-left: -2rem;
+  }
+}
+
+.wrapper {
+  display: flex;
+  height: fit-content;
+
+  :global .bx--text-area__wrapper {
+    width: 100%;
+  }
+}
+
+.header {
+  color: $darkest-gray;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+}
+
+.subTitle {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.largeCol {
+  // border-right: 2px solid $section-gray;
+  padding: 0 2rem 2rem 2rem;
+  // width: 35%;
+
+  &:last-child {
+    border: 0;
+  }
+}
+
+.smallCol {
+  // border-right: 2px solid $section-gray;
+  padding: 0 2rem 2rem 2rem;
+  // width: 30%;
+}
+
+.combobox {
+  margin-top: 2rem;
+}
+
+.iconTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+}
+
+.iconsWrapper {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+}
+
+.icon {
+  border: 2px solid transparent;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  transition: all 0.15s ease;
+
+  [type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  [type="radio"] + img {
+    cursor: pointer;
+  }
+
+  img {
+    width: 3rem;
+    height: 3rem;
+    padding: 0.25rem 0.425rem;
+  }
+
+  &:focus {
+    outline: default;
+  }
+}
+
+.active {
+  background: $teal-20;
+}
+
+.toggleContainer {
+  :global .bx--bmrg-toggle {
+    justify-content: flex-end;
+
+    .bx--form-item {
+      margin-right: 1.5rem;
+    }
+
+    .bx--label {
+      font-size: 0.875rem;
+      color: $darkest-gray;
+    }
+  }
+}
+
+.webhookWrapper {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+  margin-bottom: 1rem;
+
+  :global .bx--bmrg-text-input {
+    margin-bottom: 0;
+  }
+}
+
+.informationWrapper {
+  font-size: 0.875rem;
+}
+
+.informationCronMessage {
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
+  font-style: italic;
+}
+
+.informationTimeZone {
+  font-style: italic;
+  padding-bottom: 1.5rem;
+}
+
+.webhookImg {
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0.5rem 0.75rem 1rem;
+}
+
+// .delimiter {
+//   width: calc(100% + 4rem);
+//   border: 1px solid $section-gray;
+//   margin-left: -2rem;
+// }

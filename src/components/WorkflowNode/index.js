@@ -20,7 +20,7 @@ export default function WorkflowNode({ category, className, children, icon, name
   return (
     <div className={cx(styles.node, className)} {...rest}>
       <header className={styles.header}>
-        {icon ? icon : mapTaskNametoIcon(name, category)}
+        {icon ? icon : mapTaskNametoIcon(name, category).iconImg}
         <h1 className={styles.title}>{title || "Task"}</h1>
       </header>
       <p className={styles.subtitle}>{subtitle || "Task"}</p>

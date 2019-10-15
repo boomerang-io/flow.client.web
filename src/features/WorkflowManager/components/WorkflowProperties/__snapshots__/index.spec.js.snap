@@ -9,7 +9,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
       class="c-workflow-inputs"
     >
       <div
-        class="b-workflow-input --select --undefined"
+        class="b-workflow-input"
       >
         <dl
           class="b-workflow-input-field"

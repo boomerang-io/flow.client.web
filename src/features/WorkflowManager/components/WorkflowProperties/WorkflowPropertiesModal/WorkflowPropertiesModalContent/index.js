@@ -17,7 +17,7 @@ import * as Yup from "yup";
 import get from "lodash.get";
 import clonedeep from "lodash/cloneDeep";
 import INPUT_TYPES from "Constants/workflowInputTypes";
-import "./styles.scss";
+import styles from "./WorkflowPropertiesModalContent.module.scss";
 
 const FIELD = {
   KEY: "key",
@@ -219,7 +219,7 @@ class WorkflowPropertiesModalContent extends Component {
 
           return (
             <ModalFlowForm disabled={loading}>
-              <ModalBody>
+              <ModalBody className={styles.container}>
                 <TextInput
                   id={FIELD.KEY}
                   disabled={isEdit}
