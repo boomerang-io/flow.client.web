@@ -96,7 +96,7 @@ class WorkflowEditor extends Component {
         />
         <Switch>
           <Route
-            path={`${match.path}/overview`}
+            path={`${match.path}/settings`}
             render={props => (
               <Formik
                 initialValues={{
@@ -132,7 +132,12 @@ class WorkflowEditor extends Component {
               >
                 {formikProps => (
                   <>
-                    <Overview workflow={workflow} formikProps={formikProps} teams={teamsState.data} />
+                    <Overview
+                      formikProps={formikProps}
+                      teams={teamsState.data}
+                      updateWorkflow={this.updateWorkflow}
+                      workflow={workflow}
+                    />
                   </>
                 )}
               </Formik>

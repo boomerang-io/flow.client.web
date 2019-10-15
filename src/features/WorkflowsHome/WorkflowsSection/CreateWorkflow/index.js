@@ -34,7 +34,6 @@ export class CreateWorkflow extends Component {
           ...dagProps,
           workflowId
         };
-        workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
         fetchTeams();
         return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
       })

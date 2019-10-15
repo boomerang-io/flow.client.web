@@ -47,6 +47,10 @@ export class Overview extends Component {
     workflowActions: PropTypes.object.isRequired
   };
 
+  componentWillUnmount() {
+    this.props.updateWorkflow();
+  }
+
   generateToken = e => {
     if (e) {
       e.preventDefault();

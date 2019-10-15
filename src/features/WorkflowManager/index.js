@@ -71,7 +71,6 @@ export class WorkflowManagerContainer extends Component {
           ...dagProps,
           workflowId
         };
-        workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
         return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
       })
       .then(() => {
@@ -128,13 +127,12 @@ export class WorkflowManagerContainer extends Component {
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, id: workflowId })
       .then(response => {
-        notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Successfully updated workflow" />);
-        workflowActions.setHasUnsavedWorkflowUpdates({ hasUpdates: false });
+        //notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Successfully updated workflow" />);
         return workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`);
       })
       .then(response => Promise.resolve(response))
       .catch(error => {
-        notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to update workflow" />);
+        //notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to update workflow" />);
         return Promise.reject(error);
       });
   };
@@ -258,18 +256,16 @@ export class WorkflowManagerContainer extends Component {
     }
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS && teams.status === REQUEST_STATUSES.SUCCESS) {
-      const { hasUnsavedWorkflowUpdates } = this.props.workflow;
+      //const { hasUnsavedWorkflowUpdates } = this.props.workflow;
       const { hasUnsavedWorkflowRevisionUpdates } = this.props.workflowRevision;
       return (
         <>
           <Prompt
-            when={hasUnsavedWorkflowUpdates || hasUnsavedWorkflowRevisionUpdates}
+            when={hasUnsavedWorkflowRevisionUpdates}
             message={location =>
               location.pathname === this.props.match.url || location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
                 ? true
-                : `Are you sure? You have unsaved changes that will be lost on:\n${
-                    hasUnsavedWorkflowUpdates ? "- Overview\n" : ""
-                  }${hasUnsavedWorkflowRevisionUpdates ? "- Design\n" : ""}`
+                : "Are you sure? You have unsaved changes to your workflow that will be lost."
             }
           />
           <div className={styles.container}>
@@ -289,7 +285,7 @@ export class WorkflowManagerContainer extends Component {
                   />
                 )}
               />
-              <Redirect from="/creator" to="/creator/overview" />
+              <Redirect from="/creator" to="/creator/settings" />
             </Switch>
           </div>
         </>

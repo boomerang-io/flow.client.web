@@ -21,8 +21,7 @@ export const types = {
   UPDATE_WORKFLOW_TRIGGERS_SCHEDULER: "UPDATE_WORKFLOW_TRIGGERS_SCHEDULER",
   CREATE_WORKFLOW_INPUT: "CREATE_WORKFLOW_INPUT",
   UPDATE_WORKFLOW_INPUT: "UPDATE_WORKFLOW_INPUT",
-  DELETE_WORKFLOW_INPUT: "DELETE_WORKFLOW_INPUT",
-  SET_HAS_UNSAVED_WORKFLOW_UPDATES: "SET_HAS_UNSAVED_WORKFLOW_UPDATES"
+  DELETE_WORKFLOW_INPUT: "DELETE_WORKFLOW_INPUT"
 };
 Object.freeze(types);
 
@@ -35,7 +34,6 @@ export const initialState = {
   updatingStatus: "",
   creatingStatus: "",
   error: "",
-  hasUnsavedWorkflowUpdates: false,
   data: {
     triggers: {
       scheduler: {
@@ -76,7 +74,6 @@ const actionHandlers = {
   [types.UPDATE_WORKFLOW_SUCCESS]: state => ({
     ...state,
     isUpdating: false,
-    hasUnsavedWorkflowUpdates: false,
     updatingStatus: REQUEST_STATUSES.SUCCESS
   }),
   [types.UPDATE_WORKFLOW_FAILURE]: (state, action) => ({
@@ -94,8 +91,7 @@ const actionHandlers = {
     ...state,
     isCreating: false,
     updatingStatus: REQUEST_STATUSES.SUCCESS,
-    data: action.data,
-    hasUnsavedWorkflowUpdates: false
+    data: action.data
   }),
   [types.CREATE_WORKFLOW_FAILURE]: (state, action) => ({
     ...state,
@@ -105,28 +101,28 @@ const actionHandlers = {
   }),
   [types.CREATE_WORKFLOW_REQUEST]: state => ({ ...state, isCreating: true, creatingStatus: "" }),
   [types.UPDATE_WORKFLOW_PROPERTY]: (state, action) => {
-    return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, [action.data.key]: action.data.value } };
+    return { ...state, data: { ...state.data, [action.data.key]: action.data.value } };
   },
   [types.UPDATE_WORKFLOW_TRIGGERS_WEBHOOK]: (state, action) => {
     let { triggers } = state.data;
     let { webhook } = triggers;
     const newWebhook = { ...webhook, [action.data.key]: action.data.value };
     const newTriggers = { ...triggers, webhook: newWebhook };
-    return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, triggers: newTriggers } };
+    return { ...state, data: { ...state.data, triggers: newTriggers } };
   },
   [types.UPDATE_WORKFLOW_TRIGGERS_EVENT]: (state, action) => {
     let { triggers } = state.data;
     let { event } = triggers;
     const newEvent = { ...event, [action.data.key]: action.data.value };
     const newTriggers = { ...triggers, event: newEvent };
-    return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, triggers: newTriggers } };
+    return { ...state, data: { ...state.data, triggers: newTriggers } };
   },
   [types.UPDATE_WORKFLOW_TRIGGERS_SCHEDULER]: (state, action) => {
     let { triggers } = state.data;
     let { scheduler } = triggers;
     const newScheduler = { ...scheduler, [action.data.key]: action.data.value };
     const newTriggers = { ...triggers, scheduler: newScheduler };
-    return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, triggers: newTriggers } };
+    return { ...state, data: { ...state.data, triggers: newTriggers } };
   },
   [types.CREATE_WORKFLOW_INPUT]: (state, action) => {
     const { properties } = state.data;
@@ -169,7 +165,6 @@ const updateTriggersScheduler = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_
 const createWorkflowInput = data => ({ type: types.CREATE_WORKFLOW_INPUT, data });
 const updateWorkflowInput = data => ({ type: types.UPDATE_WORKFLOW_INPUT, data });
 const deleteWorkflowInput = data => ({ type: types.DELETE_WORKFLOW_INPUT, data });
-const setHasUnsavedWorkflowUpdates = data => ({ type: types.SET_HAS_UNSAVED_WORKFLOW_UPDATES, data });
 
 const fetchActionCreators = {
   reset: reset,
@@ -232,6 +227,5 @@ export const actions = {
   updateTriggersScheduler,
   createWorkflowInput,
   updateWorkflowInput,
-  deleteWorkflowInput,
-  setHasUnsavedWorkflowUpdates
+  deleteWorkflowInput
 };

@@ -20,7 +20,7 @@ function Navigation({ location, match }) {
       <NavLink className={styles.link} activeClassName={styles["--active"]} to={`${match.url}/changes`}>
         Change Log
       </NavLink>
-      <NavLink className={styles.link} activeClassName={styles["--active"]} to={`${match.url}/overview`}>
+      <NavLink className={styles.link} activeClassName={styles["--active"]} to={`${match.url}/settings`}>
         Settings
       </NavLink>
     </nav>
