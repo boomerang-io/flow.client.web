@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import matchSorter from "match-sorter";
+import uniqBy from "lodash/uniqBy";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import { AccordionItem, OverflowMenu, Search } from "carbon-components-react";
 import { ChevronLeft32, ChevronRight32, SettingsAdjust20 } from "@carbon/icons-react";
@@ -28,9 +29,10 @@ export default class Tasks extends Component {
     /**
      * create task type format to pass to the CheckboxList filter
      */
-    let uniqueNames = [
+    let totalTaskTypes = [
       ...new Set(this.state.tasksWithMapping.map(task => ({ iconName: task.iconName, iconImg: task.iconImg })))
     ];
+    let uniqueNames = uniqBy(totalTaskTypes, "iconName");
     const uniqueTaskTypes = uniqueNames.map(task => ({
       id: task.iconName,
       label: (
