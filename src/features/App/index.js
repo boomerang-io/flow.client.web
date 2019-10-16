@@ -108,7 +108,6 @@ class App extends Component {
                 <Route path="/workflows" component={AsyncHome} />
                 <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
                 <Route path="/activity" component={AsyncActivity} />
-                <Route path="/creator/overview" component={AsyncManager} />
                 <Route path="/editor/:workflowId" component={AsyncManager} />
                 <Route path="/insights" component={AsyncInsights} />
                 <Route path="/viewer" component={AsyncViewer} />

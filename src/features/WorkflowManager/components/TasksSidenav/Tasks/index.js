@@ -1,13 +1,14 @@
 import React, { Component } from "react";
+import cx from "classnames";
+import { AccordionItem, OverflowMenu, Search } from "carbon-components-react";
+import { CheckboxList } from "@boomerang/carbon-addons-boomerang-react";
+import Accordion from "carbon-components-react/lib/components/Accordion";
+import Task from "./Task";
+import mapTaskNametoIcon from "Utilities/taskIcons";
 import matchSorter from "match-sorter";
 import uniqBy from "lodash/uniqBy";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
-import { AccordionItem, OverflowMenu, Search } from "carbon-components-react";
-import { ChevronLeft32, ChevronRight32, SettingsAdjust20 } from "@carbon/icons-react";
-import { CheckboxList } from "@boomerang/carbon-addons-boomerang-react";
-import Accordion from "carbon-components-react/lib/components/Accordion";
-import mapTaskNametoIcon from "Utilities/taskIcons";
-import Task from "./Task";
+import { ChevronLeft32, SettingsAdjust20 } from "@carbon/icons-react";
 import styles from "./tasks.module.scss";
 
 export default class Tasks extends Component {
@@ -130,7 +131,7 @@ export default class Tasks extends Component {
 
   render() {
     return (
-      <aside className={`${styles.container} ${this.state.sidenavIsCollapsed ? styles.collapsed : ""}`}>
+      <aside className={cx(styles.container, { [styles.collapsed]: this.state.sidenavIsCollapsed })}>
         <>
           <div className={styles.header}>
             <h1 className={styles.heading}>Add a task</h1>
@@ -138,14 +139,10 @@ export default class Tasks extends Component {
               className={styles.collapseButton}
               onClick={() => this.setState(prevState => ({ sidenavIsCollapsed: !prevState.sidenavIsCollapsed }))}
             >
-              {this.state.sidenavIsCollapsed ? (
-                <ChevronRight32 className={styles.collapseButtonImg} />
-              ) : (
-                <ChevronLeft32 className={styles.collapseButtonImg} />
-              )}
+              <ChevronLeft32 className={styles.collapseButtonImg} />
             </button>
           </div>
-          <div className={`${styles.tools} ${this.state.sidenavIsCollapsed ? styles.collapsed : ""}`}>
+          <div className={styles.tools}>
             <Search
               labelText="Search for a task"
               placeHolderText="Search for a task"
@@ -164,7 +161,7 @@ export default class Tasks extends Component {
               />
             </OverflowMenu>
           </div>
-          <div className={`${styles.detail} ${this.state.sidenavIsCollapsed ? styles.collapsed : ""}`}>
+          <div className={styles.detail}>
             <h3 className={styles.totalCount}>{`Showing ${this.state.tasksToDisplay.length} tasks`}</h3>
             <button
               className={styles.expandButton}
@@ -176,9 +173,7 @@ export default class Tasks extends Component {
             </button>
           </div>
         </>
-        <div className={`${styles.content} ${this.state.sidenavIsCollapsed ? styles.collapsed : ""}`}>
-          {this.determineTasks()}
-        </div>
+        <div className={styles.content}>{this.determineTasks()}</div>
       </aside>
     );
   }

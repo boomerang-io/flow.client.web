@@ -155,7 +155,7 @@ class WorkflowEditor extends Component {
           <Route
             path={`${match.path}/designer`}
             render={props => (
-              <>
+              <div style={{ display: "flex", flexGrow: "1" }}>
                 <TasksSidenav />
                 <div
                   className={styles.container}
@@ -170,7 +170,7 @@ class WorkflowEditor extends Component {
                     diagramBoundingClientRect={this.state.diagramBoundingClientRect}
                   />
                   <DiagramWidget
-                    className="srd-demo-canvas"
+                    className="c-workflow-designer"
                     diagramEngine={this.diagramApp.getDiagramEngine()}
                     maxNumberPointsPerLink={0}
                     deleteKeys={[]}
@@ -178,7 +178,7 @@ class WorkflowEditor extends Component {
                     allowCanvasTranslation={!isModalOpen}
                   />
                 </div>
-              </>
+              </div>
             )}
           />
           <Route path={`${match.path}/changes`} render={() => <ChangeLog workflow={workflow} />} />

@@ -3,11 +3,9 @@
 .container {
   display: flex;
   position: relative;
-  //margin-left: 22rem;
-  margin-left: 1rem;
   flex-grow: 1;
 
-  :global .srd-demo-canvas {
+  :global .c-workflow-designer {
     background-color: $ui-background !important;
   }
 

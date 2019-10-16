@@ -4,15 +4,32 @@
 
 .container {
   background-color: $white;
-  height: calc(100vh - 12rem);
   overflow-y: scroll;
-  position: absolute;
+  position: relative;
   transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
-  width: 19.75rem;
-  z-index: 2;
+  width: 18.75rem;
+
+  // add transition to sibling
+  & + div {
+    transition: margin-left $carbon-motion--timing--productive $carbon-motion--easing--productive;
+  }
 
   &.collapsed {
-    transform: translate3d(-92%, 0, 0);
+    transform: translate3d(-90%, 0, 0);
+    .content,
+    .tools,
+    .detail {
+      opacity: 0;
+    }
+
+    .collapseButton {
+      transform: scale(-1, 1);
+    }
+
+    // shift sibling to the left
+    & + div {
+      margin-left: -17rem;
+    }
   }
 
   .header {
@@ -20,6 +37,7 @@
     display: flex;
     justify-content: space-between;
   }
+
   .heading {
     color: $darkest-gray;
     font-size: 1.125rem;
@@ -27,6 +45,7 @@
     line-height: 1.4375rem;
     margin-left: 1rem;
   }
+
   .collapseButton {
     background-color: transparent;
     border: none;
@@ -44,22 +63,19 @@
       fill: $brand-02;
     }
   }
+
   .tools {
     align-items: center;
     display: flex;
     padding: 1rem 0.625rem 0rem;
-    &.collapsed {
-      opacity: 0;
-    }
   }
+
   .detail {
     align-items: baseline;
     display: flex;
     justify-content: space-between;
-    &.collapsed {
-      opacity: 0;
-    }
   }
+
   .totalCount {
     color: $ui-04;
     font-size: 0.75rem;
@@ -67,6 +83,7 @@
     margin-left: 1rem;
     margin-top: 0.5rem;
   }
+
   .expandButton {
     color: $interactive-01;
     cursor: pointer;
@@ -76,15 +93,12 @@
     line-height: 0.9375rem;
     margin-right: 1rem;
   }
+
   .content {
     margin-bottom: 2rem;
     margin-top: 1rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-
-    &.collapsed {
-      opacity: 0;
-    }
 
     .taskSection {
       margin: 0 0.5rem;

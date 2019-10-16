@@ -13,11 +13,7 @@ class TasksSidenavContainer extends Component {
     const { tasks } = this.props;
 
     if (tasks.status === REQUEST_STATUSES.SUCCESS) {
-      return (
-        <div className="c-tasks-sidenav">
-          <Tasks tasks={tasks} />
-        </div>
-      );
+      return <Tasks tasks={tasks} />;
     }
 
     return null;
