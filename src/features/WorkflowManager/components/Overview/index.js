@@ -208,7 +208,7 @@ export class Overview extends Component {
             {workflowIcons.map((image, index) => (
               <label
                 key={`icon-number-${index}`}
-                className={`${styles.icon} ${get(workflow, "data.icon", "") === image.name ? styles.active : ""}`}
+                className={`${styles.iconLabel} ${get(workflow, "data.icon", "") === image.name ? styles.active : ""}`}
               >
                 <input
                   type="radio"
@@ -217,7 +217,7 @@ export class Overview extends Component {
                   onClick={() => this.handleOnIconChange(image.name, "icon")}
                   checked={get(workflow, "data.icon", "") === image.name}
                 />
-                <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} />
+                <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} className={styles.icon} />
               </label>
             ))}
           </div>
