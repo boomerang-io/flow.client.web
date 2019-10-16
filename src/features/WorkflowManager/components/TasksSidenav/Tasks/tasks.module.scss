@@ -15,7 +15,7 @@
   }
 
   &.collapsed {
-    transform: translate3d(-90%, 0, 0);
+    transform: translate3d(-16.75rem, 0, 0);
     .content,
     .tools,
     .detail {
@@ -28,7 +28,7 @@
 
     // shift sibling to the left
     & + div {
-      margin-left: -17rem;
+      margin-left: -16.75rem;
     }
   }
 

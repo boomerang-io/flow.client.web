@@ -19,7 +19,6 @@
   color: $text-01;
   font-size: 1.25rem;
   font-weight: 300;
-  height: 1.67rem;
   line-height: 1.67rem;
 }
 
@@ -30,7 +29,8 @@
 }
 
 .workflowButtons {
-  align-items: flex-end;
+  align-items: center;
+  //align-items: flex-end;
   display: flex;
   margin-left: auto;
 }

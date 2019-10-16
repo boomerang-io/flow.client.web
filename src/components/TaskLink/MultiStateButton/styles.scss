@@ -1,8 +1,10 @@
 @import "~Styles/variables";
 
 .b-multistate-button {
-  height: 1.625rem;
-  width: 1.625rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  border: 1px solid $text-01;
 }
 
 .b-multistate-button__tooltip {

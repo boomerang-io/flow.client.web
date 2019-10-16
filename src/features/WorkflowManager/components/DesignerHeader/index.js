@@ -106,16 +106,16 @@ class DesignerHeader extends Component {
             <p className={styles.label}>Workflow Editor</p>
             <h1 className={styles.title}>{workflowName}</h1>
           </header>
-          <section className={styles.versionSwitcherContainer}>
-            <VersionSwitcher
-              disabled={!onDesigner}
-              currentRevision={currentRevision}
-              onChangeVersion={fetchWorkflowRevisionNumber}
-              revisionCount={revisionCount}
-            />
-            {this.determinePerformActionRender()}
-          </section>
-          <section className={styles.workflowButtons}>
+
+          <div className={styles.workflowButtons}>
+            <section className={styles.versionSwitcherContainer}>
+              <VersionSwitcher
+                disabled={!onDesigner}
+                currentRevision={currentRevision}
+                onChangeVersion={fetchWorkflowRevisionNumber}
+                revisionCount={revisionCount}
+              />
+            </section>
             <Button
               disabled={!onDesigner}
               iconDescription="Test workflow"
@@ -125,7 +125,7 @@ class DesignerHeader extends Component {
             >
               Test this workflow
             </Button>
-            <Button
+            {/* <Button
               disabled={!onDesigner}
               iconDescription="Publish workflow"
               kind="ghost"
@@ -133,8 +133,9 @@ class DesignerHeader extends Component {
               size="field"
             >
               Publish this version
-            </Button>
-          </section>
+            </Button> */}
+            {this.determinePerformActionRender()}
+          </div>
         </div>
         <Navigation />
       </FeatureHeader>

@@ -113,14 +113,14 @@ class SwitchLink extends Component {
       <svg>
         {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
           <>
-            <g transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30})`}>
+            <g transform={`translate(${this.halfwayPoint.x - 12}, ${this.halfwayPoint.y - 12})`}>
               <foreignObject width="24" height="24" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
                 <div xmlns="http://www.w3.org/1999/xhtml">
                   <WorkFlowCloseButton onClick={this.handleOnDelete} />
                 </div>
               </foreignObject>
             </g>
-            <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y + 10})`}>
+            <g transform={`translate(${this.halfwayPoint.x + 12}, ${this.halfwayPoint.y - 12})`}>
               <foreignObject width="32" height="32" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
                 <WorkflowEditButton onClick={this.openModal} xmlns="http://www.w3.org/1999/xhtml" />
                 <ModalFlow
@@ -152,7 +152,7 @@ class SwitchLink extends Component {
         )}
         {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
           <g
-            transform={`translate(${this.halfwayPoint.x + 20}, ${this.halfwayPoint.y + 25})`}
+            transform={`translate(${this.halfwayPoint.x + 20}, ${this.halfwayPoint.y + 24})`}
             style={{ cursor: "initial" }}
           >
             <text className={styles.text}>

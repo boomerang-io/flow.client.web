@@ -80,9 +80,7 @@ class TaskLink extends Component {
         {this.path.current && !this.props.diagramEngine.diagramModel.locked && this.props.model.targetPort && (
           <>
             <g
-              transform={`translate(${this.halfwayPoint.x - 12 - 24 * xAdjustment}, ${this.halfwayPoint.y -
-                12 -
-                24 * yAdjustment})`}
+              transform={`translate(${this.halfwayPoint.x - 12}, ${this.halfwayPoint.y - 12})`}
               xmlns="http://www.w3.org/2000/svg"
             >
               <foreignObject width="24" height="24" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
@@ -90,9 +88,7 @@ class TaskLink extends Component {
               </foreignObject>
             </g>
             <g
-              transform={`translate(${this.halfwayPoint.x - 12 + 24 * xAdjustment}, ${this.halfwayPoint.y -
-                12 +
-                24 * yAdjustment})`}
+              transform={`translate(${this.halfwayPoint.x + 12}, ${this.halfwayPoint.y - 12})`}
               xmlns="http://www.w3.org/2000/svg"
             >
               <foreignObject

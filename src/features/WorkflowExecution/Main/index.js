@@ -35,11 +35,11 @@ class Main extends Component {
     return (
       <div className={styles.container}>
         <ExecutionHeader workflow={workflowData} workflowExecutionData={workflowExecutionData} />
-        <div className={styles.executionResultContainer}>
+        <main className={styles.executionResultContainer}>
           <ExecutionTaskLog workflow={workflowData} workflowExecutionData={workflowExecutionData} />
           {hasStarted || hasFinished ? (
             <div className={styles.executionDesignerContainer}>
-              <WorkflowActions setActiveTeam={setActiveTeam} />
+              <WorkflowActions setActiveTeam={setActiveTeam} workflow={workflowData} />
               <DiagramWidget
                 allowLooseLinks={false}
                 allowCanvasTranslation={true}
@@ -53,7 +53,7 @@ class Main extends Component {
           ) : (
             <LoadingAnimation message="Your workflow will be with you shortly" />
           )}
-        </div>
+        </main>
       </div>
     );
   }
