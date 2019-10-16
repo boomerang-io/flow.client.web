@@ -4,34 +4,26 @@ import { withRouter } from "react-router-dom";
 import moment from "moment";
 import cx from "classnames";
 import { settings } from "carbon-components";
+import queryString from "query-string";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import { DataTableSkeleton, DataTable, Pagination } from "carbon-components-react";
 import { NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
-import { arrayPagination } from "Utilities/arrayHelper";
 import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/activityStatuses";
 import styles from "./activityTable.module.scss";
 
 const { prefix } = settings;
 
-const DEFAULT_PAGE_SIZE = 10;
-const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
+const PAGE_SIZES = [5, 10, 20, 25, 50, 100];
 
 class ActivityTable extends Component {
   static propTypes = {
-    activities: PropTypes.array.isRequired,
     isUpdating: PropTypes.bool,
     history: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
-    sort: PropTypes.object.isRequired
-  };
-
-  state = {
-    page: 1,
-    pageSize: DEFAULT_PAGE_SIZE,
-    activities: this.props.activities,
-    sort: this.props.sort
+    tableData: PropTypes.object.isRequired,
+    updateHistorySearch: PropTypes.func.isRequired
   };
 
   headers = [
@@ -65,10 +57,6 @@ class ActivityTable extends Component {
     }
   ];
 
-  handlePaginationChange = ({ page, pageSize }) => {
-    this.setState({ page, pageSize });
-  };
-
   renderCell = (cellIndex, value) => {
     const column = this.headers[cellIndex];
 
@@ -100,12 +88,24 @@ class ActivityTable extends Component {
     }
   };
 
-  handleSort = (valueA, valueB, config) => {
-    this.setState({ sort: config });
+  handlePaginationChange = ({ page, pageSize }) => {
+    this.props.updateHistorySearch({ ...queryString.parse(this.props.location.search), page, size: pageSize });
+  };
+
+  handleSort = (e, { sortHeaderKey }) => {
+    const { property, direction } = this.props.tableData.sort[0];
+    const sort = sortHeaderKey;
+    let order = "ASC";
+
+    if (sort === property && direction === "ASC") {
+      order = "DESC";
+    }
+
+    this.props.updateHistorySearch({ ...queryString.parse(this.props.location.search), sort, order });
   };
 
   executionViewRedirect = activityId => {
-    const activity = this.props.activities.find(activity => activity.id === activityId);
+    const activity = this.props.tableData.records.find(activity => activity.id === activityId);
     this.props.history.push({
       pathname: `/activity/${activity.workflowId}/execution/${activity.id}`,
       state: { fromUrl: `${this.props.match.url}${this.props.location.search}`, fromText: "Activity" }
@@ -113,17 +113,15 @@ class ActivityTable extends Component {
   };
 
   render() {
-    const { page, pageSize, activities, sort } = this.state;
+    const { number, size, sort, records, totalElements } = this.props.tableData;
     const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
-
-    const totalItems = activities.length;
 
     if (this.props.isUpdating) {
       return (
         <div style={{ marginTop: "1rem" }}>
           <DataTableSkeleton
             className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
-            rowCount={pageSize}
+            rowCount={size}
             columnCount={this.headers.length}
             headers={this.headers.map(header => header.header)}
           />
@@ -134,11 +132,11 @@ class ActivityTable extends Component {
     return (
       <>
         <div className={styles.tableContainer}>
-          {totalItems > 0 ? (
+          {totalElements > 0 ? (
             <>
               <DataTable
-                rows={arrayPagination(activities, page, pageSize, sort)}
-                sortRow={this.handleSort}
+                rows={records}
+                isSortable
                 headers={this.headers}
                 render={({ rows, headers, getHeaderProps }) => (
                   <TableContainer>
@@ -150,8 +148,11 @@ class ActivityTable extends Component {
                               id={header.key}
                               {...getHeaderProps({
                                 header,
-                                className: `${styles.tableHeadHeader} ${styles[header.key]}`
+                                className: `${styles.tableHeadHeader} ${styles[header.key]}`,
+                                onClick: this.handleSort
                               })}
+                              isSortHeader={sort[0].property === header.key}
+                              sortDirection={sort[0].direction}
                             >
                               {header.header}
                             </TableHeader>
@@ -182,16 +183,16 @@ class ActivityTable extends Component {
               />
               <Pagination
                 onChange={this.handlePaginationChange}
-                page={page}
-                pageSize={pageSize}
+                page={number}
+                pageSize={size}
                 pageSizes={PAGE_SIZES}
-                totalItems={totalItems}
+                totalItems={totalElements}
               />
             </>
           ) : (
             <>
               <DataTable
-                rows={activities}
+                rows={[]}
                 headers={this.headers}
                 render={({ headers }) => (
                   <TableContainer>

@@ -28,17 +28,26 @@ export class WorkflowActivity extends Component {
   };
 
   componentDidMount() {
-    const { page = 0, size = 10, workflowIds, triggers, statuses, teamIds } = queryString.parse(
-      this.props.location.search
-    );
-
-    const query = queryString.stringify({
-      size,
-      page,
+    const {
+      order = "DESC",
+      page = 1,
+      size = 10,
+      sort = "creationDate",
       workflowIds,
       triggers,
       statuses,
       teamIds
+    } = queryString.parse(this.props.location.search);
+
+    const query = queryString.stringify({
+      order,
+      page,
+      size,
+      sort,
+      statuses,
+      teamIds,
+      triggers,
+      workflowIds
     });
 
     this.fetchActivities(`${BASE_SERVICE_URL}/activity?${query}`);
@@ -46,17 +55,26 @@ export class WorkflowActivity extends Component {
 
   componentDidUpdate = prevProps => {
     if (prevProps.location.search !== this.props.location.search) {
-      const { page = 0, size = 10, workflowIds, triggers, statuses, teamIds } = queryString.parse(
-        this.props.location.search
-      );
-
-      const query = queryString.stringify({
-        size,
-        page,
+      const {
+        order = "DESC",
+        page = 1,
+        size = 10,
+        sort = "creationDate",
         workflowIds,
         triggers,
         statuses,
         teamIds
+      } = queryString.parse(this.props.location.search);
+
+      const query = queryString.stringify({
+        order,
+        page,
+        size,
+        sort,
+        statuses,
+        teamIds,
+        triggers,
+        workflowIds
       });
 
       this.updateActivities(`${BASE_SERVICE_URL}/activity?${query}`);
@@ -67,7 +85,9 @@ export class WorkflowActivity extends Component {
     this.props.activityActions.reset();
   }
 
-  updateHistory = queryStr => {
+  updateHistorySearch = ({ order = "DESC", page = 1, size = 10, sort = "creationDate", ...props }) => {
+    const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props })}`;
+
     this.props.history.push({ search: queryStr });
   };
 
@@ -84,63 +104,23 @@ export class WorkflowActivity extends Component {
   };
 
   handleSelectTeams = ({ selectedItems }) => {
-    const { triggers, statuses } = queryString.parse(this.props.location.search);
-
-    const queryStr = `?${queryString.stringify({
-      page: 0,
-      size: 10,
-      workflowIds: undefined,
-      triggers,
-      statuses,
-      teamIds: selectedItems.length > 0 ? selectedItems.map(team => team.id).join() : undefined
-    })}`;
-
-    this.updateHistory(queryStr);
+    const teamIds = selectedItems.length > 0 ? selectedItems.map(team => team.id).join() : undefined;
+    this.updateHistorySearch({ ...queryString.parse(this.props.location.search), teamIds, workflowIds: undefined });
   };
 
   handleSelectWorkflows = ({ selectedItems }) => {
-    const { teamIds, triggers, statuses } = queryString.parse(this.props.location.search);
-
-    const queryStr = `?${queryString.stringify({
-      page: 0,
-      size: 10,
-      workflowIds: selectedItems.length > 0 ? selectedItems.map(worflow => worflow.id).join() : undefined,
-      triggers,
-      statuses,
-      teamIds
-    })}`;
-
-    this.updateHistory(queryStr);
+    const workflowIds = selectedItems.length > 0 ? selectedItems.map(worflow => worflow.id).join() : undefined;
+    this.updateHistorySearch({ ...queryString.parse(this.props.location.search), workflowIds });
   };
 
   handleSelectTriggers = ({ selectedItems }) => {
-    const { teamIds, workflowIds, statuses } = queryString.parse(this.props.location.search);
-
-    const queryStr = `?${queryString.stringify({
-      page: 0,
-      size: 10,
-      workflowIds,
-      triggers: selectedItems.length > 0 ? selectedItems.map(trigger => trigger.value).join() : undefined,
-      statuses,
-      teamIds
-    })}`;
-
-    this.updateHistory(queryStr);
+    const triggers = selectedItems.length > 0 ? selectedItems.map(trigger => trigger.value).join() : undefined;
+    this.updateHistorySearch({ ...queryString.parse(this.props.location.search), triggers });
   };
 
   handleSelectStatuses = statusIndex => {
-    const { teamIds, triggers, workflowIds } = queryString.parse(this.props.location.search);
-
-    const queryStr = `?${queryString.stringify({
-      page: 0,
-      size: 10,
-      workflowIds,
-      triggers,
-      statuses: statusIndex > 0 ? ACTIVITY_STATUSES_TO_INDEX[statusIndex - 1] : undefined,
-      teamIds
-    })}`;
-
-    this.updateHistory(queryStr);
+    const statuses = statusIndex > 0 ? ACTIVITY_STATUSES_TO_INDEX[statusIndex - 1] : undefined;
+    this.updateHistorySearch({ ...queryString.parse(this.props.location.search), statuses });
   };
 
   getWorkflowFilter(teamsData, selectedTeams) {
@@ -199,8 +179,6 @@ export class WorkflowActivity extends Component {
       const workflowsFilter = this.getWorkflowFilter(teamsData, selectedTeams);
 
       const activities = activityState.data.records;
-      const tableActivities = activityState.tableData.records;
-      const sort = activityState.tableData.sort;
       const runActivities = activities.length;
       let inProgressActivities = 0;
       let succeededActivities = 0;
@@ -303,13 +281,9 @@ export class WorkflowActivity extends Component {
               </div>
             </section>
             <ActivityTable
-              activities={tableActivities}
+              tableData={activityState.tableData}
               isUpdating={activityState.isUpdating}
-              sort={
-                Array.isArray(sort)
-                  ? { key: sort[0].property, sortDirection: sort[0].direction }
-                  : { key: "creationDate", sortDirection: "desc" }
-              }
+              updateHistorySearch={this.updateHistorySearch}
               history={history}
               match={match}
               location={location}
