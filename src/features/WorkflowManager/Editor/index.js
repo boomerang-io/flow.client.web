@@ -155,10 +155,10 @@ class WorkflowEditor extends Component {
           <Route
             path={`${match.path}/designer`}
             render={props => (
-              <div style={{ display: "flex", flexGrow: "1" }}>
+              <div className={styles.container}>
                 <TasksSidenav />
                 <div
-                  className={styles.container}
+                  className={styles.designer}
                   onDrop={event => createNode(this.diagramApp, event)}
                   onDragOver={event => {
                     event.preventDefault();
@@ -170,7 +170,7 @@ class WorkflowEditor extends Component {
                     diagramBoundingClientRect={this.state.diagramBoundingClientRect}
                   />
                   <DiagramWidget
-                    className="c-workflow-designer"
+                    className={styles.diagram}
                     diagramEngine={this.diagramApp.getDiagramEngine()}
                     maxNumberPointsPerLink={0}
                     deleteKeys={[]}

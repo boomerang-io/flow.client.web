@@ -2,10 +2,15 @@
 
 .container {
   display: flex;
-  position: relative;
   flex-grow: 1;
 
-  :global .c-workflow-designer {
+  .designer {
+    display: flex;
+    flex-grow: 1;
+    position: relative;
+  }
+
+  .diagram {
     background-color: $ui-background !important;
   }
 
