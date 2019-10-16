@@ -3,22 +3,20 @@
 
 .container {
   background-color: $white;
-  height: calc(100% - 7.31rem);
-  max-width: 24.5rem;
-  position: absolute;
-  top: 7.31rem;
   transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 24.5rem;
-  z-index: 2;
+
+  & + div {
+    transition: margin-left $carbon-motion--timing--productive $carbon-motion--easing--productive;
+  }
 
   &.collapsed {
     transform: translate3d(-92%, 0, 0);
 
-    .duration {
-      opacity: 0.01;
-    }
-
-    .status {
+    .duration,
+    .status,
+    .taskbar,
+    .tasklog {
       opacity: 0.01;
     }
 
@@ -26,12 +24,8 @@
       transform: rotate(180deg);
     }
 
-    .taskbar {
-      opacity: 0.01;
-    }
-
-    .tasklog {
-      opacity: 0.01;
+    & + div {
+      margin-left: -22.5rem;
     }
   }
 }
@@ -163,38 +157,4 @@
   opacity: 0.99;
   transition: opacity $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 100%;
-}
-
-.diagram {
-  display: flex;
-  position: absolute;
-  right: -15.875rem;
-  top: 1.125rem;
-}
-
-.flowStatus {
-  color: $gray-90;
-  font-size: 1rem;
-  line-height: 1.25rem;
-  margin-right: 1.5rem;
-}
-
-.edit {
-  cursor: pointer;
-  display: flex;
-}
-
-.editIcon {
-  height: 1.5rem;
-  margin-right: 0.5rem;
-  width: 1.5rem;
-  path {
-    fill: #0072c3;
-  }
-}
-
-.editText {
-  color: #0072c3;
-  font-size: 1rem;
-  line-height: 1.5rem;
 }

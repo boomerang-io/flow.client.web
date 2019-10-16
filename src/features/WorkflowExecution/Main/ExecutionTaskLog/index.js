@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import orderBy from "lodash/orderBy";
-import { withRouter } from "react-router-dom";
-import { Arrows32, ChevronLeft32, Edit32 } from "@carbon/icons-react";
+import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";
 import TaskItem from "./TaskItem";
 import { ACTIVITY_STATUSES_TO_ICON, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
 import { getSimplifiedDuration } from "Utilities/timeHelper";
@@ -28,13 +27,6 @@ function ExecutionTaskLog({ history, setActiveTeam, workflow, workflowExecutionD
 
   const toggleSort = () => {
     setTasksSort(tasksSort === "desc" ? "asc" : "desc");
-  };
-
-  const setActiveTeamAndRedirect = () => {
-    const { id, flowTeamId } = workflow;
-
-    setActiveTeam(flowTeamId);
-    history.push(`/editor/${id}/designer`);
   };
 
   const sortedTasks = orderBy(steps, step => moment(step.startTime).unix(), [tasksSort]);
@@ -68,15 +60,8 @@ function ExecutionTaskLog({ history, setActiveTeam, workflow, workflowExecutionD
           <TaskItem flowActivityId={id} task={step} />
         ))}
       </section>
-      <section className={styles.diagram}>
-        <p className={styles.flowStatus}>Read-only</p>
-        <button className={styles.edit} onClick={setActiveTeamAndRedirect}>
-          <Edit32 className={styles.editIcon} />
-          <p className={styles.editText}>Edit Workflow</p>
-        </button>
-      </section>
     </aside>
   );
 }
 
-export default withRouter(ExecutionTaskLog);
+export default ExecutionTaskLog;
