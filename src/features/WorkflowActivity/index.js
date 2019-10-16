@@ -17,6 +17,10 @@ import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import styles from "./workflowActivity.module.scss";
 
 const MultiSelect = Select.Filterable;
+const DEFAULT_ORDER = "DESC";
+const DEFAULT_PAGE = 0;
+const DEFAULT_SIZE = 10;
+const DEFAULT_SORT = "creationDate";
 
 export class WorkflowActivity extends Component {
   static propTypes = {
@@ -29,10 +33,10 @@ export class WorkflowActivity extends Component {
 
   componentDidMount() {
     const {
-      order = "DESC",
-      page = 1,
-      size = 10,
-      sort = "creationDate",
+      order = DEFAULT_ORDER,
+      page = DEFAULT_PAGE,
+      size = DEFAULT_SIZE,
+      sort = DEFAULT_SORT,
       workflowIds,
       triggers,
       statuses,
@@ -56,10 +60,10 @@ export class WorkflowActivity extends Component {
   componentDidUpdate = prevProps => {
     if (prevProps.location.search !== this.props.location.search) {
       const {
-        order = "DESC",
-        page = 1,
-        size = 10,
-        sort = "creationDate",
+        order = DEFAULT_ORDER,
+        page = DEFAULT_PAGE,
+        size = DEFAULT_SIZE,
+        sort = DEFAULT_SORT,
         workflowIds,
         triggers,
         statuses,
@@ -85,7 +89,13 @@ export class WorkflowActivity extends Component {
     this.props.activityActions.reset();
   }
 
-  updateHistorySearch = ({ order = "DESC", page = 1, size = 10, sort = "creationDate", ...props }) => {
+  updateHistorySearch = ({
+    order = DEFAULT_ORDER,
+    page = DEFAULT_PAGE,
+    size = DEFAULT_SIZE,
+    sort = DEFAULT_SORT,
+    ...props
+  }) => {
     const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props })}`;
 
     this.props.history.push({ search: queryStr });
