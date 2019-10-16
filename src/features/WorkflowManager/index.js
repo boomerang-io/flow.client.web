@@ -22,6 +22,7 @@ export class WorkflowManagerContainer extends Component {
     activeTeamId: PropTypes.string,
     appActions: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
+    isModalOpen: PropTypes.bool.isRequired,
     match: PropTypes.object.isRequired,
     tasks: PropTypes.object.isRequired,
     tasksActions: PropTypes.object.isRequired,
@@ -268,6 +269,7 @@ export class WorkflowManagerContainer extends Component {
               createWorkflowRevision={this.createWorkflowRevision}
               fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
               handleChangeLogReasonChange={this.handleChangeLogReasonChange}
+              isModalOpen={this.props.isModalOpen}
               teams={this.props.teams}
               updateWorkflow={this.updateWorkflow}
               updateWorkflowProperties={this.updateWorkflowProperties}
@@ -285,6 +287,7 @@ export class WorkflowManagerContainer extends Component {
 
 const mapStateToProps = state => ({
   activeTeamId: state.app.activeTeamId,
+  isModalOpen: state.app.isModalOpen,
   tasks: state.tasks,
   teams: state.teams,
   workflow: state.workflow,

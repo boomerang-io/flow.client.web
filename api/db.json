@@ -217,7 +217,7 @@
           "description": "The file content",
           "key": "content",
           "label": "File Content",
-          "type": "textarea"
+          "type": "texteditor"
         }
       ],
       "description": "Create file in worker",

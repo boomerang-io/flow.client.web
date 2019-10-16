@@ -20,7 +20,7 @@ const AutoSuggestInput = props => {
   );
 };
 
-const TextAreaInput = props => {
+const TextEditorInput = props => {
   return (
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
       <TextAreaModal {...props} />
@@ -235,7 +235,7 @@ class DisplayForm extends Component {
         CustomComponent={TextInput}
         dataDrivenProps={{
           TextInput: AutoSuggestInput,
-          TextArea: TextAreaInput,
+          TextEditor: TextEditorInput,
           Toggle
         }}
         formProps={{ className: "c-display-form", id: "display-form", style: { marginTop: "1rem" } }}
@@ -247,6 +247,7 @@ class DisplayForm extends Component {
         selectProps={this.selectProps}
         submitButton={this.submitButton}
         textAreaProps={this.textAreaProps}
+        textEditorProps={this.textAreaProps}
         textInputProps={this.textInputProps}
         toggleProps={this.toggleProps}
         validationSchema={transformAll(this.yupAST(task.config, otherTaskNames))}

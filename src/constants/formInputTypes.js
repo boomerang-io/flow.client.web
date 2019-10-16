@@ -7,7 +7,8 @@ export const INPUT_TYPES = {
 };
 
 export const TEXT_AREA_TYPES = {
-  textarea: { type: "textarea", validationFunction: () => {}, validationText: "" }
+  textarea: { type: "textarea", validationFunction: () => {}, validationText: "" },
+  texteditor: { type: "texteditor", validationFunction: () => {}, validationText: "" }
 };
 
 export const SELECT_TYPES = {
