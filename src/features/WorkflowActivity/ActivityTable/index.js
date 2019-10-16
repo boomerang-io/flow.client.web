@@ -93,7 +93,7 @@ class ActivityTable extends Component {
   };
 
   handleSort = (e, { sortHeaderKey }) => {
-    const { property, direction } = this.props.tableData.sort[0];
+    const { property, direction } = this.props.tableData.pageable.sort[0];
     const sort = sortHeaderKey;
     let order = "ASC";
 
@@ -113,7 +113,10 @@ class ActivityTable extends Component {
   };
 
   render() {
-    const { number, size, sort, records, totalElements } = this.props.tableData;
+    const {
+      pageable: { number, size, sort, totalElements },
+      records
+    } = this.props.tableData;
     const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
     if (this.props.isUpdating) {
