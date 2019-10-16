@@ -6,6 +6,10 @@
   display: flex;
 }
 
+.header {
+  width: 100%;
+}
+
 .title {
   color: $text-01;
   font-size: 2rem;
@@ -15,22 +19,40 @@
   max-width: 50rem;
 }
 
-.label {
-  color: $text-01;
-  font-size: 1.25rem;
-  font-weight: 300;
-  line-height: 1.67rem;
+.breadcrumbContainer {
+  align-items: flex-start;
+  display: flex;
+  margin-bottom: -0.5rem;
 }
 
-.versionSwitcherContainer {
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
+.workflowsLink {
+  font-size: 0.875rem;
+  letter-spacing: 0.16px;
+  line-height: 1.125rem;
+}
+
+.breadcrumbDivider {
+  font-size: 0.875rem;
+  letter-spacing: 0.16px;
+  line-height: 1.125rem;
+  margin: 0 0.5rem;
+}
+
+.workflowName {
+  color: $text-01;
+  font-size: 0.875rem;
+  letter-spacing: 0.16px;
+  line-height: 1.125rem;
+}
+
+.validateButton {
+  margin-left: auto;
 }
 
 .workflowButtons {
   align-items: center;
-  //align-items: flex-end;
   display: flex;
+  justify-content: flex-end;
+  margin-bottom: -0.5rem;
   margin-left: auto;
 }

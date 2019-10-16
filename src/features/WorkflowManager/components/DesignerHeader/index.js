@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Button } from "carbon-components-react";
 import { ConfirmModal, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
 import Navigation from "./Navigation";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
-import { Add16, CheckmarkOutline16, DocumentExport16, Flash16 } from "@carbon/icons-react";
+import { Add16, DocumentExport16, Flash16 } from "@carbon/icons-react";
 import styles from "./DesignerHeader.module.scss";
 
 class DesignerHeader extends Component {
@@ -103,29 +104,36 @@ class DesignerHeader extends Component {
       <FeatureHeader>
         <div className={styles.container}>
           <header className={styles.header}>
-            <p className={styles.label}>Workflow Editor</p>
-            <h1 className={styles.title}>{workflowName}</h1>
-          </header>
-
-          <div className={styles.workflowButtons}>
-            <section className={styles.versionSwitcherContainer}>
-              <VersionSwitcher
+            <div className={styles.breadcrumbContainer}>
+              <Link className={styles.workflowsLink} to="/workflows">
+                Workflows
+              </Link>
+              <p className={styles.breadcrumbDivider}>/</p>
+              <p className={styles.workflowName}> {workflowName}</p>
+              <Button
+                className={styles.validateButton}
                 disabled={!onDesigner}
-                currentRevision={currentRevision}
-                onChangeVersion={fetchWorkflowRevisionNumber}
-                revisionCount={revisionCount}
-              />
-            </section>
-            <Button
-              disabled={!onDesigner}
-              iconDescription="Test workflow"
-              kind="ghost"
-              renderIcon={Flash16}
-              size="field"
-            >
-              Test this workflow
-            </Button>
-            {/* <Button
+                iconDescription="Validate workflow"
+                kind="ghost"
+                renderIcon={Flash16}
+                size="field"
+              >
+                Validate this workflow
+              </Button>
+            </div>
+            <h1 className={styles.title}>Editor</h1>
+          </header>
+        </div>
+        <div className={styles.workflowButtons}>
+          <VersionSwitcher
+            disabled={!onDesigner}
+            currentRevision={currentRevision}
+            onChangeVersion={fetchWorkflowRevisionNumber}
+            revisionCount={revisionCount}
+          />
+          {this.determinePerformActionRender()}
+
+          {/* <Button
               disabled={!onDesigner}
               iconDescription="Publish workflow"
               kind="ghost"
@@ -134,8 +142,6 @@ class DesignerHeader extends Component {
             >
               Publish this version
             </Button> */}
-            {this.determinePerformActionRender()}
-          </div>
         </div>
         <Navigation />
       </FeatureHeader>

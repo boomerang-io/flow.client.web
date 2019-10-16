@@ -268,8 +268,9 @@ export class WorkflowManagerContainer extends Component {
               createWorkflowRevision={this.createWorkflowRevision}
               fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
               handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-              updateWorkflowProperties={this.updateWorkflowProperties}
+              teams={this.props.teams}
               updateWorkflow={this.updateWorkflow}
+              updateWorkflowProperties={this.updateWorkflowProperties}
               workflow={this.props.workflow}
               workflowRevision={this.props.workflowRevision}
             />

@@ -55,16 +55,16 @@ class TaskLink extends Component {
   render() {
     const { model } = this.props;
 
-    let xAdjustment = 0;
-    let yAdjustment = 0;
+    // let xAdjustment = 0;
+    // let yAdjustment = 0;
     let linkStyle = {};
 
-    if (model.sourcePort && model.targetPort) {
-      const angle = this.determineAngleBetweenPorts();
+    // if (model.sourcePort && model.targetPort) {
+    //   const angle = this.determineAngleBetweenPorts();
 
-      xAdjustment = (90 - angle) / 90;
-      yAdjustment = angle / 90;
-    }
+    //   xAdjustment = (90 - angle) / 90;
+    //   yAdjustment = angle / 90;
+    // }
 
     if (!model.sourcePort || !model.targetPort) {
       linkStyle = { opacity: "0.25" };

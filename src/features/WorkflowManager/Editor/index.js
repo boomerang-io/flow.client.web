@@ -21,6 +21,7 @@ class WorkflowEditor extends Component {
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
     isModalOpen: PropTypes.bool.isRequired,
+    teams: PropTypes.object.isRequired,
     updateWorkflowProperties: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired
@@ -71,7 +72,7 @@ class WorkflowEditor extends Component {
       location,
       match,
       isModalOpen,
-      teamsState,
+      teams,
       workflow,
       workflowRevision
     } = this.props;
@@ -90,7 +91,7 @@ class WorkflowEditor extends Component {
           loading={workflowLoading}
           onDesigner={location.pathname.endsWith("/designer")}
           performAction={this.createWorkflowRevision}
-          performActionButtonText={version < revisionCount ? "Set Version to Latest" : "Create New Version"}
+          performActionButtonText={version < revisionCount ? "Set version to latest" : "Create new version"}
           revisionCount={workflow.data.revisionCount}
           workflowName={get(workflow, "data.name", "")}
         />
@@ -106,9 +107,7 @@ class WorkflowEditor extends Component {
                   name: get(workflow, "data.name", ""),
                   persistence: get(workflow, "data.enablePersistentStorage", false),
                   schedule: get(workflow, "data.triggers.scheduler.enable", false),
-                  selectedTeam: activeTeamId
-                    ? teamsState.data.find(team => team.id === activeTeamId)
-                    : teamsState.data[0],
+                  selectedTeam: activeTeamId ? teams.data.find(team => team.id === activeTeamId) : teams.data[0],
                   shortDescription: get(workflow, "data.shortDescription", ""),
                   token: get(workflow, "data.triggers.webhook.token", ""),
                   topic: get(workflow, "data.triggers.event.topic", ""),
@@ -134,7 +133,7 @@ class WorkflowEditor extends Component {
                   <>
                     <Overview
                       formikProps={formikProps}
-                      teams={teamsState.data}
+                      teams={teams.data}
                       updateWorkflow={this.updateWorkflow}
                       workflow={workflow}
                     />
@@ -170,12 +169,12 @@ class WorkflowEditor extends Component {
                     diagramBoundingClientRect={this.state.diagramBoundingClientRect}
                   />
                   <DiagramWidget
+                    allowCanvasTranslation={!isModalOpen}
+                    allowCanvasZoom={!isModalOpen}
                     className={styles.diagram}
+                    deleteKeys={[]}
                     diagramEngine={this.diagramApp.getDiagramEngine()}
                     maxNumberPointsPerLink={0}
-                    deleteKeys={[]}
-                    allowCanvasZoom={!isModalOpen}
-                    allowCanvasTranslation={!isModalOpen}
                   />
                 </div>
               </div>

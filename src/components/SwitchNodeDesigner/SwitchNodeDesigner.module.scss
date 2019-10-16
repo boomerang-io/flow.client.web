@@ -3,9 +3,14 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
 .node {
-  background: #ffa0c2;
-  border-color: #ffa0c2;
+  background: #002b50;
+  border-color: #002b50;
   width: 11rem;
+  color: white;
+  * {
+    color: white;
+    fill: white;
+  }
 }
 
 .editButton {

@@ -12,6 +12,7 @@
   height: 10.31255rem;
   position: relative;
   overflow: hidden;
+  @include border-radius();
 
   :global .bx--overflow-menu {
     height: 2rem;

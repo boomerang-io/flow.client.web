@@ -266,7 +266,7 @@
       "key": "switch",
       "name": "Switch",
       "type": "ValuesList",
-      "category": "boomerang",
+      "category": "workflow",
       "arguments": ["switch"],
       "nodeType": "decision"
     }

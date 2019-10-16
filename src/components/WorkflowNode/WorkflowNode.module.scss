@@ -8,6 +8,7 @@
   padding: 1rem;
   position: relative;
   border: 0.125rem solid $interactive-01;
+  @include border-radius();
 }
 
 .header {

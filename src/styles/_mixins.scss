@@ -3,3 +3,7 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@mixin border-radius() {
+  border-radius: 0.25rem;
+}

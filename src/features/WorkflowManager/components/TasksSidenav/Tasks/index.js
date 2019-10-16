@@ -11,10 +11,12 @@ import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import { ChevronLeft32, SettingsAdjust20 } from "@carbon/icons-react";
 import styles from "./tasks.module.scss";
 
+const FIRST_TASK_CATEGORY = "workflow";
 export default class Tasks extends Component {
   state = {
     accordionIsOpen: false,
     activeFilters: [],
+    firstTaskCategoryIsOpen: true,
     searchQuery: "",
     sidenavIsCollapsed: false,
     tasksToDisplay: this.props.tasks.data,
@@ -108,14 +110,20 @@ export default class Tasks extends Component {
       return accum;
     }, {});
 
+    // Push "workflow" to front of array and delete the other instance of it w/ set
+    const uniqueCategories = [...new Set([FIRST_TASK_CATEGORY, ...Object.keys(catgegoriesWithTasks)])];
+
     //Iterate through all of the categories and render header with associated tasks
-    const uniqueCategories = Object.keys(catgegoriesWithTasks);
     return (
       <Accordion>
         {uniqueCategories.map(category => (
           <AccordionItem
             title={`${category} (${catgegoriesWithTasks[category].length})`}
-            open={this.state.accordionIsOpen ? true : null}
+            open={
+              this.state.accordionIsOpen || (category === FIRST_TASK_CATEGORY && this.state.firstTaskCategoryIsOpen)
+                ? true
+                : null
+            }
             key={category}
           >
             <ul className={styles.taskSection} key={category}>
@@ -149,11 +157,7 @@ export default class Tasks extends Component {
               onChange={this.handleOnSearchInputChange}
               value={this.state.searchQuery}
             />
-            <OverflowMenu
-              renderIcon={SettingsAdjust20}
-              flipped={true}
-              style={{ height: "2.5rem", width: "2.5rem", borderBottom: "1px solid #868d95" }}
-            >
+            <OverflowMenu renderIcon={SettingsAdjust20} flipped={true} style={{ height: "2.5rem", width: "2.5rem" }}>
               <CheckboxList
                 options={this.state.uniqueTaskTypes}
                 initialSelectedItems={this.state.activeFilters}
@@ -166,7 +170,10 @@ export default class Tasks extends Component {
             <button
               className={styles.expandButton}
               onClick={() => {
-                this.setState(prevState => ({ accordionIsOpen: !prevState.accordionIsOpen }));
+                this.setState(prevState => ({
+                  accordionIsOpen: !prevState.accordionIsOpen,
+                  firstTaskCategoryIsOpen: false
+                }));
               }}
             >
               {this.state.accordionIsOpen ? "Collapse all" : "Expand all"}

@@ -1,5 +1,6 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/variables";
+@import "~Styles/mixins";
 
 .container {
   align-items: flex-start;
@@ -10,6 +11,7 @@
   min-height: 22.375rem;
   min-width: 15.625rem;
   padding: 1.25rem;
+  @include border-radius();
 }
 // .executions{
 

@@ -1,5 +1,6 @@
 @import "~Styles/variables";
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .b-startEnd-node {
   background: #002b50;
@@ -9,6 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  @include border-radius();
 
   .b-startEnd-node__title {
     text-align: center;

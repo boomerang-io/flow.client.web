@@ -1,4 +1,5 @@
 @import "~Styles/variables";
+@import "~Styles/mixins";
 
 .editContainer {
   position: absolute;
@@ -24,6 +25,7 @@
   border: 0.0625rem solid #373d42;
   color: $brand-02;
   cursor: pointer;
+  @include border-radius();
 }
 
 .createContainer {
