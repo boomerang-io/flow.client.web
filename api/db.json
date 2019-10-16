@@ -6113,23 +6113,25 @@
     }
   ],
   "workflowActivity": {
-    "last": true,
-    "totalPages": 9,
-    "totalElements": 90,
-    "size": 10,
-    "number": 1,
-    "numberOfElements": 10,
-    "first": true,
-    "sort": [
-      {
-        "direction": "DESC",
-        "property": "creationDate",
-        "ignoreCase": false,
-        "nullHandling": "NATIVE",
-        "descending": true,
-        "ascending": false
-      }
-    ],
+    "pageable": {
+      "first": false,
+      "last": false,
+      "totalPages": 30,
+      "totalElements": 297,
+      "numberOfElements": 10,
+      "size": 10,
+      "number": 1,
+      "sort": [
+        {
+          "property": "creationDate",
+          "direction": "DESC",
+          "ignoreCase": false,
+          "nullHandling": "NATIVE",
+          "ascending": false,
+          "descending": true
+        }
+      ]
+    },
     "records": [
       {
         "creationDate": 1546897508945,
