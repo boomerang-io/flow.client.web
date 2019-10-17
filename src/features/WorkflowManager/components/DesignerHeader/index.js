@@ -130,16 +130,6 @@ class DesignerHeader extends Component {
             revisionCount={revisionCount}
           />
           {this.determinePerformActionRender()}
-
-          {/* <Button
-              disabled={!onDesigner}
-              iconDescription="Publish workflow"
-              kind="ghost"
-              renderIcon={CheckmarkOutline16}
-              size="field"
-            >
-              Publish this version
-            </Button> */}
         </section>
         <Navigation />
       </FeatureHeader>
