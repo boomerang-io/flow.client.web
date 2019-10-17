@@ -10,9 +10,9 @@ FeatureHeader.propTypes = {
 
 function FeatureHeader({ children, className, ...rest }) {
   return (
-    <div className={cx(styles.container, className)} {...rest}>
+    <header className={cx(styles.container, className)} {...rest}>
       {children}
-    </div>
+    </header>
   );
 }
 

@@ -102,29 +102,27 @@ class DesignerHeader extends Component {
 
     return (
       <FeatureHeader>
-        <div className={styles.container}>
-          <header className={styles.header}>
-            <div className={styles.breadcrumbContainer}>
-              <Link className={styles.workflowsLink} to="/workflows">
-                Workflows
-              </Link>
-              <p className={styles.breadcrumbDivider}>/</p>
-              <p className={styles.workflowName}> {workflowName}</p>
-              <Button
-                className={styles.validateButton}
-                disabled={!onDesigner}
-                iconDescription="Validate workflow"
-                kind="ghost"
-                renderIcon={Flash16}
-                size="field"
-              >
-                Validate this workflow
-              </Button>
-            </div>
-            <h1 className={styles.title}>Editor</h1>
-          </header>
-        </div>
-        <div className={styles.workflowButtons}>
+        <section className={styles.header}>
+          <div className={styles.breadcrumbContainer}>
+            <Link className={styles.workflowsLink} to="/workflows">
+              Workflows
+            </Link>
+            <span className={styles.breadcrumbDivider}>/</span>
+            <p className={styles.workflowName}> {workflowName}</p>
+            <Button
+              className={styles.validateButton}
+              disabled={!onDesigner}
+              iconDescription="Validate workflow"
+              kind="ghost"
+              renderIcon={Flash16}
+              size="field"
+            >
+              Validate this workflow
+            </Button>
+          </div>
+          <h1 className={styles.title}>Editor</h1>
+        </section>
+        <section className={styles.workflowButtons}>
           <VersionSwitcher
             disabled={!onDesigner}
             currentRevision={currentRevision}
@@ -142,7 +140,7 @@ class DesignerHeader extends Component {
             >
               Publish this version
             </Button> */}
-        </div>
+        </section>
         <Navigation />
       </FeatureHeader>
     );

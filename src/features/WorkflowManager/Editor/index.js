@@ -9,7 +9,7 @@ import ChangeLog from "Features/WorkflowManager/components/ChangeLog";
 import DesignerHeader from "Features/WorkflowManager/components/DesignerHeader";
 import WorkflowProperties from "Features/WorkflowManager/components/WorkflowProperties";
 import Overview from "Features/WorkflowManager/components/Overview";
-import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav";
+import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav/Tasks";
 import WorkflowZoom from "Features/WorkflowManager/components/WorkflowZoom";
 import DiagramApplication from "Utilities/DiagramApplication";
 import styles from "./Editor.module.scss";
@@ -21,6 +21,7 @@ class WorkflowEditor extends Component {
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
     isModalOpen: PropTypes.bool.isRequired,
+    tasks: PropTypes.object.isRequired,
     teams: PropTypes.object.isRequired,
     updateWorkflowProperties: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
@@ -72,6 +73,7 @@ class WorkflowEditor extends Component {
       location,
       match,
       isModalOpen,
+      tasks,
       teams,
       workflow,
       workflowRevision
@@ -155,7 +157,7 @@ class WorkflowEditor extends Component {
             path={`${match.path}/designer`}
             render={props => (
               <div className={styles.container}>
-                <TasksSidenav />
+                <TasksSidenav tasks={tasks} />
                 <div
                   className={styles.designer}
                   onDrop={event => createNode(this.diagramApp, event)}

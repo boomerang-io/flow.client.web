@@ -270,6 +270,7 @@ export class WorkflowManagerContainer extends Component {
               fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
               handleChangeLogReasonChange={this.handleChangeLogReasonChange}
               isModalOpen={this.props.isModalOpen}
+              tasks={this.props.tasks}
               teams={this.props.teams}
               updateWorkflow={this.updateWorkflow}
               updateWorkflowProperties={this.updateWorkflowProperties}
