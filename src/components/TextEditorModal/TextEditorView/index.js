@@ -26,7 +26,7 @@ function escapeRegExp(val) {
   return val && val.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-const TextAreaView = props => {
+const TextEditorView = props => {
   const languages = [
     {
       id: "javascript",
@@ -361,7 +361,7 @@ const TextAreaView = props => {
   );
 };
 
-TextAreaView.propTypes = {
+TextEditorView.propTypes = {
   item: PropTypes.shape({
     name: PropTypes.string.isRequired
   }).isRequired,
@@ -370,4 +370,4 @@ TextAreaView.propTypes = {
   value: PropTypes.func.isRequired
 };
 
-export default TextAreaView;
+export default TextEditorView;

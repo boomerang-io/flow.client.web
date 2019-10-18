@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import { ModalFlow, TextArea } from "@boomerang/carbon-addons-boomerang-react";
-import TextAreaView from "./TextAreaView/index.js";
+import TextEditorView from "./TextEditorView";
 import "./styles.scss";
 
-const TextAreaModal = props => {
+const TextEditorModal = props => {
   const [value, setValue] = useState(props.initialValue);
   return (
     <ModalFlow
@@ -19,28 +20,28 @@ const TextAreaModal = props => {
         children: "Your changes will not be saved"
       }}
       modalTrigger={({ openModal }) => (
-        /* eslint-disable-line */ <button onClick={openModal} className="bmrg-c-text-area-modal-wrapper" type="button">
-          <TextArea
-            id={props.item.key}
-            labelText={props.item.label}
-            placeholder={props.item.description}
-            value={value}
-            disabled
-            style={{ cursor: "pointer" }}
-          />
-        </button>
+        <TextArea
+          readOnly
+          id={props.item.key}
+          labelText={props.item.label}
+          onClick={openModal}
+          onKeyDown={e => isAccessibleEvent(e) && openModal()}
+          placeholder={props.item.description}
+          value={value}
+          style={{ cursor: "pointer" }}
+        />
       )}
     >
-      <TextAreaView {...props} setTextAreaValue={setValue} />
+      <TextEditorView {...props} setTextAreaValue={setValue} />
     </ModalFlow>
   );
 };
 
-TextAreaModal.propTypes = {
+TextEditorModal.propTypes = {
   item: PropTypes.shape({
     description: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired
   }).isRequired
 };
 
-export default TextAreaModal;
+export default TextEditorModal;

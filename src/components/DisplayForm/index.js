@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { transformAll } from "@overgear/yup-ast";
 import { AutoSuggest, DynamicFormik, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { TextInput as CarbonTextInput } from "carbon-components-react";
-import { ModalFooter, Button } from "carbon-components-react";
+import { Button, ModalFooter } from "carbon-components-react";
+import TextEditorModal from "Components/TextEditorModal";
 import Toggle from "./Toggle";
-import TextAreaModal from "Components/TextAreaModal";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import { TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
 import "./styles.scss";
@@ -23,7 +23,7 @@ const AutoSuggestInput = props => {
 const TextEditorInput = props => {
   return (
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
-      <TextAreaModal {...props} />
+      <TextEditorModal {...props} />
     </div>
   );
 };
@@ -134,7 +134,8 @@ class DisplayForm extends Component {
     const { handleChange } = formikProps;
     return {
       onChange: e => this.formikHandleChange(e, handleChange),
-      type: "text"
+      type: "text",
+      labelText: "Name"
     };
   };
 

@@ -39,4 +39,8 @@
       border: 0.0625rem solid #50565b;
     }
   }
+
+  &:hover {
+    filter: brightness(110%);
+  }
 }
