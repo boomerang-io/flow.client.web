@@ -8,41 +8,41 @@ import { NavLink } from "react-router-dom";
 import { Activity16, ChartScatter16, FlowData16, SettingsAdjust16 } from "@carbon/icons-react";
 import { SideNav, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from "carbon-components-react";
 
-const onMenuClick2 = ({ isOpen, onMenuClose }) => (
+const onMenuClick = ({ isOpen, onMenuClose }) => (
   <LeftSideNav isOpen={isOpen}>
     <SideNav expanded={isOpen} isChildOfHeader={true}>
       <SideNavItems>
         <SideNavLink
+          large
           activeClassName={"bx--side-nav__link--current"}
           element={NavLink}
           onClick={onMenuClose}
           renderIcon={FlowData16}
           to="/workflows"
-          large
         >
           Workflows
         </SideNavLink>
         <SideNavLink
+          large
           activeClassName={"bx--side-nav__link--current"}
           element={NavLink}
           onClick={onMenuClose}
           renderIcon={Activity16}
           to="/activity"
-          large
         >
           Activity
         </SideNavLink>
         <SideNavLink
+          large
           activeClassName={"bx--side-nav__link--current"}
           element={NavLink}
           onClick={onMenuClose}
           renderIcon={ChartScatter16}
           to="/insights"
-          large
         >
           Insights
         </SideNavLink>
-        <SideNavMenu renderIcon={SettingsAdjust16} title="Manage" large>
+        <SideNavMenu large renderIcon={SettingsAdjust16} title="Manage">
           <SideNavMenuItem
             activeClassName={"bx--side-nav__link--current"}
             element={NavLink}
@@ -58,21 +58,19 @@ const onMenuClick2 = ({ isOpen, onMenuClose }) => (
 );
 
 const defaultUIShellProps = {
+  baseLaunchEnvUrl: BASE_LAUNCH_ENV_URL,
   baseServiceUrl: BASE_URL,
-  renderLogo: true,
-  onMenuClick: onMenuClick2,
-  baseLaunchEnvUrl: BASE_LAUNCH_ENV_URL
+  onMenuClick: onMenuClick,
+  renderLogo: true
 };
 
 NavbarContainer.propTypes = {
-  navigation: PropTypes.object.isRequired,
   handleOnTutorialClick: PropTypes.func.isRequired,
+  navigation: PropTypes.object.isRequired,
   user: PropTypes.object
 };
 
-function NavbarContainer(props) {
-  const { handleOnTutorialClick, navigation, user } = props;
-
+function NavbarContainer({ handleOnTutorialClick, navigation, user }) {
   if (navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS && user.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
     return (
       <UIShell
