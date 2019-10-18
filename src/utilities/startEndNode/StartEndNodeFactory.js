@@ -10,7 +10,7 @@ export default class StartEndNodeFactory extends AbstractNodeFactory {
 
   generateReactWidget(diagramEngine, node) {
     //diagramEngine.registerNodeFactory(new StartEndNodeFactory());
-    return <StartEndNode node={node} />;
+    return <StartEndNode isLocked={diagramEngine.diagramModel.locked} node={node} />;
   }
 
   getNewInstance() {

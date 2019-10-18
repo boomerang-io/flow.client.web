@@ -9,3 +9,6 @@ export const AsyncExecution = lazy(() => import(/* webpackChunkName: "Execution"
 export const AsyncGlobalConfiguration = lazy(() =>
   import(/* webpackChunkName: "GlobalConfiguration" */ "Features/GlobalConfiguration")
 );
+export const AsyncTeamProperties = lazy(() =>
+  import(/* webpackChunkName: "TeamProperties" */ "Features/TeamProperties")
+);

@@ -29,28 +29,5 @@
 }
 
 .timeFilters {
-  display: flex;
-}
-
-.startDate {
-  margin-right: 0.125rem;
-  position: relative;
-}
-
-.endDate {
-  position: relative;
-}
-
-.calendar {
-  bottom: 0.8rem;
-  height: 1rem;
-  left: 6.875rem;
-  position: absolute;
-  width: 1rem;
-}
-
-@-moz-document url-prefix() {
-  .calendar {
-    left: 8rem;
-  }
+  align-self: flex-end;
 }

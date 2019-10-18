@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
 import TaskNode from "Components/WorkflowNode";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
+import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import styles from "./TemplateNodeExecution.module.scss";
 
 export class TemplateNodeExecution extends Component {
@@ -12,7 +13,7 @@ export class TemplateNodeExecution extends Component {
     appActions: PropTypes.object.isRequired,
     diagramEngine: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    step: PropTypes.object,
+    workflowExecution: PropTypes.object,
     task: PropTypes.object.isRequired
   };
 
@@ -30,22 +31,32 @@ export class TemplateNodeExecution extends Component {
   };
 
   render() {
-    const flowTaskStatus = this.props.step ? this.props.step.flowTaskStatus : "";
     const { task, node } = this.props;
+    const { steps, status } = this.props.workflowExecution.data;
+    const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
+    const flowTaskStatus = step ? step.flowTaskStatus : "";
+
+    let taskNodeStyling = "";
+    if (status === ACTIVITY_STATUSES.IN_PROGRESS) {
+      taskNodeStyling = flowTaskStatus === ACTIVITY_STATUSES.IN_PROGRESS ? ACTIVITY_STATUSES.IN_PROGRESS : "disabled";
+    } else if (status === ACTIVITY_STATUSES.FAILURE) {
+      taskNodeStyling = flowTaskStatus === ACTIVITY_STATUSES.FAILURE ? ACTIVITY_STATUSES.FAILURE : "normal";
+    } else {
+      taskNodeStyling = "normal";
+    }
 
     return (
       <TaskNode
         category={task.category}
-        className={styles[flowTaskStatus]}
+        className={styles[taskNodeStyling]}
+        isExecution
         name={task.name}
         node={node}
         onClick={e => isAccessibleEvent(e) && this.handleOnActivityClick()}
         style={{ cursor: "pointer" }}
         subtitle={node.taskName}
         title={task.name}
-      >
-        <div className={styles.progressBar} />
-      </TaskNode>
+      />
     );
   }
 }
@@ -54,10 +65,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    step:
-      state.workflowExecution.data.steps && state.workflowExecution.data.steps.length
-        ? state.workflowExecution.data.steps.find(step => step.taskId === ownProps.node.id)
-        : {}
+    workflowExecution: state.workflowExecution
   };
 };
 

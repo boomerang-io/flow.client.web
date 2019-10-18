@@ -16,6 +16,11 @@
     background-image: url("../../assets/icons/chevron_white.svg");
     background-position: center;
     background-repeat: no-repeat;
+
+    &.execution {
+      background-color: #50565b;
+      border: 0.0625rem solid #50565b;
+    }
   }
   &.left {
     background-color: #b3e6ff;
@@ -28,6 +33,11 @@
     background-image: url("../../assets/icons/chevron.svg");
     background-position: center;
     background-repeat: no-repeat;
+
+    &.execution {
+      background-color: #d5d9e0;
+      border: 0.0625rem solid #50565b;
+    }
   }
 
   &:hover {

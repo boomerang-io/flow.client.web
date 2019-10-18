@@ -8,6 +8,7 @@ import insights from "./insights";
 import navigation from "./navigation";
 import onBoard from "./onBoard";
 import tasks from "./tasks";
+import teamProperties from "./teamProperties";
 import teams from "./teams";
 import user from "./user";
 import workflow from "./workflow";
@@ -25,6 +26,7 @@ const rootReducer = () =>
     navigation,
     onBoard,
     tasks,
+    teamProperties,
     teams,
     user,
     workflow,

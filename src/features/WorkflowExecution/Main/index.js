@@ -6,6 +6,7 @@ import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import ExecutionHeader from "./ExecutionHeader";
 import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
+import WorkflowZoom from "Components/WorkflowZoom";
 import DiagramApplication from "Utilities/DiagramApplication";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import styles from "./main.module.scss";
@@ -20,6 +21,18 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
+    this.state = {
+      diagramBoundingClientRect: {}
+    };
+    this.diagramRef = React.createRef();
+  }
+
+  componentDidMount() {
+    if (this.diagramRef.current) {
+      this.setState({
+        diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect()
+      });
+    }
   }
 
   render() {
@@ -36,10 +49,14 @@ class Main extends Component {
       <div className={styles.container}>
         <ExecutionHeader workflow={workflowData} workflowExecutionData={workflowExecutionData} />
         <main className={styles.executionResultContainer}>
-          <ExecutionTaskLog workflow={workflowData} workflowExecutionData={workflowExecutionData} />
+          <ExecutionTaskLog workflowExecutionData={workflowExecutionData} />
           {hasStarted || hasFinished ? (
-            <div className={styles.executionDesignerContainer}>
+            <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
               <WorkflowActions setActiveTeam={setActiveTeam} workflow={workflowData} />
+              <WorkflowZoom
+                diagramApp={this.diagramApp}
+                diagramBoundingClientRect={this.state.diagramBoundingClientRect}
+              />
               <DiagramWidget
                 allowLooseLinks={false}
                 allowCanvasTranslation={true}
@@ -51,7 +68,7 @@ class Main extends Component {
               />
             </div>
           ) : (
-            <LoadingAnimation message="Your workflow will be with you shortly" />
+            <LoadingAnimation centered message="Your workflow will be with you shortly" />
           )}
         </main>
       </div>

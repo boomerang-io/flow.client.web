@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import queryString from "query-string";
+import moment from "moment";
 import { DatePicker, DatePickerInput, MultiSelect as Select, Tabs, Tab } from "carbon-components-react";
 import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import { actions as activityActions } from "State/activity";
@@ -278,18 +279,16 @@ export class WorkflowActivity extends Component {
                   />
                 </div>
               </div>
-              <div className={styles.timeFilters}>
-                <div className={styles.startDate}>
-                  <DatePicker id="activity-start-date" labelText="Start date" dateFormat="mm/dd/yyyy" type="date">
-                    <DatePickerInput placeholder="mm/dd/yyyy" />
-                  </DatePicker>
-                </div>
-                <div className={styles.endDate}>
-                  <DatePicker id="activity-end-date" labelText="End date" dateFormat="mm/dd/yyyy" type="date">
-                    <DatePickerInput placeholder="mm/dd/yyyy" />
-                  </DatePicker>
-                </div>
-              </div>
+              <DatePicker
+                id="activity-date-picker"
+                className={styles.timeFilters}
+                dateFormat="m/d/Y"
+                datePickerType="range"
+                maxDate={moment().format("MM/DD/YYYY")}
+              >
+                <DatePickerInput id="activity-date-picker-start" labelText="Start date" placeholder="mm/dd/yyyy" />
+                <DatePickerInput id="activity-date-picker-end" labelText="End date" placeholder="mm/dd/yyyy" />
+              </DatePicker>
             </section>
             <ActivityTable
               tableData={activityState.tableData}

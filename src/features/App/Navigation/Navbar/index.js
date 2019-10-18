@@ -51,6 +51,14 @@ const onMenuClick = ({ isOpen, onMenuClose }) => (
           >
             Properties
           </SideNavMenuItem>
+          <SideNavMenuItem
+            activeClassName={"bx--side-nav__link--current"}
+            element={NavLink}
+            onClick={onMenuClose}
+            to="/team-properties"
+          >
+            Team Properties
+          </SideNavMenuItem>
         </SideNavMenu>
       </SideNavItems>
     </SideNav>

@@ -10,7 +10,7 @@ import DesignerHeader from "Features/WorkflowManager/components/DesignerHeader";
 import WorkflowProperties from "Features/WorkflowManager/components/WorkflowProperties";
 import Overview from "Features/WorkflowManager/components/Overview";
 import Tasks from "Features/WorkflowManager/components/Tasks";
-import WorkflowZoom from "Features/WorkflowManager/components/WorkflowZoom";
+import WorkflowZoom from "Components/WorkflowZoom";
 import DiagramApplication from "Utilities/DiagramApplication";
 import styles from "./Editor.module.scss";
 

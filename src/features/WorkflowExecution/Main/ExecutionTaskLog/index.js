@@ -9,12 +9,10 @@ import { getSimplifiedDuration } from "Utilities/timeHelper";
 import styles from "./executionTaskLog.module.scss";
 
 ExecutionTaskLog.propTypes = {
-  setActiveTeam: PropTypes.func.isRequired,
-  workflow: PropTypes.object.isRequired,
   workflowExecutionData: PropTypes.object.isRequired
 };
 
-function ExecutionTaskLog({ history, setActiveTeam, workflow, workflowExecutionData }) {
+function ExecutionTaskLog({ workflowExecutionData }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [tasksSort, setTasksSort] = useState("desc");
 
@@ -36,7 +34,9 @@ function ExecutionTaskLog({ history, setActiveTeam, workflow, workflowExecutionD
       <section className={`${styles.statusBlock} ${styles[status]}`}>
         <div className={styles.duration}>
           <p className={styles.title}>Duration</p>
-          <time className={styles.value}>{getSimplifiedDuration(duration / 1000)}</time>
+          <time className={styles.value}>
+            {typeof duration === "number" ? getSimplifiedDuration(duration / 1000) : "--"}
+          </time>
         </div>
         <div className={styles.status}>
           <p className={styles.title}>Status</p>

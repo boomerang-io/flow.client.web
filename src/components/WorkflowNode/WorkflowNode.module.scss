@@ -7,11 +7,11 @@
 
 .node {
   background: $lightest-gray;
-  width: 13.75rem;
+  border: 0.125rem solid $interactive-01;
   height: 5rem;
   padding: 1rem;
   position: relative;
-  border: 0.125rem solid $interactive-01;
+  width: 13.75rem;
   @include border-radius();
 }
 
