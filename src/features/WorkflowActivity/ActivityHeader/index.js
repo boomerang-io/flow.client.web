@@ -13,6 +13,7 @@ ActivityHeader.propTypes = {
 function ActivityHeader({ runActivities, succeededActivities, failedActivities }) {
   const successRate = runActivities > 0 ? succeededActivities / runActivities : 0;
   const successRatePercentage = successRate.toFixed(2) * 100;
+  const emoji = successRatePercentage > 80 ? "🙌" : successRatePercentage > 50 ? "😮" : "😨";
 
   return (
     <header className={styles.container}>
@@ -25,7 +26,7 @@ function ActivityHeader({ runActivities, succeededActivities, failedActivities }
         <ActivityHeaderWidget icon={ArrowUpRight32} text="Runs" value={runActivities} />
         <ActivityHeaderWidget icon={ArrowUpRight32} text="Successes" value={succeededActivities} />
         <ActivityHeaderWidget icon={ArrowDownRight32} text="Failures" value={failedActivities} />
-        <ActivityHeaderWidget text="Success rate" value={`${successRatePercentage}%`} />
+        <ActivityHeaderWidget icon={emoji} text="Success rate" value={`${successRatePercentage}%`} />
       </div>
     </header>
   );

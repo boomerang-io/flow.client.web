@@ -493,31 +493,91 @@
   "workflowSingle": {
     "dag": {
       "id": "3f58d302-2a3c-4765-b606-7573d313a2fa",
-      "offsetX": -296.19998336255117,
-      "offsetY": -103.26049122783066,
-      "zoom": 147.74741038485726,
+      "offsetX": -137.52441776159299,
+      "offsetY": -158.3135138148453,
+      "zoom": 81.08074371819056,
       "gridSize": 0,
       "links": [
         {
-          "id": "bacb9be5-a49f-41f4-8c5b-5f5fb0881aad",
+          "id": "381de73c-046c-4f71-8a30-8426e1df4d7f",
           "type": "task",
           "selected": false,
-          "source": "311a727c-691d-4c50-b24f-d4818895f6a3",
-          "sourcePort": "e8606668-fb6e-4a9c-a95e-7cf6f0c912e1",
+          "source": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
+          "sourcePort": "6f1f5e66-9bc1-4675-a654-5f580036a173",
+          "target": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          "targetPort": "b53cd3e6-4233-40e6-9843-41631bbae150",
+          "points": [
+            {
+              "id": "9d59d21b-6566-4abb-b477-21aeb0dc1485",
+              "selected": false,
+              "x": 439.99999585751436,
+              "y": 433.50002120088743
+            },
+            {
+              "id": "8bcd25bb-f151-46a2-ad49-2997c06bbe41",
+              "selected": false,
+              "x": 525.9843654628721,
+              "y": 378.89061836310395
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "executionCondition": "always",
+          "linkId": "381de73c-046c-4f71-8a30-8426e1df4d7f"
+        },
+        {
+          "id": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7",
+          "type": "task",
+          "selected": false,
+          "source": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          "sourcePort": "2c52419b-82f0-4dba-83cc-4a61466cd804",
+          "target": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "targetPort": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
+          "points": [
+            {
+              "id": "80992b99-23af-4202-9e52-01308f52b97b",
+              "selected": false,
+              "x": 746.4844162222453,
+              "y": 378.89061836310395
+            },
+            {
+              "id": "e5306c9e-bb7c-48d1-9fea-25b49a7ebdab",
+              "selected": false,
+              "x": 829.386681735653,
+              "y": 296.2531020795224
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "executionCondition": "always",
+          "linkId": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7"
+        },
+        {
+          "id": "25405061-0a0d-4135-a677-f67e1c030a62",
+          "type": "task",
+          "selected": false,
+          "source": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "sourcePort": "0d350a4e-1715-49f2-a788-0626a1c80009",
           "target": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
           "targetPort": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095",
           "points": [
             {
-              "id": "a12d634d-a003-48f7-8503-fd66ad12526f",
+              "id": "8fe78b1b-0a02-49c5-9927-8a6aaf7111a2",
               "selected": false,
-              "x": 1018.2968791684257,
-              "y": 461.4687677060492
+              "x": 1049.8866572180204,
+              "y": 296.2531020795224
             },
             {
-              "id": "57fc0bab-4620-4e43-a107-e27631bf6471",
-              "selected": true,
-              "x": 1043.4062723999054,
-              "y": 150.84374454639484
+              "id": "657672ea-49dc-47f7-a4a6-0b8c0c4860d2",
+              "selected": false,
+              "x": 1140.2003203494369,
+              "y": 358.388699969345
             }
           ],
           "extras": {},
@@ -525,68 +585,8 @@
           "width": 3,
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
-          "linkId": "bacb9be5-a49f-41f4-8c5b-5f5fb0881aad",
-          "executionCondition": "always"
-        },
-        {
-          "id": "8e1328ad-7d50-4841-9447-31ebaccd6f3b",
-          "type": "decision",
-          "selected": false,
-          "source": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-          "sourcePort": "7deb4038-a535-42cd-abb7-2c651d5b18a2",
-          "target": "311a727c-691d-4c50-b24f-d4818895f6a3",
-          "targetPort": "0513f03c-0e36-4fbc-a9dc-48a3374583e0",
-          "points": [
-            {
-              "id": "b5cc4c80-c383-43fd-8c1b-db4a0096fbe1",
-              "selected": false,
-              "x": 498.4062709958855,
-              "y": 142.4531314381519
-            },
-            {
-              "id": "564c9219-6aff-42bc-8288-39e4a8e597cd",
-              "selected": false,
-              "x": 754.4062898471569,
-              "y": 461.4687677060492
-            }
-          ],
-          "extras": {},
-          "labels": [],
-          "width": 3,
-          "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50,
-          "linkId": "8e1328ad-7d50-4841-9447-31ebaccd6f3b",
-          "switchCondition": "ben\ntwo\nthree"
-        },
-        {
-          "id": "e702239b-f47f-4e2a-bca7-6cda545b2c1f",
-          "type": "decision",
-          "selected": false,
-          "source": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-          "sourcePort": "7deb4038-a535-42cd-abb7-2c651d5b18a2",
-          "target": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
-          "targetPort": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095",
-          "points": [
-            {
-              "id": "3dc7fad8-455f-4048-9735-ea7f3b1b6ed0",
-              "selected": false,
-              "x": 498.4062709958855,
-              "y": 142.4531314381519
-            },
-            {
-              "id": "f8eaff55-a099-49d9-874b-b1d43e3ab600",
-              "selected": true,
-              "x": 1043.4062723999054,
-              "y": 150.84374454639484
-            }
-          ],
-          "extras": {},
-          "labels": [],
-          "width": 3,
-          "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50,
-          "linkId": "e702239b-f47f-4e2a-bca7-6cda545b2c1f",
-          "switchCondition": null
+          "executionCondition": "always",
+          "linkId": "25405061-0a0d-4135-a677-f67e1c030a62"
         }
       ],
       "nodes": [
@@ -604,7 +604,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
-              "links": [],
+              "links": ["381de73c-046c-4f71-8a30-8426e1df4d7f"],
               "position": "right",
               "nodePortId": "6f1f5e66-9bc1-4675-a654-5f580036a173"
             }
@@ -616,8 +616,8 @@
           "id": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
           "type": "startend",
           "selected": false,
-          "x": 1058,
-          "y": 114,
+          "x": 1154.2004002714896,
+          "y": 324.9008775182657,
           "extras": {},
           "ports": [
             {
@@ -626,7 +626,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
-              "links": ["bacb9be5-a49f-41f4-8c5b-5f5fb0881aad", "e702239b-f47f-4e2a-bca7-6cda545b2c1f"],
+              "links": ["25405061-0a0d-4135-a677-f67e1c030a62"],
               "position": "left",
               "nodePortId": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095"
             }
@@ -635,143 +635,103 @@
           "nodeId": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb"
         },
         {
-          "id": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-          "type": "decision",
-          "selected": false,
-          "x": 292.0271621396434,
-          "y": 82.91787566655557,
-          "extras": {},
-          "ports": [
-            {
-              "id": "203b23cb-dd1b-4405-9932-a36a766e780e",
-              "type": "decision",
-              "selected": false,
-              "name": "left",
-              "parentNode": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-              "links": [],
-              "position": "left",
-              "nodePortId": "203b23cb-dd1b-4405-9932-a36a766e780e"
-            },
-            {
-              "id": "7deb4038-a535-42cd-abb7-2c651d5b18a2",
-              "type": "decision",
-              "selected": false,
-              "name": "right",
-              "parentNode": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-              "links": ["8e1328ad-7d50-4841-9447-31ebaccd6f3b", "e702239b-f47f-4e2a-bca7-6cda545b2c1f"],
-              "position": "right",
-              "nodePortId": "7deb4038-a535-42cd-abb7-2c651d5b18a2"
-            }
-          ],
-          "taskId": "7be9d03a8a5df958ad58b3b8",
-          "nodeId": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-          "taskName": "Switch 1"
-        },
-        {
-          "id": "311a727c-691d-4c50-b24f-d4818895f6a3",
+          "id": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
           "type": "templateTask",
           "selected": false,
-          "x": 768,
-          "y": 401.921875,
+          "x": 539.9994864296667,
+          "y": 343.6465966518482,
           "extras": {},
           "ports": [
             {
-              "id": "0513f03c-0e36-4fbc-a9dc-48a3374583e0",
+              "id": "b53cd3e6-4233-40e6-9843-41631bbae150",
               "type": "task",
               "selected": false,
               "name": "left",
-              "parentNode": "311a727c-691d-4c50-b24f-d4818895f6a3",
-              "links": ["8e1328ad-7d50-4841-9447-31ebaccd6f3b"],
-              "position": "left",
-              "nodePortId": "0513f03c-0e36-4fbc-a9dc-48a3374583e0"
+              "parentNode": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+              "links": ["381de73c-046c-4f71-8a30-8426e1df4d7f"],
+              "nodePortId": "b53cd3e6-4233-40e6-9843-41631bbae150",
+              "position": "left"
             },
             {
-              "id": "e8606668-fb6e-4a9c-a95e-7cf6f0c912e1",
+              "id": "2c52419b-82f0-4dba-83cc-4a61466cd804",
               "type": "task",
               "selected": false,
               "name": "right",
-              "parentNode": "311a727c-691d-4c50-b24f-d4818895f6a3",
-              "links": ["bacb9be5-a49f-41f4-8c5b-5f5fb0881aad"],
-              "position": "right",
-              "nodePortId": "e8606668-fb6e-4a9c-a95e-7cf6f0c912e1"
+              "parentNode": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+              "links": ["0f5670b1-f82a-47de-a7ea-38e0a9182ac7"],
+              "nodePortId": "2c52419b-82f0-4dba-83cc-4a61466cd804",
+              "position": "right"
+            }
+          ],
+          "taskId": "5b92f794844d0700016ea217",
+          "nodeId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          "taskName": "Send Slack Message"
+        },
+        {
+          "id": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "type": "templateTask",
+          "selected": false,
+          "x": 843.4007488243648,
+          "y": 261.01291949556867,
+          "extras": {},
+          "ports": [
+            {
+              "id": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
+              "type": "task",
+              "selected": false,
+              "name": "left",
+              "parentNode": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+              "links": ["0f5670b1-f82a-47de-a7ea-38e0a9182ac7"],
+              "nodePortId": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
+              "position": "left"
+            },
+            {
+              "id": "0d350a4e-1715-49f2-a788-0626a1c80009",
+              "type": "task",
+              "selected": false,
+              "name": "right",
+              "parentNode": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+              "links": ["25405061-0a0d-4135-a677-f67e1c030a62"],
+              "nodePortId": "0d350a4e-1715-49f2-a788-0626a1c80009",
+              "position": "right"
             }
           ],
           "taskId": "5bd98b105a5df954ad599bc2",
-          "nodeId": "311a727c-691d-4c50-b24f-d4818895f6a3",
-          "taskName": "Send Email 1"
-        },
-        {
-          "id": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
-          "type": "templateTask",
-          "selected": false,
-          "x": 128.11448091984673,
-          "y": 256.86971702632894,
-          "extras": {},
-          "ports": [
-            {
-              "id": "fa40ea57-d9ed-4833-a7ca-812824899db1",
-              "type": "task",
-              "selected": false,
-              "name": "left",
-              "parentNode": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
-              "links": [],
-              "position": "left",
-              "nodePortId": "fa40ea57-d9ed-4833-a7ca-812824899db1"
-            },
-            {
-              "id": "db149132-52f3-4564-baf4-9c96aad8368d",
-              "type": "task",
-              "selected": false,
-              "name": "right",
-              "parentNode": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
-              "links": [],
-              "position": "right",
-              "nodePortId": "db149132-52f3-4564-baf4-9c96aad8368d"
-            }
-          ],
-          "taskId": "5b92f794844d0700016ea216",
-          "nodeId": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
-          "taskName": "Ingest CSV Shell 1"
+          "nodeId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "taskName": "launch Send Email 1"
         }
       ]
     },
     "config": {
       "nodes": [
         {
-          "nodeId": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-          "taskId": "7be9d03a8a5df958ad58b3b8",
+          "nodeId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          "taskId": "5b92f794844d0700016ea217",
           "inputs": {
-            "name": "",
-            "value": ""
-          },
-          "type": "decision"
-        },
-        {
-          "nodeId": "311a727c-691d-4c50-b24f-d4818895f6a3",
-          "taskId": "5bd98b105a5df954ad599bc2",
-          "inputs": {
-            "to": "1",
-            "subject": "2",
-            "message": "3",
-            "message2": "4",
-            "message3": "5",
-            "message4": "6"
+            "channel": "",
+            "title": "",
+            "message": "",
+            "taskName": "Send Slack Message"
           },
           "type": "templateTask"
         },
         {
-          "nodeId": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
-          "taskId": "5b92f794844d0700016ea216",
+          "nodeId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "taskId": "5bd98b105a5df954ad599bc2",
           "inputs": {
-            "offset": "",
-            "shell": ""
+            "to": "",
+            "subject": "",
+            "message": "",
+            "message2": "",
+            "message3": "",
+            "message4": ""
           },
           "type": "templateTask"
         }
       ]
     },
     "changelog": {
-      "reason": "fdsa"
+      "reason": "Update workflow"
     }
   },
   "workflowRevision": {
@@ -5965,7 +5925,7 @@
     "initiatedByUserName": "Tyson Lawrie",
     "duration": 904934,
     "id": "5c36289096052900012cc81d",
-    "status": "completed",
+    "status": "inProgress",
     "workflowId": "5c3048ba53c9250001a17eb0",
     "workflowRevisionid": "5c33ecca53c9250001a2dfe8",
     "trigger": "cron",
@@ -6004,11 +5964,11 @@
       {
         "activityId": "5c36289096052900012cc81s",
         "duration": 300190,
-        "flowTaskStatus": "failure",
+        "flowTaskStatus": "completed",
         "id": "5c3628909605290001dcc81e",
         "order": 1,
         "startTime": "2019-09-03T15:01:00.103+0000",
-        "taskId": "515c8b05-cbf0-470a-a58e-b8740b332a6a",
+        "taskId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
         "outputs": {
           "args": {
             "test": "true"
@@ -6038,7 +5998,7 @@
         "id": "5cd6289096052900012cc81e",
         "order": 1,
         "startTime": "2019-09-03T15:02:00.103+0000",
-        "taskId": "515c8bw5-cbb0-470a-a58e-b8740b332a6a",
+        "taskId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
         "outputs": {
           "args": {
             "test": "true"
@@ -10741,6 +10701,54 @@
       "value": "fdsaf",
       "type": "text",
       "id": "rlw_MDS"
+    }
+  ],
+  "teamProperties": [
+    {
+      "value": "asdas2345",
+      "id": "5cdc5ad7460edb4a230b579b",
+      "key": "mail.accdasdount",
+      "label": "Mail Accdasdount",
+      "type": "password"
+    },
+    {
+      "label": "Boomerang Accounts",
+      "key": "boomerang.account",
+      "value": "a long value to test",
+      "type": "text",
+      "id": "5cdc5ad7460edb4a230b579d"
+    },
+    {
+      "value": "123",
+      "key": "random",
+      "label": "new",
+      "description": "value",
+      "type": "password",
+      "id": "0hGCg2O"
+    },
+    {
+      "value": "nnn",
+      "key": "refactor key",
+      "label": "Test for the refactor",
+      "description": "some refactor",
+      "type": "text",
+      "id": "7~hzY~V"
+    },
+    {
+      "value": "asdasdasd",
+      "key": "asdasdasd",
+      "label": "asdasd",
+      "description": "asdasdas",
+      "type": "text",
+      "id": "eERvgsQ"
+    },
+    {
+      "value": "adsasdasd",
+      "key": "adsadas",
+      "label": "dasdas",
+      "description": "adsasd",
+      "type": "text",
+      "id": "pe7PiMG"
     }
   ]
 }

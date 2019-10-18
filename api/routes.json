@@ -19,6 +19,8 @@
   "/flow/insights?*": "/workflowInsights",
   "/flow/config": "/globalConfiguration",
   "/flow/config/*": "/globalConfiguration/$1",
+  "/flow/teams/:id/properties": "/teamProperties",
+  "/flow/teams/:id/properties/*": "/teamProperties/$1",
   "/flow/*": "/$1",
   "/users/*": "/$1"
 }

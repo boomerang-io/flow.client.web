@@ -12,6 +12,30 @@
   align-items: center;
   @include border-radius();
 
+  &.--locked {
+    background: #697077;
+    border-radius: 0;
+    height: 2.875rem;
+    width: 5rem;
+    margin: 1rem 0 1.125rem 0;
+    .b-startEnd-node__port {
+      &.--right {
+        background-color: #50565b;
+        border: 0.0625rem solid #50565b;
+        right: -1.9375rem;
+      }
+      &.--left {
+        background-color: #d5d9e0;
+        border: 0.0625rem solid #50565b;
+        left: -1.9375rem;
+      }
+    }
+  }
+
+  &.--executionInProgress {
+    opacity: 0.5;
+  }
+
   .b-startEnd-node__title {
     text-align: center;
     color: $ui-01;

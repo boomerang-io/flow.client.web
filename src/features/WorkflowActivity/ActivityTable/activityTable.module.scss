@@ -91,7 +91,6 @@
 }
 
 .tableBody {
-  color: #565656;
   font-size: 0.875rem;
   letter-spacing: 0.01rem;
   line-height: 1.125rem;
@@ -148,10 +147,10 @@
   }
 
   &.inProgress {
-    .status {
-      animation: inProgressText 5s infinite;
+    .tableCell {
+      animation: inProgressText 3.75s infinite;
       path {
-        animation: inProgressIcon 5s infinite;
+        animation: inProgressIcon 3.75s infinite;
       }
     }
   }
@@ -201,6 +200,7 @@
 
 .tableCell {
   align-items: center;
+  color: #565656;
   display: flex;
   height: 3.625rem;
   line-height: 1.2;

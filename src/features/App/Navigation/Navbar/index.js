@@ -44,6 +44,11 @@ const onMenuClick = ({ isOpen, onMenuClose }) => (
           Properties
         </NavLink>
       </InteriorLeftNavItem>
+      <InteriorLeftNavItem baseURL={baseURL} href={`${FLOW_PATH}/team-properties`} label="Team Properties">
+        <NavLink to="/team-properties" exact={false}>
+          Team Properties
+        </NavLink>
+      </InteriorLeftNavItem>
     </InteriorLeftNavList>
   </InteriorLeftNav>
 );

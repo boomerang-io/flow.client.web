@@ -9,6 +9,12 @@ WorkflowExecutionPort.propTypes = {
   name: PropTypes.string
 };
 
-export default function WorkflowExecutionPort({ className, name, ...rest }) {
-  return <PortWidget className={cx(styles.port, className, { [styles[name]]: name })} name={name} {...rest} />;
+export default function WorkflowExecutionPort({ className, isExecution, name, ...rest }) {
+  return (
+    <PortWidget
+      className={cx(styles.port, className, { [styles[name]]: name, [styles.execution]: isExecution })}
+      name={name}
+      {...rest}
+    />
+  );
 }

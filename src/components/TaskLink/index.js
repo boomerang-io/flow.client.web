@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import cx from "classnames";
 import WorkFlowCloseButton from "Components/WorkflowCloseButton";
 import MultiStateButton from "./MultiStateButton";
+import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import styles from "./TaskLink.module.scss";
 
 class TaskLink extends Component {
   static propTypes = {
     model: PropTypes.object.isRequired,
     path: PropTypes.string.isRequired,
-    diagramEngine: PropTypes.object.isRequired
+    diagramEngine: PropTypes.object.isRequired,
+    workflowExecution: PropTypes.object
   };
 
   constructor(props) {
@@ -53,7 +57,8 @@ class TaskLink extends Component {
   }
 
   render() {
-    const { model } = this.props;
+    const { diagramEngine, model, workflowExecution } = this.props;
+    const isLocked = diagramEngine.diagramModel.locked;
 
     // let xAdjustment = 0;
     // let yAdjustment = 0;
@@ -77,7 +82,7 @@ class TaskLink extends Component {
 
     return (
       <svg>
-        {this.path.current && !this.props.diagramEngine.diagramModel.locked && this.props.model.targetPort && (
+        {this.path.current && !isLocked && model.targetPort && (
           <>
             <g
               transform={`translate(${this.halfwayPoint.x - 12}, ${this.halfwayPoint.y - 12})`}
@@ -112,7 +117,10 @@ class TaskLink extends Component {
           </>
         )}
         <path
-          className={styles.path}
+          className={cx(styles.path, {
+            [styles.locked]: isLocked,
+            [styles.executionInProgress]: isLocked && workflowExecution.data.status === ACTIVITY_STATUSES.IN_PROGRESS
+          })}
           ref={this.path}
           style={linkStyle}
           strokeWidth={this.props.model.width}
@@ -125,4 +133,10 @@ class TaskLink extends Component {
   }
 }
 
-export default TaskLink;
+const mapStateToProps = state => {
+  return {
+    workflowExecution: state.workflowExecution
+  };
+};
+
+export default connect(mapStateToProps)(TaskLink);

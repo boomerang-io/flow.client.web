@@ -9,12 +9,10 @@ import { getSimplifiedDuration } from "Utilities/timeHelper";
 import styles from "./executionTaskLog.module.scss";
 
 ExecutionTaskLog.propTypes = {
-  setActiveTeam: PropTypes.func.isRequired,
-  workflow: PropTypes.object.isRequired,
   workflowExecutionData: PropTypes.object.isRequired
 };
 
-function ExecutionTaskLog({ history, setActiveTeam, workflow, workflowExecutionData }) {
+function ExecutionTaskLog({ workflowExecutionData }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [tasksSort, setTasksSort] = useState("desc");
 

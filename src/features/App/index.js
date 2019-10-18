@@ -26,7 +26,8 @@ import {
   AsyncViewer,
   AsyncInsights,
   AsyncExecution,
-  AsyncGlobalConfiguration
+  AsyncGlobalConfiguration,
+  AsyncTeamProperties
 } from "./config/lazyComponents";
 import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
@@ -91,6 +92,9 @@ class App extends Component {
     }
 
     if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
+      const userRole = user.data.type;
+      const allowedUserRoles = [USER_TYPES.ADMIN, USER_TYPES.OPERATOR];
+
       return (
         <>
           <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
@@ -101,9 +105,15 @@ class App extends Component {
               <Switch>
                 <ProtectedRoute
                   path="/properties"
-                  allowedUserRoles={[USER_TYPES.ADMIN, USER_TYPES.OPERATOR]}
-                  userRole={user.data.type}
+                  allowedUserRoles={allowedUserRoles}
+                  userRole={userRole}
                   component={AsyncGlobalConfiguration}
+                />
+                <ProtectedRoute
+                  path="/team-properties"
+                  allowedUserRoles={allowedUserRoles}
+                  userRole={userRole}
+                  component={AsyncTeamProperties}
                 />
                 <Route path="/workflows" component={AsyncHome} />
                 <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
