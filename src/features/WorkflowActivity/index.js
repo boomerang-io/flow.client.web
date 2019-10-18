@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import queryString from "query-string";
-import { MultiSelect as Select, Tabs, Tab } from "carbon-components-react";
-import { Calendar32 } from "@carbon/icons-react";
-import { LoadingAnimation, TextInput } from "@boomerang/carbon-addons-boomerang-react";
+import { DatePicker, DatePickerInput, MultiSelect as Select, Tabs, Tab } from "carbon-components-react";
+import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import { actions as activityActions } from "State/activity";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ActivityHeader from "./ActivityHeader";
@@ -281,12 +280,14 @@ export class WorkflowActivity extends Component {
               </div>
               <div className={styles.timeFilters}>
                 <div className={styles.startDate}>
-                  <TextInput id="activity-start-date" labelText="Start date" placeholder="mm/dd/yyyy" type="date" />
-                  <Calendar32 aria-label="Calendar-start" className={styles.calendar} />
+                  <DatePicker id="activity-start-date" labelText="Start date" dateFormat="mm/dd/yyyy" type="date">
+                    <DatePickerInput placeholder="mm/dd/yyyy" />
+                  </DatePicker>
                 </div>
                 <div className={styles.endDate}>
-                  <TextInput id="activity-end-date" labelText="End date" placeholder="mm/dd/yyyy" type="date" />
-                  <Calendar32 aria-label="Calendar-end" className={styles.calendar} />
+                  <DatePicker id="activity-end-date" labelText="End date" dateFormat="mm/dd/yyyy" type="date">
+                    <DatePickerInput placeholder="mm/dd/yyyy" />
+                  </DatePicker>
                 </div>
               </div>
             </section>
