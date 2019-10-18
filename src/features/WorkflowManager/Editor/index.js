@@ -9,7 +9,7 @@ import ChangeLog from "Features/WorkflowManager/components/ChangeLog";
 import DesignerHeader from "Features/WorkflowManager/components/DesignerHeader";
 import WorkflowProperties from "Features/WorkflowManager/components/WorkflowProperties";
 import Overview from "Features/WorkflowManager/components/Overview";
-import TasksSidenav from "Features/WorkflowManager/components/TasksSidenav/Tasks";
+import Tasks from "Features/WorkflowManager/components/Tasks";
 import WorkflowZoom from "Features/WorkflowManager/components/WorkflowZoom";
 import DiagramApplication from "Utilities/DiagramApplication";
 import styles from "./Editor.module.scss";
@@ -157,7 +157,7 @@ class WorkflowEditor extends Component {
             path={`${match.path}/designer`}
             render={props => (
               <div className={styles.container}>
-                <TasksSidenav tasks={tasks} />
+                <Tasks tasks={tasks} />
                 <div
                   className={styles.designer}
                   onDrop={event => createNode(this.diagramApp, event)}
