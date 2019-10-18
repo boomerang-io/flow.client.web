@@ -15,24 +15,6 @@ a {
   color: $cerulean-50;
 }
 
-/* body of the application */
-.c-app {
-  margin: 0 auto;
-}
-
-/* actual content of the app */
-.c-app-content {
-  display: flex;
-  flex: 1;
-  min-height: calc(100vh - 3.125rem);
-  /* margin-top: 3.125rem; */
-}
-
-.c-app-content--not-loaded {
-  align-items: center;
-  justify-content: center;
-}
-
 /* fix for carbon menu */
 .bx--list-box__menu {
   z-index: 998;
@@ -43,12 +25,6 @@ a {
   .bx--list-box__label {
     color: $black;
     font-weight: 400;
-  }
-
-  .bmrg--b-tooltip {
-    border: 0rem;
-    opacity: 1;
-    max-width: 30rem;
   }
 
   foreignObject {

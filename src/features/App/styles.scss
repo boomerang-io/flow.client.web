@@ -1,3 +1,16 @@
+/* actual content of the app */
+.c-app-content {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 3.125rem);
+  /* margin-top: 3.125rem; */
+}
+
+.c-app-content--not-loaded {
+  align-items: center;
+  justify-content: center;
+}
+
 .c-app-main {
   padding-top: 3rem;
   height: 100vh;
@@ -5,14 +18,4 @@
   position: relative;
   display: flex;
   flex-direction: column;
-
-  &.--banner-closed {
-    .c-tasks-sidenav .bmrg--c-sidenav {
-      height: calc(100vh - 8.75rem);
-    }
-  }
-}
-
-.c-workflow {
-  margin-top: 4rem;
 }

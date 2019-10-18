@@ -1,6 +1,10 @@
 @import "~Styles/variables";
 @import "~Styles/mixins";
 
+:global .srd-node--selected > * {
+  border-color: $interactive-01 !important;
+}
+
 .node {
   background: $lightest-gray;
   width: 13.75rem;
