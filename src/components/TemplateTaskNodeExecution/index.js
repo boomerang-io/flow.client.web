@@ -47,9 +47,9 @@ export class TemplateNodeExecution extends Component {
 
     return (
       <WorkflowNode
+        isExecution
         category={task.category}
         className={styles[taskNodeStyling]}
-        isExecution
         name={task.name}
         node={node}
         onClick={e => isAccessibleEvent(e) && this.handleOnActivityClick()}

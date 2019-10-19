@@ -47,6 +47,7 @@ export class CustomTaskNodeExecution extends Component {
 
     return (
       <WorkflowNode
+        isExecution
         category={task.category}
         className={styles[taskNodeStyling]}
         name={task.name}
