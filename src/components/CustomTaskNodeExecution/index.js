@@ -13,7 +13,7 @@ export class CustomTaskNodeExecution extends Component {
     appActions: PropTypes.object.isRequired,
     diagramEngine: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    step: PropTypes.object,
+    workflowExecution: PropTypes.object,
     task: PropTypes.object.isRequired
   };
 
@@ -66,10 +66,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    step:
-      state.workflowExecution.data.steps && state.workflowExecution.data.steps.length
-        ? state.workflowExecution.data.steps.find(step => step.taskId === ownProps.node.id)
-        : {}
+    workflowExecution: state.workflowExecution
   };
 };
 
