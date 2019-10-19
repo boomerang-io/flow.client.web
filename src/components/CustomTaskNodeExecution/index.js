@@ -5,6 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
 import WorkflowNode from "Components/WorkflowNode";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
+import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import styles from "./CustomTaskNodeExecution.module.scss";
 
 export class CustomTaskNodeExecution extends Component {
@@ -30,13 +31,24 @@ export class CustomTaskNodeExecution extends Component {
   };
 
   render() {
-    const flowTaskStatus = this.props.step ? this.props.step.flowTaskStatus : "";
     const { task, node } = this.props;
+    const { steps, status } = this.props.workflowExecution.data;
+    const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
+    const flowTaskStatus = step ? step.flowTaskStatus : "";
+
+    let taskNodeStyling = "";
+    if (status === ACTIVITY_STATUSES.IN_PROGRESS) {
+      taskNodeStyling = flowTaskStatus === ACTIVITY_STATUSES.IN_PROGRESS ? ACTIVITY_STATUSES.IN_PROGRESS : "disabled";
+    } else if (status === ACTIVITY_STATUSES.FAILURE) {
+      taskNodeStyling = flowTaskStatus === ACTIVITY_STATUSES.FAILURE ? ACTIVITY_STATUSES.FAILURE : "normal";
+    } else {
+      taskNodeStyling = "normal";
+    }
 
     return (
       <WorkflowNode
         category={task.category}
-        className={styles[flowTaskStatus]}
+        className={styles[taskNodeStyling]}
         name={task.name}
         node={node}
         onClick={e => isAccessibleEvent(e) && this.handleOnActivityClick()}

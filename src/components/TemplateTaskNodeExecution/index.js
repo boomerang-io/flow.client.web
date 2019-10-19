@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
-import TaskNode from "Components/WorkflowNode";
+import WorkflowNode from "Components/WorkflowNode";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import styles from "./TemplateNodeExecution.module.scss";
@@ -46,7 +46,7 @@ export class TemplateNodeExecution extends Component {
     }
 
     return (
-      <TaskNode
+      <WorkflowNode
         category={task.category}
         className={styles[taskNodeStyling]}
         isExecution
