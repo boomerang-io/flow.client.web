@@ -52,11 +52,13 @@ class Main extends Component {
           <ExecutionTaskLog workflowExecutionData={workflowExecutionData} />
           {hasStarted || hasFinished ? (
             <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
-              <WorkflowActions setActiveTeam={setActiveTeam} workflow={workflowData} />
-              <WorkflowZoom
-                diagramApp={this.diagramApp}
-                diagramBoundingClientRect={this.state.diagramBoundingClientRect}
-              />
+              <div className={styles.executionWorkflowActions}>
+                <WorkflowActions setActiveTeam={setActiveTeam} workflow={workflowData} />
+                <WorkflowZoom
+                  diagramApp={this.diagramApp}
+                  diagramBoundingClientRect={this.state.diagramBoundingClientRect}
+                />
+              </div>
               <DiagramWidget
                 allowLooseLinks={false}
                 allowCanvasTranslation={true}

@@ -19,3 +19,17 @@
   flex-grow: 1;
   position: relative;
 }
+
+.diagram {
+  margin-top: 3.5rem;
+}
+
+.executionWorkflowActions {
+  background-color: $ui-background;
+  border-bottom: 0.0625rem solid #b9bfc7;
+  display: flex;
+  justify-content: space-between;
+  height: 3.5rem;
+  position: absolute;
+  width: 100%;
+}
