@@ -6,7 +6,8 @@ import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
 import { actions as appActions } from "State/app";
 import sortBy from "lodash/sortBy";
-import { LoadingAnimation, notify, ToastNotification, NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
+import { SkeletonText, SkeletonPlaceholder } from "carbon-components-react";
+import { notify, ToastNotification, NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import WorkflowsHeader from "./WorkflowsHeader";
 import WorkflowsSection from "./WorkflowsSection";
@@ -102,14 +103,25 @@ export class WorkflowsHome extends Component {
     const { searchQuery } = this.state;
 
     if (teamsState.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon theme="bmrg-flow" />;
+      return <ErrorDragon />;
     }
 
     if (teamsState.isFetching) {
       return (
         <div className={styles.container}>
+          <WorkflowsHeader loading handleSearchFilter={this.handleSearchFilter} workflowsLength={0} options={[]} />
           <div className={styles.content}>
-            <LoadingAnimation centered />
+            <div className={styles.loadingContainer}>
+              <SkeletonText heading width="10rem" />
+              <div className={styles.cardPlaceholderContainer}>
+                <SkeletonPlaceholder className={styles.cardPlaceholder} />
+                <SkeletonPlaceholder className={styles.cardPlaceholder} />
+              </div>
+            </div>
+            <div className={styles.loadingContainer}>
+              <SkeletonText heading width="10rem" />
+              <SkeletonPlaceholder className={styles.cardPlaceholder} />
+            </div>
           </div>
         </div>
       );

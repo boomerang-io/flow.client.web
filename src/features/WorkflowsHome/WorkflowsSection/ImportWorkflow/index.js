@@ -5,12 +5,12 @@ import { bindActionCreators } from "redux";
 import queryString from "query-string";
 import { actions as importWorkflowActions } from "State/importWorkflow";
 import { notify, ToastNotification, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
+import { Button } from "carbon-components-react";
 import { Upload16 } from "@carbon/icons-react";
 import ImportAttachment from "./ImportAttachment";
 import ImportConfirm from "./ImportConfirm";
 import ImportType from "./ImportType";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import styles from "./importType.module.scss";
 
 class ImportWorkflow extends Component {
   static propTypes = {
@@ -55,13 +55,13 @@ class ImportWorkflow extends Component {
           children: "Your request will not be saved"
         }}
         modalHeaderProps={{
-          title: "Workflow Import",
-          subtitle: "Import a workflow"
+          title: "Import Workflow",
+          subtitle: "Import a new workflow or update an existing one"
         }}
         modalTrigger={({ openModal }) => (
-          <button onClick={openModal}>
-            <Upload16 data-tip data-for={this.props.teamId} className={styles.importIcon} alt="Import Workflow" />
-          </button>
+          <Button kind="ghost" onClick={openModal} iconDescription="Import Workflow" renderIcon={Upload16}>
+            Import Workflow
+          </Button>
         )}
         progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
         initialState={initialState}

@@ -7,13 +7,9 @@ import { actions as userActions } from "State/user";
 import { actions as navigationActions } from "State/navigation";
 import { actions as teamsActions } from "State/teams";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { Loading } from "carbon-components-react";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
-import {
-  LoadingAnimation,
-  NotificationsContainer,
-  ProtectedRoute,
-  ErrorBoundary
-} from "@boomerang/carbon-addons-boomerang-react";
+import { NotificationsContainer, ProtectedRoute, ErrorBoundary } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import NotificationBanner from "Components/NotificationBanner";
 import BrowserModal from "./BrowserModal";
@@ -23,7 +19,6 @@ import {
   AsyncHome,
   AsyncActivity,
   AsyncManager,
-  AsyncViewer,
   AsyncInsights,
   AsyncExecution,
   AsyncGlobalConfiguration,
@@ -69,7 +64,7 @@ class App extends Component {
   renderApp() {
     const { user, navigation, teams } = this.props;
     if (user.isFetching || user.isCreating || navigation.isFetching) {
-      return <LoadingAnimation centered message="Booting up the app. We'll be right with you" />;
+      return <Loading centered message="Booting up the app. We'll be right with you" />;
     }
 
     if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && !user.data.id) {
@@ -99,9 +94,7 @@ class App extends Component {
         <>
           <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
             {<NotificationBanner closeBanner={this.closeBanner} />}
-            <Suspense
-              fallback={<LoadingAnimation centered message="Loading a feature for you. Just a moment, please." />}
-            >
+            <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
               <Switch>
                 <ProtectedRoute
                   path="/properties"
@@ -120,7 +113,6 @@ class App extends Component {
                 <Route path="/activity" component={AsyncActivity} />
                 <Route path="/editor/:workflowId" component={AsyncManager} />
                 <Route path="/insights" component={AsyncInsights} />
-                <Route path="/viewer" component={AsyncViewer} />
                 <Redirect from="/" to="/workflows" />
               </Switch>
             </Suspense>

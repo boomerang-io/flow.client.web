@@ -40,8 +40,7 @@
   }
 
   :global .bx--list-box__menu {
-    min-width: 12rem;
-    width: max-content;
+    width: 100%;
     background-color: $white;
     height: auto;
     max-height: unset;
@@ -129,4 +128,35 @@
     font-size: 2.5rem;
     line-height: 6.5rem;
   }
+}
+
+.dropdownPlaceholderContainer {
+  :global .bx--form-item {
+    margin-right: 1rem;
+  }
+}
+
+.dropdownPlaceholder {
+  margin-right: 1rem;
+  width: 30%;
+}
+
+.cardPlaceholderContainer {
+  display: flex;
+}
+
+.cardPlaceholder {
+  min-height: 22.375rem;
+  min-width: 15.625rem;
+  margin: 2.5rem 0rem;
+  margin-right: 1.5rem;
+
+  &.wide {
+    min-width: 25.625rem;
+  }
+}
+
+.graphPlaceholder {
+  width: 50vw;
+  min-height: 25rem;
 }

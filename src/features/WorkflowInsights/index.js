@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import cx from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as insightsActions } from "State/insights";
 import moment from "moment";
 import queryString from "query-string";
-import { Dropdown } from "carbon-components-react";
-import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
+import { Dropdown, SelectSkeleton, SkeletonPlaceholder } from "carbon-components-react";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
 import ChartsTile from "./ChartsTile";
@@ -106,16 +106,28 @@ export class WorkflowInsights extends Component {
       });
   };
 
-  renderWidgets = () => {
+  renderWidgets = ({ teamsList, workflowsFilter }) => {
     const { insights, teams } = this.props;
 
-    if (insights.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon theme="bmrg-flow" />;
+    if (insights.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
+      return <ErrorDragon />;
     }
 
-    if (insights.isFetching) {
+    if (insights.isFetching || teams.isFetching) {
       return (
-        <LoadingAnimation message="Getting your workflow data. This might take a bit." style={{ marginTop: "3rem" }} />
+        <div className={styles.container}>
+          <div className={cx(styles.header, styles.dropdownPlaceholderContainer)}>
+            <SelectSkeleton className={styles.dropdownPlaceholder} />
+            <SelectSkeleton className={styles.dropdownPlaceholder} />
+            <SelectSkeleton className={styles.dropdownPlaceholder} />
+          </div>
+          <div className={styles.cardPlaceholderContainer}>
+            <SkeletonPlaceholder className={styles.cardPlaceholder} />
+            <SkeletonPlaceholder className={styles.cardPlaceholder} />
+            <SkeletonPlaceholder className={cx(styles.cardPlaceholder, styles.wide)} />
+          </div>
+          <SkeletonPlaceholder className={styles.graphPlaceholder} />
+        </div>
       );
     }
 
@@ -124,6 +136,41 @@ export class WorkflowInsights extends Component {
       const chartData = parseChartsData(executionsList, teams.data.map(team => team.name));
       return (
         <>
+          <div className={styles.header}>
+            <Dropdown
+              id="teams-dropdown"
+              titleText="Filter by team"
+              label="Teams"
+              placeholder="Teams"
+              onChange={this.handleChangeTeam}
+              items={teamsList}
+              itemToString={team => (team ? team.name : "")}
+              initialSelectedItem={ALL_OPTIONS.TEAMS}
+            />
+            <Dropdown
+              id="workflows-dropdown"
+              titleText="Filter by Workflow"
+              label="Workflows"
+              placeholder="Workflows"
+              onChange={this.handleChangeWorkflow}
+              items={workflowsFilter}
+              itemToString={workflow => {
+                const team = teams.data.find(team => team.id === workflow.flowTeamId);
+                return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+              }}
+              initialSelectedItem={ALL_OPTIONS.WORKFLOWS}
+            />
+            <Dropdown
+              id="time-frame-dropdown"
+              titleText="Time period"
+              label="Time Frame"
+              placeholder="Time Frame"
+              onChange={this.handleChangeTimeframe}
+              items={timeframeOptions}
+              itemToString={time => (time ? time.label : "")}
+              initialSelectedItem={timeframeOptions[3]}
+            />
+          </div>
           <div className={styles.statsWidgets}>
             <InsightsTile
               title="Executions"
@@ -187,18 +234,6 @@ export class WorkflowInsights extends Component {
   render() {
     const { teams } = this.props;
 
-    if (teams.status === REQUEST_STATUSES.FAILURE) {
-      return <ErrorDragon theme="bmrg-flow" />;
-    }
-
-    if (teams.isFetching) {
-      return (
-        <div className={styles.container}>
-          <LoadingAnimation />
-        </div>
-      );
-    }
-
     if (teams.status === REQUEST_STATUSES.SUCCESS) {
       const { selectedTeam } = this.state;
       const teamsList = [ALL_OPTIONS.TEAMS].concat(teams.data);
@@ -211,44 +246,7 @@ export class WorkflowInsights extends Component {
       return (
         <>
           <InsightsHeader />
-          <div className={styles.container}>
-            <div className={styles.header}>
-              <Dropdown
-                id="teams-dropdown"
-                titleText="Filter by team"
-                label="Teams"
-                placeholder="Teams"
-                onChange={this.handleChangeTeam}
-                items={teamsList}
-                itemToString={team => (team ? team.name : "")}
-                initialSelectedItem={ALL_OPTIONS.TEAMS}
-              />
-              <Dropdown
-                id="workflows-dropdown"
-                titleText="Filter by Workflow"
-                label="Workflows"
-                placeholder="Workflows"
-                onChange={this.handleChangeWorkflow}
-                items={workflowsFilter}
-                itemToString={workflow => {
-                  const team = teams.data.find(team => team.id === workflow.flowTeamId);
-                  return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
-                }}
-                initialSelectedItem={ALL_OPTIONS.WORKFLOWS}
-              />
-              <Dropdown
-                id="time-frame-dropdown"
-                titleText="Time period"
-                label="Time Frame"
-                placeholder="Time Frame"
-                onChange={this.handleChangeTimeframe}
-                items={timeframeOptions}
-                itemToString={time => (time ? time.label : "")}
-                initialSelectedItem={timeframeOptions[3]}
-              />
-            </div>
-            {this.renderWidgets()}
-          </div>
+          <div className={styles.container}>{this.renderWidgets({ teamsList, workflowsFilter })}</div>
         </>
       );
     }

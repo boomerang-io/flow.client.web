@@ -5,7 +5,6 @@ import { AutoSuggest, DynamicFormik, TextInput } from "@boomerang/carbon-addons-
 import { TextInput as CarbonTextInput } from "carbon-components-react";
 import { Button, ModalFooter } from "carbon-components-react";
 import TextEditorModal from "Components/TextEditorModal";
-import Toggle from "./Toggle";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import { TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
 import "./styles.scss";
@@ -236,8 +235,7 @@ class DisplayForm extends Component {
         CustomComponent={TextInput}
         dataDrivenProps={{
           TextInput: AutoSuggestInput,
-          TextEditor: TextEditorInput,
-          Toggle
+          TextEditor: TextEditorInput
         }}
         formProps={{ className: "c-display-form", id: "display-form", style: { marginTop: "1rem" } }}
         initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}

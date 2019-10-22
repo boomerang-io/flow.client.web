@@ -44,6 +44,7 @@ const onMenuClick = ({ isOpen, onMenuClose }) => (
         </SideNavLink>
         <SideNavMenu large renderIcon={SettingsAdjust16} title="Manage">
           <SideNavMenuItem
+            large
             activeClassName={"bx--side-nav__link--current"}
             element={NavLink}
             onClick={onMenuClose}
@@ -52,6 +53,7 @@ const onMenuClick = ({ isOpen, onMenuClose }) => (
             Properties
           </SideNavMenuItem>
           <SideNavMenuItem
+            large
             activeClassName={"bx--side-nav__link--current"}
             element={NavLink}
             onClick={onMenuClose}

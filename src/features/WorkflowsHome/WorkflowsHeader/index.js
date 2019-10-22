@@ -8,16 +8,17 @@ WorkflowsHeader.propTypes = {
   description: PropTypes.string
 };
 
-function WorkflowsHeader({ workflowsLength, handleSearchFilter, options }) {
+function WorkflowsHeader({ workflowsLength, handleSearchFilter, loading, options }) {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.info}>
           <h1 className={styles.title}>These are your</h1>
-          <h2 className={styles.subtitle}>{`Workflows (${workflowsLength})`}</h2>
+          <h2 className={styles.subtitle}>{loading ? "Workflows" : `Workflows (${workflowsLength})`}</h2>
         </div>
         <SearchFilterBar
           filterable
+          loading={loading}
           handleSearchFilter={handleSearchFilter}
           placeholder="Choose a team"
           label="Choose a team"

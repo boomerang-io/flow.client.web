@@ -49,7 +49,7 @@ class ImportConfirm extends Component {
           }}
         >
           <ModalBody>
-            <Error theme="bmrg-flow" />
+            <Error />
           </ModalBody>
           <ModalFooter>
             <Button type="submit">Try again</Button>
