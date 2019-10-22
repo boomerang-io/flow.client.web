@@ -19,7 +19,6 @@ import {
   AsyncHome,
   AsyncActivity,
   AsyncManager,
-  AsyncViewer,
   AsyncInsights,
   AsyncExecution,
   AsyncGlobalConfiguration,
@@ -114,7 +113,6 @@ class App extends Component {
                 <Route path="/activity" component={AsyncActivity} />
                 <Route path="/editor/:workflowId" component={AsyncManager} />
                 <Route path="/insights" component={AsyncInsights} />
-                <Route path="/viewer" component={AsyncViewer} />
                 <Redirect from="/" to="/workflows" />
               </Switch>
             </Suspense>
