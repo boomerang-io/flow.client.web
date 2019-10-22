@@ -43,7 +43,7 @@ class ChangeLog extends Component {
           <ChangeLogTable changeLog={changeLog.data} />
         </div>
       );
-    if (changeLog.status === REQUEST_STATUSES.FAILURE) return <ErrorDragon theme="bmrg-flow" />;
+    if (changeLog.status === REQUEST_STATUSES.FAILURE) return <ErrorDragon />;
     return null;
   }
 }

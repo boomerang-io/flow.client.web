@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { MultiSelect, Select, SelectItem, SelectItemGroup, Search } from "carbon-components-react";
+import {
+  MultiSelect,
+  Select,
+  SelectItem,
+  SelectItemGroup,
+  Search,
+  SearchSkeleton,
+  SelectSkeleton
+} from "carbon-components-react";
 import "./styles.scss";
 
 class SearchFilterBar extends Component {
@@ -9,6 +17,7 @@ class SearchFilterBar extends Component {
     handleSearchFilter: PropTypes.func.isRequired,
     debounceTimeout: PropTypes.number,
     filterItems: PropTypes.array,
+    loading: PropTypes.bool,
     multiselect: PropTypes.bool,
     selectedOption: PropTypes.string,
     searchbar: PropTypes.bool
@@ -53,6 +62,7 @@ class SearchFilterBar extends Component {
   render() {
     const {
       label = "Filter",
+      loading,
       options,
       multiselect,
       placeholder,
@@ -61,6 +71,21 @@ class SearchFilterBar extends Component {
       filterItems,
       title = ""
     } = this.props;
+
+    if (loading) {
+      return (
+        <div className="b-search-filter">
+          {searchbar && (
+            <div className="b-search-filter__search">
+              <SearchSkeleton small />
+            </div>
+          )}
+          <div className="b-search-filter__filter">
+            <SelectSkeleton />
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="b-search-filter">

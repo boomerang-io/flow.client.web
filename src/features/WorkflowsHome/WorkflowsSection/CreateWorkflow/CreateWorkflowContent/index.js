@@ -61,7 +61,7 @@ class CreateEditModeModalContent extends Component {
           const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
 
           if (isCreating) {
-            return <LoadingAnimation theme="bmrg-white" message="We'll be right with you" />;
+            return <LoadingAnimation message="We'll be right with you" />;
           }
 
           return (

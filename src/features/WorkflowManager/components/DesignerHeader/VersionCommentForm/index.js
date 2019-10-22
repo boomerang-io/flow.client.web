@@ -56,7 +56,7 @@ class VersionCommentForm extends Component {
       <>
         <ModalBody>
           {this.state.saveError ? (
-            <Error theme="bmrg-flow" />
+            <Error />
           ) : (
             <TextArea
               required
