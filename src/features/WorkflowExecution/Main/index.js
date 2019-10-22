@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
-import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
 import ExecutionHeader from "./ExecutionHeader";
 import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
+import Loading from "Components/Loading";
 import WorkflowZoom from "Components/WorkflowZoom";
 import DiagramApplication from "Utilities/DiagramApplication";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
@@ -70,7 +70,7 @@ class Main extends Component {
               />
             </div>
           ) : (
-            <LoadingAnimation centered message="Your workflow will be with you shortly" />
+            <Loading />
           )}
         </main>
       </div>

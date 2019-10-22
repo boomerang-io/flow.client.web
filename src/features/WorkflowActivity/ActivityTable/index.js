@@ -9,6 +9,7 @@ import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanize
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import { DataTableSkeleton, DataTable, Pagination } from "carbon-components-react";
 import { NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
+import DelayedRender from "Components/DelayedRender";
 import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/activityStatuses";
 import styles from "./activityTable.module.scss";
 
@@ -121,14 +122,16 @@ class ActivityTable extends Component {
 
     if (this.props.isUpdating) {
       return (
-        <div style={{ marginTop: "1rem" }}>
-          <DataTableSkeleton
-            className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
-            rowCount={size}
-            columnCount={this.headers.length}
-            headers={this.headers.map(header => header.header)}
-          />
-        </div>
+        <DelayedRender>
+          <div style={{ marginTop: "1rem" }}>
+            <DataTableSkeleton
+              className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
+              rowCount={size}
+              columnCount={this.headers.length}
+              headers={this.headers.map(header => header.header)}
+            />
+          </div>
+        </DelayedRender>
       );
     }
 

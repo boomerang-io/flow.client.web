@@ -7,7 +7,7 @@ import { actions as workflowActions } from "State/workflow";
 import { actions as workflowExecutionActions } from "State/workflowExecution";
 import { actions as appActions } from "State/app";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
-import { Loading } from "carbon-components-react";
+import Loading from "Components/Loading";
 import ErrorDragon from "Components/ErrorDragon";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
@@ -95,7 +95,7 @@ export class WorkflowExecutionContainer extends Component {
 
     // Don't wait on the execution data bc we fetch it multiple times until we have it all
     if (workflowRevisionIsFetching || tasksIsFetching || workflowsIsFetching) {
-      return <Loading message="Fetching your workflow execution data." />;
+      return <Loading />;
     }
 
     if (
