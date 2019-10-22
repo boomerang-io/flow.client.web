@@ -3,12 +3,9 @@
 
 .editContainer {
   position: absolute;
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-  top: 1.125rem;
-  right: 3.5rem;
-  cursor: pointer;
+  right: 1.75rem;
+  top: -0.75rem;
+  width: 1.5rem;
 }
 
 .editIcon {
@@ -20,8 +17,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 25rem;
-  width: 20rem;
+  height: 16rem;
+  width: 15.625rem;
   border: 0.0625rem solid #373d42;
   color: $brand-02;
   cursor: pointer;

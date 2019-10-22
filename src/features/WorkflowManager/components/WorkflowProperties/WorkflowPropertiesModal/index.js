@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowPropertiesModalContent from "./WorkflowPropertiesModalContent";
-import { Add32, Edit32 } from "@carbon/icons-react";
+import WorkflowEditButton from "Components/WorkflowEditButton";
+import { Add32 } from "@carbon/icons-react";
 import styles from "./WorkflowPropertiesModal.module.scss";
 
 class WorkflowProperties extends Component {
@@ -17,11 +18,7 @@ class WorkflowProperties extends Component {
   editTrigger = ({ openModal }) => {
     let output = null;
     this.props.isEdit
-      ? (output = (
-          <button className={styles.editContainer} onClick={openModal}>
-            <Edit32 className={styles.editIcon} aria-label="Edit" />
-          </button>
-        ))
+      ? (output = <WorkflowEditButton className={styles.editContainer} onClick={openModal} aria-label="Edit" />)
       : (output = (
           <button
             className={styles.createPropertyCard}

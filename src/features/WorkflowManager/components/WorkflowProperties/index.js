@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowPropertiesModal from "./WorkflowPropertiesModal";
-import { Close32 } from "@carbon/icons-react";
+import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import styles from "./WorkflowProperties.module.scss";
 
@@ -20,7 +20,17 @@ function WorkflowPropertyRow({ title, value }) {
   return (
     <dl className={styles.fieldContainer}>
       <dt className={styles.fieldKey}>{title}</dt>
-      <dd className={styles.fieldValue}>{value}</dd>
+      <h1 className={styles.fieldValue}>{value}</h1>
+    </dl>
+  );
+}
+
+function WorkflowPropertyHeader({ label, propertyKey, description }) {
+  return (
+    <dl className={styles.headerContainer}>
+      <dt className={styles.label}>{label}</dt>
+      <dd className={styles.propertyKey}>{propertyKey}</dd>
+      <dd className={styles.description}>{description}</dd>
     </dl>
   );
 }
@@ -50,16 +60,18 @@ function WorkflowProperties(props) {
       {inputs.length > 0 &&
         inputs.map((input, index) => (
           <div key={`${input.id}-${index}`} className={styles.property}>
-            <WorkflowPropertyRow title="Label" value={input.label} />
-            <WorkflowPropertyRow title="Key" value={input.key} />
-            <WorkflowPropertyRow title="Description" value={input.description} />
+            <WorkflowPropertyHeader label={input.label} propertyKey={input.key} description={input.description} />
             <WorkflowPropertyRow title="Type" value={input.type} />
-            <WorkflowPropertyRow title="Required" value={input.required.toString()} />
             {formatDefaultValue(input.defaultValue) && (
               <WorkflowPropertyRow title="Default value" value={formatDefaultValue(input.defaultValue)} />
             )}
             {input.validValues && (
               <WorkflowPropertyRow title="Valid values" value={formatDefaultValue(input.validValues.join(", "))} />
+            )}
+            {input.required ? (
+              <p className={styles.required}>Required</p>
+            ) : (
+              <p className={styles.notRequired}>Not required</p>
             )}
             {!input.readOnly ? (
               <>
@@ -77,9 +89,7 @@ function WorkflowProperties(props) {
                   children="It will be gone. Forever."
                   title="Delete This Property?"
                   modalTrigger={({ openModal }) => (
-                    <button className={styles.deleteContainer} onClick={openModal}>
-                      <Close32 className={styles.deleteIcon} />
-                    </button>
+                    <WorkflowCloseButton className={styles.deleteProperty} onClick={openModal} />
                   )}
                 />
               </>
