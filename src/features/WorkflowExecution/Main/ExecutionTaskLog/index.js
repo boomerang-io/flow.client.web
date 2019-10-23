@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import moment from "moment";
 import orderBy from "lodash/orderBy";
 import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";
 import TaskItem from "./TaskItem";
@@ -27,7 +26,7 @@ function ExecutionTaskLog({ workflowExecutionData }) {
     setTasksSort(tasksSort === "desc" ? "asc" : "desc");
   };
 
-  const sortedTasks = orderBy(steps, step => moment(step.startTime).unix(), [tasksSort]);
+  const sortedTasks = orderBy(steps, step => step.order, [tasksSort]);
 
   return (
     <aside className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>

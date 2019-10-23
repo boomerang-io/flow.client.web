@@ -1,4 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
 
 .tableSkeleton {
   th {
@@ -98,6 +99,10 @@
 
 .tableRow {
   cursor: pointer;
+
+  &:focus {
+    outline: 0.0625rem solid $interactive-01;
+  }
 
   &.completed {
     .status {

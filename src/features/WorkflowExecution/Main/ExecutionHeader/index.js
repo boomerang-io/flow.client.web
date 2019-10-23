@@ -10,13 +10,7 @@ ExecutionHeader.propTypes = {
 
 function ExecutionHeader({ history, workflow, workflowExecutionData }) {
   const { state } = history.location;
-
-  const data = {
-    Team: workflowExecutionData.teamName,
-    "Initiated by": workflowExecutionData.initiatedByUserName,
-    Trigger: workflowExecutionData.trigger,
-    "Start time": moment(workflowExecutionData.creationDate).format("YYYY-MM-DD hh:mm A")
-  };
+  const { teamName, initiatedByUserName, trigger, creationDate } = workflowExecutionData;
 
   return (
     <header className={styles.container}>
@@ -29,12 +23,28 @@ function ExecutionHeader({ history, workflow, workflowExecutionData }) {
         <p className={styles.title}>Workflow run detail</p>
       </div>
       <div className={styles.content}>
-        {Object.keys(data).map(key => (
-          <div key={key} className={styles.data}>
-            <p className={styles.dataTitle}>{key}</p>
-            <p className={styles.dataValue}>{data[key]}</p>
-          </div>
-        ))}
+        <div className={styles.data}>
+          <p className={styles.dataTitle}>Team</p>
+          <p className={styles.dataValue}>{teamName}</p>
+        </div>
+        <div className={styles.data}>
+          <p className={styles.dataTitle}>Initiated by</p>
+          {initiatedByUserName ? (
+            <p className={styles.dataValue}>{initiatedByUserName}</p>
+          ) : (
+            <span aria-label="robot" aria-hidden={false} role="img">
+              {"🤖"}
+            </span>
+          )}
+        </div>
+        <div className={styles.data}>
+          <p className={styles.dataTitle}>Trigger</p>
+          <p className={styles.dataValue}>{trigger}</p>
+        </div>
+        <div className={styles.data}>
+          <p className={styles.dataTitle}>Team</p>
+          <p className={styles.dataValue}>{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</p>
+        </div>
       </div>
     </header>
   );

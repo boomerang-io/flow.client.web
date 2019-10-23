@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import cx from "classnames";
 import WorkFlowCloseButton from "Components/WorkflowCloseButton";
 import MultiStateButton from "./MultiStateButton";
+import { CloseOutline32, CheckmarkOutline32, Error32 } from "@carbon/icons-react";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import styles from "./TaskLink.module.scss";
 
@@ -58,7 +59,26 @@ class TaskLink extends Component {
 
   render() {
     const { diagramEngine, model, workflowExecution } = this.props;
+    const { steps, status } = workflowExecution.data;
+    const sourceTaskId = model.sourcePort.parent.id;
     const isLocked = diagramEngine.diagramModel.locked;
+
+    let Icon = undefined;
+    let flowTaskStatus = "";
+
+    if (isLocked) {
+      const sourceStep = Array.isArray(steps) ? steps.find(step => step.taskId === sourceTaskId) : {};
+      flowTaskStatus = sourceStep ? sourceStep.flowTaskStatus : "";
+
+      const ACTIVITY_STATUSES_TO_ICON = {
+        [ACTIVITY_STATUSES.COMPLETED]: CheckmarkOutline32,
+        [ACTIVITY_STATUSES.FAILURE]: CloseOutline32,
+        [ACTIVITY_STATUSES.INVALID]: Error32,
+        [ACTIVITY_STATUSES.SKIPPED]: Error32
+      };
+
+      Icon = ACTIVITY_STATUSES_TO_ICON[flowTaskStatus];
+    }
 
     // let xAdjustment = 0;
     // let yAdjustment = 0;
@@ -116,10 +136,24 @@ class TaskLink extends Component {
             </g>
           </>
         )}
+        {this.path.current && Icon && (
+          <>
+            <g
+              transform={`translate(${this.halfwayPoint.x - 12}, ${this.halfwayPoint.y - 12})`}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <foreignObject width="28" height="28" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                <span className={`${styles.statusIcon} ${styles[flowTaskStatus]}`}>
+                  <Icon aria-label={flowTaskStatus} xmlns="http://www.w3.org/1999/xhtml" />
+                </span>
+              </foreignObject>
+            </g>
+          </>
+        )}
         <path
           className={cx(styles.path, {
             [styles.locked]: isLocked,
-            [styles.executionInProgress]: isLocked && workflowExecution.data.status === ACTIVITY_STATUSES.IN_PROGRESS
+            [styles.executionInProgress]: isLocked && status === ACTIVITY_STATUSES.IN_PROGRESS
           })}
           ref={this.path}
           style={linkStyle}
@@ -127,7 +161,6 @@ class TaskLink extends Component {
           stroke="rgba(255,0,0,0.5)"
           d={this.props.path}
         />
-        )}
       </svg>
     );
   }

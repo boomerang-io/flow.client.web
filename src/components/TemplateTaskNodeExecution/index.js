@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import cx from "classnames";
 import { actions as appActions } from "State/app";
 import WorkflowNode from "Components/WorkflowNode";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
@@ -36,27 +37,28 @@ export class TemplateNodeExecution extends Component {
     const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
     const flowTaskStatus = step ? step.flowTaskStatus : "";
 
-    let taskNodeStyling = "";
+    let disabled = false;
     if (status === ACTIVITY_STATUSES.IN_PROGRESS) {
-      taskNodeStyling = flowTaskStatus === ACTIVITY_STATUSES.IN_PROGRESS ? ACTIVITY_STATUSES.IN_PROGRESS : "disabled";
-    } else if (status === ACTIVITY_STATUSES.FAILURE) {
-      taskNodeStyling = flowTaskStatus === ACTIVITY_STATUSES.FAILURE ? ACTIVITY_STATUSES.FAILURE : "normal";
-    } else {
-      taskNodeStyling = "normal";
+      const inProgressStep = steps.find(step => step.flowTaskStatus === ACTIVITY_STATUSES.IN_PROGRESS);
+      if (step.order < inProgressStep.order && flowTaskStatus !== ACTIVITY_STATUSES.SKIPPED) {
+        disabled = true;
+      }
     }
 
     return (
       <WorkflowNode
         isExecution
         category={task.category}
-        className={styles[taskNodeStyling]}
+        className={cx(styles[flowTaskStatus], { [styles.disabled]: disabled })}
         name={task.name}
         node={node}
         onClick={e => isAccessibleEvent(e) && this.handleOnActivityClick()}
         style={{ cursor: "pointer" }}
         subtitle={node.taskName}
         title={task.name}
-      />
+      >
+        <div className={styles.progressBar} />
+      </WorkflowNode>
     );
   }
 }

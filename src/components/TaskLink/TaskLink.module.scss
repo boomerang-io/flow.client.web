@@ -9,3 +9,27 @@
     }
   }
 }
+
+.statusIcon {
+  background: $ui-01;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.5rem;
+
+  &.completed {
+    path {
+      fill: #009d9a;
+    }
+  }
+
+  &.failure {
+    path {
+      fill: #a51920;
+    }
+  }
+
+  path {
+    fill: black;
+  }
+}

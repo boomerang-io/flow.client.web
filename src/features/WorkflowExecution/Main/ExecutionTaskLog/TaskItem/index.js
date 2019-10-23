@@ -20,6 +20,7 @@ function TaskItem({ flowActivityId, task }) {
 
   return (
     <div key={id} className={`${styles.taskitem} ${statusClassName}`}>
+      <div className={styles.progressBar} />
       <section className={styles.header}>
         <div className={styles.title}>
           <Icon aria-label={flowTaskStatus} className={styles.taskIcon} />

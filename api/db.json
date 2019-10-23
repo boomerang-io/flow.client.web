@@ -493,8 +493,8 @@
   "workflowSingle": {
     "dag": {
       "id": "3f58d302-2a3c-4765-b606-7573d313a2fa",
-      "offsetX": -137.52441776159299,
-      "offsetY": -158.3135138148453,
+      "offsetX": -71.52441776159299,
+      "offsetY": -195.3135138148453,
       "zoom": 81.08074371819056,
       "gridSize": 0,
       "links": [
@@ -510,14 +510,14 @@
             {
               "id": "9d59d21b-6566-4abb-b477-21aeb0dc1485",
               "selected": false,
-              "x": 439.99999585751436,
-              "y": 433.50002120088743
+              "x": 206.44926611186128,
+              "y": 587.9300562056098
             },
             {
               "id": "8bcd25bb-f151-46a2-ad49-2997c06bbe41",
               "selected": false,
-              "x": 525.9843654628721,
-              "y": 378.89061836310395
+              "x": 389.7038727968661,
+              "y": 475.9318830440754
             }
           ],
           "extras": {},
@@ -540,14 +540,14 @@
             {
               "id": "80992b99-23af-4202-9e52-01308f52b97b",
               "selected": false,
-              "x": 746.4844162222453,
-              "y": 378.89061836310395
+              "x": 622.3288560503644,
+              "y": 475.9318830440754
             },
             {
               "id": "e5306c9e-bb7c-48d1-9fea-25b49a7ebdab",
               "selected": false,
-              "x": 829.386681735653,
-              "y": 296.2531020795224
+              "x": 770.822094706076,
+              "y": 334.09494848664224
             }
           ],
           "extras": {},
@@ -559,25 +559,25 @@
           "linkId": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7"
         },
         {
-          "id": "25405061-0a0d-4135-a677-f67e1c030a62",
+          "id": "16955507-cc27-4d0c-b17c-debf4573cb3b",
           "type": "task",
           "selected": false,
           "source": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "sourcePort": "0d350a4e-1715-49f2-a788-0626a1c80009",
-          "target": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
-          "targetPort": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095",
+          "target": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+          "targetPort": "21cc6fbb-5d3f-457a-9d97-a0bb8be453bc",
           "points": [
             {
-              "id": "8fe78b1b-0a02-49c5-9927-8a6aaf7111a2",
+              "id": "c9e37f73-c060-41ae-9fad-372cff349b0b",
               "selected": false,
-              "x": 1049.8866572180204,
-              "y": 296.2531020795224
+              "x": 1003.4471532365802,
+              "y": 334.09494848664224
             },
             {
-              "id": "657672ea-49dc-47f7-a4a6-0b8c0c4860d2",
+              "id": "49bf42e7-484b-44b6-9257-a5a7b4107627",
               "selected": false,
-              "x": 1140.2003203494369,
-              "y": 358.388699969345
+              "x": 1223.440750426782,
+              "y": 449.7180959949991
             }
           ],
           "extras": {},
@@ -586,7 +586,37 @@
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
           "executionCondition": "always",
-          "linkId": "25405061-0a0d-4135-a677-f67e1c030a62"
+          "linkId": "16955507-cc27-4d0c-b17c-debf4573cb3b"
+        },
+        {
+          "id": "dbc85ced-7820-4c69-a376-1d1c30a309f3",
+          "type": "task",
+          "selected": false,
+          "source": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+          "sourcePort": "5ff63d6c-b8ae-42a7-8d34-0542028423b0",
+          "target": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
+          "targetPort": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095",
+          "points": [
+            {
+              "id": "15d77fe4-d9ec-49b6-ae80-edcdea1f01fb",
+              "selected": false,
+              "x": 1456.0658089572864,
+              "y": 449.7180959949991
+            },
+            {
+              "id": "378c95b9-cda5-4dbf-9c8b-ee4778c61a6a",
+              "selected": false,
+              "x": 1653.9056844127922,
+              "y": 533.7802571274806
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "executionCondition": "always",
+          "linkId": "dbc85ced-7820-4c69-a376-1d1c30a309f3"
         }
       ],
       "nodes": [
@@ -594,8 +624,8 @@
           "id": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
           "type": "startend",
           "selected": false,
-          "x": 300,
-          "y": 400,
+          "x": 58.26566085625685,
+          "y": 552.9339696623682,
           "extras": {},
           "ports": [
             {
@@ -616,8 +646,8 @@
           "id": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
           "type": "startend",
           "selected": false,
-          "x": 1154.2004002714896,
-          "y": 324.9008775182657,
+          "x": 1668.5025401844534,
+          "y": 498.80160108595845,
           "extras": {},
           "ports": [
             {
@@ -626,7 +656,7 @@
               "selected": false,
               "name": "left",
               "parentNode": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
-              "links": ["25405061-0a0d-4135-a677-f67e1c030a62"],
+              "links": ["dbc85ced-7820-4c69-a376-1d1c30a309f3"],
               "position": "left",
               "nodePortId": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095"
             }
@@ -638,8 +668,8 @@
           "id": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
           "type": "templateTask",
           "selected": false,
-          "x": 539.9994864296667,
-          "y": 343.6465966518482,
+          "x": 404.332255277566,
+          "y": 438.61365845831875,
           "extras": {},
           "ports": [
             {
@@ -671,8 +701,8 @@
           "id": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "type": "templateTask",
           "selected": false,
-          "x": 843.4007488243648,
-          "y": 261.01291949556867,
+          "x": 785.4338409684672,
+          "y": 296.7797349811225,
           "extras": {},
           "ports": [
             {
@@ -691,7 +721,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
-              "links": ["25405061-0a0d-4135-a677-f67e1c030a62"],
+              "links": ["16955507-cc27-4d0c-b17c-debf4573cb3b"],
               "nodePortId": "0d350a4e-1715-49f2-a788-0626a1c80009",
               "position": "right"
             }
@@ -699,6 +729,39 @@
           "taskId": "5bd98b105a5df954ad599bc2",
           "nodeId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "taskName": "launch Send Email 1"
+        },
+        {
+          "id": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+          "type": "templateTask",
+          "selected": false,
+          "x": 1238.069057630476,
+          "y": 412.4003983482839,
+          "extras": {},
+          "ports": [
+            {
+              "id": "21cc6fbb-5d3f-457a-9d97-a0bb8be453bc",
+              "type": "task",
+              "selected": false,
+              "name": "left",
+              "parentNode": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+              "links": ["16955507-cc27-4d0c-b17c-debf4573cb3b"],
+              "nodePortId": "21cc6fbb-5d3f-457a-9d97-a0bb8be453bc",
+              "position": "left"
+            },
+            {
+              "id": "5ff63d6c-b8ae-42a7-8d34-0542028423b0",
+              "type": "task",
+              "selected": false,
+              "name": "right",
+              "parentNode": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+              "links": ["dbc85ced-7820-4c69-a376-1d1c30a309f3"],
+              "nodePortId": "5ff63d6c-b8ae-42a7-8d34-0542028423b0",
+              "position": "right"
+            }
+          ],
+          "taskId": "5b92f794844d0700016ea216",
+          "nodeId": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+          "taskName": "read Ingest CSV 1"
         }
       ]
     },
@@ -725,6 +788,15 @@
             "message2": "",
             "message3": "",
             "message4": ""
+          },
+          "type": "templateTask"
+        },
+        {
+          "nodeId": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+          "taskId": "5b92f794844d0700016ea216",
+          "inputs": {
+            "offset": "",
+            "shell": ""
           },
           "type": "templateTask"
         }
@@ -5938,7 +6010,7 @@
         "id": "5c36289096052900012cc81e",
         "order": 1,
         "startTime": "2019-09-03T15:00:00.230+0000",
-        "taskId": "515c8b05-ceb0-470a-a58e-b8740b332a6a",
+        "taskId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
         "outputs": {
           "args": {
             "test": "true"
@@ -5964,11 +6036,11 @@
       {
         "activityId": "5c36289096052900012cc81s",
         "duration": 300190,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "inProgress",
         "id": "5c3628909605290001dcc81e",
-        "order": 1,
+        "order": 2,
         "startTime": "2019-09-03T15:01:00.103+0000",
-        "taskId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+        "taskId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
         "outputs": {
           "args": {
             "test": "true"
@@ -5994,11 +6066,11 @@
       {
         "activityId": "5c36289096052900012cc81d",
         "duration": 300190,
-        "flowTaskStatus": "inProgress",
+        "flowTaskStatus": "notstarted",
         "id": "5cd6289096052900012cc81e",
-        "order": 1,
+        "order": 3,
         "startTime": "2019-09-03T15:02:00.103+0000",
-        "taskId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+        "taskId": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
         "outputs": {
           "args": {
             "test": "true"
