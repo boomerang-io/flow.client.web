@@ -7,7 +7,7 @@ import { actions as tasksActions } from "State/tasks";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { Prompt } from "react-router-dom";
-import { Loading } from "carbon-components-react";
+import Loading from "Components/Loading";
 import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import Editor from "./Editor";
@@ -237,7 +237,7 @@ export class WorkflowManagerContainer extends Component {
   render() {
     const { tasks, workflow, workflowRevision } = this.props;
     if (tasks.isFetching || workflow.isFetching || workflowRevision.isFetching) {
-      return <Loading centered message="Retrieving your workflow. Please hold." />;
+      return <Loading />;
     }
 
     if (

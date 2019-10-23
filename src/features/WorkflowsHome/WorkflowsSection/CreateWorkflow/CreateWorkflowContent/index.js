@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames/bind";
-import {
-  TextInput,
-  ComboBox,
-  TextArea,
-  ModalFlowForm,
-  LoadingAnimation
-} from "@boomerang/carbon-addons-boomerang-react";
+import { TextInput, ComboBox, TextArea, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
+import Loading from "Components/Loading";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
@@ -61,7 +56,7 @@ class CreateEditModeModalContent extends Component {
           const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
 
           if (isCreating) {
-            return <LoadingAnimation message="We'll be right with you" />;
+            return <Loading />;
           }
 
           return (

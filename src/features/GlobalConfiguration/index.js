@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions } from "State/globalConfiguration";
 import ErrorDragon from "Components/ErrorDragon";
-import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
+import Loading from "Components/Loading";
 import PropertiesTable from "./PropertiesTable";
 import REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
@@ -46,7 +46,7 @@ export class GlobalConfigurationContainer extends Component {
     } = this.props;
 
     if (isFetching) {
-      return <LoadingAnimation centered message="We'll be right with you" />;
+      return <Loading />;
     }
 
     if (status === REQUEST_STATUSES.FAILURE) {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import DelayedRender from "Components/DelayedRender";
 import PropTypes from "prop-types";
 import {
   MultiSelect,
@@ -74,16 +75,18 @@ class SearchFilterBar extends Component {
 
     if (loading) {
       return (
-        <div className="b-search-filter">
-          {searchbar && (
-            <div className="b-search-filter__search">
-              <SearchSkeleton small />
+        <DelayedRender>
+          <div className="b-search-filter">
+            {searchbar && (
+              <div className="b-search-filter__search">
+                <SearchSkeleton small />
+              </div>
+            )}
+            <div className="b-search-filter__filter">
+              <SelectSkeleton />
             </div>
-          )}
-          <div className="b-search-filter__filter">
-            <SelectSkeleton />
           </div>
-        </div>
+        </DelayedRender>
       );
     }
 

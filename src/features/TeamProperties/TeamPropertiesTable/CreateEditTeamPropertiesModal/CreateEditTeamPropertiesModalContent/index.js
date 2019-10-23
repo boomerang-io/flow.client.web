@@ -4,7 +4,8 @@ import axios from "axios";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button, ModalBody, ModalFooter, TextInput, Toggle } from "carbon-components-react";
-import { LoadingAnimation, ModalFlowForm, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalFlowForm, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import Loading from "Components/Loading";
 import { TEAM_PROPERTIES_ID_URL, TEAM_PROPERTIES_ID_PROPERTY_ID_URL } from "Config/servicesConfig";
 import INPUT_TYPES from "Constants/inputTypes";
 import styles from "./createEditTeamPropertiesModalContent.module.scss";
@@ -91,7 +92,7 @@ class CreateEditTeamPropertiesModalContent extends Component {
         {props => {
           const { values, touched, errors, isSubmitting, isValid, handleChange, handleBlur, handleSubmit } = props;
           if (isSubmitting) {
-            return <LoadingAnimation message="We'll be right with you" />;
+            return <Loading />;
           }
 
           return (

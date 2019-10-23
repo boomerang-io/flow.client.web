@@ -5,7 +5,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { TextInput, Toggle } from "carbon-components-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
-import { LoadingAnimation, ModalFlowForm, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalFlowForm, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import Loading from "Components/Loading";
 import INPUT_TYPES from "Constants/inputTypes";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import styles from "./createEditPropertiesContent.module.scss";
@@ -88,7 +89,7 @@ class CreateEditPropertiesContent extends Component {
           const { values, touched, errors, isSubmitting, isValid, handleChange, handleBlur, handleSubmit } = props;
 
           if (isSubmitting) {
-            return <LoadingAnimation message="We'll be right with you" />;
+            return <Loading />;
           }
 
           return (
