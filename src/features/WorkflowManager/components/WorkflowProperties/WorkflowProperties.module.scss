@@ -95,10 +95,25 @@
 
 .description {
   color: #272727;
+  display: block;
   font-size: 0.75rem;
   line-height: 0.9375rem;
   margin-top: 1rem;
-  height: 1.875rem;
+  //height: 1.875rem;
+  height: 1.7rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.description::before {
+  background: linear-gradient(to right, transparent, $white 80%);
+  bottom: 0;
+  content: "\200C";
+  display: block;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 20%;
 }
 
 .required {
