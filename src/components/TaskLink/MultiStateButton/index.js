@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-//import ToolTip from "@boomerang/boomerang-components/lib/Tooltip";
 import { EXECUTION_CONDITIONS, EXECUTION_STATES } from "./constants";
 import "./styles.scss";
 
@@ -38,21 +37,15 @@ class MultiStateButton extends Component {
 
   render() {
     const executionConditionConfig = EXECUTION_CONDITIONS[this.state.executionConditionIndex];
-    const { modelId } = this.props;
     return (
       <div xmlns={this.props.xmlns}>
         <button onClick={this.handleOnClick}>
           <img
-            src={executionConditionConfig.img}
-            className="b-multistate-button"
             alt={`${executionConditionConfig.condition} status`}
-            data-tip
-            data-for={modelId}
+            className="b-multistate-button"
+            src={executionConditionConfig.img}
           />
         </button>
-        {/* <ToolTip className="bmrg--b-tooltip b-multistate-button__tooltip" place="bottom" id={modelId}>
-          {executionConditionConfig.text}
-        </ToolTip> */}
       </div>
     );
   }
