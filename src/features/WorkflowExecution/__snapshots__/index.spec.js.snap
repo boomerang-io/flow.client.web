@@ -92,148 +92,119 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
           </div>
         </div>
       </header>
-      <aside
-        class="container "
+      <main
+        class="executionResultContainer"
       >
-        <section
-          class="statusBlock inProgress"
+        <aside
+          class="container "
         >
-          <div
-            class="duration"
+          <section
+            class="statusBlock inProgress"
           >
-            <p
-              class="title"
-            >
-              Duration
-            </p>
-            <time
-              class="value"
-            >
-              NaNs
-            </time>
-          </div>
-          <div
-            class="status"
-          >
-            <p
-              class="title"
-            >
-              Status
-            </p>
             <div
-              class="statusData"
+              class="duration"
+            >
+              <p
+                class="title"
+              >
+                Duration
+              </p>
+              <time
+                class="value"
+              >
+                --
+              </time>
+            </div>
+            <div
+              class="status"
+            >
+              <p
+                class="title"
+              >
+                Status
+              </p>
+              <div
+                class="statusData"
+              >
+                <svg
+                  aria-label="inProgress"
+                  class="statusIcon"
+                  focusable="false"
+                  height="32"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  style="will-change: transform;"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15 11h2v9h-2zm-2-9h6v2h-6z"
+                  />
+                  <path
+                    d="M28 9l-1.42-1.41-2.25 2.25a10.94 10.94 0 1 0 1.18 1.65zM16 26a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"
+                  />
+                </svg>
+                <p
+                  class="value"
+                >
+                  In Progress
+                </p>
+              </div>
+            </div>
+            <button
+              class="collapseButton"
             >
               <svg
-                aria-label="inProgress"
-                class="statusIcon"
+                aria-hidden="true"
+                class="chevron"
                 focusable="false"
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
-                role="img"
                 style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M15 11h2v9h-2zm-2-9h6v2h-6z"
-                />
-                <path
-                  d="M28 9l-1.42-1.41-2.25 2.25a10.94 10.94 0 1 0 1.18 1.65zM16 26a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"
+                  d="M10 16L20 6l1.4 1.4-8.6 8.6 8.6 8.6L20 26z"
                 />
               </svg>
-              <p
-                class="value"
-              >
-                In Progress
-              </p>
-            </div>
-          </div>
-          <button
-            class="collapseButton"
+            </button>
+          </section>
+          <section
+            class="taskbar"
           >
-            <svg
-              aria-hidden="true"
-              class="chevron"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 16L20 6l1.4 1.4-8.6 8.6 8.6 8.6L20 26z"
-              />
-            </svg>
-          </button>
-        </section>
-        <section
-          class="taskbar"
-        >
-          <p
-            class="taskbarTitle"
-          >
-            Task log
-          </p>
-          <button
-            class="taskbarButton"
-          >
-            <svg
-              aria-hidden="true"
-              class="taskbarArrows"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
-              />
-            </svg>
-          </button>
-        </section>
-        <section
-          class="tasklog"
-        />
-        <section
-          class="diagram"
-        >
-          <p
-            class="flowStatus"
-          >
-            Read-only
-          </p>
-          <button
-            class="edit"
-          >
-            <svg
-              aria-hidden="true"
-              class="editIcon"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2 27h28v2H2zM25.41 9a2 2 0 0 0 0-2.83l-3.58-3.58a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22v-3.59l10-10L19.59 12l-10 10z"
-              />
-            </svg>
             <p
-              class="editText"
+              class="taskbarTitle"
             >
-              Edit Workflow
+              Task log
             </p>
-          </button>
-        </section>
-      </aside>
+            <button
+              class="taskbarButton"
+            >
+              <svg
+                aria-hidden="true"
+                class="taskbarArrows"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
+                />
+              </svg>
+            </button>
+          </section>
+          <section
+            class="tasklog"
+          />
+        </aside>
+      </main>
     </div>
   </div>
 </body>

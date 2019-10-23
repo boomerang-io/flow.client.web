@@ -48,9 +48,9 @@ describe("Inputs --- RTL", () => {
   it("Opens create new property modal", () => {
     const { queryByText, getByTestId } = rtlReduxRender(<Inputs {...props} />, { initialState });
 
-    //expect(queryByText(/Create new property/i)).not.toBeInTheDocument();
+    //expect(queryByText(/Create a new property/i)).not.toBeInTheDocument();
 
-    //const modalTrigger = getByText(/Create new property/i);
+    //const modalTrigger = getByText(/Create a new property/i);
     const modalTrigger = getByTestId("create-new-workflow-input-button");
     fireEvent.click(modalTrigger);
 

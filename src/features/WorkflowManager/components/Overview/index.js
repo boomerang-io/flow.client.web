@@ -51,11 +51,6 @@ export class Overview extends Component {
     document.addEventListener("beforeunload", this.props.updateWorkflow);
   }
 
-  componentWillUnmount() {
-    document.removeEventListener("beforeunload", this.props.updateWorkflow);
-    this.props.updateWorkflow();
-  }
-
   generateToken = e => {
     if (e) {
       e.preventDefault();
@@ -149,8 +144,8 @@ export class Overview extends Component {
     } = this.props;
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.largeCol}>
+      <main className={styles.wrapper}>
+        <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
           <h2 className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</h2>
           <ComboBox
@@ -158,11 +153,13 @@ export class Overview extends Component {
             items={teams}
             initialSelectedItem={values.selectedTeam}
             itemToString={item => (item ? item.name : "")}
+            invalid={errors.selectedTeam && touched.selectedTeam}
+            invalidText={errors.selectedTeam}
             value={values.selectedTeam}
             titleText={
               <div style={{ display: "flex" }}>
                 <p style={{ marginRight: "0.5rem" }}>Team</p>
-                <CarbonTooltip tooltipText="test" />
+                <CarbonTooltip direction="right">The Flow team for this workflow</CarbonTooltip>
               </div>
             }
             placeholder="Select a team"
@@ -173,7 +170,7 @@ export class Overview extends Component {
           <TextInput
             id="name"
             labelText="Name"
-            helperText="Must be unique, or special characters"
+            helperText="Must be unique"
             placeholder="Name"
             value={values.name}
             onBlur={handleBlur}
@@ -221,8 +218,8 @@ export class Overview extends Component {
               </label>
             ))}
           </div>
-        </div>
-        <div className={styles.smallCol}>
+        </section>
+        <section className={styles.smallCol}>
           <h1 className={styles.header}>Triggers</h1>
           <h2 className={styles.subTitle}>Off - until you turn them on. (Feel the power).</h2>
           <div>
@@ -429,9 +426,9 @@ export class Overview extends Component {
           </div>
 
           <div className={styles.delimiter} />
-        </div>
-        <div className={styles.largeCol} />
-      </div>
+        </section>
+        <section className={styles.largeCol} />
+      </main>
     );
   }
 }

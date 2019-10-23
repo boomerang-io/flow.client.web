@@ -143,6 +143,14 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
             >
               52%
             </p>
+            <span
+              aria-hidden="false"
+              aria-label="Success rate"
+              class="emoji"
+              role="img"
+            >
+              😮
+            </span>
           </div>
           <p
             class="text"

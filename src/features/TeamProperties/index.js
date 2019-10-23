@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as teamPropertiesActions } from "State/teamProperties";
 import { actions as teamsActions } from "State/teams";
-import { LoadingAnimation } from "@boomerang/carbon-addons-boomerang-react";
+import Loading from "Components/Loading";
 import TeamPropertiesTable from "./TeamPropertiesTable";
 import { default as USER_TYPES } from "Constants/userTypes";
 import REQUEST_STATUSES from "Constants/serviceRequestStatuses";
@@ -61,7 +61,7 @@ export class TeamProperties extends Component {
     const { teams } = this.props;
 
     if (teams.isFetching) {
-      return <LoadingAnimation centered message="We'll be right with you" />;
+      return <Loading />;
     }
 
     if (teams.status === REQUEST_STATUSES.FAILURE) {

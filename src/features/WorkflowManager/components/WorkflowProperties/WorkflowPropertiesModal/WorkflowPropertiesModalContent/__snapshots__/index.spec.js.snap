@@ -18,36 +18,10 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
             class="bx--form-item bx--text-input-wrapper"
           >
             <label
-              class="bx--label bx--label--disabled"
-              for="key"
-            >
-              Key
-            </label>
-            <div
-              class="bx--text-input__field-wrapper"
-            >
-              <input
-                class="bx--text-input bx--text__input"
-                disabled=""
-                id="key"
-                placeholder="key.value"
-                type="text"
-                value="tim.property"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          class="bx--bmrg-text-input"
-        >
-          <div
-            class="bx--form-item bx--text-input-wrapper"
-          >
-            <label
               class="bx--label"
               for="label"
             >
-              Label
+              Name
             </label>
             <div
               class="bx--text-input__field-wrapper"
@@ -55,7 +29,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               <input
                 class="bx--text-input bx--text__input"
                 id="label"
-                placeholder="Label"
+                placeholder="Name"
                 type="text"
                 value="Tim Property"
               />

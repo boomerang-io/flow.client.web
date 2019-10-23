@@ -221,43 +221,44 @@ class WorkflowPropertiesModalContent extends Component {
             <ModalFlowForm disabled={loading}>
               <ModalBody className={styles.container}>
                 <TextInput
-                  id={FIELD.KEY}
-                  disabled={isEdit}
-                  labelText="Key"
-                  placeholder="key.value"
-                  value={values.key}
-                  onBlur={handleBlur}
-                  onChange={e => this.handleOnChange(e, handleChange)}
-                  invalid={errors.key && touched.key}
-                  invalidText={errors.key}
-                />
-
-                <TextInput
                   id={FIELD.LABEL}
-                  labelText="Label"
-                  placeholder="Label"
+                  labelText="Name"
+                  placeholder="Name"
                   value={values.label}
                   onBlur={handleBlur}
                   onChange={e => this.handleOnChange(e, handleChange)}
                   invalid={errors.label && touched.label}
                   invalidText={errors.label}
                 />
+                {!isEdit && (
+                  <TextInput
+                    helperText="Reference value for property in workflow"
+                    id={FIELD.KEY}
+                    invalid={errors.key && touched.key}
+                    invalidText={errors.key}
+                    labelText="Key"
+                    onBlur={handleBlur}
+                    onChange={e => this.handleOnChange(e, handleChange)}
+                    placeholder="key.value"
+                    value={values.key}
+                  />
+                )}
 
                 <TextInput
                   id={FIELD.DESCRIPTION}
                   labelText="Description"
-                  placeholder="Description"
-                  value={values.description}
                   onBlur={handleBlur}
                   onChange={e => this.handleOnChange(e, handleChange)}
+                  placeholder="Description"
+                  value={values.description}
                 />
 
                 <Toggle
                   id={FIELD.REQUIRED}
-                  toggled={values.required}
                   labelText="Required"
                   onToggle={value => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
                   orientation="vertical"
+                  toggled={values.required}
                 />
 
                 <ComboBox
@@ -284,8 +285,8 @@ class WorkflowPropertiesModalContent extends Component {
                 <Button
                   data-testid="inputs-modal-confirm-button"
                   disabled={!isValid || loading}
-                  type="submit"
                   onClick={() => this.handleConfirm(formikProps)}
+                  type="submit"
                 >
                   {isEdit ? "Save" : "Create"}
                 </Button>

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ModalBody, ModalFooter, Button } from "carbon-components-react";
 import Error from "@boomerang/boomerang-components/lib/Error";
-import { LoadingAnimation, ModalConfirmEdit, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalConfirmEdit, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
+import Loading from "Components/Loading";
 import { options } from "Constants/importWorkflowOptions";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
 
@@ -35,7 +36,7 @@ class ImportConfirm extends Component {
     if (this.props.importWorkflowState.isPosting === true) {
       return (
         <ModalBody>
-          <LoadingAnimation />
+          <Loading />
         </ModalBody>
       );
     }

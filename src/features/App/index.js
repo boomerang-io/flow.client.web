@@ -7,10 +7,10 @@ import { actions as userActions } from "State/user";
 import { actions as navigationActions } from "State/navigation";
 import { actions as teamsActions } from "State/teams";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
-import { Loading } from "carbon-components-react";
 import Modal from "@boomerang/boomerang-components/lib/Modal";
 import { NotificationsContainer, ProtectedRoute, ErrorBoundary } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
+import Loading from "Components/Loading";
 import NotificationBanner from "Components/NotificationBanner";
 import BrowserModal from "./BrowserModal";
 import FlowRedirectModalContent from "./flowRedirectModalContent";
@@ -64,7 +64,7 @@ class App extends Component {
   renderApp() {
     const { user, navigation, teams } = this.props;
     if (user.isFetching || user.isCreating || navigation.isFetching) {
-      return <Loading centered message="Booting up the app. We'll be right with you" />;
+      return <Loading />;
     }
 
     if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && !user.data.id) {
@@ -92,7 +92,7 @@ class App extends Component {
 
       return (
         <>
-          <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
+          <div className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
             {<NotificationBanner closeBanner={this.closeBanner} />}
             <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
               <Switch>
@@ -116,7 +116,7 @@ class App extends Component {
                 <Redirect from="/" to="/workflows" />
               </Switch>
             </Suspense>
-          </main>
+          </div>
           <NotificationsContainer enableMultiContainer />
         </>
       );

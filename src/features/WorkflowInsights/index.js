@@ -8,6 +8,7 @@ import moment from "moment";
 import queryString from "query-string";
 import { Dropdown, SelectSkeleton, SkeletonPlaceholder } from "carbon-components-react";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
+import DelayedRender from "Components/DelayedRender";
 import ErrorDragon from "Components/ErrorDragon";
 import ChartsTile from "./ChartsTile";
 import InsightsHeader from "./InsightsHeader";
@@ -115,19 +116,21 @@ export class WorkflowInsights extends Component {
 
     if (insights.isFetching || teams.isFetching) {
       return (
-        <div className={styles.container}>
-          <div className={cx(styles.header, styles.dropdownPlaceholderContainer)}>
-            <SelectSkeleton className={styles.dropdownPlaceholder} />
-            <SelectSkeleton className={styles.dropdownPlaceholder} />
-            <SelectSkeleton className={styles.dropdownPlaceholder} />
+        <DelayedRender>
+          <div className={styles.container}>
+            <div className={cx(styles.header, styles.dropdownPlaceholderContainer)}>
+              <SelectSkeleton className={styles.dropdownPlaceholder} />
+              <SelectSkeleton className={styles.dropdownPlaceholder} />
+              <SelectSkeleton className={styles.dropdownPlaceholder} />
+            </div>
+            <div className={styles.cardPlaceholderContainer}>
+              <SkeletonPlaceholder className={styles.cardPlaceholder} />
+              <SkeletonPlaceholder className={styles.cardPlaceholder} />
+              <SkeletonPlaceholder className={cx(styles.cardPlaceholder, styles.wide)} />
+            </div>
+            <SkeletonPlaceholder className={styles.graphPlaceholder} />
           </div>
-          <div className={styles.cardPlaceholderContainer}>
-            <SkeletonPlaceholder className={styles.cardPlaceholder} />
-            <SkeletonPlaceholder className={styles.cardPlaceholder} />
-            <SkeletonPlaceholder className={cx(styles.cardPlaceholder, styles.wide)} />
-          </div>
-          <SkeletonPlaceholder className={styles.graphPlaceholder} />
-        </div>
+        </DelayedRender>
       );
     }
 
