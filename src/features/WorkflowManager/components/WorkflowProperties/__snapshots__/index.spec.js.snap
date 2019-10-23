@@ -5,26 +5,26 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
   id="app"
 >
   <div>
-    <div
+    <main
       class="container"
     >
-      <div
+      <section
         class="property"
       >
-        <dl
-          class="fieldContainer"
+        <div
+          class="headerContainer"
         >
-          <dt
-            class="fieldKey"
-          >
-            Label
-          </dt>
-          <dd
-            class="fieldValue"
+          <h1
+            class="label"
           >
             Tim Property
-          </dd>
-        </dl>
+          </h1>
+          <p
+            class="description"
+          >
+            Tim property
+          </p>
+        </div>
         <dl
           class="fieldContainer"
         >
@@ -37,20 +37,6 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
             class="fieldValue"
           >
             tim.property
-          </dd>
-        </dl>
-        <dl
-          class="fieldContainer"
-        >
-          <dt
-            class="fieldKey"
-          >
-            Description
-          </dt>
-          <dd
-            class="fieldValue"
-          >
-            Tim property
           </dd>
         </dl>
         <dl
@@ -73,20 +59,6 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           <dt
             class="fieldKey"
           >
-            Required
-          </dt>
-          <dd
-            class="fieldValue"
-          >
-            true
-          </dd>
-        </dl>
-        <dl
-          class="fieldContainer"
-        >
-          <dt
-            class="fieldKey"
-          >
             Default value
           </dt>
           <dd
@@ -101,7 +73,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           <dt
             class="fieldKey"
           >
-            Valid values
+            Options
           </dt>
           <dd
             class="fieldValue"
@@ -109,46 +81,51 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
             pandas, dogs
           </dd>
         </dl>
+        <p
+          class="required"
+        >
+          Required
+        </p>
         <button
-          class="editContainer"
+          aria-label="Edit"
+          class="button editContainer"
         >
           <svg
-            aria-label="Edit"
-            class="editIcon"
-            focusable="false"
-            height="32"
-            preserveAspectRatio="xMidYMid meet"
-            role="img"
-            style="will-change: transform;"
-            viewBox="0 0 32 32"
-            width="32"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M2 27h28v2H2zM25.41 9a2 2 0 0 0 0-2.83l-3.58-3.58a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22v-3.59l10-10L19.59 12l-10 10z"
-            />
-          </svg>
-        </button>
-        <button
-          class="deleteContainer"
-        >
-          <svg
+            alt="Workflow edit button"
             aria-hidden="true"
-            class="deleteIcon"
             focusable="false"
-            height="32"
+            height="16"
             preserveAspectRatio="xMidYMid meet"
             style="will-change: transform;"
-            viewBox="0 0 32 32"
-            width="32"
+            viewBox="0 0 16 16"
+            width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+              d="M1 13h14v1H1zm11.7-8.5c.4-.4.4-1 0-1.4l-1.8-1.8c-.4-.4-1-.4-1.4 0L2 8.8V12h3.2l7.5-7.5zM10.2 2L12 3.8l-1.5 1.5-1.8-1.8L10.2 2zM3 11V9.2l5-5L9.8 6l-5 5H3z"
             />
           </svg>
         </button>
-      </div>
+        <button
+          class="button deleteProperty"
+        >
+          <svg
+            alt="Workflow close button"
+            aria-hidden="true"
+            focusable="false"
+            height="16"
+            preserveAspectRatio="xMidYMid meet"
+            style="will-change: transform;"
+            viewBox="0 0 16 16"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+            />
+          </svg>
+        </button>
+      </section>
       <button
         class="createPropertyCard"
         data-testid="create-new-workflow-input-button"
@@ -179,7 +156,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           </p>
         </div>
       </button>
-    </div>
+    </main>
   </div>
   <div
     class="ReactModalPortal"

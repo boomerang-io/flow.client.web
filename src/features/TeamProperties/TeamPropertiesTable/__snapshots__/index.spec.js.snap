@@ -43,9 +43,7 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
             class="bx--list-box__wrapper"
           >
             <div
-              aria-label="Choose an item"
               class="bx--combo-box bx--list-box"
-              id="combobox-a11y-1"
               role="listbox"
               tabindex="-1"
             >
@@ -64,15 +62,13 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
                   aria-controls="team-properties-select__menu"
                   aria-disabled="false"
                   aria-expanded="false"
-                  aria-labelledby="combobox-a11y-1"
-                  aria-owns="team-properties-select__menu"
+                  aria-label="Choose an item"
                   autocomplete="off"
                   class="bx--text-input"
                   id="team-properties-select"
                   label="Teams"
                   placeholder="Select a team"
                   role="combobox"
-                  tabindex="0"
                   value=""
                 />
                 

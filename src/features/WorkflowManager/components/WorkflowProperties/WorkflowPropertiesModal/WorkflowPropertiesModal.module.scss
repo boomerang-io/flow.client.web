@@ -14,20 +14,20 @@
 }
 
 .createPropertyCard {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  height: 16rem;
-  width: 15.625rem;
   border: 0.0625rem solid #373d42;
   color: $brand-02;
   cursor: pointer;
+  display: flex;
+  height: 22.625rem;
+  justify-content: center;
+  width: 17.625rem;
   @include border-radius();
 }
 
 .createContainer {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .createText {
@@ -39,8 +39,8 @@
 }
 
 .createIcon {
-  fill: $brand-02;
-  height: 1.5rem;
-  width: 1.5rem;
   cursor: pointer;
+  height: 1.5rem;
+  fill: $brand-02;
+  width: 1.5rem;
 }

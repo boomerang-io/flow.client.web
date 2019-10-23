@@ -4,10 +4,6 @@ exports[`WorkflowManager --- Snapshot Capturing Snapshot of WorkflowManager 1`] 
 <body
   id="app"
 >
-  <div>
-    <div
-      class="container"
-    />
-  </div>
+  <div />
 </body>
 `;

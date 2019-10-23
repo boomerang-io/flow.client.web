@@ -20,23 +20,25 @@ function WorkflowPropertyRow({ title, value }) {
   return (
     <dl className={styles.fieldContainer}>
       <dt className={styles.fieldKey}>{title}</dt>
-      <h1 className={styles.fieldValue}>{value}</h1>
+      <dd className={styles.fieldValue}>{value}</dd>
     </dl>
   );
 }
 
-function WorkflowPropertyHeader({ label, propertyKey, description }) {
+function WorkflowPropertyHeader({ label, description }) {
   return (
-    <dl className={styles.headerContainer}>
-      <dt className={styles.label}>{label}</dt>
-      <dd className={styles.propertyKey}>{propertyKey}</dd>
-      <dd className={styles.description}>{description}</dd>
-    </dl>
+    <div className={styles.headerContainer}>
+      <h1 className={styles.label}>{label}</h1>
+      <p className={styles.description}>{description}</p>
+    </div>
   );
 }
 
 function WorkflowProperties(props) {
   function formatDefaultValue(value) {
+    if (!value) {
+      return "---";
+    }
     switch (value) {
       case INPUT_TYPES.BOOLEAN:
         return value.toString();
@@ -56,18 +58,15 @@ function WorkflowProperties(props) {
   const { inputs } = props;
   const inputsKeys = inputs.map(input => input.key);
   return (
-    <div className={styles.container}>
+    <main className={styles.container}>
       {inputs.length > 0 &&
         inputs.map((input, index) => (
-          <div key={`${input.id}-${index}`} className={styles.property}>
-            <WorkflowPropertyHeader label={input.label} propertyKey={input.key} description={input.description} />
+          <section key={`${input.id}-${index}`} className={styles.property}>
+            <WorkflowPropertyHeader label={input.label} description={input.description} />
+            <WorkflowPropertyRow title="Key" value={input.key} />
             <WorkflowPropertyRow title="Type" value={input.type} />
-            {formatDefaultValue(input.defaultValue) && (
-              <WorkflowPropertyRow title="Default value" value={formatDefaultValue(input.defaultValue)} />
-            )}
-            {input.validValues && (
-              <WorkflowPropertyRow title="Valid values" value={formatDefaultValue(input.validValues.join(", "))} />
-            )}
+            <WorkflowPropertyRow title="Default value" value={formatDefaultValue(input.defaultValue)} />
+            <WorkflowPropertyRow title="Options" value={formatDefaultValue(input.validValues?.join(", "))} />
             {input.required ? (
               <p className={styles.required}>Required</p>
             ) : (
@@ -96,7 +95,7 @@ function WorkflowProperties(props) {
             ) : (
               <p className={styles.readOnlyText}>Read-only</p>
             )}
-          </div>
+          </section>
         ))}
       <WorkflowPropertiesModal
         isEdit={false}
@@ -104,7 +103,7 @@ function WorkflowProperties(props) {
         updateWorkflowProperties={props.updateWorkflowProperties}
         loading={props.loading}
       />
-    </div>
+    </main>
   );
 }
 

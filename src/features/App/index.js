@@ -92,7 +92,7 @@ class App extends Component {
 
       return (
         <>
-          <main className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
+          <div className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
             {<NotificationBanner closeBanner={this.closeBanner} />}
             <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
               <Switch>
@@ -116,7 +116,7 @@ class App extends Component {
                 <Redirect from="/" to="/workflows" />
               </Switch>
             </Suspense>
-          </main>
+          </div>
           <NotificationsContainer enableMultiContainer />
         </>
       );
