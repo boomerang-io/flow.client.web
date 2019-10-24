@@ -142,7 +142,7 @@ export default class Tasks extends Component {
           >
             <ul className={styles.taskSection} key={category}>
               {catgegoriesWithTasks[category].map(task => (
-                <Task model={{ type: task.id, name: task.name, taskData: task }} name={task.name} key={task.id} />
+                <Task key={task.id} model={{ type: task.id, name: task.name, taskData: task }} name={task.name} />
               ))}
             </ul>
           </AccordionItem>
@@ -165,15 +165,16 @@ export default class Tasks extends Component {
         </header>
         <section className={styles.tools}>
           <Search
+            small
             labelText="Search for a task"
-            placeHolderText="Search for a task"
             onChange={this.handleOnSearchInputChange}
+            placeHolderText="Search for a task"
             value={this.state.searchQuery}
           />
-          <OverflowMenu renderIcon={SettingsAdjust20} flipped={true} style={{ height: "2.5rem", width: "2.5rem" }}>
+          <OverflowMenu renderIcon={SettingsAdjust20} flipped={true}>
             <CheckboxList
-              options={this.state.uniqueTaskTypes}
               initialSelectedItems={this.state.activeFilters}
+              options={this.state.uniqueTaskTypes}
               onChange={(...args) => this.handleCheckboxListChange(...args)}
             />
           </OverflowMenu>

@@ -5,8 +5,10 @@
   align-items: flex-start;
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 10.3125rem);
   max-width: 120rem;
   margin: 0 auto;
+  overflow: auto;
   padding: 1.5rem 2rem;
   width: 100%;
   :global .c-legend {

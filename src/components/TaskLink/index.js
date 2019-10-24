@@ -1,26 +1,44 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import cx from "classnames";
 import WorkFlowCloseButton from "Components/WorkflowCloseButton";
-import MultiStateButton from "./MultiStateButton";
-import { CloseOutline32, CheckmarkOutline32, Error32 } from "@carbon/icons-react";
-import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
+import ExecutionConditionSwitcher from "./ExecutionConditionSwitcher";
+import { CheckmarkOutline16, CloseOutline16, ArrowRight16 } from "@carbon/icons-react";
 import styles from "./TaskLink.module.scss";
+
+export const EXECUTION_STATES = {
+  SUCCESS: "success",
+  FAILURE: "failure",
+  ALWAYS: "always"
+};
+
+export const EXECUTION_CONDITIONS = [
+  {
+    Icon: CheckmarkOutline16,
+    name: EXECUTION_STATES.SUCCESS
+  },
+  {
+    Icon: CloseOutline16,
+    name: EXECUTION_STATES.FAILURE
+  },
+  {
+    Icon: ArrowRight16,
+    name: EXECUTION_STATES.ALWAYS
+  }
+];
 
 class TaskLink extends Component {
   static propTypes = {
     model: PropTypes.object.isRequired,
     path: PropTypes.string.isRequired,
-    diagramEngine: PropTypes.object.isRequired,
-    workflowExecution: PropTypes.object
+    diagramEngine: PropTypes.object.isRequired
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      executionCondition: this.props.model.executionCondition,
-      count: 0 //just set here one time
+      executionConditionIndex: EXECUTION_CONDITIONS.findIndex(
+        executionCondition => executionCondition.name === props.model.executionCondition
+      )
     };
 
     this.halfwayPoint = "";
@@ -41,8 +59,13 @@ class TaskLink extends Component {
     this.props.diagramEngine.repaintCanvas();
   };
 
-  updateExecutionState = executionCondition => {
-    this.props.model.executionCondition = executionCondition;
+  updateExecutionState = () => {
+    const executionConditionIndex = (this.state.executionConditionIndex + 1) % EXECUTION_CONDITIONS.length;
+    const executionCondition = EXECUTION_CONDITIONS[executionConditionIndex];
+    this.props.model.executionCondition = executionCondition.name;
+    this.setState({
+      executionConditionIndex
+    });
   };
 
   determineAngleBetweenPorts(cx, cy, ex, ey) {
@@ -58,27 +81,7 @@ class TaskLink extends Component {
   }
 
   render() {
-    const { diagramEngine, model, workflowExecution } = this.props;
-    const { steps, status } = workflowExecution.data;
-    const sourceTaskId = model.sourcePort.parent.id;
-    const isLocked = diagramEngine.diagramModel.locked;
-
-    let Icon = undefined;
-    let flowTaskStatus = "";
-
-    if (isLocked) {
-      const sourceStep = Array.isArray(steps) ? steps.find(step => step.taskId === sourceTaskId) : {};
-      flowTaskStatus = sourceStep ? sourceStep.flowTaskStatus : "";
-
-      const ACTIVITY_STATUSES_TO_ICON = {
-        [ACTIVITY_STATUSES.COMPLETED]: CheckmarkOutline32,
-        [ACTIVITY_STATUSES.FAILURE]: CloseOutline32,
-        [ACTIVITY_STATUSES.INVALID]: Error32,
-        [ACTIVITY_STATUSES.SKIPPED]: Error32
-      };
-
-      Icon = ACTIVITY_STATUSES_TO_ICON[flowTaskStatus];
-    }
+    const { model } = this.props;
 
     // let xAdjustment = 0;
     // let yAdjustment = 0;
@@ -100,76 +103,52 @@ class TaskLink extends Component {
       this.endPoint = this.path.current.getPointAtLength(this.path.current.getTotalLength());
     }
 
+    const isModelLocked = this.props.diagramEngine.diagramModel.locked;
+
     return (
       <svg>
-        {this.path.current && !isLocked && model.targetPort && (
+        {this.path.current && this.props.model.targetPort && (
           <>
+            {!isModelLocked && (
+              <g
+                transform={`translate(${this.halfwayPoint.x - 12}, ${this.halfwayPoint.y - 12})`}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <foreignObject
+                  width="24"
+                  height="24"
+                  requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                >
+                  <WorkFlowCloseButton onClick={this.handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
+                </foreignObject>
+              </g>
+            )}
             <g
-              transform={`translate(${this.halfwayPoint.x - 12}, ${this.halfwayPoint.y - 12})`}
+              transform={`translate(${this.halfwayPoint.x + (isModelLocked ? -12 : 12)}, ${this.halfwayPoint.y - 12})`}
               xmlns="http://www.w3.org/2000/svg"
             >
               <foreignObject width="24" height="24" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-                <WorkFlowCloseButton onClick={this.handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
-              </foreignObject>
-            </g>
-            <g
-              transform={`translate(${this.halfwayPoint.x + 12}, ${this.halfwayPoint.y - 12})`}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <foreignObject
-                width="28"
-                height="28"
-                requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
-                style={{ cursor: "pointer" }}
-              >
-                <div
-                  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-                  xmlns="http://www.w3.org/1999/xhtml"
-                >
-                  <MultiStateButton
-                    onClick={this.updateExecutionState}
-                    initialExecutionCondition={this.state.executionCondition}
-                    modelId={this.props.model.id}
-                  />
-                </div>
-              </foreignObject>
-            </g>
-          </>
-        )}
-        {this.path.current && Icon && (
-          <>
-            <g
-              transform={`translate(${this.halfwayPoint.x - 12}, ${this.halfwayPoint.y - 12})`}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <foreignObject width="28" height="28" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-                <span className={`${styles.statusIcon} ${styles[flowTaskStatus]}`}>
-                  <Icon aria-label={flowTaskStatus} xmlns="http://www.w3.org/1999/xhtml" />
-                </span>
+                <ExecutionConditionSwitcher
+                  disabled={isModelLocked}
+                  executionCondition={EXECUTION_CONDITIONS[this.state.executionConditionIndex]}
+                  onClick={this.updateExecutionState}
+                />
               </foreignObject>
             </g>
           </>
         )}
         <path
-          className={cx(styles.path, {
-            [styles.locked]: isLocked,
-            [styles.executionInProgress]: isLocked && status === ACTIVITY_STATUSES.IN_PROGRESS
-          })}
+          className={styles.path}
           ref={this.path}
           style={linkStyle}
           strokeWidth={this.props.model.width}
           stroke="rgba(255,0,0,0.5)"
           d={this.props.path}
         />
+        )}
       </svg>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    workflowExecution: state.workflowExecution
-  };
-};
-
-export default connect(mapStateToProps)(TaskLink);
+export default TaskLink;

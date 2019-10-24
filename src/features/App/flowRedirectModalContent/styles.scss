@@ -1,3 +1,5 @@
+@import "~Styles/mixins";
+
 .bmrg--c-flowRedirect-content {
   display: flex;
   flex-direction: column;
@@ -5,8 +7,8 @@
   justify-content: space-between;
   width: 39.3125rem;
   height: 24.125rem;
-  border-radius: 0.25rem;
   background-color: #fff;
+  @include border-radius();
 }
 .bmrg--c-flowRedirect-content__img {
   width: 100%;
@@ -42,12 +44,12 @@
   height: 2.6875rem;
   width: 10.5rem;
   font-size: 1.25rem;
-  border-radius: 0.25rem;
   background-color: rgb(64, 213, 187);
   font-weight: 300 !important;
   margin-bottom: 1.5rem;
   font-family: "IBM Plex Sans" !important;
   cursor: pointer;
+  @include border-radius();
 
   &:active {
     transform: scale(0.95, 0.95);

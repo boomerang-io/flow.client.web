@@ -158,7 +158,7 @@ class WorkflowEditor extends Component {
             render={props => (
               <div className={styles.container}>
                 <Tasks tasks={tasks} />
-                <div
+                <main
                   className={styles.designer}
                   onDrop={event => createNode(this.diagramApp, event)}
                   onDragOver={event => {
@@ -178,7 +178,7 @@ class WorkflowEditor extends Component {
                     diagramEngine={this.diagramApp.getDiagramEngine()}
                     maxNumberPointsPerLink={0}
                   />
-                </div>
+                </main>
               </div>
             )}
           />

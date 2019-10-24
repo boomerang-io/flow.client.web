@@ -23,7 +23,7 @@
     text-decoration: none !important;
   }
   :global .bx--overflow-menu-options--open {
-    border-radius: 0.25rem;
+    @include border-radius();
     overflow: hidden;
     z-index: 998;
   }
@@ -93,8 +93,9 @@
   }
 }
 .cardName {
-  color: $gray-80;
+  color: #242a2e;
   font-size: 1.125rem;
+  font-weight: 600;
   letter-spacing: 0.0625rem;
   line-height: 1.25rem;
   margin-bottom: 0.5rem;
@@ -102,6 +103,7 @@
 }
 
 .cardDescription {
+  color: #242a2e;
   display: block;
   font-size: 0.75rem;
   letter-spacing: 0.0625rem;

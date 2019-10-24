@@ -1,4 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .container {
   .dropzoneSection {
@@ -31,9 +32,9 @@
   .dropzoneError {
     align-items: center;
     background-color: $white;
-    border: 0.0625rem solid $cerulean-50;
-    border-radius: 0.25rem;
-    color: $cerulean-50;
+    border: 0.0625rem solid $interactive-01;
+    @include border-radius();
+    color: $interactive-01;
     cursor: pointer;
     display: flex;
     font-size: 1.125rem;
@@ -46,7 +47,7 @@
     z-index: 1;
 
     &:hover {
-      background-color: $cerulean-50;
+      background-color: $interactive-01;
       color: $white;
     }
   }
@@ -60,7 +61,7 @@
   .dragEnter {
     align-items: center;
     background-color: transparent;
-    border: 0.063rem dashed $cerulean-50;
+    border: 0.063rem dashed $interactive-01;
     display: flex;
     height: 4rem;
     justify-content: center;
@@ -101,7 +102,6 @@
   }
 
   .dropzoneMessage {
-    color: $cerulean-50;
     font-size: 0.875rem;
     padding: 0.313rem 0 0 0;
     z-index: 999;

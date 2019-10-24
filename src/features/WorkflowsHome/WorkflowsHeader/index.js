@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import FeatureHeader from "Components/FeatureHeader";
 import SearchFilterBar from "Components/SearchFilterBar";
 import styles from "./workflowsHeader.module.scss";
 
@@ -10,12 +11,12 @@ WorkflowsHeader.propTypes = {
 
 function WorkflowsHeader({ workflowsLength, handleSearchFilter, loading, options }) {
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <div className={styles.info}>
-          <h1 className={styles.title}>These are your</h1>
-          <h2 className={styles.subtitle}>{loading ? "Workflows" : `Workflows (${workflowsLength})`}</h2>
-        </div>
+    <FeatureHeader>
+      <div className={styles.container}>
+        <section className={styles.info}>
+          <p className={styles.title}>These are your</p>
+          <h1 className={styles.subtitle}>{loading ? "Workflows" : `Workflows (${workflowsLength})`}</h1>
+        </section>
         <SearchFilterBar
           filterable
           loading={loading}
@@ -26,7 +27,7 @@ function WorkflowsHeader({ workflowsLength, handleSearchFilter, loading, options
           options={options}
         />
       </div>
-    </div>
+    </FeatureHeader>
   );
 }
 

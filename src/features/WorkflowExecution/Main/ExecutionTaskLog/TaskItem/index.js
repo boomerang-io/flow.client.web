@@ -19,7 +19,7 @@ function TaskItem({ flowActivityId, task }) {
   const statusClassName = styles[flowTaskStatus];
 
   return (
-    <div key={id} className={`${styles.taskitem} ${statusClassName}`}>
+    <li key={id} className={`${styles.taskitem} ${statusClassName}`}>
       <div className={styles.progressBar} />
       <section className={styles.header}>
         <div className={styles.title}>
@@ -53,7 +53,7 @@ function TaskItem({ flowActivityId, task }) {
           <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
         )}
       </section>
-    </div>
+    </li>
   );
 }
 

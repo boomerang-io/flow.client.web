@@ -2,15 +2,19 @@
 @import "~Styles/mixins";
 
 .container {
-  margin: 0 auto;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   width: 100%;
 }
 
 .content {
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 10.3125rem);
+
   padding: 1.875rem 1.5rem 1.5rem;
+  overflow: auto;
   width: 100%;
 }
 

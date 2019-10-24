@@ -214,14 +214,16 @@ export class WorkflowActivity extends Component {
             succeededActivities={succeededActivities}
             failedActivities={failedActivities}
           />
-          <div className={styles.content}>
-            <Tabs className={styles.tabs} selected={statusIndex + 1} onSelectionChange={this.handleSelectStatuses}>
-              <Tab label={`All (${runActivities})`} />
-              <Tab label={`In Progress (${inProgressActivities})`} />
-              <Tab label={`Succeeded (${succeededActivities})`} />
-              <Tab label={`Failed (${failedActivities})`} />
-              <Tab label={`Invalid (${invalidActivities})`} />
-            </Tabs>
+          <main className={styles.content}>
+            <nav>
+              <Tabs className={styles.tabs} selected={statusIndex + 1} onSelectionChange={this.handleSelectStatuses}>
+                <Tab label={`All (${runActivities})`} />
+                <Tab label={`In Progress (${inProgressActivities})`} />
+                <Tab label={`Succeeded (${succeededActivities})`} />
+                <Tab label={`Failed (${failedActivities})`} />
+                <Tab label={`Invalid (${invalidActivities})`} />
+              </Tabs>
+            </nav>
             <section className={styles.filters}>
               <div className={styles.dataFilters}>
                 <div style={{ marginRight: "1.4rem", width: "14.125rem" }}>
@@ -298,7 +300,7 @@ export class WorkflowActivity extends Component {
               match={match}
               location={location}
             />
-          </div>
+          </main>
         </div>
       );
     }

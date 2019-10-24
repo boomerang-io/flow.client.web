@@ -4,7 +4,8 @@
 
 .container {
   background-color: $white;
-  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
   position: relative;
   transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 18.75rem;
@@ -36,6 +37,8 @@
     align-items: baseline;
     display: flex;
     justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
   .heading {
@@ -95,10 +98,12 @@
   }
 
   .content {
-    margin-bottom: 2rem;
+    flex-grow: 1;
+    margin-bottom: 9rem;
     margin-top: 1rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    overflow-y: auto;
 
     .taskSection {
       margin: 0 0.5rem;

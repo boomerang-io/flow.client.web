@@ -1,28 +1,23 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .container {
   background-color: $white;
-  border-bottom: 0.0625rem solid #b9bfc7;
   display: flex;
-  height: 7.31rem;
+  height: 4.3125rem;
   justify-content: space-between;
   width: 100%;
 }
 
-.headline {
-  margin: 1.5rem 0 1.5rem 1.5rem;
-}
-
 .subtitle {
+  align-items: center;
   color: $gray-90;
   display: flex;
   font-size: 0.875rem;
   letter-spacing: 0.01rem;
   line-height: 1.125rem;
   margin-bottom: 0.75rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  @include text-overflow-ellipsis();
 }
 
 .title {
@@ -30,12 +25,13 @@
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.625rem;
+  margin: 0rem;
 }
 
 .content {
   align-items: center;
   display: flex;
-  margin: 2.625rem 1.5rem 2.06rem 0;
+  margin-top: 1.125rem;
 }
 
 .data {
@@ -53,8 +49,8 @@
 .dataValue {
   font-size: 1rem;
   line-height: 1.25rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: 16rem;
   text-transform: capitalize;
   white-space: nowrap;
+  @include text-overflow-ellipsis();
 }

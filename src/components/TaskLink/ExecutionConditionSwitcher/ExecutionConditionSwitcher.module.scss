@@ -1,6 +1,6 @@
 @import "~Styles/variables";
 
-.button {
+.container {
   background: $ui-01;
   display: flex;
   justify-content: center;
@@ -10,10 +10,29 @@
   border: 0.0625rem solid $interactive-01;
   cursor: pointer;
   height: 1.5rem;
+
   svg {
+    background: $ui-01;
+    height: 0.9375rem;
     margin: 0.0625rem;
+    width: 0.9375rem;
   }
-  path {
-    fill: black;
+
+  &.success {
+    path {
+      fill: #434747;
+    }
+  }
+
+  &.failure {
+    path {
+      fill: #a2191f;
+    }
+  }
+
+  &.always {
+    path {
+      fill: #000000;
+    }
   }
 }

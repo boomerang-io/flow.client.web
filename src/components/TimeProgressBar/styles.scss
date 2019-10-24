@@ -1,15 +1,16 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/variables";
+@import "~Styles/mixins";
 
 .c-time-progress-bar {
   height: 6.25rem;
   width: 100%;
   padding: 2rem 1.25rem 1.25rem 1.25rem;
   background-color: $white;
-  border-radius: 0.25rem;
   grid-area: progress;
   display: flex;
   align-items: center;
+  @include border-radius();
 
   //override default styles
   .bmrg--b-tooltip {
@@ -22,8 +23,8 @@
   position: relative;
   height: 2rem;
   width: 100%;
-  border-radius: 0.25rem;
   background-color: $gray-20;
+  @include border-radius();
 }
 
 .b-time-progress-bar__start {

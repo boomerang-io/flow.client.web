@@ -155,6 +155,7 @@
   height: calc(100% - 10.25rem);
   overflow-y: auto;
   opacity: 0.99;
+  padding-bottom: 2rem;
   transition: opacity $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 100%;
 }

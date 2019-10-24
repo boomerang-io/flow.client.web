@@ -5,12 +5,13 @@ import styles from "./FeatureHeader.module.scss";
 
 FeatureHeader.propTypes = {
   children: PropTypes.node,
-  className: PropTypes.string
+  className: PropTypes.string,
+  includeBorder: PropTypes.bool
 };
 
-function FeatureHeader({ children, className, ...rest }) {
+function FeatureHeader({ children, className, includeBorder, ...rest }) {
   return (
-    <header className={cx(styles.container, className)} {...rest}>
+    <header className={cx(styles.container, className, { [styles.border]: includeBorder })} {...rest}>
       {children}
     </header>
   );

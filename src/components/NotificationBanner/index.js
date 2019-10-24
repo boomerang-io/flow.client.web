@@ -23,8 +23,11 @@ class NotificationBanner extends Component {
   };
 
   render() {
+    if (!this.state.isOpen) {
+      return null;
+    }
     return (
-      <div className={classnames("b-notification-banner", { "--hidden": !this.state.isOpen })}>
+      <div className={classnames("b-notification-banner")}>
         <div className="b-notification-banner__text">
           Welcome to Boomerang Flow! We're excited to have you as a user and hope you enjoy using it. Please don't
           hesitate to reach out to us on Slack in{" "}

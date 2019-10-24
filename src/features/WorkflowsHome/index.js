@@ -112,7 +112,7 @@ export class WorkflowsHome extends Component {
         <DelayedRender>
           <div className={styles.container}>
             <WorkflowsHeader loading handleSearchFilter={this.handleSearchFilter} workflowsLength={0} options={[]} />
-            <div className={styles.content}>
+            <main className={styles.content}>
               <div className={styles.loadingContainer}>
                 <SkeletonText heading width="10rem" />
                 <div className={styles.cardPlaceholderContainer}>
@@ -124,7 +124,7 @@ export class WorkflowsHome extends Component {
                 <SkeletonText heading width="10rem" />
                 <SkeletonPlaceholder className={styles.cardPlaceholder} />
               </div>
-            </div>
+            </main>
           </div>
         </DelayedRender>
       );
@@ -152,7 +152,7 @@ export class WorkflowsHome extends Component {
             workflowsLength={workflowsLength}
             options={teamsState.data}
           />
-          <div className={styles.content}>
+          <main className={styles.content}>
             {sortedTeams.map(team => {
               return (
                 <WorkflowsSection
@@ -168,7 +168,7 @@ export class WorkflowsHome extends Component {
                 />
               );
             })}
-          </div>
+          </main>
         </div>
       );
     }

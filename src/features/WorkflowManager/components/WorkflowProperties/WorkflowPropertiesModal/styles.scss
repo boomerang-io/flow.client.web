@@ -1,3 +1,5 @@
+@import "~Styles/mixins";
+
 .c-inputs-modal {
   position: relative;
   //max-height: 44.375rem;
@@ -6,7 +8,7 @@
   max-width: 70rem;
   width: 100vw;
   outline: none;
-  border-radius: 0.25rem;
+  @include border-radius();
 
   fieldset {
     margin-top: 6rem;

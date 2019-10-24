@@ -7,9 +7,13 @@
   align-items: center;
   border-radius: 50%;
   padding: 0.125rem;
-  border: 0.0625rem solid #000000;
+  border: 0.0625rem solid $interactive-01;
   cursor: pointer;
   height: 1.5rem;
+
+  svg {
+    margin: 0.0625rem;
+  }
 
   path {
     fill: black;

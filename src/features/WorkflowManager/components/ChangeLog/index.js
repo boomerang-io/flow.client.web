@@ -42,9 +42,9 @@ class ChangeLog extends Component {
 
     if (changeLog.status === REQUEST_STATUSES.SUCCESS)
       return (
-        <div className={styles.container}>
+        <main className={styles.container}>
           <ChangeLogTable changeLog={changeLog.data} />
-        </div>
+        </main>
       );
     if (changeLog.status === REQUEST_STATUSES.FAILURE) return <ErrorDragon />;
     return null;

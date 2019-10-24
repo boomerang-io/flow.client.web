@@ -2,13 +2,10 @@
 @import "~Styles/variables";
 
 .container {
-  align-items: flex-start;
   background: $white;
   display: flex;
-  flex-direction: column;
-  padding: 1rem 2rem 2rem;
-  position: sticky;
-  top: 0;
+  justify-content: space-between;
+  height: 4.3125rem;
   width: 100%;
   z-index: 3;
   :global .bx--search-input {
@@ -43,21 +40,11 @@
     }
   }
 }
-.content {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.info {
-  overflow: hidden;
-}
 
 .title {
   font-size: 1.25rem;
   line-height: 1.5;
-  margin-bottom: 0.25rem;
+  margin: 0;
   overflow: hidden;
   text-overflow: wrap;
 }
@@ -66,6 +53,7 @@
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.5rem;
+  margin: 0rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

@@ -15,7 +15,7 @@
   align-items: center;
   width: 19.375rem;
   height: 10.3125rem;
-  border: 0.0625rem solid $cool-gray-80;
+  border: 0.0625rem solid #373d42;
   position: relative;
   @include border-radius();
 }
@@ -23,12 +23,10 @@
 .placeholderPlus {
   height: 1.75rem;
   width: 1.75rem;
-  fill: $cool-gray-80;
 }
 .placeholderLabel {
-  color: $cool-gray-80;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.0625rem;
   margin-left: 0.5rem;
 }

@@ -136,7 +136,7 @@ class ActivityTable extends Component {
     }
 
     return (
-      <>
+      <section>
         <div className={styles.tableContainer}>
           {totalElements > 0 ? (
             <>
@@ -228,7 +228,7 @@ class ActivityTable extends Component {
             </>
           )}
         </div>
-      </>
+      </section>
     );
   }
 }

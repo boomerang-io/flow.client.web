@@ -69,17 +69,19 @@ class ImportConfirm extends Component {
           }}
         >
           <ModalConfirmEdit
+            isEditable
             type="array"
             title="Import Type"
-            onPencilClick={() => this.props.goToStep(options.IMPORT_WORKFLOW_TYPE)}
-            arrayItems={confirmUpdate}
+            onEdit={() => this.props.goToStep(options.IMPORT_WORKFLOW_TYPE)}
+            items={confirmUpdate}
             style={{ marginBottom: "1rem" }}
           />
           <ModalConfirmEdit
+            isEditable
             type="array"
             title={`Attachment`}
-            onPencilClick={() => this.props.goToStep(options.IMPORT_WORKFLOW_ATTACHMENT)}
-            arrayItems={confirmAttachment}
+            onEdit={() => this.props.goToStep(options.IMPORT_WORKFLOW_ATTACHMENT)}
+            items={confirmAttachment}
           />
         </ModalBody>
         <ModalFooter>

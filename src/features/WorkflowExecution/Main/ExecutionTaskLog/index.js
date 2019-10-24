@@ -54,11 +54,11 @@ function ExecutionTaskLog({ workflowExecutionData }) {
           <Arrows32 className={styles.taskbarArrows} />
         </button>
       </section>
-      <section className={styles.tasklog}>
+      <ul className={styles.tasklog}>
         {sortedTasks.map(step => (
           <TaskItem flowActivityId={id} task={step} />
         ))}
-      </section>
+      </ul>
     </aside>
   );
 }

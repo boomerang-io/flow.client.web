@@ -101,7 +101,7 @@ class DesignerHeader extends Component {
     const { currentRevision, fetchWorkflowRevisionNumber, onDesigner, revisionCount, workflowName } = this.props;
 
     return (
-      <FeatureHeader>
+      <FeatureHeader includeBorder className={styles.container}>
         <section className={styles.header}>
           <div className={styles.breadcrumbContainer}>
             <Link className={styles.workflowsLink} to="/workflows">

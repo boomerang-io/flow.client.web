@@ -1,3 +1,5 @@
+@import "~Styles/mixins";
+
 .c-task-text-area-modal {
   position: relative;
   max-height: 60.375rem;
@@ -5,5 +7,5 @@
   max-width: 70.625rem;
   width: 100vw;
   outline: none;
-  border-radius: 0.25rem;
+  @include border-radius();
 }

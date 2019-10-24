@@ -1,4 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .c-onboardExp {
   align-items: center;
@@ -94,7 +95,7 @@
   align-items: center;
   background-color: #d0dada;
   border: none;
-  border-radius: 0.25rem;
+  @include border-radius();
   color: $gray-90;
   cursor: pointer;
   font-size: 1.25rem;
@@ -180,7 +181,7 @@
   align-items: center;
   background-color: #8ee9d4;
   border: none;
-  border-radius: 0.25rem;
+  @include border-radius();
   color: $gray-90;
   cursor: pointer;
   font-size: 1.25rem;

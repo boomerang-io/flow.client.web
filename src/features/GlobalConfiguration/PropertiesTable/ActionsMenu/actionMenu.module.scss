@@ -1,3 +1,5 @@
+@import "~Styles/mixins";
+
 :global .b-overflow-menu__icon {
   cursor: pointer;
   height: 1rem;
@@ -5,6 +7,6 @@
 }
 
 :global .bx--overflow-menu-options--open {
-  border-radius: 0.25rem;
   width: 9.5rem;
+  @include border-radius();
 }
