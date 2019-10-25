@@ -7,14 +7,15 @@ import { ArrowDownRight32, ArrowUpRight32 } from "@carbon/icons-react";
 import styles from "./activityHeader.module.scss";
 
 ActivityHeader.propTypes = {
+  inProgressActivities: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   failedActivities: PropTypes.number,
   runActivities: PropTypes.number,
   succeededActivities: PropTypes.number
 };
 
-function ActivityHeader({ isLoading, runActivities, succeededActivities, failedActivities }) {
-  const successRate = runActivities > 0 ? succeededActivities / runActivities : 0;
+function ActivityHeader({ inProgressActivities, isLoading, runActivities, succeededActivities, failedActivities }) {
+  const successRate = runActivities > 0 ? succeededActivities + inProgressActivities / runActivities : 0;
   const successRatePercentage = successRate.toFixed(2) * 100;
   const emoji = successRatePercentage > 80 ? "🙌" : successRatePercentage > 50 ? "😮" : "😨";
 

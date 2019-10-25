@@ -54,18 +54,14 @@ export function WorkflowActivity({ activityActions, history, location, match, te
     toDate
   });
 
-  const executionStatusSummaryRequestQuery = queryString.stringify({
-    order,
-    page,
-    size,
-    sort,
+  const activityStatusSummaryRequestQuery = queryString.stringify({
     teamIds,
     triggers,
     workflowIds
   });
 
   const activitySummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary`;
-  const activityStatusSummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary?${executionStatusSummaryRequestQuery}`;
+  const activityStatusSummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary?${activityStatusSummaryRequestQuery}`;
   const activityRequestUrl = `${BASE_SERVICE_URL}/activity?${activityRequestQuery}`;
 
   const activitySummaryState = useAxiosFetch(activitySummaryRequestUrl);
@@ -158,6 +154,7 @@ export function WorkflowActivity({ activityActions, history, location, match, te
     return (
       <div className={styles.container}>
         <ActivityHeader
+          inProgressActivities={activitySummaryState?.data?.inProgress}
           isLoading={activitySummaryState.isLoading}
           failedActivities={activitySummaryState?.data?.failure}
           runActivities={activitySummaryState?.data?.all}
