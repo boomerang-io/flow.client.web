@@ -9,11 +9,16 @@ ExecutionConditionSwitcher.propTypes = {
   onClick: PropTypes.func
 };
 
-function ExecutionConditionSwitcher({ disabled, executionCondition, onClick }) {
+function ExecutionConditionSwitcher({ disabled, executionCondition, kind, onClick }) {
   const { name, Icon } = executionCondition;
 
   return (
-    <button disabled={disabled} key={name} onClick={onClick} className={cx(styles.container, styles[name])}>
+    <button
+      className={cx(styles.container, styles[kind], styles[name])}
+      disabled={disabled}
+      key={name}
+      onClick={onClick}
+    >
       <Icon key={name} />
     </button>
   );

@@ -7,12 +7,19 @@ import styles from "./WorkflowCloseButton.module.scss";
 WorkflowCloseButton.propTypes = {
   alt: PropTypes.string,
   className: PropTypes.string,
+  kind: PropTypes.string,
   onClick: PropTypes.func
 };
 
-export default function WorkflowCloseButton({ alt = "Workflow close button", className, onClick, ...rest }) {
+export default function WorkflowCloseButton({
+  alt = "Workflow close button",
+  className,
+  kind = "designer",
+  onClick,
+  ...rest
+}) {
   return (
-    <button className={cx(styles.button, className)} onClick={onClick} {...rest}>
+    <button className={cx(styles.button, className, styles[kind])} onClick={onClick} {...rest}>
       <Close16 alt={alt} />
     </button>
   );

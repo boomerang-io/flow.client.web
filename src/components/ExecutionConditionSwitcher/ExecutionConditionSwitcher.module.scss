@@ -8,8 +8,17 @@
   padding: 0.125rem;
   border-radius: 50%;
   border: 0.0625rem solid $interactive-01;
-  cursor: pointer;
+
   height: 1.5rem;
+
+  &.designer {
+    border-color: $interactive-01;
+    cursor: pointer;
+  }
+
+  &.execution {
+    border-color: $text-01;
+  }
 
   svg {
     background: $ui-01;

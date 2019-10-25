@@ -7,9 +7,17 @@
   align-items: center;
   border-radius: 50%;
   padding: 0.125rem;
-  border: 0.0625rem solid $interactive-01;
+  border: 0.0625rem solid transparent;
   cursor: pointer;
   height: 1.5rem;
+
+  &.designer {
+    border-color: $interactive-01;
+  }
+
+  &.execution {
+    border-color: $text-01;
+  }
 
   svg {
     margin: 0.0625rem;
