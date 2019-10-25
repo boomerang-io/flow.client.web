@@ -100,7 +100,7 @@ class WorkflowEditor extends Component {
         <Switch>
           <Route
             path={`${match.path}/settings`}
-            component={() => (
+            render={() => (
               <Formik
                 initialValues={{
                   description: get(workflow, "data.description", ""),

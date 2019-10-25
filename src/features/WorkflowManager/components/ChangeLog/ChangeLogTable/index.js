@@ -100,6 +100,7 @@ class ChangeLogTable extends Component {
         {totalItems > 0 ? (
           <>
             <DataTable
+              sortable
               rows={arrayPagination(changeLog, page, pageSize, sort)}
               sortRow={this.handleSort}
               headers={this.headers}
