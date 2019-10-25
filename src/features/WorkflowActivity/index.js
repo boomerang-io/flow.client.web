@@ -154,7 +154,7 @@ export function WorkflowActivity({ activityActions, history, location, match, te
     });
 
     const workflowsFilter = getWorkflowFilter(teamsData, selectedTeams);
-    const { data: statusSummaryData } = activityStatusSummaryState;
+    const { data: statusSummaryData, isLoading: statusSummaryDataIsLoading } = activityStatusSummaryState;
     return (
       <div className={styles.container}>
         <ActivityHeader
@@ -166,13 +166,13 @@ export function WorkflowActivity({ activityActions, history, location, match, te
         <main className={styles.content}>
           <nav>
             <Tabs className={styles.tabs} selected={statusIndex + 1} onSelectionChange={handleSelectStatuses}>
-              <Tab label={statusSummaryData?.all ? `All (${statusSummaryData.all})` : "All"} />
+              <Tab label={statusSummaryDataIsLoading ? "All" : `All (${statusSummaryData.all})`} />
               <Tab
-                label={statusSummaryData?.inProgress ? `In Progress (${statusSummaryData?.inProgress})` : "In Progress"}
+                label={statusSummaryDataIsLoading ? "In Progress" : `In Progress (${statusSummaryData?.inProgress})`}
               />
-              <Tab label={statusSummaryData?.completed ? `Succeeded (${statusSummaryData.completed})` : "Succeeded"} />
-              <Tab label={statusSummaryData?.failure ? `Failed (${statusSummaryData.failure})` : "Failed"} />
-              <Tab label={statusSummaryData?.invalid ? `Invalid (${statusSummaryData.invalid})` : "Invalid"} />
+              <Tab label={statusSummaryDataIsLoading ? "Succeeded" : `Succeeded (${statusSummaryData.completed})`} />
+              <Tab label={statusSummaryDataIsLoading ? "Failed" : `Failed (${statusSummaryData.failure})`} />
+              <Tab label={statusSummaryDataIsLoading ? "Invalid" : `Invalid (${statusSummaryData.invalid})`} />
             </Tabs>
           </nav>
           <section className={styles.filters}>

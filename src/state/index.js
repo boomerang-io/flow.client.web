@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import activity from "./activity";
 import app from "./app";
 import changeLog from "./changeLog";
 import globalConfiguration from "./globalConfiguration";
@@ -17,7 +16,6 @@ import workflowRevision from "./workflowRevision";
 
 const rootReducer = () =>
   combineReducers({
-    activity,
     app,
     changeLog,
     globalConfiguration,
