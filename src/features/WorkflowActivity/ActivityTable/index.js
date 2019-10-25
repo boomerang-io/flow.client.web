@@ -90,7 +90,11 @@ class ActivityTable extends Component {
   };
 
   handlePaginationChange = ({ page, pageSize }) => {
-    this.props.updateHistorySearch({ ...queryString.parse(this.props.location.search), page, size: pageSize });
+    this.props.updateHistorySearch({
+      ...queryString.parse(this.props.location.search),
+      page: page - 1, // We have to decrement by one to offset the table pagination adjustment
+      size: pageSize
+    });
   };
 
   handleSort = (e, { sortHeaderKey }) => {
@@ -189,7 +193,7 @@ class ActivityTable extends Component {
               />
               <Pagination
                 onChange={this.handlePaginationChange}
-                page={number}
+                page={number + 1} // We need to offset by one bc service is zero indexed
                 pageSize={size}
                 pageSizes={PAGE_SIZES}
                 totalItems={totalElements}

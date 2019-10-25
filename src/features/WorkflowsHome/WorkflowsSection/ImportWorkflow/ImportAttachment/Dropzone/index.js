@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Dropzone from "react-dropzone";
-import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import { CloseOutline16 } from "@carbon/icons-react";
 import { Button } from "carbon-components-react";
 import { Attachment16 } from "@carbon/icons-react";
@@ -129,8 +128,6 @@ class DropZone extends Component {
                 <label className={styles.dropzoneCenter}>{file.name}</label>
                 <div
                   className={styles.dropzoneRight}
-                  data-tip
-                  data-for="remove"
                   onClick={this.removeFile}
                   onKeyDown={e => isAccessibleEvent(e) && this.removeFile()}
                   role="button"
@@ -138,7 +135,6 @@ class DropZone extends Component {
                 >
                   <CloseOutline16 className={styles.dropzoneCloseImg} />
                 </div>
-                <Tooltip id="remove">Remove</Tooltip>
               </div>
             ))}
           </section>

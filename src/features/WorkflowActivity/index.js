@@ -293,12 +293,12 @@ export class WorkflowActivity extends Component {
               </DatePicker>
             </section>
             <ActivityTable
-              tableData={activityState.tableData}
-              isUpdating={activityState.isUpdating}
-              updateHistorySearch={this.updateHistorySearch}
               history={history}
-              match={match}
+              isUpdating={activityState.isUpdating}
               location={location}
+              match={match}
+              tableData={activityState.tableData}
+              updateHistorySearch={this.updateHistorySearch}
             />
           </main>
         </div>
