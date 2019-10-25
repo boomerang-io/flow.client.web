@@ -35,7 +35,9 @@ export function WorkflowActivity({ activityActions, history, location, match, te
     workflowIds,
     triggers,
     statuses,
-    teamIds
+    teamIds,
+    fromDate,
+    toDate
   } = queryString.parse(location.search);
 
   /**** Start get some data ****/
@@ -47,7 +49,9 @@ export function WorkflowActivity({ activityActions, history, location, match, te
     statuses,
     teamIds,
     triggers,
-    workflowIds
+    workflowIds,
+    fromDate,
+    toDate
   });
 
   const executionStatusSummaryRequestQuery = queryString.stringify({
@@ -61,7 +65,7 @@ export function WorkflowActivity({ activityActions, history, location, match, te
   });
 
   const activitySummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary`;
-  const activityStatusSummaryRequestUrl = `${BASE_SERVICE_URL}/activity?${executionStatusSummaryRequestQuery}`;
+  const activityStatusSummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary?${executionStatusSummaryRequestQuery}`;
   const activityRequestUrl = `${BASE_SERVICE_URL}/activity?${activityRequestQuery}`;
 
   const activitySummaryState = useAxiosFetch(activitySummaryRequestUrl);
@@ -150,7 +154,7 @@ export function WorkflowActivity({ activityActions, history, location, match, te
     });
 
     const workflowsFilter = getWorkflowFilter(teamsData, selectedTeams);
-    const { data: statusSummaryData } = activityStatusSummaryState?.data ?? {};
+    const { data: statusSummaryData } = activityStatusSummaryState;
     return (
       <div className={styles.container}>
         <ActivityHeader
@@ -236,8 +240,20 @@ export function WorkflowActivity({ activityActions, history, location, match, te
               maxDate={moment().format("MM/DD/YYYY")}
               onChange={handleSelectDate}
             >
-              <DatePickerInput id="activity-date-picker-start" labelText="Start date" placeholder="mm/dd/yyyy" />
-              <DatePickerInput id="activity-date-picker-end" labelText="End date" placeholder="mm/dd/yyyy" />
+              <DatePickerInput
+                autoComplete="off"
+                id="activity-date-picker-start"
+                labelText="Start date"
+                placeholder="mm/dd/yyyy"
+                value={moment.unix(fromDate).format("YYYY-MM-DD")}
+              />
+              <DatePickerInput
+                autoComplete="off"
+                id="activity-date-picker-end"
+                labelText="End date"
+                placeholder="mm/dd/yyyy"
+                value={moment.unix(toDate).format("YYYY-MM-DD")}
+              />
             </DatePicker>
           </section>
           <ActivityTable

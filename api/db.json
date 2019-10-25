@@ -6154,6 +6154,16 @@
     "completed": 224,
     "skipped": 0
   },
+  "workflowActivityStatusSummary": {
+    "all": 50,
+    "notstarted": 5,
+    "inProgress": 5,
+    "failure": 5,
+    "no_status": 5,
+    "invalid": 5,
+    "completed": 20,
+    "skipped": 5
+  },
   "workflowActivity": {
     "pageable": {
       "first": false,
