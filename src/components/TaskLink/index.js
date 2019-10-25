@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import cx from "classnames";
 import WorkFlowCloseButton from "Components/WorkflowCloseButton";
 import ExecutionConditionSwitcher from "./ExecutionConditionSwitcher";
 import { CheckmarkOutline16, CloseOutline16, ArrowRight16 } from "@carbon/icons-react";
@@ -138,7 +139,7 @@ class TaskLink extends Component {
           </>
         )}
         <path
-          className={styles.path}
+          className={cx(styles.path, { [styles.locked]: isModelLocked })}
           ref={this.path}
           style={linkStyle}
           strokeWidth={this.props.model.width}

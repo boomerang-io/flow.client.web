@@ -15,7 +15,7 @@ ActivityHeader.propTypes = {
 };
 
 function ActivityHeader({ inProgressActivities, isLoading, runActivities, succeededActivities, failedActivities }) {
-  const successRate = runActivities > 0 ? succeededActivities + inProgressActivities / runActivities : 0;
+  const successRate = runActivities > 0 ? (succeededActivities + inProgressActivities) / runActivities : 0;
   const successRatePercentage = successRate.toFixed(2) * 100;
   const emoji = successRatePercentage > 80 ? "🙌" : successRatePercentage > 50 ? "😮" : "😨";
 

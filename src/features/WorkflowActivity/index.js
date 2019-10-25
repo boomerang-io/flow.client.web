@@ -154,11 +154,11 @@ export function WorkflowActivity({ activityActions, history, location, match, te
     return (
       <div className={styles.container}>
         <ActivityHeader
-          inProgressActivities={activitySummaryState?.data?.inProgress}
+          inProgressActivities={activitySummaryState.data?.inProgress ?? 0}
           isLoading={activitySummaryState.isLoading}
-          failedActivities={activitySummaryState?.data?.failure}
-          runActivities={activitySummaryState?.data?.all}
-          succeededActivities={activitySummaryState?.data?.completed}
+          failedActivities={activitySummaryState.data?.failure ?? 0}
+          runActivities={activitySummaryState.data?.all ?? 0}
+          succeededActivities={activitySummaryState.data?.completed ?? 0}
         />
         <main className={styles.content}>
           <nav>
@@ -242,14 +242,14 @@ export function WorkflowActivity({ activityActions, history, location, match, te
                 id="activity-date-picker-start"
                 labelText="Start date"
                 placeholder="mm/dd/yyyy"
-                value={moment.unix(fromDate).format("YYYY-MM-DD")}
+                value={fromDate && moment.unix(fromDate).format("YYYY-MM-DD")}
               />
               <DatePickerInput
                 autoComplete="off"
                 id="activity-date-picker-end"
                 labelText="End date"
                 placeholder="mm/dd/yyyy"
-                value={moment.unix(toDate).format("YYYY-MM-DD")}
+                value={toDate && moment.unix(toDate).format("YYYY-MM-DD")}
               />
             </DatePicker>
           </section>
