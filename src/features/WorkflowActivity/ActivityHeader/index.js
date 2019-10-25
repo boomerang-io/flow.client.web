@@ -2,16 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import FeatureHeader from "Components/FeatureHeader";
 import ActivityHeaderWidget from "./ActivityHeaderWidtget";
+import { SkeletonPlaceholder } from "carbon-components-react";
 import { ArrowDownRight32, ArrowUpRight32 } from "@carbon/icons-react";
 import styles from "./activityHeader.module.scss";
 
 ActivityHeader.propTypes = {
-  failedActivities: PropTypes.number.isRequired,
-  runActivities: PropTypes.number.isRequired,
-  succeededActivities: PropTypes.number.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  failedActivities: PropTypes.number,
+  runActivities: PropTypes.number,
+  succeededActivities: PropTypes.number
 };
 
-function ActivityHeader({ runActivities, succeededActivities, failedActivities }) {
+function ActivityHeader({ isLoading, runActivities, succeededActivities, failedActivities }) {
   const successRate = runActivities > 0 ? succeededActivities / runActivities : 0;
   const successRatePercentage = successRate.toFixed(2) * 100;
   const emoji = successRatePercentage > 80 ? "🙌" : successRatePercentage > 50 ? "😮" : "😨";
@@ -24,11 +26,17 @@ function ActivityHeader({ runActivities, succeededActivities, failedActivities }
           <p className={styles.title}>Activity</p>
         </section>
         <section className={styles.content}>
-          <p className={styles.text}>Today's numbers</p>
-          <ActivityHeaderWidget icon={ArrowUpRight32} text="Runs" value={runActivities} />
-          <ActivityHeaderWidget icon={ArrowUpRight32} text="Successes" value={succeededActivities} />
-          <ActivityHeaderWidget icon={ArrowDownRight32} text="Failures" value={failedActivities} />
-          <ActivityHeaderWidget icon={emoji} text="Success rate" value={`${successRatePercentage}%`} />
+          {isLoading ? (
+            <SkeletonPlaceholder className={styles.summarySkeleton} />
+          ) : (
+            <>
+              <p className={styles.text}>Today's numbers</p>
+              <ActivityHeaderWidget icon={ArrowUpRight32} text="Runs" value={runActivities} />
+              <ActivityHeaderWidget icon={ArrowUpRight32} text="Successes" value={succeededActivities} />
+              <ActivityHeaderWidget icon={ArrowDownRight32} text="Failures" value={failedActivities} />
+              <ActivityHeaderWidget icon={emoji} text="Success rate" value={`${successRatePercentage}%`} />
+            </>
+          )}
         </section>
       </div>
     </FeatureHeader>

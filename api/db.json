@@ -6144,6 +6144,16 @@
       "id": "5Mz75WC"
     }
   ],
+  "workflowActivitySummary": {
+    "all": 329,
+    "notstarted": 0,
+    "inProgress": 20,
+    "failure": 29,
+    "no_status": 54,
+    "invalid": 2,
+    "completed": 224,
+    "skipped": 0
+  },
   "workflowActivity": {
     "pageable": {
       "first": false,
