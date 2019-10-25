@@ -51,6 +51,10 @@ export class Overview extends Component {
     document.addEventListener("beforeunload", this.props.updateWorkflow);
   }
 
+  componentWillUnmount() {
+    this.props.updateWorkflow();
+  }
+
   generateToken = e => {
     if (e) {
       e.preventDefault();
