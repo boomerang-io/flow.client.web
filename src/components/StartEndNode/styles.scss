@@ -29,11 +29,15 @@
         left: -1.9375rem;
       }
     }
-  }
 
-  // &.--executionInProgress {
-  //   opacity: 0.5;
-  // }
+    &.--executionInProgress {
+      .b-startEnd-node__port {
+        &.--left {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
 
   .b-startEnd-node__title {
     text-align: center;

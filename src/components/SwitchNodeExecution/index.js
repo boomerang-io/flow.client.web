@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import cx from "classnames";
 import WorkflowNode from "Components/WorkflowNode";
 import { Fork16 } from "@carbon/icons-react";
+import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
+import styles from "./SwitchNodExecution.module.scss";
 
 export class SwitchNodeExecution extends Component {
   static propTypes = {
@@ -17,8 +20,25 @@ export class SwitchNodeExecution extends Component {
   };
 
   render() {
+    const { task, node } = this.props;
+    const { steps, status } = this.props.workflowExecution.data;
+    const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
+    const flowTaskStatus = step ? step.flowTaskStatus : "";
+
+    let disabled = false;
+    if (status === ACTIVITY_STATUSES.IN_PROGRESS) {
+      const inProgressStep = steps.find(step => step.flowTaskStatus === ACTIVITY_STATUSES.IN_PROGRESS);
+      if (step.order > inProgressStep.order && flowTaskStatus !== ACTIVITY_STATUSES.SKIPPED) {
+        disabled = true;
+      }
+    }
     return (
-      <WorkflowNode title={"Switch"} icon={<Fork16 alt="Switch icon" />} node={this.props.node}>
+      <WorkflowNode
+        className={cx(styles[flowTaskStatus], { [styles.disabled]: disabled })}
+        title={"Switch"}
+        icon={<Fork16 alt="Switch icon" />}
+        node={this.props.node}
+      >
         {() => {}}
       </WorkflowNode>
     );

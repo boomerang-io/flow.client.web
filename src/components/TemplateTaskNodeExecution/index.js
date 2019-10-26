@@ -53,7 +53,6 @@ export class TemplateNodeExecution extends Component {
         name={task.name}
         node={node}
         onClick={e => isAccessibleEvent(e) && this.handleOnActivityClick()}
-        style={{ cursor: "pointer" }}
         subtitle={node.taskName}
         title={task.name}
       >

@@ -30,7 +30,7 @@ function WorkflowLink({ diagramEngine, model, children, className, path }) {
   }
 
   return (
-    <svg>
+    <svg className={cx({ [styles.locked]: isModelLocked })}>
       {pathRef.current && model.targetPort && <>{children({ halfwayPoint, handleOnDelete })}</>}
       <path
         className={cx(styles.path, { [styles.locked]: isModelLocked }, className)}
