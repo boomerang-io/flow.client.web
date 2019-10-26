@@ -1,21 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import WorkflowLink from "Components/WorkflowLink";
+import styles from "./StartEndLinkExecution.module.scss";
 
-//import styles from "./StartEndLink.module.scss";
-
-StartEndLinkDesigner.propTypes = {
+StartEndLinkExecution.propTypes = {
   diagramEngine: PropTypes.object.isRequired,
   model: PropTypes.object.isRequired,
   path: PropTypes.string.isRequired
 };
 
-function StartEndLinkDesigner({ diagramEngine, model, path }) {
+function StartEndLinkExecution({ diagramEngine, model, path }) {
   return (
-    <WorkflowLink diagramEngine={diagramEngine} model={model} path={path}>
+    <WorkflowLink className={styles.started} diagramEngine={diagramEngine} model={model} path={path}>
       {() => <g />}
     </WorkflowLink>
   );
 }
 
-export default StartEndLinkDesigner;
+export default StartEndLinkExecution;

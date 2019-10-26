@@ -1,14 +1,7 @@
 @import "~Styles/variables";
 
-.path {
-  stroke: $interactive-01;
-  &.locked {
-    stroke: #50565b;
-  }
-}
-
-.faded {
-  opacity: 0.5;
+.started {
+  opacity: 1 !important;
 }
 
 .statusIcon {

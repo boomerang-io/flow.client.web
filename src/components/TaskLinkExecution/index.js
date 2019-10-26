@@ -39,7 +39,7 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
   const targetNodeId = model?.targetPort?.parent?.id;
   const step = workflowExecution.data.steps?.find(step => step.taskId === targetNodeId);
 
-  const targetTaskHasNotStarted = step?.flowTaskStatus === EXECUTION_STATUSES.NOT_STARTED;
+  const targetTaskHasStarted = step?.flowTaskStatus && step?.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED;
   const executionCondition = EXECUTION_CONDITIONS.find(
     executionCondition => executionCondition.name === model.executionCondition
   );
@@ -48,7 +48,7 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
 
   return (
     <WorkflowLink
-      className={cx({ [styles.faded]: targetTaskHasNotStarted })}
+      className={cx({ [styles.started]: targetTaskHasStarted })}
       diagramEngine={diagramEngine}
       model={model}
       path={path}

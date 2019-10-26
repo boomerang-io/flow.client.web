@@ -4,7 +4,7 @@ import WorkflowLink from "Components/WorkflowLink";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import ExecutionConditionSwitcher from "Components/ExecutionConditionSwitcher";
 import { CheckmarkOutline16, CloseOutline16, ArrowRight16 } from "@carbon/icons-react";
-import styles from "./TaskLink.module.scss";
+//import styles from "./TaskLink.module.scss";
 
 export const EXECUTION_STATES = {
   SUCCESS: "success",
