@@ -17,7 +17,11 @@ export class SwitchNodeExecution extends Component {
   };
 
   render() {
-    return <WorkflowNode title={"Switch"} icon={<Fork16 alt="Switch icon" />} node={this.props.node} />;
+    return (
+      <WorkflowNode title={"Switch"} icon={<Fork16 alt="Switch icon" />} node={this.props.node}>
+        {() => {}}
+      </WorkflowNode>
+    );
   }
 }
 

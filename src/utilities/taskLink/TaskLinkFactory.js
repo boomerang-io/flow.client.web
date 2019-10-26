@@ -3,6 +3,8 @@ import { DefaultLinkFactory } from "@projectstorm/react-diagrams";
 import TaskLinkModel from "./TaskLinkModel";
 import TaskLinkDesigner from "Components/TaskLinkDesigner";
 import TaskLinkExecution from "Components/TaskLinkExecution";
+import StartEndLinkDesigner from "Components/StartEndLinkDesigner";
+import StartEndLinkExecution from "Components/StartEndLinkExecution";
 
 export default class TaskLinkFactory extends DefaultLinkFactory {
   constructor(diagramEngine) {
@@ -17,6 +19,22 @@ export default class TaskLinkFactory extends DefaultLinkFactory {
 
   generateLinkSegment(model, widget, selected, path) {
     // If diagram model is locked we can infer that the app is viewing the activity execution
+    const sourcePortType = model?.sourcePort?.type;
+    if (sourcePortType === "startend") {
+      if (this.diagramEngine.diagramModel.locked) {
+        return (
+          <g>
+            <StartEndLinkExecution model={model} path={path} diagramEngine={this.diagramEngine} />
+          </g>
+        );
+      }
+      return (
+        <g>
+          <StartEndLinkDesigner model={model} path={path} diagramEngine={this.diagramEngine} />
+        </g>
+      );
+    }
+
     if (this.diagramEngine.diagramModel.locked) {
       return (
         <g>

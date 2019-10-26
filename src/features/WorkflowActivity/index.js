@@ -26,6 +26,14 @@ WorkflowActivity.propTypes = {
   teamsState: PropTypes.object.isRequired
 };
 
+// Defined outside function so only run once
+const activitySummaryRequestQuery = queryString.stringify({
+  fromDate: moment(new Date())
+    .subtract("24", "hours")
+    .unix(),
+  toDate: moment(new Date()).unix()
+});
+
 export function WorkflowActivity({ activityActions, history, location, match, teamsState }) {
   const {
     order = DEFAULT_ORDER,
@@ -41,6 +49,7 @@ export function WorkflowActivity({ activityActions, history, location, match, te
   } = queryString.parse(location.search);
 
   /**** Start get some data ****/
+
   const activityRequestQuery = queryString.stringify({
     order,
     page,
@@ -60,7 +69,7 @@ export function WorkflowActivity({ activityActions, history, location, match, te
     workflowIds
   });
 
-  const activitySummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary`;
+  const activitySummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary?${activitySummaryRequestQuery}`;
   const activityStatusSummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary?${activityStatusSummaryRequestQuery}`;
   const activityRequestUrl = `${BASE_SERVICE_URL}/activity?${activityRequestQuery}`;
 

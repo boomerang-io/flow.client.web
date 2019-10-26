@@ -4,6 +4,7 @@ import cx from "classnames";
 import styles from "./WorkflowLink.module.scss";
 
 WorkflowLink.propTypes = {
+  children: () => {},
   diagramEngine: PropTypes.object.isRequired,
   model: PropTypes.object.isRequired,
   path: PropTypes.string.isRequired
