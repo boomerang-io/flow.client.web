@@ -2,12 +2,13 @@
 @import "~Styles/mixins";
 
 :global .srd-node--selected > * {
-  border-color: $interactive-01 !important;
+  border-color: transparent;
 }
 
 .node {
   background: $lightest-gray;
   border: 0.125rem solid $interactive-01;
+  border-color: $interactive-01 !important;
   height: 5rem;
   padding: 1rem;
   position: relative;

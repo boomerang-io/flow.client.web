@@ -10,12 +10,11 @@
 
 .failure {
   border: 0.1875rem solid #a51920;
-  border-radius: 0;
+  border-color: #a51920 !important;
 }
 
 .inProgress {
   border: none;
-  border-radius: 0;
 
   .progressBar {
     position: absolute;
@@ -26,7 +25,6 @@
     transition: width 0.3s linear;
     width: 13.9rem;
     overflow: hidden;
-    border-radius: 0;
 
     &:before {
       content: "";
@@ -55,14 +53,13 @@
 
 .completed {
   border: 0.1875rem solid #009d9a;
-  border-radius: 0;
+  border-color: #009d9a !important;
 }
 
 .notstarted,
 .invalid,
 .skipped {
   border: none;
-  border-radius: 0;
 }
 
 .disabled {
