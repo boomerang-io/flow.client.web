@@ -20,7 +20,7 @@ export class SwitchNodeExecution extends Component {
   };
 
   render() {
-    const { task, node } = this.props;
+    const { node } = this.props;
     const { steps, status } = this.props.workflowExecution.data;
     const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
     const flowTaskStatus = step ? step.flowTaskStatus : "";

@@ -26,6 +26,10 @@
   width: 1.5rem;
 }
 
+.disabled {
+  opacity: 0.5;
+}
+
 .failure {
   border: 0.1875rem solid #a51920;
   border-color: #a51920 !important;
