@@ -11,7 +11,8 @@ export class SwitchNodeExecution extends Component {
   static propTypes = {
     node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
-    task: PropTypes.object.isRequired
+    task: PropTypes.object.isRequired,
+    workflowExecution: PropTypes.object.isRequired
   };
 
   static defaultProps = {
@@ -48,7 +49,8 @@ export class SwitchNodeExecution extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowRevision.config[ownProps.node.id]
+    nodeConfig: state.workflowRevision.config[ownProps.node.id],
+    workflowExecution: state.workflowExecution
   };
 };
 
