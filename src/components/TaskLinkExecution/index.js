@@ -55,13 +55,11 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
     >
       {({ halfwayPoint }) => (
         <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`} xmlns="http://www.w3.org/2000/svg">
-          <foreignObject width="24" height="24" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-            <ExecutionConditionSwitcher
-              disabled={isModelLocked}
-              executionCondition={executionCondition}
-              kind="execution"
-            />
-          </foreignObject>
+          <ExecutionConditionSwitcher
+            disabled={isModelLocked}
+            executionCondition={executionCondition}
+            kind="execution"
+          />
           ) }}
         </g>
       )}

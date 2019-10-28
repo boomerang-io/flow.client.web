@@ -110,71 +110,83 @@ class SwitchLink extends Component {
       seperatedLinkState = this.props.model.switchCondition.replace(/\n/g, ",");
     }
     return (
-      <svg>
-        {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
-          <>
-            <g transform={`translate(${this.halfwayPoint.x - 12}, ${this.halfwayPoint.y - 12})`}>
-              <foreignObject width="24" height="24" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-                <div xmlns="http://www.w3.org/1999/xhtml">
-                  <WorkFlowCloseButton onClick={this.handleOnDelete} />
-                </div>
-              </foreignObject>
-            </g>
-            <g transform={`translate(${this.halfwayPoint.x + 12}, ${this.halfwayPoint.y - 12})`}>
-              <foreignObject width="32" height="32" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-                <WorkflowEditButton onClick={this.openModal} xmlns="http://www.w3.org/1999/xhtml" />
-                <ModalFlow
-                  confirmModalProps={{
-                    title: "Are you sure?",
-                    children: "Your changes will not be saved"
-                  }}
-                  modalHeaderProps={{
-                    title: "Switch",
-                    subtitle: "Set it up the conditions"
-                  }}
-                  isOpen={this.state.modalIsOpen}
-                  onCloseModal={() => {
-                    this.setState({ modalIsOpen: false });
-                  }}
+      <>
+        <ModalFlow
+          confirmModalProps={{
+            title: "Are you sure?",
+            children: "Your changes will not be saved"
+          }}
+          modalHeaderProps={{
+            title: "Switch",
+            subtitle: "Set it up the conditions"
+          }}
+          isOpen={this.state.modalIsOpen}
+          onCloseModal={() => {
+            this.setState({ modalIsOpen: false });
+          }}
+        >
+          <ConfigureSwitchModal
+            defaultState={this.state.defaultState}
+            onSubmit={this.handleSave}
+            switchCondition={this.state.switchCondition}
+            updateDefaultState={this.updateDefaultState}
+            updateSwitchState={this.updateSwitchState}
+            setIsModalOpen={this.props.appActions.setIsModalOpen}
+          />
+        </ModalFlow>
+        <svg>
+          {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
+            <>
+              <g transform={`translate(${this.halfwayPoint.x - 12}, ${this.halfwayPoint.y - 12})`}>
+                <foreignObject
+                  width="24"
+                  height="24"
+                  requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
                 >
-                  <ConfigureSwitchModal
-                    defaultState={this.state.defaultState}
-                    onSubmit={this.handleSave}
-                    switchCondition={this.state.switchCondition}
-                    updateDefaultState={this.updateDefaultState}
-                    updateSwitchState={this.updateSwitchState}
-                    setIsModalOpen={this.props.appActions.setIsModalOpen}
-                  />
-                </ModalFlow>
-              </foreignObject>
+                  <div xmlns="http://www.w3.org/1999/xhtml">
+                    <WorkFlowCloseButton onClick={this.handleOnDelete} />
+                  </div>
+                </foreignObject>
+              </g>
+              <g transform={`translate(${this.halfwayPoint.x + 12}, ${this.halfwayPoint.y - 12})`}>
+                <foreignObject
+                  width="32"
+                  height="32"
+                  requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                >
+                  <WorkflowEditButton onClick={this.openModal} xmlns="http://www.w3.org/1999/xhtml" />
+                </foreignObject>
+              </g>
+            </>
+          )}
+          {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
+            <g
+              transform={`translate(${this.halfwayPoint.x + 20}, ${this.halfwayPoint.y + 24})`}
+              style={{ cursor: "initial" }}
+            >
+              <text className={styles.text}>
+                {this.props.model.switchCondition === null ? "default" : seperatedLinkState}
+              </text>
             </g>
-          </>
-        )}
-        {this.path.current && !this.props.diagramEngine.diagramModel.locked && (
-          <g
-            transform={`translate(${this.halfwayPoint.x + 20}, ${this.halfwayPoint.y + 24})`}
-            style={{ cursor: "initial" }}
-          >
-            <text className={styles.text}>
-              {this.props.model.switchCondition === null ? "default" : seperatedLinkState}
-            </text>
-          </g>
-        )}
-        {this.path.current && this.props.diagramEngine.diagramModel.locked && (
-          <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y})`} style={{ cursor: "initial" }}>
-            <text className="small">{this.props.model.switchCondition === null ? "default" : seperatedLinkState}</text>
-          </g>
-        )}
+          )}
+          {this.path.current && this.props.diagramEngine.diagramModel.locked && (
+            <g transform={`translate(${this.halfwayPoint.x}, ${this.halfwayPoint.y})`} style={{ cursor: "initial" }}>
+              <text className="small">
+                {this.props.model.switchCondition === null ? "default" : seperatedLinkState}
+              </text>
+            </g>
+          )}
 
-        <path
-          className={styles.path}
-          ref={this.path}
-          style={linkStyle}
-          strokeWidth={this.props.model.width}
-          stroke="rgba(255,0,0,0.5)"
-          d={this.props.path}
-        />
-      </svg>
+          <path
+            className={styles.path}
+            ref={this.path}
+            style={linkStyle}
+            strokeWidth={this.props.model.width}
+            stroke="rgba(255,0,0,0.5)"
+            d={this.props.path}
+          />
+        </svg>
+      </>
     );
   }
 }

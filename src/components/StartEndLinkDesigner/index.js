@@ -14,10 +14,8 @@ function StartEndLinkDesigner({ diagramEngine, model, path }) {
   return (
     <WorkflowLink diagramEngine={diagramEngine} model={model} path={path}>
       {({ halfwayPoint, handleOnDelete }) => (
-        <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`} xmlns="http://www.w3.org/2000/svg">
-          <foreignObject width="24" height="24" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-            <WorkflowCloseButton kind="designer" onClick={handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
-          </foreignObject>
+        <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`}>
+          <WorkflowCloseButton onClick={handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
         </g>
       )}
     </WorkflowLink>

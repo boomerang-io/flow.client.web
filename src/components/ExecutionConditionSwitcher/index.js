@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import styles from "./ExecutionConditionSwitcher.module.scss";
 
 ExecutionConditionSwitcher.propTypes = {
@@ -13,14 +14,15 @@ function ExecutionConditionSwitcher({ disabled, executionCondition, kind, onClic
   const { name, Icon } = executionCondition;
 
   return (
-    <button
+    <Icon
       className={cx(styles.container, styles[kind], styles[name])}
       disabled={disabled}
       key={name}
       onClick={onClick}
-    >
-      <Icon key={name} />
-    </button>
+      onKeyDown={e => isAccessibleEvent(e) && onClick(e)}
+      role="button"
+      tabIndex={0}
+    />
   );
 }
 

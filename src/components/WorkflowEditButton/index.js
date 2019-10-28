@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { Edit16 } from "@carbon/icons-react";
+import EditButton from "./EditButton";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import styles from "./WorkflowEditButton.module.scss";
 
 WorkflowEditButton.propTypes = {
@@ -12,8 +13,14 @@ WorkflowEditButton.propTypes = {
 
 export default function WorkflowEditButton({ alt = "Workflow edit button", className, onClick, ...rest }) {
   return (
-    <button className={cx(styles.button, className)} onClick={onClick} {...rest}>
-      <Edit16 alt={alt} />
-    </button>
+    <EditButton
+      alt={alt}
+      className={cx(styles.button, className)}
+      onClick={onClick}
+      onKeyDown={e => isAccessibleEvent(e) && onClick(e)}
+      role="button"
+      tabIndex="0"
+      {...rest}
+    />
   );
 }

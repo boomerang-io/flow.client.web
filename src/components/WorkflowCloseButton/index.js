@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { Close16 } from "@carbon/icons-react";
+import CloseButton from "./CloseButton";
+import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import styles from "./WorkflowCloseButton.module.scss";
 
 WorkflowCloseButton.propTypes = {
@@ -19,8 +20,14 @@ export default function WorkflowCloseButton({
   ...rest
 }) {
   return (
-    <button className={cx(styles.button, className, styles[kind])} onClick={onClick} {...rest}>
-      <Close16 alt={alt} />
-    </button>
+    <CloseButton
+      alt={alt}
+      className={cx(styles.button, className)}
+      onClick={onClick}
+      onKeyDown={e => isAccessibleEvent(e) && onClick(e)}
+      role="button"
+      tabIndex={0}
+      {...rest}
+    />
   );
 }
