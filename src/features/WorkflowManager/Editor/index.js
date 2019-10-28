@@ -43,6 +43,8 @@ class WorkflowEditor extends Component {
         diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect()
       });
     }
+
+    this.diagramApp.getDiagramEngine().zoomToFit();
   }
 
   componentDidUpdate(prevProps) {
