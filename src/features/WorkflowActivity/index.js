@@ -66,7 +66,9 @@ export function WorkflowActivity({ activityActions, history, location, match, te
   const activityStatusSummaryRequestQuery = queryString.stringify({
     teamIds,
     triggers,
-    workflowIds
+    workflowIds,
+    fromDate,
+    toDate
   });
 
   const activitySummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary?${activitySummaryRequestQuery}`;
