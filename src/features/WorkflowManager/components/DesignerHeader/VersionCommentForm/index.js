@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { TextArea } from "@boomerang/carbon-addons-boomerang-react";
+import { Error, TextArea } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
-import Error from "@boomerang/boomerang-components/lib/Error";
 
 class VersionCommentForm extends Component {
   static propTypes = {

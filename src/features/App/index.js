@@ -7,8 +7,7 @@ import { actions as userActions } from "State/user";
 import { actions as navigationActions } from "State/navigation";
 import { actions as teamsActions } from "State/teams";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
-import Modal from "@boomerang/boomerang-components/lib/Modal";
-import { NotificationsContainer, ProtectedRoute, ErrorBoundary } from "@boomerang/carbon-addons-boomerang-react";
+import { NotificationsContainer, ProtectedRoute, ErrorBoundary, Modal } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import Loading from "Components/Loading";
 import NotificationBanner from "Components/NotificationBanner";
@@ -76,13 +75,9 @@ class App extends Component {
 
     if (teams.status === SERVICE_REQUEST_STATUSES.SUCCESS && Object.keys(teams.data).length === 0) {
       return (
-        <div style={{ backgroundColor: "#1c496d" }}>
-          <Modal
-            isOpen={true}
-            modalContent={() => <FlowRedirectModalContent />}
-            modalProps={{ shouldCloseOnOverlayClick: false, shouldCloseOnEsc: false, backgroundColor: "#1c496d" }}
-          />
-        </div>
+        <Modal isOpen={true}>
+          <FlowRedirectModalContent />
+        </Modal>
       );
     }
 
@@ -93,7 +88,9 @@ class App extends Component {
       return (
         <>
           <div className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
-            {<NotificationBanner closeBanner={this.closeBanner} />}
+            {
+              //<NotificationBanner closeBanner={this.closeBanner} />
+            }
             <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
               <Switch>
                 <ProtectedRoute

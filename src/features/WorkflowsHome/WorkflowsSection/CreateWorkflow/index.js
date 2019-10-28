@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { ModalFlow, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
-import Button from "@boomerang/boomerang-components/lib/Button";
 import { Add32 } from "@carbon/icons-react";
 import CreateWorkflowContent from "./CreateWorkflowContent";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
@@ -60,14 +59,14 @@ export class CreateWorkflow extends Component {
     return (
       <ModalFlow
         modalTrigger={({ openModal }) => (
-          <Button id="create-wokflow" className={styles.placeholder} onClick={openModal}>
+          <button id="create-wokflow" className={styles.placeholder} onClick={openModal}>
             <div className={styles.placeholderBox}>
               <Add32 className={styles.placeholderPlus} />
               <label htmlFor="create-wokflow" className={styles.placeholderLabel}>
                 Create a new workflow
               </label>
             </div>
-          </Button>
+          </button>
         )}
         confirmModalProps={{
           title: "Close this?",

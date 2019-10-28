@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CreateWorkflow from "./CreateWorkflow";
 import ImportWorkflow from "./ImportWorkflow";
 import WorkflowCard from "./WorkflowCard";
@@ -43,7 +42,6 @@ class WorkflowSection extends Component {
         <div className={styles.header}>
           <h1 className={styles.team}>{`${team.name} (${workflows.length})`}</h1>
           <ImportWorkflow fetchTeams={fetchTeams} teamId={team.id} />
-          <Tooltip id={team.name}>Import Workflow</Tooltip>
         </div>
         <div className={styles.workflows}>
           {workflows.map(workflow => (
