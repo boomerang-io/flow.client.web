@@ -15,6 +15,10 @@
   display: flex;
   flex-grow: 1;
   position: relative;
+
+  svg:not(:root) {
+    overflow: visible !important;
+  }
 }
 
 .diagram {
