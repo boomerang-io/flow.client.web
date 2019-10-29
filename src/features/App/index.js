@@ -10,7 +10,7 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { NotificationsContainer, ProtectedRoute, ErrorBoundary, Modal } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import Loading from "Components/Loading";
-import NotificationBanner from "Components/NotificationBanner";
+//import NotificationBanner from "Components/NotificationBanner";
 import BrowserModal from "./BrowserModal";
 import FlowRedirectModalContent from "./flowRedirectModalContent";
 import Navigation from "./Navigation";
