@@ -7,7 +7,7 @@ import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { Button, Tooltip as CarbonTooltip } from "carbon-components-react";
+import { Button, Tooltip as CarbonTooltip, TooltipDefinition } from "carbon-components-react";
 import {
   ComboBox,
   ConfirmModal,
@@ -22,11 +22,9 @@ import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
 import workflowIcons from "Assets/workflowIcons";
 import cronstrue from "cronstrue";
-import copyIcon from "Assets/workflowIcons/copy.svg";
 import eyeIcon from "Assets/workflowIcons/eye.svg";
-import refreshIcon from "Assets/workflowIcons/refresh.svg";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import { Add16, SettingsAdjust20 } from "@carbon/icons-react";
+import { Add16, CopyFile16, Save24, SettingsAdjust20 } from "@carbon/icons-react";
 import styles from "./overview.module.scss";
 
 export class Overview extends Component {
@@ -192,46 +190,53 @@ export class Overview extends Component {
             invalid={errors.shortDescription && touched.shortDescription}
             invalidText={errors.shortDescription}
           />
-          <TextArea
-            id="description"
-            labelText="Description"
-            placeholder="Description"
-            onBlur={handleBlur}
-            onChange={this.handleOnChange}
-            invalid={errors.description && touched.description}
-            invalidText={errors.description}
-            resize={false}
-            style={{ resize: "none" }}
-            value={values.description}
-          />
+          <div className={styles.descriptionContainer}>
+            <p className={styles.descriptionLength}> {`${values.description.length} / 250`}</p>
+            <TextArea
+              id="description"
+              labelText="Description"
+              placeholder="Description"
+              onBlur={handleBlur}
+              onChange={this.handleOnChange}
+              invalid={errors.description && touched.description}
+              invalidText={errors.description}
+              resize={false}
+              style={{ resize: "none", borderBottom: "1px solid #8D8D8D" }}
+              value={values.description}
+            />
+          </div>
           <h2 className={styles.iconTitle}>Pick an icon (any icon)</h2>
           <div className={styles.iconsWrapper}>
             {workflowIcons.map((image, index) => (
-              <label
-                key={`icon-number-${index}`}
-                className={`${styles.iconLabel} ${get(workflow, "data.icon", "") === image.name ? styles.active : ""}`}
-              >
-                <input
-                  type="radio"
-                  value={image.name}
-                  readOnly
-                  onClick={() => this.handleOnIconChange(image.name, "icon")}
-                  checked={get(workflow, "data.icon", "") === image.name}
-                />
-                <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} className={styles.icon} />
-              </label>
+              <TooltipDefinition direction="top" tooltipText={image.name}>
+                <label
+                  key={`icon-number-${index}`}
+                  className={`${styles.iconLabel} ${
+                    get(workflow, "data.icon", "") === image.name ? styles.active : ""
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    value={image.name}
+                    readOnly
+                    onClick={() => this.handleOnIconChange(image.name, "icon")}
+                    checked={get(workflow, "data.icon", "") === image.name}
+                  />
+                  <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} className={styles.icon} />
+                </label>
+              </TooltipDefinition>
             ))}
           </div>
         </section>
         <section className={styles.smallCol}>
           <h1 className={styles.header}>Triggers</h1>
           <h2 className={styles.subTitle}>Off - until you turn them on. (Feel the power).</h2>
-          <div>
+          <div className={styles.triggerContainer}>
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
                 <Toggle
                   id="webhook"
-                  labelText="Enable Webhook"
+                  labelText="Webhook"
                   toggled={values.webhook}
                   onToggle={checked => this.handleOnWebhookChange(checked)}
                   Up
@@ -246,7 +251,7 @@ export class Overview extends Component {
                   <Button
                     onClick={this.generateToken}
                     renderIcon={Add16}
-                    style={{ marginBottom: "1rem" }}
+                    style={{ marginBottom: "1rem", marginLeft: "4.6rem" }}
                     size="field"
                     type="button"
                   >
@@ -256,61 +261,61 @@ export class Overview extends Component {
 
               {get(workflow, "data.triggers.webhook.enable", false) &&
                 get(workflow, "data.triggers.webhook.token", false) && (
-                  <div className={styles.webhookWrapper}>
-                    <TextInput
-                      readOnly
-                      id="token"
-                      placeholder="Token"
-                      value={values.token}
-                      type={this.state.tokenTextType}
-                    />
-                    <button onClick={this.handleShowToken} type="button">
-                      <img
-                        alt="Show/Hide token"
-                        className={styles.webhookImg}
-                        data-tip
-                        data-for="webhook-token-eyeIcon"
-                        src={eyeIcon}
-                      />
-                    </button>
-                    <Tooltip id="webhook-token-eyeIcon" place="top">
-                      {this.state.showTokenText}
-                    </Tooltip>
-                    <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
-                      <button
-                        onClick={() => this.setState({ copyTokenText: "Copied Token" })}
-                        onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
-                        type="button"
-                      >
+                  <div className={styles.webhookContainer}>
+                    <p className={styles.webhookTokenLabel}>API Token</p>
+                    <div className={styles.webhookWrapper}>
+                      {/*<TextInput
+                        readOnly
+                        id="token"
+                        placeholder="Token"
+                        value={values.token}
+                        type={this.state.tokenTextType}
+                      />*/}
+                      <p className={styles.webhookToken}>
+                        {this.state.tokenTextType === "password"
+                          ? values.token.toString().replace(/./g, "*")
+                          : values.token}{" "}
+                      </p>
+
+                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
                         <img
-                          alt="Copy token"
+                          alt="Show/Hide token"
                           className={styles.webhookImg}
                           data-tip
-                          data-for="webhook-token-copyIcon"
-                          src={copyIcon}
+                          data-for="webhook-token-eyeIcon"
+                          src={eyeIcon}
                         />
                       </button>
-                    </CopyToClipboard>
-                    <Tooltip id="webhook-token-copyIcon" place="top">
-                      {this.state.copyTokenText}
-                    </Tooltip>
-                    <div>
-                      <Tooltip place="top" id="webhook-token-refreshIcon">
-                        Regenerate Token
+                      <Tooltip id="webhook-token-eyeIcon" place="top">
+                        {this.state.showTokenText}
                       </Tooltip>
+                      <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
+                        <button
+                          onClick={() => this.setState({ copyTokenText: "Copied Token" })}
+                          onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                          type="button"
+                        >
+                          <CopyFile16
+                            fill={"#0072C3"}
+                            className={styles.webhookImg}
+                            data-tip
+                            data-for="webhook-token-copyIcon"
+                            alt="Copy token"
+                          />
+                        </button>
+                      </CopyToClipboard>
+                      <Tooltip id="webhook-token-copyIcon" place="top">
+                        {this.state.copyTokenText}
+                      </Tooltip>
+                    </div>
+                    <div>
                       <ConfirmModal
                         affirmativeAction={this.generateToken}
                         children="The existing token will be invalidated."
                         title="Generate a new Webhook Token?"
                         modalTrigger={({ openModal }) => (
                           <button type="button" onClick={openModal}>
-                            <img
-                              src={refreshIcon}
-                              className={styles.webhookImg}
-                              data-tip
-                              data-for="webhook-token-refreshIcon"
-                              alt="Regenerate token"
-                            />
+                            <p className={styles.regenerateText}>Generate a new token</p>
                           </button>
                         )}
                       />
@@ -323,7 +328,7 @@ export class Overview extends Component {
               <div className={styles.toggleContainer}>
                 <Toggle
                   id="schedule"
-                  labelText="Enable Scheduler"
+                  labelText="Scheduler"
                   toggled={values.schedule}
                   onToggle={checked => this.handleOnSchedulerChange(checked)}
                   tooltipContent="Enable workflow to be executed by a schedule"
@@ -331,48 +336,56 @@ export class Overview extends Component {
                   reversed
                 />
               </div>
-              {get(workflow, "data.triggers.scheduler.enable", false) && (
-                <ModalFlow
-                  confirmModalProps={{
-                    title: "Are you sure?",
-                    children: "Your changes will not be saved"
-                  }}
-                  modalHeaderProps={{
-                    title: "Set Schedule",
-                    subtitle: "Configure a CRON schedule for your workflow"
-                  }}
-                  modalTrigger={({ openModal }) => (
-                    <Button
-                      style={{ marginBottom: "1rem" }}
-                      iconDescription="Add"
-                      renderIcon={SettingsAdjust20}
-                      size="field"
-                      type="button"
-                      onClick={openModal}
-                    >
-                      Set Schedule
-                    </Button>
+              <div className={styles.schedulerContainer}>
+                {get(workflow, "data.triggers.scheduler.schedule", false) &&
+                  get(workflow, "data.triggers.scheduler.enable", false) &&
+                  get(workflow, "data.triggers.scheduler.timezone", false) && (
+                    <div className={styles.informationWrapper}>
+                      <div className={styles.informationCronMessage}>
+                        {cronstrue.toString(get(workflow, "data.triggers.scheduler.schedule", ""))}
+                      </div>
+                      <div className={styles.informationTimeZone}>
+                        {`${get(workflow, "data.triggers.scheduler.timezone", "")} Timezone`}
+                      </div>
+                    </div>
                   )}
-                >
-                  <CronJobModal
-                    cronExpression={get(workflow, "data.triggers.scheduler.schedule", "")}
-                    handleOnChange={this.handleOnCronChange}
-                    timeZone={get(workflow, "data.triggers.scheduler.timezone", "")}
-                  />
-                </ModalFlow>
-              )}
-              {get(workflow, "data.triggers.scheduler.schedule", false) &&
-                get(workflow, "data.triggers.scheduler.enable", false) &&
-                get(workflow, "data.triggers.scheduler.timezone", false) && (
-                  <div className={styles.informationWrapper}>
-                    <div className={styles.informationCronMessage}>
-                      {cronstrue.toString(get(workflow, "data.triggers.scheduler.schedule", ""))}
-                    </div>
-                    <div className={styles.informationTimeZone}>
-                      {`${get(workflow, "data.triggers.scheduler.timezone", "")} Timezone`}
-                    </div>
-                  </div>
+                {get(workflow, "data.triggers.scheduler.enable", false) && (
+                  <ModalFlow
+                    confirmModalProps={{
+                      title: "Are you sure?",
+                      children: "Your changes will not be saved"
+                    }}
+                    modalHeaderProps={{
+                      title: "Set Schedule",
+                      subtitle: "Configure a CRON schedule for your workflow"
+                    }}
+                    modalTrigger={({ openModal }) =>
+                      get(workflow, "data.triggers.scheduler.schedule", false) ? (
+                        <button type="button" onClick={openModal}>
+                          <p className={styles.regenerateText}>Change Schdule</p>
+                        </button>
+                      ) : (
+                        <Button
+                          style={{ marginBottom: "1rem", marginLeft: "4.6rem" }}
+                          iconDescription="Add"
+                          renderIcon={SettingsAdjust20}
+                          size="field"
+                          type="button"
+                          onClick={openModal}
+                        >
+                          Set Schedule
+                        </Button>
+                      )
+                    }
+                  >
+                    <CronJobModal
+                      cronExpression={get(workflow, "data.triggers.scheduler.schedule", "")}
+                      handleOnChange={this.handleOnCronChange}
+                      timeZone={get(workflow, "data.triggers.scheduler.timezone", "")}
+                    />
+                  </ModalFlow>
                 )}
+              </div>
             </div>
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
@@ -387,11 +400,11 @@ export class Overview extends Component {
                 />
               </div>
               {get(workflow, "data.triggers.event.enable", false) && (
-                <div>
+                <div className={styles.subscriptionContainer}>
                   <TextInput
                     id="topic"
-                    labelText=""
-                    placeholder="Topic"
+                    labelText="Topic"
+                    placeholder="Name"
                     value={values.topic}
                     onBlur={handleBlur}
                     onChange={this.handleOnTopicChange}
@@ -413,7 +426,7 @@ export class Overview extends Component {
           </div>
 
           <div className={styles.delimiter} />
-          <div>
+          <div className={styles.optionsContainer}>
             <h1 className={styles.header}>Other Options</h1>
             <h2 className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</h2>
             <div className={styles.toggleContainer}>
@@ -431,7 +444,15 @@ export class Overview extends Component {
 
           <div className={styles.delimiter} />
         </section>
-        <section className={styles.largeCol} />
+        <section className={styles.largeCol}>
+          <div className={styles.saveChangesCoontainer}>
+            <Save24 fill="#697077" />
+            <h3 className={styles.saveText}>
+              Changes to Settings are saved when you leave this page. Versioning functionality only applies to the
+              Workflow and Properties.
+            </h3>
+          </div>
+        </section>
       </main>
     );
   }

@@ -118,7 +118,7 @@ class WorkflowEditor extends Component {
                   webhook: get(workflow, "data.triggers.webhook.enable", false)
                 }}
                 validationSchema={Yup.object().shape({
-                  description: Yup.string().max(256, "Description must not be greater than 256 characters"),
+                  description: Yup.string().max(250, "Description must not be greater than 250 characters"),
                   enableACCIntegration: Yup.boolean(),
                   event: Yup.boolean(),
                   name: Yup.string()
