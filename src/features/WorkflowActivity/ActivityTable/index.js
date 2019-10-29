@@ -139,7 +139,6 @@ function ActivityTable(props) {
           <>
             <DataTable
               rows={records}
-              isSortable
               headers={headers}
               render={({ rows, headers, getHeaderProps }) => (
                 <TableContainer>
@@ -152,6 +151,7 @@ function ActivityTable(props) {
                             {...getHeaderProps({
                               header,
                               className: `${styles.tableHeadHeader} ${styles[header.key]}`,
+                              isSortable: header.header !== "Team" && header.header !== "Workflow",
                               onClick: handleSort
                             })}
                             isSortHeader={sort[0].property === header.key}
