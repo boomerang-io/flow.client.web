@@ -1,5 +1,6 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/variables";
+@import "~Styles/mixins";
 
 .tableSkeleton {
   th {
@@ -102,8 +103,7 @@
   cursor: pointer;
 
   &:focus {
-    outline: 0.125rem solid $interactive-01;
-    outline-offset: -0.125rem;
+    @include focus-outline();
   }
 
   &.completed {

@@ -1,8 +1,11 @@
+@import "~Styles/animation";
+
 .container {
   display: flex;
   flex-direction: column;
   height: 100%;
   margin: 0 auto;
+  transition: max-height $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 100%;
 }
 

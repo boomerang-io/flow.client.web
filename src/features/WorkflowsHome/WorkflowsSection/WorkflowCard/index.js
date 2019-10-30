@@ -144,7 +144,7 @@ class WorkflowCard extends Component {
                 subtitle: "Provide input values for your workflow"
               }}
               modalTrigger={({ openModal }) => (
-                <Button iconDecscription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
+                <Button iconDescription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
                   Run it
                 </Button>
               )}

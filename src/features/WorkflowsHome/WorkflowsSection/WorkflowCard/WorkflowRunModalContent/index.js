@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 import { Button, ModalFooter } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 
-const WorkflowRunModalContent = ({ closeModal, executeWorkflow }) => {
+WorkflowRunModalContent.propTypes = {
+  closeModal: PropTypes.func,
+  executeWorkflow: PropTypes.func.isRequired
+};
+
+function WorkflowRunModalContent({ closeModal, executeWorkflow }) {
   return (
     <ModalFlowForm>
       <ModalFooter>
@@ -35,11 +40,6 @@ const WorkflowRunModalContent = ({ closeModal, executeWorkflow }) => {
       </ModalFooter>
     </ModalFlowForm>
   );
-};
-
-WorkflowRunModalContent.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  executeWorkflow: PropTypes.func.isRequired
-};
+}
 
 export default WorkflowRunModalContent;

@@ -5,22 +5,24 @@ import SearchFilterBar from "Components/SearchFilterBar";
 import styles from "./workflowsHeader.module.scss";
 
 WorkflowsHeader.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string
+  workflowsLength: PropTypes.number,
+  handleSearchFilter: PropTypes.func,
+  isLoading: PropTypes.bool,
+  options: PropTypes.array
 };
 
-function WorkflowsHeader({ workflowsLength, handleSearchFilter, loading, options }) {
+function WorkflowsHeader({ handleSearchFilter, isLoading, options, workflowsLength }) {
   return (
     <FeatureHeader>
       <div className={styles.container}>
         <section className={styles.info}>
           <p className={styles.title}>These are your</p>
-          <h1 className={styles.subtitle}>{loading ? "Workflows" : `Workflows (${workflowsLength})`}</h1>
+          <h1 className={styles.subtitle}>{isLoading ? "Workflows" : `Workflows (${workflowsLength})`}</h1>
         </section>
         <SearchFilterBar
           filterable
-          loading={loading}
           handleSearchFilter={handleSearchFilter}
+          isLoading={isLoading}
           placeholder="Choose a team"
           label="Choose a team"
           title="Filter by team"

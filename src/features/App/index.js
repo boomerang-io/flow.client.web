@@ -1,5 +1,4 @@
 import React, { Suspense, Component } from "react";
-import classnames from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { detect } from "detect-browser";
@@ -10,7 +9,7 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { NotificationsContainer, ProtectedRoute, ErrorBoundary, Modal } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import Loading from "Components/Loading";
-//import NotificationBanner from "Components/NotificationBanner";
+// import NotificationBanner from "Components/NotificationBanner";
 import BrowserModal from "./BrowserModal";
 import FlowRedirectModalContent from "./flowRedirectModalContent";
 import Navigation from "./Navigation";
@@ -32,9 +31,9 @@ import "./styles.scss";
 const browser = detect();
 
 class App extends Component {
-  state = {
-    bannerClosed: false
-  };
+  // state = {
+  //   bannerClosed: false
+  // };
 
   componentDidMount() {
     this.fetchData();
@@ -56,9 +55,9 @@ class App extends Component {
     }
   }
 
-  closeBanner = () => {
-    this.setState({ bannerClosed: true });
-  };
+  // closeBanner = () => {
+  //   this.setState({ bannerClosed: true });
+  // };
 
   renderApp() {
     const { user, navigation, teams } = this.props;
@@ -84,13 +83,10 @@ class App extends Component {
     if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
       const userRole = user.data.type;
       const allowedUserRoles = [USER_TYPES.ADMIN, USER_TYPES.OPERATOR];
-
       return (
         <>
-          <div className={classnames("c-app-main", { "--banner-closed": this.state.bannerClosed })}>
-            {
-              //<NotificationBanner closeBanner={this.closeBanner} />
-            }
+          <div className="c-app-main">
+            {/*<NotificationBanner closeBanner={this.closeBanner} />*/}
             <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
               <Switch>
                 <ProtectedRoute

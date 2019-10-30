@@ -10,7 +10,7 @@ import { SideNav, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from
 
 const onMenuClick = ({ isOpen, onMenuClose }) => (
   <LeftSideNav isOpen={isOpen}>
-    <SideNav expanded={isOpen} isChildOfHeader={true}>
+    <SideNav ariaLabel="nav" expanded={isOpen} isChildOfHeader={true}>
       <SideNavItems>
         <SideNavLink
           large

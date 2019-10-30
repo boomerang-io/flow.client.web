@@ -1,30 +1,31 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
 
-.placeholder {
+.container {
   border: none;
   background: none;
   cursor: pointer;
+  line-height: 0;
   margin: 1rem 0.75rem;
   padding: 0rem;
 }
 
-.placeholderBox {
-  display: flex;
-  justify-content: center;
+.box {
   align-items: center;
-  width: 19.375rem;
-  height: 10.3125rem;
   border: 0.0625rem solid #373d42;
-  position: relative;
   @include border-radius();
+  display: flex;
+  height: 10.3125rem;
+  justify-content: center;
+  position: relative;
+  width: 19.375rem;
 }
 
-.placeholderPlus {
+.addIcon {
   height: 1.75rem;
   width: 1.75rem;
 }
-.placeholderLabel {
+.text {
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.0625rem;

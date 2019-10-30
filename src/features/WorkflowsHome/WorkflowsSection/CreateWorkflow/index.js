@@ -13,10 +13,10 @@ import styles from "./createWorkflow.module.scss";
 
 export class CreateWorkflow extends Component {
   static propTypes = {
-    actions: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired,
     fetchTeams: PropTypes.func.isRequired,
-    team: PropTypes.object.isRequired
+    team: PropTypes.object.isRequired,
+    workflowActions: PropTypes.object.isRequired,
+    workflowRevisionActions: PropTypes.object.isRequired
   };
 
   diagramApp = new DiagramApplication({ dag: null, isLocked: false });
@@ -59,10 +59,10 @@ export class CreateWorkflow extends Component {
     return (
       <ModalFlow
         modalTrigger={({ openModal }) => (
-          <button id="create-wokflow" className={styles.placeholder} onClick={openModal}>
-            <div className={styles.placeholderBox}>
-              <Add32 className={styles.placeholderPlus} />
-              <label htmlFor="create-wokflow" className={styles.placeholderLabel}>
+          <button id="create-wokflow" className={styles.container} onClick={openModal}>
+            <div className={styles.box}>
+              <Add32 className={styles.addIcon} />
+              <label htmlFor="create-wokflow" className={styles.text}>
                 Create a new workflow
               </label>
             </div>

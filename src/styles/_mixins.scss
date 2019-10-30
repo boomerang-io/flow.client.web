@@ -1,5 +1,5 @@
 //https://github.com/carbon-design-system/carbon/blob/master/packages/components/src/globals/scss/_helper-mixins.scss
-//@import "~carbon-components/scss/globals/scss/_helper-mixins.scss";
+@import "variables";
 
 @mixin text-overflow-ellipsis() {
   overflow: hidden;
@@ -9,4 +9,9 @@
 
 @mixin border-radius() {
   border-radius: 0.25rem;
+}
+
+@mixin focus-outline($color: $interactive-01) {
+  outline: 0.125rem solid $color;
+  outline-offset: -0.125rem;
 }

@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import cx from "classnames";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as teamsActions } from "State/teams";
 import { actions as appActions } from "State/app";
+import { actions as OnBoardActions } from "State/onBoard";
 import sortBy from "lodash/sortBy";
 import { SkeletonText, SkeletonPlaceholder } from "carbon-components-react";
 import { notify, ToastNotification, NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
+import WelcomeBanner from "Components/WelcomeBanner";
 import DelayedRender from "Components/DelayedRender";
 import ErrorDragon from "Components/ErrorDragon";
 import WorkflowsHeader from "./WorkflowsHeader";
@@ -24,6 +27,8 @@ export class WorkflowsHome extends Component {
   };
 
   state = {
+    isWelcomeBannerOpen: true,
+    isWelcomeBannerShown: window.localStorage.getItem("bmrg-flow-hideWelcomeBanner") !== "true",
     searchQuery: "",
     teamsFilter: []
   };
@@ -99,9 +104,23 @@ export class WorkflowsHome extends Component {
       });
   };
 
+  handleOpenTutorial = () => {
+    this.props.OnBoardActions.showOnBoardExp();
+  };
+
+  handleToggleIsWelcomeBannerOpen = () => {
+    this.setState(prevState => ({ isWelcomeBannerOpen: !prevState.isWelcomeBannerOpen }));
+  };
+
+  handleHideWelcomeBanner = () => {
+    this.setState({ isWelcomeBannerShown: false, isWelcomeBannerOpen: false }, () =>
+      window.localStorage.setItem("bmrg-flow-hideWelcomeBanner", true)
+    );
+  };
+
   render() {
-    const { teamsState } = this.props;
-    const { searchQuery } = this.state;
+    const { onBoard, teamsState } = this.props;
+    const { isWelcomeBannerOpen, isWelcomeBannerShown, searchQuery } = this.state;
 
     if (teamsState.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
@@ -111,7 +130,7 @@ export class WorkflowsHome extends Component {
       return (
         <DelayedRender>
           <div className={styles.container}>
-            <WorkflowsHeader loading handleSearchFilter={this.handleSearchFilter} workflowsLength={0} options={[]} />
+            <WorkflowsHeader isLoading handleSearchFilter={this.handleSearchFilter} workflowsLength={0} options={[]} />
             <main className={styles.content}>
               <div className={styles.loadingContainer}>
                 <SkeletonText heading width="10rem" />
@@ -135,41 +154,50 @@ export class WorkflowsHome extends Component {
       const sortedTeams = sortBy(filteredTeams, ["name"]);
       const workflowsLength = teamsState.data.reduce((acc, team) => team.workflows.length + acc, 0);
 
-      if (!sortedTeams.length) {
-        return (
-          <div className={styles.container}>
-            <WorkflowsHeader handleSearchFilter={this.handleSearchFilter} workflowsLength={0} options={[]} />
-            <div className={styles.content}>
-              <NoDisplay style={{ marginTop: "5rem" }} text="Looks like you don't have any workflow teams" />
-            </div>
-          </div>
-        );
-      }
       return (
-        <div className={styles.container}>
-          <WorkflowsHeader
-            handleSearchFilter={this.handleSearchFilter}
-            workflowsLength={workflowsLength}
-            options={teamsState.data}
-          />
-          <main className={styles.content}>
-            {sortedTeams.map(team => {
-              return (
-                <WorkflowsSection
-                  key={team.id}
-                  deleteWorkflow={this.handleDeleteWorkflow}
-                  executeWorkflow={this.handleExecuteWorkflow}
-                  fetchTeams={this.fetchTeams}
-                  setActiveTeam={this.setActiveTeam}
-                  setActiveTeamAndRedirect={this.setActiveTeamAndRedirect}
-                  searchQuery={searchQuery}
-                  team={team}
-                  updateWorkflows={this.updateWorkflows}
-                />
-              );
+        <>
+          {isWelcomeBannerShown && (
+            <WelcomeBanner
+              hide={this.handleHideWelcomeBanner}
+              isOpen={isWelcomeBannerOpen}
+              openTutorial={this.handleOpenTutorial}
+              toggleIsOpen={this.handleToggleIsWelcomeBannerOpen}
+            />
+          )}
+          <div
+            className={cx(styles.container, {
+              [styles.bannerClosed]: !isWelcomeBannerOpen,
+              [styles.bannerHidden]: !isWelcomeBannerShown || onBoard.show
             })}
-          </main>
-        </div>
+          >
+            <WorkflowsHeader
+              handleSearchFilter={this.handleSearchFilter}
+              workflowsLength={workflowsLength}
+              options={teamsState.data}
+            />
+            <main className={styles.content}>
+              {sortedTeams.length > 0 ? (
+                sortedTeams.map(team => {
+                  return (
+                    <WorkflowsSection
+                      key={team.id}
+                      deleteWorkflow={this.handleDeleteWorkflow}
+                      executeWorkflow={this.handleExecuteWorkflow}
+                      fetchTeams={this.fetchTeams}
+                      setActiveTeam={this.setActiveTeam}
+                      setActiveTeamAndRedirect={this.setActiveTeamAndRedirect}
+                      searchQuery={searchQuery}
+                      team={team}
+                      updateWorkflows={this.updateWorkflows}
+                    />
+                  );
+                })
+              ) : (
+                <NoDisplay style={{ marginTop: "5rem" }} text="Looks like you don't have any workflow teams" />
+              )}
+            </main>
+          </div>
+        </>
       );
     }
 
@@ -178,11 +206,13 @@ export class WorkflowsHome extends Component {
 }
 
 const mapStateToProps = state => ({
+  onBoard: state.onBoard,
   teamsState: state.teams
 });
 
 const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch),
+  OnBoardActions: bindActionCreators(OnBoardActions, dispatch),
   teamsActions: bindActionCreators(teamsActions, dispatch)
 });
 

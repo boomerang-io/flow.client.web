@@ -9,7 +9,6 @@ import styles from "./workflowsSection.module.scss";
 class WorkflowSection extends Component {
   static propTypes = {
     team: PropTypes.object.isRequired,
-    teams: PropTypes.array.isRequired,
     searchQuery: PropTypes.string.isRequired,
     setActiveTeamAndRedirect: PropTypes.func.isRequired,
     fetchTeams: PropTypes.func.isRequired,

@@ -42,8 +42,7 @@ li.CodeMirror-hint-active {
   cursor: pointer;
   user-select: none;
   position: relative;
-  outline: 0.125rem solid transparent;
-  outline-offset: -0.125rem;
+  @include focus-outline();
   display: block;
   padding: 0.6875rem 0;
   margin: 0;

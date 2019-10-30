@@ -7,13 +7,11 @@ import { withRouter } from "react-router-dom";
 import {
   homeScreens,
   designerScreens,
-  creatorScreens,
   activityScreens,
   executionScreens,
   messageConfig,
   homeGuideConfig,
   designerGuideConfig,
-  creatorGuideConfig,
   activityGuideConfig,
   executionGuideConfig
 } from "./constants";
@@ -74,10 +72,6 @@ class OnBoardExpContainer extends Component {
       screens = designerScreens;
       guideConfig = designerGuideConfig;
       message = messageConfig.welcomeDesigner;
-    } else if (path.includes("/creator/overview")) {
-      screens = creatorScreens;
-      guideConfig = creatorGuideConfig;
-      message = messageConfig.welcomeCreator;
     } else if (path.includes("/activity") && !path.includes("/execution")) {
       screens = activityScreens;
       guideConfig = activityGuideConfig;

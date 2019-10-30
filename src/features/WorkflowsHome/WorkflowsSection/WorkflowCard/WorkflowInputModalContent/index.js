@@ -8,9 +8,9 @@ import styles from "./workflowInputModalContent.module.scss";
 //TODO: needs to be refactored to use data driven inputs and formik if possible
 class WorkflowInputModalContent extends Component {
   static propTypes = {
-    closeModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.func,
     executeWorkflow: PropTypes.func.isRequired,
-    inputxfs: PropTypes.array.isRequired
+    inputs: PropTypes.array.isRequired
   };
 
   constructor(props) {
