@@ -11,6 +11,16 @@
   overflow: auto;
   padding: 1.5rem 2rem;
   width: 100%;
+  :global .recharts-cartesian-axis.recharts-yAxis {
+    font-family: "IBM Plex Sans";
+    > text {
+      font-size: 0.875rem;
+      transform-origin: -4% -9%;
+    }
+  }
+  // :global .recharts-cartesian-axis-tick {
+  //   font-size: 0.875rem;
+  // }
   :global .c-legend {
     margin-top: 1rem;
   }
@@ -19,12 +29,12 @@
     cursor: pointer;
     height: 2.5rem;
     max-height: 2.5rem;
-    width: 14rem;
+    width: 16rem;
   }
 
   :global .bx--list-box__field {
     appearance: none;
-    width: 14rem;
+    width: 16rem;
     &:focus {
       box-shadow: none;
     }
@@ -42,7 +52,8 @@
   }
 
   :global .bx--list-box__menu {
-    width: 100%;
+    min-width: 12rem;
+    // width: max-content;
     background-color: $white;
     height: auto;
     max-height: unset;
@@ -67,7 +78,7 @@
   display: flex;
   align-self: flex-start;
   justify-content: space-between;
-  width: 45rem;
+  width: 55rem;
 
   & :global .b-search-filter__search {
     margin-right: 0rem;

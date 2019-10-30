@@ -49,6 +49,9 @@ $full-report-dark-gray: #424747;
 $full-report-gray: #6f7878;
 $status-teal: #39cead;
 
+
+// @import "~@boomerang/carbon-addons-boomerang/scss/styles.scss";
+// @include bmrgFlowColors();
 // Carbon theme
 $interactive-01: #0072c3;
 $interactive-02: #3d3d3d;
@@ -83,6 +86,7 @@ $inverse-support-04: #408bfc;
 $overlay-01: rgba(23, 23, 23, 0.5);
 
 // Below not currently included in designs
+
 $focus: #0072c3;
 $hover-primary: #175d8d;
 $active-primary: #1c496d;

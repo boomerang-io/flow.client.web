@@ -155,10 +155,28 @@ class CustomAreaChart extends Component {
       const formatValue = moment(event.payload.value);
       return (
         <g>
-          <text x={event.x} y={event.y + 20} dy={-4} fill={"#4a4a4a"} fontSize={14} textAnchor="middle">
+          <text
+            x={event.x}
+            y={event.y + 20}
+            dy={-4}
+            fill={"#272727"}
+            fontSize={12}
+            fontFamily="IBM Plex Sans"
+            letterSpacing={0.5}
+            textAnchor="middle"
+          >
             {`${formatValue.format("MMM")} ${formatValue.format("DD")}`}
           </text>
-          <text x={event.x} y={event.y + 40} dy={-4} fill={"#4a4a4a"} fontSize={14} textAnchor="middle">
+          <text
+            x={event.x}
+            y={event.y + 40}
+            dy={-4}
+            fill={"#272727"}
+            fontSize={12}
+            fontFamily="IBM Plex Sans"
+            letterSpacing={0.5}
+            textAnchor="middle"
+          >
             {`${formatValue.year()}`}
           </text>
         </g>
@@ -170,24 +188,24 @@ class CustomAreaChart extends Component {
         <AreaChart data={this.props.data} margin={{ top: 35, right: 40, left: 20, bottom: 40 }}>
           <defs>
             <linearGradient id="redGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset={offsetFailed1} stopColor="#e26665" stopOpacity={0.8} />
-              <stop offset={offsetFailed2} stopColor="#e26665" stopOpacity={0} />
+              <stop offset={offsetFailed1} stopColor="#FFA4A9" stopOpacity={0.8} />
+              <stop offset={offsetFailed2} stopColor="#FFA4A9" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset={offsetSuccess1} stopColor="#57D785" stopOpacity={0.8} />
-              <stop offset={offsetSuccess2} stopColor="#57D785" stopOpacity={0} />
+              <stop offset={offsetSuccess1} stopColor="#009C98" stopOpacity={0.8} />
+              <stop offset={offsetSuccess2} stopColor="#009C98" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="blueGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset={offsetTotal1} stopColor="#5285C1" stopOpacity={0.8} />
               <stop offset={offsetTotal2} stopColor="#5285C1" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="grayGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset={offsetInvalid1} stopColor="#c0bfc0" stopOpacity={0.8} />
-              <stop offset={offsetInvalid2} stopColor="#c0bfc0" stopOpacity={0} />
+              <stop offset={offsetInvalid1} stopColor="#50565B" stopOpacity={0.8} />
+              <stop offset={offsetInvalid2} stopColor="#50565B" stopOpacity={0} />
             </linearGradient>
-            <linearGradient id="tealGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset={offsetInProgress1} stopColor="#40d5bb" stopOpacity={0.8} />
-              <stop offset={offsetInProgress2} stopColor="#40d5bb" stopOpacity={0} />
+            <linearGradient id="lightGrayGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset={offsetInProgress1} stopColor="#B9BFC7" stopOpacity={0.8} />
+              <stop offset={offsetInProgress2} stopColor="#B9BFC7" stopOpacity={0} />
             </linearGradient>
           </defs>
           <XAxis
@@ -202,6 +220,7 @@ class CustomAreaChart extends Component {
             allowDecimals={false}
             unit={this.props.yAxisUnit}
             domain={this.props.yAxisUnit === "%" ? [0, 100] : ["dataMin", "dataMax"]}
+            padding={{ left: 20, right: 20 }}
           >
             <Label content={() => AreaLabel} />
           </YAxis>

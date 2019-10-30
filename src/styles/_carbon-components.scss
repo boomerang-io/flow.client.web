@@ -1,5 +1,6 @@
 // Carbon settings
 @import "@carbon/themes/scss/themes";
+
 $carbon--theme: $carbon--theme--g10;
 @include carbon--theme();
 
@@ -9,7 +10,7 @@ $carbon--theme--bmrg-light-v2: true;
 @import "variables";
 
 @import "~@boomerang/carbon-addons-boomerang/scss/styles.scss";
-
+// @include bmrgFlowColors();
 @import "~carbon-components/scss/components/accordion/accordion";
 @import "~carbon-components/scss/components/checkbox/checkbox";
 @import "~carbon-components/scss/components/date-picker/date-picker";

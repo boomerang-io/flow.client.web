@@ -1,7 +1,8 @@
 import { sortBy } from "lodash";
 import moment from "moment";
-import { ACTIVITY_STATUSES, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
+import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
+import { chartInfo, chartColors } from "./constants";
 
 export const parseChartsData = (data, teams) => {
   let dateName = [];
@@ -10,26 +11,47 @@ export const parseChartsData = (data, teams) => {
   let inprogress = [];
   let invalid = [];
   let finalData = [];
+
   let scatterData = [];
   let sumDuration = 0;
 
+  let failureData = [];
+  let successData = [];
+  let inprogressData = [];
+  let invalidData = [];
+  let totalData = [];
+
   data.map(item => {
     scatterData.push({
-      name: `${item.teamName} - ${item.workflowName} `,
-      duration: parseInt(item.duration / 1000, 10),
-      date: parseInt(moment(item.creationDate).format("x"), 10)
+      value: parseInt(item.duration / 1000, 10),
+      date: new Date(item.creationDate)
     });
     sumDuration += item.duration;
-    if (item.status === ACTIVITY_STATUSES.COMPLETED) success.push(item);
-    if (item.status === ACTIVITY_STATUSES.FAILURE) failure.push(item);
-    if (item.status === ACTIVITY_STATUSES.IN_PROGRESS || item.status === undefined) inprogress.push(item);
-    if (item.status === ACTIVITY_STATUSES.INVALID) invalid.push(item);
+    if (item.status === ACTIVITY_STATUSES.COMPLETED) {
+      success.push(item);
+    }
+    if (item.status === ACTIVITY_STATUSES.FAILURE) {
+      failure.push(item);
+    }
+    if (item.status === ACTIVITY_STATUSES.IN_PROGRESS || item.status === undefined) {
+      inprogress.push(item);
+    }
+    if (item.status === ACTIVITY_STATUSES.INVALID) {
+      invalid.push(item);
+    }
     if (dateName.find(date => moment(date).format("DD-MM-YY") === moment(item.creationDate).format("DD-MM-YY"))) {
       return null;
     } else {
       return dateName.push(item.creationDate);
     }
   });
+  const dataByStatus = {
+    success: successData,
+    failed: failureData,
+    invalid: invalidData,
+    inProgress: inprogressData,
+    total: totalData
+  };
   const dataByDuration = sortBy(data, ({ duration }) => duration || "");
   dateName.map(date => {
     let fail = failure.filter(item => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY"))
@@ -70,18 +92,40 @@ export const parseChartsData = (data, teams) => {
     : 0;
   const minimumDuration = dataByDuration[0] ? dataByDuration[0].duration || 0 : 0;
   const percentageSuccessful = parseFloat(((success.length / totalExecutions) * 100).toFixed(2));
-  const percentageFail = parseFloat(((failure.length / totalExecutions) * 100).toFixed(2));
-  const percentageInProgress = parseFloat(((inprogress.length / totalExecutions) * 100).toFixed(2));
-  const percentageInvalid = parseFloat(((invalid.length / totalExecutions) * 100).toFixed(2));
+
+  finalData.forEach(data => {
+    failureData.push({ date: new Date(data.date), value: data.failed });
+    successData.push({ date: new Date(data.date), value: data.success });
+    inprogressData.push({ date: new Date(data.date), value: data.inProgress });
+    invalidData.push({ date: new Date(data.date), value: data.invalid });
+    totalData.push({ date: new Date(data.date), value: data.total });
+  });
+
+  const carbonLineData = chartInfo.map(chart => {
+    return {
+      label: chart.label,
+      backgroundColors: [chart.color],
+      data: dataByStatus[chart.value]
+    };
+  });
+  const carbonScatterData = [
+    {
+      label: "Duration",
+      backgroundColors: [chartColors.TOTAL],
+      data: scatterData
+    }
+  ];
+  const carbonDonutData = [
+    {
+      label: "Status",
+      backgroundColors: [chartColors.SUCCESS, chartColors.FAILED, chartColors.INVALID, chartColors.IN_PROGRESS],
+      data: [successExecutions, failExecutions, invalidExecutions, inProgressExecutions]
+    }
+  ];
   return {
-    timeData: sortBy(finalData, ["date"]),
-    scatterData: sortBy(scatterData, ["date"]),
-    pieData: [
-      { name: ACTIVITY_STATUSES_TO_TEXT.completed, value: successExecutions, percentage: percentageSuccessful },
-      { name: ACTIVITY_STATUSES_TO_TEXT.failure, value: failExecutions, percentage: percentageFail },
-      { name: ACTIVITY_STATUSES_TO_TEXT.invalid, value: invalidExecutions, percentage: percentageInProgress },
-      { name: ACTIVITY_STATUSES_TO_TEXT.inProgress, value: inProgressExecutions, percentage: percentageInvalid }
-    ],
+    carbonLineData,
+    carbonScatterData,
+    carbonDonutData,
     durationData: [
       { value: timeSecondsToTimeUnit(parseInt(minimumDuration / 1000, 10)), label: "Minimum" },
       { value: timeSecondsToTimeUnit(parseInt(maximumDuration / 1000, 10)), label: "Maximum" },

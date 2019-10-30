@@ -6,20 +6,24 @@ import { bindActionCreators } from "redux";
 import { actions as insightsActions } from "State/insights";
 import moment from "moment";
 import queryString from "query-string";
-import { Dropdown, SelectSkeleton, SkeletonPlaceholder } from "carbon-components-react";
+import { SelectSkeleton, SkeletonPlaceholder } from "carbon-components-react";
+import { ComboBox } from "@boomerang/carbon-addons-boomerang-react";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import DelayedRender from "Components/DelayedRender";
 import ErrorDragon from "Components/ErrorDragon";
 import ChartsTile from "./ChartsTile";
 import InsightsHeader from "./InsightsHeader";
 import InsightsTile from "./InsightsTile";
-import CustomAreaChart from "./CustomAreaChart";
-import CustomScatterChart from "./CustomScatterChart";
-import CustomPieChart from "./CustomPieChart";
+// import CustomAreaChart from "./CustomAreaChart";
+// import CustomScatterChart from "./CustomScatterChart";
+// import CustomPieChart from "./CustomPieChart";
+import CarbonDonutChart from "./CarbonDonutChart";
+import CarbonLineChart from "./CarbonLineChart";
+import CarbonScatterChart from "./CarbonScatterChart";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
-import { executeDataLines } from "Constants/chartsConfig";
+// import { executeDataLines } from "Constants/chartsConfig";
 import { timeframeOptions, ALL_OPTIONS } from "Constants/filterOptions";
-import { parseChartsData } from "Utilities/formatChartData";
+import { parseChartsData } from "./chartHelper";
 import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
 import styles from "./workflowInsights.module.scss";
 
@@ -39,15 +43,22 @@ export class WorkflowInsights extends Component {
   };
 
   handleChangeTimeframe = timeframe => {
-    const timeframeValue = timeframe.selectedItem.value;
-    this.setState({ selectedTimeframe: timeframeOptions.find(tf => tf.value === timeframeValue) }, () => {
-      this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
-    });
+    const timeframeValue = timeframe.selectedItem?.value ?? null;
+    this.setState(
+      {
+        selectedTimeframe: timeframeValue
+          ? timeframeOptions.find(tf => tf.value === timeframeValue)
+          : timeframeOptions[3]
+      },
+      () => {
+        this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
+      }
+    );
   };
   handleChangeTeam = team => {
-    const teamId = team.selectedItem.id;
+    const teamId = team.selectedItem?.id ?? "none";
     const selectedTeam =
-      teamId !== ALL_OPTIONS.TEAMS.id ? this.props.teams.data.find(team => team.id === teamId) : team.selectedItem;
+      teamId !== ALL_OPTIONS.TEAMS.id ? this.props.teams.data.find(team => team.id === teamId) : ALL_OPTIONS.TEAMS;
     this.setState(
       {
         selectedTeam,
@@ -62,15 +73,23 @@ export class WorkflowInsights extends Component {
     let workflows = [];
     this.props.teams.data.forEach(team => (workflows = workflows.concat(team.workflows)));
     let workflowsList = [ALL_OPTIONS.WORKFLOWS].concat(sortByProp(workflows, "name"));
-    this.setState({ selectedWorkflow: workflowsList.find(wf => wf.id === workflow.selectedItem.id) }, () => {
-      const { selectedWorkflow } = this.state;
-      const { insights } = this.props;
-      if (selectedWorkflow.id === ALL_OPTIONS.WORKFLOWS.id) this.setState({ executionsList: insights.data.executions });
-      else
-        this.setState({
-          executionsList: insights.data.executions.filter(execution => execution.workflowId === selectedWorkflow.id)
-        });
-    });
+    this.setState(
+      {
+        selectedWorkflow: workflow.selectedItem
+          ? workflowsList.find(wf => wf.id === workflow.selectedItem.id)
+          : ALL_OPTIONS.WORKFLOWS
+      },
+      () => {
+        const { selectedWorkflow } = this.state;
+        const { insights } = this.props;
+        if (selectedWorkflow.id === ALL_OPTIONS.WORKFLOWS.id)
+          this.setState({ executionsList: insights.data.executions });
+        else
+          this.setState({
+            executionsList: insights.data.executions.filter(execution => execution.workflowId === selectedWorkflow.id)
+          });
+      }
+    );
   };
   componentDidMount() {
     this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
@@ -109,6 +128,7 @@ export class WorkflowInsights extends Component {
 
   renderWidgets = ({ teamsList, workflowsFilter }) => {
     const { insights, teams } = this.props;
+    const { selectedTimeframe, selectedWorkflow, selectedTeam } = this.state;
 
     if (insights.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
@@ -140,17 +160,17 @@ export class WorkflowInsights extends Component {
       return (
         <>
           <div className={styles.header}>
-            <Dropdown
-              id="teams-dropdown"
+            <ComboBox
+              id="ALL_OPTIONS.TEAMS"
+              items={teamsList}
+              initialSelectedItem={selectedTeam}
+              onChange={this.handleChangeTeam}
               titleText="Filter by team"
+              itemToString={team => (team ? team.name : "")}
               label="Teams"
               placeholder="Teams"
-              onChange={this.handleChangeTeam}
-              items={teamsList}
-              itemToString={team => (team ? team.name : "")}
-              initialSelectedItem={ALL_OPTIONS.TEAMS}
             />
-            <Dropdown
+            <ComboBox
               id="workflows-dropdown"
               titleText="Filter by Workflow"
               label="Workflows"
@@ -158,12 +178,13 @@ export class WorkflowInsights extends Component {
               onChange={this.handleChangeWorkflow}
               items={workflowsFilter}
               itemToString={workflow => {
+                if (!workflow) return "";
                 const team = teams.data.find(team => team.id === workflow.flowTeamId);
-                return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
+                return team ? `${workflow.name} [${team.name}]` : workflow.name;
               }}
-              initialSelectedItem={ALL_OPTIONS.WORKFLOWS}
+              initialSelectedItem={selectedWorkflow}
             />
-            <Dropdown
+            <ComboBox
               id="time-frame-dropdown"
               titleText="Time period"
               label="Time Frame"
@@ -171,7 +192,7 @@ export class WorkflowInsights extends Component {
               onChange={this.handleChangeTimeframe}
               items={timeframeOptions}
               itemToString={time => (time ? time.label : "")}
-              initialSelectedItem={timeframeOptions[3]}
+              initialSelectedItem={selectedTimeframe}
             />
           </div>
           <div className={styles.statsWidgets}>
@@ -190,40 +211,30 @@ export class WorkflowInsights extends Component {
             />
             <ChartsTile
               title="Status"
-              totalCount={chartData.totalExecutions === 0 ? "" : `${chartData.percentageSuccessful}%`}
-              type={chartData.totalExecutions === 0 ? "" : "successful"}
-              tileWidth="27rem"
+              // totalCount={chartData.totalExecutions === 0 ? "" : `${chartData.percentageSuccessful}%`}
+              // type={chartData.totalExecutions === 0 ? "" : "successful"}
+              tileWidth="33rem"
             >
               {chartData.totalExecutions === 0 ? (
                 <p className={`${styles.statsLabel} --no-data`}>No Data</p>
               ) : (
-                <CustomPieChart data={chartData.pieData} percentageSuccessful={chartData.percentageSuccessful} />
+                <CarbonDonutChart data={chartData.carbonDonutData} />
               )}
             </ChartsTile>
           </div>
           <div className={styles.graphsWidgets}>
-            <ChartsTile title="Executions" totalCount="" type="" tileWidth="50rem">
+            <ChartsTile title="Execution" totalCount="" type="" tileWidth="50rem">
               {chartData.totalExecutions === 0 ? (
                 <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
               ) : (
-                <CustomAreaChart
-                  areaData={executeDataLines}
-                  data={chartData.timeData}
-                  toolTipDateFormat="MMM DD - YYYY"
-                  xAxisKey="date"
-                  yAxisText="Count"
-                />
+                <CarbonLineChart data={chartData.carbonLineData} />
               )}
             </ChartsTile>
             <ChartsTile title="Execution Time" totalCount="" type="" tileWidth="50rem">
               {chartData.totalExecutions === 0 ? (
                 <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
               ) : (
-                <CustomScatterChart
-                  data={chartData.scatterData}
-                  yAxisText="Duration (seconds)"
-                  yAxisDataKey="duration"
-                />
+                <CarbonScatterChart data={chartData.carbonScatterData} />
               )}
             </ChartsTile>
           </div>

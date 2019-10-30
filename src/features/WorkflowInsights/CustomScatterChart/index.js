@@ -30,7 +30,8 @@ class CustomScatterChart extends Component {
   };
 
   render() {
-    const ScatterCircle = color => {
+    const color = "#009C98";
+    const ScatterCircle = () => {
       return (
         <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" width="10" height="10">
           <circle cx="10" cy="10" r={7} fill={color} />
@@ -51,10 +52,28 @@ class CustomScatterChart extends Component {
       const formatValue = moment(event.payload.value);
       return (
         <g>
-          <text x={event.x} y={event.y + 20} dy={-4} fill={"#4a4a4a"} fontSize={14} textAnchor="middle">
+          <text
+            x={event.x}
+            y={event.y + 20}
+            dy={-4}
+            fill={"#4a4a4a"}
+            fontSize={12}
+            fontFamily="IBM Plex Sans"
+            letterSpacing={0.5}
+            textAnchor="middle"
+          >
             {`${formatValue.format("MMM")} ${formatValue.format("DD")}`}
           </text>
-          <text x={event.x} y={event.y + 40} dy={-4} fill={"#4a4a4a"} fontSize={14} textAnchor="middle">
+          <text
+            x={event.x}
+            y={event.y + 40}
+            dy={-4}
+            fill={"#4a4a4a"}
+            fontSize={12}
+            fontFamily="IBM Plex Sans"
+            letterSpacing={0.5}
+            textAnchor="middle"
+          >
             {`${formatValue.year()}`}
           </text>
         </g>
@@ -106,8 +125,8 @@ class CustomScatterChart extends Component {
                       ? this.props.data[index]
                       : ""
                   }
-                  fill={scatter.fill}
-                  shape={ScatterCircle(scatter.fill)}
+                  fill={color}
+                  shape={ScatterCircle()}
                 />
               );
             })
