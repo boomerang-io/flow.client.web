@@ -159,6 +159,11 @@
 .active {
   background: $support-02;
   fill: white;
+
+  &:hover {
+    background: $support-02;
+    fill: white;
+  }
 }
 
 .toggleContainer {

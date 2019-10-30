@@ -18,13 +18,11 @@ import {
   notify,
   ToastNotification
 } from "@boomerang/carbon-addons-boomerang-react";
-import Tooltip from "@boomerang/boomerang-components/lib/Tooltip";
 import CronJobModal from "./CronJobModal";
 import workflowIcons from "Assets/workflowIcons";
 import cronstrue from "cronstrue";
-import eyeIcon from "Assets/workflowIcons/eye.svg";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import { Add16, CopyFile16, Save24, SettingsAdjust20 } from "@carbon/icons-react";
+import { Add16, CopyFile16, Save24, SettingsAdjust20, ViewFilled16 } from "@carbon/icons-react";
 import styles from "./overview.module.scss";
 
 export class Overview extends Component {
@@ -264,49 +262,27 @@ export class Overview extends Component {
                   <div className={styles.webhookContainer}>
                     <p className={styles.webhookTokenLabel}>API Token</p>
                     <div className={styles.webhookWrapper}>
-                      {/*<TextInput
-                        readOnly
-                        id="token"
-                        placeholder="Token"
-                        value={values.token}
-                        type={this.state.tokenTextType}
-                      />*/}
                       <p className={styles.webhookToken}>
                         {this.state.tokenTextType === "password"
                           ? values.token.toString().replace(/./g, "*")
                           : values.token}{" "}
                       </p>
-
-                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
-                        <img
-                          alt="Show/Hide token"
-                          className={styles.webhookImg}
-                          data-tip
-                          data-for="webhook-token-eyeIcon"
-                          src={eyeIcon}
-                        />
-                      </button>
-                      <Tooltip id="webhook-token-eyeIcon" place="top">
-                        {this.state.showTokenText}
-                      </Tooltip>
-                      <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
-                        <button
-                          onClick={() => this.setState({ copyTokenText: "Copied Token" })}
-                          onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
-                          type="button"
-                        >
-                          <CopyFile16
-                            fill={"#0072C3"}
-                            className={styles.webhookImg}
-                            data-tip
-                            data-for="webhook-token-copyIcon"
-                            alt="Copy token"
-                          />
+                      <TooltipDefinition direction="top" tooltipText={this.state.showTokenText}>
+                        <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
+                          <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
                         </button>
+                      </TooltipDefinition>
+                      <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
+                        <TooltipDefinition direction="top" tooltipText={this.state.copyTokenText}>
+                          <button
+                            onClick={() => this.setState({ copyTokenText: "Copied Token" })}
+                            onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                            type="button"
+                          >
+                            <CopyFile16 fill={"#0072C3"} className={styles.webhookImg} alt="Copy token" />
+                          </button>
+                        </TooltipDefinition>
                       </CopyToClipboard>
-                      <Tooltip id="webhook-token-copyIcon" place="top">
-                        {this.state.copyTokenText}
-                      </Tooltip>
                     </div>
                     <div>
                       <ConfirmModal
