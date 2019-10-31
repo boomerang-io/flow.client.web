@@ -34,175 +34,268 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
         class="header"
       >
         <div
-          class="bx--dropdown__wrapper bx--list-box__wrapper"
+          class="bx--bmrg-select"
         >
-          <label
-            class="bx--label"
-            for="teams-dropdown"
-          >
-            Filter by team
-          </label>
           <div
-            class="bx--dropdown bx--list-box"
-            id="teams-dropdown"
-            role="listbox"
-            tabindex="-1"
+            class="bx--list-box__wrapper"
           >
-            <div
-              aria-disabled="false"
-              aria-expanded="false"
-              aria-haspopup="true"
-              aria-label="Open menu"
-              class="bx--list-box__field"
-              data-toggle="true"
-              role="button"
-              tabindex="0"
-              type="button"
+            <label
+              class="bx--label"
+              for="ALL_OPTIONS.TEAMS"
             >
-              <span
-                class="bx--list-box__label"
-                for="downshift-0-input"
-              >
-                All Teams
-              </span>
+              Filter by team
+            </label>
+            <div
+              class="bx--combo-box bx--list-box"
+              role="listbox"
+              tabindex="-1"
+            >
               <div
-                class="bx--list-box__menu-icon"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Open menu"
+                class="bx--list-box__field"
+                data-toggle="true"
+                role="button"
+                tabindex="-1"
+                type="button"
               >
-                <svg
-                  aria-label="Open menu"
-                  focusable="false"
-                  height="16"
-                  name="chevron--down"
-                  preserveAspectRatio="xMidYMid meet"
-                  role="img"
-                  style="will-change: transform;"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
+                <input
+                  aria-autocomplete="list"
+                  aria-controls="ALL_OPTIONS.TEAMS__menu"
+                  aria-expanded="false"
+                  aria-label="Choose an item"
+                  autocomplete="off"
+                  class="bx--text-input"
+                  id="ALL_OPTIONS.TEAMS"
+                  label="Teams"
+                  placeholder="Teams"
+                  role="combobox"
+                  value="All Teams"
+                />
+                <div
+                  class="bx--list-box__selection"
+                  role="button"
+                  tabindex="0"
+                  title="Clear selected item"
                 >
-                  <path
-                    d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
-                  />
-                  <title>
-                    Open menu
-                  </title>
-                </svg>
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="bx--list-box__menu-icon"
+                >
+                  <svg
+                    aria-label="Open menu"
+                    focusable="false"
+                    height="16"
+                    name="chevron--down"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                    />
+                    <title>
+                      Open menu
+                    </title>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div
-          class="bx--dropdown__wrapper bx--list-box__wrapper"
+          class="bx--bmrg-select"
         >
-          <label
-            class="bx--label"
-            for="workflows-dropdown"
-          >
-            Filter by Workflow
-          </label>
           <div
-            class="bx--dropdown bx--list-box"
-            id="workflows-dropdown"
-            role="listbox"
-            tabindex="-1"
+            class="bx--list-box__wrapper"
           >
-            <div
-              aria-disabled="false"
-              aria-expanded="false"
-              aria-haspopup="true"
-              aria-label="Open menu"
-              class="bx--list-box__field"
-              data-toggle="true"
-              role="button"
-              tabindex="0"
-              type="button"
+            <label
+              class="bx--label"
+              for="workflows-dropdown"
             >
-              <span
-                class="bx--list-box__label"
-                for="downshift-1-input"
-              >
-                All Workflows
-              </span>
+              Filter by Workflow
+            </label>
+            <div
+              class="bx--combo-box bx--list-box"
+              role="listbox"
+              tabindex="-1"
+            >
               <div
-                class="bx--list-box__menu-icon"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Open menu"
+                class="bx--list-box__field"
+                data-toggle="true"
+                role="button"
+                tabindex="-1"
+                type="button"
               >
-                <svg
-                  aria-label="Open menu"
-                  focusable="false"
-                  height="16"
-                  name="chevron--down"
-                  preserveAspectRatio="xMidYMid meet"
-                  role="img"
-                  style="will-change: transform;"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
+                <input
+                  aria-autocomplete="list"
+                  aria-controls="workflows-dropdown__menu"
+                  aria-expanded="false"
+                  aria-label="Choose an item"
+                  autocomplete="off"
+                  class="bx--text-input"
+                  id="workflows-dropdown"
+                  label="Workflows"
+                  placeholder="Workflows"
+                  role="combobox"
+                  value="All Workflows"
+                />
+                <div
+                  class="bx--list-box__selection"
+                  role="button"
+                  tabindex="0"
+                  title="Clear selected item"
                 >
-                  <path
-                    d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
-                  />
-                  <title>
-                    Open menu
-                  </title>
-                </svg>
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="bx--list-box__menu-icon"
+                >
+                  <svg
+                    aria-label="Open menu"
+                    focusable="false"
+                    height="16"
+                    name="chevron--down"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                    />
+                    <title>
+                      Open menu
+                    </title>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div
-          class="bx--dropdown__wrapper bx--list-box__wrapper"
+          class="bx--bmrg-select"
         >
-          <label
-            class="bx--label"
-            for="time-frame-dropdown"
-          >
-            Time period
-          </label>
           <div
-            class="bx--dropdown bx--list-box"
-            id="time-frame-dropdown"
-            role="listbox"
-            tabindex="-1"
+            class="bx--list-box__wrapper"
           >
-            <div
-              aria-disabled="false"
-              aria-expanded="false"
-              aria-haspopup="true"
-              aria-label="Open menu"
-              class="bx--list-box__field"
-              data-toggle="true"
-              role="button"
-              tabindex="0"
-              type="button"
+            <label
+              class="bx--label"
+              for="time-frame-dropdown"
             >
-              <span
-                class="bx--list-box__label"
-                for="downshift-2-input"
-              >
-                3 months
-              </span>
+              Time period
+            </label>
+            <div
+              class="bx--combo-box bx--list-box"
+              role="listbox"
+              tabindex="-1"
+            >
               <div
-                class="bx--list-box__menu-icon"
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Open menu"
+                class="bx--list-box__field"
+                data-toggle="true"
+                role="button"
+                tabindex="-1"
+                type="button"
               >
-                <svg
-                  aria-label="Open menu"
-                  focusable="false"
-                  height="16"
-                  name="chevron--down"
-                  preserveAspectRatio="xMidYMid meet"
-                  role="img"
-                  style="will-change: transform;"
-                  viewBox="0 0 16 16"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
+                <input
+                  aria-autocomplete="list"
+                  aria-controls="time-frame-dropdown__menu"
+                  aria-expanded="false"
+                  aria-label="Choose an item"
+                  autocomplete="off"
+                  class="bx--text-input"
+                  id="time-frame-dropdown"
+                  label="Time Frame"
+                  placeholder="Time Frame"
+                  role="combobox"
+                  value="3 months"
+                />
+                <div
+                  class="bx--list-box__selection"
+                  role="button"
+                  tabindex="0"
+                  title="Clear selected item"
                 >
-                  <path
-                    d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
-                  />
-                  <title>
-                    Open menu
-                  </title>
-                </svg>
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="bx--list-box__menu-icon"
+                >
+                  <svg
+                    aria-label="Open menu"
+                    focusable="false"
+                    height="16"
+                    name="chevron--down"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                    />
+                    <title>
+                      Open menu
+                    </title>
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
@@ -313,7 +406,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
         </div>
         <div
           class="bx--tile container"
-          style="width: 27rem;"
+          style="width: 33rem;"
         >
           <div>
             <h3
@@ -350,7 +443,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
             <h3
               class="title"
             >
-              Executions
+              Execution
             </h3>
             <div
               class="totalCountContainer"
