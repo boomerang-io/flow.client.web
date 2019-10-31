@@ -7,7 +7,7 @@ import { Button, ModalFooter } from "carbon-components-react";
 import TextEditorModal from "Components/TextEditorModal";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import { TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
-import "./styles.scss";
+import styles from "./DisplayForm.module.scss";
 
 const AutoSuggestInput = props => {
   return (
@@ -24,6 +24,16 @@ const TextEditorInput = props => {
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
       <TextEditorModal {...props} />
     </div>
+  );
+};
+
+const NameTextInput = props => {
+  return (
+    <>
+      <TextInput {...props} />
+      <hr className={styles.divider} />
+      <h2 className={styles.inputsTitle}>Specifics</h2>
+    </>
   );
 };
 
@@ -232,15 +242,15 @@ class DisplayForm extends Component {
       <DynamicFormik
         customType="taskName"
         customProps={this.customProps}
-        CustomComponent={TextInput}
+        CustomComponent={NameTextInput}
         dataDrivenProps={{
           TextInput: AutoSuggestInput,
           TextEditor: TextEditorInput
         }}
-        formProps={{ className: "c-display-form", id: "display-form", style: { marginTop: "1rem" } }}
+        formProps={{ className: styles.container, id: "display-form" }}
         initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
         inputs={inputs}
-        inputsWrapperProps={{ className: "b-display-form__inputs" }}
+        inputsWrapperProps={{ className: styles.inputsContainer }}
         multiSelectProps={this.multiSelectProps}
         onSubmit={this.handleOnSave}
         selectProps={this.selectProps}
