@@ -1,5 +1,6 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/animation";
+@import "~Styles/mixins";
 @import "~Styles/variables";
 
 .container {
@@ -92,15 +93,19 @@
     cursor: pointer;
     font-size: 0.75rem;
     font-weight: 500;
-    height: 0.9375rem;
+    height: 1.4375rem;
     line-height: 0.9375rem;
     margin-right: 1rem;
+    padding: 0.25rem;
+    &:focus {
+      @include focus-outline();
+    }
   }
 
   .content {
     flex-grow: 1;
     margin-bottom: 9rem;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     overflow-y: auto;

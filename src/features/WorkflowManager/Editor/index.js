@@ -43,8 +43,10 @@ class WorkflowEditor extends Component {
         diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect()
       });
     }
-
-    this.diagramApp.getDiagramEngine().zoomToFit();
+    if (this.props.location.pathname.endsWith("/designer")) {
+      console.log("this ran on mount");
+      this.diagramApp.getDiagramEngine().zoomToFit();
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -55,6 +57,11 @@ class WorkflowEditor extends Component {
       this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked });
       this.diagramApp.getDiagramEngine().repaintCanvas();
       this.forceUpdate();
+    }
+
+    if (!prevProps.location.pathname.endsWith("/designer") && this.props.location.pathname.endsWith("/designer")) {
+      console.log("this ran on update");
+      this.diagramApp.getDiagramEngine().zoomToFit();
     }
   }
 

@@ -1,4 +1,5 @@
 @import "~Styles/variables";
+@import "~Styles/mixins";
 
 .container {
   height: 1.5rem;
@@ -7,6 +8,9 @@
   &.designer {
     border-color: $interactive-01;
     cursor: pointer;
+    &:focus {
+      @include focus-outline();
+    }
   }
 
   &.execution {

@@ -131,6 +131,20 @@
     cursor: pointer;
   }
 
+  &.active {
+    background: $support-02;
+    svg {
+      fill: white;
+    }
+
+    &:hover {
+      background: $support-02;
+      svg {
+        fill: white;
+      }
+    }
+  }
+
   img {
     height: 2.5rem;
     padding: 0.25rem 0.425rem;
@@ -138,7 +152,7 @@
   }
 
   &:focus {
-    outline: default;
+    outline: none;
   }
 
   &:hover {
@@ -154,16 +168,6 @@
   height: 2.5rem;
   padding: 0.25rem 0.425rem;
   width: 2.5rem;
-}
-
-.active {
-  background: $support-02;
-  fill: white;
-
-  &:hover {
-    background: $support-02;
-    fill: white;
-  }
 }
 
 .toggleContainer {

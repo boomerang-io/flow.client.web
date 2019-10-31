@@ -17,7 +17,7 @@ export default class CronJobModal extends Component {
     timeZone: PropTypes.object,
     cronExpression: PropTypes.string,
     handleOnChange: PropTypes.func.isRequired,
-    shouldConfirmExit: PropTypes.func.isRequired
+    setShouldConfirmModalClose: PropTypes.func
   };
 
   constructor(props) {

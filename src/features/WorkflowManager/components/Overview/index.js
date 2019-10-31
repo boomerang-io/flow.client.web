@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import cx from "classnames";
 import axios from "axios";
 import get from "lodash.get";
 import { connect } from "react-redux";
@@ -198,7 +199,6 @@ export class Overview extends Component {
               onChange={this.handleOnChange}
               invalid={errors.description && touched.description}
               invalidText={errors.description}
-              resize={false}
               style={{ resize: "none", borderBottom: "1px solid #8D8D8D" }}
               value={values.description}
             />
@@ -206,23 +206,21 @@ export class Overview extends Component {
           <h2 className={styles.iconTitle}>Pick an icon (any icon)</h2>
           <div className={styles.iconsWrapper}>
             {workflowIcons.map((image, index) => (
-              <TooltipDefinition direction="top" tooltipText={image.name}>
-                <label
-                  key={`icon-number-${index}`}
-                  className={`${styles.iconLabel} ${
-                    get(workflow, "data.icon", "") === image.name ? styles.active : ""
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    value={image.name}
-                    readOnly
-                    onClick={() => this.handleOnIconChange(image.name, "icon")}
-                    checked={get(workflow, "data.icon", "") === image.name}
-                  />
-                  <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} className={styles.icon} />
-                </label>
-              </TooltipDefinition>
+              <label
+                className={cx(styles.iconLabel, {
+                  [styles.active]: workflow?.data?.icon === image.name
+                })}
+                key={`icon-number-${index}`}
+              >
+                <input
+                  readOnly
+                  checked={workflow?.data?.icon === image.name}
+                  onClick={() => this.handleOnIconChange(image.name, "icon")}
+                  value={image.name}
+                  type="radio"
+                />
+                <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} className={styles.icon} />
+              </label>
             ))}
           </div>
         </section>
@@ -243,9 +241,9 @@ export class Overview extends Component {
                   reversed
                 />
               </div>
-              {get(workflow, "data.id", false) &&
-                get(workflow, "data.triggers.webhook.enable", false) &&
-                !get(workflow, "data.triggers.webhook.token", false) && (
+              {workflow?.data?.id &&
+                workflow?.data?.triggers?.webhook?.enable &&
+                !workflow?.data?.triggers?.webhook?.token && (
                   <Button
                     onClick={this.generateToken}
                     renderIcon={Add16}
@@ -257,59 +255,57 @@ export class Overview extends Component {
                   </Button>
                 )}
 
-              {get(workflow, "data.triggers.webhook.enable", false) &&
-                get(workflow, "data.triggers.webhook.token", false) && (
-                  <div className={styles.webhookContainer}>
-                    <p className={styles.webhookTokenLabel}>API Token</p>
-                    <div className={styles.webhookWrapper}>
-                      <p className={styles.webhookToken}>
-                        {this.state.tokenTextType === "password"
-                          ? values.token.toString().replace(/./g, "*")
-                          : values.token}{" "}
-                      </p>
-                      <TooltipDefinition direction="top" tooltipText={this.state.showTokenText}>
-                        <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
-                          <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
+              {workflow?.data?.triggers?.webhook?.enable && workflow?.data?.triggers?.webhook?.token && (
+                <div className={styles.webhookContainer}>
+                  <p className={styles.webhookTokenLabel}>API Token</p>
+                  <div className={styles.webhookWrapper}>
+                    <p className={styles.webhookToken}>
+                      {this.state.tokenTextType === "password"
+                        ? values.token.toString().replace(/./g, "*")
+                        : values.token}{" "}
+                    </p>
+                    <TooltipDefinition direction="top" tooltipText={this.state.showTokenText}>
+                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
+                        <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
+                      </button>
+                    </TooltipDefinition>
+                    <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
+                      <TooltipDefinition direction="top" tooltipText={this.state.copyTokenText}>
+                        <button
+                          onClick={() => this.setState({ copyTokenText: "Copied Token" })}
+                          onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                          type="button"
+                        >
+                          <CopyFile16 fill={"#0072C3"} className={styles.webhookImg} alt="Copy token" />
                         </button>
                       </TooltipDefinition>
-                      <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
-                        <TooltipDefinition direction="top" tooltipText={this.state.copyTokenText}>
-                          <button
-                            onClick={() => this.setState({ copyTokenText: "Copied Token" })}
-                            onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
-                            type="button"
-                          >
-                            <CopyFile16 fill={"#0072C3"} className={styles.webhookImg} alt="Copy token" />
-                          </button>
-                        </TooltipDefinition>
-                      </CopyToClipboard>
-                    </div>
-                    <div>
-                      <ConfirmModal
-                        affirmativeAction={this.generateToken}
-                        children="The existing token will be invalidated."
-                        title="Generate a new Webhook Token?"
-                        modalTrigger={({ openModal }) => (
-                          <button type="button" onClick={openModal}>
-                            <p className={styles.regenerateText}>Generate a new token</p>
-                          </button>
-                        )}
-                      />
-                    </div>
+                    </CopyToClipboard>
                   </div>
-                )}
+                  <div>
+                    <ConfirmModal
+                      affirmativeAction={this.generateToken}
+                      children="The existing token will be invalidated."
+                      title="Generate a new Webhook Token?"
+                      modalTrigger={({ openModal }) => (
+                        <button type="button" onClick={openModal}>
+                          <p className={styles.regenerateText}>Generate a new token</p>
+                        </button>
+                      )}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
-
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
                 <Toggle
+                  reversed
                   id="schedule"
                   labelText="Scheduler"
-                  toggled={values.schedule}
                   onToggle={checked => this.handleOnSchedulerChange(checked)}
+                  toggled={values.schedule}
                   tooltipContent="Enable workflow to be executed by a schedule"
                   tooltipProps={{ direction: "top" }}
-                  reversed
                 />
               </div>
               <div className={styles.schedulerContainer}>
@@ -400,8 +396,7 @@ export class Overview extends Component {
               )}
             </div>
           </div>
-
-          <div className={styles.delimiter} />
+          <hr className={styles.delimiter} />
           <div className={styles.optionsContainer}>
             <h1 className={styles.header}>Other Options</h1>
             <h2 className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</h2>
@@ -417,8 +412,7 @@ export class Overview extends Component {
               />
             </div>
           </div>
-
-          <div className={styles.delimiter} />
+          <hr className={styles.delimiter} />
         </section>
         <section className={styles.largeCol}>
           <div className={styles.saveChangesCoontainer}>
