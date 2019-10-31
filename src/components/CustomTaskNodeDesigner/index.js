@@ -75,6 +75,9 @@ export class CustomTaskNodeDesigner extends Component {
         category={task.category}
         node={node}
       >
+        <div className={styles.badgeContainer}>
+          <p className={styles.badgeText}>Custom</p>
+        </div>
         {this.renderConfigureNode()}
         <WorkflowCloseButton className={styles.closeButton} onClick={this.handleOnDelete} />
       </WorkflowNode>

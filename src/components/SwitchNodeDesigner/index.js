@@ -78,7 +78,12 @@ export class SwitchNode extends Component {
         node={node}
         subtitle={node.taskName}
         title={"Switch"}
+        rightPortClass={styles.rightPort}
+        subtitleClass={styles.subtitle}
       >
+        <div className={styles.badgeContainer}>
+          <p className={styles.badgeText}>Switch</p>
+        </div>
         {this.renderConfigureNode()}
         {this.renderDeleteNode()}
       </WorkflowNode>
