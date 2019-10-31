@@ -36,7 +36,7 @@ export const parseChartsData = (data, teams) => {
     if (item.status === ACTIVITY_STATUSES.IN_PROGRESS || item.status === undefined) {
       inprogress.push(item);
     }
-    if (item.status === ACTIVITY_STATUSES.INVALID) {
+    if (item.status === ACTIVITY_STATUSES.INVALID || item.status === null) {
       invalid.push(item);
     }
     if (dateName.find(date => moment(date).format("DD-MM-YY") === moment(item.creationDate).format("DD-MM-YY"))) {
