@@ -1,4 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 @import "~Styles/variables";
 
 @media (max-width: 768px) {
@@ -30,13 +31,11 @@
 @media (min-width: 769px) {
   .largeCol {
     border-right: 0.125rem solid $section-gray;
-    // padding: 0 2rem 2rem 2rem;
     width: 35%;
   }
 
   .smallCol {
     border-right: 0.125rem solid $section-gray;
-    // padding: 0 2rem 2rem 2rem;
     width: 30%;
   }
 
@@ -134,13 +133,13 @@
   &.active {
     background: $support-02;
     svg {
-      fill: white;
+      fill: $ui-01;
     }
 
     &:hover {
       background: $support-02;
       svg {
-        fill: white;
+        fill: $ui-01;
       }
     }
   }
@@ -240,9 +239,15 @@
 
 .regenerateText {
   cursor: pointer;
-  color: #0072c3;
+  color: $interactive-01;
   font-size: 0.75rem;
   line-height: 0.9375rem;
+  padding: 0.125rem;
+  margin-left: -0.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 .webhookTokenLabel {
@@ -254,6 +259,7 @@
 }
 
 .showTextButton {
+  line-height: 0;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }

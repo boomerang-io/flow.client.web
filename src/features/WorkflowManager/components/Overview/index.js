@@ -287,8 +287,8 @@ export class Overview extends Component {
                       children="The existing token will be invalidated."
                       title="Generate a new Webhook Token?"
                       modalTrigger={({ openModal }) => (
-                        <button type="button" onClick={openModal}>
-                          <p className={styles.regenerateText}>Generate a new token</p>
+                        <button className={styles.regenerateText} type="button" onClick={openModal}>
+                          <p>Generate a new token</p>
                         </button>
                       )}
                     />
@@ -333,8 +333,8 @@ export class Overview extends Component {
                     }}
                     modalTrigger={({ openModal }) =>
                       get(workflow, "data.triggers.scheduler.schedule", false) ? (
-                        <button type="button" onClick={openModal}>
-                          <p className={styles.regenerateText}>Change Schdule</p>
+                        <button className={styles.regenerateText} type="button" onClick={openModal}>
+                          <p>Change Schedule</p>
                         </button>
                       ) : (
                         <Button
