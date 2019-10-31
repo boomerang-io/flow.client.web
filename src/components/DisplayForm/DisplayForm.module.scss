@@ -1,0 +1,40 @@
+@import "~Styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  min-height: 0;
+  flex-grow: 1;
+
+  :global .bx--bmrg-text-input,
+  :global .bx--bmrg-select,
+  :global .bx--bmrg-multi-select,
+  :global .bx--bmrg-text-area {
+    padding-bottom: 1rem;
+  }
+
+  :global .bmrg--b-textarea__text {
+    cursor: pointer;
+  }
+}
+
+.divider {
+  border-bottom: 0.0625rem solid #c1c7cd;
+  margin: 0 -1rem 1rem;
+}
+
+.inputsContainer {
+  padding: 0rem 1rem;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.inputsTitle {
+  color: #161616;
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.25rem;
+  margin: 0;
+  margin-bottom: 1rem;
+}

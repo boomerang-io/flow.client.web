@@ -109,10 +109,12 @@
   flex-direction: column;
   margin-top: -1rem;
   opacity: 1;
-  transition: opacity $carbon-motion--timing--productive $carbon-motion--easing--productive;
+  transition: opacity $carbon-motion--timing--productive $carbon-motion--easing--productive,
+    margin-top $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 100%;
 
   &.closed {
+    margin-top: 0rem;
     opacity: 0.01;
   }
 }
