@@ -199,7 +199,7 @@ export class Overview extends Component {
               onChange={this.handleOnChange}
               invalid={errors.description && touched.description}
               invalidText={errors.description}
-              style={{ resize: "none", borderBottom: "1px solid #8D8D8D" }}
+              style={{ resize: "none" }}
               value={values.description}
             />
           </div>
