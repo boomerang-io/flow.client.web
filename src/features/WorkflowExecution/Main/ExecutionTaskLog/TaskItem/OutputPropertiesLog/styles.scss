@@ -1,14 +1,20 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
+@import "~Styles/variables";
 
 .c-output-properties {
   max-width: 50rem;
 }
 
 .s-output-properties-trigger {
-  color: #0072c3;
+  color: $interactive-01;
   cursor: pointer;
   font-size: 0.875rem;
   line-height: 1.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 .s-output-properties-json {
@@ -19,7 +25,7 @@
 
   .object-key {
     span {
-      color: #0072c3;
+      color: $interactive-01;
     }
   }
 }

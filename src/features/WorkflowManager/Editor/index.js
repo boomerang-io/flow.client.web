@@ -44,7 +44,6 @@ class WorkflowEditor extends Component {
       });
     }
     if (this.props.location.pathname.endsWith("/designer")) {
-      console.log("this ran on mount");
       this.diagramApp.getDiagramEngine().zoomToFit();
     }
   }
@@ -60,7 +59,6 @@ class WorkflowEditor extends Component {
     }
 
     if (!prevProps.location.pathname.endsWith("/designer") && this.props.location.pathname.endsWith("/designer")) {
-      console.log("this ran on update");
       this.diagramApp.getDiagramEngine().zoomToFit();
     }
   }

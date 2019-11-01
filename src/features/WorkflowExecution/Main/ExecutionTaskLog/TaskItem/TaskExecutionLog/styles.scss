@@ -1,12 +1,18 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~@boomerang/boomerang-styles/lib/base";
+@import "~Styles/mixins";
+@import "~Styles/variables";
 
 .s-task-log-trigger {
-  color: #0072c3;
+  color: $interactive-01;
   cursor: pointer;
   font-size: 0.875rem;
   line-height: 1.125rem;
   margin-right: 1.5rem;
+
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 .c-modal-task-log {

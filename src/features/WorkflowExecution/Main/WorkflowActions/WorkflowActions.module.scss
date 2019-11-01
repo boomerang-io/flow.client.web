@@ -1,4 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 @import "~Styles/variables";
 
 .container {
@@ -6,7 +7,7 @@
   position: absolute;
   left: 1rem;
   padding: 0.5rem;
-  top: 0.625rem;
+  top: 0.5rem;
   z-index: 1;
 }
 
@@ -15,11 +16,17 @@
   font-size: 1rem;
   line-height: 1.25rem;
   margin-right: 1.5rem;
+  padding: 0.125rem;
 }
 
 .editContainer {
   cursor: pointer;
   display: flex;
+  padding: 0.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 .editIcon {

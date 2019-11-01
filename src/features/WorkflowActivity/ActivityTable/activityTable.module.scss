@@ -103,7 +103,7 @@
   cursor: pointer;
 
   &:focus {
-    @include focus-outline();
+    @include focus-outline($interactive-01, -0.125rem);
   }
 
   &.completed {

@@ -11,7 +11,7 @@
   border-radius: 0.25rem;
 }
 
-@mixin focus-outline($color: $interactive-01) {
+@mixin focus-outline($color: $interactive-01, $offset: 0.125rem) {
   outline: 0.125rem solid $color;
-  outline-offset: -0.125rem;
+  outline-offset: $offset;
 }
