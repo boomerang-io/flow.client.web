@@ -31,14 +31,18 @@ export default function WelcomeBanner({ hide, isOpen, openTutorial, toggleIsOpen
         <h1 className={styles.title}>Welcome to Flow</h1>
         <p className={styles.subtitle}>Your new favorite tool</p>
         <div className={cx(styles.buttons, { [styles.closed]: !isOpen })}>
-          <button className={styles.button} onClick={openTutorial}>
+          <button className={styles.button} disabled={!isOpen} onClick={openTutorial}>
             <p className={styles.buttonText}>Learn the basics</p>
           </button>
           {/* <button className={`${styles.button} ${styles.buttonMiddle}`}>
             <p className={styles.buttonText}>Jump in</p>
             <p className={styles.buttonSubtext}>with a sample workflow</p>
           </button> */}
-          <a href={`slack://channel?team=${SLACK_TEAM_ID}&id=${SLACK_FLOW_USERS_CHANNEL_ID}`} className={styles.button}>
+          <a
+            className={styles.button}
+            href={`slack://channel?team=${SLACK_TEAM_ID}&id=${SLACK_FLOW_USERS_CHANNEL_ID}`}
+            tabIndex={isOpen ? 0 : -1}
+          >
             <p className={styles.buttonText}>Slack us feedback</p>
           </a>
         </div>
