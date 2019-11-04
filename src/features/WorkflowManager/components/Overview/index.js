@@ -350,7 +350,7 @@ export class Overview extends Component {
                         </button>
                       ) : (
                         <Button
-                          style={{ marginBottom: "1rem", marginLeft: "4.6rem" }}
+                          style={{ marginBottom: "1rem" }}
                           iconDescription="Add"
                           renderIcon={SettingsAdjust20}
                           size="field"

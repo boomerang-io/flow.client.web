@@ -8,11 +8,15 @@
   opacity: 0.5;
 }
 
+.traversed {
+  opacity: 1;
+}
+
 .path {
   stroke: $interactive-01;
   &.locked {
     stroke: #50565b;
-    opacity: 0.5;
+    opacity: inherit;
   }
 }
 

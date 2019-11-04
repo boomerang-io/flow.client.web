@@ -64,6 +64,10 @@ class WorkflowEditor extends Component {
     }
   }
 
+  createWorkflowRevision = () => {
+    this.props.createWorkflowRevision(this.diagramApp);
+  };
+
   render() {
     const {
       activeTeamId,
@@ -92,7 +96,7 @@ class WorkflowEditor extends Component {
           includeResetVersionAlert={version < revisionCount}
           loading={workflowLoading}
           onDesigner={location.pathname.endsWith("/designer")}
-          performAction={this.props.createWorkflowRevision}
+          performAction={this.createWorkflowRevision}
           performActionButtonText={version < revisionCount ? "Set version to latest" : "Create new version"}
           revisionCount={workflow.data.revisionCount}
           workflowName={get(workflow, "data.name", "")}
