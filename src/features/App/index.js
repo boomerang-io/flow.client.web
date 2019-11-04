@@ -74,7 +74,7 @@ class App extends Component {
 
     if (teams.status === SERVICE_REQUEST_STATUSES.SUCCESS && Object.keys(teams.data).length === 0) {
       return (
-        <Modal isOpen={true}>
+        <Modal isOpen={true} containerClassName="c-flow-redirect-modal">
           <FlowRedirectModalContent />
         </Modal>
       );
