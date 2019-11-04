@@ -1,5 +1,13 @@
 @import "~Styles/variables";
 
+.unconnected {
+  opacity: 0.325;
+}
+
+.locked {
+  opacity: 0.5;
+}
+
 .path {
   stroke: $interactive-01;
   &.locked {

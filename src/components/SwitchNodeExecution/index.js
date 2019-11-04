@@ -5,7 +5,7 @@ import cx from "classnames";
 import WorkflowNode from "Components/WorkflowNode";
 import { Fork16 } from "@carbon/icons-react";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
-import styles from "./SwitchNodExecution.module.scss";
+import styles from "./SwitchNodeExecution.module.scss";
 
 export class SwitchNodeExecution extends Component {
   static propTypes = {
@@ -35,14 +35,16 @@ export class SwitchNodeExecution extends Component {
     }
     return (
       <WorkflowNode
+        isExecution
         className={cx(styles.node, styles[flowTaskStatus], { [styles.disabled]: disabled })}
         icon={<Fork16 alt="Switch icon" />}
         node={node}
-        subtitle={node.taskName}
-        title={"Switch"}
         rightPortClass={styles.rightPort}
+        subtitle={node.taskName}
         subtitleClass={styles.subtitle}
+        title="Switch"
       >
+        <div className={styles.progressBar} />
         <div className={styles.badgeContainer}>
           <p className={styles.badgeText}>Switch</p>
         </div>

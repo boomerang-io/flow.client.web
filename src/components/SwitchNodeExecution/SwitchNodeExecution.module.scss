@@ -2,30 +2,46 @@
 @import "~Styles/mixins";
 @import "~@boomerang/boomerang-styles/lib/colors";
 
-:global .c-workflow-diagram-execution {
-  .node.srd-node {
-    cursor: initial;
+.node {
+  height: 8.75rem;
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  width: 9.5rem;
+
+  svg {
+    circle {
+      stroke: #6e32c9;
+    }
+  }
+
+  :global .port {
+    top: 3.5rem !important;
   }
 }
 
-.failure {
-  border: 0.1875rem solid #a51920;
+.subtitle {
+  display: block;
+  height: 2.5rem;
+  overflow: hidden;
+  position: relative;
+  text-overflow: initial;
+  white-space: normal;
 }
 
-.inProgress {
-  border: 0.1875rem solid #0072c3;
-}
-.disabled {
-  border: none;
-  opacity: 0.5;
-}
-.normal {
-  border: none;
+.subtitle:before {
+  background: linear-gradient(to right, transparent, $white 80%);
+  bottom: 0;
+  content: "\200C";
+  display: block;
+  height: 0.9375rem;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 30%;
 }
 
 .badgeContainer {
   background-color: $ui-01;
-  border: 1px solid $interactive-01;
+  border: 1px solid $text-02;
   border-radius: 0.25rem;
   left: -1.5rem;
   padding: 0.25rem 0.5rem 0.25rem 0.5rem;
@@ -44,6 +60,25 @@
   border-color: #a51920 !important;
 }
 
+.completed {
+  border: 0.1875rem solid #009d9a;
+  border-color: #009d9a !important;
+}
+
+.notstarted,
+.invalid,
+.skipped {
+  border: none;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.progressBar {
+  display: none;
+}
+
 .inProgress {
   border: none;
 
@@ -54,7 +89,7 @@
     top: -0.1875rem;
     left: -0.09rem;
     transition: width 0.3s linear;
-    width: 13.9rem;
+    width: 9.5rem;
     overflow: hidden;
 
     &:before {
@@ -80,25 +115,6 @@
       animation-delay: 1.15s;
     }
   }
-}
-
-.completed {
-  border: 0.1875rem solid #009d9a;
-  border-color: #009d9a !important;
-}
-
-.notstarted,
-.invalid,
-.skipped {
-  border: none;
-}
-
-.disabled {
-  opacity: 0.5;
-}
-
-.progressBar {
-  display: none;
 }
 
 @keyframes indeterminate {

@@ -16,9 +16,21 @@ TaskLinkExecution.propTypes = {
 
 function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
   const targetNodeId = model?.targetPort?.parent?.id;
-  const step = workflowExecution.data.steps?.find(step => step.taskId === targetNodeId);
+  const sourceNodeId = model?.sourcePort?.parent?.id;
 
-  const targetTaskHasStarted = step?.flowTaskStatus && step?.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED;
+  const targetNodeType = model?.targetPort?.parent?.type;
+
+  const sourceStep = workflowExecution.data.steps?.find(step => step.taskId === sourceNodeId);
+  const targetStep = workflowExecution.data.steps?.find(step => step.taskId === targetNodeId);
+
+  const targetTaskHasStarted =
+    targetStep?.flowTaskStatus && targetStep?.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED;
+
+  const sourceTaskHasFinishedAndIsEndOfWorkflow =
+    (sourceStep?.flowTaskStatus === EXECUTION_STATUSES.COMPLETED ||
+      sourceStep?.flowTaskStatus === EXECUTION_STATUSES.FAILURE) &&
+    targetNodeType === "startend";
+
   const executionCondition = EXECUTION_CONDITIONS.find(
     executionCondition => executionCondition.name === model.executionCondition
   );
@@ -27,7 +39,9 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
 
   return (
     <WorkflowLink
-      className={cx({ [styles.started]: targetTaskHasStarted })}
+      className={cx({
+        [styles.traversed]: targetTaskHasStarted || sourceTaskHasFinishedAndIsEndOfWorkflow
+      })}
       diagramEngine={diagramEngine}
       model={model}
       path={path}

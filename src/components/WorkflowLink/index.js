@@ -13,9 +13,14 @@ WorkflowLink.propTypes = {
 function WorkflowLink({ diagramEngine, model, children, className, path }) {
   let halfwayPoint = "";
   const pathRef = React.useRef();
+  const [isMounted, setIsMounted] = React.useState(false);
 
   React.useEffect(() => {
     diagramEngine.repaintCanvas();
+  }, [diagramEngine]);
+
+  React.useEffect(() => {
+    setIsMounted(true);
   }, [diagramEngine]);
 
   function handleOnDelete() {
@@ -30,10 +35,10 @@ function WorkflowLink({ diagramEngine, model, children, className, path }) {
   }
 
   return (
-    <svg className={cx({ [styles.locked]: isModelLocked })}>
-      {pathRef.current && model.targetPort && <>{children({ halfwayPoint, handleOnDelete })}</>}
+    <svg className={cx(className, { [styles.locked]: isModelLocked, [styles.unconnected]: !model.targetPort })}>
+      {isMounted && model.targetPort && <>{children({ halfwayPoint, handleOnDelete })}</>}
       <path
-        className={cx(styles.path, { [styles.locked]: isModelLocked }, className)}
+        className={cx(styles.path, { [styles.locked]: isModelLocked })}
         ref={pathRef}
         strokeWidth={model.width}
         d={path}

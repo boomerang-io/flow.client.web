@@ -6,7 +6,7 @@ import { actions as appActions } from "State/app";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import WorkFlowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowLink from "Components/WorkflowLink";
-import SwitchLinkButton from "../SwitchLinkExecutionConditionButton";
+import SwitchLinkExecutionConditionButton from "Components/SwitchLinkExecutionConditionButton";
 import ConfigureSwitchModal from "./ConfigureSwitchModal";
 import styles from "./SwitchLink.module.scss";
 
@@ -109,7 +109,11 @@ class SwitchLink extends Component {
                 <WorkFlowCloseButton onClick={handleOnDelete} className={styles.deleteButton} />
               </g>
               <g transform={`translate(${halfwayPoint.x + 20}, ${halfwayPoint.y - 12})`}>
-                <SwitchLinkButton inputText={seperatedLinkState} onClick={this.openModal} />
+                <SwitchLinkExecutionConditionButton
+                  kind="designer"
+                  inputText={seperatedLinkState}
+                  onClick={this.openModal}
+                />
               </g>
             </>
           )}

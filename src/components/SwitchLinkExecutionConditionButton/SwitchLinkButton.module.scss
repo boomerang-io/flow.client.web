@@ -1,22 +1,24 @@
 @import "~Styles/variables";
 @import "~Styles/mixins";
 
-.button {
-  cursor: pointer;
-  //height: 1.75rem;
-  //width: 1.75rem;
-
-  &:focus {
-    @include focus-outline(#6e32c9);
+.container {
+  opacity: inherit;
+  &.designer {
+    cursor: pointer;
+    path {
+      fill: #6e32c9;
+    }
+    &:focus {
+      @include focus-outline(#6e32c9);
+    }
   }
 
-  path {
-    fill: #6e32c9;
-  }
-
-  .execution {
+  &.execution {
     path {
       fill: $text-01;
+    }
+    rect {
+      stroke: $text-01;
     }
   }
 }

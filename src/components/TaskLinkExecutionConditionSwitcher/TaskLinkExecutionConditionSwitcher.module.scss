@@ -4,6 +4,7 @@
 .container {
   height: 1.5rem;
   width: 1.5rem;
+  opacity: inherit;
 
   &.designer {
     cursor: pointer;

@@ -32,7 +32,7 @@ const ConditionButton = props => (
   </svg>
 );
 
-SwitchLinkButton.propTypes = {
+SwitchLinkExecutionConditionButton.propTypes = {
   alt: PropTypes.string,
   className: PropTypes.string,
   kind: PropTypes.oneOf(["execution", "designer"]),
@@ -40,7 +40,7 @@ SwitchLinkButton.propTypes = {
   inputText: PropTypes.string
 };
 
-export default function SwitchLinkButton({
+export default function SwitchLinkExecutionConditionButton({
   alt = "Switch edit button",
   className,
   disabled,
@@ -57,12 +57,14 @@ export default function SwitchLinkButton({
     displayText = `${inputText.substring(0, 5)}...`;
   }
   if (disabled) {
-    return <ConditionButton alt={alt} className={cx(styles.button, className)} displayText={displayText} />;
+    return (
+      <ConditionButton alt={alt} className={cx(styles.container, className, styles[kind])} displayText={displayText} />
+    );
   }
   return (
     <ConditionButton
       alt={alt}
-      className={cx(styles.button, className, styles[kind])}
+      className={cx(styles.container, className, styles[kind])}
       displayText={displayText}
       onClick={onClick}
       onKeyDown={e => isAccessibleEvent(e) && onClick(e)}
