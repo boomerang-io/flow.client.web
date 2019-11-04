@@ -47,7 +47,7 @@ class SwitchLinkExecution extends Component {
         path={path}
       >
         {({ halfwayPoint, handleOnDelete }) => (
-          <g transform={`translate(${halfwayPoint.x + 20}, ${halfwayPoint.y - 12})`}>
+          <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`}>
             <SwitchLinkExecutionConditionButton
               className={styles.executionConditionButton}
               disabled={isModelLocked}
