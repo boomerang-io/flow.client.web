@@ -24,7 +24,9 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
   const targetStep = workflowExecution.data.steps?.find(step => step.taskId === targetNodeId);
 
   const targetTaskHasStarted =
-    targetStep?.flowTaskStatus && targetStep?.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED;
+    targetStep?.flowTaskStatus &&
+    targetStep?.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED &&
+    targetStep?.flowTaskStatus !== EXECUTION_STATUSES.SKIPPED;
 
   const sourceTaskHasFinishedAndIsEndOfWorkflow =
     (sourceStep?.flowTaskStatus === EXECUTION_STATUSES.COMPLETED ||
