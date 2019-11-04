@@ -9,155 +9,159 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
       class="container"
     >
       <div
-        class="headline"
+        class="container"
       >
-        <p
-          class="subtitle"
+        <section
+          class="headline"
         >
-          This is all of the
-        </p>
-        <p
-          class="title"
-        >
-          Activity
-        </p>
-      </div>
-      <div
-        class="content"
-      >
-        <p
-          class="text"
-        >
-          Today's numbers
-        </p>
-        <div
-          class="container"
-        >
-          <div
-            class="valueAndIcon"
+          <p
+            class="subtitle"
           >
-            <p
-              class="value"
-            >
-              25
-            </p>
-            <svg
-              aria-label="Runs"
-              class="icon"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              role="img"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 6v2h12.59L6 24.59 7.41 26 24 9.41V22h2V6H10z"
-              />
-            </svg>
-          </div>
+            This is all of the
+          </p>
+          <p
+            class="title"
+          >
+            Activity
+          </p>
+        </section>
+        <section
+          class="content"
+        >
           <p
             class="text"
           >
-            Runs
+            Today's numbers
           </p>
-        </div>
-        <div
-          class="container"
-        >
           <div
-            class="valueAndIcon"
+            class="container"
           >
+            <div
+              class="valueAndIcon"
+            >
+              <p
+                class="value"
+              >
+                25
+              </p>
+              <svg
+                aria-label="Runs"
+                class="icon"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 6v2h12.59L6 24.59 7.41 26 24 9.41V22h2V6H10z"
+                />
+              </svg>
+            </div>
             <p
-              class="value"
+              class="text"
             >
-              13
+              Runs
             </p>
-            <svg
-              aria-label="Successes"
-              class="icon"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              role="img"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 6v2h12.59L6 24.59 7.41 26 24 9.41V22h2V6H10z"
-              />
-            </svg>
           </div>
-          <p
-            class="text"
-          >
-            Successes
-          </p>
-        </div>
-        <div
-          class="container"
-        >
           <div
-            class="valueAndIcon"
+            class="container"
           >
+            <div
+              class="valueAndIcon"
+            >
+              <p
+                class="value"
+              >
+                13
+              </p>
+              <svg
+                aria-label="Successes"
+                class="icon"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 6v2h12.59L6 24.59 7.41 26 24 9.41V22h2V6H10z"
+                />
+              </svg>
+            </div>
             <p
-              class="value"
+              class="text"
             >
-              10
+              Successes
             </p>
-            <svg
-              aria-label="Failures"
-              class="icon"
-              focusable="false"
-              height="32"
-              preserveAspectRatio="xMidYMid meet"
-              role="img"
-              style="will-change: transform;"
-              viewBox="0 0 32 32"
-              width="32"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 26v-2h12.59L6 7.41 7.41 6 24 22.59V10h2v16H10z"
-              />
-            </svg>
           </div>
-          <p
-            class="text"
-          >
-            Failures
-          </p>
-        </div>
-        <div
-          class="container"
-        >
           <div
-            class="valueAndIcon"
+            class="container"
           >
+            <div
+              class="valueAndIcon"
+            >
+              <p
+                class="value"
+              >
+                10
+              </p>
+              <svg
+                aria-label="Failures"
+                class="icon"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 26v-2h12.59L6 7.41 7.41 6 24 22.59V10h2v16H10z"
+                />
+              </svg>
+            </div>
             <p
-              class="value"
+              class="text"
             >
-              52%
+              Failures
             </p>
-            <span
-              aria-hidden="false"
-              aria-label="Success rate"
-              class="emoji"
-              role="img"
-            >
-              😮
-            </span>
           </div>
-          <p
-            class="text"
+          <div
+            class="container"
           >
-            Success rate
-          </p>
-        </div>
+            <div
+              class="valueAndIcon"
+            >
+              <p
+                class="value"
+              >
+                NaN%
+              </p>
+              <span
+                aria-hidden="false"
+                aria-label="Success rate"
+                class="emoji"
+                role="img"
+              >
+                😨
+              </span>
+            </div>
+            <p
+              class="text"
+            >
+              Success rate
+            </p>
+          </div>
+        </section>
       </div>
     </header>
   </div>

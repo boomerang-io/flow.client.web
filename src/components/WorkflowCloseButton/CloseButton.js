@@ -1,6 +1,6 @@
 import React from "react";
 
-const SvgComponent = props => (
+const CloseButton = props => (
   <svg width="26px" height="26px" viewBox="0 0 26 26" {...props}>
     <title>{"connector-line-x"}</title>
     <desc>{"Created with Sketch."}</desc>
@@ -15,4 +15,4 @@ const SvgComponent = props => (
   </svg>
 );
 
-export default SvgComponent;
+export default CloseButton;

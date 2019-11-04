@@ -115,15 +115,9 @@ export class WorkflowManagerContainer extends Component {
 
   updateWorkflow = () => {
     const { workflow, workflowActions } = this.props;
-    const workflowId = workflow.data.id;
-    const workflowData = { ...this.props.workflow.data };
-    delete workflowData.properties; //delete properties property so its not updated - for situation where user updates inputs, but doesn't save them
 
     return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow`, { ...this.props.workflow.data, id: workflowId })
-      .then(response => {
-        return workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`);
-      })
+      .update(`${BASE_SERVICE_URL}/workflow`, workflow.data)
       .then(response => Promise.resolve(response))
       .catch(error => {
         return Promise.reject(error);

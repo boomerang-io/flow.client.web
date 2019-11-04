@@ -3,13 +3,47 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
 .node {
-  background: #002b50;
-  border-color: #002b50;
-  color: white;
-  * {
-    color: white;
-    fill: white;
+  border: 1px solid #6e32c9 !important;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  height: 8.75rem;
+  padding: 1.5rem 1rem 1.5rem 1rem;
+  width: 9.5rem;
+
+  svg {
+    circle {
+      stroke: #6e32c9;
+    }
   }
+
+  :global .port {
+    top: 3.5rem !important;
+  }
+}
+
+.rightPort {
+  background-color: #6e32c9 !important;
+}
+
+.subtitle {
+  display: block;
+  height: 2.5rem;
+  overflow: hidden;
+  position: relative;
+  text-overflow: initial;
+  white-space: normal;
+}
+
+.subtitle:before {
+  background: linear-gradient(to right, transparent, $white 80%);
+  bottom: 0;
+  content: "\200C";
+  display: block;
+  height: 0.9375rem;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 30%;
 }
 
 .editButton {
@@ -26,22 +60,18 @@
   width: 1.5rem;
 }
 
-.disabled {
-  opacity: 0.5;
+.badgeContainer {
+  background-color: $ui-01;
+  border: 1px solid #6e32c9;
+  border-radius: 0.25rem;
+  left: -1.5rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  position: absolute;
+  top: -0.75rem;
 }
 
-.failure {
-  border: 0.1875rem solid #a51920;
-  border-color: #a51920 !important;
-}
-
-.completed {
-  border: 0.1875rem solid #009d9a;
-  border-color: #009d9a !important;
-}
-
-.notstarted,
-.invalid,
-.skipped {
-  border: none;
+.badgeText {
+  color: #000000;
+  font-size: 0.625rem;
+  line-height: 0.8125rem;
 }

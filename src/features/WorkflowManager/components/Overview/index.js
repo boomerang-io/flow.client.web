@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import axios from "axios";
 import get from "lodash.get";
+import isEqual from "lodash/isEqual";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowActions } from "State/workflow";
@@ -45,12 +46,23 @@ export class Overview extends Component {
   };
 
   componentDidMount() {
-    document.addEventListener("beforeunload", this.props.updateWorkflow);
+    window.addEventListener("beforeunload", this.handleBeforeUnloadEvent);
   }
 
   componentWillUnmount() {
     this.props.updateWorkflow();
+    window.removeEventListener("beforeunload", this.handleBeforeUnloadEvent);
   }
+
+  handleBeforeUnloadEvent = event => {
+    const {
+      formikProps: { initialValues, values }
+    } = this.props;
+    if (!isEqual(initialValues, values)) {
+      event.preventDefault();
+      event.returnValue = "You have unsaved changes.";
+    }
+  };
 
   generateToken = e => {
     if (e) {
@@ -417,10 +429,10 @@ export class Overview extends Component {
         <section className={styles.largeCol}>
           <div className={styles.saveChangesCoontainer}>
             <Save24 fill="#697077" />
-            <h3 className={styles.saveText}>
+            <p className={styles.saveText}>
               Changes to Settings are saved when you leave this page. Versioning functionality only applies to the
-              Workflow and Properties.
-            </h3>
+              Workflow.
+            </p>
           </div>
         </section>
       </main>

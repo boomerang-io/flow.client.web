@@ -32,7 +32,7 @@ class ChangeLog extends Component {
       return (
         <DelayedRender>
           <div className={styles.container}>
-            <div style={{ width: "300px", marginBottom: "1rem" }}>
+            <div className={styles.searchSkeleton}>
               <SearchSkeleton small />
             </div>
             <DataTableSkeleton />

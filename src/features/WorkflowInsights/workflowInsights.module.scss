@@ -25,7 +25,6 @@
     margin-top: 1rem;
   }
   :global .bx--list-box {
-    box-shadow: none;
     cursor: pointer;
     height: 2.5rem;
     max-height: 2.5rem;
@@ -33,10 +32,8 @@
   }
 
   :global .bx--list-box__field {
-    appearance: none;
     width: 16rem;
     &:focus {
-      box-shadow: none;
     }
   }
 
@@ -45,16 +42,13 @@
   }
 
   :global .bx--list-box__selection--multi {
-    background-color: $gray-90;
     &:hover {
-      background-color: $gray-90;
     }
   }
 
   :global .bx--list-box__menu {
     min-width: 12rem;
     // width: max-content;
-    background-color: $white;
     height: auto;
     max-height: unset;
     right: 0;
@@ -62,14 +56,11 @@
   }
 
   :global .bx--list-box__menu-item--highlighted {
-    background: $cool-gray-1;
     text-decoration: none;
   }
 
   :global .bx--list-box__menu-item--active {
     :global .bx--checkbox-label::before {
-      background-color: $teal-20 !important;
-      border-color: $teal-20 !important;
     }
   }
 }

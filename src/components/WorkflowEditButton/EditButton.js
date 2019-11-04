@@ -1,7 +1,7 @@
 import React from "react";
 
 const SvgComponent = props => (
-  <svg width="26px" height="26px" viewBox="0 0 26 26" {...props}>
+  <svg viewBox="0 0 26 26" {...props}>
     <title>{"edit"}</title>
     <desc>{"Created with Sketch."}</desc>
     <g id="Symbols" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">

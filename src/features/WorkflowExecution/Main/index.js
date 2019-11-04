@@ -33,7 +33,6 @@ class Main extends Component {
         diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect()
       });
     }
-    this.diagramApp.getDiagramEngine().zoomToFit();
   }
 
   render() {

@@ -23,6 +23,7 @@ class WorkflowEditor extends Component {
     isModalOpen: PropTypes.bool.isRequired,
     tasks: PropTypes.object.isRequired,
     teams: PropTypes.object.isRequired,
+    updateWorkflow: PropTypes.func.isRequired,
     updateWorkflowProperties: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired
@@ -63,14 +64,6 @@ class WorkflowEditor extends Component {
     }
   }
 
-  createWorkflowRevision = () => {
-    return this.props.createWorkflowRevision(this.diagramApp);
-  };
-
-  updateWorkflow = () => {
-    return this.props.updateWorkflow(this.diagramApp);
-  };
-
   render() {
     const {
       activeTeamId,
@@ -99,7 +92,7 @@ class WorkflowEditor extends Component {
           includeResetVersionAlert={version < revisionCount}
           loading={workflowLoading}
           onDesigner={location.pathname.endsWith("/designer")}
-          performAction={this.createWorkflowRevision}
+          performAction={this.props.createWorkflowRevision}
           performActionButtonText={version < revisionCount ? "Set version to latest" : "Create new version"}
           revisionCount={workflow.data.revisionCount}
           workflowName={get(workflow, "data.name", "")}
@@ -143,7 +136,7 @@ class WorkflowEditor extends Component {
                     <Overview
                       formikProps={formikProps}
                       teams={teams.data}
-                      updateWorkflow={this.updateWorkflow}
+                      updateWorkflow={this.props.updateWorkflow}
                       workflow={workflow}
                     />
                   </>

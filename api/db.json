@@ -525,7 +525,7 @@
           "width": 3,
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
-          "executionCondition": "always",
+          "executionCondition": "succcess",
           "linkId": "381de73c-046c-4f71-8a30-8426e1df4d7f"
         },
         {
@@ -555,12 +555,12 @@
           "width": 3,
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
-          "executionCondition": "always",
+          "executionCondition": "failure",
           "linkId": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7"
         },
         {
           "id": "16955507-cc27-4d0c-b17c-debf4573cb3b",
-          "type": "task",
+          "type": "decision",
           "selected": false,
           "source": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "sourcePort": "0d350a4e-1715-49f2-a788-0626a1c80009",
@@ -590,7 +590,7 @@
         },
         {
           "id": "dbc85ced-7820-4c69-a376-1d1c30a309f3",
-          "type": "task",
+          "type": "decision",
           "selected": false,
           "source": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
           "sourcePort": "5ff63d6c-b8ae-42a7-8d34-0542028423b0",
@@ -699,7 +699,7 @@
         },
         {
           "id": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
-          "type": "templateTask",
+          "type": "decision",
           "selected": false,
           "x": 785.4338409684672,
           "y": 296.7797349811225,
@@ -707,7 +707,7 @@
           "ports": [
             {
               "id": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
-              "type": "task",
+              "type": "decision",
               "selected": false,
               "name": "left",
               "parentNode": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
@@ -717,7 +717,7 @@
             },
             {
               "id": "0d350a4e-1715-49f2-a788-0626a1c80009",
-              "type": "task",
+              "type": "decision",
               "selected": false,
               "name": "right",
               "parentNode": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
@@ -726,7 +726,7 @@
               "position": "right"
             }
           ],
-          "taskId": "5bd98b105a5df954ad599bc2",
+          "taskId": "7be9d03a8a5df958ad58b3b8",
           "nodeId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "taskName": "launch Send Email 1"
         },

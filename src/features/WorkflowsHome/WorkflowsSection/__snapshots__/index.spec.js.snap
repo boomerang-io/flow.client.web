@@ -40,27 +40,20 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
             />
           </svg>
         </button>
-        <div
-          class="__react_component_tooltip place-top type-dark "
-          data-id="tooltip"
-          id="Lucas' team"
-        >
-          Import Workflow
-        </div>
       </div>
       <div
         class="workflows"
       >
         <button
-          class="placeholder"
+          class="container"
           id="create-wokflow"
         >
           <div
-            class="placeholderBox"
+            class="box"
           >
             <svg
               aria-hidden="true"
-              class="placeholderPlus"
+              class="addIcon"
               focusable="false"
               height="32"
               preserveAspectRatio="xMidYMid meet"
@@ -74,7 +67,7 @@ exports[`WorkflowsSection --- Snapshot Capturing Snapshot of WorkflowsSection 1`
               />
             </svg>
             <label
-              class="placeholderLabel"
+              class="text"
               for="create-wokflow"
             >
               Create a new workflow

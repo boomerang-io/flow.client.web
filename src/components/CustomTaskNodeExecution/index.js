@@ -57,6 +57,9 @@ export class CustomTaskNodeExecution extends Component {
         subtitle={node.taskName}
         title={task.name}
       >
+        <div className={styles.badgeContainer}>
+          <p className={styles.badgeText}>Custom</p>
+        </div>
         <div className={styles.progressBar} />
       </WorkflowNode>
     );

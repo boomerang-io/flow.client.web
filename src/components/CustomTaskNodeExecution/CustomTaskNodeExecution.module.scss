@@ -22,3 +22,19 @@
 .normal {
   border: none;
 }
+
+.badgeContainer {
+  background-color: $ui-01;
+  border: 1px solid $interactive-01;
+  border-radius: 0.25rem;
+  left: -1.5rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  position: absolute;
+  top: -0.75rem;
+}
+
+.badgeText {
+  color: #000000;
+  font-size: 0.625rem;
+  line-height: 0.8125rem;
+}

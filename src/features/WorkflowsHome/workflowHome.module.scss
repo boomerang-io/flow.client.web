@@ -5,12 +5,11 @@
   flex-direction: column;
   height: 100%;
   margin: 0 auto;
-  transition: max-height $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 100%;
 }
 
 .content {
-  height: calc(100vh - 10.3125rem);
+  height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0rem 2rem 2rem;

@@ -7,6 +7,6 @@
   width: 1.75rem;
 
   &:focus {
-    @include focus-outline();
+    @include focus-outline($interactive-01, 0rem);
   }
 }

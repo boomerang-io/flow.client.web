@@ -5,9 +5,12 @@ exports[`TaskItem --- Snapshot Capturing Snapshot of TaskItem 1`] = `
   id="app"
 >
   <div>
-    <div
+    <li
       class="taskitem completed"
     >
+      <div
+        class="progressBar"
+      />
       <section
         class="header"
       >
@@ -115,7 +118,7 @@ exports[`TaskItem --- Snapshot Capturing Snapshot of TaskItem 1`] = `
           View Properties
         </button>
       </section>
-    </div>
+    </li>
   </div>
   <div
     class="ReactModalPortal"

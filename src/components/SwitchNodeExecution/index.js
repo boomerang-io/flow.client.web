@@ -35,12 +35,17 @@ export class SwitchNodeExecution extends Component {
     }
     return (
       <WorkflowNode
-        className={cx(styles[flowTaskStatus], { [styles.disabled]: disabled })}
-        title={"Switch"}
+        className={cx(styles.node, styles[flowTaskStatus], { [styles.disabled]: disabled })}
         icon={<Fork16 alt="Switch icon" />}
-        node={this.props.node}
+        node={node}
+        subtitle={node.taskName}
+        title={"Switch"}
+        rightPortClass={styles.rightPort}
+        subtitleClass={styles.subtitle}
       >
-        {() => {}}
+        <div className={styles.badgeContainer}>
+          <p className={styles.badgeText}>Switch</p>
+        </div>
       </WorkflowNode>
     );
   }

@@ -1,7 +1,13 @@
 @import "~Styles/variables";
 
-.path {
-  stroke: $interactive-01;
+.linkPath {
+  stroke: #6e32c9;
+}
+
+.deleteButton {
+  circle {
+    stroke: #6e32c9;
+  }
 }
 
 .img {

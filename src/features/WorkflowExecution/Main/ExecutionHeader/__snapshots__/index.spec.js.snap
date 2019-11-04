@@ -6,92 +6,94 @@ exports[`ExecutionHeader --- Snapshot Capturing Snapshot of ExecutionHeader 1`] 
 >
   <div>
     <header
-      class="container"
+      class="container border"
     >
       <div
-        class="headline"
+        class="container"
       >
+        <section>
+          <div
+            class="subtitle"
+          >
+            <a
+              href="/activity"
+            >
+              Activity
+            </a>
+            <p
+              style="margin: 0px 0.5rem;"
+            >
+              /
+            </p>
+            <p>
+              Sparkle Flow with extra glitter and donuts on the side
+            </p>
+          </div>
+          <h1
+            class="title"
+          >
+            Workflow run detail
+          </h1>
+        </section>
         <div
-          class="subtitle"
+          class="content"
         >
-          <a
-            href="/activity"
+          <div
+            class="data"
           >
-            Activity
-          </a>
-          <p
-            style="margin: 0px 0.5rem;"
+            <p
+              class="dataTitle"
+            >
+              Team
+            </p>
+            <p
+              class="dataValue"
+            >
+              CAI Offerings
+            </p>
+          </div>
+          <div
+            class="data"
           >
-            /
-          </p>
-          <p>
-            Sparkle Flow with extra glitter and donuts on the side
-          </p>
-        </div>
-        <p
-          class="title"
-        >
-          Workflow run detail
-        </p>
-      </div>
-      <div
-        class="content"
-      >
-        <div
-          class="data"
-        >
-          <p
-            class="dataTitle"
+            <p
+              class="dataTitle"
+            >
+              Initiated by
+            </p>
+            <p
+              class="dataValue"
+            >
+              Tim Bula
+            </p>
+          </div>
+          <div
+            class="data"
           >
-            Team
-          </p>
-          <p
-            class="dataValue"
+            <p
+              class="dataTitle"
+            >
+              Trigger
+            </p>
+            <p
+              class="dataValue"
+            >
+              manual
+            </p>
+          </div>
+          <div
+            class="data"
           >
-            CAI Offerings
-          </p>
-        </div>
-        <div
-          class="data"
-        >
-          <p
-            class="dataTitle"
-          >
-            Initiated by
-          </p>
-          <p
-            class="dataValue"
-          >
-            Tim Bula
-          </p>
-        </div>
-        <div
-          class="data"
-        >
-          <p
-            class="dataTitle"
-          >
-            Trigger
-          </p>
-          <p
-            class="dataValue"
-          >
-            manual
-          </p>
-        </div>
-        <div
-          class="data"
-        >
-          <p
-            class="dataTitle"
-          >
-            Start time
-          </p>
-          <p
-            class="dataValue"
-          >
-            2019-01-01 12:00 AM
-          </p>
+            <p
+              class="dataTitle"
+            >
+              Team
+            </p>
+            <p
+              class="dataValue"
+            >
+              2019-01-01 12:00 AM
+            </p>
+          </div>
         </div>
       </div>
     </header>

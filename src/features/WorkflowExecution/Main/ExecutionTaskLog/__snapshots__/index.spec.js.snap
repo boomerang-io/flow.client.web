@@ -110,12 +110,15 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
           </svg>
         </button>
       </section>
-      <section
+      <ul
         class="tasklog"
       >
-        <div
+        <li
           class="taskitem completed"
         >
+          <div
+            class="progressBar"
+          />
           <section
             class="header"
           >
@@ -223,8 +226,8 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               View Properties
             </button>
           </section>
-        </div>
-      </section>
+        </li>
+      </ul>
     </aside>
   </div>
   <div
