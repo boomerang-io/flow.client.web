@@ -112,8 +112,8 @@ class WorkflowEditor extends Component {
                   event: get(workflow, "data.triggers.event.enable", false),
                   name: get(workflow, "data.name", ""),
                   persistence: get(workflow, "data.enablePersistentStorage", false),
-                  schedule: get(workflow, "data.triggers.scheduler.enable", false),
-                  selectedTeam: activeTeamId ? teams.data.find(team => team.id === activeTeamId) : teams.data[0],
+                  schedule: get(workflow, "data.triggers.scheduler.enable", "0 18 * * *"),
+                  selectedTeam: activeTeamId ? teams.find(team => team.id === activeTeamId) : teams[0],
                   shortDescription: get(workflow, "data.shortDescription", ""),
                   token: get(workflow, "data.triggers.webhook.token", ""),
                   topic: get(workflow, "data.triggers.event.topic", ""),
@@ -127,8 +127,8 @@ class WorkflowEditor extends Component {
                     .required("Name is required")
                     .max(64, "Name must not be greater than 64 characters"),
                   persistence: Yup.boolean(),
-                  selectedTeam: Yup.object().required(),
                   schedule: Yup.boolean(),
+                  selectedTeam: Yup.object().shape({ name: Yup.string().required("Team is required") }),
                   shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
                   token: Yup.string(),
                   topic: Yup.string(),
@@ -139,7 +139,7 @@ class WorkflowEditor extends Component {
                   <>
                     <Overview
                       formikProps={formikProps}
-                      teams={teams.data}
+                      teams={teams}
                       updateWorkflow={this.props.updateWorkflow}
                       workflow={workflow}
                     />

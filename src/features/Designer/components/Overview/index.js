@@ -141,12 +141,12 @@ export class Overview extends Component {
   };
 
   handleTeamChange = ({ selectedItem }) => {
-    this.props.appActions.setActiveTeam({ teamId: selectedItem && selectedItem.id });
+    this.props.appActions.setActiveTeam({ teamId: selectedItem?.id });
     this.props.workflowActions.updateProperty({
       key: "flowTeamId",
-      value: selectedItem && selectedItem.id
+      value: selectedItem?.id
     });
-    this.props.formikProps.setFieldValue("selectedTeam", selectedItem);
+    this.props.formikProps.setFieldValue("selectedTeam", selectedItem ?? {});
   };
 
   render() {
@@ -156,6 +156,7 @@ export class Overview extends Component {
       formikProps: { values, touched, errors, handleBlur }
     } = this.props;
 
+    console.log(errors);
     return (
       <main className={styles.wrapper}>
         <section className={styles.largeCol}>
@@ -164,10 +165,10 @@ export class Overview extends Component {
           <ComboBox
             onChange={this.handleTeamChange}
             items={teams}
-            initialSelectedItem={values.selectedTeam}
-            itemToString={item => (item ? item.name : "")}
-            invalid={errors.selectedTeam && touched.selectedTeam}
-            invalidText={errors.selectedTeam}
+            initialSelectedItem={values?.selectedTeam}
+            itemToString={item => item?.name ?? ""}
+            invalid={errors.selectedTeam?.name}
+            invalidText={errors.selectedTeam?.name}
             value={values.selectedTeam}
             titleText={
               <div style={{ display: "flex" }}>
@@ -176,9 +177,7 @@ export class Overview extends Component {
               </div>
             }
             placeholder="Select a team"
-            shouldFilterItem={({ item, inputValue }) =>
-              item && item.name.toLowerCase().includes(inputValue.toLowerCase())
-            }
+            shouldFilterItem={({ item, inputValue }) => item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())}
           />
           <TextInput
             id="name"

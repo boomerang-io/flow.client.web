@@ -12,6 +12,7 @@ import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-re
 import ErrorDragon from "Components/ErrorDragon";
 import Editor from "./Editor";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
+import sortBy from "lodash/sortBy";
 import CustomNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utilities/templateTaskNode/TemplateTaskNodeModel";
@@ -260,13 +261,14 @@ export class WorkflowManagerContainer extends Component {
           />
           <div className={styles.container}>
             <Editor
+              activeTeamId={this.props.activeTeamId}
               createNode={this.createNode}
               createWorkflowRevision={this.createWorkflowRevision}
               fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
               handleChangeLogReasonChange={this.handleChangeLogReasonChange}
               isModalOpen={this.props.isModalOpen}
               tasks={this.props.tasks}
-              teams={this.props.teams}
+              teams={sortBy(this.props.teams.data, "name")}
               updateWorkflow={this.updateWorkflow}
               updateWorkflowProperties={this.updateWorkflowProperties}
               workflow={this.props.workflow}
