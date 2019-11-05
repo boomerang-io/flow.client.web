@@ -22,21 +22,16 @@ export class SwitchNodeExecution extends Component {
 
   render() {
     const { node } = this.props;
-    const { steps, status } = this.props.workflowExecution.data;
+    const { steps } = this.props.workflowExecution.data;
     const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
-    const flowTaskStatus = step ? step.flowTaskStatus : "";
+    const flowTaskStatus = step?.flowTaskStatus;
 
-    let disabled = false;
-    if (status === ACTIVITY_STATUSES.IN_PROGRESS) {
-      const inProgressStep = steps.find(step => step.flowTaskStatus === ACTIVITY_STATUSES.IN_PROGRESS);
-      if (step.order > inProgressStep?.order && flowTaskStatus !== ACTIVITY_STATUSES.SKIPPED) {
-        disabled = true;
-      }
-    }
     return (
       <WorkflowNode
         isExecution
-        className={cx(styles.node, styles[flowTaskStatus], { [styles.disabled]: disabled })}
+        className={cx(styles.node, styles[flowTaskStatus], {
+          [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED
+        })}
         icon={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
         node={node}
         rightPortClass={styles.rightPort}
