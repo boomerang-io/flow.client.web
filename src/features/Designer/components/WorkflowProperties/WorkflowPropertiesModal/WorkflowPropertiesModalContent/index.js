@@ -49,6 +49,10 @@ class WorkflowPropertiesModalContent extends Component {
     workflowActions: PropTypes.object.isRequired
   };
 
+  state = {
+    defaultValueType: "text"
+  };
+
   handleOnChange = (e, formikChange) => {
     this.props.setShouldConfirmModalClose(true);
     formikChange(e);
@@ -61,6 +65,7 @@ class WorkflowPropertiesModalContent extends Component {
 
   handleOnTypeChange = (selectedItem, setFieldValue) => {
     this.props.setShouldConfirmModalClose(true);
+    this.setState({ defaultValueType: selectedItem.value });
     setFieldValue(FIELD.TYPE, selectedItem);
     setFieldValue(FIELD.DEFAULT_VALUE, selectedItem.value === INPUT_TYPES.BOOLEAN ? false : undefined);
   };
@@ -188,8 +193,24 @@ class WorkflowPropertiesModalContent extends Component {
     }
   };
 
+  determineDefaultValueSchema = defaultType => {
+    switch (defaultType) {
+      case "text":
+      case "textarea":
+      case "password":
+        return Yup.string().max(64, "Default Value must not be greater than 64 characters");
+      case "boolean":
+        return Yup.boolean();
+      case "number":
+        return Yup.number().max(64, "Default Value must not be greater than 64 characters");
+      default:
+        return Yup.mixed();
+    }
+  };
+
   render() {
     const { input, isEdit, inputsKeys, loading } = this.props;
+    let defaultValueType = this.state.defaultValueType;
 
     return (
       <Formik
@@ -205,13 +226,17 @@ class WorkflowPropertiesModalContent extends Component {
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()
             .required("Enter a key")
+            .max(64, "Key must not be greater than 64 characters")
             .notOneOf(inputsKeys || [], "Property key already exist")
             .test("is-valid-key", "Invalid key, space and special characters aren't allowed", this.validateKey),
-          [FIELD.LABEL]: Yup.string().required("Enter a label"),
-          [FIELD.DESCRIPTION]: Yup.string(),
+          [FIELD.LABEL]: Yup.string()
+            .required("Enter a Name")
+            .max(64, "Name must not be greater than 64 characters"),
+          [FIELD.DESCRIPTION]: Yup.string().max(64, "Description must not be greater than 64 characters"),
           [FIELD.REQUIRED]: Yup.boolean(),
           [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
-          [FIELD.VALID_VALUES]: Yup.array()
+          [FIELD.VALID_VALUES]: Yup.array(),
+          [FIELD.DEFAULT_VALUE]: this.determineDefaultValueSchema(defaultValueType)
         })}
       >
         {formikProps => {

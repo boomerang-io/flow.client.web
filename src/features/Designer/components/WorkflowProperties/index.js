@@ -29,7 +29,7 @@ function WorkflowPropertyHeader({ label, description }) {
   return (
     <div className={styles.headerContainer}>
       <h1 className={styles.label}>{label}</h1>
-      <p className={styles.description}>{description}</p>
+      <p className={styles.description}>{description ? description : "---"}</p>
     </div>
   );
 }
