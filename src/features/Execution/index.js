@@ -17,17 +17,17 @@ export const ActivityIdContext = React.createContext("");
 
 export class WorkflowExecutionContainer extends Component {
   static propTypes = {
-    workflowExecution: PropTypes.object.isRequired,
-    workflowExecutionActions: PropTypes.object.isRequired,
     app: PropTypes.object.isRequired,
     appActions: PropTypes.object,
-    workflowRevision: PropTypes.object,
-    workflowRevisionActions: PropTypes.object,
-    workflowActions: PropTypes.object,
-    tasksActions: PropTypes.object,
+    match: PropTypes.object.isRequired,
     tasks: PropTypes.object,
+    tasksActions: PropTypes.object,
     workflow: PropTypes.object,
-    match: PropTypes.object.isRequired
+    workflowActions: PropTypes.object,
+    workflowExecution: PropTypes.object.isRequired,
+    workflowExecutionActions: PropTypes.object.isRequired,
+    workflowRevision: PropTypes.object,
+    workflowRevisionActions: PropTypes.object
   };
 
   async componentDidMount() {

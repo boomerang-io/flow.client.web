@@ -2,6 +2,7 @@
 
 .container {
   background: $ui-01;
+  overflow: hidden;
   padding: 1.5rem;
 
   &.border {

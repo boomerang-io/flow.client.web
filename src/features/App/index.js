@@ -9,7 +9,6 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { NotificationsContainer, ProtectedRoute, ErrorBoundary, Modal } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import Loading from "Components/Loading";
-// import NotificationBanner from "Components/NotificationBanner";
 import BrowserModal from "./BrowserModal";
 import FlowRedirectModalContent from "./flowRedirectModalContent";
 import Navigation from "./Navigation";
@@ -31,10 +30,6 @@ import "./styles.scss";
 const browser = detect();
 
 class App extends Component {
-  // state = {
-  //   bannerClosed: false
-  // };
-
   componentDidMount() {
     this.fetchData();
   }
@@ -96,15 +91,14 @@ class App extends Component {
                   userRole={userRole}
                   component={AsyncTeamProperties}
                 />
-                <Route path="/workflows" component={AsyncWorkflows} />
+                <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
                 <Route path="/activity" component={AsyncActivity} />
                 <Route path="/editor/:workflowId" component={AsyncDesigner} />
                 <Route path="/insights" component={AsyncInsights} />
+                <Route path="/workflows" component={AsyncWorkflows} />
                 <Redirect from="/" to="/workflows" />
               </Switch>
             </Suspense>
-            ,
-            <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
           </div>
           <NotificationsContainer enableMultiContainer />
         </>

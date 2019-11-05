@@ -51,6 +51,5 @@
   line-height: 1.25rem;
   max-width: 16rem;
   text-transform: capitalize;
-  white-space: nowrap;
   @include text-overflow-ellipsis();
 }

@@ -4,7 +4,9 @@
   height: 100vh;
   justify-content: space-between;
   max-height: 100vh;
-  overflow: hidden;
+  min-width: 60rem;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding-top: 3rem;
   position: relative;
 }

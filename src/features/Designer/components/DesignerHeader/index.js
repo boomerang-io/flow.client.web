@@ -7,7 +7,7 @@ import FeatureHeader from "Components/FeatureHeader";
 import Navigation from "./Navigation";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
-import { Add16, DocumentExport16, Flash16 } from "@carbon/icons-react";
+import { Add16, DocumentExport16 } from "@carbon/icons-react";
 import styles from "./DesignerHeader.module.scss";
 
 class DesignerHeader extends Component {
@@ -109,7 +109,7 @@ class DesignerHeader extends Component {
             </Link>
             <span className={styles.breadcrumbDivider}>/</span>
             <p className={styles.workflowName}> {workflowName}</p>
-            <Button
+            {/* <Button
               className={styles.validateButton}
               disabled={!onDesigner}
               iconDescription="Validate workflow"
@@ -118,7 +118,7 @@ class DesignerHeader extends Component {
               size="field"
             >
               Validate this workflow
-            </Button>
+            </Button> */}
           </div>
           <h1 className={styles.title}>Editor</h1>
         </section>
