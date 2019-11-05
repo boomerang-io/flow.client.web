@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import orderBy from "lodash/orderBy";
+import { TooltipDefinition } from "carbon-components-react";
 import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";
 import TaskItem from "./TaskItem";
 import { ACTIVITY_STATUSES_TO_ICON, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
@@ -44,9 +45,11 @@ function ExecutionTaskLog({ workflowExecutionData }) {
             <p className={styles.value}>{ACTIVITY_STATUSES_TO_TEXT[status]}</p>
           </div>
         </div>
-        <button className={styles.collapseButton} onClick={toggleCollapse}>
-          <ChevronLeft32 className={styles.chevron} />
-        </button>
+        <TooltipDefinition>
+          <button className={styles.collapseButton} onClick={toggleCollapse}>
+            <ChevronLeft32 className={styles.chevron} />
+          </button>
+        </TooltipDefinition>
       </section>
       <section className={styles.taskbar}>
         <p className={styles.taskbarTitle}>Task log</p>
