@@ -69,10 +69,6 @@ export class WorkflowExecutionContainer extends Component {
     });
   };
 
-  setActiveTeam = selectedTeamId => {
-    this.props.appActions.setActiveTeam({ teamId: selectedTeamId });
-  };
-
   render() {
     const { tasks, workflowExecution, workflowRevision, workflow } = this.props;
 
@@ -93,7 +89,6 @@ export class WorkflowExecutionContainer extends Component {
       return (
         <Main
           dag={workflowRevision.dag}
-          setActiveTeam={this.setActiveTeam}
           workflowExecution={this.props.workflowExecution}
           workflow={this.props.workflow}
         />

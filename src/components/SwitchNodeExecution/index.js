@@ -29,7 +29,7 @@ export class SwitchNodeExecution extends Component {
     let disabled = false;
     if (status === ACTIVITY_STATUSES.IN_PROGRESS) {
       const inProgressStep = steps.find(step => step.flowTaskStatus === ACTIVITY_STATUSES.IN_PROGRESS);
-      if (step.order > inProgressStep.order && flowTaskStatus !== ACTIVITY_STATUSES.SKIPPED) {
+      if (step.order > inProgressStep?.order && flowTaskStatus !== ACTIVITY_STATUSES.SKIPPED) {
         disabled = true;
       }
     }

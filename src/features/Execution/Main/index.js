@@ -15,7 +15,6 @@ import styles from "./main.module.scss";
 class Main extends Component {
   static propTypes = {
     dag: PropTypes.object.isRequired,
-    setActiveTeam: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowExecution: PropTypes.object.isRequired
   };
@@ -39,7 +38,7 @@ class Main extends Component {
   }
 
   render() {
-    const { setActiveTeam, workflow, workflowExecution } = this.props;
+    const { workflow, workflowExecution } = this.props;
     const { status, steps } = workflowExecution.data;
 
     const hasFinished = [EXECUTION_STATUSES.COMPLETED, EXECUTION_STATUSES.INVALID, EXECUTION_STATUSES.FAILURE].includes(
@@ -59,13 +58,13 @@ class Main extends Component {
         <main className={styles.executionResultContainer}>
           <ExecutionTaskLog workflowExecution={workflowExecution} />
           <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
-            <div className={styles.executionWorkflowActions}>
-              <WorkflowActions setActiveTeam={setActiveTeam} workflow={workflow.data} />
+            <section className={styles.executionWorkflowActions}>
+              <WorkflowActions workflow={workflow.data} />
               <WorkflowZoom
                 diagramApp={this.diagramApp}
                 diagramBoundingClientRect={this.state.diagramBoundingClientRect}
               />
-            </div>
+            </section>
             <DiagramWidget
               allowLooseLinks={false}
               allowCanvasTranslation={true}
