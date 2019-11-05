@@ -58,29 +58,29 @@ class Main extends Component {
         <ExecutionHeader workflow={workflow} workflowExecution={workflowExecution} />
         <main className={styles.executionResultContainer}>
           <ExecutionTaskLog workflowExecution={workflowExecution} />
-          {loadDiagram ? (
-            <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
-              <div className={styles.executionWorkflowActions}>
-                <WorkflowActions setActiveTeam={setActiveTeam} workflow={workflow.data} />
-                <WorkflowZoom
-                  diagramApp={this.diagramApp}
-                  diagramBoundingClientRect={this.state.diagramBoundingClientRect}
-                />
-              </div>
-              <DiagramWidget
-                allowLooseLinks={false}
-                allowCanvasTranslation={true}
-                allowCanvasZoom={true}
-                className={styles.diagram}
-                deleteKeys={[]}
-                diagramEngine={this.diagramApp.getDiagramEngine()}
-                maxNumberPointsPerLink={0}
+          <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
+            <div className={styles.executionWorkflowActions}>
+              <WorkflowActions setActiveTeam={setActiveTeam} workflow={workflow.data} />
+              <WorkflowZoom
+                diagramApp={this.diagramApp}
+                diagramBoundingClientRect={this.state.diagramBoundingClientRect}
               />
             </div>
-          ) : (
-            <div className={styles.diagramLoading}>
-              <Loading withOverlay={false} />
-            </div>
+            <DiagramWidget
+              allowLooseLinks={false}
+              allowCanvasTranslation={true}
+              allowCanvasZoom={true}
+              className={styles.diagram}
+              deleteKeys={[]}
+              diagramEngine={this.diagramApp.getDiagramEngine()}
+              maxNumberPointsPerLink={0}
+            />
+            {!loadDiagram && (
+              <div className={styles.diagramLoading}>
+                <Loading withOverlay={false} />
+              </div>
+            )}
+          </div>
           )}
         </main>
       </div>
