@@ -38,6 +38,13 @@ export class WorkflowsHome extends Component {
     this.fetchTeams();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // If the state has changed and the it is now open, close the welcome banner
+    if (prevProps.onBoard.show !== this.props.onBoard.show && this.props.onBoard.show) {
+      this.setState({ isWelcomeBannerOpen: false });
+    }
+  }
+
   handleSearchFilter = (searchQuery, teams) => {
     this.setState({ searchQuery, teamsFilter: Array.isArray(teams) && teams.length ? teams : [] });
   };
@@ -166,8 +173,8 @@ export class WorkflowsHome extends Component {
           )}
           <div
             className={cx(styles.container, {
-              [styles.bannerClosed]: !isWelcomeBannerOpen,
-              [styles.bannerHidden]: !isWelcomeBannerShown || onBoard.show
+              [styles.bannerClosed]: !isWelcomeBannerOpen || onBoard.show,
+              [styles.bannerHidden]: !isWelcomeBannerShown
             })}
           >
             <WorkflowsHeader
