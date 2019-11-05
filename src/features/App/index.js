@@ -9,8 +9,8 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { NotificationsContainer, ProtectedRoute, ErrorBoundary, Modal } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import Loading from "Components/Loading";
-import BrowserModal from "./BrowserModal";
-import FlowRedirectModalContent from "./flowRedirectModalContent";
+import BrowserPrompt from "./BrowserPrompt";
+import RedirectPrompt from "./RedirectPrompt";
 import Navigation from "./Navigation";
 import {
   AsyncActivity,
@@ -66,7 +66,7 @@ class App extends Component {
     if (teams.status === SERVICE_REQUEST_STATUSES.SUCCESS && Object.keys(teams.data).length === 0) {
       return (
         <Modal isOpen={true} containerClassName="c-flow-redirect-modal">
-          <FlowRedirectModalContent />
+          <RedirectPrompt />
         </Modal>
       );
     }
@@ -121,7 +121,7 @@ class App extends Component {
     return (
       <>
         <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
-        <BrowserModal isOpen={browser.name === "chrome" || browser.name === "firefox" ? false : true} />
+        <BrowserPrompt isOpen={browser.name === "chrome" || browser.name === "firefox" ? false : true} />
         <OnBoardExpContainer />
         <ErrorBoundary errorComponent={ErrorDragon}>{this.renderApp()}</ErrorBoundary>
       </>

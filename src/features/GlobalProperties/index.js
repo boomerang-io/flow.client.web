@@ -8,9 +8,9 @@ import Loading from "Components/Loading";
 import PropertiesTable from "./PropertiesTable";
 import REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import styles from "./globalConfiguration.module.scss";
+import styles from "./globalProperties.module.scss";
 
-export class GlobalConfigurationContainer extends Component {
+export class GlobalPropertiesContainer extends Component {
   static propTypes = {
     actions: PropTypes.object,
     globalConfiguration: PropTypes.object
@@ -89,4 +89,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(GlobalConfigurationContainer);
+)(GlobalPropertiesContainer);

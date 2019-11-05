@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
-import BrowserModalContent from "./BrowserModalContent";
+import BrowserPromptContent from "./BrowserPromptContent";
 
 const BrowserModal = ({ isOpen }) => {
   return (
@@ -18,7 +18,7 @@ const BrowserModal = ({ isOpen }) => {
         isOpen = false;
       }}
     >
-      <BrowserModalContent />
+      <BrowserPromptContent />
     </ModalFlow>
   );
 };

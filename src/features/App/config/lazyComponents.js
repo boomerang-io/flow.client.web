@@ -6,7 +6,7 @@ export const AsyncDesigner = lazy(() => import(/* webpackChunkName: "Designer" *
 export const AsyncInsights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
 export const AsyncExecution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/Execution"));
 export const AsyncGlobalConfiguration = lazy(() =>
-  import(/* webpackChunkName: "GlobalConfiguration" */ "Features/GlobalConfiguration")
+  import(/* webpackChunkName: "GlobalConfiguration" */ "Features/GlobalProperties")
 );
 export const AsyncTeamProperties = lazy(() =>
   import(/* webpackChunkName: "TeamProperties" */ "Features/TeamProperties")

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import orderBy from "lodash/orderBy";
-import { TooltipDefinition } from "carbon-components-react";
 import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";
 import TaskItem from "./TaskItem";
 import { ACTIVITY_STATUSES_TO_ICON, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
