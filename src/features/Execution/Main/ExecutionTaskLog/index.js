@@ -45,21 +45,24 @@ function ExecutionTaskLog({ workflowExecutionData }) {
             <p className={styles.value}>{ACTIVITY_STATUSES_TO_TEXT[status]}</p>
           </div>
         </div>
-        <TooltipDefinition>
-          <button className={styles.collapseButton} onClick={toggleCollapse}>
-            <ChevronLeft32 className={styles.chevron} />
-          </button>
-        </TooltipDefinition>
+        <button className={styles.collapseButton} onClick={toggleCollapse}>
+          <ChevronLeft32 className={styles.chevron} />
+        </button>
       </section>
       <section className={styles.taskbar}>
         <p className={styles.taskbarTitle}>Task log</p>
-        <button className={styles.taskbarButton} onClick={toggleSort} data-testid="taskbar-button">
+        <button
+          className={styles.taskbarButton}
+          disabled={isCollapsed}
+          onClick={toggleSort}
+          data-testid="taskbar-button"
+        >
           <Arrows32 className={styles.taskbarArrows} />
         </button>
       </section>
       <ul className={styles.tasklog}>
         {sortedTasks.map(step => (
-          <TaskItem key={step.id} flowActivityId={id} task={step} />
+          <TaskItem key={step.id} hidden={isCollapsed} flowActivityId={id} task={step} />
         ))}
       </ul>
     </aside>

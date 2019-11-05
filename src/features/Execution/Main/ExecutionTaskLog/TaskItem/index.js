@@ -8,10 +8,12 @@ import TaskExecutionLog from "./TaskExecutionLog";
 import styles from "./taskItem.module.scss";
 
 TaskItem.propTypes = {
+  flowActivityId: PropTypes.string.isRequired,
+  hidden: PropTypes.bool.isRequired,
   task: PropTypes.object.isRequired
 };
 
-function TaskItem({ flowActivityId, task }) {
+function TaskItem({ flowActivityId, hidden, task }) {
   const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName } = task;
 
   const Icon = ACTIVITY_STATUSES_TO_ICON[flowTaskStatus];
@@ -42,17 +44,19 @@ function TaskItem({ flowActivityId, task }) {
           <time className={styles.timeValue}>{getHumanizedDuration(Math.round(parseInt(duration / 1000), 10))}</time>
         </div>
       </section>
-      <section className={styles.data}>
-        <TaskExecutionLog
-          flowTaskStatus={flowTaskStatus}
-          flowTaskId={taskId}
-          flowActivityId={flowActivityId}
-          flowTaskName={taskName}
-        />
-        {outputs && Object.keys(outputs).length > 0 && (
-          <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
-        )}
-      </section>
+      {!hidden && (
+        <section className={styles.data}>
+          <TaskExecutionLog
+            flowTaskStatus={flowTaskStatus}
+            flowTaskId={taskId}
+            flowActivityId={flowActivityId}
+            flowTaskName={taskName}
+          />
+          {outputs && Object.keys(outputs).length > 0 && (
+            <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
+          )}
+        </section>
+      )}
     </li>
   );
 }
