@@ -81,7 +81,6 @@ class Main extends Component {
               </div>
             )}
           </div>
-          )}
         </main>
       </div>
     );
