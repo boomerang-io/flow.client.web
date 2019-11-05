@@ -4,8 +4,8 @@ import cx from "classnames";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import styles from "./SwitchLinkButton.module.scss";
 
-const ConditionButton = props => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="73" height="26" viewBox="0 0 73 26" {...props}>
+const ConditionButton = ({ displayText, ...rest }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="73" height="26" viewBox="0 0 73 26" {...rest}>
     <g fill="none" fillRule="evenodd" stroke="none" strokeWidth="1">
       <g fillRule="evenodd" strokeWidth="1" transform="translate(1 1)">
         <rect width="71" height="24" x="0" y="0" fill="#FFF" fillRule="nonzero" stroke="#6E32C9" rx="4" />
@@ -25,7 +25,7 @@ const ConditionButton = props => (
         transform="translate(1 1)"
       >
         <tspan x="24" y="16">
-          {props.displayText ? props.displayText : "default"}
+          {displayText ?? "default"}
         </tspan>
       </text>
     </g>

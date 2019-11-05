@@ -7,7 +7,7 @@ import styles from "./TaskLinkExecutionConditionSwitcher.module.scss";
 TaskLinkExecutionConditionSwitcher.propTypes = {
   disabled: PropTypes.bool,
   executionCondition: PropTypes.object.isRequired,
-  kind: PropTypes.oneOf(["designer", "excuction"]),
+  kind: PropTypes.oneOf(["designer", "execution"]),
   onClick: PropTypes.func
 };
 

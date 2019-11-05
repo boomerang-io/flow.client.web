@@ -167,7 +167,7 @@ export class Overview extends Component {
             items={teams}
             initialSelectedItem={values?.selectedTeam}
             itemToString={item => item?.name ?? ""}
-            invalid={errors.selectedTeam?.name}
+            invalid={Boolean(errors.selectedTeam?.name)}
             invalidText={errors.selectedTeam?.name}
             value={values.selectedTeam}
             titleText={

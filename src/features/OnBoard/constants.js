@@ -38,7 +38,7 @@ export const messageConfig = {
   welcomeHome: {
     title: "Welcome to Boomerang Flow!",
     subTitle: "Want us to show you around?",
-    leftButton: "No thanks",
+    leftButton: "No, thanks",
     rightButton: "Yes, please!",
     finishButton: "",
     modalClassName: "b-onboardExp-screen--hidden",
@@ -53,7 +53,7 @@ export const messageConfig = {
   welcomeDesigner: {
     title: "Welcome to Editor!",
     subTitle: "Want us to show you around?",
-    leftButton: "No thanks",
+    leftButton: "No, thanks",
     rightButton: "Yes, please!",
     finishButton: "",
     modalClassName: "b-onboardExp-screen--hidden",
@@ -68,7 +68,7 @@ export const messageConfig = {
   welcomeActivity: {
     title: "Welcome to the Activity!",
     subTitle: "Want us to show you around?",
-    leftButton: "No thanks",
+    leftButton: "No, thanks",
     rightButton: "Yes, please!",
     finishButton: "",
     modalClassName: "b-onboardExp-screen--hidden",

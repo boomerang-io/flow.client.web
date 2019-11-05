@@ -6,7 +6,7 @@ import styles from "./insightsTile.module.scss";
 
 InsightsTile.propTypes = {
   type: PropTypes.string,
-  totalCount: PropTypes.string,
+  totalCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   infoList: PropTypes.array,
   valueWidth: PropTypes.string,
   title: PropTypes.string,

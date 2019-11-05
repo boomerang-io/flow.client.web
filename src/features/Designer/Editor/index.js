@@ -22,7 +22,7 @@ class WorkflowEditor extends Component {
     handleChangeLogReasonChange: PropTypes.func.isRequired,
     isModalOpen: PropTypes.bool.isRequired,
     tasks: PropTypes.object.isRequired,
-    teams: PropTypes.object.isRequired,
+    teams: PropTypes.array.isRequired,
     updateWorkflow: PropTypes.func.isRequired,
     updateWorkflowProperties: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,

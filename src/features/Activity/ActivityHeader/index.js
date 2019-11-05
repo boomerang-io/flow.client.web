@@ -7,7 +7,7 @@ import { ArrowDownRight32, ArrowUpRight32 } from "@carbon/icons-react";
 import styles from "./activityHeader.module.scss";
 
 ActivityHeader.propTypes = {
-  inProgressActivities: PropTypes.bool.isRequired,
+  inProgressActivities: PropTypes.number.isRequired,
   isLoading: PropTypes.bool.isRequired,
   failedActivities: PropTypes.number,
   runActivities: PropTypes.number,

@@ -56,7 +56,7 @@ function ExecutionTaskLog({ workflowExecutionData }) {
       </section>
       <ul className={styles.tasklog}>
         {sortedTasks.map(step => (
-          <TaskItem flowActivityId={id} task={step} />
+          <TaskItem key={step.id} flowActivityId={id} task={step} />
         ))}
       </ul>
     </aside>
