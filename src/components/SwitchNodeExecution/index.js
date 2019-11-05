@@ -37,7 +37,7 @@ export class SwitchNodeExecution extends Component {
       <WorkflowNode
         isExecution
         className={cx(styles.node, styles[flowTaskStatus], { [styles.disabled]: disabled })}
-        icon={<Fork16 alt="Switch icon" />}
+        icon={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
         node={node}
         rightPortClass={styles.rightPort}
         subtitle={node.taskName}

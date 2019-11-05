@@ -108,7 +108,7 @@ class SwitchLink extends Component {
               <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`}>
                 <WorkFlowCloseButton onClick={handleOnDelete} className={styles.deleteButton} />
               </g>
-              <g transform={`translate(${halfwayPoint.x + 20}, ${halfwayPoint.y - 12})`}>
+              <g transform={`translate(${halfwayPoint.x + 16}, ${halfwayPoint.y - 12})`}>
                 <SwitchLinkExecutionConditionButton
                   kind="designer"
                   inputText={seperatedLinkState}
