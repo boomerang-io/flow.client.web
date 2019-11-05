@@ -188,6 +188,7 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
             </p>
             <button
               class="taskbarButton"
+              data-testid="taskbar-button"
             >
               <svg
                 aria-hidden="true"

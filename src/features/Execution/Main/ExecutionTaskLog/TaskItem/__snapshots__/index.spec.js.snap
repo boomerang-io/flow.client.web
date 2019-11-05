@@ -36,7 +36,9 @@ exports[`TaskItem --- Snapshot Capturing Snapshot of TaskItem 1`] = `
               d="M14 21.5l-5-4.96 1.59-1.57L14 18.35 21.41 11 23 12.58l-9 8.92z"
             />
           </svg>
-          <p>
+          <p
+            data-testid="taskitem-name"
+          >
             Send Slack Message
           </p>
         </div>

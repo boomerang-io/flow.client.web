@@ -50,7 +50,7 @@ function ExecutionTaskLog({ workflowExecutionData }) {
       </section>
       <section className={styles.taskbar}>
         <p className={styles.taskbarTitle}>Task log</p>
-        <button className={styles.taskbarButton} onClick={toggleSort}>
+        <button className={styles.taskbarButton} onClick={toggleSort} data-testid="taskbar-button">
           <Arrows32 className={styles.taskbarArrows} />
         </button>
       </section>

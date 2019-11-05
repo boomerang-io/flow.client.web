@@ -161,6 +161,8 @@ export function WorkflowActivity({ activityActions, history, location, match, te
 
     const workflowsFilter = getWorkflowFilter(teamsData, selectedTeams);
     const { data: statusSummaryData, isLoading: statusSummaryDataIsLoading } = activityStatusSummaryState;
+    const maxDate = moment().format("MM/DD/YYYY");
+
     return (
       <div className={styles.container}>
         <ActivityHeader
@@ -244,7 +246,7 @@ export function WorkflowActivity({ activityActions, history, location, match, te
               className={styles.timeFilters}
               dateFormat="m/d/Y"
               datePickerType="range"
-              maxDate={moment().format("MM/DD/YYYY")}
+              maxDate={maxDate}
               onChange={handleSelectDate}
             >
               <DatePickerInput

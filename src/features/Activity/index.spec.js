@@ -1,4 +1,7 @@
 import React from "react";
+import queryString from "query-string";
+import { createMemoryHistory } from "history";
+import { fireEvent } from "@testing-library/react";
 import { WorkflowActivity } from "./index";
 
 const mockfn = jest.fn();
@@ -11,8 +14,6 @@ const props = {
   teamsActions: {
     fetch: () => new Promise(() => {})
   },
-  location: {},
-  history: {},
   match: {
     params: "testid"
   },
@@ -21,47 +22,41 @@ const props = {
     status: "success",
     error: "",
     data: []
-  },
-  activityState: {
-    last: false,
-    totalPages: 9,
-    totalElements: 90,
-    size: 10,
-    number: 0,
-    numberOfElements: 10,
-    first: true,
-    sort: [
-      {
-        direction: "DESC",
-        property: "creationDate",
-        ignoreCase: false,
-        nullHandling: "NATIVE",
-        descending: true,
-        ascending: false
-      }
-    ],
-    records: [
-      {
-        creationDate: 1541070397344,
-        duration: 13886,
-        id: "5bdade3d37dc4700011b06c3",
-        initiatedBy: "5bc7b126f7856000012cd95d",
-        status: "completed",
-        workflowId: "5bd9d8ab7eb44d0001772e64",
-        workflowRevisionid: "5bd9e1cfa40f5d0001249bfa",
-        description: "file ingestion",
-        teamName: "Isa's Team",
-        icon: "flow",
-        shortDescription: "file ingestion",
-        workflowName: "Business Process Test"
-      }
-    ]
   }
 };
 
 describe("WorkflowActivity --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowActivity", () => {
-    const { baseElement } = rtlRouterRender(<WorkflowActivity {...props} />);
+    const { baseElement } = rtlRouterRender(<WorkflowActivity {...props} location={{}} />);
     expect(baseElement).toMatchSnapshot();
+  });
+});
+
+describe("WorkflowActivity --- RTL", () => {
+  const basicQuery = { order: "DESC", page: 0, size: 10, sort: "creationDate" };
+  it("Select status tab correctly", () => {
+    const history = createMemoryHistory({ initialEntries: ["/"] });
+    const { getAllByRole } = rtlRouterRender(<WorkflowActivity {...props} history={history} location={{}} />);
+
+    const statuses = getAllByRole("tab");
+    fireEvent.click(statuses[1]);
+    expect(history.location.search).toBe("?" + queryString.stringify({ statuses: "inProgress", ...basicQuery }));
+
+    fireEvent.click(statuses[3]);
+    expect(history.location.search).toBe("?" + queryString.stringify({ statuses: "failure", ...basicQuery }));
+
+    fireEvent.click(statuses[0]);
+    expect(history.location.search).toBe("?" + queryString.stringify({ statuses: undefined, ...basicQuery }));
+  });
+
+  it("Filter by trigger", () => {
+    const history = createMemoryHistory({ initialEntries: ["/"] });
+    const { getByLabelText, getByText } = rtlRouterRender(
+      <WorkflowActivity {...props} history={history} location={{}} />
+    );
+
+    fireEvent.click(getByLabelText("Filter by trigger"));
+    fireEvent.click(getByText("cron"));
+    expect(history.location.search).toBe("?" + queryString.stringify({ triggers: "cron", ...basicQuery }));
   });
 });

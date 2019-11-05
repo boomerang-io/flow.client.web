@@ -188,6 +188,7 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
             </p>
             <button
               class="taskbarButton"
+              data-testid="taskbar-button"
             >
               <svg
                 aria-hidden="true"
