@@ -102,7 +102,7 @@ class SwitchLink extends Component {
             updateSwitchState={this.updateSwitchState}
           />
         </ModalFlow>
-        <WorkflowLink className={styles.linkPath} diagramEngine={diagramEngine} model={model} path={path}>
+        <WorkflowLink className={styles.container} diagramEngine={diagramEngine} model={model} path={path}>
           {({ halfwayPoint, handleOnDelete }) => (
             <>
               <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`}>

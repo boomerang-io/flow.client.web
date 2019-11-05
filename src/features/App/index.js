@@ -14,13 +14,13 @@ import BrowserModal from "./BrowserModal";
 import FlowRedirectModalContent from "./flowRedirectModalContent";
 import Navigation from "./Navigation";
 import {
-  AsyncHome,
   AsyncActivity,
-  AsyncManager,
-  AsyncInsights,
+  AsyncDesigner,
   AsyncExecution,
   AsyncGlobalConfiguration,
-  AsyncTeamProperties
+  AsyncInsights,
+  AsyncTeamProperties,
+  AsyncWorkflows
 } from "./config/lazyComponents";
 import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
@@ -55,10 +55,6 @@ class App extends Component {
     }
   }
 
-  // closeBanner = () => {
-  //   this.setState({ bannerClosed: true });
-  // };
-
   renderApp() {
     const { user, navigation, teams } = this.props;
     if (user.isFetching || user.isCreating || navigation.isFetching) {
@@ -86,7 +82,6 @@ class App extends Component {
       return (
         <>
           <div className="c-app-main">
-            {/*<NotificationBanner closeBanner={this.closeBanner} />*/}
             <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
               <Switch>
                 <ProtectedRoute
@@ -101,14 +96,15 @@ class App extends Component {
                   userRole={userRole}
                   component={AsyncTeamProperties}
                 />
-                <Route path="/workflows" component={AsyncHome} />
-                <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
+                <Route path="/workflows" component={AsyncWorkflows} />
                 <Route path="/activity" component={AsyncActivity} />
-                <Route path="/editor/:workflowId" component={AsyncManager} />
+                <Route path="/editor/:workflowId" component={AsyncDesigner} />
                 <Route path="/insights" component={AsyncInsights} />
                 <Redirect from="/" to="/workflows" />
               </Switch>
             </Suspense>
+            ,
+            <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
           </div>
           <NotificationsContainer enableMultiContainer />
         </>
@@ -141,17 +137,17 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
     navigation: state.navigation,
-    teams: state.teams
+    teams: state.teams,
+    user: state.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    userActions: bindActionCreators(userActions, dispatch),
     navigationActions: bindActionCreators(navigationActions, dispatch),
-    teamsActions: bindActionCreators(teamsActions, dispatch)
+    teamsActions: bindActionCreators(teamsActions, dispatch),
+    userActions: bindActionCreators(userActions, dispatch)
   };
 };
 

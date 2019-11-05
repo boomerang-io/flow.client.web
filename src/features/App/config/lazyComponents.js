@@ -1,10 +1,10 @@
 import { lazy } from "react";
 
-export const AsyncActivity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/WorkflowActivity"));
-export const AsyncHome = lazy(() => import(/* webpackChunkName: "Home" */ "Features/WorkflowsHome"));
-export const AsyncManager = lazy(() => import(/* webpackChunkName: "Manager" */ "Features/WorkflowManager"));
-export const AsyncInsights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/WorkflowInsights"));
-export const AsyncExecution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/WorkflowExecution"));
+export const AsyncActivity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/Activity"));
+export const AsyncWorkflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Features/Workflows"));
+export const AsyncDesigner = lazy(() => import(/* webpackChunkName: "Designer" */ "Features/Designer"));
+export const AsyncInsights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
+export const AsyncExecution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/Execution"));
 export const AsyncGlobalConfiguration = lazy(() =>
   import(/* webpackChunkName: "GlobalConfiguration" */ "Features/GlobalConfiguration")
 );

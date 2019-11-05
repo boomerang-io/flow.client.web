@@ -27,16 +27,11 @@
 .title {
   font-size: 1.25rem;
   line-height: 1.5;
-  margin-bottom: 0.25rem;
-  overflow: hidden;
-  text-overflow: wrap;
+  margin: 0;
 }
 
 .subtitle {
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.5rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
