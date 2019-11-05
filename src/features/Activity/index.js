@@ -113,7 +113,6 @@ export function WorkflowActivity({ activityActions, history, location, match, te
   }
 
   function handleSelectDate(dates) {
-    console.log(dates);
     let [fromDateObj, toDateObj] = dates;
     const fromDate = moment(fromDateObj).unix();
     const toDate = moment(toDateObj).unix();

@@ -53,7 +53,6 @@ export class TeamProperties extends Component {
   };
 
   deleteTeamPropertyInStore = property => {
-    console.log("property", property);
     return this.props.teamPropertiesActions.deleteTeamProperty(property);
   };
 

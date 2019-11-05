@@ -156,7 +156,6 @@ export class Overview extends Component {
       formikProps: { values, touched, errors, handleBlur }
     } = this.props;
 
-    console.log(errors);
     return (
       <main className={styles.wrapper}>
         <section className={styles.largeCol}>
@@ -164,6 +163,7 @@ export class Overview extends Component {
           <h2 className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</h2>
           <ComboBox
             onChange={this.handleTeamChange}
+            id="selectedTeam"
             items={teams}
             initialSelectedItem={values?.selectedTeam}
             itemToString={item => item?.name ?? ""}
@@ -246,7 +246,6 @@ export class Overview extends Component {
                   labelText="Webhook"
                   toggled={values.webhook}
                   onToggle={checked => this.handleOnWebhookChange(checked)}
-                  Up
                   tooltipContent="Enable workflow to be executed by a webhook"
                   tooltipProps={{ direction: "top" }}
                   reversed

@@ -79,7 +79,7 @@ export class WorkflowManagerContainer extends Component {
       return team.workflows.find(workflow => workflow.id === workflowId);
     });
 
-    appActions.setActiveTeam({ teamId: activeTeam ? activeTeam.id : "" });
+    appActions.setActiveTeam({ teamId: activeTeam?.id ?? "" });
   }
 
   // Not updating state to prevent re-renders. Need a better approach here

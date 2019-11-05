@@ -13,7 +13,7 @@ const exludedTimezones = ["GMT+0", "GMT-0", "ROC"];
 
 export default class CronJobModal extends Component {
   static propTypes = {
-    closeModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.func,
     timeZone: PropTypes.object,
     cronExpression: PropTypes.string,
     handleOnChange: PropTypes.func.isRequired,

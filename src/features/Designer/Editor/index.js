@@ -113,7 +113,7 @@ class WorkflowEditor extends Component {
                   name: get(workflow, "data.name", ""),
                   persistence: get(workflow, "data.enablePersistentStorage", false),
                   schedule: get(workflow, "data.triggers.scheduler.enable", "0 18 * * *"),
-                  selectedTeam: activeTeamId ? teams.find(team => team.id === activeTeamId) : teams[0],
+                  selectedTeam: teams.find(team => team.id === activeTeamId),
                   shortDescription: get(workflow, "data.shortDescription", ""),
                   token: get(workflow, "data.triggers.webhook.token", ""),
                   topic: get(workflow, "data.triggers.event.topic", ""),
