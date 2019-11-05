@@ -2,21 +2,16 @@
 @import "~Styles/mixins";
 
 .container {
-  border: none;
-  background: none;
-  cursor: pointer;
-  line-height: 0;
-  margin: 1rem 0.75rem;
-  padding: 0rem;
-}
-
-.box {
   align-items: center;
+  background: none;
   border: 0.0625rem solid #373d42;
   @include border-radius();
+  cursor: pointer;
   display: flex;
   height: 10.3125rem;
   justify-content: center;
+  margin: 1rem 0.75rem;
+  padding: 0.125rem;
   position: relative;
   width: 19.375rem;
 }

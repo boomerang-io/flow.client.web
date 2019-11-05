@@ -59,13 +59,11 @@ export class CreateWorkflow extends Component {
     return (
       <ModalFlow
         modalTrigger={({ openModal }) => (
-          <button id="create-wokflow" className={styles.container} onClick={openModal}>
-            <div className={styles.box}>
-              <Add32 className={styles.addIcon} />
-              <label htmlFor="create-wokflow" className={styles.text}>
-                Create a new workflow
-              </label>
-            </div>
+          <button id="create-wokflow-card" className={styles.container} onClick={openModal}>
+            <Add32 className={styles.addIcon} />
+            <label htmlFor="create-wokflow" className={styles.text}>
+              Create a new workflow
+            </label>
           </button>
         )}
         confirmModalProps={{
