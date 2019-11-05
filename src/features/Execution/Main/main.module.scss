@@ -25,6 +25,13 @@
   margin-top: 3.5rem;
 }
 
+.diagramLoading {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+
 .executionWorkflowActions {
   background-color: $ui-background;
   border-bottom: 0.0625rem solid #b9bfc7;

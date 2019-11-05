@@ -7,6 +7,7 @@ import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
 import Loading from "Components/Loading";
 import WorkflowZoom from "Components/WorkflowZoom";
+import { REQUEST_STATUSES } from "Config/servicesConfig";
 import DiagramApplication from "Utilities/DiagramApplication";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import styles from "./main.module.scss";
@@ -14,8 +15,9 @@ import styles from "./main.module.scss";
 class Main extends Component {
   static propTypes = {
     dag: PropTypes.object.isRequired,
-    workflowData: PropTypes.object.isRequired,
-    workflowExecutionData: PropTypes.object.isRequired
+    setActiveTeam: PropTypes.func.isRequired,
+    workflow: PropTypes.object.isRequired,
+    workflowExecution: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -33,27 +35,33 @@ class Main extends Component {
         diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect()
       });
     }
+    this.diagramApp.getDiagramEngine().zoomToFit();
   }
 
   render() {
-    const { workflowData, workflowExecutionData, setActiveTeam } = this.props;
+    const { setActiveTeam, workflow, workflowExecution } = this.props;
+    const { status, steps } = workflowExecution.data;
+
     const hasFinished = [EXECUTION_STATUSES.COMPLETED, EXECUTION_STATUSES.INVALID, EXECUTION_STATUSES.FAILURE].includes(
-      workflowExecutionData.status
+      status
     );
 
-    const hasStarted =
-      workflowExecutionData.steps &&
-      workflowExecutionData.steps.find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
+    const hasStarted = steps && steps.find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
+
+    const loadDiagram =
+      workflow.fetchingStatus === REQUEST_STATUSES.SUCCESS &&
+      workflowExecution.status === REQUEST_STATUSES.SUCCESS &&
+      (hasStarted || hasFinished);
 
     return (
       <div className={styles.container}>
-        <ExecutionHeader workflow={workflowData} workflowExecutionData={workflowExecutionData} />
+        <ExecutionHeader workflow={workflow} workflowExecution={workflowExecution} />
         <main className={styles.executionResultContainer}>
-          <ExecutionTaskLog workflowExecutionData={workflowExecutionData} />
-          {hasStarted || hasFinished ? (
+          <ExecutionTaskLog workflowExecution={workflowExecution} />
+          {loadDiagram ? (
             <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
               <div className={styles.executionWorkflowActions}>
-                <WorkflowActions setActiveTeam={setActiveTeam} workflow={workflowData} />
+                <WorkflowActions setActiveTeam={setActiveTeam} workflow={workflow.data} />
                 <WorkflowZoom
                   diagramApp={this.diagramApp}
                   diagramBoundingClientRect={this.state.diagramBoundingClientRect}
@@ -70,7 +78,9 @@ class Main extends Component {
               />
             </div>
           ) : (
-            <Loading />
+            <div className={styles.diagramLoading}>
+              <Loading withOverlay={false} />
+            </div>
           )}
         </main>
       </div>
