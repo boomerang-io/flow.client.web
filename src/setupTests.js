@@ -40,7 +40,7 @@ function rtlReduxRouterRender(
 ) {
   let { store } = options;
   if (!store) {
-    store = configureStore(initialState, history);
+    store = configureStore(initialState);
   }
 
   return {

@@ -26,7 +26,10 @@ const props = {
   },
   history: {},
   importWorkflow: {},
-  importWorkflowActions: {}
+  importWorkflowActions: {},
+  onBoard: {
+    show: false
+  }
 };
 
 describe("WorkflowsHome --- Snapshot", () => {

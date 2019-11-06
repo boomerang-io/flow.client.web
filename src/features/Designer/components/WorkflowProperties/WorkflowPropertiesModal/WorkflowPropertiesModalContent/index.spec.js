@@ -62,7 +62,7 @@ describe("Inputs --- RTL", () => {
     expect(getByText(/create/i)).toBeDisabled();
 
     const keyInput = getByPlaceholderText("key.value");
-    const labelInput = getByPlaceholderText(/Label/i);
+    const labelInput = getByPlaceholderText(/name/i);
     const typeSelect = getByLabelText(/type/i);
 
     fireEvent.change(keyInput, { target: { value: "test" } });

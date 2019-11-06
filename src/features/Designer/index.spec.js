@@ -1,4 +1,5 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import { WorkflowManagerContainer as WorkflowManager } from "./index";
 
 jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
@@ -11,21 +12,11 @@ jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
 const mockfn = jest.fn();
 
 const props = {
-  actions: {
-    fetch: () => new Promise(() => {}),
-    reset: mockfn
-  },
-  history: {},
-  match: {},
   tasks: {
     isFetching: false,
     status: "success",
     error: "",
     data: []
-  },
-  tasksActions: {
-    fetch: mockfn,
-    reset: mockfn
   },
   teams: {
     isFetching: false,
@@ -39,27 +30,22 @@ const props = {
     error: "",
     data: []
   },
-  workflowActions: {
-    reset: mockfn,
-    create: mockfn,
-    setHasUnsavedWorkflowUpdates: mockfn
-  },
   workflowRevision: {
     isFetching: false,
     status: "success",
     error: "",
     data: []
-  },
-  workflowRevisionActions: {
-    fetch: mockfn,
-    create: mockfn,
-    reset: mockfn
   }
 };
 
 describe("WorkflowManager --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowManager", () => {
-    const { baseElement } = rtlRouterRender(<WorkflowManager {...props} />);
+    const { baseElement } = rtlReduxRouterRender(
+      <Route path="/editor/:workflowId">
+        <WorkflowManager {...props} />
+      </Route>,
+      { path: "/editor/1234" }
+    );
     expect(baseElement).toMatchSnapshot();
   });
 });
