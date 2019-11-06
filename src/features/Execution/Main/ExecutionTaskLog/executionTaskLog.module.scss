@@ -119,6 +119,10 @@
   }
 }
 
+.statusBlockSkeleton {
+  width: 90%;
+}
+
 .taskbar {
   align-items: center;
   background-color: transparent;
@@ -126,7 +130,6 @@
   height: 3.25rem;
   justify-content: space-between;
   opacity: 0.99;
-  overflow-x: hidden;
   padding: 1rem 0.875rem 1rem 1.5rem;
   transition: opacity $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 100%;
@@ -164,4 +167,10 @@
   padding-bottom: 2rem;
   transition: opacity $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 100%;
+}
+
+.taskLogSkeleton {
+  height: 12.5rem;
+  margin-left: 1.5rem;
+  width: 20.75rem;
 }

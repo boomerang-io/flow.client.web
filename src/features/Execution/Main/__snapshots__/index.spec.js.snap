@@ -186,31 +186,147 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
             >
               Task log
             </p>
-            <button
-              class="taskbarButton"
+            <div
+              class="bx--tooltip--definition bx--tooltip--a11y taskbarButton"
               data-testid="taskbar-button"
             >
-              <svg
-                aria-hidden="true"
-                class="taskbarArrows"
-                focusable="false"
-                height="32"
-                preserveAspectRatio="xMidYMid meet"
-                style="will-change: transform;"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
+              <button
+                aria-describedby="definition-tooltip-2"
+                class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip__trigger--definition bx--tooltip--top bx--tooltip--align-center"
               >
-                <path
-                  d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
-                />
-              </svg>
-            </button>
+                <svg
+                  aria-hidden="true"
+                  class="taskbarArrows"
+                  focusable="false"
+                  height="32"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
+                  />
+                </svg>
+              </button>
+              <div
+                class="bx--assistive-text"
+                id="definition-tooltip-2"
+                role="tooltip"
+              >
+                Change sort direction (by start time)
+              </div>
+            </div>
           </section>
           <ul
             class="tasklog"
           />
         </aside>
+        <div
+          class="executionDesignerContainer"
+        >
+          <section
+            class="executionWorkflowActions"
+          >
+            <div
+              class="container"
+            >
+              <p
+                class="messageText"
+              >
+                Read-only
+              </p>
+              <button
+                class="editContainer"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="editIcon"
+                  focusable="false"
+                  height="32"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 27h28v2H2zM25.41 9a2 2 0 0 0 0-2.83l-3.58-3.58a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22v-3.59l10-10L19.59 12l-10 10z"
+                  />
+                </svg>
+                <p
+                  class="editText"
+                >
+                  Edit Workflow
+                </p>
+              </button>
+            </div>
+            <div
+              class="zoomIcons"
+            >
+              <button
+                class="zoomButton"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="zoomIcon"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 6h5v1H4z"
+                  />
+                  <path
+                    d="M10.7 10c.8-1 1.3-2.2 1.3-3.5C12 3.5 9.5 1 6.5 1S1 3.5 1 6.5 3.5 12 6.5 12c1.3 0 2.5-.5 3.5-1.3l3.8 3.8.7-.7-3.8-3.8zm-4.2 1C4 11 2 9 2 6.5S4 2 6.5 2 11 4 11 6.5 9 11 6.5 11z"
+                  />
+                </svg>
+              </button>
+              <button
+                class="zoomButton"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="zoomIcon"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 6H7V4H6v2H4v1h2v2h1V7h2z"
+                  />
+                  <path
+                    d="M10.7 10c.8-1 1.3-2.2 1.3-3.5C12 3.5 9.5 1 6.5 1S1 3.5 1 6.5 3.5 12 6.5 12c1.3 0 2.5-.5 3.5-1.3l3.8 3.8.7-.7-3.8-3.8zm-4.2 1C4 11 2 9 2 6.5S4 2 6.5 2 11 4 11 6.5 9 11 6.5 11z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </section>
+          <div
+            class="srd-diagram diagram "
+          >
+            <svg
+              class="srd-link-layer "
+              style="transform: translate(0px,0px) scale(NaN);"
+            />
+            <div
+              class="srd-node-layer "
+              style="transform: translate(0px,0px) scale(NaN);"
+            />
+          </div>
+          <div
+            class="diagramLoading"
+          />
+        </div>
       </main>
     </div>
   </div>

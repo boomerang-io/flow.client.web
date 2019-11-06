@@ -20,6 +20,10 @@
   @include text-overflow-ellipsis();
 }
 
+.workflowNameSkeleton {
+  height: 1.125rem;
+}
+
 .title {
   color: $gray-90;
   font-size: 2rem;
@@ -52,4 +56,9 @@
   max-width: 16rem;
   text-transform: capitalize;
   @include text-overflow-ellipsis();
+}
+
+.headerContentSkeleton {
+  height: 4.31rem;
+  width: 40rem;
 }

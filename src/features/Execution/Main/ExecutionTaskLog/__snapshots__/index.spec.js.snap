@@ -90,26 +90,38 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
         >
           Task log
         </p>
-        <button
-          class="taskbarButton"
+        <div
+          class="bx--tooltip--definition bx--tooltip--a11y taskbarButton"
           data-testid="taskbar-button"
         >
-          <svg
-            aria-hidden="true"
-            class="taskbarArrows"
-            focusable="false"
-            height="32"
-            preserveAspectRatio="xMidYMid meet"
-            style="will-change: transform;"
-            viewBox="0 0 32 32"
-            width="32"
-            xmlns="http://www.w3.org/2000/svg"
+          <button
+            aria-describedby="definition-tooltip-1"
+            class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip__trigger--definition bx--tooltip--top bx--tooltip--align-center"
           >
-            <path
-              d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
-            />
-          </svg>
-        </button>
+            <svg
+              aria-hidden="true"
+              class="taskbarArrows"
+              focusable="false"
+              height="32"
+              preserveAspectRatio="xMidYMid meet"
+              style="will-change: transform;"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
+              />
+            </svg>
+          </button>
+          <div
+            class="bx--assistive-text"
+            id="definition-tooltip-1"
+            role="tooltip"
+          >
+            Change sort direction (by start time)
+          </div>
+        </div>
       </section>
       <ul
         class="tasklog"

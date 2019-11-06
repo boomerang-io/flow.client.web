@@ -2,77 +2,76 @@ import React from "react";
 import { fireEvent } from "@testing-library/react";
 import ExecutionTaskLog from "./index";
 
-const mockfn = jest.fn();
-
 const props = {
-  setActiveTeam: mockfn,
-  workflow: { id: "2", flowTeamId: "3" },
-  workflowExecutionData: {
-    id: "1",
-    duration: 904934,
-    status: "completed",
-    steps: [
-      {
-        activityId: "5c36289096052900012cc81d",
-        duration: 300190,
-        flowTaskStatus: "completed",
-        id: "5c36289096052900012cc81e",
-        order: 1,
-        startTime: "2019-09-03T15:00:00.230+0000",
-        taskId: "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-        outputs: {
-          args: {
-            test: "true"
+  workflowExecution: {
+    status: "success",
+    data: {
+      id: "1",
+      duration: 904934,
+      status: "completed",
+      steps: [
+        {
+          activityId: "5c36289096052900012cc81d",
+          duration: 300190,
+          flowTaskStatus: "completed",
+          id: "5c36289096052900012cc81e",
+          order: 1,
+          startTime: "2019-09-03T15:00:00.230+0000",
+          taskId: "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          outputs: {
+            args: {
+              test: "true"
+            },
+            data: "",
+            files: {},
+            form: {},
+            headers: {
+              Accept: "/",
+              "Accept-Encoding": "gzip,deflate",
+              Connection: "close",
+              "Content-Type": "text/http",
+              Host: "httpbin.org",
+              "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
+            },
+            json: null,
+            method: "GET",
+            origin: "147.10.60.191",
+            url: "https://httpbin.org/anything?test=true"
           },
-          data: "",
-          files: {},
-          form: {},
-          headers: {
-            Accept: "/",
-            "Accept-Encoding": "gzip,deflate",
-            Connection: "close",
-            "Content-Type": "text/http",
-            Host: "httpbin.org",
-            "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
-          },
-          json: null,
-          method: "GET",
-          origin: "147.10.60.191",
-          url: "https://httpbin.org/anything?test=true"
+          taskName: "Slack"
         },
-        taskName: "Slack"
-      },
-      {
-        activityId: "5c36289096052900012cc81s",
-        duration: 300190,
-        flowTaskStatus: "inProgress",
-        id: "5c3628909605290001dcc81e",
-        order: 2,
-        startTime: "2019-09-03T15:01:00.103+0000",
-        taskId: "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
-        outputs: {
-          args: {
-            test: "true"
+        {
+          activityId: "5c36289096052900012cc81s",
+          duration: 300190,
+          flowTaskStatus: "inProgress",
+          id: "5c3628909605290001dcc81e",
+          order: 2,
+          startTime: "2019-09-03T15:01:00.103+0000",
+          taskId: "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          outputs: {
+            args: {
+              test: "true"
+            },
+            data: "",
+            files: {},
+            form: {},
+            headers: {
+              Accept: "/",
+              "Accept-Encoding": "gzip,deflate",
+              Connection: "close",
+              "Content-Type": "text/http",
+              Host: "httpbin.org",
+              "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
+            },
+            json: null,
+            method: "GET",
+            origin: "147.10.60.191",
+            url: "https://httpbin.org/anything?test=true"
           },
-          data: "",
-          files: {},
-          form: {},
-          headers: {
-            Accept: "/",
-            "Accept-Encoding": "gzip,deflate",
-            Connection: "close",
-            "Content-Type": "text/http",
-            Host: "httpbin.org",
-            "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
-          },
-          json: null,
-          method: "GET",
-          origin: "147.10.60.191",
-          url: "https://httpbin.org/anything?test=true"
-        },
-        taskName: "Email"
-      }
-    ]
+          taskName: "Email"
+        }
+      ]
+    }
   }
 };
 

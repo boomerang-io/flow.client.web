@@ -33,23 +33,15 @@ export class CustomTaskNodeExecution extends Component {
 
   render() {
     const { task, node } = this.props;
-    const { steps, status } = this.props.workflowExecution.data;
+    const { steps } = this.props.workflowExecution.data;
     const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
-    const flowTaskStatus = step ? step.flowTaskStatus : "";
-
-    let disabled = false;
-    if (status === ACTIVITY_STATUSES.IN_PROGRESS) {
-      const inProgressStep = steps.find(step => step.flowTaskStatus === ACTIVITY_STATUSES.IN_PROGRESS);
-      if (step.order > inProgressStep.order && flowTaskStatus !== ACTIVITY_STATUSES.SKIPPED) {
-        disabled = true;
-      }
-    }
+    const flowTaskStatus = step?.flowTaskStatus;
 
     return (
       <WorkflowNode
         isExecution
         category={task.category}
-        className={cx(styles[flowTaskStatus], { [styles.disabled]: disabled })}
+        className={cx(styles[flowTaskStatus], { [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED })}
         name={task.name}
         node={node}
         //onClick={e => isAccessibleEvent(e) && this.handleOnActivityClick()}
