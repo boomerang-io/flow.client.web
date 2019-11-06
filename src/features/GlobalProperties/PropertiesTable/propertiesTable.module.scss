@@ -14,7 +14,6 @@
 }
 
 .tableHeadHeader {
-  color: $tab-blue;
   font-size: inherit;
   font-family: inherit;
   height: 3rem;
@@ -44,13 +43,7 @@
   }
 }
 
-.tableHeadRow {
-  background-color: $cool-white-1;
-}
-
 .tableBody {
-  background-color: #f2f2f2;
-  color: $darkest-gray;
   font-weight: 300;
 }
 
@@ -70,20 +63,19 @@
 
   .secured {
     path {
-      fill: $green-50;
+      fill: $support-02;
     }
   }
 
   .unsecured {
     path {
-      fill: $red-50;
+      fill: $support-01;
     }
   }
 }
 
 .tableTextarea {
   background: inherit;
-  color: $black;
   margin-left: 0.25rem;
   max-width: 100%;
   resize: none;

@@ -79,7 +79,7 @@ class WorkflowCard extends Component {
         primaryFocus: true
       },
       {
-        itemText: "Activity",
+        itemText: "View Activity",
         onClick: () => history.push(`/activity?page=0&size=10&workflowIds=${workflow.id}`)
       },
       {

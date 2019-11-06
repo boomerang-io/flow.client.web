@@ -108,7 +108,7 @@ class ChangeLogTable extends Component {
                 <TableContainer>
                   <Table>
                     <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
+                      <TableRow>
                         {headers.map(header => (
                           <TableHeader
                             id={header.key}

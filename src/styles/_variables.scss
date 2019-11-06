@@ -3,112 +3,12 @@
 Author: Timothy Bula
 GBS Engineering
 
-
-
 /* colors */
-$off-white: #f3f3f3;
-$title-gray: #f5e8db;
 $lightest-gray: #fbfcfc;
-$light-gray: #f8fafa;
-$hour-gray: #343334;
-$lighter-gray: #d8d8d8;
-$text-area-gray: #eaeaea;
-$pale-slate: #c0bfc0;
-$pale-gray: #b3b1b3;
-$gray: #777677;
 $dark-gray: #4a4a4a;
 $section-gray: #8c9696;
 $darkest-gray: #272727;
-$teal: #40d5bb;
-$outside-teal: #27685d;
-$light-teal: #71cddd;
-$lighter-teal: #75cddc;
-$lightest-blue: #00b6cb;
-$indigo-blue: #00b5ca;
-$ongoing-blue: #c2dbf4;
-$executing-blue: #5285c1;
-$light-blue: #315a7a;
-$border-blue: #3c6381;
-$tab-blue: #047cc0;
-$outside-app-blue: #1d496d;
-$lighter-blue: #71cddd;
-$lighter-teal: #75cddc;
-$blue: #1c496d;
-$dark-blue: #1d364d;
-$green: #57d785;
-$red: #ff806c;
-$orange-pink: #f97f6b;
-$fail-red: #e26665;
-$error-red: #ff5c49;
-$status-orange: #ffaa9d;
-$status-yellow: #fbeaae;
-$status-blue: #56acf2;
-$status-gray: #9fa7a7;
-$card-blue: #33495e;
-$full-report-dark-gray: #424747;
-$full-report-gray: #6f7878;
-$status-teal: #39cead;
 
-
-// @import "~@boomerang/carbon-addons-boomerang/scss/styles.scss";
-// @include bmrgFlowColors();
-// Carbon theme
-$interactive-01: #0072c3;
-$interactive-02: #3d3d3d;
-$interactive-03: #0072c3;
-$interactive-04: #0072c3;
-$ui-background: #f2f4f8;
-$ui-01: #ffffff;
-$ui-02: #f2f4f8;
-$ui-03: #d5d9e0;
-$ui-04: #868d95;
-$ui-05: #171717;
-$text-01: #171717;
-$text-02: #50565b;
-$text-03: #868d95;
-$text-04: #ffffff;
-$icon-01: #171717;
-$icon-02: #565656;
-$icon-03: #ffffff;
-$link-01: #0072c3;
-$field-01: #ffffff;
-$field-02: #f2f4f8;
-$inverse-01: #ffffff;
-$inverse-02: #3d3d3d;
-$support-01: #da1e28;
-$support-02: #009c98;
-$support-03: #fdd13a;
-$support-04: #054ada;
-$inverse-support-01: #fb4b53;
-$inverse-support-02: #00bab6;
-$inverse-support-03: #fdd13a;
-$inverse-support-04: #408bfc;
-$overlay-01: rgba(23, 23, 23, 0.5);
-
-// Below not currently included in designs
-
-$focus: #0072c3;
-$hover-primary: #175d8d;
-$active-primary: #1c496d;
-$hover-primary-text: #009bef;
-$hover-secondary: #4c4c4c;
-$active-secondary: #6f6f6f;
-$hover-tertiary: #175d8d;
-$active-tertiary: #1c496d;
-$hover-ui: #e5e5e5;
-$active-ui: #bebebe;
-$selected-ui: #dcdcdc;
-$hover-selected-ui: #cacaca;
-$hover-danger: #e26665;
-$active-danger: #750e13;
-$hover-row: #e5e5e5;
-$visited-link: #8a3ffc;
-$disabled-01: #f3f3f3;
-$disabled-02: #bebebe;
-$disabled-03: #8c8c8c;
-$highlight: #c9deff;
-$brand-01: #0072c3;
-$brand-02: #242a2e;
-$brand-03: #0072c3;
-$active-01: #bebebe;
-$hover-field: #f3f3f3;
+// Carbon theme Flow
+@import "~@boomerang/carbon-addons-boomerang/scss/styles/bmrgThemeTokens";
+@include bmrg--theme-tokens();
