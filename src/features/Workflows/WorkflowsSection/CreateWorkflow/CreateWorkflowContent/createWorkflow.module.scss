@@ -82,4 +82,7 @@
       fill: $white;
     }
   }
+  &:hover {
+    background: $highlight;
+  }
 }
