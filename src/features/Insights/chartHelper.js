@@ -104,21 +104,21 @@ export const parseChartsData = (data, teams) => {
   const carbonLineData = chartInfo.map(chart => {
     return {
       label: chart.label,
-      backgroundColors: [chart.color],
+      fillColors: [chart.color],
       data: dataByStatus[chart.value]
     };
   });
   const carbonScatterData = [
     {
       label: "Duration",
-      backgroundColors: [chartColors.TOTAL],
+      fillColors: [chartColors.TOTAL],
       data: scatterData
     }
   ];
   const carbonDonutData = [
     {
       label: "Status",
-      backgroundColors: [chartColors.SUCCESS, chartColors.FAILED, chartColors.INVALID, chartColors.IN_PROGRESS],
+      fillColors: [chartColors.SUCCESS, chartColors.FAILED, chartColors.INVALID, chartColors.IN_PROGRESS],
       data: [successExecutions, failExecutions, invalidExecutions, inProgressExecutions]
     }
   ];
