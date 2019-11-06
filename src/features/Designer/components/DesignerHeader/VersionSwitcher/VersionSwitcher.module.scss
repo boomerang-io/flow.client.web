@@ -2,7 +2,7 @@
 @import "~Styles/variables";
 $disabled-color: #bebec0;
 
-.wrapper {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +19,7 @@ $disabled-color: #bebec0;
   }
 }
 
-.buttonListWrapper {
+.buttonListContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;

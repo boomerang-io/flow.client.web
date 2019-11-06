@@ -57,8 +57,8 @@ class VersionSwitcher extends Component {
     const { currentRevision, disabled, revisionCount } = this.props;
 
     return (
-      <div className={cx(styles.wrapper, { [styles.disabled]: disabled })}>
-        <div className={styles.buttonListWrapper}>
+      <div className={cx(styles.container, { [styles.disabled]: disabled })}>
+        <div className={styles.buttonListContainer}>
           {this.renderBackButtons(currentRevision > 1)}
           <p className={styles.versionText}>{`Version ${currentRevision || 1}`}</p>
           {this.renderForwardButtons(currentRevision < revisionCount)}
