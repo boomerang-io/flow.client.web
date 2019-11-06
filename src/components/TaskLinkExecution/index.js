@@ -37,8 +37,6 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
     executionCondition => executionCondition.name === model.executionCondition
   );
 
-  const isModelLocked = diagramEngine.diagramModel.locked;
-
   return (
     <WorkflowLink
       className={cx({
@@ -49,9 +47,9 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
       path={path}
     >
       {({ halfwayPoint }) => (
-        <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`} xmlns="http://www.w3.org/2000/svg">
+        <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`}>
           <TaskLinkExecutionConditionSwitcher
-            disabled={isModelLocked}
+            disabled={true}
             executionCondition={executionCondition}
             kind="execution"
           />

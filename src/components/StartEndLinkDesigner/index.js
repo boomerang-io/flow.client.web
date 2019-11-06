@@ -16,7 +16,7 @@ function StartEndLinkDesigner({ diagramEngine, model, path }) {
     <WorkflowLink diagramEngine={diagramEngine} model={model} path={path}>
       {({ halfwayPoint, handleOnDelete }) => (
         <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`}>
-          <WorkflowCloseButton onClick={handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
+          <WorkflowCloseButton onClick={handleOnDelete} />
         </g>
       )}
     </WorkflowLink>

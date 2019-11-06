@@ -39,8 +39,6 @@ class SwitchLinkExecution extends Component {
         sourceStep?.flowTaskStatus === EXECUTION_STATUSES.FAILURE) &&
       targetNodeType === "startend";
 
-    const isModelLocked = diagramEngine.diagramModel.locked;
-
     return (
       <WorkflowLink
         className={cx({ [styles.traversed]: targetTaskHasStarted || sourceTaskHasFinishedAndIsEndOfWorkflow })}
@@ -52,7 +50,7 @@ class SwitchLinkExecution extends Component {
           <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`}>
             <SwitchLinkExecutionConditionButton
               className={styles.executionConditionButton}
-              disabled={isModelLocked}
+              disabled={true}
               kind="execution"
               inputText={seperatedLinkState}
               onClick={this.openModal}

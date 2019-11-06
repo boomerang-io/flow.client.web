@@ -23,21 +23,16 @@ function TaskLinkDesigner({ diagramEngine, model, path }) {
     setExecutionConditionIndex(newExecutionConditionIndex);
   }
 
-  const isModelLocked = diagramEngine.diagramModel.locked;
-
   return (
     <WorkflowLink diagramEngine={diagramEngine} model={model} path={path}>
       {({ halfwayPoint, handleOnDelete }) => (
         <>
-          <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`} xmlns="http://www.w3.org/2000/svg">
-            <WorkflowCloseButton onClick={handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
+          <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`}>
+            <WorkflowCloseButton onClick={handleOnDelete} />
           </g>
-          <g
-            transform={`translate(${halfwayPoint.x + (isModelLocked ? -12 : 16)}, ${halfwayPoint.y - 12})`}
-            xmlns="http://www.w3.org/2000/svg"
-          >
+          <g transform={`translate(${halfwayPoint.x + 16}, ${halfwayPoint.y - 12})`}>
             <TaskLinkExecutionConditionSwitcher
-              disabled={isModelLocked}
+              disabled={false}
               executionCondition={EXECUTION_CONDITIONS[executionConditionIndex]}
               kind="designer"
               onClick={updateExecutionState}
