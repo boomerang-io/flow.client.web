@@ -148,7 +148,7 @@
   align-items: center;
   background-color: #20d5d2;
   border-radius: 0.25rem;
-  border-width: 3px;
+  border-width: 0.1875rem;
   border-style: solid;
   border-color: transparent;
   color: $brand-02;
@@ -158,7 +158,7 @@
   justify-content: center;
   height: 3.5625rem;
   outline: 1px solid transparent;
-  outline-offset: -4px;
+  outline-offset: -0.25rem;
   transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 15.625rem;
 

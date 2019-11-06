@@ -1,0 +1,37 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
+
+.container {
+  align-items: flex-start;
+  background: $white;
+  display: flex;
+  flex-direction: column;
+  height: 7.3125rem;
+  padding: 1.5rem;
+  position: initial;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+.content {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.info {
+  overflow: hidden;
+}
+
+.title {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.5rem;
+}

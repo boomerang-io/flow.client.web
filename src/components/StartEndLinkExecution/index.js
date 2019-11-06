@@ -12,7 +12,8 @@ StartEndLinkExecution.propTypes = {
 function StartEndLinkExecution({ diagramEngine, model, path }) {
   return (
     <WorkflowLink className={styles.started} diagramEngine={diagramEngine} model={model} path={path}>
-      {() => <g />}
+      {() => <g /> // default prop for children in WorkflowLink did not work
+      }
     </WorkflowLink>
   );
 }

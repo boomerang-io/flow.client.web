@@ -82,8 +82,8 @@ describe("TeamProperties --- Snapshot Test", () => {
 describe("TeamProperties --- RTL", () => {
   test("renders message when is still fetching", async () => {
     const newProp = { ...props, teams: { ...props.teams, isFetching: true } };
-    const { getByText } = rtlReduxRender(<TeamProperties {...newProp} />);
-    const message = await waitForElement(() => getByText("We'll be right with you"));
+    const { getByLabelText } = rtlReduxRender(<TeamProperties {...newProp} />);
+    const message = await waitForElement(() => getByLabelText("Active loading indicator"));
 
     expect(message).toBeInTheDocument();
   });

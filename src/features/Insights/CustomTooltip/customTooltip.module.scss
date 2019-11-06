@@ -1,0 +1,21 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+  width: auto;
+  height: auto;
+  color: $dark-gray;
+  border: solid $gray-20 0.0625rem;
+  border-radius: 0.325rem;
+}
+.data {
+  text-align: start;
+  margin: 1rem;
+  word-wrap: break-word;
+}
+.field {
+  font-weight: bold;
+}

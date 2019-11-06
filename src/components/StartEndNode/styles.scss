@@ -74,5 +74,9 @@
     &:hover {
       filter: brightness(110%);
     }
+
+    &.--locked:hover {
+      filter: brightness(100%);
+    }
   }
 }

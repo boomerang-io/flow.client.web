@@ -1,4 +1,5 @@
 @import "~Styles/variables";
+@import "~Styles/mixins";
 
 .zoomIcons {
   display: flex;
@@ -12,11 +13,16 @@
 
 .zoomButton {
   cursor: pointer;
-  line-height: 1;
+  line-height: 0;
+  margin: 0;
+  padding: 0.125rem;
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 .zoomIcon {
   height: 1.5rem;
   width: 1.5rem;
-  fill: $ui-04;
+  fill: $interactive-01;
 }

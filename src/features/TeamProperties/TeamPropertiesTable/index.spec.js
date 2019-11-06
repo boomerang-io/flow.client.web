@@ -66,7 +66,7 @@ describe("TeamPropertiesTable --- RTL", () => {
     expect(getByText(/Please select a team to manage properties./i)).toBeInTheDocument();
     expect(queryAllByText(/Looks like there aren't any properties. Create one above!/i)).toHaveLength(0);
 
-    const selection = getByText(/Allianz PoC/i);
+    const selection = getByText(/Allianz/i);
     fireEvent.click(selection);
 
     expect(queryAllByText(/Please select a team to manage properties./i)).toHaveLength(0);

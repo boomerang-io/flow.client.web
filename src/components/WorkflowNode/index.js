@@ -26,6 +26,8 @@ export default function WorkflowNode({
   name,
   node,
   subtitle,
+  subtitleClass,
+  rightPortClass,
   title,
   ...rest
 }) {
@@ -35,9 +37,15 @@ export default function WorkflowNode({
         {icon ? icon : mapTaskNametoIcon(name, category).iconImg}
         <h1 className={styles.title}>{title || "Task"}</h1>
       </header>
-      <p className={styles.subtitle}>{subtitle || "Task"}</p>
+      <p className={cx(styles.subtitle, subtitleClass)}>{subtitle || "Task"}</p>
       <WorkflowExecutionPort isExecution={isExecution} name="left" node={node} port="left" />
-      <WorkflowExecutionPort isExecution={isExecution} name="right" node={node} port="right" />
+      <WorkflowExecutionPort
+        className={rightPortClass}
+        isExecution={isExecution}
+        name="right"
+        node={node}
+        port="right"
+      />
       {children}
     </div>
   );

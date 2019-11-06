@@ -69,7 +69,7 @@ const OnBoardGuide = props => {
 
   return (
     <main className={`c-onboard-screen ${containerClassName}`}>
-      <button className="b-onboard-screen-exit-button" renderIcon={Close20} onClick={closeModal}>
+      <button className="b-onboard-screen-exit-button" onClick={closeModal}>
         <Close20 />
       </button>
       <h1 className="b-onboard-screen-title">{title}</h1>
@@ -93,7 +93,7 @@ OnBoardGuide.propTypes = {
   nextScreen: PropTypes.func,
   previousScreen: PropTypes.func,
   closeModal: PropTypes.func,
-  screens: PropTypes.array,
+  screens: PropTypes.object,
   guideConfig: PropTypes.object
 };
 

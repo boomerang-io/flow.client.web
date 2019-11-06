@@ -74,11 +74,16 @@ export class SwitchNode extends Component {
     return (
       <WorkflowNode
         className={styles.node}
-        icon={<Fork16 alt="Switch icon" />}
+        icon={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
         node={node}
         subtitle={node.taskName}
         title={"Switch"}
+        rightPortClass={styles.rightPort}
+        subtitleClass={styles.subtitle}
       >
+        <div className={styles.badgeContainer}>
+          <p className={styles.badgeText}>Switch</p>
+        </div>
         {this.renderConfigureNode()}
         {this.renderDeleteNode()}
       </WorkflowNode>

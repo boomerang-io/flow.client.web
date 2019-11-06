@@ -20,6 +20,7 @@ export default function WorkflowEditButton({ alt = "Workflow edit button", class
       onKeyDown={e => isAccessibleEvent(e) && onClick(e)}
       role="button"
       tabIndex="0"
+      style={{ willChange: "auto" }}
       {...rest}
     />
   );

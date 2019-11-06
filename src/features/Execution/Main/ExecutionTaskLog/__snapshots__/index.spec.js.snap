@@ -1,0 +1,377 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <aside
+      class="container "
+    >
+      <section
+        class="statusBlock completed"
+      >
+        <div
+          class="duration"
+        >
+          <p
+            class="title"
+          >
+            Duration
+          </p>
+          <time
+            class="value"
+          >
+            15min
+          </time>
+        </div>
+        <div
+          class="status"
+        >
+          <p
+            class="title"
+          >
+            Status
+          </p>
+          <div
+            class="statusData"
+          >
+            <svg
+              aria-label="completed"
+              class="statusIcon"
+              focusable="false"
+              height="32"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              style="will-change: transform;"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"
+              />
+              <path
+                d="M14 21.5l-5-4.96 1.59-1.57L14 18.35 21.41 11 23 12.58l-9 8.92z"
+              />
+            </svg>
+            <p
+              class="value"
+            >
+              Succeeded
+            </p>
+          </div>
+        </div>
+        <button
+          class="collapseButton"
+        >
+          <svg
+            aria-hidden="true"
+            class="chevron"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            style="will-change: transform;"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 16L20 6l1.4 1.4-8.6 8.6 8.6 8.6L20 26z"
+            />
+          </svg>
+        </button>
+      </section>
+      <section
+        class="taskbar"
+      >
+        <p
+          class="taskbarTitle"
+        >
+          Task log
+        </p>
+        <div
+          class="bx--tooltip--definition bx--tooltip--a11y taskbarButton"
+          data-testid="taskbar-button"
+        >
+          <button
+            aria-describedby="definition-tooltip-1"
+            class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip__trigger--definition bx--tooltip--top bx--tooltip--align-center"
+          >
+            <svg
+              aria-hidden="true"
+              class="taskbarArrows"
+              focusable="false"
+              height="32"
+              preserveAspectRatio="xMidYMid meet"
+              style="will-change: transform;"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
+              />
+            </svg>
+          </button>
+          <div
+            class="bx--assistive-text"
+            id="definition-tooltip-1"
+            role="tooltip"
+          >
+            Change sort direction (by start time)
+          </div>
+        </div>
+      </section>
+      <ul
+        class="tasklog"
+      >
+        <li
+          class="taskitem inProgress"
+        >
+          <div
+            class="progressBar"
+          />
+          <section
+            class="header"
+          >
+            <div
+              class="title"
+            >
+              <svg
+                aria-label="inProgress"
+                class="taskIcon"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 11h2v9h-2zm-2-9h6v2h-6z"
+                />
+                <path
+                  d="M28 9l-1.42-1.41-2.25 2.25a10.94 10.94 0 1 0 1.18 1.65zM16 26a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"
+                />
+              </svg>
+              <p
+                data-testid="taskitem-name"
+              >
+                Email
+              </p>
+            </div>
+            <div
+              class="status inProgress"
+            >
+              <svg
+                aria-label="inProgress"
+                class="statusIcon"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 11h2v9h-2zm-2-9h6v2h-6z"
+                />
+                <path
+                  d="M28 9l-1.42-1.41-2.25 2.25a10.94 10.94 0 1 0 1.18 1.65zM16 26a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"
+                />
+              </svg>
+              <p>
+                In Progress
+              </p>
+            </div>
+          </section>
+          <section
+            class="data"
+          >
+            <p
+              class="subtitle"
+            >
+              Subtitle
+            </p>
+            <div
+              class="time"
+            >
+              <p
+                class="timeTitle"
+              >
+                Start time
+              </p>
+              <time
+                class="timeValue"
+              >
+                12:00 AM
+              </time>
+            </div>
+            <div
+              class="time"
+            >
+              <p
+                class="timeTitle"
+              >
+                Duration
+              </p>
+              <time
+                class="timeValue"
+              >
+                5 minutes
+              </time>
+            </div>
+          </section>
+          <section
+            class="data"
+          >
+            <button
+              class="s-task-log-trigger"
+            >
+              View Log
+            </button>
+            <button
+              class="s-output-properties-trigger"
+            >
+              View Properties
+            </button>
+          </section>
+        </li>
+        <li
+          class="taskitem completed"
+        >
+          <div
+            class="progressBar"
+          />
+          <section
+            class="header"
+          >
+            <div
+              class="title"
+            >
+              <svg
+                aria-label="completed"
+                class="taskIcon"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"
+                />
+                <path
+                  d="M14 21.5l-5-4.96 1.59-1.57L14 18.35 21.41 11 23 12.58l-9 8.92z"
+                />
+              </svg>
+              <p
+                data-testid="taskitem-name"
+              >
+                Slack
+              </p>
+            </div>
+            <div
+              class="status completed"
+            >
+              <svg
+                aria-label="completed"
+                class="statusIcon"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"
+                />
+                <path
+                  d="M14 21.5l-5-4.96 1.59-1.57L14 18.35 21.41 11 23 12.58l-9 8.92z"
+                />
+              </svg>
+              <p>
+                Succeeded
+              </p>
+            </div>
+          </section>
+          <section
+            class="data"
+          >
+            <p
+              class="subtitle"
+            >
+              Subtitle
+            </p>
+            <div
+              class="time"
+            >
+              <p
+                class="timeTitle"
+              >
+                Start time
+              </p>
+              <time
+                class="timeValue"
+              >
+                12:00 AM
+              </time>
+            </div>
+            <div
+              class="time"
+            >
+              <p
+                class="timeTitle"
+              >
+                Duration
+              </p>
+              <time
+                class="timeValue"
+              >
+                5 minutes
+              </time>
+            </div>
+          </section>
+          <section
+            class="data"
+          >
+            <button
+              class="s-task-log-trigger"
+            >
+              View Log
+            </button>
+            <button
+              class="s-output-properties-trigger"
+            >
+              View Properties
+            </button>
+          </section>
+        </li>
+      </ul>
+    </aside>
+  </div>
+  <div
+    class="ReactModalPortal"
+  />
+  <div
+    class="ReactModalPortal"
+  />
+  <div
+    class="ReactModalPortal"
+  />
+  <div
+    class="ReactModalPortal"
+  />
+</body>
+`;

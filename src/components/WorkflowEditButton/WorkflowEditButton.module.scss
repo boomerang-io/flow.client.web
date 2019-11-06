@@ -1,6 +1,12 @@
 @import "~Styles/variables";
+@import "~Styles/mixins";
 
 .button {
   cursor: pointer;
-  height: 1.5rem;
+  height: 1.75rem;
+  width: 1.75rem;
+
+  &:focus {
+    @include focus-outline($interactive-01, 0rem);
+  }
 }

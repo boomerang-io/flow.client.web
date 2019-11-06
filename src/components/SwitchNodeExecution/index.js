@@ -5,7 +5,7 @@ import cx from "classnames";
 import WorkflowNode from "Components/WorkflowNode";
 import { Fork16 } from "@carbon/icons-react";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
-import styles from "./SwitchNodExecution.module.scss";
+import styles from "./SwitchNodeExecution.module.scss";
 
 export class SwitchNodeExecution extends Component {
   static propTypes = {
@@ -22,25 +22,27 @@ export class SwitchNodeExecution extends Component {
 
   render() {
     const { node } = this.props;
-    const { steps, status } = this.props.workflowExecution.data;
+    const { steps } = this.props.workflowExecution.data;
     const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
-    const flowTaskStatus = step ? step.flowTaskStatus : "";
+    const flowTaskStatus = step?.flowTaskStatus;
 
-    let disabled = false;
-    if (status === ACTIVITY_STATUSES.IN_PROGRESS) {
-      const inProgressStep = steps.find(step => step.flowTaskStatus === ACTIVITY_STATUSES.IN_PROGRESS);
-      if (step.order > inProgressStep.order && flowTaskStatus !== ACTIVITY_STATUSES.SKIPPED) {
-        disabled = true;
-      }
-    }
     return (
       <WorkflowNode
-        className={cx(styles[flowTaskStatus], { [styles.disabled]: disabled })}
-        title={"Switch"}
-        icon={<Fork16 alt="Switch icon" />}
-        node={this.props.node}
+        isExecution
+        className={cx(styles.node, styles[flowTaskStatus], {
+          [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED
+        })}
+        icon={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
+        node={node}
+        rightPortClass={styles.rightPort}
+        subtitle={node.taskName}
+        subtitleClass={styles.subtitle}
+        title="Switch"
       >
-        {() => {}}
+        <div className={styles.progressBar} />
+        <div className={styles.badgeContainer}>
+          <p className={styles.badgeText}>Switch</p>
+        </div>
       </WorkflowNode>
     );
   }

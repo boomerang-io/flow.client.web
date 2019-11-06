@@ -1,0 +1,23 @@
+@import "~Styles/variables";
+
+.container {
+  path {
+    stroke: #6e32c9;
+  }
+}
+
+.deleteButton {
+  circle {
+    stroke: #6e32c9;
+  }
+}
+
+.img {
+  cursor: pointer;
+}
+
+.text {
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.03125rem;
+}

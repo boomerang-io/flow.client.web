@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskItem --- Snapshot Capturing Snapshot of TaskItem 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <li
+      class="taskitem completed"
+    >
+      <div
+        class="progressBar"
+      />
+      <section
+        class="header"
+      >
+        <div
+          class="title"
+        >
+          <svg
+            aria-label="completed"
+            class="taskIcon"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            style="will-change: transform;"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"
+            />
+            <path
+              d="M14 21.5l-5-4.96 1.59-1.57L14 18.35 21.41 11 23 12.58l-9 8.92z"
+            />
+          </svg>
+          <p
+            data-testid="taskitem-name"
+          >
+            Send Slack Message
+          </p>
+        </div>
+        <div
+          class="status completed"
+        >
+          <svg
+            aria-label="completed"
+            class="statusIcon"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            style="will-change: transform;"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"
+            />
+            <path
+              d="M14 21.5l-5-4.96 1.59-1.57L14 18.35 21.41 11 23 12.58l-9 8.92z"
+            />
+          </svg>
+          <p>
+            Succeeded
+          </p>
+        </div>
+      </section>
+      <section
+        class="data"
+      >
+        <p
+          class="subtitle"
+        >
+          Subtitle
+        </p>
+        <div
+          class="time"
+        >
+          <p
+            class="timeTitle"
+          >
+            Start time
+          </p>
+          <time
+            class="timeValue"
+          >
+            12:00 AM
+          </time>
+        </div>
+        <div
+          class="time"
+        >
+          <p
+            class="timeTitle"
+          >
+            Duration
+          </p>
+          <time
+            class="timeValue"
+          >
+            5 minutes
+          </time>
+        </div>
+      </section>
+      <section
+        class="data"
+      >
+        <button
+          class="s-task-log-trigger"
+        >
+          View Log
+        </button>
+        <button
+          class="s-output-properties-trigger"
+        >
+          View Properties
+        </button>
+      </section>
+    </li>
+  </div>
+  <div
+    class="ReactModalPortal"
+  />
+  <div
+    class="ReactModalPortal"
+  />
+</body>
+`;

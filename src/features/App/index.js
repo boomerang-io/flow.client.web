@@ -9,18 +9,17 @@ import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { NotificationsContainer, ProtectedRoute, ErrorBoundary, Modal } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import Loading from "Components/Loading";
-// import NotificationBanner from "Components/NotificationBanner";
-import BrowserModal from "./BrowserModal";
-import FlowRedirectModalContent from "./flowRedirectModalContent";
+import BrowserPrompt from "./BrowserPrompt";
+import RedirectPrompt from "./RedirectPrompt";
 import Navigation from "./Navigation";
 import {
-  AsyncHome,
   AsyncActivity,
-  AsyncManager,
-  AsyncInsights,
+  AsyncDesigner,
   AsyncExecution,
   AsyncGlobalConfiguration,
-  AsyncTeamProperties
+  AsyncInsights,
+  AsyncTeamProperties,
+  AsyncWorkflows
 } from "./config/lazyComponents";
 import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
@@ -31,10 +30,6 @@ import "./styles.scss";
 const browser = detect();
 
 class App extends Component {
-  // state = {
-  //   bannerClosed: false
-  // };
-
   componentDidMount() {
     this.fetchData();
   }
@@ -55,10 +50,6 @@ class App extends Component {
     }
   }
 
-  // closeBanner = () => {
-  //   this.setState({ bannerClosed: true });
-  // };
-
   renderApp() {
     const { user, navigation, teams } = this.props;
     if (user.isFetching || user.isCreating || navigation.isFetching) {
@@ -74,8 +65,8 @@ class App extends Component {
 
     if (teams.status === SERVICE_REQUEST_STATUSES.SUCCESS && Object.keys(teams.data).length === 0) {
       return (
-        <Modal isOpen={true}>
-          <FlowRedirectModalContent />
+        <Modal isOpen={true} containerClassName="c-flow-redirect-modal">
+          <RedirectPrompt />
         </Modal>
       );
     }
@@ -86,7 +77,6 @@ class App extends Component {
       return (
         <>
           <div className="c-app-main">
-            {/*<NotificationBanner closeBanner={this.closeBanner} />*/}
             <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
               <Switch>
                 <ProtectedRoute
@@ -101,11 +91,11 @@ class App extends Component {
                   userRole={userRole}
                   component={AsyncTeamProperties}
                 />
-                <Route path="/workflows" component={AsyncHome} />
                 <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
                 <Route path="/activity" component={AsyncActivity} />
-                <Route path="/editor/:workflowId" component={AsyncManager} />
+                <Route path="/editor/:workflowId" component={AsyncDesigner} />
                 <Route path="/insights" component={AsyncInsights} />
+                <Route path="/workflows" component={AsyncWorkflows} />
                 <Redirect from="/" to="/workflows" />
               </Switch>
             </Suspense>
@@ -131,7 +121,7 @@ class App extends Component {
     return (
       <>
         <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
-        <BrowserModal isOpen={browser.name === "chrome" || browser.name === "firefox" ? false : true} />
+        <BrowserPrompt isOpen={browser.name === "chrome" || browser.name === "firefox" ? false : true} />
         <OnBoardExpContainer />
         <ErrorBoundary errorComponent={ErrorDragon}>{this.renderApp()}</ErrorBoundary>
       </>
@@ -141,17 +131,17 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
     navigation: state.navigation,
-    teams: state.teams
+    teams: state.teams,
+    user: state.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    userActions: bindActionCreators(userActions, dispatch),
     navigationActions: bindActionCreators(navigationActions, dispatch),
-    teamsActions: bindActionCreators(teamsActions, dispatch)
+    teamsActions: bindActionCreators(teamsActions, dispatch),
+    userActions: bindActionCreators(userActions, dispatch)
   };
 };
 

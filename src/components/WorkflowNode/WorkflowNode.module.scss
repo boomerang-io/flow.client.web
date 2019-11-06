@@ -2,13 +2,13 @@
 @import "~Styles/mixins";
 
 :global .srd-node--selected > * {
-  border-color: transparent;
+  border-color: $interactive-01 !important;
 }
 
 .node {
   background: $lightest-gray;
   border: 0.125rem solid $interactive-01;
-  border-color: $interactive-01 !important;
+  border-color: $interactive-01;
   height: 5rem;
   padding: 1rem;
   position: relative;
@@ -19,11 +19,16 @@
 .header {
   display: flex;
   align-items: center;
+
+  svg {
+    height: 1rem;
+    width: 1rem;
+  }
 }
 
 .title {
   height: 1.125rem;
-  color: $text-01;
+  color: #272727;
   font-size: 0.875rem;
   line-height: 1.125rem;
   margin: 0;
@@ -33,7 +38,7 @@
 
 .subtitle {
   height: 0.9375rem;
-  color: $text-01;
+  color: #272727;
   font-size: 0.75rem;
   line-height: 0.9375rem;
   margin-top: 0.5rem;

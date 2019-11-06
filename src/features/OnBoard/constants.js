@@ -1,4 +1,3 @@
-//constants
 export const homeScreens = {
   WELCOME: 0,
   TEAMS: 1,
@@ -17,15 +16,6 @@ export const designerScreens = {
   DONE: 5,
   RETURN: 6
 };
-
-// export const creatorScreens = {
-//   WELCOME: 0,
-//   GENERAL: 1,
-//   TRIGGERS: 2,
-//   OPTIONS: 3,
-//   DONE: 4,
-//   RETURN: 5
-// };
 
 export const activityScreens = {
   WELCOME: 0,
@@ -48,7 +38,7 @@ export const messageConfig = {
   welcomeHome: {
     title: "Welcome to Boomerang Flow!",
     subTitle: "Want us to show you around?",
-    leftButton: "No thanks",
+    leftButton: "No, thanks",
     rightButton: "Yes, please!",
     finishButton: "",
     modalClassName: "b-onboardExp-screen--hidden",
@@ -61,9 +51,9 @@ export const messageConfig = {
     buttonsClassName: "b-onboardExp__buttons"
   },
   welcomeDesigner: {
-    title: "Welcome to the Designer Editor!",
+    title: "Welcome to Editor!",
     subTitle: "Want us to show you around?",
-    leftButton: "No thanks",
+    leftButton: "No, thanks",
     rightButton: "Yes, please!",
     finishButton: "",
     modalClassName: "b-onboardExp-screen--hidden",
@@ -75,25 +65,10 @@ export const messageConfig = {
     subtitleClassName: "b-onboardExp__subtitle",
     buttonsClassName: "b-onboardExp__buttons"
   },
-  // welcomeCreator: {
-  //   title: "Welcome to the Workflow Creator!",
-  //   subTitle: "Want us to show you around?",
-  //   leftButton: "No thanks",
-  //   rightButton: "Yes, please!",
-  //   finishButton: "",
-  //   modalClassName: "b-onboardExp-screen--hidden",
-  //   contentClassName: "b-onboardExp-content",
-  //   finishImgsClassName: "b-onboardExp-screen--hidden",
-  //   finishButtonClassName: "b-onboardExp-screen--hidden",
-  //   finishSubTitle: "",
-  //   finishQuestionMark: "",
-  //   subtitleClassName: "b-onboardExp__subtitle",
-  //   buttonsClassName: "b-onboardExp__buttons"
-  // },
   welcomeActivity: {
-    title: "Welcome to Workflows Activity!",
+    title: "Welcome to the Activity!",
     subTitle: "Want us to show you around?",
-    leftButton: "No thanks",
+    leftButton: "No, thanks",
     rightButton: "Yes, please!",
     finishButton: "",
     modalClassName: "b-onboardExp-screen--hidden",
@@ -106,9 +81,9 @@ export const messageConfig = {
     buttonsClassName: "b-onboardExp__buttons"
   },
   welcomeExecution: {
-    title: "Welcome to Workflow Execution!",
+    title: "Welcome to Execution!",
     subTitle: "Want us to show you around?",
-    leftButton: "No thanks",
+    leftButton: "No, thanks",
     rightButton: "Yes, please!",
     finishButton: "",
     modalClassName: "b-onboardExp-screen--hidden",
@@ -121,7 +96,7 @@ export const messageConfig = {
     buttonsClassName: "b-onboardExp__buttons"
   },
   done: {
-    title: "Huzzah! Now let’s get to work.",
+    title: "Great! Now let’s get to work.",
     subTitle: "Click ",
     leftButton: "",
     rightButton: "",
@@ -168,7 +143,7 @@ export const homeGuideConfig = {
   sidenav: {
     containerClassName: "c-onboard-screen--sidenav",
     title: "Sidenav",
-    message: "Access the different screens of Boomerang Flow."
+    message: "Access the different features of Boomerang Flow."
   }
 };
 
@@ -176,12 +151,12 @@ export const designerGuideConfig = {
   workflow: {
     containerClassName: "c-onboard-screen--workflow",
     title: "Workflow",
-    message: "Create your workflow using plugins and utlities."
+    message: "Create your workflow using tasks."
   },
   properties: {
     containerClassName: "c-onboard-screen--properties",
     title: "Properties",
-    message: "Edit and delete input properties that can be used by the workflow as it executes steps."
+    message: "Edit and delete workflow properties that can be used by the workflow as it executes."
   },
   change_log: {
     containerClassName: "c-onboard-screen--change_log",
@@ -191,27 +166,9 @@ export const designerGuideConfig = {
   settings: {
     containerClassName: "c-onboard-screen--settings",
     title: "Settings",
-    message: "Check and update general information about the workflow, set triggers, and configure options."
+    message: "View and update general information about the workflow, set triggers, and configure options."
   }
 };
-
-// export const creatorGuideConfig = {
-//   general: {
-//     containerClassName: "c-onboard-screen--general",
-//     title: "General",
-//     message: "Configure the general properties for your workflow like name and description."
-//   },
-//   triggers: {
-//     containerClassName: "c-onboard-screen--triggers",
-//     title: "Triggers",
-//     message: "Set the different ways that your workflow can be triggered e.g. webhook or schedule."
-//   },
-//   options: {
-//     containerClassName: "c-onboard-screen--options",
-//     title: "Options",
-//     message: "Set additional options for the workflow."
-//   }
-// };
 
 export const activityGuideConfig = {
   activity: {
@@ -235,7 +192,7 @@ export const executionGuideConfig = {
   side_info: {
     containerClassName: "c-onboard-screen--side_info",
     title: "Side Info",
-    message: "See workflow execution status, duration and see information about the tasks."
+    message: "See workflow execution status, its duration and information about the tasks."
   },
   diagram: {
     containerClassName: "c-onboard-screen--diagram",

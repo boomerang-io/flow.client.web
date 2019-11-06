@@ -3,31 +3,10 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import { connect } from "react-redux";
 import WorkflowLink from "Components/WorkflowLink";
-import ExecutionConditionSwitcher from "Components/ExecutionConditionSwitcher";
-import { CheckmarkOutline16, CloseOutline16, ArrowRight16 } from "@carbon/icons-react";
+import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
+import { EXECUTION_CONDITIONS } from "utilities/taskLinkIcons";
 import styles from "./TaskLink.module.scss";
-
-export const EXECUTION_STATES = {
-  SUCCESS: "success",
-  FAILURE: "failure",
-  ALWAYS: "always"
-};
-
-export const EXECUTION_CONDITIONS = [
-  {
-    Icon: CheckmarkOutline16,
-    name: EXECUTION_STATES.SUCCESS
-  },
-  {
-    Icon: CloseOutline16,
-    name: EXECUTION_STATES.FAILURE
-  },
-  {
-    Icon: ArrowRight16,
-    name: EXECUTION_STATES.ALWAYS
-  }
-];
 
 TaskLinkExecution.propTypes = {
   diagramEngine: PropTypes.object.isRequired,
@@ -37,26 +16,40 @@ TaskLinkExecution.propTypes = {
 
 function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
   const targetNodeId = model?.targetPort?.parent?.id;
-  const step = workflowExecution.data.steps?.find(step => step.taskId === targetNodeId);
+  const sourceNodeId = model?.sourcePort?.parent?.id;
 
-  const targetTaskHasStarted = step?.flowTaskStatus && step?.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED;
+  const targetNodeType = model?.targetPort?.parent?.type;
+
+  const sourceStep = workflowExecution.data.steps?.find(step => step.taskId === sourceNodeId);
+  const targetStep = workflowExecution.data.steps?.find(step => step.taskId === targetNodeId);
+
+  const targetTaskHasStarted =
+    targetStep?.flowTaskStatus &&
+    targetStep?.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED &&
+    targetStep?.flowTaskStatus !== EXECUTION_STATUSES.SKIPPED;
+
+  const sourceTaskHasFinishedAndIsEndOfWorkflow =
+    (sourceStep?.flowTaskStatus === EXECUTION_STATUSES.COMPLETED ||
+      sourceStep?.flowTaskStatus === EXECUTION_STATUSES.FAILURE) &&
+    targetNodeType === "startend";
+
   const executionCondition = EXECUTION_CONDITIONS.find(
     executionCondition => executionCondition.name === model.executionCondition
   );
 
-  const isModelLocked = diagramEngine.diagramModel.locked;
-
   return (
     <WorkflowLink
-      className={cx({ [styles.started]: targetTaskHasStarted })}
+      className={cx({
+        [styles.traversed]: targetTaskHasStarted || sourceTaskHasFinishedAndIsEndOfWorkflow
+      })}
       diagramEngine={diagramEngine}
       model={model}
       path={path}
     >
       {({ halfwayPoint }) => (
-        <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`} xmlns="http://www.w3.org/2000/svg">
-          <ExecutionConditionSwitcher
-            disabled={isModelLocked}
+        <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`}>
+          <TaskLinkExecutionConditionSwitcher
+            disabled={true}
             executionCondition={executionCondition}
             kind="execution"
           />

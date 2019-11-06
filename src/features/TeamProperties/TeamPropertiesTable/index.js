@@ -90,8 +90,6 @@ class TeamPropertiesTable extends Component {
   };
 
   updateTeamProperty = updatedConfig => {
-    console.log("updatedConfig", updatedConfig);
-
     this.props.updateTeamProperty(updatedConfig);
     const configurations = [...this.props.teamProperties.data];
     const newConfigurations = configurations.map(configuration =>

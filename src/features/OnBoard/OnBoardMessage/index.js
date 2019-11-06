@@ -30,7 +30,7 @@ const OnBoardMessage = props => {
     <FadeAnimation animationDuration={100} timeout={100} animationDelay={0} animationFunction="ease-in">
       <div className="c-onboard-wrapper">
         <main className="c-onboardExp">
-          <button className="b-onboardExp-screen-modal-close" renderIcon={Close20} onClick={closeModal}>
+          <button className="b-onboardExp-screen-modal-close" onClick={closeModal}>
             <Close20 />
           </button>
           <div className={finishImgsClassName}>

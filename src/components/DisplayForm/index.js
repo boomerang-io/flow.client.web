@@ -45,7 +45,7 @@ class DisplayForm extends Component {
     nodeConfig: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
     setIsModalOpen: PropTypes.func.isRequired,
-    shouldConfirmExit: PropTypes.func,
+    setShouldConfirmModalClose: PropTypes.func,
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired
   };

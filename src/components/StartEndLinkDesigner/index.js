@@ -10,12 +10,13 @@ StartEndLinkDesigner.propTypes = {
   path: PropTypes.string.isRequired
 };
 
+// Only created by a start node as an end node doesn't create links by definition
 function StartEndLinkDesigner({ diagramEngine, model, path }) {
   return (
     <WorkflowLink diagramEngine={diagramEngine} model={model} path={path}>
       {({ halfwayPoint, handleOnDelete }) => (
         <g transform={`translate(${halfwayPoint.x - 12}, ${halfwayPoint.y - 12})`}>
-          <WorkflowCloseButton onClick={handleOnDelete} xmlns="http://www.w3.org/1999/xhtml" />
+          <WorkflowCloseButton onClick={handleOnDelete} />
         </g>
       )}
     </WorkflowLink>
