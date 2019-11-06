@@ -39,7 +39,8 @@ export class WorkflowInsights extends Component {
     selectedTimeframe: timeframeOptions[3],
     selectedWorkflow: ALL_OPTIONS.WORKFLOWS,
     selectedTeam: ALL_OPTIONS.TEAMS,
-    executionsList: []
+    executionsList: [],
+    isUpdatingInsights: false
   };
 
   handleChangeTimeframe = timeframe => {
@@ -51,6 +52,7 @@ export class WorkflowInsights extends Component {
           : timeframeOptions[3]
       },
       () => {
+        this.setState({ isUpdatingInsights: true });
         this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
       }
     );
@@ -65,6 +67,7 @@ export class WorkflowInsights extends Component {
         selectedWorkflow: ALL_OPTIONS.WORKFLOWS
       },
       () => {
+        this.setState({ isUpdatingInsights: true });
         this.fetchInsights(`${BASE_SERVICE_URL}/insights?${this.getFetchQuery()}`);
       }
     );
@@ -114,9 +117,10 @@ export class WorkflowInsights extends Component {
       .then(response => {
         if (response.status === 200) {
           if (selectedWorkflow.id === ALL_OPTIONS.WORKFLOWS.id)
-            this.setState({ executionsList: response.data.executions });
+            this.setState({ isUpdatingInsights: false, executionsList: response.data.executions });
           else
             this.setState({
+              isUpdatingInsights: false,
               executionsList: response.data.executions.filter(execution => execution.workflowId === selectedWorkflow.id)
             });
         }
@@ -126,18 +130,61 @@ export class WorkflowInsights extends Component {
       });
   };
 
+  renderDropdowns = (teamsList, workflowsFilter) => {
+    const { teams } = this.props;
+    const { selectedTimeframe, selectedWorkflow, selectedTeam } = this.state;
+    return (
+      <div className={styles.header}>
+        <ComboBox
+          id="ALL_OPTIONS.TEAMS"
+          items={teamsList}
+          initialSelectedItem={selectedTeam}
+          onChange={this.handleChangeTeam}
+          titleText="Filter by team"
+          itemToString={team => (team ? team.name : "")}
+          label="Teams"
+          placeholder="Teams"
+        />
+        <ComboBox
+          id="workflows-dropdown"
+          titleText="Filter by Workflow"
+          label="Workflows"
+          placeholder="Workflows"
+          onChange={this.handleChangeWorkflow}
+          items={workflowsFilter}
+          itemToString={workflow => {
+            if (!workflow) return "";
+            const team = teams.data.find(team => team.id === workflow.flowTeamId);
+            return team ? `${workflow.name} [${team.name}]` : workflow.name;
+          }}
+          initialSelectedItem={selectedWorkflow}
+        />
+        <ComboBox
+          id="time-frame-dropdown"
+          titleText="Time period"
+          label="Time Frame"
+          placeholder="Time Frame"
+          onChange={this.handleChangeTimeframe}
+          items={timeframeOptions}
+          itemToString={time => (time ? time.label : "")}
+          initialSelectedItem={selectedTimeframe}
+        />
+      </div>
+    );
+  };
+
   renderWidgets = ({ teamsList, workflowsFilter }) => {
     const { insights, teams } = this.props;
-    const { selectedTimeframe, selectedWorkflow, selectedTeam } = this.state;
+    const { isUpdatingInsights } = this.state;
 
     if (insights.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
     }
 
-    if (insights.isFetching || teams.isFetching) {
+    if ((insights.isFetching || teams.isFetching) && !isUpdatingInsights) {
       return (
         <DelayedRender>
-          <div className={styles.container}>
+          <>
             <div className={cx(styles.header, styles.dropdownPlaceholderContainer)}>
               <SelectSkeleton className={styles.dropdownPlaceholder} />
               <SelectSkeleton className={styles.dropdownPlaceholder} />
@@ -149,7 +196,8 @@ export class WorkflowInsights extends Component {
               <SkeletonPlaceholder className={cx(styles.cardPlaceholder, styles.wide)} />
             </div>
             <SkeletonPlaceholder className={styles.graphPlaceholder} />
-          </div>
+            <SkeletonPlaceholder className={styles.graphPlaceholder} />
+          </>
         </DelayedRender>
       );
     }
@@ -159,85 +207,64 @@ export class WorkflowInsights extends Component {
       const chartData = parseChartsData(executionsList, teams.data.map(team => team.name));
       return (
         <>
-          <div className={styles.header}>
-            <ComboBox
-              id="ALL_OPTIONS.TEAMS"
-              items={teamsList}
-              initialSelectedItem={selectedTeam}
-              onChange={this.handleChangeTeam}
-              titleText="Filter by team"
-              itemToString={team => (team ? team.name : "")}
-              label="Teams"
-              placeholder="Teams"
-            />
-            <ComboBox
-              id="workflows-dropdown"
-              titleText="Filter by Workflow"
-              label="Workflows"
-              placeholder="Workflows"
-              onChange={this.handleChangeWorkflow}
-              items={workflowsFilter}
-              itemToString={workflow => {
-                if (!workflow) return "";
-                const team = teams.data.find(team => team.id === workflow.flowTeamId);
-                return team ? `${workflow.name} [${team.name}]` : workflow.name;
-              }}
-              initialSelectedItem={selectedWorkflow}
-            />
-            <ComboBox
-              id="time-frame-dropdown"
-              titleText="Time period"
-              label="Time Frame"
-              placeholder="Time Frame"
-              onChange={this.handleChangeTimeframe}
-              items={timeframeOptions}
-              itemToString={time => (time ? time.label : "")}
-              initialSelectedItem={selectedTimeframe}
-            />
-          </div>
-          <div className={styles.statsWidgets}>
-            <InsightsTile
-              title="Executions"
-              type="runs"
-              totalCount={chartData.totalExecutions}
-              infoList={chartData.dataByTeams}
-            />
-            <InsightsTile
-              title="Duration (median)"
-              type=""
-              totalCount={timeSecondsToTimeUnit(chartData.medianDuration)}
-              infoList={chartData.durationData}
-              valueWidth="7rem"
-            />
-            <ChartsTile
-              title="Status"
-              // totalCount={chartData.totalExecutions === 0 ? "" : `${chartData.percentageSuccessful}%`}
-              // type={chartData.totalExecutions === 0 ? "" : "successful"}
-              tileWidth="33rem"
-            >
-              {chartData.totalExecutions === 0 ? (
-                <p className={`${styles.statsLabel} --no-data`}>No Data</p>
-              ) : (
-                <CarbonDonutChart data={chartData.carbonDonutData} />
-              )}
-            </ChartsTile>
-          </div>
-          <div className={styles.graphsWidgets}>
-            <ChartsTile title="Execution" totalCount="" type="" tileWidth="50rem">
-              {chartData.totalExecutions === 0 ? (
-                <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
-              ) : (
-                <CarbonLineChart data={chartData.carbonLineData} />
-              )}
-            </ChartsTile>
-            <ChartsTile title="Execution Time" totalCount="" type="" tileWidth="50rem">
-              {chartData.totalExecutions === 0 ? (
-                <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
-              ) : (
-                <CarbonScatterChart data={chartData.carbonScatterData} />
-              )}
-            </ChartsTile>
-          </div>
+          {this.renderDropdowns(teamsList, workflowsFilter)}
+          {isUpdatingInsights ? (
+            <>
+              <div className={styles.cardPlaceholderContainer}>
+                <SkeletonPlaceholder className={styles.cardPlaceholder} />
+                <SkeletonPlaceholder className={styles.cardPlaceholder} />
+                <SkeletonPlaceholder className={cx(styles.cardPlaceholder, styles.wide)} />
+              </div>
+              <SkeletonPlaceholder className={styles.graphPlaceholder} />
+              <SkeletonPlaceholder className={styles.graphPlaceholder} />
+            </>
+          ) : (
+            <>
+              <div className={styles.statsWidgets}>
+                <InsightsTile
+                  title="Executions"
+                  type="runs"
+                  totalCount={chartData.totalExecutions}
+                  infoList={chartData.dataByTeams}
+                />
+                <InsightsTile
+                  title="Duration (median)"
+                  type=""
+                  totalCount={timeSecondsToTimeUnit(chartData.medianDuration)}
+                  infoList={chartData.durationData}
+                  valueWidth="7rem"
+                />
+                <ChartsTile
+                  title="Status"
+                  // totalCount={chartData.totalExecutions === 0 ? "" : `${chartData.percentageSuccessful}%`}
+                  // type={chartData.totalExecutions === 0 ? "" : "successful"}
+                  tileWidth="33rem"
+                >
+                  {chartData.totalExecutions === 0 ? (
+                    <p className={`${styles.statsLabel} --no-data`}>No Data</p>
+                  ) : (
+                    <CarbonDonutChart data={chartData.carbonDonutData} />
+                  )}
+                </ChartsTile>
+              </div>
+              <div className={styles.graphsWidgets}>
+                <ChartsTile title="Execution" totalCount="" type="" tileWidth="50rem">
+                  {chartData.totalExecutions === 0 ? (
+                    <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
+                  ) : (
+                    <CarbonLineChart data={chartData.carbonLineData} />
+                  )}
+                </ChartsTile>
+                <ChartsTile title="Execution Time" totalCount="" type="" tileWidth="50rem">
+                  {chartData.totalExecutions === 0 ? (
+                    <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
+                  ) : (
+                    <CarbonScatterChart data={chartData.carbonScatterData} />
+                  )}
+                </ChartsTile>
+              </div>
+            </>
+          )}
         </>
       );
     }
