@@ -1,7 +1,7 @@
 import React from "react";
 import { WorkflowManagerContainer as WorkflowManager } from "./index";
 
-jest.mock("@boomerang/boomerang-components", () => ({
+jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
   NoDisplay: "NoDisplay",
   LoadingAnimation: "LoadingAnimation",
   notify: "notify",

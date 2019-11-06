@@ -9,33 +9,27 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
   <div>
     <button
       class="container"
-      id="create-wokflow"
     >
-      <div
-        class="box"
+      <svg
+        aria-hidden="true"
+        class="addIcon"
+        focusable="false"
+        height="32"
+        preserveAspectRatio="xMidYMid meet"
+        style="will-change: transform;"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <svg
-          aria-hidden="true"
-          class="addIcon"
-          focusable="false"
-          height="32"
-          preserveAspectRatio="xMidYMid meet"
-          style="will-change: transform;"
-          viewBox="0 0 32 32"
-          width="32"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
-          />
-        </svg>
-        <label
-          class="text"
-          for="create-wokflow"
-        >
-          Create a new workflow
-        </label>
-      </div>
+        <path
+          d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
+        />
+      </svg>
+      <p
+        class="text"
+      >
+        Create a new workflow
+      </p>
     </button>
   </div>
   <div

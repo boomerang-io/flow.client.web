@@ -5,9 +5,8 @@ import { MemoryRouter } from "react-router";
 import WorkflowsSection from "./index";
 
 const mockfn = jest.fn();
-jest.mock("@boomerang/boomerang-components", () => ({
-  Button: "Button",
-  Tooltip: "Tooltip"
+jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
+  Button: "Button"
 }));
 
 const searchQuery = "test";
@@ -54,22 +53,20 @@ describe("WorkflowsSection --- Snapshot", () => {
   });
   it("Capturing Snapshot of WorkflowsSection", () => {
     const { baseElement } = global.rtlReduxRouterRender(
-      <MemoryRouter>
-        <WorkflowsSection
-          history={history}
-          searchQuery={searchQuery}
-          team={team}
-          updateWorkflows={updateWorkflows}
-          executeWorkflow={executeWorkflow}
-          deleteWorkflow={deleteWorkflow}
-          setActiveTeam={setActiveTeam}
-          setActiveTeamAndRedirect={setActiveTeamAndRedirect}
-          importWorkflow={{}}
-          fetchTeams={fetchTeams}
-          handleImportWorkflow={handleImportWorkflow}
-          closeModal={closeModal}
-        />
-      </MemoryRouter>
+      <WorkflowsSection
+        history={history}
+        searchQuery={searchQuery}
+        team={team}
+        updateWorkflows={updateWorkflows}
+        executeWorkflow={executeWorkflow}
+        deleteWorkflow={deleteWorkflow}
+        setActiveTeam={setActiveTeam}
+        setActiveTeamAndRedirect={setActiveTeamAndRedirect}
+        importWorkflow={{}}
+        fetchTeams={fetchTeams}
+        handleImportWorkflow={handleImportWorkflow}
+        closeModal={closeModal}
+      />
     );
     expect(baseElement).toMatchSnapshot();
   });

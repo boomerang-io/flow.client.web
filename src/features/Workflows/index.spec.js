@@ -2,7 +2,7 @@ import React from "react";
 import { WorkflowsHome } from "./index";
 
 const mockfn = jest.fn();
-jest.mock("@boomerang/boomerang-components", () => ({
+jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
   NoDisplay: "NoDisplay",
   LoadingAnimation: "LoadingAnimation",
   notify: "notify",

@@ -1,5 +1,5 @@
 import React from "react";
-import { GlobalConfigurationContainer } from ".";
+import { GlobalPropertiesContainer } from ".";
 import { render, fireEvent } from "@testing-library/react";
 
 const mockfn = jest.fn();
@@ -31,16 +31,16 @@ beforeEach(() => {
   document.body.setAttribute("id", "app");
 });
 
-describe("GlobalConfigurationContainer --- Snapshot Test", () => {
-  it("Capturing Snapshot of GlobalConfigurationContainer", () => {
-    const { baseElement } = render(<GlobalConfigurationContainer {...props} />);
+describe("GlobalPropertiesContainer --- Snapshot Test", () => {
+  it("Capturing Snapshot of GlobalPropertiesContainer", () => {
+    const { baseElement } = render(<GlobalPropertiesContainer {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
 
-describe("GlobalConfigurationContainer --- RTL", () => {
+describe("GlobalPropertiesContainer --- RTL", () => {
   it("Render the table and search correctly", async () => {
-    const { getByText, getByPlaceholderText, queryAllByText } = render(<GlobalConfigurationContainer {...props} />);
+    const { getByText, getByPlaceholderText, queryAllByText } = render(<GlobalPropertiesContainer {...props} />);
     getByText(/Set global properties that are accessible in flow processes/i);
     expect(queryAllByText(/Test RTL/i).length).toBe(1);
     const searchProperty = getByPlaceholderText(/Search/i);
@@ -51,7 +51,7 @@ describe("GlobalConfigurationContainer --- RTL", () => {
   });
 
   it("Opens create property modal", async () => {
-    const { getByTestId, queryByText } = render(<GlobalConfigurationContainer {...props} />);
+    const { getByTestId, queryByText } = render(<GlobalPropertiesContainer {...props} />);
     expect(queryByText(/CREATE PROPERTY/)).not.toBeInTheDocument();
 
     const modalTrigger = getByTestId("create-global-configurations-property-button");
@@ -61,7 +61,7 @@ describe("GlobalConfigurationContainer --- RTL", () => {
   });
 
   it("Opens edit property modal", async () => {
-    const { findByText, queryByText, getByTestId } = render(<GlobalConfigurationContainer {...props} />);
+    const { findByText, queryByText, getByTestId } = render(<GlobalPropertiesContainer {...props} />);
 
     expect(queryByText(/EDIT TEST RTL/i)).not.toBeInTheDocument();
 
@@ -77,7 +77,7 @@ describe("GlobalConfigurationContainer --- RTL", () => {
   });
 
   it("Opens delete property modal", async () => {
-    const { findByText, queryByText, getByTestId } = render(<GlobalConfigurationContainer {...props} />);
+    const { findByText, queryByText, getByTestId } = render(<GlobalPropertiesContainer {...props} />);
 
     expect(queryByText(/DELETE TEST RTL/i)).not.toBeInTheDocument();
 
