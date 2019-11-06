@@ -1,13 +1,7 @@
 import React from "react";
-// import { shallow } from "enzyme";
-// import renderer from "react-test-renderer";
-import { MemoryRouter } from "react-router";
 import WorkflowsSection from "./index";
 
 const mockfn = jest.fn();
-jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
-  Button: "Button"
-}));
 
 const searchQuery = "test";
 const setActiveTeamAndRedirect = mockfn;
@@ -45,16 +39,14 @@ const team = {
     }
   ]
 };
-const history = {};
 
 describe("WorkflowsSection --- Snapshot", () => {
   beforeEach(() => {
     document.body.setAttribute("id", "app");
   });
   it("Capturing Snapshot of WorkflowsSection", () => {
-    const { baseElement } = global.rtlReduxRouterRender(
+    const { baseElement } = rtlReduxRouterRender(
       <WorkflowsSection
-        history={history}
         searchQuery={searchQuery}
         team={team}
         updateWorkflows={updateWorkflows}

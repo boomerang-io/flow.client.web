@@ -8,13 +8,13 @@ import styles from "./workflowsSection.module.scss";
 
 class WorkflowSection extends Component {
   static propTypes = {
-    team: PropTypes.object.isRequired,
-    searchQuery: PropTypes.string.isRequired,
-    setActiveTeamAndRedirect: PropTypes.func.isRequired,
-    fetchTeams: PropTypes.func.isRequired,
-    executeWorkflow: PropTypes.func.isRequired,
     deleteWorkflow: PropTypes.func.isRequired,
-    setActiveTeam: PropTypes.func.isRequired
+    executeWorkflow: PropTypes.func.isRequired,
+    fetchTeams: PropTypes.func.isRequired,
+    searchQuery: PropTypes.string.isRequired,
+    setActiveTeam: PropTypes.func.isRequired,
+    setActiveTeamAndRedirect: PropTypes.func.isRequired,
+    team: PropTypes.object.isRequired
   };
 
   render() {
