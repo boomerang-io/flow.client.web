@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { transformAll } from "@overgear/yup-ast";
-import { AutoSuggest, DynamicFormik, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { TextInput as CarbonTextInput } from "carbon-components-react";
+import { AutoSuggest, DynamicFormik, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalFooter } from "carbon-components-react";
 import TextEditorModal from "Components/TextEditorModal";
-import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import { TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
 import styles from "./DisplayForm.module.scss";
 
@@ -36,6 +35,24 @@ const NameTextInput = props => {
     </>
   );
 };
+
+/**
+ * @param {property} inputProperties - property object for workflow
+ * {
+ *   defaultValue: String
+ *   description: String
+ *   key: String
+ *   label: String
+ *   required: Bool
+ *   type: String
+ * }
+ */
+function formatAutoSuggestProperties(inputProperties) {
+  return inputProperties.map(property => ({
+    value: `\${p:${property.key}}`,
+    label: property.key
+  }));
+}
 
 class DisplayForm extends Component {
   static propTypes = {
@@ -73,18 +90,6 @@ class DisplayForm extends Component {
     this.props.onSave(values);
     this.props.setShouldConfirmModalClose(false);
     this.props.closeModal();
-  };
-
-  validateInput = ({ value, maxValueLength, minValueLength, validationFunction, validationText }) => {
-    if (maxValueLength !== undefined && value.length > maxValueLength) {
-      return { message: `Must be less than ${maxValueLength} characters` };
-    } else if (minValueLength !== undefined && value.length < minValueLength) {
-      return { message: `Must be more than ${minValueLength} characters` };
-    } else if (validationFunction && !validationFunction(value)) {
-      return { message: validationText };
-    } else {
-      return { message: "" };
-    }
   };
 
   yupAST = (taskConfig, taskNames) => {
@@ -169,7 +174,7 @@ class DisplayForm extends Component {
 
   textAreaProps = (input, formikProps) => {
     const { values, setFieldValue } = formikProps;
-    const { key, language, maxValueLength, minValueLength, type } = input;
+    const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
 
     return {
@@ -178,17 +183,14 @@ class DisplayForm extends Component {
       initialValue: values[key],
       inputProperties: this.props.inputProperties,
       item: input,
-      itemConfig,
-      language,
-      minValueLength,
-      maxValueLength,
-      validateInput: this.validateInput
+      ...itemConfig,
+      ...rest
     };
   };
 
   textInputProps = (input, formikProps) => {
     const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
-    const { description, key, label, type } = input;
+    const { key, ...rest } = input;
 
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
@@ -196,25 +198,22 @@ class DisplayForm extends Component {
       initialValue: values[key],
       inputProps: {
         id: key,
-        placeholder: description,
-        labelText: label,
         onBlur: handleBlur,
-        type,
         invalid: touched[key] && errors[key],
-        invalidText: errors[key]
+        invalidText: errors[key],
+        ...rest
       }
     };
   };
 
   toggleProps = (input, formikProps) => {
     const { values, setFieldValue } = formikProps;
-    const { description, key, label } = input;
+    const { key, ...rest } = input;
 
     return {
       checked: values[key],
       onChange: (checked, event, id) => this.formikSetFieldValue(checked, id, setFieldValue),
-      label,
-      description
+      ...rest
     };
   };
 
