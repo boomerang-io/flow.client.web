@@ -6,7 +6,10 @@ import { actions as appActions } from "State/app";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
+import { Formik } from "formik";
 import { Prompt } from "react-router-dom";
+import * as Yup from "yup";
+import get from "lodash.get";
 import Loading from "Components/Loading";
 import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
@@ -114,11 +117,12 @@ export class WorkflowManagerContainer extends Component {
       });
   };
 
-  updateWorkflow = () => {
+  updateWorkflow = formikValues => {
     const { workflow, workflowActions } = this.props;
+    const updatedWorkflow = { ...workflow.data, ...formikValues };
 
     return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow`, workflow.data)
+      .update(`${BASE_SERVICE_URL}/workflow`, updatedWorkflow)
       .then(response => Promise.resolve(response))
       .catch(error => {
         return Promise.reject(error);
@@ -230,7 +234,7 @@ export class WorkflowManagerContainer extends Component {
   };
 
   render() {
-    const { tasks, workflow, workflowRevision } = this.props;
+    const { activeTeamId, tasks, teams, workflow, workflowRevision } = this.props;
     if (tasks.isFetching || workflow.isFetching || workflowRevision.isFetching) {
       return <Loading />;
     }
@@ -260,20 +264,77 @@ export class WorkflowManagerContainer extends Component {
             }
           />
           <div className={styles.container}>
-            <Editor
-              activeTeamId={this.props.activeTeamId}
-              createNode={this.createNode}
-              createWorkflowRevision={this.createWorkflowRevision}
-              fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-              handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-              isModalOpen={this.props.isModalOpen}
-              tasks={this.props.tasks}
-              teams={sortBy(this.props.teams.data, "name")}
-              updateWorkflow={this.updateWorkflow}
-              updateWorkflowProperties={this.updateWorkflowProperties}
-              workflow={this.props.workflow}
-              workflowRevision={this.props.workflowRevision}
-            />
+            <Formik
+              initialValues={{
+                description: get(workflow, "data.description", ""),
+                enableACCIntegration: get(workflow, "data.enableACCIntegration", false),
+                enablePersistentStorage: get(workflow, "data.enablePersistentStorage", false),
+                icon: get(workflow, "data.icon", ""),
+                name: get(workflow, "data.name", ""),
+                selectedTeam: teams.data.find(team => team.id === activeTeamId),
+                shortDescription: get(workflow, "data.shortDescription", ""),
+                triggers: {
+                  event: {
+                    enable: get(workflow, "data.triggers.event.enable", false),
+                    topic: get(workflow, "data.triggers.event.topic", "")
+                  },
+                  scheduler: {
+                    enable: get(workflow, "data.triggers.scheduler.enable", false),
+                    schedule: get(workflow, "data.triggers.scheduler.schedule", "0 18 * * *"),
+                    timezone: get(workflow, "data.triggers.scheduler.timezone", false)
+                  },
+                  webhook: {
+                    enable: get(workflow, "data.triggers.webhook.enable", false),
+                    token: get(workflow, "data.triggers.webhook.token", false)
+                  }
+                }
+              }}
+              validationSchema={Yup.object().shape({
+                description: Yup.string().max(250, "Description must not be greater than 250 characters"),
+                enableACCIntegration: Yup.boolean(),
+                enablePersistentStorage: Yup.boolean(),
+                icon: Yup.string(),
+                name: Yup.string()
+                  .required("Name is required")
+                  .max(64, "Name must not be greater than 64 characters"),
+                selectedTeam: Yup.object().shape({ name: Yup.string().required("Team is required") }),
+                shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
+                triggers: Yup.object().shape({
+                  event: Yup.object().shape({
+                    enable: Yup.boolean(),
+                    topic: Yup.string()
+                  }),
+                  scheduler: Yup.object().shape({
+                    enable: Yup.boolean(),
+                    schedule: Yup.string(),
+                    timezone: Yup.mixed()
+                  }),
+                  webhook: Yup.object().shape({
+                    enable: Yup.boolean(),
+                    token: Yup.mixed()
+                  })
+                })
+              })}
+            >
+              {formikProps => (
+                <>
+                  <Editor
+                    createNode={this.createNode}
+                    createWorkflowRevision={this.createWorkflowRevision}
+                    fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
+                    handleChangeLogReasonChange={this.handleChangeLogReasonChange}
+                    isModalOpen={this.props.isModalOpen}
+                    tasks={this.props.tasks}
+                    teams={sortBy(this.props.teams.data, "name")}
+                    updateWorkflow={this.updateWorkflow}
+                    updateWorkflowProperties={this.updateWorkflowProperties}
+                    workflow={this.props.workflow}
+                    workflowFormikProps={formikProps}
+                    workflowRevision={this.props.workflowRevision}
+                  />
+                </>
+              )}
+            </Formik>
           </div>
         </>
       );
