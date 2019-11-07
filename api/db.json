@@ -5991,7 +5991,11 @@
       "version": "5.0.0",
       "signOutUrl": "ibm.com"
     },
-    "platformMessage": { "kind": "info", "title": "Testing Platform Title", "message": "Message Goes Here" }
+    "platformMessage": {
+      "kind": "alert",
+      "title": "Testing Platform Title",
+      "message": "Message Goes Here"
+    }
   },
   "workflowExecution": {
     "creationDate": "2019-09-03T15:00:00.049+0000",
