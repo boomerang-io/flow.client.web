@@ -22,7 +22,7 @@ import CronJobModal from "./CronJobModal";
 import workflowIcons from "Assets/workflowIcons";
 import cronstrue from "cronstrue";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import { Add16, CopyFile16, Save24, SettingsAdjust20, ViewFilled16 } from "@carbon/icons-react";
+import { CopyFile16, EventSchedule16, Save24, SettingsAdjust20, ViewFilled16 } from "@carbon/icons-react";
 import styles from "./overview.module.scss";
 
 export class Overview extends Component {
@@ -200,15 +200,11 @@ export class Overview extends Component {
                 />
               </div>
               {values.triggers.webhook.enable && !values.triggers.webhook.token && (
-                <Button
-                  onClick={this.generateToken}
-                  renderIcon={Add16}
-                  style={{ marginBottom: "1rem", marginLeft: "4.6rem" }}
-                  size="field"
-                  type="button"
-                >
-                  Generate Token
-                </Button>
+                <div className={styles.webhookContainer}>
+                  <button className={styles.regenerateText} type="button" onClick={this.generateToken}>
+                    <p>Generate a token</p>
+                  </button>
+                </div>
               )}
 
               {values.triggers.webhook.enable && values.triggers.webhook.token && (
@@ -269,6 +265,7 @@ export class Overview extends Component {
                   values.triggers.scheduler.enable &&
                   values.triggers.scheduler.timezone && (
                     <div className={styles.informationWrapper}>
+                      <p className={styles.webhookTokenLabel}>Schedule</p>
                       <div className={styles.informationCronMessage}>
                         {cronstrue.toString(values.triggers.scheduler.schedule)}
                       </div>
@@ -287,24 +284,12 @@ export class Overview extends Component {
                       title: "Set Schedule",
                       subtitle: "Configure a CRON schedule for your workflow"
                     }}
-                    modalTrigger={({ openModal }) =>
-                      values.triggers.scheduler.schedule ? (
-                        <button className={styles.regenerateText} type="button" onClick={openModal}>
-                          <p>Change Schedule</p>
-                        </button>
-                      ) : (
-                        <Button
-                          style={{ marginBottom: "1rem" }}
-                          iconDescription="Add"
-                          renderIcon={SettingsAdjust20}
-                          size="field"
-                          type="button"
-                          onClick={openModal}
-                        >
-                          Set Schedule
-                        </Button>
-                      )
-                    }
+                    modalTrigger={({ openModal }) => (
+                      <button className={styles.regenerateText} type="button" onClick={openModal}>
+                        <p>Change schedule</p>
+                        <EventSchedule16 className={styles.scheduleIcon} fill={"#0072C3"} />
+                      </button>
+                    )}
                   >
                     <CronJobModal
                       cronExpression={values.triggers.scheduler.schedule}
@@ -319,7 +304,7 @@ export class Overview extends Component {
               <div className={styles.toggleContainer}>
                 <Toggle
                   id="triggers.event.enable"
-                  labelText="Enable Action Subscription"
+                  labelText="Action Subscription"
                   toggled={values.triggers.event.enable}
                   onToggle={checked => this.handleOnToggleChange(checked, "triggers.event.enable")}
                   tooltipContent="Enable workflow to be triggered by platform actions"
@@ -340,7 +325,7 @@ export class Overview extends Component {
                   <div className={styles.toggleContainer}>
                     <Toggle
                       id="enableACCIntegration"
-                      labelText="Enable IBM Services ACC Integration"
+                      labelText="IBM Services ACC Integration"
                       toggled={values.enableACCIntegration}
                       onToggle={checked => this.handleOnToggleChange(checked, "enableACCIntegration")}
                       tooltipContent="Enable workflow to be triggered by ACC subscription"
