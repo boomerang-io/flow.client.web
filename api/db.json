@@ -32,13 +32,13 @@
         {
           "placeholder": "",
           "key": "offset",
-          "label": "offset",
+          "labelText": "offset",
           "type": "text"
         },
         {
           "placeholder": "",
           "key": "shell",
-          "label": "shell",
+          "labelText": "shell",
           "type": "text"
         }
       ],
@@ -5990,7 +5990,8 @@
       "name": "IBM Boomerang Platform",
       "version": "5.0.0",
       "signOutUrl": "ibm.com"
-    }
+    },
+    "platformMessage": { "kind": "info", "title": "Testing Platform Title", "message": "Message Goes Here" }
   },
   "workflowExecution": {
     "creationDate": "2019-09-03T15:00:00.049+0000",
