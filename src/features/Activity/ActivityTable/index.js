@@ -144,7 +144,7 @@ function ActivityTable(props) {
                 <TableContainer>
                   <Table>
                     <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
+                      <TableRow>
                         {headers.map(header => (
                           <TableHeader
                             id={header.key}

@@ -215,7 +215,7 @@ class TeamPropertiesTable extends Component {
                   <TableContainer>
                     <Table>
                       <TableHead>
-                        <TableRow className={styles.tableHeadRow}>
+                        <TableRow>
                           {headers.map((header, key) => (
                             <TableHeader
                               key={`mode-table-key-${key}`}
@@ -265,7 +265,7 @@ class TeamPropertiesTable extends Component {
                   <TableContainer>
                     <Table>
                       <TableHead>
-                        <TableRow className={styles.tableHeadRow}>
+                        <TableRow>
                           {headers.map((header, key) => (
                             <TableHeader
                               key={`no-team-config-table-key-${key}`}

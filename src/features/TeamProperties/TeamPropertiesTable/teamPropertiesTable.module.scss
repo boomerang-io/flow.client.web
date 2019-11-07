@@ -16,7 +16,6 @@
 }
 
 .tableHeadHeader {
-  color: $brand-01;
   font-size: inherit;
   font-family: inherit;
   height: 3rem;
@@ -46,13 +45,7 @@
   }
 }
 
-.tableHeadRow {
-  background-color: $cool-white-1;
-}
-
 .tableBody {
-  background-color: #f2f2f2;
-  color: $text-01;
   font-weight: 300;
 }
 
@@ -72,13 +65,13 @@
 
   .secured {
     path {
-      fill: $green-50;
+      fill: $support-02;
     }
   }
 
   .unsecured {
     path {
-      fill: $red-50;
+      fill: $support-01;
     }
   }
 }
