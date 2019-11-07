@@ -204,7 +204,16 @@ export class WorkflowInsights extends Component {
 
     if (insights.status === REQUEST_STATUSES.SUCCESS) {
       const { executionsList } = this.state;
-      const chartData = parseChartsData(executionsList, teams.data.map(team => team.name));
+      const {
+        carbonLineData,
+        carbonScatterData,
+        carbonDonutData,
+        durationData,
+        medianDuration,
+        dataByTeams
+      } = parseChartsData(executionsList, teams.data.map(team => team.name));
+      const totalExecutions = executionsList.length;
+
       return (
         <>
           {this.renderDropdowns(teamsList, workflowsFilter)}
@@ -221,45 +230,35 @@ export class WorkflowInsights extends Component {
           ) : (
             <>
               <div className={styles.statsWidgets}>
-                <InsightsTile
-                  title="Executions"
-                  type="runs"
-                  totalCount={chartData.totalExecutions}
-                  infoList={chartData.dataByTeams}
-                />
+                <InsightsTile title="Executions" type="runs" totalCount={totalExecutions} infoList={dataByTeams} />
                 <InsightsTile
                   title="Duration (median)"
                   type=""
-                  totalCount={timeSecondsToTimeUnit(chartData.medianDuration)}
-                  infoList={chartData.durationData}
+                  totalCount={timeSecondsToTimeUnit(medianDuration)}
+                  infoList={durationData}
                   valueWidth="7rem"
                 />
-                <ChartsTile
-                  title="Status"
-                  // totalCount={chartData.totalExecutions === 0 ? "" : `${chartData.percentageSuccessful}%`}
-                  // type={chartData.totalExecutions === 0 ? "" : "successful"}
-                  tileWidth="33rem"
-                >
-                  {chartData.totalExecutions === 0 ? (
+                <ChartsTile title="Status" tileWidth="33rem">
+                  {totalExecutions === 0 ? (
                     <p className={`${styles.statsLabel} --no-data`}>No Data</p>
                   ) : (
-                    <CarbonDonutChart data={chartData.carbonDonutData} />
+                    <CarbonDonutChart data={carbonDonutData} />
                   )}
                 </ChartsTile>
               </div>
               <div className={styles.graphsWidgets}>
                 <ChartsTile title="Execution" totalCount="" type="" tileWidth="50rem">
-                  {chartData.totalExecutions === 0 ? (
+                  {totalExecutions === 0 ? (
                     <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
                   ) : (
-                    <CarbonLineChart data={chartData.carbonLineData} />
+                    <CarbonLineChart data={carbonLineData} />
                   )}
                 </ChartsTile>
                 <ChartsTile title="Execution Time" totalCount="" type="" tileWidth="50rem">
-                  {chartData.totalExecutions === 0 ? (
+                  {totalExecutions === 0 ? (
                     <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
                   ) : (
-                    <CarbonScatterChart data={chartData.carbonScatterData} />
+                    <CarbonScatterChart data={carbonScatterData} />
                   )}
                 </ChartsTile>
               </div>
