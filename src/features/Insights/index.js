@@ -137,6 +137,7 @@ export class WorkflowInsights extends Component {
       <div className={styles.header}>
         <ComboBox
           id="ALL_OPTIONS.TEAMS"
+          data-testid="ALL_OPTIONS.TEAMS"
           items={teamsList}
           initialSelectedItem={selectedTeam}
           onChange={this.handleChangeTeam}
@@ -176,7 +177,6 @@ export class WorkflowInsights extends Component {
   renderWidgets = ({ teamsList, workflowsFilter }) => {
     const { insights, teams } = this.props;
     const { isUpdatingInsights } = this.state;
-
     if (insights.status === REQUEST_STATUSES.FAILURE || teams.status === REQUEST_STATUSES.FAILURE) {
       return <ErrorDragon />;
     }
@@ -213,7 +213,6 @@ export class WorkflowInsights extends Component {
         dataByTeams
       } = parseChartsData(executionsList, teams.data.map(team => team.name));
       const totalExecutions = executionsList.length;
-
       return (
         <>
           {this.renderDropdowns(teamsList, workflowsFilter)}
