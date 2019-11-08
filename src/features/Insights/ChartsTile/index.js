@@ -9,9 +9,9 @@ ChartsTile.propTypes = {
   description: PropTypes.string
 };
 
-function ChartsTile({ title, type, totalCount, children, tileWidth = "auto" }) {
+function ChartsTile({ title, type, totalCount, children, tileWidth = "auto", tileMaxHeight = "none" }) {
   return (
-    <Tile className={styles.container} style={{ width: tileWidth }}>
+    <Tile className={styles.container} style={{ width: tileWidth, maxHeight: tileMaxHeight }}>
       <div>
         <h3 className={styles.title}>{title}</h3>
         <div className={styles.totalCountContainer}>

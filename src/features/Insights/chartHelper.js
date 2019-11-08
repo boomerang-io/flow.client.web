@@ -1,10 +1,10 @@
-import { sortBy } from "lodash";
+import { sortBy, orderBy } from "lodash";
 import moment from "moment";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
 import { chartInfo, chartColors } from "./constants";
 
-export const parseChartsData = (data, teams) => {
+export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflow) => {
   let dateName = [];
   let failure = [];
   let success = [];
@@ -20,6 +20,7 @@ export const parseChartsData = (data, teams) => {
   let inprogressData = [];
   let invalidData = [];
   let totalData = [];
+  let teamWorkflows = [];
 
   data.forEach(item => {
     scatterData.push({
@@ -41,8 +42,9 @@ export const parseChartsData = (data, teams) => {
     }
     if (!dateName.find(date => moment(date).format("DD-MM-YY") === moment(item.creationDate).format("DD-MM-YY")))
       dateName.push(item.creationDate);
+    if (hasSelectedTeam && !teamWorkflows.find(worflow => worflow.id === item.workflowId))
+      teamWorkflows.push({ id: item.workflowId, name: item.workflowName });
   });
-
   const dataByStatus = {
     success: successData,
     failed: failureData,
@@ -75,7 +77,7 @@ export const parseChartsData = (data, teams) => {
   });
 
   const dataByTeams = teams.reduce((acc, team) => {
-    const teamData = data.filter(item => item.teamName === team);
+    const teamData = data.filter(item => item.hasSelectedTeam === team);
     return acc.concat({ label: team, value: teamData.length });
   }, []);
   const totalExecutions = data.length;
@@ -117,6 +119,12 @@ export const parseChartsData = (data, teams) => {
       data: [success.length, failure.length, invalid.length, inprogress.length]
     }
   ];
+  const executionsByTeam = !hasSelectedTeam
+    ? []
+    : teamWorkflows.map(workflow => {
+        const workflowExecutions = data.filter(item => item.workflowId === workflow.id).length;
+        return { value: workflowExecutions, label: workflow.name };
+      });
   return {
     carbonLineData,
     carbonScatterData,
@@ -127,6 +135,7 @@ export const parseChartsData = (data, teams) => {
       { value: timeSecondsToTimeUnit(parseInt(avarageDuration / 1000, 10)), label: "Avarage" }
     ],
     medianDuration: parseInt(medianDuration / 1000, 10),
-    dataByTeams
+    dataByTeams,
+    executionsByTeam: orderBy(executionsByTeam, ["value"], ["desc"])
   };
 };

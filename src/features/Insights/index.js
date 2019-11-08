@@ -203,15 +203,18 @@ export class WorkflowInsights extends Component {
     }
 
     if (insights.status === REQUEST_STATUSES.SUCCESS) {
-      const { executionsList } = this.state;
+      const { executionsList, selectedTeam, selectedWorkflow } = this.state;
+      const hasSelectedTeam = selectedTeam.id !== "none";
+      const hasSelectedWorkflow = selectedWorkflow.id !== "none";
       const {
         carbonLineData,
         carbonScatterData,
         carbonDonutData,
         durationData,
         medianDuration,
-        dataByTeams
-      } = parseChartsData(executionsList, teams.data.map(team => team.name));
+        dataByTeams,
+        executionsByTeam
+      } = parseChartsData(executionsList, teams.data.map(team => team.name), hasSelectedTeam, hasSelectedWorkflow);
       const totalExecutions = executionsList.length;
       return (
         <>
@@ -229,15 +232,23 @@ export class WorkflowInsights extends Component {
           ) : (
             <>
               <div className={styles.statsWidgets}>
-                <InsightsTile title="Executions" type="runs" totalCount={totalExecutions} infoList={dataByTeams} />
-                <InsightsTile
-                  title="Duration (median)"
-                  type=""
-                  totalCount={timeSecondsToTimeUnit(medianDuration)}
-                  infoList={durationData}
-                  valueWidth="7rem"
-                />
-                <ChartsTile title="Status" tileWidth="33rem">
+                <div className={styles.insightsCards} style={{ flexDirection: hasSelectedWorkflow ? "column" : "row" }}>
+                  <InsightsTile
+                    title="Executions"
+                    type="runs"
+                    totalCount={totalExecutions}
+                    infoList={hasSelectedWorkflow ? [] : hasSelectedTeam ? executionsByTeam : dataByTeams}
+                  />
+                  <InsightsTile
+                    title="Duration (median)"
+                    type=""
+                    totalCount={timeSecondsToTimeUnit(medianDuration)}
+                    infoList={durationData}
+                    valueWidth="7rem"
+                    tileMaxHeight="22.375rem"
+                  />
+                </div>
+                <ChartsTile title="Status" tileWidth="33rem" tileMaxHeight="22.375rem">
                   {totalExecutions === 0 ? (
                     <p className={`${styles.statsLabel} --no-data`}>No Data</p>
                   ) : (
