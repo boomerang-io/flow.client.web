@@ -36,7 +36,8 @@ export const initialState = {
       scheduler: {
         enable: false,
         schedule: "",
-        timezone: ""
+        timezone: "",
+        advancedCron: false
       },
       webhook: {
         enable: false,

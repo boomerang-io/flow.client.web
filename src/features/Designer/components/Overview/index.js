@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { Button, TooltipDefinition } from "carbon-components-react";
+import { TooltipDefinition } from "carbon-components-react";
 import {
   ComboBox,
   ConfirmModal,
@@ -22,7 +22,7 @@ import CronJobModal from "./CronJobModal";
 import workflowIcons from "Assets/workflowIcons";
 import cronstrue from "cronstrue";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import { CopyFile16, EventSchedule16, Save24, SettingsAdjust20, ViewFilled16 } from "@carbon/icons-react";
+import { CopyFile16, EventSchedule16, Save24, ViewFilled16 } from "@carbon/icons-react";
 import styles from "./overview.module.scss";
 
 export class Overview extends Component {
@@ -281,8 +281,7 @@ export class Overview extends Component {
                       children: "Your changes will not be saved"
                     }}
                     modalHeaderProps={{
-                      title: "Set Schedule",
-                      subtitle: "Configure a CRON schedule for your workflow"
+                      title: "Change schedule"
                     }}
                     modalTrigger={({ openModal }) => (
                       <button className={styles.regenerateText} type="button" onClick={openModal}>
@@ -292,6 +291,7 @@ export class Overview extends Component {
                     )}
                   >
                     <CronJobModal
+                      advancedCron={values.triggers.scheduler.advancedCron}
                       cronExpression={values.triggers.scheduler.schedule}
                       handleOnChange={this.handleOnToggleChange}
                       timeZone={values.triggers.scheduler.timezone}

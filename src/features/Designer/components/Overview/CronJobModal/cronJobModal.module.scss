@@ -1,0 +1,63 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
+
+.cronMessage {
+  font-size: 0.875rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1rem;
+  margin-top: 0.375rem;
+
+  &.--error {
+    color: $red;
+  }
+}
+
+.configureText {
+  color: #272727;
+  font-size: 12px;
+  line-height: 15px;
+  margin-bottom: 1rem;
+}
+
+.timezone {
+  height: 16rem;
+  position: relative;
+}
+
+.cronContainer {
+  min-height: 8rem;
+  max-height: 10rem;
+}
+
+.timeContainer {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  :global .bx--list-box__field {
+    width: 23rem;
+  }
+  :global .bx--bmrg-text-input {
+    margin-right: 1rem;
+  }
+}
+.advancedCronToggle {
+  margin-bottom: 1rem;
+  //width: 10.5rem;
+  width: 12rem;
+  :global .bx--label {
+    font-size: 14px;
+    line-height: 18px;
+    color: #272727;
+  }
+}
+
+.cronAdvancedContainer {
+  display: flex;
+}
+
+.daysContainer {
+  margin-top: 4rem;
+  position: absolute;
+}

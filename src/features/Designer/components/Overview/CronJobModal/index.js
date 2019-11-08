@@ -4,15 +4,18 @@ import cronstrue from "cronstrue";
 import moment from "moment-timezone";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { ComboBox, TextInput, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
+import { CheckboxList, ComboBox, TextInput, ModalFlowForm, Toggle } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
-import "./styles.scss";
+import { cronToDateTime } from "Utilities/cronHelper";
+import DAYS_OF_WEEK from "Constants/daysOfWeek";
+import styles from "./cronJobModal.module.scss";
 
 //Timezones that don't have a match in Java and can't be saved via the service
 const exludedTimezones = ["GMT+0", "GMT-0", "ROC"];
 
 export default class CronJobModal extends Component {
   static propTypes = {
+    advancedCron: PropTypes.bool,
     closeModal: PropTypes.func,
     cronExpression: PropTypes.string,
     handleOnChange: PropTypes.func.isRequired,
@@ -68,7 +71,9 @@ export default class CronJobModal extends Component {
 
   handleOnSave = (e, values) => {
     e.preventDefault();
-    this.props.handleOnChange(values.cronExpression, "triggers.scheduler.schedule");
+    const scheduleValue = values.advancedCron ? values.cronExpression : this.handleSchedule(values);
+    this.props.handleOnChange(values.advancedCron, "triggers.scheduler.advancedCron");
+    this.props.handleOnChange(scheduleValue, "triggers.scheduler.schedule");
     this.props.handleOnChange(
       values.timeZone.value ? values.timeZone.value : this.state.defaultTimeZone,
       "triggers.scheduler.timezone"
@@ -76,18 +81,51 @@ export default class CronJobModal extends Component {
     this.props.forceCloseModal();
   };
 
+  handleSchedule = values => {
+    let daysCron = [];
+    Object.keys(values.days).forEach(day => {
+      if (values.days[day]) daysCron.push(day.toUpperCase().slice(0, 3));
+    });
+    const timeCron = !values.time ? ["0", "0"] : values.time.split(":");
+    const cronExpression = `0 ${timeCron[1]} ${timeCron[0]} ? * ${daysCron.length !== 0 ? daysCron.toString() : "*"} *`;
+    return cronExpression;
+  };
+
+  handleCheckboxListChange = (setFieldValue, ...args) => {
+    const currDays = args[args.length - 1];
+    setFieldValue("days", currDays);
+  };
+
   render() {
     const { defaultTimeZone, errorMessage, message } = this.state;
-    const { cronExpression, timeZone } = this.props;
+    const { cronExpression, timeZone, advancedCron } = this.props;
+    const cronToData = cronToDateTime(!!cronExpression, cronExpression ? cronExpression : undefined);
+    const { cronTime, selectedDays } = cronToData;
+
+    let activeDays = [];
+    Object.entries(selectedDays).forEach(([key, value]) => {
+      if (value) {
+        activeDays.push(key);
+      }
+    });
 
     return (
       <Formik
         initialValues={{
           cronExpression: cronExpression || "0 18 * * *",
+          advancedCron: !!advancedCron,
+          days: activeDays,
+          time: cronTime || "18:00",
           timeZone: timeZone ? this.transformTimeZone(timeZone) : this.transformTimeZone(defaultTimeZone)
         }}
         validationSchema={Yup.object().shape({
-          cronExpression: Yup.string().required(),
+          cronExpression: Yup.string().when("advancedCron", {
+            is: true,
+            then: cron => cron.required("Expression required")
+          }),
+          advancedCron: Yup.bool(),
+          days: Yup.array(),
+          time: Yup.string().when("advancedCron", { is: false, then: time => time.required("Enter a time") }),
           timeZone: Yup.object().shape({ label: Yup.string(), value: Yup.string() })
         })}
         onSubmit={this.handleOnSave}
@@ -99,46 +137,109 @@ export default class CronJobModal extends Component {
           return (
             <ModalFlowForm>
               <ModalBody>
-                <div className="b-cron">
-                  <TextInput
-                    id="cronExpression"
-                    labelText="CRON Expression"
-                    value={values.cronExpression}
-                    placeholder="Enter a CRON Expression"
-                    onBlur={handleBlur}
-                    onChange={e => this.handleOnChange(e, handleChange)}
-                    invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
-                    invalidText={errorMessage}
-                  />
-                  {
-                    // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
-                  }
-                  {values.cronExpression && message && <div className="b-cron__message">{message}</div>}
-                </div>
-                <div className="b-timezone">
-                  <ComboBox
-                    id="timeZone"
-                    items={this.timezoneOptions}
-                    initialSelectedItem={values.timeZone}
-                    onChange={({ selectedItem }) =>
-                      this.handleTimeChange(
-                        selectedItem !== null ? selectedItem : { label: "", value: "" },
-                        "timeZone",
-                        setFieldValue
-                      )
-                    }
-                    titleText="Timezone"
-                    placeholder="Timezone"
-                    helperText="We make an educated guess at your timezone as a default value"
-                  />
-                </div>
+                <>
+                  <div className={styles.advancedCronToggle}>
+                    <Toggle
+                      reversed
+                      id="advancedCron"
+                      name="advancedCron"
+                      labelText="Advanced controls"
+                      toggled={values.advancedCron}
+                      onToggle={value => setFieldValue("advancedCron", value)}
+                    />
+                  </div>
+                  {values.advancedCron ? (
+                    <>
+                      <p className={styles.configureText}>Configure a CRON schedule for this Workflow</p>
+                      <div className={styles.cronContainer}>
+                        <TextInput
+                          id="cronExpression"
+                          labelText="CRON Expression"
+                          value={values.cronExpression}
+                          placeholder="Enter a CRON Expression"
+                          onBlur={handleBlur}
+                          onChange={e => this.handleOnChange(e, handleChange)}
+                          invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
+                          invalidText={errorMessage}
+                        />
+                        {
+                          // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
+                        }
+                        {values.cronExpression && message && <div className={styles.cronMessage}>{message}</div>}
+                      </div>
+                      <div className={styles.timezone}>
+                        <ComboBox
+                          id="timeZone"
+                          items={this.timezoneOptions}
+                          initialSelectedItem={values.timeZone}
+                          onChange={({ selectedItem }) =>
+                            this.handleTimeChange(
+                              selectedItem !== null ? selectedItem : { label: "", value: "" },
+                              "timeZone",
+                              setFieldValue
+                            )
+                          }
+                          titleText="Timezone"
+                          placeholder="Timezone"
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <label htmlFor="time" className={"bx--label"}>
+                        Choose a time
+                      </label>
+                      <div className={styles.cronAdvancedContainer}>
+                        <div className={styles.timeContainer}>
+                          <TextInput
+                            id="time"
+                            name="time"
+                            labelText=""
+                            onChange={handleChange}
+                            value={values.time}
+                            placeholder="Time"
+                            invalid={errors.time && touched.time}
+                            invalidText={errors.time}
+                            type="time"
+                            style={{ minWidth: "10rem" }}
+                            onBlur={handleBlur}
+                          />
+                          <div className={styles.timezone}>
+                            <ComboBox
+                              id="timeZone"
+                              items={this.timezoneOptions}
+                              initialSelectedItem={values.timeZone}
+                              onChange={({ selectedItem }) =>
+                                this.handleTimeChange(
+                                  selectedItem !== null ? selectedItem : { label: "", value: "" },
+                                  "timeZone",
+                                  setFieldValue
+                                )
+                              }
+                              titleText=""
+                              placeholder="Timezone"
+                            />
+                          </div>
+                        </div>
+                        <div className={styles.daysContainer}>
+                          <CheckboxList
+                            initialSelectedItems={values.days}
+                            options={DAYS_OF_WEEK}
+                            onChange={(...args) => this.handleCheckboxListChange(setFieldValue, ...args)}
+                            labelText="Choose day(s)"
+                          />
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </>
               </ModalBody>
               <ModalFooter style={{ bottom: "0", position: "absolute", width: "100%" }}>
                 <Button kind="secondary" type="button" onClick={this.props.closeModal}>
                   Cancel
                 </Button>
                 <Button
-                  disabled={!isValid || errorMessage} //disable if the form is invalid or if there is an error message
+                  disabled={!isValid || (errorMessage && values.advancedCron)} //disable if the form is invalid or if there is an error message
                   type="submit"
                   onClick={e => {
                     this.handleOnSave(e, values);

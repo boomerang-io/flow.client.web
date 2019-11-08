@@ -281,7 +281,8 @@ export class WorkflowManagerContainer extends Component {
                   scheduler: {
                     enable: get(workflow, "data.triggers.scheduler.enable", false),
                     schedule: get(workflow, "data.triggers.scheduler.schedule", "0 18 * * *"),
-                    timezone: get(workflow, "data.triggers.scheduler.timezone", false)
+                    timezone: get(workflow, "data.triggers.scheduler.timezone", false),
+                    advancedCron: get(workflow, "data.triggers.scheduler.advancedCron", false)
                   },
                   webhook: {
                     enable: get(workflow, "data.triggers.webhook.enable", false),
@@ -307,7 +308,8 @@ export class WorkflowManagerContainer extends Component {
                   scheduler: Yup.object().shape({
                     enable: Yup.boolean(),
                     schedule: Yup.string(),
-                    timezone: Yup.mixed()
+                    timezone: Yup.mixed(),
+                    advancedCron: Yup.boolean()
                   }),
                   webhook: Yup.object().shape({
                     enable: Yup.boolean(),
