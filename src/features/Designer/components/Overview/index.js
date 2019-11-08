@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import axios from "axios";
-import get from "lodash.get";
+import get from "lodash/get";
 import isEqual from "lodash/isEqual";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";

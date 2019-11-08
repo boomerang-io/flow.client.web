@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import get from "lodash.get";
+import get from "lodash/get";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import ChangeLog from "Features/Designer/components/ChangeLog";
 import DesignerHeader from "Features/Designer/components/DesignerHeader";

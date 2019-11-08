@@ -14,7 +14,7 @@ import {
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import get from "lodash.get";
+import get from "lodash/get";
 import clonedeep from "lodash/cloneDeep";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import styles from "./WorkflowPropertiesModalContent.module.scss";
