@@ -126,9 +126,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
             class="bx--data-table bx--data-table--no-border"
           >
             <thead>
-              <tr
-                class="tableHeadRow"
-              >
+              <tr>
                 <th
                   class="tableHeadHeader label"
                   id="label"

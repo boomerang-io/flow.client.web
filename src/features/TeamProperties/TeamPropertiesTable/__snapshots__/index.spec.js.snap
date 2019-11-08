@@ -107,9 +107,7 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
           class="bx--data-table bx--data-table--no-border"
         >
           <thead>
-            <tr
-              class="tableHeadRow"
-            >
+            <tr>
               <th
                 class="tableHeadHeader label"
                 scope="col"

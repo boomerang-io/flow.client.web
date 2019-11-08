@@ -16,9 +16,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
             class="bx--data-table bx--data-table--no-border"
           >
             <thead>
-              <tr
-                class="tableHeadRow"
-              >
+              <tr>
                 <th
                   class="tableHeadHeader teamName"
                   id="teamName"

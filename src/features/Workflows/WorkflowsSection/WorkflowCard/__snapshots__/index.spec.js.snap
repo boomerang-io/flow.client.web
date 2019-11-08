@@ -49,7 +49,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
           </title>
         </svg>
       </div>
-      <div
+      <section
         class="cardInfo"
       >
         <div
@@ -72,12 +72,12 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
             class="cardDescription"
           />
         </button>
-      </div>
-      <div
+      </section>
+      <section
         class="cardLaunch"
       >
         <button
-          class="bx--btn bx--btn--sm bx--btn--primary"
+          class="bx--btn bx--btn--field bx--btn--primary"
           tabindex="0"
           type="button"
         >
@@ -106,7 +106,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
             />
           </svg>
         </button>
-      </div>
+      </section>
     </div>
   </div>
   <div

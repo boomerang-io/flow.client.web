@@ -4,7 +4,7 @@ $carbon--theme--bmrg: true;
 
 @import "variables";
 
-@import "~@boomerang/carbon-addons-boomerang/scss/styles.scss";
+@import "~@boomerang/carbon-addons-boomerang";
 @import "~carbon-components/scss/components/accordion/accordion";
 @import "~carbon-components/scss/components/checkbox/checkbox";
 @import "~carbon-components/scss/components/date-picker/date-picker";

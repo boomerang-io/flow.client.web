@@ -76,18 +76,21 @@ const defaultUIShellProps = {
 
 NavbarContainer.propTypes = {
   handleOnTutorialClick: PropTypes.func.isRequired,
-  navigation: PropTypes.object.isRequired,
-  user: PropTypes.object
+  navigationState: PropTypes.object.isRequired,
+  userState: PropTypes.object
 };
 
-function NavbarContainer({ handleOnTutorialClick, navigation, user }) {
-  if (navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS && user.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
+function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) {
+  if (
+    navigationState.status === SERVICE_REQUEST_STATUSES.SUCCESS &&
+    userState.status === SERVICE_REQUEST_STATUSES.SUCCESS
+  ) {
     return (
       <UIShell
         {...defaultUIShellProps}
-        headerConfig={navigation.data}
+        headerConfig={navigationState.data}
         onTutorialClick={handleOnTutorialClick}
-        user={user.data}
+        user={userState.data}
       />
     );
   }

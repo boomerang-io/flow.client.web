@@ -7,6 +7,7 @@ import { Button, OverflowMenu, OverflowMenuItem } from "carbon-components-react"
 import { notify, ToastNotification, ModalFlow, ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
+import UpdateWorkflow from "./UpdateWorkflow";
 import imgs from "Assets/icons";
 import { Run20 } from "@carbon/icons-react";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
@@ -23,7 +24,8 @@ class WorkflowCard extends Component {
   };
 
   state = {
-    deleteModalIsOpen: false
+    isDeleteModalOpen: false,
+    isUpdateWorkflowModalOpen: false
   };
 
   componentWillUnmount() {
@@ -71,10 +73,10 @@ class WorkflowCard extends Component {
   };
 
   render() {
-    const { workflow, history, teamId, deleteWorkflow } = this.props;
+    const { deleteWorkflow, fetchTeams, history, teamId, workflow } = this.props;
     const menuOptions = [
       {
-        itemText: "Edit",
+        itemText: "Edit Workflow",
         onClick: this.setActiveTeamAndRedirect,
         primaryFocus: true
       },
@@ -82,22 +84,27 @@ class WorkflowCard extends Component {
         itemText: "View Activity",
         onClick: () => history.push(`/activity?page=0&size=10&workflowIds=${workflow.id}`)
       },
+
       {
-        itemText: "Export",
-        onClick: () => this.handleExportWorkflow(workflow),
-        isDelete: false
+        itemText: "Export .json",
+        onClick: () => this.handleExportWorkflow(workflow)
       },
       {
-        itemText: "Delete",
+        itemText: "Update .json",
+        onClick: () => this.setState({ isUpdateWorkflowModalOpen: true })
+      },
+      {
         hasDivider: true,
+        itemText: "Delete",
         isDelete: true,
-        onClick: () => this.setState({ deleteModalIsOpen: true })
+        onClick: () => this.setState({ isDeleteModalOpen: true })
       }
     ];
 
     return (
       <div className={styles.container}>
         <OverflowMenu
+          flipped
           ariaLabel="Overflow card menu"
           iconDescription="Overflow menu icon"
           onOpen={this.handleOverflowMenuOpen}
@@ -108,26 +115,28 @@ class WorkflowCard extends Component {
             <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
           ))}
         </OverflowMenu>
-        {this.state.deleteModalIsOpen && (
+        {this.state.isUpdateWorkflowModalOpen && <UpdateWorkflow fetchTeams={fetchTeams} teamId={teamId} />}
+        {this.state.isDeleteModalOpen && (
           <ConfirmModal
             affirmativeAction={() => {
               deleteWorkflow({ teamId, workflowId: workflow.id });
             }}
+            affirmativeButtonProps={{ kind: "danger" }}
             affirmativeText="Delete"
-            isOpen={this.state.deleteModalIsOpen}
+            isOpen={this.state.isDeleteModalOpen}
             negativeAction={() => {
-              this.setState({ deleteModalIsOpen: false });
+              this.setState({ isDeleteModalOpen: false });
             }}
             negativeText="No"
             onCloseModal={() => {
-              this.setState({ deleteModalIsOpen: false });
+              this.setState({ isDeleteModalOpen: false });
             }}
-            title="Delete this workflow?"
+            title="Delete this Workflow?"
           >
-            It will be gone. Forever.
+            Are you sure you want to delete this workflow? There's no going back from this decision.
           </ConfirmModal>
         )}
-        <div className={styles.cardInfo}>
+        <section className={styles.cardInfo}>
           <div className={styles.cardIconContainer}>
             <img className={styles.cardIcon} src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
           </div>
@@ -135,16 +144,16 @@ class WorkflowCard extends Component {
             <h2 className={styles.cardName}>{workflow.name}</h2>
             <p className={styles.cardDescription}>{workflow.shortDescription}</p>
           </button>
-        </div>
-        <div className={styles.cardLaunch}>
+        </section>
+        <section className={styles.cardLaunch}>
           {workflow.properties && workflow.properties.length !== 0 ? (
             <ModalFlow
               modalHeaderProps={{
-                title: "Workflow Inputs",
-                subtitle: "Provide input values for your workflow"
+                title: "Workflow Properties",
+                subtitle: "Provide property values for your workflow"
               }}
               modalTrigger={({ openModal }) => (
-                <Button iconDescription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
+                <Button iconDescription="Run Workflow" renderIcon={Run20} size="field" onClick={openModal}>
                   Run it
                 </Button>
               )}
@@ -155,11 +164,11 @@ class WorkflowCard extends Component {
             <ModalFlow
               composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
               modalHeaderProps={{
-                title: "Execute workflow?",
+                title: "Execute Workflow?",
                 subtitle: '"Run and View" will navigate you to the workflow exeuction view.'
               }}
               modalTrigger={({ openModal }) => (
-                <Button iconDescription="Run Workflow" renderIcon={Run20} size="small" onClick={openModal}>
+                <Button iconDescription="Run Workflow" renderIcon={Run20} size="field" onClick={openModal}>
                   Run it
                 </Button>
               )}
@@ -167,7 +176,7 @@ class WorkflowCard extends Component {
               <WorkflowRunModalContent executeWorkflow={this.executeWorkflow} />
             </ModalFlow>
           )}
-        </div>
+        </section>
       </div>
     );
   }

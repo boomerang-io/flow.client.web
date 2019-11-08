@@ -103,11 +103,11 @@
 }
 
 .description::before {
-  background: linear-gradient(to right, transparent, $white 80%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), $white 80%);
   bottom: 0;
   content: "\200C";
   display: block;
-  height: 1.875rem;
+  height: 0.75rem;
   position: absolute;
   right: 0;
   text-align: center;

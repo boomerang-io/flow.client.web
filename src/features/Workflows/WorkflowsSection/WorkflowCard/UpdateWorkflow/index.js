@@ -12,7 +12,7 @@ import ImportConfirm from "./ImportConfirm";
 import ImportType from "./ImportType";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 
-class ImportWorkflow extends Component {
+class UpdateWorkflow extends Component {
   static propTypes = {
     fetchTeams: PropTypes.func.isRequired,
     importWorkflowActions: PropTypes.object.isRequired,
@@ -50,13 +50,14 @@ class ImportWorkflow extends Component {
 
     return (
       <ModalFlow
+        isOpen
         confirmModalProps={{
           title: "Are you sure?",
           children: "Your request will not be saved"
         }}
         modalHeaderProps={{
-          title: "Import Workflow",
-          subtitle: "Import a new workflow or update an existing one"
+          title: "Update Workflow",
+          subtitle: "update an existing one"
         }}
         modalTrigger={({ openModal }) => (
           <Button kind="ghost" onClick={openModal} iconDescription="Import Workflow" renderIcon={Upload16}>
@@ -90,4 +91,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ImportWorkflow);
+)(UpdateWorkflow);
