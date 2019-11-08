@@ -77,7 +77,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
   });
 
   const dataByTeams = teams.reduce((acc, team) => {
-    const teamData = data.filter(item => item.hasSelectedTeam === team);
+    const teamData = data.filter(item => item.teamName === team);
     return acc.concat({ label: team, value: teamData.length });
   }, []);
   const totalExecutions = data.length;
@@ -135,7 +135,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
       { value: timeSecondsToTimeUnit(parseInt(avarageDuration / 1000, 10)), label: "Avarage" }
     ],
     medianDuration: parseInt(medianDuration / 1000, 10),
-    dataByTeams,
+    dataByTeams: orderBy(dataByTeams, ["value"], ["desc"]),
     executionsByTeam: orderBy(executionsByTeam, ["value"], ["desc"])
   };
 };
