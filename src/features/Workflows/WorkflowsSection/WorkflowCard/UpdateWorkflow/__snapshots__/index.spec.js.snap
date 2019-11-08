@@ -2,7 +2,6 @@
 
 exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1`] = `
 <body
-  aria-hidden="true"
   class="bx--bmrg-body-modal-is-open"
   id="app"
 >
@@ -49,12 +48,12 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
           <p
             class="bx--modal-header__heading bx--type-beta"
           >
-            Import Workflow
+            Update Workflow
           </p>
           <p
             class="bx--bmrg-modal-flow-subtitle"
           >
-            Import a new workflow or update an existing one
+            update an existing one
           </p>
           <button
             class="bx--modal-close"

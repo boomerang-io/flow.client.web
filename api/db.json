@@ -55,19 +55,19 @@
         {
           "placeholder": "The name of the channel or user as a destination for the messages.",
           "key": "channel",
-          "labelText": "Channel",
+          "label": "Channel",
           "type": "text"
         },
         {
           "placeholder": "Larger, bold text near the top of a message.",
           "key": "title",
-          "labelText": "Title",
+          "label": "Title",
           "type": "text"
         },
         {
           "placeholder": "The main text to the message.",
           "key": "message",
-          "labelText": "Message",
+          "label": "Message",
           "type": "text"
         }
       ],
@@ -85,13 +85,13 @@
         {
           "placeholder": "Duration in milliseconds",
           "key": "duration",
-          "labelText": "Duration",
+          "label": "Duration",
           "type": "text"
         },
         {
           "placeholder": "Testing multiselect",
           "key": "multiselect",
-          "labelText": "multiselect",
+          "label": "multiselect",
           "type": "multiselect",
           "options": [
             {
@@ -143,19 +143,19 @@
         {
           "placeholder": "The email address to send mail to",
           "key": "to",
-          "labelText": "To",
+          "label": "To",
           "type": "text"
         },
         {
           "placeholder": "The email subject",
           "key": "subject",
-          "labelText": "Subject",
+          "label": "Subject",
           "type": "text"
         },
         {
           "placeholder": "The message inside the email",
           "key": "message",
-          "labelText": "Message",
+          "label": "Message",
           "type": "textarea",
           "language": null
         },
@@ -210,13 +210,13 @@
         {
           "placeholder": "The file path incl file name",
           "key": "path",
-          "labelText": "File Path",
+          "label": "File Path",
           "type": "text"
         },
         {
           "placeholder": "The file content",
           "key": "content",
-          "labelText": "File Content",
+          "label": "File Content",
           "type": "texteditor"
         }
       ],
@@ -234,7 +234,7 @@
         {
           "placeholder": "The file path incl file name",
           "key": "path",
-          "labelText": "File Path",
+          "label": "File Path",
           "type": "text"
         }
       ],
@@ -252,13 +252,13 @@
         {
           "placeholder": "Name",
           "key": "name",
-          "labelText": "Name",
+          "label": "Name",
           "type": "text"
         },
         {
           "placeholder": "Property to switch on",
           "key": "value",
-          "labelText": "Value",
+          "label": "Value",
           "type": "text"
         }
       ],
@@ -5990,6 +5990,11 @@
       "name": "IBM Boomerang Platform",
       "version": "5.0.0",
       "signOutUrl": "ibm.com"
+    },
+    "platformMessage": {
+      "kind": "info",
+      "title": "Testing Platform Title",
+      "message": "Message Goes Here"
     }
   },
   "workflowExecution": {

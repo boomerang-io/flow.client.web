@@ -117,10 +117,11 @@
   cursor: pointer;
   width: 100%;
   :global .bx--btn {
-    background-color: $cerulean-50;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     flex-direction: row-reverse;
     font-size: 1rem;
-    height: 2.5rem;
+    font-weight: 600;
     justify-content: center;
     max-width: 19.375rem;
     padding: 0rem 0.25rem;

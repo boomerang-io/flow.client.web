@@ -6,6 +6,12 @@ import { WorkflowActivity } from "./index";
 
 const mockfn = jest.fn();
 
+jest.mock("carbon-components-react/es", () => ({
+  __esModule: true,
+  DatePicker: () => <div />,
+  DatePickerInput: () => <div />
+}));
+
 const props = {
   activityActions: {
     fetch: () => new Promise(() => {}),

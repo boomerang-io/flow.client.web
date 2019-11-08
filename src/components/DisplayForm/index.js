@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { transformAll } from "@overgear/yup-ast";
-import { TextInput as CarbonTextInput } from "carbon-components-react";
 import { AutoSuggest, DynamicFormik, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalFooter } from "carbon-components-react";
 import TextEditorModal from "Components/TextEditorModal";
@@ -12,7 +11,7 @@ const AutoSuggestInput = props => {
   return (
     <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
       <AutoSuggest {...props}>
-        <CarbonTextInput />
+        <TextInput />
       </AutoSuggest>
     </div>
   );

@@ -5,13 +5,14 @@ import { detect } from "detect-browser";
 import { actions as userActions } from "State/user";
 import { actions as navigationActions } from "State/navigation";
 import { actions as teamsActions } from "State/teams";
+import { actions as onBoardActions } from "State/onBoard";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
-import { NotificationsContainer, ProtectedRoute, ErrorBoundary, Modal } from "@boomerang/carbon-addons-boomerang-react";
+import { NotificationsContainer, ProtectedRoute, ErrorBoundary } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import Loading from "Components/Loading";
-import BrowserPrompt from "./BrowserPrompt";
-import RedirectPrompt from "./RedirectPrompt";
-import Navigation from "./Navigation";
+import Navbar from "./Navbar";
+import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
+import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import {
   AsyncActivity,
   AsyncDesigner,
@@ -20,16 +21,22 @@ import {
   AsyncInsights,
   AsyncTeamProperties,
   AsyncWorkflows
-} from "./config/lazyComponents";
+} from "./asyncFeatureImports";
 import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import USER_TYPES from "Constants/userTypes";
 import ErrorDragon from "Components/ErrorDragon";
-import "./styles.scss";
+import styles from "./app.module.scss";
 
 const browser = detect();
 
+const allowedUserRoles = [USER_TYPES.ADMIN, USER_TYPES.OPERATOR];
+const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 class App extends Component {
+  state = {
+    shouldShowBrowserWarning: !supportedBrowsers.includes(browser.name)
+  };
+
   componentDidMount() {
     this.fetchData();
   }
@@ -50,80 +57,83 @@ class App extends Component {
     }
   }
 
-  renderApp() {
-    const { user, navigation, teams } = this.props;
-    if (user.isFetching || user.isCreating || navigation.isFetching) {
+  renderAppContent() {
+    const { userState, navigationState, teamsState } = this.props;
+
+    if (userState.isFetching || userState.isCreating || navigationState.isFetching) {
       return <Loading />;
     }
 
-    if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && !user.data.id) {
-      /**
-       * don't show anything to a user that doesn't exist
-       */
+    // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
+    if (userState.status === SERVICE_REQUEST_STATUSES.SUCCESS && !userState.data.id) {
       return null;
     }
 
-    if (teams.status === SERVICE_REQUEST_STATUSES.SUCCESS && Object.keys(teams.data).length === 0) {
-      return (
-        <Modal isOpen={true} containerClassName="c-flow-redirect-modal">
-          <RedirectPrompt />
-        </Modal>
-      );
+    // Show redirect prompt if the user doesn't have any teams
+    if (teamsState.status === SERVICE_REQUEST_STATUSES.SUCCESS && Object.keys(teamsState.data).length === 0) {
+      return <NoAccessRedirectPrompt />;
     }
 
-    if (user.status === SERVICE_REQUEST_STATUSES.SUCCESS && navigation.status === SERVICE_REQUEST_STATUSES.SUCCESS) {
-      const userRole = user.data.type;
-      const allowedUserRoles = [USER_TYPES.ADMIN, USER_TYPES.OPERATOR];
+    if (this.state.shouldShowBrowserWarning) {
+      return <UnsupportedBrowserPrompt onDismissWarning={() => this.setState({ shouldShowBrowserWarning: false })} />;
+    }
+
+    if (
+      userState.status === SERVICE_REQUEST_STATUSES.SUCCESS &&
+      navigationState.status === SERVICE_REQUEST_STATUSES.SUCCESS
+    ) {
+      const userRole = userState.data.type;
+
       return (
-        <>
-          <div className="c-app-main">
-            <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
-              <Switch>
-                <ProtectedRoute
-                  path="/properties"
-                  allowedUserRoles={allowedUserRoles}
-                  userRole={userRole}
-                  component={AsyncGlobalConfiguration}
-                />
-                <ProtectedRoute
-                  path="/team-properties"
-                  allowedUserRoles={allowedUserRoles}
-                  userRole={userRole}
-                  component={AsyncTeamProperties}
-                />
-                <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
-                <Route path="/activity" component={AsyncActivity} />
-                <Route path="/editor/:workflowId" component={AsyncDesigner} />
-                <Route path="/insights" component={AsyncInsights} />
-                <Route path="/workflows" component={AsyncWorkflows} />
-                <Redirect from="/" to="/workflows" />
-              </Switch>
-            </Suspense>
-          </div>
+        <div className={styles.container}>
+          <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
+            <Switch>
+              <ProtectedRoute
+                path="/properties"
+                allowedUserRoles={allowedUserRoles}
+                userRole={userRole}
+                component={AsyncGlobalConfiguration}
+              />
+              <ProtectedRoute
+                path="/team-properties"
+                allowedUserRoles={allowedUserRoles}
+                userRole={userRole}
+                component={AsyncTeamProperties}
+              />
+              <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
+              <Route path="/activity" component={AsyncActivity} />
+              <Route path="/editor/:workflowId" component={AsyncDesigner} />
+              <Route path="/insights" component={AsyncInsights} />
+              <Route path="/workflows" component={AsyncWorkflows} />
+              <Redirect from="/" to="/workflows" />
+            </Switch>
+          </Suspense>
           <NotificationsContainer enableMultiContainer />
-        </>
-      );
-    }
-
-    if (user.status === SERVICE_REQUEST_STATUSES.FAILURE || navigation.status === SERVICE_REQUEST_STATUSES.FAILURE) {
-      return (
-        <div className="c-app-content c-app-content--not-loaded">
-          <ErrorDragon style={{ margin: "3.5rem 0" }} />
         </div>
       );
+    }
+
+    if (
+      userState.status === SERVICE_REQUEST_STATUSES.FAILURE ||
+      navigationState.status === SERVICE_REQUEST_STATUSES.FAILURE
+    ) {
+      return <ErrorDragon style={{ margin: "5rem 0" }} />;
     }
 
     return null;
   }
 
   render() {
-    const { user, navigation } = this.props;
+    const { onBoardActions, navigationState, userState } = this.props;
     return (
       <>
-        <Navigation user={user} navigation={navigation} refresh={this.refreshPage} />
-        <BrowserPrompt isOpen={browser.name === "chrome" || browser.name === "firefox" ? false : true} />
+        <Navbar
+          handleOnTutorialClick={onBoardActions.showOnBoardExp}
+          navigationState={navigationState}
+          userState={userState}
+        />
         <OnBoardExpContainer />
-        <ErrorBoundary errorComponent={ErrorDragon}>{this.renderApp()}</ErrorBoundary>
+        <ErrorBoundary errorComponent={ErrorDragon}>{this.renderAppContent()}</ErrorBoundary>
       </>
     );
   }
@@ -131,15 +141,16 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    navigation: state.navigation,
-    teams: state.teams,
-    user: state.user
+    navigationState: state.navigation,
+    teamsState: state.teams,
+    userState: state.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     navigationActions: bindActionCreators(navigationActions, dispatch),
+    onBoardActions: bindActionCreators(onBoardActions, dispatch),
     teamsActions: bindActionCreators(teamsActions, dispatch),
     userActions: bindActionCreators(userActions, dispatch)
   };

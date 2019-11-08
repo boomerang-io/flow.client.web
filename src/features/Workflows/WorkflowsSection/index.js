@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import CreateWorkflow from "./CreateWorkflow";
-import ImportWorkflow from "./ImportWorkflow";
 import WorkflowCard from "./WorkflowCard";
 import styles from "./workflowsSection.module.scss";
 
@@ -36,17 +35,24 @@ class WorkflowSection extends Component {
       workflows = team.workflows;
     }
 
+    const hasTeamWorkflows = team.workflows.length > 0;
+
     return (
       <section className={styles.container}>
         <div className={styles.header}>
           <h1 className={styles.team}>{`${team.name} (${workflows.length})`}</h1>
-          <ImportWorkflow fetchTeams={fetchTeams} teamId={team.id} />
+          {!hasTeamWorkflows && (
+            <p className={styles.noWorkflowsMessage}>
+              This team doesn’t have any Workflows - be the first to take the plunge.
+            </p>
+          )}
         </div>
         <div className={styles.workflows}>
           {workflows.map(workflow => (
             <WorkflowCard
               deleteWorkflow={deleteWorkflow}
               executeWorkflow={executeWorkflow}
+              fetchTeams={fetchTeams}
               key={workflow.id}
               setActiveTeam={setActiveTeam}
               teamId={team.id}
