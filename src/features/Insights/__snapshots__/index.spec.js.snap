@@ -306,108 +306,115 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
         class="statsWidgets"
       >
         <div
-          class="bx--tile container"
+          class="insightsCards"
+          style="flex-direction: row;"
         >
-          <div>
-            <h3
-              class="title"
-            >
-              Executions
-            </h3>
-            <div
-              class="totalCountContainer"
-            >
-              <p
-                class="totalCount"
-              >
-                0
-              </p>
-              <p
-                class="type"
-              >
-                runs
-              </p>
-            </div>
-          </div>
-          <ul
-            class="list"
-          />
-        </div>
-        <div
-          class="bx--tile container"
-        >
-          <div>
-            <h3
-              class="title"
-            >
-              Duration (median)
-            </h3>
-            <div
-              class="totalCountContainer"
-            >
-              <p
-                class="totalCount"
-              >
-                0 secs
-              </p>
-              <p
-                class="type"
-              />
-            </div>
-          </div>
-          <ul
-            class="list"
+          <div
+            class="bx--tile container"
+            style="max-height: none;"
           >
-            <li
-              class="row"
+            <div>
+              <h3
+                class="title"
+              >
+                Executions
+              </h3>
+              <div
+                class="totalCountContainer"
+              >
+                <p
+                  class="totalCount"
+                >
+                  0
+                </p>
+                <p
+                  class="type"
+                >
+                  runs
+                </p>
+              </div>
+            </div>
+            <ul
+              class="list"
+            />
+          </div>
+          <div
+            class="bx--tile container"
+            style="max-height: 22.375rem;"
+          >
+            <div>
+              <h3
+                class="title"
+              >
+                Duration (median)
+              </h3>
+              <div
+                class="totalCountContainer"
+              >
+                <p
+                  class="totalCount"
+                >
+                  0 secs
+                </p>
+                <p
+                  class="type"
+                />
+              </div>
+            </div>
+            <ul
+              class="list"
             >
-              <p
-                class="itemValue"
-                style="width: 7rem;"
+              <li
+                class="row"
               >
-                0 secs
-              </p>
-              <p
-                class="itemLabel"
+                <p
+                  class="itemValue"
+                  style="width: 7rem;"
+                >
+                  0 secs
+                </p>
+                <p
+                  class="itemLabel"
+                >
+                  Minimum
+                </p>
+              </li>
+              <li
+                class="row"
               >
-                Minimum
-              </p>
-            </li>
-            <li
-              class="row"
-            >
-              <p
-                class="itemValue"
-                style="width: 7rem;"
+                <p
+                  class="itemValue"
+                  style="width: 7rem;"
+                >
+                  0 secs
+                </p>
+                <p
+                  class="itemLabel"
+                >
+                  Maximum
+                </p>
+              </li>
+              <li
+                class="row"
               >
-                0 secs
-              </p>
-              <p
-                class="itemLabel"
-              >
-                Maximum
-              </p>
-            </li>
-            <li
-              class="row"
-            >
-              <p
-                class="itemValue"
-                style="width: 7rem;"
-              >
-                0 secs
-              </p>
-              <p
-                class="itemLabel"
-              >
-                Avarage
-              </p>
-            </li>
-          </ul>
+                <p
+                  class="itemValue"
+                  style="width: 7rem;"
+                >
+                  0 secs
+                </p>
+                <p
+                  class="itemLabel"
+                >
+                  Avarage
+                </p>
+              </li>
+            </ul>
+          </div>
         </div>
         <div
           class="bx--tile container"
-          style="width: 33rem;"
+          style="width: 33rem; max-height: 22.375rem;"
         >
           <div>
             <h3
@@ -438,7 +445,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
       >
         <div
           class="bx--tile container"
-          style="width: 50rem;"
+          style="width: 50rem; max-height: none;"
         >
           <div>
             <h3
@@ -465,7 +472,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
         </div>
         <div
           class="bx--tile container"
-          style="width: 50rem;"
+          style="width: 50rem; max-height: none;"
         >
           <div>
             <h3
