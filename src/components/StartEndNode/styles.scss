@@ -41,7 +41,7 @@
 
   .b-startEnd-node__title {
     text-align: center;
-    color: $ui-01;
+    color: var(--cds-ui-01);
   }
 
   .b-startEnd-node__port {
@@ -50,8 +50,8 @@
     width: 2rem;
 
     &.--right {
-      background-color: $interactive-01;
-      border: 0.0625rem solid $interactive-01;
+      background-color: var(--cds-interactive-01);
+      border: 0.0625rem solid var(--cds-interactive-01);
       right: -2rem;
       top: 1.25rem;
       border-bottom-right-radius: 50%;
@@ -62,7 +62,7 @@
     }
     &.--left {
       background-color: #b3e6ff;
-      border: 0.0625rem solid $interactive-01;
+      border: 0.0625rem solid var(--cds-interactive-01);
       border-bottom-left-radius: 50%;
       border-top-left-radius: 50%;
       left: -2rem;

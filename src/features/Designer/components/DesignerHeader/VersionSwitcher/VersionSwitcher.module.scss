@@ -40,7 +40,7 @@ $disabled-color: #bebec0;
 
 .button {
   cursor: pointer;
-  fill: $interactive-01;
+  fill: var(--cds-interactive-01);
   height: 1.5rem;
   width: 1.5rem;
 
@@ -51,7 +51,7 @@ $disabled-color: #bebec0;
 }
 
 .versionText {
-  color: $text-01;
+  color: var(--cds-text-01);
   font-size: 0.875rem;
   line-height: 1.125rem;
 }

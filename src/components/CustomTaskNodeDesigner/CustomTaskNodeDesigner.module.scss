@@ -15,8 +15,8 @@
 }
 
 .badgeContainer {
-  background-color: $ui-01;
-  border: 1px solid $interactive-01;
+  background-color: var(--cds-ui-01);
+  border: 1px solid var(--cds-interactive-01);
   border-radius: 0.25rem;
   left: -1.5rem;
   padding: 0.25rem 0.5rem 0.25rem 0.5rem;

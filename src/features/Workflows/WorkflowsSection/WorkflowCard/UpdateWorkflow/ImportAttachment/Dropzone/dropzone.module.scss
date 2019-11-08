@@ -33,9 +33,9 @@
   .dropzoneError {
     align-items: center;
     background-color: $white;
-    border: 0.0625rem solid $interactive-01;
+    border: 0.0625rem solid var(--cds-interactive-01);
     @include border-radius();
-    color: $interactive-01;
+    color: var(--cds-interactive-01);
     cursor: pointer;
     display: flex;
     font-size: 1.125rem;
@@ -48,7 +48,7 @@
     z-index: 1;
 
     &:hover {
-      background-color: $interactive-01;
+      background-color: var(--cds-interactive-01);
       color: $white;
     }
   }
@@ -62,7 +62,7 @@
   .dragEnter {
     align-items: center;
     background-color: transparent;
-    border: 0.063rem dashed $interactive-01;
+    border: 0.063rem dashed var(--cds-interactive-01);
     display: flex;
     height: 4rem;
     justify-content: center;

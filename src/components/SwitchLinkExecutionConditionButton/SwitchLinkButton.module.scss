@@ -15,10 +15,10 @@
 
   &.execution {
     path {
-      fill: $text-01;
+      fill: var(--cds-text-01);
     }
     rect {
-      stroke: $text-01;
+      stroke: var(--cds-text-01);
     }
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { transformAll } from "@overgear/yup-ast";
+import { transformAll } from "@boomerang/boomerang-utilities/lib/yupAst";
 import { AutoSuggest, DynamicFormik, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalFooter } from "carbon-components-react";
 import TextEditorModal from "Components/TextEditorModal";

@@ -9,16 +9,16 @@
   &.designer {
     cursor: pointer;
     &:focus {
-      @include focus-outline($interactive-01, 0rem);
+      @include focus-outline(var(--cds-interactive-01), 0rem);
     }
   }
 
   &.execution {
     circle {
-      stroke: $text-01;
+      stroke: var(--cds-text-01);
     }
     path {
-      fill: $text-01 !important;
+      fill: var(--cds-text-01) !important;
     }
   }
 

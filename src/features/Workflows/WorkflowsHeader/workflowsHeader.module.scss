@@ -9,7 +9,7 @@
   width: 100%;
   z-index: 3;
   :global .bx--search-input {
-    background: $ui-background;
+    background: var(--cds-ui-background);
     font-size: 0.875rem;
     height: 3rem;
   }
@@ -22,7 +22,7 @@
   :global .b-search-filter__filter {
     font-size: 0.875rem;
     .bx--list-box {
-      background-color: $ui-background !important;
+      background-color: var(--cds-ui-background) !important;
       height: 3rem !important;
       max-height: none !important;
     }
@@ -30,13 +30,13 @@
       height: 3rem !important;
     }
     .bx--list-box__menu {
-      background-color: $ui-background;
+      background-color: var(--cds-ui-background);
     }
     .bx--list-box__menu-item {
-      background: $ui-background;
+      background: var(--cds-ui-background);
     }
     .bx--list-box__menu-item--highlighted {
-      background: $ui-background;
+      background: var(--cds-ui-background);
     }
   }
 }

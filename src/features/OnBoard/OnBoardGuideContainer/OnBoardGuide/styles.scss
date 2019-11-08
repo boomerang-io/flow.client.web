@@ -71,7 +71,7 @@
 }
 
 .b-onboard-screen-circle {
-  border: 0.063rem solid $interactive-01;
+  border: 0.063rem solid var(--cds-interactive-01);
   border-radius: 3.125rem;
   height: 0.625rem;
   margin-left: 0.5rem;
@@ -85,12 +85,12 @@
 }
 
 .b-onboard-screen-circle--filled {
-  background-color: $interactive-01;
+  background-color: var(--cds-interactive-01);
 }
 
 .b-onboard-screen-button {
   align-items: center;
-  background-color: $interactive-01;
+  background-color: var(--cds-interactive-01);
   @include border-radius();
   cursor: pointer;
   display: flex;
