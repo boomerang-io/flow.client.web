@@ -8,8 +8,8 @@ import { notify, ToastNotification, ModalFlow } from "@boomerang/carbon-addons-b
 import { Button } from "carbon-components-react";
 import { Upload16 } from "@carbon/icons-react";
 import ImportAttachment from "./ImportAttachment";
-import ImportConfirm from "./ImportConfirm";
-import ImportType from "./ImportType";
+// import ImportConfirm from "./ImportConfirm";
+// import ImportType from "./ImportType";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 
 class UpdateWorkflow extends Component {
@@ -40,13 +40,13 @@ class UpdateWorkflow extends Component {
   };
 
   render() {
-    const initialState = {
-      step: 0,
-      formData: {
-        files: [],
-        isUpdate: false
-      }
-    };
+    // const initialState = {
+    //   step: 0,
+    //   formData: {
+    //     files: [],
+    //     isUpdate: false
+    //   }
+    // };
 
     return (
       <ModalFlow
@@ -56,7 +56,7 @@ class UpdateWorkflow extends Component {
           children: "Your request will not be saved"
         }}
         modalHeaderProps={{
-          title: "Update Workflow",
+          title: "Update .json file",
           subtitle: "update an existing one"
         }}
         modalTrigger={({ openModal }) => (
@@ -64,17 +64,19 @@ class UpdateWorkflow extends Component {
             Import Workflow
           </Button>
         )}
-        progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
-        initialState={initialState}
+        // progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
+        // initialState={initialState}
       >
-        <ImportType />
-        <ImportAttachment />
-        <ImportConfirm
+        {/* <ImportType /> */}
+        <div>
+          <ImportAttachment formData={{ files: [] }} />
+        </div>
+        {/* <ImportConfirm
           fetchTeams={this.props.fetchTeams}
           handleImportWorkflow={this.handleImportWorkflow}
           importWorkflowActions={this.props.importWorkflowActions}
           importWorkflowState={this.props.importWorkflowState}
-        />
+        /> */}
       </ModalFlow>
     );
   }

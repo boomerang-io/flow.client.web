@@ -14,12 +14,13 @@ class WorkflowAttachment extends Component {
   };
 
   static propTypes = {
-    formData: PropTypes.object
+    formData: PropTypes.object,
+    closeModal: PropTypes.func
   };
 
-  componentDidMount() {
-    this.props.setShouldConfirmModalClose(true);
-  }
+  // componentDidMount() {
+  //   this.props.setShouldConfirmModalClose(true);
+  // }
 
   appendFile = files => {
     this.setState({ files: [...files] });
@@ -107,7 +108,7 @@ class WorkflowAttachment extends Component {
             width: "100%"
           }}
         >
-          <DropZone
+          {/* <DropZone
             appendFile={this.appendFile}
             removeFile={this.removeFile}
             loadedFile={this.loadedFile}
@@ -116,11 +117,11 @@ class WorkflowAttachment extends Component {
             files={this.state.files}
             goToStep={this.props.requestNextStep}
             state={this.state}
-          />
+          /> */}
         </ModalBody>
         <ModalFooter>
-          <Button onClick={this.props.requestPreviousStep} kind="secondary">
-            Back
+          <Button kind="secondary" type="button" onClick={this.props.closeModal}>
+            Cancel
           </Button>
           <Button onClick={this.handleSubmit} disabled={this.state.files.length === 0} kind="primary">
             Onward
