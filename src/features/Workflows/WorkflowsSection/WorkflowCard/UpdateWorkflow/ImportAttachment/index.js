@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ModalBody, ModalFooter, Button } from "carbon-components-react";
+import { ModalBody, ModalFooter, Button, FileUploaderDropContainer } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import DropZone from "./Dropzone";
 
@@ -81,7 +81,7 @@ class WorkflowAttachment extends Component {
   };
 
   addFile = file => {
-    this.setState({ files: [...file] });
+    this.setState({ files: file });
   };
 
   handleSubmit = event => {
@@ -97,6 +97,7 @@ class WorkflowAttachment extends Component {
   };
 
   render() {
+    const buttonMessage = "Choose a file or drag one here";
     return (
       <ModalFlowForm
         title="Add a Workflow - Select the Workflow file you want to upload"
@@ -118,6 +119,16 @@ class WorkflowAttachment extends Component {
             goToStep={this.props.requestNextStep}
             state={this.state}
           /> */}
+          <FileUploaderDropContainer
+            accept={[".json"]}
+            labelText={buttonMessage}
+            name="Workflow"
+            multiple={false}
+            onChange={file => {
+              console.log("test");
+              this.addFile(file);
+            }}
+          />
         </ModalBody>
         <ModalFooter>
           <Button kind="secondary" type="button" onClick={this.props.closeModal}>

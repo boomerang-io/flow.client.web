@@ -16,7 +16,8 @@ class UpdateWorkflow extends Component {
   static propTypes = {
     fetchTeams: PropTypes.func.isRequired,
     importWorkflowActions: PropTypes.object.isRequired,
-    importWorkflowState: PropTypes.object.isRequired
+    importWorkflowState: PropTypes.object.isRequired,
+    onCloseModal: PropTypes.bool.isRequired
   };
 
   handleImportWorkflow = (data, isUpdate, closeModal) => {
@@ -40,13 +41,13 @@ class UpdateWorkflow extends Component {
   };
 
   render() {
-    // const initialState = {
-    //   step: 0,
-    //   formData: {
-    //     files: [],
-    //     isUpdate: false
-    //   }
-    // };
+    const initialState = {
+      step: 0,
+      formData: {
+        files: [],
+        isUpdate: false
+      }
+    };
 
     return (
       <ModalFlow
@@ -59,18 +60,12 @@ class UpdateWorkflow extends Component {
           title: "Update .json file",
           subtitle: "update an existing one"
         }}
-        modalTrigger={({ openModal }) => (
-          <Button kind="ghost" onClick={openModal} iconDescription="Import Workflow" renderIcon={Upload16}>
-            Import Workflow
-          </Button>
-        )}
         // progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
-        // initialState={initialState}
+        initialState={initialState}
+        onCloseModal={this.props.onCloseModal}
       >
         {/* <ImportType /> */}
-        <div>
-          <ImportAttachment formData={{ files: [] }} />
-        </div>
+        <ImportAttachment />
         {/* <ImportConfirm
           fetchTeams={this.props.fetchTeams}
           handleImportWorkflow={this.handleImportWorkflow}

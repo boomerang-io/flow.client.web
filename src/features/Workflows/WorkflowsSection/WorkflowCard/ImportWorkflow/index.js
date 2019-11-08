@@ -58,11 +58,11 @@ class ImportWorkflow extends Component {
           title: "Import Workflow",
           subtitle: "Import a new workflow or update an existing one"
         }}
-        modalTrigger={({ openModal }) => (
-          <Button kind="ghost" onClick={openModal} iconDescription="Import Workflow" renderIcon={Upload16}>
-            Import Workflow
-          </Button>
-        )}
+        // modalTrigger={({ openModal }) => (
+        //   <Button kind="ghost" onClick={openModal} iconDescription="Import Workflow" renderIcon={Upload16}>
+        //     Import Workflow
+        //   </Button>
+        // )}
         progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
         initialState={initialState}
       >

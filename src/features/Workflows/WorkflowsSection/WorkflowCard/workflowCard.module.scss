@@ -140,3 +140,6 @@
   width: 30rem;
   text-align: left;
 }
+:global .bx--overflow-menu-options.bx--overflow-menu--flip {
+  position: fixed !important;
+}
