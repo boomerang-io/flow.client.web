@@ -24,6 +24,7 @@ class WorkflowEditor extends Component {
     updateWorkflow: PropTypes.func.isRequired,
     updateWorkflowProperties: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
+    workflowFormikProps: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired
   };
 
