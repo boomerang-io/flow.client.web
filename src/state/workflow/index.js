@@ -100,6 +100,11 @@ const actionHandlers = {
   [types.UPDATE_WORKFLOW_PROPERTY]: (state, action) => {
     return { ...state, data: { ...state.data, [action.data.key]: action.data.value } };
   },
+  [types.CREATE_WORKFLOW_INPUT]: (state, action) => {
+    const { properties } = state.data;
+    const newProperties = [...properties, action.data];
+    return { ...state, data: { ...state.data, properties: newProperties } };
+  },
   [types.UPDATE_WORKFLOW_INPUT]: (state, action) => {
     // Replace matching input
     const properties = state.data.properties.map(input => (input.key === action.data.key ? action.data : input));
