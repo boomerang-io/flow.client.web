@@ -17,7 +17,7 @@ const IMPORT_WORKFLOW = "Import a Workflow";
 
 const radioWorkflowOptions = [
   {
-    id: "import-workflow-radio-id",
+    id: "create-workflow-radio-id",
     label: NEW_WORKFLOW,
     value: NEW_WORKFLOW
   },
@@ -33,7 +33,8 @@ export class CreateWorkflow extends Component {
     fetchTeams: PropTypes.func.isRequired,
     team: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired,
+    onCloseModal: PropTypes.bool.isRequired
   };
 
   state = {
@@ -43,7 +44,6 @@ export class CreateWorkflow extends Component {
   diagramApp = new DiagramApplication({ dag: null, isLocked: false });
 
   handleChangeElem = e => {
-    console.log("elemetu ala de schimbat", e);
     this.setState({ selectedOption: e });
   };
 
@@ -98,6 +98,7 @@ export class CreateWorkflow extends Component {
           title: "Create a new Workflow",
           subtitle: "Get started with these basics, then proceed to designing it out."
         }}
+        // onCloseModal={this.props.onCloseModal}
       >
         <div className={styles.modalBody}>
           <RadioGroup
@@ -113,7 +114,11 @@ export class CreateWorkflow extends Component {
               isCreating={isCreating}
             />
           ) : (
-            <ImportWorkflowAttachment />
+            <ImportWorkflowAttachment
+              formData={{
+                files: []
+              }}
+            />
           )}
         </div>
       </ModalFlow>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ModalBody, ModalFooter, Button, FileUploaderDropContainer } from "carbon-components-react";
+import { ModalBody, ModalFooter, Button, FileUploaderDropContainer, FileUploaderItem } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import DropZone from "./Dropzone";
 
@@ -81,7 +81,11 @@ class WorkflowAttachment extends Component {
   };
 
   addFile = file => {
-    this.setState({ files: file });
+    this.setState({ files: [...file.addedFiles] });
+  };
+
+  deleteFile = () => {
+    this.setState({ files: [] });
   };
 
   handleSubmit = event => {
@@ -92,15 +96,18 @@ class WorkflowAttachment extends Component {
     //   setTimeout(this.uploadingFile, 1);
     //   setTimeout(this.uploadingFile, 1);
     // } else {
-    this.props.requestNextStep();
+    // this.props.requestNextStep();
     // }
+
+    this.props.closeModal();
   };
 
   render() {
     const buttonMessage = "Choose a file or drag one here";
     return (
       <ModalFlowForm
-        title="Add a Workflow - Select the Workflow file you want to upload"
+        title="Update the Workflow file"
+        subtitle="File must be .json under 1MB"
         onSubmit={e => e.preventDefault()}
       >
         <ModalBody
@@ -119,7 +126,7 @@ class WorkflowAttachment extends Component {
             goToStep={this.props.requestNextStep}
             state={this.state}
           /> */}
-          <FileUploaderDropContainer
+          {/* <FileUploader
             accept={[".json"]}
             labelText={buttonMessage}
             name="Workflow"
@@ -128,14 +135,40 @@ class WorkflowAttachment extends Component {
               console.log("test");
               this.addFile(file);
             }}
+          >
+          </FileUploader> */}
+
+          <FileUploaderDropContainer
+            accept={[".json"]}
+            labelText={buttonMessage}
+            name="Workflow"
+            multiple={false}
+            onAddFiles={(event, file) => {
+              this.addFile(file);
+            }}
+            // onChange={file => {
+            //   console.log("test !!!!!!!");
+            //   this.addFile(file);
+            // }}
           />
+          {this.state.files.length ? (
+            <FileUploaderItem
+              name={this.state.files[0].name}
+              status="edit"
+              onDelete={(event, element) => {
+                this.deleteFile();
+              }}
+            />
+          ) : (
+            ""
+          )}
         </ModalBody>
         <ModalFooter>
           <Button kind="secondary" type="button" onClick={this.props.closeModal}>
             Cancel
           </Button>
           <Button onClick={this.handleSubmit} disabled={this.state.files.length === 0} kind="primary">
-            Onward
+            Update
           </Button>
         </ModalFooter>
       </ModalFlowForm>

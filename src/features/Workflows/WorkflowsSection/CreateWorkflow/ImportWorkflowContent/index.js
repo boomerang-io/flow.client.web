@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ModalBody, ModalFooter, Button } from "carbon-components-react";
+import { ModalBody, ModalFooter, Button, FileUploaderDropContainer, FileUploaderItem } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 // import DropZone from "./Dropzone";
 
 class ImportWorkflowAttachment extends Component {
   state = {
-    // dragEnter: false,
-    // empty: !this.props.formData.files.length,
-    // files: this.props.formData.files.length > 0 ? this.props.formData.files : [],
-    // loaded: this.props.formData.files.length,
-    // uploading: false
+    dragEnter: false,
+    empty: !this.props.formData.files.length,
+    files: this.props.formData.files.length > 0 ? this.props.formData.files : [],
+    loaded: this.props.formData.files.length,
+    uploading: false
   };
 
   static propTypes = {
-    formData: PropTypes.object
+    formData: PropTypes.object,
+    closeModal: PropTypes.func
   };
 
   // componentDidMount() {
@@ -75,27 +76,32 @@ class ImportWorkflowAttachment extends Component {
   //   }));
   // };
 
-  // onClickBackButton = () => {
-  //   this.props.requestPreviousStep();
-  // };
+  onClickBackButton = () => {
+    this.props.requestPreviousStep();
+  };
 
-  // addFile = file => {
-  //   this.setState({ files: [...file] });
-  // };
+  addFile = file => {
+    this.setState({ files: [...file.addedFiles] });
+  };
 
-  // handleSubmit = event => {
-  //   event.preventDefault();
-  //   // this.addFile(this.state.files);
+  deleteFile = () => {
+    this.setState({ files: [] });
+  };
 
-  //   // if (this.state.loaded) {
-  //   //   setTimeout(this.uploadingFile, 1);
-  //   //   setTimeout(this.uploadingFile, 1);
-  //   // } else {
-  //   this.props.requestNextStep();
-  //   // }
-  // };
+  handleSubmit = event => {
+    event.preventDefault();
+    // this.addFile(this.state.files);
+
+    // if (this.state.loaded) {
+    //   setTimeout(this.uploadingFile, 1);
+    //   setTimeout(this.uploadingFile, 1);
+    // } else {
+    // }
+  };
 
   render() {
+    const buttonMessage = "Choose a file or drag one here";
+
     return (
       <ModalFlowForm
         title="Add a Workflow - Select the Workflow file you want to upload"
@@ -117,13 +123,34 @@ class ImportWorkflowAttachment extends Component {
             goToStep={this.props.requestNextStep}
             state={this.state}
           /> */}
+
+          <FileUploaderDropContainer
+            accept={[".json"]}
+            labelText={buttonMessage}
+            name="Workflow"
+            multiple={false}
+            onAddFiles={(event, file) => {
+              this.addFile(file);
+            }}
+          />
+          {this.state.files.length ? (
+            <FileUploaderItem
+              name={this.state.files[0].name}
+              status="edit"
+              onDelete={(event, element) => {
+                this.deleteFile();
+              }}
+            />
+          ) : (
+            ""
+          )}
         </ModalBody>
         <ModalFooter>
-          <Button onClick={this.props.requestPreviousStep} kind="secondary">
-            Back
+          <Button onClick={this.props.closeModal} kind="secondary">
+            Cancel
           </Button>
-          <Button onClick={this.handleSubmit} kind="primary">
-            Onward
+          <Button onClick={this.handleSubmit} disabled={this.state.files.length === 0} kind="primary">
+            Create
           </Button>
         </ModalFooter>
       </ModalFlowForm>

@@ -57,8 +57,7 @@ class UpdateWorkflow extends Component {
           children: "Your request will not be saved"
         }}
         modalHeaderProps={{
-          title: "Update .json file",
-          subtitle: "update an existing one"
+          title: "Update .json file"
         }}
         // progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
         initialState={initialState}
