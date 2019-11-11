@@ -25,6 +25,7 @@ class ImportWorkflowContent extends Component {
     isImporting: false,
     isValidWorkflow: false,
     selectedTeamId: "",
+    selectedTeam: {},
     workflowName: "",
     summary: ""
   };
@@ -86,48 +87,40 @@ class ImportWorkflowContent extends Component {
   };
 
   renderConfirmForm = file => {
-    // return(
-    //   <>
-    //     <div className={styles.teamAndName}>
-    //       <ComboBox
-    //         id="selectedTeam"
-    //         styles={{ marginBottom: "2.5rem" }}
-    //         onChange={({ selectedItem }) => setFieldValue("selectedTeam", selectedItem ? selectedItem : "")}
-    //         items={this.props.teams}
-    //         initialSelectedItem={values.selectedTeam}
-    //         value={values.selectedTeam}
-    //         itemToString={item => (item ? item.name : "")}
-    //         titleText="Team"
-    //         placeholder="Select a team"
-    //         invalid={errors.selectedTeam}
-    //         invalidText={errors.selectedTeam}
-    //         shouldFilterItem={({ item, inputValue }) =>
-    //           item && item.name.toLowerCase().includes(inputValue.toLowerCase())
-    //         }
-    //       />
-    //       <TextInput
-    //         id="name"
-    //         labelText="Name"
-    //         placeholder="Name"
-    //         value={values.name}
-    //         onBlur={handleBlur}
-    //         onChange={handleChange}
-    //         invalid={errors.name && touched.name}
-    //         invalidText={errors.name}
-    //       />
-    //     </div>
-    //     <TextInput
-    //       id="summary"
-    //       labelText="Summary"
-    //       placeholder="Summary"
-    //       value={values.summary}
-    //       onBlur={handleBlur}
-    //       onChange={handleChange}
-    //       invalid={errors.summary && touched.summary}
-    //       invalidText={errors.summary}
-    //     />
-    //   </>
-    // );
+    const { teams } = this.props;
+    const { workflowName, summary, selectedTeamId } = this.state;
+    const selectedTeam = teams.find(team => team.id === selectedTeamId);
+    return (
+      <>
+        <ComboBox
+          id="selectedTeam"
+          styles={{ marginBottom: "2.5rem" }}
+          onChange={({ selectedItem }) => this.setState({ selectedTeam: selectedItem })}
+          items={teams}
+          initialSelectedItem={selectedTeam}
+          itemToString={item => (item ? item.name : "")}
+          titleText="Team"
+          placeholder="Select a team"
+          shouldFilterItem={({ item, inputValue }) =>
+            item && item.name.toLowerCase().includes(inputValue.toLowerCase())
+          }
+        />
+        <TextInput
+          id="name"
+          labelText="Workflow Name"
+          placeholder="Workflow Name"
+          value={workflowName}
+          onChange={value => this.setState({ workflowName: value })}
+        />
+        <TextInput
+          id="summary"
+          labelText="Summary"
+          placeholder="Summary"
+          value={summary}
+          onChange={value => this.setState({ summary: value })}
+        />
+      </>
+    );
   };
 
   render() {
@@ -179,10 +172,10 @@ class ImportWorkflowContent extends Component {
           {files.length ? (
             isValidWorkflow ? (
               //Form
-              <div className={styles.validMessage}>
-                <CheckmarkFilled32 aria-label="success-import-icon" className={styles.successIcon} />
-                <p className={styles.message}>{validText}</p>
-                {/*  this.renderConfirmForm(processedFile) */}
+              <div className={styles.confirmInfoForm}>
+                {/* <CheckmarkFilled32 aria-label="success-import-icon" className={styles.successIcon} />           
+                  <p className={styles.message}>{validText}</p> */}
+                {this.renderConfirmForm(processedFile)}
               </div>
             ) : (
               <div className={styles.validMessage}>

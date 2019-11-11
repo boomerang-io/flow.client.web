@@ -7,6 +7,7 @@ import { actions as importWorkflowActions } from "State/importWorkflow";
 import { notify, ToastNotification, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import ImportWorkflowContent from "./ImportWorkflowContent";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import styles from "./updateWorkflow.module.scss";
 
 class UpdateWorkflow extends Component {
   static propTypes = {
@@ -44,6 +45,9 @@ class UpdateWorkflow extends Component {
         confirmModalProps={{
           title: "Are you sure?",
           children: "Your request will not be saved"
+        }}
+        composedModalProps={{
+          containerClassName: styles.container
         }}
         modalHeaderProps={{
           title: "Update .json file"

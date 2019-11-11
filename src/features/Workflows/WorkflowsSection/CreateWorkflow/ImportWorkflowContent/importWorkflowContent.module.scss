@@ -3,6 +3,11 @@
 .confirmInfoForm {
   display: flex;
   flex-direction: column;
+  :global .bx--form-item,
+  :global .bx--list-box__wrapper {
+    max-width: 19.55rem;
+    margin-top: 1rem;
+  }
 }
 .validMessage {
   align-items: center;
