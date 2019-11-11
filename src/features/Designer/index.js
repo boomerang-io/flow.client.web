@@ -9,7 +9,6 @@ import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { Formik } from "formik";
 import { Prompt } from "react-router-dom";
 import * as Yup from "yup";
-import get from "lodash.get";
 import Loading from "Components/Loading";
 import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
@@ -266,27 +265,27 @@ export class WorkflowManagerContainer extends Component {
           <div className={styles.container}>
             <Formik
               initialValues={{
-                description: get(workflow, "data.description", ""),
-                enableACCIntegration: get(workflow, "data.enableACCIntegration", false),
-                enablePersistentStorage: get(workflow, "data.enablePersistentStorage", false),
-                icon: get(workflow, "data.icon", ""),
-                name: get(workflow, "data.name", ""),
+                description: workflow?.data?.description ?? "",
+                enableACCIntegration: workflow?.data?.enableACCIntegration ?? false,
+                enablePersistentStorage: workflow?.data?.enablePersistentStorage ?? false,
+                icon: workflow?.data?.icon ?? "",
+                name: workflow?.data?.name ?? "",
                 selectedTeam: teams.data.find(team => team.id === activeTeamId),
-                shortDescription: get(workflow, "data.shortDescription", ""),
+                shortDescription: workflow?.data?.shortDescription ?? "",
                 triggers: {
                   event: {
-                    enable: get(workflow, "data.triggers.event.enable", false),
-                    topic: get(workflow, "data.triggers.event.topic", "")
+                    enable: workflow?.data?.triggers?.event?.enable ?? false,
+                    topic: workflow?.data?.triggers?.event?.topic ?? ""
                   },
                   scheduler: {
-                    enable: get(workflow, "data.triggers.scheduler.enable", false),
-                    schedule: get(workflow, "data.triggers.scheduler.schedule", "0 18 * * *"),
-                    timezone: get(workflow, "data.triggers.scheduler.timezone", false),
-                    advancedCron: get(workflow, "data.triggers.scheduler.advancedCron", false)
+                    enable: workflow?.data?.triggers?.scheduler?.enable ?? false,
+                    schedule: workflow?.data?.triggers?.scheduler?.schedule ?? "0 18 * * *",
+                    timezone: workflow?.data?.triggers?.scheduler?.timezone ?? false,
+                    advancedCron: workflow?.data?.triggers?.scheduler?.advancedCron ?? false
                   },
                   webhook: {
-                    enable: get(workflow, "data.triggers.webhook.enable", false),
-                    token: get(workflow, "data.triggers.webhook.token", false)
+                    enable: workflow?.data?.triggers?.webhook?.enable ?? false,
+                    token: workflow?.data?.triggers?.webhook?.token ?? false
                   }
                 }
               }}

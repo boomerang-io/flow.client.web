@@ -14,7 +14,6 @@ import {
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import get from "lodash.get";
 import clonedeep from "lodash/cloneDeep";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import styles from "./WorkflowPropertiesModalContent.module.scss";
@@ -26,7 +25,7 @@ const FIELD = {
   REQUIRED: "required",
   TYPE: "type",
   DEFAULT_VALUE: "defaultValue",
-  VALID_VALUES: "validValues"
+  OPTIONS: "options"
 };
 
 const INPUT_TYPES_LABELS = [
@@ -71,9 +70,9 @@ class WorkflowPropertiesModalContent extends Component {
   };
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
-  handleValidValuesChange = (values, setFieldValue) => {
+  handleOptionsChange = (values, setFieldValue) => {
     this.props.setShouldConfirmModalClose(true);
-    setFieldValue(FIELD.VALID_VALUES, values);
+    setFieldValue(FIELD.OPTIONS, values);
   };
 
   /* Check if key contains space or special characters, only underline is allowed */
@@ -89,7 +88,7 @@ class WorkflowPropertiesModalContent extends Component {
 
     //remove in case they are present if the user changed their mind
     if (inputProperties.type !== INPUT_TYPES.SELECT) {
-      delete inputProperties.validValues;
+      delete inputProperties.options;
     }
 
     if (inputProperties.type === INPUT_TYPES.BOOLEAN) {
@@ -139,14 +138,14 @@ class WorkflowPropertiesModalContent extends Component {
           />
         );
       case INPUT_TYPES.SELECT:
-        let validValues = clonedeep(values.validValues);
+        let options = clonedeep(values.options);
         return (
           <>
             <Creatable
               data-testid="creatable"
-              id={FIELD.VALID_VALUES}
-              onChange={createdItems => this.handleValidValuesChange(createdItems, setFieldValue)}
-              values={validValues || []}
+              id={FIELD.OPTIONS}
+              onChange={createdItems => this.handleOptionsChange(createdItems, setFieldValue)}
+              values={options || []}
               labelText="Options"
               placeholder="Enter option"
             />
@@ -156,7 +155,7 @@ class WorkflowPropertiesModalContent extends Component {
               onChange={({ selectedItem }) =>
                 this.handleOnFieldValueChange(selectedItem, FIELD.DEFAULT_VALUE, setFieldValue)
               }
-              items={validValues || []}
+              items={options || []}
               initialSelectedItem={values.defaultValue || {}}
               titleText="Default Option"
               placeholder="Select option"
@@ -215,18 +214,18 @@ class WorkflowPropertiesModalContent extends Component {
     return (
       <Formik
         initialValues={{
-          [FIELD.KEY]: get(input, "key", ""),
-          [FIELD.LABEL]: get(input, "label", ""),
-          [FIELD.DESCRIPTION]: get(input, "description", ""),
-          [FIELD.REQUIRED]: get(input, "required", false),
+          [FIELD.KEY]: input?.key ?? "",
+          [FIELD.LABEL]: input?.label ?? "",
+          [FIELD.DESCRIPTION]: input?.description ?? "",
+          [FIELD.REQUIRED]: input?.required ?? false,
           [FIELD.TYPE]: input ? INPUT_TYPES_LABELS.find(type => type.value === input.type) : INPUT_TYPES_LABELS[4],
-          [FIELD.DEFAULT_VALUE]: get(input, "defaultValue", ""),
-          [FIELD.VALID_VALUES]: get(input, "validValues", [])
+          [FIELD.DEFAULT_VALUE]: input?.defaultValue ?? "",
+          [FIELD.OPTIONS]: input?.options ?? []
         }}
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()
             .required("Enter a key")
-            .max(64, "Key must not be greater than 64 characters")
+            .max(64, "Property key already exists")
             .notOneOf(inputsKeys || [], "Property key already exist")
             .test("is-valid-key", "Invalid key, space and special characters aren't allowed", this.validateKey),
           [FIELD.LABEL]: Yup.string()
@@ -235,7 +234,7 @@ class WorkflowPropertiesModalContent extends Component {
           [FIELD.DESCRIPTION]: Yup.string().max(64, "Description must not be greater than 64 characters"),
           [FIELD.REQUIRED]: Yup.boolean(),
           [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
-          [FIELD.VALID_VALUES]: Yup.array(),
+          [FIELD.OPTIONS]: Yup.array(),
           [FIELD.DEFAULT_VALUE]: this.determineDefaultValueSchema(defaultValueType)
         })}
       >
@@ -247,13 +246,13 @@ class WorkflowPropertiesModalContent extends Component {
               <ModalBody className={styles.container}>
                 <TextInput
                   id={FIELD.LABEL}
+                  invalid={errors.label && touched.label}
+                  invalidText={errors.label}
                   labelText="Name"
                   placeholder="Name"
                   value={values.label}
                   onBlur={handleBlur}
                   onChange={e => this.handleOnChange(e, handleChange)}
-                  invalid={errors.label && touched.label}
-                  invalidText={errors.label}
                 />
                 {!isEdit && (
                   <TextInput
@@ -271,6 +270,8 @@ class WorkflowPropertiesModalContent extends Component {
 
                 <TextInput
                   id={FIELD.DESCRIPTION}
+                  invalid={errors.description && touched.description}
+                  invalidText={errors.description}
                   labelText="Description"
                   onBlur={handleBlur}
                   onChange={e => this.handleOnChange(e, handleChange)}

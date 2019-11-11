@@ -25,15 +25,6 @@ function WorkflowPropertyRow({ title, value }) {
   );
 }
 
-function WorkflowPropertyHeader({ label, description }) {
-  return (
-    <div className={styles.headerContainer}>
-      <h1 className={styles.label}>{label}</h1>
-      <p className={styles.description}>{description ? description : "---"}</p>
-    </div>
-  );
-}
-
 function WorkflowProperties(props) {
   function formatDefaultValue(value) {
     if (!value) {
@@ -45,6 +36,15 @@ function WorkflowProperties(props) {
       default:
         return value;
     }
+  }
+
+  function WorkflowPropertyHeader({ label, description }) {
+    return (
+      <div className={styles.headerContainer}>
+        <h1 className={styles.label}>{label}</h1>
+        <p className={styles.description}>{formatDefaultValue(description)}</p>
+      </div>
+    );
   }
 
   async function deleteInput(key) {
@@ -66,7 +66,7 @@ function WorkflowProperties(props) {
             <WorkflowPropertyRow title="Key" value={input.key} />
             <WorkflowPropertyRow title="Type" value={input.type} />
             <WorkflowPropertyRow title="Default value" value={formatDefaultValue(input.defaultValue)} />
-            <WorkflowPropertyRow title="Options" value={formatDefaultValue(input.validValues?.join(", "))} />
+            <WorkflowPropertyRow title="Options" value={formatDefaultValue(input.options?.join(", "))} />
             {input.required ? (
               <p className={styles.required}>Required</p>
             ) : (

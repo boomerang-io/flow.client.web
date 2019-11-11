@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
-import get from "lodash.get";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import ChangeLog from "Features/Designer/components/ChangeLog";
 import DesignerHeader from "Features/Designer/components/DesignerHeader";
@@ -97,7 +96,7 @@ class WorkflowEditor extends Component {
           performAction={this.createWorkflowRevision}
           performActionButtonText={version < revisionCount ? "Set version to latest" : "Create new version"}
           revisionCount={workflow.data.revisionCount}
-          workflowName={get(workflow, "data.name", "")}
+          workflowName={workflow?.data?.name ?? ""}
         />
         <Switch>
           <Route

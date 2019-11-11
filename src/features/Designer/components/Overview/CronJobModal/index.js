@@ -143,10 +143,10 @@ export default class CronJobModal extends Component {
                     <Toggle
                       reversed
                       id="advancedCron"
-                      name="advancedCron"
                       labelText="Advanced controls"
-                      toggled={values.advancedCron}
+                      name="advancedCron"
                       onToggle={value => setFieldValue("advancedCron", value)}
+                      toggled={values.advancedCron}
                     />
                   </div>
                   {values.advancedCron ? (
@@ -155,13 +155,13 @@ export default class CronJobModal extends Component {
                       <div className={styles.cronContainer}>
                         <TextInput
                           id="cronExpression"
-                          labelText="CRON Expression"
-                          value={values.cronExpression}
-                          placeholder="Enter a CRON Expression"
-                          onBlur={handleBlur}
-                          onChange={e => this.handleOnChange(e, handleChange)}
                           invalid={(errors.cronExpression || errorMessage) && touched.cronExpression}
                           invalidText={errorMessage}
+                          labelText="CRON Expression"
+                          onBlur={handleBlur}
+                          onChange={e => this.handleOnChange(e, handleChange)}
+                          placeholder="Enter a CRON Expression"
+                          value={values.cronExpression}
                         />
                         {
                           // check for cronExpression being present for both b/c validation function doesn't always run and state is stale
@@ -171,8 +171,8 @@ export default class CronJobModal extends Component {
                       <div className={styles.timezone}>
                         <ComboBox
                           id="timeZone"
-                          items={this.timezoneOptions}
                           initialSelectedItem={values.timeZone}
+                          items={this.timezoneOptions}
                           onChange={({ selectedItem }) =>
                             this.handleTimeChange(
                               selectedItem !== null ? selectedItem : { label: "", value: "" },
@@ -180,8 +180,8 @@ export default class CronJobModal extends Component {
                               setFieldValue
                             )
                           }
-                          titleText="Timezone"
                           placeholder="Timezone"
+                          titleText="Timezone"
                         />
                       </div>
                     </>
@@ -194,22 +194,22 @@ export default class CronJobModal extends Component {
                         <div className={styles.timeContainer}>
                           <TextInput
                             id="time"
-                            name="time"
-                            labelText=""
-                            onChange={handleChange}
-                            value={values.time}
-                            placeholder="Time"
                             invalid={errors.time && touched.time}
                             invalidText={errors.time}
-                            type="time"
-                            style={{ minWidth: "10rem" }}
+                            labelText=""
+                            name="time"
                             onBlur={handleBlur}
+                            onChange={handleChange}
+                            placeholder="Time"
+                            style={{ minWidth: "10rem" }}
+                            type="time"
+                            value={values.time}
                           />
                           <div className={styles.timezone}>
                             <ComboBox
                               id="timeZone"
-                              items={this.timezoneOptions}
                               initialSelectedItem={values.timeZone}
+                              items={this.timezoneOptions}
                               onChange={({ selectedItem }) =>
                                 this.handleTimeChange(
                                   selectedItem !== null ? selectedItem : { label: "", value: "" },
@@ -217,17 +217,17 @@ export default class CronJobModal extends Component {
                                   setFieldValue
                                 )
                               }
-                              titleText=""
                               placeholder="Timezone"
+                              titleText=""
                             />
                           </div>
                         </div>
                         <div className={styles.daysContainer}>
                           <CheckboxList
                             initialSelectedItems={values.days}
+                            labelText="Choose day(s)"
                             options={DAYS_OF_WEEK}
                             onChange={(...args) => this.handleCheckboxListChange(setFieldValue, ...args)}
-                            labelText="Choose day(s)"
                           />
                         </div>
                       </div>

@@ -84,7 +84,7 @@ class WorkflowInputModalContent extends Component {
   }
 
   renderInput = input => {
-    const { key, type, defaultValue, label, required, validValues } = input;
+    const { key, type, defaultValue, label, required, options } = input;
 
     switch (type) {
       case INPUT_TYPES.BOOLEAN:
@@ -100,11 +100,11 @@ class WorkflowInputModalContent extends Component {
         );
       case INPUT_TYPES.SELECT:
         return (
-          Array.isArray(validValues) && (
+          Array.isArray(options) && (
             <div className={styles.select}>
               <ComboBox
                 id={key}
-                items={validValues.map(value => ({
+                items={options.map(value => ({
                   label: value,
                   value: value
                 }))}
