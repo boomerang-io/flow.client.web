@@ -267,11 +267,13 @@ export class Overview extends Component {
                     <div className={styles.informationWrapper}>
                       <p className={styles.webhookTokenLabel}>Schedule</p>
                       <div className={styles.informationCronMessage}>
-                        {cronstrue.toString(values.triggers.scheduler.schedule)}
+                        {`${cronstrue.toString(values.triggers.scheduler.schedule)} in ${
+                          values.triggers.scheduler.timezone
+                        }`}
                       </div>
-                      <div className={styles.informationTimeZone}>
+                      {/*<div className={styles.informationTimeZone}>
                         {`${values.triggers.scheduler.timezone} Timezone`}
-                      </div>
+                  </div>*/}
                     </div>
                   )}
                 {values.triggers.scheduler.enable && (
