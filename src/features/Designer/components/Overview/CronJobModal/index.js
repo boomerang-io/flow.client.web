@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
+import cx from "classnames";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { CheckboxList, ComboBox, TextInput, ModalFlowForm, Toggle } from "@boomerang/carbon-addons-boomerang-react";
@@ -186,7 +187,7 @@ export default class CronJobModal extends Component {
                     </>
                   ) : (
                     <>
-                      <label htmlFor="time" className={"bx--label"}>
+                      <label htmlFor="time" className={cx("bx--label", styles.cronAdvancedLabel)}>
                         Choose a time
                       </label>
                       <div className={styles.cronAdvancedContainer}>
