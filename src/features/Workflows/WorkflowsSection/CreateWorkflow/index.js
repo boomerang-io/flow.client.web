@@ -7,7 +7,7 @@ import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { ModalFlow, notify, ToastNotification, RadioGroup } from "@boomerang/carbon-addons-boomerang-react";
 import { Add32 } from "@carbon/icons-react";
 import CreateWorkflowContent from "./CreateWorkflowContent";
-import ImportWorkflowAttachment from "./ImportWorkflowContent";
+import ImportWorkflowContent from "./ImportWorkflowContent";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import DiagramApplication, { createWorkflowRevisionBody } from "Utilities/DiagramApplication";
 import styles from "./createWorkflow.module.scss";
@@ -114,7 +114,7 @@ export class CreateWorkflow extends Component {
               isCreating={isCreating}
             />
           ) : (
-            <ImportWorkflowAttachment
+            <ImportWorkflowContent
               formData={{
                 files: []
               }}

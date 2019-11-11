@@ -4,7 +4,7 @@ import { ModalBody, ModalFooter, Button, FileUploaderDropContainer, FileUploader
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 // import DropZone from "./Dropzone";
 
-class ImportWorkflowAttachment extends Component {
+class ImportWorkflowContent extends Component {
   state = {
     dragEnter: false,
     empty: !this.props.formData.files.length,
@@ -158,4 +158,4 @@ class ImportWorkflowAttachment extends Component {
   }
 }
 
-export default ImportWorkflowAttachment;
+export default ImportWorkflowContent;
