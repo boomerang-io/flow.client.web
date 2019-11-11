@@ -1,16 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import {
-  ModalBody,
-  ModalFooter,
-  Button,
-  FileUploaderDropContainer,
-  FileUploaderItem,
-  ComboBox,
-  TextInput
-} from "carbon-components-react";
+import { ModalBody, ModalFooter, Button, FileUploaderDropContainer, FileUploaderItem } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import { CheckmarkFilled32, ErrorFilled32 } from "@carbon/icons-react";
 import Loading from "Components/Loading";
@@ -23,10 +13,7 @@ class ImportWorkflowContent extends Component {
     isBiggerThanLimit: false,
     processedFile: {},
     isImporting: false,
-    isValidWorkflow: false,
-    selectedTeamId: "",
-    workflowName: "",
-    summary: ""
+    isValidWorkflow: false
   };
 
   static propTypes = {
@@ -35,8 +22,7 @@ class ImportWorkflowContent extends Component {
     isLoading: PropTypes.bool,
     handleImportWorkflow: PropTypes.func,
     title: PropTypes.string.isRequired,
-    confirmButtonText: PropTypes.string.isRequired,
-    teams: PropTypes.array.isRequired
+    confirmButtonText: PropTypes.string.isRequired
   };
 
   addFile = file => {
@@ -53,14 +39,7 @@ class ImportWorkflowContent extends Component {
     reader.onload = e => {
       let contents = JSON.parse(e.target.result);
       let isValidWorkflow = this.checkIsValidWorkflow(contents);
-      this.setState({
-        processedFile: contents,
-        isImporting: false,
-        isValidWorkflow,
-        workflowName: contents.name,
-        selectedTeamId: contents.flowTeamId,
-        summary: contents.shortDescription
-      });
+      this.setState({ processedFile: contents, isImporting: false, isValidWorkflow });
     };
     reader.readAsText(fileTest);
   };
@@ -82,52 +61,13 @@ class ImportWorkflowContent extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    // const file = this.state.files.length === 0 ? "" : this.state.files[0];
+    // let reader = new FileReader();
+    // reader.onload = e => {
+    //   let contents = e.target.result;
     this.props.handleImportWorkflow(this.state.processedFile, this.props.closeModal);
-  };
-
-  renderConfirmForm = file => {
-    // return(
-    //   <>
-    //     <div className={styles.teamAndName}>
-    //       <ComboBox
-    //         id="selectedTeam"
-    //         styles={{ marginBottom: "2.5rem" }}
-    //         onChange={({ selectedItem }) => setFieldValue("selectedTeam", selectedItem ? selectedItem : "")}
-    //         items={this.props.teams}
-    //         initialSelectedItem={values.selectedTeam}
-    //         value={values.selectedTeam}
-    //         itemToString={item => (item ? item.name : "")}
-    //         titleText="Team"
-    //         placeholder="Select a team"
-    //         invalid={errors.selectedTeam}
-    //         invalidText={errors.selectedTeam}
-    //         shouldFilterItem={({ item, inputValue }) =>
-    //           item && item.name.toLowerCase().includes(inputValue.toLowerCase())
-    //         }
-    //       />
-    //       <TextInput
-    //         id="name"
-    //         labelText="Name"
-    //         placeholder="Name"
-    //         value={values.name}
-    //         onBlur={handleBlur}
-    //         onChange={handleChange}
-    //         invalid={errors.name && touched.name}
-    //         invalidText={errors.name}
-    //       />
-    //     </div>
-    //     <TextInput
-    //       id="summary"
-    //       labelText="Summary"
-    //       placeholder="Summary"
-    //       value={values.summary}
-    //       onBlur={handleBlur}
-    //       onChange={handleChange}
-    //       invalid={errors.summary && touched.summary}
-    //       invalidText={errors.summary}
-    //     />
-    //   </>
-    // );
+    // };
+    // reader.readAsText(file);
   };
 
   render() {
@@ -135,7 +75,7 @@ class ImportWorkflowContent extends Component {
     const validText = "All set! This Workflow is valid, and will fully replace the existing Workflow.";
     const invalidText = "Whoops! This Workflow is invalid, please choose a different file.";
     const { isLoading, title, confirmButtonText } = this.props;
-    const { isImporting, files, isBiggerThanLimit, isValidWorkflow, processedFile } = this.state;
+    const { isImporting, files, isBiggerThanLimit, isValidWorkflow } = this.state;
 
     if (isLoading) {
       return <Loading />;
@@ -178,11 +118,9 @@ class ImportWorkflowContent extends Component {
           ) : null}
           {files.length ? (
             isValidWorkflow ? (
-              //Form
               <div className={styles.validMessage}>
                 <CheckmarkFilled32 aria-label="success-import-icon" className={styles.successIcon} />
                 <p className={styles.message}>{validText}</p>
-                {/*  this.renderConfirmForm(processedFile) */}
               </div>
             ) : (
               <div className={styles.validMessage}>

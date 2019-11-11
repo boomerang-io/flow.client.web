@@ -4,29 +4,12 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
-import { ModalFlow, notify, ToastNotification, RadioGroup } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalFlow, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import { Add32 } from "@carbon/icons-react";
-import CreateWorkflowContent from "./CreateWorkflowContent";
-import ImportWorkflowContent from "./ImportWorkflowContent";
+import CreateWorkflowContainer from "./CreateWorkflowContainer";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import DiagramApplication, { createWorkflowRevisionBody } from "Utilities/DiagramApplication";
 import styles from "./createWorkflow.module.scss";
-
-const NEW_WORKFLOW = "Start from scratch";
-const IMPORT_WORKFLOW = "Import a Workflow";
-
-const radioWorkflowOptions = [
-  {
-    id: "create-workflow-radio-id",
-    label: NEW_WORKFLOW,
-    value: NEW_WORKFLOW
-  },
-  {
-    id: "import-workflow-radio-id",
-    label: IMPORT_WORKFLOW,
-    value: IMPORT_WORKFLOW
-  }
-];
 
 export class CreateWorkflow extends Component {
   static propTypes = {
@@ -37,15 +20,7 @@ export class CreateWorkflow extends Component {
     onCloseModal: PropTypes.bool.isRequired
   };
 
-  state = {
-    selectedOption: NEW_WORKFLOW
-  };
-
   diagramApp = new DiagramApplication({ dag: null, isLocked: false });
-
-  handleChangeElem = e => {
-    this.setState({ selectedOption: e });
-  };
 
   createWorkflow = workflowData => {
     const { workflowActions, workflowRevisionActions, fetchTeams } = this.props;
@@ -84,7 +59,7 @@ export class CreateWorkflow extends Component {
     const { workflowActions, workflowRevisionActions, fetchTeams } = this.props;
     let workflowId;
     return workflowActions
-      .create(`${BASE_SERVICE_URL}/workflow`, JSON.parse(data))
+      .create(`${BASE_SERVICE_URL}/workflow`, data)
       .then(res => {
         workflowId = res.data.id;
         const dagProps = createWorkflowRevisionBody(this.diagramApp, "Create workflow");
@@ -116,7 +91,6 @@ export class CreateWorkflow extends Component {
 
   render() {
     const { team, teams, isCreating } = this.props;
-
     return (
       <ModalFlow
         modalTrigger={({ openModal }) => (
@@ -133,30 +107,14 @@ export class CreateWorkflow extends Component {
           title: "Create a new Workflow",
           subtitle: "Get started with these basics, then proceed to designing it out."
         }}
-        // onCloseModal={this.props.onCloseModal}
       >
-        <div className={styles.modalBody}>
-          <RadioGroup
-            options={radioWorkflowOptions}
-            onChange={e => this.handleChangeElem(e)}
-            defaultSelected={NEW_WORKFLOW}
-          />
-          {this.state.selectedOption === NEW_WORKFLOW ? (
-            <CreateWorkflowContent
-              createWorkflow={this.createWorkflow}
-              team={team}
-              teams={teams}
-              isCreating={isCreating}
-            />
-          ) : (
-            <ImportWorkflowContent
-              formData={{
-                files: []
-              }}
-              handleImportWorkflowCreation={this.handleImportWorkflowCreation}
-            />
-          )}
-        </div>
+        <CreateWorkflowContainer
+          createWorkflow={this.createWorkflow}
+          team={team}
+          teams={teams}
+          isCreating={isCreating}
+          handleImportWorkflowCreation={this.handleImportWorkflowCreation}
+        />
       </ModalFlow>
     );
   }
