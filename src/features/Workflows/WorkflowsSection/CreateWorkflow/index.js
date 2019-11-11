@@ -79,6 +79,41 @@ export class CreateWorkflow extends Component {
         return Promise.reject();
       });
   };
+
+  handleImportWorkflowCreation = (data, closeModal) => {
+    const { workflowActions, workflowRevisionActions, fetchTeams } = this.props;
+    let workflowId;
+    return workflowActions
+      .create(`${BASE_SERVICE_URL}/workflow`, JSON.parse(data))
+      .then(res => {
+        workflowId = res.data.id;
+        const dagProps = createWorkflowRevisionBody(this.diagramApp, "Create workflow");
+        const workflowRevision = {
+          ...dagProps,
+          workflowId
+        };
+        fetchTeams();
+        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
+      })
+      .then(res => {
+        notify(
+          <ToastNotification
+            kind="success"
+            title="Create Workflow"
+            subtitle="Successfully created workflow and version"
+          />
+        );
+        closeModal();
+        this.props.history.push(`/editor/${workflowId}/designer`);
+      })
+      .catch(err => {
+        notify(
+          <ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow and version" />
+        );
+        return Promise.reject();
+      });
+  };
+
   render() {
     const { team, teams, isCreating } = this.props;
 
@@ -118,6 +153,7 @@ export class CreateWorkflow extends Component {
               formData={{
                 files: []
               }}
+              handleImportWorkflowCreation={this.handleImportWorkflowCreation}
             />
           )}
         </div>

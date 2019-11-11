@@ -59,18 +59,14 @@ class UpdateWorkflow extends Component {
         modalHeaderProps={{
           title: "Update .json file"
         }}
-        // progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
         initialState={initialState}
         onCloseModal={this.props.onCloseModal}
       >
-        {/* <ImportType /> */}
-        <ImportAttachment />
-        {/* <ImportConfirm
-          fetchTeams={this.props.fetchTeams}
+        <ImportAttachment
           handleImportWorkflow={this.handleImportWorkflow}
-          importWorkflowActions={this.props.importWorkflowActions}
-          importWorkflowState={this.props.importWorkflowState}
-        /> */}
+          // importWorkflowActions={this.props.importWorkflowActions}
+          // importWorkflowState={this.props.importWorkflowState}
+        />
       </ModalFlow>
     );
   }

@@ -6,97 +6,39 @@ import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 
 class ImportWorkflowContent extends Component {
   state = {
-    dragEnter: false,
-    empty: !this.props.formData.files.length,
     files: this.props.formData.files.length > 0 ? this.props.formData.files : [],
-    loaded: this.props.formData.files.length,
-    uploading: false
+    isBiggerThanLimit: false
   };
 
   static propTypes = {
     formData: PropTypes.object,
-    closeModal: PropTypes.func
-  };
-
-  // componentDidMount() {
-  //   this.props.setShouldConfirmModalClose(true);
-  // }
-
-  // appendFile = files => {
-  //   this.setState({ files: [...files] });
-  //   const formData = {
-  //     files: [...files]
-  //   };
-  //   this.props.saveValues(formData);
-  // };
-
-  // removeFile = () => {
-  //   this.setState(() => ({
-  //     empty: true,
-  //     uploading: false,
-  //     loaded: false,
-  //     dragEnter: false,
-  //     files: []
-  //   }));
-  // };
-
-  // uploadingFile = () => {
-  //   this.setState(() => ({
-  //     empty: false,
-  //     uploading: true,
-  //     loaded: false,
-  //     dragEnter: false
-  //   }));
-  // };
-
-  // loadedFile = () => {
-  //   this.setState(() => ({
-  //     empty: false,
-  //     uploading: false,
-  //     loaded: true,
-  //     dragEnter: false
-  //   }));
-  // };
-
-  // dragEnter = () => {
-  //   this.setState(() => ({
-  //     empty: false,
-  //     uploading: false,
-  //     loaded: false,
-  //     dragEnter: true
-  //   }));
-  // };
-
-  // dragLeave = () => {
-  //   this.setState(() => ({
-  //     empty: true,
-  //     uploading: false,
-  //     loaded: false,
-  //     dragEnter: false
-  //   }));
-  // };
-
-  onClickBackButton = () => {
-    this.props.requestPreviousStep();
+    closeModal: PropTypes.func,
+    handleImportWorkflowCreation: PropTypes.func
   };
 
   addFile = file => {
+    this.setState({ isBiggerThanLimit: false });
+
+    if (file.addedFiles[0].size > 1000000) {
+      this.setState({ isBiggerThanLimit: true });
+    }
     this.setState({ files: [...file.addedFiles] });
   };
 
   deleteFile = () => {
-    this.setState({ files: [] });
+    this.setState({ files: [], isBiggerThanLimit: false });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    // this.addFile(this.state.files);
 
-    // if (this.state.loaded) {
-    //   setTimeout(this.uploadingFile, 1);
-    //   setTimeout(this.uploadingFile, 1);
-    // } else {
-    // }
+    const file = this.state.files.length === 0 ? "" : this.state.files[0];
+    let reader = new FileReader();
+    reader.onload = e => {
+      let contents = e.target.result;
+      this.props.handleImportWorkflowCreation(contents, this.props.closeModal);
+    };
+    reader.readAsText(file);
   };
 
   render() {
@@ -113,17 +55,6 @@ class ImportWorkflowContent extends Component {
             width: "100%"
           }}
         >
-          {/* <DropZone
-            appendFile={this.appendFile}
-            removeFile={this.removeFile}
-            loadedFile={this.loadedFile}
-            dragEnter={this.dragEnter}
-            dragLeave={this.dragLeave}
-            files={this.state.files}
-            goToStep={this.props.requestNextStep}
-            state={this.state}
-          /> */}
-
           <FileUploaderDropContainer
             accept={[".json"]}
             labelText={buttonMessage}
@@ -137,6 +68,8 @@ class ImportWorkflowContent extends Component {
             <FileUploaderItem
               name={this.state.files[0].name}
               status="edit"
+              invalid={this.state.isBiggerThanLimit}
+              errorSubject="Please select a file less than 1MB"
               onDelete={(event, element) => {
                 this.deleteFile();
               }}
@@ -149,7 +82,11 @@ class ImportWorkflowContent extends Component {
           <Button onClick={this.props.closeModal} kind="secondary">
             Cancel
           </Button>
-          <Button onClick={this.handleSubmit} disabled={this.state.files.length === 0} kind="primary">
+          <Button
+            onClick={this.handleSubmit}
+            disabled={this.state.isBiggerThanLimit || this.state.files.length === 0}
+            kind="primary"
+          >
             Create
           </Button>
         </ModalFooter>
