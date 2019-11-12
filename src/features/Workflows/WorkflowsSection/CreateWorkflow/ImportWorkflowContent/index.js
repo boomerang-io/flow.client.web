@@ -58,7 +58,8 @@ class ImportWorkflowContent extends Component {
         processedFile: contents,
         isValidWorkflow,
         workflowName: contents.name,
-        summary: contents.shortDescription
+        summary: contents.shortDescription,
+        selectedTeam: this.props.teams.find(team => team.id === contents.flowTeamId) ?? {}
       });
     };
     reader.readAsText(fileTest);
@@ -85,7 +86,6 @@ class ImportWorkflowContent extends Component {
         isValid = false;
       }
     });
-
     return isValid;
   };
 
@@ -95,7 +95,16 @@ class ImportWorkflowContent extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.handleImportWorkflow(this.state.processedFile, this.props.closeModal);
+    const { selectedTeam, workflowName, summary, processedFile } = this.state;
+    this.props.handleImportWorkflow(
+      {
+        ...this.state.processedFile,
+        shortDescription: summary,
+        name: workflowName,
+        flowTeamId: selectedTeam?.id ?? processedFile.flowTeamId
+      },
+      this.props.closeModal
+    );
   };
 
   renderConfirmForm = file => {
@@ -135,7 +144,7 @@ class ImportWorkflowContent extends Component {
           labelText="Summary"
           placeholder="Summary"
           value={summary}
-          onChange={value => this.setState({ summary: value })}
+          onChange={e => this.setState({ summary: e.target.value })}
         />
       </>
     );
