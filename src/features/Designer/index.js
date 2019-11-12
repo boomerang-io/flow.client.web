@@ -19,6 +19,7 @@ import CustomNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utilities/templateTaskNode/TemplateTaskNodeModel";
 import NODE_TYPES from "Constants/nodeTypes";
+import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
 import styles from "./WorkflowManager.module.scss";
 
 export class WorkflowManagerContainer extends Component {
@@ -131,18 +132,18 @@ export class WorkflowManagerContainer extends Component {
       .catch(error => {});
   };
 
-  updateWorkflowProperties = (
-    { title = "Update Inputs", message = "Successfully updated inputs", type = "update" },
-    newProperty
-  ) => {
+  updateWorkflowProperties = ({ property, title, message, type }) => {
     const { workflow, workflowActions } = this.props;
 
     let properties = [...this.props.workflow.data.properties];
-    if (type === "edit") {
-      const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === newProperty.key);
-      properties.splice(propertyToUpdateIndex, 1, newProperty);
+    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.EDIT) {
+      const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === property.key);
+      properties.splice(propertyToUpdateIndex, 1, property);
+    } else if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE) {
+      const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === property.key);
+      properties.splice(propertyToUpdateIndex, 1);
     } else {
-      properties.push(newProperty);
+      properties.push(property);
     }
 
     return workflowActions

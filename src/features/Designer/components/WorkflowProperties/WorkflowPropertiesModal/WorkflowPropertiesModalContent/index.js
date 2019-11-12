@@ -13,6 +13,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import INPUT_TYPES from "Constants/workflowInputTypes";
+import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
 import styles from "./WorkflowPropertiesModalContent.module.scss";
 
 const FIELD = {
@@ -77,14 +78,16 @@ class WorkflowPropertiesModalContent extends Component {
     return !regexp.test(key);
   };
 
-  // dispatch Redux action to update store
   handleConfirm = values => {
     let property = clonedeep(values);
     property.type = property.type.value;
 
-    //remove in case they are present if the user changed their mind
+    // Remove in case they are present if the user changed their mind
     if (property.type !== INPUT_TYPES.SELECT) {
       delete property.options;
+    } else {
+      // Create options in correct shape for service
+      property.options = property.options.map(property => ({ key: property, value: property }));
     }
 
     if (property.type === INPUT_TYPES.BOOLEAN) {
@@ -93,28 +96,24 @@ class WorkflowPropertiesModalContent extends Component {
 
     if (this.props.isEdit) {
       this.props
-        .updateWorkflowProperties(
-          {
-            title: "Edit Input",
-            message: "Successfully edited input",
-            type: "edit"
-          },
-          property
-        )
+        .updateWorkflowProperties({
+          property,
+          title: "Edit Input",
+          message: "Successfully edited input",
+          type: WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE
+        })
         .then(() => {
           this.props.forceCloseModal();
         })
         .catch(e => {});
     } else {
       this.props
-        .updateWorkflowProperties(
-          {
-            title: "Create Input",
-            message: "Successfully created input",
-            type: "create"
-          },
-          property
-        )
+        .updateWorkflowProperties({
+          property,
+          title: "Create Input",
+          message: "Successfully created input",
+          type: WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE
+        })
         .then(() => {
           this.props.forceCloseModal();
         })
@@ -131,23 +130,25 @@ class WorkflowPropertiesModalContent extends Component {
           <Toggle
             data-testid="toggle"
             id={FIELD.DEFAULT_VALUE}
-            toggled={values.defaultValue === "true"}
-            labelText="Default Value"
+            label="Default Value"
             onToggle={value => this.handleOnFieldValueChange(value.toString(), FIELD.DEFAULT_VALUE, setFieldValue)}
             orientation="vertical"
+            toggled={values.defaultValue === "true"}
           />
         );
       case INPUT_TYPES.SELECT:
+        // If editing an option, values will be an array of { key, value}
         let options = clonedeep(values.options);
+        options = options.map(option => (option.key ? option.key : option));
         return (
           <>
             <Creatable
               data-testid="creatable"
               id={FIELD.OPTIONS}
               onChange={createdItems => this.handleOptionsChange(createdItems, setFieldValue)}
-              values={options || []}
-              labelText="Options"
+              label="Options"
               placeholder="Enter option"
+              values={options || []}
             />
             <ComboBox
               data-testid="select"
@@ -157,7 +158,7 @@ class WorkflowPropertiesModalContent extends Component {
               }
               items={options || []}
               initialSelectedItem={values.defaultValue || {}}
-              titleText="Default Option"
+              label="Default Option"
               placeholder="Select option"
             />
           </>
@@ -168,11 +169,11 @@ class WorkflowPropertiesModalContent extends Component {
             data-testid="text-area"
             id={FIELD.DEFAULT_VALUE}
             labelText="Default Value"
-            placeholder="Default Value"
-            value={values.defaultValue || ""}
             onBlur={handleBlur}
             onChange={e => this.handleOnChange(e, handleChange)}
+            placeholder="Default Value"
             style={{ resize: "none" }}
+            value={values.defaultValue || ""}
           />
         );
       default:
@@ -182,11 +183,11 @@ class WorkflowPropertiesModalContent extends Component {
             data-testid="text-input"
             id={FIELD.DEFAULT_VALUE}
             labelText="Default Value"
+            onBlur={handleBlur}
+            onChange={e => this.handleOnChange(e, handleChange)}
             placeholder="Default Value"
             type={values.type.value}
             value={values.defaultValue || ""}
-            onBlur={handleBlur}
-            onChange={e => this.handleOnChange(e, handleChange)}
           />
         );
     }

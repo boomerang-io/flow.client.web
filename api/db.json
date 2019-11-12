@@ -6153,7 +6153,8 @@
           "description": "prop",
           "key": "ben",
           "label": "hello",
-          "type": "text",
+          "type": "select",
+          "options": [{ "key": "1", "value": "one" }, { "key": "2", "value": "two" }],
           "required": true,
           "readOnly": false
         }

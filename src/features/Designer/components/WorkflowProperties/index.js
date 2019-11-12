@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowPropertiesModal from "./WorkflowPropertiesModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
-import INPUT_TYPES from "Constants/workflowInputTypes";
+import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
 import styles from "./WorkflowProperties.module.scss";
 
 WorkflowProperties.propTypes = {
@@ -26,12 +26,8 @@ function WorkflowProperties(props) {
   function formatDefaultValue(value) {
     if (!value) {
       return "---";
-    }
-    switch (value) {
-      case INPUT_TYPES.BOOLEAN:
-        return value.toString();
-      default:
-        return value;
+    } else {
+      return value;
     }
   }
 
@@ -44,9 +40,14 @@ function WorkflowProperties(props) {
     );
   }
 
-  function deleteProperty(key) {
+  function deleteProperty(property) {
     props
-      .updateWorkflowProperties({ title: "Delete Input", message: "Successfully deleted input", type: "delete" })
+      .updateWorkflowProperties({
+        property,
+        title: "Delete Input",
+        message: "Successfully deleted input",
+        type: WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE
+      })
       .catch(error => {
         //no-op
       });
@@ -63,7 +64,10 @@ function WorkflowProperties(props) {
             <WorkflowPropertyRow title="Key" value={property.key} />
             <WorkflowPropertyRow title="Type" value={property.type} />
             <WorkflowPropertyRow title="Default value" value={formatDefaultValue(property.defaultValue)} />
-            <WorkflowPropertyRow title="Options" value={formatDefaultValue(property.options?.join(", "))} />
+            <WorkflowPropertyRow
+              title="Options"
+              value={formatDefaultValue(property.options?.map(option => option.key).join(", "))}
+            />
             {property.required ? (
               <p className={styles.required}>Required</p>
             ) : (
@@ -80,7 +84,7 @@ function WorkflowProperties(props) {
                 />
                 <ConfirmModal
                   affirmativeAction={() => {
-                    deleteProperty(property.key);
+                    deleteProperty(property);
                   }}
                   children="It will be gone. Forever."
                   title="Delete This Property?"
