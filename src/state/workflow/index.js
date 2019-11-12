@@ -135,10 +135,6 @@ const updateFailure = error => ({ type: types.UPDATE_WORKFLOW_FAILURE, error });
 const createRequest = () => ({ type: types.CREATE_WORKFLOW_REQUEST });
 const createSuccess = data => ({ type: types.CREATE_WORKFLOW_SUCCESS, data });
 const createFailure = error => ({ type: types.CREATE_WORKFLOW_FAILURE, error });
-const updateProperty = data => ({ type: types.UPDATE_WORKFLOW_PROPERTY, data });
-const createWorkflowInput = data => ({ type: types.CREATE_WORKFLOW_INPUT, data });
-const updateWorkflowInput = data => ({ type: types.UPDATE_WORKFLOW_INPUT, data });
-const deleteWorkflowInput = data => ({ type: types.DELETE_WORKFLOW_INPUT, data });
 
 const fetchActionCreators = {
   reset: reset,
@@ -194,9 +190,5 @@ export const actions = {
   createRequest,
   createFailure,
   createSuccess,
-  cancelCreate,
-  updateProperty,
-  createWorkflowInput,
-  updateWorkflowInput,
-  deleteWorkflowInput
+  cancelCreate
 };

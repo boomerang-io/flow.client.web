@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import axios from "axios";
-import isEqual from "lodash/isEqual";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
@@ -52,9 +51,9 @@ export class Overview extends Component {
 
   handleBeforeUnloadEvent = event => {
     const {
-      formikProps: { initialValues, values }
+      formikProps: { dirty }
     } = this.props;
-    if (!isEqual(initialValues, values)) {
+    if (dirty) {
       event.preventDefault();
       event.returnValue = "You have unsaved changes.";
     }
@@ -94,7 +93,6 @@ export class Overview extends Component {
   };
 
   handleTeamChange = ({ selectedItem }) => {
-    this.props.appActions.setActiveTeam({ teamId: selectedItem?.id });
     this.props.formikProps.setFieldValue("selectedTeam", selectedItem ?? {});
   };
 

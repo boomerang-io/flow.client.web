@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actions as workflowActions } from "State/workflow";
 import {
   ComboBox,
   Creatable,
@@ -12,7 +9,7 @@ import {
   ModalFlowForm
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import INPUT_TYPES from "Constants/workflowInputTypes";
@@ -44,8 +41,7 @@ class WorkflowPropertiesModalContent extends Component {
     inputsKeys: PropTypes.array,
     isEdit: PropTypes.bool,
     loading: PropTypes.bool.isRequired,
-    updateWorkflowProperties: PropTypes.func.isRequired,
-    workflowActions: PropTypes.object.isRequired
+    updateWorkflowProperties: PropTypes.func.isRequired
   };
 
   state = {
@@ -82,8 +78,8 @@ class WorkflowPropertiesModalContent extends Component {
   };
 
   // dispatch Redux action to update store
-  handleConfirm = formikProps => {
-    let inputProperties = clonedeep(formikProps.values);
+  handleConfirm = values => {
+    let inputProperties = clonedeep(values);
     inputProperties.type = inputProperties.type.value;
 
     //remove in case they are present if the user changed their mind
@@ -96,29 +92,27 @@ class WorkflowPropertiesModalContent extends Component {
     }
 
     if (this.props.isEdit) {
-      new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties)))
-        .then(() =>
-          this.props.updateWorkflowProperties({
-            title: "Edit Input",
-            message: "Successfully edited input",
-            type: "edit"
-          })
-        )
+      this.props
+        .updateWorkflowProperties({
+          title: "Edit Input",
+          message: "Successfully edited input",
+          type: "edit"
+        })
         .then(() => {
           this.props.forceCloseModal();
-        });
+        })
+        .catch(e => {});
     } else {
-      new Promise(resolve => resolve(this.props.workflowActions.createWorkflowInput(inputProperties)))
-        .then(() =>
-          this.props.updateWorkflowProperties({
-            title: "Create Input",
-            message: "Successfully created input",
-            type: "create"
-          })
-        )
+      this.props
+        .updateWorkflowProperties({
+          title: "Create Input",
+          message: "Successfully created input",
+          type: "create"
+        })
         .then(() => {
           this.props.forceCloseModal();
-        });
+        })
+        .catch(e => {});
     }
   };
 
@@ -213,6 +207,7 @@ class WorkflowPropertiesModalContent extends Component {
 
     return (
       <Formik
+        onSubmit={this.handleConfirm}
         initialValues={{
           [FIELD.KEY]: input?.key ?? "",
           [FIELD.LABEL]: input?.label ?? "",
@@ -242,7 +237,7 @@ class WorkflowPropertiesModalContent extends Component {
           const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
 
           return (
-            <ModalFlowForm disabled={loading}>
+            <ModalFlowForm element={Form} disabled={loading}>
               <ModalBody className={styles.container}>
                 <TextInput
                   id={FIELD.LABEL}
@@ -308,12 +303,7 @@ class WorkflowPropertiesModalContent extends Component {
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button
-                  data-testid="inputs-modal-confirm-button"
-                  disabled={!isValid || loading}
-                  onClick={() => this.handleConfirm(formikProps)}
-                  type="submit"
-                >
+                <Button data-testid="inputs-modal-confirm-button" disabled={!isValid || loading} type="submit">
                   {isEdit ? "Save" : "Create"}
                 </Button>
               </ModalFooter>
@@ -325,11 +315,4 @@ class WorkflowPropertiesModalContent extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  workflowActions: bindActionCreators(workflowActions, dispatch)
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(WorkflowPropertiesModalContent);
+export default WorkflowPropertiesModalContent;

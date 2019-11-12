@@ -52,7 +52,10 @@ function WorkflowProperties(props) {
       .deleteWorkflowInput({ key })
       .then(() =>
         props.updateWorkflowProperties({ title: "Delete Input", message: "Successfully deleted input", type: "delete" })
-      );
+      )
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   const { inputs } = props;
