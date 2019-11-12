@@ -47,7 +47,8 @@ class CreateEditModeModalContent extends Component {
           selectedTeam: Yup.string().required("Team is required"),
           name: Yup.string()
             .required("Name is required")
-            .max(64, "Name must not be greater than 64 characters"),
+            .max(64, "Name must not be greater than 64 characters")
+            .notOneOf(this.props.names, "This name already exists"),
           summary: Yup.string().max(128, "Summary must not be greater than 128 characters"),
           description: Yup.string().max(250, "Description must not be greater than 250 characters")
         })}

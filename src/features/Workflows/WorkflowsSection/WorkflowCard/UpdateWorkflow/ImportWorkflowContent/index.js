@@ -61,13 +61,7 @@ class ImportWorkflowContent extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    // const file = this.state.files.length === 0 ? "" : this.state.files[0];
-    // let reader = new FileReader();
-    // reader.onload = e => {
-    //   let contents = e.target.result;
     this.props.handleImportWorkflow(this.state.processedFile, this.props.closeModal);
-    // };
-    // reader.readAsText(file);
   };
 
   render() {

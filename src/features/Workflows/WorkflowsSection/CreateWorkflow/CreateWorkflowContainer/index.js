@@ -37,6 +37,9 @@ export class CreateWorkflowContainer extends Component {
   handleChangeElem = e => {
     this.setState({ selectedOption: e });
   };
+  checkNames = team => {
+    return team.workflows.map(workflow => workflow.name);
+  };
 
   render() {
     const { team, teams, isCreating, closeModal, createWorkflow, handleImportWorkflowCreation } = this.props;
@@ -52,6 +55,7 @@ export class CreateWorkflowContainer extends Component {
             createWorkflow={createWorkflow}
             team={team}
             teams={teams}
+            names={this.checkNames(team)}
             isCreating={isCreating}
             closeModal={closeModal}
           />
@@ -65,7 +69,9 @@ export class CreateWorkflowContainer extends Component {
             closeModal={closeModal}
             title="Add a Workflow - Select the Workflow file you want to upload"
             confirmButtonText="Create"
+            team={team}
             teams={teams}
+            names={this.checkNames(team)}
           />
         )}
       </div>

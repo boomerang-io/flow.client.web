@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Formik } from "formik";
-import * as Yup from "yup";
+// import { Formik } from "formik";
+// import * as Yup from "yup";
 import {
   ModalBody,
   ModalFooter,
@@ -12,7 +12,7 @@ import {
   TextInput
 } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
-import { CheckmarkFilled32, ErrorFilled32 } from "@carbon/icons-react";
+import { ErrorFilled32 } from "@carbon/icons-react";
 import Loading from "Components/Loading";
 import { requiredWorkflowProps } from "./constants";
 import styles from "./importWorkflowContent.module.scss";
@@ -22,12 +22,11 @@ class ImportWorkflowContent extends Component {
     files: this.props.formData.files.length > 0 ? this.props.formData.files : [],
     isBiggerThanLimit: false,
     processedFile: {},
-    isImporting: false,
     isValidWorkflow: false,
-    selectedTeamId: "",
-    selectedTeam: {},
+    selectedTeam: this.props.team || {},
     workflowName: "",
-    summary: ""
+    summary: "",
+    names: this.props.names || []
   };
 
   static propTypes = {
@@ -37,11 +36,12 @@ class ImportWorkflowContent extends Component {
     handleImportWorkflow: PropTypes.func,
     title: PropTypes.string.isRequired,
     confirmButtonText: PropTypes.string.isRequired,
-    teams: PropTypes.array.isRequired
+    teams: PropTypes.array.isRequired,
+    names: PropTypes.array.isRequired
   };
 
   addFile = file => {
-    this.setState({ isBiggerThanLimit: false, isImporting: true });
+    this.setState({ isBiggerThanLimit: false });
 
     if (file.addedFiles[0].size > 1000000) {
       this.setState({ isBiggerThanLimit: true });
@@ -56,15 +56,26 @@ class ImportWorkflowContent extends Component {
       let isValidWorkflow = this.checkIsValidWorkflow(contents);
       this.setState({
         processedFile: contents,
-        isImporting: false,
         isValidWorkflow,
         workflowName: contents.name,
-        selectedTeamId: contents.flowTeamId,
         summary: contents.shortDescription
       });
     };
     reader.readAsText(fileTest);
   };
+
+  checkForInvalidName = () => {
+    return this.state.names.includes(this.state.workflowName);
+  };
+
+  handleChangeTeam = selectedItem => {
+    let names = [];
+    if (selectedItem?.workflows && selectedItem.workflows.length) {
+      names = selectedItem.workflows.map(item => item.name);
+    }
+    this.setState({ selectedTeam: selectedItem, names: names });
+  };
+
   checkIsValidWorkflow = data => {
     // Only check if the .json file contain the required key data
     // This validate can be improved
@@ -74,6 +85,7 @@ class ImportWorkflowContent extends Component {
         isValid = false;
       }
     });
+
     return isValid;
   };
 
@@ -88,29 +100,35 @@ class ImportWorkflowContent extends Component {
 
   renderConfirmForm = file => {
     const { teams } = this.props;
-    const { workflowName, summary, selectedTeamId } = this.state;
-    const selectedTeam = teams.find(team => team.id === selectedTeamId);
+    const { workflowName, summary } = this.state;
+
     return (
       <>
         <ComboBox
           id="selectedTeam"
           styles={{ marginBottom: "2.5rem" }}
-          onChange={({ selectedItem }) => this.setState({ selectedTeam: selectedItem })}
+          onChange={({ selectedItem }) => this.handleChangeTeam(selectedItem)}
           items={teams}
-          initialSelectedItem={selectedTeam}
+          initialSelectedItem={this.state.selectedTeam}
           itemToString={item => (item ? item.name : "")}
           titleText="Team"
           placeholder="Select a team"
-          shouldFilterItem={({ item, inputValue }) =>
-            item && item.name.toLowerCase().includes(inputValue.toLowerCase())
-          }
+          // shouldFilterItem={({ item, inputValue }) =>
+          //   item && item.name.toLowerCase().includes(inputValue.toLowerCase())
+          // }
         />
         <TextInput
           id="name"
           labelText="Workflow Name"
           placeholder="Workflow Name"
           value={workflowName}
-          onChange={value => this.setState({ workflowName: value })}
+          onChange={event => this.setState({ workflowName: event.target.value })}
+          invalid={!workflowName || this.checkForInvalidName()}
+          invalidText={
+            !workflowName
+              ? "Please select a name for your team"
+              : "There’s already a Workflow with that name in this team, consider giving this one a different name."
+          }
         />
         <TextInput
           id="summary"
@@ -125,10 +143,10 @@ class ImportWorkflowContent extends Component {
 
   render() {
     const buttonMessage = "Choose a file or drag one here";
-    const validText = "All set! This Workflow is valid, and will fully replace the existing Workflow.";
+    // const validText = "All set! This Workflow is valid, and will fully replace the existing Workflow.";
     const invalidText = "Whoops! This Workflow is invalid, please choose a different file.";
     const { isLoading, title, confirmButtonText } = this.props;
-    const { isImporting, files, isBiggerThanLimit, isValidWorkflow, processedFile } = this.state;
+    const { files, isBiggerThanLimit, isValidWorkflow, processedFile } = this.state;
 
     if (isLoading) {
       return <Loading />;
@@ -164,11 +182,6 @@ class ImportWorkflowContent extends Component {
           ) : (
             ""
           )}
-          {isImporting ? (
-            <div>
-              <p className={styles.message}>Validating Workflow...</p>
-            </div>
-          ) : null}
           {files.length ? (
             isValidWorkflow ? (
               //Form
@@ -191,7 +204,14 @@ class ImportWorkflowContent extends Component {
           </Button>
           <Button
             onClick={this.handleSubmit}
-            disabled={this.state.isBiggerThanLimit || this.state.files.length === 0 || isImporting || !isValidWorkflow}
+            disabled={
+              this.state.isBiggerThanLimit ||
+              !this.state.workflowName ||
+              !this.state.selectedTeam ||
+              this.state.files.length === 0 ||
+              !isValidWorkflow ||
+              this.checkForInvalidName()
+            }
             kind="primary"
           >
             {confirmButtonText}
