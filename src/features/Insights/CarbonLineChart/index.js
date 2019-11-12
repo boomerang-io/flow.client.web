@@ -10,7 +10,7 @@ const lineTimeSeriesOptions = {
       title: "Executions"
     },
     bottom: {
-      type: "time",
+      scaleType: "time",
       primary: true
     }
   },
@@ -18,6 +18,7 @@ const lineTimeSeriesOptions = {
   height: 350,
   width: 620
 };
+
 
 const CarbonLineChart = ({ data }) => {
   return (
