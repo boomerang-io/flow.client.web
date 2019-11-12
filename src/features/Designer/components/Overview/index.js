@@ -2,14 +2,11 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import axios from "axios";
-import get from "lodash.get";
-import isEqual from "lodash/isEqual";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actions as workflowActions } from "State/workflow";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { Button, Tooltip as CarbonTooltip, TooltipDefinition } from "carbon-components-react";
+import { TooltipDefinition } from "carbon-components-react";
 import {
   ComboBox,
   ConfirmModal,
@@ -24,7 +21,7 @@ import CronJobModal from "./CronJobModal";
 import workflowIcons from "Assets/workflowIcons";
 import cronstrue from "cronstrue";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import { Add16, CopyFile16, Save24, SettingsAdjust20, ViewFilled16 } from "@carbon/icons-react";
+import { CopyFile16, EventSchedule16, Save24, ViewFilled16 } from "@carbon/icons-react";
 import styles from "./overview.module.scss";
 
 export class Overview extends Component {
@@ -38,11 +35,9 @@ export class Overview extends Component {
     };
   }
   static propTypes = {
-    activeTeamId: PropTypes.string,
     formikProps: PropTypes.object.isRequired,
     teams: PropTypes.array.isRequired,
-    workflow: PropTypes.object.isRequired,
-    workflowActions: PropTypes.object.isRequired
+    workflow: PropTypes.object.isRequired
   };
 
   componentDidMount() {
@@ -50,15 +45,15 @@ export class Overview extends Component {
   }
 
   componentWillUnmount() {
-    this.props.updateWorkflow();
+    this.props.updateWorkflow(this.props.formikProps.values); // will have to pass formik values in here
     window.removeEventListener("beforeunload", this.handleBeforeUnloadEvent);
   }
 
   handleBeforeUnloadEvent = event => {
     const {
-      formikProps: { initialValues, values }
+      formikProps: { dirty }
     } = this.props;
-    if (!isEqual(initialValues, values)) {
+    if (dirty) {
       event.preventDefault();
       event.returnValue = "You have unsaved changes.";
     }
@@ -68,15 +63,10 @@ export class Overview extends Component {
     if (e) {
       e.preventDefault();
     }
-    const { workflowActions } = this.props;
     return axios
       .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/webhook-token`)
       .then(response => {
-        workflowActions.updateTriggersWebhook({
-          key: "token",
-          value: response.data.token
-        });
-        this.props.formikProps.handleChange({ target: { value: response.data.token, id: "token" } });
+        this.props.formikProps.setFieldValue("triggers.webhook.token", response.data.token);
         notify(
           <ToastNotification kind="success" title="Generate Token" subtitle="Successfully generated webhook token" />
         );
@@ -87,18 +77,11 @@ export class Overview extends Component {
   };
 
   handleOnChange = e => {
-    const { value, id } = e.target;
-    this.props.workflowActions.updateProperty({ value, key: id });
     this.props.formikProps.handleChange(e);
   };
 
-  handleOnIconChange = (value, id) => {
-    this.props.workflowActions.updateProperty({ value, key: id });
-  };
-
-  handleOnWebhookChange = value => {
-    this.props.workflowActions.updateTriggersWebhook({ value, key: "enable" });
-    this.props.formikProps.setFieldValue("webhook", value);
+  handleOnToggleChange = (value, id) => {
+    this.props.formikProps.setFieldValue(id, value);
   };
 
   handleShowToken = () => {
@@ -109,49 +92,12 @@ export class Overview extends Component {
     }
   };
 
-  handleOnSchedulerChange = value => {
-    this.props.workflowActions.updateTriggersScheduler({ value, key: "enable" });
-    this.props.formikProps.setFieldValue("schedule", value);
-  };
-
-  handleOnCronChange = (value, id) => {
-    this.props.workflowActions.updateTriggersScheduler({ value, key: id });
-  };
-
-  handleOnEventChange = value => {
-    this.props.workflowActions.updateTriggersEvent({ value, key: "enable" });
-    this.props.formikProps.setFieldValue("event", value);
-  };
-
-  handleOnIamChange = value => {
-    //this.props.workflowActions.updateTriggersEvent({ value, key: "enableACCIntegration" });
-    this.props.workflowActions.updateProperty({ value, key: "enableACCIntegration" });
-    this.props.formikProps.setFieldValue("enableACCIntegration", value);
-  };
-
-  handleOnTopicChange = e => {
-    const { value, id } = e.target;
-    this.props.workflowActions.updateTriggersEvent({ value, key: id });
-    this.props.formikProps.handleChange(e);
-  };
-
-  handleOnPersistenceChange = (value, id) => {
-    this.props.workflowActions.updateProperty({ value, key: "enablePersistentStorage" });
-    this.props.formikProps.setFieldValue(id, value);
-  };
-
   handleTeamChange = ({ selectedItem }) => {
-    this.props.appActions.setActiveTeam({ teamId: selectedItem?.id });
-    this.props.workflowActions.updateProperty({
-      key: "flowTeamId",
-      value: selectedItem?.id
-    });
     this.props.formikProps.setFieldValue("selectedTeam", selectedItem ?? {});
   };
 
   render() {
     const {
-      workflow,
       teams,
       formikProps: { values, touched, errors, handleBlur }
     } = this.props;
@@ -173,7 +119,6 @@ export class Overview extends Component {
             titleText={
               <div style={{ display: "flex" }}>
                 <p style={{ marginRight: "0.5rem" }}>Team</p>
-                <CarbonTooltip direction="right">The Flow team for this workflow</CarbonTooltip>
               </div>
             }
             placeholder="Select a team"
@@ -219,14 +164,15 @@ export class Overview extends Component {
             {workflowIcons.map((image, index) => (
               <label
                 className={cx(styles.iconLabel, {
-                  [styles.active]: workflow?.data?.icon === image.name
+                  [styles.active]: values.icon === image.name
                 })}
                 key={`icon-number-${index}`}
               >
                 <input
+                  id="icon"
                   readOnly
-                  checked={workflow?.data?.icon === image.name}
-                  onClick={() => this.handleOnIconChange(image.name, "icon")}
+                  checked={values.icon === image.name}
+                  onClick={this.handleOnChange}
                   value={image.name}
                   type="radio"
                 />
@@ -242,44 +188,38 @@ export class Overview extends Component {
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
                 <Toggle
-                  id="webhook"
+                  id="triggers.webhook.enable"
                   labelText="Webhook"
-                  toggled={values.webhook}
-                  onToggle={checked => this.handleOnWebhookChange(checked)}
+                  toggled={values.triggers.webhook.enable}
+                  onToggle={checked => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
                   tooltipContent="Enable workflow to be executed by a webhook"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {workflow?.data?.id &&
-                workflow?.data?.triggers?.webhook?.enable &&
-                !workflow?.data?.triggers?.webhook?.token && (
-                  <Button
-                    onClick={this.generateToken}
-                    renderIcon={Add16}
-                    style={{ marginBottom: "1rem", marginLeft: "4.6rem" }}
-                    size="field"
-                    type="button"
-                  >
-                    Generate Token
-                  </Button>
-                )}
+              {values.triggers.webhook.enable && !values.triggers.webhook.token && (
+                <div className={styles.webhookContainer}>
+                  <button className={styles.regenerateText} type="button" onClick={this.generateToken}>
+                    <p>Generate a token</p>
+                  </button>
+                </div>
+              )}
 
-              {workflow?.data?.triggers?.webhook?.enable && workflow?.data?.triggers?.webhook?.token && (
+              {values.triggers.webhook.enable && values.triggers.webhook.token && (
                 <div className={styles.webhookContainer}>
                   <p className={styles.webhookTokenLabel}>API Token</p>
                   <div className={styles.webhookWrapper}>
                     <p className={styles.webhookToken}>
                       {this.state.tokenTextType === "password"
-                        ? values.token.toString().replace(/./g, "*")
-                        : values.token}{" "}
+                        ? values.triggers.webhook.token.toString().replace(/./g, "*")
+                        : values.triggers.webhook.token}{" "}
                     </p>
                     <TooltipDefinition direction="top" tooltipText={this.state.showTokenText}>
                       <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
                         <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
                       </button>
                     </TooltipDefinition>
-                    <CopyToClipboard text={get(workflow, "data.triggers.webhook.token", "")}>
+                    <CopyToClipboard text={values.triggers.webhook.token}>
                       <TooltipDefinition direction="top" tooltipText={this.state.copyTokenText}>
                         <button
                           onClick={() => this.setState({ copyTokenText: "Copied Token" })}
@@ -310,60 +250,51 @@ export class Overview extends Component {
               <div className={styles.toggleContainer}>
                 <Toggle
                   reversed
-                  id="schedule"
+                  id="triggers.scheduler.enable"
                   labelText="Scheduler"
-                  onToggle={checked => this.handleOnSchedulerChange(checked)}
-                  toggled={values.schedule}
+                  onToggle={checked => this.handleOnToggleChange(checked, "triggers.scheduler.enable")}
+                  toggled={values.triggers.scheduler.enable}
                   tooltipContent="Enable workflow to be executed by a schedule"
                   tooltipProps={{ direction: "top" }}
                 />
               </div>
               <div className={styles.schedulerContainer}>
-                {get(workflow, "data.triggers.scheduler.schedule", false) &&
-                  get(workflow, "data.triggers.scheduler.enable", false) &&
-                  get(workflow, "data.triggers.scheduler.timezone", false) && (
+                {values.triggers.scheduler.schedule &&
+                  values.triggers.scheduler.enable &&
+                  values.triggers.scheduler.timezone && (
                     <div className={styles.informationWrapper}>
+                      <p className={styles.webhookTokenLabel}>Schedule</p>
                       <div className={styles.informationCronMessage}>
-                        {cronstrue.toString(get(workflow, "data.triggers.scheduler.schedule", ""))}
+                        {`${cronstrue.toString(values.triggers.scheduler.schedule)} in ${
+                          values.triggers.scheduler.timezone
+                        }`}
                       </div>
-                      <div className={styles.informationTimeZone}>
-                        {`${get(workflow, "data.triggers.scheduler.timezone", "")} Timezone`}
-                      </div>
+                      {/*<div className={styles.informationTimeZone}>
+                        {`${values.triggers.scheduler.timezone} Timezone`}
+                  </div>*/}
                     </div>
                   )}
-                {get(workflow, "data.triggers.scheduler.enable", false) && (
+                {values.triggers.scheduler.enable && (
                   <ModalFlow
                     confirmModalProps={{
                       title: "Are you sure?",
                       children: "Your changes will not be saved"
                     }}
                     modalHeaderProps={{
-                      title: "Set Schedule",
-                      subtitle: "Configure a CRON schedule for your workflow"
+                      title: "Change schedule"
                     }}
-                    modalTrigger={({ openModal }) =>
-                      get(workflow, "data.triggers.scheduler.schedule", false) ? (
-                        <button className={styles.regenerateText} type="button" onClick={openModal}>
-                          <p>Change Schedule</p>
-                        </button>
-                      ) : (
-                        <Button
-                          style={{ marginBottom: "1rem" }}
-                          iconDescription="Add"
-                          renderIcon={SettingsAdjust20}
-                          size="field"
-                          type="button"
-                          onClick={openModal}
-                        >
-                          Set Schedule
-                        </Button>
-                      )
-                    }
+                    modalTrigger={({ openModal }) => (
+                      <button className={styles.regenerateText} type="button" onClick={openModal}>
+                        <p>Change schedule</p>
+                        <EventSchedule16 className={styles.scheduleIcon} fill={"#0072C3"} />
+                      </button>
+                    )}
                   >
                     <CronJobModal
-                      cronExpression={get(workflow, "data.triggers.scheduler.schedule", "")}
-                      handleOnChange={this.handleOnCronChange}
-                      timeZone={get(workflow, "data.triggers.scheduler.timezone", "")}
+                      advancedCron={values.triggers.scheduler.advancedCron}
+                      cronExpression={values.triggers.scheduler.schedule}
+                      handleOnChange={this.handleOnToggleChange}
+                      timeZone={values.triggers.scheduler.timezone}
                     />
                   </ModalFlow>
                 )}
@@ -372,31 +303,31 @@ export class Overview extends Component {
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
                 <Toggle
-                  id="event"
-                  labelText="Enable Action Subscription"
-                  toggled={values.event}
-                  onToggle={checked => this.handleOnEventChange(checked)}
+                  id="triggers.event.enable"
+                  labelText="Action Subscription"
+                  toggled={values.triggers.event.enable}
+                  onToggle={checked => this.handleOnToggleChange(checked, "triggers.event.enable")}
                   tooltipContent="Enable workflow to be triggered by platform actions"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {get(workflow, "data.triggers.event.enable", false) && (
+              {values.triggers.event.enable && (
                 <div className={styles.subscriptionContainer}>
                   <TextInput
-                    id="topic"
+                    id="triggers.event.topic"
                     labelText="Topic"
                     placeholder="Name"
-                    value={values.topic}
+                    value={values.triggers.event.topic}
                     onBlur={handleBlur}
-                    onChange={this.handleOnTopicChange}
+                    onChange={this.handleOnChange}
                   />
                   <div className={styles.toggleContainer}>
                     <Toggle
                       id="enableACCIntegration"
-                      labelText="Enable IBM Services ACC Integration"
+                      labelText="IBM Services ACC Integration"
                       toggled={values.enableACCIntegration}
-                      onToggle={checked => this.handleOnIamChange(checked)}
+                      onToggle={checked => this.handleOnToggleChange(checked, "enableACCIntegration")}
                       tooltipContent="Enable workflow to be triggered by ACC subscription"
                       tooltipProps={{ direction: "top" }}
                       reversed
@@ -412,10 +343,10 @@ export class Overview extends Component {
             <h2 className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</h2>
             <div className={styles.toggleContainer}>
               <Toggle
-                id="persistence"
+                id="enablePersistentStorage"
                 labelText="Enable Persistent Storage"
-                toggled={values.persistence}
-                onToggle={checked => this.handleOnPersistenceChange(checked, "persistence")}
+                toggled={values.enablePersistentStorage}
+                onToggle={checked => this.handleOnToggleChange(checked, "enablePersistentStorage")}
                 tooltipContent="Persist workflow data between executions"
                 tooltipProps={{ direction: "top" }}
                 reversed
@@ -439,8 +370,7 @@ export class Overview extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  appActions: bindActionCreators(appActions, dispatch),
-  workflowActions: bindActionCreators(workflowActions, dispatch)
+  appActions: bindActionCreators(appActions, dispatch)
 });
 
 export default connect(

@@ -212,7 +212,7 @@
 }
 
 .informationCronMessage,
-.informationTimeZone,
+//.informationTimeZone,
 .webhookToken {
   color: #272727;
   font-size: 0.75rem;
@@ -245,6 +245,7 @@
 .regenerateText {
   cursor: pointer;
   color: $interactive-01;
+  display: flex;
   font-size: 0.75rem;
   line-height: 0.9375rem;
   padding: 0.125rem;
@@ -309,6 +310,10 @@
   font-size: 0.875rem;
   line-height: 1.125rem;
   margin-left: 1rem;
+}
+
+.scheduleIcon {
+  margin-left: 0.5rem;
 }
 
 // .delimiter {

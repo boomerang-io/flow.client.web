@@ -1,10 +1,10 @@
-import { sortBy } from "lodash";
+import { sortBy, orderBy } from "lodash";
 import moment from "moment";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
 import { chartInfo, chartColors } from "./constants";
 
-export const parseChartsData = (data, teams) => {
+export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflow) => {
   let dateName = [];
   let failure = [];
   let success = [];
@@ -20,8 +20,9 @@ export const parseChartsData = (data, teams) => {
   let inprogressData = [];
   let invalidData = [];
   let totalData = [];
+  let teamWorkflows = [];
 
-  data.map(item => {
+  data.forEach(item => {
     scatterData.push({
       value: parseInt(item.duration / 1000, 10),
       date: new Date(item.creationDate)
@@ -39,11 +40,10 @@ export const parseChartsData = (data, teams) => {
     if (item.status === ACTIVITY_STATUSES.INVALID || item.status === null) {
       invalid.push(item);
     }
-    if (dateName.find(date => moment(date).format("DD-MM-YY") === moment(item.creationDate).format("DD-MM-YY"))) {
-      return null;
-    } else {
-      return dateName.push(item.creationDate);
-    }
+    if (!dateName.find(date => moment(date).format("DD-MM-YY") === moment(item.creationDate).format("DD-MM-YY")))
+      dateName.push(item.creationDate);
+    if (hasSelectedTeam && !teamWorkflows.find(worflow => worflow.id === item.workflowId))
+      teamWorkflows.push({ id: item.workflowId, name: item.workflowName });
   });
   const dataByStatus = {
     success: successData,
@@ -52,8 +52,9 @@ export const parseChartsData = (data, teams) => {
     inProgress: inprogressData,
     total: totalData
   };
+
   const dataByDuration = sortBy(data, ({ duration }) => duration || "");
-  dateName.map(date => {
+  dateName.forEach(date => {
     let fail = failure.filter(item => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY"))
       .length;
     let succeeded = success.filter(
@@ -65,7 +66,7 @@ export const parseChartsData = (data, teams) => {
     let invalidStatus = invalid.filter(
       item => moment(item.creationDate).format("DD-MM-YY") === moment(date).format("DD-MM-YY")
     ).length;
-    return finalData.push({
+    finalData.push({
       date: parseInt(moment(date).format("x"), 10),
       failed: fail,
       success: succeeded,
@@ -74,15 +75,12 @@ export const parseChartsData = (data, teams) => {
       total: fail + succeeded + inProgress + invalidStatus
     });
   });
+
   const dataByTeams = teams.reduce((acc, team) => {
     const teamData = data.filter(item => item.teamName === team);
     return acc.concat({ label: team, value: teamData.length });
   }, []);
   const totalExecutions = data.length;
-  const successExecutions = success.length;
-  const failExecutions = failure.length;
-  const inProgressExecutions = inprogress.length;
-  const invalidExecutions = invalid.length;
   const avarageDuration = parseInt(sumDuration / totalExecutions, 10);
   const medianDuration = dataByDuration[parseInt((data.length - 1) / 2, 10)]
     ? dataByDuration[parseInt((data.length - 1) / 2, 10)].duration
@@ -91,7 +89,6 @@ export const parseChartsData = (data, teams) => {
     ? dataByDuration[dataByDuration.length - 1].duration
     : 0;
   const minimumDuration = dataByDuration[0] ? dataByDuration[0].duration || 0 : 0;
-  const percentageSuccessful = parseFloat(((success.length / totalExecutions) * 100).toFixed(2));
 
   finalData.forEach(data => {
     failureData.push({ date: new Date(data.date), value: data.failed });
@@ -104,24 +101,30 @@ export const parseChartsData = (data, teams) => {
   const carbonLineData = chartInfo.map(chart => {
     return {
       label: chart.label,
-      backgroundColors: [chart.color],
+      fillColors: [chart.color],
       data: dataByStatus[chart.value]
     };
   });
   const carbonScatterData = [
     {
       label: "Duration",
-      backgroundColors: [chartColors.TOTAL],
+      fillColors: [chartColors.TOTAL],
       data: scatterData
     }
   ];
   const carbonDonutData = [
     {
       label: "Status",
-      backgroundColors: [chartColors.SUCCESS, chartColors.FAILED, chartColors.INVALID, chartColors.IN_PROGRESS],
-      data: [successExecutions, failExecutions, invalidExecutions, inProgressExecutions]
+      fillColors: [chartColors.SUCCESS, chartColors.FAILED, chartColors.INVALID, chartColors.IN_PROGRESS],
+      data: [success.length, failure.length, invalid.length, inprogress.length]
     }
   ];
+  const executionsByTeam = !hasSelectedTeam
+    ? []
+    : teamWorkflows.map(workflow => {
+        const workflowExecutions = data.filter(item => item.workflowId === workflow.id).length;
+        return { value: workflowExecutions, label: workflow.name };
+      });
   return {
     carbonLineData,
     carbonScatterData,
@@ -132,8 +135,7 @@ export const parseChartsData = (data, teams) => {
       { value: timeSecondsToTimeUnit(parseInt(avarageDuration / 1000, 10)), label: "Avarage" }
     ],
     medianDuration: parseInt(medianDuration / 1000, 10),
-    percentageSuccessful,
-    totalExecutions,
-    dataByTeams
+    dataByTeams: orderBy(dataByTeams, ["value"], ["desc"]),
+    executionsByTeam: orderBy(executionsByTeam, ["value"], ["desc"])
   };
 };

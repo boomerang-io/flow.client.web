@@ -287,16 +287,25 @@
             {
               "defaultValue": "test",
               "description": "Testing this property",
-              "key": "test.property",
+              "key": "testing",
               "label": "Test Property",
               "required": true,
               "type": "select",
-              "validValues": ["test", "this"]
+              "options": [
+                {
+                  "key": "test",
+                  "value": "Test"
+                },
+                {
+                  "key": "this",
+                  "value": "This"
+                }
+              ]
             },
             {
               "defaultValue": "test",
               "description": "Testing this propertys",
-              "key": "test.property1",
+              "key": "things",
               "label": "Test Property1",
               "required": true,
               "type": "text"
@@ -304,15 +313,15 @@
             {
               "defaultValue": "test2",
               "description": "Testing this propertys area",
-              "key": "test.property2",
+              "key": "here",
               "label": "Test Property2",
               "required": true,
               "type": "textarea"
             },
             {
-              "defaultValue": false,
+              "defaultValue": true,
               "description": "Testing this propertys area",
-              "key": "test.property.bool",
+              "key": "please",
               "label": "Test Property Bool",
               "required": true,
               "type": "boolean"
@@ -369,10 +378,19 @@
             {
               "readOnly": false,
               "description": "Please help me",
-              "key": "what.this",
+              "key": "what.please",
               "label": "Boomerang incoming webhook",
               "type": "boolean",
-              "defaultValue": "false",
+              "defaultValue": "true",
+              "required": true
+            },
+            {
+              "readOnly": false,
+              "description": "Please help me",
+              "key": "help.me",
+              "label": "a text property",
+              "type": "text",
+              "defaultValue": "",
               "required": true
             }
           ]
@@ -6140,7 +6158,17 @@
           "description": "prop",
           "key": "ben",
           "label": "hello",
-          "type": "text",
+          "type": "select",
+          "options": [
+            {
+              "key": "1",
+              "value": "one"
+            },
+            {
+              "key": "2",
+              "value": "two"
+            }
+          ],
           "required": true,
           "readOnly": false
         }
@@ -10471,7 +10499,7 @@
         "type": "text",
         "defaultValue": "admin",
         "required": true,
-        "validValues": null
+        "options": null
       },
       {
         "description": "",
@@ -10480,7 +10508,7 @@
         "type": "password",
         "defaultValue": "Iww500m!",
         "required": true,
-        "validValues": null
+        "options": null
       },
       {
         "description": "",
@@ -10489,7 +10517,7 @@
         "type": "text",
         "defaultValue": "dev56083",
         "required": true,
-        "validValues": null
+        "options": null
       }
     ],
     "description": "Currently implemented at ANZ",

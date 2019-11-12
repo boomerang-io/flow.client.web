@@ -9,7 +9,8 @@
 
   :global .bx--bmrg-select,
   :global .bx--bmrg-multi-select,
-  :global .bx--bmrg-text-area {
+  :global .bx--bmrg-text-area,
+  :global .bx--bmrg-toggle {
     padding-bottom: 1rem;
   }
 
@@ -22,13 +23,6 @@
   border-bottom: 0.0625rem solid #c1c7cd;
   margin: 1rem -1rem 1rem;
   opacity: 0.5;
-}
-
-.inputsContainer {
-  padding: 0rem 1rem;
-  margin-bottom: 3rem;
-  overflow-y: auto;
-  width: 100%;
 }
 
 .inputsTitle {

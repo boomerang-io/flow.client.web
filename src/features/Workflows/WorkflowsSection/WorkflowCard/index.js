@@ -33,7 +33,36 @@ class WorkflowCard extends Component {
   }
 
   executeWorkflow = ({ redirect, properties }) => {
-    this.props.executeWorkflow({ workflowId: this.props.workflow.id, redirect, properties });
+    this.props.executeWorkflow({
+      workflowId: this.props.workflow.id,
+      redirect,
+      properties: this.formatPropertiesForExecution(properties)
+    });
+  };
+
+  /**
+   * Format properties to be edited in form by Formik. It doesn't work with property notation :(
+   * See: https://jaredpalmer.com/formik/docs/guides/arrays#nested-objects
+   * This is safe to do because we don't accept "-" characters in property keys
+   * @param {array} properties
+   * @returns {array}
+   */
+  formatPropertiesForEdit = properties => {
+    return properties.map(property => ({ ...property, key: property.key.replace(/\./g, "-") }));
+  };
+
+  /**
+   * Format properties to be saved
+   * @param {array} properties
+   * @returns {array}
+   */
+  formatPropertiesForExecution = properties => {
+    let formattedProperties = {};
+    Object.entries(properties).forEach(([key, value]) => {
+      const formattedKey = key.replace(/-/g, ".");
+      formattedProperties[formattedKey] = value;
+    });
+    return formattedProperties;
   };
 
   handleExportWorkflow = workflow => {
@@ -164,7 +193,10 @@ class WorkflowCard extends Component {
                 </Button>
               )}
             >
-              <WorkflowInputModalContent executeWorkflow={this.executeWorkflow} inputs={workflow.properties} />
+              <WorkflowInputModalContent
+                executeWorkflow={this.executeWorkflow}
+                inputs={this.formatPropertiesForEdit(workflow.properties)}
+              />
             </ModalFlow>
           ) : (
             <ModalFlow

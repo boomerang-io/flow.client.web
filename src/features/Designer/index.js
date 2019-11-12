@@ -6,7 +6,9 @@ import { actions as appActions } from "State/app";
 import { actions as tasksActions } from "State/tasks";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
+import { Formik } from "formik";
 import { Prompt } from "react-router-dom";
+import * as Yup from "yup";
 import Loading from "Components/Loading";
 import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
@@ -17,6 +19,7 @@ import CustomNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utilities/templateTaskNode/TemplateTaskNodeModel";
 import NODE_TYPES from "Constants/nodeTypes";
+import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
 import styles from "./WorkflowManager.module.scss";
 
 export class WorkflowManagerContainer extends Component {
@@ -114,26 +117,37 @@ export class WorkflowManagerContainer extends Component {
       });
   };
 
-  updateWorkflow = () => {
-    const { workflow, workflowActions } = this.props;
+  updateWorkflow = formikValues => {
+    const { activeTeamId, workflow, workflowActions } = this.props;
+    const flowTeamId = formikValues?.selectedTeam?.id;
+    const updatedWorkflow = { ...workflow.data, ...formikValues, flowTeamId };
 
     return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow`, workflow.data)
-      .then(response => Promise.resolve(response))
-      .catch(error => {
-        return Promise.reject(error);
-      });
+      .update(`${BASE_SERVICE_URL}/workflow`, updatedWorkflow)
+      .then(() => {
+        if (activeTeamId !== flowTeamId) {
+          this.setActiveTeamId(flowTeamId);
+        }
+      })
+      .catch(error => {});
   };
 
-  updateWorkflowProperties = ({
-    title = "Update Inputs",
-    message = "Successfully updated inputs",
-    type = "update"
-  }) => {
+  updateWorkflowProperties = ({ property, title, message, type }) => {
     const { workflow, workflowActions } = this.props;
 
+    let properties = [...this.props.workflow.data.properties];
+    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.EDIT) {
+      const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === property.key);
+      properties.splice(propertyToUpdateIndex, 1, property);
+    } else if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE) {
+      const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === property.key);
+      properties.splice(propertyToUpdateIndex, 1);
+    } else {
+      properties.push(property);
+    }
+
     return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, this.props.workflow.data.properties)
+      .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, properties)
       .then(response => {
         notify(<ToastNotification kind="success" title={title} subtitle={message} />);
         return Promise.resolve(response);
@@ -230,7 +244,7 @@ export class WorkflowManagerContainer extends Component {
   };
 
   render() {
-    const { tasks, workflow, workflowRevision } = this.props;
+    const { activeTeamId, tasks, teams, workflow, workflowRevision } = this.props;
     if (tasks.isFetching || workflow.isFetching || workflowRevision.isFetching) {
       return <Loading />;
     }
@@ -260,20 +274,80 @@ export class WorkflowManagerContainer extends Component {
             }
           />
           <div className={styles.container}>
-            <Editor
-              activeTeamId={this.props.activeTeamId}
-              createNode={this.createNode}
-              createWorkflowRevision={this.createWorkflowRevision}
-              fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-              handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-              isModalOpen={this.props.isModalOpen}
-              tasks={this.props.tasks}
-              teams={sortBy(this.props.teams.data, "name")}
-              updateWorkflow={this.updateWorkflow}
-              updateWorkflowProperties={this.updateWorkflowProperties}
-              workflow={this.props.workflow}
-              workflowRevision={this.props.workflowRevision}
-            />
+            <Formik
+              enableReinitialize
+              initialValues={{
+                description: workflow?.data?.description ?? "",
+                enableACCIntegration: workflow?.data?.enableACCIntegration ?? false,
+                enablePersistentStorage: workflow?.data?.enablePersistentStorage ?? false,
+                icon: workflow?.data?.icon ?? "",
+                name: workflow?.data?.name ?? "",
+                selectedTeam: teams.data.find(team => team.id === activeTeamId),
+                shortDescription: workflow?.data?.shortDescription ?? "",
+                triggers: {
+                  event: {
+                    enable: workflow?.data?.triggers?.event?.enable ?? false,
+                    topic: workflow?.data?.triggers?.event?.topic ?? ""
+                  },
+                  scheduler: {
+                    enable: workflow?.data?.triggers?.scheduler?.enable ?? false,
+                    schedule: workflow?.data?.triggers?.scheduler?.schedule ?? "0 18 * * *",
+                    timezone: workflow?.data?.triggers?.scheduler?.timezone ?? false,
+                    advancedCron: workflow?.data?.triggers?.scheduler?.advancedCron ?? false
+                  },
+                  webhook: {
+                    enable: workflow?.data?.triggers?.webhook?.enable ?? false,
+                    token: workflow?.data?.triggers?.webhook?.token ?? false
+                  }
+                }
+              }}
+              validationSchema={Yup.object().shape({
+                description: Yup.string().max(250, "Description must not be greater than 250 characters"),
+                enableACCIntegration: Yup.boolean(),
+                enablePersistentStorage: Yup.boolean(),
+                icon: Yup.string(),
+                name: Yup.string()
+                  .required("Name is required")
+                  .max(64, "Name must not be greater than 64 characters"),
+                selectedTeam: Yup.object().shape({ name: Yup.string().required("Team is required") }),
+                shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
+                triggers: Yup.object().shape({
+                  event: Yup.object().shape({
+                    enable: Yup.boolean(),
+                    topic: Yup.string()
+                  }),
+                  scheduler: Yup.object().shape({
+                    enable: Yup.boolean(),
+                    schedule: Yup.string(),
+                    timezone: Yup.mixed(),
+                    advancedCron: Yup.boolean()
+                  }),
+                  webhook: Yup.object().shape({
+                    enable: Yup.boolean(),
+                    token: Yup.mixed()
+                  })
+                })
+              })}
+            >
+              {formikProps => (
+                <>
+                  <Editor
+                    createNode={this.createNode}
+                    createWorkflowRevision={this.createWorkflowRevision}
+                    fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
+                    handleChangeLogReasonChange={this.handleChangeLogReasonChange}
+                    isModalOpen={this.props.isModalOpen}
+                    tasks={this.props.tasks}
+                    teams={sortBy(this.props.teams.data, "name")}
+                    updateWorkflow={this.updateWorkflow}
+                    updateWorkflowProperties={this.updateWorkflowProperties}
+                    workflow={this.props.workflow}
+                    workflowFormikProps={formikProps}
+                    workflowRevision={this.props.workflowRevision}
+                  />
+                </>
+              )}
+            </Formik>
           </div>
         </>
       );

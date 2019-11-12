@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actions as workflowActions } from "State/workflow";
 import {
   ComboBox,
   Creatable,
@@ -12,11 +9,11 @@ import {
   ModalFlowForm
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import get from "lodash.get";
 import clonedeep from "lodash/cloneDeep";
 import INPUT_TYPES from "Constants/workflowInputTypes";
+import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
 import styles from "./WorkflowPropertiesModalContent.module.scss";
 
 const FIELD = {
@@ -26,7 +23,7 @@ const FIELD = {
   REQUIRED: "required",
   TYPE: "type",
   DEFAULT_VALUE: "defaultValue",
-  VALID_VALUES: "validValues"
+  OPTIONS: "options"
 };
 
 const INPUT_TYPES_LABELS = [
@@ -41,12 +38,15 @@ const INPUT_TYPES_LABELS = [
 class WorkflowPropertiesModalContent extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
-    input: PropTypes.object,
-    inputsKeys: PropTypes.array,
+    property: PropTypes.object,
+    propertyKeys: PropTypes.array,
     isEdit: PropTypes.bool,
     loading: PropTypes.bool.isRequired,
-    updateWorkflowProperties: PropTypes.func.isRequired,
-    workflowActions: PropTypes.object.isRequired
+    updateWorkflowProperties: PropTypes.func.isRequired
+  };
+
+  state = {
+    defaultValueType: "text"
   };
 
   handleOnChange = (e, formikChange) => {
@@ -61,14 +61,15 @@ class WorkflowPropertiesModalContent extends Component {
 
   handleOnTypeChange = (selectedItem, setFieldValue) => {
     this.props.setShouldConfirmModalClose(true);
+    this.setState({ defaultValueType: selectedItem.value });
     setFieldValue(FIELD.TYPE, selectedItem);
     setFieldValue(FIELD.DEFAULT_VALUE, selectedItem.value === INPUT_TYPES.BOOLEAN ? false : undefined);
   };
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
-  handleValidValuesChange = (values, setFieldValue) => {
+  handleOptionsChange = (values, setFieldValue) => {
     this.props.setShouldConfirmModalClose(true);
-    setFieldValue(FIELD.VALID_VALUES, values);
+    setFieldValue(FIELD.OPTIONS, values);
   };
 
   /* Check if key contains space or special characters, only underline is allowed */
@@ -77,44 +78,46 @@ class WorkflowPropertiesModalContent extends Component {
     return !regexp.test(key);
   };
 
-  // dispatch Redux action to update store
-  handleConfirm = formikProps => {
-    let inputProperties = clonedeep(formikProps.values);
-    inputProperties.type = inputProperties.type.value;
+  handleConfirm = values => {
+    let property = clonedeep(values);
+    property.type = property.type.value;
 
-    //remove in case they are present if the user changed their mind
-    if (inputProperties.type !== INPUT_TYPES.SELECT) {
-      delete inputProperties.validValues;
+    // Remove in case they are present if the user changed their mind
+    if (property.type !== INPUT_TYPES.SELECT) {
+      delete property.options;
+    } else {
+      // Create options in correct shape for service
+      property.options = property.options.map(property => ({ key: property, value: property }));
     }
 
-    if (inputProperties.type === INPUT_TYPES.BOOLEAN) {
-      if (!inputProperties.defaultValue) inputProperties.defaultValue = false;
+    if (property.type === INPUT_TYPES.BOOLEAN) {
+      if (!property.defaultValue) property.defaultValue = false;
     }
 
     if (this.props.isEdit) {
-      new Promise(resolve => resolve(this.props.workflowActions.updateWorkflowInput(inputProperties)))
-        .then(() =>
-          this.props.updateWorkflowProperties({
-            title: "Edit Input",
-            message: "Successfully edited input",
-            type: "edit"
-          })
-        )
+      this.props
+        .updateWorkflowProperties({
+          property,
+          title: "Edit Input",
+          message: "Successfully edited input",
+          type: WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE
+        })
         .then(() => {
           this.props.forceCloseModal();
-        });
+        })
+        .catch(e => {});
     } else {
-      new Promise(resolve => resolve(this.props.workflowActions.createWorkflowInput(inputProperties)))
-        .then(() =>
-          this.props.updateWorkflowProperties({
-            title: "Create Input",
-            message: "Successfully created input",
-            type: "create"
-          })
-        )
+      this.props
+        .updateWorkflowProperties({
+          property,
+          title: "Create Input",
+          message: "Successfully created input",
+          type: WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE
+        })
         .then(() => {
           this.props.forceCloseModal();
-        });
+        })
+        .catch(e => {});
     }
   };
 
@@ -127,23 +130,25 @@ class WorkflowPropertiesModalContent extends Component {
           <Toggle
             data-testid="toggle"
             id={FIELD.DEFAULT_VALUE}
-            toggled={values.defaultValue === "true"}
-            labelText="Default Value"
+            label="Default Value"
             onToggle={value => this.handleOnFieldValueChange(value.toString(), FIELD.DEFAULT_VALUE, setFieldValue)}
             orientation="vertical"
+            toggled={values.defaultValue === "true"}
           />
         );
       case INPUT_TYPES.SELECT:
-        let validValues = clonedeep(values.validValues);
+        // If editing an option, values will be an array of { key, value}
+        let options = clonedeep(values.options);
+        options = options.map(option => (option.key ? option.key : option));
         return (
           <>
             <Creatable
               data-testid="creatable"
-              id={FIELD.VALID_VALUES}
-              onChange={createdItems => this.handleValidValuesChange(createdItems, setFieldValue)}
-              values={validValues || []}
-              labelText="Options"
+              id={FIELD.OPTIONS}
+              onChange={createdItems => this.handleOptionsChange(createdItems, setFieldValue)}
+              label="Options"
               placeholder="Enter option"
+              values={options || []}
             />
             <ComboBox
               data-testid="select"
@@ -151,9 +156,9 @@ class WorkflowPropertiesModalContent extends Component {
               onChange={({ selectedItem }) =>
                 this.handleOnFieldValueChange(selectedItem, FIELD.DEFAULT_VALUE, setFieldValue)
               }
-              items={validValues || []}
+              items={options || []}
               initialSelectedItem={values.defaultValue || {}}
-              titleText="Default Option"
+              label="Default Option"
               placeholder="Select option"
             />
           </>
@@ -164,11 +169,11 @@ class WorkflowPropertiesModalContent extends Component {
             data-testid="text-area"
             id={FIELD.DEFAULT_VALUE}
             labelText="Default Value"
-            placeholder="Default Value"
-            value={values.defaultValue || ""}
             onBlur={handleBlur}
             onChange={e => this.handleOnChange(e, handleChange)}
+            placeholder="Default Value"
             style={{ resize: "none" }}
+            value={values.defaultValue || ""}
           />
         );
       default:
@@ -178,57 +183,80 @@ class WorkflowPropertiesModalContent extends Component {
             data-testid="text-input"
             id={FIELD.DEFAULT_VALUE}
             labelText="Default Value"
+            onBlur={handleBlur}
+            onChange={e => this.handleOnChange(e, handleChange)}
             placeholder="Default Value"
             type={values.type.value}
             value={values.defaultValue || ""}
-            onBlur={handleBlur}
-            onChange={e => this.handleOnChange(e, handleChange)}
           />
         );
     }
   };
 
+  determineDefaultValueSchema = defaultType => {
+    switch (defaultType) {
+      case "text":
+      case "textarea":
+      case "password":
+        return Yup.string().max(64, "Default Value must not be greater than 64 characters");
+      case "boolean":
+        return Yup.boolean();
+      case "number":
+        return Yup.number().max(64, "Default Value must not be greater than 64 characters");
+      default:
+        return Yup.mixed();
+    }
+  };
+
   render() {
-    const { input, isEdit, inputsKeys, loading } = this.props;
+    const { property, isEdit, propertyKeys, loading } = this.props;
+    let defaultValueType = this.state.defaultValueType;
 
     return (
       <Formik
+        onSubmit={this.handleConfirm}
         initialValues={{
-          [FIELD.KEY]: get(input, "key", ""),
-          [FIELD.LABEL]: get(input, "label", ""),
-          [FIELD.DESCRIPTION]: get(input, "description", ""),
-          [FIELD.REQUIRED]: get(input, "required", false),
-          [FIELD.TYPE]: input ? INPUT_TYPES_LABELS.find(type => type.value === input.type) : INPUT_TYPES_LABELS[4],
-          [FIELD.DEFAULT_VALUE]: get(input, "defaultValue", ""),
-          [FIELD.VALID_VALUES]: get(input, "validValues", [])
+          [FIELD.KEY]: property?.key ?? "",
+          [FIELD.LABEL]: property?.label ?? "",
+          [FIELD.DESCRIPTION]: property?.description ?? "",
+          [FIELD.REQUIRED]: property?.required ?? false,
+          [FIELD.TYPE]: property
+            ? INPUT_TYPES_LABELS.find(type => type.value === property.type)
+            : INPUT_TYPES_LABELS[4],
+          [FIELD.DEFAULT_VALUE]: property?.defaultValue ?? "",
+          [FIELD.OPTIONS]: property?.options ?? []
         }}
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()
             .required("Enter a key")
-            .notOneOf(inputsKeys || [], "Property key already exist")
+            .max(64, "Property key already exists")
+            .notOneOf(propertyKeys || [], "Property key already exist")
             .test("is-valid-key", "Invalid key, space and special characters aren't allowed", this.validateKey),
-          [FIELD.LABEL]: Yup.string().required("Enter a label"),
-          [FIELD.DESCRIPTION]: Yup.string(),
+          [FIELD.LABEL]: Yup.string()
+            .required("Enter a Name")
+            .max(64, "Name must not be greater than 64 characters"),
+          [FIELD.DESCRIPTION]: Yup.string().max(64, "Description must not be greater than 64 characters"),
           [FIELD.REQUIRED]: Yup.boolean(),
           [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
-          [FIELD.VALID_VALUES]: Yup.array()
+          [FIELD.OPTIONS]: Yup.array(),
+          [FIELD.DEFAULT_VALUE]: this.determineDefaultValueSchema(defaultValueType)
         })}
       >
         {formikProps => {
           const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
 
           return (
-            <ModalFlowForm disabled={loading}>
+            <ModalFlowForm element={Form} disabled={loading}>
               <ModalBody className={styles.container}>
                 <TextInput
                   id={FIELD.LABEL}
+                  invalid={errors.label && touched.label}
+                  invalidText={errors.label}
                   labelText="Name"
                   placeholder="Name"
                   value={values.label}
                   onBlur={handleBlur}
                   onChange={e => this.handleOnChange(e, handleChange)}
-                  invalid={errors.label && touched.label}
-                  invalidText={errors.label}
                 />
                 {!isEdit && (
                   <TextInput
@@ -246,6 +274,8 @@ class WorkflowPropertiesModalContent extends Component {
 
                 <TextInput
                   id={FIELD.DESCRIPTION}
+                  invalid={errors.description && touched.description}
+                  invalidText={errors.description}
                   labelText="Description"
                   onBlur={handleBlur}
                   onChange={e => this.handleOnChange(e, handleChange)}
@@ -282,12 +312,7 @@ class WorkflowPropertiesModalContent extends Component {
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button
-                  data-testid="inputs-modal-confirm-button"
-                  disabled={!isValid || loading}
-                  onClick={() => this.handleConfirm(formikProps)}
-                  type="submit"
-                >
+                <Button data-testid="inputs-modal-confirm-button" disabled={!isValid || loading} type="submit">
                   {isEdit ? "Save" : "Create"}
                 </Button>
               </ModalFooter>
@@ -299,11 +324,4 @@ class WorkflowPropertiesModalContent extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  workflowActions: bindActionCreators(workflowActions, dispatch)
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(WorkflowPropertiesModalContent);
+export default WorkflowPropertiesModalContent;

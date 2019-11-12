@@ -2,7 +2,7 @@ export const chartColors = {
   SUCCESS: "#009C98",
   FAILED: "#FFA4A9",
   INVALID: "#50565B",
-  IN_PROGESS: "#B9BFC7",
+  IN_PROGRESS: "#B9BFC7",
   TOTAL: "#0072C3"
 };
 

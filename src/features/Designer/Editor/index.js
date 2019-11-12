@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import get from "lodash.get";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import ChangeLog from "Features/Designer/components/ChangeLog";
 import DesignerHeader from "Features/Designer/components/DesignerHeader";
@@ -26,6 +23,7 @@ class WorkflowEditor extends Component {
     updateWorkflow: PropTypes.func.isRequired,
     updateWorkflowProperties: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
+    workflowFormikProps: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired
   };
 
@@ -70,7 +68,6 @@ class WorkflowEditor extends Component {
 
   render() {
     const {
-      activeTeamId,
       createNode,
       fetchWorkflowRevisionNumber,
       handleChangeLogReasonChange,
@@ -80,6 +77,7 @@ class WorkflowEditor extends Component {
       tasks,
       teams,
       workflow,
+      workflowFormikProps,
       workflowRevision
     } = this.props;
 
@@ -99,61 +97,29 @@ class WorkflowEditor extends Component {
           performAction={this.createWorkflowRevision}
           performActionButtonText={version < revisionCount ? "Set version to latest" : "Create new version"}
           revisionCount={workflow.data.revisionCount}
-          workflowName={get(workflow, "data.name", "")}
+          workflowName={workflow?.data?.name ?? ""}
         />
         <Switch>
           <Route
             path={`${match.path}/settings`}
             render={() => (
-              <Formik
-                initialValues={{
-                  description: get(workflow, "data.description", ""),
-                  enableACCIntegration: get(workflow, "data.enableACCIntegration", false),
-                  event: get(workflow, "data.triggers.event.enable", false),
-                  name: get(workflow, "data.name", ""),
-                  persistence: get(workflow, "data.enablePersistentStorage", false),
-                  schedule: get(workflow, "data.triggers.scheduler.enable", "0 18 * * *"),
-                  selectedTeam: teams.find(team => team.id === activeTeamId),
-                  shortDescription: get(workflow, "data.shortDescription", ""),
-                  token: get(workflow, "data.triggers.webhook.token", ""),
-                  topic: get(workflow, "data.triggers.event.topic", ""),
-                  webhook: get(workflow, "data.triggers.webhook.enable", false)
-                }}
-                validationSchema={Yup.object().shape({
-                  description: Yup.string().max(250, "Description must not be greater than 250 characters"),
-                  enableACCIntegration: Yup.boolean(),
-                  event: Yup.boolean(),
-                  name: Yup.string()
-                    .required("Name is required")
-                    .max(64, "Name must not be greater than 64 characters"),
-                  persistence: Yup.boolean(),
-                  schedule: Yup.boolean(),
-                  selectedTeam: Yup.object().shape({ name: Yup.string().required("Team is required") }),
-                  shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
-                  token: Yup.string(),
-                  topic: Yup.string(),
-                  webhook: Yup.boolean()
-                })}
-              >
-                {formikProps => (
-                  <>
-                    <Overview
-                      formikProps={formikProps}
-                      teams={teams}
-                      updateWorkflow={this.props.updateWorkflow}
-                      workflow={workflow}
-                    />
-                  </>
-                )}
-              </Formik>
+              <>
+                <Overview
+                  formikProps={workflowFormikProps}
+                  teams={teams}
+                  updateWorkflow={this.props.updateWorkflow}
+                  workflow={workflow}
+                />
+              </>
             )}
           />
           <Route
             path={`${match.path}/properties`}
             render={props => (
               <WorkflowProperties
-                updateWorkflowProperties={this.props.updateWorkflowProperties}
                 loading={workflow.isUpdating}
+                properties={workflow.data.properties}
+                updateWorkflowProperties={this.props.updateWorkflowProperties}
               />
             )}
           />

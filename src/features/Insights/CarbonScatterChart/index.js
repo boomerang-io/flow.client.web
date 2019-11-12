@@ -10,7 +10,7 @@ const scatterSeriesOptions = {
       title: "Seconds"
     },
     bottom: {
-      type: "time",
+      scaleType: "time",
       primary: true
     }
   },

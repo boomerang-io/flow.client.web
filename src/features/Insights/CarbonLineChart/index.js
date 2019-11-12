@@ -10,7 +10,7 @@ const lineTimeSeriesOptions = {
       title: "Executions"
     },
     bottom: {
-      type: "time",
+      scaleType: "time",
       primary: true
     }
   },

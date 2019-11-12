@@ -114,7 +114,8 @@ class ChangeLogTable extends Component {
                             id={header.key}
                             {...getHeaderProps({
                               header,
-                              className: `${styles.tableHeadHeader}`
+                              className: `${styles.tableHeadHeader}`,
+                              isSortable: true
                             })}
                           >
                             {header.header}
