@@ -138,7 +138,7 @@ export class WorkflowManagerContainer extends Component {
     const { workflow, workflowActions } = this.props;
 
     let properties = [...this.props.workflow.data.properties];
-    if (type === "update") {
+    if (type === "edit") {
       const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === newProperty.key);
       properties.splice(propertyToUpdateIndex, 1, newProperty);
     } else {
