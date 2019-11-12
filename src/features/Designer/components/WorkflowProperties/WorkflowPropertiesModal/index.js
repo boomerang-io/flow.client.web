@@ -35,18 +35,17 @@ class WorkflowProperties extends Component {
   };
 
   render() {
-    const { isEdit, input, loading } = this.props;
+    const { isEdit, loading } = this.props;
 
     return (
       <ModalFlow
-        composedModalProps={{ containerClassName: "c-inputs-modal" }}
         confirmModalProps={{
           title: "Are you sure?",
           children: "Your property will not be saved"
         }}
         modalHeaderProps={{
-          title: isEdit && input ? input.label : "Create Property",
-          subtitle: isEdit ? "Let's update it" : "Let's create a new one"
+          title: isEdit ? "Update Property" : "Create Property",
+          subtitle: isEdit ? "Let's change some stuff" : "Let's create a new one"
         }}
         modalTrigger={this.editTrigger}
       >
