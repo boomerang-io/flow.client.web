@@ -10,6 +10,7 @@ import {
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { Formik, Form } from "formik";
+import ValidateFormikOnMount from "Components/ValidateFormikOnMount";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import INPUT_TYPES from "Constants/workflowInputTypes";
@@ -98,8 +99,6 @@ class WorkflowPropertiesModalContent extends Component {
       this.props
         .updateWorkflowProperties({
           property,
-          title: "Edit Input",
-          message: "Successfully edited input",
           type: WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE
         })
         .then(() => {
@@ -110,8 +109,6 @@ class WorkflowPropertiesModalContent extends Component {
       this.props
         .updateWorkflowProperties({
           property,
-          title: "Create Input",
-          message: "Successfully created input",
           type: WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE
         })
         .then(() => {
@@ -229,7 +226,7 @@ class WorkflowPropertiesModalContent extends Component {
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()
             .required("Enter a key")
-            .max(64, "Property key already exists")
+            .max(64, "Property must not be greater than 64 characters")
             .notOneOf(propertyKeys || [], "Property key already exist")
             .test("is-valid-key", "Invalid key, space and special characters aren't allowed", this.validateKey),
           [FIELD.LABEL]: Yup.string()
@@ -238,7 +235,12 @@ class WorkflowPropertiesModalContent extends Component {
           [FIELD.DESCRIPTION]: Yup.string().max(64, "Description must not be greater than 64 characters"),
           [FIELD.REQUIRED]: Yup.boolean(),
           [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
-          [FIELD.OPTIONS]: Yup.array(),
+          [FIELD.OPTIONS]: Yup.array().when(FIELD.TYPE, {
+            is: type => type.value === INPUT_TYPES.SELECT,
+            then: Yup.array()
+              .required("Enter an option")
+              .min(1, "Enter at least one option")
+          }),
           [FIELD.DEFAULT_VALUE]: this.determineDefaultValueSchema(defaultValueType)
         })}
       >
@@ -316,6 +318,7 @@ class WorkflowPropertiesModalContent extends Component {
                   {isEdit ? "Save" : "Create"}
                 </Button>
               </ModalFooter>
+              <ValidateFormikOnMount validateForm={formikProps.validateForm} />
             </ModalFlowForm>
           );
         }}

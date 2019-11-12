@@ -9,6 +9,7 @@ import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { Formik } from "formik";
 import { Prompt } from "react-router-dom";
 import * as Yup from "yup";
+import capitalize from "lodash/capitalize";
 import Loading from "Components/Loading";
 import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
@@ -154,11 +155,17 @@ export class WorkflowManagerContainer extends Component {
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, properties)
       .then(response => {
-        notify(<ToastNotification kind="success" title={title} subtitle={message} />);
+        notify(
+          <ToastNotification
+            kind="success"
+            title={`${capitalize(type)} property`}
+            subtitle={`Successfully performed operation`}
+          />
+        );
         return Promise.resolve(response);
       })
       .catch(error => {
-        notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} input`} />);
+        notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} property`} />);
         return Promise.reject(error);
       });
   };

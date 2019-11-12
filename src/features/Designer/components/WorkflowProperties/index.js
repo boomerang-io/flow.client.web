@@ -43,8 +43,6 @@ function WorkflowProperties(props) {
     props
       .updateWorkflowProperties({
         property,
-        title: "Delete Input",
-        message: "Successfully deleted input",
         type: WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE
       })
       .catch(error => {
