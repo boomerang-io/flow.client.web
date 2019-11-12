@@ -68,10 +68,11 @@ const actionHandlers = {
   [types.FETCH_WORKFLOW_FAILURE]: (state, action) => {
     return { ...state, isFetching: false, fetchingStatus: REQUEST_STATUSES.FAILURE, error: action.error };
   },
-  [types.UPDATE_WORKFLOW_SUCCESS]: state => ({
+  [types.UPDATE_WORKFLOW_SUCCESS]: (state, action) => ({
     ...state,
     isUpdating: false,
-    updatingStatus: REQUEST_STATUSES.SUCCESS
+    updatingStatus: REQUEST_STATUSES.SUCCESS,
+    data: action.data
   }),
   [types.UPDATE_WORKFLOW_FAILURE]: (state, action) => ({
     ...state,
@@ -129,7 +130,7 @@ const fetchRequest = () => ({ type: types.FETCH_WORKFLOW_REQUEST });
 const fetchSuccess = data => ({ type: types.FETCH_WORKFLOW_SUCCESS, data });
 const fetchFailure = error => ({ type: types.FETCH_WORKFLOW_FAILURE, error });
 const updateRequest = () => ({ type: types.UPDATE_WORKFLOW_REQUEST });
-const updateSuccess = () => ({ type: types.UPDATE_WORKFLOW_SUCCESS });
+const updateSuccess = data => ({ type: types.UPDATE_WORKFLOW_SUCCESS, data });
 const updateFailure = error => ({ type: types.UPDATE_WORKFLOW_FAILURE, error });
 const createRequest = () => ({ type: types.CREATE_WORKFLOW_REQUEST });
 const createSuccess = data => ({ type: types.CREATE_WORKFLOW_SUCCESS, data });

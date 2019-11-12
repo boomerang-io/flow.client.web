@@ -117,15 +117,18 @@ export class WorkflowManagerContainer extends Component {
   };
 
   updateWorkflow = formikValues => {
-    const { workflow, workflowActions } = this.props;
-    const updatedWorkflow = { ...workflow.data, ...formikValues };
+    const { activeTeamId, workflow, workflowActions } = this.props;
+    const flowTeamId = formikValues?.selectedTeam?.id;
+    const updatedWorkflow = { ...workflow.data, ...formikValues, flowTeamId };
 
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow`, updatedWorkflow)
-      .then(response => Promise.resolve(response))
-      .catch(error => {
-        return Promise.reject(error);
-      });
+      .then(() => {
+        if (activeTeamId !== flowTeamId) {
+          this.setActiveTeamId(flowTeamId);
+        }
+      })
+      .catch(error => {});
   };
 
   updateWorkflowProperties = ({
@@ -264,6 +267,7 @@ export class WorkflowManagerContainer extends Component {
           />
           <div className={styles.container}>
             <Formik
+              enableReinitialize
               initialValues={{
                 description: workflow?.data?.description ?? "",
                 enableACCIntegration: workflow?.data?.enableACCIntegration ?? false,
