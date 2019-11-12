@@ -131,15 +131,22 @@ export class WorkflowManagerContainer extends Component {
       .catch(error => {});
   };
 
-  updateWorkflowProperties = ({
-    title = "Update Inputs",
-    message = "Successfully updated inputs",
-    type = "update"
-  }) => {
+  updateWorkflowProperties = (
+    { title = "Update Inputs", message = "Successfully updated inputs", type = "update" },
+    newProperty
+  ) => {
     const { workflow, workflowActions } = this.props;
 
+    let properties = [...this.props.workflow.data.properties];
+    if (type === "update") {
+      const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === newProperty.key);
+      properties.splice(propertyToUpdateIndex, 1, newProperty);
+    } else {
+      properties.push(newProperty);
+    }
+
     return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, this.props.workflow.data.properties)
+      .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, properties)
       .then(response => {
         notify(<ToastNotification kind="success" title={title} subtitle={message} />);
         return Promise.resolve(response);

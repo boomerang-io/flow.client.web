@@ -37,8 +37,8 @@ const INPUT_TYPES_LABELS = [
 class WorkflowPropertiesModalContent extends Component {
   static propTypes = {
     closeModal: PropTypes.func.isRequired,
-    input: PropTypes.object,
-    inputsKeys: PropTypes.array,
+    property: PropTypes.object,
+    propertyKeys: PropTypes.array,
     isEdit: PropTypes.bool,
     loading: PropTypes.bool.isRequired,
     updateWorkflowProperties: PropTypes.func.isRequired
@@ -79,36 +79,42 @@ class WorkflowPropertiesModalContent extends Component {
 
   // dispatch Redux action to update store
   handleConfirm = values => {
-    let inputProperties = clonedeep(values);
-    inputProperties.type = inputProperties.type.value;
+    let property = clonedeep(values);
+    property.type = property.type.value;
 
     //remove in case they are present if the user changed their mind
-    if (inputProperties.type !== INPUT_TYPES.SELECT) {
-      delete inputProperties.options;
+    if (property.type !== INPUT_TYPES.SELECT) {
+      delete property.options;
     }
 
-    if (inputProperties.type === INPUT_TYPES.BOOLEAN) {
-      if (!inputProperties.defaultValue) inputProperties.defaultValue = false;
+    if (property.type === INPUT_TYPES.BOOLEAN) {
+      if (!property.defaultValue) property.defaultValue = false;
     }
 
     if (this.props.isEdit) {
       this.props
-        .updateWorkflowProperties({
-          title: "Edit Input",
-          message: "Successfully edited input",
-          type: "edit"
-        })
+        .updateWorkflowProperties(
+          {
+            title: "Edit Input",
+            message: "Successfully edited input",
+            type: "edit"
+          },
+          property
+        )
         .then(() => {
           this.props.forceCloseModal();
         })
         .catch(e => {});
     } else {
       this.props
-        .updateWorkflowProperties({
-          title: "Create Input",
-          message: "Successfully created input",
-          type: "create"
-        })
+        .updateWorkflowProperties(
+          {
+            title: "Create Input",
+            message: "Successfully created input",
+            type: "create"
+          },
+          property
+        )
         .then(() => {
           this.props.forceCloseModal();
         })
@@ -202,26 +208,28 @@ class WorkflowPropertiesModalContent extends Component {
   };
 
   render() {
-    const { input, isEdit, inputsKeys, loading } = this.props;
+    const { property, isEdit, propertyKeys, loading } = this.props;
     let defaultValueType = this.state.defaultValueType;
 
     return (
       <Formik
         onSubmit={this.handleConfirm}
         initialValues={{
-          [FIELD.KEY]: input?.key ?? "",
-          [FIELD.LABEL]: input?.label ?? "",
-          [FIELD.DESCRIPTION]: input?.description ?? "",
-          [FIELD.REQUIRED]: input?.required ?? false,
-          [FIELD.TYPE]: input ? INPUT_TYPES_LABELS.find(type => type.value === input.type) : INPUT_TYPES_LABELS[4],
-          [FIELD.DEFAULT_VALUE]: input?.defaultValue ?? "",
-          [FIELD.OPTIONS]: input?.options ?? []
+          [FIELD.KEY]: property?.key ?? "",
+          [FIELD.LABEL]: property?.label ?? "",
+          [FIELD.DESCRIPTION]: property?.description ?? "",
+          [FIELD.REQUIRED]: property?.required ?? false,
+          [FIELD.TYPE]: property
+            ? INPUT_TYPES_LABELS.find(type => type.value === property.type)
+            : INPUT_TYPES_LABELS[4],
+          [FIELD.DEFAULT_VALUE]: property?.defaultValue ?? "",
+          [FIELD.OPTIONS]: property?.options ?? []
         }}
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()
             .required("Enter a key")
             .max(64, "Property key already exists")
-            .notOneOf(inputsKeys || [], "Property key already exist")
+            .notOneOf(propertyKeys || [], "Property key already exist")
             .test("is-valid-key", "Invalid key, space and special characters aren't allowed", this.validateKey),
           [FIELD.LABEL]: Yup.string()
             .required("Enter a Name")

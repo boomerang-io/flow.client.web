@@ -117,8 +117,9 @@ class WorkflowEditor extends Component {
             path={`${match.path}/properties`}
             render={props => (
               <WorkflowProperties
-                updateWorkflowProperties={this.props.updateWorkflowProperties}
                 loading={workflow.isUpdating}
+                properties={workflow.data.properties}
+                updateWorkflowProperties={this.props.updateWorkflowProperties}
               />
             )}
           />
