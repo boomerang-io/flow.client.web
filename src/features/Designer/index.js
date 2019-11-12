@@ -45,7 +45,7 @@ export class WorkflowManagerContainer extends Component {
     const { workflowId } = match.params;
 
     if (!activeTeamId) {
-      this.setActiveTeamId(workflowId);
+      this.findActiveTeamIdOnLoad();
     }
     try {
       await Promise.all([
@@ -75,7 +75,7 @@ export class WorkflowManagerContainer extends Component {
    * Find the matching team for the workflowId and set that to the active team
    * That path param is the only thing available to the app
    */
-  setActiveTeamId() {
+  findActiveTeamIdOnLoad() {
     const { appActions, match, teams } = this.props;
     const { workflowId } = match.params;
     const activeTeam = teams.data.find(team => {
@@ -118,7 +118,7 @@ export class WorkflowManagerContainer extends Component {
   };
 
   updateWorkflow = formikValues => {
-    const { activeTeamId, workflow, workflowActions } = this.props;
+    const { activeTeamId, appActions, workflow, workflowActions } = this.props;
     const flowTeamId = formikValues?.selectedTeam?.id;
     const updatedWorkflow = { ...workflow.data, ...formikValues, flowTeamId };
 
@@ -126,8 +126,8 @@ export class WorkflowManagerContainer extends Component {
       .update(`${BASE_SERVICE_URL}/workflow`, updatedWorkflow)
       .then(() => {
         // If the team has changed
-        if (activeTeamId !== flowTeamId) {
-          this.setActiveTeamId();
+        if (flowTeamId && activeTeamId !== flowTeamId) {
+          appActions.setActiveTeam({ teamId: flowTeamId });
         }
       })
       .catch(error => {});

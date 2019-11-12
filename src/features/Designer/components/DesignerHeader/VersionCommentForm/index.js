@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Error, TextArea } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 
+//TODO: refactor this. It is bad.
 class VersionCommentForm extends Component {
   static propTypes = {
     onSave: PropTypes.func.isRequired,
