@@ -147,7 +147,7 @@ export class WorkflowManagerContainer extends Component {
       properties.splice(propertyToUpdateIndex, 1);
     }
 
-    if (WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE) {
+    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE) {
       properties.push(property);
     }
 
