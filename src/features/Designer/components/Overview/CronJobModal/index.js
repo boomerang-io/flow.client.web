@@ -89,7 +89,7 @@ export default class CronJobModal extends Component {
       daysCron.push(cronDayNumberMap[day]);
     });
     const timeCron = !values.time ? ["0", "0"] : values.time.split(":");
-    const cronExpression = `0 ${timeCron[1]} ${timeCron[0]} ? * ${daysCron.length !== 0 ? daysCron.toString() : "*"} *`;
+    const cronExpression = `0 ${timeCron[1]} ${timeCron[0]} ? * ${daysCron.length !== 0 ? daysCron.toString() : "*"}`;
     return cronExpression;
   };
 
