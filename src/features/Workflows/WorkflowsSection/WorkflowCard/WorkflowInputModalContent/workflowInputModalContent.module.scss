@@ -1,43 +1,11 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 
 .container {
-  :global .bx--label {
-    margin-top: 1.5rem !important;
-  }
-}
-.toggle {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1.5rem;
-  position: relative;
-  width: 100%;
-  :global .bx--form-item {
-    margin-left: 2rem;
-  }
-}
-
-.toggleTitle {
-  font-size: 0.75rem;
-  letter-spacing: 0.0625rem;
-  line-height: 1.125rem;
-  font-weight: 300;
-}
-
-.select {
-  position: relative;
-}
-
-.textInput {
-  position: relative;
-}
-.textArea {
-  :global .bx--text-area__wrapper {
-    width: 100%;
-  }
-  textarea {
-    max-width: none;
-    resize: none;
-    width: 100%;
+  :global .bx--bmrg-text-input,
+  :global .bx--bmrg-select,
+  :global .bx--bmrg-multi-select,
+  :global .bx--bmrg-text-area,
+  :global .bx--bmrg-toggle {
+    padding-bottom: 1rem;
   }
 }

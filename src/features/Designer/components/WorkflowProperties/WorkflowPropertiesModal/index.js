@@ -8,8 +8,8 @@ import styles from "./WorkflowPropertiesModal.module.scss";
 
 class WorkflowProperties extends Component {
   static propTypes = {
-    input: PropTypes.object,
-    inputsKeys: PropTypes.array,
+    property: PropTypes.object,
+    propertyKeys: PropTypes.array,
     isEdit: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
     updateWorkflowProperties: PropTypes.func.isRequired

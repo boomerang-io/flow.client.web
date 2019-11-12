@@ -15,7 +15,7 @@ const initialState = {
           label: "Tim Property",
           required: true,
           type: "select",
-          validValues: ["pandas", "dogs"]
+          optiions: ["pandas", "dogs"]
         }
       ]
     }
