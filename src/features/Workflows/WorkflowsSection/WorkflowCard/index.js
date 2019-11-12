@@ -46,7 +46,7 @@ class WorkflowCard extends Component {
    * @returns {array}
    */
   formatPropertiesForEdit = properties => {
-    properties.map(property => ({ ...property, key: property.key.replace(/\./g, "-") }));
+    return properties.map(property => ({ ...property, key: property.key.replace(/\./g, "-") }));
   };
 
   /**
