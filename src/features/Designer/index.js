@@ -45,7 +45,7 @@ export class WorkflowManagerContainer extends Component {
     const { workflowId } = match.params;
 
     if (!activeTeamId) {
-      this.findActiveTeamIdOnLoad();
+      this.findActiveTeamIdOnMount();
     }
     try {
       await Promise.all([
@@ -75,7 +75,7 @@ export class WorkflowManagerContainer extends Component {
    * Find the matching team for the workflowId and set that to the active team
    * That path param is the only thing available to the app
    */
-  findActiveTeamIdOnLoad() {
+  findActiveTeamIdOnMount() {
     const { appActions, match, teams } = this.props;
     const { workflowId } = match.params;
     const activeTeam = teams.data.find(team => {
