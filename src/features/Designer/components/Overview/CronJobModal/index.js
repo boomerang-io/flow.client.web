@@ -9,6 +9,7 @@ import { CheckboxList, ComboBox, TextInput, ModalFlowForm, Toggle } from "@boome
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { cronToDateTime } from "Utilities/cronHelper";
 import DAYS_OF_WEEK from "Constants/daysOfWeek";
+import cronDayNumberMap from "Constants/cronDayNumberMap";
 import styles from "./cronJobModal.module.scss";
 
 //Timezones that don't have a match in Java and can't be saved via the service
@@ -84,8 +85,8 @@ export default class CronJobModal extends Component {
 
   handleSchedule = values => {
     let daysCron = [];
-    Object.keys(values.days).forEach(day => {
-      if (values.days[day]) daysCron.push(day.toUpperCase().slice(0, 3));
+    Object.values(values.days).forEach(day => {
+      daysCron.push(cronDayNumberMap[day]);
     });
     const timeCron = !values.time ? ["0", "0"] : values.time.split(":");
     const cronExpression = `0 ${timeCron[1]} ${timeCron[0]} ? * ${daysCron.length !== 0 ? daysCron.toString() : "*"} *`;
