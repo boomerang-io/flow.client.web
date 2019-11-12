@@ -34,7 +34,7 @@ class WorkflowCard extends Component {
     this.props.executeWorkflow({
       workflowId: this.props.workflow.id,
       redirect,
-      properties: this.formatProperties(properties)
+      properties: this.formatPropertiesForExecution(properties)
     });
   };
 
