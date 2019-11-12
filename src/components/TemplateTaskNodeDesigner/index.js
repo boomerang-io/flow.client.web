@@ -51,10 +51,10 @@ export class TemplateNodeDesigner extends Component {
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
-        inputProperties={this.props.inputProperties}
-        node={this.props.node}
-        nodeConfig={this.props.nodeConfig}
         <WorkflowTaskForm
+          inputProperties={this.props.inputProperties}
+          node={this.props.node}
+          nodeConfig={this.props.nodeConfig}
           onSave={this.handleOnSave}
           setIsModalOpen={this.props.appActions.setIsModalOpen}
           taskNames={this.props.taskNames}
