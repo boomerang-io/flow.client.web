@@ -1,16 +1,10 @@
 // Carbon settings
-@import "@carbon/themes/scss/themes";
-
-$carbon--theme: $carbon--theme--g10;
-@include carbon--theme();
-
 $carbon-addons-bmrg-theme: boomerang;
-$carbon--theme--bmrg-light-v2: true;
+$carbon--theme--bmrg: true;
 
 @import "variables";
 
-@import "~@boomerang/carbon-addons-boomerang/scss/styles.scss";
-// @include bmrgFlowColors();
+@import "~@boomerang/carbon-addons-boomerang";
 @import "~carbon-components/scss/components/accordion/accordion";
 @import "~carbon-components/scss/components/checkbox/checkbox";
 @import "~carbon-components/scss/components/date-picker/date-picker";
@@ -19,6 +13,7 @@ $carbon--theme--bmrg-light-v2: true;
 @import "~carbon-components/scss/components/data-table-v2/data-table-v2-sort";
 @import "~carbon-components/scss/components/loading/loading";
 @import "~carbon-components/scss/components/multi-select/multi-select";
+@import "~carbon-components/scss/components/notification/inline-notification";
 @import "~carbon-components/scss/components/overflow-menu/overflow-menu";
 @import "~carbon-components/scss/components/pagination/pagination";
 @import "~carbon-components/scss/components/search/search";
