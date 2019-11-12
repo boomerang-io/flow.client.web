@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { transformAll } from "@overgear/yup-ast";
-import { AutoSuggest, DynamicFormik, TextInput } from "@boomerang/carbon-addons-boomerang-react";
+import { AutoSuggest, DynamicFormik, ModalFlowForm, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { TextInput as CarbonTextInput } from "carbon-components-react";
-import { Button, ModalFooter } from "carbon-components-react";
+import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import TextEditorModal from "Components/TextEditorModal";
 import formatAutoSuggestProperties from "Utilities/formatAutoSuggestProperties";
 import { TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
@@ -144,7 +144,9 @@ class DisplayForm extends Component {
     return {
       onChange: e => this.formikHandleChange(e, handleChange),
       type: "text",
-      labelText: "Name"
+      label: "Name",
+      invalid: !!formikProps.errors[input.key],
+      invalidText: formikProps.errors[input.key]
     };
   };
 
@@ -250,9 +252,7 @@ class DisplayForm extends Component {
         formProps={{ className: styles.container, id: "display-form" }}
         initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
         inputs={inputs}
-        inputsWrapperProps={{ className: styles.inputsContainer }}
         multiSelectProps={this.multiSelectProps}
-        onSubmit={this.handleOnSave}
         selectProps={this.selectProps}
         submitButton={this.submitButton}
         textAreaProps={this.textAreaProps}
@@ -260,7 +260,21 @@ class DisplayForm extends Component {
         textInputProps={this.textInputProps}
         toggleProps={this.toggleProps}
         validationSchema={transformAll(this.yupAST(task.config, otherTaskNames))}
-      />
+      >
+        {({ inputs, propsFormik }) => (
+          <ModalFlowForm className={styles.container}>
+            <ModalBody>{inputs}</ModalBody>
+            <ModalFooter>
+              <Button kind="secondary" onClick={this.props.closeModal}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={!propsFormik.isValid}>
+                Apply
+              </Button>
+            </ModalFooter>
+          </ModalFlowForm>
+        )}
+      </DynamicFormik>
     );
   }
 }
