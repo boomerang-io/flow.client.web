@@ -74,10 +74,10 @@ export class WorkflowManagerContainer extends Component {
   /**
    * Find the matching team for the workflowId and set that to the active team
    * That path param is the only thing available to the app
-   * @param {string} workflowId
    */
-  setActiveTeamId(workflowId) {
-    const { appActions, teams } = this.props;
+  setActiveTeamId() {
+    const { appActions, match, teams } = this.props;
+    const { workflowId } = match.params;
     const activeTeam = teams.data.find(team => {
       return team.workflows.find(workflow => workflow.id === workflowId);
     });
@@ -125,8 +125,9 @@ export class WorkflowManagerContainer extends Component {
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow`, updatedWorkflow)
       .then(() => {
+        // If the team has changed
         if (activeTeamId !== flowTeamId) {
-          this.setActiveTeamId(flowTeamId);
+          this.setActiveTeamId();
         }
       })
       .catch(error => {});
