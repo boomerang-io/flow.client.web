@@ -134,10 +134,19 @@ export default class CronJobModal extends Component {
         isInitialValid
       >
         {formikProps => {
-          const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
+          const {
+            values,
+            touched,
+            errors,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+            setFieldValue,
+            isValid
+          } = formikProps;
 
           return (
-            <ModalFlowForm>
+            <ModalFlowForm onSubmit={handleSubmit}>
               <ModalBody>
                 <>
                   <div className={styles.advancedCronToggle}>

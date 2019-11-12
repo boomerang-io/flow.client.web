@@ -5,10 +5,10 @@ import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
-import DisplayForm from "Components/DisplayForm";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowNode from "Components/WorkflowNode";
+import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import { Fork16 } from "@carbon/icons-react";
 
 import styles from "./SwitchNodeDesigner.module.scss";
@@ -56,10 +56,10 @@ export class SwitchNode extends Component {
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
-        <DisplayForm
-          inputProperties={this.props.inputProperties}
-          node={this.props.node}
-          nodeConfig={this.props.nodeConfig}
+        inputProperties={this.props.inputProperties}
+        node={this.props.node}
+        nodeConfig={this.props.nodeConfig}
+        <WorkflowTaskForm
           onSave={this.handleOnSave}
           setIsModalOpen={this.props.appActions.setIsModalOpen}
           taskNames={this.props.taskNames}

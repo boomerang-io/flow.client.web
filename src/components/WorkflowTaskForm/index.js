@@ -5,7 +5,7 @@ import { AutoSuggest, DynamicFormik, ModalFlowForm, TextInput } from "@boomerang
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
-import styles from "./DisplayForm.module.scss";
+import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = props => {
   return (
@@ -53,7 +53,7 @@ function formatAutoSuggestProperties(inputProperties) {
   }));
 }
 
-class DisplayForm extends Component {
+class WorkflowTaskForm extends Component {
   static propTypes = {
     closeModal: PropTypes.func,
     inputProperties: PropTypes.array,
@@ -218,17 +218,6 @@ class DisplayForm extends Component {
     };
   };
 
-  submitButton = ({ form, isValid }) => (
-    <ModalFooter>
-      <Button kind="secondary" onClick={this.props.closeModal}>
-        Cancel
-      </Button>
-      <Button type="submit" disabled={!isValid}>
-        Apply
-      </Button>
-    </ModalFooter>
-  );
-
   render() {
     const { node, nodeConfig, task, taskNames } = this.props;
 
@@ -240,6 +229,10 @@ class DisplayForm extends Component {
 
     return (
       <DynamicFormik
+        initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
+        inputs={inputs}
+        onSubmit={this.handleOnSave}
+        validationSchema={transformAll(this.yupAST(task.config, otherTaskNames))}
         customType="taskName"
         customProps={this.customProps}
         CustomComponent={NameTextInput}
@@ -247,20 +240,15 @@ class DisplayForm extends Component {
           TextInput: AutoSuggestInput,
           TextEditor: TextEditorInput
         }}
-        formProps={{ className: styles.container, id: "display-form" }}
-        initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
-        inputs={inputs}
         multiSelectProps={this.multiSelectProps}
         selectProps={this.selectProps}
-        submitButton={this.submitButton}
         textAreaProps={this.textAreaProps}
         textEditorProps={this.textAreaProps}
         textInputProps={this.textInputProps}
         toggleProps={this.toggleProps}
-        validationSchema={transformAll(this.yupAST(task.config, otherTaskNames))}
       >
         {({ inputs, propsFormik }) => (
-          <ModalFlowForm className={styles.container}>
+          <ModalFlowForm onSubmit={propsFormik.handleSubmit} className={styles.container}>
             <ModalBody>{inputs}</ModalBody>
             <ModalFooter>
               <Button kind="secondary" onClick={this.props.closeModal}>
@@ -277,4 +265,4 @@ class DisplayForm extends Component {
   }
 }
 
-export default DisplayForm;
+export default WorkflowTaskForm;

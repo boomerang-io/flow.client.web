@@ -5,10 +5,10 @@ import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
-import DisplayForm from "Components/DisplayForm";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowNode from "Components/WorkflowNode";
+import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./CustomTaskNodeDesigner.module.scss";
 
 export class CustomTaskNodeDesigner extends Component {
@@ -51,7 +51,7 @@ export class CustomTaskNodeDesigner extends Component {
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
-        <DisplayForm
+        <WorkflowTaskForm
           inputProperties={this.props.inputProperties}
           node={this.props.node}
           nodeConfig={this.props.nodeConfig}

@@ -9,7 +9,7 @@ import {
   ModalFlowForm
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import ValidateFormikOnMount from "Components/ValidateFormikOnMount";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
@@ -245,10 +245,19 @@ class WorkflowPropertiesModalContent extends Component {
         })}
       >
         {formikProps => {
-          const { values, touched, errors, handleBlur, handleChange, setFieldValue, isValid } = formikProps;
+          const {
+            values,
+            touched,
+            errors,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+            setFieldValue,
+            isValid
+          } = formikProps;
 
           return (
-            <ModalFlowForm element={Form} disabled={loading}>
+            <ModalFlowForm onSubmit={handleSubmit} disabled={loading}>
               <ModalBody className={styles.container}>
                 <TextInput
                   id={FIELD.LABEL}
