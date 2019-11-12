@@ -9,8 +9,7 @@ import styles from "./WorkflowProperties.module.scss";
 WorkflowProperties.propTypes = {
   loading: PropTypes.bool.isRequired,
   properties: PropTypes.array.isRequired,
-  updateWorkflowProperties: PropTypes.func.isRequired,
-  workflowActions: PropTypes.object.isRequired
+  updateWorkflowProperties: PropTypes.func.isRequired
 };
 
 function WorkflowPropertyRow({ title, value }) {

@@ -37,7 +37,7 @@ const INPUT_TYPES_LABELS = [
 
 class WorkflowPropertiesModalContent extends Component {
   static propTypes = {
-    closeModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.func,
     property: PropTypes.object,
     propertyKeys: PropTypes.array,
     isEdit: PropTypes.bool,
@@ -86,7 +86,7 @@ class WorkflowPropertiesModalContent extends Component {
     if (property.type !== INPUT_TYPES.SELECT) {
       delete property.options;
     } else {
-      // Create options in correct shape for service
+      // Create options in correct type for service - { key, value }
       property.options = property.options.map(property => ({ key: property, value: property }));
     }
 
@@ -139,7 +139,6 @@ class WorkflowPropertiesModalContent extends Component {
       case INPUT_TYPES.SELECT:
         // If editing an option, values will be an array of { key, value}
         let options = clonedeep(values.options);
-        options = options.map(option => (option.key ? option.key : option));
         return (
           <>
             <Creatable
@@ -224,7 +223,8 @@ class WorkflowPropertiesModalContent extends Component {
             ? INPUT_TYPES_LABELS.find(type => type.value === property.type)
             : INPUT_TYPES_LABELS[4],
           [FIELD.DEFAULT_VALUE]: property?.defaultValue ?? "",
-          [FIELD.OPTIONS]: property?.options ?? []
+          // Read in values as an array of strings. Service returns object { key, value }
+          [FIELD.OPTIONS]: property?.options?.map(option => (typeof option === "object" ? option.key : option)) ?? []
         }}
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()

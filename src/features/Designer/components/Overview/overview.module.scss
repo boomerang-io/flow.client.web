@@ -86,9 +86,10 @@
 .smallCol {
   padding: 0 2rem 2rem 2rem;
 }
-
-.combobox {
-  margin-top: 2rem;
+.teamSelect {
+  input + div[role="button"] {
+    display: none;
+  }
 }
 
 .iconTitle {

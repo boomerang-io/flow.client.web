@@ -107,26 +107,24 @@ export class Overview extends Component {
         <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
           <h2 className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</h2>
-          <ComboBox
-            onChange={this.handleTeamChange}
-            id="selectedTeam"
-            items={teams}
-            initialSelectedItem={values?.selectedTeam}
-            itemToString={item => item?.name ?? ""}
-            invalid={Boolean(errors.selectedTeam?.name)}
-            invalidText={errors.selectedTeam?.name}
-            value={values.selectedTeam}
-            titleText={
-              <div style={{ display: "flex" }}>
-                <p style={{ marginRight: "0.5rem" }}>Team</p>
-              </div>
-            }
-            placeholder="Select a team"
-            shouldFilterItem={({ item, inputValue }) => item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())}
-          />
+          <div className={styles.teamSelect}>
+            <ComboBox
+              id="selectedTeam"
+              items={teams}
+              initialSelectedItem={values?.selectedTeam}
+              itemToString={item => item?.name ?? ""}
+              invalid={Boolean(errors.selectedTeam?.name)}
+              invalidText={errors.selectedTeam?.name}
+              onChange={this.handleTeamChange}
+              value={values.selectedTeam}
+              label="Team"
+              placeholder="Select a team"
+              shouldFilterItem={({ item, inputValue }) => item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())}
+            />
+          </div>
           <TextInput
             id="name"
-            labelText="Name"
+            label="Name"
             helperText="Must be unique"
             placeholder="Name"
             value={values.name}
@@ -137,7 +135,7 @@ export class Overview extends Component {
           />
           <TextInput
             id="shortDescription"
-            labelText="Summary"
+            label="Summary"
             placeholder="Summary"
             value={values.shortDescription}
             onBlur={handleBlur}
@@ -149,7 +147,7 @@ export class Overview extends Component {
             <p className={styles.descriptionLength}> {`${values.description.length} / 250`}</p>
             <TextArea
               id="description"
-              labelText="Description"
+              label="Description"
               placeholder="Description"
               onBlur={handleBlur}
               onChange={this.handleOnChange}
@@ -189,7 +187,7 @@ export class Overview extends Component {
               <div className={styles.toggleContainer}>
                 <Toggle
                   id="triggers.webhook.enable"
-                  labelText="Webhook"
+                  label="Webhook"
                   toggled={values.triggers.webhook.enable}
                   onToggle={checked => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
                   tooltipContent="Enable workflow to be executed by a webhook"
@@ -251,7 +249,7 @@ export class Overview extends Component {
                 <Toggle
                   reversed
                   id="triggers.scheduler.enable"
-                  labelText="Scheduler"
+                  label="Scheduler"
                   onToggle={checked => this.handleOnToggleChange(checked, "triggers.scheduler.enable")}
                   toggled={values.triggers.scheduler.enable}
                   tooltipContent="Enable workflow to be executed by a schedule"
@@ -304,7 +302,7 @@ export class Overview extends Component {
               <div className={styles.toggleContainer}>
                 <Toggle
                   id="triggers.event.enable"
-                  labelText="Action Subscription"
+                  label="Action Subscription"
                   toggled={values.triggers.event.enable}
                   onToggle={checked => this.handleOnToggleChange(checked, "triggers.event.enable")}
                   tooltipContent="Enable workflow to be triggered by platform actions"
@@ -316,7 +314,7 @@ export class Overview extends Component {
                 <div className={styles.subscriptionContainer}>
                   <TextInput
                     id="triggers.event.topic"
-                    labelText="Topic"
+                    label="Topic"
                     placeholder="Name"
                     value={values.triggers.event.topic}
                     onBlur={handleBlur}
@@ -325,7 +323,7 @@ export class Overview extends Component {
                   <div className={styles.toggleContainer}>
                     <Toggle
                       id="enableACCIntegration"
-                      labelText="IBM Services ACC Integration"
+                      label="IBM Services ACC Integration"
                       toggled={values.enableACCIntegration}
                       onToggle={checked => this.handleOnToggleChange(checked, "enableACCIntegration")}
                       tooltipContent="Enable workflow to be triggered by ACC subscription"
@@ -344,7 +342,7 @@ export class Overview extends Component {
             <div className={styles.toggleContainer}>
               <Toggle
                 id="enablePersistentStorage"
-                labelText="Enable Persistent Storage"
+                label="Enable Persistent Storage"
                 toggled={values.enablePersistentStorage}
                 onToggle={checked => this.handleOnToggleChange(checked, "enablePersistentStorage")}
                 tooltipContent="Persist workflow data between executions"
