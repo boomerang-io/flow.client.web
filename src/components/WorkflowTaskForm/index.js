@@ -208,13 +208,8 @@ class WorkflowTaskForm extends Component {
   };
 
   toggleProps = (input, formikProps) => {
-    const { values, setFieldValue } = formikProps;
-    const { key, ...rest } = input;
-
     return {
-      checked: values[key],
-      onChange: (checked, event, id) => this.formikSetFieldValue(checked, id, setFieldValue),
-      ...rest
+      orientation: "vertical"
     };
   };
 

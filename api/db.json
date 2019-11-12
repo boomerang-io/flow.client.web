@@ -40,6 +40,12 @@
           "key": "shell",
           "label": "shell",
           "type": "text"
+        },
+        {
+          "placeholder": "",
+          "key": "shell-bool",
+          "label": "boolean",
+          "type": "boolean"
         }
       ],
       "description": "Specify Shell Script to Ingest CSV",
@@ -325,6 +331,15 @@
               "label": "Test Property Bool",
               "required": true,
               "type": "boolean"
+            },
+            {
+              "defaultValue": "test",
+              "description": "Testing this propertys",
+              "key": "things",
+              "label": "Test Property1",
+              "required": true,
+              "type": "text",
+              "readOnly": "true"
             }
           ]
         },

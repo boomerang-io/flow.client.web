@@ -47,8 +47,11 @@ class WorkflowCard extends Component {
    * @param {array} properties
    * @returns {array}
    */
-  formatPropertiesForEdit = properties => {
-    return properties.map(property => ({ ...property, key: property.key.replace(/\./g, "-") }));
+  formatPropertiesForEdit = () => {
+    const { properties = [] } = this.props.workflow;
+    return properties
+      .map(property => ({ ...property, key: property.key.replace(/\./g, "-") }))
+      .filter(property => !property.readOnly);
   };
 
   /**
@@ -130,6 +133,8 @@ class WorkflowCard extends Component {
       }
     ];
 
+    const formattedProperties = this.formatPropertiesForEdit();
+
     return (
       <div className={styles.container}>
         <OverflowMenu
@@ -175,7 +180,7 @@ class WorkflowCard extends Component {
           </button>
         </section>
         <section className={styles.cardLaunch}>
-          {workflow.properties && workflow.properties.length !== 0 ? (
+          {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
             <ModalFlow
               modalHeaderProps={{
                 title: "Workflow Properties",
@@ -187,10 +192,7 @@ class WorkflowCard extends Component {
                 </Button>
               )}
             >
-              <WorkflowInputModalContent
-                executeWorkflow={this.executeWorkflow}
-                inputs={this.formatPropertiesForEdit(workflow.properties)}
-              />
+              <WorkflowInputModalContent executeWorkflow={this.executeWorkflow} inputs={formattedProperties} />
             </ModalFlow>
           ) : (
             <ModalFlow

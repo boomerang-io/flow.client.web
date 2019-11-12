@@ -226,9 +226,9 @@ class WorkflowPropertiesModalContent extends Component {
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()
             .required("Enter a key")
-            .max(64, "Property must not be greater than 64 characters")
-            .notOneOf(propertyKeys || [], "Property key already exist")
-            .test("is-valid-key", "Invalid key, space and special characters aren't allowed", this.validateKey),
+            .max(64, "Key must not be greater than 64 characters")
+            .notOneOf(propertyKeys || [], "Enter a unique key value for this workflow")
+            .test("is-valid-key", "Space and special characters not allowed", this.validateKey),
           [FIELD.LABEL]: Yup.string()
             .required("Enter a Name")
             .max(64, "Name must not be greater than 64 characters"),
