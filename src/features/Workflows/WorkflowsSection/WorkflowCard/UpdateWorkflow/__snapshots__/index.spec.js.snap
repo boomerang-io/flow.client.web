@@ -5,32 +5,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
   class="bx--bmrg-body-modal-is-open"
   id="app"
 >
-  <div>
-    <button
-      class="bx--btn bx--btn--ghost"
-      tabindex="0"
-      type="button"
-    >
-      Import Workflow
-      <svg
-        aria-hidden="true"
-        aria-label="Import Workflow"
-        class="bx--btn__icon"
-        focusable="false"
-        height="16"
-        preserveAspectRatio="xMidYMid meet"
-        role="img"
-        style="will-change: transform;"
-        viewBox="0 0 16 16"
-        width="16"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M3 9l.7.7 3.8-3.8V15h1V5.9l3.8 3.8.7-.7-5-5zm0-5V2h10v2h1V2c0-.6-.4-1-1-1H3c-.6 0-1 .4-1 1v2h1z"
-        />
-      </svg>
-    </button>
-  </div>
+  <div />
   <div
     class="ReactModalPortal"
   >
@@ -38,7 +13,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
       class="bx--bmrg-modal-overlay --is-open"
     >
       <div
-        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container --is-open"
+        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container container --is-open"
         role="dialog"
         tabindex="-1"
       >
@@ -48,12 +23,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
           <p
             class="bx--modal-header__heading bx--type-beta"
           >
-            Update Workflow
-          </p>
-          <p
-            class="bx--bmrg-modal-flow-subtitle"
-          >
-            update an existing one
+            Update .json file
           </p>
           <button
             class="bx--modal-close"
@@ -78,138 +48,43 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
             </svg>
           </button>
         </div>
-        <ul
-          class="bx--progress"
-        >
-          <li
-            class="bx--progress-step bx--progress-step--current"
-          >
-            <div
-              class="bx--progress-step-button bx--progress-step-button--unclickable"
-              role="button"
-              tabindex="-1"
-            >
-              <svg>
-                <path
-                  d="M 7, 7 m -7, 0 a 7,7 0 1,0 14,0 a 7,7 0 1,0 -14,0"
-                />
-                <title />
-              </svg>
-              <p
-                class="bx--progress-label"
-              >
-                Type
-              </p>
-              <span
-                class="bx--progress-line"
-              />
-            </div>
-          </li>
-          <li
-            class="bx--progress-step bx--progress-step--incomplete"
-          >
-            <div
-              class="bx--progress-step-button bx--progress-step-button--unclickable"
-              role="button"
-              tabindex="-1"
-            >
-              <svg>
-                <title />
-                <path
-                  d="M8 1C4.1 1 1 4.1 1 8s3.1 7 7 7 7-3.1 7-7-3.1-7-7-7zm0 13c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                />
-              </svg>
-              <p
-                class="bx--progress-label"
-              >
-                Attachment
-              </p>
-              <span
-                class="bx--progress-line"
-              />
-            </div>
-          </li>
-          <li
-            class="bx--progress-step bx--progress-step--incomplete"
-          >
-            <div
-              class="bx--progress-step-button bx--progress-step-button--unclickable"
-              role="button"
-              tabindex="-1"
-            >
-              <svg>
-                <title />
-                <path
-                  d="M8 1C4.1 1 1 4.1 1 8s3.1 7 7 7 7-3.1 7-7-3.1-7-7-7zm0 13c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"
-                />
-              </svg>
-              <p
-                class="bx--progress-label"
-              >
-                Confirm
-              </p>
-              <span
-                class="bx--progress-line"
-              />
-            </div>
-          </li>
-        </ul>
         <form
           class="bx--bmrg-modal-flow-form"
         >
+          <p
+            class="bx--bmrg-modal-flow-form__title"
+          >
+            Update a Workflow - Select the Workflow file you want to upload
+          </p>
           <div
             class="bx--modal-content"
-            style="display: flex; flex-direction: column;"
+            style="height: 21rem; width: 100%;"
           >
-            <button
-              class="bx--btn bx--btn--primary"
-              style="margin-bottom: 1rem; max-width: 100%;"
-              tabindex="0"
-              type="button"
+            <div
+              class="bx--file"
             >
-              New Workflow
-              <svg
-                aria-hidden="true"
-                class="bx--btn__icon"
-                focusable="false"
-                height="20"
-                preserveAspectRatio="xMidYMid meet"
-                style="will-change: transform;"
-                viewBox="0 0 32 32"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
+              <label
+                class="bx--file-browse-btn"
+                for="id2"
+                tabindex="0"
               >
-                <path
-                  d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
-                />
-              </svg>
-            </button>
-            <button
-              class="bx--btn bx--btn--primary"
-              style="max-width: 100%;"
-              tabindex="0"
-              type="button"
-            >
-              Update Workflow
-              <svg
-                aria-hidden="true"
-                class="bx--btn__icon"
-                focusable="false"
-                height="20"
-                preserveAspectRatio="xMidYMid meet"
-                style="will-change: transform;"
-                viewBox="0 0 32 32"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M28 19H14.83l2.58-2.59L16 15l-5 5 5 5 1.41-1.41L14.83 21H28v-2z"
-                />
-                <path
-                  d="M24 14v-4a1 1 0 0 0-.29-.71l-7-7A1 1 0 0 0 16 2H6a2 2 0 0 0-2 2v24a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2h-2v2H6V4h8v6a2 2 0 0 0 2 2h6v2zm-8-4V4.41L21.59 10z"
-                />
-              </svg>
-            </button>
+                <div
+                  class="bx--file__drop-container"
+                  role="button"
+                >
+                  Choose a file or drag one here
+                  <input
+                    accept=".json"
+                    class="bx--file-input"
+                    id="id2"
+                    name="Workflow"
+                    tabindex="-1"
+                    type="file"
+                  />
+                </div>
+              </label>
+            </div>
+            
           </div>
           <div
             class="bx--modal-footer"
@@ -220,6 +95,14 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
               type="button"
             >
               Cancel
+            </button>
+            <button
+              class="bx--btn bx--btn--primary bx--btn--disabled"
+              disabled=""
+              tabindex="0"
+              type="button"
+            >
+              Update
             </button>
           </div>
         </form>

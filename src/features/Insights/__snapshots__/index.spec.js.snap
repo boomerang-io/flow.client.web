@@ -74,6 +74,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                   value="All Teams"
                 />
                 <div
+                  aria-label="Clear Selection"
                   class="bx--list-box__selection"
                   role="button"
                   tabindex="0"
@@ -84,7 +85,6 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    role="img"
                     style="will-change: transform;"
                     viewBox="0 0 16 16"
                     width="16"
@@ -162,6 +162,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                   value="All Workflows"
                 />
                 <div
+                  aria-label="Clear Selection"
                   class="bx--list-box__selection"
                   role="button"
                   tabindex="0"
@@ -172,7 +173,6 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    role="img"
                     style="will-change: transform;"
                     viewBox="0 0 16 16"
                     width="16"
@@ -250,6 +250,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                   value="3 months"
                 />
                 <div
+                  aria-label="Clear Selection"
                   class="bx--list-box__selection"
                   role="button"
                   tabindex="0"
@@ -260,7 +261,6 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    role="img"
                     style="will-change: transform;"
                     viewBox="0 0 16 16"
                     width="16"

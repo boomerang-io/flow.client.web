@@ -31,7 +31,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 id="label"
                 placeholder="Name"
                 type="text"
-                value="Tim Property"
+                value=""
               />
             </div>
           </div>
@@ -56,7 +56,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 id="description"
                 placeholder="Description"
                 type="text"
-                value="Tim property"
+                value=""
               />
             </div>
           </div>
@@ -145,6 +145,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                   value="Text"
                 />
                 <div
+                  aria-label="Clear Selection"
                   class="bx--list-box__selection"
                   role="button"
                   tabindex="0"
@@ -155,7 +156,6 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    role="img"
                     style="will-change: transform;"
                     viewBox="0 0 16 16"
                     width="16"
@@ -214,7 +214,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 id="defaultValue"
                 placeholder="Default Value"
                 type="text"
-                value="dogs"
+                value=""
               />
             </div>
           </div>

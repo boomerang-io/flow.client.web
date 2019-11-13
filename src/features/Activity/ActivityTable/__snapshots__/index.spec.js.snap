@@ -446,6 +446,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
               aria-label="Previous page"
               class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index"
               disabled=""
+              type="button"
             >
               <svg
                 aria-hidden="true"
@@ -466,6 +467,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
               aria-label="Next page"
               class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index"
               disabled=""
+              type="button"
             >
               <svg
                 aria-hidden="true"
