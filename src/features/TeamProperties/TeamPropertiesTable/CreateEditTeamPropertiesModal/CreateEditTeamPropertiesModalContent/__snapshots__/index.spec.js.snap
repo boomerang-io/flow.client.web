@@ -164,8 +164,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary bx--btn--disabled"
-          disabled=""
+          class="bx--btn bx--btn--primary"
           tabindex="0"
           type="submit"
         >

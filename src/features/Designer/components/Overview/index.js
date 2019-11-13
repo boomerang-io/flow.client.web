@@ -249,6 +249,7 @@ export class Overview extends Component {
                 <Toggle
                   reversed
                   id="triggers.scheduler.enable"
+                  data-testid="triggers.scheduler.enable"
                   label="Scheduler"
                   onToggle={checked => this.handleOnToggleChange(checked, "triggers.scheduler.enable")}
                   toggled={values.triggers.scheduler.enable}
@@ -282,7 +283,12 @@ export class Overview extends Component {
                       title: "Change schedule"
                     }}
                     modalTrigger={({ openModal }) => (
-                      <button className={styles.regenerateText} type="button" onClick={openModal}>
+                      <button
+                        className={styles.regenerateText}
+                        type="button"
+                        onClick={openModal}
+                        data-testid="launchCronModal"
+                      >
                         <p>Change schedule</p>
                         <EventSchedule16 className={styles.scheduleIcon} fill={"#0072C3"} />
                       </button>

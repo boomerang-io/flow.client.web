@@ -231,9 +231,8 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary bx--btn--disabled"
+          class="bx--btn bx--btn--primary"
           data-testid="inputs-modal-confirm-button"
-          disabled=""
           tabindex="0"
           type="submit"
         >

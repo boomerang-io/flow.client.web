@@ -204,6 +204,7 @@ export default class CronJobModal extends Component {
                         <div className={styles.timeContainer}>
                           <TextInput
                             id="time"
+                            data-testid="time"
                             invalid={errors.time && touched.time}
                             invalidText={errors.time}
                             labelText=""
