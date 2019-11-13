@@ -58,6 +58,9 @@ class ImportWorkflowContent extends Component {
     if (data.id !== this.props.workflowId) {
       isValid = false;
     }
+    if (!data.latestRevision?.dag?.tasks) {
+      isValid = false;
+    }
     return isValid;
   };
 

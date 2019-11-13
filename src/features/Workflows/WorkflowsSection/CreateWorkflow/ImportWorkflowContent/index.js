@@ -86,6 +86,9 @@ class ImportWorkflowContent extends Component {
         isValid = false;
       }
     });
+    if (!data.latestRevision?.dag?.tasks) {
+      isValid = false;
+    }
     return isValid;
   };
 
