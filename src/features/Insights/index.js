@@ -237,7 +237,13 @@ export class WorkflowInsights extends Component {
                     title="Executions"
                     type="runs"
                     totalCount={totalExecutions}
-                    infoList={hasSelectedWorkflow ? [] : hasSelectedTeam ? executionsByTeam : dataByTeams}
+                    infoList={
+                      hasSelectedWorkflow
+                        ? []
+                        : hasSelectedTeam
+                        ? executionsByTeam.slice(0, 5)
+                        : dataByTeams.slice(0, 5)
+                    }
                   />
                   <InsightsTile
                     title="Duration (median)"

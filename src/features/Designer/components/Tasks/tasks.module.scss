@@ -70,7 +70,7 @@
     width: 1rem;
 
     path {
-      fill: $brand-02;
+      fill: var(--cds-brand-02);
     }
   }
 
@@ -87,7 +87,7 @@
   }
 
   .totalCount {
-    color: $ui-04;
+    color: var(--cds-ui-04);
     font-size: 0.75rem;
     line-height: 0.9375rem;
     margin-left: 1rem;
@@ -95,7 +95,7 @@
   }
 
   .expandButton {
-    color: $interactive-01;
+    color: var(--cds-interactive-02);
     cursor: pointer;
     font-size: 0.75rem;
     font-weight: 500;
@@ -127,7 +127,7 @@
         right: 1.5rem;
       }
       :global(.bx--accordion__title) {
-        color: $text-01;
+        color: var(--cds-text-01);
         font-size: 0.875rem;
         letter-spacing: 0.01rem;
         line-height: 1.25rem;

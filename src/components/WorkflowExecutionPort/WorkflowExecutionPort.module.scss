@@ -6,8 +6,8 @@
   width: 2rem;
 
   &.right {
-    background-color: $interactive-01;
-    border: 0.0625rem solid $interactive-01;
+    background-color: var(--cds-interactive-01);
+    border: 0.0625rem solid var(--cds-interactive-01);
     border-left: none;
     right: -2.125rem;
     top: 1.25rem;
@@ -24,7 +24,7 @@
   }
   &.left {
     background-color: #b3e6ff;
-    border: 0.0625rem solid $interactive-01;
+    border: 0.0625rem solid var(--cds-interactive-01);
     border-right: none;
     border-bottom-left-radius: 50%;
     border-top-left-radius: 50%;

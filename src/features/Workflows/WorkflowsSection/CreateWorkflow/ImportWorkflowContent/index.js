@@ -22,7 +22,7 @@ class ImportWorkflowContent extends Component {
     files: this.props.formData.files.length > 0 ? this.props.formData.files : [],
     isBiggerThanLimit: false,
     processedFile: {},
-    isValidWorkflow: false,
+    isValidWorkflow: undefined,
     selectedTeam: this.props.team || {},
     workflowName: "",
     summary: "",
@@ -37,7 +37,8 @@ class ImportWorkflowContent extends Component {
     title: PropTypes.string.isRequired,
     confirmButtonText: PropTypes.string.isRequired,
     teams: PropTypes.array.isRequired,
-    names: PropTypes.array.isRequired
+    names: PropTypes.array.isRequired,
+    team: PropTypes.object
   };
 
   addFile = file => {
@@ -165,7 +166,7 @@ class ImportWorkflowContent extends Component {
       <ModalFlowForm title={title} onSubmit={e => e.preventDefault()}>
         <ModalBody
           style={{
-            height: "21rem",
+            height: "20.25rem",
             width: "100%"
           }}
         >
@@ -192,19 +193,19 @@ class ImportWorkflowContent extends Component {
             ""
           )}
           {files.length ? (
-            isValidWorkflow ? (
+            isValidWorkflow === true ? (
               //Form
               <div className={styles.confirmInfoForm}>
                 {/* <CheckmarkFilled32 aria-label="success-import-icon" className={styles.successIcon} />           
                   <p className={styles.message}>{validText}</p> */}
                 {this.renderConfirmForm(processedFile)}
               </div>
-            ) : (
+            ) : isValidWorkflow === false ? (
               <div className={styles.validMessage}>
                 <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
                 <p className={styles.message}>{invalidText}</p>
               </div>
-            )
+            ) : null
           ) : null}
         </ModalBody>
         <ModalFooter>

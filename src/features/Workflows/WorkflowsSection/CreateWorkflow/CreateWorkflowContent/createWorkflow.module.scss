@@ -77,15 +77,15 @@
   }
 
   &.--active {
-    background: $support-02;
+    background: var(--cds-support-02);
     svg {
       fill: $white;
     }
     &:hover {
-      background: $support-02;
+      background: var(--cds-support-02);
     }
   }
   &:hover {
-    background: $highlight;
+    background: var(--cds-highlight);
   }
 }

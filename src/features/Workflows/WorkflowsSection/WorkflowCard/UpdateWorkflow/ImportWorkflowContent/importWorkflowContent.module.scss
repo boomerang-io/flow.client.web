@@ -13,13 +13,13 @@
   height: 1.25rem;
   width: 1.25rem;
   path {
-    fill: $support-02;
+    fill: var(--cds-support-02);
   }
 }
 .errorIcon {
   height: 1.25rem;
   width: 1.25rem;
   path {
-    fill: $support-01;
+    fill: var(--cds-support-01);
   }
 }

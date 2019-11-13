@@ -9,6 +9,7 @@ import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { Formik } from "formik";
 import { Prompt } from "react-router-dom";
 import * as Yup from "yup";
+import capitalize from "lodash/capitalize";
 import Loading from "Components/Loading";
 import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
@@ -45,7 +46,7 @@ export class WorkflowManagerContainer extends Component {
     const { workflowId } = match.params;
 
     if (!activeTeamId) {
-      this.setActiveTeamId(workflowId);
+      this.findActiveTeamIdOnMount();
     }
     try {
       await Promise.all([
@@ -74,10 +75,10 @@ export class WorkflowManagerContainer extends Component {
   /**
    * Find the matching team for the workflowId and set that to the active team
    * That path param is the only thing available to the app
-   * @param {string} workflowId
    */
-  setActiveTeamId(workflowId) {
-    const { appActions, teams } = this.props;
+  findActiveTeamIdOnMount() {
+    const { appActions, match, teams } = this.props;
+    const { workflowId } = match.params;
     const activeTeam = teams.data.find(team => {
       return team.workflows.find(workflow => workflow.id === workflowId);
     });
@@ -118,15 +119,16 @@ export class WorkflowManagerContainer extends Component {
   };
 
   updateWorkflow = formikValues => {
-    const { activeTeamId, workflow, workflowActions } = this.props;
+    const { activeTeamId, appActions, workflow, workflowActions } = this.props;
     const flowTeamId = formikValues?.selectedTeam?.id;
     const updatedWorkflow = { ...workflow.data, ...formikValues, flowTeamId };
 
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow`, updatedWorkflow)
       .then(() => {
-        if (activeTeamId !== flowTeamId) {
-          this.setActiveTeamId(flowTeamId);
+        // If the team has changed
+        if (flowTeamId && activeTeamId !== flowTeamId) {
+          appActions.setActiveTeam({ teamId: flowTeamId });
         }
       })
       .catch(error => {});
@@ -136,24 +138,34 @@ export class WorkflowManagerContainer extends Component {
     const { workflow, workflowActions } = this.props;
 
     let properties = [...this.props.workflow.data.properties];
-    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.EDIT) {
+    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE) {
       const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === property.key);
       properties.splice(propertyToUpdateIndex, 1, property);
-    } else if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE) {
+    }
+
+    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE) {
       const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === property.key);
       properties.splice(propertyToUpdateIndex, 1);
-    } else {
+    }
+
+    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE) {
       properties.push(property);
     }
 
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, properties)
       .then(response => {
-        notify(<ToastNotification kind="success" title={title} subtitle={message} />);
+        notify(
+          <ToastNotification
+            kind="success"
+            title={`${capitalize(type)} property`}
+            subtitle={`Successfully performed operation`}
+          />
+        );
         return Promise.resolve(response);
       })
       .catch(error => {
-        notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} input`} />);
+        notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} property`} />);
         return Promise.reject(error);
       });
   };
