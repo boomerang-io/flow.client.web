@@ -59,7 +59,7 @@ class WorkflowCard extends Component {
    * @param {array} properties
    * @returns {array}
    */
-  formatPropertiesForExecution = properties => {
+  formatPropertiesForExecution = (properties = {}) => {
     let formattedProperties = {};
     Object.entries(properties).forEach(([key, value]) => {
       const formattedKey = key.replace(/-/g, ".");

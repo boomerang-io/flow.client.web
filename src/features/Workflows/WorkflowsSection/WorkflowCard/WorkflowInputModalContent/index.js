@@ -20,45 +20,47 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
         orientation: "vertical"
       })}
     >
-      {({ inputs, propsFormik }) => (
-        <ModalFlowForm className={styles.container}>
-          <ModalBody>{inputs}</ModalBody>
-          <ModalFooter>
-            <Button kind="secondary" onClick={closeModal} type="button">
-              Cancel
-            </Button>
-            <Button
-              disabled={!propsFormik.isValid}
-              onClick={e => {
-                e.preventDefault();
-                executeWorkflow({
-                  redirect: false,
-                  properties: propsFormik.values
-                });
-                closeModal();
-              }}
-              type="button"
-            >
-              Run
-            </Button>
-            <Button
-              disabled={!propsFormik.isValid}
-              onClick={e => {
-                e.preventDefault();
-                executeWorkflow({
-                  redirect: true,
-                  properties: propsFormik.values
-                });
-                closeModal();
-              }}
-              type="button"
-            >
-              Run and View
-            </Button>
-          </ModalFooter>
-          <ValidateFormikOnMount validateForm={propsFormik.validateForm} />
-        </ModalFlowForm>
-      )}
+      {({ inputs, propsFormik }) =>
+        console.log(propsFormik) || (
+          <ModalFlowForm className={styles.container}>
+            <ModalBody>{inputs}</ModalBody>
+            <ModalFooter>
+              <Button kind="secondary" onClick={closeModal} type="button">
+                Cancel
+              </Button>
+              <Button
+                disabled={!propsFormik.isValid}
+                onClick={e => {
+                  e.preventDefault();
+                  executeWorkflow({
+                    redirect: false,
+                    properties: propsFormik.values
+                  });
+                  closeModal();
+                }}
+                type="button"
+              >
+                Run
+              </Button>
+              <Button
+                disabled={!propsFormik.isValid}
+                onClick={e => {
+                  e.preventDefault();
+                  executeWorkflow({
+                    redirect: true,
+                    properties: propsFormik.values
+                  });
+                  closeModal();
+                }}
+                type="button"
+              >
+                Run and View
+              </Button>
+            </ModalFooter>
+            <ValidateFormikOnMount validateForm={propsFormik.validateForm} />
+          </ModalFlowForm>
+        )
+      }
     </DynamicFormik>
   );
 }
