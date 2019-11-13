@@ -15,7 +15,7 @@
 }
 
 .title {
-  color: $text-01;
+  color: var(--cds-text-01);
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.625rem;
@@ -44,7 +44,7 @@
 }
 
 .workflowName {
-  color: $text-01;
+  color: var(--cds-text-01);
   font-size: 0.875rem;
   letter-spacing: 00.01rem;
   line-height: 1.125rem;

@@ -70,7 +70,7 @@
 }
 
 .readOnlyText {
-  color: $text-01;
+  color: var(--cds-text-01);
   font-size: 0.75rem;
   position: absolute;
   right: 0.75rem;
@@ -124,7 +124,7 @@
 }
 
 .notRequired {
-  color: $text-03;
+  color: var(--cds-text-03);
   bottom: 1rem;
   font-size: 0.75rem;
   line-height: 0.9375rem;

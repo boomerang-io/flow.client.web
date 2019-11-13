@@ -99,7 +99,7 @@
   cursor: pointer;
 
   &:focus {
-    @include focus-outline($interactive-01, -0.125rem);
+    @include focus-outline(var(--cds-interactive-01), -0.125rem);
   }
 
   &.completed {

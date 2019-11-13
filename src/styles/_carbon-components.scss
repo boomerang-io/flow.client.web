@@ -1,8 +1,7 @@
 // Carbon settings
-$carbon-addons-bmrg-theme: boomerang;
-$carbon--theme--bmrg: true;
-
-@import "variables";
+@import "~@boomerang/carbon-addons-boomerang/scss/themes/boomerang";
+$carbon--theme: $carbon--theme--boomerang;
+$carbon-addons-bmrg--theme: boomerang;
 
 @import "~@boomerang/carbon-addons-boomerang";
 @import "~carbon-components/scss/components/accordion/accordion";
@@ -23,7 +22,6 @@ $carbon--theme--bmrg: true;
 @import "~carbon-components/scss/components/skeleton/skeleton";
 
 // Global overrides
-
 .bx--list-box__menu-icon > svg {
   fill: black;
 }

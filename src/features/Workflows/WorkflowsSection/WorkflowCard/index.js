@@ -152,8 +152,9 @@ class WorkflowCard extends Component {
         {this.state.isUpdateWorkflowModalOpen && (
           <UpdateWorkflow
             fetchTeams={fetchTeams}
-            teamId={teamId}
             onCloseModal={() => this.setState({ isUpdateWorkflowModalOpen: false })}
+            teamId={teamId}
+            workflowId={workflow.id}
           />
         )}
         {this.state.isDeleteModalOpen && (

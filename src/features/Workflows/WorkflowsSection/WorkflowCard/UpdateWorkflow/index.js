@@ -14,7 +14,8 @@ class UpdateWorkflow extends Component {
     fetchTeams: PropTypes.func.isRequired,
     importWorkflowActions: PropTypes.object.isRequired,
     importWorkflowState: PropTypes.object.isRequired,
-    onCloseModal: PropTypes.bool.isRequired
+    onCloseModal: PropTypes.bool.isRequired,
+    workflowId: PropTypes.string.isRequired
   };
 
   handleImportWorkflow = (data, closeModal) => {
@@ -38,7 +39,7 @@ class UpdateWorkflow extends Component {
         files: []
       }
     };
-    const { isPosting } = this.props;
+    const { isPosting, workflowId } = this.props;
     return (
       <ModalFlow
         isOpen
@@ -56,10 +57,11 @@ class UpdateWorkflow extends Component {
         onCloseModal={this.props.onCloseModal}
       >
         <ImportWorkflowContent
+          confirmButtonText="Update"
           handleImportWorkflow={this.handleImportWorkflow}
           isLoading={isPosting}
           title="Update a Workflow - Select the Workflow file you want to upload"
-          confirmButtonText="Update"
+          workflowId={workflowId}
         />
       </ModalFlow>
     );

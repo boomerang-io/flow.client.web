@@ -63,13 +63,13 @@
 
   .secured {
     path {
-      fill: $support-02;
+      fill: var(--cds-support-02);
     }
   }
 
   .unsecured {
     path {
-      fill: $support-01;
+      fill: var(--cds-support-01);
     }
   }
 }

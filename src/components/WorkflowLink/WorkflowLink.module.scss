@@ -13,7 +13,7 @@
 }
 
 .path {
-  stroke: $interactive-01;
+  stroke: var(--cds-interactive-01);
   &.locked {
     stroke: #50565b;
     opacity: inherit;

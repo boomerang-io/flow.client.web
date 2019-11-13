@@ -151,7 +151,7 @@
   border-width: 0.1875rem;
   border-style: solid;
   border-color: transparent;
-  color: $brand-02;
+  color: var(--cds-brand-02);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -172,7 +172,7 @@
 
   &:focus {
     border-color: #20d5d2;
-    outline-color: $brand-02;
+    outline-color: var(--cds-brand-02);
   }
 }
 

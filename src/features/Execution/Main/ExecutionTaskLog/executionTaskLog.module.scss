@@ -3,7 +3,7 @@
 @import "~Styles/mixins";
 
 .container {
-  background-color: $ui-01;
+  background-color: var(--cds-ui-01);
   transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 24.5rem;
 

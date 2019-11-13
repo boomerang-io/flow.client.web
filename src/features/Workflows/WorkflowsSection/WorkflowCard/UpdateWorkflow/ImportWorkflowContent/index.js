@@ -4,6 +4,7 @@ import { ModalBody, ModalFooter, Button, FileUploaderDropContainer, FileUploader
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import { CheckmarkFilled32, ErrorFilled32 } from "@carbon/icons-react";
 import Loading from "Components/Loading";
+import DelayedRender from "Components/DelayedRender";
 import { requiredWorkflowProps } from "./constants";
 import styles from "./importWorkflowContent.module.scss";
 
@@ -13,16 +14,17 @@ class ImportWorkflowContent extends Component {
     isBiggerThanLimit: false,
     processedFile: {},
     isImporting: false,
-    isValidWorkflow: false
+    isValidWorkflow: undefined
   };
 
   static propTypes = {
-    formData: PropTypes.object,
+    confirmButtonText: PropTypes.string.isRequired,
     closeModal: PropTypes.func,
-    isLoading: PropTypes.bool,
+    formData: PropTypes.object,
     handleImportWorkflow: PropTypes.func,
+    isLoading: PropTypes.bool,
     title: PropTypes.string.isRequired,
-    confirmButtonText: PropTypes.string.isRequired
+    workflowId: PropTypes.string.isRequired
   };
 
   addFile = file => {
@@ -52,6 +54,11 @@ class ImportWorkflowContent extends Component {
         isValid = false;
       }
     });
+
+    if (data.id !== this.props.workflowId) {
+      isValid = false;
+    }
+
     return isValid;
   };
 
@@ -106,22 +113,24 @@ class ImportWorkflowContent extends Component {
             ""
           )}
           {isImporting ? (
-            <div>
-              <p className={styles.message}>Validating Workflow...</p>
-            </div>
+            <DelayedRender>
+              <div>
+                <p className={styles.message}>Validating Workflow...</p>
+              </div>
+            </DelayedRender>
           ) : null}
           {files.length ? (
-            isValidWorkflow ? (
+            isValidWorkflow === true ? (
               <div className={styles.validMessage}>
                 <CheckmarkFilled32 aria-label="success-import-icon" className={styles.successIcon} />
                 <p className={styles.message}>{validText}</p>
               </div>
-            ) : (
+            ) : isValidWorkflow === false ? (
               <div className={styles.validMessage}>
                 <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
                 <p className={styles.message}>{invalidText}</p>
               </div>
-            )
+            ) : null
           ) : null}
         </ModalBody>
         <ModalFooter>

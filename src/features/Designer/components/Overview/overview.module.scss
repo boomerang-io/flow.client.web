@@ -132,15 +132,15 @@
   }
 
   &.active {
-    background: $support-02;
+    background: var(--cds-support-02);
     svg {
-      fill: $ui-01;
+      fill: var(--cds-ui-01);
     }
 
     &:hover {
-      background: $support-02;
+      background: var(--cds-support-02);
       svg {
-        fill: $ui-01;
+        fill: var(--cds-ui-01);
       }
     }
   }
@@ -245,7 +245,7 @@
 
 .regenerateText {
   cursor: pointer;
-  color: $interactive-01;
+  color: var(--cds-interactive-01);
   display: flex;
   font-size: 0.75rem;
   line-height: 0.9375rem;

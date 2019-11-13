@@ -8,7 +8,3 @@ $lightest-gray: #fbfcfc;
 $dark-gray: #4a4a4a;
 $section-gray: #8c9696;
 $darkest-gray: #272727;
-
-// Carbon theme Flow
-@import "~@boomerang/carbon-addons-boomerang/scss/styles/bmrgThemeTokens";
-@include bmrg--theme-tokens();
