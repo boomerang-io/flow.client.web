@@ -55,10 +55,9 @@ class ImportWorkflowContent extends Component {
       }
     });
 
-    if (data.id === this.props.workflowId) {
+    if (data.id !== this.props.workflowId) {
       isValid = false;
     }
-
     return isValid;
   };
 
