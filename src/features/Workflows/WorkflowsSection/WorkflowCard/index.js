@@ -149,7 +149,13 @@ class WorkflowCard extends Component {
             <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
           ))}
         </OverflowMenu>
-        {this.state.isUpdateWorkflowModalOpen && <UpdateWorkflow fetchTeams={fetchTeams} teamId={teamId} />}
+        {this.state.isUpdateWorkflowModalOpen && (
+          <UpdateWorkflow
+            fetchTeams={fetchTeams}
+            teamId={teamId}
+            onCloseModal={() => this.setState({ isUpdateWorkflowModalOpen: false })}
+          />
+        )}
         {this.state.isDeleteModalOpen && (
           <ConfirmModal
             affirmativeAction={() => {

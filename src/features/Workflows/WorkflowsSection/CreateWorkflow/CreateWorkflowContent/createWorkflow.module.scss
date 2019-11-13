@@ -81,6 +81,9 @@
     svg {
       fill: $white;
     }
+    &:hover {
+      background: $support-02;
+    }
   }
   &:hover {
     background: $highlight;

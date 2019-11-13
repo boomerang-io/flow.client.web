@@ -5,32 +5,24 @@ import { bindActionCreators } from "redux";
 import queryString from "query-string";
 import { actions as importWorkflowActions } from "State/importWorkflow";
 import { notify, ToastNotification, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
-import { Button } from "carbon-components-react";
-import { Upload16 } from "@carbon/icons-react";
-import ImportAttachment from "./ImportAttachment";
-import ImportConfirm from "./ImportConfirm";
-import ImportType from "./ImportType";
+import ImportWorkflowContent from "./ImportWorkflowContent";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import styles from "./updateWorkflow.module.scss";
 
 class UpdateWorkflow extends Component {
   static propTypes = {
     fetchTeams: PropTypes.func.isRequired,
     importWorkflowActions: PropTypes.object.isRequired,
-    importWorkflowState: PropTypes.object.isRequired
+    importWorkflowState: PropTypes.object.isRequired,
+    onCloseModal: PropTypes.bool.isRequired
   };
 
-  handleImportWorkflow = (data, isUpdate, closeModal) => {
-    const query = queryString.stringify({ update: isUpdate, flowTeamId: isUpdate ? undefined : this.props.teamId });
+  handleImportWorkflow = (data, closeModal) => {
+    const query = queryString.stringify({ update: true, flowTeamId: this.props.teamId });
     return this.props.importWorkflowActions
-      .post(`${BASE_SERVICE_URL}/workflow/import?${query}`, JSON.parse(data))
+      .post(`${BASE_SERVICE_URL}/workflow/import?${query}`, data)
       .then(() => {
-        notify(
-          <ToastNotification
-            kind="success"
-            title={` ${isUpdate ? "Update" : "Import"} Workflow`}
-            subtitle={`Workflow successfully ${isUpdate ? "updated" : "imported"}`}
-          />
-        );
+        notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfullyupdated" />);
         closeModal();
         this.props.fetchTeams();
       })
@@ -43,11 +35,10 @@ class UpdateWorkflow extends Component {
     const initialState = {
       step: 0,
       formData: {
-        files: [],
-        isUpdate: false
+        files: []
       }
     };
-
+    const { isPosting } = this.props;
     return (
       <ModalFlow
         isOpen
@@ -55,25 +46,20 @@ class UpdateWorkflow extends Component {
           title: "Are you sure?",
           children: "Your request will not be saved"
         }}
-        modalHeaderProps={{
-          title: "Update Workflow",
-          subtitle: "update an existing one"
+        composedModalProps={{
+          containerClassName: styles.container
         }}
-        modalTrigger={({ openModal }) => (
-          <Button kind="ghost" onClick={openModal} iconDescription="Import Workflow" renderIcon={Upload16}>
-            Import Workflow
-          </Button>
-        )}
-        progressSteps={[{ label: "Type" }, { label: "Attachment" }, { label: "Confirm" }]}
+        modalHeaderProps={{
+          title: "Update .json file"
+        }}
         initialState={initialState}
+        onCloseModal={this.props.onCloseModal}
       >
-        <ImportType />
-        <ImportAttachment />
-        <ImportConfirm
-          fetchTeams={this.props.fetchTeams}
+        <ImportWorkflowContent
           handleImportWorkflow={this.handleImportWorkflow}
-          importWorkflowActions={this.props.importWorkflowActions}
-          importWorkflowState={this.props.importWorkflowState}
+          isLoading={isPosting}
+          title="Update a Workflow - Select the Workflow file you want to upload"
+          confirmButtonText="Update"
         />
       </ModalFlow>
     );
@@ -81,7 +67,8 @@ class UpdateWorkflow extends Component {
 }
 
 const mapStateToProps = state => ({
-  importWorkflowState: state.importWorkflow
+  importWorkflowState: state.importWorkflow,
+  isPosting: state.importWorkflow.isPosting
 });
 
 const mapDispatchToProps = dispatch => ({

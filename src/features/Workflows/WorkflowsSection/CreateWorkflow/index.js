@@ -6,7 +6,7 @@ import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { ModalFlow, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import { Add32 } from "@carbon/icons-react";
-import CreateWorkflowContent from "./CreateWorkflowContent";
+import CreateWorkflowContainer from "./CreateWorkflowContainer";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import DiagramApplication, { createWorkflowRevisionBody } from "Utilities/DiagramApplication";
 import styles from "./createWorkflow.module.scss";
@@ -16,7 +16,8 @@ export class CreateWorkflow extends Component {
     fetchTeams: PropTypes.func.isRequired,
     team: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired,
+    onCloseModal: PropTypes.bool.isRequired
   };
 
   diagramApp = new DiagramApplication({ dag: null, isLocked: false });
@@ -53,9 +54,43 @@ export class CreateWorkflow extends Component {
         return Promise.reject();
       });
   };
+
+  handleImportWorkflowCreation = (data, closeModal) => {
+    const { workflowActions, workflowRevisionActions, fetchTeams } = this.props;
+    let workflowId;
+    return workflowActions
+      .create(`${BASE_SERVICE_URL}/workflow`, data)
+      .then(res => {
+        workflowId = res.data.id;
+        const dagProps = createWorkflowRevisionBody(this.diagramApp, "Create workflow");
+        const workflowRevision = {
+          ...dagProps,
+          workflowId
+        };
+        fetchTeams();
+        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
+      })
+      .then(res => {
+        notify(
+          <ToastNotification
+            kind="success"
+            title="Create Workflow"
+            subtitle="Successfully created workflow and version"
+          />
+        );
+        closeModal();
+        this.props.history.push(`/editor/${workflowId}/designer`);
+      })
+      .catch(err => {
+        notify(
+          <ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow and version" />
+        );
+        return Promise.reject();
+      });
+  };
+
   render() {
     const { team, teams, isCreating } = this.props;
-
     return (
       <ModalFlow
         modalTrigger={({ openModal }) => (
@@ -73,7 +108,13 @@ export class CreateWorkflow extends Component {
           subtitle: "Get started with these basics, then proceed to designing it out."
         }}
       >
-        <CreateWorkflowContent createWorkflow={this.createWorkflow} team={team} teams={teams} isCreating={isCreating} />
+        <CreateWorkflowContainer
+          createWorkflow={this.createWorkflow}
+          team={team}
+          teams={teams}
+          isCreating={isCreating}
+          handleImportWorkflowCreation={this.handleImportWorkflowCreation}
+        />
       </ModalFlow>
     );
   }

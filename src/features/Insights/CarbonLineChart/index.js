@@ -19,7 +19,6 @@ const lineTimeSeriesOptions = {
   width: 620
 };
 
-
 const CarbonLineChart = ({ data }) => {
   return (
     <div className="CarbonTimeLineChart">
