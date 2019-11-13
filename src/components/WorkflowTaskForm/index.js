@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import * as Yup from "yup";
 import { AutoSuggest, DynamicFormik, ModalFlowForm, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
-import { transformAll } from "@boomerang/boomerang-utilities/lib/yupAst";
 import TextEditorModal from "Components/TextEditorModal";
-import { TEXT_AREA_TYPES, SELECT_TYPES } from "Constants/formInputTypes";
+import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = props => {
@@ -25,10 +25,13 @@ const TextEditorInput = props => {
   );
 };
 
-const NameTextInput = props => {
+const NameTextInput = ({ formikProps, ...rest }) => {
+  const { errors, touched } = formikProps;
+  const error = errors[rest.id];
+  const touch = touched[rest.id];
   return (
     <>
-      <TextInput {...props} />
+      <TextInput {...rest} invalid={touch && error} invalidText={error} />
       <hr className={styles.divider} />
       <h2 className={styles.inputsTitle}>Specifics</h2>
     </>
@@ -89,69 +92,6 @@ class WorkflowTaskForm extends Component {
     this.props.onSave(values);
     this.props.setShouldConfirmModalClose(false);
     this.props.closeModal();
-  };
-
-  yupAST = (taskConfig, taskNames) => {
-    let yupShape = {
-      taskName: [
-        ["yup.string"],
-        ["yup.required", "Name is required"],
-        ["yup.notOneOf", taskNames, "Task name must be unique per workflow"]
-      ]
-    };
-
-    taskConfig.forEach(item => {
-      let yupValidationArray = [];
-      const type = item.type;
-
-      if (
-        type === "text" ||
-        type === "PASSWORD" ||
-        Object.keys(TEXT_AREA_TYPES).includes(type) ||
-        type === SELECT_TYPES.select.type
-      ) {
-        yupValidationArray.push(["yup.string"]);
-      } else if (type === "url") {
-        yupValidationArray.push(["yup.string"], ["yup.url"]);
-      } else if (type === SELECT_TYPES.multiselect.type) {
-        yupValidationArray.push(["yup.array"]);
-      } else {
-        yupValidationArray.push(["yup.boolean"]);
-      }
-
-      if (item.minValueLength) {
-        yupValidationArray.push(["yup.required", `${item.label} is required`]);
-        yupValidationArray.push([
-          "yup.min",
-          item.minValueLength,
-          `${item.label} must be at least ${item.minValueLength} characters`
-        ]);
-      }
-      if (item.maxValueLength) {
-        yupValidationArray.push([
-          "yup.max",
-          item.maxValueLength,
-          `${item.label} must be less than ${item.maxValueLength} characters`
-        ]);
-      }
-
-      if (yupValidationArray.length > 0) {
-        yupShape[item.key] = yupValidationArray;
-      }
-    });
-
-    return [["yup.object"], ["yup.shape", yupShape]];
-  };
-
-  customProps = (input, formikProps) => {
-    const { handleChange } = formikProps;
-    return {
-      onChange: e => this.formikHandleChange(e, handleChange),
-      type: "text",
-      label: "Name",
-      invalid: !!formikProps.errors[input.key],
-      invalidText: formikProps.errors[input.key]
-    };
   };
 
   selectProps = (input, formikProps) => {
@@ -216,21 +156,29 @@ class WorkflowTaskForm extends Component {
   render() {
     const { node, nodeConfig, task, taskNames } = this.props;
 
-    const otherTaskNames = taskNames.filter(name => name !== node.taskName);
+    const takenTaskNames = taskNames.filter(name => name !== node.taskName);
     const inputs = [
-      { key: "taskName", labelText: "Task Name", placeholder: "Enter a task name", type: "taskName" },
+      {
+        key: "taskName",
+        label: "Task Name",
+        placeholder: "Enter a task name",
+        type: "custom",
+        required: true,
+        customComponent: NameTextInput
+      },
       ...task.config
     ];
 
     return (
       <DynamicFormik
+        validationSchemaExtension={Yup.object().shape({
+          taskName: Yup.string()
+            .required("Enter a Task Name")
+            .notOneOf(takenTaskNames, "Enter a unique value for task name")
+        })}
         initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
         inputs={inputs}
         onSubmit={this.handleOnSave}
-        validationSchema={transformAll(this.yupAST(task.config, otherTaskNames))}
-        customType="taskName"
-        customProps={this.customProps}
-        CustomComponent={NameTextInput}
         dataDrivenProps={{
           TextInput: AutoSuggestInput,
           TextEditor: TextEditorInput
@@ -242,14 +190,14 @@ class WorkflowTaskForm extends Component {
         textInputProps={this.textInputProps}
         toggleProps={this.toggleProps}
       >
-        {({ inputs, propsFormik }) => (
-          <ModalFlowForm onSubmit={propsFormik.handleSubmit} className={styles.container}>
+        {({ inputs, formikProps }) => (
+          <ModalFlowForm onSubmit={formikProps.handleSubmit} className={styles.container}>
             <ModalBody>{inputs}</ModalBody>
             <ModalFooter>
               <Button kind="secondary" onClick={this.props.closeModal}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={!propsFormik.isValid}>
+              <Button type="submit" disabled={!formikProps.isValid}>
                 Apply
               </Button>
             </ModalFooter>

@@ -20,8 +20,8 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
         orientation: "vertical"
       })}
     >
-      {({ inputs, propsFormik }) =>
-        console.log(propsFormik) || (
+      {({ inputs, formikProps }) =>
+        console.log(formikProps) || (
           <ModalFlowForm className={styles.container}>
             <ModalBody>{inputs}</ModalBody>
             <ModalFooter>
@@ -29,12 +29,12 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
                 Cancel
               </Button>
               <Button
-                disabled={!propsFormik.isValid}
+                disabled={!formikProps.isValid}
                 onClick={e => {
                   e.preventDefault();
                   executeWorkflow({
                     redirect: false,
-                    properties: propsFormik.values
+                    properties: formikProps.values
                   });
                   closeModal();
                 }}
@@ -43,12 +43,12 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
                 Run
               </Button>
               <Button
-                disabled={!propsFormik.isValid}
+                disabled={!formikProps.isValid}
                 onClick={e => {
                   e.preventDefault();
                   executeWorkflow({
                     redirect: true,
-                    properties: propsFormik.values
+                    properties: formikProps.values
                   });
                   closeModal();
                 }}
@@ -57,7 +57,7 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
                 Run and View
               </Button>
             </ModalFooter>
-            <ValidateFormikOnMount validateForm={propsFormik.validateForm} />
+            <ValidateFormikOnMount validateForm={formikProps.validateForm} />
           </ModalFlowForm>
         )
       }

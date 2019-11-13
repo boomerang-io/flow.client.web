@@ -266,6 +266,12 @@
           "key": "value",
           "label": "Value",
           "type": "text"
+        },
+        {
+          "placeholder": "Private field",
+          "key": "value",
+          "label": "Value",
+          "type": "password"
         }
       ],
       "description": "Create a Switch Component",
