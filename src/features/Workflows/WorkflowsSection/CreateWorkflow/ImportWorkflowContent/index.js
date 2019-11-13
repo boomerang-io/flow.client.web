@@ -59,8 +59,7 @@ class ImportWorkflowContent extends Component {
         processedFile: contents,
         isValidWorkflow,
         workflowName: contents.name,
-        summary: contents.shortDescription,
-        selectedTeam: this.props.teams.find(team => team.id === contents.flowTeamId) ?? {}
+        summary: contents.shortDescription
       });
     };
     reader.readAsText(fileTest);
