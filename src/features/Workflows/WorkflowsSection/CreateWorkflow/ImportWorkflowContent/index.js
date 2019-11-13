@@ -86,6 +86,7 @@ class ImportWorkflowContent extends Component {
         isValid = false;
       }
     });
+    //Validate if workflow has the latest structure for dag
     if (!data.latestRevision?.dag?.tasks) {
       isValid = false;
     }

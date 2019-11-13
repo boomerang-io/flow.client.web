@@ -58,6 +58,7 @@ class ImportWorkflowContent extends Component {
     if (data.id !== this.props.workflowId) {
       isValid = false;
     }
+    //Validate if workflow has the latest structure for dag
     if (!data.latestRevision?.dag?.tasks) {
       isValid = false;
     }
