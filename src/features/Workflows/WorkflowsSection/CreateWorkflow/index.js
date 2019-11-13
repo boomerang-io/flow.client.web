@@ -4,16 +4,19 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { actions as workflowActions } from "State/workflow";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
+import { actions as importWorkflowActions } from "State/importWorkflow";
 import { ModalFlow, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import { Add32 } from "@carbon/icons-react";
 import CreateWorkflowContainer from "./CreateWorkflowContainer";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import DiagramApplication, { createWorkflowRevisionBody } from "Utilities/DiagramApplication";
 import styles from "./createWorkflow.module.scss";
+import queryString from "query-string";
 
 export class CreateWorkflow extends Component {
   static propTypes = {
     fetchTeams: PropTypes.func.isRequired,
+    importWorkflowActions: PropTypes.object.isRequired,
     team: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired,
@@ -55,39 +58,57 @@ export class CreateWorkflow extends Component {
       });
   };
 
-  handleImportWorkflowCreation = (data, closeModal) => {
-    const { workflowActions, workflowRevisionActions, fetchTeams } = this.props;
-    let workflowId;
-    return workflowActions
-      .create(`${BASE_SERVICE_URL}/workflow`, data)
-      .then(res => {
-        workflowId = res.data.id;
-        const dagProps = createWorkflowRevisionBody(this.diagramApp, "Create workflow");
-        const workflowRevision = {
-          ...dagProps,
-          workflowId
-        };
-        fetchTeams();
-        return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
-      })
-      .then(res => {
-        notify(
-          <ToastNotification
-            kind="success"
-            title="Create Workflow"
-            subtitle="Successfully created workflow and version"
-          />
-        );
+  handleImportWorkflowCreation = (data, closeModal, team) => {
+    const query = queryString.stringify({ update: false, flowTeamId: team.id });
+    return this.props.importWorkflowActions
+      .post(`${BASE_SERVICE_URL}/workflow/import?${query}`, data)
+      .then(() => {
+        notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfullyupdated" />);
         closeModal();
-        this.props.history.push(`/editor/${workflowId}/designer`);
+        this.props.fetchTeams();
       })
       .catch(err => {
         notify(
           <ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow and version" />
         );
-        return Promise.reject();
       });
   };
+
+  // handleImportWorkflowCreation = (data, closeModal, team) => {
+  //   const { workflowActions, workflowRevisionActions, fetchTeams } = this.props;
+  //   let workflowId;
+  //   const query = queryString.stringify({ update: false, flowTeamId: team.id });
+  //   return workflowActions
+  //     // .create(`${BASE_SERVICE_URL}/workflow`, data)
+  //     .post(`${BASE_SERVICE_URL}/workflow/import?${query}`, data)
+  //     .then(res => {
+  //       workflowId = res.data.id;
+  //       const dagProps = createWorkflowRevisionBody(this.diagramApp, "Create workflow");
+  //       const workflowRevision = {
+  //         ...dagProps,
+  //         workflowId
+  //       };
+  //       fetchTeams();
+  //       return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
+  //     })
+  //     .then(res => {
+  //       notify(
+  //         <ToastNotification
+  //           kind="success"
+  //           title="Create Workflow"
+  //           subtitle="Successfully created workflow and version"
+  //         />
+  //       );
+  //       closeModal();
+  //       this.props.history.push(`/editor/${workflowId}/designer`);
+  //     })
+  //     .catch(err => {
+  //       notify(
+  //         <ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow and version" />
+  //       );
+  //       return Promise.reject();
+  //     });
+  // };
 
   render() {
     const { team, teams, isCreating } = this.props;
@@ -130,7 +151,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     workflowActions: bindActionCreators(workflowActions, dispatch),
-    workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
+    workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch),
+    importWorkflowActions: bindActionCreators(importWorkflowActions, dispatch)
   };
 };
 

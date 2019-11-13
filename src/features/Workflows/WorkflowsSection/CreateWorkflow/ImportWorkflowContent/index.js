@@ -103,7 +103,8 @@ class ImportWorkflowContent extends Component {
         name: workflowName,
         flowTeamId: selectedTeam?.id ?? processedFile.flowTeamId
       },
-      this.props.closeModal
+      this.props.closeModal,
+      this.state.selectedTeam
     );
   };
 
