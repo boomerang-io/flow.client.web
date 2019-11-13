@@ -43,7 +43,9 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
             class="bx--list-box__wrapper"
           >
             <div
+              aria-label="Choose an item"
               class="bx--combo-box bx--list-box"
+              id="combobox-a11y-1"
               role="listbox"
               tabindex="-1"
             >
@@ -59,16 +61,16 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
               >
                 <input
                   aria-autocomplete="list"
-                  aria-controls="team-properties-select__menu"
                   aria-disabled="false"
                   aria-expanded="false"
-                  aria-label="Choose an item"
+                  aria-labelledby="combobox-a11y-1"
                   autocomplete="off"
-                  class="bx--text-input"
+                  class="bx--text-input bx--text-input--empty"
                   id="team-properties-select"
                   label="Teams"
                   placeholder="Select a team"
                   role="combobox"
+                  tabindex="0"
                   value=""
                 />
                 

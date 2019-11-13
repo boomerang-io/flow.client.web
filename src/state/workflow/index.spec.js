@@ -65,7 +65,7 @@ describe(">>>REDUCER --- workflowReducer", () => {
         }
       }
     };
-    const action = { type: types.UPDATE_WORKFLOW_SUCCESS, data: [] };
+    const action = { type: types.UPDATE_WORKFLOW_SUCCESS, data: updateData };
     const expected = {
       ...initialState,
       isFetching: false,

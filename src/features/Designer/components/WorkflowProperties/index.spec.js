@@ -4,25 +4,20 @@ import { fireEvent } from "@testing-library/react";
 
 const mockfn = jest.fn();
 
-const initialState = {
-  workflow: {
-    data: {
-      properties: [
-        {
-          defaultValue: "pandas",
-          description: "Tim property",
-          key: "tim.property",
-          label: "Tim Property",
-          required: true,
-          type: "select",
-          optiions: ["pandas", "dogs"]
-        }
-      ]
-    }
-  }
-};
+const initialState = {};
 
 const props = {
+  properties: [
+    {
+      defaultValue: "pandas",
+      description: "Tim property",
+      key: "tim.property",
+      label: "Tim Property",
+      required: true,
+      type: "select",
+      optiions: ["pandas", "dogs"]
+    }
+  ],
   loading: false,
   updateInputs: mockfn,
   workflowActions: { deleteWorkflowInput: mockfn }
@@ -65,6 +60,6 @@ describe("Inputs --- RTL", () => {
     const modalTrigger = getByLabelText(/Edit/i);
     fireEvent.click(modalTrigger);
 
-    expect(queryByText(/Let's update it/i)).toBeInTheDocument();
+    expect(queryByText(/Let's change some stuff/i)).toBeInTheDocument();
   });
 });

@@ -20,7 +20,7 @@ describe("ImportWorkflow --- Snapshot Test", () => {
     const { baseElement, getByText } = rtlReduxRender(<ImportWorkflow {...props} />, {
       initialState: { importWorkflow: initialState }
     });
-    fireEvent.click(getByText(/Import Workflow/i));
+    fireEvent.click(getByText(/Choose a file or drag one here/i));
     expect(baseElement).toMatchSnapshot();
   });
 });

@@ -6,6 +6,7 @@ const mockfn = jest.fn();
 const props = {
   createWorkflow: mockfn,
   isCreating: false,
+  names: [],
   teams: [{ value: "test", label: "Test" }]
 };
 

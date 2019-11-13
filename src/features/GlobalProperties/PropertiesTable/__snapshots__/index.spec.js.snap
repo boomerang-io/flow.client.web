@@ -45,7 +45,6 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
             focusable="false"
             height="16"
             preserveAspectRatio="xMidYMid meet"
-            role="img"
             style="will-change: transform;"
             viewBox="0 0 16 16"
             width="16"
@@ -73,11 +72,10 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
             type="button"
           >
             <svg
-              aria-label="Clear search input"
+              aria-hidden="true"
               focusable="false"
               height="20"
               preserveAspectRatio="xMidYMid meet"
-              role="img"
               style="will-change: transform;"
               viewBox="0 0 32 32"
               width="20"
@@ -469,6 +467,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
             aria-label="Previous page"
             class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index"
             disabled=""
+            type="button"
           >
             <svg
               aria-hidden="true"
@@ -489,6 +488,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
             aria-label="Next page"
             class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index"
             disabled=""
+            type="button"
           >
             <svg
               aria-hidden="true"

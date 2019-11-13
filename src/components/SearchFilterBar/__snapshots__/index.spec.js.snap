@@ -20,7 +20,6 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
             focusable="false"
             height="16"
             preserveAspectRatio="xMidYMid meet"
-            role="img"
             style="will-change: transform;"
             viewBox="0 0 16 16"
             width="16"
@@ -49,11 +48,10 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
             type="button"
           >
             <svg
-              aria-label="Clear search input"
+              aria-hidden="true"
               focusable="false"
               height="20"
               preserveAspectRatio="xMidYMid meet"
-              role="img"
               style="will-change: transform;"
               viewBox="0 0 32 32"
               width="20"

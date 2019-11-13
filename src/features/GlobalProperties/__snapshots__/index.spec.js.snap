@@ -48,7 +48,6 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
               focusable="false"
               height="16"
               preserveAspectRatio="xMidYMid meet"
-              role="img"
               style="will-change: transform;"
               viewBox="0 0 16 16"
               width="16"
@@ -76,11 +75,10 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
               type="button"
             >
               <svg
-                aria-label="Clear search input"
+                aria-hidden="true"
                 focusable="false"
                 height="20"
                 preserveAspectRatio="xMidYMid meet"
-                role="img"
                 style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="20"
@@ -472,6 +470,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
               aria-label="Previous page"
               class="bx--pagination__button bx--pagination__button--backward bx--pagination__button--no-index"
               disabled=""
+              type="button"
             >
               <svg
                 aria-hidden="true"
@@ -492,6 +491,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
               aria-label="Next page"
               class="bx--pagination__button bx--pagination__button--forward bx--pagination__button--no-index"
               disabled=""
+              type="button"
             >
               <svg
                 aria-hidden="true"
