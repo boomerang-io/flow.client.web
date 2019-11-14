@@ -1,6 +1,6 @@
 import React from "react";
 import Inputs from ".";
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, waitForElement } from "@testing-library/react";
 
 const mockfn = jest.fn();
 
@@ -19,7 +19,8 @@ const props = {
   setShouldConfirmModalClose: mockfn,
   closeModal: mockfn,
   inputsName: [],
-  workflowActions: { updateWorkflowInput: mockfn, createWorkflowInput: mockfn }
+  workflowActions: { updateWorkflowInput: mockfn, createWorkflowInput: mockfn },
+  updateWorkflowProperties: mockfn
 };
 
 describe("Inputs --- Snapshot Test", () => {
@@ -56,10 +57,10 @@ describe("Inputs --- RTL", () => {
   });
 
   it("Shouldn't save property without key, label and type defined", async () => {
-    const { getByText, getByPlaceholderText, getByLabelText } = rtlReduxRender(
+    const { findByText, getByText, getByPlaceholderText, getByLabelText } = rtlReduxRender(
       <Inputs {...props} isEdit={false} input={undefined} />
     );
-    expect(getByText(/create/i)).toBeDisabled();
+    waitForElement(() => expect(findByText(/create/i)).toBeDisabled());
 
     const keyInput = getByPlaceholderText("key.value");
     const labelInput = getByPlaceholderText(/name/i);
@@ -70,6 +71,6 @@ describe("Inputs --- RTL", () => {
     fireEvent.click(typeSelect);
     fireEvent.click(getByText(/boolean/i));
 
-    expect(getByText(/create/i)).toBeEnabled();
+    waitForElement(() => expect(findByText(/create/i)).toBeEnabled());
   });
 });

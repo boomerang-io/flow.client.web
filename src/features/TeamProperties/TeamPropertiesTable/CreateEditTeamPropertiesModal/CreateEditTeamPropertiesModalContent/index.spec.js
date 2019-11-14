@@ -1,6 +1,6 @@
 import React from "react";
 import CreateEditTeamPropertiesModalContent from "../CreateEditTeamPropertiesModalContent";
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, waitForElement } from "@testing-library/react";
 
 const mockfn = jest.fn();
 const props = {
@@ -8,7 +8,7 @@ const props = {
   addTeamPropertyInStore: mockfn,
   updateTeamProperty: mockfn,
   team: "Test-Id",
-  propertyKeys: [],
+  propertyKeys: ["key"],
   property: {
     id: 1
   }
@@ -32,17 +32,16 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
   test("CreateEditTeamPropertiesModalContent - test the Submit Button state", () => {
     const newProps = { ...props, isEdit: false };
 
-    const { getByLabelText, getByText } = rtlReduxRender(<CreateEditTeamPropertiesModalContent {...newProps} />);
+    const { getByLabelText, findByText } = rtlReduxRender(<CreateEditTeamPropertiesModalContent {...newProps} />);
     const valueInputText = getByLabelText(/value/i);
     const labelInputText = getByLabelText(/label/i);
     const keyInputText = getByLabelText(/key/i);
-    const saveButton = getByText(/create/i);
 
-    expect(saveButton).toBeDisabled();
+    waitForElement(() => expect(findByText(/create/i)).toBeDisabled());
     fireEvent.change(valueInputText, { target: { value: "Value Test" } });
     fireEvent.change(labelInputText, { target: { value: "Label Test" } });
     fireEvent.change(keyInputText, { target: { value: "Key Test" } });
-    expect(saveButton).toBeEnabled();
+    waitForElement(() => expect(findByText(/create/i)).toBeEnabled());
   });
 
   test("CreateEditTeamPropertiesModalContent - test if the form submits", () => {
