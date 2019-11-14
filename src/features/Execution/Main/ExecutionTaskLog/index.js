@@ -43,8 +43,8 @@ function ExecutionTaskLog({ workflowExecution }) {
           <div className={styles.status}>
             <p className={styles.title}>Status</p>
             <div className={styles.statusData}>
-              <Icon aria-label={status} className={styles.statusIcon} />
-              <p className={styles.value}>{ACTIVITY_STATUSES_TO_TEXT[status]}</p>
+              {Icon && <Icon aria-label={status} className={styles.statusIcon} />}
+              <p className={styles.value}>{status ? ACTIVITY_STATUSES_TO_TEXT[status] : "--"}</p>
             </div>
           </div>
           <button className={styles.collapseButton} onClick={toggleCollapse}>
