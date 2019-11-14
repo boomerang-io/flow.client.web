@@ -25,7 +25,7 @@ const TextEditorInput = props => {
   );
 };
 
-const NameTextInput = ({ formikProps, ...rest }) => {
+const TaskNameTextInput = ({ formikProps, ...rest }) => {
   const { errors, touched } = formikProps;
   const error = errors[rest.id];
   const touch = touched[rest.id];
@@ -164,7 +164,7 @@ class WorkflowTaskForm extends Component {
         placeholder: "Enter a task name",
         type: "custom",
         required: true,
-        customComponent: NameTextInput
+        customComponent: TaskNameTextInput
       },
       ...task.config
     ];
