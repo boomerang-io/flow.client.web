@@ -1,5 +1,7 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/variables";
+@import "~Styles/mixins";
+
 $disabled-color: #bebec0;
 
 .container {
@@ -39,6 +41,12 @@ $disabled-color: #bebec0;
 }
 
 .button {
+  &:focus {
+    @include focus-outline();
+  }
+}
+
+.icon {
   cursor: pointer;
   fill: var(--cds-interactive-01);
   height: 1.5rem;

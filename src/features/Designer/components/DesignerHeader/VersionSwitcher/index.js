@@ -30,11 +30,11 @@ class VersionSwitcher extends Component {
   renderBackButtons = enabled => {
     return (
       <div className={styles.buttonList}>
-        <button disabled={!enabled} onClick={this.fastBackVersion}>
-          <PageFirst16 className={cx(styles.button, { [styles.disabled]: !enabled })} alt="first version" />
+        <button className={styles.button} disabled={!enabled} onClick={this.fastBackVersion}>
+          <PageFirst16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="first version" />
         </button>
-        <button disabled={!enabled} onClick={this.backVersion}>
-          <ChevronLeft16 className={cx(styles.button, { [styles.disabled]: !enabled })} alt="back one version" />
+        <button className={styles.button} disabled={!enabled} onClick={this.backVersion}>
+          <ChevronLeft16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="back one version" />
         </button>
       </div>
     );
@@ -43,11 +43,11 @@ class VersionSwitcher extends Component {
   renderForwardButtons = enabled => {
     return (
       <div className={styles.buttonList}>
-        <button disabled={!enabled} onClick={this.forwardVersion}>
-          <ChevronRight16 className={cx(styles.button, { [styles.disabled]: !enabled })} alt="forward one version" />
+        <button className={styles.button} disabled={!enabled} onClick={this.forwardVersion}>
+          <ChevronRight16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="forward one version" />
         </button>
-        <button disabled={!enabled} onClick={this.fastForwardVersion}>
-          <PageLast16 className={cx(styles.button, { [styles.disabled]: !enabled })} alt="last version" />
+        <button className={styles.button} disabled={!enabled} onClick={this.fastForwardVersion}>
+          <PageLast16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="last version" />
         </button>
       </div>
     );

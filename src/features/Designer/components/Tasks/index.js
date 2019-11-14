@@ -14,11 +14,11 @@ import styles from "./tasks.module.scss";
 const FIRST_TASK_CATEGORY = "workflow";
 export default class Tasks extends Component {
   state = {
-    accordionIsOpen: false,
     activeFilters: [],
     firstTaskCategoryIsOpen: true,
+    isAccordianOpen: false,
+    isSidenavOpen: true,
     searchQuery: "",
-    sidenavIsCollapsed: false,
     tasksToDisplay: this.props.tasks.data,
     tasksWithMapping: this.props.tasks.data.map(task => ({
       ...task,
@@ -134,7 +134,7 @@ export default class Tasks extends Component {
           <AccordionItem
             title={`${category} (${catgegoriesWithTasks[category].length})`}
             open={
-              this.state.accordionIsOpen || (category === FIRST_TASK_CATEGORY && this.state.firstTaskCategoryIsOpen)
+              this.state.isAccordianOpen || (category === FIRST_TASK_CATEGORY && this.state.firstTaskCategoryIsOpen)
                 ? true
                 : null
             }
@@ -153,47 +153,51 @@ export default class Tasks extends Component {
 
   render() {
     return (
-      <aside className={cx(styles.container, { [styles.collapsed]: this.state.sidenavIsCollapsed })}>
+      <aside className={cx(styles.container, { [styles.collapsed]: !this.state.isSidenavOpen })}>
         <header className={styles.header}>
           <h1 className={styles.heading}>Add a task</h1>
           <button
             className={styles.collapseButton}
-            onClick={() => this.setState(prevState => ({ sidenavIsCollapsed: !prevState.sidenavIsCollapsed }))}
+            onClick={() => this.setState(prevState => ({ isSidenavOpen: !prevState.isSidenavOpen }))}
           >
             <ChevronLeft32 className={styles.collapseButtonImg} />
           </button>
         </header>
-        <section className={styles.tools}>
-          <Search
-            small
-            labelText="Search for a task"
-            onChange={this.handleOnSearchInputChange}
-            placeHolderText="Search for a task"
-            value={this.state.searchQuery}
-          />
-          <OverflowMenu renderIcon={SettingsAdjust20} flipped={true}>
-            <CheckboxList
-              initialSelectedItems={this.state.activeFilters}
-              options={this.state.uniqueTaskTypes}
-              onChange={(...args) => this.handleCheckboxListChange(...args)}
-            />
-          </OverflowMenu>
-        </section>
-        <section className={styles.detail}>
-          <h3 className={styles.totalCount}>{`Showing ${this.state.tasksToDisplay.length} tasks`}</h3>
-          <button
-            className={styles.expandButton}
-            onClick={() => {
-              this.setState(prevState => ({
-                accordionIsOpen: !prevState.accordionIsOpen,
-                firstTaskCategoryIsOpen: false
-              }));
-            }}
-          >
-            {this.state.accordionIsOpen ? "Collapse all" : "Expand all"}
-          </button>
-        </section>
-        <section className={styles.content}>{this.determineTasks()}</section>
+        {this.state.isSidenavOpen && (
+          <>
+            <section className={styles.tools}>
+              <Search
+                small
+                labelText="Search for a task"
+                onChange={this.handleOnSearchInputChange}
+                placeHolderText="Search for a task"
+                value={this.state.searchQuery}
+              />
+              <OverflowMenu renderIcon={SettingsAdjust20} flipped={true}>
+                <CheckboxList
+                  initialSelectedItems={this.state.activeFilters}
+                  options={this.state.uniqueTaskTypes}
+                  onChange={(...args) => this.handleCheckboxListChange(...args)}
+                />
+              </OverflowMenu>
+            </section>
+            <section className={styles.detail}>
+              <h3 className={styles.totalCount}>{`Showing ${this.state.tasksToDisplay.length} tasks`}</h3>
+              <button
+                className={styles.expandButton}
+                onClick={() => {
+                  this.setState(prevState => ({
+                    isAccordianOpen: !prevState.isAccordianOpen,
+                    firstTaskCategoryIsOpen: false
+                  }));
+                }}
+              >
+                {this.state.isAccordianOpen ? "Collapse all" : "Expand all"}
+              </button>
+            </section>
+            <section className={styles.content}>{this.determineTasks()}</section>
+          </>
+        )}
       </aside>
     );
   }
