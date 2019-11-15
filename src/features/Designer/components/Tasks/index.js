@@ -38,7 +38,7 @@ export default class Tasks extends Component {
     let uniqueNames = uniqBy(totalTaskTypes, "iconName");
     const uniqueTaskTypes = uniqueNames.map(task => ({
       id: task.iconName,
-      label: (
+      labelText: (
         <div className={styles.checkboxOption}>
           {task.iconImg} <p>{task.iconName}</p>{" "}
         </div>
