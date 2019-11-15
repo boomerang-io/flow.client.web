@@ -30,6 +30,7 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
               </Button>
               <Button
                 disabled={!formikProps.isValid}
+                p
                 onClick={e => {
                   e.preventDefault();
                   executeWorkflow({
