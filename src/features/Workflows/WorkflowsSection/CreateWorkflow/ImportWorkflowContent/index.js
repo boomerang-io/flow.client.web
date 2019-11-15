@@ -140,8 +140,8 @@ class ImportWorkflowContent extends Component {
           invalid={!workflowName || this.checkForInvalidName()}
           invalidText={
             !workflowName
-              ? "Please select a name for your team"
-              : "There’s already a Workflow with that name in this team, consider giving this one a different name."
+              ? "Please enter a name for your Workflow"
+              : "There’s already a Workflow with that name in this team, you'll need to give this workflow a unique name."
           }
         />
         <TextInput
