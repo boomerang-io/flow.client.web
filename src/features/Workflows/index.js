@@ -9,7 +9,7 @@ import { actions as appActions } from "State/app";
 import { actions as OnBoardActions } from "State/onBoard";
 import sortBy from "lodash/sortBy";
 import { SkeletonText, SkeletonPlaceholder } from "carbon-components-react";
-import { notify, ToastNotification, NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
+import { notify, ToastNotification, Error404 } from "@boomerang/carbon-addons-boomerang-react";
 import WelcomeBanner from "Components/WelcomeBanner";
 import DelayedRender from "Components/DelayedRender";
 import ErrorDragon from "Components/ErrorDragon";
@@ -200,7 +200,11 @@ export class WorkflowsHome extends Component {
                   );
                 })
               ) : (
-                <NoDisplay style={{ marginTop: "5rem" }} text="Looks like you don't have any workflow teams" />
+                <Error404
+                  message={"You need to be a member of a team to use Flow"}
+                  title="No teams found"
+                  header={null}
+                />
               )}
             </main>
           </div>

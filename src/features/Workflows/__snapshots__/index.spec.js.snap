@@ -255,9 +255,9 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
       <main
         class="content"
       >
-        <nodisplay
-          style="margin-top: 5rem;"
-          text="Looks like you don't have any workflow teams"
+        <error404
+          message="You need to be a member of a team to use Flow"
+          title="No teams found"
         />
       </main>
     </div>

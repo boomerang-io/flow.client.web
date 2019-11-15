@@ -7,7 +7,7 @@ import queryString from "query-string";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import { DataTableSkeleton, DataTable, Pagination } from "carbon-components-react";
-import { NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
+import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
 import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/activityStatuses";
 import styles from "./activityTable.module.scss";
 
@@ -217,10 +217,10 @@ function ActivityTable(props) {
                 </TableContainer>
               )}
             />
-            <NoDisplay
-              style={{ marginTop: "5.5rem" }}
-              textLocation="below"
-              text="Looks like you need to run some workflows!"
+            <Error404
+              message={"Execute some Workflows or try changing the filters"}
+              title="No activity found"
+              header={null}
             />
           </>
         )}
