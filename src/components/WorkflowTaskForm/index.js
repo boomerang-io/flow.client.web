@@ -25,13 +25,13 @@ const TextEditorInput = props => {
   );
 };
 
-const TaskNameTextInput = ({ formikProps, ...rest }) => {
+const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
   const { errors, touched } = formikProps;
-  const error = errors[rest.id];
-  const touch = touched[rest.id];
+  const error = errors[otherProps.id];
+  const touch = touched[otherProps.id];
   return (
     <>
-      <TextInput {...rest} invalid={touch && error} invalidText={error} />
+      <TextInput {...otherProps} invalid={error && touch} invalidText={error} onChange={formikProps.handleChange} />
       <hr className={styles.divider} />
       <h2 className={styles.inputsTitle}>Specifics</h2>
     </>
@@ -94,26 +94,7 @@ class WorkflowTaskForm extends Component {
     this.props.closeModal();
   };
 
-  selectProps = (input, formikProps) => {
-    const { setFieldValue } = formikProps;
-    const { key } = input;
-
-    return {
-      onChange: ({ selectedItem }) => this.formikSetFieldValue(selectedItem ? selectedItem : "", key, setFieldValue),
-      shouldFilterItem: () => true
-    };
-  };
-
-  multiSelectProps = (input, formikProps) => {
-    const { setFieldValue } = formikProps;
-    const { key } = input;
-
-    return {
-      onChange: ({ selectedItems }) => this.formikSetFieldValue(selectedItems.map(item => item.key), key, setFieldValue)
-    };
-  };
-
-  textAreaProps = (input, formikProps) => {
+  textAreaProps = ({ input, formikProps }) => {
     const { values, setFieldValue } = formikProps;
     const { key, type, ...rest } = input;
     const itemConfig = TEXT_AREA_TYPES[type];
@@ -129,7 +110,7 @@ class WorkflowTaskForm extends Component {
     };
   };
 
-  textInputProps = (input, formikProps) => {
+  textInputProps = ({ formikProps, input }) => {
     const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
     const { key, ...rest } = input;
 
@@ -147,7 +128,7 @@ class WorkflowTaskForm extends Component {
     };
   };
 
-  toggleProps = (input, formikProps) => {
+  toggleProps = ({ input, formikProps }) => {
     return {
       orientation: "vertical"
     };
@@ -173,18 +154,16 @@ class WorkflowTaskForm extends Component {
       <DynamicFormik
         validationSchemaExtension={Yup.object().shape({
           taskName: Yup.string()
-            .required("Enter a Task Name")
+            .required("Enter a task name")
             .notOneOf(takenTaskNames, "Enter a unique value for task name")
         })}
         initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
         inputs={inputs}
         onSubmit={this.handleOnSave}
-        dataDrivenProps={{
+        dataDrivenInputProps={{
           TextInput: AutoSuggestInput,
           TextEditor: TextEditorInput
         }}
-        multiSelectProps={this.multiSelectProps}
-        selectProps={this.selectProps}
         textAreaProps={this.textAreaProps}
         textEditorProps={this.textAreaProps}
         textInputProps={this.textInputProps}
