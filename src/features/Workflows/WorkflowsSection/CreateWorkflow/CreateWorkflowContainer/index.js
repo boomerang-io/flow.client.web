@@ -11,12 +11,12 @@ const IMPORT_WORKFLOW = "Import a Workflow";
 const radioWorkflowOptions = [
   {
     id: "create-workflow-radio-id",
-    label: NEW_WORKFLOW,
+    labelText: NEW_WORKFLOW,
     value: NEW_WORKFLOW
   },
   {
     id: "import-workflow-radio-id",
-    label: IMPORT_WORKFLOW,
+    labelText: IMPORT_WORKFLOW,
     value: IMPORT_WORKFLOW
   }
 ];
