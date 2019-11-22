@@ -20,49 +20,27 @@ const OnBoardGuideContainer = ({ index, nextScreen, previousScreen, closeModal, 
         return { ...basicConfig, ...guideConfig.search_filter };
       case screens.SIDENAV:
         return { ...basicConfig, ...guideConfig.sidenav };
-      case screens.OVERVIEW:
+      case screens.WORKFLOW:
         return {
           index,
           nextScreen,
           closeModal,
           screens,
           guideConfig,
-          ...guideConfig.overview
+          ...guideConfig.workflow
         };
-      case screens.INPUTS:
-        return { ...basicConfig, ...guideConfig.inputs };
-      case screens.DESIGN:
-        return { ...basicConfig, ...guideConfig.design };
+      case screens.PROPERTIES:
+        return { ...basicConfig, ...guideConfig.properties };
       case screens.CHANGE_LOG:
         return { ...basicConfig, ...guideConfig.change_log };
-      case screens.GENERAL:
-        return {
-          index,
-          nextScreen,
-          closeModal,
-          screens,
-          guideConfig,
-          ...guideConfig.general
-        };
-      case screens.TRIGGERS:
-        return { ...basicConfig, ...guideConfig.triggers };
-      case screens.OPTIONS:
-        return { ...basicConfig, ...guideConfig.options };
-      case screens.FILTER:
-        return { ...basicConfig, ...guideConfig.filter };
-      case screens.CARDS:
-        return { ...basicConfig, ...guideConfig.cards };
-      case screens.SCROLLING:
-        return { ...basicConfig, ...guideConfig.scrolling };
-      case screens.PROGRESS_BAR:
-        return {
-          index,
-          nextScreen,
-          closeModal,
-          screens,
-          guideConfig,
-          ...guideConfig.progress_bar
-        };
+      case screens.SETTINGS:
+        return { ...basicConfig, ...guideConfig.settings };
+      case screens.ACTIVITY:
+        return { ...basicConfig, ...guideConfig.activity };
+      case screens.ACTIVITY_FILTERS:
+        return { ...basicConfig, ...guideConfig.activity_filters };
+      case screens.ACTIVITY_NUMBERS:
+        return { ...basicConfig, ...guideConfig.activity_numbers };
       case screens.SIDE_INFO:
         return { ...basicConfig, ...guideConfig.side_info };
       case screens.DIAGRAM:

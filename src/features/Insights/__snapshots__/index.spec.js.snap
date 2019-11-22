@@ -1,0 +1,501 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <div
+      class="container"
+    >
+      <div
+        class="content"
+      >
+        <div
+          class="info"
+        >
+          <h1
+            class="title"
+          >
+            There are some
+          </h1>
+          <h2
+            class="subtitle"
+          >
+            Insights
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div
+      class="container"
+    >
+      <div
+        class="header"
+      >
+        <div
+          class="bx--bmrg-select"
+        >
+          <div
+            class="bx--list-box__wrapper"
+          >
+            <label
+              class="bx--label"
+              for="ALL_OPTIONS.TEAMS"
+            >
+              Filter by team
+            </label>
+            <div
+              class="bx--combo-box bx--list-box"
+              role="listbox"
+              tabindex="-1"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Open menu"
+                class="bx--list-box__field"
+                data-toggle="true"
+                role="button"
+                tabindex="-1"
+                type="button"
+              >
+                <input
+                  aria-autocomplete="list"
+                  aria-controls="ALL_OPTIONS.TEAMS__menu"
+                  aria-expanded="false"
+                  aria-label="Choose an item"
+                  autocomplete="off"
+                  class="bx--text-input"
+                  data-testid="ALL_OPTIONS.TEAMS"
+                  id="ALL_OPTIONS.TEAMS"
+                  placeholder="Teams"
+                  role="combobox"
+                  value="All Teams"
+                />
+                <div
+                  aria-label="Clear Selection"
+                  class="bx--list-box__selection"
+                  role="button"
+                  tabindex="0"
+                  title="Clear selected item"
+                >
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="bx--list-box__menu-icon"
+                >
+                  <svg
+                    aria-label="Open menu"
+                    focusable="false"
+                    height="16"
+                    name="chevron--down"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                    />
+                    <title>
+                      Open menu
+                    </title>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-select"
+        >
+          <div
+            class="bx--list-box__wrapper"
+          >
+            <label
+              class="bx--label"
+              for="workflows-dropdown"
+            >
+              Filter by Workflow
+            </label>
+            <div
+              class="bx--combo-box bx--list-box"
+              role="listbox"
+              tabindex="-1"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Open menu"
+                class="bx--list-box__field"
+                data-toggle="true"
+                role="button"
+                tabindex="-1"
+                type="button"
+              >
+                <input
+                  aria-autocomplete="list"
+                  aria-controls="workflows-dropdown__menu"
+                  aria-expanded="false"
+                  aria-label="Choose an item"
+                  autocomplete="off"
+                  class="bx--text-input"
+                  id="workflows-dropdown"
+                  placeholder="Workflows"
+                  role="combobox"
+                  value="All Workflows"
+                />
+                <div
+                  aria-label="Clear Selection"
+                  class="bx--list-box__selection"
+                  role="button"
+                  tabindex="0"
+                  title="Clear selected item"
+                >
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="bx--list-box__menu-icon"
+                >
+                  <svg
+                    aria-label="Open menu"
+                    focusable="false"
+                    height="16"
+                    name="chevron--down"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                    />
+                    <title>
+                      Open menu
+                    </title>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-select"
+        >
+          <div
+            class="bx--list-box__wrapper"
+          >
+            <label
+              class="bx--label"
+              for="time-frame-dropdown"
+            >
+              Time period
+            </label>
+            <div
+              class="bx--combo-box bx--list-box"
+              role="listbox"
+              tabindex="-1"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Open menu"
+                class="bx--list-box__field"
+                data-toggle="true"
+                role="button"
+                tabindex="-1"
+                type="button"
+              >
+                <input
+                  aria-autocomplete="list"
+                  aria-controls="time-frame-dropdown__menu"
+                  aria-expanded="false"
+                  aria-label="Choose an item"
+                  autocomplete="off"
+                  class="bx--text-input"
+                  id="time-frame-dropdown"
+                  placeholder="Time Frame"
+                  role="combobox"
+                  value="3 months"
+                />
+                <div
+                  aria-label="Clear Selection"
+                  class="bx--list-box__selection"
+                  role="button"
+                  tabindex="0"
+                  title="Clear selected item"
+                >
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="bx--list-box__menu-icon"
+                >
+                  <svg
+                    aria-label="Open menu"
+                    focusable="false"
+                    height="16"
+                    name="chevron--down"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    style="will-change: transform;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                    />
+                    <title>
+                      Open menu
+                    </title>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="statsWidgets"
+      >
+        <div
+          class="insightsCards"
+          style="flex-direction: row;"
+        >
+          <div
+            class="bx--tile container"
+            style="max-height: none;"
+          >
+            <div>
+              <h3
+                class="title"
+              >
+                Executions
+              </h3>
+              <div
+                class="totalCountContainer"
+              >
+                <p
+                  class="totalCount"
+                >
+                  0
+                </p>
+                <p
+                  class="type"
+                >
+                  runs
+                </p>
+              </div>
+            </div>
+            <ul
+              class="list"
+            />
+          </div>
+          <div
+            class="bx--tile container"
+            style="max-height: 22.375rem;"
+          >
+            <div>
+              <h3
+                class="title"
+              >
+                Duration (median)
+              </h3>
+              <div
+                class="totalCountContainer"
+              >
+                <p
+                  class="totalCount"
+                >
+                  0 secs
+                </p>
+                <p
+                  class="type"
+                />
+              </div>
+            </div>
+            <ul
+              class="list"
+            >
+              <li
+                class="row"
+              >
+                <p
+                  class="itemValue"
+                  style="width: 7rem;"
+                >
+                  0 secs
+                </p>
+                <p
+                  class="itemLabel"
+                >
+                  Minimum
+                </p>
+              </li>
+              <li
+                class="row"
+              >
+                <p
+                  class="itemValue"
+                  style="width: 7rem;"
+                >
+                  0 secs
+                </p>
+                <p
+                  class="itemLabel"
+                >
+                  Maximum
+                </p>
+              </li>
+              <li
+                class="row"
+              >
+                <p
+                  class="itemValue"
+                  style="width: 7rem;"
+                >
+                  0 secs
+                </p>
+                <p
+                  class="itemLabel"
+                >
+                  Avarage
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="bx--tile container"
+          style="width: 33rem; max-height: 22.375rem;"
+        >
+          <div>
+            <h3
+              class="title"
+            >
+              Status
+            </h3>
+            <div
+              class="totalCountContainer"
+            >
+              <p
+                class="totalCount"
+              />
+              <p
+                class="type"
+              />
+            </div>
+          </div>
+          <p
+            class="statsLabel --no-data"
+          >
+            No Data
+          </p>
+        </div>
+      </div>
+      <div
+        class="graphsWidgets"
+      >
+        <div
+          class="bx--tile container"
+          style="width: 50rem; max-height: none;"
+        >
+          <div>
+            <h3
+              class="title"
+            >
+              Execution
+            </h3>
+            <div
+              class="totalCountContainer"
+            >
+              <p
+                class="totalCount"
+              />
+              <p
+                class="type"
+              />
+            </div>
+          </div>
+          <p
+            class="graphsLabel --no-data"
+          >
+            No Data
+          </p>
+        </div>
+        <div
+          class="bx--tile container"
+          style="width: 50rem; max-height: none;"
+        >
+          <div>
+            <h3
+              class="title"
+            >
+              Execution Time
+            </h3>
+            <div
+              class="totalCountContainer"
+            >
+              <p
+                class="totalCount"
+              />
+              <p
+                class="type"
+              />
+            </div>
+          </div>
+          <p
+            class="graphsLabel --no-data"
+          >
+            No Data
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

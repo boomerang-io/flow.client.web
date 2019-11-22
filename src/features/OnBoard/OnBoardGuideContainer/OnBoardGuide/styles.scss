@@ -1,9 +1,10 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .c-onboard-screen {
   align-items: center;
   background-color: $cerulean-90;
-  border-radius: 0.25rem;
+  @include border-radius();
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,25 +16,22 @@
 }
 
 .b-onboard-screen-title {
-  color: $cool-white-1;
+  color: white;
   display: flex;
   font-size: 1rem;
-  font-weight: 800;
-  height: 1.25rem;
+  font-weight: 700;
   letter-spacing: 0.188rem;
   line-height: 1.25rem;
   padding: 1.25rem 0 0 0.625rem;
-  text-transform: uppercase;
   width: 95%;
 }
 
 .b-onboard-screen-content {
-  color: $cool-white-1;
+  color: white;
   display: flex;
   font-size: 1rem;
-  font-weight: 300;
   height: 5rem;
-  padding: 0.625rem 0 0 0.5rem;
+  padding-left: 0.5rem;
   line-height: 1.25rem;
   justify-content: flex-start;
   width: 93%;
@@ -53,9 +51,8 @@
   align-items: center;
   display: flex;
   height: 1.25rem;
-  justify-content: space-between;
   padding: 0 0 0 0.625rem;
-  width: 4.375rem;
+  max-width: 7rem;
 }
 
 .b-onboard-screen-bottom--right {
@@ -74,22 +71,27 @@
 }
 
 .b-onboard-screen-circle {
-  border: 0.063rem solid $teal-20;
+  border: 0.063rem solid var(--cds-interactive-01);
   border-radius: 3.125rem;
   height: 0.625rem;
+  margin-left: 0.5rem;
   width: 0.625rem;
   -moz-border-radius: 3.125rem;
   -webkit-border-radius: 3.125rem;
+
+  &:first-of-type {
+    margin-left: 0;
+  }
 }
 
 .b-onboard-screen-circle--filled {
-  background-color: $teal-20;
+  background-color: var(--cds-interactive-01);
 }
 
 .b-onboard-screen-button {
   align-items: center;
-  background-color: $teal-20;
-  border-radius: 0.25rem;
+  background-color: var(--cds-interactive-01);
+  @include border-radius();
   cursor: pointer;
   display: flex;
   height: 1.375rem;
@@ -108,6 +110,24 @@
   width: 2.563rem;
 }
 
+.b-onboard-screen-exit-button {
+  background-color: transparent;
+  line-height: 0;
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+
+  &:focus {
+    @include focus-outline();
+  }
+
+  svg {
+    height: 1rem;
+    width: 1rem;
+    fill: white;
+  }
+}
+
 //teams
 .c-onboard-screen--teams {
   position: fixed;
@@ -118,8 +138,8 @@
 //search_filter
 .c-onboard-screen--search_filter {
   position: fixed;
-  top: 13.2rem;
-  left: 30%;
+  top: 11rem;
+  left: calc(100% - 30rem);
 }
 
 .c-onboard-screen--search_filter:after {
@@ -149,14 +169,14 @@
   top: -1.5rem;
 }
 
-//overview
-.c-onboard-screen--overview {
-  left: 1rem;
+//workflow
+.c-onboard-screen--workflow {
+  left: 3.5rem;
   position: fixed;
   top: 12.5rem;
 }
 
-.c-onboard-screen--overview:after {
+.c-onboard-screen--workflow:after {
   border-color: transparent transparent $cerulean-90 transparent;
   border-style: solid;
   border-width: 0.75rem;
@@ -166,31 +186,14 @@
   top: -1.5rem;
 }
 
-//inputs
-.c-onboard-screen--inputs {
-  left: 7.5rem;
+//properties
+.c-onboard-screen--properties {
+  left: 11rem;
   position: fixed;
   top: 12.5rem;
 }
 
-.c-onboard-screen--inputs:after {
-  border-color: transparent transparent $cerulean-90 transparent;
-  border-style: solid;
-  border-width: 0.75rem;
-  content: "";
-  left: 1rem;
-  position: absolute;
-  top: -1.5rem;
-}
-
-//design
-.c-onboard-screen--design {
-  left: 14.2rem;
-  position: fixed;
-  top: 12.5em;
-}
-
-.c-onboard-screen--design:after {
+.c-onboard-screen--properties:after {
   border-color: transparent transparent $cerulean-90 transparent;
   border-style: solid;
   border-width: 0.75rem;
@@ -202,9 +205,9 @@
 
 //change_log
 .c-onboard-screen--change_log {
-  left: 21rem;
+  left: 19rem;
   position: fixed;
-  top: 12.5rem;
+  top: 12.5em;
 }
 
 .c-onboard-screen--change_log:after {
@@ -217,6 +220,24 @@
   top: -1.5rem;
 }
 
+//settings
+.c-onboard-screen--settings {
+  left: 26.5rem;
+  position: fixed;
+  top: 12.5rem;
+}
+
+.c-onboard-screen--settings:after {
+  border-color: transparent transparent $cerulean-90 transparent;
+  border-style: solid;
+  border-width: 0.75rem;
+  content: "";
+  left: 1rem;
+  position: absolute;
+  top: -1.5rem;
+}
+
+/**
 //general
 .c-onboard-screen--general {
   left: 18rem;
@@ -267,56 +288,50 @@
   position: absolute;
   bottom: -1.5rem;
 }
+*/
 
-//filter
-.c-onboard-screen--filter {
+//activity
+.c-onboard-screen--activity {
   position: fixed;
-  top: 13.2rem;
-  left: 73rem;
+  top: 25rem;
+  left: calc(100% - 30rem);
 }
 
-.c-onboard-screen--filter:after {
-  border-color: transparent transparent $cerulean-90 transparent;
+.c-onboard-screen--activity:after {
+  border-color: transparent $cerulean-90 transparent transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
-  left: 45%;
+  left: -1.4rem;
   position: absolute;
-  top: -1.5rem;
+  top: 40%;
 }
 
-//cards
-.c-onboard-screen--cards {
-  left: 40%;
+//activity_filters
+.c-onboard-screen--activity_filters {
+  left: 50%;
   position: fixed;
-  top: 4rem;
+  top: 7rem;
 }
 
-.c-onboard-screen--cards:after {
-  border-color: $gray-90 transparent transparent transparent;
-  border-style: solid;
-  border-width: 0.75rem;
-  content: "";
-  left: 45%;
-  position: absolute;
-  bottom: -1.5rem;
-}
+// .c-onboard-screen--activity_filters:after {
+//   border-color: $gray-90 transparent transparent transparent;
+//   border-style: solid;
+//   border-width: 0.75rem;
+//   content: "";
+//   left: 45%;
+//   position: absolute;
+//   bottom: -1.5rem;
+// }
 
-//scrolling
-.c-onboard-screen--scrolling {
-  left: 40%;
+//activity_numbers
+.c-onboard-screen--activity_numbers {
+  left: calc(100% - 30rem);
   position: fixed;
-  top: 4rem;
+  top: 12rem;
 }
 
-//progress_bar
-.c-onboard-screen--progress_bar {
-  left: 40%;
-  position: fixed;
-  top: 17rem;
-}
-
-.c-onboard-screen--progress_bar:after {
+.c-onboard-screen--activity_numbers:after {
   border-color: transparent transparent $cerulean-90 transparent;
   border-style: solid;
   border-width: 0.75rem;
@@ -328,24 +343,24 @@
 
 //side_info
 .c-onboard-screen--side_info {
-  left: 52%;
+  left: 27rem;
   position: fixed;
-  top: 20rem;
+  top: 15rem;
 }
 
 .c-onboard-screen--side_info:after {
-  border-color: transparent transparent transparent $cerulean-90;
+  border-color: transparent $cerulean-90 transparent transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
-  right: -1.4rem;
+  left: -1.4rem;
   position: absolute;
   top: 40%;
 }
 
 //diagram
 .c-onboard-screen--diagram {
-  left: 5rem;
+  left: 27rem;
   position: fixed;
   top: 25rem;
 }

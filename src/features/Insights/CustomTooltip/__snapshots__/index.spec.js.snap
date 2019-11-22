@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomTooltip --- Snapshot Capturing Snapshot of CustomTooltip 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <div
+      class="container"
+    >
+      <div>
+        <p
+          class="data"
+        >
+          <span
+            class="field"
+          >
+            date: 
+          </span>
+          Jan 01 - 2019, 00:00
+        </p>
+        <p
+          class="data"
+        >
+           
+          <span
+            class="field"
+          >
+            failed: 
+          </span>
+          5
+        </p>
+        <p
+          class="data"
+        >
+           
+          <span
+            class="field"
+          >
+            success: 
+          </span>
+          12
+        </p>
+        <p
+          class="data"
+        >
+           
+          <span
+            class="field"
+          >
+            total: 
+          </span>
+          17
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+`;

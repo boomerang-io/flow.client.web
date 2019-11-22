@@ -1,0 +1,266 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <div
+      class="container"
+    >
+      <section
+        class="closeHideButtons"
+      >
+        <button
+          class="closeButton"
+        >
+          <svg
+            aria-label="close"
+            class="closeIcon"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            style="will-change: transform;"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+            />
+          </svg>
+          <p
+            class="closeText"
+          >
+            Don't show again
+          </p>
+        </button>
+        <button
+          class="collapseButton"
+        >
+          <p
+            class="collapseText"
+          >
+            Collapse
+          </p>
+          <svg
+            aria-label="collapse"
+            class="collapseIcon"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            style="will-change: transform;"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16 10l10 10-1.4 1.4-8.6-8.6-8.6 8.6L6 20z"
+            />
+          </svg>
+        </button>
+      </section>
+      <div
+        class="content"
+      >
+        <h1
+          class="title"
+        >
+          Welcome to Flow
+        </h1>
+        <p
+          class="subtitle"
+        >
+          Your new favorite tool
+        </p>
+        <div
+          class="buttons"
+        >
+          <button
+            class="button"
+          >
+            <p
+              class="buttonText"
+            >
+              Learn the basics
+            </p>
+          </button>
+          <a
+            class="button"
+            href="slack://channel?team=T27TLPNS1&id=CFKN6FJD6"
+            tabindex="0"
+          >
+            <p
+              class="buttonText"
+            >
+              Slack us feedback
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="container"
+    >
+      <header
+        class="container"
+      >
+        <div
+          class="container"
+        >
+          <section
+            class="info"
+          >
+            <p
+              class="title"
+            >
+              These are your
+            </p>
+            <h1
+              class="subtitle"
+            >
+              Workflows (0)
+            </h1>
+          </section>
+          <div
+            class="b-search-filter"
+          >
+            <div
+              class="b-search-filter__search"
+            >
+              <div
+                class="bx--search bx--search--xl"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="bx--search-magnifier"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15 14.3L10.7 10c1.9-2.3 1.6-5.8-.7-7.7S4.2.7 2.3 3 .7 8.8 3 10.7c2 1.7 5 1.7 7 0l4.3 4.3.7-.7zM2 6.5C2 4 4 2 6.5 2S11 4 11 6.5 9 11 6.5 11 2 9 2 6.5z"
+                  />
+                </svg>
+                <label
+                  class="bx--label"
+                  for="search-worfklows"
+                >
+                  Search for a workflow
+                </label>
+                <input
+                  class="bx--search-input"
+                  id="search-worfklows"
+                  placeholder="Search for a workflow"
+                  type="text"
+                  value=""
+                />
+                <button
+                  aria-label="Clear search input"
+                  class="bx--search-close bx--search-close--hidden"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="will-change: transform;"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="b-search-filter__filter"
+            >
+              <div
+                class="bx--multi-select__wrapper bx--list-box__wrapper"
+              >
+                <label
+                  class="bx--label"
+                  for="b-search-filter__filter"
+                >
+                  Filter by team
+                </label>
+                <div
+                  class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                  role="listbox"
+                  tabindex="-1"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-label="Open menu"
+                    class="bx--list-box__field"
+                    data-toggle="true"
+                    role="button"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-controls="b-search-filter__filter__menu"
+                      aria-expanded="false"
+                      autocomplete="off"
+                      class="bx--text-input bx--text-input--empty"
+                      id="b-search-filter__filter"
+                      placeholder="Choose a team"
+                      role="combobox"
+                      value=""
+                    />
+                    
+                    <div
+                      class="bx--list-box__menu-icon"
+                    >
+                      <svg
+                        aria-label="Open menu"
+                        focusable="false"
+                        height="16"
+                        name="chevron--down"
+                        preserveAspectRatio="xMidYMid meet"
+                        role="img"
+                        style="will-change: transform;"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                        />
+                        <title>
+                          Open menu
+                        </title>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main
+        class="content"
+      >
+        <error404
+          message="You need to be a member of a team to use Flow"
+          title="No teams found"
+        />
+      </main>
+    </div>
+  </div>
+</body>
+`;

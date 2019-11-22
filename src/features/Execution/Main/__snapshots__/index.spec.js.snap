@@ -1,0 +1,334 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <div
+      class="container"
+    >
+      <header
+        class="container border"
+      >
+        <div
+          class="container"
+        >
+          <section>
+            <div
+              class="subtitle"
+            >
+              <a
+                href="/activity"
+              >
+                Activity
+              </a>
+              <p
+                style="margin: 0px 0.5rem;"
+              >
+                /
+              </p>
+              <p>
+                Sparkle Flow with extra glitter and donuts on the side
+              </p>
+            </div>
+            <h1
+              class="title"
+            >
+              Workflow run detail
+            </h1>
+          </section>
+          <div
+            class="content"
+          >
+            <div
+              class="data"
+            >
+              <p
+                class="dataTitle"
+              >
+                Team
+              </p>
+              <p
+                class="dataValue"
+              />
+            </div>
+            <div
+              class="data"
+            >
+              <p
+                class="dataTitle"
+              >
+                Initiated by
+              </p>
+              <span
+                aria-hidden="false"
+                aria-label="robot"
+                role="img"
+              >
+                🤖
+              </span>
+            </div>
+            <div
+              class="data"
+            >
+              <p
+                class="dataTitle"
+              >
+                Trigger
+              </p>
+              <p
+                class="dataValue"
+              />
+            </div>
+            <div
+              class="data"
+            >
+              <p
+                class="dataTitle"
+              >
+                Team
+              </p>
+              <p
+                class="dataValue"
+              >
+                2019-01-01 12:00 AM
+              </p>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main
+        class="executionResultContainer"
+      >
+        <aside
+          class="container "
+        >
+          <section
+            class="statusBlock inProgress"
+          >
+            <div
+              class="duration"
+            >
+              <p
+                class="title"
+              >
+                Duration
+              </p>
+              <time
+                class="value"
+              >
+                --
+              </time>
+            </div>
+            <div
+              class="status"
+            >
+              <p
+                class="title"
+              >
+                Status
+              </p>
+              <div
+                class="statusData"
+              >
+                <svg
+                  aria-label="inProgress"
+                  class="statusIcon"
+                  focusable="false"
+                  height="32"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  style="will-change: transform;"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15 11h2v9h-2zm-2-9h6v2h-6z"
+                  />
+                  <path
+                    d="M28 9l-1.42-1.41-2.25 2.25a10.94 10.94 0 1 0 1.18 1.65zM16 26a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"
+                  />
+                </svg>
+                <p
+                  class="value"
+                >
+                  In Progress
+                </p>
+              </div>
+            </div>
+            <button
+              class="collapseButton"
+            >
+              <svg
+                aria-hidden="true"
+                class="chevron"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                style="will-change: transform;"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 16L20 6l1.4 1.4-8.6 8.6 8.6 8.6L20 26z"
+                />
+              </svg>
+            </button>
+          </section>
+          <section
+            class="taskbar"
+          >
+            <p
+              class="taskbarTitle"
+            >
+              Task log
+            </p>
+            <div
+              class="bx--tooltip--definition bx--tooltip--a11y taskbarButton"
+              data-testid="taskbar-button"
+            >
+              <button
+                aria-describedby="definition-tooltip-2"
+                class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip__trigger--definition bx--tooltip--top bx--tooltip--align-center"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="taskbarArrows"
+                  focusable="false"
+                  height="32"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
+                  />
+                </svg>
+              </button>
+              <div
+                class="bx--assistive-text"
+                id="definition-tooltip-2"
+                role="tooltip"
+              >
+                Change sort direction (by start time)
+              </div>
+            </div>
+          </section>
+          <ul
+            class="tasklog"
+          />
+        </aside>
+        <div
+          class="executionDesignerContainer"
+        >
+          <section
+            class="executionWorkflowActions"
+          >
+            <div
+              class="container"
+            >
+              <p
+                class="messageText"
+              >
+                Read-only
+              </p>
+              <button
+                class="editContainer"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="editIcon"
+                  focusable="false"
+                  height="32"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 27h28v2H2zM25.41 9a2 2 0 0 0 0-2.83l-3.58-3.58a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22v-3.59l10-10L19.59 12l-10 10z"
+                  />
+                </svg>
+                <p
+                  class="editText"
+                >
+                  Edit Workflow
+                </p>
+              </button>
+            </div>
+            <div
+              class="zoomIcons"
+            >
+              <button
+                class="zoomButton"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="zoomIcon"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 6h5v1H4z"
+                  />
+                  <path
+                    d="M10.7 10c.8-1 1.3-2.2 1.3-3.5C12 3.5 9.5 1 6.5 1S1 3.5 1 6.5 3.5 12 6.5 12c1.3 0 2.5-.5 3.5-1.3l3.8 3.8.7-.7-3.8-3.8zm-4.2 1C4 11 2 9 2 6.5S4 2 6.5 2 11 4 11 6.5 9 11 6.5 11z"
+                  />
+                </svg>
+              </button>
+              <button
+                class="zoomButton"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="zoomIcon"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  style="will-change: transform;"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9 6H7V4H6v2H4v1h2v2h1V7h2z"
+                  />
+                  <path
+                    d="M10.7 10c.8-1 1.3-2.2 1.3-3.5C12 3.5 9.5 1 6.5 1S1 3.5 1 6.5 3.5 12 6.5 12c1.3 0 2.5-.5 3.5-1.3l3.8 3.8.7-.7-3.8-3.8zm-4.2 1C4 11 2 9 2 6.5S4 2 6.5 2 11 4 11 6.5 9 11 6.5 11z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </section>
+          <div
+            class="srd-diagram diagram "
+          >
+            <svg
+              class="srd-link-layer "
+              style="transform: translate(0px,0px) scale(NaN);"
+            />
+            <div
+              class="srd-node-layer "
+              style="transform: translate(0px,0px) scale(NaN);"
+            />
+          </div>
+          <div
+            class="diagramLoading"
+          />
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+`;

@@ -1,0 +1,158 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/animation";
+@import "~Styles/mixins";
+@import "~Styles/variables";
+
+.container {
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
+  width: 18.75rem;
+
+  // add transition to sibling
+  & + main {
+    transition: margin-left $carbon-motion--timing--productive $carbon-motion--easing--productive;
+  }
+
+  &.collapsed {
+    transform: translate3d(-16.75rem, 0, 0);
+    .content,
+    .tools,
+    .detail {
+      opacity: 0;
+    }
+
+    .collapseButton {
+      transform: scale(-1, 1);
+    }
+
+    // shift sibling to the left
+    & + main {
+      margin-left: -16.75rem;
+    }
+  }
+
+  .header {
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .heading {
+    color: $darkest-gray;
+    font-size: 1.125rem;
+    font-weight: 300;
+    line-height: 1.4375rem;
+    margin: 0;
+    margin-left: 1rem;
+  }
+
+  .collapseButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    line-height: 0;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+
+    &:focus {
+      @include focus-outline();
+    }
+  }
+
+  .collapseButtonImg {
+    height: 1rem;
+    width: 1rem;
+
+    path {
+      fill: var(--cds-brand-02);
+    }
+  }
+
+  .tools {
+    align-items: center;
+    display: flex;
+    padding: 0rem 0.625rem 0rem;
+  }
+
+  .detail {
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .totalCount {
+    color: var(--cds-ui-04);
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .expandButton {
+    color: var(--cds-interactive-02);
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 500;
+    height: 0.9375rem;
+    line-height: 0.9375rem;
+    margin-right: 1rem;
+
+    &:focus {
+      @include focus-outline();
+    }
+  }
+
+  .content {
+    flex-grow: 1;
+    margin-bottom: 9rem;
+    margin-top: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    overflow-y: auto;
+
+    .taskSection {
+      margin: 0 0.5rem;
+    }
+
+    :global(.bx--accordion__item) {
+      list-style-type: none;
+      :global(.bx--accordion__arrow) {
+        position: absolute;
+        right: 1.5rem;
+      }
+      :global(.bx--accordion__title) {
+        color: var(--cds-text-01);
+        font-size: 0.875rem;
+        letter-spacing: 0.01rem;
+        line-height: 1.25rem;
+        text-transform: capitalize;
+      }
+    }
+    :global(.bx--accordion__content) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.checkboxOption {
+  align-items: center;
+  display: flex;
+  svg {
+    height: 1rem;
+    margin-right: 0.5rem;
+    width: 1rem;
+  }
+}
+
+:global(.bx--overflow-menu-options) {
+  :global(.bx--bmrg-checkbox-list) {
+    padding: 0.5rem;
+  }
+}

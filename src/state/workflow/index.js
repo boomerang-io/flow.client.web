@@ -16,13 +16,9 @@ export const types = {
   CREATE_WORKFLOW_FAILURE: "CREATE_WORKFLOW_FAILURE",
   CREATE_WORKFLOW_REQUEST: "CREATE_WORKFLOW_REQUEST",
   UPDATE_WORKFLOW_PROPERTY: "UPDATE_WORKFLOW_PROPERTY",
-  UPDATE_WORKFLOW_TRIGGERS_WEBHOOK: "UPDATE_WORKFLOW_TRIGGERS_WEBHOOK",
-  UPDATE_WORKFLOW_TRIGGERS_EVENT: "UPDATE_WORKFLOW_TRIGGERS_EVENT",
-  UPDATE_WORKFLOW_TRIGGERS_SCHEDULER: "UPDATE_WORKFLOW_TRIGGERS_SCHEDULER",
   CREATE_WORKFLOW_INPUT: "CREATE_WORKFLOW_INPUT",
   UPDATE_WORKFLOW_INPUT: "UPDATE_WORKFLOW_INPUT",
-  DELETE_WORKFLOW_INPUT: "DELETE_WORKFLOW_INPUT",
-  SET_HAS_UNSAVED_WORKFLOW_UPDATES: "SET_HAS_UNSAVED_WORKFLOW_UPDATES"
+  DELETE_WORKFLOW_INPUT: "DELETE_WORKFLOW_INPUT"
 };
 Object.freeze(types);
 
@@ -35,13 +31,13 @@ export const initialState = {
   updatingStatus: "",
   creatingStatus: "",
   error: "",
-  hasUnsavedWorkflowUpdates: false,
   data: {
     triggers: {
       scheduler: {
         enable: false,
         schedule: "",
-        timezone: ""
+        timezone: "",
+        advancedCron: false
       },
       webhook: {
         enable: false,
@@ -50,7 +46,6 @@ export const initialState = {
       event: {
         enable: false,
         topic: ""
-        //enableACCIntegration: false
       }
     },
     enablePersistentStorage: false,
@@ -73,11 +68,11 @@ const actionHandlers = {
   [types.FETCH_WORKFLOW_FAILURE]: (state, action) => {
     return { ...state, isFetching: false, fetchingStatus: REQUEST_STATUSES.FAILURE, error: action.error };
   },
-  [types.UPDATE_WORKFLOW_SUCCESS]: state => ({
+  [types.UPDATE_WORKFLOW_SUCCESS]: (state, action) => ({
     ...state,
     isUpdating: false,
-    hasUnsavedWorkflowUpdates: false,
-    updatingStatus: REQUEST_STATUSES.SUCCESS
+    updatingStatus: REQUEST_STATUSES.SUCCESS,
+    data: action.data
   }),
   [types.UPDATE_WORKFLOW_FAILURE]: (state, action) => ({
     ...state,
@@ -94,8 +89,7 @@ const actionHandlers = {
     ...state,
     isCreating: false,
     updatingStatus: REQUEST_STATUSES.SUCCESS,
-    data: action.data,
-    hasUnsavedWorkflowUpdates: false
+    data: action.data
   }),
   [types.CREATE_WORKFLOW_FAILURE]: (state, action) => ({
     ...state,
@@ -105,28 +99,7 @@ const actionHandlers = {
   }),
   [types.CREATE_WORKFLOW_REQUEST]: state => ({ ...state, isCreating: true, creatingStatus: "" }),
   [types.UPDATE_WORKFLOW_PROPERTY]: (state, action) => {
-    return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, [action.data.key]: action.data.value } };
-  },
-  [types.UPDATE_WORKFLOW_TRIGGERS_WEBHOOK]: (state, action) => {
-    let { triggers } = state.data;
-    let { webhook } = triggers;
-    const newWebhook = { ...webhook, [action.data.key]: action.data.value };
-    const newTriggers = { ...triggers, webhook: newWebhook };
-    return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, triggers: newTriggers } };
-  },
-  [types.UPDATE_WORKFLOW_TRIGGERS_EVENT]: (state, action) => {
-    let { triggers } = state.data;
-    let { event } = triggers;
-    const newEvent = { ...event, [action.data.key]: action.data.value };
-    const newTriggers = { ...triggers, event: newEvent };
-    return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, triggers: newTriggers } };
-  },
-  [types.UPDATE_WORKFLOW_TRIGGERS_SCHEDULER]: (state, action) => {
-    let { triggers } = state.data;
-    let { scheduler } = triggers;
-    const newScheduler = { ...scheduler, [action.data.key]: action.data.value };
-    const newTriggers = { ...triggers, scheduler: newScheduler };
-    return { ...state, hasUnsavedWorkflowUpdates: true, data: { ...state.data, triggers: newTriggers } };
+    return { ...state, data: { ...state.data, [action.data.key]: action.data.value } };
   },
   [types.CREATE_WORKFLOW_INPUT]: (state, action) => {
     const { properties } = state.data;
@@ -157,19 +130,11 @@ const fetchRequest = () => ({ type: types.FETCH_WORKFLOW_REQUEST });
 const fetchSuccess = data => ({ type: types.FETCH_WORKFLOW_SUCCESS, data });
 const fetchFailure = error => ({ type: types.FETCH_WORKFLOW_FAILURE, error });
 const updateRequest = () => ({ type: types.UPDATE_WORKFLOW_REQUEST });
-const updateSuccess = () => ({ type: types.UPDATE_WORKFLOW_SUCCESS });
+const updateSuccess = data => ({ type: types.UPDATE_WORKFLOW_SUCCESS, data });
 const updateFailure = error => ({ type: types.UPDATE_WORKFLOW_FAILURE, error });
 const createRequest = () => ({ type: types.CREATE_WORKFLOW_REQUEST });
 const createSuccess = data => ({ type: types.CREATE_WORKFLOW_SUCCESS, data });
 const createFailure = error => ({ type: types.CREATE_WORKFLOW_FAILURE, error });
-const updateProperty = data => ({ type: types.UPDATE_WORKFLOW_PROPERTY, data });
-const updateTriggersWebhook = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_WEBHOOK, data });
-const updateTriggersEvent = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_EVENT, data });
-const updateTriggersScheduler = data => ({ type: types.UPDATE_WORKFLOW_TRIGGERS_SCHEDULER, data });
-const createWorkflowInput = data => ({ type: types.CREATE_WORKFLOW_INPUT, data });
-const updateWorkflowInput = data => ({ type: types.UPDATE_WORKFLOW_INPUT, data });
-const deleteWorkflowInput = data => ({ type: types.DELETE_WORKFLOW_INPUT, data });
-const setHasUnsavedWorkflowUpdates = data => ({ type: types.SET_HAS_UNSAVED_WORKFLOW_UPDATES, data });
 
 const fetchActionCreators = {
   reset: reset,
@@ -225,13 +190,5 @@ export const actions = {
   createRequest,
   createFailure,
   createSuccess,
-  cancelCreate,
-  updateProperty,
-  updateTriggersWebhook,
-  updateTriggersEvent,
-  updateTriggersScheduler,
-  createWorkflowInput,
-  updateWorkflowInput,
-  deleteWorkflowInput,
-  setHasUnsavedWorkflowUpdates
+  cancelCreate
 };

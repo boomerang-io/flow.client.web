@@ -1,0 +1,234 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
+@import "~Styles/mixins";
+
+.tableSkeleton {
+  th {
+    color: #047cc0;
+  }
+  thead {
+    background-color: #d5d9e0;
+    th:nth-of-type(1) {
+      width: 15% !important;
+    }
+
+    th:nth-of-type(2) {
+      width: 25% !important;
+    }
+
+    th:nth-of-type(3) {
+      width: 10% !important;
+    }
+
+    th:nth-of-type(4) {
+      width: 15% !important;
+    }
+
+    th:nth-of-type(5) {
+      width: 15% !important;
+    }
+
+    th:nth-of-type(6) {
+      width: 10% !important;
+    }
+
+    th:nth-of-type(7) {
+      width: 10% !important;
+    }
+  }
+}
+
+.tableContainer {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tableHeadHeader {
+  color: #171717;
+  font-size: 0.875rem;
+  font-weight: 600;
+  height: 3rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+
+  button {
+    width: 100% !important;
+  }
+
+  &.teamName {
+    width: 15%;
+  }
+
+  &.workflowName {
+    width: 25%;
+  }
+
+  &.trigger {
+    width: 10%;
+  }
+
+  &.initiatedByUserName {
+    width: 15%;
+  }
+
+  &.creationDate {
+    width: 15%;
+  }
+
+  &.duration {
+    width: 10%;
+  }
+
+  &.status {
+    width: 10%;
+  }
+}
+
+.tableBody {
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+}
+
+.tableRow {
+  cursor: pointer;
+
+  &:focus {
+    @include focus-outline(var(--cds-interactive-01), -0.125rem);
+  }
+
+  &.completed {
+    .status {
+      color: #009c98;
+      path {
+        fill: #009c98;
+      }
+    }
+  }
+
+  &.failure {
+    .tableCell {
+      background-color: #fcd0d3;
+    }
+    .status {
+      color: #a51920;
+      path {
+        fill: #a51920;
+      }
+    }
+  }
+
+  &.invalid {
+    .tableCell {
+      background-color: #b9bfc7;
+    }
+  }
+
+  &.invalid,
+  &.skipped {
+    color: #242a2e;
+    .status {
+      color: #242a2e;
+      path {
+        fill: #242a2e;
+      }
+    }
+  }
+
+  &.notstarted {
+    .status {
+      color: #50565b;
+      path {
+        fill: #50565b;
+      }
+    }
+  }
+
+  &.inProgress {
+    .tableCell {
+      animation: inProgressText 3.75s infinite;
+      path {
+        animation: inProgressIcon 3.75s infinite;
+      }
+    }
+  }
+}
+
+@keyframes inProgressText {
+  0% {
+    color: $cool-gray-70;
+  }
+  20% {
+    color: $aqua-60;
+  }
+  40% {
+    color: $teal-50;
+  }
+  60% {
+    color: $blue-50;
+  }
+  80% {
+    color: $cool-gray-40;
+  }
+  100% {
+    color: $cool-gray-70;
+  }
+}
+
+@keyframes inProgressIcon {
+  0% {
+    fill: $cool-gray-70;
+  }
+  20% {
+    fill: $aqua-60;
+  }
+  40% {
+    fill: $teal-50;
+  }
+  60% {
+    fill: $blue-50;
+  }
+  80% {
+    fill: $cool-gray-40;
+  }
+  100% {
+    fill: $cool-gray-70;
+  }
+}
+
+.tableCell {
+  align-items: center;
+  color: #565656;
+  display: flex;
+  height: 3.625rem;
+  line-height: 1.2;
+  overflow-y: auto;
+  padding-left: 0.75rem;
+  width: 100%;
+
+  .status {
+    align-items: center;
+    display: flex;
+    .statusIcon {
+      height: 1rem;
+      width: 1rem;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+.tableTextarea {
+  background: inherit;
+  margin-left: 0.25rem;
+  max-width: 100%;
+  resize: none;
+  text-align: left;
+  white-space: normal;
+  width: 90%;
+  word-break: break-all;
+}

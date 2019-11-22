@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
-import Link from "@boomerang/boomerang-components/lib/Link";
 import { Close32 } from "@carbon/icons-react";
 import "./styles.scss";
 
@@ -23,17 +22,16 @@ class NotificationBanner extends Component {
   };
 
   render() {
+    if (!this.state.isOpen) {
+      return null;
+    }
     return (
-      <div className={classnames("b-notification-banner", { "--hidden": !this.state.isOpen })}>
+      <div className={classnames("b-notification-banner")}>
         <div className="b-notification-banner__text">
           Welcome to Boomerang Flow! We're excited to have you as a user and hope you enjoy using it. Please don't
           hesitate to reach out to us on Slack in{" "}
-          {
-            <Link href={`slack://channel?team=${SLACK_TEAM_ID}&id=${SLACK_FLOW_USERS_CHANNEL_ID}`}>
-              @bmrg-flow-users
-            </Link>
-          }
-          . Thanks!
+          {<a href={`slack://channel?team=${SLACK_TEAM_ID}&id=${SLACK_FLOW_USERS_CHANNEL_ID}`}>@bmrg-flow-users</a>}.
+          Thanks!
         </div>
         <button className="b-notification-banner__button" onClick={this.closeBanner}>
           <Close32 className="b-notification-banner__close-icon" />

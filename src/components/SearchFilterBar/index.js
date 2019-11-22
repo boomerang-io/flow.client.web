@@ -1,6 +1,15 @@
 import React, { Component } from "react";
+import DelayedRender from "Components/DelayedRender";
 import PropTypes from "prop-types";
-import { MultiSelect, Select, SelectItem, SelectItemGroup, Search } from "carbon-components-react";
+import {
+  MultiSelect,
+  Select,
+  SelectItem,
+  SelectItemGroup,
+  Search,
+  SearchSkeleton,
+  SelectSkeleton
+} from "carbon-components-react";
 import "./styles.scss";
 
 class SearchFilterBar extends Component {
@@ -9,6 +18,7 @@ class SearchFilterBar extends Component {
     handleSearchFilter: PropTypes.func.isRequired,
     debounceTimeout: PropTypes.number,
     filterItems: PropTypes.array,
+    loading: PropTypes.bool,
     multiselect: PropTypes.bool,
     selectedOption: PropTypes.string,
     searchbar: PropTypes.bool
@@ -51,7 +61,34 @@ class SearchFilterBar extends Component {
   };
 
   render() {
-    const { label = "Filter", options, multiselect, selectedOption, searchbar, filterItems } = this.props;
+    const {
+      label = "Filter",
+      loading,
+      options,
+      multiselect,
+      placeholder,
+      selectedOption,
+      searchbar,
+      filterItems,
+      title = ""
+    } = this.props;
+
+    if (loading) {
+      return (
+        <DelayedRender>
+          <div className="b-search-filter">
+            {searchbar && (
+              <div className="b-search-filter__search">
+                <SearchSkeleton small />
+              </div>
+            )}
+            <div className="b-search-filter__filter">
+              <SelectSkeleton />
+            </div>
+          </div>
+        </DelayedRender>
+      );
+    }
 
     return (
       <div className="b-search-filter">
@@ -59,20 +96,22 @@ class SearchFilterBar extends Component {
           {searchbar ? (
             <Search
               id="search-worfklows"
-              labelText="Search workflows"
+              labelText="Search for a workflow"
               onChange={this.handleOnSearchInputChange}
-              placeHolderText="Search workflows"
+              placeHolderText="Search for a workflow"
               value={this.state.searchQuery}
             />
           ) : null}
         </div>
         <div className="b-search-filter__filter">
           {multiselect ? (
-            <MultiSelect
+            <MultiSelect.Filterable
               id="b-search-filter__filter"
+              titleText={title}
               label={label}
               invalid={false}
               onChange={this.handleOnMultiSelectChange}
+              placeholder={placeholder}
               items={filterItems || options.length ? options.map(item => ({ id: item.id, text: item.name })) : []}
               itemToString={item => (item ? item.text : "")}
             />
@@ -82,6 +121,7 @@ class SearchFilterBar extends Component {
               hideLabel={true}
               invalid={false}
               onChange={this.handleOnSelectChange}
+              placeholder={placeholder}
               defaultValue={selectedOption}
             >
               <SelectItem value="none" text="All Workflows" />

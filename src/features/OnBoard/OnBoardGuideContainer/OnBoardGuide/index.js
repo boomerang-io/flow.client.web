@@ -24,9 +24,8 @@ const OnBoardGuide = props => {
 
   const lastScreen =
     index === screens.SIDENAV ||
-    index === screens.CHANGE_LOG ||
-    index === screens.OPTIONS ||
-    index === screens.SCROLLING ||
+    index === screens.SETTINGS ||
+    index === screens.ACTIVITY_NUMBERS ||
     index === screens.DIAGRAM;
 
   const leftAction =
@@ -50,9 +49,9 @@ const OnBoardGuide = props => {
       kind="primary"
       onClick={nextScreen}
       size="small"
-      style={{ backgroundColor: "#40d5bb", color: "white", width: "1rem" }} //will have to change
+      style={{ width: "1rem" }} //will have to change
     >
-      DONE
+      Done
     </Button>
   ) : (
     <Button
@@ -70,11 +69,9 @@ const OnBoardGuide = props => {
 
   return (
     <main className={`c-onboard-screen ${containerClassName}`}>
-      <Button
-        renderIcon={Close20}
-        onClick={closeModal}
-        style={{ position: "absolute", right: "0", backgroundColor: "transparent" }}
-      />
+      <button className="b-onboard-screen-exit-button" onClick={closeModal}>
+        <Close20 />
+      </button>
       <h1 className="b-onboard-screen-title">{title}</h1>
       <p className="b-onboard-screen-content">{message}</p>
       <footer className="b-onboard-screen-bottom">
@@ -96,7 +93,7 @@ OnBoardGuide.propTypes = {
   nextScreen: PropTypes.func,
   previousScreen: PropTypes.func,
   closeModal: PropTypes.func,
-  screens: PropTypes.array,
+  screens: PropTypes.object,
   guideConfig: PropTypes.object
 };
 

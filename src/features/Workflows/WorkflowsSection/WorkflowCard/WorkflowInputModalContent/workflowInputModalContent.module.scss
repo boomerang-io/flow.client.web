@@ -1,0 +1,11 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.container {
+  :global .bx--bmrg-text-input,
+  :global .bx--bmrg-select,
+  :global .bx--bmrg-multi-select,
+  :global .bx--bmrg-text-area,
+  :global .bx--bmrg-toggle {
+    padding-bottom: 1rem;
+  }
+}

@@ -40,7 +40,7 @@ function rtlReduxRouterRender(
 ) {
   let { store } = options;
   if (!store) {
-    store = configureStore(initialState, history);
+    store = configureStore(initialState);
   }
 
   return {
@@ -54,6 +54,11 @@ function rtlReduxRouterRender(
     store
   };
 }
+
+// Fix "react-modal: No elements were found for selector #app." error
+beforeEach(() => {
+  document.body.setAttribute("id", "app");
+});
 
 // RTL globals
 // Open question if we want to attach these to the global or required users to import

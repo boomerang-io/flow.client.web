@@ -1,0 +1,69 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
+
+.container {
+  background: $white;
+  display: flex;
+  justify-content: space-between;
+  height: 4.3125rem;
+  width: 100%;
+  z-index: 3;
+  :global .bx--search-input {
+    background: var(--cds-ui-background);
+    font-size: 0.875rem;
+    height: 3rem;
+  }
+  :global .b-search-filter {
+    align-items: flex-end;
+    align-self: flex-end;
+    width: 36rem;
+  }
+
+  :global .b-search-filter__filter {
+    font-size: 0.875rem;
+    .bx--list-box {
+      background-color: var(--cds-ui-background) !important;
+      height: 3rem !important;
+      max-height: none !important;
+    }
+    .bx--list-box__field {
+      height: 3rem !important;
+    }
+    .bx--list-box__menu {
+      background-color: var(--cds-ui-background);
+    }
+    .bx--list-box__menu-item {
+      background: var(--cds-ui-background);
+    }
+    .bx--list-box__menu-item--highlighted {
+      background: var(--cds-ui-background);
+    }
+  }
+}
+
+.title {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: wrap;
+}
+
+.subtitle {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.5rem;
+  margin: 0rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+  button {
+    margin-top: 1rem;
+  }
+}

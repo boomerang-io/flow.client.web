@@ -1,8 +1,4 @@
-import succeededIcon from "Assets/icons/passed.svg";
-import failedIcon from "Assets/icons/failed.svg";
-import inProgressIcon from "Assets/icons/in-progress.svg";
-import pendingIcon from "Assets/icons/pending.svg";
-import invalidIcon from "Assets/icons/invalid.svg";
+import { CloseOutline32, CheckmarkOutline32, Error32, Timer32 } from "@carbon/icons-react";
 
 export const ACTIVITY_STATUSES = {
   COMPLETED: "completed",
@@ -12,6 +8,13 @@ export const ACTIVITY_STATUSES = {
   INVALID: "invalid",
   SKIPPED: "skipped"
 };
+
+export const ACTIVITY_STATUSES_TO_INDEX = [
+  ACTIVITY_STATUSES.IN_PROGRESS,
+  ACTIVITY_STATUSES.COMPLETED,
+  ACTIVITY_STATUSES.FAILURE,
+  ACTIVITY_STATUSES.INVALID
+];
 
 export const ACTIVITY_STATUSES_TO_TEXT = {
   [ACTIVITY_STATUSES.COMPLETED]: "Succeeded",
@@ -23,10 +26,10 @@ export const ACTIVITY_STATUSES_TO_TEXT = {
 };
 
 export const ACTIVITY_STATUSES_TO_ICON = {
-  [ACTIVITY_STATUSES.COMPLETED]: succeededIcon,
-  [ACTIVITY_STATUSES.FAILURE]: failedIcon,
-  [ACTIVITY_STATUSES.IN_PROGRESS]: inProgressIcon,
-  [ACTIVITY_STATUSES.NOT_STARTED]: pendingIcon,
-  [ACTIVITY_STATUSES.INVALID]: invalidIcon,
-  [ACTIVITY_STATUSES.SKIPPED]: invalidIcon
+  [ACTIVITY_STATUSES.COMPLETED]: CheckmarkOutline32,
+  [ACTIVITY_STATUSES.FAILURE]: CloseOutline32,
+  [ACTIVITY_STATUSES.IN_PROGRESS]: Timer32,
+  [ACTIVITY_STATUSES.NOT_STARTED]: Timer32,
+  [ACTIVITY_STATUSES.INVALID]: Error32,
+  [ACTIVITY_STATUSES.SKIPPED]: Error32
 };

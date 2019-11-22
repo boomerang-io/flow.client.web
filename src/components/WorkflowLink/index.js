@@ -1,107 +1,50 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import CloseModalButton from "@boomerang/boomerang-components/lib/CloseModalButton";
-import MultiStateButton from "./MultiStateButton";
-import "./styles.scss";
+import cx from "classnames";
+import styles from "./WorkflowLink.module.scss";
 
-class CustomLink extends Component {
-  static propTypes = {
-    model: PropTypes.object.isRequired,
-    path: PropTypes.string.isRequired,
-    diagramEngine: PropTypes.object.isRequired
-  };
+WorkflowLink.propTypes = {
+  children: () => {},
+  diagramEngine: PropTypes.object.isRequired,
+  model: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired
+};
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      executionCondition: this.props.model.executionCondition,
-      count: 0 //just set here one time
-    };
+function WorkflowLink({ diagramEngine, model, children, className, path }) {
+  let halfwayPoint = "";
+  const pathRef = React.useRef();
+  const [isMounted, setIsMounted] = React.useState(false);
 
-    this.halfwayPoint = "";
-    this.endPoint = "";
-    this.path = React.createRef();
+  React.useEffect(() => {
+    diagramEngine.repaintCanvas();
+  }, [diagramEngine]);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, [diagramEngine]);
+
+  function handleOnDelete() {
+    model.remove();
+    diagramEngine.repaintCanvas();
   }
 
-  componentDidMount() {
-    this.props.diagramEngine.repaintCanvas();
+  const isModelLocked = diagramEngine.diagramModel.locked;
+
+  if (pathRef.current) {
+    halfwayPoint = pathRef.current.getPointAtLength(pathRef.current.getTotalLength() * 0.5);
   }
 
-  componentWillUnmount() {
-    this.mounted = false;
-  }
-
-  handleOnDelete = () => {
-    this.props.model.remove();
-    this.props.diagramEngine.repaintCanvas();
-  };
-
-  updateExecutionState = executionCondition => {
-    this.props.model.executionCondition = executionCondition;
-  };
-
-  render() {
-    const { model } = this.props;
-    let linkStyle = {};
-
-    if (!model.sourcePort || !model.targetPort) {
-      linkStyle = { opacity: "0.25" };
-    }
-
-    if (this.path.current) {
-      this.halfwayPoint = this.path.current.getPointAtLength(this.path.current.getTotalLength() * 0.5);
-      this.endPoint = this.path.current.getPointAtLength(this.path.current.getTotalLength());
-    }
-
-    return (
-      <svg>
-        {this.path.current && !this.props.diagramEngine.diagramModel.locked && this.props.model.targetPort && (
-          <>
-            <g
-              transform={`translate(${this.halfwayPoint.x - 10}, ${this.halfwayPoint.y - 30}) scale(0.7)`}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <foreignObject width="48" height="48" requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
-                <div xmlns="http://www.w3.org/1999/xhtml">
-                  <CloseModalButton onClick={this.handleOnDelete} />
-                </div>
-              </foreignObject>
-            </g>
-            <g
-              transform={`translate(${this.halfwayPoint.x - 2}, ${this.halfwayPoint.y + 5})`}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <foreignObject
-                width="28"
-                height="28"
-                requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
-                style={{ cursor: "pointer" }}
-              >
-                <div
-                  style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-                  xmlns="http://www.w3.org/1999/xhtml"
-                >
-                  <MultiStateButton
-                    onClick={this.updateExecutionState}
-                    initialExecutionCondition={this.state.executionCondition}
-                    modelId={this.props.model.id}
-                  />
-                </div>
-              </foreignObject>
-            </g>
-          </>
-        )}
-        <path
-          ref={this.path}
-          style={linkStyle}
-          strokeWidth={this.props.model.width}
-          stroke="rgba(255,0,0,0.5)"
-          d={this.props.path}
-        />
-        )}
-      </svg>
-    );
-  }
+  return (
+    <svg className={cx(className, { [styles.locked]: isModelLocked, [styles.unconnected]: !model.targetPort })}>
+      {isMounted && model.targetPort && <>{children({ halfwayPoint, handleOnDelete })}</>}
+      <path
+        className={cx(styles.path, { [styles.locked]: isModelLocked })}
+        ref={pathRef}
+        strokeWidth={model.width}
+        d={path}
+      />
+    </svg>
+  );
 }
 
-export default CustomLink;
+export default WorkflowLink;

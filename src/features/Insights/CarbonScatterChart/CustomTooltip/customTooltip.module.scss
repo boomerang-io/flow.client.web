@@ -1,0 +1,24 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/variables";
+
+.container {
+  display: flex;
+  min-height: 5rem;
+  min-width: 10rem;
+}
+.colorContainer {
+  background-color: var(--cds-interactive-01);
+  width: 0.25rem;
+  height: 100%;
+}
+.infoContainer {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+.row {
+}
+.label {
+}
+.value {
+}

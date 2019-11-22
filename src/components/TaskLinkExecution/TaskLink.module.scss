@@ -1,0 +1,30 @@
+@import "~Styles/variables";
+
+.traversed {
+  opacity: 1;
+}
+
+.statusIcon {
+  align-items: center;
+  background: var(--cds-ui-01);
+  border-radius: 50%;
+  display: flex;
+  height: 1.5rem;
+  justify-content: center;
+
+  &.completed {
+    path {
+      fill: #009d9a;
+    }
+  }
+
+  &.failure {
+    path {
+      fill: #a51920;
+    }
+  }
+
+  path {
+    fill: black;
+  }
+}

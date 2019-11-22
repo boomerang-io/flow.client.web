@@ -30,41 +30,48 @@
       "id": "5b92f794844d0700016ea216",
       "config": [
         {
-          "description": "",
+          "placeholder": "",
           "key": "offset",
           "label": "offset",
           "type": "text"
         },
         {
-          "description": "",
+          "placeholder": "",
           "key": "shell",
           "label": "shell",
           "type": "text"
+        },
+        {
+          "placeholder": "",
+          "key": "shell-bool",
+          "label": "boolean",
+          "type": "boolean"
         }
       ],
       "description": "Specify Shell Script to Ingest CSV",
       "key": "ingest",
       "name": "read Ingest CSV",
-      "type": "ValuesList",
-      "category": "file utilities"
+      "type": "sendStuff",
+      "category": "file utilities",
+      "nodeType": "templateTask"
     },
     {
       "id": "5b92f794844d0700016ea217",
       "config": [
         {
-          "description": "The name of the channel or user as a destination for the messages.",
+          "placeholder": "The name of the channel or user as a destination for the messages.",
           "key": "channel",
           "label": "Channel",
           "type": "text"
         },
         {
-          "description": "Larger, bold text near the top of a message.",
+          "placeholder": "Larger, bold text near the top of a message.",
           "key": "title",
           "label": "Title",
           "type": "text"
         },
         {
-          "description": "The main text to the message.",
+          "placeholder": "The main text to the message.",
           "key": "message",
           "label": "Message",
           "type": "text"
@@ -75,19 +82,20 @@
       "name": "approval Send Slack Message",
       "type": "ValuesList",
       "category": "communication",
-      "arguments": ["sendSlackMessage", "$(INPUTS_PROPS_CHANNEL)", "$(INPUTS_PROPS_TITLE)", "$(INPUTS_PROPS_MESSAGE)"]
+      "arguments": ["sendSlackMessage", "$(INPUTS_PROPS_CHANNEL)", "$(INPUTS_PROPS_TITLE)", "$(INPUTS_PROPS_MESSAGE)"],
+      "nodeType": "templateTask"
     },
     {
       "id": "5bd97bea5a5df954ad592c06",
       "config": [
         {
-          "description": "Duration in milliseconds",
+          "placeholder": "Duration in milliseconds",
           "key": "duration",
           "label": "Duration",
           "type": "text"
         },
         {
-          "description": "Testing multiselect",
+          "placeholder": "Testing multiselect",
           "key": "multiselect",
           "label": "multiselect",
           "type": "multiselect",
@@ -107,7 +115,7 @@
           ]
         },
         {
-          "description": "The name of the channel or user as a destination for the messages.",
+          "placeholder": "The name of the channel or user as a destination for the messages.",
           "key": "select",
           "label": "select",
           "type": "select",
@@ -130,47 +138,48 @@
       "description": "Sleep for specified duration in milliseconds",
       "key": "sleep",
       "name": "update Sleep",
-      "type": "ValuesList",
+      "type": "sendStuff",
       "category": "utilities",
-      "arguments": ["sleep", "$(INPUTS_PROPS_DURATION)"]
+      "arguments": ["sleep", "$(INPUTS_PROPS_DURATION)"],
+      "nodeType": "templateTask"
     },
     {
       "id": "5bd98b105a5df954ad599bc2",
       "config": [
         {
-          "description": "The email address to send mail to",
+          "placeholder": "The email address to send mail to",
           "key": "to",
           "label": "To",
           "type": "text"
         },
         {
-          "description": "The email subject",
+          "placeholder": "The email subject",
           "key": "subject",
           "label": "Subject",
           "type": "text"
         },
         {
-          "description": "The message inside the email",
+          "placeholder": "The message inside the email",
           "key": "message",
           "label": "Message",
           "type": "textarea",
           "language": null
         },
         {
-          "description": "The message inside the email2",
+          "placeholder": "The message inside the email2",
           "key": "message2",
           "label": "Message2",
           "type": "textarea",
           "language": "yaml"
         },
         {
-          "description": "The main text to the message.",
+          "placeholder": "The main text to the message.",
           "key": "message3",
           "label": "Message3",
           "type": "text"
         },
         {
-          "description": "The main text to the message.",
+          "placeholder": "The main text to the message.",
           "key": "message4",
           "label": "Message4",
           "type": "text"
@@ -187,32 +196,34 @@
         "$(INPUTS_PROPS_SUBJECT)",
         "$(INPUTS_PROPS_MESSAGE)",
         "$(INPUTS_PROPS_MESSAGE)"
-      ]
+      ],
+      "nodeType": "templateTask"
     },
     {
       "id": "5bd9b4115a5df954ad5ad8db",
       "config": [],
-      "description": "Artifactory File Download",
-      "key": "artifactoryDownload",
-      "name": "shell Artifactory File Download",
+      "description": "Custom Task",
+      "key": "customTask",
+      "name": "Custom Task",
       "type": "ValuesList",
       "category": "utilities",
-      "arguments": ["artifactoryDownload"]
+      "arguments": [],
+      "nodeType": "customTask"
     },
     {
       "id": "5bd9d03a5a5df954ad5bb3b5",
       "config": [
         {
-          "description": "The file path incl file name",
+          "placeholder": "The file path incl file name",
           "key": "path",
           "label": "File Path",
           "type": "text"
         },
         {
-          "description": "The file content",
+          "placeholder": "The file content",
           "key": "content",
           "label": "File Content",
-          "type": "textarea"
+          "type": "texteditor"
         }
       ],
       "description": "Create file in worker",
@@ -220,13 +231,14 @@
       "name": "enable Create File",
       "type": "ValuesList",
       "category": "utilities",
-      "arguments": ["sendMailToMember", "$(INPUTS_PROPS_PATH)", "$(INPUTS_PROPS_CONTENT)"]
+      "arguments": ["sendMailToMember", "$(INPUTS_PROPS_PATH)", "$(INPUTS_PROPS_CONTENT)"],
+      "nodeType": "templateTask"
     },
     {
       "id": "5bd9d0825a5df954ad5bb5c3",
       "config": [
         {
-          "description": "The file path incl file name",
+          "placeholder": "The file path incl file name",
           "key": "path",
           "label": "File Path",
           "type": "text"
@@ -237,30 +249,38 @@
       "name": "download Artifactory File Upload",
       "type": "ValuesList",
       "category": "utilities",
-      "arguments": ["artifactoryUpload", "$(INPUTS_PROPS_PATH)"]
+      "arguments": ["artifactoryUpload", "$(INPUTS_PROPS_PATH)"],
+      "nodeType": "templateTask"
     },
     {
       "id": "7be9d03a8a5df958ad58b3b8",
       "config": [
         {
-          "description": "Name",
+          "placeholder": "Name",
           "key": "name",
           "label": "Name",
           "type": "text"
         },
         {
-          "description": "Property to be Switched Upon",
+          "placeholder": "Property to switch on",
           "key": "value",
           "label": "Value",
           "type": "text"
+        },
+        {
+          "placeholder": "Private field",
+          "key": "value",
+          "label": "Value",
+          "type": "password"
         }
       ],
       "description": "Create a Switch Component",
       "key": "switch",
       "name": "Switch",
       "type": "ValuesList",
-      "category": "boomerang",
-      "arguments": ["switch"]
+      "category": "workflow",
+      "arguments": ["switch"],
+      "nodeType": "decision"
     }
   ],
   "teams": [
@@ -279,19 +299,53 @@
             {
               "defaultValue": "test",
               "description": "Testing this property",
-              "key": "test.property",
+              "key": "testing",
               "label": "Test Property",
               "required": true,
               "type": "select",
-              "validValues": ["test", "this"]
+              "options": [
+                {
+                  "key": "test",
+                  "value": "Test"
+                },
+                {
+                  "key": "this",
+                  "value": "This"
+                }
+              ]
             },
             {
               "defaultValue": "test",
               "description": "Testing this propertys",
-              "key": "test.property1",
+              "key": "things",
               "label": "Test Property1",
               "required": true,
               "type": "text"
+            },
+            {
+              "defaultValue": "test2",
+              "description": "Testing this propertys area",
+              "key": "here",
+              "label": "Test Property2",
+              "required": true,
+              "type": "textarea"
+            },
+            {
+              "defaultValue": true,
+              "description": "Testing this propertys area",
+              "key": "please",
+              "label": "Test Property Bool",
+              "required": true,
+              "type": "boolean"
+            },
+            {
+              "defaultValue": "test",
+              "description": "Testing this propertys",
+              "key": "things",
+              "label": "Test Property1",
+              "required": true,
+              "type": "text",
+              "readOnly": "true"
             }
           ]
         },
@@ -345,10 +399,19 @@
             {
               "readOnly": false,
               "description": "Please help me",
-              "key": "what.this",
+              "key": "what.please",
               "label": "Boomerang incoming webhook",
               "type": "boolean",
-              "defaultValue": "false",
+              "defaultValue": "true",
+              "required": true
+            },
+            {
+              "readOnly": false,
+              "description": "Please help me",
+              "key": "help.me",
+              "label": "a text property",
+              "type": "text",
+              "defaultValue": "",
               "required": true
             }
           ]
@@ -444,36 +507,146 @@
           "inputs": []
         }
       ]
+    },
+    {
+      "id": "6254",
+      "name": "CAI Offering Team",
+      "workflows": [
+        {
+          "id": "3331",
+          "name": "CAI offer workflow",
+          "shortDescription": "Here is a shorter description. Here is a shorter description. Here is a shorter description. ",
+          "status": "published",
+          "icon": "docs",
+          "flowTeamId": "6254",
+          "inputs": []
+        }
+      ]
+    },
+    {
+      "id": "6234",
+      "name": "IBM Engineering Automation Team",
+      "workflows": []
     }
   ],
   "workflowSingle": {
     "dag": {
       "id": "3f58d302-2a3c-4765-b606-7573d313a2fa",
-      "offsetX": -296.19998336255117,
-      "offsetY": -103.26049122783066,
-      "zoom": 147.74741038485726,
+      "offsetX": -71.52441776159299,
+      "offsetY": -195.3135138148453,
+      "zoom": 81.08074371819056,
       "gridSize": 0,
       "links": [
         {
-          "id": "bacb9be5-a49f-41f4-8c5b-5f5fb0881aad",
-          "type": "custom",
+          "id": "381de73c-046c-4f71-8a30-8426e1df4d7f",
+          "type": "task",
           "selected": false,
-          "source": "311a727c-691d-4c50-b24f-d4818895f6a3",
-          "sourcePort": "e8606668-fb6e-4a9c-a95e-7cf6f0c912e1",
+          "source": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
+          "sourcePort": "6f1f5e66-9bc1-4675-a654-5f580036a173",
+          "target": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          "targetPort": "b53cd3e6-4233-40e6-9843-41631bbae150",
+          "points": [
+            {
+              "id": "9d59d21b-6566-4abb-b477-21aeb0dc1485",
+              "selected": false,
+              "x": 206.44926611186128,
+              "y": 587.9300562056098
+            },
+            {
+              "id": "8bcd25bb-f151-46a2-ad49-2997c06bbe41",
+              "selected": false,
+              "x": 389.7038727968661,
+              "y": 475.9318830440754
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "executionCondition": "succcess",
+          "linkId": "381de73c-046c-4f71-8a30-8426e1df4d7f"
+        },
+        {
+          "id": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7",
+          "type": "task",
+          "selected": false,
+          "source": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          "sourcePort": "2c52419b-82f0-4dba-83cc-4a61466cd804",
+          "target": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "targetPort": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
+          "points": [
+            {
+              "id": "80992b99-23af-4202-9e52-01308f52b97b",
+              "selected": false,
+              "x": 622.3288560503644,
+              "y": 475.9318830440754
+            },
+            {
+              "id": "e5306c9e-bb7c-48d1-9fea-25b49a7ebdab",
+              "selected": false,
+              "x": 770.822094706076,
+              "y": 334.09494848664224
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "executionCondition": "failure",
+          "linkId": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7"
+        },
+        {
+          "id": "16955507-cc27-4d0c-b17c-debf4573cb3b",
+          "type": "decision",
+          "selected": false,
+          "source": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "sourcePort": "0d350a4e-1715-49f2-a788-0626a1c80009",
+          "target": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+          "targetPort": "21cc6fbb-5d3f-457a-9d97-a0bb8be453bc",
+          "points": [
+            {
+              "id": "c9e37f73-c060-41ae-9fad-372cff349b0b",
+              "selected": false,
+              "x": 1003.4471532365802,
+              "y": 334.09494848664224
+            },
+            {
+              "id": "49bf42e7-484b-44b6-9257-a5a7b4107627",
+              "selected": false,
+              "x": 1223.440750426782,
+              "y": 449.7180959949991
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "executionCondition": "always",
+          "linkId": "16955507-cc27-4d0c-b17c-debf4573cb3b"
+        },
+        {
+          "id": "dbc85ced-7820-4c69-a376-1d1c30a309f3",
+          "type": "decision",
+          "selected": false,
+          "source": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+          "sourcePort": "5ff63d6c-b8ae-42a7-8d34-0542028423b0",
           "target": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
           "targetPort": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095",
           "points": [
             {
-              "id": "a12d634d-a003-48f7-8503-fd66ad12526f",
+              "id": "15d77fe4-d9ec-49b6-ae80-edcdea1f01fb",
               "selected": false,
-              "x": 1018.2968791684257,
-              "y": 461.4687677060492
+              "x": 1456.0658089572864,
+              "y": 449.7180959949991
             },
             {
-              "id": "57fc0bab-4620-4e43-a107-e27631bf6471",
-              "selected": true,
-              "x": 1043.4062723999054,
-              "y": 150.84374454639484
+              "id": "378c95b9-cda5-4dbf-9c8b-ee4778c61a6a",
+              "selected": false,
+              "x": 1653.9056844127922,
+              "y": 533.7802571274806
             }
           ],
           "extras": {},
@@ -481,68 +654,8 @@
           "width": 3,
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
-          "linkId": "bacb9be5-a49f-41f4-8c5b-5f5fb0881aad",
-          "executionCondition": "always"
-        },
-        {
-          "id": "8e1328ad-7d50-4841-9447-31ebaccd6f3b",
-          "type": "decision",
-          "selected": false,
-          "source": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-          "sourcePort": "7deb4038-a535-42cd-abb7-2c651d5b18a2",
-          "target": "311a727c-691d-4c50-b24f-d4818895f6a3",
-          "targetPort": "0513f03c-0e36-4fbc-a9dc-48a3374583e0",
-          "points": [
-            {
-              "id": "b5cc4c80-c383-43fd-8c1b-db4a0096fbe1",
-              "selected": false,
-              "x": 498.4062709958855,
-              "y": 142.4531314381519
-            },
-            {
-              "id": "564c9219-6aff-42bc-8288-39e4a8e597cd",
-              "selected": false,
-              "x": 754.4062898471569,
-              "y": 461.4687677060492
-            }
-          ],
-          "extras": {},
-          "labels": [],
-          "width": 3,
-          "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50,
-          "linkId": "8e1328ad-7d50-4841-9447-31ebaccd6f3b",
-          "switchCondition": "ben\ntwo\nthree"
-        },
-        {
-          "id": "e702239b-f47f-4e2a-bca7-6cda545b2c1f",
-          "type": "decision",
-          "selected": false,
-          "source": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-          "sourcePort": "7deb4038-a535-42cd-abb7-2c651d5b18a2",
-          "target": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
-          "targetPort": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095",
-          "points": [
-            {
-              "id": "3dc7fad8-455f-4048-9735-ea7f3b1b6ed0",
-              "selected": false,
-              "x": 498.4062709958855,
-              "y": 142.4531314381519
-            },
-            {
-              "id": "f8eaff55-a099-49d9-874b-b1d43e3ab600",
-              "selected": true,
-              "x": 1043.4062723999054,
-              "y": 150.84374454639484
-            }
-          ],
-          "extras": {},
-          "labels": [],
-          "width": 3,
-          "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50,
-          "linkId": "e702239b-f47f-4e2a-bca7-6cda545b2c1f",
-          "switchCondition": null
+          "executionCondition": "always",
+          "linkId": "dbc85ced-7820-4c69-a376-1d1c30a309f3"
         }
       ],
       "nodes": [
@@ -550,8 +663,8 @@
           "id": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
           "type": "startend",
           "selected": false,
-          "x": 300,
-          "y": 400,
+          "x": 58.26566085625685,
+          "y": 552.9339696623682,
           "extras": {},
           "ports": [
             {
@@ -560,7 +673,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
-              "links": [],
+              "links": ["381de73c-046c-4f71-8a30-8426e1df4d7f"],
               "position": "right",
               "nodePortId": "6f1f5e66-9bc1-4675-a654-5f580036a173"
             }
@@ -572,8 +685,8 @@
           "id": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
           "type": "startend",
           "selected": false,
-          "x": 1058,
-          "y": 114,
+          "x": 1668.5025401844534,
+          "y": 498.80160108595845,
           "extras": {},
           "ports": [
             {
@@ -582,152 +695,154 @@
               "selected": false,
               "name": "left",
               "parentNode": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb",
-              "links": ["bacb9be5-a49f-41f4-8c5b-5f5fb0881aad", "e702239b-f47f-4e2a-bca7-6cda545b2c1f"],
+              "links": ["dbc85ced-7820-4c69-a376-1d1c30a309f3"],
               "position": "left",
               "nodePortId": "f46cb544-ae22-4b58-ad5a-bd94dd7ba095"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb"
         },
         {
-          "id": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-          "type": "decision",
+          "id": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          "type": "templateTask",
           "selected": false,
-          "x": 292.0271621396434,
-          "y": 82.91787566655557,
+          "x": 404.332255277566,
+          "y": 438.61365845831875,
           "extras": {},
           "ports": [
             {
-              "id": "203b23cb-dd1b-4405-9932-a36a766e780e",
+              "id": "b53cd3e6-4233-40e6-9843-41631bbae150",
+              "type": "task",
+              "selected": false,
+              "name": "left",
+              "parentNode": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+              "links": ["381de73c-046c-4f71-8a30-8426e1df4d7f"],
+              "nodePortId": "b53cd3e6-4233-40e6-9843-41631bbae150",
+              "position": "left"
+            },
+            {
+              "id": "2c52419b-82f0-4dba-83cc-4a61466cd804",
+              "type": "task",
+              "selected": false,
+              "name": "right",
+              "parentNode": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+              "links": ["0f5670b1-f82a-47de-a7ea-38e0a9182ac7"],
+              "nodePortId": "2c52419b-82f0-4dba-83cc-4a61466cd804",
+              "position": "right"
+            }
+          ],
+          "taskId": "5b92f794844d0700016ea217",
+          "nodeId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          "taskName": "Send Slack Message"
+        },
+        {
+          "id": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "type": "decision",
+          "selected": false,
+          "x": 785.4338409684672,
+          "y": 296.7797349811225,
+          "extras": {},
+          "ports": [
+            {
+              "id": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
               "type": "decision",
               "selected": false,
               "name": "left",
-              "parentNode": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-              "links": [],
-              "position": "left",
-              "nodePortId": "203b23cb-dd1b-4405-9932-a36a766e780e"
+              "parentNode": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+              "links": ["0f5670b1-f82a-47de-a7ea-38e0a9182ac7"],
+              "nodePortId": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
+              "position": "left"
             },
             {
-              "id": "7deb4038-a535-42cd-abb7-2c651d5b18a2",
+              "id": "0d350a4e-1715-49f2-a788-0626a1c80009",
               "type": "decision",
               "selected": false,
               "name": "right",
-              "parentNode": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-              "links": ["8e1328ad-7d50-4841-9447-31ebaccd6f3b", "e702239b-f47f-4e2a-bca7-6cda545b2c1f"],
-              "position": "right",
-              "nodePortId": "7deb4038-a535-42cd-abb7-2c651d5b18a2"
+              "parentNode": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+              "links": ["16955507-cc27-4d0c-b17c-debf4573cb3b"],
+              "nodePortId": "0d350a4e-1715-49f2-a788-0626a1c80009",
+              "position": "right"
             }
           ],
           "taskId": "7be9d03a8a5df958ad58b3b8",
-          "nodeId": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-          "taskName": "Switch 1"
+          "nodeId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "taskName": "launch Send Email 1"
         },
         {
-          "id": "311a727c-691d-4c50-b24f-d4818895f6a3",
-          "type": "custom",
+          "id": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+          "type": "templateTask",
           "selected": false,
-          "x": 768,
-          "y": 401.921875,
+          "x": 1238.069057630476,
+          "y": 412.4003983482839,
           "extras": {},
           "ports": [
             {
-              "id": "0513f03c-0e36-4fbc-a9dc-48a3374583e0",
-              "type": "custom",
+              "id": "21cc6fbb-5d3f-457a-9d97-a0bb8be453bc",
+              "type": "task",
               "selected": false,
               "name": "left",
-              "parentNode": "311a727c-691d-4c50-b24f-d4818895f6a3",
-              "links": ["8e1328ad-7d50-4841-9447-31ebaccd6f3b"],
-              "position": "left",
-              "nodePortId": "0513f03c-0e36-4fbc-a9dc-48a3374583e0"
+              "parentNode": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+              "links": ["16955507-cc27-4d0c-b17c-debf4573cb3b"],
+              "nodePortId": "21cc6fbb-5d3f-457a-9d97-a0bb8be453bc",
+              "position": "left"
             },
             {
-              "id": "e8606668-fb6e-4a9c-a95e-7cf6f0c912e1",
-              "type": "custom",
+              "id": "5ff63d6c-b8ae-42a7-8d34-0542028423b0",
+              "type": "task",
               "selected": false,
               "name": "right",
-              "parentNode": "311a727c-691d-4c50-b24f-d4818895f6a3",
-              "links": ["bacb9be5-a49f-41f4-8c5b-5f5fb0881aad"],
-              "position": "right",
-              "nodePortId": "e8606668-fb6e-4a9c-a95e-7cf6f0c912e1"
-            }
-          ],
-          "taskId": "5bd98b105a5df954ad599bc2",
-          "nodeId": "311a727c-691d-4c50-b24f-d4818895f6a3",
-          "taskName": "Send Email 1"
-        },
-        {
-          "id": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
-          "type": "custom",
-          "selected": false,
-          "x": 128.11448091984673,
-          "y": 256.86971702632894,
-          "extras": {},
-          "ports": [
-            {
-              "id": "fa40ea57-d9ed-4833-a7ca-812824899db1",
-              "type": "custom",
-              "selected": false,
-              "name": "left",
-              "parentNode": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
-              "links": [],
-              "position": "left",
-              "nodePortId": "fa40ea57-d9ed-4833-a7ca-812824899db1"
-            },
-            {
-              "id": "db149132-52f3-4564-baf4-9c96aad8368d",
-              "type": "custom",
-              "selected": false,
-              "name": "right",
-              "parentNode": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
-              "links": [],
-              "position": "right",
-              "nodePortId": "db149132-52f3-4564-baf4-9c96aad8368d"
+              "parentNode": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+              "links": ["dbc85ced-7820-4c69-a376-1d1c30a309f3"],
+              "nodePortId": "5ff63d6c-b8ae-42a7-8d34-0542028423b0",
+              "position": "right"
             }
           ],
           "taskId": "5b92f794844d0700016ea216",
-          "nodeId": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
-          "taskName": "Ingest CSV Shell 1"
+          "nodeId": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
+          "taskName": "read Ingest CSV 1"
         }
       ]
     },
     "config": {
       "nodes": [
         {
-          "nodeId": "b301f0df-0cbe-49c5-a9cf-b89f4cd658bf",
-          "taskId": "7be9d03a8a5df958ad58b3b8",
+          "nodeId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          "taskId": "5b92f794844d0700016ea217",
           "inputs": {
-            "name": "",
-            "value": ""
+            "channel": "",
+            "title": "",
+            "message": "",
+            "taskName": "Send Slack Message"
           },
-          "type": "decision"
+          "type": "templateTask"
         },
         {
-          "nodeId": "311a727c-691d-4c50-b24f-d4818895f6a3",
+          "nodeId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "taskId": "5bd98b105a5df954ad599bc2",
           "inputs": {
-            "to": "1",
-            "subject": "2",
-            "message": "3",
-            "message2": "4",
-            "message3": "5",
-            "message4": "6"
+            "to": "",
+            "subject": "",
+            "message": "",
+            "message2": "",
+            "message3": "",
+            "message4": ""
           },
-          "type": "custom"
+          "type": "templateTask"
         },
         {
-          "nodeId": "1c05f98c-d1f6-4068-9ce4-debf0af85827",
+          "nodeId": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
           "taskId": "5b92f794844d0700016ea216",
           "inputs": {
             "offset": "",
             "shell": ""
           },
-          "type": "custom"
+          "type": "templateTask"
         }
       ]
     },
     "changelog": {
-      "reason": "fdsa"
+      "reason": "Update workflow"
     }
   },
   "workflowRevision": {
@@ -759,7 +874,7 @@
       "links": [
         {
           "linkId": "8559524e-d3b2-4fca-98f1-a5359bdcd642",
-          "type": "custom",
+          "type": "templateTask",
           "selected": "false",
           "source": "58dcb6c8-dfbd-42d8-a7e1-ddd5409e63ff",
           "sourcePort": "38ac1e1a-c216-4e6f-a952-c32100001adf",
@@ -788,7 +903,7 @@
         },
         {
           "linkId": "71d4a2b6-fff4-4fdb-907e-9d91b7c3726d",
-          "type": "custom",
+          "type": "templateTask",
           "selected": "false",
           "source": "5006c70f-c7f0-4679-940c-82ba89755599",
           "sourcePort": "f94c96f6-f029-4db5-b125-703f5cd4a398",
@@ -817,7 +932,7 @@
         },
         {
           "linkId": "9ef1cd6d-4f39-4ab9-98fb-2a91539de839",
-          "type": "custom",
+          "type": "templateTask",
           "selected": "false",
           "source": "d64fb25d-932a-4894-9087-ded1b63eb672",
           "sourcePort": "c38050e9-5892-4bbc-836b-b6a02243b411",
@@ -884,13 +999,13 @@
               "position": "left"
             }
           ],
-          "passedName": "Finish"
+          "passedName": "End"
         },
         {
           "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
           "taskId": "5bd98b105a5df954ad599bc2",
           "taskName": "Testing",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 340,
           "y": 270.25,
@@ -898,7 +1013,7 @@
           "ports": [
             {
               "nodePortId": "5afc712a-c52b-477a-a475-2674fe184330",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "5006c70f-c7f0-4679-940c-82ba89755599",
@@ -907,7 +1022,7 @@
             },
             {
               "nodePortId": "f94c96f6-f029-4db5-b125-703f5cd4a398",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "5006c70f-c7f0-4679-940c-82ba89755599",
@@ -920,7 +1035,7 @@
           "nodeId": "d64fb25d-932a-4894-9087-ded1b63eb672",
           "taskId": "5b92f794844d0700016ea217",
           "taskName": "This",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 636,
           "y": 346.25,
@@ -928,7 +1043,7 @@
           "ports": [
             {
               "nodePortId": "b2296092-096a-4053-bcf9-aed001d81c35",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "d64fb25d-932a-4894-9087-ded1b63eb672",
@@ -937,7 +1052,7 @@
             },
             {
               "nodePortId": "c38050e9-5892-4bbc-836b-b6a02243b411",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "d64fb25d-932a-4894-9087-ded1b63eb672",
@@ -964,7 +1079,7 @@
       "links": [
         {
           "id": "f5720a1c-8f25-4bad-b6dd-3bae0db672d4",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "ad9682ea-61c2-4b77-a3be-8d731e1e3204",
           "sourcePort": "da8cd7b9-8499-4365-835b-f18c4864144b",
@@ -994,7 +1109,7 @@
         },
         {
           "id": "72f2af3f-1dd9-4d6e-ac0a-c692e3b97825",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "1f4dcae6-6264-4c2d-bf3c-ecf8db23bdd0",
           "sourcePort": "1a41a26f-66d5-48de-a3f4-2c327fe87c14",
@@ -1065,12 +1180,12 @@
               "portId": "049f1b28-4e6a-4225-9ba3-36acccc1f7a7"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "1b1c8b8b-bb7a-40ae-9d23-87cbacea41ca"
         },
         {
           "id": "9758efc8-feca-416b-8daa-5f628cb7617c",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "x": 720,
           "y": 378.5,
@@ -1078,7 +1193,7 @@
           "ports": [
             {
               "id": "2ca78d9c-6826-4d96-aeee-70e67bc3870a",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "9758efc8-feca-416b-8daa-5f628cb7617c",
@@ -1088,7 +1203,7 @@
             },
             {
               "id": "d333fb3f-a7fb-4656-bd05-2ff899aa00ef",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "9758efc8-feca-416b-8daa-5f628cb7617c",
@@ -1111,7 +1226,7 @@
       "links": [
         {
           "id": "fae6b641-eb30-41ba-8efd-49f4952c058b",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "2864fa15-9e59-40ca-8f50-e2391797c666",
           "sourcePort": "4eb6dded-241e-4d43-8b3b-500508ba02a4",
@@ -1141,7 +1256,7 @@
         },
         {
           "id": "73aa0088-15a5-451b-a2b6-fcea93f0c2d8",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "10a1d4f2-c0ec-46f6-8020-7b5a2290bb6d",
           "sourcePort": "ba40e8df-fbae-425d-9d18-0870d2b64295",
@@ -1212,12 +1327,12 @@
               "portId": "0d641c54-f45a-4bc9-9048-7f3c90b892a9"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "18d533a9-4092-49fb-b233-cb59a8181b98"
         },
         {
           "id": "10a1d4f2-c0ec-46f6-8020-7b5a2290bb6d",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 750,
           "y": 385.5,
@@ -1225,7 +1340,7 @@
           "ports": [
             {
               "id": "4f34e772-c955-4a5d-9919-8ec9284a0922",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "10a1d4f2-c0ec-46f6-8020-7b5a2290bb6d",
@@ -1235,7 +1350,7 @@
             },
             {
               "id": "ba40e8df-fbae-425d-9d18-0870d2b64295",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "10a1d4f2-c0ec-46f6-8020-7b5a2290bb6d",
@@ -1258,7 +1373,7 @@
       "links": [
         {
           "id": "cf6b3cc5-5b86-47c8-9f14-9b326c9f4ced",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "129e1de7-a289-4f56-898a-0fe95bcc7b47",
           "sourcePort": "16353c11-5919-4e35-90d1-254040c86689",
@@ -1358,12 +1473,12 @@
               "portId": "3f393f56-1c69-4489-8ff8-35370718d8de"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "aae617b2-e43d-4a73-993d-7293b65cf7f2"
         },
         {
           "id": "bb0b3046-69d0-47b7-93b2-bd43fda1b938",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 746,
           "y": 374.5,
@@ -1371,7 +1486,7 @@
           "ports": [
             {
               "id": "5174b3b3-45a0-4865-bcb8-3aa571025bd2",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "bb0b3046-69d0-47b7-93b2-bd43fda1b938",
@@ -1381,7 +1496,7 @@
             },
             {
               "id": "800abfac-c846-4f59-99f8-10d883fe8b53",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "bb0b3046-69d0-47b7-93b2-bd43fda1b938",
@@ -1404,7 +1519,7 @@
       "links": [
         {
           "id": "398aa5cd-cdc2-4c4f-8ed4-e4db0d8442dc",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "75d534b4-e44b-4a60-857d-de398d5e0408",
           "sourcePort": "0ce02b6b-3cb3-4d70-9891-48f531acdcea",
@@ -1434,7 +1549,7 @@
         },
         {
           "id": "fb78cfdf-d06c-430a-9601-ac512ce04019",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "b3c0f797-91c6-40d8-b951-f71891324395",
           "sourcePort": "88852ad1-5d70-464c-be8b-15a2126bec2a",
@@ -1505,12 +1620,12 @@
               "nodePortId": "fb0df435-fa76-41d9-8436-3bbe034d6fa5"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "7f232ec9-1562-42f2-bca3-24fc32a78a59"
         },
         {
           "id": "b3c0f797-91c6-40d8-b951-f71891324395",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 778,
           "y": 367.5,
@@ -1518,7 +1633,7 @@
           "ports": [
             {
               "id": "140533f8-5efb-420c-88f3-0d9771811a78",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "b3c0f797-91c6-40d8-b951-f71891324395",
@@ -1528,7 +1643,7 @@
             },
             {
               "id": "88852ad1-5d70-464c-be8b-15a2126bec2a",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "b3c0f797-91c6-40d8-b951-f71891324395",
@@ -1551,7 +1666,7 @@
       "links": [
         {
           "id": "836a21f3-dd76-41b9-8d78-b2cf9a6c058b",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "9a2fd077-42f5-4a70-8528-412cbd9f71fa",
           "sourcePort": "c4e61f3e-f4c0-412a-910f-064895fd24e8",
@@ -1581,7 +1696,7 @@
         },
         {
           "id": "f18a18dd-5845-4bd5-9706-7f461867011f",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "26262f1d-f50a-4a28-89f5-b1f79f88c59d",
           "sourcePort": "b04d2948-32c8-4f9f-b6d9-44ce3f93df28",
@@ -1652,12 +1767,12 @@
               "nodePortId": "f8515b19-ad5d-422c-b502-b0b3474616c7"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "0d365390-639b-4bb6-9498-aa9e77b376bc"
         },
         {
           "id": "26262f1d-f50a-4a28-89f5-b1f79f88c59d",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 723,
           "y": 375.5,
@@ -1665,7 +1780,7 @@
           "ports": [
             {
               "id": "eb2ca19d-0b02-4936-9fe4-60e0cef9df99",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "26262f1d-f50a-4a28-89f5-b1f79f88c59d",
@@ -1675,7 +1790,7 @@
             },
             {
               "id": "b04d2948-32c8-4f9f-b6d9-44ce3f93df28",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "26262f1d-f50a-4a28-89f5-b1f79f88c59d",
@@ -1738,12 +1853,12 @@
               "nodePortId": "472b5875-38ce-4793-96bc-5b6f63737a95"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "19b85229-2f9b-46f5-9dce-0fff4fa0e0d1"
         },
         {
           "id": "0e6ded5d-69ee-4d18-aa9a-9b180d9d6c9c",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 953,
           "y": 383.5,
@@ -1751,7 +1866,7 @@
           "ports": [
             {
               "id": "ad27b388-672f-4dd4-9794-af2abaceabba",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "0e6ded5d-69ee-4d18-aa9a-9b180d9d6c9c",
@@ -1761,7 +1876,7 @@
             },
             {
               "id": "c3c97afb-08b0-4727-a830-762a7c079c9d",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "0e6ded5d-69ee-4d18-aa9a-9b180d9d6c9c",
@@ -1784,7 +1899,7 @@
       "links": [
         {
           "id": "778baafb-5a47-4320-bb0c-b9930cbd9d83",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "10c7f086-0602-4dbb-bbf4-d26566ee6265",
           "sourcePort": "21cbe503-7d00-401e-8d4a-4339a2aa78ea",
@@ -1814,7 +1929,7 @@
         },
         {
           "id": "0e8c7c35-6572-46d3-b614-396ea1bfc8c7",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "7f750f83-9aab-4ac1-9cd2-3b9a801fcd32",
           "sourcePort": "cf653ee8-ebe0-4460-938c-0afe192b0451",
@@ -1885,12 +2000,12 @@
               "nodePortId": "66247f78-b979-4ce4-bd1a-dd6356f11fda"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "9a59ab8e-b760-4909-8953-cd3d7be22043"
         },
         {
           "id": "7f750f83-9aab-4ac1-9cd2-3b9a801fcd32",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "x": 765,
           "y": 392.5,
@@ -1898,7 +2013,7 @@
           "ports": [
             {
               "id": "2458baa0-8cdf-43e6-8ce7-0305fdb12a4e",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "7f750f83-9aab-4ac1-9cd2-3b9a801fcd32",
@@ -1908,7 +2023,7 @@
             },
             {
               "id": "cf653ee8-ebe0-4460-938c-0afe192b0451",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "7f750f83-9aab-4ac1-9cd2-3b9a801fcd32",
@@ -1931,7 +2046,7 @@
       "links": [
         {
           "id": "318b96fb-07dc-405e-9e49-6619b1e1ec6f",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "552db3f7-8613-4bb2-925e-b5721d5d78bd",
           "sourcePort": "4d852cba-cf3f-40ff-b395-d4f0610cfaa6",
@@ -1961,7 +2076,7 @@
         },
         {
           "id": "17b95301-235f-43ee-9fa6-667b020753af",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "dfd841d9-e3e7-4069-b03c-277585de582b",
           "sourcePort": "cd90b7fc-2ae3-40ec-b4bc-2152fc1f4e3d",
@@ -2032,12 +2147,12 @@
               "nodePortId": "42f78d42-5ff7-4d2a-aa49-ec77e0c9f8bd"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "783e9acd-0f13-4111-9f6c-023f4a9b298b"
         },
         {
           "id": "dfd841d9-e3e7-4069-b03c-277585de582b",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 642,
           "y": 154.5,
@@ -2045,7 +2160,7 @@
           "ports": [
             {
               "id": "b5c8a963-6621-43c0-b9f0-2250cc7114b5",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "dfd841d9-e3e7-4069-b03c-277585de582b",
@@ -2055,7 +2170,7 @@
             },
             {
               "id": "cd90b7fc-2ae3-40ec-b4bc-2152fc1f4e3d",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "dfd841d9-e3e7-4069-b03c-277585de582b",
@@ -2078,7 +2193,7 @@
       "links": [
         {
           "id": "1853c31c-db32-4973-bc4d-088a7f916d49",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "a2d3721b-9a4e-43c2-a3c9-9b2849814612",
           "sourcePort": "9b14b103-5591-4ba3-b3a1-6801488a0543",
@@ -2108,7 +2223,7 @@
         },
         {
           "id": "443793ce-147c-4179-8562-541e39137921",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "70035c6d-d399-49e8-95c0-2b044c021ebd",
           "sourcePort": "16f3d06c-20dc-42f7-9d7d-89b55cec094e",
@@ -2179,12 +2294,12 @@
               "nodePortId": "b2348b67-5087-4c7f-b88d-26360400c269"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "cf5684e8-ccf3-47b4-af53-c3df3a4bc510"
         },
         {
           "id": "70035c6d-d399-49e8-95c0-2b044c021ebd",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 744,
           "y": 117.5,
@@ -2192,7 +2307,7 @@
           "ports": [
             {
               "id": "4d9e510c-0405-44fd-b650-722fa7066008",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "70035c6d-d399-49e8-95c0-2b044c021ebd",
@@ -2202,7 +2317,7 @@
             },
             {
               "id": "16f3d06c-20dc-42f7-9d7d-89b55cec094e",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "70035c6d-d399-49e8-95c0-2b044c021ebd",
@@ -2265,12 +2380,12 @@
               "nodePortId": "0d016f50-44e2-44d2-9fa9-0d180d62b53c"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "d4394c21-9eca-44a8-916c-39f34fb7e83c"
         },
         {
           "id": "64469966-ea32-4c95-9bfa-dcecbf9b8aaf",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "x": 684,
           "y": 166.5,
@@ -2278,7 +2393,7 @@
           "ports": [
             {
               "id": "c99de037-1451-434b-9f1a-47e68e6fe191",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "64469966-ea32-4c95-9bfa-dcecbf9b8aaf",
@@ -2288,7 +2403,7 @@
             },
             {
               "id": "b9de29a5-c4d3-465c-9a59-4571f03332bb",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "64469966-ea32-4c95-9bfa-dcecbf9b8aaf",
@@ -2302,7 +2417,7 @@
         },
         {
           "id": "d511a0f1-a777-48b4-8898-7e0a499cad16",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 1083,
           "y": 586.5,
@@ -2310,7 +2425,7 @@
           "ports": [
             {
               "id": "8203354f-bf25-43c3-9050-5d1e0b88a1b2",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "d511a0f1-a777-48b4-8898-7e0a499cad16",
@@ -2320,7 +2435,7 @@
             },
             {
               "id": "7682b5bb-9539-46d4-8949-72731fc63bc7",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "d511a0f1-a777-48b4-8898-7e0a499cad16",
@@ -2343,7 +2458,7 @@
       "links": [
         {
           "id": "2621ddc4-c280-429a-9ba0-50421888b408",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "source": "e6cb778b-e98a-4ba8-a4f1-1e39584e49c3",
           "sourcePort": "3168b62f-416b-4ef2-8ae4-753f4fe55e77",
@@ -2414,7 +2529,7 @@
               "nodePortId": "6d1e87be-9557-4f14-99cc-42d70f087442"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "e34a3fce-7afa-476e-8b38-4df4326f35d2"
         }
       ]
@@ -2428,7 +2543,7 @@
       "links": [
         {
           "id": "1b4f0365-58e1-4aa3-876d-5bc78e25336f",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "9b942f75-3268-47c8-befd-a283075a1641",
           "sourcePort": "219230c3-9147-4f86-ae9c-0d7d99d5021b",
@@ -2458,7 +2573,7 @@
         },
         {
           "id": "95faf434-53e5-4ce5-a4b0-856d79f96d1b",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "a7d25448-4e33-48fd-a0b4-e1d43bc98c22",
           "sourcePort": "c4eaa58f-456d-4e8d-af53-04546429058e",
@@ -2488,7 +2603,7 @@
         },
         {
           "id": "9927f062-3a24-405b-94b4-7fd2a2e1573c",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "9c0f980f-ef51-48f2-aef2-108084a86e63",
           "sourcePort": "d752dde4-3dab-4633-8f22-33e05ce69efd",
@@ -2559,12 +2674,12 @@
               "nodePortId": "1cb62ca3-a466-4989-bd4d-aeb34ed40331"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "46865cc5-640c-43a0-86b7-3596e2567fa9"
         },
         {
           "id": "a7d25448-4e33-48fd-a0b4-e1d43bc98c22",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 598,
           "y": 298.5,
@@ -2572,7 +2687,7 @@
           "ports": [
             {
               "id": "54a5a94e-2e22-4628-a992-e2c69c0de5f8",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "a7d25448-4e33-48fd-a0b4-e1d43bc98c22",
@@ -2582,7 +2697,7 @@
             },
             {
               "id": "c4eaa58f-456d-4e8d-af53-04546429058e",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "a7d25448-4e33-48fd-a0b4-e1d43bc98c22",
@@ -2596,7 +2711,7 @@
         },
         {
           "id": "9c0f980f-ef51-48f2-aef2-108084a86e63",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 942,
           "y": 338.5,
@@ -2604,7 +2719,7 @@
           "ports": [
             {
               "id": "435aafc3-206a-42de-95a9-e105488bf8c5",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "9c0f980f-ef51-48f2-aef2-108084a86e63",
@@ -2614,7 +2729,7 @@
             },
             {
               "id": "d752dde4-3dab-4633-8f22-33e05ce69efd",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "9c0f980f-ef51-48f2-aef2-108084a86e63",
@@ -2637,7 +2752,7 @@
       "links": [
         {
           "id": "2ab46a1f-e4ca-4fac-a6c1-60d215da0452",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "313ecf1e-c4db-487b-963a-f20fdb47a944",
           "sourcePort": "3ce161e2-a9dc-4d6e-b79d-c7e24b9718d0",
@@ -2667,7 +2782,7 @@
         },
         {
           "id": "c96b5c79-aecf-4f99-9fe3-23cca8ad685e",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "d12aba65-fdcd-430a-9ccf-fbcb56489d08",
           "sourcePort": "aa03054d-ac4d-4838-afad-c87a18668b93",
@@ -2697,7 +2812,7 @@
         },
         {
           "id": "43533eed-3965-407b-b0b4-bebbd153016a",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "35d5a1c5-a03d-4b3d-860e-f7349cac4c0f",
           "sourcePort": "3a799581-063e-4a38-9f02-7f288a7cc1a7",
@@ -2768,12 +2883,12 @@
               "nodePortId": "8ed32a20-2725-49c3-9486-5284a3bd703e"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "b7ff9bfd-ee4f-4c5a-b7b5-7d819c664570"
         },
         {
           "id": "d12aba65-fdcd-430a-9ccf-fbcb56489d08",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 617,
           "y": 117.5,
@@ -2781,7 +2896,7 @@
           "ports": [
             {
               "id": "e35044d8-5425-40f1-b143-0d7d3f4f65a9",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "d12aba65-fdcd-430a-9ccf-fbcb56489d08",
@@ -2791,7 +2906,7 @@
             },
             {
               "id": "aa03054d-ac4d-4838-afad-c87a18668b93",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "d12aba65-fdcd-430a-9ccf-fbcb56489d08",
@@ -2805,7 +2920,7 @@
         },
         {
           "id": "35d5a1c5-a03d-4b3d-860e-f7349cac4c0f",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 885,
           "y": 464.5,
@@ -2813,7 +2928,7 @@
           "ports": [
             {
               "id": "48251b3f-2474-4471-abbd-70683f7c4a6f",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "35d5a1c5-a03d-4b3d-860e-f7349cac4c0f",
@@ -2823,7 +2938,7 @@
             },
             {
               "id": "3a799581-063e-4a38-9f02-7f288a7cc1a7",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "35d5a1c5-a03d-4b3d-860e-f7349cac4c0f",
@@ -2846,7 +2961,7 @@
       "links": [
         {
           "id": "0171b789-b510-45ee-99e8-b433fe9ac9c8",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "source": "d6650c8b-5c2a-4fbb-849e-a0e04e4586a5",
           "sourcePort": "aebac3d7-f77a-44dd-9d9d-ef52d5a491ad",
@@ -2916,7 +3031,7 @@
               "nodePortId": "67058e8f-9c83-4528-aaeb-7de401ee3f44"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "0bbedc0f-c2e0-4206-bfad-7923600bdf43"
         }
       ]
@@ -2930,7 +3045,7 @@
       "links": [
         {
           "id": "7bf2ae92-c382-43ff-b3f5-9b1d19fd93a9",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "source": "cbd4eca4-ab1b-492d-ad48-45a42fd28894",
           "sourcePort": "549ad679-20b4-4035-b15d-705e9598a9c8",
@@ -3000,7 +3115,7 @@
               "nodePortId": "97d31d7b-921f-4fcd-a9c2-9d9b59e47291"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "db11627f-009b-4e98-a9bb-1184c2bc43e6"
         }
       ]
@@ -3014,7 +3129,7 @@
       "links": [
         {
           "id": "afe9e6ec-4903-4811-aaa0-2912450c2eb0",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "source": "ae370d47-0491-4031-af7d-9f8c0fcad310",
           "sourcePort": "123e94be-96fc-4a08-9ed3-a325b043d58b",
@@ -3084,7 +3199,7 @@
               "nodePortId": "9f3243fb-4aaf-4759-8578-24c8b3765955"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "cebcec6e-5b5e-41c5-a524-fcdf512b38c6"
         }
       ]
@@ -3098,7 +3213,7 @@
       "links": [
         {
           "id": "a9e8ef15-22a1-4141-89fa-a70104f883ed",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "source": "631c710a-f7d1-4e2d-9c16-4db6c9883f39",
           "sourcePort": "92056ce8-1f3d-4d6b-b135-9ec36b6a4464",
@@ -3168,12 +3283,12 @@
               "nodePortId": "fa411527-4e68-401e-baf8-bebf66aa4f68"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "a745feba-6907-4cab-97ef-9ceba6314d26"
         },
         {
           "id": "f3e2cb0d-0ad3-47c1-aa30-20e012196146",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 800,
           "y": 163.5,
@@ -3181,7 +3296,7 @@
           "ports": [
             {
               "id": "8eff5532-dbfa-4bb0-af4c-dae64f5970ef",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "f3e2cb0d-0ad3-47c1-aa30-20e012196146",
@@ -3191,7 +3306,7 @@
             },
             {
               "id": "4e0765c5-e576-4906-8c42-92150cc56005",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "f3e2cb0d-0ad3-47c1-aa30-20e012196146",
@@ -3214,7 +3329,7 @@
       "links": [
         {
           "id": "96ca3daf-9da2-4418-8c42-0ef6d0eec8ee",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "source": "a789864e-9124-4032-851b-a967f6172bf5",
           "sourcePort": "5314093a-e5cb-4ce3-abfb-94eb2dfb16f3",
@@ -3284,7 +3399,7 @@
               "nodePortId": "be2e5517-d57f-4a09-b3f9-390dc261aa81"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "f7a14851-74f9-4b43-af37-248608c54d2f"
         }
       ]
@@ -3298,7 +3413,7 @@
       "links": [
         {
           "id": "4845a7ed-2310-4311-8a4b-1de3d0c614a2",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "e2ced1f6-92f4-4ea2-9b4a-a041e5542d0f",
           "sourcePort": "4077929b-1fa2-47fc-838e-4cf1dddadcab",
@@ -3328,7 +3443,7 @@
         },
         {
           "id": "5e6fd52b-e2be-4ea9-87fb-f8ddb0de370f",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "source": "241f7bb7-212b-4cc6-b23a-7e11c7dbc656",
           "sourcePort": "df8fcccc-e36f-424d-9c04-d0e29070b532",
@@ -3398,12 +3513,12 @@
               "nodePortId": "ad2e6463-53cc-43f3-85ba-b3d412e66cde"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "dbb12e5d-da08-4b65-84b7-28b01d4553a1"
         },
         {
           "id": "241f7bb7-212b-4cc6-b23a-7e11c7dbc656",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 740,
           "y": 151.5,
@@ -3411,7 +3526,7 @@
           "ports": [
             {
               "id": "51673a06-b72a-40a2-85e9-b49e80fd1e0a",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "241f7bb7-212b-4cc6-b23a-7e11c7dbc656",
@@ -3421,7 +3536,7 @@
             },
             {
               "id": "df8fcccc-e36f-424d-9c04-d0e29070b532",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "241f7bb7-212b-4cc6-b23a-7e11c7dbc656",
@@ -3435,7 +3550,7 @@
         },
         {
           "id": "c6c3b6d0-c8c6-4c69-bffd-6dfdd4892507",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 926,
           "y": 523.5,
@@ -3443,7 +3558,7 @@
           "ports": [
             {
               "id": "37b9f1fb-241e-4d84-88e9-efdc31d7d33a",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "c6c3b6d0-c8c6-4c69-bffd-6dfdd4892507",
@@ -3453,7 +3568,7 @@
             },
             {
               "id": "77baab02-0be1-4b16-9ebc-3e142a0b6cfc",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "c6c3b6d0-c8c6-4c69-bffd-6dfdd4892507",
@@ -3476,7 +3591,7 @@
       "links": [
         {
           "id": "45dbe32f-dc83-4a22-9269-8d9dacb19cec",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "source": "cc8ae02e-01dc-4878-9544-edd674e4e704",
           "sourcePort": "2f3d0acb-ced5-4902-9cef-73890a8c8b6a",
@@ -3546,7 +3661,7 @@
               "nodePortId": "4d56727c-ce81-45c3-b18b-daedf058aab6"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "83ec6879-be56-400d-9871-22a9d72c1005"
         }
       ]
@@ -3560,7 +3675,7 @@
       "links": [
         {
           "id": "be24d26d-af24-4afb-958a-4b5bfcbbf397",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "7fe76921-870a-4a30-8b2b-62ed510eb627",
           "sourcePort": "960dd464-7b5a-4df9-ac5c-3af673d271a7",
@@ -3590,7 +3705,7 @@
         },
         {
           "id": "5204f712-26cd-4193-b508-793d9e013da4",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "source": "f9c56c37-9ce0-4e48-ba7a-3df58c69ebca",
           "sourcePort": "d41f87e5-a046-493e-aed5-405477393de1",
@@ -3661,12 +3776,12 @@
               "nodePortId": "bb51d8d5-517e-4e58-bcd7-788a41b4a398"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "f4f9759a-313d-4cc0-8830-833350935f46"
         },
         {
           "id": "f9c56c37-9ce0-4e48-ba7a-3df58c69ebca",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 800,
           "y": 96.5,
@@ -3674,7 +3789,7 @@
           "ports": [
             {
               "id": "ab537ce2-1d06-441b-839e-772242da3ee9",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "f9c56c37-9ce0-4e48-ba7a-3df58c69ebca",
@@ -3684,7 +3799,7 @@
             },
             {
               "id": "d41f87e5-a046-493e-aed5-405477393de1",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "f9c56c37-9ce0-4e48-ba7a-3df58c69ebca",
@@ -3708,7 +3823,7 @@
       "links": [
         {
           "id": "e3a6c8d7-b71b-424a-974f-c1a45fa99502",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "source": "2520474b-4a73-4788-9b0c-c84686be0f40",
           "sourcePort": "4c1d461b-519b-42be-bde3-fd34e2afc330",
@@ -3779,7 +3894,7 @@
               "nodePortId": "b5bb46dd-e57c-4589-bf09-d32b94798249"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "2df38f92-0d09-4343-ba60-194404df5378"
         }
       ]
@@ -3833,7 +3948,7 @@
               "nodePortId": "58681bdb-995c-415d-9fdf-ef2617458398"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "ecdbddd7-603e-4191-b7f7-e0c22e8a7db6"
         }
       ]
@@ -3847,7 +3962,7 @@
       "links": [
         {
           "id": "a26afef3-f7d8-45c4-afab-d979d9443646",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "f05b68c0-bc5c-4688-879a-31d8479253e6",
           "sourcePort": "f03a2af2-8d3e-4812-adf6-292a3c3b3bb4",
@@ -3877,7 +3992,7 @@
         },
         {
           "id": "0e8d73c7-6d7b-49da-9671-08125904ba34",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "bf5eaee5-2638-4f24-8a6e-0c3d6a86cd62",
           "sourcePort": "4c5c5317-e30e-4114-ae5b-32565a2e3264",
@@ -3948,12 +4063,12 @@
               "nodePortId": "04a85686-aacf-47cb-b410-74137ac986a1"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "07607b02-40de-46c2-8303-535bfd6fa7d0"
         },
         {
           "id": "bf5eaee5-2638-4f24-8a6e-0c3d6a86cd62",
-          "type": "custom",
+          "type": "templateTask",
           "selected": false,
           "x": 733,
           "y": 379.171875,
@@ -3961,7 +4076,7 @@
           "ports": [
             {
               "id": "00055090-8d84-474d-8528-be2cc19493c1",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "bf5eaee5-2638-4f24-8a6e-0c3d6a86cd62",
@@ -3971,7 +4086,7 @@
             },
             {
               "id": "4c5c5317-e30e-4114-ae5b-32565a2e3264",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "bf5eaee5-2638-4f24-8a6e-0c3d6a86cd62",
@@ -3994,7 +4109,7 @@
       "links": [
         {
           "id": "0c9f0ca5-51b8-41e4-bb88-5bb097858d51",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "0a1f2ba3-ff39-48fb-93e3-a6ca58556cab",
           "sourcePort": "3d143116-ac1e-48ff-b454-bebabe7fdc53",
@@ -4024,7 +4139,7 @@
         },
         {
           "id": "76a7ab6f-a84c-4f98-b054-4edf9eca3b71",
-          "type": "custom",
+          "type": "task",
           "selected": false,
           "source": "b37eb43f-e135-4c3b-97be-25ea20a004ff",
           "sourcePort": "24ea0605-fa12-4070-8072-4d492de6d3b8",
@@ -4095,12 +4210,12 @@
               "nodePortId": "1d975507-20bc-4811-b429-4ea8097cd0db"
             }
           ],
-          "passedName": "Finish",
+          "passedName": "End",
           "nodeId": "338adc87-f16f-423e-b847-c89c302d27f6"
         },
         {
           "id": "b37eb43f-e135-4c3b-97be-25ea20a004ff",
-          "type": "custom",
+          "type": "templateTask",
           "selected": true,
           "x": 594,
           "y": 371.171875,
@@ -4108,7 +4223,7 @@
           "ports": [
             {
               "id": "237627f3-d09e-4ac2-b88a-5e8a146dea06",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "left",
               "parentNode": "b37eb43f-e135-4c3b-97be-25ea20a004ff",
@@ -4118,7 +4233,7 @@
             },
             {
               "id": "24ea0605-fa12-4070-8072-4d492de6d3b8",
-              "type": "custom",
+              "type": "task",
               "selected": false,
               "name": "right",
               "parentNode": "b37eb43f-e135-4c3b-97be-25ea20a004ff",
@@ -4309,7 +4424,7 @@
         "links": [
           {
             "id": "e0878361-754d-4f5c-823d-b1f90a3cd0a2",
-            "type": "custom",
+            "type": "templateTask",
             "selected": false,
             "source": "d2258c3c-f41e-4981-ba2e-7a41e3af4c1d",
             "sourcePort": "421af73a-af9e-4faf-904d-8a5c2c0c9367",
@@ -4339,7 +4454,7 @@
           },
           {
             "id": "cedf5ffd-0e79-4368-8463-a8d475827bc0",
-            "type": "custom",
+            "type": "templateTask",
             "selected": false,
             "source": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
             "sourcePort": "f30de913-455d-4593-bad5-5ea8f5d2c7ce",
@@ -4410,12 +4525,12 @@
                 "nodePortId": "ba82de26-89e8-4f2d-9026-a1a56bb81570"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "e05d792e-29da-410b-8a86-fbf3652bbf23"
           },
           {
             "id": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
-            "type": "custom",
+            "type": "templateTask",
             "selected": false,
             "x": 674,
             "y": 389.171875,
@@ -4423,7 +4538,7 @@
             "ports": [
               {
                 "id": "e912b313-c4ee-4802-8619-1cbdc8536b3f",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "left",
                 "parentNode": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
@@ -4433,7 +4548,7 @@
               },
               {
                 "id": "f30de913-455d-4593-bad5-5ea8f5d2c7ce",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "right",
                 "parentNode": "c0bdf148-8e1f-4c66-9c6c-47d84fe9f7e0",
@@ -4508,7 +4623,7 @@
                 "nodePortId": "552f68df-8cdf-45d3-92c8-f6eaf3a90f5b"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "31867b37-71ac-4389-ae7c-5ef2df487184"
           }
         ]
@@ -4566,7 +4681,7 @@
                 "nodePortId": "1056785e-1527-4a2c-a573-debd39ba6927"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "cea269ca-ada8-4552-ae3f-69a9caad8327"
           }
         ]
@@ -4602,7 +4717,7 @@
         "links": [
           {
             "linkId": "8559524e-d3b2-4fca-98f1-a5359bdcd642",
-            "type": "custom",
+            "type": "templateTask",
             "selected": "false",
             "source": "58dcb6c8-dfbd-42d8-a7e1-ddd5409e63ff",
             "sourcePort": "38ac1e1a-c216-4e6f-a952-c32100001adf",
@@ -4631,7 +4746,7 @@
           },
           {
             "linkId": "71d4a2b6-fff4-4fdb-907e-9d91b7c3726d",
-            "type": "custom",
+            "type": "templateTask",
             "selected": "false",
             "source": "5006c70f-c7f0-4679-940c-82ba89755599",
             "sourcePort": "f94c96f6-f029-4db5-b125-703f5cd4a398",
@@ -4660,7 +4775,7 @@
           },
           {
             "linkId": "9ef1cd6d-4f39-4ab9-98fb-2a91539de839",
-            "type": "custom",
+            "type": "templateTask",
             "selected": "false",
             "source": "d64fb25d-932a-4894-9087-ded1b63eb672",
             "sourcePort": "c38050e9-5892-4bbc-836b-b6a02243b411",
@@ -4727,13 +4842,13 @@
                 "position": "left"
               }
             ],
-            "passedName": "Finish"
+            "passedName": "End"
           },
           {
             "nodeId": "5006c70f-c7f0-4679-940c-82ba89755599",
             "taskId": "5bd98b105a5df954ad599bc2",
             "taskName": "Send message 1",
-            "type": "custom",
+            "type": "templateTask",
             "selected": false,
             "x": 340,
             "y": 270.25,
@@ -4741,7 +4856,7 @@
             "ports": [
               {
                 "nodePortId": "5afc712a-c52b-477a-a475-2674fe184330",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "left",
                 "parentNode": "5006c70f-c7f0-4679-940c-82ba89755599",
@@ -4750,7 +4865,7 @@
               },
               {
                 "nodePortId": "f94c96f6-f029-4db5-b125-703f5cd4a398",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "right",
                 "parentNode": "5006c70f-c7f0-4679-940c-82ba89755599",
@@ -4762,7 +4877,7 @@
           {
             "nodeId": "d64fb25d-932a-4894-9087-ded1b63eb672",
             "taskId": "5b92f794844d0700016ea217",
-            "type": "custom",
+            "type": "templateTask",
             "taskName": "Send message 2",
             "selected": false,
             "x": 636,
@@ -4771,7 +4886,7 @@
             "ports": [
               {
                 "nodePortId": "b2296092-096a-4053-bcf9-aed001d81c35",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "left",
                 "parentNode": "d64fb25d-932a-4894-9087-ded1b63eb672",
@@ -4780,7 +4895,7 @@
               },
               {
                 "nodePortId": "c38050e9-5892-4bbc-836b-b6a02243b411",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "right",
                 "parentNode": "d64fb25d-932a-4894-9087-ded1b63eb672",
@@ -4848,7 +4963,7 @@
                 "nodePortId": "542c60c5-0cff-433c-8fe1-887b6413ffd3"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "52c79437-d966-49b2-94fe-15d74e8e7f20"
           }
         ]
@@ -4912,7 +5027,7 @@
                 "nodePortId": "237f6ee6-7139-46d5-b7a7-7d0bd8f2b301"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "ce0dd41b-ad52-4e41-8590-7d2b1f14548d"
           }
         ]
@@ -4976,7 +5091,7 @@
                 "nodePortId": "d171538b-b235-4575-885e-0be820ec68cb"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "398bef07-5be1-4050-81ed-81a1d6aa5a92"
           }
         ]
@@ -5040,7 +5155,7 @@
                 "nodePortId": "917b7c4a-4aaa-493f-ac57-11485cbe47ad"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "4342a626-23b3-4680-a8cd-96a9c49de13b"
           }
         ]
@@ -5104,12 +5219,12 @@
                 "nodePortId": "0d517fa3-b117-4839-80df-c1bbcdd092e5"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "3ef6cccb-88a1-48b1-a0df-9e7749479252"
           },
           {
             "id": "746e2cba-b10e-4290-b54a-54c8a4dfcdb0",
-            "type": "custom",
+            "type": "templateTask",
             "selected": false,
             "x": 502,
             "y": 243.921875,
@@ -5117,7 +5232,7 @@
             "ports": [
               {
                 "id": "2926a4ee-d274-4121-a3fd-37ed051242c0",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "left",
                 "parentNode": "746e2cba-b10e-4290-b54a-54c8a4dfcdb0",
@@ -5127,7 +5242,7 @@
               },
               {
                 "id": "eacdc0e9-e155-4527-9413-4dedeaeddada",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "right",
                 "parentNode": "746e2cba-b10e-4290-b54a-54c8a4dfcdb0",
@@ -5205,7 +5320,7 @@
                 "nodePortId": "4f21ea7e-b7e7-4827-b111-bebc39be4844"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "007ab2bf-e419-49ec-9080-70a1e42206b6"
           }
         ]
@@ -5269,7 +5384,7 @@
                 "nodePortId": "b837adde-228e-4b20-91f5-36129162c3fa"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "8d31e662-84df-4991-9d19-7e58b87befb8"
           }
         ]
@@ -5292,7 +5407,7 @@
         "links": [
           {
             "id": "b23cc9d9-4729-46b6-9300-fbc016ec7e85",
-            "type": "custom",
+            "type": "templateTask",
             "selected": false,
             "source": "4b3d367f-c478-4e88-8785-bea5fda747a3",
             "sourcePort": "2493858b-55a0-4fe4-b560-6e49a135a393",
@@ -5322,7 +5437,7 @@
           },
           {
             "id": "4b98a28e-d634-4afe-87b5-e88535ab67e1",
-            "type": "custom",
+            "type": "templateTask",
             "selected": false,
             "source": "8dd5a392-a6ac-46c7-b511-6a911a17a541",
             "sourcePort": "0f5ed4db-942a-4479-b1ad-6f6bd92eff24",
@@ -5393,12 +5508,12 @@
                 "nodePortId": "b837adde-228e-4b20-91f5-36129162c3fa"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "8d31e662-84df-4991-9d19-7e58b87befb8"
           },
           {
             "id": "8dd5a392-a6ac-46c7-b511-6a911a17a541",
-            "type": "custom",
+            "type": "templateTask",
             "selected": false,
             "x": 624.0144032566925,
             "y": 405.238117321674,
@@ -5406,7 +5521,7 @@
             "ports": [
               {
                 "id": "be25f923-f422-48aa-bc34-64ce8462d58c",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "left",
                 "parentNode": "8dd5a392-a6ac-46c7-b511-6a911a17a541",
@@ -5416,7 +5531,7 @@
               },
               {
                 "id": "0f5ed4db-942a-4479-b1ad-6f6bd92eff24",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "right",
                 "parentNode": "8dd5a392-a6ac-46c7-b511-6a911a17a541",
@@ -5494,7 +5609,7 @@
                 "nodePortId": "de321d9e-e061-4993-af9f-530d45761fb6"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "8c6c4127-a65f-45cd-abf1-b8423f189eca"
           }
         ]
@@ -5557,7 +5672,7 @@
                 "nodePortId": "63239642-1e33-4a2b-a945-b396ae746efa"
               }
             ],
-            "passedName": "Finish",
+            "passedName": "End",
             "nodeId": "63bb0fb1-afee-4bfe-8025-289312c21305"
           }
         ]
@@ -5914,13 +6029,19 @@
       "name": "IBM Boomerang Platform",
       "version": "5.0.0",
       "signOutUrl": "ibm.com"
+    },
+    "platformMessage": {
+      "kind": "info",
+      "title": "Testing Platform Title",
+      "message": "Message Goes Here"
     }
   },
   "workflowExecution": {
     "creationDate": "2019-09-03T15:00:00.049+0000",
+    "initiatedByUserName": "Tyson Lawrie",
     "duration": 904934,
     "id": "5c36289096052900012cc81d",
-    "status": "completed",
+    "status": "inProgress",
     "workflowId": "5c3048ba53c9250001a17eb0",
     "workflowRevisionid": "5c33ecca53c9250001a2dfe8",
     "trigger": "cron",
@@ -5933,7 +6054,7 @@
         "id": "5c36289096052900012cc81e",
         "order": 1,
         "startTime": "2019-09-03T15:00:00.230+0000",
-        "taskId": "515c8b05-ceb0-470a-a58e-b8740b332a6a",
+        "taskId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
         "outputs": {
           "args": {
             "test": "true"
@@ -5959,11 +6080,11 @@
       {
         "activityId": "5c36289096052900012cc81s",
         "duration": 300190,
-        "flowTaskStatus": "completed",
+        "flowTaskStatus": "inProgress",
         "id": "5c3628909605290001dcc81e",
-        "order": 1,
-        "startTime": "2019-09-03T15:00:26.103+0000",
-        "taskId": "515c8b05-cbf0-470a-a58e-b8740b332a6a",
+        "order": 2,
+        "startTime": "2019-09-03T15:01:00.103+0000",
+        "taskId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
         "outputs": {
           "args": {
             "test": "true"
@@ -5989,11 +6110,11 @@
       {
         "activityId": "5c36289096052900012cc81d",
         "duration": 300190,
-        "flowTaskStatus": "failure",
+        "flowTaskStatus": "notstarted",
         "id": "5cd6289096052900012cc81e",
-        "order": 1,
-        "startTime": "2019-09-03T15:01:00.103+0000",
-        "taskId": "515c8bw5-cbb0-470a-a58e-b8740b332a6a",
+        "order": 3,
+        "startTime": "2019-09-03T15:02:00.103+0000",
+        "taskId": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
         "outputs": {
           "args": {
             "test": "true"
@@ -6024,8 +6145,9 @@
   },
   "workflowSummary": [
     {
-      "name": "",
+      "name": "Sparkle Flow with extra glitter and donuts on the side",
       "shortDescription": "",
+      "flowTeamId": "5d5ad2d9ac60050001c5095b",
       "description": "",
       "icon": "docs",
       "version": 2,
@@ -6057,7 +6179,17 @@
           "description": "prop",
           "key": "ben",
           "label": "hello",
-          "type": "text",
+          "type": "select",
+          "options": [
+            {
+              "key": "1",
+              "value": "one"
+            },
+            {
+              "key": "2",
+              "value": "two"
+            }
+          ],
           "required": true,
           "readOnly": false
         }
@@ -6066,24 +6198,46 @@
       "id": "5Mz75WC"
     }
   ],
+  "workflowActivitySummary": {
+    "all": 329,
+    "notstarted": 0,
+    "inProgress": 20,
+    "failure": 29,
+    "no_status": 54,
+    "invalid": 2,
+    "completed": 224,
+    "skipped": 0
+  },
+  "workflowActivityStatusSummary": {
+    "all": 50,
+    "notstarted": 5,
+    "inProgress": 5,
+    "failure": 5,
+    "no_status": 5,
+    "invalid": 5,
+    "completed": 20,
+    "skipped": 5
+  },
   "workflowActivity": {
-    "last": true,
-    "totalPages": 9,
-    "totalElements": 90,
-    "size": 10,
-    "number": 0,
-    "numberOfElements": 10,
-    "first": true,
-    "sort": [
-      {
-        "direction": "DESC",
-        "property": "creationDate",
-        "ignoreCase": false,
-        "nullHandling": "NATIVE",
-        "descending": true,
-        "ascending": false
-      }
-    ],
+    "pageable": {
+      "first": false,
+      "last": false,
+      "totalPages": 30,
+      "totalElements": 297,
+      "numberOfElements": 10,
+      "size": 10,
+      "number": 0,
+      "sort": [
+        {
+          "property": "creationDate",
+          "direction": "DESC",
+          "ignoreCase": false,
+          "nullHandling": "NATIVE",
+          "ascending": false,
+          "descending": true
+        }
+      ]
+    },
     "records": [
       {
         "creationDate": 1546897508945,
@@ -6158,7 +6312,7 @@
         "duration": 0,
         "id": "5bdad371a7e263000116a75b",
         "initiatedBy": "5bc7b126f7856000012cd95d",
-        "status": "inProgress",
+        "status": "invalid",
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
         "description": "Slack and Mail integration",
@@ -6183,7 +6337,7 @@
         "creationDate": 1541065823346,
         "duration": 0,
         "id": "5bdacc5fa40f5d0001249c8d",
-        "status": "inProgress",
+        "status": "skipped",
         "initiatedBy": "5bc7b126f7856000012cd95d",
         "workflowId": "5bd9de16a40f5d0001249bad",
         "workflowRevisionid": "5bdaba82a40f5d0001249c7e",
@@ -10366,7 +10520,7 @@
         "type": "text",
         "defaultValue": "admin",
         "required": true,
-        "validValues": null
+        "options": null
       },
       {
         "description": "",
@@ -10375,7 +10529,7 @@
         "type": "password",
         "defaultValue": "Iww500m!",
         "required": true,
-        "validValues": null
+        "options": null
       },
       {
         "description": "",
@@ -10384,7 +10538,7 @@
         "type": "text",
         "defaultValue": "dev56083",
         "required": true,
-        "validValues": null
+        "options": null
       }
     ],
     "description": "Currently implemented at ANZ",
@@ -10450,7 +10604,7 @@
         "gridSize": 0,
         "links": [
           {
-            "type": "custom",
+            "type": "task",
             "id": "29865ec9-6bd2-4e24-af65-c169172bb27a",
             "selected": "false",
             "source": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
@@ -10479,7 +10633,7 @@
             "executionCondition": "success"
           },
           {
-            "type": "custom",
+            "type": "task",
             "id": "5a7dd08b-81e7-467c-bd3a-ce408d3afa37",
             "selected": "false",
             "source": "9484e84c-20a1-4ef1-ba8a-ecd7d9f3060f",
@@ -10508,7 +10662,7 @@
             "executionCondition": "always"
           },
           {
-            "type": "custom",
+            "type": "task",
             "id": "74b0c35e-f2ea-4461-8b45-8034dc4ae6fe",
             "selected": "false",
             "source": "21c652ab-4cbd-4f50-8448-098c1e2df4b7",
@@ -10576,12 +10730,12 @@
                 "position": "left"
               }
             ],
-            "passedName": "Finish"
+            "passedName": "End"
           },
           {
             "nodeId": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
             "taskId": "5c6939c620cfafa2eaeef2ad",
-            "type": "custom",
+            "type": "templateTask",
             "selected": false,
             "x": 896,
             "y": 358.921875,
@@ -10589,7 +10743,7 @@
             "ports": [
               {
                 "nodePortId": "a7b8cfd2-4193-4921-899a-20260132a1fd",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "left",
                 "parentNode": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
@@ -10598,7 +10752,7 @@
               },
               {
                 "nodePortId": "8842e9e7-2e52-408f-b046-605426d724d5",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "right",
                 "parentNode": "f91343fd-13cd-4f49-8474-98e5be5d2ef4",
@@ -10611,7 +10765,7 @@
           {
             "nodeId": "21c652ab-4cbd-4f50-8448-098c1e2df4b7",
             "taskId": "5c69365b20cfafa2eaeed89c",
-            "type": "custom",
+            "type": "templateTask",
             "selected": false,
             "x": 481,
             "y": 326.921875,
@@ -10619,7 +10773,7 @@
             "ports": [
               {
                 "nodePortId": "836f05aa-a1c2-4663-97cf-7c7252183b66",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "left",
                 "parentNode": "21c652ab-4cbd-4f50-8448-098c1e2df4b7",
@@ -10628,7 +10782,7 @@
               },
               {
                 "nodePortId": "dfe5c163-a3cf-4ed9-ab00-4593506b91c6",
-                "type": "custom",
+                "type": "task",
                 "selected": false,
                 "name": "right",
                 "parentNode": "21c652ab-4cbd-4f50-8448-098c1e2df4b7",
@@ -10655,11 +10809,12 @@
   },
   "globalConfiguration": [
     {
-      "value": "2345",
-      "id": "5cdc5ad7460edb4a230b579b",
-      "key": "mail.account",
       "label": "Mail Account",
-      "type": "password"
+      "description": "ben testing",
+      "key": "mail.account",
+      "value": "2345",
+      "type": "password",
+      "id": "5cdc5ad7460edb4a230b579b"
     },
     {
       "label": "Tim Testing",
@@ -10684,6 +10839,62 @@
       "value": "44555",
       "type": "password",
       "id": "s6KdbOd"
+    },
+    {
+      "label": "fdsafdsa",
+      "description": "fdsafds",
+      "key": "fdsa",
+      "value": "fdsaf",
+      "type": "text",
+      "id": "rlw_MDS"
+    }
+  ],
+  "teamProperties": [
+    {
+      "value": "asdas2345",
+      "id": "5cdc5ad7460edb4a230b579b",
+      "key": "mail.accdasdount",
+      "label": "Mail Accdasdount",
+      "type": "password"
+    },
+    {
+      "label": "Boomerang Accounts",
+      "key": "boomerang.account",
+      "value": "a long value to test",
+      "type": "text",
+      "id": "5cdc5ad7460edb4a230b579d"
+    },
+    {
+      "value": "123",
+      "key": "random",
+      "label": "new",
+      "description": "value",
+      "type": "password",
+      "id": "0hGCg2O"
+    },
+    {
+      "value": "nnn",
+      "key": "refactor key",
+      "label": "Test for the refactor",
+      "description": "some refactor",
+      "type": "text",
+      "id": "7~hzY~V"
+    },
+    {
+      "value": "asdasdasd",
+      "key": "asdasdasd",
+      "label": "asdasd",
+      "description": "asdasdas",
+      "type": "text",
+      "id": "eERvgsQ"
+    },
+    {
+      "value": "adsasdasd",
+      "key": "adsadas",
+      "label": "dasdas",
+      "description": "adsasd",
+      "type": "text",
+      "id": "pe7PiMG"
     }
   ]
 }

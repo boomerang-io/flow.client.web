@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import activity from "./activity";
 import app from "./app";
 import changeLog from "./changeLog";
 import globalConfiguration from "./globalConfiguration";
@@ -8,6 +7,7 @@ import insights from "./insights";
 import navigation from "./navigation";
 import onBoard from "./onBoard";
 import tasks from "./tasks";
+import teamProperties from "./teamProperties";
 import teams from "./teams";
 import user from "./user";
 import workflow from "./workflow";
@@ -16,7 +16,6 @@ import workflowRevision from "./workflowRevision";
 
 const rootReducer = () =>
   combineReducers({
-    activity,
     app,
     changeLog,
     globalConfiguration,
@@ -25,6 +24,7 @@ const rootReducer = () =>
     navigation,
     onBoard,
     tasks,
+    teamProperties,
     teams,
     user,
     workflow,

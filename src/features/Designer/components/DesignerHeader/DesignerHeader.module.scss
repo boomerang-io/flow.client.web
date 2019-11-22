@@ -1,0 +1,67 @@
+@import "~Styles/variables";
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 9.0625rem;
+  justify-content: space-between;
+  padding-bottom: 0rem !important;
+  position: relative;
+}
+
+.header {
+  width: 100%;
+}
+
+.title {
+  color: var(--cds-text-01);
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.625rem;
+  margin: 0rem;
+  max-width: 50rem;
+}
+
+.breadcrumbContainer {
+  align-items: flex-start;
+  display: flex;
+  margin-bottom: -1rem;
+  height: 2.5rem;
+}
+
+.workflowsLink {
+  font-size: 0.875rem;
+  letter-spacing: 00.01rem;
+  line-height: 1.125rem;
+}
+
+.breadcrumbDivider {
+  font-size: 0.875rem;
+  letter-spacing: 00.01rem;
+  line-height: 1.125rem;
+  margin: 0 0.5rem;
+}
+
+.workflowName {
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
+  letter-spacing: 00.01rem;
+  line-height: 1.125rem;
+}
+
+.validateButton {
+  margin-left: auto;
+}
+
+.workflowButtons {
+  align-items: center;
+  bottom: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -0.875rem;
+  margin-left: auto;
+  position: absolute;
+  right: 1rem;
+  z-index: 1;
+}

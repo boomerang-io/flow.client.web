@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "carbon-components-react";
 import { Close20 } from "@carbon/icons-react";
-import bkgskyline from "../img/bkg-skyline.svg";
+import bkgskyline from "Assets/svg/bkg-skyline.svg";
 import FadeAnimation from "Components/FadeAnimation";
 import "./styles.scss";
 
@@ -30,11 +30,9 @@ const OnBoardMessage = props => {
     <FadeAnimation animationDuration={100} timeout={100} animationDelay={0} animationFunction="ease-in">
       <div className="c-onboard-wrapper">
         <main className="c-onboardExp">
-          <Button
-            renderIcon={Close20}
-            onClick={closeModal}
-            style={{ position: "absolute", right: "0", backgroundColor: "transparent" }}
-          />
+          <button className="b-onboardExp-screen-modal-close" onClick={closeModal}>
+            <Close20 />
+          </button>
           <div className={finishImgsClassName}>
             <div className={finishButtonClassName}>
               <h1 className="b-onboardExp-finish__title">{title}</h1>

@@ -1,0 +1,24 @@
+@import "~Styles/variables";
+@import "~Styles/mixins";
+
+.container {
+  opacity: inherit;
+  &.designer {
+    cursor: pointer;
+    path {
+      fill: #6e32c9;
+    }
+    &:focus {
+      @include focus-outline(#6e32c9);
+    }
+  }
+
+  &.execution {
+    path {
+      fill: var(--cds-text-01);
+    }
+    rect {
+      stroke: var(--cds-text-01);
+    }
+  }
+}

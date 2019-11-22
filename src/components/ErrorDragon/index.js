@@ -3,9 +3,7 @@ import { ErrorDragon as ErrorDragonComponent } from "@boomerang/carbon-addons-bo
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
 
 function ErrorDragon() {
-  return (
-    <ErrorDragonComponent includeReportBug={false} statusUrl={`${BASE_LAUNCH_ENV_URL}/status`} theme="bmrg-flow" />
-  );
+  return <ErrorDragonComponent statusUrl={`${BASE_LAUNCH_ENV_URL}/status`} />;
 }
 
 export default ErrorDragon;

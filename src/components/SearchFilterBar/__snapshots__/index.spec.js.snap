@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] = `
-<body>
+<body
+  id="app"
+>
   <div>
     <div
       class="b-search-filter"
@@ -18,7 +20,6 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
             focusable="false"
             height="16"
             preserveAspectRatio="xMidYMid meet"
-            role="img"
             style="will-change: transform;"
             viewBox="0 0 16 16"
             width="16"
@@ -32,12 +33,12 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
             class="bx--label"
             for="search-worfklows"
           >
-            Search workflows
+            Search for a workflow
           </label>
           <input
             class="bx--search-input"
             id="search-worfklows"
-            placeholder="Search workflows"
+            placeholder="Search for a workflow"
             type="text"
             value=""
           />
@@ -47,11 +48,10 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
             type="button"
           >
             <svg
-              aria-label="Clear search input"
+              aria-hidden="true"
               focusable="false"
               height="20"
               preserveAspectRatio="xMidYMid meet"
-              role="img"
               style="will-change: transform;"
               viewBox="0 0 32 32"
               width="20"

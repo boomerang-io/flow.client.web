@@ -1,0 +1,145 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
+
+.container {
+  display: flex;
+  background-color: $white;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 19.375rem;
+  width: 19.375rem;
+  margin: 1rem 0.75rem;
+  height: 10.31255rem;
+  position: relative;
+  overflow: hidden;
+  @include border-radius();
+
+  :global .bx--overflow-menu {
+    height: 2rem;
+  }
+
+  :global .bx--overflow-menu-options__btn {
+    color: $gray-50;
+    text-decoration: none !important;
+  }
+  :global .bx--overflow-menu-options--open {
+    @include border-radius();
+    overflow: hidden;
+    z-index: 998;
+  }
+
+  :global .bx--overflow-menu-options__option {
+    min-width: 11.125rem;
+    // &:hover {
+    //   background-color: $cool-gray-1;
+    // }
+  }
+}
+.cardHeader {
+  position: absolute;
+  right: 0;
+}
+.cardStatusContainer {
+  margin-left: 0.75rem;
+  display: flex;
+  align-items: center;
+}
+.cardStatus {
+  color: $gray-50;
+}
+.cardCircle {
+  margin-right: 0.5rem;
+  min-width: 0.75rem;
+  max-width: 0.75rem;
+  min-height: 0.75rem;
+  max-height: 0.75rem;
+  border-radius: 50%;
+  &.--published {
+    background-color: $green-30;
+  }
+  &.--draft {
+    background-color: $gray-20;
+  }
+}
+
+.cardInfo {
+  display: flex;
+  justify-content: space-between;
+  height: 8rem;
+  padding: 0.5rem;
+}
+.cardIconContainer {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 5rem;
+}
+.cardIcon {
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 2.5rem;
+}
+.cardDescriptionContainer {
+  color: $gray-60;
+  cursor: pointer;
+  display: flex;
+  font-size: 0.875rem;
+  flex-direction: column;
+  margin: 1rem 1rem 0rem 0;
+  overflow: hidden;
+  width: 15rem;
+  &:focus {
+    outline: none;
+  }
+}
+.cardName {
+  color: #242a2e;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: 0.0625rem;
+  line-height: 1.25rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+}
+
+.cardDescription {
+  color: #242a2e;
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.0625rem;
+  line-height: 0.92rem;
+  text-align: left;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.cardLaunch {
+  cursor: pointer;
+  width: 100%;
+  :global .bx--btn {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    flex-direction: row-reverse;
+    font-size: 1rem;
+    font-weight: 600;
+    justify-content: center;
+    max-width: 19.375rem;
+    padding: 0rem 0.25rem;
+    width: 19.375rem;
+
+    .bx--btn__icon {
+      height: 1.5rem;
+      margin-right: 1rem;
+      position: initial;
+      width: 1.5rem;
+    }
+  }
+}
+.executeWorkflow {
+  height: 16rem;
+  width: 30rem;
+  text-align: left;
+}
+:global .bx--overflow-menu-options.bx--overflow-menu--flip {
+  position: fixed !important;
+}

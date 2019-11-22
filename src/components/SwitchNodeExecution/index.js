@@ -1,35 +1,49 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { PortWidget } from "@projectstorm/react-diagrams";
-import switchSVG from "Assets/svg/parent-relationship_32.svg";
-import "./styles.scss";
+import cx from "classnames";
+import WorkflowNode from "Components/WorkflowNode";
+import { Fork16 } from "@carbon/icons-react";
+import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
+import styles from "./SwitchNodeExecution.module.scss";
 
 export class SwitchNodeExecution extends Component {
   static propTypes = {
-    nodeConfig: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
-    task: PropTypes.object.isRequired
+    nodeConfig: PropTypes.object.isRequired,
+    task: PropTypes.object.isRequired,
+    workflowExecution: PropTypes.object.isRequired
   };
 
   static defaultProps = {
+    node: {},
     nodeConfig: {}
   };
 
-  state = {};
-
   render() {
+    const { node } = this.props;
+    const { steps } = this.props.workflowExecution.data;
+    const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
+    const flowTaskStatus = step?.flowTaskStatus;
+
     return (
-      <div className="b-switchNode">
-        <h1 className="b-switchNode__title">
-          {this.props.nodeConfig.inputs && this.props.nodeConfig.inputs.value
-            ? this.props.nodeConfig.inputs.value
-            : this.props.task.name}
-        </h1>
-        <PortWidget className="b-switchNode-port --left" name="left" node={this.props.node} />
-        <PortWidget className="b-switchNode-port --right" name="right" node={this.props.node} />
-        <img src={switchSVG} className="b-switchNode__img" alt="Task node type" />
-      </div>
+      <WorkflowNode
+        isExecution
+        className={cx(styles.node, styles[flowTaskStatus], {
+          [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED
+        })}
+        icon={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
+        node={node}
+        rightPortClass={styles.rightPort}
+        subtitle={node.taskName}
+        subtitleClass={styles.subtitle}
+        title="Switch"
+      >
+        <div className={styles.progressBar} />
+        <div className={styles.badgeContainer}>
+          <p className={styles.badgeText}>Switch</p>
+        </div>
+      </WorkflowNode>
     );
   }
 }
@@ -37,7 +51,8 @@ export class SwitchNodeExecution extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    nodeConfig: state.workflowRevision.config[ownProps.node.id]
+    nodeConfig: state.workflowRevision.config[ownProps.node.id],
+    workflowExecution: state.workflowExecution
   };
 };
 

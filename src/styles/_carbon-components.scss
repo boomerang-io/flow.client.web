@@ -1,34 +1,31 @@
-$css--reset: false !default;
+// Carbon settings
+@import "~@boomerang/carbon-addons-boomerang/scss/themes/boomerang";
+$carbon--theme: $carbon--theme--boomerang;
+$carbon-addons-bmrg--theme: boomerang;
 
-$carbon-addons-bmrg-theme: boomerang;
-$carbon--theme--bmrg-light: true;
-
-@import "~@boomerang/carbon-addons-boomerang/scss/styles.scss";
-
-@import "~carbon-components/scss/components/multi-select/multi-select";
-@import "~carbon-components/scss/components/select/select";
-@import "~carbon-components/scss/components/overflow-menu/overflow-menu";
+@import "~@boomerang/carbon-addons-boomerang";
+@import "~carbon-components/scss/components/accordion/accordion";
 @import "~carbon-components/scss/components/checkbox/checkbox";
+@import "~carbon-components/scss/components/date-picker/date-picker";
 @import "~carbon-components/scss/components/data-table-v2/data-table-v2";
 @import "~carbon-components/scss/components/data-table-v2/data-table-v2-core";
 @import "~carbon-components/scss/components/data-table-v2/data-table-v2-sort";
+@import "~carbon-components/scss/components/file-uploader/file-uploader";
+@import "~carbon-components/scss/components/loading/loading";
+@import "~carbon-components/scss/components/multi-select/multi-select";
+@import "~carbon-components/scss/components/notification/inline-notification";
+@import "~carbon-components/scss/components/overflow-menu/overflow-menu";
 @import "~carbon-components/scss/components/pagination/pagination";
 @import "~carbon-components/scss/components/search/search";
+@import "~carbon-components/scss/components/select/select";
+@import "~carbon-components/scss/components/tabs/tabs";
+@import "~carbon-components/scss/components/skeleton/skeleton";
 
 // Global overrides
-.bx--list-box__field {
-  background-color: #40d5bb !important;
-}
-
 .bx--list-box__menu-icon > svg {
   fill: black;
 }
 
-.bx--table-header-label {
-  color: $tab-blue;
-  padding-right: 0.5rem;
-}
-
-.bx--toggle-input:checked + .bx--toggle-input__label > .bx--toggle__switch::before {
-  background: #40d5bb;
+.bx--date-picker__calendar {
+  padding: 0rem;
 }

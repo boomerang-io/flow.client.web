@@ -1,0 +1,41 @@
+@import "~@boomerang/boomerang-styles/lib/colors";
+
+.container {
+  background-color: $white;
+  display: flex;
+  height: 4.3125rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.subtitle {
+  color: $gray-90;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.5625rem;
+}
+
+.title {
+  color: $gray-90;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.625rem;
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  margin: 2rem 2.125rem 1.5625rem 0;
+}
+
+.text {
+  color: $gray-90;
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.5625rem;
+}
+
+.summarySkeleton {
+  width: 25rem;
+  height: 4rem;
+}

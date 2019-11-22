@@ -1,0 +1,50 @@
+@import "~Styles/variables";
+
+.container {
+  background-color: var(--cds-ui-background) !important;
+  height: 100%;
+  width: 100%;
+}
+
+.executionResultContainer {
+  display: flex;
+  height: calc(100vh - 10.3125rem);
+}
+
+.executionDesignerContainer {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+
+  svg:not(:root) {
+    overflow: visible !important;
+  }
+}
+
+.diagram {
+  margin-top: 3.5rem;
+}
+
+.diagramLoading {
+  position: absolute;
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(242, 244, 248, 0.6);
+  transition: background-color 720ms cubic-bezier(0.4, 0.14, 0.3, 1);
+}
+
+.executionWorkflowActions {
+  background-color: var(--cds-ui-background);
+  border-bottom: 0.0625rem solid #b9bfc7;
+  display: flex;
+  justify-content: space-between;
+  height: 3.5rem;
+  position: absolute;
+  width: 100%;
+}

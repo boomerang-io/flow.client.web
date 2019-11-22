@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1`] = `
+<body
+  class="bx--bmrg-body-modal-is-open"
+  id="app"
+>
+  <div />
+  <div
+    class="ReactModalPortal"
+  >
+    <div
+      class="bx--bmrg-modal-overlay --is-open"
+    >
+      <div
+        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container container --is-open"
+        role="dialog"
+        tabindex="-1"
+      >
+        <div
+          class="bx--modal-header"
+        >
+          <p
+            class="bx--modal-header__heading bx--type-beta"
+          >
+            Update .json file
+          </p>
+          <button
+            class="bx--modal-close"
+            title="Close the modal"
+            type="button"
+          >
+            <svg
+              aria-label="Close the modal"
+              class="bx--modal-close__icon"
+              focusable="false"
+              height="20"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              style="will-change: transform;"
+              viewBox="0 0 32 32"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+              />
+            </svg>
+          </button>
+        </div>
+        <form
+          class="bx--bmrg-modal-flow-form"
+        >
+          <p
+            class="bx--bmrg-modal-flow-form__title"
+          >
+            Update a Workflow - Select the Workflow file you want to upload
+          </p>
+          <div
+            class="bx--modal-content"
+            style="height: 21rem; width: 100%;"
+          >
+            <div
+              class="bx--file"
+            >
+              <label
+                class="bx--file-browse-btn"
+                for="id2"
+                tabindex="0"
+              >
+                <div
+                  class="bx--file__drop-container"
+                  role="button"
+                >
+                  Choose a file or drag one here
+                  <input
+                    accept=".json"
+                    class="bx--file-input"
+                    id="id2"
+                    name="Workflow"
+                    tabindex="-1"
+                    type="file"
+                  />
+                </div>
+              </label>
+            </div>
+            
+          </div>
+          <div
+            class="bx--modal-footer"
+          >
+            <button
+              class="bx--btn bx--btn--secondary"
+              tabindex="0"
+              type="button"
+            >
+              Cancel
+            </button>
+            <button
+              class="bx--btn bx--btn--primary bx--btn--disabled"
+              disabled=""
+              tabindex="0"
+              type="button"
+            >
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    class="ReactModalPortal"
+  />
+</body>
+`;
