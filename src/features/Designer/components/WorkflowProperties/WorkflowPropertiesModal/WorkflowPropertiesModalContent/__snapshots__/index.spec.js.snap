@@ -21,7 +21,13 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               class="bx--label"
               for="label"
             >
-              Name
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Name
+                </div>
+              </div>
             </label>
             <div
               class="bx--text-input__field-wrapper"
@@ -46,7 +52,13 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               class="bx--label"
               for="description"
             >
-              Description
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Description
+                </div>
+              </div>
             </label>
             <div
               class="bx--text-input__field-wrapper"
@@ -203,7 +215,13 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               class="bx--label"
               for="defaultValue"
             >
-              Default Value
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Default Value
+                </div>
+              </div>
             </label>
             <div
               class="bx--text-input__field-wrapper"

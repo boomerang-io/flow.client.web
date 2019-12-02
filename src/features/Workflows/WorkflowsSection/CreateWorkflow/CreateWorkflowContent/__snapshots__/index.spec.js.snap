@@ -92,7 +92,13 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
                 class="bx--label"
                 for="name"
               >
-                Name
+                <div
+                  style="display: flex;"
+                >
+                  <div>
+                    Name
+                  </div>
+                </div>
               </label>
               <div
                 class="bx--text-input__field-wrapper"
@@ -118,7 +124,13 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
               class="bx--label"
               for="summary"
             >
-              Summary
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Summary
+                </div>
+              </div>
             </label>
             <div
               class="bx--text-input__field-wrapper"
