@@ -17,10 +17,11 @@ import Loading from "Components/Loading";
 import { requiredWorkflowProps } from "./constants";
 import styles from "./importWorkflowContent.module.scss";
 
+const buttonMessage = "Choose a file or drag one here";
+const invalidText = "Whoops! This Workflow is invalid, please choose a different file.";
+
 class ImportWorkflowContent extends Component {
   state = {
-    files: this.props.formData.files.length > 0 ? this.props.formData.files : [],
-    isBiggerThanLimit: false,
     processedFile: {},
     isValidWorkflow: undefined,
     selectedTeam: this.props.team || {},
@@ -28,7 +29,6 @@ class ImportWorkflowContent extends Component {
   };
 
   static propTypes = {
-    formData: PropTypes.object,
     closeModal: PropTypes.func,
     isLoading: PropTypes.bool,
     handleImportWorkflow: PropTypes.func,
@@ -40,13 +40,6 @@ class ImportWorkflowContent extends Component {
   };
 
   addFile = file => {
-    this.setState({ isBiggerThanLimit: false });
-
-    if (file.addedFiles[0].size > 1000000) {
-      this.setState({ isBiggerThanLimit: true });
-    }
-    this.setState({ files: [...file.addedFiles] });
-
     const fileTest = file.addedFiles[0];
 
     let reader = new FileReader();
@@ -85,10 +78,6 @@ class ImportWorkflowContent extends Component {
     return isValid;
   };
 
-  deleteFile = () => {
-    this.setState({ files: [], isBiggerThanLimit: false });
-  };
-
   handleSubmit = values => {
     const { processedFile } = this.state;
 
@@ -105,11 +94,8 @@ class ImportWorkflowContent extends Component {
   };
 
   render() {
-    const buttonMessage = "Choose a file or drag one here";
-    // const validText = "All set! This Workflow is valid, and will fully replace the existing Workflow.";
-    const invalidText = "Whoops! This Workflow is invalid, please choose a different file.";
     const { isLoading, title, confirmButtonText, team, teams } = this.props;
-    const { files, isBiggerThanLimit, isValidWorkflow } = this.state;
+    const { isValidWorkflow } = this.state;
 
     if (isLoading) {
       return <Loading />;
@@ -120,7 +106,8 @@ class ImportWorkflowContent extends Component {
         initialValues={{
           selectedTeam: team,
           name: "",
-          summary: ""
+          summary: "",
+          file: undefined
         }}
         onSubmit={this.handleSubmit}
         validationSchema={Yup.object().shape({
@@ -130,9 +117,17 @@ class ImportWorkflowContent extends Component {
             .max(64, "Name must not be greater than 64 characters")
             .notOneOf(
               this.state.names,
-              "There’s already a Workflow with that name in this team, you'll need to give this workflow a unique name."
+              "There’s already a Workflow with that name in this team, consider giving this one a different name."
             ),
-          summary: Yup.string().max(128, "Summary must not be greater than 128 characters")
+          summary: Yup.string().max(128, "Summary must not be greater than 128 characters"),
+          file: Yup.mixed()
+            .required("A file is required")
+            .test(
+              "fileSize",
+              "Please select a file less than 1MB",
+              // If it's bigger than 1MB will display the error (1000000b = 1MB)
+              value => value && value.addedFiles && value.addedFiles[0] && value.addedFiles[0].size < 1000000
+            )
         })}
         initialErrors={{ name: "Please enter a name for your Workflow" }}
       >
@@ -152,29 +147,24 @@ class ImportWorkflowContent extends Component {
                   labelText={buttonMessage}
                   name="Workflow"
                   multiple={false}
-                  onAddFiles={(event, file) => {
-                    this.addFile(file);
-                  }}
+                  onAddFiles={(event, file) => setFieldValue("file", file) && this.addFile(file)}
                 />
-                {files.length ? (
+                {values.file ? (
                   <FileUploaderItem
-                    name={files[0].name}
+                    name={values.file.addedFiles[0].name}
                     status="edit"
-                    invalid={isBiggerThanLimit}
-                    errorSubject="Please select a file less than 1MB"
+                    invalid={errors.file}
+                    errorSubject={errors.file}
                     onDelete={() => {
-                      this.deleteFile();
+                      setFieldValue("file", undefined);
                     }}
                   />
                 ) : (
                   ""
                 )}
-                {files.length ? (
+                {values.file ? (
                   isValidWorkflow === true ? (
-                    //Form
                     <div className={styles.confirmInfoForm}>
-                      {/* <CheckmarkFilled32 aria-label="success-import-icon" className={styles.successIcon} />           
-                      <p className={styles.message}>{validText}</p> */}
                       <ComboBox
                         id="selectedTeam"
                         styles={{ marginBottom: "2.5rem" }}
@@ -199,7 +189,7 @@ class ImportWorkflowContent extends Component {
                         value={values.name}
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        invalid={errors.name}
+                        invalid={errors.name && touched.name}
                         invalidText={errors.name}
                       />
                       <TextInput
@@ -225,11 +215,7 @@ class ImportWorkflowContent extends Component {
                 <Button onClick={this.props.closeModal} kind="secondary">
                   Cancel
                 </Button>
-                <Button
-                  type="submit"
-                  disabled={!isValid || !this.state.files.length || isBiggerThanLimit}
-                  kind="primary"
-                >
+                <Button type="submit" disabled={!isValid} kind="primary">
                   {confirmButtonText}
                 </Button>
               </ModalFooter>
