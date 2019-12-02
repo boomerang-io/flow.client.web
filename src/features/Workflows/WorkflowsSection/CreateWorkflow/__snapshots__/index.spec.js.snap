@@ -97,14 +97,14 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                   <input
                     checked=""
                     class="bx--radio-button"
-                    id="id2"
+                    id="Start from scratch"
                     type="radio"
                     value="Start from scratch"
                   />
                   <label
                     aria-label="Start from scratch"
                     class="bx--radio-button__label"
-                    for="id2"
+                    for="Start from scratch"
                   >
                     <span
                       class="bx--radio-button__appearance"
@@ -121,14 +121,14 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                 >
                   <input
                     class="bx--radio-button"
-                    id="id3"
+                    id="Import a Workflow"
                     type="radio"
                     value="Import a Workflow"
                   />
                   <label
                     aria-label="Import a Workflow"
                     class="bx--radio-button__label"
-                    for="id3"
+                    for="Import a Workflow"
                   >
                     <span
                       class="bx--radio-button__appearance"
@@ -251,7 +251,13 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                       class="bx--label"
                       for="name"
                     >
-                      Name
+                      <div
+                        style="display: flex;"
+                      >
+                        <div>
+                          Name
+                        </div>
+                      </div>
                     </label>
                     <div
                       class="bx--text-input__field-wrapper"
@@ -277,7 +283,13 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                     class="bx--label"
                     for="summary"
                   >
-                    Summary
+                    <div
+                      style="display: flex;"
+                    >
+                      <div>
+                        Summary
+                      </div>
+                    </div>
                   </label>
                   <div
                     class="bx--text-input__field-wrapper"
