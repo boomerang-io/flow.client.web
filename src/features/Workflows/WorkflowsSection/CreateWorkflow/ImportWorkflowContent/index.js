@@ -17,17 +17,26 @@ import Loading from "Components/Loading";
 import { requiredWorkflowProps } from "./constants";
 import styles from "./importWorkflowContent.module.scss";
 
-const buttonMessage = "Choose a file or drag one here";
-const invalidText = "Whoops! This Workflow is invalid, please choose a different file.";
+const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
+const createInvalidTextMessage = message => `Whoops! ${message}. Please choose a different one.`;
+
+function checkIsValidWorkflow(data) {
+  // Only check if the .json file contain the required key data
+  // This validate can be improved
+  let isValid = true;
+  requiredWorkflowProps.forEach(prop => {
+    if (!data.hasOwnProperty(prop)) {
+      isValid = false;
+    }
+  });
+  //Validate if workflow has the latest structure for dag
+  if (!data.latestRevision?.dag?.tasks) {
+    isValid = false;
+  }
+  return isValid;
+}
 
 class ImportWorkflowContent extends Component {
-  state = {
-    processedFile: {},
-    isValidWorkflow: undefined,
-    selectedTeam: this.props.team || {},
-    names: this.props.names || []
-  };
-
   static propTypes = {
     closeModal: PropTypes.func,
     isLoading: PropTypes.bool,
@@ -39,54 +48,51 @@ class ImportWorkflowContent extends Component {
     team: PropTypes.object
   };
 
-  addFile = file => {
-    const fileTest = file.addedFiles[0];
+  state = {
+    names: this.props.names
+  };
 
-    let reader = new FileReader();
-    reader.onload = e => {
-      let contents = JSON.parse(e.target.result);
-      let isValidWorkflow = this.checkIsValidWorkflow(contents);
-      this.setState({
-        processedFile: contents,
-        isValidWorkflow
-      });
-    };
-    reader.readAsText(fileTest);
+  /**
+   * Return promise for reading file
+   * @param file {File}
+   * @return {Promise}
+   */
+  readFile = file => {
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+      reader.onerror = () => {
+        reader.abort();
+        reject(new DOMException("Problem parsing input file"));
+      };
+
+      reader.onload = () => {
+        try {
+          resolve(JSON.parse(reader.result));
+        } catch (e) {
+          reject(new DOMException("Problem parsing input file as JSON"));
+        }
+      };
+
+      reader.readAsText(file);
+    });
   };
 
   handleChangeTeam = selectedItem => {
     let names = [];
-    if (selectedItem?.workflows && selectedItem.workflows.length) {
+    if (selectedItem?.workflows?.length) {
       names = selectedItem.workflows.map(item => item.name);
     }
     this.setState({ selectedTeam: selectedItem, names: names });
   };
 
-  checkIsValidWorkflow = data => {
-    // Only check if the .json file contain the required key data
-    // This validate can be improved
-    let isValid = true;
-    requiredWorkflowProps.forEach(prop => {
-      if (!data.hasOwnProperty(prop)) {
-        isValid = false;
-      }
-    });
-    //Validate if workflow has the latest structure for dag
-    if (!data.latestRevision?.dag?.tasks) {
-      isValid = false;
-    }
-    return isValid;
-  };
-
-  handleSubmit = values => {
-    const { processedFile } = this.state;
-
+  handleSubmit = async values => {
+    const fileData = await this.readFile(values.file);
     this.props.handleImportWorkflow(
       {
-        ...this.state.processedFile,
+        ...fileData,
         shortDescription: values.summary,
         name: values.name,
-        flowTeamId: values.selectedTeam?.id ?? processedFile.flowTeamId
+        flowTeamId: values.selectedTeam?.id ?? values.file.flowTeamId
       },
       this.props.closeModal,
       values.selectedTeam
@@ -95,7 +101,6 @@ class ImportWorkflowContent extends Component {
 
   render() {
     const { isLoading, title, confirmButtonText, team, teams } = this.props;
-    const { isValidWorkflow } = this.state;
 
     if (isLoading) {
       return <Loading />;
@@ -109,6 +114,7 @@ class ImportWorkflowContent extends Component {
           summary: "",
           file: undefined
         }}
+        validateOnMount
         onSubmit={this.handleSubmit}
         validationSchema={Yup.object().shape({
           selectedTeam: Yup.string().required("Team is required"),
@@ -121,53 +127,63 @@ class ImportWorkflowContent extends Component {
             ),
           summary: Yup.string().max(128, "Summary must not be greater than 128 characters"),
           file: Yup.mixed()
-            .required("A file is required")
             .test(
               "fileSize",
-              "Please select a file less than 1MB",
-              // If it's bigger than 1MB will display the error (1000000b = 1MB)
-              value => value && value.addedFiles && value.addedFiles[0] && value.addedFiles[0].size < 1000000
+              "File is larger than 1MiB",
+              // If it's bigger than 1MiB will display the error (1048576 bytes = 1 mebibyte)
+              file => (file?.size ? file.size < 1048576 : true)
             )
+            .test("validFile", "File is invalid", async file => {
+              let isValid = true;
+              if (file) {
+                try {
+                  let contents = await this.readFile(file);
+                  isValid = checkIsValidWorkflow(contents);
+                } catch (e) {
+                  console.error(e);
+                  isValid = false;
+                }
+              }
+
+              // Need to return promise for yup to do async validation
+              return Promise.resolve(isValid);
+            })
         })}
-        initialErrors={{ name: "Please enter a name for your Workflow" }}
       >
         {props => {
           const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
-
+          console.log(errors);
           return (
             <ModalFlowForm title={title} onSubmit={handleSubmit}>
-              <ModalBody
-                style={{
-                  height: "20.25rem",
-                  width: "100%"
-                }}
-              >
+              <ModalBody className={styles.body}>
                 <FileUploaderDropContainer
                   accept={[".json"]}
-                  labelText={buttonMessage}
+                  labelText={FILE_UPLOAD_MESSAGE}
                   name="Workflow"
                   multiple={false}
-                  onAddFiles={(event, file) => setFieldValue("file", file) && this.addFile(file)}
+                  onAddFiles={(event, { addedFiles }) => setFieldValue("file", addedFiles[0])}
                 />
-                {values.file ? (
+                {values.file && (
                   <FileUploaderItem
-                    name={values.file.addedFiles[0].name}
+                    name={values.file.name}
                     status="edit"
-                    invalid={errors.file}
-                    errorSubject={errors.file}
                     onDelete={() => {
                       setFieldValue("file", undefined);
                     }}
                   />
-                ) : (
-                  ""
                 )}
                 {values.file ? (
-                  isValidWorkflow === true ? (
+                  Boolean(errors.file) ? (
+                    <div className={styles.validMessage}>
+                      <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
+                      <p className={styles.message}>{createInvalidTextMessage(errors.file)}</p>
+                    </div>
+                  ) : (
                     <div className={styles.confirmInfoForm}>
                       <ComboBox
                         id="selectedTeam"
                         styles={{ marginBottom: "2.5rem" }}
+                        onBlur={handleBlur}
                         onChange={({ selectedItem }) => {
                           setFieldValue("selectedTeam", selectedItem ? selectedItem : "");
                           this.handleChangeTeam(selectedItem);
@@ -203,19 +219,14 @@ class ImportWorkflowContent extends Component {
                         invalidText={errors.summary}
                       />
                     </div>
-                  ) : isValidWorkflow === false ? (
-                    <div className={styles.validMessage}>
-                      <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
-                      <p className={styles.message}>{invalidText}</p>
-                    </div>
-                  ) : null
+                  )
                 ) : null}
               </ModalBody>
               <ModalFooter>
                 <Button onClick={this.props.closeModal} kind="secondary">
                   Cancel
                 </Button>
-                <Button type="submit" disabled={!isValid} kind="primary">
+                <Button type="submit" disabled={!isValid || !Boolean(values.file)} kind="primary">
                   {confirmButtonText}
                 </Button>
               </ModalFooter>
