@@ -152,7 +152,6 @@ class ImportWorkflowContent extends Component {
       >
         {props => {
           const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
-          console.log(errors);
           return (
             <ModalFlowForm title={title} onSubmit={handleSubmit}>
               <ModalBody className={styles.body}>
