@@ -35,6 +35,7 @@ class CreateEditModeModalContent extends Component {
     const { team, teams, isCreating } = this.props;
     return (
       <Formik
+        isInitialValid={false}
         initialValues={{
           selectedTeam: team,
           name: "",
