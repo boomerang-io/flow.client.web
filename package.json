@@ -8,7 +8,7 @@
     "@boomerang/boomerang-react-scripts": "^4.3.3",
     "@boomerang/boomerang-styles": "2.0.0",
     "@boomerang/boomerang-utilities": "2.3.1",
-    "@boomerang/carbon-addons-boomerang": "^2.3.0",
+    "@boomerang/carbon-addons-boomerang": "2.4.0",
     "@boomerang/carbon-addons-boomerang-react": "2.3.0",
     "@carbon/charts": "^0.16.24",
     "@carbon/charts-react": "^0.16.24",

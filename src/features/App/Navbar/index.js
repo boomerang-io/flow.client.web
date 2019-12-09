@@ -7,8 +7,9 @@ import { BASE_URL } from "Config/servicesConfig";
 import { NavLink } from "react-router-dom";
 import { Activity16, ChartScatter16, FlowData16, SettingsAdjust16 } from "@carbon/icons-react";
 import { SideNav, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from "carbon-components-react";
+import { userTypes } from "Constants/userTypes";
 
-const onMenuClick = ({ isOpen, onMenuClose }) => (
+const handleOnMenuClick = (isAdmin = false) => ({ isOpen, onMenuClose }) => (
   <LeftSideNav isOpen={isOpen}>
     <SideNav ariaLabel="nav" expanded={isOpen} isChildOfHeader={true}>
       <SideNavItems>
@@ -42,26 +43,28 @@ const onMenuClick = ({ isOpen, onMenuClose }) => (
         >
           Insights
         </SideNavLink>
-        <SideNavMenu large renderIcon={SettingsAdjust16} title="Manage">
-          <SideNavMenuItem
-            large
-            activeClassName={"bx--side-nav__link--current"}
-            element={NavLink}
-            onClick={onMenuClose}
-            to="/properties"
-          >
-            Properties
-          </SideNavMenuItem>
-          <SideNavMenuItem
-            large
-            activeClassName={"bx--side-nav__link--current"}
-            element={NavLink}
-            onClick={onMenuClose}
-            to="/team-properties"
-          >
-            Team Properties
-          </SideNavMenuItem>
-        </SideNavMenu>
+        {isAdmin && (
+          <SideNavMenu large renderIcon={SettingsAdjust16} title="Manage">
+            <SideNavMenuItem
+              large
+              activeClassName={"bx--side-nav__link--current"}
+              element={NavLink}
+              onClick={onMenuClose}
+              to="/properties"
+            >
+              Properties
+            </SideNavMenuItem>
+            <SideNavMenuItem
+              large
+              activeClassName={"bx--side-nav__link--current"}
+              element={NavLink}
+              onClick={onMenuClose}
+              to="/team-properties"
+            >
+              Team Properties
+            </SideNavMenuItem>
+          </SideNavMenu>
+        )}
       </SideNavItems>
     </SideNav>
   </LeftSideNav>
@@ -70,7 +73,7 @@ const onMenuClick = ({ isOpen, onMenuClose }) => (
 const defaultUIShellProps = {
   baseLaunchEnvUrl: BASE_LAUNCH_ENV_URL,
   baseServiceUrl: BASE_URL,
-  onMenuClick: onMenuClick,
+  onMenuClick: handleOnMenuClick(),
   renderLogo: true
 };
 
@@ -88,6 +91,9 @@ function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) 
     return (
       <UIShell
         {...defaultUIShellProps}
+        onMenuClick={handleOnMenuClick(
+          userState.data.type === userTypes.ADMIN || userState.data.type === userTypes.OPERATOR
+        )}
         headerConfig={navigationState.data}
         onTutorialClick={handleOnTutorialClick}
         user={userState.data}
