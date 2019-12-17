@@ -35,6 +35,7 @@ class CreateEditModeModalContent extends Component {
     const { team, teams, isCreating } = this.props;
     return (
       <Formik
+        initialErrors={{ name: "Name is required" }}
         initialValues={{
           selectedTeam: team,
           name: "",

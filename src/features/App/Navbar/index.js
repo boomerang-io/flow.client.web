@@ -7,9 +7,9 @@ import { BASE_URL } from "Config/servicesConfig";
 import { NavLink } from "react-router-dom";
 import { Activity16, ChartScatter16, FlowData16, SettingsAdjust16 } from "@carbon/icons-react";
 import { SideNav, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from "carbon-components-react";
-import { userTypes } from "Constants/userTypes";
+import userTypes from "Constants/userTypes";
 
-const handleOnMenuClick = (isAdmin = false) => ({ isOpen, onMenuClose }) => (
+const handleOnMenuClick = isAtLeastOperator => ({ isOpen, onMenuClose }) => (
   <LeftSideNav isOpen={isOpen}>
     <SideNav ariaLabel="nav" expanded={isOpen} isChildOfHeader={true}>
       <SideNavItems>
@@ -43,7 +43,7 @@ const handleOnMenuClick = (isAdmin = false) => ({ isOpen, onMenuClose }) => (
         >
           Insights
         </SideNavLink>
-        {isAdmin && (
+        {isAtLeastOperator ? (
           <SideNavMenu large renderIcon={SettingsAdjust16} title="Manage">
             <SideNavMenuItem
               large
@@ -64,6 +64,8 @@ const handleOnMenuClick = (isAdmin = false) => ({ isOpen, onMenuClose }) => (
               Team Properties
             </SideNavMenuItem>
           </SideNavMenu>
+        ) : (
+          <></>
         )}
       </SideNavItems>
     </SideNav>
@@ -73,7 +75,7 @@ const handleOnMenuClick = (isAdmin = false) => ({ isOpen, onMenuClose }) => (
 const defaultUIShellProps = {
   baseLaunchEnvUrl: BASE_LAUNCH_ENV_URL,
   baseServiceUrl: BASE_URL,
-  onMenuClick: handleOnMenuClick(),
+  onMenuClick: handleOnMenuClick(false),
   renderLogo: true
 };
 
