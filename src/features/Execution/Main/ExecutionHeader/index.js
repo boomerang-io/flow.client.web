@@ -52,7 +52,7 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
               <p className={styles.dataValue}>{trigger}</p>
             </div>
             <div className={styles.data}>
-              <p className={styles.dataTitle}>Team</p>
+              <p className={styles.dataTitle}>Start time</p>
               <p className={styles.dataValue}>{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</p>
             </div>
           </div>
