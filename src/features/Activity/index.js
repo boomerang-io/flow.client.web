@@ -35,7 +35,7 @@ const activitySummaryRequestQuery = queryString.stringify({
   toDate: moment(new Date()).unix()
 });
 
-export function WorkflowActivity({ activityActions, history, location, match, teamsState }) {
+export function WorkflowActivity({ history, location, match, teamsState }) {
   const {
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
