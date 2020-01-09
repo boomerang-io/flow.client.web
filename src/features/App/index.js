@@ -89,16 +89,16 @@ class App extends Component {
           <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
             <Switch>
               <ProtectedRoute
-                path="/properties"
                 allowedUserRoles={allowedUserRoles}
+                component={<AsyncGlobalConfiguration />}
+                path="/properties"
                 userRole={userRole}
-                component={AsyncGlobalConfiguration}
               />
               <ProtectedRoute
-                path="/team-properties"
                 allowedUserRoles={allowedUserRoles}
+                component={<AsyncTeamProperties />}
+                path="/team-properties"
                 userRole={userRole}
-                component={AsyncTeamProperties}
               />
               <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
               <Route path="/activity" component={AsyncActivity} />
