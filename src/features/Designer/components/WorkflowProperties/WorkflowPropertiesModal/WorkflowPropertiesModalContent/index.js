@@ -194,11 +194,11 @@ class WorkflowPropertiesModalContent extends Component {
       case "text":
       case "textarea":
       case "password":
-        return Yup.string().max(64, "Default Value must not be greater than 64 characters");
+        return Yup.string();
       case "boolean":
         return Yup.boolean();
       case "number":
-        return Yup.number().max(64, "Default Value must not be greater than 64 characters");
+        return Yup.number();
       default:
         return Yup.mixed();
     }
