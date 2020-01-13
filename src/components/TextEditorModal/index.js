@@ -13,7 +13,7 @@ const TextEditorModal = props => {
         containerClassName: "c-task-text-area-modal"
       }}
       modalHeaderProps={{
-        title: `Update ${props.item.label}`
+        title: `Update ${props.label}`
       }}
       confirmModalProps={{
         title: "Are you sure?",
@@ -22,17 +22,24 @@ const TextEditorModal = props => {
       modalTrigger={({ openModal }) => (
         <TextArea
           readOnly
-          id={props.item.key}
-          labelText={props.item.label}
+          helperText={props.helperText}
+          id={props.key}
+          labelText={props.label}
           onClick={openModal}
           onKeyDown={e => isAccessibleEvent(e) && openModal()}
-          placeholder={props.item.description}
-          value={value}
+          placeholder={props.placeholder}
           style={{ cursor: "pointer" }}
+          value={value}
+          tooltipContent={props.description}
         />
       )}
     >
-      <TextEditorView {...props} setTextAreaValue={setValue} />
+      <TextEditorView
+        {...props}
+        language={props.type?.includes("::") ? props.type.split("::")[1] : undefined}
+        setTextAreaValue={setValue}
+        value={value}
+      />
     </ModalFlow>
   );
 };

@@ -8,10 +8,11 @@ import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = props => {
+  console.log(props);
   return (
     <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
       <AutoSuggest {...props}>
-        <TextInput />
+        <TextInput tooltipContent={props.tooltipContent} />
       </AutoSuggest>
     </div>
   );
@@ -20,7 +21,7 @@ const AutoSuggestInput = props => {
 const TextEditorInput = props => {
   return (
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
-      <TextEditorModal {...props} />
+      <TextEditorModal {...props} {...props.item} />
     </div>
   );
 };

@@ -355,7 +355,7 @@ const TextEditorView = props => {
         />
       </ModalBody>
       <ModalFooter>
-        <Button onClick={saveValue}>UPDATE</Button>
+        <Button onClick={saveValue}>Update</Button>
       </ModalFooter>
     </>
   );
@@ -363,11 +363,11 @@ const TextEditorView = props => {
 
 TextEditorView.propTypes = {
   item: PropTypes.shape({
-    name: PropTypes.string.isRequired
-  }).isRequired,
+    name: PropTypes.string
+  }),
   setTextAreaValue: PropTypes.func.isRequired,
-  setShouldConfirmModalClose: PropTypes.func.isRequired,
-  value: PropTypes.func.isRequired
+  setShouldConfirmModalClose: PropTypes.func,
+  value: PropTypes.string
 };
 
 export default TextEditorView;

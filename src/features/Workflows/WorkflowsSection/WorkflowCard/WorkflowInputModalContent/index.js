@@ -16,9 +16,6 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
     <DynamicFormik
       validateOnMount
       inputs={inputs}
-      dataDrivenInputProps={{
-        description: null
-      }}
       toggleProps={() => ({
         orientation: "vertical"
       })}

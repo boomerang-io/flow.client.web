@@ -217,13 +217,17 @@
           "placeholder": "The file path incl file name",
           "key": "path",
           "label": "File Path",
-          "type": "text"
+          "type": "text",
+          "description": "please work",
+          "helperText": "helper text"
         },
         {
           "placeholder": "The file content",
           "key": "content",
           "label": "File Content",
-          "type": "texteditor"
+          "type": "texteditor::yaml",
+          "description": "help",
+          "helperText": "helper text"
         }
       ],
       "description": "Create file in worker",
