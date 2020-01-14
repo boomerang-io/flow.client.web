@@ -22,29 +22,40 @@ import { ModalBody, ModalFooter, Toolbar, ToolbarItem, Search, Dropdown, Button 
 import CodeMirror from "codemirror";
 import "./styles.scss";
 
-function escapeRegExp(val) {
+TextEditorView.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string
+  }),
+  setTextAreaValue: PropTypes.func.isRequired,
+  setShouldConfirmModalClose: PropTypes.func,
+  value: PropTypes.string
+};
+
+const escapeRegExp = val => {
   return val && val.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
+};
 
-const TextEditorView = props => {
-  const languages = [
-    {
-      id: "javascript",
-      text: "JavaScript/JSON",
-      params: { hint: CodeMirror.hint.javascript, mode: { name: "javascript" } }
-    },
-    { id: "shell", text: "Shell", params: { mode: "shell" } },
-    { id: "text", text: "Text", params: { mode: "text/plain" } },
-    { id: "yaml", text: "YAML", params: { mode: "yaml" } }
-  ];
+const languages = [
+  {
+    id: "javascript",
+    text: "JavaScript/JSON",
+    params: { hint: CodeMirror.hint.javascript, mode: { name: "javascript" } }
+  },
+  { id: "shell", text: "Shell", params: { mode: "shell" } },
+  { id: "text", text: "Text", params: { mode: "text/plain" } },
+  { id: "yaml", text: "YAML", params: { mode: "yaml" } }
+];
 
+function TextEditorView(props) {
   const [value, setValue] = useState(props.value);
   const editor = useRef(null);
   const [doc, setDoc] = useState();
   const [searchText, setSearchText] = useState("");
   const [clipboard, setClipboard] = useState("");
   const [languageParams, setLanguageParams] = useState(
-    props.language ? languages.find(value => value.id === props.language).params : {}
+    props.language
+      ? languages.find(value => value.id === props.language).params
+      : { id: "text", text: "Text", params: { mode: "text/plain" } }
   );
 
   useEffect(() => {
@@ -359,15 +370,6 @@ const TextEditorView = props => {
       </ModalFooter>
     </>
   );
-};
-
-TextEditorView.propTypes = {
-  item: PropTypes.shape({
-    name: PropTypes.string
-  }),
-  setTextAreaValue: PropTypes.func.isRequired,
-  setShouldConfirmModalClose: PropTypes.func,
-  value: PropTypes.string
-};
+}
 
 export default TextEditorView;

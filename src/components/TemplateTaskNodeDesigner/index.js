@@ -47,7 +47,7 @@ export class TemplateNodeDesigner extends Component {
         }}
         modalHeaderProps={{
           title: `Edit ${this.props.task.name}`,
-          subtitle: "Configure the inputs"
+          subtitle: this.props.task.description || "Configure the inputs"
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
