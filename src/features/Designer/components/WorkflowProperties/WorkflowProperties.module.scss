@@ -5,6 +5,8 @@
 .container {
   display: flex;
   flex-flow: row wrap;
+  height: calc(100vh - 12rem);
+  overflow: auto;
   padding: 2rem;
 }
 

@@ -2,10 +2,11 @@
 @import "~Styles/variables";
 
 .cronMessage {
+  bottom: 2.75rem;
   font-size: 0.69375rem; //0.875rem;
   font-weight: 400;
   line-height: 1.040625rem; //1rem;
-  margin-top: 0.23125rem; //0.375rem;
+  position: absolute;
 
   &.--error {
     color: var(--cds-support-01);
@@ -13,27 +14,25 @@
 }
 
 .configureText {
-  color: #272727;
-  font-size: 12px;
-  line-height: 15px;
+  color: var(--cds-text-01);
+  font-size: 1rem;
+  line-height: 1.125rem;
   margin-bottom: 1rem;
 }
 
 .timezone {
-  height: 16rem;
   position: relative;
 }
 
 .cronContainer {
   min-height: 8rem;
   max-height: 10rem;
+  position: relative;
 }
 
 .timeContainer {
   align-items: flex-start;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
   :global .bx--list-box__field {
     width: 23rem;
   }
@@ -54,6 +53,7 @@
 
 .cronAdvancedContainer {
   display: flex;
+  flex-direction: column;
 }
 
 .cronAdvancedLabel {
@@ -64,6 +64,4 @@
 }
 
 .daysContainer {
-  margin-top: 4rem;
-  position: absolute;
 }
