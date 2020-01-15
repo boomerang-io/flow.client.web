@@ -182,7 +182,7 @@ class TeamPropertiesTable extends Component {
       <>
         <Header
           title="Team Properties"
-          description="Set team properties that are accessible in all CICD processes for that team."
+          description="Set team properties that are available for all Workflows in a team"
         />
         <div className={styles.tableContainer}>
           <div className={styles.header}>
@@ -299,7 +299,4 @@ class TeamPropertiesTable extends Component {
 
 const mapStateToProps = state => ({ teamProperties: state.teamProperties });
 
-export default connect(
-  mapStateToProps,
-  null
-)(TeamPropertiesTable);
+export default connect(mapStateToProps, null)(TeamPropertiesTable);

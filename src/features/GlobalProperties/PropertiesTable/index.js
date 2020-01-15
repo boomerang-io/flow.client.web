@@ -169,7 +169,7 @@ class PropertiesTable extends Component {
 
     return (
       <>
-        <Header title="Properties" description="Set global properties that are accessible in flow processes." />
+        <Header title="Properties" description="Set global properties that are available for all Workflows" />
         <div className={styles.tableContainer}>
           <div className={styles.header}>
             <Search
