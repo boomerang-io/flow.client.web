@@ -19,8 +19,7 @@ export class CreateWorkflow extends Component {
     importWorkflowActions: PropTypes.object.isRequired,
     team: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired,
-    onCloseModal: PropTypes.bool.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired
   };
 
   diagramApp = new DiagramApplication({ dag: null, isLocked: false });

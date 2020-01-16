@@ -14,7 +14,7 @@ class UpdateWorkflow extends Component {
     fetchTeams: PropTypes.func.isRequired,
     importWorkflowActions: PropTypes.object.isRequired,
     importWorkflowState: PropTypes.object.isRequired,
-    onCloseModal: PropTypes.bool.isRequired,
+    onCloseModal: PropTypes.func,
     workflowId: PropTypes.string.isRequired
   };
 
