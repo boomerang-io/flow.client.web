@@ -6,10 +6,11 @@ import cx from "classnames";
 import { actions as appActions } from "State/app";
 import WorkflowNode from "Components/WorkflowNode";
 //import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
+import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
-import styles from "./TemplateNodeExecution.module.scss";
+import styles from "./TemplateTaskNodeExecution.module.scss";
 
-export class TemplateNodeExecution extends Component {
+export class TemplateTaskNodeExecution extends Component {
   static propTypes = {
     appActions: PropTypes.object.isRequired,
     diagramEngine: PropTypes.object.isRequired,
@@ -35,7 +36,7 @@ export class TemplateNodeExecution extends Component {
     const { task, node } = this.props;
     const { steps } = this.props.workflowExecution.data;
     const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
-    const flowTaskStatus = step?.flowTaskStatus;
+    const flowTaskStatus = step?.flowTaskStatus ?? EXECUTION_STATUSES.SKIPPED;
 
     return (
       <WorkflowNode
@@ -66,7 +67,4 @@ const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TemplateNodeExecution);
+export default connect(mapStateToProps, mapDispatchToProps)(TemplateTaskNodeExecution);

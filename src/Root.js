@@ -11,7 +11,7 @@ import { hot } from "react-hot-loader/root";
 const Root = props => {
   const { store } = props;
   return (
-    <ErrorBoundary errorComponent={ErrorDragon}>
+    <ErrorBoundary errorComponent={() => <ErrorDragon style={{ marginTop: "5rem" }} />}>
       <Provider store={store}>
         <BrowserRouter basename={APP_ROOT}>
           <App />

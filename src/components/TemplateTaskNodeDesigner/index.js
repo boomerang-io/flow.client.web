@@ -9,9 +9,9 @@ import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
-import styles from "./TemplateNodeDesigner.module.scss";
+import styles from "./TemplateTaskNodeDesigner.module.scss";
 
-export class TemplateNodeDesigner extends Component {
+export class TemplateTaskNodeDesigner extends Component {
   static propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
     node: PropTypes.object.isRequired,
@@ -92,7 +92,4 @@ const mapDispatchToProps = dispatch => ({
   workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TemplateNodeDesigner);
+export default connect(mapStateToProps, mapDispatchToProps)(TemplateTaskNodeDesigner);

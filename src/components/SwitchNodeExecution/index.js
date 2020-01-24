@@ -5,6 +5,7 @@ import cx from "classnames";
 import WorkflowNode from "Components/WorkflowNode";
 import { Fork16 } from "@carbon/icons-react";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
+import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import styles from "./SwitchNodeExecution.module.scss";
 
 export class SwitchNodeExecution extends Component {
@@ -24,7 +25,7 @@ export class SwitchNodeExecution extends Component {
     const { node } = this.props;
     const { steps } = this.props.workflowExecution.data;
     const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
-    const flowTaskStatus = step?.flowTaskStatus;
+    const flowTaskStatus = step?.flowTaskStatus ?? EXECUTION_STATUSES.SKIPPED;
 
     return (
       <WorkflowNode
@@ -56,7 +57,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(SwitchNodeExecution);
+export default connect(mapStateToProps, null)(SwitchNodeExecution);

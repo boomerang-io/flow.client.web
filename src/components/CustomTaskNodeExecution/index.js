@@ -7,6 +7,7 @@ import cx from "classnames";
 import WorkflowNode from "Components/WorkflowNode";
 //import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
+import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import styles from "./CustomTaskNodeExecution.module.scss";
 
 export class CustomTaskNodeExecution extends Component {
@@ -35,7 +36,7 @@ export class CustomTaskNodeExecution extends Component {
     const { task, node } = this.props;
     const { steps } = this.props.workflowExecution.data;
     const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
-    const flowTaskStatus = step?.flowTaskStatus;
+    const flowTaskStatus = step?.flowTaskStatus ?? EXECUTION_STATUSES.SKIPPED;
 
     return (
       <WorkflowNode
@@ -70,7 +71,4 @@ const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CustomTaskNodeExecution);
+export default connect(mapStateToProps, mapDispatchToProps)(CustomTaskNodeExecution);

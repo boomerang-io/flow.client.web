@@ -50,6 +50,9 @@
     "validator": "^10.7.1",
     "yup": "^0.27.0"
   },
+  "devDependencies": {
+    "http-proxy-middleware": "^0.20.0"
+  },
   "scripts": {
     "analyze": "source-map-explorer server/build/static/js/main.*",
     "apiServer": "json-server -c api/json-server.json --watch api/db.json api/routes.json api/middleware/**/*.js",
@@ -58,6 +61,7 @@
     "cypress": "cypress open",
     "cypress:run": "$(npm bin)/cypress run --config video=false",
     "dev": "run-p apiServer start",
+    "dev:pf": "cross-env REACT_APP_PORT_FORWARD=true run-p apiServer start",
     "docker": "run-p docker:run apiServer",
     "docker:build": "docker build -t flow:next .",
     "docker:run": "docker run -i -t -p 3000:3000 -e APP_ROOT=/flow -e BASE_SERVICE_ENV_URL=http://localhost:8000 -e PRODUCT_SERVICE_ENV_URL=http://localhost:8000 flow:next",
