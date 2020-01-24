@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import cx from "classnames";
 import WorkflowLink from "Components/WorkflowLink";
 import SwitchLinkExecutionConditionButton from "Components/SwitchLinkExecutionConditionButton";
+import NODE_TYPES from "Constants/nodeTypes";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import styles from "./SwitchLink.module.scss";
 
@@ -37,7 +38,7 @@ class SwitchLinkExecution extends Component {
     const sourceTaskHasFinishedAndIsEndOfWorkflow =
       (sourceStep?.flowTaskStatus === EXECUTION_STATUSES.COMPLETED ||
         sourceStep?.flowTaskStatus === EXECUTION_STATUSES.FAILURE) &&
-      targetNodeType === "startend";
+      targetNodeType === NODE_TYPES.START_END;
 
     return (
       <WorkflowLink

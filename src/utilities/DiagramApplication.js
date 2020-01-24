@@ -10,6 +10,7 @@ import SwitchPortModel from "./switchNode/SwitchPortModel";
 import TaskLinkFactory from "./taskLink/TaskLinkFactory";
 import TaskPortModel from "./taskPort/TaskPortModel";
 import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
+import NODE_TYPES from "Constants/nodeTypes";
 
 export default class Application {
   constructor({ dag, modelIsLocked }) {
@@ -21,9 +22,11 @@ export default class Application {
     this.diagramEngine.registerNodeFactory(new SwitchNodeFactory());
 
     //need to find a way to register port factory
-    this.diagramEngine.registerPortFactory(new SimplePortFactory("startend", config => new StartEndPortModel()));
-    this.diagramEngine.registerPortFactory(new SimplePortFactory("task", config => new TaskPortModel()));
-    this.diagramEngine.registerPortFactory(new SimplePortFactory("decision", config => new SwitchPortModel()));
+    this.diagramEngine.registerPortFactory(
+      new SimplePortFactory(NODE_TYPES.START_END, config => new StartEndPortModel())
+    );
+    this.diagramEngine.registerPortFactory(new SimplePortFactory(NODE_TYPES.TASK, config => new TaskPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory(NODE_TYPES.DECISION, config => new SwitchPortModel()));
 
     //register new custom link
     this.diagramEngine.registerLinkFactory(new TaskLinkFactory(this.diagramEngine));

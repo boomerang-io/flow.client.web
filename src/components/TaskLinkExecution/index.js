@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import WorkflowLink from "Components/WorkflowLink";
 import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
+import NODE_TYPES from "Constants/nodeTypes";
 import { EXECUTION_CONDITIONS } from "utilities/taskLinkIcons";
 import styles from "./TaskLink.module.scss";
 
@@ -31,7 +32,7 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
   const sourceTaskHasFinishedAndIsEndOfWorkflow =
     (sourceStep?.flowTaskStatus === EXECUTION_STATUSES.COMPLETED ||
       sourceStep?.flowTaskStatus === EXECUTION_STATUSES.FAILURE) &&
-    targetNodeType === "startend";
+    targetNodeType === NODE_TYPES.START_END;
 
   const executionCondition = EXECUTION_CONDITIONS.find(
     executionCondition => executionCondition.name === model.executionCondition

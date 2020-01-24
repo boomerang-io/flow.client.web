@@ -2,5 +2,6 @@ export default {
   CUSTOM_TASK: "customTask",
   DECISION: "decision",
   TEMPLATE_TASK: "templateTask",
-  START_END: "startend"
+  START_END: "startend",
+  TASK: "task"
 };

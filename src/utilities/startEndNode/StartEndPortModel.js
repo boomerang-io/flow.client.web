@@ -1,10 +1,11 @@
 import merge from "lodash/merge";
 import { PortModel } from "@projectstorm/react-diagrams";
 import CustomLinkModel from "Utilities/taskLink/TaskLinkModel";
+import NODE_TYPES from "Constants/nodeTypes";
 
 export default class StartEndPortModel extends PortModel {
   constructor(pos) {
-    super(pos, "startend");
+    super(pos, NODE_TYPES.START_END);
     this.position = pos;
   }
 

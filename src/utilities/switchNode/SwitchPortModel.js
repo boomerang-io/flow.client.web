@@ -1,10 +1,11 @@
 import { PortModel } from "@projectstorm/react-diagrams";
 import SwitchLinkModel from "Utilities/switchLink/SwitchLinkModel";
 import merge from "lodash/merge";
+import NODE_TYPES from "Constants/nodeTypes";
 
 export default class SwitchPortModel extends PortModel {
   constructor(pos) {
-    super(pos, "decision");
+    super(pos, NODE_TYPES.DECISION);
     this.position = pos;
   }
 

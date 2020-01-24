@@ -3,10 +3,11 @@ import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import SwitchNodeDesigner from "Components/SwitchNodeDesigner";
 import SwitchNodeExecution from "Components/SwitchNodeExecution";
 import SwitchNodeModel from "./SwitchNodeModel";
+import NODE_TYPES from "Constants/nodeTypes";
 
 export default class SwitchNodeFactory extends AbstractNodeFactory {
   constructor(diagramEngine) {
-    super("decision");
+    super(NODE_TYPES.DECISION);
     this.diagramEngine = diagramEngine;
   }
 

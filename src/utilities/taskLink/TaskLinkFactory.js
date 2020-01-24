@@ -5,12 +5,13 @@ import TaskLinkDesigner from "Components/TaskLinkDesigner";
 import TaskLinkExecution from "Components/TaskLinkExecution";
 import StartEndLinkDesigner from "Components/StartEndLinkDesigner";
 import StartEndLinkExecution from "Components/StartEndLinkExecution";
+import NODE_TYPES from "Constants/nodeTypes";
 
 export default class TaskLinkFactory extends DefaultLinkFactory {
   constructor(diagramEngine) {
     super();
     this.diagramEngine = diagramEngine;
-    this.type = "task";
+    this.type = NODE_TYPES.TASK;
   }
 
   getNewInstance = () => {
@@ -20,7 +21,7 @@ export default class TaskLinkFactory extends DefaultLinkFactory {
   generateLinkSegment(model, widget, selected, path) {
     // If diagram model is locked we can infer that the app is viewing the activity execution
     const sourcePortType = model?.sourcePort?.type;
-    if (sourcePortType === "startend") {
+    if (sourcePortType === NODE_TYPES.START_END) {
       if (this.diagramEngine.diagramModel.locked) {
         return (
           <g>
