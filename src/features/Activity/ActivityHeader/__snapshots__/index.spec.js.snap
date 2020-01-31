@@ -57,7 +57,7 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M10 6v2h12.59L6 24.59 7.41 26 24 9.41V22h2V6H10z"
+                  d="M10 6L10 8 22.59 8 6 24.59 7.41 26 24 9.41 24 22 26 22 26 6 10 6z"
                 />
               </svg>
             </div>
@@ -91,7 +91,7 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M10 6v2h12.59L6 24.59 7.41 26 24 9.41V22h2V6H10z"
+                  d="M10 6L10 8 22.59 8 6 24.59 7.41 26 24 9.41 24 22 26 22 26 6 10 6z"
                 />
               </svg>
             </div>
@@ -125,7 +125,7 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M10 26v-2h12.59L6 7.41 7.41 6 24 22.59V10h2v16H10z"
+                  d="M10 26L10 24 22.59 24 6 7.41 7.41 6 24 22.59 24 10 26 10 26 26 10 26z"
                 />
               </svg>
             </div>

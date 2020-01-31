@@ -25,7 +25,7 @@ exports[`TeamProperties --- Snapshot Test Capturing Snapshot of TeamProperties 1
             <p
               class="description"
             >
-              Set team properties that are accessible in all CICD processes for that team.
+              Set team properties that are available for all Workflows in a team
             </p>
           </div>
           <section

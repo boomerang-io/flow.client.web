@@ -127,7 +127,13 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               class="bx--label"
               for="type"
             >
-              Type
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Type
+                </div>
+              </div>
             </label>
             <div
               class="bx--combo-box bx--list-box"

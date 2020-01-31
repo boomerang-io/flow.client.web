@@ -49,10 +49,10 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"
+                d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
               />
               <path
-                d="M14 21.5l-5-4.96 1.59-1.57L14 18.35 21.41 11 23 12.58l-9 8.92z"
+                d="M14 21.5L9 16.54 10.59 14.97 14 18.35 21.41 11 23 12.58 14 21.5z"
               />
             </svg>
             <p
@@ -77,7 +77,7 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M10 16L20 6l1.4 1.4-8.6 8.6 8.6 8.6L20 26z"
+              d="M10 16L20 6 21.4 7.4 12.8 16 21.4 24.6 20 26z"
             />
           </svg>
         </button>
@@ -110,7 +110,7 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
+                d="M26.6 20.6L23 24.2 23 4 21 4 21 24.2 17.4 20.6 16 22 22 28 28 22zM10 4L4 10 5.4 11.4 9 7.8 9 28 11 28 11 7.8 14.6 11.4 16 10z"
               />
             </svg>
           </button>
@@ -151,10 +151,10 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M15 11h2v9h-2zm-2-9h6v2h-6z"
+                  d="M15 11H17V20H15zM13 2H19V4H13z"
                 />
                 <path
-                  d="M28 9l-1.42-1.41-2.25 2.25a10.94 10.94 0 1 0 1.18 1.65zM16 26a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"
+                  d="M28,9,26.58,7.59,24.33,9.84a10.94,10.94,0,1,0,1.18,1.65ZM16,26a9,9,0,1,1,9-9A9,9,0,0,1,16,26Z"
                 />
               </svg>
               <p
@@ -179,10 +179,10 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M15 11h2v9h-2zm-2-9h6v2h-6z"
+                  d="M15 11H17V20H15zM13 2H19V4H13z"
                 />
                 <path
-                  d="M28 9l-1.42-1.41-2.25 2.25a10.94 10.94 0 1 0 1.18 1.65zM16 26a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"
+                  d="M28,9,26.58,7.59,24.33,9.84a10.94,10.94,0,1,0,1.18,1.65ZM16,26a9,9,0,1,1,9-9A9,9,0,0,1,16,26Z"
                 />
               </svg>
               <p>
@@ -267,10 +267,10 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"
+                  d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
                 />
                 <path
-                  d="M14 21.5l-5-4.96 1.59-1.57L14 18.35 21.41 11 23 12.58l-9 8.92z"
+                  d="M14 21.5L9 16.54 10.59 14.97 14 18.35 21.41 11 23 12.58 14 21.5z"
                 />
               </svg>
               <p
@@ -295,10 +295,10 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M16 2a14 14 0 1 0 14 14A14 14 0 0 0 16 2zm0 26a12 12 0 1 1 12-12 12 12 0 0 1-12 12z"
+                  d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
                 />
                 <path
-                  d="M14 21.5l-5-4.96 1.59-1.57L14 18.35 21.41 11 23 12.58l-9 8.92z"
+                  d="M14 21.5L9 16.54 10.59 14.97 14 18.35 21.41 11 23 12.58 14 21.5z"
                 />
               </svg>
               <p>

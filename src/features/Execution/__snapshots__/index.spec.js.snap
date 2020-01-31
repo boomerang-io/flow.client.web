@@ -87,7 +87,7 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
               <p
                 class="dataTitle"
               >
-                Team
+                Start time
               </p>
               <p
                 class="dataValue"
@@ -145,10 +145,10 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M15 11h2v9h-2zm-2-9h6v2h-6z"
+                    d="M15 11H17V20H15zM13 2H19V4H13z"
                   />
                   <path
-                    d="M28 9l-1.42-1.41-2.25 2.25a10.94 10.94 0 1 0 1.18 1.65zM16 26a9 9 0 1 1 9-9 9 9 0 0 1-9 9z"
+                    d="M28,9,26.58,7.59,24.33,9.84a10.94,10.94,0,1,0,1.18,1.65ZM16,26a9,9,0,1,1,9-9A9,9,0,0,1,16,26Z"
                   />
                 </svg>
                 <p
@@ -173,7 +173,7 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M10 16L20 6l1.4 1.4-8.6 8.6 8.6 8.6L20 26z"
+                  d="M10 16L20 6 21.4 7.4 12.8 16 21.4 24.6 20 26z"
                 />
               </svg>
             </button>
@@ -206,7 +206,7 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M26.6 20.6L23 24.2V4h-2v20.2l-3.6-3.6L16 22l6 6 6-6zM10 4l-6 6 1.4 1.4L9 7.8V28h2V7.8l3.6 3.6L16 10z"
+                    d="M26.6 20.6L23 24.2 23 4 21 4 21 24.2 17.4 20.6 16 22 22 28 28 22zM10 4L4 10 5.4 11.4 9 7.8 9 28 11 28 11 7.8 14.6 11.4 16 10z"
                   />
                 </svg>
               </button>
@@ -252,7 +252,7 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M2 27h28v2H2zM25.41 9a2 2 0 0 0 0-2.83l-3.58-3.58a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22v-3.59l10-10L19.59 12l-10 10z"
+                    d="M2 27H30V29H2zM25.41 9a2 2 0 0 0 0-2.83L21.83 2.59a2 2 0 0 0-2.83 0l-15 15V24h6.41zm-5-5L24 7.59l-3 3L17.41 7zM6 22V18.41l10-10L19.59 12l-10 10z"
                   />
                 </svg>
                 <p
@@ -280,10 +280,10 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M4 6h5v1H4z"
+                    d="M4 6H9V7H4z"
                   />
                   <path
-                    d="M10.7 10c.8-1 1.3-2.2 1.3-3.5C12 3.5 9.5 1 6.5 1S1 3.5 1 6.5 3.5 12 6.5 12c1.3 0 2.5-.5 3.5-1.3l3.8 3.8.7-.7-3.8-3.8zm-4.2 1C4 11 2 9 2 6.5S4 2 6.5 2 11 4 11 6.5 9 11 6.5 11z"
+                    d="M10.7,10C11.5,9,12,7.8,12,6.5C12,3.5,9.5,1,6.5,1S1,3.5,1,6.5S3.5,12,6.5,12c1.3,0,2.5-0.5,3.5-1.3l3.8,3.8l0.7-0.7	L10.7,10z M6.5,11C4,11,2,9,2,6.5S4,2,6.5,2S11,4,11,6.5S9,11,6.5,11L6.5,11z"
                   />
                 </svg>
               </button>
@@ -302,10 +302,10 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    d="M9 6H7V4H6v2H4v1h2v2h1V7h2z"
+                    d="M9 6L7 6 7 4 6 4 6 6 4 6 4 7 6 7 6 9 7 9 7 7 9 7z"
                   />
                   <path
-                    d="M10.7 10c.8-1 1.3-2.2 1.3-3.5C12 3.5 9.5 1 6.5 1S1 3.5 1 6.5 3.5 12 6.5 12c1.3 0 2.5-.5 3.5-1.3l3.8 3.8.7-.7-3.8-3.8zm-4.2 1C4 11 2 9 2 6.5S4 2 6.5 2 11 4 11 6.5 9 11 6.5 11z"
+                    d="M10.7,10C11.5,9,12,7.8,12,6.5C12,3.5,9.5,1,6.5,1S1,3.5,1,6.5S3.5,12,6.5,12c1.3,0,2.5-0.5,3.5-1.3l3.8,3.8l0.7-0.7	L10.7,10z M6.5,11C4,11,2,9,2,6.5S4,2,6.5,2S11,4,11,6.5S9,11,6.5,11L6.5,11z"
                   />
                 </svg>
               </button>

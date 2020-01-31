@@ -22,7 +22,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M17 15V7h-2v8H7v2h8v8h2v-8h8v-2h-8z"
+          d="M17 15L17 7 15 7 15 15 7 15 7 17 15 17 15 25 17 25 17 17 25 17 25 15 17 15z"
         />
       </svg>
       <p
@@ -162,7 +162,13 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                       class="bx--label"
                       for="selectedTeam"
                     >
-                      Team
+                      <div
+                        style="display: flex;"
+                      >
+                        <div>
+                          Team
+                        </div>
+                      </div>
                     </label>
                     <div
                       class="bx--combo-box bx--list-box"
@@ -314,7 +320,13 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                     class="bx--label"
                     for="description"
                   >
-                    Description
+                    <div
+                      style="display: flex;"
+                    >
+                      <div>
+                        Description
+                      </div>
+                    </div>
                   </label>
                   <div
                     class="bx--text-area__wrapper"
@@ -538,7 +550,8 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                 Cancel
               </button>
               <button
-                class="bx--btn bx--btn--primary"
+                class="bx--btn bx--btn--primary bx--btn--disabled"
+                disabled=""
                 tabindex="0"
                 type="submit"
               >

@@ -41,7 +41,7 @@ describe("GlobalPropertiesContainer --- Snapshot Test", () => {
 describe("GlobalPropertiesContainer --- RTL", () => {
   it("Render the table and search correctly", async () => {
     const { getByText, getByPlaceholderText, queryAllByText } = render(<GlobalPropertiesContainer {...props} />);
-    getByText(/Set global properties that are accessible in flow processes/i);
+    getByText(/Set global properties that are available for all Workflows/i);
     expect(queryAllByText(/Test RTL/i).length).toBe(1);
     const searchProperty = getByPlaceholderText(/Search/i);
     fireEvent.change(searchProperty, { target: { value: "2" } });

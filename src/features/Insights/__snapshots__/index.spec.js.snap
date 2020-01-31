@@ -43,7 +43,13 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
               class="bx--label"
               for="ALL_OPTIONS.TEAMS"
             >
-              Filter by team
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Filter by team
+                </div>
+              </div>
             </label>
             <div
               class="bx--combo-box bx--list-box"
@@ -132,7 +138,13 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
               class="bx--label"
               for="workflows-dropdown"
             >
-              Filter by Workflow
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Filter by Workflow
+                </div>
+              </div>
             </label>
             <div
               class="bx--combo-box bx--list-box"
@@ -220,7 +232,13 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
               class="bx--label"
               for="time-frame-dropdown"
             >
-              Time period
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Time period
+                </div>
+              </div>
             </label>
             <div
               class="bx--combo-box bx--list-box"

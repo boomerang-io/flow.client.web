@@ -24,7 +24,13 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
                 class="bx--label"
                 for="selectedTeam"
               >
-                Team
+                <div
+                  style="display: flex;"
+                >
+                  <div>
+                    Team
+                  </div>
+                </div>
               </label>
               <div
                 class="bx--combo-box bx--list-box"
@@ -155,7 +161,13 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
               class="bx--label"
               for="description"
             >
-              Description
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Description
+                </div>
+              </div>
             </label>
             <div
               class="bx--text-area__wrapper"
@@ -379,7 +391,8 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary"
+          class="bx--btn bx--btn--primary bx--btn--disabled"
+          disabled=""
           tabindex="0"
           type="submit"
         >
