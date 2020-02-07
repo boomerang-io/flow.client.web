@@ -50,7 +50,7 @@ class WorkflowCard extends Component {
   formatPropertiesForEdit = () => {
     const { properties = [] } = this.props.workflow;
     return properties
-      .map(property => ({ ...property, key: property.key.replace(/\./g, "-") }))
+      .map(property => ({ ...property, key: property.key.replace(/\./g, "||") }))
       .filter(property => !property.readOnly);
   };
 
@@ -62,7 +62,7 @@ class WorkflowCard extends Component {
   formatPropertiesForExecution = (properties = {}) => {
     let formattedProperties = {};
     Object.entries(properties).forEach(([key, value]) => {
-      const formattedKey = key.replace(/-/g, ".");
+      const formattedKey = key.replace(/\|\|/g, ".");
       formattedProperties[formattedKey] = value;
     });
     return formattedProperties;
