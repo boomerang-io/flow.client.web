@@ -1,4 +1,5 @@
 {
+  "/api/*": "/$1",
   "/flow/taskconfiguration/workflow/:workflowId": "/taskconfiguration?workflowId=:workflowId&singular=1",
   "/flow/workflow/export/:id": "/workflowExport",
   "/flow/workflow/:workflowId/revision": "/workflowSingle?singular=1",

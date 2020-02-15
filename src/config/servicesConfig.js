@@ -7,7 +7,7 @@ export const BASE_SERVICE_ENV_URL =
 
 export const PRODUCT_SERVICE_ENV_URL =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:8000"
+    ? "http://localhost:8000/api"
     : window._SERVER_DATA && window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL;
 
 const REACT_APP_PORT_FORWARD = process.env.REACT_APP_PORT_FORWARD;
