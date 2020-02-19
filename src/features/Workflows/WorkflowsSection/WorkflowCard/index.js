@@ -36,7 +36,7 @@ class WorkflowCard extends Component {
     this.props.executeWorkflow({
       workflowId: this.props.workflow.id,
       redirect,
-      properties: this.formatPropertiesForExecution(properties)
+      properties
     });
   };
 
@@ -50,22 +50,7 @@ class WorkflowCard extends Component {
   formatPropertiesForEdit = () => {
     const { properties = [] } = this.props.workflow;
     return properties
-      .map(property => ({ ...property, key: property.key.replace(/\./g, "||") }))
       .filter(property => !property.readOnly);
-  };
-
-  /**
-   * Format properties to be saved
-   * @param {Object} properties
-   * @returns {Object}
-   */
-  formatPropertiesForExecution = (properties = {}) => {
-    let formattedProperties = {};
-    Object.entries(properties).forEach(([key, value]) => {
-      const formattedKey = key.replace(/\|\|/g, ".");
-      formattedProperties[formattedKey] = value;
-    });
-    return formattedProperties;
   };
 
   handleExportWorkflow = workflow => {
