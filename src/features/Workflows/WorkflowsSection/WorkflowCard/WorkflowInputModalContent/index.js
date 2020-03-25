@@ -19,6 +19,16 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
       toggleProps={() => ({
         orientation: "vertical"
       })}
+      onSubmit={(values) => { 
+        const redirect = values.redirect;
+        delete values.redirect;
+        executeWorkflow({
+          redirect,
+          properties: values
+        });
+        closeModal();
+        }
+      }
     >
       {({ inputs, formikProps }) => (
         <ModalFlowForm className={styles.container}>
@@ -31,12 +41,8 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
               disabled={!formikProps.isValid}
               p
               onClick={e => {
-                e.preventDefault();
-                executeWorkflow({
-                  redirect: false,
-                  properties: formikProps.values
-                });
-                closeModal();
+                formikProps.setFieldValue("redirect", false);
+                formikProps.handleSubmit();
               }}
               type="button"
             >
@@ -45,12 +51,8 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
             <Button
               disabled={!formikProps.isValid}
               onClick={e => {
-                e.preventDefault();
-                executeWorkflow({
-                  redirect: true,
-                  properties: formikProps.values
-                });
-                closeModal();
+                formikProps.setFieldValue("redirect", true);
+                formikProps.handleSubmit();
               }}
               type="button"
             >
