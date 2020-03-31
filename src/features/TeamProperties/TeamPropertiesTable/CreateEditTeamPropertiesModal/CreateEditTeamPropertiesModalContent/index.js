@@ -91,13 +91,11 @@ class CreateEditTeamPropertiesModalContent extends Component {
       >
         {props => {
           const { values, touched, errors, isSubmitting, isValid, handleChange, handleBlur, handleSubmit } = props;
-          if (isSubmitting) {
-            return <Loading />;
-          }
 
           return (
             <ModalFlowForm onSubmit={handleSubmit}>
               <ModalBody className={styles.formBody}>
+                {isSubmitting && <Loading />}
                 <div className={styles.input}>
                   <TextInput
                     id="label"
@@ -165,7 +163,7 @@ class CreateEditTeamPropertiesModalContent extends Component {
                   Cancel
                 </Button>
                 <Button type="submit" disabled={!isValid || isSubmitting}>
-                  {isEdit ? "Save" : "Create"}
+                  {isEdit ? (isSubmitting ? "Saving..." : "Save") : isSubmitting ? "Creating..." : "Create"}
                 </Button>
               </ModalFooter>
             </ModalFlowForm>

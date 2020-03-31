@@ -92,6 +92,7 @@ class WorkflowEditor extends Component {
           fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
           handleChangeLogReasonChange={handleChangeLogReasonChange}
           includeResetVersionAlert={version < revisionCount}
+          isCreating={workflowRevision.isCreating}
           loading={workflowLoading}
           onDesigner={location.pathname.endsWith("/designer")}
           performAction={this.createWorkflowRevision}

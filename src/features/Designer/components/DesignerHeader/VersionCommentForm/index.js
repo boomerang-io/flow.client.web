@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Error, TextArea } from "@boomerang/carbon-addons-boomerang-react";
+import { Error, Loading, TextArea } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 
 //TODO: refactor this. It is bad.
 class VersionCommentForm extends Component {
   static propTypes = {
+    isCreating: PropTypes.bool,
     onSave: PropTypes.func.isRequired,
     handleOnChange: PropTypes.func.isRequired,
     closeModal: PropTypes.func
@@ -50,7 +51,7 @@ class VersionCommentForm extends Component {
   };
 
   render() {
-    const { loading } = this.props;
+    const { loading, isCreating } = this.props;
 
     return (
       <>
@@ -58,17 +59,20 @@ class VersionCommentForm extends Component {
           {this.state.saveError ? (
             <Error />
           ) : (
-            <TextArea
-              required
-              id="versionComment"
-              invalid={this.state.error}
-              invalidText="Comment is required"
-              labelText="Version comment"
-              name="versionComment"
-              onChange={this.handleOnChange}
-              placeholder="Enter version comment"
-              value={this.state.versionComment}
-            />
+            <>
+              {isCreating && <Loading />}
+              <TextArea
+                required
+                id="versionComment"
+                invalid={this.state.error}
+                invalidText="Comment is required"
+                labelText="Version comment"
+                name="versionComment"
+                onChange={this.handleOnChange}
+                placeholder="Enter version comment"
+                value={this.state.versionComment}
+              />
+            </>
           )}
         </ModalBody>
         <ModalFooter>
@@ -76,7 +80,7 @@ class VersionCommentForm extends Component {
             Cancel
           </Button>
           <Button disabled={this.state.error || loading} onClick={this.handleOnSave}>
-            Create
+            {isCreating ? "Creating..." : "Create"}
           </Button>
         </ModalFooter>
       </>

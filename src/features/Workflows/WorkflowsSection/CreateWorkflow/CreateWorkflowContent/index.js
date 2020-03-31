@@ -57,13 +57,10 @@ class CreateEditModeModalContent extends Component {
         {props => {
           const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
 
-          if (isCreating) {
-            return <Loading />;
-          }
-
           return (
             <ModalFlowForm onSubmit={handleSubmit}>
               <ModalBody className={styles.formBody}>
+                {isCreating && <Loading />}
                 <div className={styles.teamAndName}>
                   <ComboBox
                     id="selectedTeam"
@@ -141,7 +138,7 @@ class CreateEditModeModalContent extends Component {
                   Cancel
                 </Button>
                 <Button type="submit" disabled={!isValid || isCreating}>
-                  Create
+                  {isCreating ? "Creating..." : "Create"}
                 </Button>
               </ModalFooter>
             </ModalFlowForm>

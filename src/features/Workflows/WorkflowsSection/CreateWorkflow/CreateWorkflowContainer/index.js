@@ -68,7 +68,7 @@ export class CreateWorkflowContainer extends Component {
             handleImportWorkflow={handleImportWorkflowCreation}
             closeModal={closeModal}
             title="Add a Workflow - Select the Workflow file you want to upload"
-            confirmButtonText="Create"
+            confirmButtonText={isCreating ? "Creating..." : "Create"}
             team={team}
             teams={teams}
             names={this.checkNames(team)}
