@@ -1,9 +1,9 @@
 // Carbon settings
-@import "~@boomerang/carbon-addons-boomerang/scss/themes/boomerang";
+@import "~@boomerang/carbon-addons-boomerang-react/styles/scss/styles/themes/boomerang";
 $carbon--theme: $carbon--theme--boomerang;
 $carbon-addons-bmrg--theme: boomerang;
 
-@import "~@boomerang/carbon-addons-boomerang";
+@import "~@boomerang/carbon-addons-boomerang-react/styles/scss/styles";
 @import "~carbon-components/scss/components/accordion/accordion";
 @import "~carbon-components/scss/components/checkbox/checkbox";
 @import "~carbon-components/scss/components/date-picker/date-picker";
