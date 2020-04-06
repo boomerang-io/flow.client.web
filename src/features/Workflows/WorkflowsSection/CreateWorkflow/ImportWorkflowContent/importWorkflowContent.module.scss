@@ -1,11 +1,19 @@
 @import "~Styles/variables";
 
+.body {
+  height: 20.25rem;
+  width: 100%;
+  :global .bx--file__selected-file {
+    background: none;
+  }
+}
+
 .confirmInfoForm {
   display: flex;
   flex-direction: column;
   :global .bx--form-item,
   :global .bx--list-box__wrapper {
-    max-width: 19.55rem;
+    max-width: 20rem;
     margin-top: 1rem;
   }
 }

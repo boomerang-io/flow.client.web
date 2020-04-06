@@ -61,9 +61,6 @@ export class CreateWorkflowContainer extends Component {
           />
         ) : (
           <ImportWorkflowContent
-            formData={{
-              files: []
-            }}
             isLoading={isCreating}
             handleImportWorkflow={handleImportWorkflowCreation}
             closeModal={closeModal}

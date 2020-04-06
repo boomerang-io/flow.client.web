@@ -22,7 +22,6 @@
     "d3": "<=5.9.2",
     "detect-browser": "^4.0.3",
     "formik": "^2.0.8",
-    "history": "4.10.1",
     "immutability-helper": "^3.0.1",
     "js-file-download": "^0.4.4",
     "match-sorter": "^2.3.0",
