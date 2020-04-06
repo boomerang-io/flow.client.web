@@ -162,10 +162,6 @@ class ImportWorkflowContent extends Component {
     const { isLoading, title, confirmButtonText } = this.props;
     const { files, isBiggerThanLimit, isValidWorkflow, processedFile } = this.state;
 
-    if (isLoading) {
-      return <Loading />;
-    }
-
     return (
       <ModalFlowForm title={title} onSubmit={e => e.preventDefault()}>
         <ModalBody
@@ -174,6 +170,7 @@ class ImportWorkflowContent extends Component {
             width: "100%"
           }}
         >
+          {isLoading && <Loading />}
           <FileUploaderDropContainer
             accept={[".json"]}
             labelText={buttonMessage}
@@ -224,7 +221,8 @@ class ImportWorkflowContent extends Component {
               !this.state.selectedTeam ||
               this.state.files.length === 0 ||
               !isValidWorkflow ||
-              this.checkForInvalidName()
+              this.checkForInvalidName() ||
+              isLoading
             }
             kind="primary"
           >
