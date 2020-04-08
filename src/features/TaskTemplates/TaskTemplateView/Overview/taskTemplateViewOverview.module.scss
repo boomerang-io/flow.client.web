@@ -1,0 +1,53 @@
+.container {
+  overflow-y: auto;
+  padding: 1rem 1rem 4rem 1rem;
+
+  :global .bx--bmrg-text-input {
+    display: flex;
+    flex: 0 0 50%;
+    position: relative;
+    min-width: 30rem;
+    padding: 1rem 1rem 0;
+  }
+
+  :global .bx--bmrg-text-area {
+    display: flex;
+    flex: 0 0 50%;
+    min-width: 30rem;
+    padding: 1rem 1rem 0;
+    position: relative;
+  }
+  :global .bx--text-area{
+    resize: none !important;
+  }
+
+  :global .bx--dropdown__wrapper {
+    display: flex;
+    flex: 0 0 50%;
+    flex-direction: column;
+    left: 1rem;
+    position: relative;
+    min-width: 30rem;
+    padding: 1rem 2rem 0 0;
+  }
+
+  :global .bx--bmrg-toggle {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 1rem 1rem 0;
+  }
+
+  :global .bx--bmrg-creatable {
+    flex: 0 0 50%;
+    position: relative;
+    min-width: 30rem;
+    padding: 1rem 1rem 0;
+  }
+}
+
+.fieldsContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  padding-bottom: 1rem;
+}

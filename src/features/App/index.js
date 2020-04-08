@@ -19,6 +19,7 @@ import {
   AsyncExecution,
   AsyncGlobalConfiguration,
   AsyncInsights,
+  AsyncTaskTemplates,
   AsyncTeamProperties,
   AsyncWorkflows
 } from "./asyncFeatureImports";
@@ -101,6 +102,7 @@ class App extends Component {
                 userRole={userRole}
               />
               <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
+              <Route path="/task-templates" component={AsyncTaskTemplates} />
               <Route path="/activity" component={AsyncActivity} />
               <Route path="/editor/:workflowId" component={AsyncDesigner} />
               <Route path="/insights" component={AsyncInsights} />

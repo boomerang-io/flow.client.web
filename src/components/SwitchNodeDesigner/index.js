@@ -52,7 +52,7 @@ export class SwitchNode extends Component {
           children: "Your changes will not be saved"
         }}
         modalHeaderProps={{
-          title: this.props.task.name
+          title: this.props.task?.name
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >

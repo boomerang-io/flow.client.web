@@ -1,4 +1,5 @@
 import portForwardMap from "../setupPortForwarding";
+import axios, { CancelToken } from "axios";
 
 export const BASE_SERVICE_ENV_URL =
   process.env.NODE_ENV === "development"
@@ -41,6 +42,37 @@ export const TEAMS_USER_URL = email => `${BASE_TEAMS_URL}?userEmail=${email}`;
 export const TEAM_PROPERTIES_ID_URL = ciTeamId => `${BASE_TEAMS_URL}/${ciTeamId}/properties`;
 export const TEAM_PROPERTIES_ID_PROPERTY_ID_URL = (ciTeamId, configurationId) =>
   `${BASE_TEAMS_URL}/${ciTeamId}/properties/${configurationId}`;
+
+export const HTTP_METHODS = {
+  POST: "post",
+  PUT: "put",
+  PATCH: "patch",
+  DELETE: "delete",
+  GET: "get"
+};
+
+export const serviceUrl = {
+  getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
+  deleteTaskTemplate: ({id}) => `${BASE_SERVICE_URL}/tasktemplate/${id}`
+};
+
+export const cancellableResolver = ({ url, method, body, ...config }) => {
+  // Create a new CancelToken source for this request
+  const source = CancelToken.source();
+  const promise = axios({ url, method, body, cancelToken: source.token, ...config });
+  return { promise, cancel: () => source.cancel("cancel") };
+}
+
+export const resolver = {
+  query: url => () => axios.get(url).then(response => response.data),
+  postMutation: request => axios.post(request),
+  patchMutation: request => axios.patch(request),
+  putMutation: request => axios.put(request),
+  deleteTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteTaskTemplate({ id })),
+  postAddService: ({ body }) => cancellableResolver({ url: serviceUrl.postAddService(), body, method: HTTP_METHODS.POST }),
+  postCreateTaskTemplate: ({ body }) => axios.post(serviceUrl.getTaskTemplates(), body),
+  putCreateTaskTemplate: ({ body }) => axios.put(serviceUrl.getTaskTemplates(), body)
+};
 
 export const REQUEST_STATUSES = {
   FAILURE: "failure",

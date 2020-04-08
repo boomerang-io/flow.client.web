@@ -103,7 +103,7 @@ const iconToTaskNames = [
  * @return {string} Used in Carbon <Icon /> "name" prop
  */
 export default function mapTaskNametoIcon(taskName) {
-  const taskNameFormatted = taskName.toLowerCase();
+  const taskNameFormatted = taskName?.toLowerCase()??"";
 
   // Set default as fallback icon if none
   let iconImg = <Concept20 alt="Task node type concept" style={willChangeOverride} />;

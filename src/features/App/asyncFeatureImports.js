@@ -7,6 +7,7 @@ export const AsyncGlobalConfiguration = lazy(() =>
   import(/* webpackChunkName: "GlobalConfiguration" */ "Features/GlobalProperties")
 );
 export const AsyncInsights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
+export const AsyncTaskTemplates = lazy(() => import(/* webpackChunkName: "Task Templates" */ "Features/TaskTemplates"))
 export const AsyncTeamProperties = lazy(() =>
   import(/* webpackChunkName: "TeamProperties" */ "Features/TeamProperties")
 );
