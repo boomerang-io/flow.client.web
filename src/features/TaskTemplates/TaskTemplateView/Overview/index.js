@@ -65,7 +65,7 @@ export default function TaskTemplateOverview({
           id="arguments"
           labelText="Arguments"
           helperText="Type the argument with spaces - e.g., slack message mail"
-          placeholder="arguments"
+          placeholder="Arguments"
           name="arguments"
           value={values.arguments}
           onBlur={handleBlur}
@@ -77,7 +77,7 @@ export default function TaskTemplateOverview({
           id="command"
           labelText="Coomand"
           helperText="Helper text for command"
-          placeholder="command"
+          placeholder="Command"
           name="command"
           value={values.command}
           onBlur={handleBlur}
@@ -89,7 +89,7 @@ export default function TaskTemplateOverview({
           id="image"
           labelText="Image"
           helperText="Helper text for image"
-          placeholder="image"
+          placeholder="Image"
           name="image"
           value={values.image}
           onBlur={handleBlur}

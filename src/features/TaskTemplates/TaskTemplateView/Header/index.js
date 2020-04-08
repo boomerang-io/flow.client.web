@@ -112,7 +112,6 @@ function Header ({
   };
   const determinePerformActionRender = () => {
     const performActionButtonText=isEdit? "Create New Version" : "Create";
-    console.log(currentRevision,"UH");
     const message = isEdit? `Version ${currentRevision.version + 1} will be created and users will be prompted to update their workflows.`: `The first version of ${values.name} will be created and available for use in workflows.`;
     return (
         <ConfirmModal
