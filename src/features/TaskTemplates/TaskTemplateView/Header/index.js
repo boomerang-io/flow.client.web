@@ -14,12 +14,16 @@ import styles from "./Header.module.scss";
 Header.propTypes = {
   currentRevision: PropTypes.number,
   revisionCount: PropTypes.number,
-  taskTemplateName: PropTypes.string.isRequired,
+  taskTemplateToEdit: PropTypes.object.isRequired,
   addTemplateInState: PropTypes.func.isRequired,
-  updateTemplateInState: PropTypes.func.isRequired
-};
-Header.defaultProps = {
-  includeResetVersionAlert: false
+  updateTemplateInState: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  isValid: PropTypes.bool,
+  revisions: PropTypes.array.isRequired,
+  values: PropTypes.object.isRequired,
+  isDirty: PropTypes.bool,
+  isEdit: PropTypes.bool,
+  setSubmitting: PropTypes.func.isRequired
 };
 
 function Header ({
