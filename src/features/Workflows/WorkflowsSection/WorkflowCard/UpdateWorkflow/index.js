@@ -57,7 +57,7 @@ class UpdateWorkflow extends Component {
         onCloseModal={this.props.onCloseModal}
       >
         <ImportWorkflowContent
-          confirmButtonText="Update"
+          confirmButtonText={isPosting ? "Updating..." : "Update"}
           handleImportWorkflow={this.handleImportWorkflow}
           isLoading={isPosting}
           title="Update a Workflow - Select the Workflow file you want to upload"
@@ -77,7 +77,4 @@ const mapDispatchToProps = dispatch => ({
   importWorkflowActions: bindActionCreators(importWorkflowActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UpdateWorkflow);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateWorkflow);

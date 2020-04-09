@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {
   ComboBox,
   Creatable,
+  Loading,
   TextArea,
   TextInput,
   Toggle,
@@ -259,6 +260,7 @@ class WorkflowPropertiesModalContent extends Component {
           return (
             <ModalFlowForm onSubmit={handleSubmit} disabled={loading}>
               <ModalBody className={styles.container}>
+                {loading && <Loading />}
                 <TextInput
                   id={FIELD.LABEL}
                   invalid={errors.label && touched.label}
@@ -324,7 +326,7 @@ class WorkflowPropertiesModalContent extends Component {
                   Cancel
                 </Button>
                 <Button data-testid="inputs-modal-confirm-button" disabled={!isValid || loading} type="submit">
-                  {isEdit ? "Save" : "Create"}
+                  {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating" : "Create"}
                 </Button>
               </ModalFooter>
               <ValidateFormikOnMount validateForm={formikProps.validateForm} />

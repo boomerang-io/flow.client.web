@@ -36,6 +36,7 @@ class DesignerHeader extends Component {
     const {
       currentRevision,
       includeResetVersionAlert,
+      isCreating,
       loading,
       onDesigner,
       performAction,
@@ -89,6 +90,7 @@ class DesignerHeader extends Component {
         )}
       >
         <VersionCommentForm
+          isCreating={isCreating}
           handleOnChange={this.props.handleChangeLogReasonChange}
           loading={loading}
           onSave={performAction}

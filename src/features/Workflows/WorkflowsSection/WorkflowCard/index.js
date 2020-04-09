@@ -44,7 +44,6 @@ class WorkflowCard extends Component {
    * Format properties to be edited in form by Formik. It doesn't work with property notation :(
    * See: https://jaredpalmer.com/formik/docs/guides/arrays#nested-objects
    * This is safe to do because we don't accept "-" characters in property keys
-   * @param {Array} properties
    * @returns {Array}
    */
   formatPropertiesForEdit = () => {

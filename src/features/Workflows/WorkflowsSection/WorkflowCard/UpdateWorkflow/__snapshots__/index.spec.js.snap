@@ -84,7 +84,6 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
                 </div>
               </label>
             </div>
-            
           </div>
           <div
             class="bx--modal-footer"
@@ -100,7 +99,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
               class="bx--btn bx--btn--primary bx--btn--disabled"
               disabled=""
               tabindex="0"
-              type="button"
+              type="submit"
             >
               Update
             </button>
