@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { ModalBody, ModalFooter, Button, FileUploaderDropContainer, FileUploaderItem } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import { CheckmarkFilled32, ErrorFilled32 } from "@carbon/icons-react";
-import Loading from "Components/Loading";
 import { requiredWorkflowProps } from "./constants";
 import styles from "./importWorkflowContent.module.scss";
 
@@ -75,7 +74,7 @@ class ImportWorkflowContent extends Component {
   };
 
   render() {
-    const { isLoading, title, confirmButtonText, workflowId } = this.props;
+    const { title, confirmButtonText, workflowId } = this.props;
 
     return (
       <Formik

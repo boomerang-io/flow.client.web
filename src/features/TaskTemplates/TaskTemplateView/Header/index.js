@@ -48,8 +48,10 @@ function Header ({
     // const currentRevisionIndex = !isEdit? 0 : revisions.findIndex(revision => revision.version === currentRevision.version);
     let newRevisionConfig = {
       version: Boolean(currentRevision?.version) ? currentRevision?.version + 1 : 1,
-      image: "container:version", 
-      command: "bmrgctl",
+      image: values.image, 
+      // image: "container:version", 
+      command: values.command,
+      // command: "bmrgctl",
       arguments : values.arguments.trim().split(/\s{1,}/),
       config: values.settings
     };
@@ -133,7 +135,6 @@ function Header ({
         />
     );
   }
-
     return (
       <FeatureHeader includeBorder className={styles.container}>
         {(isLoadingCreate || isLoadingUpdate) && <Loading />}

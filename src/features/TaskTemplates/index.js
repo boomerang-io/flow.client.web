@@ -1,7 +1,7 @@
 import React from "react";
 // import PropTypes from "prop-types";
 import { useQuery } from "react-query";
-import { matchPath, Route, Switch, useLocation, useRouteMatch } from "react-router-dom";
+import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import ErrorDragon from "Components/ErrorDragon";
 import Loading from "Components/Loading";
 import TaskTemplatesTable from "./TaskTemplatesTable";
@@ -34,20 +34,20 @@ export function TaskTemplatesContainer(){
     if (taskTemplatesData) {
       return (
         <div className={styles.container}>
-        <Switch>
-          <Route path={[`${match.path}/edit/:taskTemplateId/:version`, `${match.path}/create`]}>
-            <TaskTemplateView taskTemplates={taskTemplatesData} />
-          </Route>
-          <Route exact path={match.path}>
-            <TaskTemplatesTable
-              data={taskTemplatesData}
-            />
-          </Route>
-        </Switch>
+          <Switch>
+            <Route path={[`${match.path}/edit/:taskTemplateId/:version`, `${match.path}/create`]}>
+              <TaskTemplateView taskTemplates={taskTemplatesData} />
+            </Route>
+            <Route exact path={match.path}>
+              <TaskTemplatesTable
+                data={taskTemplatesData}
+              />
+            </Route>
+            <Redirect to="/task-templates" />
+          </Switch>
         </div>
       );
     }
-
     return null;
 }
 

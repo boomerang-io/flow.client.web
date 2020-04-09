@@ -1,18 +1,14 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { useQuery, useMutation, queryCache } from "react-query";
+import { useMutation } from "react-query";
 import matchSorter from "match-sorter";
 import { DataTable, Search, Pagination } from "carbon-components-react";
-import { notify, ToastNotification, NoDisplay, Button } from "@boomerang/carbon-addons-boomerang-react";
-import { matchPath, useHistory, useRouteMatch } from "react-router-dom";
+import { notify, ToastNotification, NoDisplay, Button , Loading } from "@boomerang/carbon-addons-boomerang-react";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import ActionsMenu from "./ActionsMenu";
 import Header from "Components/Header";
-import CheckIcon from "@carbon/icons-react/lib/checkmark/32";
-import CloseIcon from "@carbon/icons-react/lib/close/32";
 import { arrayPagination } from "Utilities/arrayHelper";
-import { stringToPassword } from "Utilities/stringHelper";
-import INPUT_TYPES from "Constants/inputTypes";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants/reactQueryStatuses";
 import styles from "./taskTemplatesTable.module.scss";
@@ -165,6 +161,7 @@ function TaskTemplatesTable({data}) {
 
     return (
       <>
+        { deleteIsLoading && <Loading /> }
         <Header title="Task Templates" description="Manage your tasks flow here" />
         <div className={styles.tableContainer}>
           <div className={styles.header}>

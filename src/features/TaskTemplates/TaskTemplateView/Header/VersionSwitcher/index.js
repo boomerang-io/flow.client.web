@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { useHistory, useRouteMatch, useLocation } from "react-router-dom";
+import { useHistory, useRouteMatch } from "react-router-dom";
 import { ChevronLeft16, ChevronRight16, PageFirst16, PageLast16 } from "@carbon/icons-react";
 import { appLink } from "Config/appConfig";
 import styles from "./VersionSwitcher.module.scss";

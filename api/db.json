@@ -11145,7 +11145,7 @@
       "description": "aaaaa",
       "category": "test",
       "key": "test22",
-      "latestVersion":3,
+      "latestVersion": 3,
       "revisions": [
         {
           "version": 1,
@@ -11169,12 +11169,12 @@
           ],
           "config": [
             {
-              "key" : "token",
-              "label" : "Token",
-              "type" : "text",
-              "helperText" : "The Slack App token.",
-              "description" : "Token Desciption",
-              "placeholder" : "Token placeholder"
+              "key": "token",
+              "label": "Token",
+              "type": "text",
+              "helperText": "The Slack App token.",
+              "description": "Token Desciption",
+              "placeholder": "Token placeholder"
             }
           ]
         },
@@ -11188,20 +11188,20 @@
           ],
           "config": [
             {
-              "key" : "token",
-              "label" : "Token",
-              "type" : "text",
-              "helperText" : "The Slack App token.",
-              "description" : "Token Desciption",
-              "placeholder" : "Token placeholder"
+              "key": "token",
+              "label": "Token",
+              "type": "text",
+              "helperText": "The Slack App token.",
+              "description": "Token Desciption",
+              "placeholder": "Token placeholder"
             },
             {
-              "key" : "slack",
-              "label" : "Slack",
-              "type" : "text",
-              "helperText" : "Slack",
-              "description" : "",
-              "placeholder" : ""
+              "key": "slack",
+              "label": "Slack",
+              "type": "text",
+              "helperText": "Slack",
+              "description": "",
+              "placeholder": ""
             }
           ]
         }

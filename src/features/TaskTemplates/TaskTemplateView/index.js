@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { matchPath, Route, Switch, useLocation, useParams, useHistory, useRouteMatch, Prompt } from "react-router-dom";
+import { matchPath, Link, Route, Switch, useParams, useRouteMatch, Prompt } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
 import Header from "./Header";
 import Overview from "./Overview";
 import TemplateConfig from "./TemplateConfig";
@@ -15,7 +16,7 @@ function TaskTemplateView({ taskTemplates }) {
   const match = useRouteMatch();
   const params = useParams();
 
-  const { taskTemplateId = "", version = "" } = params;
+  const { taskTemplateId = "", version = ""} = params;
   let taskTemplateToEdit = {};
   let taskTemplateNames = taskTemplates.map(taskTemplate => taskTemplate.name);
   let taskTemplateKeys = taskTemplates.map(taskTemplate => taskTemplate.key);
@@ -25,11 +26,36 @@ function TaskTemplateView({ taskTemplates }) {
     taskTemplateNames = taskTemplateNames.filter(name => name !== taskTemplateToEdit.name);
     taskTemplateKeys = taskTemplateKeys.filter(type => type !== taskTemplateToEdit.key);
   }
-  const currentRevision = taskTemplateToEdit?.revisions ? taskTemplateToEdit.revisions.find(revision => revision.version.toString() === version):{};
-  // const [ currentRevision, setCurrentRevision ] = React.useState(taskTemplateToEdit?.revisions ? taskTemplateToEdit.revisions.find(revision => revision.version === version):{});
+  const invalidVersion = version > taskTemplateToEdit.latestVersion;
+  // Checks if the version in url are a valid one. If not, go to the latest version
+  // Need to improve this
+  const currentRevision = taskTemplateToEdit?.revisions ? 
+  invalidVersion?
+  taskTemplateToEdit.revisions[taskTemplateToEdit.latestVersion - 1]
+  :
+  taskTemplateToEdit.revisions.find(revision => revision.version.toString() === version)
+  :{};
   const { name = "", type = "", description = "", category="", key="" } = taskTemplateToEdit;
-
+  const templateNotFound = match.url.includes("edit") && !taskTemplateToEdit.id;
   const defaultConfig = Array.isArray(currentRevision?.config) ? currentRevision.config : [];
+
+  if(templateNotFound)
+    return( 
+      <Error404 
+        header="Task Template not found" 
+        title="Crikey. We can't find the template you are looking for."
+        message={
+        <div>
+          <span>Go to  </span>
+          <Link data-testid="go-to-task-templates" to="/task-templates">
+            Task Templates
+          </Link>
+          .
+        </div>
+      }
+      />
+    );
+
   return (
     <Formik
       enableReinitialize={true}
@@ -79,7 +105,7 @@ function TaskTemplateView({ taskTemplates }) {
               message={(location, match, ahh) => {
                 let prompt = true;
                 const templateMatch = matchPath(location.pathname, { path: "/task-templates/edit/:taskTemplateId/:version" });
-                if(dirty && templateMatch.params.version !== version){
+                if(dirty && templateMatch?.params?.version !== version && !location.pathname.includes("create") && !isSubmitting){
                   prompt = "Are you sure you want to change the version? Your changes will be lost.";
                 }
                 if (location.pathname === "/task-templates" && dirty && !isSubmitting) {
