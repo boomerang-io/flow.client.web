@@ -11145,6 +11145,7 @@
       "description": "aaaaa",
       "category": "test",
       "key": "test22",
+      "latestVersion":3,
       "revisions": [
         {
           "version": 1,

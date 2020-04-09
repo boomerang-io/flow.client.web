@@ -13,7 +13,6 @@ import styles from "./Header.module.scss";
 
 Header.propTypes = {
   currentRevision: PropTypes.number,
-  setCurrentRevision: PropTypes.func,
   fetchTaskTemplateVersion: PropTypes.func,
   handleChangeLogReasonChange: PropTypes.func,
   onDesigner: PropTypes.bool.isRequired,
@@ -32,7 +31,6 @@ function Header ({
   currentRevision,
   revisionCount,
   taskTemplateToEdit,
-  setCurrentRevision,
   revisions,
   values,
   isDirty,
@@ -152,7 +150,6 @@ function Header ({
         <section className={styles.versionButtons}>
           <VersionSwitcher
             currentRevision={currentRevision}
-            setCurrentRevision={setCurrentRevision}
             revisionCount={revisionCount}
             revisions={revisions}
             isDirty={isDirty}

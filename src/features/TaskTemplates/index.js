@@ -35,7 +35,7 @@ export function TaskTemplatesContainer(){
       return (
         <div className={styles.container}>
         <Switch>
-          <Route path={[`${match.path}/edit/:taskTemplateId`, `${match.path}/create`]}>
+          <Route path={[`${match.path}/edit/:taskTemplateId/:version`, `${match.path}/create`]}>
             <TaskTemplateView taskTemplates={taskTemplatesData} />
           </Route>
           <Route exact path={match.path}>

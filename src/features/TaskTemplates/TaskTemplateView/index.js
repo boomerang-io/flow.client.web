@@ -15,7 +15,7 @@ function TaskTemplateView({ taskTemplates }) {
   const match = useRouteMatch();
   const params = useParams();
 
-  const { taskTemplateId = "" } = params;
+  const { taskTemplateId = "", version = "" } = params;
   let taskTemplateToEdit = {};
   let taskTemplateNames = taskTemplates.map(taskTemplate => taskTemplate.name);
   let taskTemplateKeys = taskTemplates.map(taskTemplate => taskTemplate.key);
@@ -25,9 +25,10 @@ function TaskTemplateView({ taskTemplates }) {
     taskTemplateNames = taskTemplateNames.filter(name => name !== taskTemplateToEdit.name);
     taskTemplateKeys = taskTemplateKeys.filter(type => type !== taskTemplateToEdit.key);
   }
-
-  const [ currentRevision, setCurrentRevision ] = React.useState(taskTemplateToEdit?.revisions ? taskTemplateToEdit.revisions[taskTemplateToEdit.revisions.length - 1]:{});
+  const currentRevision = taskTemplateToEdit?.revisions ? taskTemplateToEdit.revisions.find(revision => revision.version.toString() === version):{};
+  // const [ currentRevision, setCurrentRevision ] = React.useState(taskTemplateToEdit?.revisions ? taskTemplateToEdit.revisions.find(revision => revision.version === version):{});
   const { name = "", type = "", description = "", category="", key="" } = taskTemplateToEdit;
+
   const defaultConfig = Array.isArray(currentRevision?.config) ? currentRevision.config : [];
   return (
     <Formik
@@ -75,9 +76,12 @@ function TaskTemplateView({ taskTemplates }) {
         return (
           <>
             <Prompt 
-              message={location => {
+              message={(location, match, ahh) => {
                 let prompt = true;
-                console.log("ARG");
+                const templateMatch = matchPath(location.pathname, { path: "/task-templates/edit/:taskTemplateId/:version" });
+                if(dirty && templateMatch.params.version !== version){
+                  prompt = "Are you sure you want to change the version? Your changes will be lost.";
+                }
                 if (location.pathname === "/task-templates" && dirty && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";
                 }
@@ -94,7 +98,6 @@ function TaskTemplateView({ taskTemplates }) {
               values={values}
               revisions={taskTemplateToEdit?.revisions}
               currentRevision={currentRevision}
-              setCurrentRevision={setCurrentRevision}
               revisionCount={taskTemplateToEdit?.revisions?.length?? 0}
             />
             <Switch>
