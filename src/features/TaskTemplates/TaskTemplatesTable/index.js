@@ -9,7 +9,7 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import ActionsMenu from "./ActionsMenu";
 import Header from "Components/Header";
 import { arrayPagination } from "Utilities/arrayHelper";
-import { resolver, serviceUrl } from "Config/servicesConfig";
+import { resolver } from "Config/servicesConfig";
 import { QueryStatus } from "Constants/reactQueryStatuses";
 import styles from "./taskTemplatesTable.module.scss";
 
@@ -56,10 +56,11 @@ const headers = [
 ];
 
 TaskTemplatesTable.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
+  deleteTemplateInState: PropTypes.func.isRequired
 };
 
-function TaskTemplatesTable({data}) {
+function TaskTemplatesTable({data, deleteTemplateInState}) {
   const history = useHistory();
   const match = useRouteMatch();
 
@@ -71,30 +72,19 @@ function TaskTemplatesTable({data}) {
     sortDirection: "ASC"
   });
 
-  const [deleteTaskMutator, { status: deleteStatus }] = useMutation(resolver.deleteTaskTemplate,
-    {
-      refetchQueries: [serviceUrl.getTaskTemplates()]
-    }
-  );
+  const [deleteTaskMutator, { status: deleteStatus }] = useMutation(resolver.deleteTaskTemplate);
   const deleteIsLoading = deleteStatus === QueryStatus.Loading;
   /* Standard table configuration after search or service call */
-  const resetTableWithNewProperties = templates => {
+  const resetTableWithNewTemplates = templates => {
     const newPage = page !== 1 && templates.length < pageSize * (page - 1) + 1 ? page - 1 : page;
     setTaskTemplates(templates);
     setPage(newPage);
   };
 
-  // const deletePropertyInStore = propertyId => {
-  //   this.props.deletePropertyInStore(propertyId);
-  //   const properties = [...this.state.properties];
-  //   const newProperties = properties.filter(property => property.id !== propertyId);
-  //   this.resetTableWithNewProperties(newProperties);
-  // };
-
   const deleteTaskTemplate = taskTemplate => {    
       deleteTaskMutator({id:taskTemplate.id})
       .then(response => {
-        // this.deletePropertyInStore(property.id);
+        const newTemplates = deleteTemplateInState(taskTemplate.id);
         notify(
           <ToastNotification
             kind="success"
@@ -102,6 +92,7 @@ function TaskTemplatesTable({data}) {
             subtitle={`Request to delete ${taskTemplate.name} succeeded`}
           />
         );
+        resetTableWithNewTemplates(newTemplates);
       })
       .catch(error => {
         notify(<ToastNotification kind="error" title={"Delete Property Failed"} subtitle={"Something went wrong"} />);
@@ -114,7 +105,7 @@ function TaskTemplatesTable({data}) {
       ? matchSorter(data, searchQuery, { keys: ["name", "description", "category"] })
       : data;
 
-    resetTableWithNewProperties(newTaskTemplates);
+    resetTableWithNewTemplates(newTaskTemplates);
   };
 
   const handlePaginationChange = ({ page, pageSize }) => {

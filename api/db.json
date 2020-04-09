@@ -11208,6 +11208,26 @@
       ],
       "nodetype": "templateTask",
       "id": "Z0WhFks"
+    },
+    {
+      "name": "test",
+      "description": "test",
+      "category": "test",
+      "key": "test",
+      "revisions": [
+        {
+          "version": 1,
+          "image": "test",
+          "command": "test",
+          "arguments": [
+            "test1",
+            "test2"
+          ],
+          "config": []
+        }
+      ],
+      "nodetype": "templateTask",
+      "id": "ygIBSKl"
     }
   ]
 }

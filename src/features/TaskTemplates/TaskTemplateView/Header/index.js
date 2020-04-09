@@ -13,13 +13,10 @@ import styles from "./Header.module.scss";
 
 Header.propTypes = {
   currentRevision: PropTypes.number,
-  fetchTaskTemplateVersion: PropTypes.func,
-  handleChangeLogReasonChange: PropTypes.func,
-  onDesigner: PropTypes.bool.isRequired,
-  performAction: PropTypes.func,
-  performActionButtonText: PropTypes.string,
   revisionCount: PropTypes.number,
-  taskTemplateName: PropTypes.string.isRequired
+  taskTemplateName: PropTypes.string.isRequired,
+  addTemplateInState: PropTypes.func.isRequired,
+  updateTemplateInState: PropTypes.func.isRequired
 };
 Header.defaultProps = {
   includeResetVersionAlert: false
@@ -35,7 +32,9 @@ function Header ({
   values,
   isDirty,
   isEdit,
-  setSubmitting
+  setSubmitting,
+  addTemplateInState,
+  updateTemplateInState
 }) {
   const [CreateTaskTemplateMutation, {status: createTaskTemplateStatus}] = useMutation(resolver.postCreateTaskTemplate);
   const [UploadTaskTemplateMutation, {status: updateTaskTemplateStatus}] = useMutation(resolver.putCreateTaskTemplate);
@@ -67,7 +66,7 @@ function Header ({
     };
     if(!isEdit){
       try {
-        await CreateTaskTemplateMutation({ body: body });
+        const response = await CreateTaskTemplateMutation({ body: body });
         notify(
           <ToastNotification
             kind="success"
@@ -77,6 +76,7 @@ function Header ({
           />
         );
         setSubmitting(true);
+        addTemplateInState(response.data);
         history.push("/task-templates");
       } catch (err) {
         notify(
@@ -91,7 +91,7 @@ function Header ({
   }
     else{
       try {
-        await UploadTaskTemplateMutation({ body });
+        const response = await UploadTaskTemplateMutation({ body });
         notify(
           <ToastNotification
             kind="success"
@@ -100,6 +100,7 @@ function Header ({
             data-testid="create-update-task-template-notification"
           />
         );
+        updateTemplateInState(response.data);
       } catch (err) {
         notify(
           <ToastNotification

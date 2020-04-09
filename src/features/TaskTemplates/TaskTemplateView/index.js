@@ -9,10 +9,12 @@ import Overview from "./Overview";
 import TemplateConfig from "./TemplateConfig";
 
 TaskTemplateView.propTypes = {
-  taskTemplates: PropTypes.array
+  taskTemplates: PropTypes.array,
+  addTemplateInState: PropTypes.func.isRequired,
+  updateTemplateInState: PropTypes.func.isRequired
 };
 
-function TaskTemplateView({ taskTemplates }) {
+function TaskTemplateView({ taskTemplates, addTemplateInState, updateTemplateInState }) {
   const match = useRouteMatch();
   const params = useParams();
 
@@ -125,6 +127,8 @@ function TaskTemplateView({ taskTemplates }) {
               revisions={taskTemplateToEdit?.revisions}
               currentRevision={currentRevision}
               revisionCount={taskTemplateToEdit?.revisions?.length?? 0}
+              updateTemplateInState={updateTemplateInState} 
+              addTemplateInState={addTemplateInState}
             />
             <Switch>
               <Route exact path={match.path}>
