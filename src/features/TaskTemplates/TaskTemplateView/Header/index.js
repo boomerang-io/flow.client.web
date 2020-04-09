@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link, useHistory } from "react-router-dom";
 import { useMutation } from "react-query";
-import { Button } from "carbon-components-react";
-import { ConfirmModal, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { ConfirmModal, notify, ToastNotification, Loading, Button } from "@boomerang/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
 import Navigation from "./Navigation";
 import VersionSwitcher from "./VersionSwitcher";
 import { DocumentExport16 } from "@carbon/icons-react";
 import { resolver } from "Config/servicesConfig";
+import { QueryStatus } from "Constants/reactQueryStatuses";
 import styles from "./Header.module.scss";
 
 Header.propTypes = {
@@ -39,8 +39,10 @@ function Header ({
   isEdit,
   setSubmitting
 }) {
-  const [CreateTaskTemplateMutation] = useMutation(resolver.postCreateTaskTemplate);
-  const [UploadTaskTemplateMutation] = useMutation(resolver.putCreateTaskTemplate);
+  const [CreateTaskTemplateMutation, {status: createTaskTemplateStatus}] = useMutation(resolver.postCreateTaskTemplate);
+  const [UploadTaskTemplateMutation, {status: updateTaskTemplateStatus}] = useMutation(resolver.putCreateTaskTemplate);
+  const isLoadingCreate = createTaskTemplateStatus === QueryStatus.Loading;
+  const isLoadingUpdate = updateTaskTemplateStatus === QueryStatus.Loading;
   const history = useHistory();
 
   const handleSubmitTaskTemplate = async () => {
@@ -136,6 +138,7 @@ function Header ({
 
     return (
       <FeatureHeader includeBorder className={styles.container}>
+        {(isLoadingCreate || isLoadingUpdate) && <Loading />}
         <section className={styles.header}>
           <div className={styles.breadcrumbContainer}>
             <Link className={styles.workflowsLink} to="/task-templates">
@@ -152,6 +155,8 @@ function Header ({
             setCurrentRevision={setCurrentRevision}
             revisionCount={revisionCount}
             revisions={revisions}
+            isDirty={isDirty}
+            settings={values.settings}
           />
           {determinePerformActionRender()}
         </section>

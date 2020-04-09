@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
+import { Prompt } from "react-router-dom";
 import { ChevronLeft16, ChevronRight16, PageFirst16, PageLast16 } from "@carbon/icons-react";
 import styles from "./VersionSwitcher.module.scss";
 
@@ -56,7 +57,7 @@ class VersionSwitcher extends Component {
   };
 
   render() {
-    const { currentRevision, disabled, revisionCount } = this.props;
+    const { currentRevision, disabled, revisionCount, isDirty } = this.props;
     return (
       <div className={cx(styles.container, { [styles.disabled]: disabled })}>
         <div className={styles.buttonListContainer}>

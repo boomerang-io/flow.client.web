@@ -77,6 +77,7 @@ function TaskTemplateView({ taskTemplates }) {
             <Prompt 
               message={location => {
                 let prompt = true;
+                console.log("ARG");
                 if (location.pathname === "/task-templates" && dirty && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";
                 }

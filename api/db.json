@@ -11151,12 +11151,58 @@
           "image": "container:version",
           "command": "bmrgctl",
           "arguments": [
+            "6",
+            "t7"
+          ],
+          "config": []
+        },
+        {
+          "version": 2,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": [
             "t2",
             "t5",
             "6",
             "t7"
           ],
-          "config": []
+          "config": [
+            {
+              "key" : "token",
+              "label" : "Token",
+              "type" : "text",
+              "helperText" : "The Slack App token.",
+              "description" : "Token Desciption",
+              "placeholder" : "Token placeholder"
+            }
+          ]
+        },
+        {
+          "version": 3,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": [
+            "t2",
+            "t5"
+          ],
+          "config": [
+            {
+              "key" : "token",
+              "label" : "Token",
+              "type" : "text",
+              "helperText" : "The Slack App token.",
+              "description" : "Token Desciption",
+              "placeholder" : "Token placeholder"
+            },
+            {
+              "key" : "slack",
+              "label" : "Slack",
+              "type" : "text",
+              "helperText" : "Slack",
+              "description" : "",
+              "placeholder" : ""
+            }
+          ]
         }
       ],
       "nodetype": "templateTask",
