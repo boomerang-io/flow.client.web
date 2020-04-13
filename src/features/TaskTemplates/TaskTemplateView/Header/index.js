@@ -48,9 +48,10 @@ function Header ({
 
   const handleSubmitTaskTemplate = async () => {
     const newRevisions = [].concat(revisions??[]);
+    const newVersion =  revisions?.length > 0 ? revisions[revisions.length - 1].version + 1 : 1;
     // const currentRevisionIndex = !isEdit? 0 : revisions.findIndex(revision => revision.version === currentRevision.version);
     let newRevisionConfig = {
-      version: Boolean(currentRevision?.version) ? currentRevision?.version + 1 : 1,
+      version: newVersion,
       image: values.image, 
       // image: "container:version", 
       command: values.command,
@@ -65,6 +66,7 @@ function Header ({
       description: values.description,
       category: values.category,
       key: values.key,
+      latestVersion: newVersion,
       revisions:newRevisions,
       nodetype: "templateTask"
     };

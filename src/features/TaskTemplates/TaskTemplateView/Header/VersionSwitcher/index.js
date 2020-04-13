@@ -21,7 +21,7 @@ function VersionSwitcher({revisions, currentRevision, disabled, revisionCount, i
   };
 
   const fastBackVersion = () => {
-    history.push(appLink.taskTemplateEdit({id: match.params.taskTemplateId, version: 0}));
+    history.push(appLink.taskTemplateEdit({id: match.params.taskTemplateId, version: 1}));
   };
 
   const forwardVersion = () => {

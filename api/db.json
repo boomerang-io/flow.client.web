@@ -11211,23 +11211,24 @@
     },
     {
       "name": "test",
-      "description": "test",
+      "description": "dadadasd",
       "category": "test",
-      "key": "test",
+      "key": "test.key",
+      "latestVersion": 1,
       "revisions": [
         {
           "version": 1,
-          "image": "test",
-          "command": "test",
+          "image": "sadasdasd",
+          "command": "bmrgctl",
           "arguments": [
-            "test1",
-            "test2"
+            "t2",
+            "t5"
           ],
           "config": []
         }
       ],
       "nodetype": "templateTask",
-      "id": "ygIBSKl"
+      "id": "_Azwr_t"
     }
   ]
 }

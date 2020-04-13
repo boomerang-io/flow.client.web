@@ -28,7 +28,7 @@ function TaskTemplateView({ taskTemplates, addTemplateInState, updateTemplateInS
     taskTemplateNames = taskTemplateNames.filter(name => name !== taskTemplateToEdit.name);
     taskTemplateKeys = taskTemplateKeys.filter(type => type !== taskTemplateToEdit.key);
   }
-  const invalidVersion = version > taskTemplateToEdit.latestVersion;
+  const invalidVersion = version === "0" || version > taskTemplateToEdit.latestVersion;
   // Checks if the version in url are a valid one. If not, go to the latest version
   // Need to improve this
   const currentRevision = taskTemplateToEdit?.revisions ? 

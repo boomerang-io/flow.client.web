@@ -6,6 +6,7 @@ import matchSorter from "match-sorter";
 import { DataTable, Search, Pagination } from "carbon-components-react";
 import { notify, ToastNotification, NoDisplay, Button , Loading } from "@boomerang/carbon-addons-boomerang-react";
 import { useHistory, useRouteMatch } from "react-router-dom";
+import { Add16 } from "@carbon/icons-react";
 import ActionsMenu from "./ActionsMenu";
 import Header from "Components/Header";
 import { arrayPagination } from "Utilities/arrayHelper";
@@ -163,7 +164,7 @@ function TaskTemplatesTable({data, deleteTemplateInState}) {
               placeHolderText="Search"
               onChange={handleSearchChange}
             />
-            <Button size="field" onClick={() => history.push(`${match.path}/create`)}>Create Task Template</Button>
+            <Button size="field" renderIcon={Add16} onClick={() => history.push(`${match.path}/create`)}>Create Task Template</Button>
           </div>
           {totalItems > 0 ? (
             <>
