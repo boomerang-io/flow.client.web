@@ -201,7 +201,6 @@ export class WorkflowManagerContainer extends Component {
 
   createNode = (diagramApp, event) => {
     const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
-
     // For naming purposes
     const nodesOfSameTypeCount = Object.values(
       diagramApp
@@ -212,7 +211,8 @@ export class WorkflowManagerContainer extends Component {
 
     const nodeObj = {
       taskId: taskData.id,
-      taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
+      taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`,
+      latestVersion: taskData.latestVersion
     };
 
     let node;

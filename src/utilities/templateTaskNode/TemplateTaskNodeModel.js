@@ -4,19 +4,21 @@ import merge from "lodash/merge";
 import NODE_TYPES from "Constants/nodeTypes";
 
 export default class TemplateTaskNodeModel extends NodeModel {
-  constructor({ taskId, taskName }) {
+  constructor({ taskId, taskName, latestVersion }) {
     super(NODE_TYPES.TEMPLATE_TASK);
     this.addPort(new TaskPortModel("left"));
     this.addPort(new TaskPortModel("right"));
     this.taskId = taskId;
     this.taskName = taskName;
+    this.latestVersion = latestVersion;
   }
 
   serialize() {
     return merge(super.serialize(), {
       taskId: this.taskId,
       nodeId: this.id,
-      taskName: this.taskName
+      taskName: this.taskName,
+      latestVersion: this.latestVersion
     });
   }
 
@@ -25,5 +27,6 @@ export default class TemplateTaskNodeModel extends NodeModel {
     this.taskId = data.taskId;
     this.id = data.nodeId;
     this.taskName = data.taskName;
+    this.latestVersion = data.latestVersion;
   }
 }
