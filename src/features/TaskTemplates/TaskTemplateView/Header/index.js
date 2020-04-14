@@ -69,7 +69,7 @@ function Header ({
       key: values.key,
       currentVersion: newVersion,
       revisions:newRevisions,
-      nodetype: "templateTask"
+      nodeType: "templateTask"
     };
     if(!isEdit){
       try {

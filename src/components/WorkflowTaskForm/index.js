@@ -8,7 +8,6 @@ import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = props => {
-  console.log(props);
   return (
     <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
       <AutoSuggest {...props}>
@@ -136,8 +135,9 @@ class WorkflowTaskForm extends Component {
   };
 
   render() {
-    const { node, nodeConfig, task, taskNames } = this.props;
-
+    const { node, task, taskNames } = this.props;
+    const { currentVersion, revisions } = task;
+    const currentConfig = revisions.find(revision => currentVersion === revision.version).config;
     const takenTaskNames = taskNames.filter(name => name !== node.taskName);
     const inputs = [
       {
@@ -148,7 +148,7 @@ class WorkflowTaskForm extends Component {
         required: true,
         customComponent: TaskNameTextInput
       },
-      ...task.config
+      ...currentConfig
     ];
 
     return (
@@ -158,7 +158,7 @@ class WorkflowTaskForm extends Component {
             .required("Enter a task name")
             .notOneOf(takenTaskNames, "Enter a unique value for task name")
         })}
-        initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
+        initialValues={{ taskName: node.taskName, ...currentConfig.inputs }}
         inputs={inputs}
         onSubmit={this.handleOnSave}
         dataDrivenInputProps={{

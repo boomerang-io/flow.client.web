@@ -214,7 +214,6 @@ export class WorkflowManagerContainer extends Component {
       taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`,
       currentVersion: taskData.currentVersion
     };
-
     let node;
 
     // eslint-disable-next-line default-case
@@ -231,8 +230,7 @@ export class WorkflowManagerContainer extends Component {
     }
 
     if (node) {
-      const { id, taskId } = node;
-
+      const { id, taskId, currentVersion } = node;
       // Create inputs object with empty string values by default for service to process easily
       const inputs =
         taskData.config && taskData.config.length
@@ -242,7 +240,7 @@ export class WorkflowManagerContainer extends Component {
             }, {})
           : {};
 
-      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: taskData.nodeType });
+      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: taskData.nodeType, currentVersion });
 
       const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
       node.x = points.x - 110;

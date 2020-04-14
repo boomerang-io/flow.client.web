@@ -556,41 +556,11 @@
   "workflowSingle": {
     "dag": {
       "id": "3f58d302-2a3c-4765-b606-7573d313a2fa",
-      "offsetX": -71.52441776159299,
-      "offsetY": -195.3135138148453,
-      "zoom": 81.08074371819056,
+      "offsetX": 0,
+      "offsetY": 0,
+      "zoom": 36.4292070530344,
       "gridSize": 0,
       "links": [
-        {
-          "id": "381de73c-046c-4f71-8a30-8426e1df4d7f",
-          "type": "task",
-          "selected": false,
-          "source": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
-          "sourcePort": "6f1f5e66-9bc1-4675-a654-5f580036a173",
-          "target": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "targetPort": "b53cd3e6-4233-40e6-9843-41631bbae150",
-          "points": [
-            {
-              "id": "9d59d21b-6566-4abb-b477-21aeb0dc1485",
-              "selected": false,
-              "x": 206.44926611186128,
-              "y": 587.9300562056098
-            },
-            {
-              "id": "8bcd25bb-f151-46a2-ad49-2997c06bbe41",
-              "selected": false,
-              "x": 389.7038727968661,
-              "y": 475.9318830440754
-            }
-          ],
-          "extras": {},
-          "labels": [],
-          "width": 3,
-          "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50,
-          "executionCondition": "succcess",
-          "linkId": "381de73c-046c-4f71-8a30-8426e1df4d7f"
-        },
         {
           "id": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7",
           "type": "task",
@@ -603,14 +573,14 @@
             {
               "id": "80992b99-23af-4202-9e52-01308f52b97b",
               "selected": false,
-              "x": 622.3288560503644,
-              "y": 475.9318830440754
+              "x": 640.3229855506642,
+              "y": 478.6076522273755
             },
             {
               "id": "e5306c9e-bb7c-48d1-9fea-25b49a7ebdab",
               "selected": false,
-              "x": 770.822094706076,
-              "y": 334.09494848664224
+              "x": 768.4133181580603,
+              "y": 372.25007471438926
             }
           ],
           "extras": {},
@@ -633,14 +603,14 @@
             {
               "id": "c9e37f73-c060-41ae-9fad-372cff349b0b",
               "selected": false,
-              "x": 1003.4471532365802,
-              "y": 334.09494848664224
+              "x": 954.4201206778314,
+              "y": 372.25007471438926
             },
             {
               "id": "49bf42e7-484b-44b6-9257-a5a7b4107627",
               "selected": false,
-              "x": 1223.440750426782,
-              "y": 449.7180959949991
+              "x": 1222.0591586479256,
+              "y": 452.39245687858386
             }
           ],
           "extras": {},
@@ -648,7 +618,6 @@
           "width": 3,
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
-          "executionCondition": "always",
           "linkId": "16955507-cc27-4d0c-b17c-debf4573cb3b"
         },
         {
@@ -663,14 +632,43 @@
             {
               "id": "15d77fe4-d9ec-49b6-ae80-edcdea1f01fb",
               "selected": false,
-              "x": 1456.0658089572864,
-              "y": 449.7180959949991
+              "x": 1474.055565912858,
+              "y": 452.39245687858386
             },
             {
               "id": "378c95b9-cda5-4dbf-9c8b-ee4778c61a6a",
               "selected": false,
-              "x": 1653.9056844127922,
-              "y": 533.7802571274806
+              "x": 1652.4932076493817,
+              "y": 536.7847377095835
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "dbc85ced-7820-4c69-a376-1d1c30a309f3"
+        },
+        {
+          "id": "da58c637-f5c7-4e37-a3d5-7f2986fc2ae5",
+          "type": "task",
+          "selected": false,
+          "source": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
+          "sourcePort": "6f1f5e66-9bc1-4675-a654-5f580036a173",
+          "target": "458f3b0c-bb2e-4af4-af20-501261328d99",
+          "targetPort": "96367c17-cf39-4827-9abf-3310fdc08323",
+          "points": [
+            {
+              "id": "1d7ffa71-00d8-493f-bf28-1479bd1579d6",
+              "selected": false,
+              "x": 218.25694981523475,
+              "y": 590.9167110026171
+            },
+            {
+              "id": "c8b96805-f60b-4252-b522-bb04eebefd98",
+              "selected": false,
+              "x": 143.01419387063186,
+              "y": 903.1473159107401
             }
           ],
           "extras": {},
@@ -679,7 +677,37 @@
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
           "executionCondition": "always",
-          "linkId": "dbc85ced-7820-4c69-a376-1d1c30a309f3"
+          "linkId": "da58c637-f5c7-4e37-a3d5-7f2986fc2ae5"
+        },
+        {
+          "id": "32a02398-05ee-4e1b-90c8-d8befb734f09",
+          "type": "task",
+          "selected": false,
+          "source": "458f3b0c-bb2e-4af4-af20-501261328d99",
+          "sourcePort": "1998f1dc-a580-40ef-b86a-ffaacbaf11d5",
+          "target": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
+          "targetPort": "b53cd3e6-4233-40e6-9843-41631bbae150",
+          "points": [
+            {
+              "id": "d55f693f-46e5-4c87-afd4-be183f924add",
+              "selected": false,
+              "x": 395.01043359099975,
+              "y": 903.1388549102408
+            },
+            {
+              "id": "d300216a-2440-4006-a9ac-c709698b38d7",
+              "selected": true,
+              "x": 388.3264107411676,
+              "y": 478.6076522273755
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "executionCondition": "always",
+          "linkId": "32a02398-05ee-4e1b-90c8-d8befb734f09"
         }
       ],
       "nodes": [
@@ -698,7 +726,7 @@
               "name": "right",
               "parentNode": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
               "links": [
-                "381de73c-046c-4f71-8a30-8426e1df4d7f"
+                "da58c637-f5c7-4e37-a3d5-7f2986fc2ae5"
               ],
               "position": "right",
               "nodePortId": "6f1f5e66-9bc1-4675-a654-5f580036a173"
@@ -746,7 +774,7 @@
               "name": "left",
               "parentNode": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
               "links": [
-                "381de73c-046c-4f71-8a30-8426e1df4d7f"
+                "32a02398-05ee-4e1b-90c8-d8befb734f09"
               ],
               "nodePortId": "b53cd3e6-4233-40e6-9843-41631bbae150",
               "position": "left"
@@ -785,8 +813,8 @@
               "links": [
                 "0f5670b1-f82a-47de-a7ea-38e0a9182ac7"
               ],
-              "nodePortId": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
-              "position": "left"
+              "position": "left",
+              "nodePortId": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4"
             },
             {
               "id": "0d350a4e-1715-49f2-a788-0626a1c80009",
@@ -797,8 +825,8 @@
               "links": [
                 "16955507-cc27-4d0c-b17c-debf4573cb3b"
               ],
-              "nodePortId": "0d350a4e-1715-49f2-a788-0626a1c80009",
-              "position": "right"
+              "position": "right",
+              "nodePortId": "0d350a4e-1715-49f2-a788-0626a1c80009"
             }
           ],
           "taskId": "7be9d03a8a5df958ad58b3b8",
@@ -841,6 +869,44 @@
           "taskId": "5b92f794844d0700016ea216",
           "nodeId": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
           "taskName": "read Ingest CSV 1"
+        },
+        {
+          "id": "458f3b0c-bb2e-4af4-af20-501261328d99",
+          "type": "templateTask",
+          "selected": false,
+          "x": 159.0149139324651,
+          "y": 863.1596131616634,
+          "extras": {},
+          "ports": [
+            {
+              "id": "96367c17-cf39-4827-9abf-3310fdc08323",
+              "type": "task",
+              "selected": false,
+              "name": "left",
+              "parentNode": "458f3b0c-bb2e-4af4-af20-501261328d99",
+              "links": [
+                "da58c637-f5c7-4e37-a3d5-7f2986fc2ae5"
+              ],
+              "nodePortId": "96367c17-cf39-4827-9abf-3310fdc08323",
+              "position": "left"
+            },
+            {
+              "id": "1998f1dc-a580-40ef-b86a-ffaacbaf11d5",
+              "type": "task",
+              "selected": false,
+              "name": "right",
+              "parentNode": "458f3b0c-bb2e-4af4-af20-501261328d99",
+              "links": [
+                "32a02398-05ee-4e1b-90c8-d8befb734f09"
+              ],
+              "nodePortId": "1998f1dc-a580-40ef-b86a-ffaacbaf11d5",
+              "position": "right"
+            }
+          ],
+          "taskId": "Z0WdhFdks",
+          "nodeId": "458f3b0c-bb2e-4af4-af20-501261328d99",
+          "taskName": "test22 1",
+          "currentVersion": 3
         }
       ]
     },
@@ -878,11 +944,18 @@
             "shell": ""
           },
           "type": "templateTask"
+        },
+        {
+          "nodeId": "458f3b0c-bb2e-4af4-af20-501261328d99",
+          "taskId": "Z0WdhFdks",
+          "inputs": {},
+          "type": "templateTask",
+          "currentVersion": 3
         }
       ]
     },
     "changelog": {
-      "reason": "Update workflow"
+      "reason": "asdsadasd"
     }
   },
   "workflowRevision": {
@@ -11141,11 +11214,11 @@
   ],
   "taskTemplates": [
     {
+      "id": "Z0WdhFdks",
       "name": "test22",
       "description": "aaaaa",
-      "category": "test",
+      "category": "file utilities",
       "key": "test22",
-      "currentVersion": 3,
       "revisions": [
         {
           "version": 1,
@@ -11183,8 +11256,61 @@
           "image": "container:version",
           "command": "bmrgctl",
           "arguments": [
+            "file",
+            "replaceStringInFile"
+          ],
+          "config": [
+            {
+              "key": "token",
+              "label": "Token",
+              "type": "text",
+              "helperText": "The Slack App token.",
+              "description": "Token Desciption",
+              "placeholder": "Token placeholder",
+              "readOnly": false
+            },
+            {
+              "key": "slack",
+              "label": "Slack",
+              "type": "text",
+              "helperText": "Slack",
+              "description": "",
+              "placeholder": "",
+              "readOnly": false
+            }
+          ]
+        }
+      ],
+      "status": "active",
+      "currentVersion": 3,
+      "nodeType": "templateTask"
+    },
+    {
+      "id": "Z0WdhFks",
+      "name": "test22",
+      "description": "aaaaa",
+      "category": "file utilities",
+      "key": "test22",
+      "revisions": [
+        {
+          "version": 1,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": [
+            "6",
+            "t7"
+          ],
+          "config": []
+        },
+        {
+          "version": 2,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": [
             "t2",
-            "t5"
+            "t5",
+            "6",
+            "t7"
           ],
           "config": [
             {
@@ -11194,6 +11320,26 @@
               "helperText": "The Slack App token.",
               "description": "Token Desciption",
               "placeholder": "Token placeholder"
+            }
+          ]
+        },
+        {
+          "version": 3,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": [
+            "file",
+            "replaceStringInFile"
+          ],
+          "config": [
+            {
+              "key": "token",
+              "label": "Token",
+              "type": "text",
+              "helperText": "The Slack App token.",
+              "description": "Token Desciption",
+              "placeholder": "Token placeholder",
+              "readOnly": false
             },
             {
               "key": "slack",
@@ -11201,13 +11347,15 @@
               "type": "text",
               "helperText": "Slack",
               "description": "",
-              "placeholder": ""
+              "placeholder": "",
+              "readOnly": false
             }
           ]
         }
       ],
-      "nodetype": "templateTask",
-      "id": "Z0WhFks"
+      "status": "active",
+      "currentVersion": 3,
+      "nodeType": "templateTask"
     },
     {
       "name": "test",
@@ -11227,217 +11375,218 @@
           "config": []
         }
       ],
-      "nodetype": "templateTask",
+      "nodeType": "templateTask",
       "id": "_Azwr_t"
-    },{
+    },
+    {
       "id": "5d1ed36a988e7b6b6f7b470b",
       "description": "Replace String in File.",
       "key": "replaceStringInFile",
       "name": "Replace String in File",
       "category": "file utilities",
       "revisions": [
-      {
-      "version": 1,
-      "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
-      "command": "",
-      "arguments": [
-      "file",
-      "replaceStringInFile"
-      ],
-      "config": [
-      {
-      "placeholder": "",
-      "helperText": "The path to file including file",
-      "readOnly": false,
-      "description": "",
-      "key": "path",
-      "label": "Path",
-      "type": "text"
-      },
-      {
-      "placeholder": "",
-      "helperText": "String or regular regular expression to search for in file",
-      "readOnly": false,
-      "description": "",
-      "key": "expression",
-      "label": "Regular Expression",
-      "type": "text"
-      },
-      {
-      "placeholder": "",
-      "helperText": "String to replace with",
-      "readOnly": false,
-      "description": "",
-      "key": "replaceString",
-      "label": "Replacement String",
-      "type": "text"
-      },
-      {
-      "placeholder": "",
-      "helperText": "Regular expression flags",
-      "readOnly": false,
-      "description": "",
-      "key": "flags",
-      "label": "Flags",
-      "type": "text"
-      },
-      {
-      "placeholder": "",
-      "helperText": "Fail task if not found otherwise continue",
-      "readOnly": false,
-      "description": "",
-      "key": "failIfNotFound",
-      "label": "Fail If Not Found",
-      "type": "boolean"
-      }
-      ],
-      "createdDate": null
-      }
+        {
+          "version": 1,
+          "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+          "command": "",
+          "arguments": [
+            "file",
+            "replaceStringInFile"
+          ],
+          "config": [
+            {
+              "placeholder": "",
+              "helperText": "The path to file including file",
+              "readOnly": false,
+              "description": "",
+              "key": "path",
+              "label": "Path",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "String or regular regular expression to search for in file",
+              "readOnly": false,
+              "description": "",
+              "key": "expression",
+              "label": "Regular Expression",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "String to replace with",
+              "readOnly": false,
+              "description": "",
+              "key": "replaceString",
+              "label": "Replacement String",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "Regular expression flags",
+              "readOnly": false,
+              "description": "",
+              "key": "flags",
+              "label": "Flags",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "Fail task if not found otherwise continue",
+              "readOnly": false,
+              "description": "",
+              "key": "failIfNotFound",
+              "label": "Fail If Not Found",
+              "type": "boolean"
+            }
+          ],
+          "createdDate": null
+        }
       ],
       "status": "active",
       "currentVersion": 1,
       "nodeType": "templateTask"
-      },
-      {
+    },
+    {
       "id": "5bd9d03a5a5df954ad5bb3b5",
       "description": "Create file in worker",
       "key": "createFile",
       "name": "Create File",
       "category": "file utilities",
       "revisions": [
-      {
-      "version": 1,
-      "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
-      "command": "",
-      "arguments": [
-      "file",
-      "createFile"
-      ],
-      "config": [
-      {
-      "placeholder": "",
-      "helperText": "The file path incl file name",
-      "readOnly": false,
-      "description": "",
-      "key": "path",
-      "label": "File Path",
-      "type": "text"
-      },
-      {
-      "placeholder": "",
-      "helperText": "",
-      "readOnly": false,
-      "description": "",
-      "key": "content",
-      "label": "File Content",
-      "type": "texteditor"
-      }
-      ],
-      "createdDate": null
-      }
+        {
+          "version": 1,
+          "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+          "command": "",
+          "arguments": [
+            "file",
+            "createFile"
+          ],
+          "config": [
+            {
+              "placeholder": "",
+              "helperText": "The file path incl file name",
+              "readOnly": false,
+              "description": "",
+              "key": "path",
+              "label": "File Path",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "",
+              "readOnly": false,
+              "description": "",
+              "key": "content",
+              "label": "File Content",
+              "type": "texteditor"
+            }
+          ],
+          "createdDate": null
+        }
       ],
       "status": "active",
       "currentVersion": 1,
       "nodeType": "templateTask"
-      },
-      {
+    },
+    {
       "id": "5c3fbc92352b1b51416952d1",
       "description": "Check file or folder exists and fail if not found.",
       "key": "checkFileOrFolderExists",
       "name": "Check File or Folder Exists",
       "category": "file utilities",
       "revisions": [
-      {
-      "version": 1,
-      "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
-      "command": "",
-      "arguments": null,
-      "config": [
-      {
-      "placeholder": "",
-      "helperText": "The working directory path",
-      "readOnly": false,
-      "description": "",
-      "key": "path",
-      "label": "Path",
-      "type": "text"
-      },
-      {
-      "placeholder": "",
-      "helperText": "Regular expression to search for files or folders within the specified path",
-      "readOnly": false,
-      "description": "",
-      "key": "expression",
-      "label": "Regular Expression",
-      "type": "text"
-      }
-      ],
-      "createdDate": null
-      }
+        {
+          "version": 1,
+          "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+          "command": "",
+          "arguments": null,
+          "config": [
+            {
+              "placeholder": "",
+              "helperText": "The working directory path",
+              "readOnly": false,
+              "description": "",
+              "key": "path",
+              "label": "Path",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "Regular expression to search for files or folders within the specified path",
+              "readOnly": false,
+              "description": "",
+              "key": "expression",
+              "label": "Regular Expression",
+              "type": "text"
+            }
+          ],
+          "createdDate": null
+        }
       ],
       "status": "active",
       "currentVersion": 1,
       "nodeType": "templateTask"
-      },
-      {
+    },
+    {
       "id": "5d1ed216988e7b6b6f7b3c1c",
       "description": "Check file contains string.",
       "key": "checkFileContainsString",
       "name": "Check File Contains String",
       "category": "file utilities",
       "revisions": [
-      {
-      "version": 1,
-      "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
-      "command": "",
-      "arguments": [
-      "file",
-      "checkFileContainsString"
-      ],
-      "config": [
-      {
-      "placeholder": "",
-      "helperText": "The path to file including file",
-      "readOnly": false,
-      "description": "",
-      "key": "path",
-      "label": "Path",
-      "type": "text"
-      },
-      {
-      "placeholder": "",
-      "helperText": "String or regular regular expression to search for in file",
-      "readOnly": false,
-      "description": "",
-      "key": "expression",
-      "label": "Regular Expression",
-      "type": "text"
-      },
-      {
-      "placeholder": "",
-      "helperText": "Regular expression flags",
-      "readOnly": false,
-      "description": "",
-      "key": "flags",
-      "label": "Flags",
-      "type": "text"
-      },
-      {
-      "placeholder": "",
-      "helperText": "Fail task if not found otherwise continue",
-      "readOnly": false,
-      "description": "",
-      "key": "failIfNotFound",
-      "label": "Fail If Not Found",
-      "type": "boolean"
-      }
-      ],
-      "createdDate": null
-      }
+        {
+          "version": 1,
+          "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+          "command": "",
+          "arguments": [
+            "file",
+            "checkFileContainsString"
+          ],
+          "config": [
+            {
+              "placeholder": "",
+              "helperText": "The path to file including file",
+              "readOnly": false,
+              "description": "",
+              "key": "path",
+              "label": "Path",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "String or regular regular expression to search for in file",
+              "readOnly": false,
+              "description": "",
+              "key": "expression",
+              "label": "Regular Expression",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "Regular expression flags",
+              "readOnly": false,
+              "description": "",
+              "key": "flags",
+              "label": "Flags",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "Fail task if not found otherwise continue",
+              "readOnly": false,
+              "description": "",
+              "key": "failIfNotFound",
+              "label": "Fail If Not Found",
+              "type": "boolean"
+            }
+          ],
+          "createdDate": null
+        }
       ],
       "status": "active",
       "currentVersion": 1,
       "nodeType": "templateTask"
-      }
+    }
   ]
 }
