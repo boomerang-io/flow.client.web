@@ -20,31 +20,38 @@ const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
 const headers = [
   {
     header: "Name",
-    key: "name"
+    key: "name",
+    sortable: true
   },
   {
     header: "Key",
-    key: "key"
+    key: "key",
+    sortable: true
   },
   {
     header: "Description",
-    key: "description"
+    key: "description",
+    sortable: false
   },
   {
     header: "Category",
-    key: "category"
+    key: "category",
+    sortable: true
   },
   {
     header: "Date Created",
-    key: "dateCreated"
+    key: "dateCreated",
+    sortable: true
   },
   {
     header: "Updated Date",
-    key: "lastModified"
+    key: "lastModified",
+    sortable: true
   },
   {
     header: "Current Version",
-    key: "currentVersion"
+    key: "currentVersion",
+    sortable: false
   },
   {
     header: "Actions",
@@ -178,6 +185,7 @@ function TaskTemplatesTable({data, deleteTemplateInState}) {
                               id={header.key}
                               {...getHeaderProps({
                                 header,
+                                isSortable: header.sortable,
                                 className: `${styles.tableHeadHeader} ${styles[header.key]}`
                               })}
                             >

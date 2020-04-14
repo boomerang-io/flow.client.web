@@ -17,8 +17,12 @@
 .tableHeadHeader {
   font-size: inherit;
   font-family: inherit;
-  height: 3rem;
-
+  height: 4rem;
+  :global .bx--table-header-label{
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
   button {
     width: 100% !important;
   }

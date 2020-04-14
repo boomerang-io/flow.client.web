@@ -82,10 +82,16 @@ function TaskTemplateView({ taskTemplates, addTemplateInState, updateTemplateInS
           .notOneOf(taskTemplateNames, "Name must be unique")
           ,
         description: Yup.string().required("Enter a description"),
-        arguments: Yup.string().required("Enter some arguments"),
-        command: Yup.string().required("Enter a command"),
-        image: Yup.string().required("Enter a image"),
-        category: Yup.string("Enter a category")
+        arguments: Yup.string()
+        // .required("Enter some arguments")
+        ,
+        command: Yup.string()
+        // .required("Enter a command")
+        ,
+        image: Yup.string()
+        // .required("Enter a image")
+        ,
+        category: Yup.string().required("Enter a category")
       })}
     >
       {formikProps => {

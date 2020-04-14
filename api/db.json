@@ -11229,6 +11229,215 @@
       ],
       "nodetype": "templateTask",
       "id": "_Azwr_t"
-    }
+    },{
+      "id": "5d1ed36a988e7b6b6f7b470b",
+      "description": "Replace String in File.",
+      "key": "replaceStringInFile",
+      "name": "Replace String in File",
+      "category": "file utilities",
+      "revisions": [
+      {
+      "version": 1,
+      "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+      "command": "",
+      "arguments": [
+      "file",
+      "replaceStringInFile"
+      ],
+      "config": [
+      {
+      "placeholder": "",
+      "helperText": "The path to file including file",
+      "readOnly": false,
+      "description": "",
+      "key": "path",
+      "label": "Path",
+      "type": "text"
+      },
+      {
+      "placeholder": "",
+      "helperText": "String or regular regular expression to search for in file",
+      "readOnly": false,
+      "description": "",
+      "key": "expression",
+      "label": "Regular Expression",
+      "type": "text"
+      },
+      {
+      "placeholder": "",
+      "helperText": "String to replace with",
+      "readOnly": false,
+      "description": "",
+      "key": "replaceString",
+      "label": "Replacement String",
+      "type": "text"
+      },
+      {
+      "placeholder": "",
+      "helperText": "Regular expression flags",
+      "readOnly": false,
+      "description": "",
+      "key": "flags",
+      "label": "Flags",
+      "type": "text"
+      },
+      {
+      "placeholder": "",
+      "helperText": "Fail task if not found otherwise continue",
+      "readOnly": false,
+      "description": "",
+      "key": "failIfNotFound",
+      "label": "Fail If Not Found",
+      "type": "boolean"
+      }
+      ],
+      "createdDate": null
+      }
+      ],
+      "status": "active",
+      "currentVersion": 1,
+      "nodeType": "templateTask"
+      },
+      {
+      "id": "5bd9d03a5a5df954ad5bb3b5",
+      "description": "Create file in worker",
+      "key": "createFile",
+      "name": "Create File",
+      "category": "file utilities",
+      "revisions": [
+      {
+      "version": 1,
+      "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+      "command": "",
+      "arguments": [
+      "file",
+      "createFile"
+      ],
+      "config": [
+      {
+      "placeholder": "",
+      "helperText": "The file path incl file name",
+      "readOnly": false,
+      "description": "",
+      "key": "path",
+      "label": "File Path",
+      "type": "text"
+      },
+      {
+      "placeholder": "",
+      "helperText": "",
+      "readOnly": false,
+      "description": "",
+      "key": "content",
+      "label": "File Content",
+      "type": "texteditor"
+      }
+      ],
+      "createdDate": null
+      }
+      ],
+      "status": "active",
+      "currentVersion": 1,
+      "nodeType": "templateTask"
+      },
+      {
+      "id": "5c3fbc92352b1b51416952d1",
+      "description": "Check file or folder exists and fail if not found.",
+      "key": "checkFileOrFolderExists",
+      "name": "Check File or Folder Exists",
+      "category": "file utilities",
+      "revisions": [
+      {
+      "version": 1,
+      "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+      "command": "",
+      "arguments": null,
+      "config": [
+      {
+      "placeholder": "",
+      "helperText": "The working directory path",
+      "readOnly": false,
+      "description": "",
+      "key": "path",
+      "label": "Path",
+      "type": "text"
+      },
+      {
+      "placeholder": "",
+      "helperText": "Regular expression to search for files or folders within the specified path",
+      "readOnly": false,
+      "description": "",
+      "key": "expression",
+      "label": "Regular Expression",
+      "type": "text"
+      }
+      ],
+      "createdDate": null
+      }
+      ],
+      "status": "active",
+      "currentVersion": 1,
+      "nodeType": "templateTask"
+      },
+      {
+      "id": "5d1ed216988e7b6b6f7b3c1c",
+      "description": "Check file contains string.",
+      "key": "checkFileContainsString",
+      "name": "Check File Contains String",
+      "category": "file utilities",
+      "revisions": [
+      {
+      "version": 1,
+      "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+      "command": "",
+      "arguments": [
+      "file",
+      "checkFileContainsString"
+      ],
+      "config": [
+      {
+      "placeholder": "",
+      "helperText": "The path to file including file",
+      "readOnly": false,
+      "description": "",
+      "key": "path",
+      "label": "Path",
+      "type": "text"
+      },
+      {
+      "placeholder": "",
+      "helperText": "String or regular regular expression to search for in file",
+      "readOnly": false,
+      "description": "",
+      "key": "expression",
+      "label": "Regular Expression",
+      "type": "text"
+      },
+      {
+      "placeholder": "",
+      "helperText": "Regular expression flags",
+      "readOnly": false,
+      "description": "",
+      "key": "flags",
+      "label": "Flags",
+      "type": "text"
+      },
+      {
+      "placeholder": "",
+      "helperText": "Fail task if not found otherwise continue",
+      "readOnly": false,
+      "description": "",
+      "key": "failIfNotFound",
+      "label": "Fail If Not Found",
+      "type": "boolean"
+      }
+      ],
+      "createdDate": null
+      }
+      ],
+      "status": "active",
+      "currentVersion": 1,
+      "nodeType": "templateTask"
+      }
   ]
 }
