@@ -5,7 +5,6 @@ import styles from "./taskTemplateViewOverview.module.scss";
 
 TaskTemplateOverview.propTypes = {
   errors: PropTypes.object.isRequired,
-  executorOptions: PropTypes.array.isRequired,
   handleBlur: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   isEdit: PropTypes.bool.isRequired,

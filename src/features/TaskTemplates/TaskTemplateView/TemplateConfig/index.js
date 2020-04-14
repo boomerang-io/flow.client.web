@@ -7,9 +7,8 @@ import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import styles from "./TemplateConfig.module.scss";
 
 TemplateConfig.propTypes = {
-  loading: PropTypes.bool.isRequired,
   settings: PropTypes.array.isRequired,
-  updateTemplateConfig: PropTypes.func.isRequired
+  setFieldValue: PropTypes.func.isRequired
 };
 
 function TemplateConfigRow({ title, value }) {

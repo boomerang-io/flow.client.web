@@ -6,13 +6,13 @@ import { ConfirmModal, notify, ToastNotification, Loading, Button } from "@boome
 import FeatureHeader from "Components/FeatureHeader";
 import Navigation from "./Navigation";
 import VersionSwitcher from "./VersionSwitcher";
-import { DocumentExport16 } from "@carbon/icons-react";
+import { DocumentExport16, DocumentTasks16 } from "@carbon/icons-react";
 import { resolver } from "Config/servicesConfig";
 import { QueryStatus } from "Constants/reactQueryStatuses";
 import styles from "./Header.module.scss";
 
 Header.propTypes = {
-  currentRevision: PropTypes.number,
+  currentRevision: PropTypes.object,
   revisionCount: PropTypes.number,
   taskTemplateToEdit: PropTypes.object.isRequired,
   addTemplateInState: PropTypes.func.isRequired,
@@ -46,7 +46,7 @@ function Header ({
   const isLoadingUpdate = updateTaskTemplateStatus === QueryStatus.Loading;
   const history = useHistory();
 
-  const handleSubmitTaskTemplate = async () => {
+  const handleSubmitTaskTemplate = async (setVersion = false) => {
     const newRevisions = [].concat(revisions??[]);
     const newVersion =  revisions?.length > 0 ? revisions[revisions.length - 1].version + 1 : 1;
     // const currentRevisionIndex = !isEdit? 0 : revisions.findIndex(revision => revision.version === currentRevision.version);
@@ -60,7 +60,8 @@ function Header ({
       config: values.settings
     };
     newRevisions.push(newRevisionConfig);
-    const body = {
+    const body =  setVersion? {...taskTemplateToEdit, currentVersion:currentRevision.version} :
+    {
       ...taskTemplateToEdit,
       name: values.name,
       description: values.description,
@@ -122,7 +123,9 @@ function Header ({
   const determinePerformActionRender = () => {
     const performActionButtonText=isEdit? "Create New Version" : "Create";
     const message = isEdit? `Version ${currentRevision.version + 1} will be created and users will be prompted to update their workflows.`: `The first version of ${values.name} will be created and available for use in workflows.`;
+    const setVersionMessage = "This will be set as a current version, if you want your changes to be saved, please create a new one.";
     return (
+      <>
         <ConfirmModal
           affirmativeAction={handleSubmitTaskTemplate}
           children={message}
@@ -140,6 +143,27 @@ function Header ({
             </Button>
           )}
         />
+        {
+          isEdit &&
+          <ConfirmModal
+            affirmativeAction={() => handleSubmitTaskTemplate(true)}
+            children={setVersionMessage}
+            title={`Set current version - ${currentRevision.version}`}
+            modalTrigger={({ openModal }) => (
+              <Button
+                disabled={currentRevision.version === taskTemplateToEdit.currentVersion}
+                iconDescription="Set version"
+                kind="ghost"
+                onClick={openModal}
+                renderIcon={DocumentTasks16}
+                size="field"
+              >
+                Set current version
+              </Button>
+            )}
+          />
+        }
+      </>
     );
   }
     return (
