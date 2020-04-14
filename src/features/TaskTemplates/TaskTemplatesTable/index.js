@@ -40,7 +40,7 @@ const headers = [
   },
   {
     header: "Date Created",
-    key: "dateCreated",
+    key: "createdDate",
     sortable: true
   },
   {

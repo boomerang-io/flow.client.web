@@ -143,7 +143,7 @@ function Header ({
             </Button>
           )}
         />
-        {
+        {/* {
           isEdit &&
           <ConfirmModal
             affirmativeAction={() => handleSubmitTaskTemplate(true)}
@@ -162,7 +162,7 @@ function Header ({
               </Button>
             )}
           />
-        }
+        } */}
       </>
     );
   }
