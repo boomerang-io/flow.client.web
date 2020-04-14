@@ -579,8 +579,8 @@
             {
               "id": "e5306c9e-bb7c-48d1-9fea-25b49a7ebdab",
               "selected": false,
-              "x": 768.4133181580603,
-              "y": 372.25007471438926
+              "x": 823.3143210014205,
+              "y": 542.443183528806
             }
           ],
           "extras": {},
@@ -603,8 +603,8 @@
             {
               "id": "c9e37f73-c060-41ae-9fad-372cff349b0b",
               "selected": false,
-              "x": 954.4201206778314,
-              "y": 372.25007471438926
+              "x": 1009.3211235211916,
+              "y": 542.443183528806
             },
             {
               "id": "49bf42e7-484b-44b6-9257-a5a7b4107627",
@@ -667,8 +667,8 @@
             {
               "id": "c8b96805-f60b-4252-b522-bb04eebefd98",
               "selected": false,
-              "x": 143.01419387063186,
-              "y": 903.1473159107401
+              "x": 464.1848091874426,
+              "y": 815.2972503608644
             }
           ],
           "extras": {},
@@ -691,8 +691,8 @@
             {
               "id": "d55f693f-46e5-4c87-afd4-be183f924add",
               "selected": false,
-              "x": 395.01043359099975,
-              "y": 903.1388549102408
+              "x": 716.181300224657,
+              "y": 815.2972503608644
             },
             {
               "id": "d300216a-2440-4006-a9ac-c709698b38d7",
@@ -799,9 +799,9 @@
         {
           "id": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "type": "decision",
-          "selected": false,
-          "x": 785.4338409684672,
-          "y": 296.7797349811225,
+          "selected": true,
+          "x": 840.3348438118273,
+          "y": 466.9728437955392,
           "extras": {},
           "ports": [
             {
@@ -874,8 +874,8 @@
           "id": "458f3b0c-bb2e-4af4-af20-501261328d99",
           "type": "templateTask",
           "selected": false,
-          "x": 159.0149139324651,
-          "y": 863.1596131616634,
+          "x": 480.1857805661224,
+          "y": 775.318008612287,
           "extras": {},
           "ports": [
             {
@@ -906,7 +906,7 @@
           "taskId": "Z0WdhFdks",
           "nodeId": "458f3b0c-bb2e-4af4-af20-501261328d99",
           "taskName": "test22 1",
-          "currentVersion": 3
+          "taskVersion": 3
         }
       ]
     },
@@ -950,12 +950,12 @@
           "taskId": "Z0WdhFdks",
           "inputs": {},
           "type": "templateTask",
-          "currentVersion": 3
+          "taskVersion": 3
         }
       ]
     },
     "changelog": {
-      "reason": "asdsadasd"
+      "reason": "asdasd"
     }
   },
   "workflowRevision": {

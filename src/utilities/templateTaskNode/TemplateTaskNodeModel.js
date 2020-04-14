@@ -27,6 +27,6 @@ export default class TemplateTaskNodeModel extends NodeModel {
     this.taskId = data.taskId;
     this.id = data.nodeId;
     this.taskName = data.taskName;
-    this.currentVersion = data.currentVersion;
+    this.currentVersion = data.taskVersion;
   }
 }

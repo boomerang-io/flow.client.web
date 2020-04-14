@@ -239,7 +239,6 @@ export class WorkflowManagerContainer extends Component {
               return accu;
             }, {})
           : {};
-
       this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: taskData.nodeType, currentVersion });
 
       const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
@@ -255,7 +254,6 @@ export class WorkflowManagerContainer extends Component {
 
   render() {
     const { activeTeamId, tasks, teams, workflow, workflowRevision } = this.props;
-    console.log(workflowRevision,"REVISION");
     if (tasks.isFetching || workflow.isFetching || workflowRevision.isFetching) {
       return <Loading />;
     }

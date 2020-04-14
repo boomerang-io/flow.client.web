@@ -28,6 +28,6 @@ export default class CustomTaskNodeModel extends NodeModel {
     this.id = data.nodeId;
     this.taskId = data.taskId;
     this.taskName = data.taskName;
-    this.currentVersion = data.currentVersion;
+    this.currentVersion = data.taskVersion;
   }
 }

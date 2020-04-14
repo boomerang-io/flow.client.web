@@ -136,9 +136,8 @@ class WorkflowTaskForm extends Component {
 
   render() {
     const { node, task, taskNames, nodeConfig } = this.props;
-    console.log(node,"TASK");
     const { revisions } = task;
-    const currentConfig = revisions.find(revision => node.currentVersion === revision.version || node.taskVersion === revision.version).config;
+    const currentConfig = revisions.find(revision => node.currentVersion === revision.version).config;
     const takenTaskNames = taskNames.filter(name => name !== node.taskName);
     const inputs = [
       {
