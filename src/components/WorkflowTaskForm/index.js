@@ -135,9 +135,10 @@ class WorkflowTaskForm extends Component {
   };
 
   render() {
-    const { node, task, taskNames } = this.props;
-    const { currentVersion, revisions } = task;
-    const currentConfig = revisions.find(revision => currentVersion === revision.version).config;
+    const { node, task, taskNames, nodeConfig } = this.props;
+    console.log(node,"TASK");
+    const { revisions } = task;
+    const currentConfig = revisions.find(revision => node.currentVersion === revision.version || node.taskVersion === revision.version).config;
     const takenTaskNames = taskNames.filter(name => name !== node.taskName);
     const inputs = [
       {
@@ -158,7 +159,7 @@ class WorkflowTaskForm extends Component {
             .required("Enter a task name")
             .notOneOf(takenTaskNames, "Enter a unique value for task name")
         })}
-        initialValues={{ taskName: node.taskName, ...currentConfig.inputs }}
+        initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
         inputs={inputs}
         onSubmit={this.handleOnSave}
         dataDrivenInputProps={{
@@ -170,7 +171,7 @@ class WorkflowTaskForm extends Component {
         textInputProps={this.textInputProps}
         toggleProps={this.toggleProps}
       >
-        {({ inputs, formikProps }) => (
+        {({ inputs, formikProps }) =>(
           <ModalFlowForm onSubmit={formikProps.handleSubmit} className={styles.container}>
             <ModalBody>{inputs}</ModalBody>
             <ModalFooter>

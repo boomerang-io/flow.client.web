@@ -255,6 +255,7 @@ export class WorkflowManagerContainer extends Component {
 
   render() {
     const { activeTeamId, tasks, teams, workflow, workflowRevision } = this.props;
+    console.log(workflowRevision,"REVISION");
     if (tasks.isFetching || workflow.isFetching || workflowRevision.isFetching) {
       return <Loading />;
     }
