@@ -35,10 +35,6 @@ const headers = [
     key: "category"
   },
   {
-    header: "Type",
-    key: "type"
-  },
-  {
     header: "Date Created",
     key: "dateCreated"
   },
@@ -47,8 +43,8 @@ const headers = [
     key: "lastModified"
   },
   {
-    header: "Latest Version",
-    key: "latestVersion"
+    header: "Current Version",
+    key: "currentVersion"
   },
   {
     header: "Actions",

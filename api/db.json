@@ -11145,7 +11145,7 @@
       "description": "aaaaa",
       "category": "test",
       "key": "test22",
-      "latestVersion": 3,
+      "currentVersion": 3,
       "revisions": [
         {
           "version": 1,
@@ -11214,7 +11214,7 @@
       "description": "dadadasd",
       "category": "test",
       "key": "test.key",
-      "latestVersion": 1,
+      "currentVersion": 1,
       "revisions": [
         {
           "version": 1,

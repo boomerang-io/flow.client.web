@@ -5,13 +5,13 @@ import NODE_TYPES from "Constants/nodeTypes";
 
 export default class SwitchNodeModel extends NodeModel {
   //list all three params
-  constructor({ taskId, taskName, latestVersion }) {
+  constructor({ taskId, taskName, currentVersion }) {
     super(NODE_TYPES.DECISION);
     this.addPort(new SwitchPortModel("left"));
     this.addPort(new SwitchPortModel("right"));
     this.taskId = taskId;
     this.taskName = taskName;
-    this.latestVersion= latestVersion;
+    this.currentVersion= currentVersion;
   }
 
   serialize() {
@@ -19,7 +19,7 @@ export default class SwitchNodeModel extends NodeModel {
       taskId: this.taskId,
       nodeId: this.id,
       taskName: this.taskName,
-      latestVersion: this.latestVersion
+      currentVersion: this.currentVersion
     });
   }
 
@@ -28,6 +28,6 @@ export default class SwitchNodeModel extends NodeModel {
     this.taskId = data.taskId;
     this.id = data.nodeId;
     this.taskName = data.taskName;
-    this.latestVersion = data.latestVersion;
+    this.currentVersion = data.currentVersion;
   }
 }

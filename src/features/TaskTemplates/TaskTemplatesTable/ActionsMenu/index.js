@@ -11,7 +11,7 @@ const OverflowMenuComponent = ({ taskTemplate, deleteProperty, addPropertyInStor
   const menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => history.push(`${match.url}/edit/${taskTemplate.id}/${taskTemplate.latestVersion}`),
+      onClick: () => history.push(`${match.url}/edit/${taskTemplate.id}/${taskTemplate.currentVersion}`),
       primaryFocus: true
     },
     {

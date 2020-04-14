@@ -212,7 +212,7 @@ export class WorkflowManagerContainer extends Component {
     const nodeObj = {
       taskId: taskData.id,
       taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`,
-      latestVersion: taskData.latestVersion
+      currentVersion: taskData.currentVersion
     };
 
     let node;

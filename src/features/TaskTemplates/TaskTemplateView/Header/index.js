@@ -66,7 +66,7 @@ function Header ({
       description: values.description,
       category: values.category,
       key: values.key,
-      latestVersion: newVersion,
+      currentVersion: newVersion,
       revisions:newRevisions,
       nodetype: "templateTask"
     };
