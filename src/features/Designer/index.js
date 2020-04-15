@@ -196,7 +196,8 @@ export class WorkflowManagerContainer extends Component {
   }
 
   formatWorkflowConfigNodes() {
-    return { nodes: Object.values(this.props.workflowRevision.config) };
+    const normilzedConfig = Object.values(this.props.workflowRevision.config).map(config => ({...config,currentVersion: undefined,taskVersion: config.currentVersion??undefined}))
+    return { nodes: Object.values(normilzedConfig) };
   }
 
   createNode = (diagramApp, event) => {

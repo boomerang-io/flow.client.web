@@ -28,6 +28,7 @@ export class TemplateTaskNodeDesigner extends Component {
   };
 
   handleOnSave = inputs => {
+    console.log(inputs, this.props,"ONSAVE");
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
