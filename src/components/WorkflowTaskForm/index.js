@@ -136,8 +136,12 @@ class WorkflowTaskForm extends Component {
 
   render() {
     const { node, task, taskNames, nodeConfig } = this.props;
-    const { revisions } = task ?? {};
-    const currentConfig = revisions?.find(revision => node.currentVersion === revision.version)?.config ?? [];
+    const revisions = task?.revisions ?? [];
+    const currentConfig = node.currentVersion
+      ? revisions.find(revision => node.currentVersion === revision.version)?.config ?? []
+      : revisions.length > 0
+      ? revisions[0]
+      : [];
     const takenTaskNames = taskNames.filter(name => name !== node.taskName);
     const inputs = [
       {
@@ -170,7 +174,7 @@ class WorkflowTaskForm extends Component {
         textInputProps={this.textInputProps}
         toggleProps={this.toggleProps}
       >
-        {({ inputs, formikProps }) =>(
+        {({ inputs, formikProps }) => (
           <ModalFlowForm onSubmit={formikProps.handleSubmit} className={styles.container}>
             <ModalBody>{inputs}</ModalBody>
             <ModalFooter>
