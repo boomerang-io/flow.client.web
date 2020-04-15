@@ -78,7 +78,7 @@ const actionHandlers = {
   },
   [types.UPDATE_NODE_CONFIG]: (state, action) => {
     //const updatedNode = { ...state.data[action.data.nodeId], config: action.data.config };
-    console.log(action,"DATA");
+    console.log(state, action,"DATA");
     const updatedNode = {
       ...state.config[action.data.nodeId],
       inputs: { ...state.config[action.data.nodeId].inputs, ...action.data.inputs }

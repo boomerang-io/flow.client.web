@@ -231,15 +231,15 @@ export class WorkflowManagerContainer extends Component {
 
     if (node) {
       const { id, taskId, currentVersion } = node;
+      const currentTaskConfig = taskData.revisions?.find(revision => revision.version === currentVersion)?? {};
       // Create inputs object with empty string values by default for service to process easily
       const inputs =
-        taskData.config && taskData.config.length
-          ? taskData.config.reduce((accu, item) => {
+      currentTaskConfig.config && currentTaskConfig.config.length
+          ? currentTaskConfig.config.reduce((accu, item) => {
               accu[item.key] = "";
               return accu;
             }, {})
           : {};
-          
       this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: taskData.nodeType, taskVersion: currentVersion });
       const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
       node.x = points.x - 110;
