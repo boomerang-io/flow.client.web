@@ -558,39 +558,9 @@
       "id": "3f58d302-2a3c-4765-b606-7573d313a2fa",
       "offsetX": 0,
       "offsetY": 0,
-      "zoom": 36.4292070530344,
+      "zoom": 36.44293037968178,
       "gridSize": 0,
       "links": [
-        {
-          "id": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7",
-          "type": "task",
-          "selected": false,
-          "source": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "sourcePort": "2c52419b-82f0-4dba-83cc-4a61466cd804",
-          "target": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
-          "targetPort": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
-          "points": [
-            {
-              "id": "80992b99-23af-4202-9e52-01308f52b97b",
-              "selected": false,
-              "x": 640.3229855506642,
-              "y": 478.6076522273755
-            },
-            {
-              "id": "e5306c9e-bb7c-48d1-9fea-25b49a7ebdab",
-              "selected": false,
-              "x": 823.3143210014205,
-              "y": 542.443183528806
-            }
-          ],
-          "extras": {},
-          "labels": [],
-          "width": 3,
-          "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50,
-          "executionCondition": "failure",
-          "linkId": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7"
-        },
         {
           "id": "16955507-cc27-4d0c-b17c-debf4573cb3b",
           "type": "decision",
@@ -603,14 +573,14 @@
             {
               "id": "c9e37f73-c060-41ae-9fad-372cff349b0b",
               "selected": false,
-              "x": 1009.3211235211916,
-              "y": 542.443183528806
+              "x": 1009.3334480049357,
+              "y": 542.4410817222141
             },
             {
               "id": "49bf42e7-484b-44b6-9257-a5a7b4107627",
               "selected": false,
-              "x": 1222.0591586479256,
-              "y": 452.39245687858386
+              "x": 1222.0590348123624,
+              "y": 452.39242322127154
             }
           ],
           "extras": {},
@@ -632,14 +602,14 @@
             {
               "id": "15d77fe4-d9ec-49b6-ae80-edcdea1f01fb",
               "selected": false,
-              "x": 1474.055565912858,
-              "y": 452.39245687858386
+              "x": 1474.055677180895,
+              "y": 452.39242322127154
             },
             {
               "id": "378c95b9-cda5-4dbf-9c8b-ee4778c61a6a",
               "selected": false,
-              "x": 1652.4932076493817,
-              "y": 536.7847377095835
+              "x": 1652.493284664462,
+              "y": 536.7846621614186
             }
           ],
           "extras": {},
@@ -650,25 +620,55 @@
           "linkId": "dbc85ced-7820-4c69-a376-1d1c30a309f3"
         },
         {
-          "id": "da58c637-f5c7-4e37-a3d5-7f2986fc2ae5",
+          "id": "cdfa78db-89bd-4dc4-955d-96c4b4b7e2f7",
+          "type": "task",
+          "selected": false,
+          "source": "f898c5d2-d288-430a-ab9f-33c5bb77849d",
+          "sourcePort": "b1da75aa-45f7-4f88-be54-5dd17f8e52a0",
+          "target": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "targetPort": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
+          "points": [
+            {
+              "id": "fdb719c6-6b85-4a93-8e38-567153084296",
+              "selected": false,
+              "x": 462.9965763616765,
+              "y": 257.5660000331485
+            },
+            {
+              "id": "9ca2f604-e458-40e4-815f-81f359f896da",
+              "selected": true,
+              "x": 823.3265153930668,
+              "y": 542.4410817222141
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "executionCondition": "always",
+          "linkId": "cdfa78db-89bd-4dc4-955d-96c4b4b7e2f7"
+        },
+        {
+          "id": "c2f2f429-35dd-46c4-ab18-a847a6bf99a6",
           "type": "task",
           "selected": false,
           "source": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
           "sourcePort": "6f1f5e66-9bc1-4675-a654-5f580036a173",
-          "target": "458f3b0c-bb2e-4af4-af20-501261328d99",
-          "targetPort": "96367c17-cf39-4827-9abf-3310fdc08323",
+          "target": "a8a0b3c3-d9f5-43db-b315-8355549145c7",
+          "targetPort": "2acfcf3b-fc1e-4efb-8551-51d028015208",
           "points": [
             {
-              "id": "1d7ffa71-00d8-493f-bf28-1479bd1579d6",
+              "id": "7892b130-62c5-46f8-b650-9d71fa949796",
               "selected": false,
-              "x": 218.25694981523475,
-              "y": 590.9167110026171
+              "x": 218.2569899168496,
+              "y": 590.9167674392418
             },
             {
-              "id": "c8b96805-f60b-4252-b522-bb04eebefd98",
-              "selected": false,
-              "x": 464.1848091874426,
-              "y": 815.2972503608644
+              "id": "5b5c706b-a594-44ea-940d-dbbc91c36d89",
+              "selected": true,
+              "x": 461.2084604255704,
+              "y": 760.1181067034134
             }
           ],
           "extras": {},
@@ -677,28 +677,28 @@
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
           "executionCondition": "always",
-          "linkId": "da58c637-f5c7-4e37-a3d5-7f2986fc2ae5"
+          "linkId": "c2f2f429-35dd-46c4-ab18-a847a6bf99a6"
         },
         {
-          "id": "32a02398-05ee-4e1b-90c8-d8befb734f09",
+          "id": "2bf429f7-fb63-430d-9cdf-9869aa341a0e",
           "type": "task",
           "selected": false,
-          "source": "458f3b0c-bb2e-4af4-af20-501261328d99",
-          "sourcePort": "1998f1dc-a580-40ef-b86a-ffaacbaf11d5",
-          "target": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "targetPort": "b53cd3e6-4233-40e6-9843-41631bbae150",
+          "source": "a8a0b3c3-d9f5-43db-b315-8355549145c7",
+          "sourcePort": "dec35326-f411-4fbb-a89d-b4482c831388",
+          "target": "f898c5d2-d288-430a-ab9f-33c5bb77849d",
+          "targetPort": "101284fc-0626-4027-b049-f4183dfa2c0b",
           "points": [
             {
-              "id": "d55f693f-46e5-4c87-afd4-be183f924add",
+              "id": "10e14ec6-e80b-4184-8421-2ba4601dd14b",
               "selected": false,
-              "x": 716.181300224657,
-              "y": 815.2972503608644
+              "x": 713.2049353126309,
+              "y": 760.1181067034134
             },
             {
-              "id": "d300216a-2440-4006-a9ac-c709698b38d7",
+              "id": "5715b7aa-4390-4137-bb7a-84bd060b01a9",
               "selected": true,
-              "x": 388.3264107411676,
-              "y": 478.6076522273755
+              "x": 211.00001773387996,
+              "y": 257.5660000331485
             }
           ],
           "extras": {},
@@ -707,7 +707,7 @@
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
           "executionCondition": "always",
-          "linkId": "32a02398-05ee-4e1b-90c8-d8befb734f09"
+          "linkId": "2bf429f7-fb63-430d-9cdf-9869aa341a0e"
         }
       ],
       "nodes": [
@@ -726,7 +726,7 @@
               "name": "right",
               "parentNode": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
               "links": [
-                "da58c637-f5c7-4e37-a3d5-7f2986fc2ae5"
+                "c2f2f429-35dd-46c4-ab18-a847a6bf99a6"
               ],
               "position": "right",
               "nodePortId": "6f1f5e66-9bc1-4675-a654-5f580036a173"
@@ -760,46 +760,9 @@
           "nodeId": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb"
         },
         {
-          "id": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "type": "templateTask",
-          "selected": false,
-          "x": 404.332255277566,
-          "y": 438.61365845831875,
-          "extras": {},
-          "ports": [
-            {
-              "id": "b53cd3e6-4233-40e6-9843-41631bbae150",
-              "type": "task",
-              "selected": false,
-              "name": "left",
-              "parentNode": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-              "links": [
-                "32a02398-05ee-4e1b-90c8-d8befb734f09"
-              ],
-              "nodePortId": "b53cd3e6-4233-40e6-9843-41631bbae150",
-              "position": "left"
-            },
-            {
-              "id": "2c52419b-82f0-4dba-83cc-4a61466cd804",
-              "type": "task",
-              "selected": false,
-              "name": "right",
-              "parentNode": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-              "links": [
-                "0f5670b1-f82a-47de-a7ea-38e0a9182ac7"
-              ],
-              "nodePortId": "2c52419b-82f0-4dba-83cc-4a61466cd804",
-              "position": "right"
-            }
-          ],
-          "taskId": "5b92f794844d0700016ea217",
-          "nodeId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "taskName": "Send Slack Message"
-        },
-        {
           "id": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "type": "decision",
-          "selected": true,
+          "selected": false,
           "x": 840.3348438118273,
           "y": 466.9728437955392,
           "extras": {},
@@ -811,7 +774,7 @@
               "name": "left",
               "parentNode": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
               "links": [
-                "0f5670b1-f82a-47de-a7ea-38e0a9182ac7"
+                "cdfa78db-89bd-4dc4-955d-96c4b4b7e2f7"
               ],
               "position": "left",
               "nodePortId": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4"
@@ -871,58 +834,85 @@
           "taskName": "read Ingest CSV 1"
         },
         {
-          "id": "458f3b0c-bb2e-4af4-af20-501261328d99",
+          "id": "f898c5d2-d288-430a-ab9f-33c5bb77849d",
           "type": "templateTask",
           "selected": false,
-          "x": 480.1857805661224,
-          "y": 775.318008612287,
+          "x": 227.0034106095668,
+          "y": 217.58536632113078,
           "extras": {},
           "ports": [
             {
-              "id": "96367c17-cf39-4827-9abf-3310fdc08323",
+              "id": "101284fc-0626-4027-b049-f4183dfa2c0b",
               "type": "task",
               "selected": false,
               "name": "left",
-              "parentNode": "458f3b0c-bb2e-4af4-af20-501261328d99",
+              "parentNode": "f898c5d2-d288-430a-ab9f-33c5bb77849d",
               "links": [
-                "da58c637-f5c7-4e37-a3d5-7f2986fc2ae5"
+                "2bf429f7-fb63-430d-9cdf-9869aa341a0e"
               ],
-              "nodePortId": "96367c17-cf39-4827-9abf-3310fdc08323",
+              "nodePortId": "101284fc-0626-4027-b049-f4183dfa2c0b",
               "position": "left"
             },
             {
-              "id": "1998f1dc-a580-40ef-b86a-ffaacbaf11d5",
+              "id": "b1da75aa-45f7-4f88-be54-5dd17f8e52a0",
               "type": "task",
               "selected": false,
               "name": "right",
-              "parentNode": "458f3b0c-bb2e-4af4-af20-501261328d99",
+              "parentNode": "f898c5d2-d288-430a-ab9f-33c5bb77849d",
               "links": [
-                "32a02398-05ee-4e1b-90c8-d8befb734f09"
+                "cdfa78db-89bd-4dc4-955d-96c4b4b7e2f7"
               ],
-              "nodePortId": "1998f1dc-a580-40ef-b86a-ffaacbaf11d5",
+              "nodePortId": "b1da75aa-45f7-4f88-be54-5dd17f8e52a0",
               "position": "right"
             }
           ],
           "taskId": "Z0WdhFdks",
-          "nodeId": "458f3b0c-bb2e-4af4-af20-501261328d99",
+          "nodeId": "f898c5d2-d288-430a-ab9f-33c5bb77849d",
           "taskName": "test22 1",
+          "taskVersion": 3
+        },
+        {
+          "id": "a8a0b3c3-d9f5-43db-b315-8355549145c7",
+          "type": "templateTask",
+          "selected": false,
+          "x": 477.21951766895387,
+          "y": 720.1306552792798,
+          "extras": {},
+          "ports": [
+            {
+              "id": "2acfcf3b-fc1e-4efb-8551-51d028015208",
+              "type": "task",
+              "selected": false,
+              "name": "left",
+              "parentNode": "a8a0b3c3-d9f5-43db-b315-8355549145c7",
+              "links": [
+                "c2f2f429-35dd-46c4-ab18-a847a6bf99a6"
+              ],
+              "nodePortId": "2acfcf3b-fc1e-4efb-8551-51d028015208",
+              "position": "left"
+            },
+            {
+              "id": "dec35326-f411-4fbb-a89d-b4482c831388",
+              "type": "task",
+              "selected": false,
+              "name": "right",
+              "parentNode": "a8a0b3c3-d9f5-43db-b315-8355549145c7",
+              "links": [
+                "2bf429f7-fb63-430d-9cdf-9869aa341a0e"
+              ],
+              "nodePortId": "dec35326-f411-4fbb-a89d-b4482c831388",
+              "position": "right"
+            }
+          ],
+          "taskId": "Z0WdhFdks",
+          "nodeId": "a8a0b3c3-d9f5-43db-b315-8355549145c7",
+          "taskName": "test22 2",
           "taskVersion": 3
         }
       ]
     },
     "config": {
       "nodes": [
-        {
-          "nodeId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "taskId": "5b92f794844d0700016ea217",
-          "inputs": {
-            "channel": "",
-            "title": "",
-            "message": "",
-            "taskName": "Send Slack Message"
-          },
-          "type": "templateTask"
-        },
         {
           "nodeId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "taskId": "5bd98b105a5df954ad599bc2",
@@ -946,7 +936,17 @@
           "type": "templateTask"
         },
         {
-          "nodeId": "458f3b0c-bb2e-4af4-af20-501261328d99",
+          "nodeId": "f898c5d2-d288-430a-ab9f-33c5bb77849d",
+          "taskId": "Z0WdhFdks",
+          "inputs": {
+            "taskName": "test22 1",
+            "token": "asdasd",
+            "slack": "asdasd"
+          },
+          "type": "templateTask"
+        },
+        {
+          "nodeId": "a8a0b3c3-d9f5-43db-b315-8355549145c7",
           "taskId": "Z0WdhFdks",
           "inputs": {},
           "type": "templateTask",
@@ -955,7 +955,7 @@
       ]
     },
     "changelog": {
-      "reason": "asdasd"
+      "reason": "asdsad"
     }
   },
   "workflowRevision": {

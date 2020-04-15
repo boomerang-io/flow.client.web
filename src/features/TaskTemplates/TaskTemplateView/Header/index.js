@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import { useMutation } from "react-query";
 import { ConfirmModal, notify, ToastNotification, Loading, Button } from "@boomerang/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
@@ -10,6 +10,7 @@ import { DocumentExport16
   // , DocumentTasks16 
 } from "@carbon/icons-react";
 import { resolver } from "Config/servicesConfig";
+import { appLink } from "Config/appConfig";
 import { QueryStatus } from "Constants/reactQueryStatuses";
 import styles from "./Header.module.scss";
 
@@ -36,6 +37,7 @@ function Header ({
   taskTemplateToEdit,
   revisions,
   values,
+  resetForm,
   isDirty,
   isEdit,
   setSubmitting,
@@ -47,6 +49,7 @@ function Header ({
   const isLoadingCreate = createTaskTemplateStatus === QueryStatus.Loading;
   const isLoadingUpdate = updateTaskTemplateStatus === QueryStatus.Loading;
   const history = useHistory();
+  const match = useRouteMatch();
 
   const handleSubmitTaskTemplate = async (setVersion = false) => {
     const newRevisions = [].concat(revisions??[]);
@@ -109,7 +112,9 @@ function Header ({
             data-testid="create-update-task-template-notification"
           />
         );
-        updateTemplateInState(response.data);
+        resetForm();
+        history.push(appLink.taskTemplateEdit({id: match.params.taskTemplateId, version: revisions.length + 1}));
+        updateTemplateInState(response);
       } catch (err) {
         notify(
           <ToastNotification

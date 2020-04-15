@@ -105,7 +105,8 @@ function TaskTemplateView({ taskTemplates, addTemplateInState, updateTemplateInS
           setFieldValue,
           isSubmitting,
           isValid,
-          setSubmitting
+          setSubmitting,
+          resetForm
         } = formikProps;
         return (
           <>
@@ -135,6 +136,7 @@ function TaskTemplateView({ taskTemplates, addTemplateInState, updateTemplateInS
               revisionCount={taskTemplateToEdit?.revisions?.length?? 0}
               updateTemplateInState={updateTemplateInState} 
               addTemplateInState={addTemplateInState}
+              resetForm={resetForm}
             />
             <Switch>
               <Route exact path={match.path}>

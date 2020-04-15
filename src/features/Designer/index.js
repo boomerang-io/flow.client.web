@@ -212,7 +212,7 @@ export class WorkflowManagerContainer extends Component {
     const nodeObj = {
       taskId: taskData.id,
       taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`,
-      currentVersion: taskData.currentVersion
+      taskVersion: taskData.currentVersion
     };
     let node;
 
@@ -239,7 +239,7 @@ export class WorkflowManagerContainer extends Component {
               return accu;
             }, {})
           : {};
-      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: taskData.nodeType, currentVersion });
+      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: taskData.nodeType, taskVersion: currentVersion });
 
       const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
       node.x = points.x - 110;
