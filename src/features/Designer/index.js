@@ -196,7 +196,7 @@ export class WorkflowManagerContainer extends Component {
   }
 
   formatWorkflowConfigNodes() {
-    const normilzedConfig = Object.values(this.props.workflowRevision.config).map(config => ({...config,currentVersion: undefined,taskVersion: config.currentVersion??undefined}))
+    const normilzedConfig = Object.values(this.props.workflowRevision.config).map(config => ({...config,currentVersion: undefined, taskVersion: config.currentVersion || config.taskVersion}))
     return { nodes: Object.values(normilzedConfig) };
   }
 
@@ -216,7 +216,6 @@ export class WorkflowManagerContainer extends Component {
       taskVersion: taskData.currentVersion
     };
     let node;
-
     // eslint-disable-next-line default-case
     switch (taskData.nodeType) {
       case NODE_TYPES.DECISION:
@@ -240,8 +239,8 @@ export class WorkflowManagerContainer extends Component {
               return accu;
             }, {})
           : {};
+          
       this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: taskData.nodeType, taskVersion: currentVersion });
-
       const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
       node.x = points.x - 110;
       node.y = points.y - 40;
@@ -255,6 +254,7 @@ export class WorkflowManagerContainer extends Component {
 
   render() {
     const { activeTeamId, tasks, teams, workflow, workflowRevision } = this.props;
+
     if (tasks.isFetching || workflow.isFetching || workflowRevision.isFetching) {
       return <Loading />;
     }
