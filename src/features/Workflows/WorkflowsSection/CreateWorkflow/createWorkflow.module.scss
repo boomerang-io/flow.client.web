@@ -17,6 +17,10 @@
   position: relative;
   width: 19.375rem;
   z-index: 1;
+
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 .addIcon {
