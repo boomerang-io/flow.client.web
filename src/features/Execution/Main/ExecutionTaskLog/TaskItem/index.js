@@ -34,7 +34,7 @@ function TaskItem({ flowActivityId, hidden, task }) {
         </div>
       </section>
       <section className={styles.data}>
-        <p className={styles.subtitle}>Subtitle</p>
+        {/* <p className={styles.subtitle}>Subtitle</p> */}
         <div className={styles.time}>
           <p className={styles.timeTitle}>Start time</p>
           <time className={styles.timeValue}>{moment(startTime).format("hh:mm A")}</time>

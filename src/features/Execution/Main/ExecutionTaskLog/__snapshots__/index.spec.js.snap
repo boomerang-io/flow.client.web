@@ -193,11 +193,6 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
           <section
             class="data"
           >
-            <p
-              class="subtitle"
-            >
-              Subtitle
-            </p>
             <div
               class="time"
             >
@@ -309,11 +304,6 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
           <section
             class="data"
           >
-            <p
-              class="subtitle"
-            >
-              Subtitle
-            </p>
             <div
               class="time"
             >

@@ -21,7 +21,9 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
       <div className={styles.container}>
         <section>
           <div className={styles.subtitle}>
-            <Link to={state ? state.fromUrl : "/activity"}>{state ? state.fromText : "Activity"}</Link>
+            <Link className={styles.activityLink} to={state ? state.fromUrl : "/activity"}>
+              {state ? state.fromText : "Activity"}
+            </Link>
             <p style={{ margin: "0 0.5rem" }}>/</p>
             {workflow.isFetching ? (
               <SkeletonPlaceholder className={styles.workflowNameSkeleton} />

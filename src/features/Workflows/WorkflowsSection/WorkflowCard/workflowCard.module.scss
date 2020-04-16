@@ -11,8 +11,13 @@
   margin: 1rem 0.75rem;
   height: 10.31255rem;
   position: relative;
-  overflow: hidden;
   @include border-radius();
+
+  a {
+    &:focus {
+      @include focus-outline($offset: 0rem);
+    }
+  }
 
   :global .bx--overflow-menu {
     height: 2rem;

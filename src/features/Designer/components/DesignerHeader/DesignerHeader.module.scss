@@ -1,5 +1,6 @@
 @import "~Styles/variables";
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .container {
   display: flex;
@@ -32,8 +33,12 @@
 
 .workflowsLink {
   font-size: 0.875rem;
-  letter-spacing: 00.01rem;
+  letter-spacing: 0.01rem;
   line-height: 1.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 .breadcrumbDivider {

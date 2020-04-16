@@ -81,7 +81,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
     return acc.concat({ label: team, value: teamData.length });
   }, []);
   const totalExecutions = data.length;
-  const avarageDuration = parseInt(sumDuration / totalExecutions, 10);
+  const averageDuration = parseInt(sumDuration / totalExecutions, 10);
   const medianDuration = dataByDuration[parseInt((data.length - 1) / 2, 10)]
     ? dataByDuration[parseInt((data.length - 1) / 2, 10)].duration
     : 0;
@@ -132,7 +132,7 @@ export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflo
     durationData: [
       { value: timeSecondsToTimeUnit(parseInt(minimumDuration / 1000, 10)), label: "Minimum" },
       { value: timeSecondsToTimeUnit(parseInt(maximumDuration / 1000, 10)), label: "Maximum" },
-      { value: timeSecondsToTimeUnit(parseInt(avarageDuration / 1000, 10)), label: "Avarage" }
+      { value: timeSecondsToTimeUnit(parseInt(averageDuration / 1000, 10)), label: "Average" }
     ],
     medianDuration: parseInt(medianDuration / 1000, 10),
     dataByTeams: orderBy(dataByTeams, ["value"], ["desc"]),

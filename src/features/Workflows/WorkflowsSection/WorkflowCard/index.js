@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import fileDownload from "js-file-download";
 import { Button, OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import { notify, ToastNotification, ModalFlow, ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
@@ -48,8 +48,7 @@ class WorkflowCard extends Component {
    */
   formatPropertiesForEdit = () => {
     const { properties = [] } = this.props.workflow;
-    return properties
-      .filter(property => !property.readOnly);
+    return properties.filter(property => !property.readOnly);
   };
 
   handleExportWorkflow = workflow => {
@@ -68,9 +67,8 @@ class WorkflowCard extends Component {
   };
 
   setActiveTeamAndRedirect = () => {
-    const { history, setActiveTeam, teamId, workflow } = this.props;
+    const { setActiveTeam, teamId } = this.props;
     setActiveTeam(teamId);
-    history.push(`/editor/${workflow.id}/designer`);
   };
 
   /* prevent page scroll when up or down arrows are pressed **/
@@ -121,6 +119,49 @@ class WorkflowCard extends Component {
 
     return (
       <div className={styles.container}>
+        <Link to={`/editor/${workflow.id}/designer`} onClick={this.setActiveTeamAndRedirect}>
+          <section className={styles.cardInfo}>
+            <div className={styles.cardIconContainer}>
+              <img className={styles.cardIcon} src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
+            </div>
+            <div className={styles.cardDescriptionContainer}>
+              <h2 className={styles.cardName}>{workflow.name}</h2>
+              <p className={styles.cardDescription}>{workflow.shortDescription}</p>
+            </div>
+          </section>
+        </Link>
+        <section className={styles.cardLaunch}>
+          {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
+            <ModalFlow
+              modalHeaderProps={{
+                title: "Workflow Properties",
+                subtitle: "Provide property values for your workflow"
+              }}
+              modalTrigger={({ openModal }) => (
+                <Button iconDescription="Run Workflow" renderIcon={Run20} size="field" onClick={openModal}>
+                  Run it
+                </Button>
+              )}
+            >
+              <WorkflowInputModalContent executeWorkflow={this.executeWorkflow} inputs={formattedProperties} />
+            </ModalFlow>
+          ) : (
+            <ModalFlow
+              composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
+              modalHeaderProps={{
+                title: "Execute Workflow?",
+                subtitle: '"Run and View" will navigate you to the workflow exeuction view.'
+              }}
+              modalTrigger={({ openModal }) => (
+                <Button iconDescription="Run Workflow" renderIcon={Run20} size="field" onClick={openModal}>
+                  Run it
+                </Button>
+              )}
+            >
+              <WorkflowRunModalContent executeWorkflow={this.executeWorkflow} />
+            </ModalFlow>
+          )}
+        </section>
         <OverflowMenu
           flipped
           ariaLabel="Overflow card menu"
@@ -161,47 +202,6 @@ class WorkflowCard extends Component {
             Are you sure you want to delete this workflow? There's no going back from this decision.
           </ConfirmModal>
         )}
-        <section className={styles.cardInfo}>
-          <div className={styles.cardIconContainer}>
-            <img className={styles.cardIcon} src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
-          </div>
-          <button onClick={this.setActiveTeamAndRedirect} className={styles.cardDescriptionContainer}>
-            <h2 className={styles.cardName}>{workflow.name}</h2>
-            <p className={styles.cardDescription}>{workflow.shortDescription}</p>
-          </button>
-        </section>
-        <section className={styles.cardLaunch}>
-          {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
-            <ModalFlow
-              modalHeaderProps={{
-                title: "Workflow Properties",
-                subtitle: "Provide property values for your workflow"
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button iconDescription="Run Workflow" renderIcon={Run20} size="field" onClick={openModal}>
-                  Run it
-                </Button>
-              )}
-            >
-              <WorkflowInputModalContent executeWorkflow={this.executeWorkflow} inputs={formattedProperties} />
-            </ModalFlow>
-          ) : (
-            <ModalFlow
-              composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
-              modalHeaderProps={{
-                title: "Execute Workflow?",
-                subtitle: '"Run and View" will navigate you to the workflow exeuction view.'
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button iconDescription="Run Workflow" renderIcon={Run20} size="field" onClick={openModal}>
-                  Run it
-                </Button>
-              )}
-            >
-              <WorkflowRunModalContent executeWorkflow={this.executeWorkflow} />
-            </ModalFlow>
-          )}
-        </section>
       </div>
     );
   }

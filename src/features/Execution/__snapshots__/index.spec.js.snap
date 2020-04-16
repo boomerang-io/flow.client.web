@@ -19,6 +19,7 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
               class="subtitle"
             >
               <a
+                class="activityLink"
                 href="/activity"
               >
                 Activity
