@@ -1,0 +1,115 @@
+.container {
+  width: 100%;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 31rem;
+  overflow-y: auto;
+}
+.actionContainer{
+  display: flex;
+  overflow-y: auto;
+  // height: 100%;
+  width: 100%;
+}
+.editTitle{
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  width: 100%;
+  :global .bx--btn__icon{
+    margin-left: 0!important;
+  }
+}
+.editDetails{
+  display: flex;
+  background-color: var(--cds-ui-01);
+  border-radius: 0.25rem;
+  flex-direction: column;
+  height: 100%;
+  margin: 1rem 0.5rem 0.5rem 1rem;
+  // min-height: 15rem;
+  min-width: 15rem;
+  padding: 1rem 0.75rem 1rem 1.5rem;
+  width: 100%;
+}
+.editFields{
+  display: flex;
+  background-color: var(--cds-ui-01);
+  border-radius: 0.25rem;
+  flex-direction: column;
+  min-height: calc(100vh - 15rem);
+  margin: 1rem 1.5rem 0.5rem 1rem;
+  // min-height: 15rem;
+  min-width: 40rem;
+  padding-bottom: 1rem;
+  :global .bx--btn__icon{
+    margin-left: 0!important;
+  }
+}
+.fieldsTitle {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0.75rem 1rem 1.5rem;
+}
+.description {
+  font-size: 0.875rem;
+  margin: 1rem;
+}
+.fieldDesc {
+  font-size: 0.75rem;
+  margin: 0.25rem 0;
+}
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+.label {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  margin-bottom: 0.25rem;
+}
+.value {
+  font-size: 0.875rem;
+  width: 100%;
+}
+.noValue {
+  color: var(--cds-text-03);
+  font-size: 0.875rem;
+  font-style: italic;
+  word-break: break-all;
+}
+.fieldsContainer{
+  border-top: 0.0625rem solid var(--cds-active-ui);
+  width: 100%;
+}
+.fieldSection {
+  align-items: center;
+  border-bottom: 0.0625rem solid var(--cds-active-ui);
+  display: flex;
+  height: 3rem;
+  width: 100%;
+}
+.iconContainer{
+  align-items: center;
+  display: flex;
+  height: 100%;
+}
+.dragabble {
+  min-height: 1rem;
+  min-width: 1rem;
+  margin: 0 1.875rem;
+}
+.actions{
+  display: flex;
+}
+.delete {
+  :global .bx--btn__icon {
+    path, rect {
+      fill: var(--cds-support-01);
+    }
+  }
+}

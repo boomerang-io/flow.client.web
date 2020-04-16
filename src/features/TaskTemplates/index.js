@@ -5,8 +5,10 @@ import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import orderBy from "lodash/orderBy";
 import ErrorDragon from "Components/ErrorDragon";
 import Loading from "Components/Loading";
-import TaskTemplatesTable from "./TaskTemplatesTable";
-import TaskTemplateView from "./TaskTemplateView";
+import WombatMessage from "Components/WombatMessage";
+import Header from "./Header";
+import Sidenav from "./Sidenav";
+import TaskTemplateOverview from "./TaskTemplateOverview";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants/reactQueryStatuses";
 import styles from "./taskTemplates.module.scss";
@@ -56,19 +58,16 @@ export function TaskTemplatesContainer(){
         </div>
       );
     }
-
     if (taskTemplatesData) {
       return (
         <div className={styles.container}>
+          <Sidenav taskTemplates={taskTemplatesData} addTemplateInState={addTemplateInState}/>
           <Switch>
-            <Route path={[`${match.path}/edit/:taskTemplateId/:version`, `${match.path}/create`]}>
-              <TaskTemplateView taskTemplates={taskTemplatesData} updateTemplateInState={updateTemplateInState} addTemplateInState={addTemplateInState}/>
-            </Route>
             <Route exact path={match.path}>
-              <TaskTemplatesTable
-                data={taskTemplatesData}
-                deleteTemplateInState={deleteTemplateInState}
-              />
+              <WombatMessage className={styles.wombat} message="Hey! Select a task template or create one!"/>
+            </Route>
+            <Route path={[`${match.path}/:taskTemplateId/:version`]}>
+              <TaskTemplateOverview taskTemplates={taskTemplatesData} updateTemplateInState={updateTemplateInState}/>
             </Route>
             <Redirect to="/task-templates" />
           </Switch>

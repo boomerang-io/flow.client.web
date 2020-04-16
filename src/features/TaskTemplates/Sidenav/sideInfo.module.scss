@@ -1,0 +1,80 @@
+.container {
+  background-color: var(--cds-ui-01);
+  border-right: 0.0625rem solid var(--cds-active-ui);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 3rem);
+  // padding: 2rem 1rem;
+  min-width: 21.875rem;
+  width: 20rem;
+  :global .bx--accordion {
+    overflow-y: auto;
+    height: 20.5rem;
+  }
+  :global .bx--accordion__content{
+    padding: 0 !important;
+  }
+}
+.tasksContainer{
+  display: flex;
+  flex-direction: column;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  margin: 0.75rem 1rem;
+}
+.title {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 2.625rem;
+  padding: 0 1rem;
+  margin-bottom: 0;
+}
+.description {
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.125rem;
+  margin: 1rem;
+}
+.addTaskContainer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.tasksInfo {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.info {
+  color: var(--cds-text-02);
+  font-size: 0.75rem;
+  margin: 1rem;
+}
+.expandCollapse {
+  cursor: pointer;
+  font-size: 0.75rem;
+  margin: 1rem;
+}
+.task {
+  border-left: transparent 0.25rem solid;
+  cursor: pointer;
+  display: flex;
+  height: 3rem;
+  padding: 0 1rem;
+  width: 100%;
+  &.active{
+    background-color: var(--cds-selected-ui);
+    border-left-color: var(--cds-support-02);
+  }
+}
+.taskName {
+  color: var(--cds-text-02);
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+  &.active{
+    color: var(--cds-text-01);
+  }
+}

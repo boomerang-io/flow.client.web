@@ -37,8 +37,8 @@ function TaskTemplateView({ taskTemplates, addTemplateInState, updateTemplateInS
   :
   taskTemplateToEdit.revisions.find(revision => revision.version.toString() === version)
   :{};
-  const { name = "", type = "", description = "", category="", key="" } = taskTemplateToEdit;
   const templateNotFound = match.url.includes("edit") && !taskTemplateToEdit.id;
+  const { name = "", type = "", description = "", category="", key="" } = taskTemplateToEdit;
   const defaultConfig = Array.isArray(currentRevision?.config) ? currentRevision.config : [];
 
   if(templateNotFound)

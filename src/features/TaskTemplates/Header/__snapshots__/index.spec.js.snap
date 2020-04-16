@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header --- Snapshot Capturing Snapshot of Header 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <header
+      class="container border"
+    >
+      <div
+        class="container"
+      >
+        <nav
+          aria-label="Breadcrumb"
+          class="breadcrumb"
+        >
+          <ol
+            class="bx--breadcrumb bx--breadcrumb--no-trailing-slash"
+          >
+            <button
+              class="backButton"
+            >
+              Catalog
+            </button>
+            <span
+              style="margin: 0px 0.5rem;"
+            >
+              /
+            </span>
+            <li
+              class="bx--breadcrumb-item bx--breadcrumb-item--current"
+            >
+              <a
+                class="bx--link"
+                href="#"
+              >
+                Jenkins
+              </a>
+            </li>
+          </ol>
+        </nav>
+        <div
+          class="infoContainer"
+        >
+          <div
+            class="info"
+          >
+            <img
+              alt="Jenkins icon"
+              class="icon"
+              src="undefined/catalog/image?id=test"
+            />
+            <h1
+              class="title"
+            >
+              Jenkins
+            </h1>
+          </div>
+          <button
+            class="trigger bx--btn bx--btn--field bx--btn--ghost"
+            tabindex="0"
+            type="button"
+          >
+            Add to team
+            <svg
+              aria-hidden="true"
+              aria-label="Add service"
+              class="bx--btn__icon"
+              focusable="false"
+              height="20"
+              preserveAspectRatio="xMidYMid meet"
+              role="img"
+              style="will-change: transform;"
+              viewBox="0 0 32 32"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17 15L17 8 15 8 15 15 8 15 8 17 15 17 15 24 17 24 17 17 24 17 24 15z"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+  </div>
+  <div
+    class="ReactModalPortal"
+  />
+</body>
+`;

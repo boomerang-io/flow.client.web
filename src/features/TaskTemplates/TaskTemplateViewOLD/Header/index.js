@@ -191,8 +191,6 @@ function Header ({
             currentRevision={currentRevision}
             revisionCount={revisionCount}
             revisions={revisions}
-            isDirty={isDirty}
-            settings={values.settings}
           />
           {determinePerformActionRender()}
         </section>

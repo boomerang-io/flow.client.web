@@ -6,7 +6,7 @@ export const PLATFORM_VERSION =
   window._SERVER_DATA && window._SERVER_DATA.PLATFORM_VERSION ? window._SERVER_DATA.PLATFORM_VERSION : "";
 
 export const appLink = {
-  taskTemplateEdit: ({id, version}) => `/task-templates/edit/${id}/${version}`,
+  taskTemplateEdit: ({id, version}) => `/task-templates/${id}/${version}`,
   taskTemplateEditSettings: ({id, version}) => `/task-templates/edit/${id}/${version}/settings`,
   taskTemplateCreate: () => `/task-templates/create`,
 };
