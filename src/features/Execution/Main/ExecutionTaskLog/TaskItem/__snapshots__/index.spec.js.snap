@@ -72,11 +72,6 @@ exports[`TaskItem --- Snapshot Capturing Snapshot of TaskItem 1`] = `
       <section
         class="data"
       >
-        <p
-          class="subtitle"
-        >
-          Subtitle
-        </p>
         <div
           class="time"
         >

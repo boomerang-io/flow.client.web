@@ -19,6 +19,7 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
               class="subtitle"
             >
               <a
+                class="activityLink"
                 href="/activity"
               >
                 Activity

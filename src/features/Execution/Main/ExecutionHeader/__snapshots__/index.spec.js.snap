@@ -16,6 +16,7 @@ exports[`ExecutionHeader --- Snapshot Capturing Snapshot of ExecutionHeader 1`] 
             class="subtitle"
           >
             <a
+              class="activityLink"
               href="/activity"
             >
               Activity

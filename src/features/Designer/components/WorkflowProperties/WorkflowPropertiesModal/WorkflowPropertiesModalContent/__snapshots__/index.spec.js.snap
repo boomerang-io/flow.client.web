@@ -80,19 +80,21 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
             <div
               class="bx--bmrg-toggle__title"
             >
-              <div
+              <label
                 class="bx--label"
+                for="required"
                 id="required-label"
                 style="margin-bottom: 0px;"
               >
                 Required
-              </div>
+              </label>
             </div>
           </div>
           <div
             class="bx--form-item"
           >
             <input
+              aria-labelledby="required-label"
               class="bx--toggle-input"
               id="required"
               type="checkbox"
