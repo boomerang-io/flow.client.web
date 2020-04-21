@@ -38,8 +38,9 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
           data-testid="create-task-template-notification"
         />
       );
-      addTemplateInState(response.data);
-      history.push(appLink.taskTemplateEdit({id: response.data.id, version: 1}));
+      addTemplateInState(response);
+      console.log(response);
+      history.push(appLink.taskTemplateEdit({id: response.id, version: 1}));
       closeModal();
     } catch (err) {
       if (!isCancel(err)){

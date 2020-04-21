@@ -11,6 +11,9 @@
   top: 0;
   width: 100%;
   z-index: 1;
+  :global .bx--assistive-text{
+    left: -6.75rem !important;
+  }
 }
 .featureHeader {
   align-items: center;

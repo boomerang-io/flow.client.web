@@ -6,7 +6,6 @@ import orderBy from "lodash/orderBy";
 import ErrorDragon from "Components/ErrorDragon";
 import Loading from "Components/Loading";
 import WombatMessage from "Components/WombatMessage";
-import Header from "./Header";
 import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import { resolver, serviceUrl } from "Config/servicesConfig";
@@ -37,16 +36,16 @@ export function TaskTemplatesContainer(){
       queryCache.setQueryData(getTaskTemplatesUrl, updatedTemplatesData);
     }
   };
-  const deleteTemplateInState = deletedTemplateId => {
-    const updatedTemplatesData = [...taskTemplatesData];
-    const templateToDeleteIndex = updatedTemplatesData.findIndex(template => template.id === deletedTemplateId);
-    // If we found it
-    if (templateToDeleteIndex !== -1) {
-      updatedTemplatesData.splice(templateToDeleteIndex, 1);
-      queryCache.setQueryData(getTaskTemplatesUrl, updatedTemplatesData);
-    }
-    return updatedTemplatesData;
-  };
+  // const deleteTemplateInState = deletedTemplateId => {
+  //   const updatedTemplatesData = [...taskTemplatesData];
+  //   const templateToDeleteIndex = updatedTemplatesData.findIndex(template => template.id === deletedTemplateId);
+  //   // If we found it
+  //   if (templateToDeleteIndex !== -1) {
+  //     updatedTemplatesData.splice(templateToDeleteIndex, 1);
+  //     queryCache.setQueryData(getTaskTemplatesUrl, updatedTemplatesData);
+  //   }
+  //   return updatedTemplatesData;
+  // };
     if (isLoading) {
       return <Loading />;
     }

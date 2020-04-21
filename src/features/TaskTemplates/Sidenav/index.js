@@ -4,13 +4,12 @@ import { useHistory, matchPath, useLocation } from "react-router-dom";
 // import axios from "axios";
 import cx from "classnames";
 import capitalize from "lodash/capitalize";
-import { notify, ToastNotification, ConfirmModal, Button, Search, Accordion, AccordionItem, Loading, OverflowMenu, CheckboxList } from "@boomerang/carbon-addons-boomerang-react";
-import { useMutation } from "react-query";
+import { Search, Accordion, AccordionItem } from "@boomerang/carbon-addons-boomerang-react";
 import matchSorter from "match-sorter";
-import { Add16, Bee16, ChevronUp20, ChevronDown20, SettingsAdjust20 } from "@carbon/icons-react";
+import { Bee16 } from "@carbon/icons-react";
 import AddTaskTemplate from "./AddTaskTemplate";
-import { serviceUrl, resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
+import taskTemplateIcons from "Assets/taskTemplateIcons";
 import styles from "./sideInfo.module.scss";
 
 SideInfo.propTypes = {
@@ -105,12 +104,17 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
 }
 function Task(props) {
   const { task, history } = props;
+  const taskIcon = taskTemplateIcons.find(icon => icon.name === task.revisions[task.revisions.length - 1].image);
   return (
     <button
       className={cx(styles.task, { [styles.active]: props.isActive })}
       onClick={() => history.push(appLink.taskTemplateEdit({id: task.id, version: task.currentVersion}))}
     >
-      <Bee16 />
+     { 
+      taskIcon?
+      <taskIcon.src style={{width:"1rem", height:"1rem"}}/>
+      :
+      <Bee16 />}
       <p className={cx(styles.taskName, { [styles.active]: props.isActive })}>{task.name}</p>
     </button>
   );

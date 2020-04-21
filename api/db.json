@@ -11512,6 +11512,27 @@
       "status": "active",
       "currentVersion": 1,
       "nodeType": "templateTask"
+    },
+    {
+      "name": "tes3",
+      "description": "testestest",
+      "category": "github",
+      "key": "test.key3",
+      "currentVersion": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "image": "slack",
+          "arguments": [
+            "t2",
+            "t5"
+          ],
+          "command": "test",
+          "config": []
+        }
+      ],
+      "nodeType": "templateTask",
+      "id": "7rJT_Dq"
     }
   ]
 }

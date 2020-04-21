@@ -1,44 +1,35 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalFlow, Button, TooltipDefinition } from "@boomerang/carbon-addons-boomerang-react";
 import TemplateConfigModalContent from "./TemplateConfigModalContent";
 import WorkflowEditButton from "Components/WorkflowEditButton";
-import { Add32 } from "@carbon/icons-react";
+import { Add16, Edit16 } from "@carbon/icons-react";
 import styles from "./TemplateConfigModal.module.scss";
 
-class TemplateConfigModal extends Component {
-  static propTypes = {
-    setting: PropTypes.object,
-    settingKeys: PropTypes.array,
-    isEdit: PropTypes.bool.isRequired,
-    loading: PropTypes.bool.isRequired,
-    updateTemplateConfigModal: PropTypes.func.isRequired,
-    settings: PropTypes.array,
-    setFieldValue: PropTypes.func.isRequired
-  };
+TemplateConfigModal.propTypes = {
+  setting: PropTypes.object,
+  isEdit: PropTypes.bool.isRequired,
+  settings: PropTypes.array,
+  settingKeys: PropTypes.array
+};
 
-  editTrigger = ({ openModal }) => {
+export function TemplateConfigModal(props) {
+  const { isEdit } = props;
+  const editTrigger = ({ openModal }) => {
     let output = null;
-    this.props.isEdit
-      ? (output = <WorkflowEditButton className={styles.editContainer} onClick={openModal} aria-label="Edit" />)
+    isEdit
+      ? (output = (
+        <TooltipDefinition direction="bottom" tooltipText={"Edit field"}>
+          <Button renderIcon={Edit16} kind="ghost" size="field" onClick={openModal}/>
+        </TooltipDefinition>
+      ))
       : (output = (
-          <button
-            className={styles.createConfigurationCard}
-            onClick={openModal}
-            data-testid="create-new-task-input-button"
-          >
-            <div className={styles.createContainer}>
-              <Add32 className={styles.createIcon} aria-label="Add" />
-              <p className={styles.createText}>Create a new setting</p>
-            </div>
-          </button>
+        <TooltipDefinition direction="top" tooltipText={"Add a new field for this task"}>
+          <Button renderIcon={Add16} kind="ghost" size="field" onClick={openModal}>Add a field</Button>
+        </TooltipDefinition>
         ));
     return output;
   };
-
-  render() {
-    const { isEdit, loading } = this.props;
-
     return (
       <ModalFlow
         confirmModalProps={{
@@ -49,16 +40,13 @@ class TemplateConfigModal extends Component {
           title: isEdit ? "Update Configuration" : "Create Configuration",
           subtitle: isEdit ? "Let's change some stuff" : "Let's create a new one"
         }}
-        modalTrigger={this.editTrigger}
+        modalTrigger={editTrigger}
       >
         <TemplateConfigModalContent
-          loading={loading}
-          updateTemplateConfigModal={this.props.updateTemplateConfigModal}
-          {...this.props}
+          {...props}
         />
       </ModalFlow>
     );
-  }
 }
 
 export default TemplateConfigModal;

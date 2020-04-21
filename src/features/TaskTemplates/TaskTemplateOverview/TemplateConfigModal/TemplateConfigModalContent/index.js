@@ -44,7 +44,6 @@ class TemplateConfigModalContent extends Component {
     setting: PropTypes.object,
     settingKeys: PropTypes.array,
     isEdit: PropTypes.bool,
-    loading: PropTypes.bool.isRequired,
     settings: PropTypes.array,
     setFieldValue: PropTypes.func.isRequired
   };
@@ -97,17 +96,16 @@ class TemplateConfigModalContent extends Component {
     if (setting.type === INPUT_TYPES.BOOLEAN) {
       if (!setting.defaultValue) setting.defaultValue = false;
     }
-
     if (this.props.isEdit) {
       const settingIndex = settings.findIndex(setting => setting.key === this.props.setting.key);
       let newProperties = [].concat(settings);
       newProperties.splice(settingIndex,1,setting);
-      setFieldValue("settings",newProperties);
+      setFieldValue("currentConfig",newProperties);
       this.props.forceCloseModal();
     } else {
       let newProperties = [].concat(settings);
       newProperties.push(setting);
-      setFieldValue("settings",newProperties);
+      setFieldValue("currentConfig",newProperties);
       this.props.forceCloseModal();
     }
   };
@@ -199,7 +197,7 @@ class TemplateConfigModalContent extends Component {
   };
 
   render() {
-    const { setting, isEdit, settingKeys, loading } = this.props;
+    const { setting, isEdit, settingKeys } = this.props;
     let defaultValueType = this.state.defaultValueType;
 
     return (
@@ -257,8 +255,22 @@ class TemplateConfigModalContent extends Component {
           } = formikProps;
 
           return (
-            <ModalFlowForm onSubmit={handleSubmit} disabled={loading}>
+            <ModalFlowForm onSubmit={handleSubmit}>
               <ModalBody className={styles.container}>
+                <ComboBox
+                  id={FIELD.TYPE}
+                  onChange={({ selectedItem }) =>
+                    this.handleOnTypeChange(
+                      selectedItem !== null ? selectedItem : { label: "", value: "" },
+                      setFieldValue
+                    )
+                  }
+                  items={INPUT_TYPES_LABELS}
+                  initialSelectedItem={values.type}
+                  itemToString={item => item && item.label}
+                  placeholder="Select an item"
+                  titleText="Type"
+                />
                 <TextInput
                   id={FIELD.LABEL}
                   invalid={errors.label && touched.label}
@@ -282,7 +294,6 @@ class TemplateConfigModalContent extends Component {
                     value={values.key}
                   />
                 )}
-
                 <TextInput
                   id={FIELD.DESCRIPTION}
                   invalid={errors.description && touched.description}
@@ -327,28 +338,13 @@ class TemplateConfigModalContent extends Component {
                   orientation="vertical"
                   toggled={values.required}
                 />
-                <ComboBox
-                  id={FIELD.TYPE}
-                  onChange={({ selectedItem }) =>
-                    this.handleOnTypeChange(
-                      selectedItem !== null ? selectedItem : { label: "", value: "" },
-                      setFieldValue
-                    )
-                  }
-                  items={INPUT_TYPES_LABELS}
-                  initialSelectedItem={values.type}
-                  itemToString={item => item && item.label}
-                  placeholder="Select an item"
-                  titleText="Type"
-                />
-
                 {this.renderDefaultValue(formikProps)}
               </ModalBody>
               <ModalFooter>
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button data-testid="inputs-modal-confirm-button" disabled={!isValid || loading} type="submit">
+                <Button data-testid="inputs-modal-confirm-button" disabled={!isValid} type="submit">
                   {isEdit ? "Save" : "Create"}
                 </Button>
               </ModalFooter>
