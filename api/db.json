@@ -11528,7 +11528,15 @@
             "t5"
           ],
           "command": "test",
-          "config": []
+          "config": [{
+            "placeholder": "",
+            "helperText": "Fail task if not found otherwise continue",
+            "readOnly": false,
+            "description": "",
+            "key": "failIfNotFound",
+            "label": "Fail If Not Found",
+            "type": "boolean"
+          }]
         }
       ],
       "status": "inactive",

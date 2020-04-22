@@ -28,6 +28,7 @@ export function TaskTemplatesContainer(){
     queryCache.setQueryData(getTaskTemplatesUrl, orderBy(updatedTemplatesData, "name", "asc"));
   };
   const updateTemplateInState = updatedTemplate => {
+    
     const updatedTemplatesData = [...taskTemplatesData];
     const templateToUpdateIndex = updatedTemplatesData.findIndex(template => template.id === updatedTemplate.id);
     // If we found it

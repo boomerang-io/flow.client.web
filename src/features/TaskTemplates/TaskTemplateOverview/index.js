@@ -3,7 +3,7 @@ import React from "react";
 // import { useQuery, queryCache } from "react-query";
 import { Formik } from "formik";
 import { useRouteMatch, useParams, useHistory, Prompt, matchPath } from "react-router-dom";
-import { useMutation } from "react-query";
+import { useMutation, queryCache } from "react-query";
 // import orderBy from "lodash/orderBy";
 import {
   Tile,
@@ -25,7 +25,7 @@ import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import { TemplateRequestType } from "../constants";
 import { Draggable16, Delete16, Archive16, Bee16 } from "@carbon/icons-react";
 import taskTemplateIcons from "Assets/taskTemplateIcons";
-import { resolver } from "Config/servicesConfig";
+import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import styles from "./taskTemplateOverview.module.scss";
 
@@ -128,9 +128,18 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const params = useParams();
   const { taskTemplateId = "", version = "" } = params;
   const history = useHistory();
-  const [UploadTaskTemplateMutation, { status: uploadStatus }] = useMutation(resolver.putCreateTaskTemplate);
-  const [ArchiveTaskTemplateMutation, { status: archiveStatus }] = useMutation(resolver.deleteArchiveTaskTemplate);
-  const [RestoreTaskTemplateMutation, { status: restoreStatus }] = useMutation(resolver.putRestoreTaskTemplate);
+  const [UploadTaskTemplateMutation, { status: uploadStatus }] = useMutation(resolver.putCreateTaskTemplate, {
+    onSuccess: () =>
+      queryCache.refetchQueries([serviceUrl.getTaskTemplates()])
+  });
+  const [ArchiveTaskTemplateMutation, { status: archiveStatus }] = useMutation(resolver.deleteArchiveTaskTemplate, {
+    onSuccess: () =>
+      queryCache.refetchQueries([serviceUrl.getTaskTemplates()])
+  });
+  const [RestoreTaskTemplateMutation, { status: restoreStatus }] = useMutation(resolver.putRestoreTaskTemplate, {
+    onSuccess: () =>
+      queryCache.refetchQueries([serviceUrl.getTaskTemplates()])
+  });
 
   const isLoading = uploadStatus === QueryStatus.Loading;
   const archiveIsLoading = archiveStatus === QueryStatus.Loading;
@@ -224,9 +233,8 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         />
       );
       resetForm();
-      console.log(response, "RESPONSE2");
-      history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: response.currentVersion }));
-      updateTemplateInState(response);
+      history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: response.data.currentVersion }));
+      updateTemplateInState(response.data);
     } catch (err) {
       notify(
         <ToastNotification

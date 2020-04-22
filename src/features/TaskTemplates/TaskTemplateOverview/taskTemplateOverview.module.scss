@@ -30,18 +30,12 @@
   &:hover {
     color: var(--cds-support-01);
   }
-  :global .bx--btn__icon {
-    path,
-    rect {
-      fill: var(--cds-support-01);
-    }
+  svg {
+    fill: var(--cds-support-01);
   }
   &:disabled {
-    :global .bx--btn__icon {
-      path,
-      rect {
-        fill: var(--cds-disabled-02);
-      }
+    svg {
+      fill: var(--cds-disabled-02);
     }
   }
 }
@@ -181,18 +175,12 @@
   }
 }
 .delete {
-  :global .bx--btn__icon {
-    path,
-    rect {
-      fill: var(--cds-support-01);
-    }
+  :global svg, :global path {
+    fill: var(--cds-support-01) !important;
   }
   &:disabled {
-    :global .bx--btn__icon {
-      path,
-      rect {
-        fill: var(--cds-disabled-02);
+    :global svg, :global path {
+        fill: var(--cds-disabled-02) !important;
       }
     }
-  }
 }
