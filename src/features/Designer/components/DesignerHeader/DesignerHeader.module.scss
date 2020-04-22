@@ -15,12 +15,21 @@
   width: 100%;
 }
 
+.titleContainer {
+  align-items: center;
+  display: flex;
+
+  svg {
+    fill: var(--cds-support-03) !important;
+  }
+}
 .title {
   color: var(--cds-text-01);
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.625rem;
   margin: 0rem;
+  margin-right: 0.5rem;
   max-width: 50rem;
 }
 

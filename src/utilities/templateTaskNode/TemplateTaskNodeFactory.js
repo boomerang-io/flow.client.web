@@ -1,7 +1,7 @@
 import React from "react";
 import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
-import CustomNodeDesigner from "Components/TemplateTaskNodeDesigner";
-import CustomNodeExecution from "Components/TemplateTaskNodeExecution";
+import TemplateTaskNodeDesigner from "Components/TemplateTaskNodeDesigner";
+import TemplateTaskNodeExecution from "Components/TemplateTaskNodeExecution";
 import TemplateTaskNodeModel from "./TemplateTaskNodeModel";
 
 export default class TemplateTaskNodeFactory extends AbstractNodeFactory {
@@ -17,9 +17,9 @@ export default class TemplateTaskNodeFactory extends AbstractNodeFactory {
   generateReactWidget(diagramEngine, node) {
     // If diagram model is locked we can infer that the app is viewing the activity execution
     if (diagramEngine.diagramModel.locked) {
-      return <CustomNodeExecution node={node} diagramEngine={diagramEngine} />;
+      return <TemplateTaskNodeExecution node={node} diagramEngine={diagramEngine} />;
     } else {
-      return <CustomNodeDesigner node={node} diagramEngine={diagramEngine} />;
+      return <TemplateTaskNodeDesigner node={node} diagramEngine={diagramEngine} />;
     }
   }
 }

@@ -148,3 +148,12 @@
 :global .bx--overflow-menu-options.bx--overflow-menu--flip {
   position: fixed !important;
 }
+
+.templatesWarningIcon {
+  position: absolute;
+  top: 0.5rem;
+  right: 2rem;
+  svg {
+    fill: var(--cds-support-03) !important;
+  }
+}
