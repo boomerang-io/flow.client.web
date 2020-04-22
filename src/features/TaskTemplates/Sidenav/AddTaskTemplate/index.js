@@ -29,7 +29,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
 
   const handleAddTaskTemplate = async ({body, closeModal}) => {
     try {
-      const response = await CreateTaskTemplateMutation({ body });
+      let response = await CreateTaskTemplateMutation({ body });
       notify(
         <ToastNotification
           kind="success"
@@ -39,7 +39,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
         />
       );
       addTemplateInState(response);
-      console.log(response, "RESPONSE");
+      console.log(response, "RESPONSE1");
       history.push(appLink.taskTemplateEdit({id: response.id, version: 1}));
       closeModal();
     } catch (err) {

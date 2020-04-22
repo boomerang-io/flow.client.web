@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import cx from "classnames";
-import { ModalFlowForm, TextInput, TextArea, ComboBox } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalFlowForm, TextInput, TextArea } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import taskTemplateIcons from "Assets/taskTemplateIcons";
 import styles from "./editTaskTemplateForm.module.scss";
@@ -15,12 +15,12 @@ EditTaskTemplateForm.propTypes = {
   values: PropTypes.object
 };
 
-const categories = [
-  {value:"github" , label: "GitHub"},
-  {value:"boomerang" , label: "Boomerang"},
-  {value:"artifactory" , label: "Artifactory"},
-  {value:"utilities" , label: "Utilities"}
-];
+// const categories = [
+//   {value:"github" , label: "GitHub"},
+//   {value:"boomerang" , label: "Boomerang"},
+//   {value:"artifactory" , label: "Artifactory"},
+//   {value:"utilities" , label: "Utilities"}
+// ];
 
 function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplateModal, templateData}) {
   let taskTemplateNames = taskTemplates.map(taskTemplate => taskTemplate.name).filter(templateName => templateName !== templateData.name);
@@ -77,7 +77,17 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                 placeholder="Name"
                 value={values.name}
               />
-              <ComboBox
+              <TextInput
+                id="category"
+                invalid={errors.category && touched.category}
+                invalidText={errors.category}
+                labelText="Category"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                placeholder="Category"
+                value={values.category}
+              />
+              {/* <ComboBox
                 id="category"
                 helperText="Choose which category it falls under"
                 invalid={errors.category && touched.category}
@@ -87,7 +97,7 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                 initialSelectedItem={values.category}
                 onChange={({ selectedItem }) => setFieldValue("category", selectedItem)}
                 className={styles.teamsDropdown}
-              />
+              /> */}
               <TextInput
                 id="arguments"
                 labelText="Arguments"

@@ -214,7 +214,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
     }
 
     try {
-      const response = await UploadTaskTemplateMutation({ body });
+      let response = await UploadTaskTemplateMutation({ body });
       notify(
         <ToastNotification
           kind="success"
@@ -224,7 +224,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         />
       );
       resetForm();
-      console.log(response, "RESPONSE");
+      console.log(response, "RESPONSE2");
       history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: response.currentVersion }));
       updateTemplateInState(response);
     } catch (err) {
@@ -241,7 +241,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
   const handleArchiveTaskTemplate = async () => {
     try {
-      const response = await ArchiveTaskTemplateMutation({ id: selectedTaskTemplate.id });
+      let response = await ArchiveTaskTemplateMutation({ id: selectedTaskTemplate.id });
       notify(
         <ToastNotification
           kind="success"
@@ -265,7 +265,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
   const handleRestoreTaskTemplate = async () => {
     try {
-      const response = await RestoreTaskTemplateMutation({ id: selectedTaskTemplate.id });
+      let response = await RestoreTaskTemplateMutation({ id: selectedTaskTemplate.id });
       notify(
         <ToastNotification
           kind="success"

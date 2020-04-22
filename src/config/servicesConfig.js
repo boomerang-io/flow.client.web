@@ -72,7 +72,7 @@ export const resolver = {
   deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   postAddService: ({ body }) =>
     cancellableResolver({ url: serviceUrl.postAddService(), body, method: HTTP_METHODS.POST }),
-  postCreateTaskTemplate: ({ body }) => axios.post(serviceUrl.getTaskTemplates(), body),
+  postCreateTaskTemplate: ({ body }) => cancellableResolver({url: serviceUrl.getTaskTemplates(), body, method: HTTP_METHODS.POST}),
   putCreateTaskTemplate: ({ body }) => axios.put(serviceUrl.getTaskTemplates(), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id }))
 };
