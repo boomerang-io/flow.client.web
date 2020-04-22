@@ -60,7 +60,13 @@ export const serviceUrl = {
 export const cancellableResolver = ({ url, method, body, ...config }) => {
   // Create a new CancelToken source for this request
   const source = CancelToken.source();
-  const promise = axios({ url, method, body, cancelToken: source.token, ...config });
+  const promise = axios({
+    ...config,
+    method,
+    url,
+    data: body,
+    cancelToken: source.token
+  });
   return { promise, cancel: () => source.cancel("cancel") };
 };
 
