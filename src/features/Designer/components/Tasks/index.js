@@ -8,7 +8,7 @@ import mapTaskNametoIcon from "Utilities/taskIcons";
 import matchSorter from "match-sorter";
 import uniqBy from "lodash/uniqBy";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
-import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
+// import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import { ChevronLeft32, SettingsAdjust20 } from "@carbon/icons-react";
 import styles from "./tasks.module.scss";
 
@@ -153,7 +153,6 @@ export default class Tasks extends Component {
   };
 
   render() {
-    console.log(this.state.uniqueTaskTypes,"FILTERS");
     return (
       <aside className={cx(styles.container, { [styles.collapsed]: !this.state.isSidenavOpen })}>
         <header className={styles.header}>

@@ -9,6 +9,15 @@
   height: 31rem;
   overflow-y: auto;
 }
+.archiveContainer {
+  height: 25rem !important;
+  width: 30rem !important;
+}
+.confirmModalText {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  width: 20rem;
+}
 .taskActions {
   align-items: center;
   display: flex;
@@ -18,23 +27,25 @@
   color: var(--cds-support-01);
   margin-right: 1.5rem;
   width: 6.5rem;
-  &:hover{
+  &:hover {
     color: var(--cds-support-01);
   }
   :global .bx--btn__icon {
-    path, rect {
+    path,
+    rect {
       fill: var(--cds-support-01);
     }
-  };
+  }
   &:disabled {
     :global .bx--btn__icon {
-      path, rect {
+      path,
+      rect {
         fill: var(--cds-disabled-02);
       }
-    };
+    }
   }
 }
-.actionContainer{
+.actionContainer {
   display: flex;
   // height: 100%;
   width: 100%;
@@ -44,17 +55,17 @@
   display: flex;
   margin-top: 0.25rem;
 }
-.editTitle{
+.editTitle {
   align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.75rem;
   width: 100%;
-  :global .bx--btn__icon{
-    margin-left: 0!important;
+  :global .bx--btn__icon {
+    margin-left: 0 !important;
   }
 }
-.editDetails{
+.editDetails {
   display: flex;
   background-color: var(--cds-ui-01);
   border-radius: 0.25rem;
@@ -66,7 +77,7 @@
   padding: 1rem 0.75rem 1rem 1.5rem;
   width: 100%;
 }
-.editFields{
+.editFields {
   display: flex;
   background-color: var(--cds-ui-01);
   border-radius: 0.25rem;
@@ -76,8 +87,8 @@
   // min-height: 15rem;
   min-width: 40rem;
   padding-bottom: 1rem;
-  :global .bx--btn__icon{
-    margin-left: 0!important;
+  :global .bx--btn__icon {
+    margin-left: 0 !important;
   }
 }
 .fieldsTitle {
@@ -88,7 +99,7 @@
 .fieldActions {
   display: flex;
   align-items: center;
-  :global .bx--assistive-text{
+  :global .bx--assistive-text {
     left: -5.75rem !important;
   }
 }
@@ -120,7 +131,7 @@
   font-style: italic;
   word-break: break-all;
 }
-.fieldsContainer{
+.fieldsContainer {
   border-top: 0.0625rem solid var(--cds-active-ui);
   width: 100%;
 }
@@ -143,9 +154,9 @@
 }
 .noFieldsText {
   font-size: 1rem;
-  margin: 0 4rem 1.5rem 4rem ;
+  margin: 0 4rem 1.5rem 4rem;
 }
-.iconContainer{
+.iconContainer {
   align-items: center;
   display: flex;
   height: 100%;
@@ -155,7 +166,8 @@
   min-width: 1rem;
   margin: 0 1.875rem;
   &:disabled {
-    path, rect {
+    path,
+    rect {
       fill: var(--cds-disabled-02);
     }
   }
@@ -163,22 +175,24 @@
 .actions {
   display: flex;
   & div:nth-child(2) {
-    :global .bx--assistive-text{
+    :global .bx--assistive-text {
       left: -4.75rem !important;
     }
   }
 }
 .delete {
   :global .bx--btn__icon {
-    path, rect {
+    path,
+    rect {
       fill: var(--cds-support-01);
     }
-  };
+  }
   &:disabled {
     :global .bx--btn__icon {
-      path, rect {
+      path,
+      rect {
         fill: var(--cds-disabled-02);
       }
-    };
+    }
   }
 }

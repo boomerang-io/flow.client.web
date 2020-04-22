@@ -11,22 +11,37 @@
   top: 0;
   width: 100%;
   z-index: 1;
-  :global .bx--assistive-text{
+  :global .bx--assistive-text {
     left: -6.75rem !important;
   }
+}
+.saveContainer {
+  height: 23rem !important;
+}
+.confirmModalText {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+.saveConfirmModalText {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  width: 36rem;
+}
+.textBold {
+  font-weight: 600;
 }
 .featureHeader {
   align-items: center;
   display: flex;
   height: 7rem;
-  width:100%;
+  width: 100%;
 }
 .archivedTag {
   background-color: var(--cds-icon-02);
   color: var(--cds-ui-02);
   margin-left: 1rem !important;
   svg {
-    fill:  var(--cds-ui-02);
+    fill: var(--cds-ui-02);
   }
 }
 .buttons {

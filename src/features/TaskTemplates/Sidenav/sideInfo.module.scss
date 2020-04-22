@@ -11,14 +11,61 @@
     overflow-y: auto;
     height: 20.5rem;
   }
-  :global .bx--accordion__content{
+  :global .bx--accordion__content {
     padding: 0 !important;
+  }
+  :global(.bx--accordion__item) {
+    list-style-type: none;
+    :global(.bx--accordion__arrow) {
+      position: absolute;
+      right: 1.5rem;
+    }
+    :global(.bx--accordion__title) {
+      color: var(--cds-text-01);
+      font-size: 0.875rem;
+      letter-spacing: 0.01rem;
+      line-height: 1.25rem;
+      text-transform: capitalize;
+    }
   }
 }
 .tools {
   display: flex;
 }
-.tasksContainer{
+.filters {
+  display: flex;
+  flex-direction: column;
+  width: 14.5rem;
+}
+.filterHeader {
+  align-items: center;
+  border-bottom: 0.0625rem solid var(--cds-active-ui);
+  display: flex;
+  height: 3rem;
+  justify-content: space-between;
+  padding: 0.5rem;
+  width: 100%;
+}
+.filterTitle {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.resetFilter {
+  color: var(--cds-link-01);
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+.sectionTitle {
+  color: var(--cds-text-02);
+  font-size: 0.75rem;
+  margin: 0.5rem 0.1rem;
+}
+.filter {
+  border-bottom: 0.0625rem solid var(--cds-active-ui);
+  padding: 0.5rem;
+  width: 100%;
+}
+.tasksContainer {
   display: flex;
   flex-direction: column;
 }
@@ -68,14 +115,14 @@
   height: 3rem;
   padding: 0 1rem;
   width: 100%;
-  &.active{
+  &.active {
     background-color: var(--cds-selected-ui);
     border-left-color: var(--cds-support-02);
-    svg{
+    svg {
       fill: initial;
     }
   }
-  svg{
+  svg {
     fill: var(--cds-text-02);
   }
 }
@@ -83,7 +130,16 @@
   color: var(--cds-text-02);
   font-size: 0.875rem;
   margin-left: 0.5rem;
-  &.active{
+  &.active {
     color: var(--cds-text-01);
+  }
+}
+.checkboxOption {
+  align-items: center;
+  display: flex;
+  svg {
+    height: 1rem;
+    margin-right: 0.5rem;
+    width: 1rem;
   }
 }

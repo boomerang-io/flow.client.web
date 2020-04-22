@@ -3,8 +3,13 @@ import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import cx from "classnames";
-import { ModalFlowForm, TextInput, TextArea, FileUploaderDropContainer,
-  FileUploaderItem,} from "@boomerang/carbon-addons-boomerang-react";
+import {
+  ModalFlowForm,
+  TextInput,
+  TextArea,
+  FileUploaderDropContainer,
+  FileUploaderItem
+} from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, Loading } from "carbon-components-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
 import taskTemplateIcons from "Assets/taskTemplateIcons";
@@ -19,7 +24,7 @@ AddTaskTemplateForm.propTypes = {
 };
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
-const createInvalidTextMessage = `Oops there was a problem with the upload, delete it and try again.`;
+const createInvalidTextMessage = `Oops there was a problem with the upload, delete it and try again. The file should contain the required fields in this form and.`;
 const createValidTextMessage = `Task file successfully imported!`;
 
 function checkIsValidTask(data) {
@@ -33,28 +38,28 @@ function checkIsValidTask(data) {
   });
   return isValid;
 }
-  /**
-* Return promise for reading file
-* @param file {File}
-* @return {Promise}
-*/
+/**
+ * Return promise for reading file
+ * @param file {File}
+ * @return {Promise}
+ */
 const readFile = file => {
- const reader = new FileReader();
- return new Promise((resolve, reject) => {
-   reader.onerror = () => {
-     reader.abort();
-     reject(new DOMException("Problem parsing input file"));
-   };
+  const reader = new FileReader();
+  return new Promise((resolve, reject) => {
+    reader.onerror = () => {
+      reader.abort();
+      reject(new DOMException("Problem parsing input file"));
+    };
 
-   reader.onload = () => {
-     try {
-       resolve(JSON.parse(reader.result));
-     } catch (e) {
-       reject(new DOMException("Problem parsing input file as JSON"));
-     }
-   };
-   reader.readAsText(file);
- });
+    reader.onload = () => {
+      try {
+        resolve(JSON.parse(reader.result));
+      } catch (e) {
+        reject(new DOMException("Problem parsing input file as JSON"));
+      }
+    };
+    reader.readAsText(file);
+  });
 };
 
 // const categories = [
@@ -72,32 +77,34 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
     const hasFile = values.file;
     let newRevisionConfig = {
       version: 1,
-      image: values.icon, 
+      image: values.icon,
       arguments: values.arguments.trim().split(/\s{1,}/),
-      command: hasFile? values.command : values.command,
-      config: hasFile? values.currentRevision.config : []
+      command: values.command,
+      config: hasFile ? values.currentRevision.config : []
     };
-    const body =  
-    {
+    const body = {
       name: values.name,
       description: values.description,
       category: values.category,
       key: values.key,
       currentVersion: 1,
       revisions: [newRevisionConfig],
-      nodeType: "templateTask"
+      nodeType: "templateTask",
+      status: "active"
     };
-    await handleAddTaskTemplate({body, closeModal});
+    await handleAddTaskTemplate({ body, closeModal });
   };
   const getTemplateData = async (file, setFieldValue) => {
     const fileData = await readFile(file);
-    if(checkIsValidTask(fileData)){
+    if (checkIsValidTask(fileData)) {
       const currentRevision = fileData.revisions.find(revision => revision.version === fileData.currentVersion);
       setFieldValue("key", `new.${fileData.key}`);
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
       setFieldValue("icon", currentRevision.image);
+      setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
+      setFieldValue("command", currentRevision.command ?? "");
       setFieldValue("currentRevision", currentRevision);
       setFieldValue("fileData", fileData);
     }
@@ -120,29 +127,20 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       validationSchema={Yup.object().shape({
         key: Yup.string()
           .required("Enter a Key")
-          .notOneOf(
-            taskTemplateKeys,
-            "Enter a unique value for key"
-          ),
+          .notOneOf(taskTemplateKeys, "Enter a unique value for key"),
         name: Yup.string()
           .required("Enter a name")
-          .notOneOf(
-            taskTemplateNames,
-            "Enter a unique value for component name"
-          ),
-        category: Yup.string()
-          .required("Enter a category"),
+          .notOneOf(taskTemplateNames, "Enter a unique value for component name"),
+        category: Yup.string().required("Enter a category"),
         description: Yup.string()
           .lowercase()
           .min(4, "The description must be at least 4 characters")
           .max(200, "The description must be less than 60 characters")
           .required("Enter a desccription"),
-        arguments: Yup.string()
+        arguments: Yup.string(),
         // .required("Enter some arguments")
-        ,
-        command: Yup.string()
+        command: Yup.string(),
         // .required("Enter a command")
-        ,
         file: Yup.mixed()
           .test(
             "fileSize",
@@ -166,25 +164,36 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           })
       })}
       onSubmit={handleSubmit}
-      initialErrors={[{name:"Name required"}]}
+      initialErrors={[{ name: "Name required" }]}
     >
-      { props => {
-        const { handleSubmit, isValid, values, errors, touched, handleChange, setFieldValue, handleBlur, resetForm } = props;
+      {props => {
+        const {
+          handleSubmit,
+          isValid,
+          values,
+          errors,
+          touched,
+          handleChange,
+          setFieldValue,
+          handleBlur,
+          resetForm
+        } = props;
         return (
           <ModalFlowForm onSubmit={handleSubmit} className={styles.container}>
             <ModalBody>
               {isLoading && <Loading />}
-              <label className={styles.fileUploaderLabel} htmlFor="uploadTemplate">Import task file (optional)</label>
+              <label className={styles.fileUploaderLabel} htmlFor="uploadTemplate">
+                Import task file (optional)
+              </label>
               <p className={styles.fileUploaderHelper}>File type .json, can only upload one file</p>
               <FileUploaderDropContainer
                 id="uploadTemplate"
                 className={styles.fileUploader}
                 accept={[".json"]}
                 labelText={FILE_UPLOAD_MESSAGE}
-                helperText="File type .json, can only upload one file"
                 name="Workflow"
                 multiple={false}
-                onAddFiles={ async (event, { addedFiles }) =>{ 
+                onAddFiles={async (event, { addedFiles }) => {
                   await setFieldValue("file", addedFiles[0]);
                   getTemplateData(addedFiles[0], setFieldValue);
                 }}
@@ -195,7 +204,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                   status="edit"
                   onDelete={() => {
                     setFieldValue("file", undefined);
-                    if(!errors.file){
+                    if (!errors.file) {
                       resetForm();
                     }
                   }}
@@ -206,19 +215,19 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                   <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
                   <p className={styles.message}>{createInvalidTextMessage}</p>
                 </div>
-                )                
-              }
-              {
-                Boolean(values.file) && !Boolean(errors.file) &&(<>
+              )}
+              {Boolean(values.file) && !Boolean(errors.file) && (
+                <>
                   <div className={styles.validMessage}>
                     <CheckmarkFilled32 aria-label="error-import-icon" className={styles.successIcon} />
                     <p className={styles.message}>{createValidTextMessage}</p>
                   </div>
                   <p className={styles.successMessage}>
-                    Check the details below. Task Definition fields were also imported, you can view them once you’ve saved this task.
+                    Check the details below. Task Definition fields were also imported, you can view them once you’ve
+                    saved this task.
                   </p>
-                </>)
-              }
+                </>
+              )}
               <TextInput
                 id="key"
                 labelText="Key"
