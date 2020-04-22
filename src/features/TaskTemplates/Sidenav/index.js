@@ -4,12 +4,14 @@ import { useHistory, matchPath, useLocation } from "react-router-dom";
 // import axios from "axios";
 import cx from "classnames";
 import capitalize from "lodash/capitalize";
-import { Search, Accordion, AccordionItem } from "@boomerang/carbon-addons-boomerang-react";
 import matchSorter from "match-sorter";
-import { Bee16 } from "@carbon/icons-react";
+import { Search, Accordion, AccordionItem, OverflowMenu, CheckboxList, Checkbox } from "@boomerang/carbon-addons-boomerang-react";
 import AddTaskTemplate from "./AddTaskTemplate";
 import { appLink } from "Config/appConfig";
+import { Bee16, ViewOff16, SettingsAdjust20 } from "@carbon/icons-react";
+import mapTaskNametoIcon from "Utilities/taskIcons";
 import taskTemplateIcons from "Assets/taskTemplateIcons";
+import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import styles from "./sideInfo.module.scss";
 
 SideInfo.propTypes = {
@@ -20,7 +22,7 @@ const description = "Create and import tasks to add to the Flow Editor task list
 
 export function SideInfo({ taskTemplates, addTemplateInState }) {
   const [ searchQuery, setSearchQuery ] = React.useState();
-  // const [ activeFilters, setActiveFilters ] = React.useState();
+  const [ activeFilters, setActiveFilters ] = React.useState([]);
   const [ tasksToDisplay, setTasksToDisplay ] = React.useState(taskTemplates);
   const [ openCategories, setOpenCategories ] = React.useState(false);
 
@@ -66,13 +68,20 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
           placeHolderText="Search for a task"
           value={searchQuery}
         />
-        {/* <OverflowMenu renderIcon={SettingsAdjust20} flipped={true}>
+        <OverflowMenu renderIcon={SettingsAdjust20} flipped={true} className={styles.filters}>
+          <section>
+            <p>Filters</p>
+            <button>Reset filters</button>
+          </section>
+          <Checkbox 
+            labelText="Show Archived Tasks"
+          />
           <CheckboxList
             initialSelectedItems={activeFilters}
-            options={this.state.uniqueTaskTypes}
+            options={[]}
             onChange={(...args) => this.handleCheckboxListChange(...args)}
           />
-        </OverflowMenu> */}
+        </OverflowMenu>
       </section>
       <div className={styles.tasksInfo}>
         <p className={styles.info}>{`Showing ${tasksToDisplay.length} tasks`}</p>
@@ -105,6 +114,8 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
 function Task(props) {
   const { task, history } = props;
   const taskIcon = taskTemplateIcons.find(icon => icon.name === task.revisions[task.revisions.length - 1].image);
+  const isActive = task.status === TaskTemplateStatus.Active;
+
   return (
     <button
       className={cx(styles.task, { [styles.active]: props.isActive })}
@@ -116,6 +127,7 @@ function Task(props) {
       :
       <Bee16 />}
       <p className={cx(styles.taskName, { [styles.active]: props.isActive })}>{task.name}</p>
+      {!isActive && <ViewOff16 style={{marginLeft:"auto"}}/>}
     </button>
   );
 }

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ModalFlow, Button, TooltipDefinition } from "@boomerang/carbon-addons-boomerang-react";
 import TemplateConfigModalContent from "./TemplateConfigModalContent";
-import WorkflowEditButton from "Components/WorkflowEditButton";
 import { Add16, Edit16 } from "@carbon/icons-react";
 import styles from "./TemplateConfigModal.module.scss";
 
@@ -14,18 +13,18 @@ TemplateConfigModal.propTypes = {
 };
 
 export function TemplateConfigModal(props) {
-  const { isEdit } = props;
+  const { isEdit, oldVersion, isActive } = props;
   const editTrigger = ({ openModal }) => {
     let output = null;
     isEdit
       ? (output = (
         <TooltipDefinition direction="bottom" tooltipText={"Edit field"}>
-          <Button renderIcon={Edit16} kind="ghost" size="field" onClick={openModal}/>
+          <Button renderIcon={Edit16} kind="ghost" size="field" onClick={openModal} disabled={oldVersion || !isActive}/>
         </TooltipDefinition>
       ))
       : (output = (
         <TooltipDefinition direction="top" tooltipText={"Add a new field for this task"}>
-          <Button renderIcon={Add16} kind="ghost" size="field" onClick={openModal}>Add a field</Button>
+          <Button renderIcon={Add16} kind="ghost" size="field" onClick={openModal} disabled={oldVersion || !isActive}>Add a field</Button>
         </TooltipDefinition>
         ));
     return output;
@@ -37,8 +36,7 @@ export function TemplateConfigModal(props) {
           children: "Your setting will not be saved"
         }}
         modalHeaderProps={{
-          title: isEdit ? "Update Configuration" : "Create Configuration",
-          subtitle: isEdit ? "Let's change some stuff" : "Let's create a new one"
+          title: isEdit ? "Edit field" : "Create field",
         }}
         modalTrigger={editTrigger}
       >

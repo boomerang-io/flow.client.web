@@ -12,37 +12,56 @@ import PreviewConfig from "./PreviewConfig";
 import TemplateConfigModal from "./TemplateConfigModal";
 import Header from "../Header";
 import { QueryStatus } from "Constants/reactQueryStatuses";
-import { Draggable16, Delete16, Archive16 } from "@carbon/icons-react";
+import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
+import { Draggable16, Delete16, Archive16, Bee16 } from "@carbon/icons-react";
+import taskTemplateIcons from "Assets/taskTemplateIcons";
 import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import styles from "./taskTemplateOverview.module.scss";
 
-const archiveText = `Archive a task when it is no longer supported and shouldn’t be used in new Workflows. 
-
-Once archived, it will no longer appear in the Workflow Editor, but you can still view it in the Task Manager here. The task will remain functional in any existing Workflows to avoid breakage. 
-
-You can restore an archived task later, if needed.
-
-If you need to permanently delete a task, contact a Boomerang Admin to help (bmrgjoe@bmrg.com).`;
+const ArchiveText = () => (
+  <div>
+    <p>Archive a task when it is no longer supported and shouldn’t be used in new Workflows.</p>
+    <p>Once archived, it will no longer appear in the Workflow Editor, but you can still view it in the Task Manager here. The task will remain functional in any existing Workflows to avoid breakage.</p>
+    <p>You can restore an archived task later, if needed.</p>
+    <p>If you need to permanently delete a task, contact a Boomerang Admin to help (bmrgjoe@bmrg.com).</p>
+  </div>
+);
 
 function DetailDataElements({ label, value }) {
+  const taskIcon = taskTemplateIcons.find(icon => icon.name === value);
+
   return (
     <section className={styles.infoSection}>
       <dt className={styles.label}>{label}</dt>
+      {
+      label === "Icon"?
+      taskIcon?
+      <div className={styles.basicIcon}>
+        <taskIcon.src style={{width:"1.5rem", height:"1.5rem", marginRight:"0.75rem"}}/>
+        <p className={styles.value}>{taskIcon.label}</p>
+      </div>
+      :
+      <div className={styles.basicIcon}>
+        <Bee16 style={{width:"1rem", height:"1rem", marginRight:"0.75rem"}} />
+        <p className={styles.value}>Default</p>
+      </div>
+      :
       <dd className={value ? styles.value : styles.noValue} data-testid={label}>
         {value ? value : "Not defined yet"}
       </dd>
+      }
     </section>
   );
 }
 
-function Field({field, innerRef, draggableProps, dragHandleProps, setFieldValue, settings, deleteConfiguration}) {
+function Field({field, innerRef, draggableProps, dragHandleProps, setFieldValue, settings, deleteConfiguration, oldVersion, isActive}) {
   return (
     <section className={styles.fieldSection} ref={innerRef} {...draggableProps} >
-      <div className={styles.iconContainer} {...dragHandleProps}>
+      <div className={styles.iconContainer} {...dragHandleProps} style={{display: `${oldVersion || !isActive ? "none": "flex"}`}}>
         <Draggable16 className={styles.dragabble}/>
       </div>
-      <dd className={styles.value} data-testid={field.label}>
+      <dd className={styles.value} data-testid={field.label} style={{marginLeft: `${oldVersion || !isActive ? "1.5rem": "0"}`}}>
         {`${field.type} - ${field.label}`}
       </dd>
       <div className={styles.actions}>
@@ -51,9 +70,11 @@ function Field({field, innerRef, draggableProps, dragHandleProps, setFieldValue,
           setting={field}
           setFieldValue={setFieldValue}
           settings={settings}
+          oldVersion={oldVersion}
+          isActive={isActive}
         />
         <TooltipDefinition direction="bottom" tooltipText={"Delete field"} className={styles.deleteField}>
-          <Button onClick={() => deleteConfiguration(field)} renderIcon={Delete16} kind="ghost" size="field" className={styles.delete}/>   
+          <Button onClick={() => deleteConfiguration(field)} renderIcon={Delete16} kind="ghost" size="field" disabled={oldVersion || !isActive} className={styles.delete}/>   
         </TooltipDefinition>
       </div>
     </section>
@@ -65,10 +86,16 @@ export function TaskTemplateOverview({taskTemplates, updateTemplateInState}){
   const params = useParams();
   const { taskTemplateId = "", version = ""} = params;
   const history = useHistory();
-  const [UploadTaskTemplateMutation, status] = useMutation(resolver.putCreateTaskTemplate);
-  const isLoading = status === QueryStatus.Loading;
+  const [UploadTaskTemplateMutation, { status: uploadStatus }] = useMutation(resolver.putCreateTaskTemplate);
+  const [ArchiveTaskTemplateMutation, { status: archiveStatus }] = useMutation(resolver.deleteArchiveTaskTemplate);
+  const [RestoreTaskTemplateMutation, { status: restoreStatus }] = useMutation(resolver.putRestoreTaskTemplate);
+
+  const isLoading = uploadStatus === QueryStatus.Loading;
+  const archiveIsLoading = archiveStatus === QueryStatus.Loading;
+  const restoreIsLoading = restoreStatus === QueryStatus.Loading;
 
   let selectedTaskTemplate = taskTemplates.find(taskTemplate => taskTemplate.id === taskTemplateId) ?? {};
+  const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
 
   const invalidVersion = version === "0" || version > selectedTaskTemplate.currentVersion;
   // Checks if the version in url are a valid one. If not, go to the latest version
@@ -80,6 +107,7 @@ export function TaskTemplateOverview({taskTemplates, updateTemplateInState}){
   selectedTaskTemplate.revisions.find(revision => revision.version.toString() === version)
   :{};
   
+  const oldVersion = !invalidVersion && version !== selectedTaskTemplate.currentVersion.toString();
 
   const templateNotFound = !selectedTaskTemplate.id;
 
@@ -136,6 +164,54 @@ export function TaskTemplateOverview({taskTemplates, updateTemplateInState}){
       }
   };
 
+  const handleArchiveTaskTemplate =  async() => {
+    try {
+      const response = await ArchiveTaskTemplateMutation({ id: selectedTaskTemplate.id });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={"Task Template Archive"}
+          subtitle={`Request to archive ${selectedTaskTemplate.name} succeeded`}
+          data-testid="archive-task-template-notification"
+        />
+      );
+      updateTemplateInState(response);
+    } catch (err) {
+      notify(
+        <ToastNotification
+          kind="error"
+          title={"Archive Task Template Failed"}
+          subtitle={"Something's Wrong"}
+          data-testid="archive-task-template-notification"
+        />
+      );
+    }
+  };
+
+  const handleRestoreTaskTemplate = async() => {
+    try {
+      const response = await RestoreTaskTemplateMutation({ id: selectedTaskTemplate.id });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={"Task Template Restore"}
+          subtitle={`Request to restore ${selectedTaskTemplate.name} succeeded`}
+          data-testid="restore-task-template-notification"
+        />
+      );
+      updateTemplateInState(response);
+    } catch (err) {
+      notify(
+        <ToastNotification
+          kind="error"
+          title={"Restore Task Template Failed"}
+          subtitle={"Something's Wrong"}
+          data-testid="restore-task-template-notification"
+        />
+      );
+    }
+  }
+
   if(templateNotFound)
     return( 
       <Error404 
@@ -191,17 +267,18 @@ export function TaskTemplateOverview({taskTemplates, updateTemplateInState}){
                   return prompt;
                 }}
               />
-              {isLoading && <Loading />}
-              <Header selectedTaskTemplate={selectedTaskTemplate} currentRevision={currentRevision} handleResetTemplate={resetForm} isValid={isValid} isDirty={isDirty} handleSubmit={handleSubmit}/>
+              {(isLoading || archiveIsLoading || restoreIsLoading) && <Loading />}
+              <Header selectedTaskTemplate={selectedTaskTemplate} currentRevision={currentRevision} handleResetTemplate={resetForm} handleRestoreTaskTemplate={handleRestoreTaskTemplate} isValid={isValid} isDirty={isDirty} handleSubmit={handleSubmit} oldVersion={oldVersion} isActive={isActive}/>
               <div className={styles.content}>
                 <section className={styles.taskActions}>
                   <p className={styles.description}>Build the definition requirements for this task.</p>
                   <ConfirmModal
-                    affirmativeAction={() => console.log("affirmative")}
-                    children={archiveText}
+                    affirmativeAction={() => handleArchiveTaskTemplate(selectedTaskTemplate)}
+                    affirmativeText="Archive this task"
+                    children={<ArchiveText />}
                     title="Archive"
                     modalTrigger={({ openModal }) => (
-                      <Button renderIcon={Archive16} kind="ghost" size="field" className={styles.archive} onClick={openModal}>Archive</Button>
+                      <Button renderIcon={Archive16} kind="ghost" size="field" disabled={oldVersion || !isActive} className={styles.archive} onClick={openModal}>Archive</Button>
                     )}
                   />
                 </section>
@@ -209,7 +286,7 @@ export function TaskTemplateOverview({taskTemplates, updateTemplateInState}){
                   <Tile className={styles.editDetails}>
                     <section className={styles.editTitle}>
                       <p>Basics</p>
-                      <EditTaskTemplateModal taskTemplates={taskTemplates} setFieldValue={setFieldValue} settings={values.currentConfig} values={values}/>
+                      <EditTaskTemplateModal taskTemplates={taskTemplates} setFieldValue={setFieldValue} settings={values.currentConfig} values={values} oldVersion={oldVersion} isActive={isActive}/>
                     </section>
                     <dl>
                       <DetailDataElements value={values.name} label="Name" />
@@ -226,7 +303,7 @@ export function TaskTemplateOverview({taskTemplates, updateTemplateInState}){
                       </div>
                       <div className={styles.fieldActions}>
                         <PreviewConfig templateConfig={values.currentConfig} taskTemplateName={values.name}/>
-                        <TemplateConfigModal settingKeys={settingKeys} setFieldValue={setFieldValue} settings={values.currentConfig} />
+                        <TemplateConfigModal settingKeys={settingKeys} setFieldValue={setFieldValue} settings={values.currentConfig} oldVersion={oldVersion} isActive={isActive}/>
                       </div>
                     </section>
                     <DragDropContext onDragEnd={onDragEnd}>
@@ -247,12 +324,18 @@ export function TaskTemplateOverview({taskTemplates, updateTemplateInState}){
                                         setFieldValue={setFieldValue}
                                         settings={values.currentConfig}
                                         deleteConfiguration={deleteConfiguration}
+                                        oldVersion={oldVersion}
+                                        isActive={isActive}
                                       />
                                     )}
                                   </Draggable>
                                 ))
                                 :
-                                <Error404 header="" message="Fields not found"/>
+                                <div className={styles.noFieldsContainer}>
+                                  <p className={styles.noFieldsTitle}>No fields (yet)</p>
+                                  <p className={styles.noFieldsText}>Fields determine the function and parameters of a task, defining what the task does and prompting users to fill in their values and messages.</p>
+                                  <p className={styles.noFieldsText}>Add a field above to get started.</p>
+                                </div>
                               }
                               </section>
                             )

@@ -8,10 +8,11 @@ EditTaskTemplateModal.propTypes = {
   componentId: PropTypes.string.isRequired,
   componentModeId: PropTypes.string.isRequired,
   handleCloseModal: PropTypes.func.isRequired,
-  updateComponentInState: PropTypes.func.isRequired
+  updateComponentInState: PropTypes.func.isRequired,
+  oldVersion: PropTypes.bool
 };
 
-function EditTaskTemplateModal({ taskTemplates, setFieldValue, values }) {
+function EditTaskTemplateModal({ taskTemplates, setFieldValue, values, oldVersion, isActive }) {
 
   const handleEditTaskTemplateModal = async ({newValues}) => {
     setFieldValue("name", newValues.name);
@@ -27,11 +28,10 @@ function EditTaskTemplateModal({ taskTemplates, setFieldValue, values }) {
         children: "Your request will not be saved"
       }}
       modalTrigger={({ openModal }) => (
-        <Button renderIcon={Edit16} kind="ghost" size="field" onClick={openModal}/>
+        <Button renderIcon={Edit16} disabled={oldVersion || !isActive} kind="ghost" size="field" onClick={openModal}/>
       )}
       modalHeaderProps={{
-        title: "Edit Task Template",
-        subtitle: "Want to change something?"
+        title: "Edit the basics"
       }}
     >
       <EditTaskTemplateForm  handleEditTaskTemplateModal={handleEditTaskTemplateModal} taskTemplates={taskTemplates} templateData={values}/>

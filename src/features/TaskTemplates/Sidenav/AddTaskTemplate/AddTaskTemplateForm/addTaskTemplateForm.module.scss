@@ -1,3 +1,44 @@
+.container {
+  :global .bx--file-browse-btn {
+    margin-bottom: 1rem;
+  }
+}
+.fileUploaderLabel {
+  font-size: 0.75rem;
+}
+.fileUploaderHelper {
+  color: var(--cds-active-secondary);
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.validMessage {
+  align-items: center;
+  display: flex;
+  margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
+}
+.errorIcon {
+  height: 1.25rem;
+  width: 1.25rem;
+  path {
+    fill: var(--cds-support-01);
+  }
+}
+.successIcon {
+  height: 1.25rem;
+  width: 1.25rem;
+  path {
+    fill: var(--cds-support-02);
+  }
+}
+.message {
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+.successMessage {
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
 .iconTitle {
   color: var(--cds-text-02);
   font-size: 0.75rem;

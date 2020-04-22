@@ -39,7 +39,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
         />
       );
       addTemplateInState(response);
-      console.log(response);
+      console.log(response, "RESPONSE");
       history.push(appLink.taskTemplateEdit({id: response.id, version: 1}));
       closeModal();
     } catch (err) {
@@ -78,8 +78,8 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
         if (cancelRequestRef.current) cancelRequestRef.current();
       }}
       modalHeaderProps={{
-        title: "Create Task Template",
-        subtitle: "What are we building?"
+        title: "Add a new task",
+        subtitle: "Import a task file to auto-populate these fields, or start from scratch. All fields are required."
       }}
     >
       <AddTaskTemplateForm  handleAddTaskTemplate={handleAddTaskTemplate} isLoading={isLoading} taskTemplates={taskTemplates} />

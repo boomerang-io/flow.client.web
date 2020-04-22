@@ -53,7 +53,8 @@ export const HTTP_METHODS = {
 
 export const serviceUrl = {
   getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
-  deleteTaskTemplate: ({id}) => `${BASE_SERVICE_URL}/tasktemplate/${id}`
+  deleteArchiveTaskTemplate: ({id}) => `${BASE_SERVICE_URL}/tasktemplate/${id}`,
+  restoreTaskTemplate: ({id}) => `${BASE_SERVICE_URL}/tasktemplate/${id}`
 };
 
 export const cancellableResolver = ({ url, method, body, ...config }) => {
@@ -68,10 +69,11 @@ export const resolver = {
   postMutation: request => axios.post(request),
   patchMutation: request => axios.patch(request),
   putMutation: request => axios.put(request),
-  deleteTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteTaskTemplate({ id })),
+  deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   postAddService: ({ body }) => cancellableResolver({ url: serviceUrl.postAddService(), body, method: HTTP_METHODS.POST }),
   postCreateTaskTemplate: ({ body }) => axios.post(serviceUrl.getTaskTemplates(), body),
-  putCreateTaskTemplate: ({ body }) => axios.put(serviceUrl.getTaskTemplates(), body)
+  putCreateTaskTemplate: ({ body }) => axios.put(serviceUrl.getTaskTemplates(), body),
+  putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id }))
 };
 
 export const REQUEST_STATUSES = {

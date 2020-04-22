@@ -16,7 +16,7 @@
 }
 .archive {
   color: var(--cds-support-01);
-  margin-right: 2.75rem;
+  margin-right: 1.5rem;
   width: 6.5rem;
   &:hover{
     color: var(--cds-support-01);
@@ -26,11 +26,23 @@
       fill: var(--cds-support-01);
     }
   };
+  &:disabled {
+    :global .bx--btn__icon {
+      path, rect {
+        fill: var(--cds-disabled-02);
+      }
+    };
+  }
 }
 .actionContainer{
   display: flex;
   // height: 100%;
   width: 100%;
+}
+.basicIcon {
+  align-items: center;
+  display: flex;
+  margin-top: 0.25rem;
 }
 .editTitle{
   align-items: center;
@@ -119,6 +131,20 @@
   height: 3rem;
   width: 100%;
 }
+.noFieldsContainer {
+  align-items: center;
+  color: var(--cds-text-03);
+  display: flex;
+  flex-direction: column;
+}
+.noFieldsTitle {
+  font-size: 1.5rem;
+  margin: 3rem 0;
+}
+.noFieldsText {
+  font-size: 1rem;
+  margin: 0 4rem 1.5rem 4rem ;
+}
 .iconContainer{
   align-items: center;
   display: flex;
@@ -128,8 +154,13 @@
   min-height: 1rem;
   min-width: 1rem;
   margin: 0 1.875rem;
+  &:disabled {
+    path, rect {
+      fill: var(--cds-disabled-02);
+    }
+  }
 }
-.actions{
+.actions {
   display: flex;
   & div:nth-child(2) {
     :global .bx--assistive-text{
@@ -143,4 +174,11 @@
       fill: var(--cds-support-01);
     }
   };
+  &:disabled {
+    :global .bx--btn__icon {
+      path, rect {
+        fill: var(--cds-disabled-02);
+      }
+    };
+  }
 }

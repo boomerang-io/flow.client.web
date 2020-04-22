@@ -11531,6 +11531,7 @@
           "config": []
         }
       ],
+      "status": "inactive",
       "nodeType": "templateTask",
       "id": "7rJT_Dq"
     }

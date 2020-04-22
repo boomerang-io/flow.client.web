@@ -14,18 +14,18 @@ import Settings from "./Settings.js";
 import Slack from "./Slack.js";
 
 export default [
-  { src: Docs, name: "doc" },
-  { src: Account, name: "account" },
-  { src: Brush1, name: "brush1" },
-  { src: Brush2, name: "brush2" },
-  { src: Chat, name: "chat" },
-  { src: Cloud, name: "cloud" },
-  { src: Cloud2, name: "cloud2" },
-  { src: Data, name: "data" },
-  { src: Edit, name: "edit" },
-  { src: Events, name: "events" },
-  { src: Information, name: "information" },
-  { src: Send, name: "send" },
-  { src: Settings, name: "settings" },
-  { src: Slack, name: "slack" }
+  { src: Docs, name: "doc", label: "Docs" },
+  { src: Account, name: "account", label: "Account" },
+  { src: Brush1, name: "brush1", label: "Brush1" },
+  { src: Brush2, name: "brush2", label: "Brush2" },
+  { src: Chat, name: "chat", label: "Chat" },
+  { src: Cloud, name: "cloud", label: "Cloud" },
+  { src: Cloud2, name: "cloud2", label: "Cloud2" },
+  { src: Data, name: "data", label: "Data" },
+  { src: Edit, name: "edit", label: "Edit" },
+  { src: Events, name: "events", label: "Events" },
+  { src: Information, name: "information", label: "Information" },
+  { src: Send, name: "send", label: "Send" },
+  { src: Settings, name: "settings", label: "Settings" },
+  { src: Slack, name: "slack", label: "Slack" }
 ];

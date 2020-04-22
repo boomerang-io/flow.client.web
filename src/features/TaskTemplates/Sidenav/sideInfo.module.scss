@@ -15,6 +15,9 @@
     padding: 0 !important;
   }
 }
+.tools {
+  display: flex;
+}
 .tasksContainer{
   display: flex;
   flex-direction: column;
@@ -68,6 +71,12 @@
   &.active{
     background-color: var(--cds-selected-ui);
     border-left-color: var(--cds-support-02);
+    svg{
+      fill: initial;
+    }
+  }
+  svg{
+    fill: var(--cds-text-02);
   }
 }
 .taskName {
