@@ -39,6 +39,7 @@ const INPUT_TYPES_LABELS = [
 ];
 
 class TemplateConfigModalContent extends Component {
+  
   static propTypes = {
     closeModal: PropTypes.func,
     setting: PropTypes.object,

@@ -1,5 +1,4 @@
 import React from "react";
-// import PropTypes from "prop-types";
 import { useQuery, queryCache } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import orderBy from "lodash/orderBy";
@@ -37,16 +36,7 @@ export function TaskTemplatesContainer(){
       queryCache.setQueryData(getTaskTemplatesUrl, updatedTemplatesData);
     }
   };
-  // const deleteTemplateInState = deletedTemplateId => {
-  //   const updatedTemplatesData = [...taskTemplatesData];
-  //   const templateToDeleteIndex = updatedTemplatesData.findIndex(template => template.id === deletedTemplateId);
-  //   // If we found it
-  //   if (templateToDeleteIndex !== -1) {
-  //     updatedTemplatesData.splice(templateToDeleteIndex, 1);
-  //     queryCache.setQueryData(getTaskTemplatesUrl, updatedTemplatesData);
-  //   }
-  //   return updatedTemplatesData;
-  // };
+  
     if (isLoading) {
       return <Loading />;
     }

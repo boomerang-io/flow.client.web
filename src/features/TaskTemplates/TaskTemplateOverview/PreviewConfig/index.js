@@ -5,8 +5,8 @@ import ValidateFormikOnMount from "Components/ValidateFormikOnMount";
 import { View16 } from "@carbon/icons-react";
 
 PreviewConfig.propTypes = {
-  taskTemplateName: PropTypes.string.isRequired,
-  templateConfig: PropTypes.array.isRequired
+  templateConfig: PropTypes.array,
+  closeModal: PropTypes.func.isRequired
 };
 
 const modalHeadertext = "This is a preview of what the user sees when editing this Task. The user can also give this task a custom name for their Workflow, and can adjust its connected tasks. You can type in these fields to test any validation requirements.";

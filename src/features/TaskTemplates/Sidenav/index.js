@@ -14,7 +14,7 @@ import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import styles from "./sideInfo.module.scss";
 
 SideInfo.propTypes = {
-  tasks: PropTypes.array.isRequired,
+  taskTemplates: PropTypes.array.isRequired,
   addTemplateInState: PropTypes.func.isRequired
 };
 const description = "Create and import tasks to add to the Flow Editor task list";

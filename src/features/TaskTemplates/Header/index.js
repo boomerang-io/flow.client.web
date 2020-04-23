@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   Button,
   ConfirmModal,
@@ -121,6 +122,23 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
     </ComposedModal>
   );
 }
+
+Header.propTypes = {
+  selectedTaskTemplate: PropTypes.object.isRequired,
+  currentRevision: PropTypes.object.isRequired,
+  values: PropTypes.object.isRequired,
+  resetForm: PropTypes.func.isRequired,
+  isValid: PropTypes.bool,
+  isDirty: PropTypes.bool,
+  handleSaveTaskTemplate: PropTypes.func.isRequired,
+  handleRestoreTaskTemplate: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  oldVersion: PropTypes.bool.isRequired,
+  isActive: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  cancelRequestRef: PropTypes.object.isRequired
+};
+
 function Header({
   selectedTaskTemplate,
   currentRevision,

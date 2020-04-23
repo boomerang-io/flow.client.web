@@ -5,11 +5,12 @@ import EditTaskTemplateForm from "./EditTaskTemplateForm";
 import { Edit16 } from "@carbon/icons-react";
 
 EditTaskTemplateModal.propTypes = {
-  componentId: PropTypes.string.isRequired,
-  componentModeId: PropTypes.string.isRequired,
+  taskTemplates: PropTypes.array.isRequired,
+  setFieldValue: PropTypes.func.isRequired,
   handleCloseModal: PropTypes.func.isRequired,
-  updateComponentInState: PropTypes.func.isRequired,
-  oldVersion: PropTypes.bool
+  values: PropTypes.object.isRequired,
+  oldVersion: PropTypes.bool,
+  isActive: PropTypes.bool
 };
 
 function EditTaskTemplateModal({ taskTemplates, setFieldValue, values, oldVersion, isActive }) {

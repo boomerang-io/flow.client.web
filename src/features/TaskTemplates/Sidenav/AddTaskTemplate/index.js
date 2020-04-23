@@ -10,10 +10,10 @@ import { Add16 } from "@carbon/icons-react";
 import { QueryStatus } from "Constants/reactQueryStatuses";
 
 AddTaskTemplate.propTypes = {
-  componentId: PropTypes.string.isRequired,
-  componentModeId: PropTypes.string.isRequired,
-  handleCloseModal: PropTypes.func.isRequired,
-  updateComponentInState: PropTypes.func.isRequired
+  addTemplateInState: PropTypes.func.isRequired,
+  taskTemplates: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location }) {

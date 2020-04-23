@@ -17,10 +17,10 @@ import { requiredTaskProps } from "./constants";
 import styles from "./addTaskTemplateForm.module.scss";
 
 AddTaskTemplateForm.propTypes = {
-  closeModal: PropTypes.func,
-  handleSelectMode: PropTypes.func,
-  currentComponent: PropTypes.object,
-  formData: PropTypes.object
+  closeModal: PropTypes.func.isRequired,
+  taskTemplates: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool,
+  handleAddTaskTemplate: PropTypes.func.isRequired
 };
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";

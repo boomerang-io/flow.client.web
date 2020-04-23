@@ -1,11 +1,9 @@
 import React from "react";
-// import PropTypes from "prop-types";
-// import { useQuery, queryCache } from "react-query";
+import PropTypes from "prop-types";
 import { Formik } from "formik";
 import { isCancel } from "axios";
 import { useRouteMatch, useParams, useHistory, Prompt, matchPath } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
-// import orderBy from "lodash/orderBy";
 import {
   Tile,
   Button,
@@ -124,6 +122,11 @@ function Field({
     </section>
   );
 }
+
+TaskTemplateOverview.propTypes = {
+  taskTemplates: PropTypes.array.isRequired, 
+  updateTemplateInState: PropTypes.func.isRequired
+};
 
 export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const cancelRequestRef = React.useRef();

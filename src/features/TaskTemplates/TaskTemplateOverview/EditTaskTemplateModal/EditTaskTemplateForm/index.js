@@ -12,7 +12,7 @@ EditTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func,
   handleEditTaskTemplateModal: PropTypes.func,
   taskTemplates: PropTypes.array,
-  values: PropTypes.object
+  templateData: PropTypes.object
 };
 
 // const categories = [
