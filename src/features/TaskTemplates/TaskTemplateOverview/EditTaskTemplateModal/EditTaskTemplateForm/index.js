@@ -22,10 +22,12 @@ EditTaskTemplateForm.propTypes = {
 //   {value:"utilities" , label: "Utilities"}
 // ];
 
-function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplateModal, templateData}) {
-  let taskTemplateNames = taskTemplates.map(taskTemplate => taskTemplate.name).filter(templateName => templateName !== templateData.name);
+function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplateModal, templateData }) {
+  let taskTemplateNames = taskTemplates
+    .map(taskTemplate => taskTemplate.name)
+    .filter(templateName => templateName !== templateData.name);
   const handleSubmit = async values => {
-    await handleEditTaskTemplateModal({newValues: values});
+    await handleEditTaskTemplateModal({ newValues: values });
     closeModal();
   };
   return (
@@ -36,32 +38,27 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
         icon: templateData.image,
         description: templateData.description,
         arguments: templateData.arguments,
-        command: templateData.command,
+        command: templateData.command
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
           .required("Enter a name")
-          .notOneOf(
-            taskTemplateNames,
-            "Enter a unique value for component name"
-          ),
-        category: Yup.string()
-          .required("Select a category"),
+          .notOneOf(taskTemplateNames, "Enter a unique value for component name"),
+        category: Yup.string().required("Select a category"),
         description: Yup.string()
           .lowercase()
           .min(4, "The description must be at least 4 characters")
           .max(200, "The description must be less than 60 characters")
           .required("Enter a desccription"),
-        arguments: Yup.string()
+        arguments: Yup.string(),
         // .required("Enter some arguments")
-        ,
         command: Yup.string()
         // .required("Enter a command")
       })}
       onSubmit={handleSubmit}
-      initialErrors={[{name:"Name required"}]}
+      initialErrors={[{ name: "Name required" }]}
     >
-      { props => {
+      {props => {
         const { handleSubmit, isValid, values, errors, touched, handleChange, setFieldValue, handleBlur } = props;
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
@@ -112,7 +109,7 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
               />
               <TextInput
                 id="command"
-                labelText="Comand"
+                labelText="Command"
                 helperText="Helper text for command"
                 placeholder="Command"
                 name="command"

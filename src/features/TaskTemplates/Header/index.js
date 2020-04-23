@@ -7,7 +7,9 @@ import {
   ModalFlowForm,
   ModalFooter,
   ModalBody,
-  Tag
+  Tag,
+  InlineNotification,
+  Loading
 } from "@boomerang/carbon-addons-boomerang-react";
 import capitalize from "lodash/capitalize";
 import FeatureHeader from "Components/FeatureHeader";
@@ -17,7 +19,9 @@ import { TemplateRequestType } from "../constants";
 import taskTemplateIcons from "Assets/taskTemplateIcons";
 import styles from "./header.module.scss";
 
-function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm }) {
+function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoading, cancelRequestRef }) {
+  const [requestError, setRequestError] = React.useState(null);
+
   const SaveMessage = () => {
     return (
       <>
@@ -43,6 +47,9 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm }) {
         title: "Save changes"
       }}
       composedModalProps={{ containerClassName: styles.saveContainer }}
+      onCloseModal={() => {
+        if (cancelRequestRef.current) cancelRequestRef.current();
+      }}
       modalTrigger={({ openModal }) => (
         <TooltipDefinition direction="bottom" tooltipText={"Save a new version or update the current one"}>
           <Button
@@ -62,7 +69,17 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm }) {
         return (
           <ModalFlowForm>
             <ModalBody>
+              {isLoading && <Loading />}
               <SaveMessage />
+              {Boolean(requestError) && (
+                <InlineNotification
+                  style={{ marginBottom: "0.5rem" }}
+                  kind="error"
+                  title={requestError.title}
+                  subtitle={requestError.subtitle}
+                  onCloseButtonClick={() => setRequestError(null)}
+                />
+              )}
             </ModalBody>
             <ModalFooter>
               <Button kind="secondary" type="button" onClick={closeModal}>
@@ -72,8 +89,13 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm }) {
                 kind="secondary"
                 onClick={e => {
                   e.preventDefault();
-                  handleSubmit({ values, resetForm, requestType: TemplateRequestType.Overwrite });
-                  closeModal();
+                  handleSubmit({
+                    values,
+                    resetForm,
+                    requestType: TemplateRequestType.Overwrite,
+                    setRequestError,
+                    closeModal
+                  });
                 }}
               >
                 Overwrite this version
@@ -81,8 +103,13 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm }) {
               <Button
                 onClick={e => {
                   e.preventDefault();
-                  handleSubmit({ values, resetForm, requestType: TemplateRequestType.New });
-                  closeModal();
+                  handleSubmit({
+                    values,
+                    resetForm,
+                    requestType: TemplateRequestType.New,
+                    setRequestError,
+                    closeModal
+                  });
                 }}
               >
                 Save new version
@@ -105,7 +132,9 @@ function Header({
   handleRestoreTaskTemplate,
   handleSubmit,
   oldVersion,
-  isActive
+  isActive,
+  isLoading,
+  cancelRequestRef
 }) {
   const taskIcon = taskTemplateIcons.find(
     icon => icon.name === selectedTaskTemplate.revisions[selectedTaskTemplate.revisions.length - 1].image
@@ -197,6 +226,8 @@ function Header({
               resetForm={resetForm}
               isValid={isValid}
               isDirty={isDirty}
+              isLoading={isLoading}
+              cancelRequestRef={cancelRequestRef}
             />
           ) : (
             <ConfirmModal

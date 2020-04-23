@@ -99,13 +99,13 @@ class TemplateConfigModalContent extends Component {
     if (this.props.isEdit) {
       const settingIndex = settings.findIndex(setting => setting.key === this.props.setting.key);
       let newProperties = [].concat(settings);
-      newProperties.splice(settingIndex,1,setting);
-      setFieldValue("currentConfig",newProperties);
+      newProperties.splice(settingIndex, 1, setting);
+      setFieldValue("currentConfig", newProperties);
       this.props.forceCloseModal();
     } else {
       let newProperties = [].concat(settings);
       newProperties.push(setting);
-      setFieldValue("currentConfig",newProperties);
+      setFieldValue("currentConfig", newProperties);
       this.props.forceCloseModal();
     }
   };
@@ -211,9 +211,7 @@ class TemplateConfigModalContent extends Component {
           [FIELD.HELPER_TEXT]: setting?.helperText ?? "",
           [FIELD.READ_ONLY]: setting?.readOnly ?? false,
           [FIELD.REQUIRED]: setting?.required ?? false,
-          [FIELD.TYPE]: setting
-            ? INPUT_TYPES_LABELS.find(type => type.value === setting.type)
-            : INPUT_TYPES_LABELS[4],
+          [FIELD.TYPE]: setting ? INPUT_TYPES_LABELS.find(type => type.value === setting.type) : INPUT_TYPES_LABELS[4],
           [FIELD.DEFAULT_VALUE]: setting?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
           [FIELD.OPTIONS]: setting?.options?.map(option => (typeof option === "object" ? option.key : option)) ?? []
@@ -275,8 +273,8 @@ class TemplateConfigModalContent extends Component {
                   id={FIELD.LABEL}
                   invalid={errors.label && touched.label}
                   invalidText={errors.label}
-                  labelText="Name"
-                  placeholder="Name"
+                  labelText="Label"
+                  placeholder="Label"
                   value={values.label}
                   onBlur={handleBlur}
                   onChange={e => this.handleOnChange(e, handleChange)}
