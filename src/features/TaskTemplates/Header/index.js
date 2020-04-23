@@ -190,7 +190,6 @@ function Header({
               )}
             />
           )}
-          {/* <Button className={styles.button} size="field" kind="secondary" renderIcon={Save16}>Update this version</Button> */}
           {oldVersion ? (
             <ConfirmModal
               affirmativeAction={() =>

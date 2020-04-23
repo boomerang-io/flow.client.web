@@ -162,10 +162,10 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const currentRevision = selectedTaskTemplate?.revisions
     ? invalidVersion
       ? selectedTaskTemplate.revisions[selectedTaskTemplate.currentVersion - 1]
-      : selectedTaskTemplate.revisions.find(revision => revision.version.toString() === version)
+      : selectedTaskTemplate.revisions.find(revision => revision?.version?.toString() === version)
     : {};
 
-  const oldVersion = !invalidVersion && version !== selectedTaskTemplate.currentVersion.toString();
+  const oldVersion = !invalidVersion && version !== selectedTaskTemplate?.currentVersion?.toString();
   const templateNotFound = !selectedTaskTemplate.id;
 
   const settingKeys = currentRevision.config ?? [].map(input => input.key);
