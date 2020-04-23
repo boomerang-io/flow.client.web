@@ -7,7 +7,7 @@
     "@boomerang/boomerang-react-scripts": "4.6.2",
     "@boomerang/boomerang-styles": "2.0.0",
     "@boomerang/boomerang-utilities": "2.4.0",
-    "@boomerang/carbon-addons-boomerang-react": "3.0.18",
+    "@boomerang/carbon-addons-boomerang-react": "3.0.25",
     "@carbon/charts": "^0.16.24",
     "@carbon/charts-react": "^0.16.24",
     "@carbon/icons-react": "^10.10.0",
@@ -36,6 +36,7 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "16.12.0",
     "react-dropzone": "^10.1.10",
+    "react-helmet": "^6.0.0",
     "react-json-view": "^1.19.1",
     "react-lazylog": "4.5.2",
     "react-query": "^1.2.1",
@@ -123,10 +124,14 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/features/**/*.{js,jsx}",
-      "src/components/**/*.{js,jsx}",
-      "src/utilities/**/*.{js,jsx}",
-      "src/utils/**/*.{js,jsx}"
+      "!**/*.spec.{js,jsx}",
+      "!**/assets/**",
+      "**/src/components/**/*.{js,jsx}",
+      "**/src/features/**/*.{js,jsx}",
+      "**/src/hooks/**/*.{js,jsx}",
+      "**/src/state/**/*.{js,jsx}",
+      "**/src/utilities/**/*.{js,jsx}",
+      "**/src/utils/**/*.{js,jsx}"
     ]
   }
 }

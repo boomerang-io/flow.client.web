@@ -9,7 +9,6 @@
   width: 20rem;
   :global .bx--accordion {
     overflow-y: auto;
-    height: 20.5rem;
   }
   :global .bx--accordion__content {
     padding: 0 !important;
@@ -31,6 +30,7 @@
 }
 .tools {
   display: flex;
+  padding-left: 1rem;
 }
 .filters {
   display: flex;
@@ -109,6 +109,7 @@
   margin: 1rem;
 }
 .task {
+  align-items: center;
   border-left: transparent 0.25rem solid;
   cursor: pointer;
   display: flex;

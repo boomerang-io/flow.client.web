@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useHistory, matchPath, useLocation } from "react-router-dom";
+import { Link, useHistory, matchPath, useLocation } from "react-router-dom";
 // import axios from "axios";
 import cx from "classnames";
 import capitalize from "lodash/capitalize";
@@ -15,7 +15,7 @@ import styles from "./sideInfo.module.scss";
 
 SideInfo.propTypes = {
   tasks: PropTypes.array.isRequired,
-  addTemplateInState: PropTypes.func.isRequired
+  addTemplateInState: PropTypes.func.isRequired,
 };
 const description = "Create and import tasks to add to the Flow Editor task list";
 
@@ -23,7 +23,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   const [searchQuery, setSearchQuery] = React.useState();
   // const [ activeFilters, setActiveFilters ] = React.useState([]);
   const [tasksToDisplay, setTasksToDisplay] = React.useState(
-    taskTemplates.filter(task => task.status === TaskTemplateStatus.Active)
+    taskTemplates.filter((task) => task.status === TaskTemplateStatus.Active)
   );
   const [openCategories, setOpenCategories] = React.useState(false);
   const [showArchived, setShowArchived] = React.useState(false);
@@ -47,7 +47,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   const globalMatch = matchPath(location.pathname, { path: "/task-templates/:taskTemplateId/:version" });
 
   let categories = tasksToDisplay.reduce((acc, task) => {
-    const newCategory = !acc.find(category => task.category.toLowerCase() === category?.toLowerCase());
+    const newCategory = !acc.find((category) => task.category.toLowerCase() === category?.toLowerCase());
     if (newCategory) acc.push(capitalize(task.category));
     return acc;
   }, []);
@@ -55,17 +55,17 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   React.useEffect(() => {
     const newTaskTemplates = showArchived
       ? taskTemplates
-      : taskTemplates.filter(task => task.status === TaskTemplateStatus.Active);
+      : taskTemplates.filter((task) => task.status === TaskTemplateStatus.Active);
     setSearchQuery("");
     setTasksToDisplay(newTaskTemplates);
   }, [taskTemplates, showArchived]);
 
-  const tasksByCategory = categories.map(category => ({
+  const tasksByCategory = categories.map((category) => ({
     name: category,
-    tasks: tasksToDisplay.filter(task => capitalize(task.category) === category)
+    tasks: tasksToDisplay.filter((task) => capitalize(task.category) === category),
   }));
 
-  const handleOnSearchInputChange = e => {
+  const handleOnSearchInputChange = (e) => {
     const searchQuery = e.target.value;
     setSearchQuery(searchQuery);
     setTasksToDisplay(matchSorter(taskTemplates, searchQuery, { keys: ["category", "name"] }));
@@ -140,15 +140,15 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
         </div>
       </div>
       <Accordion>
-        {tasksByCategory.map(category => {
+        {tasksByCategory.map((category) => {
           return (
             <AccordionItem
               title={`${category.name} (${category.tasks.length})`}
               open={openCategories}
               key={category.name}
             >
-              {category.tasks.map(task => (
-                <Task task={task} history={history} isActive={globalMatch?.params?.taskTemplateId === task.id} />
+              {category.tasks.map((task) => (
+                <Task task={task} isActive={globalMatch?.params?.taskTemplateId === task.id} />
               ))}
             </AccordionItem>
           );
@@ -158,19 +158,19 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   );
 }
 function Task(props) {
-  const { task, history } = props;
-  const taskIcon = taskTemplateIcons.find(icon => icon.name === task.revisions[task.revisions.length - 1].image);
+  const { task } = props;
+  const taskIcon = taskTemplateIcons.find((icon) => icon.name === task.revisions[task.revisions.length - 1].image);
   const isActive = task.status === TaskTemplateStatus.Active;
 
   return (
-    <button
+    <Link
       className={cx(styles.task, { [styles.active]: props.isActive })}
-      onClick={() => history.push(appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion }))}
+      to={appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })}
     >
       {taskIcon ? <taskIcon.src style={{ width: "1rem", height: "1rem" }} /> : <Bee16 />}
       <p className={cx(styles.taskName, { [styles.active]: props.isActive })}>{task.name}</p>
       {!isActive && <ViewOff16 style={{ marginLeft: "auto" }} />}
-    </button>
+    </Link>
   );
 }
 

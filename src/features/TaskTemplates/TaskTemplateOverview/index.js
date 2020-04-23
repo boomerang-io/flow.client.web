@@ -13,7 +13,7 @@ import {
   ToastNotification,
   Loading,
   TooltipDefinition,
-  ConfirmModal
+  ConfirmModal,
 } from "@boomerang/carbon-addons-boomerang-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EditTaskTemplateModal from "./EditTaskTemplateModal";
@@ -46,7 +46,7 @@ const ArchiveText = () => (
 );
 
 function DetailDataElements({ label, value }) {
-  const taskIcon = taskTemplateIcons.find(icon => icon.name === value);
+  const taskIcon = taskTemplateIcons.find((icon) => icon.name === value);
 
   return (
     <section className={styles.infoSection}>
@@ -81,7 +81,7 @@ function Field({
   settings,
   deleteConfiguration,
   oldVersion,
-  isActive
+  isActive,
 }) {
   return (
     <section className={styles.fieldSection} ref={innerRef} {...draggableProps}>
@@ -129,23 +129,20 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const { taskTemplateId = "", version = "" } = params;
   const history = useHistory();
   const [UploadTaskTemplateMutation, { status: uploadStatus }] = useMutation(resolver.putCreateTaskTemplate, {
-    onSuccess: () =>
-      queryCache.refetchQueries([serviceUrl.getTaskTemplates()])
+    onSuccess: () => queryCache.refetchQueries([serviceUrl.getTaskTemplates()]),
   });
   const [ArchiveTaskTemplateMutation, { status: archiveStatus }] = useMutation(resolver.deleteArchiveTaskTemplate, {
-    onSuccess: () =>
-      queryCache.refetchQueries([serviceUrl.getTaskTemplates()])
+    onSuccess: () => queryCache.refetchQueries([serviceUrl.getTaskTemplates()]),
   });
   const [RestoreTaskTemplateMutation, { status: restoreStatus }] = useMutation(resolver.putRestoreTaskTemplate, {
-    onSuccess: () =>
-      queryCache.refetchQueries([serviceUrl.getTaskTemplates()])
+    onSuccess: () => queryCache.refetchQueries([serviceUrl.getTaskTemplates()]),
   });
 
   const isLoading = uploadStatus === QueryStatus.Loading;
   const archiveIsLoading = archiveStatus === QueryStatus.Loading;
   const restoreIsLoading = restoreStatus === QueryStatus.Loading;
 
-  let selectedTaskTemplate = taskTemplates.find(taskTemplate => taskTemplate.id === taskTemplateId) ?? {};
+  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === taskTemplateId) ?? {};
 
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
   const invalidVersion = version === "0" || version > selectedTaskTemplate.currentVersion;
@@ -154,13 +151,13 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const currentRevision = selectedTaskTemplate?.revisions
     ? invalidVersion
       ? selectedTaskTemplate.revisions[selectedTaskTemplate.currentVersion - 1]
-      : selectedTaskTemplate.revisions.find(revision => revision.version.toString() === version)
+      : selectedTaskTemplate.revisions.find((revision) => revision.version.toString() === version)
     : {};
 
   const oldVersion = !invalidVersion && version !== selectedTaskTemplate.currentVersion.toString();
   const templateNotFound = !selectedTaskTemplate.id;
 
-  const settingKeys = currentRevision.config ?? [].map(input => input.key);
+  const settingKeys = currentRevision.config ?? [].map((input) => input.key);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -179,13 +176,13 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
     if (requestType === TemplateRequestType.Copy) {
       newRevisionConfig = {
         ...currentRevision,
-        version: newVersion
+        version: newVersion,
       };
       newRevisions.push(newRevisionConfig);
       body = {
         ...selectedTaskTemplate,
         currentVersion: newVersion,
-        revisions: newRevisions
+        revisions: newRevisions,
       };
     } else if (requestType === TemplateRequestType.Overwrite) {
       newRevisionConfig = {
@@ -193,7 +190,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         image: values.image,
         command: values.command,
         arguments: values.arguments.trim().split(/\s{1,}/),
-        config: values.currentConfig
+        config: values.currentConfig,
       };
       newRevisions.splice(selectedTaskTemplate.currentVersion - 1, 1, newRevisionConfig);
       body = {
@@ -201,7 +198,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         name: values.name,
         description: values.description,
         category: values.category,
-        revisions: newRevisions
+        revisions: newRevisions,
       };
     } else {
       newRevisionConfig = {
@@ -209,7 +206,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         image: values.image,
         command: values.command,
         arguments: values.arguments.trim().split(/\s{1,}/),
-        config: values.currentConfig
+        config: values.currentConfig,
       };
       newRevisions.push(newRevisionConfig);
       body = {
@@ -218,7 +215,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         description: values.description,
         category: values.category,
         currentVersion: newVersion,
-        revisions: newRevisions
+        revisions: newRevisions,
       };
     }
 
@@ -233,7 +230,9 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         />
       );
       resetForm();
-      history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: response.data.currentVersion }));
+      history.push(
+        appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: response.data.currentVersion })
+      );
       updateTemplateInState(response.data);
     } catch (err) {
       notify(
@@ -313,20 +312,20 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         category: selectedTaskTemplate.category,
         currentConfig: currentRevision.config ?? [],
         arguments: currentRevision.arguments?.join(" ") ?? "",
-        command: currentRevision.command ?? ""
+        command: currentRevision.command ?? "",
       }}
       enableReinitialize={true}
     >
-      {props => {
+      {(props) => {
         const { setFieldValue, values, isValid, dirty: isDirty, resetForm, isSubmitting } = props;
 
         function deleteConfiguration(selectedSetting) {
-          const configIndex = values.currentConfig.findIndex(setting => setting.key === selectedSetting.key);
+          const configIndex = values.currentConfig.findIndex((setting) => setting.key === selectedSetting.key);
           let newProperties = [].concat(values.currentConfig);
           newProperties.splice(configIndex, 1);
           setFieldValue("currentConfig", newProperties);
         }
-        const onDragEnd = async result => {
+        const onDragEnd = async (result) => {
           if (result.source && result.destination) {
             const newSettings = reorder(values.currentConfig, result.source.index, result.destination.index);
             setFieldValue("currentConfig", newSettings);
@@ -335,10 +334,10 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         return (
           <div className={styles.container}>
             <Prompt
-              message={location => {
+              message={(location) => {
                 let prompt = true;
                 const templateMatch = matchPath(location.pathname, {
-                  path: "/task-templates/:taskTemplateId/:version"
+                  path: "/task-templates/:taskTemplateId/:version",
                 });
                 if (isDirty && !location.pathname.includes(taskTemplateId) && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";
@@ -398,7 +397,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                       isActive={isActive}
                     />
                   </section>
-                  <dl>
+                  <dl className={styles.dataList}>
                     <DetailDataElements value={values.name} label="Name" />
                     <DetailDataElements value={values.category} label="Category" />
                     <DetailDataElements value={values.arguments} label="Arguments" />
@@ -426,12 +425,12 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                   </section>
                   <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId="droppable" direction="vertical">
-                      {provided => (
+                      {(provided) => (
                         <section className={styles.fieldsContainer} ref={provided.innerRef}>
                           {values.currentConfig?.length > 0 ? (
                             values.currentConfig.map((field, index) => (
                               <Draggable key={index} draggableId={index} index={index}>
-                                {provided => (
+                                {(provided) => (
                                   <Field
                                     field={field}
                                     dragHandleProps={provided.dragHandleProps}
