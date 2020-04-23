@@ -169,9 +169,9 @@ export default class Tasks extends Component {
             <section className={styles.tools}>
               <Search
                 small
-                labelText="Search for a task"
+                labelText=""
                 onChange={this.handleOnSearchInputChange}
-                placeHolderText="Search for a task"
+                placeHolderText=""
                 value={this.state.searchQuery}
               />
               <OverflowMenu renderIcon={SettingsAdjust20} flipped={true}>

@@ -231,7 +231,9 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
     }
 
     try {
-      setRequestError(null);
+      if (requestType !== TemplateRequestType.Copy) {
+        setRequestError(null);
+      }
       let response = await UploadTaskTemplateMutation({ body });
       notify(
         <ToastNotification
@@ -246,22 +248,27 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: response.data.currentVersion })
       );
       updateTemplateInState(response.data);
-      closeModal();
+      if (requestType !== TemplateRequestType.Copy) {
+        closeModal();
+      }
     } catch (err) {
       if (!isCancel(err)) {
-        const { title, message: subtitle } = formatErrorMessage({
-          error: err,
-          defaultMessage: "Request to save task template failed."
-        });
-        setRequestError({ title, subtitle });
-        // notify(
-        //   <ToastNotification
-        //     kind="error"
-        //     title={"Update Task Template Failed"}
-        //     subtitle={"Something's Wrong"}
-        //     data-testid="create-update-task-template-notification"
-        //   />
-        // );
+        if (requestType !== TemplateRequestType.Copy) {
+          const { title, message: subtitle } = formatErrorMessage({
+            error: err,
+            defaultMessage: "Request to save task template failed."
+          });
+          setRequestError({ title, subtitle });
+        } else {
+          notify(
+            <ToastNotification
+              kind="error"
+              title={"Update Task Template Failed"}
+              subtitle={"Something's Wrong"}
+              data-testid="update-task-template-notification"
+            />
+          );
+        }
       }
     }
   };
@@ -368,7 +375,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                 return prompt;
               }}
             />
-            {(archiveIsLoading || restoreIsLoading) && <Loading />}
+            {(isLoading || archiveIsLoading || restoreIsLoading) && <Loading />}
             <Header
               selectedTaskTemplate={selectedTaskTemplate}
               currentRevision={currentRevision}
