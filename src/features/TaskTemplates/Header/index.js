@@ -137,7 +137,7 @@ function Header({
   cancelRequestRef
 }) {
   const taskIcon = taskTemplateIcons.find(
-    icon => icon.name === selectedTaskTemplate.revisions[selectedTaskTemplate.revisions.length - 1].image
+    icon => icon.name === selectedTaskTemplate.revisions[selectedTaskTemplate.revisions.length - 1].icon
   );
   const revisionCount = selectedTaskTemplate.revisions.length;
 

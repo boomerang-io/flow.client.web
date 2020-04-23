@@ -77,8 +77,9 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
     const hasFile = values.file;
     let newRevisionConfig = {
       version: 1,
-      image: values.icon,
+      icon: values.icon,
       arguments: values.arguments.trim().split(/\s{1,}/),
+      image: values.image,
       command: values.command,
       config: hasFile ? values.currentRevision.config : []
     };
@@ -102,7 +103,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
-      setFieldValue("icon", currentRevision.image);
+      setFieldValue("icon", currentRevision.icon);
+      setFieldValue("image", currentRevision.image);
       setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
       setFieldValue("command", currentRevision.command ?? "");
       setFieldValue("currentRevision", currentRevision);
@@ -141,6 +143,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         // .required("Enter some arguments")
         command: Yup.string(),
         // .required("Enter a command")
+        image: Yup.string(),
+        // .required("Enter a image")
         file: Yup.mixed()
           .test(
             "fileSize",
@@ -272,6 +276,30 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 className={styles.teamsDropdown}
               /> */}
               <TextInput
+                id="image"
+                labelText="Image"
+                // helperText="Helper text for image"
+                placeholder="Image"
+                name="image"
+                value={values.image}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.image && touched.image}
+                invalidText={errors.image}
+              />
+              <TextInput
+                id="command"
+                labelText="Comand"
+                // helperText="Helper text for command"
+                placeholder="Command"
+                name="command"
+                value={values.command}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.command && touched.command}
+                invalidText={errors.command}
+              />
+              <TextInput
                 id="arguments"
                 labelText="Arguments"
                 helperText="Type the argument with spaces - e.g., slack message mail"
@@ -282,18 +310,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 onChange={handleChange}
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
-              />
-              <TextInput
-                id="command"
-                labelText="Comand"
-                helperText="Helper text for command"
-                placeholder="Command"
-                name="command"
-                value={values.command}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.command && touched.command}
-                invalidText={errors.command}
               />
               <p className={styles.iconTitle}>Icon</p>
               <p className={styles.iconSubtitle}>Choose the icon that best fits this task</p>

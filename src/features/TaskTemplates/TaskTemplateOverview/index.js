@@ -199,6 +199,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       newRevisionConfig = {
         version: selectedTaskTemplate.currentVersion,
         image: values.image,
+        icon: values.icon,
         command: values.command,
         arguments: values.arguments.trim().split(/\s{1,}/),
         config: values.currentConfig
@@ -215,6 +216,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       newRevisionConfig = {
         version: newVersion,
         image: values.image,
+        icon: values.icon,
         command: values.command,
         arguments: values.arguments.trim().split(/\s{1,}/),
         config: values.currentConfig
@@ -336,6 +338,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         name: selectedTaskTemplate.name,
         description: selectedTaskTemplate.description,
         image: currentRevision.image,
+        icon: currentRevision.icon,
         category: selectedTaskTemplate.category,
         currentConfig: currentRevision.config ?? [],
         arguments: currentRevision.arguments?.join(" ") ?? "",
@@ -429,9 +432,10 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                   <dl className={styles.dataList}>
                     <DetailDataElements value={values.name} label="Name" />
                     <DetailDataElements value={values.category} label="Category" />
-                    <DetailDataElements value={values.arguments} label="Arguments" />
+                    <DetailDataElements value={values.image} label="Image" />
                     <DetailDataElements value={values.command} label="Command" />
-                    <DetailDataElements value={values.image} label="Icon" />
+                    <DetailDataElements value={values.arguments} label="Arguments" />
+                    <DetailDataElements value={values.icon} label="Icon" />
                     <DetailDataElements value={values.description} label="Description" />
                   </dl>
                 </Tile>

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ModalFlow, Button, TooltipDefinition } from "@boomerang/carbon-addons-boomerang-react";
+import { ComposedModal, Button, TooltipDefinition } from "@boomerang/carbon-addons-boomerang-react";
 import TemplateConfigModalContent from "./TemplateConfigModalContent";
 import { Add16, Edit16 } from "@carbon/icons-react";
 // import styles from "./TemplateConfigModal.module.scss";
@@ -38,7 +38,7 @@ export function TemplateConfigModal(props) {
     return output;
   };
   return (
-    <ModalFlow
+    <ComposedModal
       confirmModalProps={{
         title: "Are you sure?",
         children: "Your setting will not be saved"
@@ -48,8 +48,14 @@ export function TemplateConfigModal(props) {
       }}
       modalTrigger={editTrigger}
     >
-      <TemplateConfigModalContent {...props} />
-    </ModalFlow>
+      {({ closeModal, setShouldConfirmModalClose }) => (
+        <TemplateConfigModalContent
+          {...props}
+          closeModal={closeModal}
+          setShouldConfirmModalClose={setShouldConfirmModalClose}
+        />
+      )}
+    </ComposedModal>
   );
 }
 

@@ -35,10 +35,11 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
       initialValues={{
         name: templateData.name,
         category: templateData.category,
-        icon: templateData.image,
+        icon: templateData.icon,
         description: templateData.description,
         arguments: templateData.arguments,
-        command: templateData.command
+        command: templateData.command,
+        image: templateData.image
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
@@ -52,8 +53,10 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
           .required("Enter a desccription"),
         arguments: Yup.string(),
         // .required("Enter some arguments")
-        command: Yup.string()
+        command: Yup.string(),
         // .required("Enter a command")
+        image: Yup.string()
+        // .required("Enter a image")
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
@@ -96,16 +99,16 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                 className={styles.teamsDropdown}
               /> */}
               <TextInput
-                id="arguments"
-                labelText="Arguments"
-                helperText="Type the argument with spaces - e.g., slack message mail"
-                placeholder="Arguments"
-                name="arguments"
-                value={values.arguments}
+                id="image"
+                labelText="Image"
+                // helperText="Helper text for image"
+                placeholder="Image"
+                name="image"
+                value={values.image}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.arguments && touched.arguments}
-                invalidText={errors.arguments}
+                invalid={errors.image && touched.image}
+                invalidText={errors.image}
               />
               <TextInput
                 id="command"
@@ -118,6 +121,18 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                 onChange={handleChange}
                 invalid={errors.command && touched.command}
                 invalidText={errors.command}
+              />
+              <TextInput
+                id="arguments"
+                labelText="Arguments"
+                helperText="Type the argument with spaces - e.g., slack message mail"
+                placeholder="Arguments"
+                name="arguments"
+                value={values.arguments}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.arguments && touched.arguments}
+                invalidText={errors.arguments}
               />
               <p className={styles.iconTitle}>Icon</p>
               <p className={styles.iconSubtitle}>Choose the icon that best fits this task</p>

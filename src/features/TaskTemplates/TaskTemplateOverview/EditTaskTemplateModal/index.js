@@ -19,7 +19,8 @@ function EditTaskTemplateModal({ taskTemplates, setFieldValue, values, oldVersio
     setFieldValue("category", newValues.category);
     setFieldValue("arguments", newValues.arguments);
     setFieldValue("command", newValues.command);
-    setFieldValue("image", newValues.icon);
+    setFieldValue("image", newValues.image);
+    setFieldValue("icon", newValues.icon);
   };
 
   return (
