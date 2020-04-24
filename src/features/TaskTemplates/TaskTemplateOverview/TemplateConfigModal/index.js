@@ -6,10 +6,10 @@ import { Add16, Edit16 } from "@carbon/icons-react";
 // import styles from "./TemplateConfigModal.module.scss";
 
 TemplateConfigModal.propTypes = {
-  setting: PropTypes.object,
+  field: PropTypes.object,
   isEdit: PropTypes.bool.isRequired,
-  settings: PropTypes.array,
-  settingKeys: PropTypes.array
+  templateFields: PropTypes.array,
+  fieldKeys: PropTypes.array
 };
 
 export function TemplateConfigModal(props) {
@@ -41,7 +41,7 @@ export function TemplateConfigModal(props) {
     <ComposedModal
       confirmModalProps={{
         title: "Are you sure?",
-        children: "Your setting will not be saved"
+        children: "Your field will not be saved"
       }}
       modalHeaderProps={{
         title: isEdit ? "Edit field" : "Create field"

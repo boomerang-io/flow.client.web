@@ -42,10 +42,10 @@ class TemplateConfigModalContent extends Component {
   
   static propTypes = {
     closeModal: PropTypes.func,
-    setting: PropTypes.object,
-    settingKeys: PropTypes.array,
+    field: PropTypes.object,
+    fieldKeys: PropTypes.array,
     isEdit: PropTypes.bool,
-    settings: PropTypes.array,
+    templateFields: PropTypes.array,
     setFieldValue: PropTypes.func.isRequired
   };
 
@@ -83,29 +83,29 @@ class TemplateConfigModalContent extends Component {
   };
 
   handleConfirm = values => {
-    let setting = clonedeep(values);
-    setting.type = setting.type.value;
-    const { settings, setFieldValue } = this.props;
+    let field = clonedeep(values);
+    field.type = field.type.value;
+    const { templateFields, setFieldValue } = this.props;
     // Remove in case they are present if the user changed their mind
-    if (setting.type !== INPUT_TYPES.SELECT) {
-      delete setting.options;
+    if (field.type !== INPUT_TYPES.SELECT) {
+      delete field.options;
     } else {
       // Create options in correct type for service - { key, value }
-      setting.options = setting.options.map(setting => ({ key: setting, value: setting }));
+      field.options = field.options.map(field => ({ key: field, value: field }));
     }
 
-    if (setting.type === INPUT_TYPES.BOOLEAN) {
-      if (!setting.defaultValue) setting.defaultValue = false;
+    if (field.type === INPUT_TYPES.BOOLEAN) {
+      if (!field.defaultValue) field.defaultValue = false;
     }
     if (this.props.isEdit) {
-      const settingIndex = settings.findIndex(setting => setting.key === this.props.setting.key);
-      let newProperties = [].concat(settings);
-      newProperties.splice(settingIndex, 1, setting);
+      const fieldIndex = templateFields.findIndex(field => field.key === this.props.field.key);
+      let newProperties = [].concat(templateFields);
+      newProperties.splice(fieldIndex, 1, field);
       setFieldValue("currentConfig", newProperties);
       this.props.forceCloseModal();
     } else {
-      let newProperties = [].concat(settings);
-      newProperties.push(setting);
+      let newProperties = [].concat(templateFields);
+      newProperties.push(field);
       setFieldValue("currentConfig", newProperties);
       this.props.forceCloseModal();
     }
@@ -198,30 +198,30 @@ class TemplateConfigModalContent extends Component {
   };
 
   render() {
-    const { setting, isEdit, settingKeys } = this.props;
+    const { field, isEdit, fieldKeys } = this.props;
     let defaultValueType = this.state.defaultValueType;
 
     return (
       <Formik
         onSubmit={this.handleConfirm}
         initialValues={{
-          [FIELD.KEY]: setting?.key ?? "",
-          [FIELD.LABEL]: setting?.label ?? "",
-          [FIELD.DESCRIPTION]: setting?.description ?? "",
-          [FIELD.PLACEHOLDER]: setting?.placeholder ?? "",
-          [FIELD.HELPER_TEXT]: setting?.helperText ?? "",
-          [FIELD.READ_ONLY]: setting?.readOnly ?? false,
-          [FIELD.REQUIRED]: setting?.required ?? false,
-          [FIELD.TYPE]: setting ? INPUT_TYPES_LABELS.find(type => type.value === setting.type) : INPUT_TYPES_LABELS[4],
-          [FIELD.DEFAULT_VALUE]: setting?.defaultValue ?? "",
+          [FIELD.KEY]: field?.key ?? "",
+          [FIELD.LABEL]: field?.label ?? "",
+          [FIELD.DESCRIPTION]: field?.description ?? "",
+          [FIELD.PLACEHOLDER]: field?.placeholder ?? "",
+          [FIELD.HELPER_TEXT]: field?.helperText ?? "",
+          [FIELD.READ_ONLY]: field?.readOnly ?? false,
+          [FIELD.REQUIRED]: field?.required ?? false,
+          [FIELD.TYPE]: field ? INPUT_TYPES_LABELS.find(type => type.value === field.type) : INPUT_TYPES_LABELS[4],
+          [FIELD.DEFAULT_VALUE]: field?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
-          [FIELD.OPTIONS]: setting?.options?.map(option => (typeof option === "object" ? option.key : option)) ?? []
+          [FIELD.OPTIONS]: field?.options?.map(option => (typeof option === "object" ? option.key : option)) ?? []
         }}
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()
             .required("Enter a key")
             .max(64, "Key must not be greater than 64 characters")
-            .notOneOf(settingKeys || [], "Enter a unique key value for this workflow")
+            .notOneOf(fieldKeys || [], "Enter a unique key value for this workflow")
             .test("is-valid-key", "Space and special characters not allowed", this.validateKey),
           [FIELD.LABEL]: Yup.string()
             .required("Enter a Name")
@@ -282,7 +282,7 @@ class TemplateConfigModalContent extends Component {
                 />
                 {!isEdit && (
                   <TextInput
-                    helperText="Reference value for setting in task template config"
+                    helperText="Reference value for field in task template config"
                     id={FIELD.KEY}
                     invalid={errors.key && touched.key}
                     invalidText={errors.key}

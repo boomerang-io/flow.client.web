@@ -78,7 +78,7 @@ function Field({
   draggableProps,
   dragHandleProps,
   setFieldValue,
-  settings,
+  fields,
   deleteConfiguration,
   oldVersion,
   isActive
@@ -102,9 +102,9 @@ function Field({
       <div className={styles.actions}>
         <TemplateConfigModal
           isEdit
-          setting={field}
+          field={field}
           setFieldValue={setFieldValue}
-          settings={settings}
+          fields={fields}
           oldVersion={oldVersion}
           isActive={isActive}
         />
@@ -171,7 +171,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const oldVersion = !invalidVersion && version !== selectedTaskTemplate?.currentVersion?.toString();
   const templateNotFound = !selectedTaskTemplate.id;
 
-  const settingKeys = currentRevision.config ?? [].map(input => input.key);
+  const fieldKeys = currentRevision.config ?? [].map(input => input.key);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -352,16 +352,16 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       {props => {
         const { setFieldValue, values, isValid, dirty: isDirty, resetForm, isSubmitting } = props;
 
-        function deleteConfiguration(selectedSetting) {
-          const configIndex = values.currentConfig.findIndex(setting => setting.key === selectedSetting.key);
+        function deleteConfiguration(selectedField) {
+          const configIndex = values.currentConfig.findIndex(field => field.key === selectedField.key);
           let newProperties = [].concat(values.currentConfig);
           newProperties.splice(configIndex, 1);
           setFieldValue("currentConfig", newProperties);
         }
         const onDragEnd = async result => {
           if (result.source && result.destination) {
-            const newSettings = reorder(values.currentConfig, result.source.index, result.destination.index);
-            setFieldValue("currentConfig", newSettings);
+            const newFields = reorder(values.currentConfig, result.source.index, result.destination.index);
+            setFieldValue("currentConfig", newFields);
           }
         };
         return (
@@ -426,7 +426,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                     <EditTaskTemplateModal
                       taskTemplates={taskTemplates}
                       setFieldValue={setFieldValue}
-                      settings={values.currentConfig}
+                      fields={values.currentConfig}
                       values={values}
                       oldVersion={oldVersion}
                       isActive={isActive}
@@ -451,9 +451,9 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                     <div className={styles.fieldActions}>
                       <PreviewConfig templateConfig={values.currentConfig} taskTemplateName={values.name} />
                       <TemplateConfigModal
-                        settingKeys={settingKeys}
+                        fieldKeys={fieldKeys}
                         setFieldValue={setFieldValue}
-                        settings={values.currentConfig}
+                        templateFields={values.currentConfig}
                         oldVersion={oldVersion}
                         isActive={isActive}
                       />
@@ -473,7 +473,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                                     draggableProps={provided.draggableProps}
                                     innerRef={provided.innerRef}
                                     setFieldValue={setFieldValue}
-                                    settings={values.currentConfig}
+                                    fields={values.currentConfig}
                                     deleteConfiguration={deleteConfiguration}
                                     oldVersion={oldVersion}
                                     isActive={isActive}
