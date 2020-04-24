@@ -53,7 +53,7 @@ export default class Tasks extends Component {
     }
 
     //use the filters to select which tasks can be passed to search query
-    const currentTasks = this.state.tasksToDisplay.filter(task => this.state.activeFilters.includes(task.icon));
+    const currentTasks = this.props.tasks.filter(task => this.state.activeFilters.includes(task.icon));
     this.setState({
       searchQuery,
       tasksToDisplay: this.handleSearchFilter(searchQuery, currentTasks)
@@ -167,7 +167,7 @@ export default class Tasks extends Component {
                 small
                 labelText=""
                 onChange={this.handleOnSearchInputChange}
-                placeHolderText=""
+                placeHolderText="Search for a task"
                 value={this.state.searchQuery}
               />
               <OverflowMenu

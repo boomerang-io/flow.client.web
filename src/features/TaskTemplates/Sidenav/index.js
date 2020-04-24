@@ -41,7 +41,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
     id: icon.iconName,
     labelText: (
       <div className={styles.checkboxOption}>
-        {icon.icon} <p>{icon.iconName}</p>{" "}
+        <icon.icon/> <p>{icon.iconName}</p>{" "}
       </div>
     )
   }));
@@ -57,14 +57,14 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   }, []);
 
   React.useEffect(() => {
-    setSearchQuery("");
+    // setSearchQuery("");
     const newTaskTemplates = showArchived
       ? taskTemplates
       : taskTemplates.filter(task => task.status === TaskTemplateStatus.Active);
     const tasksFilteredByType =
       activeFilters.length > 0 ? newTaskTemplates.filter(task => activeFilters.includes(task.icon)) : newTaskTemplates;
-    setTasksToDisplay(tasksFilteredByType);
-  }, [taskTemplates, showArchived, activeFilters]);
+    setTasksToDisplay(matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "name"] }));
+  }, [taskTemplates, showArchived, activeFilters, searchQuery]);
 
   const tasksByCategory = categories.map(category => ({
     name: category,
