@@ -37,7 +37,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   const [showArchived, setShowArchived] = React.useState(false);
   // const Image = taskTemplateIcons[0].src;
   // const getFilterType = taskTemplates.map(task => taskTemplates.)
-  const testFilters = taskIcons.map(icon => ({
+  const taskFilters = taskIcons.map(icon => ({
     id: icon.iconName,
     labelText: (
       <div className={styles.checkboxOption}>
@@ -77,7 +77,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
     setTasksToDisplay(matchSorter(taskTemplates, searchQuery, { keys: ["category", "name"] }));
   };
 
-  const handleCheckboxListChange = (checked, label, event) => {
+  const handleCheckboxListChange = (checked, label) => {
     let filtersState = [].concat(activeFilters);
 
     let newFilters = [];
@@ -141,7 +141,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
               <p className={styles.sectionTitle}>Filter by Task Type</p>
               <CheckboxList
                 initialSelectedItems={activeFilters}
-                options={testFilters}
+                options={taskFilters}
                 onChange={(...args) => handleCheckboxListChange(...args)}
               />
             </section>
