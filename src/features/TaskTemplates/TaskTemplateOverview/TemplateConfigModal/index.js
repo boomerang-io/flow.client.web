@@ -48,11 +48,12 @@ export function TemplateConfigModal(props) {
       }}
       modalTrigger={editTrigger}
     >
-      {({ closeModal, setShouldConfirmModalClose }) => (
+      {({ closeModal, setShouldConfirmModalClose, forceCloseModal }) => (
         <TemplateConfigModalContent
           {...props}
           closeModal={closeModal}
           setShouldConfirmModalClose={setShouldConfirmModalClose}
+          forceCloseModal={forceCloseModal}
         />
       )}
     </ComposedModal>
