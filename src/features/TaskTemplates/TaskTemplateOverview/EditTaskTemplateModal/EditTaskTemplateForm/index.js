@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import cx from "classnames";
-import { ModalFlowForm, TextInput, TextArea } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalFlowForm, TextInput, TextArea, TooltipDefinition } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { taskIcons } from "Utilities/taskIcons";
 import styles from "./editTaskTemplateForm.module.scss";
@@ -144,17 +144,26 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                     })}
                     key={`icon-number-${index}`}
                   >
-                    <input
-                      id={image.iconName}
-                      key={`${image.iconName}-${index}`}
-                      alt={`${image.iconName} icon`}
-                      readOnly
-                      checked={values.icon === image.iconName}
-                      onClick={() => setFieldValue("icon", image.iconName)}
-                      value={image.iconName}
-                      type="radio"
-                    />
-                    <image.icon />
+                    <TooltipDefinition
+                      direction="top"
+                      tooltipText={image.iconName}
+                      onClick={e => {
+                        e.preventDefault();
+                        setFieldValue("icon", image.iconName);
+                      }}
+                    >
+                      <input
+                        id={image.iconName}
+                        key={`${image.iconName}-${index}`}
+                        alt={`${image.iconName} icon`}
+                        readOnly
+                        checked={values.icon === image.iconName}
+                        // onClick={() => setFieldValue("icon", image.iconName)}
+                        value={image.iconName}
+                        type="radio"
+                      />
+                      <image.icon />
+                    </TooltipDefinition>
                   </label>
                 ))}
               </div>

@@ -8,7 +8,8 @@ import {
   TextInput,
   TextArea,
   FileUploaderDropContainer,
-  FileUploaderItem
+  FileUploaderItem,
+  TooltipDefinition
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, Loading } from "carbon-components-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
@@ -322,18 +323,26 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                     })}
                     key={`icon-number-${index}`}
                   >
-                    <input
-                      id={image.iconName}
-                      key={`${image.iconName}-${index}`}
-                      alt={`${image.iconName} icon`}
-                      readOnly
-                      checked={values.icon === image.iconName}
-                      onClick={() => setFieldValue("icon", image.iconName)}
-                      value={image.iconName}
-                      type="radio"
-                    />
-                    <image.icon className={styles.icon} />
-                    {/* <image.icon  className={styles.icon} /> */}
+                    <TooltipDefinition
+                      direction="top"
+                      tooltipText={image.iconName}
+                      onClick={e => {
+                        e.preventDefault();
+                        setFieldValue("icon", image.iconName);
+                      }}
+                    >
+                      <input
+                        id={image.iconName}
+                        key={`${image.iconName}-${index}`}
+                        alt={`${image.iconName} icon`}
+                        readOnly
+                        checked={values.icon === image.iconName}
+                        // onClick={() => setFieldValue("icon", image.iconName)}
+                        value={image.iconName}
+                        type="radio"
+                      />
+                      <image.icon className={styles.icon} />
+                    </TooltipDefinition>
                   </label>
                 ))}
               </div>

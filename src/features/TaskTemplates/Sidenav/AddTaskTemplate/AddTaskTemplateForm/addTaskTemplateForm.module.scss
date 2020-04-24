@@ -67,6 +67,9 @@
   margin: 0 0.5rem;
   transition: all 0.15s ease;
   width: 2.7rem;
+  :global .bx--assistive-text {
+    left: -1.5rem !important;
+  }
 
   [type="radio"] {
     height: 0;
@@ -80,13 +83,13 @@
   }
 
   &.active {
-    background: #3DDBD9;
+    background: #3ddbd9;
     svg {
       fill: var(--cds-ui-05);
     }
 
     &:hover {
-      background: #3DDBD9;
+      background: #3ddbd9;
       svg {
         fill: var(--cds-ui-05);
       }
