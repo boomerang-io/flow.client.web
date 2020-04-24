@@ -5,11 +5,19 @@ import { Link, useHistory, matchPath, useLocation } from "react-router-dom";
 import cx from "classnames";
 import capitalize from "lodash/capitalize";
 import matchSorter from "match-sorter";
-import { Search, Accordion, AccordionItem, OverflowMenu, Checkbox } from "@boomerang/carbon-addons-boomerang-react";
+import {
+  Search,
+  Accordion,
+  AccordionItem,
+  OverflowMenu,
+  Checkbox,
+  CheckboxList
+} from "@boomerang/carbon-addons-boomerang-react";
 import AddTaskTemplate from "./AddTaskTemplate";
 import { appLink } from "Config/appConfig";
 import { Bee16, ViewOff16, SettingsAdjust20 } from "@carbon/icons-react";
-import taskTemplateIcons from "Assets/taskTemplateIcons";
+// import taskTemplateIcons from "Assets/taskTemplateIcons";
+import { taskIcons } from "Utilities/taskIcons";
 import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import styles from "./sideInfo.module.scss";
 
@@ -21,7 +29,7 @@ const description = "Create and import tasks to add to the Flow Editor task list
 
 export function SideInfo({ taskTemplates, addTemplateInState }) {
   const [searchQuery, setSearchQuery] = React.useState();
-  // const [ activeFilters, setActiveFilters ] = React.useState([]);
+  const [activeFilters, setActiveFilters] = React.useState([]);
   const [tasksToDisplay, setTasksToDisplay] = React.useState(
     taskTemplates.filter(task => task.status === TaskTemplateStatus.Active)
   );
@@ -29,18 +37,14 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   const [showArchived, setShowArchived] = React.useState(false);
   // const Image = taskTemplateIcons[0].src;
   // const getFilterType = taskTemplates.map(task => taskTemplates.)
-  // const testFilters = [
-  //     {id: taskTemplateIcons[0].name,
-  //       labelText: (
-  //         <div className={styles.checkboxOption}>
-  //           <Image /> <p>{taskTemplateIcons[0].label}</p>{" "}
-  //         </div>)},
-  //         {id: taskTemplateIcons[1].name,
-  //       labelText: (
-  //         <div className={styles.checkboxOption}>
-  //           <Image /> <p>{taskTemplateIcons[1].label}</p>{" "}
-  //         </div>)}
-  //   ]
+  const testFilters = taskIcons.map(icon => ({
+    id: icon.iconName,
+    labelText: (
+      <div className={styles.checkboxOption}>
+        {icon.icon} <p>{icon.iconName}</p>{" "}
+      </div>
+    )
+  }));
 
   const history = useHistory();
   const location = useLocation();
@@ -53,12 +57,14 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   }, []);
 
   React.useEffect(() => {
+    setSearchQuery("");
     const newTaskTemplates = showArchived
       ? taskTemplates
       : taskTemplates.filter(task => task.status === TaskTemplateStatus.Active);
-    setSearchQuery("");
-    setTasksToDisplay(newTaskTemplates);
-  }, [taskTemplates, showArchived]);
+    const tasksFilteredByType =
+      activeFilters.length > 0 ? newTaskTemplates.filter(task => activeFilters.includes(task.icon)) : newTaskTemplates;
+    setTasksToDisplay(tasksFilteredByType);
+  }, [taskTemplates, showArchived, activeFilters]);
 
   const tasksByCategory = categories.map(category => ({
     name: category,
@@ -71,9 +77,19 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
     setTasksToDisplay(matchSorter(taskTemplates, searchQuery, { keys: ["category", "name"] }));
   };
 
+  const handleCheckboxListChange = (checked, label, event) => {
+    let filtersState = [].concat(activeFilters);
+
+    let newFilters = [];
+    let hasFilter = Boolean(filtersState.find(filter => filter === label));
+    if (hasFilter) newFilters = filtersState.filter(filter => filter !== label);
+    else newFilters = filtersState.concat(label);
+    setActiveFilters(newFilters);
+  };
+
   const handleClearFilters = () => {
     setShowArchived(false);
-    // setActiveFilters([]);
+    setActiveFilters([]);
   };
 
   return (
@@ -100,7 +116,10 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
           />
           <OverflowMenu
             renderIcon={SettingsAdjust20}
-            style={{ backgroundColor: showArchived ? "#3DDBD9" : "initial", borderRadius: "0.25rem" }}
+            style={{
+              backgroundColor: showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",
+              borderRadius: "0.25rem"
+            }}
             flipped={true}
             menuOptionsClass={styles.filters}
           >
@@ -118,14 +137,14 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
                 onChange={() => setShowArchived(!showArchived)}
               />
             </section>
-            {/* <section className={styles.filter}>
-            <p className={styles.sectionTitle}>Filter by Task Type</p>
-            <CheckboxList
-              initialSelectedItems={[]}
-              options={testFilters}
-              onChange={(...args) => this.handleCheckboxListChange(...args)}
-            />
-          </section> */}
+            <section className={styles.filter}>
+              <p className={styles.sectionTitle}>Filter by Task Type</p>
+              <CheckboxList
+                initialSelectedItems={activeFilters}
+                options={testFilters}
+                onChange={(...args) => handleCheckboxListChange(...args)}
+              />
+            </section>
           </OverflowMenu>
         </section>
         <div className={styles.tasksInfo}>
@@ -159,7 +178,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
 }
 function Task(props) {
   const { task } = props;
-  const taskIcon = taskTemplateIcons.find(icon => icon.name === task.revisions[task.revisions.length - 1].icon);
+  const taskIcon = taskIcons.find(icon => icon.iconName === task.icon);
   const isActive = task.status === TaskTemplateStatus.Active;
 
   return (
@@ -167,7 +186,8 @@ function Task(props) {
       className={cx(styles.task, { [styles.active]: props.isActive })}
       to={appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })}
     >
-      {taskIcon ? <taskIcon.src style={{ width: "1rem", height: "1rem" }} /> : <Bee16 />}
+      {taskIcon ? <taskIcon.icon /> : <Bee16 />}
+      {/* {taskIcon ? <taskIcon.src style={{ width: "1rem", height: "1rem" }} /> : <Bee16 />} */}
       <p className={cx(styles.taskName, { [styles.active]: props.isActive })}>{task.name}</p>
       {!isActive && <ViewOff16 style={{ marginLeft: "auto" }} />}
     </Link>

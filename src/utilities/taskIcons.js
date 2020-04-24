@@ -97,13 +97,107 @@ const iconToTaskNames = [
   }
 ];
 
+export const taskIcons = [
+  {
+    iconName: "Search",
+    icon: (className, imgProps) => (
+      <Search16 alt="Task node type get, read" style={willChangeOverride} className={className} {...imgProps} />
+    )
+  },
+  {
+    iconName: "Checkmark",
+    icon: (className, imgProps) => (
+      <CheckmarkOutline16
+        alt="Task node type submit, validate, approval"
+        style={willChangeOverride}
+        className={className}
+        {...imgProps}
+      />
+    )
+  },
+  {
+    iconName: "Restart",
+    icon: (className, imgProps) => (
+      <Restart16 alt="Task node type update, sync" style={willChangeOverride} className={className} {...imgProps} />
+    )
+  },
+  {
+    iconName: "Launch",
+    icon: (className, imgProps) => (
+      <Launch16 alt="Task node type launch, deploy" style={willChangeOverride} className={className} {...imgProps} />
+    )
+  },
+  {
+    iconName: "Terminal",
+    icon: (className, imgProps) => (
+      <Terminal20 alt="Task node type shell, appcmd" style={willChangeOverride} className={className} {...imgProps} />
+    )
+  },
+  {
+    iconName: "Power",
+    icon: (className, imgProps) => (
+      <Power16
+        alt="Task node type enable, start, activate"
+        style={willChangeOverride}
+        className={className}
+        {...imgProps}
+      />
+    )
+  },
+  {
+    iconName: "Export",
+    icon: (className, imgProps) => (
+      <BackToTop16 alt="Task node type export" style={willChangeOverride} className={className} {...imgProps} />
+    )
+  },
+  {
+    iconName: "Download",
+    icon: (className, imgProps) => (
+      <Download16 alt="Task node type download" style={willChangeOverride} className={className} {...imgProps} />
+    )
+  },
+  {
+    iconName: "Edit",
+    icon: (className, imgProps) => (
+      <Edit16
+        alt="Task node type edit, define, modify"
+        style={willChangeOverride}
+        className={className}
+        {...imgProps}
+      />
+    )
+  },
+  {
+    iconName: "Add",
+    icon: (className, imgProps) => (
+      <AddAlt16 alt="Task node type create, register" style={willChangeOverride} className={className} {...imgProps} />
+    )
+  },
+  {
+    iconName: "Close",
+    icon: (className, imgProps) => (
+      <CloseOutline16
+        alt="Task node type stop, cancel, disable, terminate"
+        style={willChangeOverride}
+        className={className}
+        {...imgProps}
+      />
+    )
+  },
+  {
+    iconName: "Filter",
+    icon: (className, imgProps) => (
+      <Filter16 alt="Task node type configure" style={willChangeOverride} className={className} {...imgProps} />
+    )
+  }
+];
 /**
  *
  * @param {string} taskName
  * @return {string} Used in Carbon <Icon /> "name" prop
  */
 export default function mapTaskNametoIcon(taskName) {
-  const taskNameFormatted = taskName?.toLowerCase()??"";
+  const taskNameFormatted = taskName?.toLowerCase() ?? "";
 
   // Set default as fallback icon if none
   let iconImg = <Concept20 alt="Task node type concept" style={willChangeOverride} />;

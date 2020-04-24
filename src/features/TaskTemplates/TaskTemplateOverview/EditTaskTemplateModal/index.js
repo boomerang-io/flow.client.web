@@ -23,7 +23,6 @@ function EditTaskTemplateModal({ taskTemplates, setFieldValue, values, oldVersio
     setFieldValue("image", newValues.image);
     setFieldValue("icon", newValues.icon);
   };
-
   return (
     <ComposedModal
       confirmModalProps={{

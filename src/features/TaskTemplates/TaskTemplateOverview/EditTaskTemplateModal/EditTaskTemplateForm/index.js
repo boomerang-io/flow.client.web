@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import cx from "classnames";
 import { ModalFlowForm, TextInput, TextArea } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
-import taskTemplateIcons from "Assets/taskTemplateIcons";
+import { taskIcons } from "Utilities/taskIcons";
 import styles from "./editTaskTemplateForm.module.scss";
 
 EditTaskTemplateForm.propTypes = {
@@ -137,22 +137,24 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
               <p className={styles.iconTitle}>Icon</p>
               <p className={styles.iconSubtitle}>Choose the icon that best fits this task</p>
               <div className={styles.iconsWrapper}>
-                {taskTemplateIcons.map((image, index) => (
+                {taskIcons.map((image, index) => (
                   <label
                     className={cx(styles.iconLabel, {
-                      [styles.active]: values.icon === image.name
+                      [styles.active]: values.icon === image.iconName
                     })}
                     key={`icon-number-${index}`}
                   >
                     <input
-                      id={image.taskTemplateNames}
+                      id={image.iconName}
+                      key={`${image.iconName}-${index}`}
+                      alt={`${image.iconName} icon`}
                       readOnly
-                      checked={values.icon === image.name}
-                      onClick={() => setFieldValue("icon", image.name)}
-                      value={image.name}
+                      checked={values.icon === image.iconName}
+                      onClick={() => setFieldValue("icon", image.iconName)}
+                      value={image.iconName}
                       type="radio"
                     />
-                    <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} className={styles.icon} />
+                    <image.icon />
                   </label>
                 ))}
               </div>

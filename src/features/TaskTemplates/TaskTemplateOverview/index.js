@@ -24,7 +24,8 @@ import { QueryStatus } from "Constants/reactQueryStatuses";
 import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import { TemplateRequestType } from "../constants";
 import { Draggable16, Delete16, Archive16, Bee16 } from "@carbon/icons-react";
-import taskTemplateIcons from "Assets/taskTemplateIcons";
+// import taskTemplateIcons from "Assets/taskTemplateIcons";
+import { taskIcons } from "Utilities/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import styles from "./taskTemplateOverview.module.scss";
@@ -46,7 +47,7 @@ const ArchiveText = () => (
 );
 
 function DetailDataElements({ label, value }) {
-  const taskIcon = taskTemplateIcons.find(icon => icon.name === value);
+  const taskIcon = taskIcons.find(icon => icon.iconName === value);
 
   return (
     <section className={styles.infoSection}>
@@ -54,8 +55,11 @@ function DetailDataElements({ label, value }) {
       {label === "Icon" ? (
         taskIcon ? (
           <div className={styles.basicIcon}>
-            <taskIcon.src style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
-            <p className={styles.value}>{taskIcon.label}</p>
+            <taskIcon.icon imgProps={{ style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" } }} />
+            {/* <taskIcon.icon style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} /> */}
+            <p className={styles.value} style={{ marginLeft: "0.75rem" }}>
+              {taskIcon.iconName}
+            </p>
           </div>
         ) : (
           <div className={styles.basicIcon}>
@@ -124,7 +128,7 @@ function Field({
 }
 
 TaskTemplateOverview.propTypes = {
-  taskTemplates: PropTypes.array.isRequired, 
+  taskTemplates: PropTypes.array.isRequired,
   updateTemplateInState: PropTypes.func.isRequired
 };
 
@@ -202,7 +206,6 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       newRevisionConfig = {
         version: selectedTaskTemplate.currentVersion,
         image: values.image,
-        icon: values.icon,
         command: values.command,
         arguments: values.arguments.trim().split(/\s{1,}/),
         config: values.currentConfig
@@ -211,6 +214,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       body = {
         ...selectedTaskTemplate,
         name: values.name,
+        icon: values.icon,
         description: values.description,
         category: values.category,
         revisions: newRevisions
@@ -219,7 +223,6 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       newRevisionConfig = {
         version: newVersion,
         image: values.image,
-        icon: values.icon,
         command: values.command,
         arguments: values.arguments.trim().split(/\s{1,}/),
         config: values.currentConfig
@@ -228,6 +231,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       body = {
         ...selectedTaskTemplate,
         name: values.name,
+        icon: values.icon,
         description: values.description,
         category: values.category,
         currentVersion: newVersion,
@@ -340,8 +344,8 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       initialValues={{
         name: selectedTaskTemplate.name,
         description: selectedTaskTemplate.description,
+        icon: selectedTaskTemplate.icon,
         image: currentRevision.image,
-        icon: currentRevision.icon,
         category: selectedTaskTemplate.category,
         currentConfig: currentRevision.config ?? [],
         arguments: currentRevision.arguments?.join(" ") ?? "",

@@ -16,8 +16,9 @@ import capitalize from "lodash/capitalize";
 import FeatureHeader from "Components/FeatureHeader";
 import VersionSwitcher from "./VersionSwitcher";
 import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
+import { taskIcons } from "Utilities/taskIcons";
 import { TemplateRequestType } from "../constants";
-import taskTemplateIcons from "Assets/taskTemplateIcons";
+// import taskTemplateIcons from "Assets/taskTemplateIcons";
 import styles from "./header.module.scss";
 
 function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoading, cancelRequestRef }) {
@@ -154,9 +155,7 @@ function Header({
   isLoading,
   cancelRequestRef
 }) {
-  const taskIcon = taskTemplateIcons.find(
-    icon => icon.name === selectedTaskTemplate.revisions[selectedTaskTemplate.revisions.length - 1].icon
-  );
+  const taskIcon = taskIcons.find(icon => icon.iconName === selectedTaskTemplate.icon);
   const revisionCount = selectedTaskTemplate.revisions.length;
 
   return (
@@ -166,8 +165,9 @@ function Header({
           <h1 className={styles.category}>{capitalize(selectedTaskTemplate.category)}</h1>
           <div className={styles.infoContainer}>
             {taskIcon ? (
-              <taskIcon.src style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
+              <taskIcon.icon imgProps={{ style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" } }} />
             ) : (
+              //<taskIcon.src style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
               <Bee20 alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
             )}
             <p className={styles.taskName}>{selectedTaskTemplate.name}</p>

@@ -12,7 +12,8 @@ import {
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, Loading } from "carbon-components-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
-import taskTemplateIcons from "Assets/taskTemplateIcons";
+// import taskTemplateIcons from "Assets/taskTemplateIcons";
+import { taskIcons } from "Utilities/taskIcons";
 import { requiredTaskProps } from "./constants";
 import styles from "./addTaskTemplateForm.module.scss";
 
@@ -77,7 +78,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
     const hasFile = values.file;
     let newRevisionConfig = {
       version: 1,
-      icon: values.icon,
       arguments: values.arguments.trim().split(/\s{1,}/),
       image: values.image,
       command: values.command,
@@ -90,6 +90,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       key: values.key,
       currentVersion: 1,
       revisions: [newRevisionConfig],
+      icon: values.icon,
       nodeType: "templateTask",
       status: "active"
     };
@@ -103,7 +104,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
-      setFieldValue("icon", currentRevision.icon);
+      setFieldValue("icon", fileData.icon);
       setFieldValue("image", currentRevision.image);
       setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
       setFieldValue("command", currentRevision.command ?? "");
@@ -119,7 +120,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         name: "",
         category: "",
         // category: categories[0],
-        icon: taskTemplateIcons[0].name,
+        icon: taskIcons[0].iconName,
         description: "",
         arguments: "",
         command: "",
@@ -314,22 +315,25 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
               <p className={styles.iconTitle}>Icon</p>
               <p className={styles.iconSubtitle}>Choose the icon that best fits this task</p>
               <div className={styles.iconsWrapper}>
-                {taskTemplateIcons.map((image, index) => (
+                {taskIcons.map((image, index) => (
                   <label
                     className={cx(styles.iconLabel, {
-                      [styles.active]: values.icon === image.name
+                      [styles.active]: values.icon === image.iconName
                     })}
                     key={`icon-number-${index}`}
                   >
                     <input
-                      id={image.taskTemplateNames}
+                      id={image.iconName}
+                      key={`${image.iconName}-${index}`}
+                      alt={`${image.iconName} icon`}
                       readOnly
-                      checked={values.icon === image.name}
-                      onClick={() => setFieldValue("icon", image.name)}
-                      value={image.name}
+                      checked={values.icon === image.iconName}
+                      onClick={() => setFieldValue("icon", image.iconName)}
+                      value={image.iconName}
                       type="radio"
                     />
-                    <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} className={styles.icon} />
+                    <image.icon className={styles.icon} />
+                    {/* <image.icon  className={styles.icon} /> */}
                   </label>
                 ))}
               </div>
