@@ -185,7 +185,7 @@ function Header({
             currentRevision={currentRevision}
             revisionCount={revisionCount}
           />
-          {!oldVersion && (
+          {!oldVersion && isActive && (
             <ConfirmModal
               affirmativeAction={resetForm}
               affirmativeText="Reset changes"
