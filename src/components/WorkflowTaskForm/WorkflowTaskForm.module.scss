@@ -7,13 +7,6 @@
   min-height: 0;
   flex-grow: 1;
 
-  :global .bx--bmrg-select,
-  :global .bx--bmrg-multi-select,
-  :global .bx--bmrg-text-area,
-  :global .bx--bmrg-toggle {
-    padding-bottom: 1rem;
-  }
-
   :global .bmrg--b-textarea__text {
     cursor: pointer;
   }
