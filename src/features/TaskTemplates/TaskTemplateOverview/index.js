@@ -116,6 +116,7 @@ function Field({
           <Button
             onClick={() => deleteConfiguration(field)}
             renderIcon={Delete16}
+            iconDescription="delete-field"
             kind="ghost"
             size="field"
             disabled={oldVersion || !isActive}

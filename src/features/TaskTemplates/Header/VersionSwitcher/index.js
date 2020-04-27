@@ -7,28 +7,28 @@ import { appLink } from "Config/appConfig";
 import styles from "./VersionSwitcher.module.scss";
 
 VersionSwitcher.propTypes = {
-  currentRevision: PropTypes.number,
+  currentRevision: PropTypes.object,
   revisionCount: PropTypes.number.isRequired,
   revisions: PropTypes.array
 };
 
-function VersionSwitcher({revisions, currentRevision, revisionCount}){
+function VersionSwitcher({ revisions, currentRevision, revisionCount }) {
   const history = useHistory();
   const match = useRouteMatch();
   const backVersion = () => {
-    history.push(appLink.taskTemplateEdit({id: match.params.taskTemplateId, version: currentRevision.version - 1}));
+    history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: currentRevision.version - 1 }));
   };
 
   const fastBackVersion = () => {
-    history.push(appLink.taskTemplateEdit({id: match.params.taskTemplateId, version: 1}));
+    history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: 1 }));
   };
 
   const forwardVersion = () => {
-    history.push(appLink.taskTemplateEdit({id: match.params.taskTemplateId, version: currentRevision.version + 1}));
+    history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: currentRevision.version + 1 }));
   };
 
   const fastForwardVersion = () => {
-    history.push(appLink.taskTemplateEdit({id: match.params.taskTemplateId, version: revisions.length}));
+    history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: revisions.length }));
   };
 
   const renderBackButtons = enabled => {

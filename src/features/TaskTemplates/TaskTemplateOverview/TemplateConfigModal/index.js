@@ -7,7 +7,7 @@ import { Add16, Edit16 } from "@carbon/icons-react";
 
 TemplateConfigModal.propTypes = {
   field: PropTypes.object,
-  isEdit: PropTypes.bool.isRequired,
+  isEdit: PropTypes.bool,
   templateFields: PropTypes.array,
   fieldKeys: PropTypes.array
 };
@@ -30,7 +30,14 @@ export function TemplateConfigModal(props) {
         ))
       : (output = (
           <TooltipDefinition direction="top" tooltipText={"Add a new field for this task"}>
-            <Button renderIcon={Add16} kind="ghost" size="field" onClick={openModal} disabled={oldVersion || !isActive}>
+            <Button
+              renderIcon={Add16}
+              iconDescription="add-field"
+              kind="ghost"
+              size="field"
+              onClick={openModal}
+              disabled={oldVersion || !isActive}
+            >
               Add a field
             </Button>
           </TooltipDefinition>

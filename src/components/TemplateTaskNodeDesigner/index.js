@@ -19,16 +19,16 @@ export class TemplateTaskNodeDesigner extends Component {
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired,
+    workflowRevisionActions: PropTypes.object.isRequired
   };
 
   static defaultProps = {
     node: {},
     nodeConfig: {},
-    task: {},
+    task: {}
   };
 
-  handleOnSave = (inputs) => {
+  handleOnSave = inputs => {
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
@@ -44,17 +44,18 @@ export class TemplateTaskNodeDesigner extends Component {
       <ComposedModal
         confirmModalProps={{
           title: "Are you sure?",
-          children: "Your changes will not be saved",
+          children: "Your changes will not be saved"
         }}
         modalHeaderProps={{
           title: `Edit ${this.props.task.name}`,
-          subtitle: this.props.task.description || "Configure the inputs",
+          subtitle: this.props.task.description || "Configure the inputs"
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
-        {({ closeModal }) => (
+        {({ closeModal, setShouldConfirmModalClose }) => (
           <WorkflowTaskForm
             inputProperties={this.props.inputProperties}
+            setShouldConfirmModalClose={setShouldConfirmModalClose}
             node={this.props.node}
             nodeConfig={this.props.nodeConfig}
             onSave={this.handleOnSave}
@@ -72,11 +73,11 @@ export class TemplateTaskNodeDesigner extends Component {
       <ModalFlow
         confirmModalProps={{
           title: "Are you sure?",
-          children: "Your changes will not be saved",
+          children: "Your changes will not be saved"
         }}
         modalHeaderProps={{
           title: `Edit ${this.props.task.name}`,
-          subtitle: this.props.task.description || "Configure the inputs",
+          subtitle: this.props.task.description || "Configure the inputs"
         }}
         modalTrigger={({ openModal }) => <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />}
       >
@@ -110,16 +111,16 @@ const mapStateToProps = (state, ownProps) => {
     isModalOpen: state.app.isModalOpen,
     inputProperties: state.workflow.data.properties,
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    task: state.tasks.data.find((task) => task.id === ownProps.node.taskId),
+    task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) // get the taskNames names from the nodes on the model
-      .map((node) => node.taskName)
-      .filter((name) => !!name),
+      .map(node => node.taskName)
+      .filter(name => !!name)
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch),
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch),
+  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TemplateTaskNodeDesigner);

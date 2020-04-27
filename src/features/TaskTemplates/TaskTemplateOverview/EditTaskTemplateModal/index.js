@@ -7,7 +7,6 @@ import { Edit16 } from "@carbon/icons-react";
 EditTaskTemplateModal.propTypes = {
   taskTemplates: PropTypes.array.isRequired,
   setFieldValue: PropTypes.func.isRequired,
-  handleCloseModal: PropTypes.func.isRequired,
   values: PropTypes.object.isRequired,
   oldVersion: PropTypes.bool,
   isActive: PropTypes.bool
@@ -30,7 +29,14 @@ function EditTaskTemplateModal({ taskTemplates, setFieldValue, values, oldVersio
         children: "Your request will not be saved"
       }}
       modalTrigger={({ openModal }) => (
-        <Button renderIcon={Edit16} disabled={oldVersion || !isActive} kind="ghost" size="field" onClick={openModal} />
+        <Button
+          renderIcon={Edit16}
+          iconDescription="edit-template"
+          disabled={oldVersion || !isActive}
+          kind="ghost"
+          size="field"
+          onClick={openModal}
+        />
       )}
       modalHeaderProps={{
         title: "Edit the basics"

@@ -322,6 +322,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                       [styles.active]: values.icon === image.iconName
                     })}
                     key={`icon-number-${index}`}
+                    htmlFor={image.iconName}
                   >
                     <TooltipDefinition
                       direction="top"
@@ -331,17 +332,19 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                         setFieldValue("icon", image.iconName);
                       }}
                     >
-                      <input
-                        id={image.iconName}
-                        key={`${image.iconName}-${index}`}
-                        alt={`${image.iconName} icon`}
-                        readOnly
-                        checked={values.icon === image.iconName}
-                        // onClick={() => setFieldValue("icon", image.iconName)}
-                        value={image.iconName}
-                        type="radio"
-                      />
-                      <image.icon className={styles.icon} />
+                      <>
+                        <input
+                          id={image.iconName}
+                          key={`${image.iconName}-${index}`}
+                          alt={`${image.iconName} icon`}
+                          readOnly
+                          checked={values.icon === image.iconName}
+                          // onClick={() => setFieldValue("icon", image.iconName)}
+                          value={image.iconName}
+                          type="radio"
+                        />
+                        <image.icon className={styles.icon} />
+                      </>
                     </TooltipDefinition>
                   </label>
                 ))}

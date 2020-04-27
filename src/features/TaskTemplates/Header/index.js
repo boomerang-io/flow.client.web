@@ -60,6 +60,7 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
             disabled={!isValid || !isDirty}
             size="field"
             renderIcon={Save16}
+            iconDescription="save-template"
             onClick={openModal}
           >
             Save...
@@ -133,7 +134,6 @@ Header.propTypes = {
   isDirty: PropTypes.bool,
   handleSaveTaskTemplate: PropTypes.func.isRequired,
   handleRestoreTaskTemplate: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
   oldVersion: PropTypes.bool.isRequired,
   isActive: PropTypes.bool,
   isLoading: PropTypes.bool,
@@ -149,7 +149,6 @@ function Header({
   isDirty,
   handleSaveTaskTemplate,
   handleRestoreTaskTemplate,
-  handleSubmit,
   oldVersion,
   isActive,
   isLoading,

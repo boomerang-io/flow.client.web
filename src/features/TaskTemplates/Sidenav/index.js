@@ -41,7 +41,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
     id: icon.iconName,
     labelText: (
       <div className={styles.checkboxOption}>
-        <icon.icon/> <p>{icon.iconName}</p>{" "}
+        <icon.icon /> <p>{icon.iconName}</p>{" "}
       </div>
     )
   }));
@@ -149,25 +149,21 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
         </section>
         <div className={styles.tasksInfo}>
           <p className={styles.info}>{`Showing ${tasksToDisplay.length} tasks`}</p>
-          <button
-            addTemplateInState={addTemplateInState}
-            className={styles.expandCollapse}
-            onClick={() => setOpenCategories(!openCategories)}
-          >
+          <button className={styles.expandCollapse} onClick={() => setOpenCategories(!openCategories)}>
             {openCategories ? "Collapse all" : "Expand all"}
           </button>
         </div>
       </div>
       <Accordion>
-        {tasksByCategory.map(category => {
+        {tasksByCategory.map((category, index) => {
           return (
             <AccordionItem
               title={`${category.name} (${category.tasks.length})`}
               open={openCategories}
-              key={category.name}
+              key={`${category.name}${index}`}
             >
               {category.tasks.map(task => (
-                <Task task={task} isActive={globalMatch?.params?.taskTemplateId === task.id} />
+                <Task key={task.id} task={task} isActive={globalMatch?.params?.taskTemplateId === task.id} />
               ))}
             </AccordionItem>
           );
@@ -185,9 +181,9 @@ function Task(props) {
     <Link
       className={cx(styles.task, { [styles.active]: props.isActive })}
       to={appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })}
+      id={task.id}
     >
       {taskIcon ? <taskIcon.icon /> : <Bee16 />}
-      {/* {taskIcon ? <taskIcon.src style={{ width: "1rem", height: "1rem" }} /> : <Bee16 />} */}
       <p className={cx(styles.taskName, { [styles.active]: props.isActive })}>{task.name}</p>
       {!isActive && <ViewOff16 style={{ marginLeft: "auto" }} />}
     </Link>
