@@ -61,6 +61,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
         title: "Close this?",
         children: "Your request will not be saved"
       }}
+      composedModalProps={{ shouldCloseOnOverlayClick: false }}
       modalTrigger={({ openModal }) => (
         <Button iconDescription="Add task template" onClick={openModal} size="field" kind="ghost" renderIcon={Add16}>
           Add a new task

@@ -1,3 +1,5 @@
+@import "~Styles/mixins";
+
 .container {
   background-color: var(--cds-ui-01);
   border-right: 0.0625rem solid var(--cds-active-ui);
@@ -31,6 +33,13 @@
 .tools {
   display: flex;
   padding-left: 1rem;
+  :global .bx--search-input,
+  :global .bx--search-close::before {
+    background-color: var(--cds-ui-02);
+  }
+  :global .bx--overflow-menu {
+    margin: 0 0.5rem;
+  }
 }
 .filters {
   display: flex;
@@ -54,6 +63,9 @@
   color: var(--cds-link-01);
   cursor: pointer;
   font-size: 0.875rem;
+  &:focus {
+    @include focus-outline(var(--cds-interactive-01), 0rem);
+  }
 }
 .sectionTitle {
   color: var(--cds-text-02);
@@ -109,6 +121,9 @@
   cursor: pointer;
   font-size: 0.75rem;
   margin: 1rem;
+  &:focus {
+    @include focus-outline(var(--cds-interactive-01), 0rem);
+  }
 }
 .task {
   align-items: center;

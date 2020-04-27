@@ -28,6 +28,7 @@ function EditTaskTemplateModal({ taskTemplates, setFieldValue, values, oldVersio
         title: "Close this?",
         children: "Your request will not be saved"
       }}
+      composedModalProps={{ shouldCloseOnOverlayClick: false }}
       modalTrigger={({ openModal }) => (
         <Button
           renderIcon={Edit16}

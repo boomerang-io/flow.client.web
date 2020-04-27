@@ -56,6 +56,7 @@ export class TemplateTaskNodeDesigner extends Component {
           <WorkflowTaskForm
             inputProperties={this.props.inputProperties}
             setShouldConfirmModalClose={setShouldConfirmModalClose}
+            closeModal={closeModal}
             node={this.props.node}
             nodeConfig={this.props.nodeConfig}
             onSave={this.handleOnSave}

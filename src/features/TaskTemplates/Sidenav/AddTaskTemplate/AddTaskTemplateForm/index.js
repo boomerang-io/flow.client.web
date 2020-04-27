@@ -317,20 +317,20 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
               <p className={styles.iconSubtitle}>Choose the icon that best fits this task</p>
               <div className={styles.iconsWrapper}>
                 {taskIcons.map((image, index) => (
-                  <label
-                    className={cx(styles.iconLabel, {
-                      [styles.active]: values.icon === image.iconName
-                    })}
-                    key={`icon-number-${index}`}
-                    htmlFor={image.iconName}
+                  <TooltipDefinition
+                    direction="top"
+                    tooltipText={image.iconName}
+                    onClick={e => {
+                      e.preventDefault();
+                      setFieldValue("icon", image.iconName);
+                    }}
                   >
-                    <TooltipDefinition
-                      direction="top"
-                      tooltipText={image.iconName}
-                      onClick={e => {
-                        e.preventDefault();
-                        setFieldValue("icon", image.iconName);
-                      }}
+                    <label
+                      className={cx(styles.iconLabel, {
+                        [styles.active]: values.icon === image.iconName
+                      })}
+                      key={`icon-number-${index}`}
+                      htmlFor={image.iconName}
                     >
                       <>
                         <input
@@ -345,8 +345,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                         />
                         <image.icon className={styles.icon} />
                       </>
-                    </TooltipDefinition>
-                  </label>
+                    </label>
+                  </TooltipDefinition>
                 ))}
               </div>
               <TextArea

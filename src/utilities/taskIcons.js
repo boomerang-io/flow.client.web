@@ -100,13 +100,13 @@ const iconToTaskNames = [
 export const taskIcons = [
   {
     iconName: "Search",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <Search16 alt="Task node type get, read" style={willChangeOverride} className={className} {...imgProps} />
     )
   },
   {
     iconName: "Checkmark",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <CheckmarkOutline16
         alt="Task node type submit, validate, approval"
         style={willChangeOverride}
@@ -117,25 +117,25 @@ export const taskIcons = [
   },
   {
     iconName: "Restart",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <Restart16 alt="Task node type update, sync" style={willChangeOverride} className={className} {...imgProps} />
     )
   },
   {
     iconName: "Launch",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <Launch16 alt="Task node type launch, deploy" style={willChangeOverride} className={className} {...imgProps} />
     )
   },
   {
     iconName: "Terminal",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <Terminal20 alt="Task node type shell, appcmd" style={willChangeOverride} className={className} {...imgProps} />
     )
   },
   {
     iconName: "Power",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <Power16
         alt="Task node type enable, start, activate"
         style={willChangeOverride}
@@ -146,19 +146,19 @@ export const taskIcons = [
   },
   {
     iconName: "Export",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <BackToTop16 alt="Task node type export" style={willChangeOverride} className={className} {...imgProps} />
     )
   },
   {
     iconName: "Download",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <Download16 alt="Task node type download" style={willChangeOverride} className={className} {...imgProps} />
     )
   },
   {
     iconName: "Edit",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <Edit16
         alt="Task node type edit, define, modify"
         style={willChangeOverride}
@@ -169,13 +169,13 @@ export const taskIcons = [
   },
   {
     iconName: "Add",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <AddAlt16 alt="Task node type create, register" style={willChangeOverride} className={className} {...imgProps} />
     )
   },
   {
     iconName: "Close",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <CloseOutline16
         alt="Task node type stop, cancel, disable, terminate"
         style={willChangeOverride}
@@ -186,7 +186,7 @@ export const taskIcons = [
   },
   {
     iconName: "Filter",
-    icon: (className, imgProps) => (
+    icon: ({ className, imgProps }) => (
       <Filter16 alt="Task node type configure" style={willChangeOverride} className={className} {...imgProps} />
     )
   }

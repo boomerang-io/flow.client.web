@@ -50,18 +50,14 @@ export function TemplateConfigModal(props) {
         title: "Are you sure?",
         children: "Your field will not be saved"
       }}
+      composedModalProps={{ shouldCloseOnOverlayClick: false }}
       modalHeaderProps={{
         title: isEdit ? "Edit field" : "Create field"
       }}
       modalTrigger={editTrigger}
     >
-      {({ closeModal, setShouldConfirmModalClose, forceCloseModal }) => (
-        <TemplateConfigModalContent
-          {...props}
-          closeModal={closeModal}
-          setShouldConfirmModalClose={setShouldConfirmModalClose}
-          forceCloseModal={forceCloseModal}
-        />
+      {({ closeModal, forceCloseModal }) => (
+        <TemplateConfigModalContent {...props} closeModal={closeModal} forceCloseModal={forceCloseModal} />
       )}
     </ComposedModal>
   );

@@ -53,17 +53,14 @@ class TemplateConfigModalContent extends Component {
   };
 
   handleOnChange = (e, formikChange) => {
-    this.props.setShouldConfirmModalClose(true);
     formikChange(e);
   };
 
   handleOnFieldValueChange = (value, id, setFieldValue) => {
-    this.props.setShouldConfirmModalClose(true);
     setFieldValue(id, value);
   };
 
   handleOnTypeChange = (selectedItem, setFieldValue) => {
-    this.props.setShouldConfirmModalClose(true);
     this.setState({ defaultValueType: selectedItem.value });
     setFieldValue(FIELD.TYPE, selectedItem);
     setFieldValue(FIELD.DEFAULT_VALUE, selectedItem.value === INPUT_TYPES.BOOLEAN ? false : undefined);
@@ -71,7 +68,6 @@ class TemplateConfigModalContent extends Component {
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
   handleOptionsChange = (values, setFieldValue) => {
-    this.props.setShouldConfirmModalClose(true);
     setFieldValue(FIELD.OPTIONS, values);
   };
 
@@ -226,7 +222,7 @@ class TemplateConfigModalContent extends Component {
             .max(64, "Name must not be greater than 64 characters"),
           [FIELD.DESCRIPTION]: Yup.string().max(64, "Description must not be greater than 64 characters"),
           [FIELD.PLACEHOLDER]: Yup.string().max(64, "Placeholder must not be greater than 64 characters"),
-          [FIELD.HELPER_TEXT]: Yup.string().max(64, "Helper Text must not be greater than 64 characters"),
+          [FIELD.HELPER_TEXT]: Yup.string().max(128, "Helper Text must not be greater than 128 characters"),
           [FIELD.READ_ONLY]: Yup.boolean(),
           [FIELD.REQUIRED]: Yup.boolean(),
           [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
@@ -315,7 +311,8 @@ class TemplateConfigModalContent extends Component {
                   id={FIELD.HELPER_TEXT}
                   invalid={errors.helperText && touched.helperText}
                   invalidText={errors.helperText}
-                  labelText="Helper Text"
+                  labelText="Helper Text (optional)"
+                  helperText="Appears below input label to provide more information about the purpose"
                   onBlur={handleBlur}
                   onChange={e => this.handleOnChange(e, handleChange)}
                   placeholder="Helper Text"

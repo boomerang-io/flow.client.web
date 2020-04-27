@@ -140,7 +140,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
             <section className={styles.filter}>
               <p className={styles.sectionTitle}>Filter by Task Type</p>
               <CheckboxList
-                initialSelectedItems={activeFilters}
+                selectedItems={activeFilters}
                 options={taskFilters}
                 onChange={(...args) => handleCheckboxListChange(...args)}
               />

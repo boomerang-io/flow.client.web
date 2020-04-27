@@ -22,7 +22,7 @@ import TemplateConfigModal from "./TemplateConfigModal";
 import Header from "../Header";
 import { QueryStatus } from "Constants/reactQueryStatuses";
 import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
-import { TemplateRequestType } from "../constants";
+import { TemplateRequestType, FieldTypes } from "../constants";
 import { Draggable16, Delete16, Archive16, Bee16 } from "@carbon/icons-react";
 // import taskTemplateIcons from "Assets/taskTemplateIcons";
 import { taskIcons } from "Utilities/taskIcons";
@@ -57,9 +57,7 @@ function DetailDataElements({ label, value }) {
           <div className={styles.basicIcon}>
             <taskIcon.icon imgProps={{ style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" } }} />
             {/* <taskIcon.icon style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} /> */}
-            <p className={styles.value} style={{ marginLeft: "0.75rem" }}>
-              {taskIcon.iconName}
-            </p>
+            <p className={styles.value}>{taskIcon.iconName}</p>
           </div>
         ) : (
           <div className={styles.basicIcon}>
@@ -101,7 +99,7 @@ function Field({
         data-testid={field.label}
         style={{ marginLeft: `${oldVersion || !isActive ? "1.5rem" : "0"}` }}
       >
-        {`${field.type} - ${field.label}`}
+        {`${FieldTypes[field.type]} - ${field.label}`}
       </dd>
       <div className={styles.actions}>
         <TemplateConfigModal
