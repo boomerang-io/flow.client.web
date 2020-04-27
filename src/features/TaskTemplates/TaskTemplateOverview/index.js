@@ -175,8 +175,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const oldVersion = !invalidVersion && version !== selectedTaskTemplate?.currentVersion?.toString();
   const templateNotFound = !selectedTaskTemplate.id;
 
-  const fieldKeys = currentRevision.config ?? [].map(input => input.key);
-
+  const fieldKeys = currentRevision.config?.map(input => input.key) ?? [];
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);

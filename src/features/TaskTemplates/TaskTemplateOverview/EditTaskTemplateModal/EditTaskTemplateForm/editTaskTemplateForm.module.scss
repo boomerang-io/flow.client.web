@@ -26,7 +26,9 @@
   margin: 0 0.5rem;
   transition: all 0.15s ease;
   width: 2.7rem;
-
+  &:first-child {
+    margin-left: 0.5rem !important;
+  }
   :global .bx--assistive-text {
     left: -1.5rem !important;
   }

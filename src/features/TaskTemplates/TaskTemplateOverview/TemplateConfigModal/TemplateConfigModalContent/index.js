@@ -39,7 +39,6 @@ const INPUT_TYPES_LABELS = [
 ];
 
 class TemplateConfigModalContent extends Component {
-  
   static propTypes = {
     closeModal: PropTypes.func,
     field: PropTypes.object,
@@ -200,7 +199,6 @@ class TemplateConfigModalContent extends Component {
   render() {
     const { field, isEdit, fieldKeys } = this.props;
     let defaultValueType = this.state.defaultValueType;
-
     return (
       <Formik
         onSubmit={this.handleConfirm}
