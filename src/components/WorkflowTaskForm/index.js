@@ -7,7 +7,7 @@ import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import styles from "./WorkflowTaskForm.module.scss";
 
-const AutoSuggestInput = props => {
+const AutoSuggestInput = (props) => {
   return (
     <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
       <AutoSuggest {...props}>
@@ -17,7 +17,7 @@ const AutoSuggestInput = props => {
   );
 };
 
-const TextEditorInput = props => {
+const TextEditorInput = (props) => {
   return (
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
       <TextEditorModal {...props} {...props.item} />
@@ -50,9 +50,9 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
  * }
  */
 function formatAutoSuggestProperties(inputProperties) {
-  return inputProperties.map(property => ({
+  return inputProperties.map((property) => ({
     value: `\${p:${property.key}}`,
-    label: property.key
+    label: property.key,
   }));
 }
 
@@ -64,33 +64,25 @@ class WorkflowTaskForm extends Component {
     nodeConfig: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
     setIsModalOpen: PropTypes.func.isRequired,
-    setShouldConfirmModalClose: PropTypes.func,
     task: PropTypes.object.isRequired,
-    taskNames: PropTypes.array.isRequired
+    taskNames: PropTypes.array.isRequired,
   };
 
-  componentDidMount() {
-    this.props.setIsModalOpen({ isModalOpen: true });
-    this.props.setShouldConfirmModalClose(false);
-  }
   componentWillUnmount() {
     this.props.setIsModalOpen({ isModalOpen: false });
   }
 
   formikSetFieldValue = (value, id, setFieldValue) => {
-    this.props.setShouldConfirmModalClose(true);
     setFieldValue(id, value);
   };
 
   formikHandleChange = (e, handleChange) => {
-    this.props.setShouldConfirmModalClose(true);
     handleChange(e);
   };
 
-  handleOnSave = values => {
+  handleOnSave = (values) => {
     this.props.node.taskName = values.taskName;
     this.props.onSave(values);
-    this.props.setShouldConfirmModalClose(false);
     this.props.closeModal();
   };
 
@@ -101,12 +93,12 @@ class WorkflowTaskForm extends Component {
 
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
-      formikSetFieldValue: value => this.formikSetFieldValue(value, key, setFieldValue),
+      formikSetFieldValue: (value) => this.formikSetFieldValue(value, key, setFieldValue),
       initialValue: values[key],
       inputProperties: this.props.inputProperties,
       item: input,
       ...itemConfig,
-      ...rest
+      ...rest,
     };
   };
 
@@ -116,21 +108,21 @@ class WorkflowTaskForm extends Component {
 
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
-      onChange: value => this.formikSetFieldValue(value, key, setFieldValue),
+      onChange: (value) => this.formikSetFieldValue(value, key, setFieldValue),
       initialValue: values[key],
       inputProps: {
         id: key,
         onBlur: handleBlur,
         invalid: touched[key] && errors[key],
         invalidText: errors[key],
-        ...rest
-      }
+        ...rest,
+      },
     };
   };
 
   toggleProps = ({ input, formikProps }) => {
     return {
-      orientation: "vertical"
+      orientation: "vertical",
     };
   };
 
@@ -138,11 +130,11 @@ class WorkflowTaskForm extends Component {
     const { node, task, taskNames, nodeConfig } = this.props;
     const revisions = task?.revisions ?? [];
     const currentConfig = node.currentVersion
-      ? revisions.find(revision => node.currentVersion === revision.version)?.config ?? []
+      ? revisions.find((revision) => node.currentVersion === revision.version)?.config ?? []
       : revisions.length > 0
       ? revisions[0]
       : [];
-    const takenTaskNames = taskNames.filter(name => name !== node.taskName);
+    const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
     const inputs = [
       {
         key: "taskName",
@@ -150,9 +142,9 @@ class WorkflowTaskForm extends Component {
         placeholder: "Enter a task name",
         type: "custom",
         required: true,
-        customComponent: TaskNameTextInput
+        customComponent: TaskNameTextInput,
       },
-      ...currentConfig
+      ...currentConfig,
     ];
 
     return (
@@ -160,14 +152,14 @@ class WorkflowTaskForm extends Component {
         validationSchemaExtension={Yup.object().shape({
           taskName: Yup.string()
             .required("Enter a task name")
-            .notOneOf(takenTaskNames, "Enter a unique value for task name")
+            .notOneOf(takenTaskNames, "Enter a unique value for task name"),
         })}
         initialValues={{ taskName: node.taskName, ...nodeConfig.inputs }}
         inputs={inputs}
         onSubmit={this.handleOnSave}
         dataDrivenInputProps={{
           TextInput: AutoSuggestInput,
-          TextEditor: TextEditorInput
+          TextEditor: TextEditorInput,
         }}
         textAreaProps={this.textAreaProps}
         textEditorProps={this.textAreaProps}

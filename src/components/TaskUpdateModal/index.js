@@ -7,50 +7,52 @@ import {
   DynamicFormik,
   ModalForm,
   ModalBody,
-  ModalFooter
+  ModalFooter,
 } from "@boomerang/carbon-addons-boomerang-react";
 import { WarningFilled16, WarningAlt16 } from "@carbon/icons-react";
 import styles from "./taskUpdateModal.module.scss";
 
 TaskUpdateModal.propTypes = {
-  closeModal: PropTypes.func.isRequired
+  closeModal: PropTypes.func.isRequired,
 };
 
 const UpdateType = {
   Add: "add",
   Remove: "remove",
-  NoChange: "none"
+  NoChange: "none",
 };
 
-export default function TaskUpdateModal({ closeModal, nodeConfig, task }) {
-  const currentVersion = task.revisions[1];
-  const newVersion = task.revisions[2];
+export default function TaskUpdateModal({ closeModal, nodeConfig, onSave, setIsModalOpen, task }) {
+  const currentTaskTemplateVersion = task.revisions.find((revision) => revision.version === nodeConfig.taskVersion);
+  const newTaskTemplateVersion = task.revisions[task.revisions.length - 1];
 
-  const removedInputs = currentVersion.config
-    .filter(input => !newVersion.config.find(newInput => newInput.key === input.key))
-    .map(input => input?.key);
+  const removedInputs = currentTaskTemplateVersion.config
+    .filter((input) => !newTaskTemplateVersion.config.find((newInput) => newInput.key === input.key))
+    .map((input) => input?.key);
 
-  const addedInputs = newVersion.config
-    .filter(input => !currentVersion.config.find(currentInput => currentInput.key === input.key))
-    .map(input => input?.key);
+  const addedInputs = newTaskTemplateVersion.config
+    .filter((input) => !currentTaskTemplateVersion.config.find((currentInput) => currentInput.key === input.key))
+    .map((input) => input?.key);
 
-  const handleSubmit = values => {
-    console.log(values);
+  const handleSubmit = (values) => {
+    onSave({ version: newTaskTemplateVersion.version, inputs: values });
+    this.props.setIsModalOpen({ isModalOpen: false });
+    closeModal();
   };
 
   return (
-    <DynamicFormik inputs={newVersion.config} onSubmit={handleSubmit}>
+    <DynamicFormik inputs={newTaskTemplateVersion.config} onSubmit={handleSubmit}>
       {({ inputs, formikProps }) => {
         return (
           <ModalForm onSubmit={formikProps.handleSubmit}>
             <ModalBody className={styles.versionsContainer}>
               <VersionSection
-                description={currentVersion.description}
-                name={currentVersion.name}
+                description={currentTaskTemplateVersion.description}
+                name={currentTaskTemplateVersion.name}
                 subtitle="Current version in this workflow"
-                version={currentVersion.version}
+                version={currentTaskTemplateVersion.version}
               >
-                {currentVersion.config.map(input => (
+                {currentTaskTemplateVersion.config.map((input) => (
                   <StateHilighter type={removedInputs.includes(input.key) ? UpdateType.Remove : UpdateType.NoChange}>
                     <DataDrivenInput {...input} readOnly id={`${input.key}-current`} />
                   </StateHilighter>
@@ -59,12 +61,12 @@ export default function TaskUpdateModal({ closeModal, nodeConfig, task }) {
               <div style={{ width: "1rem" }} />
               <VersionSection
                 latest
-                description={newVersion.description}
-                name={newVersion.name}
+                description={newTaskTemplateVersion.description}
+                name={newTaskTemplateVersion.name}
                 subtitle="Latest version available"
-                version={newVersion.version}
+                version={newTaskTemplateVersion.version}
               >
-                {inputs.map(input => (
+                {inputs.map((input) => (
                   <StateHilighter type={addedInputs.includes(input.props.id) ? UpdateType.Add : UpdateType.NoChange}>
                     {input}
                   </StateHilighter>
@@ -108,13 +110,13 @@ const ChangeToAppearanceMap = {
   [UpdateType.Add]: {
     icon: <WarningAlt16 fill="#DA1E28" />,
     className: "add",
-    text: "This field has been added."
+    text: "This field has been added.",
   },
   [UpdateType.Remove]: {
     icon: <WarningFilled16 fill="#F1C21B" />,
     className: "remove",
-    text: "This field has been removed."
-  }
+    text: "This field has been removed.",
+  },
 };
 function StateHilighter({ children, hidden, type }) {
   const { className, icon, text } = ChangeToAppearanceMap[type] ?? {};

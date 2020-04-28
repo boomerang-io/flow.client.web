@@ -15,7 +15,6 @@ import styles from "./TemplateTaskNodeDesigner.module.scss";
 
 export class TemplateTaskNodeDesigner extends Component {
   static propTypes = {
-    isModalOpen: PropTypes.bool.isRequired,
     node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
@@ -29,7 +28,12 @@ export class TemplateTaskNodeDesigner extends Component {
     task: {},
   };
 
-  handleOnSave = (inputs) => {
+  handleOnUpdateTaskVersion = ({ version, inputs }) => {
+    this.props.workflowRevisionActions.updateNodeTaskVersion({ nodeId: this.props.node.id, inputs, version });
+    this.forceUpdate();
+  };
+
+  handleOnSaveTaskConfig = (inputs) => {
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
@@ -43,6 +47,11 @@ export class TemplateTaskNodeDesigner extends Component {
   renderConfigureTask() {
     return (
       <ComposedModal
+        composedModalProps={{
+          onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
+          onRequestClose: () => this.props.appActions.setIsModalOpen({ isModalOpen: false }),
+          shouldCloseOnOverlayClick: false,
+        }}
         confirmModalProps={{
           title: "Are you sure?",
           children: "Your changes will not be saved",
@@ -56,11 +65,10 @@ export class TemplateTaskNodeDesigner extends Component {
         {({ closeModal, setShouldConfirmModalClose }) => (
           <WorkflowTaskForm
             inputProperties={this.props.inputProperties}
-            setShouldConfirmModalClose={setShouldConfirmModalClose}
             closeModal={closeModal}
             node={this.props.node}
             nodeConfig={this.props.nodeConfig}
-            onSave={this.handleOnSave}
+            onSave={this.handleOnSaveTaskConfig}
             setIsModalOpen={this.props.appActions.setIsModalOpen}
             taskNames={this.props.taskNames}
             task={this.props.task}
@@ -70,10 +78,15 @@ export class TemplateTaskNodeDesigner extends Component {
     );
   }
 
-  renderUpdateTaskTemplate() {
+  renderUpdateTaskVersion() {
     return (
       <ComposedModal
-        composedModalProps={{ containerClassName: styles.updateTaskModalContainer }}
+        composedModalProps={{
+          containerClassName: styles.updateTaskModalContainer,
+          onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
+          onRequestClose: () => this.props.appActions.setIsModalOpen({ isModalOpen: false }),
+          shouldCloseOnOverlayClick: false,
+        }}
         modalHeaderProps={{
           title: `New version available`,
           subtitle:
@@ -87,7 +100,7 @@ export class TemplateTaskNodeDesigner extends Component {
             inputProperties={this.props.inputProperties}
             node={this.props.node}
             nodeConfig={this.props.nodeConfig}
-            onSave={this.handleOnSave}
+            onSave={this.handleOnUpdateTaskVersion}
             setIsModalOpen={this.props.appActions.setIsModalOpen}
             taskNames={this.props.taskNames}
             task={this.props.task}
@@ -101,7 +114,7 @@ export class TemplateTaskNodeDesigner extends Component {
     const { task, node } = this.props;
     return (
       <WorkflowNode title={task.name} subtitle={node.taskName} name={task.name} category={task.category} node={node}>
-        {this.renderUpdateTaskTemplate()}
+        {this.renderUpdateTaskVersion()}
         {this.renderConfigureTask()}
         <WorkflowCloseButton className={styles.closeButton} onClick={this.handleOnDelete} />
       </WorkflowNode>
@@ -111,7 +124,6 @@ export class TemplateTaskNodeDesigner extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isModalOpen: state.app.isModalOpen,
     inputProperties: state.workflow.data.properties,
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
     task: state.tasks.data.find((task) => task.id === ownProps.node.taskId),
