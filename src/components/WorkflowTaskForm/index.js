@@ -123,13 +123,16 @@ class WorkflowTaskForm extends Component {
 
   render() {
     const { node, task, taskNames, nodeConfig } = this.props;
-    const revisions = task?.revisions ?? [];
-    const currentConfig = node.currentVersion
-      ? revisions.find((revision) => node.currentVersion === revision.version)?.config ?? []
-      : revisions.length > 0
-      ? revisions[0]
+
+    const taskRevisions = task?.revisions ?? [];
+
+    // Find the matching task config for the version
+    const taskVersionConfig = nodeConfig
+      ? taskRevisions.find((revision) => nodeConfig.taskVersion === revision.version)?.config ?? []
       : [];
     const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
+
+    // Add the name input
     const inputs = [
       {
         key: "taskName",
@@ -139,7 +142,7 @@ class WorkflowTaskForm extends Component {
         required: true,
         customComponent: TaskNameTextInput,
       },
-      ...currentConfig,
+      ...taskVersionConfig,
     ];
 
     return (

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
-import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
+import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
@@ -46,7 +46,7 @@ export class SwitchNode extends Component {
 
   renderConfigureNode() {
     return (
-      <ModalFlow
+      <ComposedModal
         composedModalProps={{
           onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
           shouldCloseOnOverlayClick: false,
@@ -61,15 +61,18 @@ export class SwitchNode extends Component {
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
         onCloseModal={() => this.props.appActions.setIsModalOpen({ isModalOpen: false })}
       >
-        <WorkflowTaskForm
-          inputProperties={this.props.inputProperties}
-          node={this.props.node}
-          nodeConfig={this.props.nodeConfig}
-          onSave={this.handleOnSave}
-          taskNames={this.props.taskNames}
-          task={this.props.task}
-        />
-      </ModalFlow>
+        {({ closeModal }) => (
+          <WorkflowTaskForm
+            closeModal={closeModal}
+            inputProperties={this.props.inputProperties}
+            node={this.props.node}
+            nodeConfig={this.props.nodeConfig}
+            onSave={this.handleOnSave}
+            taskNames={this.props.taskNames}
+            task={this.props.task}
+          />
+        )}
+      </ComposedModal>
     );
   }
 

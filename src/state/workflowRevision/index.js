@@ -104,7 +104,7 @@ const actionHandlers = {
       taskVersion: version,
       inputs: { ...state.config[nodeId].inputs, ...inputs },
     };
-    console.log(updatedDag);
+
     return {
       ...state,
       hasUnsavedWorkflowRevisionUpdates: true,

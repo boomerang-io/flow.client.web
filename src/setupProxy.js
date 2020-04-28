@@ -8,11 +8,16 @@ module.exports = function(app) {
       if (!path) {
         return;
       }
+      app.use((req, res, next) => {
+        req.headers["Authorization"] = `Bearer ${process.env.REACT_APP_JWT}`;
+        next();
+        return;
+      });
       app.use(
         path,
         proxy({
           target: `http://localhost:${port}`,
-          changeOrigin: true
+          changeOrigin: true,
         })
       );
     });

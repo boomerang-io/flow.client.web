@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import {
-  //   AutoSuggest,
+  //AutoSuggest,
   Button,
   DataDrivenInput,
   DynamicFormik,
   ModalForm,
   ModalBody,
   ModalFooter,
-  //   TextInput,
+  //TextInput,
 } from "@boomerang/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 // import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
@@ -44,17 +44,17 @@ const TextEditorInput = (props) => {
   );
 };
 
-// /**
-//  * @param {property} inputProperties - property object for workflow
-//  * {
-//  *   defaultValue: String
-//  *   description: String
-//  *   key: String
-//  *   label: String
-//  *   required: Bool
-//  *   type: String
-//  * }
-//  */
+/**
+ * @param {property} inputProperties - property object for workflow
+ * {
+ *   defaultValue: String
+ *   description: String
+ *   key: String
+ *   label: String
+ *   required: Bool
+ *   type: String
+ * }
+ */
 // function formatAutoSuggestProperties(inputProperties) {
 //   return inputProperties.map((property) => ({
 //     value: `\${p:${property.key}}`,
@@ -107,6 +107,7 @@ const toggleProps = ({ input, formikProps }) => {
 };
 
 export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfig, onSave, task }) {
+  console.log(nodeConfig.taskVersion);
   const currentTaskTemplateVersion = task.revisions.find((revision) => revision.version === nodeConfig.taskVersion);
   const newTaskTemplateVersion = task.revisions[task.revisions.length - 1];
 
