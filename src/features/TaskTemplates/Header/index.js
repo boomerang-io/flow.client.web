@@ -10,7 +10,7 @@ import {
   ModalBody,
   Tag,
   InlineNotification,
-  Loading
+  Loading,
 } from "@boomerang/carbon-addons-boomerang-react";
 import capitalize from "lodash/capitalize";
 import FeatureHeader from "Components/FeatureHeader";
@@ -46,7 +46,7 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
   return (
     <ComposedModal
       modalHeaderProps={{
-        title: "Save changes"
+        title: "Save changes",
       }}
       composedModalProps={{ containerClassName: styles.saveContainer }}
       onCloseModal={() => {
@@ -90,28 +90,28 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
               </Button>
               <Button
                 kind="secondary"
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   handleSubmit({
                     values,
                     resetForm,
                     requestType: TemplateRequestType.Overwrite,
                     setRequestError,
-                    closeModal
+                    closeModal,
                   });
                 }}
               >
                 Overwrite this version
               </Button>
               <Button
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   handleSubmit({
                     values,
                     resetForm,
                     requestType: TemplateRequestType.New,
                     setRequestError,
-                    closeModal
+                    closeModal,
                   });
                 }}
               >
@@ -137,7 +137,7 @@ Header.propTypes = {
   oldVersion: PropTypes.bool.isRequired,
   isActive: PropTypes.bool,
   isLoading: PropTypes.bool,
-  cancelRequestRef: PropTypes.object.isRequired
+  cancelRequestRef: PropTypes.object.isRequired,
 };
 
 function Header({
@@ -152,9 +152,9 @@ function Header({
   oldVersion,
   isActive,
   isLoading,
-  cancelRequestRef
+  cancelRequestRef,
 }) {
-  const taskIcon = taskIcons.find(icon => icon.iconName === selectedTaskTemplate.icon);
+  const taskIcon = taskIcons.find((icon) => icon.iconName === selectedTaskTemplate.icon);
   const revisionCount = selectedTaskTemplate.revisions.length;
 
   return (
