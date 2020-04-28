@@ -37,7 +37,10 @@ const INPUT_TYPES_LABELS = [
   { label: "Select", value: "select" },
   { label: "Text", value: "text" },
   { label: "Text Area", value: "textarea" },
-  { label: "Text Editor", value: "texteditor" }
+  { label: "Text Editor - JavaScript/JSON", value: "texteditor::javascript" },
+  { label: "Text Editor - Shell", value: "texteditor::shell" },
+  { label: "Text Editor - Text", value: "texteditor::text" },
+  { label: "Text Editor - YAML", value: "texteditor::yaml" }
 ];
 
 const TextEditorInput = props => {
@@ -119,7 +122,6 @@ class TemplateConfigModalContent extends Component {
 
   renderDefaultValue = formikProps => {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
-
     switch (values.type.value) {
       case INPUT_TYPES.BOOLEAN:
         return (
@@ -171,7 +173,10 @@ class TemplateConfigModalContent extends Component {
             value={values.defaultValue || ""}
           />
         );
-      case INPUT_TYPES.TEXT_EDITOR:
+      case INPUT_TYPES.TEXT_EDITOR_JS:
+      case INPUT_TYPES.TEXT_EDITOR_TEXT:
+      case INPUT_TYPES.TEXT_EDITOR_SHELL:
+      case INPUT_TYPES.TEXT_EDITOR_YAML:
         return (
           <TextEditorInput
             data-testid="texteditor"
@@ -185,6 +190,7 @@ class TemplateConfigModalContent extends Component {
             label={"Default Value"}
             formikSetFieldValue={value => setFieldValue("defaultValue", value)}
             initialValue={values.defaultValue}
+            type={values.type.value}
             value={values.defaultValue || ""}
           />
         );

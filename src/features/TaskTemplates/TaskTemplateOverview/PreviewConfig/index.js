@@ -44,6 +44,7 @@ const textAreaProps = ({ input, formikProps }) => {
 };
 
 function PreviewConfigForm({ templateConfig, closeModal }) {
+  console.log(templateConfig, "CONFIG");
   return (
     <DynamicFormik
       validateOnMount
