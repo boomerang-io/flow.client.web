@@ -63,14 +63,9 @@ class WorkflowTaskForm extends Component {
     node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
-    setIsModalOpen: PropTypes.func.isRequired,
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
   };
-
-  componentWillUnmount() {
-    this.props.setIsModalOpen({ isModalOpen: false });
-  }
 
   formikSetFieldValue = (value, id, setFieldValue) => {
     setFieldValue(id, value);

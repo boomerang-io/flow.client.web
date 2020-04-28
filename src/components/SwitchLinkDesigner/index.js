@@ -14,7 +14,7 @@ class SwitchLink extends Component {
   static propTypes = {
     diagramEngine: PropTypes.object.isRequired,
     model: PropTypes.object.isRequired,
-    path: PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -22,7 +22,7 @@ class SwitchLink extends Component {
     this.state = {
       defaultState: props.model.switchCondition === null ? true : false,
       isModalOpen: false,
-      switchCondition: props.model.switchCondition
+      switchCondition: props.model.switchCondition,
     };
   }
 
@@ -61,7 +61,7 @@ class SwitchLink extends Component {
 
   updateDefaultState = () => {
     this.setState(
-      prevState => ({ defaultState: !prevState.defaultState }),
+      (prevState) => ({ defaultState: !prevState.defaultState }),
       () => {
         if (this.state.defaultState) {
           this.setState({ switchCondition: null });
@@ -80,23 +80,27 @@ class SwitchLink extends Component {
     return (
       <>
         <ModalFlow
+          composedModalProps={{
+            onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
+            shouldCloseOnOverlayClick: false,
+          }}
           confirmModalProps={{
             title: "Are you sure?",
-            children: "Your changes will not be saved"
+            children: "Your changes will not be saved",
           }}
           modalHeaderProps={{
             title: "Switch",
-            subtitle: "Set it up the conditions"
+            subtitle: "Set it up the conditions",
           }}
           isOpen={this.state.isModalOpen}
           onCloseModal={() => {
             this.setState({ isModalOpen: false });
+            this.props.appActions.setIsModalOpen({ isModalOpen: false });
           }}
         >
           <ConfigureSwitchModal
             defaultState={this.state.defaultState}
             onSubmit={this.handleSave}
-            setIsModalOpen={this.props.appActions.setIsModalOpen}
             switchCondition={this.state.switchCondition}
             updateDefaultState={this.updateDefaultState}
             updateSwitchState={this.updateSwitchState}
@@ -123,11 +127,8 @@ class SwitchLink extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  appActions: bindActionCreators(appActions, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  appActions: bindActionCreators(appActions, dispatch),
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(SwitchLink);
+export default connect(null, mapDispatchToProps)(SwitchLink);

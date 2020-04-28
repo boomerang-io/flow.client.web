@@ -49,7 +49,6 @@ export class TemplateTaskNodeDesigner extends Component {
       <ComposedModal
         composedModalProps={{
           onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
-          onRequestClose: () => this.props.appActions.setIsModalOpen({ isModalOpen: false }),
           shouldCloseOnOverlayClick: false,
         }}
         confirmModalProps={{
@@ -61,6 +60,7 @@ export class TemplateTaskNodeDesigner extends Component {
           subtitle: this.props.task.description || "Configure the inputs",
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
+        onCloseModal={() => this.props.appActions.setIsModalOpen({ isModalOpen: false })}
       >
         {({ closeModal, setShouldConfirmModalClose }) => (
           <WorkflowTaskForm
@@ -69,7 +69,6 @@ export class TemplateTaskNodeDesigner extends Component {
             node={this.props.node}
             nodeConfig={this.props.nodeConfig}
             onSave={this.handleOnSaveTaskConfig}
-            setIsModalOpen={this.props.appActions.setIsModalOpen}
             taskNames={this.props.taskNames}
             task={this.props.task}
           />
@@ -85,7 +84,6 @@ export class TemplateTaskNodeDesigner extends Component {
           composedModalProps={{
             containerClassName: styles.updateTaskModalContainer,
             onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
-            onRequestClose: () => this.props.appActions.setIsModalOpen({ isModalOpen: false }),
             shouldCloseOnOverlayClick: false,
           }}
           modalHeaderProps={{
@@ -96,6 +94,7 @@ export class TemplateTaskNodeDesigner extends Component {
           modalTrigger={({ openModal }) => (
             <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
           )}
+          onCloseModal={() => this.props.appActions.setIsModalOpen({ isModalOpen: false })}
         >
           {({ closeModal }) => (
             <TaskUpdateModal
@@ -104,7 +103,6 @@ export class TemplateTaskNodeDesigner extends Component {
               node={this.props.node}
               nodeConfig={this.props.nodeConfig}
               onSave={this.handleOnUpdateTaskVersion}
-              setIsModalOpen={this.props.appActions.setIsModalOpen}
               taskNames={this.props.taskNames}
               task={this.props.task}
             />

@@ -10,25 +10,17 @@ class ConfigureSwitchModal extends React.Component {
     onSubmit: PropTypes.func.isRequired,
     switchCondition: PropTypes.string,
     updateDefaultState: PropTypes.func.isRequired,
-    updateSwitchState: PropTypes.func.isRequired
+    updateSwitchState: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      switchCondition: props.switchCondition || ""
+      switchCondition: props.switchCondition || "",
     };
   }
 
-  componentDidMount() {
-    this.props.setIsModalOpen({ isModalOpen: true });
-  }
-
-  componentWillUnmount() {
-    this.props.setIsModalOpen({ isModalOpen: false });
-  }
-
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.updateSwitchState(this.state.switchCondition, this.props.onSubmit);
   };
@@ -63,7 +55,7 @@ class ConfigureSwitchModal extends React.Component {
                   labelText="Switch Property Value"
                   name="property"
                   placeholder="Enter a value"
-                  onChange={e => this.setState({ switchCondition: e.target.value })}
+                  onChange={(e) => this.setState({ switchCondition: e.target.value })}
                   style={{ resize: "none" }}
                   value={switchCondition}
                 />

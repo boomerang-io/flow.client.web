@@ -2,13 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import {
+  //   AutoSuggest,
   Button,
   DataDrivenInput,
   DynamicFormik,
   ModalForm,
   ModalBody,
   ModalFooter,
+  //   TextInput,
 } from "@boomerang/carbon-addons-boomerang-react";
+import TextEditorModal from "Components/TextEditorModal";
+// import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { WarningFilled16, WarningAlt16 } from "@carbon/icons-react";
 import styles from "./taskUpdateModal.module.scss";
 
@@ -22,7 +26,87 @@ const UpdateType = {
   NoChange: "none",
 };
 
-export default function TaskUpdateModal({ closeModal, nodeConfig, onSave, setIsModalOpen, task }) {
+// const AutoSuggestInput = (props) => {
+//   return (
+//     <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
+//       <AutoSuggest {...props}>
+//         <TextInput tooltipContent={props.tooltipContent} />
+//       </AutoSuggest>
+//     </div>
+//   );
+// };
+
+const TextEditorInput = (props) => {
+  return (
+    <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
+      <TextEditorModal {...props} {...props.item} />
+    </div>
+  );
+};
+
+// /**
+//  * @param {property} inputProperties - property object for workflow
+//  * {
+//  *   defaultValue: String
+//  *   description: String
+//  *   key: String
+//  *   label: String
+//  *   required: Bool
+//  *   type: String
+//  * }
+//  */
+// function formatAutoSuggestProperties(inputProperties) {
+//   return inputProperties.map((property) => ({
+//     value: `\${p:${property.key}}`,
+//     label: property.key,
+//   }));
+// }
+
+// const formikSetFieldValue = (value, id, setFieldValue) => {
+//   setFieldValue(id, value);
+// };
+
+// const textAreaProps = (inputProperties) => ({ input, formikProps }) => {
+//   const { values, setFieldValue } = formikProps;
+//   const { key, type, ...rest } = input;
+//   const itemConfig = TEXT_AREA_TYPES[type];
+
+//   return {
+//     autoSuggestions: formatAutoSuggestProperties(inputProperties),
+//     formikSetFieldValue: (value) => formikSetFieldValue(value, key, setFieldValue),
+//     initialValue: values[key],
+//     inputProperties: inputProperties,
+//     item: input,
+//     ...itemConfig,
+//     ...rest,
+//   };
+// };
+
+// const textInputProps = (inputProperties) => ({ formikProps, input }) => {
+//   const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
+//   const { key, ...rest } = input;
+
+//   return {
+//     autoSuggestions: formatAutoSuggestProperties(inputProperties),
+//     onChange: (value) => formikSetFieldValue(value, key, setFieldValue),
+//     initialValue: values[key],
+//     inputProps: {
+//       id: key,
+//       onBlur: handleBlur,
+//       invalid: touched[key] && errors[key],
+//       invalidText: errors[key],
+//       ...rest,
+//     },
+//   };
+// };
+
+const toggleProps = ({ input, formikProps }) => {
+  return {
+    orientation: "vertical",
+  };
+};
+
+export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfig, onSave, task }) {
   const currentTaskTemplateVersion = task.revisions.find((revision) => revision.version === nodeConfig.taskVersion);
   const newTaskTemplateVersion = task.revisions[task.revisions.length - 1];
 
@@ -36,12 +120,23 @@ export default function TaskUpdateModal({ closeModal, nodeConfig, onSave, setIsM
 
   const handleSubmit = (values) => {
     onSave({ version: newTaskTemplateVersion.version, inputs: values });
-    setIsModalOpen({ isModalOpen: false });
     closeModal();
   };
 
   return (
-    <DynamicFormik inputs={newTaskTemplateVersion.config} onSubmit={handleSubmit}>
+    <DynamicFormik
+      initialValues={nodeConfig.inputs}
+      inputs={newTaskTemplateVersion.config}
+      onSubmit={handleSubmit}
+      dataDrivenInputProps={{
+        //TextInput: AutoSuggestInput,
+        TextEditor: TextEditorInput,
+      }}
+      //textAreaProps={textAreaProps(inputProperties)}
+      //textEditorProps={textAreaProps(inputProperties)}
+      //textInputProps={textInputProps(inputProperties)}
+      toggleProps={toggleProps}
+    >
       {({ inputs, formikProps }) => {
         return (
           <ModalForm onSubmit={formikProps.handleSubmit}>
@@ -57,7 +152,12 @@ export default function TaskUpdateModal({ closeModal, nodeConfig, onSave, setIsM
                     key={input.key}
                     type={removedInputs.includes(input.key) ? UpdateType.Remove : UpdateType.NoChange}
                   >
-                    <DataDrivenInput {...input} readOnly id={`${input.key}-current`} />
+                    <DataDrivenInput
+                      {...input}
+                      readOnly
+                      value={nodeConfig.inputs[input.key]}
+                      id={`${input.key}-current`}
+                    />
                   </StateHilighter>
                 ))}
               </VersionSection>

@@ -840,8 +840,8 @@
           "nodeId": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
           "taskId": "Z0WdhFdks",
           "inputs": {
-            "token": "",
-            "slack": ""
+            "token": "1234",
+            "slack": "here"
           },
           "type": "templateTask",
           "taskVersion": 3
