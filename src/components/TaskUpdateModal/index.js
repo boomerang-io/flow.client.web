@@ -7,19 +7,19 @@ import {
   DynamicFormik,
   ModalForm,
   ModalBody,
-  ModalFooter,
+  ModalFooter
 } from "@boomerang/carbon-addons-boomerang-react";
 import { WarningFilled16, WarningAlt16 } from "@carbon/icons-react";
 import styles from "./taskUpdateModal.module.scss";
 
 TaskUpdateModal.propTypes = {
-  closeModal: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired
 };
 
 const UpdateType = {
   Add: "add",
   Remove: "remove",
-  NoChange: "none",
+  NoChange: "none"
 };
 
 export default function TaskUpdateModal({ closeModal, nodeConfig, task }) {
@@ -27,14 +27,14 @@ export default function TaskUpdateModal({ closeModal, nodeConfig, task }) {
   const newVersion = task.revisions[2];
 
   const removedInputs = currentVersion.config
-    .filter((input) => !newVersion.config.find((newInput) => newInput.key === input.key))
-    .map((input) => input?.key);
+    .filter(input => !newVersion.config.find(newInput => newInput.key === input.key))
+    .map(input => input?.key);
 
   const addedInputs = newVersion.config
-    .filter((input) => !currentVersion.config.find((currentInput) => currentInput.key === input.key))
-    .map((input) => input?.key);
+    .filter(input => !currentVersion.config.find(currentInput => currentInput.key === input.key))
+    .map(input => input?.key);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = values => {
     console.log(values);
   };
 
@@ -50,8 +50,8 @@ export default function TaskUpdateModal({ closeModal, nodeConfig, task }) {
                 subtitle="Current version in this workflow"
                 version={currentVersion.version}
               >
-                {currentVersion.config.map((input) => (
-                  <StateHilighter type={!removedInputs.includes(input.key) ? UpdateType.Remove : UpdateType.NoChange}>
+                {currentVersion.config.map(input => (
+                  <StateHilighter type={removedInputs.includes(input.key) ? UpdateType.Remove : UpdateType.NoChange}>
                     <DataDrivenInput {...input} readOnly id={`${input.key}-current`} />
                   </StateHilighter>
                 ))}
@@ -64,7 +64,7 @@ export default function TaskUpdateModal({ closeModal, nodeConfig, task }) {
                 subtitle="Latest version available"
                 version={newVersion.version}
               >
-                {inputs.map((input) => (
+                {inputs.map(input => (
                   <StateHilighter type={addedInputs.includes(input.props.id) ? UpdateType.Add : UpdateType.NoChange}>
                     {input}
                   </StateHilighter>
@@ -108,13 +108,13 @@ const ChangeToAppearanceMap = {
   [UpdateType.Add]: {
     icon: <WarningAlt16 fill="#DA1E28" />,
     className: "add",
-    text: "This field has been added.",
+    text: "This field has been added."
   },
   [UpdateType.Remove]: {
     icon: <WarningFilled16 fill="#F1C21B" />,
     className: "remove",
-    text: "This field has been removed.",
-  },
+    text: "This field has been removed."
+  }
 };
 function StateHilighter({ children, hidden, type }) {
   const { className, icon, text } = ChangeToAppearanceMap[type] ?? {};
