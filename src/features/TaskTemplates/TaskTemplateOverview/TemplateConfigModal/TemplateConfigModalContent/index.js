@@ -10,6 +10,7 @@ import {
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { Formik } from "formik";
+import TextEditorModal from "Components/TextEditorModal";
 import ValidateFormikOnMount from "Components/ValidateFormikOnMount";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
@@ -35,8 +36,17 @@ const INPUT_TYPES_LABELS = [
   { label: "Password", value: "password" },
   { label: "Select", value: "select" },
   { label: "Text", value: "text" },
-  { label: "Text Area", value: "textarea" }
+  { label: "Text Area", value: "textarea" },
+  { label: "Text Editor", value: "texteditor" }
 ];
+
+const TextEditorInput = props => {
+  return (
+    <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
+      <TextEditorModal {...props} {...props.item} />
+    </div>
+  );
+};
 
 class TemplateConfigModalContent extends Component {
   static propTypes = {
@@ -93,6 +103,7 @@ class TemplateConfigModalContent extends Component {
       if (!field.defaultValue) field.defaultValue = false;
     }
     if (this.props.isEdit) {
+      console.log(templateFields);
       const fieldIndex = templateFields.findIndex(field => field.key === this.props.field.key);
       let newProperties = [].concat(templateFields);
       newProperties.splice(fieldIndex, 1, field);
@@ -160,6 +171,23 @@ class TemplateConfigModalContent extends Component {
             value={values.defaultValue || ""}
           />
         );
+      case INPUT_TYPES.TEXT_EDITOR:
+        return (
+          <TextEditorInput
+            data-testid="texteditor"
+            key="texteditor"
+            id={FIELD.DEFAULT_VALUE}
+            labelText="Default Value"
+            onBlur={handleBlur}
+            placeholder="Default Value"
+            style={{ resize: "none" }}
+            autoSuggestions={[]}
+            label={"Default Value"}
+            formikSetFieldValue={value => setFieldValue("defaultValue", value)}
+            initialValue={values.defaultValue}
+            value={values.defaultValue || ""}
+          />
+        );
       default:
         // Fallback to text input here because it covers text, password, and url
         return (
@@ -181,6 +209,7 @@ class TemplateConfigModalContent extends Component {
     switch (defaultType) {
       case "text":
       case "textarea":
+      case "texteditor":
       case "password":
         return Yup.string();
       case "boolean":
