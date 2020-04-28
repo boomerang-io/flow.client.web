@@ -77,7 +77,7 @@
     "prod:server": "cd server && npm run-script dev",
     "start": "react-scripts start",
     "test": "is-ci \"test:ci\" \"test:watch\"",
-    "test:ci": "react-scripts test --env=jsdom  --coverage --outputFile=mocha.json --json",
+    "test:ci": "react-scripts test --env=jsdom  --coverage",
     "test:ci-cypress": "start-server-and-test dev http://localhost:3000 cypress:run",
     "test:coverage": "react-scripts test --env=jsdom --coverage",
     "test:staged": "cross-env CI=true react-scripts test --env=jsdom --passWithNoTests",

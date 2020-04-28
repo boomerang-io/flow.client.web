@@ -18,22 +18,20 @@
 }
 
 .versionTitle {
-  height: 18px;
+  height: 1.125rem;
   color: #272727;
-  font-family: "IBM Plex Sans";
-  font-size: 14px;
+  font-size: 0.875rem;
   letter-spacing: 0;
-  line-height: 18px;
+  line-height: 1.125rem;
   margin: 0;
 }
 
 .versionSubtitle {
-  height: 15px;
+  height: 0.9375rem;
   color: #21272a;
-  font-family: "IBM Plex Sans";
-  font-size: 12px;
-  letter-spacing: 0.16px;
-  line-height: 15px;
+  font-size: 0.75rem;
+  letter-spacing: 0.01rem;
+  line-height: 0.9375rem;
   margin: 0;
 }
 
@@ -42,22 +40,20 @@
 }
 
 .versionName {
-  height: 26px;
+  height: 1.625rem;
   color: #121619;
-  font-family: "IBM Plex Sans";
-  font-size: 16px;
+  font-size: 1rem;
   letter-spacing: 0;
-  line-height: 26px;
+  line-height: 1.625rem;
   margin: 0;
 }
 
 .versionDescription {
-  height: 18px;
-  color: #121619;
-  font-family: "IBM Plex Sans";
-  font-size: 14px;
+  height: 1.125rem;
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
   letter-spacing: 0;
-  line-height: 18px;
+  line-height: 1.125rem;
 }
 
 .versionInputsContainer {

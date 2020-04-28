@@ -105,7 +105,7 @@
   &.completed {
     .status {
       color: #009c98;
-      path {
+      svg {
         fill: #009c98;
       }
     }
@@ -117,7 +117,7 @@
     }
     .status {
       color: #a51920;
-      path {
+      svg {
         fill: #a51920;
       }
     }
@@ -134,7 +134,7 @@
     color: #242a2e;
     .status {
       color: #242a2e;
-      path {
+      svg {
         fill: #242a2e;
       }
     }
@@ -143,7 +143,7 @@
   &.notstarted {
     .status {
       color: #50565b;
-      path {
+      svg {
         fill: #50565b;
       }
     }
@@ -152,7 +152,7 @@
   &.inProgress {
     .tableCell {
       animation: inProgressText 3.75s infinite;
-      path {
+      svg {
         animation: inProgressIcon 3.75s infinite;
       }
     }
