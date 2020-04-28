@@ -98,7 +98,6 @@
     color: var(--cds-interactive-02);
     cursor: pointer;
     font-size: 0.75rem;
-    font-weight: 500;
     height: 0.9375rem;
     line-height: 0.9375rem;
     margin-right: 1rem;
@@ -162,6 +161,9 @@
   color: var(--cds-link-01);
   cursor: pointer;
   font-size: 0.875rem;
+  &:focus {
+    @include focus-outline(var(--cds-interactive-01));
+  }
 }
 .sectionTitle {
   color: var(--cds-text-02);
