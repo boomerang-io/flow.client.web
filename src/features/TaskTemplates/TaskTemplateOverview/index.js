@@ -106,7 +106,7 @@ function Field({
           isEdit
           field={field}
           setFieldValue={setFieldValue}
-          fields={fields}
+          templateFields={fields}
           oldVersion={oldVersion}
           isActive={isActive}
         />
