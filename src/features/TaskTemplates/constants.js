@@ -6,6 +6,7 @@ export const TemplateRequestType = {
 
 export const FieldTypes = {
   boolean: "Boolean",
+  email: "Email",
   number: "Number",
   password: "Password",
   select: "Select",
@@ -15,5 +16,7 @@ export const FieldTypes = {
   "texteditor::shell": "Text Editor - Shell",
   "texteditor::text": "Text Editor - Text",
   "texteditor::yaml": "Text Editor - YAML",
-  "texteditor::javascript": "Text Editor - JavaScript/JSON"
+  "texteditor::javascript": "Text Editor - JavaScript/JSON",
+  time: "Time",
+  url: "Url"
 };

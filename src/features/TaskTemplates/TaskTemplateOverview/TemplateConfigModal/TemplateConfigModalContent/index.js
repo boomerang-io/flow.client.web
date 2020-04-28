@@ -32,6 +32,7 @@ const FIELD = {
 
 const INPUT_TYPES_LABELS = [
   { label: "Boolean", value: "boolean" },
+  { label: "Email", value: "email" },
   { label: "Number", value: "number" },
   { label: "Password", value: "password" },
   { label: "Select", value: "select" },
@@ -40,7 +41,9 @@ const INPUT_TYPES_LABELS = [
   { label: "Text Editor - JavaScript/JSON", value: "texteditor::javascript" },
   { label: "Text Editor - Shell", value: "texteditor::shell" },
   { label: "Text Editor - Text", value: "texteditor::text" },
-  { label: "Text Editor - YAML", value: "texteditor::yaml" }
+  { label: "Text Editor - YAML", value: "texteditor::yaml" },
+  { label: "Time", value: "time" },
+  { label: "Url", value: "url" }
 ];
 
 const TextEditorInput = props => {
