@@ -198,7 +198,10 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       body = {
         ...selectedTaskTemplate,
         currentVersion: newVersion,
-        revisions: newRevisions
+        revisions: newRevisions,
+        changelog: {
+          reason: "Copy new version"
+        }
       };
     } else if (requestType === TemplateRequestType.Overwrite) {
       newRevisionConfig = {
@@ -215,7 +218,10 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         icon: values.icon,
         description: values.description,
         category: values.category,
-        revisions: newRevisions
+        revisions: newRevisions,
+        changelog: {
+          reason: values.comments
+        }
       };
     } else {
       newRevisionConfig = {
