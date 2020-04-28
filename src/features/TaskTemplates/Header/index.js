@@ -9,8 +9,9 @@ import {
   ModalFooter,
   ModalBody,
   Tag,
+  TextArea,
   InlineNotification,
-  Loading,
+  Loading
 } from "@boomerang/carbon-addons-boomerang-react";
 import capitalize from "lodash/capitalize";
 import FeatureHeader from "Components/FeatureHeader";
@@ -21,9 +22,8 @@ import { TemplateRequestType } from "../constants";
 // import taskTemplateIcons from "Assets/taskTemplateIcons";
 import styles from "./header.module.scss";
 
-function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoading, cancelRequestRef }) {
+function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoading, cancelRequestRef, setFieldValue }) {
   const [requestError, setRequestError] = React.useState(null);
-
   const SaveMessage = () => {
     return (
       <>
@@ -46,7 +46,7 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
   return (
     <ComposedModal
       modalHeaderProps={{
-        title: "Save changes",
+        title: "Save changes"
       }}
       composedModalProps={{ containerClassName: styles.saveContainer }}
       onCloseModal={() => {
@@ -74,6 +74,17 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
             <ModalBody>
               {isLoading && <Loading />}
               <SaveMessage />
+              <TextArea
+                data-testid="save-comments"
+                id="comments"
+                name="comments"
+                key="newTemplateComments"
+                labelText="Comments (required for new versions)"
+                onChange={e => setFieldValue("comments", e.target.value)}
+                placeholder="Release notes for the new version"
+                style={{ resize: "none" }}
+                value={values.comments}
+              />
               {Boolean(requestError) && (
                 <InlineNotification
                   style={{ marginBottom: "0.5rem" }}
@@ -90,30 +101,31 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
               </Button>
               <Button
                 kind="secondary"
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   handleSubmit({
                     values,
                     resetForm,
                     requestType: TemplateRequestType.Overwrite,
                     setRequestError,
-                    closeModal,
+                    closeModal
                   });
                 }}
               >
                 Overwrite this version
               </Button>
               <Button
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   handleSubmit({
                     values,
                     resetForm,
                     requestType: TemplateRequestType.New,
                     setRequestError,
-                    closeModal,
+                    closeModal
                   });
                 }}
+                disabled={!Boolean(values.comments)}
               >
                 Save new version
               </Button>
@@ -137,7 +149,7 @@ Header.propTypes = {
   oldVersion: PropTypes.bool.isRequired,
   isActive: PropTypes.bool,
   isLoading: PropTypes.bool,
-  cancelRequestRef: PropTypes.object.isRequired,
+  cancelRequestRef: PropTypes.object.isRequired
 };
 
 function Header({
@@ -149,12 +161,13 @@ function Header({
   isDirty,
   handleSaveTaskTemplate,
   handleRestoreTaskTemplate,
+  setFieldValue,
   oldVersion,
   isActive,
   isLoading,
-  cancelRequestRef,
+  cancelRequestRef
 }) {
-  const taskIcon = taskIcons.find((icon) => icon.iconName === selectedTaskTemplate.icon);
+  const taskIcon = taskIcons.find(icon => icon.iconName === selectedTaskTemplate.icon);
   const revisionCount = selectedTaskTemplate.revisions.length;
 
   return (
@@ -244,6 +257,7 @@ function Header({
               isDirty={isDirty}
               isLoading={isLoading}
               cancelRequestRef={cancelRequestRef}
+              setFieldValue={setFieldValue}
             />
           ) : (
             <ConfirmModal

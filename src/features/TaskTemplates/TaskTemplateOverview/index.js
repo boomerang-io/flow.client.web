@@ -233,7 +233,10 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         description: values.description,
         category: values.category,
         currentVersion: newVersion,
-        revisions: newRevisions
+        revisions: newRevisions,
+        changelog: {
+          reason: values.comments
+        }
       };
     }
 
@@ -347,7 +350,8 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         category: selectedTaskTemplate.category,
         currentConfig: currentRevision.config ?? [],
         arguments: currentRevision.arguments?.join(" ") ?? "",
-        command: currentRevision.command ?? ""
+        command: currentRevision.command ?? "",
+        comments: ""
       }}
       enableReinitialize={true}
     >
@@ -397,6 +401,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
               isActive={isActive}
               isLoading={isLoading}
               cancelRequestRef={cancelRequestRef}
+              setFieldValue={setFieldValue}
             />
             <div className={styles.content}>
               <section className={styles.taskActions}>
