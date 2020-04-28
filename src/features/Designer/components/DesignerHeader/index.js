@@ -19,6 +19,7 @@ class DesignerHeader extends Component {
     performAction: PropTypes.func,
     performActionButtonText: PropTypes.string,
     revisionCount: PropTypes.number,
+    templateUpgradesAvailable: PropTypes.bool,
     workflowName: PropTypes.string.isRequired,
   };
 
@@ -100,7 +101,14 @@ class DesignerHeader extends Component {
   }
 
   render() {
-    const { currentRevision, fetchWorkflowRevisionNumber, onDesigner, revisionCount, workflowName } = this.props;
+    const {
+      currentRevision,
+      fetchWorkflowRevisionNumber,
+      onDesigner,
+      revisionCount,
+      templateUpgradesAvailable,
+      workflowName,
+    } = this.props;
 
     return (
       <FeatureHeader includeBorder className={styles.container}>
@@ -124,9 +132,11 @@ class DesignerHeader extends Component {
           </div>
           <div className={styles.titleContainer}>
             <h1 className={styles.title}>Editor</h1>
-            <TooltipIcon direction="top" tooltipText={"Task version upgrades available"}>
-              <WarningAltFilled24 />
-            </TooltipIcon>
+            {templateUpgradesAvailable && (
+              <TooltipIcon direction="top" tooltipText={"Task version upgrades available"}>
+                <WarningAltFilled24 />
+              </TooltipIcon>
+            )}
           </div>
         </section>
         <section className={styles.workflowButtons}>

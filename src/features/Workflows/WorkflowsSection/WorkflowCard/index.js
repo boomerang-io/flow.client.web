@@ -168,7 +168,7 @@ class WorkflowCard extends Component {
             </ModalFlow>
           )}
         </section>
-        {workflow.templatesUpgradeAvailabe && (
+        {workflow.templateUpgradesAvailable && (
           <div className={styles.templatesWarningIcon}>
             <TooltipIcon direction="top" tooltipText={"Task version upgrades available"}>
               <WarningAltFilled16 fill="#f1c21b" />

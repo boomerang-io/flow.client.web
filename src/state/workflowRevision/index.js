@@ -14,7 +14,6 @@ export const types = {
   CREATE_NODE: "CREATE_NODE",
   UPDATE_NODE_CONFIG: "UPDATE_NODE_CONFIG",
   UPDATE_NODE_TASK_VERSION: "UPDATE_NODE_TASK_VERSION",
-  UPDATE_NODE_DAG: "UPDATE_NODE_DAG",
   DELETE_NODE: "DELETE_NODE",
 };
 Object.freeze(types);
@@ -46,8 +45,9 @@ const actionHandlers = {
       ...state,
       isFetching: false,
       fetchingStatus: "success",
-      dag: action.data.dag,
       config: action.data.config && action.data.config.nodes ? normalizeConfigNodes(action.data.config.nodes) : {},
+      dag: action.data.dag,
+      templateUpgradesAvailable: action.data.templateUpgradesAvailable,
       version: action.data.version,
     };
   },
@@ -58,10 +58,11 @@ const actionHandlers = {
     ...state,
     isCreating: false,
     creatingStatus: "success",
-    dag: action.data.dag,
     config: normalizeConfigNodes(action.data.config.nodes),
-    version: action.data.version,
+    dag: action.data.dag,
     hasUnsavedWorkflowRevisionUpdates: false,
+    templateUpgradesAvailable: action.data.templateUpgradesAvailable,
+    version: action.data.version,
   }),
   [types.CREATE_WORKFLOW_REVISION_FAILURE]: (state, action) => ({
     ...state,
@@ -89,15 +90,26 @@ const actionHandlers = {
     };
   },
   [types.UPDATE_NODE_TASK_VERSION]: (state, action) => {
+    const { nodeId, inputs, version } = action.data;
+    const updatedDagNodes = state.dag.nodes.map((node) => {
+      if (node.nodeId !== nodeId) {
+        return node;
+      } else {
+        return { ...node, templateUpgradeAvailable: false };
+      }
+    });
+    const updatedDag = { ...state.dag, nodes: updatedDagNodes };
     const updatedNode = {
-      ...state.config[action.data.nodeId],
-      taskVersion: action.data.version,
-      inputs: { ...state.config[action.data.nodeId].inputs, ...action.data.inputs },
+      ...state.config[nodeId],
+      taskVersion: version,
+      inputs: { ...state.config[nodeId].inputs, ...inputs },
     };
+    console.log(updatedDag);
     return {
       ...state,
       hasUnsavedWorkflowRevisionUpdates: true,
       config: { ...state.config, [action.data.nodeId]: updatedNode },
+      dag: updatedDag,
     };
   },
   [types.DELETE_NODE]: (state, action) => {

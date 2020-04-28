@@ -36,7 +36,7 @@ export default function TaskUpdateModal({ closeModal, nodeConfig, onSave, setIsM
 
   const handleSubmit = (values) => {
     onSave({ version: newTaskTemplateVersion.version, inputs: values });
-    this.props.setIsModalOpen({ isModalOpen: false });
+    setIsModalOpen({ isModalOpen: false });
     closeModal();
   };
 
@@ -53,7 +53,10 @@ export default function TaskUpdateModal({ closeModal, nodeConfig, onSave, setIsM
                 version={currentTaskTemplateVersion.version}
               >
                 {currentTaskTemplateVersion.config.map((input) => (
-                  <StateHilighter type={removedInputs.includes(input.key) ? UpdateType.Remove : UpdateType.NoChange}>
+                  <StateHilighter
+                    key={input.key}
+                    type={removedInputs.includes(input.key) ? UpdateType.Remove : UpdateType.NoChange}
+                  >
                     <DataDrivenInput {...input} readOnly id={`${input.key}-current`} />
                   </StateHilighter>
                 ))}
@@ -67,7 +70,10 @@ export default function TaskUpdateModal({ closeModal, nodeConfig, onSave, setIsM
                 version={newTaskTemplateVersion.version}
               >
                 {inputs.map((input) => (
-                  <StateHilighter type={addedInputs.includes(input.props.id) ? UpdateType.Add : UpdateType.NoChange}>
+                  <StateHilighter
+                    key={input.props.id}
+                    type={addedInputs.includes(input.props.id) ? UpdateType.Add : UpdateType.NoChange}
+                  >
                     {input}
                   </StateHilighter>
                 ))}

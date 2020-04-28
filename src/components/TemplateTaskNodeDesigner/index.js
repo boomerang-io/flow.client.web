@@ -79,38 +79,45 @@ export class TemplateTaskNodeDesigner extends Component {
   }
 
   renderUpdateTaskVersion() {
-    return (
-      <ComposedModal
-        composedModalProps={{
-          containerClassName: styles.updateTaskModalContainer,
-          onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
-          onRequestClose: () => this.props.appActions.setIsModalOpen({ isModalOpen: false }),
-          shouldCloseOnOverlayClick: false,
-        }}
-        modalHeaderProps={{
-          title: `New version available`,
-          subtitle:
-            "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
-        }}
-        modalTrigger={({ openModal }) => <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />}
-      >
-        {({ closeModal }) => (
-          <TaskUpdateModal
-            closeModal={closeModal}
-            inputProperties={this.props.inputProperties}
-            node={this.props.node}
-            nodeConfig={this.props.nodeConfig}
-            onSave={this.handleOnUpdateTaskVersion}
-            setIsModalOpen={this.props.appActions.setIsModalOpen}
-            taskNames={this.props.taskNames}
-            task={this.props.task}
-          />
-        )}
-      </ComposedModal>
-    );
+    if (this.props.nodeDag?.templateUpgradeAvailable) {
+      return (
+        <ComposedModal
+          composedModalProps={{
+            containerClassName: styles.updateTaskModalContainer,
+            onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
+            onRequestClose: () => this.props.appActions.setIsModalOpen({ isModalOpen: false }),
+            shouldCloseOnOverlayClick: false,
+          }}
+          modalHeaderProps={{
+            title: `New version available`,
+            subtitle:
+              "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
+          }}
+          modalTrigger={({ openModal }) => (
+            <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
+          )}
+        >
+          {({ closeModal }) => (
+            <TaskUpdateModal
+              closeModal={closeModal}
+              inputProperties={this.props.inputProperties}
+              node={this.props.node}
+              nodeConfig={this.props.nodeConfig}
+              onSave={this.handleOnUpdateTaskVersion}
+              setIsModalOpen={this.props.appActions.setIsModalOpen}
+              taskNames={this.props.taskNames}
+              task={this.props.task}
+            />
+          )}
+        </ComposedModal>
+      );
+    }
+
+    return null;
   }
 
   render() {
+    console.log(this.props.nodeDag);
     const { task, node } = this.props;
     return (
       <WorkflowNode title={task.name} subtitle={node.taskName} name={task.name} category={task.category} node={node}>
@@ -125,6 +132,7 @@ export class TemplateTaskNodeDesigner extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     inputProperties: state.workflow.data.properties,
+    nodeDag: state.workflowRevision.dag?.nodes?.find((node) => node.id === ownProps.node.id) ?? {},
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
     task: state.tasks.data.find((task) => task.id === ownProps.node.taskId),
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) // get the taskNames names from the nodes on the model
