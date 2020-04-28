@@ -20,16 +20,16 @@ export class SwitchNode extends Component {
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired,
-    isModalOpen: PropTypes.bool.isRequired
+    isModalOpen: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
-    nodeConfig: {}
+    nodeConfig: {},
   };
 
   state = {};
 
-  handleOnSave = inputs => {
+  handleOnSave = (inputs) => {
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
@@ -47,21 +47,25 @@ export class SwitchNode extends Component {
   renderConfigureNode() {
     return (
       <ModalFlow
+        composedModalProps={{
+          onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
+          shouldCloseOnOverlayClick: false,
+        }}
         confirmModalProps={{
           title: "Are you sure?",
-          children: "Your changes will not be saved"
+          children: "Your changes will not be saved",
         }}
         modalHeaderProps={{
-          title: this.props.task?.name
+          title: this.props.task?.name,
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
+        onCloseModal={() => this.props.appActions.setIsModalOpen({ isModalOpen: false })}
       >
         <WorkflowTaskForm
           inputProperties={this.props.inputProperties}
           node={this.props.node}
           nodeConfig={this.props.nodeConfig}
           onSave={this.handleOnSave}
-          setIsModalOpen={this.props.appActions.setIsModalOpen}
           taskNames={this.props.taskNames}
           task={this.props.task}
         />
@@ -93,22 +97,19 @@ export class SwitchNode extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
+    task: state.tasks.data.find((task) => task.id === ownProps.node.taskId),
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
-      .map(node => node.taskName)
-      .filter(name => !!name),
+      .map((node) => node.taskName)
+      .filter((name) => !!name),
     isModalOpen: state.app.isModalOpen,
-    inputProperties: state.workflow.data.properties
+    inputProperties: state.workflow.data.properties,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   appActions: bindActionCreators(appActions, dispatch),
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
+  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SwitchNode);
+export default connect(mapStateToProps, mapDispatchToProps)(SwitchNode);

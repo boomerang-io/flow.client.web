@@ -64,7 +64,7 @@
   cursor: pointer;
   font-size: 0.875rem;
   &:focus {
-    @include focus-outline(var(--cds-interactive-01), 0rem);
+    @include focus-outline(var(--cds-interactive-01));
   }
 }
 .sectionTitle {
@@ -122,7 +122,7 @@
   font-size: 0.75rem;
   margin: 1rem;
   &:focus {
-    @include focus-outline(var(--cds-interactive-01), 0rem);
+    @include focus-outline(var(--cds-interactive-01));
   }
 }
 .task {

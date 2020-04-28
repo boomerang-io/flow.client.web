@@ -295,7 +295,7 @@
         {
           "id": "5bd6fdf65a5df954ad47bdbe",
           "name": "lucas-workflow-1",
-          "templatesUpgradeAvailabe": true,
+          "templatesUpgradeAvailable": true,
           "shortDescription": "qweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldkl",
           "status": "published",
           "icon": "api",
@@ -455,6 +455,7 @@
         {
           "id": "333",
           "name": "benjamin-workflow-1",
+          "templateUpgradesAvailable": true,
           "shortDescription": "Here is a shorter description. Here is a shorter description. Here is a shorter description. ",
           "status": "published",
           "icon": "docs",
@@ -535,7 +536,7 @@
     }
   ],
   "workflowSingle": {
-    "templateUpgradesAvailabe": true,
+    "templateUpgradesAvailable": true,
     "dag": {
       "id": "3f58d302-2a3c-4765-b606-7573d313a2fa",
       "offsetX": 0,
@@ -605,6 +606,7 @@
           "id": "7c398133-111d-48af-a592-a6118413d08d",
           "type": "task",
           "selected": false,
+          "templateUpgradeAvailable": true,
           "source": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
           "sourcePort": "6f1f5e66-9bc1-4675-a654-5f580036a173",
           "target": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
@@ -805,6 +807,7 @@
           "taskId": "Z0WdhFdks",
           "nodeId": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
           "taskName": "test22 1",
+          "templateUpgradeAvailable": true,
           "taskVersion": 3
         }
       ]
@@ -837,8 +840,8 @@
           "nodeId": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
           "taskId": "Z0WdhFdks",
           "inputs": {
-            "token": "",
-            "slack": ""
+            "token": "1234",
+            "slack": "here"
           },
           "type": "templateTask",
           "taskVersion": 3
@@ -1014,6 +1017,7 @@
           "x": 340,
           "y": 270.25,
           "extras": {},
+          "templateUpgradeAvailable": true,
           "ports": [
             {
               "nodePortId": "5afc712a-c52b-477a-a475-2674fe184330",

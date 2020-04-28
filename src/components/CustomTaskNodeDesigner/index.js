@@ -18,16 +18,16 @@ export class CustomTaskNodeDesigner extends Component {
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
     node: {},
     nodeConfig: {},
-    task: {}
+    task: {},
   };
 
-  handleOnSave = inputs => {
+  handleOnSave = (inputs) => {
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
@@ -41,22 +41,26 @@ export class CustomTaskNodeDesigner extends Component {
   renderConfigureNode() {
     return (
       <ModalFlow
+        composedModalProps={{
+          onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
+          shouldCloseOnOverlayClick: false,
+        }}
         confirmModalProps={{
           title: "Are you sure?",
-          children: "Your changes will not be saved"
+          children: "Your changes will not be saved",
         }}
         modalHeaderProps={{
           title: `Edit ${this.props.task.name}`,
-          subtitle: "Configure the inputs"
+          subtitle: "Configure the inputs",
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
+        onCloseModal={() => this.props.appActions.setIsModalOpen({ isModalOpen: false })}
       >
         <WorkflowTaskForm
           inputProperties={this.props.inputProperties}
           node={this.props.node}
           nodeConfig={this.props.nodeConfig}
           onSave={this.handleOnSave}
-          setIsModalOpen={this.props.appActions.setIsModalOpen}
           taskNames={this.props.taskNames}
           task={this.props.task}
         />
@@ -90,19 +94,16 @@ const mapStateToProps = (state, ownProps) => {
     isModalOpen: state.app.isModalOpen,
     inputProperties: state.workflow.data.properties,
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
+    task: state.tasks.data.find((task) => task.id === ownProps.node.taskId),
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) // get the taskNames names from the nodes on the model
-      .map(node => node.taskName)
-      .filter(name => !!name)
+      .map((node) => node.taskName)
+      .filter((name) => !!name),
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   appActions: bindActionCreators(appActions, dispatch),
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
+  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CustomTaskNodeDesigner);
+export default connect(mapStateToProps, mapDispatchToProps)(CustomTaskNodeDesigner);
