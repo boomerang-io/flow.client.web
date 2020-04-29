@@ -5,8 +5,10 @@ import { bindActionCreators } from "redux";
 import { actions as workflowRevisionActions } from "State/workflowRevision";
 import { actions as appActions } from "State/app";
 import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
+import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
+import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./CustomTaskNodeDesigner.module.scss";
@@ -25,6 +27,11 @@ export class CustomTaskNodeDesigner extends Component {
     node: {},
     nodeConfig: {},
     task: {},
+  };
+
+  handleOnUpdateTaskVersion = ({ version, inputs }) => {
+    this.props.workflowRevisionActions.updateNodeTaskVersion({ nodeId: this.props.node.id, inputs, version });
+    this.forceUpdate();
   };
 
   handleOnSave = (inputs) => {
@@ -71,6 +78,43 @@ export class CustomTaskNodeDesigner extends Component {
     );
   }
 
+  renderUpdateTaskVersion() {
+    if (this.props.nodeDag?.templateUpgradeAvailable) {
+      return (
+        <ComposedModal
+          composedModalProps={{
+            containerClassName: styles.updateTaskModalContainer,
+            onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
+            shouldCloseOnOverlayClick: false,
+          }}
+          modalHeaderProps={{
+            title: `New version available`,
+            subtitle:
+              "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
+          }}
+          modalTrigger={({ openModal }) => (
+            <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
+          )}
+          onCloseModal={() => this.props.appActions.setIsModalOpen({ isModalOpen: false })}
+        >
+          {({ closeModal }) => (
+            <TaskUpdateModal
+              closeModal={closeModal}
+              inputProperties={this.props.inputProperties}
+              node={this.props.node}
+              nodeConfig={this.props.nodeConfig}
+              onSave={this.handleOnUpdateTaskVersion}
+              taskNames={this.props.taskNames}
+              task={this.props.task}
+            />
+          )}
+        </ComposedModal>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { task, node } = this.props;
     return (
@@ -85,6 +129,7 @@ export class CustomTaskNodeDesigner extends Component {
         <div className={styles.badgeContainer}>
           <p className={styles.badgeText}>Custom</p>
         </div>
+        {this.renderUpdateTaskVersion()}
         {this.renderConfigureNode()}
         <WorkflowCloseButton className={styles.closeButton} onClick={this.handleOnDelete} />
       </WorkflowNode>
@@ -96,6 +141,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     isModalOpen: state.app.isModalOpen,
     inputProperties: state.workflow.data.properties,
+    nodeDag: state.workflowRevision.dag?.nodes?.find((node) => node.nodeId === ownProps.node.id) ?? {},
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
     task: state.tasks.data.find((task) => task.id === ownProps.node.taskId),
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) // get the taskNames names from the nodes on the model

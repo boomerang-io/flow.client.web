@@ -13,7 +13,7 @@ EditTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func,
   handleEditTaskTemplateModal: PropTypes.func,
   taskTemplates: PropTypes.array,
-  templateData: PropTypes.object
+  templateData: PropTypes.object,
 };
 
 // const categories = [
@@ -25,11 +25,11 @@ EditTaskTemplateForm.propTypes = {
 
 function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplateModal, templateData }) {
   let taskTemplateNames = taskTemplates
-    .map(taskTemplate => taskTemplate.name)
-    .filter(templateName => templateName !== templateData.name);
+    .map((taskTemplate) => taskTemplate.name)
+    .filter((templateName) => templateName !== templateData.name);
   const orderedIcons = orderBy(taskIcons, ["iconName"]);
-  const selectedIcon = orderedIcons.find(icon => icon.iconName === templateData.icon);
-  const handleSubmit = async values => {
+  const selectedIcon = orderedIcons.find((icon) => icon.iconName === templateData.icon);
+  const handleSubmit = async (values) => {
     await handleEditTaskTemplateModal({ newValues: values });
     closeModal();
   };
@@ -44,33 +44,31 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
         description: templateData.description,
         arguments: templateData.arguments,
         command: templateData.command,
-        image: templateData.image
+        image: templateData.image,
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
-          .required("Enter a name")
-          .notOneOf(taskTemplateNames, "Enter a unique value for component name"),
-        category: Yup.string().required("Select a category"),
+          .required("Name is required")
+          .notOneOf(taskTemplateNames, "Enter a unique value for task name"),
+        category: Yup.string().required("Enter a category"),
         icon: Yup.object().shape({
           value: Yup.string().required(),
-          label: Yup.string().required()
+          label: Yup.string().required(),
         }),
         description: Yup.string()
           .lowercase()
-          .min(4, "The description must be at least 4 characters")
-          .max(200, "The description must be less than 60 characters")
-          .required("Enter a desccription"),
-        arguments: Yup.string(),
-        // .required("Enter some arguments")
+          .min(4, "Description must be at least four characters")
+          .max(200, "Description must be less than 60 characters")
+          .required("Description is required"),
+        arguments: Yup.string().required("Arguments are required"),
         command: Yup.string(),
         // .required("Enter a command")
-        image: Yup.string()
-        // .required("Enter a image")
+        image: Yup.string().required("Image is required"),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
     >
-      {props => {
+      {(props) => {
         const { handleSubmit, isValid, values, errors, touched, handleChange, setFieldValue, handleBlur } = props;
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
@@ -83,7 +81,7 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                 helperText="Must be unique"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="Name"
+                placeholder="Enter a name"
                 value={values.name}
               />
               <TextInput
@@ -93,25 +91,13 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                 labelText="Category"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="Category"
+                placeholder="e.g. communication"
                 value={values.category}
               />
-              {/* <ComboBox
-                id="category"
-                helperText="Choose which category it falls under"
-                invalid={errors.category && touched.category}
-                invalidText={errors.category}
-                onBlur={handleBlur}
-                items={categories}
-                initialSelectedItem={values.category}
-                onChange={({ selectedItem }) => setFieldValue("category", selectedItem)}
-                className={styles.teamsDropdown}
-              /> */}
               <TextInput
                 id="image"
                 labelText="Image"
-                // helperText="Helper text for image"
-                placeholder="Image"
+                helperText="Path to container image"
                 name="image"
                 value={values.image}
                 onBlur={handleBlur}
@@ -121,9 +107,8 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
               />
               <TextInput
                 id="command"
-                labelText="Command"
-                helperText="Helper text for command"
-                placeholder="Command"
+                labelText="Command (optional)"
+                helperText="Override the entry point of the container"
                 name="command"
                 value={values.command}
                 onBlur={handleBlur}
@@ -134,8 +119,8 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
               <TextInput
                 id="arguments"
                 labelText="Arguments"
-                helperText="Type the argument with spaces - e.g., slack message mail"
-                placeholder="Arguments"
+                helperText="Enter arguments delimited by a space character"
+                placeholder="e.g. system sleep"
                 name="arguments"
                 value={values.arguments}
                 onBlur={handleBlur}
@@ -155,7 +140,6 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                 labelText="Description"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="Description"
                 value={values.description}
               />
             </ModalBody>

@@ -19,7 +19,7 @@ class CreateEditTeamPropertiesModalContent extends Component {
     property: PropTypes.object,
     propertyKeys: PropTypes.array.isRequired,
     team: PropTypes.string.isRequired,
-    updateTeamProperty: PropTypes.func
+    updateTeamProperty: PropTypes.func,
   };
 
   handleSubmit = (values, options) => {
@@ -32,9 +32,9 @@ class CreateEditTeamPropertiesModalContent extends Component {
     axios({
       method: isEdit ? "patch" : "post",
       url: isEdit ? TEAM_PROPERTIES_ID_PROPERTY_ID_URL(team, newTeamProperty.id) : TEAM_PROPERTIES_ID_URL(team),
-      data: newTeamProperty
+      data: newTeamProperty,
     })
-      .then(response => {
+      .then((response) => {
         storeUpdate(isEdit ? newTeamProperty : response.data);
         notify(
           <ToastNotification
@@ -53,7 +53,7 @@ class CreateEditTeamPropertiesModalContent extends Component {
       .then(() => {
         this.props.closeModal();
       })
-      .catch(error => {
+      .catch((error) => {
         notify(
           <ToastNotification
             kind="error"
@@ -76,7 +76,7 @@ class CreateEditTeamPropertiesModalContent extends Component {
           key: property && property.key ? property.key : "",
           label: property && property.label ? property.label : "",
           description: property && property.description ? property.description : "",
-          secured: property ? property.type === INPUT_TYPES.PASSWORD : false
+          secured: property ? property.type === INPUT_TYPES.PASSWORD : false,
         }}
         onSubmit={this.handleSubmit}
         validationSchema={Yup.object().shape({
@@ -86,10 +86,10 @@ class CreateEditTeamPropertiesModalContent extends Component {
             .notOneOf(propertyKeys, "Key must be unique"),
           value: Yup.string().required("Enter a value"),
           description: Yup.string(),
-          secured: Yup.boolean()
+          secured: Yup.boolean(),
         })}
       >
-        {props => {
+        {(props) => {
           const { values, touched, errors, isSubmitting, isValid, handleChange, handleBlur, handleSubmit } = props;
 
           return (
@@ -100,7 +100,6 @@ class CreateEditTeamPropertiesModalContent extends Component {
                   <TextInput
                     id="label"
                     labelText="Label"
-                    placeholder="Label"
                     name="label"
                     value={values.label}
                     onBlur={handleBlur}
@@ -126,7 +125,6 @@ class CreateEditTeamPropertiesModalContent extends Component {
                   <TextInput
                     id="description"
                     labelText="Description"
-                    placeholder="Description"
                     name="description"
                     value={values.description}
                     onBlur={handleBlur}
@@ -137,7 +135,6 @@ class CreateEditTeamPropertiesModalContent extends Component {
                   <TextInput
                     id="value"
                     labelText="Value"
-                    placeholder="Value"
                     name="value"
                     value={values.value}
                     onBlur={handleBlur}

@@ -7,7 +7,7 @@ import {
   TextInput,
   TextArea,
   FileUploaderDropContainer,
-  FileUploaderItem
+  FileUploaderItem,
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, Loading } from "carbon-components-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
@@ -22,7 +22,7 @@ AddTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
   taskTemplates: PropTypes.array.isRequired,
   isLoading: PropTypes.bool,
-  handleAddTaskTemplate: PropTypes.func.isRequired
+  handleAddTaskTemplate: PropTypes.func.isRequired,
 };
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
@@ -33,7 +33,7 @@ function checkIsValidTask(data) {
   // Only check if the .json file contain the required key data
   // This validate can be improved
   let isValid = true;
-  requiredTaskProps.forEach(prop => {
+  requiredTaskProps.forEach((prop) => {
     if (!data.hasOwnProperty(prop)) {
       isValid = false;
     }
@@ -45,7 +45,7 @@ function checkIsValidTask(data) {
  * @param file {File}
  * @return {Promise}
  */
-const readFile = file => {
+const readFile = (file) => {
   const reader = new FileReader();
   return new Promise((resolve, reject) => {
     reader.onerror = () => {
@@ -72,10 +72,10 @@ const readFile = file => {
 // ];
 
 function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTaskTemplate }) {
-  let taskTemplateNames = taskTemplates.map(taskTemplate => taskTemplate.name);
+  let taskTemplateNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
   const orderedIcons = orderBy(taskIcons, ["iconName"]);
 
-  const handleSubmit = async values => {
+  const handleSubmit = async (values) => {
     const hasFile = values.file;
     let newRevisionConfig = {
       version: 1,
@@ -83,7 +83,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       image: values.image,
       command: values.command,
       config: hasFile ? values.currentRevision.config : [],
-      changelog: { reason: "" }
+      changelog: { reason: "" },
     };
     const body = {
       name: values.name,
@@ -93,15 +93,15 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       revisions: [newRevisionConfig],
       icon: values.icon.value,
       nodeType: "templateTask",
-      status: "active"
+      status: "active",
     };
     await handleAddTaskTemplate({ body, closeModal });
   };
   const getTemplateData = async (file, setFieldValue) => {
     const fileData = await readFile(file);
-    const selectedIcon = orderedIcons.find(icon => icon.iconName === fileData.icon);
+    const selectedIcon = orderedIcons.find((icon) => icon.iconName === fileData.icon);
     if (checkIsValidTask(fileData)) {
-      const currentRevision = fileData.revisions.find(revision => revision.version === fileData.currentVersion);
+      const currentRevision = fileData.revisions.find((revision) => revision.version === fileData.currentVersion);
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
@@ -121,41 +121,39 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         name: "",
         category: "",
         // category: categories[0],
-        icon: { value: orderedIcons[0].iconName, label: orderedIcons[0].iconName, icon: orderedIcons[0].icon },
+        icon: {},
         description: "",
         arguments: "",
         command: "",
         fileData: {},
-        file: undefined
+        file: undefined,
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
-          .required("Enter a name")
-          .notOneOf(taskTemplateNames, "Enter a unique value for component name"),
+          .required("Name is required")
+          .notOneOf(taskTemplateNames, "Enter a unique value for task name"),
         category: Yup.string().required("Enter a category"),
         description: Yup.string()
           .lowercase()
-          .min(4, "The description must be at least 4 characters")
+          .min(4, "Description must be at least four characters")
           .max(200, "The description must be less than 60 characters")
-          .required("Enter a desccription"),
+          .required("Description is required"),
         icon: Yup.object().shape({
           value: Yup.string().required(),
-          label: Yup.string().required()
+          label: Yup.string().required(),
         }),
-        arguments: Yup.string(),
-        // .required("Enter some arguments")
+        arguments: Yup.string().required("Arguments are required"),
         command: Yup.string(),
         // .required("Enter a command")
-        image: Yup.string(),
-        // .required("Enter a image")
+        image: Yup.string().required("Image is required"),
         file: Yup.mixed()
           .test(
             "fileSize",
             "File is larger than 1MiB",
             // If it's bigger than 1MiB will display the error (1048576 bytes = 1 mebibyte)
-            file => (file?.size ? file.size < 1048576 : true)
+            (file) => (file?.size ? file.size < 1048576 : true)
           )
-          .test("validFile", "File is invalid", async file => {
+          .test("validFile", "File is invalid", async (file) => {
             let isValid = true;
             if (file) {
               try {
@@ -168,12 +166,12 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
             }
             // Need to return promise for yup to do async validation
             return Promise.resolve(isValid);
-          })
+          }),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
     >
-      {props => {
+      {(props) => {
         const {
           handleSubmit,
           isValid,
@@ -183,7 +181,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           handleChange,
           setFieldValue,
           handleBlur,
-          resetForm
+          resetForm,
         } = props;
         return (
           <ModalFlowForm onSubmit={handleSubmit} className={styles.container}>
@@ -243,7 +241,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 helperText="Must be unique"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="Name"
+                placeholder="Enter a name"
                 value={values.name}
               />
               <TextInput
@@ -253,25 +251,13 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 labelText="Category"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="Category"
+                placeholder="e.g. communication"
                 value={values.category}
               />
-              {/* <ComboBox
-                id="category"
-                helperText="Choose which category it falls under"
-                invalid={errors.category && touched.category}
-                invalidText={errors.category}
-                onBlur={handleBlur}
-                items={categories}
-                initialSelectedItem={values.category}
-                onChange={({ selectedItem }) => setFieldValue("category", selectedItem)}
-                className={styles.teamsDropdown}
-              /> */}
               <TextInput
                 id="image"
                 labelText="Image"
-                // helperText="Helper text for image"
-                placeholder="Image"
+                helperText="Path to container image"
                 name="image"
                 value={values.image}
                 onBlur={handleBlur}
@@ -282,8 +268,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
               <TextInput
                 id="command"
                 labelText="Comand"
-                // helperText="Helper text for command"
-                placeholder="Command"
+                helperText="Override the entry point of the container"
                 name="command"
                 value={values.command}
                 onBlur={handleBlur}
@@ -294,8 +279,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
               <TextInput
                 id="arguments"
                 labelText="Arguments"
-                helperText="Type the argument with spaces - e.g., slack message mail"
-                placeholder="Arguments"
+                helperText="Enter arguments delimited by a space character"
+                placeholder="e.g. system sleep"
                 name="arguments"
                 value={values.arguments}
                 onBlur={handleBlur}
@@ -315,7 +300,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 labelText="Description"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="Description"
                 value={values.description}
               />
             </ModalBody>
