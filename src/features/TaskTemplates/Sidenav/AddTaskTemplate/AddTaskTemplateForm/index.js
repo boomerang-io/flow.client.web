@@ -92,7 +92,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       revisions: [newRevisionConfig],
       icon: values.icon.value,
       nodeType: "templateTask",
-      status: "active"
+      status: "active",
+      changelog: { reason: "" }
     };
     await handleAddTaskTemplate({ body, closeModal });
   };
