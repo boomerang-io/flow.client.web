@@ -73,7 +73,6 @@ const readFile = file => {
 
 function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTaskTemplate }) {
   let taskTemplateNames = taskTemplates.map(taskTemplate => taskTemplate.name);
-  let taskTemplateKeys = taskTemplates.map(taskTemplate => taskTemplate.key);
 
   const handleSubmit = async values => {
     const hasFile = values.file;
@@ -88,7 +87,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       name: values.name,
       description: values.description,
       category: values.category,
-      key: values.key,
       currentVersion: 1,
       revisions: [newRevisionConfig],
       icon: values.icon,
@@ -101,7 +99,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
     const fileData = await readFile(file);
     if (checkIsValidTask(fileData)) {
       const currentRevision = fileData.revisions.find(revision => revision.version === fileData.currentVersion);
-      setFieldValue("key", `new.${fileData.key}`);
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
@@ -117,7 +114,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
   return (
     <Formik
       initialValues={{
-        key: "",
         name: "",
         category: "",
         // category: categories[0],
@@ -129,9 +125,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         file: undefined
       }}
       validationSchema={Yup.object().shape({
-        key: Yup.string()
-          .required("Enter a Key")
-          .notOneOf(taskTemplateKeys, "Enter a unique value for key"),
         name: Yup.string()
           .required("Enter a name")
           .notOneOf(taskTemplateNames, "Enter a unique value for component name"),
@@ -234,17 +227,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                   </p>
                 </>
               )}
-              <TextInput
-                id="key"
-                labelText="Key"
-                placeholder="Key"
-                name="key"
-                value={values.key}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.key && touched.key}
-                invalidText={errors.key}
-              />
               <TextInput
                 id="name"
                 invalid={errors.name && touched.name}

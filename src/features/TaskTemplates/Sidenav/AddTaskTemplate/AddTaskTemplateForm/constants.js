@@ -1,1 +1,1 @@
-export const requiredTaskProps = ["key", "name", "category", "description", "revisions","currentVersion"];
+export const requiredTaskProps = ["name", "category", "description", "revisions", "currentVersion"];
