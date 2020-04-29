@@ -2,11 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import cx from "classnames";
-import { ModalFlowForm, TextInput, TextArea, TooltipDefinition } from "@boomerang/carbon-addons-boomerang-react";
+import orderBy from "lodash/orderBy";
+import { ModalFlowForm, TextInput, TextArea } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utilities/taskIcons";
-import styles from "./editTaskTemplateForm.module.scss";
+// import styles from "./editTaskTemplateForm.module.scss";
 
 EditTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func,
@@ -26,6 +27,8 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
   let taskTemplateNames = taskTemplates
     .map(taskTemplate => taskTemplate.name)
     .filter(templateName => templateName !== templateData.name);
+  const orderedIcons = orderBy(taskIcons, ["iconName"]);
+  const selectedIcon = orderedIcons.find(icon => icon.iconName === templateData.icon);
   const handleSubmit = async values => {
     await handleEditTaskTemplateModal({ newValues: values });
     closeModal();
@@ -35,7 +38,9 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
       initialValues={{
         name: templateData.name,
         category: templateData.category,
-        icon: templateData.icon,
+        icon: selectedIcon
+          ? { value: selectedIcon.iconName, label: selectedIcon.iconName, icon: selectedIcon.icon }
+          : {},
         description: templateData.description,
         arguments: templateData.arguments,
         command: templateData.command,
@@ -46,6 +51,10 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
           .required("Enter a name")
           .notOneOf(taskTemplateNames, "Enter a unique value for component name"),
         category: Yup.string().required("Select a category"),
+        icon: Yup.object().shape({
+          value: Yup.string().required(),
+          label: Yup.string().required()
+        }),
         description: Yup.string()
           .lowercase()
           .min(4, "The description must be at least 4 characters")
@@ -134,42 +143,11 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
               />
-              <p className={styles.iconTitle}>Icon</p>
-              <p className={styles.iconSubtitle}>Choose the icon that best fits this task</p>
-              <div className={styles.iconsWrapper}>
-                {taskIcons.map((image, index) => (
-                  <TooltipDefinition
-                    direction="top"
-                    tooltipText={image.iconName}
-                    onClick={e => {
-                      e.preventDefault();
-                      setFieldValue("icon", image.iconName);
-                    }}
-                  >
-                    <label
-                      className={cx(styles.iconLabel, {
-                        [styles.active]: values.icon === image.iconName
-                      })}
-                      key={`icon-number-${index}`}
-                      htmlFor={image.iconName}
-                    >
-                      <>
-                        <input
-                          id={image.iconName}
-                          key={`${image.iconName}-${index}`}
-                          alt={`${image.iconName} icon`}
-                          readOnly
-                          checked={values.icon === image.iconName}
-                          // onClick={() => setFieldValue("icon", image.iconName)}
-                          value={image.iconName}
-                          type="radio"
-                        />
-                        <image.icon className={styles.icon} />
-                      </>
-                    </label>
-                  </TooltipDefinition>
-                ))}
-              </div>
+              <SelectIcon
+                onChange={({ selectedItem }) => Boolean(selectedItem) && setFieldValue("icon", selectedItem)}
+                selectedIcon={values.icon}
+                iconOptions={orderedIcons}
+              />
               <TextArea
                 id="description"
                 invalid={errors.description && touched.description}

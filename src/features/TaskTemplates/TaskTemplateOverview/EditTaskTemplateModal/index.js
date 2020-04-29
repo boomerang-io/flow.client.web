@@ -20,7 +20,7 @@ function EditTaskTemplateModal({ taskTemplates, setFieldValue, values, oldVersio
     setFieldValue("arguments", newValues.arguments);
     setFieldValue("command", newValues.command);
     setFieldValue("image", newValues.image);
-    setFieldValue("icon", newValues.icon);
+    setFieldValue("icon", newValues.icon.value);
   };
   return (
     <ComposedModal

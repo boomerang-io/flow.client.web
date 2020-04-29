@@ -2,18 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import cx from "classnames";
 import {
   ModalFlowForm,
   TextInput,
   TextArea,
   FileUploaderDropContainer,
-  FileUploaderItem,
-  TooltipDefinition
+  FileUploaderItem
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, Loading } from "carbon-components-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
+import SelectIcon from "Components/SelectIcon";
 // import taskTemplateIcons from "Assets/taskTemplateIcons";
+import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utilities/taskIcons";
 import { requiredTaskProps } from "./constants";
 import styles from "./addTaskTemplateForm.module.scss";
@@ -73,6 +73,7 @@ const readFile = file => {
 
 function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTaskTemplate }) {
   let taskTemplateNames = taskTemplates.map(taskTemplate => taskTemplate.name);
+  const orderedIcons = orderBy(taskIcons, ["iconName"]);
 
   const handleSubmit = async values => {
     const hasFile = values.file;
@@ -89,7 +90,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       category: values.category,
       currentVersion: 1,
       revisions: [newRevisionConfig],
-      icon: values.icon,
+      icon: values.icon.value,
       nodeType: "templateTask",
       status: "active"
     };
@@ -97,12 +98,14 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
   };
   const getTemplateData = async (file, setFieldValue) => {
     const fileData = await readFile(file);
+    const selectedIcon = orderedIcons.find(icon => icon.iconName === fileData.icon);
     if (checkIsValidTask(fileData)) {
       const currentRevision = fileData.revisions.find(revision => revision.version === fileData.currentVersion);
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
-      setFieldValue("icon", fileData.icon);
+      selectedIcon &&
+        setFieldValue("icon", { value: selectedIcon.iconName, label: selectedIcon.iconName, icon: selectedIcon.icon });
       setFieldValue("image", currentRevision.image);
       setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
       setFieldValue("command", currentRevision.command ?? "");
@@ -117,7 +120,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         name: "",
         category: "",
         // category: categories[0],
-        icon: taskIcons[0].iconName,
+        icon: { value: orderedIcons[0].iconName, label: orderedIcons[0].iconName, icon: orderedIcons[0].icon },
         description: "",
         arguments: "",
         command: "",
@@ -134,6 +137,10 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           .min(4, "The description must be at least 4 characters")
           .max(200, "The description must be less than 60 characters")
           .required("Enter a desccription"),
+        icon: Yup.object().shape({
+          value: Yup.string().required(),
+          label: Yup.string().required()
+        }),
         arguments: Yup.string(),
         // .required("Enter some arguments")
         command: Yup.string(),
@@ -295,42 +302,11 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
               />
-              <p className={styles.iconTitle}>Icon</p>
-              <p className={styles.iconSubtitle}>Choose the icon that best fits this task</p>
-              <div className={styles.iconsWrapper}>
-                {taskIcons.map((image, index) => (
-                  <TooltipDefinition
-                    direction="top"
-                    tooltipText={image.iconName}
-                    onClick={e => {
-                      e.preventDefault();
-                      setFieldValue("icon", image.iconName);
-                    }}
-                  >
-                    <label
-                      className={cx(styles.iconLabel, {
-                        [styles.active]: values.icon === image.iconName
-                      })}
-                      key={`icon-number-${index}`}
-                      htmlFor={image.iconName}
-                    >
-                      <>
-                        <input
-                          id={image.iconName}
-                          key={`${image.iconName}-${index}`}
-                          alt={`${image.iconName} icon`}
-                          readOnly
-                          checked={values.icon === image.iconName}
-                          // onClick={() => setFieldValue("icon", image.iconName)}
-                          value={image.iconName}
-                          type="radio"
-                        />
-                        <image.icon className={styles.icon} />
-                      </>
-                    </label>
-                  </TooltipDefinition>
-                ))}
-              </div>
+              <SelectIcon
+                onChange={({ selectedItem }) => Boolean(selectedItem) && setFieldValue("icon", selectedItem)}
+                selectedIcon={values.icon}
+                iconOptions={orderedIcons}
+              />
               <TextArea
                 id="description"
                 invalid={errors.description && touched.description}
