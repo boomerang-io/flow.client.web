@@ -192,16 +192,16 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
     if (requestType === TemplateRequestType.Copy) {
       newRevisionConfig = {
         ...currentRevision,
-        version: newVersion
+        version: newVersion,
+        changelog: {
+          reason: `Copy new version from ${values.currentConfig.version}`
+        }
       };
       newRevisions.push(newRevisionConfig);
       body = {
         ...selectedTaskTemplate,
         currentVersion: newVersion,
-        revisions: newRevisions,
-        changelog: {
-          reason: "Copy new version"
-        }
+        revisions: newRevisions
       };
     } else if (requestType === TemplateRequestType.Overwrite) {
       newRevisionConfig = {
@@ -209,7 +209,10 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         image: values.image,
         command: values.command,
         arguments: values.arguments.trim().split(/\s{1,}/),
-        config: values.currentConfig
+        config: values.currentConfig,
+        changelog: {
+          reason: values.comments
+        }
       };
       newRevisions.splice(selectedTaskTemplate.currentVersion - 1, 1, newRevisionConfig);
       body = {
@@ -218,10 +221,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         icon: values.icon,
         description: values.description,
         category: values.category,
-        revisions: newRevisions,
-        changelog: {
-          reason: values.comments
-        }
+        revisions: newRevisions
       };
     } else {
       newRevisionConfig = {
@@ -229,7 +229,10 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         image: values.image,
         command: values.command,
         arguments: values.arguments.trim().split(/\s{1,}/),
-        config: values.currentConfig
+        config: values.currentConfig,
+        changelog: {
+          reason: values.comments
+        }
       };
       newRevisions.push(newRevisionConfig);
       body = {
@@ -239,10 +242,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         description: values.description,
         category: values.category,
         currentVersion: newVersion,
-        revisions: newRevisions,
-        changelog: {
-          reason: values.comments
-        }
+        revisions: newRevisions
       };
     }
 

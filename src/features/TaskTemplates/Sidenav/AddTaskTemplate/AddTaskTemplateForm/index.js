@@ -82,7 +82,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       arguments: values.arguments.trim().split(/\s{1,}/),
       image: values.image,
       command: values.command,
-      config: hasFile ? values.currentRevision.config : []
+      config: hasFile ? values.currentRevision.config : [],
+      changelog: { reason: "" }
     };
     const body = {
       name: values.name,
@@ -92,8 +93,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       revisions: [newRevisionConfig],
       icon: values.icon.value,
       nodeType: "templateTask",
-      status: "active",
-      changelog: { reason: "" }
+      status: "active"
     };
     await handleAddTaskTemplate({ body, closeModal });
   };
