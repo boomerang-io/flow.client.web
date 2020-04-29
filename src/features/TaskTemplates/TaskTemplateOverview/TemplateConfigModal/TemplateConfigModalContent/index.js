@@ -176,6 +176,7 @@ class TemplateConfigModalContent extends Component {
             value={values.defaultValue || ""}
           />
         );
+      case INPUT_TYPES.TEXT_EDITOR:
       case INPUT_TYPES.TEXT_EDITOR_JS:
       case INPUT_TYPES.TEXT_EDITOR_TEXT:
       case INPUT_TYPES.TEXT_EDITOR_SHELL:
@@ -244,7 +245,7 @@ class TemplateConfigModalContent extends Component {
           [FIELD.HELPER_TEXT]: field?.helperText ?? "",
           [FIELD.READ_ONLY]: field?.readOnly ?? false,
           [FIELD.REQUIRED]: field?.required ?? false,
-          [FIELD.TYPE]: field ? INPUT_TYPES_LABELS.find(type => type.value === field.type) : INPUT_TYPES_LABELS[5],
+          [FIELD.TYPE]: field ? field.type === "texteditor"? INPUT_TYPES_LABELS[7] : INPUT_TYPES_LABELS.find(type => type?.value === field.type) : INPUT_TYPES_LABELS[5],
           [FIELD.DEFAULT_VALUE]: field?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
           [FIELD.OPTIONS]: field?.options?.map(option => (typeof option === "object" ? option.key : option)) ?? []
