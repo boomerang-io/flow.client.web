@@ -3,16 +3,18 @@ import PropTypes from "prop-types";
 import { Button, ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import EditTaskTemplateForm from "./EditTaskTemplateForm";
 import { Edit16 } from "@carbon/icons-react";
+import styles from "./editTaskTemplateModal.module.scss";
 
 EditTaskTemplateModal.propTypes = {
-  taskTemplates: PropTypes.array.isRequired,
-  setFieldValue: PropTypes.func.isRequired,
-  values: PropTypes.object.isRequired,
+  isActive: PropTypes.bool,
+  nodeType: PropTypes.string.isRequired,
   oldVersion: PropTypes.bool,
-  isActive: PropTypes.bool
+  setFieldValue: PropTypes.func.isRequired,
+  taskTemplates: PropTypes.array.isRequired,
+  values: PropTypes.object.isRequired
 };
 
-function EditTaskTemplateModal({ taskTemplates, setFieldValue, values, oldVersion, isActive }) {
+function EditTaskTemplateModal({ isActive, nodeType, oldVersion, setFieldValue, taskTemplates, values }) {
   const handleEditTaskTemplateModal = async ({ newValues }) => {
     setFieldValue("name", newValues.name);
     setFieldValue("description", newValues.description);
@@ -24,11 +26,11 @@ function EditTaskTemplateModal({ taskTemplates, setFieldValue, values, oldVersio
   };
   return (
     <ComposedModal
+      composedModalProps={{ containerClassName: styles.modalContainer }}
       confirmModalProps={{
         title: "Close this?",
         children: "Your request will not be saved"
       }}
-      composedModalProps={{ shouldCloseOnOverlayClick: false }}
       modalTrigger={({ openModal }) => (
         <Button
           renderIcon={Edit16}
@@ -45,10 +47,11 @@ function EditTaskTemplateModal({ taskTemplates, setFieldValue, values, oldVersio
     >
       {({ closeModal }) => (
         <EditTaskTemplateForm
+          closeModal={closeModal}
           handleEditTaskTemplateModal={handleEditTaskTemplateModal}
+          nodeType={nodeType}
           taskTemplates={taskTemplates}
           templateData={values}
-          closeModal={closeModal}
         />
       )}
     </ComposedModal>

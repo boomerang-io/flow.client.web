@@ -8,6 +8,7 @@ import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import { Add16 } from "@carbon/icons-react";
 import { QueryStatus } from "Constants/reactQueryStatuses";
+import styles from "./addTaskTemplate.module.scss";
 
 AddTaskTemplate.propTypes = {
   addTemplateInState: PropTypes.func.isRequired,
@@ -57,11 +58,11 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
   };
   return (
     <ComposedModal
+      composedModalProps={{ containerClassName: styles.modalContainer }}
       confirmModalProps={{
         title: "Close this?",
         children: "Your request will not be saved"
       }}
-      composedModalProps={{ shouldCloseOnOverlayClick: false }}
       modalTrigger={({ openModal }) => (
         <Button iconDescription="Add task template" onClick={openModal} size="field" kind="ghost" renderIcon={Add16}>
           Add a new task

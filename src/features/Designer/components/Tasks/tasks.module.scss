@@ -143,6 +143,9 @@
   display: flex;
   flex-direction: column;
   width: 14.5rem;
+  &:focus {
+    outline: 0;
+  }
 }
 .filterHeader {
   align-items: center;
@@ -172,7 +175,7 @@
 }
 .filter {
   border-bottom: 0.0625rem solid var(--cds-active-ui);
-  max-height: 12rem;
+  max-height: 24rem;
   overflow-y: auto;
   padding: 0.5rem;
   width: 100%;

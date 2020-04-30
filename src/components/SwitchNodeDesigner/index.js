@@ -21,16 +21,16 @@ export class SwitchNode extends Component {
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired,
-    isModalOpen: PropTypes.bool.isRequired,
+    isModalOpen: PropTypes.bool.isRequired
   };
 
   static defaultProps = {
-    nodeConfig: {},
+    nodeConfig: {}
   };
 
   state = {};
 
-  handleOnSave = (inputs) => {
+  handleOnSave = inputs => {
     this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
     this.forceUpdate();
   };
@@ -55,14 +55,14 @@ export class SwitchNode extends Component {
       <ComposedModal
         composedModalProps={{
           onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
-          shouldCloseOnOverlayClick: false,
+          shouldCloseOnOverlayClick: false
         }}
         confirmModalProps={{
           title: "Are you sure?",
-          children: "Your changes will not be saved",
+          children: "Your changes will not be saved"
         }}
         modalHeaderProps={{
-          title: this.props.task?.name,
+          title: this.props.task?.name
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
         onCloseModal={() => this.props.appActions.setIsModalOpen({ isModalOpen: false })}
@@ -89,12 +89,12 @@ export class SwitchNode extends Component {
           composedModalProps={{
             containerClassName: styles.updateTaskModalContainer,
             onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
-            shouldCloseOnOverlayClick: false,
+            shouldCloseOnOverlayClick: false
           }}
           modalHeaderProps={{
             title: `New version available`,
             subtitle:
-              "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
+              "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears."
           }}
           modalTrigger={({ openModal }) => (
             <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
@@ -125,7 +125,7 @@ export class SwitchNode extends Component {
       <WorkflowNode
         className={styles.node}
         node={node}
-        icon={task.icon}
+        icon={task?.icon}
         subtitle={node.taskName}
         title={"Switch"}
         rightPortClass={styles.rightPort}
@@ -144,20 +144,20 @@ export class SwitchNode extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    task: state.tasks.data.find((task) => task.id === ownProps.node.taskId),
+    task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    nodeDag: state.workflowRevision.dag?.nodes?.find((node) => node.nodeId === ownProps.node.id) ?? {},
+    nodeDag: state.workflowRevision.dag?.nodes?.find(node => node.nodeId === ownProps.node.id) ?? {},
     taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) //Get the taskNames names from the nodes on the model
-      .map((node) => node.taskName)
-      .filter((name) => !!name),
+      .map(node => node.taskName)
+      .filter(name => !!name),
     isModalOpen: state.app.isModalOpen,
-    inputProperties: state.workflow.data.properties,
+    inputProperties: state.workflow.data.properties
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   appActions: bindActionCreators(appActions, dispatch),
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch),
+  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SwitchNode);

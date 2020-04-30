@@ -5,3 +5,7 @@
 .icon {
   margin-right: 0.5rem;
 }
+
+:global #select-icon__menu {
+  max-height: 14rem;
+}

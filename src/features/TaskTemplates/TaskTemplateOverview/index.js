@@ -443,16 +443,17 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                       values={values}
                       oldVersion={oldVersion}
                       isActive={isActive}
+                      nodeType={selectedTaskTemplate.nodeType}
                     />
                   </section>
                   <dl className={styles.dataList}>
                     <DetailDataElements value={values.name} label="Name" />
                     <DetailDataElements value={values.category} label="Category" />
-                    <DetailDataElements value={values.image} label="Image" />
-                    <DetailDataElements value={values.command} label="Command" />
-                    <DetailDataElements value={values.arguments} label="Arguments" />
                     <DetailDataElements value={values.icon} label="Icon" />
                     <DetailDataElements value={values.description} label="Description" />
+                    <DetailDataElements value={values.arguments} label="Arguments" />
+                    <DetailDataElements value={values.image} label="Image" />
+                    <DetailDataElements value={values.command} label="Command" />
                   </dl>
                 </Tile>
                 <Tile className={styles.editFields}>

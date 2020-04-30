@@ -7,29 +7,23 @@ import { ModalFlowForm, TextInput, TextArea } from "@boomerang/carbon-addons-boo
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utilities/taskIcons";
-// import styles from "./editTaskTemplateForm.module.scss";
+import NodeTypes from "Constants/nodeTypes";
 
 EditTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func,
   handleEditTaskTemplateModal: PropTypes.func,
+  nodeType: PropTypes.string,
   taskTemplates: PropTypes.array,
-  templateData: PropTypes.object,
+  templateData: PropTypes.object
 };
 
-// const categories = [
-//   {value:"github" , label: "GitHub"},
-//   {value:"boomerang" , label: "Boomerang"},
-//   {value:"artifactory" , label: "Artifactory"},
-//   {value:"utilities" , label: "Utilities"}
-// ];
-
-function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplateModal, templateData }) {
+function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeType, taskTemplates, templateData }) {
   let taskTemplateNames = taskTemplates
-    .map((taskTemplate) => taskTemplate.name)
-    .filter((templateName) => templateName !== templateData.name);
+    .map(taskTemplate => taskTemplate.name)
+    .filter(templateName => templateName !== templateData.name);
   const orderedIcons = orderBy(taskIcons, ["iconName"]);
-  const selectedIcon = orderedIcons.find((icon) => icon.iconName === templateData.icon);
-  const handleSubmit = async (values) => {
+  const selectedIcon = orderedIcons.find(icon => icon.iconName === templateData.icon);
+  const handleSubmit = async values => {
     await handleEditTaskTemplateModal({ newValues: values });
     closeModal();
   };
@@ -45,6 +39,7 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
         arguments: templateData.arguments,
         command: templateData.command,
         image: templateData.image,
+        nodeType: nodeType
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
@@ -53,23 +48,26 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
         category: Yup.string().required("Enter a category"),
         icon: Yup.object().shape({
           value: Yup.string().required(),
-          label: Yup.string().required(),
+          label: Yup.string().required()
         }),
         description: Yup.string()
           .lowercase()
           .min(4, "Description must be at least four characters")
           .max(200, "Description must be less than 60 characters")
           .required("Description is required"),
-        arguments: Yup.string().required("Arguments are required"),
+        arguments: Yup.string().when("nodeType", {
+          is: nodeType => nodeType !== NodeTypes.CUSTOM_TASK,
+          then: Yup.string().required("Arguments are required")
+        }),
         command: Yup.string(),
         // .required("Enter a command")
-        image: Yup.string(),
+        image: Yup.string()
         //.required("Image is required"),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
     >
-      {(props) => {
+      {props => {
         const { handleSubmit, isValid, values, errors, touched, handleChange, setFieldValue, handleBlur } = props;
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
@@ -95,6 +93,32 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                 placeholder="e.g. communication"
                 value={values.category}
               />
+              <SelectIcon
+                onChange={({ selectedItem }) => Boolean(selectedItem) && setFieldValue("icon", selectedItem)}
+                selectedIcon={values.icon}
+                iconOptions={orderedIcons}
+              />
+              <TextArea
+                id="description"
+                invalid={errors.description && touched.description}
+                invalidText={errors.description}
+                labelText="Description"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.description}
+              />
+              <TextInput
+                id="arguments"
+                labelText="Arguments"
+                helperText="Enter arguments delimited by a space character"
+                placeholder="e.g. system sleep"
+                name="arguments"
+                value={values.arguments}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.arguments && touched.arguments}
+                invalidText={errors.arguments}
+              />
               <TextInput
                 id="image"
                 labelText="Image (optional)"
@@ -116,32 +140,6 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
                 onChange={handleChange}
                 invalid={errors.command && touched.command}
                 invalidText={errors.command}
-              />
-              <TextInput
-                id="arguments"
-                labelText="Arguments"
-                helperText="Enter arguments delimited by a space character"
-                placeholder="e.g. system sleep"
-                name="arguments"
-                value={values.arguments}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.arguments && touched.arguments}
-                invalidText={errors.arguments}
-              />
-              <SelectIcon
-                onChange={({ selectedItem }) => Boolean(selectedItem) && setFieldValue("icon", selectedItem)}
-                selectedIcon={values.icon}
-                iconOptions={orderedIcons}
-              />
-              <TextArea
-                id="description"
-                invalid={errors.description && touched.description}
-                invalidText={errors.description}
-                labelText="Description"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.description}
               />
             </ModalBody>
             <ModalFooter>
