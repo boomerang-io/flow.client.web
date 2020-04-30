@@ -145,7 +145,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         arguments: Yup.string().required("Arguments are required"),
         command: Yup.string(),
         // .required("Enter a command")
-        image: Yup.string().required("Image is required"),
+        image: Yup.string(),
+        //.required("Image is required"),
         file: Yup.mixed()
           .test(
             "fileSize",
@@ -256,7 +257,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
               />
               <TextInput
                 id="image"
-                labelText="Image"
+                labelText="Image (optional)"
                 helperText="Path to container image"
                 name="image"
                 value={values.image}
@@ -267,7 +268,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
               />
               <TextInput
                 id="command"
-                labelText="Comand"
+                labelText="Command (optional)"
                 helperText="Override the entry point of the container"
                 name="command"
                 value={values.command}

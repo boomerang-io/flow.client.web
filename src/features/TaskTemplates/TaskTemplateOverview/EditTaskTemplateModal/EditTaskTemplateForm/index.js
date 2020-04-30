@@ -63,7 +63,8 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
         arguments: Yup.string().required("Arguments are required"),
         command: Yup.string(),
         // .required("Enter a command")
-        image: Yup.string().required("Image is required"),
+        image: Yup.string(),
+        //.required("Image is required"),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
@@ -96,7 +97,7 @@ function EditTaskTemplateForm({ closeModal, taskTemplates, handleEditTaskTemplat
               />
               <TextInput
                 id="image"
-                labelText="Image"
+                labelText="Image (optional)"
                 helperText="Path to container image"
                 name="image"
                 value={values.image}
