@@ -24,7 +24,6 @@ export default function WorkflowNode({
   className,
   children,
   icon,
-  iconToRender,
   isExecution,
   name,
   node,
@@ -36,14 +35,14 @@ export default function WorkflowNode({
 }) {
   let Icon = () => <Bee16 alt="Task node type default" style={{ willChange: "auto" }} />;
 
-  if (icon && !iconToRender) {
-    Icon = taskIcons.find((taskIcon) => taskIcon.iconName === icon).icon;
+  if (icon) {
+    Icon = taskIcons.find((taskIcon) => taskIcon.iconName === icon)?.icon ?? Icon;
   }
 
   return (
     <div className={cx(styles.node, className)} {...rest}>
       <header className={styles.header}>
-        {iconToRender ? iconToRender : <Icon />}
+        <Icon />
         <h1 className={styles.title}>{title || "Task"}</h1>
       </header>
       <p className={cx(styles.subtitle, subtitleClass)}>{subtitle || "Task"}</p>

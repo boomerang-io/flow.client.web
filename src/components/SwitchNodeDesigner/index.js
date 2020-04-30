@@ -11,7 +11,6 @@ import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
-import { Fork16 } from "@carbon/icons-react";
 
 import styles from "./SwitchNodeDesigner.module.scss";
 
@@ -121,12 +120,12 @@ export class SwitchNode extends Component {
   }
 
   render() {
-    const { node } = this.props;
+    const { node, task } = this.props;
     return (
       <WorkflowNode
         className={styles.node}
-        iconToRender={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
         node={node}
+        icon={task.icon}
         subtitle={node.taskName}
         title={"Switch"}
         rightPortClass={styles.rightPort}

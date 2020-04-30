@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import cx from "classnames";
 import WorkflowNode from "Components/WorkflowNode";
-import { Fork16 } from "@carbon/icons-react";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import styles from "./SwitchNodeExecution.module.scss";
@@ -22,7 +21,7 @@ export class SwitchNodeExecution extends Component {
   };
 
   render() {
-    const { node } = this.props;
+    const { node, task } = this.props;
     const { steps } = this.props.workflowExecution.data;
     const step = Array.isArray(steps) ? steps.find((step) => step.taskId === node.id) : {};
     const flowTaskStatus = step?.flowTaskStatus ?? EXECUTION_STATUSES.SKIPPED;
@@ -33,7 +32,7 @@ export class SwitchNodeExecution extends Component {
         className={cx(styles.node, styles[flowTaskStatus], {
           [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED,
         })}
-        iconToRender={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
+        icon={task.icon}
         node={node}
         rightPortClass={styles.rightPort}
         subtitle={node.taskName}
