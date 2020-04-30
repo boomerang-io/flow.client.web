@@ -60,11 +60,18 @@
 .editTitle {
   align-items: center;
   display: flex;
+
   justify-content: space-between;
+
   margin-bottom: 0.75rem;
   width: 100%;
   :global .bx--btn__icon {
     margin-left: 0 !important;
+  }
+
+  > h1 {
+    font-size: 1rem;
+    margin: 0;
   }
 }
 .editDetails {
@@ -97,7 +104,13 @@
 .fieldsTitle {
   display: flex;
   flex-direction: column;
+
   padding: 1rem 0.75rem 1rem 1.5rem;
+
+  > h1 {
+    font-size: 1rem;
+    margin: 0;
+  }
 }
 .fieldActions {
   display: flex;
