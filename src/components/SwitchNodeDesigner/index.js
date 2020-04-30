@@ -125,7 +125,7 @@ export class SwitchNode extends Component {
     return (
       <WorkflowNode
         className={styles.node}
-        icon={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
+        iconToRender={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
         node={node}
         subtitle={node.taskName}
         title={"Switch"}

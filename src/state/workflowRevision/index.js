@@ -116,7 +116,7 @@ const actionHandlers = {
     const { nodeId } = action.data;
     const config = { ...state.config };
     delete config[nodeId];
-    const filteredDagNodes = state.dag.nodes.filter((node) => node.nodeId !== nodeId);
+    const filteredDagNodes = state.dag?.nodes?.filter((node) => node.nodeId !== nodeId) ?? [];
     const updatedDag = { ...state.dag, nodes: filteredDagNodes };
     return { ...state, dag: updatedDag, config, hasUnsavedWorkflowRevisionUpdates: true };
   },

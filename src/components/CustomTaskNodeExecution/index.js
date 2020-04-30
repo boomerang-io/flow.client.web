@@ -16,13 +16,13 @@ export class CustomTaskNodeExecution extends Component {
     diagramEngine: PropTypes.object.isRequired,
     node: PropTypes.object.isRequired,
     workflowExecution: PropTypes.object,
-    task: PropTypes.object.isRequired
+    task: PropTypes.object.isRequired,
   };
 
   static defaultProps = {
     node: {},
     nodeConfig: {},
-    task: {}
+    task: {},
   };
 
   // handleOnActivityClick = () => {
@@ -35,7 +35,7 @@ export class CustomTaskNodeExecution extends Component {
   render() {
     const { task, node } = this.props;
     const { steps } = this.props.workflowExecution.data;
-    const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
+    const step = Array.isArray(steps) ? steps.find((step) => step.taskId === node.id) : {};
     const flowTaskStatus = step?.flowTaskStatus ?? EXECUTION_STATUSES.SKIPPED;
 
     return (
@@ -43,6 +43,7 @@ export class CustomTaskNodeExecution extends Component {
         isExecution
         category={task.category}
         className={cx(styles[flowTaskStatus], { [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED })}
+        icon={task.icon}
         name={task.name}
         node={node}
         //onClick={e => isAccessibleEvent(e) && this.handleOnActivityClick()}
@@ -62,13 +63,13 @@ export class CustomTaskNodeExecution extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
-    workflowExecution: state.workflowExecution
+    task: state.tasks.data.find((task) => task.id === ownProps.node.taskId),
+    workflowExecution: state.workflowExecution,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  appActions: bindActionCreators(appActions, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  appActions: bindActionCreators(appActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CustomTaskNodeExecution);

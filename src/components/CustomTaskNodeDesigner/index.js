@@ -119,12 +119,13 @@ export class CustomTaskNodeDesigner extends Component {
     const { task, node } = this.props;
     return (
       <WorkflowNode
-        className={styles.node}
-        title={task.name}
-        subtitle={node.taskName}
-        name={task.name}
         category={task.category}
+        className={styles.node}
+        icon={task.icon}
+        name={task.name}
         node={node}
+        subtitle={node.taskName}
+        title={task.name}
       >
         <div className={styles.badgeContainer}>
           <p className={styles.badgeText}>Custom</p>

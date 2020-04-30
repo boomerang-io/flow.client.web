@@ -33,7 +33,7 @@ export class SwitchNodeExecution extends Component {
         className={cx(styles.node, styles[flowTaskStatus], {
           [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED,
         })}
-        icon={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
+        iconToRender={<Fork16 alt="Switch icon" style={{ willChange: "auto" }} />}
         node={node}
         rightPortClass={styles.rightPort}
         subtitle={node.taskName}

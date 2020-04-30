@@ -117,7 +117,14 @@ export class TemplateTaskNodeDesigner extends Component {
   render() {
     const { task, node } = this.props;
     return (
-      <WorkflowNode title={task.name} subtitle={node.taskName} name={task.name} category={task.category} node={node}>
+      <WorkflowNode
+        category={task.category}
+        icon={task.icon}
+        name={task.name}
+        node={node}
+        subtitle={node.taskName}
+        title={task.name}
+      >
         {this.renderUpdateTaskVersion()}
         {this.renderConfigureTask()}
         <WorkflowCloseButton className={styles.closeButton} onClick={this.handleOnDelete} />
