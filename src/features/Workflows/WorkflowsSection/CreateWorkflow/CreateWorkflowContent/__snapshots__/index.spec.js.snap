@@ -102,7 +102,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
                   style="display: flex;"
                 >
                   <div>
-                    Name
+                    Workflow Name
                   </div>
                 </div>
               </label>
@@ -112,7 +112,6 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
                 <input
                   class="bx--text-input bx--text__input"
                   id="name"
-                  placeholder="Name"
                   type="text"
                   value=""
                 />
@@ -144,7 +143,6 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
               <input
                 class="bx--text-input bx--text__input"
                 id="summary"
-                placeholder="Summary"
                 type="text"
                 value=""
               />
@@ -176,7 +174,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
                 class="bx--text-area"
                 cols="50"
                 id="description"
-                placeholder="Description"
+                placeholder=""
                 rows="4"
                 style="resize: none; width: 100%;"
               />

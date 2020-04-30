@@ -103,13 +103,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
             height="16"
             preserveAspectRatio="xMidYMid meet"
             role="img"
-            style="will-change: transform;"
-            viewBox="0 0 16 16"
+            viewBox="0 0 32 32"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M9 7L9 3 7 3 7 7 3 7 3 9 7 9 7 13 9 13 9 9 13 9 13 7z"
+            <polygon
+              points="17,15 17,8 15,8 15,15 8,15 8,17 15,17 15,24 17,24 17,17 24,17 24,15"
             />
           </svg>
         </button>
@@ -262,13 +261,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: transform;"
                     viewBox="0 0 32 32"
                     width="32"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <path
-                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
+                    <polygon
+                      points="24 9.4 22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4"
                     />
                   </svg>
                 </div>
