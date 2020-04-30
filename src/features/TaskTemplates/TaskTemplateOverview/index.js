@@ -11,7 +11,7 @@ import {
   notify,
   ToastNotification,
   Loading,
-  TooltipDefinition,
+  TooltipHover,
   ConfirmModal
 } from "@boomerang/carbon-addons-boomerang-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -110,7 +110,7 @@ function Field({
           oldVersion={oldVersion}
           isActive={isActive}
         />
-        <TooltipDefinition direction="bottom" tooltipText={"Delete field"} className={styles.deleteField}>
+        <TooltipHover direction="bottom" tooltipText={"Delete field"}>
           <Button
             onClick={() => deleteConfiguration(field)}
             renderIcon={Delete16}
@@ -120,7 +120,7 @@ function Field({
             disabled={oldVersion || !isActive}
             className={styles.delete}
           />
-        </TooltipDefinition>
+        </TooltipHover>
       </div>
     </section>
   );

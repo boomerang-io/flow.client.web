@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {
   Button,
   ConfirmModal,
-  TooltipDefinition,
+  TooltipHover,
   ComposedModal,
   ModalFlowForm,
   ModalFooter,
@@ -53,19 +53,19 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
         if (cancelRequestRef.current) cancelRequestRef.current();
       }}
       modalTrigger={({ openModal }) => (
-        <TooltipDefinition direction="bottom" tooltipText={"Save a new version or update the current one"}>
+        <TooltipHover direction="bottom" tooltipText={"Save a new version or update the current one"}>
           <Button
             className={styles.button}
             style={{ width: "7.75rem" }}
             disabled={!isValid || !isDirty}
             size="field"
             renderIcon={Save16}
-            iconDescription="save-template"
+            iconDescription="Save a new version or update the current one"
             onClick={openModal}
           >
             Save...
           </Button>
-        </TooltipDefinition>
+        </TooltipHover>
       )}
     >
       {({ closeModal }) => {
@@ -204,7 +204,7 @@ function Header({
               children="You are about to reset to the last save of this version, all unsaved changes will be erased. This action cannot be undone, are you sure you want to reset to the latest save?"
               title="Reset changes"
               modalTrigger={({ openModal }) => (
-                <TooltipDefinition direction="bottom" tooltipText={"Restore the last save of this version"}>
+                <TooltipHover direction="bottom" tooltipText={"Restore the last save of this version"}>
                   <Button
                     className={styles.button}
                     disabled={!isDirty}
@@ -216,7 +216,7 @@ function Header({
                     {" "}
                     Reset changes
                   </Button>
-                </TooltipDefinition>
+                </TooltipHover>
               )}
             />
           )}
@@ -238,14 +238,11 @@ function Header({
               affirmativeText="Copy to new version"
               title="Copy to new version"
               modalTrigger={({ openModal }) => (
-                <TooltipDefinition
-                  direction="bottom"
-                  tooltipText={"Copy this version to a new version to enable editing"}
-                >
+                <TooltipHover direction="bottom" tooltipText={"Copy this version to a new version to enable editing"}>
                   <Button className={styles.button} size="field" kind="ghost" renderIcon={Undo16} onClick={openModal}>
                     Copy to new version
                   </Button>
-                </TooltipDefinition>
+                </TooltipHover>
               )}
             />
           ) : isActive ? (

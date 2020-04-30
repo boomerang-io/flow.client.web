@@ -7,7 +7,7 @@ import {
   Button,
   ModalBody,
   ModalFooter,
-  TooltipDefinition
+  TooltipHover
 } from "@boomerang/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import ValidateFormikOnMount from "Components/ValidateFormikOnMount";
@@ -85,11 +85,11 @@ function PreviewConfig({ templateConfig, taskTemplateName }) {
         subtitle: modalHeadertext
       }}
       modalTrigger={({ openModal }) => (
-        <TooltipDefinition direction="top" tooltipText={"Preview what the user sees when they view this task"}>
+        <TooltipHover direction="top" tooltipText={"Preview what the user sees when they view this task"}>
           <Button renderIcon={View16} onClick={openModal} size="field" kind="ghost" style={{ width: "6.25rem" }}>
             Preview
           </Button>
-        </TooltipDefinition>
+        </TooltipHover>
       )}
     >
       {({ closeModal }) => <PreviewConfigForm templateConfig={templateConfig} closeModal={closeModal} />}

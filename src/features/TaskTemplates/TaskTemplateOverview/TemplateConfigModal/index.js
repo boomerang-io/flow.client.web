@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ComposedModal, Button, TooltipDefinition } from "@boomerang/carbon-addons-boomerang-react";
+import { ComposedModal, Button, TooltipHover } from "@boomerang/carbon-addons-boomerang-react";
 import TemplateConfigModalContent from "./TemplateConfigModalContent";
 import { Add16, Edit16 } from "@carbon/icons-react";
 // import styles from "./TemplateConfigModal.module.scss";
@@ -18,7 +18,7 @@ export function TemplateConfigModal(props) {
     let output = null;
     isEdit
       ? (output = (
-          <TooltipDefinition direction="bottom" tooltipText={"Edit field"}>
+          <TooltipHover direction="bottom" tooltipText={"Edit field"}>
             <Button
               renderIcon={Edit16}
               kind="ghost"
@@ -26,10 +26,10 @@ export function TemplateConfigModal(props) {
               onClick={openModal}
               disabled={oldVersion || !isActive}
             />
-          </TooltipDefinition>
+          </TooltipHover>
         ))
       : (output = (
-          <TooltipDefinition direction="top" tooltipText={"Add a new field for this task"}>
+          <TooltipHover direction="top" tooltipText={"Add a new field for this task"}>
             <Button
               renderIcon={Add16}
               iconDescription="add-field"
@@ -40,7 +40,7 @@ export function TemplateConfigModal(props) {
             >
               Add a field
             </Button>
-          </TooltipDefinition>
+          </TooltipHover>
         ));
     return output;
   };
