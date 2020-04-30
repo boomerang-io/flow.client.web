@@ -12,7 +12,7 @@ import {
   //TextInput,
 } from "@boomerang/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
-// import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { WarningFilled16, WarningAlt16 } from "@carbon/icons-react";
 import styles from "./taskUpdateModal.module.scss";
 
@@ -55,32 +55,32 @@ const TextEditorInput = (props) => {
  *   type: String
  * }
  */
-// function formatAutoSuggestProperties(inputProperties) {
-//   return inputProperties.map((property) => ({
-//     value: `\${p:${property.key}}`,
-//     label: property.key,
-//   }));
-// }
+function formatAutoSuggestProperties(inputProperties) {
+  return inputProperties.map((property) => ({
+    value: `\${p:${property.key}}`,
+    label: property.key,
+  }));
+}
 
-// const formikSetFieldValue = (value, id, setFieldValue) => {
-//   setFieldValue(id, value);
-// };
+const formikSetFieldValue = (value, id, setFieldValue) => {
+  setFieldValue(id, value);
+};
 
-// const textAreaProps = (inputProperties) => ({ input, formikProps }) => {
-//   const { values, setFieldValue } = formikProps;
-//   const { key, type, ...rest } = input;
-//   const itemConfig = TEXT_AREA_TYPES[type];
+const textAreaProps = (inputProperties) => ({ input, formikProps }) => {
+  const { values, setFieldValue } = formikProps;
+  const { key, type, ...rest } = input;
+  const itemConfig = TEXT_AREA_TYPES[type];
 
-//   return {
-//     autoSuggestions: formatAutoSuggestProperties(inputProperties),
-//     formikSetFieldValue: (value) => formikSetFieldValue(value, key, setFieldValue),
-//     initialValue: values[key],
-//     inputProperties: inputProperties,
-//     item: input,
-//     ...itemConfig,
-//     ...rest,
-//   };
-// };
+  return {
+    autoSuggestions: formatAutoSuggestProperties(inputProperties),
+    formikSetFieldValue: (value) => formikSetFieldValue(value, key, setFieldValue),
+    initialValue: values[key],
+    inputProperties: inputProperties,
+    item: input,
+    ...itemConfig,
+    ...rest,
+  };
+};
 
 // const textInputProps = (inputProperties) => ({ formikProps, input }) => {
 //   const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
@@ -107,7 +107,6 @@ const toggleProps = ({ input, formikProps }) => {
 };
 
 export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfig, onSave, task }) {
-  console.log(nodeConfig.taskVersion);
   const currentTaskTemplateVersion = task.revisions.find((revision) => revision.version === nodeConfig.taskVersion);
   const newTaskTemplateVersion = task.revisions[task.revisions.length - 1];
 
@@ -134,7 +133,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
         TextEditor: TextEditorInput,
       }}
       //textAreaProps={textAreaProps(inputProperties)}
-      //textEditorProps={textAreaProps(inputProperties)}
+      textEditorProps={textAreaProps(inputProperties)}
       //textInputProps={textInputProps(inputProperties)}
       toggleProps={toggleProps}
     >

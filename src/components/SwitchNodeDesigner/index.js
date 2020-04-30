@@ -36,6 +36,11 @@ export class SwitchNode extends Component {
     this.forceUpdate();
   };
 
+  handleOnUpdateTaskVersion = ({ version, inputs }) => {
+    this.props.workflowRevisionActions.updateNodeTaskVersion({ nodeId: this.props.node.id, inputs, version });
+    this.forceUpdate();
+  };
+
   // Delete the node in state and then remove it from the diagram
   handleOnDelete = () => {
     this.props.workflowRevisionActions.deleteNode({ nodeId: this.props.node.id });

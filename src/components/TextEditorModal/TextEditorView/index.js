@@ -24,14 +24,14 @@ import "./styles.scss";
 
 TextEditorView.propTypes = {
   item: PropTypes.shape({
-    name: PropTypes.string
+    name: PropTypes.string,
   }),
   setTextAreaValue: PropTypes.func.isRequired,
   setShouldConfirmModalClose: PropTypes.func,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
-const escapeRegExp = val => {
+const escapeRegExp = (val) => {
   return val && val.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 };
 
@@ -39,11 +39,11 @@ const languages = [
   {
     id: "javascript",
     text: "JavaScript/JSON",
-    params: { hint: CodeMirror.hint.javascript, mode: { name: "javascript" } }
+    params: { hint: CodeMirror.hint.javascript, mode: { name: "javascript" } },
   },
   { id: "shell", text: "Shell", params: { mode: "shell" } },
   { id: "text", text: "Text", params: { mode: "text/plain" } },
-  { id: "yaml", text: "YAML", params: { mode: "yaml" } }
+  { id: "yaml", text: "YAML", params: { mode: "yaml" } },
 ];
 
 function TextEditorView(props) {
@@ -54,14 +54,15 @@ function TextEditorView(props) {
   const [clipboard, setClipboard] = useState("");
   const [languageParams, setLanguageParams] = useState(
     props.language
-      ? languages.find(value => value.id === props.language).params
+      ? languages.find((value) => value.id === props.language).params
       : { id: "text", text: "Text", params: { mode: "text/plain" } }
   );
 
   useEffect(() => {
-    const autoSuggestions = props.autoSuggestions.map(elm => {
-      return { text: elm.value, displayText: elm.label };
-    });
+    const autoSuggestions =
+      props.autoSuggestions?.map((elm) => {
+        return { text: elm.value, displayText: elm.label };
+      }) ?? [];
 
     CodeMirror.registerHelper("hint", "dictionaryHint", function(editor) {
       const cur = editor.getCursor();
@@ -76,11 +77,11 @@ function TextEditorView(props) {
         list: (!curWord
           ? []
           : autoSuggestions.filter(
-              item => (curWord.startsWith("${p:") && item.text.match(regex)) || item.displayText.match(regex)
+              (item) => (curWord.startsWith("${p:") && item.text.match(regex)) || item.displayText.match(regex)
             )
         ).sort(),
         from: CodeMirror.Pos(cur.line, start),
-        to: CodeMirror.Pos(cur.line, end)
+        to: CodeMirror.Pos(cur.line, end),
       };
     });
   }, [props.autoSuggestions]);
@@ -113,13 +114,13 @@ function TextEditorView(props) {
     doc.replaceSelection(clipboard);
   };
 
-  const handleKeyPress = e => {
+  const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       findNext();
     }
   };
 
-  const handleSearchText = e => {
+  const handleSearchText = (e) => {
     const { value } = e.target;
     setSearchText(value);
   };
@@ -142,10 +143,10 @@ function TextEditorView(props) {
     editor.current.focus();
   };
 
-  const languageOptions = languages.map(language => ({ id: language.id, text: language.text }));
+  const languageOptions = languages.map((language) => ({ id: language.id, text: language.text }));
 
-  const onChangeLanguage = language => {
-    setLanguageParams(languages.find(value => value.id === language.selectedItem.id).params);
+  const onChangeLanguage = (language) => {
+    setLanguageParams(languages.find((value) => value.id === language.selectedItem.id).params);
   };
 
   // const commentCode = () => {
@@ -153,19 +154,19 @@ function TextEditorView(props) {
   // };
 
   //TB trying to get autocomplete to work
-  const autoComplete = cm => {
+  const autoComplete = (cm) => {
     CodeMirror.showHint(cm, CodeMirror.hint.dictionaryHint, { completeSingle: false });
   };
 
-  const foldCode = cm => {
+  const foldCode = (cm) => {
     cm.foldCode(cm.getCursor());
   };
 
-  const toggleComment = cm => {
+  const toggleComment = (cm) => {
     cm.toggleComment();
   };
 
-  const blockComment = cm => {
+  const blockComment = (cm) => {
     if (doc.somethingSelected()) {
       const selPosition = doc.listSelections();
       if (!cm.uncomment(selPosition[0].head, selPosition[0].anchor, { fullLines: false })) {
@@ -187,7 +188,7 @@ function TextEditorView(props) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
-          padding: "0 2rem"
+          padding: "0 2rem",
         }}
       >
         <Toolbar className="b-task-text-area">
@@ -317,11 +318,11 @@ function TextEditorView(props) {
                 light={false}
                 initialSelectedItem={
                   props.language
-                    ? languageOptions.find(languageOption => languageOption.id === props.language)
+                    ? languageOptions.find((languageOption) => languageOption.id === props.language)
                     : languageOptions[0]
                 }
                 items={languageOptions}
-                itemToString={item => (item ? item.text : "")}
+                itemToString={(item) => (item ? item.text : "")}
                 onChange={onChangeLanguage}
               />
             </div>
@@ -329,7 +330,7 @@ function TextEditorView(props) {
         </Toolbar>
 
         <CodeMirrorReact
-          editorDidMount={cmeditor => {
+          editorDidMount={(cmeditor) => {
             editor.current = cmeditor;
             setDoc(cmeditor.getDoc());
           }}
@@ -341,13 +342,13 @@ function TextEditorView(props) {
               "Ctrl-Q": foldCode,
               "Cmd-/": toggleComment,
               "Shift-Alt-A": blockComment,
-              "Shift-Opt-A": blockComment
+              "Shift-Opt-A": blockComment,
             },
             lineWrapping: true,
             foldGutter: true,
             lineNumbers: true,
             gutters: ["CodeMirrorReact-linenumbers", "CodeMirror-foldgutter"],
-            ...languageParams
+            ...languageParams,
           }}
           onBeforeChange={(editor, data, value) => {
             props.setShouldConfirmModalClose(true);
