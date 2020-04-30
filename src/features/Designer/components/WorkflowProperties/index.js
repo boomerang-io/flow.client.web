@@ -9,7 +9,7 @@ import styles from "./WorkflowProperties.module.scss";
 WorkflowProperties.propTypes = {
   loading: PropTypes.bool.isRequired,
   properties: PropTypes.array.isRequired,
-  updateWorkflowProperties: PropTypes.func.isRequired
+  updateWorkflowProperties: PropTypes.func.isRequired,
 };
 
 function WorkflowPropertyRow({ title, value }) {
@@ -43,15 +43,15 @@ function WorkflowProperties(props) {
     props
       .updateWorkflowProperties({
         property,
-        type: WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE
+        type: WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE,
       })
-      .catch(error => {
+      .catch((error) => {
         //no-op
       });
   }
 
   const { properties } = props;
-  const propertyKeys = properties.map(input => input.key);
+  const propertyKeys = properties.map((input) => input.key);
   return (
     <main className={styles.container}>
       {properties.length > 0 &&
@@ -63,7 +63,7 @@ function WorkflowProperties(props) {
             <WorkflowPropertyRow title="Default value" value={formatDefaultValue(property.defaultValue)} />
             <WorkflowPropertyRow
               title="Options"
-              value={formatDefaultValue(property.options?.map(option => option.key).join(", "))}
+              value={formatDefaultValue(property.options?.map((option) => option.key).join(", "))}
             />
             {property.required ? (
               <p className={styles.required}>Required</p>
@@ -75,16 +75,19 @@ function WorkflowProperties(props) {
                 <WorkflowPropertiesModal
                   isEdit
                   loading={props.loading}
-                  propertyKeys={propertyKeys.filter(propertyName => propertyName !== property.key)}
+                  propertyKeys={propertyKeys.filter((propertyName) => propertyName !== property.key)}
                   property={property}
                   updateWorkflowProperties={props.updateWorkflowProperties}
                 />
                 <ConfirmModal
+                  affirmativeButtonProps={{ kind: "danger" }}
                   affirmativeAction={() => {
                     deleteProperty(property);
                   }}
+                  affirmativeText="Delete"
+                  negativeText="Cancel"
                   children="It will be gone. Forever."
-                  title="Delete This Property?"
+                  title="Delete Property"
                   modalTrigger={({ openModal }) => (
                     <WorkflowCloseButton className={styles.deleteProperty} onClick={openModal} />
                   )}

@@ -216,11 +216,11 @@ class WorkflowCard extends Component {
             negativeAction={() => {
               this.setState({ isDeleteModalOpen: false });
             }}
-            negativeText="No"
+            negativeText="Cancel"
             onCloseModal={() => {
               this.setState({ isDeleteModalOpen: false });
             }}
-            title="Delete this Workflow?"
+            title="Delete Workflow"
           >
             Are you sure you want to delete this workflow? There's no going back from this decision.
           </ConfirmModal>
