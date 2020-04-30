@@ -3,7 +3,8 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { DataTable, Pagination, ComboBox } from "carbon-components-react";
 import { connect } from "react-redux";
-import { NoDisplay, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import WombatMessage from "Components/WombatMessage";
 import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
 import ActionsMenu from "./ActionsMenu";
 import Header from "Components/Header";
@@ -280,14 +281,13 @@ class TeamPropertiesTable extends Component {
                   </TableContainer>
                 )}
               />
-              <NoDisplay
-                textLocation="below"
-                text={
+              <WombatMessage
+                className={styles.wombat}
+                message={
                   !this.state.currentTeam
                     ? "Please select a team to manage properties."
                     : "Looks like there aren't any properties. Create one above!"
                 }
-                style={{ marginTop: "5rem", height: "30rem" }}
               />
             </>
           )}

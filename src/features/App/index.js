@@ -21,7 +21,7 @@ import {
   AsyncInsights,
   AsyncTaskTemplates,
   AsyncTeamProperties,
-  AsyncWorkflows,
+  AsyncWorkflows
 } from "./asyncFeatureImports";
 import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
@@ -35,7 +35,7 @@ const allowedUserRoles = [USER_TYPES.ADMIN, USER_TYPES.OPERATOR];
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 class App extends Component {
   state = {
-    shouldShowBrowserWarning: !supportedBrowsers.includes(browser.name),
+    shouldShowBrowserWarning: !supportedBrowsers.includes(browser.name)
   };
 
   componentDidMount() {
@@ -51,7 +51,7 @@ class App extends Component {
       await Promise.all([
         this.props.userActions.fetchUser(`${BASE_USERS_URL}/profile`),
         this.props.navigationActions.fetchNavigation(`${BASE_USERS_URL}/navigation`),
-        this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`),
+        this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`)
       ]);
     } catch (e) {
       // noop
@@ -101,8 +101,13 @@ class App extends Component {
                 path="/team-properties"
                 userRole={userRole}
               />
+              <ProtectedRoute
+                allowedUserRoles={allowedUserRoles}
+                component={<AsyncTaskTemplates />}
+                path="/task-templates"
+                userRole={userRole}
+              />
               <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
-              <Route path="/task-templates" component={AsyncTaskTemplates} />
               <Route path="/activity" component={AsyncActivity} />
               <Route path="/editor/:workflowId" component={AsyncDesigner} />
               <Route path="/insights" component={AsyncInsights} />
@@ -141,20 +146,20 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     navigationState: state.navigation,
     teamsState: state.teams,
-    userState: state.user,
+    userState: state.user
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     navigationActions: bindActionCreators(navigationActions, dispatch),
     onBoardActions: bindActionCreators(onBoardActions, dispatch),
     teamsActions: bindActionCreators(teamsActions, dispatch),
-    userActions: bindActionCreators(userActions, dispatch),
+    userActions: bindActionCreators(userActions, dispatch)
   };
 };
 
