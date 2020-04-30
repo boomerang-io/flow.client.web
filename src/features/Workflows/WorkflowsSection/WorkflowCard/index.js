@@ -11,11 +11,12 @@ import {
   ConfirmModal,
   TooltipIcon
 } from "@boomerang/carbon-addons-boomerang-react";
+import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
 import UpdateWorkflow from "./UpdateWorkflow";
 import imgs from "Assets/icons";
-import { Run20, WarningAltFilled16 } from "@carbon/icons-react";
+import { Run20 } from "@carbon/icons-react";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import styles from "./workflowCard.module.scss";
 
@@ -176,8 +177,11 @@ class WorkflowCard extends Component {
         </section>
         {workflow.templateUpgradesAvailable && (
           <div className={styles.templatesWarningIcon}>
-            <TooltipIcon direction="top" tooltipText={"Task version upgrades available"}>
-              <WarningAltFilled16 fill="#f1c21b" />
+            <TooltipIcon
+              direction="top"
+              tooltipText={"New version of a task available! To update, edit your workflow."}
+            >
+              <WorkflowWarningButton />
             </TooltipIcon>
           </div>
         )}

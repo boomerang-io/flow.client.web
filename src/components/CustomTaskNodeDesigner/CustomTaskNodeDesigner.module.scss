@@ -16,7 +16,7 @@
 
 .updateButton {
   position: absolute;
-  right: 5.75rem;
+  right: calc(50% - 0.75rem);
   top: -0.75rem;
   width: 1.5rem;
 }

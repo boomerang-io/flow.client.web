@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Button } from "carbon-components-react";
-import { ConfirmModal, ModalFlow, TooltipIcon } from "@boomerang/carbon-addons-boomerang-react";
+import { ConfirmModal, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
 import Navigation from "./Navigation";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
-import { Add16, DocumentExport16, WarningAltFilled24 } from "@carbon/icons-react";
+import { Add16, DocumentExport16 } from "@carbon/icons-react";
 import styles from "./DesignerHeader.module.scss";
 
 class DesignerHeader extends Component {
@@ -19,12 +19,11 @@ class DesignerHeader extends Component {
     performAction: PropTypes.func,
     performActionButtonText: PropTypes.string,
     revisionCount: PropTypes.number,
-    templateUpgradesAvailable: PropTypes.bool,
-    workflowName: PropTypes.string.isRequired,
+    workflowName: PropTypes.string.isRequired
   };
 
   static defaultProps = {
-    includeResetVersionAlert: false,
+    includeResetVersionAlert: false
   };
 
   // Need to hardcode that the version is being reset in the change log for now based on the current implementation
@@ -41,7 +40,7 @@ class DesignerHeader extends Component {
       loading,
       onDesigner,
       performAction,
-      performActionButtonText,
+      performActionButtonText
     } = this.props;
 
     // If user is resetting to latest version show this alert,
@@ -72,11 +71,11 @@ class DesignerHeader extends Component {
         composedModalProps={{ shouldCloseOnOverlayClick: false }}
         confirmModalProps={{
           title: "Are you sure?",
-          children: "A new version will not be created",
+          children: "A new version will not be created"
         }}
         modalHeaderProps={{
           title: "Create New Version",
-          subtitle: "Enter a comment for record keeping",
+          subtitle: "Enter a comment for record keeping"
         }}
         modalTrigger={({ openModal }) => (
           <Button
@@ -102,14 +101,7 @@ class DesignerHeader extends Component {
   }
 
   render() {
-    const {
-      currentRevision,
-      fetchWorkflowRevisionNumber,
-      onDesigner,
-      revisionCount,
-      templateUpgradesAvailable,
-      workflowName,
-    } = this.props;
+    const { currentRevision, fetchWorkflowRevisionNumber, onDesigner, revisionCount, workflowName } = this.props;
 
     return (
       <FeatureHeader includeBorder className={styles.container}>
@@ -133,11 +125,6 @@ class DesignerHeader extends Component {
           </div>
           <div className={styles.titleContainer}>
             <h1 className={styles.title}>Editor</h1>
-            {templateUpgradesAvailable && (
-              <TooltipIcon direction="top" tooltipText={"Task version upgrades available"}>
-                <WarningAltFilled24 />
-              </TooltipIcon>
-            )}
           </div>
         </section>
         <section className={styles.workflowButtons}>

@@ -25,14 +25,14 @@ class WorkflowEditor extends Component {
     updateWorkflowProperties: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowFormikProps: PropTypes.object.isRequired,
-    workflowRevision: PropTypes.object.isRequired,
+    workflowRevision: PropTypes.object.isRequired
   };
 
   constructor(props) {
     super(props);
     this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
     this.state = {
-      diagramBoundingClientRect: {},
+      diagramBoundingClientRect: {}
     };
     this.diagramRef = React.createRef();
   }
@@ -40,7 +40,7 @@ class WorkflowEditor extends Component {
   componentDidMount() {
     if (this.diagramRef.current) {
       this.setState({
-        diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect(),
+        diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect()
       });
     }
     if (this.props.location.pathname.endsWith("/designer")) {
@@ -79,7 +79,7 @@ class WorkflowEditor extends Component {
       teams,
       workflow,
       workflowFormikProps,
-      workflowRevision,
+      workflowRevision
     } = this.props;
 
     const { revisionCount } = workflow.data;
@@ -98,7 +98,6 @@ class WorkflowEditor extends Component {
           performAction={this.createWorkflowRevision}
           performActionButtonText={version < revisionCount ? "Set version to latest" : "Create new version"}
           revisionCount={workflow.data.revisionCount}
-          templateUpgradesAvailable={workflowRevision.templateUpgradesAvailable}
           workflowName={workflow?.data?.name ?? ""}
         />
         <Switch>
@@ -117,7 +116,7 @@ class WorkflowEditor extends Component {
           />
           <Route
             path={`${match.path}/properties`}
-            render={(props) => (
+            render={props => (
               <WorkflowProperties
                 loading={workflow.isUpdating}
                 properties={workflow.data.properties}
@@ -127,13 +126,13 @@ class WorkflowEditor extends Component {
           />
           <Route
             path={`${match.path}/designer`}
-            render={(props) => (
+            render={props => (
               <div className={styles.container}>
-                <Tasks tasks={tasks.data.filter((task) => task.status === TaskTemplateStatus.Active)} />
+                <Tasks tasks={tasks.data.filter(task => task.status === TaskTemplateStatus.Active)} />
                 <main
                   className={styles.designer}
-                  onDrop={(event) => createNode(this.diagramApp, event)}
-                  onDragOver={(event) => {
+                  onDrop={event => createNode(this.diagramApp, event)}
+                  onDragOver={event => {
                     event.preventDefault();
                   }}
                   ref={this.diagramRef}
