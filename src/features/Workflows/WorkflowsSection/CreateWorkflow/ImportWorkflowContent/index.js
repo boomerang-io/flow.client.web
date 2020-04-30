@@ -194,7 +194,6 @@ class ImportWorkflowContent extends Component {
                       <TextInput
                         id="name"
                         labelText="Workflow Name"
-                        placeholder="Workflow Name"
                         name="name"
                         value={values.name}
                         onBlur={handleBlur}
@@ -205,7 +204,6 @@ class ImportWorkflowContent extends Component {
                       <TextInput
                         id="summary"
                         labelText="Summary"
-                        placeholder="Summary"
                         value={values.summary}
                         onBlur={handleBlur}
                         onChange={handleChange}
