@@ -6,11 +6,9 @@ import {
   ComposedModal,
   Button,
   ModalBody,
-  ModalFooter,
   TooltipHover
 } from "@boomerang/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
-import ValidateFormikOnMount from "Components/ValidateFormikOnMount";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { View16 } from "@carbon/icons-react";
 
@@ -59,15 +57,6 @@ function PreviewConfigForm({ templateConfig, closeModal }) {
       {({ inputs, formikProps }) => (
         <ModalFlowForm>
           <ModalBody>{inputs}</ModalBody>
-          <ModalFooter>
-            <Button kind="secondary" onClick={closeModal} type="button">
-              Cancel
-            </Button>
-            <Button disabled={!formikProps.isValid} onClick={closeModal} type="button">
-              Save
-            </Button>
-          </ModalFooter>
-          <ValidateFormikOnMount validateForm={formikProps.validateForm} />
         </ModalFlowForm>
       )}
     </DynamicFormik>
@@ -76,6 +65,7 @@ function PreviewConfigForm({ templateConfig, closeModal }) {
 function PreviewConfig({ templateConfig, taskTemplateName }) {
   return (
     <ComposedModal
+      composedModalProps={{ shouldCloseOnOverlayClick: true }}
       confirmModalProps={{
         title: "Close this?",
         children: "Your request will not be saved"
