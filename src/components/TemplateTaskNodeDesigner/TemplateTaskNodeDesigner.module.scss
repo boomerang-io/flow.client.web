@@ -11,3 +11,19 @@
   top: -0.75rem;
   width: 1.5rem;
 }
+
+.updateButton {
+  position: absolute;
+  right: calc(50% - 0.75rem);
+  top: -0.75rem;
+  width: 1.5rem;
+}
+
+.updateTaskModalContainer {
+  max-height: 67.75rem;
+  max-width: 60rem;
+
+  :global .bx--bmrg-modal-composed-container {
+    padding-right: 25% !important;
+  }
+}

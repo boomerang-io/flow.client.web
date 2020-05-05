@@ -10,3 +10,9 @@
   padding-top: 3rem;
   position: relative;
 }
+
+:global .bx--side-nav__item--large {
+  :global .bx--side-nav__submenu {
+    height: 3rem !important;
+  }
+}

@@ -9,16 +9,16 @@ class VersionCommentForm extends Component {
     isCreating: PropTypes.bool,
     onSave: PropTypes.func.isRequired,
     handleOnChange: PropTypes.func.isRequired,
-    closeModal: PropTypes.func
+    closeModal: PropTypes.func,
   };
 
   state = {
     versionComment: "",
     error: false,
-    saveError: false
+    saveError: false,
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     const { value } = e.target;
     let error = false;
     if (!value || value.length > 128) {
@@ -27,30 +27,27 @@ class VersionCommentForm extends Component {
     this.setState(
       () => ({
         versionComment: value,
-        error: error
+        error: error,
       }),
       () => {
-        this.props.setShouldConfirmModalClose(true);
         this.props.handleOnChange(value);
       }
     );
   };
 
-  handleOnSave = () => {
+  handleOnSave = async () => {
     if (!this.props.loading) {
-      this.props
-        .onSave()
-        .then(() => {
-          this.props.setShouldConfirmModalClose(false);
-          this.props.closeModal();
-        })
-        .catch(() => {
-          this.setState({ saveError: true });
-        });
+      try {
+        await this.props.onSave();
+        this.props.closeModal();
+      } catch {
+        this.setState({ saveError: true });
+      }
     }
   };
 
   render() {
+    console.log(this.props.onSave);
     const { loading, isCreating } = this.props;
 
     return (

@@ -51,13 +51,12 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
-                style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M10 6L10 8 22.59 8 6 24.59 7.41 26 24 9.41 24 22 26 22 26 6 10 6z"
+                <polygon
+                  points="10 6 10 8 22.59 8 6 24.59 7.41 26 24 9.41 24 22 26 22 26 6 10 6"
                 />
               </svg>
             </div>
@@ -85,13 +84,12 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
-                style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M10 6L10 8 22.59 8 6 24.59 7.41 26 24 9.41 24 22 26 22 26 6 10 6z"
+                <polygon
+                  points="10 6 10 8 22.59 8 6 24.59 7.41 26 24 9.41 24 22 26 22 26 6 10 6"
                 />
               </svg>
             </div>
@@ -119,13 +117,12 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
-                style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M10 26L10 24 22.59 24 6 7.41 7.41 6 24 22.59 24 10 26 10 26 26 10 26z"
+                <polygon
+                  points="10 26 10 24 22.59 24 6 7.41 7.41 6 24 22.59 24 10 26 10 26 26 10 26"
                 />
               </svg>
             </div>

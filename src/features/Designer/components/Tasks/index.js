@@ -4,7 +4,7 @@ import { AccordionItem, OverflowMenu, Search } from "carbon-components-react";
 import { CheckboxList } from "@boomerang/carbon-addons-boomerang-react";
 import Accordion from "carbon-components-react/lib/components/Accordion";
 import Task from "./Task";
-import mapTaskNametoIcon from "Utilities/taskIcons";
+import { taskIcons } from "Utilities/taskIcons";
 import matchSorter from "match-sorter";
 import uniqBy from "lodash/uniqBy";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
@@ -16,82 +16,74 @@ export default class Tasks extends Component {
   state = {
     activeFilters: [],
     firstTaskCategoryIsOpen: true,
-    isAccordianOpen: false,
+    isAccordionOpen: false,
     isSidenavOpen: true,
     searchQuery: "",
-    tasksToDisplay: this.props.tasks.data,
-    tasksWithMapping: this.props.tasks.data.map(task => ({
-      ...task,
-      iconImg: mapTaskNametoIcon(task.name, task.category).iconImg,
-      iconName: mapTaskNametoIcon(task.name, task.category).iconName
-    })),
-    uniqueTaskTypes: []
+    tasksToDisplay: this.props.tasks,
+    taskTypes: [],
   };
 
   componentDidMount() {
-    /**
-     * create task type format to pass to the CheckboxList filter
-     */
-    let totalTaskTypes = [
-      ...new Set(this.state.tasksWithMapping.map(task => ({ iconName: task.iconName, iconImg: task.iconImg })))
-    ];
-    let uniqueNames = uniqBy(totalTaskTypes, "iconName");
-    const uniqueTaskTypes = uniqueNames.map(task => ({
-      id: task.iconName,
+    const taskFilters = taskIcons.map((IconConfig) => ({
+      id: IconConfig.iconName,
       labelText: (
         <div className={styles.checkboxOption}>
-          {task.iconImg} <p>{task.iconName}</p>{" "}
+          <IconConfig.icon /> <p>{IconConfig.iconName}</p>{" "}
         </div>
-      )
+      ),
     }));
-    this.setState({ uniqueTaskTypes: sortByProp(uniqueTaskTypes, "id") });
+    this.setState({ taskTypes: sortByProp(taskFilters, "id") });
   }
 
-  handleOnSearchInputChange = e => {
+  handleOnSearchInputChange = (e) => {
     const searchQuery = e.target.value;
     if (searchQuery === "" && this.state.activeFilters === []) {
       this.setState({
         searchQuery,
-        tasksToDisplay: this.props.tasks.data
+        tasksToDisplay: this.props.tasks,
       });
       return;
     }
     if (this.state.activeFilters.length === 0) {
       this.setState({
         searchQuery,
-        tasksToDisplay: this.handleSearchFilter(searchQuery, this.props.tasks.data)
+        tasksToDisplay: this.handleSearchFilter(searchQuery, this.props.tasks),
       });
       return;
     }
 
     //use the filters to select which tasks can be passed to search query
-    const currentTasks = this.state.tasksWithMapping.filter(task => this.state.activeFilters.includes(task.iconName));
-    delete currentTasks[("iconName", "iconImg")];
+    const currentTasks = this.props.tasks.filter((task) => this.state.activeFilters.includes(task.icon));
     this.setState({
       searchQuery,
-      tasksToDisplay: this.handleSearchFilter(searchQuery, currentTasks)
+      tasksToDisplay: this.handleSearchFilter(searchQuery, currentTasks),
     });
   };
 
-  handleCheckboxListChange = (...args) => {
-    const currFilters = args[args.length - 1];
+  handleCheckboxListChange = (checked, label) => {
+    let filtersState = [].concat(this.state.activeFilters);
+
+    let newFilters = [];
+    let hasFilter = Boolean(filtersState.find((filter) => filter === label));
+    if (hasFilter) newFilters = filtersState.filter((filter) => filter !== label);
+    else newFilters = filtersState.concat(label);
+
     const searchQuery = this.state.searchQuery;
 
-    this.setState({ activeFilters: currFilters });
+    this.setState({ activeFilters: newFilters });
 
     //if none are checked, set back to default w/ search query
-    if (currFilters.length === 0) {
+    if (newFilters.length === 0) {
       this.setState({
-        tasksToDisplay: this.handleSearchFilter(searchQuery, this.props.tasks.data)
+        tasksToDisplay: this.handleSearchFilter(searchQuery, this.props.tasks),
       });
       return;
     }
 
     //use the filters to select which tasks can be passed to search query
-    const currentTasksWithMapping = this.state.tasksWithMapping.filter(task => currFilters.includes(task.iconName));
-    delete currentTasksWithMapping[("iconName", "iconImg")];
+    const currentTasksWithMapping = this.props.tasks.filter((task) => newFilters.includes(task.icon));
     this.setState({
-      tasksToDisplay: this.handleSearchFilter(searchQuery, currentTasksWithMapping)
+      tasksToDisplay: this.handleSearchFilter(searchQuery, currentTasksWithMapping),
     });
   };
 
@@ -130,19 +122,24 @@ export default class Tasks extends Component {
     //Iterate through all of the categories and render header with associated tasks
     return (
       <Accordion>
-        {uniqueCategories.map(category => (
+        {uniqueCategories.map((category) => (
           <AccordionItem
             title={`${category} (${catgegoriesWithTasks[category].length})`}
             open={
-              this.state.isAccordianOpen || (category === FIRST_TASK_CATEGORY && this.state.firstTaskCategoryIsOpen)
+              this.state.isAccordionOpen || (category === FIRST_TASK_CATEGORY && this.state.firstTaskCategoryIsOpen)
                 ? true
                 : null
             }
             key={category}
           >
             <ul className={styles.taskSection} key={category}>
-              {catgegoriesWithTasks[category].map(task => (
-                <Task key={task.id} model={{ type: task.id, name: task.name, taskData: task }} name={task.name} />
+              {catgegoriesWithTasks[category].map((task) => (
+                <Task
+                  key={task.id}
+                  icon={task.icon}
+                  model={{ type: task.id, name: task.name, taskData: task }}
+                  name={task.name}
+                />
               ))}
             </ul>
           </AccordionItem>
@@ -158,7 +155,7 @@ export default class Tasks extends Component {
           <h1 className={styles.heading}>Add a task</h1>
           <button
             className={styles.collapseButton}
-            onClick={() => this.setState(prevState => ({ isSidenavOpen: !prevState.isSidenavOpen }))}
+            onClick={() => this.setState((prevState) => ({ isSidenavOpen: !prevState.isSidenavOpen }))}
           >
             <ChevronLeft32 className={styles.collapseButtonImg} />
           </button>
@@ -168,17 +165,38 @@ export default class Tasks extends Component {
             <section className={styles.tools}>
               <Search
                 small
-                labelText="Search for a task"
+                labelText=""
                 onChange={this.handleOnSearchInputChange}
                 placeHolderText="Search for a task"
                 value={this.state.searchQuery}
               />
-              <OverflowMenu renderIcon={SettingsAdjust20} flipped={true}>
-                <CheckboxList
-                  initialSelectedItems={this.state.activeFilters}
-                  options={this.state.uniqueTaskTypes}
-                  onChange={(...args) => this.handleCheckboxListChange(...args)}
-                />
+              <OverflowMenu
+                renderIcon={SettingsAdjust20}
+                style={{
+                  backgroundColor: this.state.activeFilters.length > 0 ? "#3DDBD9" : "initial",
+                  borderRadius: "0.25rem",
+                }}
+                flipped={true}
+                menuOptionsClass={styles.filters}
+              >
+                <section className={styles.filterHeader}>
+                  <p className={styles.filterTitle}>Filters</p>
+                  <button
+                    className={styles.resetFilter}
+                    onClick={() => this.setState({ activeFilters: [], tasksToDisplay: this.props.tasks })}
+                  >
+                    Reset filters
+                  </button>
+                </section>
+                <section className={styles.filter}>
+                  <p className={styles.sectionTitle}>Filter by Task Type</p>
+                  <CheckboxList
+                    selectedItems={this.state.activeFilters}
+                    // initialSelectedItems={this.state.activeFilters}
+                    options={this.state.taskTypes}
+                    onChange={(...args) => this.handleCheckboxListChange(...args)}
+                  />
+                </section>
               </OverflowMenu>
             </section>
             <section className={styles.detail}>
@@ -186,13 +204,13 @@ export default class Tasks extends Component {
               <button
                 className={styles.expandButton}
                 onClick={() => {
-                  this.setState(prevState => ({
-                    isAccordianOpen: !prevState.isAccordianOpen,
-                    firstTaskCategoryIsOpen: false
+                  this.setState((prevState) => ({
+                    isAccordionOpen: !prevState.isAccordionOpen,
+                    firstTaskCategoryIsOpen: false,
                   }));
                 }}
               >
-                {this.state.isAccordianOpen ? "Collapse all" : "Expand all"}
+                {this.state.isAccordionOpen ? "Collapse all" : "Expand all"}
               </button>
             </section>
             <section className={styles.content}>{this.determineTasks()}</section>

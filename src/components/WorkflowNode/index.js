@@ -2,19 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import WorkflowExecutionPort from "Components/WorkflowExecutionPort";
-import mapTaskNametoIcon from "Utilities/taskIcons";
+import { taskIcons } from "Utilities/taskIcons";
+import { Bee16 } from "@carbon/icons-react";
 import styles from "./WorkflowNode.module.scss";
 
 WorkflowNode.propTypes = {
   category: PropTypes.string,
   className: PropTypes.string,
   children: PropTypes.node,
-  icon: PropTypes.node,
+  icon: PropTypes.string,
+  iconToRender: PropTypes.node,
   isExecution: PropTypes.bool,
   name: PropTypes.string,
   node: PropTypes.object.isRequired,
   subtitle: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default function WorkflowNode({
@@ -31,10 +33,16 @@ export default function WorkflowNode({
   title,
   ...rest
 }) {
+  let Icon = () => <Bee16 alt="Task node type default" style={{ willChange: "auto" }} />;
+
+  if (icon) {
+    Icon = taskIcons.find((taskIcon) => taskIcon.iconName === icon)?.icon ?? Icon;
+  }
+
   return (
     <div className={cx(styles.node, className)} {...rest}>
       <header className={styles.header}>
-        {icon ? icon : mapTaskNametoIcon(name, category).iconImg}
+        <Icon />
         <h1 className={styles.title}>{title || "Task"}</h1>
       </header>
       <p className={cx(styles.subtitle, subtitleClass)}>{subtitle || "Task"}</p>

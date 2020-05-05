@@ -9,6 +9,7 @@ import Overview from "Features/Designer/components/Overview";
 import Tasks from "Features/Designer/components/Tasks";
 import WorkflowZoom from "Components/WorkflowZoom";
 import DiagramApplication from "Utilities/DiagramApplication";
+import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import styles from "./Editor.module.scss";
 
 class WorkflowEditor extends Component {
@@ -84,7 +85,6 @@ class WorkflowEditor extends Component {
     const { revisionCount } = workflow.data;
     const { version } = workflowRevision;
     const workflowLoading = workflowRevision.isFetching || workflowRevision.isCreating;
-
     return (
       <>
         <DesignerHeader
@@ -128,7 +128,7 @@ class WorkflowEditor extends Component {
             path={`${match.path}/designer`}
             render={props => (
               <div className={styles.container}>
-                <Tasks tasks={tasks} />
+                <Tasks tasks={tasks.data.filter(task => task.status === TaskTemplateStatus.Active)} />
                 <main
                   className={styles.designer}
                   onDrop={event => createNode(this.diagramApp, event)}

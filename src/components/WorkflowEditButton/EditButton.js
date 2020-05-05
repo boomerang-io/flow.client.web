@@ -1,9 +1,8 @@
 import React from "react";
 
-const SvgComponent = props => (
+const SvgComponent = (props) => (
   <svg viewBox="0 0 26 26" {...props}>
     <title>{"edit"}</title>
-    <desc>{"Created with Sketch."}</desc>
     <g id="Symbols" stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
       <g id="Editor-/-task-card" transform="translate(-190.000000, 13.000000)">
         <g id="edit" transform="translate(191.000000, -12.000000)">

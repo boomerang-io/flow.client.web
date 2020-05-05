@@ -13,7 +13,6 @@ import {
 } from "carbon-components-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import { ErrorFilled32 } from "@carbon/icons-react";
-import Loading from "Components/Loading";
 import { requiredWorkflowProps } from "./constants";
 import styles from "./importWorkflowContent.module.scss";
 
@@ -100,7 +99,7 @@ class ImportWorkflowContent extends Component {
   };
 
   render() {
-    const { isLoading, title, confirmButtonText, team, teams } = this.props;
+    const { title, confirmButtonText, team, teams } = this.props;
 
     return (
       <Formik
@@ -195,7 +194,6 @@ class ImportWorkflowContent extends Component {
                       <TextInput
                         id="name"
                         labelText="Workflow Name"
-                        placeholder="Workflow Name"
                         name="name"
                         value={values.name}
                         onBlur={handleBlur}
@@ -206,7 +204,6 @@ class ImportWorkflowContent extends Component {
                       <TextInput
                         id="summary"
                         labelText="Summary"
-                        placeholder="Summary"
                         value={values.summary}
                         onBlur={handleBlur}
                         onChange={handleChange}

@@ -1,5 +1,6 @@
 @import "~Styles/variables";
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .container {
   display: flex;
@@ -14,12 +15,21 @@
   width: 100%;
 }
 
+.titleContainer {
+  align-items: center;
+  display: flex;
+
+  svg {
+    fill: var(--cds-support-03) !important;
+  }
+}
 .title {
   color: var(--cds-text-01);
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.625rem;
   margin: 0rem;
+  margin-right: 0.5rem;
   max-width: 50rem;
 }
 
@@ -32,8 +42,12 @@
 
 .workflowsLink {
   font-size: 0.875rem;
-  letter-spacing: 00.01rem;
+  letter-spacing: 0.01rem;
   line-height: 1.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 .breadcrumbDivider {

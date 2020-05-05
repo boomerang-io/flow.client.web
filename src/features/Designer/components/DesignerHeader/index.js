@@ -19,11 +19,11 @@ class DesignerHeader extends Component {
     performAction: PropTypes.func,
     performActionButtonText: PropTypes.string,
     revisionCount: PropTypes.number,
-    workflowName: PropTypes.string.isRequired
+    workflowName: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
-    includeResetVersionAlert: false
+    includeResetVersionAlert: false,
   };
 
   // Need to hardcode that the version is being reset in the change log for now based on the current implementation
@@ -40,7 +40,7 @@ class DesignerHeader extends Component {
       loading,
       onDesigner,
       performAction,
-      performActionButtonText
+      performActionButtonText,
     } = this.props;
 
     // If user is resetting to latest version show this alert,
@@ -48,8 +48,8 @@ class DesignerHeader extends Component {
       return (
         <ConfirmModal
           affirmativeAction={this.resetVersionToLatestWithMessage}
-          children="A new version will be created"
-          title={`Set version ${currentRevision} to be the latest?`}
+          children="A new version will be created."
+          title={`Set version ${currentRevision} to the latest`}
           modalTrigger={({ openModal }) => (
             <Button
               disabled={loading || !onDesigner}
@@ -68,13 +68,14 @@ class DesignerHeader extends Component {
 
     return (
       <ModalFlow
+        composedModalProps={{ shouldCloseOnOverlayClick: false }}
         confirmModalProps={{
           title: "Are you sure?",
-          children: "A new version will not be created"
+          children: "A new version will not be created",
         }}
         modalHeaderProps={{
           title: "Create New Version",
-          subtitle: "Enter a comment for record keeping"
+          subtitle: "Enter a comment for record keeping",
         }}
         modalTrigger={({ openModal }) => (
           <Button
@@ -122,7 +123,9 @@ class DesignerHeader extends Component {
               Validate this workflow
             </Button> */}
           </div>
-          <h1 className={styles.title}>Editor</h1>
+          <div className={styles.titleContainer}>
+            <h1 className={styles.title}>Editor</h1>
+          </div>
         </section>
         <section className={styles.workflowButtons}>
           <VersionSwitcher

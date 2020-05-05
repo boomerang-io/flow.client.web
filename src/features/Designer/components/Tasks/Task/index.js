@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Tile } from "carbon-components-react";
-import mapTaskNametoIcon from "Utilities/taskIcons";
+import { taskIcons } from "Utilities/taskIcons";
+import { Bee16 } from "@carbon/icons-react";
 import styles from "./task.module.scss";
 
 Task.propTypes = {
@@ -9,8 +10,9 @@ Task.propTypes = {
   model: PropTypes.object.isRequired
 };
 
-function Task({ name, model }) {
+function Task({ name, model, icon }) {
   const [isDragActive, setIsDragActive] = React.useState(false);
+  const taskIcon = taskIcons.find(currentIcon => currentIcon.iconName === icon);
   return (
     <li>
       <Tile
@@ -25,7 +27,7 @@ function Task({ name, model }) {
         onDragEnd={() => setIsDragActive(false)}
         tabIndex="0"
       >
-        {mapTaskNametoIcon(model.taskData.name, model.taskData.category).iconImg}
+        {taskIcon ? <taskIcon.icon /> : <Bee16 />}
         <p className={styles.taskName}> {name} </p>
       </Tile>
     </li>

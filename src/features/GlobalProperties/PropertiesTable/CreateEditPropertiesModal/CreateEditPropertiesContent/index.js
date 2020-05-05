@@ -19,7 +19,7 @@ class CreateEditPropertiesContent extends Component {
     isEdit: PropTypes.bool,
     property: PropTypes.object,
     propertyKeys: PropTypes.array.isRequired,
-    updatePropertyInStore: PropTypes.func
+    updatePropertyInStore: PropTypes.func,
   };
 
   handleSubmit = (values, options) => {
@@ -32,9 +32,9 @@ class CreateEditPropertiesContent extends Component {
     axios({
       method: isEdit ? "put" : "post",
       url: isEdit ? `${BASE_SERVICE_URL}/config/${newProperty.id}` : `${BASE_SERVICE_URL}/config`,
-      data: newProperty
+      data: newProperty,
     })
-      .then(response => {
+      .then((response) => {
         storeUpdate(newProperty);
         notify(
           <ToastNotification
@@ -50,7 +50,7 @@ class CreateEditPropertiesContent extends Component {
       .then(() => {
         isEdit ? this.props.handleEditClose() : this.props.closeModal();
       })
-      .catch(error => {
+      .catch((error) => {
         notify(
           <ToastNotification
             kind="error"
@@ -72,7 +72,7 @@ class CreateEditPropertiesContent extends Component {
           description: property ? property.description : "",
           key: property ? property.key : "",
           value: property ? property.value : "",
-          secured: property ? property.type === INPUT_TYPES.PASSWORD : false
+          secured: property ? property.type === INPUT_TYPES.PASSWORD : false,
         }}
         onSubmit={this.handleSubmit}
         validationSchema={Yup.object().shape({
@@ -82,10 +82,10 @@ class CreateEditPropertiesContent extends Component {
             .notOneOf(propertyKeys, "Key must be unique"),
           value: Yup.string().required("Enter a value"),
           description: Yup.string(),
-          secured: Yup.boolean()
+          secured: Yup.boolean(),
         })}
       >
-        {props => {
+        {(props) => {
           const { values, touched, errors, isSubmitting, isValid, handleChange, handleBlur, handleSubmit } = props;
 
           return (
@@ -96,7 +96,6 @@ class CreateEditPropertiesContent extends Component {
                   <TextInput
                     id="label"
                     labelText="Label"
-                    placeholder="Label"
                     value={values.label}
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -108,7 +107,6 @@ class CreateEditPropertiesContent extends Component {
                   <TextInput
                     id="key"
                     labelText="key"
-                    placeholder="Key"
                     value={values.key}
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -120,7 +118,6 @@ class CreateEditPropertiesContent extends Component {
                   <TextInput
                     id="description"
                     labelText="Description"
-                    placeholder="Description"
                     value={values.description}
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -130,7 +127,6 @@ class CreateEditPropertiesContent extends Component {
                   <TextInput
                     id="value"
                     labelText="Value"
-                    placeholder="Value"
                     value={values.value}
                     onBlur={handleBlur}
                     onChange={handleChange}

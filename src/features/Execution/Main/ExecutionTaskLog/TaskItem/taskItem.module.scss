@@ -94,14 +94,14 @@
 
   &.completed {
     color: #009c98;
-    path {
+    svg {
       fill: #009c98;
     }
   }
 
   &.failure {
     color: #a51920;
-    path {
+    svg {
       fill: #a51920;
     }
   }
@@ -111,7 +111,7 @@
   &.invalid,
   &.skipped {
     color: #6f7878;
-    path {
+    svg {
       fill: #6f7878;
     }
   }
@@ -125,6 +125,7 @@
 
 .data {
   margin-left: 2.5rem;
+  margin-top: 2rem;
   white-space: nowrap;
 }
 

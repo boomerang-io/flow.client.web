@@ -8,6 +8,67 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
     <div
       class="container"
     >
+      <a
+        href="/editor/789/designer"
+      >
+        <section
+          class="cardInfo"
+        >
+          <div
+            class="cardIconContainer"
+          >
+            <img
+              alt="icon"
+              class="cardIcon"
+            />
+          </div>
+          <div
+            class="cardDescriptionContainer"
+          >
+            <h2
+              class="cardName"
+            >
+              lucas-workflow-3
+            </h2>
+            <p
+              class="cardDescription"
+            />
+          </div>
+        </section>
+      </a>
+      <section
+        class="cardLaunch"
+      >
+        <button
+          class="bx--btn bx--btn--field bx--btn--primary"
+          tabindex="0"
+          type="button"
+        >
+          Run it
+          <svg
+            aria-hidden="true"
+            aria-label="Run Workflow"
+            class="bx--btn__icon"
+            focusable="false"
+            height="20"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            viewBox="0 0 32 32"
+            width="20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21,16a6,6,0,1,1-6,6,6,6,0,0,1,6-6m0-2a8,8,0,1,0,8,8,8,8,0,0,0-8-8Z"
+            />
+            <path
+              d="M26,4H6A2,2,0,0,0,4,6V26a2,2,0,0,0,2,2h4V26H6V12H28V6A2,2,0,0,0,26,4ZM6,10V6H26v4Z"
+            />
+            <polygon
+              points="19 19 19 25 24 22 19 19"
+            />
+          </svg>
+        </button>
+      </section>
       <div
         aria-expanded="false"
         aria-haspopup="true"
@@ -49,64 +110,6 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
           </title>
         </svg>
       </div>
-      <section
-        class="cardInfo"
-      >
-        <div
-          class="cardIconContainer"
-        >
-          <img
-            alt="icon"
-            class="cardIcon"
-          />
-        </div>
-        <button
-          class="cardDescriptionContainer"
-        >
-          <h2
-            class="cardName"
-          >
-            lucas-workflow-3
-          </h2>
-          <p
-            class="cardDescription"
-          />
-        </button>
-      </section>
-      <section
-        class="cardLaunch"
-      >
-        <button
-          class="bx--btn bx--btn--field bx--btn--primary"
-          tabindex="0"
-          type="button"
-        >
-          Run it
-          <svg
-            aria-hidden="true"
-            aria-label="Run Workflow"
-            class="bx--btn__icon"
-            focusable="false"
-            height="20"
-            preserveAspectRatio="xMidYMid meet"
-            role="img"
-            style="will-change: transform;"
-            viewBox="0 0 32 32"
-            width="20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M21,16a6,6,0,1,1-6,6,6,6,0,0,1,6-6m0-2a8,8,0,1,0,8,8,8,8,0,0,0-8-8Z"
-            />
-            <path
-              d="M26,4H6A2,2,0,0,0,4,6V26a2,2,0,0,0,2,2h4V26H6V12H28V6A2,2,0,0,0,26,4ZM6,10V6H26v4Z"
-            />
-            <path
-              d="M19 19L19 25 24 22 19 19z"
-            />
-          </svg>
-        </button>
-      </section>
     </div>
   </div>
   <div

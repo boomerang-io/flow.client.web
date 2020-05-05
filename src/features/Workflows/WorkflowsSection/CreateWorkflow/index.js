@@ -36,7 +36,6 @@ export class CreateWorkflow extends Component {
           ...dagProps,
           workflowId
         };
-        fetchTeams();
         return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
       })
       .then(res => {
@@ -47,7 +46,9 @@ export class CreateWorkflow extends Component {
             subtitle="Successfully created workflow and version"
           />
         );
+
         this.props.history.push(`/editor/${workflowId}/designer`);
+        fetchTeams();
       })
       .catch(err => {
         notify(
@@ -119,7 +120,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateWorkflow);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateWorkflow);

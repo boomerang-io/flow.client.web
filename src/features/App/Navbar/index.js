@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 import { LeftSideNav, UIShell } from "@boomerang/carbon-addons-boomerang-react";
 import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
@@ -9,7 +10,7 @@ import { Activity16, ChartScatter16, FlowData16, SettingsAdjust16 } from "@carbo
 import { SideNav, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from "carbon-components-react";
 import userTypes from "Constants/userTypes";
 
-const handleOnMenuClick = isAtLeastOperator => ({ isOpen, onMenuClose }) => (
+const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
   <LeftSideNav isOpen={isOpen}>
     <SideNav ariaLabel="nav" expanded={isOpen} isChildOfHeader={true}>
       <SideNavItems>
@@ -59,6 +60,15 @@ const handleOnMenuClick = isAtLeastOperator => ({ isOpen, onMenuClose }) => (
               activeClassName={"bx--side-nav__link--current"}
               element={NavLink}
               onClick={onMenuClose}
+              to="/task-templates"
+            >
+              Task Templates
+            </SideNavMenuItem>
+            <SideNavMenuItem
+              large
+              activeClassName={"bx--side-nav__link--current"}
+              element={NavLink}
+              onClick={onMenuClose}
               to="/team-properties"
             >
               Team Properties
@@ -76,13 +86,13 @@ const defaultUIShellProps = {
   baseLaunchEnvUrl: BASE_LAUNCH_ENV_URL,
   baseServiceUrl: BASE_URL,
   onMenuClick: handleOnMenuClick(false),
-  renderLogo: true
+  renderLogo: true,
 };
 
 NavbarContainer.propTypes = {
   handleOnTutorialClick: PropTypes.func.isRequired,
   navigationState: PropTypes.object.isRequired,
-  userState: PropTypes.object
+  userState: PropTypes.object,
 };
 
 function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) {
@@ -91,15 +101,20 @@ function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) 
     userState.status === SERVICE_REQUEST_STATUSES.SUCCESS
   ) {
     return (
-      <UIShell
-        {...defaultUIShellProps}
-        onMenuClick={handleOnMenuClick(
-          userState.data.type === userTypes.ADMIN || userState.data.type === userTypes.OPERATOR
-        )}
-        headerConfig={navigationState.data}
-        onTutorialClick={handleOnTutorialClick}
-        user={userState.data}
-      />
+      <>
+        <Helmet>
+          <title>{`Flow | ${navigationState.data?.platform?.platformName ?? "Boomerang"}`}</title>
+        </Helmet>
+        <UIShell
+          {...defaultUIShellProps}
+          onMenuClick={handleOnMenuClick(
+            userState.data.type === userTypes.ADMIN || userState.data.type === userTypes.OPERATOR
+          )}
+          headerConfig={navigationState.data}
+          onTutorialClick={handleOnTutorialClick}
+          user={userState.data}
+        />
+      </>
     );
   }
 

@@ -19,6 +19,7 @@ import {
   AsyncExecution,
   AsyncGlobalConfiguration,
   AsyncInsights,
+  AsyncTaskTemplates,
   AsyncTeamProperties,
   AsyncWorkflows
 } from "./asyncFeatureImports";
@@ -86,7 +87,7 @@ class App extends Component {
 
       return (
         <div className={styles.container}>
-          <Suspense fallback={<Loading centered message="Loading a feature for you. Just a moment, please." />}>
+          <Suspense fallback={<Loading />}>
             <Switch>
               <ProtectedRoute
                 allowedUserRoles={allowedUserRoles}
@@ -98,6 +99,12 @@ class App extends Component {
                 allowedUserRoles={allowedUserRoles}
                 component={<AsyncTeamProperties />}
                 path="/team-properties"
+                userRole={userRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={allowedUserRoles}
+                component={<AsyncTaskTemplates />}
+                path="/task-templates"
                 userRole={userRole}
               />
               <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
@@ -156,9 +163,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

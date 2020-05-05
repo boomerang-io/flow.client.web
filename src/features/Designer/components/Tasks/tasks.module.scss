@@ -98,7 +98,6 @@
     color: var(--cds-interactive-02);
     cursor: pointer;
     font-size: 0.75rem;
-    font-weight: 500;
     height: 0.9375rem;
     line-height: 0.9375rem;
     margin-right: 1rem;
@@ -139,6 +138,47 @@
       padding-right: 0;
     }
   }
+}
+.filters {
+  display: flex;
+  flex-direction: column;
+  width: 14.5rem;
+  &:focus {
+    outline: 0;
+  }
+}
+.filterHeader {
+  align-items: center;
+  border-bottom: 0.0625rem solid var(--cds-active-ui);
+  display: flex;
+  height: 3rem;
+  justify-content: space-between;
+  padding: 0.5rem;
+  width: 100%;
+}
+.filterTitle {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.resetFilter {
+  color: var(--cds-link-01);
+  cursor: pointer;
+  font-size: 0.875rem;
+  &:focus {
+    @include focus-outline(var(--cds-interactive-01));
+  }
+}
+.sectionTitle {
+  color: var(--cds-text-02);
+  font-size: 0.75rem;
+  margin: 0.5rem 0.1rem;
+}
+.filter {
+  border-bottom: 0.0625rem solid var(--cds-active-ui);
+  max-height: 24rem;
+  overflow-y: auto;
+  padding: 0.5rem;
+  width: 100%;
 }
 
 .checkboxOption {

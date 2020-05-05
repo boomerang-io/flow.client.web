@@ -36,7 +36,7 @@ export class WorkflowManagerContainer extends Component {
     workflow: PropTypes.object,
     workflowActions: PropTypes.object.isRequired,
     workflowRevision: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired,
   };
 
   changeLogReason = "Update workflow"; //default changelog value
@@ -52,7 +52,7 @@ export class WorkflowManagerContainer extends Component {
       await Promise.all([
         this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`),
         this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`),
-        this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`)
+        this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`),
       ]);
     } catch (e) {
       // noop
@@ -79,19 +79,19 @@ export class WorkflowManagerContainer extends Component {
   findActiveTeamIdOnMount() {
     const { appActions, match, teams } = this.props;
     const { workflowId } = match.params;
-    const activeTeam = teams.data.find(team => {
-      return team.workflows.find(workflow => workflow.id === workflowId);
+    const activeTeam = teams.data.find((team) => {
+      return team.workflows.find((workflow) => workflow.id === workflowId);
     });
 
     appActions.setActiveTeam({ teamId: activeTeam?.id ?? "" });
   }
 
   // Not updating state to prevent re-renders. Need a better approach here
-  handleChangeLogReasonChange = changeLogReason => {
+  handleChangeLogReasonChange = (changeLogReason) => {
     this.changeLogReason = changeLogReason;
   };
 
-  createWorkflowRevision = diagramApp => {
+  createWorkflowRevision = (diagramApp) => {
     const { workflow, workflowRevisionActions } = this.props;
 
     const workflowId = workflow.data.id;
@@ -99,7 +99,7 @@ export class WorkflowManagerContainer extends Component {
 
     return workflowRevisionActions
       .create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body)
-      .then(response => {
+      .then((response) => {
         notify(
           <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
         );
@@ -112,13 +112,13 @@ export class WorkflowManagerContainer extends Component {
         return Promise.reject();
       })
       .then(() => {
-        this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`).catch(err => {
+        return this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`).catch((err) => {
           // noop
         });
       });
   };
 
-  updateWorkflow = formikValues => {
+  updateWorkflow = (formikValues) => {
     const { activeTeamId, appActions, workflow, workflowActions } = this.props;
     const flowTeamId = formikValues?.selectedTeam?.id;
     const updatedWorkflow = { ...workflow.data, ...formikValues, flowTeamId };
@@ -131,7 +131,7 @@ export class WorkflowManagerContainer extends Component {
           appActions.setActiveTeam({ teamId: flowTeamId });
         }
       })
-      .catch(error => {});
+      .catch((error) => {});
   };
 
   updateWorkflowProperties = ({ property, title, message, type }) => {
@@ -139,12 +139,12 @@ export class WorkflowManagerContainer extends Component {
 
     let properties = [...this.props.workflow.data.properties];
     if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE) {
-      const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === property.key);
+      const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
       properties.splice(propertyToUpdateIndex, 1, property);
     }
 
     if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE) {
-      const propertyToUpdateIndex = properties.findIndex(currentProp => currentProp.key === property.key);
+      const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
       properties.splice(propertyToUpdateIndex, 1);
     }
 
@@ -154,7 +154,7 @@ export class WorkflowManagerContainer extends Component {
 
     return workflowActions
       .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, properties)
-      .then(response => {
+      .then((response) => {
         notify(
           <ToastNotification
             kind="success"
@@ -164,16 +164,16 @@ export class WorkflowManagerContainer extends Component {
         );
         return Promise.resolve(response);
       })
-      .catch(error => {
+      .catch((error) => {
         notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} property`} />);
         return Promise.reject(error);
       });
   };
 
-  fetchWorkflowRevisionNumber = revision => {
+  fetchWorkflowRevisionNumber = (revision) => {
     const { workflow, workflowRevisionActions } = this.props;
     const workflowId = workflow.data.id;
-    workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision/${revision}`).catch(err => {
+    workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision/${revision}`).catch((err) => {
       // noop
     });
   };
@@ -183,7 +183,7 @@ export class WorkflowManagerContainer extends Component {
     dagProps["dag"] = this.getDiagramSerialization(diagramApp);
     dagProps["config"] = this.formatWorkflowConfigNodes();
     dagProps["changelog"] = {
-      reason: this.changeLogReason
+      reason: this.changeLogReason,
     };
     return dagProps;
   }
@@ -196,27 +196,31 @@ export class WorkflowManagerContainer extends Component {
   }
 
   formatWorkflowConfigNodes() {
-    return { nodes: Object.values(this.props.workflowRevision.config) };
+    console.log(this.props.workflowRevision.config, "ahhhh");
+    const normilzedConfig = Object.values(this.props.workflowRevision.config).map((config) => ({
+      ...config,
+      currentVersion: undefined,
+      taskVersion: config.currentVersion || config.taskVersion,
+    }));
+    return { nodes: Object.values(normilzedConfig) };
   }
 
   createNode = (diagramApp, event) => {
     const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
-
     // For naming purposes
     const nodesOfSameTypeCount = Object.values(
       diagramApp
         .getDiagramEngine()
         .getDiagramModel()
         .getNodes()
-    ).filter(node => node.taskId === taskData.id).length;
+    ).filter((node) => node.taskId === taskData.id).length;
 
     const nodeObj = {
       taskId: taskData.id,
-      taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`
+      taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`,
+      taskVersion: taskData.currentVersion,
     };
-
     let node;
-
     // eslint-disable-next-line default-case
     switch (taskData.nodeType) {
       case NODE_TYPES.DECISION:
@@ -231,19 +235,23 @@ export class WorkflowManagerContainer extends Component {
     }
 
     if (node) {
-      const { id, taskId } = node;
-
+      const { id, taskId, currentVersion } = node;
+      const currentTaskConfig = taskData.revisions?.find((revision) => revision.version === currentVersion) ?? {};
       // Create inputs object with empty string values by default for service to process easily
       const inputs =
-        taskData.config && taskData.config.length
-          ? taskData.config.reduce((accu, item) => {
+        currentTaskConfig.config && currentTaskConfig.config.length
+          ? currentTaskConfig.config.reduce((accu, item) => {
               accu[item.key] = "";
               return accu;
             }, {})
           : {};
-
-      this.props.workflowRevisionActions.addNode({ nodeId: id, taskId, inputs, type: taskData.nodeType });
-
+      this.props.workflowRevisionActions.addNode({
+        nodeId: id,
+        taskId,
+        inputs,
+        type: taskData.nodeType,
+        taskVersion: currentVersion,
+      });
       const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
       node.x = points.x - 110;
       node.y = points.y - 40;
@@ -257,6 +265,7 @@ export class WorkflowManagerContainer extends Component {
 
   render() {
     const { activeTeamId, tasks, teams, workflow, workflowRevision } = this.props;
+
     if (tasks.isFetching || workflow.isFetching || workflowRevision.isFetching) {
       return <Loading />;
     }
@@ -279,7 +288,7 @@ export class WorkflowManagerContainer extends Component {
         <>
           <Prompt
             when={hasUnsavedWorkflowRevisionUpdates}
-            message={location =>
+            message={(location) =>
               location.pathname === this.props.match.url || location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
                 ? true
                 : "Are you sure? You have unsaved changes to your workflow that will be lost."
@@ -294,24 +303,24 @@ export class WorkflowManagerContainer extends Component {
                 enablePersistentStorage: workflow?.data?.enablePersistentStorage ?? false,
                 icon: workflow?.data?.icon ?? "",
                 name: workflow?.data?.name ?? "",
-                selectedTeam: teams.data.find(team => team.id === activeTeamId),
+                selectedTeam: teams.data.find((team) => team.id === activeTeamId),
                 shortDescription: workflow?.data?.shortDescription ?? "",
                 triggers: {
                   event: {
                     enable: workflow?.data?.triggers?.event?.enable ?? false,
-                    topic: workflow?.data?.triggers?.event?.topic ?? ""
+                    topic: workflow?.data?.triggers?.event?.topic ?? "",
                   },
                   scheduler: {
                     enable: workflow?.data?.triggers?.scheduler?.enable ?? false,
                     schedule: workflow?.data?.triggers?.scheduler?.schedule ?? "0 18 * * *",
                     timezone: workflow?.data?.triggers?.scheduler?.timezone ?? false,
-                    advancedCron: workflow?.data?.triggers?.scheduler?.advancedCron ?? false
+                    advancedCron: workflow?.data?.triggers?.scheduler?.advancedCron ?? false,
                   },
                   webhook: {
                     enable: workflow?.data?.triggers?.webhook?.enable ?? false,
-                    token: workflow?.data?.triggers?.webhook?.token ?? false
-                  }
-                }
+                    token: workflow?.data?.triggers?.webhook?.token ?? false,
+                  },
+                },
               }}
               validationSchema={Yup.object().shape({
                 description: Yup.string().max(250, "Description must not be greater than 250 characters"),
@@ -326,22 +335,22 @@ export class WorkflowManagerContainer extends Component {
                 triggers: Yup.object().shape({
                   event: Yup.object().shape({
                     enable: Yup.boolean(),
-                    topic: Yup.string()
+                    topic: Yup.string(),
                   }),
                   scheduler: Yup.object().shape({
                     enable: Yup.boolean(),
                     schedule: Yup.string(),
                     timezone: Yup.mixed(),
-                    advancedCron: Yup.boolean()
+                    advancedCron: Yup.boolean(),
                   }),
                   webhook: Yup.object().shape({
                     enable: Yup.boolean(),
-                    token: Yup.mixed()
-                  })
-                })
+                    token: Yup.mixed(),
+                  }),
+                }),
               })}
             >
-              {formikProps => (
+              {(formikProps) => (
                 <>
                   <Editor
                     createNode={this.createNode}
@@ -369,23 +378,20 @@ export class WorkflowManagerContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   activeTeamId: state.app.activeTeamId,
   isModalOpen: state.app.isModalOpen,
   tasks: state.tasks,
   teams: state.teams,
   workflow: state.workflow,
-  workflowRevision: state.workflowRevision
+  workflowRevision: state.workflowRevision,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   appActions: bindActionCreators(appActions, dispatch),
   tasksActions: bindActionCreators(tasksActions, dispatch),
   workflowActions: bindActionCreators(workflowActions, dispatch),
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch)
+  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WorkflowManagerContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(WorkflowManagerContainer);

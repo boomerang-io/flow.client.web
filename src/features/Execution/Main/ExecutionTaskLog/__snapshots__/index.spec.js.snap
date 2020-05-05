@@ -43,7 +43,6 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               height="32"
               preserveAspectRatio="xMidYMid meet"
               role="img"
-              style="will-change: transform;"
               viewBox="0 0 32 32"
               width="32"
               xmlns="http://www.w3.org/2000/svg"
@@ -51,8 +50,8 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               <path
                 d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
               />
-              <path
-                d="M14 21.5L9 16.54 10.59 14.97 14 18.35 21.41 11 23 12.58 14 21.5z"
+              <polygon
+                points="14 21.5 9 16.54 10.59 14.97 14 18.35 21.41 11 23 12.58 14 21.5"
               />
             </svg>
             <p
@@ -71,13 +70,12 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
             focusable="false"
             height="32"
             preserveAspectRatio="xMidYMid meet"
-            style="will-change: transform;"
             viewBox="0 0 32 32"
             width="32"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="M10 16L20 6 21.4 7.4 12.8 16 21.4 24.6 20 26z"
+            <polygon
+              points="10,16 20,6 21.4,7.4 12.8,16 21.4,24.6 20,26"
             />
           </svg>
         </button>
@@ -104,13 +102,15 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               focusable="false"
               height="32"
               preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
               viewBox="0 0 32 32"
               width="32"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M26.6 20.6L23 24.2 23 4 21 4 21 24.2 17.4 20.6 16 22 22 28 28 22zM10 4L4 10 5.4 11.4 9 7.8 9 28 11 28 11 7.8 14.6 11.4 16 10z"
+              <polygon
+                points="27.6,20.6 24,24.2 24,4 22,4 22,24.2 18.4,20.6 17,22 23,28 29,22"
+              />
+              <polygon
+                points="9,4 3,10 4.4,11.4 8,7.8 8,28 10,28 10,7.8 13.6,11.4 15,10"
               />
             </svg>
           </button>
@@ -145,13 +145,21 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
-                style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M15 11H17V20H15zM13 2H19V4H13z"
+                <rect
+                  height="9"
+                  width="2"
+                  x="15"
+                  y="11"
+                />
+                <rect
+                  height="2"
+                  width="6"
+                  x="13"
+                  y="2"
                 />
                 <path
                   d="M28,9,26.58,7.59,24.33,9.84a10.94,10.94,0,1,0,1.18,1.65ZM16,26a9,9,0,1,1,9-9A9,9,0,0,1,16,26Z"
@@ -173,13 +181,21 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
-                style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M15 11H17V20H15zM13 2H19V4H13z"
+                <rect
+                  height="9"
+                  width="2"
+                  x="15"
+                  y="11"
+                />
+                <rect
+                  height="2"
+                  width="6"
+                  x="13"
+                  y="2"
                 />
                 <path
                   d="M28,9,26.58,7.59,24.33,9.84a10.94,10.94,0,1,0,1.18,1.65ZM16,26a9,9,0,1,1,9-9A9,9,0,0,1,16,26Z"
@@ -193,11 +209,6 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
           <section
             class="data"
           >
-            <p
-              class="subtitle"
-            >
-              Subtitle
-            </p>
             <div
               class="time"
             >
@@ -261,7 +272,6 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
-                style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
@@ -269,8 +279,8 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
                 <path
                   d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
                 />
-                <path
-                  d="M14 21.5L9 16.54 10.59 14.97 14 18.35 21.41 11 23 12.58 14 21.5z"
+                <polygon
+                  points="14 21.5 9 16.54 10.59 14.97 14 18.35 21.41 11 23 12.58 14 21.5"
                 />
               </svg>
               <p
@@ -289,7 +299,6 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
                 role="img"
-                style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
@@ -297,8 +306,8 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
                 <path
                   d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
                 />
-                <path
-                  d="M14 21.5L9 16.54 10.59 14.97 14 18.35 21.41 11 23 12.58 14 21.5z"
+                <polygon
+                  points="14 21.5 9 16.54 10.59 14.97 14 18.35 21.41 11 23 12.58 14 21.5"
                 />
               </svg>
               <p>
@@ -309,11 +318,6 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
           <section
             class="data"
           >
-            <p
-              class="subtitle"
-            >
-              Subtitle
-            </p>
             <div
               class="time"
             >

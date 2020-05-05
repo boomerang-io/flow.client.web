@@ -11,8 +11,13 @@
   margin: 1rem 0.75rem;
   height: 10.31255rem;
   position: relative;
-  overflow: hidden;
   @include border-radius();
+
+  a {
+    &:focus {
+      @include focus-outline($offset: 0rem);
+    }
+  }
 
   :global .bx--overflow-menu {
     height: 2rem;
@@ -93,21 +98,21 @@
   }
 }
 .cardName {
-  color: #242a2e;
+  color: var(--cds-text-01);
   font-size: 1.125rem;
   font-weight: 600;
-  letter-spacing: 0.0625rem;
+  letter-spacing: 0rem;
   line-height: 1.25rem;
   margin-bottom: 0.5rem;
   text-align: left;
 }
 
 .cardDescription {
-  color: #242a2e;
+  color: var(--cds-text-01);
   display: block;
   font-size: 0.75rem;
-  letter-spacing: 0.0625rem;
-  line-height: 0.92rem;
+  letter-spacing: 0rem;
+  line-height: 0.9375rem;
   text-align: left;
   text-overflow: ellipsis;
   word-break: break-word;
@@ -142,4 +147,16 @@
 }
 :global .bx--overflow-menu-options.bx--overflow-menu--flip {
   position: fixed !important;
+}
+
+.templatesWarningIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  position: absolute;
+  top: -0.5rem;
+  right: calc(50% - 0.75rem);
+
+  circle {
+    stroke: var(--cds-text-01);
+  }
 }

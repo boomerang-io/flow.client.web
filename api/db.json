@@ -295,6 +295,7 @@
         {
           "id": "5bd6fdf65a5df954ad47bdbe",
           "name": "lucas-workflow-1",
+          "templatesUpgradeAvailable": true,
           "shortDescription": "qweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldklqweasdzxcdsaldkl",
           "status": "published",
           "icon": "api",
@@ -454,6 +455,7 @@
         {
           "id": "333",
           "name": "benjamin-workflow-1",
+          "templateUpgradesAvailable": true,
           "shortDescription": "Here is a shorter description. Here is a shorter description. Here is a shorter description. ",
           "status": "published",
           "icon": "docs",
@@ -534,73 +536,14 @@
     }
   ],
   "workflowSingle": {
+    "templateUpgradesAvailable": true,
     "dag": {
       "id": "3f58d302-2a3c-4765-b606-7573d313a2fa",
-      "offsetX": -71.52441776159299,
-      "offsetY": -195.3135138148453,
-      "zoom": 81.08074371819056,
+      "offsetX": 0,
+      "offsetY": 0,
+      "zoom": 36.38779735338877,
       "gridSize": 0,
       "links": [
-        {
-          "id": "381de73c-046c-4f71-8a30-8426e1df4d7f",
-          "type": "task",
-          "selected": false,
-          "source": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
-          "sourcePort": "6f1f5e66-9bc1-4675-a654-5f580036a173",
-          "target": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "targetPort": "b53cd3e6-4233-40e6-9843-41631bbae150",
-          "points": [
-            {
-              "id": "9d59d21b-6566-4abb-b477-21aeb0dc1485",
-              "selected": false,
-              "x": 206.44926611186128,
-              "y": 587.9300562056098
-            },
-            {
-              "id": "8bcd25bb-f151-46a2-ad49-2997c06bbe41",
-              "selected": false,
-              "x": 389.7038727968661,
-              "y": 475.9318830440754
-            }
-          ],
-          "extras": {},
-          "labels": [],
-          "width": 3,
-          "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50,
-          "executionCondition": "succcess",
-          "linkId": "381de73c-046c-4f71-8a30-8426e1df4d7f"
-        },
-        {
-          "id": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7",
-          "type": "task",
-          "selected": false,
-          "source": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "sourcePort": "2c52419b-82f0-4dba-83cc-4a61466cd804",
-          "target": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
-          "targetPort": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
-          "points": [
-            {
-              "id": "80992b99-23af-4202-9e52-01308f52b97b",
-              "selected": false,
-              "x": 622.3288560503644,
-              "y": 475.9318830440754
-            },
-            {
-              "id": "e5306c9e-bb7c-48d1-9fea-25b49a7ebdab",
-              "selected": false,
-              "x": 770.822094706076,
-              "y": 334.09494848664224
-            }
-          ],
-          "extras": {},
-          "labels": [],
-          "width": 3,
-          "color": "rgba(255,255,255,0.5)",
-          "curvyness": 50,
-          "executionCondition": "failure",
-          "linkId": "0f5670b1-f82a-47de-a7ea-38e0a9182ac7"
-        },
         {
           "id": "16955507-cc27-4d0c-b17c-debf4573cb3b",
           "type": "decision",
@@ -613,14 +556,14 @@
             {
               "id": "c9e37f73-c060-41ae-9fad-372cff349b0b",
               "selected": false,
-              "x": 1003.4471532365802,
-              "y": 334.09494848664224
+              "x": 1009.3280429210657,
+              "y": 541.9688011746338
             },
             {
               "id": "49bf42e7-484b-44b6-9257-a5a7b4107627",
               "selected": false,
-              "x": 1223.440750426782,
-              "y": 449.7180959949991
+              "x": 1222.062611810589,
+              "y": 452.39063928983467
             }
           ],
           "extras": {},
@@ -628,7 +571,6 @@
           "width": 3,
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
-          "executionCondition": "always",
           "linkId": "16955507-cc27-4d0c-b17c-debf4573cb3b"
         },
         {
@@ -643,14 +585,44 @@
             {
               "id": "15d77fe4-d9ec-49b6-ae80-edcdea1f01fb",
               "selected": false,
-              "x": 1456.0658089572864,
-              "y": 449.7180959949991
+              "x": 1474.06248885537,
+              "y": 452.39063928983467
             },
             {
               "id": "378c95b9-cda5-4dbf-9c8b-ee4778c61a6a",
               "selected": false,
-              "x": 1653.9056844127922,
-              "y": 533.7802571274806
+              "x": 1652.5000671565597,
+              "y": 536.7968530362637
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "linkId": "dbc85ced-7820-4c69-a376-1d1c30a309f3"
+        },
+        {
+          "id": "7c398133-111d-48af-a592-a6118413d08d",
+          "type": "task",
+          "selected": false,
+          "templateUpgradeAvailable": true,
+          "source": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
+          "sourcePort": "6f1f5e66-9bc1-4675-a654-5f580036a173",
+          "target": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
+          "targetPort": "f3d51b38-7886-4b93-a798-517a125d5a19",
+          "points": [
+            {
+              "id": "01ac57bc-d5cd-42c1-9428-e4e3a7967baf",
+              "selected": false,
+              "x": 218.2656259974508,
+              "y": 590.921825379697
+            },
+            {
+              "id": "ffee2569-bbb7-4462-8dc3-017fe75e5520",
+              "selected": true,
+              "x": 343.93747440637395,
+              "y": 511.1562584248039
             }
           ],
           "extras": {},
@@ -659,7 +631,37 @@
           "color": "rgba(255,255,255,0.5)",
           "curvyness": 50,
           "executionCondition": "always",
-          "linkId": "dbc85ced-7820-4c69-a376-1d1c30a309f3"
+          "linkId": "7c398133-111d-48af-a592-a6118413d08d"
+        },
+        {
+          "id": "1920ec14-3bce-47cf-80e5-e6ed88f4f3a9",
+          "type": "task",
+          "selected": false,
+          "source": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
+          "sourcePort": "77433bab-734d-4d7d-aaaf-bcb1db9b7471",
+          "target": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
+          "targetPort": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
+          "points": [
+            {
+              "id": "8035f8f1-8736-4b2a-a745-74588af6c8db",
+              "selected": false,
+              "x": 595.9375191863867,
+              "y": 511.1562584248039
+            },
+            {
+              "id": "2ec3d63a-a754-48eb-8269-1887f8308daf",
+              "selected": true,
+              "x": 823.3281216926395,
+              "y": 541.9688011746338
+            }
+          ],
+          "extras": {},
+          "labels": [],
+          "width": 3,
+          "color": "rgba(255,255,255,0.5)",
+          "curvyness": 50,
+          "executionCondition": "always",
+          "linkId": "1920ec14-3bce-47cf-80e5-e6ed88f4f3a9"
         }
       ],
       "nodes": [
@@ -677,7 +679,7 @@
               "selected": false,
               "name": "right",
               "parentNode": "cbdc30f0-f8d5-4674-87d3-117787fe8263",
-              "links": ["381de73c-046c-4f71-8a30-8426e1df4d7f"],
+              "links": ["7c398133-111d-48af-a592-a6118413d08d"],
               "position": "right",
               "nodePortId": "6f1f5e66-9bc1-4675-a654-5f580036a173"
             }
@@ -708,44 +710,11 @@
           "nodeId": "41b48a51-b3ae-4738-9c20-74ec02ab4ceb"
         },
         {
-          "id": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "type": "templateTask",
-          "selected": false,
-          "x": 404.332255277566,
-          "y": 438.61365845831875,
-          "extras": {},
-          "ports": [
-            {
-              "id": "b53cd3e6-4233-40e6-9843-41631bbae150",
-              "type": "task",
-              "selected": false,
-              "name": "left",
-              "parentNode": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-              "links": ["381de73c-046c-4f71-8a30-8426e1df4d7f"],
-              "nodePortId": "b53cd3e6-4233-40e6-9843-41631bbae150",
-              "position": "left"
-            },
-            {
-              "id": "2c52419b-82f0-4dba-83cc-4a61466cd804",
-              "type": "task",
-              "selected": false,
-              "name": "right",
-              "parentNode": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-              "links": ["0f5670b1-f82a-47de-a7ea-38e0a9182ac7"],
-              "nodePortId": "2c52419b-82f0-4dba-83cc-4a61466cd804",
-              "position": "right"
-            }
-          ],
-          "taskId": "5b92f794844d0700016ea217",
-          "nodeId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "taskName": "Send Slack Message"
-        },
-        {
           "id": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "type": "decision",
           "selected": false,
-          "x": 785.4338409684672,
-          "y": 296.7797349811225,
+          "x": 840.3348438118273,
+          "y": 466.9728437955392,
           "extras": {},
           "ports": [
             {
@@ -754,9 +723,9 @@
               "selected": false,
               "name": "left",
               "parentNode": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
-              "links": ["0f5670b1-f82a-47de-a7ea-38e0a9182ac7"],
-              "nodePortId": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4",
-              "position": "left"
+              "links": ["1920ec14-3bce-47cf-80e5-e6ed88f4f3a9"],
+              "position": "left",
+              "nodePortId": "33c03d2f-fa52-4ce2-9134-d914ecb75ef4"
             },
             {
               "id": "0d350a4e-1715-49f2-a788-0626a1c80009",
@@ -765,8 +734,8 @@
               "name": "right",
               "parentNode": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
               "links": ["16955507-cc27-4d0c-b17c-debf4573cb3b"],
-              "nodePortId": "0d350a4e-1715-49f2-a788-0626a1c80009",
-              "position": "right"
+              "position": "right",
+              "nodePortId": "0d350a4e-1715-49f2-a788-0626a1c80009"
             }
           ],
           "taskId": "7be9d03a8a5df958ad58b3b8",
@@ -805,22 +774,46 @@
           "taskId": "5b92f794844d0700016ea216",
           "nodeId": "7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8",
           "taskName": "read Ingest CSV 1"
+        },
+        {
+          "id": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
+          "type": "templateTask",
+          "selected": false,
+          "x": 359.93776056102746,
+          "y": 471.1603711365562,
+          "extras": {},
+          "ports": [
+            {
+              "id": "f3d51b38-7886-4b93-a798-517a125d5a19",
+              "type": "task",
+              "selected": false,
+              "name": "left",
+              "parentNode": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
+              "links": ["7c398133-111d-48af-a592-a6118413d08d"],
+              "nodePortId": "f3d51b38-7886-4b93-a798-517a125d5a19",
+              "position": "left"
+            },
+            {
+              "id": "77433bab-734d-4d7d-aaaf-bcb1db9b7471",
+              "type": "task",
+              "selected": false,
+              "name": "right",
+              "parentNode": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
+              "links": ["1920ec14-3bce-47cf-80e5-e6ed88f4f3a9"],
+              "nodePortId": "77433bab-734d-4d7d-aaaf-bcb1db9b7471",
+              "position": "right"
+            }
+          ],
+          "taskId": "Z0WdhFdks",
+          "nodeId": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
+          "taskName": "test22 1",
+          "templateUpgradeAvailable": true,
+          "taskVersion": 3
         }
       ]
     },
     "config": {
       "nodes": [
-        {
-          "nodeId": "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
-          "taskId": "5b92f794844d0700016ea217",
-          "inputs": {
-            "channel": "",
-            "title": "",
-            "message": "",
-            "taskName": "Send Slack Message"
-          },
-          "type": "templateTask"
-        },
         {
           "nodeId": "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           "taskId": "5bd98b105a5df954ad599bc2",
@@ -842,11 +835,21 @@
             "shell": ""
           },
           "type": "templateTask"
+        },
+        {
+          "nodeId": "d7f90f78-12f3-445d-b88a-b33368b5fd66",
+          "taskId": "Z0WdhFdks",
+          "inputs": {
+            "token": "1234",
+            "slack": "here"
+          },
+          "type": "templateTask",
+          "taskVersion": 3
         }
       ]
     },
     "changelog": {
-      "reason": "Update workflow"
+      "reason": "aaaaa"
     }
   },
   "workflowRevision": {
@@ -1014,6 +1017,7 @@
           "x": 340,
           "y": 270.25,
           "extras": {},
+          "templateUpgradeAvailable": true,
           "ports": [
             {
               "nodePortId": "5afc712a-c52b-477a-a475-2674fe184330",
@@ -10899,6 +10903,386 @@
       "description": "adsasd",
       "type": "text",
       "id": "pe7PiMG"
+    }
+  ],
+  "taskTemplates": [
+    {
+      "id": "Z0WdhFdks",
+      "name": "test22",
+      "description": "aaaaa",
+      "category": "file utilities",
+      "key": "test22",
+      "revisions": [
+        {
+          "version": 1,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": ["6", "t7"],
+          "config": []
+        },
+        {
+          "version": 2,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": ["t2", "t5", "6", "t7"],
+          "config": [
+            {
+              "key": "token",
+              "label": "Token",
+              "type": "text",
+              "helperText": "The Slack App token.",
+              "description": "Token Desciption",
+              "placeholder": "Token placeholder"
+            }
+          ]
+        },
+        {
+          "version": 3,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": ["file", "replaceStringInFile"],
+          "config": [
+            {
+              "key": "token",
+              "label": "Token",
+              "type": "text",
+              "helperText": "The Slack App token.",
+              "description": "Token Desciption",
+              "placeholder": "Token placeholder",
+              "readOnly": false
+            },
+            {
+              "key": "slack",
+              "label": "Slack",
+              "type": "text",
+              "helperText": "Slack",
+              "description": "",
+              "placeholder": "",
+              "readOnly": false
+            }
+          ]
+        }
+      ],
+      "icon": "Download",
+      "status": "active",
+      "currentVersion": 3,
+      "nodeType": "templateTask"
+    },
+    {
+      "id": "Z0WdhFks",
+      "name": "test22",
+      "description": "aaaaa",
+      "category": "file utilities",
+      "key": "test22",
+      "revisions": [
+        {
+          "version": 1,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": ["6", "t7"],
+          "config": []
+        },
+        {
+          "version": 2,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": ["t2", "t5", "6", "t7"],
+          "config": [
+            {
+              "key": "token",
+              "label": "Token",
+              "type": "text",
+              "helperText": "The Slack App token.",
+              "description": "Token Desciption",
+              "placeholder": "Token placeholder"
+            }
+          ]
+        },
+        {
+          "version": 3,
+          "image": "container:version",
+          "command": "bmrgctl",
+          "arguments": ["file", "replaceStringInFile"],
+          "config": [
+            {
+              "key": "token",
+              "label": "Token",
+              "type": "text",
+              "helperText": "The Slack App token.",
+              "description": "Token Desciption",
+              "placeholder": "Token placeholder",
+              "readOnly": false
+            },
+            {
+              "key": "slack",
+              "label": "Slack",
+              "type": "text",
+              "helperText": "Slack",
+              "description": "",
+              "placeholder": "",
+              "readOnly": false
+            }
+          ]
+        }
+      ],
+      "icon": "Export",
+      "status": "active",
+      "currentVersion": 3,
+      "nodeType": "templateTask"
+    },
+    {
+      "name": "test",
+      "description": "dadadasd",
+      "category": "test",
+      "key": "test.key",
+      "currentVersion": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "image": "sadasdasd",
+          "command": "bmrgctl",
+          "arguments": ["t2", "t5"],
+          "config": []
+        }
+      ],
+      "icon": "Download",
+      "nodeType": "templateTask",
+      "id": "_Azwr_t"
+    },
+    {
+      "id": "5d1ed36a988e7b6b6f7b470b",
+      "description": "Replace String in File.",
+      "key": "replaceStringInFile",
+      "name": "Replace String in File",
+      "category": "file utilities",
+      "revisions": [
+        {
+          "version": 1,
+          "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+          "command": "",
+          "arguments": ["file", "replaceStringInFile"],
+          "config": [
+            {
+              "placeholder": "",
+              "helperText": "The path to file including file",
+              "readOnly": false,
+              "description": "",
+              "key": "path",
+              "label": "Path",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "String or regular regular expression to search for in file",
+              "readOnly": false,
+              "description": "",
+              "key": "expression",
+              "label": "Regular Expression",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "String to replace with",
+              "readOnly": false,
+              "description": "",
+              "key": "replaceString",
+              "label": "Replacement String",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "Regular expression flags",
+              "readOnly": false,
+              "description": "",
+              "key": "flags",
+              "label": "Flags",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "Fail task if not found otherwise continue",
+              "readOnly": false,
+              "description": "",
+              "key": "failIfNotFound",
+              "label": "Fail If Not Found",
+              "type": "boolean"
+            }
+          ],
+          "createdDate": null
+        }
+      ],
+      "icon": "Export",
+      "status": "active",
+      "currentVersion": 1,
+      "nodeType": "templateTask"
+    },
+    {
+      "id": "5bd9d03a5a5df954ad5bb3b5",
+      "description": "Create file in worker",
+      "key": "createFile",
+      "name": "Create File",
+      "category": "file utilities",
+      "revisions": [
+        {
+          "version": 1,
+          "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+          "command": "",
+          "arguments": ["file", "createFile"],
+          "config": [
+            {
+              "placeholder": "",
+              "helperText": "The file path incl file name",
+              "readOnly": false,
+              "description": "",
+              "key": "path",
+              "label": "File Path",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "",
+              "readOnly": false,
+              "description": "",
+              "key": "content",
+              "label": "File Content",
+              "type": "texteditor"
+            }
+          ],
+          "createdDate": null
+        }
+      ],
+      "icon": "Power",
+      "status": "active",
+      "currentVersion": 1,
+      "nodeType": "templateTask"
+    },
+    {
+      "id": "5c3fbc92352b1b51416952d1",
+      "description": "Check file or folder exists and fail if not found.",
+      "key": "checkFileOrFolderExists",
+      "name": "Check File or Folder Exists",
+      "category": "file utilities",
+      "revisions": [
+        {
+          "version": 1,
+          "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+          "command": "",
+          "arguments": null,
+          "config": [
+            {
+              "placeholder": "",
+              "helperText": "The working directory path",
+              "readOnly": false,
+              "description": "",
+              "key": "path",
+              "label": "Path",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "Regular expression to search for files or folders within the specified path",
+              "readOnly": false,
+              "description": "",
+              "key": "expression",
+              "label": "Regular Expression",
+              "type": "text"
+            }
+          ],
+          "createdDate": null
+        }
+      ],
+      "icon": "Export",
+      "status": "active",
+      "currentVersion": 1,
+      "nodeType": "templateTask"
+    },
+    {
+      "id": "5d1ed216988e7b6b6f7b3c1c",
+      "description": "Check file contains string.",
+      "key": "checkFileContainsString",
+      "name": "Check File Contains String",
+      "category": "file utilities",
+      "revisions": [
+        {
+          "version": 1,
+          "image": "tools.boomerangplatform.net:8500/ise/bmrg-worker-flow:2.0.0",
+          "command": "",
+          "arguments": ["file", "checkFileContainsString"],
+          "config": [
+            {
+              "placeholder": "",
+              "helperText": "The path to file including file",
+              "readOnly": false,
+              "description": "",
+              "key": "path",
+              "label": "Path",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "String or regular regular expression to search for in file",
+              "readOnly": false,
+              "description": "",
+              "key": "expression",
+              "label": "Regular Expression",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "Regular expression flags",
+              "readOnly": false,
+              "description": "",
+              "key": "flags",
+              "label": "Flags",
+              "type": "text"
+            },
+            {
+              "placeholder": "",
+              "helperText": "Fail task if not found otherwise continue",
+              "readOnly": false,
+              "description": "",
+              "key": "failIfNotFound",
+              "label": "Fail If Not Found",
+              "type": "boolean"
+            }
+          ],
+          "createdDate": null
+        }
+      ],
+      "icon": "Restart",
+      "status": "active",
+      "currentVersion": 1,
+      "nodeType": "templateTask"
+    },
+    {
+      "name": "tes3",
+      "description": "testestest",
+      "category": "github",
+      "key": "test.key3",
+      "currentVersion": 1,
+      "revisions": [
+        {
+          "version": 1,
+          "image": "slack",
+          "arguments": ["t2", "t5"],
+          "command": "test",
+          "config": [
+            {
+              "placeholder": "",
+              "helperText": "Fail task if not found otherwise continue",
+              "readOnly": false,
+              "description": "",
+              "key": "failIfNotFound",
+              "label": "Fail If Not Found",
+              "type": "boolean"
+            }
+          ]
+        }
+      ],
+      "icon": "Checkmark",
+      "status": "inactive",
+      "nodeType": "templateTask",
+      "id": "7rJT_Dq"
     }
   ]
 }

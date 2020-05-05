@@ -5,19 +5,21 @@ import merge from "lodash/merge";
 
 export default class CustomTaskNodeModel extends NodeModel {
   //list all three params
-  constructor({ taskId, taskName }) {
+  constructor({ taskId, taskName, taskVersion }) {
     super(NODE_TYPES.CUSTOM_TASK);
     this.addPort(new TaskPortModel("left"));
     this.addPort(new TaskPortModel("right"));
     this.taskId = taskId;
     this.taskName = taskName;
+    this.currentVersion= taskVersion;
   }
 
   serialize() {
     return merge(super.serialize(), {
       nodeId: this.id,
       taskId: this.taskId,
-      taskName: this.taskName
+      taskName: this.taskName,
+      taskVersion: this.currentVersion
     });
   }
 
@@ -26,5 +28,6 @@ export default class CustomTaskNodeModel extends NodeModel {
     this.id = data.nodeId;
     this.taskId = data.taskId;
     this.taskName = data.taskName;
+    this.currentVersion = data.taskVersion || data.currentVersion;
   }
 }

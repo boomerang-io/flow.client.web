@@ -68,22 +68,23 @@ function OverflowMenuComponent({
       )}
       {deleteModalIsOpen && (
         <ConfirmModal
+          isOpen={deleteModalIsOpen}
           affirmativeAction={() => {
             deleteTeamPropertyInStore(property);
             setDeleteModalIsOpen(false);
           }}
-          negativeText="No"
-          affirmativeText="Yes"
-          title={`Delete ${property.label.toUpperCase()}?`}
-          onCloseModal={() => {
-            setDeleteModalIsOpen(false);
-          }}
-          isOpen={deleteModalIsOpen}
+          affirmativeButtonProps={{ kind: "danger" }}
+          affirmativeText="Delete"
+          negativeText="Cancel"
           negativeAction={() => {
             setDeleteModalIsOpen(false);
           }}
+          onCloseModal={() => {
+            setDeleteModalIsOpen(false);
+          }}
+          title={`Delete ${property.label}`}
         >
-          <div>It will be Deleted.</div>
+          <div>It will be gone and no longer usable in Workflows. This could break things so be careful.</div>
         </ConfirmModal>
       )}
     </>

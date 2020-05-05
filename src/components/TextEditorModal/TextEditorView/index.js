@@ -59,9 +59,10 @@ function TextEditorView(props) {
   );
 
   useEffect(() => {
-    const autoSuggestions = props.autoSuggestions.map(elm => {
-      return { text: elm.value, displayText: elm.label };
-    });
+    const autoSuggestions =
+      props.autoSuggestions?.map(elm => {
+        return { text: elm.value, displayText: elm.label };
+      }) ?? [];
 
     CodeMirror.registerHelper("hint", "dictionaryHint", function(editor) {
       const cur = editor.getCursor();
@@ -335,6 +336,7 @@ function TextEditorView(props) {
           }}
           value={value}
           options={{
+            readOnly: props.readOnly,
             theme: "material",
             extraKeys: {
               "Ctrl-Space": "autocomplete",

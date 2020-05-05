@@ -80,8 +80,7 @@ class CreateEditModeModalContent extends Component {
                   />
                   <TextInput
                     id="name"
-                    labelText="Name"
-                    placeholder="Name"
+                    labelText="Workflow Name"
                     value={values.name}
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -92,7 +91,6 @@ class CreateEditModeModalContent extends Component {
                 <TextInput
                   id="summary"
                   labelText="Summary"
-                  placeholder="Summary"
                   value={values.summary}
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -102,7 +100,6 @@ class CreateEditModeModalContent extends Component {
                 <TextArea
                   id="description"
                   labelText="Description"
-                  placeholder="Description"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   invalid={errors.description && touched.description}
