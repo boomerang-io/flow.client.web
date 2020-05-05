@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link, useHistory, matchPath, useLocation } from "react-router-dom";
-// import axios from "axios";
 import cx from "classnames";
 import capitalize from "lodash/capitalize";
+import sortBy from "lodash/sortBy";
 import matchSorter from "match-sorter";
 import {
   Search,
@@ -16,7 +16,6 @@ import {
 import AddTaskTemplate from "./AddTaskTemplate";
 import { appLink } from "Config/appConfig";
 import { Bee16, ViewOff16, SettingsAdjust20 } from "@carbon/icons-react";
-// import taskTemplateIcons from "Assets/taskTemplateIcons";
 import { taskIcons } from "Utilities/taskIcons";
 import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import styles from "./sideInfo.module.scss";
@@ -35,8 +34,6 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   );
   const [openCategories, setOpenCategories] = React.useState(false);
   const [showArchived, setShowArchived] = React.useState(false);
-  // const Image = taskTemplateIcons[0].src;
-  // const getFilterType = taskTemplates.map(task => taskTemplates.)
   const taskFilters = taskIcons.map(icon => ({
     id: icon.iconName,
     labelText: (
@@ -50,14 +47,15 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   const location = useLocation();
   const globalMatch = matchPath(location.pathname, { path: "/task-templates/:taskTemplateId/:version" });
 
-  let categories = tasksToDisplay.reduce((acc, task) => {
-    const newCategory = !acc.find(category => task.category.toLowerCase() === category?.toLowerCase());
-    if (newCategory) acc.push(capitalize(task.category));
-    return acc;
-  }, []);
+  let categories = tasksToDisplay
+    .reduce((acc, task) => {
+      const newCategory = !acc.find(category => task.category.toLowerCase() === category?.toLowerCase());
+      if (newCategory) acc.push(capitalize(task.category));
+      return acc;
+    }, [])
+    .sort();
 
   React.useEffect(() => {
-    // setSearchQuery("");
     const newTaskTemplates = showArchived
       ? taskTemplates
       : taskTemplates.filter(task => task.status === TaskTemplateStatus.Active);
@@ -68,7 +66,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
 
   const tasksByCategory = categories.map(category => ({
     name: category,
-    tasks: tasksToDisplay.filter(task => capitalize(task.category) === category)
+    tasks: sortBy(tasksToDisplay.filter(task => capitalize(task.category) === category).sort(), "name")
   }));
 
   const handleOnSearchInputChange = e => {
