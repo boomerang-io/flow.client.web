@@ -22,7 +22,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               for="label"
             >
               <div
-                style="display: flex;"
+                class="bx--bmrg-text-input__label"
               >
                 <div>
                   Name
@@ -53,7 +53,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               for="description"
             >
               <div
-                style="display: flex;"
+                class="bx--bmrg-text-input__label"
               >
                 <div>
                   Description
@@ -76,19 +76,17 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
         <div
           class="bx--bmrg-toggle --vertical"
         >
-          <div>
-            <div
-              class="bx--bmrg-toggle__title"
+          <div
+            class="bx--bmrg-toggle__title"
+          >
+            <label
+              class="bx--label"
+              for="required"
+              id="required-label"
+              style="margin-bottom: 0px;"
             >
-              <label
-                class="bx--label"
-                for="required"
-                id="required-label"
-                style="margin-bottom: 0px;"
-              >
-                Required
-              </label>
-            </div>
+              Required
+            </label>
           </div>
           <div
             class="bx--form-item"
@@ -224,7 +222,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               for="defaultValue"
             >
               <div
-                style="display: flex;"
+                class="bx--bmrg-text-input__label"
               >
                 <div>
                   Default Value

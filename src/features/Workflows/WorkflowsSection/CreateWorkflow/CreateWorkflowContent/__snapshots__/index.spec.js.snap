@@ -99,7 +99,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
                 for="name"
               >
                 <div
-                  style="display: flex;"
+                  class="bx--bmrg-text-input__label"
                 >
                   <div>
                     Workflow Name
@@ -130,7 +130,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
               for="summary"
             >
               <div
-                style="display: flex;"
+                class="bx--bmrg-text-input__label"
               >
                 <div>
                   Summary
