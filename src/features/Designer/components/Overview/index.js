@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { TooltipDefinition } from "carbon-components-react";
 import {
   ComboBox,
   ConfirmModal,
@@ -15,7 +14,8 @@ import {
   TextInput,
   Toggle,
   notify,
-  ToastNotification
+  ToastNotification,
+  TooltipHover
 } from "@boomerang/carbon-addons-boomerang-react";
 import CronJobModal from "./CronJobModal";
 import workflowIcons from "Assets/workflowIcons";
@@ -212,13 +212,13 @@ export class Overview extends Component {
                         ? values.triggers.webhook.token.toString().replace(/./g, "*")
                         : values.triggers.webhook.token}{" "}
                     </p>
-                    <TooltipDefinition direction="top" tooltipText={this.state.showTokenText}>
+                    <TooltipHover direction="top" content={this.state.showTokenText}>
                       <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
                         <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
                       </button>
-                    </TooltipDefinition>
+                    </TooltipHover>
                     <CopyToClipboard text={values.triggers.webhook.token}>
-                      <TooltipDefinition direction="top" tooltipText={this.state.copyTokenText}>
+                      <TooltipHover direction="top" content={this.state.copyTokenText}>
                         <button
                           onClick={() => this.setState({ copyTokenText: "Copied Token" })}
                           onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
@@ -226,7 +226,7 @@ export class Overview extends Component {
                         >
                           <CopyFile16 fill={"#0072C3"} className={styles.webhookImg} alt="Copy token" />
                         </button>
-                      </TooltipDefinition>
+                      </TooltipHover>
                     </CopyToClipboard>
                   </div>
                   <div>

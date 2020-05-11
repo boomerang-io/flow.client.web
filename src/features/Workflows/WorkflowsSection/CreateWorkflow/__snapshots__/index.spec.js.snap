@@ -257,7 +257,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                       for="name"
                     >
                       <div
-                        style="display: flex;"
+                        class="bx--bmrg-text-input__label"
                       >
                         <div>
                           Workflow Name
@@ -288,7 +288,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                     for="summary"
                   >
                     <div
-                      style="display: flex;"
+                      class="bx--bmrg-text-input__label"
                     >
                       <div>
                         Summary

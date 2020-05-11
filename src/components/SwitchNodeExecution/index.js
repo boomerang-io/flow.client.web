@@ -32,7 +32,7 @@ export class SwitchNodeExecution extends Component {
         className={cx(styles.node, styles[flowTaskStatus], {
           [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED,
         })}
-        icon={task.icon}
+        icon={task?.icon}
         node={node}
         rightPortClass={styles.rightPort}
         subtitle={node.taskName}
