@@ -250,14 +250,15 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
           </div>
         </div>
       </header>
-      <main
+      <section
+        aria-label="Workflows Content"
         class="content"
       >
         <error404
           message="You need to be a member of a team to use Flow"
           title="No teams found"
         />
-      </main>
+      </section>
     </div>
   </div>
 </body>
