@@ -8,7 +8,6 @@ import { ErrorBoundary } from "@boomerang/carbon-addons-boomerang-react";
 import App from "Features/App";
 import ErrorDragon from "Components/ErrorDragon";
 import { APP_ROOT } from "Config/appConfig";
-import { hot } from "react-hot-loader/root";
 
 const Root = props => {
   const { store } = props;
@@ -30,4 +29,4 @@ Root.propTypes = {
   store: PropTypes.object.isRequired
 };
 
-export default hot(Root);
+export default Root;

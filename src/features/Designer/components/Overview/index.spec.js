@@ -60,7 +60,8 @@ const props = {
     touched: {}
   },
   teams: [],
-  updateWorkflow: mockfn
+  updateWorkflow: mockfn,
+  workflow:{}
 };
 
 beforeEach(() => {

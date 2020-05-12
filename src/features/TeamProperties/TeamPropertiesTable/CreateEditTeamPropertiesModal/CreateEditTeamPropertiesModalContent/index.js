@@ -88,6 +88,7 @@ class CreateEditTeamPropertiesModalContent extends Component {
           description: Yup.string(),
           secured: Yup.boolean(),
         })}
+        validateOnMount
       >
         {(props) => {
           const { values, touched, errors, isSubmitting, isValid, handleChange, handleBlur, handleSubmit } = props;

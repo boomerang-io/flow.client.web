@@ -199,6 +199,7 @@ class PropertiesTable extends Component {
                           {headers.map(header => (
                             <TableHeader
                               id={header.key}
+                              key={header.key}
                               {...getHeaderProps({
                                 header,
                                 className: `${styles.tableHeadHeader} ${styles[header.key]}`
@@ -243,7 +244,7 @@ class PropertiesTable extends Component {
                       <TableHead>
                         <TableRow>
                           {headers.map(header => (
-                            <TableHeader id={header.key}>{header.header}</TableHeader>
+                            <TableHeader id={header.key} key={header.key}>{header.header}</TableHeader>
                           ))}
                         </TableRow>
                       </TableHead>

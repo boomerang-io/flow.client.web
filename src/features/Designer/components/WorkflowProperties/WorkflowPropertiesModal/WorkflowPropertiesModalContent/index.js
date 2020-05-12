@@ -317,6 +317,7 @@ class WorkflowPropertiesModalContent extends Component {
                   itemToString={item => item && item.label}
                   placeholder="Select an item"
                   titleText="Type"
+                  data-testid="input-type"
                 />
 
                 {this.renderDefaultValue(formikProps)}
