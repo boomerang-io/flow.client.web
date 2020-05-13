@@ -75,7 +75,7 @@
     "preprod": "run-s build prod:installServerDependencies prod:rewriteAssetPaths",
     "prod": "run-p apiServer prod:server",
     "prod:installServerDependencies": "npm --prefix ./server install ./server",
-    "prod:rewriteAssetPaths": "cross-env APP_ROOT=/flow node server/scripts/rewriteAssetPaths.js",
+    "prod:rewriteAssetPaths": "cross-env APP_ROOT=/local node server/scripts/rewriteAssetPaths.js",
     "prod:server": "cd server && npm run-script dev",
     "start": "react-scripts start",
     "test": "is-ci \"test:ci\" \"test:watch\"",
