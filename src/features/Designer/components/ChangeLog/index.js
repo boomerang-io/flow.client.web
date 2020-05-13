@@ -21,7 +21,7 @@ class ChangeLog extends Component {
 
   componentDidMount() {
     this.props.actions.fetch(
-      `${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/changelog?sort=version&order=DESC`
+      `${BASE_SERVICE_URL}/workflow/${this.props.workflow.id}/changelog?sort=version&order=DESC`
     );
   }
 
@@ -59,7 +59,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChangeLog);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangeLog);

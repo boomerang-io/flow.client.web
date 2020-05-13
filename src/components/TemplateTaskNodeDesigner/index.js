@@ -1,9 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actions as workflowRevisionActions } from "State/workflowRevision";
-import { actions as appActions } from "State/app";
+import { useWorkflowContext } from "Hooks";
 import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
@@ -13,98 +10,118 @@ import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./TemplateTaskNodeDesigner.module.scss";
 
-export class TemplateTaskNodeDesigner extends Component {
-  static propTypes = {
-    node: PropTypes.object.isRequired,
-    nodeConfig: PropTypes.object.isRequired,
-    task: PropTypes.object.isRequired,
-    taskNames: PropTypes.array.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired,
+TemplateTaskNodeDesigner.propTypes = {
+  diagramEngine: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired
+};
+
+TemplateTaskNodeDesigner.defaultProps = {
+  node: {}
+};
+
+export default function TemplateTaskNodeDesigner({ diagramEngine, node: designerNode }) {
+  const { revisionDispatch, revisionState, summaryState, setIsModalOpen, taskTemplatesData } = useWorkflowContext();
+
+  /**
+   * Pull data off of context
+   */
+  const inputProperties = summaryState.properties;
+  const nodeDag = revisionState.dag?.nodes?.find(revisionNode => revisionNode.nodeId === designerNode.id) ?? {};
+  const nodeConfig = revisionState.config[designerNode.id] ?? {};
+  const task = taskTemplatesData.find(taskTemplate => taskTemplate.id === designerNode.taskId);
+
+  // Get the taskNames names from the nodes on the model
+  const taskNames = Object.values(diagramEngine.getDiagramModel().getNodes())
+    .map(node => node.taskName)
+    .filter(name => Boolean(name));
+
+  /**
+   * Event handlers
+   */
+  const handleOnUpdateTaskVersion = ({ version, inputs }) => {
+    revisionDispatch({
+      type: "UPDATE_NODE_TASK_VERSION",
+      data: { nodeId: designerNode.id, inputs, version }
+    });
   };
 
-  static defaultProps = {
-    node: {},
-    nodeConfig: {},
-    task: {},
-  };
-
-  handleOnUpdateTaskVersion = ({ version, inputs }) => {
-    this.props.workflowRevisionActions.updateNodeTaskVersion({ nodeId: this.props.node.id, inputs, version });
-    this.forceUpdate();
-  };
-
-  handleOnSaveTaskConfig = (inputs) => {
-    this.props.workflowRevisionActions.updateNodeConfig({ nodeId: this.props.node.id, inputs });
-    this.forceUpdate();
+  const handleOnSaveTaskConfig = inputs => {
+    revisionDispatch({
+      type: "UPDATE_NODE_CONFIG",
+      data: { nodeId: designerNode.id, inputs }
+    });
   };
 
   // Delete the node in state and then remove it from the diagram
-  handleOnDelete = () => {
-    this.props.workflowRevisionActions.deleteNode({ nodeId: this.props.node.id });
-    this.props.node.remove();
+  const handleOnDelete = () => {
+    //deleteNode
+    revisionDispatch({
+      type: "DELETE_NODE",
+      data: { nodeId: designerNode.id }
+    });
+    designerNode.remove();
   };
 
-  renderConfigureTask() {
+  const renderConfigureTask = () => {
     return (
       <ComposedModal
         composedModalProps={{
-          onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
-          shouldCloseOnOverlayClick: false,
+          onAfterOpen: () => setIsModalOpen(true)
         }}
         confirmModalProps={{
           title: "Are you sure?",
-          children: "Your changes will not be saved",
+          children: "Your changes will not be saved"
         }}
         modalHeaderProps={{
-          title: `Edit ${this.props.task.name}`,
-          subtitle: this.props.task.description || "Configure the inputs",
+          title: `Edit ${task.name}`,
+          subtitle: task.description || "Configure the inputs"
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
-        onCloseModal={() => this.props.appActions.setIsModalOpen({ isModalOpen: false })}
+        onCloseModal={() => setIsModalOpen(false)}
       >
         {({ closeModal }) => (
           <WorkflowTaskForm
-            inputProperties={this.props.inputProperties}
+            inputProperties={inputProperties}
             closeModal={closeModal}
-            node={this.props.node}
-            nodeConfig={this.props.nodeConfig}
-            onSave={this.handleOnSaveTaskConfig}
-            taskNames={this.props.taskNames}
-            task={this.props.task}
+            node={designerNode}
+            nodeConfig={nodeConfig}
+            onSave={handleOnSaveTaskConfig}
+            taskNames={taskNames}
+            task={task}
           />
         )}
       </ComposedModal>
     );
-  }
+  };
 
-  renderUpdateTaskVersion() {
-    if (this.props.nodeDag?.templateUpgradeAvailable) {
+  const renderUpdateTaskVersion = () => {
+    if (nodeDag?.templateUpgradeAvailable) {
       return (
         <ComposedModal
           composedModalProps={{
             containerClassName: styles.updateTaskModalContainer,
-            onAfterOpen: () => this.props.appActions.setIsModalOpen({ isModalOpen: true }),
-            shouldCloseOnOverlayClick: false,
+            onAfterOpen: () => setIsModalOpen(true),
+            shouldCloseOnOverlayClick: false
           }}
           modalHeaderProps={{
             title: `New version available`,
             subtitle:
-              "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
+              "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears."
           }}
           modalTrigger={({ openModal }) => (
             <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
           )}
-          onCloseModal={() => this.props.appActions.setIsModalOpen({ isModalOpen: false })}
+          onCloseModal={() => setIsModalOpen(false)}
         >
           {({ closeModal }) => (
             <TaskUpdateModal
               closeModal={closeModal}
-              inputProperties={this.props.inputProperties}
-              node={this.props.node}
-              nodeConfig={this.props.nodeConfig}
-              onSave={this.handleOnUpdateTaskVersion}
-              taskNames={this.props.taskNames}
-              task={this.props.task}
+              inputProperties={inputProperties}
+              node={designerNode}
+              nodeConfig={nodeConfig}
+              onSave={handleOnUpdateTaskVersion}
+              taskNames={taskNames}
+              task={task}
             />
           )}
         </ComposedModal>
@@ -112,42 +129,22 @@ export class TemplateTaskNodeDesigner extends Component {
     }
 
     return null;
-  }
-
-  render() {
-    const { task, node } = this.props;
+  };
+  if (nodeConfig && nodeDag && task) {
     return (
       <WorkflowNode
         category={task.category}
         icon={task.icon}
         name={task.name}
-        node={node}
-        subtitle={node.taskName}
+        node={designerNode}
+        subtitle={designerNode.taskName}
         title={task.name}
       >
-        {this.renderUpdateTaskVersion()}
-        {this.renderConfigureTask()}
-        <WorkflowCloseButton className={styles.closeButton} onClick={this.handleOnDelete} />
+        {renderUpdateTaskVersion()}
+        {renderConfigureTask()}
+        <WorkflowCloseButton className={styles.closeButton} onClick={handleOnDelete} />
       </WorkflowNode>
     );
   }
+  return null;
 }
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    inputProperties: state.workflow.data.properties,
-    nodeDag: state.workflowRevision.dag?.nodes?.find((node) => node.nodeId === ownProps.node.id) ?? {},
-    nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    task: state.tasks.data.find((task) => task.id === ownProps.node.taskId),
-    taskNames: Object.values(ownProps.diagramEngine.getDiagramModel().getNodes()) // get the taskNames names from the nodes on the model
-      .map((node) => node.taskName)
-      .filter((name) => !!name),
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  appActions: bindActionCreators(appActions, dispatch),
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TemplateTaskNodeDesigner);

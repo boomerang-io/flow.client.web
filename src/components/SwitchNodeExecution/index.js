@@ -12,27 +12,27 @@ export class SwitchNodeExecution extends Component {
     node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
     task: PropTypes.object.isRequired,
-    workflowExecution: PropTypes.object.isRequired,
+    workflowExecution: PropTypes.object.isRequired
   };
 
   static defaultProps = {
     node: {},
-    nodeConfig: {},
+    nodeConfig: {}
   };
 
   render() {
     const { node, task } = this.props;
     const { steps } = this.props.workflowExecution.data;
-    const step = Array.isArray(steps) ? steps.find((step) => step.taskId === node.id) : {};
+    const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
     const flowTaskStatus = step?.flowTaskStatus ?? EXECUTION_STATUSES.SKIPPED;
 
     return (
       <WorkflowNode
         isExecution
         className={cx(styles.node, styles[flowTaskStatus], {
-          [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED,
+          [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED
         })}
-        icon={task.icon}
+        icon={task?.icon}
         node={node}
         rightPortClass={styles.rightPort}
         subtitle={node.taskName}
@@ -50,9 +50,9 @@ export class SwitchNodeExecution extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    task: state.tasks.data.find((task) => task.id === ownProps.node.taskId),
+    task: state.tasks.data.find(task => task.id === ownProps.node.taskId),
     nodeConfig: state.workflowRevision.config[ownProps.node.id],
-    workflowExecution: state.workflowExecution,
+    workflowExecution: state.workflowExecution
   };
 };
 

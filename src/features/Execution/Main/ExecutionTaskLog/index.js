@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import orderBy from "lodash/orderBy";
 import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";
-import { SkeletonPlaceholder, TooltipDefinition } from "carbon-components-react";
+import { SkeletonPlaceholder, TooltipIcon } from "carbon-components-react";
 import TaskItem from "./TaskItem";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
 import { ACTIVITY_STATUSES_TO_ICON, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
@@ -59,16 +59,11 @@ function ExecutionTaskLog({ workflowExecution }) {
       <section className={styles.taskbar}>
         <p className={styles.taskbarTitle}>Task log</p>
         {!isCollapsed && (
-          <TooltipDefinition
-            align="center"
-            className={styles.taskbarButton}
-            data-testid="taskbar-button"
-            direction="top"
-            onClick={toggleSort}
-            tooltipText="Change sort direction (by start time)"
-          >
-            <Arrows32 className={styles.taskbarArrows} />
-          </TooltipDefinition>
+          <TooltipIcon align="center" direction="top" tooltipText="Change sort direction (by start time)">
+            <button onClick={toggleSort} className={styles.taskbarButton} data-testid="taskbar-button">
+              <Arrows32 className={styles.taskbarArrows} />
+            </button>
+          </TooltipIcon>
         )}
       </section>
       <ul className={styles.tasklog}>

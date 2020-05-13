@@ -52,15 +52,21 @@ export const HTTP_METHODS = {
 };
 
 export const serviceUrl = {
-  getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}`,
-  restoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`,
   getUserProfile: () => `${BASE_USERS_URL}/profile`,
   getNavigation: () => `${BASE_USERS_URL}/navigation`,
   getTeams: () => `${BASE_SERVICE_URL}/teams`,
   getWorkflow: ({ id }) => `${BASE_SERVICE_URL}/workflow/${id}`,
   executeWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
-  getWorkflowImport: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`
+  getWorkflowImport: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
+  getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
+  getWorkflowRevision: ({ workflowId, revisionNumber }) =>
+    `${BASE_SERVICE_URL}/workflow/${workflowId}/revision/${revisionNumber ?? ""}`,
+  getWorkflowSummary: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/summary`,
+  patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/properties`,
+  patchUpdateWorkflowSummary: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/summary`,
+  postCreateWorkflowRevision: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/revision`,
+  restoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`
 };
 
 export const cancellableResolver = ({ url, method, body, ...config }) => {
@@ -82,8 +88,15 @@ export const resolver = {
   patchMutation: request => axios.patch(request),
   putMutation: request => axios.put(request),
   deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
+  patchUpdateWorkflowSummary: ({ workflowId, body }) =>
+    axios.put(serviceUrl.patchUpdateWorkflowSummary({ workflowId }), body),
+  patchUpdateWorkflowProperties: ({ workflowId, body }) =>
+    axios.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId }), body),
   postAddService: ({ body }) =>
     cancellableResolver({ url: serviceUrl.postAddService(), body, method: HTTP_METHODS.POST }),
+
+  postCreateWorkflowRevision: ({ workflowId, body }) =>
+    axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HTTP_METHODS.POST }),
   putCreateTaskTemplate: ({ body }) =>

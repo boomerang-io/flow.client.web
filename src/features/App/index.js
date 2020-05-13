@@ -2,17 +2,14 @@ import React, { useState, Suspense } from "react";
 import { useQuery } from "react-query";
 
 import { detect } from "detect-browser";
-import { actions as userActions } from "State/user";
-import { actions as navigationActions } from "State/navigation";
-import { actions as teamsActions } from "State/teams";
-import { actions as onBoardActions } from "State/onBoard";
-import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { NotificationsContainer, ProtectedRoute, ErrorBoundary } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import Loading from "Components/Loading";
 import Navbar from "./Navbar";
 import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
+import DesignerV2 from "Features/DesignerV2";
 import {
   AsyncActivity,
   AsyncDesigner,
@@ -108,7 +105,8 @@ export default function App() {
               />
               <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
               <Route path="/activity" component={AsyncActivity} />
-              <Route path="/editor/:workflowId" component={AsyncDesigner} />
+              <Route path="/editor-old/:workflowId" component={AsyncDesigner} />
+              <Route path="/editor/:workflowId" component={DesignerV2} />
               <Route path="/insights" component={AsyncInsights} />
               <Route path="/workflows" component={AsyncWorkflows} />
               <Redirect from="/" to="/workflows" />
