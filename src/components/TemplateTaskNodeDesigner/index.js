@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { WorkflowContext } from "State/context";
 import PropTypes from "prop-types";
+import { WorkflowContext } from "State/context";
 import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
@@ -11,17 +11,12 @@ import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./TemplateTaskNodeDesigner.module.scss";
 
 TemplateTaskNodeDesigner.propTypes = {
-  node: PropTypes.object.isRequired,
-  nodeConfig: PropTypes.object.isRequired,
-  task: PropTypes.object.isRequired,
-  taskNames: PropTypes.array.isRequired,
-  workflowRevisionActions: PropTypes.object.isRequired
+  diagramEngine: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired
 };
 
 TemplateTaskNodeDesigner.defaultProps = {
-  node: {},
-  nodeConfig: {},
-  task: {}
+  node: {}
 };
 
 export default function TemplateTaskNodeDesigner({ diagramEngine, node: designerNode }) {
@@ -34,7 +29,7 @@ export default function TemplateTaskNodeDesigner({ diagramEngine, node: designer
    */
   const inputProperties = summaryState.properties;
   const nodeDag = revisionState.dag?.nodes?.find(revisionNode => revisionNode.nodeId === designerNode.id) ?? {};
-  const nodeConfig = revisionState.config[designerNode.id];
+  const nodeConfig = revisionState.config[designerNode.id] ?? {};
   const task = taskTemplatesData.find(taskTemplate => taskTemplate.id === designerNode.taskId);
 
   // Get the taskNames names from the nodes on the model
@@ -73,8 +68,7 @@ export default function TemplateTaskNodeDesigner({ diagramEngine, node: designer
     return (
       <ComposedModal
         composedModalProps={{
-          onAfterOpen: () => setIsModalOpen(true),
-          shouldCloseOnOverlayClick: false
+          onAfterOpen: () => setIsModalOpen(true)
         }}
         confirmModalProps={{
           title: "Are you sure?",
