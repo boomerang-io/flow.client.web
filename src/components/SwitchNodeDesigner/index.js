@@ -68,15 +68,14 @@ export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }
     return (
       <ComposedModal
         composedModalProps={{
-          onAfterOpen: () => setIsModalOpen(true),
-          shouldCloseOnOverlayClick: false
+          onAfterOpen: () => setIsModalOpen(true)
         }}
         confirmModalProps={{
           title: "Are you sure?",
           children: "Your changes will not be saved"
         }}
         modalHeaderProps={{
-          title: this.props.task?.name
+          title: task?.name
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
         onCloseModal={() => setIsModalOpen(false)}
@@ -84,7 +83,7 @@ export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }
         {({ closeModal }) => (
           <WorkflowTaskForm
             closeModal={closeModal}
-            inputProperties={this.props.inputProperties}
+            inputProperties={inputProperties}
             node={designerNode}
             nodeConfig={nodeConfig}
             onSave={handleOnSaveTaskConfig}

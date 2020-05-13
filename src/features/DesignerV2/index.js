@@ -334,8 +334,6 @@ export function WorkflowManager({
   return (
     <WorkflowContext.Provider
       value={{
-        mutateRevision,
-        mutateSummary,
         revisionDispatch,
         revisionState,
         summaryState: summaryData,

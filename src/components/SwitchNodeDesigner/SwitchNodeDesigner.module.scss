@@ -2,92 +2,90 @@
 @import "~Styles/mixins";
 @import "~@boomerang/boomerang-styles/lib/colors";
 
-.node {
-  border: 1px solid #6e32c9 !important;
-  border-radius: 0.25rem;
-  box-sizing: border-box;
-  height: 8.75rem;
-  padding: 1.5rem 1rem 1.5rem 1rem;
-  width: 9.5rem;
+body {
+  .node {
+    border: 1px solid #6e32c9 !important;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+    height: 8.75rem;
+    padding: 1.5rem 1rem 1.5rem 1rem;
+    width: 9.5rem;
 
-  svg {
-    circle {
-      stroke: #6e32c9;
+    svg {
+      circle {
+        stroke: #6e32c9;
+      }
+    }
+
+    :global .port {
+      top: 3.5rem;
     }
   }
 
-  :global .port {
-    top: 3.5rem;
+  .rightPort {
+    background-color: #6e32c9 !important;
   }
-}
 
-.rightPort {
-  background-color: #6e32c9 !important;
-}
+  .subtitle {
+    display: block;
+    height: 2.8125rem;
+    overflow: hidden;
+    position: relative;
+    text-overflow: initial;
+    white-space: normal;
+  }
 
-.subtitle {
-  display: block;
-  height: 2.8125rem;
-  overflow: hidden;
-  position: relative;
-  text-overflow: initial;
-  white-space: normal;
-}
+  .subtitle:before {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), $white 80%);
+    bottom: 0;
+    content: "\200C";
+    display: block;
+    height: 0.9375rem;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 30%;
+  }
 
-.subtitle:before {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), $white 80%);
-  bottom: 0;
-  content: "\200C";
-  display: block;
-  height: 0.9375rem;
-  position: absolute;
-  right: 0;
-  text-align: center;
-  width: 30%;
-}
+  .editButton {
+    position: absolute;
+    right: 1.75rem;
+    top: -0.75rem;
+    width: 1.5rem;
+  }
 
-.editButton {
-  position: absolute;
-  right: 1.75rem;
-  top: -0.75rem;
-  width: 1.5rem;
-}
+  .deleteButton {
+    position: absolute;
+    right: -0.75rem;
+    top: -0.75rem;
+    width: 1.5rem;
+  }
 
-.deleteButton {
-  position: absolute;
-  right: -0.75rem;
-  top: -0.75rem;
-  width: 1.5rem;
-}
+  .updateButton {
+    position: absolute;
+    right: 4.375rem;
+    top: -0.75rem;
+    width: 1.5rem;
+  }
 
-.updateButton {
-  position: absolute;
-  right: 4.375rem;
-  top: -0.75rem;
-  width: 1.5rem;
-}
+  .badgeContainer {
+    background-color: var(--cds-ui-01);
+    border: 1px solid #6e32c9;
+    border-radius: 0.25rem;
+    left: -1.5rem;
+    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+    position: absolute;
+    top: -0.75rem;
+  }
 
-.badgeContainer {
-  background-color: var(--cds-ui-01);
-  border: 1px solid #6e32c9;
-  border-radius: 0.25rem;
-  left: -1.5rem;
-  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-  position: absolute;
-  top: -0.75rem;
-}
+  .badgeText {
+    color: var(--cds-text-01);
+    font-size: 0.625rem;
+    line-height: 0.8125rem;
+  }
 
-.badgeText {
-  color: var(--cds-text-01);
-  font-size: 0.625rem;
-  line-height: 0.8125rem;
-}
-
-.updateTaskModalContainer {
-  max-height: 62.5rem;
-  max-width: 60rem;
-
-  :global .bx--bmrg-modal-composed-subtitle {
-    padding-right: 25% !important;
+  .updateTaskModalContainer {
+    max-height: 62.5rem !important;
+    max-width: 60rem !important;
   }
 }
