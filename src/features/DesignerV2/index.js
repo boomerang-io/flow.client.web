@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { WorkflowContext } from "State/context";
 import { useAppContext } from "Hooks";
 import { Prompt, useParams, useRouteMatch } from "react-router-dom";
@@ -34,15 +34,15 @@ export default function WorkflowContainer(props) {
    */
   const summaryQuery = useQuery({
     queryKey: getSummaryUrl,
-    queryFn: resolver.query(getSummaryUrl),
+    queryFn: resolver.query(getSummaryUrl)
   });
   const revisionQuery = useQuery({
     queryKey: getRevisionUrl,
-    queryFn: resolver.query(getRevisionUrl),
+    queryFn: resolver.query(getRevisionUrl)
   });
   const taskTemplatesQuery = useQuery({
     queryKey: getTaskTemplatesUrl,
-    queryFn: resolver.query(getTaskTemplatesUrl),
+    queryFn: resolver.query(getTaskTemplatesUrl)
   });
 
   /**
@@ -71,6 +71,7 @@ export default function WorkflowContainer(props) {
       <WorkflowManager
         mutateRevision={mutateRevision}
         mutateSummary={mutateSummary}
+        revisionNumber={revisionNumber}
         revisionQuery={revisionQuery}
         summaryQuery={summaryQuery}
         setRevisionNumber={setRevisionNumber}
@@ -91,13 +92,13 @@ const revisionActionTypes = {
   DELETE_NODE: "DELETE_NODE",
   RESET: "RESET",
   UPDATE_NODE_CONFIG: "UPDATE_NODE_CONFIG",
-  UPDATE_NODE_TASK_VERSION: "UPDATE_NODE_TASK_VERSION",
+  UPDATE_NODE_TASK_VERSION: "UPDATE_NODE_TASK_VERSION"
 };
 
 function initRevisionReducerState(revisionData) {
   const { config, ...rest } = revisionData;
   const normalizedNodesObj = {};
-  config.nodes.forEach((node) => {
+  config.nodes.forEach(node => {
     normalizedNodesObj[node.nodeId] = node;
   });
 
@@ -115,7 +116,7 @@ function revisionReducer(state, action) {
     case revisionActionTypes.DELETE_NODE: {
       let { nodeId } = action.data;
       delete state.config[nodeId];
-      state.dag.nodes = state.dag?.nodes?.filter((node) => node.nodeId !== nodeId) ?? [];
+      state.dag.nodes = state.dag?.nodes?.filter(node => node.nodeId !== nodeId) ?? [];
       state.hasUnsavedWorkflowRevisionUpdates = true;
       return state;
     }
@@ -127,7 +128,7 @@ function revisionReducer(state, action) {
     }
     case revisionActionTypes.UPDATE_NODE_TASK_VERSION: {
       const { nodeId, inputs, version } = action.data;
-      state.dag.nodes.find((node) => node.nodeId === nodeId).templateUpgradeAvailable = false;
+      state.dag.nodes.find(node => node.nodeId === nodeId).templateUpgradeAvailable = false;
       state.config[nodeId].taskVersion = version;
       state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
       state.hasUnsavedWorkflowRevisionUpdates = true;
@@ -152,10 +153,10 @@ function getDiagramSerialization(diagramApp) {
 }
 
 function formatWorkflowConfigNodes(workflowRevision) {
-  const normilzedConfig = Object.values(workflowRevision.config).map((config) => ({
+  const normilzedConfig = Object.values(workflowRevision.config).map(config => ({
     ...config,
     currentVersion: undefined,
-    taskVersion: config.currentVersion || config.taskVersion,
+    taskVersion: config.currentVersion || config.taskVersion
   }));
   return { nodes: Object.values(normilzedConfig) };
 }
@@ -167,6 +168,7 @@ function formatWorkflowConfigNodes(workflowRevision) {
 export function WorkflowManager({
   mutateRevision,
   mutateSummary,
+  revisionNumber,
   revisionQuery,
   summaryQuery,
   setRevisionNumber,
@@ -186,18 +188,27 @@ export function WorkflowManager({
     initRevisionReducerState
   );
 
+  const revisionDataString = JSON.stringify(revisionQuery.data);
+
+  useEffect(() => {
+    revisionDispatch({
+      type: revisionActionTypes.RESET,
+      data: JSON.parse(revisionDataString)
+    });
+  }, [revisionNumber, revisionDispatch, revisionDataString]);
+
   const { data: summaryData } = summaryQuery;
 
   /**
    *
    * @param {Object} diagramApp - the DAG
    */
-  const createRevision = async (diagramApp) => {
+  const createRevision = async diagramApp => {
     const revision = {};
     revision["dag"] = getDiagramSerialization(diagramApp);
     revision["config"] = formatWorkflowConfigNodes(revisionState);
     revision["changelog"] = {
-      reason: changeLogReasonRef.current,
+      reason: changeLogReasonRef.current
     };
 
     try {
@@ -215,7 +226,7 @@ export function WorkflowManager({
    *
    * @param {Object} formikValues - key/value pairs for inputs
    */
-  const updateSummary = async (formikValues) => {
+  const updateSummary = async formikValues => {
     const flowTeamId = formikValues?.selectedTeam?.id;
     const updatedWorkflow = { ...summaryData, ...formikValues, flowTeamId };
 
@@ -246,12 +257,12 @@ export function WorkflowManager({
         .getDiagramEngine()
         .getDiagramModel()
         .getNodes()
-    ).filter((node) => node.taskId === taskData.id).length;
+    ).filter(node => node.taskId === taskData.id).length;
 
     const nodeObj = {
       taskId: taskData.id,
       taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`,
-      taskVersion: taskData.currentVersion,
+      taskVersion: taskData.currentVersion
     };
 
     // Determine the node type
@@ -273,7 +284,7 @@ export function WorkflowManager({
     // If we are creating a node
     if (node) {
       const { id, taskId, currentVersion } = node;
-      const currentTaskConfig = taskData.revisions?.find((revision) => revision.version === currentVersion) ?? {};
+      const currentTaskConfig = taskData.revisions?.find(revision => revision.version === currentVersion) ?? {};
 
       // Create inputs object with empty string values by default for service to process easily
       const inputs =
@@ -290,8 +301,8 @@ export function WorkflowManager({
           taskId,
           inputs,
           type: taskData.nodeType,
-          taskVersion: currentVersion,
-        },
+          taskVersion: currentVersion
+        }
       });
 
       const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
@@ -308,11 +319,11 @@ export function WorkflowManager({
    *  Simply update the parent state to use a different revision to fetch it w/ react-query
    * @param {string} revisionNumber
    */
-  const changeRevisionNumber = (revisionNumber) => {
+  const changeRevisionNumber = revisionNumber => {
     setRevisionNumber(revisionNumber);
   };
 
-  const handleChangeLogReasonChange = (reason) => {
+  const handleChangeLogReasonChange = reason => {
     changeLogReasonRef.current = reason;
   };
 
@@ -324,13 +335,13 @@ export function WorkflowManager({
         revisionQuery,
         summaryQuery,
         setIsModalOpen,
-        taskTemplatesData,
+        taskTemplatesData
       }}
     >
       <>
         <Prompt
           when={Boolean(revisionState.hasUnsavedWorkflowRevisionUpdates)}
-          message={(location) =>
+          message={location =>
             console.log(location.pathname, match.url) ||
             location.pathname === match.url ||
             location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
@@ -347,24 +358,24 @@ export function WorkflowManager({
               enablePersistentStorage: summaryData?.enablePersistentStorage ?? false,
               icon: summaryData?.icon ?? "",
               name: summaryData?.name ?? "",
-              selectedTeam: teams.find((team) => team.id === activeTeam?.id),
+              selectedTeam: teams.find(team => team.id === activeTeam?.id),
               shortDescription: summaryData?.shortDescription ?? "",
               triggers: {
                 event: {
                   enable: summaryData?.triggers?.event?.enable ?? false,
-                  topic: summaryData?.triggers?.event?.topic ?? "",
+                  topic: summaryData?.triggers?.event?.topic ?? ""
                 },
                 scheduler: {
                   enable: summaryData?.triggers?.scheduler?.enable ?? false,
                   schedule: summaryData?.triggers?.scheduler?.schedule ?? "0 18 * * *",
                   timezone: summaryData?.triggers?.scheduler?.timezone ?? false,
-                  advancedCron: summaryData?.triggers?.scheduler?.advancedCron ?? false,
+                  advancedCron: summaryData?.triggers?.scheduler?.advancedCron ?? false
                 },
                 webhook: {
                   enable: summaryData?.triggers?.webhook?.enable ?? false,
-                  token: summaryData?.triggers?.webhook?.token ?? false,
-                },
-              },
+                  token: summaryData?.triggers?.webhook?.token ?? false
+                }
+              }
             }}
             validationSchema={Yup.object().shape({
               description: Yup.string().max(250, "Description must not be greater than 250 characters"),
@@ -379,22 +390,22 @@ export function WorkflowManager({
               triggers: Yup.object().shape({
                 event: Yup.object().shape({
                   enable: Yup.boolean(),
-                  topic: Yup.string(),
+                  topic: Yup.string()
                 }),
                 scheduler: Yup.object().shape({
                   enable: Yup.boolean(),
                   schedule: Yup.string(),
                   timezone: Yup.mixed(),
-                  advancedCron: Yup.boolean(),
+                  advancedCron: Yup.boolean()
                 }),
                 webhook: Yup.object().shape({
                   enable: Yup.boolean(),
-                  token: Yup.mixed(),
-                }),
-              }),
+                  token: Yup.mixed()
+                })
+              })
             })}
           >
-            {(formikProps) => (
+            {formikProps => (
               <>
                 <Editor
                   createNode={createNode}
