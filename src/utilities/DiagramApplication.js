@@ -10,7 +10,7 @@ import SwitchPortModel from "./switchNode/SwitchPortModel";
 import TaskLinkFactory from "./taskLink/TaskLinkFactory";
 import TaskPortModel from "./taskPort/TaskPortModel";
 import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 
 export default class Application {
   constructor({ dag, modelIsLocked }) {
@@ -23,10 +23,10 @@ export default class Application {
 
     //need to find a way to register port factory
     this.diagramEngine.registerPortFactory(
-      new SimplePortFactory(NODE_TYPES.START_END, config => new StartEndPortModel())
+      new SimplePortFactory(NodeType.StartEnd, (config) => new StartEndPortModel())
     );
-    this.diagramEngine.registerPortFactory(new SimplePortFactory(NODE_TYPES.TASK, config => new TaskPortModel()));
-    this.diagramEngine.registerPortFactory(new SimplePortFactory(NODE_TYPES.DECISION, config => new SwitchPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.Task, (config) => new TaskPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.Decision, (config) => new SwitchPortModel()));
 
     //register new custom link
     this.diagramEngine.registerLinkFactory(new TaskLinkFactory(this.diagramEngine));
@@ -59,9 +59,9 @@ export default class Application {
     // We are listenigng on the create event and deleting it if
     // it doesn't have a target port
     this.activeModel.addListener({
-      linksUpdated: event => {
+      linksUpdated: (event) => {
         if (event.isCreated) {
-          document.addEventListener("mouseup", e => {
+          document.addEventListener("mouseup", (e) => {
             setTimeout(() => {
               if (!event.link.targetPort) {
                 this.activeModel.removeLink(event.link);
@@ -71,7 +71,7 @@ export default class Application {
             }, 0);
           });
         }
-      }
+      },
     });
   }
 
@@ -89,18 +89,18 @@ export const createWorkflowRevisionBody = (diagramApp, changeLogReason, workflow
   dagProps["dag"] = getDiagramSerialization(diagramApp);
   dagProps["config"] = formatWorkflowConfigNodes(workflowRevisionConfig);
   dagProps["changelog"] = {
-    reason: changeLogReason
+    reason: changeLogReason,
   };
   return dagProps;
 };
 
-const getDiagramSerialization = diagramApp => {
+const getDiagramSerialization = (diagramApp) => {
   return diagramApp
     .getDiagramEngine()
     .getDiagramModel()
     .serializeDiagram();
 };
 
-const formatWorkflowConfigNodes = workflowRevisionConfig => {
+const formatWorkflowConfigNodes = (workflowRevisionConfig) => {
   return { nodes: Object.values(workflowRevisionConfig) };
 };

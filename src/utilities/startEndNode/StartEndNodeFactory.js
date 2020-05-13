@@ -1,12 +1,12 @@
 import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import StartEndNode from "Components/StartEndNode";
 import StartEndNodeModel from "Utilities/startEndNode/StartEndNodeModel";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 import React from "react";
 
 export default class StartEndNodeFactory extends AbstractNodeFactory {
   constructor() {
-    super(NODE_TYPES.START_END);
+    super(NodeType.StartEnd);
   }
 
   generateReactWidget(diagramEngine, node) {

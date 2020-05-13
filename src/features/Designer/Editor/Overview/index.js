@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import axios from "axios";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actions as appActions } from "State/app";
 import CopyToClipboard from "react-copy-to-clipboard";
 import {
   ComboBox,
@@ -373,8 +370,4 @@ export class Overview extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  appActions: bindActionCreators(appActions, dispatch),
-});
-
-export default connect(null, mapDispatchToProps)(Overview);
+export default Overview;

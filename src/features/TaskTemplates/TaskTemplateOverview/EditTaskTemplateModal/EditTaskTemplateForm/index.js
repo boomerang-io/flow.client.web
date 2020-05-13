@@ -7,23 +7,23 @@ import { ModalFlowForm, TextInput, TextArea } from "@boomerang/carbon-addons-boo
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utilities/taskIcons";
-import NodeTypes from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 
 EditTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func,
   handleEditTaskTemplateModal: PropTypes.func,
   nodeType: PropTypes.string,
   taskTemplates: PropTypes.array,
-  templateData: PropTypes.object
+  templateData: PropTypes.object,
 };
 
 function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeType, taskTemplates, templateData }) {
   let taskTemplateNames = taskTemplates
-    .map(taskTemplate => taskTemplate.name)
-    .filter(templateName => templateName !== templateData.name);
+    .map((taskTemplate) => taskTemplate.name)
+    .filter((templateName) => templateName !== templateData.name);
   const orderedIcons = orderBy(taskIcons, ["iconName"]);
-  const selectedIcon = orderedIcons.find(icon => icon.iconName === templateData.icon);
-  const handleSubmit = async values => {
+  const selectedIcon = orderedIcons.find((icon) => icon.iconName === templateData.icon);
+  const handleSubmit = async (values) => {
     await handleEditTaskTemplateModal({ newValues: values });
     closeModal();
   };
@@ -39,7 +39,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         arguments: templateData.arguments,
         command: templateData.command,
         image: templateData.image,
-        nodeType: nodeType
+        nodeType: nodeType,
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
@@ -48,7 +48,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         category: Yup.string().required("Enter a category"),
         icon: Yup.object().shape({
           value: Yup.string().required(),
-          label: Yup.string().required()
+          label: Yup.string().required(),
         }),
         description: Yup.string()
           .lowercase()
@@ -56,18 +56,18 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
           .max(200, "Description must be less than 60 characters")
           .required("Description is required"),
         arguments: Yup.string().when("nodeType", {
-          is: nodeType => nodeType !== NodeTypes.CUSTOM_TASK,
-          then: Yup.string().required("Arguments are required")
+          is: (nodeType) => nodeType !== NodeType.CustomTask,
+          then: Yup.string().required("Arguments are required"),
         }),
         command: Yup.string(),
         // .required("Enter a command")
-        image: Yup.string()
+        image: Yup.string(),
         //.required("Image is required"),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
     >
-      {props => {
+      {(props) => {
         const { handleSubmit, isValid, values, errors, touched, handleChange, setFieldValue, handleBlur } = props;
         return (
           <ModalFlowForm onSubmit={handleSubmit}>

@@ -5,14 +5,14 @@ import { connect } from "react-redux";
 import WorkflowLink from "Components/WorkflowLink";
 import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 import { EXECUTION_CONDITIONS } from "utilities/taskLinkIcons";
 import styles from "./TaskLink.module.scss";
 
 TaskLinkExecution.propTypes = {
   diagramEngine: PropTypes.object.isRequired,
   model: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired
+  path: PropTypes.string.isRequired,
 };
 
 function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
@@ -21,8 +21,8 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
 
   const targetNodeType = model?.targetPort?.parent?.type;
 
-  const sourceStep = workflowExecution.data.steps?.find(step => step.taskId === sourceNodeId);
-  const targetStep = workflowExecution.data.steps?.find(step => step.taskId === targetNodeId);
+  const sourceStep = workflowExecution.data.steps?.find((step) => step.taskId === sourceNodeId);
+  const targetStep = workflowExecution.data.steps?.find((step) => step.taskId === targetNodeId);
 
   const targetTaskHasStarted =
     targetStep?.flowTaskStatus &&
@@ -32,16 +32,16 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
   const sourceTaskHasFinishedAndIsEndOfWorkflow =
     (sourceStep?.flowTaskStatus === EXECUTION_STATUSES.COMPLETED ||
       sourceStep?.flowTaskStatus === EXECUTION_STATUSES.FAILURE) &&
-    targetNodeType === NODE_TYPES.START_END;
+    targetNodeType === NodeType.StartEnd;
 
   const executionCondition = EXECUTION_CONDITIONS.find(
-    executionCondition => executionCondition.name === model.executionCondition
+    (executionCondition) => executionCondition.name === model.executionCondition
   );
 
   return (
     <WorkflowLink
       className={cx({
-        [styles.traversed]: targetTaskHasStarted || sourceTaskHasFinishedAndIsEndOfWorkflow
+        [styles.traversed]: targetTaskHasStarted || sourceTaskHasFinishedAndIsEndOfWorkflow,
       })}
       diagramEngine={diagramEngine}
       model={model}
@@ -61,9 +61,9 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    workflowExecution: state.workflowExecution
+    workflowExecution: state.workflowExecution,
   };
 };
 

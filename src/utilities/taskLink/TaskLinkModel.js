@@ -1,9 +1,9 @@
 import { DefaultLinkModel } from "@projectstorm/react-diagrams";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 
 export default class TaskLinkModel extends DefaultLinkModel {
   constructor() {
-    super(NODE_TYPES.TASK);
+    super(NodeType.Task);
     this.executionCondition = "always";
   }
 
@@ -11,7 +11,7 @@ export default class TaskLinkModel extends DefaultLinkModel {
     return {
       ...super.serialize(),
       executionCondition: this.executionCondition,
-      linkId: this.id
+      linkId: this.id,
     };
   }
 

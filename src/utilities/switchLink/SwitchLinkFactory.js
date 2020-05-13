@@ -3,12 +3,12 @@ import { DefaultLinkFactory } from "@projectstorm/react-diagrams";
 import SwitchLinkModel from "./SwitchLinkModel";
 import SwitchLinkDesigner from "Components/SwitchLinkDesigner";
 import SwitchLinkExecution from "Components/SwitchLinkExecution";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 
 export default class SwitchLinkFactory extends DefaultLinkFactory {
   constructor(diagramEngine) {
     super();
-    this.type = NODE_TYPES.DECISION;
+    this.type = NodeType.Decision;
     this.diagramEngine = diagramEngine;
   }
 

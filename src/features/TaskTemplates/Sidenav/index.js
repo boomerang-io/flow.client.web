@@ -11,7 +11,7 @@ import {
   AccordionItem,
   OverflowMenu,
   Checkbox,
-  CheckboxList
+  CheckboxList,
 } from "@boomerang/carbon-addons-boomerang-react";
 import AddTaskTemplate from "./AddTaskTemplate";
 import { appLink } from "Config/appConfig";
@@ -22,7 +22,7 @@ import styles from "./sideInfo.module.scss";
 
 SideInfo.propTypes = {
   taskTemplates: PropTypes.array.isRequired,
-  addTemplateInState: PropTypes.func.isRequired
+  addTemplateInState: PropTypes.func.isRequired,
 };
 const description = "Create and import tasks to add to the Flow Editor task list";
 
@@ -30,17 +30,17 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   const [searchQuery, setSearchQuery] = React.useState();
   const [activeFilters, setActiveFilters] = React.useState([]);
   const [tasksToDisplay, setTasksToDisplay] = React.useState(
-    taskTemplates.filter(task => task.status === TaskTemplateStatus.Active)
+    taskTemplates.filter((task) => task.status === TaskTemplateStatus.Active)
   );
   const [openCategories, setOpenCategories] = React.useState(false);
   const [showArchived, setShowArchived] = React.useState(false);
-  const taskFilters = taskIcons.map(icon => ({
+  const taskFilters = taskIcons.map((icon) => ({
     id: icon.iconName,
     labelText: (
       <div className={styles.checkboxOption}>
         <icon.icon /> <p>{icon.iconName}</p>{" "}
       </div>
-    )
+    ),
   }));
 
   const history = useHistory();
@@ -49,7 +49,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
 
   let categories = tasksToDisplay
     .reduce((acc, task) => {
-      const newCategory = !acc.find(category => task.category.toLowerCase() === category?.toLowerCase());
+      const newCategory = !acc.find((category) => task.category.toLowerCase() === category?.toLowerCase());
       if (newCategory) acc.push(capitalize(task.category));
       return acc;
     }, [])
@@ -58,18 +58,20 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   React.useEffect(() => {
     const newTaskTemplates = showArchived
       ? taskTemplates
-      : taskTemplates.filter(task => task.status === TaskTemplateStatus.Active);
+      : taskTemplates.filter((task) => task.status === TaskTemplateStatus.Active);
     const tasksFilteredByType =
-      activeFilters.length > 0 ? newTaskTemplates.filter(task => activeFilters.includes(task.icon)) : newTaskTemplates;
+      activeFilters.length > 0
+        ? newTaskTemplates.filter((task) => activeFilters.includes(task.icon))
+        : newTaskTemplates;
     setTasksToDisplay(matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "name"] }));
   }, [taskTemplates, showArchived, activeFilters, searchQuery]);
 
-  const tasksByCategory = categories.map(category => ({
+  const tasksByCategory = categories.map((category) => ({
     name: category,
-    tasks: sortBy(tasksToDisplay.filter(task => capitalize(task.category) === category).sort(), "name")
+    tasks: sortBy(tasksToDisplay.filter((task) => capitalize(task.category) === category).sort(), "name"),
   }));
 
-  const handleOnSearchInputChange = e => {
+  const handleOnSearchInputChange = (e) => {
     const searchQuery = e.target.value;
     setSearchQuery(searchQuery);
     setTasksToDisplay(matchSorter(taskTemplates, searchQuery, { keys: ["category", "name"] }));
@@ -79,8 +81,8 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
     let filtersState = [].concat(activeFilters);
 
     let newFilters = [];
-    let hasFilter = Boolean(filtersState.find(filter => filter === label));
-    if (hasFilter) newFilters = filtersState.filter(filter => filter !== label);
+    let hasFilter = Boolean(filtersState.find((filter) => filter === label));
+    if (hasFilter) newFilters = filtersState.filter((filter) => filter !== label);
     else newFilters = filtersState.concat(label);
     setActiveFilters(newFilters);
   };
@@ -106,7 +108,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
         </div>
         <section className={styles.tools}>
           <Search
-            small
+            size="sm"
             labelText="Search for a task"
             onChange={handleOnSearchInputChange}
             placeHolderText="Search for a task"
@@ -116,7 +118,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
             renderIcon={SettingsAdjust20}
             style={{
               backgroundColor: showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",
-              borderRadius: "0.25rem"
+              borderRadius: "0.25rem",
             }}
             flipped={true}
             menuOptionsClass={styles.filters}
@@ -160,7 +162,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
               open={openCategories}
               key={`${category.name}${index}`}
             >
-              {category.tasks.map(task => (
+              {category.tasks.map((task) => (
                 <Task key={task.id} task={task} isActive={globalMatch?.params?.taskTemplateId === task.id} />
               ))}
             </AccordionItem>
@@ -172,7 +174,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
 }
 function Task(props) {
   const { task } = props;
-  const taskIcon = taskIcons.find(icon => icon.iconName === task.icon);
+  const taskIcon = taskIcons.find((icon) => icon.iconName === task.icon);
   const isActive = task.status === TaskTemplateStatus.Active;
 
   return (

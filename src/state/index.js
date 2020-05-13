@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 import app from "./app";
-import changeLog from "./changeLog";
 import globalConfiguration from "./globalConfiguration";
 import importWorkflow from "./importWorkflow";
 import insights from "./insights";
@@ -17,7 +16,6 @@ import workflowRevision from "./workflowRevision";
 const rootReducer = () =>
   combineReducers({
     app,
-    changeLog,
     globalConfiguration,
     importWorkflow,
     insights,
@@ -29,7 +27,7 @@ const rootReducer = () =>
     user,
     workflow,
     workflowExecution,
-    workflowRevision
+    workflowRevision,
   });
 
 export default rootReducer;

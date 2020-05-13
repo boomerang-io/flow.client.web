@@ -1,12 +1,12 @@
 import { NodeModel } from "@projectstorm/react-diagrams";
 import StartEndPortModel from "./StartEndPortModel";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 import merge from "lodash/merge";
 
 export default class StartEndNodeModel extends NodeModel {
   //list all three params
   constructor(passedName, color) {
-    super(NODE_TYPES.START_END);
+    super(NodeType.StartEnd);
 
     this.passedName = passedName;
     if (this.passedName === "End") {
@@ -19,7 +19,7 @@ export default class StartEndNodeModel extends NodeModel {
   serialize() {
     return merge(super.serialize(), {
       passedName: this.passedName,
-      nodeId: this.id
+      nodeId: this.id,
     });
   }
 

@@ -14,7 +14,7 @@ import TemplateNodeModel from "Utilities/templateTaskNode/TemplateTaskNodeModel"
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import sortBy from "lodash/sortBy";
 import { QueryStatus } from "Constants";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 import styles from "../Designer/Designer.module.scss";
 
 /**
@@ -48,7 +48,7 @@ export default function WorkflowContainer(props) {
   /**
    * Mutations
    */
-  const [mutateSummary] = useMutation(resolver.putUpdateWorkflowSummary);
+  const [mutateSummary] = useMutation(resolver.patchUpdateWorkflowSummary);
   const [mutateRevision] = useMutation(resolver.postCreateWorkflowRevision);
 
   /**
@@ -220,11 +220,11 @@ export function WorkflowManager({
     const updatedWorkflow = { ...summaryData, ...formikValues, flowTeamId };
 
     try {
-      await mutateSummary({ workflowId, body: updatedWorkflow });
+      await mutateSummary({ body: updatedWorkflow });
       // If the team has changed
-      if (flowTeamId && activeTeam.id !== flowTeamId) {
-        setActiveTeam(teams.find((team) => team.id === flowTeamId));
-      }
+      // if (flowTeamId && activeTeam.id !== flowTeamId) {
+      //   setActiveTeam(teams.find((team) => team.id === flowTeamId));
+      // }
     } catch (err) {
       notify(
         <ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to update workflow settings`} />
@@ -234,8 +234,8 @@ export function WorkflowManager({
 
   /**
    * Handle the drop event to create a new node from a task template
-   * @param {*} diagramApp
-   * @param {*} event
+   * @param {Object} diagramApp - object containing the internal state of the DAG
+   * @param {DragEvent} event - dragend event when adding a node to the diagram
    */
   const createNode = (diagramApp, event) => {
     const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
@@ -256,17 +256,18 @@ export function WorkflowManager({
 
     // Determine the node type
     let node;
-    // eslint-disable-next-line default-case
     switch (taskData.nodeType) {
-      case NODE_TYPES.DECISION:
+      case NodeType.Decision:
         node = new SwitchNodeModel(nodeObj);
         break;
-      case NODE_TYPES.TEMPLATE_TASK:
+      case NodeType.TemplateTask:
         node = new TemplateNodeModel(nodeObj);
         break;
-      case NODE_TYPES.CUSTOM_TASK:
+      case NodeType.CustomTask:
         node = new CustomNodeModel(nodeObj);
         break;
+      default:
+        new Error("Node type not recognized");
     }
 
     // If we are creating a node
@@ -292,6 +293,7 @@ export function WorkflowManager({
           taskVersion: currentVersion,
         },
       });
+
       const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
       node.x = points.x - 110;
       node.y = points.y - 40;
@@ -327,9 +329,11 @@ export function WorkflowManager({
     >
       <>
         <Prompt
-          when={revisionState.hasUnsavedWorkflowRevisionUpdates}
+          when={Boolean(revisionState.hasUnsavedWorkflowRevisionUpdates)}
           message={(location) =>
-            location.pathname === match.url || location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
+            console.log(location.pathname, match.url) ||
+            location.pathname === match.url ||
+            location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
               ? true
               : "Are you sure? You have unsaved changes to your workflow that will be lost."
           }
