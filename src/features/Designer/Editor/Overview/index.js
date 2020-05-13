@@ -15,7 +15,7 @@ import {
   Toggle,
   notify,
   ToastNotification,
-  TooltipHover
+  TooltipHover,
 } from "@boomerang/carbon-addons-boomerang-react";
 import CronJobModal from "./CronJobModal";
 import workflowIcons from "Assets/workflowIcons";
@@ -31,13 +31,13 @@ export class Overview extends Component {
       tokenTextType: "password",
       showTokenText: "Show Token",
       copyTokenText: "Copy Token",
-      errors: {}
+      errors: {},
     };
   }
   static propTypes = {
     formikProps: PropTypes.object.isRequired,
     teams: PropTypes.array.isRequired,
-    workflow: PropTypes.object.isRequired
+    workflow: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
@@ -49,9 +49,9 @@ export class Overview extends Component {
     window.removeEventListener("beforeunload", this.handleBeforeUnloadEvent);
   }
 
-  handleBeforeUnloadEvent = event => {
+  handleBeforeUnloadEvent = (event) => {
     const {
-      formikProps: { dirty }
+      formikProps: { dirty },
     } = this.props;
     if (dirty) {
       event.preventDefault();
@@ -59,24 +59,24 @@ export class Overview extends Component {
     }
   };
 
-  generateToken = e => {
+  generateToken = (e) => {
     if (e) {
       e.preventDefault();
     }
     return axios
       .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/webhook-token`)
-      .then(response => {
+      .then((response) => {
         this.props.formikProps.setFieldValue("triggers.webhook.token", response.data.token);
         notify(
           <ToastNotification kind="success" title="Generate Token" subtitle="Successfully generated webhook token" />
         );
       })
-      .catch(err => {
+      .catch((err) => {
         notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create webhook token" />);
       });
   };
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.props.formikProps.handleChange(e);
   };
 
@@ -99,7 +99,7 @@ export class Overview extends Component {
   render() {
     const {
       teams,
-      formikProps: { values, touched, errors, handleBlur }
+      formikProps: { values, touched, errors, handleBlur },
     } = this.props;
 
     return (
@@ -112,7 +112,7 @@ export class Overview extends Component {
               id="selectedTeam"
               items={teams}
               initialSelectedItem={values?.selectedTeam}
-              itemToString={item => item?.name ?? ""}
+              itemToString={(item) => item?.name ?? ""}
               invalid={Boolean(errors.selectedTeam?.name)}
               invalidText={errors.selectedTeam?.name}
               onChange={this.handleTeamChange}
@@ -162,7 +162,7 @@ export class Overview extends Component {
             {workflowIcons.map((image, index) => (
               <label
                 className={cx(styles.iconLabel, {
-                  [styles.active]: values.icon === image.name
+                  [styles.active]: values.icon === image.name,
                 })}
                 key={`icon-number-${index}`}
               >
@@ -189,7 +189,7 @@ export class Overview extends Component {
                   id="triggers.webhook.enable"
                   label="Webhook"
                   toggled={values.triggers.webhook.enable}
-                  onToggle={checked => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
+                  onToggle={(checked) => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
                   tooltipContent="Enable workflow to be executed by a webhook"
                   tooltipProps={{ direction: "top" }}
                   reversed
@@ -251,7 +251,7 @@ export class Overview extends Component {
                   id="triggers.scheduler.enable"
                   data-testid="triggers.scheduler.enable"
                   label="Scheduler"
-                  onToggle={checked => this.handleOnToggleChange(checked, "triggers.scheduler.enable")}
+                  onToggle={(checked) => this.handleOnToggleChange(checked, "triggers.scheduler.enable")}
                   toggled={values.triggers.scheduler.enable}
                   tooltipContent="Enable workflow to be executed by a schedule"
                   tooltipProps={{ direction: "top" }}
@@ -277,10 +277,10 @@ export class Overview extends Component {
                   <ModalFlow
                     confirmModalProps={{
                       title: "Are you sure?",
-                      children: "Your changes will not be saved"
+                      children: "Your changes will not be saved",
                     }}
                     modalHeaderProps={{
-                      title: "Change schedule"
+                      title: "Change schedule",
                     }}
                     modalTrigger={({ openModal }) => (
                       <button
@@ -310,7 +310,7 @@ export class Overview extends Component {
                   id="triggers.event.enable"
                   label="Action Subscription"
                   toggled={values.triggers.event.enable}
-                  onToggle={checked => this.handleOnToggleChange(checked, "triggers.event.enable")}
+                  onToggle={(checked) => this.handleOnToggleChange(checked, "triggers.event.enable")}
                   tooltipContent="Enable workflow to be triggered by platform actions"
                   tooltipProps={{ direction: "top" }}
                   reversed
@@ -331,7 +331,7 @@ export class Overview extends Component {
                       id="enableACCIntegration"
                       label="IBM Services ACC Integration"
                       toggled={values.enableACCIntegration}
-                      onToggle={checked => this.handleOnToggleChange(checked, "enableACCIntegration")}
+                      onToggle={(checked) => this.handleOnToggleChange(checked, "enableACCIntegration")}
                       tooltipContent="Enable workflow to be triggered by ACC subscription"
                       tooltipProps={{ direction: "top" }}
                       reversed
@@ -350,7 +350,7 @@ export class Overview extends Component {
                 id="enablePersistentStorage"
                 label="Enable Persistent Storage"
                 toggled={values.enablePersistentStorage}
-                onToggle={checked => this.handleOnToggleChange(checked, "enablePersistentStorage")}
+                onToggle={(checked) => this.handleOnToggleChange(checked, "enablePersistentStorage")}
                 tooltipContent="Persist workflow data between executions"
                 tooltipProps={{ direction: "top" }}
                 reversed
@@ -373,8 +373,8 @@ export class Overview extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  appActions: bindActionCreators(appActions, dispatch)
+const mapDispatchToProps = (dispatch) => ({
+  appActions: bindActionCreators(appActions, dispatch),
 });
 
 export default connect(null, mapDispatchToProps)(Overview);

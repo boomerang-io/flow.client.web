@@ -12,28 +12,28 @@ import styles from "./CustomTaskNodeDesigner.module.scss";
 
 CustomTaskNodeDesigner.propTypes = {
   diagramEngine: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired
+  node: PropTypes.object.isRequired,
 };
 
 CustomTaskNodeDesigner.defaultProps = {
-  node: {}
+  node: {},
 };
 
 export default function CustomTaskNodeDesigner({ diagramEngine, node: designerNode }) {
-  const { revisionDispatch, revisionState, summaryState, setIsModalOpen, taskTemplatesData } = useWorkflowContext();
+  const { revisionDispatch, revisionState, summaryQuery, setIsModalOpen, taskTemplatesData } = useWorkflowContext();
 
   /**
    * Pull data off of context
    */
-  const inputProperties = summaryState.properties;
-  const nodeDag = revisionState.dag?.nodes?.find(revisionNode => revisionNode.nodeId === designerNode.id) ?? {};
+  const inputProperties = summaryQuery.data.properties;
+  const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode.id] ?? {};
-  const task = taskTemplatesData.find(taskTemplate => taskTemplate.id === designerNode.taskId);
+  const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 
   // Get the taskNames names from the nodes on the model
   const taskNames = Object.values(diagramEngine.getDiagramModel().getNodes())
-    .map(node => node.taskName)
-    .filter(name => Boolean(name));
+    .map((node) => node.taskName)
+    .filter((name) => Boolean(name));
 
   /**
    * Event handlers
@@ -41,14 +41,14 @@ export default function CustomTaskNodeDesigner({ diagramEngine, node: designerNo
   const handleOnUpdateTaskVersion = ({ version, inputs }) => {
     revisionDispatch({
       type: "UPDATE_NODE_TASK_VERSION",
-      data: { nodeId: designerNode.id, inputs, version }
+      data: { nodeId: designerNode.id, inputs, version },
     });
   };
 
-  const handleOnSaveTaskConfig = inputs => {
+  const handleOnSaveTaskConfig = (inputs) => {
     revisionDispatch({
       type: "UPDATE_NODE_CONFIG",
-      data: { nodeId: designerNode.id, inputs }
+      data: { nodeId: designerNode.id, inputs },
     });
   };
 
@@ -57,7 +57,7 @@ export default function CustomTaskNodeDesigner({ diagramEngine, node: designerNo
     //deleteNode
     revisionDispatch({
       type: "DELETE_NODE",
-      data: { nodeId: designerNode.id }
+      data: { nodeId: designerNode.id },
     });
     designerNode.remove();
   };
@@ -66,15 +66,15 @@ export default function CustomTaskNodeDesigner({ diagramEngine, node: designerNo
     return (
       <ComposedModal
         composedModalProps={{
-          onAfterOpen: () => setIsModalOpen(true)
+          onAfterOpen: () => setIsModalOpen(true),
         }}
         confirmModalProps={{
           title: "Are you sure?",
-          children: "Your changes will not be saved"
+          children: "Your changes will not be saved",
         }}
         modalHeaderProps={{
           title: `Edit ${task.name}`,
-          subtitle: task.description || "Configure the inputs"
+          subtitle: task.description || "Configure the inputs",
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
         onCloseModal={() => setIsModalOpen(false)}
@@ -101,12 +101,12 @@ export default function CustomTaskNodeDesigner({ diagramEngine, node: designerNo
           composedModalProps={{
             containerClassName: styles.updateTaskModalContainer,
             onAfterOpen: () => setIsModalOpen(true),
-            shouldCloseOnOverlayClick: false
+            shouldCloseOnOverlayClick: false,
           }}
           modalHeaderProps={{
             title: `New version available`,
             subtitle:
-              "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears."
+              "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
           }}
           modalTrigger={({ openModal }) => (
             <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />

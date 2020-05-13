@@ -8,12 +8,12 @@ WorkflowsHeader.propTypes = {
   workflowsLength: PropTypes.number,
   handleSearchFilter: PropTypes.func,
   isLoading: PropTypes.bool,
-  options: PropTypes.array
+  options: PropTypes.array,
 };
 
 function WorkflowsHeader({ handleSearchFilter, isLoading, options, workflowsLength }) {
   return (
-    <FeatureHeader>
+    <FeatureHeader className={styles.header}>
       <div className={styles.container}>
         <section className={styles.info}>
           <p className={styles.title}>These are your</p>

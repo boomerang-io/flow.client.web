@@ -18,7 +18,7 @@ import {
   AsyncInsights,
   AsyncTaskTemplates,
   AsyncTeamProperties,
-  AsyncWorkflows
+  AsyncWorkflows,
 } from "./asyncFeatureImports";
 // import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
 // import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
@@ -138,7 +138,7 @@ export default function App() {
           setActiveTeam: setActiveTeam,
           onBoardShow: onBoardShow,
           setOnBoardShow: setOnBoardShow,
-          refetchTeams: refetchTeams
+          refetchTeams: refetchTeams,
         }}
       >
         <Navbar

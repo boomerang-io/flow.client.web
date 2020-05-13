@@ -12,49 +12,49 @@ const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
 
 class ChangeLogTable extends Component {
   static propTypes = {
-    changeLog: PropTypes.array
+    changeLog: PropTypes.array,
   };
 
   state = {
     page: 1,
     pageSize: DEFAULT_PAGE_SIZE,
-    changeLog: this.props.changeLog ? this.props.changeLog.map(log => ({ ...log, id: log.revisionId })) : [],
+    changeLog: this.props.changeLog ? this.props.changeLog.map((log) => ({ ...log, id: log.revisionId })) : [],
     sort: {
       key: "version",
-      sortDirection: "DESC"
-    }
+      sortDirection: "DESC",
+    },
   };
 
   headers = [
     {
       header: "Version",
-      key: "version"
+      key: "version",
     },
     {
       header: "User",
-      key: "userName"
+      key: "userName",
     },
     {
       header: "Reason",
-      key: "reason"
+      key: "reason",
     },
     {
       header: "Date",
-      key: "date"
-    }
+      key: "date",
+    },
   ];
 
   /* Standard table configuration after search or service call */
-  resetTableWithNewLogs = changeLog => {
+  resetTableWithNewLogs = (changeLog) => {
     const { page, pageSize } = this.state;
     const newPage = page !== 1 && changeLog.length < pageSize * (page - 1) + 1 ? page - 1 : page;
     this.setState({ page: newPage, changeLog });
   };
 
-  handleSearchChange = e => {
+  handleSearchChange = (e) => {
     const searchQuery = e.target.value;
     const { changeLog } = this.props;
-    const changeLogList = changeLog.length !== 0 ? changeLog.map(log => ({ ...log, id: log.revisionId })) : [];
+    const changeLogList = changeLog.length !== 0 ? changeLog.map((log) => ({ ...log, id: log.revisionId })) : [];
 
     const newLogs = searchQuery
       ? matchSorter(changeLogList, searchQuery, { keys: ["version", "userName", "reason"] })
@@ -109,13 +109,13 @@ class ChangeLogTable extends Component {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        {headers.map(header => (
+                        {headers.map((header) => (
                           <TableHeader
                             id={header.key}
                             {...getHeaderProps({
                               header,
                               className: `${styles.tableHeadHeader}`,
-                              isSortable: true
+                              isSortable: true,
                             })}
                           >
                             {header.header}
@@ -124,7 +124,7 @@ class ChangeLogTable extends Component {
                       </TableRow>
                     </TableHead>
                     <TableBody className={styles.tableBody}>
-                      {rows.map(row => (
+                      {rows.map((row) => (
                         <TableRow key={row.id} data-testid="change-log-table-row">
                           {row.cells.map((cell, cellIndex) => (
                             <TableCell key={cell.id} style={{ padding: "0" }} className={styles[cell.info.header]}>

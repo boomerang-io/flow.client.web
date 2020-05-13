@@ -21,7 +21,7 @@ import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utilities/templateTaskNode/TemplateTaskNodeModel";
 import NODE_TYPES from "Constants/nodeTypes";
 import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
-import styles from "./WorkflowManager.module.scss";
+import styles from "./Designer.module.scss";
 
 export class WorkflowManagerContainer extends Component {
   static propTypes = {

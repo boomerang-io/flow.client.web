@@ -12,9 +12,9 @@ import userTypes from "Constants/userTypes";
 
 import { QueryStatus } from "Constants";
 
-const handleOnMenuClick = isAtLeastOperator => ({ isOpen, onMenuClose }) => (
+const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
   <LeftSideNav isOpen={isOpen}>
-    <SideNav ariaLabel="nav" expanded={isOpen} isChildOfHeader={true}>
+    <SideNav aria-label="nav" expanded={isOpen} isChildOfHeader={true}>
       <SideNavItems>
         <SideNavLink
           large
@@ -88,13 +88,13 @@ const defaultUIShellProps = {
   baseLaunchEnvUrl: BASE_LAUNCH_ENV_URL,
   baseServiceUrl: BASE_URL,
   onMenuClick: handleOnMenuClick(false),
-  renderLogo: true
+  renderLogo: true,
 };
 
 NavbarContainer.propTypes = {
   handleOnTutorialClick: PropTypes.func.isRequired,
   navigationState: PropTypes.object.isRequired,
-  userState: PropTypes.object
+  userState: PropTypes.object,
 };
 
 function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) {

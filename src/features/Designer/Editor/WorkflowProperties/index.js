@@ -1,57 +1,91 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
+import { useMutation, queryCache } from "react-query";
+import { ConfirmModal, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowPropertiesModal from "./WorkflowPropertiesModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
+import capitalize from "lodash/capitalize";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
+import { QueryStatus } from "Constants";
 import styles from "./WorkflowProperties.module.scss";
 
 WorkflowProperties.propTypes = {
-  loading: PropTypes.bool.isRequired,
   properties: PropTypes.array.isRequired,
-  updateWorkflowProperties: PropTypes.func.isRequired,
+  workflow: PropTypes.object.isRequired,
 };
 
-function WorkflowPropertyRow({ title, value }) {
+const WorkflowPropertyRow = ({ title, value }) => {
   return (
     <dl className={styles.fieldContainer}>
       <dt className={styles.fieldKey}>{title}</dt>
       <dd className={styles.fieldValue}>{value}</dd>
     </dl>
   );
-}
+};
 
-function WorkflowProperties(props) {
-  function formatDefaultValue(value) {
-    if (!value) {
-      return "---";
-    } else {
-      return value;
+const formatDefaultValue = (value) => {
+  if (!value) {
+    return "---";
+  } else {
+    return value;
+  }
+};
+
+const WorkflowPropertyHeader = ({ label, description }) => {
+  return (
+    <div className={styles.headerContainer}>
+      <h1 className={styles.label}>{label}</h1>
+      <p className={styles.description}>{formatDefaultValue(description)}</p>
+    </div>
+  );
+};
+
+export default function WorkflowProperties({ summaryData }) {
+  const [mutateProperties, { status: mutatePropertiesStatus }] = useMutation(resolver.patchUpdateWorkflowProperties);
+  const mutatePropertiesIsLoading = mutatePropertiesStatus === QueryStatus.Loading;
+
+  const updateProperties = async ({ property, title, message, type }) => {
+    let properties = [...summaryData.properties];
+    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE) {
+      const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
+      properties.splice(propertyToUpdateIndex, 1, property);
     }
-  }
 
-  function WorkflowPropertyHeader({ label, description }) {
-    return (
-      <div className={styles.headerContainer}>
-        <h1 className={styles.label}>{label}</h1>
-        <p className={styles.description}>{formatDefaultValue(description)}</p>
-      </div>
-    );
-  }
+    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE) {
+      const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
+      properties.splice(propertyToUpdateIndex, 1);
+    }
 
-  function deleteProperty(property) {
-    props
-      .updateWorkflowProperties({
-        property,
-        type: WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE,
-      })
-      .catch((error) => {
-        //no-op
-      });
-  }
+    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE) {
+      properties.push(property);
+    }
 
-  const { properties } = props;
+    try {
+      const { data } = await mutateProperties({ workflowId: summaryData.id, body: properties });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={`${capitalize(type)} property`}
+          subtitle={`Successfully performed operation`}
+        />
+      );
+      queryCache.setQueryData(serviceUrl.getWorkflowSummary({ workflowId: summaryData.id }), data);
+    } catch (e) {
+      notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} property`} />);
+    }
+  };
+
+  const deleteProperty = (property) => {
+    updateProperties({
+      property,
+      type: WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE,
+    });
+  };
+
+  const { properties } = summaryData;
   const propertyKeys = properties.map((input) => input.key);
+
   return (
     <main className={styles.container}>
       {properties.length > 0 &&
@@ -74,10 +108,10 @@ function WorkflowProperties(props) {
               <>
                 <WorkflowPropertiesModal
                   isEdit
-                  loading={props.loading}
+                  loading={mutatePropertiesIsLoading}
                   propertyKeys={propertyKeys.filter((propertyName) => propertyName !== property.key)}
                   property={property}
-                  updateWorkflowProperties={props.updateWorkflowProperties}
+                  updateWorkflowProperties={updateProperties}
                 />
                 <ConfirmModal
                   affirmativeButtonProps={{ kind: "danger" }}
@@ -101,11 +135,9 @@ function WorkflowProperties(props) {
       <WorkflowPropertiesModal
         isEdit={false}
         propertyKeys={propertyKeys}
-        updateWorkflowProperties={props.updateWorkflowProperties}
-        loading={props.loading}
+        updateWorkflowProperties={updateProperties}
+        loading={mutatePropertiesIsLoading}
       />
     </main>
   );
 }
-
-export default WorkflowProperties;
