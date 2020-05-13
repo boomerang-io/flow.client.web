@@ -54,7 +54,13 @@ export const HTTP_METHODS = {
 export const serviceUrl = {
   getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}`,
-  restoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`
+  restoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`,
+  getUserProfile: () => `${BASE_USERS_URL}/profile`,
+  getNavigation: () => `${BASE_USERS_URL}/navigation`,
+  getTeams: () => `${BASE_SERVICE_URL}/teams`,
+  getWorkflow: ({ id }) => `${BASE_SERVICE_URL}/workflow/${id}`,
+  executeWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
+  getWorkflowImport: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`
 };
 
 export const cancellableResolver = ({ url, method, body, ...config }) => {
@@ -82,7 +88,10 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HTTP_METHODS.POST }),
   putCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HTTP_METHODS.PUT }),
-  putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id }))
+  putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id })),
+  deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
+  postExecuteWorkflow: ({ id, properties }) => axios.post(serviceUrl.executeWorkflow({ id }), { properties }),
+  postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body)
 };
 
 export const REQUEST_STATUSES = {

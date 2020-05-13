@@ -1,9 +1,5 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { actions } from "State/onBoard";
-import { withRouter } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   homeScreens,
   designerScreens,
@@ -17,131 +13,102 @@ import {
 } from "./constants";
 import OnBoardGuideContainer from "./OnBoardGuideContainer";
 import OnBoardMessage from "./OnBoardMessage";
+import { useAppContext } from "Hooks";
 import "./styles.scss";
 
-class OnBoardExpContainer extends Component {
-  static propTypes = {
-    location: PropTypes.object,
-    onBoard: PropTypes.object,
-    actions: PropTypes.object
+export default function OnBoardExpContainer() {
+  const [screen, setScreen] = useState(0);
+  const location = useLocation();
+  const { onBoardShow, setOnBoardShow } = useAppContext();
+
+  const nextScreen = () => {
+    setScreen(prevCount => prevCount + 1);
   };
 
-  state = {
-    screen: 0
+  const previousScreen = () => {
+    setScreen(prevCount => prevCount - 1);
   };
 
-  nextScreen = () => {
-    this.setState(prevState => ({
-      screen: prevState.screen + 1
-    }));
+  const goToScreen = newScreen => {
+    setScreen(newScreen);
   };
 
-  previousScreen = () => {
-    this.setState(prevState => ({
-      screen: prevState.screen - 1
-    }));
+  const closeModal = () => {
+    setScreen(0);
+    setOnBoardShow(false);
   };
 
-  goToScreen = screen => {
-    this.setState(() => ({ screen }));
-  };
+  if (!onBoardShow) {
+    return null;
+  }
 
-  closeModal = () => {
-    this.setState({ screen: 0 });
-    this.props.actions.hideOnBoardExp();
-  };
+  const index = screen;
+  const path = location.pathname;
+  let screens = {};
+  let guideConfig = {};
+  let message = {};
 
-  render() {
-    const { onBoard } = this.props;
+  if (path.includes("/workflows")) {
+    screens = homeScreens;
+    guideConfig = homeGuideConfig;
+    message = messageConfig.welcomeHome;
+  } else if (path.includes("/editor")) {
+    screens = designerScreens;
+    guideConfig = designerGuideConfig;
+    message = messageConfig.welcomeDesigner;
+  } else if (path.includes("/activity") && !path.includes("/execution")) {
+    screens = activityScreens;
+    guideConfig = activityGuideConfig;
+    message = messageConfig.welcomeActivity;
+  } else if (path.includes("/execution")) {
+    screens = executionScreens;
+    guideConfig = executionGuideConfig;
+    message = messageConfig.welcomeExecution;
+  } else {
+    closeModal();
+    return null;
+  }
 
-    if (!onBoard.show) {
-      return null;
-    }
-
-    const index = this.state.screen;
-    const path = this.props.location.pathname;
-    let screens = {};
-    let guideConfig = {};
-    let message = {};
-
-    if (path.includes("/workflows")) {
-      screens = homeScreens;
-      guideConfig = homeGuideConfig;
-      message = messageConfig.welcomeHome;
-    } else if (path.includes("/editor")) {
-      screens = designerScreens;
-      guideConfig = designerGuideConfig;
-      message = messageConfig.welcomeDesigner;
-    } else if (path.includes("/activity") && !path.includes("/execution")) {
-      screens = activityScreens;
-      guideConfig = activityGuideConfig;
-      message = messageConfig.welcomeActivity;
-    } else if (path.includes("/execution")) {
-      screens = executionScreens;
-      guideConfig = executionGuideConfig;
-      message = messageConfig.welcomeExecution;
-    } else {
-      this.closeModal();
-      return null;
-    }
-
-    if (index === screens.WELCOME) {
-      return (
-        <div className="c-onboard-wrapper">
-          <OnBoardMessage
-            nextScreen={this.nextScreen}
-            closeModal={this.closeModal}
-            goToScreen={this.goToScreen}
-            returnScreen={screens.RETURN}
-            {...message}
-          />
-        </div>
-      );
-    }
-
-    if (index === screens.DONE) {
-      return (
-        <div className="c-onboard-wrapper">
-          <OnBoardMessage nextScreen={this.nextScreen} closeModal={this.closeModal} {...messageConfig.done} />
-        </div>
-      );
-    }
-
-    if (index === screens.RETURN) {
-      return (
-        <div className="c-onboard-wrapper">
-          <OnBoardMessage closeModal={this.closeModal} {...messageConfig.return} />
-        </div>
-      );
-    }
-
+  if (index === screens.WELCOME) {
     return (
-      <div className="c-onboard-wrapper c-onboard-wrapper--transparent">
-        <OnBoardGuideContainer
-          index={index}
-          nextScreen={this.nextScreen}
-          previousScreen={this.previousScreen}
-          closeModal={this.closeModal}
-          screens={screens}
-          guideConfig={guideConfig}
+      <div className="c-onboard-wrapper">
+        <OnBoardMessage
+          nextScreen={nextScreen}
+          closeModal={closeModal}
+          goToScreen={goToScreen}
+          returnScreen={screens.RETURN}
+          {...message}
         />
       </div>
     );
   }
+
+  if (index === screens.DONE) {
+    return (
+      <div className="c-onboard-wrapper">
+        <OnBoardMessage nextScreen={nextScreen} closeModal={closeModal} {...messageConfig.done} />
+      </div>
+    );
+  }
+
+  if (index === screens.RETURN) {
+    return (
+      <div className="c-onboard-wrapper">
+        <OnBoardMessage closeModal={closeModal} {...messageConfig.return} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="c-onboard-wrapper c-onboard-wrapper--transparent">
+      <OnBoardGuideContainer
+        index={index}
+        nextScreen={nextScreen}
+        previousScreen={previousScreen}
+        closeModal={closeModal}
+        screens={screens}
+        guideConfig={guideConfig}
+      />
+    </div>
+  );
 }
-
-const mapStateToProps = state => ({
-  userEmail: state.user.data.email,
-  onBoard: state.onBoard
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(actions, dispatch)
-});
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(OnBoardExpContainer)
-);

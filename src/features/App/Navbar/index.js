@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { LeftSideNav, UIShell } from "@boomerang/carbon-addons-boomerang-react";
-import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
+// import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
 import { BASE_URL } from "Config/servicesConfig";
 import { NavLink } from "react-router-dom";
@@ -10,7 +10,9 @@ import { Activity16, ChartScatter16, FlowData16, SettingsAdjust16 } from "@carbo
 import { SideNav, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from "carbon-components-react";
 import userTypes from "Constants/userTypes";
 
-const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
+import { QueryStatus } from "Constants";
+
+const handleOnMenuClick = isAtLeastOperator => ({ isOpen, onMenuClose }) => (
   <LeftSideNav isOpen={isOpen}>
     <SideNav ariaLabel="nav" expanded={isOpen} isChildOfHeader={true}>
       <SideNavItems>
@@ -86,20 +88,17 @@ const defaultUIShellProps = {
   baseLaunchEnvUrl: BASE_LAUNCH_ENV_URL,
   baseServiceUrl: BASE_URL,
   onMenuClick: handleOnMenuClick(false),
-  renderLogo: true,
+  renderLogo: true
 };
 
 NavbarContainer.propTypes = {
   handleOnTutorialClick: PropTypes.func.isRequired,
   navigationState: PropTypes.object.isRequired,
-  userState: PropTypes.object,
+  userState: PropTypes.object
 };
 
 function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) {
-  if (
-    navigationState.status === SERVICE_REQUEST_STATUSES.SUCCESS &&
-    userState.status === SERVICE_REQUEST_STATUSES.SUCCESS
-  ) {
+  if (navigationState.status === QueryStatus.Success && userState.status === QueryStatus.Success) {
     return (
       <>
         <Helmet>

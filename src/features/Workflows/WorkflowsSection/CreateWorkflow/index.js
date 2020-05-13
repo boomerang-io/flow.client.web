@@ -13,6 +13,8 @@ import DiagramApplication, { createWorkflowRevisionBody } from "Utilities/Diagra
 import styles from "./createWorkflow.module.scss";
 import queryString from "query-string";
 
+import AppContext from "State/context/appContext";
+
 export class CreateWorkflow extends Component {
   static propTypes = {
     fetchTeams: PropTypes.func.isRequired,
@@ -21,6 +23,15 @@ export class CreateWorkflow extends Component {
     workflowActions: PropTypes.object.isRequired,
     workflowRevisionActions: PropTypes.object.isRequired
   };
+
+  componentDidMount() {
+    const teams = this.props.value;
+
+    console.log("MOUNT");
+    console.log(this.props); // { name: 'Tania', loggedIn: true }
+    console.log(this.context); // { name: 'Tania', loggedIn: true }
+    console.log(this);
+  }
 
   diagramApp = new DiagramApplication({ dag: null, isLocked: false });
 
@@ -76,6 +87,8 @@ export class CreateWorkflow extends Component {
 
   render() {
     const { team, teams, isCreating } = this.props;
+    // console.log("context");
+    // console.log(this.context);
     return (
       <ModalFlow
         modalTrigger={({ openModal }) => (

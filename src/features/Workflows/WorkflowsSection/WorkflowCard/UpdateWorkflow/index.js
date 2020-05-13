@@ -1,80 +1,58 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import queryString from "query-string";
-import { actions as importWorkflowActions } from "State/importWorkflow";
 import { notify, ToastNotification, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import ImportWorkflowContent from "./ImportWorkflowContent";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import styles from "./updateWorkflow.module.scss";
 
-class UpdateWorkflow extends Component {
-  static propTypes = {
-    fetchTeams: PropTypes.func.isRequired,
-    importWorkflowActions: PropTypes.object.isRequired,
-    importWorkflowState: PropTypes.object.isRequired,
-    onCloseModal: PropTypes.func,
-    workflowId: PropTypes.string.isRequired
-  };
+import { QueryStatus } from "Constants";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { useMutation, queryCache } from "react-query";
 
-  handleImportWorkflow = (data, closeModal) => {
+export default function UpdateWorkflow({ workflowId, onCloseModal }) {
+  const [importWorkflowMutator, { status: importWorkflowStatus }] = useMutation(resolver.postImportWorkflow, {
+    onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams())
+  });
+
+  const isPosting = importWorkflowStatus === QueryStatus.Loading;
+
+  const handleImportWorkflow = async (data, closeModal) => {
     const query = queryString.stringify({ update: true, flowTeamId: this.props.teamId });
-    return this.props.importWorkflowActions
-      .post(`${BASE_SERVICE_URL}/workflow/import?${query}`, data)
-      .then(() => {
-        notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfullyupdated" />);
-        closeModal();
-        this.props.fetchTeams();
-      })
-      .catch(err => {
-        //noop
-      });
+    try {
+      await importWorkflowMutator(resolver.post({ query, body: data }));
+      notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfully updated" />);
+      closeModal();
+    } catch {}
   };
 
-  render() {
-    const initialState = {
-      step: 0,
-      formData: {
-        files: []
-      }
-    };
-    const { isPosting, workflowId } = this.props;
-    return (
-      <ModalFlow
-        isOpen
-        confirmModalProps={{
-          title: "Are you sure?",
-          children: "Your request will not be saved"
-        }}
-        composedModalProps={{
-          containerClassName: styles.container
-        }}
-        modalHeaderProps={{
-          title: "Update .json file"
-        }}
-        initialState={initialState}
-        onCloseModal={this.props.onCloseModal}
-      >
-        <ImportWorkflowContent
-          confirmButtonText={isPosting ? "Updating..." : "Update"}
-          handleImportWorkflow={this.handleImportWorkflow}
-          isLoading={isPosting}
-          title="Update a Workflow - Select the Workflow file you want to upload"
-          workflowId={workflowId}
-        />
-      </ModalFlow>
-    );
-  }
+  // const initialState = {
+  //   step: 0,
+  //   formData: {
+  //     files: []
+  //   }
+  // };
+  return (
+    <ModalFlow
+      isOpen
+      confirmModalProps={{
+        title: "Are you sure?",
+        children: "Your request will not be saved"
+      }}
+      composedModalProps={{
+        containerClassName: styles.container
+      }}
+      modalHeaderProps={{
+        title: "Update .json file"
+      }}
+      //initialState={initialState}
+      onCloseModal={onCloseModal}
+    >
+      <ImportWorkflowContent
+        confirmButtonText={isPosting ? "Updating..." : "Update"}
+        handleImportWorkflow={handleImportWorkflow}
+        isLoading={isPosting}
+        title="Update a Workflow - Select the Workflow file you want to upload"
+        workflowId={workflowId}
+      />
+    </ModalFlow>
+  );
 }
-
-const mapStateToProps = state => ({
-  importWorkflowState: state.importWorkflow,
-  isPosting: state.importWorkflow.isPosting
-});
-
-const mapDispatchToProps = dispatch => ({
-  importWorkflowActions: bindActionCreators(importWorkflowActions, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateWorkflow);

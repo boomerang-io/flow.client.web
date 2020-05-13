@@ -9,9 +9,9 @@ class WorkflowSection extends Component {
   static propTypes = {
     deleteWorkflow: PropTypes.func.isRequired,
     executeWorkflow: PropTypes.func.isRequired,
-    fetchTeams: PropTypes.func.isRequired,
+    //fetchTeams: PropTypes.func.isRequired,
     searchQuery: PropTypes.string.isRequired,
-    setActiveTeam: PropTypes.func.isRequired,
+    //setActiveTeam: PropTypes.func.isRequired,
     setActiveTeamAndRedirect: PropTypes.func.isRequired,
     team: PropTypes.object.isRequired
   };
@@ -20,12 +20,14 @@ class WorkflowSection extends Component {
     const {
       deleteWorkflow,
       executeWorkflow,
-      fetchTeams,
+      //fetchTeams,
       history,
-      setActiveTeam,
+      //setActiveTeam,
       setActiveTeamAndRedirect,
       searchQuery,
-      team
+      team,
+      teams,
+      refetchTeams
     } = this.props;
 
     let workflows = [];
@@ -52,9 +54,9 @@ class WorkflowSection extends Component {
             <WorkflowCard
               deleteWorkflow={deleteWorkflow}
               executeWorkflow={executeWorkflow}
-              fetchTeams={fetchTeams}
+              //fetchTeams={fetchTeams}
               key={workflow.id}
-              setActiveTeam={setActiveTeam}
+              //setActiveTeam={setActiveTeam}
               teamId={team.id}
               workflow={workflow}
             />
@@ -63,7 +65,9 @@ class WorkflowSection extends Component {
             team={team}
             setActiveTeamAndRedirect={setActiveTeamAndRedirect}
             history={history}
-            fetchTeams={fetchTeams}
+            // fetchTeams={fetchTeams}
+            teams={teams}
+            refetchTeams={refetchTeams}
           />
         </div>
       </section>

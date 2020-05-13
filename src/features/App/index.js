@@ -1,6 +1,6 @@
-import React, { Suspense, Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { useState, Suspense } from "react";
+import { useQuery } from "react-query";
+
 import { detect } from "detect-browser";
 import { actions as userActions } from "State/user";
 import { actions as navigationActions } from "State/navigation";
@@ -23,67 +23,66 @@ import {
   AsyncTeamProperties,
   AsyncWorkflows
 } from "./asyncFeatureImports";
-import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
-import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
+// import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
+// import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import USER_TYPES from "Constants/userTypes";
 import ErrorDragon from "Components/ErrorDragon";
 import styles from "./app.module.scss";
+
+import { serviceUrl, resolver } from "Config/servicesConfig";
+
+import { AppContext } from "State/context";
+import { QueryStatus } from "Constants";
+
+const userUrl = serviceUrl.getUserProfile();
+const navigationUrl = serviceUrl.getNavigation();
+const getTeamsUrl = serviceUrl.getTeams();
+//Fetch data
 
 const browser = detect();
 
 const allowedUserRoles = [USER_TYPES.ADMIN, USER_TYPES.OPERATOR];
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
-class App extends Component {
-  state = {
-    shouldShowBrowserWarning: !supportedBrowsers.includes(browser.name)
-  };
+export default function App() {
+  const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(!supportedBrowsers.includes(browser.name));
+  const [activeTeam, setActiveTeam] = useState(undefined);
+  const [onBoardShow, setOnBoardShow] = useState(false);
 
-  componentDidMount() {
-    this.fetchData();
-  }
+  const userQuery = useQuery({ queryKey: userUrl, queryFn: resolver.query(userUrl) });
+  const navigationQuery = useQuery({ queryKey: navigationUrl, queryFn: resolver.query(navigationUrl) });
+  const teamsQuery = useQuery({ queryKey: getTeamsUrl, queryFn: resolver.query(getTeamsUrl) });
+  const { data: userData } = userQuery;
+  const { data: teamsData, refetch: refetchTeams } = teamsQuery;
 
-  refreshPage = () => {
-    this.fetchData();
-  };
+  const userIsLoading = userQuery.status === QueryStatus.Loading;
+  const navigationIsLoading = navigationQuery.status === QueryStatus.Loading;
+  const teamsIsLoading = teamsQuery.status === QueryStatus.Loading;
 
-  async fetchData() {
-    try {
-      await Promise.all([
-        this.props.userActions.fetchUser(`${BASE_USERS_URL}/profile`),
-        this.props.navigationActions.fetchNavigation(`${BASE_USERS_URL}/navigation`),
-        this.props.teamsActions.fetch(`${BASE_SERVICE_URL}/teams`)
-      ]);
-    } catch (e) {
-      // noop
-    }
-  }
-
-  renderAppContent() {
-    const { userState, navigationState, teamsState } = this.props;
-
-    if (userState.isFetching || userState.isCreating || navigationState.isFetching) {
+  const renderAppContent = () => {
+    if (userIsLoading || navigationIsLoading || teamsIsLoading) {
       return <Loading />;
     }
 
     // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
-    if (userState.status === SERVICE_REQUEST_STATUSES.SUCCESS && !userState.data.id) {
+    if (userQuery.status === QueryStatus.Success && !userData.id) {
       return null;
     }
 
     // Show redirect prompt if the user doesn't have any teams
-    if (teamsState.status === SERVICE_REQUEST_STATUSES.SUCCESS && Object.keys(teamsState.data).length === 0) {
+    if (teamsQuery.status === QueryStatus.Success && Object.keys(teamsData).length === 0) {
       return <NoAccessRedirectPrompt />;
     }
 
-    if (this.state.shouldShowBrowserWarning) {
-      return <UnsupportedBrowserPrompt onDismissWarning={() => this.setState({ shouldShowBrowserWarning: false })} />;
+    if (shouldShowBrowserWarning) {
+      return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
     }
 
     if (
-      userState.status === SERVICE_REQUEST_STATUSES.SUCCESS &&
-      navigationState.status === SERVICE_REQUEST_STATUSES.SUCCESS
+      userQuery.status === QueryStatus.Success &&
+      navigationQuery.status === QueryStatus.Success //&&
+      //teamsQuery.status === QueryStatus.Success
     ) {
-      const userRole = userState.data.type;
+      const userRole = userData.type;
 
       return (
         <div className={styles.container}>
@@ -119,48 +118,39 @@ class App extends Component {
         </div>
       );
     }
-
     if (
-      userState.status === SERVICE_REQUEST_STATUSES.FAILURE ||
-      navigationState.status === SERVICE_REQUEST_STATUSES.FAILURE
+      userQuery.status === QueryStatus.Error ||
+      navigationQuery.status === QueryStatus.Error ||
+      teamsQuery.status === QueryStatus.Error
     ) {
       return <ErrorDragon style={{ margin: "5rem 0" }} />;
     }
 
     return null;
-  }
+  };
 
-  render() {
-    const { onBoardActions, navigationState, userState } = this.props;
-    return (
-      <>
+  return (
+    <>
+      <AppContext.Provider
+        value={{
+          user: userData,
+          teams: teamsData,
+          teamsQuery: teamsQuery,
+          activeTeam: activeTeam,
+          setActiveTeam: setActiveTeam,
+          onBoardShow: onBoardShow,
+          setOnBoardShow: setOnBoardShow,
+          refetchTeams: refetchTeams
+        }}
+      >
         <Navbar
-          handleOnTutorialClick={onBoardActions.showOnBoardExp}
-          navigationState={navigationState}
-          userState={userState}
+          handleOnTutorialClick={() => setOnBoardShow(true)}
+          navigationState={navigationQuery}
+          userState={userQuery}
         />
         <OnBoardExpContainer />
-        <ErrorBoundary errorComponent={ErrorDragon}>{this.renderAppContent()}</ErrorBoundary>
-      </>
-    );
-  }
+        <ErrorBoundary errorComponent={ErrorDragon}>{renderAppContent()}</ErrorBoundary>
+      </AppContext.Provider>
+    </>
+  );
 }
-
-const mapStateToProps = state => {
-  return {
-    navigationState: state.navigation,
-    teamsState: state.teams,
-    userState: state.user
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    navigationActions: bindActionCreators(navigationActions, dispatch),
-    onBoardActions: bindActionCreators(onBoardActions, dispatch),
-    teamsActions: bindActionCreators(teamsActions, dispatch),
-    userActions: bindActionCreators(userActions, dispatch)
-  };
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

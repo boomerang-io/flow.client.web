@@ -99,6 +99,29 @@
   background-size: cover;
 }
 
+.b-onboardExp__title {
+  color: $cool-white-1;
+  font-size: 2rem;
+  text-align: center;
+  line-height: 2.625rem;
+  margin-top: 1.875rem;
+  max-width: 35.563rem;
+  text-align: center;
+  width: 100%;
+}
+
+.b-onboardExp__subtitle {
+  color: $cool-white-1;
+  font-size: 1.25rem;
+  text-align: center;
+  line-height: 1.688rem;
+  letter-spacing: 0.015rem;
+  margin: 0.625rem 0 0 0;
+  margin-bottom: 1rem;
+  max-width: 35.563rem;
+  width: 100%;
+}
+
 .b-onboardExp-finish__title {
   color: $cool-white-1;
   font-size: 2rem;
