@@ -10,7 +10,7 @@ import { Activity16, ChartScatter16, FlowData16, SettingsAdjust16 } from "@carbo
 import { SideNav, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from "carbon-components-react";
 import userTypes from "Constants/userTypes";
 
-const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
+const handleOnMenuClick = isAtLeastOperator => ({ isOpen, onMenuClose }) => (
   <LeftSideNav isOpen={isOpen}>
     <SideNav ariaLabel="nav" expanded={isOpen} isChildOfHeader={true}>
       <SideNavItems>
@@ -86,13 +86,17 @@ const defaultUIShellProps = {
   baseLaunchEnvUrl: BASE_LAUNCH_ENV_URL,
   baseServiceUrl: BASE_URL,
   onMenuClick: handleOnMenuClick(false),
-  renderLogo: true,
+  renderLogo: true
+};
+
+const skipToContentProps = {
+  href: "#content"
 };
 
 NavbarContainer.propTypes = {
   handleOnTutorialClick: PropTypes.func.isRequired,
   navigationState: PropTypes.object.isRequired,
-  userState: PropTypes.object,
+  userState: PropTypes.object
 };
 
 function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) {
@@ -113,6 +117,7 @@ function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) 
           headerConfig={navigationState.data}
           onTutorialClick={handleOnTutorialClick}
           user={userState.data}
+          skipToContentProps={skipToContentProps}
         />
       </>
     );

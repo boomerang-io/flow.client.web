@@ -99,7 +99,8 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
           </div>
         </div>
       </header>
-      <main
+      <section
+        aria-label="Executions"
         class="executionResultContainer"
       >
         <aside
@@ -342,7 +343,7 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
             class="diagramLoading"
           />
         </div>
-      </main>
+      </section>
     </div>
   </div>
 </body>

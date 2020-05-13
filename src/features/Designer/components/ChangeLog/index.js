@@ -42,9 +42,9 @@ class ChangeLog extends Component {
 
     if (changeLog.status === REQUEST_STATUSES.SUCCESS)
       return (
-        <main className={styles.container}>
+        <section aria-label="Change Log" className={styles.container}>
           <ChangeLogTable changeLog={changeLog.data} />
-        </main>
+        </section>
       );
     if (changeLog.status === REQUEST_STATUSES.FAILURE) return <ErrorDragon />;
     return null;
@@ -59,7 +59,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(actions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChangeLog);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangeLog);

@@ -86,7 +86,7 @@ class App extends Component {
       const userRole = userState.data.type;
 
       return (
-        <div className={styles.container}>
+        <main id="content" className={styles.container}>
           <Suspense fallback={<Loading />}>
             <Switch>
               <ProtectedRoute
@@ -116,7 +116,7 @@ class App extends Component {
             </Switch>
           </Suspense>
           <NotificationsContainer enableMultiContainer />
-        </div>
+        </main>
       );
     }
 

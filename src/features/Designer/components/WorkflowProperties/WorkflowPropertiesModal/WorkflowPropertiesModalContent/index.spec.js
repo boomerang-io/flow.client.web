@@ -1,7 +1,6 @@
 import React from "react";
 import Inputs from ".";
 import { fireEvent, waitForElement } from "@testing-library/react";
-
 const mockfn = jest.fn();
 
 const props = {
@@ -38,26 +37,23 @@ describe("Inputs --- RTL", () => {
     const typeSelect = getByLabelText(/type/i);
 
     fireEvent.click(typeSelect);
-    fireEvent.click(getByText(/boolean/i));
-
-    expect(queryByTestId("text-input")).not.toBeInTheDocument();
-    expect(queryByTestId("toggle")).toBeInTheDocument();
-
-    fireEvent.click(typeSelect);
-    fireEvent.click(getByText(/text area/i));
-
-    expect(queryByTestId("toggle")).not.toBeInTheDocument();
-    expect(queryByTestId("text-area")).toBeInTheDocument();
+    waitForElement(() => fireEvent.click(getByText(/boolean/i)));
+    waitForElement(() => expect(queryByTestId("text-input")).not.toBeInTheDocument());
+    waitForElement(() => expect(queryByTestId("toggle")).toBeInTheDocument());
 
     fireEvent.click(typeSelect);
-    fireEvent.click(getByText(/select/i));
+    waitForElement(() => fireEvent.click(getByText(/text area/i)));
+    waitForElement(() => expect(queryByTestId("toggle")).not.toBeInTheDocument());
+    waitForElement(() => expect(queryByTestId("text-area")).toBeInTheDocument());
 
-    expect(queryByTestId("text-area")).not.toBeInTheDocument();
-    expect(queryByTestId("select")).toBeInTheDocument();
+    fireEvent.click(typeSelect);
+    waitForElement(() => fireEvent.click(getByText(/select/i)));
+    waitForElement(() => expect(queryByTestId("text-area")).not.toBeInTheDocument());
+    waitForElement(() => expect(queryByTestId("select")).toBeInTheDocument());
   });
 
-  it("Shouldn't save property without key, label and type defined", async () => {
-    const { findByText, getByText, getByPlaceholderText, getByLabelText } = rtlReduxRender(
+  it("Shouldn't save property without key, label and type defined", () => {
+    const { findByText, getByPlaceholderText, getByLabelText, getByTestId } = rtlReduxRender(
       <Inputs {...props} isEdit={false} input={undefined} />
     );
     waitForElement(() => expect(findByText(/create/i)).toBeDisabled());
@@ -69,7 +65,8 @@ describe("Inputs --- RTL", () => {
     fireEvent.change(keyInput, { target: { value: "test" } });
     fireEvent.change(labelInput, { target: { value: "test" } });
     fireEvent.click(typeSelect);
-    fireEvent.click(getByText(/boolean/i));
+
+    fireEvent.click(getByTestId("toggle-test-id"));
 
     waitForElement(() => expect(findByText(/create/i)).toBeEnabled());
   });

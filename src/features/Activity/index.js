@@ -173,7 +173,7 @@ export function WorkflowActivity({ history, location, match, teamsState }) {
           runActivities={activitySummaryState.data?.all ?? 0}
           succeededActivities={activitySummaryState.data?.completed ?? 0}
         />
-        <main className={styles.content}>
+        <section aria-label="Activity" className={styles.content}>
           <nav>
             <Tabs className={styles.tabs} selected={statusIndex + 1} onSelectionChange={handleSelectStatuses}>
               <Tab label={statusSummaryDataIsLoading ? "All" : `All (${statusSummaryData.all})`} />
@@ -274,7 +274,7 @@ export function WorkflowActivity({ history, location, match, teamsState }) {
             tableData={activityState.data}
             updateHistorySearch={updateHistorySearch}
           />
-        </main>
+        </section>
       </div>
     );
   }

@@ -37,7 +37,8 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
           </section>
         </div>
       </header>
-      <main
+      <section
+        aria-label="Activity"
         class="content"
       >
         <nav>
@@ -523,7 +524,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
             </tbody>
           </table>
         </div>
-      </main>
+      </section>
     </div>
   </div>
 </body>

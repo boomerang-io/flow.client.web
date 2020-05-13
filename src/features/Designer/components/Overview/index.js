@@ -104,7 +104,7 @@ export class Overview extends Component {
     } = this.props;
 
     return (
-      <main className={styles.wrapper}>
+      <section aria-label="Overview" className={styles.wrapper}>
         <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
           <h2 className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</h2>
@@ -369,7 +369,7 @@ export class Overview extends Component {
             </p>
           </div>
         </section>
-      </main>
+      </section>
     );
   }
 }

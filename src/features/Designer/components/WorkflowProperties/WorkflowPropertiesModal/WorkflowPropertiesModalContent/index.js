@@ -297,6 +297,7 @@ class WorkflowPropertiesModalContent extends Component {
                 />
 
                 <Toggle
+                  data-testid="toggle-test-id"
                   id={FIELD.REQUIRED}
                   labelText="Required"
                   onToggle={value => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}

@@ -94,6 +94,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
             <input
               aria-labelledby="required-label"
               class="bx--toggle-input"
+              data-testid="toggle-test-id"
               id="required"
               type="checkbox"
             />

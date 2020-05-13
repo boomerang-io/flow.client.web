@@ -99,7 +99,8 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
           </div>
         </div>
       </header>
-      <main
+      <section
+        aria-label="Executions"
         class="executionResultContainer"
       >
         <aside
@@ -342,7 +343,7 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
             class="diagramLoading"
           />
         </div>
-      </main>
+      </section>
     </div>
   </div>
 </body>

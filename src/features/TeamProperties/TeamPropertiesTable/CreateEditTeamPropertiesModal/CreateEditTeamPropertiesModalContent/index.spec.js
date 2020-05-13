@@ -60,9 +60,9 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
     fireEvent.change(keyInputText, { target: { value: "Key Test" } });
     fireEvent.click(saveButton);
 
-    expect(valueInputText).not.toBeInTheDocument();
-    expect(labelInputText).not.toBeInTheDocument();
-    expect(keyInputText).not.toBeInTheDocument();
+    waitForElement(() => expect(valueInputText).not.toBeInTheDocument());
+    waitForElement(() => expect(labelInputText).not.toBeInTheDocument());
+    waitForElement(() => expect(keyInputText).not.toBeInTheDocument());
   });
 
   test("CreateEditTeamPropertiesModalContent - test form reqired validations", async () => {

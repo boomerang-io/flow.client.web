@@ -138,7 +138,7 @@ export class WorkflowsHome extends Component {
         <DelayedRender>
           <div className={styles.container}>
             <WorkflowsHeader isLoading handleSearchFilter={this.handleSearchFilter} workflowsLength={0} options={[]} />
-            <main className={styles.content}>
+            <section aria-label="Loadin Workflows" className={styles.content}>
               <div className={styles.loadingContainer}>
                 <SkeletonText heading width="10rem" />
                 <div className={styles.cardPlaceholderContainer}>
@@ -150,7 +150,7 @@ export class WorkflowsHome extends Component {
                 <SkeletonText heading width="10rem" />
                 <SkeletonPlaceholder className={styles.cardPlaceholder} />
               </div>
-            </main>
+            </section>
           </div>
         </DelayedRender>
       );
@@ -182,7 +182,7 @@ export class WorkflowsHome extends Component {
               workflowsLength={workflowsLength}
               options={teamsState.data}
             />
-            <main className={styles.content}>
+            <section aria-label="Workflows Content" className={styles.content}>
               {sortedTeams.length > 0 ? (
                 sortedTeams.map(team => {
                   return (
@@ -206,7 +206,7 @@ export class WorkflowsHome extends Component {
                   header={null}
                 />
               )}
-            </main>
+            </section>
           </div>
         </>
       );
@@ -227,7 +227,4 @@ const mapDispatchToProps = dispatch => ({
   teamsActions: bindActionCreators(teamsActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WorkflowsHome);
+export default connect(mapStateToProps, mapDispatchToProps)(WorkflowsHome);
