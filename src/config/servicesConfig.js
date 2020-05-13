@@ -52,8 +52,14 @@ export const HTTP_METHODS = {
 };
 
 export const serviceUrl = {
-  getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}`,
+  getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
+  getWorkflowRevision: ({ workflowId, revisionNumber }) =>
+    `${BASE_SERVICE_URL}/workflow/${workflowId}/revision/${revisionNumber ?? ""}`,
+  getWorkflowSummary: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/summary`,
+  patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/properties`,
+  patchUpdateWorkflowSummary: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/summary`,
+  postCreateWorkflowRevision: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/revision`,
   restoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`
 };
 
@@ -76,8 +82,15 @@ export const resolver = {
   patchMutation: request => axios.patch(request),
   putMutation: request => axios.put(request),
   deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
+  patchUpdateWorkflowSummary: ({ workflowId, body }) =>
+    axios.put(serviceUrl.patchUpdateWorkflowSummary({ workflowId }), body),
+  patchUpdateWorkflowProperties: ({ workflowId, body }) =>
+    axios.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId }), body),
   postAddService: ({ body }) =>
     cancellableResolver({ url: serviceUrl.postAddService(), body, method: HTTP_METHODS.POST }),
+
+  postCreateWorkflowRevision: ({ workflowId, body }) =>
+    axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HTTP_METHODS.POST }),
   putCreateTaskTemplate: ({ body }) =>

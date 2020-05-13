@@ -50,7 +50,7 @@ class WorkflowEditor extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.workflowRevision.version !== prevProps.workflowRevision.version) {
-      const { revisionCount } = this.props.workflow.data;
+      const { revisionCount } = this.props.workflow;
       const { version } = this.props.workflowRevision;
       const isLocked = version < revisionCount;
       this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked });
@@ -82,7 +82,7 @@ class WorkflowEditor extends Component {
       workflowRevision
     } = this.props;
 
-    const { revisionCount } = workflow.data;
+    const { revisionCount } = workflow;
     const { version } = workflowRevision;
     const workflowLoading = workflowRevision.isFetching || workflowRevision.isCreating;
     return (
@@ -97,8 +97,8 @@ class WorkflowEditor extends Component {
           onDesigner={location.pathname.endsWith("/designer")}
           performAction={this.createWorkflowRevision}
           performActionButtonText={version < revisionCount ? "Set version to latest" : "Create new version"}
-          revisionCount={workflow.data.revisionCount}
-          workflowName={workflow?.data?.name ?? ""}
+          revisionCount={workflow.revisionCount}
+          workflowName={workflow?.name ?? ""}
         />
         <Switch>
           <Route
@@ -119,7 +119,7 @@ class WorkflowEditor extends Component {
             render={props => (
               <WorkflowProperties
                 loading={workflow.isUpdating}
-                properties={workflow.data.properties}
+                properties={workflow.properties}
                 updateWorkflowProperties={this.props.updateWorkflowProperties}
               />
             )}
@@ -128,7 +128,7 @@ class WorkflowEditor extends Component {
             path={`${match.path}/designer`}
             render={props => (
               <div className={styles.container}>
-                <Tasks tasks={tasks.data.filter(task => task.status === TaskTemplateStatus.Active)} />
+                <Tasks tasks={tasks.filter(task => task.status === TaskTemplateStatus.Active)} />
                 <main
                   className={styles.designer}
                   onDrop={event => createNode(this.diagramApp, event)}

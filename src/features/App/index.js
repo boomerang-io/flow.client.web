@@ -13,6 +13,7 @@ import Loading from "Components/Loading";
 import Navbar from "./Navbar";
 import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
+import DesignerV2 from "Features/DesignerV2";
 import {
   AsyncActivity,
   AsyncDesigner,
@@ -110,6 +111,7 @@ class App extends Component {
               <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
               <Route path="/activity" component={AsyncActivity} />
               <Route path="/editor/:workflowId" component={AsyncDesigner} />
+              <Route path="/editor2/:workflowId" component={DesignerV2} />
               <Route path="/insights" component={AsyncInsights} />
               <Route path="/workflows" component={AsyncWorkflows} />
               <Redirect from="/" to="/workflows" />

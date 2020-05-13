@@ -6155,23 +6155,23 @@
     {
       "name": "Sparkle Flow with extra glitter and donuts on the side",
       "shortDescription": "",
-      "flowTeamId": "5d5ad2d9ac60050001c5095b",
       "description": "",
       "icon": "docs",
       "version": 2,
       "triggers": {
+        "event": {
+          "enable": false,
+          "topic": ""
+        },
         "scheduler": {
           "enable": true,
           "schedule": "1 1 1 1 2",
-          "timezone": "Africa/Addis_Ababa"
+          "timezone": "Africa/Addis_Ababa",
+          "advancedCron": false
         },
         "webhook": {
           "enable": false,
           "token": false
-        },
-        "event": {
-          "enable": false,
-          "topic": ""
         }
       },
       "properties": [
@@ -6203,7 +6203,9 @@
         }
       ],
       "enablePersistentStorage": true,
-      "id": "5Mz75WC"
+      "id": "5Mz75WC",
+      "enableACCIntegration": false,
+      "selectedTeam": null
     }
   ],
   "workflowActivitySummary": {
