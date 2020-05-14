@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
 import { SkeletonPlaceholder } from "carbon-components-react";
+import { appLink } from "Config/appConfig";
 import FeatureHeader from "Components/FeatureHeader";
 import moment from "moment";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
@@ -21,7 +22,7 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
       <div className={styles.container}>
         <section>
           <div className={styles.subtitle}>
-            <Link className={styles.activityLink} to={state ? state.fromUrl : "/activity"}>
+            <Link className={styles.activityLink} to={state ? state.fromUrl : appLink.activity()}>
               {state ? state.fromText : "Activity"}
             </Link>
             <p style={{ margin: "0 0.5rem" }}>/</p>

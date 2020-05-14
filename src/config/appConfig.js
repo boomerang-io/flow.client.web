@@ -9,19 +9,20 @@ export const appPath = {
   root: APP_ROOT,
   error: "/error",
   activity: "/activity",
-  editor: "/editor/:workflowId",
+  editor: "/teams/:teamId/editor/:workflowId",
   execution: "/activity/:workflowId/execution/:executionId",
   insights: "/insights",
   properties: "/properties",
   taskTemplates: "/task-templates",
   teamProperties: `/team-properties`,
-  workflows: "/workflows",
+  workflows: "/workflows"
 };
 
 export const appLink = {
-  designer: ({ workflowId }) => `/editor/${workflowId}/designer`,
+  activity: () => `/activity`,
+  designer: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/designer`,
   taskTemplateEdit: ({ id, version }) => `/task-templates/${id}/${version}`,
   taskTemplateEditSettings: ({ id, version }) => `/task-templates/edit/${id}/${version}/settings`,
   taskTemplateCreate: () => `/task-templates/create`,
-  workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
+  workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`
 };

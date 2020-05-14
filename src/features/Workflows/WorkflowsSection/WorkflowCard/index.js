@@ -9,7 +9,7 @@ import {
   ToastNotification,
   ModalFlow,
   ConfirmModal,
-  TooltipIcon,
+  TooltipIcon
 } from "@boomerang/carbon-addons-boomerang-react";
 import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
@@ -28,12 +28,12 @@ class WorkflowCard extends Component {
     history: PropTypes.object.isRequired,
     setActiveTeam: PropTypes.func.isRequired,
     teamId: PropTypes.string.isRequired,
-    workflow: PropTypes.object.isRequired,
+    workflow: PropTypes.object.isRequired
   };
 
   state = {
     isDeleteModalOpen: false,
-    isUpdateWorkflowModalOpen: false,
+    isUpdateWorkflowModalOpen: false
   };
 
   componentWillUnmount() {
@@ -44,7 +44,7 @@ class WorkflowCard extends Component {
     this.props.executeWorkflow({
       workflowId: this.props.workflow.id,
       redirect,
-      properties,
+      properties
     });
   };
 
@@ -56,37 +56,26 @@ class WorkflowCard extends Component {
    */
   formatPropertiesForEdit = () => {
     const { properties = [] } = this.props.workflow;
-    return properties.filter((property) => !property.readOnly);
+    return properties.filter(property => !property.readOnly);
   };
 
-  handleExportWorkflow = (workflow) => {
+  handleExportWorkflow = workflow => {
     notify(<ToastNotification kind="info" title="Export Workflow" subtitle="Export starting soon" />);
     axios
       .get(`${BASE_SERVICE_URL}/workflow/export/${workflow.id}`)
-      .then((res) => {
+      .then(res => {
         const status = res.status.toString();
         if (status.startsWith("4") || status.startsWith("5"))
           notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Export workflow failed" />);
         else fileDownload(JSON.stringify(res.data, null, 4), `${workflow.name}.json`);
       })
-      .catch((error) => {
+      .catch(error => {
         notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Export workflow failed" />);
       });
   };
 
-  setActiveTeam = () => {
-    const { setActiveTeam, teamId } = this.props;
-    //setActiveTeam(teamId);
-  };
-
-  setActiveTeamAndRedirect = () => {
-    const { history, workflow } = this.props;
-    this.setActiveTeam();
-    history.push(appLink.designer({ workflowId: workflow.id }));
-  };
-
   /* prevent page scroll when up or down arrows are pressed **/
-  preventKeyScrolling = (e) => {
+  preventKeyScrolling = e => {
     if ([38, 40].indexOf(e.keyCode) > -1) {
       e.preventDefault();
     }
@@ -105,35 +94,38 @@ class WorkflowCard extends Component {
     const menuOptions = [
       {
         itemText: "Edit Workflow",
-        onClick: this.setActiveTeamAndRedirect,
-        primaryFocus: true,
+        onClick: () => history.push(appLink.designer({ teamId: workflow.flowTeamId, workflowId: workflow.id })),
+        primaryFocus: true
       },
       {
         itemText: "View Activity",
-        onClick: () => history.push(appLink.workflowActivity({ workflowId: workflow.id })),
+        onClick: () => history.push(appLink.workflowActivity({ workflowId: workflow.id }))
       },
 
       {
         itemText: "Export .json",
-        onClick: () => this.handleExportWorkflow(workflow),
+        onClick: () => this.handleExportWorkflow(workflow)
       },
       {
         itemText: "Update .json",
-        onClick: () => this.setState({ isUpdateWorkflowModalOpen: true }),
+        onClick: () => this.setState({ isUpdateWorkflowModalOpen: true })
       },
       {
         hasDivider: true,
         itemText: "Delete",
         isDelete: true,
-        onClick: () => this.setState({ isDeleteModalOpen: true }),
-      },
+        onClick: () => this.setState({ isDeleteModalOpen: true })
+      }
     ];
 
     const formattedProperties = this.formatPropertiesForEdit();
 
     return (
       <div className={styles.container}>
-        <Link to={appLink.designer({ workflowId: workflow.id })} onClick={this.setActiveTeam}>
+        <Link
+          to={appLink.designer({ teamId: workflow.flowTeamId, workflowId: workflow.id })}
+          onClick={this.setActiveTeam}
+        >
           <section className={styles.cardInfo}>
             <div className={styles.cardIconContainer}>
               <img className={styles.cardIcon} src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
@@ -149,7 +141,7 @@ class WorkflowCard extends Component {
             <ModalFlow
               modalHeaderProps={{
                 title: "Workflow Properties",
-                subtitle: "Provide property values for your workflow",
+                subtitle: "Provide property values for your workflow"
               }}
               modalTrigger={({ openModal }) => (
                 <Button iconDescription="Run Workflow" renderIcon={Run20} size="field" onClick={openModal}>
@@ -164,7 +156,7 @@ class WorkflowCard extends Component {
               composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
               modalHeaderProps={{
                 title: "Execute Workflow?",
-                subtitle: '"Run and View" will navigate you to the workflow exeuction view.',
+                subtitle: '"Run and View" will navigate you to the workflow exeuction view.'
               }}
               modalTrigger={({ openModal }) => (
                 <Button iconDescription="Run Workflow" renderIcon={Run20} size="field" onClick={openModal}>

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import queryString from "query-string";
 import moment from "moment";
+import { useQuery } from "Hooks";
 import { MultiSelect as Select, Tabs, Tab } from "carbon-components-react";
 import { DatePicker, DatePickerInput } from "carbon-components-react/es";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
@@ -10,11 +11,11 @@ import ActivityTable from "./ActivityTable";
 import ErrorDragon from "Components/ErrorDragon";
 import { executionOptions } from "Constants/filterOptions";
 import { ACTIVITY_STATUSES_TO_INDEX } from "Constants/activityStatuses";
-import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
-import useAxiosFetch from "Utilities/hooks/useAxiosFetch";
+import { serviceUrl } from "Config/servicesConfig";
 import styles from "./workflowActivity.module.scss";
 
 import { useAppContext } from "Hooks";
+import { QueryStatus } from "Constants";
 
 const MultiSelect = Select.Filterable;
 const DEFAULT_ORDER = "DESC";
@@ -29,7 +30,7 @@ WorkflowActivity.propTypes = {
 };
 
 // Defined outside function so only run once
-const activitySummaryRequestQuery = queryString.stringify({
+const activitySummaryQuery = queryString.stringify({
   fromDate: moment(new Date())
     .subtract("24", "hours")
     .unix(),
@@ -54,7 +55,7 @@ export default function WorkflowActivity({ history, location, match }) {
 
   /**** Start get some data ****/
 
-  const activityRequestQuery = queryString.stringify({
+  const activityQuery = queryString.stringify({
     order,
     page,
     size,
@@ -67,7 +68,7 @@ export default function WorkflowActivity({ history, location, match }) {
     toDate
   });
 
-  const activityStatusSummaryRequestQuery = queryString.stringify({
+  const activityStatusSummaryQuery = queryString.stringify({
     teamIds,
     triggers,
     workflowIds,
@@ -75,13 +76,13 @@ export default function WorkflowActivity({ history, location, match }) {
     toDate
   });
 
-  const activitySummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary?${activitySummaryRequestQuery}`;
-  const activityStatusSummaryRequestUrl = `${BASE_SERVICE_URL}/activity/summary?${activityStatusSummaryRequestQuery}`;
-  const activityRequestUrl = `${BASE_SERVICE_URL}/activity?${activityRequestQuery}`;
+  const activitySummaryUrl = serviceUrl.getActivitySummary({ query: activitySummaryQuery });
+  const activityStatusSummaryUrl = serviceUrl.getActivityStatusSummary({ query: activityStatusSummaryQuery });
+  const activityUrl = serviceUrl.getActivity({ query: activityQuery });
 
-  const activitySummaryState = useAxiosFetch(activitySummaryRequestUrl);
-  const activityStatusSummaryState = useAxiosFetch(activityStatusSummaryRequestUrl);
-  const activityState = useAxiosFetch(activityRequestUrl);
+  const activitySummaryState = useQuery(activitySummaryUrl);
+  const activityStatusSummaryState = useQuery(activityStatusSummaryUrl);
+  const activityState = useQuery(activityUrl);
   /**** End get some data ****/
 
   function updateHistorySearch({
@@ -164,14 +165,16 @@ export default function WorkflowActivity({ history, location, match }) {
     });
 
     const workflowsFilter = getWorkflowFilter(teamsData, selectedTeams);
-    const { data: statusSummaryData, isLoading: statusSummaryDataIsLoading } = activityStatusSummaryState;
+    const { data: statusSummaryData, status: statusSummaryStatus } = activityStatusSummaryState;
     const maxDate = moment().format("MM/DD/YYYY");
+
+    const statusSummaryDataIsLoading = statusSummaryStatus === QueryStatus.Loading;
 
     return (
       <div className={styles.container}>
         <ActivityHeader
           inProgressActivities={activitySummaryState.data?.inProgress ?? 0}
-          isLoading={activitySummaryState.isLoading}
+          isLoading={activitySummaryState.status === QueryStatus.Loading}
           failedActivities={activitySummaryState.data?.failure ?? 0}
           runActivities={activitySummaryState.data?.all ?? 0}
           succeededActivities={activitySummaryState.data?.completed ?? 0}
@@ -271,7 +274,7 @@ export default function WorkflowActivity({ history, location, match }) {
           </section>
           <ActivityTable
             history={history}
-            isLoading={activityState.isLoading}
+            isLoading={activityState.status === QueryStatus.Loading}
             location={location}
             match={match}
             tableData={activityState.data}

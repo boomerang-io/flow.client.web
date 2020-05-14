@@ -38,8 +38,8 @@ export const BASE_TEAMS_URL = `${BASE_SERVICE_URL}/teams`;
 export const IMG_URL = `${BASE_USERS_URL}/image`;
 
 // Teams
-export const TEAMS_USER_URL = (email) => `${BASE_TEAMS_URL}?userEmail=${email}`;
-export const TEAM_PROPERTIES_ID_URL = (ciTeamId) => `${BASE_TEAMS_URL}/${ciTeamId}/properties`;
+export const TEAMS_USER_URL = email => `${BASE_TEAMS_URL}?userEmail=${email}`;
+export const TEAM_PROPERTIES_ID_URL = ciTeamId => `${BASE_TEAMS_URL}/${ciTeamId}/properties`;
 export const TEAM_PROPERTIES_ID_PROPERTY_ID_URL = (ciTeamId, configurationId) =>
   `${BASE_TEAMS_URL}/${ciTeamId}/properties/${configurationId}`;
 
@@ -48,11 +48,14 @@ export const HTTP_METHODS = {
   PUT: "put",
   PATCH: "patch",
   DELETE: "delete",
-  GET: "get",
+  GET: "get"
 };
 
 export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}`,
+  getActivitySummary: ({ query }) => `${BASE_SERVICE_URL}/activity/summary?${query}`,
+  getActivityStatusSummary: ({ query }) => `${BASE_SERVICE_URL}/activity/summary?${query}`,
+  getActivity: ({ query }) => `${BASE_SERVICE_URL}/activity?${query}`,
   getWorkflowChangelog: ({ workflowId }) =>
     `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog?sort=version&order=DESC`,
   getNavigation: () => `${BASE_USERS_URL}/navigation`,
@@ -69,7 +72,7 @@ export const serviceUrl = {
   patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/properties`,
   patchUpdateWorkflowSummary: () => `${BASE_SERVICE_URL}/workflow`,
   postCreateWorkflowRevision: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/revision`,
-  restoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`,
+  restoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`
 };
 
 export const cancellableResolver = ({ url, method, body, ...config }) => {
@@ -80,16 +83,16 @@ export const cancellableResolver = ({ url, method, body, ...config }) => {
     method,
     url,
     data: body,
-    cancelToken: source.token,
+    cancelToken: source.token
   });
   return { promise, cancel: () => source.cancel("cancel") };
 };
 
 export const resolver = {
-  query: (url) => () => axios.get(url).then((response) => response.data),
-  postMutation: (request) => axios.post(request),
-  patchMutation: (request) => axios.patch(request),
-  putMutation: (request) => axios.put(request),
+  query: url => () => axios.get(url).then(response => response.data),
+  postMutation: request => axios.post(request),
+  patchMutation: request => axios.patch(request),
+  putMutation: request => axios.put(request),
   deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   patchUpdateWorkflowSummary: ({ body }) => axios.patch(serviceUrl.patchUpdateWorkflowSummary(), body),
   patchUpdateWorkflowProperties: ({ workflowId, body }) =>
@@ -106,10 +109,10 @@ export const resolver = {
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
   postExecuteWorkflow: ({ id, properties }) => axios.post(serviceUrl.executeWorkflow({ id }), { properties }),
-  postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
+  postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body)
 };
 
 export const REQUEST_STATUSES = {
   FAILURE: "failure",
-  SUCCESS: "success",
+  SUCCESS: "success"
 };

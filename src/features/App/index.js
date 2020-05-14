@@ -2,7 +2,12 @@ import React, { useState, useMemo, Suspense } from "react";
 import { useQuery } from "react-query";
 import { detect } from "detect-browser";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { NotificationsContainer, ProtectedRoute, ErrorBoundary } from "@boomerang/carbon-addons-boomerang-react";
+import {
+  ErrorBoundary,
+  Error404,
+  NotificationsContainer,
+  ProtectedRoute
+} from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import Loading from "Components/Loading";
 import Navbar from "./Navbar";
@@ -117,7 +122,8 @@ export default function App() {
                 <Route path={appPath.editor} component={DesignerV2} />
                 <Route path={appPath.insights} component={AsyncInsights} />
                 <Route path={appPath.workflows} component={AsyncWorkflows} />
-                <Redirect from="/" to={appPath.workflows} />
+                <Redirect exact from="/" to={appPath.workflows} />
+                <Route path="*" component={Error404} />
               </Switch>
             </Suspense>
             <NotificationsContainer enableMultiContainer />
