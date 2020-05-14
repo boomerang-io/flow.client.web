@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import queryString from "query-string";
 import moment from "moment";
 import { MultiSelect as Select, Tabs, Tab } from "carbon-components-react";
@@ -14,6 +13,8 @@ import { ACTIVITY_STATUSES_TO_INDEX } from "Constants/activityStatuses";
 import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
 import useAxiosFetch from "Utilities/hooks/useAxiosFetch";
 import styles from "./workflowActivity.module.scss";
+
+import { useAppContext } from "Hooks";
 
 const MultiSelect = Select.Filterable;
 const DEFAULT_ORDER = "DESC";
@@ -35,7 +36,9 @@ const activitySummaryRequestQuery = queryString.stringify({
   toDate: moment(new Date()).unix()
 });
 
-export function WorkflowActivity({ history, location, match, teamsState }) {
+export default function WorkflowActivity({ history, location, match }) {
+  const { teams: teamsState } = useAppContext();
+
   const {
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
@@ -137,11 +140,11 @@ export function WorkflowActivity({ history, location, match, teamsState }) {
     return workflowsFilter;
   }
 
-  if (activityState.error || teamsState.status === REQUEST_STATUSES.FAILURE) {
+  if (activityState.error) {
     return <ErrorDragon />;
   }
 
-  if (teamsState.status === REQUEST_STATUSES.SUCCESS) {
+  if (teamsState) {
     const { workflowIds = "", triggers = "", statuses = "", teamIds = "" } = queryString.parse(location.search);
 
     const selectedTeamIds = teamIds.split(",");
@@ -150,7 +153,7 @@ export function WorkflowActivity({ history, location, match, teamsState }) {
     const selectedStatuses = statuses.split(",");
     const statusIndex = ACTIVITY_STATUSES_TO_INDEX.indexOf(selectedStatuses[0]);
 
-    const teamsData = JSON.parse(JSON.stringify(teamsState.data));
+    const teamsData = JSON.parse(JSON.stringify(teamsState));
 
     const selectedTeams = teamsData.filter(team => {
       if (selectedTeamIds.find(id => id === team.id)) {
@@ -280,9 +283,3 @@ export function WorkflowActivity({ history, location, match, teamsState }) {
   }
   return null;
 }
-
-const mapStateToProps = state => ({
-  teamsState: state.teams
-});
-
-export default connect(mapStateToProps)(WorkflowActivity);

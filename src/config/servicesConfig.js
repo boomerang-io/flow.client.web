@@ -60,6 +60,7 @@ export const serviceUrl = {
   executeWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
   getWorkflowImport: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
   getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
+  getWorkflowExecution: ({ executionId }) => `${BASE_SERVICE_URL}/activity/${executionId}`,
   getWorkflowRevision: ({ workflowId, revisionNumber }) =>
     `${BASE_SERVICE_URL}/workflow/${workflowId}/revision/${revisionNumber ?? ""}`,
   getWorkflowSummary: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/summary`,

@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { connect } from "react-redux";
 import WorkflowLink from "Components/WorkflowLink";
+import { useExecutionContext } from "Hooks";
 import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import NODE_TYPES from "Constants/nodeTypes";
@@ -15,14 +15,15 @@ TaskLinkExecution.propTypes = {
   path: PropTypes.string.isRequired
 };
 
-function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
+export default function TaskLinkExecution({ diagramEngine, model, path }) {
+  const { workflowExecution } = useExecutionContext();
   const targetNodeId = model?.targetPort?.parent?.id;
   const sourceNodeId = model?.sourcePort?.parent?.id;
 
   const targetNodeType = model?.targetPort?.parent?.type;
 
-  const sourceStep = workflowExecution.data.steps?.find(step => step.taskId === sourceNodeId);
-  const targetStep = workflowExecution.data.steps?.find(step => step.taskId === targetNodeId);
+  const sourceStep = workflowExecution.steps?.find(step => step.taskId === sourceNodeId);
+  const targetStep = workflowExecution.steps?.find(step => step.taskId === targetNodeId);
 
   const targetTaskHasStarted =
     targetStep?.flowTaskStatus &&
@@ -60,11 +61,3 @@ function TaskLinkExecution({ diagramEngine, model, path, workflowExecution }) {
     </WorkflowLink>
   );
 }
-
-const mapStateToProps = state => {
-  return {
-    workflowExecution: state.workflowExecution
-  };
-};
-
-export default connect(mapStateToProps)(TaskLinkExecution);

@@ -25,7 +25,7 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
               {state ? state.fromText : "Activity"}
             </Link>
             <p style={{ margin: "0 0.5rem" }}>/</p>
-            {workflow.isFetching ? (
+            {!workflow?.data?.name ? (
               <SkeletonPlaceholder className={styles.workflowNameSkeleton} />
             ) : (
               <p>{workflow.data.name}</p>

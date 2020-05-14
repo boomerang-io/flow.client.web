@@ -48,7 +48,7 @@ class Main extends Component {
     const hasStarted = steps && steps.find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
 
     const loadDiagram =
-      workflow.fetchingStatus === REQUEST_STATUSES.SUCCESS &&
+      workflow.status === REQUEST_STATUSES.SUCCESS &&
       workflowExecution.status === REQUEST_STATUSES.SUCCESS &&
       (hasStarted || hasFinished);
 
