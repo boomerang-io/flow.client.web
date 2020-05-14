@@ -1,6 +1,5 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, useMemo, Suspense } from "react";
 import { useQuery } from "react-query";
-
 import { detect } from "detect-browser";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { NotificationsContainer, ProtectedRoute, ErrorBoundary } from "@boomerang/carbon-addons-boomerang-react";
@@ -18,18 +17,15 @@ import {
   AsyncInsights,
   AsyncTaskTemplates,
   AsyncTeamProperties,
-  AsyncWorkflows,
+  AsyncWorkflows
 } from "./asyncFeatureImports";
-// import { BASE_USERS_URL, BASE_SERVICE_URL } from "Config/servicesConfig";
-// import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import USER_TYPES from "Constants/userTypes";
 import ErrorDragon from "Components/ErrorDragon";
-import styles from "./app.module.scss";
-
+import { appPath } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-
 import { AppContext } from "State/context";
 import { QueryStatus } from "Constants";
+import styles from "./app.module.scss";
 
 const userUrl = serviceUrl.getUserProfile();
 const navigationUrl = serviceUrl.getNavigation();
@@ -48,84 +44,91 @@ export default function App() {
   const userQuery = useQuery({ queryKey: userUrl, queryFn: resolver.query(userUrl) });
   const navigationQuery = useQuery({ queryKey: navigationUrl, queryFn: resolver.query(navigationUrl) });
   const teamsQuery = useQuery({ queryKey: getTeamsUrl, queryFn: resolver.query(getTeamsUrl) });
-  const { data: userData } = userQuery;
+  const { data: userData = {} } = userQuery;
   const { data: teamsData, refetch: refetchTeams } = teamsQuery;
 
-  const userIsLoading = userQuery.status === QueryStatus.Loading;
-  const navigationIsLoading = navigationQuery.status === QueryStatus.Loading;
-  const teamsIsLoading = teamsQuery.status === QueryStatus.Loading;
+  const { id: userId, type: platformRole } = userData;
 
-  const renderAppContent = () => {
-    if (userIsLoading || navigationIsLoading || teamsIsLoading) {
-      return <Loading />;
-    }
+  const isLoadingInitialData =
+    userQuery.status === QueryStatus.Loading ||
+    navigationQuery.status === QueryStatus.Loading ||
+    teamsQuery.status === QueryStatus.Loading;
 
-    // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
-    if (userQuery.status === QueryStatus.Success && !userData.id) {
+  const isSuccessState =
+    userQuery.status === QueryStatus.Success &&
+    navigationQuery.status === QueryStatus.Success &&
+    teamsQuery.status === QueryStatus.Success;
+
+  const isErrorState =
+    userQuery.status === QueryStatus.Error ||
+    navigationQuery.status === QueryStatus.Error ||
+    teamsQuery.status === QueryStatus.Error;
+
+  const renderAppContent = useMemo(
+    () => () => {
+      if (isLoadingInitialData) {
+        return <Loading />;
+      }
+
+      if (isErrorState) {
+        return <ErrorDragon style={{ margin: "5rem 0" }} />;
+      }
+
+      // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
+      if (!userId) {
+        return null;
+      }
+
+      // Show redirect prompt if the user doesn't have any teams
+      if (Object.keys(teamsData).length === 0) {
+        return <NoAccessRedirectPrompt />;
+      }
+
+      if (shouldShowBrowserWarning) {
+        return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
+      }
+
+      if (isSuccessState) {
+        return (
+          <div className={styles.container}>
+            <Suspense fallback={<Loading />}>
+              <Switch>
+                <ProtectedRoute
+                  allowedUserRoles={allowedUserRoles}
+                  component={<AsyncGlobalConfiguration />}
+                  path={appPath.properties}
+                  userRole={platformRole}
+                />
+                <ProtectedRoute
+                  allowedUserRoles={allowedUserRoles}
+                  component={<AsyncTeamProperties />}
+                  path={appPath.teamProperties}
+                  userRole={platformRole}
+                />
+                <ProtectedRoute
+                  allowedUserRoles={allowedUserRoles}
+                  component={<AsyncTaskTemplates />}
+                  path={appPath.taskTemplates}
+                  userRole={platformRole}
+                />
+                <Route path={appPath.execution} component={AsyncExecution} />
+                <Route path={appPath.activity} component={AsyncActivity} />
+                <Route path="/editor-old/:workflowId" component={AsyncDesigner} />
+                <Route path={appPath.editor} component={DesignerV2} />
+                <Route path={appPath.insights} component={AsyncInsights} />
+                <Route path={appPath.workflows} component={AsyncWorkflows} />
+                <Redirect from="/" to={appPath.workflows} />
+              </Switch>
+            </Suspense>
+            <NotificationsContainer enableMultiContainer />
+          </div>
+        );
+      }
+
       return null;
-    }
-
-    // Show redirect prompt if the user doesn't have any teams
-    if (teamsQuery.status === QueryStatus.Success && Object.keys(teamsData).length === 0) {
-      return <NoAccessRedirectPrompt />;
-    }
-
-    if (shouldShowBrowserWarning) {
-      return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
-    }
-
-    if (
-      userQuery.status === QueryStatus.Success &&
-      navigationQuery.status === QueryStatus.Success //&&
-      //teamsQuery.status === QueryStatus.Success
-    ) {
-      const userRole = userData.type;
-
-      return (
-        <div className={styles.container}>
-          <Suspense fallback={<Loading />}>
-            <Switch>
-              <ProtectedRoute
-                allowedUserRoles={allowedUserRoles}
-                component={<AsyncGlobalConfiguration />}
-                path="/properties"
-                userRole={userRole}
-              />
-              <ProtectedRoute
-                allowedUserRoles={allowedUserRoles}
-                component={<AsyncTeamProperties />}
-                path="/team-properties"
-                userRole={userRole}
-              />
-              <ProtectedRoute
-                allowedUserRoles={allowedUserRoles}
-                component={<AsyncTaskTemplates />}
-                path="/task-templates"
-                userRole={userRole}
-              />
-              <Route path="/activity/:workflowId/execution/:executionId" component={AsyncExecution} />
-              <Route path="/activity" component={AsyncActivity} />
-              <Route path="/editor-old/:workflowId" component={AsyncDesigner} />
-              <Route path="/editor/:workflowId" component={DesignerV2} />
-              <Route path="/insights" component={AsyncInsights} />
-              <Route path="/workflows" component={AsyncWorkflows} />
-              <Redirect from="/" to="/workflows" />
-            </Switch>
-          </Suspense>
-          <NotificationsContainer enableMultiContainer />
-        </div>
-      );
-    }
-    if (
-      userQuery.status === QueryStatus.Error ||
-      navigationQuery.status === QueryStatus.Error ||
-      teamsQuery.status === QueryStatus.Error
-    ) {
-      return <ErrorDragon style={{ margin: "5rem 0" }} />;
-    }
-
-    return null;
-  };
+    },
+    [isLoadingInitialData, isErrorState, isSuccessState, platformRole, shouldShowBrowserWarning, teamsData, userId]
+  );
 
   return (
     <>
@@ -138,7 +141,7 @@ export default function App() {
           setActiveTeam: setActiveTeam,
           onBoardShow: onBoardShow,
           setOnBoardShow: setOnBoardShow,
-          refetchTeams: refetchTeams,
+          refetchTeams: refetchTeams
         }}
       >
         <Navbar

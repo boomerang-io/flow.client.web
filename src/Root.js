@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { ReactQueryConfigProvider } from 'react-query';
+import { ReactQueryConfigProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query-devtools";
 import { ErrorBoundary } from "@boomerang/carbon-addons-boomerang-react";
 import App from "Features/App";
 import ErrorDragon from "Components/ErrorDragon";
-import { APP_ROOT } from "Config/appConfig";
+import { appPath } from "Config/appConfig";
 import { hot } from "react-hot-loader/root";
 
 const Root = props => {
@@ -17,7 +17,7 @@ const Root = props => {
       <ReactQueryDevtools initialIsOpen={false} />
       <ReactQueryConfigProvider config={{ throwOnError: true }}>
         <Provider store={store}>
-          <BrowserRouter basename={APP_ROOT}>
+          <BrowserRouter basename={appPath.root}>
             <App />
           </BrowserRouter>
         </Provider>
