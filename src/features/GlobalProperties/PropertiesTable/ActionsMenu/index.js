@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
 import CreateEditPropertiesModal from "../CreateEditPropertiesModal";
-import "./actionMenu.module.scss";
 
-const OverflowMenuComponent = ({ property, properties, deleteProperty, addPropertyInStore, updatePropertyInStore }) => {
+const OverflowMenuComponent = ({ property, properties, deleteProperty }) => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 
   const menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => setEditModalIsOpen(true),
-      primaryFocus: true
+      onClick: () => setEditModalIsOpen(true)
     },
     {
       itemText: "Delete",
@@ -29,47 +27,37 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty, addProper
   return (
     <>
       <OverflowMenu
+        flipped
         ariaLabel="Overflow menu"
         iconDescription="Overflow menu icon"
         data-testid="configuration-property-table-overflow-menu"
-        flipped
       >
         {menuOptions.map((option, index) => (
-          <OverflowMenuItem key={index} {...option} />
+          <OverflowMenuItem key={index} primaryFocus {...option} />
         ))}
       </OverflowMenu>
-      {editModalIsOpen && (
-        <CreateEditPropertiesModal
-          isOpen
-          isEdit
-          property={property}
-          properties={properties}
-          addPropertyInStore={addPropertyInStore}
-          updatePropertyInStore={updatePropertyInStore}
-          handleEditClose={handleEditClose}
-        />
-      )}
-      {deleteModalIsOpen && (
-        <ConfirmModal
-          isOpen={deleteModalIsOpen}
-          affirmativeAction={() => {
-            deleteProperty(property);
-            setDeleteModalIsOpen(false);
-          }}
-          affirmativeButtonProps={{ kind: "danger" }}
-          affirmativeText="Delete"
-          negativeAction={() => {
-            setDeleteModalIsOpen(false);
-          }}
-          negativeText="Cancel"
-          onCloseModal={() => {
-            setDeleteModalIsOpen(false);
-          }}
-          title={`Delete ${property.label}`}
-        >
-          <p>It will be gone and no longer usable in Workflows. This could break things so be careful.</p>
-        </ConfirmModal>
-      )}
+      <CreateEditPropertiesModal
+        isOpen={editModalIsOpen}
+        isEdit
+        property={property}
+        properties={properties}
+        handleEditClose={handleEditClose}
+      />
+      <ConfirmModal
+        isOpen={deleteModalIsOpen}
+        onCloseModal={() => {
+          setDeleteModalIsOpen(false);
+        }}
+        affirmativeAction={() => {
+          deleteProperty(property);
+        }}
+        affirmativeButtonProps={{ kind: "danger" }}
+        title={`Delete ${property.label}?`}
+        negativeText="No"
+        affirmativeText="Yes"
+      >
+        It will be gone. Forever.
+      </ConfirmModal>
     </>
   );
 };

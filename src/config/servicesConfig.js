@@ -56,6 +56,8 @@ export const serviceUrl = {
   getActivitySummary: ({ query }) => `${BASE_SERVICE_URL}/activity/summary?${query}`,
   getActivityStatusSummary: ({ query }) => `${BASE_SERVICE_URL}/activity/summary?${query}`,
   getActivity: ({ query }) => `${BASE_SERVICE_URL}/activity?${query}`,
+  getGlobalConfiguration: () => `${BASE_SERVICE_URL}/config`,
+  getGlobalProperty: ({ id }) => `${BASE_SERVICE_URL}/config/${id}`,
   getWorkflowChangelog: ({ workflowId }) =>
     `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog?sort=version&order=DESC`,
   getNavigation: () => `${BASE_USERS_URL}/navigation`,
@@ -94,6 +96,9 @@ export const resolver = {
   patchMutation: request => axios.patch(request),
   putMutation: request => axios.put(request),
   deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
+  deleteGlobalPropertyRequest: ({ id }) => axios.delete(serviceUrl.getGlobalProperty({ id })),
+  patchGlobalPropertyRequest: ({ id, body }) =>
+    cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HTTP_METHODS.PATCH }),
   patchUpdateWorkflowSummary: ({ body }) => axios.patch(serviceUrl.patchUpdateWorkflowSummary(), body),
   patchUpdateWorkflowProperties: ({ workflowId, body }) =>
     axios.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId }), body),
@@ -106,6 +111,8 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HTTP_METHODS.POST }),
   putCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HTTP_METHODS.PUT }),
+  postGlobalPropertyRequest: ({ body }) =>
+    cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HTTP_METHODS.POST }),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
   postExecuteWorkflow: ({ id, properties }) => axios.post(serviceUrl.executeWorkflow({ id }), { properties }),

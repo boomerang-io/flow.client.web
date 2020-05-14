@@ -1,163 +1,215 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
+import { isCancel } from "axios";
+import { useMutation, queryCache } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { TextInput, Toggle } from "carbon-components-react";
-import { Button, ModalBody, ModalFooter } from "carbon-components-react";
-import { ModalFlowForm, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
-import Loading from "Components/Loading";
+import {
+  Button,
+  Loading,
+  ModalBody,
+  ModalFlowForm,
+  ModalFooter,
+  notify,
+  ToastNotification,
+  TextInput,
+  Toggle
+} from "@boomerang/carbon-addons-boomerang-react";
+import { formatErrorMessage } from "@boomerang/boomerang-utilities";
 import INPUT_TYPES from "Constants/inputTypes";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import styles from "./createEditPropertiesContent.module.scss";
+import { QueryStatus } from "Constants";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 
-class CreateEditPropertiesContent extends Component {
-  static propTypes = {
-    addPropertyInStore: PropTypes.func,
-    closeModal: PropTypes.func,
-    handleEditClose: PropTypes.func,
-    isEdit: PropTypes.bool,
-    property: PropTypes.object,
-    propertyKeys: PropTypes.array.isRequired,
-    updatePropertyInStore: PropTypes.func,
-  };
+const configUrl = serviceUrl.getGlobalConfiguration();
 
-  handleSubmit = (values, options) => {
-    const { addPropertyInStore, isEdit, property, updatePropertyInStore } = this.props;
+function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKeys, cancelRequestRef }) {
+  /** Add property */
+  const [addGlobalPropertyMutation, { status: addStatusg }] = useMutation(
+    args => {
+      const { promise, cancel } = resolver.postGlobalPropertyRequest(args);
+      cancelRequestRef.current = cancel;
+      return promise;
+    },
+    {
+      onSuccess: () => queryCache.refetchQueries(configUrl)
+    }
+  );
+  const addLoading = addStatusg === QueryStatus.Loading;
+
+  /** Update property */
+  const [updateGlobalPropertyMutation, { status: updateStatus }] = useMutation(
+    args => {
+      const { promise, cancel } = resolver.patchGlobalPropertyRequest(args);
+      cancelRequestRef.current = cancel;
+      return promise;
+    },
+    {
+      onSuccess: () => queryCache.refetchQueries(configUrl)
+    }
+  );
+  const updateLoading = updateStatus === QueryStatus.Loading;
+
+  const loading = addLoading || updateLoading;
+
+  const handleSubmit = async values => {
     const type = values.secured ? INPUT_TYPES.PASSWORD : INPUT_TYPES.TEXT;
     const newProperty = isEdit ? { ...values, type, id: property.id } : { ...values, type };
-    const storeUpdate = isEdit ? updatePropertyInStore : addPropertyInStore;
     delete newProperty.secured;
 
-    axios({
-      method: isEdit ? "put" : "post",
-      url: isEdit ? `${BASE_SERVICE_URL}/config/${newProperty.id}` : `${BASE_SERVICE_URL}/config`,
-      data: newProperty,
-    })
-      .then((response) => {
-        storeUpdate(newProperty);
+    if (isEdit) {
+      try {
+        await updateGlobalPropertyMutation({ id: newProperty.id, body: newProperty });
         notify(
           <ToastNotification
             kind="success"
-            title={isEdit ? "Property Updated" : "Property Created"}
-            subtitle={
-              isEdit ? `Request to update ${newProperty.label} succeeded` : "Request to create property succeeded"
-            }
+            title={"Property Updated"}
+            subtitle={`Request to update ${newProperty.label} succeeded`}
+            data-testid="create-update-global-prop-notification"
           />
         );
-        options.setSubmitting(false);
-      })
-      .then(() => {
-        isEdit ? this.props.handleEditClose() : this.props.closeModal();
-      })
-      .catch((error) => {
+        closeModal();
+      } catch (err) {
+        if (!isCancel(err)) {
+          const errorMessages = formatErrorMessage({ error: err, defaultMessage: "Update Property Failed" });
+          notify(
+            <ToastNotification
+              kind="error"
+              title={errorMessages.title}
+              subtitle={errorMessages.message}
+              data-testid="create-update-global-prop-notification"
+            />
+          );
+        }
+      }
+    } else {
+      try {
+        await addGlobalPropertyMutation({ body: newProperty });
         notify(
           <ToastNotification
-            kind="error"
-            title={isEdit ? "Update Property Failed" : "Create Property Failed"}
-            subtitle={"Something went wrong"}
+            kind="success"
+            title="Property Created"
+            subtitle="Request to create property succeeded"
+            data-testid="create-update-global-prop-notification"
           />
         );
-        options.setSubmitting(false);
-      });
+        closeModal();
+      } catch (err) {
+        if (!isCancel(err)) {
+          const errorMessages = formatErrorMessage({ error: err, defaultMessage: "Create Property Failed" });
+          notify(
+            <ToastNotification
+              kind="error"
+              title={errorMessages.title}
+              subtitle={errorMessages.message}
+              data-testid="create-update-global-prop-notification"
+            />
+          );
+        }
+      }
+    }
   };
 
-  render() {
-    const { isEdit, property, propertyKeys } = this.props;
+  return (
+    <Formik
+      initialValues={{
+        label: property && property.label ? property.label : "",
+        description: property && property.description ? property.description : "",
+        key: property && property.key ? property.key : "",
+        value: property && property.value ? property.value : "",
+        secured: property ? property.type === INPUT_TYPES.PASSWORD : false
+      }}
+      onSubmit={handleSubmit}
+      validationSchema={Yup.object().shape({
+        label: Yup.string().required("Enter a label"),
+        key: Yup.string()
+          .required("Enter a key")
+          .notOneOf(propertyKeys, "Key must be unique"),
+        value: Yup.string().required("Enter a value"),
+        description: Yup.string(),
+        secured: Yup.boolean()
+      })}
+    >
+      {props => {
+        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit } = props;
 
-    return (
-      <Formik
-        initialValues={{
-          label: property ? property.label : "",
-          description: property ? property.description : "",
-          key: property ? property.key : "",
-          value: property ? property.value : "",
-          secured: property ? property.type === INPUT_TYPES.PASSWORD : false,
-        }}
-        onSubmit={this.handleSubmit}
-        validationSchema={Yup.object().shape({
-          label: Yup.string().required("Enter a label"),
-          key: Yup.string()
-            .required("Enter a key")
-            .notOneOf(propertyKeys, "Key must be unique"),
-          value: Yup.string().required("Enter a value"),
-          description: Yup.string(),
-          secured: Yup.boolean(),
-        })}
-      >
-        {(props) => {
-          const { values, touched, errors, isSubmitting, isValid, handleChange, handleBlur, handleSubmit } = props;
-
-          return (
-            <ModalFlowForm onSubmit={handleSubmit}>
-              <ModalBody>
-                {isSubmitting && <Loading />}
-                <div className={styles.input}>
-                  <TextInput
-                    id="label"
-                    labelText="Label"
-                    value={values.label}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    invalid={errors.label && touched.label}
-                    invalidText={errors.label}
-                  />
-                </div>
-                <div className={styles.input}>
-                  <TextInput
-                    id="key"
-                    labelText="key"
-                    value={values.key}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    invalid={errors.key && touched.key}
-                    invalidText={errors.key}
-                  />
-                </div>
-                <div className={styles.input}>
-                  <TextInput
-                    id="description"
-                    labelText="Description"
-                    value={values.description}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className={styles.input}>
-                  <TextInput
-                    id="value"
-                    labelText="Value"
-                    value={values.value}
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    invalid={errors.value && touched.value}
-                    invalidText={errors.value}
-                  />
-                </div>
-                <div className={styles.toggleContainer}>
-                  <Toggle
-                    id="secured"
-                    name="secured"
-                    toggled={values.secured}
-                    onChange={handleChange}
-                    labelText="Secured"
-                  />
-                </div>
-              </ModalBody>
-              <ModalFooter>
-                <Button kind="secondary" type="button" onClick={this.props.closeModal}>
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={!isValid || isSubmitting}>
-                  {isEdit ? (isSubmitting ? "Saving..." : "Save") : isSubmitting ? "Creating..." : "Create"}
-                </Button>
-              </ModalFooter>
-            </ModalFlowForm>
-          );
-        }}
-      </Formik>
-    );
-  }
+        return (
+          <ModalFlowForm onSubmit={handleSubmit}>
+            <ModalBody>
+              {loading && <Loading />}
+              <TextInput
+                id="label"
+                labelText="Label"
+                placeholder="Label"
+                name="label"
+                value={values.label}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.label && touched.label}
+                invalidText={errors.label}
+              />
+              <TextInput
+                id="key"
+                labelText="Key"
+                placeholder="Key"
+                name="key"
+                value={values.key}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.key && touched.key}
+                invalidText={errors.key}
+              />
+              <TextInput
+                id="description"
+                labelText="Description"
+                placeholder="Description"
+                name="description"
+                value={values.description}
+                onBlur={handleBlur}
+                onChange={handleChange}
+              />
+              <TextInput
+                id="value"
+                labelText="Value"
+                placeholder="Value"
+                name="value"
+                value={values.value}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.value && touched.value}
+                invalidText={errors.value}
+                type={values.secured ? "password" : "text"}
+              />
+              <Toggle
+                id="secured-global-properties-toggle"
+                labelText="Secured"
+                name="secured"
+                onChange={handleChange}
+                orientation="vertical"
+                toggled={values.secured}
+                data-testid="secured-global-properties-toggle"
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button kind="secondary" type="button" onClick={closeModal}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={!isValid || loading}>
+                {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating..." : "Create"}
+              </Button>
+            </ModalFooter>
+          </ModalFlowForm>
+        );
+      }}
+    </Formik>
+  );
 }
+
+CreateEditPropertiesContent.propTypes = {
+  closeModal: PropTypes.func,
+  isEdit: PropTypes.bool,
+  property: PropTypes.object,
+  propertyKeys: PropTypes.array.isRequired,
+  cancelRequestRef: PropTypes.object.isRequired
+};
 
 export default CreateEditPropertiesContent;

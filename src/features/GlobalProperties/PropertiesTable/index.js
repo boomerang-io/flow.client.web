@@ -1,42 +1,37 @@
-import React, { Component, Fragment } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import matchSorter from "match-sorter";
+import { useMutation, queryCache } from "react-query";
 import { DataTable, Search, Pagination } from "carbon-components-react";
-import { notify, ToastNotification, NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
-import CreateEditPropertiesModal from "./CreateEditPropertiesModal";
+import { Error404, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ActionsMenu from "./ActionsMenu";
+import CreateEditPropertiesModal from "./CreateEditPropertiesModal";
 import Header from "Components/Header";
-import CheckIcon from "@carbon/icons-react/lib/checkmark/32";
-import CloseIcon from "@carbon/icons-react/lib/close/32";
 import { arrayPagination } from "Utilities/arrayHelper";
 import { stringToPassword } from "Utilities/stringHelper";
 import INPUT_TYPES from "Constants/inputTypes";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import { formatErrorMessage } from "@boomerang/boomerang-utilities";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { Checkmark32, Close32 } from "@carbon/icons-react";
 import styles from "./propertiesTable.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
 
-class PropertiesTable extends Component {
-  static propTypes = {
-    addPropertyInStore: PropTypes.func.isRequired,
-    deletePropertyInStore: PropTypes.func.isRequired,
-    properties: PropTypes.array,
-    updatePropertyInStore: PropTypes.func.isRequired
-  };
+const configUrl = serviceUrl.getGlobalConfiguration();
 
-  state = {
-    page: 1,
-    pageSize: DEFAULT_PAGE_SIZE,
-    properties: this.props.properties,
-    sort: {
-      key: "label",
-      sortDirection: "ASC"
-    }
-  };
+function PropertiesTable({ properties }) {
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sort, setSort] = useState({ key: "label", sortDirection: "ASC" });
 
-  headers = [
+  /** Delete Property */
+  const [deleteGlobalPropertyMutation] = useMutation(resolver.deleteGlobalPropertyRequest, {
+    onSuccess: () => queryCache.refetchQueries(configUrl)
+  });
+
+  const headers = [
     {
       header: "Label",
       key: "label"
@@ -58,214 +53,187 @@ class PropertiesTable extends Component {
       key: "secured"
     },
     {
-      header: "Actions",
-      key: "actions "
+      header: "",
+      key: "actions"
     }
   ];
 
-  /* Standard table configuration after search or service call */
-  resetTableWithNewProperties = properties => {
-    const { page, pageSize } = this.state;
-    const newPage = page !== 1 && properties.length < pageSize * (page - 1) + 1 ? page - 1 : page;
-    this.setState({ page: newPage, properties });
-  };
-
-  addPropertyInStore = property => {
-    this.props.addPropertyInStore(property);
-    const newProperties = [...this.state.properties, property];
-    this.resetTableWithNewProperties(newProperties);
-  };
-
-  deletePropertyInStore = propertyId => {
-    this.props.deletePropertyInStore(propertyId);
-    const properties = [...this.state.properties];
-    const newProperties = properties.filter(property => property.id !== propertyId);
-    this.resetTableWithNewProperties(newProperties);
-  };
-
-  updatePropertyInStore = updatedProperty => {
-    this.props.updatePropertyInStore(updatedProperty);
-    const properties = [...this.state.properties];
-    const newProperties = properties.map(property => (property.id === updatedProperty.id ? updatedProperty : property));
-    this.resetTableWithNewProperties(newProperties);
-  };
-
-  deleteProperty = property => {
-    axios
-      .delete(`${BASE_SERVICE_URL}/config/${property.id}`)
-      .then(response => {
-        this.deletePropertyInStore(property.id);
-        notify(
-          <ToastNotification
-            kind="success"
-            title={"Property Deleted"}
-            subtitle={`Request to delete ${property.label} succeeded`}
-          />
-        );
-      })
-      .catch(error => {
-        notify(<ToastNotification kind="error" title={"Delete Property Failed"} subtitle={"Something went wrong"} />);
+  const deleteProperty = async property => {
+    try {
+      await deleteGlobalPropertyMutation({ id: property.id });
+      notify(
+        <ToastNotification
+          kind="success"
+          title={"Property Deleted"}
+          subtitle={`Request to delete ${property.label} succeeded`}
+          data-testid="delete-prop-notification"
+        />
+      );
+    } catch (err) {
+      const errorMessages = formatErrorMessage({
+        error: err,
+        defaultMessage: "Delete Property Failed"
       });
+      notify(
+        <ToastNotification
+          kind="error"
+          title={errorMessages.title}
+          subtitle={errorMessages.message}
+          data-testid="delete-prop-notification"
+        />
+      );
+    }
   };
 
-  handleSearchChange = e => {
+  const handleSearchChange = e => {
     const searchQuery = e.target.value;
-    const { properties } = this.props;
-
-    const newProperties = searchQuery
-      ? matchSorter(properties, searchQuery, { keys: ["label", "key", "description"] })
-      : properties;
-
-    this.resetTableWithNewProperties(newProperties);
+    setSearchQuery(searchQuery);
   };
 
-  handlePaginationChange = ({ page, pageSize }) => {
-    this.setState({ page, pageSize });
+  const handlePaginationChange = ({ page, pageSize }) => {
+    setPage(page);
+    setPageSize(pageSize);
   };
 
-  renderCell = (propertyId, cellIndex, value) => {
-    const property = this.props.properties.find(property => property.id === propertyId);
-    const column = this.headers[cellIndex];
+  const renderCell = (propertyId, cellIndex, value) => {
+    const property = properties.find(property => property.id === propertyId);
+    const column = headers[cellIndex];
 
-    switch (column.header) {
-      case "Value":
+    switch (column.key) {
+      case "value":
         const determineValue = value
           ? property && property.type === INPUT_TYPES.PASSWORD
             ? stringToPassword(value)
             : value
           : "---";
         return <p className={styles.tableTextarea}>{determineValue}</p>;
-      case "Secured":
+      case "secured":
         return property && property.type === INPUT_TYPES.PASSWORD ? (
-          <CheckIcon alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
+          <Checkmark32 alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
         ) : (
-          <CloseIcon alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
+          <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
         );
-      case "Actions":
-        return (
-          <ActionsMenu
-            flipped
-            addPropertyInStore={this.addPropertyInStore}
-            deleteProperty={this.deleteProperty}
-            property={property}
-            properties={this.props.properties}
-            updatePropertyInStore={this.updatePropertyInStore}
-          />
-        );
+      case "actions":
+        return <ActionsMenu deleteProperty={deleteProperty} property={property} properties={properties} />;
       default:
         return <p className={styles.tableTextarea}>{value || "---"}</p>;
     }
   };
 
-  handleSort = (valueA, valueB, config) => {
-    this.setState({ sort: config });
+  const handleSort = (valueA, valueB, config) => {
+    setSort(config);
   };
 
-  render() {
-    const { page, pageSize, properties, sort } = this.state;
-    const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
+  const newProperties = searchQuery
+    ? matchSorter(properties, searchQuery, { keys: ["label", "key", "description"] })
+    : properties;
 
-    const totalItems = properties.length;
+  const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
-    return (
-      <>
-        <Header title="Properties" description="Set global properties that are available for all Workflows" />
-        <div className={styles.tableContainer}>
-          <div className={styles.header}>
-            <Search
-              className={styles.search}
-              id="properties-table-search"
-              labelText="Search"
-              placeHolderText="Search"
-              onChange={this.handleSearchChange}
-            />
-            <CreateEditPropertiesModal
-              addPropertyInStore={this.addPropertyInStore}
-              properties={this.props.properties}
-              updatePropertyInStore={this.updatePropertyInStore}
-            />
+  const totalItems = newProperties.length;
+
+  return (
+    <>
+      <Header
+        includeBorder
+        title="Properties"
+        description="Set global properties that are available for all Workflows."
+      ></Header>
+      <div className={styles.tableContainer}>
+        <div className={styles.header}>
+          <Search
+            className={styles.search}
+            id="properties-table-search"
+            labelText="Search"
+            placeHolderText="Search"
+            onChange={handleSearchChange}
+          />
+          <div className={styles.actions}>
+            <CreateEditPropertiesModal properties={properties} />
           </div>
-          {totalItems > 0 ? (
-            <>
-              <DataTable
-                rows={arrayPagination(properties, page, pageSize, sort)}
-                sortRow={this.handleSort}
-                headers={this.headers}
-                render={({ rows, headers, getHeaderProps }) => (
-                  <TableContainer>
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          {headers.map(header => (
-                            <TableHeader
-                              id={header.key}
-                              {...getHeaderProps({
-                                header,
-                                className: `${styles.tableHeadHeader} ${styles[header.key]}`
-                              })}
-                            >
-                              {header.header}
-                            </TableHeader>
-                          ))}
-                        </TableRow>
-                      </TableHead>
-                      <TableBody className={styles.tableBody}>
-                        {rows.map(row => (
-                          <TableRow key={row.id} data-testid="configuration-property-table-row">
-                            {row.cells.map((cell, cellIndex) => (
-                              <TableCell key={cell.id} style={{ padding: "0" }}>
-                                <div className={styles.tableCell}>{this.renderCell(row.id, cellIndex, cell.value)}</div>
-                              </TableCell>
-                            ))}
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                )}
-              />
-              <Pagination
-                onChange={this.handlePaginationChange}
-                page={page}
-                pageSize={pageSize}
-                pageSizes={PAGE_SIZES}
-                totalItems={totalItems}
-              />
-            </>
-          ) : (
-            <Fragment>
-              <DataTable
-                rows={properties}
-                headers={this.headers}
-                render={({ headers }) => (
-                  <TableContainer>
-                    <Table>
-                      <TableHead>
-                        <TableRow>
-                          {headers.map(header => (
-                            <TableHeader id={header.key}>{header.header}</TableHeader>
-                          ))}
-                        </TableRow>
-                      </TableHead>
-                    </Table>
-                  </TableContainer>
-                )}
-              />
-              <NoDisplay
-                textLocation="below"
-                text={
-                  this.props.properties.length > 0
-                    ? "No properties found"
-                    : "Looks like there aren't any properties. Create one above!"
-                }
-                style={{ marginTop: "5rem", height: "30rem" }}
-              />
-            </Fragment>
-          )}
         </div>
-      </>
-    );
-  }
+        {totalItems > 0 ? (
+          <>
+            <DataTable
+              rows={arrayPagination(newProperties, page, pageSize, sort)}
+              sortRow={handleSort}
+              headers={headers}
+              render={({ rows, headers, getHeaderProps }) => (
+                <TableContainer>
+                  <Table>
+                    <TableHead>
+                      <TableRow className={styles.tableHeadRow}>
+                        {headers.map(header => (
+                          <TableHeader
+                            id={header.key}
+                            {...getHeaderProps({
+                              header,
+                              className: `${styles.tableHeadHeader} ${styles[header.key]}`
+                            })}
+                          >
+                            {header.header}
+                          </TableHeader>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody className={styles.tableBody}>
+                      {rows.map(row => (
+                        <TableRow key={row.id} data-testid="configuration-property-table-row">
+                          {row.cells.map((cell, cellIndex) => (
+                            <TableCell key={cell.id} style={{ padding: "0" }}>
+                              <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
+                            </TableCell>
+                          ))}
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+            />
+            <Pagination
+              onChange={handlePaginationChange}
+              page={page}
+              pageSize={pageSize}
+              pageSizes={PAGE_SIZES}
+              totalItems={totalItems}
+            />
+          </>
+        ) : (
+          <>
+            <DataTable
+              rows={newProperties}
+              headers={headers}
+              render={({ headers }) => (
+                <TableContainer>
+                  <Table>
+                    <TableHead>
+                      <TableRow className={styles.tableHeadRow}>
+                        {headers.map(header => (
+                          <TableHeader
+                            key={header.key}
+                            id={header.key}
+                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
+                          >
+                            {header.header}
+                          </TableHeader>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                  </Table>
+                </TableContainer>
+              )}
+            />
+            <Error404 header={null} title="No team to be found" message={null} />
+          </>
+        )}
+      </div>
+    </>
+  );
 }
+
+PropertiesTable.propTypes = {
+  properties: PropTypes.array
+};
 
 export default PropertiesTable;
