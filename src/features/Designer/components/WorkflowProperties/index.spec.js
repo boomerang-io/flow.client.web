@@ -1,6 +1,6 @@
 import React from "react";
 import Inputs from ".";
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
 
 const mockfn = jest.fn();
 
@@ -19,8 +19,8 @@ const props = {
     }
   ],
   loading: false,
-  updateInputs: mockfn,
-  workflowActions: { deleteWorkflowInput: mockfn }
+  workflowActions: { deleteWorkflowInput: mockfn },
+  updateWorkflowProperties: mockfn
 };
 
 beforeEach(() => {
@@ -28,19 +28,21 @@ beforeEach(() => {
 });
 
 describe("Inputs --- Snapshot Test", () => {
-  it("Capturing Snapshot of Inputs", () => {
+  it("Capturing Snapshot of Inputs", async() => {
     const { baseElement } = rtlReduxRender(<Inputs {...props} />, { initialState });
     expect(baseElement).toMatchSnapshot();
+    await waitFor(() => {});
   });
 });
 
 describe("Inputs --- RTL", () => {
-  it("Render inputs correctly", () => {
+  it("Render inputs correctly", async() => {
     const { queryByText } = rtlReduxRender(<Inputs {...props} />, { initialState });
     expect(queryByText("tim.property")).toBeInTheDocument();
+    await waitFor(() => {});
   });
 
-  it("Opens create new property modal", () => {
+  it("Opens create new property modal", async() => {
     const { queryByText, getByTestId } = rtlReduxRender(<Inputs {...props} />, { initialState });
 
     //expect(queryByText(/Create a new property/i)).not.toBeInTheDocument();
@@ -50,9 +52,10 @@ describe("Inputs --- RTL", () => {
     fireEvent.click(modalTrigger);
 
     expect(queryByText(/Create a new property/i)).toBeInTheDocument();
+    await waitFor(() => {});
   });
 
-  it("Opens edit property modal", () => {
+  it("Opens edit property modal", async() => {
     const { getByLabelText, queryByText } = rtlReduxRender(<Inputs {...props} />, { initialState });
 
     //expect(queryByText(/Let's update it/i)).not.toBeInTheDocument();
@@ -61,5 +64,6 @@ describe("Inputs --- RTL", () => {
     fireEvent.click(modalTrigger);
 
     expect(queryByText(/Let's change some stuff/i)).toBeInTheDocument();
+    await waitFor(() => {});
   });
 });

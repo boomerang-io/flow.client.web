@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://launch.boomerangplatform.net/BMRG_APP_ROOT_CONTEXT",
   "dependencies": {
-    "@boomerang/boomerang-react-scripts": "4.6.2",
+    "@boomerang/boomerang-react-scripts": "^5.0.0-alpha.5",
     "@boomerang/boomerang-styles": "2.0.0",
     "@boomerang/boomerang-utilities": "2.4.0",
     "@boomerang/carbon-addons-boomerang-react": "3.1.6",
@@ -49,11 +49,12 @@
     "redux-thunk": "2.3.0",
     "typeface-ibm-plex-sans": "0.0.75",
     "validator": "^10.7.1",
+    "webpack-hot-middleware": "^2.25.0",
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "http-proxy-middleware": "^0.20.0",
-    "react-hot-loader": "^4.12.18"
+    "cypress": "4.3.0",
+    "http-proxy-middleware": "^0.20.0"
   },
   "scripts": {
     "analyze": "source-map-explorer server/build/static/js/main.*",
@@ -65,24 +66,24 @@
     "dev": "run-p apiServer start",
     "dev:pf": "cross-env REACT_APP_PORT_FORWARD=true run-p apiServer start",
     "docker": "run-p docker:run apiServer",
-    "docker:build": "docker build -t flow .",
-    "docker:run": "docker run -i -t -p 3000: 3000 -e APP_ROOT=/flow -e BASE_SERVICE_ENV_URL=http://localhost:8000 flow",
+    "docker:build": "docker build -t webapp .",
+    "docker:run": "docker run -i -t -p 3000: 3000 -e APP_ROOT=/app -e BASE_SERVICE_ENV_URL=http://localhost:8000 webapp",
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "predocker": "run-s build docker:build",
     "preprod": "run-s build prod:installServerDependencies prod:rewriteAssetPaths",
     "prod": "run-p apiServer prod:server",
     "prod:installServerDependencies": "npm --prefix ./server install ./server",
-    "prod:rewriteAssetPaths": "cross-env APP_ROOT=/flow node server/scripts/rewriteAssetPaths.js",
+    "prod:rewriteAssetPaths": "cross-env APP_ROOT=/app node server/scripts/rewriteAssetPaths.js",
     "prod:server": "cd server && npm run-script dev",
     "start": "react-scripts start",
     "test": "is-ci \"test:ci\" \"test:watch\"",
-    "test:ci": "react-scripts test --env=jsdom  --coverage",
+    "test:ci": "react-scripts test  --coverage --outputFile=mocha.json --json",
     "test:ci-cypress": "start-server-and-test dev http://localhost:3000 cypress:run",
-    "test:coverage": "react-scripts test --env=jsdom --coverage",
-    "test:staged": "cross-env CI=true react-scripts test --env=jsdom --passWithNoTests",
+    "test:coverage": "react-scripts test --coverage",
+    "test:staged": "cross-env CI=true react-scripts test --passWithNoTests --findRelatedTests --bail",
     "test:static": "eslint -f json -o report.json ./src",
-    "test:watch": "react-scripts test --env=jsdom",
+    "test:watch": "react-scripts test",
     "upgradePackage": "react-scripts upgradePackage"
   },
   "browserslist": {
@@ -124,14 +125,10 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "!**/*.spec.{js,jsx}",
-      "!**/assets/**",
-      "**/src/components/**/*.{js,jsx}",
-      "**/src/features/**/*.{js,jsx}",
-      "**/src/hooks/**/*.{js,jsx}",
-      "**/src/state/**/*.{js,jsx}",
-      "**/src/utilities/**/*.{js,jsx}",
-      "**/src/utils/**/*.{js,jsx}"
+      "src/features/**/*.{js,jsx}",
+      "src/components/**/*.{js,jsx}",
+      "src/utilities/**/*.{js,jsx}",
+      "src/utils/**/*.{js,jsx}"
     ]
   }
 }

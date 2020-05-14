@@ -1,6 +1,6 @@
 import React from "react";
 import CreateEditTeamPropertiesModalContent from "../CreateEditTeamPropertiesModalContent";
-import { fireEvent, waitForElement } from "@testing-library/react";
+import { fireEvent, waitFor } from "@testing-library/react";
 
 const mockfn = jest.fn();
 const props = {
@@ -29,22 +29,23 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
     expect(queryByText(/active/i)).not.toBeInTheDocument();
   });
 
-  test("CreateEditTeamPropertiesModalContent - test the Submit Button state", () => {
+  test("CreateEditTeamPropertiesModalContent - test the Submit Button state", async () => {
     const newProps = { ...props, isEdit: false };
 
     const { getByLabelText, findByText } = rtlReduxRender(<CreateEditTeamPropertiesModalContent {...newProps} />);
     const valueInputText = getByLabelText(/value/i);
     const labelInputText = getByLabelText(/label/i);
     const keyInputText = getByLabelText(/key/i);
-
-    waitForElement(() => expect(findByText(/create/i)).toBeDisabled());
+    
+    expect(await waitFor(() =>findByText(/create/i))).toBeDisabled();
     fireEvent.change(valueInputText, { target: { value: "Value Test" } });
     fireEvent.change(labelInputText, { target: { value: "Label Test" } });
     fireEvent.change(keyInputText, { target: { value: "Key Test" } });
-    waitForElement(() => expect(findByText(/create/i)).toBeEnabled());
+    expect(await waitFor(() =>findByText(/create/i))).toBeEnabled();
+    await waitFor(() => {});
   });
 
-  test("CreateEditTeamPropertiesModalContent - test if the form submits", () => {
+  test("CreateEditTeamPropertiesModalContent - test if the form submits", async () => {
     const { getByLabelText, getByText } = rtlReduxRender(<CreateEditTeamPropertiesModalContent {...props} />);
     const valueInputText = getByLabelText(/value/i);
     const labelInputText = getByLabelText(/label/i);
@@ -59,10 +60,12 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
     fireEvent.change(labelInputText, { target: { value: "Label Test" } });
     fireEvent.change(keyInputText, { target: { value: "Key Test" } });
     fireEvent.click(saveButton);
-
-    waitForElement(() => expect(valueInputText).not.toBeInTheDocument());
-    waitForElement(() => expect(labelInputText).not.toBeInTheDocument());
-    waitForElement(() => expect(keyInputText).not.toBeInTheDocument());
+    waitFor(()=> {
+      expect(valueInputText).not.toBeInTheDocument()
+      expect(labelInputText).not.toBeInTheDocument();
+      expect(keyInputText).not.toBeInTheDocument();
+    });
+    await waitFor(() => {});
   });
 
   test("CreateEditTeamPropertiesModalContent - test form reqired validations", async () => {
@@ -90,5 +93,6 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
     fireEvent.blur(keyInputText);
     const mandatoryKeyErr = await findByText(/Enter a key/i);
     expect(mandatoryKeyErr).toBeInTheDocument();
+    await waitFor(() => {});
   });
 });

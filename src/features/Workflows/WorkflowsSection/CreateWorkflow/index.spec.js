@@ -44,7 +44,7 @@ const props = {
 describe("CreateWorkflow --- Snapshot Test", () => {
   test("Capturing Snapshot of CreateWorkflow", () => {
     const { baseElement, getByText } = rtlReduxRender(<CreateWorkflow {...props} />, {
-      initialState: { teams: initialState, workflowInitialState }
+      initialState: { teams: initialState, workflow: workflowInitialState }
     });
     fireEvent.click(getByText(/Create a new workflow/i));
     expect(baseElement).toMatchSnapshot();

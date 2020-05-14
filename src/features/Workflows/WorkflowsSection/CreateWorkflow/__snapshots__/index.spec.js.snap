@@ -97,6 +97,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                     checked=""
                     class="bx--radio-button"
                     id="Start from scratch"
+                    name="workflow-options"
                     type="radio"
                     value="Start from scratch"
                   />
@@ -121,6 +122,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                   <input
                     class="bx--radio-button"
                     id="Import a Workflow"
+                    name="workflow-options"
                     type="radio"
                     value="Import a Workflow"
                   />
