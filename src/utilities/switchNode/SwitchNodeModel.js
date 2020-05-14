@@ -1,17 +1,17 @@
 import { NodeModel } from "@projectstorm/react-diagrams";
 import SwitchPortModel from "./SwitchPortModel";
 import merge from "lodash/merge";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 
 export default class SwitchNodeModel extends NodeModel {
   //list all three params
   constructor({ taskId, taskName, taskVersion }) {
-    super(NODE_TYPES.DECISION);
+    super(NodeType.Decision);
     this.addPort(new SwitchPortModel("left"));
     this.addPort(new SwitchPortModel("right"));
     this.taskId = taskId;
     this.taskName = taskName;
-    this.currentVersion= taskVersion;
+    this.currentVersion = taskVersion;
   }
 
   serialize() {
@@ -19,7 +19,7 @@ export default class SwitchNodeModel extends NodeModel {
       taskId: this.taskId,
       nodeId: this.id,
       taskName: this.taskName,
-      taskVersion: this.currentVersion
+      taskVersion: this.currentVersion,
     });
   }
 

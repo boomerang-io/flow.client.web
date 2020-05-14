@@ -56,24 +56,23 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
             Get started with these basics, then proceed to designing it out.
           </p>
           <button
+            aria-label="Close"
             class="bx--modal-close"
-            title="Close the modal"
+            title="Close"
             type="button"
           >
             <svg
-              aria-label="Close the modal"
+              aria-hidden="true"
               class="bx--modal-close__icon"
               focusable="false"
               height="20"
               preserveAspectRatio="xMidYMid meet"
-              role="img"
-              style="will-change: transform;"
               viewBox="0 0 32 32"
               width="20"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+              <polygon
+                points="24 9.4 22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4"
               />
             </svg>
           </button>
@@ -101,7 +100,6 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                     value="Start from scratch"
                   />
                   <label
-                    aria-label="Start from scratch"
                     class="bx--radio-button__label"
                     for="Start from scratch"
                   >
@@ -125,7 +123,6 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                     value="Import a Workflow"
                   />
                   <label
-                    aria-label="Import a Workflow"
                     class="bx--radio-button__label"
                     for="Import a Workflow"
                   >
@@ -171,13 +168,11 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                     </label>
                     <div
                       class="bx--combo-box bx--list-box"
-                      role="listbox"
-                      tabindex="-1"
                     >
                       <div
                         aria-expanded="false"
                         aria-haspopup="true"
-                        aria-label="Open menu"
+                        aria-label="open menu"
                         class="bx--list-box__field"
                         data-toggle="true"
                         role="button"
@@ -209,13 +204,12 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                             focusable="false"
                             height="16"
                             preserveAspectRatio="xMidYMid meet"
-                            style="will-change: transform;"
-                            viewBox="0 0 16 16"
+                            viewBox="0 0 32 32"
                             width="16"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <path
-                              d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+                            <polygon
+                              points="24 9.4 22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4"
                             />
                           </svg>
                         </div>
@@ -229,13 +223,12 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                             name="chevron--down"
                             preserveAspectRatio="xMidYMid meet"
                             role="img"
-                            style="will-change: transform;"
                             viewBox="0 0 16 16"
                             width="16"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <path
-                              d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                            <polygon
+                              points="8,11 3,6 3.7,5.3 8,9.6 12.3,5.3 13,6"
                             />
                             <title>
                               Open menu

@@ -1,17 +1,17 @@
 import { NodeModel } from "@projectstorm/react-diagrams";
 import TaskPortModel from "Utilities/taskPort/TaskPortModel";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 import merge from "lodash/merge";
 
 export default class CustomTaskNodeModel extends NodeModel {
   //list all three params
   constructor({ taskId, taskName, taskVersion }) {
-    super(NODE_TYPES.CUSTOM_TASK);
+    super(NodeType.CustomTask);
     this.addPort(new TaskPortModel("left"));
     this.addPort(new TaskPortModel("right"));
     this.taskId = taskId;
     this.taskName = taskName;
-    this.currentVersion= taskVersion;
+    this.currentVersion = taskVersion;
   }
 
   serialize() {
@@ -19,7 +19,7 @@ export default class CustomTaskNodeModel extends NodeModel {
       nodeId: this.id,
       taskId: this.taskId,
       taskName: this.taskName,
-      taskVersion: this.currentVersion
+      taskVersion: this.currentVersion,
     });
   }
 

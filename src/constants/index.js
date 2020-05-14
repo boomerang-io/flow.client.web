@@ -4,3 +4,11 @@ export const QueryStatus = {
   Error: "error",
   Success: "success"
 };
+
+export const NodeType = {
+  CustomTask: "customTask",
+  Decision: "decision",
+  TemplateTask: "templateTask",
+  StartEnd: "startend",
+  Task: "task"
+};

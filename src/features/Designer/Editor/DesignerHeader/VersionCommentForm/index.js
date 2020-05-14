@@ -47,7 +47,6 @@ class VersionCommentForm extends Component {
   };
 
   render() {
-    console.log(this.props.onSave);
     const { loading, isCreating } = this.props;
 
     return (

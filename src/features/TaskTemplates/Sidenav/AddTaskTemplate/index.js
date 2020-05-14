@@ -7,20 +7,20 @@ import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import { Add16 } from "@carbon/icons-react";
-import { QueryStatus } from "Constants/reactQueryStatuses";
+import { QueryStatus } from "Constants";
 import styles from "./addTaskTemplate.module.scss";
 
 AddTaskTemplate.propTypes = {
   addTemplateInState: PropTypes.func.isRequired,
   taskTemplates: PropTypes.array.isRequired,
   location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
 };
 
 function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location }) {
   const cancelRequestRef = React.useRef();
 
-  const [CreateTaskTemplateMutation, { status }] = useMutation(args => {
+  const [CreateTaskTemplateMutation, { status }] = useMutation((args) => {
     const { promise, cancel } = resolver.postCreateTaskTemplate(args);
     cancelRequestRef.current = cancel;
     return promise;
@@ -61,7 +61,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
       composedModalProps={{ containerClassName: styles.modalContainer }}
       confirmModalProps={{
         title: "Close this?",
-        children: "Your request will not be saved"
+        children: "Your request will not be saved",
       }}
       modalTrigger={({ openModal }) => (
         <Button iconDescription="Add task template" onClick={openModal} size="field" kind="ghost" renderIcon={Add16}>
@@ -73,7 +73,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
       }}
       modalHeaderProps={{
         title: "Add a new task",
-        subtitle: "Import a task file to auto-populate these fields, or start from scratch. All fields are required."
+        subtitle: "Import a task file to auto-populate these fields, or start from scratch. All fields are required.",
       }}
     >
       {({ closeModal }) => (

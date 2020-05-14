@@ -21,35 +21,35 @@ export class CreateWorkflow extends Component {
     importWorkflowActions: PropTypes.object.isRequired,
     team: PropTypes.object.isRequired,
     workflowActions: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired
+    workflowRevisionActions: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
     const teams = this.props.value;
 
-    console.log("MOUNT");
-    console.log(this.props); // { name: 'Tania', loggedIn: true }
-    console.log(this.context); // { name: 'Tania', loggedIn: true }
-    console.log(this);
+    // console.log("MOUNT");
+    // console.log(this.props); // { name: 'Tania', loggedIn: true }
+    // console.log(this.context); // { name: 'Tania', loggedIn: true }
+    // console.log(this);
   }
 
   diagramApp = new DiagramApplication({ dag: null, isLocked: false });
 
-  createWorkflow = workflowData => {
+  createWorkflow = (workflowData) => {
     const { workflowActions, workflowRevisionActions, fetchTeams } = this.props;
     let workflowId;
     return workflowActions
       .create(`${BASE_SERVICE_URL}/workflow`, workflowData)
-      .then(res => {
+      .then((res) => {
         workflowId = res.data.id;
         const dagProps = createWorkflowRevisionBody(this.diagramApp, "Create workflow");
         const workflowRevision = {
           ...dagProps,
-          workflowId
+          workflowId,
         };
         return workflowRevisionActions.create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, workflowRevision);
       })
-      .then(res => {
+      .then((res) => {
         notify(
           <ToastNotification
             kind="success"
@@ -61,7 +61,7 @@ export class CreateWorkflow extends Component {
         this.props.history.push(`/editor/${workflowId}/designer`);
         fetchTeams();
       })
-      .catch(err => {
+      .catch((err) => {
         notify(
           <ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow and version" />
         );
@@ -78,7 +78,7 @@ export class CreateWorkflow extends Component {
         closeModal();
         this.props.fetchTeams();
       })
-      .catch(err => {
+      .catch((err) => {
         notify(
           <ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow and version" />
         );
@@ -99,11 +99,11 @@ export class CreateWorkflow extends Component {
         )}
         confirmModalProps={{
           title: "Close this?",
-          children: "Your request will not be saved"
+          children: "Your request will not be saved",
         }}
         modalHeaderProps={{
           title: "Create a new Workflow",
-          subtitle: "Get started with these basics, then proceed to designing it out."
+          subtitle: "Get started with these basics, then proceed to designing it out.",
         }}
       >
         <CreateWorkflowContainer
@@ -118,18 +118,18 @@ export class CreateWorkflow extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     teams: state.teams.data,
-    isCreating: state.workflow.isCreating
+    isCreating: state.workflow.isCreating,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     workflowActions: bindActionCreators(workflowActions, dispatch),
     workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch),
-    importWorkflowActions: bindActionCreators(importWorkflowActions, dispatch)
+    importWorkflowActions: bindActionCreators(importWorkflowActions, dispatch),
   };
 };
 

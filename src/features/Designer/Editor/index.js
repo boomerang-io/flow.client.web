@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
-import ChangeLog from "Features/Designer/components/ChangeLog";
-import DesignerHeader from "Features/Designer/components/DesignerHeader";
-import WorkflowProperties from "Features/Designer/components/WorkflowProperties";
-import Overview from "Features/Designer/components/Overview";
-import Tasks from "Features/Designer/components/Tasks";
+import ChangeLog from "./ChangeLog";
+import DesignerHeader from "./DesignerHeader";
+import Overview from "./Overview";
+import Tasks from "./Tasks";
+import WorkflowProperties from "./WorkflowProperties";
 import WorkflowZoom from "Components/WorkflowZoom";
 import DiagramApplication from "Utilities/DiagramApplication";
 import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
@@ -25,14 +25,14 @@ class WorkflowEditor extends Component {
     updateWorkflowProperties: PropTypes.func.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowFormikProps: PropTypes.object.isRequired,
-    workflowRevision: PropTypes.object.isRequired
+    workflowRevision: PropTypes.object.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
     this.state = {
-      diagramBoundingClientRect: {}
+      diagramBoundingClientRect: {},
     };
     this.diagramRef = React.createRef();
   }
@@ -40,7 +40,7 @@ class WorkflowEditor extends Component {
   componentDidMount() {
     if (this.diagramRef.current) {
       this.setState({
-        diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect()
+        diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect(),
       });
     }
     if (this.props.location.pathname.endsWith("/designer")) {
@@ -79,7 +79,7 @@ class WorkflowEditor extends Component {
       teams,
       workflow,
       workflowFormikProps,
-      workflowRevision
+      workflowRevision,
     } = this.props;
 
     const { revisionCount } = workflow;
@@ -101,59 +101,46 @@ class WorkflowEditor extends Component {
           workflowName={workflow?.name ?? ""}
         />
         <Switch>
-          <Route
-            path={`${match.path}/settings`}
-            render={() => (
-              <>
-                <Overview
-                  formikProps={workflowFormikProps}
-                  teams={teams}
-                  updateWorkflow={this.props.updateWorkflow}
-                  workflow={workflow}
+          <Route path={`${match.path}/settings`}>
+            <Overview
+              formikProps={workflowFormikProps}
+              teams={teams}
+              updateWorkflow={this.props.updateWorkflow}
+              workflow={workflow}
+            />
+          </Route>
+          <Route path={`${match.path}/properties`}>
+            <WorkflowProperties updateWorkflowProperties={this.props.updateWorkflowProperties} summaryData={workflow} />
+          </Route>
+          <Route path={`${match.path}/designer`}>
+            <div className={styles.container}>
+              <Tasks tasks={tasks.filter((task) => task.status === TaskTemplateStatus.Active)} />
+              <main
+                className={styles.designer}
+                onDrop={(event) => createNode(this.diagramApp, event)}
+                onDragOver={(event) => {
+                  event.preventDefault();
+                }}
+                ref={this.diagramRef}
+              >
+                <WorkflowZoom
+                  diagramApp={this.diagramApp}
+                  diagramBoundingClientRect={this.state.diagramBoundingClientRect}
                 />
-              </>
-            )}
-          />
-          <Route
-            path={`${match.path}/properties`}
-            render={props => (
-              <WorkflowProperties
-                loading={workflow.isUpdating}
-                properties={workflow.properties}
-                updateWorkflowProperties={this.props.updateWorkflowProperties}
-              />
-            )}
-          />
-          <Route
-            path={`${match.path}/designer`}
-            render={props => (
-              <div className={styles.container}>
-                <Tasks tasks={tasks.filter(task => task.status === TaskTemplateStatus.Active)} />
-                <main
-                  className={styles.designer}
-                  onDrop={event => createNode(this.diagramApp, event)}
-                  onDragOver={event => {
-                    event.preventDefault();
-                  }}
-                  ref={this.diagramRef}
-                >
-                  <WorkflowZoom
-                    diagramApp={this.diagramApp}
-                    diagramBoundingClientRect={this.state.diagramBoundingClientRect}
-                  />
-                  <DiagramWidget
-                    allowCanvasTranslation={!isModalOpen}
-                    allowCanvasZoom={!isModalOpen}
-                    className={styles.diagram}
-                    deleteKeys={[]}
-                    diagramEngine={this.diagramApp.getDiagramEngine()}
-                    maxNumberPointsPerLink={0}
-                  />
-                </main>
-              </div>
-            )}
-          />
-          <Route path={`${match.path}/changes`} render={() => <ChangeLog workflow={workflow} />} />
+                <DiagramWidget
+                  allowCanvasTranslation={!isModalOpen}
+                  allowCanvasZoom={!isModalOpen}
+                  className={styles.diagram}
+                  deleteKeys={[]}
+                  diagramEngine={this.diagramApp.getDiagramEngine()}
+                  maxNumberPointsPerLink={0}
+                />
+              </main>
+            </div>
+          </Route>
+          <Route path={`${match.path}/changes`}>
+            <ChangeLog workflow={workflow} />
+          </Route>
         </Switch>
       </>
     );

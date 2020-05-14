@@ -10,7 +10,7 @@ import SwitchPortModel from "./switchNode/SwitchPortModel";
 import TaskLinkFactory from "./taskLink/TaskLinkFactory";
 import TaskPortModel from "./taskPort/TaskPortModel";
 import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 
 export default class Application {
   constructor({ dag, modelIsLocked }) {
@@ -22,11 +22,9 @@ export default class Application {
     this.diagramEngine.registerNodeFactory(new SwitchNodeFactory());
 
     //need to find a way to register port factory
-    this.diagramEngine.registerPortFactory(
-      new SimplePortFactory(NODE_TYPES.START_END, config => new StartEndPortModel())
-    );
-    this.diagramEngine.registerPortFactory(new SimplePortFactory(NODE_TYPES.TASK, config => new TaskPortModel()));
-    this.diagramEngine.registerPortFactory(new SimplePortFactory(NODE_TYPES.DECISION, config => new SwitchPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.StartEnd, config => new StartEndPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.Task, config => new TaskPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.Decision, config => new SwitchPortModel()));
 
     //register new custom link
     this.diagramEngine.registerLinkFactory(new TaskLinkFactory(this.diagramEngine));
@@ -56,7 +54,7 @@ export default class Application {
     }
 
     // Register event listeners for linkUpdated
-    // We are listenigng on the create event and deleting it if
+    // We are listening on the create event and deleting it if
     // it doesn't have a target port
     this.activeModel.addListener({
       linksUpdated: event => {

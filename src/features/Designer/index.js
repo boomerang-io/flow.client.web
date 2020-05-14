@@ -19,9 +19,9 @@ import sortBy from "lodash/sortBy";
 import CustomNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utilities/templateTaskNode/TemplateTaskNodeModel";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
-import styles from "./WorkflowManager.module.scss";
+import styles from "./Designer.module.scss";
 
 export class WorkflowManagerContainer extends Component {
   static propTypes = {
@@ -223,13 +223,13 @@ export class WorkflowManagerContainer extends Component {
     let node;
     // eslint-disable-next-line default-case
     switch (taskData.nodeType) {
-      case NODE_TYPES.DECISION:
+      case NodeType.Decision:
         node = new SwitchNodeModel(nodeObj);
         break;
-      case NODE_TYPES.TEMPLATE_TASK:
+      case NodeType.TemplateTask:
         node = new TemplateNodeModel(nodeObj);
         break;
-      case NODE_TYPES.CUSTOM_TASK:
+      case NodeType.CustomTask:
         node = new CustomNodeModel(nodeObj);
         break;
     }

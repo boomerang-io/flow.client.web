@@ -8,7 +8,7 @@ import WombatMessage from "Components/WombatMessage";
 import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import { resolver, serviceUrl } from "Config/servicesConfig";
-import { QueryStatus } from "Constants/reactQueryStatuses";
+import { QueryStatus } from "Constants";
 import styles from "./taskTemplates.module.scss";
 
 export function TaskTemplatesContainer() {
@@ -16,18 +16,18 @@ export function TaskTemplatesContainer() {
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
   const { data: taskTemplatesData, error: taskTemplatesDataError, status: taskTemplatesStatus } = useQuery({
     queryKey: getTaskTemplatesUrl,
-    queryFn: resolver.query(getTaskTemplatesUrl)
+    queryFn: resolver.query(getTaskTemplatesUrl),
   });
   const isLoading = taskTemplatesStatus === QueryStatus.Loading;
 
-  const addTemplateInState = newTemplate => {
+  const addTemplateInState = (newTemplate) => {
     const updatedTemplatesData = [...taskTemplatesData];
     updatedTemplatesData.push(newTemplate);
     queryCache.setQueryData(getTaskTemplatesUrl, orderBy(updatedTemplatesData, "name", "asc"));
   };
-  const updateTemplateInState = updatedTemplate => {
+  const updateTemplateInState = (updatedTemplate) => {
     const updatedTemplatesData = [...taskTemplatesData];
-    const templateToUpdateIndex = updatedTemplatesData.findIndex(template => template.id === updatedTemplate.id);
+    const templateToUpdateIndex = updatedTemplatesData.findIndex((template) => template.id === updatedTemplate.id);
     // If we found it
     if (templateToUpdateIndex !== -1) {
       updatedTemplatesData.splice(templateToUpdateIndex, 1, updatedTemplate);

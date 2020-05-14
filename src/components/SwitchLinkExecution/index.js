@@ -4,7 +4,7 @@ import { useExecutionContext } from "Hooks";
 import cx from "classnames";
 import WorkflowLink from "Components/WorkflowLink";
 import SwitchLinkExecutionConditionButton from "Components/SwitchLinkExecutionConditionButton";
-import NODE_TYPES from "Constants/nodeTypes";
+import { NodeType } from "Constants";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import styles from "./SwitchLink.module.scss";
 
@@ -38,7 +38,7 @@ export default function SwitchLinkExecution({ diagramEngine, model, path }) {
   const sourceTaskHasFinishedAndIsEndOfWorkflow =
     (sourceStep?.flowTaskStatus === EXECUTION_STATUSES.COMPLETED ||
       sourceStep?.flowTaskStatus === EXECUTION_STATUSES.FAILURE) &&
-    targetNodeType === NODE_TYPES.START_END;
+    targetNodeType === NodeType.START_END;
 
   return (
     <WorkflowLink

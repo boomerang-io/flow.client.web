@@ -1,11 +1,12 @@
 import React from "react";
 
 const WorkflowContext = React.createContext({
-  summaryState: {},
-  revisionState: {},
   revisionDispatch: () => {},
-  summaryDispatch: () => {},
-  mutateSummary: () => {},
-  mutateRevision: () => {}
+  revisionState: {},
+  revisionQuery: {},
+  summaryState: {},
+  setIsModalOpen: () => {},
+  taskTemplatesData: [],
 });
+
 export default WorkflowContext;

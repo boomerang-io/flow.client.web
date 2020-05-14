@@ -1,16 +1,14 @@
 @import "~Styles/animation";
 
 .container {
-  display: flex;
-  flex-direction: column;
   height: 100%;
   margin: 0 auto;
+  overflow-y: auto;
   width: 100%;
 }
 
 .content {
   height: 100%;
-  overflow-y: auto;
   padding: 0rem 2rem 2rem;
 }
 
