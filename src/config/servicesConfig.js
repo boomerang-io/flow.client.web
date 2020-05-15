@@ -62,6 +62,9 @@ export const serviceUrl = {
     `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog?sort=version&order=DESC`,
   getNavigation: () => `${BASE_USERS_URL}/navigation`,
   getTeams: () => `${BASE_SERVICE_URL}/teams`,
+  getTeamProperty: ({ teamId, configurationId }) => `${BASE_SERVICE_URL}/teams/${teamId}/properties/${configurationId}`,
+  getTeamProperties: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/properties`,
+  getUserTeams: ({ email }) => `${BASE_TEAMS_URL}?userEmail=${email}`,
   getUserProfile: () => `${BASE_USERS_URL}/profile`,
   getWorkflow: ({ id }) => `${BASE_SERVICE_URL}/workflow/${id}`,
   executeWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
@@ -97,8 +100,16 @@ export const resolver = {
   putMutation: request => axios.put(request),
   deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
   deleteGlobalPropertyRequest: ({ id }) => axios.delete(serviceUrl.getGlobalProperty({ id })),
+  deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
+    axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),
   patchGlobalPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HTTP_METHODS.PATCH }),
+  patchTeamPropertyRequest: ({ teamId, configurationId, body }) =>
+    cancellableResolver({
+      url: serviceUrl.getTeamProperty({ teamId, configurationId }),
+      body,
+      method: HTTP_METHODS.PATCH
+    }),
   patchUpdateWorkflowSummary: ({ body }) => axios.patch(serviceUrl.patchUpdateWorkflowSummary(), body),
   patchUpdateWorkflowProperties: ({ workflowId, body }) =>
     axios.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId }), body),
@@ -116,7 +127,9 @@ export const resolver = {
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
   postExecuteWorkflow: ({ id, properties }) => axios.post(serviceUrl.executeWorkflow({ id }), { properties }),
-  postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body)
+  postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
+  postTeamPropertyRequest: ({ id, body }) =>
+    cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HTTP_METHODS.POST })
 };
 
 export const REQUEST_STATUSES = {

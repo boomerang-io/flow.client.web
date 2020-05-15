@@ -10905,6 +10905,14 @@
       "description": "adsasd",
       "type": "text",
       "id": "pe7PiMG"
+    },
+    {
+      "value": "ben value",
+      "key": "ben key",
+      "label": "Ben label",
+      "description": "",
+      "type": "text",
+      "id": "9phjjWB"
     }
   ],
   "taskTemplates": [

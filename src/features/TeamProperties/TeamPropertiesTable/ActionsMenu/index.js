@@ -3,25 +3,15 @@ import PropTypes from "prop-types";
 import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
 import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
 import CreateEditTeamPropertiesModal from "../CreateEditTeamPropertiesModal";
-import "./styles.scss";
 
 OverflowMenuComponent.propTypes = {
-  team: PropTypes.string.isRequired,
+  team: PropTypes.object.isRequired,
   property: PropTypes.object.isRequired,
   properties: PropTypes.array.isRequired,
-  updateTeamProperty: PropTypes.func.isRequired,
-  addTeamPropertyInStore: PropTypes.func.isRequired,
-  deleteTeamPropertyInStore: PropTypes.func.isRequired
+  deleteTeamProperty: PropTypes.func.isRequired
 };
 
-function OverflowMenuComponent({
-  addTeamPropertyInStore,
-  property,
-  properties,
-  deleteTeamPropertyInStore,
-  team,
-  updateTeamProperty
-}) {
+function OverflowMenuComponent({ property, properties, deleteTeamProperty, team }) {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 
@@ -42,6 +32,11 @@ function OverflowMenuComponent({
     setEditModalIsOpen(false);
   };
 
+  const affirmativeAction = () => {
+    deleteTeamProperty(property);
+    setDeleteModalIsOpen(false);
+  };
+
   return (
     <>
       <OverflowMenu
@@ -54,39 +49,25 @@ function OverflowMenuComponent({
           <OverflowMenuItem key={index} primaryFocus {...option} />
         ))}
       </OverflowMenu>
-      {editModalIsOpen && (
-        <CreateEditTeamPropertiesModal
-          isOpen
-          isEdit
-          addTeamPropertyInStore={addTeamPropertyInStore}
-          property={property}
-          properties={properties}
-          handleEditClose={handleEditClose}
-          team={team}
-          updateTeamProperty={updateTeamProperty}
-        />
-      )}
-      {deleteModalIsOpen && (
-        <ConfirmModal
-          isOpen={deleteModalIsOpen}
-          affirmativeAction={() => {
-            deleteTeamPropertyInStore(property);
-            setDeleteModalIsOpen(false);
-          }}
-          affirmativeButtonProps={{ kind: "danger" }}
-          affirmativeText="Delete"
-          negativeText="Cancel"
-          negativeAction={() => {
-            setDeleteModalIsOpen(false);
-          }}
-          onCloseModal={() => {
-            setDeleteModalIsOpen(false);
-          }}
-          title={`Delete ${property.label}`}
-        >
-          <div>It will be gone and no longer usable in Workflows. This could break things so be careful.</div>
-        </ConfirmModal>
-      )}
+      <CreateEditTeamPropertiesModal
+        isOpen={editModalIsOpen}
+        isEdit
+        property={property}
+        properties={properties}
+        handleEditClose={handleEditClose}
+        team={team}
+      />
+      <ConfirmModal
+        isOpen={deleteModalIsOpen}
+        affirmativeAction={affirmativeAction}
+        affirmativeButtonProps={{ kind: "danger" }}
+        affirmativeText="Delete"
+        negativeText="Cancel"
+        onCloseModal={() => setDeleteModalIsOpen(false)}
+        title={`Delete ${property.label}?`}
+      >
+        Your team property will be gone. Forever.
+      </ConfirmModal>
     </>
   );
 }
