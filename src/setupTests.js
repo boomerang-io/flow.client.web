@@ -20,7 +20,7 @@ function rtlReduxRender(ui, { initialState = {} } = {}) {
   const store = configureStore(initialState);
   return {
     ...rtlRender(<Provider store={store}>{ui}</Provider>),
-    store
+    store,
   };
 }
 
@@ -30,7 +30,7 @@ function rtlRouterRender(
 ) {
   return {
     ...rtlRender(<Router history={history}>{ui}</Router>, options),
-    history
+    history,
   };
 }
 
@@ -51,7 +51,7 @@ function rtlReduxRouterRender(
       options
     ),
     history,
-    store
+    store,
   };
 }
 
@@ -79,12 +79,12 @@ global.mount = mount;
 const localStorageMock = {
   getItem: jest.fn(),
   setItem: jest.fn(),
-  clear: jest.fn()
+  clear: jest.fn(),
 };
 const sessionStorageMock = {
   getItem: jest.fn(),
   setItem: jest.fn(),
-  clear: jest.fn()
+  clear: jest.fn(),
 };
 global.localStorage = localStorageMock;
 global.sessionStorage = sessionStorageMock;
@@ -95,7 +95,7 @@ global.Date = jest.fn(() => DATE_TO_USE);
 global.Date.UTC = _Date.UTC;
 global.Date.parse = _Date.parse;
 global.Date.now = _Date.now;
-const moment = require.requireActual("moment-timezone");
+const moment = jest.requireActual("moment-timezone");
 jest.doMock("moment", () => {
   moment.tz.setDefault("UTC");
   return moment;

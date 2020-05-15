@@ -11,7 +11,7 @@ const props = {
     key: "tim.property",
     label: "Tim Property",
     required: false,
-    type: "text"
+    type: "text",
   },
   loading: false,
   updateInputs: mockfn,
@@ -19,7 +19,7 @@ const props = {
   closeModal: mockfn,
   inputsName: [],
   workflowActions: { updateWorkflowInput: mockfn, createWorkflowInput: mockfn },
-  updateWorkflowProperties: mockfn
+  updateWorkflowProperties: mockfn,
 };
 
 describe("Inputs --- Snapshot Test", () => {
@@ -37,19 +37,19 @@ describe("Inputs --- RTL", () => {
 
     const typeSelect = getByTestId("input-type");
 
-    fireEvent.change(typeSelect, {target:{value:"b"}});
+    fireEvent.change(typeSelect, { target: { value: "b" } });
     fireEvent.click(getByText(/boolean/i));
 
     expect(queryByTestId("text-input")).not.toBeInTheDocument();
     expect(queryByTestId("toggle")).toBeInTheDocument();
 
-    fireEvent.change(typeSelect, {target:{value:"are"}});
+    fireEvent.change(typeSelect, { target: { value: "are" } });
     fireEvent.click(getByText(/text area/i));
 
     expect(queryByTestId("toggle")).not.toBeInTheDocument();
     expect(queryByTestId("text-area")).toBeInTheDocument();
 
-    fireEvent.change(typeSelect, {target:{value:"sel"}});
+    fireEvent.change(typeSelect, { target: { value: "sel" } });
     fireEvent.click(getByText(/select/i));
 
     expect(queryByTestId("text-area")).not.toBeInTheDocument();
@@ -58,8 +58,8 @@ describe("Inputs --- RTL", () => {
     await waitFor(() => {});
   });
 
-  it("Shouldn't save property without key, label and type defined", () => {
-    const { findByText, getByPlaceholderText, getByLabelText, getByTestId } = rtlReduxRender(
+  it("Shouldn't save property without key, label and type defined", async () => {
+    const { findByText, getByPlaceholderText, getByLabelText, getByText } = rtlReduxRender(
       <Inputs {...props} isEdit={false} input={undefined} />
     );
     waitFor(() => expect(findByText(/create/i)).toBeDisabled());
@@ -71,7 +71,7 @@ describe("Inputs --- RTL", () => {
     fireEvent.change(keyInput, { target: { value: "test" } });
     fireEvent.change(labelInput, { target: { value: "test" } });
 
-    fireEvent.change(typeSelect, {target:{value:"b"}});
+    fireEvent.change(typeSelect, { target: { value: "b" } });
     fireEvent.click(getByText(/boolean/i));
 
     waitFor(() => expect(findByText(/create/i)).toBeEnabled());
