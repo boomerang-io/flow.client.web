@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://launch.boomerangplatform.net/BMRG_APP_ROOT_CONTEXT",
   "dependencies": {
-    "@boomerang/boomerang-react-scripts": "^5.0.0-alpha.5",
+    "@boomerang/boomerang-react-scripts": "5.0.0-rc.0",
     "@boomerang/boomerang-styles": "2.0.0",
     "@boomerang/boomerang-utilities": "2.4.0",
     "@boomerang/carbon-addons-boomerang-react": "3.1.6",
