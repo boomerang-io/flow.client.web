@@ -58,6 +58,7 @@ export const serviceUrl = {
   getActivity: ({ query }) => `${BASE_SERVICE_URL}/activity?${query}`,
   getGlobalConfiguration: () => `${BASE_SERVICE_URL}/config`,
   getGlobalProperty: ({ id }) => `${BASE_SERVICE_URL}/config/${id}`,
+  getInsights: ({ query }) => `${BASE_SERVICE_URL}/insights?${query}`,
   getWorkflowChangelog: ({ workflowId }) =>
     `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog?sort=version&order=DESC`,
   getNavigation: () => `${BASE_USERS_URL}/navigation`,
