@@ -17,7 +17,8 @@ const props = {
       }
     },
     taskName: "Send Slack Message"
-  }
+  },
+  hidden: false
 };
 
 describe("TaskItem --- Snapshot", () => {

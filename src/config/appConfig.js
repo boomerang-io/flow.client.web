@@ -15,14 +15,15 @@ export const appPath = {
   properties: "/properties",
   taskTemplates: "/task-templates",
   teamProperties: `/team-properties`,
-  workflows: "/workflows"
+  workflows: "/workflows",
 };
 
 export const appLink = {
   activity: () => `/activity`,
   designer: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/designer`,
+  execution: ({ executionId, workflowId }) => `/activity/${workflowId}/execution/${executionId}`,
   taskTemplateEdit: ({ id, version }) => `/task-templates/${id}/${version}`,
   taskTemplateEditSettings: ({ id, version }) => `/task-templates/edit/${id}/${version}/settings`,
   taskTemplateCreate: () => `/task-templates/create`,
-  workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`
+  workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
 };

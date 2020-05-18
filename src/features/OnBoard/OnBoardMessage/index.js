@@ -29,7 +29,7 @@ const OnBoardMessage = props => {
   return (
     <FadeAnimation animationDuration={100} timeout={100} animationDelay={0} animationFunction="ease-in">
       <div className="c-onboard-wrapper">
-        <main className="c-onboardExp">
+        <section aria-label="Onboard Message Container" className="c-onboardExp">
           <button className="b-onboardExp-screen-modal-close" onClick={closeModal}>
             <Close20 />
           </button>
@@ -67,7 +67,7 @@ const OnBoardMessage = props => {
           <footer className="b-onboardExp-footer">
             <img alt="" className="b-onboardExp-footer__img" src={bkgskyline} />
           </footer>
-        </main>
+        </section>
       </div>
     </FadeAnimation>
   );

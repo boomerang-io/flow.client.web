@@ -68,7 +68,7 @@ const OnBoardGuide = props => {
   );
 
   return (
-    <main className={`c-onboard-screen ${containerClassName}`}>
+    <section aria-label="Onboard" className={`c-onboard-screen ${containerClassName}`}>
       <button className="b-onboard-screen-exit-button" onClick={closeModal}>
         <Close20 />
       </button>
@@ -81,7 +81,7 @@ const OnBoardGuide = props => {
           {rightAction}
         </div>
       </footer>
-    </main>
+    </section>
   );
 };
 

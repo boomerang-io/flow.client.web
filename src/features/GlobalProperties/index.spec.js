@@ -1,6 +1,6 @@
 import React from "react";
 import { GlobalPropertiesContainer } from ".";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 
 const mockfn = jest.fn();
 
@@ -32,9 +32,10 @@ beforeEach(() => {
 });
 
 describe("GlobalPropertiesContainer --- Snapshot Test", () => {
-  it("Capturing Snapshot of GlobalPropertiesContainer", () => {
+  it("Capturing Snapshot of GlobalPropertiesContainer", async() => {
     const { baseElement } = render(<GlobalPropertiesContainer {...props} />);
     expect(baseElement).toMatchSnapshot();
+    await waitFor(() => {});
   });
 });
 

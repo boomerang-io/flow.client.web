@@ -9,30 +9,16 @@ class WorkflowSection extends Component {
   static propTypes = {
     deleteWorkflow: PropTypes.func.isRequired,
     executeWorkflow: PropTypes.func.isRequired,
-    //fetchTeams: PropTypes.func.isRequired,
     searchQuery: PropTypes.string.isRequired,
-    //setActiveTeam: PropTypes.func.isRequired,
-    setActiveTeamAndRedirect: PropTypes.func.isRequired,
-    team: PropTypes.object.isRequired
+    team: PropTypes.object.isRequired,
   };
 
   render() {
-    const {
-      deleteWorkflow,
-      executeWorkflow,
-      //fetchTeams,
-      history,
-      //setActiveTeam,
-      setActiveTeamAndRedirect,
-      searchQuery,
-      team,
-      teams,
-      refetchTeams
-    } = this.props;
+    const { deleteWorkflow, executeWorkflow, history, searchQuery, team, teams, refetchTeams } = this.props;
 
     let workflows = [];
     if (searchQuery) {
-      workflows = team.workflows.filter(workflow => workflow.name.toLowerCase().includes(searchQuery.toLowerCase()));
+      workflows = team.workflows.filter((workflow) => workflow.name.toLowerCase().includes(searchQuery.toLowerCase()));
     } else {
       workflows = team.workflows;
     }
@@ -50,25 +36,16 @@ class WorkflowSection extends Component {
           )}
         </div>
         <div className={styles.workflows}>
-          {workflows.map(workflow => (
+          {workflows.map((workflow) => (
             <WorkflowCard
               deleteWorkflow={deleteWorkflow}
               executeWorkflow={executeWorkflow}
-              //fetchTeams={fetchTeams}
               key={workflow.id}
-              //setActiveTeam={setActiveTeam}
               teamId={team.id}
               workflow={workflow}
             />
           ))}
-          <CreateWorkflow
-            team={team}
-            setActiveTeamAndRedirect={setActiveTeamAndRedirect}
-            history={history}
-            // fetchTeams={fetchTeams}
-            teams={teams}
-            refetchTeams={refetchTeams}
-          />
+          <CreateWorkflow team={team} history={history} teams={teams} refetchTeams={refetchTeams} />
         </div>
       </section>
     );

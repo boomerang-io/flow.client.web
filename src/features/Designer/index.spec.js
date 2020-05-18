@@ -35,7 +35,14 @@ const props = {
     status: "success",
     error: "",
     data: []
-  }
+  },
+  workflowRevisionActions: {},
+  workflowActions:{},
+  appActions:{},
+  history:{},
+  tasksActions:{},
+  match:{},
+  isModalOpen: true
 };
 
 describe("WorkflowManager --- Snapshot", () => {

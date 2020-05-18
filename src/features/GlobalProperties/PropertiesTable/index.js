@@ -28,37 +28,37 @@ function PropertiesTable({ properties }) {
 
   /** Delete Property */
   const [deleteGlobalPropertyMutation] = useMutation(resolver.deleteGlobalPropertyRequest, {
-    onSuccess: () => queryCache.refetchQueries(configUrl)
+    onSuccess: () => queryCache.refetchQueries(configUrl),
   });
 
   const headers = [
     {
       header: "Label",
-      key: "label"
+      key: "label",
     },
     {
       header: "Key",
-      key: "key"
+      key: "key",
     },
     {
       header: "Description",
-      key: "description"
+      key: "description",
     },
     {
       header: "Value",
-      key: "value"
+      key: "value",
     },
     {
       header: "Secured",
-      key: "secured"
+      key: "secured",
     },
     {
       header: "",
-      key: "actions"
-    }
+      key: "actions",
+    },
   ];
 
-  const deleteProperty = async property => {
+  const deleteProperty = async (property) => {
     try {
       await deleteGlobalPropertyMutation({ id: property.id });
       notify(
@@ -72,7 +72,7 @@ function PropertiesTable({ properties }) {
     } catch (err) {
       const errorMessages = formatErrorMessage({
         error: err,
-        defaultMessage: "Delete Property Failed"
+        defaultMessage: "Delete Property Failed",
       });
       notify(
         <ToastNotification
@@ -85,7 +85,7 @@ function PropertiesTable({ properties }) {
     }
   };
 
-  const handleSearchChange = e => {
+  const handleSearchChange = (e) => {
     const searchQuery = e.target.value;
     setSearchQuery(searchQuery);
   };
@@ -96,7 +96,7 @@ function PropertiesTable({ properties }) {
   };
 
   const renderCell = (propertyId, cellIndex, value) => {
-    const property = properties.find(property => property.id === propertyId);
+    const property = properties.find((property) => property.id === propertyId);
     const column = headers[cellIndex];
 
     switch (column.key) {
@@ -163,12 +163,12 @@ function PropertiesTable({ properties }) {
                   <Table>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map(header => (
+                        {headers.map((header) => (
                           <TableHeader
                             id={header.key}
                             {...getHeaderProps({
                               header,
-                              className: `${styles.tableHeadHeader} ${styles[header.key]}`
+                              className: `${styles.tableHeadHeader} ${styles[header.key]}`,
                             })}
                           >
                             {header.header}
@@ -177,7 +177,7 @@ function PropertiesTable({ properties }) {
                       </TableRow>
                     </TableHead>
                     <TableBody className={styles.tableBody}>
-                      {rows.map(row => (
+                      {rows.map((row) => (
                         <TableRow key={row.id} data-testid="configuration-property-table-row">
                           {row.cells.map((cell, cellIndex) => (
                             <TableCell key={cell.id} style={{ padding: "0" }}>
@@ -209,7 +209,7 @@ function PropertiesTable({ properties }) {
                   <Table>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map(header => (
+                        {headers.map((header) => (
                           <TableHeader
                             key={header.key}
                             id={header.key}
@@ -233,7 +233,7 @@ function PropertiesTable({ properties }) {
 }
 
 PropertiesTable.propTypes = {
-  properties: PropTypes.array
+  properties: PropTypes.array,
 };
 
 export default PropertiesTable;

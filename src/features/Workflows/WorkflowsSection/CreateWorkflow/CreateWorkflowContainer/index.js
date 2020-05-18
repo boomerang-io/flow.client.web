@@ -46,6 +46,7 @@ export class CreateWorkflowContainer extends Component {
     return (
       <div className={styles.modalBody}>
         <RadioGroup
+          name="workflow-options"
           options={radioWorkflowOptions}
           onChange={e => this.handleChangeElem(e)}
           value={this.state.selectedOption}

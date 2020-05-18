@@ -1,7 +1,6 @@
 import React from "react";
 import Inputs from ".";
-import { fireEvent, waitForElement } from "@testing-library/react";
-
+import { fireEvent, waitFor } from "@testing-library/react";
 const mockfn = jest.fn();
 
 const props = {
@@ -12,7 +11,7 @@ const props = {
     key: "tim.property",
     label: "Tim Property",
     required: false,
-    type: "text"
+    type: "text",
   },
   loading: false,
   updateInputs: mockfn,
@@ -20,47 +19,50 @@ const props = {
   closeModal: mockfn,
   inputsName: [],
   workflowActions: { updateWorkflowInput: mockfn, createWorkflowInput: mockfn },
-  updateWorkflowProperties: mockfn
+  updateWorkflowProperties: mockfn,
 };
 
 describe("Inputs --- Snapshot Test", () => {
-  it("Capturing Snapshot of Inputs", () => {
+  it("Capturing Snapshot of Inputs", async () => {
     const { baseElement } = rtlReduxRender(<Inputs {...props} />);
     expect(baseElement).toMatchSnapshot();
+    await waitFor(() => {});
   });
 });
 
 describe("Inputs --- RTL", () => {
-  it("Change default value by type correctly", () => {
-    const { getByText, getByLabelText, queryByTestId } = rtlReduxRender(<Inputs {...props} />);
+  it("Change default value by type correctly", async () => {
+    const { getByText, queryByTestId, getByTestId } = rtlReduxRender(<Inputs {...props} />);
     expect(queryByTestId("text-input")).toBeInTheDocument();
 
-    const typeSelect = getByLabelText(/type/i);
+    const typeSelect = getByTestId("input-type");
 
-    fireEvent.click(typeSelect);
+    fireEvent.change(typeSelect, { target: { value: "b" } });
     fireEvent.click(getByText(/boolean/i));
 
     expect(queryByTestId("text-input")).not.toBeInTheDocument();
     expect(queryByTestId("toggle")).toBeInTheDocument();
 
-    fireEvent.click(typeSelect);
+    fireEvent.change(typeSelect, { target: { value: "are" } });
     fireEvent.click(getByText(/text area/i));
 
     expect(queryByTestId("toggle")).not.toBeInTheDocument();
     expect(queryByTestId("text-area")).toBeInTheDocument();
 
-    fireEvent.click(typeSelect);
+    fireEvent.change(typeSelect, { target: { value: "sel" } });
     fireEvent.click(getByText(/select/i));
 
     expect(queryByTestId("text-area")).not.toBeInTheDocument();
     expect(queryByTestId("select")).toBeInTheDocument();
+
+    await waitFor(() => {});
   });
 
   it("Shouldn't save property without key, label and type defined", async () => {
-    const { findByText, getByText, getByPlaceholderText, getByLabelText } = rtlReduxRender(
+    const { findByText, getByPlaceholderText, getByLabelText, getByText } = rtlReduxRender(
       <Inputs {...props} isEdit={false} input={undefined} />
     );
-    waitForElement(() => expect(findByText(/create/i)).toBeDisabled());
+    waitFor(() => expect(findByText(/create/i)).toBeDisabled());
 
     const keyInput = getByPlaceholderText("key.value");
     const labelInput = getByPlaceholderText(/name/i);
@@ -68,9 +70,12 @@ describe("Inputs --- RTL", () => {
 
     fireEvent.change(keyInput, { target: { value: "test" } });
     fireEvent.change(labelInput, { target: { value: "test" } });
-    fireEvent.click(typeSelect);
+
+    fireEvent.change(typeSelect, { target: { value: "b" } });
     fireEvent.click(getByText(/boolean/i));
 
-    waitForElement(() => expect(findByText(/create/i)).toBeEnabled());
+    waitFor(() => expect(findByText(/create/i)).toBeEnabled());
+
+    await waitFor(() => {});
   });
 });
