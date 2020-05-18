@@ -3,7 +3,7 @@ import { WorkflowsHome } from "./index";
 
 const mockfn = jest.fn();
 jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
-  Error404: "Error404",
+  ...jest.requireActual("@boomerang/carbon-addons-boomerang-react"),
   LoadingAnimation: "LoadingAnimation",
   notify: "notify",
   Notification: "Notification"

@@ -96,6 +96,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
             <input
               aria-labelledby="required-label"
               class="bx--toggle-input"
+              data-testid="toggle-test-id"
               id="required"
               type="checkbox"
             />
@@ -157,6 +158,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                   aria-label="Choose an item"
                   autocomplete="off"
                   class="bx--text-input"
+                  data-testid="input-type"
                   id="type"
                   placeholder="Select an item"
                   role="combobox"

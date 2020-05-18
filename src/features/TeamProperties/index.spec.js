@@ -1,6 +1,6 @@
 import React from "react";
 import { TeamProperties } from ".";
-import { waitForElement } from "@testing-library/react";
+import { waitFor } from "@testing-library/react";
 
 const mockfn = jest.fn();
 
@@ -83,7 +83,7 @@ describe("TeamProperties --- RTL", () => {
   test("renders message when is still fetching", async () => {
     const newProp = { ...props, teams: { ...props.teams, isFetching: true } };
     const { getByLabelText } = rtlReduxRender(<TeamProperties {...newProp} />);
-    const message = await waitForElement(() => getByLabelText("Active loading indicator"));
+    const message = await waitFor(() => getByLabelText("Active loading indicator"));
 
     expect(message).toBeInTheDocument();
   });

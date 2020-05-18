@@ -91,6 +91,10 @@ const defaultUIShellProps = {
   renderLogo: true,
 };
 
+const skipToContentProps = {
+  href: "#content",
+};
+
 NavbarContainer.propTypes = {
   handleOnTutorialClick: PropTypes.func.isRequired,
   navigationState: PropTypes.object.isRequired,
@@ -112,6 +116,7 @@ function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) 
           headerConfig={navigationState.data}
           onTutorialClick={handleOnTutorialClick}
           user={userState.data}
+          skipToContentProps={skipToContentProps}
         />
       </>
     );

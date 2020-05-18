@@ -5,7 +5,8 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
   id="app"
 >
   <div>
-    <main
+    <section
+      aria-label="Properties"
       class="container"
     >
       <section
@@ -209,7 +210,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           </p>
         </div>
       </button>
-    </main>
+    </section>
   </div>
   <div
     class="ReactModalPortal"

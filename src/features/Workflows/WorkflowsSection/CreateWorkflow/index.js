@@ -24,15 +24,6 @@ export class CreateWorkflow extends Component {
     workflowRevisionActions: PropTypes.object.isRequired,
   };
 
-  componentDidMount() {
-    const teams = this.props.value;
-
-    // console.log("MOUNT");
-    // console.log(this.props); // { name: 'Tania', loggedIn: true }
-    // console.log(this.context); // { name: 'Tania', loggedIn: true }
-    // console.log(this);
-  }
-
   diagramApp = new DiagramApplication({ dag: null, isLocked: false });
 
   createWorkflow = (workflowData) => {
@@ -87,8 +78,6 @@ export class CreateWorkflow extends Component {
 
   render() {
     const { team, teams, isCreating } = this.props;
-    // console.log("context");
-    // console.log(this.context);
     return (
       <ModalFlow
         modalTrigger={({ openModal }) => (
@@ -108,10 +97,10 @@ export class CreateWorkflow extends Component {
       >
         <CreateWorkflowContainer
           createWorkflow={this.createWorkflow}
+          handleImportWorkflowCreation={this.handleImportWorkflowCreation}
+          isCreating={isCreating}
           team={team}
           teams={teams}
-          isCreating={isCreating}
-          handleImportWorkflowCreation={this.handleImportWorkflowCreation}
         />
       </ModalFlow>
     );

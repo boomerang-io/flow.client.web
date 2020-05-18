@@ -5,7 +5,13 @@ const props = {
   activities: [],
   isUpdating: false,
   sort: {},
-  tableData: { records: [], pageable: { number: 0, size: 10, sort: "asc", totalElements: 10 } }
+  tableData: { records: [], pageable: { number: 0, size: 10, sort: "asc", totalElements: 10 } },
+  match: {
+    params: "testid"
+  },
+  location: {},
+  history:{},
+  updateHistorySearch: jest.fn()
 };
 
 describe("ActivityTable --- Snapshot", () => {

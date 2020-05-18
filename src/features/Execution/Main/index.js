@@ -55,7 +55,7 @@ class Main extends Component {
     return (
       <div className={styles.container}>
         <ExecutionHeader workflow={workflow} workflowExecution={workflowExecution} />
-        <main className={styles.executionResultContainer}>
+        <section aria-label="Executions" className={styles.executionResultContainer}>
           <ExecutionTaskLog workflowExecution={workflowExecution} />
           <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
             <section className={styles.executionWorkflowActions}>
@@ -80,7 +80,7 @@ class Main extends Component {
               </div>
             )}
           </div>
-        </main>
+        </section>
       </div>
     );
   }

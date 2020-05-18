@@ -3,7 +3,7 @@ import { ExecutionContext } from "State/context";
 import { useParams } from "react-router-dom";
 import { Loading, Error } from "@boomerang/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { useQuery, queryCache } from "react-query";
+import { useQuery } from "react-query";
 import { QueryStatus } from "Constants";
 import Main from "../Execution/Main";
 
@@ -22,23 +22,23 @@ export default function WorkflowExecutionContainer() {
    */
   const summaryQuery = useQuery({
     queryKey: getSummaryUrl,
-    queryFn: resolver.query(getSummaryUrl)
+    queryFn: resolver.query(getSummaryUrl),
   });
   const revisionQuery = useQuery({
     queryKey: getRevisionUrl,
-    queryFn: resolver.query(getRevisionUrl)
+    queryFn: resolver.query(getRevisionUrl),
   });
   const taskTemplatesQuery = useQuery({
     queryKey: getTaskTemplatesUrl,
-    queryFn: resolver.query(getTaskTemplatesUrl)
+    queryFn: resolver.query(getTaskTemplatesUrl),
   });
 
   const executionQuery = useQuery({
     queryKey: getExecutionUrl,
     queryFn: resolver.query(getExecutionUrl),
     config: {
-      refetchInterval: 5000
-    }
+      refetchInterval: 5000,
+    },
   });
 
   const summaryIsLoading = summaryQuery.status === QueryStatus.Loading;
@@ -60,7 +60,7 @@ export default function WorkflowExecutionContainer() {
         value={{
           tasks: taskTemplatesQuery.data,
           workflowExecution: executionQuery.data,
-          workflowRevision: revisionQuery.data
+          workflowRevision: revisionQuery.data,
         }}
       >
         <Main dag={revisionQuery?.data?.dag} workflowExecution={executionQuery} workflow={summaryQuery} />

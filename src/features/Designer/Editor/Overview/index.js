@@ -13,6 +13,7 @@ import {
   notify,
   ToastNotification,
   TooltipHover,
+  TooltipIcon,
 } from "@boomerang/carbon-addons-boomerang-react";
 import CronJobModal from "./CronJobModal";
 import workflowIcons from "Assets/workflowIcons";
@@ -100,7 +101,7 @@ export class Overview extends Component {
     } = this.props;
 
     return (
-      <main className={styles.wrapper}>
+      <section aria-label="Overview" className={styles.wrapper}>
         <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
           <h2 className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</h2>
@@ -214,8 +215,8 @@ export class Overview extends Component {
                         <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
                       </button>
                     </TooltipHover>
-                    <CopyToClipboard text={values.triggers.webhook.token}>
-                      <TooltipHover direction="top" content={this.state.copyTokenText}>
+                    <TooltipIcon direction="top" tooltipText={this.state.copyTokenText}>
+                      <CopyToClipboard text={values.triggers.webhook.token}>
                         <button
                           onClick={() => this.setState({ copyTokenText: "Copied Token" })}
                           onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
@@ -223,8 +224,8 @@ export class Overview extends Component {
                         >
                           <CopyFile16 fill={"#0072C3"} className={styles.webhookImg} alt="Copy token" />
                         </button>
-                      </TooltipHover>
-                    </CopyToClipboard>
+                      </CopyToClipboard>
+                    </TooltipIcon>
                   </div>
                   <div>
                     <ConfirmModal
@@ -365,7 +366,7 @@ export class Overview extends Component {
             </p>
           </div>
         </section>
-      </main>
+      </section>
     );
   }
 }

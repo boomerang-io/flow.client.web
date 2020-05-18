@@ -11,10 +11,10 @@ class CustomPieLegend extends Component {
             <div key={`${data.payload.name}-${index}`} className={styles.iconContainer} role="button" tabIndex="0">
               <div className={styles.icon} style={{ backgroundColor: data.payload.fill }} />
               <div className={styles.labelContainer}>
-                <span className={styles.label} key={data.dataKey}>
+                <span className={styles.label} key={`${data.dataKey}-label`}>
                   {data.payload.name}
                 </span>
-                <span className={styles.value} key={data.dataKey}>
+                <span className={styles.value} key={`${data.dataKey}-value`}>
                   {`${data.payload.percentage}% (${data.payload.value} runs)`}
                 </span>
               </div>

@@ -24,6 +24,7 @@ const props = {
     params: "testid"
   },
   location: {},
+  history:{},
   teamsState: {
     isFetching: false,
     status: "success",

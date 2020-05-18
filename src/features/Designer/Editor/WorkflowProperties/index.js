@@ -87,7 +87,7 @@ export default function WorkflowProperties({ summaryData }) {
   const propertyKeys = properties.map((input) => input.key);
 
   return (
-    <main className={styles.container}>
+    <section aria-label="Properties" className={styles.container}>
       {properties.length > 0 &&
         properties.map((property, index) => (
           <section key={`${property.id}-${index}`} className={styles.property}>
@@ -138,6 +138,6 @@ export default function WorkflowProperties({ summaryData }) {
         updateWorkflowProperties={updateProperties}
         loading={mutatePropertiesIsLoading}
       />
-    </main>
+    </section>
   );
 }

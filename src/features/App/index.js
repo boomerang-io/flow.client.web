@@ -6,7 +6,7 @@ import {
   ErrorBoundary,
   Error404,
   NotificationsContainer,
-  ProtectedRoute
+  ProtectedRoute,
 } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
 import Loading from "Components/Loading";
@@ -22,7 +22,7 @@ import {
   AsyncInsights,
   AsyncTaskTemplates,
   AsyncTeamProperties,
-  AsyncWorkflows
+  AsyncWorkflows,
 } from "./asyncFeatureImports";
 import USER_TYPES from "Constants/userTypes";
 import ErrorDragon from "Components/ErrorDragon";
@@ -147,7 +147,7 @@ export default function App() {
           setActiveTeam: setActiveTeam,
           onBoardShow: onBoardShow,
           setOnBoardShow: setOnBoardShow,
-          refetchTeams: refetchTeams
+          refetchTeams: refetchTeams,
         }}
       >
         <Navbar

@@ -1,6 +1,6 @@
 import React from "react";
 import { actions as insightsActions, initialState } from "State/insights";
-import { wait, waitForElement, fireEvent } from "@testing-library/react";
+import { wait, waitFor, fireEvent } from "@testing-library/react";
 import { WorkflowInsights } from "./index";
 import mockAxios from "Utilities/testing/axios";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";

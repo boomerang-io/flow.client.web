@@ -295,6 +295,7 @@ class WorkflowPropertiesModalContent extends Component {
                 />
 
                 <Toggle
+                  data-testid="toggle-test-id"
                   id={FIELD.REQUIRED}
                   labelText="Required"
                   onToggle={(value) => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
@@ -315,6 +316,7 @@ class WorkflowPropertiesModalContent extends Component {
                   itemToString={(item) => item && item.label}
                   placeholder="Select an item"
                   titleText="Type"
+                  data-testid="input-type"
                 />
 
                 {this.renderDefaultValue(formikProps)}

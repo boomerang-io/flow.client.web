@@ -8,7 +8,8 @@ const mockfn = jest.fn();
 const props = {
   fetchTeams: mockfn,
   handleImportWorkflow: mockfn,
-  importWorkflowActions
+  importWorkflowActions,
+  workflowId:"test"
 };
 
 beforeEach(() => {

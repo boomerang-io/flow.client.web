@@ -4,7 +4,9 @@ import ActivityHeader from "./index";
 const props = {
   failedActivities: 10,
   runActivities: 25,
-  succeededActivities: 13
+  succeededActivities: 13,
+  inProgressActivities: 0,
+  isLoading: false
 };
 
 describe("ActivityHeader --- Snapshot", () => {

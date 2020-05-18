@@ -16,33 +16,33 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
 
   /** Add Team Property */
   const [addTeamPropertyMutation, { status: addStatus }] = useMutation(
-    args => {
+    (args) => {
       const { promise, cancel } = resolver.postTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.refetchQueries(teamPropertiesUrl)
+      onSuccess: () => queryCache.refetchQueries(teamPropertiesUrl),
     }
   );
   const addIsLoading = addStatus === QueryStatus.Loading;
 
   /** Update Team Property */
   const [updateTeamPropertyMutation, { status: updateStatus }] = useMutation(
-    args => {
+    (args) => {
       const { promise, cancel } = resolver.patchTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.refetchQueries(teamPropertiesUrl)
+      onSuccess: () => queryCache.refetchQueries(teamPropertiesUrl),
     }
   );
   const updateIsLoading = updateStatus === QueryStatus.Loading;
 
   const loading = addIsLoading || updateIsLoading;
 
-  const handleSubmit = async values => {
+  const handleSubmit = async (values) => {
     const type = values.secured ? INPUT_TYPES.PASSWORD : INPUT_TYPES.TEXT;
     const newTeamProperty = isEdit ? { ...values, type, id: property.id } : { ...values, type };
     delete newTeamProperty.secured;
@@ -52,7 +52,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
         const response = await updateTeamPropertyMutation({
           teamId: team.id,
           configurationId: newTeamProperty.id,
-          body: newTeamProperty
+          body: newTeamProperty,
         });
         notify(
           <ToastNotification
@@ -107,20 +107,18 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
         key: property && property.key ? property.key : "",
         label: property && property.label ? property.label : "",
         description: property && property.description ? property.description : "",
-        secured: property ? property.type === INPUT_TYPES.PASSWORD : false
+        secured: property ? property.type === INPUT_TYPES.PASSWORD : false,
       }}
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
         label: Yup.string().required("Enter a label"),
-        key: Yup.string()
-          .required("Enter a key")
-          .notOneOf(propertyKeys, "Key must be unique"),
+        key: Yup.string().required("Enter a key").notOneOf(propertyKeys, "Key must be unique"),
         value: Yup.string().required("Enter a value"),
         description: Yup.string(),
-        secured: Yup.boolean()
+        secured: Yup.boolean(),
       })}
     >
-      {props => {
+      {(props) => {
         const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit } = props;
 
         return (
@@ -209,7 +207,7 @@ CreateEditTeamPropertiesModalContent.propTypes = {
   property: PropTypes.object,
   propertyKeys: PropTypes.array.isRequired,
   team: PropTypes.object.isRequired,
-  cancelRequestRef: PropTypes.object.isRequired
+  cancelRequestRef: PropTypes.object.isRequired,
 };
 
 export default CreateEditTeamPropertiesModalContent;

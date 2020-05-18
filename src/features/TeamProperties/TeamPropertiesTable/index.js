@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useMutation, queryCache, useQuery } from "react-query";
+import { useMutation, queryCache } from "react-query";
 import { DataTable, Pagination, ComboBox } from "carbon-components-react";
 import { Error404, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
@@ -16,6 +16,32 @@ import styles from "./teamPropertiesTable.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
+const headers = [
+  {
+    header: "Label",
+    key: "label",
+  },
+  {
+    header: "Key",
+    key: "key",
+  },
+  {
+    header: "Description",
+    key: "description",
+  },
+  {
+    header: "Value",
+    key: "value",
+  },
+  {
+    header: "Secured",
+    key: "secured",
+  },
+  {
+    header: "",
+    key: "actions",
+  },
+];
 
 function TeamPropertiesTable({ activeTeam, setActiveTeam, properties, teams }) {
   const [page, setPage] = useState(1);
@@ -26,37 +52,10 @@ function TeamPropertiesTable({ activeTeam, setActiveTeam, properties, teams }) {
 
   /** Delete Team Property */
   const [deleteTeamPropertyMutation] = useMutation(resolver.deleteTeamPropertyRequest, {
-    onSuccess: () => queryCache.refetchQueries([teamPropertiesUrl])
+    onSuccess: () => queryCache.refetchQueries([teamPropertiesUrl]),
   });
 
-  const headers = [
-    {
-      header: "Label",
-      key: "label"
-    },
-    {
-      header: "Key",
-      key: "key"
-    },
-    {
-      header: "Description",
-      key: "description"
-    },
-    {
-      header: "Value",
-      key: "value"
-    },
-    {
-      header: "Secured",
-      key: "secured"
-    },
-    {
-      header: "",
-      key: "actions"
-    }
-  ];
-
-  const deleteTeamProperty = async component => {
+  const deleteTeamProperty = async (component) => {
     try {
       await deleteTeamPropertyMutation({ teamId: activeTeam.id, configurationId: component.id });
       notify(
@@ -86,7 +85,7 @@ function TeamPropertiesTable({ activeTeam, setActiveTeam, properties, teams }) {
   };
 
   const renderCell = (propertyId, cellIndex, value) => {
-    const property = properties.find(property => property.id === propertyId);
+    const property = properties.find((property) => property.id === propertyId);
     const column = headers[cellIndex];
     switch (column.key) {
       case "value":
@@ -137,7 +136,7 @@ function TeamPropertiesTable({ activeTeam, setActiveTeam, properties, teams }) {
               id="team-properties-select"
               initialSelectedItem={activeTeam?.id ? activeTeam : null}
               items={teams}
-              itemToString={item => (item ? item.name : "")}
+              itemToString={(item) => (item ? item.name : "")}
               label="Teams"
               onChange={({ selectedItem }) => {
                 setActiveTeam(selectedItem);
@@ -165,7 +164,7 @@ function TeamPropertiesTable({ activeTeam, setActiveTeam, properties, teams }) {
                             key={`mode-table-key-${key}`}
                             {...getHeaderProps({
                               header,
-                              className: `${styles.tableHeadHeader} ${styles[header.key]}`
+                              className: `${styles.tableHeadHeader} ${styles[header.key]}`,
                             })}
                           >
                             {header.header}
@@ -174,7 +173,7 @@ function TeamPropertiesTable({ activeTeam, setActiveTeam, properties, teams }) {
                       </TableRow>
                     </TableHead>
                     <TableBody className={styles.tableBody}>
-                      {rows.map(row => {
+                      {rows.map((row) => {
                         return (
                           <TableRow key={row.id}>
                             {row.cells.map((cell, cellIndex) => (
@@ -234,7 +233,7 @@ TeamPropertiesTable.propTypes = {
   activeTeam: PropTypes.object,
   properties: PropTypes.array.isRequired,
   setActiveTeam: PropTypes.func.isRequired,
-  teams: PropTypes.array.isRequired
+  teams: PropTypes.array.isRequired,
 };
 
 export default TeamPropertiesTable;
