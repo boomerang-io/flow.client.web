@@ -2,29 +2,29 @@ import React from "react";
 import queryString from "query-string";
 import { createMemoryHistory } from "history";
 import { fireEvent } from "@testing-library/react";
-import { WorkflowActivity } from "./index";
+import WorkflowActivity from "./index";
 
 const mockfn = jest.fn();
 
 jest.mock("carbon-components-react/es", () => ({
   __esModule: true,
   DatePicker: () => <div />,
-  DatePickerInput: () => <div />
+  DatePickerInput: () => <div />,
 }));
 
 const props = {
   activityActions: {
     fetch: () => new Promise(() => {}),
-    reset: mockfn
+    reset: mockfn,
   },
   teamsActions: {
-    fetch: () => new Promise(() => {})
+    fetch: () => new Promise(() => {}),
   },
   match: {
-    params: "testid"
+    params: "testid",
   },
   location: {},
-  history:{},
+  history: {},
   teamsState: {
     isFetching: false,
     status: "success",
@@ -36,12 +36,12 @@ const props = {
         workflows: [
           {
             id: "2",
-            name: "testing-workflow"
-          }
-        ]
-      }
-    ]
-  }
+            name: "testing-workflow",
+          },
+        ],
+      },
+    ],
+  },
 };
 
 describe("WorkflowActivity --- Snapshot", () => {

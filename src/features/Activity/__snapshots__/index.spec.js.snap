@@ -45,6 +45,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
           <div
             class="bx--tabs tabs"
             role="navigation"
+            selectionmode="automatic"
           >
             <div
               aria-label="listbox"
@@ -62,15 +63,14 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
               <svg
                 aria-hidden="true"
                 focusable="false"
-                height="6"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
-                style="will-change: transform;"
-                viewBox="0 0 10 6"
-                width="10"
+                viewBox="0 0 16 16"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="M5 6L0 1 .7.3 5 4.6 9.3.3l.7.7z"
+                <polygon
+                  points="8,11 3,6 3.7,5.3 8,9.6 12.3,5.3 13,6"
                 />
                 <title>
                   show menu options
@@ -82,75 +82,75 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
               role="tablist"
             >
               <li
+                aria-controls="undefined__panel"
+                aria-selected="true"
                 class="bx--tabs__nav-item bx--tabs__nav-item--selected"
-                role="presentation"
+                role="tab"
                 tabindex="-1"
               >
                 <a
-                  aria-selected="true"
                   class="bx--tabs__nav-link"
                   href="#"
-                  role="tab"
                   tabindex="0"
                 >
                   All
                 </a>
               </li>
               <li
+                aria-controls="undefined__panel"
+                aria-selected="false"
                 class="bx--tabs__nav-item"
-                role="presentation"
+                role="tab"
                 tabindex="-1"
               >
                 <a
-                  aria-selected="false"
                   class="bx--tabs__nav-link"
                   href="#"
-                  role="tab"
                   tabindex="-1"
                 >
                   In Progress
                 </a>
               </li>
               <li
+                aria-controls="undefined__panel"
+                aria-selected="false"
                 class="bx--tabs__nav-item"
-                role="presentation"
+                role="tab"
                 tabindex="-1"
               >
                 <a
-                  aria-selected="false"
                   class="bx--tabs__nav-link"
                   href="#"
-                  role="tab"
                   tabindex="-1"
                 >
                   Succeeded
                 </a>
               </li>
               <li
+                aria-controls="undefined__panel"
+                aria-selected="false"
                 class="bx--tabs__nav-item"
-                role="presentation"
+                role="tab"
                 tabindex="-1"
               >
                 <a
-                  aria-selected="false"
                   class="bx--tabs__nav-link"
                   href="#"
-                  role="tab"
                   tabindex="-1"
                 >
                   Failed
                 </a>
               </li>
               <li
+                aria-controls="undefined__panel"
+                aria-selected="false"
                 class="bx--tabs__nav-item"
-                role="presentation"
+                role="tab"
                 tabindex="-1"
               >
                 <a
-                  aria-selected="false"
                   class="bx--tabs__nav-link"
                   href="#"
-                  role="tab"
                   tabindex="-1"
                 >
                   Invalid
@@ -160,22 +160,32 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
           </div>
           <div
             aria-hidden="false"
+            class="bx--tab-content"
+            role="tabpanel"
           />
           <div
             aria-hidden="true"
+            class="bx--tab-content"
             hidden=""
+            role="tabpanel"
           />
           <div
             aria-hidden="true"
+            class="bx--tab-content"
             hidden=""
+            role="tabpanel"
           />
           <div
             aria-hidden="true"
+            class="bx--tab-content"
             hidden=""
+            role="tabpanel"
           />
           <div
             aria-hidden="true"
+            class="bx--tab-content"
             hidden=""
+            role="tabpanel"
           />
         </nav>
         <section
@@ -193,18 +203,17 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                 <label
                   class="bx--label"
                   for="activity-teams-select"
+                  id="filterablemultiselect-label-1"
                 >
                   Filter by team
                 </label>
                 <div
                   class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
-                  role="listbox"
-                  tabindex="-1"
                 >
                   <div
                     aria-expanded="false"
                     aria-haspopup="true"
-                    aria-label="Open menu"
+                    aria-labelledby="filterablemultiselect-label-1"
                     class="bx--list-box__field"
                     data-toggle="true"
                     role="button"
@@ -233,13 +242,12 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                         name="chevron--down"
                         preserveAspectRatio="xMidYMid meet"
                         role="img"
-                        style="will-change: transform;"
                         viewBox="0 0 16 16"
                         width="16"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path
-                          d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                        <polygon
+                          points="8,11 3,6 3.7,5.3 8,9.6 12.3,5.3 13,6"
                         />
                         <title>
                           Open menu
@@ -259,18 +267,17 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                 <label
                   class="bx--label"
                   for="activity-workflows-select"
+                  id="filterablemultiselect-label-2"
                 >
                   Filter by workflow
                 </label>
                 <div
                   class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
-                  role="listbox"
-                  tabindex="-1"
                 >
                   <div
                     aria-expanded="false"
                     aria-haspopup="true"
-                    aria-label="Open menu"
+                    aria-labelledby="filterablemultiselect-label-2"
                     class="bx--list-box__field"
                     data-toggle="true"
                     role="button"
@@ -299,13 +306,12 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                         name="chevron--down"
                         preserveAspectRatio="xMidYMid meet"
                         role="img"
-                        style="will-change: transform;"
                         viewBox="0 0 16 16"
                         width="16"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path
-                          d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                        <polygon
+                          points="8,11 3,6 3.7,5.3 8,9.6 12.3,5.3 13,6"
                         />
                         <title>
                           Open menu
@@ -325,18 +331,17 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                 <label
                   class="bx--label"
                   for="activity-triggers-select"
+                  id="filterablemultiselect-label-3"
                 >
                   Filter by trigger
                 </label>
                 <div
                   class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
-                  role="listbox"
-                  tabindex="-1"
                 >
                   <div
                     aria-expanded="false"
                     aria-haspopup="true"
-                    aria-label="Open menu"
+                    aria-labelledby="filterablemultiselect-label-3"
                     class="bx--list-box__field"
                     data-toggle="true"
                     role="button"
@@ -365,13 +370,12 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                         name="chevron--down"
                         preserveAspectRatio="xMidYMid meet"
                         role="img"
-                        style="will-change: transform;"
                         viewBox="0 0 16 16"
                         width="16"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path
-                          d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                        <polygon
+                          points="8,11 3,6 3.7,5.3 8,9.6 12.3,5.3 13,6"
                         />
                         <title>
                           Open menu
@@ -388,141 +392,295 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
         <div
           style="margin-top: 1rem;"
         >
-          <table
-            class="bx--skeleton bx--data-table tableSkeleton"
+          <div
+            class="bx--skeleton bx--data-table-container"
           >
-            <thead>
-              <tr>
-                <th>
-                  Team
-                </th>
-                <th>
-                  Workflow
-                </th>
-                <th>
-                  Trigger
-                </th>
-                <th>
-                  Initiated By
-                </th>
-                <th>
-                  Start Time
-                </th>
-                <th>
-                  Duration
-                </th>
-                <th>
-                  Status
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <span />
-                </td>
-                <td>
-                  <span />
-                </td>
-                <td>
-                  <span />
-                </td>
-                <td>
-                  <span />
-                </td>
-                <td>
-                  <span />
-                </td>
-                <td>
-                  <span />
-                </td>
-                <td>
-                  <span />
-                </td>
-              </tr>
-              <tr>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-              <tr>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-              <tr>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-              <tr>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-              <tr>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-              <tr>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-              <tr>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-              <tr>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-              <tr>
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-                <td />
-              </tr>
-            </tbody>
-          </table>
+            <div
+              class="bx--data-table-header"
+            >
+              <div
+                class="bx--data-table-header__title"
+              />
+              <div
+                class="bx--data-table-header__description"
+              />
+            </div>
+            <section
+              aria-label="data table toolbar"
+              class="bx--table-toolbar"
+            >
+              <div
+                class="bx--toolbar-content"
+              >
+                <button
+                  class="bx--skeleton bx--btn bx--btn--sm"
+                  type="button"
+                />
+              </div>
+            </section>
+            <table
+              class="bx--skeleton bx--data-table tableSkeleton bx--skeleton bx--data-table"
+              headers="Team,Workflow,Trigger,Initiated By,Start Time,Duration,Status"
+            >
+              <thead>
+                <tr>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
     </div>

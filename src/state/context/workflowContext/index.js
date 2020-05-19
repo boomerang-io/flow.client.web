@@ -5,7 +5,6 @@ const WorkflowContext = React.createContext({
   revisionState: {},
   revisionQuery: {},
   summaryState: {},
-  setIsModalOpen: () => {},
   taskTemplatesData: [],
 });
 

@@ -8,6 +8,5 @@ const AppContext = React.createContext({
   setActiveTeam: () => {},
   onBoardShow: false,
   setOnBoardShow: () => {},
-  refetchTeams: () => {}
 });
 export default AppContext;

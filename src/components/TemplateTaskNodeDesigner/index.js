@@ -20,7 +20,7 @@ TemplateTaskNodeDesigner.defaultProps = {
 };
 
 export default function TemplateTaskNodeDesigner({ diagramEngine, node: designerNode }) {
-  const { revisionDispatch, revisionState, summaryQuery, setIsModalOpen, taskTemplatesData } = useWorkflowContext();
+  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useWorkflowContext();
 
   /**
    * Pull data off of context
@@ -65,9 +65,7 @@ export default function TemplateTaskNodeDesigner({ diagramEngine, node: designer
   const renderConfigureTask = () => {
     return (
       <ComposedModal
-        composedModalProps={{
-          onAfterOpen: () => setIsModalOpen(true),
-        }}
+        composedModalProps={{}}
         confirmModalProps={{
           title: "Are you sure?",
           children: "Your changes will not be saved",
@@ -77,7 +75,6 @@ export default function TemplateTaskNodeDesigner({ diagramEngine, node: designer
           subtitle: task.description || "Configure the inputs",
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
-        onCloseModal={() => setIsModalOpen(false)}
       >
         {({ closeModal }) => (
           <WorkflowTaskForm
@@ -100,7 +97,6 @@ export default function TemplateTaskNodeDesigner({ diagramEngine, node: designer
         <ComposedModal
           composedModalProps={{
             containerClassName: styles.updateTaskModalContainer,
-            onAfterOpen: () => setIsModalOpen(true),
             shouldCloseOnOverlayClick: false,
           }}
           modalHeaderProps={{
@@ -111,7 +107,6 @@ export default function TemplateTaskNodeDesigner({ diagramEngine, node: designer
           modalTrigger={({ openModal }) => (
             <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
           )}
-          onCloseModal={() => setIsModalOpen(false)}
         >
           {({ closeModal }) => (
             <TaskUpdateModal

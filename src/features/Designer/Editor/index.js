@@ -11,7 +11,9 @@ import WorkflowZoom from "Components/WorkflowZoom";
 import DiagramApplication from "Utilities/DiagramApplication";
 import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import styles from "./Editor.module.scss";
+import { QueryStatus } from "Constants";
 
+// TODO: hooks for modal is open
 class WorkflowEditor extends Component {
   static propTypes = {
     createNode: PropTypes.func.isRequired,
@@ -19,6 +21,7 @@ class WorkflowEditor extends Component {
     fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
     handleChangeLogReasonChange: PropTypes.func.isRequired,
     isModalOpen: PropTypes.bool.isRequired,
+    match: PropTypes.object.isRequired,
     tasks: PropTypes.object.isRequired,
     teams: PropTypes.array.isRequired,
     updateWorkflow: PropTypes.func.isRequired,
@@ -84,7 +87,7 @@ class WorkflowEditor extends Component {
 
     const { revisionCount } = workflow;
     const { version } = workflowRevision;
-    const workflowLoading = workflowRevision.isFetching || workflowRevision.isCreating;
+    const workflowLoading = workflowRevision.status === QueryStatus.Loading;
     return (
       <>
         <DesignerHeader

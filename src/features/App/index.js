@@ -13,7 +13,6 @@ import Loading from "Components/Loading";
 import Navbar from "./Navbar";
 import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
-import DesignerV2 from "Features/DesignerV2";
 import {
   AsyncActivity,
   AsyncDesigner,
@@ -35,12 +34,10 @@ import styles from "./app.module.scss";
 const userUrl = serviceUrl.getUserProfile();
 const navigationUrl = serviceUrl.getNavigation();
 const getTeamsUrl = serviceUrl.getTeams();
-//Fetch data
-
 const browser = detect();
-
 const allowedUserRoles = [USER_TYPES.ADMIN, USER_TYPES.OPERATOR];
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
+
 export default function App() {
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(!supportedBrowsers.includes(browser.name));
   const [activeTeam, setActiveTeam] = useState(undefined);
@@ -50,7 +47,7 @@ export default function App() {
   const navigationQuery = useQuery({ queryKey: navigationUrl, queryFn: resolver.query(navigationUrl) });
   const teamsQuery = useQuery({ queryKey: getTeamsUrl, queryFn: resolver.query(getTeamsUrl) });
   const { data: userData = {} } = userQuery;
-  const { data: teamsData, refetch: refetchTeams } = teamsQuery;
+  const { data: teamsData } = teamsQuery;
 
   const { id: userId, type: platformRole } = userData;
 
@@ -118,8 +115,7 @@ export default function App() {
                 />
                 <Route path={appPath.execution} component={AsyncExecution} />
                 <Route path={appPath.activity} component={AsyncActivity} />
-                <Route path="/editor-old/:workflowId" component={AsyncDesigner} />
-                <Route path={appPath.editor} component={DesignerV2} />
+                <Route path={appPath.editor} component={AsyncDesigner} />
                 <Route path={appPath.insights} component={AsyncInsights} />
                 <Route path={appPath.workflows} component={AsyncWorkflows} />
                 <Redirect exact from="/" to={appPath.workflows} />
@@ -147,7 +143,6 @@ export default function App() {
           setActiveTeam: setActiveTeam,
           onBoardShow: onBoardShow,
           setOnBoardShow: setOnBoardShow,
-          refetchTeams: refetchTeams,
         }}
       >
         <Navbar

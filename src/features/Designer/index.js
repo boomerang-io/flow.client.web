@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { WorkflowContext } from "State/context";
-import { useAppContext } from "Hooks";
+import { useAppContext, useIsModalOpen } from "Hooks";
 import { Prompt, useParams, useRouteMatch } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -138,10 +138,9 @@ export function WorkflowManager({
   ...props
 }) {
   const match = useRouteMatch();
-  const [isModalOpen, setIsModalOpen] = useState();
-  const changeLogReasonRef = useRef("Update workflow");
-
   const { activeTeam, setActiveTeam, teams } = useAppContext();
+  const isModalOpen = useIsModalOpen();
+  const changeLogReasonRef = useRef("Update workflow");
 
   // Set active team
   useEffect(() => {
@@ -258,7 +257,7 @@ export function WorkflowManager({
    * @param {DragEvent} event - dragend event when adding a node to the diagram
    */
   const createNode = (diagramApp, event) => {
-    const { taskData } = JSON.parse(event.dataTransfer.getData("flow-dag-node"));
+    const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
 
     // For naming purposes
     const nodesOfSameTypeCount = Object.values(diagramApp.getDiagramEngine().getDiagramModel().getNodes()).filter(
@@ -337,7 +336,6 @@ export function WorkflowManager({
         revisionState,
         revisionQuery,
         summaryQuery,
-        setIsModalOpen,
         taskTemplatesData,
       }}
     >
