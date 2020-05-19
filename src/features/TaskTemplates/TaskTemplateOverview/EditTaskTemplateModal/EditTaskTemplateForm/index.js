@@ -21,8 +21,8 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
   let taskTemplateNames = taskTemplates
     .map((taskTemplate) => taskTemplate.name)
     .filter((templateName) => templateName !== templateData.name);
-  const orderedIcons = orderBy(taskIcons, ["iconName"]);
-  const selectedIcon = orderedIcons.find((icon) => icon.iconName === templateData.icon);
+  const orderedIcons = orderBy(taskIcons, ["name"]);
+  const selectedIcon = orderedIcons.find((icon) => icon.name === templateData.icon);
   const handleSubmit = async (values) => {
     await handleEditTaskTemplateModal({ newValues: values });
     closeModal();
@@ -32,9 +32,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
       initialValues={{
         name: templateData.name,
         category: templateData.category,
-        icon: selectedIcon
-          ? { value: selectedIcon.iconName, label: selectedIcon.iconName, icon: selectedIcon.icon }
-          : {},
+        icon: selectedIcon ? { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.icon } : {},
         description: templateData.description,
         arguments: templateData.arguments,
         command: templateData.command,

@@ -1,227 +1,278 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actions as appActions } from "State/app";
-import { actions as tasksActions } from "State/tasks";
-import { actions as workflowActions } from "State/workflow";
-import { actions as workflowRevisionActions } from "State/workflowRevision";
+import React, { useState, useRef, useEffect } from "react";
+import { WorkflowContext } from "State/context";
+import { useAppContext } from "Hooks";
+import { Prompt, useParams, useRouteMatch } from "react-router-dom";
 import { Formik } from "formik";
-import { Prompt } from "react-router-dom";
 import * as Yup from "yup";
-import capitalize from "lodash/capitalize";
-import Loading from "Components/Loading";
-import { notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
-import ErrorDragon from "Components/ErrorDragon";
+import { useQuery, useMutation } from "react-query";
+import { useImmerReducer } from "use-immer";
+import { Loading, Error, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import Editor from "./Editor";
-import { BASE_SERVICE_URL, REQUEST_STATUSES } from "Config/servicesConfig";
-import sortBy from "lodash/sortBy";
 import CustomNodeModel from "Utilities/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utilities/templateTaskNode/TemplateTaskNodeModel";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import sortBy from "lodash/sortBy";
+import { QueryStatus } from "Constants";
 import { NodeType } from "Constants";
-import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
 import styles from "./Designer.module.scss";
 
-export class WorkflowManagerContainer extends Component {
-  static propTypes = {
-    activeTeamId: PropTypes.string,
-    appActions: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
-    isModalOpen: PropTypes.bool.isRequired,
-    match: PropTypes.object.isRequired,
-    tasks: PropTypes.object.isRequired,
-    tasksActions: PropTypes.object.isRequired,
-    teams: PropTypes.object.isRequired,
-    workflow: PropTypes.object,
-    workflowActions: PropTypes.object.isRequired,
-    workflowRevision: PropTypes.object.isRequired,
-    workflowRevisionActions: PropTypes.object.isRequired,
-  };
+/**
+ *
+ * Container responsible for network requests
+ */
+export default function WorkflowContainer(props) {
+  const [revisionNumber, setRevisionNumber] = useState();
 
-  changeLogReason = "Update workflow"; //default changelog value
-
-  async componentDidMount() {
-    const { activeTeamId, match } = this.props;
-    const { workflowId } = match.params;
-
-    if (!activeTeamId) {
-      this.findActiveTeamIdOnMount();
-    }
-    try {
-      await Promise.all([
-        this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`),
-        this.props.workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`),
-        this.props.tasksActions.fetch(`${BASE_SERVICE_URL}/tasktemplate`),
-      ]);
-    } catch (e) {
-      // noop
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.match.url !== prevProps.match.url) {
-      this.props.workflowActions.reset();
-      this.props.workflowRevisionActions.reset();
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.tasksActions.reset();
-    this.props.workflowActions.reset();
-    this.props.workflowRevisionActions.reset();
-  }
+  const { workflowId } = useParams();
+  const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
+  const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
+  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
 
   /**
-   * Find the matching team for the workflowId and set that to the active team
-   * That path param is the only thing available to the app
+   * Queries
    */
-  findActiveTeamIdOnMount() {
-    const { appActions, match, teams } = this.props;
-    const { workflowId } = match.params;
-    const activeTeam = teams.data.find((team) => {
+  const summaryQuery = useQuery({
+    queryKey: getSummaryUrl,
+    queryFn: resolver.query(getSummaryUrl),
+  });
+  const revisionQuery = useQuery({
+    queryKey: getRevisionUrl,
+    queryFn: resolver.query(getRevisionUrl),
+  });
+  const taskTemplatesQuery = useQuery({
+    queryKey: getTaskTemplatesUrl,
+    queryFn: resolver.query(getTaskTemplatesUrl),
+  });
+
+  /**
+   * Mutations
+   */
+  const [mutateSummary] = useMutation(resolver.patchUpdateWorkflowSummary);
+  const [mutateRevision] = useMutation(resolver.postCreateWorkflowRevision);
+
+  /**
+   * Render Logic
+   */
+  const summaryIsLoading = summaryQuery.status === QueryStatus.Loading;
+  const revisionIsLoading = revisionQuery.status === QueryStatus.Loading;
+  const taskTempaltesAreLoading = taskTemplatesQuery.status === QueryStatus.Loading;
+
+  if (summaryIsLoading || revisionIsLoading || taskTempaltesAreLoading) {
+    return <Loading />;
+  }
+
+  if (summaryQuery.error || revisionQuery.error || taskTemplatesQuery.error) {
+    return <Error />;
+  }
+
+  if (summaryQuery.data && revisionQuery.data && taskTemplatesQuery.data) {
+    return (
+      <WorkflowManager
+        mutateRevision={mutateRevision}
+        mutateSummary={mutateSummary}
+        revisionNumber={revisionNumber}
+        revisionQuery={revisionQuery}
+        summaryQuery={summaryQuery}
+        setRevisionNumber={setRevisionNumber}
+        taskTemplatesData={taskTemplatesQuery.data}
+        workflowId={workflowId}
+      />
+    );
+  }
+
+  return null;
+}
+
+function initRevisionReducerState(revisionData) {
+  const { config, ...rest } = revisionData;
+  const normalizedNodesObj = {};
+  config.nodes.forEach((node) => {
+    normalizedNodesObj[node.nodeId] = node;
+  });
+
+  return { ...rest, config: normalizedNodesObj };
+}
+
+/**
+ * Utils
+ */
+function getDiagramSerialization(diagramApp) {
+  return diagramApp.getDiagramEngine().getDiagramModel().serializeDiagram();
+}
+
+function formatWorkflowConfigNodes(workflowRevision) {
+  const normilzedConfig = Object.values(workflowRevision.config).map((config) => ({
+    ...config,
+    currentVersion: undefined,
+    taskVersion: config.currentVersion || config.taskVersion,
+  }));
+  return { nodes: Object.values(normilzedConfig) };
+}
+
+/**
+ * Reducers for state we neet to locally update
+ */
+const revisionActionTypes = {
+  ADD_NODE: "ADD_NODE",
+  DELETE_NODE: "DELETE_NODE",
+  SET: "SET",
+  RESET: "RESET",
+  UPDATE_NODE_CONFIG: "UPDATE_NODE_CONFIG",
+  UPDATE_NODE_TASK_VERSION: "UPDATE_NODE_TASK_VERSION",
+};
+
+/**
+ * Workflow Manager responsible for holding state of summary and revision
+ * Make function calls to mutate server data
+ */
+export function WorkflowManager({
+  mutateRevision,
+  mutateSummary,
+  revisionNumber,
+  revisionQuery,
+  summaryQuery,
+  setRevisionNumber,
+  taskTemplatesData,
+  workflowId,
+  ...props
+}) {
+  const match = useRouteMatch();
+  const [isModalOpen, setIsModalOpen] = useState();
+  const changeLogReasonRef = useRef("Update workflow");
+
+  const { activeTeam, setActiveTeam, teams } = useAppContext();
+
+  // Set active team
+  useEffect(() => {
+    const activeTeam = teams.find((team) => {
       return team.workflows.find((workflow) => workflow.id === workflowId);
     });
+    setActiveTeam(activeTeam);
+  }, [setActiveTeam, teams, workflowId]);
 
-    appActions.setActiveTeam({ teamId: activeTeam?.id ?? "" });
+  // Move inside component so the reducer has access to the props and
+  // don't need to pass it to the effect and include the object in the compare
+  // prevents need to do a deep compare, hash or stringify the object
+  function revisionReducer(state, action) {
+    switch (action.type) {
+      case revisionActionTypes.ADD_NODE: {
+        const { data } = action;
+        state.hasUnsavedWorkflowRevisionUpdates = true;
+        state.config[data.nodeId] = data;
+        return state;
+      }
+      case revisionActionTypes.DELETE_NODE: {
+        let { nodeId } = action.data;
+        delete state.config[nodeId];
+        state.dag.nodes = state.dag?.nodes?.filter((node) => node.nodeId !== nodeId) ?? [];
+        state.hasUnsavedWorkflowRevisionUpdates = true;
+        return state;
+      }
+      case revisionActionTypes.UPDATE_NODE_CONFIG: {
+        const { nodeId, inputs } = action.data;
+        state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
+        state.hasUnsavedWorkflowRevisionUpdates = true;
+        return state;
+      }
+      case revisionActionTypes.UPDATE_NODE_TASK_VERSION: {
+        const { nodeId, inputs, version } = action.data;
+        state.dag.nodes.find((node) => node.nodeId === nodeId).templateUpgradeAvailable = false;
+        state.config[nodeId].taskVersion = version;
+        state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
+        state.hasUnsavedWorkflowRevisionUpdates = true;
+        return state;
+      }
+      case revisionActionTypes.SET: {
+        return initRevisionReducerState(action.data);
+      }
+      case revisionActionTypes.RESET: {
+        return revisionQuery.data;
+      }
+      default:
+        throw new Error();
+    }
   }
 
-  // Not updating state to prevent re-renders. Need a better approach here
-  handleChangeLogReasonChange = (changeLogReason) => {
-    this.changeLogReason = changeLogReason;
-  };
+  const [revisionState, revisionDispatch] = useImmerReducer(
+    revisionReducer,
+    revisionQuery.data,
+    initRevisionReducerState
+  );
 
-  createWorkflowRevision = (diagramApp) => {
-    const { workflow, workflowRevisionActions } = this.props;
-
-    const workflowId = workflow.data.id;
-    const body = this.createWorkflowRevisionBody(diagramApp);
-
-    return workflowRevisionActions
-      .create(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision`, body)
-      .then((response) => {
-        notify(
-          <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
-        );
-        return Promise.resolve();
-      })
-      .catch(() => {
-        notify(
-          <ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow version" />
-        );
-        return Promise.reject();
-      })
-      .then(() => {
-        return this.props.workflowActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/summary`).catch((err) => {
-          // noop
-        });
-      });
-  };
-
-  updateWorkflow = (formikValues) => {
-    const { activeTeamId, appActions, workflow, workflowActions } = this.props;
-    const flowTeamId = formikValues?.selectedTeam?.id;
-    const updatedWorkflow = { ...workflow.data, ...formikValues, flowTeamId };
-
-    return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow`, updatedWorkflow)
-      .then(() => {
-        // If the team has changed
-        if (flowTeamId && activeTeamId !== flowTeamId) {
-          appActions.setActiveTeam({ teamId: flowTeamId });
-        }
-      })
-      .catch((error) => {});
-  };
-
-  updateWorkflowProperties = ({ property, title, message, type }) => {
-    const { workflow, workflowActions } = this.props;
-
-    let properties = [...this.props.workflow.data.properties];
-    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE) {
-      const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
-      properties.splice(propertyToUpdateIndex, 1, property);
-    }
-
-    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE) {
-      const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
-      properties.splice(propertyToUpdateIndex, 1);
-    }
-
-    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE) {
-      properties.push(property);
-    }
-
-    return workflowActions
-      .update(`${BASE_SERVICE_URL}/workflow/${workflow.data.id}/properties`, properties)
-      .then((response) => {
-        notify(
-          <ToastNotification
-            kind="success"
-            title={`${capitalize(type)} property`}
-            subtitle={`Successfully performed operation`}
-          />
-        );
-        return Promise.resolve(response);
-      })
-      .catch((error) => {
-        notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} property`} />);
-        return Promise.reject(error);
-      });
-  };
-
-  fetchWorkflowRevisionNumber = (revision) => {
-    const { workflow, workflowRevisionActions } = this.props;
-    const workflowId = workflow.data.id;
-    workflowRevisionActions.fetch(`${BASE_SERVICE_URL}/workflow/${workflowId}/revision/${revision}`).catch((err) => {
-      // noop
+  useEffect(() => {
+    revisionDispatch({
+      type: revisionActionTypes.RESET,
     });
+  }, [revisionNumber, revisionDispatch]);
+
+  const { data: summaryData } = summaryQuery;
+
+  /**
+   *
+   * @param {Object} diagramApp - the DAG
+   */
+  const createRevision = async (diagramApp) => {
+    const revision = {};
+    revision["dag"] = getDiagramSerialization(diagramApp);
+    revision["config"] = formatWorkflowConfigNodes(revisionState);
+    revision["changelog"] = {
+      reason: changeLogReasonRef.current,
+    };
+
+    try {
+      const { data } = await mutateRevision({ workflowId, body: revision });
+      notify(
+        <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
+      );
+      revisionDispatch({ type: revisionActionTypes.SET, data });
+    } catch (err) {
+      notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow version" />);
+    }
   };
 
-  createWorkflowRevisionBody(diagramApp) {
-    const dagProps = {};
-    dagProps["dag"] = this.getDiagramSerialization(diagramApp);
-    dagProps["config"] = this.formatWorkflowConfigNodes();
-    dagProps["changelog"] = {
-      reason: this.changeLogReason,
-    };
-    return dagProps;
-  }
+  /**
+   *
+   * @param {Object} formikValues - key/value pairs for inputs
+   */
+  const updateSummary = async (formikValues) => {
+    const flowTeamId = formikValues?.selectedTeam?.id;
+    const updatedWorkflow = { ...summaryData, ...formikValues, flowTeamId };
 
-  getDiagramSerialization(diagramApp) {
-    return diagramApp
-      .getDiagramEngine()
-      .getDiagramModel()
-      .serializeDiagram();
-  }
+    try {
+      await mutateSummary({ body: updatedWorkflow });
+      // If the team has changed
+      if (flowTeamId && activeTeam.id !== flowTeamId) {
+        setActiveTeam(teams.find((team) => team.id === flowTeamId));
+      }
+    } catch (err) {
+      notify(
+        <ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to update workflow settings`} />
+      );
+    }
+  };
 
-  formatWorkflowConfigNodes() {
-    console.log(this.props.workflowRevision.config, "ahhhh");
-    const normilzedConfig = Object.values(this.props.workflowRevision.config).map((config) => ({
-      ...config,
-      currentVersion: undefined,
-      taskVersion: config.currentVersion || config.taskVersion,
-    }));
-    return { nodes: Object.values(normilzedConfig) };
-  }
+  /**
+   * Handle the drop event to create a new node from a task template
+   * @param {Object} diagramApp - object containing the internal state of the DAG
+   * @param {DragEvent} event - dragend event when adding a node to the diagram
+   */
+  const createNode = (diagramApp, event) => {
+    const { taskData } = JSON.parse(event.dataTransfer.getData("flow-dag-node"));
 
-  createNode = (diagramApp, event) => {
-    const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
     // For naming purposes
-    const nodesOfSameTypeCount = Object.values(
-      diagramApp
-        .getDiagramEngine()
-        .getDiagramModel()
-        .getNodes()
-    ).filter((node) => node.taskId === taskData.id).length;
+    const nodesOfSameTypeCount = Object.values(diagramApp.getDiagramEngine().getDiagramModel().getNodes()).filter(
+      (node) => node.taskId === taskData.id
+    ).length;
 
     const nodeObj = {
       taskId: taskData.id,
       taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`,
       taskVersion: taskData.currentVersion,
     };
+
+    // Determine the node type
     let node;
-    // eslint-disable-next-line default-case
     switch (taskData.nodeType) {
       case NodeType.Decision:
         node = new SwitchNodeModel(nodeObj);
@@ -232,166 +283,149 @@ export class WorkflowManagerContainer extends Component {
       case NodeType.CustomTask:
         node = new CustomNodeModel(nodeObj);
         break;
+      default:
+        new Error("Node type not recognized");
     }
 
+    // If we are creating a node
     if (node) {
       const { id, taskId, currentVersion } = node;
       const currentTaskConfig = taskData.revisions?.find((revision) => revision.version === currentVersion) ?? {};
+
       // Create inputs object with empty string values by default for service to process easily
       const inputs =
-        currentTaskConfig.config && currentTaskConfig.config.length
+        Array.isArray(currentTaskConfig.config) && currentTaskConfig.config.length
           ? currentTaskConfig.config.reduce((accu, item) => {
               accu[item.key] = "";
               return accu;
             }, {})
           : {};
-      this.props.workflowRevisionActions.addNode({
-        nodeId: id,
-        taskId,
-        inputs,
-        type: taskData.nodeType,
-        taskVersion: currentVersion,
+      revisionDispatch({
+        type: revisionActionTypes.ADD_NODE,
+        data: {
+          nodeId: id,
+          taskId,
+          inputs,
+          type: taskData.nodeType,
+          taskVersion: currentVersion,
+        },
       });
+
       const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
       node.x = points.x - 110;
       node.y = points.y - 40;
-      diagramApp
-        .getDiagramEngine()
-        .getDiagramModel()
-        .addNode(node);
-      this.forceUpdate();
+      diagramApp.getDiagramEngine().getDiagramModel().addNode(node);
     }
   };
 
-  render() {
-    const { activeTeamId, tasks, teams, workflow, workflowRevision } = this.props;
+  /**
+   *  Simply update the parent state to use a different revision to fetch it w/ react-query
+   * @param {string} revisionNumber
+   */
+  const changeRevisionNumber = (revisionNumber) => {
+    setRevisionNumber(revisionNumber);
+  };
 
-    if (tasks.isFetching || workflow.isFetching || workflowRevision.isFetching) {
-      return <Loading />;
-    }
+  const handleChangeLogReasonChange = (reason) => {
+    changeLogReasonRef.current = reason;
+  };
 
-    if (
-      tasks.status === REQUEST_STATUSES.FAILURE ||
-      workflow.fetchingStatus === REQUEST_STATUSES.FAILURE ||
-      workflowRevision.fetchingStatus === REQUEST_STATUSES.FAILURE
-    ) {
-      return <ErrorDragon />;
-    }
-
-    if (
-      tasks.status === REQUEST_STATUSES.SUCCESS &&
-      workflow.fetchingStatus === REQUEST_STATUSES.SUCCESS &&
-      workflowRevision.fetchingStatus === REQUEST_STATUSES.SUCCESS
-    ) {
-      const { hasUnsavedWorkflowRevisionUpdates } = this.props.workflowRevision;
-      return (
-        <>
-          <Prompt
-            when={hasUnsavedWorkflowRevisionUpdates}
-            message={(location) =>
-              location.pathname === this.props.match.url || location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
-                ? true
-                : "Are you sure? You have unsaved changes to your workflow that will be lost."
-            }
-          />
-          <div className={styles.container}>
-            <Formik
-              enableReinitialize
-              initialValues={{
-                description: workflow?.data?.description ?? "",
-                enableACCIntegration: workflow?.data?.enableACCIntegration ?? false,
-                enablePersistentStorage: workflow?.data?.enablePersistentStorage ?? false,
-                icon: workflow?.data?.icon ?? "",
-                name: workflow?.data?.name ?? "",
-                selectedTeam: teams.data.find((team) => team.id === activeTeamId),
-                shortDescription: workflow?.data?.shortDescription ?? "",
-                triggers: {
-                  event: {
-                    enable: workflow?.data?.triggers?.event?.enable ?? false,
-                    topic: workflow?.data?.triggers?.event?.topic ?? "",
-                  },
-                  scheduler: {
-                    enable: workflow?.data?.triggers?.scheduler?.enable ?? false,
-                    schedule: workflow?.data?.triggers?.scheduler?.schedule ?? "0 18 * * *",
-                    timezone: workflow?.data?.triggers?.scheduler?.timezone ?? false,
-                    advancedCron: workflow?.data?.triggers?.scheduler?.advancedCron ?? false,
-                  },
-                  webhook: {
-                    enable: workflow?.data?.triggers?.webhook?.enable ?? false,
-                    token: workflow?.data?.triggers?.webhook?.token ?? false,
-                  },
+  return (
+    <WorkflowContext.Provider
+      value={{
+        revisionDispatch,
+        revisionState,
+        revisionQuery,
+        summaryQuery,
+        setIsModalOpen,
+        taskTemplatesData,
+      }}
+    >
+      <>
+        <Prompt
+          when={Boolean(revisionState.hasUnsavedWorkflowRevisionUpdates)}
+          message={(location) =>
+            console.log(location.pathname, match.url) ||
+            location.pathname === match.url ||
+            location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
+              ? true
+              : "Are you sure? You have unsaved changes to your workflow that will be lost."
+          }
+        />
+        <div className={styles.container}>
+          <Formik
+            enableReinitialize
+            initialValues={{
+              description: summaryData?.description ?? "",
+              enableACCIntegration: summaryData?.enableACCIntegration ?? false,
+              enablePersistentStorage: summaryData?.enablePersistentStorage ?? false,
+              icon: summaryData?.icon ?? "",
+              name: summaryData?.name ?? "",
+              selectedTeam: teams.find((team) => team.id === activeTeam?.id),
+              shortDescription: summaryData?.shortDescription ?? "",
+              triggers: {
+                event: {
+                  enable: summaryData?.triggers?.event?.enable ?? false,
+                  topic: summaryData?.triggers?.event?.topic ?? "",
                 },
-              }}
-              validationSchema={Yup.object().shape({
-                description: Yup.string().max(250, "Description must not be greater than 250 characters"),
-                enableACCIntegration: Yup.boolean(),
-                enablePersistentStorage: Yup.boolean(),
-                icon: Yup.string(),
-                name: Yup.string()
-                  .required("Name is required")
-                  .max(64, "Name must not be greater than 64 characters"),
-                selectedTeam: Yup.object().shape({ name: Yup.string().required("Team is required") }),
-                shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
-                triggers: Yup.object().shape({
-                  event: Yup.object().shape({
-                    enable: Yup.boolean(),
-                    topic: Yup.string(),
-                  }),
-                  scheduler: Yup.object().shape({
-                    enable: Yup.boolean(),
-                    schedule: Yup.string(),
-                    timezone: Yup.mixed(),
-                    advancedCron: Yup.boolean(),
-                  }),
-                  webhook: Yup.object().shape({
-                    enable: Yup.boolean(),
-                    token: Yup.mixed(),
-                  }),
+                scheduler: {
+                  enable: summaryData?.triggers?.scheduler?.enable ?? false,
+                  schedule: summaryData?.triggers?.scheduler?.schedule ?? "0 18 * * *",
+                  timezone: summaryData?.triggers?.scheduler?.timezone ?? false,
+                  advancedCron: summaryData?.triggers?.scheduler?.advancedCron ?? false,
+                },
+                webhook: {
+                  enable: summaryData?.triggers?.webhook?.enable ?? false,
+                  token: summaryData?.triggers?.webhook?.token ?? false,
+                },
+              },
+            }}
+            validationSchema={Yup.object().shape({
+              description: Yup.string().max(250, "Description must not be greater than 250 characters"),
+              enableACCIntegration: Yup.boolean(),
+              enablePersistentStorage: Yup.boolean(),
+              icon: Yup.string(),
+              name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
+              selectedTeam: Yup.object().shape({ name: Yup.string().required("Team is required") }),
+              shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
+              triggers: Yup.object().shape({
+                event: Yup.object().shape({
+                  enable: Yup.boolean(),
+                  topic: Yup.string(),
                 }),
-              })}
-            >
-              {(formikProps) => (
-                <>
-                  <Editor
-                    createNode={this.createNode}
-                    createWorkflowRevision={this.createWorkflowRevision}
-                    fetchWorkflowRevisionNumber={this.fetchWorkflowRevisionNumber}
-                    handleChangeLogReasonChange={this.handleChangeLogReasonChange}
-                    isModalOpen={this.props.isModalOpen}
-                    tasks={this.props.tasks}
-                    teams={sortBy(this.props.teams.data, "name")}
-                    updateWorkflow={this.updateWorkflow}
-                    updateWorkflowProperties={this.updateWorkflowProperties}
-                    workflow={this.props.workflow}
-                    workflowFormikProps={formikProps}
-                    workflowRevision={this.props.workflowRevision}
-                  />
-                </>
-              )}
-            </Formik>
-          </div>
-        </>
-      );
-    }
-
-    return null;
-  }
+                scheduler: Yup.object().shape({
+                  enable: Yup.boolean(),
+                  schedule: Yup.string(),
+                  timezone: Yup.mixed(),
+                  advancedCron: Yup.boolean(),
+                }),
+                webhook: Yup.object().shape({
+                  enable: Yup.boolean(),
+                  token: Yup.mixed(),
+                }),
+              }),
+            })}
+          >
+            {(formikProps) => (
+              <>
+                <Editor
+                  createNode={createNode}
+                  createWorkflowRevision={createRevision}
+                  fetchWorkflowRevisionNumber={changeRevisionNumber}
+                  handleChangeLogReasonChange={handleChangeLogReasonChange}
+                  isModalOpen={isModalOpen}
+                  tasks={taskTemplatesData}
+                  teams={sortBy(teams, "name")}
+                  updateWorkflow={updateSummary}
+                  workflow={summaryData}
+                  workflowFormikProps={formikProps}
+                  workflowRevision={revisionState}
+                />
+              </>
+            )}
+          </Formik>
+        </div>
+      </>
+    </WorkflowContext.Provider>
+  );
 }
-
-const mapStateToProps = (state) => ({
-  activeTeamId: state.app.activeTeamId,
-  isModalOpen: state.app.isModalOpen,
-  tasks: state.tasks,
-  teams: state.teams,
-  workflow: state.workflow,
-  workflowRevision: state.workflowRevision,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  appActions: bindActionCreators(appActions, dispatch),
-  tasksActions: bindActionCreators(tasksActions, dispatch),
-  workflowActions: bindActionCreators(workflowActions, dispatch),
-  workflowRevisionActions: bindActionCreators(workflowRevisionActions, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(WorkflowManagerContainer);

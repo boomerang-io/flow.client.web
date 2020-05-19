@@ -166,7 +166,7 @@ function Header({
   isLoading,
   cancelRequestRef,
 }) {
-  const TaskIcon = taskIcons.find((icon) => icon.iconName === selectedTaskTemplate.icon);
+  const TaskIcon = taskIcons.find((icon) => icon.name === selectedTaskTemplate.icon);
   const revisionCount = selectedTaskTemplate.revisions.length;
 
   return (

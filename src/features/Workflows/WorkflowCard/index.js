@@ -150,14 +150,14 @@ function WorkflowCard({ teamId, workflow }) {
   const formattedProperties = formatPropertiesForEdit();
   const isDeleting = deleteWorkflowStatus === QueryStatus.Loading;
   const isExecuting = executeWorkflowStatus === QueryStatus.Loading;
-  const { name: iconName, Icon } = workflowIcons.find((icon) => icon.name === workflow.icon);
+  const { name, Icon } = workflowIcons.find((icon) => icon.name === workflow.icon);
 
   return (
     <div className={styles.container}>
       <Link disabled={isDeleting} to={appLink.designer({ teamId: workflow.flowTeamId, workflowId: workflow.id })}>
         <section className={styles.details}>
           <div className={styles.iconContainer}>
-            <Icon className={styles.icon} alt={`${iconName}`} />
+            <Icon className={styles.icon} alt={`${name}`} />
           </div>
           <div className={styles.descriptionContainer}>
             <h1 className={styles.name}>{workflow.name}</h1>

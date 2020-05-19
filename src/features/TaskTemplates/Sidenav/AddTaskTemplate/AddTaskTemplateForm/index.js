@@ -72,7 +72,7 @@ const readFile = (file) => {
 
 function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTaskTemplate }) {
   let taskTemplateNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
-  const orderedIcons = orderBy(taskIcons, ["iconName"]);
+  const orderedIcons = orderBy(taskIcons, ["name"]);
 
   const handleSubmit = async (values) => {
     const hasFile = values.file;
@@ -98,14 +98,14 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
   };
   const getTemplateData = async (file, setFieldValue) => {
     const fileData = await readFile(file);
-    const selectedIcon = orderedIcons.find((icon) => icon.iconName === fileData.icon);
+    const selectedIcon = orderedIcons.find((icon) => icon.name === fileData.icon);
     if (checkIsValidTask(fileData)) {
       const currentRevision = fileData.revisions.find((revision) => revision.version === fileData.currentVersion);
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
       selectedIcon &&
-        setFieldValue("icon", { value: selectedIcon.iconName, label: selectedIcon.iconName, icon: selectedIcon.Icon });
+        setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
       setFieldValue("image", currentRevision.image);
       setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
       setFieldValue("command", currentRevision.command ?? "");

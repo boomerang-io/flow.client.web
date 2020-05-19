@@ -35,10 +35,10 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   const [openCategories, setOpenCategories] = React.useState(false);
   const [showArchived, setShowArchived] = React.useState(false);
   const taskFilters = taskIcons.map((TaskIcon) => ({
-    id: TaskIcon.iconName,
+    id: TaskIcon.name,
     labelText: (
       <div className={styles.checkboxOption}>
-        <TaskIcon.Icon /> <p>{TaskIcon.iconName}</p>{" "}
+        <TaskIcon.Icon /> <p>{TaskIcon.name}</p>{" "}
       </div>
     ),
   }));
@@ -174,7 +174,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
 }
 function Task(props) {
   const { task } = props;
-  const taskIcon = taskIcons.find((icon) => icon.iconName === task.icon);
+  const TaskIcon = taskIcons.find((icon) => icon.name === task.icon);
   const isActive = task.status === TaskTemplateStatus.Active;
 
   return (
@@ -183,7 +183,7 @@ function Task(props) {
       to={appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })}
       id={task.id}
     >
-      {taskIcon ? <taskIcon.icon /> : <Bee16 />}
+      {TaskIcon ? <TaskIcon.Icon /> : <Bee16 />}
       <p className={cx(styles.taskName, { [styles.active]: props.isActive })}>{task.name}</p>
       {!isActive && <ViewOff16 style={{ marginLeft: "auto" }} />}
     </Link>

@@ -12,7 +12,7 @@ Task.propTypes = {
 
 function Task({ name, model, icon }) {
   const [isDragActive, setIsDragActive] = React.useState(false);
-  const TaskIcon = taskIcons.find((currentIcon) => currentIcon.iconName === icon);
+  const TaskIcon = taskIcons.find((currentIcon) => currentIcon.name === icon);
   return (
     <li>
       <Tile
@@ -27,7 +27,7 @@ function Task({ name, model, icon }) {
         onDragEnd={() => setIsDragActive(false)}
         tabIndex="0"
       >
-        {TaskIcon ? <TaskIcon.Icon /> : <Bee16 />}
+        {TaskIcon?.Icon ? <TaskIcon.Icon /> : <Bee16 />}
         <p className={styles.taskName}> {name} </p>
       </Tile>
     </li>

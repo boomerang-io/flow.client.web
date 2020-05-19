@@ -69,10 +69,6 @@ class DesignerHeader extends Component {
     return (
       <ModalFlow
         composedModalProps={{ shouldCloseOnOverlayClick: false }}
-        confirmModalProps={{
-          title: "Are you sure?",
-          children: "A new version will not be created",
-        }}
         modalHeaderProps={{
           title: "Create New Version",
           subtitle: "Enter a comment for record keeping",

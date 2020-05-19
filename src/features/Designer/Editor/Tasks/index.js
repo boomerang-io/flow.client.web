@@ -25,10 +25,10 @@ export default class Tasks extends Component {
 
   componentDidMount() {
     const taskFilters = taskIcons.map((IconConfig) => ({
-      id: IconConfig.iconName,
+      id: IconConfig.name,
       labelText: (
         <div className={styles.checkboxOption}>
-          <IconConfig.Icon /> <p>{IconConfig.iconName}</p>{" "}
+          <IconConfig.Icon /> <p>{IconConfig.name}</p>{" "}
         </div>
       ),
     }));

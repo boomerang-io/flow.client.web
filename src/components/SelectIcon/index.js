@@ -10,10 +10,10 @@ export function SelectIcon({ onChange, selectedIcon, iconOptions }) {
       labelText="Icon"
       helperText="Choose the icon that best fits this task"
       invalid={false}
-      items={iconOptions.map((icon) => ({
-        value: icon.iconName,
-        label: icon.iconName,
-        icon: icon.Icon,
+      items={iconOptions.map(({ name, Icon }) => ({
+        value: name,
+        label: name,
+        icon: Icon,
       }))}
       itemToElement={(Item) => {
         return (

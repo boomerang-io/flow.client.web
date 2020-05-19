@@ -46,7 +46,7 @@ const ArchiveText = () => (
 );
 
 function DetailDataElements({ label, value }) {
-  const TaskIcon = taskIcons.find((icon) => icon.iconName === value);
+  const TaskIcon = taskIcons.find((icon) => icon.name === value);
 
   return (
     <section className={styles.infoSection}>
@@ -55,7 +55,7 @@ function DetailDataElements({ label, value }) {
         TaskIcon ? (
           <div className={styles.basicIcon}>
             <TaskIcon.Icon style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
-            <p className={styles.value}>{TaskIcon.iconName}</p>
+            <p className={styles.value}>{TaskIcon.name}</p>
           </div>
         ) : (
           <div className={styles.basicIcon}>
