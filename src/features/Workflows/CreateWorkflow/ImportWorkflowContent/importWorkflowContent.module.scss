@@ -1,10 +1,14 @@
 @import "~Styles/variables";
 
 .body {
-  height: 20.25rem;
+  height: 27.25rem;
   width: 100%;
   :global .bx--file__selected-file {
     background: none;
+  }
+
+  :global .bx--file__selected-file {
+    background: var(--cds-ui-background);
   }
 }
 

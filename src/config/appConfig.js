@@ -25,5 +25,6 @@ export const appLink = {
   taskTemplateEdit: ({ id, version }) => `/task-templates/${id}/${version}`,
   taskTemplateEditSettings: ({ id, version }) => `/task-templates/edit/${id}/${version}/settings`,
   taskTemplateCreate: () => `/task-templates/create`,
+  workflows: () => "/workflows",
   workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
 };
