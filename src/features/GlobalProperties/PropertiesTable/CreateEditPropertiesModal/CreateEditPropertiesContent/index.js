@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { isCancel } from "axios";
 import { useMutation, queryCache } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
   Button,
+  InlineNotification,
   Loading,
   ModalBody,
   ModalFlowForm,
@@ -15,7 +15,6 @@ import {
   TextInput,
   Toggle
 } from "@boomerang/carbon-addons-boomerang-react";
-import { formatErrorMessage } from "@boomerang/boomerang-utilities";
 import INPUT_TYPES from "Constants/inputTypes";
 import { QueryStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -24,7 +23,7 @@ const configUrl = serviceUrl.getGlobalConfiguration();
 
 function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKeys, cancelRequestRef }) {
   /** Add property */
-  const [addGlobalPropertyMutation, { status: addStatusg }] = useMutation(
+  const [addGlobalPropertyMutation, { status: addStatus, error: addError }] = useMutation(
     args => {
       const { promise, cancel } = resolver.postGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
@@ -34,10 +33,10 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
       onSuccess: () => queryCache.refetchQueries(configUrl)
     }
   );
-  const addLoading = addStatusg === QueryStatus.Loading;
+  const addLoading = addStatus === QueryStatus.Loading;
 
   /** Update property */
-  const [updateGlobalPropertyMutation, { status: updateStatus }] = useMutation(
+  const [updateGlobalPropertyMutation, { status: updateStatus, error: updateError }] = useMutation(
     args => {
       const { promise, cancel } = resolver.patchGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
@@ -69,17 +68,6 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
         );
         closeModal();
       } catch (err) {
-        if (!isCancel(err)) {
-          const errorMessages = formatErrorMessage({ error: err, defaultMessage: "Update Property Failed" });
-          notify(
-            <ToastNotification
-              kind="error"
-              title={errorMessages.title}
-              subtitle={errorMessages.message}
-              data-testid="create-update-global-prop-notification"
-            />
-          );
-        }
       }
     } else {
       try {
@@ -94,17 +82,6 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
         );
         closeModal();
       } catch (err) {
-        if (!isCancel(err)) {
-          const errorMessages = formatErrorMessage({ error: err, defaultMessage: "Create Property Failed" });
-          notify(
-            <ToastNotification
-              kind="error"
-              title={errorMessages.title}
-              subtitle={errorMessages.message}
-              data-testid="create-update-global-prop-notification"
-            />
-          );
-        }
       }
     }
   };
@@ -188,6 +165,23 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 toggled={values.secured}
                 data-testid="secured-global-properties-toggle"
               />
+              {addError && (
+                <InlineNotification
+                  kind="error"
+                  title={"Create Property Failed"}
+                  subtitle={"Something's Wrong"}
+                  data-testid="create-update-global-prop-notification"
+                />
+              )}
+              {updateError && (
+                <InlineNotification
+                  kind="error"
+                  lowContrast
+                  title={"Update Property Failed"}
+                  subtitle={"Something's Wrong"}
+                  data-testid="create-update-global-prop-notification"
+                />
+              )}
             </ModalBody>
             <ModalFooter>
               <Button kind="secondary" type="button" onClick={closeModal}>

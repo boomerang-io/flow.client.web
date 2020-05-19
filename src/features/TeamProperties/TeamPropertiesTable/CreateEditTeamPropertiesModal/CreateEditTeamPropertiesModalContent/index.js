@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { isCancel } from "axios";
 import { useMutation, queryCache } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Button, ModalBody, ModalFooter, TextInput, Toggle } from "carbon-components-react";
+import { Button, InlineNotification, ModalBody, ModalFooter, TextInput, Toggle } from "carbon-components-react";
 import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import INPUT_TYPES from "Constants/inputTypes";
@@ -15,7 +14,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: team.id });
 
   /** Add Team Property */
-  const [addTeamPropertyMutation, { status: addStatus }] = useMutation(
+  const [addTeamPropertyMutation, { status: addStatus, error: addError }] = useMutation(
     (args) => {
       const { promise, cancel } = resolver.postTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
@@ -28,7 +27,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
   const addIsLoading = addStatus === QueryStatus.Loading;
 
   /** Update Team Property */
-  const [updateTeamPropertyMutation, { status: updateStatus }] = useMutation(
+  const [updateTeamPropertyMutation, { status: updateStatus, error: updateError }] = useMutation(
     (args) => {
       const { promise, cancel } = resolver.patchTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
@@ -64,15 +63,6 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
         );
         closeModal();
       } catch (err) {
-        if (!isCancel(err))
-          notify(
-            <ToastNotification
-              kind="error"
-              title={"Update Property Failed"}
-              subtitle={"Something's Wrong"}
-              data-testid="create-update-team-prop-notification"
-            />
-          );
       }
     } else {
       try {
@@ -87,15 +77,6 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
         );
         closeModal();
       } catch (err) {
-        if (!isCancel(err))
-          notify(
-            <ToastNotification
-              kind="error"
-              title={"Create Property Failed"}
-              subtitle={"Something's Wrong"}
-              data-testid="create-update-team-prop-notification"
-            />
-          );
       }
     }
   };
@@ -186,6 +167,23 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                   toggled={values.secured}
                 />
               </div>
+              {addError && (
+                <InlineNotification
+                  kind="error"
+                  title={"Create Property Failed"}
+                  subtitle={"Something's Wrong"}
+                  data-testid="create-update-team-prop-notification"
+                />
+              )}
+              {updateError && (
+                <InlineNotification
+                  kind="error"
+                  lowContrast
+                  title={"Update Property Failed"}
+                  subtitle={"Something's Wrong"}
+                  data-testid="create-update-team-prop-notification"
+                />
+              )}
             </ModalBody>
             <ModalFooter>
               <Button kind="secondary" type="button" onClick={closeModal}>
