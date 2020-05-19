@@ -1,6 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, InlineNotification, ModalForm, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
+import {
+  Button,
+  InlineNotification,
+  ModalForm,
+  ModalBody,
+  ModalFooter,
+} from "@boomerang/carbon-addons-boomerang-react";
 
 WorkflowRunModalContent.propTypes = {
   closeModal: PropTypes.func.isRequired,
@@ -13,13 +19,15 @@ function WorkflowRunModalContent({ closeModal, executeError, executeWorkflow, is
   return (
     <ModalForm>
       {executeError && (
-        <InlineNotification kind="error" title="Something's Wrong" subtitle="Request to execute workflow failed" />
+        <ModalBody>
+          <InlineNotification kind="error" title="Something's Wrong" subtitle="Request to execute workflow failed" />
+        </ModalBody>
       )}
       <ModalFooter>
         <Button kind="secondary" type="button" onClick={closeModal}>
           Cancel
         </Button>
-        {!isExecuting ? (
+        {isExecuting ? (
           <Button disabled style={{ flex: "0 1 115%" }}>
             Running...
           </Button>

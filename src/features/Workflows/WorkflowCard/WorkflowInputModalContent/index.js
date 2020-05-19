@@ -32,7 +32,16 @@ function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, 
     >
       {({ inputs, formikProps }) => (
         <ModalFlowForm className={styles.container}>
-          <ModalBody>{inputs}</ModalBody>
+          <ModalBody>
+            {inputs}
+            {executeError && (
+              <InlineNotification
+                kind="error"
+                title="Something's Wrong"
+                subtitle="Request to execute workflow failed"
+              />
+            )}
+          </ModalBody>
           <ModalFooter>
             <Button kind="secondary" onClick={closeModal} type="button">
               Cancel
@@ -64,13 +73,6 @@ function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, 
                   Run and View
                 </Button>
               </>
-            )}
-            {executeError && (
-              <InlineNotification
-                kind="error"
-                title="Something's Wrong"
-                subtitle="Request to execute workflow failed"
-              />
             )}
           </ModalFooter>
           <ValidateFormikOnMount validateForm={formikProps.validateForm} />

@@ -45,7 +45,7 @@ function WorkflowCard({ teamId, workflow }) {
     onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
   });
 
-  const [executeWorkflowMutator, { error: executeErorr, status: executeWorkflowStatus }] = useMutation(
+  const [executeWorkflowMutator, { error: executeError, status: executeWorkflowStatus }] = useMutation(
     resolver.postExecuteWorkflow
   );
 
@@ -187,7 +187,7 @@ function WorkflowCard({ teamId, workflow }) {
             {({ closeModal }) => (
               <WorkflowInputModalContent
                 closeModal={closeModal}
-                executeErorr={executeErorr}
+                executeError={executeError}
                 executeWorkflow={handleExecuteWorkflow}
                 isExecuting={isExecuting}
                 inputs={formattedProperties}
@@ -216,7 +216,7 @@ function WorkflowCard({ teamId, workflow }) {
             {({ closeModal }) => (
               <WorkflowRunModalContent
                 closeModal={closeModal}
-                executeErorr={executeErorr}
+                executeError={executeError}
                 executeWorkflow={handleExecuteWorkflow}
                 isExecuting={isExecuting}
               />
