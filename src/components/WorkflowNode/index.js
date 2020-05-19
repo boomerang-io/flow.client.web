@@ -36,7 +36,7 @@ export default function WorkflowNode({
   let Icon = () => <Bee16 alt="Task node type default" style={{ willChange: "auto" }} />;
 
   if (icon) {
-    Icon = taskIcons.find((taskIcon) => taskIcon.iconName === icon)?.icon ?? Icon;
+    Icon = taskIcons.find((taskIcon) => taskIcon.iconName === icon)?.Icon ?? Icon;
   }
 
   return (

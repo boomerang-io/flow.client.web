@@ -15,8 +15,8 @@ const props = {
     name: "lucas-workflow-3",
     description: "blablabla",
     status: "draft",
-    icon: "secure"
-  }
+    icon: "schedule",
+  },
 };
 
 describe("WorkflowCard --- Snapshot", () => {

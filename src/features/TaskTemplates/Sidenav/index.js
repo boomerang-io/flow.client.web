@@ -34,11 +34,11 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   );
   const [openCategories, setOpenCategories] = React.useState(false);
   const [showArchived, setShowArchived] = React.useState(false);
-  const taskFilters = taskIcons.map((icon) => ({
-    id: icon.iconName,
+  const taskFilters = taskIcons.map((TaskIcon) => ({
+    id: TaskIcon.iconName,
     labelText: (
       <div className={styles.checkboxOption}>
-        <icon.icon /> <p>{icon.iconName}</p>{" "}
+        <TaskIcon.Icon /> <p>{TaskIcon.iconName}</p>{" "}
       </div>
     ),
   }));

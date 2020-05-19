@@ -10,16 +10,16 @@ export function SelectIcon({ onChange, selectedIcon, iconOptions }) {
       labelText="Icon"
       helperText="Choose the icon that best fits this task"
       invalid={false}
-      items={iconOptions.map(icon => ({
+      items={iconOptions.map((icon) => ({
         value: icon.iconName,
         label: icon.iconName,
-        icon: icon.icon
+        icon: icon.Icon,
       }))}
-      itemToElement={item => {
+      itemToElement={(Item) => {
         return (
           <div className={styles.container}>
-            <item.icon className={styles.icon} />
-            {item.label}
+            <Item.Icon className={styles.icon} />
+            {Item.label}
           </div>
         );
       }}

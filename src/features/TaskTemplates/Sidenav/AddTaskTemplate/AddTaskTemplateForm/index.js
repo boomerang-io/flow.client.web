@@ -7,12 +7,11 @@ import {
   TextInput,
   TextArea,
   FileUploaderDropContainer,
-  FileUploaderItem
+  FileUploaderItem,
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, Loading } from "carbon-components-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
 import SelectIcon from "Components/SelectIcon";
-// import taskTemplateIcons from "Assets/taskTemplateIcons";
 import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utilities/taskIcons";
 import { requiredTaskProps } from "./constants";
@@ -22,7 +21,7 @@ AddTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
   taskTemplates: PropTypes.array.isRequired,
   isLoading: PropTypes.bool,
-  handleAddTaskTemplate: PropTypes.func.isRequired
+  handleAddTaskTemplate: PropTypes.func.isRequired,
 };
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
@@ -33,7 +32,7 @@ function checkIsValidTask(data) {
   // Only check if the .json file contain the required key data
   // This validate can be improved
   let isValid = true;
-  requiredTaskProps.forEach(prop => {
+  requiredTaskProps.forEach((prop) => {
     if (!data.hasOwnProperty(prop)) {
       isValid = false;
     }
@@ -45,7 +44,7 @@ function checkIsValidTask(data) {
  * @param file {File}
  * @return {Promise}
  */
-const readFile = file => {
+const readFile = (file) => {
   const reader = new FileReader();
   return new Promise((resolve, reject) => {
     reader.onerror = () => {
@@ -72,10 +71,10 @@ const readFile = file => {
 // ];
 
 function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTaskTemplate }) {
-  let taskTemplateNames = taskTemplates.map(taskTemplate => taskTemplate.name);
+  let taskTemplateNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
   const orderedIcons = orderBy(taskIcons, ["iconName"]);
 
-  const handleSubmit = async values => {
+  const handleSubmit = async (values) => {
     const hasFile = values.file;
     let newRevisionConfig = {
       version: 1,
@@ -83,7 +82,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       image: values.image,
       command: values.command,
       config: hasFile ? values.currentRevision.config : [],
-      changelog: { reason: "" }
+      changelog: { reason: "" },
     };
     const body = {
       name: values.name,
@@ -93,20 +92,20 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       revisions: [newRevisionConfig],
       icon: values.icon.value,
       nodeType: "templateTask",
-      status: "active"
+      status: "active",
     };
     await handleAddTaskTemplate({ body, closeModal });
   };
   const getTemplateData = async (file, setFieldValue) => {
     const fileData = await readFile(file);
-    const selectedIcon = orderedIcons.find(icon => icon.iconName === fileData.icon);
+    const selectedIcon = orderedIcons.find((icon) => icon.iconName === fileData.icon);
     if (checkIsValidTask(fileData)) {
-      const currentRevision = fileData.revisions.find(revision => revision.version === fileData.currentVersion);
+      const currentRevision = fileData.revisions.find((revision) => revision.version === fileData.currentVersion);
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
       selectedIcon &&
-        setFieldValue("icon", { value: selectedIcon.iconName, label: selectedIcon.iconName, icon: selectedIcon.icon });
+        setFieldValue("icon", { value: selectedIcon.iconName, label: selectedIcon.iconName, icon: selectedIcon.Icon });
       setFieldValue("image", currentRevision.image);
       setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
       setFieldValue("command", currentRevision.command ?? "");
@@ -126,7 +125,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         arguments: "",
         command: "",
         fileData: {},
-        file: undefined
+        file: undefined,
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
@@ -140,7 +139,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           .required("Description is required"),
         icon: Yup.object().shape({
           value: Yup.string().required(),
-          label: Yup.string().required()
+          label: Yup.string().required(),
         }),
         arguments: Yup.string().required("Arguments are required"),
         command: Yup.string(),
@@ -152,9 +151,9 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
             "fileSize",
             "File is larger than 1MiB",
             // If it's bigger than 1MiB will display the error (1048576 bytes = 1 mebibyte)
-            file => (file?.size ? file.size < 1048576 : true)
+            (file) => (file?.size ? file.size < 1048576 : true)
           )
-          .test("validFile", "File is invalid", async file => {
+          .test("validFile", "File is invalid", async (file) => {
             let isValid = true;
             if (file) {
               try {
@@ -167,12 +166,12 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
             }
             // Need to return promise for yup to do async validation
             return Promise.resolve(isValid);
-          })
+          }),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
     >
-      {props => {
+      {(props) => {
         const {
           handleSubmit,
           isValid,
@@ -182,7 +181,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           handleChange,
           setFieldValue,
           handleBlur,
-          resetForm
+          resetForm,
         } = props;
         return (
           <ModalFlowForm onSubmit={handleSubmit} className={styles.container}>

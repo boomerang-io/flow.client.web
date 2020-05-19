@@ -9,35 +9,53 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
       class="container"
     >
       <a
-        href="/editor/789/designer"
+        href="/teams/undefined/editor/789/designer"
       >
         <section
-          class="cardInfo"
+          class="details"
         >
           <div
-            class="cardIconContainer"
+            class="iconContainer"
           >
-            <img
-              alt="icon"
-              class="cardIcon"
-            />
+            <svg
+              alt="schedule"
+              aria-hidden="true"
+              class="icon"
+              focusable="false"
+              height="32"
+              preserveAspectRatio="xMidYMid meet"
+              style="will-change: transform;"
+              viewBox="0 0 32 32"
+              width="32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21 30a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm0-14a6 6 0 1 0 6 6 6 6 0 0 0-6-6z"
+              />
+              <path
+                d="M22.59 25L20 22.41V18h2v3.59l2 2L22.59 25z"
+              />
+              <path
+                d="M28 6a2 2 0 0 0-2-2h-4V2h-2v2h-8V2h-2v2H6a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h4v-2H6V6h4v2h2V6h8v2h2V6h4v6h2z"
+              />
+            </svg>
           </div>
           <div
-            class="cardDescriptionContainer"
+            class="descriptionContainer"
           >
-            <h2
-              class="cardName"
+            <h1
+              class="name"
             >
               lucas-workflow-3
-            </h2>
+            </h1>
             <p
-              class="cardDescription"
+              class="description"
             />
           </div>
         </section>
       </a>
       <section
-        class="cardLaunch"
+        class="launch"
       >
         <button
           class="bx--btn bx--btn--field bx--btn--primary"
@@ -69,12 +87,11 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
           </svg>
         </button>
       </section>
-      <div
+      <button
         aria-expanded="false"
         aria-haspopup="true"
         aria-label="Overflow card menu"
         class="bx--overflow-menu"
-        role="button"
         style="position: absolute; right: 0px;"
         tabindex="0"
       >
@@ -85,31 +102,30 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
           height="16"
           preserveAspectRatio="xMidYMid meet"
           role="img"
-          style="will-change: transform;"
-          viewBox="0 0 16 16"
+          viewBox="0 0 32 32"
           width="16"
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle
-            cx="8"
-            cy="3"
-            r="1"
-          />
-          <circle
-            cx="8"
+            cx="16"
             cy="8"
-            r="1"
+            r="2"
           />
           <circle
-            cx="8"
-            cy="13"
-            r="1"
+            cx="16"
+            cy="16"
+            r="2"
+          />
+          <circle
+            cx="16"
+            cy="24"
+            r="2"
           />
           <title>
             Overflow menu icon
           </title>
         </svg>
-      </div>
+      </button>
     </div>
   </div>
   <div

@@ -28,7 +28,7 @@ export default class Tasks extends Component {
       id: IconConfig.iconName,
       labelText: (
         <div className={styles.checkboxOption}>
-          <IconConfig.icon /> <p>{IconConfig.iconName}</p>{" "}
+          <IconConfig.Icon /> <p>{IconConfig.iconName}</p>{" "}
         </div>
       ),
     }));

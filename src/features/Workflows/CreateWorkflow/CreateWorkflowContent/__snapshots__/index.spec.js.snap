@@ -34,13 +34,11 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
               </label>
               <div
                 class="bx--combo-box bx--list-box"
-                role="listbox"
-                tabindex="-1"
               >
                 <div
                   aria-expanded="false"
                   aria-haspopup="true"
-                  aria-label="Open menu"
+                  aria-label="open menu"
                   class="bx--list-box__field"
                   data-toggle="true"
                   role="button"
@@ -71,13 +69,12 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
                       name="chevron--down"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 16 16"
                       width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                      <polygon
+                        points="8,11 3,6 3.7,5.3 8,9.6 12.3,5.3 13,6"
                       />
                       <title>
                         Open menu

@@ -7,14 +7,14 @@ import Notify from "./Notify.js";
 import Schedule from "./Schedule.js";
 
 export default [
-  { src: Flow, name: "flow" },
-  { src: Api, name: "api" },
-  { src: Upload, name: "upload" },
-  { src: Schedule, name: "schedule" },
-  { src: Notify, name: "notify" },
-  { src: Mail, name: "mail" },
+  { Icon: Flow, name: "flow" },
+  { Icon: Api, name: "api" },
+  { Icon: Upload, name: "upload" },
+  { Icon: Schedule, name: "schedule" },
+  { Icon: Notify, name: "notify" },
+  { Icon: Mail, name: "mail" },
   {
-    src: Docs,
-    name: "docs"
-  }
+    Icon: Docs,
+    name: "docs",
+  },
 ];

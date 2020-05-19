@@ -157,22 +157,22 @@ export class Overview extends Component {
           </div>
           <h2 className={styles.iconTitle}>Pick an icon (any icon)</h2>
           <div className={styles.iconsWrapper}>
-            {workflowIcons.map((image, index) => (
+            {workflowIcons.map(({ name, Icon }, index) => (
               <label
                 className={cx(styles.iconLabel, {
-                  [styles.active]: values.icon === image.name,
+                  [styles.active]: values.icon === name,
                 })}
                 key={`icon-number-${index}`}
               >
                 <input
                   id="icon"
                   readOnly
-                  checked={values.icon === image.name}
+                  checked={values.icon === name}
                   onClick={this.handleOnChange}
-                  value={image.name}
+                  value={name}
                   type="radio"
                 />
-                <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} className={styles.icon} />
+                <Icon key={`${name}-${index}`} alt={`${name} icon`} className={styles.icon} />
               </label>
             ))}
           </div>

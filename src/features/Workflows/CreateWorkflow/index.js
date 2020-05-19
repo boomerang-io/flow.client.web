@@ -23,14 +23,14 @@ export function CreateWorkflow({ team, teams }) {
   const history = useHistory();
 
   const [createWorkflowMutator, { error: workflowError, status: workflowStatus }] = useMutation(
-    resolver.postCreateWorkflow,
-    {
-      onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
-    }
+    resolver.postCreateWorkflow
   );
 
   const [createWorkflowRevisionMutator, { error: workflowRevisionError, status: workflowRevisionStatus }] = useMutation(
-    resolver.postCreateWorkflowRevision
+    resolver.postCreateWorkflowRevision,
+    {
+      onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
+    }
   );
 
   const [importWorkflowMutator, { error: importError, status: importStatus }] = useMutation(

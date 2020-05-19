@@ -19,7 +19,6 @@ import VersionSwitcher from "./VersionSwitcher";
 import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
 import { taskIcons } from "Utilities/taskIcons";
 import { TemplateRequestType } from "../constants";
-// import taskTemplateIcons from "Assets/taskTemplateIcons";
 import styles from "./header.module.scss";
 
 function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoading, cancelRequestRef, setFieldValue }) {
@@ -177,9 +176,8 @@ function Header({
           <h1 className={styles.category}>{capitalize(selectedTaskTemplate.category)}</h1>
           <div className={styles.infoContainer}>
             {TaskIcon ? (
-              <TaskIcon.icon imgProps={{ style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" } }} />
+              <TaskIcon.Icon style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
             ) : (
-              //<taskIcon.src style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
               <Bee20 alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
             )}
             <p className={styles.taskName}>{selectedTaskTemplate.name}</p>

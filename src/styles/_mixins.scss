@@ -7,6 +7,14 @@
   white-space: nowrap;
 }
 
+@mixin multiline-text-overflow-ellipsis($lineClamp: 2, $orient: vertical) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: $orient;
+  -webkit-line-clamp: $lineClamp;
+}
+
 @mixin border-radius() {
   border-radius: 0.25rem;
 }

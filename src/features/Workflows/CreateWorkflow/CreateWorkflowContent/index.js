@@ -31,7 +31,7 @@ function CreateEditModeModalContent({
   closeModal,
   createError,
   createWorkflow,
-  existingWorkflowNames,
+  existingWorkflowNames = [],
   isLoading,
   team,
   teams,
@@ -119,28 +119,27 @@ function CreateEditModeModalContent({
                 onChange={handleChange}
                 invalid={errors.description && touched.description}
                 invalidText={errors.description}
-                resize={false}
                 style={{ resize: "none", width: "100%" }}
                 value={values.description}
               />
               <h2 className={styles.iconsTitle}>Pick an icon (any icon)</h2>
               <div className={styles.icons}>
-                {workflowIcons.map((image, index) => (
+                {workflowIcons.map(({ name, Icon }, index) => (
                   <label
                     key={index}
                     className={classnames({
                       icon: true,
-                      "--active": values.icon === image.name,
+                      "--active": values.icon === name,
                     })}
                   >
                     <input
                       type="radio"
-                      value={image.name}
+                      value={name}
                       readOnly
-                      onClick={() => setFieldValue("icon", image.name)}
-                      checked={values.icon === image.name}
+                      onClick={() => setFieldValue("icon", name)}
+                      checked={values.icon === name}
                     />
-                    <image.src key={`${image.name}-${index}`} alt={`${image.name} icon`} />
+                    <Icon key={`${name}-${index}`} alt={`${name} icon`} />
                   </label>
                 ))}
               </div>

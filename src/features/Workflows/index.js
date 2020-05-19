@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useAppContext } from "Hooks";
-import { useMutation, queryCache } from "react-query";
-import { useHistory } from "react-router-dom";
-import { notify, ToastNotification, Error404 } from "@boomerang/carbon-addons-boomerang-react";
+import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
 import WelcomeBanner from "Components/WelcomeBanner";
 import CreateWorkflow from "./CreateWorkflow";
 import WorkflowsHeader from "./WorkflowsHeader";
 import WorkflowCard from "./WorkflowCard";
 import cx from "classnames";
 import sortBy from "lodash/sortBy";
-import { appLink } from "Config/appConfig";
-import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./workflowHome.module.scss";
 
 const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
 
 export default function WorkflowsHome() {
-  const history = useHistory();
-
   const { onBoardShow, setOnBoardShow, teams } = useAppContext();
-  const [deleteWorkflowMutator, { status: deleteWorkflowStatus }] = useMutation(resolver.deleteWorkflow, {
-    onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
-  });
-
-  const [executeWorkflowMutator, { status: executeWorkflowStatus }] = useMutation(resolver.postExecuteWorkflow);
 
   const [isWelcomeBannerOpen, setIsWelcomeBannerOpen] = useState(true);
   const [isWelcomeBannerShown, setIsWelcomeBannerShown] = useState(
@@ -53,32 +42,6 @@ export default function WorkflowsHome() {
       return teams.filter((team) => teamsFilter.find((filter) => filter.text === team.name));
     } else {
       return teams;
-    }
-  };
-
-  const handleDeleteWorkflow = async ({ workflowId, teamId }) => {
-    try {
-      await deleteWorkflowMutator({ id: workflowId });
-      notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
-    } catch {
-      notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete workflow failed" />);
-    }
-  };
-
-  const handleExecuteWorkflow = async ({ workflowId, redirect = false, properties = {} }) => {
-    try {
-      const { data: execution } = await executeWorkflowMutator({ id: workflowId, properties });
-      notify(
-        <ToastNotification kind="success" title="Run Workflow" subtitle="Successfully started workflow execution" />
-      );
-      if (redirect) {
-        history.push({
-          pathname: appLink.execution({ executionId: execution.id, workflowId }),
-          state: { fromUrl: appLink.workflows(), fromText: "Workflows" },
-        });
-      }
-    } catch {
-      notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to run workflow" />);
     }
   };
 
@@ -119,16 +82,7 @@ export default function WorkflowsHome() {
         <main className={styles.content}>
           {sortedTeams.length > 0 ? (
             sortedTeams.map((team) => {
-              return (
-                <TeamWorkflows
-                  deleteWorkflow={handleDeleteWorkflow}
-                  executeWorkflow={handleExecuteWorkflow}
-                  key={team.id}
-                  searchQuery={searchQuery}
-                  team={team}
-                  teams={teams}
-                />
-              );
+              return <TeamWorkflows key={team.id} searchQuery={searchQuery} team={team} teams={teams} />;
             })
           ) : (
             <Error404 header={null} message={"You need to be a member of a team to use Flow"} title="No teams found" />
@@ -146,7 +100,7 @@ TeamWorkflows.propTypes = {
   team: PropTypes.object.isRequired,
 };
 
-function TeamWorkflows({ children, deleteWorkflow, executeWorkflow, searchQuery, team, teams }) {
+function TeamWorkflows({ children, searchQuery, team, teams }) {
   let workflows = [];
   if (searchQuery) {
     workflows = team.workflows.filter((workflow) => workflow.name.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -168,13 +122,7 @@ function TeamWorkflows({ children, deleteWorkflow, executeWorkflow, searchQuery,
       </div>
       <div className={styles.workflows}>
         {workflows.map((workflow) => (
-          <WorkflowCard
-            deleteWorkflow={deleteWorkflow}
-            executeWorkflow={executeWorkflow}
-            key={workflow.id}
-            teamId={team.id}
-            workflow={workflow}
-          />
+          <WorkflowCard key={workflow.id} teamId={team.id} workflow={workflow} />
         ))}
         <CreateWorkflow team={team} teams={teams} />
       </div>

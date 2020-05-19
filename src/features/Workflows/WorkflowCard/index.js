@@ -1,51 +1,65 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import { Link, withRouter } from "react-router-dom";
-import fileDownload from "js-file-download";
-import { Button, OverflowMenu, OverflowMenuItem } from "carbon-components-react";
+import { useMutation, queryCache } from "react-query";
+import { Link, useHistory } from "react-router-dom";
 import {
-  notify,
-  ToastNotification,
-  ModalFlow,
+  Button,
   ConfirmModal,
+  ComposedModal,
+  InlineLoading,
+  OverflowMenu,
+  OverflowMenuItem,
+  ToastNotification,
   TooltipIcon,
+  notify,
 } from "@boomerang/carbon-addons-boomerang-react";
-import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
+import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
+import fileDownload from "js-file-download";
+import { QueryStatus } from "Constants";
 import { appLink } from "Config/appConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import { Run20 } from "@carbon/icons-react";
-import imgs from "Assets/icons";
+import workflowIcons from "Assets/workflowIcons";
 import styles from "./workflowCard.module.scss";
 
-class WorkflowCard extends Component {
-  static propTypes = {
-    deleteWorkflow: PropTypes.func.isRequired,
-    executeWorkflow: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired,
-    teamId: PropTypes.string.isRequired,
-    workflow: PropTypes.object.isRequired,
+WorkflowCard.propTypes = {
+  deleteWorkflow: PropTypes.func.isRequired,
+  executeWorkflow: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  teamId: PropTypes.string.isRequired,
+  workflow: PropTypes.object.isRequired,
+};
+
+function WorkflowCard({ teamId, workflow }) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
+
+  const history = useHistory();
+
+  const [deleteWorkflowMutator, { status: deleteWorkflowStatus }] = useMutation(resolver.deleteWorkflow, {
+    onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
+  });
+
+  const [executeWorkflowMutator, { error: executeErorr, status: executeWorkflowStatus }] = useMutation(
+    resolver.postExecuteWorkflow
+  );
+
+  const handleOverflowMenuOpen = () => {
+    window.addEventListener("keydown", preventKeyScrolling, false);
   };
 
-  state = {
-    isDeleteModalOpen: false,
-    isUpdateWorkflowModalOpen: false,
+  const handleOverflowMenuClose = () => {
+    window.removeEventListener("keydown", preventKeyScrolling, false);
   };
 
-  componentWillUnmount() {
-    this.handleOverflowMenuClose();
-  }
-
-  executeWorkflow = ({ redirect, properties }) => {
-    this.props.executeWorkflow({
-      workflowId: this.props.workflow.id,
-      redirect,
-      properties,
-    });
-  };
+  useEffect(() => {
+    return handleOverflowMenuClose();
+  });
 
   /**
    * Format properties to be edited in form by Formik. It doesn't work with property notation :(
@@ -53,170 +67,216 @@ class WorkflowCard extends Component {
    * This is safe to do because we don't accept "-" characters in property keys
    * @returns {Array}
    */
-  formatPropertiesForEdit = () => {
-    const { properties = [] } = this.props.workflow;
+  const formatPropertiesForEdit = () => {
+    const { properties = [] } = workflow;
     return properties.filter((property) => !property.readOnly);
   };
 
-  handleExportWorkflow = (workflow) => {
+  const handleDeleteWorkflow = async () => {
+    try {
+      await deleteWorkflowMutator({ id: workflow.id });
+      notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
+    } catch {
+      notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete workflow failed" />);
+    }
+  };
+
+  const handleExportWorkflow = (workflow) => {
     notify(<ToastNotification kind="info" title="Export Workflow" subtitle="Export starting soon" />);
     axios
       .get(`${BASE_SERVICE_URL}/workflow/export/${workflow.id}`)
-      .then((res) => {
-        const status = res.status.toString();
-        if (status.startsWith("4") || status.startsWith("5"))
-          notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Export workflow failed" />);
-        else fileDownload(JSON.stringify(res.data, null, 4), `${workflow.name}.json`);
+      .then(({ data }) => {
+        fileDownload(JSON.stringify(data, null, 4), `${workflow.name}.json`);
       })
       .catch((error) => {
         notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Export workflow failed" />);
       });
   };
 
+  const handleExecuteWorkflow = async ({ closeModal, redirect = false, properties = {} }) => {
+    const { id: workflowId } = workflow;
+    try {
+      const { data: execution } = await executeWorkflowMutator({ id: workflowId, properties });
+      notify(
+        <ToastNotification kind="success" title="Run Workflow" subtitle="Successfully started workflow execution" />
+      );
+      if (redirect) {
+        history.push({
+          pathname: appLink.execution({ executionId: execution.id, workflowId }),
+          state: { fromUrl: appLink.workflows(), fromText: "Workflows" },
+        });
+      } else {
+        closeModal();
+      }
+    } catch {
+      //no-op
+    }
+  };
+
   /* prevent page scroll when up or down arrows are pressed **/
-  preventKeyScrolling = (e) => {
+  const preventKeyScrolling = (e) => {
     if ([38, 40].indexOf(e.keyCode) > -1) {
       e.preventDefault();
     }
   };
 
-  handleOverflowMenuOpen = () => {
-    window.addEventListener("keydown", this.preventKeyScrolling, false);
-  };
+  const menuOptions = [
+    {
+      itemText: "Edit Workflow",
+      onClick: () => history.push(appLink.designer({ teamId: workflow.flowTeamId, workflowId: workflow.id })),
+      primaryFocus: true,
+    },
+    {
+      itemText: "View Activity",
+      onClick: () => history.push(appLink.workflowActivity({ workflowId: workflow.id })),
+    },
 
-  handleOverflowMenuClose = () => {
-    window.removeEventListener("keydown", this.preventKeyScrolling, false);
-  };
+    {
+      itemText: "Export .json",
+      onClick: () => handleExportWorkflow(workflow),
+    },
+    {
+      itemText: "Update .json",
+      onClick: () => setIsUpdateWorkflowModalOpen(true),
+    },
+    {
+      hasDivider: true,
+      itemText: "Delete",
+      isDelete: true,
+      onClick: () => setIsDeleteModalOpen(true),
+    },
+  ];
 
-  render() {
-    const { deleteWorkflow, fetchTeams, history, teamId, workflow } = this.props;
-    const menuOptions = [
-      {
-        itemText: "Edit Workflow",
-        onClick: () => history.push(appLink.designer({ teamId: workflow.flowTeamId, workflowId: workflow.id })),
-        primaryFocus: true,
-      },
-      {
-        itemText: "View Activity",
-        onClick: () => history.push(appLink.workflowActivity({ workflowId: workflow.id })),
-      },
+  const formattedProperties = formatPropertiesForEdit();
+  const isDeleting = deleteWorkflowStatus === QueryStatus.Loading;
+  const isExecuting = executeWorkflowStatus === QueryStatus.Loading;
+  const { name: iconName, Icon } = workflowIcons.find((icon) => icon.name === workflow.icon);
 
-      {
-        itemText: "Export .json",
-        onClick: () => this.handleExportWorkflow(workflow),
-      },
-      {
-        itemText: "Update .json",
-        onClick: () => this.setState({ isUpdateWorkflowModalOpen: true }),
-      },
-      {
-        hasDivider: true,
-        itemText: "Delete",
-        isDelete: true,
-        onClick: () => this.setState({ isDeleteModalOpen: true }),
-      },
-    ];
-
-    const formattedProperties = this.formatPropertiesForEdit();
-
-    return (
-      <div className={styles.container}>
-        <Link to={appLink.designer({ teamId: workflow.flowTeamId, workflowId: workflow.id })}>
-          <section className={styles.cardInfo}>
-            <div className={styles.cardIconContainer}>
-              <img className={styles.cardIcon} src={imgs[workflow.icon ? workflow.icon : "docs"]} alt="icon" />
-            </div>
-            <div className={styles.cardDescriptionContainer}>
-              <h2 className={styles.cardName}>{workflow.name}</h2>
-              <p className={styles.cardDescription}>{workflow.shortDescription}</p>
-            </div>
-          </section>
-        </Link>
-        <section className={styles.cardLaunch}>
-          {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
-            <ModalFlow
-              modalHeaderProps={{
-                title: "Workflow Properties",
-                subtitle: "Provide property values for your workflow",
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button iconDescription="Run Workflow" renderIcon={Run20} size="field" onClick={openModal}>
-                  Run it
-                </Button>
-              )}
-            >
-              <WorkflowInputModalContent executeWorkflow={this.executeWorkflow} inputs={formattedProperties} />
-            </ModalFlow>
-          ) : (
-            <ModalFlow
-              composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
-              modalHeaderProps={{
-                title: "Execute Workflow?",
-                subtitle: '"Run and View" will navigate you to the workflow exeuction view.',
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button iconDescription="Run Workflow" renderIcon={Run20} size="field" onClick={openModal}>
-                  Run it
-                </Button>
-              )}
-            >
-              <WorkflowRunModalContent executeWorkflow={this.executeWorkflow} />
-            </ModalFlow>
-          )}
-        </section>
-        {workflow.templateUpgradesAvailable && (
-          <div className={styles.templatesWarningIcon}>
-            <TooltipIcon
-              direction="top"
-              tooltipText={"New version of a task available! To update, edit your workflow."}
-            >
-              <WorkflowWarningButton />
-            </TooltipIcon>
+  return (
+    <div className={styles.container}>
+      <Link disabled={isDeleting} to={appLink.designer({ teamId: workflow.flowTeamId, workflowId: workflow.id })}>
+        <section className={styles.details}>
+          <div className={styles.iconContainer}>
+            <Icon className={styles.icon} alt={`${iconName}`} />
           </div>
+          <div className={styles.descriptionContainer}>
+            <h1 className={styles.name}>{workflow.name}</h1>
+            <p className={styles.description}>{workflow.shortDescription}</p>
+          </div>
+        </section>
+      </Link>
+      <section className={styles.launch}>
+        {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
+          <ComposedModal
+            modalHeaderProps={{
+              title: "Workflow Properties",
+              subtitle: "Provide property values for your workflow",
+            }}
+            modalTrigger={({ openModal }) => (
+              <Button
+                disabled={isDeleting}
+                iconDescription="Run Workflow"
+                renderIcon={Run20}
+                size="field"
+                onClick={openModal}
+              >
+                Run it
+              </Button>
+            )}
+          >
+            {({ closeModal }) => (
+              <WorkflowInputModalContent
+                closeModal={closeModal}
+                executeErorr={executeErorr}
+                executeWorkflow={handleExecuteWorkflow}
+                isExecuting={isExecuting}
+                inputs={formattedProperties}
+              />
+            )}
+          </ComposedModal>
+        ) : (
+          <ComposedModal
+            composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
+            modalHeaderProps={{
+              title: "Execute Workflow",
+              subtitle: '"Run and View" will navigate you to the workflow exeuction view.',
+            }}
+            modalTrigger={({ openModal }) => (
+              <Button
+                disabled={isDeleting}
+                iconDescription="Run Workflow"
+                renderIcon={Run20}
+                size="field"
+                onClick={openModal}
+              >
+                Run it
+              </Button>
+            )}
+          >
+            {({ closeModal }) => (
+              <WorkflowRunModalContent
+                closeModal={closeModal}
+                executeErorr={executeErorr}
+                executeWorkflow={handleExecuteWorkflow}
+                isExecuting={isExecuting}
+              />
+            )}
+          </ComposedModal>
         )}
+      </section>
+      {workflow.templateUpgradesAvailable && (
+        <div className={styles.templatesWarningIcon}>
+          <TooltipIcon direction="top" tooltipText={"New version of a task available! To update, edit your workflow."}>
+            <WorkflowWarningButton />
+          </TooltipIcon>
+        </div>
+      )}
+      {isDeleting || isExecuting ? (
+        <InlineLoading
+          description={isDeleting ? "Deleting..." : "Executing"}
+          style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
+        />
+      ) : (
         <OverflowMenu
           flipped
           ariaLabel="Overflow card menu"
           iconDescription="Overflow menu icon"
-          onOpen={this.handleOverflowMenuOpen}
-          onClose={this.handleOverflowMenuClose}
+          onOpen={handleOverflowMenuOpen}
+          onClose={handleOverflowMenuClose}
           style={{ position: "absolute", right: "0" }}
         >
           {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
             <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
           ))}
         </OverflowMenu>
-        {this.state.isUpdateWorkflowModalOpen && (
-          <UpdateWorkflow
-            fetchTeams={fetchTeams}
-            onCloseModal={() => this.setState({ isUpdateWorkflowModalOpen: false })}
-            teamId={teamId}
-            workflowId={workflow.id}
-          />
-        )}
-        {this.state.isDeleteModalOpen && (
-          <ConfirmModal
-            affirmativeAction={() => {
-              deleteWorkflow({ teamId, workflowId: workflow.id });
-            }}
-            affirmativeButtonProps={{ kind: "danger" }}
-            affirmativeText="Delete"
-            isOpen={this.state.isDeleteModalOpen}
-            negativeAction={() => {
-              this.setState({ isDeleteModalOpen: false });
-            }}
-            negativeText="Cancel"
-            onCloseModal={() => {
-              this.setState({ isDeleteModalOpen: false });
-            }}
-            title="Delete Workflow"
-          >
-            Are you sure you want to delete this workflow? There's no going back from this Decision.
-          </ConfirmModal>
-        )}
-      </div>
-    );
-  }
+      )}
+      {isUpdateWorkflowModalOpen && (
+        <UpdateWorkflow
+          onCloseModal={() => setIsUpdateWorkflowModalOpen(false)}
+          teamId={teamId}
+          workflowId={workflow.id}
+        />
+      )}
+      {isDeleteModalOpen && (
+        <ConfirmModal
+          affirmativeAction={handleDeleteWorkflow}
+          affirmativeButtonProps={{ kind: "danger" }}
+          affirmativeText="Delete"
+          isOpen={isDeleteModalOpen}
+          negativeAction={() => {
+            setIsDeleteModalOpen(false);
+          }}
+          negativeText="Cancel"
+          onCloseModal={() => {
+            setIsDeleteModalOpen(false);
+          }}
+          title="Delete Workflow"
+        >
+          Are you sure you want to delete this workflow? There's no going back from this Decision.
+        </ConfirmModal>
+      )}
+    </div>
+  );
 }
 
-export default withRouter(WorkflowCard);
+export default WorkflowCard;

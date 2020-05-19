@@ -38,7 +38,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
       class="bx--bmrg-modal-overlay --is-open"
     >
       <div
-        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container --is-open"
+        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container modalContainer --is-open"
         role="dialog"
         tabindex="-1"
       >

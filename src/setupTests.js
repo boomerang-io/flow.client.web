@@ -6,9 +6,9 @@ import { createMemoryHistory } from "history";
 import Adapter from "enzyme-adapter-react-16";
 import { render as rtlRender } from "@testing-library/react";
 import { Provider } from "react-redux";
+import { AppContext } from "./state/context";
 import configureStore from "./store/configureStore";
 import "@testing-library/jest-dom/extend-expect";
-//import "@testing-library/react/cleanup-after-each";
 
 /**
  * Setup store w/ same config we use for the app so things like thunks work
@@ -55,6 +55,37 @@ function rtlReduxRouterRender(
   };
 }
 
+const defaultContextValue = {
+  user: { id: "1", email: "boomrng@us.ibm.com", type: "admin" },
+  activeTeam: { id: "1", userRoles: ["operator"] },
+  teams: [],
+  setActiveTeam: () => {},
+  refetchTeams: () => {},
+};
+
+function rtlContextRouterRender(
+  ui,
+  {
+    contextValue = {},
+    initialState = {},
+    route = "/",
+    history = createMemoryHistory({ initialEntries: [route] }),
+    ...options
+  } = {}
+) {
+  const store = configureStore(initialState);
+  return {
+    ...rtlRender(
+      <Provider store={store}>
+        <AppContext.Provider value={{ ...defaultContextValue, ...contextValue }}>
+          <Router history={history}>{ui}</Router>
+        </AppContext.Provider>
+      </Provider>,
+      options
+    ),
+  };
+}
+
 // Fix "react-modal: No elements were found for selector #app." error
 beforeEach(() => {
   document.body.setAttribute("id", "app");
@@ -66,6 +97,7 @@ global.rtlRender = rtlRender;
 global.rtlReduxRender = rtlReduxRender;
 global.rtlRouterRender = rtlRouterRender;
 global.rtlReduxRouterRender = rtlReduxRouterRender;
+global.rtlContextRouterRender = rtlContextRouterRender;
 
 // Make renderer global
 global.renderer = renderer;

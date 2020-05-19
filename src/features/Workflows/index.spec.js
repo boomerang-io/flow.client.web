@@ -1,35 +1,35 @@
 import React from "react";
-import { WorkflowsHome } from "./index";
+import WorkflowsHome from "./index";
 
 const mockfn = jest.fn();
 jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
   ...jest.requireActual("@boomerang/carbon-addons-boomerang-react"),
   LoadingAnimation: "LoadingAnimation",
   notify: "notify",
-  Notification: "Notification"
+  Notification: "Notification",
 }));
 
 const props = {
   teamsActions: {
     fetch: () => new Promise(() => {}),
     setActiveTeam: mockfn,
-    updateWorkflows: mockfn
+    updateWorkflows: mockfn,
   },
   appActions: {
-    setActiveTeam: mockfn
+    setActiveTeam: mockfn,
   },
   teamsState: {
     isFetching: false,
     status: "success",
     error: "",
-    data: []
+    data: [],
   },
   history: {},
   importWorkflow: {},
   importWorkflowActions: {},
   onBoard: {
-    show: false
-  }
+    show: false,
+  },
 };
 
 describe("WorkflowsHome --- Snapshot", () => {

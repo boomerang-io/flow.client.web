@@ -24,7 +24,6 @@ import { QueryStatus } from "Constants";
 import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import { TemplateRequestType, FieldTypes } from "../constants";
 import { Draggable16, Delete16, Archive16, Bee16 } from "@carbon/icons-react";
-// import taskTemplateIcons from "Assets/taskTemplateIcons";
 import { taskIcons } from "Utilities/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
@@ -55,7 +54,7 @@ function DetailDataElements({ label, value }) {
       {label === "Icon" ? (
         TaskIcon ? (
           <div className={styles.basicIcon}>
-            <TaskIcon.icon imgProps={{ style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" } }} />
+            <TaskIcon.Icon style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
             <p className={styles.value}>{TaskIcon.iconName}</p>
           </div>
         ) : (
