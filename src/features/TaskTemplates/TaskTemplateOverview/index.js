@@ -55,7 +55,7 @@ function DetailDataElements({ label, value }) {
       {label === "Icon" ? (
         TaskIcon ? (
           <div className={styles.basicIcon}>
-            <TaskIcon.icon imgProps={{ style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" } }} />
+            {TaskIcon.icon({imgProps:{ style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }}})}
             {/* <taskIcon.icon style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} /> */}
             <p className={styles.value}>{TaskIcon.iconName}</p>
           </div>

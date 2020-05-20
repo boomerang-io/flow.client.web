@@ -177,7 +177,7 @@ function Header({
           <h1 className={styles.category}>{capitalize(selectedTaskTemplate.category)}</h1>
           <div className={styles.infoContainer}>
             {TaskIcon ? (
-              <TaskIcon.icon imgProps={{ style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" } }} />
+              TaskIcon.icon({imgProps:{style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" } }})
             ) : (
               //<taskIcon.src style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
               <Bee20 alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
