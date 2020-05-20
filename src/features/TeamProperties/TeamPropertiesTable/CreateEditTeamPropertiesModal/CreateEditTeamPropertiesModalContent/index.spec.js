@@ -10,13 +10,13 @@ const props = {
   team: "Test-Id",
   propertyKeys: ["key"],
   property: {
-    id: 1
-  }
+    id: 1,
+  },
 };
 
 describe("CreateEditTeamPropertiesModalContent --- Snapshot Test", () => {
   test("Capturing Snapshot of CreateEditTeamPropertiesModalContent", () => {
-    const { baseElement } = rtlReduxRender(<CreateEditTeamPropertiesModalContent {...props} />);
+    const { baseElement } = rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
@@ -24,7 +24,7 @@ describe("CreateEditTeamPropertiesModalContent --- Snapshot Test", () => {
 describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
   test("CreateEditTeamPropertiesModalContent - test if the isActive Toggle appears", () => {
     const newProps = { ...props, isEdit: false };
-    const { queryByText } = rtlReduxRender(<CreateEditTeamPropertiesModalContent {...newProps} />);
+    const { queryByText } = rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...newProps} />);
 
     expect(queryByText(/active/i)).not.toBeInTheDocument();
   });
@@ -32,21 +32,23 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
   test("CreateEditTeamPropertiesModalContent - test the Submit Button state", async () => {
     const newProps = { ...props, isEdit: false };
 
-    const { getByLabelText, findByText } = rtlReduxRender(<CreateEditTeamPropertiesModalContent {...newProps} />);
+    const { getByLabelText, findByText } = rtlContextRouterRender(
+      <CreateEditTeamPropertiesModalContent {...newProps} />
+    );
     const valueInputText = getByLabelText(/value/i);
     const labelInputText = getByLabelText(/label/i);
     const keyInputText = getByLabelText(/key/i);
-    
-    expect(await waitFor(() =>findByText(/create/i))).toBeDisabled();
+
+    expect(await waitFor(() => findByText(/create/i))).toBeDisabled();
     fireEvent.change(valueInputText, { target: { value: "Value Test" } });
     fireEvent.change(labelInputText, { target: { value: "Label Test" } });
     fireEvent.change(keyInputText, { target: { value: "Key Test" } });
-    expect(await waitFor(() =>findByText(/create/i))).toBeEnabled();
+    expect(await waitFor(() => findByText(/create/i))).toBeEnabled();
     await waitFor(() => {});
   });
 
   test("CreateEditTeamPropertiesModalContent - test if the form submits", async () => {
-    const { getByLabelText, getByText } = rtlReduxRender(<CreateEditTeamPropertiesModalContent {...props} />);
+    const { getByLabelText, getByText } = rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...props} />);
     const valueInputText = getByLabelText(/value/i);
     const labelInputText = getByLabelText(/label/i);
     const keyInputText = getByLabelText(/key/i);
@@ -60,8 +62,8 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
     fireEvent.change(labelInputText, { target: { value: "Label Test" } });
     fireEvent.change(keyInputText, { target: { value: "Key Test" } });
     fireEvent.click(saveButton);
-    waitFor(()=> {
-      expect(valueInputText).not.toBeInTheDocument()
+    waitFor(() => {
+      expect(valueInputText).not.toBeInTheDocument();
       expect(labelInputText).not.toBeInTheDocument();
       expect(keyInputText).not.toBeInTheDocument();
     });
@@ -69,7 +71,7 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
   });
 
   test("CreateEditTeamPropertiesModalContent - test form reqired validations", async () => {
-    const { getByLabelText, findByText, queryByText } = rtlReduxRender(
+    const { getByLabelText, findByText, queryByText } = rtlContextRouterRender(
       <CreateEditTeamPropertiesModalContent {...props} />
     );
     const valueInputText = getByLabelText(/value/i);

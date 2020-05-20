@@ -5,24 +5,9 @@ import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import Adapter from "enzyme-adapter-react-16";
 import { render as rtlRender } from "@testing-library/react";
-import { Provider } from "react-redux";
 import { AppContext } from "./state/context";
 import configureStore from "./store/configureStore";
 import "@testing-library/jest-dom/extend-expect";
-
-/**
- * Setup store w/ same config we use for the app so things like thunks work
- * The entire store  w/ the root reducer gets created, but its is relatively lightweight if there is no data in it
- * The alternative is passing in the reducer to this function for each test. I prefer this simpler setup.
- */
-
-function rtlReduxRender(ui, { initialState = {} } = {}) {
-  const store = configureStore(initialState);
-  return {
-    ...rtlRender(<Provider store={store}>{ui}</Provider>),
-    store,
-  };
-}
 
 function rtlRouterRender(
   ui,
@@ -31,27 +16,6 @@ function rtlRouterRender(
   return {
     ...rtlRender(<Router history={history}>{ui}</Router>, options),
     history,
-  };
-}
-
-function rtlReduxRouterRender(
-  ui,
-  { initialState = {}, route = "/", history = createMemoryHistory({ initialEntries: [route] }), ...options } = {}
-) {
-  let { store } = options;
-  if (!store) {
-    store = configureStore(initialState);
-  }
-
-  return {
-    ...rtlRender(
-      <Provider store={store}>
-        <Router history={history}>{ui}</Router>
-      </Provider>,
-      options
-    ),
-    history,
-    store,
   };
 }
 
@@ -73,14 +37,11 @@ function rtlContextRouterRender(
     ...options
   } = {}
 ) {
-  const store = configureStore(initialState);
   return {
     ...rtlRender(
-      <Provider store={store}>
-        <AppContext.Provider value={{ ...defaultContextValue, ...contextValue }}>
-          <Router history={history}>{ui}</Router>
-        </AppContext.Provider>
-      </Provider>,
+      <AppContext.Provider value={{ ...defaultContextValue, ...contextValue }}>
+        <Router history={history}>{ui}</Router>
+      </AppContext.Provider>,
       options
     ),
   };
@@ -94,9 +55,7 @@ beforeEach(() => {
 // RTL globals
 // Open question if we want to attach these to the global or required users to import
 global.rtlRender = rtlRender;
-global.rtlReduxRender = rtlReduxRender;
 global.rtlRouterRender = rtlRouterRender;
-global.rtlReduxRouterRender = rtlReduxRouterRender;
 global.rtlContextRouterRender = rtlContextRouterRender;
 
 // Make renderer global

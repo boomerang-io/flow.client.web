@@ -7,7 +7,7 @@ const props = {
   createWorkflow: mockfn,
   isCreating: false,
   names: [],
-  teams: [{ value: "test", label: "Test" }]
+  teams: [{ value: "test", label: "Test" }],
 };
 
 describe("CreateWorkflowContent --- Snapshot Test", () => {
@@ -20,7 +20,7 @@ describe("CreateWorkflowContent --- Snapshot Test", () => {
 // describe("CreateWorkflowContent --- RTL Tests", () => {
 //   test("CreateWorkflowContent - test if the isActive Toggle appears", () => {
 //     const newProps = { ...props, isEdit: false };
-//     const { queryByText } = rtlReduxRender(<CreateWorkflowContent {...newProps} />);
+//     const { queryByText } = rtlContextRouterRender(<CreateWorkflowContent {...newProps} />);
 
 //     expect(queryByText(/active/i)).not.toBeInTheDocument();
 //   });
@@ -28,7 +28,7 @@ describe("CreateWorkflowContent --- Snapshot Test", () => {
 //   test("CreateWorkflowContent - test the Submit Button state", () => {
 //     const newProps = { ...props, isEdit: false };
 
-//     const { getByLabelText, getByText } = rtlReduxRender(<CreateWorkflowContent {...newProps} />);
+//     const { getByLabelText, getByText } = rtlContextRouterRender(<CreateWorkflowContent {...newProps} />);
 //     const valueInputText = getByLabelText(/value/i);
 //     const labelInputText = getByLabelText(/label/i);
 //     const keyInputText = getByLabelText(/key/i);
@@ -42,7 +42,7 @@ describe("CreateWorkflowContent --- Snapshot Test", () => {
 //   });
 
 //   test("CreateWorkflowContent - test if the form submits", () => {
-//     const { getByLabelText, getByText } = rtlReduxRender(<CreateWorkflowContent {...props} />);
+//     const { getByLabelText, getByText } = rtlContextRouterRender(<CreateWorkflowContent {...props} />);
 //     const valueInputText = getByLabelText(/value/i);
 //     const labelInputText = getByLabelText(/label/i);
 //     const keyInputText = getByLabelText(/key/i);
@@ -63,7 +63,7 @@ describe("CreateWorkflowContent --- Snapshot Test", () => {
 //   });
 
 //   test("CreateWorkflowContent - test form reqired validations", async () => {
-//     const { getByLabelText, findByText, queryByText } = rtlReduxRender(
+//     const { getByLabelText, findByText, queryByText } = rtlContextRouterRender(
 //       <CreateWorkflowContent {...props} />
 //     );
 //     const valueInputText = getByLabelText(/value/i);
