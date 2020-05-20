@@ -12,7 +12,9 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
         class="b-search-filter__search"
       >
         <div
+          aria-labelledby="search-worfklows-search"
           class="bx--search bx--search--xl"
+          role="search"
         >
           <svg
             aria-hidden="true"
@@ -20,25 +22,27 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
             focusable="false"
             height="16"
             preserveAspectRatio="xMidYMid meet"
-            style="will-change: transform;"
             viewBox="0 0 16 16"
             width="16"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M15 14.3L10.7 10c1.9-2.3 1.6-5.8-.7-7.7S4.2.7 2.3 3 .7 8.8 3 10.7c2 1.7 5 1.7 7 0l4.3 4.3.7-.7zM2 6.5C2 4 4 2 6.5 2S11 4 11 6.5 9 11 6.5 11 2 9 2 6.5z"
+              d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
             />
           </svg>
           <label
             class="bx--label"
             for="search-worfklows"
+            id="search-worfklows-search"
           >
             Search for a workflow
           </label>
           <input
+            autocomplete="off"
             class="bx--search-input"
             id="search-worfklows"
             placeholder="Search for a workflow"
+            role="searchbox"
             type="text"
             value=""
           />
@@ -52,13 +56,12 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
               focusable="false"
               height="20"
               preserveAspectRatio="xMidYMid meet"
-              style="will-change: transform;"
               viewBox="0 0 32 32"
               width="20"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
               />
             </svg>
           </button>
@@ -98,23 +101,18 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
                 />
               </select>
               <svg
-                aria-label="open list of options"
+                aria-hidden="true"
                 class="bx--select__arrow"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
-                role="img"
-                style="will-change: transform;"
                 viewBox="0 0 16 16"
                 width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                  d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                 />
-                <title>
-                  open list of options
-                </title>
               </svg>
             </div>
           </div>

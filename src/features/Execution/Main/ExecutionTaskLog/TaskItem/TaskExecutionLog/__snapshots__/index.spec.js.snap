@@ -6,7 +6,7 @@ exports[`TaskExecutionLog --- Snapshot Capturing Snapshot of TaskExecutionLog 1`
 >
   <div>
     <button
-      class="s-task-log-trigger"
+      class="trigger"
     >
       View Log
     </button>

@@ -60,13 +60,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 32 32"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M16 4L6 14l1.41 1.41L15 7.83V30h2V7.83l7.59 7.58L26 14 16 4z"
+                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
                       />
                     </svg>
                     <svg
@@ -76,13 +75,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 32 32"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M26.59 20.59L23 24.17V4h-2v20.17l-3.59-3.58L16 22l6 6 6-6-1.41-1.41zM10 4l-6 6 1.41 1.41L9 7.83V28h2V7.83l3.59 3.58L16 10l-6-6z"
+                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
                       />
                     </svg>
                   </button>
@@ -108,13 +106,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 32 32"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M16 4L6 14l1.41 1.41L15 7.83V30h2V7.83l7.59 7.58L26 14 16 4z"
+                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
                       />
                     </svg>
                     <svg
@@ -124,13 +121,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 32 32"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M26.59 20.59L23 24.17V4h-2v20.17l-3.59-3.58L16 22l6 6 6-6-1.41-1.41zM10 4l-6 6 1.41 1.41L9 7.83V28h2V7.83l3.59 3.58L16 10l-6-6z"
+                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
                       />
                     </svg>
                   </button>
@@ -156,13 +152,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 32 32"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M16 4L6 14l1.41 1.41L15 7.83V30h2V7.83l7.59 7.58L26 14 16 4z"
+                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
                       />
                     </svg>
                     <svg
@@ -172,13 +167,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 32 32"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M26.59 20.59L23 24.17V4h-2v20.17l-3.59-3.58L16 22l6 6 6-6-1.41-1.41zM10 4l-6 6 1.41 1.41L9 7.83V28h2V7.83l3.59 3.58L16 10l-6-6z"
+                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
                       />
                     </svg>
                   </button>
@@ -204,13 +198,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 32 32"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M16 4L6 14l1.41 1.41L15 7.83V30h2V7.83l7.59 7.58L26 14 16 4z"
+                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
                       />
                     </svg>
                     <svg
@@ -220,13 +213,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 32 32"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M26.59 20.59L23 24.17V4h-2v20.17l-3.59-3.58L16 22l6 6 6-6-1.41-1.41zM10 4l-6 6 1.41 1.41L9 7.83V28h2V7.83l3.59 3.58L16 10l-6-6z"
+                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
                       />
                     </svg>
                   </button>
@@ -252,13 +244,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 32 32"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M16 4L6 14l1.41 1.41L15 7.83V30h2V7.83l7.59 7.58L26 14 16 4z"
+                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
                       />
                     </svg>
                     <svg
@@ -268,13 +259,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
                       role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 32 32"
                       width="20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M26.59 20.59L23 24.17V4h-2v20.17l-3.59-3.58L16 22l6 6 6-6-1.41-1.41zM10 4l-6 6 1.41 1.41L9 7.83V28h2V7.83l3.59 3.58L16 10l-6-6z"
+                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
                       />
                     </svg>
                   </button>
@@ -354,23 +344,18 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       </option>
                     </select>
                     <svg
-                      aria-label="open list of options"
+                      aria-hidden="true"
                       class="bx--select__arrow"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 16 16"
                       width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                        d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                       />
-                      <title>
-                        open list of options
-                      </title>
                     </svg>
                   </div>
                 </div>
@@ -393,7 +378,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
               >
                 <label
                   class="bx--label bx--visually-hidden"
-                  for="bx-pagination-select-3"
+                  for="bx-pagination-select-1-right"
                 >
                   Page number, of 1 pages
                 </label>
@@ -405,7 +390,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                   >
                     <select
                       class="bx--select-input"
-                      id="bx-pagination-select-3"
+                      id="bx-pagination-select-1-right"
                     >
                       <option
                         class="bx--select-option"
@@ -415,23 +400,18 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                       </option>
                     </select>
                     <svg
-                      aria-label="open list of options"
+                      aria-hidden="true"
                       class="bx--select__arrow"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      style="will-change: transform;"
                       viewBox="0 0 16 16"
                       width="16"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                        d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                       />
-                      <title>
-                        open list of options
-                      </title>
                     </svg>
                   </div>
                 </div>
@@ -453,13 +433,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                 focusable="false"
                 height="24"
                 preserveAspectRatio="xMidYMid meet"
-                style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M19 23l-8-7 8-7v14z"
+                  d="M20 24L10 16 20 8z"
                 />
               </svg>
             </button>
@@ -474,13 +453,12 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                 focusable="false"
                 height="24"
                 preserveAspectRatio="xMidYMid meet"
-                style="will-change: transform;"
                 viewBox="0 0 32 32"
                 width="24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M13 9l8 7-8 7V9z"
+                  d="M12 8L22 16 12 24z"
                 />
               </svg>
             </button>

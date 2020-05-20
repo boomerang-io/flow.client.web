@@ -30,6 +30,8 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
                 class="bx--text-input bx--text__input"
                 id="label"
                 name="label"
+                placeholder="Label"
+                title="Label"
                 type="text"
                 value=""
               />
@@ -56,6 +58,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
                 id="key"
                 name="key"
                 placeholder="Key"
+                title="Key"
                 type="text"
                 value=""
               />
@@ -81,6 +84,8 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
                 class="bx--text-input bx--text__input"
                 id="description"
                 name="description"
+                placeholder="Description"
+                title="Description"
                 type="text"
                 value=""
               />
@@ -106,6 +111,8 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
                 class="bx--text-input bx--text__input"
                 id="value"
                 name="value"
+                placeholder="Value"
+                title="Value"
                 type="text"
                 value=""
               />

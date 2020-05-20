@@ -81,7 +81,7 @@ exports[`TaskItem --- Snapshot Capturing Snapshot of TaskItem 1`] = `
           <time
             class="timeValue"
           >
-            12:00 AM
+            12:00:00 AM
           </time>
         </div>
         <div
@@ -103,12 +103,12 @@ exports[`TaskItem --- Snapshot Capturing Snapshot of TaskItem 1`] = `
         class="data"
       >
         <button
-          class="s-task-log-trigger"
+          class="trigger"
         >
           View Log
         </button>
         <button
-          class="s-output-properties-trigger"
+          class="trigger"
         >
           View Properties
         </button>

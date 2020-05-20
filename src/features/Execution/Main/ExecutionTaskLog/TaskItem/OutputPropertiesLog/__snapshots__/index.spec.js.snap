@@ -6,7 +6,7 @@ exports[`OutputPropertiesLog --- Snapshot Capturing Snapshot of OutputProperties
 >
   <div>
     <button
-      class="s-output-properties-trigger"
+      class="trigger"
     >
       View Properties
     </button>

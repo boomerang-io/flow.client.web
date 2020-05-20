@@ -6,6 +6,11 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
   class="bx--bmrg-body-modal-is-open"
   id="app"
 >
+  <div
+    data-react-modal-body-trap=""
+    style="position: absolute; opacity: 0;"
+    tabindex="0"
+  />
   <div>
     <button
       class="container"
@@ -71,8 +76,8 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
               width="20"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <polygon
-                points="24 9.4 22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4"
+              <path
+                d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
               />
             </svg>
           </button>
@@ -210,8 +215,8 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                             width="16"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <polygon
-                              points="24 9.4 22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4"
+                            <path
+                              d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
                             />
                           </svg>
                         </div>
@@ -229,8 +234,8 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                             width="16"
                             xmlns="http://www.w3.org/2000/svg"
                           >
-                            <polygon
-                              points="8,11 3,6 3.7,5.3 8,9.6 12.3,5.3 13,6"
+                            <path
+                              d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                             />
                             <title>
                               Open menu
@@ -555,6 +560,11 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
       </div>
     </div>
   </div>
+  <div
+    data-react-modal-body-trap=""
+    style="position: absolute; opacity: 0;"
+    tabindex="0"
+  />
   <div
     class="ReactModalPortal"
   />
