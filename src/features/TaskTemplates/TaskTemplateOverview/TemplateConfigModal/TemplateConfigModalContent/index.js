@@ -11,7 +11,6 @@ import {
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { Formik } from "formik";
 import TextEditorModal from "Components/TextEditorModal";
-import ValidateFormikOnMount from "Components/ValidateFormikOnMount";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import INPUT_TYPES from "Constants/workflowInputTypes";
@@ -234,6 +233,7 @@ class TemplateConfigModalContent extends Component {
     let defaultValueType = this.state.defaultValueType;
     return (
       <Formik
+        validateOnMount
         onSubmit={this.handleConfirm}
         initialValues={{
           [FIELD.KEY]: field?.key ?? "",
@@ -380,7 +380,6 @@ class TemplateConfigModalContent extends Component {
                   {isEdit ? "Save" : "Create"}
                 </Button>
               </ModalFooter>
-              <ValidateFormikOnMount validateForm={formikProps.validateForm} />
             </ModalFlowForm>
           );
         }}

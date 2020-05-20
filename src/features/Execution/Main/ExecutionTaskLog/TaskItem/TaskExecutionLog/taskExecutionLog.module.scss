@@ -1,9 +1,8 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~@boomerang/boomerang-styles/lib/base";
 @import "~Styles/mixins";
 @import "~Styles/variables";
 
-.s-task-log-trigger {
+.trigger {
   color: var(--cds-interactive-01);
   cursor: pointer;
   font-size: 0.875rem;
@@ -15,11 +14,11 @@
   }
 }
 
-.c-modal-task-log {
+.container {
   max-width: 70rem;
   max-height: 50rem;
 
-  .bx--modal-content {
+  :global .bx--modal-content {
     padding-right: 1rem;
   }
 
@@ -27,7 +26,7 @@
     margin: 0;
   }
 
-  .bx--modal-content {
+  :global .bx--modal-content {
     height: 100%;
   }
 
@@ -39,23 +38,32 @@
     margin-bottom: 2rem;
   }
 
-  .react-lazylog-searchbar {
+  :global .react-lazylog-searchbar {
     padding: 0.625rem;
     font-family: $font-family;
   }
 
-  .react-lazylog-searchbar-input {
+  :global .react-lazylog-searchbar-input {
     border-radius: 0.125rem;
     color: white;
     letter-spacing: 0.0625rem;
     font-family: $font-family;
     font-size: 0.75rem;
+    &:focus {
+      @include focus-outline();
+    }
     &:active {
       outline: none;
     }
   }
 
-  .react-lazylog-searchbar-matches {
+  :global .react-lazylog-searchbar-filter {
+    &:focus {
+      @include focus-outline();
+    }
+  }
+
+  :global .react-lazylog-searchbar-matches {
     color: white;
     font-family: $font-family;
     font-size: 0.75rem;
@@ -63,7 +71,7 @@
     min-width: 5rem;
   }
 
-  .react-lazylog {
+  :global .react-lazylog {
     color: white;
     padding: 1rem 1rem 1rem 0;
     font-family: "IBM Plex Mono", monospace;
@@ -71,23 +79,23 @@
     line-height: 1.5;
   }
 
-  .b-task-log-toggle {
+  .followToggle {
     align-items: center;
     display: flex;
     line-height: 1.5;
-    margin-top: 0.5rem;
+    right: 358px;
+    top: 16px;
     position: absolute;
-    right: 21.5625rem;
   }
 
-  .b-task-log-toggle__text {
+  .followToggleText {
     color: white;
     font-size: 0.75rem;
     font-weight: 400;
     letter-spacing: 0.0625rem;
     margin-right: 0.5rem;
     white-space: nowrap;
-    &.--disabled {
+    &.disabled {
       opacity: 0.5;
     }
   }

@@ -10,14 +10,12 @@ import styles from "./taskItem.module.scss";
 TaskItem.propTypes = {
   flowActivityId: PropTypes.string.isRequired,
   hidden: PropTypes.bool.isRequired,
-  task: PropTypes.object.isRequired
+  task: PropTypes.object.isRequired,
 };
 
 function TaskItem({ flowActivityId, hidden, task }) {
   const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName } = task;
-
   const Icon = ACTIVITY_STATUSES_TO_ICON[flowTaskStatus];
-
   const statusClassName = styles[flowTaskStatus];
 
   return (
@@ -37,7 +35,7 @@ function TaskItem({ flowActivityId, hidden, task }) {
         {/* <p className={styles.subtitle}>Subtitle</p> */}
         <div className={styles.time}>
           <p className={styles.timeTitle}>Start time</p>
-          <time className={styles.timeValue}>{moment(startTime).format("hh:mm A")}</time>
+          <time className={styles.timeValue}>{moment(startTime).format("hh:mm:ss A")}</time>
         </div>
         <div className={styles.time}>
           <p className={styles.timeTitle}>Duration</p>
@@ -46,12 +44,7 @@ function TaskItem({ flowActivityId, hidden, task }) {
       </section>
       {!hidden && (
         <section className={styles.data}>
-          <TaskExecutionLog
-            flowTaskStatus={flowTaskStatus}
-            flowTaskId={taskId}
-            flowActivityId={flowActivityId}
-            flowTaskName={taskName}
-          />
+          <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
           )}

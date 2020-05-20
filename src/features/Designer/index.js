@@ -4,7 +4,8 @@ import { useAppContext, useIsModalOpen } from "Hooks";
 import { Prompt, useParams, useRouteMatch } from "react-router-dom";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useQuery, useMutation } from "react-query";
+import { useQuery } from "Hooks";
+import { useMutation } from "react-query";
 import { useImmerReducer } from "use-immer";
 import { Loading, Error, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import Editor from "./Editor";
@@ -32,18 +33,9 @@ export default function WorkflowContainer(props) {
   /**
    * Queries
    */
-  const summaryQuery = useQuery({
-    queryKey: getSummaryUrl,
-    queryFn: resolver.query(getSummaryUrl),
-  });
-  const revisionQuery = useQuery({
-    queryKey: getRevisionUrl,
-    queryFn: resolver.query(getRevisionUrl),
-  });
-  const taskTemplatesQuery = useQuery({
-    queryKey: getTaskTemplatesUrl,
-    queryFn: resolver.query(getTaskTemplatesUrl),
-  });
+  const summaryQuery = useQuery(getSummaryUrl);
+  const revisionQuery = useQuery(getRevisionUrl);
+  const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
 
   /**
    * Mutations

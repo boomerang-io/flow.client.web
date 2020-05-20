@@ -2,10 +2,10 @@
 @import "~Styles/mixins";
 @import "~Styles/variables";
 
-.c-output-properties {
+.container {
   max-width: 50rem;
 
-  .bx--modal-content {
+  :global .bx--modal-content {
     padding-right: 1rem;
 
     .bx--tab-content {
@@ -14,7 +14,7 @@
   }
 }
 
-.s-output-properties-trigger {
+.trigger {
   color: var(--cds-interactive-01);
   cursor: pointer;
   font-size: 0.875rem;
@@ -25,13 +25,13 @@
   }
 }
 
-.s-output-properties-json {
+.propertiesJson {
   background-color: $white;
   height: 25rem;
   overflow-y: auto;
   margin-top: 1rem;
 
-  .object-key {
+  :global .object-key {
     span {
       color: var(--cds-interactive-01);
     }

@@ -7,7 +7,7 @@ import Adapter from "enzyme-adapter-react-16";
 import { render as rtlRender } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { AppContext } from "./state/context";
-import configureStore from "./store/configureStore";
+// import configureStore from "./store/configureStore";
 import "@testing-library/jest-dom/extend-expect";
 
 /**
@@ -16,13 +16,13 @@ import "@testing-library/jest-dom/extend-expect";
  * The alternative is passing in the reducer to this function for each test. I prefer this simpler setup.
  */
 
-function rtlReduxRender(ui, { initialState = {} } = {}) {
-  const store = configureStore(initialState);
-  return {
-    ...rtlRender(<Provider store={store}>{ui}</Provider>),
-    store,
-  };
-}
+// function rtlReduxRender(ui, { initialState = {} } = {}) {
+//   const store = configureStore(initialState);
+//   return {
+//     ...rtlRender(<Provider store={store}>{ui}</Provider>),
+//     store,
+//   };
+// }
 
 function rtlRouterRender(
   ui,
@@ -34,33 +34,33 @@ function rtlRouterRender(
   };
 }
 
-function rtlReduxRouterRender(
-  ui,
-  { initialState = {}, route = "/", history = createMemoryHistory({ initialEntries: [route] }), ...options } = {}
-) {
-  let { store } = options;
-  if (!store) {
-    store = configureStore(initialState);
-  }
+// function rtlReduxRouterRender(
+//   ui,
+//   { initialState = {}, route = "/", history = createMemoryHistory({ initialEntries: [route] }), ...options } = {}
+// ) {
+//   let { store } = options;
+//   if (!store) {
+//     store = configureStore(initialState);
+//   }
 
-  return {
-    ...rtlRender(
-      <Provider store={store}>
-        <Router history={history}>{ui}</Router>
-      </Provider>,
-      options
-    ),
-    history,
-    store,
-  };
-}
+//   return {
+//     ...rtlRender(
+//       <Provider store={store}>
+//         <Router history={history}>{ui}</Router>
+//       </Provider>,
+//       options
+//     ),
+//     history,
+//     store,
+//   };
+// }
 
 const defaultContextValue = {
   user: { id: "1", email: "boomrng@us.ibm.com", type: "admin" },
   activeTeam: { id: "1", userRoles: ["operator"] },
   teams: [],
-  setActiveTeam: () => {},
-  refetchTeams: () => {},
+  setActiveTeam: () => { },
+  refetchTeams: () => { },
 };
 
 function rtlContextRouterRender(
@@ -73,10 +73,9 @@ function rtlContextRouterRender(
     ...options
   } = {}
 ) {
-  const store = configureStore(initialState);
   return {
     ...rtlRender(
-      <Provider store={store}>
+      <Provider >
         <AppContext.Provider value={{ ...defaultContextValue, ...contextValue }}>
           <Router history={history}>{ui}</Router>
         </AppContext.Provider>

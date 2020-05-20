@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "carbon-components-react";
 import { DynamicFormik, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
-import ValidateFormikOnMount from "Components/ValidateFormikOnMount";
 import styles from "./workflowInputModalContent.module.scss";
 
 WorkflowInputModalContent.propTypes = {
@@ -75,7 +74,6 @@ function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, 
               </>
             )}
           </ModalFooter>
-          <ValidateFormikOnMount validateForm={formikProps.validateForm} />
         </ModalFlowForm>
       )}
     </DynamicFormik>

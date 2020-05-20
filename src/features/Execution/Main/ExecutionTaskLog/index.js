@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import orderBy from "lodash/orderBy";
-import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";
-import { SkeletonPlaceholder, TooltipIcon } from "carbon-components-react";
+import { SkeletonPlaceholder, TooltipIcon } from "@boomerang/carbon-addons-boomerang-react";
 import TaskItem from "./TaskItem";
+import orderBy from "lodash/orderBy";
+import { getSimplifiedDuration } from "Utilities/timeHelper";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
 import { ACTIVITY_STATUSES_TO_ICON, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
-import { getSimplifiedDuration } from "Utilities/timeHelper";
+import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";
 import styles from "./executionTaskLog.module.scss";
 
 ExecutionTaskLog.propTypes = {
-  workflowExecution: PropTypes.object.isRequired
+  workflowExecution: PropTypes.object.isRequired,
 };
 
 function ExecutionTaskLog({ workflowExecution }) {
@@ -28,7 +28,7 @@ function ExecutionTaskLog({ workflowExecution }) {
     setTasksSort(tasksSort === "desc" ? "asc" : "desc");
   };
 
-  const sortedTasks = steps ? orderBy(steps, step => step.order, [tasksSort]) : [];
+  const sortedTasks = steps ? orderBy(steps, (step) => step.order, [tasksSort]) : [];
 
   return (
     <aside className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
@@ -59,16 +59,21 @@ function ExecutionTaskLog({ workflowExecution }) {
       <section className={styles.taskbar}>
         <p className={styles.taskbarTitle}>Task log</p>
         {!isCollapsed && (
-          <TooltipIcon align="center" direction="top" tooltipText="Change sort direction (by start time)">
-            <button onClick={toggleSort} className={styles.taskbarButton} data-testid="taskbar-button">
-              <Arrows32 className={styles.taskbarArrows} />
-            </button>
+          <TooltipIcon
+            align="center"
+            className={styles.taskbarButton}
+            data-testid="taskbar-button"
+            direction="top"
+            onClick={toggleSort}
+            tooltipText="Change sort direction (by start time)"
+          >
+            <Arrows32 className={styles.taskbarArrows} />
           </TooltipIcon>
         )}
       </section>
       <ul className={styles.tasklog}>
         {workflowExecution.status === REQUEST_STATUSES.SUCCESS ? (
-          sortedTasks.map(step => <TaskItem key={step.id} flowActivityId={id} hidden={isCollapsed} task={step} />)
+          sortedTasks.map((step) => <TaskItem key={step.id} flowActivityId={id} hidden={isCollapsed} task={step} />)
         ) : (
           <SkeletonPlaceholder className={styles.taskLogSkeleton} />
         )}

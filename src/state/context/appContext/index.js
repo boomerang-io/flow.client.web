@@ -9,4 +9,5 @@ const AppContext = React.createContext({
   onBoardShow: false,
   setOnBoardShow: () => {},
 });
+
 export default AppContext;
