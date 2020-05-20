@@ -53,6 +53,7 @@ function PreviewConfigForm({ templateConfig, closeModal }) {
       toggleProps={() => ({
         orientation: "vertical"
       })}
+      hasSyntaxProps={true}
     >
       {({ inputs, formikProps }) => (
         <ModalFlowForm>

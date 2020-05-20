@@ -6405,15 +6405,17 @@
           "description": "testing",
           "key": "hello",
           "label": "hello",
-          "type": "text",
+          "defaultValue": "hello",
+          "type": "password",
           "required": false,
-          "readOnly": true
+          "readOnly": false
         },
         {
           "description": "prop",
           "key": "ben",
           "label": "hello",
           "type": "select",
+          "defaultValue": "1",
           "options": [
             {
               "key": "1",
@@ -11187,6 +11189,14 @@
               "helperText": "The Slack App token.",
               "description": "Token Desciption",
               "placeholder": "Token placeholder"
+            },
+            {
+              "key": "testing",
+              "label": "Testing",
+              "type": "number",
+              "helperText": "Testing number input.",
+              "description": "Test Desciption",
+              "placeholder": "Test placeholder"
             }
           ]
         },
@@ -11289,6 +11299,14 @@
               "description": "",
               "placeholder": "",
               "readOnly": false
+            },
+            {
+              "key": "testing",
+              "label": "Testing",
+              "type": "number",
+              "helperText": "Testing number input.",
+              "description": "Test Desciption",
+              "placeholder": "Test placeholder"
             }
           ]
         }
