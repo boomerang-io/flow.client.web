@@ -7,6 +7,10 @@
 
   :global .bx--modal-content {
     padding-right: 1rem;
+
+    .bx--tab-content {
+      padding: 0;
+    }
   }
 }
 

@@ -333,11 +333,326 @@ exports[`WorkflowExecutionContainer --- Snapshot Capturing Snapshot of WorkflowE
             <svg
               class="srd-link-layer "
               style="transform: translate(0px,0px) scale(NaN);"
-            />
+            >
+              <g
+                class="srd-default-link "
+              >
+                <g>
+                  <g>
+                    <div />
+                  </g>
+                  <g
+                    data-linkid="16955507-cc27-4d0c-b17c-debf4573cb3b"
+                    stroke-linecap="round"
+                    stroke-opacity="0"
+                    stroke-width="20"
+                  >
+                    <div />
+                  </g>
+                </g>
+              </g>
+              <g
+                class="srd-default-link "
+              >
+                <g>
+                  <g>
+                    <div />
+                  </g>
+                  <g
+                    data-linkid="dbc85ced-7820-4c69-a376-1d1c30a309f3"
+                    stroke-linecap="round"
+                    stroke-opacity="0"
+                    stroke-width="20"
+                  >
+                    <div />
+                  </g>
+                </g>
+              </g>
+              <g
+                class="srd-default-link "
+              >
+                <g>
+                  <g>
+                    <div />
+                  </g>
+                  <g
+                    data-linkid="7c398133-111d-48af-a592-a6118413d08d"
+                    stroke-linecap="round"
+                    stroke-opacity="0"
+                    stroke-width="20"
+                  >
+                    <div />
+                  </g>
+                </g>
+              </g>
+              <g
+                class="srd-default-link "
+              >
+                <g>
+                  <g>
+                    <div />
+                  </g>
+                  <g
+                    data-linkid="1920ec14-3bce-47cf-80e5-e6ed88f4f3a9"
+                    stroke-linecap="round"
+                    stroke-opacity="0"
+                    stroke-width="20"
+                  >
+                    <div />
+                  </g>
+                </g>
+              </g>
+            </svg>
             <div
               class="srd-node-layer "
               style="transform: translate(0px,0px) scale(NaN);"
-            />
+            >
+              <div
+                class="node srd-node "
+                data-nodeid="cbdc30f0-f8d5-4674-87d3-117787fe8263"
+                style="top: 552.9339696623682px; left: 58.26566085625685px;"
+              >
+                <div
+                  class="b-startEnd-node --locked --executionInProgress"
+                >
+                  <div
+                    class="b-startEnd-node__title"
+                  >
+                     
+                    Start
+                     
+                  </div>
+                  <div
+                    class="port srd-port b-startEnd-node__port --right --locked "
+                    data-name="right"
+                    data-nodeid="cbdc30f0-f8d5-4674-87d3-117787fe8263"
+                  />
+                </div>
+              </div>
+              <div
+                class="node srd-node "
+                data-nodeid="41b48a51-b3ae-4738-9c20-74ec02ab4ceb"
+                style="top: 498.80160108595845px; left: 1668.5025401844534px;"
+              >
+                <div
+                  class="b-startEnd-node --locked --executionInProgress"
+                >
+                  <div
+                    class="b-startEnd-node__title"
+                  >
+                     
+                    End
+                     
+                  </div>
+                  <div
+                    class="port srd-port b-startEnd-node__port --left --locked "
+                    data-name="left"
+                    data-nodeid="41b48a51-b3ae-4738-9c20-74ec02ab4ceb"
+                  />
+                </div>
+              </div>
+              <div
+                class="node srd-node "
+                data-nodeid="ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84"
+                style="top: 466.9728437955392px; left: 840.3348438118273px;"
+              >
+                <div
+                  class="node node skipped"
+                >
+                  <header
+                    class="header"
+                  >
+                    <svg
+                      alt="Task node type default"
+                      aria-hidden="true"
+                      focusable="false"
+                      height="16"
+                      preserveAspectRatio="xMidYMid meet"
+                      style="will-change: auto;"
+                      viewBox="0 0 32 32"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16,10a6,6,0,0,0-6,6v8a6,6,0,0,0,12,0V16A6,6,0,0,0,16,10Zm-4.25,7.87h8.5v4.25h-8.5ZM16,28.25A4.27,4.27,0,0,1,11.75,24v-.13h8.5V24A4.27,4.27,0,0,1,16,28.25Zm4.25-12.13h-8.5V16a4.25,4.25,0,0,1,8.5,0Z"
+                      />
+                      <path
+                        d="M30.66,19.21,24,13v9.1a4,4,0,0,0,8,0A3.83,3.83,0,0,0,30.66,19.21ZM28,24.35a2.25,2.25,0,0,1-2.25-2.25V17l3.72,3.47h0A2.05,2.05,0,0,1,30.2,22,2.25,2.25,0,0,1,28,24.35Z"
+                      />
+                      <path
+                        d="M0,22.1a4,4,0,0,0,8,0V13L1.34,19.21A3.88,3.88,0,0,0,0,22.1Zm2.48-1.56h0L6.25,17v5.1a2.25,2.25,0,0,1-4.5,0A2.05,2.05,0,0,1,2.48,20.54Z"
+                      />
+                      <path
+                        d="M15,5.5A3.5,3.5,0,1,0,11.5,9,3.5,3.5,0,0,0,15,5.5Zm-5.25,0A1.75,1.75,0,1,1,11.5,7.25,1.77,1.77,0,0,1,9.75,5.5Z"
+                      />
+                      <path
+                        d="M20.5,2A3.5,3.5,0,1,0,24,5.5,3.5,3.5,0,0,0,20.5,2Zm0,5.25A1.75,1.75,0,1,1,22.25,5.5,1.77,1.77,0,0,1,20.5,7.25Z"
+                      />
+                    </svg>
+                    <h1
+                      class="title"
+                    >
+                      Switch
+                    </h1>
+                  </header>
+                  <p
+                    class="subtitle subtitle"
+                  >
+                    launch Send Email 1
+                  </p>
+                  <div
+                    class="port srd-port port left execution "
+                    data-name="left"
+                    data-nodeid="ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84"
+                  />
+                  <div
+                    class="port srd-port port rightPort right execution "
+                    data-name="right"
+                    data-nodeid="ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84"
+                  />
+                  <div
+                    class="progressBar"
+                  />
+                  <div
+                    class="badgeContainer"
+                  >
+                    <p
+                      class="badgeText"
+                    >
+                      Switch
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="node srd-node "
+                data-nodeid="7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8"
+                style="top: 412.4003983482839px; left: 1238.069057630476px;"
+              >
+                <div
+                  class="node skipped"
+                >
+                  <header
+                    class="header"
+                  >
+                    <svg
+                      alt="Task node type default"
+                      aria-hidden="true"
+                      focusable="false"
+                      height="16"
+                      preserveAspectRatio="xMidYMid meet"
+                      style="will-change: auto;"
+                      viewBox="0 0 32 32"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16,10a6,6,0,0,0-6,6v8a6,6,0,0,0,12,0V16A6,6,0,0,0,16,10Zm-4.25,7.87h8.5v4.25h-8.5ZM16,28.25A4.27,4.27,0,0,1,11.75,24v-.13h8.5V24A4.27,4.27,0,0,1,16,28.25Zm4.25-12.13h-8.5V16a4.25,4.25,0,0,1,8.5,0Z"
+                      />
+                      <path
+                        d="M30.66,19.21,24,13v9.1a4,4,0,0,0,8,0A3.83,3.83,0,0,0,30.66,19.21ZM28,24.35a2.25,2.25,0,0,1-2.25-2.25V17l3.72,3.47h0A2.05,2.05,0,0,1,30.2,22,2.25,2.25,0,0,1,28,24.35Z"
+                      />
+                      <path
+                        d="M0,22.1a4,4,0,0,0,8,0V13L1.34,19.21A3.88,3.88,0,0,0,0,22.1Zm2.48-1.56h0L6.25,17v5.1a2.25,2.25,0,0,1-4.5,0A2.05,2.05,0,0,1,2.48,20.54Z"
+                      />
+                      <path
+                        d="M15,5.5A3.5,3.5,0,1,0,11.5,9,3.5,3.5,0,0,0,15,5.5Zm-5.25,0A1.75,1.75,0,1,1,11.5,7.25,1.77,1.77,0,0,1,9.75,5.5Z"
+                      />
+                      <path
+                        d="M20.5,2A3.5,3.5,0,1,0,24,5.5,3.5,3.5,0,0,0,20.5,2Zm0,5.25A1.75,1.75,0,1,1,22.25,5.5,1.77,1.77,0,0,1,20.5,7.25Z"
+                      />
+                    </svg>
+                    <h1
+                      class="title"
+                    >
+                      Task
+                    </h1>
+                  </header>
+                  <p
+                    class="subtitle"
+                  >
+                    read Ingest CSV 1
+                  </p>
+                  <div
+                    class="port srd-port port left execution "
+                    data-name="left"
+                    data-nodeid="7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8"
+                  />
+                  <div
+                    class="port srd-port port right execution "
+                    data-name="right"
+                    data-nodeid="7400fbe4-bd7d-4f6a-be31-fd0733fc9bf8"
+                  />
+                  <div
+                    class="progressBar"
+                  />
+                </div>
+              </div>
+              <div
+                class="node srd-node "
+                data-nodeid="d7f90f78-12f3-445d-b88a-b33368b5fd66"
+                style="top: 471.1603711365562px; left: 359.93776056102746px;"
+              >
+                <div
+                  class="node skipped"
+                >
+                  <header
+                    class="header"
+                  >
+                    <svg
+                      alt="Task node type default"
+                      aria-hidden="true"
+                      focusable="false"
+                      height="16"
+                      preserveAspectRatio="xMidYMid meet"
+                      style="will-change: auto;"
+                      viewBox="0 0 32 32"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16,10a6,6,0,0,0-6,6v8a6,6,0,0,0,12,0V16A6,6,0,0,0,16,10Zm-4.25,7.87h8.5v4.25h-8.5ZM16,28.25A4.27,4.27,0,0,1,11.75,24v-.13h8.5V24A4.27,4.27,0,0,1,16,28.25Zm4.25-12.13h-8.5V16a4.25,4.25,0,0,1,8.5,0Z"
+                      />
+                      <path
+                        d="M30.66,19.21,24,13v9.1a4,4,0,0,0,8,0A3.83,3.83,0,0,0,30.66,19.21ZM28,24.35a2.25,2.25,0,0,1-2.25-2.25V17l3.72,3.47h0A2.05,2.05,0,0,1,30.2,22,2.25,2.25,0,0,1,28,24.35Z"
+                      />
+                      <path
+                        d="M0,22.1a4,4,0,0,0,8,0V13L1.34,19.21A3.88,3.88,0,0,0,0,22.1Zm2.48-1.56h0L6.25,17v5.1a2.25,2.25,0,0,1-4.5,0A2.05,2.05,0,0,1,2.48,20.54Z"
+                      />
+                      <path
+                        d="M15,5.5A3.5,3.5,0,1,0,11.5,9,3.5,3.5,0,0,0,15,5.5Zm-5.25,0A1.75,1.75,0,1,1,11.5,7.25,1.77,1.77,0,0,1,9.75,5.5Z"
+                      />
+                      <path
+                        d="M20.5,2A3.5,3.5,0,1,0,24,5.5,3.5,3.5,0,0,0,20.5,2Zm0,5.25A1.75,1.75,0,1,1,22.25,5.5,1.77,1.77,0,0,1,20.5,7.25Z"
+                      />
+                    </svg>
+                    <h1
+                      class="title"
+                    >
+                      Task
+                    </h1>
+                  </header>
+                  <p
+                    class="subtitle"
+                  >
+                    test22 1
+                  </p>
+                  <div
+                    class="port srd-port port left execution "
+                    data-name="left"
+                    data-nodeid="d7f90f78-12f3-445d-b88a-b33368b5fd66"
+                  />
+                  <div
+                    class="port srd-port port right execution "
+                    data-name="right"
+                    data-nodeid="d7f90f78-12f3-445d-b88a-b33368b5fd66"
+                  />
+                  <div
+                    class="progressBar"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
           <div
             class="diagramLoading"

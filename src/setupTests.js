@@ -6,7 +6,7 @@ import { createMemoryHistory } from "history";
 import Adapter from "enzyme-adapter-react-16";
 import { render as rtlRender } from "@testing-library/react";
 import { AppContext } from "./state/context";
-import configureStore from "./store/configureStore";
+// import configureStore from "./store/configureStore";
 import "@testing-library/jest-dom/extend-expect";
 
 function rtlRouterRender(
@@ -23,8 +23,8 @@ const defaultContextValue = {
   user: { id: "1", email: "boomrng@us.ibm.com", type: "admin" },
   activeTeam: { id: "1", userRoles: ["operator"] },
   teams: [],
-  setActiveTeam: () => {},
-  refetchTeams: () => {},
+  setActiveTeam: () => { },
+  refetchTeams: () => { },
 };
 
 function rtlContextRouterRender(
