@@ -1,16 +1,16 @@
 import React from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "Hooks";
 import ErrorDragon from "Components/ErrorDragon";
 import { Loading } from "@boomerang/carbon-addons-boomerang-react";
 import PropertiesTable from "./PropertiesTable";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";
 import styles from "./globalProperties.module.scss";
 
 const configUrl = serviceUrl.getGlobalConfiguration();
 
 function GlobalPropertiesContainer() {
-  const { data, status, error } = useQuery({ queryKey: configUrl, queryFn: resolver.query(configUrl) });
+  const { data, status, error } = useQuery(configUrl);
   const isLoading = status === QueryStatus.Loading;
 
   if (isLoading) {

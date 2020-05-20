@@ -1,10 +1,10 @@
 import React from "react";
 import { ExecutionContext } from "State/context";
-import { useQuery } from "react-query";
+import { useQuery } from "Hooks";
 import { useParams } from "react-router-dom";
 import { Loading, Error } from "@boomerang/carbon-addons-boomerang-react";
 import Main from "./Main";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";
 
 export const ActivityIdContext = React.createContext("");
@@ -20,25 +20,11 @@ export default function WorkflowExecutionContainer() {
   /**
    * Queries
    */
-  const summaryQuery = useQuery({
-    queryKey: getSummaryUrl,
-    queryFn: resolver.query(getSummaryUrl),
-  });
-  const revisionQuery = useQuery({
-    queryKey: getRevisionUrl,
-    queryFn: resolver.query(getRevisionUrl),
-  });
-  const taskTemplatesQuery = useQuery({
-    queryKey: getTaskTemplatesUrl,
-    queryFn: resolver.query(getTaskTemplatesUrl),
-  });
-
-  const executionQuery = useQuery({
-    queryKey: getExecutionUrl,
-    queryFn: resolver.query(getExecutionUrl),
-    config: {
-      refetchInterval: 5000,
-    },
+  const summaryQuery = useQuery(getSummaryUrl);
+  const revisionQuery = useQuery(getRevisionUrl);
+  const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
+  const executionQuery = useQuery(getExecutionUrl, {
+    refetchInterval: 5000,
   });
 
   const summaryIsLoading = summaryQuery.status === QueryStatus.Loading;

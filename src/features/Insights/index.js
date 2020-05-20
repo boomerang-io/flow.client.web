@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { serviceUrl } from "Config/servicesConfig";
 import { ComboBox, SkeletonPlaceholder } from "@boomerang/carbon-addons-boomerang-react";
-import { useAppContext } from "Hooks";
-import { useQuery } from "react-query";
+import { useAppContext, useQuery } from "Hooks";
 import { QueryStatus } from "Constants";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
@@ -25,7 +24,7 @@ import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
 import styles from "./workflowInsights.module.scss";
 
 WorkflowInsights.propTypes = {
-  location: PropTypes.object.isRequired
+  location: PropTypes.object.isRequired,
 };
 
 export default function WorkflowInsights(location) {
@@ -36,11 +35,9 @@ export default function WorkflowInsights(location) {
 
   const getFetchQuery = () => {
     const query = queryString.stringify({
-      fromDate: moment()
-        .subtract(selectedTimeframe.value, "days")
-        .format("x"),
+      fromDate: moment().subtract(selectedTimeframe.value, "days").format("x"),
       toDate: moment().format("x"),
-      teamId: selectedTeam.id === ALL_OPTIONS.TEAMS.id ? undefined : selectedTeam.id
+      teamId: selectedTeam.id === ALL_OPTIONS.TEAMS.id ? undefined : selectedTeam.id,
     });
     return query;
   };
@@ -48,10 +45,7 @@ export default function WorkflowInsights(location) {
   const [insightsQuery, setinsightsQuery] = useState(getFetchQuery());
 
   const insightsUrl = serviceUrl.getInsights({ query: insightsQuery });
-  const { data: insightsData, status: insightsStatus, error: insightsError } = useQuery({
-    queryKey: insightsQuery && insightsUrl,
-    queryFn: resolver.query(insightsUrl)
-  });
+  const { data: insightsData, status: insightsStatus, error: insightsError } = useQuery(insightsQuery && insightsUrl);
 
   const isUpdatingInsights = insightsStatus === QueryStatus.Loading;
 
@@ -59,34 +53,34 @@ export default function WorkflowInsights(location) {
 
   if (insightsData) {
     if (selectedWorkflow.id === ALL_OPTIONS.WORKFLOWS.id) executionList = insightsData.executions;
-    else executionList = insightsData.executions.filter(execution => execution.workflowId === selectedWorkflow.id);
+    else executionList = insightsData.executions.filter((execution) => execution.workflowId === selectedWorkflow.id);
   }
 
-  const handleChangeTimeframe = timeframe => {
+  const handleChangeTimeframe = (timeframe) => {
     const timeframeValue = timeframe.selectedItem?.value ?? null;
     setSelectedTimeframe(
-      timeframeValue ? timeframeOptions.find(tf => tf.value === timeframeValue) : timeframeOptions[3]
+      timeframeValue ? timeframeOptions.find((tf) => tf.value === timeframeValue) : timeframeOptions[3]
     );
 
     //trigger a new query
     setinsightsQuery(getFetchQuery());
   };
 
-  const handleChangeTeam = team => {
+  const handleChangeTeam = (team) => {
     const teamId = team.selectedItem?.id ?? "none";
-    const selectedTeam = teamId !== ALL_OPTIONS.TEAMS.id ? teams.find(team => team.id === teamId) : ALL_OPTIONS.TEAMS;
+    const selectedTeam = teamId !== ALL_OPTIONS.TEAMS.id ? teams.find((team) => team.id === teamId) : ALL_OPTIONS.TEAMS;
     setSelectedTeam(selectedTeam);
     setSelectedWorkflow(ALL_OPTIONS.WORKFLOWS);
     //trigger a new query
     setinsightsQuery(getFetchQuery());
   };
 
-  const handleChangeWorkflow = workflow => {
+  const handleChangeWorkflow = (workflow) => {
     let workflows = [];
-    teams.forEach(team => (workflows = workflows.concat(team.workflows)));
+    teams.forEach((team) => (workflows = workflows.concat(team.workflows)));
     let workflowsList = [ALL_OPTIONS.WORKFLOWS].concat(sortByProp(workflows, "name"));
     setSelectedWorkflow(
-      workflow.selectedItem ? workflowsList.find(wf => wf.id === workflow.selectedItem.id) : ALL_OPTIONS.WORKFLOWS
+      workflow.selectedItem ? workflowsList.find((wf) => wf.id === workflow.selectedItem.id) : ALL_OPTIONS.WORKFLOWS
     );
   };
 
@@ -100,7 +94,7 @@ export default function WorkflowInsights(location) {
           initialSelectedItem={selectedTeam}
           onChange={handleChangeTeam}
           titleText="Filter by team"
-          itemToString={team => (team ? team.name : "")}
+          itemToString={(team) => (team ? team.name : "")}
           label="Teams"
           placeholder="Teams"
         />
@@ -111,9 +105,9 @@ export default function WorkflowInsights(location) {
           placeholder="Workflows"
           onChange={handleChangeWorkflow}
           items={workflowsFilter}
-          itemToString={workflow => {
+          itemToString={(workflow) => {
             if (!workflow) return "";
-            const team = teams.find(team => team.id === workflow.flowTeamId);
+            const team = teams.find((team) => team.id === workflow.flowTeamId);
             return team ? `${workflow.name} [${team.name}]` : workflow.name;
           }}
           initialSelectedItem={selectedWorkflow}
@@ -125,7 +119,7 @@ export default function WorkflowInsights(location) {
           placeholder="Time Frame"
           onChange={handleChangeTimeframe}
           items={timeframeOptions}
-          itemToString={time => (time ? time.label : "")}
+          itemToString={(time) => (time ? time.label : "")}
           initialSelectedItem={selectedTimeframe}
         />
       </div>
@@ -146,10 +140,10 @@ export default function WorkflowInsights(location) {
       durationData,
       medianDuration,
       dataByTeams,
-      executionsByTeam
+      executionsByTeam,
     } = parseChartsData(
       executionList,
-      teams.map(team => team.name),
+      teams.map((team) => team.name),
       hasSelectedTeam,
       hasSelectedWorkflow
     );
@@ -220,8 +214,8 @@ export default function WorkflowInsights(location) {
 
   const teamsList = [ALL_OPTIONS.TEAMS].concat(teams);
   let workflows = [];
-  if (selectedTeam.id === ALL_OPTIONS.TEAMS.id) teams.forEach(team => (workflows = workflows.concat(team.workflows)));
-  else workflows = teams.find(team => team.id === selectedTeam.id).workflows;
+  if (selectedTeam.id === ALL_OPTIONS.TEAMS.id) teams.forEach((team) => (workflows = workflows.concat(team.workflows)));
+  else workflows = teams.find((team) => team.id === selectedTeam.id).workflows;
   const workflowsFilter = [ALL_OPTIONS.WORKFLOWS, ...sortByProp(workflows, "name", "ASC")];
 
   return (

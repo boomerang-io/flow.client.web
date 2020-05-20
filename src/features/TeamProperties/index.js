@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
-import { useAppContext } from "Hooks";
+import { useAppContext, useQuery } from "Hooks";
 import { Loading } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import TeamPropertiesTable from "./TeamPropertiesTable";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";
 import { default as USER_TYPES } from "Constants/userTypes";
 import styles from "./teamProperties.module.scss";
@@ -17,18 +16,17 @@ function TeamProperties() {
   const needTeamData = type !== USER_TYPES.ADMIN;
 
   const userTeamsUrl = serviceUrl.getUserTeams({ email });
-  const { data: userTeamsData, status: userTeamsStatus, userTeamsError } = useQuery({
-    queryKey: needTeamData && email && userTeamsUrl,
-    queryFn: resolver.query(userTeamsUrl),
-  });
-  const userTeamsIsLoading = userTeamsStatus === QueryStatus.Loading;
+  const { data: userTeamsData, status: userTeamsStatus, userTeamsError } = useQuery(
+    needTeamData && email && userTeamsUrl
+  );
 
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: activeTeam?.id });
   /** Get team properties */
-  const { data: propertiesData, status: propertiesStatus, error: propertiesError } = useQuery({
-    queryKey: activeTeam?.id && teamPropertiesUrl,
-    queryFn: resolver.query(teamPropertiesUrl),
-  });
+  const { data: propertiesData, status: propertiesStatus, error: propertiesError } = useQuery(
+    activeTeam?.id && teamPropertiesUrl
+  );
+
+  const userTeamsIsLoading = userTeamsStatus === QueryStatus.Loading;
   const propertiesAreLoading = propertiesStatus === QueryStatus.Loading;
 
   if (userTeamsIsLoading || propertiesAreLoading) {

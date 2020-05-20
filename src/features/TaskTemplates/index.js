@@ -1,5 +1,6 @@
 import React from "react";
-import { useQuery, queryCache } from "react-query";
+import { useQuery } from "Hooks";
+import { queryCache } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import { Loading } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
@@ -7,17 +8,17 @@ import WombatMessage from "Components/WombatMessage";
 import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import orderBy from "lodash/orderBy";
-import { resolver, serviceUrl } from "Config/servicesConfig";
+import { serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";
 import styles from "./taskTemplates.module.scss";
 
 export function TaskTemplatesContainer() {
   const match = useRouteMatch();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
-  const { data: taskTemplatesData, error: taskTemplatesDataError, status: taskTemplatesStatus } = useQuery({
-    queryKey: getTaskTemplatesUrl,
-    queryFn: resolver.query(getTaskTemplatesUrl),
-  });
+  const { data: taskTemplatesData, error: taskTemplatesDataError, status: taskTemplatesStatus } = useQuery(
+    getTaskTemplatesUrl
+  );
+
   const isLoading = taskTemplatesStatus === QueryStatus.Loading;
 
   const addTemplateInState = (newTemplate) => {

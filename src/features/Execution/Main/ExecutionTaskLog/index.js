@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { SkeletonPlaceholder, TooltipHover } from "@boomerang/carbon-addons-boomerang-react";
+import { SkeletonPlaceholder, TooltipIcon } from "@boomerang/carbon-addons-boomerang-react";
 import TaskItem from "./TaskItem";
 import orderBy from "lodash/orderBy";
 import { getSimplifiedDuration } from "Utilities/timeHelper";
@@ -59,11 +59,16 @@ function ExecutionTaskLog({ workflowExecution }) {
       <section className={styles.taskbar}>
         <p className={styles.taskbarTitle}>Task log</p>
         {!isCollapsed && (
-          <TooltipHover align="center" direction="top" tooltipText="Change sort direction (by start time)">
-            <button onClick={toggleSort} className={styles.taskbarButton} data-testid="taskbar-button">
-              <Arrows32 className={styles.taskbarArrows} />
-            </button>
-          </TooltipHover>
+          <TooltipIcon
+            align="center"
+            className={styles.taskbarButton}
+            data-testid="taskbar-button"
+            direction="top"
+            onClick={toggleSort}
+            tooltipText="Change sort direction (by start time)"
+          >
+            <Arrows32 className={styles.taskbarArrows} />
+          </TooltipIcon>
         )}
       </section>
       <ul className={styles.tasklog}>

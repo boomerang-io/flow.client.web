@@ -1,5 +1,5 @@
 import React, { useState, useMemo, Suspense } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "Hooks";
 import { detect } from "detect-browser";
 import { Switch, Route, Redirect } from "react-router-dom";
 import {
@@ -26,7 +26,7 @@ import {
 import USER_TYPES from "Constants/userTypes";
 import ErrorDragon from "Components/ErrorDragon";
 import { appPath } from "Config/appConfig";
-import { serviceUrl, resolver } from "Config/servicesConfig";
+import { serviceUrl } from "Config/servicesConfig";
 import { AppContext } from "State/context";
 import { QueryStatus } from "Constants";
 import styles from "./app.module.scss";
@@ -43,12 +43,12 @@ export default function App() {
   const [activeTeam, setActiveTeam] = useState(undefined);
   const [onBoardShow, setOnBoardShow] = useState(false);
 
-  const userQuery = useQuery({ queryKey: userUrl, queryFn: resolver.query(userUrl) });
-  const navigationQuery = useQuery({ queryKey: navigationUrl, queryFn: resolver.query(navigationUrl) });
-  const teamsQuery = useQuery({ queryKey: getTeamsUrl, queryFn: resolver.query(getTeamsUrl) });
+  const userQuery = useQuery(userUrl);
+  const navigationQuery = useQuery(navigationUrl);
+  const teamsQuery = useQuery(getTeamsUrl);
+
   const { data: userData = {} } = userQuery;
   const { data: teamsData } = teamsQuery;
-
   const { id: userId, type: platformRole } = userData;
 
   const isLoadingInitialData =
