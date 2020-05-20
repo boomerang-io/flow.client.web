@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
+import { Loading } from "@boomerang/carbon-addons-boomerang-react";
 import ExecutionHeader from "./ExecutionHeader";
 import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
-import Loading from "Components/Loading";
 import WorkflowZoom from "Components/WorkflowZoom";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
 import DiagramApplication from "Utilities/DiagramApplication";
@@ -16,14 +16,14 @@ class Main extends Component {
   static propTypes = {
     dag: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
-    workflowExecution: PropTypes.object.isRequired
+    workflowExecution: PropTypes.object.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
     this.state = {
-      diagramBoundingClientRect: {}
+      diagramBoundingClientRect: {},
     };
     this.diagramRef = React.createRef();
   }
@@ -31,7 +31,7 @@ class Main extends Component {
   componentDidMount() {
     if (this.diagramRef.current) {
       this.setState({
-        diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect()
+        diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect(),
       });
     }
     this.diagramApp.getDiagramEngine().zoomToFit();
@@ -45,7 +45,7 @@ class Main extends Component {
       status
     );
 
-    const hasStarted = steps && steps.find(step => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
+    const hasStarted = steps && steps.find((step) => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
 
     const loadDiagram =
       workflow.status === REQUEST_STATUSES.SUCCESS &&

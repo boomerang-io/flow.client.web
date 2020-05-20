@@ -5,11 +5,11 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import {
   ErrorBoundary,
   Error404,
+  Loading,
   NotificationsContainer,
   ProtectedRoute,
 } from "@boomerang/carbon-addons-boomerang-react";
 import OnBoardExpContainer from "Features/OnBoard";
-import Loading from "Components/Loading";
 import Navbar from "./Navbar";
 import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";

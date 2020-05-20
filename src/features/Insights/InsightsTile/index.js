@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import SearchFilterBar from "Components/SearchFilterBar";
 import { Tile } from "carbon-components-react";
 import styles from "./insightsTile.module.scss";
 
@@ -10,7 +9,7 @@ InsightsTile.propTypes = {
   infoList: PropTypes.array,
   valueWidth: PropTypes.string,
   title: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
 };
 
 function InsightsTile({ title, type, totalCount, infoList, valueWidth = "2rem", tileMaxHeight = "none" }) {

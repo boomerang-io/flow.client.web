@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactJson from "react-json-view";
-import { ModalFlow, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
+import { ComposedModal, ModalForm } from "@boomerang/carbon-addons-boomerang-react";
 import { ModalBody, Tabs, Tab } from "carbon-components-react";
 import PropertiesTable from "./PropertiesTable";
-import "./styles.scss";
+import styles from "./outputPropertisLog.module.scss";
 
 function OutputPropertiesLog({ flowTaskName, flowTaskOutputs }) {
   let arrayProps = [];
@@ -13,56 +13,58 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs }) {
       (arrayProps = arrayProps.concat({
         id: `${val}-${index}`,
         key: val,
-        value: JSON.stringify(flowTaskOutputs[val], null, 2)
+        value: JSON.stringify(flowTaskOutputs[val], null, 2),
       }))
   );
 
   return (
-    <ModalFlow
-      composedModalProps={{ containerClassName: "c-output-properties" }}
+    <ComposedModal
+      composedModalProps={{ containerClassName: styles.container }}
       confirmModalProps={{
         title: "Are you sure?",
-        children: "Your changes will not be saved"
+        children: "Your changes will not be saved",
       }}
       modalHeaderProps={{
         title: "Output Properties",
-        label: `${flowTaskName}`
+        label: `${flowTaskName}`,
       }}
       modalTrigger={({ openModal }) => (
-        <button className="s-output-properties-trigger" onClick={openModal}>
+        <button className={styles.trigger} onClick={openModal}>
           View Properties
         </button>
       )}
     >
-      <ModalFlowForm>
-        <ModalBody>
-          <Tabs>
-            <Tab label="Table">
-              <PropertiesTable data={arrayProps} />
-            </Tab>
-            <Tab label="JSON">
-              <div className="s-output-properties-json">
-                <ReactJson
-                  name={false}
-                  src={flowTaskOutputs}
-                  displayDataTypes={false}
-                  enableDelete={false}
-                  displayObjectSize={false}
-                  enableEdit={false}
-                  enableAdd={false}
-                />
-              </div>
-            </Tab>
-          </Tabs>
-        </ModalBody>
-      </ModalFlowForm>
-    </ModalFlow>
+      {() => (
+        <ModalForm>
+          <ModalBody>
+            <Tabs>
+              <Tab label="Table">
+                <PropertiesTable data={arrayProps} />
+              </Tab>
+              <Tab label="JSON">
+                <div className={styles.propertiesJson}>
+                  <ReactJson
+                    name={false}
+                    src={flowTaskOutputs}
+                    displayDataTypes={false}
+                    enableDelete={false}
+                    displayObjectSize={false}
+                    enableEdit={false}
+                    enableAdd={false}
+                  />
+                </div>
+              </Tab>
+            </Tabs>
+          </ModalBody>
+        </ModalForm>
+      )}
+    </ComposedModal>
   );
 }
 
 OutputPropertiesLog.propTypes = {
   flowTaskName: PropTypes.string.isRequired,
-  flowTaskOutputs: PropTypes.object.isRequired
+  flowTaskOutputs: PropTypes.object.isRequired,
 };
 
 export default OutputPropertiesLog;

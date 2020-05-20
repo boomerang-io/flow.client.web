@@ -1,16 +1,16 @@
 @import "~Styles/variables";
 
-.b-navigate-back {
+.container {
   display: flex;
   align-items: flex-end;
 }
 
-.b-navigate-back__chevron {
+.chevron {
   height: 1.25rem;
   width: 1.25rem;
 }
 
-.b-navigate-back__text {
+.text {
   color: black;
   font-size: 1rem;
   font-weight: 500;

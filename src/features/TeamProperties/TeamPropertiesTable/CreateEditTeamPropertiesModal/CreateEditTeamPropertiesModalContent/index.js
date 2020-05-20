@@ -62,8 +62,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
           />
         );
         closeModal();
-      } catch (err) {
-      }
+      } catch (err) {}
     } else {
       try {
         const response = await addTeamPropertyMutation({ id: team.id, body: newTeamProperty });
@@ -77,6 +76,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
         );
         closeModal();
       } catch (err) {
+        //no-op
       }
     }
   };
@@ -170,8 +170,8 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
               {addError && (
                 <InlineNotification
                   kind="error"
-                  title={"Create Property Failed"}
-                  subtitle={"Something's Wrong"}
+                  subtitle={"Request to create property failed"}
+                  title={"Something's Wrong"}
                   data-testid="create-update-team-prop-notification"
                 />
               )}
@@ -179,8 +179,8 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 <InlineNotification
                   kind="error"
                   lowContrast
-                  title={"Update Property Failed"}
-                  subtitle={"Something's Wrong"}
+                  subtitle={"Request to update property failed"}
+                  title={"Something's Wrong"}
                   data-testid="create-update-team-prop-notification"
                 />
               )}

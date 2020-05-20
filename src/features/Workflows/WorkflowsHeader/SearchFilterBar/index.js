@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import DelayedRender from "Components/DelayedRender";
+import { DelayedRender } from "@boomerang/carbon-addons-boomerang-react";
 import PropTypes from "prop-types";
 import {
   MultiSelect,
@@ -8,7 +8,7 @@ import {
   SelectItemGroup,
   Search,
   SearchSkeleton,
-  SelectSkeleton
+  SelectSkeleton,
 } from "carbon-components-react";
 import "./styles.scss";
 
@@ -21,34 +21,34 @@ class SearchFilterBar extends Component {
     loading: PropTypes.bool,
     multiselect: PropTypes.bool,
     selectedOption: PropTypes.string,
-    searchbar: PropTypes.bool
+    searchbar: PropTypes.bool,
   };
   static defaultProps = {
     multiselect: true,
     debounceTimeout: 0,
     selectedOption: "none",
-    searchbar: true
+    searchbar: true,
   };
 
   state = {
     searchQuery: "",
-    selectedItems: this.props.selectedOption ? this.props.selectedOption : []
+    selectedItems: this.props.selectedOption ? this.props.selectedOption : [],
   };
 
-  handleOnSearchInputChange = e => {
+  handleOnSearchInputChange = (e) => {
     const searchQuery = e.target.value;
     this.setState({ searchQuery }, () => {
       this.handleSearchFilter();
     });
   };
 
-  handleOnMultiSelectChange = e => {
+  handleOnMultiSelectChange = (e) => {
     const selectedItems = e.selectedItems;
     this.setState({ selectedItems }, () => {
       this.handleSearchFilter();
     });
   };
-  handleOnSelectChange = e => {
+  handleOnSelectChange = (e) => {
     const selectedItems = e.target.value;
     this.setState({ selectedItems }, () => {
       this.handleSearchFilter();
@@ -70,7 +70,7 @@ class SearchFilterBar extends Component {
       selectedOption,
       searchbar,
       filterItems,
-      title = ""
+      title = "",
     } = this.props;
 
     if (loading) {
@@ -112,8 +112,8 @@ class SearchFilterBar extends Component {
               invalid={false}
               onChange={this.handleOnMultiSelectChange}
               placeholder={placeholder}
-              items={filterItems || options.length ? options.map(item => ({ id: item.id, text: item.name })) : []}
-              itemToString={item => (item ? item.text : "")}
+              items={filterItems || options.length ? options.map((item) => ({ id: item.id, text: item.name })) : []}
+              itemToString={(item) => (item ? item.text : "")}
             />
           ) : (
             <Select
@@ -125,10 +125,10 @@ class SearchFilterBar extends Component {
               defaultValue={selectedOption}
             >
               <SelectItem value="none" text="All Workflows" />
-              {options.map(option => {
+              {options.map((option) => {
                 return (
                   <SelectItemGroup label={option.name} key={option.name}>
-                    {option.workflows.map(workflow => {
+                    {option.workflows.map((workflow) => {
                       return <SelectItem value={workflow.id} text={workflow.name} />;
                     })}
                   </SelectItemGroup>

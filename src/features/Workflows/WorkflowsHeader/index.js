@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import FeatureHeader from "Components/FeatureHeader";
-import SearchFilterBar from "Components/SearchFilterBar";
+import SearchFilterBar from "./SearchFilterBar";
 import styles from "./workflowsHeader.module.scss";
 
 WorkflowsHeader.propTypes = {

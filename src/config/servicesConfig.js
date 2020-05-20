@@ -68,10 +68,12 @@ export const serviceUrl = {
   getUserTeams: ({ email }) => `${BASE_TEAMS_URL}?userEmail=${email}`,
   getUserProfile: () => `${BASE_USERS_URL}/profile`,
   getWorkflow: ({ id }) => `${BASE_SERVICE_URL}/workflow/${id}`,
-  executeWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
-  getWorkflowImport: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
+  postExecuteWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
   getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
+  getWorkflowImport: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
   getWorkflowExecution: ({ executionId }) => `${BASE_SERVICE_URL}/activity/${executionId}`,
+  getWorkflowExecutionLog: ({ flowActivityId, flowTaskId }) =>
+    `${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,
   getWorkflowRevision: ({ workflowId, revisionNumber }) =>
     `${BASE_SERVICE_URL}/workflow/${workflowId}/revision/${revisionNumber ?? ""}`,
   getWorkflowSummary: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/summary`,
@@ -129,7 +131,7 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HTTP_METHODS.POST }),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
-  postExecuteWorkflow: ({ id, properties }) => axios.post(serviceUrl.executeWorkflow({ id }), { properties }),
+  postExecuteWorkflow: ({ id, properties }) => axios.post(serviceUrl.postExecuteWorkflow({ id }), { properties }),
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postTeamPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HTTP_METHODS.POST }),

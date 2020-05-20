@@ -1,12 +1,12 @@
 import React from "react";
 import { useQuery, queryCache } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
-import orderBy from "lodash/orderBy";
+import { Loading } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
-import Loading from "Components/Loading";
 import WombatMessage from "Components/WombatMessage";
 import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
+import orderBy from "lodash/orderBy";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";
 import styles from "./taskTemplates.module.scss";
