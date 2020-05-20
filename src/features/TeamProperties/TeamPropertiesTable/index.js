@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useMutation, queryCache } from "react-query";
-import { DataTable, Pagination, ComboBox } from "carbon-components-react";
-import { Error404, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import {
+  ComboBox,
+  DataTable,
+  Error,
+  Error404,
+  Pagination,
+  DataTableSkeleton,
+  notify,
+  ToastNotification,
+} from "@boomerang/carbon-addons-boomerang-react";
 import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
 import ActionsMenu from "./ActionsMenu";
 import Header from "Components/Header";
@@ -43,7 +51,16 @@ const headers = [
   },
 ];
 
-function TeamPropertiesTable({ activeTeam, setActiveTeam, properties, teams }) {
+TeamPropertiesTable.propTypes = {
+  activeTeam: PropTypes.object,
+  properties: PropTypes.array.isRequired,
+  propertiesAreLoading: PropTypes.bool,
+  propertiesError: PropTypes.object,
+  setActiveTeam: PropTypes.func.isRequired,
+  teams: PropTypes.array.isRequired,
+};
+
+function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, propertiesError, setActiveTeam, teams }) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [sort, setSort] = useState({ key: "label", sortDirection: "ASC" });
@@ -148,7 +165,11 @@ function TeamPropertiesTable({ activeTeam, setActiveTeam, properties, teams }) {
             <CreateEditTeamPropertiesModal properties={properties} team={activeTeam} />
           )}
         </div>
-        {totalItems > 0 ? (
+        {propertiesAreLoading ? (
+          <DataTableSkeleton />
+        ) : propertiesError ? (
+          <Error />
+        ) : totalItems > 0 ? (
           <>
             <DataTable
               rows={arrayPagination(properties, page, pageSize, sort)}
@@ -221,19 +242,12 @@ function TeamPropertiesTable({ activeTeam, setActiveTeam, properties, teams }) {
                 </TableContainer>
               )}
             />
-            <Error404 header={null} title="No team properties" />
+            <Error404 header={null} title="No team properties" message={null} />
           </>
         )}
       </div>
     </>
   );
 }
-
-TeamPropertiesTable.propTypes = {
-  activeTeam: PropTypes.object,
-  properties: PropTypes.array.isRequired,
-  setActiveTeam: PropTypes.func.isRequired,
-  teams: PropTypes.array.isRequired,
-};
 
 export default TeamPropertiesTable;

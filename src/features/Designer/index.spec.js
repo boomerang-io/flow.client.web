@@ -6,7 +6,7 @@ jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
   NoDisplay: "NoDisplay",
   LoadingAnimation: "LoadingAnimation",
   notify: "notify",
-  Notification: "Notification"
+  Notification: "Notification",
 }));
 
 const mockfn = jest.fn();
@@ -16,38 +16,38 @@ const props = {
     isFetching: false,
     status: "success",
     error: "",
-    data: []
+    data: [],
   },
   teams: {
     isFetching: false,
     status: "success",
     error: "",
-    data: []
+    data: [],
   },
   workflow: {
     isFetching: false,
     status: "success",
     error: "",
-    data: []
+    data: [],
   },
   workflowRevision: {
     isFetching: false,
     status: "success",
     error: "",
-    data: []
+    data: [],
   },
   workflowRevisionActions: {},
-  workflowActions:{},
-  appActions:{},
-  history:{},
-  tasksActions:{},
-  match:{},
-  isModalOpen: true
+  workflowActions: {},
+  appActions: {},
+  history: {},
+  tasksActions: {},
+  match: {},
+  isModalOpen: true,
 };
 
 describe("WorkflowManager --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowManager", () => {
-    const { baseElement } = rtlReduxRouterRender(
+    const { baseElement } = rtlContextRouterRender(
       <Route path="/editor/:workflowId">
         <WorkflowManager {...props} />
       </Route>,

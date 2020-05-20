@@ -29,11 +29,11 @@ function TeamProperties() {
   const userTeamsIsLoading = userTeamsStatus === QueryStatus.Loading;
   const propertiesAreLoading = propertiesStatus === QueryStatus.Loading;
 
-  if (userTeamsIsLoading || propertiesAreLoading) {
+  if (userTeamsIsLoading) {
     return <Loading />;
   }
 
-  if (userTeamsError || propertiesError) {
+  if (userTeamsError) {
     return (
       <div className={styles.container}>
         <ErrorDragon />
@@ -47,6 +47,8 @@ function TeamProperties() {
         <TeamPropertiesTable
           teams={userTeamsData ? userTeamsData : teams}
           properties={propertiesData ?? []}
+          propertiesAreLoading={propertiesAreLoading}
+          propertiesError={propertiesError}
           activeTeam={activeTeam}
           setActiveTeam={setActiveTeam}
         />

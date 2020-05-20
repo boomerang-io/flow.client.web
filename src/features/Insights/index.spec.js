@@ -8,16 +8,16 @@ import { BASE_SERVICE_URL } from "Config/servicesConfig";
 const props = {
   location: {},
   insightsActions: {
-    fetch: () => new Promise(resolve => resolve({ test: "test" }))
+    fetch: () => new Promise((resolve) => resolve({ test: "test" })),
   },
   teamsActions: {
-    fetch: () => new Promise(() => {})
+    fetch: () => new Promise(() => {}),
   },
   teams: {
     isFetching: false,
     status: "success",
     error: "",
-    data: []
+    data: [],
   },
   insights: {
     isFetching: false,
@@ -40,11 +40,11 @@ const props = {
           icon: "flow",
           shortDescription: "test",
           workflowName: "Adrienne3",
-          teamName: "CAI Offering Team"
-        }
-      ]
-    }
-  }
+          teamName: "CAI Offering Team",
+        },
+      ],
+    },
+  },
 };
 
 describe("WorkflowInsights --- Snapshot", () => {
@@ -168,7 +168,7 @@ describe("WorkflowInsights --- Snapshot", () => {
 //   it("Capturing Snapshot of WorkflowInsights", async () => {
 //     const url = new RegExp(`${BASE_SERVICE_URL}/insights?`);
 //     mockAxios.onGet(url).reply(200, insights);
-//     const { baseElement, findByText } = rtlReduxRouterRender(<WorkflowInsights {...props} />,{
+//     const { baseElement, findByText } = rtlContextRouterRender(<WorkflowInsights {...props} />,{
 //       initialState:initialReduxState
 //     });
 //     await findByText(/Filter by Workflow/);
@@ -180,7 +180,7 @@ describe("WorkflowInsights --- Snapshot", () => {
 //   it("Test Team and Period Filters", async () => {
 //     const url = new RegExp(`${BASE_SERVICE_URL}/insights?`);
 //     mockAxios.onGet(url).reply(200, insights);
-//     const { findByText, getByText, getByLabelText, getAllByText, getByTestId} = rtlReduxRouterRender(<WorkflowInsights {...props} />,{
+//     const { findByText, getByText, getByLabelText, getAllByText, getByTestId} = rtlContextRouterRender(<WorkflowInsights {...props} />,{
 //       initialState:initialReduxState
 //     });
 //     await findByText(/Filter by Workflow/);

@@ -9,7 +9,7 @@ const props = {
   fetchTeams: mockfn,
   handleImportWorkflow: mockfn,
   importWorkflowActions,
-  workflowId:"test"
+  workflowId: "test",
 };
 
 beforeEach(() => {
@@ -18,8 +18,8 @@ beforeEach(() => {
 
 describe("ImportWorkflow --- Snapshot Test", () => {
   it("Capturing Snapshot of ImportWorkflow", () => {
-    const { baseElement, getByText } = rtlReduxRender(<ImportWorkflow {...props} />, {
-      initialState: { importWorkflow: initialState }
+    const { baseElement, getByText } = rtlContextRouterRender(<ImportWorkflow {...props} />, {
+      initialState: { importWorkflow: initialState },
     });
     fireEvent.click(getByText(/Choose a file or drag one here/i));
     expect(baseElement).toMatchSnapshot();

@@ -8,7 +8,7 @@ const initialState = {
   tokenTextType: "password",
   showTokenText: "Show Token",
   copyTokenText: "Copy Token",
-  errors: {}
+  errors: {},
 };
 
 const props = {
@@ -30,38 +30,38 @@ const props = {
             status: "published",
             icon: "flow",
             flowTeamId: "9012",
-            inputs: []
-          }
-        ]
+            inputs: [],
+          },
+        ],
       },
       shortDescription: "",
       triggers: {
         event: {
           enable: false,
-          topic: ""
+          topic: "",
         },
         scheduler: {
           enable: true,
           schedule: "0 18 * * *",
           timezone: "Africa/Addis_Ababa",
-          advancedCron: false
+          advancedCron: false,
         },
         webhook: {
           enable: false,
-          token: false
-        }
-      }
+          token: false,
+        },
+      },
     },
     dirty: false,
     setFieldValue: mockfn,
     handleChange: mockfn,
     handleBlur: mockfn,
     errors: {},
-    touched: {}
+    touched: {},
   },
   teams: [],
   updateWorkflow: mockfn,
-  workflow:{}
+  workflow: {},
 };
 
 beforeEach(() => {
@@ -70,21 +70,21 @@ beforeEach(() => {
 
 /*describe("Settings Overview --- Snapshot Test", () => {
     it("Capturing Snapshot of Settings Overview", () => {
-        const { baseElement } = rtlReduxRender(<Overview {...props} />, { initialState });
+        const { baseElement } = rtlContextRouterRender(<Overview {...props} />, { initialState });
         expect(baseElement).toMatchSnapshot();
     });
 });*/
 
 describe("Inputs --- RTL", () => {
   it("Main Sections Render", () => {
-    const { getByText } = rtlReduxRender(<Overview {...props} />, { initialState });
+    const { getByText } = rtlContextRouterRender(<Overview {...props} />, { initialState });
     expect(getByText(/General info/i)).toBeInTheDocument();
     expect(getByText(/Triggers/i)).toBeInTheDocument();
     expect(getByText(/Other Options/i)).toBeInTheDocument();
   });
 
   it("Open Cron Scheduler Modal", () => {
-    const { getByText, getByTestId } = rtlReduxRender(<Overview {...props} />, { initialState });
+    const { getByText, getByTestId } = rtlContextRouterRender(<Overview {...props} />, { initialState });
     const schedulerToggle = getByTestId(/triggers.scheduler.enable/i);
     fireEvent.click(schedulerToggle);
 

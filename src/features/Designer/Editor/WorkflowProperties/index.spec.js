@@ -15,12 +15,12 @@ const props = {
       label: "Tim Property",
       required: true,
       type: "select",
-      optiions: ["pandas", "dogs"]
-    }
+      optiions: ["pandas", "dogs"],
+    },
   ],
   loading: false,
   workflowActions: { deleteWorkflowInput: mockfn },
-  updateWorkflowProperties: mockfn
+  updateWorkflowProperties: mockfn,
 };
 
 beforeEach(() => {
@@ -28,22 +28,22 @@ beforeEach(() => {
 });
 
 describe("Inputs --- Snapshot Test", () => {
-  it("Capturing Snapshot of Inputs", async() => {
-    const { baseElement } = rtlReduxRender(<Inputs {...props} />, { initialState });
+  it("Capturing Snapshot of Inputs", async () => {
+    const { baseElement } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
     expect(baseElement).toMatchSnapshot();
     await waitFor(() => {});
   });
 });
 
 describe("Inputs --- RTL", () => {
-  it("Render inputs correctly", async() => {
-    const { queryByText } = rtlReduxRender(<Inputs {...props} />, { initialState });
+  it("Render inputs correctly", async () => {
+    const { queryByText } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
     expect(queryByText("tim.property")).toBeInTheDocument();
     await waitFor(() => {});
   });
 
-  it("Opens create new property modal", async() => {
-    const { queryByText, getByTestId } = rtlReduxRender(<Inputs {...props} />, { initialState });
+  it("Opens create new property modal", async () => {
+    const { queryByText, getByTestId } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
 
     //expect(queryByText(/Create a new property/i)).not.toBeInTheDocument();
 
@@ -55,8 +55,8 @@ describe("Inputs --- RTL", () => {
     await waitFor(() => {});
   });
 
-  it("Opens edit property modal", async() => {
-    const { getByLabelText, queryByText } = rtlReduxRender(<Inputs {...props} />, { initialState });
+  it("Opens edit property modal", async () => {
+    const { getByLabelText, queryByText } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
 
     //expect(queryByText(/Let's update it/i)).not.toBeInTheDocument();
 

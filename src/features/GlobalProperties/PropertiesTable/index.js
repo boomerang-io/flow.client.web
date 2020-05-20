@@ -224,7 +224,7 @@ function PropertiesTable({ properties }) {
                 </TableContainer>
               )}
             />
-            <Error404 header={null} title="No team to be found" message={null} />
+            <Error404 header={null} title="No properties to be found" message={null} />
           </>
         )}
       </div>

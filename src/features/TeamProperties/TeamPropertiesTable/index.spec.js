@@ -15,10 +15,10 @@ const mockReduxTeamConfig = {
         key: "mail.accdasdount",
         description: "description",
         label: "Mail Accdasdount",
-        type: "text"
-      }
-    ]
-  }
+        type: "text",
+      },
+    ],
+  },
 };
 const props = {
   teams: [
@@ -28,7 +28,7 @@ const props = {
       id: "5a8b331e262a70306622df72",
       label: "Allianz PoC",
       name: "Allianz",
-      value: "allianz-poc"
+      value: "allianz-poc",
     },
     {
       boomerangTeamName: "AT&T MIL Mobile@Scale",
@@ -36,14 +36,14 @@ const props = {
       id: "5a8b331e262a70306622df73",
       label: "AT&T MIL Mobile@Scale",
       name: "ATT",
-      value: "ms-att-mil"
-    }
+      value: "ms-att-mil",
+    },
   ],
   fetchTeamProperties: mockfn,
   addTeamPropertyInStore: mockfn,
   updateTeamProperty: mockfn,
   deleteTeamPropertyInStore: mockfn,
-  resetTeamProperties: mockfn
+  resetTeamProperties: mockfn,
 };
 
 beforeEach(() => {
@@ -52,14 +52,16 @@ beforeEach(() => {
 
 describe("TeamPropertiesTable --- Snapshot Test", () => {
   test("Capturing Snapshot of TeamPropertiesTable", () => {
-    const { baseElement } = rtlReduxRender(<TeamPropertiesTable {...props} />);
+    const { baseElement } = rtlContextRouterRender(<TeamPropertiesTable {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
 
 describe("TeamPropertiesTable --- RTL", () => {
   test("TeamPropertiesTable - ComboBox Functionality correctly", () => {
-    const { queryByPlaceholderText, getByText, queryAllByText } = rtlReduxRender(<TeamPropertiesTable {...props} />);
+    const { queryByPlaceholderText, getByText, queryAllByText } = rtlContextRouterRender(
+      <TeamPropertiesTable {...props} />
+    );
     const comboBoxElement = queryByPlaceholderText(/Select a team/i);
     fireEvent.click(comboBoxElement);
 
@@ -75,8 +77,8 @@ describe("TeamPropertiesTable --- RTL", () => {
   });
 
   test("TeamPropertiesTable -  test it renders table with data", async () => {
-    const { getByText, container } = rtlReduxRender(<TeamPropertiesTable {...props} />, {
-      initialState: mockReduxTeamConfig
+    const { getByText, container } = rtlContextRouterRender(<TeamPropertiesTable {...props} />, {
+      initialState: mockReduxTeamConfig,
     });
     const { data } = mockReduxTeamConfig.teamProperties;
     const unsecuredElement = container.querySelector(".unsecured");

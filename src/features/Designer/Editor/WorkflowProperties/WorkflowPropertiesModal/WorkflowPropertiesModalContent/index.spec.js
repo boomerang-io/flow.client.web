@@ -24,7 +24,7 @@ const props = {
 
 describe("Inputs --- Snapshot Test", () => {
   it("Capturing Snapshot of Inputs", async () => {
-    const { baseElement } = rtlReduxRender(<Inputs {...props} />);
+    const { baseElement } = rtlContextRouterRender(<Inputs {...props} />);
     expect(baseElement).toMatchSnapshot();
     await waitFor(() => {});
   });
@@ -32,7 +32,7 @@ describe("Inputs --- Snapshot Test", () => {
 
 describe("Inputs --- RTL", () => {
   it("Change default value by type correctly", async () => {
-    const { getByText, queryByTestId, getByTestId } = rtlReduxRender(<Inputs {...props} />);
+    const { getByText, queryByTestId, getByTestId } = rtlContextRouterRender(<Inputs {...props} />);
     expect(queryByTestId("text-input")).toBeInTheDocument();
 
     const typeSelect = getByTestId("input-type");
@@ -59,7 +59,7 @@ describe("Inputs --- RTL", () => {
   });
 
   it("Shouldn't save property without key, label and type defined", async () => {
-    const { findByText, getByPlaceholderText, getByLabelText, getByText } = rtlReduxRender(
+    const { findByText, getByPlaceholderText, getByLabelText, getByText } = rtlContextRouterRender(
       <Inputs {...props} isEdit={false} input={undefined} />
     );
     waitFor(() => expect(findByText(/create/i)).toBeDisabled());
