@@ -60,7 +60,7 @@
     font-family: $font-family;
     font-size: 0.75rem;
     letter-spacing: 0.0625rem;
-    min-width: 80px;
+    min-width: 5rem;
   }
 
   .react-lazylog {
@@ -74,9 +74,10 @@
   .b-task-log-toggle {
     align-items: center;
     display: flex;
-    position: absolute;
     line-height: 1.5;
-    right: 345px;
+    margin-top: 0.5rem;
+    position: absolute;
+    right: 21.5625rem;
   }
 
   .b-task-log-toggle__text {
