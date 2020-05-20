@@ -43,7 +43,6 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
       closeModal();
     } catch (err) {
       if (!isCancel(err)) {
-        console.log("AXIOS Error :-S", err);
         const { data } = err && err.response;
         notify(
           <ToastNotification

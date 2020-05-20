@@ -2,6 +2,10 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
 
+.bx--modal-footer .bx--btn:last-child:first-child {
+  border-bottom-left-radius: 0;
+}
+
 .b-startEnd-node {
   background: #002b50;
   width: 9rem;

@@ -186,7 +186,7 @@ export function WorkflowManager({
         return initRevisionReducerState(action.data);
       }
       case revisionActionTypes.RESET: {
-        return revisionQuery.data;
+        return initRevisionReducerState(revisionQuery.data);
       }
       default:
         throw new Error();
@@ -195,8 +195,7 @@ export function WorkflowManager({
 
   const [revisionState, revisionDispatch] = useImmerReducer(
     revisionReducer,
-    revisionQuery.data,
-    initRevisionReducerState
+    initRevisionReducerState(revisionQuery.data)
   );
 
   useEffect(() => {
@@ -343,9 +342,7 @@ export function WorkflowManager({
         <Prompt
           when={Boolean(revisionState.hasUnsavedWorkflowRevisionUpdates)}
           message={(location) =>
-            console.log(location.pathname, match.url) ||
-            location.pathname === match.url ||
-            location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
+            location.pathname === match.url || location.pathname.includes("editor") //Return true to navigate if going to the same route we are currently on
               ? true
               : "Are you sure? You have unsaved changes to your workflow that will be lost."
           }

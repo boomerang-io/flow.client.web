@@ -6,7 +6,7 @@ import {
   TextArea,
   TextInput,
   Toggle,
-  ModalFlowForm
+  ModalFlowForm,
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { Formik } from "formik";
@@ -27,7 +27,7 @@ const FIELD = {
   REQUIRED: "required",
   TYPE: "type",
   DEFAULT_VALUE: "defaultValue",
-  OPTIONS: "options"
+  OPTIONS: "options",
 };
 
 const INPUT_TYPES_LABELS = [
@@ -43,10 +43,10 @@ const INPUT_TYPES_LABELS = [
   { label: "Text Editor - Text", value: "texteditor::text" },
   { label: "Text Editor - YAML", value: "texteditor::yaml" },
   { label: "Time", value: "time" },
-  { label: "Url", value: "url" }
+  { label: "Url", value: "url" },
 ];
 
-const TextEditorInput = props => {
+const TextEditorInput = (props) => {
   return (
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
       <TextEditorModal {...props} {...props.item} />
@@ -61,11 +61,11 @@ class TemplateConfigModalContent extends Component {
     fieldKeys: PropTypes.array,
     isEdit: PropTypes.bool,
     templateFields: PropTypes.array,
-    setFieldValue: PropTypes.func.isRequired
+    setFieldValue: PropTypes.func.isRequired,
   };
 
   state = {
-    defaultValueType: "text"
+    defaultValueType: "text",
   };
 
   handleOnChange = (e, formikChange) => {
@@ -88,12 +88,12 @@ class TemplateConfigModalContent extends Component {
   };
 
   /* Check if key contains space or special characters, only underline is allowed */
-  validateKey = key => {
+  validateKey = (key) => {
     const regexp = new RegExp("[^a-z|^A-Z|^0-9|^_|/.]");
     return !regexp.test(key);
   };
 
-  handleConfirm = values => {
+  handleConfirm = (values) => {
     let field = clonedeep(values);
     field.type = field.type.value;
     const { templateFields, setFieldValue } = this.props;
@@ -102,15 +102,14 @@ class TemplateConfigModalContent extends Component {
       delete field.options;
     } else {
       // Create options in correct type for service - { key, value }
-      field.options = field.options.map(field => ({ key: field, value: field }));
+      field.options = field.options.map((field) => ({ key: field, value: field }));
     }
 
     if (field.type === INPUT_TYPES.BOOLEAN) {
       if (!field.defaultValue) field.defaultValue = false;
     }
     if (this.props.isEdit) {
-      console.log(templateFields);
-      const fieldIndex = templateFields.findIndex(field => field.key === this.props.field.key);
+      const fieldIndex = templateFields.findIndex((field) => field.key === this.props.field.key);
       let newProperties = [].concat(templateFields);
       newProperties.splice(fieldIndex, 1, field);
       setFieldValue("currentConfig", newProperties);
@@ -123,7 +122,7 @@ class TemplateConfigModalContent extends Component {
     }
   };
 
-  renderDefaultValue = formikProps => {
+  renderDefaultValue = (formikProps) => {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
     switch (values.type.value) {
       case INPUT_TYPES.BOOLEAN:
@@ -133,7 +132,7 @@ class TemplateConfigModalContent extends Component {
             id={FIELD.DEFAULT_VALUE}
             label="Default Value"
             helperText="Initial value that can be changed"
-            onToggle={value => this.handleOnFieldValueChange(value.toString(), FIELD.DEFAULT_VALUE, setFieldValue)}
+            onToggle={(value) => this.handleOnFieldValueChange(value.toString(), FIELD.DEFAULT_VALUE, setFieldValue)}
             orientation="vertical"
             toggled={values.defaultValue === "true"}
           />
@@ -146,7 +145,7 @@ class TemplateConfigModalContent extends Component {
             <Creatable
               data-testid="creatable"
               id={FIELD.OPTIONS}
-              onChange={createdItems => this.handleOptionsChange(createdItems, setFieldValue)}
+              onChange={(createdItems) => this.handleOptionsChange(createdItems, setFieldValue)}
               label="Options"
               placeholder="Enter option"
               values={options || []}
@@ -171,7 +170,7 @@ class TemplateConfigModalContent extends Component {
             labelText="Default Value (optional)"
             helperText="Initial value that can be changed"
             onBlur={handleBlur}
-            onChange={e => this.handleOnChange(e, handleChange)}
+            onChange={(e) => this.handleOnChange(e, handleChange)}
             style={{ resize: "none" }}
             value={values.defaultValue || ""}
           />
@@ -191,7 +190,7 @@ class TemplateConfigModalContent extends Component {
             onBlur={handleBlur}
             style={{ resize: "none" }}
             autoSuggestions={[]}
-            formikSetFieldValue={value => setFieldValue("defaultValue", value)}
+            formikSetFieldValue={(value) => setFieldValue("defaultValue", value)}
             initialValue={values.defaultValue}
             type={values.type.value}
             value={values.defaultValue || ""}
@@ -206,7 +205,7 @@ class TemplateConfigModalContent extends Component {
             labelText="Default Value (optional)"
             helperText="Initial value that can be changed"
             onBlur={handleBlur}
-            onChange={e => this.handleOnChange(e, handleChange)}
+            onChange={(e) => this.handleOnChange(e, handleChange)}
             type={values.type.value}
             value={values.defaultValue || ""}
           />
@@ -214,7 +213,7 @@ class TemplateConfigModalContent extends Component {
     }
   };
 
-  determineDefaultValueSchema = defaultType => {
+  determineDefaultValueSchema = (defaultType) => {
     switch (defaultType) {
       case "text":
       case "textarea":
@@ -247,11 +246,11 @@ class TemplateConfigModalContent extends Component {
           [FIELD.TYPE]: field
             ? field.type === "texteditor"
               ? INPUT_TYPES_LABELS[7]
-              : INPUT_TYPES_LABELS.find(type => type?.value === field.type)
+              : INPUT_TYPES_LABELS.find((type) => type?.value === field.type)
             : {},
           [FIELD.DEFAULT_VALUE]: field?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
-          [FIELD.OPTIONS]: field?.options?.map(option => (typeof option === "object" ? option.key : option)) ?? []
+          [FIELD.OPTIONS]: field?.options?.map((option) => (typeof option === "object" ? option.key : option)) ?? [],
         }}
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()
@@ -259,9 +258,7 @@ class TemplateConfigModalContent extends Component {
             .max(64, "Key must not be greater than 64 characters")
             .notOneOf(fieldKeys || [], "Enter a unique key value for this workflow")
             .test("is-valid-key", "Space and special characters not allowed", this.validateKey),
-          [FIELD.LABEL]: Yup.string()
-            .required("Enter a Name")
-            .max(64, "Name must not be greater than 64 characters"),
+          [FIELD.LABEL]: Yup.string().required("Enter a Name").max(64, "Name must not be greater than 64 characters"),
           [FIELD.DESCRIPTION]: Yup.string().max(128, "Description must not be greater than 128 characters"),
           [FIELD.PLACEHOLDER]: Yup.string().max(64, "Placeholder must not be greater than 64 characters"),
           [FIELD.HELPER_TEXT]: Yup.string().max(64, "Helper Text must not be greater than 128 characters"),
@@ -269,15 +266,13 @@ class TemplateConfigModalContent extends Component {
           [FIELD.REQUIRED]: Yup.boolean(),
           [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
           [FIELD.OPTIONS]: Yup.array().when(FIELD.TYPE, {
-            is: type => type.value === INPUT_TYPES.SELECT,
-            then: Yup.array()
-              .required("Enter an option")
-              .min(1, "Enter at least one option")
+            is: (type) => type.value === INPUT_TYPES.SELECT,
+            then: Yup.array().required("Enter an option").min(1, "Enter at least one option"),
           }),
-          [FIELD.DEFAULT_VALUE]: this.determineDefaultValueSchema(defaultValueType)
+          [FIELD.DEFAULT_VALUE]: this.determineDefaultValueSchema(defaultValueType),
         })}
       >
-        {formikProps => {
+        {(formikProps) => {
           const {
             values,
             touched,
@@ -286,7 +281,7 @@ class TemplateConfigModalContent extends Component {
             handleChange,
             handleSubmit,
             setFieldValue,
-            isValid
+            isValid,
           } = formikProps;
 
           return (
@@ -302,7 +297,7 @@ class TemplateConfigModalContent extends Component {
                   }
                   items={INPUT_TYPES_LABELS}
                   initialSelectedItem={values.type}
-                  itemToString={item => item && item.label}
+                  itemToString={(item) => item && item.label}
                   placeholder="Select a type"
                   titleText="Type"
                 />
@@ -314,7 +309,7 @@ class TemplateConfigModalContent extends Component {
                     invalidText={errors.key}
                     labelText="Key"
                     onBlur={handleBlur}
-                    onChange={e => this.handleOnChange(e, handleChange)}
+                    onChange={(e) => this.handleOnChange(e, handleChange)}
                     placeholder="e.g. email"
                     value={values.key}
                   />
@@ -327,7 +322,7 @@ class TemplateConfigModalContent extends Component {
                   placeholder="e.g. Email"
                   value={values.label}
                   onBlur={handleBlur}
-                  onChange={e => this.handleOnChange(e, handleChange)}
+                  onChange={(e) => this.handleOnChange(e, handleChange)}
                 />
 
                 <TextInput
@@ -337,7 +332,7 @@ class TemplateConfigModalContent extends Component {
                   labelText="Helper Text (optional)"
                   helperText="Assist user in completing the field"
                   onBlur={handleBlur}
-                  onChange={e => this.handleOnChange(e, handleChange)}
+                  onChange={(e) => this.handleOnChange(e, handleChange)}
                   value={values.helperText}
                 />
                 <TextInput
@@ -347,7 +342,7 @@ class TemplateConfigModalContent extends Component {
                   labelText="Description (optional)"
                   helperText="Provide additional information about field to show in a tooltip"
                   onBlur={handleBlur}
-                  onChange={e => this.handleOnChange(e, handleChange)}
+                  onChange={(e) => this.handleOnChange(e, handleChange)}
                   value={values.description}
                 />
                 <TextInput
@@ -357,7 +352,7 @@ class TemplateConfigModalContent extends Component {
                   labelText="Placeholder (optional)"
                   helperText="Give the user a hint for the field value"
                   onBlur={handleBlur}
-                  onChange={e => this.handleOnChange(e, handleChange)}
+                  onChange={(e) => this.handleOnChange(e, handleChange)}
                   value={values.placeholder}
                 />
 
@@ -365,14 +360,14 @@ class TemplateConfigModalContent extends Component {
                 <Toggle
                   id={FIELD.REQUIRED}
                   labelText="Required"
-                  onToggle={value => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
+                  onToggle={(value) => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
                   orientation="vertical"
                   toggled={values.required}
                 />
                 <Toggle
                   id={FIELD.READ_ONLY}
                   labelText="Read Only"
-                  onToggle={value => this.handleOnFieldValueChange(value, FIELD.READ_ONLY, setFieldValue)}
+                  onToggle={(value) => this.handleOnFieldValueChange(value, FIELD.READ_ONLY, setFieldValue)}
                   orientation="vertical"
                   toggled={values.readOnly}
                 />
