@@ -8,6 +8,14 @@ import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = (props) => {
+  //number inputs doesn't support AutoSuggest setSelectionRange
+  if(props.type === "number")
+  return (
+    <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
+      <TextInput {...props} onChange={(e) =>props.onChange(e.target.value)}/>
+    </div>
+  )
+  else
   return (
     <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
       <AutoSuggest {...props}>
@@ -163,6 +171,7 @@ class WorkflowTaskForm extends Component {
         textEditorProps={this.textAreaProps}
         textInputProps={this.textInputProps}
         toggleProps={this.toggleProps}
+        hasSyntaxProps={true}
       >
         {({ inputs, formikProps }) => (
           <ModalFlowForm onSubmit={formikProps.handleSubmit} className={styles.container}>
