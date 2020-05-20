@@ -14,6 +14,9 @@
   padding: 1rem;
   white-space: nowrap;
   @include border-radius();
+  &:focus {
+    @include focus-outline();
+  }
 
   .taskName {
     color: $darkest-gray;

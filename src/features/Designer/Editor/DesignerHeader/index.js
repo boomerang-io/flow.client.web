@@ -1,58 +1,70 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Button } from "carbon-components-react";
-import { ConfirmModal, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
+import { Button, ConfirmModal, ComposedModal, InlineLoading } from "@boomerang/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
 import Navigation from "./Navigation";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
+import { appLink } from "Config/appConfig";
+import { QueryStatus } from "Constants";
 import { Add16, DocumentExport16 } from "@carbon/icons-react";
 import styles from "./DesignerHeader.module.scss";
 
-class DesignerHeader extends Component {
-  static propTypes = {
-    currentRevision: PropTypes.number,
-    fetchWorkflowRevisionNumber: PropTypes.func,
-    handleChangeLogReasonChange: PropTypes.func,
-    onDesigner: PropTypes.bool.isRequired,
-    performAction: PropTypes.func,
-    performActionButtonText: PropTypes.string,
-    revisionCount: PropTypes.number,
-    workflowName: PropTypes.string.isRequired,
-  };
+DesignerHeader.propTypes = {
+  createRevision: PropTypes.func,
+  currentRevision: PropTypes.number,
+  changeRevisionNumber: PropTypes.func,
+  handleChangeLogReasonChange: PropTypes.func,
+  isOnDesigner: PropTypes.bool.isRequired,
+  performActionButtonText: PropTypes.string,
+  revisionCount: PropTypes.number,
+};
 
-  static defaultProps = {
-    includeResetVersionAlert: false,
-  };
+DesignerHeader.defaultProps = {
+  includeResetVersionAlert: false,
+};
+
+function DesignerHeader({
+  createRevision,
+  changeRevision,
+  isOnDesigner,
+  revisionMutation,
+  revisionState,
+  revisionQuery,
+  summaryData,
+}) {
+  const { revisionCount, name } = summaryData;
+  const { version: currentRevision } = revisionState;
+  const includeResetVersionAlert = currentRevision < revisionCount;
+  const isMutationLoading = revisionMutation.status === QueryStatus.Loading;
+  const isQueryLoading = revisionQuery.status === QueryStatus.Loading;
+  const performActionButtonText = currentRevision < revisionCount ? "Set version to latest" : "Create new version";
 
   // Need to hardcode that the version is being reset in the change log for now based on the current implementation
-  resetVersionToLatestWithMessage = () => {
-    this.props.handleChangeLogReasonChange(`Reverting ${this.props.currentRevision} to the latest version`);
-    this.props.performAction();
+  const resetVersionToLatestWithMessage = () => {
+    createRevision({ reason: `Set ${currentRevision} to the latest version` });
   };
 
-  determinePerformActionRender() {
-    const {
-      currentRevision,
-      includeResetVersionAlert,
-      isCreating,
-      loading,
-      onDesigner,
-      performAction,
-      performActionButtonText,
-    } = this.props;
+  const determinePerformActionRender = () => {
+    // If user is resetting to latest version show this alert modal
+    if (isQueryLoading) {
+      return <InlineLoading description="Loading version..." style={{ height: "2.5rem" }} />;
+    }
 
-    // If user is resetting to latest version show this alert,
+    if (isMutationLoading) {
+      return <InlineLoading description="Creating version..." style={{ height: "2.5rem" }} />;
+    }
+
     if (includeResetVersionAlert) {
       return (
         <ConfirmModal
-          affirmativeAction={this.resetVersionToLatestWithMessage}
-          children="A new version will be created."
-          title={`Set version ${currentRevision} to the latest`}
+          affirmativeAction={resetVersionToLatestWithMessage}
+          children="A new version will be created"
+          title={`Set version ${currentRevision} to be the latest`}
           modalTrigger={({ openModal }) => (
             <Button
-              disabled={loading || !onDesigner}
+              disabled={!isOnDesigner}
               iconDescription="Set version to latest"
               kind="ghost"
               onClick={openModal}
@@ -67,15 +79,14 @@ class DesignerHeader extends Component {
     }
 
     return (
-      <ModalFlow
-        composedModalProps={{ shouldCloseOnOverlayClick: false }}
+      <ComposedModal
         modalHeaderProps={{
           title: "Create New Version",
           subtitle: "Enter a comment for record keeping",
         }}
         modalTrigger={({ openModal }) => (
           <Button
-            disabled={loading || !onDesigner}
+            disabled={!isOnDesigner}
             iconDescription="Create new version"
             kind="ghost"
             onClick={openModal}
@@ -86,56 +97,39 @@ class DesignerHeader extends Component {
           </Button>
         )}
       >
-        <VersionCommentForm
-          isCreating={isCreating}
-          handleOnChange={this.props.handleChangeLogReasonChange}
-          loading={loading}
-          onSave={performAction}
+        {({ closeModal }) => (
+          <VersionCommentForm closeModal={closeModal} onSave={createRevision} revisionMutation={revisionMutation} />
+        )}
+      </ComposedModal>
+    );
+  };
+
+  return (
+    <FeatureHeader includeBorder className={styles.container}>
+      <section className={styles.header}>
+        <div className={styles.breadcrumbContainer}>
+          <Link className={styles.workflowsLink} to={appLink.workflows()}>
+            Workflows
+          </Link>
+          <span className={styles.breadcrumbDivider}>/</span>
+          <p className={styles.workflowName}> {name}</p>
+        </div>
+        <div className={styles.titleContainer}>
+          <h1 className={styles.title}>Editor</h1>
+        </div>
+      </section>
+      <section className={styles.workflowButtons}>
+        <VersionSwitcher
+          currentRevision={currentRevision}
+          disabled={isQueryLoading || !isOnDesigner}
+          onChangeVersion={changeRevision}
+          revisionCount={revisionCount}
         />
-      </ModalFlow>
-    );
-  }
-
-  render() {
-    const { currentRevision, fetchWorkflowRevisionNumber, onDesigner, revisionCount, workflowName } = this.props;
-
-    return (
-      <FeatureHeader includeBorder className={styles.container}>
-        <section className={styles.header}>
-          <div className={styles.breadcrumbContainer}>
-            <Link className={styles.workflowsLink} to="/workflows">
-              Workflows
-            </Link>
-            <span className={styles.breadcrumbDivider}>/</span>
-            <p className={styles.workflowName}> {workflowName}</p>
-            {/* <Button
-              className={styles.validateButton}
-              disabled={!onDesigner}
-              iconDescription="Validate workflow"
-              kind="ghost"
-              renderIcon={Flash16}
-              size="field"
-            >
-              Validate this workflow
-            </Button> */}
-          </div>
-          <div className={styles.titleContainer}>
-            <h1 className={styles.title}>Editor</h1>
-          </div>
-        </section>
-        <section className={styles.workflowButtons}>
-          <VersionSwitcher
-            disabled={!onDesigner}
-            currentRevision={currentRevision}
-            onChangeVersion={fetchWorkflowRevisionNumber}
-            revisionCount={revisionCount}
-          />
-          {this.determinePerformActionRender()}
-        </section>
-        <Navigation />
-      </FeatureHeader>
-    );
-  }
+        <div className={styles.workflowActionContainer}>{determinePerformActionRender()}</div>
+      </section>
+      <Navigation />
+    </FeatureHeader>
+  );
 }
 
 export default DesignerHeader;

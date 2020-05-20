@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
-import WorkflowPropertiesModalContent from "./WorkflowPropertiesModalContent";
+import PropertiesModalContent from "./PropertiesModalContent";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import { Add32 } from "@carbon/icons-react";
-import styles from "./WorkflowPropertiesModal.module.scss";
+import styles from "./PropertiesModal.module.scss";
 
-class WorkflowProperties extends Component {
+class PropertiesModal extends Component {
   static propTypes = {
     property: PropTypes.object,
     propertyKeys: PropTypes.array,
     isEdit: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
-    updateWorkflowProperties: PropTypes.func.isRequired
+    updateWorkflowProperties: PropTypes.func.isRequired,
   };
 
   editTrigger = ({ openModal }) => {
@@ -41,15 +41,15 @@ class WorkflowProperties extends Component {
       <ModalFlow
         confirmModalProps={{
           title: "Are you sure?",
-          children: "Your property will not be saved"
+          children: "Your property will not be saved",
         }}
         modalHeaderProps={{
           title: isEdit ? "Update Property" : "Create Property",
-          subtitle: isEdit ? "Let's change some stuff" : "Let's create a new one"
+          subtitle: isEdit ? "Let's change some stuff" : "Let's create a new one",
         }}
         modalTrigger={this.editTrigger}
       >
-        <WorkflowPropertiesModalContent
+        <PropertiesModalContent
           loading={loading}
           updateWorkflowProperties={this.props.updateWorkflowProperties}
           {...this.props}
@@ -59,4 +59,4 @@ class WorkflowProperties extends Component {
   }
 }
 
-export default WorkflowProperties;
+export default PropertiesModal;

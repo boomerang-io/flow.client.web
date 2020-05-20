@@ -11,20 +11,28 @@ import sortBy from "lodash/sortBy";
 import styles from "./workflowHome.module.scss";
 
 const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
+const initShowWelcomeBanner = window.localStorage.getItem(BANNER_STORAGE_ID) !== "true";
 
 export default function WorkflowsHome() {
   const { onBoardShow, setOnBoardShow, teams } = useAppContext();
-
   const [isWelcomeBannerOpen, setIsWelcomeBannerOpen] = useState(true);
-  const [isWelcomeBannerShown, setIsWelcomeBannerShown] = useState(
-    window.localStorage.getItem(BANNER_STORAGE_ID) !== "true"
-  );
+  const [isWelcomeBannerShown, setIsWelcomeBannerShown] = useState(initShowWelcomeBanner);
+  const isWelcomeBannerOpenRef = React.useRef();
   const [searchQuery, setSearchQuery] = useState("");
   const [teamsFilter, setTeamsFilter] = useState([]);
 
   useEffect(() => {
-    setIsWelcomeBannerShown(!onBoardShow);
-  }, [onBoardShow]);
+    if (onBoardShow) {
+      isWelcomeBannerOpenRef.current = isWelcomeBannerOpen;
+      setIsWelcomeBannerOpen(false);
+    } else {
+      if (isWelcomeBannerOpenRef.current) {
+        setIsWelcomeBannerOpen(true);
+      }
+    }
+    // purposefully get the stale state value and don't run the effect when things change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onBoardShow, setIsWelcomeBannerOpen]);
 
   useEffect(() => {
     if (!isWelcomeBannerOpen && !isWelcomeBannerShown) {
@@ -94,10 +102,9 @@ export default function WorkflowsHome() {
 }
 
 TeamWorkflows.propTypes = {
-  deleteWorkflow: PropTypes.func.isRequired,
-  executeWorkflow: PropTypes.func.isRequired,
   searchQuery: PropTypes.string.isRequired,
   team: PropTypes.object.isRequired,
+  teams: PropTypes.array.isRequired,
 };
 
 function TeamWorkflows({ children, searchQuery, team, teams }) {

@@ -28,9 +28,6 @@ import workflowIcons from "Assets/workflowIcons";
 import styles from "./workflowCard.module.scss";
 
 WorkflowCard.propTypes = {
-  deleteWorkflow: PropTypes.func.isRequired,
-  executeWorkflow: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
   teamId: PropTypes.string.isRequired,
   workflow: PropTypes.object.isRequired,
 };
@@ -233,7 +230,7 @@ function WorkflowCard({ teamId, workflow }) {
       )}
       {isDeleting || isExecuting ? (
         <InlineLoading
-          description={isDeleting ? "Deleting..." : "Executing"}
+          description={isDeleting ? "Deleting..." : "Executing..."}
           style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
         />
       ) : (

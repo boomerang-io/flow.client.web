@@ -15,7 +15,7 @@ import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import INPUT_TYPES from "Constants/workflowInputTypes";
 import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
-import styles from "./WorkflowPropertiesModalContent.module.scss";
+import styles from "./PropertiesModalContent.module.scss";
 
 const FIELD = {
   KEY: "key",
@@ -36,7 +36,7 @@ const INPUT_TYPES_LABELS = [
   { label: "Text Area", value: "textarea" },
 ];
 
-class WorkflowPropertiesModalContent extends Component {
+class PropertiesModalContent extends Component {
   static propTypes = {
     closeModal: PropTypes.func,
     property: PropTypes.object,
@@ -333,4 +333,4 @@ class WorkflowPropertiesModalContent extends Component {
   }
 }
 
-export default WorkflowPropertiesModalContent;
+export default PropertiesModalContent;

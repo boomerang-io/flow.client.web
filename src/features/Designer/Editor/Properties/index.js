@@ -2,18 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useMutation, queryCache } from "react-query";
 import { ConfirmModal, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
-import WorkflowPropertiesModal from "./WorkflowPropertiesModal";
+import WorkflowPropertiesModal from "./PropertiesModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import capitalize from "lodash/capitalize";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
 import { QueryStatus } from "Constants";
-import styles from "./WorkflowProperties.module.scss";
-
-WorkflowProperties.propTypes = {
-  properties: PropTypes.array.isRequired,
-  workflow: PropTypes.object.isRequired,
-};
+import styles from "./Properties.module.scss";
 
 const WorkflowPropertyRow = ({ title, value }) => {
   return (
@@ -41,7 +36,12 @@ const WorkflowPropertyHeader = ({ label, description }) => {
   );
 };
 
-export default function WorkflowProperties({ summaryData }) {
+Properties.propTypes = {
+  properties: PropTypes.array.isRequired,
+  summaryData: PropTypes.object.isRequired,
+};
+
+export default function Properties({ summaryData }) {
   const [mutateProperties, { status: mutatePropertiesStatus }] = useMutation(resolver.patchUpdateWorkflowProperties);
   const mutatePropertiesIsLoading = mutatePropertiesStatus === QueryStatus.Loading;
 

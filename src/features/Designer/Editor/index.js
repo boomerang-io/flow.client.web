@@ -2,38 +2,39 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
+import { SkeletonPlaceholder, SkeletonText } from "@boomerang/carbon-addons-boomerang-react";
 import ChangeLog from "./ChangeLog";
 import DesignerHeader from "./DesignerHeader";
 import Overview from "./Overview";
 import Tasks from "./Tasks";
-import WorkflowProperties from "./WorkflowProperties";
+import Properties from "./Properties";
 import WorkflowZoom from "Components/WorkflowZoom";
+import { QueryStatus } from "Constants";
+import cx from "classnames";
 import DiagramApplication from "Utilities/DiagramApplication";
 import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
 import styles from "./Editor.module.scss";
-import { QueryStatus } from "Constants";
 
-// TODO: hooks for modal is open
-class WorkflowEditor extends Component {
+class Editor extends Component {
   static propTypes = {
     createNode: PropTypes.func.isRequired,
-    createWorkflowRevision: PropTypes.func.isRequired,
-    fetchWorkflowRevisionNumber: PropTypes.func.isRequired,
-    handleChangeLogReasonChange: PropTypes.func.isRequired,
+    createRevision: PropTypes.func.isRequired,
+    changeRevision: PropTypes.func.isRequired,
+    formikProps: PropTypes.object.isRequired,
     isModalOpen: PropTypes.bool.isRequired,
+    location: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
+    revisionMutation: PropTypes.object.isRequired,
+    revisionState: PropTypes.object.isRequired,
+    summaryData: PropTypes.object.isRequired,
     tasks: PropTypes.object.isRequired,
     teams: PropTypes.array.isRequired,
-    updateWorkflow: PropTypes.func.isRequired,
-    updateWorkflowProperties: PropTypes.func.isRequired,
-    workflow: PropTypes.object.isRequired,
-    workflowFormikProps: PropTypes.object.isRequired,
-    workflowRevision: PropTypes.object.isRequired,
+    updateSummary: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
-    this.diagramApp = new DiagramApplication({ dag: props.workflowRevision.dag, isLocked: false });
+    this.diagramApp = new DiagramApplication({ dag: props.revisionState.dag, isLocked: false });
     this.state = {
       diagramBoundingClientRect: {},
     };
@@ -46,17 +47,14 @@ class WorkflowEditor extends Component {
         diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect(),
       });
     }
-    if (this.props.location.pathname.endsWith("/designer")) {
-      this.diagramApp.getDiagramEngine().zoomToFit();
-    }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.workflowRevision.version !== prevProps.workflowRevision.version) {
-      const { revisionCount } = this.props.workflow;
-      const { version } = this.props.workflowRevision;
+    if (this.props.revisionState.version !== prevProps.revisionState.version) {
+      const { revisionCount } = this.props.summaryData;
+      const { version } = this.props.revisionState;
       const isLocked = version < revisionCount;
-      this.diagramApp = new DiagramApplication({ dag: this.props.workflowRevision.dag, isLocked });
+      this.diagramApp = new DiagramApplication({ dag: this.props.revisionState.dag, isLocked });
       this.diagramApp.getDiagramEngine().repaintCanvas();
       this.forceUpdate();
     }
@@ -66,83 +64,79 @@ class WorkflowEditor extends Component {
     }
   }
 
-  createWorkflowRevision = () => {
-    this.props.createWorkflowRevision(this.diagramApp);
+  createRevision = ({ closeModal, reason }) => {
+    this.props.createRevision({ diagramApp: this.diagramApp, reason, closeModal });
   };
 
   render() {
     const {
       createNode,
-      fetchWorkflowRevisionNumber,
-      handleChangeLogReasonChange,
+      changeRevision,
+      formikProps,
+      isModalOpen,
       location,
       match,
-      isModalOpen,
+      revisionMutation,
+      revisionState,
+      revisionQuery,
+      summaryData,
       tasks,
       teams,
-      workflow,
-      workflowFormikProps,
-      workflowRevision,
+      updateSummary,
     } = this.props;
 
-    const { revisionCount } = workflow;
-    const { version } = workflowRevision;
-    const workflowLoading = workflowRevision.status === QueryStatus.Loading;
+    const isRevisionLoading = revisionQuery.status === QueryStatus.Loading;
+
     return (
       <>
         <DesignerHeader
-          currentRevision={workflowRevision.version}
-          fetchWorkflowRevisionNumber={fetchWorkflowRevisionNumber}
-          handleChangeLogReasonChange={handleChangeLogReasonChange}
-          includeResetVersionAlert={version < revisionCount}
-          isCreating={workflowRevision.isCreating}
-          loading={workflowLoading}
-          onDesigner={location.pathname.endsWith("/designer")}
-          performAction={this.createWorkflowRevision}
-          performActionButtonText={version < revisionCount ? "Set version to latest" : "Create new version"}
-          revisionCount={workflow.revisionCount}
-          workflowName={workflow?.name ?? ""}
+          changeRevision={changeRevision}
+          createRevision={this.createRevision}
+          isOnDesigner={location.pathname.endsWith("/designer")}
+          revisionState={revisionState}
+          revisionMutation={revisionMutation}
+          revisionQuery={revisionQuery}
+          summaryData={summaryData}
         />
         <Switch>
           <Route path={`${match.path}/settings`}>
-            <Overview
-              formikProps={workflowFormikProps}
-              teams={teams}
-              updateWorkflow={this.props.updateWorkflow}
-              workflow={workflow}
-            />
+            <Overview formikProps={formikProps} summaryData={summaryData} teams={teams} updateSummary={updateSummary} />
           </Route>
           <Route path={`${match.path}/properties`}>
-            <WorkflowProperties updateWorkflowProperties={this.props.updateWorkflowProperties} summaryData={workflow} />
+            <Properties summaryData={summaryData} />
           </Route>
           <Route path={`${match.path}/designer`}>
             <div className={styles.container}>
               <Tasks tasks={tasks.filter((task) => task.status === TaskTemplateStatus.Active)} />
-              <main
-                className={styles.designer}
-                onDrop={(event) => createNode(this.diagramApp, event)}
-                onDragOver={(event) => {
-                  event.preventDefault();
-                }}
-                ref={this.diagramRef}
-              >
-                <WorkflowZoom
-                  diagramApp={this.diagramApp}
-                  diagramBoundingClientRect={this.state.diagramBoundingClientRect}
-                />
-                <DiagramWidget
-                  allowCanvasTranslation={!isModalOpen}
-                  allowCanvasZoom={!isModalOpen}
-                  className={styles.diagram}
-                  deleteKeys={[]}
-                  diagramEngine={this.diagramApp.getDiagramEngine()}
-                  maxNumberPointsPerLink={0}
-                />
-              </main>
+              {isRevisionLoading ? (
+                <WorkflowSkeleton />
+              ) : (
+                <div
+                  className={styles.designer}
+                  onDrop={(event) => createNode(this.diagramApp, event)}
+                  onDragOver={(event) => {
+                    event.preventDefault();
+                  }}
+                  ref={this.diagramRef}
+                >
+                  <WorkflowZoom
+                    diagramApp={this.diagramApp}
+                    diagramBoundingClientRect={this.state.diagramBoundingClientRect}
+                  />
+                  <DiagramWidget
+                    allowCanvasTranslation={!isModalOpen}
+                    allowCanvasZoom={!isModalOpen}
+                    className={styles.diagram}
+                    deleteKeys={[]}
+                    diagramEngine={this.diagramApp.getDiagramEngine()}
+                    maxNumberPointsPerLink={0}
+                  />
+                </div>
+              )}
             </div>
           </Route>
           <Route path={`${match.path}/changes`}>
-            <ChangeLog workflow={workflow} />
+            <ChangeLog summaryData={summaryData} />
           </Route>
         </Switch>
       </>
@@ -150,4 +144,20 @@ class WorkflowEditor extends Component {
   }
 }
 
-export default withRouter(WorkflowEditor);
+function WorkflowSkeleton() {
+  return (
+    <div className={cx(styles.designer, styles.loading)}>
+      <div className={styles.loadingContainer}>
+        <SkeletonPlaceholder className={styles.loadingStartNode} />
+        <SkeletonText className={styles.loadingEdge} />
+        <SkeletonPlaceholder className={styles.loadingTaskNode} />
+        <SkeletonText className={styles.loadingEdge} />
+        <SkeletonPlaceholder className={styles.loadingStartNode} />
+        <SkeletonText className={styles.loadingEdge} />
+        <SkeletonPlaceholder className={styles.loadingStartNode} />
+      </div>
+    </div>
+  );
+}
+
+export default withRouter(Editor);

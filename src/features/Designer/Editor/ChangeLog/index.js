@@ -9,11 +9,11 @@ import { QueryStatus } from "Constants";
 import styles from "./changeLog.module.scss";
 
 ChangeLog.propTypes = {
-  workflow: PropTypes.object.isRequired,
+  summaryData: PropTypes.object.isRequired,
 };
 
-function ChangeLog({ workflow }) {
-  const getWorkflowChangelogUrl = serviceUrl.getWorkflowChangelog({ workflowId: workflow.id });
+function ChangeLog({ summaryData }) {
+  const getWorkflowChangelogUrl = serviceUrl.getWorkflowChangelog({ workflowId: summaryData.id });
   const { data, status, error } = useQuery(getWorkflowChangelogUrl);
 
   const isLoading = status === QueryStatus.Loading;
@@ -34,9 +34,9 @@ function ChangeLog({ workflow }) {
 
   if (data)
     return (
-      <main className={styles.container}>
+      <div className={styles.container}>
         <ChangeLogTable changeLog={data} />
-      </main>
+      </div>
     );
 
   return null;

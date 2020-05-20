@@ -26,15 +26,12 @@ const DEFAULT_SORT = "creationDate";
 WorkflowActivity.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
-  teamsState: PropTypes.object.isRequired
 };
 
 // Defined outside function so only run once
 const activitySummaryQuery = queryString.stringify({
-  fromDate: moment(new Date())
-    .subtract("24", "hours")
-    .unix(),
-  toDate: moment(new Date()).unix()
+  fromDate: moment(new Date()).subtract("24", "hours").unix(),
+  toDate: moment(new Date()).unix(),
 });
 
 export default function WorkflowActivity({ history, location, match }) {
@@ -50,7 +47,7 @@ export default function WorkflowActivity({ history, location, match }) {
     statuses,
     teamIds,
     fromDate,
-    toDate
+    toDate,
   } = queryString.parse(location.search);
 
   /**** Start get some data ****/
@@ -65,7 +62,7 @@ export default function WorkflowActivity({ history, location, match }) {
     triggers,
     workflowIds,
     fromDate,
-    toDate
+    toDate,
   });
 
   const activityStatusSummaryQuery = queryString.stringify({
@@ -73,7 +70,7 @@ export default function WorkflowActivity({ history, location, match }) {
     triggers,
     workflowIds,
     fromDate,
-    toDate
+    toDate,
   });
 
   const activitySummaryUrl = serviceUrl.getActivitySummary({ query: activitySummaryQuery });
@@ -98,17 +95,17 @@ export default function WorkflowActivity({ history, location, match }) {
   }
 
   function handleSelectTeams({ selectedItems }) {
-    const teamIds = selectedItems.length > 0 ? selectedItems.map(team => team.id).join() : undefined;
+    const teamIds = selectedItems.length > 0 ? selectedItems.map((team) => team.id).join() : undefined;
     updateHistorySearch({ ...queryString.parse(location.search), teamIds, workflowIds: undefined });
   }
 
   function handleSelectWorkflows({ selectedItems }) {
-    const workflowIds = selectedItems.length > 0 ? selectedItems.map(worflow => worflow.id).join() : undefined;
+    const workflowIds = selectedItems.length > 0 ? selectedItems.map((worflow) => worflow.id).join() : undefined;
     updateHistorySearch({ ...queryString.parse(location.search), workflowIds });
   }
 
   function handleSelectTriggers({ selectedItems }) {
-    const triggers = selectedItems.length > 0 ? selectedItems.map(trigger => trigger.value).join() : undefined;
+    const triggers = selectedItems.length > 0 ? selectedItems.map((trigger) => trigger.value).join() : undefined;
     updateHistorySearch({ ...queryString.parse(location.search), triggers });
   }
 
@@ -156,8 +153,8 @@ export default function WorkflowActivity({ history, location, match }) {
 
     const teamsData = JSON.parse(JSON.stringify(teamsState));
 
-    const selectedTeams = teamsData.filter(team => {
-      if (selectedTeamIds.find(id => id === team.id)) {
+    const selectedTeams = teamsData.filter((team) => {
+      if (selectedTeamIds.find((id) => id === team.id)) {
         return true;
       } else {
         return false;
@@ -201,7 +198,7 @@ export default function WorkflowActivity({ history, location, match }) {
                   invalid={false}
                   onChange={handleSelectTeams}
                   items={teamsData}
-                  itemToString={team => (team ? team.name : "")}
+                  itemToString={(team) => (team ? team.name : "")}
                   initialSelectedItems={selectedTeams}
                   titleText="Filter by team"
                 />
@@ -214,12 +211,12 @@ export default function WorkflowActivity({ history, location, match }) {
                   invalid={false}
                   onChange={handleSelectWorkflows}
                   items={workflowsFilter}
-                  itemToString={workflow => {
-                    const team = workflow ? teamsData.find(team => team.id === workflow.flowTeamId) : undefined;
+                  itemToString={(workflow) => {
+                    const team = workflow ? teamsData.find((team) => team.id === workflow.flowTeamId) : undefined;
                     return workflow ? (team ? `${workflow.name} [${team.name}]` : workflow.name) : "";
                   }}
-                  initialSelectedItems={workflowsFilter.filter(workflow => {
-                    if (selectedWorkflowIds.find(id => id === workflow.id)) {
+                  initialSelectedItems={workflowsFilter.filter((workflow) => {
+                    if (selectedWorkflowIds.find((id) => id === workflow.id)) {
                       return true;
                     } else {
                       return false;
@@ -236,9 +233,9 @@ export default function WorkflowActivity({ history, location, match }) {
                   invalid={false}
                   onChange={handleSelectTriggers}
                   items={executionOptions}
-                  itemToString={item => (item ? item.value : "")}
-                  initialSelectedItems={executionOptions.filter(option => {
-                    if (selectedTriggers.find(trigger => trigger === option.value)) {
+                  itemToString={(item) => (item ? item.value : "")}
+                  initialSelectedItems={executionOptions.filter((option) => {
+                    if (selectedTriggers.find((trigger) => trigger === option.value)) {
                       return true;
                     } else {
                       return false;

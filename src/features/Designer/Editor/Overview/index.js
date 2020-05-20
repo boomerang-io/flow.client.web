@@ -34,8 +34,9 @@ export class Overview extends Component {
   }
   static propTypes = {
     formikProps: PropTypes.object.isRequired,
+    summaryData: PropTypes.object.isRequired,
     teams: PropTypes.array.isRequired,
-    workflow: PropTypes.object.isRequired,
+    updateSummary: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -43,7 +44,7 @@ export class Overview extends Component {
   }
 
   componentWillUnmount() {
-    this.props.updateWorkflow(this.props.formikProps.values); // will have to pass formik values in here
+    this.props.updateSummary(this.props.formikProps.values); // will have to pass formik values in here
     window.removeEventListener("beforeunload", this.handleBeforeUnloadEvent);
   }
 
@@ -62,7 +63,7 @@ export class Overview extends Component {
       e.preventDefault();
     }
     return axios
-      .post(`${BASE_SERVICE_URL}/workflow/${this.props.workflow.data.id}/webhook-token`)
+      .post(`${BASE_SERVICE_URL}/workflow/${this.props.summaryData.id}/webhook-token`)
       .then((response) => {
         this.props.formikProps.setFieldValue("triggers.webhook.token", response.data.token);
         notify(

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { WorkflowContext } from "State/context";
 import { useAppContext, useIsModalOpen } from "Hooks";
 import { Prompt, useParams, useRouteMatch } from "react-router-dom";
@@ -40,31 +40,32 @@ export default function WorkflowContainer(props) {
   /**
    * Mutations
    */
-  const [mutateSummary] = useMutation(resolver.patchUpdateWorkflowSummary);
-  const [mutateRevision] = useMutation(resolver.postCreateWorkflowRevision);
+  const [mutateSummary, summaryMutation] = useMutation(resolver.patchUpdateWorkflowSummary);
+  const [mutateRevision, revisionMutation] = useMutation(resolver.postCreateWorkflowRevision);
 
   /**
    * Render Logic
    */
-  const summaryIsLoading = summaryQuery.status === QueryStatus.Loading;
-  const revisionIsLoading = revisionQuery.status === QueryStatus.Loading;
-  const taskTempaltesAreLoading = taskTemplatesQuery.status === QueryStatus.Loading;
+  const isSummaryLoading = summaryQuery.status === QueryStatus.Loading;
+  const isTaskTemplatesLoading = taskTemplatesQuery.status === QueryStatus.Loading;
 
-  if (summaryIsLoading || revisionIsLoading || taskTempaltesAreLoading) {
+  if (isSummaryLoading || isTaskTemplatesLoading) {
     return <Loading />;
   }
 
-  if (summaryQuery.error || revisionQuery.error || taskTemplatesQuery.error) {
+  if (summaryQuery.error || taskTemplatesQuery.error) {
     return <Error />;
   }
 
-  if (summaryQuery.data && revisionQuery.data && taskTemplatesQuery.data) {
+  if (summaryQuery.data && taskTemplatesQuery.data) {
     return (
       <WorkflowManager
         mutateRevision={mutateRevision}
         mutateSummary={mutateSummary}
+        revisionMutation={revisionMutation}
         revisionNumber={revisionNumber}
         revisionQuery={revisionQuery}
+        summaryMutation={summaryMutation}
         summaryQuery={summaryQuery}
         setRevisionNumber={setRevisionNumber}
         taskTemplatesData={taskTemplatesQuery.data}
@@ -77,13 +78,16 @@ export default function WorkflowContainer(props) {
 }
 
 function initRevisionReducerState(revisionData) {
-  const { config, ...rest } = revisionData;
-  const normalizedNodesObj = {};
-  config.nodes.forEach((node) => {
-    normalizedNodesObj[node.nodeId] = node;
-  });
+  if (revisionData) {
+    const { config, ...rest } = revisionData;
+    const normalizedNodesObj = {};
+    config.nodes.forEach((node) => {
+      normalizedNodesObj[node.nodeId] = node;
+    });
 
-  return { ...rest, config: normalizedNodesObj };
+    return { ...rest, config: normalizedNodesObj };
+  }
+  return {};
 }
 
 /**
@@ -121,26 +125,19 @@ const revisionActionTypes = {
 export function WorkflowManager({
   mutateRevision,
   mutateSummary,
+  revisionMutation,
   revisionNumber,
   revisionQuery,
   summaryQuery,
+  summaryMutation,
   setRevisionNumber,
   taskTemplatesData,
   workflowId,
   ...props
 }) {
   const match = useRouteMatch();
-  const { activeTeam, setActiveTeam, teams } = useAppContext();
+  const { teams } = useAppContext();
   const isModalOpen = useIsModalOpen();
-  const changeLogReasonRef = useRef("Update workflow");
-
-  // Set active team
-  useEffect(() => {
-    const activeTeam = teams.find((team) => {
-      return team.workflows.find((workflow) => workflow.id === workflowId);
-    });
-    setActiveTeam(activeTeam);
-  }, [setActiveTeam, teams, workflowId]);
 
   // Move inside component so the reducer has access to the props and
   // don't need to pass it to the effect and include the object in the compare
@@ -191,10 +188,12 @@ export function WorkflowManager({
   );
 
   useEffect(() => {
-    revisionDispatch({
-      type: revisionActionTypes.RESET,
-    });
-  }, [revisionNumber, revisionDispatch]);
+    if (revisionQuery.data) {
+      revisionDispatch({
+        type: revisionActionTypes.RESET,
+      });
+    }
+  }, [revisionNumber, revisionDispatch, revisionQuery.data]);
 
   const { data: summaryData } = summaryQuery;
 
@@ -202,12 +201,12 @@ export function WorkflowManager({
    *
    * @param {Object} diagramApp - the DAG
    */
-  const createRevision = async (diagramApp) => {
+  const handleCreateRevision = async ({ diagramApp, reason = "Update workflow", closeModal }) => {
     const revision = {};
     revision["dag"] = getDiagramSerialization(diagramApp);
     revision["config"] = formatWorkflowConfigNodes(revisionState);
     revision["changelog"] = {
-      reason: changeLogReasonRef.current,
+      reason,
     };
 
     try {
@@ -216,8 +215,11 @@ export function WorkflowManager({
         <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
       );
       revisionDispatch({ type: revisionActionTypes.SET, data });
+      if (typeof closeModal === "function") {
+        closeModal();
+      }
     } catch (err) {
-      notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create workflow version" />);
+      //no-op
     }
   };
 
@@ -231,10 +233,6 @@ export function WorkflowManager({
 
     try {
       await mutateSummary({ body: updatedWorkflow });
-      // If the team has changed
-      if (flowTeamId && activeTeam.id !== flowTeamId) {
-        setActiveTeam(teams.find((team) => team.id === flowTeamId));
-      }
     } catch (err) {
       notify(
         <ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to update workflow settings`} />
@@ -247,7 +245,7 @@ export function WorkflowManager({
    * @param {Object} diagramApp - object containing the internal state of the DAG
    * @param {DragEvent} event - dragend event when adding a node to the diagram
    */
-  const createNode = (diagramApp, event) => {
+  const handleCreateNode = (diagramApp, event) => {
     const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
 
     // For naming purposes
@@ -312,12 +310,8 @@ export function WorkflowManager({
    *  Simply update the parent state to use a different revision to fetch it w/ react-query
    * @param {string} revisionNumber
    */
-  const changeRevisionNumber = (revisionNumber) => {
+  const handleChangeRevision = (revisionNumber) => {
     setRevisionNumber(revisionNumber);
-  };
-
-  const handleChangeLogReasonChange = (reason) => {
-    changeLogReasonRef.current = reason;
   };
 
   return (
@@ -348,7 +342,7 @@ export function WorkflowManager({
               enablePersistentStorage: summaryData?.enablePersistentStorage ?? false,
               icon: summaryData?.icon ?? "",
               name: summaryData?.name ?? "",
-              selectedTeam: teams.find((team) => team.id === activeTeam?.id),
+              selectedTeam: teams.find((team) => team.id === match.teamId),
               shortDescription: summaryData?.shortDescription ?? "",
               triggers: {
                 event: {
@@ -396,17 +390,19 @@ export function WorkflowManager({
             {(formikProps) => (
               <>
                 <Editor
-                  createNode={createNode}
-                  createWorkflowRevision={createRevision}
-                  fetchWorkflowRevisionNumber={changeRevisionNumber}
-                  handleChangeLogReasonChange={handleChangeLogReasonChange}
+                  createNode={handleCreateNode}
+                  createRevision={handleCreateRevision}
+                  changeRevision={handleChangeRevision}
+                  formikProps={formikProps}
                   isModalOpen={isModalOpen}
+                  revisionMutation={revisionMutation}
+                  revisionQuery={revisionQuery}
+                  revisionState={revisionState}
+                  summaryData={summaryData}
+                  summaryMutation={summaryMutation}
                   tasks={taskTemplatesData}
                   teams={sortBy(teams, "name")}
-                  updateWorkflow={updateSummary}
-                  workflow={summaryData}
-                  workflowFormikProps={formikProps}
-                  workflowRevision={revisionState}
+                  updateSummary={updateSummary}
                 />
               </>
             )}
