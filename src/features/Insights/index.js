@@ -24,7 +24,7 @@ import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
 import styles from "./workflowInsights.module.scss";
 
 WorkflowInsights.propTypes = {
-  location: PropTypes.object.isRequired,
+  location: PropTypes.object,
 };
 
 export default function WorkflowInsights(location) {

@@ -1,9 +1,9 @@
 import React from "react";
-import { actions as insightsActions, initialState } from "State/insights";
-import { wait, waitFor, fireEvent } from "@testing-library/react";
-import { WorkflowInsights } from "./index";
+import { waitFor, fireEvent } from "@testing-library/react";
+import WorkflowInsights from "./index";
 import mockAxios from "Utilities/testing/axios";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import { serviceUrl } from "Config/servicesConfig";
+
 
 const props = {
   location: {},
@@ -11,7 +11,7 @@ const props = {
     fetch: () => new Promise((resolve) => resolve({ test: "test" })),
   },
   teamsActions: {
-    fetch: () => new Promise(() => {}),
+    fetch: () => new Promise(() => { }),
   },
   teams: {
     isFetching: false,
@@ -28,7 +28,7 @@ const props = {
       medianExecutionTime: 24435,
       executions: [
         {
-          creationDate: 1542292277199,
+          creationDate: 1535760000000,
           duration: 20825,
           id: "5bed8335b336a5000103aa2b",
           initiatedByUserId: "5bbcdd38ee763e00011f5b72",
@@ -47,10 +47,20 @@ const props = {
   },
 };
 
+const insightsQuery = "fromDate=1535760000000&toDate=1535760000000";
+
+beforeEach(() => {
+  mockAxios.resetHistory();
+});
+
+
 describe("WorkflowInsights --- Snapshot", () => {
-  it("Capturing Snapshot of WorkflowInsights", () => {
-    const { baseElement } = rtlRouterRender(<WorkflowInsights {...props} />);
+  mockAxios.onGet(serviceUrl.getInsights({ query: insightsQuery })).reply(200, props.insights.data);
+  it("Capturing Snapshot of WorkflowInsights", async () => {
+    const { baseElement, getByText } = rtlContextRouterRender(<WorkflowInsights />);
+    await waitFor(() => expect(getByText(/Duration/i)).toBeInTheDocument());
     expect(baseElement).toMatchSnapshot();
+    await waitFor(() => { });
   });
 });
 
