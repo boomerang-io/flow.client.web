@@ -60,7 +60,7 @@ function WorkflowProperties(props) {
             <WorkflowPropertyHeader label={property.label} description={property.description} />
             <WorkflowPropertyRow title="Key" value={property.key} />
             <WorkflowPropertyRow title="Type" value={property.type} />
-            <WorkflowPropertyRow title="Default value" value={formatDefaultValue(property.defaultValue)} />
+            <WorkflowPropertyRow title="Default value" value={formatDefaultValue(property.type==="password" && property.defaultValue ? property.defaultValue.toString().replace(/./g, "*") : property.defaultValue)} />
             <WorkflowPropertyRow
               title="Options"
               value={formatDefaultValue(property.options?.map((option) => option.key).join(", "))}
