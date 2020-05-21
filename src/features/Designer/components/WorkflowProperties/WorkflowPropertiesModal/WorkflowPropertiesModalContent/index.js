@@ -7,7 +7,7 @@ import {
   TextArea,
   TextInput,
   Toggle,
-  ModalFlowForm
+  ModalFlowForm,
 } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "carbon-components-react";
 import { Formik } from "formik";
@@ -25,7 +25,7 @@ const FIELD = {
   REQUIRED: "required",
   TYPE: "type",
   DEFAULT_VALUE: "defaultValue",
-  OPTIONS: "options"
+  OPTIONS: "options",
 };
 
 const INPUT_TYPES_LABELS = [
@@ -34,7 +34,7 @@ const INPUT_TYPES_LABELS = [
   { label: "Password", value: "password" },
   { label: "Select", value: "select" },
   { label: "Text", value: "text" },
-  { label: "Text Area", value: "textarea" }
+  { label: "Text Area", value: "textarea" },
 ];
 
 class WorkflowPropertiesModalContent extends Component {
@@ -44,11 +44,11 @@ class WorkflowPropertiesModalContent extends Component {
     propertyKeys: PropTypes.array,
     isEdit: PropTypes.bool,
     loading: PropTypes.bool.isRequired,
-    updateWorkflowProperties: PropTypes.func.isRequired
+    updateWorkflowProperties: PropTypes.func.isRequired,
   };
 
   state = {
-    defaultValueType: "text"
+    defaultValueType: "text",
   };
 
   handleOnChange = (e, formikChange) => {
@@ -74,13 +74,13 @@ class WorkflowPropertiesModalContent extends Component {
     setFieldValue(FIELD.OPTIONS, values);
   };
 
-  /* Check if key contains space or special characters, only underline is allowed */
-  validateKey = key => {
-    const regexp = new RegExp("[^a-z|^A-Z|^0-9|^_|/.]");
-    return !regexp.test(key);
+  // Check if key contains alpahanumeric, underscore, dash, and period chars
+  validateKey = (key) => {
+    const regexp = /^[a-zA-Z0-9-._]+$/g;
+    return regexp.test(key);
   };
 
-  handleConfirm = values => {
+  handleConfirm = (values) => {
     let property = clonedeep(values);
     property.type = property.type.value;
 
@@ -89,7 +89,7 @@ class WorkflowPropertiesModalContent extends Component {
       delete property.options;
     } else {
       // Create options in correct type for service - { key, value }
-      property.options = property.options.map(property => ({ key: property, value: property }));
+      property.options = property.options.map((property) => ({ key: property, value: property }));
     }
 
     if (property.type === INPUT_TYPES.BOOLEAN) {
@@ -100,26 +100,26 @@ class WorkflowPropertiesModalContent extends Component {
       this.props
         .updateWorkflowProperties({
           property,
-          type: WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE
+          type: WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE,
         })
         .then(() => {
           this.props.forceCloseModal();
         })
-        .catch(e => {});
+        .catch((e) => {});
     } else {
       this.props
         .updateWorkflowProperties({
           property,
-          type: WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE
+          type: WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE,
         })
         .then(() => {
           this.props.forceCloseModal();
         })
-        .catch(e => {});
+        .catch((e) => {});
     }
   };
 
-  renderDefaultValue = formikProps => {
+  renderDefaultValue = (formikProps) => {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
 
     switch (values.type.value) {
@@ -129,7 +129,7 @@ class WorkflowPropertiesModalContent extends Component {
             data-testid="toggle"
             id={FIELD.DEFAULT_VALUE}
             label="Default Value"
-            onToggle={value => this.handleOnFieldValueChange(value.toString(), FIELD.DEFAULT_VALUE, setFieldValue)}
+            onToggle={(value) => this.handleOnFieldValueChange(value.toString(), FIELD.DEFAULT_VALUE, setFieldValue)}
             orientation="vertical"
             toggled={values.defaultValue === "true"}
           />
@@ -142,7 +142,7 @@ class WorkflowPropertiesModalContent extends Component {
             <Creatable
               data-testid="creatable"
               id={FIELD.OPTIONS}
-              onChange={createdItems => this.handleOptionsChange(createdItems, setFieldValue)}
+              onChange={(createdItems) => this.handleOptionsChange(createdItems, setFieldValue)}
               label="Options"
               placeholder="Enter option"
               values={options || []}
@@ -167,7 +167,7 @@ class WorkflowPropertiesModalContent extends Component {
             id={FIELD.DEFAULT_VALUE}
             labelText="Default Value"
             onBlur={handleBlur}
-            onChange={e => this.handleOnChange(e, handleChange)}
+            onChange={(e) => this.handleOnChange(e, handleChange)}
             placeholder="Default Value"
             style={{ resize: "none" }}
             value={values.defaultValue || ""}
@@ -181,7 +181,7 @@ class WorkflowPropertiesModalContent extends Component {
             id={FIELD.DEFAULT_VALUE}
             labelText="Default Value"
             onBlur={handleBlur}
-            onChange={e => this.handleOnChange(e, handleChange)}
+            onChange={(e) => this.handleOnChange(e, handleChange)}
             placeholder="Default Value"
             type={values.type.value}
             value={values.defaultValue || ""}
@@ -190,7 +190,7 @@ class WorkflowPropertiesModalContent extends Component {
     }
   };
 
-  determineDefaultValueSchema = defaultType => {
+  determineDefaultValueSchema = (defaultType) => {
     switch (defaultType) {
       case "text":
       case "textarea":
@@ -218,34 +218,38 @@ class WorkflowPropertiesModalContent extends Component {
           [FIELD.DESCRIPTION]: property?.description ?? "",
           [FIELD.REQUIRED]: property?.required ?? false,
           [FIELD.TYPE]: property
-            ? INPUT_TYPES_LABELS.find(type => type.value === property.type)
+            ? INPUT_TYPES_LABELS.find((type) => type.value === property.type)
             : INPUT_TYPES_LABELS[4],
           [FIELD.DEFAULT_VALUE]: property?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
-          [FIELD.OPTIONS]: property?.options?.map(option => (typeof option === "object" ? option.key : option)) ?? []
+          [FIELD.OPTIONS]: property?.options?.map((option) => (typeof option === "object" ? option.key : option)) ?? [],
         }}
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()
             .required("Enter a key")
-            .max(64, "Key must not be greater than 64 characters")
+            .max(128, "Key must not be greater than 128 characters")
             .notOneOf(propertyKeys || [], "Enter a unique key value for this workflow")
-            .test("is-valid-key", "Space and special characters not allowed", this.validateKey),
+            .test(
+              "is-valid-key",
+              "Only alphanumeric, underscore, dash, and period characters allowed",
+              this.validateKey
+            ),
           [FIELD.LABEL]: Yup.string()
             .required("Enter a Name")
-            .max(64, "Name must not be greater than 64 characters"),
-          [FIELD.DESCRIPTION]: Yup.string().max(64, "Description must not be greater than 64 characters"),
+            .max(128, "Name must not be greater than 128 characters"),
+          [FIELD.DESCRIPTION]: Yup.string().max(128, "Description must not be greater than 128 characters"),
           [FIELD.REQUIRED]: Yup.boolean(),
           [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
           [FIELD.OPTIONS]: Yup.array().when(FIELD.TYPE, {
-            is: type => type.value === INPUT_TYPES.SELECT,
+            is: (type) => type.value === INPUT_TYPES.SELECT,
             then: Yup.array()
               .required("Enter an option")
-              .min(1, "Enter at least one option")
+              .min(1, "Enter at least one option"),
           }),
-          [FIELD.DEFAULT_VALUE]: this.determineDefaultValueSchema(defaultValueType)
+          [FIELD.DEFAULT_VALUE]: this.determineDefaultValueSchema(defaultValueType),
         })}
       >
-        {formikProps => {
+        {(formikProps) => {
           const {
             values,
             touched,
@@ -254,7 +258,7 @@ class WorkflowPropertiesModalContent extends Component {
             handleChange,
             handleSubmit,
             setFieldValue,
-            isValid
+            isValid,
           } = formikProps;
 
           return (
@@ -269,7 +273,7 @@ class WorkflowPropertiesModalContent extends Component {
                   placeholder="Name"
                   value={values.label}
                   onBlur={handleBlur}
-                  onChange={e => this.handleOnChange(e, handleChange)}
+                  onChange={(e) => this.handleOnChange(e, handleChange)}
                 />
                 {!isEdit && (
                   <TextInput
@@ -279,7 +283,7 @@ class WorkflowPropertiesModalContent extends Component {
                     invalidText={errors.key}
                     labelText="Key"
                     onBlur={handleBlur}
-                    onChange={e => this.handleOnChange(e, handleChange)}
+                    onChange={(e) => this.handleOnChange(e, handleChange)}
                     placeholder="key.value"
                     value={values.key}
                   />
@@ -291,7 +295,7 @@ class WorkflowPropertiesModalContent extends Component {
                   invalidText={errors.description}
                   labelText="Description"
                   onBlur={handleBlur}
-                  onChange={e => this.handleOnChange(e, handleChange)}
+                  onChange={(e) => this.handleOnChange(e, handleChange)}
                   placeholder="Description"
                   value={values.description}
                 />
@@ -299,7 +303,7 @@ class WorkflowPropertiesModalContent extends Component {
                 <Toggle
                   id={FIELD.REQUIRED}
                   labelText="Required"
-                  onToggle={value => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
+                  onToggle={(value) => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
                   orientation="vertical"
                   toggled={values.required}
                 />
@@ -314,7 +318,7 @@ class WorkflowPropertiesModalContent extends Component {
                   }
                   items={INPUT_TYPES_LABELS}
                   initialSelectedItem={values.type}
-                  itemToString={item => item && item.label}
+                  itemToString={(item) => item && item.label}
                   placeholder="Select an item"
                   titleText="Type"
                 />

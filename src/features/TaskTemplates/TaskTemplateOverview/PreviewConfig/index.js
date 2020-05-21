@@ -6,7 +6,7 @@ import {
   ComposedModal,
   Button,
   ModalBody,
-  TooltipHover
+  TooltipHover,
 } from "@boomerang/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
@@ -14,13 +14,13 @@ import { View16 } from "@carbon/icons-react";
 
 PreviewConfig.propTypes = {
   templateConfig: PropTypes.array,
-  taskTemplateName: PropTypes.string
+  taskTemplateName: PropTypes.string,
 };
 
 const modalHeadertext =
   "This is a preview of what the user sees when editing this Task. The user can also give this task a custom name for their Workflow, and can adjust its connected tasks. You can type in these fields to test any validation requirements.";
 
-const TextEditorInput = props => {
+const TextEditorInput = (props) => {
   return (
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
       <TextEditorModal {...props} {...props.item} />
@@ -33,27 +33,27 @@ const textAreaProps = ({ input, formikProps }) => {
   const itemConfig = TEXT_AREA_TYPES[type];
   return {
     autoSuggestions: [],
-    formikSetFieldValue: value => setFieldValue(key, value),
+    formikSetFieldValue: (value) => setFieldValue(key, value),
     initialValue: values[key],
     item: input,
     ...itemConfig,
-    ...rest
+    ...rest,
   };
 };
 
 function PreviewConfigForm({ templateConfig, closeModal }) {
   return (
     <DynamicFormik
+      allowCustomPropertySyntax
       validateOnMount
       inputs={templateConfig}
       dataDrivenInputProps={{
-        TextEditor: TextEditorInput
+        TextEditor: TextEditorInput,
       }}
       textEditorProps={textAreaProps}
       toggleProps={() => ({
-        orientation: "vertical"
+        orientation: "vertical",
       })}
-      hasSyntaxProps={true}
     >
       {({ inputs, formikProps }) => (
         <ModalFlowForm>
@@ -69,11 +69,11 @@ function PreviewConfig({ templateConfig, taskTemplateName }) {
       composedModalProps={{ shouldCloseOnOverlayClick: true }}
       confirmModalProps={{
         title: "Close this?",
-        children: "Your request will not be saved"
+        children: "Your request will not be saved",
       }}
       modalHeaderProps={{
         title: `[Preview] ${taskTemplateName}`,
-        subtitle: modalHeadertext
+        subtitle: modalHeadertext,
       }}
       modalTrigger={({ openModal }) => (
         <TooltipHover direction="top" tooltipText={"Preview what the user sees when they view this task"}>

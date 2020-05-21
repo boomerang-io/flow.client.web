@@ -12,7 +12,7 @@ class WorkflowProperties extends Component {
     propertyKeys: PropTypes.array,
     isEdit: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
-    updateWorkflowProperties: PropTypes.func.isRequired
+    updateWorkflowProperties: PropTypes.func.isRequired,
   };
 
   editTrigger = ({ openModal }) => {
@@ -41,11 +41,11 @@ class WorkflowProperties extends Component {
       <ModalFlow
         confirmModalProps={{
           title: "Are you sure?",
-          children: "Your property will not be saved"
+          children: "Your property will not be saved",
         }}
         modalHeaderProps={{
           title: isEdit ? "Update Property" : "Create Property",
-          subtitle: isEdit ? "Let's change some stuff" : "Let's create a new one"
+          subtitle: isEdit ? "Let's change some stuff" : "Let's create a new one",
         }}
         modalTrigger={this.editTrigger}
       >
