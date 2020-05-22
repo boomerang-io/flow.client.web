@@ -155,7 +155,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
     >
       {({ inputs, formikProps }) => {
         return (
-          <ModalForm onSubmit={formikProps.handleSubmit}>
+          <ModalForm noValidate onSubmit={formikProps.handleSubmit}>
             <ModalBody className={styles.versionsContainer}>
               <VersionSection
                 description={currentTaskTemplateVersion.description}

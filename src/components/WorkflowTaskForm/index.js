@@ -175,7 +175,7 @@ class WorkflowTaskForm extends Component {
         toggleProps={this.toggleProps}
       >
         {({ inputs, formikProps }) => (
-          <ModalFlowForm onSubmit={formikProps.handleSubmit} className={styles.container}>
+          <ModalFlowForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
             <ModalBody>{inputs}</ModalBody>
             <ModalFooter>
               <Button kind="secondary" onClick={this.props.closeModal}>

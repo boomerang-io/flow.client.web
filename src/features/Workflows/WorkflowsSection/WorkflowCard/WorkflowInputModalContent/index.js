@@ -8,7 +8,7 @@ import styles from "./workflowInputModalContent.module.scss";
 WorkflowInputModalContent.propTypes = {
   closeModal: PropTypes.func,
   executeWorkflow: PropTypes.func.isRequired,
-  inputs: PropTypes.array.isRequired,
+  inputs: PropTypes.array.isRequired
 };
 
 function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
@@ -18,20 +18,20 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
       validateOnMount
       inputs={inputs}
       toggleProps={() => ({
-        orientation: "vertical",
+        orientation: "vertical"
       })}
-      onSubmit={(values) => {
+      onSubmit={values => {
         const redirect = values.redirect;
         delete values.redirect;
         executeWorkflow({
           redirect,
-          properties: values,
+          properties: values
         });
         closeModal();
       }}
     >
       {({ inputs, formikProps }) => (
-        <ModalFlowForm className={styles.container}>
+        <ModalFlowForm noValidate className={styles.container}>
           <ModalBody>{inputs}</ModalBody>
           <ModalFooter>
             <Button kind="secondary" onClick={closeModal} type="button">
@@ -40,7 +40,7 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
             <Button
               disabled={!formikProps.isValid}
               p
-              onClick={(e) => {
+              onClick={e => {
                 formikProps.setFieldValue("redirect", false);
                 formikProps.handleSubmit();
               }}
@@ -50,7 +50,7 @@ function WorkflowInputModalContent({ closeModal, executeWorkflow, inputs }) {
             </Button>
             <Button
               disabled={!formikProps.isValid}
-              onClick={(e) => {
+              onClick={e => {
                 formikProps.setFieldValue("redirect", true);
                 formikProps.handleSubmit();
               }}
