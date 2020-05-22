@@ -139,6 +139,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
 
   return (
     <DynamicFormik
+      allowCustomPropertySyntax
       initialValues={nodeConfig.inputs}
       inputs={newTaskTemplateVersion.config}
       onSubmit={handleSubmit}
