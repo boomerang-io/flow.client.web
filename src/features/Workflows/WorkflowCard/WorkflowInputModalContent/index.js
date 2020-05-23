@@ -14,6 +14,7 @@ WorkflowInputModalContent.propTypes = {
 function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, inputs, isExecuting }) {
   return (
     <DynamicFormik
+      allowCustomPropertySyntax
       validateOnMount
       inputs={inputs}
       toggleProps={() => ({

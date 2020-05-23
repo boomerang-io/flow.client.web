@@ -42,7 +42,7 @@ const INPUT_TYPES_LABELS = [
   { label: "Text Editor - Text", value: "texteditor::text" },
   { label: "Text Editor - YAML", value: "texteditor::yaml" },
   { label: "Time", value: "time" },
-  { label: "Url", value: "url" },
+  { label: "URL", value: "url" },
 ];
 
 const TextEditorInput = (props) => {
@@ -86,10 +86,10 @@ class TemplateConfigModalContent extends Component {
     setFieldValue(FIELD.OPTIONS, values);
   };
 
-  /* Check if key contains space or special characters, only underline is allowed */
+  // Check if key contains alpahanumeric, underscore, dash, and period chars
   validateKey = (key) => {
-    const regexp = new RegExp("[^a-z|^A-Z|^0-9|^_|/.]");
-    return !regexp.test(key);
+    const regexp = /^[a-zA-Z0-9-._]+$/g;
+    return regexp.test(key);
   };
 
   handleConfirm = (values) => {
@@ -257,7 +257,11 @@ class TemplateConfigModalContent extends Component {
             .required("Enter a key")
             .max(64, "Key must not be greater than 64 characters")
             .notOneOf(fieldKeys || [], "Enter a unique key value for this workflow")
-            .test("is-valid-key", "Space and special characters not allowed", this.validateKey),
+            .test(
+              "is-valid-key",
+              "Only alphanumeric, underscore, dash, and period characters allowed",
+              this.validateKey
+            ),
           [FIELD.LABEL]: Yup.string().required("Enter a Name").max(64, "Name must not be greater than 64 characters"),
           [FIELD.DESCRIPTION]: Yup.string().max(128, "Description must not be greater than 128 characters"),
           [FIELD.PLACEHOLDER]: Yup.string().max(64, "Placeholder must not be greater than 64 characters"),

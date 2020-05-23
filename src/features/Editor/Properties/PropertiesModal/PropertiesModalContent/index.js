@@ -71,10 +71,10 @@ class PropertiesModalContent extends Component {
     setFieldValue(FIELD.OPTIONS, values);
   };
 
-  /* Check if key contains space or special characters, only underline is allowed */
+  // Check if key contains alpahanumeric, underscore, dash, and period chars
   validateKey = (key) => {
-    const regexp = new RegExp("[^a-z|^A-Z|^0-9|^_|/.]");
-    return !regexp.test(key);
+    const regexp = /^[a-zA-Z0-9-._]+$/g;
+    return regexp.test(key);
   };
 
   handleConfirm = (values) => {
@@ -101,7 +101,8 @@ class PropertiesModalContent extends Component {
         })
         .then(() => {
           this.props.forceCloseModal();
-        });
+        })
+        .catch((e) => {});
     } else {
       this.props
         .updateWorkflowProperties({
@@ -110,7 +111,8 @@ class PropertiesModalContent extends Component {
         })
         .then(() => {
           this.props.forceCloseModal();
-        });
+        })
+        .catch((e) => {});
     }
   };
 
@@ -227,11 +229,15 @@ class PropertiesModalContent extends Component {
         validationSchema={Yup.object().shape({
           [FIELD.KEY]: Yup.string()
             .required("Enter a key")
-            .max(64, "Key must not be greater than 64 characters")
+            .max(128, "Key must not be greater than 128 characters")
             .notOneOf(propertyKeys || [], "Enter a unique key value for this workflow")
-            .test("is-valid-key", "Space and special characters not allowed", this.validateKey),
-          [FIELD.LABEL]: Yup.string().required("Enter a Name").max(64, "Name must not be greater than 64 characters"),
-          [FIELD.DESCRIPTION]: Yup.string().max(64, "Description must not be greater than 64 characters"),
+            .test(
+              "is-valid-key",
+              "Only alphanumeric, underscore, dash, and period characters allowed",
+              this.validateKey
+            ),
+          [FIELD.LABEL]: Yup.string().required("Enter a Name").max(128, "Name must not be greater than 128 characters"),
+          [FIELD.DESCRIPTION]: Yup.string().max(128, "Description must not be greater than 128 characters"),
           [FIELD.REQUIRED]: Yup.boolean(),
           [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
           [FIELD.OPTIONS]: Yup.array().when(FIELD.TYPE, {
@@ -257,20 +263,15 @@ class PropertiesModalContent extends Component {
             <ModalFlowForm onSubmit={handleSubmit} disabled={loading}>
               <ModalBody className={styles.container}>
                 {loading && <Loading />}
-                <ComboBox
-                  id={FIELD.TYPE}
-                  onChange={({ selectedItem }) =>
-                    this.handleOnTypeChange(
-                      selectedItem !== null ? selectedItem : { label: "", value: "" },
-                      setFieldValue
-                    )
-                  }
-                  items={INPUT_TYPES_LABELS}
-                  initialSelectedItem={values.type}
-                  itemToString={(item) => item && item.label}
-                  placeholder="Select an item"
-                  titleText="Type"
-                  data-testid="input-type"
+                <TextInput
+                  id={FIELD.LABEL}
+                  invalid={errors.label && touched.label}
+                  invalidText={errors.label}
+                  labelText="Name"
+                  placeholder="Name"
+                  value={values.label}
+                  onBlur={handleBlur}
+                  onChange={(e) => this.handleOnChange(e, handleChange)}
                 />
                 {!isEdit && (
                   <TextInput
@@ -313,6 +314,22 @@ class PropertiesModalContent extends Component {
                   orientation="vertical"
                   toggled={values.required}
                 />
+
+                <ComboBox
+                  id={FIELD.TYPE}
+                  onChange={({ selectedItem }) =>
+                    this.handleOnTypeChange(
+                      selectedItem !== null ? selectedItem : { label: "", value: "" },
+                      setFieldValue
+                    )
+                  }
+                  items={INPUT_TYPES_LABELS}
+                  initialSelectedItem={values.type}
+                  itemToString={(item) => item && item.label}
+                  placeholder="Select an item"
+                  titleText="Type"
+                />
+
                 {this.renderDefaultValue(formikProps)}
               </ModalBody>
               <ModalFooter>

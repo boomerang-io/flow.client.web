@@ -44,6 +44,7 @@ const textAreaProps = ({ input, formikProps }) => {
 function PreviewConfigForm({ templateConfig, closeModal }) {
   return (
     <DynamicFormik
+      allowCustomPropertySyntax
       validateOnMount
       inputs={templateConfig}
       dataDrivenInputProps={{
@@ -55,7 +56,7 @@ function PreviewConfigForm({ templateConfig, closeModal }) {
       })}
     >
       {({ inputs, formikProps }) => (
-        <ModalFlowForm>
+        <ModalFlowForm noValidate>
           <ModalBody>{inputs}</ModalBody>
         </ModalFlowForm>
       )}
