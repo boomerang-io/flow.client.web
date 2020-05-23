@@ -12,7 +12,7 @@
   width: 18.75rem;
 
   // add transition to sibling
-  & + main {
+  & + div {
     transition: margin-left $carbon-motion--timing--productive $carbon-motion--easing--productive;
   }
 
@@ -29,7 +29,7 @@
     }
 
     // shift sibling to the left
-    & + main {
+    & + div {
       margin-left: -16.75rem;
     }
   }

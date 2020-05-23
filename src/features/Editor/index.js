@@ -93,6 +93,7 @@ export default function EditorContainer(props) {
 
 function initRevisionReducerState(revisionData) {
   if (revisionData) {
+    console.log(revisionData);
     const { config, ...rest } = revisionData;
     const normalizedNodesObj = {};
     config.nodes.forEach((node) => {
@@ -321,7 +322,7 @@ export function EditorStateContainer({
   const handleChangeRevision = (revisionNumber) => {
     setRevisionNumber(revisionNumber);
   };
-
+  //console.log(revisionState);
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
     <WorkflowContext.Provider

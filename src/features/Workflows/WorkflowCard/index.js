@@ -23,7 +23,7 @@ import { QueryStatus } from "Constants";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import { Run20 } from "@carbon/icons-react";
+import { Run20, Bee20 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
 import styles from "./workflowCard.module.scss";
 
@@ -147,7 +147,7 @@ function WorkflowCard({ teamId, workflow }) {
   const formattedProperties = formatPropertiesForEdit();
   const isDeleting = deleteWorkflowStatus === QueryStatus.Loading;
   const isExecuting = executeWorkflowStatus === QueryStatus.Loading;
-  const { name, Icon } = workflowIcons.find((icon) => icon.name === workflow.icon);
+  const { name, Icon = Bee20 } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
 
   return (
     <div className={styles.container}>

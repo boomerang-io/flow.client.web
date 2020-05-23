@@ -38,7 +38,10 @@ export default function DesignerContainer({
     const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, isLocked });
     setWorkflowDagEngine(newWorkflowDagEngine);
     newWorkflowDagEngine.getDiagramEngine().repaintCanvas();
-  }, [isLocked, revisionState.dag, setWorkflowDagEngine]);
+
+    // really and truly only want to remount this on version change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLocked, revisionState.version]);
 
   return (
     <div className={styles.container}>
@@ -64,6 +67,7 @@ function Designer({ createNode, isModalOpen, revisionState, summaryData, workflo
   const workflowDagBoundingClientRect = workflowDagRef.current ? workflowDagRef.current.getBoundingClientRect() : {};
   return (
     <div
+      id="workflow-dag-designer"
       className={styles.designer}
       onDrop={(event) => createNode(workflowDagEngine, event)}
       onDragOver={(event) => {
