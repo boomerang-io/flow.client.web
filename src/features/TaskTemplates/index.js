@@ -53,7 +53,7 @@ export function TaskTemplatesContainer() {
         <Sidenav taskTemplates={taskTemplatesData} addTemplateInState={addTemplateInState} />
         <Switch>
           <Route exact path={match.path}>
-            <WombatMessage className={styles.wombat} message="Select a task template or create one" />
+            <WombatMessage className={styles.wombat} message="Select a task or add a new one" />
           </Route>
           <Route path={[`${match.path}/:taskTemplateId/:version`]}>
             <TaskTemplateOverview taskTemplates={taskTemplatesData} updateTemplateInState={updateTemplateInState} />

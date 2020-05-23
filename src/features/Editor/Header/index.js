@@ -1,7 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Button, ConfirmModal, ComposedModal, InlineLoading } from "@boomerang/carbon-addons-boomerang-react";
+import {
+  Button,
+  ConfirmModal,
+  ComposedModal,
+  DelayedRender,
+  InlineLoading,
+} from "@boomerang/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
 import Navigation from "./Navigation";
 import VersionCommentForm from "./VersionCommentForm";
@@ -69,7 +75,11 @@ function DesignerHeader({
         />
         <div className={styles.workflowActionContainer}>
           <>
-            {isQueryLoading && <InlineLoading description="Loading version..." style={{ height: "2.5rem" }} />}
+            {isQueryLoading && (
+              <DelayedRender>
+                <InlineLoading description="Loading version..." style={{ height: "2.5rem" }} />
+              </DelayedRender>
+            )}
             <ConfirmModal
               affirmativeAction={resetVersionToLatestWithMessage}
               children="A new version will be created"

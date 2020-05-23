@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
-import { SkeletonPlaceholder, SkeletonText } from "@boomerang/carbon-addons-boomerang-react";
+import { DelayedRender, SkeletonPlaceholder, SkeletonText } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowZoom from "Components/WorkflowZoom";
 import Tasks from "./Tasks";
 import cx from "classnames";
@@ -95,13 +95,15 @@ function WorkflowSkeleton() {
   return (
     <div className={cx(styles.designer, styles.loading)}>
       <div className={styles.loadingContainer}>
-        <SkeletonPlaceholder className={styles.loadingStartNode} />
-        <SkeletonText className={styles.loadingEdge} />
-        <SkeletonPlaceholder className={styles.loadingTaskNode} />
-        <SkeletonText className={styles.loadingEdge} />
-        <SkeletonPlaceholder className={styles.loadingStartNode} />
-        <SkeletonText className={styles.loadingEdge} />
-        <SkeletonPlaceholder className={styles.loadingStartNode} />
+        <DelayedRender>
+          <SkeletonPlaceholder className={styles.loadingStartNode} />
+          <SkeletonText className={styles.loadingEdge} />
+          <SkeletonPlaceholder className={styles.loadingTaskNode} />
+          <SkeletonText className={styles.loadingEdge} />
+          <SkeletonPlaceholder className={styles.loadingStartNode} />
+          <SkeletonText className={styles.loadingEdge} />
+          <SkeletonPlaceholder className={styles.loadingStartNode} />
+        </DelayedRender>
       </div>
     </div>
   );
