@@ -13,7 +13,7 @@ import {
   notify,
   ToastNotification,
   TextInput,
-  Toggle
+  Toggle,
 } from "@boomerang/carbon-addons-boomerang-react";
 import INPUT_TYPES from "Constants/inputTypes";
 import { QueryStatus } from "Constants";
@@ -24,33 +24,33 @@ const configUrl = serviceUrl.getGlobalConfiguration();
 function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKeys, cancelRequestRef }) {
   /** Add property */
   const [addGlobalPropertyMutation, { status: addStatus, error: addError }] = useMutation(
-    args => {
+    (args) => {
       const { promise, cancel } = resolver.postGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.refetchQueries(configUrl)
+      onSuccess: () => queryCache.refetchQueries(configUrl),
     }
   );
   const addLoading = addStatus === QueryStatus.Loading;
 
   /** Update property */
   const [updateGlobalPropertyMutation, { status: updateStatus, error: updateError }] = useMutation(
-    args => {
+    (args) => {
       const { promise, cancel } = resolver.patchGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.refetchQueries(configUrl)
+      onSuccess: () => queryCache.refetchQueries(configUrl),
     }
   );
   const updateLoading = updateStatus === QueryStatus.Loading;
 
   const loading = addLoading || updateLoading;
 
-  const handleSubmit = async values => {
+  const handleSubmit = async (values) => {
     const type = values.secured ? INPUT_TYPES.PASSWORD : INPUT_TYPES.TEXT;
     const newProperty = isEdit ? { ...values, type, id: property.id } : { ...values, type };
     delete newProperty.secured;
@@ -67,8 +67,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
           />
         );
         closeModal();
-      } catch (err) {
-      }
+      } catch (err) {}
     } else {
       try {
         await addGlobalPropertyMutation({ body: newProperty });
@@ -81,8 +80,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
           />
         );
         closeModal();
-      } catch (err) {
-      }
+      } catch (err) {}
     }
   };
 
@@ -93,20 +91,18 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
         description: property && property.description ? property.description : "",
         key: property && property.key ? property.key : "",
         value: property && property.value ? property.value : "",
-        secured: property ? property.type === INPUT_TYPES.PASSWORD : false
+        secured: property ? property.type === INPUT_TYPES.PASSWORD : false,
       }}
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
         label: Yup.string().required("Enter a label"),
-        key: Yup.string()
-          .required("Enter a key")
-          .notOneOf(propertyKeys, "Key must be unique"),
+        key: Yup.string().required("Enter a key").notOneOf(propertyKeys, "Key must be unique"),
         value: Yup.string().required("Enter a value"),
         description: Yup.string(),
-        secured: Yup.boolean()
+        secured: Yup.boolean(),
       })}
     >
-      {props => {
+      {(props) => {
         const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit } = props;
 
         return (
@@ -114,20 +110,8 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
             <ModalBody>
               {loading && <Loading />}
               <TextInput
-                id="label"
-                labelText="Label"
-                placeholder="Label"
-                name="label"
-                value={values.label}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.label && touched.label}
-                invalidText={errors.label}
-              />
-              <TextInput
                 id="key"
                 labelText="Key"
-                placeholder="Key"
                 name="key"
                 value={values.key}
                 onBlur={handleBlur}
@@ -136,9 +120,18 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 invalidText={errors.key}
               />
               <TextInput
+                id="label"
+                labelText="Label"
+                name="label"
+                value={values.label}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.label && touched.label}
+                invalidText={errors.label}
+              />
+              <TextInput
                 id="description"
                 labelText="Description"
-                placeholder="Description"
                 name="description"
                 value={values.description}
                 onBlur={handleBlur}
@@ -203,7 +196,7 @@ CreateEditPropertiesContent.propTypes = {
   isEdit: PropTypes.bool,
   property: PropTypes.object,
   propertyKeys: PropTypes.array.isRequired,
-  cancelRequestRef: PropTypes.object.isRequired
+  cancelRequestRef: PropTypes.object.isRequired,
 };
 
 export default CreateEditPropertiesContent;

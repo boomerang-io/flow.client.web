@@ -15,7 +15,7 @@ import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import {
   AsyncActivity,
-  AsyncDesigner,
+  AsyncEditor,
   AsyncExecution,
   AsyncGlobalConfiguration,
   AsyncInsights,
@@ -115,7 +115,7 @@ export default function App() {
                 />
                 <Route path={appPath.execution} component={AsyncExecution} />
                 <Route path={appPath.activity} component={AsyncActivity} />
-                <Route path={appPath.editor} component={AsyncDesigner} />
+                <Route path={appPath.editor} component={AsyncEditor} />
                 <Route path={appPath.insights} component={AsyncInsights} />
                 <Route path={appPath.workflows} component={AsyncWorkflows} />
                 <Redirect exact from="/" to={appPath.workflows} />

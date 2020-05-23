@@ -10,6 +10,10 @@ export const appPath = {
   error: "/error",
   activity: "/activity",
   editor: "/teams/:teamId/editor/:workflowId",
+  editorDesigner: `/teams/:teamId/editor/:workflowId/designer`,
+  editorConfigure: `/teams/:teamId/editor/:workflowId/configure`,
+  editorChangelog: `/teams/:teamId/editor/:workflowId/change-log`,
+  editorProperties: `/teams/:teamId/editor/:workflowId/properties`,
   execution: "/activity/:workflowId/execution/:executionId",
   insights: "/insights",
   properties: "/properties",
@@ -20,7 +24,11 @@ export const appPath = {
 
 export const appLink = {
   activity: () => `/activity`,
-  designer: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/designer`,
+  editor: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}`,
+  editorDesigner: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/designer`,
+  editorConfigure: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/configure`,
+  editorChangelog: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/change-log`,
+  editorProperties: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/properties`,
   execution: ({ executionId, workflowId }) => `/activity/${workflowId}/execution/${executionId}`,
   taskTemplateEdit: ({ id, version }) => `/task-templates/${id}/${version}`,
   taskTemplateEditSettings: ({ id, version }) => `/task-templates/edit/${id}/${version}/settings`,

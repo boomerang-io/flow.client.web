@@ -106,67 +106,57 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
           <ModalFlowForm onSubmit={handleSubmit}>
             <ModalBody className={styles.formBody}>
               {loading && <Loading />}
-              <div className={styles.input}>
-                <TextInput
-                  id="label"
-                  labelText="Label"
-                  placeholder="Label"
-                  name="label"
-                  value={values.label}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  invalid={errors.label && touched.label}
-                  invalidText={errors.label}
-                />
-              </div>
-              <div className={styles.input}>
-                <TextInput
-                  id="key"
-                  labelText="Key"
-                  placeholder="Key"
-                  name="key"
-                  value={values.key}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  invalid={errors.key && touched.key}
-                  invalidText={errors.key}
-                />
-              </div>
-              <div className={styles.input}>
-                <TextInput
-                  id="description"
-                  labelText="Description"
-                  placeholder="Description"
-                  name="description"
-                  value={values.description}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className={styles.input}>
-                <TextInput
-                  id="value"
-                  labelText="Value"
-                  placeholder="Value"
-                  name="value"
-                  value={values.value}
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  invalid={errors.value && touched.value}
-                  invalidText={errors.value}
-                  type={values.secured ? "password" : "text"}
-                />
-              </div>
-              <div className={styles.toggleContainer}>
-                <Toggle
-                  id="secured-team-properties-toggle"
-                  data-testid="secured-team-properties-toggle"
-                  labelText="Secured"
-                  name="secured"
-                  onChange={handleChange}
-                  toggled={values.secured}
-                />
-              </div>
+              <TextInput
+                id="key"
+                labelText="Key"
+                placeholder="Key"
+                name="key"
+                value={values.key}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.key && touched.key}
+                invalidText={errors.key}
+              />
+              <TextInput
+                id="label"
+                labelText="Label"
+                placeholder="Label"
+                name="label"
+                value={values.label}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.label && touched.label}
+                invalidText={errors.label}
+              />
+              <TextInput
+                id="description"
+                labelText="Description"
+                placeholder="Description"
+                name="description"
+                value={values.description}
+                onBlur={handleBlur}
+                onChange={handleChange}
+              />
+              <TextInput
+                id="value"
+                labelText="Value"
+                placeholder="Value"
+                name="value"
+                value={values.value}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.value && touched.value}
+                invalidText={errors.value}
+                type={values.secured ? "password" : "text"}
+              />
+              <Toggle
+                id="secured-team-properties-toggle"
+                data-testid="secured-team-properties-toggle"
+                labelText="Secured"
+                name="secured"
+                onChange={handleChange}
+                toggled={values.secured}
+              />
               {addError && (
                 <InlineNotification
                   kind="error"

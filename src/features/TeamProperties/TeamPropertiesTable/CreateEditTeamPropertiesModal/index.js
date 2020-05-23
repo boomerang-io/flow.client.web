@@ -13,9 +13,9 @@ function CreateEditTeamPropertiesModal({ handleEditClose, isEdit, isOpen, proper
    */
   let propertyKeys = [];
   if (Array.isArray(properties)) {
-    propertyKeys = properties.map(configurationObj => configurationObj.key);
+    propertyKeys = properties.map((configurationObj) => configurationObj.key);
     if (isEdit && property) {
-      propertyKeys = propertyKeys.filter(propertyItem => propertyItem !== property.key);
+      propertyKeys = propertyKeys.filter((propertyItem) => propertyItem !== property.key);
     }
   }
   const cancelRequestRef = React.useRef();
@@ -39,11 +39,7 @@ function CreateEditTeamPropertiesModal({ handleEditClose, isEdit, isOpen, proper
         ) : null
       }
       modalHeaderProps={{
-        title: isEdit && property ? `Edit ${property.label.toUpperCase()}` : "Create Property"
-      }}
-      confirmModalProps={{
-        title: "Close this?",
-        children: "Your property will not be saved"
+        title: isEdit && property ? `Edit ${property.label.toUpperCase()}` : "Create Property",
       }}
       onCloseModal={() => {
         if (cancelRequestRef.current) cancelRequestRef.current();
@@ -67,7 +63,7 @@ CreateEditTeamPropertiesModal.propTypes = {
   properties: PropTypes.array.isRequired,
   isEdit: PropTypes.bool,
   isOpen: PropTypes.bool,
-  team: PropTypes.object.isRequired
+  team: PropTypes.object.isRequired,
 };
 
 export default CreateEditTeamPropertiesModal;

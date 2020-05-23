@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { BrowserRouter } from "react-router-dom";
 import { ReactQueryConfigProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query-devtools";
@@ -20,9 +19,5 @@ function Root() {
     </ErrorBoundary>
   );
 }
-
-Root.propTypes = {
-  store: PropTypes.object.isRequired,
-};
 
 export default Root;

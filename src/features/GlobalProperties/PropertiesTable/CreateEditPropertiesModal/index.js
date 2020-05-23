@@ -13,9 +13,9 @@ function CreateEditPropertiesModal({ isEdit, isOpen, handleEditClose, property, 
    */
   let propertyKeys = [];
   if (Array.isArray(properties)) {
-    propertyKeys = properties.map(propertyObj => propertyObj.key);
+    propertyKeys = properties.map((propertyObj) => propertyObj.key);
     if (isEdit && property) {
-      propertyKeys = propertyKeys.filter(propertyItem => propertyItem !== property.key);
+      propertyKeys = propertyKeys.filter((propertyItem) => propertyItem !== property.key);
     }
   }
   const cancelRequestRef = React.useRef();
@@ -38,12 +38,7 @@ function CreateEditPropertiesModal({ isEdit, isOpen, handleEditClose, property, 
         ) : null
       }
       modalHeaderProps={{
-        title: isEdit && property ? `Edit ${property.label}` : "Create Property"
-      }}
-      confirmModalProps={{
-        title: "Close this?",
-        children: "Your property will not be saved",
-        affirmativeAction: isEdit ? handleEditClose : null
+        title: isEdit && property ? `Edit ${property.label}` : "Create Property",
       }}
       onCloseModal={() => {
         if (cancelRequestRef.current) cancelRequestRef.current();
@@ -65,7 +60,7 @@ CreateEditPropertiesModal.propTypes = {
   isEdit: PropTypes.bool,
   property: PropTypes.object,
   properties: PropTypes.array,
-  handleEditClose: PropTypes.func
+  handleEditClose: PropTypes.func,
 };
 
 export default CreateEditPropertiesModal;

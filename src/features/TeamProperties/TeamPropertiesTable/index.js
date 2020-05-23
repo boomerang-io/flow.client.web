@@ -153,12 +153,13 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
               id="team-properties-select"
               initialSelectedItem={activeTeam?.id ? activeTeam : null}
               items={teams}
-              itemToString={(item) => (item ? item.name : "")}
+              itemToString={(item) => item?.name ?? ""}
               label="Teams"
               onChange={({ selectedItem }) => {
                 setActiveTeam(selectedItem);
               }}
               placeholder="Select a team"
+              shouldFilterItem={({ item, inputValue }) => item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())}
             />
           </div>
           {(activeTeam?.id || totalItems > 0) && (

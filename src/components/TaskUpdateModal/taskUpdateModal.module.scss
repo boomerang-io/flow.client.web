@@ -5,6 +5,7 @@
 
 .versionSection {
   width: 100%;
+  margin-top: 0 !important;
 }
 
 .versionHeader {
@@ -58,6 +59,9 @@
 
 .versionInputsContainer {
   padding: 0.5rem;
+  > * + * {
+    margin-top: 0.5rem;
+  }
 }
 
 .stateHilighter {

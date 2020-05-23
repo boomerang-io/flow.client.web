@@ -6,7 +6,7 @@ import { Edit32 } from "@carbon/icons-react";
 import styles from "./WorkflowActions.module.scss";
 
 WorkflowActions.propTypes = {
-  workflow: PropTypes.object.isRequired
+  workflow: PropTypes.object.isRequired,
 };
 
 function WorkflowActions({ workflow }) {
@@ -18,7 +18,7 @@ function WorkflowActions({ workflow }) {
       <p className={styles.messageText}>Read-only</p>
       <button
         className={styles.editContainer}
-        onClick={() => history.push(appLink.designer({ teamId: flowTeamId, workflowId: id }))}
+        onClick={() => history.push(appLink.editorDesigner({ teamId: flowTeamId, workflowId: id }))}
       >
         <Edit32 className={styles.editIcon} />
         <p className={styles.editText}>Edit Workflow</p>

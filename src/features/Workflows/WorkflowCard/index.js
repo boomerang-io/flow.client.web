@@ -120,7 +120,7 @@ function WorkflowCard({ teamId, workflow }) {
   const menuOptions = [
     {
       itemText: "Edit Workflow",
-      onClick: () => history.push(appLink.designer({ teamId: workflow.flowTeamId, workflowId: workflow.id })),
+      onClick: () => history.push(appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id })),
       primaryFocus: true,
     },
     {
@@ -151,7 +151,7 @@ function WorkflowCard({ teamId, workflow }) {
 
   return (
     <div className={styles.container}>
-      <Link disabled={isDeleting} to={appLink.designer({ teamId: workflow.flowTeamId, workflowId: workflow.id })}>
+      <Link disabled={isDeleting} to={appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id })}>
         <section className={styles.details}>
           <div className={styles.iconContainer}>
             <Icon className={styles.icon} alt={`${name}`} />

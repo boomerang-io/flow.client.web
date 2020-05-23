@@ -8,7 +8,7 @@ import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
 import WorkflowZoom from "Components/WorkflowZoom";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
-import DiagramApplication from "Utilities/DiagramApplication";
+import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
 import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
 import styles from "./main.module.scss";
 
@@ -21,9 +21,9 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.diagramApp = new DiagramApplication({ dag: props.dag, modelIsLocked: true });
+    this.workflowDagEngine = new WorkflowDagEngine({ dag: props.dag, modelIsLocked: true });
     this.state = {
-      diagramBoundingClientRect: {},
+      workflowDagBoundingClientRect: {},
     };
     this.diagramRef = React.createRef();
   }
@@ -31,10 +31,10 @@ class Main extends Component {
   componentDidMount() {
     if (this.diagramRef.current) {
       this.setState({
-        diagramBoundingClientRect: this.diagramRef.current.getBoundingClientRect(),
+        workflowDagBoundingClientRect: this.diagramRef.current.getBoundingClientRect(),
       });
     }
-    this.diagramApp.getDiagramEngine().zoomToFit();
+    this.workflowDagEngine.getDiagramEngine().zoomToFit();
   }
 
   render() {
@@ -61,8 +61,8 @@ class Main extends Component {
             <section className={styles.executionWorkflowActions}>
               <WorkflowActions workflow={workflow.data} />
               <WorkflowZoom
-                diagramApp={this.diagramApp}
-                diagramBoundingClientRect={this.state.diagramBoundingClientRect}
+                workflowDagBoundingClientRect={this.state.workflowDagBoundingClientRect}
+                workflowDagEngine={this.workflowDagEngine}
               />
             </section>
             <DiagramWidget
@@ -71,7 +71,7 @@ class Main extends Component {
               allowCanvasZoom={true}
               className={styles.diagram}
               deleteKeys={[]}
-              diagramEngine={this.diagramApp.getDiagramEngine()}
+              diagramEngine={this.workflowDagEngine.getDiagramEngine()}
               maxNumberPointsPerLink={0}
             />
             {!loadDiagram && (

@@ -4,7 +4,7 @@ import { useMutation, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { ModalFlow, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import CreateWorkflowContainer from "./CreateWorkflowContainer";
-import DiagramApplication, { createWorkflowRevisionBody } from "Utilities/DiagramApplication";
+import WorkflowDagEngine, { createWorkflowRevisionBody } from "Utilities/dag/WorkflowDagEngine";
 import { QueryStatus } from "Constants";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -12,7 +12,7 @@ import queryString from "query-string";
 import { Add32 } from "@carbon/icons-react";
 import styles from "./createWorkflow.module.scss";
 
-const diagramApp = new DiagramApplication({ dag: null, isLocked: false });
+const workflowDagEngine = new WorkflowDagEngine({ dag: null, isLocked: false });
 
 CreateWorkflow.propTypes = {
   team: PropTypes.object.isRequired,
@@ -44,14 +44,14 @@ export function CreateWorkflow({ team, teams }) {
     try {
       const { data: newWorkflow } = await createWorkflowMutator({ body: workflowData });
       const workflowId = newWorkflow.id;
-      const dagProps = createWorkflowRevisionBody(diagramApp, "Create workflow");
+      const dagProps = createWorkflowRevisionBody(workflowDagEngine, "Create workflow");
       const workflowRevision = {
         ...dagProps,
         workflowId,
       };
 
       await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
-      history.push(appLink.designer({ teamId: team.id, workflowId }));
+      history.push(appLink.editorDesigner({ teamId: team.id, workflowId }));
       notify(<ToastNotification kind="success" title="Create Workflow" subtitle="Successfully created workflow" />);
     } catch (e) {
       //no-op

@@ -11,6 +11,7 @@ function useIsModalOpen() {
   useMutationObserver(
     htmlRef,
     (mutationRecords) => {
+      console.log(mutationRecords);
       const record = mutationRecords.find((record) => record.type === "attributes");
       if (record?.target.className === HTML_MODAL_CLASS) {
         setIsModalOpen(true);

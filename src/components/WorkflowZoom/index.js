@@ -4,13 +4,13 @@ import { ZoomIn16, ZoomOut16 } from "@carbon/icons-react";
 import styles from "./WorkflowZoom.module.scss";
 
 WorkflowZoom.propTypes = {
-  diagramApp: PropTypes.object.isRequired,
-  diagramBoundingClientRect: PropTypes.object.isRequired
+  workflowDagEngine: PropTypes.object.isRequired,
+  workflowDagBoundingClientRect: PropTypes.object.isRequired,
 };
 
-export default function WorkflowZoom({ diagramApp, diagramBoundingClientRect }) {
+export default function WorkflowZoom({ workflowDagEngine, workflowDagBoundingClientRect }) {
   function handleZoomChange(zoomDelta) {
-    const diagramModel = diagramApp.getDiagramEngine().getDiagramModel();
+    const diagramModel = workflowDagEngine.getDiagramEngine().getDiagramModel();
     const oldZoomFactor = diagramModel.getZoomLevel() / 100;
 
     if (diagramModel.getZoomLevel() + zoomDelta > 10) {
@@ -18,7 +18,7 @@ export default function WorkflowZoom({ diagramApp, diagramBoundingClientRect }) 
     }
 
     const zoomFactor = diagramModel.getZoomLevel() / 100;
-    const boundingRect = diagramBoundingClientRect;
+    const boundingRect = workflowDagBoundingClientRect;
     const clientWidth = boundingRect.width;
     const clientHeight = boundingRect.height;
 
@@ -26,7 +26,7 @@ export default function WorkflowZoom({ diagramApp, diagramBoundingClientRect }) 
     const widthDiff = clientWidth * zoomFactor - clientWidth * oldZoomFactor;
     const heightDiff = clientHeight * zoomFactor - clientHeight * oldZoomFactor;
 
-    // compute coords relative to canvas
+    // compute coords relative to diagram canvas
     const clientX = Math.round(boundingRect.left * 2);
     const clientY = Math.round(boundingRect.top * 2);
 
@@ -39,8 +39,8 @@ export default function WorkflowZoom({ diagramApp, diagramBoundingClientRect }) 
       diagramModel.getOffsetY() - heightDiff * yFactor
     );
 
-    diagramApp.getDiagramEngine().enableRepaintEntities([]);
-    diagramApp.diagramEngine.repaintCanvas();
+    workflowDagEngine.getDiagramEngine().enableRepaintEntities([]);
+    workflowDagEngine.diagramEngine.repaintCanvas();
   }
 
   function handleZoomIncrease() {

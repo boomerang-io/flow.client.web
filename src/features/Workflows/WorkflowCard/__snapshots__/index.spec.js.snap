@@ -81,8 +81,8 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
             <path
               d="M26,4H6A2,2,0,0,0,4,6V26a2,2,0,0,0,2,2h4V26H6V12H28V6A2,2,0,0,0,26,4ZM6,10V6H26v4Z"
             />
-            <polygon
-              points="19 19 19 25 24 22 19 19"
+            <path
+              d="M19 19L19 25 24 22 19 19z"
             />
           </svg>
         </button>

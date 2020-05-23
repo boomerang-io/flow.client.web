@@ -5,7 +5,17 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
   class="bx--bmrg-body-modal-is-open"
   id="app"
 >
+  <div
+    data-react-modal-body-trap=""
+    style="position: absolute; opacity: 0;"
+    tabindex="0"
+  />
   <div />
+  <div
+    data-react-modal-body-trap=""
+    style="position: absolute; opacity: 0;"
+    tabindex="0"
+  />
   <div
     class="ReactModalPortal"
   >
@@ -26,24 +36,23 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
             Update .json file
           </p>
           <button
+            aria-label="Close"
             class="bx--modal-close"
-            title="Close the modal"
+            title="Close"
             type="button"
           >
             <svg
-              aria-label="Close the modal"
+              aria-hidden="true"
               class="bx--modal-close__icon"
               focusable="false"
               height="20"
               preserveAspectRatio="xMidYMid meet"
-              role="img"
-              style="will-change: transform;"
               viewBox="0 0 32 32"
               width="20"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4l6.6 6.6L8 22.6 9.4 24l6.6-6.6 6.6 6.6 1.4-1.4-6.6-6.6L24 9.4z"
+                d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
               />
             </svg>
           </button>
@@ -65,7 +74,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
             >
               <label
                 class="bx--file-browse-btn"
-                for="id2"
+                for="id1"
                 tabindex="0"
               >
                 <div
@@ -76,7 +85,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
                   <input
                     accept=".json"
                     class="bx--file-input"
-                    id="id2"
+                    id="id1"
                     name="Workflow"
                     tabindex="-1"
                     type="file"
