@@ -91,37 +91,35 @@ export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }
   };
 
   const renderUpdateTaskVersion = () => {
-    if (nodeDag?.templateUpgradeAvailable) {
-      return (
-        <ComposedModal
-          composedModalProps={{
-            containerClassName: styles.updateTaskModalContainer,
-          }}
-          modalHeaderProps={{
-            title: `New version available`,
-            subtitle:
-              "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
-          }}
-          modalTrigger={({ openModal }) => (
+    return (
+      <ComposedModal
+        composedModalProps={{
+          containerClassName: styles.updateTaskModalContainer,
+        }}
+        modalHeaderProps={{
+          title: `New version available`,
+          subtitle:
+            "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
+        }}
+        modalTrigger={({ openModal }) =>
+          nodeDag?.templateUpgradeAvailable ? (
             <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
-          )}
-        >
-          {({ closeModal }) => (
-            <TaskUpdateModal
-              closeModal={closeModal}
-              inputProperties={inputProperties}
-              node={designerNode}
-              nodeConfig={nodeConfig}
-              onSave={handleOnUpdateTaskVersion}
-              taskNames={taskNames}
-              task={task}
-            />
-          )}
-        </ComposedModal>
-      );
-    }
-
-    return null;
+          ) : null
+        }
+      >
+        {({ closeModal }) => (
+          <TaskUpdateModal
+            closeModal={closeModal}
+            inputProperties={inputProperties}
+            node={designerNode}
+            nodeConfig={nodeConfig}
+            onSave={handleOnUpdateTaskVersion}
+            taskNames={taskNames}
+            task={task}
+          />
+        )}
+      </ComposedModal>
+    );
   };
 
   return (
