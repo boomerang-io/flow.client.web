@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import FeatureHeader from "Components/FeatureHeader";
 import ActivityHeaderWidget from "./ActivityHeaderWidtget";
-import { SkeletonPlaceholder } from "carbon-components-react";
+import { SkeletonPlaceholder } from "@boomerang/carbon-addons-boomerang-react";
 import { ArrowDownRight32, ArrowUpRight32 } from "@carbon/icons-react";
 import styles from "./activityHeader.module.scss";
 
@@ -11,7 +11,7 @@ ActivityHeader.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   failedActivities: PropTypes.number,
   runActivities: PropTypes.number,
-  succeededActivities: PropTypes.number
+  succeededActivities: PropTypes.number,
 };
 
 function ActivityHeader({ inProgressActivities, isLoading, runActivities, succeededActivities, failedActivities }) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
+import { OverflowMenu, OverflowMenuItem } from "@boomerang/carbon-addons-boomerang-react";
 import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
 import CreateEditTeamPropertiesModal from "../CreateEditTeamPropertiesModal";
 
@@ -8,7 +8,7 @@ OverflowMenuComponent.propTypes = {
   team: PropTypes.object.isRequired,
   property: PropTypes.object.isRequired,
   properties: PropTypes.array.isRequired,
-  deleteTeamProperty: PropTypes.func.isRequired
+  deleteTeamProperty: PropTypes.func.isRequired,
 };
 
 function OverflowMenuComponent({ property, properties, deleteTeamProperty, team }) {
@@ -18,14 +18,14 @@ function OverflowMenuComponent({ property, properties, deleteTeamProperty, team 
   const menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => setEditModalIsOpen(true)
+      onClick: () => setEditModalIsOpen(true),
     },
     {
       itemText: "Delete",
       onClick: () => setDeleteModalIsOpen(true),
       hasDivider: true,
-      isDelete: true
-    }
+      isDelete: true,
+    },
   ];
 
   const handleEditClose = () => {

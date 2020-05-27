@@ -17,7 +17,7 @@ import AddTaskTemplate from "./AddTaskTemplate";
 import { appLink } from "Config/appConfig";
 import { Bee16, ViewOff16, SettingsAdjust20 } from "@carbon/icons-react";
 import { taskIcons } from "Utilities/taskIcons";
-import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
+import { TaskTemplateStatus } from "Constants";
 import styles from "./sideInfo.module.scss";
 
 SideInfo.propTypes = {

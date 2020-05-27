@@ -5,7 +5,7 @@ import moment from "moment-timezone";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { CheckboxList, ComboBox, TextInput, ModalFlowForm, Toggle } from "@boomerang/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
 import { cronToDateTime } from "Utilities/cronHelper";
 import DAYS_OF_WEEK from "Constants/daysOfWeek";
 import cronDayNumberMap from "Constants/cronDayNumberMap";
@@ -21,7 +21,7 @@ export default class CronJobModal extends Component {
     cronExpression: PropTypes.string,
     handleOnChange: PropTypes.func.isRequired,
     setShouldConfirmModalClose: PropTypes.func,
-    timeZone: PropTypes.string
+    timeZone: PropTypes.string,
   };
 
   constructor(props) {
@@ -29,13 +29,13 @@ export default class CronJobModal extends Component {
     this.state = {
       errorMessage: undefined,
       message: props.cronExpression ? cronstrue.toString(props.cronExpression) : cronstrue.toString("0 18 * * *"),
-      defaultTimeZone: moment.tz.guess()
+      defaultTimeZone: moment.tz.guess(),
     };
 
     this.timezoneOptions = moment.tz
       .names()
-      .filter(tz => !exludedTimezones.includes(tz))
-      .map(element => this.transformTimeZone(element));
+      .filter((tz) => !exludedTimezones.includes(tz))
+      .map((element) => this.transformTimeZone(element));
   }
 
   handleOnChange = (e, handleChange) => {
@@ -50,7 +50,7 @@ export default class CronJobModal extends Component {
   };
 
   //receives input value from TextInput
-  validateCron = value => {
+  validateCron = (value) => {
     if (value === "1 1 1 1 1" || value === "* * * * *") {
       this.setState({ message: undefined, errorMessage: `Expression ${value} is not allowed for Boomerang Flow` });
       return false;
@@ -66,7 +66,7 @@ export default class CronJobModal extends Component {
   };
 
   // transform timeZone in { label, value } object
-  transformTimeZone = timeZone => {
+  transformTimeZone = (timeZone) => {
     return { label: `${timeZone} (UTC ${moment.tz(timeZone).format("Z")})`, value: timeZone };
   };
 
@@ -82,9 +82,9 @@ export default class CronJobModal extends Component {
     this.props.forceCloseModal();
   };
 
-  handleSchedule = values => {
+  handleSchedule = (values) => {
     let daysCron = [];
-    Object.values(values.days).forEach(day => {
+    Object.values(values.days).forEach((day) => {
       daysCron.push(cronDayNumberMap[day]);
     });
     const timeCron = !values.time ? ["0", "0"] : values.time.split(":");
@@ -117,22 +117,22 @@ export default class CronJobModal extends Component {
           advancedCron: !!advancedCron,
           days: activeDays,
           time: cronTime || "18:00",
-          timeZone: timeZone ? this.transformTimeZone(timeZone) : this.transformTimeZone(defaultTimeZone)
+          timeZone: timeZone ? this.transformTimeZone(timeZone) : this.transformTimeZone(defaultTimeZone),
         }}
         validationSchema={Yup.object().shape({
           cronExpression: Yup.string().when("advancedCron", {
             is: true,
-            then: cron => cron.required("Expression required")
+            then: (cron) => cron.required("Expression required"),
           }),
           advancedCron: Yup.bool(),
           days: Yup.array(),
-          time: Yup.string().when("advancedCron", { is: false, then: time => time.required("Enter a time") }),
-          timeZone: Yup.object().shape({ label: Yup.string(), value: Yup.string() })
+          time: Yup.string().when("advancedCron", { is: false, then: (time) => time.required("Enter a time") }),
+          timeZone: Yup.object().shape({ label: Yup.string(), value: Yup.string() }),
         })}
         onSubmit={this.handleOnSave}
         isInitialValid
       >
-        {formikProps => {
+        {(formikProps) => {
           const {
             values,
             touched,
@@ -141,7 +141,7 @@ export default class CronJobModal extends Component {
             handleChange,
             handleSubmit,
             setFieldValue,
-            isValid
+            isValid,
           } = formikProps;
 
           return (
@@ -154,7 +154,7 @@ export default class CronJobModal extends Component {
                       id="advancedCron"
                       labelText="Advanced controls"
                       name="advancedCron"
-                      onToggle={value => setFieldValue("advancedCron", value)}
+                      onToggle={(value) => setFieldValue("advancedCron", value)}
                       toggled={values.advancedCron}
                     />
                   </div>
@@ -168,7 +168,7 @@ export default class CronJobModal extends Component {
                           invalidText={errorMessage}
                           labelText="CRON Expression"
                           onBlur={handleBlur}
-                          onChange={e => this.handleOnChange(e, handleChange)}
+                          onChange={(e) => this.handleOnChange(e, handleChange)}
                           placeholder="Enter a CRON Expression"
                           value={values.cronExpression}
                         />
@@ -249,7 +249,7 @@ export default class CronJobModal extends Component {
                 <Button
                   disabled={!isValid || (errorMessage && values.advancedCron)} //disable if the form is invalid or if there is an error message
                   type="submit"
-                  onClick={e => {
+                  onClick={(e) => {
                     this.handleOnSave(e, values);
                   }}
                 >

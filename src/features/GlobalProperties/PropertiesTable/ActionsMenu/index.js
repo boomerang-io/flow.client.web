@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { OverflowMenu, OverflowMenuItem } from "carbon-components-react";
+import { OverflowMenu, OverflowMenuItem } from "@boomerang/carbon-addons-boomerang-react";
 import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
 import CreateEditPropertiesModal from "../CreateEditPropertiesModal";
 
@@ -10,14 +10,14 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty }) => {
   const menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => setEditModalIsOpen(true)
+      onClick: () => setEditModalIsOpen(true),
     },
     {
       itemText: "Delete",
       onClick: () => setDeleteModalIsOpen(true),
       hasDivider: true,
-      isDelete: true
-    }
+      isDelete: true,
+    },
   ];
 
   const handleEditClose = () => {

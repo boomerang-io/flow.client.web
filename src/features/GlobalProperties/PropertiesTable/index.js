@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import matchSorter from "match-sorter";
 import { useMutation, queryCache } from "react-query";
-import { DataTable, Search, Pagination } from "carbon-components-react";
+import { DataTable, Search, Pagination } from "@boomerang/carbon-addons-boomerang-react";
 import { Error404, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ActionsMenu from "./ActionsMenu";
 import CreateEditPropertiesModal from "./CreateEditPropertiesModal";

@@ -9,7 +9,7 @@ import {
   Search,
   SearchSkeleton,
   SelectSkeleton,
-} from "carbon-components-react";
+} from "@boomerang/carbon-addons-boomerang-react";
 import "./styles.scss";
 
 class SearchFilterBar extends Component {

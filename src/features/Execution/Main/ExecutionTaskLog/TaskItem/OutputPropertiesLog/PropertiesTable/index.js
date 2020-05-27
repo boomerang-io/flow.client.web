@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { DataTable } from "carbon-components-react";
+import { DataTable } from "@boomerang/carbon-addons-boomerang-react";
 import { NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
 import styles from "./propertiesTable.module.scss";
 
 function PropertiesTable({ data: properties }) {
-  const headers = [{ header: "Property", key: "key" }, { header: "Value", key: "value" }];
+  const headers = [
+    { header: "Property", key: "key" },
+    { header: "Value", key: "value" },
+  ];
 
   const renderCell = (cellIndex, value) => {
     const column = headers[cellIndex];
@@ -31,12 +34,12 @@ function PropertiesTable({ data: properties }) {
               <Table>
                 <TableHead>
                   <TableRow className={styles.tableHeadRow}>
-                    {headers.map(header => (
+                    {headers.map((header) => (
                       <TableHeader
                         id={header.key}
                         {...getHeaderProps({
                           header,
-                          className: `${styles.tableHeadHeader} ${styles[header.key]}`
+                          className: `${styles.tableHeadHeader} ${styles[header.key]}`,
                         })}
                       >
                         {header.header}
@@ -45,7 +48,7 @@ function PropertiesTable({ data: properties }) {
                   </TableRow>
                 </TableHead>
                 <TableBody className={styles.tableBody}>
-                  {rows.map(row => (
+                  {rows.map((row) => (
                     <TableRow key={row.id} className={styles.tableRow}>
                       {row.cells.map((cell, cellIndex) => (
                         <TableCell key={cell.id} style={{ padding: "0" }}>
@@ -67,7 +70,7 @@ function PropertiesTable({ data: properties }) {
 }
 
 PropertiesTable.propTypes = {
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
 };
 
 export default PropertiesTable;

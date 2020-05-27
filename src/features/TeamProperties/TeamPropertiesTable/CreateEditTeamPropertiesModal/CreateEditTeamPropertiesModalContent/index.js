@@ -3,7 +3,14 @@ import PropTypes from "prop-types";
 import { useMutation, queryCache } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Button, InlineNotification, ModalBody, ModalFooter, TextInput, Toggle } from "carbon-components-react";
+import {
+  Button,
+  InlineNotification,
+  ModalBody,
+  ModalFooter,
+  TextInput,
+  Toggle,
+} from "@boomerang/carbon-addons-boomerang-react";
 import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import INPUT_TYPES from "Constants/inputTypes";

@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { ModalBody, ModalFooter, Button, FileUploaderDropContainer, FileUploaderItem } from "carbon-components-react";
+import {
+  ModalBody,
+  ModalFooter,
+  Button,
+  FileUploaderDropContainer,
+  FileUploaderItem,
+} from "@boomerang/carbon-addons-boomerang-react";
 import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
 import { CheckmarkFilled32, ErrorFilled32 } from "@carbon/icons-react";
 import { requiredWorkflowProps } from "./constants";
@@ -12,7 +18,7 @@ function checkIsValidWorkflow(data, workflowId) {
   // Only check if the .json file contain the required key data
   // This validate can be improved
   let isValid = true;
-  requiredWorkflowProps.forEach(prop => {
+  requiredWorkflowProps.forEach((prop) => {
     if (!data.hasOwnProperty(prop)) {
       isValid = false;
     }
@@ -30,7 +36,7 @@ function checkIsValidWorkflow(data, workflowId) {
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
 const VALID_TEXT_MESSAGE = "All set! This Workflow is valid, and will fully replace the existing Workflow.";
-const createInvalidTextMessage = message => `Whoops! ${message}. Please choose a different one.`;
+const createInvalidTextMessage = (message) => `Whoops! ${message}. Please choose a different one.`;
 
 class ImportWorkflowContent extends Component {
   static propTypes = {
@@ -39,7 +45,7 @@ class ImportWorkflowContent extends Component {
     handleImportWorkflow: PropTypes.func,
     isLoading: PropTypes.bool,
     title: PropTypes.string.isRequired,
-    workflowId: PropTypes.string.isRequired
+    workflowId: PropTypes.string.isRequired,
   };
 
   /**
@@ -47,7 +53,7 @@ class ImportWorkflowContent extends Component {
    * @param file {File}
    * @return {Promise}
    */
-  readFile = file => {
+  readFile = (file) => {
     const reader = new FileReader();
 
     return new Promise((resolve, reject) => {
@@ -68,7 +74,7 @@ class ImportWorkflowContent extends Component {
     });
   };
 
-  handleSubmit = async values => {
+  handleSubmit = async (values) => {
     const fileData = await this.readFile(values.file);
     this.props.handleImportWorkflow(fileData, this.props.closeModal);
   };
@@ -79,7 +85,7 @@ class ImportWorkflowContent extends Component {
     return (
       <Formik
         initialValues={{
-          file: undefined
+          file: undefined,
         }}
         validateOnMount
         onSubmit={this.handleSubmit}
@@ -89,9 +95,9 @@ class ImportWorkflowContent extends Component {
               "fileSize",
               "File is larger than 1MiB",
               // If it's bigger than 1MiB will display the error (1048576 bytes = 1 mebibyte)
-              file => (file?.size ? file.size < 1048576 : true)
+              (file) => (file?.size ? file.size < 1048576 : true)
             )
-            .test("validFile", "File is invalid", async file => {
+            .test("validFile", "File is invalid", async (file) => {
               let isValid = true;
               if (file) {
                 try {
@@ -105,17 +111,17 @@ class ImportWorkflowContent extends Component {
 
               // Need to return promise for yup to do async validation
               return Promise.resolve(isValid);
-            })
+            }),
         })}
       >
-        {props => {
+        {(props) => {
           const { values, errors, isValid, handleSubmit, setFieldValue } = props;
           return (
             <ModalFlowForm title={title} onSubmit={handleSubmit}>
               <ModalBody
                 style={{
                   height: "21rem",
-                  width: "100%"
+                  width: "100%",
                 }}
               >
                 <FileUploaderDropContainer

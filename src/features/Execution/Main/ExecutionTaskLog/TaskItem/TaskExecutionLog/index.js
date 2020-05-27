@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import { Toggle } from "@boomerang/carbon-addons-boomerang-react";
-import { ModalBody } from "carbon-components-react";
+import { ModalBody } from "@boomerang/carbon-addons-boomerang-react";
 import { LazyLog, ScrollFollow } from "react-lazylog";
 import { serviceUrl } from "Config/servicesConfig";
 import { PRODUCT_SERVICE_ENV_URL } from "Config/servicesConfig";

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "carbon-components-react";
+import { Button } from "@boomerang/carbon-addons-boomerang-react";
 import { Error403 } from "@boomerang/carbon-addons-boomerang-react";
 import { ArrowRight16 } from "@carbon/icons-react";
 
@@ -25,7 +25,7 @@ const UnsupportedBrowserPrompt = ({ onDismissWarning }) => {
 };
 
 UnsupportedBrowserPrompt.propTypes = {
-  onDismissWarning: PropTypes.func.isRequired
+  onDismissWarning: PropTypes.func.isRequired,
 };
 
 export default UnsupportedBrowserPrompt;

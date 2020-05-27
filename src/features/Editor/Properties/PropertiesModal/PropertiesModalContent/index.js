@@ -9,7 +9,7 @@ import {
   Toggle,
   ModalFlowForm,
 } from "@boomerang/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";

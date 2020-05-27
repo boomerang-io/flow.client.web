@@ -9,7 +9,7 @@ import {
   FileUploaderDropContainer,
   FileUploaderItem,
 } from "@boomerang/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter, Loading } from "carbon-components-react";
+import { Button, ModalBody, ModalFooter, Loading } from "@boomerang/carbon-addons-boomerang-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";

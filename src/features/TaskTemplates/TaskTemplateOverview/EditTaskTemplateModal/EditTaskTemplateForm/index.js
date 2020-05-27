@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import orderBy from "lodash/orderBy";
 import { ModalFlowForm, TextInput, TextArea } from "@boomerang/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "carbon-components-react";
+import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utilities/taskIcons";
 import { NodeType } from "Constants";

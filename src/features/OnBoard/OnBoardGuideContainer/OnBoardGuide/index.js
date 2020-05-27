@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "carbon-components-react";
+import { Button } from "@boomerang/carbon-addons-boomerang-react";
 import { ArrowRight16, ArrowLeft16, Close20 } from "@carbon/icons-react";
 import "./styles.scss";
 
-const OnBoardGuide = props => {
+const OnBoardGuide = (props) => {
   const {
     index,
     containerClassName,
@@ -14,7 +14,7 @@ const OnBoardGuide = props => {
     nextScreen,
     previousScreen,
     screens,
-    guideConfig
+    guideConfig,
   } = props;
 
   const guideCount = Object.keys(guideConfig);
@@ -94,7 +94,7 @@ OnBoardGuide.propTypes = {
   previousScreen: PropTypes.func,
   closeModal: PropTypes.func,
   screens: PropTypes.object,
-  guideConfig: PropTypes.object
+  guideConfig: PropTypes.object,
 };
 
 export default OnBoardGuide;

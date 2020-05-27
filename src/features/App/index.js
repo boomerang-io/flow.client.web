@@ -23,7 +23,7 @@ import {
   AsyncTeamProperties,
   AsyncWorkflows,
 } from "./asyncFeatureImports";
-import USER_TYPES from "Constants/userTypes";
+import { UserType } from "Constants";
 import ErrorDragon from "Components/ErrorDragon";
 import { appPath } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
@@ -35,7 +35,7 @@ const userUrl = serviceUrl.getUserProfile();
 const navigationUrl = serviceUrl.getNavigation();
 const getTeamsUrl = serviceUrl.getTeams();
 const browser = detect();
-const allowedUserRoles = [USER_TYPES.ADMIN, USER_TYPES.OPERATOR];
+const allowedUserRoles = [UserType.Admin, UserType.Operator];
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
 export default function App() {

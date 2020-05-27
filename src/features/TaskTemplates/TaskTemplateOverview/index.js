@@ -21,7 +21,7 @@ import PreviewConfig from "./PreviewConfig";
 import TemplateConfigModal from "./TemplateConfigModal";
 import Header from "../Header";
 import { QueryStatus } from "Constants";
-import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
+import { TaskTemplateStatus } from "Constants";
 import { TemplateRequestType, FieldTypes } from "../constants";
 import { Draggable16, Delete16, Archive16, Bee16 } from "@carbon/icons-react";
 import { taskIcons } from "Utilities/taskIcons";

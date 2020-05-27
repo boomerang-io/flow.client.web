@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import queryString from "query-string";
 import moment from "moment";
 import { useQuery } from "Hooks";
-import { MultiSelect as Select, Tabs, Tab } from "carbon-components-react";
+import { MultiSelect as Select, Tabs, Tab } from "@boomerang/carbon-addons-boomerang-react";
 import { DatePicker, DatePickerInput } from "carbon-components-react/es";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ActivityHeader from "./ActivityHeader";

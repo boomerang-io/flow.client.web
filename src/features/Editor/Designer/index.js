@@ -7,7 +7,7 @@ import Tasks from "./Tasks";
 import cx from "classnames";
 import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
 import { QueryStatus } from "Constants";
-import { TaskTemplateStatus } from "Constants/taskTemplateStatuses";
+import { TaskTemplateStatus } from "Constants";
 import styles from "./designer.module.scss";
 
 DesignerContainer.propTypes = {

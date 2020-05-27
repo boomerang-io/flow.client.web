@@ -6,7 +6,7 @@ import { settings } from "carbon-components";
 import queryString from "query-string";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
-import { DataTableSkeleton, DataTable, Pagination } from "carbon-components-react";
+import { DataTableSkeleton, DataTable, Pagination } from "@boomerang/carbon-addons-boomerang-react";
 import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
 import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/activityStatuses";
 import styles from "./activityTable.module.scss";
@@ -19,7 +19,7 @@ ActivityTable.propTypes = {
   location: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   tableData: PropTypes.object,
-  updateHistorySearch: PropTypes.func.isRequired
+  updateHistorySearch: PropTypes.func.isRequired,
 };
 
 const PAGE_SIZES = [5, 10, 20, 25, 50, 100];
@@ -27,32 +27,32 @@ const PAGE_SIZES = [5, 10, 20, 25, 50, 100];
 const headers = [
   {
     header: "Team",
-    key: "teamName"
+    key: "teamName",
   },
   {
     header: "Workflow",
-    key: "workflowName"
+    key: "workflowName",
   },
   {
     header: "Trigger",
-    key: "trigger"
+    key: "trigger",
   },
   {
     header: "Initiated By",
-    key: "initiatedByUserName"
+    key: "initiatedByUserName",
   },
   {
     header: "Start Time",
-    key: "creationDate"
+    key: "creationDate",
   },
   {
     header: "Duration",
-    key: "duration"
+    key: "duration",
   },
   {
     header: "Status",
-    key: "status"
-  }
+    key: "status",
+  },
 ];
 
 function renderCell(cellIndex, value) {
@@ -89,7 +89,7 @@ function ActivityTable(props) {
     props.updateHistorySearch({
       ...queryString.parse(props.location.search),
       page: page - 1, // We have to decrement by one to offset the table pagination adjustment
-      size: pageSize
+      size: pageSize,
     });
   }
 
@@ -106,10 +106,10 @@ function ActivityTable(props) {
   }
 
   function executionViewRedirect(activityId) {
-    const activity = props.tableData.records.find(activity => activity.id === activityId);
+    const activity = props.tableData.records.find((activity) => activity.id === activityId);
     props.history.push({
       pathname: `/activity/${activity.workflowId}/execution/${activity.id}`,
-      state: { fromUrl: `${props.match.url}${props.location.search}`, fromText: "Activity" }
+      state: { fromUrl: `${props.match.url}${props.location.search}`, fromText: "Activity" },
     });
   }
 
@@ -120,7 +120,7 @@ function ActivityTable(props) {
           className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
           rowCount={10}
           columnCount={headers.length}
-          headers={headers.map(header => header.header)}
+          headers={headers.map((header) => header.header)}
         />
       </div>
     );
@@ -128,7 +128,7 @@ function ActivityTable(props) {
 
   const {
     pageable: { number, size, sort, totalElements },
-    records
+    records,
   } = props.tableData;
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
@@ -145,14 +145,14 @@ function ActivityTable(props) {
                   <Table>
                     <TableHead>
                       <TableRow>
-                        {headers.map(header => (
+                        {headers.map((header) => (
                           <TableHeader
                             id={header.key}
                             {...getHeaderProps({
                               header,
                               className: `${styles.tableHeadHeader} ${styles[header.key]}`,
                               isSortable: header.header !== "Team" && header.header !== "Workflow",
-                              onClick: handleSort
+                              onClick: handleSort,
                             })}
                             isSortHeader={sort[0].property === header.key}
                             sortDirection={sort[0].direction}
@@ -163,13 +163,13 @@ function ActivityTable(props) {
                       </TableRow>
                     </TableHead>
                     <TableBody className={styles.tableBody}>
-                      {rows.map(row => (
+                      {rows.map((row) => (
                         <TableRow
                           key={row.id}
                           className={`${styles.tableRow} ${styles[row.cells[6].value]}`}
                           data-testid="configuration-property-table-row"
                           onClick={() => executionViewRedirect(row.id)}
-                          onKeyDown={e => isAccessibleEvent(e) && executionViewRedirect(row.id)}
+                          onKeyDown={(e) => isAccessibleEvent(e) && executionViewRedirect(row.id)}
                           tabIndex={0}
                         >
                           {row.cells.map((cell, cellIndex) => (
@@ -202,7 +202,7 @@ function ActivityTable(props) {
                   <Table>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map(header => (
+                        {headers.map((header) => (
                           <TableHeader
                             key={header.key}
                             id={header.key}

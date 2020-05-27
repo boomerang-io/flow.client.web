@@ -1,14 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
-import { LeftSideNav, UIShell } from "@boomerang/carbon-addons-boomerang-react";
-// import SERVICE_REQUEST_STATUSES from "Constants/serviceRequestStatuses";
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
 import { BASE_URL } from "Config/servicesConfig";
 import { NavLink } from "react-router-dom";
 import { Activity16, ChartScatter16, FlowData16, SettingsAdjust16 } from "@carbon/icons-react";
-import { SideNav, SideNavLink, SideNavItems, SideNavMenu, SideNavMenuItem } from "carbon-components-react";
-import userTypes from "Constants/userTypes";
+import { SideNav } from "carbon-components-react";
+import {
+  LeftSideNav,
+  SideNavLink,
+  SideNavItems,
+  SideNavMenu,
+  SideNavMenuItem,
+  UIShell,
+} from "@boomerang/carbon-addons-boomerang-react";
+import { UserType } from "Constants";
 
 import { QueryStatus } from "Constants";
 
@@ -111,7 +117,7 @@ function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) 
         <UIShell
           {...defaultUIShellProps}
           onMenuClick={handleOnMenuClick(
-            userState.data.type === userTypes.ADMIN || userState.data.type === userTypes.OPERATOR
+            userState.data.type === UserType.Admin || userState.data.type === UserType.Operator
           )}
           headerConfig={navigationState.data}
           onTutorialClick={handleOnTutorialClick}

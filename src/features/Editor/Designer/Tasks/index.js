@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import cx from "classnames";
-import { AccordionItem, OverflowMenu, Search } from "carbon-components-react";
+import { AccordionItem, OverflowMenu, Search } from "@boomerang/carbon-addons-boomerang-react";
 import { CheckboxList } from "@boomerang/carbon-addons-boomerang-react";
 import Accordion from "carbon-components-react/lib/components/Accordion";
 import Task from "./Task";
