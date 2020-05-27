@@ -174,7 +174,7 @@ function Header({
   const lastUpdated = selectedTaskTemplate?.revisions[revisionCount - 1]?.changelog ?? {};
   const changelogs = selectedTaskTemplate?.revisions?.map((revision, index) => ({
     ...revision.changelog,
-    date: moment(revision?.changelog?.date)?.format("MMM DD, YYYY") ?? "--",
+    date: moment(revision?.changelog?.date)?.format("MMM DD, YYYY") ?? "---",
     version: revision.version,
   }));
   changelogs.reverse();
@@ -202,7 +202,7 @@ function Header({
           </div>
           <h2 className={styles.lastUpdate}>{`Version ${revisionCount === 1 ? "created" : "updated"} ${moment(
             lastUpdated.date
-          ).format("MMM DD, YYYY")} by ${lastUpdated.userName}`}</h2>
+          ).format("MMM DD, YYYY")} by ${lastUpdated.userName??"---"}`}</h2>
         </div>
         <div className={styles.buttons}>
           <VersionSwitcher

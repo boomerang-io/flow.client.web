@@ -23,19 +23,18 @@ function VersionHistory({ changelogs }) {
       composedModalProps={{ shouldCloseOnOverlayClick: true }}
       modalHeaderProps={{
         title: "Version History",
-        subtitle: "Check this task template changelog.",
       }}
       modalTrigger={({ openModal }) => (
         <Button
+          hasIconOnly
+          className={styles.history}
+          iconDescription="History"
+          kind="ghost"
           onClick={openModal}
           renderIcon={Catalog16}
-          className={styles.history}
-          kind="ghost"
-          tooltipPosition="right"
-          tooltipAlignment="center"
-          iconDescription="History"
           size="small"
-          hasIconOnly
+          tooltipAlignment="center"
+          tooltipPosition="right"
         />
       )}
     >
@@ -59,10 +58,10 @@ function VersionHistoryModal({ changelogs }) {
         <StructuredListBody>
           {changelogs.map((log) => (
             <StructuredListRow>
-              <StructuredListCell>{log?.version ?? "--"}</StructuredListCell>
-              <StructuredListCell noWrap>{log?.userName ?? "--"}</StructuredListCell>
-              <StructuredListCell>{log?.reason ?? "--"}</StructuredListCell>
-              <StructuredListCell noWrap>{log?.date ?? "--"}</StructuredListCell>
+              <StructuredListCell>{log?.version ?? "---"}</StructuredListCell>
+              <StructuredListCell noWrap>{log?.userName ?? "---"}</StructuredListCell>
+              <StructuredListCell>{log?.reason?.length ? log.reason : "---"}</StructuredListCell>
+              <StructuredListCell noWrap>{log?.date ?? "---"}</StructuredListCell>
             </StructuredListRow>
           ))}
         </StructuredListBody>
