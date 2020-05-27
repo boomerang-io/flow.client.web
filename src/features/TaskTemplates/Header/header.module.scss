@@ -63,8 +63,11 @@
 .infoContainer {
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 100%;
+  :global .bx--assistive-text {
+    left: -2rem !important;
+  }
 }
 
 .info {
@@ -96,4 +99,10 @@
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.5rem;
+}
+.lastUpdate {
+  color: var(--cds-text-02);
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.75rem;
 }
