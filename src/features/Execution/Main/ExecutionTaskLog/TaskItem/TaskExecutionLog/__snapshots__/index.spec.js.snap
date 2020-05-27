@@ -12,7 +12,7 @@ exports[`TaskExecutionLog --- Snapshot Capturing Snapshot of TaskExecutionLog 1`
     </button>
   </div>
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
 </body>
 `;

@@ -17,7 +17,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
     tabindex="0"
   />
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   >
     <div
       class="bx--bmrg-modal-overlay --is-open"
@@ -118,7 +118,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
     </div>
   </div>
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
 </body>
 `;

@@ -500,13 +500,13 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
     </div>
   </div>
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
 </body>
 `;

@@ -19,39 +19,6 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
           >
             <label
               class="bx--label"
-              for="label"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Label
-                </div>
-              </div>
-            </label>
-            <div
-              class="bx--text-input__field-wrapper"
-            >
-              <input
-                class="bx--text-input bx--text__input"
-                id="label"
-                name="label"
-                placeholder="Label"
-                title="Label"
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          class="bx--bmrg-text-input"
-        >
-          <div
-            class="bx--form-item bx--text-input-wrapper"
-          >
-            <label
-              class="bx--label"
               for="key"
             >
               <div
@@ -69,10 +36,39 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
                 class="bx--text-input bx--text__input"
                 id="key"
                 name="key"
-                placeholder="Key"
-                title="Key"
                 type="text"
                 value="test.key"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="label"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Label
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-wrapper"
+            >
+              <input
+                class="bx--text-input bx--text__input"
+                id="label"
+                name="label"
+                type="text"
+                value=""
               />
             </div>
           </div>
@@ -102,8 +98,6 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
                 class="bx--text-input bx--text__input"
                 id="description"
                 name="description"
-                placeholder="Description"
-                title="Description"
                 type="text"
                 value=""
               />

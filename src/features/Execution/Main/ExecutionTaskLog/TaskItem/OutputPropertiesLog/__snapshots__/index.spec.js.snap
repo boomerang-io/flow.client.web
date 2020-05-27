@@ -12,7 +12,7 @@ exports[`OutputPropertiesLog --- Snapshot Capturing Snapshot of OutputProperties
     </button>
   </div>
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
 </body>
 `;

@@ -116,10 +116,10 @@ exports[`TaskItem --- Snapshot Capturing Snapshot of TaskItem 1`] = `
     </li>
   </div>
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
 </body>
 `;

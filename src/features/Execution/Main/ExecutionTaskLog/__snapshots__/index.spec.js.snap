@@ -340,16 +340,16 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
     </aside>
   </div>
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
 </body>
 `;
