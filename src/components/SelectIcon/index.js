@@ -13,7 +13,7 @@ export function SelectIcon({ onChange, selectedIcon, iconOptions }) {
       items={iconOptions.map(({ name, Icon }) => ({
         value: name,
         label: name,
-        icon: Icon,
+        Icon: Icon,
       }))}
       itemToElement={(Item) => {
         return (

@@ -27,9 +27,6 @@
   margin-bottom: 1rem;
   width: 36rem;
 }
-.textBold {
-  font-weight: 600;
-}
 .featureHeader {
   align-items: center;
   display: flex;
@@ -66,26 +63,22 @@
   justify-content: space-between;
   width: 100%;
 }
-
 .info {
   align-items: center;
   display: flex;
   flex-grow: 1;
   overflow: hidden;
 }
-
 .icon {
   height: 1.5rem;
   margin-right: 0.75rem;
 }
-
 .content {
   align-items: center;
   display: flex;
   justify-content: flex-start;
   width: 100%;
 }
-
 .title {
   font-size: 1.5rem;
   font-weight: 600;

@@ -30,14 +30,12 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
           Choose to overwrite the current version, or save as a new version.
         </p>
         <p className={styles.saveConfirmModalText}>
-          <span className={styles.textBold}>Overwritting the current version</span> means that this task will
-          automatically be updated in any workflow. Do this with extreme caution, and only when you haven’t made any
-          breaking changes.
+          <strong>Overwritting the current version</strong> means that this task will automatically be updated in any
+          workflow. Do this with extreme caution, and only when you haven’t made any breaking changes.
         </p>
         <p className={styles.saveConfirmModalText}>
-          <span className={styles.textBold}>Saving as a new version</span> will not automatically update this task in
-          workflows. Users who have this task in a workflow will get a notification about the new version and can choose
-          to update or not.
+          <strong>Saving as a new version</strong> will not automatically update this task in workflows. Users who have
+          this task in a workflow will get a notification about the new version and can choose to update or not.
         </p>
       </>
     );
