@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { useExecutionContext } from "Hooks";
 import cx from "classnames";
 import WorkflowNode from "Components/WorkflowNode";
-import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import { ExecutionStatus } from "Constants";
 import styles from "./SwitchNodeExecution.module.scss";
 
@@ -26,7 +25,7 @@ export default function SwitchNodeExecution({ node }) {
     <WorkflowNode
       isExecution
       className={cx(styles.node, styles[flowTaskStatus], {
-        [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED,
+        [styles.disabled]: flowTaskStatus === ExecutionStatus.NotStarted,
       })}
       icon={task?.icon}
       node={node}

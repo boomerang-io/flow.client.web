@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useExecutionContext } from "Hooks";
 import { PortWidget } from "@projectstorm/react-diagrams";
-import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
+import { ExecutionStatus } from "Constants";
 import cx from "classnames";
 import "./styles.scss";
 
 StartEndNode.propTypes = {
   isLocked: PropTypes.bool,
-  node: PropTypes.object.isRequired
+  node: PropTypes.object.isRequired,
 };
 
 export default function StartEndNode({ isLocked, node }) {
@@ -23,7 +23,7 @@ export default function StartEndNode({ isLocked, node }) {
           isLocked &&
           workflowExecution &&
           workflowExecution.status &&
-          workflowExecution.status === ACTIVITY_STATUSES.IN_PROGRESS
+          workflowExecution.status === ExecutionStatus.InProgress,
       })}
     >
       <div className="b-startEnd-node__title"> {passedName} </div>

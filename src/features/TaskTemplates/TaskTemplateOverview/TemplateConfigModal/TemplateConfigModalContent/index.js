@@ -13,21 +13,8 @@ import { Formik } from "formik";
 import TextEditorModal from "Components/TextEditorModal";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
-import INPUT_TYPES from "Constants/workflowInputTypes";
+import { InputProperty, InputType } from "Constants";
 import styles from "./TemplateConfigModalContent.module.scss";
-
-const FIELD = {
-  KEY: "key",
-  DESCRIPTION: "description",
-  LABEL: "label",
-  PLACEHOLDER: "placeholder",
-  HELPER_TEXT: "helperText",
-  READ_ONLY: "readOnly",
-  REQUIRED: "required",
-  TYPE: "type",
-  DEFAULT_VALUE: "defaultValue",
-  OPTIONS: "options",
-};
 
 const INPUT_TYPES_LABELS = [
   { label: "Boolean", value: "boolean" },
@@ -77,13 +64,13 @@ class TemplateConfigModalContent extends Component {
 
   handleOnTypeChange = (selectedItem, setFieldValue) => {
     this.setState({ defaultValueType: selectedItem.value });
-    setFieldValue(FIELD.TYPE, selectedItem);
-    setFieldValue(FIELD.DEFAULT_VALUE, selectedItem.value === INPUT_TYPES.BOOLEAN ? false : undefined);
+    setFieldValue(InputProperty.Type, selectedItem);
+    setFieldValue(InputProperty.DefaultValue, selectedItem.value === InputType.Boolean ? false : undefined);
   };
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
   handleOptionsChange = (values, setFieldValue) => {
-    setFieldValue(FIELD.OPTIONS, values);
+    setFieldValue(InputProperty.Options, values);
   };
 
   // Check if key contains alpahanumeric, underscore, dash, and period chars
@@ -97,14 +84,14 @@ class TemplateConfigModalContent extends Component {
     field.type = field.type.value;
     const { templateFields, setFieldValue } = this.props;
     // Remove in case they are present if the user changed their mind
-    if (field.type !== INPUT_TYPES.SELECT) {
+    if (field.type !== InputType.Select) {
       delete field.options;
     } else {
       // Create options in correct type for service - { key, value }
       field.options = field.options.map((field) => ({ key: field, value: field }));
     }
 
-    if (field.type === INPUT_TYPES.BOOLEAN) {
+    if (field.type === InputType.Boolean) {
       if (!field.defaultValue) field.defaultValue = false;
     }
     if (this.props.isEdit) {
@@ -124,26 +111,28 @@ class TemplateConfigModalContent extends Component {
   renderDefaultValue = (formikProps) => {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
     switch (values.type.value) {
-      case INPUT_TYPES.BOOLEAN:
+      case InputType.Boolean:
         return (
           <Toggle
             data-testid="toggle"
-            id={FIELD.DEFAULT_VALUE}
+            id={InputProperty.DefaultValue}
             label="Default Value"
             helperText="Initial value that can be changed"
-            onToggle={(value) => this.handleOnFieldValueChange(value.toString(), FIELD.DEFAULT_VALUE, setFieldValue)}
+            onToggle={(value) =>
+              this.handleOnFieldValueChange(value.toString(), InputProperty.DefaultValue, setFieldValue)
+            }
             orientation="vertical"
             toggled={values.defaultValue === "true"}
           />
         );
-      case INPUT_TYPES.SELECT:
+      case InputType.Select:
         // If editing an option, values will be an array of { key, value}
         let options = clonedeep(values.options);
         return (
           <>
             <Creatable
               data-testid="creatable"
-              id={FIELD.OPTIONS}
+              id={InputProperty.Options}
               onChange={(createdItems) => this.handleOptionsChange(createdItems, setFieldValue)}
               label="Options"
               placeholder="Enter option"
@@ -151,9 +140,9 @@ class TemplateConfigModalContent extends Component {
             />
             <ComboBox
               data-testid="select"
-              id={FIELD.DEFAULT_VALUE}
+              id={InputProperty.DefaultValue}
               onChange={({ selectedItem }) =>
-                this.handleOnFieldValueChange(selectedItem, FIELD.DEFAULT_VALUE, setFieldValue)
+                this.handleOnFieldValueChange(selectedItem, InputProperty.DefaultValue, setFieldValue)
               }
               items={options || []}
               initialSelectedItem={values.defaultValue || {}}
@@ -161,11 +150,11 @@ class TemplateConfigModalContent extends Component {
             />
           </>
         );
-      case INPUT_TYPES.TEXT_AREA:
+      case InputType.TextArea:
         return (
           <TextArea
             data-testid="text-area"
-            id={FIELD.DEFAULT_VALUE}
+            id={InputProperty.DefaultValue}
             labelText="Default Value (optional)"
             helperText="Initial value that can be changed"
             onBlur={handleBlur}
@@ -174,16 +163,16 @@ class TemplateConfigModalContent extends Component {
             value={values.defaultValue || ""}
           />
         );
-      case INPUT_TYPES.TEXT_EDITOR:
-      case INPUT_TYPES.TEXT_EDITOR_JS:
-      case INPUT_TYPES.TEXT_EDITOR_TEXT:
-      case INPUT_TYPES.TEXT_EDITOR_SHELL:
-      case INPUT_TYPES.TEXT_EDITOR_YAML:
+      case InputType.TextEditor:
+      case InputType.TextEditor_JS:
+      case InputType.TextEditor_TEXT:
+      case InputType.TextEditor_SHELL:
+      case InputType.TextEditor_YAML:
         return (
           <TextEditorInput
             data-testid="texteditor"
             key="texteditor"
-            id={FIELD.DEFAULT_VALUE}
+            id={InputProperty.DefaultValue}
             label="Default Value (optional)"
             helperText="Initial value that can be changed"
             onBlur={handleBlur}
@@ -200,7 +189,7 @@ class TemplateConfigModalContent extends Component {
         return (
           <TextInput
             data-testid="text-input"
-            id={FIELD.DEFAULT_VALUE}
+            id={InputProperty.DefaultValue}
             labelText="Default Value (optional)"
             helperText="Initial value that can be changed"
             onBlur={handleBlur}
@@ -236,24 +225,25 @@ class TemplateConfigModalContent extends Component {
         validateOnMount
         onSubmit={this.handleConfirm}
         initialValues={{
-          [FIELD.KEY]: field?.key ?? "",
-          [FIELD.LABEL]: field?.label ?? "",
-          [FIELD.DESCRIPTION]: field?.description ?? "",
-          [FIELD.PLACEHOLDER]: field?.placeholder ?? "",
-          [FIELD.HELPER_TEXT]: field?.helperText ?? "",
-          [FIELD.READ_ONLY]: field?.readOnly ?? false,
-          [FIELD.REQUIRED]: field?.required ?? false,
-          [FIELD.TYPE]: field
+          [InputProperty.Key]: field?.key ?? "",
+          [InputProperty.Label]: field?.label ?? "",
+          [InputProperty.Description]: field?.description ?? "",
+          [InputProperty.Placeholder]: field?.placeholder ?? "",
+          [InputProperty.HelperText]: field?.helperText ?? "",
+          [InputProperty.ReadOnly]: field?.readOnly ?? false,
+          [InputProperty.Required]: field?.required ?? false,
+          [InputProperty.Type]: field
             ? field.type === "texteditor"
               ? INPUT_TYPES_LABELS[7]
               : INPUT_TYPES_LABELS.find((type) => type?.value === field.type)
             : {},
-          [FIELD.DEFAULT_VALUE]: field?.defaultValue ?? "",
+          [InputProperty.DefaultValue]: field?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
-          [FIELD.OPTIONS]: field?.options?.map((option) => (typeof option === "object" ? option.key : option)) ?? [],
+          [InputProperty.Options]:
+            field?.options?.map((option) => (typeof option === "object" ? option.key : option)) ?? [],
         }}
         validationSchema={Yup.object().shape({
-          [FIELD.KEY]: Yup.string()
+          [InputProperty.Key]: Yup.string()
             .required("Enter a key")
             .max(64, "Key must not be greater than 64 characters")
             .notOneOf(fieldKeys || [], "Enter a unique key value for this workflow")
@@ -262,18 +252,20 @@ class TemplateConfigModalContent extends Component {
               "Only alphanumeric, underscore, dash, and period characters allowed",
               this.validateKey
             ),
-          [FIELD.LABEL]: Yup.string().required("Enter a Name").max(64, "Name must not be greater than 64 characters"),
-          [FIELD.DESCRIPTION]: Yup.string().max(128, "Description must not be greater than 128 characters"),
-          [FIELD.PLACEHOLDER]: Yup.string().max(64, "Placeholder must not be greater than 64 characters"),
-          [FIELD.HELPER_TEXT]: Yup.string().max(64, "Helper Text must not be greater than 128 characters"),
-          [FIELD.READ_ONLY]: Yup.boolean(),
-          [FIELD.REQUIRED]: Yup.boolean(),
-          [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
-          [FIELD.OPTIONS]: Yup.array().when(FIELD.TYPE, {
-            is: (type) => type.value === INPUT_TYPES.SELECT,
+          [InputProperty.Label]: Yup.string()
+            .required("Enter a Name")
+            .max(64, "Name must not be greater than 64 characters"),
+          [InputProperty.Description]: Yup.string().max(128, "Description must not be greater than 128 characters"),
+          [InputProperty.Placeholder]: Yup.string().max(64, "Placeholder must not be greater than 64 characters"),
+          [InputProperty.HelperText]: Yup.string().max(64, "Helper Text must not be greater than 128 characters"),
+          [InputProperty.ReadOnly]: Yup.boolean(),
+          [InputProperty.Required]: Yup.boolean(),
+          [InputProperty.Type]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
+          [InputProperty.Options]: Yup.array().when(InputProperty.Type, {
+            is: (type) => type.value === InputType.Select,
             then: Yup.array().required("Enter an option").min(1, "Enter at least one option"),
           }),
-          [FIELD.DEFAULT_VALUE]: this.determineDefaultValueSchema(defaultValueType),
+          [InputProperty.DefaultValue]: this.determineDefaultValueSchema(defaultValueType),
         })}
       >
         {(formikProps) => {
@@ -292,7 +284,7 @@ class TemplateConfigModalContent extends Component {
             <ModalFlowForm onSubmit={handleSubmit}>
               <ModalBody className={styles.container}>
                 <ComboBox
-                  id={FIELD.TYPE}
+                  id={InputProperty.Type}
                   onChange={({ selectedItem }) =>
                     this.handleOnTypeChange(
                       selectedItem !== null ? selectedItem : { label: "", value: "" },
@@ -308,7 +300,7 @@ class TemplateConfigModalContent extends Component {
                 {!isEdit && (
                   <TextInput
                     helperText="Reference value for field in task template config"
-                    id={FIELD.KEY}
+                    id={InputProperty.Key}
                     invalid={errors.key && touched.key}
                     invalidText={errors.key}
                     labelText="Key"
@@ -319,7 +311,7 @@ class TemplateConfigModalContent extends Component {
                   />
                 )}
                 <TextInput
-                  id={FIELD.LABEL}
+                  id={InputProperty.Label}
                   invalid={errors.label && touched.label}
                   invalidText={errors.label}
                   labelText="Label"
@@ -330,7 +322,7 @@ class TemplateConfigModalContent extends Component {
                 />
 
                 <TextInput
-                  id={FIELD.HELPER_TEXT}
+                  id={InputProperty.HelperText}
                   invalid={errors.helperText && touched.helperText}
                   invalidText={errors.helperText}
                   labelText="Helper Text (optional)"
@@ -340,7 +332,7 @@ class TemplateConfigModalContent extends Component {
                   value={values.helperText}
                 />
                 <TextInput
-                  id={FIELD.DESCRIPTION}
+                  id={InputProperty.Description}
                   invalid={errors.description && touched.description}
                   invalidText={errors.description}
                   labelText="Description (optional)"
@@ -350,7 +342,7 @@ class TemplateConfigModalContent extends Component {
                   value={values.description}
                 />
                 <TextInput
-                  id={FIELD.PLACEHOLDER}
+                  id={InputProperty.Placeholder}
                   invalid={errors.placeholder && touched.placeholder}
                   invalidText={errors.placeholder}
                   labelText="Placeholder (optional)"
@@ -362,16 +354,16 @@ class TemplateConfigModalContent extends Component {
 
                 {this.renderDefaultValue(formikProps)}
                 <Toggle
-                  id={FIELD.REQUIRED}
+                  id={InputProperty.Required}
                   labelText="Required"
-                  onToggle={(value) => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
+                  onToggle={(value) => this.handleOnFieldValueChange(value, InputProperty.Required, setFieldValue)}
                   orientation="vertical"
                   toggled={values.required}
                 />
                 <Toggle
-                  id={FIELD.READ_ONLY}
+                  id={InputProperty.ReadOnly}
                   labelText="Read Only"
-                  onToggle={(value) => this.handleOnFieldValueChange(value, FIELD.READ_ONLY, setFieldValue)}
+                  onToggle={(value) => this.handleOnFieldValueChange(value, InputProperty.ReadOnly, setFieldValue)}
                   orientation="vertical"
                   toggled={values.readOnly}
                 />

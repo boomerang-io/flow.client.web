@@ -5,7 +5,7 @@ import TaskItem from "./TaskItem";
 import orderBy from "lodash/orderBy";
 import { getSimplifiedDuration } from "Utilities/timeHelper";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
-import { ACTIVITY_STATUSES_TO_ICON, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
+import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";
 import styles from "./executionTaskLog.module.scss";
 
@@ -18,7 +18,7 @@ function ExecutionTaskLog({ workflowExecution }) {
   const [tasksSort, setTasksSort] = useState("desc");
 
   const { id, duration, status, steps } = workflowExecution.data;
-  const Icon = ACTIVITY_STATUSES_TO_ICON[status];
+  const Icon = executionStatusIcon[status];
 
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
@@ -44,7 +44,7 @@ function ExecutionTaskLog({ workflowExecution }) {
             <p className={styles.title}>Status</p>
             <div className={styles.statusData}>
               {Icon && <Icon aria-label={status} className={styles.statusIcon} />}
-              <p className={styles.value}>{status ? ACTIVITY_STATUSES_TO_TEXT[status] : "--"}</p>
+              <p className={styles.value}>{status ? ExecutionStatusCopy[status] : "--"}</p>
             </div>
           </div>
           <button className={styles.collapseButton} onClick={toggleCollapse}>

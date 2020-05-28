@@ -4,7 +4,6 @@ import cx from "classnames";
 import { useExecutionContext } from "Hooks";
 import WorkflowNode from "Components/WorkflowNode";
 import { ExecutionStatus } from "Constants";
-import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import styles from "./TemplateTaskNodeExecution.module.scss";
 
 TemplateTaskNodeExecution.propTypes = {
@@ -17,7 +16,7 @@ TemplateTaskNodeExecution.defaultProps = {
 
 export default function TemplateTaskNodeExecution({ node }) {
   const { tasks, workflowExecution } = useExecutionContext();
-  const task = tasks.find((t) => t.id === node.taskId);
+  const task = tasks.find((task) => task.id === node.taskId);
   const { steps } = workflowExecution;
   const step = Array.isArray(steps) ? steps.find((step) => step.taskId === node.id) : {};
   const flowTaskStatus = step?.flowTaskStatus ?? ExecutionStatus.Skipped;
@@ -26,7 +25,7 @@ export default function TemplateTaskNodeExecution({ node }) {
     <WorkflowNode
       isExecution
       category={task?.category}
-      className={cx(styles[flowTaskStatus], { [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED })}
+      className={cx(styles[flowTaskStatus], { [styles.disabled]: flowTaskStatus === ExecutionStatus.NotStarted })}
       icon={task?.icon}
       name={task?.name}
       node={node}

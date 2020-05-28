@@ -6,7 +6,7 @@ import WorkflowPropertiesModal from "./PropertiesModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import capitalize from "lodash/capitalize";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
+import { WorkflorPropertyUpdateType } from "Constants";
 import { QueryStatus } from "Constants";
 import styles from "./Properties.module.scss";
 
@@ -46,17 +46,17 @@ export default function Properties({ summaryData }) {
 
   const updateProperties = async ({ property, title, message, type }) => {
     let properties = [...summaryData.properties];
-    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE) {
+    if (type === WorkflorPropertyUpdateType.Update) {
       const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
       properties.splice(propertyToUpdateIndex, 1, property);
     }
 
-    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE) {
+    if (type === WorkflorPropertyUpdateType.Delete) {
       const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
       properties.splice(propertyToUpdateIndex, 1);
     }
 
-    if (type === WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE) {
+    if (type === WorkflorPropertyUpdateType.Create) {
       properties.push(property);
     }
 
@@ -78,7 +78,7 @@ export default function Properties({ summaryData }) {
   const deleteProperty = (property) => {
     updateProperties({
       property,
-      type: WORKFLOW_PROPERTY_UPDATE_TYPES.DELETE,
+      type: WorkflorPropertyUpdateType.Delete,
     });
   };
 

@@ -10,17 +10,21 @@
   .largeCol {
     border: 0;
     width: 100%;
-    border-bottom: 0.125rem solid;
+    border-bottom: 0.0625rem solid var(--cds-text-03);
   }
 
   .smallCol {
     border: 0;
+    order: -1;
     width: 100%;
+    border-bottom: 0.0625rem solid var(--cds-text-03);
   }
 
   .delimiter {
-    width: 100%;
-    border-bottom: 0.0625rem solid $section-gray;
+    border: 0;
+    border-bottom: 0.0625rem solid var(--cds-text-03);
+    margin-left: -2rem;
+    margin-right: -2rem;
 
     &:last-child {
       border-bottom: 0;
@@ -30,19 +34,20 @@
 
 @media (min-width: 769px) {
   .largeCol {
-    border-right: 0.125rem solid $section-gray;
+    border-right: 0.0625rem solid var(--cds-text-03);
     width: 35%;
   }
 
   .smallCol {
-    border-right: 0.125rem solid $section-gray;
+    border-right: 0.0625rem solid var(--cds-text-03);
     width: 30%;
   }
 
   .delimiter {
-    width: calc(100% + 4rem);
-    border: 0.0625rem solid $section-gray;
+    border: 0;
+    border-top: 0.0625rem solid var(--cds-text-03);
     margin-left: -2rem;
+    margin-right: -2rem;
   }
 }
 
@@ -200,7 +205,7 @@
 
   :global .bx--bmrg-text-input {
     background-color: transparent;
-    color: #272727;
+    color: var(--cds-text-01);
     font-size: 0.75rem;
     line-height: 0.9375rem;
     margin-bottom: 0;
@@ -215,7 +220,7 @@
 .informationCronMessage,
 //.informationTimeZone,
 .webhookToken {
-  color: #272727;
+  color: var(--cds-text-01);
   font-size: 0.75rem;
   line-height: 0.9375rem;
 }
@@ -295,7 +300,7 @@
   }
 
   :global .bx--label {
-    color: #272727;
+    color: var(--cds-text-01);
     font-size: 0.875rem;
     line-height: 1.125rem;
   }
@@ -305,25 +310,20 @@
   padding-bottom: 2.5rem;
 }
 
-.saveChangesCoontainer {
-  align-items: center;
+.saveChangesContainer {
+  align-items: flex-start;
   display: flex;
+  flex-direction: column;
   margin-top: 2.5rem;
 }
 
 .saveText {
-  color: #272727;
+  color: var(--cds-text-01);
   font-size: 0.875rem;
   line-height: 1.125rem;
-  margin-left: 1rem;
+  margin-top: 1rem;
 }
 
 .scheduleIcon {
   margin-left: 0.5rem;
 }
-
-// .delimiter {
-//   width: calc(100% + 4rem);
-//   border: 1px solid $section-gray;
-//   margin-left: -2rem;
-// }

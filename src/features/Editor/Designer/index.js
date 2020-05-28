@@ -5,7 +5,6 @@ import { DelayedRender, SkeletonPlaceholder, SkeletonText } from "@boomerang/car
 import WorkflowZoom from "Components/WorkflowZoom";
 import Tasks from "./Tasks";
 import cx from "classnames";
-import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
 import { QueryStatus } from "Constants";
 import { TaskTemplateStatus } from "Constants";
 import styles from "./designer.module.scss";
@@ -30,19 +29,6 @@ export default function DesignerContainer({
 }) {
   const isRevisionLoading = revisionQuery.status === QueryStatus.Loading;
 
-  const { revisionCount } = summaryData;
-  const { version } = revisionState;
-  const isLocked = version < revisionCount;
-
-  useEffect(() => {
-    const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, isLocked });
-    setWorkflowDagEngine(newWorkflowDagEngine);
-    newWorkflowDagEngine.getDiagramEngine().repaintCanvas();
-
-    // really and truly only want to remount this on version change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLocked, revisionState.version]);
-
   return (
     <div className={styles.container}>
       <Tasks tasks={tasks.filter((task) => task.status === TaskTemplateStatus.Active)} />
@@ -64,6 +50,10 @@ export default function DesignerContainer({
 
 function Designer({ createNode, isModalOpen, revisionState, summaryData, workflowDagEngine }) {
   const workflowDagRef = useRef();
+  useEffect(() => {
+    workflowDagEngine.getDiagramEngine().zoomToFit();
+  }, [workflowDagEngine]);
+
   const workflowDagBoundingClientRect = workflowDagRef.current ? workflowDagRef.current.getBoundingClientRect() : {};
   return (
     <div

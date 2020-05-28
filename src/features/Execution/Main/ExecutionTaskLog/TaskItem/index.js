@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
-import { ACTIVITY_STATUSES_TO_ICON, ACTIVITY_STATUSES_TO_TEXT } from "Constants/activityStatuses";
+import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskExecutionLog from "./TaskExecutionLog";
 import styles from "./taskItem.module.scss";
@@ -15,7 +15,7 @@ TaskItem.propTypes = {
 
 function TaskItem({ flowActivityId, hidden, task }) {
   const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName } = task;
-  const Icon = ACTIVITY_STATUSES_TO_ICON[flowTaskStatus];
+  const Icon = executionStatusIcon[flowTaskStatus];
   const statusClassName = styles[flowTaskStatus];
 
   return (
@@ -30,7 +30,7 @@ function TaskItem({ flowActivityId, hidden, task }) {
         </div>
         <div className={`${styles.status} ${statusClassName}`}>
           <Icon aria-label={flowTaskStatus} className={styles.statusIcon} />
-          <p>{ACTIVITY_STATUSES_TO_TEXT[flowTaskStatus]}</p>
+          <p>{ExecutionStatusCopy[flowTaskStatus]}</p>
         </div>
       </section>
       <section className={styles.data}>

@@ -8,7 +8,7 @@ import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanize
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
 import { DataTableSkeleton, DataTable, Pagination } from "@boomerang/carbon-addons-boomerang-react";
 import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
-import { ACTIVITY_STATUSES_TO_TEXT, ACTIVITY_STATUSES_TO_ICON } from "Constants/activityStatuses";
+import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
 import styles from "./activityTable.module.scss";
 
 const { prefix } = settings;
@@ -58,25 +58,25 @@ const headers = [
 function renderCell(cellIndex, value) {
   const column = headers[cellIndex];
 
-  switch (column.header) {
-    case "Trigger":
+  switch (column.key) {
+    case "trigger":
       return (
         <p className={styles.tableTextarea} style={{ textTransform: "capitalize" }}>
           {value || "---"}
         </p>
       );
-    case "Start Time":
+    case "creationDate":
       return <time className={styles.tableTextarea}>{moment(value).format("YYYY-MM-DD hh:mm A")}</time>;
-    case "Duration":
+    case "duration":
       return (
         <time className={styles.tableTextarea}>{value ? getHumanizedDuration(parseInt(value / 1000, 10)) : "---"}</time>
       );
-    case "Status":
-      const Icon = ACTIVITY_STATUSES_TO_ICON[value ? value : "notstarted"];
+    case "status":
+      const Icon = executionStatusIcon[value ? value : "notstarted"];
       return (
         <div className={`${styles.status} ${styles[value]}`}>
           <Icon aria-label={value} className={styles.statusIcon} />
-          <p className={styles.statusText}>{ACTIVITY_STATUSES_TO_TEXT[value ? value : "notstarted"]}</p>
+          <p className={styles.statusText}>{ExecutionStatusCopy[value ? value : "notstarted"]}</p>
         </div>
       );
     default:

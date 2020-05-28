@@ -157,8 +157,12 @@ function WorkflowCard({ teamId, workflow }) {
             <Icon className={styles.icon} alt={`${name}`} />
           </div>
           <div className={styles.descriptionContainer}>
-            <h1 className={styles.name}>{workflow.name}</h1>
-            <p className={styles.description}>{workflow.shortDescription}</p>
+            <h1 title={workflow.name} className={styles.name}>
+              {workflow.name}
+            </h1>
+            <p title={workflow.shortDescription} className={styles.description}>
+              {workflow.shortDescription}
+            </p>
           </div>
         </section>
       </Link>

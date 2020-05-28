@@ -11,6 +11,7 @@ import Header from "./Header";
 import Configure from "./Configure";
 import Designer from "./Designer";
 import Properties from "./Properties";
+import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
 import CustomNodeModel from "Utilities/dag/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utilities/dag/templateTaskNode/TemplateTaskNodeModel";
@@ -93,7 +94,6 @@ export default function EditorContainer(props) {
 
 function initRevisionReducerState(revisionData) {
   if (revisionData) {
-    console.log(revisionData);
     const { config, ...rest } = revisionData;
     const normalizedNodesObj = {};
     config.nodes.forEach((node) => {
@@ -105,13 +105,13 @@ function initRevisionReducerState(revisionData) {
   return {};
 }
 
-const revisionActionTypes = {
-  ADD_NODE: "ADD_NODE",
-  DELETE_NODE: "DELETE_NODE",
-  SET: "SET",
-  RESET: "RESET",
-  UPDATE_NODE_CONFIG: "UPDATE_NODE_CONFIG",
-  UPDATE_NODE_TASK_VERSION: "UPDATE_NODE_TASK_VERSION",
+const RevisionActionTypes = {
+  AddNode: "ADD_NODE",
+  DeleteNode: "DELETE_NODE",
+  Reset: "RESET",
+  Set: "SET",
+  UpdateNodeConfig: "UPDATE_NODE_CONFIG",
+  UpdateNodeTaskVersion: "UPDATE_NODE_TASK_VERSION",
 };
 
 /**
@@ -146,26 +146,26 @@ export function EditorStateContainer({
 
   function revisionReducer(state, action) {
     switch (action.type) {
-      case revisionActionTypes.ADD_NODE: {
+      case RevisionActionTypes.AddNode: {
         const { data } = action;
         state.hasUnsavedWorkflowRevisionUpdates = true;
         state.config[data.nodeId] = data;
         return state;
       }
-      case revisionActionTypes.DELETE_NODE: {
+      case RevisionActionTypes.DeleteNode: {
         let { nodeId } = action.data;
         delete state.config[nodeId];
         state.dag.nodes = state.dag?.nodes?.filter((node) => node.nodeId !== nodeId) ?? [];
         state.hasUnsavedWorkflowRevisionUpdates = true;
         return state;
       }
-      case revisionActionTypes.UPDATE_NODE_CONFIG: {
+      case RevisionActionTypes.UpdateNodeConfig: {
         const { nodeId, inputs } = action.data;
         state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
         state.hasUnsavedWorkflowRevisionUpdates = true;
         return state;
       }
-      case revisionActionTypes.UPDATE_NODE_TASK_VERSION: {
+      case RevisionActionTypes.UpdateNodeTaskVersion: {
         const { nodeId, inputs, version } = action.data;
         state.dag.nodes.find((node) => node.nodeId === nodeId).templateUpgradeAvailable = false;
         state.config[nodeId].taskVersion = version;
@@ -173,11 +173,12 @@ export function EditorStateContainer({
         state.hasUnsavedWorkflowRevisionUpdates = true;
         return state;
       }
-      case revisionActionTypes.SET: {
+      case RevisionActionTypes.Set: {
         setRevisionNumber(action.data.version);
         return initRevisionReducerState(action.data);
       }
-      case revisionActionTypes.RESET: {
+      case RevisionActionTypes.Reset: {
+        console.log("reset called");
         return initRevisionReducerState(revisionQuery.data);
       }
       default:
@@ -194,7 +195,7 @@ export function EditorStateContainer({
   useEffect(() => {
     if (revisionQuery.data) {
       revisionDispatch({
-        type: revisionActionTypes.RESET,
+        type: RevisionActionTypes.Reset,
       });
     }
   }, [revisionNumber, revisionDispatch, revisionQuery.data]);
@@ -228,7 +229,7 @@ export function EditorStateContainer({
       if (typeof callback === "function") {
         callback();
       }
-      revisionDispatch({ type: revisionActionTypes.SET, data });
+      revisionDispatch({ type: RevisionActionTypes.Set, data });
     } catch (err) {
       //no-op
     }
@@ -238,13 +239,17 @@ export function EditorStateContainer({
    *
    * @param {Object} formikValues - key/value pairs for inputs
    */
-  const updateSummary = async (formikValues) => {
+  const updateSummary = async ({ values: formikValues, callback }) => {
     const flowTeamId = formikValues?.selectedTeam?.id;
     const updatedWorkflow = { ...summaryData, ...formikValues, flowTeamId };
 
     try {
       const { data } = await mutateSummary({ body: updatedWorkflow });
       queryCache.setQueryData(serviceUrl.getWorkflowSummary({ workflowId }), data);
+      notify(<ToastNotification kind="success" title="Workflow Updated" subtitle={`Successfully updated workflow`} />);
+      if (typeof callback === "function") {
+        callback();
+      }
     } catch (err) {
       notify(
         <ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to update workflow settings`} />
@@ -299,7 +304,7 @@ export function EditorStateContainer({
           }, {})
         : {};
     revisionDispatch({
-      type: revisionActionTypes.ADD_NODE,
+      type: RevisionActionTypes.AddNode,
       data: {
         nodeId: id,
         taskId,
@@ -322,7 +327,20 @@ export function EditorStateContainer({
   const handleChangeRevision = (revisionNumber) => {
     setRevisionNumber(revisionNumber);
   };
-  //console.log(revisionState);
+
+  const { revisionCount } = summaryData;
+  const { version } = revisionState;
+  const isLocked = version < revisionCount;
+
+  useEffect(() => {
+    const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, isLocked });
+    setWorkflowDagEngine(newWorkflowDagEngine);
+    newWorkflowDagEngine.getDiagramEngine().repaintCanvas();
+
+    // really and truly only want to remount this on version change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLocked, revisionState.version]);
+
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
     <WorkflowContext.Provider
@@ -370,18 +388,25 @@ export function EditorStateContainer({
             <Route path={appPath.editorProperties}>
               <Properties summaryData={summaryData} />
             </Route>
-            <Route path={appPath.editorConfigure}>
-              <Configure
-                params={match.params}
-                summaryData={summaryData}
-                teams={sortBy(teams, "name")}
-                updateSummary={updateSummary}
-              />
-            </Route>
+
             <Route path={appPath.editorChangelog}>
               <ChangeLog summaryData={summaryData} />
             </Route>
           </Switch>
+          <Route
+            path={appPath.editorConfigure}
+            children={({ history, match: routeMatch }) => (
+              <Configure
+                history={history}
+                isOnRoute={routeMatch}
+                params={match.params}
+                summaryData={summaryData}
+                summaryMutation={summaryMutation}
+                teams={sortBy(teams, "name")}
+                updateSummary={updateSummary}
+              />
+            )}
+          />
         </div>
       </>
     </WorkflowContext.Provider>

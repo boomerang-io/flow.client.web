@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import { useExecutionContext } from "Hooks";
-import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import { ExecutionStatus } from "Constants";
 import WorkflowNode from "Components/WorkflowNode";
 import styles from "./CustomTaskNodeExecution.module.scss";
@@ -26,7 +25,7 @@ export default function CustomTaskNodeExecution({ node }) {
     <WorkflowNode
       isExecution
       category={task.category}
-      className={cx(styles[flowTaskStatus], { [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED })}
+      className={cx(styles[flowTaskStatus], { [styles.disabled]: flowTaskStatus === ExecutionStatus.NotStarted })}
       icon={task.icon}
       name={task.name}
       node={node}

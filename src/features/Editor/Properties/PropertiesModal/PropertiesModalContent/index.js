@@ -13,29 +13,20 @@ import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomera
 import { Formik } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
-import INPUT_TYPES from "Constants/workflowInputTypes";
-import WORKFLOW_PROPERTY_UPDATE_TYPES from "Constants/workflowPropertyUpdateTypes";
+import { InputProperty, InputType, InputTypeCopy, WorkflorPropertyUpdateType } from "Constants";
 import styles from "./PropertiesModalContent.module.scss";
 
-const FIELD = {
-  KEY: "key",
-  DESCRIPTION: "description",
-  LABEL: "label",
-  REQUIRED: "required",
-  TYPE: "type",
-  DEFAULT_VALUE: "defaultValue",
-  OPTIONS: "options",
-};
+const selectInputItem = { label: InputTypeCopy[InputType.Select], value: InputType.Select };
 
-const INPUT_TYPES_LABELS = [
-  { label: "Boolean", value: "boolean" },
-  { label: "Email", value: "email" },
-  { label: "Number", value: "number" },
-  { label: "Password", value: "password" },
-  { label: "Select", value: "select" },
-  { label: "Text", value: "text" },
-  { label: "Text Area", value: "textarea" },
-  { label: "URL", value: "url" },
+const InputTypeItems = [
+  { label: InputTypeCopy[InputType.Boolean], value: InputType.Boolean },
+  { label: InputTypeCopy[InputType.Email], value: InputType.Email },
+  { label: InputTypeCopy[InputType.Number], value: InputType.Number },
+  { label: InputTypeCopy[InputType.Password], value: InputType.Password },
+  selectInputItem,
+  { label: InputTypeCopy[InputType.Text], value: InputType.Text },
+  { label: InputTypeCopy[InputType.TextArea], value: InputType.TextArea },
+  { label: InputTypeCopy[InputType.URL], value: InputType.URL },
 ];
 
 class PropertiesModalContent extends Component {
@@ -62,13 +53,13 @@ class PropertiesModalContent extends Component {
 
   handleOnTypeChange = (selectedItem, setFieldValue) => {
     this.setState({ defaultValueType: selectedItem.value });
-    setFieldValue(FIELD.TYPE, selectedItem);
-    setFieldValue(FIELD.DEFAULT_VALUE, selectedItem.value === INPUT_TYPES.BOOLEAN ? false : undefined);
+    setFieldValue(InputProperty.Type, selectedItem);
+    setFieldValue(InputProperty.DefaultValue, selectedItem.value === InputType.Boolean ? false : undefined);
   };
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
   handleOptionsChange = (values, setFieldValue) => {
-    setFieldValue(FIELD.OPTIONS, values);
+    setFieldValue(InputProperty.Options, values);
   };
 
   // Check if key contains alpahanumeric, underscore, dash, and period chars
@@ -82,14 +73,14 @@ class PropertiesModalContent extends Component {
     property.type = property.type.value;
 
     // Remove in case they are present if the user changed their mind
-    if (property.type !== INPUT_TYPES.SELECT) {
+    if (property.type !== InputType.Select) {
       delete property.options;
     } else {
       // Create options in correct type for service - { key, value }
       property.options = property.options.map((property) => ({ key: property, value: property }));
     }
 
-    if (property.type === INPUT_TYPES.BOOLEAN) {
+    if (property.type === InputType.Boolean) {
       if (!property.defaultValue) property.defaultValue = false;
     }
 
@@ -97,7 +88,7 @@ class PropertiesModalContent extends Component {
       this.props
         .updateWorkflowProperties({
           property,
-          type: WORKFLOW_PROPERTY_UPDATE_TYPES.UPDATE,
+          type: WorkflorPropertyUpdateType.Update,
         })
         .then(() => {
           this.props.forceCloseModal();
@@ -107,7 +98,7 @@ class PropertiesModalContent extends Component {
       this.props
         .updateWorkflowProperties({
           property,
-          type: WORKFLOW_PROPERTY_UPDATE_TYPES.CREATE,
+          type: WorkflorPropertyUpdateType.Create,
         })
         .then(() => {
           this.props.forceCloseModal();
@@ -120,25 +111,27 @@ class PropertiesModalContent extends Component {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
 
     switch (values.type.value) {
-      case INPUT_TYPES.BOOLEAN:
+      case InputType.Boolean:
         return (
           <Toggle
             data-testid="toggle"
-            id={FIELD.DEFAULT_VALUE}
+            id={InputProperty.DefaultValue}
             label="Default Value"
-            onToggle={(value) => this.handleOnFieldValueChange(value.toString(), FIELD.DEFAULT_VALUE, setFieldValue)}
+            onToggle={(value) =>
+              this.handleOnFieldValueChange(value.toString(), InputProperty.DefaultValue, setFieldValue)
+            }
             orientation="vertical"
             toggled={values.defaultValue === "true"}
           />
         );
-      case INPUT_TYPES.SELECT:
+      case InputType.Select:
         // If editing an option, values will be an array of { key, value}
         let options = clonedeep(values.options);
         return (
           <>
             <Creatable
               data-testid="creatable"
-              id={FIELD.OPTIONS}
+              id={InputProperty.Options}
               onChange={(createdItems) => this.handleOptionsChange(createdItems, setFieldValue)}
               label="Options"
               placeholder="Enter option"
@@ -146,9 +139,9 @@ class PropertiesModalContent extends Component {
             />
             <ComboBox
               data-testid="select"
-              id={FIELD.DEFAULT_VALUE}
+              id={InputProperty.DefaultValue}
               onChange={({ selectedItem }) =>
-                this.handleOnFieldValueChange(selectedItem, FIELD.DEFAULT_VALUE, setFieldValue)
+                this.handleOnFieldValueChange(selectedItem, InputProperty.DefaultValue, setFieldValue)
               }
               items={options || []}
               initialSelectedItem={values.defaultValue || {}}
@@ -157,11 +150,11 @@ class PropertiesModalContent extends Component {
             />
           </>
         );
-      case INPUT_TYPES.TEXT_AREA:
+      case InputType.TextArea:
         return (
           <TextArea
             data-testid="text-area"
-            id={FIELD.DEFAULT_VALUE}
+            id={InputProperty.DefaultValue}
             labelText="Default Value"
             onBlur={handleBlur}
             onChange={(e) => this.handleOnChange(e, handleChange)}
@@ -175,7 +168,7 @@ class PropertiesModalContent extends Component {
         return (
           <TextInput
             data-testid="text-input"
-            id={FIELD.DEFAULT_VALUE}
+            id={InputProperty.DefaultValue}
             labelText="Default Value"
             onBlur={handleBlur}
             onChange={(e) => this.handleOnChange(e, handleChange)}
@@ -215,19 +208,20 @@ class PropertiesModalContent extends Component {
         validateOnMount
         onSubmit={this.handleConfirm}
         initialValues={{
-          [FIELD.KEY]: property?.key ?? "",
-          [FIELD.LABEL]: property?.label ?? "",
-          [FIELD.DESCRIPTION]: property?.description ?? "",
-          [FIELD.REQUIRED]: property?.required ?? false,
-          [FIELD.TYPE]: property
-            ? INPUT_TYPES_LABELS.find((type) => type.value === property.type)
-            : INPUT_TYPES_LABELS[4],
-          [FIELD.DEFAULT_VALUE]: property?.defaultValue ?? "",
+          [InputProperty.Key]: property?.key ?? "",
+          [InputProperty.Label]: property?.label ?? "",
+          [InputProperty.Description]: property?.description ?? "",
+          [InputProperty.Required]: property?.required ?? false,
+          [InputProperty.Type]: property
+            ? InputTypeItems.find((type) => type.value === property.type)
+            : selectInputItem,
+          [InputProperty.DefaultValue]: property?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
-          [FIELD.OPTIONS]: property?.options?.map((option) => (typeof option === "object" ? option.key : option)) ?? [],
+          [InputProperty.Options]:
+            property?.options?.map((option) => (typeof option === "object" ? option.key : option)) ?? [],
         }}
         validationSchema={Yup.object().shape({
-          [FIELD.KEY]: Yup.string()
+          [InputProperty.Key]: Yup.string()
             .required("Enter a key")
             .max(128, "Key must not be greater than 128 characters")
             .notOneOf(propertyKeys || [], "Enter a unique key value for this workflow")
@@ -236,15 +230,17 @@ class PropertiesModalContent extends Component {
               "Only alphanumeric, underscore, dash, and period characters allowed",
               this.validateKey
             ),
-          [FIELD.LABEL]: Yup.string().required("Enter a Name").max(128, "Name must not be greater than 128 characters"),
-          [FIELD.DESCRIPTION]: Yup.string().max(128, "Description must not be greater than 128 characters"),
-          [FIELD.REQUIRED]: Yup.boolean(),
-          [FIELD.TYPE]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
-          [FIELD.OPTIONS]: Yup.array().when(FIELD.TYPE, {
-            is: (type) => type.value === INPUT_TYPES.SELECT,
+          [InputProperty.Label]: Yup.string()
+            .required("Enter a Name")
+            .max(128, "Name must not be greater than 128 characters"),
+          [InputProperty.Description]: Yup.string().max(128, "Description must not be greater than 128 characters"),
+          [InputProperty.Required]: Yup.boolean(),
+          [InputProperty.Type]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
+          [InputProperty.Options]: Yup.array().when(InputProperty.Type, {
+            is: (type) => type.value === InputType.Select,
             then: Yup.array().required("Enter an option").min(1, "Enter at least one option"),
           }),
-          [FIELD.DEFAULT_VALUE]: this.determineDefaultValueSchema(defaultValueType),
+          [InputProperty.DefaultValue]: this.determineDefaultValueSchema(defaultValueType),
         })}
       >
         {(formikProps) => {
@@ -264,7 +260,7 @@ class PropertiesModalContent extends Component {
               <ModalBody className={styles.container}>
                 {loading && <Loading />}
                 <TextInput
-                  id={FIELD.LABEL}
+                  id={InputProperty.Label}
                   invalid={errors.label && touched.label}
                   invalidText={errors.label}
                   labelText="Name"
@@ -276,7 +272,7 @@ class PropertiesModalContent extends Component {
                 {!isEdit && (
                   <TextInput
                     helperText="Reference value for property in workflow"
-                    id={FIELD.KEY}
+                    id={InputProperty.Key}
                     invalid={errors.key && touched.key}
                     invalidText={errors.key}
                     labelText="Key"
@@ -287,7 +283,7 @@ class PropertiesModalContent extends Component {
                   />
                 )}
                 <TextInput
-                  id={FIELD.LABEL}
+                  id={InputProperty.Label}
                   invalid={errors.label && touched.label}
                   invalidText={errors.label}
                   labelText="Label"
@@ -297,7 +293,7 @@ class PropertiesModalContent extends Component {
                   onChange={(e) => this.handleOnChange(e, handleChange)}
                 />
                 <TextInput
-                  id={FIELD.DESCRIPTION}
+                  id={InputProperty.Description}
                   invalid={errors.description && touched.description}
                   invalidText={errors.description}
                   labelText="Description"
@@ -308,22 +304,22 @@ class PropertiesModalContent extends Component {
 
                 <Toggle
                   data-testid="toggle-test-id"
-                  id={FIELD.REQUIRED}
+                  id={InputProperty.Required}
                   labelText="Required"
-                  onToggle={(value) => this.handleOnFieldValueChange(value, FIELD.REQUIRED, setFieldValue)}
+                  onToggle={(value) => this.handleOnFieldValueChange(value, InputProperty.Required, setFieldValue)}
                   orientation="vertical"
                   toggled={values.required}
                 />
 
                 <ComboBox
-                  id={FIELD.TYPE}
+                  id={InputProperty.Type}
                   onChange={({ selectedItem }) =>
                     this.handleOnTypeChange(
                       selectedItem !== null ? selectedItem : { label: "", value: "" },
                       setFieldValue
                     )
                   }
-                  items={INPUT_TYPES_LABELS}
+                  items={InputTypeItems}
                   initialSelectedItem={values.type}
                   itemToString={(item) => item && item.label}
                   placeholder="Select an item"

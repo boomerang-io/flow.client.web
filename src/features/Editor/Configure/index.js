@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { Formik } from "formik";
-import { useHistory, useParams } from "react-router-dom";
 import {
+  Button,
   ComboBox,
   ConfirmModal,
-  ModalFlow,
+  ComposedModal,
   TextArea,
   TextInput,
   Toggle,
@@ -22,19 +22,42 @@ import cronstrue from "cronstrue";
 import * as Yup from "yup";
 import { appLink } from "Config/appConfig";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import { QueryStatus } from "Constants";
 import { CopyFile16, EventSchedule16, Save24, ViewFilled16 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
 import styles from "./configure.module.scss";
 
-export default function ConfigureContainer({ summaryData, teams, updateSummary }) {
-  const history = useHistory();
-  const params = useParams();
+ConfigureContainer.propTypes = {
+  history: PropTypes.object,
+  isOnRoute: PropTypes.bool.isRequired,
+  params: PropTypes.object,
+  summaryData: PropTypes.object.isRequired,
+  summaryMutation: PropTypes.object.isRequired,
+  teams: PropTypes.array.isRequired,
+  updateSummary: PropTypes.object.isRequired,
+};
 
-  const redirectOnTeamChange = (team) => {
-    history.push(appLink.editorConfigure({ teamId: team.id, workflowId: params.workflowId }));
+export default function ConfigureContainer({
+  history,
+  isOnRoute,
+  params,
+  summaryData,
+  summaryMutation,
+  teams,
+  updateSummary,
+}) {
+  const handleOnSubmit = (values) => {
+    updateSummary({
+      values,
+      callback: () =>
+        history.push(appLink.editorConfigure({ teamId: values.selectedTeam.id, workflowId: params.workflowId })),
+    });
   };
+
   return (
     <Formik
+      enableReinitialize
+      onSubmit={handleOnSubmit}
       initialValues={{
         description: summaryData?.description ?? "",
         enableACCIntegration: summaryData?.enableACCIntegration ?? false,
@@ -86,15 +109,17 @@ export default function ConfigureContainer({ summaryData, teams, updateSummary }
         }),
       })}
     >
-      {(formikProps) => (
-        <Configure
-          formikProps={formikProps}
-          redirectOnTeamChange={redirectOnTeamChange}
-          summaryData={summaryData}
-          teams={teams}
-          updateSummary={updateSummary}
-        />
-      )}
+      {(formikProps) =>
+        isOnRoute ? (
+          <Configure
+            formikProps={formikProps}
+            summaryData={summaryData}
+            summaryMutation={summaryMutation}
+            teams={teams}
+            updateSummary={updateSummary}
+          />
+        ) : null
+      }
     </Formik>
   );
 }
@@ -112,28 +137,28 @@ class Configure extends Component {
   static propTypes = {
     formikProps: PropTypes.object.isRequired,
     summaryData: PropTypes.object.isRequired,
+    summaryMutation: PropTypes.object.isRequired,
     teams: PropTypes.array.isRequired,
     updateSummary: PropTypes.func.isRequired,
   };
 
-  componentDidMount() {
-    window.addEventListener("beforeunload", this.handleBeforeUnloadEvent);
-  }
+  // componentDidMount() {
+  //   window.addEventListener("beforeunload", this.handleBeforeUnloadEvent);
+  // }
 
-  componentWillUnmount() {
-    this.props.updateSummary(this.props.formikProps.values); // will have to pass formik values in here
-    window.removeEventListener("beforeunload", this.handleBeforeUnloadEvent);
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener("beforeunload", this.handleBeforeUnloadEvent);
+  // }
 
-  handleBeforeUnloadEvent = (event) => {
-    const {
-      formikProps: { dirty },
-    } = this.props;
-    if (dirty) {
-      event.preventDefault();
-      event.returnValue = "You have unsaved changes.";
-    }
-  };
+  // handleBeforeUnloadEvent = (event) => {
+  //   const {
+  //     formikProps: { dirty },
+  //   } = this.props;
+  //   if (dirty) {
+  //     event.preventDefault();
+  //     event.returnValue = "You have unsaved changes.";
+  //   }
+  // };
 
   generateToken = (e) => {
     if (e) {
@@ -170,14 +195,16 @@ class Configure extends Component {
 
   handleTeamChange = ({ selectedItem }) => {
     this.props.formikProps.setFieldValue("selectedTeam", selectedItem ?? {});
-    this.props.redirectOnTeamChange(selectedItem);
   };
 
   render() {
     const {
+      summaryMutation,
       teams,
-      formikProps: { values, touched, errors, handleBlur },
+      formikProps: { dirty, errors, handleBlur, handleSubmit, touched, values },
     } = this.props;
+
+    const isLoading = summaryMutation.status === QueryStatus.Loading;
 
     return (
       <section aria-label="Configure" className={styles.wrapper}>
@@ -256,7 +283,7 @@ class Configure extends Component {
             ))}
           </div>
         </section>
-        <section className={styles.smallCol}>
+        <section className={styles.largeCol}>
           <h1 className={styles.header}>Triggers</h1>
           <h2 className={styles.subTitle}>Off - until you turn them on. (Feel the power).</h2>
           <div className={styles.triggerContainer}>
@@ -351,11 +378,7 @@ class Configure extends Component {
                     </div>
                   )}
                 {values.triggers.scheduler.enable && (
-                  <ModalFlow
-                    confirmModalProps={{
-                      title: "Are you sure?",
-                      children: "Your changes will not be saved",
-                    }}
+                  <ComposedModal
                     modalHeaderProps={{
                       title: "Change schedule",
                     }}
@@ -371,13 +394,16 @@ class Configure extends Component {
                       </button>
                     )}
                   >
-                    <CronJobModal
-                      advancedCron={values.triggers.scheduler.advancedCron}
-                      cronExpression={values.triggers.scheduler.schedule}
-                      handleOnChange={this.handleOnToggleChange}
-                      timeZone={values.triggers.scheduler.timezone}
-                    />
-                  </ModalFlow>
+                    {({ closeModal }) => (
+                      <CronJobModal
+                        advancedCron={values.triggers.scheduler.advancedCron}
+                        closeModal={closeModal}
+                        cronExpression={values.triggers.scheduler.schedule}
+                        handleOnChange={this.handleOnToggleChange}
+                        timeZone={values.triggers.scheduler.timezone}
+                      />
+                    )}
+                  </ComposedModal>
                 )}
               </div>
             </div>
@@ -436,11 +462,13 @@ class Configure extends Component {
           </div>
           <hr className={styles.delimiter} />
         </section>
-        <section className={styles.largeCol}>
-          <div className={styles.saveChangesCoontainer}>
-            <Save24 fill="#697077" />
+        <section className={styles.smallCol}>
+          <div className={styles.saveChangesContainer}>
+            <Button size="field" disabled={!dirty || isLoading} onClick={handleSubmit} renderIcon={Save24}>
+              {isLoading ? "Saving..." : "Save"}
+            </Button>
             <p className={styles.saveText}>
-              Changes are saved when you leave this page. Versioning functionality only applies to the Workflow.
+              Save the configuration. Versioning functionality only applies to the Workflow.
             </p>
           </div>
         </section>

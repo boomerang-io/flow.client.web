@@ -12,7 +12,7 @@ import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
 import ErrorDragon from "Components/ErrorDragon";
 import { executionOptions } from "Constants/filterOptions";
-import { ACTIVITY_STATUSES_TO_INDEX } from "Constants/activityStatuses";
+import { executionStatusList } from "Constants";
 import queryString from "query-string";
 import moment from "moment";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
@@ -115,7 +115,7 @@ export default function WorkflowActivity({ history, location, match }) {
   }
 
   function handleSelectStatuses(statusIndex) {
-    const statuses = statusIndex > 0 ? ACTIVITY_STATUSES_TO_INDEX[statusIndex - 1] : undefined;
+    const statuses = statusIndex > 0 ? executionStatusList[statusIndex - 1] : undefined;
     updateHistorySearch({ ...queryString.parse(location.search), statuses });
   }
 
@@ -154,7 +154,7 @@ export default function WorkflowActivity({ history, location, match }) {
     const selectedWorkflowIds = workflowIds.split(",");
     const selectedTriggers = triggers.split(",");
     const selectedStatuses = statuses.split(",");
-    const statusIndex = ACTIVITY_STATUSES_TO_INDEX.indexOf(selectedStatuses[0]);
+    const statusIndex = executionStatusList.indexOf(selectedStatuses[0]);
 
     const teamsData = JSON.parse(JSON.stringify(teamsState));
 

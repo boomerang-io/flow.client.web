@@ -11,10 +11,8 @@ import {
 } from "@boomerang/carbon-addons-boomerang-react";
 import { QueryStatus } from "Constants";
 
-//TODO: refactor this. It is bad.
 class VersionCommentForm extends Component {
   static propTypes = {
-    onSave: PropTypes.func.isRequired,
     closeModal: PropTypes.func,
   };
 

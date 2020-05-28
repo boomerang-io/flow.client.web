@@ -6,21 +6,29 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { CheckboxList, ComboBox, TextInput, ModalFlowForm, Toggle } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
+import { daysOfWeekCronList } from "Constants";
 import { cronToDateTime } from "Utilities/cronHelper";
-import DAYS_OF_WEEK from "Constants/daysOfWeek";
-import cronDayNumberMap from "Constants/cronDayNumberMap";
 import styles from "./cronJobModal.module.scss";
 
 //Timezones that don't have a match in Java and can't be saved via the service
 const exludedTimezones = ["GMT+0", "GMT-0", "ROC"];
 
+const cronDayNumberMap = {
+  sunday: "SUN",
+  monday: "MON",
+  tuesday: "TUE",
+  wednesday: "WED",
+  thursday: "THU",
+  friday: "FRI",
+  saturday: "SAT",
+};
+
 export default class CronJobModal extends Component {
   static propTypes = {
     advancedCron: PropTypes.bool,
-    closeModal: PropTypes.func,
+    closeModal: PropTypes.func.isRequired,
     cronExpression: PropTypes.string,
     handleOnChange: PropTypes.func.isRequired,
-    setShouldConfirmModalClose: PropTypes.func,
     timeZone: PropTypes.string,
   };
 
@@ -39,13 +47,11 @@ export default class CronJobModal extends Component {
   }
 
   handleOnChange = (e, handleChange) => {
-    this.props.setShouldConfirmModalClose(true);
     this.validateCron(e.target.value);
     handleChange(e);
   };
 
   handleTimeChange = (selectedItem, id, setFieldValue) => {
-    this.props.setShouldConfirmModalClose(true);
     setFieldValue(id, selectedItem);
   };
 
@@ -79,7 +85,7 @@ export default class CronJobModal extends Component {
       values.timeZone.value ? values.timeZone.value : this.state.defaultTimeZone,
       "triggers.scheduler.timezone"
     );
-    this.props.forceCloseModal();
+    this.props.closeModal();
   };
 
   handleSchedule = (values) => {
@@ -112,6 +118,8 @@ export default class CronJobModal extends Component {
 
     return (
       <Formik
+        isInitialValid
+        onSubmit={this.handleOnSave}
         initialValues={{
           cronExpression: cronExpression || "0 18 * * *",
           advancedCron: !!advancedCron,
@@ -129,8 +137,6 @@ export default class CronJobModal extends Component {
           time: Yup.string().when("advancedCron", { is: false, then: (time) => time.required("Enter a time") }),
           timeZone: Yup.object().shape({ label: Yup.string(), value: Yup.string() }),
         })}
-        onSubmit={this.handleOnSave}
-        isInitialValid
       >
         {(formikProps) => {
           const {
@@ -196,47 +202,45 @@ export default class CronJobModal extends Component {
                     </>
                   ) : (
                     <>
-                      <div className={styles.cronAdvancedContainer}>
-                        <div className={styles.timeContainer}>
-                          <TextInput
-                            id="time"
-                            data-testid="time"
-                            invalid={errors.time && touched.time}
-                            invalidText={errors.time}
-                            labelText={"Choose a time"}
-                            name="time"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            placeholder="Time"
-                            style={{ minWidth: "10rem" }}
-                            type="time"
-                            value={values.time}
-                          />
-                          <div className={styles.timezone}>
-                            <ComboBox
-                              id="timeZone"
-                              initialSelectedItem={values.timeZone}
-                              items={this.timezoneOptions}
-                              onChange={({ selectedItem }) =>
-                                this.handleTimeChange(
-                                  selectedItem !== null ? selectedItem : { label: "", value: "" },
-                                  "timeZone",
-                                  setFieldValue
-                                )
-                              }
-                              placeholder="Timezone"
-                              titleText={null}
-                            />
-                          </div>
-                        </div>
-                        <div className={styles.daysContainer}>
-                          <CheckboxList
-                            initialSelectedItems={values.days}
-                            labelText="Choose day(s)"
-                            options={DAYS_OF_WEEK}
-                            onChange={(...args) => this.handleCheckboxListChange(setFieldValue, ...args)}
+                      <div className={styles.timeContainer}>
+                        <TextInput
+                          id="time"
+                          data-testid="time"
+                          invalid={errors.time && touched.time}
+                          invalidText={errors.time}
+                          labelText={"Choose a time"}
+                          name="time"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          placeholder="Time"
+                          style={{ minWidth: "10rem" }}
+                          type="time"
+                          value={values.time}
+                        />
+                        <div className={styles.timezone}>
+                          <ComboBox
+                            id="timeZone"
+                            initialSelectedItem={values.timeZone}
+                            items={this.timezoneOptions}
+                            onChange={({ selectedItem }) =>
+                              this.handleTimeChange(
+                                selectedItem !== null ? selectedItem : { label: "", value: "" },
+                                "timeZone",
+                                setFieldValue
+                              )
+                            }
+                            placeholder="Timezone"
+                            titleText={null}
                           />
                         </div>
+                      </div>
+                      <div className={styles.daysContainer}>
+                        <CheckboxList
+                          initialSelectedItems={values.days}
+                          labelText="Choose day(s)"
+                          options={daysOfWeekCronList}
+                          onChange={(...args) => this.handleCheckboxListChange(setFieldValue, ...args)}
+                        />
                       </div>
                     </>
                   )}
