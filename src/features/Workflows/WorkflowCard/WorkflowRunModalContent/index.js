@@ -20,7 +20,12 @@ function WorkflowRunModalContent({ closeModal, executeError, executeWorkflow, is
     <ModalForm>
       {executeError && (
         <ModalBody>
-          <InlineNotification kind="error" title="Something's Wrong" subtitle="Request to execute workflow failed" />
+          <InlineNotification
+            lowContrast
+            kind="error"
+            title="Something's Wrong"
+            subtitle="Request to execute workflow failed"
+          />
         </ModalBody>
       )}
       <ModalFooter>

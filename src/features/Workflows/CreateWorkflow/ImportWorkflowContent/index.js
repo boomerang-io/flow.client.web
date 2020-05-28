@@ -219,7 +219,12 @@ function ImportWorkflowContent({
                 )
               ) : null}
               {importError && (
-                <InlineNotification title="Something's Wrong" subtitle="Request to import workflow failed" />
+                <InlineNotification
+                  lowContrast
+                  kind="error"
+                  title="Something's Wrong"
+                  subtitle="Request to import workflow failed"
+                />
               )}
             </ModalBody>
             <ModalFooter>

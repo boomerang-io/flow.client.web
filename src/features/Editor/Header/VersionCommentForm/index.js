@@ -57,7 +57,12 @@ class VersionCommentForm extends Component {
             value={this.state.versionComment}
           />
           {revisionMutation.error && (
-            <InlineNotification kind="error" title="Something's Wrong" subtitle="Request to create version failed" />
+            <InlineNotification
+              lowContrast
+              kind="error"
+              title="Something's Wrong"
+              subtitle="Request to create version failed"
+            />
           )}
         </ModalBody>
         <ModalFooter>

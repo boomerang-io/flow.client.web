@@ -144,7 +144,12 @@ function CreateEditModeModalContent({
                 ))}
               </div>
               {createError && (
-                <InlineNotification title="Something's Wrong" subtitle="Request to create workflow failed" />
+                <InlineNotification
+                  lowContrast
+                  kind="error"
+                  title="Something's Wrong"
+                  subtitle="Request to create workflow failed"
+                />
               )}
             </ModalBody>
             <ModalFooter>

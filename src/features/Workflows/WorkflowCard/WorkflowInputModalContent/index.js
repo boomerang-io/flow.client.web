@@ -36,6 +36,7 @@ function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, 
             {inputs}
             {executeError && (
               <InlineNotification
+                lowContrast
                 kind="error"
                 title="Something's Wrong"
                 subtitle="Request to execute workflow failed"

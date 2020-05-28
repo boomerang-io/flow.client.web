@@ -86,6 +86,7 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
               />
               {Boolean(requestError) && (
                 <InlineNotification
+                  lowContrast
                   style={{ marginBottom: "0.5rem" }}
                   kind="error"
                   title={requestError.title}
