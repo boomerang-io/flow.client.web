@@ -1,4 +1,3 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
 @import "~Styles/variables";
 
@@ -26,7 +25,7 @@
 }
 
 .propertiesJson {
-  background-color: $white;
+  background-color: white;
   height: 25rem;
   overflow-y: auto;
   margin-top: 1rem;

@@ -9,11 +9,10 @@ import { QueryStatus } from "Constants";
 
 const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
 
-export default function WorkflowExecutionContainer() {
+export default function ExecutionContainer() {
   const { workflowId, executionId } = useParams();
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId });
-
   const getExecutionUrl = serviceUrl.getWorkflowExecution({ executionId });
 
   /**

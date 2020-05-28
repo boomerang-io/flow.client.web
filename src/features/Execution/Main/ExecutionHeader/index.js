@@ -5,7 +5,7 @@ import { SkeletonPlaceholder } from "@boomerang/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
 import FeatureHeader from "Components/FeatureHeader";
 import moment from "moment";
-import { REQUEST_STATUSES } from "Config/servicesConfig";
+import { QueryStatus } from "Constants";
 import styles from "./executionHeader.module.scss";
 
 ExecutionHeader.propTypes = {
@@ -34,30 +34,30 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
           </div>
           <h1 className={styles.title}>Workflow run detail</h1>
         </section>
-        {workflowExecution.status === REQUEST_STATUSES.SUCCESS ? (
+        {workflowExecution.status === QueryStatus.Success ? (
           <div className={styles.content}>
-            <div className={styles.data}>
-              <p className={styles.dataTitle}>Team</p>
-              <p className={styles.dataValue}>{teamName}</p>
-            </div>
-            <div className={styles.data}>
-              <p className={styles.dataTitle}>Initiated by</p>
+            <dl className={styles.data}>
+              <dt className={styles.dataTitle}>Team</dt>
+              <dd className={styles.dataValue}>{teamName}</dd>
+            </dl>
+            <dl className={styles.data}>
+              <dt className={styles.dataTitle}>Initiated by</dt>
               {initiatedByUserName ? (
-                <p className={styles.dataValue}>{initiatedByUserName}</p>
+                <dd className={styles.dataValue}>{initiatedByUserName}</dd>
               ) : (
-                <span aria-label="robot" aria-hidden={false} role="img">
+                <dd aria-label="robot" aria-hidden={false} role="img">
                   {"🤖"}
-                </span>
+                </dd>
               )}
-            </div>
-            <div className={styles.data}>
-              <p className={styles.dataTitle}>Trigger</p>
-              <p className={styles.dataValue}>{trigger}</p>
-            </div>
-            <div className={styles.data}>
-              <p className={styles.dataTitle}>Start time</p>
-              <p className={styles.dataValue}>{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</p>
-            </div>
+            </dl>
+            <dl className={styles.data}>
+              <dt className={styles.dataTitle}>Trigger</dt>
+              <dd className={styles.dataValue}>{trigger}</dd>
+            </dl>
+            <dl className={styles.data}>
+              <dt className={styles.dataTitle}>Start time</dt>
+              <dd className={styles.dataValue}>{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</dd>
+            </dl>
           </div>
         ) : (
           <SkeletonPlaceholder className={styles.headerContentSkeleton} />

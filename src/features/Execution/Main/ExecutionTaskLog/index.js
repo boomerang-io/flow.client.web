@@ -4,7 +4,7 @@ import { SkeletonPlaceholder, TooltipIcon } from "@boomerang/carbon-addons-boome
 import TaskItem from "./TaskItem";
 import orderBy from "lodash/orderBy";
 import { getSimplifiedDuration } from "Utilities/timeHelper";
-import { REQUEST_STATUSES } from "Config/servicesConfig";
+import { QueryStatus } from "Constants";
 import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";
 import styles from "./executionTaskLog.module.scss";
@@ -32,7 +32,7 @@ function ExecutionTaskLog({ workflowExecution }) {
 
   return (
     <aside className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>
-      {workflowExecution.status === REQUEST_STATUSES.SUCCESS ? (
+      {workflowExecution.status === QueryStatus.Success ? (
         <section className={`${styles.statusBlock} ${styles[status]}`}>
           <div className={styles.duration}>
             <p className={styles.title}>Duration</p>
@@ -72,7 +72,7 @@ function ExecutionTaskLog({ workflowExecution }) {
         )}
       </section>
       <ul className={styles.tasklog}>
-        {workflowExecution.status === REQUEST_STATUSES.SUCCESS ? (
+        {workflowExecution.status === QueryStatus.Success ? (
           sortedTasks.map((step) => <TaskItem key={step.id} flowActivityId={id} hidden={isCollapsed} task={step} />)
         ) : (
           <SkeletonPlaceholder className={styles.taskLogSkeleton} />

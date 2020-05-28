@@ -1,6 +1,5 @@
 @import "~Styles/variables";
 @import "~Styles/mixins";
-@import "~@boomerang/boomerang-styles/lib/colors";
 
 .node {
   height: 8.75rem;
@@ -28,7 +27,7 @@
 }
 
 .subtitle:before {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), $white 80%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white 80%);
   bottom: 0;
   content: "\200C";
   display: block;
@@ -50,7 +49,7 @@
 }
 
 .badgeText {
-  color: #000000;
+  color: var(--cds-text-01);
   font-size: 0.625rem;
   line-height: 0.8125rem;
 }
@@ -95,7 +94,7 @@
     &:before {
       content: "";
       position: absolute;
-      background-color: #0072c3;
+      background-color: var(--cds-interactive-01);
       top: 0;
       left: 0;
       bottom: 0;
@@ -106,7 +105,7 @@
     &:after {
       content: "";
       position: absolute;
-      background-color: #0072c3;
+      background-color: var(--cds-interactive-01);
       top: 0;
       left: 0;
       bottom: 0;

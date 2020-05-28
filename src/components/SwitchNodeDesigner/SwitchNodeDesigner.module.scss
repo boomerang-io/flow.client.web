@@ -1,6 +1,5 @@
 @import "~Styles/variables";
 @import "~Styles/mixins";
-@import "~@boomerang/boomerang-styles/lib/colors";
 
 body {
   .node {
@@ -36,7 +35,7 @@ body {
   }
 
   .subtitle:before {
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), $white 80%);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), white 80%);
     bottom: 0;
     content: "\200C";
     display: block;

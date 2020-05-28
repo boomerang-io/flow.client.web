@@ -55,12 +55,14 @@
 .dataTitle {
   font-size: 0.875rem;
   font-weight: 300;
+  letter-spacing: 0;
   line-height: 1.125rem;
   margin-bottom: 0.25rem;
 }
 
 .dataValue {
   font-size: 1rem;
+  letter-spacing: 0;
   line-height: 1.25rem;
   max-width: 16rem;
   text-transform: capitalize;

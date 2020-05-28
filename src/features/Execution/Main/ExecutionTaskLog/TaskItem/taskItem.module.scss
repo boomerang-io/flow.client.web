@@ -30,7 +30,7 @@
       &:before {
         content: "";
         position: absolute;
-        background-color: #0072c3;
+        background-color: var(--cds-interactive-01);
         top: 0;
         left: 0;
         bottom: 0;
@@ -41,7 +41,7 @@
       &:after {
         content: "";
         position: absolute;
-        background-color: #0072c3;
+        background-color: var(--cds-interactive-01);
         top: 0;
         left: 0;
         bottom: 0;

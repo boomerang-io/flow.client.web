@@ -136,8 +136,3 @@ export const resolver = {
   postTeamPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HTTP_METHODS.POST }),
 };
-
-export const REQUEST_STATUSES = {
-  FAILURE: "failure",
-  SUCCESS: "success",
-};

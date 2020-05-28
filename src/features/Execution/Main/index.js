@@ -7,9 +7,8 @@ import ExecutionHeader from "./ExecutionHeader";
 import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
 import WorkflowZoom from "Components/WorkflowZoom";
-import { REQUEST_STATUSES } from "Config/servicesConfig";
 import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
-import { ExecutionStatus } from "Constants";
+import { ExecutionStatus, QueryStatus } from "Constants";
 import styles from "./main.module.scss";
 
 class Main extends Component {
@@ -45,9 +44,9 @@ class Main extends Component {
 
     const hasStarted = steps && steps.find((step) => step.flowTaskStatus !== ExecutionStatus.NotStarted);
 
-    const loadDiagram =
-      workflow.status === REQUEST_STATUSES.SUCCESS &&
-      workflowExecution.status === REQUEST_STATUSES.SUCCESS &&
+    const isDiagramLoading =
+      workflow.status === QueryStatus.Success &&
+      workflowExecution.status === QueryStatus.Success &&
       (hasStarted || hasFinished);
 
     return (
@@ -72,7 +71,7 @@ class Main extends Component {
               diagramEngine={this.workflowDagEngine.getDiagramEngine()}
               maxNumberPointsPerLink={0}
             />
-            {!loadDiagram && (
+            {!isDiagramLoading && (
               <div className={styles.diagramLoading}>
                 <Loading withOverlay={false} />
               </div>
