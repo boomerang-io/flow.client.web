@@ -14,7 +14,7 @@ import {
 import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
 import ActionsMenu from "./ActionsMenu";
 import Header from "Components/Header";
-import INPUT_TYPES from "Constants/inputTypes";
+import { InputType } from "Constants";
 import { formatErrorMessage } from "@boomerang/boomerang-utilities";
 import { arrayPagination } from "Utilities/arrayHelper";
 import { stringToPassword } from "Utilities/stringHelper";
@@ -107,13 +107,13 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
     switch (column.key) {
       case "value":
         const determineValue = value
-          ? property && property.type === INPUT_TYPES.PASSWORD
+          ? property && property.type === InputType.Password
             ? stringToPassword(value)
             : value
           : "---";
         return <p className={styles.tableTextarea}>{determineValue}</p>;
       case "secured":
-        return property && property.type === INPUT_TYPES.PASSWORD ? (
+        return property && property.type === InputType.Password ? (
           <Checkmark32 alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
         ) : (
           <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />

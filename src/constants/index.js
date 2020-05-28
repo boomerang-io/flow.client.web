@@ -65,7 +65,7 @@ export const InputType = {
   Password: "password",
   Select: "select",
   TextArea: "textarea",
-  TextInput: "text",
+  Text: "text",
   TextEditor: "texteditor",
   TextEditorsJs: "texteditor::javascript",
   TextEditorsText: "texteditor::text",
@@ -81,7 +81,7 @@ export const InputTypeCopy = {
   [InputType.Password]: "Password",
   [InputType.Select]: "Select",
   [InputType.TextArea]: "Text Area",
-  [InputType.TextInput]: "Text",
+  [InputType.Text]: "Text",
   [InputType.URL]: "URL",
 };
 

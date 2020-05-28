@@ -15,7 +15,7 @@ import {
   TextInput,
   Toggle,
 } from "@boomerang/carbon-addons-boomerang-react";
-import INPUT_TYPES from "Constants/inputTypes";
+import { InputType } from "Constants";
 import { QueryStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 
@@ -51,7 +51,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
   const loading = addLoading || updateLoading;
 
   const handleSubmit = async (values) => {
-    const type = values.secured ? INPUT_TYPES.PASSWORD : INPUT_TYPES.TEXT;
+    const type = values.secured ? InputType.Password : InputType.Text;
     const newProperty = isEdit ? { ...values, type, id: property.id } : { ...values, type };
     delete newProperty.secured;
 
@@ -91,7 +91,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
         description: property && property.description ? property.description : "",
         key: property && property.key ? property.key : "",
         value: property && property.value ? property.value : "",
-        secured: property ? property.type === INPUT_TYPES.PASSWORD : false,
+        secured: property ? property.type === InputType.Password : false,
       }}
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({

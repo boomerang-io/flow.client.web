@@ -13,7 +13,7 @@ import {
 } from "@boomerang/carbon-addons-boomerang-react";
 import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import INPUT_TYPES from "Constants/inputTypes";
+import { InputType } from "Constants";
 import styles from "./createEditTeamPropertiesModalContent.module.scss";
 import { QueryStatus } from "Constants";
 
@@ -49,7 +49,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
   const loading = addIsLoading || updateIsLoading;
 
   const handleSubmit = async (values) => {
-    const type = values.secured ? INPUT_TYPES.PASSWORD : INPUT_TYPES.TEXT;
+    const type = values.secured ? InputType.Password : InputType.Text;
     const newTeamProperty = isEdit ? { ...values, type, id: property.id } : { ...values, type };
     delete newTeamProperty.secured;
 
@@ -95,7 +95,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
         key: property && property.key ? property.key : "",
         label: property && property.label ? property.label : "",
         description: property && property.description ? property.description : "",
-        secured: property ? property.type === INPUT_TYPES.PASSWORD : false,
+        secured: property ? property.type === InputType.Password : false,
       }}
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
