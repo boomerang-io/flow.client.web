@@ -32,7 +32,7 @@ export const ExecutionStatusCopy = {
   [ExecutionStatus.InProgress]: "In Progress",
   [ExecutionStatus.NotStarted]: "Not Started",
   [ExecutionStatus.Invalid]: "Invalid",
-  [ExecutionStatus.SKIPPED]: "Skipped",
+  [ExecutionStatus.Skipped]: "Skipped",
 };
 
 // not using enum casing here bc it doesn't map to a primitive
@@ -42,7 +42,7 @@ export const executionStatusIcon = {
   [ExecutionStatus.InProgress]: Timer32,
   [ExecutionStatus.NotStarted]: Timer32,
   [ExecutionStatus.Invalid]: Error32,
-  [ExecutionStatus.SKIPPED]: Error32,
+  [ExecutionStatus.Skipped]: Error32,
 };
 
 export const InputProperty = {
