@@ -1,4 +1,5 @@
 @import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .taskitem {
   height: 12.5rem;
@@ -76,6 +77,11 @@
   font-size: 0.875rem;
   line-height: 1rem;
   white-space: nowrap;
+
+  p {
+    max-width: 14rem;
+    @include text-overflow-ellipsis();
+  }
 }
 
 .taskIcon {

@@ -4,29 +4,29 @@ import { useExecutionContext } from "Hooks";
 import cx from "classnames";
 import WorkflowNode from "Components/WorkflowNode";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
-import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
+import { ExecutionStatus } from "Constants";
 import styles from "./SwitchNodeExecution.module.scss";
 
 SwitchNodeExecution.propTypes = {
-  node: PropTypes.object.isRequired
+  node: PropTypes.object.isRequired,
 };
 
 SwitchNodeExecution.defaultProps = {
-  node: {}
+  node: {},
 };
 
 export default function SwitchNodeExecution({ node }) {
   const { tasks, workflowExecution } = useExecutionContext();
-  const task = tasks.find(t => t.id === node.taskId);
+  const task = tasks.find((t) => t.id === node.taskId);
   const { steps } = workflowExecution;
-  const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
-  const flowTaskStatus = step?.flowTaskStatus ?? EXECUTION_STATUSES.SKIPPED;
+  const step = Array.isArray(steps) ? steps.find((step) => step.taskId === node.id) : {};
+  const flowTaskStatus = step?.flowTaskStatus ?? ExecutionStatus.Skipped;
 
   return (
     <WorkflowNode
       isExecution
       className={cx(styles.node, styles[flowTaskStatus], {
-        [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED
+        [styles.disabled]: flowTaskStatus === ACTIVITY_STATUSES.NOT_STARTED,
       })}
       icon={task?.icon}
       node={node}

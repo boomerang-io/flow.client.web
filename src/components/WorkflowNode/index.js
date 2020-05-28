@@ -43,9 +43,13 @@ export default function WorkflowNode({
     <div className={cx(styles.node, className)} {...rest}>
       <header className={styles.header}>
         <Icon />
-        <h1 className={styles.title}>{title || "Task"}</h1>
+        <h1 title={title || "Task"} className={styles.title}>
+          {title || "Task"}
+        </h1>
       </header>
-      <p className={cx(styles.subtitle, subtitleClass)}>{subtitle || "Task"}</p>
+      <p title={subtitle} className={cx(styles.subtitle, subtitleClass)}>
+        {subtitle || "Task"}
+      </p>
       <WorkflowExecutionPort isExecution={isExecution} name="left" node={node} port="left" />
       <WorkflowExecutionPort
         className={rightPortClass}

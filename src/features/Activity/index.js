@@ -1,16 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import queryString from "query-string";
-import moment from "moment";
 import { useQuery } from "Hooks";
-import { MultiSelect as Select, Tabs, Tab } from "@boomerang/carbon-addons-boomerang-react";
-import { DatePicker, DatePickerInput } from "carbon-components-react/es";
-import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
+import {
+  DatePicker,
+  DatePickerInput,
+  MultiSelect as Select,
+  Tabs,
+  Tab,
+} from "@boomerang/carbon-addons-boomerang-react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
 import ErrorDragon from "Components/ErrorDragon";
 import { executionOptions } from "Constants/filterOptions";
 import { ACTIVITY_STATUSES_TO_INDEX } from "Constants/activityStatuses";
+import queryString from "query-string";
+import moment from "moment";
+import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./workflowActivity.module.scss";
 

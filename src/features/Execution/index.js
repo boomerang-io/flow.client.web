@@ -7,13 +7,12 @@ import Main from "./Main";
 import { serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";
 
-export const ActivityIdContext = React.createContext("");
+const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
 
 export default function WorkflowExecutionContainer() {
   const { workflowId, executionId } = useParams();
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId });
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
 
   const getExecutionUrl = serviceUrl.getWorkflowExecution({ executionId });
 
@@ -30,7 +29,6 @@ export default function WorkflowExecutionContainer() {
   const summaryIsLoading = summaryQuery.status === QueryStatus.Loading;
   const revisionIsLoading = revisionQuery.status === QueryStatus.Loading;
   const taskTempaltesAreLoading = taskTemplatesQuery.status === QueryStatus.Loading;
-  //   const executionIsLoading = executionQuery.status === QueryStatus.Loading;
 
   if (taskTempaltesAreLoading || revisionIsLoading || summaryIsLoading) {
     return <Loading />;
@@ -49,7 +47,7 @@ export default function WorkflowExecutionContainer() {
           workflowRevision: revisionQuery.data,
         }}
       >
-        <Main dag={revisionQuery?.data?.dag} workflowExecution={executionQuery} workflow={summaryQuery} />
+        <Main dag={revisionQuery.data.dag} workflow={summaryQuery} workflowExecution={executionQuery} />
       </ExecutionContext.Provider>
     );
   }

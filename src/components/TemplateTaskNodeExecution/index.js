@@ -3,24 +3,24 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import { useExecutionContext } from "Hooks";
 import WorkflowNode from "Components/WorkflowNode";
-import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
+import { ExecutionStatus } from "Constants";
 import { ACTIVITY_STATUSES } from "Constants/activityStatuses";
 import styles from "./TemplateTaskNodeExecution.module.scss";
 
 TemplateTaskNodeExecution.propTypes = {
-  node: PropTypes.object.isRequired
+  node: PropTypes.object.isRequired,
 };
 
 TemplateTaskNodeExecution.defaultProps = {
-  node: {}
+  node: {},
 };
 
 export default function TemplateTaskNodeExecution({ node }) {
   const { tasks, workflowExecution } = useExecutionContext();
-  const task = tasks.find(t => t.id === node.taskId);
+  const task = tasks.find((t) => t.id === node.taskId);
   const { steps } = workflowExecution;
-  const step = Array.isArray(steps) ? steps.find(step => step.taskId === node.id) : {};
-  const flowTaskStatus = step?.flowTaskStatus ?? EXECUTION_STATUSES.SKIPPED;
+  const step = Array.isArray(steps) ? steps.find((step) => step.taskId === node.id) : {};
+  const flowTaskStatus = step?.flowTaskStatus ?? ExecutionStatus.Skipped;
 
   return (
     <WorkflowNode

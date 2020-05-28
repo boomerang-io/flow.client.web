@@ -24,7 +24,9 @@ function TaskItem({ flowActivityId, hidden, task }) {
       <section className={styles.header}>
         <div className={styles.title}>
           <Icon aria-label={flowTaskStatus} className={styles.taskIcon} />
-          <p data-testid="taskitem-name">{taskName}</p>
+          <p title={taskName} data-testid="taskitem-name">
+            {taskName}
+          </p>
         </div>
         <div className={`${styles.status} ${statusClassName}`}>
           <Icon aria-label={flowTaskStatus} className={styles.statusIcon} />

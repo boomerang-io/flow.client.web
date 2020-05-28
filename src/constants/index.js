@@ -1,3 +1,12 @@
+export const ExecutionStatus = {
+  Completed: "completed",
+  Failure: "failure",
+  InProgress: "inProgress",
+  NotStarted: "notstarted",
+  Skipped: "skipped",
+  Invalid: "invalid",
+};
+
 export const NodeType = {
   CustomTask: "customTask",
   Decision: "decision",

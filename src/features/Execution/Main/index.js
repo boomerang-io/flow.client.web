@@ -9,7 +9,7 @@ import WorkflowActions from "./WorkflowActions";
 import WorkflowZoom from "Components/WorkflowZoom";
 import { REQUEST_STATUSES } from "Config/servicesConfig";
 import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
-import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
+import { ExecutionStatus } from "Constants";
 import styles from "./main.module.scss";
 
 class Main extends Component {
@@ -41,11 +41,9 @@ class Main extends Component {
     const { workflow, workflowExecution } = this.props;
     const { status, steps } = workflowExecution.data;
 
-    const hasFinished = [EXECUTION_STATUSES.COMPLETED, EXECUTION_STATUSES.INVALID, EXECUTION_STATUSES.FAILURE].includes(
-      status
-    );
+    const hasFinished = [ExecutionStatus.Completed, ExecutionStatus.Invalid, ExecutionStatus.Failure].includes(status);
 
-    const hasStarted = steps && steps.find((step) => step.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED);
+    const hasStarted = steps && steps.find((step) => step.flowTaskStatus !== ExecutionStatus.NotStarted);
 
     const loadDiagram =
       workflow.status === REQUEST_STATUSES.SUCCESS &&

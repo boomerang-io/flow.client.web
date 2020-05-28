@@ -4,7 +4,7 @@ import cx from "classnames";
 import WorkflowLink from "Components/WorkflowLink";
 import { useExecutionContext } from "Hooks";
 import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
-import { EXECUTION_STATUSES } from "Constants/workflowExecutionStatuses";
+import { ExecutionStatus } from "Constants";
 import { NodeType } from "Constants";
 import { EXECUTION_CONDITIONS } from "utilities/taskLinkIcons";
 import styles from "./TaskLink.module.scss";
@@ -17,22 +17,22 @@ TaskLinkExecution.propTypes = {
 
 export default function TaskLinkExecution({ diagramEngine, model, path }) {
   const { workflowExecution } = useExecutionContext();
-  const targetNodeId = model ?.targetPort ?.parent ?.id;
-  const sourceNodeId = model ?.sourcePort ?.parent ?.id;
+  const targetNodeId = model?.targetPort?.parent?.id;
+  const sourceNodeId = model?.sourcePort?.parent?.id;
 
-  const targetNodeType = model ?.targetPort ?.parent ?.type;
+  const targetNodeType = model?.targetPort?.parent?.type;
 
-  const sourceStep = workflowExecution.steps ?.find(step => step.taskId === sourceNodeId);
-  const targetStep = workflowExecution.steps ?.find(step => step.taskId === targetNodeId);
+  const sourceStep = workflowExecution.steps?.find((step) => step.taskId === sourceNodeId);
+  const targetStep = workflowExecution.steps?.find((step) => step.taskId === targetNodeId);
 
   const targetTaskHasStarted =
-    targetStep ?.flowTaskStatus &&
-      targetStep ?.flowTaskStatus !== EXECUTION_STATUSES.NOT_STARTED &&
-        targetStep ?.flowTaskStatus !== EXECUTION_STATUSES.SKIPPED;
+    targetStep?.flowTaskStatus &&
+    targetStep?.flowTaskStatus !== ExecutionStatus.NotStarted &&
+    targetStep?.flowTaskStatus !== ExecutionStatus.Skipped;
 
   const sourceTaskHasFinishedAndIsEndOfWorkflow =
-    (sourceStep ?.flowTaskStatus === EXECUTION_STATUSES.COMPLETED ||
-      sourceStep ?.flowTaskStatus === EXECUTION_STATUSES.FAILURE) &&
+    (sourceStep?.flowTaskStatus === ExecutionStatus.Completed ||
+      sourceStep?.flowTaskStatus === ExecutionStatus.Failure) &&
     targetNodeType === NodeType.StartEnd;
 
   const executionCondition = EXECUTION_CONDITIONS.find(
