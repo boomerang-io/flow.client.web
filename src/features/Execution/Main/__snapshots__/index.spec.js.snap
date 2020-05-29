@@ -42,60 +42,60 @@ exports[`Main --- Snapshot Capturing Snapshot of Main 1`] = `
           <div
             class="content"
           >
-            <div
+            <dl
               class="data"
             >
-              <p
+              <dt
                 class="dataTitle"
               >
                 Team
-              </p>
-              <p
+              </dt>
+              <dd
                 class="dataValue"
               />
-            </div>
-            <div
+            </dl>
+            <dl
               class="data"
             >
-              <p
+              <dt
                 class="dataTitle"
               >
                 Initiated by
-              </p>
-              <span
+              </dt>
+              <dd
                 aria-hidden="false"
                 aria-label="robot"
                 role="img"
               >
                 🤖
-              </span>
-            </div>
-            <div
+              </dd>
+            </dl>
+            <dl
               class="data"
             >
-              <p
+              <dt
                 class="dataTitle"
               >
                 Trigger
-              </p>
-              <p
+              </dt>
+              <dd
                 class="dataValue"
               />
-            </div>
-            <div
+            </dl>
+            <dl
               class="data"
             >
-              <p
+              <dt
                 class="dataTitle"
               >
                 Start time
-              </p>
-              <p
+              </dt>
+              <dd
                 class="dataValue"
               >
                 2019-01-01 12:00 AM
-              </p>
-            </div>
+              </dd>
+            </dl>
           </div>
         </div>
       </header>

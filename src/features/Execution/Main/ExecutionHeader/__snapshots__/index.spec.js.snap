@@ -39,62 +39,62 @@ exports[`ExecutionHeader --- Snapshot Capturing Snapshot of ExecutionHeader 1`] 
         <div
           class="content"
         >
-          <div
+          <dl
             class="data"
           >
-            <p
+            <dt
               class="dataTitle"
             >
               Team
-            </p>
-            <p
+            </dt>
+            <dd
               class="dataValue"
             >
               CAI Offerings
-            </p>
-          </div>
-          <div
+            </dd>
+          </dl>
+          <dl
             class="data"
           >
-            <p
+            <dt
               class="dataTitle"
             >
               Initiated by
-            </p>
-            <p
+            </dt>
+            <dd
               class="dataValue"
             >
               Tim Bula
-            </p>
-          </div>
-          <div
+            </dd>
+          </dl>
+          <dl
             class="data"
           >
-            <p
+            <dt
               class="dataTitle"
             >
               Trigger
-            </p>
-            <p
+            </dt>
+            <dd
               class="dataValue"
             >
               manual
-            </p>
-          </div>
-          <div
+            </dd>
+          </dl>
+          <dl
             class="data"
           >
-            <p
+            <dt
               class="dataTitle"
             >
               Start time
-            </p>
-            <p
+            </dt>
+            <dd
               class="dataValue"
             >
               2019-01-01 12:00 AM
-            </p>
-          </div>
+            </dd>
+          </dl>
         </div>
       </div>
     </header>

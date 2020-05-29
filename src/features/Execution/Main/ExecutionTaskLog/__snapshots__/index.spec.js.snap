@@ -150,6 +150,7 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               </svg>
               <p
                 data-testid="taskitem-name"
+                title="Email"
               >
                 Email
               </p>
@@ -259,6 +260,7 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               </svg>
               <p
                 data-testid="taskitem-name"
+                title="Slack"
               >
                 Slack
               </p>
