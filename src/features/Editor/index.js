@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { WorkflowContext } from "State/context";
+import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { useAppContext, useIsModalOpen } from "Hooks";
 import { Prompt, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import { useQuery } from "Hooks";
@@ -26,7 +27,7 @@ import styles from "./editor.module.scss";
  *
  * Container responsible for making requests and managing some state
  */
-export default function EditorContainer(props) {
+export default function EditorContainer() {
   // Init revision number here so we can easily refect the data on change via rq
   const [revisionNumber, setRevisionNumber] = useState();
   const { workflowId } = useParams();
@@ -105,15 +106,6 @@ function initRevisionReducerState(revisionData) {
   return {};
 }
 
-const RevisionActionTypes = {
-  AddNode: "ADD_NODE",
-  DeleteNode: "DELETE_NODE",
-  Reset: "RESET",
-  Set: "SET",
-  UpdateNodeConfig: "UPDATE_NODE_CONFIG",
-  UpdateNodeTaskVersion: "UPDATE_NODE_TASK_VERSION",
-};
-
 /**
  * Workflow Manager responsible for holding state of summary and revision
  * Make function calls to mutate server data
@@ -178,7 +170,6 @@ export function EditorStateContainer({
         return initRevisionReducerState(action.data);
       }
       case RevisionActionTypes.Reset: {
-        console.log("reset called");
         return initRevisionReducerState(revisionQuery.data);
       }
       default:
@@ -398,7 +389,7 @@ export function EditorStateContainer({
             children={({ history, match: routeMatch }) => (
               <Configure
                 history={history}
-                isOnRoute={routeMatch}
+                isOnRoute={Boolean(routeMatch)}
                 params={match.params}
                 summaryData={summaryData}
                 summaryMutation={summaryMutation}

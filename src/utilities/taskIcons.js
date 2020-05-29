@@ -5,7 +5,7 @@ import {
   Fork16,
   Chat16,
   Code16,
-  Delete16,
+  TrashCan16,
   Download16,
   Edit16,
   Filter16,
@@ -57,7 +57,7 @@ export const taskIcons = [
   {
     name: "Delete",
     Icon: ({ className, ...props }) => (
-      <Delete16 alt="Task node type delete" style={willChangeOverride} className={className} {...props} />
+      <TrashCan16 alt="Task node type delete" style={willChangeOverride} className={className} {...props} />
     ),
   },
   {

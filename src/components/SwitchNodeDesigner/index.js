@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useWorkflowContext } from "Hooks";
+import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import TaskUpdateModal from "Components/TaskUpdateModal";
@@ -41,14 +42,14 @@ export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }
 
   const handleOnSaveTaskConfig = (inputs) => {
     revisionDispatch({
-      type: "UPDATE_NODE_CONFIG",
+      type: RevisionActionTypes.UpdateNodeConfig,
       data: { nodeId: designerNode.id, inputs },
     });
   };
 
   const handleOnUpdateTaskVersion = ({ version, inputs }) => {
     revisionDispatch({
-      type: "UPDATE_NODE_TASK_VERSION",
+      type: RevisionActionTypes.UpdateNodeTaskVersion,
       data: { nodeId: designerNode.id, inputs, version },
     });
   };
@@ -56,7 +57,7 @@ export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }
   // Delete the node in state and then remove it from the diagram
   const handleOnDelete = () => {
     revisionDispatch({
-      type: "DELETE_NODE",
+      type: RevisionActionTypes.DeleteNode,
       data: { nodeId: designerNode.id },
     });
     designerNode.remove();

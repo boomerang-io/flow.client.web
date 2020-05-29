@@ -53,7 +53,7 @@ const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
           Insights
         </SideNavLink>
         {isAtLeastOperator ? (
-          <SideNavMenu large renderIcon={SettingsAdjust16} title="Manage">
+          <SideNavMenu large iconDescription="Manage" renderIcon={SettingsAdjust16} title="Manage">
             <SideNavMenuItem
               large
               activeClassName={"bx--side-nav__link--current"}

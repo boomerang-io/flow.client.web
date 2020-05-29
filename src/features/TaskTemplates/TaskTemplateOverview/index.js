@@ -23,7 +23,7 @@ import Header from "../Header";
 import { QueryStatus } from "Constants";
 import { TaskTemplateStatus } from "Constants";
 import { TemplateRequestType, FieldTypes } from "../constants";
-import { Draggable16, Delete16, Archive16, Bee16 } from "@carbon/icons-react";
+import { Draggable16, TrashCan16, Archive16, Bee16 } from "@carbon/icons-react";
 import { taskIcons } from "Utilities/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
@@ -111,7 +111,7 @@ function Field({
         <TooltipHover direction="bottom" tooltipText={"Delete field"}>
           <Button
             onClick={() => deleteConfiguration(field)}
-            renderIcon={Delete16}
+            renderIcon={TrashCan16}
             iconDescription="delete-field"
             kind="ghost"
             size="field"
@@ -419,6 +419,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                   title="Archive"
                   modalTrigger={({ openModal }) => (
                     <Button
+                      iconDescription="Archive"
                       renderIcon={Archive16}
                       kind="ghost"
                       size="field"

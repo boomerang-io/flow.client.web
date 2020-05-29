@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useWorkflowContext } from "Hooks";
+import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
@@ -40,14 +41,14 @@ export default function TemplateTaskNodeDesigner({ diagramEngine, node: designer
    */
   const handleOnUpdateTaskVersion = ({ version, inputs }) => {
     revisionDispatch({
-      type: "UPDATE_NODE_TASK_VERSION",
+      type: RevisionActionTypes.UpdateNodeTaskVersion,
       data: { nodeId: designerNode.id, inputs, version },
     });
   };
 
   const handleOnSaveTaskConfig = (inputs) => {
     revisionDispatch({
-      type: "UPDATE_NODE_CONFIG",
+      type: RevisionActionTypes.UpdateNodeConfig,
       data: { nodeId: designerNode.id, inputs },
     });
   };
@@ -56,7 +57,7 @@ export default function TemplateTaskNodeDesigner({ diagramEngine, node: designer
   const handleOnDelete = () => {
     //deleteNode
     revisionDispatch({
-      type: "DELETE_NODE",
+      type: RevisionActionTypes.DeleteNode,
       data: { nodeId: designerNode.id },
     });
     designerNode.remove();

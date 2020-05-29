@@ -7,7 +7,7 @@ WorkflowLink.propTypes = {
   children: () => {},
   diagramEngine: PropTypes.object.isRequired,
   model: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired
+  path: PropTypes.string.isRequired,
 };
 
 function WorkflowLink({ diagramEngine, model, children, className, path }) {
@@ -30,7 +30,7 @@ function WorkflowLink({ diagramEngine, model, children, className, path }) {
 
   const isModelLocked = diagramEngine.diagramModel.locked;
 
-  if (pathRef.current) {
+  if (pathRef?.current?.getTotalLength) {
     halfwayPoint = pathRef.current.getPointAtLength(pathRef.current.getTotalLength() * 0.5);
   }
 

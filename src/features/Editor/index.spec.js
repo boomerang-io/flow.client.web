@@ -1,58 +1,32 @@
 import React from "react";
+import Editor from "./index";
 import { Route } from "react-router-dom";
-import { WorkflowManagerContainer as WorkflowManager } from "./index";
+import { startApiServer } from "../../apiServer";
+import { db } from "../../apiServer/fixtures";
+import { appPath, appLink } from "Config/appConfig";
+import { waitFor } from "@testing-library/react";
 
-jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
-  NoDisplay: "NoDisplay",
-  LoadingAnimation: "LoadingAnimation",
-  notify: "notify",
-  Notification: "Notification",
-}));
+let server;
 
-const mockfn = jest.fn();
+beforeEach(() => {
+  window.focus = jest.fn();
+  server = startApiServer();
+  server.db.loadData(db);
+});
 
-const props = {
-  tasks: {
-    isFetching: false,
-    status: "success",
-    error: "",
-    data: [],
-  },
-  teams: {
-    isFetching: false,
-    status: "success",
-    error: "",
-    data: [],
-  },
-  workflow: {
-    isFetching: false,
-    status: "success",
-    error: "",
-    data: [],
-  },
-  workflowRevision: {
-    isFetching: false,
-    status: "success",
-    error: "",
-    data: [],
-  },
-  workflowRevisionActions: {},
-  workflowActions: {},
-  appActions: {},
-  history: {},
-  tasksActions: {},
-  match: {},
-  isModalOpen: true,
-};
+afterEach(() => {
+  server.shutdown();
+});
 
-describe("WorkflowManager --- Snapshot", () => {
-  it("Capturing Snapshot of WorkflowManager", () => {
-    const { baseElement } = rtlContextRouterRender(
-      <Route path="/editor/:workflowId">
-        <WorkflowManager {...props} />
+describe("Editor --- Snapshot", () => {
+  it("Capturing Snapshot of Editor", async () => {
+    const { baseElement, getByText } = rtlContextRouterRender(
+      <Route path={appPath.editorDesigner}>
+        <Editor />
       </Route>,
-      { path: "/editor/1234" }
+      { route: appLink.editorDesigner({ teamId: "5e3a35ad8c222700018ccd39", workflowId: "5eb2c4085a92d80001a16d87" }) }
     );
+    await waitFor(() => getByText("Editor"));
     expect(baseElement).toMatchSnapshot();
   });
 });

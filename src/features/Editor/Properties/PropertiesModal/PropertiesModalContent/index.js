@@ -259,16 +259,6 @@ class PropertiesModalContent extends Component {
             <ModalFlowForm onSubmit={handleSubmit} disabled={loading}>
               <ModalBody className={styles.container}>
                 {loading && <Loading />}
-                <TextInput
-                  id={InputProperty.Label}
-                  invalid={errors.label && touched.label}
-                  invalidText={errors.label}
-                  labelText="Name"
-                  placeholder="Name"
-                  value={values.label}
-                  onBlur={handleBlur}
-                  onChange={(e) => this.handleOnChange(e, handleChange)}
-                />
                 {!isEdit && (
                   <TextInput
                     helperText="Reference value for property in workflow"
