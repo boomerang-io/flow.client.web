@@ -5,21 +5,22 @@ import { serviceUrl } from "Config/servicesConfig";
 
 export function startApiServer({ environment = "test", timing = 0 } = {}) {
   inflections("en", function (inflect) {
+    // Prevent pluralization bc our apis are weird
     inflect.irregular("tasktemplate", "tasktemplate");
-    inflect.irregular("tasktemplate", "tasktemplate");
-  });
-
-  const ApplicationSerializer = Serializer.extend({
-    root: false,
-    embed: true,
   });
 
   return new Server({
     environment,
+    // Load in mock data
     fixtures,
+    // Return the data as is, don't add a root key
     serializers: {
-      application: ApplicationSerializer,
+      application: Serializer.extend({
+        root: false,
+        embed: true,
+      }),
     },
+    // Register the data as a model so we can use the schema
     models: {
       tasktemplate: Model,
       team: Model,
@@ -28,7 +29,15 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     },
 
     routes() {
-      // Simple get static data
+      // Control how long the responses take to resolve
+      this.timing = timing;
+
+      // Allow unhandled requests on the current domain to pass through
+      this.passthrough();
+
+      /**
+       * Simple GET of static data
+       */
       this.get(serviceUrl.getUserProfile(), (schema) => {
         return schema.db.profile;
       });
@@ -41,7 +50,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.teams;
       });
 
-      // Task Templates
+      /**
+       * Task Templates
+       */
       const tasktemplatePath = serviceUrl.getTaskTemplates();
       this.get(tasktemplatePath);
       this.put(tasktemplatePath, (schema, request) => {
@@ -52,10 +63,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return taskTemplate;
       });
 
-      // Workflow Summary
+      /**
+       * Workflow Summary
+       */
       this.get(serviceUrl.getWorkflowSummary({ workflowId: ":id" }));
 
-      // Workflow Revision
+      /**
+       * Workflow Revision
+       */
       this.get(serviceUrl.getWorkflowRevision({ workflowId: ":workflowId" }), (schema, request) => {
         let { workflowId } = request.params;
         if (workflowId) {
@@ -77,9 +92,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
 
-      this.timing = timing;
-      // Allow unhandled requests on the current domain to pass through
-      this.passthrough();
+      /**
+       * TODO
+       */
     },
   });
 }
