@@ -163,8 +163,9 @@ export default class Tasks extends Component {
         </header>
         {this.state.isSidenavOpen && (
           <>
-            <section className={styles.tools}>
+            <section className={styles.tasks}>
               <Search
+                id="search-tasks"
                 size="sm"
                 labelText="Search"
                 onChange={this.handleOnSearchInputChange}
@@ -172,6 +173,7 @@ export default class Tasks extends Component {
                 value={this.state.searchQuery}
               />
               <OverflowMenu
+                iconDescription="Filter"
                 renderIcon={SettingsAdjust20}
                 style={{
                   backgroundColor: this.state.activeFilters.length > 0 ? "#3DDBD9" : "initial",

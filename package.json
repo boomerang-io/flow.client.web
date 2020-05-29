@@ -52,7 +52,8 @@
   },
   "devDependencies": {
     "cypress": "4.3.0",
-    "http-proxy-middleware": "^0.20.0"
+    "http-proxy-middleware": "^0.20.0",
+    "miragejs": "^0.1.40"
   },
   "scripts": {
     "analyze": "source-map-explorer server/build/static/js/main.*",
@@ -61,7 +62,7 @@
     "cm": "git cz",
     "cypress": "cypress open",
     "cypress:run": "$(npm bin)/cypress run --config video=false",
-    "dev": "run-p apiServer start",
+    "dev": "react-scripts start",
     "dev:pf": "cross-env REACT_APP_PORT_FORWARD=true run-p apiServer start",
     "docker": "run-p docker:run apiServer",
     "docker:build": "docker build -t webapp .",

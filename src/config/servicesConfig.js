@@ -2,14 +2,10 @@ import portForwardMap from "../setupPortForwarding";
 import axios, { CancelToken } from "axios";
 
 export const BASE_SERVICE_ENV_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:8000"
-    : window._SERVER_DATA && window._SERVER_DATA.BASE_SERVICE_ENV_URL;
+  process.env.NODE_ENV === "production" ? window._SERVER_DATA && window._SERVER_DATA.BASE_SERVICE_ENV_URL : "/api";
 
 export const PRODUCT_SERVICE_ENV_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:8000/api"
-    : window._SERVER_DATA && window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL;
+  process.env.NODE_ENV === "production" ? window._SERVER_DATA && window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL : "/api";
 
 const REACT_APP_PORT_FORWARD = process.env.REACT_APP_PORT_FORWARD;
 
@@ -24,7 +20,7 @@ function determineUrl(baseUrl, serviceContextPath) {
   if (REACT_APP_PORT_FORWARD && portForwardMap[serviceContextPath]) {
     return serviceContextPath;
   } else {
-    return baseUrl + serviceContextPath;
+    return baseUrl;
   }
 }
 
@@ -62,25 +58,25 @@ export const serviceUrl = {
   getWorkflowChangelog: ({ workflowId }) =>
     `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog?sort=version&order=DESC`,
   getNavigation: () => `${BASE_USERS_URL}/navigation`,
+  getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
   getTeams: () => `${BASE_SERVICE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_SERVICE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/properties`,
   getUserTeams: ({ email }) => `${BASE_TEAMS_URL}?userEmail=${email}`,
   getUserProfile: () => `${BASE_USERS_URL}/profile`,
   getWorkflow: ({ id }) => `${BASE_SERVICE_URL}/workflow/${id}`,
-  postExecuteWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
-  getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
   getWorkflowImport: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
   getWorkflowExecution: ({ executionId }) => `${BASE_SERVICE_URL}/activity/${executionId}`,
   getWorkflowExecutionLog: ({ flowActivityId, flowTaskId }) =>
     `${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,
   getWorkflowRevision: ({ workflowId, revisionNumber }) =>
-    `${BASE_SERVICE_URL}/workflow/${workflowId}/revision/${revisionNumber ?? ""}`,
+    `${BASE_SERVICE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
   getWorkflowSummary: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/summary`,
   patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/properties`,
   patchUpdateWorkflowSummary: () => `${BASE_SERVICE_URL}/workflow`,
   postCreateWorkflow: () => `${BASE_SERVICE_URL}/workflow`,
   postCreateWorkflowRevision: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/revision`,
+  postExecuteWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
   postImportWorkflow: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
   restoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`,
 };

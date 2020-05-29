@@ -34,7 +34,7 @@ ConfigureContainer.propTypes = {
   summaryData: PropTypes.object.isRequired,
   summaryMutation: PropTypes.object.isRequired,
   teams: PropTypes.array.isRequired,
-  updateSummary: PropTypes.object.isRequired,
+  updateSummary: PropTypes.func.isRequired,
 };
 
 export default function ConfigureContainer({
@@ -464,7 +464,13 @@ class Configure extends Component {
         </section>
         <section className={styles.smallCol}>
           <div className={styles.saveChangesContainer}>
-            <Button size="field" disabled={!dirty || isLoading} onClick={handleSubmit} renderIcon={Save24}>
+            <Button
+              size="field"
+              disabled={!dirty || isLoading}
+              iconDescription="Save"
+              onClick={handleSubmit}
+              renderIcon={Save24}
+            >
               {isLoading ? "Saving..." : "Save"}
             </Button>
             <p className={styles.saveText}>

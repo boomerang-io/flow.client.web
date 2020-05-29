@@ -9,7 +9,7 @@ TemplateConfigModal.propTypes = {
   field: PropTypes.object,
   isEdit: PropTypes.bool,
   templateFields: PropTypes.array,
-  fieldKeys: PropTypes.array
+  fieldKeys: PropTypes.array,
 };
 
 export function TemplateConfigModal(props) {
@@ -20,6 +20,7 @@ export function TemplateConfigModal(props) {
       ? (output = (
           <TooltipHover direction="bottom" tooltipText={"Edit field"}>
             <Button
+              iconDescription="Edit field"
               renderIcon={Edit16}
               kind="ghost"
               size="field"
@@ -31,8 +32,8 @@ export function TemplateConfigModal(props) {
       : (output = (
           <TooltipHover direction="top" tooltipText={"Add a new field for this task"}>
             <Button
+              iconDescription="Add field"
               renderIcon={Add16}
-              iconDescription="add-field"
               kind="ghost"
               size="field"
               onClick={openModal}
@@ -48,11 +49,11 @@ export function TemplateConfigModal(props) {
     <ComposedModal
       confirmModalProps={{
         title: "Are you sure?",
-        children: "Your field will not be saved"
+        children: "Your field will not be saved",
       }}
       composedModalProps={{ shouldCloseOnOverlayClick: false }}
       modalHeaderProps={{
-        title: isEdit ? "Edit field" : "Create field"
+        title: isEdit ? "Edit field" : "Create field",
       }}
       modalTrigger={editTrigger}
     >

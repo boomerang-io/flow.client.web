@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
-import { DelayedRender, SkeletonPlaceholder, SkeletonText } from "@boomerang/carbon-addons-boomerang-react";
+import { DelayedRender, Error, SkeletonPlaceholder, SkeletonText } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowZoom from "Components/WorkflowZoom";
 import Tasks from "./Tasks";
 import cx from "classnames";
@@ -34,6 +34,8 @@ export default function DesignerContainer({
       <Tasks tasks={tasks.filter((task) => task.status === TaskTemplateStatus.Active)} />
       {isRevisionLoading || !workflowDagEngine ? (
         <WorkflowSkeleton />
+      ) : revisionQuery.error ? (
+        <Error />
       ) : (
         <Designer
           createNode={createNode}

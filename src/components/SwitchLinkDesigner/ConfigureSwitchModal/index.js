@@ -39,8 +39,8 @@ class ConfigureSwitchModal extends React.Component {
             name="default"
             orientation="vertical"
             toggled={defaultState}
-            labelText="Default?"
-            helperText="This path will be taken when no others are matched line."
+            labelText="Default"
+            helperText="This path will be taken when no other switch path is matched."
             onToggle={updateDefaultState}
             style={{ padding: "1rem 0rem 1rem 0rem" }}
           />

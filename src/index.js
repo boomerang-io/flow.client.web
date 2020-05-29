@@ -1,9 +1,14 @@
 import React from "react";
 import { render } from "react-dom";
 import Root from "./Root";
+import { startApiServer } from "./apiServer";
 import "Config/axiosGlobalConfig";
 import "typeface-ibm-plex-sans";
 import "Styles/styles.scss";
+
+if (process.env.NODE_ENV === "development") {
+  startApiServer({ environment: "development", timing: 400 });
+}
 
 // Setup hot module reloading to improve dev experience
 render(<Root />, document.getElementById("app"));
