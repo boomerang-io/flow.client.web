@@ -21,7 +21,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import cronstrue from "cronstrue";
 import * as Yup from "yup";
 import { appLink } from "Config/appConfig";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import { serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";
 import { CopyFile16, EventSchedule16, Save24, ViewFilled16 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
@@ -165,7 +165,7 @@ class Configure extends Component {
       e.preventDefault();
     }
     return axios
-      .post(`${BASE_SERVICE_URL}/workflow/${this.props.summaryData.id}/webhook-token`)
+      .post(serviceUrl.postCreateWorkflowToken({ workflowId: this.props.summaryData.id }))
       .then((response) => {
         this.props.formikProps.setFieldValue("triggers.webhook.token", response.data.token);
         notify(

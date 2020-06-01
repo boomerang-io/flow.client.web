@@ -182,17 +182,17 @@ class PropertiesModalContent extends Component {
 
   determineDefaultValueSchema = (defaultType) => {
     switch (defaultType) {
-      case "text":
-      case "textarea":
-      case "password":
+      case InputType.Text:
+      case InputType.TextArea:
+      case InputType.Password:
         return Yup.string();
-      case "boolean":
+      case InputType.Boolean:
         return Yup.boolean();
-      case "number":
+      case InputType.Number:
         return Yup.number();
-      case "url":
+      case InputType.URL:
         return Yup.string().url("Enter a valid URL");
-      case "email":
+      case InputType.Email:
         return Yup.string().email("Enter a valid email");
       default:
         return Yup.mixed();
@@ -259,19 +259,32 @@ class PropertiesModalContent extends Component {
             <ModalFlowForm onSubmit={handleSubmit} disabled={loading}>
               <ModalBody className={styles.container}>
                 {loading && <Loading />}
-                {!isEdit && (
-                  <TextInput
-                    helperText="Reference value for property in workflow"
-                    id={InputProperty.Key}
-                    invalid={errors.key && touched.key}
-                    invalidText={errors.key}
-                    labelText="Key"
-                    onBlur={handleBlur}
-                    onChange={(e) => this.handleOnChange(e, handleChange)}
-                    placeholder=".e.g. token"
-                    value={values.key}
-                  />
-                )}
+                <TextInput
+                  readOnly={isEdit}
+                  helperText="Reference value for property in workflow. It can't be changed after property creation."
+                  id={InputProperty.Key}
+                  invalid={errors.key && touched.key}
+                  invalidText={errors.key}
+                  labelText={isEdit ? "Key (read-only)" : "Key"}
+                  onBlur={handleBlur}
+                  onChange={(e) => this.handleOnChange(e, handleChange)}
+                  placeholder=".e.g. token"
+                  value={values.key}
+                />
+                <ComboBox
+                  id={InputProperty.Type}
+                  onChange={({ selectedItem }) =>
+                    this.handleOnTypeChange(
+                      selectedItem !== null ? selectedItem : { label: "", value: "" },
+                      setFieldValue
+                    )
+                  }
+                  items={InputTypeItems}
+                  initialSelectedItem={values.type}
+                  itemToString={(item) => item && item.label}
+                  placeholder="Select an item"
+                  titleText="Type"
+                />
                 <TextInput
                   id={InputProperty.Label}
                   invalid={errors.label && touched.label}
@@ -299,21 +312,6 @@ class PropertiesModalContent extends Component {
                   onToggle={(value) => this.handleOnFieldValueChange(value, InputProperty.Required, setFieldValue)}
                   orientation="vertical"
                   toggled={values.required}
-                />
-
-                <ComboBox
-                  id={InputProperty.Type}
-                  onChange={({ selectedItem }) =>
-                    this.handleOnTypeChange(
-                      selectedItem !== null ? selectedItem : { label: "", value: "" },
-                      setFieldValue
-                    )
-                  }
-                  items={InputTypeItems}
-                  initialSelectedItem={values.type}
-                  itemToString={(item) => item && item.label}
-                  placeholder="Select an item"
-                  titleText="Type"
                 />
 
                 {this.renderDefaultValue(formikProps)}
