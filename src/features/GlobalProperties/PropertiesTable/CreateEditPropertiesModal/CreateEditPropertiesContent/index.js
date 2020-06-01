@@ -159,7 +159,8 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 data-testid="secured-global-properties-toggle"
               />
               {addError && (
-                <lowContrast
+                <InlineNotification
+                  lowContrast
                   kind="error"
                   title={"Create Property Failed"}
                   subtitle={"Something's Wrong"}

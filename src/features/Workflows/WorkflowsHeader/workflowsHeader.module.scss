@@ -28,12 +28,9 @@
     font-size: 0.875rem;
     .bx--list-box {
       background-color: var(--cds-ui-background) !important;
-      height: 3rem !important;
       max-height: none !important;
     }
-    .bx--list-box__field {
-      height: 3rem !important;
-    }
+
     .bx--list-box__menu {
       background-color: var(--cds-ui-background);
     }
