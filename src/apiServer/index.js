@@ -93,17 +93,22 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       /**
-       * Editor
+       * Workflows
        */
 
       // Workflow Summary
-      this.get(serviceUrl.getWorkflowSummary({ workflowId: ":id" }));
+      this.get(serviceUrl.getWorkflowSummary({ workflowId: ":workflowId" }), (schema, request) => {
+        let { workflowId } = request.params;
+        return schema.summaries.find(workflowId);
+      });
+
       this.patch(serviceUrl.patchUpdateWorkflowSummary(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
-        let summary = schema.summaries.find(body.id);
+        let summary = schema.summaries.find(body.workflowId);
         summary.update(body);
         return summary;
       });
+
       this.post(serviceUrl.postCreateWorkflow(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let workflow = { ...body, id: uuid(), createdDate: Date.now(), revisionCount: 1, status: "active" };
@@ -113,8 +118,18 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         flowTeam.update({ workflows: teamWorkflows });
         return schema.summaries.create(workflow);
       });
+
       this.post(serviceUrl.postCreateWorkflowToken({ workflowId: ":workflowId" }), (schema, request) => {
         return { token: uuid() };
+      });
+
+      this.del(serviceUrl.getWorkflow({ id: ":workflowId" }), (schema, request) => {
+        let { workflowId } = request.params;
+        let flowTeam = schema.teams.where((team) => team.workflows.find((workflow) => workflow.id === workflowId));
+        let { attrs } = flowTeam.models[0];
+        const teamWorkflows = attrs.workflows.filter((workflow) => workflow.id !== workflowId);
+        flowTeam.update({ workflows: teamWorkflows });
+        return schema.db.summaries.remove({ id: workflowId });
       });
 
       // Workflow Revision

@@ -10,7 +10,7 @@ export const appPath = {
   error: "/error",
   activity: "/activity",
   editor: "/teams/:teamId/editor/:workflowId",
-  editorDesigner: `/teams/:teamId/editor/:workflowId/worfklow`,
+  editorDesigner: `/teams/:teamId/editor/:workflowId/workflow`,
   editorConfigure: `/teams/:teamId/editor/:workflowId/configure`,
   editorChangelog: `/teams/:teamId/editor/:workflowId/changelog`,
   editorProperties: `/teams/:teamId/editor/:workflowId/properties`,
@@ -25,7 +25,7 @@ export const appPath = {
 export const appLink = {
   activity: () => `/activity`,
   editor: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}`,
-  editorDesigner: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/worfklow`,
+  editorDesigner: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/workflow`,
   editorConfigure: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/configure`,
   editorChangelog: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/changelog`,
   editorProperties: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/properties`,

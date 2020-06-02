@@ -348,7 +348,7 @@ export function EditorStateContainer({
           when={Boolean(revisionState.hasUnsavedWorkflowRevisionUpdates)}
           message={(location) =>
             //Return true to navigate if going to the same route we are currently on
-            location.pathname === match.url || location.pathname.includes("editor")
+            location.pathname === match.url || location.pathname.includes("workflow")
               ? true
               : "Are you sure? You have unsaved changes to your workflow that will be lost."
           }
@@ -357,7 +357,7 @@ export function EditorStateContainer({
           <Header
             changeRevision={handleChangeRevision}
             createRevision={handleCreateRevision}
-            isOnDesigner={location.pathname.endsWith("/designer")}
+            isOnDesigner={location.pathname.endsWith("/workflow")}
             revisionState={revisionState}
             revisionMutation={revisionMutation}
             revisionQuery={revisionQuery}
