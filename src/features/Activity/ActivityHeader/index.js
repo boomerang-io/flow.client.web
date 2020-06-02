@@ -7,14 +7,22 @@ import { ArrowDownRight32, ArrowUpRight32 } from "@carbon/icons-react";
 import styles from "./activityHeader.module.scss";
 
 ActivityHeader.propTypes = {
-  inProgressActivities: PropTypes.number.isRequired,
+  inProgressActivities: PropTypes.number,
+  isError: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   failedActivities: PropTypes.number,
   runActivities: PropTypes.number,
   succeededActivities: PropTypes.number,
 };
 
-function ActivityHeader({ inProgressActivities, isLoading, runActivities, succeededActivities, failedActivities }) {
+function ActivityHeader({
+  inProgressActivities,
+  isError,
+  isLoading,
+  runActivities,
+  succeededActivities,
+  failedActivities,
+}) {
   const successRate = runActivities > 0 ? (succeededActivities + inProgressActivities) / runActivities : 0;
   const successRatePercentage = Math.round(successRate * 100);
   const emoji = successRatePercentage > 79 ? "🙌" : successRatePercentage > 49 ? "😮" : "😨";
@@ -29,6 +37,14 @@ function ActivityHeader({ inProgressActivities, isLoading, runActivities, succee
         <section className={styles.content}>
           {isLoading ? (
             <SkeletonPlaceholder className={styles.summarySkeleton} />
+          ) : isError ? (
+            <>
+              <p className={styles.text}>Today's numbers</p>
+              <ActivityHeaderWidget text="Runs" value={"--"} />
+              <ActivityHeaderWidget text="Successes" value={"--"} />
+              <ActivityHeaderWidget text="Failures" value={"--"} />
+              <ActivityHeaderWidget text="Success rate" value={"--"} />
+            </>
           ) : (
             <>
               <p className={styles.text}>Today's numbers</p>

@@ -7,7 +7,7 @@ import uuid from "uuid/v4";
 export function startApiServer({ environment = "test", timing = 0 } = {}) {
   inflections("en", function (inflect) {
     // Prevent pluralization bc our apis are weird
-    inflect.irregular("changelog", "changelogs");
+    inflect.irregular("activity", "activity");
     inflect.irregular("config", "config");
     inflect.irregular("tasktemplate", "tasktemplate");
   });
@@ -25,12 +25,13 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     },
     // Register the data as a model so we can use the schema
     models: {
+      activity: Model,
       changelog: Model,
       config: Model,
-      tasktemplate: Model,
-      team: Model,
       revision: Model,
       summary: Model,
+      tasktemplate: Model,
+      team: Model,
     },
 
     routes() {
@@ -65,6 +66,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         schema.config.create({ id: uuid(), ...body });
         return schema.config.all();
       });
+
       this.patch(serviceUrl.getGlobalProperty({ id: ":id" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let { id } = request.params;
@@ -102,6 +104,15 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         summary.update(body);
         return summary;
       });
+      this.post(serviceUrl.postCreateWorkflow(), (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        let workflow = { ...body, id: uuid(), createdDate: Date.now(), revisionCount: 1, status: "active" };
+        let flowTeam = schema.teams.findBy({ id: body.flowTeamId });
+        const teamWorkflows = [...flowTeam.workflows];
+        teamWorkflows.push(workflow);
+        flowTeam.update({ workflows: teamWorkflows });
+        return schema.summaries.create(workflow);
+      });
       this.post(serviceUrl.postCreateWorkflowToken({ workflowId: ":workflowId" }), (schema, request) => {
         return { token: uuid() };
       });
@@ -128,6 +139,13 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
 
+      this.post(serviceUrl.postCreateWorkflowRevision({ workflowId: ":workflowId" }), (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        let { workflowId } = request.params;
+        let revision = { ...body, workFlowId: workflowId };
+        return schema.revisions.create(revision);
+      });
+
       // Workflow Properties
       this.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId: ":workflowId" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
@@ -142,6 +160,19 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         let { workflowId } = request.params;
         return schema.changelogs.where({ workflowId });
       });
+
+      /**
+       * Activity
+       */
+      this.get(serviceUrl.getActivity({ query: null }), (schema) => {
+        return schema.db.activityList[0];
+      });
+
+      this.get(serviceUrl.getActivitySummary({ query: null }), (schema, request) => {
+        return schema.db.activitySummary[0];
+      });
+
+      this.get(serviceUrl.getWorkflowExecution({ executionId: ":id" }));
 
       /**
        * TODO
