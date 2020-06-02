@@ -60,7 +60,7 @@ function DesignerHeader({
             Workflows
           </Link>
           <span className={styles.breadcrumbDivider}>/</span>
-          <p className={styles.workflowName}> {name}</p>
+          <p className={styles.workflowName}>{name}</p>
         </div>
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>Editor</h1>

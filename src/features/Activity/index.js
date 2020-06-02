@@ -153,7 +153,7 @@ export default function WorkflowActivity({ history, location, match }) {
           runActivities={"--"}
           succeededActivities={"--"}
         />
-        <section aria-label="Activity" className={styles.content}>
+        <section aria-label="Activity Error" className={styles.content}>
           <Error />
         </section>
       </div>
@@ -206,7 +206,7 @@ export default function WorkflowActivity({ history, location, match }) {
               <Tab label={statusSummaryDataIsLoading ? "Invalid" : `Invalid (${statusSummaryData.invalid})`} />
             </Tabs>
           </nav>
-          <section className={styles.filters}>
+          <div className={styles.filters}>
             <div className={styles.dataFilters}>
               <div style={{ marginRight: "1.4rem", width: "14.125rem" }}>
                 <MultiSelect
@@ -286,7 +286,7 @@ export default function WorkflowActivity({ history, location, match }) {
                 value={toDate && moment.unix(toDate).format("YYYY-MM-DD")}
               />
             </DatePicker>
-          </section>
+          </div>
           <ActivityTable
             history={history}
             isLoading={activityState.status === QueryStatus.Loading}

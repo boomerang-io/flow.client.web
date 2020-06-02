@@ -207,7 +207,7 @@ class Configure extends Component {
     const isLoading = summaryMutation.status === QueryStatus.Loading;
 
     return (
-      <section aria-label="Configure" className={styles.wrapper}>
+      <div aria-label="Configure" className={styles.wrapper} role="region">
         <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
           <h2 className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</h2>
@@ -478,7 +478,7 @@ class Configure extends Component {
             </p>
           </div>
         </section>
-      </section>
+      </div>
     );
   }
 }

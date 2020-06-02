@@ -4,10 +4,12 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: 9.0625rem;
+  height: 9rem;
   justify-content: space-between;
   padding-bottom: 0rem !important;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }
 
 .header {
