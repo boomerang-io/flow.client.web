@@ -5,7 +5,7 @@
 .container {
   display: flex;
   flex-flow: row wrap;
-  height: calc(100vh - 12rem);
+  height: fit-content;
   overflow: auto;
   padding: 2rem;
 }

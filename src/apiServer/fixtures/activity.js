@@ -85,6 +85,6 @@ export default [
         outputs: { "#Wed May 20 12:13:52 GMT 2020": "" },
       },
     ],
-    teamName: "IBM Automation Control Centre - EU",
+    teamName: "IBM Services Engineering",
   },
 ];

@@ -4,7 +4,7 @@
 .container {
   background-color: $white;
   display: flex;
-  height: 4.3125rem;
+  min-height: 4.3125rem;
   justify-content: space-between;
   width: 100%;
 }
@@ -64,7 +64,7 @@
   font-size: 1rem;
   letter-spacing: 0;
   line-height: 1.25rem;
-  max-width: 16rem;
+  max-width: 20rem;
   text-transform: capitalize;
   @include text-overflow-ellipsis();
 }
