@@ -49,13 +49,11 @@ export const HTTP_METHODS = {
 
 export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}`,
-  getActivitySummary: ({ query }) => `${BASE_SERVICE_URL}/activity/summary?${query}`,
-  getActivityStatusSummary: ({ query }) => `${BASE_SERVICE_URL}/activity/summary?${query}`,
-  getActivity: ({ query }) => `${BASE_SERVICE_URL}/activity?${query}`,
+  getActivitySummary: ({ query }) => `${BASE_SERVICE_URL}/activity/summary${query ? "?" + query : ""}`,
+  getActivity: ({ query }) => `${BASE_SERVICE_URL}/activity${query ? "?" + query : ""}`,
   getGlobalConfiguration: () => `${BASE_SERVICE_URL}/config`,
   getGlobalProperty: ({ id }) => `${BASE_SERVICE_URL}/config/${id}`,
   getInsights: ({ query }) => `${BASE_SERVICE_URL}/insights?${query}`,
-
   getNavigation: () => `${BASE_USERS_URL}/navigation`,
   getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
   getTeams: () => `${BASE_SERVICE_URL}/teams`,
@@ -64,8 +62,8 @@ export const serviceUrl = {
   getUserTeams: ({ email }) => `${BASE_TEAMS_URL}?userEmail=${email}`,
   getUserProfile: () => `${BASE_USERS_URL}/profile`,
   getWorkflow: ({ id }) => `${BASE_SERVICE_URL}/workflow/${id}`,
-  getWorkflowChangelog: ({ workflowId }) =>
-    `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog?sort=version&order=DESC`,
+  getWorkflowChangelog: ({ workflowId, query }) =>
+    `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
   getWorkflowImport: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
   getWorkflowExecution: ({ executionId }) => `${BASE_SERVICE_URL}/activity/${executionId}`,
   getWorkflowExecutionLog: ({ flowActivityId, flowTaskId }) =>

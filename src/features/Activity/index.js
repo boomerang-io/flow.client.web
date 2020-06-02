@@ -4,13 +4,13 @@ import { useQuery } from "Hooks";
 import {
   DatePicker,
   DatePickerInput,
+  Error,
   MultiSelect as Select,
   Tabs,
   Tab,
 } from "@boomerang/carbon-addons-boomerang-react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
-import ErrorDragon from "Components/ErrorDragon";
 import { executionOptions } from "Constants/filterOptions";
 import { executionStatusList } from "Constants";
 import queryString from "query-string";
@@ -56,7 +56,6 @@ export default function WorkflowActivity({ history, location, match }) {
   } = queryString.parse(location.search);
 
   /**** Start get some data ****/
-
   const activityQuery = queryString.stringify({
     order,
     page,
@@ -79,7 +78,7 @@ export default function WorkflowActivity({ history, location, match }) {
   });
 
   const activitySummaryUrl = serviceUrl.getActivitySummary({ query: activitySummaryQuery });
-  const activityStatusSummaryUrl = serviceUrl.getActivityStatusSummary({ query: activityStatusSummaryQuery });
+  const activityStatusSummaryUrl = serviceUrl.getActivitySummary({ query: activityStatusSummaryQuery });
   const activityUrl = serviceUrl.getActivity({ query: activityQuery });
 
   const activitySummaryState = useQuery(activitySummaryUrl);
@@ -144,7 +143,21 @@ export default function WorkflowActivity({ history, location, match }) {
   }
 
   if (activityState.error) {
-    return <ErrorDragon />;
+    return (
+      <div className={styles.container}>
+        <ActivityHeader
+          failedActivities={"--"}
+          inProgressActivities={"--"}
+          isError={true}
+          isLoading={false}
+          runActivities={"--"}
+          succeededActivities={"--"}
+        />
+        <section aria-label="Activity" className={styles.content}>
+          <Error />
+        </section>
+      </div>
+    );
   }
 
   if (teamsState) {
