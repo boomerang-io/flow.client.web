@@ -49,7 +49,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
           class="workflowButtons"
         >
           <div
-            class="container"
+            class="container disabled"
           >
             <div
               class="buttonListContainer"
@@ -151,7 +151,8 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
             class="workflowActionContainer"
           >
             <button
-              class="bx--btn bx--btn--field bx--btn--ghost"
+              class="bx--btn bx--btn--field bx--btn--ghost bx--btn--disabled"
+              disabled=""
               style="display: none;"
               tabindex="0"
               type="button"
@@ -178,7 +179,8 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               </svg>
             </button>
             <button
-              class="bx--btn bx--btn--field bx--btn--ghost"
+              class="bx--btn bx--btn--field bx--btn--ghost bx--btn--disabled"
+              disabled=""
               tabindex="0"
               type="button"
             >
@@ -208,7 +210,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
           <a
             aria-current="page"
             class="link --active"
-            href="/teams/5e3a35ad8c222700018ccd39/editor/5eb2c4085a92d80001a16d87/designer"
+            href="/teams/5e3a35ad8c222700018ccd39/editor/5eb2c4085a92d80001a16d87/worfklow"
           >
             Workflow
           </a>
@@ -226,7 +228,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
           </a>
           <a
             class="link"
-            href="/teams/5e3a35ad8c222700018ccd39/editor/5eb2c4085a92d80001a16d87/change-log"
+            href="/teams/5e3a35ad8c222700018ccd39/editor/5eb2c4085a92d80001a16d87/changelog"
           >
             Change Log
           </a>

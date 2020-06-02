@@ -2,7 +2,7 @@ export default [
   {
     higherLevelGroupId: "5c41596cf32aa30001e9d444",
     id: "5e3a35ad8c222700018ccd39",
-    name: "Boomerang Flow",
+    name: "IBM Services Engineering",
     workflows: [
       {
         properties: [

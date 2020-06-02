@@ -45,7 +45,7 @@ export default {
       icon: "flow",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Automation Control Centre - EU",
+      teamName: "IBM Services Engineering",
     },
     {
       creationDate: "2020-06-02T13:02:42.210+0000",
@@ -73,7 +73,7 @@ export default {
       icon: "flow",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Automation Control Centre - EU",
+      teamName: "IBM Services Engineering",
     },
     {
       creationDate: "2020-05-20T12:12:58.963+0000",
@@ -97,7 +97,7 @@ export default {
       icon: "flow",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Automation Control Centre - EU",
+      teamName: "IBM Services Engineering",
     },
     {
       creationDate: "2020-05-19T11:48:19.577+0000",
@@ -121,7 +121,7 @@ export default {
       icon: "flow",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Automation Control Centre - EU",
+      teamName: "IBM Services Engineering",
     },
     {
       creationDate: "2020-05-18T15:20:09.781+0000",
@@ -145,7 +145,7 @@ export default {
       icon: "flow",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Automation Control Centre - EU",
+      teamName: "IBM Services Engineering",
     },
     {
       creationDate: "2020-05-18T15:13:20.401+0000",
@@ -169,7 +169,7 @@ export default {
       icon: "flow",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Automation Control Centre - EU",
+      teamName: "IBM Services Engineering",
     },
     {
       creationDate: "2020-05-18T15:09:23.391+0000",
@@ -193,7 +193,7 @@ export default {
       icon: "flow",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Automation Control Centre - EU",
+      teamName: "IBM Services Engineering",
     },
     {
       creationDate: "2020-05-18T15:07:04.262+0000",
@@ -217,7 +217,7 @@ export default {
       icon: "flow",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Automation Control Centre - EU",
+      teamName: "IBM Services Engineering",
     },
     {
       creationDate: "2020-05-18T14:54:28.899+0000",
@@ -241,7 +241,7 @@ export default {
       icon: "flow",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Automation Control Centre - EU",
+      teamName: "IBM Services Engineering",
     },
     {
       creationDate: "2020-05-18T14:52:23.540+0000",
@@ -265,7 +265,7 @@ export default {
       icon: "flow",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
-      teamName: "IBM Automation Control Centre - EU",
+      teamName: "IBM Services Engineering",
     },
   ],
 };
