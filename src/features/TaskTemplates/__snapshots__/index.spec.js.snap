@@ -60,7 +60,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
             class="tools"
           >
             <div
-              aria-labelledby="search__input__id_uhb0tw6jebl-search"
+              aria-labelledby="search__input__id_zxx3atrywm-search"
               class="bx--search bx--search--sm"
               role="search"
             >
@@ -80,15 +80,15 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               </svg>
               <label
                 class="bx--label"
-                for="search__input__id_uhb0tw6jebl"
-                id="search__input__id_uhb0tw6jebl-search"
+                for="search__input__id_zxx3atrywm"
+                id="search__input__id_zxx3atrywm-search"
               >
                 Search for a task
               </label>
               <input
                 autocomplete="off"
                 class="bx--search-input"
-                id="search__input__id_uhb0tw6jebl"
+                id="search__input__id_zxx3atrywm"
                 placeholder="Search for a task"
                 role="searchbox"
                 type="text"

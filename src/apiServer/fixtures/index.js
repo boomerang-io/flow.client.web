@@ -1,6 +1,9 @@
-import insights from "./insights";
+import activityList from "./activityList";
+import activitySummary from "./activitySummary";
+import activity from "./activity";
 import config from "./config";
 import changelogs from "./changelogs";
+import insights from "./insights";
 import navigation from "./navigation";
 import profile from "./profile";
 import tasktemplate from "./tasktemplate";
@@ -10,9 +13,12 @@ import teams from "./teams";
 import teamProperties from "./teamProperties";
 
 export default {
-  insights,
+  activity,
+  activityList,
+  activitySummary,
   config,
   changelogs,
+  insights,
   navigation,
   profile,
   revisions,

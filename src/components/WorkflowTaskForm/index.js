@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
-import { AutoSuggest, DynamicFormik, ModalFlowForm, TextInput } from "@boomerang/carbon-addons-boomerang-react";
+import { AutoSuggest, DynamicFormik, ModalForm, TextInput } from "@boomerang/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
@@ -9,15 +9,10 @@ import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = (props) => {
   //number inputs doesn't support AutoSuggest setSelectionRange
-  if (props.type === "number")
-    return (
-      <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
-        <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />
-      </div>
-    );
+  if (props.type === "number") return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
   else
     return (
-      <div key={props.id} style={{ paddingBottom: "1rem", position: "relative" }}>
+      <div key={props.id}>
         <AutoSuggest {...props}>
           <TextInput tooltipContent={props.tooltipContent} />
         </AutoSuggest>
@@ -26,11 +21,7 @@ const AutoSuggestInput = (props) => {
 };
 
 const TextEditorInput = (props) => {
-  return (
-    <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
-      <TextEditorModal {...props} {...props.item} />
-    </div>
-  );
+  return <TextEditorModal {...props} {...props.item} />;
 };
 
 const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
@@ -175,7 +166,7 @@ class WorkflowTaskForm extends Component {
         toggleProps={this.toggleProps}
       >
         {({ inputs, formikProps }) => (
-          <ModalFlowForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
+          <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
             <ModalBody>{inputs}</ModalBody>
             <ModalFooter>
               <Button kind="secondary" onClick={this.props.closeModal}>
@@ -185,7 +176,7 @@ class WorkflowTaskForm extends Component {
                 Apply
               </Button>
             </ModalFooter>
-          </ModalFlowForm>
+          </ModalForm>
         )}
       </DynamicFormik>
     );

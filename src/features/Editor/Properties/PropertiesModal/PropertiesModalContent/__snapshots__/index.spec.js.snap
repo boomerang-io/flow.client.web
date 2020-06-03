@@ -19,27 +19,123 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           >
             <label
               class="bx--label"
-              for="label"
+              for="key"
             >
               <div
                 class="bx--bmrg-text-input__label"
               >
                 <div>
-                  Name
+                  Key (read-only)
                 </div>
               </div>
             </label>
+            <div
+              class="bx--form__helper-text"
+            >
+              Reference value for property in workflow. It can't be changed after property creation.
+            </div>
             <div
               class="bx--text-input__field-wrapper"
             >
               <input
                 class="bx--text-input bx--text__input"
-                id="label"
-                placeholder="Name"
-                title="Name"
+                id="key"
+                placeholder=".e.g. token"
+                readonly=""
+                title=".e.g. token"
                 type="text"
                 value=""
               />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-select"
+        >
+          <div
+            class="bx--list-box__wrapper"
+          >
+            <label
+              class="bx--label"
+              for="type"
+            >
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Type
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--combo-box bx--list-box"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="open menu"
+                class="bx--list-box__field"
+                data-toggle="true"
+                role="button"
+                tabindex="-1"
+                type="button"
+              >
+                <input
+                  aria-autocomplete="list"
+                  aria-controls="type__menu"
+                  aria-expanded="false"
+                  aria-label="Choose an item"
+                  autocomplete="off"
+                  class="bx--text-input"
+                  id="type"
+                  placeholder="Select an item"
+                  role="combobox"
+                  value="Select"
+                />
+                <div
+                  aria-label="Clear Selection"
+                  class="bx--list-box__selection"
+                  role="button"
+                  tabindex="0"
+                  title="Clear selected item"
+                >
+                  <svg
+                    aria-hidden="true"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="bx--list-box__menu-icon"
+                >
+                  <svg
+                    aria-label="Open menu"
+                    focusable="false"
+                    height="16"
+                    name="chevron--down"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
+                    />
+                    <title>
+                      Open menu
+                    </title>
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -148,96 +244,6 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 />
               </span>
             </label>
-          </div>
-        </div>
-        <div
-          class="bx--bmrg-select"
-        >
-          <div
-            class="bx--list-box__wrapper"
-          >
-            <label
-              class="bx--label"
-              for="type"
-            >
-              <div
-                style="display: flex;"
-              >
-                <div>
-                  Type
-                </div>
-              </div>
-            </label>
-            <div
-              class="bx--combo-box bx--list-box"
-            >
-              <div
-                aria-expanded="false"
-                aria-haspopup="true"
-                aria-label="open menu"
-                class="bx--list-box__field"
-                data-toggle="true"
-                role="button"
-                tabindex="-1"
-                type="button"
-              >
-                <input
-                  aria-autocomplete="list"
-                  aria-controls="type__menu"
-                  aria-expanded="false"
-                  aria-label="Choose an item"
-                  autocomplete="off"
-                  class="bx--text-input"
-                  id="type"
-                  placeholder="Select an item"
-                  role="combobox"
-                  value="Select"
-                />
-                <div
-                  aria-label="Clear Selection"
-                  class="bx--list-box__selection"
-                  role="button"
-                  tabindex="0"
-                  title="Clear selected item"
-                >
-                  <svg
-                    aria-hidden="true"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
-                    />
-                  </svg>
-                </div>
-                <div
-                  class="bx--list-box__menu-icon"
-                >
-                  <svg
-                    aria-label="Open menu"
-                    focusable="false"
-                    height="16"
-                    name="chevron--down"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
-                    />
-                    <title>
-                      Open menu
-                    </title>
-                  </svg>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div

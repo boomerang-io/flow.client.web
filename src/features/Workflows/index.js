@@ -87,7 +87,7 @@ export default function WorkflowsHome() {
         })}
       >
         <WorkflowsHeader handleSearchFilter={handleSearchFilter} workflowsLength={workflowsLength} options={teams} />
-        <main className={styles.content}>
+        <div aria-label="Team Workflows" className={styles.content} role="region">
           {sortedTeams.length > 0 ? (
             sortedTeams.map((team) => {
               return <TeamWorkflows key={team.id} searchQuery={searchQuery} team={team} teams={teams} />;
@@ -95,7 +95,7 @@ export default function WorkflowsHome() {
           ) : (
             <Error404 header={null} message={"You need to be a member of a team to use Flow"} title="No teams found" />
           )}
-        </main>
+        </div>
       </div>
     </>
   );

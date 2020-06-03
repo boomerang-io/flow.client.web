@@ -92,7 +92,7 @@ export default function App() {
 
       if (isSuccessState) {
         return (
-          <div className={styles.container}>
+          <main id="content" className={styles.container}>
             <Suspense fallback={<Loading />}>
               <Switch>
                 <ProtectedRoute
@@ -123,7 +123,7 @@ export default function App() {
               </Switch>
             </Suspense>
             <NotificationsContainer enableMultiContainer />
-          </div>
+          </main>
         );
       }
 
