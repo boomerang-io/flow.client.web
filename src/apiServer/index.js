@@ -82,20 +82,17 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         schema.db.config.remove({ id });
       });
 
-
       //team properties
-      this.get(serviceUrl.getTeamProperties({ id: ':id' }), (schema, request) => {
+      this.get(serviceUrl.getTeamProperties({ id: ":id" }), (schema, request) => {
         let { id } = request.params;
         let property = schema.teamProperties.find(id);
-        return property ?.properties ?? [];
+        return property?.properties ?? [];
       });
 
       //insights
       this.get(serviceUrl.getInsights({ query: null }), (schema, request) => {
-        let { query } = request.params;
-        console.log(query)
-        // return schema.insights.all();
-        return schema.db.insights
+        //let { query } = request.params;
+        return schema.db.insights[0];
       });
 
       /**
