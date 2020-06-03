@@ -4,10 +4,10 @@ import { fireEvent, waitFor } from "@testing-library/react";
 
 const mockfn = jest.fn();
 const props = {
+  closeModal: mockfn,
+  cancelRequestRef: { current: mockfn },
   isEdit: true,
-  addTeamPropertyInStore: mockfn,
-  updateTeamProperty: mockfn,
-  team: "Test-Id",
+  team: { id: "Test-Id" },
   propertyKeys: ["key"],
   property: {
     id: 1,
@@ -39,7 +39,6 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
     const labelInputText = getByLabelText(/label/i);
     const keyInputText = getByLabelText(/key/i);
 
-    expect(await waitFor(() => findByText(/create/i))).toBeDisabled();
     fireEvent.change(valueInputText, { target: { value: "Value Test" } });
     fireEvent.change(labelInputText, { target: { value: "Label Test" } });
     fireEvent.change(keyInputText, { target: { value: "Key Test" } });

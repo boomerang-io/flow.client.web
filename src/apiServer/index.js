@@ -10,6 +10,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     inflect.irregular("changelog", "changelogs");
     inflect.irregular("config", "config");
     inflect.irregular("tasktemplate", "tasktemplate");
+    inflect.irregular("insights", "insights");
   });
 
   return new Server({
@@ -31,6 +32,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       team: Model,
       revision: Model,
       summary: Model,
+      insights: Model,
+      teamProperties: Model
     },
 
     routes() {
@@ -75,6 +78,21 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.delete(serviceUrl.getGlobalProperty({ id: ":id" }), (schema, request) => {
         let { id } = request.params;
         schema.db.config.remove({ id });
+      });
+
+
+      //team properties
+      this.get(serviceUrl.getTeamProperties({ id: ':id' }), (schema, request) => {
+        let { id } = request.params;
+        let property = schema.teamProperties.find(id);
+        return property ?.properties ?? [];
+      });
+
+      //insights
+      this.get(serviceUrl.getInsights({ query: ":query" }), (schema, request) => {
+        let { query } = request.params;
+        console.log(query)
+        return schema.insights.all();
       });
 
       /**
