@@ -9,7 +9,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
       class="container"
     >
       <a
-        href="/teams/undefined/editor/789/designer"
+        href="/teams/undefined/editor/789/workflow"
       >
         <section
           class="details"

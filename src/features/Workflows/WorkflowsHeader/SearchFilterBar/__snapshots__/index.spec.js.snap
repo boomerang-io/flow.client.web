@@ -12,7 +12,7 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
         class="b-search-filter__search"
       >
         <div
-          aria-labelledby="search-worfklows-search"
+          aria-labelledby="search-team-workflows-search"
           class="bx--search bx--search--xl"
           role="search"
         >
@@ -32,15 +32,15 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
           </svg>
           <label
             class="bx--label"
-            for="search-worfklows"
-            id="search-worfklows-search"
+            for="search-team-workflows"
+            id="search-team-workflows-search"
           >
             Search for a workflow
           </label>
           <input
             autocomplete="off"
             class="bx--search-input"
-            id="search-worfklows"
+            id="search-team-workflows"
             placeholder="Search for a workflow"
             role="searchbox"
             type="text"

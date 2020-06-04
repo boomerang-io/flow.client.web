@@ -1,5 +1,6 @@
 import React from "react";
 import WorkflowsHome from "./index";
+import { startApiServer } from "../../apiServer";
 
 const mockfn = jest.fn();
 jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
@@ -10,14 +11,6 @@ jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
 }));
 
 const props = {
-  teamsActions: {
-    fetch: () => new Promise(() => {}),
-    setActiveTeam: mockfn,
-    updateWorkflows: mockfn,
-  },
-  appActions: {
-    setActiveTeam: mockfn,
-  },
   teamsState: {
     isFetching: false,
     status: "success",
@@ -32,9 +25,19 @@ const props = {
   },
 };
 
+let server;
+
+beforeEach(() => {
+  server = startApiServer();
+});
+
+afterEach(() => {
+  server.shutdown();
+});
+
 describe("WorkflowsHome --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowsHome", () => {
-    const { baseElement } = rtlRouterRender(<WorkflowsHome {...props} />);
+    const { baseElement } = rtlContextRouterRender(<WorkflowsHome {...props} />);
     expect(baseElement).toMatchSnapshot();
   });
 });
