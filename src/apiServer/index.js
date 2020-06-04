@@ -85,14 +85,54 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         schema.db.config.remove({ id });
       });
 
-      //team properties
+      /**
+       * team propertiies
+       */
       this.get(serviceUrl.getTeamProperties({ id: ":id" }), (schema, request) => {
         let { id } = request.params;
         let property = schema.teamProperties.find(id);
         return property ?.properties ?? [];
       });
+      this.post(serviceUrl.getTeamProperties({ id: ":id" }), (schema, request) => {
+        /**
+         * find team record, update the list of properties for that team
+         */
+        let { id } = request.params;
+        let body = JSON.parse(request.requestBody);
+        let activeTeamProperty = schema.teamProperties.find(id);
+        let currentProperties = activeTeamProperty.attrs.properties
+        currentProperties.push({ id: uuid(), ...body })
+        activeTeamProperty.update({ properties: currentProperties });
+        return schema.teamProperties.all();
+      });
+      this.patch(serviceUrl.getTeamProperty({ teamId: ":teamId", configurationId: ":configurationId" }), (schema, request) => {
+        /**
+         * find team record, update the list of properties for that team
+         */
+        let { teamId, configurationId } = request.params;
+        let body = JSON.parse(request.requestBody);
+        let activeTeamProperty = schema.teamProperties.find(teamId);
+        let currentProperties = activeTeamProperty.attrs.properties
+        var foundIndex = currentProperties.findIndex(prop => prop.id === configurationId);
+        currentProperties[foundIndex] = body
+        activeTeamProperty.update({ properties: currentProperties });
+        return schema.teamProperties.all();
+      });
+      this.delete(serviceUrl.getTeamProperty({ teamId: ":teamId", configurationId: ":configurationId" }), (schema, request) => {
+        /**
+         * find team record, update the list of properties for that team
+         */
+        let { teamId, configurationId } = request.params;
+        let activeTeamProperty = schema.teamProperties.find(teamId);
+        let currentProperties = activeTeamProperty.attrs.properties;
+        let newProperties = currentProperties.filter(prop => prop.id !== configurationId)
+        activeTeamProperty.update({ properties: newProperties });
+        return schema.teamProperties.all();
+      });
 
-      //insights
+      /**
+       * insights
+       */
       this.get(serviceUrl.getInsights({ query: null }), (schema, request) => {
         //grab the querystring from the end of the request url
         const query = request.url.substring(14)
