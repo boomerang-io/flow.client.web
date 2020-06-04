@@ -95,6 +95,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
         >
           <button
             class="bx--btn bx--btn--field bx--btn--primary"
+            data-testid="create-global-configurations-property-button"
             style="width: 12rem;"
             tabindex="0"
             type="button"
@@ -211,7 +212,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   <p
                     class="tableTextarea"
                   >
-                    ---
+                    Test property
                   </p>
                 </div>
               </td>
@@ -237,7 +238,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   <p
                     class="tableTextarea"
                   >
-                    ---
+                    adding a test description
                   </p>
                 </div>
               </td>
@@ -250,7 +251,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   <p
                     class="tableTextarea"
                   >
-                    testing
+                    Test value
                   </p>
                 </div>
               </td>
@@ -273,6 +274,132 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   >
                     <path
                       d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
+                    />
+                  </svg>
+                </div>
+              </td>
+              <td
+                style="padding: 0px;"
+              >
+                <div
+                  class="tableCell"
+                >
+                  <button
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-label="Overflow menu"
+                    class="bx--overflow-menu"
+                    data-testid="configuration-property-table-overflow-menu"
+                    tabindex="0"
+                  >
+                    <svg
+                      aria-label="Overflow menu icon"
+                      class="bx--overflow-menu__icon"
+                      focusable="false"
+                      height="16"
+                      preserveAspectRatio="xMidYMid meet"
+                      role="img"
+                      viewBox="0 0 32 32"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="16"
+                        cy="8"
+                        r="2"
+                      />
+                      <circle
+                        cx="16"
+                        cy="16"
+                        r="2"
+                      />
+                      <circle
+                        cx="16"
+                        cy="24"
+                        r="2"
+                      />
+                      <title>
+                        Overflow menu icon
+                      </title>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              data-testid="configuration-property-table-row"
+            >
+              <td
+                style="padding: 0px;"
+              >
+                <div
+                  class="tableCell"
+                >
+                  <p
+                    class="tableTextarea"
+                  >
+                    ben.label
+                  </p>
+                </div>
+              </td>
+              <td
+                style="padding: 0px;"
+              >
+                <div
+                  class="tableCell"
+                >
+                  <p
+                    class="tableTextarea"
+                  >
+                    ben.key
+                  </p>
+                </div>
+              </td>
+              <td
+                style="padding: 0px;"
+              >
+                <div
+                  class="tableCell"
+                >
+                  <p
+                    class="tableTextarea"
+                  >
+                    ---
+                  </p>
+                </div>
+              </td>
+              <td
+                style="padding: 0px;"
+              >
+                <div
+                  class="tableCell"
+                >
+                  <p
+                    class="tableTextarea"
+                  >
+                    •••••••••
+                  </p>
+                </div>
+              </td>
+              <td
+                style="padding: 0px;"
+              >
+                <div
+                  class="tableCell"
+                >
+                  <svg
+                    alt="secured"
+                    aria-hidden="true"
+                    class="tableSecured secured"
+                    focusable="false"
+                    height="32"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 32 32"
+                    width="32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13 21.2L5.4 13.6 4 15 13 24 28 9 26.6 7.5 13 21.2z"
                     />
                   </svg>
                 </div>
@@ -397,7 +524,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
           <span
             class="bx--pagination__text"
           >
-            1–1 of 1 items
+            1–2 of 2 items
           </span>
         </div>
         <div
@@ -499,6 +626,12 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
       </div>
     </div>
   </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
   <div
     class="bx--bmrg-modal-portal"
   />

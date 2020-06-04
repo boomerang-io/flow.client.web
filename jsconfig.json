@@ -5,6 +5,7 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": "./src",
     "paths": {
+      "ApiServer/*": ["apiServer/*"],
       "Assets/*": ["assets/*"],
       "Components/*": ["components/*"],
       "Config/*": ["config/*"],
