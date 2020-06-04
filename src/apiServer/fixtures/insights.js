@@ -16,7 +16,7 @@ export default {
             duration: null,
             status: "invalid",
             creationDate: 1548309600006,
-            teamName: "Boomerang Flow",
+            teamName: "IBM Services Engineering",
             workflowName: "Tim Testing Slacks",
             workflowId: "5c3cf9ffbc521b00011b70aa"
         },
@@ -25,7 +25,7 @@ export default {
             duration: null,
             status: "invalid",
             creationDate: 1548295200006,
-            teamName: "Boomerang Flow",
+            teamName: "IBM Services Engineering",
             workflowName: "Tim Testing Slacks",
             workflowId: "5c3cf9ffbc521b00011b70aa"
         },
