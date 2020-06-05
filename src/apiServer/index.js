@@ -1,11 +1,9 @@
 import { Server, Serializer, Model } from "miragejs";
 import { inflections } from "inflected";
 import fixtures from "./fixtures";
-import { serviceUrl } from "Config/servicesConfig";
-import moment from "moment";
+import { serviceUrl } from "../config/servicesConfig";
 import uuid from "uuid/v4";
 import queryString from "query-string";
-
 
 export function startApiServer({ environment = "test", timing = 0 } = {}) {
   inflections("en", function (inflect) {
@@ -91,7 +89,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.get(serviceUrl.getTeamProperties({ id: ":id" }), (schema, request) => {
         let { id } = request.params;
         let property = schema.teamProperties.find(id);
-        return property ?.properties ?? [];
+        return property && property.properties ? property.properties : [];
       });
       this.post(serviceUrl.getTeamProperties({ id: ":id" }), (schema, request) => {
         /**
@@ -100,45 +98,53 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         let { id } = request.params;
         let body = JSON.parse(request.requestBody);
         let activeTeamProperty = schema.teamProperties.find(id);
-        let currentProperties = activeTeamProperty.attrs.properties
-        currentProperties.push({ id: uuid(), ...body })
-        activeTeamProperty.update({ properties: currentProperties });
-        return schema.teamProperties.all();
-      });
-      this.patch(serviceUrl.getTeamProperty({ teamId: ":teamId", configurationId: ":configurationId" }), (schema, request) => {
-        /**
-         * find team record, update the list of properties for that team
-         */
-        let { teamId, configurationId } = request.params;
-        let body = JSON.parse(request.requestBody);
-        let activeTeamProperty = schema.teamProperties.find(teamId);
-        let currentProperties = activeTeamProperty.attrs.properties
-        var foundIndex = currentProperties.findIndex(prop => prop.id === configurationId);
-        currentProperties[foundIndex] = body
-        activeTeamProperty.update({ properties: currentProperties });
-        return schema.teamProperties.all();
-      });
-      this.delete(serviceUrl.getTeamProperty({ teamId: ":teamId", configurationId: ":configurationId" }), (schema, request) => {
-        /**
-         * find team record, update the list of properties for that team
-         */
-        let { teamId, configurationId } = request.params;
-        let activeTeamProperty = schema.teamProperties.find(teamId);
         let currentProperties = activeTeamProperty.attrs.properties;
-        let newProperties = currentProperties.filter(prop => prop.id !== configurationId)
-        activeTeamProperty.update({ properties: newProperties });
+        currentProperties.push({ id: uuid(), ...body });
+        activeTeamProperty.update({ properties: currentProperties });
         return schema.teamProperties.all();
       });
+      this.patch(
+        serviceUrl.getTeamProperty({ teamId: ":teamId", configurationId: ":configurationId" }),
+        (schema, request) => {
+          /**
+           * find team record, update the list of properties for that team
+           */
+          let { teamId, configurationId } = request.params;
+          let body = JSON.parse(request.requestBody);
+          let activeTeamProperty = schema.teamProperties.find(teamId);
+          let currentProperties = activeTeamProperty.attrs.properties;
+          let foundIndex = currentProperties.findIndex((prop) => prop.id === configurationId);
+          currentProperties[foundIndex] = body;
+          activeTeamProperty.update({ properties: currentProperties });
+          return schema.teamProperties.all();
+        }
+      );
+      this.delete(
+        serviceUrl.getTeamProperty({ teamId: ":teamId", configurationId: ":configurationId" }),
+        (schema, request) => {
+          /**
+           * find team record, update the list of properties for that team
+           */
+          let { teamId, configurationId } = request.params;
+          let activeTeamProperty = schema.teamProperties.find(teamId);
+          let currentProperties = activeTeamProperty.attrs.properties;
+          let newProperties = currentProperties.filter((prop) => prop.id !== configurationId);
+          activeTeamProperty.update({ properties: newProperties });
+          return schema.teamProperties.all();
+        }
+      );
 
       /**
        * insights
        */
       this.get(serviceUrl.getInsights({ query: null }), (schema, request) => {
         //grab the querystring from the end of the request url
-        const query = request.url.substring(14)
+        const query = request.url.substring(14);
+        // eslint-disable-next-line
         const { fromDate = null, toDate = null, teamId = null } = queryString.parse(query);
-        const activeTeam = teamId && schema.db.teams.find(teamId)
-        let activeExecutions = activeTeam && schema.db.insights[0].executions.filter(team => team.teamName === activeTeam.name)
+        const activeTeam = teamId && schema.db.teams.find(teamId);
+        let activeExecutions =
+          activeTeam && schema.db.insights[0].executions.filter((team) => team.teamName === activeTeam.name);
         return activeExecutions ? { ...schema.db.insights[0], executions: activeExecutions } : schema.db.insights[0];
       });
 
