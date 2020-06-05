@@ -1,6 +1,20 @@
+/* eslint-disable jest/expect-expect */
+import { startApiServer } from "../../../src/apiServer";
+import { appLink } from "../../../src/config/appConfig";
+
+let server;
+
+beforeEach(() => {
+  server = startApiServer({ environment: "test" });
+});
+
+afterEach(() => {
+  server.shutdown();
+});
+
 describe("Execution", function () {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/local/activity/5eb2c4085a92d80001a16d87/execution/5ec51eca5a92d80001a2005d");
+    cy.visit(appLink.execution({ executionId: "5eb2c4085a92d80001a16d87", workflowId: "5ec51eca5a92d80001a2005d" }));
   });
 
   it("Redirects to activity view", function () {

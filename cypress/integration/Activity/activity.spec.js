@@ -1,12 +1,25 @@
+import { startApiServer } from "../../../src/apiServer";
+import { appLink } from "../../../src/config/appConfig";
+
+let server;
+
+beforeEach(() => {
+  server = startApiServer({ environment: "test" });
+});
+
+afterEach(() => {
+  server.shutdown();
+});
+
 describe("Activity", function () {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/local/activity");
+    cy.visit(appLink.activity());
   });
 
   it("Show correct filters in url", function () {
     cy.get(".bx--tabs__nav-link", { timeout: 5000 }).contains("In Progress").click();
     cy.url().should("include", "statuses=inProgress");
-    cy.get(".bx--tabs__nav-link").contains("Succeeded").click();
+    cy.findByText(/succeeded \(.+\)/i).click();
     cy.url().should("include", "statuses=completed");
     cy.get(".bx--tabs__nav-link").contains("Failed").click();
     cy.url().should("include", "statuses=failure");
