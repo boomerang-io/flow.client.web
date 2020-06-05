@@ -7,20 +7,20 @@ const mockfn = jest.fn();
 const initialState = {};
 
 const props = {
-  properties: [
-    {
-      defaultValue: "pandas",
-      description: "Tim property",
-      key: "tim.property",
-      label: "Tim Property",
-      required: true,
-      type: "select",
-      optiions: ["pandas", "dogs"],
-    },
-  ],
-  loading: false,
-  workflowActions: { deleteWorkflowInput: mockfn },
-  updateWorkflowProperties: mockfn,
+  summaryData: {
+    properties: [
+      {
+        defaultValue: "pandas",
+        description: "Tim property",
+        key: "tim.property",
+        label: "Tim Property",
+        required: true,
+        type: "select",
+        optiions: ["pandas", "dogs"],
+      },
+    ],
+    id: "123",
+  },
 };
 
 beforeEach(() => {

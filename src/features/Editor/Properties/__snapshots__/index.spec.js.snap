@@ -5,9 +5,10 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
   id="app"
 >
   <div>
-    <section
+    <div
       aria-label="Properties"
       class="container"
+      role="region"
     >
       <section
         class="property"
@@ -199,8 +200,8 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
             width="32"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <polygon
-              points="17,15 17,8 15,8 15,15 8,15 8,17 15,17 15,24 17,24 17,17 24,17 24,15"
+            <path
+              d="M17 15L17 8 15 8 15 15 8 15 8 17 15 17 15 24 17 24 17 17 24 17 24 15z"
             />
           </svg>
           <p
@@ -210,16 +211,16 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           </p>
         </div>
       </button>
-    </section>
+    </div>
   </div>
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
   <div
-    class="ReactModalPortal"
+    class="bx--bmrg-modal-portal"
   />
 </body>
 `;
