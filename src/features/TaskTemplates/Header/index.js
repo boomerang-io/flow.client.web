@@ -13,8 +13,10 @@ import {
   InlineNotification,
   Loading,
 } from "@boomerang/carbon-addons-boomerang-react";
+import moment from "moment";
 import capitalize from "lodash/capitalize";
 import FeatureHeader from "Components/FeatureHeader";
+import VersionHistory from "./VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
 import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
 import { taskIcons } from "Utilities/taskIcons";
@@ -169,6 +171,13 @@ function Header({
 }) {
   const TaskIcon = taskIcons.find((icon) => icon.iconName === selectedTaskTemplate.icon);
   const revisionCount = selectedTaskTemplate.revisions.length;
+  const lastUpdated = selectedTaskTemplate?.revisions[revisionCount - 1]?.changelog ?? {};
+  const changelogs = selectedTaskTemplate?.revisions?.map((revision, index) => ({
+    ...revision.changelog,
+    date: moment(revision?.changelog?.date)?.format("MMM DD, YYYY") ?? "---",
+    version: revision.version,
+  }));
+  changelogs.reverse();
 
   return (
     <FeatureHeader includeBorder className={styles.featureHeader}>
@@ -177,7 +186,7 @@ function Header({
           <h1 className={styles.category}>{capitalize(selectedTaskTemplate.category)}</h1>
           <div className={styles.infoContainer}>
             {TaskIcon ? (
-              <TaskIcon.icon imgProps={{ style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" } }} />
+              TaskIcon.icon({ imgProps: { style: { width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" } } })
             ) : (
               //<taskIcon.src style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
               <Bee20 alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
@@ -189,7 +198,11 @@ function Header({
                 Archived
               </Tag>
             )}
+            <VersionHistory changelogs={changelogs} />
           </div>
+          <h2 className={styles.lastUpdate}>{`Version ${revisionCount === 1 ? "created" : "updated"} ${moment(
+            lastUpdated.date
+          ).format("MMM DD, YYYY")} by ${lastUpdated.userName??"---"}`}</h2>
         </div>
         <div className={styles.buttons}>
           <VersionSwitcher
