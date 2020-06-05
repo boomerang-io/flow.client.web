@@ -1,5 +1,5 @@
 /* eslint-disable jest/expect-expect */
-import { startApiServer } from "../../src/apiServer";
+import { startApiServer } from "../../../src/apiServer";
 
 let server;
 
