@@ -14,7 +14,7 @@ afterEach(() => {
 
 describe("Execution", function () {
   beforeEach(() => {
-    cy.visit(appLink.execution({ executionId: "5eb2c4085a92d80001a16d87", workflowId: "5ec51eca5a92d80001a2005d" }));
+    cy.visit(appLink.execution({ workflowId: "5eb2c4085a92d80001a16d87", executionId: "5ec51eca5a92d80001a2005d" }));
   });
 
   it("Redirects to activity view", function () {
@@ -24,7 +24,7 @@ describe("Execution", function () {
   });
 
   it("Redirects to editor view", function () {
-    cy.get("p").contains("Edit Workflow", { timeout: 5000 }).parent("button").click();
+    cy.findByText("Edit Workflow", { timeout: 5000 }).click();
     cy.url().should("include", "editor");
   });
 
