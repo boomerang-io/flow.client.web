@@ -187,7 +187,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
             role="tabpanel"
           />
         </nav>
-        <section
+        <div
           class="filters"
         >
           <div
@@ -587,7 +587,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
               </div>
             </div>
           </div>
-        </section>
+        </div>
         <div
           style="margin-top: 1rem;"
         >
