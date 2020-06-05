@@ -1,11 +1,13 @@
 import React from "react";
 import Inputs from ".";
 import { fireEvent, waitFor } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
+
 const mockfn = jest.fn();
 
 const props = {
   isEdit: true,
-  input: {
+  property: {
     defaultValue: "dogs",
     description: "Tim property",
     key: "tim.property",
@@ -25,6 +27,7 @@ const props = {
 describe("Inputs --- Snapshot Test", () => {
   it("Capturing Snapshot of Inputs", async () => {
     const { baseElement } = rtlContextRouterRender(<Inputs {...props} />);
+
     expect(baseElement).toMatchSnapshot();
     await waitFor(() => {});
   });
@@ -32,25 +35,41 @@ describe("Inputs --- Snapshot Test", () => {
 
 describe("Inputs --- RTL", () => {
   it("Change default value by type correctly", async () => {
-    const { getByText, queryByTestId, getByTestId } = rtlContextRouterRender(<Inputs {...props} />);
+    const { getByText, queryByTestId, getByTestId, getByPlaceholderText } = rtlContextRouterRender(
+      <Inputs {...props} />
+    );
     expect(queryByTestId("text-input")).toBeInTheDocument();
 
-    const typeSelect = getByTestId("input-type");
+    const typeSelect = getByPlaceholderText("Select an item");
+    act(() => {
+      fireEvent.change(typeSelect, { target: { value: "b" } });
+    });
 
-    fireEvent.change(typeSelect, { target: { value: "b" } });
-    fireEvent.click(getByText(/boolean/i));
+    act(() => {
+      fireEvent.click(getByText(/boolean/i));
+    });
 
     expect(queryByTestId("text-input")).not.toBeInTheDocument();
     expect(queryByTestId("toggle")).toBeInTheDocument();
 
-    fireEvent.change(typeSelect, { target: { value: "are" } });
-    fireEvent.click(getByText(/text area/i));
+    act(() => {
+      fireEvent.change(typeSelect, { target: { value: "are" } });
+    });
+
+    act(() => {
+      fireEvent.click(getByText(/text area/i));
+    });
 
     expect(queryByTestId("toggle")).not.toBeInTheDocument();
     expect(queryByTestId("text-area")).toBeInTheDocument();
 
-    fireEvent.change(typeSelect, { target: { value: "sel" } });
-    fireEvent.click(getByText(/select/i));
+    act(() => {
+      fireEvent.change(typeSelect, { target: { value: "sel" } });
+    });
+
+    act(() => {
+      fireEvent.click(getByText(/select/i));
+    });
 
     expect(queryByTestId("text-area")).not.toBeInTheDocument();
     expect(queryByTestId("select")).toBeInTheDocument();
@@ -64,15 +83,25 @@ describe("Inputs --- RTL", () => {
     );
     waitFor(() => expect(findByText(/create/i)).toBeDisabled());
 
-    const keyInput = getByPlaceholderText("key.value");
-    const labelInput = getByPlaceholderText(/name/i);
-    const typeSelect = getByLabelText(/type/i);
+    const keyInput = getByLabelText("Key");
+    const labelInput = getByLabelText("Label");
+    const typeSelect = getByPlaceholderText("Select an item");
 
-    fireEvent.change(keyInput, { target: { value: "test" } });
-    fireEvent.change(labelInput, { target: { value: "test" } });
+    act(() => {
+      fireEvent.change(keyInput, { target: { value: "test" } });
+    });
 
-    fireEvent.change(typeSelect, { target: { value: "b" } });
-    fireEvent.click(getByText(/boolean/i));
+    act(() => {
+      fireEvent.change(labelInput, { target: { value: "test" } });
+    });
+
+    act(() => {
+      fireEvent.change(typeSelect, { target: { value: "b" } });
+    });
+
+    act(() => {
+      fireEvent.click(getByText(/boolean/i));
+    });
 
     waitFor(() => expect(findByText(/create/i)).toBeEnabled());
 

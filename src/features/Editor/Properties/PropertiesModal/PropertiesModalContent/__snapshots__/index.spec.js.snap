@@ -44,7 +44,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 readonly=""
                 title=".e.g. token"
                 type="text"
-                value=""
+                value="tim.property"
               />
             </div>
           </div>
@@ -90,7 +90,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                   id="type"
                   placeholder="Select an item"
                   role="combobox"
-                  value="Select"
+                  value="Text"
                 />
                 <div
                   aria-label="Clear Selection"
@@ -166,7 +166,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 placeholder="e.g. Token"
                 title="e.g. Token"
                 type="text"
-                value=""
+                value="Tim Property"
               />
             </div>
           </div>
@@ -196,7 +196,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 class="bx--text-input bx--text__input"
                 id="description"
                 type="text"
-                value=""
+                value="Tim property"
               />
             </div>
           </div>
@@ -247,136 +247,35 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           </div>
         </div>
         <div
-          class="bx--bmrg-creatable"
+          class="bx--bmrg-text-input"
         >
           <div
-            class="bx--bmrg-creatable__input"
-          >
-            <div
-              class="bx--form-item bx--text-input-wrapper"
-            >
-              <label
-                class="bx--label"
-                for="options"
-              >
-                <div
-                  style="display: flex;"
-                >
-                  <div>
-                    Options
-                  </div>
-                </div>
-              </label>
-              <div
-                class="bx--text-input__field-wrapper"
-              >
-                <input
-                  class="bx--text-input bx--text__input"
-                  id="options"
-                  placeholder="Enter option"
-                  title="Enter option"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
-            <button
-              class="bx--bmrg-creatable__button bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
-              disabled=""
-              tabindex="0"
-              type="button"
-            >
-              Add
-              <svg
-                aria-hidden="true"
-                aria-label="Add"
-                class="bx--btn__icon"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                role="img"
-                viewBox="0 0 32 32"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <polygon
-                  points="17,15 17,8 15,8 15,15 8,15 8,17 15,17 15,24 17,24 17,17 24,17 24,15"
-                />
-              </svg>
-            </button>
-          </div>
-          <div
-            class="bx--bmrg-creatable__tags"
-          />
-        </div>
-        <div
-          class="bx--bmrg-select"
-        >
-          <div
-            class="bx--list-box__wrapper"
+            class="bx--form-item bx--text-input-wrapper"
           >
             <label
               class="bx--label"
               for="defaultValue"
             >
               <div
-                style="display: flex;"
+                class="bx--bmrg-text-input__label"
               >
                 <div>
-                  Default Option
+                  Default Value
                 </div>
               </div>
             </label>
             <div
-              class="bx--combo-box bx--list-box"
+              class="bx--text-input__field-wrapper"
             >
-              <div
-                aria-expanded="false"
-                aria-haspopup="true"
-                aria-label="open menu"
-                class="bx--list-box__field"
-                data-toggle="true"
-                role="button"
-                tabindex="-1"
-                type="button"
-              >
-                <input
-                  aria-autocomplete="list"
-                  aria-controls="defaultValue__menu"
-                  aria-expanded="false"
-                  aria-label="Choose an item"
-                  autocomplete="off"
-                  class="bx--text-input"
-                  data-testid="select"
-                  id="defaultValue"
-                  placeholder="Select option"
-                  role="combobox"
-                  value=""
-                />
-                
-                <div
-                  class="bx--list-box__menu-icon"
-                >
-                  <svg
-                    aria-label="Open menu"
-                    focusable="false"
-                    height="16"
-                    name="chevron--down"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
-                    />
-                    <title>
-                      Open menu
-                    </title>
-                  </svg>
-                </div>
-              </div>
+              <input
+                class="bx--text-input bx--text__input"
+                data-testid="text-input"
+                id="defaultValue"
+                placeholder="Default Value"
+                title="Default Value"
+                type="text"
+                value="dogs"
+              />
             </div>
           </div>
         </div>
