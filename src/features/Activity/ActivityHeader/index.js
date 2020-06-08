@@ -8,7 +8,7 @@ import styles from "./activityHeader.module.scss";
 
 ActivityHeader.propTypes = {
   inProgressActivities: PropTypes.number,
-  isError: PropTypes.bool.isRequired,
+  isError: PropTypes.bool,
   isLoading: PropTypes.bool.isRequired,
   failedActivities: PropTypes.number,
   runActivities: PropTypes.number,
@@ -46,14 +46,14 @@ function ActivityHeader({
               <ActivityHeaderWidget text="Success rate" value={"--"} />
             </>
           ) : (
-            <>
-              <p className={styles.text}>Today's numbers</p>
-              <ActivityHeaderWidget icon={ArrowUpRight32} text="Runs" value={runActivities} />
-              <ActivityHeaderWidget icon={ArrowUpRight32} text="Successes" value={succeededActivities} />
-              <ActivityHeaderWidget icon={ArrowDownRight32} text="Failures" value={failedActivities} />
-              <ActivityHeaderWidget icon={emoji} text="Success rate" value={`${successRatePercentage}%`} />
-            </>
-          )}
+                <>
+                  <p className={styles.text}>Today's numbers</p>
+                  <ActivityHeaderWidget icon={ArrowUpRight32} text="Runs" value={runActivities} />
+                  <ActivityHeaderWidget icon={ArrowUpRight32} text="Successes" value={succeededActivities} />
+                  <ActivityHeaderWidget icon={ArrowDownRight32} text="Failures" value={failedActivities} />
+                  <ActivityHeaderWidget icon={emoji} text="Success rate" value={`${successRatePercentage}%`} />
+                </>
+              )}
         </section>
       </div>
     </FeatureHeader>

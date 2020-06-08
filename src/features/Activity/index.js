@@ -188,18 +188,18 @@ export default function WorkflowActivity({ history, location, match }) {
     return (
       <div className={styles.container}>
         <ActivityHeader
-          inProgressActivities={activitySummaryState.data?.inProgress ?? 0}
+          inProgressActivities={activitySummaryState.data ?.inProgress ?? 0}
           isLoading={activitySummaryState.status === QueryStatus.Loading}
-          failedActivities={activitySummaryState.data?.failure ?? 0}
-          runActivities={activitySummaryState.data?.all ?? 0}
-          succeededActivities={activitySummaryState.data?.completed ?? 0}
+          failedActivities={activitySummaryState.data ?.failure ?? 0}
+          runActivities={activitySummaryState.data ?.all ?? 0}
+          succeededActivities={activitySummaryState.data ?.completed ?? 0}
         />
         <section aria-label="Activity" className={styles.content}>
           <nav>
             <Tabs className={styles.tabs} selected={statusIndex + 1} onSelectionChange={handleSelectStatuses}>
               <Tab label={statusSummaryDataIsLoading ? "All" : `All (${statusSummaryData.all})`} />
               <Tab
-                label={statusSummaryDataIsLoading ? "In Progress" : `In Progress (${statusSummaryData?.inProgress})`}
+                label={statusSummaryDataIsLoading ? "In Progress" : `In Progress (${statusSummaryData ?.inProgress})`}
               />
               <Tab label={statusSummaryDataIsLoading ? "Succeeded" : `Succeeded (${statusSummaryData.completed})`} />
               <Tab label={statusSummaryDataIsLoading ? "Failed" : `Failed (${statusSummaryData.failure})`} />

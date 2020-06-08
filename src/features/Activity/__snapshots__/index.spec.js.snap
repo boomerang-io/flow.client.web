@@ -187,7 +187,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
             role="tabpanel"
           />
         </nav>
-        <section
+        <div
           class="filters"
         >
           <div
@@ -259,7 +259,40 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                     class="bx--list-box__menu"
                     id="activity-teams-select__menu"
                     role="listbox"
-                  />
+                  >
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-0-item-0"
+                      title="Boomerang Flow"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-0-item-0"
+                            name="Boomerang Flow"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-0-item-0"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              Boomerang Flow
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -329,7 +362,40 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                     class="bx--list-box__menu"
                     id="activity-workflows-select__menu"
                     role="listbox"
-                  />
+                  >
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-1-item-0"
+                      title="ML Train – Bot Efficiency [Boomerang Flow]"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-1-item-0"
+                            name="ML Train – Bot Efficiency [Boomerang Flow]"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-1-item-0"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              ML Train – Bot Efficiency [Boomerang Flow]
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -587,7 +653,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
               </div>
             </div>
           </div>
-        </section>
+        </div>
         <div
           style="margin-top: 1rem;"
         >

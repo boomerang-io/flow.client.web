@@ -162,7 +162,7 @@ export default function WorkflowInsights(location) {
           </>
         ) : (
             <>
-              <div className={styles.statsWidgets}>
+              <div className={styles.statsWidgets} data-testid="completed-insights">
                 <div className={styles.insightsCards} style={{ flexDirection: hasSelectedWorkflow ? "column" : "row" }}>
                   <InsightsTile
                     title="Executions"
