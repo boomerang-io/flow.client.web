@@ -2,7 +2,6 @@ import { Server, Serializer, Model } from "miragejs";
 import { inflections } from "inflected";
 import fixtures from "./fixtures";
 import { serviceUrl } from "Config/servicesConfig";
-import moment from "moment";
 import uuid from "uuid/v4";
 import queryString from "query-string";
 
@@ -136,7 +135,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.get(serviceUrl.getInsights({ query: null }), (schema, request) => {
         //grab the querystring from the end of the request url
         const query = request.url.substring(14)
-        const { fromDate = null, toDate = null, teamId = null } = queryString.parse(query);
+        const { teamId = null } = queryString.parse(query);
         const activeTeam = teamId && schema.db.teams.find(teamId)
         let activeExecutions = activeTeam && schema.db.insights[0].executions.filter(team => team.teamName === activeTeam.name)
         return activeExecutions ? { ...schema.db.insights[0], executions: activeExecutions } : schema.db.insights[0];
