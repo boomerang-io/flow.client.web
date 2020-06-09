@@ -50,7 +50,10 @@ export default function EditorContainer() {
     onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
   });
   const [mutateRevision, revisionMutation] = useMutation(resolver.postCreateWorkflowRevision, {
-    onSuccess: () => queryCache.refetchQueries(getSummaryUrl),
+    onSuccess: () => {
+      queryCache.refetchQueries(serviceUrl.getTeams());
+      queryCache.refetchQueries(getSummaryUrl);
+    },
   });
 
   /**
@@ -147,7 +150,7 @@ export function EditorStateContainer({
       case RevisionActionTypes.DeleteNode: {
         let { nodeId } = action.data;
         delete state.config[nodeId];
-        state.dag.nodes = state.dag?.nodes?.filter((node) => node.nodeId !== nodeId) ?? [];
+        state.dag.nodes = state.dag ?.nodes ?.filter((node) => node.nodeId !== nodeId) ?? [];
         state.hasUnsavedWorkflowRevisionUpdates = true;
         return state;
       }
@@ -231,7 +234,7 @@ export function EditorStateContainer({
    * @param {Object} formikValues - key/value pairs for inputs
    */
   const updateSummary = async ({ values: formikValues, callback }) => {
-    const flowTeamId = formikValues?.selectedTeam?.id;
+    const flowTeamId = formikValues ?.selectedTeam ?.id;
     const updatedWorkflow = { ...summaryData, ...formikValues, flowTeamId };
 
     try {
@@ -284,15 +287,15 @@ export function EditorStateContainer({
     }
 
     const { id, taskId, currentVersion } = node;
-    const currentTaskConfig = taskData.revisions?.find((revision) => revision.version === currentVersion) ?? {};
+    const currentTaskConfig = taskData.revisions ?.find((revision) => revision.version === currentVersion) ?? {};
 
     // Create inputs object with empty string values by default for service to process easily
     const inputs =
       Array.isArray(currentTaskConfig.config) && currentTaskConfig.config.length
         ? currentTaskConfig.config.reduce((accu, item) => {
-            accu[item.key] = "";
-            return accu;
-          }, {})
+          accu[item.key] = "";
+          return accu;
+        }, {})
         : {};
     revisionDispatch({
       type: RevisionActionTypes.AddNode,
