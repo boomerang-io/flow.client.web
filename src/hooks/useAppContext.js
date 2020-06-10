@@ -1,8 +1,8 @@
-import { useContext } from "react";
-import { AppContext } from "State/context";
+import { useTracked } from "State/reducers/app";
 
 function useAppContext() {
-  return useContext(AppContext);
+  const [state, dispatch] = useTracked();
+  return { ...state, dispatch };
 }
 
 export default useAppContext;

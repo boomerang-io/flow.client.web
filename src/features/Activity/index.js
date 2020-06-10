@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useQuery } from "Hooks";
+import { useAppContext, useQuery } from "Hooks";
 import {
   DatePicker,
   DatePickerInput,
@@ -19,7 +19,6 @@ import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./workflowActivity.module.scss";
 
-import { useAppContext } from "Hooks";
 import { QueryStatus } from "Constants";
 
 const MultiSelect = Select.Filterable;

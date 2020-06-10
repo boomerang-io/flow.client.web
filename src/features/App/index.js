@@ -1,6 +1,6 @@
-import React, { useState, useMemo, Suspense } from "react";
+import React, { lazy, useState, Suspense } from "react";
+import { Provider, reducer } from "State/reducers/app";
 import { useQuery } from "Hooks";
-import { detect } from "detect-browser";
 import { Switch, Route, Redirect } from "react-router-dom";
 import {
   ErrorBoundary,
@@ -9,27 +9,27 @@ import {
   NotificationsContainer,
   ProtectedRoute,
 } from "@boomerang/carbon-addons-boomerang-react";
+import ErrorDragon from "Components/ErrorDragon";
 import OnBoardExpContainer from "Features/OnBoard";
 import Navbar from "./Navbar";
 import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
-import {
-  AsyncActivity,
-  AsyncEditor,
-  AsyncExecution,
-  AsyncGlobalConfiguration,
-  AsyncInsights,
-  AsyncTaskTemplates,
-  AsyncTeamProperties,
-  AsyncWorkflows,
-} from "./asyncFeatureImports";
-import { UserType } from "Constants";
-import ErrorDragon from "Components/ErrorDragon";
+import { detect } from "detect-browser";
+import { QueryStatus, UserType } from "Constants";
 import { appPath } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { AppContext } from "State/context";
-import { QueryStatus } from "Constants";
 import styles from "./app.module.scss";
+
+const Activity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/Activity"));
+const Editor = lazy(() => import(/* webpackChunkName: "Editor =" */ "Features/Editor"));
+const Execution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/Execution"));
+const GlobalConfiguration = lazy(() =>
+  import(/* webpackChunkName: "GlobalConfiguration" */ "Features/GlobalProperties")
+);
+const Insights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
+const TaskTemplates = lazy(() => import(/* webpackChunkName: "Task Templates" */ "Features/TaskTemplates"));
+const TeamProperties = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/TeamProperties"));
+const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Features/Workflows"));
 
 const userUrl = serviceUrl.getUserProfile();
 const navigationUrl = serviceUrl.getNavigation();
@@ -40,7 +40,6 @@ const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
 export default function App() {
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(!supportedBrowsers.includes(browser.name));
-  const [activeTeam, setActiveTeam] = useState(undefined);
   const [onBoardShow, setOnBoardShow] = useState(false);
 
   const userQuery = useQuery(userUrl);
@@ -66,93 +65,122 @@ export default function App() {
     navigationQuery.status === QueryStatus.Error ||
     teamsQuery.status === QueryStatus.Error;
 
-  const renderAppContent = useMemo(
-    () => () => {
-      if (isLoadingInitialData) {
-        return <Loading />;
-      }
-
-      if (isErrorState) {
-        return <ErrorDragon style={{ margin: "5rem 0" }} />;
-      }
-
-      // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
-      if (!userId) {
-        return null;
-      }
-
-      // Show redirect prompt if the user doesn't have any teams
-      if (Object.keys(teamsData).length === 0) {
-        return <NoAccessRedirectPrompt />;
-      }
-
-      if (shouldShowBrowserWarning) {
-        return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
-      }
-
-      if (isSuccessState) {
-        return (
-          <main id="content" className={styles.container}>
-            <Suspense fallback={<Loading />}>
-              <Switch>
-                <ProtectedRoute
-                  allowedUserRoles={allowedUserRoles}
-                  component={<AsyncGlobalConfiguration />}
-                  path={appPath.properties}
-                  userRole={platformRole}
-                />
-                <ProtectedRoute
-                  allowedUserRoles={allowedUserRoles}
-                  component={<AsyncTeamProperties />}
-                  path={appPath.teamProperties}
-                  userRole={platformRole}
-                />
-                <ProtectedRoute
-                  allowedUserRoles={allowedUserRoles}
-                  component={<AsyncTaskTemplates />}
-                  path={appPath.taskTemplates}
-                  userRole={platformRole}
-                />
-                <Route path={appPath.execution} component={AsyncExecution} />
-                <Route path={appPath.activity} component={AsyncActivity} />
-                <Route path={appPath.editor} component={AsyncEditor} />
-                <Route path={appPath.insights} component={AsyncInsights} />
-                <Route path={appPath.workflows} component={AsyncWorkflows} />
-                <Redirect exact from="/" to={appPath.workflows} />
-                <Route path="*" component={Error404} />
-              </Switch>
-            </Suspense>
-            <NotificationsContainer enableMultiContainer />
-          </main>
-        );
-      }
-
-      return null;
-    },
-    [isLoadingInitialData, isErrorState, isSuccessState, platformRole, shouldShowBrowserWarning, teamsData, userId]
-  );
-
   return (
     <>
-      <AppContext.Provider
-        value={{
-          user: userData,
-          teams: teamsData,
-          teamsQuery: teamsQuery,
-          activeTeam: activeTeam,
-          setActiveTeam: setActiveTeam,
-          onBoardShow: onBoardShow,
-          setOnBoardShow: setOnBoardShow,
-        }}
-      >
-        <Navbar
-          handleOnTutorialClick={() => setOnBoardShow(true)}
-          navigationState={navigationQuery}
-          userState={userQuery}
+      <Navbar
+        handleOnTutorialClick={() => setOnBoardShow(true)}
+        navigationState={navigationQuery}
+        userState={userQuery}
+      />
+      <OnBoardExpContainer onBoardShow={onBoardShow} setOnBoardShow={setOnBoardShow} />
+      <ErrorBoundary errorComponent={ErrorDragon}>
+        <Main
+          isLoadingInitialData={isLoadingInitialData}
+          isErrorState={isErrorState}
+          isSuccessState={isSuccessState}
+          platformRole={platformRole}
+          onBoardShow={onBoardShow}
+          setOnBoardShow={setOnBoardShow}
+          setShouldShowBrowserWarning={setShouldShowBrowserWarning}
+          shouldShowBrowserWarning={shouldShowBrowserWarning}
+          teamsData={teamsData}
+          userData={userData}
+          userId={userId}
         />
-        <OnBoardExpContainer />
-        <ErrorBoundary errorComponent={ErrorDragon}>{renderAppContent()}</ErrorBoundary>
-      </AppContext.Provider>
+      </ErrorBoundary>
     </>
   );
+}
+
+function Main({
+  isLoadingInitialData,
+  isErrorState,
+  isSuccessState,
+  platformRole,
+  onBoardShow,
+  setOnBoardShow,
+  setShouldShowBrowserWarning,
+  shouldShowBrowserWarning,
+  teamsData,
+  userData,
+  userId,
+}) {
+  if (isLoadingInitialData) {
+    return <Loading />;
+  }
+
+  if (isErrorState) {
+    return <ErrorDragon style={{ margin: "5rem 0" }} />;
+  }
+
+  // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
+  if (!userId) {
+    return null;
+  }
+
+  // Show redirect prompt if the user doesn't have any teams
+  if (Object.keys(teamsData).length === 0) {
+    return <NoAccessRedirectPrompt />;
+  }
+
+  if (shouldShowBrowserWarning) {
+    return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
+  }
+
+  if (isSuccessState) {
+    return (
+      <Provider
+        reducer={reducer}
+        initialState={{
+          user: userData,
+          teams: teamsData,
+        }}
+      >
+        <main id="content" className={styles.container}>
+          <Suspense fallback={<Loading />}>
+            <Switch>
+              <ProtectedRoute
+                allowedUserRoles={allowedUserRoles}
+                component={<GlobalConfiguration />}
+                path={appPath.properties}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={allowedUserRoles}
+                component={<TeamProperties />}
+                path={appPath.teamProperties}
+                userRole={platformRole}
+              />
+              <ProtectedRoute
+                allowedUserRoles={allowedUserRoles}
+                component={<TaskTemplates />}
+                path={appPath.taskTemplates}
+                userRole={platformRole}
+              />
+              <Route path={appPath.execution}>
+                <Execution />
+              </Route>
+              <Route path={appPath.activity}>
+                <Activity />
+              </Route>
+              <Route path={appPath.editor}>
+                <Editor />
+              </Route>
+              <Route path={appPath.insights}>
+                <Insights />
+              </Route>
+              <Route path={appPath.workflows}>
+                <Workflows onBoardShow={onBoardShow} setOnBoardShow={setOnBoardShow} teams={teamsData} />
+              </Route>
+              <Redirect exact from="/" to={appPath.workflows} />
+              <Route path="*" component={Error404} />
+            </Switch>
+          </Suspense>
+          <NotificationsContainer enableMultiContainer />
+        </main>
+      </Provider>
+    );
+  }
+
+  return null;
 }
