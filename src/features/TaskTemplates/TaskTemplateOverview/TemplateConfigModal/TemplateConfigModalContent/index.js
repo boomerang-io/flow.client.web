@@ -17,17 +17,17 @@ import { InputProperty, InputType } from "Constants";
 import styles from "./TemplateConfigModalContent.module.scss";
 
 const INPUT_TYPES_LABELS = [
-  { label: "Boolean", value: "boolean" },
-  { label: "Email", value: "email" },
-  { label: "Number", value: "number" },
-  { label: "Password", value: "password" },
-  { label: "Select", value: "select" },
-  { label: "Text", value: "text" },
-  { label: "Text Area", value: "textarea" },
-  { label: "Text Editor - JavaScript/JSON", value: "texteditor::javascript" },
-  { label: "Text Editor - Shell", value: "texteditor::shell" },
-  { label: "Text Editor - Text", value: "texteditor::text" },
-  { label: "Text Editor - YAML", value: "texteditor::yaml" },
+  { label: "Boolean", value: InputType.Boolean },
+  { label: "Email", value: InputType.Email },
+  { label: "Number", value: InputType.Number },
+  { label: "Password", value: InputType.Password },
+  { label: "Select", value: InputType.Select },
+  { label: "Text", value: InputType.Text },
+  { label: "Text Area", value: InputType.TextArea },
+  { label: "Text Editor - JavaScript/JSON", value: InputType.TextEditorJs },
+  { label: "Text Editor - Shell", value: InputType.TextEditorShell },
+  { label: "Text Editor - Text", value: InputType.TextEditorText },
+  { label: "Text Editor - YAML", value: InputType.TextEditorYaml },
   { label: "Time", value: "time" },
   { label: "URL", value: "url" },
 ];
@@ -51,7 +51,7 @@ class TemplateConfigModalContent extends Component {
   };
 
   state = {
-    defaultValueType: "text",
+    defaultValueType: InputType.Text,
   };
 
   handleOnChange = (e, formikChange) => {
@@ -164,10 +164,10 @@ class TemplateConfigModalContent extends Component {
           />
         );
       case InputType.TextEditor:
-      case InputType.TextEditor_JS:
-      case InputType.TextEditor_TEXT:
-      case InputType.TextEditor_SHELL:
-      case InputType.TextEditor_YAML:
+      case InputType.TextEditorJs:
+      case InputType.TextEditorText:
+      case InputType.TextEditorShell:
+      case InputType.TextEditorYaml:
         return (
           <TextEditorInput
             data-testid="texteditor"
@@ -218,6 +218,7 @@ class TemplateConfigModalContent extends Component {
   };
 
   render() {
+    console.log(this.props.field);
     const { field, isEdit, fieldKeys } = this.props;
     let defaultValueType = this.state.defaultValueType;
     return (
@@ -232,11 +233,7 @@ class TemplateConfigModalContent extends Component {
           [InputProperty.HelperText]: field?.helperText ?? "",
           [InputProperty.ReadOnly]: field?.readOnly ?? false,
           [InputProperty.Required]: field?.required ?? false,
-          [InputProperty.Type]: field
-            ? field.type === "texteditor"
-              ? INPUT_TYPES_LABELS[7]
-              : INPUT_TYPES_LABELS.find((type) => type?.value === field.type)
-            : {},
+          [InputProperty.Type]: field?.type ? INPUT_TYPES_LABELS.find((type) => type?.value === field.type) : {},
           [InputProperty.DefaultValue]: field?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
           [InputProperty.Options]:
