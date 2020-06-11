@@ -1,11 +1,14 @@
 import React from "react";
 import { waitFor, fireEvent } from "@testing-library/react";
 import WorkflowInsights from "./index";
-// import mockAxios from "Utilities/testing/axios";
-// import { serviceUrl } from "Config/servicesConfig";
 import { startApiServer } from "../../apiServer";
-// import { appPath } from "Config/appConfig";
 
+jest.mock("@carbon/charts-react", () => ({
+  ...jest.requireActual("@carbon/charts-react"),
+  DonutChart: "DonutChart",
+  LineChart: "LineChart",
+  ScatterChart: "ScatterChart",
+}));
 
 const props = {
   teams: {
@@ -42,12 +45,6 @@ const props = {
   },
 };
 
-// const insightsQuery = "fromDate=1535760000000&toDate=1535760000000";
-
-// beforeEach(() => {
-//   mockAxios.resetHistory();
-// });
-
 let server;
 
 beforeEach(() => {
@@ -58,16 +55,11 @@ afterEach(() => {
   server.shutdown();
 });
 
-
 describe("WorkflowInsights --- Snapshot", () => {
-  // mockAxios.onGet(serviceUrl.getInsights({ query: insightsQuery })).reply(200, props.insights.data);
   it("Capturing Snapshot of WorkflowInsights", async () => {
-    const { baseElement, getByText } = rtlContextRouterRender(
-      <WorkflowInsights />
-    );
-    await waitFor(() => expect(getByText(/Duration (median)/i)).toBeInTheDocument());
+    const { baseElement, getByText, getByTestId } = rtlContextRouterRender(<WorkflowInsights />);
+    await waitFor(() => getByTestId("completed-insights"));
     expect(baseElement).toMatchSnapshot();
-
   });
 });
 

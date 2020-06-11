@@ -53,13 +53,11 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
             </label>
             <div
               class="bx--combo-box bx--list-box"
-              role="listbox"
-              tabindex="-1"
             >
               <div
                 aria-expanded="false"
                 aria-haspopup="true"
-                aria-label="Open menu"
+                aria-label="open menu"
                 class="bx--list-box__field"
                 data-toggle="true"
                 role="button"
@@ -88,16 +86,16 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 >
                   <svg
                     aria-hidden="true"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: transform;"
-                    viewBox="0 0 16 16"
+                    viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
                     />
                   </svg>
                 </div>
@@ -106,18 +104,18 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 >
                   <svg
                     aria-label="Open menu"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     name="chevron--down"
                     preserveAspectRatio="xMidYMid meet"
                     role="img"
-                    style="will-change: transform;"
                     viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                      d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                     />
                     <title>
                       Open menu
@@ -148,13 +146,11 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
             </label>
             <div
               class="bx--combo-box bx--list-box"
-              role="listbox"
-              tabindex="-1"
             >
               <div
                 aria-expanded="false"
                 aria-haspopup="true"
-                aria-label="Open menu"
+                aria-label="open menu"
                 class="bx--list-box__field"
                 data-toggle="true"
                 role="button"
@@ -182,16 +178,16 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 >
                   <svg
                     aria-hidden="true"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: transform;"
-                    viewBox="0 0 16 16"
+                    viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
                     />
                   </svg>
                 </div>
@@ -200,18 +196,18 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 >
                   <svg
                     aria-label="Open menu"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     name="chevron--down"
                     preserveAspectRatio="xMidYMid meet"
                     role="img"
-                    style="will-change: transform;"
                     viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                      d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                     />
                     <title>
                       Open menu
@@ -242,13 +238,11 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
             </label>
             <div
               class="bx--combo-box bx--list-box"
-              role="listbox"
-              tabindex="-1"
             >
               <div
                 aria-expanded="false"
                 aria-haspopup="true"
-                aria-label="Open menu"
+                aria-label="open menu"
                 class="bx--list-box__field"
                 data-toggle="true"
                 role="button"
@@ -276,16 +270,16 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 >
                   <svg
                     aria-hidden="true"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: transform;"
-                    viewBox="0 0 16 16"
+                    viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M12 4.7l-.7-.7L8 7.3 4.7 4l-.7.7L7.3 8 4 11.3l.7.7L8 8.7l3.3 3.3.7-.7L8.7 8z"
+                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
                     />
                   </svg>
                 </div>
@@ -294,18 +288,18 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 >
                   <svg
                     aria-label="Open menu"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     name="chevron--down"
                     preserveAspectRatio="xMidYMid meet"
                     role="img"
-                    style="will-change: transform;"
                     viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M8 11L3 6l.7-.7L8 9.6l4.3-4.3.7.7z"
+                      d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
                     />
                     <title>
                       Open menu
@@ -319,6 +313,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
       </div>
       <div
         class="statsWidgets"
+        data-testid="completed-insights"
       >
         <div
           class="insightsCards"
@@ -340,7 +335,7 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                 <p
                   class="totalCount"
                 >
-                  0
+                  3
                 </p>
                 <p
                   class="type"
@@ -351,7 +346,23 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
             </div>
             <ul
               class="list"
-            />
+            >
+              <li
+                class="row"
+              >
+                <p
+                  class="itemValue"
+                  style="width: 2rem;"
+                >
+                  1
+                </p>
+                <p
+                  class="itemLabel"
+                >
+                  Boomerang Flow
+                </p>
+              </li>
+            </ul>
           </div>
           <div
             class="bx--tile container"
@@ -448,11 +459,14 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
               />
             </div>
           </div>
-          <p
-            class="statsLabel --no-data"
+          <div
+            class="CarbonDonutChart"
           >
-            No Data
-          </p>
+            <donutchart
+              data="[object Object]"
+              options="[object Object]"
+            />
+          </div>
         </div>
       </div>
       <div
@@ -479,11 +493,14 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
               />
             </div>
           </div>
-          <p
-            class="graphsLabel --no-data"
+          <div
+            class="CarbonTimeLineChart"
           >
-            No Data
-          </p>
+            <linechart
+              data="[object Object]"
+              options="[object Object]"
+            />
+          </div>
         </div>
         <div
           class="bx--tile container"
@@ -506,11 +523,14 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
               />
             </div>
           </div>
-          <p
-            class="graphsLabel --no-data"
+          <div
+            class="CarbonTimeScatterChart"
           >
-            No Data
-          </p>
+            <scatterchart
+              data="[object Object]"
+              options="[object Object]"
+            />
+          </div>
         </div>
       </div>
     </div>
