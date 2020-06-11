@@ -7,7 +7,9 @@ import styles from "./teamProperties.module.scss";
 
 function TeamProperties() {
   const [activeTeam, setActiveTeam] = useState({});
-  const { teams } = useAppContext();
+  const {
+    state: { teams },
+  } = useAppContext();
 
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: activeTeam?.id });
   /** Get team properties */

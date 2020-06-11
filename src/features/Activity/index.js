@@ -39,7 +39,9 @@ const activitySummaryQuery = queryString.stringify({
 });
 
 export default function WorkflowActivity({ history, location, match }) {
-  const { teams: teamsState } = useAppContext();
+  const {
+    state: { teams: teamsState },
+  } = useAppContext();
 
   const {
     order = DEFAULT_ORDER,

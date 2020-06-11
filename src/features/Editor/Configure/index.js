@@ -27,17 +27,7 @@ import { CopyFile16, EventSchedule16, Save24, ViewFilled16 } from "@carbon/icons
 import workflowIcons from "Assets/workflowIcons";
 import styles from "./configure.module.scss";
 
-ConfigureContainer.propTypes = {
-  history: PropTypes.object,
-  isOnRoute: PropTypes.bool.isRequired,
-  params: PropTypes.object,
-  summaryData: PropTypes.object.isRequired,
-  summaryMutation: PropTypes.object.isRequired,
-  teams: PropTypes.array.isRequired,
-  updateSummary: PropTypes.func.isRequired,
-};
-
-export default function ConfigureContainer({
+const ConfigureContainer = React.memo(function ConfigureContainer({
   history,
   isOnRoute,
   params,
@@ -122,7 +112,19 @@ export default function ConfigureContainer({
       }
     </Formik>
   );
-}
+});
+
+ConfigureContainer.propTypes = {
+  history: PropTypes.object,
+  isOnRoute: PropTypes.bool.isRequired,
+  params: PropTypes.object,
+  summaryData: PropTypes.object.isRequired,
+  summaryMutation: PropTypes.object.isRequired,
+  teams: PropTypes.array.isRequired,
+  updateSummary: PropTypes.func.isRequired,
+};
+
+export default ConfigureContainer;
 
 class Configure extends Component {
   constructor(props) {
@@ -141,24 +143,6 @@ class Configure extends Component {
     teams: PropTypes.array.isRequired,
     updateSummary: PropTypes.func.isRequired,
   };
-
-  // componentDidMount() {
-  //   window.addEventListener("beforeunload", this.handleBeforeUnloadEvent);
-  // }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener("beforeunload", this.handleBeforeUnloadEvent);
-  // }
-
-  // handleBeforeUnloadEvent = (event) => {
-  //   const {
-  //     formikProps: { dirty },
-  //   } = this.props;
-  //   if (dirty) {
-  //     event.preventDefault();
-  //     event.returnValue = "You have unsaved changes.";
-  //   }
-  // };
 
   generateToken = (e) => {
     if (e) {
