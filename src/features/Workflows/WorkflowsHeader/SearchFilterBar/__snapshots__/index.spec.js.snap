@@ -19,6 +19,7 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
           <svg
             aria-hidden="true"
             class="bx--search-magnifier"
+            fill="currentColor"
             focusable="false"
             height="16"
             preserveAspectRatio="xMidYMid meet"
@@ -40,6 +41,7 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
           <input
             autocomplete="off"
             class="bx--search-input"
+            data-cy="workflows-team-search"
             id="search-team-workflows"
             placeholder="Search for a workflow"
             role="searchbox"
@@ -53,6 +55,7 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
           >
             <svg
               aria-hidden="true"
+              fill="currentColor"
               focusable="false"
               height="20"
               preserveAspectRatio="xMidYMid meet"
@@ -103,6 +106,7 @@ exports[`SearchFilterBar --- Snapshot Capturing Snapshot of SearchFilterBar 1`] 
               <svg
                 aria-hidden="true"
                 class="bx--select__arrow"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"

@@ -45,6 +45,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
           >
             <h1
               class="name"
+              data-cy="workflow-card-title"
               title="lucas-workflow-3"
             >
               lucas-workflow-3
@@ -68,6 +69,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
             aria-hidden="true"
             aria-label="Run Workflow"
             class="bx--btn__icon"
+            fill="currentColor"
             focusable="false"
             height="20"
             preserveAspectRatio="xMidYMid meet"
@@ -99,6 +101,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
         <svg
           aria-label="Overflow menu icon"
           class="bx--overflow-menu__icon"
+          fill="currentColor"
           focusable="false"
           height="16"
           preserveAspectRatio="xMidYMid meet"

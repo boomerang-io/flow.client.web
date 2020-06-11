@@ -61,6 +61,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
               </a>
               <svg
                 aria-hidden="true"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -236,6 +237,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                     >
                       <svg
                         aria-label="Open menu"
+                        fill="currentColor"
                         focusable="false"
                         height="16"
                         name="chevron--down"
@@ -306,6 +308,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                     >
                       <svg
                         aria-label="Open menu"
+                        fill="currentColor"
                         focusable="false"
                         height="16"
                         name="chevron--down"
@@ -376,6 +379,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                     >
                       <svg
                         aria-label="Open menu"
+                        fill="currentColor"
                         focusable="false"
                         height="16"
                         name="chevron--down"
@@ -532,6 +536,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                   <svg
                     aria-hidden="true"
                     class="bx--date-picker__icon"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -571,6 +576,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                   <svg
                     aria-hidden="true"
                     class="bx--date-picker__icon"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"

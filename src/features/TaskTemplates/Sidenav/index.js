@@ -49,7 +49,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
 
   let categories = tasksToDisplay
     .reduce((acc, task) => {
-      const newCategory = !acc.find((category) => task.category.toLowerCase() === category?.toLowerCase());
+      const newCategory = !acc.find((category) => task.category.toLowerCase() === category ?.toLowerCase());
       if (newCategory) acc.push(capitalize(task.category));
       return acc;
     }, [])
@@ -108,6 +108,8 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
         </div>
         <section className={styles.tools}>
           <Search
+            data-cy="task-templates-search"
+            id="task-templates-search"
             size="sm"
             labelText="Search for a task"
             onChange={handleOnSearchInputChange}
@@ -163,7 +165,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
               key={`${category.name}${index}`}
             >
               {category.tasks.map((task) => (
-                <Task key={task.id} task={task} isActive={globalMatch?.params?.taskTemplateId === task.id} />
+                <Task key={task.id} task={task} isActive={globalMatch ?.params ?.taskTemplateId === task.id} />
               ))}
             </AccordionItem>
           );

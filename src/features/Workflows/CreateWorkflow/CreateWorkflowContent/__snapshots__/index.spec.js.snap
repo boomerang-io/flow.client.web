@@ -64,6 +64,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
                   >
                     <svg
                       aria-label="Open menu"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       name="chevron--down"
@@ -387,6 +388,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
         </button>
         <button
           class="bx--btn bx--btn--primary bx--btn--disabled"
+          data-cy="workflows-create-workflow-submit"
           disabled=""
           tabindex="0"
           type="submit"

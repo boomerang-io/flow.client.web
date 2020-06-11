@@ -31,6 +31,7 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty }) => {
         ariaLabel="Overflow menu"
         iconDescription="Overflow menu icon"
         data-testid="configuration-property-table-overflow-menu"
+        data-cy="global-property-menu-button"
       >
         {menuOptions.map((option, index) => (
           <OverflowMenuItem key={index} primaryFocus {...option} />

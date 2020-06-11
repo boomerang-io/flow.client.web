@@ -96,6 +96,7 @@ class ChangeLogTable extends Component {
           labelText="Search"
           placeHolderText="Search"
           onChange={this.handleSearchChange}
+          data-cy="change-log-search"
         />
         {totalItems > 0 ? (
           <>
@@ -147,8 +148,8 @@ class ChangeLogTable extends Component {
             />
           </>
         ) : (
-          <Error404 header={null} message={null} title="No change logs found" />
-        )}
+            <Error404 header={null} message={null} title="No change logs found" />
+          )}
       </div>
     );
   }

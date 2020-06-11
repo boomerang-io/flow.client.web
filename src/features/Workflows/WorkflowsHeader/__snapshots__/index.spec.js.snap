@@ -39,6 +39,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
               <svg
                 aria-hidden="true"
                 class="bx--search-magnifier"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -60,6 +61,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
               <input
                 autocomplete="off"
                 class="bx--search-input"
+                data-cy="workflows-team-search"
                 id="search-team-workflows"
                 placeholder="Search for a workflow"
                 role="searchbox"
@@ -73,6 +75,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
               >
                 <svg
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="20"
                   preserveAspectRatio="xMidYMid meet"
@@ -130,6 +133,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
                   >
                     <svg
                       aria-label="Open menu"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       name="chevron--down"

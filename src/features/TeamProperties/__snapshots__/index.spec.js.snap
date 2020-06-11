@@ -80,6 +80,7 @@ exports[`TeamProperties --- Snapshot Test Capturing Snapshot of TeamProperties 1
                       aria-label="Choose an item"
                       autocomplete="off"
                       class="bx--text-input"
+                      data-cy="team-properties-comboBox"
                       id="team-properties-select"
                       placeholder="Select a team"
                       role="combobox"
@@ -91,6 +92,7 @@ exports[`TeamProperties --- Snapshot Test Capturing Snapshot of TeamProperties 1
                     >
                       <svg
                         aria-label="Open menu"
+                        fill="currentColor"
                         focusable="false"
                         height="16"
                         name="chevron--down"

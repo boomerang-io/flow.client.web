@@ -156,7 +156,7 @@ function CreateEditModeModalContent({
               <Button kind="secondary" onClick={closeModal} type="button">
                 Cancel
               </Button>
-              <Button type="submit" disabled={!isValid || isLoading}>
+              <Button type="submit" disabled={!isValid || isLoading} data-cy="workflows-create-workflow-submit">
                 {isLoading ? "Creating..." : "Create"}
               </Button>
             </ModalFooter>

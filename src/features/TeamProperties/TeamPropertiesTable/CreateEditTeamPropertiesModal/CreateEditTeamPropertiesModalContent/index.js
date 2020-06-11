@@ -69,7 +69,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
           />
         );
         closeModal();
-      } catch (err) {}
+      } catch (err) { }
     } else {
       try {
         const response = await addTeamPropertyMutation({ id: team.id, body: newTeamProperty });
@@ -186,7 +186,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={!isValid || loading}>
+              <Button data-cy="team-property-create-submission-button" type="submit" disabled={!isValid || loading}>
                 {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating..." : "Create"}
               </Button>
             </ModalFooter>

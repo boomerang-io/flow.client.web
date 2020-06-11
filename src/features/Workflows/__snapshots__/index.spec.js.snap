@@ -17,6 +17,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
           <svg
             aria-label="close"
             class="closeIcon"
+            fill="currentColor"
             focusable="false"
             height="32"
             preserveAspectRatio="xMidYMid meet"
@@ -46,6 +47,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
           <svg
             aria-label="collapse"
             class="collapseIcon"
+            fill="currentColor"
             focusable="false"
             height="32"
             preserveAspectRatio="xMidYMid meet"
@@ -136,6 +138,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 <svg
                   aria-hidden="true"
                   class="bx--search-magnifier"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -157,6 +160,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 <input
                   autocomplete="off"
                   class="bx--search-input"
+                  data-cy="workflows-team-search"
                   id="search-team-workflows"
                   placeholder="Search for a workflow"
                   role="searchbox"
@@ -170,6 +174,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 >
                   <svg
                     aria-hidden="true"
+                    fill="currentColor"
                     focusable="false"
                     height="20"
                     preserveAspectRatio="xMidYMid meet"
@@ -227,6 +232,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                     >
                       <svg
                         aria-label="Open menu"
+                        fill="currentColor"
                         focusable="false"
                         height="16"
                         name="chevron--down"
@@ -347,6 +353,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                   >
                     <h1
                       class="name"
+                      data-cy="workflow-card-title"
                       title="ML Train – Bot Efficiency"
                     >
                       ML Train – Bot Efficiency
@@ -373,6 +380,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                     aria-hidden="true"
                     aria-label="Run Workflow"
                     class="bx--btn__icon"
+                    fill="currentColor"
                     focusable="false"
                     height="20"
                     preserveAspectRatio="xMidYMid meet"
@@ -404,6 +412,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 <svg
                   aria-label="Overflow menu icon"
                   class="bx--overflow-menu__icon"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -435,10 +444,12 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             </div>
             <button
               class="container"
+              data-cy="workflows-create-workflow-button"
             >
               <svg
                 aria-hidden="true"
                 class="addIcon"
+                fill="currentColor"
                 focusable="false"
                 height="32"
                 preserveAspectRatio="xMidYMid meet"

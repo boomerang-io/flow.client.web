@@ -56,6 +56,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-label="Sort rows by this header in ascending order"
                       class="bx--table-sort__icon"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -71,6 +72,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-label="Sort rows by this header in ascending order"
                       class="bx--table-sort__icon-unsorted"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -102,6 +104,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-label="Sort rows by this header in ascending order"
                       class="bx--table-sort__icon"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -117,6 +120,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-label="Sort rows by this header in ascending order"
                       class="bx--table-sort__icon-unsorted"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -148,6 +152,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-label="Sort rows by this header in ascending order"
                       class="bx--table-sort__icon"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -163,6 +168,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-label="Sort rows by this header in ascending order"
                       class="bx--table-sort__icon-unsorted"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -194,6 +200,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-label="Sort rows by this header in ascending order"
                       class="bx--table-sort__icon"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -209,6 +216,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-label="Sort rows by this header in ascending order"
                       class="bx--table-sort__icon-unsorted"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -240,6 +248,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-label="Sort rows by this header in ascending order"
                       class="bx--table-sort__icon"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -255,6 +264,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-label="Sort rows by this header in ascending order"
                       class="bx--table-sort__icon-unsorted"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -346,6 +356,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-hidden="true"
                       class="bx--select__arrow"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -402,6 +413,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
                     <svg
                       aria-hidden="true"
                       class="bx--select__arrow"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -430,6 +442,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
             >
               <svg
                 aria-hidden="true"
+                fill="currentColor"
                 focusable="false"
                 height="24"
                 preserveAspectRatio="xMidYMid meet"
@@ -450,6 +463,7 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
             >
               <svg
                 aria-hidden="true"
+                fill="currentColor"
                 focusable="false"
                 height="24"
                 preserveAspectRatio="xMidYMid meet"

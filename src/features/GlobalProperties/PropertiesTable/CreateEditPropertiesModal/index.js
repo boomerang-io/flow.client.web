@@ -27,6 +27,7 @@ function CreateEditPropertiesModal({ isEdit, isOpen, handleEditClose, property, 
       modalTrigger={({ openModal }) =>
         !isEdit ? (
           <Button
+            data-cy="create-global-property-button"
             data-testid="create-global-configurations-property-button"
             iconDescription="Create Property"
             renderIcon={Add16}

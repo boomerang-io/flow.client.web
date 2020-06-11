@@ -157,7 +157,7 @@ function WorkflowCard({ teamId, workflow }) {
             <Icon className={styles.icon} alt={`${name}`} />
           </div>
           <div className={styles.descriptionContainer}>
-            <h1 title={workflow.name} className={styles.name}>
+            <h1 title={workflow.name} className={styles.name} data-cy="workflow-card-title">
               {workflow.name}
             </h1>
             <p title={workflow.shortDescription} className={styles.description}>
@@ -196,34 +196,34 @@ function WorkflowCard({ teamId, workflow }) {
             )}
           </ComposedModal>
         ) : (
-          <ComposedModal
-            composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
-            modalHeaderProps={{
-              title: "Execute Workflow",
-              subtitle: '"Run and View" will navigate you to the workflow exeuction view.',
-            }}
-            modalTrigger={({ openModal }) => (
-              <Button
-                disabled={isDeleting}
-                iconDescription="Run Workflow"
-                renderIcon={Run20}
-                size="field"
-                onClick={openModal}
-              >
-                Run it
+            <ComposedModal
+              composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
+              modalHeaderProps={{
+                title: "Execute Workflow",
+                subtitle: '"Run and View" will navigate you to the workflow exeuction view.',
+              }}
+              modalTrigger={({ openModal }) => (
+                <Button
+                  disabled={isDeleting}
+                  iconDescription="Run Workflow"
+                  renderIcon={Run20}
+                  size="field"
+                  onClick={openModal}
+                >
+                  Run it
               </Button>
-            )}
-          >
-            {({ closeModal }) => (
-              <WorkflowRunModalContent
-                closeModal={closeModal}
-                executeError={executeError}
-                executeWorkflow={handleExecuteWorkflow}
-                isExecuting={isExecuting}
-              />
-            )}
-          </ComposedModal>
-        )}
+              )}
+            >
+              {({ closeModal }) => (
+                <WorkflowRunModalContent
+                  closeModal={closeModal}
+                  executeError={executeError}
+                  executeWorkflow={handleExecuteWorkflow}
+                  isExecuting={isExecuting}
+                />
+              )}
+            </ComposedModal>
+          )}
       </section>
       {workflow.templateUpgradesAvailable && (
         <div className={styles.templatesWarningIcon}>
@@ -238,19 +238,19 @@ function WorkflowCard({ teamId, workflow }) {
           style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
         />
       ) : (
-        <OverflowMenu
-          flipped
-          ariaLabel="Overflow card menu"
-          iconDescription="Overflow menu icon"
-          onOpen={handleOverflowMenuOpen}
-          onClose={handleOverflowMenuClose}
-          style={{ position: "absolute", right: "0" }}
-        >
-          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
-          ))}
-        </OverflowMenu>
-      )}
+          <OverflowMenu
+            flipped
+            ariaLabel="Overflow card menu"
+            iconDescription="Overflow menu icon"
+            onOpen={handleOverflowMenuOpen}
+            onClose={handleOverflowMenuClose}
+            style={{ position: "absolute", right: "0" }}
+          >
+            {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+              <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
+            ))}
+          </OverflowMenu>
+        )}
       {isUpdateWorkflowModalOpen && (
         <UpdateWorkflow
           onCloseModal={() => setIsUpdateWorkflowModalOpen(false)}
