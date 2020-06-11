@@ -165,6 +165,7 @@ export default class Tasks extends Component {
           <>
             <section className={styles.tasks}>
               <Search
+                data-cy="editor-task-search"
                 id="search-tasks"
                 size="sm"
                 labelText="Search"

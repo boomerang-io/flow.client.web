@@ -47,6 +47,7 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
               <svg
                 aria-label="Runs"
                 class="icon"
+                fill="currentColor"
                 focusable="false"
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
@@ -80,6 +81,7 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
               <svg
                 aria-label="Successes"
                 class="icon"
+                fill="currentColor"
                 focusable="false"
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
@@ -113,6 +115,7 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
               <svg
                 aria-label="Failures"
                 class="icon"
+                fill="currentColor"
                 focusable="false"
                 height="32"
                 preserveAspectRatio="xMidYMid meet"

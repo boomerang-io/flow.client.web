@@ -63,6 +63,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     alt="first version"
                     aria-hidden="true"
                     class="icon"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -82,6 +83,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     alt="back one version"
                     aria-hidden="true"
                     class="icon"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -111,6 +113,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     alt="forward one version"
                     aria-hidden="true"
                     class="icon disabled"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -131,6 +134,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     alt="last version"
                     aria-hidden="true"
                     class="icon disabled"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -160,6 +164,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 aria-hidden="true"
                 aria-label="Set version to latest"
                 class="bx--btn__icon"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -186,6 +191,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 aria-hidden="true"
                 aria-label="Create new version"
                 class="bx--btn__icon"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -251,6 +257,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="collapseButtonImg"
+                fill="currentColor"
                 focusable="false"
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
@@ -275,6 +282,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="bx--search-magnifier"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -296,6 +304,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <input
                 autocomplete="off"
                 class="bx--search-input"
+                data-cy="editor-task-search"
                 id="search-tasks"
                 placeholder="Search for a task"
                 role="searchbox"
@@ -309,6 +318,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               >
                 <svg
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -333,6 +343,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-label="Filter"
                 class="bx--overflow-menu__icon"
+                fill="currentColor"
                 focusable="false"
                 height="20"
                 preserveAspectRatio="xMidYMid meet"
@@ -371,118 +382,10 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               class="bx--accordion bx--accordion--end"
             >
               <li
-                class="bx--accordion__item bx--accordion__item--active"
-              >
-                <button
-                  aria-controls="accordion-item-1"
-                  aria-expanded="true"
-                  class="bx--accordion__heading"
-                  title="workflow (2)"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="bx--accordion__arrow"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                    />
-                  </svg>
-                  <div
-                    class="bx--accordion__title"
-                  >
-                    workflow (2)
-                  </div>
-                </button>
-                <div
-                  class="bx--accordion__content"
-                  id="accordion-item-1"
-                >
-                  <ul
-                    class="taskSection"
-                  >
-                    <li>
-                      <div
-                        aria-selected="false"
-                        class="bx--tile container"
-                        draggable="true"
-                        role="option"
-                        tabindex="0"
-                      >
-                        <svg
-                          alt="Task node type code"
-                          aria-hidden="true"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M31 16L24 23 22.59 21.59 28.17 16 22.59 10.41 24 9 31 16zM1 16L8 9 9.41 10.41 3.83 16 9.41 21.59 8 23 1 16z"
-                          />
-                          <path
-                            d="M5.91 15H26.080000000000002V17H5.91z"
-                            transform="rotate(-75 15.996 16)"
-                          />
-                        </svg>
-                        <p
-                          class="taskName"
-                        >
-                           
-                          Run Custom Task
-                           
-                        </p>
-                      </div>
-                    </li>
-                    <li>
-                      <div
-                        aria-selected="false"
-                        class="bx--tile container"
-                        draggable="true"
-                        role="option"
-                        tabindex="0"
-                      >
-                        <svg
-                          alt="Task node type switch"
-                          aria-hidden="true"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M26,18a3.9962,3.9962,0,0,0-3.8579,3H17V11h5.1421a4,4,0,1,0,0-2H17a2.002,2.002,0,0,0-2,2v4H9.8579a4,4,0,1,0,0,2H15v4a2.002,2.002,0,0,0,2,2h5.1421A3.9934,3.9934,0,1,0,26,18ZM26,8a2,2,0,1,1-2,2A2.002,2.002,0,0,1,26,8ZM6,18a2,2,0,1,1,2-2A2.002,2.002,0,0,1,6,18Zm20,6a2,2,0,1,1,2-2A2.002,2.002,0,0,1,26,24Z"
-                          />
-                        </svg>
-                        <p
-                          class="taskName"
-                        >
-                           
-                          Switch
-                           
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-2"
+                  aria-controls="accordion-item-1"
                   class="bx--accordion__heading"
                   title="artifactory (2)"
                   type="button"
@@ -490,6 +393,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -509,7 +413,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-2"
+                  id="accordion-item-1"
                 >
                   <ul
                     class="taskSection"
@@ -525,6 +429,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type download"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -557,6 +462,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type upload"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -585,7 +491,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-3"
+                  aria-controls="accordion-item-2"
                   class="bx--accordion__heading"
                   title="boomerang (2)"
                   type="button"
@@ -593,6 +499,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -612,7 +519,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-3"
+                  id="accordion-item-2"
                 >
                   <ul
                     class="taskSection"
@@ -628,6 +535,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type message"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -663,6 +571,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type message"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -694,7 +603,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-4"
+                  aria-controls="accordion-item-3"
                   class="bx--accordion__heading"
                   title="communication (5)"
                   type="button"
@@ -702,6 +611,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -721,7 +631,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-4"
+                  id="accordion-item-3"
                 >
                   <ul
                     class="taskSection"
@@ -737,6 +647,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type message"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -772,6 +683,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type message"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -807,6 +719,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type message"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -842,6 +755,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type get, read"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -874,6 +788,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type upload"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -902,7 +817,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-5"
+                  aria-controls="accordion-item-4"
                   class="bx--accordion__heading"
                   title="file utilities (6)"
                   type="button"
@@ -910,6 +825,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -929,7 +845,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-5"
+                  id="accordion-item-4"
                 >
                   <ul
                     class="taskSection"
@@ -945,6 +861,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type get, read"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -977,6 +894,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type get, read"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1009,6 +927,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type add"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1044,6 +963,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type get, read"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1076,6 +996,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type get, read"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1108,6 +1029,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type edit"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1136,7 +1058,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-6"
+                  aria-controls="accordion-item-5"
                   class="bx--accordion__heading"
                   title="github (4)"
                   type="button"
@@ -1144,6 +1066,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -1163,7 +1086,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-6"
+                  id="accordion-item-5"
                 >
                   <ul
                     class="taskSection"
@@ -1179,6 +1102,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type automated task"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1215,6 +1139,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type automated task"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1251,6 +1176,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type API/HTTP call"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1283,6 +1209,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type automated task"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1315,7 +1242,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-7"
+                  aria-controls="accordion-item-6"
                   class="bx--accordion__heading"
                   title="servicenow (2)"
                   type="button"
@@ -1323,6 +1250,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -1342,7 +1270,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-7"
+                  id="accordion-item-6"
                 >
                   <ul
                     class="taskSection"
@@ -1358,6 +1286,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type API/HTTP call"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1390,6 +1319,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type automated task"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1422,7 +1352,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-8"
+                  aria-controls="accordion-item-7"
                   class="bx--accordion__heading"
                   title="utilities (4)"
                   type="button"
@@ -1430,6 +1360,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -1449,7 +1380,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-8"
+                  id="accordion-item-7"
                 >
                   <ul
                     class="taskSection"
@@ -1465,6 +1396,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type API/HTTP call"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1497,6 +1429,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type terminal"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
@@ -1533,6 +1466,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type filter"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1565,6 +1499,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type power on/off"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1592,6 +1527,117 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   </ul>
                 </div>
               </li>
+              <li
+                class="bx--accordion__item bx--accordion__item--active"
+              >
+                <button
+                  aria-controls="accordion-item-8"
+                  aria-expanded="true"
+                  class="bx--accordion__heading"
+                  title="workflow (2)"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="bx--accordion__arrow"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                    />
+                  </svg>
+                  <div
+                    class="bx--accordion__title"
+                  >
+                    workflow (2)
+                  </div>
+                </button>
+                <div
+                  class="bx--accordion__content"
+                  id="accordion-item-8"
+                >
+                  <ul
+                    class="taskSection"
+                  >
+                    <li>
+                      <div
+                        aria-selected="false"
+                        class="bx--tile container"
+                        draggable="true"
+                        role="option"
+                        tabindex="0"
+                      >
+                        <svg
+                          alt="Task node type code"
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M31 16L24 23 22.59 21.59 28.17 16 22.59 10.41 24 9 31 16zM1 16L8 9 9.41 10.41 3.83 16 9.41 21.59 8 23 1 16z"
+                          />
+                          <path
+                            d="M5.91 15H26.080000000000002V17H5.91z"
+                            transform="rotate(-75 15.996 16)"
+                          />
+                        </svg>
+                        <p
+                          class="taskName"
+                        >
+                           
+                          Run Custom Task
+                           
+                        </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        aria-selected="false"
+                        class="bx--tile container"
+                        draggable="true"
+                        role="option"
+                        tabindex="0"
+                      >
+                        <svg
+                          alt="Task node type switch"
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M26,18a3.9962,3.9962,0,0,0-3.8579,3H17V11h5.1421a4,4,0,1,0,0-2H17a2.002,2.002,0,0,0-2,2v4H9.8579a4,4,0,1,0,0,2H15v4a2.002,2.002,0,0,0,2,2h5.1421A3.9934,3.9934,0,1,0,26,18ZM26,8a2,2,0,1,1-2,2A2.002,2.002,0,0,1,26,8ZM6,18a2,2,0,1,1,2-2A2.002,2.002,0,0,1,6,18Zm20,6a2,2,0,1,1,2-2A2.002,2.002,0,0,1,26,24Z"
+                          />
+                        </svg>
+                        <p
+                          class="taskName"
+                        >
+                           
+                          Switch
+                           
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
             </ul>
           </section>
         </aside>
@@ -1608,6 +1654,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="zoomIcon"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -1629,6 +1676,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="zoomIcon"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -4415,6 +4463,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type download"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -4558,6 +4607,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -4705,6 +4755,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type download"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -4848,6 +4899,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -4995,6 +5047,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -5142,6 +5195,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type upload"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -5285,6 +5339,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type code"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -5441,6 +5496,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type upload"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -5584,6 +5640,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"

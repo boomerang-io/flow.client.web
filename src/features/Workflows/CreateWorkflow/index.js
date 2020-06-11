@@ -78,7 +78,7 @@ export function CreateWorkflow({ team, teams }) {
     <ModalFlow
       composedModalProps={{ containerClassName: styles.modalContainer }}
       modalTrigger={({ openModal }) => (
-        <button className={styles.container} onClick={openModal}>
+        <button className={styles.container} onClick={openModal} data-cy="workflows-create-workflow-button">
           <Add32 className={styles.addIcon} />
           <p className={styles.text}>Create a new workflow</p>
         </button>

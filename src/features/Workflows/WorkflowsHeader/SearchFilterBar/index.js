@@ -95,6 +95,7 @@ class SearchFilterBar extends Component {
         <div className="b-search-filter__search">
           {searchbar ? (
             <Search
+              data-cy="workflows-team-search"
               id="search-team-workflows"
               labelText="Search for a workflow"
               onChange={this.handleOnSearchInputChange}
@@ -116,26 +117,26 @@ class SearchFilterBar extends Component {
               itemToString={(item) => (item ? item.text : "")}
             />
           ) : (
-            <Select
-              id="select"
-              hideLabel={true}
-              invalid={false}
-              onChange={this.handleOnSelectChange}
-              placeholder={placeholder}
-              defaultValue={selectedOption}
-            >
-              <SelectItem value="none" text="All Workflows" />
-              {options.map((option) => {
-                return (
-                  <SelectItemGroup label={option.name} key={option.name}>
-                    {option.workflows.map((workflow) => {
-                      return <SelectItem value={workflow.id} text={workflow.name} />;
-                    })}
-                  </SelectItemGroup>
-                );
-              })}
-            </Select>
-          )}
+              <Select
+                id="select"
+                hideLabel={true}
+                invalid={false}
+                onChange={this.handleOnSelectChange}
+                placeholder={placeholder}
+                defaultValue={selectedOption}
+              >
+                <SelectItem value="none" text="All Workflows" />
+                {options.map((option) => {
+                  return (
+                    <SelectItemGroup label={option.name} key={option.name}>
+                      {option.workflows.map((workflow) => {
+                        return <SelectItem value={workflow.id} text={workflow.name} />;
+                      })}
+                    </SelectItemGroup>
+                  );
+                })}
+              </Select>
+            )}
         </div>
       </div>
     );

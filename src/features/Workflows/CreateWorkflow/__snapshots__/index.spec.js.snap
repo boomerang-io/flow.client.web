@@ -14,10 +14,12 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
   <div>
     <button
       class="container"
+      data-cy="workflows-create-workflow-button"
     >
       <svg
         aria-hidden="true"
         class="addIcon"
+        fill="currentColor"
         focusable="false"
         height="32"
         preserveAspectRatio="xMidYMid meet"
@@ -69,6 +71,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
             <svg
               aria-hidden="true"
               class="bx--modal-close__icon"
+              fill="currentColor"
               focusable="false"
               height="20"
               preserveAspectRatio="xMidYMid meet"
@@ -208,6 +211,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                         >
                           <svg
                             aria-hidden="true"
+                            fill="currentColor"
                             focusable="false"
                             height="16"
                             preserveAspectRatio="xMidYMid meet"
@@ -225,6 +229,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                         >
                           <svg
                             aria-label="Open menu"
+                            fill="currentColor"
                             focusable="false"
                             height="16"
                             name="chevron--down"
@@ -548,6 +553,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
               </button>
               <button
                 class="bx--btn bx--btn--primary bx--btn--disabled"
+                data-cy="workflows-create-workflow-submit"
                 disabled=""
                 tabindex="0"
                 type="submit"

@@ -204,6 +204,27 @@ beforeEach(() => {
   document.body.setAttribute("id", "app");
 });
 
+const originalConsoleError = console.error;
+console.error = (message, ...rest) => {
+  if (
+    typeof message === "string" &&
+    !message.includes("react-modal: App element is not defined") &&
+    !message.includes("MultiSelectComboBox uses getDerivedStateFromProps()")
+  ) {
+    originalConsoleError(message, ...rest);
+  }
+};
+
+const originalConsoleWarn = console.warn;
+console.warn = (message, ...rest) => {
+  if (
+    typeof message === "string" &&
+    !message.includes("Invalid date provided")
+  ) {
+    originalConsoleWarn(message, ...rest);
+  }
+};
+
 // RTL globals
 // Open question if we want to attach these to the global or required users to import
 global.rtlRender = rtlRender;

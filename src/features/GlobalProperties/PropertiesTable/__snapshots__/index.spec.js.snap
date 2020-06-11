@@ -44,6 +44,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
           <svg
             aria-hidden="true"
             class="bx--search-magnifier"
+            fill="currentColor"
             focusable="false"
             height="16"
             preserveAspectRatio="xMidYMid meet"
@@ -77,6 +78,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
           >
             <svg
               aria-hidden="true"
+              fill="currentColor"
               focusable="false"
               height="20"
               preserveAspectRatio="xMidYMid meet"
@@ -95,6 +97,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
         >
           <button
             class="bx--btn bx--btn--field bx--btn--primary"
+            data-cy="create-global-property-button"
             data-testid="create-global-configurations-property-button"
             style="width: 12rem;"
             tabindex="0"
@@ -105,6 +108,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
               aria-hidden="true"
               aria-label="Create Property"
               class="bx--btn__icon"
+              fill="currentColor"
               focusable="false"
               height="16"
               preserveAspectRatio="xMidYMid meet"
@@ -265,6 +269,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                     alt="unsecured"
                     aria-hidden="true"
                     class="tableSecured unsecured"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -289,12 +294,14 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                     aria-haspopup="true"
                     aria-label="Overflow menu"
                     class="bx--overflow-menu"
+                    data-cy="global-property-menu-button"
                     data-testid="configuration-property-table-overflow-menu"
                     tabindex="0"
                   >
                     <svg
                       aria-label="Overflow menu icon"
                       class="bx--overflow-menu__icon"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -391,6 +398,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                     alt="secured"
                     aria-hidden="true"
                     class="tableSecured secured"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -415,12 +423,14 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                     aria-haspopup="true"
                     aria-label="Overflow menu"
                     class="bx--overflow-menu"
+                    data-cy="global-property-menu-button"
                     data-testid="configuration-property-table-overflow-menu"
                     tabindex="0"
                   >
                     <svg
                       aria-label="Overflow menu icon"
                       class="bx--overflow-menu__icon"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -506,6 +516,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   <svg
                     aria-hidden="true"
                     class="bx--select__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -562,6 +573,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   <svg
                     aria-hidden="true"
                     class="bx--select__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -590,6 +602,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
           >
             <svg
               aria-hidden="true"
+              fill="currentColor"
               focusable="false"
               height="24"
               preserveAspectRatio="xMidYMid meet"
@@ -610,6 +623,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
           >
             <svg
               aria-hidden="true"
+              fill="currentColor"
               focusable="false"
               height="24"
               preserveAspectRatio="xMidYMid meet"

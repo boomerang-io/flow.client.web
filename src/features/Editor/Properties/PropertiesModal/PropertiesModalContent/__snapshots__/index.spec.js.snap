@@ -101,6 +101,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 >
                   <svg
                     aria-hidden="true"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -118,6 +119,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 >
                   <svg
                     aria-label="Open menu"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     name="chevron--down"
@@ -292,6 +294,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
         </button>
         <button
           class="bx--btn bx--btn--primary"
+          data-cy="property-modal-confirm-button"
           data-testid="inputs-modal-confirm-button"
           tabindex="0"
           type="submit"

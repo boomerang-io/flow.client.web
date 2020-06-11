@@ -320,7 +320,7 @@ class PropertiesModalContent extends Component {
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button data-testid="inputs-modal-confirm-button" disabled={!isValid || loading} type="submit">
+                <Button data-testid="inputs-modal-confirm-button" disabled={!isValid || loading} type="submit" data-cy="property-modal-confirm-button">
                   {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating" : "Create"}
                 </Button>
               </ModalFooter>

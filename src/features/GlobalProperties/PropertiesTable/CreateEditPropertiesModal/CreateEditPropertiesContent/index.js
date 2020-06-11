@@ -67,7 +67,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
           />
         );
         closeModal();
-      } catch (err) {}
+      } catch (err) { }
     } else {
       try {
         await addGlobalPropertyMutation({ body: newProperty });
@@ -80,7 +80,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
           />
         );
         closeModal();
-      } catch (err) {}
+      } catch (err) { }
     }
   };
 
@@ -110,6 +110,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
             <ModalBody>
               {loading && <Loading />}
               <TextInput
+                data-cy="create-property-key"
                 id="key"
                 labelText="Key"
                 name="key"
@@ -120,6 +121,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 invalidText={errors.key}
               />
               <TextInput
+                data-cy="create-property-label"
                 id="label"
                 labelText="Label"
                 name="label"
@@ -130,6 +132,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 invalidText={errors.label}
               />
               <TextInput
+                data-cy="create-property-description"
                 id="description"
                 labelText="Description"
                 name="description"
@@ -138,6 +141,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 onChange={handleChange}
               />
               <TextInput
+                data-cy="create-property-value"
                 id="value"
                 labelText="Value"
                 placeholder="Value"
@@ -181,7 +185,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={!isValid || loading}>
+              <Button type="submit" disabled={!isValid || loading} data-cy="global-property-create-submission-button">
                 {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating..." : "Create"}
               </Button>
             </ModalFooter>

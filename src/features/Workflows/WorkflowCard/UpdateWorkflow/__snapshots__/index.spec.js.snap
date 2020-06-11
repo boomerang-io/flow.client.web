@@ -44,6 +44,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
             <svg
               aria-hidden="true"
               class="bx--modal-close__icon"
+              fill="currentColor"
               focusable="false"
               height="20"
               preserveAspectRatio="xMidYMid meet"

@@ -65,7 +65,7 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [sort, setSort] = useState({ key: "label", sortDirection: "ASC" });
 
-  const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: activeTeam?.id });
+  const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: activeTeam ?.id });
 
   /** Delete Team Property */
   const [deleteTeamPropertyMutation] = useMutation(resolver.deleteTeamPropertyRequest, {
@@ -116,8 +116,8 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
         return property && property.type === InputType.Password ? (
           <Checkmark32 alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
         ) : (
-          <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
-        );
+            <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
+          );
       case "actions":
         return (
           <ActionsMenu
@@ -150,19 +150,20 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
         <div className={styles.header}>
           <div className={styles.dropdown}>
             <ComboBox
+              data-cy="team-properties-comboBox"
               id="team-properties-select"
-              initialSelectedItem={activeTeam?.id ? activeTeam : null}
+              initialSelectedItem={activeTeam ?.id ? activeTeam : null}
               items={teams}
-              itemToString={(item) => item?.name ?? ""}
+              itemToString={(item) => item ?.name ?? ""}
               label="Teams"
               onChange={({ selectedItem }) => {
                 setActiveTeam(selectedItem);
               }}
               placeholder="Select a team"
-              shouldFilterItem={({ item, inputValue }) => item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())}
+              shouldFilterItem={({ item, inputValue }) => item ?.name ?.toLowerCase() ?.includes(inputValue.toLowerCase())}
             />
           </div>
-          {(activeTeam?.id || totalItems > 0) && (
+          {(activeTeam ?.id || totalItems > 0) && (
             <CreateEditTeamPropertiesModal properties={properties} team={activeTeam} />
           )}
         </div>
@@ -220,32 +221,32 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
             />
           </>
         ) : (
-          <>
-            <DataTable
-              rows={properties}
-              headers={headers}
-              render={({ headers }) => (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header, key) => (
-                          <TableHeader
-                            key={`no-team-config-table-key-${key}`}
-                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
-                          >
-                            <span className="bx--table-header-label">{header.header}</span>
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                  </Table>
-                </TableContainer>
+                <>
+                  <DataTable
+                    rows={properties}
+                    headers={headers}
+                    render={({ headers }) => (
+                      <TableContainer>
+                        <Table>
+                          <TableHead>
+                            <TableRow className={styles.tableHeadRow}>
+                              {headers.map((header, key) => (
+                                <TableHeader
+                                  key={`no-team-config-table-key-${key}`}
+                                  className={`${styles.tableHeadHeader} ${styles[header.key]}`}
+                                >
+                                  <span className="bx--table-header-label">{header.header}</span>
+                                </TableHeader>
+                              ))}
+                            </TableRow>
+                          </TableHead>
+                        </Table>
+                      </TableContainer>
+                    )}
+                  />
+                  <Error404 header={null} title="No team properties" message={null} />
+                </>
               )}
-            />
-            <Error404 header={null} title="No team properties" message={null} />
-          </>
-        )}
       </div>
     </>
   );

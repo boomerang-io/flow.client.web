@@ -28,6 +28,7 @@ function CreateEditTeamPropertiesModal({ handleEditClose, isEdit, isOpen, proper
       modalTrigger={({ openModal }) =>
         !isEdit ? (
           <Button
+            data-cy="create-team-property-button"
             onClick={openModal}
             iconDescription="Create Property"
             renderIcon={Add16}

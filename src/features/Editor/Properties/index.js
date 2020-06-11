@@ -122,7 +122,7 @@ export default function Properties({ summaryData }) {
                   children="It will be gone. Forever."
                   title="Delete Property"
                   modalTrigger={({ openModal }) => (
-                    <WorkflowCloseButton className={styles.deleteProperty} onClick={openModal} />
+                    <WorkflowCloseButton className={styles.deleteProperty} onClick={openModal} data-cy="workflow-delete-property-button" />
                   )}
                 />
               </>
