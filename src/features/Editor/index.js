@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { WorkflowContext } from "State/context";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { useAppContext, useIsModalOpen } from "Hooks";
@@ -128,7 +128,9 @@ export function EditorStateContainer({
 }) {
   const location = useLocation();
   const match = useRouteMatch();
-  const { teams } = useAppContext();
+  const {
+    state: { teams },
+  } = useAppContext();
   const isModalOpen = useIsModalOpen();
 
   const [workflowDagEngine, setWorkflowDagEngine] = useState();
@@ -150,7 +152,7 @@ export function EditorStateContainer({
       case RevisionActionTypes.DeleteNode: {
         let { nodeId } = action.data;
         delete state.config[nodeId];
-        state.dag.nodes = state.dag ?.nodes ?.filter((node) => node.nodeId !== nodeId) ?? [];
+        state.dag.nodes = state.dag?.nodes?.filter((node) => node.nodeId !== nodeId) ?? [];
         state.hasUnsavedWorkflowRevisionUpdates = true;
         return state;
       }
@@ -201,126 +203,140 @@ export function EditorStateContainer({
    * @param {string} reason - changelog reason for new version
    * @param {function} callback - optional callback
    */
-  const handleCreateRevision = async ({ reason = "Update workflow", callback }) => {
-    const normilzedConfig = Object.values(revisionState.config).map((config) => ({
-      ...config,
-      currentVersion: undefined,
-      taskVersion: config.currentVersion || config.taskVersion,
-    }));
-    const revisionConfig = { nodes: Object.values(normilzedConfig) };
+  const handleCreateRevision = useCallback(
+    async ({ reason = "Update workflow", callback }) => {
+      const normilzedConfig = Object.values(revisionState.config).map((config) => ({
+        ...config,
+        currentVersion: undefined,
+        taskVersion: config.currentVersion || config.taskVersion,
+      }));
+      const revisionConfig = { nodes: Object.values(normilzedConfig) };
 
-    const revision = {
-      dag: workflowDagEngine.getDiagramEngine().getDiagramModel().serializeDiagram(),
-      config: revisionConfig,
-      changelog: { reason },
-    };
+      const revision = {
+        dag: workflowDagEngine.getDiagramEngine().getDiagramModel().serializeDiagram(),
+        config: revisionConfig,
+        changelog: { reason },
+      };
 
-    try {
-      const { data } = await mutateRevision({ workflowId, body: revision });
-      notify(
-        <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
-      );
-      if (typeof callback === "function") {
-        callback();
+      try {
+        const { data } = await mutateRevision({ workflowId, body: revision });
+        notify(
+          <ToastNotification kind="success" title="Create Version" subtitle="Successfully created workflow version" />
+        );
+        if (typeof callback === "function") {
+          callback();
+        }
+        revisionDispatch({ type: RevisionActionTypes.Set, data });
+      } catch (err) {
+        //no-op
       }
-      revisionDispatch({ type: RevisionActionTypes.Set, data });
-    } catch (err) {
-      //no-op
-    }
-  };
+    },
+    [mutateRevision, revisionDispatch, revisionState.config, workflowDagEngine, workflowId]
+  );
 
   /**
    *
    * @param {Object} formikValues - key/value pairs for inputs
    */
-  const updateSummary = async ({ values: formikValues, callback }) => {
-    const flowTeamId = formikValues ?.selectedTeam ?.id;
-    const updatedWorkflow = { ...summaryData, ...formikValues, flowTeamId };
+  const updateSummary = useCallback(
+    async ({ values: formikValues, callback }) => {
+      const flowTeamId = formikValues?.selectedTeam?.id;
+      const updatedWorkflow = { ...summaryData, ...formikValues, flowTeamId };
 
-    try {
-      const { data } = await mutateSummary({ body: updatedWorkflow });
-      queryCache.setQueryData(serviceUrl.getWorkflowSummary({ workflowId }), data);
-      notify(<ToastNotification kind="success" title="Workflow Updated" subtitle={`Successfully updated workflow`} />);
-      if (typeof callback === "function") {
-        callback();
+      try {
+        const { data } = await mutateSummary({ body: updatedWorkflow });
+        queryCache.setQueryData(serviceUrl.getWorkflowSummary({ workflowId }), data);
+        notify(
+          <ToastNotification kind="success" title="Workflow Updated" subtitle={`Successfully updated workflow`} />
+        );
+        if (typeof callback === "function") {
+          callback();
+        }
+      } catch (err) {
+        notify(
+          <ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to update workflow settings`} />
+        );
       }
-    } catch (err) {
-      notify(
-        <ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to update workflow settings`} />
-      );
-    }
-  };
+    },
+    [mutateSummary, summaryData, workflowId]
+  );
 
   /**
    * Handle the drop event to create a new node from a task template
    * @param {Object} diagramApp - object containing the internal state of the DAG
    * @param {DragEvent} event - dragend event when adding a node to the diagram
    */
-  const handleCreateNode = (diagramApp, event) => {
-    const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
+  const handleCreateNode = useCallback(
+    (diagramApp, event) => {
+      const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
 
-    // For naming purposes
-    const nodesOfSameTypeCount = Object.values(diagramApp.getDiagramEngine().getDiagramModel().getNodes()).filter(
-      (node) => node.taskId === taskData.id
-    ).length;
+      // For naming purposes
+      const nodesOfSameTypeCount = Object.values(diagramApp.getDiagramEngine().getDiagramModel().getNodes()).filter(
+        (node) => node.taskId === taskData.id
+      ).length;
 
-    const nodeObj = {
-      taskId: taskData.id,
-      taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`,
-      taskVersion: taskData.currentVersion,
-    };
+      const nodeObj = {
+        taskId: taskData.id,
+        taskName: `${taskData.name} ${nodesOfSameTypeCount + 1}`,
+        taskVersion: taskData.currentVersion,
+      };
 
-    // Determine the node type
-    let node;
-    switch (taskData.nodeType) {
-      case NodeType.Decision:
-        node = new SwitchNodeModel(nodeObj);
-        break;
-      case NodeType.TemplateTask:
-        node = new TemplateNodeModel(nodeObj);
-        break;
-      case NodeType.CustomTask:
-        node = new CustomNodeModel(nodeObj);
-        break;
-      default:
-        new Error("Node type not recognized");
-    }
+      // Determine the node type
+      let node;
+      switch (taskData.nodeType) {
+        case NodeType.Decision:
+          node = new SwitchNodeModel(nodeObj);
+          break;
+        case NodeType.TemplateTask:
+          node = new TemplateNodeModel(nodeObj);
+          break;
+        case NodeType.CustomTask:
+          node = new CustomNodeModel(nodeObj);
+          break;
+        default:
+          new Error("Node type not recognized");
+      }
 
-    const { id, taskId, currentVersion } = node;
-    const currentTaskConfig = taskData.revisions ?.find((revision) => revision.version === currentVersion) ?? {};
+      const { id, taskId, currentVersion } = node;
+      const currentTaskConfig = taskData.revisions?.find((revision) => revision.version === currentVersion) ?? {};
 
-    // Create inputs object with empty string values by default for service to process easily
-    const inputs =
-      Array.isArray(currentTaskConfig.config) && currentTaskConfig.config.length
-        ? currentTaskConfig.config.reduce((accu, item) => {
-          accu[item.key] = "";
-          return accu;
-        }, {})
-        : {};
-    revisionDispatch({
-      type: RevisionActionTypes.AddNode,
-      data: {
-        nodeId: id,
-        taskId,
-        inputs,
-        type: taskData.nodeType,
-        taskVersion: currentVersion,
-      },
-    });
+      // Create inputs object with empty string values by default for service to process easily
+      const inputs =
+        Array.isArray(currentTaskConfig.config) && currentTaskConfig.config.length
+          ? currentTaskConfig.config.reduce((accu, item) => {
+              accu[item.key] = "";
+              return accu;
+            }, {})
+          : {};
+      revisionDispatch({
+        type: RevisionActionTypes.AddNode,
+        data: {
+          nodeId: id,
+          taskId,
+          inputs,
+          type: taskData.nodeType,
+          taskVersion: currentVersion,
+        },
+      });
 
-    const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
-    node.x = points.x - 110;
-    node.y = points.y - 40;
-    diagramApp.getDiagramEngine().getDiagramModel().addNode(node);
-  };
+      const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
+      node.x = points.x - 110;
+      node.y = points.y - 40;
+      diagramApp.getDiagramEngine().getDiagramModel().addNode(node);
+    },
+    [revisionDispatch]
+  );
 
   /**
    *  Simply update the parent state to use a different revision to fetch it w/ react-query
    * @param {string} revisionNumber
    */
-  const handleChangeRevision = (revisionNumber) => {
-    setRevisionNumber(revisionNumber);
-  };
+  const handleChangeRevision = useCallback(
+    (revisionNumber) => {
+      setRevisionNumber(revisionNumber);
+    },
+    [setRevisionNumber]
+  );
 
   const { revisionCount } = summaryData;
   const { version } = revisionState;
@@ -335,17 +351,8 @@ export function EditorStateContainer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLocked, revisionState.version]);
 
-  return (
-    // Must create context to share state w/ nodes that are created by the DAG engine
-    <WorkflowContext.Provider
-      value={{
-        revisionDispatch,
-        revisionState,
-        revisionQuery,
-        summaryQuery,
-        taskTemplatesData,
-      }}
-    >
+  const memoizedEditor = useMemo(() => {
+    return (
       <>
         <Prompt
           when={Boolean(revisionState.hasUnsavedWorkflowRevisionUpdates)}
@@ -403,6 +410,38 @@ export function EditorStateContainer({
           />
         </div>
       </>
+    );
+  }, [
+    handleChangeRevision,
+    handleCreateNode,
+    handleCreateRevision,
+    isModalOpen,
+    location.pathname,
+    match.params,
+    match.url,
+    revisionMutation,
+    revisionQuery,
+    revisionState,
+    summaryData,
+    summaryMutation,
+    taskTemplatesData,
+    teams,
+    updateSummary,
+    workflowDagEngine,
+  ]);
+
+  return (
+    // Must create context to share state w/ nodes that are created by the DAG engine
+    <WorkflowContext.Provider
+      value={{
+        revisionDispatch,
+        revisionState,
+        revisionQuery,
+        summaryQuery,
+        taskTemplatesData,
+      }}
+    >
+      {memoizedEditor}
     </WorkflowContext.Provider>
   );
 }
