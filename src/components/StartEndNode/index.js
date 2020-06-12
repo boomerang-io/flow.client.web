@@ -6,12 +6,7 @@ import { ExecutionStatus } from "Constants";
 import cx from "classnames";
 import "./styles.scss";
 
-StartEndNode.propTypes = {
-  isLocked: PropTypes.bool,
-  node: PropTypes.object.isRequired,
-};
-
-export default function StartEndNode({ isLocked, node }) {
+const StartEndNode = React.memo(function StartEndNode({ isLocked, node }) {
   const { workflowExecution } = useExecutionContext();
   const { passedName } = node;
 
@@ -42,4 +37,11 @@ export default function StartEndNode({ isLocked, node }) {
       )}
     </div>
   );
-}
+});
+
+StartEndNode.propTypes = {
+  isLocked: PropTypes.bool,
+  node: PropTypes.object.isRequired,
+};
+
+export default StartEndNode;

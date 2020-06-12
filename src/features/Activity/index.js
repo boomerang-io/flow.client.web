@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 import { useAppContext, useQuery } from "Hooks";
 import {
   DatePicker,
@@ -38,8 +39,10 @@ const activitySummaryQuery = queryString.stringify({
   toDate: moment(new Date()).unix(),
 });
 
-export default function WorkflowActivity({ history, location, match }) {
-  const { teams: teamsState } = useAppContext();
+function WorkflowActivity({ history, location, match }) {
+  const {
+    state: { teams: teamsState },
+  } = useAppContext();
 
   const {
     order = DEFAULT_ORDER,
@@ -300,3 +303,5 @@ export default function WorkflowActivity({ history, location, match }) {
   }
   return null;
 }
+
+export default withRouter(WorkflowActivity);

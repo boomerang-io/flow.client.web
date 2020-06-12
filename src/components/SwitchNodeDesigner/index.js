@@ -11,27 +11,14 @@ import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import styles from "./SwitchNodeDesigner.module.scss";
 
-SwitchNodeDesigner.propTypes = {
-  diagramEngine: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired,
-};
-
-SwitchNodeDesigner.defaultProps = {
-  node: {},
-};
-
-export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }) {
-  // const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useWorkflowContext();
-  const {
-    state: { revisionDispatch, revisionState, summaryQuery, taskTemplatesData },
-  } = useWorkflowContext();
-  console.log(useWorkflowContext());
+const SwitchNodeDesigner = React.memo(function SwitchNodeDesigner({ diagramEngine, node: designerNode }) {
+  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useWorkflowContext();
 
   /**
    * Pull data off of context
    */
   const inputProperties = summaryQuery.data.properties;
-  const nodeDag = revisionState.dag ?.nodes ?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
+  const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode.id] ?? {};
   const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 
@@ -76,7 +63,7 @@ export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }
           children: "Your changes will not be saved",
         }}
         modalHeaderProps={{
-          title: task ?.name,
+          title: task?.name,
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
@@ -107,7 +94,7 @@ export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }
             "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
         }}
         modalTrigger={({ openModal }) =>
-          nodeDag ?.templateUpgradeAvailable ? (
+          nodeDag?.templateUpgradeAvailable ? (
             <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
           ) : null
         }
@@ -130,7 +117,7 @@ export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }
   return (
     <WorkflowNode
       className={styles.node}
-      icon={task ?.icon}
+      icon={task?.icon}
       node={designerNode}
       rightPortClass={styles.rightPort}
       subtitle={designerNode.taskName}
@@ -145,4 +132,15 @@ export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }
       <WorkflowCloseButton className={styles.deleteButton} onClick={handleOnDelete} />
     </WorkflowNode>
   );
-}
+});
+
+SwitchNodeDesigner.propTypes = {
+  diagramEngine: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
+};
+
+SwitchNodeDesigner.defaultProps = {
+  node: {},
+};
+
+export default SwitchNodeDesigner;

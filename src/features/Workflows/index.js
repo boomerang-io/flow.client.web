@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { useAppContext } from "Hooks";
 import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
 import WelcomeBanner from "Components/WelcomeBanner";
 import CreateWorkflow from "./CreateWorkflow";
@@ -12,7 +13,10 @@ import styles from "./workflowHome.module.scss";
 const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
 const initShowWelcomeBanner = window.localStorage.getItem(BANNER_STORAGE_ID) !== "true";
 
-export default function WorkflowsHome({ onBoardShow, setOnBoardShow, teams }) {
+export default function WorkflowsHome() {
+  const {
+    state: { onBoardShow, setOnBoardShow, teams },
+  } = useAppContext();
   const [isWelcomeBannerOpen, setIsWelcomeBannerOpen] = useState(true);
   const [isWelcomeBannerShown, setIsWelcomeBannerShown] = useState(initShowWelcomeBanner);
   const isWelcomeBannerOpenRef = React.useRef();
