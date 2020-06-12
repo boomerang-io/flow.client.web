@@ -9,36 +9,34 @@ import {
   homeGuideConfig,
   designerGuideConfig,
   activityGuideConfig,
-  executionGuideConfig
+  executionGuideConfig,
 } from "./constants";
 import OnBoardGuideContainer from "./OnBoardGuideContainer";
 import OnBoardMessage from "./OnBoardMessage";
-import { useAppContext } from "Hooks";
 import "./styles.scss";
 
-export default function OnBoardExpContainer() {
+export default function OnBoardExpContainer({ isTutorialActive, setIsTutorialActive }) {
   const [screen, setScreen] = useState(0);
   const location = useLocation();
-  const { onBoardShow, setOnBoardShow } = useAppContext();
 
   const nextScreen = () => {
-    setScreen(prevCount => prevCount + 1);
+    setScreen((prevCount) => prevCount + 1);
   };
 
   const previousScreen = () => {
-    setScreen(prevCount => prevCount - 1);
+    setScreen((prevCount) => prevCount - 1);
   };
 
-  const goToScreen = newScreen => {
+  const goToScreen = (newScreen) => {
     setScreen(newScreen);
   };
 
   const closeModal = () => {
     setScreen(0);
-    setOnBoardShow(false);
+    setIsTutorialActive(false);
   };
 
-  if (!onBoardShow) {
+  if (!isTutorialActive) {
     return null;
   }
 

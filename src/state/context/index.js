@@ -1,3 +1,22 @@
-export { default as AppContext } from "./appContext";
-export { default as WorkflowContext } from "./workflowContext";
-export { default as ExecutionContext } from "./executionContext";
+import React from "react";
+
+export const AppContext = React.createContext({
+  isTutorialActive: false,
+  setIsTutorialActive: () => {},
+  teams: [],
+  user: {},
+});
+
+export const ExecutionContext = React.createContext({
+  tasks: [],
+  workflowExecution: {},
+  workflowRevision: {},
+});
+
+export const EditorContext = React.createContext({
+  revisionDispatch: () => {},
+  revisionState: {},
+  revisionQuery: {},
+  summaryState: {},
+  taskTemplatesData: [],
+});

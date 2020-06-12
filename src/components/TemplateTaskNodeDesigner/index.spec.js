@@ -2,7 +2,7 @@ import React from "react";
 import TemplateTaskNodeDesigner from "./index";
 import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
 import { WorkflowContextRender } from "Utilities/testing/context";
-import { revision } from "Utilities/testing/dag";
+import { revision } from "Utilities/testing/fixtures/dag";
 
 const diagramEngine = new WorkflowDagEngine({ dag: revision.dag, isLocked: false });
 const node = {};

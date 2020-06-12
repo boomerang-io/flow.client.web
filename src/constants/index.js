@@ -67,10 +67,10 @@ export const InputType = {
   TextArea: "textarea",
   Text: "text",
   TextEditor: "texteditor",
-  TextEditorsJs: "texteditor::javascript",
-  TextEditorsText: "texteditor::text",
-  TextEditorsShell: "texteditor::shell",
-  TextEditorsYaml: "texteditor::yaml",
+  TextEditorJs: "texteditor::javascript",
+  TextEditorText: "texteditor::text",
+  TextEditorShell: "texteditor::shell",
+  TextEditorYaml: "texteditor::yaml",
   URL: "url",
 };
 

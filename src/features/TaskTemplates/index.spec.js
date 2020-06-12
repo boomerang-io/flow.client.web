@@ -16,7 +16,7 @@ afterEach(() => {
 });
 
 describe("TaskTemplateManager --- Snapshot", () => {
-  it("Capturing Snapshot of Editor", async () => {
+  it("Capturing Snapshot of Task Templates", async () => {
     const { baseElement, getByText } = rtlContextRouterRender(
       <Route path={appPath.taskTemplates}>
         <TaskTemplateManager />

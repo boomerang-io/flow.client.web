@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useWorkflowContext } from "Hooks";
+import { useEditorContext } from "Hooks";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
@@ -11,17 +11,8 @@ import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import styles from "./SwitchNodeDesigner.module.scss";
 
-SwitchNodeDesigner.propTypes = {
-  diagramEngine: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired,
-};
-
-SwitchNodeDesigner.defaultProps = {
-  node: {},
-};
-
-export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }) {
-  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useWorkflowContext();
+const SwitchNodeDesigner = React.memo(function SwitchNodeDesigner({ diagramEngine, node: designerNode }) {
+  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useEditorContext();
 
   /**
    * Pull data off of context
@@ -141,4 +132,15 @@ export default function SwitchNodeDesigner({ diagramEngine, node: designerNode }
       <WorkflowCloseButton className={styles.deleteButton} onClick={handleOnDelete} />
     </WorkflowNode>
   );
-}
+});
+
+SwitchNodeDesigner.propTypes = {
+  diagramEngine: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
+};
+
+SwitchNodeDesigner.defaultProps = {
+  node: {},
+};
+
+export default SwitchNodeDesigner;

@@ -6,15 +6,7 @@ import WorkflowNode from "Components/WorkflowNode";
 import { ExecutionStatus } from "Constants";
 import styles from "./SwitchNodeExecution.module.scss";
 
-SwitchNodeExecution.propTypes = {
-  node: PropTypes.object.isRequired,
-};
-
-SwitchNodeExecution.defaultProps = {
-  node: {},
-};
-
-export default function SwitchNodeExecution({ node }) {
+const SwitchNodeExecution = React.memo(function SwitchNodeExecution({ node }) {
   const { tasks, workflowExecution } = useExecutionContext();
   const task = tasks.find((t) => t.id === node.taskId);
   const { steps } = workflowExecution;
@@ -40,4 +32,14 @@ export default function SwitchNodeExecution({ node }) {
       </div>
     </WorkflowNode>
   );
-}
+});
+
+SwitchNodeExecution.propTypes = {
+  node: PropTypes.object.isRequired,
+};
+
+SwitchNodeExecution.defaultProps = {
+  node: {},
+};
+
+export default SwitchNodeExecution;

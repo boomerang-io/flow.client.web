@@ -1,12 +1,12 @@
 import React from "react";
 import { ExecutionContext } from "State/context";
-import { WorkflowContext } from "State/context";
+import { EditorContext } from "State/context";
 
 const revisionDispatch = jest.mock();
 
 export function WorkflowContextRender({ children, value }) {
   return (
-    <WorkflowContext.Provider
+    <EditorContext.Provider
       value={{
         revisionDispatch,
         revisionState: { config: {} },
@@ -16,6 +16,6 @@ export function WorkflowContextRender({ children, value }) {
       }}
     >
       {children}
-    </WorkflowContext.Provider>
+    </EditorContext.Provider>
   );
 }

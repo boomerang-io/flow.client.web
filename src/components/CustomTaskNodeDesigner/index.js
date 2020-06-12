@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useWorkflowContext } from "Hooks";
+import { useEditorContext } from "Hooks";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
@@ -11,18 +11,8 @@ import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./CustomTaskNodeDesigner.module.scss";
 
-CustomTaskNodeDesigner.propTypes = {
-  diagramEngine: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired,
-};
-
-CustomTaskNodeDesigner.defaultProps = {
-  node: {},
-};
-
-export default function CustomTaskNodeDesigner({ diagramEngine, node: designerNode }) {
-  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useWorkflowContext();
-
+const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({ diagramEngine, node: designerNode }) {
+  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useEditorContext();
   /**
    * Pull data off of context
    */
@@ -145,4 +135,15 @@ export default function CustomTaskNodeDesigner({ diagramEngine, node: designerNo
     );
   }
   return null;
-}
+});
+
+CustomTaskNodeDesigner.propTypes = {
+  diagramEngine: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
+};
+
+CustomTaskNodeDesigner.defaultProps = {
+  node: {},
+};
+
+export default CustomTaskNodeDesigner;
