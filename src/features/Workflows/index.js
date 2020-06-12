@@ -14,7 +14,7 @@ const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
 const initShowWelcomeBanner = window.localStorage.getItem(BANNER_STORAGE_ID) !== "true";
 
 export default function WorkflowsHome() {
-  const { onBoardShow, setOnBoardShow, teams } = useAppContext();
+  const { isTutorialActive, setIsTutorialActive, teams } = useAppContext();
   const [isWelcomeBannerOpen, setIsWelcomeBannerOpen] = useState(true);
   const [isWelcomeBannerShown, setIsWelcomeBannerShown] = useState(initShowWelcomeBanner);
   const isWelcomeBannerOpenRef = React.useRef();
@@ -22,7 +22,7 @@ export default function WorkflowsHome() {
   const [teamsFilter, setTeamsFilter] = useState([]);
 
   useEffect(() => {
-    if (onBoardShow) {
+    if (isTutorialActive) {
       isWelcomeBannerOpenRef.current = isWelcomeBannerOpen;
       setIsWelcomeBannerOpen(false);
     } else {
@@ -32,7 +32,7 @@ export default function WorkflowsHome() {
     }
     // purposefully get the stale state value and don't run the effect when things change
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onBoardShow, setIsWelcomeBannerOpen]);
+  }, [isTutorialActive, setIsWelcomeBannerOpen]);
 
   useEffect(() => {
     if (!isWelcomeBannerOpen && !isWelcomeBannerShown) {
@@ -54,7 +54,7 @@ export default function WorkflowsHome() {
   };
 
   const handleOpenTutorial = () => {
-    setOnBoardShow(true);
+    setIsTutorialActive(true);
   };
 
   const handleToggleIsWelcomeBannerOpen = () => {
@@ -82,7 +82,7 @@ export default function WorkflowsHome() {
       )}
       <div
         className={cx(styles.container, {
-          [styles.bannerClosed]: !isWelcomeBannerOpen || onBoardShow,
+          [styles.bannerClosed]: !isWelcomeBannerOpen || isTutorialActive,
           [styles.bannerHidden]: !isWelcomeBannerShown,
         })}
       >

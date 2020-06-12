@@ -32,15 +32,7 @@ const ConditionButton = ({ displayText, ...rest }) => (
   </svg>
 );
 
-SwitchLinkExecutionConditionButton.propTypes = {
-  alt: PropTypes.string,
-  className: PropTypes.string,
-  kind: PropTypes.oneOf(["execution", "designer"]),
-  onClick: PropTypes.func,
-  inputText: PropTypes.string
-};
-
-export default function SwitchLinkExecutionConditionButton({
+const SwitchLinkExecutionConditionButton = React.memo(function SwitchLinkExecutionConditionButton({
   alt = "Switch edit button",
   className,
   disabled,
@@ -67,10 +59,20 @@ export default function SwitchLinkExecutionConditionButton({
       className={cx(styles.container, className, styles[kind])}
       displayText={displayText}
       onClick={onClick}
-      onKeyDown={e => isAccessibleEvent(e) && onClick(e)}
+      onKeyDown={(e) => isAccessibleEvent(e) && onClick(e)}
       role="button"
       tabIndex="0"
       {...rest}
     />
   );
-}
+});
+
+SwitchLinkExecutionConditionButton.propTypes = {
+  alt: PropTypes.string,
+  className: PropTypes.string,
+  kind: PropTypes.oneOf(["execution", "designer"]),
+  onClick: PropTypes.func,
+  inputText: PropTypes.string,
+};
+
+export default SwitchLinkExecutionConditionButton;

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
 import WorkFlowCloseButton from "Components/WorkflowCloseButton";
@@ -8,7 +8,7 @@ import ConfigureSwitchModal from "./ConfigureSwitchModal";
 import styles from "./SwitchLink.module.scss";
 
 //TOOD: context
-class SwitchLink extends Component {
+class SwitchLink extends PureComponent {
   static propTypes = {
     diagramEngine: PropTypes.object.isRequired,
     model: PropTypes.object.isRequired,

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useWorkflowContext } from "Hooks";
+import { useEditorContext } from "Hooks";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
@@ -11,24 +11,15 @@ import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./TemplateTaskNodeDesigner.module.scss";
 
-TemplateTaskNodeDesigner.propTypes = {
-  diagramEngine: PropTypes.object.isRequired,
-  node: PropTypes.object.isRequired,
-};
-
-TemplateTaskNodeDesigner.defaultProps = {
-  node: {},
-};
-
-export default function TemplateTaskNodeDesigner({ diagramEngine, node: designerNode }) {
-  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useWorkflowContext();
+const TemplateTaskNodeDesigner = React.memo(function TemplateTaskNodeDesigner({ diagramEngine, node: designerNode }) {
+  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useEditorContext();
 
   /**
    * Pull data off of context
    */
   const inputProperties = summaryQuery.data.properties;
   const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
-  const nodeConfig = revisionState.config[designerNode.id] ?? {};
+  const nodeConfig = revisionState.config[designerNode?.id] ?? {};
   const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 
   // Get the taskNames names from the nodes on the model
@@ -141,4 +132,15 @@ export default function TemplateTaskNodeDesigner({ diagramEngine, node: designer
     );
   }
   return null;
-}
+});
+
+TemplateTaskNodeDesigner.propTypes = {
+  diagramEngine: PropTypes.object.isRequired,
+  node: PropTypes.object.isRequired,
+};
+
+TemplateTaskNodeDesigner.defaultProps = {
+  node: {},
+};
+
+export default TemplateTaskNodeDesigner;

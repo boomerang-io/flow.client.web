@@ -9,13 +9,7 @@ import { NodeType } from "Constants";
 import { EXECUTION_CONDITIONS } from "utilities/taskLinkIcons";
 import styles from "./TaskLink.module.scss";
 
-TaskLinkExecution.propTypes = {
-  diagramEngine: PropTypes.object.isRequired,
-  model: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired,
-};
-
-export default function TaskLinkExecution({ diagramEngine, model, path }) {
+const TaskLinkExecution = React.memo(function TaskLinkExecution({ diagramEngine, model, path }) {
   const { workflowExecution } = useExecutionContext();
   const targetNodeId = model?.targetPort?.parent?.id;
   const sourceNodeId = model?.sourcePort?.parent?.id;
@@ -60,4 +54,12 @@ export default function TaskLinkExecution({ diagramEngine, model, path }) {
       )}
     </WorkflowLink>
   );
-}
+});
+
+TaskLinkExecution.propTypes = {
+  diagramEngine: PropTypes.object.isRequired,
+  model: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired,
+};
+
+export default TaskLinkExecution;
