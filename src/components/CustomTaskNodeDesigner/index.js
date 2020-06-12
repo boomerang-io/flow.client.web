@@ -21,13 +21,16 @@ CustomTaskNodeDesigner.defaultProps = {
 };
 
 export default function CustomTaskNodeDesigner({ diagramEngine, node: designerNode }) {
-  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useWorkflowContext();
-
+  // const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useWorkflowContext();
+  const {
+    state: { revisionDispatch, revisionState, summaryQuery, taskTemplatesData },
+  } = useWorkflowContext();
+  // console.log(useWorkflowContext());
   /**
    * Pull data off of context
    */
   const inputProperties = summaryQuery.data.properties;
-  const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
+  const nodeDag = revisionState.dag ?.nodes ?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode.id] ?? {};
   const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 
@@ -104,7 +107,7 @@ export default function CustomTaskNodeDesigner({ diagramEngine, node: designerNo
             "The managers of this task have made some changes that were significant enough for a new version. You can still use the current version, but it’s usually a good idea to update when available. The details of the change are outlined below. If you’d like to update, review the changes below and make adjustments if needed. This process will only update the task in this Workflow - not any other workflows where this task appears.",
         }}
         modalTrigger={({ openModal }) =>
-          nodeDag?.templateUpgradeAvailable ? (
+          nodeDag ?.templateUpgradeAvailable ? (
             <WorkflowWarningButton className={styles.updateButton} onClick={openModal} />
           ) : null
         }

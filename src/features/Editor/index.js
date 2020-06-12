@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { WorkflowContext } from "State/context";
+import { Provider, reducer } from "State/reducers/editor";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { useAppContext, useIsModalOpen } from "Hooks";
 import { Prompt, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
@@ -128,7 +128,9 @@ export function EditorStateContainer({
 }) {
   const location = useLocation();
   const match = useRouteMatch();
-  const { teams } = useAppContext();
+  const {
+    state: { teams },
+  } = useAppContext();
   const isModalOpen = useIsModalOpen();
 
   const [workflowDagEngine, setWorkflowDagEngine] = useState();
@@ -142,12 +144,15 @@ export function EditorStateContainer({
   function revisionReducer(state, action) {
     switch (action.type) {
       case RevisionActionTypes.AddNode: {
+        console.log("add node");
         const { data } = action;
         state.hasUnsavedWorkflowRevisionUpdates = true;
         state.config[data.nodeId] = data;
         return state;
       }
       case RevisionActionTypes.DeleteNode: {
+        console.log("delete node");
+
         let { nodeId } = action.data;
         delete state.config[nodeId];
         state.dag.nodes = state.dag ?.nodes ?.filter((node) => node.nodeId !== nodeId) ?? [];
@@ -155,12 +160,16 @@ export function EditorStateContainer({
         return state;
       }
       case RevisionActionTypes.UpdateNodeConfig: {
+        console.log("update node config");
+
         const { nodeId, inputs } = action.data;
         state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
         state.hasUnsavedWorkflowRevisionUpdates = true;
         return state;
       }
       case RevisionActionTypes.UpdateNodeTaskVersion: {
+        console.log("update node task");
+
         const { nodeId, inputs, version } = action.data;
         state.dag.nodes.find((node) => node.nodeId === nodeId).templateUpgradeAvailable = false;
         state.config[nodeId].taskVersion = version;
@@ -337,8 +346,9 @@ export function EditorStateContainer({
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
-    <WorkflowContext.Provider
-      value={{
+    <Provider
+      reducer={reducer}
+      initialState={{
         revisionDispatch,
         revisionState,
         revisionQuery,
@@ -403,6 +413,6 @@ export function EditorStateContainer({
           />
         </div>
       </>
-    </WorkflowContext.Provider>
+    </Provider>
   );
 }
