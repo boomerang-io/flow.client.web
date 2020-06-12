@@ -28,9 +28,7 @@ WorkflowInsights.propTypes = {
 };
 
 export default function WorkflowInsights(location) {
-  const {
-    state: { teams },
-  } = useAppContext();
+  const { teams } = useAppContext();
   const [selectedTimeframe, setSelectedTimeframe] = useState(timeframeOptions[3]);
   const [selectedWorkflow, setSelectedWorkflow] = useState(ALL_OPTIONS.WORKFLOWS);
   const [selectedTeam, setSelectedTeam] = useState(ALL_OPTIONS.TEAMS);

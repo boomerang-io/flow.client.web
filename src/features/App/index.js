@@ -1,5 +1,5 @@
 import React, { lazy, useState, Suspense } from "react";
-import { Provider, reducer } from "State/reducers/app";
+import { AppContext } from "State/context";
 import { useQuery } from "Hooks";
 import { Switch, Route, Redirect } from "react-router-dom";
 import {
@@ -10,7 +10,7 @@ import {
   ProtectedRoute,
 } from "@boomerang/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
-import OnBoardExpContainer from "Features/OnBoard";
+import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";
 import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
@@ -21,13 +21,11 @@ import { serviceUrl } from "Config/servicesConfig";
 import styles from "./app.module.scss";
 
 const Activity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/Activity"));
-const Editor = lazy(() => import(/* webpackChunkName: "Editor =" */ "Features/Editor"));
+const Editor = lazy(() => import(/* webpackChunkName: "Editor" */ "Features/Editor"));
 const Execution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/Execution"));
-const GlobalConfiguration = lazy(() =>
-  import(/* webpackChunkName: "GlobalConfiguration" */ "Features/GlobalProperties")
-);
+const GlobalProperties = lazy(() => import(/* webpackChunkName: "GlobalProperties" */ "Features/GlobalProperties"));
 const Insights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
-const TaskTemplates = lazy(() => import(/* webpackChunkName: "Task Templates" */ "Features/TaskTemplates"));
+const TaskTemplates = lazy(() => import(/* webpackChunkName: "TaskTemplates" */ "Features/TaskTemplates"));
 const TeamProperties = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/TeamProperties"));
 const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Features/Workflows"));
 
@@ -40,7 +38,7 @@ const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
 export default function App() {
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(!supportedBrowsers.includes(browser.name));
-  const [onBoardShow, setOnBoardShow] = useState(false);
+  const [isTutorialActive, setIsTutorialActive] = useState(false);
 
   const userQuery = useQuery(userUrl);
   const navigationQuery = useQuery(navigationUrl);
@@ -67,18 +65,18 @@ export default function App() {
   return (
     <>
       <Navbar
-        handleOnTutorialClick={() => setOnBoardShow(true)}
+        handleOnTutorialClick={() => setIsTutorialActive(true)}
         navigationState={navigationQuery}
         userState={userQuery}
       />
-      <OnBoardExpContainer onBoardShow={onBoardShow} setOnBoardShow={setOnBoardShow} />
+      <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
       <ErrorBoundary errorComponent={ErrorDragon}>
         <Main
           isLoadingInitialData={isLoadingInitialData}
           isErrorState={isErrorState}
           isSuccessState={isSuccessState}
-          onBoardShow={onBoardShow}
-          setOnBoardShow={setOnBoardShow}
+          isTutorialActive={isTutorialActive}
+          setIsTutorialActive={setIsTutorialActive}
           setShouldShowBrowserWarning={setShouldShowBrowserWarning}
           shouldShowBrowserWarning={shouldShowBrowserWarning}
           teamsData={teamsData}
@@ -94,8 +92,8 @@ function Main({
   isErrorState,
   isSuccessState,
   platformRole,
-  onBoardShow,
-  setOnBoardShow,
+  isTutorialActive,
+  setIsTutorialActive,
   setShouldShowBrowserWarning,
   shouldShowBrowserWarning,
   teamsData,
@@ -127,17 +125,16 @@ function Main({
       return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
     }
     return (
-      <Provider
-        reducer={reducer}
-        initialState={{
-          onBoardShow,
-          setOnBoardShow,
+      <AppContext.Provider
+        value={{
+          isTutorialActive,
+          setIsTutorialActive,
           user: userData,
           teams: teamsData,
         }}
       >
         <AppFeatures platformRole={platformRole} />
-      </Provider>
+      </AppContext.Provider>
     );
   }
 
@@ -151,7 +148,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }) {
         <Switch>
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
-            component={<GlobalConfiguration />}
+            component={<GlobalProperties />}
             path={appPath.properties}
             userRole={platformRole}
           />

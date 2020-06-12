@@ -91,6 +91,7 @@ exports[`TeamProperties --- Snapshot Test Capturing Snapshot of TeamProperties 1
                     >
                       <svg
                         aria-label="Open menu"
+                        fill="currentColor"
                         focusable="false"
                         height="16"
                         name="chevron--down"

@@ -63,6 +63,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     alt="first version"
                     aria-hidden="true"
                     class="icon"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -82,6 +83,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     alt="back one version"
                     aria-hidden="true"
                     class="icon"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -111,6 +113,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     alt="forward one version"
                     aria-hidden="true"
                     class="icon disabled"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -131,6 +134,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     alt="last version"
                     aria-hidden="true"
                     class="icon disabled"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -160,6 +164,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 aria-hidden="true"
                 aria-label="Set version to latest"
                 class="bx--btn__icon"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -186,6 +191,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 aria-hidden="true"
                 aria-label="Create new version"
                 class="bx--btn__icon"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -251,6 +257,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="collapseButtonImg"
+                fill="currentColor"
                 focusable="false"
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
@@ -275,6 +282,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="bx--search-magnifier"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -309,6 +317,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               >
                 <svg
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -333,6 +342,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-label="Filter"
                 class="bx--overflow-menu__icon"
+                fill="currentColor"
                 focusable="false"
                 height="20"
                 preserveAspectRatio="xMidYMid meet"
@@ -383,6 +393,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -418,6 +429,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type code"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -454,6 +466,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type switch"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -490,6 +503,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -525,6 +539,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type download"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -557,6 +572,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type upload"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -593,6 +609,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -628,6 +645,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type message"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -663,6 +681,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type message"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -702,6 +721,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -737,6 +757,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type message"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -772,6 +793,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type message"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -807,6 +829,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type message"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -842,6 +865,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type get, read"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -874,6 +898,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type upload"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -910,6 +935,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -945,6 +971,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type get, read"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -977,6 +1004,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type get, read"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1009,6 +1037,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type add"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1044,6 +1073,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type get, read"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1076,6 +1106,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type get, read"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1108,6 +1139,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type edit"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1144,6 +1176,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -1179,6 +1212,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type automated task"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1215,6 +1249,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type automated task"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1251,6 +1286,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type API/HTTP call"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1283,6 +1319,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type automated task"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1323,6 +1360,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -1358,6 +1396,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type API/HTTP call"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1390,6 +1429,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type automated task"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1430,6 +1470,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <svg
                     aria-hidden="true"
                     class="bx--accordion__arrow"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
@@ -1465,6 +1506,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type API/HTTP call"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1497,6 +1539,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type terminal"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="20"
                           preserveAspectRatio="xMidYMid meet"
@@ -1533,6 +1576,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type filter"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1565,6 +1609,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         <svg
                           alt="Task node type power on/off"
                           aria-hidden="true"
+                          fill="currentColor"
                           focusable="false"
                           height="16"
                           preserveAspectRatio="xMidYMid meet"
@@ -1608,6 +1653,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="zoomIcon"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -1629,6 +1675,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="zoomIcon"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -4415,6 +4462,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type download"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -4558,6 +4606,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -4705,6 +4754,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type download"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -4848,6 +4898,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -4995,6 +5046,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -5142,6 +5194,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type upload"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -5285,6 +5338,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type code"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -5441,6 +5495,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type upload"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -5584,6 +5639,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"

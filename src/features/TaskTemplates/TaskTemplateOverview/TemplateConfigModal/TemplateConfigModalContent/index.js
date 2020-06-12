@@ -218,7 +218,6 @@ class TemplateConfigModalContent extends Component {
   };
 
   render() {
-    console.log(this.props.field);
     const { field, isEdit, fieldKeys } = this.props;
     let defaultValueType = this.state.defaultValueType;
     return (

@@ -139,6 +139,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <svg
                   aria-label="completed"
                   class="statusIcon"
+                  fill="currentColor"
                   focusable="false"
                   height="32"
                   preserveAspectRatio="xMidYMid meet"
@@ -167,6 +168,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
               <svg
                 aria-hidden="true"
                 class="chevron"
+                fill="currentColor"
                 focusable="false"
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
@@ -189,19 +191,20 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
               Task log
             </p>
             <button
-              aria-describedby="icon-tooltip-3"
+              aria-describedby="icon-tooltip-6"
               class="bx--tooltip__trigger bx--tooltip--a11y taskbarButton bx--tooltip--top bx--tooltip--align-center"
               data-testid="taskbar-button"
             >
               <span
                 class="bx--assistive-text"
-                id="icon-tooltip-3"
+                id="icon-tooltip-6"
               >
                 Change sort direction (by start time)
               </span>
               <svg
                 aria-hidden="true"
                 class="taskbarArrows"
+                fill="currentColor"
                 focusable="false"
                 height="32"
                 preserveAspectRatio="xMidYMid meet"
@@ -233,6 +236,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="completed"
                     class="taskIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -261,6 +265,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="completed"
                     class="statusIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -343,6 +348,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="completed"
                     class="taskIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -371,6 +377,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="completed"
                     class="statusIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -453,6 +460,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="completed"
                     class="taskIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -481,6 +489,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="completed"
                     class="statusIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -563,6 +572,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="failure"
                     class="taskIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -591,6 +601,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="failure"
                     class="statusIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -673,6 +684,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="completed"
                     class="taskIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -701,6 +713,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="completed"
                     class="statusIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -783,6 +796,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="completed"
                     class="taskIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -811,6 +825,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <svg
                     aria-label="completed"
                     class="statusIcon"
+                    fill="currentColor"
                     focusable="false"
                     height="32"
                     preserveAspectRatio="xMidYMid meet"
@@ -900,6 +915,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <svg
                   aria-hidden="true"
                   class="editIcon"
+                  fill="currentColor"
                   focusable="false"
                   height="32"
                   preserveAspectRatio="xMidYMid meet"
@@ -927,6 +943,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <svg
                   aria-hidden="true"
                   class="zoomIcon"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -948,6 +965,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <svg
                   aria-hidden="true"
                   class="zoomIcon"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -2541,6 +2559,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     <svg
                       alt="Task node type download"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -2595,6 +2614,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -2653,6 +2673,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     <svg
                       alt="Task node type download"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -2707,6 +2728,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -2765,6 +2787,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"
@@ -2823,6 +2846,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     <svg
                       alt="Task node type upload"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -2877,6 +2901,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     <svg
                       alt="Task node type code"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -2947,6 +2972,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     <svg
                       alt="Task node type upload"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -3001,6 +3027,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     <svg
                       alt="Task node type terminal"
                       aria-hidden="true"
+                      fill="currentColor"
                       focusable="false"
                       height="20"
                       preserveAspectRatio="xMidYMid meet"

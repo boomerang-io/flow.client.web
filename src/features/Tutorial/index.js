@@ -15,7 +15,7 @@ import OnBoardGuideContainer from "./OnBoardGuideContainer";
 import OnBoardMessage from "./OnBoardMessage";
 import "./styles.scss";
 
-export default function OnBoardExpContainer({ onBoardShow, setOnBoardShow }) {
+export default function OnBoardExpContainer({ isTutorialActive, setIsTutorialActive }) {
   const [screen, setScreen] = useState(0);
   const location = useLocation();
 
@@ -33,10 +33,10 @@ export default function OnBoardExpContainer({ onBoardShow, setOnBoardShow }) {
 
   const closeModal = () => {
     setScreen(0);
-    setOnBoardShow(false);
+    setIsTutorialActive(false);
   };
 
-  if (!onBoardShow) {
+  if (!isTutorialActive) {
     return null;
   }
 
