@@ -1,23 +1,22 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { WorkflowContext } from "State/context";
+import { EditorContext } from "State/context";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
-import { useAppContext, useIsModalOpen } from "Hooks";
-import { Prompt, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
-import { useQuery } from "Hooks";
-import { useMutation, queryCache } from "react-query";
+import { useAppContext, useIsModalOpen, useQuery } from "Hooks";
 import { useImmerReducer } from "use-immer";
+import { useMutation, queryCache } from "react-query";
+import { Prompt, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import { Loading, Error, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import ChangeLog from "./ChangeLog";
 import Header from "./Header";
 import Configure from "./Configure";
 import Designer from "./Designer";
 import Properties from "./Properties";
+import sortBy from "lodash/sortBy";
 import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
 import CustomNodeModel from "Utilities/dag/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utilities/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utilities/dag/templateTaskNode/TemplateTaskNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import sortBy from "lodash/sortBy";
 import { appPath } from "Config/appConfig";
 import { QueryStatus } from "Constants";
 import { NodeType } from "Constants";
@@ -111,9 +110,7 @@ export function EditorStateContainer({
 }) {
   const location = useLocation();
   const match = useRouteMatch();
-  const {
-    state: { teams },
-  } = useAppContext();
+  const { teams } = useAppContext();
   const isModalOpen = useIsModalOpen();
 
   const [workflowDagEngine, setWorkflowDagEngine] = useState();
@@ -378,6 +375,6 @@ export function EditorStateContainer({
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
-    <WorkflowContext.Provider value={store}>{memoizedEditor}</WorkflowContext.Provider>
+    <EditorContext.Provider value={store}>{memoizedEditor}</EditorContext.Provider>
   );
 }

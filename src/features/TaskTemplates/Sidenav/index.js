@@ -108,6 +108,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
         </div>
         <section className={styles.tools}>
           <Search
+            id="Task template search"
             size="sm"
             labelText="Search for a task"
             onChange={handleOnSearchInputChange}

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useWorkflowContext } from "Hooks";
+import { useEditorContext } from "Hooks";
 import { RevisionActionTypes } from "State/reducers/workflowRevision";
 import { ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
 import TaskUpdateModal from "Components/TaskUpdateModal";
@@ -12,8 +12,7 @@ import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./CustomTaskNodeDesigner.module.scss";
 
 const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({ diagramEngine, node: designerNode }) {
-  console.log("CustomTaskNodeDesigner render");
-  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useWorkflowContext();
+  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useEditorContext();
   /**
    * Pull data off of context
    */

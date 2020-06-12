@@ -47,6 +47,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
             <svg
               aria-hidden="true"
               class="bx--search-magnifier"
+              fill="currentColor"
               focusable="false"
               height="16"
               preserveAspectRatio="xMidYMid meet"
@@ -80,6 +81,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
             >
               <svg
                 aria-hidden="true"
+                fill="currentColor"
                 focusable="false"
                 height="20"
                 preserveAspectRatio="xMidYMid meet"
@@ -108,6 +110,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                 aria-hidden="true"
                 aria-label="Create Property"
                 class="bx--btn__icon"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -268,6 +271,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                       alt="unsecured"
                       aria-hidden="true"
                       class="tableSecured unsecured"
+                      fill="currentColor"
                       focusable="false"
                       height="32"
                       preserveAspectRatio="xMidYMid meet"
@@ -298,6 +302,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                       <svg
                         aria-label="Overflow menu icon"
                         class="bx--overflow-menu__icon"
+                        fill="currentColor"
                         focusable="false"
                         height="16"
                         preserveAspectRatio="xMidYMid meet"
@@ -394,6 +399,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                       alt="secured"
                       aria-hidden="true"
                       class="tableSecured secured"
+                      fill="currentColor"
                       focusable="false"
                       height="32"
                       preserveAspectRatio="xMidYMid meet"
@@ -424,6 +430,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                       <svg
                         aria-label="Overflow menu icon"
                         class="bx--overflow-menu__icon"
+                        fill="currentColor"
                         focusable="false"
                         height="16"
                         preserveAspectRatio="xMidYMid meet"
@@ -509,6 +516,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                     <svg
                       aria-hidden="true"
                       class="bx--select__arrow"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -565,6 +573,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                     <svg
                       aria-hidden="true"
                       class="bx--select__arrow"
+                      fill="currentColor"
                       focusable="false"
                       height="16"
                       preserveAspectRatio="xMidYMid meet"
@@ -593,6 +602,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
             >
               <svg
                 aria-hidden="true"
+                fill="currentColor"
                 focusable="false"
                 height="24"
                 preserveAspectRatio="xMidYMid meet"
@@ -613,6 +623,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
             >
               <svg
                 aria-hidden="true"
+                fill="currentColor"
                 focusable="false"
                 height="24"
                 preserveAspectRatio="xMidYMid meet"

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
+exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1`] = `
 <body
   id="app"
 >
@@ -42,6 +42,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 aria-hidden="true"
                 aria-label="Add task template"
                 class="bx--btn__icon"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -60,13 +61,14 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
             class="tools"
           >
             <div
-              aria-labelledby="search__input__id_gzou8ncshys-search"
+              aria-labelledby="Task template search-search"
               class="bx--search bx--search--sm"
               role="search"
             >
               <svg
                 aria-hidden="true"
                 class="bx--search-magnifier"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -80,15 +82,15 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               </svg>
               <label
                 class="bx--label"
-                for="search__input__id_gzou8ncshys"
-                id="search__input__id_gzou8ncshys-search"
+                for="Task template search"
+                id="Task template search-search"
               >
                 Search for a task
               </label>
               <input
                 autocomplete="off"
                 class="bx--search-input"
-                id="search__input__id_gzou8ncshys"
+                id="Task template search"
                 placeholder="Search for a task"
                 role="searchbox"
                 type="text"
@@ -101,6 +103,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               >
                 <svg
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -125,6 +128,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-label="open and close list of options"
                 class="bx--overflow-menu__icon"
+                fill="currentColor"
                 focusable="false"
                 height="20"
                 preserveAspectRatio="xMidYMid meet"
@@ -173,6 +177,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="bx--accordion__arrow"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -202,6 +207,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type download"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -228,6 +234,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type upload"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -261,6 +268,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="bx--accordion__arrow"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -290,6 +298,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type message"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -319,6 +328,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type message"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -355,6 +365,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="bx--accordion__arrow"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -384,6 +395,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type message"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -413,6 +425,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type message"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -442,6 +455,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type message"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -471,6 +485,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type get, read"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -497,6 +512,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type upload"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -530,6 +546,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="bx--accordion__arrow"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -559,6 +576,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type get, read"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -585,6 +603,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type get, read"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -611,6 +630,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type add"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -640,6 +660,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type get, read"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -666,6 +687,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type get, read"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -692,6 +714,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type edit"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -725,6 +748,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="bx--accordion__arrow"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -754,6 +778,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type automated task"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -784,6 +809,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type automated task"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -814,6 +840,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type API/HTTP call"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -840,6 +867,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type automated task"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -877,6 +905,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="bx--accordion__arrow"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -906,6 +935,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type API/HTTP call"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -932,6 +962,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type automated task"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -969,6 +1000,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="bx--accordion__arrow"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -998,6 +1030,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type API/HTTP call"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -1024,6 +1057,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type terminal"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="20"
                   preserveAspectRatio="xMidYMid meet"
@@ -1054,6 +1088,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type filter"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -1080,6 +1115,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type power on/off"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -1116,6 +1152,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
               <svg
                 aria-hidden="true"
                 class="bx--accordion__arrow"
+                fill="currentColor"
                 focusable="false"
                 height="16"
                 preserveAspectRatio="xMidYMid meet"
@@ -1145,6 +1182,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type code"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"
@@ -1175,6 +1213,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <svg
                   alt="Task node type switch"
                   aria-hidden="true"
+                  fill="currentColor"
                   focusable="false"
                   height="16"
                   preserveAspectRatio="xMidYMid meet"

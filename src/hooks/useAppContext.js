@@ -1,10 +1,8 @@
-import { useTracked, AppActionsTypes } from "State/reducers/app";
+import { useContext } from "react";
+import { AppContext } from "State/context";
 
 function useAppContext() {
-  const [state, dispatch] = useTracked();
-  const setTeams = (data) => dispatch({ type: AppActionsTypes.SetTeams, data });
-  const setUser = (data) => dispatch({ type: AppActionsTypes.SetUser, data });
-  return { state, setTeams, setUser };
+  return useContext(AppContext);
 }
 
 export default useAppContext;

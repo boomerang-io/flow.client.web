@@ -2,14 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { useAppContext, useQuery } from "Hooks";
-import {
-  DatePicker,
-  DatePickerInput,
-  Error,
-  MultiSelect as Select,
-  Tabs,
-  Tab,
-} from "@boomerang/carbon-addons-boomerang-react";
+import { Error, MultiSelect as Select, Tabs, Tab } from "@boomerang/carbon-addons-boomerang-react";
+import { DatePicker, DatePickerInput } from "carbon-components-react/es";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
 import { executionOptions } from "Constants/filterOptions";
@@ -40,9 +34,7 @@ const activitySummaryQuery = queryString.stringify({
 });
 
 function WorkflowActivity({ history, location, match }) {
-  const {
-    state: { teams: teamsState },
-  } = useAppContext();
+  const { teams: teamsState } = useAppContext();
 
   const {
     order = DEFAULT_ORDER,
