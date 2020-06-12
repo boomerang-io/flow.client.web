@@ -48,7 +48,6 @@ export default function App() {
 
   const { data: userData = {} } = userQuery;
   const { data: teamsData } = teamsQuery;
-  const { id: userId, type: platformRole } = userData;
 
   const isLoadingInitialData =
     userQuery.status === QueryStatus.Loading ||
@@ -78,14 +77,12 @@ export default function App() {
           isLoadingInitialData={isLoadingInitialData}
           isErrorState={isErrorState}
           isSuccessState={isSuccessState}
-          platformRole={platformRole}
           onBoardShow={onBoardShow}
           setOnBoardShow={setOnBoardShow}
           setShouldShowBrowserWarning={setShouldShowBrowserWarning}
           shouldShowBrowserWarning={shouldShowBrowserWarning}
           teamsData={teamsData}
           userData={userData}
-          userId={userId}
         />
       </ErrorBoundary>
     </>
@@ -113,74 +110,83 @@ function Main({
     return <ErrorDragon style={{ margin: "5rem 0" }} />;
   }
 
-  // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
-  if (!userId) {
-    return null;
-  }
-
-  // Show redirect prompt if the user doesn't have any teams
-  if (Object.keys(teamsData).length === 0) {
-    return <NoAccessRedirectPrompt />;
-  }
-
-  if (shouldShowBrowserWarning) {
-    return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
-  }
-
   if (isSuccessState) {
+    const { id: userId, type: platformRole } = userData;
+
+    // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
+    if (!userId) {
+      return null;
+    }
+
+    // Show redirect prompt if the user doesn't have any teams
+    if (Object.keys(teamsData).length === 0) {
+      return <NoAccessRedirectPrompt />;
+    }
+
+    if (shouldShowBrowserWarning) {
+      return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
+    }
     return (
       <Provider
         reducer={reducer}
         initialState={{
+          onBoardShow,
+          setOnBoardShow,
           user: userData,
           teams: teamsData,
         }}
       >
-        <main id="content" className={styles.container}>
-          <Suspense fallback={<Loading />}>
-            <Switch>
-              <ProtectedRoute
-                allowedUserRoles={allowedUserRoles}
-                component={<GlobalConfiguration />}
-                path={appPath.properties}
-                userRole={platformRole}
-              />
-              <ProtectedRoute
-                allowedUserRoles={allowedUserRoles}
-                component={<TeamProperties />}
-                path={appPath.teamProperties}
-                userRole={platformRole}
-              />
-              <ProtectedRoute
-                allowedUserRoles={allowedUserRoles}
-                component={<TaskTemplates />}
-                path={appPath.taskTemplates}
-                userRole={platformRole}
-              />
-              <Route path={appPath.execution}>
-                <Execution />
-              </Route>
-              <Route path={appPath.activity}>
-                <Activity />
-              </Route>
-              <Route path={appPath.editor}>
-                <Editor />
-              </Route>
-              <Route path={appPath.insights}>
-                <Insights />
-              </Route>
-              <Route path={appPath.workflows}>
-                <Workflows onBoardShow={onBoardShow} setOnBoardShow={setOnBoardShow} teams={teamsData} />
-              </Route>
-              <Redirect exact from="/" to={appPath.workflows} />
-              <Route path="*" component={Error404} />
-            </Switch>
-          </Suspense>
-          <NotificationsContainer enableMultiContainer />
-        </main>
+        <AppFeatures platformRole={platformRole} />
       </Provider>
     );
   }
 
   return null;
 }
+
+const AppFeatures = React.memo(function AppFeatures({ platformRole }) {
+  return (
+    <main id="content" className={styles.container}>
+      <Suspense fallback={<Loading />}>
+        <Switch>
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<GlobalConfiguration />}
+            path={appPath.properties}
+            userRole={platformRole}
+          />
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<TeamProperties />}
+            path={appPath.teamProperties}
+            userRole={platformRole}
+          />
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<TaskTemplates />}
+            path={appPath.taskTemplates}
+            userRole={platformRole}
+          />
+          <Route path={appPath.execution}>
+            <Execution />
+          </Route>
+          <Route path={appPath.activity}>
+            <Activity />
+          </Route>
+          <Route path={appPath.editor}>
+            <Editor />
+          </Route>
+          <Route path={appPath.insights}>
+            <Insights />
+          </Route>
+          <Route path={appPath.workflows}>
+            <Workflows />
+          </Route>
+          <Redirect exact from="/" to={appPath.workflows} />
+          <Route path="*" component={Error404} />
+        </Switch>
+      </Suspense>
+      <NotificationsContainer enableMultiContainer />
+    </main>
+  );
+});

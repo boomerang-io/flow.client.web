@@ -5,23 +5,17 @@ import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
 import { EXECUTION_CONDITIONS } from "Utilities/taskLinkIcons";
 
-TaskLinkDesigner.propTypes = {
-  diagramEngine: PropTypes.object.isRequired,
-  model: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired
-};
-
-function TaskLinkDesigner({ diagramEngine, model, path }) {
+const TaskLinkDesigner = React.memo(function TaskLinkDesigner({ diagramEngine, model, path }) {
   const [executionConditionIndex, setExecutionConditionIndex] = React.useState(
-    EXECUTION_CONDITIONS.findIndex(executionCondition => executionCondition.name === model.executionCondition)
+    EXECUTION_CONDITIONS.findIndex((executionCondition) => executionCondition.name === model.executionCondition)
   );
 
-  function updateExecutionState() {
+  const updateExecutionState = () => {
     const newExecutionConditionIndex = (executionConditionIndex + 1) % EXECUTION_CONDITIONS.length;
     const executionCondition = EXECUTION_CONDITIONS[newExecutionConditionIndex];
     model.executionCondition = executionCondition.name;
     setExecutionConditionIndex(newExecutionConditionIndex);
-  }
+  };
 
   return (
     <WorkflowLink diagramEngine={diagramEngine} model={model} path={path}>
@@ -43,6 +37,12 @@ function TaskLinkDesigner({ diagramEngine, model, path }) {
       )}
     </WorkflowLink>
   );
-}
+});
+
+TaskLinkDesigner.propTypes = {
+  diagramEngine: PropTypes.object.isRequired,
+  model: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired,
+};
 
 export default TaskLinkDesigner;

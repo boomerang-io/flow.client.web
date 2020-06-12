@@ -1,20 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useExecutionContext } from "Hooks";
-import cx from "classnames";
 import WorkflowLink from "Components/WorkflowLink";
 import SwitchLinkExecutionConditionButton from "Components/SwitchLinkExecutionConditionButton";
+import cx from "classnames";
 import { NodeType } from "Constants";
 import { ExecutionStatus } from "Constants";
 import styles from "./SwitchLink.module.scss";
 
-SwitchLinkExecution.propTypes = {
-  diagramEngine: PropTypes.object.isRequired,
-  model: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired,
-};
-
-export default function SwitchLinkExecution({ diagramEngine, model, path }) {
+const SwitchLinkExecution = React.memo(function SwitchLinkExecution({ diagramEngine, model, path }) {
   const { workflowExecution } = useExecutionContext();
 
   let seperatedLinkState;
@@ -59,4 +53,12 @@ export default function SwitchLinkExecution({ diagramEngine, model, path }) {
       )}
     </WorkflowLink>
   );
-}
+});
+
+SwitchLinkExecution.propTypes = {
+  diagramEngine: PropTypes.object.isRequired,
+  model: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired,
+};
+
+export default SwitchLinkExecution;

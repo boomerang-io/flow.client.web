@@ -4,14 +4,8 @@ import WorkflowLink from "Components/WorkflowLink";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 //import styles from "./StartEndLink.module.scss";
 
-StartEndLinkDesigner.propTypes = {
-  diagramEngine: PropTypes.object.isRequired,
-  model: PropTypes.object.isRequired,
-  path: PropTypes.string.isRequired
-};
-
 // Only created by a start node as an end node doesn't create links by definition
-function StartEndLinkDesigner({ diagramEngine, model, path }) {
+const StartEndLinkDesigner = React.memo(function StartEndLinkDesigner({ diagramEngine, model, path }) {
   return (
     <WorkflowLink diagramEngine={diagramEngine} model={model} path={path}>
       {({ halfwayPoint, handleOnDelete }) => (
@@ -21,6 +15,12 @@ function StartEndLinkDesigner({ diagramEngine, model, path }) {
       )}
     </WorkflowLink>
   );
-}
+});
+
+StartEndLinkDesigner.propTypes = {
+  diagramEngine: PropTypes.object.isRequired,
+  model: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired,
+};
 
 export default StartEndLinkDesigner;
