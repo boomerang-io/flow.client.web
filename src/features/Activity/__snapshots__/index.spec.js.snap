@@ -265,7 +265,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                     <div
                       class="bx--list-box__menu-item"
                       id="downshift-0-item-0"
-                      title="Boomerang Flow"
+                      title="IBM Services Engineering"
                     >
                       <div
                         class="bx--list-box__menu-item__option"
@@ -276,7 +276,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                           <input
                             class="bx--checkbox"
                             id="downshift-0-item-0"
-                            name="Boomerang Flow"
+                            name="IBM Services Engineering"
                             readonly=""
                             tabindex="-1"
                             type="checkbox"
@@ -288,7 +288,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                             <span
                               class="bx--checkbox-label-text"
                             >
-                              Boomerang Flow
+                              IBM Services Engineering
                             </span>
                           </label>
                         </div>
@@ -369,7 +369,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                     <div
                       class="bx--list-box__menu-item"
                       id="downshift-1-item-0"
-                      title="ML Train – Bot Efficiency [Boomerang Flow]"
+                      title="ML Train – Bot Efficiency [IBM Services Engineering]"
                     >
                       <div
                         class="bx--list-box__menu-item__option"
@@ -380,7 +380,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                           <input
                             class="bx--checkbox"
                             id="downshift-1-item-0"
-                            name="ML Train – Bot Efficiency [Boomerang Flow]"
+                            name="ML Train – Bot Efficiency [IBM Services Engineering]"
                             readonly=""
                             tabindex="-1"
                             type="checkbox"
@@ -392,7 +392,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                             <span
                               class="bx--checkbox-label-text"
                             >
-                              ML Train – Bot Efficiency [Boomerang Flow]
+                              ML Train – Bot Efficiency [IBM Services Engineering]
                             </span>
                           </label>
                         </div>
@@ -571,7 +571,6 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
               </div>
             </div>
           </div>
-<<<<<<< HEAD
           <div
             class="bx--form-item"
           >
@@ -660,9 +659,6 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
               </div>
             </div>
           </div>
-=======
-          <div />
->>>>>>> feature-PLT-4169-react-tracked
         </div>
         <div
           style="margin-top: 1rem;"
@@ -957,6 +953,496 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
           </div>
         </div>
       </section>
+    </div>
+  </div>
+  <div
+    class="flatpickr-calendar rangeMode animate bx--date-picker__calendar"
+    tabindex="-1"
+  >
+    <div
+      class="flatpickr-months"
+    >
+      <span
+        class="flatpickr-prev-month"
+      >
+        
+      
+        <svg
+          height="16px"
+          viewBox="0 0 16 16"
+          width="16px"
+        >
+          
+        
+          <polygon
+            points="5,8 10,3 10.7,3.7 6.4,8 10.7,12.3 10,13 "
+          />
+          
+        
+          <rect
+            height="16"
+            style="fill:none"
+            width="16"
+          />
+          
+      
+        </svg>
+      </span>
+      <div
+        class="flatpickr-month bx--date-picker__month"
+      >
+        <div
+          class="flatpickr-current-month"
+        >
+          <span
+            class="cur-month"
+          >
+            August
+          </span>
+          <div
+            class="numInputWrapper"
+          >
+            <input
+              aria-label="Year"
+              class="numInput cur-year"
+              tabindex="-1"
+              type="number"
+            />
+            <span
+              class="arrowUp"
+            />
+            <span
+              class="arrowDown"
+            />
+          </div>
+        </div>
+      </div>
+      <span
+        class="flatpickr-next-month"
+      >
+        
+      
+        <svg
+          height="16px"
+          viewBox="0 0 16 16"
+          width="16px"
+        >
+          
+        
+          <polygon
+            points="11,8 6,13 5.3,12.3 9.6,8 5.3,3.7 6,3 "
+          />
+          
+        
+          <rect
+            height="16"
+            style="fill:none"
+            width="16"
+          />
+          
+      
+        </svg>
+      </span>
+    </div>
+    <div
+      class="flatpickr-innerContainer"
+    >
+      <div
+        class="flatpickr-rContainer"
+      >
+        <div
+          class="flatpickr-weekdays bx--date-picker__weekdays"
+        >
+          <div
+            class="flatpickr-weekdaycontainer"
+          >
+            
+      
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              S
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              M
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              T
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              W
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              Th
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              F
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              S
+            </span>
+            
+      
+          </div>
+        </div>
+        <div
+          class="flatpickr-days bx--date-picker__days"
+          tabindex="-1"
+        >
+          <div
+            class="dayContainer"
+          >
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day prevMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day prevMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day prevMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day prevMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day prevMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>

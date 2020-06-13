@@ -23,9 +23,11 @@ const TemplateTaskNodeDesigner = React.memo(function TemplateTaskNodeDesigner({ 
   const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 
   // Get the taskNames names from the nodes on the model
-  const taskNames = Object.values(diagramEngine.getDiagramModel().getNodes())
-    .map((node) => node.taskName)
-    .filter((name) => Boolean(name));
+  const taskNames = diagramEngine?.getDiagramModel
+    ? Object.values(diagramEngine.getDiagramModel().getNodes())
+        .map((node) => node.taskName)
+        .filter((name) => Boolean(name))
+    : [];
 
   /**
    * Event handlers

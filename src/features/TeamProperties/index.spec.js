@@ -23,13 +23,13 @@ describe("TeamProperties --- Snapshot Test", () => {
 
 describe("TeamProperties --- RTL", () => {
   test("renders message when is still fetching", async () => {
-    const { getByLabelText, getByText, debug } = rtlContextRouterRender(<TeamProperties />);
+    const { getByLabelText, getByText } = rtlContextRouterRender(<TeamProperties />);
     const dropDown = await waitFor(() => getByLabelText("Teams"));
     act(() => {
       fireEvent.click(dropDown);
     });
     act(() => {
-      fireEvent.click(getByText("Boomerang Flow"));
+      fireEvent.click(getByText("IBM Services Engineering"));
     });
     const rowItem = await waitFor(() => getByText("for testing purpose"));
     expect(rowItem).toBeTruthy();

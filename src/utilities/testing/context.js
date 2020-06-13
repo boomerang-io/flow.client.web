@@ -1,10 +1,9 @@
 import React from "react";
-import { ExecutionContext } from "State/context";
 import { EditorContext } from "State/context";
 
 const revisionDispatch = jest.mock();
 
-export function WorkflowContextRender({ children, value }) {
+export function EditorContextRender({ children, value }) {
   return (
     <EditorContext.Provider
       value={{

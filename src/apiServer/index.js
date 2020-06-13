@@ -1,6 +1,6 @@
 import { Server, Serializer, Model } from "miragejs";
 import { inflections } from "inflected";
-import fixtures from "./fixtures";
+import * as fixtures from "./fixtures";
 import { serviceUrl } from "../config/servicesConfig";
 import uuid from "uuid/v4";
 import queryString from "query-string";
