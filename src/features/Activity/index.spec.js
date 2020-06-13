@@ -16,8 +16,6 @@ afterEach(() => {
   server.shutdown();
 });
 
-const mockfn = jest.fn();
-
 const props = {
   match: {
     params: "testid",
@@ -61,49 +59,51 @@ describe("WorkflowActivity --- RTL", () => {
       fireEvent.click(statuses[1]);
     });
 
-    expect(history.location.search).toBe("?" + queryString.stringify({ statuses: "inProgress", ...basicQuery }));
+    waitFor(() =>
+      expect(history.location.search).toBe("?" + queryString.stringify({ statuses: "inProgress", ...basicQuery }))
+    );
 
     act(() => {
       fireEvent.click(statuses[3]);
     });
 
-    expect(history.location.search).toBe("?" + queryString.stringify({ statuses: "failure", ...basicQuery }));
+    waitFor(() =>
+      expect(history.location.search).toBe("?" + queryString.stringify({ statuses: "failure", ...basicQuery }))
+    );
 
     act(() => {
       fireEvent.click(statuses[0]);
     });
 
-    expect(history.location.search).toBe("?" + queryString.stringify({ statuses: undefined, ...basicQuery }));
+    waitFor(() =>
+      expect(history.location.search).toBe("?" + queryString.stringify({ statuses: undefined, ...basicQuery }))
+    );
   });
 
   it("Filter by team", () => {
     const history = createMemoryHistory({ initialEntries: ["/"] });
-    const { getByLabelText, getByText, getAllByLabelText } = rtlContextRouterRender(
-      <WorkflowActivity {...props} history={history} />
-    );
+    const { getByText, getAllByLabelText } = rtlContextRouterRender(<WorkflowActivity {...props} history={history} />);
 
     act(() => {
       fireEvent.click(getAllByLabelText("Filter by team")[0]);
     });
 
     act(() => {
-      fireEvent.click(getByText("Boomerang Flow"));
+      fireEvent.click(getByText("IBM Services Engineering"));
     });
-    expect(history.location.search).toBe(
-      "?" + queryString.stringify({ teamIds: "5e3a35ad8c222700018ccd39", ...basicQuery })
+
+    waitFor(() =>
+      expect(history.location.search).toBe(
+        "?" + queryString.stringify({ teamIds: "5e3a35ad8c222700018ccd39", ...basicQuery })
+      )
     );
   });
 
   it("Filter by workflow", async () => {
     const history = createMemoryHistory({ initialEntries: ["/"] });
-    const {
-      getByLabelText,
-      getByText,
-      getAllByLabelText,
-      getAllByText,
-      getByRole,
-      getAllByRole,
-    } = rtlContextRouterRender(<WorkflowActivity {...props} history={history} />);
+    const { getAllByLabelText, getAllByText } = rtlContextRouterRender(
+      <WorkflowActivity {...props} history={history} />
+    );
 
     await waitFor(() => expect(getAllByLabelText("Filter by workflow")));
     act(() => {
@@ -111,19 +111,19 @@ describe("WorkflowActivity --- RTL", () => {
     });
 
     act(() => {
-      fireEvent.click(getAllByText("ML Train – Bot Efficiency [Boomerang Flow]")[0]);
+      fireEvent.click(getAllByText("ML Train – Bot Efficiency [IBM Services Engineering]")[0]);
     });
 
-    expect(history.location.search).toBe(
-      "?" + queryString.stringify({ workflowIds: "5eb2c4085a92d80001a16d87", ...basicQuery })
+    waitFor(() =>
+      expect(history.location.search).toBe(
+        "?" + queryString.stringify({ workflowIds: "5eb2c4085a92d80001a16d87", ...basicQuery })
+      )
     );
   });
 
   it("Filter by trigger", async () => {
     const history = createMemoryHistory({ initialEntries: ["/"] });
-    const { getByLabelText, getByText, getAllByLabelText } = rtlContextRouterRender(
-      <WorkflowActivity {...props} history={history} />
-    );
+    const { getByText, getAllByLabelText } = rtlContextRouterRender(<WorkflowActivity {...props} history={history} />);
 
     act(() => {
       fireEvent.click(getAllByLabelText("Filter by trigger")[0]);
@@ -133,6 +133,8 @@ describe("WorkflowActivity --- RTL", () => {
       fireEvent.click(getByText("cron"));
     });
 
-    expect(history.location.search).toBe("?" + queryString.stringify({ triggers: "cron", ...basicQuery }));
+    waitFor(() =>
+      expect(history.location.search).toBe("?" + queryString.stringify({ triggers: "cron", ...basicQuery }))
+    );
   });
 });

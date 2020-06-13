@@ -1,18 +1,18 @@
 import React from "react";
 import TemplateTaskNodeDesigner from "./index";
 import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
-import { WorkflowContextRender } from "Utilities/testing/context";
-import { revision } from "Utilities/testing/fixtures/dag";
+import { EditorContextRender } from "Utilities/testing/context";
+import { revisions } from "../../apiServer/fixtures";
 
-const diagramEngine = new WorkflowDagEngine({ dag: revision.dag, isLocked: false });
+const diagramEngine = new WorkflowDagEngine({ dag: revisions[0].dag, isLocked: false });
 const node = {};
 
 describe("Editor --- Snapshot", () => {
   it("Capturing Snapshot of Editor", () => {
     const { baseElement } = rtlContextRouterRender(
-      <WorkflowContextRender>
+      <EditorContextRender>
         <TemplateTaskNodeDesigner diagramEngine={diagramEngine} node={node} />
-      </WorkflowContextRender>
+      </EditorContextRender>
     );
     expect(baseElement).toMatchSnapshot();
   });

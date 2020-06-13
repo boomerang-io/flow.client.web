@@ -1,29 +1,13 @@
-import activityList from "./activityList";
-import activitySummary from "./activitySummary";
-import activity from "./activity";
-import config from "./config";
-import changelogs from "./changelogs";
-import insights from "./insights";
-import navigation from "./navigation";
-import profile from "./profile";
-import tasktemplate from "./tasktemplate";
-import summaries from "./summaries";
-import revisions from "./revisions";
-import teams from "./teams";
-import teamProperties from "./teamProperties";
-
-export default {
-  activity,
-  activityList,
-  activitySummary,
-  config,
-  changelogs,
-  insights,
-  navigation,
-  profile,
-  revisions,
-  summaries,
-  tasktemplate,
-  teams,
-  teamProperties
-};
+export { default as activityList } from "./activityList";
+export { default as activitySummary } from "./activitySummary";
+export { default as activity } from "./activity";
+export { default as config } from "./config";
+export { default as changelogs } from "./changelogs";
+export { default as insights } from "./insights";
+export { default as navigation } from "./navigation";
+export { default as profile } from "./profile";
+export { default as tasktemplate } from "./tasktemplate";
+export { default as summaries } from "./summaries";
+export { default as revisions } from "./revisions";
+export { default as teams } from "./teams";
+export { default as teamProperties } from "./teamProperties";
