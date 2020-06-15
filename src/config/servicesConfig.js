@@ -11,7 +11,7 @@ const REACT_APP_PORT_FORWARD = process.env.REACT_APP_PORT_FORWARD;
 
 /**
  * if port forwarding is enabled, then check to see if service is in config map
- * If it is, set the url request to be only the serviceContextPath
+ * If it is, set the url request to be only the serviceContextPath so the url is relativet to the root of the app
  * CRA will proxy the request as seen in setupProxy.js
  * @param {string} baseUrl - base of the serivce url
  * @param {sring} serviceContextPath - additional path for the service context e.g. /admin
@@ -20,7 +20,7 @@ function determineUrl(baseUrl, serviceContextPath) {
   if (REACT_APP_PORT_FORWARD && portForwardMap[serviceContextPath]) {
     return serviceContextPath;
   } else {
-    return baseUrl;
+    return baseUrl + serviceContextPath;
   }
 }
 
