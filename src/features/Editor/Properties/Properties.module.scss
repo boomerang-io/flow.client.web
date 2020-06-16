@@ -1,5 +1,3 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
-@import "~Styles/variables";
 @import "~Styles/mixins";
 
 .container {
@@ -9,7 +7,7 @@
 }
 
 .property {
-  background-color: $white;
+  background-color: var(--cds-ui-01);
   display: inline-table;
   height: 22.625rem;
   margin: 0 2.5rem 2.5rem 0;
@@ -56,7 +54,7 @@
 }
 
 .fieldValue {
-  color: #272727;
+  color: var(--cds-text-01);
   font-size: 0.875rem;
   line-height: 1.125rem;
   margin-top: 0.5rem;
@@ -78,14 +76,14 @@
 }
 
 .label {
-  color: #272727;
+  color: var(--cds-text-01);
   font-size: 1rem;
   line-height: 1.1rem;
   @include text-overflow-ellipsis();
 }
 
 .propertyKey {
-  color: #272727;
+  color: var(--cds-text-01);
   font-size: 0.75rem;
   line-height: 0.9375rem;
   margin-top: 0.25rem;
@@ -93,7 +91,7 @@
 }
 
 .description {
-  color: #272727;
+  color: var(--cds-text-01);
   display: block;
   font-size: 0.75rem;
   line-height: 0.9375rem;
@@ -103,7 +101,7 @@
 }
 
 .description::before {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), $white 80%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--cds-ui-01) 80%);
   bottom: 0;
   content: "\200C";
   display: block;
@@ -115,7 +113,7 @@
 }
 
 .required {
-  color: #009c98;
+  color: var(--cds-support-02);
   bottom: 1rem;
   font-size: 0.75rem;
   line-height: 0.9375rem;

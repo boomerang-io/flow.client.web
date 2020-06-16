@@ -1,6 +1,4 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
-@import "~Styles/variables";
 
 @media (max-width: 768px) {
   .wrapper {
@@ -70,7 +68,7 @@
 }
 
 .header {
-  color: $darkest-gray;
+  color: var(--cds-text-01);
   font-size: 1.5rem;
   font-weight: 600;
   margin-top: 2.5rem;
@@ -186,7 +184,7 @@
 
     .bx--label {
       font-size: 0.875rem;
-      color: $darkest-gray;
+      color: var(--cds-text-01);
     }
   }
 }

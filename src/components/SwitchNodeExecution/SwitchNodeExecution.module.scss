@@ -1,4 +1,3 @@
-@import "~Styles/variables";
 @import "~Styles/mixins";
 
 .node {
@@ -8,7 +7,7 @@
 
   svg {
     circle {
-      stroke: #6e32c9;
+      stroke: var(--flow-switch-primary);
     }
   }
 
@@ -27,7 +26,7 @@
 }
 
 .subtitle:before {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), white 80%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--cds-ui-01) 80%);
   bottom: 0;
   content: "\200C";
   display: block;
@@ -55,13 +54,13 @@
 }
 
 .failure {
-  border: 0.1875rem solid #a51920;
-  border-color: #a51920 !important;
+  border: 0.1875rem solid var(--flow-failure);
+  border-color: var(--flow-failure) !important;
 }
 
 .completed {
-  border: 0.1875rem solid #009d9a;
-  border-color: #009d9a !important;
+  border: 0.1875rem solid var(--cds-support-02);
+  border-color: var(--cds-support-02) !important;
 }
 
 .notstarted,

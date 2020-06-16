@@ -1,14 +1,12 @@
-@import "~Styles/variables";
-
 .container {
   path {
-    stroke: #6e32c9;
+    stroke: var(--flow-switch-primary);
   }
 }
 
 .deleteButton {
   circle {
-    stroke: #6e32c9;
+    stroke: var(--flow-switch-primary);
   }
 }
 

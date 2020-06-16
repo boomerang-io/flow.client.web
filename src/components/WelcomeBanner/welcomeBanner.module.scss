@@ -1,6 +1,5 @@
 @import "~Styles/animation";
 @import "~Styles/mixins";
-@import "~Styles/variables";
 
 .container {
   background-color: #07192b;
@@ -15,7 +14,7 @@
 
   &::after {
     content: "";
-    background-image: url("../../assets/svg/bkg-skyline.svg");
+    background-image: url("~Assets/svg/bkg-skyline.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -181,7 +180,7 @@
 }
 
 .buttonText {
-  color: #242a2e;
+  color: var(--cds-text-01);
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.5625rem;
@@ -189,7 +188,7 @@
 }
 
 .buttonSubtext {
-  color: #242a2e;
+  color: var(--cds-text-01);
   font-size: 0.75rem;
   line-height: 0.9375rem;
   margin-top: 0.125rem;

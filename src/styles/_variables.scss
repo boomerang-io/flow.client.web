@@ -1,10 +1,5 @@
-/* Licensed Materials - Property of IBM
-© Copyright IBM Corporation 2017. All Rights Reserved.
-Author: Timothy Bula
-GBS Engineering
-
-/* colors */
-$lightest-gray: #fbfcfc;
-$dark-gray: #4a4a4a;
-$section-gray: #8c9696;
-$darkest-gray: #272727;
+:root {
+  --flow-switch-primary: #6e32c9;
+  --flow-failure: #a51920;
+  --flow-darkest-blue: #1b2834;
+}

@@ -1,6 +1,3 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
-@import "~Styles/variables";
-
 .container {
   display: flex;
   justify-content: center;
@@ -18,7 +15,7 @@
 .icon {
   background-color: transparent;
   border-radius: 5rem;
-  color: $dark-gray;
+  color: var(--cds-text-01);
   height: 1rem;
   margin-right: 0.5rem;
   margin-top: 0.25rem;
@@ -32,7 +29,7 @@
   margin-bottom: 0.5rem;
 }
 .value {
-  color: $gray-50;
+  color: var(--cds-text-03);
   font-size: 0.75rem;
 }
 .labelContainer {

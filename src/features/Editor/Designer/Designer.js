@@ -60,7 +60,7 @@ function Designer({ createNode, isModalOpen, revisionState, summaryData, workflo
   return (
     <div
       id="workflow-dag-designer"
-      className={styles.designer}
+      className={styles.workflowContainer}
       onDrop={(event) => createNode(workflowDagEngine, event)}
       onDragOver={(event) => {
         event.preventDefault();

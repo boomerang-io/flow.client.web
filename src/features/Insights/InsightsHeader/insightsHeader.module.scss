@@ -1,8 +1,6 @@
-@import "~Styles/variables";
-
 .container {
   align-items: flex-start;
-  background: white;
+  background: var(--cds-ui-01);
   display: flex;
   flex-direction: column;
   height: 7.3125rem;

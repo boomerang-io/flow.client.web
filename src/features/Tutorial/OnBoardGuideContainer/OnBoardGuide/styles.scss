@@ -1,9 +1,8 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
 
 .c-onboard-screen {
   align-items: center;
-  background-color: $cerulean-90;
+  background-color: var(--flow-darkest-blue);
   @include border-radius();
   display: flex;
   flex-direction: column;
@@ -16,7 +15,7 @@
 }
 
 .b-onboard-screen-title {
-  color: #fff;
+  color: var(--cds-ui-01);
   display: flex;
   font-size: 1rem;
   font-weight: 700;
@@ -26,7 +25,7 @@
 }
 
 .b-onboard-screen-content {
-  color: #fff;
+  color: var(--cds-ui-01);
   display: flex;
   flex-grow: 1;
   font-size: 0.925rem;
@@ -39,7 +38,7 @@
 
 .b-onboard-screen-bottom {
   align-items: center;
-  background-color: $white;
+  background-color: var(--cds-ui-01);
   border-radius: 0 0 0.25rem 0.25rem;
   display: flex;
   height: 3rem;
@@ -108,7 +107,7 @@
 }
 
 .b-onboard-screen-button__text {
-  color: $gray-90;
+  color: var(--cds-text-01);
   font-size: 0.75rem;
   font-weight: bold;
   height: 0.938rem;
@@ -131,7 +130,7 @@
   svg {
     height: 1rem;
     width: 1rem;
-    fill: white;
+    fill: var(--cds-ui-01);
   }
 }
 
@@ -150,7 +149,7 @@
 }
 
 .c-onboard-screen--search_filter:after {
-  border-color: transparent transparent $cerulean-90 transparent;
+  border-color: transparent transparent var(--flow-darkest-blue) transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
@@ -167,7 +166,7 @@
 }
 
 .c-onboard-screen--sidenav:after {
-  border-color: transparent transparent $cerulean-90 transparent;
+  border-color: transparent transparent var(--flow-darkest-blue) transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
@@ -184,7 +183,7 @@
 }
 
 .c-onboard-screen--workflow:after {
-  border-color: transparent transparent $cerulean-90 transparent;
+  border-color: transparent transparent var(--flow-darkest-blue) transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
@@ -201,7 +200,7 @@
 }
 
 .c-onboard-screen--properties:after {
-  border-color: transparent transparent $cerulean-90 transparent;
+  border-color: transparent transparent var(--flow-darkest-blue) transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
@@ -218,7 +217,7 @@
 }
 
 .c-onboard-screen--change_log:after {
-  border-color: transparent transparent $cerulean-90 transparent;
+  border-color: transparent transparent var(--flow-darkest-blue) transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
@@ -235,7 +234,7 @@
 }
 
 .c-onboard-screen--settings:after {
-  border-color: transparent transparent $cerulean-90 transparent;
+  border-color: transparent transparent var(--flow-darkest-blue) transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
@@ -305,7 +304,7 @@
 }
 
 .c-onboard-screen--activity:after {
-  border-color: transparent $cerulean-90 transparent transparent;
+  border-color: transparent var(--flow-darkest-blue) transparent transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
@@ -339,7 +338,7 @@
 }
 
 .c-onboard-screen--activity_numbers:after {
-  border-color: transparent transparent $cerulean-90 transparent;
+  border-color: transparent transparent var(--flow-darkest-blue) transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
@@ -356,7 +355,7 @@
 }
 
 .c-onboard-screen--side_info:after {
-  border-color: transparent $cerulean-90 transparent transparent;
+  border-color: transparent var(--flow-darkest-blue) transparent transparent;
   border-style: solid;
   border-width: 0.75rem;
   content: "";
@@ -373,7 +372,7 @@
 }
 
 .c-onboard-screen--diagram:after {
-  border-color: transparent transparent transparent $cerulean-90;
+  border-color: transparent transparent transparent var(--flow-darkest-blue);
   border-style: solid;
   border-width: 0.75rem;
   content: "";

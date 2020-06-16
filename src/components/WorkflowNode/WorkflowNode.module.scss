@@ -1,4 +1,3 @@
-@import "~Styles/variables";
 @import "~Styles/mixins";
 
 :global .srd-node--selected > * {
@@ -6,7 +5,7 @@
 }
 
 .node {
-  background: $lightest-gray;
+  background: var(--cds-ui-01);
   border: 0.125rem solid var(--cds-interactive-01);
   border-color: var(--cds-interactive-01);
   height: 5rem;
@@ -28,7 +27,7 @@
 
 .title {
   height: 1.125rem;
-  color: #272727;
+  color: var(--cds-text-01);
   font-size: 0.875rem;
   line-height: 1.125rem;
   margin: 0;
@@ -38,7 +37,7 @@
 
 .subtitle {
   height: 0.9375rem;
-  color: #272727;
+  color: var(--cds-text-01);
   font-size: 0.75rem;
   line-height: 0.9375rem;
   margin-top: 0.5rem;

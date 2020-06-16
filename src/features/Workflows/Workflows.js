@@ -105,7 +105,7 @@ export default function WorkflowsHome() {
           handleSearchFilter={handleSearchFilter}
           searchQuery={searchQuery}
           teams={teams}
-          teamsFilter={filteredTeams}
+          teamsFilter={teamsFilter.length ? filteredTeams : []}
           workflowsCount={workflowsCount}
         />
         <div aria-label="Team Workflows" className={styles.content} role="region">

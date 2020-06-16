@@ -1,6 +1,4 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
-@import "~Styles/variables";
 
 .container {
   display: flex;
@@ -12,7 +10,7 @@
 }
 
 .messageText {
-  color: $gray-90;
+  color: var(--cds-text-01);
   font-size: 1rem;
   line-height: 1.25rem;
   margin-right: 1.5rem;

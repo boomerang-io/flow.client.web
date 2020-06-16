@@ -20,7 +20,7 @@
 
 .versionTitle {
   height: 1.125rem;
-  color: #272727;
+  color: var(--cds-text-01);
   font-size: 0.875rem;
   letter-spacing: 0;
   line-height: 1.125rem;
@@ -29,7 +29,7 @@
 
 .versionSubtitle {
   height: 0.9375rem;
-  color: #21272a;
+  color: var(--cds-text-01);
   font-size: 0.75rem;
   letter-spacing: 0.01rem;
   line-height: 0.9375rem;
@@ -42,7 +42,7 @@
 
 .versionName {
   height: 1.625rem;
-  color: #121619;
+  color: var(--cds-text-01);
   font-size: 1rem;
   letter-spacing: 0;
   line-height: 1.625rem;
