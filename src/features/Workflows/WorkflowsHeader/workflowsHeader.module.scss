@@ -69,3 +69,24 @@
     margin-top: 1rem;
   }
 }
+
+.filterContainer {
+  align-items: flex-end;
+  display: flex;
+}
+
+.search {
+  flex: 1 1 auto;
+  margin-right: 2rem;
+
+  & .bx--search--lg.bx--search-input {
+    height: 2.75rem !important;
+  }
+}
+
+.filter {
+  width: 15rem;
+  :global .bx--list-box {
+    background: var(--cds-ui-background);
+  }
+}

@@ -203,7 +203,7 @@ function Header({
               modalTrigger={({ openModal }) => (
                 <TooltipHover direction="bottom" tooltipText={"Restore the last save of this version"}>
                   <Button
-                    className={styles.button}
+                    className={styles.resetButton}
                     disabled={!isDirty}
                     size="field"
                     kind="ghost"
@@ -236,7 +236,13 @@ function Header({
               title="Copy to new version"
               modalTrigger={({ openModal }) => (
                 <TooltipHover direction="bottom" tooltipText={"Copy this version to a new version to enable editing"}>
-                  <Button className={styles.button} size="field" kind="ghost" renderIcon={Undo16} onClick={openModal}>
+                  <Button
+                    className={styles.copyButton}
+                    size="field"
+                    kind="ghost"
+                    renderIcon={Undo16}
+                    onClick={openModal}
+                  >
                     Copy to new version
                   </Button>
                 </TooltipHover>

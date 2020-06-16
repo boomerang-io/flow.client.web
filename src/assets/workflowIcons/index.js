@@ -1,20 +1,14 @@
-import Docs from "./Document.js";
-import Flow from "./Flow.js";
-import Mail from "./Mail.js";
-import Api from "./Api.js";
-import Upload from "./Upload.js";
-import Notify from "./Notify.js";
-import Schedule from "./Schedule.js";
+import { Api16, Document16, Email16, EventSchedule16, FlowData16, Notification16, Upload16 } from "@carbon/icons-react";
 
 export default [
-  { Icon: Flow, name: "flow" },
-  { Icon: Api, name: "api" },
-  { Icon: Upload, name: "upload" },
-  { Icon: Schedule, name: "schedule" },
-  { Icon: Notify, name: "notify" },
-  { Icon: Mail, name: "mail" },
+  { Icon: Api16, name: "api" },
   {
-    Icon: Docs,
-    name: "docs",
+    Icon: Document16,
+    name: "document",
   },
+  { Icon: FlowData16, name: "flow" },
+  { Icon: Email16, name: "Email" },
+  { Icon: Notification16, name: "notify" },
+  { Icon: EventSchedule16, name: "schedule" },
+  { Icon: Upload16, name: "upload" },
 ];

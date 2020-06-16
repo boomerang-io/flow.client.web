@@ -8,9 +8,10 @@
   margin-top: 2.5rem;
 }
 .iconContainer {
-  display: flex;
   align-items: center;
+  color: var(--cds-text-01);
   cursor: pointer;
+  display: flex;
 }
 .icon {
   background-color: transparent;

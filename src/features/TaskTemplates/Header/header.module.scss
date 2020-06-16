@@ -44,10 +44,17 @@
 .buttons {
   display: flex;
 }
-.button {
+.copyButton {
   margin-left: 0.625rem;
   width: 12.8125rem;
 }
+
+.resetButton {
+  margin-left: 0.625rem;
+  margin-right: 1.5rem;
+  width: 10.875rem;
+}
+
 .category {
   font-size: 0.875rem;
   line-height: 1.125rem;
