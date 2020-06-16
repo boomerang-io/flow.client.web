@@ -1,10 +1,9 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
 
 .c-onboardExp {
   align-items: center;
   border-radius: 0.2rem;
-  background-color: $cerulean-90;
+  background-color: var(--flow-darkest-blue);
   display: flex;
   flex-direction: column;
   height: 24.125rem;
@@ -31,7 +30,7 @@
   }
 
   svg {
-    fill: white;
+    fill: var(--cds-ui-01);
     height: 1rem;
     width: 1rem;
   }
@@ -71,7 +70,7 @@
   background-color: #d0dada;
   border: none;
   @include border-radius();
-  color: $gray-90;
+  color: var(--cds-text-01);
   cursor: pointer;
   font-size: 1.25rem;
   font-weight: 300;
@@ -100,7 +99,7 @@
 }
 
 .b-onboardExp__title {
-  color: $cool-white-1;
+  color: var(--cds-ui-01);
   font-size: 2rem;
   text-align: center;
   line-height: 2.625rem;
@@ -111,7 +110,7 @@
 }
 
 .b-onboardExp__subtitle {
-  color: $cool-white-1;
+  color: var(--cds-ui-01);
   font-size: 1.25rem;
   text-align: center;
   line-height: 1.688rem;
@@ -123,7 +122,7 @@
 }
 
 .b-onboardExp-finish__title {
-  color: $cool-white-1;
+  color: var(--cds-ui-01);
   font-size: 2rem;
   text-align: center;
   line-height: 2.625rem;
@@ -135,7 +134,7 @@
 
 .b-onboardExp-finish__subtitle {
   display: flex;
-  color: $cool-white-1;
+  color: var(--cds-ui-01);
   font-size: 1.25rem;
   text-align: center;
   line-height: 1.688rem;
@@ -151,10 +150,10 @@
 
 .b-onboardExp-finish-oval {
   align-items: center;
-  border: 0.063rem solid $teal-20;
+  border: 0.063rem solid var(--flow-lightest-teal);
   border-radius: 50%;
   box-sizing: content-box;
-  color: $teal-20;
+  color: var(--flow-lightest-teal);
   display: flex;
   font-size: 1.25rem;
   font-weight: bold;
@@ -174,7 +173,7 @@
   background-color: #8ee9d4;
   border: none;
   @include border-radius();
-  color: $gray-90;
+  color: var(--cds-text-01);
   cursor: pointer;
   font-size: 1.25rem;
   font-weight: 300;

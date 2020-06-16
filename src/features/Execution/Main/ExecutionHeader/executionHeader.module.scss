@@ -1,8 +1,7 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
 
 .container {
-  background-color: $white;
+  background-color: var(--cds-ui-01);
   display: flex;
   min-height: 4.3125rem;
   justify-content: space-between;
@@ -11,7 +10,7 @@
 
 .subtitle {
   align-items: center;
-  color: $gray-90;
+  color: var(--cds-text-01);
   display: flex;
   font-size: 0.875rem;
   letter-spacing: 0.01rem;
@@ -34,7 +33,7 @@
 }
 
 .title {
-  color: $gray-90;
+  color: var(--cds-text-01);
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.625rem;
@@ -48,7 +47,7 @@
 }
 
 .data {
-  color: $gray-90;
+  color: var(--cds-text-01);
   margin-left: 2.5rem;
 }
 

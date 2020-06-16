@@ -1,14 +1,11 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
-@import "~Styles/variables";
-
 .container {
   display: flex;
   flex-direction: column;
-  background-color: $white;
+  background-color: var(--cds-ui-01);
   width: auto;
   height: auto;
-  color: $dark-gray;
-  border: solid $gray-20 0.0625rem;
+  color: var(--cds-text-01);
+  border: solid var(--cds-ui-03) 0.0625rem;
   border-radius: 0.325rem;
 }
 .data {

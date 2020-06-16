@@ -1,12 +1,11 @@
-@import "~Styles/variables";
-
 .container {
   display: flex;
   height: calc(100vh - 12rem);
 
-  .designer {
+  .workflowContainer {
     display: flex;
     flex-grow: 1;
+    padding: 1rem;
     position: relative;
     &.loading {
       justify-content: space-around;

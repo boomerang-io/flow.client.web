@@ -1,9 +1,8 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
 
 .container {
   display: flex;
-  background-color: $white;
+  background-color: var(--cds-ui-01);
   flex-direction: column;
   justify-content: space-between;
   min-width: 19.375rem;
@@ -27,7 +26,7 @@
   }
 
   :global .bx--overflow-menu-options__btn {
-    color: $gray-50;
+    color: var(--cds-text-03);
     text-decoration: none !important;
   }
   :global .bx--overflow-menu-options--open {
@@ -66,7 +65,7 @@
 }
 
 .descriptionContainer {
-  color: $gray-60;
+  color: var(--cds-text-02);
   font-size: 0.875rem;
   margin-right: 1rem;
   width: 15rem;

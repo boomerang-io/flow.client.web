@@ -1,4 +1,3 @@
-@import "~Styles/variables";
 @import "~Styles/mixins";
 
 :global .c-workflow-diagram-execution {
@@ -8,7 +7,7 @@
 }
 
 .failure {
-  border: 0.1875rem solid #a51920;
+  border: 0.1875rem solid var(--flow-failure);
 }
 
 .inProgress {
@@ -34,14 +33,14 @@
 }
 
 .badgeText {
-  color: #000000;
+  color: var(--cds-text-01);
   font-size: 0.625rem;
   line-height: 0.8125rem;
 }
 
 .failure {
-  border: 0.1875rem solid #a51920;
-  border-color: #a51920 !important;
+  border: 0.1875rem solid var(--flow-failure);
+  border-color: var(--flow-failure) !important;
 }
 
 .inProgress {
@@ -83,8 +82,8 @@
 }
 
 .completed {
-  border: 0.1875rem solid #009d9a;
-  border-color: #009d9a !important;
+  border: 0.1875rem solid var(--cds-support-02);
+  border-color: var(--cds-support-02) !important;
 }
 
 .notstarted,

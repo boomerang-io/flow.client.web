@@ -1,8 +1,5 @@
-@import "~Styles/variables";
-@import "~Styles/mixins";
-
 .node {
-  border: 1px solid #6e32c9 !important;
+  border: 1px solid var(--flow-switch-primary) !important;
   border-radius: 0.25rem;
   box-sizing: border-box;
   height: 8.75rem;
@@ -11,7 +8,7 @@
 
   svg {
     circle {
-      stroke: #6e32c9;
+      stroke: var(--flow-switch-primary);
     }
   }
 
@@ -21,7 +18,7 @@
 }
 
 .rightPort {
-  background-color: #6e32c9 !important;
+  background-color: var(--flow-switch-primary) !important;
 }
 
 .subtitle {
@@ -68,7 +65,7 @@
 
 .badgeContainer {
   background-color: var(--cds-ui-01);
-  border: 1px solid #6e32c9;
+  border: 1px solid var(--flow-switch-primary);
   border-radius: 0.25rem;
   left: -1.5rem;
   padding: 0.25rem 0.5rem 0.25rem 0.5rem;

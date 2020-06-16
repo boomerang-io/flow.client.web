@@ -1,6 +1,4 @@
-@import "~@boomerang/boomerang-styles/lib/base";
 @import "~Styles/mixins";
-@import "~Styles/variables";
 
 .trigger {
   color: var(--cds-interactive-01);
@@ -40,14 +38,14 @@
 
   :global .react-lazylog-searchbar {
     padding: 0.625rem;
-    font-family: $font-family;
+    font-family: var(--cds-font-family);
   }
 
   :global .react-lazylog-searchbar-input {
     border-radius: 0.125rem;
-    color: white;
+    color: var(--cds-ui-01);
     letter-spacing: 0.0625rem;
-    font-family: $font-family;
+    font-family: var(--cds-font-family);
     font-size: 0.75rem;
     &:focus {
       @include focus-outline();
@@ -64,15 +62,15 @@
   }
 
   :global .react-lazylog-searchbar-matches {
-    color: white;
-    font-family: $font-family;
+    color: var(--cds-ui-01);
+    font-family: var(--cds-font-family);
     font-size: 0.75rem;
     letter-spacing: 0.0625rem;
     min-width: 5rem;
   }
 
   :global .react-lazylog {
-    color: white;
+    color: var(--cds-ui-01);
     padding: 1rem 1rem 1rem 0;
     font-family: "IBM Plex Mono", monospace;
     font-size: 0.75rem;
@@ -89,7 +87,7 @@
   }
 
   .followToggleText {
-    color: white;
+    color: var(--cds-ui-01);
     font-size: 0.75rem;
     font-weight: 400;
     letter-spacing: 0.0625rem;

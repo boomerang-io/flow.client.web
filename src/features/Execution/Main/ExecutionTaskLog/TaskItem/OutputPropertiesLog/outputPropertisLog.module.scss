@@ -1,5 +1,4 @@
 @import "~Styles/mixins";
-@import "~Styles/variables";
 
 .container {
   max-width: 50rem;
@@ -25,7 +24,7 @@
 }
 
 .propertiesJson {
-  background-color: white;
+  background-color: var(--cds-ui-01);
   height: 25rem;
   overflow-y: auto;
   margin-top: 1rem;

@@ -1,10 +1,8 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
-@import "~Styles/variables";
 @import "~Styles/mixins";
 
 .container {
   align-items: flex-start;
-  background-color: $white;
+  background-color: var(--cds-ui-01);
   display: flex;
   flex-direction: column;
   margin: 1rem;
@@ -23,13 +21,13 @@
   display: flex;
 }
 .totalCount {
-  color: $gray-70;
+  color: var(--cds-text-02);
   font-size: 3.75rem;
   font-weight: 600;
   margin-right: 0.5rem;
 }
 .type {
-  color: $gray-70;
+  color: var(--cds-text-02);
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;

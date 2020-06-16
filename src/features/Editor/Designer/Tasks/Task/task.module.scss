@@ -1,5 +1,5 @@
 @import "~Styles/mixins";
-@import "~Styles/variables";
+
 @import "~Styles/mixins";
 
 .container {
@@ -19,7 +19,7 @@
   }
 
   .taskName {
-    color: $darkest-gray;
+    color: var(--cds-text-01);
     font-size: 0.875rem;
     line-height: 1.125rem;
     padding-left: 1rem;

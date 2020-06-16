@@ -1,4 +1,3 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
 
 .container {
@@ -121,7 +120,7 @@
   width: 23rem;
   justify-content: center;
   align-items: center;
-  color: $gray-90;
+  color: var(--cds-text-01);
   font-size: 5rem;
   font-weight: 500;
   line-height: 6.5rem;
