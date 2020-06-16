@@ -6,7 +6,7 @@ import { settings } from "carbon-components";
 import queryString from "query-string";
 import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
 import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
-import { DataTableSkeleton, DataTable, Pagination } from "@boomerang/carbon-addons-boomerang-react";
+import { DataTableSkeleton, DataTable, DelayedRender, Pagination } from "@boomerang/carbon-addons-boomerang-react";
 import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
 import styles from "./activityTable.module.scss";
@@ -115,14 +115,16 @@ function ActivityTable(props) {
 
   if (props.isLoading) {
     return (
-      <div style={{ marginTop: "1rem" }}>
-        <DataTableSkeleton
-          className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
-          rowCount={10}
-          columnCount={headers.length}
-          headers={headers.map((header) => header.header)}
-        />
-      </div>
+      <DelayedRender>
+        <div style={{ marginTop: "1rem" }}>
+          <DataTableSkeleton
+            className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
+            rowCount={10}
+            columnCount={headers.length}
+            headers={headers.map((header) => header.header)}
+          />
+        </div>
+      </DelayedRender>
     );
   }
 

@@ -1,23 +1,21 @@
 @import "~Styles/variables";
 
-body {
-  .unconnected {
-    opacity: 0.325;
-  }
+.unconnected {
+  opacity: 0.325;
+}
 
-  .locked {
-    opacity: 0.5;
-  }
+.locked {
+  opacity: 0.5;
+}
 
-  .traversed {
-    opacity: 1;
-  }
+.traversed {
+  opacity: 1;
+}
 
-  .path {
-    stroke: var(--cds-interactive-01);
-    &.locked {
-      stroke: #50565b;
-      opacity: inherit;
-    }
+.path {
+  stroke: var(--cds-interactive-01);
+  &.locked {
+    stroke: #50565b;
+    opacity: inherit;
   }
 }

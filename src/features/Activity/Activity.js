@@ -1,26 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
 import { useAppContext, useQuery } from "Hooks";
+import { withRouter } from "react-router-dom";
 import { Error, MultiSelect as Select, Tabs, Tab } from "@boomerang/carbon-addons-boomerang-react";
 import { DatePicker, DatePickerInput } from "carbon-components-react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
-import { executionOptions } from "Constants/filterOptions";
-import { executionStatusList } from "Constants";
-import queryString from "query-string";
 import moment from "moment";
+import queryString from "query-string";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
+import { executionStatusList, QueryStatus } from "Constants";
+import { executionOptions } from "Constants/filterOptions";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./workflowActivity.module.scss";
-
-import { QueryStatus } from "Constants";
 
 const MultiSelect = Select.Filterable;
 const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
 const DEFAULT_SORT = "creationDate";
+
+const queryStringOptions = { arrayFormat: "comma" };
 
 WorkflowActivity.propTypes = {
   history: PropTypes.object.isRequired,
@@ -47,29 +47,35 @@ function WorkflowActivity({ history, location, match }) {
     teamIds,
     fromDate,
     toDate,
-  } = queryString.parse(location.search);
+  } = queryString.parse(location.search, queryStringOptions);
 
   /**** Start get some data ****/
-  const activityQuery = queryString.stringify({
-    order,
-    page,
-    size,
-    sort,
-    statuses,
-    teamIds,
-    triggers,
-    workflowIds,
-    fromDate,
-    toDate,
-  });
+  const activityQuery = queryString.stringify(
+    {
+      order,
+      page,
+      size,
+      sort,
+      statuses,
+      teamIds,
+      triggers,
+      workflowIds,
+      fromDate,
+      toDate,
+    },
+    queryStringOptions
+  );
 
-  const activityStatusSummaryQuery = queryString.stringify({
-    teamIds,
-    triggers,
-    workflowIds,
-    fromDate,
-    toDate,
-  });
+  const activityStatusSummaryQuery = queryString.stringify(
+    {
+      teamIds,
+      triggers,
+      workflowIds,
+      fromDate,
+      toDate,
+    },
+    queryStringOptions
+  );
 
   const activitySummaryUrl = serviceUrl.getActivitySummary({ query: activitySummaryQuery });
   const activityStatusSummaryUrl = serviceUrl.getActivitySummary({ query: activityStatusSummaryQuery });
@@ -87,36 +93,40 @@ function WorkflowActivity({ history, location, match }) {
     sort = DEFAULT_SORT,
     ...props
   }) {
-    const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props })}`;
+    const queryStr = `?${(queryString.stringify({ order, page, size, sort, ...props }), queryStringOptions)}`;
 
     history.push({ search: queryStr });
   }
 
   function handleSelectTeams({ selectedItems }) {
-    const teamIds = selectedItems.length > 0 ? selectedItems.map((team) => team.id).join() : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search), teamIds, workflowIds: undefined });
+    const teamIds = selectedItems.length > 0 ? selectedItems.map((team) => team.id) : undefined;
+    updateHistorySearch({
+      ...queryString.parse(location.search, queryStringOptions),
+      teamIds,
+      workflowIds: undefined,
+    });
   }
 
   function handleSelectWorkflows({ selectedItems }) {
-    const workflowIds = selectedItems.length > 0 ? selectedItems.map((worflow) => worflow.id).join() : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search), workflowIds });
+    const workflowIds = selectedItems.length > 0 ? selectedItems.map((worflow) => worflow.id) : undefined;
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), workflowIds });
   }
 
   function handleSelectTriggers({ selectedItems }) {
-    const triggers = selectedItems.length > 0 ? selectedItems.map((trigger) => trigger.value).join() : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search), triggers });
+    const triggers = selectedItems.length > 0 ? selectedItems.map((trigger) => trigger.value) : undefined;
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), triggers });
   }
 
   function handleSelectStatuses(statusIndex) {
     const statuses = statusIndex > 0 ? executionStatusList[statusIndex - 1] : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search), statuses });
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses });
   }
 
   function handleSelectDate(dates) {
     let [fromDateObj, toDateObj] = dates;
     const fromDate = moment(fromDateObj).unix();
     const toDate = moment(toDateObj).unix();
-    updateHistorySearch({ ...queryString.parse(location.search), fromDate, toDate });
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), fromDate, toDate });
   }
 
   function getWorkflowFilter(teamsData, selectedTeams) {
@@ -155,12 +165,15 @@ function WorkflowActivity({ history, location, match }) {
   }
 
   if (teamsState) {
-    const { workflowIds = "", triggers = "", statuses = "", teamIds = "" } = queryString.parse(location.search);
+    const { workflowIds = "", triggers = "", statuses = "", teamIds = "" } = queryString.parse(
+      location.search,
+      queryStringOptions
+    );
 
-    const selectedTeamIds = teamIds.split(",");
-    const selectedWorkflowIds = workflowIds.split(",");
-    const selectedTriggers = triggers.split(",");
-    const selectedStatuses = statuses.split(",");
+    const selectedTeamIds = typeof teamIds === "string" ? [teamIds] : teamIds;
+    const selectedWorkflowIds = typeof workflowIds === "string" ? [workflowIds] : workflowIds;
+    const selectedTriggers = typeof triggers === "string" ? [triggers] : triggers;
+    const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
     const statusIndex = executionStatusList.indexOf(selectedStatuses[0]);
 
     const teamsData = JSON.parse(JSON.stringify(teamsState));

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useAppContext } from "Hooks";
+import { useHistory, useLocation } from "react-router-dom";
 import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
 import WelcomeBanner from "Components/WelcomeBanner";
 import CreateWorkflow from "./CreateWorkflow";
 import WorkflowsHeader from "./WorkflowsHeader";
 import WorkflowCard from "./WorkflowCard";
+import queryString from "query-string";
 import cx from "classnames";
 import sortBy from "lodash/sortBy";
 import styles from "./workflowHome.module.scss";
@@ -15,11 +17,14 @@ const initShowWelcomeBanner = window.localStorage.getItem(BANNER_STORAGE_ID) !==
 
 export default function WorkflowsHome() {
   const { isTutorialActive, setIsTutorialActive, teams } = useAppContext();
+  const history = useHistory();
+  const location = useLocation();
   const [isWelcomeBannerOpen, setIsWelcomeBannerOpen] = useState(true);
   const [isWelcomeBannerShown, setIsWelcomeBannerShown] = useState(initShowWelcomeBanner);
   const isWelcomeBannerOpenRef = React.useRef();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [teamsFilter, setTeamsFilter] = useState([]);
+  const { query: searchQuery = "", teams: teamsFilter = [] } = queryString.parse(location.search, {
+    arrayFormat: "comma",
+  });
 
   useEffect(() => {
     if (isTutorialActive) {
@@ -40,14 +45,18 @@ export default function WorkflowsHome() {
     }
   }, [isWelcomeBannerOpen, isWelcomeBannerShown]);
 
-  const handleSearchFilter = (searchQuery, teams) => {
-    setSearchQuery(searchQuery);
-    setTeamsFilter(Array.isArray(teams) && teams.length ? teams : []);
+  const handleSearchFilter = ({ workflowsQuery = searchQuery, teamsList = teams }) => {
+    updateHistorySearch({
+      query: workflowsQuery,
+      teams: teamsList.map((team) => team.id),
+    });
   };
 
   const filterTeams = () => {
-    if (teamsFilter.length > 0) {
-      return teams.filter((team) => teamsFilter.find((filter) => filter.text === team.name));
+    if (Array.isArray(teamsFilter) && teamsFilter.length > 0) {
+      return teams.filter((team) => teamsFilter.includes(team.id));
+    } else if (typeof teamsFilter === "string") {
+      return teams.filter((team) => team.id === teamsFilter);
     } else {
       return teams;
     }
@@ -65,6 +74,12 @@ export default function WorkflowsHome() {
     setIsWelcomeBannerOpen(false);
     setIsWelcomeBannerShown(false);
   };
+
+  function updateHistorySearch({ query, teams }) {
+    const queryStr = `?${queryString.stringify({ query, teams }, { arrayFormat: "comma", skipEmptyString: true })}`;
+
+    history.push({ search: queryStr });
+  }
 
   const filteredTeams = filterTeams();
   const sortedTeams = sortBy(filteredTeams, ["name"]);
@@ -86,7 +101,12 @@ export default function WorkflowsHome() {
           [styles.bannerHidden]: !isWelcomeBannerShown,
         })}
       >
-        <WorkflowsHeader handleSearchFilter={handleSearchFilter} workflowsLength={workflowsLength} options={teams} />
+        <WorkflowsHeader
+          handleSearchFilter={handleSearchFilter}
+          options={teams}
+          searchQuery={searchQuery}
+          workflowsLength={workflowsLength}
+        />
         <div aria-label="Team Workflows" className={styles.content} role="region">
           {sortedTeams.length > 0 ? (
             sortedTeams.map((team) => {
@@ -112,10 +132,10 @@ function TeamWorkflows({ children, searchQuery, team, teams }) {
   if (searchQuery) {
     workflows = team.workflows.filter((workflow) => workflow.name.toLowerCase().includes(searchQuery.toLowerCase()));
   } else {
-    workflows = team.workflows;
+    workflows = team?.workflows ?? [];
   }
 
-  const hasTeamWorkflows = team.workflows.length > 0;
+  const hasTeamWorkflows = team.workflows?.length > 0;
 
   return (
     <section className={styles.sectionContainer}>

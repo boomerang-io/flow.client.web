@@ -17,8 +17,9 @@ import {
 } from "@boomerang/carbon-addons-boomerang-react";
 import CronJobModal from "./CronJobModal";
 import cx from "classnames";
-import CopyToClipboard from "react-copy-to-clipboard";
 import cronstrue from "cronstrue";
+import CopyToClipboard from "react-copy-to-clipboard";
+import capitalize from "lodash/capitalize";
 import * as Yup from "yup";
 import { appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
@@ -253,6 +254,7 @@ class Configure extends Component {
                   [styles.active]: values.icon === name,
                 })}
                 key={`icon-number-${index}`}
+                title={capitalize(name)}
               >
                 <input
                   id="icon"

@@ -1,102 +1,100 @@
 @import "~Styles/variables";
 @import "~Styles/mixins";
 
-body {
-  :global .c-workflow-diagram-execution {
-    .node.srd-node {
-      cursor: initial;
-    }
+:global .c-workflow-diagram-execution {
+  .node.srd-node {
+    cursor: initial;
   }
+}
 
-  .failure {
-    border: 0.1875rem solid #a51920;
-    border-color: #a51920 !important;
-  }
+.failure {
+  border: 0.1875rem solid #a51920;
+  border-color: #a51920 !important;
+}
 
-  .inProgress {
-    border: none;
-
-    .progressBar {
-      position: absolute;
-      display: block;
-      height: 0.1875rem;
-      top: -0.1875rem;
-      left: -0.09rem;
-      transition: width 0.3s linear;
-      width: 13.9rem;
-      overflow: hidden;
-
-      &:before {
-        content: "";
-        position: absolute;
-        background-color: var(--cds-interactive-01);
-        top: 0;
-        left: 0;
-        bottom: 0;
-        will-change: left, right;
-        animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-      }
-
-      &:after {
-        content: "";
-        position: absolute;
-        background-color: var(--cds-interactive-01);
-        top: 0;
-        left: 0;
-        bottom: 0;
-        will-change: left, right;
-        animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-        animation-delay: 1.15s;
-      }
-    }
-  }
-
-  .completed {
-    border: 0.1875rem solid #009d9a;
-    border-color: #009d9a !important;
-  }
-
-  .notstarted,
-  .invalid,
-  .skipped {
-    border: none;
-  }
-
-  .disabled {
-    opacity: 0.5;
-  }
+.inProgress {
+  border: none;
 
   .progressBar {
-    display: none;
-  }
+    position: absolute;
+    display: block;
+    height: 0.1875rem;
+    top: -0.1875rem;
+    left: -0.09rem;
+    transition: width 0.3s linear;
+    width: 13.9rem;
+    overflow: hidden;
 
-  @keyframes indeterminate {
-    0% {
-      left: -35%;
-      right: 100%;
+    &:before {
+      content: "";
+      position: absolute;
+      background-color: var(--cds-interactive-01);
+      top: 0;
+      left: 0;
+      bottom: 0;
+      will-change: left, right;
+      animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
     }
-    60% {
-      left: 100%;
-      right: -90%;
-    }
-    100% {
-      left: 100%;
-      right: -90%;
+
+    &:after {
+      content: "";
+      position: absolute;
+      background-color: var(--cds-interactive-01);
+      top: 0;
+      left: 0;
+      bottom: 0;
+      will-change: left, right;
+      animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+      animation-delay: 1.15s;
     }
   }
+}
 
-  @keyframes indeterminate-short {
-    0% {
-      left: -200%;
-      right: 100%;
-    }
-    60% {
-      left: 107%;
-      right: -8%;
-    }
-    100% {
-      left: 107%;
-      right: -8%;
-    }
+.completed {
+  border: 0.1875rem solid #009d9a;
+  border-color: #009d9a !important;
+}
+
+.notstarted,
+.invalid,
+.skipped {
+  border: none;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.progressBar {
+  display: none;
+}
+
+@keyframes indeterminate {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+
+@keyframes indeterminate-short {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+  60% {
+    left: 107%;
+    right: -8%;
+  }
+  100% {
+    left: 107%;
+    right: -8%;
   }
 }
