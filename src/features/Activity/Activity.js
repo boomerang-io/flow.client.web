@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useAppContext, useQuery } from "Hooks";
-import { withRouter } from "react-router-dom";
+import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { Error, MultiSelect as Select, Tabs, Tab } from "@boomerang/carbon-addons-boomerang-react";
 import { DatePicker, DatePickerInput } from "carbon-components-react";
 import ActivityHeader from "./ActivityHeader";
@@ -12,20 +11,14 @@ import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import { executionStatusList, QueryStatus } from "Constants";
 import { executionOptions } from "Constants/filterOptions";
 import { serviceUrl } from "Config/servicesConfig";
-import styles from "./workflowActivity.module.scss";
+import styles from "./Activity.module.scss";
 
 const MultiSelect = Select.Filterable;
 const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
 const DEFAULT_SORT = "creationDate";
-
-const queryStringOptions = { arrayFormat: "comma" };
-
-WorkflowActivity.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-};
+const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true };
 
 // Defined outside function so only run once
 const activitySummaryQuery = queryString.stringify({
@@ -33,8 +26,11 @@ const activitySummaryQuery = queryString.stringify({
   toDate: moment(new Date()).unix(),
 });
 
-function WorkflowActivity({ history, location, match }) {
+function WorkflowActivity() {
   const { teams: teamsState } = useAppContext();
+  const history = useHistory();
+  const location = useLocation();
+  const match = useRouteMatch();
 
   const {
     order = DEFAULT_ORDER,
@@ -86,17 +82,24 @@ function WorkflowActivity({ history, location, match }) {
   const activityState = useQuery(activityUrl);
   /**** End get some data ****/
 
-  function updateHistorySearch({
+  /** Start input handlers */
+
+  /**
+   * Function that updates url search history to persist state
+   * @param {object} query - all of the query params
+   *
+   */
+  const updateHistorySearch = ({
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
     size = DEFAULT_SIZE,
     sort = DEFAULT_SORT,
     ...props
-  }) {
-    const queryStr = `?${(queryString.stringify({ order, page, size, sort, ...props }), queryStringOptions)}`;
-
+  }) => {
+    const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props }, queryStringOptions)}`;
     history.push({ search: queryStr });
-  }
+    return;
+  };
 
   function handleSelectTeams({ selectedItems }) {
     const teamIds = selectedItems.length > 0 ? selectedItems.map((team) => team.id) : undefined;
@@ -105,21 +108,25 @@ function WorkflowActivity({ history, location, match }) {
       teamIds,
       workflowIds: undefined,
     });
+    return;
   }
 
   function handleSelectWorkflows({ selectedItems }) {
     const workflowIds = selectedItems.length > 0 ? selectedItems.map((worflow) => worflow.id) : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), workflowIds });
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), workflowIds: workflowIds });
+    return;
   }
 
   function handleSelectTriggers({ selectedItems }) {
     const triggers = selectedItems.length > 0 ? selectedItems.map((trigger) => trigger.value) : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), triggers });
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), triggers: triggers });
+    return;
   }
 
   function handleSelectStatuses(statusIndex) {
     const statuses = statusIndex > 0 ? executionStatusList[statusIndex - 1] : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses });
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses });
+    return;
   }
 
   function handleSelectDate(dates) {
@@ -127,6 +134,7 @@ function WorkflowActivity({ history, location, match }) {
     const fromDate = moment(fromDateObj).unix();
     const toDate = moment(toDateObj).unix();
     updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), fromDate, toDate });
+    return;
   }
 
   function getWorkflowFilter(teamsData, selectedTeams) {
@@ -145,6 +153,10 @@ function WorkflowActivity({ history, location, match }) {
     let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
     return workflowsFilter;
   }
+
+  /** End input handlers */
+
+  /** Start Render Logic */
 
   if (activityState.error) {
     return (
@@ -213,9 +225,9 @@ function WorkflowActivity({ history, location, match }) {
               <Tab label={statusSummaryDataIsLoading ? "Invalid" : `Invalid (${statusSummaryData.invalid})`} />
             </Tabs>
           </nav>
-          <div className={styles.filters}>
+          <div className={styles.filtersContainer}>
             <div className={styles.dataFilters}>
-              <div style={{ marginRight: "1.4rem", width: "14.125rem" }}>
+              <div className={styles.dataFilter}>
                 <MultiSelect
                   id="activity-teams-select"
                   label="Choose team(s)"
@@ -228,11 +240,11 @@ function WorkflowActivity({ history, location, match }) {
                   titleText="Filter by team"
                 />
               </div>
-              <div style={{ marginRight: "1.4rem", width: "14.125rem" }}>
+              <div className={styles.dataFilter}>
                 <MultiSelect
                   id="activity-workflows-select"
-                  label="Choose Workflow(s)"
-                  placeholder="Choose Workflow(s)"
+                  label="Choose workflow(s)"
+                  placeholder="Choose workflow(s)"
                   invalid={false}
                   onChange={handleSelectWorkflows}
                   items={workflowsFilter}
@@ -250,7 +262,7 @@ function WorkflowActivity({ history, location, match }) {
                   titleText="Filter by workflow"
                 />
               </div>
-              <div style={{ width: "14.125rem" }}>
+              <div className={styles.dataFilter}>
                 <MultiSelect
                   id="activity-triggers-select"
                   label="Choose trigger type(s)"
@@ -309,4 +321,4 @@ function WorkflowActivity({ history, location, match }) {
   return null;
 }
 
-export default withRouter(WorkflowActivity);
+export default WorkflowActivity;

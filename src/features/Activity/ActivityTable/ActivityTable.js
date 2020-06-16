@@ -220,7 +220,7 @@ function ActivityTable(props) {
               )}
             />
             <Error404
-              message={"Execute some Workflows or try changing the filters"}
+              message={"Execute some workflows or try changing the filters"}
               title="No activity found"
               header={null}
             />

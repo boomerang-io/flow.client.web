@@ -11,19 +11,28 @@ import FeatureHeader from "Components/FeatureHeader";
 import styles from "./workflowsHeader.module.scss";
 
 WorkflowsHeader.propTypes = {
-  workflowsLength: PropTypes.number,
   handleSearchFilter: PropTypes.func,
   isLoading: PropTypes.bool,
-  options: PropTypes.array,
+  teams: PropTypes.array,
+  searchQuery: PropTypes.string,
+  teamsFilter: PropTypes.array,
+  workflowsCount: PropTypes.number,
 };
 
-export default function WorkflowsHeader({ handleSearchFilter, isLoading, options, searchQuery, workflowsLength }) {
+export default function WorkflowsHeader({
+  handleSearchFilter,
+  isLoading,
+  teams,
+  searchQuery,
+  teamsFilter,
+  workflowsCount,
+}) {
   return (
     <FeatureHeader className={styles.header}>
       <div className={styles.container}>
         <hgroup className={styles.info}>
           <h2 className={styles.title}>These are your</h2>
-          <h1 className={styles.subtitle}>{isLoading ? "Workflows" : `Workflows (${workflowsLength})`}</h1>
+          <h1 className={styles.subtitle}>{isLoading ? "Workflows" : `Workflows (${workflowsCount})`}</h1>
         </hgroup>
         <SearchFilterBar
           handleSearchFilter={handleSearchFilter}
@@ -31,7 +40,8 @@ export default function WorkflowsHeader({ handleSearchFilter, isLoading, options
           placeholder="Choose a team"
           label="Choose a team"
           searchQuery={searchQuery}
-          options={options}
+          teamsFilter={teamsFilter}
+          teams={teams}
         />
       </div>
     </FeatureHeader>
@@ -40,12 +50,13 @@ export default function WorkflowsHeader({ handleSearchFilter, isLoading, options
 
 SearchFilterBar.propTypes = {
   handleSearchFilter: PropTypes.func.isRequired,
-  options: PropTypes.array,
+  teams: PropTypes.array,
   loading: PropTypes.bool.isRequired,
   searchQuery: PropTypes.string,
+  teamsFilter: PropTypes.array,
 };
 
-function SearchFilterBar({ handleSearchFilter, loading, options, searchQuery }) {
+function SearchFilterBar({ handleSearchFilter, loading, teams, searchQuery, teamsFilter }) {
   const handleOnMultiSelectChange = (e) => {
     const selectedItems = e.selectedItems;
     handleSearchFilter({ teamsList: selectedItems });
@@ -86,8 +97,11 @@ function SearchFilterBar({ handleSearchFilter, loading, options, searchQuery }) 
         <MultiSelect.Filterable
           id="b-search-filter__filter"
           invalid={false}
-          items={options.length ? options.map((item) => ({ id: item.id, text: item.name })) : []}
-          itemToString={(item) => (item ? item.text : "")}
+          initialSelectedItems={
+            Array.isArray(teamsFilter) ? teamsFilter.map((team) => ({ id: team.id, text: team.name })) : []
+          }
+          items={Array.isArray(teams) ? teams.map((team) => ({ id: team.id, text: team.name })) : []}
+          itemToString={(team) => (team ? team.text : "")}
           label={"Choose a team"}
           onChange={handleOnMultiSelectChange}
           placeholder={"Choose a team"}

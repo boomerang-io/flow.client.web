@@ -119,7 +119,10 @@ function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) 
           onMenuClick={handleOnMenuClick(
             userState.data.type === UserType.Admin || userState.data.type === UserType.Operator
           )}
-          headerConfig={navigationState.data}
+          headerConfig={{
+            ...navigationState.data,
+            features: { ...navigationState.data?.features, "notifications.enabled": false },
+          }}
           onTutorialClick={handleOnTutorialClick}
           user={userState.data}
           skipToContentProps={skipToContentProps}
