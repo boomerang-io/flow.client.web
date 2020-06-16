@@ -21,7 +21,7 @@
   margin-bottom: 1.125rem;
 }
 
-.filters {
+.filtersContainer {
   align-items: flex-end;
   display: flex;
   justify-content: space-between;
@@ -29,6 +29,13 @@
 
 .dataFilters {
   display: flex;
+  > * + * {
+    margin-left: 1.4rem;
+  }
+}
+
+.dataFilter {
+  width: 15.875rem;
 }
 
 .timeFilters {

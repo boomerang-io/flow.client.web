@@ -45,6 +45,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       // Allow unhandled requests on the current domain to pass through
       this.passthrough();
 
+      this.get("/info", () => []);
+
       /**
        * Simple GET of static data
        */

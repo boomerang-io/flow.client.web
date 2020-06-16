@@ -52,16 +52,6 @@ export default function WorkflowsHome() {
     });
   };
 
-  const filterTeams = () => {
-    if (Array.isArray(teamsFilter) && teamsFilter.length > 0) {
-      return teams.filter((team) => teamsFilter.includes(team.id));
-    } else if (typeof teamsFilter === "string") {
-      return teams.filter((team) => team.id === teamsFilter);
-    } else {
-      return teams;
-    }
-  };
-
   const handleOpenTutorial = () => {
     setIsTutorialActive(true);
   };
@@ -75,15 +65,25 @@ export default function WorkflowsHome() {
     setIsWelcomeBannerShown(false);
   };
 
-  function updateHistorySearch({ query, teams }) {
+  const updateHistorySearch = ({ query, teams }) => {
     const queryStr = `?${queryString.stringify({ query, teams }, { arrayFormat: "comma", skipEmptyString: true })}`;
 
     history.push({ search: queryStr });
-  }
+  };
+
+  const filterTeams = () => {
+    if (Array.isArray(teamsFilter) && teamsFilter.length > 0) {
+      return teams.filter((team) => teamsFilter.includes(team.id));
+    } else if (typeof teamsFilter === "string") {
+      return teams.filter((team) => team.id === teamsFilter);
+    } else {
+      return teams;
+    }
+  };
 
   const filteredTeams = filterTeams();
   const sortedTeams = sortBy(filteredTeams, ["name"]);
-  const workflowsLength = teams.reduce((acc, team) => team.workflows.length + acc, 0);
+  const workflowsCount = teams.reduce((acc, team) => team.workflows.length + acc, 0);
 
   return (
     <>
@@ -103,9 +103,10 @@ export default function WorkflowsHome() {
       >
         <WorkflowsHeader
           handleSearchFilter={handleSearchFilter}
-          options={teams}
           searchQuery={searchQuery}
-          workflowsLength={workflowsLength}
+          teams={teams}
+          teamsFilter={filteredTeams}
+          workflowsCount={workflowsCount}
         />
         <div aria-label="Team Workflows" className={styles.content} role="region">
           {sortedTeams.length > 0 ? (
