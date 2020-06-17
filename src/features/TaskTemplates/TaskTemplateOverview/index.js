@@ -1,1 +1,1 @@
-export { default } from "./TaskTemplateOverview"
+export { default } from "./TaskTemplateOverview";
