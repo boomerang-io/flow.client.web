@@ -1,10 +1,10 @@
 import React from "react";
 import queryString from "query-string";
-import { createMemoryHistory } from "history";
-import { waitFor, fireEvent } from "@testing-library/react";
+import { queryStringOptions } from "Config/appConfig";
+import { waitFor, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import WorkflowActivity from "./index";
-import { startApiServer } from "../../apiServer";
-import { act } from "react-dom/test-utils";
+import { startApiServer } from "ApiServer";
 
 let server;
 
@@ -16,124 +16,70 @@ afterEach(() => {
   server.shutdown();
 });
 
-const props = {
-  match: {
-    params: "testid",
-  },
-  location: {},
-  history: {},
-  teamsState: {
-    isFetching: false,
-    status: "success",
-    error: "",
-    data: [
-      {
-        id: "1",
-        name: "testing-team",
-        workflows: [
-          {
-            id: "2",
-            name: "testing-workflow",
-          },
-        ],
-      },
-    ],
-  },
-};
-
 describe("WorkflowActivity --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowActivity", () => {
-    const { baseElement } = rtlContextRouterRender(<WorkflowActivity {...props} />);
+    const { baseElement } = rtlContextRouterRender(<WorkflowActivity />);
     expect(baseElement).toMatchSnapshot();
   });
 });
 
 describe("WorkflowActivity --- RTL", () => {
   const basicQuery = { order: "DESC", page: 0, size: 10, sort: "creationDate" };
-  it("Select status tab correctly", () => {
-    const history = createMemoryHistory({ initialEntries: ["/"] });
-    const { getAllByRole } = rtlContextRouterRender(<WorkflowActivity {...props} history={history} />);
+  it("Select status tab correctly", async () => {
+    const { history } = rtlContextRouterRender(<WorkflowActivity />);
 
-    const statuses = getAllByRole("tab");
-    act(() => {
-      fireEvent.click(statuses[1]);
-    });
-
-    waitFor(() =>
-      expect(history.location.search).toBe("?" + queryString.stringify({ statuses: "inProgress", ...basicQuery }))
+    userEvent.click(screen.getByRole("tab", { name: /in progress/i }));
+    await waitFor(() =>
+      expect(history.location.search).toBe(
+        "?" + queryString.stringify({ statuses: "inProgress", ...basicQuery }, queryStringOptions)
+      )
     );
 
-    act(() => {
-      fireEvent.click(statuses[3]);
-    });
-
-    waitFor(() =>
+    userEvent.click(screen.getByRole("tab", { name: /failed/i }));
+    await waitFor(() =>
       expect(history.location.search).toBe("?" + queryString.stringify({ statuses: "failure", ...basicQuery }))
     );
 
-    act(() => {
-      fireEvent.click(statuses[0]);
-    });
-
-    waitFor(() =>
-      expect(history.location.search).toBe("?" + queryString.stringify({ statuses: undefined, ...basicQuery }))
+    userEvent.click(screen.getByRole("tab", { name: /all/i }));
+    await waitFor(() =>
+      expect(history.location.search).toBe(
+        "?" + queryString.stringify({ statuses: undefined, ...basicQuery }, queryStringOptions)
+      )
     );
   });
 
-  it("Filter by team", () => {
-    const history = createMemoryHistory({ initialEntries: ["/"] });
-    const { getByText, getAllByLabelText } = rtlContextRouterRender(<WorkflowActivity {...props} history={history} />);
+  it("Filter by team", async () => {
+    const { history } = rtlContextRouterRender(<WorkflowActivity />);
+    userEvent.click(screen.getByRole("button", { name: /Filter by team/i }));
+    userEvent.click(screen.getAllByTitle(/IBM Services Engineering/i)[0]);
 
-    act(() => {
-      fireEvent.click(getAllByLabelText("Filter by team")[0]);
-    });
-
-    act(() => {
-      fireEvent.click(getByText("IBM Services Engineering"));
-    });
-
-    waitFor(() =>
+    await waitFor(() =>
       expect(history.location.search).toBe(
-        "?" + queryString.stringify({ teamIds: "5e3a35ad8c222700018ccd39", ...basicQuery })
+        "?" + queryString.stringify({ teamIds: "5e3a35ad8c222700018ccd39", ...basicQuery }, queryStringOptions)
       )
     );
   });
 
   it("Filter by workflow", async () => {
-    const history = createMemoryHistory({ initialEntries: ["/"] });
-    const { getAllByLabelText, getAllByText } = rtlContextRouterRender(
-      <WorkflowActivity {...props} history={history} />
-    );
+    const { history } = rtlContextRouterRender(<WorkflowActivity />);
 
-    await waitFor(() => expect(getAllByLabelText("Filter by workflow")));
-    act(() => {
-      fireEvent.click(getAllByLabelText("Filter by workflow")[0]);
-    });
+    userEvent.click(screen.getByRole("button", { name: /Filter by workflow/i }));
+    userEvent.click(screen.getAllByText(/ML Train – Bot Efficiency \[IBM Services Engineering\]/i)[0]);
 
-    act(() => {
-      fireEvent.click(getAllByText("ML Train – Bot Efficiency [IBM Services Engineering]")[0]);
-    });
-
-    waitFor(() =>
+    await waitFor(() =>
       expect(history.location.search).toBe(
-        "?" + queryString.stringify({ workflowIds: "5eb2c4085a92d80001a16d87", ...basicQuery })
+        "?" + queryString.stringify({ workflowIds: "5eb2c4085a92d80001a16d87", ...basicQuery }, queryStringOptions)
       )
     );
   });
 
   it("Filter by trigger", async () => {
-    const history = createMemoryHistory({ initialEntries: ["/"] });
-    const { getByText, getAllByLabelText } = rtlContextRouterRender(<WorkflowActivity {...props} history={history} />);
+    const { history } = rtlContextRouterRender(<WorkflowActivity />);
 
-    act(() => {
-      fireEvent.click(getAllByLabelText("Filter by trigger")[0]);
-    });
+    userEvent.click(screen.getByRole("button", { name: /Filter by trigger/i }));
+    userEvent.click(screen.getAllByText("cron")[0]);
 
-    act(() => {
-      fireEvent.click(getByText("cron"));
-    });
-
-    waitFor(() =>
+    await waitFor(() =>
       expect(history.location.search).toBe("?" + queryString.stringify({ triggers: "cron", ...basicQuery }))
     );
   });

@@ -1642,7 +1642,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
           </section>
         </aside>
         <div
-          class="designer"
+          class="workflowContainer"
           id="workflow-dag-designer"
         >
           <div

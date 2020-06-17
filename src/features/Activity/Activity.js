@@ -8,9 +8,10 @@ import ActivityTable from "./ActivityTable";
 import moment from "moment";
 import queryString from "query-string";
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
+import { queryStringOptions } from "Config/appConfig";
+import { serviceUrl } from "Config/servicesConfig";
 import { executionStatusList, QueryStatus } from "Constants";
 import { executionOptions } from "Constants/filterOptions";
-import { serviceUrl } from "Config/servicesConfig";
 import styles from "./Activity.module.scss";
 
 const MultiSelect = Select.Filterable;
@@ -18,7 +19,6 @@ const DEFAULT_ORDER = "DESC";
 const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
 const DEFAULT_SORT = "creationDate";
-const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true };
 
 // Defined outside function so only run once
 const activitySummaryQuery = queryString.stringify({

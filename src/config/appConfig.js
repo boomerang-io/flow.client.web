@@ -38,3 +38,5 @@ export const appLink = {
   workflows: () => "/workflows",
   workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
 };
+
+export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true };
