@@ -8,7 +8,7 @@ import styles from "./activityHeader.module.scss";
 
 ActivityHeader.propTypes = {
   inProgressActivities: PropTypes.number,
-  isError: PropTypes.bool.isRequired,
+  isError: PropTypes.bool,
   isLoading: PropTypes.bool.isRequired,
   failedActivities: PropTypes.number,
   runActivities: PropTypes.number,

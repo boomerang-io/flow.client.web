@@ -62,6 +62,7 @@ function ExecutionTaskLog({ workflowExecution }) {
           <TooltipIcon
             align="center"
             className={styles.taskbarButton}
+            id="sort-tooltip"
             data-testid="taskbar-button"
             direction="top"
             onClick={toggleSort}

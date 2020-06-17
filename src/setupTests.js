@@ -41,6 +41,7 @@ function rtlContextRouterRender(
       </AppContext.Provider>,
       options
     ),
+    history,
   };
 }
 

@@ -191,13 +191,13 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
               Task log
             </p>
             <button
-              aria-describedby="icon-tooltip-6"
+              aria-describedby="sort-tooltip"
               class="bx--tooltip__trigger bx--tooltip--a11y taskbarButton bx--tooltip--top bx--tooltip--align-center"
               data-testid="taskbar-button"
             >
               <span
                 class="bx--assistive-text"
-                id="icon-tooltip-6"
+                id="sort-tooltip"
               >
                 Change sort direction (by start time)
               </span>

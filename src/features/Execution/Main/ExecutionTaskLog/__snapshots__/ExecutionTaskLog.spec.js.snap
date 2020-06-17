@@ -91,13 +91,13 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
           Task log
         </p>
         <button
-          aria-describedby="icon-tooltip-1"
+          aria-describedby="sort-tooltip"
           class="bx--tooltip__trigger bx--tooltip--a11y taskbarButton bx--tooltip--top bx--tooltip--align-center"
           data-testid="taskbar-button"
         >
           <span
             class="bx--assistive-text"
-            id="icon-tooltip-1"
+            id="sort-tooltip"
           >
             Change sort direction (by start time)
           </span>

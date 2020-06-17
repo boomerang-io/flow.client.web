@@ -11,25 +11,25 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
       <div
         class="container"
       >
-        <section
+        <hgroup
           class="info"
         >
-          <p
+          <h2
             class="title"
           >
             These are your
-          </p>
+          </h2>
           <h1
             class="subtitle"
           >
-            Workflows (1)
+            Workflows (undefined)
           </h1>
-        </section>
+        </hgroup>
         <div
-          class="b-search-filter"
+          class="filterContainer"
         >
           <div
-            class="b-search-filter__search"
+            class="search"
           >
             <div
               aria-labelledby="search-team-workflows-search"
@@ -91,7 +91,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
             </div>
           </div>
           <div
-            class="b-search-filter__filter"
+            class="filter"
           >
             <div
               class="bx--multi-select__wrapper bx--list-box__wrapper"
@@ -157,40 +157,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
                   class="bx--list-box__menu"
                   id="b-search-filter__filter__menu"
                   role="listbox"
-                >
-                  <div
-                    class="bx--list-box__menu-item"
-                    id="downshift-0-item-0"
-                    title="test team"
-                  >
-                    <div
-                      class="bx--list-box__menu-item__option"
-                    >
-                      <div
-                        class="bx--form-item bx--checkbox-wrapper"
-                      >
-                        <input
-                          class="bx--checkbox"
-                          id="downshift-0-item-0"
-                          name="test team"
-                          readonly=""
-                          tabindex="-1"
-                          type="checkbox"
-                        />
-                        <label
-                          class="bx--checkbox-label"
-                          for="downshift-0-item-0"
-                        >
-                          <span
-                            class="bx--checkbox-label-text"
-                          >
-                            test team
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                />
               </div>
             </div>
           </div>
