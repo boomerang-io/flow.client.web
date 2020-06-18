@@ -1,7 +1,7 @@
 import React from "react";
 import { waitFor, fireEvent } from "@testing-library/react";
 import WorkflowInsights from "./index";
-import { startApiServer } from "../../apiServer";
+import { startApiServer } from "ApiServer";
 
 jest.mock("@carbon/charts-react", () => ({
   ...jest.requireActual("@carbon/charts-react"),

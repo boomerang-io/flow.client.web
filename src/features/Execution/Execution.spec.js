@@ -1,7 +1,7 @@
 import React from "react";
 import WorkflowExecutionContainer from "./index";
-import { startApiServer } from "../../apiServer";
-import { db } from "../../apiServer/fixtures";
+import { startApiServer } from "ApiServer";
+import { db } from "ApiServer/fixtures";
 import { waitFor } from "@testing-library/react";
 import { Route } from "react-router-dom";
 

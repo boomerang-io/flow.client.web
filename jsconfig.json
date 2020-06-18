@@ -15,18 +15,7 @@
       "State/*": ["state/*"],
       "Styles/*": ["styles/*"],
       "Utilities/*": ["utilities/*"],
-      "Utils/*": ["utils/*"],
-      "~ApiServer": ["apiServer/*"],
-      "~Assets/*": ["assets/*"],
-      "~Components/*": ["components/*"],
-      "~Config/*": ["config/*"],
-      "~Constants/*": ["constants/*"],
-      "~Features/*": ["features/*"],
-      "~Hooks/*": ["hooks/*"],
-      "~State/*": ["state/*"],
-      "~Styles/*": ["styles/*"],
-      "~Utilities/*": ["utilities/*"],
-      "~Utils/*": ["utils/*"]
+      "Utils/*": ["utils/*"]
     }
   },
   "exclude": ["dist", "node_modules", "public", "server"]
