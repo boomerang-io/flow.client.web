@@ -19,7 +19,7 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs }) {
 
   return (
     <ComposedModal
-      composedModalProps={{ containerClassName: styles.container }}
+      composedModalProps={{ containerClassName: styles.container, shouldCloseOnOverlayClick: true }}
       confirmModalProps={{
         title: "Are you sure?",
         children: "Your changes will not be saved",

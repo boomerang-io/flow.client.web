@@ -26,6 +26,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
     <ComposedModal
       composedModalProps={{
         containerClassName: styles.container,
+        shouldCloseOnOverlayClick: true
       }}
       modalHeaderProps={{
         title: "Execution Log",
