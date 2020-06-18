@@ -88,6 +88,12 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
     }
   };
 
+  // Check if key contains alpahanumeric, underscore, dash, and period chars
+  const validateKey = (key) => {
+    const regexp = /^[a-zA-Z0-9-._]+$/g;
+    return regexp.test(key);
+  };
+
   return (
     <Formik
       initialValues={{
@@ -100,7 +106,15 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
         label: Yup.string().required("Enter a label"),
-        key: Yup.string().required("Enter a key").notOneOf(propertyKeys, "Key must be unique"),
+        key: Yup.string()
+          .required("Enter a key")
+          .max(128, "Key must not be greater than 128 characters")
+          .notOneOf(propertyKeys || [], "Enter a unique key value for this workflow")
+          .test(
+            "is-valid-key",
+            "Only alphanumeric, underscore, dash, and period characters allowed",
+            validateKey
+          ),
         value: Yup.string().required("Enter a value"),
         description: Yup.string(),
         secured: Yup.boolean(),
