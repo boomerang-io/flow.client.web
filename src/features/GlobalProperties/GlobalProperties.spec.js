@@ -1,7 +1,7 @@
 import React from "react";
 import GlobalPropertiesContainer from "./index";
 import { fireEvent, waitFor } from "@testing-library/react";
-import { startApiServer } from "../../apiServer";
+import { startApiServer } from "ApiServer";
 import { act } from "react-dom/test-utils";
 
 let server;

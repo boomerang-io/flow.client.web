@@ -2,7 +2,7 @@ import React from "react";
 import TeamProperties from "./index";
 import { waitFor, fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import { startApiServer } from "../../apiServer";
+import { startApiServer } from "ApiServer";
 
 let server;
 

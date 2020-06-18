@@ -1,6 +1,6 @@
 import React from "react";
 import WorkflowsHome from "./index";
-import { startApiServer } from "../../apiServer";
+import { startApiServer } from "ApiServer";
 
 const mockfn = jest.fn();
 jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({

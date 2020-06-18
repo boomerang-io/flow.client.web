@@ -18,9 +18,8 @@ module.exports = {
     mount: true,
     renderer: true,
     rtlRender: true,
-    rtlReduxRender: true,
     rtlRouterRender: true,
-    rtlReduxRouterRender: true,
+    rtlContextRouterRender: true,
   },
   overrides: [
     {
