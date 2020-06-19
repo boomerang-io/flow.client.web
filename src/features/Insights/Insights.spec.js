@@ -1,5 +1,5 @@
+/* eslint-disable jest/no-commented-out-tests */
 import React from "react";
-import { waitFor, fireEvent } from "@testing-library/react";
 import WorkflowInsights from "./index";
 import { startApiServer } from "ApiServer";
 
@@ -10,40 +10,40 @@ jest.mock("@carbon/charts-react", () => ({
   ScatterChart: "ScatterChart",
 }));
 
-const props = {
-  teams: {
-    isFetching: false,
-    status: "success",
-    error: "",
-    data: [],
-  },
-  insights: {
-    isFetching: false,
-    status: "success",
-    error: "",
-    data: {
-      totalActivitiesExecuted: 107,
-      medianExecutionTime: 24435,
-      executions: [
-        {
-          creationDate: 1535760000000,
-          duration: 20825,
-          id: "5bed8335b336a5000103aa2b",
-          initiatedByUserId: "5bbcdd38ee763e00011f5b72",
-          initiatedByUserName: "Adrienne Hudson",
-          status: "completed",
-          workflowId: "5bed82f6b336a5000103aa1d",
-          workflowRevisionid: "5bed82f7b336a5000103aa20",
-          description: "test delete",
-          icon: "flow",
-          shortDescription: "test",
-          workflowName: "Adrienne3",
-          teamName: "CAI Offering Team",
-        },
-      ],
-    },
-  },
-};
+// const props = {
+//   teams: {
+//     isFetching: false,
+//     status: "success",
+//     error: "",
+//     data: [],
+//   },
+//   insights: {
+//     isFetching: false,
+//     status: "success",
+//     error: "",
+//     data: {
+//       totalActivitiesExecuted: 107,
+//       medianExecutionTime: 24435,
+//       executions: [
+//         {
+//           creationDate: 1535760000000,
+//           duration: 20825,
+//           id: "5bed8335b336a5000103aa2b",
+//           initiatedByUserId: "5bbcdd38ee763e00011f5b72",
+//           initiatedByUserName: "Adrienne Hudson",
+//           status: "completed",
+//           workflowId: "5bed82f6b336a5000103aa1d",
+//           workflowRevisionid: "5bed82f7b336a5000103aa20",
+//           description: "test delete",
+//           icon: "flow",
+//           shortDescription: "test",
+//           workflowName: "Adrienne3",
+//           teamName: "CAI Offering Team",
+//         },
+//       ],
+//     },
+//   },
+// };
 
 let server;
 
@@ -57,8 +57,8 @@ afterEach(() => {
 
 describe("WorkflowInsights --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowInsights", async () => {
-    const { baseElement, getByText, getByTestId } = rtlContextRouterRender(<WorkflowInsights />);
-    await waitFor(() => getByTestId("completed-insights"));
+    const { baseElement, findByTestId } = rtlContextRouterRender(<WorkflowInsights />);
+    await findByTestId("completed-insights");
     expect(baseElement).toMatchSnapshot();
   });
 });

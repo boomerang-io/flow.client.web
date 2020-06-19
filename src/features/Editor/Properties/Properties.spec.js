@@ -2,8 +2,6 @@ import React from "react";
 import Inputs from ".";
 import { fireEvent, waitFor } from "@testing-library/react";
 
-const mockfn = jest.fn();
-
 const initialState = {};
 
 const props = {

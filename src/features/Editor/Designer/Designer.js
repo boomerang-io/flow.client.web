@@ -81,7 +81,7 @@ function Designer({ createNode, isModalOpen, summaryData, workflowDagEngine }) {
 
 function WorkflowSkeleton() {
   return (
-    <div className={cx(styles.designer, styles.loading)}>
+    <div className={cx(styles.workflowContainer, styles.loading)}>
       <div className={styles.loadingContainer}>
         <DelayedRender>
           <SkeletonPlaceholder className={styles.loadingStartNode} />
