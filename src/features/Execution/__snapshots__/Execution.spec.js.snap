@@ -898,7 +898,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
         <div
           class="executionDesignerContainer"
         >
-          <section
+          <div
             class="executionWorkflowActions"
           >
             <div
@@ -982,7 +982,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 </svg>
               </button>
             </div>
-          </section>
+          </div>
           <div
             class="srd-diagram diagram "
           >

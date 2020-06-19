@@ -102,10 +102,10 @@ export default function WorkflowsHome() {
         })}
       >
         <WorkflowsHeader
+          filteredTeams={teamsFilter.length ? filteredTeams : []}
           handleSearchFilter={handleSearchFilter}
           searchQuery={searchQuery}
           teams={teams}
-          teamsFilter={teamsFilter.length ? filteredTeams : []}
           workflowsCount={workflowsCount}
         />
         <div aria-label="Team Workflows" className={styles.content} role="region">
@@ -140,14 +140,14 @@ function TeamWorkflows({ children, searchQuery, team, teams }) {
 
   return (
     <section className={styles.sectionContainer}>
-      <div className={styles.header}>
+      <hgroup className={styles.header}>
         <h1 className={styles.team}>{`${team.name} (${workflows.length})`}</h1>
         {!hasTeamWorkflows && (
           <p className={styles.noWorkflowsMessage}>
             This team doesn’t have any Workflows - be the first to take the plunge.
           </p>
         )}
-      </div>
+      </hgroup>
       <div className={styles.workflows}>
         {workflows.map((workflow) => (
           <WorkflowCard key={workflow.id} teamId={team.id} workflow={workflow} />

@@ -304,7 +304,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
         <section
           class="sectionContainer"
         >
-          <div
+          <hgroup
             class="header"
           >
             <h1
@@ -312,7 +312,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             >
               IBM Services Engineering (1)
             </h1>
-          </div>
+          </hgroup>
           <div
             class="workflows"
           >

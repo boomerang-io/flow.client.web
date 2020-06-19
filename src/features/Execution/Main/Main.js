@@ -55,13 +55,13 @@ class Main extends Component {
         <section aria-label="Executions" className={styles.executionResultContainer}>
           <ExecutionTaskLog workflowExecution={workflowExecution} />
           <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
-            <section className={styles.executionWorkflowActions}>
+            <div className={styles.executionWorkflowActions}>
               <WorkflowActions workflow={workflow.data} />
               <WorkflowZoom
                 workflowDagBoundingClientRect={this.state.workflowDagBoundingClientRect}
                 workflowDagEngine={this.workflowDagEngine}
               />
-            </section>
+            </div>
             <DiagramWidget
               allowLooseLinks={false}
               allowCanvasTranslation={true}
