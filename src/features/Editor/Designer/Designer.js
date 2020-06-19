@@ -21,8 +21,6 @@ export default function DesignerContainer({
   createNode,
   isModalOpen,
   revisionQuery,
-  revisionState,
-  setWorkflowDagEngine,
   summaryData,
   tasks,
   workflowDagEngine,
@@ -40,8 +38,6 @@ export default function DesignerContainer({
         <Designer
           createNode={createNode}
           isModalOpen={isModalOpen}
-          revisionState={revisionState}
-          setWorkflowDagEngine={setWorkflowDagEngine}
           summaryData={summaryData}
           workflowDagEngine={workflowDagEngine}
         />
@@ -50,7 +46,7 @@ export default function DesignerContainer({
   );
 }
 
-function Designer({ createNode, isModalOpen, revisionState, summaryData, workflowDagEngine }) {
+function Designer({ createNode, isModalOpen, summaryData, workflowDagEngine }) {
   const workflowDagRef = useRef();
   useEffect(() => {
     workflowDagEngine.getDiagramEngine().zoomToFit();

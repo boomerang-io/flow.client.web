@@ -23,7 +23,6 @@ import { NodeType } from "Constants";
 import styles from "./editor.module.scss";
 
 /**
- *
  * Container responsible for making requests and managing some state
  */
 export default function EditorContainer() {
@@ -127,7 +126,7 @@ export function EditorStateContainer({
         data: revisionQuery.data,
       });
     }
-  }, [revisionNumber, revisionDispatch, revisionQuery.data]);
+  }, [revisionDispatch, revisionState, revisionQuery.data]);
 
   const { data: summaryData } = summaryQuery;
 
@@ -277,19 +276,22 @@ export function EditorStateContainer({
   const isLocked = version < revisionCount;
 
   useEffect(() => {
-    const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, isLocked });
-    setWorkflowDagEngine(newWorkflowDagEngine);
-    newWorkflowDagEngine.getDiagramEngine().repaintCanvas();
+    // Initial value of revisionState will be null, so need to check its present or we get two engines created
+    if (revisionState.version) {
+      const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, isLocked });
+      setWorkflowDagEngine(newWorkflowDagEngine);
+      newWorkflowDagEngine.getDiagramEngine().repaintCanvas();
+    }
 
-    // really and truly only want to remount this on version change
+    // really and truly only want to rerun this on version change
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLocked, revisionState.version]);
+  }, [revisionState.version]);
 
   const memoizedEditor = useMemo(() => {
     return (
       <>
         <Prompt
-          when={Boolean(revisionState.hasUnsavedWorkflowRevisionUpdates)}
+          when={Boolean(revisionState.hasUnsavedUpdates)}
           message={(location) =>
             //Return true to navigate if going to the same route we are currently on
             location.pathname === match.url || location.pathname.includes("workflow")
@@ -312,9 +314,7 @@ export function EditorStateContainer({
               <Designer
                 createNode={handleCreateNode}
                 isModalOpen={isModalOpen}
-                revisionState={revisionState}
                 revisionQuery={revisionQuery}
-                setWorkflowDagEngine={setWorkflowDagEngine}
                 summaryData={summaryData}
                 tasks={taskTemplatesData}
                 workflowDagEngine={workflowDagEngine}

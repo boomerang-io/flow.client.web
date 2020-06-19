@@ -11,11 +11,11 @@ import FeatureHeader from "Components/FeatureHeader";
 import styles from "./workflowsHeader.module.scss";
 
 WorkflowsHeader.propTypes = {
+  filteredTeams: PropTypes.array,
   handleSearchFilter: PropTypes.func,
   isLoading: PropTypes.bool,
   teams: PropTypes.array,
   searchQuery: PropTypes.string,
-  teamsFilter: PropTypes.array,
   workflowsCount: PropTypes.number,
 };
 
@@ -24,7 +24,7 @@ export default function WorkflowsHeader({
   isLoading,
   teams,
   searchQuery,
-  teamsFilter,
+  filteredTeams,
   workflowsCount,
 }) {
   return (
@@ -35,12 +35,12 @@ export default function WorkflowsHeader({
           <h1 className={styles.subtitle}>{isLoading ? "Workflows" : `Workflows (${workflowsCount})`}</h1>
         </hgroup>
         <SearchFilterBar
+          filteredTeams={filteredTeams}
           handleSearchFilter={handleSearchFilter}
           isLoading={isLoading}
           placeholder="Choose a team"
           label="Choose a team"
           searchQuery={searchQuery}
-          teamsFilter={teamsFilter}
           teams={teams}
         />
       </div>
@@ -51,22 +51,22 @@ export default function WorkflowsHeader({
 SearchFilterBar.propTypes = {
   handleSearchFilter: PropTypes.func.isRequired,
   teams: PropTypes.array,
-  loading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   searchQuery: PropTypes.string,
-  teamsFilter: PropTypes.array,
+  filteredTeams: PropTypes.array,
 };
 
-function SearchFilterBar({ handleSearchFilter, loading, teams, searchQuery, teamsFilter }) {
+function SearchFilterBar({ handleSearchFilter, isLoading, teams, searchQuery, filteredTeams }) {
   const handleOnMultiSelectChange = (e) => {
     const selectedItems = e.selectedItems;
     handleSearchFilter({ teamsList: selectedItems });
   };
 
   const handleOnSearchInputChange = (e) => {
-    handleSearchFilter({ workflowsQuery: e.target.value });
+    handleSearchFilter({ workflowsQuery: e.target.value, teamsList: filteredTeams });
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <DelayedRender>
         <div className={styles.filterContainer}>
@@ -98,7 +98,7 @@ function SearchFilterBar({ handleSearchFilter, loading, teams, searchQuery, team
           id="b-search-filter__filter"
           invalid={false}
           initialSelectedItems={
-            Array.isArray(teamsFilter) ? teamsFilter.map((team) => ({ id: team.id, text: team.name })) : []
+            Array.isArray(filteredTeams) ? filteredTeams.map((team) => ({ id: team.id, text: team.name })) : []
           }
           items={Array.isArray(teams) ? teams.map((team) => ({ id: team.id, text: team.name })) : []}
           itemToString={(team) => (team ? team.text : "")}

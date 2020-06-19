@@ -11,7 +11,7 @@ export function revisionReducer(state, action) {
   switch (action.type) {
     case RevisionActionTypes.AddNode: {
       const { data } = action;
-      state.hasUnsavedWorkflowRevisionUpdates = true;
+      state.hasUnsavedUpdates = true;
       state.config[data.nodeId] = data;
       return state;
     }
@@ -19,13 +19,13 @@ export function revisionReducer(state, action) {
       let { nodeId } = action.data;
       delete state.config[nodeId];
       state.dag.nodes = state.dag?.nodes?.filter((node) => node.nodeId !== nodeId) ?? [];
-      state.hasUnsavedWorkflowRevisionUpdates = true;
+      state.hasUnsavedUpdates = true;
       return state;
     }
     case RevisionActionTypes.UpdateNodeConfig: {
       const { nodeId, inputs } = action.data;
       state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
-      state.hasUnsavedWorkflowRevisionUpdates = true;
+      state.hasUnsavedUpdates = true;
       return state;
     }
     case RevisionActionTypes.UpdateNodeTaskVersion: {
@@ -33,7 +33,7 @@ export function revisionReducer(state, action) {
       state.dag.nodes.find((node) => node.nodeId === nodeId).templateUpgradeAvailable = false;
       state.config[nodeId].taskVersion = version;
       state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
-      state.hasUnsavedWorkflowRevisionUpdates = true;
+      state.hasUnsavedUpdates = true;
       return state;
     }
     case RevisionActionTypes.Set: {
