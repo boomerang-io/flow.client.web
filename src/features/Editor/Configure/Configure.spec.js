@@ -1,6 +1,6 @@
 import React from "react";
 import Configure from "./index";
-import { fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 
 const mockfn = jest.fn();
 
@@ -114,6 +114,7 @@ const props = {
 //   document.body.setAttribute("id", "app");
 // });
 
+// eslint-disable-next-line jest/no-commented-out-tests
 /*describe("Settings Configure --- Snapshot Test", () => {
     it("Capturing Snapshot of Settings Configure", () => {
         const { baseElement } = rtlContextRouterRender(<Configure {...props} />, { initialState });
@@ -130,11 +131,11 @@ describe("Inputs --- RTL", () => {
   });
 
   it("Open Cron Scheduler Modal", async () => {
-    const { getByText, getByTestId } = rtlContextRouterRender(<Configure {...props} />, { initialState });
+    const { findByText, getByText, getByTestId } = rtlContextRouterRender(<Configure {...props} />, { initialState });
     const schedulerToggle = getByTestId(/triggers.scheduler.enable/i);
     fireEvent.click(schedulerToggle);
 
-    await waitFor(() => getByText("Change schedule"));
+    await findByText("Change schedule");
 
     const scheduleModalTrigger = getByTestId("launchCronModal");
 

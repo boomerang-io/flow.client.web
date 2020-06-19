@@ -1,3 +1,4 @@
+/* eslint-disable jest/no-commented-out-tests */
 import React from "react";
 import Overview from ".";
 import { queryByAttribute } from "@testing-library/react";
@@ -46,25 +47,25 @@ describe("Inputs --- RTL", () => {
     const dom = rtlContextRouterRender(<Overview {...props} />, { initialState });
 
     const monday = getById(dom.container, "monday");
-    expect(monday.checked).toBe(true);
+    expect(monday).toBeChecked();
 
     const tuesday = getById(dom.container, "tuesday");
-    expect(tuesday.checked).toBe(false);
+    expect(tuesday).not.toBeChecked();
   });
   it("Day Box Checked Correctly Advanced", () => {
     const getById = queryByAttribute.bind(null, "id");
     const dom = rtlContextRouterRender(<Overview {...advancedProps} />, { initialState });
 
     const monday = getById(dom.container, "monday");
-    expect(monday.checked).toBe(true);
+    expect(monday).toBeChecked();
 
     const tuesday = getById(dom.container, "tuesday");
-    expect(tuesday.checked).toBe(true);
+    expect(tuesday).toBeChecked();
 
     const wednesday = getById(dom.container, "wednesday");
-    expect(wednesday.checked).toBe(true);
+    expect(wednesday).toBeChecked();
 
     const sunday = getById(dom.container, "sunday");
-    expect(sunday.checked).toBe(false);
+    expect(sunday).not.toBeChecked();
   });
 });

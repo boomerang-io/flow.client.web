@@ -1,6 +1,7 @@
 import React from "react";
 import CreateEditTeamPropertiesModalContent from "../CreateEditTeamPropertiesModalContent";
 import { fireEvent, waitFor } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 
 const mockfn = jest.fn();
 const props = {
@@ -39,9 +40,12 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
     const labelInputText = getByLabelText(/label/i);
     const keyInputText = getByLabelText(/key/i);
 
-    fireEvent.change(valueInputText, { target: { value: "Value Test" } });
-    fireEvent.change(labelInputText, { target: { value: "Label Test" } });
-    fireEvent.change(keyInputText, { target: { value: "Key Test" } });
+    act(() => {
+      fireEvent.change(valueInputText, { target: { value: "Value Test" } });
+      fireEvent.change(labelInputText, { target: { value: "Label Test" } });
+      fireEvent.change(keyInputText, { target: { value: "Key Test" } });
+    });
+
     expect(await waitFor(() => findByText(/create/i))).toBeEnabled();
     await waitFor(() => {});
   });
@@ -61,11 +65,7 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
     fireEvent.change(labelInputText, { target: { value: "Label Test" } });
     fireEvent.change(keyInputText, { target: { value: "Key Test" } });
     fireEvent.click(saveButton);
-    waitFor(() => {
-      expect(valueInputText).not.toBeInTheDocument();
-      expect(labelInputText).not.toBeInTheDocument();
-      expect(keyInputText).not.toBeInTheDocument();
-    });
+
     await waitFor(() => {});
   });
 

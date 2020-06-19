@@ -20,7 +20,7 @@ const props = {
           taskId: "d53a65a5-be1b-4e58-b0e5-0173c5aabe47",
           outputs: {
             args: {
-              test: "true"
+              test: "true",
             },
             data: "",
             files: {},
@@ -31,14 +31,14 @@ const props = {
               Connection: "close",
               "Content-Type": "text/http",
               Host: "httpbin.org",
-              "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
+              "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)",
             },
             json: null,
             method: "GET",
             origin: "147.10.60.191",
-            url: "https://httpbin.org/anything?test=true"
+            url: "https://httpbin.org/anything?test=true",
           },
-          taskName: "Slack"
+          taskName: "Slack",
         },
         {
           activityId: "5c36289096052900012cc81s",
@@ -50,7 +50,7 @@ const props = {
           taskId: "ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84",
           outputs: {
             args: {
-              test: "true"
+              test: "true",
             },
             data: "",
             files: {},
@@ -61,18 +61,18 @@ const props = {
               Connection: "close",
               "Content-Type": "text/http",
               Host: "httpbin.org",
-              "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)"
+              "User-Agent": "node-fetch/1.0 (+https://github.com/bitinn/node-fetch)",
             },
             json: null,
             method: "GET",
             origin: "147.10.60.191",
-            url: "https://httpbin.org/anything?test=true"
+            url: "https://httpbin.org/anything?test=true",
           },
-          taskName: "Email"
-        }
-      ]
-    }
-  }
+          taskName: "Email",
+        },
+      ],
+    },
+  },
 };
 
 describe("ExecutionTaskLog --- Snapshot", () => {
@@ -88,12 +88,12 @@ describe("ExecutionTaskLog --- RTL", () => {
 
     const sortButton = getByTestId("taskbar-button");
     let taskItems = getAllByTestId("taskitem-name");
-    expect(taskItems[0].textContent).toBe("Email");
-    expect(taskItems[1].textContent).toBe("Slack");
+    expect(taskItems[0]).toHaveTextContent("Email");
+    expect(taskItems[1]).toHaveTextContent("Slack");
 
     fireEvent.click(sortButton);
     taskItems = getAllByTestId("taskitem-name");
-    expect(taskItems[0].textContent).toBe("Slack");
-    expect(taskItems[1].textContent).toBe("Email");
+    expect(taskItems[0]).toHaveTextContent("Slack");
+    expect(taskItems[1]).toHaveTextContent("Email");
   });
 });

@@ -126,7 +126,7 @@ export function EditorStateContainer({
         data: revisionQuery.data,
       });
     }
-  }, [revisionDispatch, revisionState, revisionQuery.data]);
+  }, [revisionDispatch, revisionQuery.data]);
 
   const { data: summaryData } = summaryQuery;
 

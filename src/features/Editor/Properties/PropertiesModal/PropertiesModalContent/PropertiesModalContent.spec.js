@@ -35,9 +35,7 @@ describe("Inputs --- Snapshot Test", () => {
 
 describe("Inputs --- RTL", () => {
   it("Change default value by type correctly", async () => {
-    const { getByText, queryByTestId, getByTestId, getByPlaceholderText } = rtlContextRouterRender(
-      <Inputs {...props} />
-    );
+    const { getByText, queryByTestId, getByPlaceholderText } = rtlContextRouterRender(<Inputs {...props} />);
     expect(queryByTestId("text-input")).toBeInTheDocument();
 
     const typeSelect = getByPlaceholderText("Select an item");
@@ -78,10 +76,12 @@ describe("Inputs --- RTL", () => {
   });
 
   it("Shouldn't save property without key, label and type defined", async () => {
-    const { findByText, getByPlaceholderText, getByLabelText, getByText } = rtlContextRouterRender(
+    const { findByRole, getByPlaceholderText, getByLabelText, getByText } = rtlContextRouterRender(
       <Inputs {...props} isEdit={false} input={undefined} />
     );
-    waitFor(() => expect(findByText(/create/i)).toBeDisabled());
+    await waitFor(() => {});
+    const createButton = await findByRole("button", { name: /create/i });
+    expect(createButton).toBeDisabled();
 
     const keyInput = getByLabelText("Key");
     const labelInput = getByLabelText("Label");
@@ -103,7 +103,7 @@ describe("Inputs --- RTL", () => {
       fireEvent.click(getByText(/boolean/i));
     });
 
-    waitFor(() => expect(findByText(/create/i)).toBeEnabled());
+    expect(createButton).toBeEnabled();
 
     await waitFor(() => {});
   });

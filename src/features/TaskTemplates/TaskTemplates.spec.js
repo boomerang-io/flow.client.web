@@ -3,7 +3,6 @@ import TaskTemplateManager from "./index";
 import { Route } from "react-router-dom";
 import { startApiServer } from "ApiServer";
 import { appPath, appLink } from "Config/appConfig";
-import { waitFor } from "@testing-library/react";
 
 let server;
 
@@ -17,13 +16,13 @@ afterEach(() => {
 
 describe("TaskTemplateManager --- Snapshot", () => {
   it("Capturing Snapshot of Task Templates", async () => {
-    const { baseElement, getByText } = rtlContextRouterRender(
+    const { baseElement, findByText } = rtlContextRouterRender(
       <Route path={appPath.taskTemplates}>
         <TaskTemplateManager />
       </Route>,
       { route: appLink.taskTemplates() }
     );
-    await waitFor(() => getByText(/Task manager/i));
+    await findByText(/Task manager/i);
     expect(baseElement).toMatchSnapshot();
   });
 });

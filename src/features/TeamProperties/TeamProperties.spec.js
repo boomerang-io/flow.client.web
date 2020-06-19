@@ -1,6 +1,6 @@
 import React from "react";
 import TeamProperties from "./index";
-import { waitFor, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { startApiServer } from "ApiServer";
 
@@ -23,15 +23,15 @@ describe("TeamProperties --- Snapshot Test", () => {
 
 describe("TeamProperties --- RTL", () => {
   test("renders message when is still fetching", async () => {
-    const { getByLabelText, getByText } = rtlContextRouterRender(<TeamProperties />);
-    const dropDown = await waitFor(() => getByLabelText("Teams"));
+    const { findByLabelText, findByText, getByText } = rtlContextRouterRender(<TeamProperties />);
+    const dropDown = await findByLabelText("Teams");
     act(() => {
       fireEvent.click(dropDown);
     });
     act(() => {
       fireEvent.click(getByText("IBM Services Engineering"));
     });
-    const rowItem = await waitFor(() => getByText("for testing purpose"));
+    const rowItem = await findByText("for testing purpose");
     expect(rowItem).toBeTruthy();
   });
 });
