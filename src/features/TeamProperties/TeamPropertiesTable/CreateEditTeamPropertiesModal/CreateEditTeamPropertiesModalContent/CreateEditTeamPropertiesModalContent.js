@@ -69,7 +69,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
           />
         );
         closeModal();
-      } catch (err) { }
+      } catch (err) {}
     } else {
       try {
         const response = await addTeamPropertyMutation({ id: team.id, body: newTeamProperty });
@@ -110,11 +110,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
           .required("Enter a key")
           .max(128, "Key must not be greater than 128 characters")
           .notOneOf(propertyKeys || [], "Enter a unique key value for this workflow")
-          .test(
-            "is-valid-key",
-            "Only alphanumeric, underscore, dash, and period characters allowed",
-            validateKey
-          ),
+          .test("is-valid-key", "Only alphanumeric, underscore, dash, and period characters allowed", validateKey),
         value: Yup.string().required("Enter a value"),
         description: Yup.string(),
         secured: Yup.boolean(),
@@ -200,7 +196,12 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
-              <Button data-cy="team-property-create-submission-button" type="submit" disabled={!isValid || loading}>
+              <Button
+                data-cy="team-property-create-submission-button"
+                data-testid="team-property-create-edit-submission-button"
+                type="submit"
+                disabled={!isValid || loading}
+              >
                 {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating..." : "Create"}
               </Button>
             </ModalFooter>

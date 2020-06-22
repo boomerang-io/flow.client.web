@@ -203,6 +203,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
         <button
           class="bx--btn bx--btn--primary"
           data-cy="team-property-create-submission-button"
+          data-testid="team-property-create-edit-submission-button"
           tabindex="0"
           type="submit"
         >

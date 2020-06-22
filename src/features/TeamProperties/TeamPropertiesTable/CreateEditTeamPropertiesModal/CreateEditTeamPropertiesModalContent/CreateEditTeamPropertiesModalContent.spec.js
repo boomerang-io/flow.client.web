@@ -33,7 +33,7 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
   test("CreateEditTeamPropertiesModalContent - test the Submit Button state", async () => {
     const newProps = { ...props, isEdit: false };
 
-    const { getByLabelText, findByText } = rtlContextRouterRender(
+    const { getByLabelText, findByText, getByTestId } = rtlContextRouterRender(
       <CreateEditTeamPropertiesModalContent {...newProps} />
     );
     const valueInputText = getByLabelText(/value/i);
@@ -41,30 +41,33 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
     const keyInputText = getByLabelText(/key/i);
 
     act(() => {
-      fireEvent.change(valueInputText, { target: { value: "Value Test" } });
-      fireEvent.change(labelInputText, { target: { value: "Label Test" } });
-      fireEvent.change(keyInputText, { target: { value: "Key Test" } });
+      fireEvent.change(valueInputText, { target: { value: "testing for value" } });
+      fireEvent.change(labelInputText, { target: { value: "testing for label" } });
+      fireEvent.change(keyInputText, { target: { value: "rtlTestingKeyTest" } });
     });
 
-    expect(await waitFor(() => findByText(/create/i))).toBeEnabled();
+    expect(getByTestId("team-property-create-edit-submission-button")).toBeEnabled();
     await waitFor(() => {});
   });
 
   test("CreateEditTeamPropertiesModalContent - test if the form submits", async () => {
-    const { getByLabelText, getByText } = rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...props} />);
+    const { getByLabelText, getByText, findByText, getByTestId } = rtlContextRouterRender(
+      <CreateEditTeamPropertiesModalContent {...props} />
+    );
     const valueInputText = getByLabelText(/value/i);
     const labelInputText = getByLabelText(/label/i);
     const keyInputText = getByLabelText(/key/i);
-    const saveButton = getByText(/save/i);
 
     expect(valueInputText).toBeInTheDocument();
     expect(labelInputText).toBeInTheDocument();
     expect(keyInputText).toBeInTheDocument();
 
-    fireEvent.change(valueInputText, { target: { value: "Value Test" } });
-    fireEvent.change(labelInputText, { target: { value: "Label Test" } });
-    fireEvent.change(keyInputText, { target: { value: "Key Test" } });
-    fireEvent.click(saveButton);
+    act(() => {
+      fireEvent.change(valueInputText, { target: { value: "Value Test" } });
+      fireEvent.change(labelInputText, { target: { value: "Label Test" } });
+      fireEvent.change(keyInputText, { target: { value: "rtlTestingKey" } });
+      fireEvent.click(getByTestId("team-property-create-edit-submission-button"));
+    });
 
     await waitFor(() => {});
   });

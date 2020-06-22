@@ -10,7 +10,7 @@ import { useMutation, queryCache } from "react-query";
 
 export default function UpdateWorkflow({ workflowId, onCloseModal }) {
   const [importWorkflowMutator, { status: importWorkflowStatus }] = useMutation(resolver.postImportWorkflow, {
-    onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams())
+    onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
   });
 
   const isPosting = importWorkflowStatus === QueryStatus.Loading;
@@ -24,26 +24,19 @@ export default function UpdateWorkflow({ workflowId, onCloseModal }) {
     } catch {}
   };
 
-  // const initialState = {
-  //   step: 0,
-  //   formData: {
-  //     files: []
-  //   }
-  // };
   return (
     <ModalFlow
       isOpen
       confirmModalProps={{
         title: "Are you sure?",
-        children: "Your request will not be saved"
+        children: "Your request will not be saved",
       }}
       composedModalProps={{
-        containerClassName: styles.container
+        containerClassName: styles.container,
       }}
       modalHeaderProps={{
-        title: "Update .json file"
+        title: "Update .json file",
       }}
-      //initialState={initialState}
       onCloseModal={onCloseModal}
     >
       <ImportWorkflowContent
