@@ -187,7 +187,11 @@ export function EditorStateContainer({
         }
       } catch (err) {
         notify(
-          <ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to update workflow settings`} />
+          <ToastNotification
+            kind="error"
+            title="Something's Wrong"
+            subtitle={`Failed to update workflow configuration`}
+          />
         );
       }
     },
