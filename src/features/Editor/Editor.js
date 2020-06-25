@@ -298,7 +298,7 @@ export function EditorStateContainer({
           when={Boolean(revisionState.hasUnsavedUpdates)}
           message={(location) =>
             //Return true to navigate if going to the same route we are currently on
-            location.pathname === match.url || location.pathname.includes("workflow")
+            location.pathname.includes(workflowId)
               ? true
               : "Are you sure? You have unsaved changes to your workflow that will be lost."
           }
@@ -356,7 +356,6 @@ export function EditorStateContainer({
     isModalOpen,
     location.pathname,
     match.params,
-    match.url,
     revisionMutation,
     revisionQuery,
     revisionState,
@@ -366,6 +365,7 @@ export function EditorStateContainer({
     teams,
     updateSummary,
     workflowDagEngine,
+    workflowId,
   ]);
 
   const store = useMemo(() => {
