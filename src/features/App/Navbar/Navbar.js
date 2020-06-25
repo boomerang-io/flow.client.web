@@ -59,18 +59,18 @@ const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
               activeClassName={"bx--side-nav__link--current"}
               element={NavLink}
               onClick={onMenuClose}
-              to="/properties"
+              to="/task-templates"
             >
-              Properties
+              Task Manager
             </SideNavMenuItem>
             <SideNavMenuItem
               large
               activeClassName={"bx--side-nav__link--current"}
               element={NavLink}
               onClick={onMenuClose}
-              to="/task-templates"
+              to="/properties"
             >
-              Task Templates
+              Properties
             </SideNavMenuItem>
             <SideNavMenuItem
               large
