@@ -22,11 +22,8 @@ import { QueryStatus } from "Constants";
 import { NodeType } from "Constants";
 import styles from "./editor.module.scss";
 
-/**
- * Container responsible for making requests and managing some state
- */
 export default function EditorContainer() {
-  // Init revision number here so we can easily refect the data on change via rq
+  // Init revision number state is held here so we can easily refect the data on change via react-query
   const [revisionNumber, setRevisionNumber] = useState();
   const { workflowId } = useParams();
 
@@ -70,6 +67,8 @@ export default function EditorContainer() {
     return <Error />;
   }
 
+  // Don't block render if we don't have the revision data. We want to render the header and sidenav regardless
+  // prevents unnecessary remounting when creating a new version or navigating to a previous one
   if (summaryQuery.data && taskTemplatesQuery.data) {
     return (
       <EditorStateContainer
@@ -161,7 +160,9 @@ export function EditorStateContainer({
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
       } catch (err) {
-        //no-op
+        notify(
+          <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
+        );
       }
     },
     [mutateRevision, revisionDispatch, revisionState.config, setRevisionNumber, workflowDagEngine, workflowId]
@@ -298,7 +299,7 @@ export function EditorStateContainer({
           when={Boolean(revisionState.hasUnsavedUpdates)}
           message={(location) =>
             //Return true to navigate if going to the same route we are currently on
-            location.pathname === match.url || location.pathname.includes("workflow")
+            location.pathname.includes(workflowId)
               ? true
               : "Are you sure? You have unsaved changes to your workflow that will be lost."
           }
@@ -335,6 +336,8 @@ export function EditorStateContainer({
           <Route
             path={appPath.editorConfigure}
             children={({ history, match: routeMatch }) => (
+              // Always render parent Configure component so state isn't lost when switching tabs
+              // It is responsible for rendering its children, but Formik form management is always mounted
               <Configure
                 history={history}
                 isOnRoute={Boolean(routeMatch)}
@@ -356,7 +359,6 @@ export function EditorStateContainer({
     isModalOpen,
     location.pathname,
     match.params,
-    match.url,
     revisionMutation,
     revisionQuery,
     revisionState,
@@ -366,6 +368,7 @@ export function EditorStateContainer({
     teams,
     updateSummary,
     workflowDagEngine,
+    workflowId,
   ]);
 
   const store = useMemo(() => {

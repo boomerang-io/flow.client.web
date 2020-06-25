@@ -30,6 +30,7 @@ export const appLink = {
   editorChangelog: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/changelog`,
   editorProperties: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/properties`,
   execution: ({ executionId, workflowId }) => `/activity/${workflowId}/execution/${executionId}`,
+  insights: () => "/insights",
   properties: () => "/properties",
   taskTemplates: () => `/task-templates`,
   taskTemplateEdit: ({ id, version }) => `/task-templates/${id}/${version}`,

@@ -14,9 +14,8 @@ import {
   SideNavMenuItem,
   UIShell,
 } from "@boomerang/carbon-addons-boomerang-react";
-import { UserType } from "Constants";
-
-import { QueryStatus } from "Constants";
+import { appLink } from "Config/appConfig";
+import { UserType, QueryStatus } from "Constants";
 
 const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
   <LeftSideNav isOpen={isOpen}>
@@ -28,7 +27,7 @@ const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
           element={NavLink}
           onClick={onMenuClose}
           renderIcon={FlowData16}
-          to="/workflows"
+          to={appLink.workflows()}
         >
           Workflows
         </SideNavLink>
@@ -38,7 +37,7 @@ const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
           element={NavLink}
           onClick={onMenuClose}
           renderIcon={Activity16}
-          to="/activity"
+          to={appLink.activity()}
         >
           Activity
         </SideNavLink>
@@ -48,7 +47,7 @@ const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
           element={NavLink}
           onClick={onMenuClose}
           renderIcon={ChartScatter16}
-          to="/insights"
+          to={appLink.insights()}
         >
           Insights
         </SideNavLink>
@@ -59,7 +58,16 @@ const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
               activeClassName={"bx--side-nav__link--current"}
               element={NavLink}
               onClick={onMenuClose}
-              to="/properties"
+              to={appLink.taskTemplates()}
+            >
+              Task Manager
+            </SideNavMenuItem>
+            <SideNavMenuItem
+              large
+              activeClassName={"bx--side-nav__link--current"}
+              element={NavLink}
+              onClick={onMenuClose}
+              to={appLink.properties()}
             >
               Properties
             </SideNavMenuItem>
@@ -68,16 +76,7 @@ const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
               activeClassName={"bx--side-nav__link--current"}
               element={NavLink}
               onClick={onMenuClose}
-              to="/task-templates"
-            >
-              Task Templates
-            </SideNavMenuItem>
-            <SideNavMenuItem
-              large
-              activeClassName={"bx--side-nav__link--current"}
-              element={NavLink}
-              onClick={onMenuClose}
-              to="/team-properties"
+              to={appLink.teamProperties()}
             >
               Team Properties
             </SideNavMenuItem>
