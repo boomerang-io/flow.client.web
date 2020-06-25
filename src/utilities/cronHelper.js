@@ -1,4 +1,4 @@
-import DAYS_OF_WEEK from "Constants/daysOfWeek";
+import { daysOfWeekCronList } from "Constants";
 
 const CRON_TO_DAY = {
   SUN: 0,
@@ -7,7 +7,7 @@ const CRON_TO_DAY = {
   WED: 3,
   THU: 4,
   FRI: 5,
-  SAT: 6
+  SAT: 6,
 };
 
 const createListOfDays = (lowEnd, highEnd) => {
@@ -34,7 +34,7 @@ export const cronToDateTime = (hasSchedule, cronExp) => {
   let selectedDays = {};
   let cronDaysAdjusted = [];
 
-  cronDays.forEach(entry => {
+  cronDays.forEach((entry) => {
     let output = entry;
     if (entry.includes("-")) {
       let parts = entry.split("-");
@@ -53,10 +53,10 @@ export const cronToDateTime = (hasSchedule, cronExp) => {
     cronDaysAdjusted.push(output);
   });
 
-  DAYS_OF_WEEK.forEach(
-    day =>
+  daysOfWeekCronList.forEach(
+    (day) =>
       (selectedDays[day.value] =
-        !!cronDaysAdjusted.find(cron => cron === day.cron || day.cronNumber.find(num => cron.includes(num))) ||
+        !!cronDaysAdjusted.find((cron) => cron === day.cron || day.cronNumber.find((num) => cron.includes(num))) ||
         cronDaysAdjusted.length === 0)
   );
 

@@ -20,10 +20,6 @@
 }
 
 .updateTaskModalContainer {
-  max-height: 62.5rem;
-  max-width: 60rem;
-
-  :global .bx--bmrg-modal-composed-container {
-    padding-right: 25% !important;
-  }
+  max-height: 62.5rem !important;
+  max-width: 60rem !important;
 }

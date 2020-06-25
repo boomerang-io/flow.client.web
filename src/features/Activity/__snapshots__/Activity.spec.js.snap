@@ -1,0 +1,1157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <div
+      class="container"
+    >
+      <header
+        class="container"
+      >
+        <div
+          class="container"
+        >
+          <section
+            class="headline"
+          >
+            <p
+              class="subtitle"
+            >
+              This is all of the
+            </p>
+            <p
+              class="title"
+            >
+              Activity
+            </p>
+          </section>
+          <section
+            class="content"
+          >
+            <div
+              class="bx--skeleton__placeholder summarySkeleton"
+            />
+          </section>
+        </div>
+      </header>
+      <section
+        aria-label="Activity"
+        class="content"
+      >
+        <nav>
+          <div
+            class="bx--tabs tabs"
+            role="navigation"
+          >
+            <div
+              aria-label="listbox"
+              class="bx--tabs-trigger"
+              role="listbox"
+              tabindex="0"
+            >
+              <a
+                class="bx--tabs-trigger-text"
+                href="#"
+                tabindex="-1"
+              >
+                All
+              </a>
+              <svg
+                aria-hidden="true"
+                fill="currentColor"
+                focusable="false"
+                height="16"
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 0 16 16"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
+                />
+                <title>
+                  show menu options
+                </title>
+              </svg>
+            </div>
+            <ul
+              class="bx--tabs__nav bx--tabs__nav--hidden"
+              role="tablist"
+            >
+              <li
+                aria-controls="undefined__panel"
+                aria-selected="true"
+                class="bx--tabs__nav-item bx--tabs__nav-item--selected"
+                role="tab"
+                tabindex="-1"
+              >
+                <a
+                  class="bx--tabs__nav-link"
+                  href="#"
+                  tabindex="0"
+                >
+                  All
+                </a>
+              </li>
+              <li
+                aria-controls="undefined__panel"
+                aria-selected="false"
+                class="bx--tabs__nav-item"
+                role="tab"
+                tabindex="-1"
+              >
+                <a
+                  class="bx--tabs__nav-link"
+                  href="#"
+                  tabindex="-1"
+                >
+                  In Progress
+                </a>
+              </li>
+              <li
+                aria-controls="undefined__panel"
+                aria-selected="false"
+                class="bx--tabs__nav-item"
+                role="tab"
+                tabindex="-1"
+              >
+                <a
+                  class="bx--tabs__nav-link"
+                  href="#"
+                  tabindex="-1"
+                >
+                  Succeeded
+                </a>
+              </li>
+              <li
+                aria-controls="undefined__panel"
+                aria-selected="false"
+                class="bx--tabs__nav-item"
+                role="tab"
+                tabindex="-1"
+              >
+                <a
+                  class="bx--tabs__nav-link"
+                  href="#"
+                  tabindex="-1"
+                >
+                  Failed
+                </a>
+              </li>
+              <li
+                aria-controls="undefined__panel"
+                aria-selected="false"
+                class="bx--tabs__nav-item"
+                role="tab"
+                tabindex="-1"
+              >
+                <a
+                  class="bx--tabs__nav-link"
+                  href="#"
+                  tabindex="-1"
+                >
+                  Invalid
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div
+            aria-hidden="false"
+            class="bx--tab-content"
+            role="tabpanel"
+          />
+          <div
+            aria-hidden="true"
+            class="bx--tab-content"
+            hidden=""
+            role="tabpanel"
+          />
+          <div
+            aria-hidden="true"
+            class="bx--tab-content"
+            hidden=""
+            role="tabpanel"
+          />
+          <div
+            aria-hidden="true"
+            class="bx--tab-content"
+            hidden=""
+            role="tabpanel"
+          />
+          <div
+            aria-hidden="true"
+            class="bx--tab-content"
+            hidden=""
+            role="tabpanel"
+          />
+        </nav>
+        <div
+          class="filtersContainer"
+        >
+          <div
+            class="dataFilters"
+          >
+            <div
+              class="dataFilter"
+            >
+              <div
+                class="bx--multi-select__wrapper bx--list-box__wrapper"
+              >
+                <label
+                  class="bx--label"
+                  for="activity-teams-select"
+                  id="filterablemultiselect-label-1"
+                >
+                  Filter by team
+                </label>
+                <div
+                  class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-labelledby="filterablemultiselect-label-1"
+                    class="bx--list-box__field"
+                    data-toggle="true"
+                    role="button"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-controls="activity-teams-select__menu"
+                      aria-expanded="false"
+                      autocomplete="off"
+                      class="bx--text-input bx--text-input--empty"
+                      id="activity-teams-select"
+                      placeholder="Choose team(s)"
+                      role="combobox"
+                      value=""
+                    />
+                    
+                    <div
+                      class="bx--list-box__menu-icon"
+                    >
+                      <svg
+                        aria-label="Open menu"
+                        fill="currentColor"
+                        focusable="false"
+                        height="16"
+                        name="chevron--down"
+                        preserveAspectRatio="xMidYMid meet"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
+                        />
+                        <title>
+                          Open menu
+                        </title>
+                      </svg>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="Choose an item"
+                    class="bx--list-box__menu"
+                    id="activity-teams-select__menu"
+                    role="listbox"
+                  >
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-0-item-0"
+                      title="IBM Services Engineering"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-0-item-0"
+                            name="IBM Services Engineering"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-0-item-0"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              IBM Services Engineering
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="dataFilter"
+            >
+              <div
+                class="bx--multi-select__wrapper bx--list-box__wrapper"
+              >
+                <label
+                  class="bx--label"
+                  for="activity-workflows-select"
+                  id="filterablemultiselect-label-2"
+                >
+                  Filter by workflow
+                </label>
+                <div
+                  class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-labelledby="filterablemultiselect-label-2"
+                    class="bx--list-box__field"
+                    data-toggle="true"
+                    role="button"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-controls="activity-workflows-select__menu"
+                      aria-expanded="false"
+                      autocomplete="off"
+                      class="bx--text-input bx--text-input--empty"
+                      id="activity-workflows-select"
+                      placeholder="Choose workflow(s)"
+                      role="combobox"
+                      value=""
+                    />
+                    
+                    <div
+                      class="bx--list-box__menu-icon"
+                    >
+                      <svg
+                        aria-label="Open menu"
+                        fill="currentColor"
+                        focusable="false"
+                        height="16"
+                        name="chevron--down"
+                        preserveAspectRatio="xMidYMid meet"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
+                        />
+                        <title>
+                          Open menu
+                        </title>
+                      </svg>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="Choose an item"
+                    class="bx--list-box__menu"
+                    id="activity-workflows-select__menu"
+                    role="listbox"
+                  >
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-1-item-0"
+                      title="ML Train – Bot Efficiency [IBM Services Engineering]"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-1-item-0"
+                            name="ML Train – Bot Efficiency [IBM Services Engineering]"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-1-item-0"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              ML Train – Bot Efficiency [IBM Services Engineering]
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="dataFilter"
+            >
+              <div
+                class="bx--multi-select__wrapper bx--list-box__wrapper"
+              >
+                <label
+                  class="bx--label"
+                  for="activity-triggers-select"
+                  id="filterablemultiselect-label-3"
+                >
+                  Filter by trigger
+                </label>
+                <div
+                  class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-labelledby="filterablemultiselect-label-3"
+                    class="bx--list-box__field"
+                    data-toggle="true"
+                    role="button"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-controls="activity-triggers-select__menu"
+                      aria-expanded="false"
+                      autocomplete="off"
+                      class="bx--text-input bx--text-input--empty"
+                      id="activity-triggers-select"
+                      placeholder="Choose trigger type(s)"
+                      role="combobox"
+                      value=""
+                    />
+                    
+                    <div
+                      class="bx--list-box__menu-icon"
+                    >
+                      <svg
+                        aria-label="Open menu"
+                        fill="currentColor"
+                        focusable="false"
+                        height="16"
+                        name="chevron--down"
+                        preserveAspectRatio="xMidYMid meet"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
+                        />
+                        <title>
+                          Open menu
+                        </title>
+                      </svg>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="Choose an item"
+                    class="bx--list-box__menu"
+                    id="activity-triggers-select__menu"
+                    role="listbox"
+                  >
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-2-item-0"
+                      title="cron"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-2-item-0"
+                            name="cron"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-2-item-0"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              cron
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-2-item-1"
+                      title="manual"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-2-item-1"
+                            name="manual"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-2-item-1"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              manual
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-2-item-2"
+                      title="webhook"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-2-item-2"
+                            name="webhook"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-2-item-2"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              webhook
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bx--form-item"
+          >
+            <div
+              class="bx--date-picker timeFilters bx--date-picker--range"
+              id="activity-date-picker"
+            >
+              <div
+                class="bx--date-picker-container"
+              >
+                <label
+                  class="bx--label"
+                  for="activity-date-picker-start"
+                >
+                  Start date
+                </label>
+                <div
+                  class="bx--date-picker-input__wrapper"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bx--date-picker__input flatpickr-input"
+                    id="activity-date-picker-start"
+                    pattern="\\\\d{1,2}\\\\/\\\\d{1,2}\\\\/\\\\d{4}"
+                    placeholder="mm/dd/yyyy"
+                    type="text"
+                    value=""
+                  />
+                  <svg
+                    aria-hidden="true"
+                    class="bx--date-picker__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M26,4h-4V2h-2v2h-8V2h-2v2H6C4.9,4,4,4.9,4,6v20c0,1.1,0.9,2,2,2h20c1.1,0,2-0.9,2-2V6C28,4.9,27.1,4,26,4z M26,26H6V12h20	V26z M26,10H6V6h4v2h2V6h8v2h2V6h4V10z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                class="bx--date-picker-container"
+              >
+                <label
+                  class="bx--label"
+                  for="activity-date-picker-end"
+                >
+                  End date
+                </label>
+                <div
+                  class="bx--date-picker-input__wrapper"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bx--date-picker__input"
+                    data-fp-omit=""
+                    id="activity-date-picker-end"
+                    pattern="\\\\d{1,2}\\\\/\\\\d{1,2}\\\\/\\\\d{4}"
+                    placeholder="mm/dd/yyyy"
+                    type="text"
+                    value=""
+                  />
+                  <svg
+                    aria-hidden="true"
+                    class="bx--date-picker__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M26,4h-4V2h-2v2h-8V2h-2v2H6C4.9,4,4,4.9,4,6v20c0,1.1,0.9,2,2,2h20c1.1,0,2-0.9,2-2V6C28,4.9,27.1,4,26,4z M26,26H6V12h20	V26z M26,10H6V6h4v2h2V6h8v2h2V6h4V10z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div
+    class="flatpickr-calendar rangeMode animate bx--date-picker__calendar"
+    tabindex="-1"
+  >
+    <div
+      class="flatpickr-months"
+    >
+      <span
+        class="flatpickr-prev-month"
+      >
+        
+      
+        <svg
+          height="16px"
+          viewBox="0 0 16 16"
+          width="16px"
+        >
+          
+        
+          <polygon
+            points="5,8 10,3 10.7,3.7 6.4,8 10.7,12.3 10,13 "
+          />
+          
+        
+          <rect
+            height="16"
+            style="fill:none"
+            width="16"
+          />
+          
+      
+        </svg>
+      </span>
+      <div
+        class="flatpickr-month bx--date-picker__month"
+      >
+        <div
+          class="flatpickr-current-month"
+        >
+          <span
+            class="cur-month"
+          >
+            August
+          </span>
+          <div
+            class="numInputWrapper"
+          >
+            <input
+              aria-label="Year"
+              class="numInput cur-year"
+              tabindex="-1"
+              type="number"
+            />
+            <span
+              class="arrowUp"
+            />
+            <span
+              class="arrowDown"
+            />
+          </div>
+        </div>
+      </div>
+      <span
+        class="flatpickr-next-month"
+      >
+        
+      
+        <svg
+          height="16px"
+          viewBox="0 0 16 16"
+          width="16px"
+        >
+          
+        
+          <polygon
+            points="11,8 6,13 5.3,12.3 9.6,8 5.3,3.7 6,3 "
+          />
+          
+        
+          <rect
+            height="16"
+            style="fill:none"
+            width="16"
+          />
+          
+      
+        </svg>
+      </span>
+    </div>
+    <div
+      class="flatpickr-innerContainer"
+    >
+      <div
+        class="flatpickr-rContainer"
+      >
+        <div
+          class="flatpickr-weekdays bx--date-picker__weekdays"
+        >
+          <div
+            class="flatpickr-weekdaycontainer"
+          >
+            
+      
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              S
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              M
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              T
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              W
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              Th
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              F
+            </span>
+            <span
+              class="flatpickr-weekday bx--date-picker__weekday"
+            >
+              S
+            </span>
+            
+      
+          </div>
+        </div>
+        <div
+          class="flatpickr-days bx--date-picker__days"
+          tabindex="-1"
+        >
+          <div
+            class="dayContainer"
+          >
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day prevMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day prevMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day prevMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day prevMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day prevMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+            <span
+              aria-current="date"
+              aria-label="August 31, 2018"
+              class="flatpickr-day nextMonthDay today bx--date-picker__day"
+              tabindex="-1"
+            >
+              31
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

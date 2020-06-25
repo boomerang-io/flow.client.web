@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExecutionHeader --- Snapshot Capturing Snapshot of ExecutionHeader 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <header
+      class="container border"
+    >
+      <div
+        class="container"
+      >
+        <section>
+          <div
+            class="subtitle"
+          >
+            <a
+              class="activityLink"
+              href="/activity"
+            >
+              Activity
+            </a>
+            <p
+              style="margin: 0px 0.5rem;"
+            >
+              /
+            </p>
+            <p>
+              Sparkle Flow with extra glitter and donuts on the side
+            </p>
+          </div>
+          <h1
+            class="title"
+          >
+            Workflow run detail
+          </h1>
+        </section>
+        <div
+          class="content"
+        >
+          <dl
+            class="data"
+          >
+            <dt
+              class="dataTitle"
+            >
+              Team
+            </dt>
+            <dd
+              class="dataValue"
+            >
+              CAI Offerings
+            </dd>
+          </dl>
+          <dl
+            class="data"
+          >
+            <dt
+              class="dataTitle"
+            >
+              Initiated by
+            </dt>
+            <dd
+              class="dataValue"
+            >
+              Tim Bula
+            </dd>
+          </dl>
+          <dl
+            class="data"
+          >
+            <dt
+              class="dataTitle"
+            >
+              Trigger
+            </dt>
+            <dd
+              class="dataValue"
+            >
+              manual
+            </dd>
+          </dl>
+          <dl
+            class="data"
+          >
+            <dt
+              class="dataTitle"
+            >
+              Start time
+            </dt>
+            <dd
+              class="dataValue"
+            >
+              2019-01-01 12:00 AM
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </header>
+  </div>
+</body>
+`;

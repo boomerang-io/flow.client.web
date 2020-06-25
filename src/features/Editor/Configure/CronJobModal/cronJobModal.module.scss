@@ -1,0 +1,43 @@
+.cronMessage {
+  font-size: 0.75rem;
+  margin-top: 0.125rem;
+}
+
+.configureText {
+  color: var(--cds-text-01);
+  font-size: 1rem;
+  line-height: 1.125rem;
+}
+
+.timezone {
+  position: relative;
+}
+
+.cronContainer {
+  position: relative;
+}
+
+.timeContainer {
+  align-items: flex-end;
+  display: flex;
+
+  :global .bx--bmrg-text-input {
+    margin-right: 1rem;
+  }
+}
+.advancedCronToggle {
+  margin-bottom: 1rem;
+  width: 12rem;
+  :global .bx--label {
+    font-size: 14px;
+    line-height: 18px;
+    color: var(--cds-text-01);
+  }
+}
+
+.cronAdvancedLabel {
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.32px;
+  line-height: 1rem;
+}

@@ -1,0 +1,308 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <form
+      class="bx--bmrg-modal-flow-form"
+    >
+      <div
+        class="bx--modal-content container"
+      >
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="key"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Key (read-only)
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--form__helper-text"
+            >
+              Reference value for property in workflow. It can't be changed after property creation.
+            </div>
+            <div
+              class="bx--text-input__field-wrapper"
+            >
+              <input
+                class="bx--text-input bx--text__input"
+                id="key"
+                placeholder=".e.g. token"
+                readonly=""
+                title=".e.g. token"
+                type="text"
+                value="tim.property"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-select"
+        >
+          <div
+            class="bx--list-box__wrapper"
+          >
+            <label
+              class="bx--label"
+              for="type"
+            >
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Type
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--combo-box bx--list-box"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="open menu"
+                class="bx--list-box__field"
+                data-toggle="true"
+                role="button"
+                tabindex="-1"
+                type="button"
+              >
+                <input
+                  aria-autocomplete="list"
+                  aria-controls="type__menu"
+                  aria-expanded="false"
+                  aria-label="Choose an item"
+                  autocomplete="off"
+                  class="bx--text-input"
+                  id="type"
+                  placeholder="Select an item"
+                  role="combobox"
+                  value="Text"
+                />
+                <div
+                  aria-label="Clear Selection"
+                  class="bx--list-box__selection"
+                  role="button"
+                  tabindex="0"
+                  title="Clear selected item"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
+                    />
+                  </svg>
+                </div>
+                <div
+                  class="bx--list-box__menu-icon"
+                >
+                  <svg
+                    aria-label="Open menu"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    name="chevron--down"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
+                    />
+                    <title>
+                      Open menu
+                    </title>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="label"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Label
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-wrapper"
+            >
+              <input
+                class="bx--text-input bx--text__input"
+                id="label"
+                placeholder="e.g. Token"
+                title="e.g. Token"
+                type="text"
+                value="Tim Property"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="description"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Description
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-wrapper"
+            >
+              <input
+                class="bx--text-input bx--text__input"
+                id="description"
+                type="text"
+                value="Tim property"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-toggle --vertical"
+        >
+          <div
+            class="bx--bmrg-toggle__title"
+          >
+            <label
+              class="bx--label"
+              for="required"
+              id="required-label"
+              style="margin-bottom: 0px;"
+            >
+              Required
+            </label>
+          </div>
+          <div
+            class="bx--form-item"
+          >
+            <input
+              aria-labelledby="required-label"
+              class="bx--toggle-input"
+              data-testid="toggle-test-id"
+              id="required"
+              type="checkbox"
+            />
+            <label
+              aria-label="Toggle"
+              class="bx--toggle-input__label"
+              for="required"
+            >
+              <span
+                class="bx--toggle__switch"
+              >
+                <span
+                  aria-hidden="true"
+                  class="bx--toggle__text--off"
+                />
+                <span
+                  aria-hidden="true"
+                  class="bx--toggle__text--on"
+                />
+              </span>
+            </label>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="defaultValue"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Default Value
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-wrapper"
+            >
+              <input
+                class="bx--text-input bx--text__input"
+                data-testid="text-input"
+                id="defaultValue"
+                placeholder="Default Value"
+                title="Default Value"
+                type="text"
+                value="dogs"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bx--modal-footer"
+      >
+        <button
+          class="bx--btn bx--btn--secondary"
+          tabindex="0"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="bx--btn bx--btn--primary"
+          data-cy="property-modal-confirm-button"
+          data-testid="inputs-modal-confirm-button"
+          tabindex="0"
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+`;

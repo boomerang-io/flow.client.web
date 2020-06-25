@@ -1,4 +1,3 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
 @import "~Styles/mixins";
 
 .container {
@@ -16,7 +15,7 @@
   }
 }
 .saveContainer {
-  height: 32rem !important;
+  height: 33rem;
 }
 .confirmModalText {
   font-size: 0.875rem;
@@ -26,9 +25,6 @@
   font-size: 0.875rem;
   margin-bottom: 1rem;
   width: 36rem;
-}
-.textBold {
-  font-weight: 600;
 }
 .featureHeader {
   align-items: center;
@@ -47,10 +43,17 @@
 .buttons {
   display: flex;
 }
-.button {
+.copyButton {
   margin-left: 0.625rem;
   width: 12.8125rem;
 }
+
+.resetButton {
+  margin-left: 0.625rem;
+  margin-right: 1.5rem;
+  width: 10.875rem;
+}
+
 .category {
   font-size: 0.875rem;
   line-height: 1.125rem;
@@ -69,26 +72,22 @@
     left: -2rem !important;
   }
 }
-
 .info {
   align-items: center;
   display: flex;
   flex-grow: 1;
   overflow: hidden;
 }
-
 .icon {
   height: 1.5rem;
   margin-right: 0.75rem;
 }
-
 .content {
   align-items: center;
   display: flex;
   justify-content: flex-start;
   width: 100%;
 }
-
 .title {
   font-size: 1.5rem;
   font-weight: 600;

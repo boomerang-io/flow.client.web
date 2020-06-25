@@ -1,10 +1,17 @@
 //https://github.com/carbon-design-system/carbon/blob/master/packages/components/src/globals/scss/_helper-mixins.scss
-@import "variables";
 
 @mixin text-overflow-ellipsis() {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+@mixin multiline-text-overflow-ellipsis($lineClamp: 2, $orient: vertical) {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: $orient;
+  -webkit-line-clamp: $lineClamp;
 }
 
 @mixin border-radius() {

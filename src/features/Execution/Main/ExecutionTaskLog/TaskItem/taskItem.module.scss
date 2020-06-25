@@ -1,4 +1,4 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
+@import "~Styles/mixins";
 
 .taskitem {
   height: 12.5rem;
@@ -6,11 +6,11 @@
   width: 100%;
 
   &.completed {
-    border-top: 0.25rem solid #009c98;
+    border-top: 0.25rem solid var(--cds-support-02);
   }
 
   &.failure {
-    border-top: 0.25rem solid #a51920;
+    border-top: 0.25rem solid var(--flow-failure);
   }
 
   &.inProgress {
@@ -29,7 +29,7 @@
       &:before {
         content: "";
         position: absolute;
-        background-color: #0072c3;
+        background-color: var(--cds-interactive-01);
         top: 0;
         left: 0;
         bottom: 0;
@@ -40,7 +40,7 @@
       &:after {
         content: "";
         position: absolute;
-        background-color: #0072c3;
+        background-color: var(--cds-interactive-01);
         top: 0;
         left: 0;
         bottom: 0;
@@ -71,11 +71,16 @@
 
 .title {
   align-items: center;
-  color: $gray-90;
+  color: var(--cds-text-01);
   display: flex;
   font-size: 0.875rem;
   line-height: 1rem;
   white-space: nowrap;
+
+  p {
+    max-width: 14rem;
+    @include text-overflow-ellipsis();
+  }
 }
 
 .taskIcon {
@@ -93,16 +98,16 @@
   white-space: nowrap;
 
   &.completed {
-    color: #009c98;
+    color: var(--cds-support-02);
     svg {
-      fill: #009c98;
+      fill: var(--cds-support-02);
     }
   }
 
   &.failure {
-    color: #a51920;
+    color: var(--flow-failure);
     svg {
-      fill: #a51920;
+      fill: var(--flow-failure);
     }
   }
 
@@ -130,7 +135,7 @@
 }
 
 .subtitle {
-  color: $gray-90;
+  color: var(--cds-text-01);
   font-size: 0.75rem;
   line-height: 0.9375rem;
   margin-bottom: 1.5rem;
@@ -146,7 +151,7 @@
 }
 
 .timeTitle {
-  color: $gray-90;
+  color: var(--cds-text-01);
   font-size: 0.875rem;
   font-weight: 300;
   line-height: 1.125rem;
@@ -154,7 +159,7 @@
 }
 
 .timeValue {
-  color: $gray-90;
+  color: var(--cds-text-01);
   font-size: 0.875rem;
   line-height: 1.125rem;
 }

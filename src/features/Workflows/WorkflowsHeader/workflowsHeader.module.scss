@@ -1,8 +1,11 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
-@import "~Styles/variables";
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
 
 .container {
-  background: $white;
+  background: var(--cds-ui-01);
   display: flex;
   justify-content: space-between;
   height: 4.3125rem;
@@ -23,12 +26,9 @@
     font-size: 0.875rem;
     .bx--list-box {
       background-color: var(--cds-ui-background) !important;
-      height: 3rem !important;
       max-height: none !important;
     }
-    .bx--list-box__field {
-      height: 3rem !important;
-    }
+
     .bx--list-box__menu {
       background-color: var(--cds-ui-background);
     }
@@ -65,5 +65,26 @@
   flex-flow: row wrap;
   button {
     margin-top: 1rem;
+  }
+}
+
+.filterContainer {
+  align-items: flex-end;
+  display: flex;
+}
+
+.search {
+  flex: 1 1 auto;
+  margin-right: 2rem;
+
+  & .bx--search--lg.bx--search-input {
+    height: 2.75rem !important;
+  }
+}
+
+.filter {
+  width: 15rem;
+  :global .bx--list-box {
+    background: var(--cds-ui-background);
   }
 }
