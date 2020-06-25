@@ -1,5 +1,5 @@
 // Carbon settings
-@import "~@boomerang/carbon-addons-boomerang-react/styles/scss/styles/themes/_boomerang.scss";
+@import "~@boomerang/carbon-addons-boomerang-react/styles/scss/styles/themes/boomerang";
 $carbon--theme: $carbon--theme--boomerang;
 $carbon-addons-bmrg--theme: boomerang;
 
@@ -11,6 +11,7 @@ $carbon-addons-bmrg--theme: boomerang;
 @import "~carbon-components/scss/components/data-table-v2/data-table-v2-core";
 @import "~carbon-components/scss/components/data-table-v2/data-table-v2-sort";
 @import "~carbon-components/scss/components/file-uploader/file-uploader";
+@import "~carbon-components/scss/components/inline-loading/inline-loading";
 @import "~carbon-components/scss/components/loading/loading";
 @import "~carbon-components/scss/components/multi-select/multi-select";
 @import "~carbon-components/scss/components/notification/inline-notification";
@@ -24,9 +25,13 @@ $carbon-addons-bmrg--theme: boomerang;
 
 // Global overrides
 .bx--list-box__menu-icon > svg {
-  fill: black;
+  fill: var(--cds-text-01);
 }
 
 .bx--date-picker__calendar {
   padding: 0rem;
+}
+
+:root {
+  --cds-font-family: "IBM Plex Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
 }

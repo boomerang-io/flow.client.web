@@ -1,7 +1,5 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
-
 .container {
-  background-color: $white;
+  background-color: var(--cds-ui-01);
   display: flex;
   height: 4.3125rem;
   justify-content: space-between;
@@ -9,14 +7,14 @@
 }
 
 .subtitle {
-  color: $gray-90;
+  color: var(--cds-text-01);
   font-size: 1.25rem;
   font-weight: 300;
   line-height: 1.5625rem;
 }
 
 .title {
-  color: $gray-90;
+  color: var(--cds-text-01);
   font-size: 2rem;
   font-weight: 600;
   line-height: 2.625rem;
@@ -29,7 +27,7 @@
 }
 
 .text {
-  color: $gray-90;
+  color: var(--cds-text-01);
   font-size: 1.25rem;
   font-weight: 300;
   line-height: 1.5625rem;

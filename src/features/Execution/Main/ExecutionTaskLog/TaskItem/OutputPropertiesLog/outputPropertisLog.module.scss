@@ -1,0 +1,37 @@
+@import "~Styles/mixins";
+
+.container {
+  max-width: 50rem;
+
+  :global .bx--modal-content {
+    padding-right: 1rem;
+
+    .bx--tab-content {
+      padding: 0;
+    }
+  }
+}
+
+.trigger {
+  color: var(--cds-interactive-01);
+  cursor: pointer;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
+}
+
+.propertiesJson {
+  background-color: var(--cds-ui-01);
+  height: 25rem;
+  overflow-y: auto;
+  margin-top: 1rem;
+
+  :global .object-key {
+    span {
+      color: var(--cds-interactive-01);
+    }
+  }
+}

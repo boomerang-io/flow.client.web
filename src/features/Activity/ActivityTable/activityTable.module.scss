@@ -1,10 +1,8 @@
-@import "~@boomerang/boomerang-styles/lib/colors";
-@import "~Styles/variables";
 @import "~Styles/mixins";
 
 .tableSkeleton {
   th {
-    color: #047cc0;
+    color: var(--cds-interactive-01);
   }
   thead {
     background-color: #d5d9e0;
@@ -49,7 +47,7 @@
 }
 
 .tableHeadHeader {
-  color: #171717;
+  color: var(--cds-text-01);
   font-size: 0.875rem;
   font-weight: 600;
   height: 3rem;
@@ -104,9 +102,9 @@
 
   &.completed {
     .status {
-      color: #009c98;
+      color: var(--cds-support-02);
       svg {
-        fill: #009c98;
+        fill: var(--cds-support-02);
       }
     }
   }
@@ -116,9 +114,9 @@
       background-color: #fcd0d3;
     }
     .status {
-      color: #a51920;
+      color: var(--flow-failure);
       svg {
-        fill: #a51920;
+        fill: var(--flow-failure);
       }
     }
   }
@@ -131,11 +129,11 @@
 
   &.invalid,
   &.skipped {
-    color: #242a2e;
+    color: var(--cds-text-01);
     .status {
-      color: #242a2e;
+      color: var(--cds-text-01);
       svg {
-        fill: #242a2e;
+        fill: var(--cds-text-01);
       }
     }
   }
@@ -161,43 +159,43 @@
 
 @keyframes inProgressText {
   0% {
-    color: $cool-gray-70;
+    color: var(--cds-text-02);
   }
   20% {
-    color: $aqua-60;
+    color: var(--cds-interactive-01);
   }
   40% {
-    color: $teal-50;
+    color: var(--cds-support-02);
   }
   60% {
-    color: $blue-50;
+    color: var(--cds-inverse-support-04);
   }
   80% {
-    color: $cool-gray-40;
+    color: var(--cds-text-03);
   }
   100% {
-    color: $cool-gray-70;
+    color: var(--cds-text-02);
   }
 }
 
 @keyframes inProgressIcon {
   0% {
-    fill: $cool-gray-70;
+    fill: var(--cds-text-02);
   }
   20% {
-    fill: $aqua-60;
+    fill: var(--cds-interactive-01);
   }
   40% {
-    fill: $teal-50;
+    fill: var(--cds-support-02);
   }
   60% {
-    fill: $blue-50;
+    fill: var(--cds-inverse-support-04);
   }
   80% {
-    fill: $cool-gray-40;
+    fill: var(--cds-text-03);
   }
   100% {
-    fill: $cool-gray-70;
+    fill: var(--cds-text-02);
   }
 }
 

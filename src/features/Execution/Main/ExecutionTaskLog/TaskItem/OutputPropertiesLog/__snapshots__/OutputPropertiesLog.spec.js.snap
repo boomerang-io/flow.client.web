@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OutputPropertiesLog --- Snapshot Capturing Snapshot of OutputPropertiesLog 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <button
+      class="trigger"
+    >
+      View Properties
+    </button>
+  </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+</body>
+`;

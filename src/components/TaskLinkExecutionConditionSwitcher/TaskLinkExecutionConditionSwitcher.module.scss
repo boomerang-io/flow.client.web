@@ -1,4 +1,3 @@
-@import "~Styles/variables";
 @import "~Styles/mixins";
 
 .container {
@@ -36,7 +35,7 @@
 
   &.always {
     path {
-      fill: #000000;
+      fill: var(--cds-text-01);
     }
   }
 }

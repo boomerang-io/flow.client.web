@@ -1,4 +1,3 @@
-@import "~Styles/variables";
 @import "~Styles/mixins";
 
 .container {
@@ -6,10 +5,10 @@
   &.designer {
     cursor: pointer;
     path {
-      fill: #6e32c9;
+      fill: var(--flow-switch-primary);
     }
     &:focus {
-      @include focus-outline(#6e32c9);
+      @include focus-outline(var(--flow-switch-primary));
     }
   }
 

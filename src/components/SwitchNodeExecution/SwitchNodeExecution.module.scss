@@ -1,6 +1,4 @@
-@import "~Styles/variables";
 @import "~Styles/mixins";
-@import "~@boomerang/boomerang-styles/lib/colors";
 
 .node {
   height: 8.75rem;
@@ -9,7 +7,7 @@
 
   svg {
     circle {
-      stroke: #6e32c9;
+      stroke: var(--flow-switch-primary);
     }
   }
 
@@ -28,7 +26,7 @@
 }
 
 .subtitle:before {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), $white 80%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), var(--cds-ui-01) 80%);
   bottom: 0;
   content: "\200C";
   display: block;
@@ -50,19 +48,19 @@
 }
 
 .badgeText {
-  color: #000000;
+  color: var(--cds-text-01);
   font-size: 0.625rem;
   line-height: 0.8125rem;
 }
 
 .failure {
-  border: 0.1875rem solid #a51920;
-  border-color: #a51920 !important;
+  border: 0.1875rem solid var(--flow-failure);
+  border-color: var(--flow-failure) !important;
 }
 
 .completed {
-  border: 0.1875rem solid #009d9a;
-  border-color: #009d9a !important;
+  border: 0.1875rem solid var(--cds-support-02);
+  border-color: var(--cds-support-02) !important;
 }
 
 .notstarted,
@@ -95,7 +93,7 @@
     &:before {
       content: "";
       position: absolute;
-      background-color: #0072c3;
+      background-color: var(--cds-interactive-01);
       top: 0;
       left: 0;
       bottom: 0;
@@ -106,7 +104,7 @@
     &:after {
       content: "";
       position: absolute;
-      background-color: #0072c3;
+      background-color: var(--cds-interactive-01);
       top: 0;
       left: 0;
       bottom: 0;

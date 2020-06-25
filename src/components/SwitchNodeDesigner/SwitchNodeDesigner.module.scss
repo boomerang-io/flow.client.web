@@ -1,9 +1,5 @@
-@import "~Styles/variables";
-@import "~Styles/mixins";
-@import "~@boomerang/boomerang-styles/lib/colors";
-
 .node {
-  border: 1px solid #6e32c9 !important;
+  border: 1px solid var(--flow-switch-primary) !important;
   border-radius: 0.25rem;
   box-sizing: border-box;
   height: 8.75rem;
@@ -12,17 +8,17 @@
 
   svg {
     circle {
-      stroke: #6e32c9;
+      stroke: var(--flow-switch-primary);
     }
   }
 
   :global .port {
-    top: 3.5rem !important;
+    top: 3.5rem;
   }
 }
 
 .rightPort {
-  background-color: #6e32c9 !important;
+  background-color: var(--flow-switch-primary) !important;
 }
 
 .subtitle {
@@ -35,7 +31,7 @@
 }
 
 .subtitle:before {
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), $white 80%);
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white 80%);
   bottom: 0;
   content: "\200C";
   display: block;
@@ -69,7 +65,7 @@
 
 .badgeContainer {
   background-color: var(--cds-ui-01);
-  border: 1px solid #6e32c9;
+  border: 1px solid var(--flow-switch-primary);
   border-radius: 0.25rem;
   left: -1.5rem;
   padding: 0.25rem 0.5rem 0.25rem 0.5rem;
@@ -84,10 +80,6 @@
 }
 
 .updateTaskModalContainer {
-  max-height: 62.5rem;
-  max-width: 60rem;
-
-  :global .bx--bmrg-modal-composed-subtitle {
-    padding-right: 25% !important;
-  }
+  max-height: 62.5rem !important;
+  max-width: 60rem !important;
 }

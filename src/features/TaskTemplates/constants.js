@@ -18,5 +18,5 @@ export const FieldTypes = {
   "texteditor::yaml": "Text Editor - YAML",
   "texteditor::javascript": "Text Editor - JavaScript/JSON",
   time: "Time",
-  url: "Url"
+  url: "URL"
 };

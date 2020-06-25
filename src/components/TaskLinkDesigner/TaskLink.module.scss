@@ -1,5 +1,3 @@
-@import "~Styles/variables";
-
 .path {
   stroke: var(--cds-interactive-01);
   &.locked {
@@ -20,17 +18,17 @@
 
   &.completed {
     path {
-      fill: #009d9a;
+      fill: var(--cds-support-02);
     }
   }
 
   &.failure {
     path {
-      fill: #a51920;
+      fill: var(--flow-failure);
     }
   }
 
   path {
-    fill: black;
+    fill: var(--cds-text-01);
   }
 }
