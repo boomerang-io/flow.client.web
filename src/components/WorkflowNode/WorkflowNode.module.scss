@@ -1,4 +1,4 @@
-@import "~Styles/mixins";
+@import "Styles/mixins";
 
 :global .srd-node--selected > * {
   border-color: var(--cds-interactive-01) !important;

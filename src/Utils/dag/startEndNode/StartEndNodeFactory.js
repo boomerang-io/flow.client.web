@@ -1,6 +1,6 @@
 import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import StartEndNode from "Components/StartEndNode";
-import StartEndNodeModel from "Utilities/dag/startEndNode/StartEndNodeModel";
+import StartEndNodeModel from "Utils/dag/startEndNode/StartEndNodeModel";
 import { NodeType } from "Constants";
 import React from "react";
 

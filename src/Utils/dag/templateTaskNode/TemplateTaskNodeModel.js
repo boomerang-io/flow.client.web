@@ -1,5 +1,5 @@
 import { NodeModel } from "@projectstorm/react-diagrams";
-import TaskPortModel from "Utilities/dag/taskPort/TaskPortModel";
+import TaskPortModel from "Utils/dag/taskPort/TaskPortModel";
 import merge from "lodash/merge";
 import { NodeType } from "Constants";
 

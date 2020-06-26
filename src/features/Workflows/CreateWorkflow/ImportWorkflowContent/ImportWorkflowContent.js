@@ -12,8 +12,8 @@ import {
   ModalFooter,
   TextInput,
   InlineNotification,
-} from "@boomerang/carbon-addons-boomerang-react";
-import { ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ErrorFilled32 } from "@carbon/icons-react";
 import { requiredWorkflowProps } from "./constants";
 import styles from "./importWorkflowContent.module.scss";

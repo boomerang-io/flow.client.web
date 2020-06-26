@@ -9,7 +9,7 @@ import {
   StructuredListRow,
   StructuredListCell,
   TooltipHover,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Catalog16 } from "@carbon/icons-react";
 import styles from "./versionHistory.module.scss";
 

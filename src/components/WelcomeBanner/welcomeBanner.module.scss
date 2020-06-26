@@ -1,5 +1,5 @@
-@import "~Styles/animation";
-@import "~Styles/mixins";
+@import "Styles/animation";
+@import "Styles/mixins";
 
 .container {
   background-color: #07192b;
@@ -14,7 +14,7 @@
 
   &::after {
     content: "";
-    background-image: url("~Assets/svg/bkg-skyline.svg");
+    background-image: url("../../Assets/svg/bkg-skyline.svg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

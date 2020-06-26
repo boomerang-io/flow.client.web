@@ -1,4 +1,4 @@
-@import "~Styles/mixins";
+@import "Styles/mixins";
 
 .bx--modal-footer .bx--btn:last-child:first-child {
   border-bottom-left-radius: 0;
@@ -58,7 +58,7 @@
       top: 1.25rem;
       border-bottom-right-radius: 50%;
       border-top-right-radius: 50%;
-      background-image: url("~Assets/icons/chevron_white.svg");
+      background-image: url("../../Assets/icons/chevron_white.svg");
       background-position: center;
       background-repeat: no-repeat;
     }
@@ -69,7 +69,7 @@
       border-top-left-radius: 50%;
       left: -2rem;
       top: 1.25rem;
-      background-image: url("~Assets/icons/chevron.svg");
+      background-image: url("../../Assets/icons/chevron.svg");
       background-position: center;
       background-repeat: no-repeat;
     }

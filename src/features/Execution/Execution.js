@@ -2,7 +2,7 @@ import React from "react";
 import { ExecutionContext } from "State/context";
 import { useQuery } from "Hooks";
 import { useParams } from "react-router-dom";
-import { Loading, Error } from "@boomerang/carbon-addons-boomerang-react";
+import { Loading, Error } from "@boomerang-io/carbon-addons-boomerang-react";
 import Main from "./Main";
 import { serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";

@@ -8,7 +8,7 @@ import {
   Loading,
   NotificationsContainer,
   ProtectedRoute,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";

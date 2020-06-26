@@ -4,10 +4,10 @@ import moment from "moment";
 import cx from "classnames";
 import { settings } from "carbon-components";
 import queryString from "query-string";
-import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
-import { DataTableSkeleton, DataTable, DelayedRender, Pagination } from "@boomerang/carbon-addons-boomerang-react";
-import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
+import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
+import { isAccessibleEvent } from "@boomerang-io/utils";
+import { DataTableSkeleton, DataTable, DelayedRender, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
 import styles from "./activityTable.module.scss";
 

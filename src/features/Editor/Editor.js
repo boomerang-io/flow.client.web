@@ -5,21 +5,20 @@ import { useAppContext, useIsModalOpen, useQuery } from "Hooks";
 import { useImmerReducer } from "use-immer";
 import { useMutation, queryCache } from "react-query";
 import { Prompt, Route, Switch, useLocation, useParams, useRouteMatch } from "react-router-dom";
-import { Loading, Error, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { Loading, Error, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import ChangeLog from "./ChangeLog";
 import Header from "./Header";
 import Configure from "./Configure";
 import Designer from "./Designer";
 import Properties from "./Properties";
 import sortBy from "lodash/sortBy";
-import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
-import CustomNodeModel from "Utilities/dag/customTaskNode/CustomTaskNodeModel";
-import SwitchNodeModel from "Utilities/dag/switchNode/SwitchNodeModel";
-import TemplateNodeModel from "Utilities/dag/templateTaskNode/TemplateTaskNodeModel";
+import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
+import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
+import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
+import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { appPath } from "Config/appConfig";
-import { QueryStatus } from "Constants";
-import { NodeType } from "Constants";
+import { NodeType, QueryStatus } from "Constants";
 import styles from "./editor.module.scss";
 
 export default function EditorContainer() {

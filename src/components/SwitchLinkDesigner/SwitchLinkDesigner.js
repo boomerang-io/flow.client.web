@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkFlowCloseButton from "Components/WorkflowCloseButton";
 import WorkflowLink from "Components/WorkflowLink";
 import SwitchLinkExecutionConditionButton from "Components/SwitchLinkExecutionConditionButton";

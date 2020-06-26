@@ -11,7 +11,7 @@ import {
   ModalBody,
   ModalFooter,
   //TextInput,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { WarningFilled16, WarningAlt16 } from "@carbon/icons-react";

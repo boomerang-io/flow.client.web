@@ -6,7 +6,7 @@ import {
   Search,
   SearchSkeleton,
   SelectSkeleton,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
 import styles from "./workflowsHeader.module.scss";
 

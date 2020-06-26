@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ComposedModal, Button, TooltipHover } from "@boomerang/carbon-addons-boomerang-react";
+import { ComposedModal, Button, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import TemplateConfigModalContent from "./TemplateConfigModalContent";
 import { Add16, Edit16 } from "@carbon/icons-react";
 // import styles from "./TemplateConfigModal.module.scss";

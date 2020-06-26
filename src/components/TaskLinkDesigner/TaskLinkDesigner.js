@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import WorkflowLink from "Components/WorkflowLink";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
-import { EXECUTION_CONDITIONS } from "Utilities/taskLinkIcons";
+import { EXECUTION_CONDITIONS } from "Utils/taskLinkIcons";
 
 const TaskLinkDesigner = React.memo(function TaskLinkDesigner({ diagramEngine, model, path }) {
   const [executionConditionIndex, setExecutionConditionIndex] = React.useState(

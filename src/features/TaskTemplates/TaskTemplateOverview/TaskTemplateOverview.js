@@ -13,9 +13,9 @@ import {
   Loading,
   TooltipHover,
   ConfirmModal,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { formatErrorMessage } from "@boomerang/boomerang-utilities";
+import { formatErrorMessage } from "@boomerang-io/utils";
 import EditTaskTemplateModal from "./EditTaskTemplateModal";
 import PreviewConfig from "./PreviewConfig";
 import TemplateConfigModal from "./TemplateConfigModal";
@@ -24,7 +24,7 @@ import { QueryStatus } from "Constants";
 import { TaskTemplateStatus } from "Constants";
 import { TemplateRequestType, FieldTypes } from "../constants";
 import { Draggable16, TrashCan16, Archive16, Bee16 } from "@carbon/icons-react";
-import { taskIcons } from "Utilities/taskIcons";
+import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import styles from "./taskTemplateOverview.module.scss";

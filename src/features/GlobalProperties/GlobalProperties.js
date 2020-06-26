@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "Hooks";
 import ErrorDragon from "Components/ErrorDragon";
-import { Loading } from "@boomerang/carbon-addons-boomerang-react";
+import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import PropertiesTable from "./PropertiesTable";
 import { serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";

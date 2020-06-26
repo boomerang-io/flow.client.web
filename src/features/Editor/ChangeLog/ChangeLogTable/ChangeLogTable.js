@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import matchSorter from "match-sorter";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { DataTable, Search, Pagination } from "@boomerang/carbon-addons-boomerang-react";
-import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
-import { arrayPagination } from "Utilities/arrayHelper";
+import { DataTable, Search, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { arrayPagination } from "Utils/arrayHelper";
 import styles from "./changeLogTable.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
@@ -148,8 +148,8 @@ class ChangeLogTable extends Component {
             />
           </>
         ) : (
-            <Error404 header={null} message={null} title="No change logs found" />
-          )}
+          <Error404 header={null} message={null} title="No change logs found" />
+        )}
       </div>
     );
   }

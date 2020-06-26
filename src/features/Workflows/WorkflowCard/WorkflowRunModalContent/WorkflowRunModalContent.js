@@ -6,7 +6,7 @@ import {
   ModalForm,
   ModalBody,
   ModalFooter,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 
 WorkflowRunModalContent.propTypes = {
   closeModal: PropTypes.func.isRequired,

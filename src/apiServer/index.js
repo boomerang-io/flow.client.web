@@ -1,9 +1,9 @@
 import { Server, Serializer, Model } from "miragejs";
 import { inflections } from "inflected";
-import * as fixtures from "./fixtures";
-import { serviceUrl } from "../config/servicesConfig";
-import uuid from "uuid/v4";
 import queryString from "query-string";
+import uuid from "uuid/v4";
+import { serviceUrl } from "Config/servicesConfig";
+import * as fixtures from "./fixtures";
 
 export function startApiServer({ environment = "test", timing = 0 } = {}) {
   inflections("en", function (inflect) {

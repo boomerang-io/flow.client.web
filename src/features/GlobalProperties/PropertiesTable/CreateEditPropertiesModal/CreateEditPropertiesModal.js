@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
-import { Button } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditPropertiesContent from "./CreateEditPropertiesContent";
 import { Add16 } from "@carbon/icons-react";
 import styles from "./createEditPropertiesModal.module.scss";

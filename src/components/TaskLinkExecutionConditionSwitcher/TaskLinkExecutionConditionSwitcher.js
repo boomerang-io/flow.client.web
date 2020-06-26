@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
+import { isAccessibleEvent } from "@boomerang-io/utils";
 import styles from "./TaskLinkExecutionConditionSwitcher.module.scss";
 
 const TaskLinkExecutionConditionSwitcher = React.memo(function TaskLinkExecutionConditionSwitcher({

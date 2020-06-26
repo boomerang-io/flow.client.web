@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
-import { AutoSuggest, DynamicFormik, ModalForm, TextInput } from "@boomerang/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
+import { AutoSuggest, DynamicFormik, ModalForm, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import styles from "./WorkflowTaskForm.module.scss";

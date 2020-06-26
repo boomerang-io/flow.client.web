@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { DataTable } from "@boomerang/carbon-addons-boomerang-react";
-import { NoDisplay } from "@boomerang/carbon-addons-boomerang-react";
+import { DataTable } from "@boomerang-io/carbon-addons-boomerang-react";
+import { NoDisplay } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./propertiesTable.module.scss";
 
 function PropertiesTable({ data: properties }) {

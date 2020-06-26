@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
+import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
 import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskExecutionLog from "./TaskExecutionLog";

@@ -1,5 +1,5 @@
 import { PortModel } from "@projectstorm/react-diagrams";
-import SwitchLinkModel from "Utilities/dag/switchLink/SwitchLinkModel";
+import SwitchLinkModel from "Utils/dag/switchLink/SwitchLinkModel";
 import merge from "lodash/merge";
 import { NodeType } from "Constants";
 

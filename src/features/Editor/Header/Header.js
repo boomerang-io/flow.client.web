@@ -7,7 +7,7 @@ import {
   ComposedModal,
   DelayedRender,
   InlineLoading,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
 import Navigation from "./Navigation";
 import VersionCommentForm from "./VersionCommentForm";

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useQuery } from "Hooks";
-import { DelayedRender, DataTableSkeleton, SearchSkeleton } from "@boomerang/carbon-addons-boomerang-react";
+import { DelayedRender, DataTableSkeleton, SearchSkeleton } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import ChangeLogTable from "./ChangeLogTable";
 import qs from "query-string";

@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalForm,
   TextArea,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { QueryStatus } from "Constants";
 
 class VersionCommentForm extends Component {

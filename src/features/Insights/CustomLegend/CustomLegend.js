@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import LegendIcon from "./LegendIcon";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
+import { isAccessibleEvent } from "@boomerang-io/utils";
 import styles from "./customLegend.module.scss";
 class CustomTooltip extends Component {
   render() {
@@ -10,7 +10,7 @@ class CustomTooltip extends Component {
     return (
       <div className={styles.container}>
         {this.props.payload.map((data, index) => {
-          let isToggled = this.props.toggledItems.find(item => data.payload.name === item);
+          let isToggled = this.props.toggledItems.find((item) => data.payload.name === item);
           return (
             <div
               key={`${data.payload.name}-${index}`}
@@ -18,7 +18,7 @@ class CustomTooltip extends Component {
               onMouseEnter={this.props.onMouseEnter}
               onMouseLeave={this.props.onMouseLeave}
               onClick={() => this.props.toggleItem(data)}
-              onKeyDown={e => isAccessibleEvent(e) && this.props.toggleItem(data)}
+              onKeyDown={(e) => isAccessibleEvent(e) && this.props.toggleItem(data)}
               role="button"
               tabIndex="0"
             >
@@ -39,7 +39,7 @@ CustomTooltip.propTypes = {
   toggleItem: PropTypes.func,
   toggledItems: PropTypes.array,
   onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func
+  onMouseLeave: PropTypes.func,
 };
 
 export default CustomTooltip;

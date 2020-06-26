@@ -8,12 +8,12 @@ import {
   TextArea,
   FileUploaderDropContainer,
   FileUploaderItem,
-} from "@boomerang/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter, Loading } from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
-import { taskIcons } from "Utilities/taskIcons";
+import { taskIcons } from "Utils/taskIcons";
 import { requiredTaskProps } from "./constants";
 import styles from "./addTaskTemplateForm.module.scss";
 

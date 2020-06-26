@@ -4,10 +4,10 @@ import cronstrue from "cronstrue";
 import moment from "moment-timezone";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { CheckboxList, ComboBox, TextInput, ModalFlowForm, Toggle } from "@boomerang/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
+import { CheckboxList, ComboBox, TextInput, ModalFlowForm, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { daysOfWeekCronList } from "Constants";
-import { cronToDateTime } from "Utilities/cronHelper";
+import { cronToDateTime } from "Utils/cronHelper";
 import styles from "./cronJobModal.module.scss";
 
 //Timezones that don't have a match in Java and can't be saved via the service

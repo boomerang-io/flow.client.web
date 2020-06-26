@@ -10,8 +10,8 @@ import {
   ModalFooter,
   TextInput,
   Toggle,
-} from "@boomerang/carbon-addons-boomerang-react";
-import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType } from "Constants";
 import styles from "./createEditTeamPropertiesModalContent.module.scss";

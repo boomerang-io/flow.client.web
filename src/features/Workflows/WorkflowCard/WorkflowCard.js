@@ -13,7 +13,7 @@ import {
   ToastNotification,
   TooltipIcon,
   notify,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";

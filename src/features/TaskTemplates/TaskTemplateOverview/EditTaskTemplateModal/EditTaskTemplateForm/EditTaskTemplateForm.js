@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import orderBy from "lodash/orderBy";
-import { ModalFlowForm, TextInput, TextArea } from "@boomerang/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalFlowForm, TextInput, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
-import { taskIcons } from "Utilities/taskIcons";
+import { taskIcons } from "Utils/taskIcons";
 import { NodeType } from "Constants";
 
 EditTaskTemplateForm.propTypes = {

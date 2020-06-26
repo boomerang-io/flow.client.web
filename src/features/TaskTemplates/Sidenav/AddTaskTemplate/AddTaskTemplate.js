@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { isCancel } from "axios";
 import { useMutation } from "react-query";
-import { notify, ToastNotification, Button, ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
+import { notify, ToastNotification, Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";

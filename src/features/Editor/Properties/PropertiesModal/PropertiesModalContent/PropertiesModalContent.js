@@ -8,8 +8,8 @@ import {
   TextInput,
   Toggle,
   ModalFlowForm,
-} from "@boomerang/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
@@ -320,7 +320,12 @@ class PropertiesModalContent extends Component {
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button data-testid="inputs-modal-confirm-button" disabled={!isValid || loading} type="submit" data-cy="property-modal-confirm-button">
+                <Button
+                  data-testid="inputs-modal-confirm-button"
+                  disabled={!isValid || loading}
+                  type="submit"
+                  data-cy="property-modal-confirm-button"
+                >
                   {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating" : "Create"}
                 </Button>
               </ModalFooter>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
-import { Error404 } from "@boomerang/carbon-addons-boomerang-react";
+import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
 import WelcomeBanner from "Components/WelcomeBanner";
 import CreateWorkflow from "./CreateWorkflow";
 import WorkflowsHeader from "./WorkflowsHeader";

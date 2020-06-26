@@ -2,8 +2,8 @@ import React from "react";
 import WorkflowsHome from "./index";
 import { startApiServer } from "ApiServer";
 
-jest.mock("@boomerang/carbon-addons-boomerang-react", () => ({
-  ...jest.requireActual("@boomerang/carbon-addons-boomerang-react"),
+jest.mock("@boomerang-io/carbon-addons-boomerang-react", () => ({
+  ...jest.requireActual("@boomerang-io/carbon-addons-boomerang-react"),
   LoadingAnimation: "LoadingAnimation",
   notify: "notify",
   Notification: "Notification",

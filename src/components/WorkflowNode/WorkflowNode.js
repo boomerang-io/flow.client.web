@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import WorkflowExecutionPort from "Components/WorkflowExecutionPort";
-import { taskIcons } from "Utilities/taskIcons";
+import { taskIcons } from "Utils/taskIcons";
 import { Bee16 } from "@carbon/icons-react";
 import styles from "./WorkflowNode.module.scss";
 

@@ -7,7 +7,7 @@ import {
   Button,
   ModalBody,
   TooltipHover,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { View16 } from "@carbon/icons-react";

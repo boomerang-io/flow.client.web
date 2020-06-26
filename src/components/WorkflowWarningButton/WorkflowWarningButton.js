@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import EditButton from "./WarningButton";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
+import { isAccessibleEvent } from "@boomerang-io/utils";
 import styles from "./WorkflowWarningButton.module.scss";
 
 WorkflowWarningButton.propTypes = {
