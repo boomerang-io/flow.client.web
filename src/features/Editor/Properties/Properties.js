@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useMutation, queryCache } from "react-query";
-import { ConfirmModal, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
+import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowPropertiesModal from "./PropertiesModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import capitalize from "lodash/capitalize";
@@ -122,7 +122,11 @@ export default function Properties({ summaryData }) {
                   children="It will be gone. Forever."
                   title="Delete Property"
                   modalTrigger={({ openModal }) => (
-                    <WorkflowCloseButton className={styles.deleteProperty} onClick={openModal} data-cy="workflow-delete-property-button" />
+                    <WorkflowCloseButton
+                      className={styles.deleteProperty}
+                      onClick={openModal}
+                      data-cy="workflow-delete-property-button"
+                    />
                   )}
                 />
               </>

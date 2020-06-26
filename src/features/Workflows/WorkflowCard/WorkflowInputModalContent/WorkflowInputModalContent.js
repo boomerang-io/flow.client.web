@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, InlineNotification, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
-import { DynamicFormik, ModalFlowForm } from "@boomerang/carbon-addons-boomerang-react";
+import { Button, InlineNotification, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import { DynamicFormik, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./workflowInputModalContent.module.scss";
 
 WorkflowInputModalContent.propTypes = {

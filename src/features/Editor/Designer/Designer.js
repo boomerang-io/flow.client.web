@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
-import { DelayedRender, Error, SkeletonPlaceholder, SkeletonText } from "@boomerang/carbon-addons-boomerang-react";
+import { DelayedRender, Error, SkeletonPlaceholder, SkeletonText } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowZoom from "Components/WorkflowZoom";
 import Tasks from "./Tasks";
 import cx from "classnames";

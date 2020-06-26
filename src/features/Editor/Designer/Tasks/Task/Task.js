@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Tile } from "@boomerang/carbon-addons-boomerang-react";
-import { taskIcons } from "Utilities/taskIcons";
+import { Tile } from "@boomerang-io/carbon-addons-boomerang-react";
+import { taskIcons } from "Utils/taskIcons";
 import { Bee16 } from "@carbon/icons-react";
 import styles from "./task.module.scss";
 

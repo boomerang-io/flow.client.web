@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "@boomerang/carbon-addons-boomerang-react";
+import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Close20 } from "@carbon/icons-react";
 import bkgskyline from "Assets/svg/bkg-skyline.svg";
 import FadeAnimation from "Components/FadeAnimation";

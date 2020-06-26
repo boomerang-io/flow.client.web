@@ -12,11 +12,11 @@ import {
   OverflowMenu,
   Checkbox,
   CheckboxList,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplate from "./AddTaskTemplate";
 import { appLink } from "Config/appConfig";
 import { Bee16, ViewOff16, SettingsAdjust20 } from "@carbon/icons-react";
-import { taskIcons } from "Utilities/taskIcons";
+import { taskIcons } from "Utils/taskIcons";
 import { TaskTemplateStatus } from "Constants";
 import styles from "./sideInfo.module.scss";
 

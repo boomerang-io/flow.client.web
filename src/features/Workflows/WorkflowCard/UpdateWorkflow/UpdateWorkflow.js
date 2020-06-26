@@ -1,6 +1,6 @@
 import React from "react";
 import queryString from "query-string";
-import { notify, ToastNotification, ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
+import { notify, ToastNotification, ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import ImportWorkflowContent from "./ImportWorkflowContent";
 import styles from "./updateWorkflow.module.scss";
 

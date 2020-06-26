@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { OverflowMenu, OverflowMenuItem } from "@boomerang/carbon-addons-boomerang-react";
-import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
+import { OverflowMenu, OverflowMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditTeamPropertiesModal from "../CreateEditTeamPropertiesModal";
 
 OverflowMenuComponent.propTypes = {

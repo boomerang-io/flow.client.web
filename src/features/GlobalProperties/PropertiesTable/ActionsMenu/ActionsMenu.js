@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { OverflowMenu, OverflowMenuItem } from "@boomerang/carbon-addons-boomerang-react";
-import { ConfirmModal } from "@boomerang/carbon-addons-boomerang-react";
+import { OverflowMenu, OverflowMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditPropertiesModal from "../CreateEditPropertiesModal";
 
 const OverflowMenuComponent = ({ property, properties, deleteProperty }) => {

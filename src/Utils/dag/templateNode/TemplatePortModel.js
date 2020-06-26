@@ -1,11 +1,10 @@
 import { PortModel } from "@projectstorm/react-diagrams";
-import TaskLinkModel from "Utilities/dag/taskLink/TaskLinkModel";
-import { NodeType } from "Constants";
+import TaskLinkModel from "Utils/dag/taskLink/TaskLinkModel";
 import merge from "lodash/merge";
 
-export default class TaskPortModel extends PortModel {
+export default class TemplatePortModel extends PortModel {
   constructor(position) {
-    super(position, NodeType.Task);
+    super(position, "template");
     this.position = position;
   }
 

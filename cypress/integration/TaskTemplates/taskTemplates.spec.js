@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
-import { startApiServer } from "../../../src/apiServer";
-import { appLink } from "../../../src/config/appConfig";
+import { startApiServer } from "ApiServer";
+import { appLink } from "Config/appConfig";
 
 let server;
 

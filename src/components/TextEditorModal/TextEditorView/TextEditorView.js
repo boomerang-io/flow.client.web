@@ -26,7 +26,7 @@ import {
   Search,
   Dropdown,
   Button,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import CodeMirror from "codemirror";
 import "./styles.scss";
 

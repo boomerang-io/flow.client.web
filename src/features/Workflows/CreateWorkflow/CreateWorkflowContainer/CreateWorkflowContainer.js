@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { RadioGroup } from "@boomerang/carbon-addons-boomerang-react";
+import { RadioGroup } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateWorkflowContent from "../CreateWorkflowContent";
 import ImportWorkflowContent from "../ImportWorkflowContent";
 import styles from "./createWorkflowContainer.module.scss";

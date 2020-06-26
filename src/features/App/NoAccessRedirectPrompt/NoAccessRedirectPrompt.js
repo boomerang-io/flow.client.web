@@ -1,5 +1,5 @@
 import React from "react";
-import { Error403 } from "@boomerang/carbon-addons-boomerang-react";
+import { Error403 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
 
 const NoAccessRedirectPrompt = () => {

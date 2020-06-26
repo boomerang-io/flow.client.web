@@ -4,10 +4,10 @@ import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";
 import { serviceUrl } from "Config/servicesConfig";
-import { ComboBox, SkeletonPlaceholder } from "@boomerang/carbon-addons-boomerang-react";
+import { ComboBox, SkeletonPlaceholder } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useAppContext, useQuery } from "Hooks";
 import { QueryStatus } from "Constants";
-import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
+import sortByProp from "@boomerang-io/utils/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
 import ChartsTile from "./ChartsTile";
 import InsightsHeader from "./InsightsHeader";
@@ -17,7 +17,7 @@ import CarbonLineChart from "./CarbonLineChart";
 import CarbonScatterChart from "./CarbonScatterChart";
 import { timeframeOptions, ALL_OPTIONS } from "Constants/filterOptions";
 import { parseChartsData } from "./chartHelper";
-import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
+import { timeSecondsToTimeUnit } from "Utils/timeSecondsToTimeUnit";
 import styles from "./workflowInsights.module.scss";
 
 WorkflowInsights.propTypes = {

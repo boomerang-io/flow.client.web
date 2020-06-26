@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
-import { ModalFlowForm, TextArea, Toggle } from "@boomerang/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalFlowForm, TextArea, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
 import "./styles.scss";
 
 class ConfigureSwitchModal extends React.Component {

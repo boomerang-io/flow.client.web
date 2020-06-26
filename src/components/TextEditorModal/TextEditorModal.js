@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import isAccessibleEvent from "@boomerang/boomerang-utilities/lib/isAccessibleEvent";
-import { ModalFlow, TextArea } from "@boomerang/carbon-addons-boomerang-react";
+import { isAccessibleEvent } from "@boomerang-io/utils";
+import { ModalFlow, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorView from "./TextEditorView";
 import styles from "./TextEditorModal.module.scss";
 

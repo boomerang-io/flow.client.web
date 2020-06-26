@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import getHumanizedDuration from "@boomerang/boomerang-utilities/lib/getHumanizedDuration";
+import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
 import styles from "./customTooltip.module.scss";
 
 class CustomTooltip extends Component {
@@ -28,12 +28,12 @@ class CustomTooltip extends Component {
 CustomTooltip.propTypes = {
   payload: PropTypes.array,
   dateFormat: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 CustomTooltip.defaultProps = {
   dateFormat: "MMM DD - YYYY, HH:mm",
-  type: "general"
+  type: "general",
 };
 
 export default CustomTooltip;

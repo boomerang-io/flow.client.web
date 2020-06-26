@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
-import { Loading } from "@boomerang/carbon-addons-boomerang-react";
+import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import ExecutionHeader from "./ExecutionHeader";
 import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
 import WorkflowZoom from "Components/WorkflowZoom";
-import WorkflowDagEngine from "Utilities/dag/WorkflowDagEngine";
+import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import { ExecutionStatus, QueryStatus } from "Constants";
 import styles from "./main.module.scss";
 

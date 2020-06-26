@@ -6,7 +6,8 @@ import styles from "./StartEndLinkExecution.module.scss";
 const StartEndLinkExecution = React.memo(function StartEndLinkExecution({ diagramEngine, model, path }) {
   return (
     <WorkflowLink className={styles.started} diagramEngine={diagramEngine} model={model} path={path}>
-      {() => <g /> // default prop for children in WorkflowLink did not work
+      {
+        () => <g /> // default prop for children in WorkflowLink did not work
       }
     </WorkflowLink>
   );

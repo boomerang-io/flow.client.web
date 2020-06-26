@@ -9,7 +9,7 @@ import styles from "./VersionSwitcher.module.scss";
 VersionSwitcher.propTypes = {
   currentRevision: PropTypes.object,
   revisionCount: PropTypes.number.isRequired,
-  revisions: PropTypes.array
+  revisions: PropTypes.array,
 };
 
 function VersionSwitcher({ revisions, currentRevision, revisionCount }) {
@@ -31,7 +31,7 @@ function VersionSwitcher({ revisions, currentRevision, revisionCount }) {
     history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: revisions.length }));
   };
 
-  const renderBackButtons = enabled => {
+  const renderBackButtons = (enabled) => {
     return (
       <div className={styles.buttonList}>
         <button className={styles.button} disabled={!enabled} onClick={fastBackVersion}>
@@ -44,7 +44,7 @@ function VersionSwitcher({ revisions, currentRevision, revisionCount }) {
     );
   };
 
-  const renderForwardButtons = enabled => {
+  const renderForwardButtons = (enabled) => {
     return (
       <div className={styles.buttonList}>
         <button className={styles.button} disabled={!enabled} onClick={forwardVersion}>

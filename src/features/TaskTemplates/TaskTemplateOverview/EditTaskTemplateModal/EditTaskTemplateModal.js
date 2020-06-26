@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, ComposedModal } from "@boomerang/carbon-addons-boomerang-react";
+import { Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import EditTaskTemplateForm from "./EditTaskTemplateForm";
 import { Edit16 } from "@carbon/icons-react";
 import styles from "./editTaskTemplateModal.module.scss";
@@ -11,7 +11,7 @@ EditTaskTemplateModal.propTypes = {
   oldVersion: PropTypes.bool,
   setFieldValue: PropTypes.func.isRequired,
   taskTemplates: PropTypes.array.isRequired,
-  values: PropTypes.object.isRequired
+  values: PropTypes.object.isRequired,
 };
 
 function EditTaskTemplateModal({ isActive, nodeType, oldVersion, setFieldValue, taskTemplates, values }) {
@@ -29,7 +29,7 @@ function EditTaskTemplateModal({ isActive, nodeType, oldVersion, setFieldValue, 
       composedModalProps={{ containerClassName: styles.modalContainer }}
       confirmModalProps={{
         title: "Close this?",
-        children: "Your request will not be saved"
+        children: "Your request will not be saved",
       }}
       modalTrigger={({ openModal }) => (
         <Button
@@ -42,7 +42,7 @@ function EditTaskTemplateModal({ isActive, nodeType, oldVersion, setFieldValue, 
         />
       )}
       modalHeaderProps={{
-        title: "Edit the basics"
+        title: "Edit the basics",
       }}
     >
       {({ closeModal }) => (

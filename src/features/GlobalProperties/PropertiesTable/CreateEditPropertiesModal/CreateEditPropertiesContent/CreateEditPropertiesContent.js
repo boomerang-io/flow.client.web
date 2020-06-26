@@ -14,7 +14,7 @@ import {
   ToastNotification,
   TextInput,
   Toggle,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { InputType } from "Constants";
 import { QueryStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -67,7 +67,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
           />
         );
         closeModal();
-      } catch (err) { }
+      } catch (err) {}
     } else {
       try {
         await addGlobalPropertyMutation({ body: newProperty });
@@ -80,7 +80,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
           />
         );
         closeModal();
-      } catch (err) { }
+      } catch (err) {}
     }
   };
 
@@ -106,11 +106,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
           .required("Enter a key")
           .max(128, "Key must not be greater than 128 characters")
           .notOneOf(propertyKeys || [], "Enter a unique key value for this workflow")
-          .test(
-            "is-valid-key",
-            "Only alphanumeric, underscore, dash, and period characters allowed",
-            validateKey
-          ),
+          .test("is-valid-key", "Only alphanumeric, underscore, dash, and period characters allowed", validateKey),
         value: Yup.string().required("Enter a value"),
         description: Yup.string(),
         secured: Yup.boolean(),

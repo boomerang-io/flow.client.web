@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import cx from "classnames";
-import { AccordionItem, OverflowMenu, Search } from "@boomerang/carbon-addons-boomerang-react";
-import { CheckboxList } from "@boomerang/carbon-addons-boomerang-react";
+import { AccordionItem, OverflowMenu, Search } from "@boomerang-io/carbon-addons-boomerang-react";
+import { CheckboxList } from "@boomerang-io/carbon-addons-boomerang-react";
 import Accordion from "carbon-components-react/lib/components/Accordion";
 import Task from "./Task";
-import { taskIcons } from "Utilities/taskIcons";
+import { taskIcons } from "Utils/taskIcons";
 import matchSorter from "match-sorter";
 import uniqBy from "lodash/uniqBy";
-import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
+import sortByProp from "@boomerang-io/utils/lib/sortByProp";
 import { ChevronLeft32, SettingsAdjust20 } from "@carbon/icons-react";
 import styles from "./tasks.module.scss";
 

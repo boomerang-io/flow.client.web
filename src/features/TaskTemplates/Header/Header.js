@@ -12,14 +12,14 @@ import {
   TextArea,
   InlineNotification,
   Loading,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import moment from "moment";
 import capitalize from "lodash/capitalize";
 import FeatureHeader from "Components/FeatureHeader";
 import VersionHistory from "./VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
 import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
-import { taskIcons } from "Utilities/taskIcons";
+import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType } from "../constants";
 import styles from "./header.module.scss";
 

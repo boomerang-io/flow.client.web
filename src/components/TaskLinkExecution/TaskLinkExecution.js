@@ -6,7 +6,7 @@ import { useExecutionContext } from "Hooks";
 import TaskLinkExecutionConditionSwitcher from "Components/TaskLinkExecutionConditionSwitcher";
 import { ExecutionStatus } from "Constants";
 import { NodeType } from "Constants";
-import { EXECUTION_CONDITIONS } from "utilities/taskLinkIcons";
+import { EXECUTION_CONDITIONS } from "Utils/taskLinkIcons";
 import styles from "./TaskLink.module.scss";
 
 const TaskLinkExecution = React.memo(function TaskLinkExecution({ diagramEngine, model, path }) {

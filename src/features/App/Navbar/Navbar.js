@@ -13,7 +13,7 @@ import {
   SideNavMenu,
   SideNavMenuItem,
   UIShell,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
 import { UserType, QueryStatus } from "Constants";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button } from "@boomerang/carbon-addons-boomerang-react";
+import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ArrowRight16, ArrowLeft16, Close20 } from "@carbon/icons-react";
 import "./styles.scss";
 

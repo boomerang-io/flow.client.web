@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactJson from "react-json-view";
-import { ComposedModal, ModalForm } from "@boomerang/carbon-addons-boomerang-react";
-import { ModalBody, Tabs, Tab } from "@boomerang/carbon-addons-boomerang-react";
+import { ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalBody, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
 import PropertiesTable from "./PropertiesTable";
 import styles from "./outputPropertisLog.module.scss";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
-import { SkeletonPlaceholder } from "@boomerang/carbon-addons-boomerang-react";
+import { SkeletonPlaceholder } from "@boomerang-io/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
 import FeatureHeader from "Components/FeatureHeader";
 import moment from "moment";

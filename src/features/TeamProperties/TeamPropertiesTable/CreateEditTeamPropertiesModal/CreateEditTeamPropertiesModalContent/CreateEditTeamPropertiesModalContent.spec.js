@@ -33,7 +33,7 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
   test("CreateEditTeamPropertiesModalContent - test the Submit Button state", async () => {
     const newProps = { ...props, isEdit: false };
 
-    const { getByLabelText, findByText, getByTestId } = rtlContextRouterRender(
+    const { getByLabelText, getByTestId } = rtlContextRouterRender(
       <CreateEditTeamPropertiesModalContent {...newProps} />
     );
     const valueInputText = getByLabelText(/value/i);
@@ -51,9 +51,7 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
   });
 
   test("CreateEditTeamPropertiesModalContent - test if the form submits", async () => {
-    const { getByLabelText, getByText, findByText, getByTestId } = rtlContextRouterRender(
-      <CreateEditTeamPropertiesModalContent {...props} />
-    );
+    const { getByLabelText, getByTestId } = rtlContextRouterRender(<CreateEditTeamPropertiesModalContent {...props} />);
     const valueInputText = getByLabelText(/value/i);
     const labelInputText = getByLabelText(/label/i);
     const keyInputText = getByLabelText(/key/i);

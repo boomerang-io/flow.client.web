@@ -1,7 +1,7 @@
 import { sortBy, orderBy } from "lodash";
 import moment from "moment";
 import { ExecutionStatus } from "Constants";
-import { timeSecondsToTimeUnit } from "Utilities/timeSecondsToTimeUnit";
+import { timeSecondsToTimeUnit } from "Utils/timeSecondsToTimeUnit";
 import { chartInfo, chartColors } from "./constants";
 
 export const parseChartsData = (data, teams, hasSelectedTeam, hasSelectedWorkflow) => {

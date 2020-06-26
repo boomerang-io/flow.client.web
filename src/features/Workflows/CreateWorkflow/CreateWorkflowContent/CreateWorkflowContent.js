@@ -8,10 +8,10 @@ import {
   ModalFlowForm,
   TextArea,
   TextInput,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Button, ModalBody, ModalFooter } from "@boomerang/carbon-addons-boomerang-react";
+import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
 import { defaultWorkflowConfig } from "./constants.js";
 import styles from "./createWorkflow.module.scss";

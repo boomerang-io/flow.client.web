@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { SkeletonPlaceholder, TooltipIcon } from "@boomerang/carbon-addons-boomerang-react";
+import { SkeletonPlaceholder, TooltipIcon } from "@boomerang-io/carbon-addons-boomerang-react";
 import TaskItem from "./TaskItem";
 import orderBy from "lodash/orderBy";
-import { getSimplifiedDuration } from "Utilities/timeHelper";
+import { getSimplifiedDuration } from "Utils/timeHelper";
 import { QueryStatus } from "Constants";
 import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";

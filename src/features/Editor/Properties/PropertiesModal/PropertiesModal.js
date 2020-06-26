@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { ModalFlow } from "@boomerang/carbon-addons-boomerang-react";
+import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import PropertiesModalContent from "./PropertiesModalContent";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import { Add32 } from "@carbon/icons-react";
@@ -24,7 +24,7 @@ class PropertiesModal extends Component {
             className={styles.createPropertyCard}
             onClick={openModal}
             data-testid="create-new-workflow-input-button"
-          data-cy="create-property-card-button"
+            data-cy="create-property-card-button"
           >
             <div className={styles.createContainer}>
               <Add32 className={styles.createIcon} aria-label="Add" />

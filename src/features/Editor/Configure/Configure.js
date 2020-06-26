@@ -14,7 +14,7 @@ import {
   ToastNotification,
   TooltipHover,
   TooltipIcon,
-} from "@boomerang/carbon-addons-boomerang-react";
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import CronJobModal from "./CronJobModal";
 import cx from "classnames";
 import cronstrue from "cronstrue";

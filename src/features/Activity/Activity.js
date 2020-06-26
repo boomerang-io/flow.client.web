@@ -1,13 +1,13 @@
 import React from "react";
 import { useAppContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { Error, MultiSelect as Select, Tabs, Tab } from "@boomerang/carbon-addons-boomerang-react";
+import { Error, MultiSelect as Select, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DatePicker, DatePickerInput } from "carbon-components-react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
 import moment from "moment";
 import queryString from "query-string";
-import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
+import sortByProp from "@boomerang-io/utils/lib/sortByProp";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { executionStatusList, QueryStatus } from "Constants";
