@@ -187,52 +187,54 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           <ModalFlowForm onSubmit={handleSubmit} className={styles.container}>
             <ModalBody>
               {isLoading && <Loading />}
-              <label className={styles.fileUploaderLabel} htmlFor="uploadTemplate">
-                Import task file (optional)
-              </label>
-              <p className={styles.fileUploaderHelper}>File type .json, can only upload one file</p>
-              <FileUploaderDropContainer
-                id="uploadTemplate"
-                className={styles.fileUploader}
-                accept={[".json"]}
-                labelText={FILE_UPLOAD_MESSAGE}
-                name="Workflow"
-                multiple={false}
-                onAddFiles={async (event, { addedFiles }) => {
-                  await setFieldValue("file", addedFiles[0]);
-                  getTemplateData(addedFiles[0], setFieldValue);
-                }}
-              />
-              {values.file && (
-                <FileUploaderItem
-                  name={values.file.name}
-                  status="edit"
-                  onDelete={() => {
-                    setFieldValue("file", undefined);
-                    if (!errors.file) {
-                      resetForm();
-                    }
+              <div>
+                <label className={styles.fileUploaderLabel} htmlFor="uploadTemplate">
+                  Import task file (optional)
+                </label>
+                <p className={styles.fileUploaderHelper}>File type .json, can only upload one file</p>
+                <FileUploaderDropContainer
+                  id="uploadTemplate"
+                  className={styles.fileUploader}
+                  accept={[".json"]}
+                  labelText={FILE_UPLOAD_MESSAGE}
+                  name="Workflow"
+                  multiple={false}
+                  onAddFiles={async (event, { addedFiles }) => {
+                    await setFieldValue("file", addedFiles[0]);
+                    getTemplateData(addedFiles[0], setFieldValue);
                   }}
                 />
-              )}
-              {Boolean(errors.file) && (
-                <div className={styles.validMessage}>
-                  <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
-                  <p className={styles.message}>{createInvalidTextMessage}</p>
-                </div>
-              )}
-              {Boolean(values.file) && !Boolean(errors.file) && (
-                <>
+                {values.file && (
+                  <FileUploaderItem
+                    name={values.file.name}
+                    status="edit"
+                    onDelete={() => {
+                      setFieldValue("file", undefined);
+                      if (!errors.file) {
+                        resetForm();
+                      }
+                    }}
+                  />
+                )}
+                {Boolean(errors.file) && (
                   <div className={styles.validMessage}>
-                    <CheckmarkFilled32 aria-label="error-import-icon" className={styles.successIcon} />
-                    <p className={styles.message}>{createValidTextMessage}</p>
+                    <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
+                    <p className={styles.message}>{createInvalidTextMessage}</p>
                   </div>
-                  <p className={styles.successMessage}>
-                    Check the details below. Task Definition fields were also imported, you can view them once you’ve
-                    saved this task.
-                  </p>
-                </>
-              )}
+                )}
+                {Boolean(values.file) && !Boolean(errors.file) && (
+                  <>
+                    <div className={styles.validMessage}>
+                      <CheckmarkFilled32 aria-label="error-import-icon" className={styles.successIcon} />
+                      <p className={styles.message}>{createValidTextMessage}</p>
+                    </div>
+                    <p className={styles.successMessage}>
+                      Check the details below. Task Definition fields were also imported, you can view them once you’ve
+                      saved this task.
+                    </p>
+                  </>
+                )}
+              </div>
               <TextInput
                 id="name"
                 invalid={errors.name && touched.name}
