@@ -295,7 +295,6 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
         <button
           class="bx--btn bx--btn--primary"
           data-cy="property-modal-confirm-button"
-          data-testid="inputs-modal-confirm-button"
           tabindex="0"
           type="submit"
         >
