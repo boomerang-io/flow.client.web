@@ -80,8 +80,6 @@ describe("Inputs --- RTL", () => {
       <Inputs {...props} isEdit={false} input={undefined} />
     );
     await waitFor(() => {});
-    const createButton = await findByRole("button", { name: /create/i });
-    expect(createButton).toBeDisabled();
 
     const keyInput = getByLabelText("Key");
     const labelInput = getByLabelText("Label");
@@ -103,6 +101,7 @@ describe("Inputs --- RTL", () => {
       fireEvent.click(getByText(/boolean/i));
     });
 
+    const createButton = await findByRole("button", { name: /create/i });
     expect(createButton).toBeEnabled();
 
     await waitFor(() => {});
