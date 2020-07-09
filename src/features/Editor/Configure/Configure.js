@@ -50,27 +50,27 @@ const ConfigureContainer = React.memo(function ConfigureContainer({
       enableReinitialize
       onSubmit={handleOnSubmit}
       initialValues={{
-        description: summaryData?.description ?? "",
-        enableACCIntegration: summaryData?.enableACCIntegration ?? false,
-        enablePersistentStorage: summaryData?.enablePersistentStorage ?? false,
-        icon: summaryData?.icon ?? "",
-        name: summaryData?.name ?? "",
+        description: summaryData ?.description ?? "",
+        enableACCIntegration: summaryData ?.enableACCIntegration ?? false,
+        enablePersistentStorage: summaryData ?.enablePersistentStorage ?? false,
+        icon: summaryData ?.icon ?? "",
+        name: summaryData ?.name ?? "",
         selectedTeam: teams.find((team) => team.id === params.teamId),
-        shortDescription: summaryData?.shortDescription ?? "",
+        shortDescription: summaryData ?.shortDescription ?? "",
         triggers: {
           event: {
-            enable: summaryData?.triggers?.event?.enable ?? false,
-            topic: summaryData?.triggers?.event?.topic ?? "",
+            enable: summaryData ?.triggers ?.event ?.enable ?? false,
+            topic: summaryData ?.triggers ?.event ?.topic ?? "",
           },
           scheduler: {
-            enable: summaryData?.triggers?.scheduler?.enable ?? false,
-            schedule: summaryData?.triggers?.scheduler?.schedule ?? "0 18 * * *",
-            timezone: summaryData?.triggers?.scheduler?.timezone ?? false,
-            advancedCron: summaryData?.triggers?.scheduler?.advancedCron ?? false,
+            enable: summaryData ?.triggers ?.scheduler ?.enable ?? false,
+            schedule: summaryData ?.triggers ?.scheduler ?.schedule ?? "0 18 * * *",
+            timezone: summaryData ?.triggers ?.scheduler ?.timezone ?? false,
+            advancedCron: summaryData ?.triggers ?.scheduler ?.advancedCron ?? false,
           },
           webhook: {
-            enable: summaryData?.triggers?.webhook?.enable ?? false,
-            token: summaryData?.triggers?.webhook?.token ?? false,
+            enable: summaryData ?.triggers ?.webhook ?.enable ?? false,
+            token: summaryData ?.triggers ?.webhook ?.token ?? false,
           },
         },
       }}
@@ -199,16 +199,16 @@ class Configure extends Component {
           <div className={styles.teamSelect}>
             <ComboBox
               id="selectedTeam"
-              initialSelectedItem={values?.selectedTeam}
-              invalid={Boolean(errors.selectedTeam?.name)}
-              invalidText={errors.selectedTeam?.name}
+              initialSelectedItem={values ?.selectedTeam}
+              invalid={Boolean(errors.selectedTeam ?.name)}
+              invalidText={errors.selectedTeam ?.name}
               items={teams}
-              itemToString={(item) => item?.name ?? ""}
+              itemToString={(item) => item ?.name ?? ""}
               onChange={this.handleTeamChange}
               value={values.selectedTeam}
               label="Team"
               placeholder="Select a team"
-              shouldFilterItem={({ item, inputValue }) => item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())}
+              shouldFilterItem={({ item, inputValue }) => item ?.name ?.toLowerCase() ?.includes(inputValue.toLowerCase())}
             />
           </div>
           <TextInput
@@ -356,7 +356,7 @@ class Configure extends Component {
                       <div className={styles.informationCronMessage}>
                         {`${cronstrue.toString(values.triggers.scheduler.schedule)} in ${
                           values.triggers.scheduler.timezone
-                        }`}
+                          }`}
                       </div>
                       {/*<div className={styles.informationTimeZone}>
                         {`${values.triggers.scheduler.timezone} Timezone`}
@@ -440,7 +440,7 @@ class Configure extends Component {
                 label="Enable Persistent Storage"
                 toggled={values.enablePersistentStorage}
                 onToggle={(checked) => this.handleOnToggleChange(checked, "enablePersistentStorage")}
-                tooltipContent="Persist workflow data between executions"
+                tooltipContent="Persist workflow data between task executions"
                 tooltipProps={{ direction: "top" }}
                 reversed
               />
