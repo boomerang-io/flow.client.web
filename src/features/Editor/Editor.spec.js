@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import { startApiServer } from "ApiServer";
 import { db } from "ApiServer/fixtures";
 import { appPath, appLink } from "Config/appConfig";
+import { queryCaches } from "react-query";
 
 let server;
 
@@ -15,6 +16,7 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
+  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("Editor --- Snapshot", () => {

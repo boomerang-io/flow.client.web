@@ -1,6 +1,7 @@
 import React from "react";
 import Configure from "./index";
 import { fireEvent } from "@testing-library/react";
+import { queryCaches } from "react-query";
 
 const mockfn = jest.fn();
 
@@ -121,6 +122,10 @@ const props = {
         expect(baseElement).toMatchSnapshot();
     });
 });*/
+
+afterEach(() => {
+  queryCaches.forEach((queryCache) => queryCache.clear());
+});
 
 describe("Inputs --- RTL", () => {
   it("Main Sections Render", () => {

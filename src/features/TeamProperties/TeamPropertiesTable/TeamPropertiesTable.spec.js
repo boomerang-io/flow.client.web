@@ -1,6 +1,7 @@
 import React from "react";
 import TeamPropertiesTable from "./";
 import { fireEvent } from "@testing-library/react";
+import { queryCaches } from "react-query";
 
 const mockfn = jest.fn();
 const mockReduxTeamConfig = {
@@ -47,14 +48,18 @@ const props = {
     id: "5a8b331e262a70306622df72",
     label: "Allianz PoC",
     name: "Allianz",
-    value: "allianz-poc"
-  }
+    value: "allianz-poc",
+  },
 };
 
-const propsWithProperties = { ...props, properties: mockReduxTeamConfig.teamProperties.data }
+const propsWithProperties = { ...props, properties: mockReduxTeamConfig.teamProperties.data };
 
 beforeEach(() => {
   document.body.setAttribute("id", "app");
+});
+
+afterEach(() => {
+  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("TeamPropertiesTable --- Snapshot Test", () => {

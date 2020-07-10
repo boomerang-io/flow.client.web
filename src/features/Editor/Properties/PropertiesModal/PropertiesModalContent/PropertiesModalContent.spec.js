@@ -2,6 +2,7 @@ import React from "react";
 import Inputs from ".";
 import { fireEvent, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
+import { queryCaches } from "react-query";
 
 const mockfn = jest.fn();
 
@@ -23,6 +24,10 @@ const props = {
   workflowActions: { updateWorkflowInput: mockfn, createWorkflowInput: mockfn },
   updateWorkflowProperties: mockfn,
 };
+
+afterEach(() => {
+  queryCaches.forEach((queryCache) => queryCache.clear());
+});
 
 describe("Inputs --- Snapshot Test", () => {
   it("Capturing Snapshot of Inputs", async () => {

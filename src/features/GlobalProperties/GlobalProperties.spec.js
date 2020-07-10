@@ -3,6 +3,7 @@ import GlobalPropertiesContainer from "./index";
 import { fireEvent } from "@testing-library/react";
 import { startApiServer } from "ApiServer";
 import { act } from "react-dom/test-utils";
+import { queryCaches } from "react-query";
 
 let server;
 
@@ -12,6 +13,7 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
+  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("GlobalPropertiesContainer --- Snapshot Test", () => {

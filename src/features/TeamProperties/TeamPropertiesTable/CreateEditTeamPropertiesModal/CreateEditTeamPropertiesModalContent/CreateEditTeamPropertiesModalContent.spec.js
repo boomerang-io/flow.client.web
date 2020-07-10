@@ -2,6 +2,7 @@ import React from "react";
 import CreateEditTeamPropertiesModalContent from "../CreateEditTeamPropertiesModalContent";
 import { fireEvent, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
+import { queryCaches } from "react-query";
 
 const mockfn = jest.fn();
 const props = {
@@ -14,6 +15,10 @@ const props = {
     id: 1,
   },
 };
+
+afterEach(() => {
+  queryCaches.forEach((queryCache) => queryCache.clear());
+});
 
 describe("CreateEditTeamPropertiesModalContent --- Snapshot Test", () => {
   test("Capturing Snapshot of CreateEditTeamPropertiesModalContent", () => {
