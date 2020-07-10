@@ -15,36 +15,33 @@ import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang/ca
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType } from "Constants";
 import styles from "./createEditTeamPropertiesModalContent.module.scss";
-import { QueryStatus } from "Constants";
 
 function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, propertyKeys, team, cancelRequestRef }) {
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: team.id });
 
   /** Add Team Property */
-  const [addTeamPropertyMutation, { status: addStatus, error: addError }] = useMutation(
+  const [addTeamPropertyMutation, { isLoading: addIsLoading, error: addError }] = useMutation(
     (args) => {
       const { promise, cancel } = resolver.postTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.refetchQueries(teamPropertiesUrl),
+      onSuccess: () => queryCache.invalidateQueries(teamPropertiesUrl),
     }
   );
-  const addIsLoading = addStatus === QueryStatus.Loading;
 
   /** Update Team Property */
-  const [updateTeamPropertyMutation, { status: updateStatus, error: updateError }] = useMutation(
+  const [updateTeamPropertyMutation, { isLoading: updateIsLoading, error: updateError }] = useMutation(
     (args) => {
       const { promise, cancel } = resolver.patchTeamPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.refetchQueries(teamPropertiesUrl),
+      onSuccess: () => queryCache.invalidateQueries(teamPropertiesUrl),
     }
   );
-  const updateIsLoading = updateStatus === QueryStatus.Loading;
 
   const loading = addIsLoading || updateIsLoading;
 
@@ -69,7 +66,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
           />
         );
         closeModal();
-      } catch (err) {}
+      } catch (err) { }
     } else {
       try {
         const response = await addTeamPropertyMutation({ id: team.id, body: newTeamProperty });

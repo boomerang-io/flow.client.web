@@ -6,7 +6,6 @@ import ErrorDragon from "Components/ErrorDragon";
 import ChangeLogTable from "./ChangeLogTable";
 import qs from "query-string";
 import { serviceUrl } from "Config/servicesConfig";
-import { QueryStatus } from "Constants";
 import styles from "./changeLog.module.scss";
 
 ChangeLog.propTypes = {
@@ -18,9 +17,11 @@ function ChangeLog({ summaryData }) {
     workflowId: summaryData.id,
     query: qs.stringify({ sort: "version", order: "DESC" }),
   });
-  const { data, status, error } = useQuery(getWorkflowChangelogUrl);
+  const { data, error, isLoading, isIdle } = useQuery(getWorkflowChangelogUrl);
 
-  const isLoading = status === QueryStatus.Loading;
+  if (isIdle) {
+    return null;
+  }
 
   if (isLoading)
     return (
@@ -36,14 +37,12 @@ function ChangeLog({ summaryData }) {
 
   if (error) return <ErrorDragon />;
 
-  if (data)
-    return (
-      <div className={styles.container}>
-        <ChangeLogTable changeLog={data} />
-      </div>
-    );
+  return (
+    <div className={styles.container}>
+      <ChangeLogTable changeLog={data} />
+    </div>
+  );
 
-  return null;
 }
 
 export default ChangeLog;

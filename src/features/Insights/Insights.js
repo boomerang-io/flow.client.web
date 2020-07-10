@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";
-import { serviceUrl } from "Config/servicesConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import { ComboBox, SkeletonPlaceholder } from "@boomerang/carbon-addons-boomerang-react";
-import { useAppContext, useQuery } from "Hooks";
-import { QueryStatus } from "Constants";
+import { useAppContext } from "Hooks";
+import { useQuery } from "react-query"
 import sortByProp from "@boomerang/boomerang-utilities/lib/sortByProp";
 import ErrorDragon from "Components/ErrorDragon";
 import ChartsTile from "./ChartsTile";
@@ -42,9 +42,7 @@ export default function WorkflowInsights(location) {
   const [insightsQuery, setinsightsQuery] = useState(getFetchQuery(selectedTimeframe, selectedTeam));
 
   const insightsUrl = serviceUrl.getInsights({ query: insightsQuery });
-  const { data: insightsData, status: insightsStatus, error: insightsError } = useQuery(insightsQuery && insightsUrl);
-
-  const isUpdatingInsights = insightsStatus === QueryStatus.Loading;
+  const { data: insightsData, isLoading: isUpdatingInsights, error: insightsError } = useQuery(insightsUrl, resolver.query(insightsUrl), { enabled: insightsQuery });
 
   let executionList = [];
 
@@ -54,7 +52,7 @@ export default function WorkflowInsights(location) {
   }
 
   const handleChangeTimeframe = (timeframe) => {
-    const timeframeValue = timeframe.selectedItem?.value ?? null;
+    const timeframeValue = timeframe.selectedItem ?.value ?? null;
     const newTimeframeValue = timeframeValue
       ? timeframeOptions.find((tf) => tf.value === timeframeValue)
       : timeframeOptions[3];
@@ -65,7 +63,7 @@ export default function WorkflowInsights(location) {
   };
 
   const handleChangeTeam = (team) => {
-    const teamId = team.selectedItem?.id ?? "none";
+    const teamId = team.selectedItem ?.id ?? "none";
     const newSelectedTeam =
       teamId !== ALL_OPTIONS.TEAMS.id ? teams.find((team) => team.id === teamId) : ALL_OPTIONS.TEAMS;
     setSelectedTeam(newSelectedTeam);
@@ -161,52 +159,52 @@ export default function WorkflowInsights(location) {
             <SkeletonPlaceholder className={styles.graphPlaceholder} />
           </>
         ) : (
-          <>
-            <div className={styles.statsWidgets} data-testid="completed-insights">
-              <div className={styles.insightsCards} style={{ flexDirection: hasSelectedWorkflow ? "column" : "row" }}>
-                <InsightsTile
-                  title="Executions"
-                  type="runs"
-                  totalCount={totalExecutions}
-                  infoList={
-                    hasSelectedWorkflow ? [] : hasSelectedTeam ? executionsByTeam.slice(0, 5) : dataByTeams.slice(0, 5)
-                  }
-                />
-                <InsightsTile
-                  title="Duration (median)"
-                  type=""
-                  totalCount={timeSecondsToTimeUnit(medianDuration)}
-                  infoList={durationData}
-                  valueWidth="7rem"
-                  tileMaxHeight="22.375rem"
-                />
+            <>
+              <div className={styles.statsWidgets} data-testid="completed-insights">
+                <div className={styles.insightsCards} style={{ flexDirection: hasSelectedWorkflow ? "column" : "row" }}>
+                  <InsightsTile
+                    title="Executions"
+                    type="runs"
+                    totalCount={totalExecutions}
+                    infoList={
+                      hasSelectedWorkflow ? [] : hasSelectedTeam ? executionsByTeam.slice(0, 5) : dataByTeams.slice(0, 5)
+                    }
+                  />
+                  <InsightsTile
+                    title="Duration (median)"
+                    type=""
+                    totalCount={timeSecondsToTimeUnit(medianDuration)}
+                    infoList={durationData}
+                    valueWidth="7rem"
+                    tileMaxHeight="22.375rem"
+                  />
+                </div>
+                <ChartsTile title="Status" tileWidth="33rem" tileMaxHeight="22.375rem">
+                  {totalExecutions === 0 ? (
+                    <p className={`${styles.statsLabel} --no-data`}>No Data</p>
+                  ) : (
+                      <CarbonDonutChart data={carbonDonutData} />
+                    )}
+                </ChartsTile>
               </div>
-              <ChartsTile title="Status" tileWidth="33rem" tileMaxHeight="22.375rem">
-                {totalExecutions === 0 ? (
-                  <p className={`${styles.statsLabel} --no-data`}>No Data</p>
-                ) : (
-                  <CarbonDonutChart data={carbonDonutData} />
-                )}
-              </ChartsTile>
-            </div>
-            <div className={styles.graphsWidgets}>
-              <ChartsTile title="Execution" totalCount="" type="" tileWidth="50rem">
-                {totalExecutions === 0 ? (
-                  <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
-                ) : (
-                  <CarbonLineChart data={carbonLineData} />
-                )}
-              </ChartsTile>
-              <ChartsTile title="Execution Time" totalCount="" type="" tileWidth="50rem">
-                {totalExecutions === 0 ? (
-                  <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
-                ) : (
-                  <CarbonScatterChart data={carbonScatterData} />
-                )}
-              </ChartsTile>
-            </div>
-          </>
-        )}
+              <div className={styles.graphsWidgets}>
+                <ChartsTile title="Execution" totalCount="" type="" tileWidth="50rem">
+                  {totalExecutions === 0 ? (
+                    <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
+                  ) : (
+                      <CarbonLineChart data={carbonLineData} />
+                    )}
+                </ChartsTile>
+                <ChartsTile title="Execution Time" totalCount="" type="" tileWidth="50rem">
+                  {totalExecutions === 0 ? (
+                    <p className={`${styles.graphsLabel} --no-data`}>No Data</p>
+                  ) : (
+                      <CarbonScatterChart data={carbonScatterData} />
+                    )}
+                </ChartsTile>
+              </div>
+            </>
+          )}
       </>
     );
   };

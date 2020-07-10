@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import { ModalFlow, notify, ToastNotification } from "@boomerang/carbon-addons-boomerang-react";
 import CreateWorkflowContainer from "./CreateWorkflowContainer";
 import WorkflowDagEngine, { createWorkflowRevisionBody } from "Utilities/dag/WorkflowDagEngine";
-import { QueryStatus } from "Constants";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
@@ -22,21 +21,21 @@ CreateWorkflow.propTypes = {
 export function CreateWorkflow({ team, teams }) {
   const history = useHistory();
 
-  const [createWorkflowMutator, { error: workflowError, status: workflowStatus }] = useMutation(
+  const [createWorkflowMutator, { error: workflowError, isLoading: workflowIsLoading }] = useMutation(
     resolver.postCreateWorkflow
   );
 
-  const [createWorkflowRevisionMutator, { error: workflowRevisionError, status: workflowRevisionStatus }] = useMutation(
+  const [createWorkflowRevisionMutator, { error: workflowRevisionError, isLoading: workflowRevisionIsLoading }] = useMutation(
     resolver.postCreateWorkflowRevision,
     {
-      onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
+      onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
     }
   );
 
-  const [importWorkflowMutator, { error: importError, status: importStatus }] = useMutation(
+  const [importWorkflowMutator, { error: importError, isLoading: importIsLoading }] = useMutation(
     resolver.postImportWorkflow,
     {
-      onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
+      onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
     }
   );
 
@@ -69,10 +68,7 @@ export function CreateWorkflow({ team, teams }) {
     }
   };
 
-  const isLoading =
-    workflowRevisionStatus === QueryStatus.Loading ||
-    workflowStatus === QueryStatus.Loading ||
-    importStatus === QueryStatus.Loading;
+  const isLoading = workflowIsLoading || workflowRevisionIsLoading || importIsLoading;
 
   return (
     <ModalFlow

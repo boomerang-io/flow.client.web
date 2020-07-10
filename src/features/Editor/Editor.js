@@ -18,7 +18,6 @@ import SwitchNodeModel from "Utilities/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utilities/dag/templateTaskNode/TemplateTaskNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { appPath } from "Config/appConfig";
-import { QueryStatus } from "Constants";
 import { NodeType } from "Constants";
 import styles from "./editor.module.scss";
 
@@ -42,24 +41,18 @@ export default function EditorContainer() {
    * Mutations
    */
   const [mutateSummary, summaryMutation] = useMutation(resolver.patchUpdateWorkflowSummary, {
-    onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
+    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
   });
   const [mutateRevision, revisionMutation] = useMutation(resolver.postCreateWorkflowRevision, {
     onSuccess: () => {
-      queryCache.refetchQueries(serviceUrl.getTeams());
-      queryCache.refetchQueries(getSummaryUrl);
+      queryCache.invalidateQueries(serviceUrl.getTeams());
+      queryCache.invalidateQueries(getSummaryUrl);
     },
   });
 
-  /**
-   * Render Logic
-   */
-  const isSummaryLoading = summaryQuery.status === QueryStatus.Loading;
-  const isTaskTemplatesLoading = taskTemplatesQuery.status === QueryStatus.Loading;
-
   // Only show loading for the summary and task templates
   // Revision takes longer and we want to show a separate loading animation for it, plus prevent remounting everything
-  if (isSummaryLoading || isTaskTemplatesLoading) {
+  if (summaryQuery.isLoading || taskTemplatesQuery.isLoading) {
     return <Loading />;
   }
 
@@ -117,6 +110,9 @@ export function EditorStateContainer({
     initRevisionReducerState(revisionQuery.data)
   );
 
+  console.log("before")
+  console.log(revisionState)
+
   // Reset the reducer state if there is new data
   useEffect(() => {
     if (revisionQuery.data) {
@@ -126,6 +122,9 @@ export function EditorStateContainer({
       });
     }
   }, [revisionDispatch, revisionQuery.data]);
+
+  console.log("after")
+  console.log(revisionState)
 
   const { data: summaryData } = summaryQuery;
 
@@ -283,6 +282,7 @@ export function EditorStateContainer({
   useEffect(() => {
     // Initial value of revisionState will be null, so need to check its present or we get two engines created
     if (revisionState.version) {
+      console.log("change")
       const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, isLocked });
       setWorkflowDagEngine(newWorkflowDagEngine);
       newWorkflowDagEngine.getDiagramEngine().repaintCanvas();

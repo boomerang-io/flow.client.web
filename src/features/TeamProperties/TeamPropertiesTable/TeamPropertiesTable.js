@@ -69,7 +69,7 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
 
   /** Delete Team Property */
   const [deleteTeamPropertyMutation] = useMutation(resolver.deleteTeamPropertyRequest, {
-    onSuccess: () => queryCache.refetchQueries([teamPropertiesUrl]),
+    onSuccess: () => queryCache.invalidateQueries([teamPropertiesUrl]),
   });
 
   const deleteTeamProperty = async (component) => {
