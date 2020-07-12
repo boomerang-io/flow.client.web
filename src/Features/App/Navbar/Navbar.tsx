@@ -17,7 +17,13 @@ import {
 import { appLink } from "Config/appConfig";
 import { UserType, QueryStatus } from "Constants";
 
-const handleOnMenuClick = (isAtLeastOperator) => ({ isOpen, onMenuClose }) => (
+const handleOnMenuClick = (isAtLeastOperator: boolean) => ({
+  isOpen,
+  onMenuClose,
+}: {
+  isOpen: boolean;
+  onMenuClose: () => void;
+}) => (
   <LeftSideNav isOpen={isOpen}>
     <SideNav aria-label="nav" expanded={isOpen} isChildOfHeader={true}>
       <SideNavItems>
@@ -106,7 +112,13 @@ NavbarContainer.propTypes = {
   userState: PropTypes.object,
 };
 
-function NavbarContainer({ handleOnTutorialClick, navigationState, userState }) {
+interface NavbarContainerProps {
+  handleOnTutorialClick: () => void;
+  navigationState: { status: string; data: { platform: { platformName: string } } };
+  userState: { status: string; data: { type: string } };
+}
+
+function NavbarContainer({ handleOnTutorialClick, navigationState, userState }: NavbarContainerProps) {
   if (navigationState.status === QueryStatus.Success && userState.status === QueryStatus.Success) {
     return (
       <>

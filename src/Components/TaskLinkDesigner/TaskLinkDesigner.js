@@ -31,7 +31,6 @@ const TaskLinkDesigner = React.memo(function TaskLinkDesigner({ diagramEngine, m
               kind="designer"
               onClick={updateExecutionState}
             />
-            ) }}
           </g>
         </>
       )}
