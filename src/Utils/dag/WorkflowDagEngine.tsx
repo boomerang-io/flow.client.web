@@ -12,8 +12,16 @@ import TaskPortModel from "./taskPort/TaskPortModel";
 import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
 import { NodeType } from "Constants";
 
+interface IDagModel {
+  dag: object;
+  isModelLocked: boolean;
+}
+
 export default class WorkflowDagEngine {
-  constructor({ dag, modelIsLocked }) {
+  activeModel: DiagramModel | undefined;
+  diagramEngine: DiagramEngine;
+
+  constructor({ dag, isModelLocked }: IDagModel) {
     this.diagramEngine = new DiagramEngine();
     this.diagramEngine.installDefaultFactories();
     this.diagramEngine.registerNodeFactory(new CustomTaskNodeFactory());
@@ -22,20 +30,18 @@ export default class WorkflowDagEngine {
     this.diagramEngine.registerNodeFactory(new SwitchNodeFactory());
 
     //need to find a way to register port factory
-    this.diagramEngine.registerPortFactory(
-      new SimplePortFactory(NodeType.StartEnd, (config) => new StartEndPortModel())
-    );
-    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.Task, (config) => new TaskPortModel()));
-    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.Decision, (config) => new SwitchPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.StartEnd, () => new StartEndPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.Task, () => new TaskPortModel()));
+    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.Decision, () => new SwitchPortModel()));
 
     //register new custom link
     this.diagramEngine.registerLinkFactory(new TaskLinkFactory(this.diagramEngine));
     this.diagramEngine.registerLinkFactory(new SwitchLinkFactory(this.diagramEngine));
 
-    this.newModel(dag, modelIsLocked);
+    this.newModel(dag, isModelLocked);
   }
 
-  newModel(dag, modelIsLocked) {
+  newModel(dag: object, modelIsLocked: boolean) {
     this.activeModel = new DiagramModel();
     if (dag) {
       this.activeModel.deSerializeDiagram(dag, this.diagramEngine);
@@ -61,12 +67,11 @@ export default class WorkflowDagEngine {
     this.activeModel.addListener({
       linksUpdated: (event) => {
         if (event.isCreated) {
-          document.addEventListener("mouseup", (e) => {
+          document.addEventListener("mouseup", (e: MouseEvent) => {
             setTimeout(() => {
               if (!event.link.targetPort) {
-                this.activeModel.removeLink(event.link);
+                this.activeModel?.removeLink(event.link);
                 this.diagramEngine.repaintCanvas();
-                document.removeEventListener("mouseup", null);
               }
             }, 0);
           });
@@ -84,20 +89,23 @@ export default class WorkflowDagEngine {
   }
 }
 
-export const createWorkflowRevisionBody = (diagramApp, changeLogReason, workflowRevisionConfig = {}) => {
-  const dagProps = {};
-  dagProps["dag"] = getDiagramSerialization(diagramApp);
-  dagProps["config"] = formatWorkflowConfigNodes(workflowRevisionConfig);
-  dagProps["changelog"] = {
+export const createWorkflowRevisionBody = (
+  diagramApp: WorkflowDagEngine,
+  changeLogReason: string,
+  workflowRevisionConfig = {}
+) => {
+  const dag = getDiagramSerialization(diagramApp);
+  const config = formatWorkflowConfigNodes(workflowRevisionConfig);
+  const changelog = {
     reason: changeLogReason,
   };
-  return dagProps;
+  return { dag, config, changelog };
 };
 
-const getDiagramSerialization = (diagramApp) => {
+const getDiagramSerialization = (diagramApp: WorkflowDagEngine): object => {
   return diagramApp.getDiagramEngine().getDiagramModel().serializeDiagram();
 };
 
-const formatWorkflowConfigNodes = (workflowRevisionConfig) => {
+const formatWorkflowConfigNodes = (workflowRevisionConfig: object) => {
   return { nodes: Object.values(workflowRevisionConfig) };
 };

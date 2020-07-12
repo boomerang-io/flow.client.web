@@ -49,7 +49,6 @@ const TaskLinkExecution = React.memo(function TaskLinkExecution({ diagramEngine,
             executionCondition={executionCondition}
             kind="execution"
           />
-          ) }}
         </g>
       )}
     </WorkflowLink>

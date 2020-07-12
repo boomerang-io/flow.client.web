@@ -37,7 +37,9 @@ const allowedUserRoles = [UserType.Admin, UserType.Operator];
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
 export default function App() {
-  const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(!supportedBrowsers.includes(browser.name));
+  const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
+    !supportedBrowsers.includes(browser?.name || "")
+  );
   const [isTutorialActive, setIsTutorialActive] = useState(false);
 
   const userQuery = useQuery(userUrl);
@@ -87,19 +89,34 @@ export default function App() {
   );
 }
 
+interface Team {
+  name: string;
+  id: string;
+}
+
+interface MainProps {
+  isLoadingInitialData: boolean;
+  isErrorState: boolean;
+  isSuccessState: boolean;
+  isTutorialActive: boolean;
+  setIsTutorialActive: (isTutorialActive: boolean) => void;
+  setShouldShowBrowserWarning: (shouldShowBrowserWarning: boolean) => void;
+  shouldShowBrowserWarning: boolean;
+  teamsData: Array<Team>;
+  userData: { id: string; type: string };
+}
+
 function Main({
   isLoadingInitialData,
   isErrorState,
   isSuccessState,
-  platformRole,
   isTutorialActive,
   setIsTutorialActive,
   setShouldShowBrowserWarning,
   shouldShowBrowserWarning,
   teamsData,
   userData,
-  userId,
-}) {
+}: MainProps) {
   if (isLoadingInitialData) {
     return <Loading />;
   }
@@ -109,7 +126,7 @@ function Main({
   }
 
   if (isSuccessState) {
-    const { id: userId, type: platformRole } = userData;
+    const { id: userId, type: platformRole }: { id: string; type: string } = userData;
 
     // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
     if (!userId) {
@@ -141,7 +158,11 @@ function Main({
   return null;
 }
 
-const AppFeatures = React.memo(function AppFeatures({ platformRole }) {
+interface IAppFeatures {
+  platformRole: string;
+}
+
+const AppFeatures = React.memo(function AppFeatures({ platformRole }: IAppFeatures) {
   return (
     <main id="content" className={styles.container}>
       <Suspense fallback={<Loading />}>

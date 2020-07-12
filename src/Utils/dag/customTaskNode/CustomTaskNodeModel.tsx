@@ -1,11 +1,17 @@
+import { DiagramEngine } from "@projectstorm/react-diagrams";
 import { NodeModel } from "@projectstorm/react-diagrams";
 import TaskPortModel from "Utils/dag/taskPort/TaskPortModel";
-import merge from "lodash/merge";
 import { NodeType } from "Constants";
+import merge from "lodash/merge";
 
-export default class TemplateTaskNodeModel extends NodeModel {
-  constructor({ taskId, taskName, taskVersion }) {
-    super(NodeType.TemplateTask);
+export default class CustomTaskNodeModel extends NodeModel {
+  taskId: string;
+  taskName: string;
+  currentVersion: number;
+
+  //list all three params
+  constructor({ taskId, taskName, taskVersion }: { taskId: string; taskName: string; taskVersion: number }) {
+    super(NodeType.CustomTask);
     this.addPort(new TaskPortModel("left"));
     this.addPort(new TaskPortModel("right"));
     this.taskId = taskId;
@@ -15,17 +21,20 @@ export default class TemplateTaskNodeModel extends NodeModel {
 
   serialize() {
     return merge(super.serialize(), {
-      taskId: this.taskId,
       nodeId: this.id,
+      taskId: this.taskId,
       taskName: this.taskName,
       taskVersion: this.currentVersion,
     });
   }
 
-  deSerialize(data, engine) {
+  deSerialize(
+    data: { taskId: string; nodeId: string; taskName: string; taskVersion: number; currentVersion: number },
+    engine: DiagramEngine
+  ) {
     super.deSerialize(data, engine);
-    this.taskId = data.taskId;
     this.id = data.nodeId;
+    this.taskId = data.taskId;
     this.taskName = data.taskName;
     this.currentVersion = data.taskVersion || data.currentVersion;
   }

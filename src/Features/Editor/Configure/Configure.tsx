@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
-import { Formik } from "formik";
+import { History } from "history";
+import { Formik, FormikProps } from "formik";
 import {
   Button,
   ComboBox,
@@ -26,9 +26,46 @@ import { serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";
 import { CopyFile16, EventSchedule16, Save24, ViewFilled16 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
+import { ISummaryData } from "../Editor";
 import styles from "./configure.module.scss";
 
-const ConfigureContainer = React.memo(function ConfigureContainer({
+interface FormProps {
+  description: string;
+  enableACCIntegration: boolean;
+  enablePersistentStorage: boolean;
+  icon: string;
+  name: string;
+  shortDescription: string;
+  triggers: {
+    event: {
+      enable: boolean;
+      topic: string;
+    };
+    scheduler: {
+      enable: boolean;
+      schedule: string;
+      timezone: boolean;
+      advancedCron: boolean;
+    };
+    webhook: {
+      enable: boolean;
+      token: string;
+    };
+  };
+  selectedTeam: { id: string };
+}
+
+interface ConfigureContainerProps {
+  history: History;
+  isOnRoute: boolean;
+  params: { teamId: string; workflowId: string };
+  summaryData: ISummaryData;
+  summaryMutation: { status: string };
+  teams: Array<{ id: string }>;
+  updateSummary: ({ values, callback }: { values: object; callback: () => void }) => void;
+}
+
+const ConfigureContainer = React.memo<ConfigureContainerProps>(function ConfigureContainer({
   history,
   isOnRoute,
   params,
@@ -37,7 +74,7 @@ const ConfigureContainer = React.memo(function ConfigureContainer({
   teams,
   updateSummary,
 }) {
-  const handleOnSubmit = (values) => {
+  const handleOnSubmit = (values: { selectedTeam: { id: string } }) => {
     updateSummary({
       values,
       callback: () =>
@@ -55,7 +92,7 @@ const ConfigureContainer = React.memo(function ConfigureContainer({
         enablePersistentStorage: summaryData?.enablePersistentStorage ?? false,
         icon: summaryData?.icon ?? "",
         name: summaryData?.name ?? "",
-        selectedTeam: teams.find((team) => team.id === params.teamId),
+        selectedTeam: teams.find((team) => team.id === params.teamId) ?? { id: "" },
         shortDescription: summaryData?.shortDescription ?? "",
         triggers: {
           event: {
@@ -70,7 +107,7 @@ const ConfigureContainer = React.memo(function ConfigureContainer({
           },
           webhook: {
             enable: summaryData?.triggers?.webhook?.enable ?? false,
-            token: summaryData?.triggers?.webhook?.token ?? false,
+            token: summaryData?.triggers?.webhook?.token ?? "",
           },
         },
       }}
@@ -95,7 +132,7 @@ const ConfigureContainer = React.memo(function ConfigureContainer({
           }),
           webhook: Yup.object().shape({
             enable: Yup.boolean(),
-            token: Yup.mixed(),
+            token: Yup.string(),
           }),
         }),
       })}
@@ -115,20 +152,27 @@ const ConfigureContainer = React.memo(function ConfigureContainer({
   );
 });
 
-ConfigureContainer.propTypes = {
-  history: PropTypes.object,
-  isOnRoute: PropTypes.bool.isRequired,
-  params: PropTypes.object,
-  summaryData: PropTypes.object.isRequired,
-  summaryMutation: PropTypes.object.isRequired,
-  teams: PropTypes.array.isRequired,
-  updateSummary: PropTypes.func.isRequired,
-};
-
 export default ConfigureContainer;
 
-class Configure extends Component {
-  constructor(props) {
+interface ConfigureProps {
+  formikProps: FormikProps<FormProps>;
+  summaryData: ISummaryData;
+  summaryMutation: {
+    status: string;
+  };
+  teams: Array<{ id: string }>;
+  updateSummary: ({ values, callback }: { values: object; callback: () => void }) => void;
+}
+
+interface ConfigureState {
+  tokenTextType: string;
+  showTokenText: string;
+  copyTokenText: string;
+  errors: object;
+}
+
+class Configure extends Component<ConfigureProps, ConfigureState> {
+  constructor(props: ConfigureProps) {
     super(props);
     this.state = {
       tokenTextType: "password",
@@ -137,19 +181,12 @@ class Configure extends Component {
       errors: {},
     };
   }
-  static propTypes = {
-    formikProps: PropTypes.object.isRequired,
-    summaryData: PropTypes.object.isRequired,
-    summaryMutation: PropTypes.object.isRequired,
-    teams: PropTypes.array.isRequired,
-    updateSummary: PropTypes.func.isRequired,
-  };
 
-  generateToken = (e) => {
+  generateToken = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (e) {
       e.preventDefault();
     }
-    return axios
+    axios
       .post(serviceUrl.postCreateWorkflowToken({ workflowId: this.props.summaryData.id }))
       .then((response) => {
         this.props.formikProps.setFieldValue("triggers.webhook.token", response.data.token);
@@ -162,11 +199,11 @@ class Configure extends Component {
       });
   };
 
-  handleOnChange = (e) => {
+  handleOnChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     this.props.formikProps.handleChange(e);
   };
 
-  handleOnToggleChange = (value, id) => {
+  handleOnToggleChange = (value: any, id: string) => {
     this.props.formikProps.setFieldValue(id, value);
   };
 
@@ -178,7 +215,7 @@ class Configure extends Component {
     }
   };
 
-  handleTeamChange = ({ selectedItem }) => {
+  handleTeamChange = ({ selectedItem }: { selectedItem: object }) => {
     this.props.formikProps.setFieldValue("selectedTeam", selectedItem ?? {});
   };
 
@@ -200,15 +237,17 @@ class Configure extends Component {
             <ComboBox
               id="selectedTeam"
               initialSelectedItem={values?.selectedTeam}
-              invalid={Boolean(errors.selectedTeam?.name)}
-              invalidText={errors.selectedTeam?.name}
+              invalid={Boolean(errors.selectedTeam)}
+              invalidText={errors.selectedTeam}
               items={teams}
-              itemToString={(item) => item?.name ?? ""}
+              itemToString={(item: { name: string }) => item?.name ?? ""}
               onChange={this.handleTeamChange}
               value={values.selectedTeam}
               label="Team"
               placeholder="Select a team"
-              shouldFilterItem={({ item, inputValue }) => item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())}
+              shouldFilterItem={({ item, inputValue }: { item: { name: string }; inputValue: string }) =>
+                item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
+              }
             />
           </div>
           <TextInput
@@ -279,7 +318,7 @@ class Configure extends Component {
                   id="triggers.webhook.enable"
                   label="Webhook"
                   toggled={values.triggers.webhook.enable}
-                  onToggle={(checked) => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
                   tooltipContent="Enable workflow to be executed by a webhook"
                   tooltipProps={{ direction: "top" }}
                   reversed
@@ -324,7 +363,7 @@ class Configure extends Component {
                       affirmativeAction={this.generateToken}
                       children="The existing token will be invalidated."
                       title="Generate a new Webhook Token?"
-                      modalTrigger={({ openModal }) => (
+                      modalTrigger={({ openModal }: { openModal: () => void }) => (
                         <button className={styles.regenerateText} type="button" onClick={openModal}>
                           <p>Generate a new token</p>
                         </button>
@@ -341,7 +380,7 @@ class Configure extends Component {
                   id="triggers.scheduler.enable"
                   data-testid="triggers.scheduler.enable"
                   label="Scheduler"
-                  onToggle={(checked) => this.handleOnToggleChange(checked, "triggers.scheduler.enable")}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.scheduler.enable")}
                   toggled={values.triggers.scheduler.enable}
                   tooltipContent="Enable workflow to be executed by a schedule"
                   tooltipProps={{ direction: "top" }}
@@ -368,7 +407,7 @@ class Configure extends Component {
                     modalHeaderProps={{
                       title: "Change schedule",
                     }}
-                    modalTrigger={({ openModal }) => (
+                    modalTrigger={({ openModal }: { openModal: () => void }) => (
                       <button
                         className={styles.regenerateText}
                         type="button"
@@ -380,7 +419,7 @@ class Configure extends Component {
                       </button>
                     )}
                   >
-                    {({ closeModal }) => (
+                    {({ closeModal }: { closeModal: () => void }) => (
                       <CronJobModal
                         advancedCron={values.triggers.scheduler.advancedCron}
                         closeModal={closeModal}
@@ -399,7 +438,7 @@ class Configure extends Component {
                   id="triggers.event.enable"
                   label="Action Subscription"
                   toggled={values.triggers.event.enable}
-                  onToggle={(checked) => this.handleOnToggleChange(checked, "triggers.event.enable")}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.event.enable")}
                   tooltipContent="Enable workflow to be triggered by platform actions"
                   tooltipProps={{ direction: "top" }}
                   reversed
@@ -420,7 +459,7 @@ class Configure extends Component {
                       id="enableACCIntegration"
                       label="IBM Services ACC Integration"
                       toggled={values.enableACCIntegration}
-                      onToggle={(checked) => this.handleOnToggleChange(checked, "enableACCIntegration")}
+                      onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enableACCIntegration")}
                       tooltipContent="Enable workflow to be triggered by ACC subscription"
                       tooltipProps={{ direction: "top" }}
                       reversed
@@ -439,7 +478,7 @@ class Configure extends Component {
                 id="enablePersistentStorage"
                 label="Enable Persistent Storage"
                 toggled={values.enablePersistentStorage}
-                onToggle={(checked) => this.handleOnToggleChange(checked, "enablePersistentStorage")}
+                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enablePersistentStorage")}
                 tooltipContent="Persist workflow data between executions"
                 tooltipProps={{ direction: "top" }}
                 reversed

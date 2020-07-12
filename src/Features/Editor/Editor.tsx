@@ -1,4 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { AxiosResponse } from "axios";
+import { History } from "history";
+import { MutateOptions, MutationResult } from "react-query";
 import { EditorContext } from "State/context";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
 import { useAppContext, useIsModalOpen, useQuery } from "Hooks";
@@ -21,9 +24,37 @@ import { appPath } from "Config/appConfig";
 import { NodeType, QueryStatus } from "Constants";
 import styles from "./editor.module.scss";
 
+export interface ISummaryData {
+  id: string;
+  description: string;
+  enableACCIntegration: boolean;
+  enablePersistentStorage: boolean;
+  icon: string;
+  name: string;
+  revisionCount: number;
+  shortDescription: string;
+  triggers: {
+    event: {
+      enable: boolean;
+      topic: string;
+    };
+    scheduler: {
+      enable: boolean;
+      schedule: string;
+      timezone: boolean;
+      advancedCron: boolean;
+    };
+    webhook: {
+      enable: boolean;
+      token: string;
+    };
+  };
+}
+
 export default function EditorContainer() {
   // Init revision number state is held here so we can easily refect the data on change via react-query
-  const [revisionNumber, setRevisionNumber] = useState();
+
+  const [revisionNumber, setRevisionNumber] = useState(0);
   const { workflowId } = useParams();
 
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
@@ -88,6 +119,31 @@ export default function EditorContainer() {
   return null;
 }
 
+interface EditorStateContainerProps {
+  mutateRevision: (
+    variables: { workflowId: any; body: any },
+    options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any }, Error> | undefined
+  ) => Promise<any>;
+  mutateSummary: (
+    variables: { body: any },
+    options?: MutateOptions<AxiosResponse<any>, { body: any }, Error> | undefined
+  ) => Promise<any>;
+  revisionMutation: MutationResult<AxiosResponse<any>, Error>;
+  revisionNumber: number;
+  revisionQuery: {
+    data: {};
+    status: string;
+  };
+  summaryQuery: {
+    data: ISummaryData;
+    status: string;
+  };
+  summaryMutation: MutationResult<AxiosResponse<any>, Error>;
+  setRevisionNumber: (revisionNumber: number) => void;
+  taskTemplatesData: Array<{ id: string }>;
+  workflowId: string;
+}
+
 /**
  * Workflow Manager responsible for holding state of summary and revision
  * Make function calls to mutate server data
@@ -104,13 +160,13 @@ export function EditorStateContainer({
   taskTemplatesData,
   workflowId,
   ...props
-}) {
+}: EditorStateContainerProps) {
   const location = useLocation();
-  const match = useRouteMatch();
+  const match: { params: { teamId: string; workflowId: string } } = useRouteMatch();
   const { teams } = useAppContext();
   const isModalOpen = useIsModalOpen();
 
-  const [workflowDagEngine, setWorkflowDagEngine] = useState();
+  const [workflowDagEngine, setWorkflowDagEngine] = useState<WorkflowDagEngine | null>(null);
   const [revisionState, revisionDispatch] = useImmerReducer(
     revisionReducer,
     initRevisionReducerState(revisionQuery.data)
@@ -135,7 +191,7 @@ export function EditorStateContainer({
    */
   const handleCreateRevision = useCallback(
     async ({ reason = "Update workflow", callback }) => {
-      const normilzedConfig = Object.values(revisionState.config).map((config) => ({
+      const normilzedConfig = Object.values(revisionState.config).map((config: any) => ({
         ...config,
         currentVersion: undefined,
         taskVersion: config.currentVersion || config.taskVersion,
@@ -143,7 +199,7 @@ export function EditorStateContainer({
       const revisionConfig = { nodes: Object.values(normilzedConfig) };
 
       const revision = {
-        dag: workflowDagEngine.getDiagramEngine().getDiagramModel().serializeDiagram(),
+        dag: workflowDagEngine?.getDiagramEngine().getDiagramModel().serializeDiagram(),
         config: revisionConfig,
         changelog: { reason },
       };
@@ -208,9 +264,11 @@ export function EditorStateContainer({
       const { taskData } = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
 
       // For naming purposes
-      const nodesOfSameTypeCount = Object.values(diagramApp.getDiagramEngine().getDiagramModel().getNodes()).filter(
-        (node) => node.taskId === taskData.id
-      ).length;
+      const nodes: Array<{ id: string; taskId: string }> = Object.values(
+        diagramApp.getDiagramEngine().getDiagramModel().getNodes()
+      );
+
+      const nodesOfSameTypeCount = nodes.filter((node: any) => node.taskId === taskData.id).length;
 
       const nodeObj = {
         taskId: taskData.id,
@@ -231,35 +289,37 @@ export function EditorStateContainer({
           node = new CustomNodeModel(nodeObj);
           break;
         default:
-          new Error("Node type not recognized");
+        // no-op
       }
+      if (node) {
+        const { id, taskId, currentVersion } = node;
+        const currentTaskConfig =
+          taskData.revisions?.find((revision: { version: number }) => revision.version === currentVersion) ?? {};
 
-      const { id, taskId, currentVersion } = node;
-      const currentTaskConfig = taskData.revisions?.find((revision) => revision.version === currentVersion) ?? {};
+        // Create inputs object with empty string values by default for service to process easily
+        const inputs =
+          Array.isArray(currentTaskConfig.config) && currentTaskConfig.config.length
+            ? currentTaskConfig.config.reduce((accu: { [index: string]: string }, item: { key: string }) => {
+                accu[item.key] = "";
+                return accu;
+              }, {})
+            : {};
+        revisionDispatch({
+          type: RevisionActionTypes.AddNode,
+          data: {
+            nodeId: id,
+            taskId,
+            inputs,
+            type: taskData.nodeType,
+            taskVersion: currentVersion,
+          },
+        });
 
-      // Create inputs object with empty string values by default for service to process easily
-      const inputs =
-        Array.isArray(currentTaskConfig.config) && currentTaskConfig.config.length
-          ? currentTaskConfig.config.reduce((accu, item) => {
-              accu[item.key] = "";
-              return accu;
-            }, {})
-          : {};
-      revisionDispatch({
-        type: RevisionActionTypes.AddNode,
-        data: {
-          nodeId: id,
-          taskId,
-          inputs,
-          type: taskData.nodeType,
-          taskVersion: currentVersion,
-        },
-      });
-
-      const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
-      node.x = points.x - 110;
-      node.y = points.y - 40;
-      diagramApp.getDiagramEngine().getDiagramModel().addNode(node);
+        const points = diagramApp.getDiagramEngine().getRelativeMousePoint(event);
+        node.x = points.x - 110;
+        node.y = points.y - 40;
+        diagramApp.getDiagramEngine().getDiagramModel().addNode(node);
+      }
     },
     [revisionDispatch]
   );
@@ -277,12 +337,12 @@ export function EditorStateContainer({
 
   const { revisionCount } = summaryData;
   const { version } = revisionState;
-  const isLocked = version < revisionCount;
+  const isModelLocked = version < revisionCount;
 
   useEffect(() => {
     // Initial value of revisionState will be null, so need to check its present or we get two engines created
     if (revisionState.version) {
-      const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, isLocked });
+      const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, isModelLocked });
       setWorkflowDagEngine(newWorkflowDagEngine);
       newWorkflowDagEngine.getDiagramEngine().repaintCanvas();
     }
@@ -334,7 +394,7 @@ export function EditorStateContainer({
           </Switch>
           <Route
             path={appPath.editorConfigure}
-            children={({ history, match: routeMatch }) => (
+            children={({ history, match: routeMatch }: { history: History; match: {} }) => (
               // Always render parent Configure component so state isn't lost when switching tabs
               // It is responsible for rendering its children, but Formik form management is always mounted
               <Configure
