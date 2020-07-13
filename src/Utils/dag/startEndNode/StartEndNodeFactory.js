@@ -15,6 +15,6 @@ export default class StartEndNodeFactory extends AbstractNodeFactory {
   }
 
   getNewInstance() {
-    return new StartEndNodeModel();
+    return new StartEndNodeModel({ passedName: "" });
   }
 }

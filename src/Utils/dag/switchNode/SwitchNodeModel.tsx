@@ -11,8 +11,8 @@ export default class SwitchNodeModel extends NodeModel {
   //list all three params
   constructor({ taskId, taskName, taskVersion }: { taskId: string; taskName: string; taskVersion: number }) {
     super(NodeType.Decision);
-    this.addPort(new SwitchPortModel("left"));
-    this.addPort(new SwitchPortModel("right"));
+    this.addPort(new SwitchPortModel({ pos: "left" }));
+    this.addPort(new SwitchPortModel({ pos: "right" }));
     this.taskId = taskId;
     this.taskName = taskName;
     this.currentVersion = taskVersion;

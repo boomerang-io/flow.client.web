@@ -1,10 +1,11 @@
-import { PortModel } from "@projectstorm/react-diagrams";
+import { DiagramEngine, PortModel } from "@projectstorm/react-diagrams";
 import SwitchLinkModel from "Utils/dag/switchLink/SwitchLinkModel";
 import merge from "lodash/merge";
 import { NodeType } from "Constants";
 
 export default class SwitchPortModel extends PortModel {
-  constructor(pos) {
+  position?: string;
+  constructor({ pos }: { pos: string }) {
     super(pos, NodeType.Decision);
     this.position = pos;
   }
@@ -16,7 +17,7 @@ export default class SwitchPortModel extends PortModel {
     });
   }
 
-  deSerialize(data, engine) {
+  deSerialize(data: { position: string; nodePortId: string }, engine: DiagramEngine) {
     super.deSerialize(data, engine);
     this.position = data.position;
     this.id = data.nodePortId;
@@ -26,11 +27,13 @@ export default class SwitchPortModel extends PortModel {
     return new SwitchLinkModel();
   }
 
-  canLinkToPort(target) {
+  //TODO: narrow down and import the specific port models
+  canLinkToPort(target: any) {
     return target.position === "left" && this.position === "right";
   }
 
-  link(port) {
+  //TODO: narrow down and import the specific port models
+  link(port: any) {
     let link = this.createLinkModel();
     link.setSourcePort(this);
     link.setTargetPort(port);

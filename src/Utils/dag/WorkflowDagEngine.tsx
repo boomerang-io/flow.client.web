@@ -30,9 +30,13 @@ export default class WorkflowDagEngine {
     this.diagramEngine.registerNodeFactory(new SwitchNodeFactory());
 
     //need to find a way to register port factory
-    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.StartEnd, () => new StartEndPortModel()));
+    this.diagramEngine.registerPortFactory(
+      new SimplePortFactory(NodeType.StartEnd, () => new StartEndPortModel({ pos: "" }))
+    );
     this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.Task, () => new TaskPortModel()));
-    this.diagramEngine.registerPortFactory(new SimplePortFactory(NodeType.Decision, () => new SwitchPortModel()));
+    this.diagramEngine.registerPortFactory(
+      new SimplePortFactory(NodeType.Decision, () => new SwitchPortModel({ pos: "" }))
+    );
 
     //register new custom link
     this.diagramEngine.registerLinkFactory(new TaskLinkFactory(this.diagramEngine));
@@ -46,10 +50,10 @@ export default class WorkflowDagEngine {
     if (dag) {
       this.activeModel.deSerializeDiagram(dag, this.diagramEngine);
     } else {
-      const startNode = new StartEndNodeModel("Start");
+      const startNode = new StartEndNodeModel({ passedName: "Start" });
       startNode.setPosition(300, 400);
 
-      const endNode = new StartEndNodeModel("End");
+      const endNode = new StartEndNodeModel({ passedName: "End" });
       endNode.setPosition(1000, 400);
 
       this.activeModel.addAll(startNode, endNode);

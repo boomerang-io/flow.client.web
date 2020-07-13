@@ -1,10 +1,11 @@
 import merge from "lodash/merge";
-import { PortModel } from "@projectstorm/react-diagrams";
+import { DiagramEngine, PortModel } from "@projectstorm/react-diagrams";
 import CustomLinkModel from "Utils/dag/taskLink/TaskLinkModel";
 import { NodeType } from "Constants";
 
 export default class StartEndPortModel extends PortModel {
-  constructor(pos) {
+  position: string;
+  constructor({ pos }: { pos: string }) {
     super(pos, NodeType.StartEnd);
     this.position = pos;
   }
@@ -16,13 +17,13 @@ export default class StartEndPortModel extends PortModel {
     });
   }
 
-  deSerialize(data, engine) {
+  deSerialize(data: { position: string; nodePortId: string }, engine: DiagramEngine) {
     super.deSerialize(data, engine);
     this.position = data.position;
     this.id = data.nodePortId;
   }
 
-  canLinkToPort(target) {
+  canLinkToPort(target: any) {
     if (this.position === "right" && target.position === "left") {
       return true;
     }

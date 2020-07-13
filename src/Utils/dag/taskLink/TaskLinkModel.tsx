@@ -1,7 +1,8 @@
-import { DefaultLinkModel } from "@projectstorm/react-diagrams";
+import { DefaultLinkModel, DiagramEngine } from "@projectstorm/react-diagrams";
 import { NodeType } from "Constants";
 
 export default class TaskLinkModel extends DefaultLinkModel {
+  executionCondition: string;
   constructor() {
     super(NodeType.Task);
     this.executionCondition = "always";
@@ -15,9 +16,8 @@ export default class TaskLinkModel extends DefaultLinkModel {
     };
   }
 
-  deSerialize(data, engine) {
+  deSerialize(data: { executionCondition: string }, engine: DiagramEngine) {
     super.deSerialize(data, engine);
-    //this.id = data.linkId;
     this.executionCondition = data.executionCondition;
   }
 }
