@@ -1,18 +1,21 @@
-import { NodeModel } from "@projectstorm/react-diagrams";
+import { DiagramEngine, NodeModel } from "@projectstorm/react-diagrams";
 import StartEndPortModel from "./StartEndPortModel";
 import { NodeType } from "Constants";
 import merge from "lodash/merge";
 
 export default class StartEndNodeModel extends NodeModel {
+  passedName: string;
   //list all three params
-  constructor(passedName, color) {
+  constructor({ passedName = "" }: { passedName: string }) {
     super(NodeType.StartEnd);
 
     this.passedName = passedName;
     if (this.passedName === "End") {
-      this.addPort(new StartEndPortModel("left", false));
+      // this.addPort(new StartEndPortModel("left", false));
+      this.addPort(new StartEndPortModel({ pos: "left" }));
     } else if (this.passedName === "Start") {
-      this.addPort(new StartEndPortModel("right", true));
+      // this.addPort(new StartEndPortModel("right", true));
+      this.addPort(new StartEndPortModel({ pos: "right" }));
     }
   }
 
@@ -23,7 +26,7 @@ export default class StartEndNodeModel extends NodeModel {
     });
   }
 
-  deSerialize(data, engine) {
+  deSerialize(data: { passedName: string; nodeId: string }, engine: DiagramEngine) {
     super.deSerialize(data, engine);
     this.passedName = data.passedName;
     this.id = data.nodeId;

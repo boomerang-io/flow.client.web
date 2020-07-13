@@ -1,9 +1,11 @@
-import { PortModel } from "@projectstorm/react-diagrams";
+import { DiagramEngine, PortModel } from "@projectstorm/react-diagrams";
 import TaskLinkModel from "Utils/dag/taskLink/TaskLinkModel";
 import merge from "lodash/merge";
 
 export default class TemplatePortModel extends PortModel {
-  constructor(position) {
+  position: string;
+
+  constructor({ position }: { position: string }) {
     super(position, "template");
     this.position = position;
   }
@@ -15,7 +17,7 @@ export default class TemplatePortModel extends PortModel {
     });
   }
 
-  deSerialize(data, engine) {
+  deSerialize(data: { nodePortId: string; position: string }, engine: DiagramEngine) {
     super.deSerialize(data, engine);
     this.id = data.nodePortId;
     this.position = data.position;
@@ -25,7 +27,8 @@ export default class TemplatePortModel extends PortModel {
     return new TaskLinkModel();
   }
 
-  canLinkToPort(target) {
+  //TODO: narrow down and import the specific port models
+  canLinkToPort(target: any) {
     return target.position === "left" && this.position === "right";
   }
 }

@@ -1,7 +1,8 @@
-import { DefaultLinkModel } from "@projectstorm/react-diagrams";
+import { DiagramEngine, DefaultLinkModel } from "@projectstorm/react-diagrams";
 import { NodeType } from "Constants";
 
 export default class SwitchLinkModel extends DefaultLinkModel {
+  switchCondition: string | null;
   constructor() {
     super(NodeType.Decision);
     this.switchCondition = null;
@@ -15,9 +16,8 @@ export default class SwitchLinkModel extends DefaultLinkModel {
     };
   }
 
-  deSerialize(data, engine) {
+  deSerialize(data: { switchCondition: string }, engine: DiagramEngine) {
     super.deSerialize(data, engine);
-    //this.id = data.linkId;
     this.switchCondition = data.switchCondition;
   }
 }
