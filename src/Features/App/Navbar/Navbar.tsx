@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
 import { BASE_URL } from "Config/servicesConfig";
@@ -14,6 +13,7 @@ import {
   SideNavMenuItem,
   UIShell,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import StandAloneHeader from "./StandAloneHeader";
 import { appLink } from "Config/appConfig";
 import { UserType, QueryStatus } from "Constants";
 
@@ -22,7 +22,7 @@ const handleOnMenuClick = (isAtLeastOperator: boolean) => ({
   onMenuClose,
 }: {
   isOpen: boolean;
-  onMenuClose: () => void;
+  onMenuClose(): void;
 }) => (
   <LeftSideNav isOpen={isOpen}>
     <SideNav aria-label="nav" expanded={isOpen} isChildOfHeader={true}>
@@ -106,40 +106,37 @@ const skipToContentProps = {
   href: "#content",
 };
 
-NavbarContainer.propTypes = {
-  handleOnTutorialClick: PropTypes.func.isRequired,
-  navigationState: PropTypes.object.isRequired,
-  userState: PropTypes.object,
-};
-
 interface NavbarContainerProps {
-  handleOnTutorialClick: () => void;
+  handleOnTutorialClick(): void;
   navigationState: { status: string; data: { platform: { platformName: string } } };
   userState: { status: string; data: { type: string } };
 }
 
-function NavbarContainer({ handleOnTutorialClick, navigationState, userState }: NavbarContainerProps) {
+export default function NavbarContainer({ handleOnTutorialClick, navigationState, userState }: NavbarContainerProps) {
+  const isStandaAloneMode = false;
+
   if (navigationState.status === QueryStatus.Success && userState.status === QueryStatus.Success) {
+    const isAtLeastOperator = userState.data.type === UserType.Admin || userState.data.type === UserType.Operator;
     return (
       <>
         <Helmet>
           <title>{`Flow | ${navigationState.data?.platform?.platformName ?? "Boomerang"}`}</title>
         </Helmet>
-        <UIShell
-          {...defaultUIShellProps}
-          onMenuClick={handleOnMenuClick(
-            userState.data.type === UserType.Admin || userState.data.type === UserType.Operator
-          )}
-          headerConfig={navigationState.data}
-          onTutorialClick={handleOnTutorialClick}
-          user={userState.data}
-          skipToContentProps={skipToContentProps}
-        />
+        {isStandaAloneMode ? (
+          <StandAloneHeader isAtLeastOperator={isAtLeastOperator} />
+        ) : (
+          <UIShell
+            {...defaultUIShellProps}
+            onMenuClick={handleOnMenuClick(isAtLeastOperator)}
+            headerConfig={navigationState.data}
+            onTutorialClick={handleOnTutorialClick}
+            user={userState.data}
+            skipToContentProps={skipToContentProps}
+          />
+        )}
       </>
     );
   }
 
-  return <UIShell {...defaultUIShellProps} />;
+  return null;
 }
-
-export default NavbarContainer;
