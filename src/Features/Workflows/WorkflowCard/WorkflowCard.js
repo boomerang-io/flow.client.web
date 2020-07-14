@@ -19,7 +19,6 @@ import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
 import fileDownload from "js-file-download";
-import { QueryStatus } from "Constants";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
@@ -39,11 +38,11 @@ function WorkflowCard({ teamId, workflow }) {
 
   const history = useHistory();
 
-  const [deleteWorkflowMutator, { status: deleteWorkflowStatus }] = useMutation(resolver.deleteWorkflow, {
-    onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
+  const [deleteWorkflowMutator, { isLoading: isDeleting }] = useMutation(resolver.deleteWorkflow, {
+    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
   });
 
-  const [executeWorkflowMutator, { error: executeError, status: executeWorkflowStatus }] = useMutation((args) => {
+  const [executeWorkflowMutator, { error: executeError, isLoading: isExecuting }] = useMutation((args) => {
     const { promise, cancel } = resolver.postExecuteWorkflow(args);
     cancelRequestRef.current = cancel;
     return promise;
@@ -148,8 +147,7 @@ function WorkflowCard({ teamId, workflow }) {
   ];
 
   const formattedProperties = formatPropertiesForEdit();
-  const isDeleting = deleteWorkflowStatus === QueryStatus.Loading;
-  const isExecuting = executeWorkflowStatus === QueryStatus.Loading;
+
   const { name, Icon = Bee20 } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
 
   return (
@@ -160,7 +158,7 @@ function WorkflowCard({ teamId, workflow }) {
             <Icon className={styles.icon} alt={`${name}`} />
           </div>
           <div className={styles.descriptionContainer}>
-            <h1 title={workflow.name} className={styles.name} data-cy="workflow-card-title">
+            <h1 title={workflow.name} className={styles.name} data-testid="workflow-card-title">
               {workflow.name}
             </h1>
             <p title={workflow.shortDescription} className={styles.description}>
@@ -202,34 +200,34 @@ function WorkflowCard({ teamId, workflow }) {
             )}
           </ComposedModal>
         ) : (
-          <ComposedModal
-            composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
-            modalHeaderProps={{
-              title: "Execute Workflow",
-              subtitle: '"Run and View" will navigate you to the workflow exeuction view.',
-            }}
-            modalTrigger={({ openModal }) => (
-              <Button
-                disabled={isDeleting}
-                iconDescription="Run Workflow"
-                renderIcon={Run20}
-                size="field"
-                onClick={openModal}
-              >
-                Run it
+            <ComposedModal
+              composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
+              modalHeaderProps={{
+                title: "Execute Workflow",
+                subtitle: '"Run and View" will navigate you to the workflow exeuction view.',
+              }}
+              modalTrigger={({ openModal }) => (
+                <Button
+                  disabled={isDeleting}
+                  iconDescription="Run Workflow"
+                  renderIcon={Run20}
+                  size="field"
+                  onClick={openModal}
+                >
+                  Run it
               </Button>
-            )}
-          >
-            {({ closeModal }) => (
-              <WorkflowRunModalContent
-                closeModal={closeModal}
-                executeError={executeError}
-                executeWorkflow={handleExecuteWorkflow}
-                isExecuting={isExecuting}
-              />
-            )}
-          </ComposedModal>
-        )}
+              )}
+            >
+              {({ closeModal }) => (
+                <WorkflowRunModalContent
+                  closeModal={closeModal}
+                  executeError={executeError}
+                  executeWorkflow={handleExecuteWorkflow}
+                  isExecuting={isExecuting}
+                />
+              )}
+            </ComposedModal>
+          )}
       </section>
       {workflow.templateUpgradesAvailable && (
         <div className={styles.templatesWarningIcon}>
@@ -244,19 +242,19 @@ function WorkflowCard({ teamId, workflow }) {
           style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
         />
       ) : (
-        <OverflowMenu
-          flipped
-          ariaLabel="Overflow card menu"
-          iconDescription="Overflow menu icon"
-          onOpen={handleOverflowMenuOpen}
-          onClose={handleOverflowMenuClose}
-          style={{ position: "absolute", right: "0" }}
-        >
-          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
-          ))}
-        </OverflowMenu>
-      )}
+          <OverflowMenu
+            flipped
+            ariaLabel="Overflow card menu"
+            iconDescription="Overflow menu icon"
+            onOpen={handleOverflowMenuOpen}
+            onClose={handleOverflowMenuClose}
+            style={{ position: "absolute", right: "0" }}
+          >
+            {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+              <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
+            ))}
+          </OverflowMenu>
+        )}
       {isUpdateWorkflowModalOpen && (
         <UpdateWorkflow
           onCloseModal={() => setIsUpdateWorkflowModalOpen(false)}

@@ -1,5 +1,6 @@
 import React from "react";
 import WorkflowCard from "./index";
+import { queryCaches } from "react-query";
 
 const mockfn = jest.fn();
 
@@ -18,6 +19,10 @@ const props = {
     icon: "schedule",
   },
 };
+
+afterEach(() => {
+  queryCaches.forEach((queryCache) => queryCache.clear());
+});
 
 describe("WorkflowCard --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowCard", () => {

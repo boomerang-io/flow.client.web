@@ -34,7 +34,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
             >
               <input
                 class="bx--text-input bx--text__input"
-                data-cy="create-property-key"
+                data-testid="create-property-key"
                 id="key"
                 name="key"
                 type="text"
@@ -66,7 +66,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
             >
               <input
                 class="bx--text-input bx--text__input"
-                data-cy="create-property-label"
+                data-testid="create-property-label"
                 id="label"
                 name="label"
                 type="text"
@@ -98,7 +98,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
             >
               <input
                 class="bx--text-input bx--text__input"
-                data-cy="create-property-description"
+                data-testid="create-property-description"
                 id="description"
                 name="description"
                 type="text"
@@ -130,7 +130,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
             >
               <input
                 class="bx--text-input bx--text__input"
-                data-cy="create-property-value"
+                data-testid="create-property-value"
                 id="value"
                 name="value"
                 placeholder="Value"
@@ -200,7 +200,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
         </button>
         <button
           class="bx--btn bx--btn--primary"
-          data-cy="global-property-create-submission-button"
+          data-testid="global-property-create-submission-button"
           tabindex="0"
           type="submit"
         >

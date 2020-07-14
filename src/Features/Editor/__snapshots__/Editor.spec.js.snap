@@ -304,7 +304,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               <input
                 autocomplete="off"
                 class="bx--search-input"
-                data-cy="editor-task-search"
+                data-testid="editor-task-search"
                 id="search-tasks"
                 placeholder="Search for a task"
                 role="searchbox"

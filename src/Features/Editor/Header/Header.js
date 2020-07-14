@@ -99,6 +99,7 @@ function DesignerHeader({
               )}
             />
             <ComposedModal
+              composedModalProps={{ containerClassName: styles.versionCommentModalContainer }}
               modalHeaderProps={{
                 title: "Create New Version",
                 subtitle: "Enter a comment for record keeping",

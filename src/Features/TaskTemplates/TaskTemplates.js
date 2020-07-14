@@ -9,17 +9,14 @@ import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import orderBy from "lodash/orderBy";
 import { serviceUrl } from "Config/servicesConfig";
-import { QueryStatus } from "Constants";
 import styles from "./taskTemplates.module.scss";
 
 export function TaskTemplatesContainer() {
   const match = useRouteMatch();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
-  const { data: taskTemplatesData, error: taskTemplatesDataError, status: taskTemplatesStatus } = useQuery(
+  const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading, isIdle } = useQuery(
     getTaskTemplatesUrl
   );
-
-  const isLoading = taskTemplatesStatus === QueryStatus.Loading;
 
   const addTemplateInState = (newTemplate) => {
     const updatedTemplatesData = [...taskTemplatesData];
@@ -36,6 +33,10 @@ export function TaskTemplatesContainer() {
     }
   };
 
+  if (isIdle) {
+    return null;
+  }
+
   if (isLoading) {
     return <Loading />;
   }
@@ -47,23 +48,22 @@ export function TaskTemplatesContainer() {
       </div>
     );
   }
-  if (taskTemplatesData) {
-    return (
-      <div className={styles.container}>
-        <Sidenav taskTemplates={taskTemplatesData} addTemplateInState={addTemplateInState} />
-        <Switch>
-          <Route exact path={match.path}>
-            <WombatMessage className={styles.wombat} message="Select a task or add a new one" />
-          </Route>
-          <Route path={[`${match.path}/:taskTemplateId/:version`]}>
-            <TaskTemplateOverview taskTemplates={taskTemplatesData} updateTemplateInState={updateTemplateInState} />
-          </Route>
-          <Redirect to="/task-templates" />
-        </Switch>
-      </div>
-    );
-  }
-  return null;
+
+  return (
+    <div className={styles.container}>
+      <Sidenav taskTemplates={taskTemplatesData} addTemplateInState={addTemplateInState} />
+      <Switch>
+        <Route exact path={match.path}>
+          <WombatMessage className={styles.wombat} message="Select a task or add a new one" />
+        </Route>
+        <Route path={[`${match.path}/:taskTemplateId/:version`]}>
+          <TaskTemplateOverview taskTemplates={taskTemplatesData} updateTemplateInState={updateTemplateInState} />
+        </Route>
+        <Redirect to="/task-templates" />
+      </Switch>
+    </div>
+  );
+
 }
 
 export default TaskTemplatesContainer;

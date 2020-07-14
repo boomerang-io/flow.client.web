@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import { ModalFlow, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateWorkflowContainer from "./CreateWorkflowContainer";
 import WorkflowDagEngine, { createWorkflowRevisionBody } from "Utils/dag/WorkflowDagEngine";
-import { QueryStatus } from "Constants";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
@@ -22,21 +21,21 @@ CreateWorkflow.propTypes = {
 export function CreateWorkflow({ team, teams }) {
   const history = useHistory();
 
-  const [createWorkflowMutator, { error: workflowError, status: workflowStatus }] = useMutation(
+  const [createWorkflowMutator, { error: workflowError, isLoading: workflowIsLoading }] = useMutation(
     resolver.postCreateWorkflow
   );
 
-  const [createWorkflowRevisionMutator, { error: workflowRevisionError, status: workflowRevisionStatus }] = useMutation(
-    resolver.postCreateWorkflowRevision,
-    {
-      onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
-    }
-  );
+  const [
+    createWorkflowRevisionMutator,
+    { error: workflowRevisionError, isLoading: workflowRevisionIsLoading },
+  ] = useMutation(resolver.postCreateWorkflowRevision, {
+    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
+  });
 
-  const [importWorkflowMutator, { error: importError, status: importStatus }] = useMutation(
+  const [importWorkflowMutator, { error: importError, isLoading: importIsLoading }] = useMutation(
     resolver.postImportWorkflow,
     {
-      onSuccess: () => queryCache.refetchQueries(serviceUrl.getTeams()),
+      onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
     }
   );
 
@@ -69,16 +68,13 @@ export function CreateWorkflow({ team, teams }) {
     }
   };
 
-  const isLoading =
-    workflowRevisionStatus === QueryStatus.Loading ||
-    workflowStatus === QueryStatus.Loading ||
-    importStatus === QueryStatus.Loading;
+  const isLoading = workflowIsLoading || workflowRevisionIsLoading || importIsLoading;
 
   return (
     <ModalFlow
       composedModalProps={{ containerClassName: styles.modalContainer }}
       modalTrigger={({ openModal }) => (
-        <button className={styles.container} onClick={openModal} data-cy="workflows-create-workflow-button">
+        <button className={styles.container} onClick={openModal} data-testid="workflows-create-workflow-button">
           <Add32 className={styles.addIcon} />
           <p className={styles.text}>Create a new workflow</p>
         </button>

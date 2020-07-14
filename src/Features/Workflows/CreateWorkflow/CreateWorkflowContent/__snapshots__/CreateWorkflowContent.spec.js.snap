@@ -379,7 +379,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
         </button>
         <button
           class="bx--btn bx--btn--primary bx--btn--disabled"
-          data-cy="workflows-create-workflow-submit"
+          data-testid="workflows-create-workflow-submit"
           disabled=""
           tabindex="0"
           type="submit"

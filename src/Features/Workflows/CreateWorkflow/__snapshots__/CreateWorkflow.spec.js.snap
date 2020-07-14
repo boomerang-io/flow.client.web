@@ -14,7 +14,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
   <div>
     <button
       class="container"
-      data-cy="workflows-create-workflow-button"
+      data-testid="workflows-create-workflow-button"
     >
       <svg
         aria-hidden="true"
@@ -544,7 +544,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
               </button>
               <button
                 class="bx--btn bx--btn--primary bx--btn--disabled"
-                data-cy="workflows-create-workflow-submit"
+                data-testid="workflows-create-workflow-submit"
                 disabled=""
                 tabindex="0"
                 type="submit"

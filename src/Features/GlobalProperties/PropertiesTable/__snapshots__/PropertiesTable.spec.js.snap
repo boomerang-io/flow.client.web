@@ -97,8 +97,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
         >
           <button
             class="bx--btn bx--btn--field bx--btn--primary"
-            data-cy="create-global-property-button"
-            data-testid="create-global-configurations-property-button"
+            data-testid="create-global-property-button"
             style="width: 12rem;"
             tabindex="0"
             type="button"
@@ -294,7 +293,6 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                     aria-haspopup="true"
                     aria-label="Overflow menu"
                     class="bx--overflow-menu"
-                    data-cy="global-property-menu-button"
                     data-testid="configuration-property-table-overflow-menu"
                     tabindex="0"
                   >
@@ -423,7 +421,6 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                     aria-haspopup="true"
                     aria-label="Overflow menu"
                     class="bx--overflow-menu"
-                    data-cy="global-property-menu-button"
                     data-testid="configuration-property-table-overflow-menu"
                     tabindex="0"
                   >

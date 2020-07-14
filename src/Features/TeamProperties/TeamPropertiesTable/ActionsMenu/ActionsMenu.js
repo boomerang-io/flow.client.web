@@ -43,8 +43,7 @@ function OverflowMenuComponent({ property, properties, deleteTeamProperty, team 
         flipped
         ariaLabel="Overflow menu"
         iconDescription="Overflow menu icon"
-        data-testid="team-property-menu"
-        data-cy="team-property-menu-button"
+        data-testid="team-property-menu-button"
       >
         {menuOptions.map((option, index) => (
           <OverflowMenuItem key={index} primaryFocus {...option} />

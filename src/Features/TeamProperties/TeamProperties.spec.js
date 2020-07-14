@@ -1,8 +1,9 @@
 import React from "react";
 import TeamProperties from "./index";
-import { fireEvent } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import { startApiServer } from "ApiServer";
+import { queryCaches } from "react-query";
 
 let server;
 
@@ -12,6 +13,7 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
+  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("TeamProperties --- Snapshot Test", () => {
@@ -22,16 +24,18 @@ describe("TeamProperties --- Snapshot Test", () => {
 });
 
 describe("TeamProperties --- RTL", () => {
-  test("renders message when is still fetching", async () => {
-    const { findByLabelText, findByText, getByText } = rtlContextRouterRender(<TeamProperties />);
-    const dropDown = await findByLabelText("Teams");
+  test("Selects team from dropdown and shows table data", async () => {
+    rtlContextRouterRender(<TeamProperties />);
+    const dropDown = await screen.findByLabelText("Teams");
     act(() => {
       fireEvent.click(dropDown);
     });
-    act(() => {
-      fireEvent.click(getByText("IBM Services Engineering"));
+    await waitFor(() => {
+      screen.getByText("IBM Services Engineering");
     });
-    const rowItem = await findByText("for testing purpose");
+
+    fireEvent.click(screen.getByText("IBM Services Engineering"));
+    const rowItem = await screen.findByText("for testing purpose");
     expect(rowItem).toBeTruthy();
   });
 });

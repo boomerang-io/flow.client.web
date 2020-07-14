@@ -2,8 +2,8 @@ import React from "react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { render as rtlRender } from "@testing-library/react";
-import { AppContext } from "./state/context";
-import { teams as teamsFixture, profile as userFixture } from "./apiServer/fixtures";
+import { AppContext } from "State/context";
+import { teams as teamsFixture, profile as userFixture } from "ApiServer/fixtures";
 import "@testing-library/jest-dom/extend-expect";
 
 function rtlRouterRender(

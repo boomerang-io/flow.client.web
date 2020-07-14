@@ -20,7 +20,6 @@ import EditTaskTemplateModal from "./EditTaskTemplateModal";
 import PreviewConfig from "./PreviewConfig";
 import TemplateConfigModal from "./TemplateConfigModal";
 import Header from "../Header";
-import { QueryStatus } from "Constants";
 import { TaskTemplateStatus } from "Constants";
 import { TemplateRequestType, FieldTypes } from "../constants";
 import { Draggable16, TrashCan16, Archive16, Bee16 } from "@carbon/icons-react";
@@ -58,16 +57,16 @@ function DetailDataElements({ label, value }) {
             <p className={styles.value}>{TaskIcon.name}</p>
           </div>
         ) : (
-          <div className={styles.basicIcon}>
-            <Bee16 style={{ width: "1rem", height: "1rem", marginRight: "0.75rem" }} />
-            <p className={styles.value}>Default</p>
-          </div>
-        )
+            <div className={styles.basicIcon}>
+              <Bee16 style={{ width: "1rem", height: "1rem", marginRight: "0.75rem" }} />
+              <p className={styles.value}>Default</p>
+            </div>
+          )
       ) : (
-        <dd className={value ? styles.value : styles.noValue} data-testid={label}>
-          {value ? value : "Not defined yet"}
-        </dd>
-      )}
+          <dd className={value ? styles.value : styles.noValue} data-testid={label}>
+            {value ? value : "Not defined yet"}
+          </dd>
+        )}
     </section>
   );
 }
@@ -136,26 +135,22 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const params = useParams();
   const { taskTemplateId = "", version = "" } = params;
   const history = useHistory();
-  const [UploadTaskTemplateMutation, { status: uploadStatus }] = useMutation(
+  const [UploadTaskTemplateMutation, { isLoading }] = useMutation(
     (args) => {
       const { promise, cancel } = resolver.putCreateTaskTemplate(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.refetchQueries([serviceUrl.getTaskTemplates()]),
+      onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
     }
   );
-  const [ArchiveTaskTemplateMutation, { status: archiveStatus }] = useMutation(resolver.deleteArchiveTaskTemplate, {
-    onSuccess: () => queryCache.refetchQueries([serviceUrl.getTaskTemplates()]),
+  const [ArchiveTaskTemplateMutation, { isLoading: archiveIsLoading }] = useMutation(resolver.deleteArchiveTaskTemplate, {
+    onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
   });
-  const [RestoreTaskTemplateMutation, { status: restoreStatus }] = useMutation(resolver.putRestoreTaskTemplate, {
-    onSuccess: () => queryCache.refetchQueries([serviceUrl.getTaskTemplates()]),
+  const [RestoreTaskTemplateMutation, { isLoading: restoreIsLoading }] = useMutation(resolver.putRestoreTaskTemplate, {
+    onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
   });
-
-  const isLoading = uploadStatus === QueryStatus.Loading;
-  const archiveIsLoading = archiveStatus === QueryStatus.Loading;
-  const restoreIsLoading = restoreStatus === QueryStatus.Loading;
 
   let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === taskTemplateId) ?? {};
 
@@ -164,16 +159,16 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
   // Checks if the version in url are a valid one. If not, go to the latest version
   // Need to improve this
-  const currentRevision = selectedTaskTemplate?.revisions
+  const currentRevision = selectedTaskTemplate ?.revisions
     ? invalidVersion
       ? selectedTaskTemplate.revisions[selectedTaskTemplate.currentVersion - 1]
-      : selectedTaskTemplate.revisions.find((revision) => revision?.version?.toString() === version)
+      : selectedTaskTemplate.revisions.find((revision) => revision ?.version ?.toString() === version)
     : {};
 
-  const oldVersion = !invalidVersion && version !== selectedTaskTemplate?.currentVersion?.toString();
+  const oldVersion = !invalidVersion && version !== selectedTaskTemplate ?.currentVersion ?.toString();
   const templateNotFound = !selectedTaskTemplate.id;
 
-  const fieldKeys = currentRevision.config?.map((input) => input.key) ?? [];
+  const fieldKeys = currentRevision.config ?.map((input) => input.key) ?? [];
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -354,7 +349,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         image: currentRevision.image,
         category: selectedTaskTemplate.category,
         currentConfig: currentRevision.config ?? [],
-        arguments: currentRevision.arguments?.join(" ") ?? "",
+        arguments: currentRevision.arguments ?.join(" ") ?? "",
         command: currentRevision.command ?? "",
         comments: "",
       }}
@@ -386,7 +381,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                 if (isDirty && !location.pathname.includes(taskTemplateId) && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";
                 }
-                if (isDirty && templateMatch?.params?.version !== version && !isSubmitting) {
+                if (isDirty && templateMatch ?.params ?.version !== version && !isSubmitting) {
                   prompt = "Are you sure you want to change the version? Your changes will be lost.";
                 }
                 return prompt;
@@ -477,7 +472,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                     <Droppable droppableId="droppable" direction="vertical">
                       {(provided) => (
                         <section className={styles.fieldsContainer} ref={provided.innerRef}>
-                          {values.currentConfig?.length > 0 ? (
+                          {values.currentConfig ?.length > 0 ? (
                             values.currentConfig.map((field, index) => (
                               <Draggable key={index} draggableId={index} index={index}>
                                 {(provided) => (
@@ -496,15 +491,15 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                               </Draggable>
                             ))
                           ) : (
-                            <div className={styles.noFieldsContainer}>
-                              <p className={styles.noFieldsTitle}>No fields (yet)</p>
-                              <p className={styles.noFieldsText}>
-                                Fields determine the function and parameters of a task, defining what the task does and
-                                prompting users to fill in their values and messages.
+                              <div className={styles.noFieldsContainer}>
+                                <p className={styles.noFieldsTitle}>No fields (yet)</p>
+                                <p className={styles.noFieldsText}>
+                                  Fields determine the function and parameters of a task, defining what the task does and
+                                  prompting users to fill in their values and messages.
                               </p>
-                              <p className={styles.noFieldsText}>Add a field above to get started.</p>
-                            </div>
-                          )}
+                                <p className={styles.noFieldsText}>Add a field above to get started.</p>
+                              </div>
+                            )}
                         </section>
                       )}
                     </Droppable>

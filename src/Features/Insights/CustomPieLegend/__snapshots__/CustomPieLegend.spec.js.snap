@@ -1,34 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CustomLegend --- Snapshot Capturing Snapshot of CustomLegend 1`] = `
-<div
-  className="container"
+<body
+  id="app"
 >
-  <div
-    className="iconContainer"
-    role="button"
-    tabIndex="0"
-  >
+  <div>
     <div
-      className="icon"
-      style={
-        Object {
-          "backgroundColor": undefined,
-        }
-      }
-    />
-    <div
-      className="labelContainer"
+      class="container"
     >
-      <span
-        className="label"
-      />
-      <span
-        className="value"
+      <div
+        class="iconContainer"
+        role="button"
+        tabindex="0"
       >
-        undefined% (undefined runs)
-      </span>
+        <div
+          class="icon"
+        />
+        <div
+          class="labelContainer"
+        >
+          <span
+            class="label"
+          />
+          <span
+            class="value"
+          >
+            undefined% (undefined runs)
+          </span>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</body>
 `;

@@ -33,7 +33,7 @@ const OnBoardGuide = (props) => {
       <Button
         hasIconOnly
         className="b-onboard-screen-arrow"
-        data-cy="onboardArrowLeft"
+        data-testid="onboardArrowLeft"
         iconDescription="back"
         onClick={previousScreen}
         renderIcon={ArrowLeft16}

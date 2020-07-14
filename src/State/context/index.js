@@ -1,11 +1,6 @@
 import React from "react";
 
-export const AppContext = React.createContext({
-  isTutorialActive: false,
-  setIsTutorialActive: () => {},
-  teams: [],
-  user: {},
-});
+export const AppContext = React.createContext();
 
 export const ExecutionContext = React.createContext({
   tasks: [],

@@ -7,7 +7,6 @@ import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import capitalize from "lodash/capitalize";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { WorkflorPropertyUpdateType } from "Constants";
-import { QueryStatus } from "Constants";
 import styles from "./Properties.module.scss";
 
 const WorkflowPropertyRow = ({ title, value }) => {
@@ -41,8 +40,7 @@ Properties.propTypes = {
 };
 
 export default function Properties({ summaryData }) {
-  const [mutateProperties, { status: mutatePropertiesStatus }] = useMutation(resolver.patchUpdateWorkflowProperties);
-  const mutatePropertiesIsLoading = mutatePropertiesStatus === QueryStatus.Loading;
+  const [mutateProperties, { isLoading: mutatePropertiesIsLoading }] = useMutation(resolver.patchUpdateWorkflowProperties);
 
   const updateProperties = async ({ property, title, message, type }) => {
     let properties = [...summaryData.properties];
@@ -96,13 +94,13 @@ export default function Properties({ summaryData }) {
             <WorkflowPropertyRow title="Default value" value={formatDefaultValue(property.defaultValue)} />
             <WorkflowPropertyRow
               title="Options"
-              value={formatDefaultValue(property.options?.map((option) => option.key).join(", "))}
+              value={formatDefaultValue(property.options ?.map((option) => option.key).join(", "))}
             />
             {property.required ? (
               <p className={styles.required}>Required</p>
             ) : (
-              <p className={styles.notRequired}>Not required</p>
-            )}
+                <p className={styles.notRequired}>Not required</p>
+              )}
             {!property.readOnly ? (
               <>
                 <WorkflowPropertiesModal
@@ -125,14 +123,14 @@ export default function Properties({ summaryData }) {
                     <WorkflowCloseButton
                       className={styles.deleteProperty}
                       onClick={openModal}
-                      data-cy="workflow-delete-property-button"
+                      data-testid="workflow-delete-property-button"
                     />
                   )}
                 />
               </>
             ) : (
-              <p className={styles.readOnlyText}>Read-only</p>
-            )}
+                <p className={styles.readOnlyText}>Read-only</p>
+              )}
           </section>
         ))}
       <WorkflowPropertiesModal

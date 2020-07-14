@@ -18,7 +18,7 @@ describe("TeamProperties", function () {
   });
 
   it("Filter by team and find properties", function () {
-    cy.get("[data-cy=team-properties-comboBox]").click();
+    cy.get("[data-testid=team-properties-combobox]").click();
     cy.contains("IBM Services Engineering").click();
     cy.findByText("test label").should("be.visible");
     cy.findByText("test key").should("be.visible");
@@ -26,14 +26,14 @@ describe("TeamProperties", function () {
   });
 
   it("Create a team Property", function () {
-    cy.get("[data-cy=team-properties-comboBox]").click();
+    cy.get("[data-testid=team-properties-combobox]").click();
     cy.contains("IBM Services Engineering").click();
-    cy.get("[data-cy=create-team-property-button]").click();
-    cy.findByLabelText("Key").type("new key");
+    cy.get("[data-testid=create-team-property-button]").click();
+    cy.findByLabelText("Key").type("new.key");
     cy.findByLabelText("Label").type("new label");
     cy.findByLabelText("Description").type("new description");
     cy.findByLabelText("Value").type("new value");
-    cy.get("[data-cy=team-property-create-submission-button]").click();
+    cy.get("[data-testid=team-property-create-edit-submission-button]").click();
     cy.wait(1000);
     cy.findByText("new label").should("be.visible");
     cy.findByText("new key").should("be.visible");
@@ -42,9 +42,9 @@ describe("TeamProperties", function () {
   });
 
   it("Delete a team Property", function () {
-    cy.get("[data-cy=team-properties-comboBox]").click();
+    cy.get("[data-testid=team-properties-combobox]").click();
     cy.contains("IBM Services Engineering").click();
-    cy.get("[data-cy=team-property-menu-button]").click();
+    cy.get("[data-testid=team-property-menu-button]").click();
     cy.contains("Delete").click();
     cy.get(".bx--btn--danger").click();
     cy.findByText("test label").should("not.exist");

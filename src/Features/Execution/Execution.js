@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { Loading, Error } from "@boomerang-io/carbon-addons-boomerang-react";
 import Main from "./Main";
 import { serviceUrl } from "Config/servicesConfig";
-import { QueryStatus } from "Constants";
 
 const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
 
@@ -19,34 +18,36 @@ export default function ExecutionContainer() {
    * Queries
    */
   const summaryQuery = useQuery(getSummaryUrl);
-  const revisionQuery = useQuery(getRevisionUrl);
-  const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
   const executionQuery = useQuery(getExecutionUrl, {
     refetchInterval: 5000,
   });
+  const { data: revisionData, error: revisionError, isLoading: revisionIsLoading } = useQuery(getRevisionUrl);
+  const { data: taskTemplatesData, error: taskTemplatesError, isLoading: taskTempaltesAreLoading } = useQuery(getTaskTemplatesUrl);
 
-  const summaryIsLoading = summaryQuery.status === QueryStatus.Loading;
-  const revisionIsLoading = revisionQuery.status === QueryStatus.Loading;
-  const taskTempaltesAreLoading = taskTemplatesQuery.status === QueryStatus.Loading;
+  // const revisionQuery = useQuery(getRevisionUrl);
+  // const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
+  // const executionQuery = useQuery(getExecutionUrl, {
+  //   refetchInterval: 5000,
+  // });
 
-  if (taskTempaltesAreLoading || revisionIsLoading || summaryIsLoading) {
+  if (taskTempaltesAreLoading || revisionIsLoading || summaryQuery.isLoading) {
     return <Loading />;
   }
 
-  if (summaryQuery.error || revisionQuery.error || taskTemplatesQuery.error || executionQuery.error) {
+  if (summaryQuery.error || revisionError || taskTemplatesError || executionQuery.error) {
     return <Error />;
   }
 
-  if (revisionQuery.data && taskTemplatesQuery.data && executionQuery.data) {
+  if (revisionData && taskTemplatesData && executionQuery.data) {
     return (
       <ExecutionContext.Provider
         value={{
-          tasks: taskTemplatesQuery.data,
+          tasks: taskTemplatesData,
           workflowExecution: executionQuery.data,
-          workflowRevision: revisionQuery.data,
+          workflowRevision: revisionData,
         }}
       >
-        <Main dag={revisionQuery.data.dag} workflow={summaryQuery} workflowExecution={executionQuery} />
+        <Main dag={revisionData.dag} workflow={summaryQuery} workflowExecution={executionQuery} />
       </ExecutionContext.Provider>
     );
   }

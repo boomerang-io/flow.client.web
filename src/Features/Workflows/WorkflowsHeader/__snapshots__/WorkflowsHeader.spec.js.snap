@@ -61,7 +61,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
               <input
                 autocomplete="off"
                 class="bx--search-input"
-                data-cy="workflows-team-search"
+                data-testid="workflows-team-search"
                 id="search-team-workflows"
                 placeholder="Search for a workflow"
                 role="searchbox"
