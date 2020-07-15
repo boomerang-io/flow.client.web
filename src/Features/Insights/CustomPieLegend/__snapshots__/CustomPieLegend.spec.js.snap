@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomLegend --- Snapshot Capturing Snapshot of CustomLegend 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <div
+      class="container"
+    >
+      <div
+        class="iconContainer"
+        role="button"
+        tabindex="0"
+      >
+        <div
+          class="icon"
+        />
+        <div
+          class="labelContainer"
+        >
+          <span
+            class="label"
+          />
+          <span
+            class="value"
+          >
+            undefined% (undefined runs)
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -1,0 +1,29 @@
+@import "Styles/mixins";
+
+@import "Styles/mixins";
+
+.container {
+  align-items: center;
+  background-color: var(--cds-ui-01);
+  border: 0.0625rem solid var(--cds-interactive-01);
+  cursor: grab;
+  display: flex;
+  height: 3.1875rem;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  padding: 1rem;
+  white-space: nowrap;
+  @include border-radius();
+  &:focus {
+    @include focus-outline();
+  }
+
+  .taskName {
+    color: var(--cds-text-01);
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    padding-left: 1rem;
+    width: 90%;
+    @include text-overflow-ellipsis();
+  }
+}

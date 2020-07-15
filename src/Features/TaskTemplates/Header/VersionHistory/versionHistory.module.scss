@@ -1,0 +1,10 @@
+@import "Styles/mixins";
+.button {
+  align-items: center;
+  display: flex !important;
+  justify-content: center;
+  margin-left: 0.5rem;
+  &:focus {
+    @include focus-outline();
+  }
+}

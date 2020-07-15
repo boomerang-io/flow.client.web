@@ -1,0 +1,44 @@
+@import "Styles/mixins";
+
+.container {
+  display: flex;
+  position: absolute;
+  left: 1rem;
+  padding: 0.5rem;
+  top: 0.5rem;
+  z-index: 1;
+}
+
+.messageText {
+  color: var(--cds-text-01);
+  font-size: 1rem;
+  line-height: 1.25rem;
+  margin-right: 1.5rem;
+  padding: 0.125rem;
+}
+
+.editContainer {
+  cursor: pointer;
+  display: flex;
+  padding: 0.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
+}
+
+.editIcon {
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  width: 1.5rem;
+  path,
+  rect {
+    fill: var(--cds-interactive-01);
+  }
+}
+
+.editText {
+  color: var(--cds-interactive-01);
+  font-size: 1rem;
+  line-height: 1.5rem;
+}

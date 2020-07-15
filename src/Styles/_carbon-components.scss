@@ -1,0 +1,37 @@
+// Carbon settings
+@import "~@boomerang-io/carbon-addons-boomerang-react/styles/scss/styles/themes/boomerang";
+$carbon--theme: $carbon--theme--boomerang;
+$carbon-addons-bmrg--theme: boomerang;
+
+@import "~@boomerang-io/carbon-addons-boomerang-react/styles/scss/styles";
+@import "~carbon-components/scss/components/accordion/accordion";
+@import "~carbon-components/scss/components/checkbox/checkbox";
+@import "~carbon-components/scss/components/date-picker/date-picker";
+@import "~carbon-components/scss/components/data-table-v2/data-table-v2";
+@import "~carbon-components/scss/components/data-table-v2/data-table-v2-core";
+@import "~carbon-components/scss/components/data-table-v2/data-table-v2-sort";
+@import "~carbon-components/scss/components/file-uploader/file-uploader";
+@import "~carbon-components/scss/components/inline-loading/inline-loading";
+@import "~carbon-components/scss/components/loading/loading";
+@import "~carbon-components/scss/components/multi-select/multi-select";
+@import "~carbon-components/scss/components/notification/inline-notification";
+@import "~carbon-components/scss/components/overflow-menu/overflow-menu";
+@import "~carbon-components/scss/components/pagination/pagination";
+@import "~carbon-components/scss/components/search/search";
+@import "~carbon-components/scss/components/select/select";
+@import "~carbon-components/scss/components/structured-list/structured-list";
+@import "~carbon-components/scss/components/tabs/tabs";
+@import "~carbon-components/scss/components/skeleton/skeleton";
+
+// Global overrides
+.bx--list-box__menu-icon > svg {
+  fill: var(--cds-text-01);
+}
+
+.bx--date-picker__calendar {
+  padding: 0rem;
+}
+
+:root {
+  --cds-font-family: "IBM Plex Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;
+}

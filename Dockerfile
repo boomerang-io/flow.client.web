@@ -7,11 +7,7 @@ ENV BMRG_HOME=/opt/boomerang/server
 
 WORKDIR $BMRG_HOME
 COPY server .
-RUN apk add --no-cache --virtual .build-deps curl && \
-    curl -k -v -u $ART_USER:$ART_PASSWORD $ART_URL/api/npm/boomeranglib-npm/auth/boomerang -o .npmrc && \
-    npm install --production && \
-    rm -f .npmrc && \
-    apk del .build-deps
+RUN npm install --production
 
 # Create user, chown, and chmod. 
 # OpenShift requires that a numeric user is used in the USER declaration instead of the user name
