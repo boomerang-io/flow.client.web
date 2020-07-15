@@ -9,6 +9,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
       class="bx--bmrg-modal-flow-form"
     >
       <div
+        aria-label="inputs"
         class="bx--modal-content formBody"
         role="region"
         tabindex="0"

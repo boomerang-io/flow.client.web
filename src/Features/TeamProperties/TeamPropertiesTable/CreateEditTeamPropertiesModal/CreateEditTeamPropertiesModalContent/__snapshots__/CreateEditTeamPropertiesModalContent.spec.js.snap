@@ -9,6 +9,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
       class="bx--bmrg-modal-flow-form"
     >
       <div
+        aria-label="inputs"
         class="bx--modal-content formBody"
         role="region"
         tabindex="0"

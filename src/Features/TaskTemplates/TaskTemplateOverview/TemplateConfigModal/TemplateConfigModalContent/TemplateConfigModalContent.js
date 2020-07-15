@@ -279,7 +279,7 @@ class TemplateConfigModalContent extends Component {
 
           return (
             <ModalForm onSubmit={handleSubmit}>
-              <ModalBody hasScrollingContent className={styles.container}>
+              <ModalBody hasScrollingContent aria-label="inputs" className={styles.container}>
                 <ComboBox
                   id={InputProperty.Type}
                   onChange={({ selectedItem }) =>
