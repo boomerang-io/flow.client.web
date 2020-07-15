@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { DiagramEngine, DiagramModel } from "@projectstorm/react-diagrams";
 import CustomTaskNodeFactory from "./customTaskNode/CustomTaskNodeFactory";
 import SimplePortFactory from "./simplePort/SimplePortFactory";
