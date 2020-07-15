@@ -2,14 +2,10 @@ import React from "react";
 import { render } from "react-dom";
 import { Server, Response } from "miragejs";
 import Root from "./Root";
-import { startApiServer } from "./apiServer";
+import { startApiServer } from "./ApiServer";
 import "Config/axiosGlobalConfig";
 import "typeface-ibm-plex-sans";
 import "Styles/styles.scss";
-
-if (process.env.NODE_ENV === "development" && !process.env.REACT_APP_PORT_FORWARD) {
-  startApiServer({ environment: "development", timing: 400 });
-}
 
 if (window.Cypress) {
   new Server({
@@ -24,6 +20,10 @@ if (window.Cypress) {
       });
     },
   });
+} else {
+  if (process.env.NODE_ENV === "development" && !process.env.REACT_APP_PORT_FORWARD) {
+    startApiServer({ environment: "development", timing: 400 });
+  }
 }
 
 // Setup hot module reloading to improve dev experience
