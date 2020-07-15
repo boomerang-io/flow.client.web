@@ -6,7 +6,7 @@ import {
   TextArea,
   TextInput,
   Toggle,
-  ModalFlowForm,
+  ModalForm,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
@@ -16,7 +16,7 @@ import clonedeep from "lodash/cloneDeep";
 import { InputProperty, InputType } from "Constants";
 import styles from "./TemplateConfigModalContent.module.scss";
 
-const INPUT_TYPES_LABELS = [
+const inputTypeOptions = [
   { label: "Boolean", value: InputType.Boolean },
   { label: "Email", value: InputType.Email },
   { label: "Number", value: InputType.Number },
@@ -24,6 +24,7 @@ const INPUT_TYPES_LABELS = [
   { label: "Select", value: InputType.Select },
   { label: "Text", value: InputType.Text },
   { label: "Text Area", value: InputType.TextArea },
+  { label: "Text Editor", value: InputType.TextEditor },
   { label: "Text Editor - JavaScript/JSON", value: InputType.TextEditorJs },
   { label: "Text Editor - Shell", value: InputType.TextEditorShell },
   { label: "Text Editor - Text", value: InputType.TextEditorText },
@@ -232,7 +233,7 @@ class TemplateConfigModalContent extends Component {
           [InputProperty.HelperText]: field?.helperText ?? "",
           [InputProperty.ReadOnly]: field?.readOnly ?? false,
           [InputProperty.Required]: field?.required ?? false,
-          [InputProperty.Type]: field?.type ? INPUT_TYPES_LABELS.find((type) => type?.value === field.type) : {},
+          [InputProperty.Type]: field?.type ? inputTypeOptions.find((type) => type?.value === field.type) : {},
           [InputProperty.DefaultValue]: field?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
           [InputProperty.Options]:
@@ -277,8 +278,8 @@ class TemplateConfigModalContent extends Component {
           } = formikProps;
 
           return (
-            <ModalFlowForm onSubmit={handleSubmit}>
-              <ModalBody className={styles.container}>
+            <ModalForm onSubmit={handleSubmit}>
+              <ModalBody hasScrollingContent aria-label="inputs" className={styles.container}>
                 <ComboBox
                   id={InputProperty.Type}
                   onChange={({ selectedItem }) =>
@@ -287,7 +288,7 @@ class TemplateConfigModalContent extends Component {
                       setFieldValue
                     )
                   }
-                  items={INPUT_TYPES_LABELS}
+                  items={inputTypeOptions}
                   initialSelectedItem={values.type}
                   itemToString={(item) => item && item.label}
                   placeholder="Select a type"
@@ -368,11 +369,11 @@ class TemplateConfigModalContent extends Component {
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button data-testid="inputs-modal-confirm-button" disabled={!isValid} type="submit">
+                <Button disabled={!isValid} type="submit">
                   {isEdit ? "Save" : "Create"}
                 </Button>
               </ModalFooter>
-            </ModalFlowForm>
+            </ModalForm>
           );
         }}
       </Formik>

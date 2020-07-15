@@ -85,7 +85,7 @@ function SearchFilterBar({ handleSearchFilter, isLoading, teams, searchQuery, fi
     <div className={styles.filterContainer}>
       <div className={styles.search}>
         <Search
-          data-cy="workflows-team-search"
+          data-testid="workflows-team-search"
           id="search-team-workflows"
           labelText="Search for a workflow"
           onChange={handleOnSearchInputChange}

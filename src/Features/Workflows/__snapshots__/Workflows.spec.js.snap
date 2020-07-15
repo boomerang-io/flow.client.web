@@ -160,7 +160,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 <input
                   autocomplete="off"
                   class="bx--search-input"
-                  data-cy="workflows-team-search"
+                  data-testid="workflows-team-search"
                   id="search-team-workflows"
                   placeholder="Search for a workflow"
                   role="searchbox"
@@ -350,7 +350,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                   >
                     <h1
                       class="name"
-                      data-cy="workflow-card-title"
+                      data-testid="workflow-card-title"
                       title="ML Train – Bot Efficiency"
                     >
                       ML Train – Bot Efficiency
@@ -441,7 +441,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             </div>
             <button
               class="container"
-              data-cy="workflows-create-workflow-button"
+              data-testid="workflows-create-workflow-button"
             >
               <svg
                 aria-hidden="true"

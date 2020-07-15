@@ -96,7 +96,7 @@ class ChangeLogTable extends Component {
           labelText="Search"
           placeHolderText="Search"
           onChange={this.handleSearchChange}
-          data-cy="change-log-search"
+          data-testid="change-log-search"
         />
         {totalItems > 0 ? (
           <>

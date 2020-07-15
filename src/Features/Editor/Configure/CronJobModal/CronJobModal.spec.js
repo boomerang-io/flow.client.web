@@ -2,6 +2,7 @@
 import React from "react";
 import Overview from ".";
 import { queryByAttribute } from "@testing-library/react";
+import { queryCaches } from "react-query";
 
 const mockfn = jest.fn();
 
@@ -25,6 +26,10 @@ const advancedProps = { ...props, cronExpression: "0 00 18 * * MON-WED" };
 
 beforeEach(() => {
   document.body.setAttribute("id", "app");
+});
+
+afterEach(() => {
+  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 /*describe("Settings Overview --- Snapshot Test", () => {

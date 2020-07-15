@@ -69,7 +69,7 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
 
   /** Delete Team Property */
   const [deleteTeamPropertyMutation] = useMutation(resolver.deleteTeamPropertyRequest, {
-    onSuccess: () => queryCache.refetchQueries([teamPropertiesUrl]),
+    onSuccess: () => queryCache.invalidateQueries([teamPropertiesUrl]),
   });
 
   const deleteTeamProperty = async (component) => {
@@ -150,7 +150,7 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
         <div className={styles.header}>
           <div className={styles.dropdown}>
             <ComboBox
-              data-cy="team-properties-comboBox"
+              data-testid="team-properties-combobox"
               id="team-properties-select"
               initialSelectedItem={activeTeam?.id ? activeTeam : null}
               items={teams}

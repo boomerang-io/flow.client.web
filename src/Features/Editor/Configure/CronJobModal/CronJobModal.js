@@ -118,7 +118,7 @@ export default class CronJobModal extends Component {
 
     return (
       <Formik
-        isInitialValid
+        validateOnMount
         onSubmit={this.handleOnSave}
         initialValues={{
           cronExpression: cronExpression || "0 18 * * *",

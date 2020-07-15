@@ -92,6 +92,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           alt="Workflow edit button"
           aria-label="Edit"
           class="button editContainer"
+          data-testid="edit-property-button"
           role="button"
           style="will-change: auto;"
           tabindex="0"
@@ -140,7 +141,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
         <svg
           alt="Workflow close button"
           class="button deleteProperty"
-          data-cy="workflow-delete-property-button"
+          data-testid="workflow-delete-property-button"
           height="26px"
           role="button"
           tabindex="0"
@@ -185,8 +186,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
       </section>
       <button
         class="createPropertyCard"
-        data-cy="create-property-card-button"
-        data-testid="create-new-workflow-input-button"
+        data-testid="create-property-button"
       >
         <div
           class="createContainer"

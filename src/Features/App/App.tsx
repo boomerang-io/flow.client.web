@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { lazy, useState, Suspense } from "react";
 import { AppContext } from "State/context";
 import { useQuery } from "Hooks";

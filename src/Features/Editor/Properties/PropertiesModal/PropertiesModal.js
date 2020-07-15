@@ -18,14 +18,16 @@ class PropertiesModal extends Component {
   editTrigger = ({ openModal }) => {
     let output = null;
     this.props.isEdit
-      ? (output = <WorkflowEditButton className={styles.editContainer} onClick={openModal} aria-label="Edit" />)
-      : (output = (
-          <button
-            className={styles.createPropertyCard}
+      ? (output = (
+          <WorkflowEditButton
+            className={styles.editContainer}
             onClick={openModal}
-            data-testid="create-new-workflow-input-button"
-            data-cy="create-property-card-button"
-          >
+            aria-label="Edit"
+            data-testid="edit-property-button"
+          />
+        ))
+      : (output = (
+          <button className={styles.createPropertyCard} onClick={openModal} data-testid="create-property-button">
             <div className={styles.createContainer}>
               <Add32 className={styles.createIcon} aria-label="Add" />
               <p className={styles.createText}>Create a new property</p>

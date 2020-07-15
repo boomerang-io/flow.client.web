@@ -28,7 +28,7 @@ function PropertiesTable({ properties }) {
 
   /** Delete Property */
   const [deleteGlobalPropertyMutation] = useMutation(resolver.deleteGlobalPropertyRequest, {
-    onSuccess: () => queryCache.refetchQueries(configUrl),
+    onSuccess: () => queryCache.invalidateQueries(configUrl),
   });
 
   const headers = [
@@ -111,8 +111,8 @@ function PropertiesTable({ properties }) {
         return property && property.type === InputType.Password ? (
           <Checkmark32 alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
         ) : (
-          <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
-        );
+            <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
+          );
       case "actions":
         return <ActionsMenu deleteProperty={deleteProperty} property={property} properties={properties} />;
       default:
@@ -200,33 +200,33 @@ function PropertiesTable({ properties }) {
             />
           </>
         ) : (
-          <>
-            <DataTable
-              rows={newProperties}
-              headers={headers}
-              render={({ headers }) => (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header) => (
-                          <TableHeader
-                            key={header.key}
-                            id={header.key}
-                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
-                          >
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                  </Table>
-                </TableContainer>
-              )}
-            />
-            <Error404 header={null} title="No properties to be found" message={null} />
-          </>
-        )}
+            <>
+              <DataTable
+                rows={newProperties}
+                headers={headers}
+                render={({ headers }) => (
+                  <TableContainer>
+                    <Table>
+                      <TableHead>
+                        <TableRow className={styles.tableHeadRow}>
+                          {headers.map((header) => (
+                            <TableHeader
+                              key={header.key}
+                              id={header.key}
+                              className={`${styles.tableHeadHeader} ${styles[header.key]}`}
+                            >
+                              {header.header}
+                            </TableHeader>
+                          ))}
+                        </TableRow>
+                      </TableHead>
+                    </Table>
+                  </TableContainer>
+                )}
+              />
+              <Error404 header={null} title="No properties to be found" message={null} />
+            </>
+          )}
       </div>
     </>
   );

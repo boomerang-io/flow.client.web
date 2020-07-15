@@ -7,7 +7,6 @@ import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
 import { Add16 } from "@carbon/icons-react";
-import { QueryStatus } from "Constants";
 import styles from "./addTaskTemplate.module.scss";
 
 AddTaskTemplate.propTypes = {
@@ -20,12 +19,11 @@ AddTaskTemplate.propTypes = {
 function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location }) {
   const cancelRequestRef = React.useRef();
 
-  const [CreateTaskTemplateMutation, { status }] = useMutation((args) => {
+  const [CreateTaskTemplateMutation, { isLoading }] = useMutation((args) => {
     const { promise, cancel } = resolver.postCreateTaskTemplate(args);
     cancelRequestRef.current = cancel;
     return promise;
   });
-  const isLoading = status === QueryStatus.Loading;
 
   const handleAddTaskTemplate = async ({ body, closeModal }) => {
     try {

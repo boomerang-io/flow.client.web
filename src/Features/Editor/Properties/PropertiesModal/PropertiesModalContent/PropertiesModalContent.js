@@ -16,14 +16,14 @@ import clonedeep from "lodash/cloneDeep";
 import { InputProperty, InputType, InputTypeCopy, WorkflorPropertyUpdateType } from "Constants";
 import styles from "./PropertiesModalContent.module.scss";
 
-const selectInputItem = { label: InputTypeCopy[InputType.Select], value: InputType.Select };
+const textInputItem = { label: InputTypeCopy[InputType.Text], value: InputType.Text };
 
-const InputTypeItems = [
+const inputTypeItems = [
   { label: InputTypeCopy[InputType.Boolean], value: InputType.Boolean },
   { label: InputTypeCopy[InputType.Email], value: InputType.Email },
   { label: InputTypeCopy[InputType.Number], value: InputType.Number },
   { label: InputTypeCopy[InputType.Password], value: InputType.Password },
-  selectInputItem,
+  { label: InputTypeCopy[InputType.Select], value: InputType.Select },
   { label: InputTypeCopy[InputType.Text], value: InputType.Text },
   { label: InputTypeCopy[InputType.TextArea], value: InputType.TextArea },
   { label: InputTypeCopy[InputType.URL], value: InputType.URL },
@@ -110,7 +110,7 @@ class PropertiesModalContent extends Component {
   renderDefaultValue = (formikProps) => {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
 
-    switch (values.type.value) {
+    switch (values?.type?.value) {
       case InputType.Boolean:
         return (
           <Toggle
@@ -121,7 +121,7 @@ class PropertiesModalContent extends Component {
               this.handleOnFieldValueChange(value.toString(), InputProperty.DefaultValue, setFieldValue)
             }
             orientation="vertical"
-            toggled={values.defaultValue === "true"}
+            toggled={values?.defaultValue === "true"}
           />
         );
       case InputType.Select:
@@ -212,9 +212,7 @@ class PropertiesModalContent extends Component {
           [InputProperty.Label]: property?.label ?? "",
           [InputProperty.Description]: property?.description ?? "",
           [InputProperty.Required]: property?.required ?? false,
-          [InputProperty.Type]: property
-            ? InputTypeItems.find((type) => type.value === property.type)
-            : selectInputItem,
+          [InputProperty.Type]: property ? inputTypeItems.find((type) => type.value === property.type) : textInputItem,
           [InputProperty.DefaultValue]: property?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
           [InputProperty.Options]:
@@ -257,7 +255,7 @@ class PropertiesModalContent extends Component {
 
           return (
             <ModalFlowForm onSubmit={handleSubmit} disabled={loading}>
-              <ModalBody className={styles.container}>
+              <ModalBody hasScrollingContent aria-label="inputs" className={styles.container}>
                 {loading && <Loading />}
                 <TextInput
                   readOnly={isEdit}
@@ -279,7 +277,7 @@ class PropertiesModalContent extends Component {
                       setFieldValue
                     )
                   }
-                  items={InputTypeItems}
+                  items={inputTypeItems}
                   initialSelectedItem={values.type}
                   itemToString={(item) => item && item.label}
                   placeholder="Select an item"
@@ -320,12 +318,7 @@ class PropertiesModalContent extends Component {
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button
-                  data-testid="inputs-modal-confirm-button"
-                  disabled={!isValid || loading}
-                  type="submit"
-                  data-cy="property-modal-confirm-button"
-                >
+                <Button disabled={!isValid || loading} type="submit" data-testid="property-modal-confirm-button">
                   {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating" : "Create"}
                 </Button>
               </ModalFooter>

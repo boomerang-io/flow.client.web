@@ -11,7 +11,7 @@ function Root() {
   return (
     <ErrorBoundary errorComponent={() => <ErrorDragon style={{ marginTop: "5rem" }} />}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <ReactQueryConfigProvider config={{ throwOnError: true }}>
+      <ReactQueryConfigProvider config={{ queries: { throwOnError: true }, mutations: { throwOnError: true } }}>
         <BrowserRouter basename={appPath.root}>
           <App />
         </BrowserRouter>

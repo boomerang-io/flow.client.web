@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useAppContext, useQuery } from "Hooks";
+import { useQuery } from "react-query";
+import { useAppContext } from "Hooks";
 import TeamPropertiesTable from "./TeamPropertiesTable";
-import { serviceUrl } from "Config/servicesConfig";
-import { QueryStatus } from "Constants";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./teamProperties.module.scss";
 
 function TeamProperties() {
@@ -11,18 +11,17 @@ function TeamProperties() {
 
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: activeTeam?.id });
   /** Get team properties */
-  const { data: propertiesData, status: propertiesStatus, error: propertiesError } = useQuery(
-    activeTeam?.id && teamPropertiesUrl
+  const { data: propertiesData, isLoading, error: propertiesError } = useQuery(
+    teamPropertiesUrl,
+    resolver.query(teamPropertiesUrl),
+    { enabled: activeTeam?.id }
   );
-
-  const propertiesAreLoading = propertiesStatus === QueryStatus.Loading;
-
   return (
     <div className={styles.container}>
       <TeamPropertiesTable
         teams={teams}
         properties={propertiesData ?? []}
-        propertiesAreLoading={propertiesAreLoading}
+        propertiesAreLoading={isLoading}
         propertiesError={propertiesError}
         activeTeam={activeTeam}
         setActiveTeam={setActiveTeam}

@@ -2,6 +2,7 @@
 import React from "react";
 import WorkflowInsights from "./index";
 import { startApiServer } from "ApiServer";
+import { queryCaches } from "react-query";
 
 jest.mock("@carbon/charts-react", () => ({
   ...jest.requireActual("@carbon/charts-react"),
@@ -53,6 +54,7 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
+  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("WorkflowInsights --- Snapshot", () => {

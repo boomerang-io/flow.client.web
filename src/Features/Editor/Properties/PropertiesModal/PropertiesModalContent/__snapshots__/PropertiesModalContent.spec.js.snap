@@ -9,7 +9,10 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
       class="bx--bmrg-modal-flow-form"
     >
       <div
+        aria-label="inputs"
         class="bx--modal-content container"
+        role="region"
+        tabindex="0"
       >
         <div
           class="bx--bmrg-text-input"
@@ -283,6 +286,9 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
         </div>
       </div>
       <div
+        class="bx--modal-content--overflow-indicator"
+      />
+      <div
         class="bx--modal-footer"
       >
         <button
@@ -294,8 +300,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
         </button>
         <button
           class="bx--btn bx--btn--primary"
-          data-cy="property-modal-confirm-button"
-          data-testid="inputs-modal-confirm-button"
+          data-testid="property-modal-confirm-button"
           tabindex="0"
           type="submit"
         >
