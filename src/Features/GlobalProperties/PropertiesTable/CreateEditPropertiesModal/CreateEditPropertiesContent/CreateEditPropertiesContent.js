@@ -113,9 +113,9 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
         const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit } = props;
 
         return (
-          <ModalFlowForm onSubmit={handleSubmit}>
+          <ModalFlowForm hasScrollingContent onSubmit={handleSubmit}>
+            {loading && <Loading />}
             <ModalBody>
-              {loading && <Loading />}
               <TextInput
                 data-testid="create-property-key"
                 id="key"
@@ -192,7 +192,11 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={!isValid || loading} data-testid="global-property-create-submission-button">
+              <Button
+                type="submit"
+                disabled={!isValid || loading}
+                data-testid="global-property-create-submission-button"
+              >
                 {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating..." : "Create"}
               </Button>
             </ModalFooter>

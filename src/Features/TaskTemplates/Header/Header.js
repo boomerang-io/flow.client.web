@@ -70,8 +70,8 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
       {({ closeModal }) => {
         return (
           <ModalFlowForm>
+            {isLoading && <Loading />}
             <ModalBody>
-              {isLoading && <Loading />}
               <SaveMessage />
               <TextArea
                 data-testid="save-comments"

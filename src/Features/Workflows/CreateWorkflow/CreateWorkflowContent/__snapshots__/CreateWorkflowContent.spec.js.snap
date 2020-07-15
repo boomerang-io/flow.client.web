@@ -10,6 +10,8 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
     >
       <div
         class="bx--modal-content formBody"
+        role="region"
+        tabindex="0"
       >
         <div
           class="teamAndName"
@@ -367,6 +369,9 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
           </label>
         </div>
       </div>
+      <div
+        class="bx--modal-content--overflow-indicator"
+      />
       <div
         class="bx--modal-footer"
       >

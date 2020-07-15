@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {
   DynamicFormik,
-  ModalFlowForm,
+  ModalForm,
   ComposedModal,
   Button,
   ModalBody,
@@ -56,9 +56,9 @@ function PreviewConfigForm({ templateConfig, closeModal }) {
       })}
     >
       {({ inputs, formikProps }) => (
-        <ModalFlowForm noValidate>
-          <ModalBody>{inputs}</ModalBody>
-        </ModalFlowForm>
+        <ModalForm noValidate>
+          <ModalBody hasScrollingContent>{inputs}</ModalBody>
+        </ModalForm>
       )}
     </DynamicFormik>
   );

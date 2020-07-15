@@ -167,7 +167,7 @@ class WorkflowTaskForm extends Component {
       >
         {({ inputs, formikProps }) => (
           <ModalForm noValidate className={styles.container} onSubmit={formikProps.handleSubmit}>
-            <ModalBody>{inputs}</ModalBody>
+            <ModalBody hasScrollingContent>{inputs}</ModalBody>
             <ModalFooter>
               <Button kind="secondary" onClick={this.props.closeModal}>
                 Cancel
