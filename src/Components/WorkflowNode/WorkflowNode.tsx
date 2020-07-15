@@ -6,18 +6,24 @@ import { taskIcons } from "Utils/taskIcons";
 import { Bee16 } from "@carbon/icons-react";
 import styles from "./WorkflowNode.module.scss";
 
-WorkflowNode.propTypes = {
-  category: PropTypes.string,
-  className: PropTypes.string,
-  children: PropTypes.node,
-  icon: PropTypes.string,
-  iconToRender: PropTypes.node,
-  isExecution: PropTypes.bool,
-  name: PropTypes.string,
-  node: PropTypes.object.isRequired,
-  subtitle: PropTypes.string,
-  title: PropTypes.string,
-};
+interface nodeInterface {
+  id: string;
+  taskId: string;
+  taskName: string;
+}
+
+// WorkflowNode.propTypes = {
+//   category: PropTypes.string,
+//   className: PropTypes.string,
+//   children: PropTypes.node,
+//   icon: PropTypes.string,
+//   iconToRender: PropTypes.node,
+//   isExecution: PropTypes.bool,
+//   name: PropTypes.string,
+//   node: PropTypes.object.isRequired,
+//   subtitle: PropTypes.string,
+//   title: PropTypes.string,
+// };
 
 export default function WorkflowNode({
   category,
@@ -32,6 +38,18 @@ export default function WorkflowNode({
   rightPortClass,
   title,
   ...rest
+}: {
+  category: string | undefined;
+  className: string;
+  children?: React.ReactNode | undefined;
+  icon: string;
+  isExecution: boolean;
+  name: string | undefined;
+  node: nodeInterface;
+  subtitle: string;
+  subtitleClass?: string;
+  rightPortClass?: string;
+  title?: string;
 }) {
   let Icon = () => <Bee16 alt="Task node type default" style={{ willChange: "auto" }} />;
 
@@ -50,13 +68,18 @@ export default function WorkflowNode({
       <p title={subtitle} className={cx(styles.subtitle, subtitleClass)}>
         {subtitle || "Task"}
       </p>
-      <WorkflowExecutionPort isExecution={isExecution} name="left" node={node} port="left" />
+      <WorkflowExecutionPort
+        isExecution={isExecution}
+        name="left"
+        // node={node}
+        // port="left"
+      />
       <WorkflowExecutionPort
         className={rightPortClass}
         isExecution={isExecution}
         name="right"
-        node={node}
-        port="right"
+        // node={node}
+        // port="right"
       />
       {children}
     </div>
