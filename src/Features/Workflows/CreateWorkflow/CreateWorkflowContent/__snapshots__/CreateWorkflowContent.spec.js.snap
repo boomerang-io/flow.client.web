@@ -9,7 +9,10 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
       class="bx--bmrg-modal-flow-form"
     >
       <div
+        aria-label="inputs"
         class="bx--modal-content formBody"
+        role="region"
+        tabindex="0"
       >
         <div
           class="teamAndName"
@@ -368,6 +371,9 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
         </div>
       </div>
       <div
+        class="bx--modal-content--overflow-indicator"
+      />
+      <div
         class="bx--modal-footer"
       >
         <button
@@ -379,7 +385,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
         </button>
         <button
           class="bx--btn bx--btn--primary bx--btn--disabled"
-          data-cy="workflows-create-workflow-submit"
+          data-testid="workflows-create-workflow-submit"
           disabled=""
           tabindex="0"
           type="submit"

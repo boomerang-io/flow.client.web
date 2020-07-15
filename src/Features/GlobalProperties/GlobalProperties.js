@@ -4,14 +4,16 @@ import ErrorDragon from "Components/ErrorDragon";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import PropertiesTable from "./PropertiesTable";
 import { serviceUrl } from "Config/servicesConfig";
-import { QueryStatus } from "Constants";
 import styles from "./globalProperties.module.scss";
 
 const configUrl = serviceUrl.getGlobalConfiguration();
 
 function GlobalPropertiesContainer() {
-  const { data, status, error } = useQuery(configUrl);
-  const isLoading = status === QueryStatus.Loading;
+  const { data, error, isLoading, isIdle } = useQuery(configUrl);
+
+  if (isIdle) {
+    return null;
+  }
 
   if (isLoading) {
     return <Loading />;
@@ -25,15 +27,12 @@ function GlobalPropertiesContainer() {
     );
   }
 
-  if (data) {
-    return (
-      <div className={styles.container}>
-        <PropertiesTable properties={data} />
-      </div>
-    );
-  }
+  return (
+    <div className={styles.container}>
+      <PropertiesTable properties={data} />
+    </div>
+  );
 
-  return null;
 }
 
 export default GlobalPropertiesContainer;

@@ -1,6 +1,7 @@
 import React from "react";
 import Inputs from ".";
 import { fireEvent, waitFor } from "@testing-library/react";
+import { queryCaches } from "react-query";
 
 const initialState = {};
 
@@ -25,6 +26,10 @@ beforeEach(() => {
   document.body.setAttribute("id", "app");
 });
 
+afterEach(() => {
+  queryCaches.forEach((queryCache) => queryCache.clear());
+});
+
 describe("Inputs --- Snapshot Test", () => {
   it("Capturing Snapshot of Inputs", async () => {
     const { baseElement } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
@@ -46,7 +51,7 @@ describe("Inputs --- RTL", () => {
     //expect(queryByText(/Create a new property/i)).not.toBeInTheDocument();
 
     //const modalTrigger = getByText(/Create a new property/i);
-    const modalTrigger = getByTestId("create-new-workflow-input-button");
+    const modalTrigger = getByTestId("create-property-button");
     fireEvent.click(modalTrigger);
 
     expect(queryByText(/Create a new property/i)).toBeInTheDocument();

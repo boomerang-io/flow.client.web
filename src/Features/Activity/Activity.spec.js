@@ -5,6 +5,7 @@ import { waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import WorkflowActivity from "./index";
 import { startApiServer } from "ApiServer";
+import { queryCaches } from "react-query";
 
 let server;
 
@@ -14,6 +15,7 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
+  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("WorkflowActivity --- Snapshot", () => {

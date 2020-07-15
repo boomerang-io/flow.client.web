@@ -9,7 +9,10 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
       class="bx--bmrg-modal-flow-form"
     >
       <div
+        aria-label="inputs"
         class="bx--modal-content formBody"
+        role="region"
+        tabindex="0"
       >
         <div
           class="bx--bmrg-text-input"
@@ -191,6 +194,9 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
         </div>
       </div>
       <div
+        class="bx--modal-content--overflow-indicator"
+      />
+      <div
         class="bx--modal-footer"
       >
         <button
@@ -202,7 +208,6 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
         </button>
         <button
           class="bx--btn bx--btn--primary"
-          data-cy="team-property-create-submission-button"
           data-testid="team-property-create-edit-submission-button"
           tabindex="0"
           type="submit"

@@ -74,8 +74,8 @@ function CreateEditModeModalContent({
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
-            <ModalBody className={styles.formBody}>
-              {isLoading && <Loading />}
+            {isLoading && <Loading />}
+            <ModalBody hasScrollingContent aria-label="inputs" className={styles.formBody}>
               <div className={styles.teamAndName}>
                 <ComboBox
                   id="selectedTeam"
@@ -156,7 +156,7 @@ function CreateEditModeModalContent({
               <Button kind="secondary" onClick={closeModal} type="button">
                 Cancel
               </Button>
-              <Button type="submit" disabled={!isValid || isLoading} data-cy="workflows-create-workflow-submit">
+              <Button type="submit" disabled={!isValid || isLoading} data-testid="workflows-create-workflow-submit">
                 {isLoading ? "Creating..." : "Create"}
               </Button>
             </ModalFooter>

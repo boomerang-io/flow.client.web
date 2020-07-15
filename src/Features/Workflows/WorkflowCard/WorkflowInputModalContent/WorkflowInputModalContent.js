@@ -32,7 +32,7 @@ function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, 
     >
       {({ inputs, formikProps }) => (
         <ModalFlowForm className={styles.container}>
-          <ModalBody>
+          <ModalBody hasScrollingContent aria-label="inputs">
             {inputs}
             {executeError && (
               <InlineNotification

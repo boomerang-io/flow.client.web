@@ -1,6 +1,7 @@
 import React from "react";
 import CreateWorkflow from ".";
 import { fireEvent } from "@testing-library/react";
+import { queryCaches } from "react-query";
 
 const team = {
   id: "1234",
@@ -29,6 +30,10 @@ const team = {
     },
   ],
 };
+
+afterEach(() => {
+  queryCaches.forEach((queryCache) => queryCache.clear());
+});
 
 const props = {
   team,

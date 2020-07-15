@@ -7,7 +7,6 @@ import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import capitalize from "lodash/capitalize";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { WorkflorPropertyUpdateType } from "Constants";
-import { QueryStatus } from "Constants";
 import styles from "./Properties.module.scss";
 
 const WorkflowPropertyRow = ({ title, value }) => {
@@ -41,8 +40,9 @@ Properties.propTypes = {
 };
 
 export default function Properties({ summaryData }) {
-  const [mutateProperties, { status: mutatePropertiesStatus }] = useMutation(resolver.patchUpdateWorkflowProperties);
-  const mutatePropertiesIsLoading = mutatePropertiesStatus === QueryStatus.Loading;
+  const [mutateProperties, { isLoading: mutatePropertiesIsLoading }] = useMutation(
+    resolver.patchUpdateWorkflowProperties
+  );
 
   const updateProperties = async ({ property, title, message, type }) => {
     let properties = [...summaryData.properties];
@@ -125,7 +125,7 @@ export default function Properties({ summaryData }) {
                     <WorkflowCloseButton
                       className={styles.deleteProperty}
                       onClick={openModal}
-                      data-cy="workflow-delete-property-button"
+                      data-testid="workflow-delete-property-button"
                     />
                   )}
                 />

@@ -90,7 +90,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               <input
                 autocomplete="off"
                 class="bx--search-input"
-                data-cy="task-templates-search"
+                data-testid="task-templates-search"
                 id="task-templates-search"
                 placeholder="Search for a task"
                 role="searchbox"

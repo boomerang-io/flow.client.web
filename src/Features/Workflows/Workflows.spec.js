@@ -1,6 +1,7 @@
 import React from "react";
 import WorkflowsHome from "./index";
 import { startApiServer } from "ApiServer";
+import { queryCaches } from "react-query";
 
 jest.mock("@boomerang-io/carbon-addons-boomerang-react", () => ({
   ...jest.requireActual("@boomerang-io/carbon-addons-boomerang-react"),
@@ -32,6 +33,7 @@ beforeEach(() => {
 
 afterEach(() => {
   server.shutdown();
+  queryCaches.forEach((queryCache) => queryCache.clear());
 });
 
 describe("WorkflowsHome --- Snapshot", () => {

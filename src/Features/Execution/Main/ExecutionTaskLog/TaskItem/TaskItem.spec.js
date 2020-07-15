@@ -1,5 +1,10 @@
 import React from "react";
 import TaskItem from "./index";
+import { queryCaches } from "react-query";
+
+afterEach(() => {
+  queryCaches.forEach((queryCache) => queryCache.clear());
+});
 
 const props = {
   flowActivityId: "1",
@@ -13,12 +18,12 @@ const props = {
     taskId: "515c8b05-ceb0-470a-a58e-b8740b332a6a",
     outputs: {
       args: {
-        test: "true"
-      }
+        test: "true",
+      },
     },
-    taskName: "Send Slack Message"
+    taskName: "Send Slack Message",
   },
-  hidden: false
+  hidden: false,
 };
 
 describe("TaskItem --- Snapshot", () => {

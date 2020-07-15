@@ -77,7 +77,7 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
                     aria-label="Choose an item"
                     autocomplete="off"
                     class="bx--text-input"
-                    data-cy="team-properties-comboBox"
+                    data-testid="team-properties-combobox"
                     id="team-properties-select"
                     placeholder="Select a team"
                     role="combobox"
@@ -135,7 +135,7 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
         </div>
         <button
           class="bx--btn bx--btn--field bx--btn--primary"
-          data-cy="create-team-property-button"
+          data-testid="create-team-property-button"
           style="min-width: 9rem;"
           tabindex="0"
           type="button"

@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";
-import { serviceUrl } from "Config/servicesConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import { ComboBox, SkeletonPlaceholder } from "@boomerang-io/carbon-addons-boomerang-react";
-import { useAppContext, useQuery } from "Hooks";
-import { QueryStatus } from "Constants";
-import sortByProp from "@boomerang-io/utils/lib/sortByProp";
+import { useAppContext } from "Hooks";
+import { useQuery } from "react-query";
+import { sortByProp } from "@boomerang-io/utils";
 import ErrorDragon from "Components/ErrorDragon";
 import ChartsTile from "./ChartsTile";
 import InsightsHeader from "./InsightsHeader";
@@ -42,9 +42,11 @@ export default function WorkflowInsights(location) {
   const [insightsQuery, setinsightsQuery] = useState(getFetchQuery(selectedTimeframe, selectedTeam));
 
   const insightsUrl = serviceUrl.getInsights({ query: insightsQuery });
-  const { data: insightsData, status: insightsStatus, error: insightsError } = useQuery(insightsQuery && insightsUrl);
-
-  const isUpdatingInsights = insightsStatus === QueryStatus.Loading;
+  const { data: insightsData, isLoading: isUpdatingInsights, error: insightsError } = useQuery(
+    insightsUrl,
+    resolver.query(insightsUrl),
+    { enabled: insightsQuery }
+  );
 
   let executionList = [];
 

@@ -16,37 +16,34 @@ import {
   Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { InputType } from "Constants";
-import { QueryStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 
 const configUrl = serviceUrl.getGlobalConfiguration();
 
 function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKeys, cancelRequestRef }) {
   /** Add property */
-  const [addGlobalPropertyMutation, { status: addStatus, error: addError }] = useMutation(
+  const [addGlobalPropertyMutation, { isLoading: addLoading, error: addError }] = useMutation(
     (args) => {
       const { promise, cancel } = resolver.postGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.refetchQueries(configUrl),
+      onSuccess: () => queryCache.invalidateQueries(configUrl),
     }
   );
-  const addLoading = addStatus === QueryStatus.Loading;
 
   /** Update property */
-  const [updateGlobalPropertyMutation, { status: updateStatus, error: updateError }] = useMutation(
+  const [updateGlobalPropertyMutation, { isLoading: updateLoading, error: updateError }] = useMutation(
     (args) => {
       const { promise, cancel } = resolver.patchGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.refetchQueries(configUrl),
+      onSuccess: () => queryCache.invalidateQueries(configUrl),
     }
   );
-  const updateLoading = updateStatus === QueryStatus.Loading;
 
   const loading = addLoading || updateLoading;
 
@@ -117,10 +114,10 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
-            <ModalBody>
-              {loading && <Loading />}
+            {loading && <Loading />}
+            <ModalBody hasScrollingContent aria-label="inputs">
               <TextInput
-                data-cy="create-property-key"
+                data-testid="create-property-key"
                 id="key"
                 labelText="Key"
                 name="key"
@@ -131,7 +128,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 invalidText={errors.key}
               />
               <TextInput
-                data-cy="create-property-label"
+                data-testid="create-property-label"
                 id="label"
                 labelText="Label"
                 name="label"
@@ -142,7 +139,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 invalidText={errors.label}
               />
               <TextInput
-                data-cy="create-property-description"
+                data-testid="create-property-description"
                 id="description"
                 labelText="Description"
                 name="description"
@@ -151,7 +148,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 onChange={handleChange}
               />
               <TextInput
-                data-cy="create-property-value"
+                data-testid="create-property-value"
                 id="value"
                 labelText="Value"
                 placeholder="Value"
@@ -195,7 +192,11 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
               <Button kind="secondary" type="button" onClick={closeModal}>
                 Cancel
               </Button>
-              <Button type="submit" disabled={!isValid || loading} data-cy="global-property-create-submission-button">
+              <Button
+                type="submit"
+                disabled={!isValid || loading}
+                data-testid="global-property-create-submission-button"
+              >
                 {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating..." : "Create"}
               </Button>
             </ModalFooter>

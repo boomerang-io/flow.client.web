@@ -108,7 +108,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
         </div>
         <section className={styles.tools}>
           <Search
-            data-cy="task-templates-search"
+            data-testid="task-templates-search"
             id="task-templates-search"
             size="sm"
             labelText="Search for a task"

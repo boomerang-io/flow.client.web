@@ -45,7 +45,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
           >
             <h1
               class="name"
-              data-cy="workflow-card-title"
+              data-testid="workflow-card-title"
               title="lucas-workflow-3"
             >
               lucas-workflow-3

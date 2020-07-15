@@ -80,7 +80,7 @@ exports[`TeamProperties --- Snapshot Test Capturing Snapshot of TeamProperties 1
                       aria-label="Choose an item"
                       autocomplete="off"
                       class="bx--text-input"
-                      data-cy="team-properties-comboBox"
+                      data-testid="team-properties-combobox"
                       id="team-properties-select"
                       placeholder="Select a team"
                       role="combobox"
