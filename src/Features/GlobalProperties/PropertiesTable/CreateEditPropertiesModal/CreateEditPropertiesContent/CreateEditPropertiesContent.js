@@ -113,9 +113,9 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
         const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit } = props;
 
         return (
-          <ModalFlowForm hasScrollingContent onSubmit={handleSubmit}>
+          <ModalFlowForm onSubmit={handleSubmit}>
             {loading && <Loading />}
-            <ModalBody>
+            <ModalBody hasScrollingContent aria-label="inputs">
               <TextInput
                 data-testid="create-property-key"
                 id="key"

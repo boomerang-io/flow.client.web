@@ -10,6 +10,7 @@ const props = {
   handleEditClose: mockfn,
   addPropertyInStore: mockfn,
   updatePropertyInStore: mockfn,
+  cancelRequestRef: { current: null },
 };
 
 afterEach(() => {

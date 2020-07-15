@@ -9,6 +9,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
       class="bx--bmrg-modal-flow-form"
     >
       <div
+        aria-label="inputs"
         class="bx--modal-content container"
         role="region"
         tabindex="0"

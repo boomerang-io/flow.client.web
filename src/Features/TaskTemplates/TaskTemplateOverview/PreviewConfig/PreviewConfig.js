@@ -57,7 +57,7 @@ function PreviewConfigForm({ templateConfig, closeModal }) {
     >
       {({ inputs, formikProps }) => (
         <ModalForm noValidate>
-          <ModalBody hasScrollingContent>{inputs}</ModalBody>
+          <ModalBody>{inputs}</ModalBody>
         </ModalForm>
       )}
     </DynamicFormik>

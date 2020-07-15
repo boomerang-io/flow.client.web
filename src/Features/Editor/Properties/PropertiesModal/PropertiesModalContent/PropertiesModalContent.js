@@ -255,7 +255,7 @@ class PropertiesModalContent extends Component {
 
           return (
             <ModalFlowForm onSubmit={handleSubmit} disabled={loading}>
-              <ModalBody hasScrollingContent className={styles.container}>
+              <ModalBody hasScrollingContent aria-label="inputs" className={styles.container}>
                 {loading && <Loading />}
                 <TextInput
                   readOnly={isEdit}
