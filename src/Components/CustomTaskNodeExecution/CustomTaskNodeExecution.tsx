@@ -6,15 +6,19 @@ import { ExecutionStatus } from "Constants";
 import WorkflowNode from "Components/WorkflowNode";
 import styles from "./CustomTaskNodeExecution.module.scss";
 
-interface nodeInterface {
+type Node = {
   id: string;
   taskId: string;
   taskName: string;
+};
+
+interface CustomTaskNodeExecutionProps {
+  node: Node;
 }
 
-const CustomTaskNodeExecution = React.memo(function CustomTaskNodeExecution({ node }: { node: nodeInterface }) {
+function CustomTaskNodeExecution(props: CustomTaskNodeExecutionProps): JSX.Element {
   const { tasks, workflowExecution } = useExecutionContext();
-  const { id, taskId, taskName } = node;
+  const { id, taskId, taskName } = props.node;
   const task = tasks?.find((t) => t?.id === taskId);
   // const { steps } = workflowExecution;
   const stepTaskStatus = Array.isArray(workflowExecution?.steps)
@@ -30,7 +34,7 @@ const CustomTaskNodeExecution = React.memo(function CustomTaskNodeExecution({ no
       icon={task?.icon}
       isExecution
       name={task?.name}
-      node={node}
+      node={props.node}
       subtitle={taskName}
       title={task?.name}
     >
@@ -41,6 +45,6 @@ const CustomTaskNodeExecution = React.memo(function CustomTaskNodeExecution({ no
       <div className={styles.progressBar} />
     </WorkflowNode>
   );
-});
+}
 
-export default CustomTaskNodeExecution;
+export default React.memo(CustomTaskNodeExecution);

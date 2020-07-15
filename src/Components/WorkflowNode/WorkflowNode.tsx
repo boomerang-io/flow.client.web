@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import cx from "classnames";
 import WorkflowExecutionPort from "Components/WorkflowExecutionPort";
 import { taskIcons } from "Utils/taskIcons";
@@ -12,18 +11,19 @@ interface nodeInterface {
   taskName: string;
 }
 
-// WorkflowNode.propTypes = {
-//   category: PropTypes.string,
-//   className: PropTypes.string,
-//   children: PropTypes.node,
-//   icon: PropTypes.string,
-//   iconToRender: PropTypes.node,
-//   isExecution: PropTypes.bool,
-//   name: PropTypes.string,
-//   node: PropTypes.object.isRequired,
-//   subtitle: PropTypes.string,
-//   title: PropTypes.string,
-// };
+interface WorkflowNodeProps {
+  category: string | undefined;
+  children?: React.ReactNode | undefined;
+  className: string;
+  icon: string;
+  isExecution: boolean;
+  name: string | undefined;
+  node: nodeInterface;
+  rightPortClass?: string;
+  subtitle: string;
+  subtitleClass?: string;
+  title?: string;
+}
 
 export default function WorkflowNode({
   category,
@@ -38,19 +38,7 @@ export default function WorkflowNode({
   rightPortClass,
   title,
   ...rest
-}: {
-  category: string | undefined;
-  className: string;
-  children?: React.ReactNode | undefined;
-  icon: string;
-  isExecution: boolean;
-  name: string | undefined;
-  node: nodeInterface;
-  subtitle: string;
-  subtitleClass?: string;
-  rightPortClass?: string;
-  title?: string;
-}) {
+}: WorkflowNodeProps): JSX.Element {
   let Icon = () => <Bee16 alt="Task node type default" style={{ willChange: "auto" }} />;
 
   if (icon) {

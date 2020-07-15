@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { DiagramEngine, AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import CustomTaskNodeDesigner from "Components/CustomTaskNodeDesigner";

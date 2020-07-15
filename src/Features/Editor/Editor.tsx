@@ -389,7 +389,7 @@ export function EditorStateContainer({
           </Switch>
           <Route
             path={appPath.editorConfigure}
-            children={({ history, match: routeMatch }: { history: History; match: {} }) => (
+            children={({ history, match: routeMatch }: { history: History; match: match }) => (
               // Always render parent Configure component so state isn't lost when switching tabs
               // It is responsible for rendering its children, but Formik form management is always mounted
               <Configure
