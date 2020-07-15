@@ -74,7 +74,7 @@ function CreateEditModeModalContent({
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
-            <ModalBody className={styles.formBody}>
+            <ModalBody hasScrollingContent className={styles.formBody}>
               {isLoading && <Loading />}
               <div className={styles.teamAndName}>
                 <ComboBox

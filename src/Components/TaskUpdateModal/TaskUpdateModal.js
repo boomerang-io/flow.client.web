@@ -162,7 +162,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
       {({ inputs, formikProps }) => {
         return (
           <ModalForm noValidate onSubmit={formikProps.handleSubmit}>
-            <ModalBody className={styles.versionsContainer}>
+            <ModalBody ModalBody className={styles.versionsContainer}>
               <VersionSection
                 description={currentTaskTemplateVersion.description}
                 name={currentTaskTemplateVersion.name}

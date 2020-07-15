@@ -6,7 +6,7 @@ import {
   TextArea,
   TextInput,
   Toggle,
-  ModalFlowForm,
+  ModalForm,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
@@ -278,8 +278,8 @@ class TemplateConfigModalContent extends Component {
           } = formikProps;
 
           return (
-            <ModalFlowForm onSubmit={handleSubmit}>
-              <ModalBody className={styles.container}>
+            <ModalForm onSubmit={handleSubmit}>
+              <ModalBody hasScrollingContent className={styles.container}>
                 <ComboBox
                   id={InputProperty.Type}
                   onChange={({ selectedItem }) =>
@@ -373,7 +373,7 @@ class TemplateConfigModalContent extends Component {
                   {isEdit ? "Save" : "Create"}
                 </Button>
               </ModalFooter>
-            </ModalFlowForm>
+            </ModalForm>
           );
         }}
       </Formik>

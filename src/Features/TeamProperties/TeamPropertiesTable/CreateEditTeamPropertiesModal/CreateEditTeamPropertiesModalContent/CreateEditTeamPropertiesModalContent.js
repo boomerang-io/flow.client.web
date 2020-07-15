@@ -118,7 +118,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
-            <ModalBody className={styles.formBody}>
+            <ModalBody hasScrollingContent className={styles.formBody}>
               {loading && <Loading />}
               <TextInput
                 id="key"
