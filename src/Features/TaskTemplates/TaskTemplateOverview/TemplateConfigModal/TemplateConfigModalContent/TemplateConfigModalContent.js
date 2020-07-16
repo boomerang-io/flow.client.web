@@ -13,7 +13,7 @@ import { Formik } from "formik";
 import TextEditorModal from "Components/TextEditorModal";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
-import { InputProperty, InputType } from "Constants";
+import { InputProperty, InputType, PROPERTY_KEY_REGEX } from "Constants";
 import styles from "./TemplateConfigModalContent.module.scss";
 
 const inputTypeOptions = [
@@ -76,8 +76,7 @@ class TemplateConfigModalContent extends Component {
 
   // Check if key contains alpahanumeric, underscore, dash, and period chars
   validateKey = (key) => {
-    const regexp = /^[a-zA-Z0-9-._]+$/g;
-    return regexp.test(key);
+    return PROPERTY_KEY_REGEX.test(key);
   };
 
   handleConfirm = (values) => {

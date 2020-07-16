@@ -25,7 +25,7 @@ DesignerHeader.propTypes = {
   revisionMutation: PropTypes.object,
   revisionState: PropTypes.object,
   revisionQuery: PropTypes.object,
-  summaryData: PropTypes.object,
+  workflowSummary: PropTypes.object,
 };
 
 DesignerHeader.defaultProps = {
@@ -39,9 +39,9 @@ function DesignerHeader({
   revisionMutation,
   revisionState,
   revisionQuery,
-  summaryData,
+  workflowSummary,
 }) {
-  const { revisionCount, name } = summaryData;
+  const { revisionCount, name } = workflowSummary;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;
   const isQueryLoading = revisionQuery.status === QueryStatus.Loading;

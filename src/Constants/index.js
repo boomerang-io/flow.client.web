@@ -117,3 +117,5 @@ export const WorkflorPropertyUpdateType = {
   Update: "update",
   Delete: "delete",
 };
+
+export const PROPERTY_KEY_REGEX = /^[a-zA-Z0-9-._]+$/g;

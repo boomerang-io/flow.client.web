@@ -9,12 +9,12 @@ import { serviceUrl } from "Config/servicesConfig";
 import styles from "./changeLog.module.scss";
 
 ChangeLog.propTypes = {
-  summaryData: PropTypes.object.isRequired,
+  workflowSummary: PropTypes.object.isRequired,
 };
 
-function ChangeLog({ summaryData }) {
+function ChangeLog({ workflowSummary }) {
   const getWorkflowChangelogUrl = serviceUrl.getWorkflowChangelog({
-    workflowId: summaryData.id,
+    workflowId: workflowSummary.id,
     query: qs.stringify({ sort: "version", order: "DESC" }),
   });
   const { data, error, isLoading, isIdle } = useQuery(getWorkflowChangelogUrl);
@@ -42,7 +42,6 @@ function ChangeLog({ summaryData }) {
       <ChangeLogTable changeLog={data} />
     </div>
   );
-
 }
 
 export default ChangeLog;

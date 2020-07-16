@@ -199,10 +199,10 @@ function WorkflowActivity() {
     });
 
     const workflowsFilter = getWorkflowFilter(teamsData, selectedTeams);
-    const { data: statusSummaryData, status: statusSummaryStatus } = activityStatusSummaryState;
+    const { data: statusWorkflowSummary, status: statusSummaryStatus } = activityStatusSummaryState;
     const maxDate = moment().format("MM/DD/YYYY");
 
-    const statusSummaryDataIsLoading = statusSummaryStatus === QueryStatus.Loading;
+    const statusWorkflowSummaryIsLoading = statusSummaryStatus === QueryStatus.Loading;
 
     return (
       <div className={styles.container}>
@@ -216,13 +216,17 @@ function WorkflowActivity() {
         <section aria-label="Activity" className={styles.content}>
           <nav>
             <Tabs className={styles.tabs} selected={statusIndex + 1} onSelectionChange={handleSelectStatuses}>
-              <Tab label={statusSummaryDataIsLoading ? "All" : `All (${statusSummaryData.all})`} />
+              <Tab label={statusWorkflowSummaryIsLoading ? "All" : `All (${statusWorkflowSummary.all})`} />
               <Tab
-                label={statusSummaryDataIsLoading ? "In Progress" : `In Progress (${statusSummaryData?.inProgress})`}
+                label={
+                  statusWorkflowSummaryIsLoading ? "In Progress" : `In Progress (${statusWorkflowSummary?.inProgress})`
+                }
               />
-              <Tab label={statusSummaryDataIsLoading ? "Succeeded" : `Succeeded (${statusSummaryData.completed})`} />
-              <Tab label={statusSummaryDataIsLoading ? "Failed" : `Failed (${statusSummaryData.failure})`} />
-              <Tab label={statusSummaryDataIsLoading ? "Invalid" : `Invalid (${statusSummaryData.invalid})`} />
+              <Tab
+                label={statusWorkflowSummaryIsLoading ? "Succeeded" : `Succeeded (${statusWorkflowSummary.completed})`}
+              />
+              <Tab label={statusWorkflowSummaryIsLoading ? "Failed" : `Failed (${statusWorkflowSummary.failure})`} />
+              <Tab label={statusWorkflowSummaryIsLoading ? "Invalid" : `Invalid (${statusWorkflowSummary.invalid})`} />
             </Tabs>
           </nav>
           <div className={styles.filtersContainer}>

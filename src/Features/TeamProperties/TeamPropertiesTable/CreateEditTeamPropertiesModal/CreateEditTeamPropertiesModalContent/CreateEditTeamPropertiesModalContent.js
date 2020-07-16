@@ -13,7 +13,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { InputType } from "Constants";
+import { InputType, PROPERTY_KEY_REGEX } from "Constants";
 import styles from "./createEditTeamPropertiesModalContent.module.scss";
 
 function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, propertyKeys, team, cancelRequestRef }) {
@@ -87,8 +87,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
 
   // Check if key contains alpahanumeric, underscore, dash, and period chars
   const validateKey = (key) => {
-    const regexp = /^[a-zA-Z0-9-._]+$/g;
-    return regexp.test(key);
+    return PROPERTY_KEY_REGEX.test(key);
   };
 
   return (

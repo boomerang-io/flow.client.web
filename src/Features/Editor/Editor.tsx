@@ -23,34 +23,8 @@ import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel"
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { appPath } from "Config/appConfig";
 import { NodeType } from "Constants";
+import { WorkflowSummary } from "Types";
 import styles from "./editor.module.scss";
-
-export interface ISummaryData {
-  id: string;
-  description: string;
-  enableACCIntegration: boolean;
-  enablePersistentStorage: boolean;
-  icon: string;
-  name: string;
-  revisionCount: number;
-  shortDescription: string;
-  triggers: {
-    event: {
-      enable: boolean;
-      topic: string;
-    };
-    scheduler: {
-      enable: boolean;
-      schedule: string;
-      timezone: boolean;
-      advancedCron: boolean;
-    };
-    webhook: {
-      enable: boolean;
-      token: string;
-    };
-  };
-}
 
 export default function EditorContainer() {
   // Init revision number state is held here so we can easily refect the data on change via react-query
@@ -130,7 +104,7 @@ interface EditorStateContainerProps {
     status: string;
   };
   summaryQuery: {
-    data: ISummaryData;
+    data: WorkflowSummary;
     status: string;
   };
   summaryMutation: MutationResult<AxiosResponse<any>, Error>;
