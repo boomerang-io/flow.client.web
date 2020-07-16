@@ -13,7 +13,7 @@ DesignerContainer.propTypes = {
   createNode: PropTypes.func.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   revisionQuery: PropTypes.object.isRequired,
-  summaryData: PropTypes.object.isRequired,
+  workflowSummary: PropTypes.object.isRequired,
   tasks: PropTypes.array.isRequired,
 };
 
@@ -21,7 +21,7 @@ export default function DesignerContainer({
   createNode,
   isModalOpen,
   revisionQuery,
-  summaryData,
+  workflowSummary,
   tasks,
   workflowDagEngine,
 }) {
@@ -38,7 +38,7 @@ export default function DesignerContainer({
         <Designer
           createNode={createNode}
           isModalOpen={isModalOpen}
-          summaryData={summaryData}
+          workflowSummary={workflowSummary}
           workflowDagEngine={workflowDagEngine}
         />
       )}
@@ -46,7 +46,7 @@ export default function DesignerContainer({
   );
 }
 
-function Designer({ createNode, isModalOpen, summaryData, workflowDagEngine }) {
+function Designer({ createNode, isModalOpen, workflowSummary, workflowDagEngine }) {
   const workflowDagRef = useRef();
   useEffect(() => {
     workflowDagEngine.getDiagramEngine().zoomToFit();
