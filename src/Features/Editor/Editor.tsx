@@ -103,10 +103,7 @@ interface EditorStateContainerProps {
     data: {};
     status: string;
   };
-  summaryQuery: {
-    data: WorkflowSummary;
-    status: string;
-  };
+  summaryQuery: QueryResult<WorkflowSummary, Error>;
   summaryMutation: MutationResult<AxiosResponse<any>, Error>;
   setRevisionNumber: (revisionNumber: number) => void;
   taskTemplatesData: Array<{ id: string; status: string }>;

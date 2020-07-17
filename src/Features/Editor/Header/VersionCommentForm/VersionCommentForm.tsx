@@ -1,6 +1,5 @@
 // @ts-nocheck
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import {
   Button,
   InlineNotification,
@@ -12,11 +11,13 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { QueryStatus } from "Constants";
 
-class VersionCommentForm extends Component {
-  static propTypes = {
-    closeModal: PropTypes.func,
-  };
+interface VersionCommentFormProps {
+  closeModal(): void;
+  createRevision: (reason: string, callback?: () => any) => void;
+  revisionMutation: MutationResult<AxiosResponse<any>, Error>;
+}
 
+class VersionCommentForm extends Component<VersionCommentFormProps> {
   state = {
     versionComment: "",
     error: false,
@@ -36,7 +37,7 @@ class VersionCommentForm extends Component {
   };
 
   handleOnSave = async () => {
-    this.props.createRevision({ callback: this.props.closeModal, reason: this.state.versionComment });
+    this.props.createRevision(this.state.versionComment, this.props.closeModal);
   };
 
   render() {

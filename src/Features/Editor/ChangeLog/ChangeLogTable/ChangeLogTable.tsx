@@ -5,22 +5,11 @@ import moment from "moment";
 import { DataTable, Search, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { arrayPagination } from "Utils/arrayHelper";
+import { ChangeLog } from "Types";
 import styles from "./changeLogTable.module.scss";
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
-
-type Log = {
-  date: string;
-  reason: string;
-  revisionId: string;
-  userId: string;
-  userName: string;
-  version: number;
-  workflowId: string;
-};
-
-type ChangeLog = Array<Log>;
 
 interface ChangeLogTableProps {
   changeLog: ChangeLog;

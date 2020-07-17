@@ -50,6 +50,32 @@ export interface WorkflowSummary {
   };
 }
 
+export interface WorkflowRevision {
+  changelog: ChangeLogItem;
+  config: any;
+  dag: any;
+  id: string;
+  templateUpgradesAvailable: boolean;
+  version: number;
+  workFlowId: string;
+}
+
+export interface WorkflowRevisionState extends WorkflowRevision {
+  hasUnsavedUpdates: boolean;
+}
+
+export type ChangeLogItem = {
+  date: string;
+  reason: string;
+  revisionId: string;
+  userId: string;
+  userName: string;
+  version: number;
+  workflowId: string;
+};
+
+export type ChangeLog = Array<ChangeLogItem>;
+
 export interface TaskModel {
   id: string;
   icon: string;

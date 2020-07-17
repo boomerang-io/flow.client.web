@@ -1,17 +1,17 @@
 // @ts-nocheck
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import cx from "classnames";
 import { ChevronLeft16, ChevronRight16, PageFirst16, PageLast16 } from "@carbon/icons-react";
 import styles from "./VersionSwitcher.module.scss";
 
-class VersionSwitcher extends Component {
-  static propTypes = {
-    currentRevision: PropTypes.number,
-    revisionCount: PropTypes.number.isRequired,
-    onChangeVersion: PropTypes.func.isRequired,
-  };
+interface VersionSwitcherProps {
+  currentRevision: number;
+  disabled: boolean;
+  onChangeVersion(): void;
+  revisionCount: number;
+}
 
+class VersionSwitcher extends Component<VersionSwitcherProps> {
   backVersion = () => {
     this.props.onChangeVersion(this.props.currentRevision - 1);
   };
