@@ -109,7 +109,7 @@ interface EditorStateContainerProps {
   };
   summaryMutation: MutationResult<AxiosResponse<any>, Error>;
   setRevisionNumber: (revisionNumber: number) => void;
-  taskTemplatesData: Array<{ id: string }>;
+  taskTemplatesData: Array<{ id: string; status: string }>;
   workflowId: string;
 }
 
@@ -348,7 +348,6 @@ export function EditorStateContainer({
                 createNode={handleCreateNode}
                 isModalOpen={isModalOpen}
                 revisionQuery={revisionQuery}
-                summaryData={summaryData}
                 tasks={taskTemplatesData}
                 workflowDagEngine={workflowDagEngine}
               />

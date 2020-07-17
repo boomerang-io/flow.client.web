@@ -1,5 +1,5 @@
 import React from "react";
-import { ModalComposed } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import PropertiesModalContent from "./PropertiesModalContent";
 import WorkflowEditButton from "Components/WorkflowEditButton";
 import { Add32 } from "@carbon/icons-react";
@@ -15,42 +15,34 @@ interface PropertiesModalProps {
 }
 
 const PropertiesModal: React.FC<PropertiesModalProps> = (props) => {
-  const editTrigger = ({ openModal }: ModalTriggerProps) => {
-    let output = null;
-    props.isEdit
-      ? (output = (
+  return (
+    <ComposedModal
+      modalHeaderProps={{
+        title: props.isEdit ? "Update Property" : "Create Property",
+        subtitle: props.isEdit ? "Let's change some stuff" : "Let's create a new one",
+      }}
+      modalTrigger={({ openModal }: ModalTriggerProps) => {
+        return props.isEdit ? (
           <WorkflowEditButton
-            className={styles.editContainer}
-            onClick={openModal}
             aria-label="Edit"
             data-testid="edit-property-button"
+            className={styles.editContainer}
+            onClick={openModal}
           />
-        ))
-      : (output = (
+        ) : (
           <button className={styles.createPropertyCard} onClick={openModal} data-testid="create-property-button">
             <div className={styles.createContainer}>
               <Add32 className={styles.createIcon} aria-label="Add" />
               <p className={styles.createText}>Create a new property</p>
             </div>
           </button>
-        ));
-    return output;
-  };
-
-  const { isEdit } = props;
-
-  return (
-    <ModalComposed
-      modalHeaderProps={{
-        title: isEdit ? "Update Property" : "Create Property",
-        subtitle: isEdit ? "Let's change some stuff" : "Let's create a new one",
+        );
       }}
-      modalTrigger={editTrigger}
     >
       {({ closeModal }: ComposedModalChildProps) => {
         return <PropertiesModalContent closeModal={closeModal} {...props} />;
       }}
-    </ModalComposed>
+    </ComposedModal>
   );
 };
 

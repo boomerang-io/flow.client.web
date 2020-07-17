@@ -49,3 +49,11 @@ export interface WorkflowSummary {
     };
   };
 }
+
+export interface TaskModel {
+  id: string;
+  icon: string;
+  model: string;
+  name: string;
+  status: string;
+}
