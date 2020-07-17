@@ -1,6 +1,4 @@
-// @ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import {
   Button,
@@ -16,24 +14,29 @@ import VersionSwitcher from "./VersionSwitcher";
 import { appLink } from "Config/appConfig";
 import { QueryStatus } from "Constants";
 import { Add16, DocumentExport16 } from "@carbon/icons-react";
+import { QueryResult } from "react-query";
+import {
+  ModalTriggerProps,
+  ComposedModalChildProps,
+  WorkflowSummary,
+  WorkflowRevision,
+  WorkflowRevisionState,
+} from "Types";
 import styles from "./header.module.scss";
 
-DesignerHeader.propTypes = {
-  createRevision: PropTypes.func,
-  currentRevision: PropTypes.number,
-  isOnDesigner: PropTypes.bool.isRequired,
-  performActionButtonText: PropTypes.string,
-  revisionMutation: PropTypes.object,
-  revisionState: PropTypes.object,
-  revisionQuery: PropTypes.object,
-  workflowSummary: PropTypes.object,
-};
+interface DesignerHeaderProps {
+  createRevision: (reason: string, callback?: () => any) => void;
+  changeRevision: () => void;
+  currentRevision: number;
+  isOnDesigner: boolean;
+  performActionButtonText: string;
+  revisionMutation: object;
+  revisionState: WorkflowRevisionState;
+  revisionQuery: QueryResult<WorkflowRevision, Error>;
+  workflowSummary: WorkflowSummary;
+}
 
-DesignerHeader.defaultProps = {
-  includeResetVersionAlert: false,
-};
-
-function DesignerHeader({
+const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   createRevision,
   changeRevision,
   isOnDesigner,
@@ -41,7 +44,7 @@ function DesignerHeader({
   revisionState,
   revisionQuery,
   workflowSummary,
-}) {
+}) => {
   const { revisionCount, name } = workflowSummary;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;
@@ -50,7 +53,7 @@ function DesignerHeader({
 
   // Need to hardcode that the version is being reset in the change log for now based on the current implementation
   const resetVersionToLatestWithMessage = () => {
-    createRevision({ reason: `Set ${currentRevision} to the latest version` });
+    createRevision(`Set ${currentRevision} to the latest version`);
   };
 
   return (
@@ -85,7 +88,7 @@ function DesignerHeader({
               affirmativeAction={resetVersionToLatestWithMessage}
               children="A new version will be created"
               title={`Set version ${currentRevision} to be the latest`}
-              modalTrigger={({ openModal }) => (
+              modalTrigger={({ openModal }: ModalTriggerProps) => (
                 <Button
                   disabled={!isOnDesigner}
                   iconDescription="Set version to latest"
@@ -105,7 +108,7 @@ function DesignerHeader({
                 title: "Create New Version",
                 subtitle: "Enter a comment for record keeping",
               }}
-              modalTrigger={({ openModal }) => (
+              modalTrigger={({ openModal }: ModalTriggerProps) => (
                 <Button
                   disabled={!isOnDesigner}
                   iconDescription="Create new version"
@@ -119,7 +122,7 @@ function DesignerHeader({
                 </Button>
               )}
             >
-              {({ closeModal }) => (
+              {({ closeModal }: ComposedModalChildProps) => (
                 <VersionCommentForm
                   closeModal={closeModal}
                   createRevision={createRevision}
@@ -133,6 +136,6 @@ function DesignerHeader({
       <Navigation />
     </FeatureHeader>
   );
-}
+};
 
 export default DesignerHeader;
