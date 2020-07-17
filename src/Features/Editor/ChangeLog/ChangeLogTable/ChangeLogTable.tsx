@@ -10,7 +10,23 @@ import styles from "./changeLogTable.module.scss";
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
 
-class ChangeLogTable extends Component {
+type Log = {
+  date: string;
+  reason: string;
+  revisionId: string;
+  userId: string;
+  userName: string;
+  version: number;
+  workflowId: string;
+};
+
+type ChangeLog = Array<Log>;
+
+interface ChangeLogTableProps {
+  changeLog: ChangeLog;
+}
+
+class ChangeLogTable extends Component<ChangeLogTableProps> {
   static propTypes = {
     changeLog: PropTypes.array,
   };
@@ -45,13 +61,13 @@ class ChangeLogTable extends Component {
   ];
 
   /* Standard table configuration after search or service call */
-  resetTableWithNewLogs = (changeLog) => {
+  resetTableWithNewLogs = (changeLog: ChangeLog) => {
     const { page, pageSize } = this.state;
     const newPage = page !== 1 && changeLog.length < pageSize * (page - 1) + 1 ? page - 1 : page;
     this.setState({ page: newPage, changeLog });
   };
 
-  handleSearchChange = (e) => {
+  handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
     const { changeLog } = this.props;
     const changeLogList = changeLog.length !== 0 ? changeLog.map((log) => ({ ...log, id: log.revisionId })) : [];
@@ -63,11 +79,11 @@ class ChangeLogTable extends Component {
     this.resetTableWithNewLogs(newLogs);
   };
 
-  handlePaginationChange = ({ page, pageSize }) => {
+  handlePaginationChange = ({ page, pageSize }: { page: number; pageSize: number }) => {
     this.setState({ page, pageSize });
   };
 
-  renderCell = (cellIndex, value) => {
+  renderCell = (cellIndex: number, value: any): JSX.Element => {
     const column = this.headers[cellIndex];
 
     switch (column.header) {
@@ -78,7 +94,7 @@ class ChangeLogTable extends Component {
     }
   };
 
-  handleSort = (valueA, valueB, config) => {
+  handleSort = (valueA: any, valueB: any, config: any) => {
     this.setState({ sort: config });
   };
 
@@ -105,12 +121,12 @@ class ChangeLogTable extends Component {
               rows={arrayPagination(changeLog, page, pageSize, sort)}
               sortRow={this.handleSort}
               headers={this.headers}
-              render={({ rows, headers, getHeaderProps }) => (
+              render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
                 <TableContainer>
                   <Table>
                     <TableHead>
                       <TableRow>
-                        {headers.map((header) => (
+                        {headers.map((header: any) => (
                           <TableHeader
                             id={header.key}
                             {...getHeaderProps({
@@ -125,9 +141,9 @@ class ChangeLogTable extends Component {
                       </TableRow>
                     </TableHead>
                     <TableBody className={styles.tableBody}>
-                      {rows.map((row) => (
+                      {rows.map((row: any) => (
                         <TableRow key={row.id} data-testid="change-log-table-row">
-                          {row.cells.map((cell, cellIndex) => (
+                          {row.cells.map((cell: any, cellIndex: number) => (
                             <TableCell key={cell.id} style={{ padding: "0" }} className={styles[cell.info.header]}>
                               <div className={styles.tableCell}>{this.renderCell(cellIndex, cell.value)}</div>
                             </TableCell>

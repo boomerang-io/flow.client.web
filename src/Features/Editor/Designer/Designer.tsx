@@ -1,30 +1,29 @@
 import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import { DelayedRender, Error, SkeletonPlaceholder, SkeletonText } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowZoom from "Components/WorkflowZoom";
 import Tasks from "./Tasks";
 import cx from "classnames";
-import { QueryStatus } from "Constants";
-import { TaskTemplateStatus } from "Constants";
+import { TaskTemplateStatus, QueryStatus } from "Constants";
+import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
+import { TaskModel } from "Types";
 import styles from "./designer.module.scss";
 
-DesignerContainer.propTypes = {
-  createNode: PropTypes.func.isRequired,
-  isModalOpen: PropTypes.bool.isRequired,
-  revisionQuery: PropTypes.object.isRequired,
-  workflowSummary: PropTypes.object.isRequired,
-  tasks: PropTypes.array.isRequired,
-};
+interface DesignerContainerProps {
+  createNode: (workflowDagEngine: WorkflowDagEngine, event: React.DragEvent<HTMLDivElement>) => void;
+  isModalOpen: boolean;
+  revisionQuery: { data: {}; status: string; error: Error };
+  tasks: Array<TaskModel>;
+  workflowDagEngine: WorkflowDagEngine;
+}
 
-export default function DesignerContainer({
+const DesignerContainer: React.FC<DesignerContainerProps> = ({
   createNode,
   isModalOpen,
   revisionQuery,
-  workflowSummary,
   tasks,
   workflowDagEngine,
-}) {
+}) => {
   const isRevisionLoading = revisionQuery.status === QueryStatus.Loading;
 
   return (
@@ -35,19 +34,22 @@ export default function DesignerContainer({
       ) : revisionQuery.error ? (
         <Error />
       ) : (
-        <Designer
-          createNode={createNode}
-          isModalOpen={isModalOpen}
-          workflowSummary={workflowSummary}
-          workflowDagEngine={workflowDagEngine}
-        />
+        <Designer createNode={createNode} isModalOpen={isModalOpen} workflowDagEngine={workflowDagEngine} />
       )}
     </div>
   );
+};
+
+export default DesignerContainer;
+
+interface DesignerProps {
+  createNode: (workflowDagEngine: WorkflowDagEngine, event: React.DragEvent<HTMLDivElement>) => void;
+  isModalOpen: boolean;
+  workflowDagEngine: WorkflowDagEngine;
 }
 
-function Designer({ createNode, isModalOpen, workflowSummary, workflowDagEngine }) {
-  const workflowDagRef = useRef();
+const Designer: React.FC<DesignerProps> = ({ createNode, isModalOpen, workflowDagEngine }) => {
+  const workflowDagRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     workflowDagEngine.getDiagramEngine().zoomToFit();
   }, [workflowDagEngine]);
@@ -77,7 +79,7 @@ function Designer({ createNode, isModalOpen, workflowSummary, workflowDagEngine 
       />
     </div>
   );
-}
+};
 
 function WorkflowSkeleton() {
   return (

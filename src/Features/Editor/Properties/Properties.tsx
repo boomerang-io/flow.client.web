@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { useMutation, queryCache } from "react-query";
 import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";

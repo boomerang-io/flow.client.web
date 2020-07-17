@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { Component } from "react";
 import cx from "classnames";
 import { AccordionItem, OverflowMenu, Search } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -7,12 +8,17 @@ import Task from "./Task";
 import { taskIcons } from "Utils/taskIcons";
 import matchSorter from "match-sorter";
 import uniqBy from "lodash/uniqBy";
-import sortByProp from "@boomerang-io/utils/lib/sortByProp";
+import { sortByProp } from "@boomerang-io/utils";
 import { ChevronLeft32, SettingsAdjust20 } from "@carbon/icons-react";
+import { TaskModel } from "Types";
 import styles from "./tasks.module.scss";
 
 const FIRST_TASK_CATEGORY = "workflow";
-export default class Tasks extends Component {
+
+interface TaskProps {
+  tasks: Array<TaskModel>;
+}
+export default class Tasks extends Component<TaskProps> {
   state = {
     activeFilters: [],
     firstTaskCategoryIsOpen: true,
@@ -60,7 +66,7 @@ export default class Tasks extends Component {
     });
   };
 
-  handleCheckboxListChange = (checked, label) => {
+  handleCheckboxListChange = (checked: boolean, label: string) => {
     let filtersState = [].concat(this.state.activeFilters);
 
     let newFilters = [];
@@ -87,7 +93,7 @@ export default class Tasks extends Component {
     });
   };
 
-  handleSearchFilter = (searchQuery, tasksToDisplay) =>
+  handleSearchFilter = (searchQuery: string, tasksToDisplay) =>
     matchSorter(tasksToDisplay, searchQuery, { keys: ["category", "name"] });
 
   determineTasks = () => {

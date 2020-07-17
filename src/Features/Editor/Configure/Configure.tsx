@@ -26,7 +26,7 @@ import { serviceUrl } from "Config/servicesConfig";
 import { QueryStatus } from "Constants";
 import { CopyFile16, EventSchedule16, Save24, ViewFilled16 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
-import { workflowSummary } from "../Editor";
+import { WorkflowSummary } from "Types";
 import styles from "./configure.module.scss";
 
 interface FormProps {
@@ -59,7 +59,7 @@ interface ConfigureContainerProps {
   history: History;
   isOnRoute: boolean;
   params: { teamId: string; workflowId: string };
-  workflowSummary: workflowSummary;
+  workflowSummary: WorkflowSummary;
   summaryMutation: { status: string };
   teams: Array<{ id: string }>;
   updateSummary: ({ values, callback }: { values: object; callback: () => void }) => void;
@@ -156,7 +156,7 @@ export default ConfigureContainer;
 
 interface ConfigureProps {
   formikProps: FormikProps<FormProps>;
-  workflowSummary: workflowSummary;
+  workflowSummary: WorkflowSummary;
   summaryMutation: {
     status: string;
   };
