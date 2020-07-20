@@ -1,6 +1,7 @@
 // Look for the data injected into the HTML file from the Express app
 // See server/app.js for implementation
-export const APP_ROOT = window._SERVER_DATA && window._SERVER_DATA.APP_ROOT ? window._SERVER_DATA.APP_ROOT : "local";
+export const APP_ROOT =
+  window._SERVER_DATA && window._SERVER_DATA.APP_ROOT ? window._SERVER_DATA.APP_ROOT : "BMRG_APP_ROOT_CONTEXT";
 
 export const PLATFORM_VERSION =
   window._SERVER_DATA && window._SERVER_DATA.PLATFORM_VERSION ? window._SERVER_DATA.PLATFORM_VERSION : "";
