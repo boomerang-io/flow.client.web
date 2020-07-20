@@ -1,9 +1,8 @@
 import React from "react";
+import { useFeature } from "flagged";
 import { Helmet } from "react-helmet";
-import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
-import { BASE_URL } from "Config/servicesConfig";
 import { NavLink } from "react-router-dom";
-import { Activity16, ChartScatter16, FlowData16, SettingsAdjust16 } from "@carbon/icons-react";
+import { Activity16, ChartScatter16, FlowData16, Settings16, SettingsAdjust16 } from "@carbon/icons-react";
 import { SideNav } from "carbon-components-react";
 import {
   LeftSideNav,
@@ -13,11 +12,14 @@ import {
   SideNavMenuItem,
   UIShell,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import StandAloneHeader from "./StandAloneHeader";
-import { appLink } from "Config/appConfig";
-import { UserType, QueryStatus } from "Constants";
+import { BASE_URL } from "Config/servicesConfig";
+import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
+import { appLink, FeatureFlag } from "Config/appConfig";
+import { UserType } from "Constants";
 
-const handleOnMenuClick = (isAtLeastOperator: boolean) => ({
+const ACTIVE_CLASS_NAME = "bx--side-nav__link--current";
+
+const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) => ({
   isOpen,
   onMenuClose,
 }: {
@@ -29,7 +31,7 @@ const handleOnMenuClick = (isAtLeastOperator: boolean) => ({
       <SideNavItems>
         <SideNavLink
           large
-          activeClassName={"bx--side-nav__link--current"}
+          activeClassName={ACTIVE_CLASS_NAME}
           element={NavLink}
           onClick={onMenuClose}
           renderIcon={FlowData16}
@@ -39,7 +41,7 @@ const handleOnMenuClick = (isAtLeastOperator: boolean) => ({
         </SideNavLink>
         <SideNavLink
           large
-          activeClassName={"bx--side-nav__link--current"}
+          activeClassName={ACTIVE_CLASS_NAME}
           element={NavLink}
           onClick={onMenuClose}
           renderIcon={Activity16}
@@ -49,7 +51,7 @@ const handleOnMenuClick = (isAtLeastOperator: boolean) => ({
         </SideNavLink>
         <SideNavLink
           large
-          activeClassName={"bx--side-nav__link--current"}
+          activeClassName={ACTIVE_CLASS_NAME}
           element={NavLink}
           onClick={onMenuClose}
           renderIcon={ChartScatter16}
@@ -57,34 +59,76 @@ const handleOnMenuClick = (isAtLeastOperator: boolean) => ({
         >
           Insights
         </SideNavLink>
+        <SideNavMenu large iconDescription="Manage" renderIcon={SettingsAdjust16} title="Manage">
+          <SideNavMenuItem
+            large
+            activeClassName={ACTIVE_CLASS_NAME}
+            element={NavLink}
+            onClick={onMenuClose}
+            to={appLink.taskTemplates()}
+          >
+            Team Task Manager
+          </SideNavMenuItem>
+          <SideNavMenuItem
+            large
+            activeClassName={ACTIVE_CLASS_NAME}
+            element={NavLink}
+            onClick={onMenuClose}
+            to={appLink.teamProperties()}
+          >
+            Team Properties
+          </SideNavMenuItem>
+        </SideNavMenu>
         {isAtLeastOperator ? (
-          <SideNavMenu large iconDescription="Manage" renderIcon={SettingsAdjust16} title="Manage">
+          <SideNavMenu large title="Administer" renderIcon={Settings16}>
+            {isStandaAloneMode && (
+              <SideNavMenuItem
+                large
+                activeClassName={ACTIVE_CLASS_NAME}
+                element={NavLink}
+                onClick={onMenuClose}
+                to={appLink.properties()}
+              >
+                Teams
+              </SideNavMenuItem>
+            )}
+            {isStandaAloneMode && (
+              <SideNavMenuItem
+                large
+                activeClassName={ACTIVE_CLASS_NAME}
+                element={NavLink}
+                onClick={onMenuClose}
+                to={appLink.properties()}
+              >
+                Users
+              </SideNavMenuItem>
+            )}
             <SideNavMenuItem
               large
-              activeClassName={"bx--side-nav__link--current"}
-              element={NavLink}
-              onClick={onMenuClose}
-              to={appLink.taskTemplates()}
-            >
-              Task Manager
-            </SideNavMenuItem>
-            <SideNavMenuItem
-              large
-              activeClassName={"bx--side-nav__link--current"}
+              activeClassName={ACTIVE_CLASS_NAME}
               element={NavLink}
               onClick={onMenuClose}
               to={appLink.properties()}
             >
               Properties
             </SideNavMenuItem>
+
             <SideNavMenuItem
-              large
-              activeClassName={"bx--side-nav__link--current"}
+              activeClassName={ACTIVE_CLASS_NAME}
               element={NavLink}
               onClick={onMenuClose}
-              to={appLink.teamProperties()}
+              to={appLink.teamConfiguration()}
             >
-              Team Properties
+              Team Configuration
+            </SideNavMenuItem>
+            <SideNavMenuItem
+              large
+              activeClassName={ACTIVE_CLASS_NAME}
+              element={NavLink}
+              onClick={onMenuClose}
+              to={appLink.taskTemplates()}
+            >
+              Task Manager
             </SideNavMenuItem>
           </SideNavMenu>
         ) : (
@@ -94,13 +138,6 @@ const handleOnMenuClick = (isAtLeastOperator: boolean) => ({
     </SideNav>
   </LeftSideNav>
 );
-
-const defaultUIShellProps = {
-  baseLaunchEnvUrl: BASE_LAUNCH_ENV_URL,
-  baseServiceUrl: BASE_URL,
-  onMenuClick: handleOnMenuClick(false),
-  renderLogo: true,
-};
 
 const skipToContentProps = {
   href: "#content",
@@ -113,30 +150,28 @@ interface NavbarContainerProps {
 }
 
 export default function NavbarContainer({ handleOnTutorialClick, navigationState, userState }: NavbarContainerProps) {
-  const isStandaAloneMode = false;
+  const isStandaAloneMode = useFeature(FeatureFlag.Standalone);
+  const defaultUIShellProps = {
+    baseLaunchEnvUrl: isStandaAloneMode ? null : BASE_LAUNCH_ENV_URL,
+    baseServiceUrl: isStandaAloneMode ? null : BASE_URL,
+    requirePlatformConsent: isStandaAloneMode ? false : true,
+    renderLogo: true,
+  };
 
-  if (navigationState.status === QueryStatus.Success && userState.status === QueryStatus.Success) {
-    const isAtLeastOperator = userState.data.type === UserType.Admin || userState.data.type === UserType.Operator;
-    return (
-      <>
-        <Helmet>
-          <title>{`Flow | ${navigationState.data?.platform?.platformName ?? "Boomerang"}`}</title>
-        </Helmet>
-        {isStandaAloneMode ? (
-          <StandAloneHeader isAtLeastOperator={isAtLeastOperator} />
-        ) : (
-          <UIShell
-            {...defaultUIShellProps}
-            onMenuClick={handleOnMenuClick(isAtLeastOperator)}
-            headerConfig={navigationState.data}
-            onTutorialClick={handleOnTutorialClick}
-            user={userState.data}
-            skipToContentProps={skipToContentProps}
-          />
-        )}
-      </>
-    );
-  }
-
-  return null;
+  const isAtLeastOperator = userState.data.type === UserType.Admin || userState.data.type === UserType.Operator;
+  return (
+    <>
+      <Helmet>
+        <title>{`Flow | ${navigationState.data?.platform?.platformName ?? "Boomerang"}`}</title>
+      </Helmet>
+      <UIShell
+        {...defaultUIShellProps}
+        onMenuClick={handleOnMenuClick(isAtLeastOperator, isStandaAloneMode)}
+        headerConfig={navigationState.data}
+        onTutorialClick={handleOnTutorialClick}
+        user={userState.data}
+        skipToContentProps={skipToContentProps}
+      />
+    </>
+  );
 }

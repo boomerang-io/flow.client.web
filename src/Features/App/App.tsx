@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { lazy, useState, Suspense } from "react";
+import { FlagsProvider } from "flagged";
 import { AppContext } from "State/context";
 import { useQuery } from "Hooks";
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -16,7 +17,7 @@ import Navbar from "./Navbar";
 import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
-import { QueryStatus, UserType } from "Constants";
+import { UserType } from "Constants";
 import { appPath } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./app.module.scss";
@@ -47,26 +48,19 @@ export default function App() {
   const navigationQuery = useQuery(navigationUrl);
   const teamsQuery = useQuery(getTeamsUrl);
 
-  const { data: userData = {} } = userQuery;
-  const { data: teamsData } = teamsQuery;
+  const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading;
+  const isError = userQuery.isError || navigationQuery.isError || teamsQuery.isError;
 
-  const isLoadingInitialData =
-    userQuery.status === QueryStatus.Loading ||
-    navigationQuery.status === QueryStatus.Loading ||
-    teamsQuery.status === QueryStatus.Loading;
+  if (isLoading) {
+    return <Loading />;
+  }
 
-  const isSuccessState =
-    userQuery.status === QueryStatus.Success &&
-    navigationQuery.status === QueryStatus.Success &&
-    teamsQuery.status === QueryStatus.Success;
-
-  const isErrorState =
-    userQuery.status === QueryStatus.Error ||
-    navigationQuery.status === QueryStatus.Error ||
-    teamsQuery.status === QueryStatus.Error;
+  if (isError) {
+    return <ErrorDragon style={{ margin: "5rem 0" }} />;
+  }
 
   return (
-    <>
+    <FlagsProvider features={{ standalone: true }}>
       <Navbar
         handleOnTutorialClick={() => setIsTutorialActive(true)}
         navigationState={navigationQuery}
@@ -75,18 +69,16 @@ export default function App() {
       <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
       <ErrorBoundary errorComponent={ErrorDragon}>
         <Main
-          isLoadingInitialData={isLoadingInitialData}
-          isErrorState={isErrorState}
-          isSuccessState={isSuccessState}
+          isError={isError}
           isTutorialActive={isTutorialActive}
           setIsTutorialActive={setIsTutorialActive}
           setShouldShowBrowserWarning={setShouldShowBrowserWarning}
           shouldShowBrowserWarning={shouldShowBrowserWarning}
-          teamsData={teamsData}
-          userData={userData}
+          teamsData={teamsQuery.data}
+          userData={userQuery.data}
         />
       </ErrorBoundary>
-    </>
+    </FlagsProvider>
   );
 }
 
@@ -96,9 +88,8 @@ interface Team {
 }
 
 interface MainProps {
-  isLoadingInitialData: boolean;
-  isErrorState: boolean;
-  isSuccessState: boolean;
+  isLoading: boolean;
+  isError: boolean;
   isTutorialActive: boolean;
   setIsTutorialActive: (isTutorialActive: boolean) => void;
   setShouldShowBrowserWarning: (shouldShowBrowserWarning: boolean) => void;
@@ -108,9 +99,7 @@ interface MainProps {
 }
 
 function Main({
-  isLoadingInitialData,
-  isErrorState,
-  isSuccessState,
+  isError,
   isTutorialActive,
   setIsTutorialActive,
   setShouldShowBrowserWarning,
@@ -118,52 +107,40 @@ function Main({
   teamsData,
   userData,
 }: MainProps) {
-  if (isLoadingInitialData) {
-    return <Loading />;
+  const { id: userId, type: platformRole }: { id: string; type: string } = userData;
+
+  // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
+  if (!userId) {
+    return null;
   }
 
-  if (isErrorState) {
-    return <ErrorDragon style={{ margin: "5rem 0" }} />;
+  // Show redirect prompt if the user doesn't have any teams
+  if (Object.keys(teamsData).length === 0) {
+    return <NoAccessRedirectPrompt />;
   }
 
-  if (isSuccessState) {
-    const { id: userId, type: platformRole }: { id: string; type: string } = userData;
-
-    // Don't show anything to a user that doesn't exist, the UIShell will show the redirect
-    if (!userId) {
-      return null;
-    }
-
-    // Show redirect prompt if the user doesn't have any teams
-    if (Object.keys(teamsData).length === 0) {
-      return <NoAccessRedirectPrompt />;
-    }
-
-    if (shouldShowBrowserWarning) {
-      return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
-    }
-    return (
-      <AppContext.Provider
-        value={{
-          isTutorialActive,
-          setIsTutorialActive,
-          user: userData,
-          teams: teamsData,
-        }}
-      >
-        <AppFeatures platformRole={platformRole} />
-      </AppContext.Provider>
-    );
+  if (shouldShowBrowserWarning) {
+    return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
   }
-
-  return null;
+  return (
+    <AppContext.Provider
+      value={{
+        isTutorialActive,
+        setIsTutorialActive,
+        user: userData,
+        teams: teamsData,
+      }}
+    >
+      <AppFeatures platformRole={platformRole} />
+    </AppContext.Provider>
+  );
 }
 
-interface IAppFeatures {
+interface AppFeaturesProps {
   platformRole: string;
 }
 
-const AppFeatures = React.memo(function AppFeatures({ platformRole }: IAppFeatures) {
+const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
   return (
     <main id="content" className={styles.container}>
       <Suspense fallback={<Loading />}>
