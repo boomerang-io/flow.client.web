@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import cx from "classnames";
 import {
   //AutoSuggest,
@@ -16,10 +15,6 @@ import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { WarningFilled16, WarningAlt16 } from "@carbon/icons-react";
 import styles from "./taskUpdateModal.module.scss";
-
-TaskUpdateModal.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-};
 
 const UpdateType = {
   Add: "add",
