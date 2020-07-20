@@ -37,8 +37,13 @@ export const appLink = {
   taskTemplateEdit: ({ id, version }) => `/task-templates/${id}/${version}`,
   taskTemplateEditSettings: ({ id, version }) => `/task-templates/edit/${id}/${version}/settings`,
   teamProperties: () => `team-properties`,
+  teamConfiguration: () => `team-quotas`,
   workflows: () => "/workflows",
   workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
 };
 
 export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true };
+
+export const FeatureFlag = {
+  Standalone: "standalone",
+};

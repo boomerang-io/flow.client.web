@@ -20,7 +20,7 @@ export interface ComposedModalChildProps {
   closeModal(): void;
 }
 
-export type FormikSetFieldValue = (id: string, value: string | [string] | boolean | undefined) => void;
+export declare function FormikSetFieldValue(id: string, value: string | [string] | boolean | undefined): void;
 
 export interface WorkflowSummary {
   id: string;
