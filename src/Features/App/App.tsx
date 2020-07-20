@@ -27,8 +27,11 @@ const Editor = lazy(() => import(/* webpackChunkName: "Editor" */ "Features/Edit
 const Execution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/Execution"));
 const GlobalProperties = lazy(() => import(/* webpackChunkName: "GlobalProperties" */ "Features/GlobalProperties"));
 const Insights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
+const Quotas = lazy(() => import(/* webpackChunkName: "Quotas" */ "Features/Quotas"));
 const TaskTemplates = lazy(() => import(/* webpackChunkName: "TaskTemplates" */ "Features/TaskTemplates"));
+const Teams = lazy(() => import(/* webpackChunkName: "Teams" */ "Features/Teams"));
 const TeamProperties = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/TeamProperties"));
+const Users = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/Users"));
 const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Features/Workflows"));
 
 const userUrl = serviceUrl.getUserProfile();
@@ -161,6 +164,24 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             allowedUserRoles={allowedUserRoles}
             component={<TaskTemplates />}
             path={appPath.taskTemplates}
+            userRole={platformRole}
+          />
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<Quotas />}
+            path={appPath.quotas}
+            userRole={platformRole}
+          />
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<Teams />}
+            path={appPath.teams}
+            userRole={platformRole}
+          />
+          <ProtectedRoute
+            allowedUserRoles={allowedUserRoles}
+            component={<Users />}
+            path={appPath.users}
             userRole={platformRole}
           />
           <Route path={appPath.execution}>
