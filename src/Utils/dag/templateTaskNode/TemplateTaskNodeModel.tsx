@@ -1,8 +1,29 @@
 import { DiagramEngine } from "@projectstorm/react-diagrams";
-import { NodeModel } from "@projectstorm/react-diagrams";
+import { DiagramModel, NodeModel, NodeModelListener } from "@projectstorm/react-diagrams";
 import TaskPortModel from "Utils/dag/taskPort/TaskPortModel";
 import merge from "lodash/merge";
 import { NodeType } from "Constants";
+
+interface nodeInterface extends NodeModel<NodeModelListener> {
+  index: number;
+  id: string;
+  taskId: string;
+  taskName: string;
+}
+
+interface nodesInterface {
+  [key: string]: nodeInterface;
+}
+
+interface diagramEngineInterface extends DiagramEngine {
+  getDiagramModel: () => diagramModelInterface;
+  // getDiagramModel: () => string;
+}
+
+interface diagramModelInterface extends DiagramModel {
+  getNodes: () => nodesInterface;
+  // getNodes: () => nodeInterface
+}
 
 export default class TemplateTaskNodeModel extends NodeModel {
   taskId: string;
@@ -29,7 +50,7 @@ export default class TemplateTaskNodeModel extends NodeModel {
 
   deSerialize(
     data: { taskId: string; nodeId: string; taskName: string; taskVersion: number; currentVersion: number },
-    engine: DiagramEngine
+    engine: diagramEngineInterface
   ) {
     super.deSerialize(data, engine);
     this.taskId = data.taskId;

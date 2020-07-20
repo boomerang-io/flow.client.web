@@ -74,7 +74,7 @@ export default class WorkflowDagEngine {
           document.addEventListener("mouseup", (e: MouseEvent) => {
             setTimeout(() => {
               if (!event.link.targetPort) {
-                this.activeModel.removeLink(event.link);
+                this?.activeModel?.removeLink(event.link);
                 this.diagramEngine.repaintCanvas();
               }
             }, 0);

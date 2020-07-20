@@ -122,6 +122,7 @@ const TemplateTaskNodeDesigner = React.memo(function TemplateTaskNodeDesigner({ 
       <WorkflowNode
         category={task.category}
         icon={task.icon}
+        isExecution={false}
         name={task.name}
         node={designerNode}
         subtitle={designerNode.taskName}
