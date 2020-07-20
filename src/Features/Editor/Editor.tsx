@@ -21,7 +21,7 @@ import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { appPath } from "Config/appConfig";
+import { AppPath } from "Config/appConfig";
 import { NodeType } from "Constants";
 import { WorkflowSummary } from "Types";
 import styles from "./editor.module.scss";
@@ -340,7 +340,7 @@ export function EditorStateContainer({
             summaryData={summaryData}
           />
           <Switch>
-            <Route path={appPath.editorDesigner}>
+            <Route path={AppPath.EditorDesigner}>
               <Designer
                 createNode={handleCreateNode}
                 isModalOpen={isModalOpen}
@@ -349,16 +349,16 @@ export function EditorStateContainer({
                 workflowDagEngine={workflowDagEngine}
               />
             </Route>
-            <Route path={appPath.editorProperties}>
+            <Route path={AppPath.EditorProperties}>
               <Properties summaryData={summaryData} />
             </Route>
 
-            <Route path={appPath.editorChangelog}>
+            <Route path={AppPath.EditorChangelog}>
               <ChangeLog summaryData={summaryData} />
             </Route>
           </Switch>
           <Route
-            path={appPath.editorConfigure}
+            path={AppPath.EditorConfigure}
             children={({ history, match: routeMatch }: { history: History; match: match }) => (
               // Always render parent Configure component so state isn't lost when switching tabs
               // It is responsible for rendering its children, but Formik form management is always mounted

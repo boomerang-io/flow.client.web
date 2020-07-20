@@ -6,24 +6,24 @@ export const APP_ROOT =
 export const PLATFORM_VERSION =
   window._SERVER_DATA && window._SERVER_DATA.PLATFORM_VERSION ? window._SERVER_DATA.PLATFORM_VERSION : "";
 
-export const appPath = {
-  root: APP_ROOT,
-  error: "/error",
-  activity: "/activity",
-  editor: "/teams/:teamId/editor/:workflowId",
-  editorDesigner: `/teams/:teamId/editor/:workflowId/workflow`,
-  editorConfigure: `/teams/:teamId/editor/:workflowId/configure`,
-  editorChangelog: `/teams/:teamId/editor/:workflowId/changelog`,
-  editorProperties: `/teams/:teamId/editor/:workflowId/properties`,
-  execution: "/activity/:workflowId/execution/:executionId",
-  insights: "/insights",
-  properties: "/admin/properties",
-  quotas: "/admin/quotas",
-  taskTemplates: "/admin/task-templates",
-  teams: "/admin/teams",
-  teamProperties: `/team-properties`,
-  users: "/admin/users",
-  workflows: "/workflows",
+export const AppPath = {
+  Root: APP_ROOT,
+  Error: "/error",
+  Activity: "/activity",
+  Editor: "/teams/:teamId/editor/:workflowId",
+  EditorDesigner: `/teams/:teamId/editor/:workflowId/workflow`,
+  EditorConfigure: `/teams/:teamId/editor/:workflowId/configure`,
+  EditorChangelog: `/teams/:teamId/editor/:workflowId/changelog`,
+  EditorProperties: `/teams/:teamId/editor/:workflowId/properties`,
+  Execution: "/activity/:workflowId/execution/:executionId",
+  Insights: "/insights",
+  Properties: "/admin/properties",
+  Quotas: "/admin/quotas",
+  TaskTemplates: "/admin/task-templates",
+  Teams: "/admin/teams",
+  TeamProperties: `/team-properties`,
+  Users: "/admin/users",
+  Workflows: "/workflows",
 };
 
 export const appLink = {

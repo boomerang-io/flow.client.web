@@ -18,7 +18,7 @@ import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import { UserType } from "Constants";
-import { appPath } from "Config/appConfig";
+import { AppPath } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./app.module.scss";
 
@@ -151,55 +151,55 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
             component={<GlobalProperties />}
-            path={appPath.properties}
+            path={AppPath.Properties}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
             component={<TeamProperties />}
-            path={appPath.teamProperties}
+            path={AppPath.TeamProperties}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
             component={<TaskTemplates />}
-            path={appPath.taskTemplates}
+            path={AppPath.TaskTemplates}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
             component={<Quotas />}
-            path={appPath.quotas}
+            path={AppPath.Quotas}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
             component={<Teams />}
-            path={appPath.teams}
+            path={AppPath.Teams}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
             component={<Users />}
-            path={appPath.users}
+            path={AppPath.Users}
             userRole={platformRole}
           />
-          <Route path={appPath.execution}>
+          <Route path={AppPath.Execution}>
             <Execution />
           </Route>
-          <Route path={appPath.activity}>
+          <Route path={AppPath.Activity}>
             <Activity />
           </Route>
-          <Route path={appPath.editor}>
+          <Route path={AppPath.Editor}>
             <Editor />
           </Route>
-          <Route path={appPath.insights}>
+          <Route path={AppPath.Insights}>
             <Insights />
           </Route>
-          <Route path={appPath.workflows}>
+          <Route path={AppPath.Workflows}>
             <Workflows />
           </Route>
-          <Redirect exact from="/" to={appPath.workflows} />
+          <Redirect exact from="/" to={AppPath.Workflows} />
           <Route path="*" component={Error404} />
         </Switch>
       </Suspense>
