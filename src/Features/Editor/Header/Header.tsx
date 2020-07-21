@@ -33,7 +33,7 @@ interface DesignerHeaderProps {
   revisionMutation: object;
   revisionState: WorkflowRevisionState;
   revisionQuery: QueryResult<WorkflowRevision, Error>;
-  workflowSummary: WorkflowSummary;
+  summaryData: WorkflowSummary;
 }
 
 const DesignerHeader: React.FC<DesignerHeaderProps> = ({
@@ -43,9 +43,9 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   revisionMutation,
   revisionState,
   revisionQuery,
-  workflowSummary,
+  summaryData,
 }) => {
-  const { revisionCount, name } = workflowSummary;
+  const { revisionCount, name } = summaryData;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;
   const isQueryLoading = revisionQuery.status === QueryStatus.Loading;
