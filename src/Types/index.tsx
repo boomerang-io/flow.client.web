@@ -113,7 +113,7 @@ export interface PaginatedSort {
   ascending: boolean;
 }
 
-export interface PaginatedResponse<T> {
+export interface PaginatedResponse<RecordType> {
   totalPages: number;
   totalElements: number;
   last: boolean;
@@ -122,7 +122,7 @@ export interface PaginatedResponse<T> {
   numberOfElements: number;
   size: number;
   number: number;
-  records: T[];
+  records: RecordType[];
 }
 
 export interface FlowUser {
