@@ -83,3 +83,16 @@ export interface TaskModel {
   name: string;
   status: string;
 }
+
+export interface FlowTeam {
+  higherLevelGroupId: string;
+  id: string;
+  name: string;
+  workflows: WorkflowSummary[];
+}
+
+export interface FlowUser {
+  id: string;
+  email: string;
+  name: string;
+}

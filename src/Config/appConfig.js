@@ -20,9 +20,11 @@ export const AppPath = {
   Properties: "/admin/properties",
   Quotas: "/admin/quotas",
   TaskTemplates: "/admin/task-templates",
-  Teams: "/admin/teams",
+  Team: "/admin/teams/:teamId",
+  TeamList: "/admin/teams",
   TeamProperties: `/team-properties`,
-  Users: "/admin/users",
+  User: "/admin/users/:userId",
+  UserList: "/admin/users",
   Workflows: "/workflows",
 };
 
@@ -42,8 +44,10 @@ export const appLink = {
   taskTemplateEditSettings: ({ id, version }) => `/admin/task-templates/edit/${id}/${version}/settings`,
   teamProperties: () => `/team-properties`,
   teamTaskTemplates: (teamId) => `/task-templates`,
-  teams: () => "/admin/teams",
-  users: () => "/admin/users",
+  team: ({ teamId }) => `/admin/teams/${teamId}`,
+  teamList: () => "/admin/teams",
+  user: ({ userId }) => `/admin/users/${userId}`,
+  userList: () => "/admin/users",
   workflows: () => "/workflows",
   workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
 };

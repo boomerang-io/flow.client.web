@@ -30,10 +30,10 @@ function ActivityHeader({
   return (
     <FeatureHeader includeBorder={false}>
       <div className={styles.container}>
-        <section className={styles.headline}>
+        <hgroup>
           <p className={styles.subtitle}>This is all of the</p>
-          <p className={styles.title}>Activity</p>
-        </section>
+          <h1 className={styles.title}>Activity</h1>
+        </hgroup>
         <section className={styles.content}>
           {isLoading ? (
             <SkeletonPlaceholder className={styles.summarySkeleton} />

@@ -87,7 +87,7 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
                 activeClassName={ACTIVE_CLASS_NAME}
                 element={NavLink}
                 onClick={onMenuClose}
-                to={appLink.teams()}
+                to={appLink.teamList()}
               >
                 Teams
               </SideNavMenuItem>
@@ -98,7 +98,7 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
                 activeClassName={ACTIVE_CLASS_NAME}
                 element={NavLink}
                 onClick={onMenuClose}
-                to={appLink.users()}
+                to={appLink.userList()}
               >
                 Users
               </SideNavMenuItem>

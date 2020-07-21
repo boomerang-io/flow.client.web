@@ -36,6 +36,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       teamProperties: Model,
       tasktemplate: Model,
       team: Model,
+      user: Model,
     },
 
     routes() {
@@ -60,6 +61,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.get(serviceUrl.getTeams(), (schema) => {
         return schema.db.teams;
+      });
+
+      this.get(serviceUrl.getUsers(), (schema) => {
+        return schema.db.users;
       });
 
       /**

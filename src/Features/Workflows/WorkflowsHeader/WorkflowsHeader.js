@@ -31,7 +31,7 @@ export default function WorkflowsHeader({
     <FeatureHeader className={styles.header}>
       <div className={styles.container}>
         <hgroup className={styles.info}>
-          <h2 className={styles.title}>These are your</h2>
+          <p className={styles.title}>These are your</p>
           <h1 className={styles.subtitle}>{isLoading ? "Workflows" : `Workflows (${workflowsCount})`}</h1>
         </hgroup>
         <SearchFilterBar

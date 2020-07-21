@@ -175,13 +175,13 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
             component={<Teams />}
-            path={AppPath.Teams}
+            path={AppPath.TeamList}
             userRole={platformRole}
           />
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
             component={<Users />}
-            path={AppPath.Users}
+            path={AppPath.UserList}
             userRole={platformRole}
           />
           <Route path={AppPath.Execution}>

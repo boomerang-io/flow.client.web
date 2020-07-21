@@ -59,6 +59,7 @@ export const serviceUrl = {
   getTeams: () => `${BASE_SERVICE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_SERVICE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/properties`,
+  getUsers: () => `${BASE_SERVICE_URL}/users`,
   getUserTeams: ({ email }) => `${BASE_TEAMS_URL}?userEmail=${email}`,
   getUserProfile: () => `${BASE_USERS_URL}/profile`,
   getWorkflow: ({ id }) => `${BASE_SERVICE_URL}/workflow/${id}`,
