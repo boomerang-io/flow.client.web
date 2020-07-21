@@ -21,36 +21,10 @@ import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { appPath } from "Config/appConfig";
+import { AppPath } from "Config/appConfig";
 import { NodeType } from "Constants";
+import { WorkflowSummary } from "Types";
 import styles from "./editor.module.scss";
-
-export interface ISummaryData {
-  id: string;
-  description: string;
-  enableACCIntegration: boolean;
-  enablePersistentStorage: boolean;
-  icon: string;
-  name: string;
-  revisionCount: number;
-  shortDescription: string;
-  triggers: {
-    event: {
-      enable: boolean;
-      topic: string;
-    };
-    scheduler: {
-      enable: boolean;
-      schedule: string;
-      timezone: boolean;
-      advancedCron: boolean;
-    };
-    webhook: {
-      enable: boolean;
-      token: string;
-    };
-  };
-}
 
 export default function EditorContainer() {
   // Init revision number state is held here so we can easily refect the data on change via react-query
@@ -129,13 +103,10 @@ interface EditorStateContainerProps {
     data: {};
     status: string;
   };
-  summaryQuery: {
-    data: ISummaryData;
-    status: string;
-  };
+  summaryQuery: QueryResult<WorkflowSummary, Error>;
   summaryMutation: MutationResult<AxiosResponse<any>, Error>;
   setRevisionNumber: (revisionNumber: number) => void;
-  taskTemplatesData: Array<{ id: string }>;
+  taskTemplatesData: Array<{ id: string; status: string }>;
   workflowId: string;
 }
 
@@ -369,27 +340,26 @@ export function EditorStateContainer({
             summaryData={summaryData}
           />
           <Switch>
-            <Route path={appPath.editorDesigner}>
+            <Route path={AppPath.EditorDesigner}>
               <Designer
                 createNode={handleCreateNode}
                 isModalOpen={isModalOpen}
                 revisionQuery={revisionQuery}
-                summaryData={summaryData}
                 tasks={taskTemplatesData}
                 workflowDagEngine={workflowDagEngine}
               />
             </Route>
-            <Route path={appPath.editorProperties}>
+            <Route path={AppPath.EditorProperties}>
               <Properties summaryData={summaryData} />
             </Route>
 
-            <Route path={appPath.editorChangelog}>
+            <Route path={AppPath.EditorChangelog}>
               <ChangeLog summaryData={summaryData} />
             </Route>
           </Switch>
           <Route
-            path={appPath.editorConfigure}
-            children={({ history, match: routeMatch }: { history: History; match: {} }) => (
+            path={AppPath.EditorConfigure}
+            children={({ history, match: routeMatch }: { history: History; match: match }) => (
               // Always render parent Configure component so state isn't lost when switching tabs
               // It is responsible for rendering its children, but Formik form management is always mounted
               <Configure

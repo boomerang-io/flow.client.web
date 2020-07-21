@@ -10,9 +10,11 @@ import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./CustomTaskNodeDesigner.module.scss";
-import { DiagramEngine, DiagramModel, NodeModel, NodeModelListener } from "@projectstorm/react-diagrams";
+import { DiagramEngine, DiagramModel } from "@projectstorm/react-diagrams";
 
-interface nodeInterface extends NodeModel<NodeModelListener> {
+import CustomTaskNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
+
+interface nodeInterface extends CustomTaskNodeModel {
   index: number;
   id: string;
   taskId: string;
@@ -36,8 +38,10 @@ const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({
   diagramEngine,
   node: designerNode,
 }: {
+  // diagramEngine: diagramEngineInterface;
+  // node: nodeInterface;
   diagramEngine: diagramEngineInterface;
-  node: nodeInterface;
+  node: CustomTaskNodeModel;
 }) {
   // const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useEditorContext();
   const editorContext = useEditorContext();
@@ -145,6 +149,7 @@ const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({
           <TaskUpdateModal
             closeModal={closeModal}
             inputProperties={inputProperties}
+            //TODO: need to push node through
             // node={designerNode}
             nodeConfig={nodeConfig}
             onSave={handleOnUpdateTaskVersion}
@@ -179,14 +184,5 @@ const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({
   }
   return null;
 });
-
-// CustomTaskNodeDesigner.propTypes = {
-//   diagramEngine: PropTypes.object.isRequired,
-//   node: PropTypes.object.isRequired,
-// };
-
-// CustomTaskNodeDesigner.defaultProps = {
-//   node: {},
-// };
 
 export default CustomTaskNodeDesigner;

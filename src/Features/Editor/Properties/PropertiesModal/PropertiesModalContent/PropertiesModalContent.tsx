@@ -1,5 +1,5 @@
+// @ts-nocheck
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import {
   ComboBox,
   Creatable,
@@ -10,10 +10,11 @@ import {
   ModalFlowForm,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Formik } from "formik";
+import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
-import { InputProperty, InputType, InputTypeCopy, WorkflorPropertyUpdateType } from "Constants";
+import { InputProperty, InputType, InputTypeCopy, WorkflorPropertyUpdateType, PROPERTY_KEY_REGEX } from "Constants";
+import { DataDrivenInput, FormikSetFieldValue } from "Types";
 import styles from "./PropertiesModalContent.module.scss";
 
 const textInputItem = { label: InputTypeCopy[InputType.Text], value: InputType.Text };
@@ -29,46 +30,41 @@ const inputTypeItems = [
   { label: InputTypeCopy[InputType.URL], value: InputType.URL },
 ];
 
-class PropertiesModalContent extends Component {
-  static propTypes = {
-    closeModal: PropTypes.func,
-    property: PropTypes.object,
-    propertyKeys: PropTypes.array,
-    isEdit: PropTypes.bool,
-    loading: PropTypes.bool.isRequired,
-    updateWorkflowProperties: PropTypes.func.isRequired,
-  };
+interface PropertiesModalContentProps {
+  closeModal(): void;
+  isEdit: boolean;
+  isLoading: boolean;
+  property: DataDrivenInput;
+  propertyKeys: string[];
+  updateWorkflowProperties: (args: { property: DataDrivenInput; type: string }) => Promise<any>;
+}
 
+class PropertiesModalContent extends Component<PropertiesModalContentProps> {
   state = {
     defaultValueType: "text",
   };
 
-  handleOnChange = (e, formikChange) => {
-    formikChange(e);
-  };
-
-  handleOnFieldValueChange = (value, id, setFieldValue) => {
+  handleOnFieldValueChange = (value: any, id: string, setFieldValue: FormikSetFieldValue) => {
     setFieldValue(id, value);
   };
 
-  handleOnTypeChange = (selectedItem, setFieldValue) => {
+  handleOnTypeChange = (selectedItem: any, setFieldValue: FormikSetFieldValue) => {
     this.setState({ defaultValueType: selectedItem.value });
     setFieldValue(InputProperty.Type, selectedItem);
     setFieldValue(InputProperty.DefaultValue, selectedItem.value === InputType.Boolean ? false : undefined);
   };
 
   // Only save an array of strings to match api and simplify renderDefaultValue()
-  handleOptionsChange = (values, setFieldValue) => {
+  handleOptionsChange = (values: [string], setFieldValue: (id: string, values: [string]) => void) => {
     setFieldValue(InputProperty.Options, values);
   };
 
   // Check if key contains alpahanumeric, underscore, dash, and period chars
-  validateKey = (key) => {
-    const regexp = /^[a-zA-Z0-9-._]+$/g;
-    return regexp.test(key);
+  validateKey = (key: string) => {
+    return PROPERTY_KEY_REGEX.test(key);
   };
 
-  handleConfirm = (values) => {
+  handleConfirm = (values: DataDrivenInput) => {
     let property = clonedeep(values);
     property.type = property.type.value;
 
@@ -77,7 +73,7 @@ class PropertiesModalContent extends Component {
       delete property.options;
     } else {
       // Create options in correct type for service - { key, value }
-      property.options = property.options.map((property) => ({ key: property, value: property }));
+      property.options = property?.options.map((property) => ({ key: property, value: property }));
     }
 
     if (property.type === InputType.Boolean) {
@@ -107,7 +103,7 @@ class PropertiesModalContent extends Component {
     }
   };
 
-  renderDefaultValue = (formikProps) => {
+  renderDefaultValue = (formikProps: FormikProps) => {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
 
     switch (values?.type?.value) {
@@ -117,7 +113,7 @@ class PropertiesModalContent extends Component {
             data-testid="toggle"
             id={InputProperty.DefaultValue}
             label="Default Value"
-            onToggle={(value) =>
+            onToggle={(value: string | boolean) =>
               this.handleOnFieldValueChange(value.toString(), InputProperty.DefaultValue, setFieldValue)
             }
             orientation="vertical"
@@ -132,7 +128,7 @@ class PropertiesModalContent extends Component {
             <Creatable
               data-testid="creatable"
               id={InputProperty.Options}
-              onChange={(createdItems) => this.handleOptionsChange(createdItems, setFieldValue)}
+              onChange={(createdItems: any) => this.handleOptionsChange(createdItems, setFieldValue)}
               label="Options"
               placeholder="Enter option"
               values={options || []}
@@ -140,7 +136,7 @@ class PropertiesModalContent extends Component {
             <ComboBox
               data-testid="select"
               id={InputProperty.DefaultValue}
-              onChange={({ selectedItem }) =>
+              onChange={({ selectedItem }: any) =>
                 this.handleOnFieldValueChange(selectedItem, InputProperty.DefaultValue, setFieldValue)
               }
               items={options || []}
@@ -157,7 +153,7 @@ class PropertiesModalContent extends Component {
             id={InputProperty.DefaultValue}
             labelText="Default Value"
             onBlur={handleBlur}
-            onChange={(e) => this.handleOnChange(e, handleChange)}
+            onChange={handleChange}
             placeholder="Default Value"
             style={{ resize: "none" }}
             value={values.defaultValue || ""}
@@ -171,7 +167,7 @@ class PropertiesModalContent extends Component {
             id={InputProperty.DefaultValue}
             labelText="Default Value"
             onBlur={handleBlur}
-            onChange={(e) => this.handleOnChange(e, handleChange)}
+            onChange={handleChange}
             placeholder="Default Value"
             type={values.type.value}
             value={values.defaultValue || ""}
@@ -180,7 +176,7 @@ class PropertiesModalContent extends Component {
     }
   };
 
-  determineDefaultValueSchema = (defaultType) => {
+  determineDefaultValueSchema = (defaultType: string) => {
     switch (defaultType) {
       case InputType.Text:
       case InputType.TextArea:
@@ -200,7 +196,7 @@ class PropertiesModalContent extends Component {
   };
 
   render() {
-    const { property, isEdit, propertyKeys, loading } = this.props;
+    const { property, isEdit, propertyKeys, isLoading } = this.props;
     let defaultValueType = this.state.defaultValueType;
 
     return (
@@ -254,9 +250,9 @@ class PropertiesModalContent extends Component {
           } = formikProps;
 
           return (
-            <ModalFlowForm onSubmit={handleSubmit} disabled={loading}>
+            <ModalFlowForm onSubmit={handleSubmit} disabled={isLoading}>
               <ModalBody hasScrollingContent aria-label="inputs" className={styles.container}>
-                {loading && <Loading />}
+                {isLoading && <Loading />}
                 <TextInput
                   readOnly={isEdit}
                   helperText="Reference value for property in workflow. It can't be changed after property creation."
@@ -265,13 +261,13 @@ class PropertiesModalContent extends Component {
                   invalidText={errors.key}
                   labelText={isEdit ? "Key (read-only)" : "Key"}
                   onBlur={handleBlur}
-                  onChange={(e) => this.handleOnChange(e, handleChange)}
+                  onChange={handleChange}
                   placeholder=".e.g. token"
                   value={values.key}
                 />
                 <ComboBox
                   id={InputProperty.Type}
-                  onChange={({ selectedItem }) =>
+                  onChange={({ selectedItem }: any) =>
                     this.handleOnTypeChange(
                       selectedItem !== null ? selectedItem : { label: "", value: "" },
                       setFieldValue
@@ -279,7 +275,7 @@ class PropertiesModalContent extends Component {
                   }
                   items={inputTypeItems}
                   initialSelectedItem={values.type}
-                  itemToString={(item) => item && item.label}
+                  itemToString={(item: { label: string }) => item && item.label}
                   placeholder="Select an item"
                   titleText="Type"
                 />
@@ -291,7 +287,7 @@ class PropertiesModalContent extends Component {
                   placeholder="e.g. Token"
                   value={values.label}
                   onBlur={handleBlur}
-                  onChange={(e) => this.handleOnChange(e, handleChange)}
+                  onChange={handleChange}
                 />
                 <TextInput
                   id={InputProperty.Description}
@@ -299,7 +295,7 @@ class PropertiesModalContent extends Component {
                   invalidText={errors.description}
                   labelText="Description"
                   onBlur={handleBlur}
-                  onChange={(e) => this.handleOnChange(e, handleChange)}
+                  onChange={handleChange}
                   value={values.description}
                 />
 
@@ -307,7 +303,9 @@ class PropertiesModalContent extends Component {
                   data-testid="toggle-test-id"
                   id={InputProperty.Required}
                   labelText="Required"
-                  onToggle={(value) => this.handleOnFieldValueChange(value, InputProperty.Required, setFieldValue)}
+                  onToggle={(value: string) =>
+                    this.handleOnFieldValueChange(value, InputProperty.Required, setFieldValue)
+                  }
                   orientation="vertical"
                   toggled={values.required}
                 />
@@ -318,8 +316,8 @@ class PropertiesModalContent extends Component {
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button disabled={!isValid || loading} type="submit" data-testid="property-modal-confirm-button">
-                  {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating" : "Create"}
+                <Button disabled={!isValid || isLoading} type="submit" data-testid="property-modal-confirm-button">
+                  {isEdit ? (isLoading ? "Saving..." : "Save") : isLoading ? "Creating..." : "Create"}
                 </Button>
               </ModalFooter>
             </ModalFlowForm>

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { DiagramEngine, DiagramModel } from "@projectstorm/react-diagrams";
 import CustomTaskNodeFactory from "./customTaskNode/CustomTaskNodeFactory";
 import SimplePortFactory from "./simplePort/SimplePortFactory";
@@ -12,7 +13,7 @@ import TaskPortModel from "./taskPort/TaskPortModel";
 import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
 import { NodeType } from "Constants";
 
-interface IDagModel {
+interface DagModel {
   dag: object;
   isModelLocked: boolean;
 }
@@ -21,7 +22,7 @@ export default class WorkflowDagEngine {
   activeModel: DiagramModel | undefined;
   diagramEngine: DiagramEngine;
 
-  constructor({ dag, isModelLocked }: IDagModel) {
+  constructor({ dag, isModelLocked }: DagModel) {
     this.diagramEngine = new DiagramEngine();
     this.diagramEngine.installDefaultFactories();
     this.diagramEngine.registerNodeFactory(new CustomTaskNodeFactory());

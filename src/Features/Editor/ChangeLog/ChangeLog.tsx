@@ -1,20 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useQuery } from "Hooks";
 import { DelayedRender, DataTableSkeleton, SearchSkeleton } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import ChangeLogTable from "./ChangeLogTable";
 import qs from "query-string";
 import { serviceUrl } from "Config/servicesConfig";
+import { WorkflowSummary } from "Types";
 import styles from "./changeLog.module.scss";
 
-ChangeLog.propTypes = {
-  summaryData: PropTypes.object.isRequired,
-};
+interface ChangeLogProps {
+  workflowSummary: WorkflowSummary;
+}
 
-function ChangeLog({ summaryData }) {
+const ChangeLog: React.FC<ChangeLogProps> = ({ workflowSummary }) => {
   const getWorkflowChangelogUrl = serviceUrl.getWorkflowChangelog({
-    workflowId: summaryData.id,
+    workflowId: workflowSummary.id,
     query: qs.stringify({ sort: "version", order: "DESC" }),
   });
   const { data, error, isLoading, isIdle } = useQuery(getWorkflowChangelogUrl);
@@ -42,7 +42,6 @@ function ChangeLog({ summaryData }) {
       <ChangeLogTable changeLog={data} />
     </div>
   );
-
-}
+};
 
 export default ChangeLog;
