@@ -100,6 +100,8 @@ export interface FlowTeam {
   id: string;
   name: string;
   workflows: WorkflowSummary[];
+  users: FlowUser[];
+  isActive: string;
 }
 
 export interface PaginatedSort {
