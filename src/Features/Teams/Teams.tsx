@@ -3,6 +3,7 @@ import { useQuery } from "Hooks";
 import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
 import {
+  Checkbox,
   DataTable,
   DataTableSkeleton,
   ErrorMessage,
@@ -13,6 +14,7 @@ import FeatureHeader from "Components/FeatureHeader";
 import Team from "./Team";
 import queryString from "query-string";
 import { isAccessibleEvent } from "@boomerang-io/utils";
+import { SortDirection } from "Constants";
 import { AppPath, appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { FlowTeam, PaginatedResponse } from "Types";
@@ -71,7 +73,7 @@ const TeamList: React.FC = () => {
   );
 };
 
-const DEFAULT_ORDER = "DESC";
+const DEFAULT_ORDER = SortDirection.Desc;
 const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
 const DEFAULT_SORT = "name";
@@ -83,20 +85,13 @@ const headers = [
     key: "name",
     sortable: true,
   },
+
   {
-    header: "Summary",
-    key: "shortDescription",
-  },
-  {
-    header: "Users #",
+    header: "# of Users",
     key: "users",
   },
-  { header: "Workflow #", key: "workflows" },
-  { header: "Status", key: "status" },
-  {
-    header: "Id",
-    key: "id",
-  },
+  { header: "# of Workflows", key: "workflows" },
+  { header: "Active", key: "isActive" },
 ];
 
 interface TeamListTableProps {
@@ -140,10 +135,10 @@ const TeamListTable: React.FC<TeamListTableProps> = ({ teamsData }) => {
 
   function handleSort(e: React.SyntheticEvent, sort: { sortHeaderKey: string }) {
     const { property, direction } = teamsData.sort[0];
-    let order = "ASC";
+    let order = SortDirection.Asc;
 
-    if (sort.sortHeaderKey === property && direction === "ASC") {
-      order = "DESC";
+    if (sort.sortHeaderKey === property && direction === SortDirection.Asc) {
+      order = SortDirection.Desc;
     }
 
     updateHistorySearch({ ...queryString.parse(location.search), order, sort: sort.sortHeaderKey });
@@ -192,9 +187,20 @@ const TeamListTable: React.FC<TeamListTableProps> = ({ teamsData }) => {
                     onKeyDown={(e: React.SyntheticEvent) => isAccessibleEvent(e) && navigateToUser(row.id)}
                     tabIndex={0}
                   >
-                    {row.cells.map((cell: any, cellIndex: any) => (
-                      <TableCell key={cell.id}>{Array.isArray(cell.value) ? cell.value.length : cell.value}</TableCell>
-                    ))}
+                    {row.cells.map((cell: any, cellIndex: any) => {
+                      if (cell.info.header === "isActive") {
+                        return (
+                          <TableCell key={cell.id} id={cell.id}>
+                            <Checkbox id={"check-" + cell.id} checked={cell.value} hideLabel labelText="checkbox" />
+                          </TableCell>
+                        );
+                      }
+                      return (
+                        <TableCell key={cell.id}>
+                          {Array.isArray(cell.value) ? cell.value.length : cell?.value ?? "---"}
+                        </TableCell>
+                      );
+                    })}
                   </TableRow>
                 ))}
               </TableBody>
