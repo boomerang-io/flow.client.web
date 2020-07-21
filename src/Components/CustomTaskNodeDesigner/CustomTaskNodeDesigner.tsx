@@ -22,7 +22,8 @@ interface nodeInterface extends CustomTaskNodeModel {
 }
 
 interface nodesInterface {
-  [key: string]: nodeInterface;
+  // [key: string]: nodeInterface;
+  [key: string]: CustomTaskNodeModel;
 }
 
 interface diagramEngineInterface extends DiagramEngine {
@@ -56,6 +57,11 @@ const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({
     editorContext?.revisionState?.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? null;
   const nodeConfig = editorContext?.revisionState?.config ? [designerNode.id] ?? {} : {};
   const task = editorContext?.taskTemplatesData?.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
+
+  console.log("custom task node designer");
+  console.log(nodeConfig);
+  console.log(nodeDag);
+  console.log(task);
 
   // Get the taskNames names from the nodes on the model
   const taskNames = Object.values(diagramEngine.getDiagramModel().getNodes())
@@ -149,7 +155,6 @@ const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({
           <TaskUpdateModal
             closeModal={closeModal}
             inputProperties={inputProperties}
-            //TODO: need to push node through
             // node={designerNode}
             nodeConfig={nodeConfig}
             onSave={handleOnUpdateTaskVersion}
