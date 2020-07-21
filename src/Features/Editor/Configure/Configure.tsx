@@ -182,7 +182,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
     };
   }
 
-  generateToken = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  generateToken = (e: React.SyntheticEvent<HTMLButtonElement>) => {
     if (e) {
       e.preventDefault();
     }

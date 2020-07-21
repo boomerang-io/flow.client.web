@@ -28,10 +28,12 @@ const headers = [
   {
     header: "Team",
     key: "teamName",
+    sortable: true,
   },
   {
     header: "Workflow",
     key: "workflowName",
+    sortable: true,
   },
   {
     header: "Trigger",
@@ -153,7 +155,7 @@ function ActivityTable(props) {
                             {...getHeaderProps({
                               header,
                               className: `${styles.tableHeadHeader} ${styles[header.key]}`,
-                              isSortable: header.header !== "Team" && header.header !== "Workflow",
+                              isSortable: header.sortable,
                               onClick: handleSort,
                             })}
                             isSortHeader={sort[0].property === header.key}
