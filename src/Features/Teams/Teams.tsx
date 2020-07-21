@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "Hooks";
-import { useHistory, Route, Switch } from "react-router-dom";
+import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
 import {
   DataTable,
@@ -11,13 +11,13 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
 import Team from "./Team";
-import { isAccessibleEvent, sortByProp } from "@boomerang-io/utils";
-import { arrayPagination } from "Utils/arrayHelper";
+import queryString from "query-string";
+import { isAccessibleEvent } from "@boomerang-io/utils";
 import { AppPath, appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { FlowTeam } from "Types";
+import { FlowTeam, PaginatedResponse } from "Types";
 
-const getTeamsUrl = serviceUrl.getTeams();
+const getTeamsUrl = serviceUrl.getManageTeams();
 
 const TeamsContainer: React.FC = () => {
   return (
@@ -38,7 +38,8 @@ const FeatureLayout: React.FC = ({ children }) => {
   return (
     <>
       <FeatureHeader>
-        <h1 style={{ fontWeight: 600 }}>Teams</h1>
+        <h1 style={{ fontWeight: 600, margin: 0 }}>Teams</h1>
+        <p>View and manage all of the Flow teams</p>
       </FeatureHeader>
       <Box p="1rem">{children}</Box>
     </>
@@ -65,17 +66,17 @@ const TeamList: React.FC = () => {
   }
   return (
     <FeatureLayout>
-      <TeamsTable teamsData={teamsQuery.data} />
+      <TeamListTable teamsData={teamsQuery.data} />
     </FeatureLayout>
   );
 };
 
-interface TeamsTableProps {
-  teamsData: FlowTeam[];
-}
+const DEFAULT_ORDER = "DESC";
+const DEFAULT_PAGE = 0;
+const DEFAULT_SIZE = 10;
+const DEFAULT_SORT = "name";
+const PAGE_SIZES = [DEFAULT_SIZE, 20, 50, 100];
 
-const DEFAULT_PAGE_SIZE = 10;
-const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 20, 50, 100];
 const headers = [
   {
     header: "Name",
@@ -83,18 +84,28 @@ const headers = [
     sortable: true,
   },
   {
+    header: "Summary",
+    key: "shortDescription",
+  },
+  {
+    header: "Users #",
+    key: "users",
+  },
+  { header: "Workflow #", key: "workflows" },
+  { header: "Status", key: "status" },
+  {
     header: "Id",
     key: "id",
   },
 ];
 
-const TeamsTable: React.FC<TeamsTableProps> = ({ teamsData }) => {
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
-  //const [searchQuery, setSearchQuery] = useState("");
-  const [sortKey, setSortKey] = useState("name");
-  const [sortDirection, setSortDirection] = useState("asc");
+interface TeamListTableProps {
+  teamsData: PaginatedResponse<FlowTeam>;
+}
+
+const TeamListTable: React.FC<TeamListTableProps> = ({ teamsData }) => {
   const history = useHistory();
+  const location = useLocation();
 
   // const handleSearchChange = (e) => {
   //   const searchQuery = e.target.value;
@@ -102,31 +113,54 @@ const TeamsTable: React.FC<TeamsTableProps> = ({ teamsData }) => {
   //   setSearchQuery(searchQuery);
   // };
 
-  function handlePaginationChange({ page, pageSize }: { page: number; pageSize: number }) {
-    setPage(page);
-    setPageSize(pageSize);
+  /**
+   * Function that updates url search history to persist state
+   * @param {object} query - all of the query params
+   *
+   */
+  const updateHistorySearch = ({
+    order = DEFAULT_ORDER,
+    page = DEFAULT_PAGE,
+    size = DEFAULT_SIZE,
+    sort = DEFAULT_SORT,
+    ...props
+  }) => {
+    const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props })}`;
+    history.push({ search: queryStr });
+    return;
+  };
+
+  function handlePaginationChange(pagination: { page: number; pageSize: number }) {
+    updateHistorySearch({
+      ...queryString.parse(location.search),
+      page: pagination.page - 1, // We have to decrement by one to offset the table pagination adjustment
+      size: pagination.pageSize,
+    });
   }
 
-  function handleSort(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, { sortHeaderKey }: any) {
-    const order = sortDirection === "asc" ? "desc" : "asc";
-    setSortKey(sortHeaderKey);
-    setSortDirection(order);
+  function handleSort(e: React.SyntheticEvent, sort: { sortHeaderKey: string }) {
+    const { property, direction } = teamsData.sort[0];
+    let order = "ASC";
+
+    if (sort.sortHeaderKey === property && direction === "ASC") {
+      order = "DESC";
+    }
+
+    updateHistorySearch({ ...queryString.parse(location.search), order, sort: sort.sortHeaderKey });
   }
 
-  function navigateToTeam(teamId: string) {
-    history.push(appLink.team({ teamId }));
+  function navigateToUser(userId: string) {
+    history.push(appLink.user({ userId }));
   }
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
-  const records = teamsData;
-  const totalElements = teamsData.length;
+  const { number: page, sort, totalElements, totalPages, records } = teamsData;
 
   return totalElements > 0 ? (
     <>
       <DataTable
-        rows={arrayPagination(records, page, pageSize, sortKey, sortDirection)}
-        sortRow={(rows: any) => sortByProp(rows, sortKey, sortDirection)}
+        rows={records}
         headers={headers}
         render={({ rows, headers, getHeaderProps }: any) => (
           <TableContainer>
@@ -141,8 +175,8 @@ const TeamsTable: React.FC<TeamsTableProps> = ({ teamsData }) => {
                         isSortable: header.sortable,
                         onClick: handleSort,
                       })}
-                      isSortHeader={sortKey === header.key}
-                      sortDirection={sortDirection}
+                      isSortHeader={sort[0].property === header.key}
+                      sortDirection={sort[0].direction}
                     >
                       {header.header}
                     </TableHeader>
@@ -153,13 +187,13 @@ const TeamsTable: React.FC<TeamsTableProps> = ({ teamsData }) => {
                 {rows.map((row: any) => (
                   <TableRow
                     key={row.id}
-                    data-testid="team-list-table-row"
-                    onClick={() => navigateToTeam(row.id)}
-                    onKeyDown={(e: React.SyntheticEvent) => isAccessibleEvent(e) && navigateToTeam(row.id)}
+                    data-testid="user-list-table-row"
+                    onClick={() => navigateToUser(row.id)}
+                    onKeyDown={(e: React.SyntheticEvent) => isAccessibleEvent(e) && navigateToUser(row.id)}
                     tabIndex={0}
                   >
                     {row.cells.map((cell: any, cellIndex: any) => (
-                      <TableCell key={cell.id}>{cell.value}</TableCell>
+                      <TableCell key={cell.id}>{Array.isArray(cell.value) ? cell.value.length : cell.value}</TableCell>
                     ))}
                   </TableRow>
                 ))}
@@ -171,7 +205,7 @@ const TeamsTable: React.FC<TeamsTableProps> = ({ teamsData }) => {
       <Pagination
         onChange={handlePaginationChange}
         page={page}
-        pageSize={pageSize}
+        pageSize={totalPages}
         pageSizes={PAGE_SIZES}
         totalItems={totalElements}
       />

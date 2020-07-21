@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory, Route, Switch } from "react-router-dom";
+import React from "react";
+import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
 import { useQuery } from "Hooks";
 import {
@@ -10,14 +10,14 @@ import {
   Pagination,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import User from "./User";
-import { isAccessibleEvent, sortByProp } from "@boomerang-io/utils";
+import { isAccessibleEvent } from "@boomerang-io/utils";
 import FeatureHeader from "Components/FeatureHeader";
-import { arrayPagination } from "Utils/arrayHelper";
+import queryString from "query-string";
 import { appLink, AppPath } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { FlowUser } from "Types";
+import { FlowUser, PaginatedResponse } from "Types";
 
-const getUsersUrl = serviceUrl.getUsers();
+const getUsersUrl = serviceUrl.getManageUsers();
 
 const UsersContainer: React.FC = () => {
   return (
@@ -25,7 +25,7 @@ const UsersContainer: React.FC = () => {
       <Route path={AppPath.User}>
         <User />
       </Route>
-      <Route path={AppPath.UserList}>
+      <Route exactpath={AppPath.UserList}>
         <UserList />
       </Route>
     </Switch>
@@ -38,7 +38,8 @@ const FeatureLayout: React.FC = ({ children }) => {
   return (
     <>
       <FeatureHeader>
-        <h1 style={{ fontWeight: 600 }}>Users</h1>
+        <h1 style={{ fontWeight: 600, margin: 0 }}>Users</h1>
+        <p>View and manage all of the Flow users</p>
       </FeatureHeader>
       <Box p="1rem">{children}</Box>
     </>
@@ -70,8 +71,11 @@ const UserList: React.FC = () => {
   );
 };
 
-const DEFAULT_PAGE_SIZE = 10;
-const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 20, 50, 100];
+const DEFAULT_ORDER = "DESC";
+const DEFAULT_PAGE = 0;
+const DEFAULT_SIZE = 10;
+const DEFAULT_SORT = "name";
+const PAGE_SIZES = [DEFAULT_SIZE, 20, 50, 100];
 
 const headers = [
   {
@@ -91,16 +95,12 @@ const headers = [
 ];
 
 interface UsersTableProps {
-  usersData: FlowUser[];
+  usersData: PaginatedResponse<FlowUser>;
 }
 
 const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
-  //const [searchQuery, setSearchQuery] = useState("");
-  const [sortKey, setSortKey] = useState("name");
-  const [sortDirection, setSortDirection] = useState("asc");
   const history = useHistory();
+  const location = useLocation();
 
   // const handleSearchChange = (e) => {
   //   const searchQuery = e.target.value;
@@ -108,15 +108,40 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
   //   setSearchQuery(searchQuery);
   // };
 
-  function handlePaginationChange({ page, pageSize }: { page: number; pageSize: number }) {
-    setPage(page);
-    setPageSize(pageSize);
+  /**
+   * Function that updates url search history to persist state
+   * @param {object} query - all of the query params
+   *
+   */
+  const updateHistorySearch = ({
+    order = DEFAULT_ORDER,
+    page = DEFAULT_PAGE,
+    size = DEFAULT_SIZE,
+    sort = DEFAULT_SORT,
+    ...props
+  }) => {
+    const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props })}`;
+    history.push({ search: queryStr });
+    return;
+  };
+
+  function handlePaginationChange(pagination: { page: number; pageSize: number }) {
+    updateHistorySearch({
+      ...queryString.parse(location.search),
+      page: pagination.page - 1, // We have to decrement by one to offset the table pagination adjustment
+      size: pagination.pageSize,
+    });
   }
 
-  function handleSort(e: React.SyntheticEvent, { sortHeaderKey }: any) {
-    const order = sortDirection === "asc" ? "desc" : "asc";
-    setSortKey(sortHeaderKey);
-    setSortDirection(order);
+  function handleSort(e: React.SyntheticEvent, sort: { sortHeaderKey: string }) {
+    const { property, direction } = usersData.sort[0];
+    let order = "ASC";
+
+    if (sort.sortHeaderKey === property && direction === "ASC") {
+      order = "DESC";
+    }
+
+    updateHistorySearch({ ...queryString.parse(location.search), order, sort: sort.sortHeaderKey });
   }
 
   function navigateToUser(userId: string) {
@@ -125,14 +150,12 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
-  const records = usersData;
-  const totalElements = usersData.length;
+  const { number: page, sort, totalElements, totalPages, records } = usersData;
 
   return totalElements > 0 ? (
     <>
       <DataTable
-        rows={arrayPagination(records, page, pageSize, sortKey, sortDirection)}
-        sortRow={(rows: any) => sortByProp(rows, sortKey, sortDirection)}
+        rows={records}
         headers={headers}
         render={({ rows, headers, getHeaderProps }: any) => (
           <TableContainer>
@@ -147,8 +170,8 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
                         isSortable: header.sortable,
                         onClick: handleSort,
                       })}
-                      isSortHeader={sortKey === header.key}
-                      sortDirection={sortDirection}
+                      isSortHeader={sort[0].property === header.key}
+                      sortDirection={sort[0].direction}
                     >
                       {header.header}
                     </TableHeader>
@@ -177,7 +200,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
       <Pagination
         onChange={handlePaginationChange}
         page={page}
-        pageSize={pageSize}
+        pageSize={totalPages}
         pageSizes={PAGE_SIZES}
         totalItems={totalElements}
       />
