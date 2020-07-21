@@ -14,6 +14,7 @@ import { isAccessibleEvent } from "@boomerang-io/utils";
 import FeatureHeader from "Components/FeatureHeader";
 import queryString from "query-string";
 import { appLink, AppPath } from "Config/appConfig";
+import { SortDirection } from "Constants";
 import { serviceUrl } from "Config/servicesConfig";
 import { FlowUser, PaginatedResponse } from "Types";
 
@@ -71,7 +72,7 @@ const UserList: React.FC = () => {
   );
 };
 
-const DEFAULT_ORDER = "DESC";
+const DEFAULT_ORDER = SortDirection.Desc;
 const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
 const DEFAULT_SORT = "name";
@@ -89,8 +90,16 @@ const headers = [
     sortable: true,
   },
   {
-    header: "Id",
-    key: "id",
+    header: "Type",
+    key: "type",
+  },
+  {
+    header: "Created",
+    key: "firstLoginDate",
+  },
+  {
+    header: "Status",
+    key: "status",
   },
 ];
 
@@ -135,10 +144,10 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
 
   function handleSort(e: React.SyntheticEvent, sort: { sortHeaderKey: string }) {
     const { property, direction } = usersData.sort[0];
-    let order = "ASC";
+    let order = SortDirection.Asc;
 
-    if (sort.sortHeaderKey === property && direction === "ASC") {
-      order = "DESC";
+    if (sort.sortHeaderKey === property && direction === SortDirection.Asc) {
+      order = SortDirection.Desc;
     }
 
     updateHistorySearch({ ...queryString.parse(location.search), order, sort: sort.sortHeaderKey });
