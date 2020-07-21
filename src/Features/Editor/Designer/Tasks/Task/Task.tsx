@@ -1,16 +1,12 @@
+// @ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import { Tile } from "@boomerang-io/carbon-addons-boomerang-react";
 import { taskIcons } from "Utils/taskIcons";
 import { Bee16 } from "@carbon/icons-react";
+import { TaskModel } from "Types";
 import styles from "./task.module.scss";
 
-Task.propTypes = {
-  name: PropTypes.string.isRequired,
-  model: PropTypes.object.isRequired,
-};
-
-function Task({ name, model, icon }) {
+const Task: React.FC<TaskModel> = ({ name, model, icon }) => {
   const [isDragActive, setIsDragActive] = React.useState(false);
   const TaskIcon = taskIcons.find((currentIcon) => currentIcon.name === icon);
   return (
@@ -20,7 +16,7 @@ function Task({ name, model, icon }) {
         aria-selected={isDragActive}
         role="option"
         draggable={true}
-        onDragStart={(event) => {
+        onDragStart={(event: React.DragEvent<HTMLDivElement>) => {
           setIsDragActive(true);
           event.dataTransfer.setData("storm-diagram-node", JSON.stringify(model));
         }}
@@ -32,6 +28,6 @@ function Task({ name, model, icon }) {
       </Tile>
     </li>
   );
-}
+};
 
 export default Task;

@@ -15,7 +15,7 @@ import {
   TextInput,
   Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { InputType } from "Constants";
+import { InputType, PROPERTY_KEY_REGEX } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 
 const configUrl = serviceUrl.getGlobalConfiguration();
@@ -83,8 +83,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
 
   // Check if key contains alpahanumeric, underscore, dash, and period chars
   const validateKey = (key) => {
-    const regexp = /^[a-zA-Z0-9-._]+$/g;
-    return regexp.test(key);
+    return PROPERTY_KEY_REGEX.test(key);
   };
 
   return (
