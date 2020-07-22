@@ -1,15 +1,17 @@
 import React from "react";
 import { FlowTeam, FlowUser } from "Types";
 
-export function createCtx<ContextType>() {
-  const ctx = React.createContext<ContextType | undefined>(undefined);
-  function useCtx() {
-    const c = React.useContext(ctx);
-    if (!c) throw new Error("useCtx must be inside a Provider with a value");
-    return c;
+export function createContext<ContextType>() {
+  const context = React.createContext<ContextType | undefined>(undefined);
+  function useContext() {
+    const contextValue = React.useContext(context);
+    if (!contextValue) throw new Error("useCtx must be inside a Provider with a value");
+    return contextValue;
   }
-  return [useCtx, ctx.Provider] as const;
+  return [useContext, context.Provider] as const;
 }
+
+export const [useAppContext, AppContextProvider] = createContext<AppContext>();
 
 type AppContext = {
   isTutorialActive: boolean;
@@ -17,8 +19,6 @@ type AppContext = {
   user: FlowUser;
   teams: FlowTeam[];
 };
-
-export const [useAppContext, AppContextProvider] = createCtx<AppContext>();
 
 interface taskProvider {
   category: string;
