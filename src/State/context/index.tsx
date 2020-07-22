@@ -5,7 +5,7 @@ export function createContext<ContextType>() {
   const context = React.createContext<ContextType | undefined>(undefined);
   function useContext() {
     const contextValue = React.useContext(context);
-    if (!contextValue) throw new Error("useCtx must be inside a Provider with a value");
+    if (!contextValue) throw new Error("useContext must be inside a Provider with a value");
     return contextValue;
   }
   return [useContext, context.Provider] as const;

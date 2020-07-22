@@ -17,10 +17,10 @@ const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({ diag
   /**
    * Pull data off of context
    */
-  const inputProperties = summaryQuery?.data?.properties;
-  const nodeDag = revisionState?.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
-  const nodeConfig = revisionState?.config ? [designerNode.id] ?? {} : {};
-  const task = taskTemplatesData?.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
+  const inputProperties = summaryQuery.data?.properties;
+  const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
+  const nodeConfig = revisionState.config ? [designerNode.id] ?? {} : {};
+  const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 
   // Get the taskNames names from the nodes on the model
   const taskNames = Object.values(diagramEngine.getDiagramModel().getNodes())
