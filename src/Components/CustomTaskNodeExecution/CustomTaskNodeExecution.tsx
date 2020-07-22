@@ -8,23 +8,17 @@ import styles from "./CustomTaskNodeExecution.module.scss";
 
 import CustomTaskNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
 
-// type Node = {
-//   id: string;
-//   taskId: string;
-//   taskName: string;
-// };
-
 interface CustomTaskNodeExecutionProps {
   node: CustomTaskNodeModel;
 }
 
-function CustomTaskNodeExecution(props: CustomTaskNodeExecutionProps): JSX.Element {
+const CustomTaskNodeExecution: React.FC<CustomTaskNodeExecutionProps> = (props) => {
   const { tasks, workflowExecution } = useExecutionContext();
   const { id, taskId, taskName } = props.node;
-  const task = tasks?.find((t) => t?.id === taskId);
+  const task = tasks.find((task) => task.id === taskId);
   // const { steps } = workflowExecution;
-  const stepTaskStatus = Array.isArray(workflowExecution?.steps)
-    ? workflowExecution?.steps.find((step) => step.taskId === id)?.flowTaskStatus
+  const stepTaskStatus = Array.isArray(workflowExecution.steps)
+    ? workflowExecution.steps.find((step) => step.taskId === id)?.flowTaskStatus
     : null;
   // const flowTaskStatus = stepTaskStatus ?? ExecutionStatus.Skipped;
   const flowTaskStatus = stepTaskStatus ? stepTaskStatus : ExecutionStatus.Skipped;
@@ -47,6 +41,6 @@ function CustomTaskNodeExecution(props: CustomTaskNodeExecutionProps): JSX.Eleme
       <div className={styles.progressBar} />
     </WorkflowNode>
   );
-}
+};
 
 export default React.memo(CustomTaskNodeExecution);
