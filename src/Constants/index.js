@@ -119,3 +119,8 @@ export const WorkflorPropertyUpdateType = {
 };
 
 export const PROPERTY_KEY_REGEX = /^[a-zA-Z0-9-._]+$/g;
+
+export const SortDirection = {
+  Asc: "ASC",
+  Desc: "DESC",
+};
