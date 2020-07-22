@@ -1,6 +1,8 @@
 import React from "react";
 import cx from "classnames";
 import TemplateTaskNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
+import CustomTaskNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
+
 import WorkflowExecutionPort from "Components/WorkflowExecutionPort";
 import { taskIcons } from "Utils/taskIcons";
 import { Bee16 } from "@carbon/icons-react";
@@ -26,7 +28,7 @@ export default function WorkflowNode({
   icon: string;
   isExecution: boolean;
   name: string | undefined;
-  node: TemplateTaskNodeModel;
+  node: TemplateTaskNodeModel & CustomTaskNodeModel;
   subtitle: string;
   subtitleClass?: string;
   rightPortClass?: string;
