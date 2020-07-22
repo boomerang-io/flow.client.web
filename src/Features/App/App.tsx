@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { lazy, useState, Suspense } from "react";
 import { FlagsProvider } from "flagged";
-import { AppContext } from "State/context";
+import { AppContextProvider } from "State/context";
 import { useQuery } from "Hooks";
 import { Switch, Route, Redirect } from "react-router-dom";
 import {
@@ -126,7 +126,7 @@ function Main({
     return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
   }
   return (
-    <AppContext.Provider
+    <AppContextProvider
       value={{
         isTutorialActive,
         setIsTutorialActive,
@@ -135,7 +135,7 @@ function Main({
       }}
     >
       <AppFeatures platformRole={platformRole} />
-    </AppContext.Provider>
+    </AppContextProvider>
   );
 }
 

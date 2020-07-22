@@ -1,8 +1,1 @@
-import { useContext } from "react";
-import { AppContext } from "State/context";
-
-function useAppContext() {
-  return useContext(AppContext);
-}
-
-export default useAppContext;
+export { useAppContext as default } from "State/context";

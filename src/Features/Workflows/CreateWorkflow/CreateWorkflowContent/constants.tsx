@@ -3,18 +3,21 @@ export const defaultWorkflowConfig = {
     scheduler: {
       enable: false,
       schedule: "",
-      timezone: ""
+      timezone: "",
+      advancedCron: false,
     },
     webhook: {
       enable: false,
-      token: ""
+      token: "",
     },
     event: {
       enable: false,
-      topic: ""
-    }
+      topic: "",
+    },
   },
+  enableACCIntegration: false,
   enablePersistentStorage: false,
   enableIAMIntegration: false,
-  properties: []
+  properties: [],
+  revisionCount: 0,
 };

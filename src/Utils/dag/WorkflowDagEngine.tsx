@@ -14,7 +14,7 @@ import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory"
 import { NodeType } from "Constants";
 
 interface DagModel {
-  dag: object;
+  dag: object | null;
   isModelLocked: boolean;
 }
 

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames/bind";
 import {
   ComboBox,
@@ -13,21 +12,23 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
-import { defaultWorkflowConfig } from "./constants.js";
+import { defaultWorkflowConfig } from "./constants";
+import { ComboBoxItem, FlowTeam, CreateWorkflowSummary } from "Types";
 import styles from "./createWorkflow.module.scss";
 
 let classnames = classNames.bind(styles);
 
-CreateEditModeModalContent.propTypes = {
-  closeModal: PropTypes.func,
-  createError: PropTypes.object,
-  createWorkflow: PropTypes.func.isRequired,
-  existingWorkflowNames: PropTypes.array,
-  isLoading: PropTypes.bool,
-  teams: PropTypes.array.isRequired,
-};
+interface CreateEditModeModalContentProps {
+  closeModal: () => void;
+  createError: object;
+  createWorkflow: (workflowSummary: CreateWorkflowSummary) => Promise<void>;
+  existingWorkflowNames: string[];
+  isLoading: boolean;
+  team: FlowTeam;
+  teams: FlowTeam[];
+}
 
-function CreateEditModeModalContent({
+const CreateEditModeModalContent: React.FC<CreateEditModeModalContentProps> = ({
   closeModal,
   createError,
   createWorkflow,
@@ -35,8 +36,8 @@ function CreateEditModeModalContent({
   isLoading,
   team,
   teams,
-}) {
-  const handleSubmit = (values) => {
+}) => {
+  const handleSubmit = (values: any) => {
     const requestBody = {
       ...defaultWorkflowConfig,
       flowTeamId: values.selectedTeam.id,
@@ -80,16 +81,18 @@ function CreateEditModeModalContent({
                 <ComboBox
                   id="selectedTeam"
                   styles={{ marginBottom: "2.5rem" }}
-                  onChange={({ selectedItem }) => setFieldValue("selectedTeam", selectedItem ? selectedItem : "")}
+                  onChange={({ selectedItem }: { selectedItem: ComboBoxItem }) =>
+                    setFieldValue("selectedTeam", selectedItem ? selectedItem : "")
+                  }
                   items={teams}
                   initialSelectedItem={values.selectedTeam}
                   value={values.selectedTeam}
-                  itemToString={(item) => (item ? item.name : "")}
+                  itemToString={(item: ComboBoxItem) => (item ? item.name : "")}
                   titleText="Team"
                   placeholder="Select a team"
                   invalid={errors.selectedTeam}
                   invalidText={errors.selectedTeam}
-                  shouldFilterItem={({ item, inputValue }) =>
+                  shouldFilterItem={({ item, inputValue }: { item: ComboBoxItem; inputValue: string }) =>
                     item && item.name.toLowerCase().includes(inputValue.toLowerCase())
                   }
                 />
@@ -165,6 +168,6 @@ function CreateEditModeModalContent({
       }}
     </Formik>
   );
-}
+};
 
 export default CreateEditModeModalContent;

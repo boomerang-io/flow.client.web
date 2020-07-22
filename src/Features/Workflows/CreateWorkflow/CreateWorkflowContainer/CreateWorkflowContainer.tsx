@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { RadioGroup } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateWorkflowContent from "../CreateWorkflowContent";
 import ImportWorkflowContent from "../ImportWorkflowContent";
+import { FlowTeam, CreateWorkflowSummary, WorkflowExport } from "Types";
 import styles from "./createWorkflowContainer.module.scss";
 
 const NEW_WORKFLOW = "Start from scratch";
@@ -21,15 +21,18 @@ const radioWorkflowOptions = [
   },
 ];
 
-CreateWorkflowContainer.propTypes = {
-  createWorkflow: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  importWorkflow: PropTypes.func.isRequired,
-  team: PropTypes.object.isRequired,
-  teams: PropTypes.array.isRequired,
-};
+interface CreateWorkflowContainerProps {
+  closeModal: () => void;
+  createError: any;
+  createWorkflow: (workflowData: CreateWorkflowSummary) => Promise<void>;
+  isLoading: boolean;
+  importError: any;
+  importWorkflow: (workflowData: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
+  team: FlowTeam;
+  teams: FlowTeam[];
+}
 
-export function CreateWorkflowContainer({
+const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
   closeModal,
   createError,
   createWorkflow,
@@ -38,7 +41,7 @@ export function CreateWorkflowContainer({
   isLoading,
   team,
   teams,
-}) {
+}) => {
   const [selectedOption, setSelectedOption] = React.useState(NEW_WORKFLOW);
 
   const existingWorkflowNames = team.workflows.map((workflow) => workflow.name);
@@ -74,6 +77,6 @@ export function CreateWorkflowContainer({
       )}
     </div>
   );
-}
+};
 
 export default CreateWorkflowContainer;
