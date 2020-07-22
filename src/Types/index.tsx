@@ -1,3 +1,14 @@
+export enum PlatformRole {
+  Admin = "admin",
+  User = "user",
+  Operator = "operator",
+}
+
+export enum UserStatus {
+  Active = "active",
+  Inactive = "inactive",
+}
+
 export type DataDrivenInput = {
   id: string;
   defaultValue?: string;
@@ -89,10 +100,39 @@ export interface FlowTeam {
   id: string;
   name: string;
   workflows: WorkflowSummary[];
+  users: FlowUser[];
+  isActive: string;
+}
+
+export interface PaginatedSort {
+  direction: string;
+  property: string;
+  ignoreCase: boolean;
+  nullHandling: string;
+  descending: boolean;
+  ascending: boolean;
+}
+
+export interface PaginatedResponse<RecordType> {
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  sort: PaginatedSort[];
+  first: boolean;
+  numberOfElements: number;
+  size: number;
+  number: number;
+  records: RecordType[];
 }
 
 export interface FlowUser {
   id: string;
   email: string;
   name: string;
+  ifFirstVisit: boolean;
+  type: PlatformRole;
+  firstLoginDate: string;
+  lastLoginDate: string;
+  flowTeams: FlowTeam[];
+  status: UserStatus;
 }
