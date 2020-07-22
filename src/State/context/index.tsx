@@ -52,16 +52,12 @@ interface workflowExecutionInterface {
   workflowRevisionid: string;
 }
 
-// export const ExecutionContext = React.createContext({});
-interface executionContextInterface {
-  tasks?: Array<taskProvider>;
-  workflowExecution?: workflowExecutionInterface;
-  workflowRevision?: object;
+interface ExecutionContext {
+  tasks: Array<taskProvider>;
+  workflowExecution: workflowExecutionInterface;
+  workflowRevision: object;
 }
-// export const ExecutionContext = React.createContext<executionContextInterface>({});
-export const ExecutionContext = React.createContext<Partial<executionContextInterface>>({});
-
-// export const EditorContext = React.createContext({});
+export const [useExecutionContext, ExecutionContextProvider] = createContext<ExecutionContext>();
 
 interface revisionInterface {
   changelog: object;
@@ -148,11 +144,11 @@ interface taskInterface {
   status: string;
 }
 
-interface editorContextInterface {
+interface EditorContext {
   revisionDispatch?: Function;
   revisionState: revisionInterface;
   summaryQuery: summaryInterface;
   taskTemplatesData: Array<taskInterface>;
 }
 
-export const EditorContext = React.createContext<Partial<editorContextInterface>>({});
+export const [useEditorContext, EditorContextProvider] = createContext<EditorContext>();

@@ -1,9 +1,9 @@
 // @ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { EditorContextProvider } from "State/context";
 import { AxiosResponse } from "axios";
 import { History } from "history";
 import { MutateOptions, MutationResult } from "react-query";
-import { EditorContext } from "State/context";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
 import { useAppContext, useIsModalOpen, useQuery } from "Hooks";
 import { useImmerReducer } from "use-immer";
@@ -406,6 +406,6 @@ export function EditorStateContainer({
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
-    <EditorContext.Provider value={store}>{memoizedEditor}</EditorContext.Provider>
+    <EditorContextProvider value={store}>{memoizedEditor}</EditorContextProvider>
   );
 }

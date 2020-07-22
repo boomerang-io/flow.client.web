@@ -1,5 +1,5 @@
 import React from "react";
-import { ExecutionContext } from "State/context";
+import { ExecutionContextProvider } from "State/context";
 import { useQuery } from "Hooks";
 import { useParams } from "react-router-dom";
 import { Loading, Error } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -22,7 +22,9 @@ export default function ExecutionContainer() {
     refetchInterval: 5000,
   });
   const { data: revisionData, error: revisionError, isLoading: revisionIsLoading } = useQuery(getRevisionUrl);
-  const { data: taskTemplatesData, error: taskTemplatesError, isLoading: taskTempaltesAreLoading } = useQuery(getTaskTemplatesUrl);
+  const { data: taskTemplatesData, error: taskTemplatesError, isLoading: taskTempaltesAreLoading } = useQuery(
+    getTaskTemplatesUrl
+  );
 
   // const revisionQuery = useQuery(getRevisionUrl);
   // const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
@@ -40,7 +42,7 @@ export default function ExecutionContainer() {
 
   if (revisionData && taskTemplatesData && executionQuery.data) {
     return (
-      <ExecutionContext.Provider
+      <ExecutionContextProvider
         value={{
           tasks: taskTemplatesData,
           workflowExecution: executionQuery.data,
@@ -48,7 +50,7 @@ export default function ExecutionContainer() {
         }}
       >
         <Main dag={revisionData.dag} workflow={summaryQuery} workflowExecution={executionQuery} />
-      </ExecutionContext.Provider>
+      </ExecutionContextProvider>
     );
   }
 
