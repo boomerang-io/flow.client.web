@@ -9,7 +9,7 @@ export enum UserStatus {
   Inactive = "inactive",
 }
 
-export type DataDrivenInput = {
+export interface DataDrivenInput {
   id: string;
   defaultValue?: string;
   description?: string;
@@ -21,7 +21,7 @@ export type DataDrivenInput = {
   value: string;
   values: [string] | [{ key: string; value: string }];
   type: string;
-};
+}
 
 export interface ModalTriggerProps {
   openModal(): void;
@@ -31,7 +31,36 @@ export interface ComposedModalChildProps {
   closeModal(): void;
 }
 
-export declare function FormikSetFieldValue(id: string, value: string | [string] | boolean | undefined): void;
+export interface FormikSetFieldValue {
+  (id: string, value: string | [string] | boolean | undefined): void;
+}
+
+export interface CreateWorkflowSummary {
+  description: string;
+  enableACCIntegration: boolean;
+  enablePersistentStorage: boolean;
+  icon: string;
+  name: string;
+  revisionCount: number;
+  shortDescription: string;
+  properties: Array<any>;
+  triggers: {
+    event: {
+      enable: boolean;
+      topic: string;
+    };
+    scheduler: {
+      enable: boolean;
+      schedule: string;
+      timezone: string | boolean;
+      advancedCron: boolean;
+    };
+    webhook: {
+      enable: boolean;
+      token: string;
+    };
+  };
+}
 
 export interface WorkflowSummary {
   id: string;
@@ -51,7 +80,7 @@ export interface WorkflowSummary {
     scheduler: {
       enable: boolean;
       schedule: string;
-      timezone: boolean;
+      timezone: string | boolean;
       advancedCron: boolean;
     };
     webhook: {
@@ -59,6 +88,8 @@ export interface WorkflowSummary {
       token: string;
     };
   };
+  flowTeamId: string;
+  templateUpgradesAvailable: boolean;
 }
 
 export interface WorkflowRevision {
@@ -71,11 +102,16 @@ export interface WorkflowRevision {
   workFlowId: string;
 }
 
+export interface WorkflowExport extends WorkflowSummary {
+  latestRevision: WorkflowRevision;
+  flowTeamId: string;
+}
+
 export interface WorkflowRevisionState extends WorkflowRevision {
   hasUnsavedUpdates: boolean;
 }
 
-export type ChangeLogItem = {
+export interface ChangeLogItem {
   date: string;
   reason: string;
   revisionId: string;
@@ -83,7 +119,7 @@ export type ChangeLogItem = {
   userName: string;
   version: number;
   workflowId: string;
-};
+}
 
 export type ChangeLog = Array<ChangeLogItem>;
 
@@ -98,10 +134,11 @@ export interface TaskModel {
 export interface FlowTeam {
   higherLevelGroupId: string;
   id: string;
+  isActive: boolean;
   name: string;
-  workflows: WorkflowSummary[];
+  settings?: any;
   users: FlowUser[];
-  isActive: string;
+  workflows: WorkflowSummary[];
 }
 
 export interface PaginatedSort {
@@ -135,4 +172,30 @@ export interface FlowUser {
   lastLoginDate: string;
   flowTeams: FlowTeam[];
   status: UserStatus;
+}
+
+// interface userInterface {
+//   email?: string;
+//   favoritePackages?: any;
+//   firstLoginDate?: string;
+//   hasConsented?: boolean;
+//   id: string;
+//   isFirstVisit?: boolean;
+//   isShowHelp?: boolean;
+//   lastLoginDate?: string;
+//   lowerLevelGroupIds?: any;
+//   name?: string;
+//   notificationSettings?: any;
+//   personalizations?: any;
+//   pinnedToolIds?: any;
+//   projects?: any;
+//   status?: string;
+//   teams?: any; //is this used?
+//   type: string;
+// }
+
+export interface ComboBoxItem {
+  name: string;
+  label?: string;
+  value: string;
 }

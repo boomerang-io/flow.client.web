@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
   Button,
   InlineNotification,
@@ -8,14 +7,19 @@ import {
   ModalFooter,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 
-WorkflowRunModalContent.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  executeError: PropTypes.object,
-  executeWorkflow: PropTypes.func.isRequired,
-  isExecuting: PropTypes.bool.isRequired,
-};
+interface WorkflowRunModalContentProps {
+  closeModal: () => void;
+  executeError: any;
+  executeWorkflow: (closeModal: () => void, redirect: boolean) => void;
+  isExecuting: boolean;
+}
 
-function WorkflowRunModalContent({ closeModal, executeError, executeWorkflow, isExecuting }) {
+const WorkflowRunModalContent: React.FC<WorkflowRunModalContentProps> = ({
+  closeModal,
+  executeError,
+  executeWorkflow,
+  isExecuting,
+}) => {
   return (
     <ModalForm>
       {executeError && (
@@ -39,23 +43,17 @@ function WorkflowRunModalContent({ closeModal, executeError, executeWorkflow, is
         ) : (
           <>
             <Button
-              onClick={(e) => {
+              onClick={(e: React.SyntheticEvent) => {
                 e.preventDefault();
-                executeWorkflow({
-                  closeModal,
-                  redirect: false,
-                });
+                executeWorkflow(closeModal, false);
               }}
             >
               Run
             </Button>
             <Button
-              onClick={(e) => {
+              onClick={(e: React.SyntheticEvent) => {
                 e.preventDefault();
-                executeWorkflow({
-                  closeModal,
-                  redirect: true,
-                });
+                executeWorkflow(closeModal, true);
               }}
             >
               Run and View
@@ -65,6 +63,6 @@ function WorkflowRunModalContent({ closeModal, executeError, executeWorkflow, is
       </ModalFooter>
     </ModalForm>
   );
-}
+};
 
 export default WorkflowRunModalContent;

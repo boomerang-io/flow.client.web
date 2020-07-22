@@ -1,43 +1,24 @@
 import React from "react";
+import { FlowTeam, FlowUser } from "Types";
 
-interface userInterface {
-  email?: string;
-  favoritePackages?: any;
-  firstLoginDate?: string;
-  hasConsented?: boolean;
-  id: string;
-  isFirstVisit?: boolean;
-  isShowHelp?: boolean;
-  lastLoginDate?: string;
-  lowerLevelGroupIds?: any;
-  name?: string;
-  notificationSettings?: any;
-  personalizations?: any;
-  pinnedToolIds?: any;
-  projects?: any;
-  status?: string;
-  teams?: any; //is this used?
-  type: string;
+export function createCtx<ContextType>() {
+  const ctx = React.createContext<ContextType | undefined>(undefined);
+  function useCtx() {
+    const c = React.useContext(ctx);
+    if (!c) throw new Error("useCtx must be inside a Provider with a value");
+    return c;
+  }
+  return [useCtx, ctx.Provider] as const;
 }
 
-interface teamInterface {
-  higherLevelGroupId?: string;
-  id: string;
-  name: string;
-  settings?: any; //will nest deeper if we have to
-  workflows?: any; //will nest deeper if we have to
-}
-
-interface appContextInterface {
+type AppContext = {
   isTutorialActive: boolean;
-  setIsTutorialActive: Function;
-  user: userInterface;
-  teams: Array<teamInterface>;
-}
+  setIsTutorialActive: (isActive: boolean) => void;
+  user: FlowUser;
+  teams: FlowTeam[];
+};
 
-export const AppContext = React.createContext<Partial<appContextInterface>>({});
-
-// export const AppContext = React.createContext({});
+export const [useAppContext, AppContextProvider] = createCtx<AppContext>();
 
 interface taskProvider {
   category: string;

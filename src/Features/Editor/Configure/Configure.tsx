@@ -44,7 +44,7 @@ interface FormProps {
     scheduler: {
       enable: boolean;
       schedule: string;
-      timezone: boolean;
+      timezone: string | boolean;
       advancedCron: boolean;
     };
     webhook: {

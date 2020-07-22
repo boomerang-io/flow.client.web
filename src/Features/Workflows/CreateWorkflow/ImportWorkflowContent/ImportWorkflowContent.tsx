@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { Formik } from "formik";
+import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import {
   Button,
@@ -16,12 +15,13 @@ import {
 import { ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ErrorFilled32 } from "@carbon/icons-react";
 import { requiredWorkflowProps } from "./constants";
+import { FlowTeam, WorkflowExport, WorkflowSummary } from "Types";
 import styles from "./importWorkflowContent.module.scss";
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
-const createInvalidTextMessage = (message) => `Whoops! ${message}. Please choose a different one.`;
+const createInvalidTextMessage = (message: string | undefined) => `Whoops! ${message}. Please choose a different one.`;
 
-function checkIsValidWorkflow(data) {
+function checkIsValidWorkflow(data: any) {
   // Only check if the .json file contain the required key data
   // This validate can be improved
   let isValid = true;
@@ -37,17 +37,24 @@ function checkIsValidWorkflow(data) {
   return isValid;
 }
 
-ImportWorkflowContent.propTypes = {
-  closeModal: PropTypes.func,
-  existingWorkflowNames: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool,
-  importError: PropTypes.bool,
-  importWorkflow: PropTypes.func,
-  teams: PropTypes.array.isRequired,
-  team: PropTypes.object,
-};
+interface ImportWorkflowContentProps {
+  closeModal(): void;
+  existingWorkflowNames: string[];
+  isLoading: boolean;
+  importError: any;
+  importWorkflow: (workflowExport: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
+  teams: FlowTeam[];
+  team: FlowTeam;
+}
 
-function ImportWorkflowContent({
+interface FormProps {
+  selectedTeam: FlowTeam;
+  name: string;
+  summary: string;
+  file: WorkflowExport | undefined;
+}
+
+const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
   closeModal,
   existingWorkflowNames,
   isLoading,
@@ -55,7 +62,7 @@ function ImportWorkflowContent({
   importWorkflow,
   team,
   teams,
-}) {
+}) => {
   const [existingNames, setExistingNames] = useState(existingWorkflowNames);
 
   /**
@@ -63,7 +70,7 @@ function ImportWorkflowContent({
    * @param file {File}
    * @return {Promise}
    */
-  const readFile = (file) => {
+  const readFile = (file: any): Promise<WorkflowExport> => {
     const reader = new FileReader();
     return new Promise((resolve, reject) => {
       reader.onerror = () => {
@@ -73,9 +80,14 @@ function ImportWorkflowContent({
 
       reader.onload = () => {
         try {
-          resolve(JSON.parse(reader.result));
+          if (typeof reader.result === "string") {
+            resolve(JSON.parse(reader.result));
+          } else {
+            throw new Error();
+          }
         } catch (e) {
           reject(new DOMException("Problem parsing input file as JSON"));
+          return;
         }
       };
 
@@ -83,16 +95,16 @@ function ImportWorkflowContent({
     });
   };
 
-  const handleChangeTeam = (selectedItem) => {
-    let existingWorkflowNames = [];
+  const handleChangeTeam = (selectedItem: FlowTeam) => {
+    let existingWorkflowNames: any = [];
     if (selectedItem?.workflows?.length) {
-      existingWorkflowNames = selectedItem.workflows.map((item) => item.name);
+      existingWorkflowNames = selectedItem.workflows.map((item: WorkflowSummary) => item.name);
     }
     setExistingNames(existingWorkflowNames);
   };
 
-  const handleSubmit = async (values) => {
-    const fileData = await readFile(values.file);
+  const handleSubmit = async (values: any) => {
+    const fileData: WorkflowExport = await readFile(values.file);
     importWorkflow(
       {
         ...fileData,
@@ -149,7 +161,7 @@ function ImportWorkflowContent({
           }),
       })}
     >
-      {(props) => {
+      {(props: FormikProps<FormProps>) => {
         const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
         return (
           <ModalFlowForm title={"Add a Workflow - Select the Workflow file you want to upload"} onSubmit={handleSubmit}>
@@ -160,7 +172,9 @@ function ImportWorkflowContent({
                 labelText={FILE_UPLOAD_MESSAGE}
                 name="Workflow"
                 multiple={false}
-                onAddFiles={(event, { addedFiles }) => setFieldValue("file", addedFiles[0])}
+                onAddFiles={(event: React.SyntheticEvent, { addedFiles }: { addedFiles: { name: string }[] }) =>
+                  setFieldValue("file", addedFiles[0])
+                }
               />
               {values.file && (
                 <FileUploaderItem
@@ -183,14 +197,14 @@ function ImportWorkflowContent({
                       id="selectedTeam"
                       styles={{ marginBottom: "2.5rem" }}
                       onBlur={handleBlur}
-                      onChange={({ selectedItem }) => {
+                      onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
                         setFieldValue("selectedTeam", selectedItem ? selectedItem : "");
                         handleChangeTeam(selectedItem);
                       }}
                       items={teams}
                       initialSelectedItem={values.selectedTeam}
                       value={values.selectedTeam}
-                      itemToString={(item) => (item ? item.name : "")}
+                      itemToString={(item: FlowTeam) => (item ? item.name : "")}
                       titleText="Team"
                       placeholder="Select a team"
                       invalid={errors.selectedTeam}
@@ -240,6 +254,6 @@ function ImportWorkflowContent({
       }}
     </Formik>
   );
-}
+};
 
 export default ImportWorkflowContent;

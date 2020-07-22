@@ -1,17 +1,24 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Button, InlineNotification, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DynamicFormik, ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./workflowInputModalContent.module.scss";
 
-WorkflowInputModalContent.propTypes = {
-  closeModal: PropTypes.func.isRequired,
-  executeWorkflow: PropTypes.func.isRequired,
-  inputs: PropTypes.array.isRequired,
-  isExecuting: PropTypes.bool.isRequired,
-};
+interface WorkflowInputModalContentProps {
+  closeModal: () => void;
+  executeError: any;
+  executeWorkflow: (closeModal: () => void, redirect: boolean, properties: {}) => Promise<void>;
+  inputs: {}[];
+  isExecuting: boolean;
+}
 
-function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, inputs, isExecuting }) {
+const WorkflowInputModalContent: React.FC<WorkflowInputModalContentProps> = ({
+  closeModal,
+  executeError,
+  executeWorkflow,
+  inputs,
+  isExecuting,
+}) => {
+  const [isRedirectEnabled, setIsRedirectEnabled] = React.useState(false);
   return (
     <DynamicFormik
       allowCustomPropertySyntax
@@ -20,17 +27,11 @@ function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, 
       toggleProps={() => ({
         orientation: "vertical",
       })}
-      onSubmit={(values) => {
-        const redirect = values.redirect;
-        delete values.redirect;
-        executeWorkflow({
-          closeModal,
-          redirect,
-          properties: values,
-        });
+      onSubmit={(values: any) => {
+        executeWorkflow(closeModal, isRedirectEnabled, values);
       }}
     >
-      {({ inputs, formikProps }) => (
+      {({ inputs, formikProps }: { inputs: JSX.Element; formikProps: any }) => (
         <ModalFlowForm className={styles.container}>
           <ModalBody hasScrollingContent aria-label="inputs">
             {inputs}
@@ -55,8 +56,7 @@ function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, 
               <>
                 <Button
                   disabled={!formikProps.isValid}
-                  onClick={(e) => {
-                    formikProps.setFieldValue("redirect", false);
+                  onClick={(e: React.SyntheticEvent) => {
                     formikProps.handleSubmit();
                   }}
                   type="button"
@@ -65,8 +65,8 @@ function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, 
                 </Button>
                 <Button
                   disabled={!formikProps.isValid}
-                  onClick={(e) => {
-                    formikProps.setFieldValue("redirect", true);
+                  onClick={(e: React.SyntheticEvent) => {
+                    setIsRedirectEnabled(true);
                     formikProps.handleSubmit();
                   }}
                   type="button"
@@ -80,6 +80,6 @@ function WorkflowInputModalContent({ closeModal, executeError, executeWorkflow, 
       )}
     </DynamicFormik>
   );
-}
+};
 
 export default WorkflowInputModalContent;

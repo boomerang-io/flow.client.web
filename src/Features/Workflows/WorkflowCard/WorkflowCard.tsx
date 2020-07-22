@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState } from "react";
 import axios from "axios";
 import { useMutation, queryCache } from "react-query";
 import { Link, useHistory } from "react-router-dom";
@@ -24,15 +23,18 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
 import { Run20, Bee20 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
+import { WorkflowSummary, ModalTriggerProps, ComposedModalChildProps } from "Types";
 import styles from "./workflowCard.module.scss";
 
-WorkflowCard.propTypes = {
-  teamId: PropTypes.string.isRequired,
-  workflow: PropTypes.object.isRequired,
-};
+interface WorkflowCardProps {
+  teamId: string;
+  workflow: WorkflowSummary;
+}
 
-function WorkflowCard({ teamId, workflow }) {
-  const cancelRequestRef = React.useRef();
+type FunctionAnyReturn = () => any;
+
+const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, workflow }) => {
+  const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
 
@@ -42,23 +44,13 @@ function WorkflowCard({ teamId, workflow }) {
     onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
   });
 
-  const [executeWorkflowMutator, { error: executeError, isLoading: isExecuting }] = useMutation((args) => {
-    const { promise, cancel } = resolver.postExecuteWorkflow(args);
-    cancelRequestRef.current = cancel;
-    return promise;
-  });
-
-  const handleOverflowMenuOpen = () => {
-    window.addEventListener("keydown", preventKeyScrolling, false);
-  };
-
-  const handleOverflowMenuClose = () => {
-    window.removeEventListener("keydown", preventKeyScrolling, false);
-  };
-
-  useEffect(() => {
-    return handleOverflowMenuClose();
-  });
+  const [executeWorkflowMutator, { error: executeError, isLoading: isExecuting }] = useMutation(
+    (args: { id: string; properties: {} }) => {
+      const { promise, cancel } = resolver.postExecuteWorkflow(args);
+      cancelRequestRef.current = cancel;
+      return promise;
+    }
+  );
 
   /**
    * Format properties to be edited in form by Formik. It doesn't work with property notation :(
@@ -80,7 +72,7 @@ function WorkflowCard({ teamId, workflow }) {
     }
   };
 
-  const handleExportWorkflow = (workflow) => {
+  const handleExportWorkflow = (workflow: WorkflowSummary) => {
     notify(<ToastNotification kind="info" title="Export Workflow" subtitle="Export starting soon" />);
     axios
       .get(`${BASE_SERVICE_URL}/workflow/export/${workflow.id}`)
@@ -92,7 +84,7 @@ function WorkflowCard({ teamId, workflow }) {
       });
   };
 
-  const handleExecuteWorkflow = async ({ closeModal, redirect = false, properties = {} }) => {
+  const handleExecuteWorkflow = async (closeModal: () => void, redirect: boolean = false, properties: {} = {}) => {
     const { id: workflowId } = workflow;
     try {
       const { data: execution } = await executeWorkflowMutator({ id: workflowId, properties });
@@ -109,13 +101,6 @@ function WorkflowCard({ teamId, workflow }) {
       }
     } catch {
       //no-op
-    }
-  };
-
-  /* prevent page scroll when up or down arrows are pressed **/
-  const preventKeyScrolling = (e) => {
-    if ([38, 40].indexOf(e.keyCode) > -1) {
-      e.preventDefault();
     }
   };
 
@@ -152,7 +137,7 @@ function WorkflowCard({ teamId, workflow }) {
 
   return (
     <div className={styles.container}>
-      <Link disabled={isDeleting} to={appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id })}>
+      <Link to={!isDeleting ? appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id }) : ""}>
         <section className={styles.details}>
           <div className={styles.iconContainer}>
             <Icon className={styles.icon} alt={`${name}`} />
@@ -174,7 +159,7 @@ function WorkflowCard({ teamId, workflow }) {
               title: "Workflow Properties",
               subtitle: "Provide property values for your workflow",
             }}
-            modalTrigger={({ openModal }) => (
+            modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
                 disabled={isDeleting}
                 iconDescription="Run Workflow"
@@ -189,7 +174,7 @@ function WorkflowCard({ teamId, workflow }) {
               if (cancelRequestRef.current) cancelRequestRef.current();
             }}
           >
-            {({ closeModal }) => (
+            {({ closeModal }: ComposedModalChildProps) => (
               <WorkflowInputModalContent
                 closeModal={closeModal}
                 executeError={executeError}
@@ -200,34 +185,34 @@ function WorkflowCard({ teamId, workflow }) {
             )}
           </ComposedModal>
         ) : (
-            <ComposedModal
-              composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
-              modalHeaderProps={{
-                title: "Execute Workflow",
-                subtitle: '"Run and View" will navigate you to the workflow exeuction view.',
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button
-                  disabled={isDeleting}
-                  iconDescription="Run Workflow"
-                  renderIcon={Run20}
-                  size="field"
-                  onClick={openModal}
-                >
-                  Run it
+          <ComposedModal
+            composedModalProps={{ containerClassName: `${styles.executeWorkflow}` }}
+            modalHeaderProps={{
+              title: "Execute Workflow",
+              subtitle: '"Run and View" will navigate you to the workflow exeuction view.',
+            }}
+            modalTrigger={({ openModal }: ModalTriggerProps) => (
+              <Button
+                disabled={isDeleting}
+                iconDescription="Run Workflow"
+                renderIcon={Run20}
+                size="field"
+                onClick={openModal}
+              >
+                Run it
               </Button>
-              )}
-            >
-              {({ closeModal }) => (
-                <WorkflowRunModalContent
-                  closeModal={closeModal}
-                  executeError={executeError}
-                  executeWorkflow={handleExecuteWorkflow}
-                  isExecuting={isExecuting}
-                />
-              )}
-            </ComposedModal>
-          )}
+            )}
+          >
+            {({ closeModal }: ComposedModalChildProps) => (
+              <WorkflowRunModalContent
+                closeModal={closeModal}
+                executeError={executeError}
+                executeWorkflow={handleExecuteWorkflow}
+                isExecuting={isExecuting}
+              />
+            )}
+          </ComposedModal>
+        )}
       </section>
       {workflow.templateUpgradesAvailable && (
         <div className={styles.templatesWarningIcon}>
@@ -242,19 +227,17 @@ function WorkflowCard({ teamId, workflow }) {
           style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
         />
       ) : (
-          <OverflowMenu
-            flipped
-            ariaLabel="Overflow card menu"
-            iconDescription="Overflow menu icon"
-            onOpen={handleOverflowMenuOpen}
-            onClose={handleOverflowMenuClose}
-            style={{ position: "absolute", right: "0" }}
-          >
-            {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
-              <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
-            ))}
-          </OverflowMenu>
-        )}
+        <OverflowMenu
+          flipped
+          ariaLabel="Overflow card menu"
+          iconDescription="Overflow menu icon"
+          style={{ position: "absolute", right: "0" }}
+        >
+          {menuOptions.map(({ onClick, itemText, ...rest }, index) => (
+            <OverflowMenuItem onClick={onClick} itemText={itemText} key={`${itemText}-${index}`} {...rest} />
+          ))}
+        </OverflowMenu>
+      )}
       {isUpdateWorkflowModalOpen && (
         <UpdateWorkflow
           onCloseModal={() => setIsUpdateWorkflowModalOpen(false)}
@@ -282,6 +265,6 @@ function WorkflowCard({ teamId, workflow }) {
       )}
     </div>
   );
-}
+};
 
 export default WorkflowCard;

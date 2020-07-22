@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
 import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -10,6 +9,7 @@ import WorkflowCard from "./WorkflowCard";
 import queryString from "query-string";
 import cx from "classnames";
 import sortBy from "lodash/sortBy";
+import { FlowTeam } from "Types";
 import styles from "./workflowHome.module.scss";
 
 const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
@@ -21,8 +21,8 @@ export default function WorkflowsHome() {
   const location = useLocation();
   const [isWelcomeBannerOpen, setIsWelcomeBannerOpen] = useState(true);
   const [isWelcomeBannerShown, setIsWelcomeBannerShown] = useState(initShowWelcomeBanner);
-  const isWelcomeBannerOpenRef = React.useRef();
-  const { query: searchQuery = "", teams: teamsFilter = [] } = queryString.parse(location.search, {
+  const isWelcomeBannerOpenRef = React.useRef<boolean | null>();
+  let { query: searchQuery = "", teams: teamsFilter = [] } = queryString.parse(location.search, {
     arrayFormat: "comma",
   });
 
@@ -41,15 +41,15 @@ export default function WorkflowsHome() {
 
   useEffect(() => {
     if (!isWelcomeBannerOpen && !isWelcomeBannerShown) {
-      window.localStorage.setItem(BANNER_STORAGE_ID, true);
+      window.localStorage.setItem(BANNER_STORAGE_ID, "true");
     }
   }, [isWelcomeBannerOpen, isWelcomeBannerShown]);
 
-  const handleSearchFilter = ({ workflowsQuery = searchQuery, teamsList = teams }) => {
-    updateHistorySearch({
-      query: workflowsQuery,
-      teams: teamsList.map((team) => team.id),
-    });
+  const handleSearchFilter = (teamsList = teams, workflowsQuery: string | string[] | null = searchQuery) => {
+    updateHistorySearch(
+      workflowsQuery,
+      teamsList.map((team: FlowTeam) => team.id)
+    );
   };
 
   const handleOpenTutorial = () => {
@@ -65,17 +65,20 @@ export default function WorkflowsHome() {
     setIsWelcomeBannerShown(false);
   };
 
-  const updateHistorySearch = ({ query, teams }) => {
-    const queryStr = `?${queryString.stringify({ query, teams }, { arrayFormat: "comma", skipEmptyString: true })}`;
+  const updateHistorySearch = (query: string | string[] | null, teamIds: string[]) => {
+    const queryStr = `?${queryString.stringify(
+      { query, teams: teamIds },
+      { arrayFormat: "comma", skipEmptyString: true }
+    )}`;
 
     history.push({ search: queryStr });
   };
 
   const filterTeams = () => {
     if (Array.isArray(teamsFilter) && teamsFilter.length > 0) {
-      return teams.filter((team) => teamsFilter.includes(team.id));
+      return teams.filter((team) => teamsFilter?.includes(team.id)) ?? [];
     } else if (typeof teamsFilter === "string") {
-      return teams.filter((team) => team.id === teamsFilter);
+      return teams.filter((team) => team.id === teamsFilter) ?? [];
     } else {
       return teams;
     }
@@ -83,7 +86,7 @@ export default function WorkflowsHome() {
 
   const filteredTeams = filterTeams();
   const sortedTeams = sortBy(filteredTeams, ["name"]);
-  const workflowsCount = teams.reduce((acc, team) => team.workflows.length + acc, 0);
+  const workflowsCount = teams?.reduce((acc, team) => team.workflows.length + acc, 0) ?? 0;
 
   return (
     <>
@@ -102,7 +105,7 @@ export default function WorkflowsHome() {
         })}
       >
         <WorkflowsHeader
-          filteredTeams={teamsFilter.length ? filteredTeams : []}
+          filteredTeams={filteredTeams}
           handleSearchFilter={handleSearchFilter}
           searchQuery={searchQuery}
           teams={teams}
@@ -122,16 +125,24 @@ export default function WorkflowsHome() {
   );
 }
 
-TeamWorkflows.propTypes = {
-  searchQuery: PropTypes.string.isRequired,
-  team: PropTypes.object.isRequired,
-  teams: PropTypes.array.isRequired,
-};
+interface TeamWorkflowsProps {
+  searchQuery: string | string[] | null;
+  team: FlowTeam;
+  teams: FlowTeam[];
+}
 
-function TeamWorkflows({ children, searchQuery, team, teams }) {
+const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams }) => {
   let workflows = [];
   if (searchQuery) {
-    workflows = team.workflows.filter((workflow) => workflow.name.toLowerCase().includes(searchQuery.toLowerCase()));
+    workflows = team.workflows.filter((workflow) => {
+      let safeQuery = "";
+      if (Array.isArray(searchQuery)) {
+        safeQuery = searchQuery.join();
+      } else if (searchQuery) {
+        safeQuery = searchQuery;
+      }
+      return workflow.name.toLowerCase().includes(safeQuery?.toLowerCase());
+    });
   } else {
     workflows = team?.workflows ?? [];
   }
@@ -156,4 +167,4 @@ function TeamWorkflows({ children, searchQuery, team, teams }) {
       </div>
     </section>
   );
-}
+};

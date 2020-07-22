@@ -4,20 +4,27 @@ import { notify, ToastNotification, ModalFlow } from "@boomerang-io/carbon-addon
 import ImportWorkflowContent from "./ImportWorkflowContent";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { useMutation, queryCache } from "react-query";
+import { WorkflowExport } from "Types";
 import styles from "./updateWorkflow.module.scss";
 
-export default function UpdateWorkflow({ workflowId, onCloseModal }) {
+interface UpdateWorkflowProps {
+  teamId: string;
+  workflowId: string;
+  onCloseModal: () => void;
+}
+
+const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onCloseModal }) => {
   const [importWorkflowMutator, { isLoading: isPosting }] = useMutation(resolver.postImportWorkflow, {
     onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
   });
 
-  const handleImportWorkflow = async (data, closeModal) => {
-    const query = queryString.stringify({ update: true, flowTeamId: this.props.teamId });
+  const handleImportWorkflow = async (data: WorkflowExport, closeModal: () => void) => {
+    const query = queryString.stringify({ update: true, flowTeamId: teamId });
     try {
-      await importWorkflowMutator(resolver.post({ query, body: data }));
+      await importWorkflowMutator({ query, body: data });
       notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfully updated" />);
       closeModal();
-    } catch { }
+    } catch {}
   };
 
   return (
@@ -44,4 +51,6 @@ export default function UpdateWorkflow({ workflowId, onCloseModal }) {
       />
     </ModalFlow>
   );
-}
+};
+
+export default UpdateWorkflow;

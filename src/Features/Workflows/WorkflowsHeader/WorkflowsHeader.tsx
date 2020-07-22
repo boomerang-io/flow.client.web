@@ -1,44 +1,37 @@
 import React from "react";
-import PropTypes from "prop-types";
-import {
-  DelayedRender,
-  MultiSelect,
-  Search,
-  SearchSkeleton,
-  SelectSkeleton,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { MultiSelect, Search } from "@boomerang-io/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
+import { FlowTeam } from "Types";
 import styles from "./workflowsHeader.module.scss";
 
-WorkflowsHeader.propTypes = {
-  filteredTeams: PropTypes.array,
-  handleSearchFilter: PropTypes.func,
-  isLoading: PropTypes.bool,
-  teams: PropTypes.array,
-  searchQuery: PropTypes.string,
-  workflowsCount: PropTypes.number,
-};
+type HandleSearchFilter = (teamsList: FlowTeam[], query: string | string[] | null) => void;
 
-export default function WorkflowsHeader({
+interface WorkflowsHeaderProps {
+  filteredTeams: FlowTeam[];
+  handleSearchFilter: HandleSearchFilter;
+  teams: FlowTeam[];
+  searchQuery: string | string[] | null;
+  workflowsCount: number;
+}
+
+const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
   handleSearchFilter,
-  isLoading,
   teams,
   searchQuery,
   filteredTeams,
   workflowsCount,
-}) {
+}) => {
   return (
     <FeatureHeader className={styles.header}>
       <div className={styles.container}>
         <hgroup className={styles.info}>
           <p className={styles.title}>These are your</p>
-          <h1 className={styles.subtitle}>{isLoading ? "Workflows" : `Workflows (${workflowsCount})`}</h1>
+          <h1 className={styles.subtitle}>{`Workflows (${workflowsCount})`}</h1>
         </hgroup>
         <SearchFilterBar
           filteredTeams={filteredTeams}
           handleSearchFilter={handleSearchFilter}
-          isLoading={isLoading}
-          placeholder="Choose a team"
+          placeHolderText="Choose a team"
           label="Choose a team"
           searchQuery={searchQuery}
           teams={teams}
@@ -46,40 +39,28 @@ export default function WorkflowsHeader({
       </div>
     </FeatureHeader>
   );
-}
-
-SearchFilterBar.propTypes = {
-  handleSearchFilter: PropTypes.func.isRequired,
-  teams: PropTypes.array,
-  isLoading: PropTypes.bool,
-  searchQuery: PropTypes.string,
-  filteredTeams: PropTypes.array,
 };
 
-function SearchFilterBar({ handleSearchFilter, isLoading, teams, searchQuery, filteredTeams }) {
-  const handleOnMultiSelectChange = (e) => {
-    const selectedItems = e.selectedItems;
-    handleSearchFilter({ teamsList: selectedItems });
+export default WorkflowsHeader;
+
+interface SearchFilterBarProps {
+  filteredTeams: FlowTeam[];
+  handleSearchFilter: HandleSearchFilter;
+  label: string;
+  placeHolderText: string;
+  searchQuery: string | string[] | null;
+  teams: FlowTeam[];
+}
+
+const SearchFilterBar: React.FC<SearchFilterBarProps> = ({ handleSearchFilter, teams, searchQuery, filteredTeams }) => {
+  const handleOnMultiSelectChange = (change: any) => {
+    const selectedItems = change.selectedItems;
+    handleSearchFilter(selectedItems, searchQuery);
   };
 
-  const handleOnSearchInputChange = (e) => {
-    handleSearchFilter({ workflowsQuery: e.target.value, teamsList: filteredTeams });
+  const handleOnSearchInputChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    handleSearchFilter(filteredTeams, e.currentTarget?.value ?? "");
   };
-
-  if (isLoading) {
-    return (
-      <DelayedRender>
-        <div className={styles.filterContainer}>
-          <div className={styles.search}>
-            <SearchSkeleton small />
-          </div>
-          <div className={styles.filter}>
-            <SelectSkeleton />
-          </div>
-        </div>
-      </DelayedRender>
-    );
-  }
 
   return (
     <div className={styles.filterContainer}>
@@ -101,7 +82,7 @@ function SearchFilterBar({ handleSearchFilter, isLoading, teams, searchQuery, fi
             Array.isArray(filteredTeams) ? filteredTeams.map((team) => ({ id: team.id, text: team.name })) : []
           }
           items={Array.isArray(teams) ? teams.map((team) => ({ id: team.id, text: team.name })) : []}
-          itemToString={(team) => (team ? team.text : "")}
+          itemToString={(team: { text: string }) => (team ? team.text : "")}
           label={"Choose a team"}
           onChange={handleOnMultiSelectChange}
           placeholder={"Choose a team"}
@@ -110,4 +91,4 @@ function SearchFilterBar({ handleSearchFilter, isLoading, teams, searchQuery, fi
       </div>
     </div>
   );
-}
+};
