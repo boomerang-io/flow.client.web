@@ -9,19 +9,15 @@ import { WorkflowSummary } from "Types";
 import styles from "./changeLog.module.scss";
 
 interface ChangeLogProps {
-  workflowSummary: WorkflowSummary;
+  summaryData: WorkflowSummary;
 }
 
-const ChangeLog: React.FC<ChangeLogProps> = ({ workflowSummary }) => {
+const ChangeLog: React.FC<ChangeLogProps> = ({ summaryData }) => {
   const getWorkflowChangelogUrl = serviceUrl.getWorkflowChangelog({
-    workflowId: workflowSummary.id,
+    workflowId: summaryData.id,
     query: qs.stringify({ sort: "version", order: "DESC" }),
   });
-  const { data, error, isLoading, isIdle } = useQuery(getWorkflowChangelogUrl);
-
-  if (isIdle) {
-    return null;
-  }
+  const { data, error, isLoading } = useQuery(getWorkflowChangelogUrl);
 
   if (isLoading)
     return (

@@ -1,5 +1,6 @@
 import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
-import StartEndNode from "Components/StartEndNode";
+import StartEndNodeDesigner from "Components/StartEndNodeDesigner";
+import StartEndNodeExecution from "Components/StartEndNodeExecution";
 import StartEndNodeModel from "Utils/dag/startEndNode/StartEndNodeModel";
 import { NodeType } from "Constants";
 import React from "react";
@@ -10,8 +11,11 @@ export default class StartEndNodeFactory extends AbstractNodeFactory {
   }
 
   generateReactWidget(diagramEngine, node) {
-    //diagramEngine.registerNodeFactory(new StartEndNodeFactory());
-    return <StartEndNode isLocked={diagramEngine.diagramModel.locked} node={node} />;
+    if (diagramEngine.diagramModel.locked) {
+      return <StartEndNodeExecution isLocked={true} node={node} />;
+    } else {
+      return <StartEndNodeDesigner isLocked={false} node={node} />;
+    }
   }
 
   getNewInstance() {
