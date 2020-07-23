@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import { DataTable, Search, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { arrayPagination } from "Utils/arrayHelper";
 import { ChangeLog } from "Types";
 import styles from "./changeLogTable.module.scss";
 
@@ -83,12 +82,8 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
     }
   };
 
-  handleSort = (valueA: any, valueB: any, config: any) => {
-    this.setState({ sort: config });
-  };
-
   render() {
-    const { page, pageSize, changeLog, sort } = this.state;
+    const { page, pageSize, changeLog } = this.state;
     const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
     const totalItems = changeLog.length;
@@ -107,8 +102,7 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
           <>
             <DataTable
               sortable
-              rows={arrayPagination(changeLog, page, pageSize, sort)}
-              sortRow={this.handleSort}
+              rows={changeLog}
               headers={this.headers}
               render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
                 <TableContainer>
@@ -120,7 +114,6 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
                             id={header.key}
                             {...getHeaderProps({
                               header,
-                              className: `${styles.tableHeadHeader}`,
                               isSortable: true,
                             })}
                           >
@@ -133,7 +126,7 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
                       {rows.map((row: any) => (
                         <TableRow key={row.id} data-testid="change-log-table-row">
                           {row.cells.map((cell: any, cellIndex: number) => (
-                            <TableCell key={cell.id} style={{ padding: "0" }} className={styles[cell.info.header]}>
+                            <TableCell key={cell.id}>
                               <div className={styles.tableCell}>{this.renderCell(cellIndex, cell.value)}</div>
                             </TableCell>
                           ))}

@@ -20,7 +20,7 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.workflowDagEngine = new WorkflowDagEngine({ dag: props.dag, modelIsLocked: true });
+    this.workflowDagEngine = new WorkflowDagEngine({ dag: props.dag, isModelLocked: true });
     this.state = {
       workflowDagBoundingClientRect: {},
     };
