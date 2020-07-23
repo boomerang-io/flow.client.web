@@ -55,13 +55,14 @@ export const serviceUrl = {
   getGlobalProperty: ({ id }) => `${BASE_SERVICE_URL}/config/${id}`,
   getInsights: ({ query }) => `${BASE_SERVICE_URL}/insights${query ? "?" + query : ""}`,
   getManageTeams: () => `${BASE_SERVICE_URL}/manage/teams`,
-  getManageUsers: () => `${BASE_SERVICE_URL}/manage/users`,
+  getManageUsers: ({ query }) => `${BASE_SERVICE_URL}/manage/users${query ? "?" + query : ""}`,
   getNavigation: () => `${BASE_USERS_URL}/navigation`,
   getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
   getTeams: () => `${BASE_SERVICE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_SERVICE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/properties`,
   getUsers: () => `${BASE_SERVICE_URL}/users`,
+  getUser: ({ userId }) => `${BASE_SERVICE_URL}/users/${userId}`,
   getUserTeams: ({ email }) => `${BASE_TEAMS_URL}?userEmail=${email}`,
   getUserProfile: () => `${BASE_USERS_URL}/profile`,
   getWorkflow: ({ id }) => `${BASE_SERVICE_URL}/workflow/${id}`,
@@ -106,6 +107,9 @@ export const resolver = {
   deleteGlobalPropertyRequest: ({ id }) => axios.delete(serviceUrl.getGlobalProperty({ id })),
   deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
     axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),
+  patchUser: ({ body, id }) => {
+    cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HTTP_METHODS.PATCH });
+  },
   patchGlobalPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HTTP_METHODS.PATCH }),
   patchTeamPropertyRequest: ({ teamId, configurationId, body }) =>
