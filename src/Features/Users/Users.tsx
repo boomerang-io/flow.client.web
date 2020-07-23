@@ -1,39 +1,30 @@
 import React from "react";
-import { useHistory, useLocation, Route, Switch } from "react-router-dom";
-import { Box } from "reflexbox";
 import { useQuery } from "Hooks";
+import { useHistory, useLocation } from "react-router-dom";
+import { Box } from "reflexbox";
 import {
+  ComposedModal,
   DataTable,
   DataTableSkeleton,
   ErrorMessage,
   Error404,
+  OverflowMenu,
+  OverflowMenuItem,
   Pagination,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import User from "./User";
-import { isAccessibleEvent } from "@boomerang-io/utils";
+import ChangeRole from "./ChangeRole";
+import UserDetails from "./UserDetails";
 import FeatureHeader from "Components/FeatureHeader";
 import queryString from "query-string";
-import { appLink, AppPath } from "Config/appConfig";
 import { SortDirection } from "Constants";
 import { serviceUrl } from "Config/servicesConfig";
-import { FlowUser, PaginatedResponse } from "Types";
+import { ComposedModalChildProps, FlowUser, PaginatedResponse } from "Types";
 
-const getUsersUrl = serviceUrl.getManageUsers();
-
-const UsersContainer: React.FC = () => {
-  return (
-    <Switch>
-      <Route path={AppPath.User}>
-        <User />
-      </Route>
-      <Route exactpath={AppPath.UserList}>
-        <UserList />
-      </Route>
-    </Switch>
-  );
-};
-
-export default UsersContainer;
+const DEFAULT_ORDER = SortDirection.Desc;
+const DEFAULT_PAGE = 0;
+const DEFAULT_SIZE = 10;
+const DEFAULT_SORT = "name";
+const PAGE_SIZES = [DEFAULT_SIZE, 20, 50, 100];
 
 const FeatureLayout: React.FC = ({ children }) => {
   return (
@@ -48,68 +39,10 @@ const FeatureLayout: React.FC = ({ children }) => {
 };
 
 const UserList: React.FC = () => {
-  const usersQuery = useQuery(getUsersUrl);
-
-  if (usersQuery.isLoading) {
-    return (
-      <FeatureLayout>
-        <DataTableSkeleton />
-      </FeatureLayout>
-    );
-  }
-
-  if (usersQuery.isError) {
-    return (
-      <FeatureLayout>
-        <ErrorMessage />
-      </FeatureLayout>
-    );
-  }
-  return (
-    <FeatureLayout>
-      <UsersTable usersData={usersQuery.data} />
-    </FeatureLayout>
-  );
-};
-
-const DEFAULT_ORDER = SortDirection.Desc;
-const DEFAULT_PAGE = 0;
-const DEFAULT_SIZE = 10;
-const DEFAULT_SORT = "name";
-const PAGE_SIZES = [DEFAULT_SIZE, 20, 50, 100];
-
-const headers = [
-  {
-    header: "Name",
-    key: "name",
-    sortable: true,
-  },
-  {
-    header: "Email",
-    key: "email",
-    sortable: true,
-  },
-  {
-    header: "Type",
-    key: "type",
-  },
-  {
-    header: "Created",
-    key: "firstLoginDate",
-  },
-  {
-    header: "Status",
-    key: "status",
-  },
-];
-
-interface UsersTableProps {
-  usersData: PaginatedResponse<FlowUser>;
-}
-
-const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
   const history = useHistory();
   const location = useLocation();
+
+  const usersQuery = useQuery(serviceUrl.getManageUsers({ query: location.search }));
 
   // const handleSearchChange = (e) => {
   //   const searchQuery = e.target.value;
@@ -143,7 +76,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
   }
 
   function handleSort(e: React.SyntheticEvent, sort: { sortHeaderKey: string }) {
-    const { property, direction } = usersData.sort[0];
+    const { property, direction } = usersQuery.data.sort[0];
     let order = SortDirection.Asc;
 
     if (sort.sortHeaderKey === property && direction === SortDirection.Asc) {
@@ -153,12 +86,73 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
     updateHistorySearch({ ...queryString.parse(location.search), order, sort: sort.sortHeaderKey });
   }
 
-  function navigateToUser(userId: string) {
-    history.push(appLink.user({ userId }));
+  if (usersQuery.isLoading) {
+    return (
+      <FeatureLayout>
+        <DataTableSkeleton />
+      </FeatureLayout>
+    );
   }
 
-  const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
+  if (usersQuery.isError) {
+    return (
+      <FeatureLayout>
+        <ErrorMessage />
+      </FeatureLayout>
+    );
+  }
+  return (
+    <FeatureLayout>
+      <UsersTable handlePaginationChange={handlePaginationChange} handleSort={handleSort} usersData={usersQuery.data} />
+    </FeatureLayout>
+  );
+};
 
+const headers = [
+  {
+    header: "Name",
+    key: "name",
+    sortable: true,
+  },
+  {
+    header: "Email",
+    key: "email",
+    sortable: true,
+  },
+  {
+    header: "Type",
+    key: "type",
+    sortable: true,
+  },
+  {
+    header: "Created",
+    key: "firstLoginDate",
+    sortable: true,
+  },
+  {
+    header: "Status",
+    key: "status",
+    sortable: true,
+  },
+  {
+    header: "",
+    key: "",
+  },
+];
+
+export default UserList;
+
+interface UsersTableProps {
+  handlePaginationChange: (pagination: { page: number; pageSize: number }) => void;
+  handleSort: (e: React.SyntheticEvent, sort: { sortHeaderKey: string }) => void;
+  usersData: PaginatedResponse<FlowUser>;
+}
+
+const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleSort, usersData }) => {
+  const [viewDetailsUserId, setViewDeatilsUserId] = React.useState(null);
+  const [changeRoleUserId, setChangeRoleUserId] = React.useState(null);
+
+  const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const { number: page, sort, totalElements, totalPages, records } = usersData;
 
   return totalElements > 0 ? (
@@ -189,16 +183,24 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
               </TableHead>
               <TableBody>
                 {rows.map((row: any) => (
-                  <TableRow
-                    key={row.id}
-                    data-testid="user-list-table-row"
-                    onClick={() => navigateToUser(row.id)}
-                    onKeyDown={(e: React.SyntheticEvent) => isAccessibleEvent(e) && navigateToUser(row.id)}
-                    tabIndex={0}
-                  >
-                    {row.cells.map((cell: any, cellIndex: any) => (
-                      <TableCell key={cell.id}>{cell.value}</TableCell>
-                    ))}
+                  <TableRow key={row.id}>
+                    {row.cells.map((cell: any) => {
+                      if (!cell.info.header) {
+                        return (
+                          <TableCell key={cell.id}>
+                            <OverflowMenu flipped>
+                              <OverflowMenuItem itemText="Change role" onClick={() => setChangeRoleUserId(row.id)} />
+                              <OverflowMenuItem itemText="View details" onClick={() => setViewDeatilsUserId(row.id)} />
+                            </OverflowMenu>
+                          </TableCell>
+                        );
+                      }
+                      if (Array.isArray(cell.value)) {
+                        return <TableCell key={cell.id}>{cell.value.length}</TableCell>;
+                      }
+
+                      return <TableCell key={cell.id}>{cell.value}</TableCell>;
+                    })}
                   </TableRow>
                 ))}
               </TableBody>
@@ -213,6 +215,24 @@ const UsersTable: React.FC<UsersTableProps> = ({ usersData }) => {
         pageSizes={PAGE_SIZES}
         totalItems={totalElements}
       />
+      <ComposedModal
+        composedModalProps={{ shouldCloseOnOverlayClick: true }}
+        isOpen={Boolean(viewDetailsUserId)}
+        onCloseModal={() => setViewDeatilsUserId(null)}
+      >
+        {() => {
+          return <UserDetails user={records.find((user) => user.id === viewDetailsUserId)} />;
+        }}
+      </ComposedModal>
+      <ComposedModal
+        composedModalProps={{ shouldCloseOnOverlayClick: true }}
+        isOpen={Boolean(changeRoleUserId)}
+        onCloseModal={() => setChangeRoleUserId(null)}
+      >
+        {({ closeModal }: ComposedModalChildProps) => {
+          return <ChangeRole closeModal={closeModal} user={records.find((user) => user.id === changeRoleUserId)} />;
+        }}
+      </ComposedModal>
     </>
   ) : (
     <Error404 message={null} title="No users found" header={null} />

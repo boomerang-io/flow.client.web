@@ -66,7 +66,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.manageTeams[0];
       });
 
-      this.get(serviceUrl.getManageUsers(), (schema) => {
+      this.get(serviceUrl.getManageUsers({ query: null }), (schema) => {
         return schema.db.manageUsers[0];
       });
 
