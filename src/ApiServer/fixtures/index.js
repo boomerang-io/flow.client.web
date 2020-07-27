@@ -4,6 +4,7 @@ export { default as activity } from "./activity";
 export { default as config } from "./config";
 export { default as changelogs } from "./changelogs";
 export { default as insights } from "./insights";
+export { default as manageTeamDetails } from "./manageTeamDetails";
 export { default as manageTeams } from "./manageTeams";
 export { default as manageUsers } from "./manageUsers";
 export { default as navigation } from "./navigation";
