@@ -29,25 +29,23 @@ const DEFAULT_SORT = "name";
 const PAGE_SIZES = [DEFAULT_SIZE, 20, 50, 100];
 
 interface FeatureLayoutProps {
-  handleOnSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleOnSearchChange }) => {
+const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchChange }) => {
   return (
     <>
       <FeatureHeader>
         <h1 style={{ fontWeight: 600, margin: 0 }}>Users</h1>
-        <p>View and manage all of the Flow users</p>
+        <p>View and manage Flow users</p>
       </FeatureHeader>
       <Box p="2rem">
-        {
-          <>
-            <Box mb="1rem" maxWidth="20rem">
-              <Search id="flow-users" placeHolderText="Search users" onChange={handleOnSearchChange} />
-            </Box>
-            {children}
-          </>
-        }
+        <>
+          <Box mb="1rem" maxWidth="20rem">
+            <Search id="flow-users" placeHolderText="Search users" onChange={handleSearchChange} />
+          </Box>
+          {children}
+        </>
       </Box>
     </>
   );
@@ -82,7 +80,7 @@ const UserList: React.FC = () => {
     []
   );
 
-  function handleOnSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     const query = e.target.value;
     debouncedSearch(query);
   }
@@ -108,7 +106,7 @@ const UserList: React.FC = () => {
 
   if (usersQuery.isLoading) {
     return (
-      <FeatureLayout handleOnSearchChange={handleOnSearchChange}>
+      <FeatureLayout handleSearchChange={handleSearchChange}>
         <DataTableSkeleton />
       </FeatureLayout>
     );
@@ -116,13 +114,13 @@ const UserList: React.FC = () => {
 
   if (usersQuery.isError) {
     return (
-      <FeatureLayout handleOnSearchChange={handleOnSearchChange}>
+      <FeatureLayout handleSearchChange={handleSearchChange}>
         <ErrorMessage />
       </FeatureLayout>
     );
   }
   return (
-    <FeatureLayout handleOnSearchChange={handleOnSearchChange}>
+    <FeatureLayout handleSearchChange={handleSearchChange}>
       <UsersTable handlePaginationChange={handlePaginationChange} handleSort={handleSort} usersData={usersQuery.data} />
     </FeatureLayout>
   );
