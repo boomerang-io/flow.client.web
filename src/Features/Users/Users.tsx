@@ -11,10 +11,12 @@ import {
   OverflowMenu,
   OverflowMenuItem,
   Pagination,
+  Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import ChangeRole from "./ChangeRole";
 import UserDetails from "./UserDetails";
 import FeatureHeader from "Components/FeatureHeader";
+import debounce from "lodash/debounce";
 import queryString from "query-string";
 import { SortDirection } from "Constants";
 import { serviceUrl } from "Config/servicesConfig";
@@ -26,14 +28,27 @@ const DEFAULT_SIZE = 10;
 const DEFAULT_SORT = "name";
 const PAGE_SIZES = [DEFAULT_SIZE, 20, 50, 100];
 
-const FeatureLayout: React.FC = ({ children }) => {
+interface FeatureLayoutProps {
+  handleOnSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleOnSearchChange }) => {
   return (
     <>
       <FeatureHeader>
         <h1 style={{ fontWeight: 600, margin: 0 }}>Users</h1>
         <p>View and manage all of the Flow users</p>
       </FeatureHeader>
-      <Box p="1rem">{children}</Box>
+      <Box p="2rem">
+        {
+          <>
+            <Box mb="1rem" maxWidth="20rem">
+              <Search id="flow-users" placeHolderText="Search users" onChange={handleOnSearchChange} />
+            </Box>
+            {children}
+          </>
+        }
+      </Box>
     </>
   );
 };
@@ -44,28 +59,33 @@ const UserList: React.FC = () => {
 
   const usersQuery = useQuery(serviceUrl.getManageUsers({ query: location.search }));
 
-  // const handleSearchChange = (e) => {
-  //   const searchQuery = e.target.value;
-  //   setPage(1);
-  //   setSearchQuery(searchQuery);
-  // };
-
   /**
    * Function that updates url search history to persist state
    * @param {object} query - all of the query params
    *
    */
-  const updateHistorySearch = ({
+  function updateHistorySearch({
     order = DEFAULT_ORDER,
     page = DEFAULT_PAGE,
     size = DEFAULT_SIZE,
     sort = DEFAULT_SORT,
     ...props
-  }) => {
+  }) {
     const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props })}`;
     history.push({ search: queryStr });
-    return;
-  };
+  }
+
+  const debouncedSearch = React.useCallback(
+    debounce((query: string) => {
+      updateHistorySearch({ query, page: 0 });
+    }, 300),
+    []
+  );
+
+  function handleOnSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const query = e.target.value;
+    debouncedSearch(query);
+  }
 
   function handlePaginationChange(pagination: { page: number; pageSize: number }) {
     updateHistorySearch({
@@ -88,7 +108,7 @@ const UserList: React.FC = () => {
 
   if (usersQuery.isLoading) {
     return (
-      <FeatureLayout>
+      <FeatureLayout handleOnSearchChange={handleOnSearchChange}>
         <DataTableSkeleton />
       </FeatureLayout>
     );
@@ -96,13 +116,13 @@ const UserList: React.FC = () => {
 
   if (usersQuery.isError) {
     return (
-      <FeatureLayout>
+      <FeatureLayout handleOnSearchChange={handleOnSearchChange}>
         <ErrorMessage />
       </FeatureLayout>
     );
   }
   return (
-    <FeatureLayout>
+    <FeatureLayout handleOnSearchChange={handleOnSearchChange}>
       <UsersTable handlePaginationChange={handlePaginationChange} handleSort={handleSort} usersData={usersQuery.data} />
     </FeatureLayout>
   );
@@ -154,6 +174,9 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const { number: page, sort, totalElements, totalPages, records } = usersData;
+
+  const viewDetailsUser = records.find((user) => user.id === viewDetailsUserId);
+  const changeRoleUser = records.find((user) => user.id === changeRoleUserId);
 
   return totalElements > 0 ? (
     <>
@@ -210,7 +233,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
       />
       <Pagination
         onChange={handlePaginationChange}
-        page={page}
+        page={page + 1}
         pageSize={totalPages}
         pageSizes={PAGE_SIZES}
         totalItems={totalElements}
@@ -221,16 +244,20 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
         onCloseModal={() => setViewDeatilsUserId(null)}
       >
         {() => {
-          return <UserDetails user={records.find((user) => user.id === viewDetailsUserId)} />;
+          return <UserDetails user={viewDetailsUser} />;
         }}
       </ComposedModal>
       <ComposedModal
         composedModalProps={{ shouldCloseOnOverlayClick: true }}
         isOpen={Boolean(changeRoleUserId)}
+        modalHeaderProps={{
+          title: "User Role",
+          subtitle: `Set ${changeRoleUser?.name ?? "user"}'s role in Flow. Admins can do more things.`,
+        }}
         onCloseModal={() => setChangeRoleUserId(null)}
       >
         {({ closeModal }: ComposedModalChildProps) => {
-          return <ChangeRole closeModal={closeModal} user={records.find((user) => user.id === changeRoleUserId)} />;
+          return <ChangeRole closeModal={closeModal} user={changeRoleUser} />;
         }}
       </ComposedModal>
     </>

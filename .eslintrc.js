@@ -26,6 +26,7 @@ module.exports = {
       files: ["cypress/**/*.spec.js"],
       rules: {
         "jest/expect-expect": "off",
+        "testing-library/await-async-query": "off",
       },
     },
   ],

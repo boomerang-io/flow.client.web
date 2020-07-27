@@ -32,7 +32,7 @@ const UserDetails: React.FC<UserDetailsProps> = ({ user = {} }) => {
         <UserDetailsSection label="Created" value={capitalize(user.firstLoginDate)} />
         <UserDetailsSection label="Last Login" value={capitalize(user.lastLoginDate)} />
         <UserDetailsSection label="Status" value={user.status} />
-        <UserDetailsSection label="Flow Teams" value={user.flowTeams?.join(", ")} />
+        <UserDetailsSection label="# of Flow Teams" value={user.flowTeams?.join(", ")} />
       </dl>
     </ModalBody>
   );

@@ -84,6 +84,7 @@ export const serviceUrl = {
   postExecuteWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
   postImportWorkflow: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
   restoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`,
+  resourceManageUser: ({ userId }) => `${BASE_SERVICE_URL}/manage/users/${userId}`,
 };
 
 export const cancellableResolver = ({ url, method, body, ...config }) => {
