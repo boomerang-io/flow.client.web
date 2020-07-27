@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation, queryCache } from "react-query";
 import {
@@ -30,9 +30,19 @@ interface ChangeRoleProps {
 // used to avoid id collisions
 const ROLE_PREFIX = "platform-role-";
 
-const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, roles, role, user }) => {
-  const [selectedRole, setSelectedRole] = useState(role);
+const rolesList = [
+  { name: "Admin", id: "admin" },
+  { name: "User", id: "user" },
+];
+
+const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, user }) => {
+  const role = user?.type;
+  const [selectedRole, setSelectedRole] = useState(null);
   const [error, setError] = useState();
+
+  useEffect(() => {
+    setSelectedRole(role);
+  }, [role]);
 
   const [changeUserMutator, { isLoading }] = useMutation(
     (args) => {
@@ -85,7 +95,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, r
             orientation="vertical"
             valueSelected={selectedRole}
           >
-            {roles.map((option) => (
+            {rolesList.map((option) => (
               <RadioButton
                 key={option.id}
                 id={`${ROLE_PREFIX}${option.id}`}
@@ -102,7 +112,7 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, r
           Cancel
         </Button>
         <Button type="submit" disabled={role === selectedRole || isLoading}>
-          {isLoading ? "Submitting..." : error ? "Try again" : "Submit"}
+          {isLoading ? "Updating..." : error ? "Try again" : "Submit"}
         </Button>
       </ModalFooter>
     </ModalFlowForm>
