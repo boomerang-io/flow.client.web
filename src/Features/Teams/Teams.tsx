@@ -11,7 +11,7 @@ import {
   Pagination,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
-import Team from "./Team";
+import TeamDetailed from "Features/TeamDetailed";
 import queryString from "query-string";
 import { isAccessibleEvent } from "@boomerang-io/utils";
 import { SortDirection } from "Constants";
@@ -25,7 +25,7 @@ const TeamsContainer: React.FC = () => {
   return (
     <Switch>
       <Route path={AppPath.Team}>
-        <Team />
+        <TeamDetailed />
       </Route>
       <Route path={AppPath.TeamList}>
         <TeamList />
@@ -144,8 +144,8 @@ const TeamListTable: React.FC<TeamListTableProps> = ({ teamsData }) => {
     updateHistorySearch({ ...queryString.parse(location.search), order, sort: sort.sortHeaderKey });
   }
 
-  function navigateToUser(userId: string) {
-    history.push(appLink.user({ userId }));
+  function navigateToTeam(teamId: string) {
+    history.push(appLink.team({ teamId }));
   }
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
@@ -183,8 +183,8 @@ const TeamListTable: React.FC<TeamListTableProps> = ({ teamsData }) => {
                   <TableRow
                     key={row.id}
                     data-testid="user-list-table-row"
-                    onClick={() => navigateToUser(row.id)}
-                    onKeyDown={(e: React.SyntheticEvent) => isAccessibleEvent(e) && navigateToUser(row.id)}
+                    onClick={() => navigateToTeam(row.id)}
+                    onKeyDown={(e: React.SyntheticEvent) => isAccessibleEvent(e) && navigateToTeam(row.id)}
                     tabIndex={0}
                   >
                     {row.cells.map((cell: any, cellIndex: any) => {

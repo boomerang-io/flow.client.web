@@ -36,6 +36,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       teamProperties: Model,
       tasktemplate: Model,
       team: Model,
+      manageTeamDetail: Model,
+      manageTeams: Model,
     },
 
     routes() {
@@ -66,7 +68,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.manageTeams[0];
       });
 
-      this.get(serviceUrl.getManageUsers(), (schema) => {
+      this.get(serviceUrl.getManageUsers({ query: null }), (schema) => {
         return schema.db.manageUsers[0];
       });
 
@@ -267,6 +269,23 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       this.get(serviceUrl.getWorkflowExecution({ executionId: ":id" }));
+
+      /**
+       * Manage Users
+       */
+
+      this.get(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
+        let { teamId } = request.params;
+        return schema.manageTeamDetails.findBy({ id: teamId });
+      });
+
+      this.patch(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
+        let { teamId } = request.params;
+        let body = JSON.parse(request.requestBody);
+        let summary = schema.manageTeamDetails.findBy({ id: teamId });
+        summary.update(body);
+        return summary;
+      });
 
       /**
        * TODO
