@@ -73,7 +73,6 @@ export default function App() {
   });
   const navigationQuery = useSimpleQuery(navigationUrl);
   const teamsQuery = useSimpleQuery(getTeamsUrl);
-  console.log(userQuery);
 
   const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading;
   const isError = userQuery.isError || navigationQuery.isError || teamsQuery.isError;
