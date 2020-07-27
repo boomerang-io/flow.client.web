@@ -1,5 +1,6 @@
 import portForwardMap from "../setupPortForwarding";
 import axios, { CancelToken } from "axios";
+import { HttpMethods } from "Constants";
 
 export const BASE_SERVICE_ENV_URL =
   process.env.NODE_ENV === "production" ? window._SERVER_DATA && window._SERVER_DATA.BASE_SERVICE_ENV_URL : "/api";
@@ -28,24 +29,6 @@ function determineUrl(baseUrl, serviceContextPath) {
 export const BASE_URL = BASE_SERVICE_ENV_URL;
 export const BASE_SERVICE_URL = determineUrl(PRODUCT_SERVICE_ENV_URL, "/flow");
 export const BASE_USERS_URL = determineUrl(BASE_SERVICE_ENV_URL, "/users");
-export const BASE_TEAMS_URL = `${BASE_SERVICE_URL}/teams`;
-
-// Profile image
-export const IMG_URL = `${BASE_USERS_URL}/image`;
-
-// Teams
-export const TEAMS_USER_URL = (email) => `${BASE_TEAMS_URL}?userEmail=${email}`;
-export const TEAM_PROPERTIES_ID_URL = (ciTeamId) => `${BASE_TEAMS_URL}/${ciTeamId}/properties`;
-export const TEAM_PROPERTIES_ID_PROPERTY_ID_URL = (ciTeamId, configurationId) =>
-  `${BASE_TEAMS_URL}/${ciTeamId}/properties/${configurationId}`;
-
-export const HTTP_METHODS = {
-  POST: "post",
-  PUT: "put",
-  PATCH: "patch",
-  DELETE: "delete",
-  GET: "get",
-};
 
 export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}`,
@@ -64,7 +47,7 @@ export const serviceUrl = {
   getTeamProperties: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/properties`,
   getUsers: () => `${BASE_SERVICE_URL}/users`,
   getUser: ({ userId }) => `${BASE_SERVICE_URL}/users/${userId}`,
-  getUserTeams: ({ email }) => `${BASE_TEAMS_URL}?userEmail=${email}`,
+  getUserTeams: ({ email }) => `${BASE_SERVICE_URL}/teams?userEmail=${email}`,
   getUserProfile: () => `${BASE_USERS_URL}/profile`,
   getWorkflow: ({ id }) => `${BASE_SERVICE_URL}/workflow/${id}`,
   getWorkflowChangelog: ({ workflowId, query }) =>
@@ -83,6 +66,7 @@ export const serviceUrl = {
   postCreateWorkflowToken: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/webhook-token`,
   postExecuteWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
   postImportWorkflow: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
+  postValidateActivationCode: () => `${BASE_SERVICE_URL}/validatesetup`,
   restoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`,
   resourceManageUser: ({ userId }) => `${BASE_SERVICE_URL}/manage/users/${userId}`,
 };
@@ -110,41 +94,48 @@ export const resolver = {
   deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
     axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),
   patchUser: ({ body, id }) => {
-    cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HTTP_METHODS.PATCH });
+    cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethods.Patch });
   },
   patchGlobalPropertyRequest: ({ id, body }) =>
-    cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HTTP_METHODS.PATCH }),
+    cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethods.Patch }),
   patchTeamPropertyRequest: ({ teamId, configurationId, body }) =>
     cancellableResolver({
       url: serviceUrl.getTeamProperty({ teamId, configurationId }),
       body,
-      method: HTTP_METHODS.PATCH,
+      method: HttpMethods.Patch,
     }),
   patchUpdateWorkflowSummary: ({ body }) => axios.patch(serviceUrl.patchUpdateWorkflowSummary(), body),
   patchUpdateWorkflowProperties: ({ workflowId, body }) =>
     axios.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId }), body),
   // postAddService: ({ body }) =>
-  //   cancellableResolver({ url: serviceUrl.postAddService(), body, method: HTTP_METHODS.POST }),
+  //   cancellableResolver({ url: serviceUrl.postAddService(), body, method: HttpMethods.Post }),
   postCreateWorkflow: ({ body }) => axios.post(serviceUrl.postCreateWorkflow(), body),
   postCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HTTP_METHODS.POST }),
+    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethods.Post }),
   putCreateTaskTemplate: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HTTP_METHODS.PUT }),
+    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethods.Put }),
   postGlobalPropertyRequest: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HTTP_METHODS.POST }),
+    cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HttpMethods.Post }),
+  postValidateActivationCode: ({ body }) =>
+    axios({
+      method: "post",
+      url: serviceUrl.postValidateActivationCode(),
+      data: body,
+      validateStatus: (status) => status >= 200 && status < 300,
+    }),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
   postExecuteWorkflow: ({ id, properties }) =>
     cancellableResolver({
       url: serviceUrl.postExecuteWorkflow({ id }),
       body: { properties },
-      method: HTTP_METHODS.POST,
+      method: HttpMethods.Post,
     }),
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postTeamPropertyRequest: ({ id, body }) =>
-    cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HTTP_METHODS.POST }),
+    cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HttpMethods.Post }),
 
   patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeam({ teamId }), body),
 };

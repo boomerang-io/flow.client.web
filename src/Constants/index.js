@@ -1,5 +1,13 @@
 import { CloseOutline32, CheckmarkOutline32, Error32, Timer32 } from "@carbon/icons-react";
 
+export const HttpMethods = {
+  Post: "post",
+  Put: "put",
+  Patch: "patch",
+  Delete: "delete",
+  Get: "get",
+};
+
 export const daysOfWeekCronList = [
   { labelText: "Monday", value: "monday", id: "monday", cron: "MON", cronNumber: ["1"], key: "monday" },
   { labelText: "Tuesday", value: "tuesday", id: "tuesday", cron: "TUE", cronNumber: ["2"], key: "tuesday" },
@@ -112,7 +120,12 @@ export const UserType = {
   User: "user",
 };
 
-export const WorkflorPropertyUpdateType = {
+export const UserTypeCopy = {
+  [UserType.Admin]: "Admin",
+  [UserType.User]: "User",
+};
+
+export const WorkflowPropertyUpdateType = {
   Create: "create",
   Update: "update",
   Delete: "delete",

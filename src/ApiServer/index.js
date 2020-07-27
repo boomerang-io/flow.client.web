@@ -71,6 +71,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.manageUsers[0];
       });
 
+      this.post(serviceUrl.postValidateActivationCode(), (schema) => {
+        return {};
+      });
+
       /**
        * Global Properties
        */

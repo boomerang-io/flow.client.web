@@ -16,6 +16,8 @@ import { BASE_URL } from "Config/servicesConfig";
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
 import { appLink, FeatureFlag } from "Config/appConfig";
 import { UserType } from "Constants";
+import { QueryResult } from "react-query";
+import { FlowUser } from "Types";
 
 const ACTIVE_CLASS_NAME = "bx--side-nav__link--current";
 
@@ -144,11 +146,11 @@ const skipToContentProps = {
 
 interface NavbarContainerProps {
   handleOnTutorialClick(): void;
-  navigationState: { status: string; data: { platform: { platformName: string } } };
-  userState: { status: string; data: { type: string } };
+  navigationQuery: QueryResult<{ platform: { platformName: string } }, Error>;
+  userQuery: QueryResult<FlowUser, Error>;
 }
 
-export default function NavbarContainer({ handleOnTutorialClick, navigationState, userState }: NavbarContainerProps) {
+export default function NavbarContainer({ handleOnTutorialClick, navigationQuery, userQuery }: NavbarContainerProps) {
   const isStandaAloneMode = useFeature(FeatureFlag.Standalone);
   const defaultUIShellProps = {
     baseLaunchEnvUrl: isStandaAloneMode ? null : BASE_LAUNCH_ENV_URL,
@@ -157,18 +159,18 @@ export default function NavbarContainer({ handleOnTutorialClick, navigationState
     renderLogo: true,
   };
 
-  const isAtLeastOperator = userState.data.type === UserType.Admin || userState.data.type === UserType.Operator;
+  const isAtLeastOperator = userQuery.data?.type === UserType.Admin || userQuery.data?.type === UserType.Operator;
   return (
     <>
       <Helmet>
-        <title>{`Flow | ${navigationState.data?.platform?.platformName ?? "Boomerang"}`}</title>
+        <title>{`Flow | ${navigationQuery.data?.platform?.platformName ?? "Boomerang"}`}</title>
       </Helmet>
       <UIShell
         {...defaultUIShellProps}
         onMenuClick={handleOnMenuClick(isAtLeastOperator, isStandaAloneMode)}
-        headerConfig={navigationState.data}
+        headerConfig={navigationQuery.data}
         onTutorialClick={handleOnTutorialClick}
-        user={userState.data}
+        user={userQuery.data}
         skipToContentProps={skipToContentProps}
       />
     </>

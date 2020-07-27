@@ -14,7 +14,7 @@ import {
   ToastNotification,
   InlineNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-
+import { UserType, UserTypeCopy } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowUser } from "Types";
 import styles from "./ChangeRole.module.scss";
@@ -31,8 +31,8 @@ interface ChangeRoleProps {
 const ROLE_PREFIX = "platform-role-";
 
 const rolesList = [
-  { name: "Admin", id: "admin" },
-  { name: "User", id: "user" },
+  { name: UserTypeCopy[UserType.Admin], id: UserType.Admin },
+  { name: UserTypeCopy[UserType.User], id: UserType.User },
 ];
 
 const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, user }) => {
