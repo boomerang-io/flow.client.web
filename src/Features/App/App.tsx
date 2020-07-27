@@ -1,8 +1,9 @@
-// @ts-nocheck
 import React, { lazy, useState, Suspense } from "react";
+import axios from "axios";
 import { FlagsProvider } from "flagged";
 import { AppContextProvider } from "State/context";
-import { useQuery } from "Hooks";
+import { useQuery } from "react-query";
+import { useQuery as useSimpleQuery } from "Hooks";
 import { Switch, Route, Redirect } from "react-router-dom";
 import {
   ErrorBoundary,
@@ -20,8 +21,10 @@ import { detect } from "detect-browser";
 import { UserType } from "Constants";
 import { AppPath } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
+import { FlowTeam, FlowUser } from "Types";
 import styles from "./app.module.scss";
 
+const AppActivation = lazy(() => import(/* webpackChunkName: "App Activation" */ "./AppActivation"));
 const Activity = lazy(() => import(/* webpackChunkName: "Activity" */ "Features/Activity"));
 const Editor = lazy(() => import(/* webpackChunkName: "Editor" */ "Features/Editor"));
 const Execution = lazy(() => import(/* webpackChunkName: "Execution" */ "Features/Execution"));
@@ -46,13 +49,39 @@ export default function App() {
     !supportedBrowsers.includes(browser?.name || "")
   );
   const [isTutorialActive, setIsTutorialActive] = useState(false);
+  const [showActivatePlatform, setShowActivatePlatform] = React.useState(false);
+  const [activationCode, setActivationCode] = React.useState("");
 
-  const userQuery = useQuery(userUrl);
-  const navigationQuery = useQuery(navigationUrl);
-  const teamsQuery = useQuery(getTeamsUrl);
+  const fetchUserResolver = async () => {
+    try {
+      const response = await axios.get(userUrl);
+      return response.data;
+    } catch (error) {
+      if (error.response?.status === 423) {
+        // Prevent both the rerender and remount on refetch
+        if (!showActivatePlatform && !activationCode) {
+          setShowActivatePlatform(true);
+        }
+        return {};
+      }
+    }
+  };
+
+  const userQuery = useQuery({
+    queryKey: userUrl,
+    queryFn: fetchUserResolver,
+  });
+  const navigationQuery = useSimpleQuery(navigationUrl);
+  const teamsQuery = useSimpleQuery(getTeamsUrl);
+  console.log(userQuery);
 
   const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading;
   const isError = userQuery.isError || navigationQuery.isError || teamsQuery.isError;
+
+  const handleSetActivationCode = (code: string) => {
+    setActivationCode(code);
+    setShowActivatePlatform(false);
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -62,12 +91,22 @@ export default function App() {
     return <ErrorDragon style={{ margin: "5rem 0" }} />;
   }
 
+  if (showActivatePlatform) {
+    return (
+      <Suspense fallback={<Loading />}>
+        <div className={styles.appActivationContainer}>
+          <AppActivation setActivationCode={handleSetActivationCode} />
+        </div>
+      </Suspense>
+    );
+  }
+
   return (
     <FlagsProvider features={{ standalone: true }}>
       <Navbar
         handleOnTutorialClick={() => setIsTutorialActive(true)}
-        navigationState={navigationQuery}
-        userState={userQuery}
+        navigationQuery={navigationQuery}
+        userQuery={userQuery}
       />
       <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
       <ErrorBoundary errorComponent={ErrorDragon}>
@@ -85,24 +124,17 @@ export default function App() {
   );
 }
 
-interface Team {
-  name: string;
-  id: string;
-}
-
 interface MainProps {
-  isLoading: boolean;
   isError: boolean;
   isTutorialActive: boolean;
   setIsTutorialActive: (isTutorialActive: boolean) => void;
   setShouldShowBrowserWarning: (shouldShowBrowserWarning: boolean) => void;
   shouldShowBrowserWarning: boolean;
-  teamsData: Array<Team>;
-  userData: { id: string; type: string };
+  teamsData: Array<FlowTeam>;
+  userData: FlowUser;
 }
 
 function Main({
-  isError,
   isTutorialActive,
   setIsTutorialActive,
   setShouldShowBrowserWarning,
