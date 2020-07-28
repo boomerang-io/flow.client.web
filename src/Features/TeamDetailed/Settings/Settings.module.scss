@@ -1,0 +1,63 @@
+@import "Styles/mixins";
+
+.settingsContainer {
+  padding: 1.5rem 2rem;
+  position: relative;
+
+  :global .bx--bmrg-toggle {
+    margin-bottom: 2rem;
+  }
+
+  :global .bx--label {
+    color: var(--cds-text-01);
+    font-size: 0.875rem;
+    margin-bottom: 1rem !important;
+  }
+
+  :global .bx--form__helper-text {
+    align-items: center;
+    display: flex;
+    color: var(--cds-text-01);
+    font-size: 0.75rem;
+    font-style: normal !important;
+    line-height: 0.9375rem;
+    margin-bottom: 1rem !important;
+    max-width: 100%;
+  }
+}
+
+.editTeamNameContainer {
+  margin: 2rem 0;
+}
+
+.actionableNameContainer {
+  display: flex;
+  align-items: center;
+}
+
+.teamNameLabel {
+  color: var(--cds-icon-02);
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.teamEditIcon {
+  cursor: pointer;
+  height: 1rem;
+  margin-left: 1rem;
+  &:focus {
+    @include focus-outline();
+  }
+  path,
+  rect {
+    fill: var(--cds-interactive-01);
+  }
+}
+
+.teamNameModalContainer {
+  max-height: 22rem;
+
+  :global .bx--modal-content {
+    padding-right: 1rem;
+  }
+}

@@ -24,6 +24,14 @@ export default function Navigation({ teamId }: { teamId: string }) {
       >
         Workflows
       </NavLink>
+      <NavLink
+        exact
+        className={styles.link}
+        activeClassName={styles["--active"]}
+        to={{ pathname: appLink.teamSettings({ teamId }), state: location.state }}
+      >
+        Settings
+      </NavLink>
     </nav>
   );
 }
