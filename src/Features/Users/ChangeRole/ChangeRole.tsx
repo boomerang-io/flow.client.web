@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import {
   Button,
@@ -20,10 +21,8 @@ import { FlowUser } from "Types";
 import styles from "./ChangeRole.module.scss";
 
 interface ChangeRoleProps {
-  cancelRequestRef?: object;
+  cancelRequestRef: object;
   closeModal: () => void;
-  roles?: string[];
-  role?: string;
   user: FlowUser | undefined;
 }
 
@@ -36,6 +35,7 @@ const rolesList = [
 ];
 
 const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, user }) => {
+  const location = useLocation();
   const role = user?.type;
   const [selectedRole, setSelectedRole] = useState(null);
   const [error, setError] = useState();
@@ -46,12 +46,15 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
 
   const [changeUserMutator, { isLoading }] = useMutation(
     (args) => {
-      const { promise, cancel } = resolver.patchUser(args);
+      const { promise, cancel } = resolver.patchManageUser(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries(serviceUrl.getUsers({ userId: user.id })),
+      onSuccess: () => {
+        closeModal();
+        queryCache.invalidateQueries(serviceUrl.getManageUsers({ query: location.search }));
+      },
     }
   );
 
@@ -75,7 +78,6 @@ const ChangeRole: React.FC<ChangeRoleProps> = ({ cancelRequestRef, closeModal, u
           subtitle={`Platform role for ${name} is updated to ${selectedRole}`}
         />
       );
-      closeModal();
     } catch (error) {
       if (!axios.isCancel(error)) {
         setError({ title: "Something's Wrong", subtitle: `Request to change ${name}'s platform role failed` });

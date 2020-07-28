@@ -169,6 +169,7 @@ interface UsersTableProps {
 const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleSort, usersData }) => {
   const [viewDetailsUserId, setViewDeatilsUserId] = React.useState(null);
   const [changeRoleUserId, setChangeRoleUserId] = React.useState(null);
+  const cancelRequestRef = React.useRef<{} | null>();
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const { number: page, sort, totalElements, totalPages, records } = usersData;
@@ -255,7 +256,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
         onCloseModal={() => setChangeRoleUserId(null)}
       >
         {({ closeModal }: ComposedModalChildProps) => {
-          return <ChangeRole closeModal={closeModal} user={changeRoleUser} />;
+          return <ChangeRole closeModal={closeModal} cancelRequestRef={cancelRequestRef} user={changeRoleUser} />;
         }}
       </ComposedModal>
     </>

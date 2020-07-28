@@ -37,6 +37,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       tasktemplate: Model,
       team: Model,
       manageTeamDetail: Model,
+      manageUser: Model,
     },
 
     routes() {
@@ -67,10 +68,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.manageTeams[0];
       });
 
-      this.get(serviceUrl.getManageUsers({ query: null }), (schema) => {
-        return schema.db.manageUsers[0];
-      });
-
       this.post(serviceUrl.postValidateActivationCode(), (schema) => {
         return {};
       });
@@ -99,7 +96,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       /**
-       * team propertiies
+       * Team Propertiies
        */
       this.get(serviceUrl.getTeamProperties({ id: ":id" }), (schema, request) => {
         let { id } = request.params;
@@ -150,7 +147,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       );
 
       /**
-       * insights
+       * Insights
        */
       this.get(serviceUrl.getInsights({ query: null }), (schema, request) => {
         //grab the querystring from the end of the request url
@@ -274,7 +271,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.get(serviceUrl.getWorkflowExecution({ executionId: ":id" }));
 
       /**
-       * Manage Users
+       * Manage Team
        */
 
       this.get(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
@@ -297,6 +294,29 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         let summary = schema.manageTeamDetails.findBy({ id: teamId });
         summary.update(body);
         return summary;
+      });
+
+      /**
+       * Manage Users
+       */
+
+      this.get(serviceUrl.getManageUsers({ query: null }), (schema) => {
+        return schema.db.manageUsers[0];
+      });
+
+      this.patch(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {
+        const { userId } = request.params;
+        let body = JSON.parse(request.requestBody);
+        const users = schema.manageUsers.first();
+        const updatedRecords = [];
+        for (let user of users.records) {
+          if (user.id === userId) {
+            user = user = { ...user, ...body };
+          }
+          updatedRecords.push(user);
+        }
+        users.update({ records: updatedRecords });
+        return {};
       });
 
       /**
