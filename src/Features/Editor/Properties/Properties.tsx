@@ -6,7 +6,7 @@ import WorkflowPropertiesModal from "./PropertiesModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import capitalize from "lodash/capitalize";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { WorkflorPropertyUpdateType } from "Constants";
+import { WorkflowPropertyUpdateType } from "Constants";
 import { DataDrivenInput, ModalTriggerProps, WorkflowSummary } from "Types";
 import styles from "./Properties.module.scss";
 
@@ -57,17 +57,17 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
 
   const handleUpdateProperties = async ({ property, type }: { property: DataDrivenInput; type: string }) => {
     let properties = [...summaryData.properties];
-    if (type === WorkflorPropertyUpdateType.Update) {
+    if (type === WorkflowPropertyUpdateType.Update) {
       const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
       properties.splice(propertyToUpdateIndex, 1, property);
     }
 
-    if (type === WorkflorPropertyUpdateType.Delete) {
+    if (type === WorkflowPropertyUpdateType.Delete) {
       const propertyToUpdateIndex = properties.findIndex((currentProp) => currentProp.key === property.key);
       properties.splice(propertyToUpdateIndex, 1);
     }
 
-    if (type === WorkflorPropertyUpdateType.Create) {
+    if (type === WorkflowPropertyUpdateType.Create) {
       properties.push(property);
     }
 
@@ -89,7 +89,7 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
   const deleteProperty = (property: DataDrivenInput) => {
     handleUpdateProperties({
       property,
-      type: WorkflorPropertyUpdateType.Delete,
+      type: WorkflowPropertyUpdateType.Delete,
     });
   };
 
