@@ -20,6 +20,7 @@ export default {
     {
       higherLevelGroupId: "5e73782ee04d700001a00249",
       id: "5e7cccb94bbc6e0001c51773",
+      isActive: true,
       name: "WDC2 ISE Dev",
       settings: {
         properties: [
@@ -72,6 +73,7 @@ export default {
     {
       higherLevelGroupId: "5e73782ee04d700001a00249",
       id: "6e7cccb94bbc6e0001c51773",
+      isActive: true,
       name: "WDC2 ISE QA",
       settings: {
         properties: [

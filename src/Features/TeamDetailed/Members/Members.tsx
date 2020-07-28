@@ -21,14 +21,6 @@ import styles from "./Members.module.scss";
 
 import { FlowUser, FlowTeam } from "Types";
 
-// Members.propTypes = {
-//   isActive: PropTypes.bool.isRequired,
-//   memberList: PropTypes.array.isRequired,
-//   team: PropTypes.object.isRequired,
-//   teamOwnerIdList: PropTypes.array.isRequired,
-//   user: PropTypes.object.isRequired,
-// };
-
 function Members({
   isActive,
   memberList,
@@ -45,8 +37,6 @@ function Members({
 
   const memberIdList = memberList.map((member) => member.id);
 
-  //FOR TEST
-  isActive = true;
   return (
     <section aria-label={`${team.name} Team Members`} className={styles.container}>
       <section className={styles.actionsContainer}>

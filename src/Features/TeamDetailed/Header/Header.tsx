@@ -1,15 +1,33 @@
 import React from "react";
+import { useMutation, queryCache } from "react-query";
+import { Button, ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Checkmark16, Close16 } from "@carbon/icons-react";
 import { Link } from "react-router-dom";
 import FeatureHeader from "Components/FeatureHeader";
 import Navigation from "./Navigation";
-import { Checkmark16, Close16 } from "@carbon/icons-react";
 import { appLink } from "Config/appConfig";
+import { resolver, serviceUrl } from "Config/servicesConfig";
 
 import styles from "./Header.module.scss";
 
 import { FlowTeam } from "Types";
 
 function TeamDetailedHeader({ isActive, team, userType }: { isActive: boolean; team: FlowTeam; userType: string }) {
+  const [removeTeamMutator] = useMutation(resolver.putUpdateTeam, {
+    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
+  });
+
+  const removeTeam = async () => {
+    try {
+      await removeTeamMutator({ teamId: team.id, body: { isActive: false } });
+      notify(
+        <ToastNotification title="Add User" subtitle={`Request to close ${team.name} successful`} kind="success" />
+      );
+    } catch (error) {
+      // noop
+    }
+  };
+
   return (
     <FeatureHeader includeBorder className={styles.container}>
       <section className={styles.header}>
@@ -35,18 +53,17 @@ function TeamDetailedHeader({ isActive, team, userType }: { isActive: boolean; t
            </div>*/}
         </h2>
       </section>
-      {/*isActive && (
+      {isActive && (
         <section className={styles.teamButtons}>
           <ConfirmModal
-            affirmativeAction={() => closeTeamRequest(team)}
+            affirmativeAction={() => removeTeam()}
             affirmativeButtonProps={{ kind: "danger", "data-testid": "confirm-close-team" }}
             title={`Close ${team.name}?`}
             negativeText="Cancel"
             affirmativeText="Close"
-            modalTrigger={({ openModal }) => (
+            modalTrigger={({ openModal }: { openModal: () => void }) => (
               <Button
                 iconDescription="Close"
-                disabled={!closeTeamAvalilable}
                 kind="danger"
                 onClick={openModal}
                 renderIcon={Close16}
@@ -61,7 +78,7 @@ function TeamDetailedHeader({ isActive, team, userType }: { isActive: boolean; t
             processed, the team will become "inactive". Are you sure you want to do this?
           </ConfirmModal>
         </section>
-            )*/}
+      )}
       <Navigation teamId={team.id} />
     </FeatureHeader>
   );

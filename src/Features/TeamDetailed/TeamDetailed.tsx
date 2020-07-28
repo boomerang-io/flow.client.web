@@ -1,9 +1,9 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
-import { DataTableSkeleton, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
 import Members from "./Members";
-// import Workflows from "./Workflows";
+import Workflows from "./Workflows";
 import { AppPath } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./teamDetailed.module.scss";
@@ -41,7 +41,7 @@ function TeamDetailedContainer() {
   if (teamDetailsIsLoading)
     return (
       <FeatureLayout>
-        <DataTableSkeleton />
+        <Loading />
       </FeatureLayout>
     );
   if (teamDetailsError)
@@ -68,8 +68,7 @@ function TeamDetailedContainer() {
             />
           </Route>
           <Route exact path={AppPath.TeamWorkflows}>
-            {/*<Workflows team={teamDetailsData} workflows={teamDetailsData.workflows} />*/}
-            <p>placeholder for workflow</p>
+            <Workflows team={teamDetailsData} />
           </Route>
         </Switch>
       </div>

@@ -133,6 +133,7 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HTTP_METHODS.PUT }),
   postGlobalPropertyRequest: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HTTP_METHODS.POST }),
+  putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getManageTeam({ teamId }), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
   postExecuteWorkflow: ({ id, properties }) =>
