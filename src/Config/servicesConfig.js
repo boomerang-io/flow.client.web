@@ -93,9 +93,9 @@ export const resolver = {
   deleteGlobalPropertyRequest: ({ id }) => axios.delete(serviceUrl.getGlobalProperty({ id })),
   deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
     axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),
-  patchUser: ({ body, id }) => {
-    cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethods.Patch });
-  },
+  deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
+  patchManageUser: ({ body, userId }) =>
+    cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethods.Patch }),
   patchGlobalPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethods.Patch }),
   patchTeamPropertyRequest: ({ teamId, configurationId, body }) =>
@@ -126,7 +126,6 @@ export const resolver = {
       validateStatus: (status) => status >= 200 && status < 300,
     }),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.restoreTaskTemplate({ id })),
-  deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
   postExecuteWorkflow: ({ id, properties }) =>
     cancellableResolver({
       url: serviceUrl.postExecuteWorkflow({ id }),
