@@ -13,7 +13,7 @@ import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boom
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
-import { InputProperty, InputType, InputTypeCopy, WorkflorPropertyUpdateType, PROPERTY_KEY_REGEX } from "Constants";
+import { InputProperty, InputType, InputTypeCopy, WorkflowPropertyUpdateType, PROPERTY_KEY_REGEX } from "Constants";
 import { DataDrivenInput, FormikSetFieldValue } from "Types";
 import styles from "./PropertiesModalContent.module.scss";
 
@@ -84,7 +84,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
       this.props
         .updateWorkflowProperties({
           property,
-          type: WorkflorPropertyUpdateType.Update,
+          type: WorkflowPropertyUpdateType.Update,
         })
         .then(() => {
           this.props.forceCloseModal();
@@ -94,7 +94,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
       this.props
         .updateWorkflowProperties({
           property,
-          type: WorkflorPropertyUpdateType.Create,
+          type: WorkflowPropertyUpdateType.Create,
         })
         .then(() => {
           this.props.forceCloseModal();

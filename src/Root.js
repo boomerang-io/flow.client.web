@@ -5,14 +5,14 @@ import { ReactQueryDevtools } from "react-query-devtools";
 import { ErrorBoundary } from "@boomerang-io/carbon-addons-boomerang-react";
 import App from "Features/App";
 import ErrorDragon from "Components/ErrorDragon";
-import { AppPath } from "Config/appConfig";
+import { APP_ROOT } from "Config/appConfig";
 
 function Root() {
   return (
     <ErrorBoundary errorComponent={() => <ErrorDragon style={{ marginTop: "5rem" }} />}>
       <ReactQueryDevtools initialIsOpen={false} />
       <ReactQueryConfigProvider config={{ queries: { throwOnError: true }, mutations: { throwOnError: true } }}>
-        <BrowserRouter basename={AppPath.Root}>
+        <BrowserRouter basename={APP_ROOT}>
           <App />
         </BrowserRouter>
       </ReactQueryConfigProvider>
