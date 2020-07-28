@@ -282,6 +282,15 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       this.patch(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
         let { teamId } = request.params;
         let body = JSON.parse(request.requestBody);
+        let activeTeam = schema.manageTeamDetails.findBy({ id: teamId });
+        let activeUsers = activeTeam.users.filter((user) => body.includes(user.id));
+        activeTeam.update({ users: activeUsers });
+        return activeTeam;
+      });
+
+      this.put(serviceUrl.getManageTeam({ teamId: ":teamId" }), (schema, request) => {
+        let { teamId } = request.params;
+        let body = JSON.parse(request.requestBody);
         let summary = schema.manageTeamDetails.findBy({ id: teamId });
         summary.update(body);
         return summary;
