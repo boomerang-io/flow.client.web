@@ -28,13 +28,12 @@ const AppActivation: React.FC<PlatformActivationProps> = ({ setActivationCode })
               process that can be used to complete the post-installation steps and activate this Boomerang Flow
               instance.
             </span>
-            {/* <span className={styles.break}>
+            <span className={styles.break}>
               After providing the token, you will be prompted to agree to the plaform privacy statement to complete the
               activation. Your user will be created and granted platform administrator entitlements with full access.
-              Please refer to the{" "}
-              <a href={`${BASE_LAUNCH_ENV_URL}/docs/boomerang/architecture/security`}>security architecture docs</a> for
+              Please refer to the <a href={`docs/boomerang/architecture/security`}>security architecture docs</a> for
               more information.
-            </span> */}
+            </span>
           </>
         ),
       }}

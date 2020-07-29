@@ -1,3 +1,4 @@
+/// <reference types="Cypress" />
 import { startApiServer } from "ApiServer";
 import { appLink } from "Config/appConfig";
 
