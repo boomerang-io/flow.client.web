@@ -114,7 +114,7 @@ function Members({
                     <Link
                       className={styles.viewMemberLink}
                       to={{
-                        pathname: appLink.user({ userId: member.id }),
+                        pathname: appLink.manageUsers(),
                         state: { fromTeam: { id: team.id, name: team.name } },
                       }}
                     >

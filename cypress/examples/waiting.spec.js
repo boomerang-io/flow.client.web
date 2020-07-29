@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 context("Waiting", () => {
   beforeEach(() => {
     cy.visit("https://example.cypress.io/commands/waiting");
@@ -28,8 +26,6 @@ context("Waiting", () => {
     cy.get(".network-btn").click();
 
     // wait for GET comments/1
-    cy.wait("@getComment")
-      .its("status")
-      .should("eq", 200);
+    cy.wait("@getComment").its("status").should("eq", 200);
   });
 });

@@ -40,6 +40,7 @@ export const appLink = {
   execution: ({ executionId, workflowId }) => `/activity/${workflowId}/execution/${executionId}`,
   insights: () => "/insights",
   properties: () => "/admin/properties",
+  manageUsers: () => "/admin/users",
   quotas: () => "/admin/quotas",
   taskTemplates: () => "/admin/task-templates",
   taskTemplateEdit: ({ id, version }) => `/admin/task-templates/${id}/${version}`,
@@ -50,8 +51,6 @@ export const appLink = {
   teamWorkflows: ({ teamId }) => `/admin/teams/${teamId}/workflows`,
   teamSettings: ({ teamId }) => `/admin/teams/${teamId}/settings`,
   teamList: () => "/admin/teams",
-  user: ({ userId }) => `/admin/users/${userId}`,
-  userList: () => "/admin/users",
   workflows: () => "/workflows",
   workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
 };

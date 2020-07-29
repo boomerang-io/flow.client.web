@@ -42,7 +42,12 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
       <Box p="2rem">
         <>
           <Box mb="1rem" maxWidth="20rem">
-            <Search id="flow-users" placeHolderText="Search users" onChange={handleSearchChange} />
+            <Search
+              id="flow-users"
+              labelText="Search users"
+              placeHolderText="Search users"
+              onChange={handleSearchChange}
+            />
           </Box>
           {children}
         </>
@@ -177,7 +182,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
   const viewDetailsUser = records.find((user) => user.id === viewDetailsUserId);
   const changeRoleUser = records.find((user) => user.id === changeRoleUserId);
 
-  return totalElements > 0 ? (
+  return records.length > 0 ? (
     <>
       <DataTable
         rows={records}
