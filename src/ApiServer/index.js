@@ -300,8 +300,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
        * Manage Users
        */
 
-      this.get(serviceUrl.getManageUsers({ query: null }), (schema) => {
-        return schema.db.manageUsers[0];
+      this.get(serviceUrl.getManageUsers({ query: null }), (schema, request) => {
+        const { query } = request.queryParams;
+        const userData = schema.db.manageUsers[0];
+        if (query) {
+          userData.records =
+            userData.records.filter((user) => user.name.includes(query) || user.email.includes(query)) ?? [];
+        }
+        return userData;
       });
 
       this.patch(serviceUrl.resourceManageUser({ userId: ":userId" }), (schema, request) => {

@@ -1,5 +1,5 @@
 /* eslint-disable jest/expect-expect */
-/// <reference types="Cypress" />
+
 import { startApiServer } from "ApiServer";
 
 let server;

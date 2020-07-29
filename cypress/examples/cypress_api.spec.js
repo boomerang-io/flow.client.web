@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 context("Cypress.Commands", () => {
   beforeEach(() => {
     cy.visit("https://example.cypress.io/cypress-api");
@@ -11,7 +9,7 @@ context("Cypress.Commands", () => {
     Cypress.Commands.add(
       "console",
       {
-        prevSubject: true
+        prevSubject: true,
       },
       (subject, method) => {
         // the previous subject is automatically received
@@ -34,7 +32,7 @@ context("Cypress.Commands", () => {
     // @ts-ignore TS2339
     cy.get("button")
       .console("info")
-      .then($button => {
+      .then(($button) => {
         // subject is still $button
       });
   });
@@ -72,7 +70,7 @@ context("Cypress.Cookies", () => {
     // now any cookie with the name 'session_id' will
     // not be cleared before each new test runs
     Cypress.Cookies.defaults({
-      whitelist: "session_id"
+      whitelist: "session_id",
     });
   });
 });
@@ -89,7 +87,7 @@ context("Cypress.Server", () => {
   it(".defaults() - change default config of server", () => {
     Cypress.Server.defaults({
       delay: 0,
-      force404: false
+      force404: false,
     });
   });
 });
@@ -164,7 +162,7 @@ context("Cypress.env()", () => {
     // set multiple environment variables
     Cypress.env({
       host: "veronica.dev.local",
-      api_server: "http://localhost:8888/v1/"
+      api_server: "http://localhost:8888/v1/",
     });
 
     // get environment variable

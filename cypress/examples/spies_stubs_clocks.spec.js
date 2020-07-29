@@ -1,12 +1,10 @@
-/// <reference types="Cypress" />
-
 context("Spies, Stubs, and Clock", () => {
   it("cy.spy() - wrap a method in a spy", () => {
     // https://on.cypress.io/spy
     cy.visit("https://example.cypress.io/commands/spies-stubs-clocks");
 
     const obj = {
-      foo() {}
+      foo() {},
     };
 
     const spy = cy.spy(obj, "foo").as("anyArgs");
@@ -26,7 +24,7 @@ context("Spies, Stubs, and Clock", () => {
        */
       foo(x) {
         console.log("obj.foo called with", x);
-      }
+      },
     };
 
     cy.spy(obj, "foo").as("foo");
@@ -54,7 +52,7 @@ context("Spies, Stubs, and Clock", () => {
        */
       foo(a, b) {
         console.log("a", a, "b", b);
-      }
+      },
     };
 
     const stub = cy.stub(obj, "foo").as("foo");
@@ -73,9 +71,7 @@ context("Spies, Stubs, and Clock", () => {
 
     cy.clock(now);
     cy.visit("https://example.cypress.io/commands/spies-stubs-clocks");
-    cy.get("#clock-div")
-      .click()
-      .should("have.text", "1489449600");
+    cy.get("#clock-div").click().should("have.text", "1489449600");
   });
 
   it("cy.tick() - move time in the browser", () => {
@@ -87,12 +83,8 @@ context("Spies, Stubs, and Clock", () => {
 
     cy.clock(now);
     cy.visit("https://example.cypress.io/commands/spies-stubs-clocks");
-    cy.get("#tick-div")
-      .click()
-      .should("have.text", "1489449600");
+    cy.get("#tick-div").click().should("have.text", "1489449600");
     cy.tick(10000); // 10 seconds passed
-    cy.get("#tick-div")
-      .click()
-      .should("have.text", "1489449610");
+    cy.get("#tick-div").click().should("have.text", "1489449610");
   });
 });

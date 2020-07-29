@@ -50,7 +50,12 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
       <Box p="2rem">
         <>
           <Box mb="1rem" maxWidth="20rem">
-            <Search id="flow-teams" placeHolderText="Search teams" onChange={handleSearchChange} />
+            <Search
+              id="flow-teams"
+              labelText="Search teams"
+              placeHolderText="Search teams"
+              onChange={handleSearchChange}
+            />
           </Box>
           {children}
         </>
@@ -181,7 +186,7 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const { number: page, sort, totalElements, totalPages, records } = teamsData;
 
-  return totalElements > 0 ? (
+  return records.length > 0 ? (
     <>
       <DataTable
         rows={records}
