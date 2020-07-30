@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import useAxios from "axios-hooks";
-import { useMutation, queryCache } from "react-query";
 import queryString from "query-string";
+import { useMutation, queryCache } from "react-query";
 import {
   Button,
   Error,
@@ -14,24 +14,25 @@ import {
   Search,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import MemberBar from "./MemberBar";
 import { resolver, serviceUrl } from "Config/servicesConfig";
-import styles from "./AddMemberContent.module.scss";
 import { FlowUser } from "Types";
+import MemberBar from "./MemberBar";
+import styles from "./AddMemberContent.module.scss";
 
-function AddMemberContent({
-  closeModal,
-  memberList,
-  memberIdList,
-  teamId,
-  teamName,
-}: {
+interface AddMemberContentProps {
   closeModal: Function;
   memberList: FlowUser[];
   memberIdList: string[];
   teamId: string;
   teamName: string;
-}) {
+}
+const AddMemberContent: React.FC<AddMemberContentProps> = ({
+  closeModal,
+  memberList,
+  memberIdList,
+  teamId,
+  teamName,
+}) => {
   const [{ data: usersList, error }, fetchUsersList] = useAxios({ method: "get" }, { manual: true });
   const [selectedUsers, setSelectedUsers] = useState<FlowUser[]>([]);
   const [usersListOpen, setUsersListOpen] = useState(false);
@@ -180,6 +181,6 @@ function AddMemberContent({
       </ModalFooter>
     </ModalFlowForm>
   );
-}
+};
 
 export default AddMemberContent;

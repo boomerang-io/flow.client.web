@@ -1,5 +1,7 @@
 import React from "react";
 import moment from "moment";
+import ms from "match-sorter";
+import sortBy from "lodash/sortBy";
 import { Link } from "react-router-dom";
 import {
   Error404,
@@ -11,27 +13,20 @@ import {
   StructuredListCell,
   Tooltip,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { appLink } from "Config/appConfig";
+import { FlowTeam, FlowUser } from "Types";
 import AddMember from "./AddMember";
 import RemoveMember from "./RemoveMember";
-import ms from "match-sorter";
-import sortBy from "lodash/sortBy";
-import { appLink } from "Config/appConfig";
-// import { serviceUrl } from "Config/servicesConfig";
 import styles from "./Members.module.scss";
 
-import { FlowUser, FlowTeam } from "Types";
-
-function Members({
-  isActive,
-  memberList,
-  team,
-  user,
-}: {
+interface MemberProps {
   isActive: boolean;
   memberList: FlowUser[];
   team: FlowTeam;
   user: FlowUser;
-}) {
+}
+
+const Members: React.FC<MemberProps> = ({ isActive, memberList, team, user }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const filteredMemberList = searchQuery ? ms(memberList, searchQuery, { keys: ["name", "email"] }) : memberList;
 
@@ -131,6 +126,6 @@ function Members({
       )}
     </section>
   );
-}
+};
 
 export default Members;

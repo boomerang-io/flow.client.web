@@ -1,25 +1,19 @@
 import React from "react";
 import { useMutation, queryCache } from "react-query";
 import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
-import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Delete16 } from "@carbon/icons-react";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { FlowUser } from "Types";
 import styles from "./RemoveMember.module.scss";
 
-import { FlowUser } from "Types";
-
-export default function RemoveMember({
-  member,
-  memberIdList,
-  teamId,
-  teamName,
-  userId,
-}: {
+interface RemoveMemberProps {
   member: FlowUser;
   memberIdList: string[];
   teamId: string;
   teamName: string;
   userId: string;
-}) {
+}
+const RemoveMember: React.FC<RemoveMemberProps> = ({ member, memberIdList, teamId, teamName, userId }) => {
   const [leaveTeamMutator, { isLoading }] = useMutation(resolver.patchManageTeamUser, {
     onSuccess: () => queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId })),
   });
@@ -63,4 +57,6 @@ export default function RemoveMember({
       )}
     />
   );
-}
+};
+
+export default RemoveMember;
