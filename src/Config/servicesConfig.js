@@ -37,6 +37,7 @@ export const serviceUrl = {
   getGlobalConfiguration: () => `${BASE_SERVICE_URL}/config`,
   getGlobalProperty: ({ id }) => `${BASE_SERVICE_URL}/config/${id}`,
   getInsights: ({ query }) => `${BASE_SERVICE_URL}/insights${query ? "?" + query : ""}`,
+  getManageTeamsCreate: () => `${BASE_SERVICE_URL}/manage/teams`,
   getManageTeam: ({ teamId }) => `${BASE_SERVICE_URL}/manage/teams/${teamId}`,
   getManageTeams: ({ query }) => `${BASE_SERVICE_URL}/manage/teams${query ? "?" + query : ""}`,
   getManageUsers: ({ query }) => `${BASE_SERVICE_URL}/manage/users${query ? "?" + query : ""}`,
@@ -137,4 +138,6 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HttpMethods.Post }),
   putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getManageTeam({ teamId }), body),
   patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeam({ teamId }), body),
+  postTeamCreation: ({ body }) =>
+    cancellableResolver({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethods.Post }),
 };

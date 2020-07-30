@@ -37,6 +37,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       tasktemplate: Model,
       team: Model,
       manageTeamDetail: Model,
+      manageTeam: Model,
       manageUser: Model,
     },
 
@@ -294,6 +295,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         let summary = schema.manageTeamDetails.findBy({ id: teamId });
         summary.update(body);
         return summary;
+      });
+
+      this.post(serviceUrl.getManageTeamsCreate(), (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        const teams = schema.manageTeams.first();
+        const updatedRecords = teams.records.concat({ id: uuid(), isActive: true, ...body });
+        teams.update({ records: updatedRecords });
+        return {};
       });
 
       /**
