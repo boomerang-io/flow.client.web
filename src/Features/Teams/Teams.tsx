@@ -3,7 +3,9 @@ import { useQuery } from "Hooks";
 import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
 import {
+  Button,
   Checkbox,
+  ComposedModal,
   DataTable,
   DataTableSkeleton,
   ErrorMessage,
@@ -13,13 +15,15 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import FeatureHeader from "Components/FeatureHeader";
 import TeamDetailed from "Features/TeamDetailed";
+import AddTeamContent from "./AddTeamContent";
 import debounce from "lodash/debounce";
 import queryString from "query-string";
 import { isAccessibleEvent } from "@boomerang-io/utils";
 import { SortDirection } from "Constants";
 import { AppPath, appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { FlowTeam, PaginatedResponse } from "Types";
+import { ComposedModalChildProps, FlowTeam, ModalTriggerProps, PaginatedResponse } from "Types";
+import styles from "./Teams.module.scss";
 
 const TeamsContainer: React.FC = () => {
   return (
@@ -67,6 +71,11 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
 const TeamList: React.FC = () => {
   const history = useHistory();
   const location = useLocation();
+  const cancelRequestRef = React.useRef<{} | null>();
+
+  const teamsUrl = serviceUrl.getManageTeams({ query: allQuery });
+
+  const { data: teamsData, error: getTeamError, isLoading: getTeamLoading } = useQuery(teamsUrl);
 
   const teamsQuery = useQuery(serviceUrl.getManageTeams({ query: location.search }));
 
@@ -139,6 +148,37 @@ const TeamList: React.FC = () => {
   }
   return (
     <FeatureLayout handleSearchChange={handleSearchChange}>
+      {teamsData && (
+        <ComposedModal
+          composedModalProps={{ shouldCloseOnOverlayClick: true }}
+          modalHeaderProps={{
+            title: "Create Team",
+            subtitle: `Scope your workflows and properties to a team`,
+          }}
+          modalTrigger={({ openModal }: ModalTriggerProps) => (
+            <Button
+              iconDescription="Create new version"
+              onClick={openModal}
+              size="field"
+              disabled={getTeamError || getTeamLoading}
+              className={styles.createTeamTrigger}
+            >
+              Create Team
+            </Button>
+          )}
+        >
+          {({ closeModal }: ComposedModalChildProps) => {
+            return (
+              <AddTeamContent
+                closeModal={closeModal}
+                cancelRequestRef={cancelRequestRef}
+                teamRecords={teamsData.records}
+                currentQuery={location.search}
+              />
+            );
+          }}
+        </ComposedModal>
+      )}
       <TeamListTable
         handleNavigateToTeam={handleNavigateToTeam}
         handlePaginationChange={handlePaginationChange}
@@ -154,6 +194,16 @@ const DEFAULT_PAGE = 0;
 const DEFAULT_SIZE = 10;
 const DEFAULT_SORT = "name";
 const PAGE_SIZES = [DEFAULT_SIZE, 20, 50, 100];
+
+//for fetching "all" teams? Maybe make request larger?
+const DEFAULT_ALL_TEAM_SIZE = 1000;
+
+const allQuery = `?${queryString.stringify({
+  order: DEFAULT_ORDER,
+  page: DEFAULT_PAGE,
+  size: DEFAULT_ALL_TEAM_SIZE,
+  sort: DEFAULT_SORT,
+})}`;
 
 const headers = [
   {
