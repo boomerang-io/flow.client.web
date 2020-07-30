@@ -17,15 +17,13 @@ import * as Yup from "yup";
 import styles from "./UpdateTeamName.module.scss";
 import { FlowTeam } from "Types";
 
-export default function UpdateTeamName({
-  closeModal,
-  team,
-  teamNameList,
-}: {
+interface UpdateTeamNameProps {
   closeModal: () => void;
   team: FlowTeam;
   teamNameList: string[];
-}) {
+}
+
+const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamNameList }) => {
   const [updateTeamMutator, { isLoading, error }] = useMutation(resolver.putUpdateTeam, {
     onSuccess: () => queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
   });
@@ -104,4 +102,6 @@ export default function UpdateTeamName({
       }}
     </Formik>
   );
-}
+};
+
+export default UpdateTeamName;

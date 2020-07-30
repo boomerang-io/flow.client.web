@@ -2,19 +2,15 @@ import React from "react";
 import { CloseOutline32 } from "@carbon/icons-react";
 import styles from "./MemberBar.module.scss";
 
-export default function MemberBar({
-  addUser,
-  id,
-  email,
-  name,
-  removeUser,
-}: {
+interface MemberBarProps {
   addUser: Function | null;
   id: string;
   email: string;
   name: string;
   removeUser: Function | null;
-}) {
+}
+
+const MemberBar: React.FC<MemberBarProps> = ({ addUser, id, email, name, removeUser }) => {
   return (
     <li key={id}>
       <button
@@ -34,4 +30,6 @@ export default function MemberBar({
       </button>
     </li>
   );
-}
+};
+
+export default MemberBar;

@@ -1,22 +1,17 @@
 import React from "react";
 import { Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Add16 } from "@carbon/icons-react";
+import { FlowUser } from "Types";
 import AddMemberContent from "./AddMemberContent";
 import styles from "./AddMember.module.scss";
 
-import { FlowUser } from "Types";
-
-export default function AddMember({
-  teamId,
-  teamName,
-  memberList,
-  memberIdList,
-}: {
+interface AddMemberProps {
+  memberIdList: string[];
+  memberList: FlowUser[];
   teamId: string;
   teamName: string;
-  memberList: FlowUser[];
-  memberIdList: string[];
-}) {
+}
+const AddMember: React.FC<AddMemberProps> = ({ memberIdList, memberList, teamId, teamName }) => {
   return (
     <ComposedModal
       modalTrigger={({ openModal }: { openModal: Function }) => (
@@ -49,4 +44,6 @@ export default function AddMember({
       )}
     </ComposedModal>
   );
-}
+};
+
+export default AddMember;
