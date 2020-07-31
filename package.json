@@ -77,6 +77,8 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "8.1.0",
+    "@commitlint/config-conventional": "8.1.0",
     "@cypress/webpack-preprocessor": "^5.4.2",
     "@testing-library/cypress": "^6.0.0",
     "@testing-library/jest-dom": "^5.10.1",
@@ -107,6 +109,7 @@
     "eslint-plugin-testing-library": "3.3.0",
     "find-webpack": "^2.0.0",
     "http-proxy-middleware": "^0.20.0",
+    "husky": "^4.2.5",
     "jest-axe": "^3.4.0",
     "lint-staged": "10.1.1",
     "miragejs": "^0.1.40",
