@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
-import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ComposedModal, Error404, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { WarningAlt16 } from "@carbon/icons-react";
+import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
 import WelcomeBanner from "Components/WelcomeBanner";
 import CreateWorkflow from "./CreateWorkflow";
 import WorkflowsHeader from "./WorkflowsHeader";
@@ -9,7 +11,7 @@ import WorkflowCard from "./WorkflowCard";
 import queryString from "query-string";
 import cx from "classnames";
 import sortBy from "lodash/sortBy";
-import { FlowTeam } from "Types";
+import { FlowTeam, ModalTriggerProps, ComposedModalChildProps } from "Types";
 import styles from "./workflowHome.module.scss";
 
 const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
@@ -148,11 +150,50 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
   }
 
   const hasTeamWorkflows = team.workflows?.length > 0;
+  const hasReachedWorkflowLimit = team.settings.quotas.availableWorkflows <= team.settings.quotas.currentWorkflows;
 
   return (
     <section className={styles.sectionContainer}>
       <hgroup className={styles.header}>
         <h1 className={styles.team}>{`${team.name} (${workflows.length})`}</h1>
+        <div className={styles.teamQuotaContainer}>
+          <div className={styles.quotaDescriptionContainer}>
+            <h3
+              className={styles.teamQuotaText}
+            >{`Workflow quota - ${team.workflows?.length} of ${team?.settings?.quotas.availableWorkflows} used`}</h3>
+            {hasReachedWorkflowLimit && (
+              <TooltipHover
+                direction="top"
+                tooltipText={
+                  "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team administrator/owner to increase the quota."
+                }
+              >
+                <WarningAlt16 className={styles.warningIcon} />
+              </TooltipHover>
+            )}
+          </div>
+          <ComposedModal
+            composedModalProps={{
+              containerClassName: styles.quotaModalContainer,
+              shouldCloseOnOverlayClick: true,
+            }}
+            modalHeaderProps={{
+              title: `Team quotas - ${team.name}`,
+              subtitle:
+                "Quotas are set by the administrator, if you have a concern about your allotted amounts, contact an admin.",
+            }}
+            modalTrigger={({ openModal }: ModalTriggerProps) => (
+              <Button iconDescription="View quota details" kind="ghost" size="field" onClick={openModal}>
+                View more quotas
+              </Button>
+            )}
+          >
+            {({ closeModal }: ComposedModalChildProps) => (
+              <WorkflowQuotaModalContent closeModal={closeModal} settings={team?.settings} />
+            )}
+          </ComposedModal>
+        </div>
+
         {!hasTeamWorkflows && (
           <p className={styles.noWorkflowsMessage}>
             This team doesn’t have any Workflows - be the first to take the plunge.
@@ -163,7 +204,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
         {workflows.map((workflow) => (
           <WorkflowCard key={workflow.id} teamId={team.id} workflow={workflow} />
         ))}
-        <CreateWorkflow team={team} teams={teams} />
+        <CreateWorkflow team={team} teams={teams} hasReachedWorkflowLimit={hasReachedWorkflowLimit} />
       </div>
     </section>
   );

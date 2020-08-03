@@ -1,7 +1,7 @@
 import React from "react";
 import { useMutation, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
-import { ComposedModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateWorkflowContainer from "./CreateWorkflowContainer";
 import WorkflowDagEngine, { createWorkflowRevisionBody } from "Utils/dag/WorkflowDagEngine";
 import { appLink } from "Config/appConfig";
@@ -16,9 +16,10 @@ const workflowDagEngine = new WorkflowDagEngine({ dag: null, isModelLocked: fals
 interface CreateWorkflowProps {
   team: FlowTeam;
   teams: FlowTeam[];
+  hasReachedWorkflowLimit: boolean;
 }
 
-const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, teams }) => {
+const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, teams, hasReachedWorkflowLimit }) => {
   const history = useHistory();
 
   const [createWorkflowMutator, { error: workflowError, isLoading: workflowIsLoading }] = useMutation(
@@ -75,12 +76,26 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, teams }) => {
   return (
     <ComposedModal
       composedModalProps={{ containerClassName: styles.modalContainer }}
-      modalTrigger={({ openModal }: ModalTriggerProps) => (
-        <button className={styles.container} onClick={openModal} data-testid="workflows-create-workflow-button">
-          <Add32 className={styles.addIcon} />
-          <p className={styles.text}>Create a new workflow</p>
-        </button>
-      )}
+      modalTrigger={({ openModal }: ModalTriggerProps) =>
+        hasReachedWorkflowLimit ? (
+          <TooltipHover
+            direction="top"
+            tooltipText={
+              "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team administrator/owner to increase the quota."
+            }
+          >
+            <div className={styles.disabledCreate} data-testid="workflows-create-workflow-button">
+              <Add32 className={styles.addIcon} />
+              <p className={styles.text}>Create a new workflow</p>
+            </div>
+          </TooltipHover>
+        ) : (
+          <button className={styles.container} onClick={openModal} data-testid="workflows-create-workflow-button">
+            <Add32 className={styles.addIcon} />
+            <p className={styles.text}>Create a new workflow</p>
+          </button>
+        )
+      }
       confirmModalProps={{
         title: "Close this?",
         children: "Your request will not be saved",

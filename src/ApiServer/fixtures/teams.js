@@ -151,5 +151,19 @@ export default [
         templateUpgradesAvailable: false,
       },
     ],
+    settings: {
+      quotas: {
+        availableWorkflows: 10,
+        availableDailyExecutions: 30,
+        availableMonthlyExecutions: 300,
+        currentDailyExecutions: 14,
+        currentMonthlyExecutions: 78,
+        currentWorkflows: 3,
+        storageCapacity: 5,
+        concurrentWorkflows: 4,
+        maxExecutionTime: 30,
+        monthlyResetDate: "August 1, 2020",
+      },
+    },
   },
 ];

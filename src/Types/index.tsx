@@ -136,9 +136,24 @@ export interface FlowTeam {
   id: string;
   isActive: boolean;
   name: string;
-  settings?: any;
+  settings: FlowTeamSettings;
   users: FlowUser[];
   workflows: WorkflowSummary[];
+}
+
+export interface FlowTeamSettings {
+  quotas: {
+    availableWorkflows: number;
+    availableDailyExecutions: number;
+    availableMonthlyExecutions: number;
+    currentDailyExecutions: number;
+    currentMonthlyExecutions: number;
+    currentWorkflows: number;
+    storageCapacity: number;
+    concurrentWorkflows: number;
+    maxExecutionTime: string;
+    monthlyResetDate: string;
+  };
 }
 
 export interface PaginatedSort {
