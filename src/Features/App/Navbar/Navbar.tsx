@@ -61,7 +61,7 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
         >
           Insights
         </SideNavLink>
-        <SideNavMenu large iconDescription="Manage" renderIcon={SettingsAdjust16} title="Manage">
+        <SideNavMenu large renderIcon={SettingsAdjust16} title="Management">
           <SideNavMenuItem
             large
             activeClassName={ACTIVE_CLASS_NAME}
@@ -82,7 +82,7 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
           </SideNavMenuItem>
         </SideNavMenu>
         {isAtLeastOperator ? (
-          <SideNavMenu large title="Administer" renderIcon={Settings16}>
+          <SideNavMenu large title="Administration" renderIcon={Settings16}>
             {isStandaAloneMode && (
               <SideNavMenuItem
                 large
