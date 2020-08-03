@@ -8,22 +8,24 @@ import WombatMessage from "Components/WombatMessage";
 import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import orderBy from "lodash/orderBy";
+import{ TaskModel } from "Types";
+import { AppPath, appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./taskTemplates.module.scss";
 
-export function TaskTemplatesContainer() {
+const TaskTemplatesContainer: React.FC = () => {
   const match = useRouteMatch();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
   const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading, isIdle } = useQuery(
     getTaskTemplatesUrl
   );
 
-  const addTemplateInState = (newTemplate) => {
+  const addTemplateInState = (newTemplate: TaskModel) => {
     const updatedTemplatesData = [...taskTemplatesData];
     updatedTemplatesData.push(newTemplate);
     queryCache.setQueryData(getTaskTemplatesUrl, orderBy(updatedTemplatesData, "name", "asc"));
   };
-  const updateTemplateInState = (updatedTemplate) => {
+  const updateTemplateInState = (updatedTemplate: TaskModel) => {
     const updatedTemplatesData = [...taskTemplatesData];
     const templateToUpdateIndex = updatedTemplatesData.findIndex((template) => template.id === updatedTemplate.id);
     // If we found it
@@ -56,10 +58,10 @@ export function TaskTemplatesContainer() {
         <Route exact path={match.path}>
           <WombatMessage className={styles.wombat} message="Select a task or add a new one" />
         </Route>
-        <Route path={[`${match.path}/:taskTemplateId/:version`]}>
+        <Route path={AppPath.TaskTemplateEdit}>
           <TaskTemplateOverview taskTemplates={taskTemplatesData} updateTemplateInState={updateTemplateInState} />
         </Route>
-        <Redirect to="/task-templates" />
+        <Redirect to={appLink.taskTemplates()} />
       </Switch>
     </div>
   );

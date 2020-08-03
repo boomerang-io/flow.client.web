@@ -29,7 +29,7 @@
     "upgradePackage": "react-scripts upgradePackage"
   },
   "dependencies": {
-    "@boomerang-io/carbon-addons-boomerang-react": "0.0.2",
+    "@boomerang-io/carbon-addons-boomerang-react": "0.0.5",
     "@boomerang-io/styles": "0.0.1",
     "@boomerang-io/utils": "0.0.1",
     "@carbon/charts": "^0.16.24",
@@ -63,6 +63,7 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "16.13.1",
     "react-dropzone": "^10.1.10",
+    "react-error-boundary": "^2.3.1",
     "react-helmet": "^6.0.0",
     "react-json-view": "^1.19.1",
     "react-lazylog": "4.5.2",
@@ -77,6 +78,8 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "8.1.0",
+    "@commitlint/config-conventional": "8.1.0",
     "@cypress/webpack-preprocessor": "^5.4.2",
     "@testing-library/cypress": "^6.0.0",
     "@testing-library/jest-dom": "^5.10.1",
@@ -107,6 +110,7 @@
     "eslint-plugin-testing-library": "3.3.0",
     "find-webpack": "^2.0.0",
     "http-proxy-middleware": "^0.20.0",
+    "husky": "^4.2.5",
     "jest-axe": "^3.4.0",
     "lint-staged": "10.1.1",
     "miragejs": "^0.1.40",

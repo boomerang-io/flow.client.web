@@ -1,1 +1,1 @@
-export { default } from "./ErrorDragon"
+export { default } from "./ErrorDragon";
