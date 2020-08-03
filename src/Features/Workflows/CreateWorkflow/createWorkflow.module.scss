@@ -1,5 +1,22 @@
 @import "Styles/mixins";
 
+.disabledCreate {
+  align-items: center;
+  border: 0.0625rem solid #373d42;
+  box-sizing: border-box;
+  @include border-radius();
+  display: flex;
+  font-family: "IBM Plex Sans";
+  height: 10.325rem;
+  justify-content: center;
+  line-height: 1;
+  margin: 1rem 0.75rem;
+  padding: 0.125rem;
+  position: relative;
+  width: 19.375rem;
+  z-index: 1;
+}
+
 .container {
   align-items: center;
   border: 0.0625rem solid #373d42;

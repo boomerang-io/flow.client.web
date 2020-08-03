@@ -1,0 +1,66 @@
+.container {
+  height: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.divider {
+  background-color: var(--cds-hover-selected-ui);
+  height: 0.0625rem;
+  width: 37.5rem;
+  position: absolute;
+  left: 0;
+}
+
+.detailedText {
+  font-size: 0.75rem;
+  letter-spacing: 0.02rem;
+  line-height: 0.9375rem;
+}
+
+.currentUsage {
+  font-size: 0.75rem;
+  letter-spacing: 0.02rem;
+  line-height: 0.9375rem;
+  margin-bottom: 1.5rem;
+}
+
+.detailedSection {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.detailedTitle {
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  line-height: 1.125rem;
+  margin-bottom: 0.3125rem;
+}
+
+.detailedData {
+  font-size: 0.75rem;
+  letter-spacing: 0.02rem;
+  line-height: 0.9375rem;
+  margin-bottom: 0.3125rem;
+}
+
+.sectionHeader {
+  font-size: 1.25rem;
+  letter-spacing: 0;
+  line-height: 1.5625rem;
+  margin-bottom: 1rem;
+}
+
+.coverageBar {
+  height: 1.125rem;
+  width: 28.125rem;
+  border-radius: 0.5625rem;
+  background-color: var(--cds-ui-02);
+  margin-bottom: 0.25rem;
+}
+
+.coverageFiller {
+  border-radius: 0.5625rem;
+  height: 100%;
+  background-color: var(--cds-support-02);
+}
