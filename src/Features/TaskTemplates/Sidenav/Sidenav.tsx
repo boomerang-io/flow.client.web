@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Link, useHistory, matchPath, useLocation } from "react-router-dom";
 import cx from "classnames";
 import capitalize from "lodash/capitalize";
@@ -18,19 +17,22 @@ import { appLink } from "Config/appConfig";
 import { Bee16, ViewOff16, SettingsAdjust20 } from "@carbon/icons-react";
 import { taskIcons } from "Utils/taskIcons";
 import { TaskTemplateStatus } from "Constants";
+import { AppPath } from "Config/appConfig";
+import { TaskModel } from "Types";
 import styles from "./sideInfo.module.scss";
 
-SideInfo.propTypes = {
-  taskTemplates: PropTypes.array.isRequired,
-  addTemplateInState: PropTypes.func.isRequired,
-};
-const description = "Create and import tasks to add to the Flow Editor task list";
+const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
 
-export function SideInfo({ taskTemplates, addTemplateInState }) {
-  const [searchQuery, setSearchQuery] = React.useState();
-  const [activeFilters, setActiveFilters] = React.useState([]);
-  const [tasksToDisplay, setTasksToDisplay] = React.useState(
-    taskTemplates.filter((task) => task.status === TaskTemplateStatus.Active)
+interface SideInfoProps {
+  addTemplateInState: (newTemplate: TaskModel) => void;
+  taskTemplates: TaskModel[],
+};
+
+ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates  }) => {
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
+  const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskModel>>(
+    taskTemplates.filter((task) => task.status === TaskTemplateStatus.Active) ?? []
   );
   const [openCategories, setOpenCategories] = React.useState(false);
   const [showArchived, setShowArchived] = React.useState(false);
@@ -45,10 +47,10 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
 
   const history = useHistory();
   const location = useLocation();
-  const globalMatch = matchPath(location.pathname, { path: "/task-templates/:taskTemplateId/:version" });
+  const globalMatch = matchPath(location.pathname, { path: AppPath.TaskTemplateEdit });
 
   let categories = tasksToDisplay
-    .reduce((acc, task) => {
+    .reduce((acc: string[], task: TaskModel) => {
       const newCategory = !acc.find((category) => task.category.toLowerCase() === category?.toLowerCase());
       if (newCategory) acc.push(capitalize(task.category));
       return acc;
@@ -71,14 +73,14 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
     tasks: sortBy(tasksToDisplay.filter((task) => capitalize(task.category) === category).sort(), "name"),
   }));
 
-  const handleOnSearchInputChange = (e) => {
+  const handleOnSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
     setSearchQuery(searchQuery);
     setTasksToDisplay(matchSorter(taskTemplates, searchQuery, { keys: ["category", "name"] }));
   };
 
-  const handleCheckboxListChange = (checked, label) => {
-    let filtersState = [].concat(activeFilters);
+  const handleCheckboxListChange = (checked: boolean, label: string) => {
+    let filtersState: string[] = [...activeFilters];
 
     let newFilters = [];
     let hasFilter = Boolean(filtersState.find((filter) => filter === label));
@@ -95,7 +97,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Task manager</h1>
-      <p className={styles.description}>{description}</p>
+      <p className={styles.description}>{DESCRIPTION}</p>
       <div className={styles.tasksContainer}>
         <div className={styles.addTaskContainer}>
           <p className={styles.existingTasks}>{`Existing Tasks (${taskTemplates.length})`}</p>
@@ -144,7 +146,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
               <CheckboxList
                 selectedItems={activeFilters}
                 options={taskFilters}
-                onChange={(...args) => handleCheckboxListChange(...args)}
+                onChange={(checked: boolean, label: string) => handleCheckboxListChange(checked, label)}
               />
             </section>
           </OverflowMenu>
@@ -165,6 +167,7 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
               key={`${category.name}${index}`}
             >
               {category.tasks.map((task) => (
+                //@ts-ignore
                 <Task key={task.id} task={task} isActive={globalMatch?.params?.taskTemplateId === task.id} />
               ))}
             </AccordionItem>
@@ -174,7 +177,12 @@ export function SideInfo({ taskTemplates, addTemplateInState }) {
     </div>
   );
 }
-function Task(props) {
+
+interface TaskProps {
+  isActive: boolean;
+  task: TaskModel
+}
+const Task: React.FC<TaskProps> = (props) => {
   const { task } = props;
   const TaskIcon = taskIcons.find((icon) => icon.name === task.icon);
   const isActive = task.status === TaskTemplateStatus.Active;

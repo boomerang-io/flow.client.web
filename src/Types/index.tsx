@@ -13,9 +13,11 @@ export interface DataDrivenInput {
   id: string;
   defaultValue?: string;
   description?: string;
+  helperText?:string;
   key: string;
   label: string;
   options?: [{ key: string; value: string }];
+  placeholder?: string;
   readOnly: boolean;
   required: boolean;
   value: string;
@@ -29,6 +31,7 @@ export interface ModalTriggerProps {
 
 export interface ComposedModalChildProps {
   closeModal(): void;
+  forceCloseModal(): void;
 }
 
 export interface FormikSetFieldValue {
@@ -124,6 +127,8 @@ export interface ChangeLogItem {
 export type ChangeLog = Array<ChangeLogItem>;
 
 export interface TaskModel {
+  category: string;
+  currentVersion: number;
   id: string;
   icon: string;
   model: string;

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
@@ -25,7 +26,7 @@ import { TemplateRequestType, FieldTypes } from "../constants";
 import { Draggable16, TrashCan16, Archive16, Bee16 } from "@carbon/icons-react";
 import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
-import { appLink } from "Config/appConfig";
+import { appLink, AppPath } from "Config/appConfig";
 import styles from "./taskTemplateOverview.module.scss";
 
 const ArchiveText = () => (
@@ -376,7 +377,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
               message={(location) => {
                 let prompt = true;
                 const templateMatch = matchPath(location.pathname, {
-                  path: "/task-templates/:taskTemplateId/:version",
+                  path: AppPath.TaskTemplateEdit,
                 });
                 if (isDirty && !location.pathname.includes(taskTemplateId) && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";

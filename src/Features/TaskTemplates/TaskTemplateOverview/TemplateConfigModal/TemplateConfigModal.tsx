@@ -1,23 +1,25 @@
+//@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import { ComposedModal, Button, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import TemplateConfigModalContent from "./TemplateConfigModalContent";
 import { Add16, Edit16 } from "@carbon/icons-react";
-// import styles from "./TemplateConfigModal.module.scss";
+import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";
+ // import styles from "./TemplateConfigModal.module.scss";
 
-TemplateConfigModal.propTypes = {
-  field: PropTypes.object,
-  isEdit: PropTypes.bool,
-  templateFields: PropTypes.array,
-  fieldKeys: PropTypes.array,
+interface TemplateConfigModal {
+  isActive: boolean,
+  field: {}
+  isEdit: boolean,
+  templateFields: DataDrivenInput[],
+  fieldKeys: string[],
+  oldVersion: boolean
 };
 
-export function TemplateConfigModal(props) {
+ const TemplateConfigModal: React.FC<TemplateConfigModal> = (props) => {
   const { isEdit, oldVersion, isActive } = props;
-  const editTrigger = ({ openModal }) => {
-    let output = null;
-    isEdit
-      ? (output = (
+  const editTrigger = ({ openModal }: ModalTriggerProps) => {
+    return isEdit
+      ?
           <TooltipHover direction="bottom" tooltipText={"Edit field"}>
             <Button
               iconDescription="Edit field"
@@ -28,8 +30,8 @@ export function TemplateConfigModal(props) {
               disabled={oldVersion || !isActive}
             />
           </TooltipHover>
-        ))
-      : (output = (
+        
+      : 
           <TooltipHover direction="top" tooltipText={"Add a new field for this task"}>
             <Button
               iconDescription="Add field"
@@ -42,8 +44,6 @@ export function TemplateConfigModal(props) {
               Add a field
             </Button>
           </TooltipHover>
-        ));
-    return output;
   };
   return (
     <ComposedModal
@@ -57,7 +57,7 @@ export function TemplateConfigModal(props) {
       }}
       modalTrigger={editTrigger}
     >
-      {({ closeModal, forceCloseModal }) => (
+      {({ closeModal, forceCloseModal }: ComposedModalChildProps) => (
         <TemplateConfigModalContent {...props} closeModal={closeModal} forceCloseModal={forceCloseModal} />
       )}
     </ComposedModal>

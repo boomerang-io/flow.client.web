@@ -20,6 +20,7 @@ export const AppPath = {
   Properties: "/admin/properties",
   Quotas: "/admin/quotas",
   TaskTemplates: "/admin/task-templates",
+  TaskTemplateEdit: `/admin/task-templates/:id/:version`,
   Team: "/admin/teams/:teamId",
   TeamSettings: "/admin/teams/:teamId/settings",
   TeamWorkflows: "/admin/teams/:teamId/workflows",
