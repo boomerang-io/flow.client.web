@@ -1,5 +1,5 @@
+//@ts-nocheck
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import {
   ComboBox,
   Creatable,
@@ -14,6 +14,7 @@ import TextEditorModal from "Components/TextEditorModal";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import { InputProperty, InputType, PROPERTY_KEY_REGEX } from "Constants";
+import { DataDrivenInput }from "Types";
 import styles from "./TemplateConfigModalContent.module.scss";
 
 const inputTypeOptions = [
@@ -33,7 +34,13 @@ const inputTypeOptions = [
   { label: "URL", value: "url" },
 ];
 
-const TextEditorInput = (props) => {
+interface TextEditorInputProps {
+  id: string;
+  item: { description: string; label: string}
+
+}
+
+const TextEditorInput: React.FC<TextEditorInputProps> = (props) => {
   return (
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
       <TextEditorModal {...props} {...props.item} />
@@ -41,15 +48,17 @@ const TextEditorInput = (props) => {
   );
 };
 
-class TemplateConfigModalContent extends Component {
-  static propTypes = {
-    closeModal: PropTypes.func,
-    field: PropTypes.object,
-    fieldKeys: PropTypes.array,
-    isEdit: PropTypes.bool,
-    templateFields: PropTypes.array,
-    setFieldValue: PropTypes.func.isRequired,
-  };
+interface TemplateConfigModalContentProps {
+    closeModal: () => void;
+    forceCloseModal: () => void;
+    field: DataDrivenInput
+    fieldKeys: string[]
+    isEdit:boolean
+    templateFields: DataDrivenInput[]
+    setFieldValue: (id: string, value: any) => void;
+}
+
+class TemplateConfigModalContent extends Component<TemplateConfigModalContentProps> {
 
   state = {
     defaultValueType: InputType.Text,

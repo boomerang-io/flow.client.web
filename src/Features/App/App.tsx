@@ -6,12 +6,12 @@ import { useQuery } from "react-query";
 import { useQuery as useSimpleQuery } from "Hooks";
 import { Switch, Route, Redirect } from "react-router-dom";
 import {
-  ErrorBoundary,
   Error404,
   Loading,
   NotificationsContainer,
   ProtectedRoute,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import ErrorBoundary from "Components/ErrorBoundary";
 import ErrorDragon from "Components/ErrorDragon";
 import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";
@@ -108,7 +108,7 @@ export default function App() {
         userQuery={userQuery}
       />
       <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
-      <ErrorBoundary errorComponent={ErrorDragon}>
+      <ErrorBoundary>
         <Main
           isError={isError}
           isTutorialActive={isTutorialActive}

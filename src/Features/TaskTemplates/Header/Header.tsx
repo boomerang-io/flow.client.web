@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
 import {
@@ -21,9 +22,14 @@ import VersionSwitcher from "./VersionSwitcher";
 import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType } from "../constants";
+import { ComposedModalChildProps, ModalTriggerProps} from "Types";
 import styles from "./header.module.scss";
 
-function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoading, cancelRequestRef, setFieldValue }) {
+interface SaveModalProps {
+
+}
+
+const SaveModal = ({ isValid, isDirty, handleSubmit, values, resetForm, isLoading, cancelRequestRef, setFieldValue }) =>{
   const [requestError, setRequestError] = React.useState(null);
   const SaveMessage = () => {
     return (
@@ -51,7 +57,7 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
       onCloseModal={() => {
         if (cancelRequestRef.current) cancelRequestRef.current();
       }}
-      modalTrigger={({ openModal }) => (
+      modalTrigger={({ openModal }: ModalTriggerProps ) => (
         <TooltipHover direction="bottom" tooltipText={"Save a new version or update the current one"}>
           <Button
             className={styles.button}
@@ -67,7 +73,7 @@ function SaveModal({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
         </TooltipHover>
       )}
     >
-      {({ closeModal }) => {
+      {({ closeModal }: ComposedModalChildProps) => {
         return (
           <ModalFlowForm>
             {isLoading && <Loading />}
@@ -213,7 +219,7 @@ function Header({
               affirmativeText="Reset changes"
               children="You are about to reset to the last save of this version, all unsaved changes will be erased. This action cannot be undone, are you sure you want to reset to the latest save?"
               title="Reset changes"
-              modalTrigger={({ openModal }) => (
+              modalTrigger={({ openModal }: ModalTriggerProps) => (
                 <TooltipHover direction="bottom" tooltipText={"Restore the last save of this version"}>
                   <Button
                     className={styles.resetButton}
@@ -247,7 +253,7 @@ function Header({
               }
               affirmativeText="Copy to new version"
               title="Copy to new version"
-              modalTrigger={({ openModal }) => (
+              modalTrigger={({ openModal }: ModalTriggerProps) => (
                 <TooltipHover direction="bottom" tooltipText={"Copy this version to a new version to enable editing"}>
                   <Button
                     className={styles.copyButton}
@@ -286,7 +292,7 @@ function Header({
               }
               affirmativeText="Restore this task"
               title="Restore"
-              modalTrigger={({ openModal }) => (
+              modalTrigger={({ openModal }: ModalTriggerProps) => (
                 <Button
                   className={styles.button}
                   style={{ width: "7.75rem" }}

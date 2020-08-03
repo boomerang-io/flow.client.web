@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
 import { Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
