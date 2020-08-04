@@ -20,3 +20,15 @@ export const FieldTypes = {
   time: "Time",
   url: "URL"
 };
+
+export interface FormProps {
+  name: string;
+  description: string;
+  icon: string;
+  image: string;
+  category: string;
+  currentConfig: {}
+  arguments: string;
+  command: string;
+  comments: string;
+}
