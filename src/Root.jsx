@@ -10,7 +10,7 @@ function Root() {
   return (
     <ErrorBoundary>
       <ReactQueryDevtools initialIsOpen={false} />
-      <ReactQueryConfigProvider config={{ queries: { throwOnError: true }, mutations: { throwOnError: true } }}>
+      <ReactQueryConfigProvider config={{  mutations: { throwOnError: true } }}>
         <BrowserRouter basename={APP_ROOT}>
           <App />
         </BrowserRouter>

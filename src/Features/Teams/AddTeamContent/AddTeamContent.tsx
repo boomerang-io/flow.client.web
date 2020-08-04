@@ -30,7 +30,7 @@ export default function AddTeamContent({
 }) {
   const [createTeamMutator, { isLoading, error }] = useMutation(
     (args: { body: {} }) => {
-      const { promise, cancel } = resolver.postTeamCreation(args);
+      const { promise, cancel } = resolver.postCreateTeam(args);
       if (cancelRequestRef?.current) {
         cancelRequestRef.current = cancel;
       }

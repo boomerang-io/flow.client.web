@@ -149,7 +149,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const [ArchiveTaskTemplateMutation, { isLoading: archiveIsLoading }] = useMutation(resolver.deleteArchiveTaskTemplate, {
     onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
   });
-  const [RestoreTaskTemplateMutation, { isLoading: restoreIsLoading }] = useMutation(resolver.putRestoreTaskTemplate, {
+  const [putRestoreTaskTemplateMutation, { isLoading: restoreIsLoading }] = useMutation(resolver.putRestoreTaskTemplate, {
     onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
   });
 
@@ -308,9 +308,9 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
     }
   };
 
-  const handleRestoreTaskTemplate = async () => {
+  const handleputRestoreTaskTemplate = async () => {
     try {
-      let response = await RestoreTaskTemplateMutation({ id: selectedTaskTemplate.id });
+      let response = await putRestoreTaskTemplateMutation({ id: selectedTaskTemplate.id });
       notify(
         <ToastNotification
           kind="success"
@@ -394,7 +394,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
               currentRevision={currentRevision}
               values={values}
               resetForm={resetForm}
-              handleRestoreTaskTemplate={handleRestoreTaskTemplate}
+              handleputRestoreTaskTemplate={handleputRestoreTaskTemplate}
               isValid={isValid}
               isDirty={isDirty}
               handleSaveTaskTemplate={handleSaveTaskTemplate}
