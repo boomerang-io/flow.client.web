@@ -151,7 +151,7 @@ Header.propTypes = {
   isValid: PropTypes.bool,
   isDirty: PropTypes.bool,
   handleSaveTaskTemplate: PropTypes.func.isRequired,
-  handleRestoreTaskTemplate: PropTypes.func.isRequired,
+  handleputRestoreTaskTemplate: PropTypes.func.isRequired,
   oldVersion: PropTypes.bool.isRequired,
   isActive: PropTypes.bool,
   isLoading: PropTypes.bool,
@@ -166,7 +166,7 @@ function Header({
   isValid,
   isDirty,
   handleSaveTaskTemplate,
-  handleRestoreTaskTemplate,
+  handleputRestoreTaskTemplate,
   setFieldValue,
   oldVersion,
   isActive,
@@ -280,7 +280,7 @@ function Header({
             />
           ) : (
             <ConfirmModal
-              affirmativeAction={handleRestoreTaskTemplate}
+              affirmativeAction={handleputRestoreTaskTemplate}
               children={
                 <>
                   <p className={styles.confirmModalText}>

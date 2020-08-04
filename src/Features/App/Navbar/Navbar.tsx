@@ -82,7 +82,7 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
           </SideNavMenuItem>
         </SideNavMenu>
         {isAtLeastOperator ? (
-          <SideNavMenu large title="Administration" renderIcon={Settings16}>
+          <SideNavMenu large title="Admin" renderIcon={Settings16}>
             {isStandaAloneMode && (
               <SideNavMenuItem
                 large
