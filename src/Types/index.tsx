@@ -133,6 +133,7 @@ export interface TaskModel {
   icon: string;
   model: string;
   name: string;
+  revisions: any[];
   status: string;
 }
 

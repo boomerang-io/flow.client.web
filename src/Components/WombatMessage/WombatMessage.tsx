@@ -9,7 +9,7 @@ interface WombatSuccessMessageProps {
   wombatClassName?: string;
 }
 
-const WombatSuccessMessage: React.FC<WombatSuccessMessageProps> =({ className = "", message, wombatClassName ="" }) => {
+const WombatSuccessMessage: React.FC<WombatSuccessMessageProps> = ({ className = "", message, wombatClassName ="" }) => {
   return (
     <div className={cx(styles.container, className)}>
       <h1 className={styles.message}>{message}</h1>

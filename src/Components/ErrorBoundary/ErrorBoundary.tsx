@@ -1,13 +1,15 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { Flex } from "reflexbox";
-import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
+import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from "react-error-boundary";
 import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import { appLink } from "Config/appConfig";
 import { ArrowRight16, ArrowLeft16 } from "@carbon/icons-react";
 
-const ErrorMessage = (props) => {
+
+
+const ErrorMessage: React.FC<FallbackProps> = (props) => {
   const history = useHistory();
   return (
     <Flex mt="10rem" alignItems="center" flexDirection="column" justifyContent="center">
@@ -39,7 +41,11 @@ const ErrorMessage = (props) => {
   );
 };
 
-const ErrorBoundary = ({ children, ...rest }) => {
+interface ErrorBoundaryProps {
+  FallbackComponent?: React.FunctionComponent<FallbackProps>
+}
+
+const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children, FallbackComponent = ErrorMessage, ...rest }) => {
   return (
     <ReactErrorBoundary FallbackComponent={ErrorMessage} {...rest}>
       {children}

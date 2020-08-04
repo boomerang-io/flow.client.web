@@ -1,6 +1,4 @@
-//@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import {
   Button,
   ConfirmModal,
@@ -21,16 +19,24 @@ import VersionHistory from "./VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
 import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
 import { taskIcons } from "Utils/taskIcons";
-import { TemplateRequestType } from "../constants";
-import { ComposedModalChildProps, ModalTriggerProps} from "Types";
+import { TemplateRequestType, FormProps } from "../constants";
+import { FormikProps } from "formik";
+import { ComposedModalChildProps, ModalTriggerProps, TaskModel} from "Types";
 import styles from "./header.module.scss";
 
 interface SaveModalProps {
-
+  cancelRequestRef: any;
+  formikProps: FormikProps<FormProps>
+  handleSubmit:  (values: any,
+    resetForm: () => void,
+    requestType: string,
+    setRequestError: ({ title, subtitle}: { title: string; subtitle: string;}) => void,
+    closeModal: () => void) => void 
+  isLoading: boolean;
 }
 
-const SaveModal = ({ isValid, isDirty, handleSubmit, values, resetForm, isLoading, cancelRequestRef, setFieldValue }) =>{
-  const [requestError, setRequestError] = React.useState(null);
+const SaveModal: React.FC<SaveModalProps> = ({  cancelRequestRef, formikProps, handleSubmit, isLoading  }) => {
+  const [requestError, setRequestError] = React.useState<{title?: string; subtitle?: string} | null>(null);
   const SaveMessage = () => {
     return (
       <>
@@ -62,7 +68,7 @@ const SaveModal = ({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
           <Button
             className={styles.button}
             style={{ width: "7.75rem" }}
-            disabled={!isValid || !isDirty}
+            disabled={!formikProps.isValid || !formikProps.dirty}
             size="field"
             renderIcon={Save16}
             iconDescription="Save a new version or update the current one"
@@ -85,18 +91,18 @@ const SaveModal = ({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
                 name="comments"
                 key="newTemplateComments"
                 labelText="Comments (required for new versions)"
-                onChange={(e) => setFieldValue("comments", e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => formikProps.setFieldValue("comments", e.target.value)}
                 placeholder="Release notes for the new version"
                 style={{ resize: "none" }}
-                value={values.comments}
+                value={formikProps.values.comments}
               />
               {Boolean(requestError) && (
                 <InlineNotification
                   lowContrast
                   style={{ marginBottom: "0.5rem" }}
                   kind="error"
-                  title={requestError.title}
-                  subtitle={requestError.subtitle}
+                  title={requestError?.title}
+                  subtitle={requestError?.subtitle}
                   onCloseButtonClick={() => setRequestError(null)}
                 />
               )}
@@ -107,31 +113,31 @@ const SaveModal = ({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
               </Button>
               <Button
                 kind="secondary"
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault();
-                  handleSubmit({
-                    values,
-                    resetForm,
-                    requestType: TemplateRequestType.Overwrite,
+                  handleSubmit(
+                    formikProps.values,
+                    formikProps.resetForm,
+                    TemplateRequestType.Overwrite,
                     setRequestError,
                     closeModal,
-                  });
+                  );
                 }}
               >
                 Overwrite this version
               </Button>
               <Button
-                onClick={(e) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault();
-                  handleSubmit({
-                    values,
-                    resetForm,
-                    requestType: TemplateRequestType.New,
+                  handleSubmit(
+                    formikProps.values,
+                    formikProps.resetForm,
+                    TemplateRequestType.New,
                     setRequestError,
                     closeModal,
-                  });
+                  );
                 }}
-                disabled={!Boolean(values.comments)}
+                disabled={!Boolean(formikProps.values.comments)}
               >
                 Save new version
               </Button>
@@ -143,36 +149,31 @@ const SaveModal = ({ isValid, isDirty, handleSubmit, values, resetForm, isLoadin
   );
 }
 
-Header.propTypes = {
-  selectedTaskTemplate: PropTypes.object.isRequired,
-  currentRevision: PropTypes.object.isRequired,
-  values: PropTypes.object.isRequired,
-  resetForm: PropTypes.func.isRequired,
-  isValid: PropTypes.bool,
-  isDirty: PropTypes.bool,
-  handleSaveTaskTemplate: PropTypes.func.isRequired,
-  handleputRestoreTaskTemplate: PropTypes.func.isRequired,
-  oldVersion: PropTypes.bool.isRequired,
-  isActive: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  cancelRequestRef: PropTypes.object.isRequired,
+interface HeaderProps {
+  cancelRequestRef: object;
+  currentRevision: { version: number};
+  formikProps: FormikProps<FormProps>
+  handleSaveTaskTemplate: (values: any, resetForm: () => void, requestType: string) => void;
+  handleputRestoreTaskTemplate: () => void;
+  isActive: boolean,
+  isLoading: boolean,
+  oldVersion: boolean;
+  selectedTaskTemplate: TaskModel;
 };
 
-function Header({
+
+
+const Header: React.FC<HeaderProps> = ({
   selectedTaskTemplate,
   currentRevision,
-  values,
-  resetForm,
-  isValid,
-  isDirty,
+  formikProps,
   handleSaveTaskTemplate,
   handleputRestoreTaskTemplate,
-  setFieldValue,
   oldVersion,
   isActive,
   isLoading,
   cancelRequestRef,
-}) {
+}) => {
   const TaskIcon = taskIcons.find((icon) => icon.name === selectedTaskTemplate.icon);
   const revisionCount = selectedTaskTemplate.revisions.length;
   const lastUpdated = selectedTaskTemplate?.revisions[revisionCount - 1]?.changelog ?? {};
@@ -215,7 +216,7 @@ function Header({
           />
           {!oldVersion && isActive && (
             <ConfirmModal
-              affirmativeAction={resetForm}
+              affirmativeAction={formikProps.resetForm}
               affirmativeText="Reset changes"
               children="You are about to reset to the last save of this version, all unsaved changes will be erased. This action cannot be undone, are you sure you want to reset to the latest save?"
               title="Reset changes"
@@ -223,7 +224,7 @@ function Header({
                 <TooltipHover direction="bottom" tooltipText={"Restore the last save of this version"}>
                   <Button
                     className={styles.resetButton}
-                    disabled={!isDirty}
+                    disabled={!formikProps.dirty}
                     size="field"
                     kind="ghost"
                     renderIcon={Undo16}
@@ -239,7 +240,7 @@ function Header({
           {oldVersion ? (
             <ConfirmModal
               affirmativeAction={() =>
-                handleSaveTaskTemplate({ values, resetForm, requestType: TemplateRequestType.Copy })
+                handleSaveTaskTemplate(formikProps.values, formikProps.resetForm, TemplateRequestType.Copy)
               }
               children={
                 <>
@@ -269,14 +270,10 @@ function Header({
             />
           ) : isActive ? (
             <SaveModal
-              handleSubmit={handleSaveTaskTemplate}
-              values={values}
-              resetForm={resetForm}
-              isValid={isValid}
-              isDirty={isDirty}
-              isLoading={isLoading}
               cancelRequestRef={cancelRequestRef}
-              setFieldValue={setFieldValue}
+              formikProps={formikProps}
+              handleSubmit={handleSaveTaskTemplate}
+              isLoading={isLoading}
             />
           ) : (
             <ConfirmModal

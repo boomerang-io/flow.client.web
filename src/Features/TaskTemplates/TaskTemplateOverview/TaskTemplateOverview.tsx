@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
-import { isCancel } from "axios";
+import axios from "axios";
 import { useRouteMatch, useParams, useHistory, Prompt, matchPath } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import {
@@ -27,9 +27,11 @@ import { Draggable16, TrashCan16, Archive16, Bee16 } from "@carbon/icons-react";
 import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
+import { DataDrivenInput } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
 
-const ArchiveText = () => (
+
+const ArchiveText: React.FC = () => (
   <>
     <p className={styles.confirmModalText}>
       Archive a task when it is no longer supported and shouldn’t be used in new Workflows.
@@ -45,7 +47,12 @@ const ArchiveText = () => (
   </>
 );
 
-function DetailDataElements({ label, value }) {
+interface DetailDataElementsProps {
+  label: string;
+  value: string; 
+}
+
+const DetailDataElements: React.FC<DetailDataElementsProps> = ({ label, value }) => {
   const TaskIcon = taskIcons.find((icon) => icon.name === value);
 
   return (
@@ -72,7 +79,19 @@ function DetailDataElements({ label, value }) {
   );
 }
 
-function Field({
+interface FieldProps {
+  field: any;
+  innerRef: any;
+  draggableProps: any;
+  dragHandleProps: any;
+  setFieldValue: any;
+  fields: any;
+  deleteConfiguration: any;
+  oldVersion: any;
+  isActive: any;
+}
+
+const Field: React.FC<FieldProps> = ({
   field,
   innerRef,
   draggableProps,
@@ -82,7 +101,7 @@ function Field({
   deleteConfiguration,
   oldVersion,
   isActive,
-}) {
+}) => {
   return (
     <section className={styles.fieldSection} ref={innerRef} {...draggableProps}>
       <div
@@ -136,7 +155,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const params = useParams();
   const { taskTemplateId = "", version = "" } = params;
   const history = useHistory();
-  const [UploadTaskTemplateMutation, { isLoading }] = useMutation(
+  const [uploadTaskTemplateMutation, { isLoading }] = useMutation(
     (args) => {
       const { promise, cancel } = resolver.putCreateTaskTemplate(args);
       cancelRequestRef.current = cancel;
@@ -169,7 +188,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const oldVersion = !invalidVersion && version !== selectedTaskTemplate ?.currentVersion ?.toString();
   const templateNotFound = !selectedTaskTemplate.id;
 
-  const fieldKeys = currentRevision.config ?.map((input) => input.key) ?? [];
+  const fieldKeys = currentRevision.config ?.map((input: DataDrivenInput) => input.key) ?? [];
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -245,7 +264,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       if (requestType !== TemplateRequestType.Copy) {
         setRequestError(null);
       }
-      let response = await UploadTaskTemplateMutation({ body });
+      let response = await uploadTaskTemplateMutation({ body });
       notify(
         <ToastNotification
           kind="success"
@@ -256,6 +275,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       );
       resetForm();
       history.push(
+        //@ts-ignore
         appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: response.data.currentVersion })
       );
       updateTemplateInState(response.data);
@@ -263,7 +283,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         closeModal();
       }
     } catch (err) {
-      if (!isCancel(err)) {
+      if (!axios.isCancel(err)) {
         if (requestType !== TemplateRequestType.Copy) {
           const { title, message: subtitle } = formatErrorMessage({
             error: err,
@@ -356,8 +376,8 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       }}
       enableReinitialize={true}
     >
-      {(props) => {
-        const { setFieldValue, values, isValid, dirty: isDirty, resetForm, isSubmitting } = props;
+      {(formikProps) => {
+        const { setFieldValue, values, dirty: isDirty, isSubmitting } = formikProps;
 
         function deleteConfiguration(selectedField) {
           const configIndex = values.currentConfig.findIndex((field) => field.key === selectedField.key);
@@ -392,17 +412,13 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
             <Header
               selectedTaskTemplate={selectedTaskTemplate}
               currentRevision={currentRevision}
-              values={values}
-              resetForm={resetForm}
+              formikProps={formikProps}
               handleputRestoreTaskTemplate={handleputRestoreTaskTemplate}
-              isValid={isValid}
-              isDirty={isDirty}
               handleSaveTaskTemplate={handleSaveTaskTemplate}
               oldVersion={oldVersion}
               isActive={isActive}
               isLoading={isLoading}
               cancelRequestRef={cancelRequestRef}
-              setFieldValue={setFieldValue}
             />
             <div className={styles.content}>
               <section className={styles.taskActions}>
