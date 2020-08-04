@@ -12,14 +12,14 @@ import {
   InlineNotification,
   Loading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import moment from "moment";
-import capitalize from "lodash/capitalize";
 import FeatureHeader from "Components/FeatureHeader";
 import VersionHistory from "./VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
-import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
+import capitalize from "lodash/capitalize";
+import moment from "moment";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
+import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
 import { FormikProps } from "formik";
 import { ComposedModalChildProps, ModalTriggerProps, TaskModel} from "Types";
 import styles from "./header.module.scss";
@@ -157,7 +157,7 @@ interface HeaderProps {
   handleputRestoreTaskTemplate: () => void;
   isActive: boolean,
   isLoading: boolean,
-  oldVersion: boolean;
+  isOldVersion: boolean;
   selectedTaskTemplate: TaskModel;
 };
 
@@ -169,7 +169,7 @@ const Header: React.FC<HeaderProps> = ({
   formikProps,
   handleSaveTaskTemplate,
   handleputRestoreTaskTemplate,
-  oldVersion,
+  isOldVersion,
   isActive,
   isLoading,
   cancelRequestRef,
@@ -177,7 +177,7 @@ const Header: React.FC<HeaderProps> = ({
   const TaskIcon = taskIcons.find((icon) => icon.name === selectedTaskTemplate.icon);
   const revisionCount = selectedTaskTemplate.revisions.length;
   const lastUpdated = selectedTaskTemplate?.revisions[revisionCount - 1]?.changelog ?? {};
-  const changelogs = selectedTaskTemplate?.revisions?.map((revision, index) => ({
+  const changelogs = selectedTaskTemplate?.revisions?.map((revision) => ({
     ...revision.changelog,
     date: moment(revision?.changelog?.date)?.format("MMM DD, YYYY") ?? "---",
     version: revision.version,
@@ -214,7 +214,7 @@ const Header: React.FC<HeaderProps> = ({
             currentRevision={currentRevision}
             revisionCount={revisionCount}
           />
-          {!oldVersion && isActive && (
+          {!isOldVersion && isActive && (
             <ConfirmModal
               affirmativeAction={formikProps.resetForm}
               affirmativeText="Reset changes"
@@ -237,7 +237,7 @@ const Header: React.FC<HeaderProps> = ({
               )}
             />
           )}
-          {oldVersion ? (
+          {isOldVersion ? (
             <ConfirmModal
               affirmativeAction={() =>
                 handleSaveTaskTemplate(formikProps.values, formikProps.resetForm, TemplateRequestType.Copy)

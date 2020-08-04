@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import React from "react";
 import { ComposedModal, Button, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import TemplateConfigModalContent from "./TemplateConfigModalContent";
@@ -7,16 +7,17 @@ import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Typ
  // import styles from "./TemplateConfigModal.module.scss";
 
 interface TemplateConfigModal {
-  isActive: boolean,
-  field: {}
-  isEdit: boolean,
-  templateFields: DataDrivenInput[],
+  field: DataDrivenInput
   fieldKeys: string[],
-  oldVersion: boolean
+  isActive: boolean,
+  isEdit: boolean,
+  isOldVersion: boolean
+  setFieldValue: (key: string, value: any) => void;
+  templateFields: DataDrivenInput[],
 };
 
  const TemplateConfigModal: React.FC<TemplateConfigModal> = (props) => {
-  const { isEdit, oldVersion, isActive } = props;
+  const { isEdit, isOldVersion, isActive } = props;
   const editTrigger = ({ openModal }: ModalTriggerProps) => {
     return isEdit
       ?
@@ -27,7 +28,7 @@ interface TemplateConfigModal {
               kind="ghost"
               size="field"
               onClick={openModal}
-              disabled={oldVersion || !isActive}
+              disabled={isOldVersion || !isActive}
             />
           </TooltipHover>
         
@@ -39,7 +40,7 @@ interface TemplateConfigModal {
               kind="ghost"
               size="field"
               onClick={openModal}
-              disabled={oldVersion || !isActive}
+              disabled={isOldVersion || !isActive}
             >
               Add a field
             </Button>
@@ -58,7 +59,7 @@ interface TemplateConfigModal {
       modalTrigger={editTrigger}
     >
       {({ closeModal, forceCloseModal }: ComposedModalChildProps) => (
-        <TemplateConfigModalContent {...props} closeModal={closeModal} forceCloseModal={forceCloseModal} />
+        <TemplateConfigModalContent field={props.field} fieldKeys={props.fieldKeys} isEdit={props.isEdit} templateFields={props.templateFields} closeModal={closeModal} forceCloseModal={forceCloseModal} setFieldValue={props.setFieldValue}/>
       )}
     </ComposedModal>
   );

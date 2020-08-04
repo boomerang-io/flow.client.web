@@ -9,13 +9,13 @@ import styles from "./editTaskTemplateModal.module.scss";
 EditTaskTemplateModal.propTypes = {
   isActive: PropTypes.bool,
   nodeType: PropTypes.string.isRequired,
-  oldVersion: PropTypes.bool,
+  isOldVersion: PropTypes.bool,
   setFieldValue: PropTypes.func.isRequired,
   taskTemplates: PropTypes.array.isRequired,
   values: PropTypes.object.isRequired,
 };
 
-function EditTaskTemplateModal({ isActive, nodeType, oldVersion, setFieldValue, taskTemplates, values }) {
+function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue, taskTemplates, values }) {
   const handleEditTaskTemplateModal = async ({ newValues }) => {
     setFieldValue("name", newValues.name);
     setFieldValue("description", newValues.description);
@@ -36,7 +36,7 @@ function EditTaskTemplateModal({ isActive, nodeType, oldVersion, setFieldValue, 
         <Button
           renderIcon={Edit16}
           iconDescription="edit-template"
-          disabled={oldVersion || !isActive}
+          disabled={isOldVersion || !isActive}
           kind="ghost"
           size="field"
           onClick={openModal}

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React from "react";
 import { useAppContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
@@ -7,7 +8,7 @@ import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
 import moment from "moment";
 import queryString from "query-string";
-import sortByProp from "@boomerang-io/utils/lib/sortByProp";
+import { sortByProp } from "@boomerang-io/utils";
 import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { executionStatusList, QueryStatus } from "Constants";

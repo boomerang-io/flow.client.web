@@ -1,38 +1,38 @@
-//@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import cx from "classnames";
-import { useHistory, useRouteMatch } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { ChevronLeft16, ChevronRight16, PageFirst16, PageLast16 } from "@carbon/icons-react";
 import { appLink } from "Config/appConfig";
 import styles from "./VersionSwitcher.module.scss";
 
-VersionSwitcher.propTypes = {
-  currentRevision: PropTypes.object,
-  revisionCount: PropTypes.number.isRequired,
-  revisions: PropTypes.array,
+interface VersionSwitcherProps {
+  currentRevision: {
+    version: number
+  };
+  revisionCount: number
+  revisions: any;
 };
 
-function VersionSwitcher({ revisions, currentRevision, revisionCount }) {
+const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRevision, revisionCount }) => {
   const history = useHistory();
-  const match = useRouteMatch();
+  const params: { taskTemplateId: string } = useParams();
   const backVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: currentRevision.version - 1 }));
+    history.push(appLink.taskTemplateEdit({ id: params.taskTemplateId, version: currentRevision.version - 1 }));
   };
 
   const fastBackVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: 1 }));
+    history.push(appLink.taskTemplateEdit({ id: params.taskTemplateId, version: 1 }));
   };
 
   const forwardVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: currentRevision.version + 1 }));
+    history.push(appLink.taskTemplateEdit({ id: params.taskTemplateId, version: currentRevision.version + 1 }));
   };
 
   const fastForwardVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: revisions.length }));
+    history.push(appLink.taskTemplateEdit({ id: params.taskTemplateId, version: revisions.length }));
   };
 
-  const renderBackButtons = (enabled) => {
+  const renderBackButtons = (enabled: boolean) => {
     return (
       <div className={styles.buttonList}>
         <button className={styles.button} disabled={!enabled} onClick={fastBackVersion}>
@@ -45,7 +45,7 @@ function VersionSwitcher({ revisions, currentRevision, revisionCount }) {
     );
   };
 
-  const renderForwardButtons = (enabled) => {
+  const renderForwardButtons = (enabled: boolean) => {
     return (
       <div className={styles.buttonList}>
         <button className={styles.button} disabled={!enabled} onClick={forwardVersion}>

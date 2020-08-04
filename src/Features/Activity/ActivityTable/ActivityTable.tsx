@@ -1,21 +1,21 @@
+//@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
-import moment from "moment";
-import cx from "classnames";
 import { settings } from "carbon-components";
-import queryString from "query-string";
-import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
-import { isAccessibleEvent } from "@boomerang-io/utils";
 import { DataTableSkeleton, DataTable, DelayedRender, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
+import cx from "classnames";
+import moment from "moment";
+import queryString from "query-string";
+import { getHumanizedDuration, isAccessibleEvent } from "@boomerang-io/utils";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
 import styles from "./activityTable.module.scss";
 
 const { prefix } = settings;
 
 ActivityTable.propTypes = {
-  isLoading: PropTypes.bool,
   history: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool,
   location: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   tableData: PropTypes.object,
