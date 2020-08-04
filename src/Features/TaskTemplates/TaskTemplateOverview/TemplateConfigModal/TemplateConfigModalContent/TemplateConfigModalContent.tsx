@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React, { Component } from "react";
 import {
   ComboBox,
@@ -14,6 +13,7 @@ import TextEditorModal from "Components/TextEditorModal";
 import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import { InputProperty, InputType, PROPERTY_KEY_REGEX } from "Constants";
+import { FormikProps } from "formik";
 import { DataDrivenInput }from "Types";
 import styles from "./TemplateConfigModalContent.module.scss";
 
@@ -34,16 +34,24 @@ const inputTypeOptions = [
   { label: "URL", value: "url" },
 ];
 
-interface TextEditorInputProps {
-  id: string;
-  item: { description: string; label: string}
+interface TextEditorInputProps extends DataDrivenInput {
+  autoSuggestions: string[];
+  initialValue: any
+  item?: { description: string; label: string};
+  formikSetFieldValue: (key: string , value: string) => void;
+  style: {};
+  value: any;
 
 }
 
 const TextEditorInput: React.FC<TextEditorInputProps> = (props) => {
   return (
     <div key={props.id} style={{ position: "relative", cursor: "pointer", paddingBottom: "1rem" }}>
-      <TextEditorModal {...props} {...props.item} />
+      {
+        //@ts-ignore
+        <TextEditorModal {...props} {...props.item} />
+      }
+      
     </div>
   );
 };
@@ -64,40 +72,27 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
     defaultValueType: InputType.Text,
   };
 
-  handleOnChange = (e, formikChange) => {
-    formikChange(e);
+  handleOnTypeChange = (value: any, setFieldValue: (key: string, value: any) => void) => {
+    this.setState({ defaultValueType: value });
+    setFieldValue(InputProperty.Type, value);
+    setFieldValue(InputProperty.DefaultValue, value === InputType.Boolean ? false : undefined);
   };
 
-  handleOnFieldValueChange = (value, id, setFieldValue) => {
-    setFieldValue(id, value);
-  };
-
-  handleOnTypeChange = (selectedItem, setFieldValue) => {
-    this.setState({ defaultValueType: selectedItem.value });
-    setFieldValue(InputProperty.Type, selectedItem);
-    setFieldValue(InputProperty.DefaultValue, selectedItem.value === InputType.Boolean ? false : undefined);
-  };
-
-  // Only save an array of strings to match api and simplify renderDefaultValue()
-  handleOptionsChange = (values, setFieldValue) => {
-    setFieldValue(InputProperty.Options, values);
-  };
 
   // Check if key contains alpahanumeric, underscore, dash, and period chars
-  validateKey = (key) => {
+  validateKey = (key: string) => {
     return PROPERTY_KEY_REGEX.test(key);
   };
 
-  handleConfirm = (values) => {
+  handleConfirm = (values: any) => {
     let field = clonedeep(values);
-    field.type = field.type.value;
     const { templateFields, setFieldValue } = this.props;
     // Remove in case they are present if the user changed their mind
     if (field.type !== InputType.Select) {
       delete field.options;
     } else {
       // Create options in correct type for service - { key, value }
-      field.options = field.options.map((field) => ({ key: field, value: field }));
+      field.options = field.options.map((field: string) => ({ key: field, value: field }));
     }
 
     if (field.type === InputType.Boolean) {
@@ -105,21 +100,21 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
     }
     if (this.props.isEdit) {
       const fieldIndex = templateFields.findIndex((field) => field.key === this.props.field.key);
-      let newProperties = [].concat(templateFields);
+      let newProperties = [...templateFields]
       newProperties.splice(fieldIndex, 1, field);
       setFieldValue("currentConfig", newProperties);
       this.props.forceCloseModal();
     } else {
-      let newProperties = [].concat(templateFields);
+      let newProperties = [...templateFields];
       newProperties.push(field);
       setFieldValue("currentConfig", newProperties);
       this.props.forceCloseModal();
     }
   };
 
-  renderDefaultValue = (formikProps) => {
+  renderDefaultValue = (formikProps: FormikProps<{[x: string]: string | boolean | string[];}>) => {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
-    switch (values.type.value) {
+    switch (values?.type) {
       case InputType.Boolean:
         return (
           <Toggle
@@ -127,8 +122,8 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
             id={InputProperty.DefaultValue}
             label="Default Value"
             helperText="Initial value that can be changed"
-            onToggle={(value) =>
-              this.handleOnFieldValueChange(value.toString(), InputProperty.DefaultValue, setFieldValue)
+            onToggle={(value: any) =>
+              setFieldValue(InputProperty.DefaultValue, value.toString())
             }
             orientation="vertical"
             toggled={values.defaultValue === "true"}
@@ -142,7 +137,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
             <Creatable
               data-testid="creatable"
               id={InputProperty.Options}
-              onChange={(createdItems) => this.handleOptionsChange(createdItems, setFieldValue)}
+              onChange={(createdItems: string[]) => setFieldValue(InputProperty.Options, createdItems)}
               label="Options"
               placeholder="Enter option"
               values={options || []}
@@ -150,8 +145,8 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
             <ComboBox
               data-testid="select"
               id={InputProperty.DefaultValue}
-              onChange={({ selectedItem }) =>
-                this.handleOnFieldValueChange(selectedItem, InputProperty.DefaultValue, setFieldValue)
+              onChange={({ selectedItem }: { selectedItem: string}) =>
+              setFieldValue(selectedItem, InputProperty.DefaultValue)
               }
               items={options || []}
               initialSelectedItem={values.defaultValue || {}}
@@ -167,7 +162,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
             labelText="Default Value (optional)"
             helperText="Initial value that can be changed"
             onBlur={handleBlur}
-            onChange={(e) => this.handleOnChange(e, handleChange)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
             style={{ resize: "none" }}
             value={values.defaultValue || ""}
           />
@@ -187,10 +182,10 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
             onBlur={handleBlur}
             style={{ resize: "none" }}
             autoSuggestions={[]}
-            formikSetFieldValue={(value) => setFieldValue("defaultValue", value)}
+            formikSetFieldValue={(value: string) => setFieldValue("defaultValue", value)}
             initialValue={values.defaultValue}
-            type={values.type.value}
-            value={values.defaultValue || ""}
+            type={values.type}
+            value={values.defaultValue}
           />
         );
       default:
@@ -202,15 +197,15 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
             labelText="Default Value (optional)"
             helperText="Initial value that can be changed"
             onBlur={handleBlur}
-            onChange={(e) => this.handleOnChange(e, handleChange)}
-            type={values.type.value}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+            type={values.type}
             value={values.defaultValue || ""}
           />
         );
     }
   };
 
-  determineDefaultValueSchema = (defaultType) => {
+  determineDefaultValueSchema = (defaultType: string) => {
     switch (defaultType) {
       case "text":
       case "textarea":
@@ -241,7 +236,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
           [InputProperty.HelperText]: field?.helperText ?? "",
           [InputProperty.ReadOnly]: field?.readOnly ?? false,
           [InputProperty.Required]: field?.required ?? false,
-          [InputProperty.Type]: field?.type ? inputTypeOptions.find((type) => type?.value === field.type) : {},
+          [InputProperty.Type]: field?.type ?? "",
           [InputProperty.DefaultValue]: field?.defaultValue ?? "",
           // Read in values as an array of strings. Service returns object { key, value }
           [InputProperty.Options]:
@@ -260,12 +255,12 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
           [InputProperty.Label]: Yup.string()
             .required("Enter a Name")
             .max(64, "Name must not be greater than 64 characters"),
-          [InputProperty.Description]: Yup.string().max(128, "Description must not be greater than 128 characters"),
-          [InputProperty.Placeholder]: Yup.string().max(64, "Placeholder must not be greater than 64 characters"),
-          [InputProperty.HelperText]: Yup.string().max(64, "Helper Text must not be greater than 128 characters"),
+          [InputProperty.Description]: Yup.string().max(200, "Description must not be greater than 200 characters"),
+          [InputProperty.Placeholder]: Yup.string().max(100, "Placeholder must not be greater than 100 characters"),
+          [InputProperty.HelperText]: Yup.string().max(50, "Helper Text must not be greater than 50 characters"),
           [InputProperty.ReadOnly]: Yup.boolean(),
           [InputProperty.Required]: Yup.boolean(),
-          [InputProperty.Type]: Yup.object({ label: Yup.string().required(), value: Yup.string().required() }),
+          [InputProperty.Type]: Yup.string().required(),
           [InputProperty.Options]: Yup.array().when(InputProperty.Type, {
             is: (type) => type.value === InputType.Select,
             then: Yup.array().required("Enter an option").min(1, "Enter at least one option"),
@@ -290,15 +285,15 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
               <ModalBody hasScrollingContent aria-label="inputs" className={styles.container}>
                 <ComboBox
                   id={InputProperty.Type}
-                  onChange={({ selectedItem }) =>
+                  onChange={({ selectedItem }: { selectedItem: {label: string; value: string}}) =>
                     this.handleOnTypeChange(
-                      selectedItem !== null ? selectedItem : { label: "", value: "" },
+                      selectedItem !== null ? selectedItem.value: "",
                       setFieldValue
                     )
                   }
                   items={inputTypeOptions}
                   initialSelectedItem={values.type}
-                  itemToString={(item) => item && item.label}
+                  itemToString={(item: { label: string}) => item && item.label}
                   placeholder="Select a type"
                   titleText="Type"
                 />
@@ -310,7 +305,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                     invalidText={errors.key}
                     labelText="Key"
                     onBlur={handleBlur}
-                    onChange={(e) => this.handleOnChange(e, handleChange)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
                     placeholder="e.g. email"
                     value={values.key}
                   />
@@ -323,9 +318,8 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                   placeholder="e.g. Email"
                   value={values.label}
                   onBlur={handleBlur}
-                  onChange={(e) => this.handleOnChange(e, handleChange)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
                 />
-
                 <TextInput
                   id={InputProperty.HelperText}
                   invalid={errors.helperText && touched.helperText}
@@ -333,7 +327,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                   labelText="Helper Text (optional)"
                   helperText="Assist user in completing the field"
                   onBlur={handleBlur}
-                  onChange={(e) => this.handleOnChange(e, handleChange)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
                   value={values.helperText}
                 />
                 <TextInput
@@ -343,7 +337,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                   labelText="Description (optional)"
                   helperText="Provide additional information about field to show in a tooltip"
                   onBlur={handleBlur}
-                  onChange={(e) => this.handleOnChange(e, handleChange)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
                   value={values.description}
                 />
                 <TextInput
@@ -353,7 +347,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                   labelText="Placeholder (optional)"
                   helperText="Give the user a hint for the field value"
                   onBlur={handleBlur}
-                  onChange={(e) => this.handleOnChange(e, handleChange)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
                   value={values.placeholder}
                 />
 
@@ -361,14 +355,14 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                 <Toggle
                   id={InputProperty.Required}
                   labelText="Required"
-                  onToggle={(value) => this.handleOnFieldValueChange(value, InputProperty.Required, setFieldValue)}
+                  onToggle={(value: string) => setFieldValue(InputProperty.Required, value)}
                   orientation="vertical"
                   toggled={values.required}
                 />
                 <Toggle
                   id={InputProperty.ReadOnly}
                   labelText="Read Only"
-                  onToggle={(value) => this.handleOnFieldValueChange(value, InputProperty.ReadOnly, setFieldValue)}
+                  onToggle={(value: string) => setFieldValue(InputProperty.ReadOnly, value)}
                   orientation="vertical"
                   toggled={values.readOnly}
                 />

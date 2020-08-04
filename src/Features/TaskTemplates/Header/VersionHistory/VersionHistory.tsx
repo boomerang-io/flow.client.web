@@ -1,6 +1,4 @@
-//@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import {
   ComposedModal,
   ModalBody,
@@ -12,20 +10,21 @@ import {
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Catalog16 } from "@carbon/icons-react";
+import { ChangeLogItem, ModalTriggerProps } from "Types"
 import styles from "./versionHistory.module.scss";
 
-VersionHistory.propTypes = {
-  revisions: PropTypes.array,
+interface VersionHistoryProps {
+  changelogs: ChangeLogItem[]
 };
 
-function VersionHistory({ changelogs }) {
+const VersionHistory: React.FC<VersionHistoryProps> = ({ changelogs }) => {
   return (
     <ComposedModal
       composedModalProps={{ shouldCloseOnOverlayClick: true }}
       modalHeaderProps={{
         title: "Version History",
       }}
-      modalTrigger={({ openModal }) => (
+      modalTrigger={({ openModal }: ModalTriggerProps) => (
         <TooltipHover direction="right" content="History">
           <button className={styles.button} onClick={openModal}>
             <Catalog16 />
@@ -38,7 +37,7 @@ function VersionHistory({ changelogs }) {
   );
 }
 
-function VersionHistoryModal({ changelogs }) {
+const VersionHistoryModal: React.FC<VersionHistoryProps> = ({ changelogs }) => {
   return (
     <ModalBody>
       <StructuredListWrapper>

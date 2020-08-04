@@ -87,7 +87,7 @@ interface FieldProps {
   setFieldValue: any;
   fields: any;
   deleteConfiguration: any;
-  oldVersion: any;
+  isOldVersion: any;
   isActive: any;
 }
 
@@ -99,7 +99,7 @@ const Field: React.FC<FieldProps> = ({
   setFieldValue,
   fields,
   deleteConfiguration,
-  oldVersion,
+  isOldVersion,
   isActive,
 }) => {
   return (
@@ -107,25 +107,25 @@ const Field: React.FC<FieldProps> = ({
       <div
         className={styles.iconContainer}
         {...dragHandleProps}
-        style={{ display: `${oldVersion || !isActive ? "none" : "flex"}` }}
+        style={{ display: `${isOldVersion || !isActive ? "none" : "flex"}` }}
       >
         <Draggable16 className={styles.dragabble} />
       </div>
       <dd
         className={styles.value}
         data-testid={field.label}
-        style={{ marginLeft: `${oldVersion || !isActive ? "1.5rem" : "0"}` }}
+        style={{ marginLeft: `${isOldVersion || !isActive ? "1.5rem" : "0"}` }}
       >
         {`${FieldTypes[field.type]} - ${field.label}`}
       </dd>
       <div className={styles.actions}>
         <TemplateConfigModal
+          isActive={isActive}
           isEdit
           field={field}
+          isOldVersion={isOldVersion}
           setFieldValue={setFieldValue}
           templateFields={fields}
-          oldVersion={oldVersion}
-          isActive={isActive}
         />
         <TooltipHover direction="bottom" tooltipText={"Delete field"}>
           <Button
@@ -134,7 +134,7 @@ const Field: React.FC<FieldProps> = ({
             iconDescription="delete-field"
             kind="ghost"
             size="field"
-            disabled={oldVersion || !isActive}
+            disabled={isOldVersion || !isActive}
             className={styles.delete}
           />
         </TooltipHover>
@@ -179,16 +179,16 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
   // Checks if the version in url are a valid one. If not, go to the latest version
   // Need to improve this
-  const currentRevision = selectedTaskTemplate ?.revisions
+  const currentRevision = selectedTaskTemplate?.revisions
     ? invalidVersion
       ? selectedTaskTemplate.revisions[selectedTaskTemplate.currentVersion - 1]
-      : selectedTaskTemplate.revisions.find((revision) => revision ?.version ?.toString() === version)
+      : selectedTaskTemplate.revisions.find((revision) => revision?.version?.toString() === version)
     : {};
 
-  const oldVersion = !invalidVersion && version !== selectedTaskTemplate ?.currentVersion ?.toString();
+  const isOldVersion = !invalidVersion && version !== selectedTaskTemplate?.currentVersion?.toString();
   const templateNotFound = !selectedTaskTemplate.id;
 
-  const fieldKeys = currentRevision.config ?.map((input: DataDrivenInput) => input.key) ?? [];
+  const fieldKeys = currentRevision.config?.map((input: DataDrivenInput) => input.key) ?? [];
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -370,7 +370,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
         image: currentRevision.image,
         category: selectedTaskTemplate.category,
         currentConfig: currentRevision.config ?? [],
-        arguments: currentRevision.arguments ?.join(" ") ?? "",
+        arguments: currentRevision.arguments?.join(" ") ?? "",
         command: currentRevision.command ?? "",
         comments: "",
       }}
@@ -402,7 +402,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                 if (isDirty && !location.pathname.includes(taskTemplateId) && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";
                 }
-                if (isDirty && templateMatch ?.params ?.version !== version && !isSubmitting) {
+                if (isDirty && templateMatch?.params?.version !== version && !isSubmitting) {
                   prompt = "Are you sure you want to change the version? Your changes will be lost.";
                 }
                 return prompt;
@@ -415,9 +415,9 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
               formikProps={formikProps}
               handleputRestoreTaskTemplate={handleputRestoreTaskTemplate}
               handleSaveTaskTemplate={handleSaveTaskTemplate}
-              oldVersion={oldVersion}
               isActive={isActive}
               isLoading={isLoading}
+              isOldVersion={isOldVersion}
               cancelRequestRef={cancelRequestRef}
             />
             <div className={styles.content}>
@@ -435,7 +435,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                       renderIcon={Archive16}
                       kind="ghost"
                       size="field"
-                      disabled={oldVersion || !isActive}
+                      disabled={isOldVersion || !isActive}
                       className={styles.archive}
                       onClick={openModal}
                     >
@@ -453,7 +453,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                       setFieldValue={setFieldValue}
                       fields={values.currentConfig}
                       values={values}
-                      oldVersion={oldVersion}
+                      isOldVersion={isOldVersion}
                       isActive={isActive}
                       nodeType={selectedTaskTemplate.nodeType}
                     />
@@ -480,7 +480,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                         fieldKeys={fieldKeys}
                         setFieldValue={setFieldValue}
                         templateFields={values.currentConfig}
-                        oldVersion={oldVersion}
+                        isOldVersion={isOldVersion}
                         isActive={isActive}
                       />
                     </div>
@@ -489,7 +489,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                     <Droppable droppableId="droppable" direction="vertical">
                       {(provided) => (
                         <section className={styles.fieldsContainer} ref={provided.innerRef}>
-                          {values.currentConfig ?.length > 0 ? (
+                          {values.currentConfig?.length > 0 ? (
                             values.currentConfig.map((field, index) => (
                               <Draggable key={index} draggableId={index} index={index}>
                                 {(provided) => (
@@ -501,7 +501,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                                     setFieldValue={setFieldValue}
                                     fields={values.currentConfig}
                                     deleteConfiguration={deleteConfiguration}
-                                    oldVersion={oldVersion}
+                                    isOldVersion={isOldVersion}
                                     isActive={isActive}
                                   />
                                 )}

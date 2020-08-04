@@ -15,14 +15,16 @@ export interface DataDrivenInput {
   description?: string;
   helperText?:string;
   key: string;
-  label: string;
+  label?: string;
+  onChange?:(args: any) => void;
+  onBlur?: (args: any) => void;
   options?: [{ key: string; value: string }];
   placeholder?: string;
-  readOnly: boolean;
-  required: boolean;
+  readOnly?: boolean;
+  required?: boolean;
   value: string;
-  values: [string] | [{ key: string; value: string }];
-  type: string;
+  values?: [string] | [{ key: string; value: string }];
+  type?: string;
 }
 
 export interface ModalTriggerProps {

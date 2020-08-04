@@ -9,11 +9,7 @@ import styles from "./globalProperties.module.scss";
 const configUrl = serviceUrl.getGlobalConfiguration();
 
 function GlobalPropertiesContainer() {
-  const { data, error, isLoading, isIdle } = useQuery(configUrl);
-
-  if (isIdle) {
-    return null;
-  }
+  const { data, error, isLoading } = useQuery(configUrl);
 
   if (isLoading) {
     return <Loading />;
@@ -32,7 +28,6 @@ function GlobalPropertiesContainer() {
       <PropertiesTable properties={data} />
     </div>
   );
-
 }
 
 export default GlobalPropertiesContainer;

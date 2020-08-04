@@ -16,7 +16,7 @@ import styles from "./taskTemplates.module.scss";
 const TaskTemplatesContainer: React.FC = () => {
   const match = useRouteMatch();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
-  const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading, isIdle } = useQuery(
+  const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(
     getTaskTemplatesUrl
   );
 
@@ -35,9 +35,7 @@ const TaskTemplatesContainer: React.FC = () => {
     }
   };
 
-  if (isIdle) {
-    return null;
-  }
+
 
   if (isLoading) {
     return <Loading />;
