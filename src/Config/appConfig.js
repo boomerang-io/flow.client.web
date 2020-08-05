@@ -3,8 +3,10 @@
 export const APP_ROOT =
   window._SERVER_DATA && window._SERVER_DATA.APP_ROOT ? window._SERVER_DATA.APP_ROOT : "/BMRG_APP_ROOT_CONTEXT";
 
-export const STANDALONE_MODE =
-  window._SERVER_DATA && window._SERVER_DATA.STANDALONE_MODE ? window._SERVER_DATA.STANDALONE_MODE : false;
+export const PRODUCT_STANDALONE =
+  window._SERVER_DATA && window._SERVER_DATA.PRODUCT_STANDALONE
+    ? window._SERVER_DATA.PRODUCT_STANDALONE === "true"
+    : false;
 
 export const AppPath = {
   Root: "/",
