@@ -19,7 +19,7 @@ import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import { UserType } from "Constants";
-import { AppPath, STANDALONE_MODE } from "Config/appConfig";
+import { AppPath, PRODUCT_STANDALONE } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { FlowTeam, FlowUser } from "Types";
 import styles from "./app.module.scss";
@@ -101,7 +101,7 @@ export default function App() {
   }
 
   return (
-    <FlagsProvider features={{ standalone: STANDALONE_MODE }}>
+    <FlagsProvider features={{ standalone: PRODUCT_STANDALONE }}>
       <Navbar
         handleOnTutorialClick={() => setIsTutorialActive(true)}
         navigationQuery={navigationQuery}
