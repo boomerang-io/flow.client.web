@@ -1,0 +1,44 @@
+.container {
+  width: 100vw;
+  overflow-y: auto;
+  min-width: 60rem;
+
+  :global .bx--accordion__content {
+    padding-right: 1rem;
+    padding-top: 3rem;
+  }
+  :global .bx--bmrg-dynamic-formik {
+    align-items: flex-start;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    position: relative;
+  }
+  :global .bx--bmrg-text-input {
+    display: flex;
+    flex: 0 0 50%;
+    position: relative;
+    min-width: 30rem;
+    padding: 1rem 1rem 0;
+  }
+  :global .bx--dropdown__wrapper,
+  :global .bx--bmrg-select,
+  :global .bx--bmrg-multi-select {
+    display: flex;
+    flex: 0 0 50%;
+    flex-direction: column;
+    left: 1rem;
+    position: relative;
+    min-width: 30rem;
+    padding: 1rem 2rem 0 0;
+  }
+  :global .bx--bmrg-toggle {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 1rem 1rem 0;
+  }
+
+  :global .bx--accordion__heading {
+    align-items: center;
+  }
+}
