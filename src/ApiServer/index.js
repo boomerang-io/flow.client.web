@@ -39,6 +39,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       manageTeamDetail: Model,
       manageTeam: Model,
       manageUser: Model,
+      setting: Model,
     },
 
     routes() {
@@ -332,6 +333,17 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
         users.update({ records: updatedRecords });
         return {};
+      });
+
+      /**
+       * Manage Settings
+       */
+      this.get(serviceUrl.resourceSettings(), (schema) => {
+        return schema.settings.all();
+      });
+
+      this.put(serviceUrl.resourceSettings(), (schema, request) => {
+        return schema.settings.all();
       });
 
       /**

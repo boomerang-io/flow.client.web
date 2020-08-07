@@ -67,18 +67,18 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
             activeClassName={ACTIVE_CLASS_NAME}
             element={NavLink}
             onClick={onMenuClose}
-            to={appLink.taskTemplates()}
+            to={appLink.teamProperties()}
           >
-            Team Task Manager
+            Team Properties
           </SideNavMenuItem>
           <SideNavMenuItem
             large
             activeClassName={ACTIVE_CLASS_NAME}
             element={NavLink}
             onClick={onMenuClose}
-            to={appLink.teamProperties()}
+            to={appLink.taskTemplates()}
           >
-            Team Properties
+            Team Task Manager
           </SideNavMenuItem>
         </SideNavMenu>
         {isAtLeastOperator ? (
@@ -115,12 +115,22 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
               Properties
             </SideNavMenuItem>
             <SideNavMenuItem
+              large
               activeClassName={ACTIVE_CLASS_NAME}
               element={NavLink}
               onClick={onMenuClose}
               to={appLink.quotas()}
             >
               Quotas
+            </SideNavMenuItem>
+            <SideNavMenuItem
+              large
+              activeClassName={ACTIVE_CLASS_NAME}
+              element={NavLink}
+              onClick={onMenuClose}
+              to={appLink.settings()}
+            >
+              Settings
             </SideNavMenuItem>
             <SideNavMenuItem
               large
