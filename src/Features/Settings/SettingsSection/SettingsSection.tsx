@@ -2,7 +2,6 @@ import React from "react";
 import { useAppContext } from "Hooks";
 import { AccordionItem, Button  , DynamicFormik } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Save16 } from "@carbon/icons-react";
-import isEqual from "lodash/isEqual";
 import { UserRole } from "Constants";
 import { DataDrivenInput } from "Types";
 import styles from "./settingsSection.module.scss";
@@ -33,6 +32,7 @@ interface SettingsSection {
       data-testid="settings-section"
     >
       <DynamicFormik
+        enableReinitialize
         inputs={formatedInputs}
         onSubmit={(values: any, props: any) => onSave(values, config, props.setFieldError)}
         key={`${config.key}${index}`}
@@ -46,12 +46,13 @@ interface SettingsSection {
         inputProps={isOperator ? { readOnly: true } : {}}
       >
         {({ inputs, formikProps }: { inputs: DataDrivenInput[], formikProps: any}) => {
+          console.log(formikProps);
           return (
             <>
               {!isOperator && (
                 <Button
                   className={styles.saveButton}
-                  disabled={!formikProps.isValid || isEqual(formikProps.values, formikProps.initialValues)}
+                  disabled={!formikProps.isValid || !formikProps.dirty}
                   iconDescription="Save settings"
                   onClick={formikProps.handleSubmit}
                   renderIcon={Save16}

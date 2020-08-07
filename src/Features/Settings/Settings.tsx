@@ -34,7 +34,6 @@ const Settings: React.FC = () => {
   const [updateSettingMutator] = useMutation(resolver.putPlatformSettings);
 
   const handleOnSave = async (values: any, config: any, setFieldError: any) => {
-    console.log("test");
     const newConfig = config.config.map((input: any) => ({ ...input, value: values[input.key] }));
     const requestBody = [{ ...config, config: newConfig }];
     try {
