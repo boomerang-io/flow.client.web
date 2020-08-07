@@ -69,8 +69,8 @@ export const serviceUrl = {
   postImportWorkflow: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
   postValidateActivationCode: () => `${BASE_SERVICE_URL}/validatesetup`,
   putRestoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`,
-  resourcePlatformSettings: () => `${BASE_SERVICE_URL}/settings/config`,
   resourceManageUser: ({ userId }) => `${BASE_SERVICE_URL}/manage/users/${userId}`,
+  resourceSettings: () => `${BASE_SERVICE_URL}/settings`,
 };
 
 export const cancellableResolver = ({ url, method, body, ...config }) => {
@@ -140,7 +140,7 @@ export const resolver = {
       data: body,
       validateStatus: (status) => status >= 200 && status < 300,
     }),
-  putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourcePlatformSettings(), body),
+  putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourceSettings(), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),
   putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getManageTeam({ teamId }), body),
 };
