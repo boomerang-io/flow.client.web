@@ -177,7 +177,7 @@ function ActivityTable(props) {
                           tabIndex={0}
                         >
                           {row.cells.map((cell, cellIndex) => (
-                            <TableCell key={cell.id} style={{ padding: "0" }}>
+                            <TableCell key={cell.id}>
                               <div className={styles.tableCell}>{renderCell(cellIndex, cell.value)}</div>
                             </TableCell>
                           ))}

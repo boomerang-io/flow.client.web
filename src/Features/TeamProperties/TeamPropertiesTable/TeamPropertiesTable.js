@@ -16,7 +16,6 @@ import ActionsMenu from "./ActionsMenu";
 import Header from "Components/Header";
 import { InputType } from "Constants";
 import { formatErrorMessage } from "@boomerang-io/utils";
-import { arrayPagination } from "Utils/arrayHelper";
 import { stringToPassword } from "Utils/stringHelper";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Checkmark32, Close32 } from "@carbon/icons-react";
@@ -28,22 +27,27 @@ const headers = [
   {
     header: "Label",
     key: "label",
+    sortable: true,
   },
   {
     header: "Key",
     key: "key",
+    sortable: true,
   },
   {
     header: "Description",
     key: "description",
+    sortable: true,
   },
   {
     header: "Value",
     key: "value",
+    sortable: true,
   },
   {
     header: "Secured",
     key: "secured",
+    sortable: true,
   },
   {
     header: "",
@@ -63,7 +67,6 @@ TeamPropertiesTable.propTypes = {
 function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, propertiesError, setActiveTeam, teams }) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
-  const [sort, setSort] = useState({ key: "label", sortDirection: "ASC" });
 
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: activeTeam?.id });
 
@@ -179,10 +182,12 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
                       <TableRow className={styles.tableHeadRow}>
                         {headers.map((header, key) => (
                           <TableHeader
+                            isSortab
                             key={`mode-table-key-${key}`}
                             {...getHeaderProps({
-                              header,
                               className: `${styles.tableHeadHeader} ${styles[header.key]}`,
+                              header,
+                              isSortable: header.sortable,
                             })}
                           >
                             {header.header}
@@ -195,7 +200,7 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
                         return (
                           <TableRow key={row.id}>
                             {row.cells.map((cell, cellIndex) => (
-                              <TableCell key={cell.id} style={{ padding: "0" }}>
+                              <TableCell key={cell.id}>
                                 <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
                               </TableCell>
                             ))}
