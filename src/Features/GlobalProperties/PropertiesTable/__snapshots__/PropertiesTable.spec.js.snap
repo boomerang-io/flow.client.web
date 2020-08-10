@@ -134,59 +134,244 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
               class="tableHeadRow"
             >
               <th
+                aria-sort="none"
                 class="tableHeadHeader label"
-                id="label"
                 scope="col"
               >
-                <span
-                  class="bx--table-header-label"
+                <button
+                  class="tableHeadHeader label bx--table-sort"
+                  id="label"
                 >
-                  Label
-                </span>
+                  <span
+                    class="bx--table-header-label"
+                  >
+                    Label
+                  </span>
+                  <svg
+                    aria-label="Sort rows by this header in ascending order"
+                    class="bx--table-sort__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                    />
+                  </svg>
+                  <svg
+                    aria-label="Sort rows by this header in ascending order"
+                    class="bx--table-sort__icon-unsorted"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
+                    />
+                  </svg>
+                </button>
               </th>
               <th
+                aria-sort="none"
                 class="tableHeadHeader key"
-                id="key"
                 scope="col"
               >
-                <span
-                  class="bx--table-header-label"
+                <button
+                  class="tableHeadHeader key bx--table-sort"
+                  id="key"
                 >
-                  Key
-                </span>
+                  <span
+                    class="bx--table-header-label"
+                  >
+                    Key
+                  </span>
+                  <svg
+                    aria-label="Sort rows by this header in ascending order"
+                    class="bx--table-sort__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                    />
+                  </svg>
+                  <svg
+                    aria-label="Sort rows by this header in ascending order"
+                    class="bx--table-sort__icon-unsorted"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
+                    />
+                  </svg>
+                </button>
               </th>
               <th
+                aria-sort="none"
                 class="tableHeadHeader description"
-                id="description"
                 scope="col"
               >
-                <span
-                  class="bx--table-header-label"
+                <button
+                  class="tableHeadHeader description bx--table-sort"
+                  id="description"
                 >
-                  Description
-                </span>
+                  <span
+                    class="bx--table-header-label"
+                  >
+                    Description
+                  </span>
+                  <svg
+                    aria-label="Sort rows by this header in ascending order"
+                    class="bx--table-sort__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                    />
+                  </svg>
+                  <svg
+                    aria-label="Sort rows by this header in ascending order"
+                    class="bx--table-sort__icon-unsorted"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
+                    />
+                  </svg>
+                </button>
               </th>
               <th
+                aria-sort="none"
                 class="tableHeadHeader value"
-                id="value"
                 scope="col"
               >
-                <span
-                  class="bx--table-header-label"
+                <button
+                  class="tableHeadHeader value bx--table-sort"
+                  id="value"
                 >
-                  Value
-                </span>
+                  <span
+                    class="bx--table-header-label"
+                  >
+                    Value
+                  </span>
+                  <svg
+                    aria-label="Sort rows by this header in ascending order"
+                    class="bx--table-sort__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                    />
+                  </svg>
+                  <svg
+                    aria-label="Sort rows by this header in ascending order"
+                    class="bx--table-sort__icon-unsorted"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
+                    />
+                  </svg>
+                </button>
               </th>
               <th
+                aria-sort="none"
                 class="tableHeadHeader secured"
-                id="secured"
                 scope="col"
               >
-                <span
-                  class="bx--table-header-label"
+                <button
+                  class="tableHeadHeader secured bx--table-sort"
+                  id="secured"
                 >
-                  Secured
-                </span>
+                  <span
+                    class="bx--table-header-label"
+                  >
+                    Secured
+                  </span>
+                  <svg
+                    aria-label="Sort rows by this header in ascending order"
+                    class="bx--table-sort__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                    />
+                  </svg>
+                  <svg
+                    aria-label="Sort rows by this header in ascending order"
+                    class="bx--table-sort__icon-unsorted"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
+                    />
+                  </svg>
+                </button>
               </th>
               <th
                 class="tableHeadHeader actions"
@@ -206,9 +391,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
             <tr
               data-testid="configuration-property-table-row"
             >
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -219,9 +402,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   </p>
                 </div>
               </td>
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -232,9 +413,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   </p>
                 </div>
               </td>
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -245,9 +424,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   </p>
                 </div>
               </td>
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -258,9 +435,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   </p>
                 </div>
               </td>
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -282,9 +457,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   </svg>
                 </div>
               </td>
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -334,9 +507,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
             <tr
               data-testid="configuration-property-table-row"
             >
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -347,9 +518,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   </p>
                 </div>
               </td>
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -360,9 +529,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   </p>
                 </div>
               </td>
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -373,9 +540,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   </p>
                 </div>
               </td>
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -386,9 +551,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   </p>
                 </div>
               </td>
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >
@@ -410,9 +573,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                   </svg>
                 </div>
               </td>
-              <td
-                style="padding: 0px;"
-              >
+              <td>
                 <div
                   class="tableCell"
                 >

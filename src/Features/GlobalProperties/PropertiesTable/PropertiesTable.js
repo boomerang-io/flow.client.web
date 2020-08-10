@@ -33,22 +33,27 @@ function PropertiesTable({ properties }) {
     {
       header: "Label",
       key: "label",
+      sortable: true,
     },
     {
       header: "Key",
       key: "key",
+      sortable: true,
     },
     {
       header: "Description",
       key: "description",
+      sortable: true,
     },
     {
       header: "Value",
       key: "value",
+      sortable: true,
     },
     {
       header: "Secured",
       key: "secured",
+      sortable: true,
     },
     {
       header: "",
@@ -160,8 +165,9 @@ function PropertiesTable({ properties }) {
                           <TableHeader
                             id={header.key}
                             {...getHeaderProps({
-                              header,
                               className: `${styles.tableHeadHeader} ${styles[header.key]}`,
+                              header,
+                              isSortable: header.sortable,
                             })}
                           >
                             {header.header}
@@ -173,7 +179,7 @@ function PropertiesTable({ properties }) {
                       {rows.map((row) => (
                         <TableRow key={row.id} data-testid="configuration-property-table-row">
                           {row.cells.map((cell, cellIndex) => (
-                            <TableCell key={cell.id} style={{ padding: "0" }}>
+                            <TableCell key={cell.id}>
                               <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
                             </TableCell>
                           ))}

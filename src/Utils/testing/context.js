@@ -1,11 +1,11 @@
 import React from "react";
-import { EditorContext } from "State/context";
+import { EditorContextProvider } from "State/context";
 
 const revisionDispatch = jest.mock();
 
 export function EditorContextRender({ children, value }) {
   return (
-    <EditorContext.Provider
+    <EditorContextProvider
       value={{
         revisionDispatch,
         revisionState: { config: {} },
@@ -15,6 +15,6 @@ export function EditorContextRender({ children, value }) {
       }}
     >
       {children}
-    </EditorContext.Provider>
+    </EditorContextProvider>
   );
 }

@@ -6,7 +6,7 @@ import { queryCaches } from "react-query";
 const initialState = {};
 
 const props = {
-  workflowSummary: {
+  summaryData: {
     properties: [
       {
         defaultValue: "pandas",

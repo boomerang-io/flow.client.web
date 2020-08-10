@@ -20,6 +20,10 @@ const mockfn = jest.fn();
 const toggleItem = mockfn;
 const toggledItems = [];
 
+test("placeholder", () => {
+  expect(true).toBe(true);
+});
+
 // describe("CustomLegend --- Snapshot", () => {
 //   it("Capturing Snapshot of CustomLegend", () => {
 //     const renderedValue = rtlRender(
