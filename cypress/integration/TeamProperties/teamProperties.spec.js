@@ -35,7 +35,7 @@ describe("TeamProperties", function () {
     cy.get("[data-testid=team-property-create-edit-submission-button]").click();
     cy.wait(1000);
     cy.findByText("new label").should("be.visible");
-    cy.findByText("new key").should("be.visible");
+    cy.findByText("new.key").should("be.visible");
     cy.findByText("new description").should("be.visible");
     cy.findByText("new value").should("be.visible");
   });
@@ -43,7 +43,7 @@ describe("TeamProperties", function () {
   it("Delete a team Property", function () {
     cy.get("[data-testid=team-properties-combobox]").click();
     cy.contains("IBM Services Engineering").click();
-    cy.get("[data-testid=team-property-menu-button]").click();
+    cy.findAllByTestId("team-property-menu-button").first().click();
     cy.contains("Delete").click();
     cy.get(".bx--btn--danger").click();
     cy.findByText("test label").should("not.exist");

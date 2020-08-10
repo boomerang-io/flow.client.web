@@ -1,9 +1,8 @@
-// @ts-nocheck
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { EditorContextProvider } from "State/context";
 import { AxiosResponse } from "axios";
 import { History } from "history";
-import { MutateOptions, MutationResult } from "react-query";
+import { MutateOptions, MutationResult, QueryResult } from "react-query";
 import { RevisionActionTypes, revisionReducer, initRevisionReducerState } from "State/reducers/workflowRevision";
 import { useAppContext, useIsModalOpen, useQuery } from "Hooks";
 import { useImmerReducer } from "use-immer";
@@ -23,7 +22,7 @@ import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel"
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { NodeType } from "Constants";
-import { WorkflowSummary } from "Types";
+import { TaskModel, WorkflowSummary, WorkflowRevision } from "Types";
 import styles from "./editor.module.scss";
 
 export default function EditorContainer() {
@@ -74,10 +73,9 @@ export default function EditorContainer() {
         mutateRevision={mutateRevision}
         mutateSummary={mutateSummary}
         revisionMutation={revisionMutation}
-        revisionNumber={revisionNumber}
         revisionQuery={revisionQuery}
+        summaryData={summaryQuery.data}
         summaryMutation={summaryMutation}
-        summaryQuery={summaryQuery}
         setRevisionNumber={setRevisionNumber}
         taskTemplatesData={taskTemplatesQuery.data}
         workflowId={workflowId}
@@ -98,15 +96,11 @@ interface EditorStateContainerProps {
     options?: MutateOptions<AxiosResponse<any>, { body: any }, Error> | undefined
   ) => Promise<any>;
   revisionMutation: MutationResult<AxiosResponse<any>, Error>;
-  revisionNumber: number;
-  revisionQuery: {
-    data: {};
-    status: string;
-  };
-  summaryQuery: QueryResult<WorkflowSummary, Error>;
+  revisionQuery: QueryResult<WorkflowRevision, Error>;
+  summaryData: WorkflowSummary;
   summaryMutation: MutationResult<AxiosResponse<any>, Error>;
   setRevisionNumber: (revisionNumber: number) => void;
-  taskTemplatesData: Array<{ id: string; status: string }>;
+  taskTemplatesData: Array<TaskModel>;
   workflowId: string;
 }
 
@@ -114,19 +108,17 @@ interface EditorStateContainerProps {
  * Workflow Manager responsible for holding state of summary and revision
  * Make function calls to mutate server data
  */
-export function EditorStateContainer({
+const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   mutateRevision,
   mutateSummary,
   revisionMutation,
-  revisionNumber,
   revisionQuery,
-  summaryQuery,
+  summaryData,
   summaryMutation,
   setRevisionNumber,
   taskTemplatesData,
   workflowId,
-  ...props
-}: EditorStateContainerProps) {
+}) => {
   const location = useLocation();
   const match: { params: { teamId: string; workflowId: string } } = useRouteMatch();
   const { teams } = useAppContext();
@@ -147,8 +139,6 @@ export function EditorStateContainer({
       });
     }
   }, [revisionDispatch, revisionQuery.data]);
-
-  const { data: summaryData } = summaryQuery;
 
   /**
    *
@@ -294,19 +284,16 @@ export function EditorStateContainer({
    *  Simply update the parent state to use a different revision to fetch it w/ react-query
    * @param {string} revisionNumber
    */
-  const handleChangeRevision = useCallback(
-    (revisionNumber) => {
-      setRevisionNumber(revisionNumber);
-    },
-    [setRevisionNumber]
-  );
+  const handleChangeRevision = (revisionNumber: number) => {
+    return setRevisionNumber(revisionNumber);
+  };
 
   const { revisionCount } = summaryData;
   const { version } = revisionState;
   const isModelLocked = version < revisionCount;
 
   useEffect(() => {
-    // Initial value of revisionState will be null, so need to check its present or we get two engines created
+    // Initial value of revisionState will be null, so need to check if its present or we get two engines created
     if (revisionState.version) {
       const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, isModelLocked });
       setWorkflowDagEngine(newWorkflowDagEngine);
@@ -317,8 +304,18 @@ export function EditorStateContainer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [revisionState.version]);
 
-  const memoizedEditor = useMemo(() => {
-    return (
+  const store = useMemo(() => {
+    return {
+      revisionDispatch,
+      revisionState,
+      summaryData,
+      taskTemplatesData,
+    };
+  }, [revisionDispatch, revisionState, summaryData, taskTemplatesData]);
+
+  return (
+    // Must create context to share state w/ nodes that are created by the DAG engine
+    <EditorContextProvider value={store}>
       <>
         <Prompt
           when={Boolean(revisionState.hasUnsavedUpdates)}
@@ -352,14 +349,19 @@ export function EditorStateContainer({
             <Route path={AppPath.EditorProperties}>
               <Properties summaryData={summaryData} />
             </Route>
-
             <Route path={AppPath.EditorChangelog}>
               <ChangeLog summaryData={summaryData} />
             </Route>
           </Switch>
           <Route
             path={AppPath.EditorConfigure}
-            children={({ history, match: routeMatch }: { history: History; match: match }) => (
+            children={({
+              history,
+              match: routeMatch,
+            }: {
+              history: History;
+              match: { params: { teamId: string; workflowId: string } };
+            }) => (
               // Always render parent Configure component so state isn't lost when switching tabs
               // It is responsible for rendering its children, but Formik form management is always mounted
               <Configure
@@ -375,37 +377,6 @@ export function EditorStateContainer({
           />
         </div>
       </>
-    );
-  }, [
-    handleChangeRevision,
-    handleCreateNode,
-    handleCreateRevision,
-    isModalOpen,
-    location.pathname,
-    match.params,
-    revisionMutation,
-    revisionQuery,
-    revisionState,
-    summaryData,
-    summaryMutation,
-    taskTemplatesData,
-    teams,
-    updateSummary,
-    workflowDagEngine,
-    workflowId,
-  ]);
-
-  const store = useMemo(() => {
-    return {
-      revisionDispatch,
-      revisionState,
-      summaryQuery,
-      taskTemplatesData,
-    };
-  }, [revisionDispatch, revisionState, summaryQuery, taskTemplatesData]);
-
-  return (
-    // Must create context to share state w/ nodes that are created by the DAG engine
-    <EditorContextProvider value={store}>{memoizedEditor}</EditorContextProvider>
+    </EditorContextProvider>
   );
-}
+};
