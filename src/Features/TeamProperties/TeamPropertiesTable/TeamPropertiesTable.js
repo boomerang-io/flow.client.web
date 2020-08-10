@@ -132,10 +132,6 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
     }
   };
 
-  const handleSort = (valueA, valueB, config) => {
-    setSort(config);
-  };
-
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const totalItems = properties.length;
 
@@ -174,8 +170,7 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
         ) : totalItems > 0 ? (
           <>
             <DataTable
-              rows={arrayPagination(properties, page, pageSize, sort)}
-              sortRow={handleSort}
+              rows={properties}
               headers={headers}
               render={({ rows, headers, getHeaderProps }) => (
                 <TableContainer>
