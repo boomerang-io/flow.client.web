@@ -113,11 +113,11 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
           <hgroup
             class="info"
           >
-            <h2
+            <p
               class="title"
             >
               These are your
-            </h2>
+            </p>
             <h1
               class="subtitle"
             >
@@ -203,7 +203,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                   Filter by team
                 </label>
                 <div
-                  class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                  class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--multi-select--selected bx--list-box"
                 >
                   <div
                     aria-expanded="false"
@@ -215,6 +215,29 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                     tabindex="-1"
                     type="button"
                   >
+                    <div
+                      aria-label="Clear Selection"
+                      class="bx--list-box__selection bx--tag--filter bx--list-box__selection--multi"
+                      role="button"
+                      tabindex="0"
+                      title="Clear all selected items"
+                    >
+                      1
+                      <svg
+                        aria-hidden="true"
+                        fill="currentColor"
+                        focusable="false"
+                        height="16"
+                        preserveAspectRatio="xMidYMid meet"
+                        viewBox="0 0 32 32"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
+                        />
+                      </svg>
+                    </div>
                     <input
                       aria-autocomplete="list"
                       aria-controls="b-search-filter__filter__menu"
@@ -258,7 +281,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                     role="listbox"
                   >
                     <div
-                      class="bx--list-box__menu-item"
+                      class="bx--list-box__menu-item bx--list-box__menu-item--active"
                       id="downshift-0-item-0"
                       title="IBM Services Engineering"
                     >
@@ -269,6 +292,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                           class="bx--form-item bx--checkbox-wrapper"
                         >
                           <input
+                            checked=""
                             class="bx--checkbox"
                             id="downshift-0-item-0"
                             name="IBM Services Engineering"
@@ -312,6 +336,26 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             >
               IBM Services Engineering (1)
             </h1>
+            <div
+              class="teamQuotaContainer"
+            >
+              <div
+                class="quotaDescriptionContainer"
+              >
+                <h3
+                  class="teamQuotaText"
+                >
+                  Workflow quota - 1 of 10 used
+                </h3>
+              </div>
+              <button
+                class="bx--btn bx--btn--field bx--btn--ghost"
+                tabindex="0"
+                type="button"
+              >
+                View more quotas
+              </button>
+            </div>
           </hgroup>
           <div
             class="workflows"
@@ -469,6 +513,9 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
       </div>
     </div>
   </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
   <div
     class="bx--bmrg-modal-portal"
   />

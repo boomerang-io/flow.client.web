@@ -202,7 +202,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             >
               <a
                 class="task"
-                href="/task-templates/5bd9b4115a5df954ad5ad8db/1"
+                href="/admin/task-templates/5bd9b4115a5df954ad5ad8db/1"
                 id="5bd9b4115a5df954ad5ad8db"
               >
                 <svg
@@ -229,7 +229,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5bd9d0825a5df954ad5bb5c3/1"
+                href="/admin/task-templates/5bd9d0825a5df954ad5bb5c3/1"
                 id="5bd9d0825a5df954ad5bb5c3"
               >
                 <svg
@@ -293,7 +293,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             >
               <a
                 class="task"
-                href="/task-templates/5bd98b105a5df954ad599bc2/1"
+                href="/admin/task-templates/5bd98b105a5df954ad599bc2/1"
                 id="5bd98b105a5df954ad599bc2"
               >
                 <svg
@@ -323,7 +323,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5d53016bd83be3cc84bae976/1"
+                href="/admin/task-templates/5d53016bd83be3cc84bae976/1"
                 id="5d53016bd83be3cc84bae976"
               >
                 <svg
@@ -390,7 +390,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             >
               <a
                 class="task"
-                href="/task-templates/5e1bcd210351fdc9e42fe4e0/1"
+                href="/admin/task-templates/5e1bcd210351fdc9e42fe4e0/1"
                 id="5e1bcd210351fdc9e42fe4e0"
               >
                 <svg
@@ -420,7 +420,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5b92f794844d0700016ea217/1"
+                href="/admin/task-templates/5b92f794844d0700016ea217/1"
                 id="5b92f794844d0700016ea217"
               >
                 <svg
@@ -450,7 +450,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5e2866c8612203650e389491/1"
+                href="/admin/task-templates/5e2866c8612203650e389491/1"
                 id="5e2866c8612203650e389491"
               >
                 <svg
@@ -480,7 +480,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5e670a1e2d5e6a302de4f41d/1"
+                href="/admin/task-templates/5e670a1e2d5e6a302de4f41d/1"
                 id="5e670a1e2d5e6a302de4f41d"
               >
                 <svg
@@ -507,7 +507,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5e1bf6ca0351fdc9e4319c3b/1"
+                href="/admin/task-templates/5e1bf6ca0351fdc9e4319c3b/1"
                 id="5e1bf6ca0351fdc9e4319c3b"
               >
                 <svg
@@ -571,7 +571,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             >
               <a
                 class="task"
-                href="/task-templates/5d1ed216988e7b6b6f7b3c1c/1"
+                href="/admin/task-templates/5d1ed216988e7b6b6f7b3c1c/1"
                 id="5d1ed216988e7b6b6f7b3c1c"
               >
                 <svg
@@ -598,7 +598,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5c3fbc92352b1b51416952d1/1"
+                href="/admin/task-templates/5c3fbc92352b1b51416952d1/1"
                 id="5c3fbc92352b1b51416952d1"
               >
                 <svg
@@ -625,7 +625,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5bd9d03a5a5df954ad5bb3b5/2"
+                href="/admin/task-templates/5bd9d03a5a5df954ad5bb3b5/2"
                 id="5bd9d03a5a5df954ad5bb3b5"
               >
                 <svg
@@ -655,7 +655,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5c39015b352b1b51412e9c85/1"
+                href="/admin/task-templates/5c39015b352b1b51412e9c85/1"
                 id="5c39015b352b1b51412e9c85"
               >
                 <svg
@@ -682,7 +682,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5c3fb7e2352b1b5141692f75/1"
+                href="/admin/task-templates/5c3fb7e2352b1b5141692f75/1"
                 id="5c3fb7e2352b1b5141692f75"
               >
                 <svg
@@ -709,7 +709,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5d1ed36a988e7b6b6f7b470b/1"
+                href="/admin/task-templates/5d1ed36a988e7b6b6f7b470b/1"
                 id="5d1ed36a988e7b6b6f7b470b"
               >
                 <svg
@@ -773,7 +773,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             >
               <a
                 class="task"
-                href="/task-templates/5eab59eaaecb0800014e0ccb/3"
+                href="/admin/task-templates/5eab59eaaecb0800014e0ccb/3"
                 id="5eab59eaaecb0800014e0ccb"
               >
                 <svg
@@ -804,7 +804,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5eab5742aecb0800014e0c87/2"
+                href="/admin/task-templates/5eab5742aecb0800014e0c87/2"
                 id="5eab5742aecb0800014e0c87"
               >
                 <svg
@@ -835,7 +835,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5d25414c988e7b6b6fb3d5f7/1"
+                href="/admin/task-templates/5d25414c988e7b6b6fb3d5f7/1"
                 id="5d25414c988e7b6b6fb3d5f7"
               >
                 <svg
@@ -862,7 +862,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5d3145ee988e7b6b6f24d870/1"
+                href="/admin/task-templates/5d3145ee988e7b6b6f24d870/1"
                 id="5d3145ee988e7b6b6f24d870"
               >
                 <svg
@@ -930,7 +930,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             >
               <a
                 class="task"
-                href="/task-templates/5c69365b20cfafa2eaeed89c/1"
+                href="/admin/task-templates/5c69365b20cfafa2eaeed89c/1"
                 id="5c69365b20cfafa2eaeed89c"
               >
                 <svg
@@ -957,7 +957,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5c6939c620cfafa2eaeef2ad/1"
+                href="/admin/task-templates/5c6939c620cfafa2eaeef2ad/1"
                 id="5c6939c620cfafa2eaeef2ad"
               >
                 <svg
@@ -1025,7 +1025,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             >
               <a
                 class="task"
-                href="/task-templates/5c3d0401352b1b514150545b/2"
+                href="/admin/task-templates/5c3d0401352b1b514150545b/2"
                 id="5c3d0401352b1b514150545b"
               >
                 <svg
@@ -1052,7 +1052,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5c3907a1352b1b51412ed079/1"
+                href="/admin/task-templates/5c3907a1352b1b51412ed079/1"
                 id="5c3907a1352b1b51412ed079"
               >
                 <svg
@@ -1083,7 +1083,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5eab5488aecb0800014e0b87/2"
+                href="/admin/task-templates/5eab5488aecb0800014e0b87/2"
                 id="5eab5488aecb0800014e0b87"
               >
                 <svg
@@ -1110,7 +1110,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5bd97bea5a5df954ad592c06/1"
+                href="/admin/task-templates/5bd97bea5a5df954ad592c06/1"
                 id="5bd97bea5a5df954ad592c06"
               >
                 <svg
@@ -1177,7 +1177,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             >
               <a
                 class="task"
-                href="/task-templates/5d9e703dc90b5240508869e2/1"
+                href="/admin/task-templates/5d9e703dc90b5240508869e2/1"
                 id="5d9e703dc90b5240508869e2"
               >
                 <svg
@@ -1208,7 +1208,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               </a>
               <a
                 class="task"
-                href="/task-templates/5c37af285616d5f3544568fd/1"
+                href="/admin/task-templates/5c37af285616d5f3544568fd/1"
                 id="5c37af285616d5f3544568fd"
               >
                 <svg
@@ -1246,6 +1246,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
           Select a task or add a new one
         </h1>
         <svg
+          class=""
           viewBox="0 0 152.94 211.02"
         >
           <defs>
