@@ -14,7 +14,8 @@ import VersionSwitcher from "./VersionSwitcher";
 import { appLink } from "Config/appConfig";
 import { QueryStatus } from "Constants";
 import { Add16, DocumentExport16 } from "@carbon/icons-react";
-import { QueryResult } from "react-query";
+import { AxiosResponse } from "axios";
+import { QueryResult, MutationResult } from "react-query";
 import {
   ModalTriggerProps,
   ComposedModalChildProps,
@@ -26,11 +27,9 @@ import styles from "./header.module.scss";
 
 interface DesignerHeaderProps {
   createRevision: (reason: string, callback?: () => any) => void;
-  changeRevision: () => void;
-  currentRevision: number;
+  changeRevision: (revisionNumber: number) => void;
   isOnDesigner: boolean;
-  performActionButtonText: string;
-  revisionMutation: object;
+  revisionMutation: MutationResult<AxiosResponse<any>, Error>;
   revisionState: WorkflowRevisionState;
   revisionQuery: QueryResult<WorkflowRevision, Error>;
   summaryData: WorkflowSummary;

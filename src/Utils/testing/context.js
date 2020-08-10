@@ -1,5 +1,6 @@
 import React from "react";
 import { EditorContextProvider } from "State/context";
+import { summaries, revisions } from "ApiServer/fixtures";
 
 const revisionDispatch = jest.mock();
 
@@ -8,8 +9,8 @@ export function EditorContextRender({ children, value }) {
     <EditorContextProvider
       value={{
         revisionDispatch,
-        revisionState: { config: {} },
-        summaryQuery: { data: {} },
+        revisionState: revisions[0],
+        summaryData: summaries[0],
         taskTemplatesData: [],
         ...value,
       }}

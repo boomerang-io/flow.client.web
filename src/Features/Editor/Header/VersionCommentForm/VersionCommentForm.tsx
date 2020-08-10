@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from "react";
 import {
   Button,
@@ -9,6 +8,8 @@ import {
   ModalForm,
   TextArea,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { AxiosResponse } from "axios";
+import { MutationResult } from "react-query";
 import { QueryStatus } from "Constants";
 
 interface VersionCommentFormProps {
@@ -24,7 +25,7 @@ class VersionCommentForm extends Component<VersionCommentFormProps> {
     saveError: false,
   };
 
-  handleOnChange = (e) => {
+  handleOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     let error = false;
     if (!value || value.length > 128) {
