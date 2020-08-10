@@ -14,11 +14,11 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
         <hgroup
           class="info"
         >
-          <h2
+          <p
             class="title"
           >
             These are your
-          </h2>
+          </p>
           <h1
             class="subtitle"
           >

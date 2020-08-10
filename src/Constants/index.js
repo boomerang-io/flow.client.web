@@ -131,7 +131,7 @@ export const WorkflowPropertyUpdateType = {
   Delete: "delete",
 };
 
-export const PROPERTY_KEY_REGEX = /^[a-zA-Z0-9-._]+$/g;
+export const PROPERTY_KEY_REGEX = /^[a-zA-Z0-9-._]+$/;
 
 export const SortDirection = {
   Asc: "ASC",

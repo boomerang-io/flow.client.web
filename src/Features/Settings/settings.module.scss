@@ -42,3 +42,22 @@
     align-items: center;
   }
 }
+
+.skeletonPlacholderContainer {
+  * {
+    width: 100%;
+  }
+
+  > * + *  {
+    margin-top: 1rem;
+  }
+
+  :first-child {
+    height: 14rem;
+  }
+
+  :not(:first-child) {
+    height: 3rem;
+    min-height: 3rem;
+  }
+}

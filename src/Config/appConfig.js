@@ -8,6 +8,9 @@ export const PRODUCT_STANDALONE =
     ? window._SERVER_DATA.PRODUCT_STANDALONE === "true"
     : false;
 
+export const isDevEnv = process.env.NODE_ENV === "development";
+export const isTestEnv = process.env.NODE_ENV === "test";
+
 export const AppPath = {
   Root: "/",
   Error: "/error",

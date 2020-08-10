@@ -7,7 +7,6 @@ import { Error404, notify, ToastNotification } from "@boomerang-io/carbon-addons
 import ActionsMenu from "./ActionsMenu";
 import CreateEditPropertiesModal from "./CreateEditPropertiesModal";
 import Header from "Components/Header";
-import { arrayPagination } from "Utils/arrayHelper";
 import { stringToPassword } from "Utils/stringHelper";
 import { InputType } from "Constants";
 import { formatErrorMessage } from "@boomerang-io/utils";
@@ -24,7 +23,6 @@ function PropertiesTable({ properties }) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sort, setSort] = useState({ key: "label", sortDirection: "ASC" });
 
   /** Delete Property */
   const [deleteGlobalPropertyMutation] = useMutation(resolver.deleteGlobalPropertyRequest, {
@@ -111,17 +109,13 @@ function PropertiesTable({ properties }) {
         return property && property.type === InputType.Password ? (
           <Checkmark32 alt="secured" className={`${styles.tableSecured} ${styles.secured}`} />
         ) : (
-            <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
-          );
+          <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
+        );
       case "actions":
         return <ActionsMenu deleteProperty={deleteProperty} property={property} properties={properties} />;
       default:
         return <p className={styles.tableTextarea}>{value || "---"}</p>;
     }
-  };
-
-  const handleSort = (valueA, valueB, config) => {
-    setSort(config);
   };
 
   const newProperties = searchQuery
@@ -155,8 +149,7 @@ function PropertiesTable({ properties }) {
         {totalItems > 0 ? (
           <>
             <DataTable
-              rows={arrayPagination(newProperties, page, pageSize, sort)}
-              sortRow={handleSort}
+              rows={newProperties}
               headers={headers}
               render={({ rows, headers, getHeaderProps }) => (
                 <TableContainer>
@@ -200,33 +193,33 @@ function PropertiesTable({ properties }) {
             />
           </>
         ) : (
-            <>
-              <DataTable
-                rows={newProperties}
-                headers={headers}
-                render={({ headers }) => (
-                  <TableContainer>
-                    <Table>
-                      <TableHead>
-                        <TableRow className={styles.tableHeadRow}>
-                          {headers.map((header) => (
-                            <TableHeader
-                              key={header.key}
-                              id={header.key}
-                              className={`${styles.tableHeadHeader} ${styles[header.key]}`}
-                            >
-                              {header.header}
-                            </TableHeader>
-                          ))}
-                        </TableRow>
-                      </TableHead>
-                    </Table>
-                  </TableContainer>
-                )}
-              />
-              <Error404 header={null} title="No properties to be found" message={null} />
-            </>
-          )}
+          <>
+            <DataTable
+              rows={newProperties}
+              headers={headers}
+              render={({ headers }) => (
+                <TableContainer>
+                  <Table>
+                    <TableHead>
+                      <TableRow className={styles.tableHeadRow}>
+                        {headers.map((header) => (
+                          <TableHeader
+                            key={header.key}
+                            id={header.key}
+                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
+                          >
+                            {header.header}
+                          </TableHeader>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                  </Table>
+                </TableContainer>
+              )}
+            />
+            <Error404 header={null} title="No properties to be found" message={null} />
+          </>
+        )}
       </div>
     </>
   );
