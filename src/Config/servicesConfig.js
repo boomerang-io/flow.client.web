@@ -27,7 +27,7 @@ function determineUrl(baseUrl, serviceContextPath) {
 
 // Standard
 export const BASE_URL = BASE_SERVICE_ENV_URL;
-export const BASE_SERVICE_URL = determineUrl(PRODUCT_SERVICE_ENV_URL, "/flow");
+export const BASE_SERVICE_URL = determineUrl(PRODUCT_SERVICE_ENV_URL, "/workflow");
 export const BASE_USERS_URL = determineUrl(BASE_SERVICE_ENV_URL, "/users");
 
 export const serviceUrl = {
@@ -72,6 +72,7 @@ export const serviceUrl = {
   putRestoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`,
   putTeamQuotasDefault: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/quotas/default`,
   resourceManageUser: ({ userId }) => `${BASE_SERVICE_URL}/manage/users/${userId}`,
+  resourceSettings: () => `${BASE_SERVICE_URL}/settings`,
 };
 
 export const cancellableResolver = ({ url, method, body, ...config }) => {
@@ -141,7 +142,7 @@ export const resolver = {
       data: body,
       validateStatus: (status) => status >= 200 && status < 300,
     }),
-
+  putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourceSettings(), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),
   putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getManageTeam({ teamId }), body),
   putTeamQuotasDefault: ({ id }) => axios.put(serviceUrl.putTeamQuotasDefault({ id })),

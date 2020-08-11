@@ -14,20 +14,18 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
         <div
           class="container"
         >
-          <section
-            class="headline"
-          >
+          <hgroup>
             <p
               class="subtitle"
             >
               This is all of the
             </p>
-            <p
+            <h1
               class="title"
             >
               Activity
-            </p>
-          </section>
+            </h1>
+          </hgroup>
           <section
             class="content"
           >

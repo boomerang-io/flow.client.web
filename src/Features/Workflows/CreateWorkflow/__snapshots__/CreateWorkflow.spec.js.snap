@@ -45,7 +45,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
       class="bx--bmrg-modal-overlay --is-open"
     >
       <div
-        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container modalContainer --is-open"
+        class="bx--bmrg-modal-container bx--bmrg-modal-composed-container modalContainer --is-open"
         role="dialog"
         tabindex="-1"
       >
@@ -58,7 +58,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
             Create a new Workflow
           </p>
           <p
-            class="bx--bmrg-modal-flow-subtitle"
+            class="bx--bmrg-modal-composed-subtitle"
           >
             Get started with these basics, then proceed to designing it out.
           </p>

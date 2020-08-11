@@ -1,5 +1,5 @@
 import React from "react";
-import { FlowTeam, FlowUser } from "Types";
+import { FlowTeam, FlowUser, TaskModel, WorkflowRevision, WorkflowSummary } from "Types";
 
 export function createContext<ContextType>() {
   const context = React.createContext<ContextType | undefined>(undefined);
@@ -59,96 +59,11 @@ interface ExecutionContext {
 }
 export const [useExecutionContext, ExecutionContextProvider] = createContext<ExecutionContext>();
 
-interface revisionInterface {
-  changelog: object;
-  config: object;
-  dag: {
-    gridSize: number;
-    id: string;
-    links: Array<{
-      color: string;
-      curvyness: number;
-      executionCondition: string;
-      extras: object;
-      id: string;
-      labels: Array<string>; //i think this type is right?
-      linkId: string;
-      selected: false;
-      source: string;
-      sourcePort: string;
-      switchCondition: string | null;
-      target: string;
-      targetPort: string;
-      type: string;
-      width: number;
-    }>;
-    nodes: Array<{
-      extras: {};
-      id: string;
-      nodeId: string;
-      passedName: string;
-      ports: Array<{
-        id: string;
-        links: Array<string>;
-        name: string;
-        nodePortId: string;
-        position: string;
-        selected: boolean;
-        type: string;
-      }>;
-      selected: boolean;
-      templateUpgradeAvailable: boolean;
-      type: string;
-      x: number;
-      y: number;
-    }>;
-    offsetX: number;
-    offsetY: number;
-    zoom: number;
-  };
-  id: string;
-  templateUpgradesAvailable: string;
-  version: number;
-  workFlowId: string;
-}
-
-interface summaryInterface {
-  data: {
-    description: string;
-    enableACCIntegration: boolean;
-    enablePersistentStorage: boolean;
-    flowTeamId: string;
-    icon: string;
-    id: string;
-    name: string;
-    properties: Array<object>;
-    revisionCount: number;
-    shortDescription: string;
-    status: string;
-    templateUpgradesAvailable: boolean;
-    triggers: object;
-  };
-}
-
-interface taskInterface {
-  category: string;
-  createdDate: string;
-  currentVersion: number;
-  description: string;
-  icon: string;
-  id: string;
-  lastModified: string;
-  name: string;
-  nodeType: string;
-  revisions: Array<object>;
-  status: string;
-}
-
 interface EditorContext {
   revisionDispatch?: Function;
-  revisionState: revisionInterface;
-  summaryQuery: summaryInterface;
-  taskTemplatesData: Array<taskInterface>;
+  revisionState: WorkflowRevision;
+  summaryData: WorkflowSummary;
+  taskTemplatesData: Array<TaskModel>;
 }
 
 export const [useEditorContext, EditorContextProvider] = createContext<EditorContext>();

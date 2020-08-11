@@ -40,6 +40,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       manageTeam: Model,
       manageUser: Model,
       quotas: Model,
+      setting: Model,
     },
 
     routes() {
@@ -366,6 +367,21 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
         quotas.update(defaultConfig);
         return {};
+      });
+
+      /**
+       *  Manage Settings
+       * */
+
+      this.get(serviceUrl.resourceSettings(), (schema) => {
+        return schema.settings.all();
+      });
+
+      this.put(serviceUrl.resourceSettings(), (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        let settingSection = schema.settings.find(body[0].id);
+        settingSection.update(body[0]);
+        return schema.settings.all();
       });
 
       /**
