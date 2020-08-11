@@ -51,7 +51,7 @@ function PropertiesTable({ data: properties }) {
                   {rows.map((row) => (
                     <TableRow key={row.id} className={styles.tableRow}>
                       {row.cells.map((cell, cellIndex) => (
-                        <TableCell key={cell.id} style={{ padding: "0" }}>
+                        <TableCell key={cell.id}>
                           <div className={styles.tableCell}>{renderCell(cellIndex, cell.value)}</div>
                         </TableCell>
                       ))}

@@ -34,12 +34,11 @@ const SideInfo: React.FC<SideInfoProps> = ({ teams }) => {
       <div className={styles.teamContainer}>
         <section className={styles.searchSection}>
           <Search
-            data-testid="task-templates-search"
-            id="task-templates-search"
+            id="team-quotas-search"
             size="sm"
-            labelText="Search for a task"
+            labelText="Search"
             onChange={handleOnSearchInputChange}
-            placeHolderText="Search for a task"
+            placeHolderText="Search"
             value={searchQuery}
           />
         </section>

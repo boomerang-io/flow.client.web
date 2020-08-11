@@ -2,7 +2,8 @@ import React from "react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { render as rtlRender } from "@testing-library/react";
-import { AppContext } from "State/context";
+import { ReactQueryConfigProvider } from "react-query";
+import { AppContextProvider } from "State/context";
 import { teams as teamsFixture, profile as userFixture } from "ApiServer/fixtures";
 import "@testing-library/jest-dom/extend-expect";
 
@@ -33,9 +34,11 @@ function rtlContextRouterRender(
 ) {
   return {
     ...rtlRender(
-      <AppContext.Provider value={{ ...defaultContextValue, ...contextValue }}>
-        <Router history={history}>{ui}</Router>
-      </AppContext.Provider>,
+      <AppContextProvider value={{ ...defaultContextValue, ...contextValue }}>
+        <ReactQueryConfigProvider config={{ queries: { retry: 0 }, mutations: { throwOnError: true } }}>
+          <Router history={history}>{ui}</Router>
+        </ReactQueryConfigProvider>
+      </AppContextProvider>,
       options
     ),
     history,

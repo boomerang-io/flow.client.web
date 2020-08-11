@@ -12,13 +12,13 @@ import WorkflowNode from "Components/WorkflowNode";
 import styles from "./SwitchNodeDesigner.module.scss";
 
 const SwitchNodeDesigner = React.memo(function SwitchNodeDesigner({ diagramEngine, node: designerNode }) {
-  const { revisionDispatch, revisionState, summaryQuery, taskTemplatesData } = useEditorContext();
+  const { revisionDispatch, revisionState, summaryData, taskTemplatesData } = useEditorContext();
 
   /**
    * Pull data off of context
    */
-  const inputProperties = summaryQuery.data.properties;
-  const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
+  const inputProperties = summaryData.properties;
+  const nodeDag = revisionState.dag.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode.id] ?? {};
   const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 

@@ -59,7 +59,7 @@ interface ConfigureContainerProps {
   history: History;
   isOnRoute: boolean;
   params: { teamId: string; workflowId: string };
-  workflowSummary: WorkflowSummary;
+  summaryData: WorkflowSummary;
   summaryMutation: { status: string };
   teams: Array<{ id: string }>;
   updateSummary: ({ values, callback }: { values: object; callback: () => void }) => void;
@@ -69,7 +69,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
   history,
   isOnRoute,
   params,
-  workflowSummary,
+  summaryData,
   summaryMutation,
   teams,
   updateSummary,
@@ -87,27 +87,27 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       enableReinitialize
       onSubmit={handleOnSubmit}
       initialValues={{
-        description: workflowSummary?.description ?? "",
-        enableACCIntegration: workflowSummary?.enableACCIntegration ?? false,
-        enablePersistentStorage: workflowSummary?.enablePersistentStorage ?? false,
-        icon: workflowSummary?.icon ?? "",
-        name: workflowSummary?.name ?? "",
+        description: summaryData.description ?? "",
+        enableACCIntegration: summaryData.enableACCIntegration ?? false,
+        enablePersistentStorage: summaryData.enablePersistentStorage ?? false,
+        icon: summaryData.icon ?? "",
+        name: summaryData.name ?? "",
         selectedTeam: teams.find((team) => team.id === params.teamId) ?? { id: "" },
-        shortDescription: workflowSummary?.shortDescription ?? "",
+        shortDescription: summaryData?.shortDescription ?? "",
         triggers: {
           event: {
-            enable: workflowSummary?.triggers?.event?.enable ?? false,
-            topic: workflowSummary?.triggers?.event?.topic ?? "",
+            enable: summaryData.triggers?.event?.enable ?? false,
+            topic: summaryData.triggers?.event?.topic ?? "",
           },
           scheduler: {
-            enable: workflowSummary?.triggers?.scheduler?.enable ?? false,
-            schedule: workflowSummary?.triggers?.scheduler?.schedule ?? "0 18 * * *",
-            timezone: workflowSummary?.triggers?.scheduler?.timezone ?? false,
-            advancedCron: workflowSummary?.triggers?.scheduler?.advancedCron ?? false,
+            enable: summaryData.triggers?.scheduler?.enable ?? false,
+            schedule: summaryData.triggers?.scheduler?.schedule ?? "0 18 * * *",
+            timezone: summaryData.triggers?.scheduler?.timezone ?? false,
+            advancedCron: summaryData.triggers?.scheduler?.advancedCron ?? false,
           },
           webhook: {
-            enable: workflowSummary?.triggers?.webhook?.enable ?? false,
-            token: workflowSummary?.triggers?.webhook?.token ?? "",
+            enable: summaryData.triggers?.webhook?.enable ?? false,
+            token: summaryData.triggers?.webhook?.token ?? "",
           },
         },
       }}
@@ -141,7 +141,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         isOnRoute ? (
           <Configure
             formikProps={formikProps}
-            workflowSummary={workflowSummary}
+            summaryData={summaryData}
             summaryMutation={summaryMutation}
             teams={teams}
             updateSummary={updateSummary}
@@ -156,7 +156,7 @@ export default ConfigureContainer;
 
 interface ConfigureProps {
   formikProps: FormikProps<FormProps>;
-  workflowSummary: WorkflowSummary;
+  summaryData: WorkflowSummary;
   summaryMutation: {
     status: string;
   };
@@ -187,7 +187,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
       e.preventDefault();
     }
     axios
-      .post(serviceUrl.postCreateWorkflowToken({ workflowId: this.props.workflowSummary.id }))
+      .post(serviceUrl.postCreateWorkflowToken({ workflowId: this.props.summaryData.id }))
       .then((response) => {
         this.props.formikProps.setFieldValue("triggers.webhook.token", response.data.token);
         notify(

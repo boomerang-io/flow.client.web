@@ -18,266 +18,155 @@ exports[`ActivityTable --- Snapshot Capturing Snapshot of ActivityTable 1`] = `
             <thead>
               <tr>
                 <th
+                  aria-sort="none"
                   class="tableHeadHeader teamName"
-                  id="teamName"
                   scope="col"
                 >
-                  <span
-                    class="bx--table-header-label"
+                  <button
+                    class="tableHeadHeader teamName bx--table-sort"
+                    id="teamName"
                   >
-                    Team
-                  </span>
+                    <span
+                      class="bx--table-header-label"
+                    >
+                      Team
+                    </span>
+                    <svg
+                      aria-label="Sort rows by this header in ascending order"
+                      class="bx--table-sort__icon"
+                      fill="currentColor"
+                      focusable="false"
+                      height="20"
+                      preserveAspectRatio="xMidYMid meet"
+                      role="img"
+                      viewBox="0 0 32 32"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                      />
+                    </svg>
+                    <svg
+                      aria-label="Sort rows by this header in ascending order"
+                      class="bx--table-sort__icon-unsorted"
+                      fill="currentColor"
+                      focusable="false"
+                      height="20"
+                      preserveAspectRatio="xMidYMid meet"
+                      role="img"
+                      viewBox="0 0 32 32"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
+                      />
+                    </svg>
+                  </button>
                 </th>
                 <th
+                  aria-sort="none"
                   class="tableHeadHeader workflowName"
-                  id="workflowName"
+                  scope="col"
+                >
+                  <button
+                    class="tableHeadHeader workflowName bx--table-sort"
+                    id="workflowName"
+                  >
+                    <span
+                      class="bx--table-header-label"
+                    >
+                      Workflow
+                    </span>
+                    <svg
+                      aria-label="Sort rows by this header in ascending order"
+                      class="bx--table-sort__icon"
+                      fill="currentColor"
+                      focusable="false"
+                      height="20"
+                      preserveAspectRatio="xMidYMid meet"
+                      role="img"
+                      viewBox="0 0 32 32"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                      />
+                    </svg>
+                    <svg
+                      aria-label="Sort rows by this header in ascending order"
+                      class="bx--table-sort__icon-unsorted"
+                      fill="currentColor"
+                      focusable="false"
+                      height="20"
+                      preserveAspectRatio="xMidYMid meet"
+                      role="img"
+                      viewBox="0 0 32 32"
+                      width="20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
+                      />
+                    </svg>
+                  </button>
+                </th>
+                <th
+                  class="tableHeadHeader trigger"
+                  id="trigger"
                   scope="col"
                 >
                   <span
                     class="bx--table-header-label"
                   >
-                    Workflow
+                    Trigger
                   </span>
                 </th>
                 <th
-                  aria-sort="none"
-                  class="tableHeadHeader trigger"
-                  scope="col"
-                >
-                  <button
-                    class="tableHeadHeader trigger bx--table-sort"
-                    id="trigger"
-                  >
-                    <span
-                      class="bx--table-header-label"
-                    >
-                      Trigger
-                    </span>
-                    <svg
-                      aria-label="Sort rows by this header in ascending order"
-                      class="bx--table-sort__icon"
-                      fill="currentColor"
-                      focusable="false"
-                      height="20"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 32 32"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
-                      />
-                    </svg>
-                    <svg
-                      aria-label="Sort rows by this header in ascending order"
-                      class="bx--table-sort__icon-unsorted"
-                      fill="currentColor"
-                      focusable="false"
-                      height="20"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 32 32"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
-                      />
-                    </svg>
-                  </button>
-                </th>
-                <th
-                  aria-sort="none"
                   class="tableHeadHeader initiatedByUserName"
+                  id="initiatedByUserName"
                   scope="col"
                 >
-                  <button
-                    class="tableHeadHeader initiatedByUserName bx--table-sort"
-                    id="initiatedByUserName"
+                  <span
+                    class="bx--table-header-label"
                   >
-                    <span
-                      class="bx--table-header-label"
-                    >
-                      Initiated By
-                    </span>
-                    <svg
-                      aria-label="Sort rows by this header in ascending order"
-                      class="bx--table-sort__icon"
-                      fill="currentColor"
-                      focusable="false"
-                      height="20"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 32 32"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
-                      />
-                    </svg>
-                    <svg
-                      aria-label="Sort rows by this header in ascending order"
-                      class="bx--table-sort__icon-unsorted"
-                      fill="currentColor"
-                      focusable="false"
-                      height="20"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 32 32"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
-                      />
-                    </svg>
-                  </button>
+                    Initiated By
+                  </span>
                 </th>
                 <th
-                  aria-sort="none"
                   class="tableHeadHeader creationDate"
+                  id="creationDate"
                   scope="col"
                 >
-                  <button
-                    class="tableHeadHeader creationDate bx--table-sort"
-                    id="creationDate"
+                  <span
+                    class="bx--table-header-label"
                   >
-                    <span
-                      class="bx--table-header-label"
-                    >
-                      Start Time
-                    </span>
-                    <svg
-                      aria-label="Sort rows by this header in ascending order"
-                      class="bx--table-sort__icon"
-                      fill="currentColor"
-                      focusable="false"
-                      height="20"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 32 32"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
-                      />
-                    </svg>
-                    <svg
-                      aria-label="Sort rows by this header in ascending order"
-                      class="bx--table-sort__icon-unsorted"
-                      fill="currentColor"
-                      focusable="false"
-                      height="20"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 32 32"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
-                      />
-                    </svg>
-                  </button>
+                    Start Time
+                  </span>
                 </th>
                 <th
-                  aria-sort="none"
                   class="tableHeadHeader duration"
+                  id="duration"
                   scope="col"
                 >
-                  <button
-                    class="tableHeadHeader duration bx--table-sort"
-                    id="duration"
+                  <span
+                    class="bx--table-header-label"
                   >
-                    <span
-                      class="bx--table-header-label"
-                    >
-                      Duration
-                    </span>
-                    <svg
-                      aria-label="Sort rows by this header in ascending order"
-                      class="bx--table-sort__icon"
-                      fill="currentColor"
-                      focusable="false"
-                      height="20"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 32 32"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
-                      />
-                    </svg>
-                    <svg
-                      aria-label="Sort rows by this header in ascending order"
-                      class="bx--table-sort__icon-unsorted"
-                      fill="currentColor"
-                      focusable="false"
-                      height="20"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 32 32"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
-                      />
-                    </svg>
-                  </button>
+                    Duration
+                  </span>
                 </th>
                 <th
-                  aria-sort="none"
                   class="tableHeadHeader status"
+                  id="status"
                   scope="col"
                 >
-                  <button
-                    class="tableHeadHeader status bx--table-sort"
-                    id="status"
+                  <span
+                    class="bx--table-header-label"
                   >
-                    <span
-                      class="bx--table-header-label"
-                    >
-                      Status
-                    </span>
-                    <svg
-                      aria-label="Sort rows by this header in ascending order"
-                      class="bx--table-sort__icon"
-                      fill="currentColor"
-                      focusable="false"
-                      height="20"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 32 32"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
-                      />
-                    </svg>
-                    <svg
-                      aria-label="Sort rows by this header in ascending order"
-                      class="bx--table-sort__icon-unsorted"
-                      fill="currentColor"
-                      focusable="false"
-                      height="20"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 32 32"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
-                      />
-                    </svg>
-                  </button>
+                    Status
+                  </span>
                 </th>
               </tr>
             </thead>

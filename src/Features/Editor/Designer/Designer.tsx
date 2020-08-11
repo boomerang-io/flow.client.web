@@ -6,15 +6,16 @@ import Tasks from "./Tasks";
 import cx from "classnames";
 import { TaskTemplateStatus, QueryStatus } from "Constants";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
-import { TaskModel } from "Types";
+import { QueryResult } from "react-query";
+import { TaskModel, WorkflowRevision } from "Types";
 import styles from "./designer.module.scss";
 
 interface DesignerContainerProps {
   createNode: (workflowDagEngine: WorkflowDagEngine, event: React.DragEvent<HTMLDivElement>) => void;
   isModalOpen: boolean;
-  revisionQuery: { data: {}; status: string; error: Error };
+  revisionQuery: QueryResult<WorkflowRevision, Error>;
   tasks: Array<TaskModel>;
-  workflowDagEngine: WorkflowDagEngine;
+  workflowDagEngine: WorkflowDagEngine | null;
 }
 
 const DesignerContainer: React.FC<DesignerContainerProps> = ({

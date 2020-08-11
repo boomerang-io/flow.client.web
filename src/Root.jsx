@@ -4,13 +4,13 @@ import { ReactQueryConfigProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query-devtools";
 import App from "Features/App";
 import ErrorBoundary from "Components/ErrorBoundary";
-import { APP_ROOT } from "Config/appConfig";
+import { APP_ROOT, isDevEnv, isTestEnv } from "Config/appConfig";
 
 function Root() {
   return (
     <ErrorBoundary>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <ReactQueryConfigProvider config={{  mutations: { throwOnError: true } }}>
+      {isDevEnv && <ReactQueryDevtools initialIsOpen={false} />}
+      <ReactQueryConfigProvider config={{  queries: { retry: isDevEnv || isTestEnv ? 0 : 3 }, mutations: { throwOnError: true } }}>
         <BrowserRouter basename={APP_ROOT}>
           <App />
         </BrowserRouter>

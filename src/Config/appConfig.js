@@ -8,6 +8,9 @@ export const PRODUCT_STANDALONE =
     ? window._SERVER_DATA.PRODUCT_STANDALONE === "true"
     : false;
 
+export const isDevEnv = process.env.NODE_ENV === "development";
+export const isTestEnv = process.env.NODE_ENV === "test";
+
 export const AppPath = {
   Root: "/",
   Error: "/error",
@@ -22,6 +25,7 @@ export const AppPath = {
   Properties: "/admin/properties",
   Quotas: "/admin/quotas",
   QuotasEdit: "/admin/quotas/:teamId",
+  Settings: "/admin/settings",
   TaskTemplates: "/admin/task-templates",
   TaskTemplateEdit: `/admin/task-templates/:id/:version`,
   Team: "/admin/teams/:teamId",
@@ -47,6 +51,7 @@ export const appLink = {
   manageUsers: () => "/admin/users",
   quotas: () => "/admin/quotas",
   quotasEdit: ({ teamId }) => `/admin/quotas/${teamId}`,
+  settings: () => "/admin/settings",
   taskTemplates: () => "/admin/task-templates",
   taskTemplateEdit: ({ id, version }) => `/admin/task-templates/${id}/${version}`,
   taskTemplateEditSettings: ({ id, version }) => `/admin/task-templates/edit/${id}/${version}/settings`,

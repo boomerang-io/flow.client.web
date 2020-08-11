@@ -49,7 +49,7 @@ const QuotasContainer: React.FC = () => {
       <Sidenav teams={teamsData.records} />
       <Switch>
         <Route exact path={match.path}>
-          <WombatMessage className={styles.wombat} message="Select a task or add a new one" />
+          <WombatMessage className={styles.wombat} message="Select a team to view quotas" />
         </Route>
         <Route path={AppPath.QuotasEdit}>
           <TeamQuotasOverview teams={teamsData.records} />
