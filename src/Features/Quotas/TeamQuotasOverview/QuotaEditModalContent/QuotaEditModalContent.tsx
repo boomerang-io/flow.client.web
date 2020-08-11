@@ -93,7 +93,6 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
             <ModalBody className={styles.modalBodyContainer}>
               <div className={styles.modalInputContainer}>
                 {isLoading && <Loading />}
-                {/*<h3 className={styles.subtitle}>{subTitle}</h3>*/}
                 <dt className={styles.detailedTitle}>{detailedTitle}</dt>
                 <dt className={styles.detailedData}>{detailedData}</dt>
                 <div className={styles.inputContainer}>
@@ -104,7 +103,6 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                     value={values.quotaFormValue}
                     step={stepValue}
                     min={minValue}
-                    // size="sm"
                     onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
                       setFieldValue("quotaFormValue", evt.imaginaryTarget.value);
                     }}
