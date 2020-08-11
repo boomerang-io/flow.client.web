@@ -226,8 +226,9 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
             }}
             modalTrigger={({ openModal }: { openModal: () => void }) => (
               <Button
+                hasIconOnly
                 renderIcon={Edit16}
-                iconDescription="edit-template"
+                iconDescription="Edit"
                 kind="ghost"
                 size="field"
                 onClick={openModal}
