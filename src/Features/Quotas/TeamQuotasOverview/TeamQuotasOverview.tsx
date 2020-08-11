@@ -135,7 +135,10 @@ export function TeamQuotasOverview({ teams }) {
           <dd className={styles.detailedData}>{`${teamQuotasData.maxWorkflowStorage}GB per Workflow`}</dd>
         </QuotaCard>
 
-        <QuotaCard
+        {/**
+         * removed for now
+         */}
+        {/*<QuotaCard
           isLoading={defaultIsLoading}
           subtitle="Maximum amount of time that a single Workflow can take for one execution."
           title="Execution time"
@@ -151,7 +154,7 @@ export function TeamQuotasOverview({ teams }) {
           quotaValue={teamQuotasData.maxWorkflowExecutionTime}
         >
           <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxWorkflowExecutionTime} minutes`}</h3>
-        </QuotaCard>
+        </QuotaCard>*/}
 
         <QuotaCard
           isLoading={defaultIsLoading}
