@@ -16,7 +16,6 @@ import { BASE_URL } from "Config/servicesConfig";
 import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
 import { appLink, FeatureFlag } from "Config/appConfig";
 import { UserType } from "Constants";
-import { QueryResult } from "react-query";
 import { FlowUser } from "Types";
 
 const ACTIVE_CLASS_NAME = "bx--side-nav__link--current";
@@ -63,7 +62,6 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
         </SideNavLink>
         <SideNavMenu large renderIcon={SettingsAdjust16} title="Management">
           <SideNavMenuItem
-            large
             activeClassName={ACTIVE_CLASS_NAME}
             element={NavLink}
             onClick={onMenuClose}
@@ -72,7 +70,6 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
             Team Properties
           </SideNavMenuItem>
           <SideNavMenuItem
-            large
             activeClassName={ACTIVE_CLASS_NAME}
             element={NavLink}
             onClick={onMenuClose}
@@ -85,7 +82,6 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
           <SideNavMenu large title="Admin" renderIcon={Settings16}>
             {isStandaAloneMode && (
               <SideNavMenuItem
-                large
                 activeClassName={ACTIVE_CLASS_NAME}
                 element={NavLink}
                 onClick={onMenuClose}
@@ -96,7 +92,6 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
             )}
             {isStandaAloneMode && (
               <SideNavMenuItem
-                large
                 activeClassName={ACTIVE_CLASS_NAME}
                 element={NavLink}
                 onClick={onMenuClose}
@@ -106,7 +101,6 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
               </SideNavMenuItem>
             )}
             <SideNavMenuItem
-              large
               activeClassName={ACTIVE_CLASS_NAME}
               element={NavLink}
               onClick={onMenuClose}
@@ -115,7 +109,6 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
               Properties
             </SideNavMenuItem>
             <SideNavMenuItem
-              large
               activeClassName={ACTIVE_CLASS_NAME}
               element={NavLink}
               onClick={onMenuClose}
@@ -124,7 +117,6 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
               Quotas
             </SideNavMenuItem>
             <SideNavMenuItem
-              large
               activeClassName={ACTIVE_CLASS_NAME}
               element={NavLink}
               onClick={onMenuClose}
@@ -133,7 +125,6 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
               Settings
             </SideNavMenuItem>
             <SideNavMenuItem
-              large
               activeClassName={ACTIVE_CLASS_NAME}
               element={NavLink}
               onClick={onMenuClose}
@@ -156,11 +147,11 @@ const skipToContentProps = {
 
 interface NavbarContainerProps {
   handleOnTutorialClick(): void;
-  navigationQuery: QueryResult<{ platform: { platformName: string } }, Error>;
-  userQuery: QueryResult<FlowUser, Error>;
+  navigationData: { platform: { platformName: string } };
+  userData: FlowUser;
 }
 
-export default function NavbarContainer({ handleOnTutorialClick, navigationQuery, userQuery }: NavbarContainerProps) {
+export default function NavbarContainer({ handleOnTutorialClick, navigationData, userData }: NavbarContainerProps) {
   const isStandaAloneMode = useFeature(FeatureFlag.Standalone);
   const defaultUIShellProps = {
     baseLaunchEnvUrl: isStandaAloneMode ? null : BASE_LAUNCH_ENV_URL,
@@ -169,18 +160,18 @@ export default function NavbarContainer({ handleOnTutorialClick, navigationQuery
     renderLogo: true,
   };
 
-  const isAtLeastOperator = userQuery.data?.type === UserType.Admin || userQuery.data?.type === UserType.Operator;
+  const isAtLeastOperator = userData.type === UserType.Admin || userData.type === UserType.Operator;
   return (
     <>
       <Helmet>
-        <title>{`Flow | ${navigationQuery.data?.platform?.platformName ?? "Boomerang"}`}</title>
+        <title>{`Flow | ${navigationData.platform?.platformName ?? "Boomerang"}`}</title>
       </Helmet>
       <UIShell
         {...defaultUIShellProps}
         onMenuClick={handleOnMenuClick(isAtLeastOperator, isStandaAloneMode)}
-        headerConfig={navigationQuery.data}
+        headerConfig={navigationData}
         onTutorialClick={handleOnTutorialClick}
-        user={userQuery.data}
+        user={userData}
         skipToContentProps={skipToContentProps}
       />
     </>

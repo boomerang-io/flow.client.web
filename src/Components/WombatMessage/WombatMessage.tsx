@@ -1,21 +1,19 @@
 import React from "react";
-import cx from "classnames";
+import { Box } from "reflexbox";
+import { ErrorPage } from "@boomerang-io/carbon-addons-boomerang-react";
 import Wombat from "../WombatSuccessGraphic";
-import styles from "./wombatMessage.module.scss";
 
 interface WombatSuccessMessageProps {
   className?: string;
-  message: string;
-  wombatClassName?: string;
+  title?: string;
 }
 
-const WombatSuccessMessage: React.FC<WombatSuccessMessageProps> = ({ className = "", message, wombatClassName ="" }) => {
+const WombatSuccessMessage: React.FC<WombatSuccessMessageProps> = ({ className, ...rest }) => {
   return (
-    <div className={cx(styles.container, className)}>
-      <h1 className={styles.message}>{message}</h1>
-      <Wombat className={wombatClassName} />
-    </div>
+    <Box className={className}>
+      <ErrorPage graphic={<Wombat />} {...rest} />
+    </Box>
   );
-}
+};
 
 export default WombatSuccessMessage;

@@ -1,5 +1,14 @@
 import { CloseOutline32, CheckmarkOutline32, Error32, Timer32 } from "@carbon/icons-react";
 
+/**
+ * Primitve constants
+ */
+export const CREATED_DATE_FORMAT = "MMMM DD, YYYY";
+export const PROPERTY_KEY_REGEX = /^[a-zA-Z0-9-._]+$/;
+
+/**
+ * Enums
+ */
 export const HttpMethods = {
   Post: "post",
   Put: "put",
@@ -7,16 +16,6 @@ export const HttpMethods = {
   Delete: "delete",
   Get: "get",
 };
-
-export const daysOfWeekCronList = [
-  { labelText: "Monday", value: "monday", id: "monday", cron: "MON", cronNumber: ["1"], key: "monday" },
-  { labelText: "Tuesday", value: "tuesday", id: "tuesday", cron: "TUE", cronNumber: ["2"], key: "tuesday" },
-  { labelText: "Wednesday", value: "wednesday", id: "wednesday", cron: "WED", cronNumber: ["3"], key: "wednesday" },
-  { labelText: "Thursday", value: "thursday", id: "thursday", cron: "THU", cronNumber: ["4"], key: "thursday" },
-  { labelText: "Friday", value: "friday", id: "friday", cron: "FRI", cronNumber: ["5"], key: "friday" },
-  { labelText: "Saturday", value: "saturday", id: "saturday", cron: "SAT", cronNumber: ["6"], key: "saturday" },
-  { labelText: "Sunday", value: "sunday", id: "sunday", cron: "SUN", cronNumber: ["0", "7"], key: "sunday" },
-];
 
 export const ExecutionStatus = {
   Completed: "completed",
@@ -27,13 +26,6 @@ export const ExecutionStatus = {
   Skipped: "skipped",
 };
 
-export const executionStatusList = [
-  ExecutionStatus.InProgress,
-  ExecutionStatus.Completed,
-  ExecutionStatus.Failure,
-  ExecutionStatus.Invalid,
-];
-
 export const ExecutionStatusCopy = {
   [ExecutionStatus.Completed]: "Succeeded",
   [ExecutionStatus.Failure]: "Failed",
@@ -41,16 +33,6 @@ export const ExecutionStatusCopy = {
   [ExecutionStatus.NotStarted]: "Not Started",
   [ExecutionStatus.Invalid]: "Invalid",
   [ExecutionStatus.Skipped]: "Skipped",
-};
-
-// not using enum casing here bc it doesn't map to a primitive
-export const executionStatusIcon = {
-  [ExecutionStatus.Completed]: CheckmarkOutline32,
-  [ExecutionStatus.Failure]: CloseOutline32,
-  [ExecutionStatus.InProgress]: Timer32,
-  [ExecutionStatus.NotStarted]: Timer32,
-  [ExecutionStatus.Invalid]: Error32,
-  [ExecutionStatus.Skipped]: Error32,
 };
 
 export const InputProperty = {
@@ -131,8 +113,6 @@ export const WorkflowPropertyUpdateType = {
   Delete: "delete",
 };
 
-export const PROPERTY_KEY_REGEX = /^[a-zA-Z0-9-._]+$/;
-
 export const SortDirection = {
   Asc: "ASC",
   Desc: "DESC",
@@ -153,3 +133,32 @@ export const UserRoleCopy = {
   [UserRole.Author]: "Author",
   [UserRole.User]: "User",
 };
+
+/**
+ * Complex objects
+ */
+export const daysOfWeekCronList = [
+  { labelText: "Monday", value: "monday", id: "monday", cron: "MON", cronNumber: ["1"], key: "monday" },
+  { labelText: "Tuesday", value: "tuesday", id: "tuesday", cron: "TUE", cronNumber: ["2"], key: "tuesday" },
+  { labelText: "Wednesday", value: "wednesday", id: "wednesday", cron: "WED", cronNumber: ["3"], key: "wednesday" },
+  { labelText: "Thursday", value: "thursday", id: "thursday", cron: "THU", cronNumber: ["4"], key: "thursday" },
+  { labelText: "Friday", value: "friday", id: "friday", cron: "FRI", cronNumber: ["5"], key: "friday" },
+  { labelText: "Saturday", value: "saturday", id: "saturday", cron: "SAT", cronNumber: ["6"], key: "saturday" },
+  { labelText: "Sunday", value: "sunday", id: "sunday", cron: "SUN", cronNumber: ["0", "7"], key: "sunday" },
+];
+
+export const executionStatusIcon = {
+  [ExecutionStatus.Completed]: CheckmarkOutline32,
+  [ExecutionStatus.Failure]: CloseOutline32,
+  [ExecutionStatus.InProgress]: Timer32,
+  [ExecutionStatus.NotStarted]: Timer32,
+  [ExecutionStatus.Invalid]: Error32,
+  [ExecutionStatus.Skipped]: Error32,
+};
+
+export const executionStatusList = [
+  ExecutionStatus.InProgress,
+  ExecutionStatus.Completed,
+  ExecutionStatus.Failure,
+  ExecutionStatus.Invalid,
+];

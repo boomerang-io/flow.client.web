@@ -362,6 +362,21 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
                   IBM Services Engineering
                 </p>
               </li>
+              <li
+                class="row"
+              >
+                <p
+                  class="itemValue"
+                  style="width: 2rem;"
+                >
+                  0
+                </p>
+                <p
+                  class="itemLabel"
+                >
+                  IBM Services Essentials
+                </p>
+              </li>
             </ul>
           </div>
           <div

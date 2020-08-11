@@ -9,16 +9,18 @@ type HandleSearchFilter = (teamsList: FlowTeam[], query: string | string[] | nul
 interface WorkflowsHeaderProps {
   filteredTeams: FlowTeam[];
   handleSearchFilter: HandleSearchFilter;
-  teams: FlowTeam[];
   searchQuery: string | string[] | null;
+  teamsQuery: string | string[] | null;
+  teams: FlowTeam[];
   workflowsCount: number;
 }
 
 const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
-  handleSearchFilter,
-  teams,
-  searchQuery,
   filteredTeams,
+  handleSearchFilter,
+  searchQuery,
+  teamsQuery,
+  teams,
   workflowsCount,
 }) => {
   return (
@@ -31,9 +33,8 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
         <SearchFilterBar
           filteredTeams={filteredTeams}
           handleSearchFilter={handleSearchFilter}
-          placeHolderText="Choose a team"
-          label="Choose a team"
           searchQuery={searchQuery}
+          teamsQuery={teamsQuery}
           teams={teams}
         />
       </div>
@@ -46,13 +47,18 @@ export default WorkflowsHeader;
 interface SearchFilterBarProps {
   filteredTeams: FlowTeam[];
   handleSearchFilter: HandleSearchFilter;
-  label: string;
-  placeHolderText: string;
   searchQuery: string | string[] | null;
+  teamsQuery: string | string[] | null;
   teams: FlowTeam[];
 }
 
-const SearchFilterBar: React.FC<SearchFilterBarProps> = ({ handleSearchFilter, teams, searchQuery, filteredTeams }) => {
+const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
+  filteredTeams,
+  handleSearchFilter,
+  searchQuery,
+  teamsQuery,
+  teams,
+}) => {
   const handleOnMultiSelectChange = (change: any) => {
     const selectedItems = change.selectedItems;
     handleSearchFilter(selectedItems, searchQuery);
@@ -61,6 +67,8 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({ handleSearchFilter, t
   const handleOnSearchInputChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     handleSearchFilter(filteredTeams, e.currentTarget?.value ?? "");
   };
+
+  const isTeamQueryActive = (Array.isArray(teamsQuery) && teamsQuery.length > 0) || typeof teamsQuery === "string";
 
   return (
     <div className={styles.filterContainer}>
@@ -79,7 +87,9 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({ handleSearchFilter, t
           id="b-search-filter__filter"
           invalid={false}
           initialSelectedItems={
-            Array.isArray(filteredTeams) ? filteredTeams.map((team) => ({ id: team.id, text: team.name })) : []
+            isTeamQueryActive && Array.isArray(filteredTeams)
+              ? filteredTeams.map((team) => ({ id: team.id, text: team.name }))
+              : []
           }
           items={Array.isArray(teams) ? teams.map((team) => ({ id: team.id, text: team.name })) : []}
           itemToString={(team: { text: string }) => (team ? team.text : "")}

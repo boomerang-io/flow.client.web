@@ -142,12 +142,12 @@ function WorkflowActivity() {
     let workflowsList = [];
     if (!selectedTeams.length) {
       workflowsList = teamsData.reduce((acc, team) => {
-        acc = acc.concat(team.workflows);
+        acc.push(...team.workflows);
         return acc;
       }, []);
     } else {
       workflowsList = selectedTeams.reduce((acc, team) => {
-        acc = acc.concat(team.workflows);
+        acc.push(...team.workflows);
         return acc;
       }, []);
     }

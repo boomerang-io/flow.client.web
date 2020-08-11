@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useMutation, queryCache } from "react-query";
+import { Box } from "reflexbox";
 import {
   ComboBox,
   DataTable,
@@ -14,6 +15,7 @@ import {
 import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
 import ActionsMenu from "./ActionsMenu";
 import Header from "Components/Header";
+import WombatMessage from "Components/WombatMessage";
 import { InputType } from "Constants";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import { stringToPassword } from "Utils/stringHelper";
@@ -143,7 +145,7 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
       <Header
         includeBorder
         title="Team Properties"
-        description="Set team properties that are accessible in all workflows for that team."
+        description="Set team properties that are accessible in all workflows for that team"
       />
       <div className={styles.tableContainer}>
         <div className={styles.header}>
@@ -244,7 +246,13 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
                 </TableContainer>
               )}
             />
-            <Error404 header={null} title="No team properties" message={null} />
+            {activeTeam ? (
+              <Error404 header={null} title="No team properties" message={null} />
+            ) : (
+              <Box maxWidth="20rem" margin="0 auto">
+                <WombatMessage title="Select a team" />
+              </Box>
+            )}
           </>
         )}
       </div>

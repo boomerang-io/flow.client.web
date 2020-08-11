@@ -5,12 +5,7 @@ import { AppContextProvider } from "State/context";
 import { useQuery } from "react-query";
 import { useQuery as useSimpleQuery } from "Hooks";
 import { Switch, Route, Redirect } from "react-router-dom";
-import {
-  Error404,
-  Loading,
-  NotificationsContainer,
-  ProtectedRoute,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Error404, Loading, NotificationsContainer, ProtectedRoute } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorBoundary from "Components/ErrorBoundary";
 import ErrorDragon from "Components/ErrorDragon";
 import OnBoardExpContainer from "Features/Tutorial";
@@ -102,11 +97,11 @@ export default function App() {
   }
 
   return (
-    <FlagsProvider features={{ standalone: PRODUCT_STANDALONE }}>
+    <FlagsProvider features={{ standalone: true || PRODUCT_STANDALONE }}>
       <Navbar
         handleOnTutorialClick={() => setIsTutorialActive(true)}
-        navigationQuery={navigationQuery}
-        userQuery={userQuery}
+        navigationData={navigationQuery.data}
+        userData={userQuery.data}
       />
       <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
       <ErrorBoundary>
@@ -204,7 +199,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             path={AppPath.Quotas}
             userRole={platformRole}
           />
-           <ProtectedRoute
+          <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
             component={<Settings />}
             path={AppPath.Settings}

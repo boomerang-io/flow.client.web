@@ -17,8 +17,9 @@ import ChangeRole from "./ChangeRole";
 import UserDetails from "./UserDetails";
 import FeatureHeader from "Components/FeatureHeader";
 import debounce from "lodash/debounce";
+import moment from "moment";
 import queryString from "query-string";
-import { SortDirection } from "Constants";
+import { CREATED_DATE_FORMAT, SortDirection } from "Constants";
 import { serviceUrl } from "Config/servicesConfig";
 import { ComposedModalChildProps, FlowUser, PaginatedResponse } from "Types";
 
@@ -131,35 +132,44 @@ const UserList: React.FC = () => {
   );
 };
 
+const TableHeaderKey = {
+  Name: "name",
+  Email: "email",
+  Type: "type",
+  Created: "firstLoginDate",
+  Status: "status",
+  Action: "action",
+};
+
 const headers = [
   {
     header: "Name",
-    key: "name",
+    key: TableHeaderKey.Name,
     sortable: true,
   },
   {
     header: "Email",
-    key: "email",
+    key: TableHeaderKey.Email,
     sortable: true,
   },
   {
     header: "Type",
-    key: "type",
+    key: TableHeaderKey.Type,
     sortable: true,
   },
   {
     header: "Created",
-    key: "firstLoginDate",
+    key: TableHeaderKey.Created,
     sortable: true,
   },
   {
     header: "Status",
-    key: "status",
+    key: TableHeaderKey.Status,
     sortable: true,
   },
   {
     header: "",
-    key: "",
+    key: TableHeaderKey.Action,
   },
 ];
 
@@ -212,7 +222,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
                 {rows.map((row: any) => (
                   <TableRow key={row.id}>
                     {row.cells.map((cell: any) => {
-                      if (!cell.info.header) {
+                      if (cell.info.header === TableHeaderKey.Action) {
                         return (
                           <TableCell key={cell.id}>
                             <OverflowMenu flipped>
@@ -222,6 +232,11 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
                           </TableCell>
                         );
                       }
+
+                      if (cell.info.header === TableHeaderKey.Created) {
+                        return <TableCell key={cell.id}>{moment(cell.value).format(CREATED_DATE_FORMAT)}</TableCell>;
+                      }
+
                       if (Array.isArray(cell.value)) {
                         return <TableCell key={cell.id}>{cell.value.length}</TableCell>;
                       }

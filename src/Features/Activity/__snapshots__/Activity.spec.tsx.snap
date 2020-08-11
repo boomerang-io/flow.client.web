@@ -292,6 +292,38 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                         </div>
                       </div>
                     </div>
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-0-item-1"
+                      title="IBM Services Essentials"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-0-item-1"
+                            name="IBM Services Essentials"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-0-item-1"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              IBM Services Essentials
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -367,7 +399,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                     <div
                       class="bx--list-box__menu-item"
                       id="downshift-1-item-0"
-                      title="ML Train – Bot Efficiency [IBM Services Engineering]"
+                      title="Essentials Training – Bot Efficiency [IBM Services Engineering]"
                     >
                       <div
                         class="bx--list-box__menu-item__option"
@@ -378,7 +410,7 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                           <input
                             class="bx--checkbox"
                             id="downshift-1-item-0"
-                            name="ML Train – Bot Efficiency [IBM Services Engineering]"
+                            name="Essentials Training – Bot Efficiency [IBM Services Engineering]"
                             readonly=""
                             tabindex="-1"
                             type="checkbox"
@@ -386,6 +418,38 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                           <label
                             class="bx--checkbox-label"
                             for="downshift-1-item-0"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              Essentials Training – Bot Efficiency [IBM Services Engineering]
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-1-item-1"
+                      title="ML Train – Bot Efficiency [IBM Services Engineering]"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-1-item-1"
+                            name="ML Train – Bot Efficiency [IBM Services Engineering]"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-1-item-1"
                           >
                             <span
                               class="bx--checkbox-label-text"

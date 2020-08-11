@@ -24,7 +24,7 @@ export default function WorkflowsHome() {
   const [isWelcomeBannerOpen, setIsWelcomeBannerOpen] = useState(true);
   const [isWelcomeBannerShown, setIsWelcomeBannerShown] = useState(initShowWelcomeBanner);
   const isWelcomeBannerOpenRef = React.useRef<boolean | null>();
-  let { query: searchQuery = "", teams: teamsFilter = [] } = queryString.parse(location.search, {
+  let { query: searchQuery = "", teams: teamsQuery = [] } = queryString.parse(location.search, {
     arrayFormat: "comma",
   });
 
@@ -77,10 +77,10 @@ export default function WorkflowsHome() {
   };
 
   const filterTeams = () => {
-    if (Array.isArray(teamsFilter) && teamsFilter.length > 0) {
-      return teams.filter((team) => teamsFilter?.includes(team.id)) ?? [];
-    } else if (typeof teamsFilter === "string") {
-      return teams.filter((team) => team.id === teamsFilter) ?? [];
+    if (Array.isArray(teamsQuery) && teamsQuery.length > 0) {
+      return teams.filter((team) => teamsQuery?.includes(team.id)) ?? [];
+    } else if (typeof teamsQuery === "string") {
+      return teams.filter((team) => team.id === teamsQuery) ?? [];
     } else {
       return teams;
     }
@@ -110,6 +110,7 @@ export default function WorkflowsHome() {
           filteredTeams={filteredTeams}
           handleSearchFilter={handleSearchFilter}
           searchQuery={searchQuery}
+          teamsQuery={teamsQuery}
           teams={teams}
           workflowsCount={workflowsCount}
         />
