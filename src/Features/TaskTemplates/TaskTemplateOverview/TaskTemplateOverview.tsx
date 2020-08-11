@@ -30,7 +30,6 @@ import { appLink, AppPath } from "Config/appConfig";
 import { DataDrivenInput } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
 
-
 const ArchiveText: React.FC = () => (
   <>
     <p className={styles.confirmModalText}>
@@ -49,7 +48,7 @@ const ArchiveText: React.FC = () => (
 
 interface DetailDataElementsProps {
   label: string;
-  value: string; 
+  value: string;
 }
 
 const DetailDataElements: React.FC<DetailDataElementsProps> = ({ label, value }) => {
@@ -65,19 +64,19 @@ const DetailDataElements: React.FC<DetailDataElementsProps> = ({ label, value })
             <p className={styles.value}>{TaskIcon.name}</p>
           </div>
         ) : (
-            <div className={styles.basicIcon}>
-              <Bee16 style={{ width: "1rem", height: "1rem", marginRight: "0.75rem" }} />
-              <p className={styles.value}>Default</p>
-            </div>
-          )
+          <div className={styles.basicIcon}>
+            <Bee16 style={{ width: "1rem", height: "1rem", marginRight: "0.75rem" }} />
+            <p className={styles.value}>Default</p>
+          </div>
+        )
       ) : (
-          <dd className={value ? styles.value : styles.noValue} data-testid={label}>
-            {value ? value : "Not defined yet"}
-          </dd>
-        )}
+        <dd className={value ? styles.value : styles.noValue} data-testid={label}>
+          {value ? value : "Not defined yet"}
+        </dd>
+      )}
     </section>
   );
-}
+};
 
 interface FieldProps {
   field: any;
@@ -141,7 +140,7 @@ const Field: React.FC<FieldProps> = ({
       </div>
     </section>
   );
-}
+};
 
 TaskTemplateOverview.propTypes = {
   taskTemplates: PropTypes.array.isRequired,
@@ -153,7 +152,6 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
   const match = useRouteMatch();
   const params = useParams();
-  const { taskTemplateId = "", version = "" } = params;
   const history = useHistory();
   const [uploadTaskTemplateMutation, { isLoading }] = useMutation(
     (args) => {
@@ -165,27 +163,30 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
     }
   );
-  const [ArchiveTaskTemplateMutation, { isLoading: archiveIsLoading }] = useMutation(resolver.deleteArchiveTaskTemplate, {
-    onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
-  });
-  const [putRestoreTaskTemplateMutation, { isLoading: restoreIsLoading }] = useMutation(resolver.putRestoreTaskTemplate, {
+  const [archiveTaskTemplateMutation, { isLoading: archiveIsLoading }] = useMutation(
+    resolver.deleteArchiveTaskTemplate,
+    {
+      onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
+    }
+  );
+  const [restoreTaskTemplateMutation, { isLoading: restoreIsLoading }] = useMutation(resolver.putRestoreTaskTemplate, {
     onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
   });
 
-  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === taskTemplateId) ?? {};
+  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id) ?? {};
 
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
-  const invalidVersion = version === "0" || version > selectedTaskTemplate.currentVersion;
+  const invalidVersion = params.version === "0" || params.version > selectedTaskTemplate.currentVersion;
 
   // Checks if the version in url are a valid one. If not, go to the latest version
   // Need to improve this
   const currentRevision = selectedTaskTemplate?.revisions
     ? invalidVersion
       ? selectedTaskTemplate.revisions[selectedTaskTemplate.currentVersion - 1]
-      : selectedTaskTemplate.revisions.find((revision) => revision?.version?.toString() === version)
+      : selectedTaskTemplate.revisions.find((revision) => revision?.version?.toString() === params.version)
     : {};
 
-  const isOldVersion = !invalidVersion && version !== selectedTaskTemplate?.currentVersion?.toString();
+  const isOldVersion = !invalidVersion && params.version !== selectedTaskTemplate?.currentVersion?.toString();
   const templateNotFound = !selectedTaskTemplate.id;
 
   const fieldKeys = currentRevision.config?.map((input: DataDrivenInput) => input.key) ?? [];
@@ -306,7 +307,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
   const handleArchiveTaskTemplate = async () => {
     try {
-      let response = await ArchiveTaskTemplateMutation({ id: selectedTaskTemplate.id });
+      let response = await archiveTaskTemplateMutation({ id: selectedTaskTemplate.id });
       notify(
         <ToastNotification
           kind="success"
@@ -330,7 +331,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
   const handleputRestoreTaskTemplate = async () => {
     try {
-      let response = await putRestoreTaskTemplateMutation({ id: selectedTaskTemplate.id });
+      let response = await restoreTaskTemplateMutation({ id: selectedTaskTemplate.id });
       notify(
         <ToastNotification
           kind="success"
@@ -508,15 +509,15 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                               </Draggable>
                             ))
                           ) : (
-                              <div className={styles.noFieldsContainer}>
-                                <p className={styles.noFieldsTitle}>No fields (yet)</p>
-                                <p className={styles.noFieldsText}>
-                                  Fields determine the function and parameters of a task, defining what the task does and
-                                  prompting users to fill in their values and messages.
+                            <div className={styles.noFieldsContainer}>
+                              <p className={styles.noFieldsTitle}>No fields (yet)</p>
+                              <p className={styles.noFieldsText}>
+                                Fields determine the function and parameters of a task, defining what the task does and
+                                prompting users to fill in their values and messages.
                               </p>
-                                <p className={styles.noFieldsText}>Add a field above to get started.</p>
-                              </div>
-                            )}
+                              <p className={styles.noFieldsText}>Add a field above to get started.</p>
+                            </div>
+                          )}
                         </section>
                       )}
                     </Droppable>
