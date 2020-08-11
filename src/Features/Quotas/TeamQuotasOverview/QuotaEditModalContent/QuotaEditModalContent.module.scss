@@ -1,0 +1,49 @@
+.modalBodyContainer {
+  padding-top: 0rem;
+}
+
+.detailedTitle {
+  font-size: 12px;
+  letter-spacing: 0.32px;
+  line-height: 15px;
+  margin-bottom: 0.5rem;
+}
+
+.detailedData {
+  font-size: 14px;
+  letter-spacing: 0.16px;
+  line-height: 18px;
+  margin-bottom: 24px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  :global .bx--form-item {
+    width: 120px;
+    flex: 0;
+  }
+
+  input {
+    background-color: #f2f4f8 !important;
+    min-width: 0 !important;
+    width: 120px !important;
+  }
+}
+
+.inputUnits {
+  font-family: "IBM Plex Mono";
+  font-size: 16px;
+  letter-spacing: 0.16px;
+  line-height: 20px;
+  margin-left: 0.5rem;
+}
+
+.numberInput {
+  height: 40px;
+  width: 120px;
+  border-radius: 4px;
+  background-color: #f2f4f8;
+}

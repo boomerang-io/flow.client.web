@@ -13,10 +13,10 @@ export interface DataDrivenInput {
   id: string;
   defaultValue?: string;
   description?: string;
-  helperText?:string;
+  helperText?: string;
   key: string;
   label?: string;
-  onChange?:(args: any) => void;
+  onChange?: (args: any) => void;
   onBlur?: (args: any) => void;
   options?: [{ key: string; value: string }];
   placeholder?: string;
@@ -144,24 +144,24 @@ export interface FlowTeam {
   id: string;
   isActive: boolean;
   name: string;
-  settings: FlowTeamSettings;
+  quotas: FlowTeamQuotas;
   users: FlowUser[];
   workflows: WorkflowSummary[];
 }
 
-export interface FlowTeamSettings {
-  quotas: {
-    availableWorkflows: number;
-    availableDailyExecutions: number;
-    availableMonthlyExecutions: number;
-    currentDailyExecutions: number;
-    currentMonthlyExecutions: number;
-    currentWorkflows: number;
-    storageCapacity: number;
-    concurrentWorkflows: number;
-    maxExecutionTime: string;
-    monthlyResetDate: string;
-  };
+export interface FlowTeamQuotas {
+  maxWorkflowCount: number;
+  maxWorkflowExecutionMonthly: number;
+  currentWorkflowExecutionMonthly: number;
+  currentWorkflowCount: number;
+  maxWorkflowStorage: number;
+  maxConcurrentWorkflows: number;
+  maxWorkflowExecutionTime: string;
+  monthlyResetDate: string;
+
+  currentConcurrentWorkflows: number;
+  currentAverageExecutionTime: number;
+  currentWorkflowsPersistentStorage: number;
 }
 
 export interface PaginatedSort {

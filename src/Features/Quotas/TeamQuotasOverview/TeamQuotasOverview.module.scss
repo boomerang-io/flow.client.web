@@ -1,0 +1,86 @@
+.container {
+  width: 100%;
+}
+
+.cardsSection {
+  padding: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  //   margin-left: -0.75rem;
+}
+
+.cardContainer {
+  background: var(--cds-ui-01);
+  padding: 1.5rem;
+  height: 15.0625rem;
+  width: 20.625rem;
+  margin-right: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1.375rem;
+}
+
+.title {
+  font-size: 1rem;
+  letter-spacing: 0;
+  line-height: 1.25rem;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  letter-spacing: 0.02rem;
+  line-height: 0.9375rem;
+}
+
+.coverageBar {
+  height: 1rem;
+  width: 17.625rem;
+  border-radius: 0.5625rem;
+  background-color: var(--cds-ui-02);
+  margin-bottom: 0.25rem;
+}
+
+.coverageFiller {
+  border-radius: 0.5625rem;
+  height: 100%;
+  background-color: var(--cds-support-02);
+}
+
+.detailedHeading {
+  font-size: 1.25rem;
+  letter-spacing: 0;
+  line-height: 1.5625rem;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+
+.detailedSmallText {
+  font-size: 0.75rem;
+  letter-spacing: 0.02rem;
+  line-height: 0.9375rem;
+}
+
+.detailedData {
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+  margin-top: 0.5rem;
+}
+
+.persistentStorage {
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.375rem;
+}
+
+.modalContainer {
+  height: 24.625rem;
+  width: 30rem;
+}

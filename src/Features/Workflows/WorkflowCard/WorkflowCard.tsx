@@ -11,6 +11,7 @@ import {
   OverflowMenuItem,
   ToastNotification,
   TooltipIcon,
+  TooltipHover,
   notify,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
@@ -21,19 +22,20 @@ import fileDownload from "js-file-download";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_SERVICE_URL } from "Config/servicesConfig";
-import { Run20, Bee20 } from "@carbon/icons-react";
+import { Run20, Bee20, WarningAlt16 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
-import { WorkflowSummary, ModalTriggerProps, ComposedModalChildProps } from "Types";
+import { WorkflowSummary, ModalTriggerProps, ComposedModalChildProps, FlowTeamQuotas } from "Types";
 import styles from "./workflowCard.module.scss";
 
 interface WorkflowCardProps {
   teamId: string;
+  quotas: FlowTeamQuotas;
   workflow: WorkflowSummary;
 }
 
 type FunctionAnyReturn = () => any;
 
-const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, workflow }) => {
+const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow }) => {
   const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
@@ -135,6 +137,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, workflow }) => {
 
   const { name, Icon = Bee20 } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
 
+  const hasReachedMonthlyRunLimit = quotas.maxWorkflowExecutionMonthly <= quotas.currentWorkflowExecutionMonthly;
+
   return (
     <div className={styles.container}>
       <Link to={!isDeleting ? appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id }) : ""}>
@@ -152,6 +156,19 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, workflow }) => {
           </div>
         </section>
       </Link>
+      <div className={styles.quotaDescriptionContainer}>
+        <h3
+          className={styles.teamQuotaText}
+        >{`Run quota - ${quotas.currentWorkflowExecutionMonthly} of ${quotas.maxWorkflowExecutionMonthly} this month`}</h3>
+        {hasReachedMonthlyRunLimit && (
+          <TooltipHover
+            direction="top"
+            tooltipText="This Workflow has reached the maximum number of executions allowed this month. Contact your Team administrator/owner to increase the quota, or wait until the quota resets next month."
+          >
+            <WarningAlt16 className={styles.warningIcon} />
+          </TooltipHover>
+        )}
+      </div>
       <section className={styles.launch}>
         {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
           <ComposedModal
@@ -161,7 +178,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, workflow }) => {
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
-                disabled={isDeleting}
+                disabled={isDeleting || hasReachedMonthlyRunLimit}
                 iconDescription="Run Workflow"
                 renderIcon={Run20}
                 size="field"
@@ -193,7 +210,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, workflow }) => {
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
-                disabled={isDeleting}
+                disabled={isDeleting || hasReachedMonthlyRunLimit}
                 iconDescription="Run Workflow"
                 renderIcon={Run20}
                 size="field"
