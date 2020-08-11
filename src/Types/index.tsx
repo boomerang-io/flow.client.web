@@ -187,24 +187,24 @@ export interface FlowTeam {
   id: string;
   isActive: boolean;
   name: string;
-  settings: FlowTeamSettings;
+  quotas: FlowTeamQuotas;
   users: FlowUser[];
   workflows: WorkflowSummary[];
 }
 
-export interface FlowTeamSettings {
-  quotas: {
-    availableWorkflows: number;
-    availableDailyExecutions: number;
-    availableMonthlyExecutions: number;
-    currentDailyExecutions: number;
-    currentMonthlyExecutions: number;
-    currentWorkflows: number;
-    storageCapacity: number;
-    concurrentWorkflows: number;
-    maxExecutionTime: string;
-    monthlyResetDate: string;
-  };
+export interface FlowTeamQuotas {
+  maxWorkflowCount: number;
+  maxWorkflowExecutionMonthly: number;
+  currentWorkflowExecutionMonthly: number;
+  currentWorkflowCount: number;
+  maxWorkflowStorage: number;
+  maxConcurrentWorkflows: number;
+  maxWorkflowExecutionTime: string;
+  monthlyResetDate: string;
+
+  currentConcurrentWorkflows: number;
+  currentAverageExecutionTime: number;
+  currentWorkflowsPersistentStorage: number;
 }
 
 export interface PaginatedSort {
