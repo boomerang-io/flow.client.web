@@ -22,7 +22,7 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
           <p
             class="description"
           >
-            Set team properties that are accessible in all workflows for that team.
+            Set team properties that are accessible in all workflows for that team
           </p>
         </div>
         <section

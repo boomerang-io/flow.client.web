@@ -2,13 +2,14 @@ import React from "react";
 import { useQuery } from "Hooks";
 import { queryCache } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
+import { Box } from "reflexbox";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
 import WombatMessage from "Components/WombatMessage";
 import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import orderBy from "lodash/orderBy";
-import{ TaskModel } from "Types";
+import { TaskModel } from "Types";
 import { AppPath, appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./taskTemplates.module.scss";
@@ -16,9 +17,7 @@ import styles from "./taskTemplates.module.scss";
 const TaskTemplatesContainer: React.FC = () => {
   const match = useRouteMatch();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
-  const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(
-    getTaskTemplatesUrl
-  );
+  const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
 
   const addTemplateInState = (newTemplate: TaskModel) => {
     const updatedTemplatesData = [...taskTemplatesData];
@@ -34,8 +33,6 @@ const TaskTemplatesContainer: React.FC = () => {
       queryCache.setQueryData(getTaskTemplatesUrl, updatedTemplatesData);
     }
   };
-
-
 
   if (isLoading) {
     return <Loading />;
@@ -54,7 +51,9 @@ const TaskTemplatesContainer: React.FC = () => {
       <Sidenav taskTemplates={taskTemplatesData} addTemplateInState={addTemplateInState} />
       <Switch>
         <Route exact path={match.path}>
-          <WombatMessage className={styles.wombat} message="Select a task or add a new one" />
+          <Box maxWidth="24rem" margin="0 auto">
+            <WombatMessage className={styles.wombat} title="Select a task or create one" />
+          </Box>
         </Route>
         <Route path={AppPath.TaskTemplateEdit}>
           <TaskTemplateOverview taskTemplates={taskTemplatesData} updateTemplateInState={updateTemplateInState} />
@@ -63,7 +62,6 @@ const TaskTemplatesContainer: React.FC = () => {
       </Switch>
     </div>
   );
-
-}
+};
 
 export default TaskTemplatesContainer;

@@ -110,9 +110,14 @@
   }
 
   &.failure {
-    .tableCell {
+    td {
       background-color: #fcd0d3;
     }
+
+    &:hover {
+      background-color: #fcd0d3;
+    }
+  
     .status {
       color: var(--flow-failure);
       svg {
@@ -122,7 +127,11 @@
   }
 
   &.invalid {
-    .tableCell {
+    td {
+      background-color: #b9bfc7;
+    }
+
+    &:hover {
       background-color: #b9bfc7;
     }
   }

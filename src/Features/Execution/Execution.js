@@ -1,8 +1,9 @@
 import React from "react";
 import { ExecutionContextProvider } from "State/context";
+import { Box } from "reflexbox";
 import { useQuery } from "Hooks";
 import { useParams } from "react-router-dom";
-import { Loading, Error } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
 import Main from "./Main";
 import { serviceUrl } from "Config/servicesConfig";
 
@@ -37,7 +38,11 @@ export default function ExecutionContainer() {
   }
 
   if (summaryQuery.error || revisionError || taskTemplatesError || executionQuery.error) {
-    return <Error />;
+    return (
+      <Box mt="5rem">
+        <ErrorMessage />
+      </Box>
+    );
   }
 
   if (revisionData && taskTemplatesData && executionQuery.data) {
