@@ -4,9 +4,10 @@
 
 .cardsSection {
   padding: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  //   margin-left: -0.75rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20.625rem);
+  column-gap: 1.5rem;
+  row-gap: 1.5rem;
 }
 
 .cardContainer {
@@ -14,8 +15,6 @@
   padding: 1.5rem;
   height: 15.0625rem;
   width: 20.625rem;
-  margin-right: 1.5rem;
-  margin-bottom: 1.5rem;
 }
 
 .titleSection {
