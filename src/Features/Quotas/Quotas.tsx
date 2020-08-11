@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "Hooks";
+import { Box } from "reflexbox";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
@@ -49,7 +50,9 @@ const QuotasContainer: React.FC = () => {
       <Sidenav teams={teamsData.records} />
       <Switch>
         <Route exact path={match.path}>
-          <WombatMessage className={styles.wombat} message="Select a team to view quotas" />
+          <Box maxWidth="24rem" margin="0 auto">
+            <WombatMessage className={styles.wombat} title="Select a team to view quotas" />
+          </Box>
         </Route>
         <Route path={AppPath.QuotasEdit}>
           <TeamQuotasOverview teams={teamsData.records} />
