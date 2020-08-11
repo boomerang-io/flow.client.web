@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 import { useMutation, queryCache } from "react-query";
 import {
@@ -45,9 +44,11 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   const cancelRequestRef = React.useRef<{} | null>();
 
   const [patchQuotaMutator, { isLoading, error }] = useMutation(
-    (args) => {
+    (args: { body: {}; id: string }) => {
       const { promise, cancel } = resolver.patchTeamQuotas(args);
-      cancelRequestRef.current = cancel;
+      if (cancelRequestRef?.current) {
+        cancelRequestRef.current = cancel;
+      }
       return promise;
     },
     {
@@ -104,6 +105,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                     step={stepValue}
                     min={minValue}
                     onChange={(evt: React.ChangeEvent<HTMLInputElement>) => {
+                      //@ts-ignore
                       setFieldValue("quotaFormValue", evt.imaginaryTarget.value);
                     }}
                     invalid={errors.quotaFormValue && !touched.quotaFormValue}

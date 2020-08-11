@@ -146,5 +146,6 @@ export const resolver = {
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),
   putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getManageTeam({ teamId }), body),
   putTeamQuotasDefault: ({ id }) => axios.put(serviceUrl.putTeamQuotasDefault({ id })),
-  patchTeamQuotas: ({ id, body }) => axios.patch(serviceUrl.getTeamQuotas({ id }), body),
+  patchTeamQuotas: ({ id, body }) =>
+    cancellableResolver({ url: serviceUrl.getTeamQuotas({ id }), body, method: HttpMethods.Patch }),
 };
