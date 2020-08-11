@@ -9,10 +9,12 @@ import {
   Error404,
   notify,
   ToastNotification,
+  TooltipHover,
   Loading,
   ComposedModal,
   InlineLoading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModalChildProps, ModalTriggerProps } from "Types";
 import { Edit16 } from "@carbon/icons-react";
 
 import Header from "../Header";
@@ -224,18 +226,20 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
               title: title,
               subtitle: modalSubtitle,
             }}
-            modalTrigger={({ openModal }: { openModal: () => void }) => (
-              <Button
-                hasIconOnly
-                renderIcon={Edit16}
-                iconDescription="Edit"
-                kind="ghost"
-                size="field"
-                onClick={openModal}
-              />
+            modalTrigger={({ openModal }: ModalTriggerProps) => (
+              <TooltipHover direction="top" content={"Edit"}>
+                <Button
+                  className={styles.editButton}
+                  iconDescription="Edit"
+                  kind="ghost"
+                  onClick={openModal}
+                  renderIcon={Edit16}
+                  size="field"
+                />
+              </TooltipHover>
             )}
           >
-            {({ closeModal }: { closeModal: () => void }) => (
+            {({ closeModal }: ComposedModalChildProps) => (
               <QuotaEditModalContent
                 closeModal={closeModal}
                 detailedData={detailedData}
