@@ -39,6 +39,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       manageTeamDetail: Model,
       manageTeam: Model,
       manageUser: Model,
+      quotas: Model,
     },
 
     routes() {
@@ -63,6 +64,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.get(serviceUrl.getTeams(), (schema) => {
         return schema.db.teams;
+      });
+
+      this.get(serviceUrl.getTeamQuotas({ id: ":id" }), (schema) => {
+        return schema.db.quotas[0];
       });
 
       this.get(serviceUrl.getManageTeams({ query: null }), (schema) => {
@@ -331,6 +336,35 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
           updatedRecords.push(user);
         }
         users.update({ records: updatedRecords });
+        return {};
+      });
+
+      /**
+       * Quotas
+       */
+
+      this.patch(serviceUrl.getTeamQuotas({ id: ":id" }), (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        const quotas = schema.quotas.first();
+
+        const key = Object.keys(body)[0];
+        const value = Object.values(body)[0];
+
+        quotas.update({ [key]: value });
+        return {};
+      });
+
+      this.put(serviceUrl.putTeamQuotasDefault({ id: ":id" }), (schema, request) => {
+        const quotas = schema.quotas.first();
+        const defaultConfig = {
+          maxWorkflowCount: 20,
+          maxWorkflowExecutionMonthly: 150,
+          maxWorkflowStorage: 10,
+          maxWorkflowExecutionTime: 30,
+          maxConcurrentWorkflows: 4,
+        };
+
+        quotas.update(defaultConfig);
         return {};
       });
 

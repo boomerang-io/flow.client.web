@@ -139,3 +139,29 @@
     stroke: var(--cds-text-01);
   }
 }
+
+.teamQuotaContainer {
+  display: flex;
+  align-items: baseline;
+}
+
+.quotaDescriptionContainer {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+
+  position: absolute;
+  bottom: 44px;
+  right: 0;
+}
+
+.warningIcon {
+  margin-left: 0.5rem;
+}
+
+.teamQuotaText {
+  color: #4d5358;
+  font-size: 12px;
+  letter-spacing: 0;
+  line-height: 15px;
+}

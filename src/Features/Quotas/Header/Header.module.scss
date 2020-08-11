@@ -1,0 +1,81 @@
+@import "Styles/mixins";
+
+.container {
+  align-items: center;
+  background: var(--cds-ui-01);
+  display: flex;
+  height: 4.6875rem;
+  justify-content: space-between;
+  position: initial;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  :global .bx--assistive-text {
+    left: -6.75rem !important;
+  }
+}
+.saveContainer {
+  height: 33rem;
+}
+.confirmModalText {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+.saveConfirmModalText {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+  width: 36rem;
+}
+.featureHeader {
+  align-items: center;
+  display: flex;
+  height: 7rem;
+  width: 100%;
+}
+
+.teamMembers {
+  color: #4d5358;
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+  margin-top: 1rem;
+}
+.teamName {
+  font-size: 1.5rem;
+  letter-spacing: 0;
+  line-height: 2rem;
+}
+
+.info {
+  align-items: center;
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+}
+.icon {
+  height: 1.5rem;
+  margin-right: 0.75rem;
+}
+.content {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+}
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 2rem;
+  margin: 0;
+}
+.subtitle {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.5rem;
+}
+.lastUpdate {
+  color: var(--cds-text-02);
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.75rem;
+}

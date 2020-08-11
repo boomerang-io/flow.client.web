@@ -2,7 +2,7 @@
 
 .disabledCreate {
   align-items: center;
-  border: 0.0625rem solid #373d42;
+  border: 0.0625rem solid #a2a9b0;
   box-sizing: border-box;
   @include border-radius();
   display: flex;
@@ -15,6 +15,13 @@
   position: relative;
   width: 19.375rem;
   z-index: 1;
+
+  svg {
+    fill: #a2a9b0;
+  }
+  p {
+    color: #a2a9b0;
+  }
 }
 
 .container {
