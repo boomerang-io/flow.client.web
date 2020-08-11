@@ -46,6 +46,7 @@ export const serviceUrl = {
   getTeams: () => `${BASE_SERVICE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_SERVICE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/properties`,
+  getTeamQuotas: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/quotas`,
   getUsers: () => `${BASE_SERVICE_URL}/users`,
   getUser: ({ userId }) => `${BASE_SERVICE_URL}/users/${userId}`,
   getUserTeams: ({ email }) => `${BASE_SERVICE_URL}/teams?userEmail=${email}`,
@@ -69,6 +70,7 @@ export const serviceUrl = {
   postImportWorkflow: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
   postValidateActivationCode: () => `${BASE_SERVICE_URL}/validatesetup`,
   putRestoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`,
+  putTeamQuotasDefault: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/quotas/default`,
   resourceManageUser: ({ userId }) => `${BASE_SERVICE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_SERVICE_URL}/settings`,
 };
@@ -143,4 +145,6 @@ export const resolver = {
   putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourceSettings(), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),
   putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getManageTeam({ teamId }), body),
+  putTeamQuotasDefault: ({ id }) => axios.put(serviceUrl.putTeamQuotasDefault({ id })),
+  patchTeamQuotas: ({ id, body }) => axios.patch(serviceUrl.getTeamQuotas({ id }), body),
 };

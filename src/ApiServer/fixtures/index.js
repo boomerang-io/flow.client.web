@@ -15,3 +15,4 @@ export { default as summaries } from "./summaries";
 export { default as revisions } from "./revisions";
 export { default as teams } from "./teams";
 export { default as teamProperties } from "./teamProperties";
+export { default as quotas } from "./quotas";
