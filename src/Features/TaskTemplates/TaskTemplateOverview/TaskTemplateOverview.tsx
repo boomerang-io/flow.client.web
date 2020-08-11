@@ -128,13 +128,13 @@ const Field: React.FC<FieldProps> = ({
         />
         <TooltipHover direction="bottom" tooltipText={"Delete field"}>
           <Button
-            onClick={() => deleteConfiguration(field)}
-            renderIcon={TrashCan16}
+            className={styles.delete}
+            disabled={isOldVersion || !isActive}
             iconDescription="delete-field"
             kind="ghost"
+            onClick={() => deleteConfiguration(field)}
+            renderIcon={TrashCan16}
             size="field"
-            disabled={isOldVersion || !isActive}
-            className={styles.delete}
           />
         </TooltipHover>
       </div>

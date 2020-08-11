@@ -84,3 +84,9 @@
   height: 24.625rem;
   width: 30rem;
 }
+
+.editButton {
+  :global .bx--btn__icon {
+    margin-left: 0 !important;
+  }
+}

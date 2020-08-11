@@ -98,7 +98,6 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                 <dt className={styles.detailedData}>{detailedData}</dt>
                 <div className={styles.inputContainer}>
                   <NumberInput
-                    // className={styles.numberInput}
                     id="team-update-name-id"
                     data-testid="text-input-team-name"
                     labelText={inputLabel}
