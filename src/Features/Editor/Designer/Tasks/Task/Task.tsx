@@ -1,12 +1,11 @@
-// @ts-nocheck
 import React from "react";
-import { Tile } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Tile, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { taskIcons } from "Utils/taskIcons";
-import { Bee16 } from "@carbon/icons-react";
+import { Bee16, Recommend16 } from "@carbon/icons-react";
 import { TaskModel } from "Types";
 import styles from "./task.module.scss";
 
-const Task: React.FC<TaskModel> = ({ name, model, icon }) => {
+const Task: React.FC<TaskModel> = ({ name, model, icon, isVerified }) => {
   const [isDragActive, setIsDragActive] = React.useState(false);
   const TaskIcon = taskIcons.find((currentIcon) => currentIcon.name === icon);
   return (
@@ -25,6 +24,21 @@ const Task: React.FC<TaskModel> = ({ name, model, icon }) => {
       >
         {TaskIcon?.Icon ? <TaskIcon.Icon /> : <Bee16 />}
         <p className={styles.taskName}> {name} </p>
+        {isVerified && (
+          <TooltipHover
+            direction="top"
+            tooltipText={
+              <div className={styles.tooltipContainer}>
+                <strong>Verified</strong>
+                <p style={{ marginTop: "0.5rem" }}>
+                  This task has been fully tested and verified right out of the box.
+                </p>
+              </div>
+            }
+          >
+            <Recommend16 fill="#0072C3" style={{ willChange: "auto" }} />
+          </TooltipHover>
+        )}
       </Tile>
     </li>
   );

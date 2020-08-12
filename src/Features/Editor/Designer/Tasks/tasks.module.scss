@@ -189,6 +189,17 @@
   }
 }
 
+.topFilter {
+  border-bottom: 0.0625rem solid var(--cds-active-ui);
+  max-height: 24rem;
+  overflow-y: auto;
+  padding: 0.5rem;
+  width: 100%;
+  :global .bx--checkbox-wrapper {
+    padding-left: 0.5rem;
+  }
+}
+
 :global(.bx--overflow-menu-options) {
   :global(.bx--bmrg-checkbox-list) {
     padding: 0.5rem;

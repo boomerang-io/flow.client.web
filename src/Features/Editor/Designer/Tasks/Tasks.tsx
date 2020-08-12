@@ -1,15 +1,20 @@
 // @ts-nocheck
 import React, { Component } from "react";
 import cx from "classnames";
-import { AccordionItem, OverflowMenu, Search } from "@boomerang-io/carbon-addons-boomerang-react";
-import { CheckboxList } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  AccordionItem,
+  Checkbox,
+  CheckboxList,
+  OverflowMenu,
+  Search,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import Accordion from "carbon-components-react/lib/components/Accordion";
 import Task from "./Task";
 import { taskIcons } from "Utils/taskIcons";
 import matchSorter from "match-sorter";
 import uniqBy from "lodash/uniqBy";
 import { sortByProp } from "@boomerang-io/utils";
-import { ChevronLeft32, SettingsAdjust20 } from "@carbon/icons-react";
+import { ChevronLeft32, SettingsAdjust20, Recommend16 } from "@carbon/icons-react";
 import { TaskModel } from "Types";
 import styles from "./tasks.module.scss";
 
@@ -27,6 +32,7 @@ export default class Tasks extends Component<TaskProps> {
     searchQuery: "",
     tasksToDisplay: this.props.tasks,
     taskTypes: [],
+    showVerified: false,
   };
 
   componentDidMount() {
@@ -93,6 +99,22 @@ export default class Tasks extends Component<TaskProps> {
     });
   };
 
+  handleCheckboxChange = () => {
+    const newTaskTemplates = this.state.showVerified
+      ? this.props.tasks.filter((task) => task.isVerified === true)
+      : this.props.tasks;
+    const tasksFilteredByType =
+      this.state.activeFilters.length > 0
+        ? newTaskTemplates.filter((task) => this.state.activeFilters.includes(task.icon))
+        : newTaskTemplates;
+
+    const searchQuery = this.state.searchQuery;
+
+    this.setState({
+      tasksToDisplay: this.handleSearchFilter(searchQuery, tasksFilteredByType),
+    });
+  };
+
   handleSearchFilter = (searchQuery: string, tasksToDisplay) =>
     matchSorter(tasksToDisplay, searchQuery, { keys: ["category", "name"] });
 
@@ -146,6 +168,7 @@ export default class Tasks extends Component<TaskProps> {
                   icon={task.icon}
                   model={{ type: task.id, name: task.name, taskData: task }}
                   name={task.name}
+                  isVerified={task.isVerified}
                 />
               ))}
             </ul>
@@ -183,7 +206,8 @@ export default class Tasks extends Component<TaskProps> {
                 iconDescription="Filter"
                 renderIcon={SettingsAdjust20}
                 style={{
-                  backgroundColor: this.state.activeFilters.length > 0 ? "#3DDBD9" : "initial",
+                  backgroundColor:
+                    this.state.activeFilters.length > 0 || this.state.showVerified ? "#3DDBD9" : "initial",
                   borderRadius: "0.25rem",
                 }}
                 flipped={true}
@@ -197,6 +221,23 @@ export default class Tasks extends Component<TaskProps> {
                   >
                     Reset filters
                   </button>
+                </section>
+                <section className={styles.topFilter}>
+                  <Checkbox
+                    id="verified-tasks"
+                    labelText={
+                      <div className={styles.checkboxOption}>
+                        <Recommend16 fill="#0072C3" style={{ willChange: "auto" }} /> <p>Verified Tasks</p>
+                      </div>
+                    }
+                    checked={this.state.showVerified}
+                    onChange={() => {
+                      this.setState(
+                        (prevState) => ({ showVerified: !prevState.showVerified }),
+                        this.handleCheckboxChange
+                      );
+                    }}
+                  />
                 </section>
                 <section className={styles.filter}>
                   <p className={styles.sectionTitle}>Filter by Task Type</p>

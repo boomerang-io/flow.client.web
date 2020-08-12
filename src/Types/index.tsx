@@ -180,6 +180,7 @@ export interface TaskModel {
   name: string;
   revisions: any[];
   status: string;
+  isVerified: boolean;
 }
 
 export interface FlowTeam {
@@ -199,11 +200,11 @@ export interface FlowTeamQuotas {
   currentWorkflowCount: number;
   maxWorkflowStorage: number;
   maxConcurrentWorkflows: number;
-  maxWorkflowExecutionTime: string;
-  monthlyResetDate: string;
+  // maxWorkflowExecutionTime: string;
+  resetDate: string;
 
-  currentConcurrentWorkflows: number;
-  currentAverageExecutionTime: number;
+  // currentConcurrentWorkflows: number;
+  // currentAverageExecutionTime: number;
   currentWorkflowsPersistentStorage: number;
 }
 
