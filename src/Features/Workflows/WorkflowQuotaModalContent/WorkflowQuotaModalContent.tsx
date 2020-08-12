@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import { FlowTeamQuotas } from "Types";
 import styles from "./WorkflowQuotaModalContent.module.scss";
 
@@ -39,7 +40,7 @@ export default function WorkflowQuotaModalContent({
           <p
             className={styles.detailedText}
           >{`Current usage: ${quotas.currentWorkflowExecutionMonthly} of ${quotas.maxWorkflowExecutionMonthly}`}</p>
-          <p className={styles.detailedText}>{`Resets on ${quotas.monthlyResetDate}`}</p>
+          <p className={styles.detailedText}>{`Resets on ${moment(quotas.resetDate).format("MMMM DD, YYYY")}`}</p>
         </div>
       </section>
       <div className={styles.divider} />
@@ -50,13 +51,13 @@ export default function WorkflowQuotaModalContent({
           <dd className={styles.detailedData}>Persistent storage size limit per Workflow</dd>
           <h2 className={styles.sectionHeader}>{`${quotas.maxWorkflowStorage} GB`}</h2>
         </div>
-        <div className={styles.detailedContainer}>
+        {/*<div className={styles.detailedContainer}>
           <dt className={styles.detailedTitle}>Max Workflow execution time </dt>
           <dd className={styles.detailedData}>
             Maximum amount of time that a single Workflow can take for one execution
           </dd>
           <h2 className={styles.sectionHeader}>{`${quotas.maxWorkflowExecutionTime} minutes`}</h2>
-        </div>
+  </div>*/}
         <div className={styles.detailedContainer}>
           <dt className={styles.detailedTitle}>Concurrent Workflows </dt>
           <dd className={styles.detailedData}>Max number of Workflows able to run at the same time</dd>

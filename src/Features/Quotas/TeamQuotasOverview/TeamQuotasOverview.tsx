@@ -76,7 +76,8 @@ export function TeamQuotasOverview({ teams }) {
           subtitle="Number of Workflows that can be created for this team."
           title="Number of Workflows"
           modalSubtitle="Set the maximum number of Workflows that can be created for this team."
-          minValue={teamQuotasData.currentWorkflowCount}
+          //   minValue={teamQuotasData.currentWorkflowCount}
+          minValue={1}
           detailedTitle="Current Usage"
           detailedData={`${teamQuotasData.currentWorkflowCount}/${teamQuotasData.maxWorkflowCount}`}
           inputLabel="Maximum Workflows"
@@ -97,7 +98,8 @@ export function TeamQuotasOverview({ teams }) {
           subtitle="Number of executions per month across all Workflows for this Team"
           title="Number of Executions"
           modalSubtitle="Set the maximum total number of executions per month - this is the total amount across all Workflows for this Team."
-          minValue={teamQuotasData.currentWorkflowExecutionMonthly}
+          //   minValue={teamQuotasData.currentWorkflowExecutionMonthly}
+          minValue={1}
           detailedTitle="Current Usage"
           detailedData={`${teamQuotasData.currentWorkflowExecutionMonthly}/${teamQuotasData.maxWorkflowExecutionMonthly}`}
           inputLabel="Maximum executions"

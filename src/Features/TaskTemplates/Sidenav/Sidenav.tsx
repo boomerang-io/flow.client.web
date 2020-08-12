@@ -11,10 +11,11 @@ import {
   OverflowMenu,
   Checkbox,
   CheckboxList,
+  TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplate from "./AddTaskTemplate";
 import { appLink } from "Config/appConfig";
-import { Bee16, ViewOff16, SettingsAdjust20 } from "@carbon/icons-react";
+import { Bee16, ViewOff16, Recommend16, SettingsAdjust20 } from "@carbon/icons-react";
 import { taskIcons } from "Utils/taskIcons";
 import { TaskTemplateStatus } from "Constants";
 import { AppPath } from "Config/appConfig";
@@ -25,10 +26,10 @@ const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list
 
 interface SideInfoProps {
   addTemplateInState: (newTemplate: TaskModel) => void;
-  taskTemplates: TaskModel[],
-};
+  taskTemplates: TaskModel[];
+}
 
- const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates  }) => {
+const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
   const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskModel>>(
@@ -36,6 +37,8 @@ interface SideInfoProps {
   );
   const [openCategories, setOpenCategories] = React.useState(false);
   const [showArchived, setShowArchived] = React.useState(false);
+  const [showVerified, setShowVerified] = React.useState(false);
+
   const taskFilters = taskIcons.map((TaskIcon) => ({
     id: TaskIcon.name,
     labelText: (
@@ -58,15 +61,16 @@ interface SideInfoProps {
     .sort();
 
   React.useEffect(() => {
+    const tempTaskTemplates = showVerified ? taskTemplates.filter((task) => task.isVerified === true) : taskTemplates;
     const newTaskTemplates = showArchived
-      ? taskTemplates
-      : taskTemplates.filter((task) => task.status === TaskTemplateStatus.Active);
+      ? tempTaskTemplates
+      : tempTaskTemplates.filter((task) => task.status === TaskTemplateStatus.Active);
     const tasksFilteredByType =
       activeFilters.length > 0
         ? newTaskTemplates.filter((task) => activeFilters.includes(task.icon))
         : newTaskTemplates;
     setTasksToDisplay(matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "name"] }));
-  }, [taskTemplates, showArchived, activeFilters, searchQuery]);
+  }, [taskTemplates, showArchived, showVerified, activeFilters, searchQuery]);
 
   const tasksByCategory = categories.map((category) => ({
     name: category,
@@ -121,7 +125,7 @@ interface SideInfoProps {
           <OverflowMenu
             renderIcon={SettingsAdjust20}
             style={{
-              backgroundColor: showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",
+              backgroundColor: showVerified || showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",
               borderRadius: "0.25rem",
             }}
             flipped={true}
@@ -139,6 +143,16 @@ interface SideInfoProps {
                 labelText="Show Archived Tasks"
                 checked={showArchived}
                 onChange={() => setShowArchived(!showArchived)}
+              />
+              <Checkbox
+                id="verified-tasks"
+                labelText={
+                  <div className={styles.checkboxOption}>
+                    <Recommend16 fill="#0072C3" style={{ willChange: "auto" }} /> <p>Verified Tasks</p>
+                  </div>
+                }
+                checked={showVerified}
+                onChange={() => setShowVerified(!showVerified)}
               />
             </section>
             <section className={styles.filter}>
@@ -176,16 +190,16 @@ interface SideInfoProps {
       </Accordion>
     </div>
   );
-}
+};
 
 interface TaskProps {
   isActive: boolean;
-  task: TaskModel
+  task: TaskModel;
 }
 const Task: React.FC<TaskProps> = (props) => {
   const { task } = props;
   const TaskIcon = taskIcons.find((icon) => icon.name === task.icon);
-  const isActive = task.status === TaskTemplateStatus.Active;
+  const taskIsActive = task.status === TaskTemplateStatus.Active;
 
   return (
     <Link
@@ -193,11 +207,36 @@ const Task: React.FC<TaskProps> = (props) => {
       to={appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })}
       id={task.id}
     >
-      {TaskIcon ? <TaskIcon.Icon /> : <Bee16 />}
-      <p className={cx(styles.taskName, { [styles.active]: props.isActive })}>{task.name}</p>
-      {!isActive && <ViewOff16 style={{ marginLeft: "auto" }} />}
+      <div className={styles.taskInfoContainer}>
+        {TaskIcon ? <TaskIcon.Icon /> : <Bee16 />}
+        <p className={cx(styles.taskName, { [styles.active]: props.isActive })}>{task.name}</p>
+      </div>
+      {(task.isVerified || !taskIsActive) && (
+        <div className={styles.iconContainer}>
+          {!taskIsActive && (
+            <TooltipHover direction="top" tooltipText="Archived Task">
+              <ViewOff16 fill="#4d5358" />
+            </TooltipHover>
+          )}
+          {task.isVerified && (
+            <TooltipHover
+              direction="top"
+              tooltipText={
+                <div className={styles.tooltipContainer}>
+                  <strong>Verified</strong>
+                  <p style={{ marginTop: "0.5rem" }}>
+                    This task has been fully tested and verified right out of the box.
+                  </p>
+                </div>
+              }
+            >
+              <Recommend16 fill="#0072C3" />
+            </TooltipHover>
+          )}
+        </div>
+      )}
     </Link>
   );
-}
+};
 
 export default SideInfo;
