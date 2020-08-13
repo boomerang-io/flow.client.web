@@ -76,7 +76,7 @@ const CreateEditModeModalContent: React.FC<CreateEditModeModalContentProps> = ({
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
             {isLoading && <Loading />}
-            <ModalBody hasScrollingContent aria-label="inputs" className={styles.formBody}>
+            <ModalBody aria-label="inputs" className={styles.formBody}>
               <div className={styles.teamAndName}>
                 <ComboBox
                   id="selectedTeam"
