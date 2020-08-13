@@ -10,7 +10,7 @@ interface WorkflowsHeaderProps {
   filteredTeams: FlowTeam[];
   handleSearchFilter: HandleSearchFilter;
   searchQuery: string | string[] | null;
-  teamsQuery: string | string[] | null;
+  teamsQuery: string | string[] | undefined | null;
   teams: FlowTeam[];
   workflowsCount: number;
 }
@@ -48,7 +48,7 @@ interface SearchFilterBarProps {
   filteredTeams: FlowTeam[];
   handleSearchFilter: HandleSearchFilter;
   searchQuery: string | string[] | null;
-  teamsQuery: string | string[] | null;
+  teamsQuery: string | string[] | undefined | null;
   teams: FlowTeam[];
 }
 
