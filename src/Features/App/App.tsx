@@ -106,7 +106,7 @@ export default function App() {
       <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
       <ErrorBoundary>
         <Main
-          isError={isError}
+          isStandaloneMode={PRODUCT_STANDALONE}
           isTutorialActive={isTutorialActive}
           setIsTutorialActive={setIsTutorialActive}
           setShouldShowBrowserWarning={setShouldShowBrowserWarning}
@@ -120,7 +120,7 @@ export default function App() {
 }
 
 interface MainProps {
-  isError: boolean;
+  isStandaloneMode: boolean;
   isTutorialActive: boolean;
   setIsTutorialActive: (isTutorialActive: boolean) => void;
   setShouldShowBrowserWarning: (shouldShowBrowserWarning: boolean) => void;
@@ -130,6 +130,7 @@ interface MainProps {
 }
 
 function Main({
+  isStandaloneMode,
   isTutorialActive,
   setIsTutorialActive,
   setShouldShowBrowserWarning,
@@ -161,16 +162,17 @@ function Main({
         teams: teamsData,
       }}
     >
-      <AppFeatures platformRole={platformRole} />
+      <AppFeatures isStandaloneMode={isStandaloneMode} platformRole={platformRole} />
     </AppContextProvider>
   );
 }
 
 interface AppFeaturesProps {
+  isStandaloneMode: boolean;
   platformRole: string;
 }
 
-const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
+const AppFeatures = React.memo(function AppFeatures({ isStandaloneMode, platformRole }: AppFeaturesProps) {
   return (
     <main id="content" className={styles.container}>
       <Suspense fallback={<Loading />}>
@@ -205,18 +207,22 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             path={AppPath.Settings}
             userRole={platformRole}
           />
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<Teams />}
-            path={AppPath.TeamList}
-            userRole={platformRole}
-          />
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<Users />}
-            path={AppPath.UserList}
-            userRole={platformRole}
-          />
+          {isStandaloneMode && (
+            <ProtectedRoute
+              allowedUserRoles={allowedUserRoles}
+              component={<Teams />}
+              path={AppPath.TeamList}
+              userRole={platformRole}
+            />
+          )}
+          {isStandaloneMode && (
+            <ProtectedRoute
+              allowedUserRoles={allowedUserRoles}
+              component={<Users />}
+              path={AppPath.UserList}
+              userRole={platformRole}
+            />
+          )}
           <Route path={AppPath.Execution}>
             <Execution />
           </Route>
