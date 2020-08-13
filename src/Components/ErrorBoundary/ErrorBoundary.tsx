@@ -1,20 +1,18 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import { Flex } from "reflexbox";
 import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from "react-error-boundary";
-import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
+// import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
-import { appLink } from "Config/appConfig";
-import { ArrowRight16, ArrowLeft16 } from "@carbon/icons-react";
-
-
+// import { appLink } from "Config/appConfig";
+// import { ArrowRight16, ArrowLeft16 } from "@carbon/icons-react";
 
 const ErrorMessage: React.FC<FallbackProps> = (props) => {
-  const history = useHistory();
+  //const history = useHistory();
   return (
     <Flex mt="10rem" alignItems="center" flexDirection="column" justifyContent="center">
       <ErrorDragon />
-      <Flex mt="1rem">
+      {/* <Flex mt="1rem">
         <Button
           style={{ marginRight: "1rem" }}
           iconDescription="Go Back"
@@ -36,13 +34,13 @@ const ErrorMessage: React.FC<FallbackProps> = (props) => {
         >
           Go Home
         </Button>
-      </Flex>
+      </Flex> */}
     </Flex>
   );
 };
 
 interface ErrorBoundaryProps {
-  FallbackComponent?: React.FunctionComponent<FallbackProps>
+  FallbackComponent?: React.FunctionComponent<FallbackProps>;
 }
 
 const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children, FallbackComponent = ErrorMessage, ...rest }) => {
