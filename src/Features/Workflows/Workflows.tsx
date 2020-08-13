@@ -181,7 +181,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
             modalHeaderProps={{
               title: `Team quotas - ${team.name}`,
               subtitle:
-                "Quotas are set by the administrator, if you have a concern about your allotted amounts, contact an admin.",
+                "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button iconDescription="View quota details" kind="ghost" size="field" onClick={openModal}>
