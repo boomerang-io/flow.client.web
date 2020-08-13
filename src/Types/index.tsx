@@ -180,7 +180,7 @@ export interface TaskModel {
   name: string;
   revisions: any[];
   status: string;
-  isVerified: boolean;
+  verified: boolean;
 }
 
 export interface FlowTeam {

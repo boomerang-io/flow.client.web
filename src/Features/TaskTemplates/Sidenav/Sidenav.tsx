@@ -61,7 +61,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
     .sort();
 
   React.useEffect(() => {
-    const tempTaskTemplates = showVerified ? taskTemplates.filter((task) => task.isVerified === true) : taskTemplates;
+    const tempTaskTemplates = showVerified ? taskTemplates.filter((task) => task.verified === true) : taskTemplates;
     const newTaskTemplates = showArchived
       ? tempTaskTemplates
       : tempTaskTemplates.filter((task) => task.status === TaskTemplateStatus.Active);
@@ -211,14 +211,14 @@ const Task: React.FC<TaskProps> = (props) => {
         {TaskIcon ? <TaskIcon.Icon /> : <Bee16 />}
         <p className={cx(styles.taskName, { [styles.active]: props.isActive })}>{task.name}</p>
       </div>
-      {(task.isVerified || !taskIsActive) && (
+      {(task.verified || !taskIsActive) && (
         <div className={styles.iconContainer}>
           {!taskIsActive && (
             <TooltipHover direction="top" tooltipText="Archived Task">
               <ViewOff16 fill="#4d5358" />
             </TooltipHover>
           )}
-          {task.isVerified && (
+          {task.verified && (
             <TooltipHover
               direction="top"
               tooltipText={

@@ -30,7 +30,7 @@ export default [
     icon: "Search",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5c39015b352b1b51412e9c85",
@@ -70,7 +70,7 @@ export default [
     icon: "Search",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5d3145ee988e7b6b6f24d870",
@@ -112,7 +112,7 @@ export default [
     icon: "Automated task",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5e1bcd210351fdc9e42fe4e0",
@@ -145,7 +145,7 @@ export default [
     icon: "Message",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5d1ed36a988e7b6b6f7b470b",
@@ -195,7 +195,7 @@ export default [
     icon: "Edit",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: false,
+    verified: false,
   },
   {
     id: "5bd98b105a5df954ad599bc2",
@@ -236,7 +236,7 @@ export default [
     icon: "Message",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5b92f794844d0700016ea217",
@@ -293,7 +293,7 @@ export default [
     icon: "Message",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: false,
+    verified: false,
   },
   {
     id: "5e1bf6ca0351fdc9e4319c3b",
@@ -374,7 +374,7 @@ export default [
     icon: "Upload",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5c3fb7e2352b1b5141692f75",
@@ -414,7 +414,7 @@ export default [
     icon: "Search",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5c6939c620cfafa2eaeef2ad",
@@ -486,7 +486,7 @@ export default [
     icon: "Automated task",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5c3d0401352b1b514150545b",
@@ -626,7 +626,7 @@ export default [
     icon: "API/HTTP call",
     currentVersion: 2,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5c37af285616d5f3544568fd",
@@ -649,7 +649,7 @@ export default [
     icon: "Switch",
     currentVersion: 1,
     nodeType: "decision",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5bd9b4115a5df954ad5ad8db",
@@ -706,7 +706,7 @@ export default [
     icon: "Download",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5eab5488aecb0800014e0b87",
@@ -768,7 +768,7 @@ export default [
     icon: "Filter",
     currentVersion: 2,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5d1ed216988e7b6b6f7b3c1c",
@@ -810,7 +810,7 @@ export default [
     icon: "Search",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5bd9d0825a5df954ad5bb5c3",
@@ -860,7 +860,7 @@ export default [
     icon: "Upload",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5c3907a1352b1b51412ed079",
@@ -908,7 +908,7 @@ export default [
     icon: "Terminal",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5d9e703dc90b5240508869e2",
@@ -949,7 +949,7 @@ export default [
     icon: "Code",
     currentVersion: 1,
     nodeType: "customTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5c3fbc92352b1b51416952d1",
@@ -982,7 +982,7 @@ export default [
     icon: "Search",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5bd97bea5a5df954ad592c06",
@@ -1014,7 +1014,7 @@ export default [
     icon: "Power on/off",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5eab59eaaecb0800014e0ccb",
@@ -1199,7 +1199,7 @@ export default [
     icon: "Automated task",
     currentVersion: 3,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5eab5742aecb0800014e0c87",
@@ -1295,7 +1295,7 @@ export default [
     icon: "Automated task",
     currentVersion: 2,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5c69365b20cfafa2eaeed89c",
@@ -1367,7 +1367,7 @@ export default [
     icon: "API/HTTP call",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5d25414c988e7b6b6fb3d5f7",
@@ -1409,7 +1409,7 @@ export default [
     icon: "API/HTTP call",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5e2866c8612203650e389491",
@@ -1490,7 +1490,7 @@ export default [
     icon: "Message",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5bd9d03a5a5df954ad5bb3b5",
@@ -1555,7 +1555,7 @@ export default [
     icon: "Add",
     currentVersion: 2,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
   {
     id: "5d53016bd83be3cc84bae976",
@@ -1608,6 +1608,6 @@ export default [
     icon: "Message",
     currentVersion: 1,
     nodeType: "templateTask",
-    isVerified: true,
+    verified: true,
   },
 ];
