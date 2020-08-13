@@ -156,7 +156,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
           </div>
         </section>
       </Link>
-      <div className={styles.quotaDescriptionContainer}>
+      {/*<div className={styles.quotaDescriptionContainer}>
         <h3
           className={styles.teamQuotaText}
         >{`Run quota - ${quotas.currentWorkflowExecutionMonthly} of ${quotas.maxWorkflowExecutionMonthly} this month`}</h3>
@@ -168,7 +168,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
             <WarningAlt16 className={styles.warningIcon} />
           </TooltipHover>
         )}
-      </div>
+        </div>*/}
       <section className={styles.launch}>
         {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
           <ComposedModal
