@@ -11,8 +11,6 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
       <div
         aria-label="inputs"
         class="bx--modal-content"
-        role="region"
-        tabindex="0"
       >
         <div
           class="bx--bmrg-text-input"
@@ -191,9 +189,6 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
           </div>
         </div>
       </div>
-      <div
-        class="bx--modal-content--overflow-indicator"
-      />
       <div
         class="bx--modal-footer"
       >

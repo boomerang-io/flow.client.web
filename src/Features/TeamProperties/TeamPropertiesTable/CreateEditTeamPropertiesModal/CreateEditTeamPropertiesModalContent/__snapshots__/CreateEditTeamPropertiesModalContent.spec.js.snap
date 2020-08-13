@@ -11,8 +11,6 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
       <div
         aria-label="inputs"
         class="bx--modal-content formBody"
-        role="region"
-        tabindex="0"
       >
         <div
           class="bx--bmrg-text-input"
@@ -193,9 +191,6 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
           </div>
         </div>
       </div>
-      <div
-        class="bx--modal-content--overflow-indicator"
-      />
       <div
         class="bx--modal-footer"
       >
