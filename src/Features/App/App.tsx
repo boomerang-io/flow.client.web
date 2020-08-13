@@ -97,7 +97,7 @@ export default function App() {
   }
 
   return (
-    <FlagsProvider features={{ standalone: true || PRODUCT_STANDALONE }}>
+    <FlagsProvider features={{ standalone: PRODUCT_STANDALONE }}>
       <Navbar
         handleOnTutorialClick={() => setIsTutorialActive(true)}
         navigationData={navigationQuery.data}
