@@ -434,15 +434,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                   </div>
                 </section>
               </a>
-              <div
-                class="quotaDescriptionContainer"
-              >
-                <h3
-                  class="teamQuotaText"
-                >
-                  Run quota - 99 of 100 this month
-                </h3>
-              </div>
               <section
                 class="launch"
               >
@@ -646,15 +637,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                   </div>
                 </section>
               </a>
-              <div
-                class="quotaDescriptionContainer"
-              >
-                <h3
-                  class="teamQuotaText"
-                >
-                  Run quota - 99 of 100 this month
-                </h3>
-              </div>
               <section
                 class="launch"
               >

@@ -151,7 +151,7 @@ export default [
         templateUpgradesAvailable: false,
       },
     ],
-    quotas: {
+    workflowQuotas: {
       maxWorkflowCount: 10,
       maxWorkflowExecutionMonthly: 100,
       maxWorkflowStorage: 5,
@@ -160,7 +160,7 @@ export default [
       currentWorkflowCount: 10,
       currentConcurrentWorkflows: 100,
       currentWorkflowExecutionMonthly: 99,
-      monthlyResetDate: "August 1, 2020",
+      monthlymonthlyResetDate: "August 1, 2020",
     },
   },
   {
@@ -315,7 +315,7 @@ export default [
         templateUpgradesAvailable: false,
       },
     ],
-    quotas: {
+    workflowQuotas: {
       maxWorkflowCount: 10,
       maxWorkflowExecutionMonthly: 100,
       maxWorkflowStorage: 5,
@@ -324,7 +324,7 @@ export default [
       currentWorkflowCount: 10,
       currentConcurrentWorkflows: 100,
       currentWorkflowExecutionMonthly: 99,
-      monthlyResetDate: "August 1, 2020",
+      monthlymonthlyResetDate: "August 1, 2020",
     },
   },
 ];

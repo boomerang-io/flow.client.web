@@ -6,7 +6,7 @@ import WorkflowCard from "./index";
 
 const props = {
   teamId: teams[0].id,
-  quotas: teams[0].quotas,
+  quotas: teams[0].workflowQuotas,
   workflow: teams[0].workflows,
 };
 
