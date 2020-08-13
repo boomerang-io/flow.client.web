@@ -40,7 +40,9 @@ export default function WorkflowQuotaModalContent({
           <p
             className={styles.detailedText}
           >{`Current usage: ${quotas.currentWorkflowExecutionMonthly} of ${quotas.maxWorkflowExecutionMonthly}`}</p>
-          <p className={styles.detailedText}>{`Resets on ${moment(quotas.resetDate).format("MMMM DD, YYYY")}`}</p>
+          <p className={styles.detailedText}>{`Resets on ${moment(quotas.monthlyResetDate).format(
+            "MMMM DD, YYYY"
+          )}`}</p>
         </div>
       </section>
       <div className={styles.divider} />

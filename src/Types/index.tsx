@@ -188,7 +188,7 @@ export interface FlowTeam {
   id: string;
   isActive: boolean;
   name: string;
-  quotas: FlowTeamQuotas;
+  workflowQuotas: FlowTeamQuotas;
   users: FlowUser[];
   workflows: WorkflowSummary[];
 }
@@ -201,7 +201,7 @@ export interface FlowTeamQuotas {
   maxWorkflowStorage: number;
   maxConcurrentWorkflows: number;
   // maxWorkflowExecutionTime: string;
-  resetDate: string;
+  monthlyResetDate: string;
 
   // currentConcurrentWorkflows: number;
   // currentAverageExecutionTime: number;

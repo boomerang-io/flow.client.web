@@ -151,7 +151,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
   }
 
   const hasTeamWorkflows = team.workflows?.length > 0;
-  const hasReachedWorkflowLimit = team.quotas.maxWorkflowCount <= team.quotas.currentWorkflowCount;
+  const hasReachedWorkflowLimit = team.workflowQuotas.maxWorkflowCount <= team.workflowQuotas.currentWorkflowCount;
 
   return (
     <section className={styles.sectionContainer}>
@@ -161,7 +161,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
           <div className={styles.quotaDescriptionContainer}>
             <h3
               className={styles.teamQuotaText}
-            >{`Workflow quota - ${team.quotas.currentWorkflowCount} of ${team.quotas.maxWorkflowCount} used`}</h3>
+            >{`Workflow quota - ${team.workflowQuotas.currentWorkflowCount} of ${team.workflowQuotas.maxWorkflowCount} used`}</h3>
             {hasReachedWorkflowLimit && (
               <TooltipHover
                 direction="top"
@@ -190,7 +190,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
             )}
           >
             {({ closeModal }: ComposedModalChildProps) => (
-              <WorkflowQuotaModalContent closeModal={closeModal} quotas={team?.quotas} />
+              <WorkflowQuotaModalContent closeModal={closeModal} quotas={team?.workflowQuotas} />
             )}
           </ComposedModal>
         </div>
@@ -203,7 +203,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
       </hgroup>
       <div className={styles.workflows}>
         {workflows.map((workflow) => (
-          <WorkflowCard key={workflow.id} teamId={team.id} workflow={workflow} quotas={team.quotas} />
+          <WorkflowCard key={workflow.id} teamId={team.id} workflow={workflow} quotas={team.workflowQuotas} />
         ))}
         <CreateWorkflow team={team} teams={teams} hasReachedWorkflowLimit={hasReachedWorkflowLimit} />
       </div>
