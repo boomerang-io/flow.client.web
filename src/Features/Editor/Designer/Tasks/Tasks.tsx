@@ -101,7 +101,7 @@ export default class Tasks extends Component<TaskProps> {
 
   handleCheckboxChange = () => {
     const newTaskTemplates = this.state.showVerified
-      ? this.props.tasks.filter((task) => task.isVerified === true)
+      ? this.props.tasks.filter((task) => task.verified === true)
       : this.props.tasks;
     const tasksFilteredByType =
       this.state.activeFilters.length > 0
@@ -168,7 +168,7 @@ export default class Tasks extends Component<TaskProps> {
                   icon={task.icon}
                   model={{ type: task.id, name: task.name, taskData: task }}
                   name={task.name}
-                  isVerified={task.isVerified}
+                  verified={task.verified}
                 />
               ))}
             </ul>

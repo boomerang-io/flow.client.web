@@ -5,7 +5,7 @@ import { Bee16, Recommend16 } from "@carbon/icons-react";
 import { TaskModel } from "Types";
 import styles from "./task.module.scss";
 
-const Task: React.FC<TaskModel> = ({ name, model, icon, isVerified }) => {
+const Task: React.FC<TaskModel> = ({ name, model, icon, verified }) => {
   const [isDragActive, setIsDragActive] = React.useState(false);
   const TaskIcon = taskIcons.find((currentIcon) => currentIcon.name === icon);
   return (
@@ -24,7 +24,7 @@ const Task: React.FC<TaskModel> = ({ name, model, icon, isVerified }) => {
       >
         {TaskIcon?.Icon ? <TaskIcon.Icon /> : <Bee16 />}
         <p className={styles.taskName}> {name} </p>
-        {isVerified && (
+        {verified && (
           <TooltipHover
             direction="top"
             tooltipText={
