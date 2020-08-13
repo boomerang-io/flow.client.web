@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { Component } from "react";
 import {
   Button,
@@ -38,7 +39,7 @@ class VersionCommentForm extends Component<VersionCommentFormProps> {
   };
 
   handleOnSave = async () => {
-    this.props.createRevision(this.state.versionComment, this.props.closeModal);
+    this.props.createRevision({ reason: this.state.versionComment, callback: this.props.closeModal });
   };
 
   render() {
