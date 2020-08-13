@@ -151,6 +151,8 @@
   color: var(--cds-text-02);
   font-size: 0.875rem;
   margin-left: 0.5rem;
+  max-width: 16rem;
+  @include text-overflow-ellipsis();
   &.active {
     color: var(--cds-text-01);
   }
@@ -175,6 +177,7 @@
 }
 
 .taskInfoContainer {
+  align-items: center;
   display: flex;
   flex-direction: row;
   svg {
