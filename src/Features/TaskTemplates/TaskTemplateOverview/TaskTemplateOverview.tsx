@@ -23,7 +23,7 @@ import TemplateConfigModal from "./TemplateConfigModal";
 import Header from "../Header";
 import { TaskTemplateStatus } from "Constants";
 import { TemplateRequestType, FieldTypes } from "../constants";
-import { Draggable16, TrashCan16, Archive16, Bee16 } from "@carbon/icons-react";
+import { Draggable16, TrashCan16, Archive16, Bee16, Recommend16, Identification16 } from "@carbon/icons-react";
 import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
@@ -467,6 +467,43 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                     <DetailDataElements value={values.arguments} label="Arguments" />
                     <DetailDataElements value={values.image} label="Image" />
                     <DetailDataElements value={values.command} label="Command" />
+                    <section className={styles.infoSection}>
+                      <dt className={styles.label}>Contribution level</dt>
+                      <div className={styles.basicIcon}>
+                        <p className={styles.value}>
+                          {selectedTaskTemplate.verified ? "Verified task" : "Community contribution"}
+                        </p>
+                        {selectedTaskTemplate.verified ? (
+                          <TooltipHover
+                            direction="top"
+                            tooltipText={
+                              <div className={styles.tooltipContainer}>
+                                <strong>Verified</strong>
+                                <p style={{ marginTop: "0.5rem" }}>
+                                  A task that is fully tested and verified right out of the box.
+                                </p>
+                              </div>
+                            }
+                          >
+                            <Recommend16 fill="#0072C3" style={{ marginLeft: "0.5rem" }} />
+                          </TooltipHover>
+                        ) : (
+                          <TooltipHover
+                            direction="top"
+                            tooltipText={
+                              <div className={styles.tooltipContainer}>
+                                <strong>Community contribution</strong>
+                                <p style={{ marginTop: "0.5rem" }}>
+                                  Added by a member of the Platform, not validated by the Platform team.
+                                </p>
+                              </div>
+                            }
+                          >
+                            <Identification16 fill="#0072C3" style={{ marginLeft: "0.5rem" }} />
+                          </TooltipHover>
+                        )}
+                      </div>
+                    </section>
                   </dl>
                 </Tile>
                 <Tile className={styles.editFields}>

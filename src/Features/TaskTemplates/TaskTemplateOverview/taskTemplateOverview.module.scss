@@ -142,7 +142,7 @@
 }
 .value {
   font-size: 0.875rem;
-  width: 100%;
+  // width: 100%;
 }
 
 .noValue {
@@ -212,4 +212,8 @@
       fill: var(--cds-disabled-02) !important;
     }
   }
+}
+
+.tooltipContainer {
+  width: 12.875rem;
 }
