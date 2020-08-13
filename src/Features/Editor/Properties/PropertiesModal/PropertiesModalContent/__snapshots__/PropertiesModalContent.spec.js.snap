@@ -11,8 +11,6 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
       <div
         aria-label="inputs"
         class="bx--modal-content container"
-        role="region"
-        tabindex="0"
       >
         <div
           class="bx--bmrg-text-input"
@@ -285,9 +283,6 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           </div>
         </div>
       </div>
-      <div
-        class="bx--modal-content--overflow-indicator"
-      />
       <div
         class="bx--modal-footer"
       >

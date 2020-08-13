@@ -18,7 +18,7 @@ import styles from "./createWorkflow.module.scss";
 
 let classnames = classNames.bind(styles);
 
-interface CreateEditModeModalContentProps {
+interface CreateWorkflowContentProps {
   closeModal: () => void;
   createError: object;
   createWorkflow: (workflowSummary: CreateWorkflowSummary) => Promise<void>;
@@ -28,7 +28,7 @@ interface CreateEditModeModalContentProps {
   teams: FlowTeam[];
 }
 
-const CreateEditModeModalContent: React.FC<CreateEditModeModalContentProps> = ({
+const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   closeModal,
   createError,
   createWorkflow,
@@ -76,7 +76,7 @@ const CreateEditModeModalContent: React.FC<CreateEditModeModalContentProps> = ({
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
             {isLoading && <Loading />}
-            <ModalBody hasScrollingContent aria-label="inputs" className={styles.formBody}>
+            <ModalBody aria-label="inputs" className={styles.formBody}>
               <div className={styles.teamAndName}>
                 <ComboBox
                   id="selectedTeam"
@@ -170,4 +170,4 @@ const CreateEditModeModalContent: React.FC<CreateEditModeModalContentProps> = ({
   );
 };
 
-export default CreateEditModeModalContent;
+export default CreateWorkflowContent;

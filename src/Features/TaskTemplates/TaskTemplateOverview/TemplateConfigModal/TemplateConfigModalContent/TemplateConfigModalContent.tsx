@@ -14,7 +14,7 @@ import * as Yup from "yup";
 import clonedeep from "lodash/cloneDeep";
 import { InputProperty, InputType, PROPERTY_KEY_REGEX } from "Constants";
 import { FormikProps } from "formik";
-import { DataDrivenInput }from "Types";
+import { DataDrivenInput } from "Types";
 import styles from "./TemplateConfigModalContent.module.scss";
 
 const inputTypeOptions = [
@@ -36,12 +36,11 @@ const inputTypeOptions = [
 
 interface TextEditorInputProps extends DataDrivenInput {
   autoSuggestions: string[];
-  initialValue: any
-  item?: { description: string; label: string};
-  formikSetFieldValue: (key: string , value: string) => void;
+  initialValue: any;
+  item?: { description: string; label: string };
+  formikSetFieldValue: (key: string, value: string) => void;
   style: {};
   value: any;
-
 }
 
 const TextEditorInput: React.FC<TextEditorInputProps> = (props) => {
@@ -51,23 +50,21 @@ const TextEditorInput: React.FC<TextEditorInputProps> = (props) => {
         //@ts-ignore
         <TextEditorModal {...props} {...props.item} />
       }
-      
     </div>
   );
 };
 
 interface TemplateConfigModalContentProps {
-    closeModal: () => void;
-    forceCloseModal: () => void;
-    field: DataDrivenInput
-    fieldKeys: string[]
-    isEdit:boolean
-    templateFields: DataDrivenInput[]
-    setFieldValue: (id: string, value: any) => void;
+  closeModal: () => void;
+  forceCloseModal: () => void;
+  field: DataDrivenInput;
+  fieldKeys: string[];
+  isEdit: boolean;
+  templateFields: DataDrivenInput[];
+  setFieldValue: (id: string, value: any) => void;
 }
 
 class TemplateConfigModalContent extends Component<TemplateConfigModalContentProps> {
-
   state = {
     defaultValueType: InputType.Text,
   };
@@ -77,7 +74,6 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
     setFieldValue(InputProperty.Type, value);
     setFieldValue(InputProperty.DefaultValue, value === InputType.Boolean ? false : undefined);
   };
-
 
   // Check if key contains alpahanumeric, underscore, dash, and period chars
   validateKey = (key: string) => {
@@ -100,7 +96,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
     }
     if (this.props.isEdit) {
       const fieldIndex = templateFields.findIndex((field) => field.key === this.props.field.key);
-      let newProperties = [...templateFields]
+      let newProperties = [...templateFields];
       newProperties.splice(fieldIndex, 1, field);
       setFieldValue("currentConfig", newProperties);
       this.props.forceCloseModal();
@@ -112,7 +108,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
     }
   };
 
-  renderDefaultValue = (formikProps: FormikProps<{[x: string]: string | boolean | string[];}>) => {
+  renderDefaultValue = (formikProps: FormikProps<{ [x: string]: string | boolean | string[] }>) => {
     const { values, handleBlur, handleChange, setFieldValue } = formikProps;
     switch (values?.type) {
       case InputType.Boolean:
@@ -122,9 +118,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
             id={InputProperty.DefaultValue}
             label="Default Value"
             helperText="Initial value that can be changed"
-            onToggle={(value: any) =>
-              setFieldValue(InputProperty.DefaultValue, value.toString())
-            }
+            onToggle={(value: any) => setFieldValue(InputProperty.DefaultValue, value.toString())}
             orientation="vertical"
             toggled={values.defaultValue === "true"}
           />
@@ -145,8 +139,8 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
             <ComboBox
               data-testid="select"
               id={InputProperty.DefaultValue}
-              onChange={({ selectedItem }: { selectedItem: string}) =>
-              setFieldValue(selectedItem, InputProperty.DefaultValue)
+              onChange={({ selectedItem }: { selectedItem: string }) =>
+                setFieldValue(selectedItem, InputProperty.DefaultValue)
               }
               items={options || []}
               initialSelectedItem={values.defaultValue || {}}
@@ -282,18 +276,15 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
 
           return (
             <ModalForm onSubmit={handleSubmit}>
-              <ModalBody hasScrollingContent aria-label="inputs" className={styles.container}>
+              <ModalBody aria-label="inputs" className={styles.container}>
                 <ComboBox
                   id={InputProperty.Type}
-                  onChange={({ selectedItem }: { selectedItem: {label: string; value: string}}) =>
-                    this.handleOnTypeChange(
-                      selectedItem !== null ? selectedItem.value: "",
-                      setFieldValue
-                    )
+                  onChange={({ selectedItem }: { selectedItem: { label: string; value: string } }) =>
+                    this.handleOnTypeChange(selectedItem !== null ? selectedItem.value : "", setFieldValue)
                   }
                   items={inputTypeOptions}
                   initialSelectedItem={values.type}
-                  itemToString={(item: { label: string}) => item && item.label}
+                  itemToString={(item: { label: string }) => item && item.label}
                   placeholder="Select a type"
                   titleText="Type"
                 />

@@ -33,7 +33,7 @@ const WorkflowInputModalContent: React.FC<WorkflowInputModalContentProps> = ({
     >
       {({ inputs, formikProps }: { inputs: JSX.Element; formikProps: any }) => (
         <ModalFlowForm className={styles.container}>
-          <ModalBody hasScrollingContent aria-label="inputs">
+          <ModalBody aria-label="inputs">
             {inputs}
             {executeError && (
               <InlineNotification

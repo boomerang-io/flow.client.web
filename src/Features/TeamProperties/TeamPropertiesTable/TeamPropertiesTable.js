@@ -17,7 +17,7 @@ import ActionsMenu from "./ActionsMenu";
 import Header from "Components/Header";
 import WombatMessage from "Components/WombatMessage";
 import { InputType } from "Constants";
-import { formatErrorMessage } from "@boomerang-io/utils";
+import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
 import { stringToPassword } from "Utils/stringHelper";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Checkmark32, Close32 } from "@carbon/icons-react";
@@ -154,7 +154,7 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
               data-testid="team-properties-combobox"
               id="team-properties-select"
               initialSelectedItem={activeTeam?.id ? activeTeam : null}
-              items={teams}
+              items={sortByProp(teams, "name")}
               itemToString={(item) => item?.name ?? ""}
               label="Teams"
               onChange={({ selectedItem }) => {

@@ -70,7 +70,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         const { handleSubmit, isValid, values, errors, touched, handleChange, setFieldValue, handleBlur } = props;
         return (
           <ModalForm onSubmit={handleSubmit}>
-            <ModalBody hasScrollingContent aria-label="inputs">
+            <ModalBody aria-label="inputs">
               <TextInput
                 id="name"
                 invalid={errors.name && touched.name}

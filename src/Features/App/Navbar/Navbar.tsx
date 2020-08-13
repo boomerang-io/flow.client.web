@@ -69,14 +69,6 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
           >
             Team Properties
           </SideNavMenuItem>
-          <SideNavMenuItem
-            activeClassName={ACTIVE_CLASS_NAME}
-            element={NavLink}
-            onClick={onMenuClose}
-            to={appLink.taskTemplates()}
-          >
-            Team Task Manager
-          </SideNavMenuItem>
         </SideNavMenu>
         {isAtLeastOperator ? (
           <SideNavMenu large title="Admin" renderIcon={Settings16}>
