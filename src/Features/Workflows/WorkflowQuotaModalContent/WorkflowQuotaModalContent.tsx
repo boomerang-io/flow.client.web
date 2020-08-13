@@ -10,9 +10,11 @@ export default function WorkflowQuotaModalContent({
   closeModal: () => void;
   quotas: FlowTeamQuotas;
 }) {
-  const workflowLimitPercentage = (quotas.currentWorkflowCount / quotas.maxWorkflowCount) * 100;
-  const monthlyExecutionPercentage =
-    (quotas.currentWorkflowExecutionMonthly / quotas.maxWorkflowExecutionMonthly) * 100;
+  let workflowLimitPercentage = (quotas.currentWorkflowCount / quotas.maxWorkflowCount) * 100;
+  let monthlyExecutionPercentage = (quotas.currentWorkflowExecutionMonthly / quotas.maxWorkflowExecutionMonthly) * 100;
+
+  if (workflowLimitPercentage > 100) workflowLimitPercentage = 100;
+  if (monthlyExecutionPercentage > 100) monthlyExecutionPercentage = 100;
 
   return (
     <div className={styles.container}>
