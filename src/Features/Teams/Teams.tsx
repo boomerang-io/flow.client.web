@@ -211,7 +211,6 @@ const headers = [
     key: "name",
     sortable: true,
   },
-
   {
     header: "# of Users",
     key: "users",
@@ -269,7 +268,7 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
                     data-testid="user-list-table-row"
                     onClick={() => handleNavigateToTeam(row.id)}
                     onKeyDown={(e: React.SyntheticEvent) => isAccessibleEvent(e) && handleNavigateToTeam(row.id)}
-                    tabIndex={0}
+                    tabIndex={-1}
                   >
                     {row.cells.map((cell: any, cellIndex: any) => {
                       if (cell.info.header === "isActive") {

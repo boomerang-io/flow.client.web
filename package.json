@@ -16,7 +16,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "start": "react-scripts start",
-    "start:pf": "cross-env REACT_APP_PORT_FORWARD=true start",
+    "start:pf": "cross-env REACT_APP_PORT_FORWARD=true react-scripts start",
     "prod": "run-s prod:rewriteAssetPaths prod:serve",
     "prod:serve": "npm run-script dev --prefix server",
     "test": "react-scripts test --env=jsdom-fourteen",
