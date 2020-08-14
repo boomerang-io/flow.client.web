@@ -116,8 +116,11 @@
 
     &:hover {
       background-color: #fcd0d3;
+      td {
+        background-color: #fcd0d3;
+      }
     }
-  
+
     .status {
       color: var(--flow-failure);
       svg {
@@ -128,11 +131,14 @@
 
   &.invalid {
     td {
-      background-color: #b9bfc7;
+      background-color: #d5d9e0;
     }
 
     &:hover {
-      background-color: #b9bfc7;
+      background-color: #d5d9e0;
+      td {
+        background-color: #d5d9e0;
+      }
     }
   }
 
@@ -209,8 +215,6 @@
 }
 
 .tableCell {
-  color: #565656;
-
   .status {
     align-items: center;
     display: flex;

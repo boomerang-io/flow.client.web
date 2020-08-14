@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
 import { Button, ComposedModal, Error404, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -11,7 +11,7 @@ import WorkflowCard from "./WorkflowCard";
 import queryString from "query-string";
 import cx from "classnames";
 import sortBy from "lodash/sortBy";
-import { FlowTeam, ModalTriggerProps, ComposedModalChildProps } from "Types";
+import { FlowTeam, ModalTriggerProps, ComposedModalChildProps, WorkflowSummary } from "Types";
 import styles from "./workflowHome.module.scss";
 
 const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
@@ -27,6 +27,9 @@ export default function WorkflowsHome() {
   let { query: searchQuery = "", teams: teamsQuery = [] } = queryString.parse(location.search, {
     arrayFormat: "comma",
   });
+
+  //@ts-ignore
+  teamsQuery = [].concat(teamsQuery);
 
   useEffect(() => {
     if (isTutorialActive) {
@@ -47,13 +50,6 @@ export default function WorkflowsHome() {
     }
   }, [isWelcomeBannerOpen, isWelcomeBannerShown]);
 
-  const handleSearchFilter = (teamsList = teams, workflowsQuery: string | string[] | null = searchQuery) => {
-    updateHistorySearch(
-      workflowsQuery,
-      teamsList.map((team: FlowTeam) => team.id)
-    );
-  };
-
   const handleOpenTutorial = () => {
     setIsTutorialActive(true);
   };
@@ -67,29 +63,34 @@ export default function WorkflowsHome() {
     setIsWelcomeBannerShown(false);
   };
 
-  const updateHistorySearch = (query: string | string[] | null, teamIds: string[]) => {
+  const updateHistorySearch = (query: { [key: string]: any }) => {
     const queryStr = `?${queryString.stringify(
-      { query, teams: teamIds },
+      { ...queryString.parse(location.search), ...query },
       { arrayFormat: "comma", skipEmptyString: true }
     )}`;
 
     history.push({ search: queryStr });
   };
 
-  const filterTeams = () => {
-    if (Array.isArray(teamsQuery) && teamsQuery.length > 0) {
-      return teams.filter((team) => teamsQuery?.includes(team.id)) ?? [];
-    } else if (typeof teamsQuery === "string") {
-      return teams.filter((team) => team.id === teamsQuery) ?? [];
-    } else {
-      return teams;
-    }
-  };
+  //@ts-ignore
+  const sortedTeams = useMemo(() => console.log("sortedTeams") || sortBy(teams, ["name"]), [teams]);
 
-  const filteredTeams = filterTeams();
-  const sortedTeams = sortBy(filteredTeams, ["name"]);
-  const workflowsCount = teams?.reduce((acc, team) => team.workflows.length + acc, 0) ?? 0;
+  let selectedTeams = [];
+  if (Array.isArray(teamsQuery) && teamsQuery.length > 0) {
+    selectedTeams = sortedTeams.filter((team) => teamsQuery?.includes(team.id)) ?? [];
+  } else {
+    selectedTeams = sortedTeams;
+  }
 
+  const workflowsCount = useMemo(() => teams?.reduce((acc, team) => team.workflows.length + acc, 0) ?? 0, [teams]);
+
+  let safeQuery = "";
+  if (Array.isArray(searchQuery)) {
+    safeQuery = searchQuery.join().toLowerCase();
+  } else if (searchQuery) {
+    safeQuery = searchQuery.toLowerCase();
+  }
+  let workflowCount = 0;
   return (
     <>
       {isWelcomeBannerShown && (
@@ -107,20 +108,25 @@ export default function WorkflowsHome() {
         })}
       >
         <WorkflowsHeader
-          filteredTeams={filteredTeams}
-          handleSearchFilter={handleSearchFilter}
+          handleUpdateFilter={updateHistorySearch}
           searchQuery={searchQuery}
+          selectedTeams={selectedTeams}
           teamsQuery={teamsQuery}
           teams={teams}
           workflowsCount={workflowsCount}
         />
         <div aria-label="Team Workflows" className={styles.content} role="region">
-          {sortedTeams.length > 0 ? (
-            sortedTeams.map((team) => {
-              return <TeamWorkflows key={team.id} searchQuery={searchQuery} team={team} teams={teams} />;
+          {selectedTeams.length > 0 ? (
+            selectedTeams.map((team) => {
+              const workflows = team.workflows.filter((workflow) => workflow.name.toLowerCase().includes(safeQuery));
+              workflowCount += workflows.length;
+              return <TeamWorkflows key={team.id} team={team} teams={teams} workflows={workflows} />;
             })
           ) : (
             <Error404 header={null} message={"You need to be a member of a team to use Flow"} title="No teams found" />
+          )}
+          {workflowCount === 0 && (
+            <Error404 header={null} message={"Try a different search or team filter"} title="No workflows found" />
           )}
         </div>
       </div>
@@ -129,29 +135,19 @@ export default function WorkflowsHome() {
 }
 
 interface TeamWorkflowsProps {
-  searchQuery: string | string[] | null;
   team: FlowTeam;
   teams: FlowTeam[];
+  workflows: WorkflowSummary[];
 }
 
-const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams }) => {
-  let workflows = [];
-  if (searchQuery) {
-    workflows = team.workflows.filter((workflow) => {
-      let safeQuery = "";
-      if (Array.isArray(searchQuery)) {
-        safeQuery = searchQuery.join();
-      } else if (searchQuery) {
-        safeQuery = searchQuery;
-      }
-      return workflow.name.toLowerCase().includes(safeQuery?.toLowerCase());
-    });
-  } else {
-    workflows = team?.workflows ?? [];
-  }
-
+const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ team, teams, workflows }) => {
   const hasTeamWorkflows = team.workflows?.length > 0;
+  const hasFilteredWorkflows = workflows.length;
   const hasReachedWorkflowLimit = team.workflowQuotas.maxWorkflowCount <= team.workflowQuotas.currentWorkflowCount;
+
+  if (!hasFilteredWorkflows) {
+    return null;
+  }
 
   return (
     <section className={styles.sectionContainer}>
@@ -205,7 +201,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
         {workflows.map((workflow) => (
           <WorkflowCard key={workflow.id} teamId={team.id} workflow={workflow} quotas={team.workflowQuotas} />
         ))}
-        <CreateWorkflow team={team} teams={teams} hasReachedWorkflowLimit={hasReachedWorkflowLimit} />
+        {<CreateWorkflow team={team} teams={teams} hasReachedWorkflowLimit={hasReachedWorkflowLimit} />}
       </div>
     </section>
   );
