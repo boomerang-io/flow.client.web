@@ -4,20 +4,20 @@ import FeatureHeader from "Components/FeatureHeader";
 import { FlowTeam } from "Types";
 import styles from "./workflowsHeader.module.scss";
 
-type HandleSearchFilter = (teamsList: FlowTeam[], query: string | string[] | null) => void;
+type HandleUpdateFilter = (query: { [key: string]: string | string[] | null }) => void;
 
 interface WorkflowsHeaderProps {
-  filteredTeams: FlowTeam[];
-  handleSearchFilter: HandleSearchFilter;
+  handleUpdateFilter: HandleUpdateFilter;
   searchQuery: string | string[] | null;
-  teamsQuery: string | string[] | undefined | null;
+  selectedTeams: FlowTeam[];
+  teamsQuery: string[];
   teams: FlowTeam[];
   workflowsCount: number;
 }
 
 const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
-  filteredTeams,
-  handleSearchFilter,
+  selectedTeams,
+  handleUpdateFilter,
   searchQuery,
   teamsQuery,
   teams,
@@ -31,8 +31,8 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
           <h1 className={styles.subtitle}>{`Workflows (${workflowsCount})`}</h1>
         </hgroup>
         <SearchFilterBar
-          filteredTeams={filteredTeams}
-          handleSearchFilter={handleSearchFilter}
+          selectedTeams={selectedTeams}
+          handleUpdateFilter={handleUpdateFilter}
           searchQuery={searchQuery}
           teamsQuery={teamsQuery}
           teams={teams}
@@ -45,30 +45,30 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
 export default WorkflowsHeader;
 
 interface SearchFilterBarProps {
-  filteredTeams: FlowTeam[];
-  handleSearchFilter: HandleSearchFilter;
+  handleUpdateFilter: HandleUpdateFilter;
   searchQuery: string | string[] | null;
-  teamsQuery: string | string[] | undefined | null;
+  selectedTeams: FlowTeam[];
+  teamsQuery: string[];
   teams: FlowTeam[];
 }
 
 const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
-  filteredTeams,
-  handleSearchFilter,
+  selectedTeams,
+  handleUpdateFilter,
   searchQuery,
   teamsQuery,
   teams,
 }) => {
   const handleOnMultiSelectChange = (change: any) => {
     const selectedItems = change.selectedItems;
-    handleSearchFilter(selectedItems, searchQuery);
+    handleUpdateFilter({ teams: selectedItems.map((team: { id: string }) => team.id) });
   };
 
   const handleOnSearchInputChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    handleSearchFilter(filteredTeams, e.currentTarget?.value ?? "");
+    handleUpdateFilter({ query: e.currentTarget?.value ?? "" });
   };
 
-  const isTeamQueryActive = (Array.isArray(teamsQuery) && teamsQuery.length > 0) || typeof teamsQuery === "string";
+  const isTeamQueryActive = teamsQuery.length > 0;
 
   return (
     <div className={styles.filterContainer}>
@@ -87,8 +87,8 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
           id="b-search-filter__filter"
           invalid={false}
           initialSelectedItems={
-            isTeamQueryActive && Array.isArray(filteredTeams)
-              ? filteredTeams.map((team) => ({ id: team.id, text: team.name }))
+            isTeamQueryActive && Array.isArray(selectedTeams)
+              ? selectedTeams.map((team) => ({ id: team.id, text: team.name }))
               : []
           }
           items={Array.isArray(teams) ? teams.map((team) => ({ id: team.id, text: team.name })) : []}

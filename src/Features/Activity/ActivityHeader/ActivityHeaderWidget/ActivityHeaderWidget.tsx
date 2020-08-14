@@ -6,7 +6,7 @@ import styles from "./activityHeaderWidget.module.scss";
 ActivityHeaderWidget.propTypes = {
   icon: PropTypes.any,
   text: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 function ActivityHeaderWidget({ icon: Icon, text, value }) {

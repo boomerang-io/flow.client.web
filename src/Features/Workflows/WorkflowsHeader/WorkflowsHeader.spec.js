@@ -6,6 +6,7 @@ const mockfn = jest.fn();
 
 const props = {
   workflowsLength: 1,
+  teamsQuery: [],
   handleSearchFilter: mockfn,
   isLoading: false,
   options: [

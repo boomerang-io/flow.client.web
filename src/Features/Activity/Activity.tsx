@@ -126,7 +126,7 @@ function WorkflowActivity() {
 
   function handleSelectStatuses(statusIndex) {
     const statuses = statusIndex > 0 ? executionStatusList[statusIndex - 1] : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses });
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), statuses: statuses, page: 0 });
     return;
   }
 
