@@ -14,7 +14,7 @@ import {
   ComposedModal,
   InlineLoading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ComposedModalChildProps, ModalTriggerProps } from "Types";
+import { ComposedModalChildProps, ModalTriggerProps, FlowTeamQuotas } from "Types";
 import { Edit16 } from "@carbon/icons-react";
 
 import Header from "../Header";
@@ -85,6 +85,7 @@ export function TeamQuotasOverview({ teams }) {
           teamId={teamId}
           quotaProperty="maxWorkflowCount"
           quotaValue={teamQuotasData.maxWorkflowCount}
+          teamQuotasData={teamQuotasData}
         >
           <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxWorkflowCount} Workflows`}</h3>
           <div className={styles.coverageBar}>
@@ -107,6 +108,7 @@ export function TeamQuotasOverview({ teams }) {
           teamId={teamId}
           quotaProperty="maxWorkflowExecutionMonthly"
           quotaValue={teamQuotasData.maxWorkflowExecutionMonthly}
+          teamQuotasData={teamQuotasData}
         >
           <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxWorkflowExecutionMonthly} per month`}</h3>
           <div className={styles.coverageBar}>
@@ -131,6 +133,7 @@ export function TeamQuotasOverview({ teams }) {
           teamId={teamId}
           quotaProperty="maxWorkflowStorage"
           quotaValue={teamQuotasData.maxWorkflowStorage}
+          teamQuotasData={teamQuotasData}
         >
           <h5 className={styles.persistentStorage}>Persistent Storage</h5>
           <dt className={styles.subtitle}>Size limit</dt>
@@ -154,6 +157,8 @@ export function TeamQuotasOverview({ teams }) {
           teamId={teamId}
           quotaProperty="maxWorkflowExecutionTime"
           quotaValue={teamQuotasData.maxWorkflowExecutionTime}
+                    teamQuotasData={teamQuotasData}
+
         >
           <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxWorkflowExecutionTime} minutes`}</h3>
         </QuotaCard>*/}
@@ -172,6 +177,7 @@ export function TeamQuotasOverview({ teams }) {
           teamId={teamId}
           quotaProperty="maxConcurrentWorkflows"
           quotaValue={teamQuotasData.maxConcurrentWorkflows}
+          teamQuotasData={teamQuotasData}
         >
           <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxConcurrentWorkflows} Workflows`}</h3>
         </QuotaCard>
@@ -195,6 +201,7 @@ interface QuotaCardProps {
   quotaValue: number;
 
   minValue: number;
+  teamQuotasData: FlowTeamQuotas;
 }
 
 const QuotaCard: React.FC<QuotaCardProps> = ({
@@ -212,6 +219,7 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
   quotaProperty,
   quotaValue,
   minValue,
+  teamQuotasData,
 }) => {
   return (
     <Tile className={styles.cardContainer}>
@@ -256,6 +264,7 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
                 quotaProperty={quotaProperty}
                 quotaValue={quotaValue}
                 minValue={minValue}
+                teamQuotasData={teamQuotasData}
               />
             )}
           </ComposedModal>
