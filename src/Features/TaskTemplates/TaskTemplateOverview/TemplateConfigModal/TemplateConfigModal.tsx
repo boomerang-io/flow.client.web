@@ -37,6 +37,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModal> = (props) => {
           onClick={openModal}
           renderIcon={Add16}
           size="field"
+          style={{ marginRight: "0.5rem" }}
         >
           Add a field
         </Button>

@@ -7,29 +7,29 @@ import styles from "./VersionSwitcher.module.scss";
 
 interface VersionSwitcherProps {
   currentRevision: {
-    version: number
+    version: number;
   };
-  revisionCount: number
+  revisionCount: number;
   revisions: any;
-};
+}
 
 const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRevision, revisionCount }) => {
   const history = useHistory();
-  const params: { taskTemplateId: string } = useParams();
+  const params: { id: string } = useParams();
   const backVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.taskTemplateId, version: currentRevision.version - 1 }));
+    history.push(appLink.taskTemplateEdit({ id: params.id, version: currentRevision.version - 1 }));
   };
 
   const fastBackVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.taskTemplateId, version: 1 }));
+    history.push(appLink.taskTemplateEdit({ id: params.id, version: 1 }));
   };
 
   const forwardVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.taskTemplateId, version: currentRevision.version + 1 }));
+    history.push(appLink.taskTemplateEdit({ id: params.id, version: currentRevision.version + 1 }));
   };
 
   const fastForwardVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.taskTemplateId, version: revisions.length }));
+    history.push(appLink.taskTemplateEdit({ id: params.id, version: revisions.length }));
   };
 
   const renderBackButtons = (enabled: boolean) => {
@@ -67,6 +67,6 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRev
       </div>
     </div>
   );
-}
+};
 
 export default VersionSwitcher;

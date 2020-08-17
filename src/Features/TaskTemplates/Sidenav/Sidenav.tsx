@@ -182,7 +182,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
             >
               {category.tasks.map((task) => (
                 //@ts-ignore
-                <Task key={task.id} task={task} isActive={globalMatch?.params?.taskTemplateId === task.id} />
+                <Task key={task.id} task={task} isActive={globalMatch?.params?.id === task.id} />
               ))}
             </AccordionItem>
           );

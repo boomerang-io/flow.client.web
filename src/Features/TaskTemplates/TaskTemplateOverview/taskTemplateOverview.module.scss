@@ -195,6 +195,8 @@
 }
 .actions {
   display: flex;
+  margin-left: auto;
+  margin-right: 0.5rem;
   & div:nth-child(2) {
     :global .bx--assistive-text {
       left: -4.75rem !important;
