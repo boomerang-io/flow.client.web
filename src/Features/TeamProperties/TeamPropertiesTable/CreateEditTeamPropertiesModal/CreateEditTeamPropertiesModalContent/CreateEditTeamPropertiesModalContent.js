@@ -168,6 +168,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 labelText="Secured"
                 name="secured"
                 onChange={handleChange}
+                orientation="vertical"
                 toggled={values.secured}
               />
               {addError && (
