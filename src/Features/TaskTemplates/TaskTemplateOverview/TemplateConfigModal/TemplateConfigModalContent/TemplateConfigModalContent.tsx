@@ -240,7 +240,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
           [InputProperty.Key]: Yup.string()
             .required("Enter a key")
             .max(64, "Key must not be greater than 64 characters")
-            .notOneOf(fieldKeys || [], "Enter a unique key value for this workflow")
+            .notOneOf(fieldKeys || [], "Enter a unique key value for this field")
             .test(
               "is-valid-key",
               "Only alphanumeric, underscore, dash, and period characters allowed",
