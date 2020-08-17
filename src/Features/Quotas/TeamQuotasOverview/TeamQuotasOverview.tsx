@@ -16,7 +16,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ComposedModalChildProps, ModalTriggerProps, FlowTeamQuotas } from "Types";
 import { Edit16 } from "@carbon/icons-react";
-
+import ProgressBar from "Components/ProgressBar";
 import Header from "../Header";
 import QuotaEditModalContent from "./QuotaEditModalContent";
 import { resolver, serviceUrl } from "Config/servicesConfig";
@@ -67,6 +67,8 @@ export function TeamQuotasOverview({ teams }) {
   if (workflowLimitPercentage > 100) workflowLimitPercentage = 100;
   if (monthlyExecutionPercentage > 100) monthlyExecutionPercentage = 100;
 
+  const coverageBarStyle = { height: "1rem", width: "17.625rem" };
+
   return (
     <div className={styles.container}>
       <Header handleRestoreDefaultQuota={handleRestoreDefaultQuota} selectedTeam={teamData} />
@@ -88,9 +90,11 @@ export function TeamQuotasOverview({ teams }) {
           teamQuotasData={teamQuotasData}
         >
           <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxWorkflowCount} Workflows`}</h3>
-          <div className={styles.coverageBar}>
-            <div className={styles.coverageFiller} style={{ width: `${workflowLimitPercentage}%` }} />
-          </div>
+          <ProgressBar
+            maxValue={teamQuotasData.maxWorkflowCount}
+            value={workflowLimitPercentage}
+            coverageBarStyle={coverageBarStyle}
+          />
           <p className={styles.detailedSmallText}>{`Current usage: ${teamQuotasData.currentWorkflowCount}`}</p>
         </QuotaCard>
 
@@ -111,9 +115,11 @@ export function TeamQuotasOverview({ teams }) {
           teamQuotasData={teamQuotasData}
         >
           <h3 className={styles.detailedHeading}> {`${teamQuotasData.maxWorkflowExecutionMonthly} per month`}</h3>
-          <div className={styles.coverageBar}>
-            <div className={styles.coverageFiller} style={{ width: `${monthlyExecutionPercentage}%` }} />
-          </div>
+          <ProgressBar
+            maxValue={teamQuotasData.maxWorkflowExecutionMonthly}
+            value={monthlyExecutionPercentage}
+            coverageBarStyle={coverageBarStyle}
+          />
           <p
             className={styles.detailedSmallText}
           >{`Current usage: ${teamQuotasData.currentWorkflowExecutionMonthly}`}</p>
