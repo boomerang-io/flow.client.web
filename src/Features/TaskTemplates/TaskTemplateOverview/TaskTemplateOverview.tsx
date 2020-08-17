@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import axios from "axios";
-import { useRouteMatch, useParams, useHistory, Prompt, matchPath } from "react-router-dom";
+import { useParams, useHistory, Prompt, matchPath } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import {
   Tile,
@@ -150,7 +150,6 @@ TaskTemplateOverview.propTypes = {
 export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   const cancelRequestRef = React.useRef();
 
-  const match = useRouteMatch();
   const params = useParams();
   const history = useHistory();
   const [uploadTaskTemplateMutation, { isLoading }] = useMutation(
@@ -277,7 +276,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       resetForm();
       history.push(
         //@ts-ignore
-        appLink.taskTemplateEdit({ id: match.params.taskTemplateId, version: response.data.currentVersion })
+        appLink.taskTemplateEdit({ id: params.id, version: response.data.currentVersion })
       );
       updateTemplateInState(response.data);
       if (requestType !== TemplateRequestType.Copy) {
@@ -400,10 +399,14 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                 const templateMatch = matchPath(location.pathname, {
                   path: AppPath.TaskTemplateEdit,
                 });
-                if (isDirty && !location.pathname.includes(taskTemplateId) && !isSubmitting) {
+                if (isDirty && !location.pathname.includes(templateMatch?.params?.id) && !isSubmitting) {
                   prompt = "Are you sure you want to leave? You have unsaved changes.";
                 }
-                if (isDirty && templateMatch?.params?.version !== version && !isSubmitting) {
+                if (
+                  isDirty &&
+                  templateMatch?.params?.version !== selectedTaskTemplate.currentVersion &&
+                  !isSubmitting
+                ) {
                   prompt = "Are you sure you want to change the version? Your changes will be lost.";
                 }
                 return prompt;
