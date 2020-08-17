@@ -87,7 +87,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
           type: WorkflowPropertyUpdateType.Update,
         })
         .then(() => {
-          this.props.forceCloseModal();
+          this.props.closeModal();
         })
         .catch((e) => {});
     } else {
@@ -97,7 +97,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
           type: WorkflowPropertyUpdateType.Create,
         })
         .then(() => {
-          this.props.forceCloseModal();
+          this.props.closeModal();
         })
         .catch((e) => {});
     }
