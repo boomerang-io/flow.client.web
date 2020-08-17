@@ -40,7 +40,7 @@ export function TeamQuotasOverview({ teams }) {
 
   const handleRestoreDefaultQuota = () => {
     try {
-      defaultQuotasMutator({ teamId });
+      defaultQuotasMutator({ id: teamId });
       notify(
         <ToastNotification
           kind="success"
