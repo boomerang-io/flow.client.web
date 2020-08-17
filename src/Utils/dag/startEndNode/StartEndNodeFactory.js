@@ -2,7 +2,7 @@ import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import StartEndNodeDesigner from "Components/StartEndNodeDesigner";
 import StartEndNodeExecution from "Components/StartEndNodeExecution";
 import StartEndNodeModel from "Utils/dag/startEndNode/StartEndNodeModel";
-import { NodeType } from "Constants";
+import { NodeType, WorkflowDagEngineMode } from "Constants";
 import React from "react";
 
 export default class StartEndNodeFactory extends AbstractNodeFactory {
@@ -11,7 +11,7 @@ export default class StartEndNodeFactory extends AbstractNodeFactory {
   }
 
   generateReactWidget(diagramEngine, node) {
-    if (diagramEngine.diagramModel.locked) {
+    if (diagramEngine.mode === WorkflowDagEngineMode.Executor) {
       return <StartEndNodeExecution isLocked={true} node={node} />;
     } else {
       return <StartEndNodeDesigner isLocked={false} node={node} />;

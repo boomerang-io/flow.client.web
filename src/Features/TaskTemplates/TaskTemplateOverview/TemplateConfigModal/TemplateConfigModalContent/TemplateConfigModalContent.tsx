@@ -256,7 +256,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
           [InputProperty.Required]: Yup.boolean(),
           [InputProperty.Type]: Yup.string().required(),
           [InputProperty.Options]: Yup.array().when(InputProperty.Type, {
-            is: (type) => type.value === InputType.Select,
+            is: (type) => type === InputType.Select,
             then: Yup.array().required("Enter an option").min(1, "Enter at least one option"),
           }),
           [InputProperty.DefaultValue]: this.determineDefaultValueSchema(defaultValueType),
@@ -283,7 +283,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                     this.handleOnTypeChange(selectedItem !== null ? selectedItem.value : "", setFieldValue)
                   }
                   items={inputTypeOptions}
-                  initialSelectedItem={values.type}
+                  initialSelectedItem={inputTypeOptions.find((option) => option.value === values.type)}
                   itemToString={(item: { label: string }) => item && item.label}
                   placeholder="Select a type"
                   titleText="Type"
@@ -331,17 +331,18 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
                   value={values.description}
                 />
-                <TextInput
-                  id={InputProperty.Placeholder}
-                  invalid={errors.placeholder && touched.placeholder}
-                  invalidText={errors.placeholder}
-                  labelText="Placeholder (optional)"
-                  helperText="Give the user a hint for the field value"
-                  onBlur={handleBlur}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
-                  value={values.placeholder}
-                />
-
+                {InputType.Boolean !== values.type && (
+                  <TextInput
+                    id={InputProperty.Placeholder}
+                    invalid={errors.placeholder && touched.placeholder}
+                    invalidText={errors.placeholder}
+                    labelText="Placeholder (optional)"
+                    helperText="Give the user a hint for the field value"
+                    onBlur={handleBlur}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+                    value={values.placeholder}
+                  />
+                )}
                 {this.renderDefaultValue(formikProps)}
                 <Toggle
                   id={InputProperty.Required}
@@ -352,7 +353,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                 />
                 <Toggle
                   id={InputProperty.ReadOnly}
-                  labelText="Read Only"
+                  labelText="Read-only"
                   onToggle={(value: string) => setFieldValue(InputProperty.ReadOnly, value)}
                   orientation="vertical"
                   toggled={values.readOnly}

@@ -21,22 +21,24 @@ import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
 import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
 import { FormikProps } from "formik";
-import { ComposedModalChildProps, ModalTriggerProps, TaskModel} from "Types";
+import { ComposedModalChildProps, ModalTriggerProps, TaskModel } from "Types";
 import styles from "./header.module.scss";
 
 interface SaveModalProps {
   cancelRequestRef: any;
-  formikProps: FormikProps<FormProps>
-  handleSubmit:  (values: any,
+  formikProps: FormikProps<FormProps>;
+  handleSubmit: (
+    values: any,
     resetForm: () => void,
     requestType: string,
-    setRequestError: ({ title, subtitle}: { title: string; subtitle: string;}) => void,
-    closeModal: () => void) => void 
+    setRequestError: ({ title, subtitle }: { title: string; subtitle: string }) => void,
+    closeModal: () => void
+  ) => void;
   isLoading: boolean;
 }
 
-const SaveModal: React.FC<SaveModalProps> = ({  cancelRequestRef, formikProps, handleSubmit, isLoading  }) => {
-  const [requestError, setRequestError] = React.useState<{title?: string; subtitle?: string} | null>(null);
+const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, handleSubmit, isLoading }) => {
+  const [requestError, setRequestError] = React.useState<{ title?: string; subtitle?: string } | null>(null);
   const SaveMessage = () => {
     return (
       <>
@@ -63,7 +65,7 @@ const SaveModal: React.FC<SaveModalProps> = ({  cancelRequestRef, formikProps, h
       onCloseModal={() => {
         if (cancelRequestRef.current) cancelRequestRef.current();
       }}
-      modalTrigger={({ openModal }: ModalTriggerProps ) => (
+      modalTrigger={({ openModal }: ModalTriggerProps) => (
         <TooltipHover direction="bottom" tooltipText={"Save a new version or update the current one"}>
           <Button
             className={styles.button}
@@ -91,7 +93,9 @@ const SaveModal: React.FC<SaveModalProps> = ({  cancelRequestRef, formikProps, h
                 name="comments"
                 key="newTemplateComments"
                 labelText="Comments (required for new versions)"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => formikProps.setFieldValue("comments", e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  formikProps.setFieldValue("comments", e.target.value)
+                }
                 placeholder="Release notes for the new version"
                 style={{ resize: "none" }}
                 value={formikProps.values.comments}
@@ -120,7 +124,7 @@ const SaveModal: React.FC<SaveModalProps> = ({  cancelRequestRef, formikProps, h
                     formikProps.resetForm,
                     TemplateRequestType.Overwrite,
                     setRequestError,
-                    closeModal,
+                    closeModal
                   );
                 }}
               >
@@ -134,7 +138,7 @@ const SaveModal: React.FC<SaveModalProps> = ({  cancelRequestRef, formikProps, h
                     formikProps.resetForm,
                     TemplateRequestType.New,
                     setRequestError,
-                    closeModal,
+                    closeModal
                   );
                 }}
                 disabled={!Boolean(formikProps.values.comments)}
@@ -147,21 +151,25 @@ const SaveModal: React.FC<SaveModalProps> = ({  cancelRequestRef, formikProps, h
       }}
     </ComposedModal>
   );
-}
+};
 
 interface HeaderProps {
   cancelRequestRef: object;
-  currentRevision: { version: number};
-  formikProps: FormikProps<FormProps>
-  handleSaveTaskTemplate: (values: any, resetForm: () => void, requestType: string) => void;
+  currentRevision: { version: number };
+  formikProps: FormikProps<FormProps>;
+  handleSaveTaskTemplate: (
+    values: any,
+    resetForm: () => void,
+    requestType: string,
+    setRequestError?: (error: any) => void,
+    closeModal?: () => void
+  ) => void;
   handleputRestoreTaskTemplate: () => void;
-  isActive: boolean,
-  isLoading: boolean,
+  isActive: boolean;
+  isLoading: boolean;
   isOldVersion: boolean;
   selectedTaskTemplate: TaskModel;
-};
-
-
+}
 
 const Header: React.FC<HeaderProps> = ({
   selectedTaskTemplate,
@@ -306,6 +314,6 @@ const Header: React.FC<HeaderProps> = ({
       </div>
     </FeatureHeader>
   );
-}
+};
 
 export default Header;

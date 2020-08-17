@@ -90,7 +90,7 @@ export default function WorkflowsHome() {
   } else if (searchQuery) {
     safeQuery = searchQuery.toLowerCase();
   }
-  let workflowCount = 0;
+
   return (
     <>
       {isWelcomeBannerShown && (
@@ -119,14 +119,10 @@ export default function WorkflowsHome() {
           {selectedTeams.length > 0 ? (
             selectedTeams.map((team) => {
               const workflows = team.workflows.filter((workflow) => workflow.name.toLowerCase().includes(safeQuery));
-              workflowCount += workflows.length;
               return <TeamWorkflows key={team.id} team={team} teams={teams} workflows={workflows} />;
             })
           ) : (
             <Error404 header={null} message={"You need to be a member of a team to use Flow"} title="No teams found" />
-          )}
-          {workflowCount === 0 && (
-            <Error404 header={null} message={"Try a different search or team filter"} title="No workflows found" />
           )}
         </div>
       </div>
@@ -142,12 +138,7 @@ interface TeamWorkflowsProps {
 
 const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ team, teams, workflows }) => {
   const hasTeamWorkflows = team.workflows?.length > 0;
-  const hasFilteredWorkflows = workflows.length;
   const hasReachedWorkflowLimit = team.workflowQuotas.maxWorkflowCount <= team.workflowQuotas.currentWorkflowCount;
-
-  if (!hasFilteredWorkflows) {
-    return null;
-  }
 
   return (
     <section className={styles.sectionContainer}>

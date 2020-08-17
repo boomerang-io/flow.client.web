@@ -10,12 +10,12 @@ import {
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Catalog16 } from "@carbon/icons-react";
-import { ChangeLogItem, ModalTriggerProps } from "Types"
+import { ChangeLogItem, ModalTriggerProps } from "Types";
 import styles from "./versionHistory.module.scss";
 
 interface VersionHistoryProps {
-  changelogs: ChangeLogItem[]
-};
+  changelogs: ChangeLogItem[];
+}
 
 const VersionHistory: React.FC<VersionHistoryProps> = ({ changelogs }) => {
   return (
@@ -35,7 +35,7 @@ const VersionHistory: React.FC<VersionHistoryProps> = ({ changelogs }) => {
       {() => <VersionHistoryModal changelogs={changelogs} />}
     </ComposedModal>
   );
-}
+};
 
 const VersionHistoryModal: React.FC<VersionHistoryProps> = ({ changelogs }) => {
   return (
@@ -50,8 +50,8 @@ const VersionHistoryModal: React.FC<VersionHistoryProps> = ({ changelogs }) => {
           </StructuredListRow>
         </StructuredListHead>
         <StructuredListBody>
-          {changelogs.map((log) => (
-            <StructuredListRow>
+          {changelogs.map((log, index) => (
+            <StructuredListRow key={index}>
               <StructuredListCell>{log?.version ?? "---"}</StructuredListCell>
               <StructuredListCell noWrap>{log?.userName ?? "---"}</StructuredListCell>
               <StructuredListCell>{log?.reason?.length ? log.reason : "---"}</StructuredListCell>
@@ -62,6 +62,6 @@ const VersionHistoryModal: React.FC<VersionHistoryProps> = ({ changelogs }) => {
       </StructuredListWrapper>
     </ModalBody>
   );
-}
+};
 
 export default VersionHistory;

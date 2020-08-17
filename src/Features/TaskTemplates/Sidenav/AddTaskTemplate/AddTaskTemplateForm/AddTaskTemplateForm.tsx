@@ -143,10 +143,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           label: Yup.string().required(),
         }),
         arguments: Yup.string().required("Arguments are required"),
-        command: Yup.string(),
-        // .required("Enter a command")
-        image: Yup.string(),
-        //.required("Image is required"),
+        command: Yup.string().nullable(),
+        image: Yup.string().nullable(),
         file: Yup.mixed()
           .test(
             "fileSize",
