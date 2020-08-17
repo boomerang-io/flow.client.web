@@ -145,7 +145,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
           </div>
         </div>
         <div
-          class="bx--bmrg-toggle"
+          class="bx--bmrg-toggle --vertical"
         >
           <div
             class="bx--bmrg-toggle__title"
