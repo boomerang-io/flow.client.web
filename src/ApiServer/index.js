@@ -369,6 +369,13 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return {};
       });
 
+      this.put(serviceUrl.getTeamQuotas({ id: ":id" }), (schema, request) => {
+        let body = JSON.parse(request.requestBody);
+        const quotas = schema.quotas.first();
+        quotas.update(body);
+        return {};
+      });
+
       /**
        *  Manage Settings
        * */
