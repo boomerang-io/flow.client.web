@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
+import ProgressBar from "Components/ProgressBar";
 import { FlowTeamQuotas } from "Types";
 import styles from "./WorkflowQuotaModalContent.module.scss";
 
@@ -77,26 +78,5 @@ const QuotaSection: React.FC<QuotaSectionProps> = ({ children, description, titl
       <data className={styles.sectionValue} value={value}>{`${value} ${valueUnit}`}</data>
       {children}
     </section>
-  );
-};
-
-interface ProgressBarProps {
-  value: number;
-  maxValue: number;
-  minValue?: number;
-}
-
-const ProgressBar: React.FC<ProgressBarProps> = ({ maxValue = 100, minValue = 0, value = 0 }) => {
-  return (
-    <div className={styles.coverageBar}>
-      <div
-        role="progressbar"
-        aria-valuenow={value}
-        aria-valuemin={minValue}
-        aria-valuemax={maxValue}
-        className={styles.coverageFiller}
-        style={{ width: `${value}%` }}
-      />
-    </div>
   );
 };
