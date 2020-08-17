@@ -51,7 +51,7 @@ export default function WorkflowQuotaModalContent({
         title="Storage size capacity"
         value={quotas.maxWorkflowStorage}
         valueUnit="GB"
-      ></QuotaSection>
+      />
       <QuotaSection
         title="Concurrent Workflows"
         description="Max number of Workflows able to run at the same time"
