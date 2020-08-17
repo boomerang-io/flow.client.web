@@ -6,16 +6,37 @@
 
 .divider {
   background-color: var(--cds-hover-selected-ui);
+  border: none;
   height: 0.0625rem;
-  width: 37.5rem;
-  position: absolute;
-  left: 0;
+  width: calc(100% + 2rem);
+  margin: 1.5rem 0;
+  margin-left: -1rem;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
 }
 
-.detailedText {
+.title {
+  font-size: 0.875rem;
+  letter-spacing: 0;
+  line-height: 1.125rem;
+}
+
+.description {
   font-size: 0.75rem;
   letter-spacing: 0.02rem;
   line-height: 0.9375rem;
+  margin-top: 0.25rem;
+}
+
+.sectionValue {
+  display: block;
+  font-size: 1.25rem;
+  letter-spacing: 0;
+  line-height: 1.5625rem;
+  margin-bottom: 1rem;
+  margin-top: 0.375rem;
 }
 
 .currentUsage {
@@ -23,32 +44,6 @@
   letter-spacing: 0.02rem;
   line-height: 0.9375rem;
   margin-bottom: 1.5rem;
-}
-
-.detailedSection {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-.detailedTitle {
-  font-size: 0.875rem;
-  letter-spacing: 0;
-  line-height: 1.125rem;
-  margin-bottom: 0.3125rem;
-}
-
-.detailedData {
-  font-size: 0.75rem;
-  letter-spacing: 0.02rem;
-  line-height: 0.9375rem;
-  margin-bottom: 0.3125rem;
-}
-
-.sectionHeader {
-  font-size: 1.25rem;
-  letter-spacing: 0;
-  line-height: 1.5625rem;
-  margin-bottom: 1rem;
 }
 
 .coverageBar {
@@ -60,7 +55,13 @@
 }
 
 .coverageFiller {
+  background-color: var(--cds-support-02);
   border-radius: 0.5625rem;
   height: 100%;
-  background-color: var(--cds-support-02);
+}
+
+.detailedText {
+  font-size: 0.75rem;
+  letter-spacing: 0.02rem;
+  line-height: 0.9375rem;
 }

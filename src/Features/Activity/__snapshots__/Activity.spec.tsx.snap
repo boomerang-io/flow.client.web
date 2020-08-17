@@ -722,6 +722,298 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
             </div>
           </div>
         </div>
+        <div
+          style="margin-top: 1rem;"
+        >
+          <div
+            class="bx--skeleton bx--data-table-container"
+          >
+            <div
+              class="bx--data-table-header"
+            >
+              <div
+                class="bx--data-table-header__title"
+              />
+              <div
+                class="bx--data-table-header__description"
+              />
+            </div>
+            <section
+              aria-label="data table toolbar"
+              class="bx--table-toolbar"
+            >
+              <div
+                class="bx--toolbar-content"
+              >
+                <span
+                  class="bx--skeleton bx--btn bx--btn--sm"
+                />
+              </div>
+            </section>
+            <table
+              class="bx--skeleton bx--data-table tableSkeleton bx--skeleton bx--data-table"
+              headers="Team,Workflow,Trigger,Initiated By,Start Time,Duration,Status"
+            >
+              <thead>
+                <tr>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                  <th>
+                    <span />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                  <td>
+                    <span />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
     </div>
   </div>

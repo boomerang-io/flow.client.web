@@ -73,7 +73,7 @@ export default function WorkflowsHome() {
   };
 
   //@ts-ignore
-  const sortedTeams = useMemo(() => console.log("sortedTeams") || sortBy(teams, ["name"]), [teams]);
+  const sortedTeams = useMemo(() => sortBy(teams, ["name"]), [teams]);
 
   let selectedTeams = [];
   if (Array.isArray(teamsQuery) && teamsQuery.length > 0) {
