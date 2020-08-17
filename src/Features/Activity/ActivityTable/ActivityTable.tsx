@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { settings } from "carbon-components";
-import { DataTableSkeleton, DataTable, DelayedRender, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
+import { DataTableSkeleton, DataTable, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
 import cx from "classnames";
 import moment from "moment";
@@ -117,16 +117,14 @@ function ActivityTable(props) {
 
   if (props.isLoading) {
     return (
-      <DelayedRender>
-        <div style={{ marginTop: "1rem" }}>
-          <DataTableSkeleton
-            className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
-            rowCount={10}
-            columnCount={headers.length}
-            headers={headers.map((header) => header.header)}
-          />
-        </div>
-      </DelayedRender>
+      <div style={{ marginTop: "1rem" }}>
+        <DataTableSkeleton
+          className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
+          rowCount={10}
+          columnCount={headers.length}
+          headers={headers.map((header) => header.header)}
+        />
+      </div>
     );
   }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
 import { FlowTeamQuotas } from "Types";
 import styles from "./WorkflowQuotaModalContent.module.scss";
 
@@ -17,57 +18,85 @@ export default function WorkflowQuotaModalContent({
   if (monthlyExecutionPercentage > 100) monthlyExecutionPercentage = 100;
 
   return (
-    <div className={styles.container}>
-      <div className={styles.divider} />
-      <section className={styles.detailedSection}>
-        <div className={styles.detailedContainer}>
-          <dt className={styles.detailedTitle}>Number of Workflows</dt>
-          <dd className={styles.detailedData}>Number of Workflows that can be created for this team.</dd>
-          <h2 className={styles.sectionHeader}>{`${quotas.currentWorkflowCount} Workflows`}</h2>
-          <div className={styles.coverageBar}>
-            <div className={styles.coverageFiller} style={{ width: `${workflowLimitPercentage}%` }} />
-          </div>
-          <p
-            className={styles.currentUsage}
-          >{`Current usage: ${quotas.currentWorkflowCount} of ${quotas.maxWorkflowCount}`}</p>
-        </div>
-
-        <div className={styles.detailedContainer}>
-          <dt className={styles.detailedTitle}>Total Workflow executions</dt>
-          <dd className={styles.detailedData}>Number of executions per month across all Workflows</dd>
-          <h2 className={styles.sectionHeader}>{`${quotas.maxWorkflowExecutionMonthly} per month`}</h2>
-          <div className={styles.coverageBar}>
-            <div className={styles.coverageFiller} style={{ width: `${monthlyExecutionPercentage}%` }} />
-          </div>
-          <p
-            className={styles.detailedText}
-          >{`Current usage: ${quotas.currentWorkflowExecutionMonthly} of ${quotas.maxWorkflowExecutionMonthly}`}</p>
-          <p className={styles.detailedText}>{`Resets on ${moment
-            .utc(quotas.monthlyResetDate)
-            .format("MMMM DD, YYYY")}`}</p>
-        </div>
-      </section>
-      <div className={styles.divider} />
-
-      <section className={styles.detailedSection}>
-        <div className={styles.detailedContainer}>
-          <dt className={styles.detailedTitle}>Storage size capacity </dt>
-          <dd className={styles.detailedData}>Persistent storage size limit per Workflow</dd>
-          <h2 className={styles.sectionHeader}>{`${quotas.maxWorkflowStorage} GB`}</h2>
-        </div>
-        {/*<div className={styles.detailedContainer}>
-          <dt className={styles.detailedTitle}>Max Workflow execution time </dt>
-          <dd className={styles.detailedData}>
-            Maximum amount of time that a single Workflow can take for one execution
-          </dd>
-          <h2 className={styles.sectionHeader}>{`${quotas.maxWorkflowExecutionTime} minutes`}</h2>
-  </div>*/}
-        <div className={styles.detailedContainer}>
-          <dt className={styles.detailedTitle}>Concurrent Workflows </dt>
-          <dd className={styles.detailedData}>Max number of Workflows able to run at the same time</dd>
-          <h2 className={styles.sectionHeader}>{`${quotas.maxConcurrentWorkflows} Workflows`}</h2>
-        </div>
-      </section>
-    </div>
+    <ModalBody className={styles.container}>
+      <hr className={styles.divider} />
+      <QuotaSection
+        description="Number of Workflows that can be created for this team."
+        title="Number of Workflows"
+        value={quotas.currentWorkflowCount}
+        valueUnit="Workflows"
+      >
+        <ProgressBar maxValue={quotas.maxWorkflowCount} value={workflowLimitPercentage} />
+        <p
+          className={styles.currentUsage}
+        >{`Current usage: ${quotas.currentWorkflowCount} of ${quotas.maxWorkflowCount}`}</p>
+      </QuotaSection>
+      <QuotaSection
+        description="Number of executions per month across all Workflows"
+        title="Total Workflow executions"
+        value={quotas.maxWorkflowExecutionMonthly}
+        valueUnit="per month"
+      >
+        <ProgressBar maxValue={quotas.maxWorkflowExecutionMonthly} value={monthlyExecutionPercentage} />
+        <p
+          className={styles.detailedText}
+        >{`Current usage: ${quotas.currentWorkflowExecutionMonthly} of ${quotas.maxWorkflowExecutionMonthly}`}</p>
+        <time className={styles.detailedText}>
+          {`Resets on ${moment.utc(quotas.monthlyResetDate).format("MMMM DD, YYYY")}`}
+        </time>
+      </QuotaSection>
+      <hr className={styles.divider} />
+      <QuotaSection
+        description="Persistent storage size limit per Workflow"
+        title="Storage size capacity"
+        value={quotas.maxWorkflowStorage}
+        valueUnit="GB"
+      ></QuotaSection>
+      <QuotaSection
+        title="Concurrent Workflows"
+        description="Max number of Workflows able to run at the same time"
+        value={quotas.maxConcurrentWorkflows}
+        valueUnit="Workflows"
+      />
+    </ModalBody>
   );
 }
+
+interface QuotaSectionProps {
+  description: string;
+  title: string;
+  value: number;
+  valueUnit: string;
+}
+
+const QuotaSection: React.FC<QuotaSectionProps> = ({ children, description, title, value, valueUnit }) => {
+  return (
+    <section>
+      <h2 className={styles.title}>{title}</h2>
+      <p className={styles.description}>{description}</p>
+      <data className={styles.sectionValue} value={value}>{`${value} ${valueUnit}`}</data>
+      {children}
+    </section>
+  );
+};
+
+interface ProgressBarProps {
+  value: number;
+  maxValue: number;
+  minValue?: number;
+}
+
+const ProgressBar: React.FC<ProgressBarProps> = ({ maxValue = 100, minValue = 0, value = 0 }) => {
+  return (
+    <div className={styles.coverageBar}>
+      <div
+        role="progressbar"
+        aria-valuenow={value}
+        aria-valuemin={minValue}
+        aria-valuemax={maxValue}
+        className={styles.coverageFiller}
+        style={{ width: `${value}%` }}
+      />
+    </div>
+  );
+};
