@@ -1,4 +1,6 @@
 import React from "react";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { useMutation, queryCache } from "react-query";
 import {
   Button,
@@ -12,9 +14,8 @@ import {
   InlineNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import { FlowTeamQuotas } from "Types";
 import styles from "./QuotaEditModalContent.module.scss";
-import { Formik } from "formik";
-import * as Yup from "yup";
 
 interface QuotaEditProps {
   closeModal: () => void;
@@ -27,6 +28,7 @@ interface QuotaEditProps {
   quotaProperty: string;
   quotaValue: number;
   minValue: number;
+  teamQuotasData: FlowTeamQuotas;
 }
 
 const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
@@ -40,12 +42,13 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   quotaProperty,
   quotaValue,
   minValue,
+  teamQuotasData,
 }) => {
   const cancelRequestRef = React.useRef<{} | null>();
 
-  const [patchQuotaMutator, { isLoading, error }] = useMutation(
+  const [putQuotaMutator, { isLoading, error }] = useMutation(
     (args: { body: {}; id: string }) => {
-      const { promise, cancel } = resolver.patchTeamQuotas(args);
+      const { promise, cancel } = resolver.putTeamQuotas(args);
       if (cancelRequestRef?.current) {
         cancelRequestRef.current = cancel;
       }
@@ -59,8 +62,9 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   );
 
   const handleOnSubmit = async (values: { quotaFormValue: number | string }) => {
+    let body = { ...teamQuotasData, [quotaProperty]: values.quotaFormValue };
     try {
-      patchQuotaMutator({ id: teamId, body: { [quotaProperty]: values.quotaFormValue } });
+      putQuotaMutator({ id: teamId, body });
       closeModal();
       notify(
         <ToastNotification kind="success" title="Update Team Quotas" subtitle="Team quota successfully updated" />
