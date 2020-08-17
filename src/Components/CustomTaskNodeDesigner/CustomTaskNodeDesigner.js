@@ -12,6 +12,7 @@ import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./CustomTaskNodeDesigner.module.scss";
 
 const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({ diagramEngine, node: designerNode }) {
+  console.log("here");
   const { revisionDispatch, revisionState, summaryData, taskTemplatesData } = useEditorContext();
 
   /**
@@ -19,7 +20,7 @@ const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({ diag
    */
   const inputProperties = summaryData.properties;
   const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
-  const nodeConfig = revisionState.config ? [designerNode.id] ?? {} : {};
+  const nodeConfig = revisionState.config[designerNode.id] ?? {};
   const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);
 
   // Get the taskNames names from the nodes on the model
