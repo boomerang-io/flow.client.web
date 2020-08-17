@@ -23,7 +23,6 @@ const SwitchLinkExecution = React.memo(function SwitchLinkExecution({ diagramEng
 
   const sourceStep = workflowExecution.steps?.find((step) => step.taskId === sourceNodeId);
   const targetStep = workflowExecution.steps?.find((step) => step.taskId === targetNodeId);
-  console.log({ sourceStep, targetStep });
 
   const targetTaskHasStarted =
     targetStep?.flowTaskStatus &&

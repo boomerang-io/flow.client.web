@@ -3,7 +3,7 @@ import { DefaultLinkFactory } from "@projectstorm/react-diagrams";
 import SwitchLinkModel from "./SwitchLinkModel";
 import SwitchLinkDesigner from "Components/SwitchLinkDesigner";
 import SwitchLinkExecution from "Components/SwitchLinkExecution";
-import { NodeType } from "Constants";
+import { NodeType, WorkflowDagEngineMode } from "Constants";
 
 export default class SwitchLinkFactory extends DefaultLinkFactory {
   constructor(diagramEngine) {
@@ -17,7 +17,7 @@ export default class SwitchLinkFactory extends DefaultLinkFactory {
   };
 
   generateLinkSegment(model, widget, selected, path) {
-    if (this.diagramEngine.diagramModel.locked) {
+    if (this.diagramEngine.mode === WorkflowDagEngineMode.Executor) {
       return (
         <g>
           <SwitchLinkExecution model={model} path={path} diagramEngine={this.diagramEngine} />

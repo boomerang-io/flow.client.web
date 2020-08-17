@@ -197,7 +197,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
     return result;
   };
 
-  const handleSaveTaskTemplate = async ({ values, resetForm, requestType, setRequestError, closeModal }) => {
+  const handleSaveTaskTemplate = async (values, resetForm, requestType, setRequestError, closeModal) => {
     const newRevisions = [].concat(selectedTaskTemplate.revisions);
     const newVersion = selectedTaskTemplate.revisions.length + 1;
 
@@ -263,7 +263,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
     try {
       if (requestType !== TemplateRequestType.Copy) {
-        setRequestError(null);
+        typeof setRequestError === "function" && setRequestError(null);
       }
       let response = await uploadTaskTemplateMutation({ body });
       notify(
@@ -281,7 +281,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
       );
       updateTemplateInState(response.data);
       if (requestType !== TemplateRequestType.Copy) {
-        closeModal();
+        typeof closeModal === "function" && closeModal();
       }
     } catch (err) {
       if (!axios.isCancel(err)) {

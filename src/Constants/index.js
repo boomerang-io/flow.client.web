@@ -107,6 +107,12 @@ export const UserTypeCopy = {
   [UserType.User]: "User",
 };
 
+export const WorkflowDagEngineMode = {
+  Editor: "editor",
+  Viewer: "viewer",
+  Executor: "executor",
+};
+
 export const WorkflowPropertyUpdateType = {
   Create: "create",
   Update: "update",

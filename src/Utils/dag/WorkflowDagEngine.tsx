@@ -11,24 +11,26 @@ import SwitchPortModel from "./switchNode/SwitchPortModel";
 import TaskLinkFactory from "./taskLink/TaskLinkFactory";
 import TaskPortModel from "./taskPort/TaskPortModel";
 import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
-import { NodeType } from "Constants";
+import { NodeType, WorkflowDagEngineMode } from "Constants";
 
 interface DagModel {
   dag: object | null;
-  isModelLocked: boolean;
+  mode?: string;
 }
 
 export default class WorkflowDagEngine {
   activeModel: DiagramModel | undefined;
   diagramEngine: DiagramEngine;
 
-  constructor({ dag, isModelLocked }: DagModel) {
+  constructor({ dag, mode = WorkflowDagEngineMode.Editor }: DagModel) {
     this.diagramEngine = new DiagramEngine();
     this.diagramEngine.installDefaultFactories();
     this.diagramEngine.registerNodeFactory(new CustomTaskNodeFactory());
     this.diagramEngine.registerNodeFactory(new StartEndNodeFactory());
     this.diagramEngine.registerNodeFactory(new TemplateTaskNodeFactory());
     this.diagramEngine.registerNodeFactory(new SwitchNodeFactory());
+
+    this.diagramEngine.mode = mode;
 
     //need to find a way to register port factory
     this.diagramEngine.registerPortFactory(
@@ -43,11 +45,18 @@ export default class WorkflowDagEngine {
     this.diagramEngine.registerLinkFactory(new TaskLinkFactory(this.diagramEngine));
     this.diagramEngine.registerLinkFactory(new SwitchLinkFactory(this.diagramEngine));
 
-    this.newModel(dag, isModelLocked);
+    let isModelLocked = false;
+    if (mode === WorkflowDagEngineMode.Executor) {
+      isModelLocked = true;
+    }
+
+    this.diagramEngine.locked = isModelLocked;
+    this.newModel(dag, isModelLocked, mode);
   }
 
-  newModel(dag: object, modelIsLocked: boolean) {
+  newModel(dag: object, modelIsLocked: boolean, mode: string) {
     this.activeModel = new DiagramModel();
+    this.activeModel.mode = mode;
     if (dag) {
       this.activeModel.deSerializeDiagram(dag, this.diagramEngine);
     } else {

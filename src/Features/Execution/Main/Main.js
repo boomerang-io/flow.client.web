@@ -8,7 +8,7 @@ import ExecutionTaskLog from "./ExecutionTaskLog";
 import WorkflowActions from "./WorkflowActions";
 import WorkflowZoom from "Components/WorkflowZoom";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
-import { ExecutionStatus, QueryStatus } from "Constants";
+import { ExecutionStatus, QueryStatus, WorkflowDagEngineMode } from "Constants";
 import styles from "./main.module.scss";
 
 class Main extends Component {
@@ -20,7 +20,10 @@ class Main extends Component {
 
   constructor(props) {
     super(props);
-    this.workflowDagEngine = new WorkflowDagEngine({ dag: props.dag, isModelLocked: true });
+    this.workflowDagEngine = new WorkflowDagEngine({
+      dag: props.dag,
+      mode: WorkflowDagEngineMode.Executor,
+    });
     this.state = {
       workflowDagBoundingClientRect: {},
     };

@@ -11,7 +11,7 @@ import { Add32 } from "@carbon/icons-react";
 import { FlowTeam, ComposedModalChildProps, ModalTriggerProps, WorkflowExport, CreateWorkflowSummary } from "Types";
 import styles from "./createWorkflow.module.scss";
 
-const workflowDagEngine = new WorkflowDagEngine({ dag: null, isModelLocked: false });
+const workflowDagEngine = new WorkflowDagEngine({ dag: null });
 
 interface CreateWorkflowProps {
   team: FlowTeam;

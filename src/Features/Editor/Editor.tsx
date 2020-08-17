@@ -21,7 +21,7 @@ import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
-import { NodeType } from "Constants";
+import { NodeType, WorkflowDagEngineMode } from "Constants";
 import { TaskModel, WorkflowSummary, WorkflowRevision } from "Types";
 import styles from "./editor.module.scss";
 
@@ -290,12 +290,12 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   const { revisionCount } = summaryData;
   const { version } = revisionState;
-  const isModelLocked = version < revisionCount;
+  const mode = version === revisionCount ? WorkflowDagEngineMode.Editor : WorkflowDagEngineMode.Viewer;
 
   useEffect(() => {
     // Initial value of revisionState will be null, so need to check if its present or we get two engines created
     if (revisionState.version) {
-      const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, isModelLocked });
+      const newWorkflowDagEngine = new WorkflowDagEngine({ dag: revisionState.dag, mode });
       setWorkflowDagEngine(newWorkflowDagEngine);
       newWorkflowDagEngine.getDiagramEngine().repaintCanvas();
     }
