@@ -57,6 +57,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
     {
       onSuccess: () => {
         queryCache.invalidateQueries(serviceUrl.getTeamQuotas({ id: teamId }));
+        queryCache.invalidateQueries(serviceUrl.getTeams());
       },
     }
   );
