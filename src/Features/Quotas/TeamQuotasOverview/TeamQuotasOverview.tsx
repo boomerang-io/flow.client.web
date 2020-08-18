@@ -33,7 +33,10 @@ export function TeamQuotasOverview({ teams }) {
   });
 
   const [defaultQuotasMutator, { isLoading: defaultIsLoading }] = useMutation(resolver.putTeamQuotasDefault, {
-    onSuccess: () => queryCache.invalidateQueries(teamQuotasUrl),
+    onSuccess: () => {
+      queryCache.invalidateQueries(teamQuotasUrl);
+      queryCache.invalidateQueries(serviceUrl.getTeams());
+    },
   });
 
   const teamData = teams.find((team) => team.id === teamId);
