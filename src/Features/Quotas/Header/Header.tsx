@@ -16,9 +16,6 @@ const Header: React.FC<HeaderProps> = ({ selectedTeam, handleRestoreDefaultQuota
       <div className={styles.container}>
         <hgroup>
           <h1 className={styles.teamName}>{selectedTeam.name}</h1>
-          <h2 className={styles.teamMembers}>{`${selectedTeam.users.length} Team Member${
-            selectedTeam.users.length !== 1 ? "s" : ""
-          }`}</h2>
         </hgroup>
         <ConfirmModal
           affirmativeAction={handleRestoreDefaultQuota}
