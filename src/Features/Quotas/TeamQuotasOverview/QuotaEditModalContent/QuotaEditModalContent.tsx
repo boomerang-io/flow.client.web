@@ -7,7 +7,7 @@ import {
   Loading,
   ModalBody,
   ModalFooter,
-  ModalFlowForm,
+  ModalForm,
   notify,
   NumberInput,
   ToastNotification,
@@ -65,7 +65,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
   const handleOnSubmit = async (values: { quotaFormValue: number | string }) => {
     let body = { ...teamQuotasData, [quotaProperty]: values.quotaFormValue };
     try {
-      putQuotaMutator({ id: teamId, body });
+      await putQuotaMutator({ id: teamId, body });
       closeModal();
       notify(
         <ToastNotification kind="success" title="Update Team Quotas" subtitle="Team quota successfully updated" />
@@ -95,7 +95,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
       {(formikProps) => {
         const { values, setFieldValue, errors, touched, dirty } = formikProps;
         return (
-          <ModalFlowForm>
+          <ModalForm>
             <ModalBody className={styles.modalBodyContainer}>
               <div className={styles.modalInputContainer}>
                 {isLoading && <Loading />}
@@ -118,7 +118,6 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                   />
                   {inputUnits && <h5 className={styles.inputUnits}>{inputUnits}</h5>}
                 </div>
-
                 {error && (
                   <InlineNotification
                     kind="error"
@@ -137,7 +136,7 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                 {buttonText}
               </Button>
             </ModalFooter>
-          </ModalFlowForm>
+          </ModalForm>
         );
       }}
     </Formik>

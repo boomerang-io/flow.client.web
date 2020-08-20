@@ -34,6 +34,7 @@ export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}`,
   getActivitySummary: ({ query }) => `${BASE_SERVICE_URL}/activity/summary${query ? "?" + query : ""}`,
   getActivity: ({ query }) => `${BASE_SERVICE_URL}/activity${query ? "?" + query : ""}`,
+  getDefaultQuotas: () => `${BASE_SERVICE_URL}/quotas/default`,
   getGlobalConfiguration: () => `${BASE_SERVICE_URL}/config`,
   getGlobalProperty: ({ id }) => `${BASE_SERVICE_URL}/config/${id}`,
   getInsights: ({ query }) => `${BASE_SERVICE_URL}/insights${query ? "?" + query : ""}`,
@@ -145,7 +146,8 @@ export const resolver = {
   putPlatformSettings: ({ body }) => axios.put(serviceUrl.resourceSettings(), body),
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),
   putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getManageTeam({ teamId }), body),
-  putTeamQuotasDefault: ({ id }) => axios.put(serviceUrl.putTeamQuotasDefault({ id })),
+  putTeamQuotasDefault: ({ id }) =>
+    cancellableResolver({ url: serviceUrl.putTeamQuotasDefault({ id }), method: HttpMethods.Put }),
   putTeamQuotas: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getTeamQuotas({ id }), body, method: HttpMethods.Put }),
 };

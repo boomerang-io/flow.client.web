@@ -350,11 +350,11 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
               <div
                 class="quotaDescriptionContainer"
               >
-                <h3
+                <p
                   class="teamQuotaText"
                 >
                   Workflow quota - 10 of 10 used
-                </h3>
+                </p>
                 <svg
                   aria-hidden="true"
                   class="warningIcon"
@@ -553,11 +553,11 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
               <div
                 class="quotaDescriptionContainer"
               >
-                <h3
+                <p
                   class="teamQuotaText"
                 >
                   Workflow quota - 10 of 10 used
-                </h3>
+                </p>
                 <svg
                   aria-hidden="true"
                   class="warningIcon"
@@ -739,6 +739,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             </div>
           </div>
         </section>
+        
       </div>
     </div>
   </div>
