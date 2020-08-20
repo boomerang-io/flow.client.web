@@ -376,6 +376,16 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return {};
       });
 
+      this.get(serviceUrl.getDefaultQuotas(), (schema, request) => {
+        return {
+          maxWorkflowCount: 20,
+          maxWorkflowExecutionMonthly: 150,
+          maxWorkflowStorage: 10,
+          maxWorkflowExecutionTime: 30,
+          maxConcurrentWorkflows: 4,
+        };
+      });
+
       /**
        *  Manage Settings
        * */

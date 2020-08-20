@@ -1,18 +1,14 @@
 //@ts-nocheck
 import React from "react";
-
 import { useParams } from "react-router-dom";
-import { useMutation, useQuery, queryCache } from "react-query";
+import { useQuery } from "react-query";
 import {
   Tile,
   Button,
   Error404,
-  notify,
-  ToastNotification,
   TooltipHover,
   Loading,
   ComposedModal,
-  InlineLoading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ComposedModalChildProps, ModalTriggerProps, FlowTeamQuotas } from "Types";
 import { Edit16 } from "@carbon/icons-react";
@@ -32,29 +28,12 @@ export function TeamQuotasOverview({ teams }) {
     queryFn: resolver.query(teamQuotasUrl),
   });
 
-  const [defaultQuotasMutator, { isLoading: defaultIsLoading }] = useMutation(resolver.putTeamQuotasDefault, {
-    onSuccess: () => {
-      queryCache.invalidateQueries(teamQuotasUrl);
-      queryCache.invalidateQueries(serviceUrl.getTeams());
-    },
+  const { data: defaultQuotasData, defaultQuotasError, defaultQuotasIsLoading } = useQuery({
+    queryKey: serviceUrl.getDefaultQuotas(),
+    queryFn: resolver.query(serviceUrl.getDefaultQuotas()),
   });
 
   const teamData = teams.find((team) => team.id === teamId);
-
-  const handleRestoreDefaultQuota = () => {
-    try {
-      defaultQuotasMutator({ id: teamId });
-      notify(
-        <ToastNotification
-          kind="success"
-          title="Restore Default Quotas"
-          subtitle="Successfully restored default quotas"
-        />
-      );
-    } catch {
-      notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to restore default quotas" />);
-    }
-  };
 
   if (error)
     return <Error404 header="Team not found" title="Crikey. We can't find the team you are looking for." message="" />;
@@ -74,10 +53,14 @@ export function TeamQuotasOverview({ teams }) {
 
   return (
     <div className={styles.container}>
-      <Header handleRestoreDefaultQuota={handleRestoreDefaultQuota} selectedTeam={teamData} />
+      <Header
+        defaultQuotasError={defaultQuotasError}
+        defaultQuotasIsLoading={defaultQuotasIsLoading}
+        defaultQuotasData={defaultQuotasData}
+        selectedTeam={teamData}
+      />
       <section className={styles.cardsSection}>
         <QuotaCard
-          isLoading={defaultIsLoading}
           subtitle="Number of Workflows that can be created for this team."
           title="Number of Workflows"
           modalSubtitle="Set the maximum number of Workflows that can be created for this team."
@@ -102,7 +85,6 @@ export function TeamQuotasOverview({ teams }) {
         </QuotaCard>
 
         <QuotaCard
-          isLoading={defaultIsLoading}
           subtitle="Number of executions per month across all Workflows for this Team"
           title="Number of Executions"
           modalSubtitle="Set the maximum total number of executions per month - this is the total amount across all Workflows for this Team."
@@ -129,7 +111,6 @@ export function TeamQuotasOverview({ teams }) {
         </QuotaCard>
 
         <QuotaCard
-          isLoading={defaultIsLoading}
           subtitle="Storage type"
           title="Storage size capacity"
           modalSubtitle="Set the storage size limit for each Workflow using persistent storage on this Team."
@@ -153,7 +134,6 @@ export function TeamQuotasOverview({ teams }) {
          * removed for now
          */}
         {/*<QuotaCard
-          isLoading={defaultIsLoading}
           subtitle="Maximum amount of time that a single Workflow can take for one execution."
           title="Execution time"
           modalSubtitle="Set the maximum amount of time that a single Workflow can take for one execution."
@@ -173,7 +153,6 @@ export function TeamQuotasOverview({ teams }) {
         </QuotaCard>*/}
 
         <QuotaCard
-          isLoading={defaultIsLoading}
           subtitle="Max number of Workflows able to run at the same time."
           title="Concurrent Workflows"
           modalSubtitle="Set the maximum number of Workflows that are able to run at the same time."
@@ -196,7 +175,6 @@ export function TeamQuotasOverview({ teams }) {
 }
 
 interface QuotaCardProps {
-  isLoading: boolean;
   subtitle: boolean;
   title: string;
   modalSubtitle: string;
@@ -215,7 +193,6 @@ interface QuotaCardProps {
 
 const QuotaCard: React.FC<QuotaCardProps> = ({
   children,
-  isLoading,
   subtitle,
   title,
   modalSubtitle,
@@ -234,50 +211,43 @@ const QuotaCard: React.FC<QuotaCardProps> = ({
     <Tile className={styles.cardContainer}>
       <section className={styles.titleSection}>
         <h1 className={styles.title}>{title}</h1>
-        {isLoading ? (
-          <InlineLoading
-            description={"Updating..."}
-            style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
-          />
-        ) : (
-          <ComposedModal
-            composedModalProps={{
-              containerClassName: styles.modalContainer,
-            }}
-            modalHeaderProps={{
-              title: title,
-              subtitle: modalSubtitle,
-            }}
-            modalTrigger={({ openModal }: ModalTriggerProps) => (
-              <TooltipHover direction="top" content={"Edit"}>
-                <Button
-                  className={styles.editButton}
-                  iconDescription="Edit"
-                  kind="ghost"
-                  onClick={openModal}
-                  renderIcon={Edit16}
-                  size="field"
-                />
-              </TooltipHover>
-            )}
-          >
-            {({ closeModal }: ComposedModalChildProps) => (
-              <QuotaEditModalContent
-                closeModal={closeModal}
-                detailedData={detailedData}
-                detailedTitle={detailedTitle}
-                inputLabel={inputLabel}
-                inputUnits={inputUnits}
-                stepValue={stepValue}
-                teamId={teamId}
-                quotaProperty={quotaProperty}
-                quotaValue={quotaValue}
-                minValue={minValue}
-                teamQuotasData={teamQuotasData}
+        <ComposedModal
+          composedModalProps={{
+            containerClassName: styles.modalContainer,
+          }}
+          modalHeaderProps={{
+            title: title,
+            subtitle: modalSubtitle,
+          }}
+          modalTrigger={({ openModal }: ModalTriggerProps) => (
+            <TooltipHover direction="top" content={"Edit"}>
+              <Button
+                className={styles.editButton}
+                iconDescription="Edit"
+                kind="ghost"
+                onClick={openModal}
+                renderIcon={Edit16}
+                size="field"
               />
-            )}
-          </ComposedModal>
-        )}
+            </TooltipHover>
+          )}
+        >
+          {({ closeModal }: ComposedModalChildProps) => (
+            <QuotaEditModalContent
+              closeModal={closeModal}
+              detailedData={detailedData}
+              detailedTitle={detailedTitle}
+              inputLabel={inputLabel}
+              inputUnits={inputUnits}
+              stepValue={stepValue}
+              teamId={teamId}
+              quotaProperty={quotaProperty}
+              quotaValue={quotaValue}
+              minValue={minValue}
+              teamQuotasData={teamQuotasData}
+            />
+          )}
+        </ComposedModal>
       </section>
       <h2 className={styles.subtitle}>{subtitle}</h2>
       <section>{children}</section>
