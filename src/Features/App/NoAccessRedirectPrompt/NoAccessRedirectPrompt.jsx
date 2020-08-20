@@ -9,8 +9,8 @@ const NoAccessRedirectPrompt = () => {
   const message = React.useMemo(() => {
     return isStandaAloneMode ? (
       <p>
-        You’re not a member of any teams in Boomerang Flow. efore we let you explore this wonderful tool, please have an
-        admin add you to a team.{" "}
+        You’re not a member of any teams in Boomerang Flow. Before we let you explore this wonderful tool, please have
+        an admin add you to a team.{" "}
       </p>
     ) : (
       <p>
