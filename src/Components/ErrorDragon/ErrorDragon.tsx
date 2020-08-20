@@ -1,9 +1,9 @@
 import React from "react";
 import { ErrorDragon as ErrorDragonComponent } from "@boomerang-io/carbon-addons-boomerang-react";
-import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
+import { CORE_ENV_URL } from "Config/appConfig";
 
 const ErrorDragon: React.FC<any> = (props) => {
-  return <ErrorDragonComponent statusUrl={`${BASE_LAUNCH_ENV_URL}/status`} {...props} />;
-}
+  return <ErrorDragonComponent statusUrl={`${CORE_ENV_URL}/status`} {...props} />;
+};
 
 export default ErrorDragon;

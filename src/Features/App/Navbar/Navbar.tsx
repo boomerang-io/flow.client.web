@@ -12,8 +12,8 @@ import {
   SideNavMenuItem,
   UIShell,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { BASE_URL } from "Config/servicesConfig";
-import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
+import { BASE_CORE_URL } from "Config/servicesConfig";
+import { CORE_ENV_URL } from "Config/appConfig";
 import { appLink, FeatureFlag } from "Config/appConfig";
 import { UserType } from "Constants";
 import { FlowUser } from "Types";
@@ -146,8 +146,8 @@ interface NavbarContainerProps {
 export default function NavbarContainer({ handleOnTutorialClick, navigationData, userData }: NavbarContainerProps) {
   const isStandaAloneMode = useFeature(FeatureFlag.Standalone);
   const defaultUIShellProps = {
-    baseLaunchEnvUrl: isStandaAloneMode ? null : BASE_LAUNCH_ENV_URL,
-    baseServiceUrl: isStandaAloneMode ? null : BASE_URL,
+    baseLaunchEnvUrl: isStandaAloneMode ? null : CORE_ENV_URL,
+    baseServiceUrl: isStandaAloneMode ? null : BASE_CORE_URL,
     requirePlatformConsent: isStandaAloneMode ? false : true,
     renderLogo: true,
   };

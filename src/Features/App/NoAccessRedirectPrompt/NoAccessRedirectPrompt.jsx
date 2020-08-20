@@ -2,7 +2,7 @@ import React from "react";
 import { useFeature } from "flagged";
 import { Error403 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { FeatureFlag } from "Config/appConfig";
-import { BASE_LAUNCH_ENV_URL } from "Config/platformUrlConfig";
+import { CORE_ENV_URL } from "Config/appConfig";
 
 const NoAccessRedirectPrompt = () => {
   const isStandaAloneMode = useFeature(FeatureFlag.Standalone);
@@ -15,8 +15,7 @@ const NoAccessRedirectPrompt = () => {
     ) : (
       <p>
         You’re not a member of any teams with access to Boomerang Flow. Before we let you explore this wonderful tool,{" "}
-        <a href={`${BASE_LAUNCH_ENV_URL}/launchpad`}>head over to Launchpad</a> to join or create a team authorized for
-        Flow.
+        <a href={`${CORE_ENV_URL}/launchpad`}>head over to Launchpad</a> to join or create a team authorized for Flow.
       </p>
     );
   }, [isStandaAloneMode]);

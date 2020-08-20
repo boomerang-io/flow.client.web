@@ -177,7 +177,7 @@ describe("WorkflowInsights --- Snapshot", () => {
 // });
 // describe("WorkflowInsights --- Snapshot", () => {
 //   it("Capturing Snapshot of WorkflowInsights", async () => {
-//     const url = new RegExp(`${BASE_SERVICE_URL}/insights?`);
+//     const url = new RegExp(`${BASE_URL}/insights?`);
 //     mockAxios.onGet(url).reply(200, insights);
 //     const { baseElement, findByText } = rtlContextRouterRender(<WorkflowInsights {...props} />,{
 //       initialState:initialReduxState
@@ -189,7 +189,7 @@ describe("WorkflowInsights --- Snapshot", () => {
 
 // describe("WorkflowInsights --- RTL", () => {
 //   it("Test Team and Period Filters", async () => {
-//     const url = new RegExp(`${BASE_SERVICE_URL}/insights?`);
+//     const url = new RegExp(`${BASE_URL}/insights?`);
 //     mockAxios.onGet(url).reply(200, insights);
 //     const { findByText, getByText, getByLabelText, getAllByText, getByTestId} = rtlContextRouterRender(<WorkflowInsights {...props} />,{
 //       initialState:initialReduxState

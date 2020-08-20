@@ -12,7 +12,7 @@
     "cypress": "cypress open",
     "docker": "cross-env NODE_ENV=test run-s docker:build docker:run",
     "docker:build": "docker build -t webapp .",
-    "docker:run": "docker run -i -t -p 3000:3000 -e APP_ROOT=/app -e BASE_SERVICE_ENV_URL=http://localhost:8000 -e APP_ROOT=/local webapp",
+    "docker:run": "docker run -i -t -p 3000:3000 -e APP_ROOT=/app -e CORE_SERVICE_ENV_URL=http://localhost:8000 -e APP_ROOT=/local webapp",
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "start": "react-scripts start",

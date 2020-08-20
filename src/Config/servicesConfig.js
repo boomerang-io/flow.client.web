@@ -2,8 +2,8 @@ import portForwardMap from "../setupPortForwarding";
 import axios, { CancelToken } from "axios";
 import { HttpMethods } from "Constants";
 
-export const BASE_SERVICE_ENV_URL =
-  process.env.NODE_ENV === "production" ? window._SERVER_DATA && window._SERVER_DATA.BASE_SERVICE_ENV_URL : "/api";
+export const CORE_SERVICE_ENV_URL =
+  process.env.NODE_ENV === "production" ? window._SERVER_DATA && window._SERVER_DATA.CORE_SERVICE_ENV_URL : "/api";
 
 export const PRODUCT_SERVICE_ENV_URL =
   process.env.NODE_ENV === "production" ? window._SERVER_DATA && window._SERVER_DATA.PRODUCT_SERVICE_ENV_URL : "/api";
@@ -25,55 +25,54 @@ function determineUrl(baseUrl, serviceContextPath) {
   }
 }
 
-// Standard
-export const BASE_URL = BASE_SERVICE_ENV_URL;
-export const BASE_SERVICE_URL = determineUrl(PRODUCT_SERVICE_ENV_URL, "/workflow");
-export const BASE_USERS_URL = determineUrl(BASE_SERVICE_ENV_URL, "/users");
+export const BASE_URL = determineUrl(PRODUCT_SERVICE_ENV_URL, "/workflow");
+export const BASE_CORE_URL = CORE_SERVICE_ENV_URL;
+export const BASE_USERS_URL = determineUrl(BASE_CORE_URL, "/users");
 
 export const serviceUrl = {
-  deleteArchiveTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}`,
-  getActivitySummary: ({ query }) => `${BASE_SERVICE_URL}/activity/summary${query ? "?" + query : ""}`,
-  getActivity: ({ query }) => `${BASE_SERVICE_URL}/activity${query ? "?" + query : ""}`,
-  getDefaultQuotas: () => `${BASE_SERVICE_URL}/quotas/default`,
-  getGlobalConfiguration: () => `${BASE_SERVICE_URL}/config`,
-  getGlobalProperty: ({ id }) => `${BASE_SERVICE_URL}/config/${id}`,
-  getInsights: ({ query }) => `${BASE_SERVICE_URL}/insights${query ? "?" + query : ""}`,
-  getManageTeamsCreate: () => `${BASE_SERVICE_URL}/manage/teams`,
-  getManageTeam: ({ teamId }) => `${BASE_SERVICE_URL}/manage/teams/${teamId}`,
-  getManageTeams: ({ query }) => `${BASE_SERVICE_URL}/manage/teams${query ? "?" + query : ""}`,
-  getManageUsers: ({ query }) => `${BASE_SERVICE_URL}/manage/users${query ? "?" + query : ""}`,
+  deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
+  getActivitySummary: ({ query }) => `${BASE_URL}/activity/summary${query ? "?" + query : ""}`,
+  getActivity: ({ query }) => `${BASE_URL}/activity${query ? "?" + query : ""}`,
+  getDefaultQuotas: () => `${BASE_URL}/quotas/default`,
+  getGlobalConfiguration: () => `${BASE_URL}/config`,
+  getGlobalProperty: ({ id }) => `${BASE_URL}/config/${id}`,
+  getInsights: ({ query }) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
+  getManageTeamsCreate: () => `${BASE_URL}/manage/teams`,
+  getManageTeam: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}`,
+  getManageTeams: ({ query }) => `${BASE_URL}/manage/teams${query ? "?" + query : ""}`,
+  getManageUsers: ({ query }) => `${BASE_URL}/manage/users${query ? "?" + query : ""}`,
   getNavigation: () => `${BASE_USERS_URL}/navigation`,
-  getTaskTemplates: () => `${BASE_SERVICE_URL}/tasktemplate`,
-  getTeams: () => `${BASE_SERVICE_URL}/teams`,
-  getTeamProperty: ({ teamId, configurationId }) => `${BASE_SERVICE_URL}/teams/${teamId}/properties/${configurationId}`,
-  getTeamProperties: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/properties`,
-  getTeamQuotas: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/quotas`,
-  getUsers: () => `${BASE_SERVICE_URL}/users`,
-  getUser: ({ userId }) => `${BASE_SERVICE_URL}/users/${userId}`,
-  getUserTeams: ({ email }) => `${BASE_SERVICE_URL}/teams?userEmail=${email}`,
+  getTaskTemplates: () => `${BASE_URL}/tasktemplate`,
+  getTeams: () => `${BASE_URL}/teams`,
+  getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
+  getTeamProperties: ({ id }) => `${BASE_URL}/teams/${id}/properties`,
+  getTeamQuotas: ({ id }) => `${BASE_URL}/teams/${id}/quotas`,
+  getUsers: () => `${BASE_URL}/users`,
+  getUser: ({ userId }) => `${BASE_URL}/users/${userId}`,
+  getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
   getUserProfile: () => `${BASE_USERS_URL}/profile`,
-  getWorkflow: ({ id }) => `${BASE_SERVICE_URL}/workflow/${id}`,
+  getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
   getWorkflowChangelog: ({ workflowId, query }) =>
-    `${BASE_SERVICE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
-  getWorkflowImport: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
-  getWorkflowExecution: ({ executionId }) => `${BASE_SERVICE_URL}/activity/${executionId}`,
+    `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
+  getWorkflowImport: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
+  getWorkflowExecution: ({ executionId }) => `${BASE_URL}/activity/${executionId}`,
   getWorkflowExecutionLog: ({ flowActivityId, flowTaskId }) =>
-    `${BASE_SERVICE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,
+    `${BASE_URL}/activity/${flowActivityId}/log/${flowTaskId}`,
   getWorkflowRevision: ({ workflowId, revisionNumber }) =>
-    `${BASE_SERVICE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
-  getWorkflowSummary: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/summary`,
-  patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/properties`,
-  patchUpdateWorkflowSummary: () => `${BASE_SERVICE_URL}/workflow`,
-  postCreateWorkflow: () => `${BASE_SERVICE_URL}/workflow`,
-  postCreateWorkflowRevision: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/revision`,
-  postCreateWorkflowToken: ({ workflowId }) => `${BASE_SERVICE_URL}/workflow/${workflowId}/webhook-token`,
-  postExecuteWorkflow: ({ id }) => `${BASE_SERVICE_URL}/execute/${id}`,
-  postImportWorkflow: ({ query }) => `${BASE_SERVICE_URL}/workflow/import?${query}`,
-  postValidateActivationCode: () => `${BASE_SERVICE_URL}/validatesetup`,
-  putRestoreTaskTemplate: ({ id }) => `${BASE_SERVICE_URL}/tasktemplate/${id}/activate`,
-  putTeamQuotasDefault: ({ id }) => `${BASE_SERVICE_URL}/teams/${id}/quotas/default`,
-  resourceManageUser: ({ userId }) => `${BASE_SERVICE_URL}/manage/users/${userId}`,
-  resourceSettings: () => `${BASE_SERVICE_URL}/settings`,
+    `${BASE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
+  getWorkflowSummary: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/summary`,
+  patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/properties`,
+  patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
+  postCreateWorkflow: () => `${BASE_URL}/workflow`,
+  postCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/revision`,
+  postCreateWorkflowToken: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/webhook-token`,
+  postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
+  postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
+  postValidateActivationCode: () => `${BASE_URL}/validatesetup`,
+  putRestoreTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}/activate`,
+  putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
+  resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
+  resourceSettings: () => `${BASE_URL}/settings`,
 };
 
 export const cancellableResolver = ({ url, method, body, ...config }) => {
