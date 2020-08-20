@@ -20,7 +20,7 @@ import WorkflowRunModalContent from "./WorkflowRunModalContent";
 import fileDownload from "js-file-download";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { BASE_SERVICE_URL } from "Config/servicesConfig";
+import { BASE_URL } from "Config/servicesConfig";
 import { Run20, Bee20 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
 import { WorkflowSummary, ModalTriggerProps, ComposedModalChildProps, FlowTeamQuotas } from "Types";
@@ -76,7 +76,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   const handleExportWorkflow = (workflow: WorkflowSummary) => {
     notify(<ToastNotification kind="info" title="Export Workflow" subtitle="Export starting soon" />);
     axios
-      .get(`${BASE_SERVICE_URL}/workflow/export/${workflow.id}`)
+      .get(`${BASE_URL}/workflow/export/${workflow.id}`)
       .then(({ data }) => {
         fileDownload(JSON.stringify(data, null, 4), `${workflow.name}.json`);
       })
