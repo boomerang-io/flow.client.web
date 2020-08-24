@@ -84,7 +84,8 @@ export default function App() {
   });
 
   const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading;
-  const isError = userQuery.isError || navigationQuery.isError || teamsQuery.isError;
+  const hasError = userQuery.isError || navigationQuery.isError || teamsQuery.isError;
+  const hasData = userQuery.data && navigationQuery.data && teamsQuery.data;
 
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
@@ -95,7 +96,7 @@ export default function App() {
     return <Loading />;
   }
 
-  if (isError) {
+  if (hasError) {
     return <ErrorDragon style={{ margin: "5rem 0" }} />;
   }
 
@@ -109,27 +110,30 @@ export default function App() {
     );
   }
 
-  return (
-    <FlagsProvider features={{ standalone: PRODUCT_STANDALONE }}>
-      <Navbar
-        handleOnTutorialClick={() => setIsTutorialActive(true)}
-        navigationData={navigationQuery.data}
-        userData={userQuery.data}
-      />
-      <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
-      <ErrorBoundary>
-        <Main
-          isStandaloneMode={PRODUCT_STANDALONE}
-          isTutorialActive={isTutorialActive}
-          setIsTutorialActive={setIsTutorialActive}
-          setShouldShowBrowserWarning={setShouldShowBrowserWarning}
-          shouldShowBrowserWarning={shouldShowBrowserWarning}
-          teamsData={teamsQuery.data}
+  if (hasData) {
+    return (
+      <FlagsProvider features={{ standalone: PRODUCT_STANDALONE }}>
+        <Navbar
+          handleOnTutorialClick={() => setIsTutorialActive(true)}
+          navigationData={navigationQuery.data}
           userData={userQuery.data}
         />
-      </ErrorBoundary>
-    </FlagsProvider>
-  );
+        <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
+        <ErrorBoundary>
+          <Main
+            isStandaloneMode={PRODUCT_STANDALONE}
+            isTutorialActive={isTutorialActive}
+            setIsTutorialActive={setIsTutorialActive}
+            setShouldShowBrowserWarning={setShouldShowBrowserWarning}
+            shouldShowBrowserWarning={shouldShowBrowserWarning}
+            teamsData={teamsQuery.data}
+            userData={userQuery.data}
+          />
+        </ErrorBoundary>
+      </FlagsProvider>
+    );
+  }
+  return null;
 }
 
 interface MainProps {
