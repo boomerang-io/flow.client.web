@@ -81,8 +81,8 @@ const UpdateTeamName: React.FC<UpdateTeamNameProps> = ({ closeModal, team, teamN
                 />
                 {error && (
                   <InlineNotification
-                    kind="error"
                     lowContrast
+                    kind="error"
                     title="Name changed failed!"
                     subtitle="Give it another go or try again later."
                   />

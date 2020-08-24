@@ -98,8 +98,8 @@ export default function AddTeamContent({
                 />
                 {error && (
                   <InlineNotification
-                    kind="error"
                     lowContrast
+                    kind="error"
                     title="Name changed failed!"
                     subtitle="Give it another go or try again later."
                   />

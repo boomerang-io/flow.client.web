@@ -120,8 +120,8 @@ const QuotaEditModalContent: React.FC<QuotaEditProps> = ({
                 </div>
                 {error && (
                   <InlineNotification
-                    kind="error"
                     lowContrast
+                    kind="error"
                     title="Quota changed failed!"
                     subtitle="Give it another go or try again later."
                   />

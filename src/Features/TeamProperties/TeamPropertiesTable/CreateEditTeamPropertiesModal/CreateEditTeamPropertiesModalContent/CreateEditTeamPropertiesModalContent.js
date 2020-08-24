@@ -173,6 +173,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
               />
               {addError && (
                 <InlineNotification
+                  lowContrast
                   kind="error"
                   subtitle={"Request to create property failed"}
                   title={"Something's Wrong"}
@@ -181,8 +182,8 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
               )}
               {updateError && (
                 <InlineNotification
-                  kind="error"
                   lowContrast
+                  kind="error"
                   subtitle={"Request to update property failed"}
                   title={"Something's Wrong"}
                   data-testid="create-update-team-prop-notification"

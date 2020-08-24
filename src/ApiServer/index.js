@@ -75,7 +75,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.manageTeams[0];
       });
 
-      this.post(serviceUrl.postValidateActivationCode(), (schema) => {
+      this.post(serviceUrl.putActivationApp(), (schema) => {
         return {};
       });
 

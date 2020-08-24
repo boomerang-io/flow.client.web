@@ -9,7 +9,7 @@ export const PROPERTY_KEY_REGEX = /^[a-zA-Z0-9-._]+$/;
 /**
  * Enums
  */
-export const HttpMethods = {
+export const HttpMethod = {
   Post: "post",
   Put: "put",
   Patch: "patch",

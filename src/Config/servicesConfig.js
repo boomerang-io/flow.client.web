@@ -1,6 +1,7 @@
 import portForwardMap from "../setupPortForwarding";
 import axios, { CancelToken } from "axios";
-import { HttpMethods } from "Constants";
+import { HttpMethod } from "Constants";
+import { PRODUCT_STANDALONE } from "./appConfig";
 
 export const CORE_SERVICE_ENV_URL =
   process.env.NODE_ENV === "production" ? window._SERVER_DATA && window._SERVER_DATA.CORE_SERVICE_ENV_URL : "/api";
@@ -27,7 +28,11 @@ function determineUrl(baseUrl, serviceContextPath) {
 
 export const BASE_URL = determineUrl(PRODUCT_SERVICE_ENV_URL, "/workflow");
 export const BASE_CORE_URL = CORE_SERVICE_ENV_URL;
-export const BASE_USERS_URL = determineUrl(BASE_CORE_URL, "/users");
+export const BASE_CORE_USERS_URL = PRODUCT_STANDALONE
+  ? `${determineUrl(CORE_SERVICE_ENV_URL, "/workflow")}/users`
+  : determineUrl(CORE_SERVICE_ENV_URL, "/users");
+
+console.log(BASE_CORE_USERS_URL);
 
 export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
@@ -41,7 +46,7 @@ export const serviceUrl = {
   getManageTeam: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}`,
   getManageTeams: ({ query }) => `${BASE_URL}/manage/teams${query ? "?" + query : ""}`,
   getManageUsers: ({ query }) => `${BASE_URL}/manage/users${query ? "?" + query : ""}`,
-  getNavigation: () => `${BASE_USERS_URL}/navigation`,
+  getNavigation: () => `${BASE_CORE_USERS_URL}/navigation`,
   getTaskTemplates: () => `${BASE_URL}/tasktemplate`,
   getTeams: () => `${BASE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
@@ -50,7 +55,7 @@ export const serviceUrl = {
   getUsers: () => `${BASE_URL}/users`,
   getUser: ({ userId }) => `${BASE_URL}/users/${userId}`,
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
-  getUserProfile: () => `${BASE_USERS_URL}/profile`,
+  getUserProfile: () => `${BASE_CORE_USERS_URL}/profile`,
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
   getWorkflowChangelog: ({ workflowId, query }) =>
     `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
@@ -68,7 +73,7 @@ export const serviceUrl = {
   postCreateWorkflowToken: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/webhook-token`,
   postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
   postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
-  postValidateActivationCode: () => `${BASE_URL}/validatesetup`,
+  putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
   putRestoreTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}/activate`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
@@ -99,46 +104,46 @@ export const resolver = {
     axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
   patchGlobalPropertyRequest: ({ id, body }) =>
-    cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethods.Patch }),
+    cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethod.Patch }),
   patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeam({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
-    cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethods.Patch }),
+    cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
 
   patchTeamPropertyRequest: ({ teamId, configurationId, body }) =>
     cancellableResolver({
       url: serviceUrl.getTeamProperty({ teamId, configurationId }),
       body,
-      method: HttpMethods.Patch,
+      method: HttpMethod.Patch,
     }),
   patchUpdateWorkflowSummary: ({ body }) => axios.patch(serviceUrl.patchUpdateWorkflowSummary(), body),
   patchUpdateWorkflowProperties: ({ workflowId, body }) =>
     axios.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId }), body),
   // postAddService: ({ body }) =>
-  //   cancellableResolver({ url: serviceUrl.postAddService(), body, method: HttpMethods.Post }),
+  //   cancellableResolver({ url: serviceUrl.postAddService(), body, method: HttpMethod.Post }),
   postCreateWorkflow: ({ body }) => axios.post(serviceUrl.postCreateWorkflow(), body),
   postCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethods.Post }),
+    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethod.Post }),
   putCreateTaskTemplate: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethods.Put }),
+    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethod.Put }),
   postCreateTeam: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethods.Post }),
+    cancellableResolver({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
   postExecuteWorkflow: ({ id, properties }) =>
     cancellableResolver({
       url: serviceUrl.postExecuteWorkflow({ id }),
       body: { properties },
-      method: HttpMethods.Post,
+      method: HttpMethod.Post,
     }),
   postGlobalPropertyRequest: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HttpMethods.Post }),
+    cancellableResolver({ url: serviceUrl.getGlobalConfiguration(), body, method: HttpMethod.Post }),
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postTeamPropertyRequest: ({ id, body }) =>
-    cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HttpMethods.Post }),
-  postValidateActivationCode: ({ body }) =>
+    cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HttpMethod.Post }),
+  putActivationApp: ({ body }) =>
     axios({
-      method: "post",
-      url: serviceUrl.postValidateActivationCode(),
+      method: HttpMethod.Put,
+      url: serviceUrl.putActivationApp(),
       data: body,
       validateStatus: (status) => status >= 200 && status < 300,
     }),
@@ -146,7 +151,7 @@ export const resolver = {
   putRestoreTaskTemplate: ({ id }) => axios.put(serviceUrl.putRestoreTaskTemplate({ id })),
   putUpdateTeam: ({ teamId, body }) => axios.put(serviceUrl.getManageTeam({ teamId }), body),
   putTeamQuotasDefault: ({ id }) =>
-    cancellableResolver({ url: serviceUrl.putTeamQuotasDefault({ id }), method: HttpMethods.Put }),
+    cancellableResolver({ url: serviceUrl.putTeamQuotasDefault({ id }), method: HttpMethod.Put }),
   putTeamQuotas: ({ id, body }) =>
-    cancellableResolver({ url: serviceUrl.getTeamQuotas({ id }), body, method: HttpMethods.Put }),
+    cancellableResolver({ url: serviceUrl.getTeamQuotas({ id }), body, method: HttpMethod.Put }),
 };
