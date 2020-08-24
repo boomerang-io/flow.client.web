@@ -1,7 +1,6 @@
 import portForwardMap from "../setupPortForwarding";
 import axios, { CancelToken } from "axios";
 import { HttpMethod } from "Constants";
-import { PRODUCT_STANDALONE } from "./appConfig";
 
 export const CORE_SERVICE_ENV_URL =
   process.env.NODE_ENV === "production" ? window._SERVER_DATA && window._SERVER_DATA.CORE_SERVICE_ENV_URL : "/api";
@@ -28,11 +27,7 @@ function determineUrl(baseUrl, serviceContextPath) {
 
 export const BASE_URL = determineUrl(PRODUCT_SERVICE_ENV_URL, "/workflow");
 export const BASE_CORE_URL = CORE_SERVICE_ENV_URL;
-export const BASE_CORE_USERS_URL = PRODUCT_STANDALONE
-  ? `${determineUrl(CORE_SERVICE_ENV_URL, "/workflow")}/users`
-  : determineUrl(CORE_SERVICE_ENV_URL, "/users");
-
-console.log(BASE_CORE_USERS_URL);
+export const BASE_CORE_USERS_URL = determineUrl(CORE_SERVICE_ENV_URL, "/users");
 
 export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
