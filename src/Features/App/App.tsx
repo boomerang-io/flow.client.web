@@ -3,7 +3,6 @@ import axios from "axios";
 import { FlagsProvider } from "flagged";
 import { AppContextProvider } from "State/context";
 import { useQuery } from "react-query";
-import { useQuery as useSimpleQuery } from "Hooks";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Error404, Loading, NotificationsContainer, ProtectedRoute } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorBoundary from "Components/ErrorBoundary";
@@ -15,7 +14,7 @@ import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import { UserType } from "Constants";
 import { AppPath, PRODUCT_STANDALONE } from "Config/appConfig";
-import { serviceUrl } from "Config/servicesConfig";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, FlowUser } from "Types";
 import styles from "./app.module.scss";
 
@@ -33,8 +32,8 @@ const TeamProperties = lazy(() => import(/* webpackChunkName: "TeamProperties" *
 const Users = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/Users"));
 const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Features/Workflows"));
 
-const userUrl = serviceUrl.getUserProfile();
-const navigationUrl = serviceUrl.getNavigation();
+const getUserUrl = serviceUrl.getUserProfile();
+const getNavigationUrl = serviceUrl.getNavigation();
 const getTeamsUrl = serviceUrl.getTeams();
 const browser = detect();
 const allowedUserRoles = [UserType.Admin, UserType.Operator];
@@ -50,7 +49,7 @@ export default function App() {
 
   const fetchUserResolver = async () => {
     try {
-      const response = await axios.get(userUrl);
+      const response = await axios.get(getUserUrl);
       return response.data;
     } catch (error) {
       if (error.response?.status === 423) {
@@ -64,11 +63,25 @@ export default function App() {
   };
 
   const userQuery = useQuery({
-    queryKey: userUrl,
+    queryKey: getUserUrl,
     queryFn: fetchUserResolver,
   });
-  const navigationQuery = useSimpleQuery(navigationUrl);
-  const teamsQuery = useSimpleQuery(getTeamsUrl);
+
+  const navigationQuery = useQuery({
+    queryKey: getNavigationUrl,
+    queryFn: resolver.query(getNavigationUrl),
+    config: {
+      enabled: Boolean(userQuery.data?.id),
+    },
+  });
+
+  const teamsQuery = useQuery({
+    queryKey: getTeamsUrl,
+    queryFn: resolver.query(getTeamsUrl),
+    config: {
+      enabled: Boolean(userQuery.data?.id),
+    },
+  });
 
   const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading;
   const isError = userQuery.isError || navigationQuery.isError || teamsQuery.isError;

@@ -160,8 +160,8 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
         )}
         {error && (
           <InlineNotification
-            kind="error"
             lowContrast
+            kind="error"
             title="Quota restore default failed!"
             subtitle="Give it another go or try again later."
           />

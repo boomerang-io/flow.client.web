@@ -3,7 +3,7 @@ import { useMutation } from "react-query";
 import { ComposedModal, ModalForm, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter, TextInput, InlineNotification } from "carbon-components-react";
 import { resolver } from "Config/servicesConfig";
-
+import { formatErrorMessage } from "@boomerang-io/utils";
 import styles from "./AppActivation.module.scss";
 
 interface PlatformActivationProps {
@@ -47,7 +47,7 @@ export default AppActivation;
 
 const Form: React.FC<PlatformActivationProps> = ({ setActivationCode }) => {
   const [code, setCode] = React.useState("");
-  const [validateActivationCodeMutator, { isLoading, error }] = useMutation(resolver.postValidateActivationCode);
+  const [validateActivationCodeMutator, { isLoading, error }] = useMutation(resolver.putActivationApp);
 
   const handleValidateCode = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -59,10 +59,19 @@ const Form: React.FC<PlatformActivationProps> = ({ setActivationCode }) => {
     }
   };
 
+  let errorMessage;
+  if (error) {
+    errorMessage = formatErrorMessage({
+      error,
+      defaultTitle: "Invalid Code",
+      defaultMessage: "That doesn't match what we have saved",
+    });
+  }
+
   return (
     <ModalForm onSubmit={handleValidateCode}>
+      {isLoading && <Loading />}
       <ModalBody>
-        {isLoading && <Loading />}
         <TextInput
           id="activation-code"
           labelText="Activation code"
@@ -70,7 +79,7 @@ const Form: React.FC<PlatformActivationProps> = ({ setActivationCode }) => {
           onChange={(e) => setCode(e.target.value)}
         />
         {error && (
-          <InlineNotification kind="error" title="Invalid Code" subtitle="That doesn't match what we have saved." />
+          <InlineNotification lowContrast kind="error" title={errorMessage.title} subtitle={errorMessage.message} />
         )}
       </ModalBody>
       <ModalFooter>

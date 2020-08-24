@@ -6,6 +6,8 @@ export const APP_ROOT =
 export const PRODUCT_STANDALONE =
   window._SERVER_DATA && window._SERVER_DATA.PRODUCT_STANDALONE
     ? window._SERVER_DATA.PRODUCT_STANDALONE === "true"
+    : process.env.REACT_APP_PRODUCT_STANDALONE
+    ? true
     : false;
 
 export const CORE_ENV_URL =
