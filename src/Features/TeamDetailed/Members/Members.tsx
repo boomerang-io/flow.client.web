@@ -26,7 +26,7 @@ interface MemberProps {
   user: FlowUser;
 }
 
-const Members: React.FC<MemberProps> = ({ isActive, memberList, team, user }) => {
+const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, user }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const filteredMemberList = searchQuery ? ms(memberList, searchQuery, { keys: ["name", "email"] }) : memberList;
 
