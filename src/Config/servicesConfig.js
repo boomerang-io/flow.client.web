@@ -39,6 +39,7 @@ export const serviceUrl = {
   getInsights: ({ query }) => `${BASE_URL}/insights${query ? "?" + query : ""}`,
   getManageTeamsCreate: () => `${BASE_URL}/manage/teams`,
   getManageTeam: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}`,
+  getManageTeamUser: ({ teamId }) => `${BASE_URL}/manage/teams/${teamId}/members`,
   getManageTeams: ({ query }) => `${BASE_URL}/manage/teams${query ? "?" + query : ""}`,
   getManageUsers: ({ query }) => `${BASE_URL}/manage/users${query ? "?" + query : ""}`,
   getNavigation: () => `${BASE_CORE_USERS_URL}/navigation`,
@@ -100,7 +101,7 @@ export const resolver = {
   deleteWorkflow: ({ id }) => axios.delete(serviceUrl.getWorkflow({ id })),
   patchGlobalPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getGlobalProperty({ id }), body, method: HttpMethod.Patch }),
-  patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeam({ teamId }), body),
+  patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamUser({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
     cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
 
