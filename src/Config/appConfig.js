@@ -11,7 +11,7 @@ export const PRODUCT_STANDALONE =
     : false;
 
 export const CORE_ENV_URL =
-  window._SERVER_DATA && window._SERVER_DATA.CORE_ENV_URL ? window._SERVER_DATA.CORE_ENV_URL : "http://localhost:3000";
+  window._SERVER_DATA && window._SERVER_DATA.CORE_ENV_URL ? window._SERVER_DATA.CORE_ENV_URL : "";
 
 export const isDevEnv = process.env.NODE_ENV === "development";
 export const isTestEnv = process.env.NODE_ENV === "test";
