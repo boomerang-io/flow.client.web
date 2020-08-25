@@ -30,7 +30,7 @@ const Members: React.FC<MemberProps> = ({ isActive, memberList, team, user }) =>
   const [searchQuery, setSearchQuery] = React.useState("");
   const filteredMemberList = searchQuery ? ms(memberList, searchQuery, { keys: ["name", "email"] }) : memberList;
 
-  const memberIdList = memberList.map((member) => member.id);
+  const memberIdList = memberList?.map((member) => member.id);
 
   return (
     <section aria-label={`${team.name} Team Members`} className={styles.container}>
