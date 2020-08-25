@@ -14,7 +14,7 @@ const OnBoardGuideContainer = ({ index, nextScreen, previousScreen, closeModal, 
           closeModal,
           screens,
           guideConfig,
-          ...guideConfig.teams
+          ...guideConfig.teams,
         };
       case screens.SEARCH_FILTER:
         return { ...basicConfig, ...guideConfig.search_filter };
@@ -27,7 +27,7 @@ const OnBoardGuideContainer = ({ index, nextScreen, previousScreen, closeModal, 
           closeModal,
           screens,
           guideConfig,
-          ...guideConfig.workflow
+          ...guideConfig.workflow,
         };
       case screens.PROPERTIES:
         return { ...basicConfig, ...guideConfig.properties };
@@ -45,8 +45,12 @@ const OnBoardGuideContainer = ({ index, nextScreen, previousScreen, closeModal, 
         return { ...basicConfig, ...guideConfig.side_info };
       case screens.DIAGRAM:
         return { ...basicConfig, ...guideConfig.diagram };
+      case screens.INSIGHTS_FILTERS:
+        return { ...basicConfig, ...guideConfig.filters };
+      case screens.INSIGHTS_GRAPHS:
+        return { ...basicConfig, ...guideConfig.graphs };
       default:
-        return null;
+        return { ...basicConfig };
     }
   };
 
@@ -60,7 +64,7 @@ OnBoardGuideContainer.propTypes = {
   previousScreen: PropTypes.func,
   closeModal: PropTypes.func,
   screens: PropTypes.object,
-  guideConfig: PropTypes.object
+  guideConfig: PropTypes.object,
 };
 
 export default OnBoardGuideContainer;
