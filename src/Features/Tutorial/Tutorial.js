@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
+  defaultScreens,
   homeScreens,
   designerScreens,
   activityScreens,
   executionScreens,
+  insightsScreens,
   messageConfig,
   homeGuideConfig,
   designerGuideConfig,
   activityGuideConfig,
   executionGuideConfig,
+  insightsGuideConfig,
 } from "./constants";
 import OnBoardGuideContainer from "./OnBoardGuideContainer";
 import OnBoardMessage from "./OnBoardMessage";
@@ -62,9 +65,20 @@ export default function OnBoardExpContainer({ isTutorialActive, setIsTutorialAct
     screens = executionScreens;
     guideConfig = executionGuideConfig;
     message = messageConfig.welcomeExecution;
+  } else if (path.includes("/insights")) {
+    screens = insightsScreens;
+    guideConfig = insightsGuideConfig;
+    message = messageConfig.welcomeInsights;
   } else {
-    closeModal();
-    return null;
+    screens = defaultScreens;
+  }
+
+  if (index === screens.DEFAULT) {
+    return (
+      <div className="c-onboard-wrapper">
+        <OnBoardMessage closeModal={closeModal} {...messageConfig.default} />
+      </div>
+    );
   }
 
   if (index === screens.WELCOME) {

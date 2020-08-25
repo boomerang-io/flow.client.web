@@ -24,9 +24,10 @@ const OnBoardGuide = (props) => {
 
   const lastScreen =
     index === screens.SIDENAV ||
-    index === screens.SETTINGS ||
+    index === screens.CHANGE_LOG ||
     index === screens.ACTIVITY_NUMBERS ||
-    index === screens.DIAGRAM;
+    index === screens.DIAGRAM ||
+    index === screens.INSIGHTS_GRAPHS;
 
   const leftAction =
     index === 1 ? null : (
