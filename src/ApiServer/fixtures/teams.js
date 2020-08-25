@@ -321,7 +321,7 @@ export default [
       maxWorkflowStorage: 5,
       maxWorkflowExecutionTime: 30,
       maxConcurrentWorkflows: 4,
-      currentWorkflowCount: 10,
+      currentWorkflowCount: 9,
       currentConcurrentWorkflows: 100,
       currentWorkflowExecutionMonthly: 99,
       monthlymonthlyResetDate: "August 1, 2020",

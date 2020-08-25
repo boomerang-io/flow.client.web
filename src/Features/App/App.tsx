@@ -9,7 +9,6 @@ import ErrorBoundary from "Components/ErrorBoundary";
 import ErrorDragon from "Components/ErrorDragon";
 import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";
-import NoAccessRedirectPrompt from "./NoAccessRedirectPrompt";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import { UserType } from "Constants";
@@ -109,6 +108,9 @@ export default function App() {
       </Suspense>
     );
   }
+  /**
+   * Team Detailed
+   */
 
   if (hasData) {
     return (
@@ -162,14 +164,10 @@ function Main({
     return null;
   }
 
-  // Show redirect prompt if the user doesn't have any teams
-  if (Object.keys(teamsData).length === 0) {
-    return <NoAccessRedirectPrompt />;
-  }
-
   if (shouldShowBrowserWarning) {
     return <UnsupportedBrowserPrompt onDismissWarning={() => setShouldShowBrowserWarning(false)} />;
   }
+
   return (
     <AppContextProvider
       value={{

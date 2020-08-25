@@ -4,7 +4,6 @@ import {
   ComboBox,
   InlineNotification,
   Loading,
-  ModalFlowForm,
   TextArea,
   TextInput,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -74,7 +73,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
         const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
 
         return (
-          <ModalFlowForm onSubmit={handleSubmit}>
+          <>
             {isLoading && <Loading />}
             <ModalBody aria-label="inputs" className={styles.formBody}>
               <div className={styles.teamAndName}>
@@ -159,11 +158,15 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
               <Button kind="secondary" onClick={closeModal} type="button">
                 Cancel
               </Button>
-              <Button type="submit" disabled={!isValid || isLoading} data-testid="workflows-create-workflow-submit">
+              <Button
+                data-testid="workflows-create-workflow-submit"
+                disabled={!isValid || isLoading}
+                onClick={handleSubmit}
+              >
                 {isLoading ? "Creating..." : "Create"}
               </Button>
             </ModalFooter>
-          </ModalFlowForm>
+          </>
         );
       }}
     </Formik>

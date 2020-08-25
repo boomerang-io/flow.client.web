@@ -69,11 +69,13 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
   };
 
   const isTeamQueryActive = teamsQuery.length > 0;
+  const hasTeams = teams?.length > 0;
 
   return (
     <div className={styles.filterContainer}>
       <div className={styles.search}>
         <Search
+          disabled={!hasTeams}
           data-testid="workflows-team-search"
           id="search-team-workflows"
           labelText="Search for a workflow"
@@ -84,6 +86,7 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
       </div>
       <div className={styles.filter}>
         <MultiSelect.Filterable
+          disabled={!hasTeams}
           id="b-search-filter__filter"
           invalid={false}
           initialSelectedItems={
