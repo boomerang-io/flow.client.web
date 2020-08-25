@@ -28,7 +28,7 @@ const AppActivation: React.FC<PlatformActivationProps> = ({ setActivationCode })
               process that can be used to complete the post-installation steps and activate this Boomerang Flow
               instance.
             </span>
-            <span className={styles.break}>Your user will be created and granted app admin rights.</span>
+            <span className={styles.break}>Your user will be created and granted admin rights.</span>
           </>
         ),
       }}
