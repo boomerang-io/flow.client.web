@@ -1,5 +1,5 @@
 import React from "react";
-import { RadioGroup } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalForm, RadioGroup } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateWorkflowContent from "../CreateWorkflowContent";
 import ImportWorkflowContent from "../ImportWorkflowContent";
 import { FlowTeam, CreateWorkflowSummary, WorkflowExport } from "Types";
@@ -8,7 +8,7 @@ import styles from "./createWorkflowContainer.module.scss";
 const NEW_WORKFLOW = "Start from scratch";
 const IMPORT_WORKFLOW = "Import a Workflow";
 
-const radioWorkflowOptions = [
+export const radioWorkflowOptions = [
   {
     id: "create-workflow-radio-id",
     labelText: NEW_WORKFLOW,
@@ -47,13 +47,15 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
   const existingWorkflowNames = team.workflows.map((workflow) => workflow.name);
 
   return (
-    <div className={styles.modalBody}>
-      <RadioGroup
-        name="workflow-options"
-        options={radioWorkflowOptions}
-        onChange={setSelectedOption}
-        value={selectedOption}
-      />
+    <ModalForm>
+      <div className={styles.typeRadio}>
+        <RadioGroup
+          name="workflow-options"
+          options={radioWorkflowOptions}
+          onChange={setSelectedOption}
+          value={selectedOption}
+        />
+      </div>
       {selectedOption === NEW_WORKFLOW ? (
         <CreateWorkflowContent
           closeModal={closeModal}
@@ -75,7 +77,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
           teams={teams}
         />
       )}
-    </div>
+    </ModalForm>
   );
 };
 

@@ -3,8 +3,9 @@ import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
 import { Button, ComposedModal, Error404, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { WarningAlt16 } from "@carbon/icons-react";
-import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
 import WelcomeBanner from "Components/WelcomeBanner";
+import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
+import NoTeamsRedirectPrompt from "./NoAccessRedirectPrompt";
 import CreateWorkflow from "./CreateWorkflow";
 import WorkflowsHeader from "./WorkflowsHeader";
 import WorkflowCard from "./WorkflowCard";
@@ -73,7 +74,7 @@ export default function WorkflowsHome() {
   };
 
   //@ts-ignore
-  const sortedTeams = useMemo(() => console.log("sortedTeams") || sortBy(teams, ["name"]), [teams]);
+  const sortedTeams = useMemo(() => sortBy(teams, ["name"]), [teams]);
 
   let selectedTeams = [];
   if (Array.isArray(teamsQuery) && teamsQuery.length > 0) {
@@ -135,7 +136,7 @@ export default function WorkflowsHome() {
               return <TeamWorkflows key={team.id} searchQuery={safeQuery} team={team} teams={teams} />;
             })
           ) : (
-            <Error404 header={null} message={"You need to be a member of a team to use Flow"} title="No teams found" />
+            <NoTeamsRedirectPrompt />
           )}
           {searchQuery && filteredWorkflowsCount === 0 && (
             <Error404 header={null} message={"Try a different search or team filter"} title="No workflows found" />

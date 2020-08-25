@@ -12,9 +12,8 @@ import {
   TextInput,
   InlineNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ModalFlowForm } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ErrorFilled32 } from "@carbon/icons-react";
 import { requiredWorkflowProps } from "./constants";
+import { ErrorFilled32 } from "@carbon/icons-react";
 import { FlowTeam, WorkflowExport, WorkflowSummary } from "Types";
 import styles from "./importWorkflowContent.module.scss";
 
@@ -164,9 +163,10 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
       {(props: FormikProps<FormProps>) => {
         const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
         return (
-          <ModalFlowForm title={"Add a Workflow - Select the Workflow file you want to upload"} onSubmit={handleSubmit}>
+          <>
+            {isLoading && <Loading />}
             <ModalBody className={styles.body}>
-              {isLoading && <Loading />}
+              <p>Add a Workflow - Select the Workflow file you want to upload</p>
               <FileUploaderDropContainer
                 accept={[".json"]}
                 labelText={FILE_UPLOAD_MESSAGE}
@@ -245,11 +245,11 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
               <Button onClick={closeModal} kind="secondary">
                 Cancel
               </Button>
-              <Button type="submit" disabled={!isValid || !Boolean(values.file)} kind="primary">
+              <Button disabled={!isValid || !Boolean(values.file)} kind="primary" onClick={handleSubmit}>
                 {isLoading ? "Creating..." : "Create"}
               </Button>
             </ModalFooter>
-          </ModalFlowForm>
+          </>
         );
       }}
     </Formik>

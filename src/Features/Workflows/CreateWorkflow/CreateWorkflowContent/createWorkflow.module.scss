@@ -1,23 +1,3 @@
-.formBody {
-  display: block;
-  margin: auto;
-  width: 95%;
-  height: 30.5rem;
-  overflow-y: auto;
-  margin-bottom: 2rem;
-  padding: 0 0.25rem;
-
-  :global .bx--text-area__wrapper {
-    width: 100%;
-  }
-  :global .bx--bmrg-text-input,
-  :global .bx--bmrg-text-area {
-    margin-top: 1rem;
-  }
-  :global .bx--label {
-    font-size: 0.875rem;
-  }
-}
 .teamAndName {
   display: flex;
   justify-content: space-between;

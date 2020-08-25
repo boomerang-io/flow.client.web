@@ -62,6 +62,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
                 autocomplete="off"
                 class="bx--search-input"
                 data-testid="workflows-team-search"
+                disabled=""
                 id="search-team-workflows"
                 placeholder="Search for a workflow"
                 role="searchbox"
@@ -97,14 +98,14 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
               class="bx--multi-select__wrapper bx--list-box__wrapper"
             >
               <label
-                class="bx--label"
+                class="bx--label bx--label--disabled"
                 for="b-search-filter__filter"
                 id="filterablemultiselect-label-1"
               >
                 Filter by team
               </label>
               <div
-                class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box bx--list-box--disabled"
               >
                 <div
                   aria-expanded="false"
@@ -122,6 +123,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
                     aria-expanded="false"
                     autocomplete="off"
                     class="bx--text-input bx--text-input--empty"
+                    disabled=""
                     id="b-search-filter__filter"
                     placeholder="Choose a team"
                     role="combobox"
