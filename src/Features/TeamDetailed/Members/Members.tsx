@@ -11,7 +11,6 @@ import {
   StructuredListBody,
   StructuredListRow,
   StructuredListCell,
-  Tooltip,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
 import { FlowTeam, FlowUser } from "Types";
@@ -59,24 +58,7 @@ const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, user 
             <StructuredListRow head>
               <StructuredListCell head>Name</StructuredListCell>
               <StructuredListCell head>Email</StructuredListCell>
-              <StructuredListCell head>
-                <Tooltip
-                  triggerId="member-role-tooltip"
-                  direction="top"
-                  triggerText="Role"
-                  triggerClassName={styles.roleTrigger}
-                >
-                  <p>
-                    <strong>Owners</strong> can add and remove any team members immediately, approve/deny join requests,
-                    add/remove Services, and manage settings.
-                  </p>
-                  <p style={{ marginTop: "1rem" }}>
-                    {" "}
-                    <strong>Members</strong> can view the status of requests, view all members of the team, and access
-                    their approved Services.{" "}
-                  </p>
-                </Tooltip>
-              </StructuredListCell>
+
               <StructuredListCell head>Added on</StructuredListCell>
               <StructuredListCell head />
               <StructuredListCell head />
