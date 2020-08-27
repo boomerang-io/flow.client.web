@@ -46,7 +46,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ teams }) => {
           <p className={styles.info}>{`Showing ${teamsToDisplay.length} teams`}</p>
         </div>
       </div>
-      <section>
+      <section className={styles.taskSection}>
         {teamsToDisplay.map((team) => {
           //@ts-ignore
           return <Task team={team} isActive={globalMatch?.params?.teamId === team.id} />;
