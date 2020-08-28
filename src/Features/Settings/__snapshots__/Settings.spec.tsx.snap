@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Settings --- Snapshot Capturing Snapshot of Settings 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <header
+      class="container"
+    >
+      <h1
+        style="font-weight: 600; margin: 0px;"
+      >
+        Settings
+      </h1>
+      <p>
+        Adjust Flow settings
+      </p>
+    </header>
+    <div
+      class="container css-xtq108"
+    >
+      <div
+        class="skeletonPlacholderContainer css-vurnku"
+      >
+        <div
+          class="bx--skeleton__placeholder"
+        />
+        <div
+          class="bx--skeleton__placeholder"
+        />
+        <div
+          class="bx--skeleton__placeholder"
+        />
+        <div
+          class="bx--skeleton__placeholder"
+        />
+        <div
+          class="bx--skeleton__placeholder"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;

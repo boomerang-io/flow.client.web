@@ -1,7 +1,0 @@
-{
-  "port": 8000,
-  "quiet": true,
-  "routes": "./api/routes.json",
-  "middlewares": "./api/middleware/index.js",
-  "delay": 1000
-}

@@ -1,6 +1,5 @@
-/// <reference types="Cypress" />
-import { startApiServer } from "../../../src/apiServer";
-import { appLink } from "../../../src/config/appConfig";
+import { startApiServer } from "ApiServer";
+import { appLink } from "Config/appConfig";
 
 let server;
 
@@ -25,7 +24,7 @@ describe("Editor -- workflow", function () {
 
   it("Select a task", function () {
     cy.wait(1000);
-    cy.get("[data-cy=editor-task-search]").type("make");
+    cy.get("[data-testid=editor-task-search]").type("make");
     cy.findByText("github (1)").click();
     cy.findByText("Make Repositories Private").should("be.visible");
   });

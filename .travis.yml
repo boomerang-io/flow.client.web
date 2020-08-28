@@ -3,12 +3,9 @@ sudo: required
 dist: trusty
 before_install:
   - export TZ=Etc/UTC
-  - curl --insecure -u admin:$ARTIFACTORY_API_TOKEN https://tools.boomerangplatform.net/artifactory/api/npm/boomeranglib-npm/auth/boomerang -o .npmrc
 language: node_js
 node_js:
   - "lts/*"
-notifications:
-  slack: ibm-aic-offerings:pKEkgH3hXaZQg8UCl6eLWyYB
 cache:
   directories:
     - ~/.npm

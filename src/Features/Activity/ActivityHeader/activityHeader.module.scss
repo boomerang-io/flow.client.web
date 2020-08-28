@@ -1,0 +1,40 @@
+.container {
+  background-color: var(--cds-ui-01);
+  display: flex;
+  height: 4.3125rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.subtitle {
+  color: var(--cds-text-01);
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.5625rem;
+}
+
+.title {
+  color: var(--cds-text-01);
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.625rem;
+  margin: 0;
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  margin: 2rem 2.125rem 1.5625rem 0;
+}
+
+.text {
+  color: var(--cds-text-01);
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 1.5625rem;
+}
+
+.summarySkeleton {
+  width: 25rem;
+  height: 4rem;
+}
