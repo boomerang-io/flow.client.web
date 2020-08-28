@@ -1,0 +1,327 @@
+@import "Styles/mixins";
+
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .largeCol {
+    border: 0;
+    width: 100%;
+    border-bottom: 0.0625rem solid var(--cds-text-03);
+  }
+
+  .smallCol {
+    border: 0;
+    order: -1;
+    width: 100%;
+    border-bottom: 0.0625rem solid var(--cds-text-03);
+  }
+
+  .delimiter {
+    border: 0;
+    border-bottom: 0.0625rem solid var(--cds-text-03);
+    margin-left: -2rem;
+    margin-right: -2rem;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .largeCol {
+    border-right: 0.0625rem solid var(--cds-text-03);
+    width: 35%;
+  }
+
+  .smallCol {
+    border-right: 0.0625rem solid var(--cds-text-03);
+    width: 30%;
+  }
+
+  .delimiter {
+    border: 0;
+    border-top: 0.0625rem solid var(--cds-text-03);
+    margin-left: -2rem;
+    margin-right: -2rem;
+  }
+}
+
+.wrapper {
+  display: flex;
+  height: calc(100vh - 12rem);
+  overflow: auto;
+
+  :global .bx--text-area__wrapper {
+    width: 100%;
+  }
+
+  :global .bx--bmrg-text-input,
+  :global .bx--bmrg-select,
+  :global .bx--bmrg-multi-select,
+  :global .bx--bmrg-toggle,
+  :global .bx--bmrg-creatable {
+    padding-bottom: 1rem;
+  }
+}
+
+.header {
+  color: var(--cds-text-01);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+}
+
+.subTitle {
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.largeCol {
+  padding: 0 2rem 2rem 2rem;
+
+  &:last-child {
+    border: 0;
+  }
+}
+
+.smallCol {
+  padding: 0 2rem 2rem 2rem;
+}
+.teamSelect {
+  input + div[role="button"] {
+    display: none;
+  }
+}
+
+.iconTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+}
+
+.iconsWrapper {
+  display: flex;
+  flex-flow: wrap;
+
+  :global .bx--assistive-text {
+    text-transform: capitalize;
+  }
+}
+
+.iconLabel {
+  align-items: center;
+  border: 0.125rem solid transparent;
+  border-radius: 5rem;
+  cursor: pointer;
+  display: flex;
+  height: 2.7rem;
+  justify-content: center;
+  margin: 0 0.5rem;
+  transition: all 0.15s ease;
+  width: 2.7rem;
+
+  [type="radio"] {
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  [type="radio"] + img {
+    cursor: pointer;
+  }
+
+  &.active {
+    background: var(--cds-support-02);
+    svg {
+      fill: var(--cds-ui-01);
+    }
+
+    &:hover {
+      background: var(--cds-support-02);
+      svg {
+        fill: var(--cds-ui-01);
+      }
+    }
+  }
+
+  img {
+    height: 2.5rem;
+    padding: 0.25rem 0.425rem;
+    width: 2.5rem;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    background: #bae6ff;
+  }
+
+  &:first-child {
+    margin: 0;
+  }
+}
+
+.icon {
+  height: 2.5rem;
+  padding: 0.25rem 0.425rem;
+  width: 2.5rem;
+}
+
+.toggleContainer {
+  :global .bx--bmrg-toggle {
+    justify-content: flex-end;
+    padding-bottom: 0.5rem;
+
+    .bx--form-item {
+      margin-right: 1.5rem;
+    }
+
+    .bx--label {
+      font-size: 0.875rem;
+      color: var(--cds-text-01);
+    }
+  }
+}
+
+.webhookContainer {
+  padding-left: 4.6rem;
+}
+
+.webhookWrapper {
+  align-items: center;
+  display: flex;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  width: 100%;
+  word-break: break-word;
+
+  :global .bx--bmrg-text-input {
+    background-color: transparent;
+    color: var(--cds-text-01);
+    font-size: 0.75rem;
+    line-height: 0.9375rem;
+    margin-bottom: 0;
+    padding: 0;
+  }
+}
+
+.informationWrapper {
+  margin-bottom: 0.5rem;
+}
+
+.informationCronMessage,
+//.informationTimeZone,
+.webhookToken {
+  color: var(--cds-text-01);
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+}
+
+.webhookToken {
+  font-family: monospace;
+}
+
+.webhookImg {
+  cursor: pointer;
+  height: 1rem;
+  width: 1rem;
+  fill: var(--cds-icon-02);
+}
+
+.descriptionContainer {
+  position: relative;
+}
+
+.descriptionLength {
+  color: #525252;
+  font-size: 0.75rem;
+  letter-spacing: 0.02rem;
+  line-height: 1rem;
+  position: absolute;
+  right: 0;
+}
+
+.regenerateText {
+  cursor: pointer;
+  color: var(--cds-interactive-01);
+  display: flex;
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+  padding: 0.125rem;
+  margin-left: -0.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
+}
+
+.webhookTokenLabel {
+  color: #525252;
+  font-size: 0.75rem;
+  letter-spacing: 0.02rem;
+  line-height: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.showTextButton {
+  line-height: 0;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.schedulerContainer {
+  padding-left: 4.6rem;
+}
+
+.subscriptionContainer {
+  padding-left: 4.6rem;
+
+  :global .bx--text-input__field-wrapper {
+    width: fit-content;
+  }
+  :global .bx--text__input {
+    width: fit-content;
+  }
+}
+
+.triggerContainer {
+  padding-bottom: 2.5rem;
+
+  > * + * {
+    margin-top: 1rem;
+  }
+
+  :global .bx--label {
+    color: var(--cds-text-01);
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+  }
+}
+
+.optionsContainer {
+  padding-bottom: 2.5rem;
+}
+
+.saveChangesContainer {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.5rem;
+}
+
+.saveText {
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  margin-top: 1rem;
+}
+
+.scheduleIcon {
+  margin-left: 0.5rem;
+}

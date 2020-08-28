@@ -1,0 +1,46 @@
+@import "Styles/mixins";
+
+:global .srd-node--selected > * {
+  border-color: var(--cds-interactive-01) !important;
+}
+
+.node {
+  background: var(--cds-ui-01);
+  border: 0.125rem solid var(--cds-interactive-01);
+  border-color: var(--cds-interactive-01);
+  height: 5rem;
+  padding: 1rem;
+  position: relative;
+  width: 13.75rem;
+  @include border-radius();
+}
+
+.header {
+  display: flex;
+  align-items: center;
+
+  svg {
+    height: 1rem;
+    width: 1rem;
+  }
+}
+
+.title {
+  height: 1.125rem;
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  margin: 0;
+  margin-left: 0.5rem;
+  @include text-overflow-ellipsis();
+}
+
+.subtitle {
+  height: 0.9375rem;
+  color: var(--cds-text-01);
+  font-size: 0.75rem;
+  line-height: 0.9375rem;
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+  @include text-overflow-ellipsis();
+}

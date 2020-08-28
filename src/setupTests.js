@@ -1,12 +1,10 @@
 import React from "react";
-import renderer from "react-test-renderer";
-import Enzyme, { shallow, render, mount } from "enzyme";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
-import Adapter from "enzyme-adapter-react-16";
 import { render as rtlRender } from "@testing-library/react";
-import { AppContext } from "./state/context";
-import { teams as teamsFixture, profile as userFixture } from "./apiServer/fixtures";
+import { ReactQueryConfigProvider } from "react-query";
+import { AppContextProvider } from "State/context";
+import { teams as teamsFixture, profile as userFixture } from "ApiServer/fixtures";
 import "@testing-library/jest-dom/extend-expect";
 
 function rtlRouterRender(
@@ -36,9 +34,11 @@ function rtlContextRouterRender(
 ) {
   return {
     ...rtlRender(
-      <AppContext.Provider value={{ ...defaultContextValue, ...contextValue }}>
-        <Router history={history}>{ui}</Router>
-      </AppContext.Provider>,
+      <AppContextProvider value={{ ...defaultContextValue, ...contextValue }}>
+        <ReactQueryConfigProvider config={{ queries: { retry: 0 }, mutations: { throwOnError: true } }}>
+          <Router history={history}>{ui}</Router>
+        </ReactQueryConfigProvider>
+      </AppContextProvider>,
       options
     ),
     history,
@@ -74,15 +74,6 @@ global.rtlRender = rtlRender;
 global.rtlRouterRender = rtlRouterRender;
 global.rtlContextRouterRender = rtlContextRouterRender;
 
-// Make renderer global
-global.renderer = renderer;
-
-// React 16 Enzyme adapter
-Enzyme.configure({ adapter: new Adapter() });
-// Make Enzyme functions available in all test files without importing
-global.shallow = shallow;
-global.render = render;
-global.mount = mount;
 const localStorageMock = {
   getItem: jest.fn(),
   setItem: jest.fn(),
@@ -95,7 +86,8 @@ const sessionStorageMock = {
 };
 global.localStorage = localStorageMock;
 global.sessionStorage = sessionStorageMock;
-//Dates
+
+// Dates
 const DATE_TO_USE = new Date("Jan 1 2019 00:00:00 UTC");
 const _Date = Date;
 global.Date = jest.fn(() => DATE_TO_USE);

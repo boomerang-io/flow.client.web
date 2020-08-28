@@ -1,0 +1,747 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <div
+      class="container"
+    >
+      <section
+        class="closeHideButtons"
+      >
+        <button
+          class="closeButton"
+        >
+          <svg
+            aria-label="close"
+            class="closeIcon"
+            fill="currentColor"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
+            />
+          </svg>
+          <p
+            class="closeText"
+          >
+            Don't show again
+          </p>
+        </button>
+        <button
+          class="collapseButton"
+        >
+          <p
+            class="collapseText"
+          >
+            Collapse
+          </p>
+          <svg
+            aria-label="collapse"
+            class="collapseIcon"
+            fill="currentColor"
+            focusable="false"
+            height="32"
+            preserveAspectRatio="xMidYMid meet"
+            role="img"
+            viewBox="0 0 32 32"
+            width="32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16 10L26 20 24.6 21.4 16 12.8 7.4 21.4 6 20z"
+            />
+          </svg>
+        </button>
+      </section>
+      <div
+        class="content"
+      >
+        <h1
+          class="title"
+        >
+          Welcome to Flow
+        </h1>
+        <p
+          class="subtitle"
+        >
+          Your new favorite tool
+        </p>
+        <div
+          class="buttons"
+        >
+          <button
+            class="button"
+          >
+            <p
+              class="buttonText"
+            >
+              Learn the basics
+            </p>
+          </button>
+          <a
+            class="button"
+            href="slack://channel?team=T27TLPNS1&id=CFKN6FJD6"
+            tabindex="0"
+          >
+            <p
+              class="buttonText"
+            >
+              Slack us feedback
+            </p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      class="container"
+    >
+      <header
+        class="container header"
+      >
+        <div
+          class="container"
+        >
+          <hgroup
+            class="info"
+          >
+            <p
+              class="title"
+            >
+              These are your
+            </p>
+            <h1
+              class="subtitle"
+            >
+              Workflows (2)
+            </h1>
+          </hgroup>
+          <div
+            class="filterContainer"
+          >
+            <div
+              class="search"
+            >
+              <div
+                aria-labelledby="search-team-workflows-search"
+                class="bx--search bx--search--xl"
+                role="search"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="bx--search-magnifier"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                  />
+                </svg>
+                <label
+                  class="bx--label"
+                  for="search-team-workflows"
+                  id="search-team-workflows-search"
+                >
+                  Search for a workflow
+                </label>
+                <input
+                  autocomplete="off"
+                  class="bx--search-input"
+                  data-testid="workflows-team-search"
+                  id="search-team-workflows"
+                  placeholder="Search for a workflow"
+                  role="searchbox"
+                  type="text"
+                  value=""
+                />
+                <button
+                  aria-label="Clear search input"
+                  class="bx--search-close bx--search-close--hidden"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="filter"
+            >
+              <div
+                class="bx--multi-select__wrapper bx--list-box__wrapper"
+              >
+                <label
+                  class="bx--label"
+                  for="b-search-filter__filter"
+                  id="filterablemultiselect-label-1"
+                >
+                  Filter by team
+                </label>
+                <div
+                  class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                >
+                  <div
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    aria-labelledby="filterablemultiselect-label-1"
+                    class="bx--list-box__field"
+                    data-toggle="true"
+                    role="button"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-controls="b-search-filter__filter__menu"
+                      aria-expanded="false"
+                      autocomplete="off"
+                      class="bx--text-input bx--text-input--empty"
+                      id="b-search-filter__filter"
+                      placeholder="Choose a team"
+                      role="combobox"
+                      value=""
+                    />
+                    
+                    <div
+                      class="bx--list-box__menu-icon"
+                    >
+                      <svg
+                        aria-label="Open menu"
+                        fill="currentColor"
+                        focusable="false"
+                        height="16"
+                        name="chevron--down"
+                        preserveAspectRatio="xMidYMid meet"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
+                        />
+                        <title>
+                          Open menu
+                        </title>
+                      </svg>
+                    </div>
+                  </div>
+                  <div
+                    aria-label="Choose an item"
+                    class="bx--list-box__menu"
+                    id="b-search-filter__filter__menu"
+                    role="listbox"
+                  >
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-0-item-0"
+                      title="IBM Services Engineering"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-0-item-0"
+                            name="IBM Services Engineering"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-0-item-0"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              IBM Services Engineering
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="bx--list-box__menu-item"
+                      id="downshift-0-item-1"
+                      title="IBM Services Essentials"
+                    >
+                      <div
+                        class="bx--list-box__menu-item__option"
+                      >
+                        <div
+                          class="bx--form-item bx--checkbox-wrapper"
+                        >
+                          <input
+                            class="bx--checkbox"
+                            id="downshift-0-item-1"
+                            name="IBM Services Essentials"
+                            readonly=""
+                            tabindex="-1"
+                            type="checkbox"
+                          />
+                          <label
+                            class="bx--checkbox-label"
+                            for="downshift-0-item-1"
+                          >
+                            <span
+                              class="bx--checkbox-label-text"
+                            >
+                              IBM Services Essentials
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div
+        aria-label="Team Workflows"
+        class="content"
+        role="region"
+      >
+        <section
+          class="sectionContainer"
+        >
+          <hgroup
+            class="header"
+          >
+            <h1
+              class="team"
+            >
+              IBM Services Engineering (1)
+            </h1>
+            <div
+              class="teamQuotaContainer"
+            >
+              <div
+                class="quotaDescriptionContainer"
+              >
+                <p
+                  class="teamQuotaText"
+                >
+                  Workflow quota - 10 of 10 used
+                </p>
+                <svg
+                  aria-hidden="true"
+                  class="warningIcon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14.5,14h-13c-0.2,0-0.3-0.1-0.4-0.2c-0.1-0.2-0.1-0.3,0-0.5l6.5-12C7.7,1,8,0.9,8.2,1.1c0.1,0,0.2,0.1,0.2,0.2l6.5,12	c0.1,0.2,0.1,0.3,0,0.5C14.9,13.9,14.7,14,14.5,14z M2.3,13h11.3L8,2.5L2.3,13z"
+                  />
+                  <path
+                    d="M7.5 6H8.5V9.5H7.5zM8 10.8c-.4 0-.8.3-.8.8s.3.8.8.8c.4 0 .8-.3.8-.8S8.4 10.8 8 10.8z"
+                  />
+                </svg>
+              </div>
+              <button
+                class="bx--btn bx--btn--field bx--btn--ghost"
+                tabindex="0"
+                type="button"
+              >
+                View more quotas
+              </button>
+            </div>
+          </hgroup>
+          <div
+            class="workflows"
+          >
+            <div
+              class="container"
+            >
+              <a
+                href="/teams/5e3a35ad8c222700018ccd39/editor/5eb2c4085a92d80001a16d87/workflow"
+              >
+                <section
+                  class="details"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <svg
+                      alt="flow"
+                      aria-hidden="true"
+                      class="icon"
+                      fill="currentColor"
+                      focusable="false"
+                      height="16"
+                      preserveAspectRatio="xMidYMid meet"
+                      viewBox="0 0 32 32"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M20,23H11.86a4.17,4.17,0,0,0-.43-1L22,11.43A3.86,3.86,0,0,0,24,12a4,4,0,1,0-3.86-5H11.86a4,4,0,1,0,0,2h8.28a4.17,4.17,0,0,0,.43,1L10,20.57A3.86,3.86,0,0,0,8,20a4,4,0,1,0,3.86,5H20v3h8V20H20ZM8,10a2,2,0,1,1,2-2A2,2,0,0,1,8,10ZM24,6a2,2,0,1,1-2,2A2,2,0,0,1,24,6ZM8,26a2,2,0,1,1,2-2A2,2,0,0,1,8,26Zm14-4h4v4H22Z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="descriptionContainer"
+                  >
+                    <h1
+                      class="name"
+                      data-testid="workflow-card-title"
+                      title="ML Train – Bot Efficiency"
+                    >
+                      ML Train – Bot Efficiency
+                    </h1>
+                    <p
+                      class="description"
+                      title="Train and store ML model for Bot Efficiency."
+                    >
+                      Train and store ML model for Bot Efficiency.
+                    </p>
+                  </div>
+                </section>
+              </a>
+              <section
+                class="launch"
+              >
+                <button
+                  class="bx--btn bx--btn--field bx--btn--primary"
+                  tabindex="0"
+                  type="button"
+                >
+                  Run it
+                  <svg
+                    aria-hidden="true"
+                    aria-label="Run Workflow"
+                    class="bx--btn__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21,16a6,6,0,1,1-6,6,6,6,0,0,1,6-6m0-2a8,8,0,1,0,8,8,8,8,0,0,0-8-8Z"
+                    />
+                    <path
+                      d="M26,4H6A2,2,0,0,0,4,6V26a2,2,0,0,0,2,2h4V26H6V12H28V6A2,2,0,0,0,26,4ZM6,10V6H26v4Z"
+                    />
+                    <path
+                      d="M19 19L19 25 24 22 19 19z"
+                    />
+                  </svg>
+                </button>
+              </section>
+              <button
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Overflow card menu"
+                class="bx--overflow-menu"
+                style="position: absolute; right: 0px;"
+                tabindex="0"
+              >
+                <svg
+                  aria-label="Overflow menu icon"
+                  class="bx--overflow-menu__icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  viewBox="0 0 32 32"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="16"
+                    cy="8"
+                    r="2"
+                  />
+                  <circle
+                    cx="16"
+                    cy="16"
+                    r="2"
+                  />
+                  <circle
+                    cx="16"
+                    cy="24"
+                    r="2"
+                  />
+                  <title>
+                    Overflow menu icon
+                  </title>
+                </svg>
+              </button>
+            </div>
+            <div
+              class="disabledCreate"
+              data-testid="workflows-create-workflow-button"
+            >
+              <svg
+                aria-hidden="true"
+                class="addIcon"
+                fill="currentColor"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 15L17 8 15 8 15 15 8 15 8 17 15 17 15 24 17 24 17 17 24 17 24 15z"
+                />
+              </svg>
+              <p
+                class="text"
+              >
+                Create a new workflow
+              </p>
+            </div>
+          </div>
+        </section>
+        <section
+          class="sectionContainer"
+        >
+          <hgroup
+            class="header"
+          >
+            <h1
+              class="team"
+            >
+              IBM Services Essentials (1)
+            </h1>
+            <div
+              class="teamQuotaContainer"
+            >
+              <div
+                class="quotaDescriptionContainer"
+              >
+                <p
+                  class="teamQuotaText"
+                >
+                  Workflow quota - 9 of 10 used
+                </p>
+              </div>
+              <button
+                class="bx--btn bx--btn--field bx--btn--ghost"
+                tabindex="0"
+                type="button"
+              >
+                View more quotas
+              </button>
+            </div>
+          </hgroup>
+          <div
+            class="workflows"
+          >
+            <div
+              class="container"
+            >
+              <a
+                href="/teams/5e3a35ad8c222700018ccd39/editor/5eb2c4085a92d80001a16d87/workflow"
+              >
+                <section
+                  class="details"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <svg
+                      alt="flow"
+                      aria-hidden="true"
+                      class="icon"
+                      fill="currentColor"
+                      focusable="false"
+                      height="16"
+                      preserveAspectRatio="xMidYMid meet"
+                      viewBox="0 0 32 32"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M20,23H11.86a4.17,4.17,0,0,0-.43-1L22,11.43A3.86,3.86,0,0,0,24,12a4,4,0,1,0-3.86-5H11.86a4,4,0,1,0,0,2h8.28a4.17,4.17,0,0,0,.43,1L10,20.57A3.86,3.86,0,0,0,8,20a4,4,0,1,0,3.86,5H20v3h8V20H20ZM8,10a2,2,0,1,1,2-2A2,2,0,0,1,8,10ZM24,6a2,2,0,1,1-2,2A2,2,0,0,1,24,6ZM8,26a2,2,0,1,1,2-2A2,2,0,0,1,8,26Zm14-4h4v4H22Z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="descriptionContainer"
+                  >
+                    <h1
+                      class="name"
+                      data-testid="workflow-card-title"
+                      title="Essentials Training – Bot Efficiency"
+                    >
+                      Essentials Training – Bot Efficiency
+                    </h1>
+                    <p
+                      class="description"
+                      title="Train and store ML model for Bot Efficiency."
+                    >
+                      Train and store ML model for Bot Efficiency.
+                    </p>
+                  </div>
+                </section>
+              </a>
+              <section
+                class="launch"
+              >
+                <button
+                  class="bx--btn bx--btn--field bx--btn--primary"
+                  tabindex="0"
+                  type="button"
+                >
+                  Run it
+                  <svg
+                    aria-hidden="true"
+                    aria-label="Run Workflow"
+                    class="bx--btn__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21,16a6,6,0,1,1-6,6,6,6,0,0,1,6-6m0-2a8,8,0,1,0,8,8,8,8,0,0,0-8-8Z"
+                    />
+                    <path
+                      d="M26,4H6A2,2,0,0,0,4,6V26a2,2,0,0,0,2,2h4V26H6V12H28V6A2,2,0,0,0,26,4ZM6,10V6H26v4Z"
+                    />
+                    <path
+                      d="M19 19L19 25 24 22 19 19z"
+                    />
+                  </svg>
+                </button>
+              </section>
+              <button
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Overflow card menu"
+                class="bx--overflow-menu"
+                style="position: absolute; right: 0px;"
+                tabindex="0"
+              >
+                <svg
+                  aria-label="Overflow menu icon"
+                  class="bx--overflow-menu__icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  viewBox="0 0 32 32"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="16"
+                    cy="8"
+                    r="2"
+                  />
+                  <circle
+                    cx="16"
+                    cy="16"
+                    r="2"
+                  />
+                  <circle
+                    cx="16"
+                    cy="24"
+                    r="2"
+                  />
+                  <title>
+                    Overflow menu icon
+                  </title>
+                </svg>
+              </button>
+            </div>
+            <button
+              class="container"
+              data-testid="workflows-create-workflow-button"
+            >
+              <svg
+                aria-hidden="true"
+                class="addIcon"
+                fill="currentColor"
+                focusable="false"
+                height="32"
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 0 32 32"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 15L17 8 15 8 15 15 8 15 8 17 15 17 15 24 17 24 17 17 24 17 24 15z"
+                />
+              </svg>
+              <p
+                class="text"
+              >
+                Create a new workflow
+              </p>
+            </button>
+          </div>
+        </section>
+        
+      </div>
+    </div>
+  </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+</body>
+`;

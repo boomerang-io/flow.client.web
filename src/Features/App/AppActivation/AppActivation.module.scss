@@ -1,0 +1,21 @@
+.container {
+  max-height: 28rem !important;
+  :global .bx--modal-close {
+    display: none;
+  }
+
+  :global .bx--text-input-wrapper {
+    margin-top: 0rem;
+  }
+
+  :global .bx--inline-notification {
+    bottom: 4rem;
+    position: absolute;
+    width: 95%;
+  }
+}
+
+.break {
+  display: block;
+  margin-bottom: 1rem;
+}
