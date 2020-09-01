@@ -76,10 +76,6 @@ const PreviewConfig: React.FC<PreivewConfigProps> = ({ templateConfig, taskTempl
   return (
     <ComposedModal
       composedModalProps={{ shouldCloseOnOverlayClick: true }}
-      confirmModalProps={{
-        title: "Close this?",
-        children: "Your request will not be saved",
-      }}
       modalHeaderProps={{
         title: `[Preview] ${taskTemplateName}`,
         subtitle: modalHeadertext,
