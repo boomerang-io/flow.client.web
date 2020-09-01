@@ -108,10 +108,7 @@ export default function App() {
       </Suspense>
     );
   }
-  /**
-   * Team Detailed
-   */
-
+      
   if (hasData) {
     return (
       <FlagsProvider features={{ standalone: PRODUCT_STANDALONE }}>
