@@ -2,15 +2,24 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import matchSorter from "match-sorter";
 import { useMutation, queryCache } from "react-query";
-import { DataTable, Search, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Error404, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { 
+  DataTable,
+  Error404,
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
+  notify,
+  Pagination,
+  Search, 
+  ToastNotification
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import ActionsMenu from "./ActionsMenu";
 import CreateEditPropertiesModal from "./CreateEditPropertiesModal";
-import Header from "Components/Header";
 import { stringToPassword } from "Utils/stringHelper";
 import { InputType } from "Constants";
 import { formatErrorMessage } from "@boomerang-io/utils";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import { Property } from "Types";
 import { Checkmark32, Close32 } from "@carbon/icons-react";
 import styles from "./propertiesTable.module.scss";
 
@@ -19,7 +28,7 @@ const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
 
 const configUrl = serviceUrl.getGlobalConfiguration();
 
-function PropertiesTable({ properties }) {
+function PropertiesTable({ properties }: { properties: Property[] }) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [searchQuery, setSearchQuery] = useState("");
@@ -61,7 +70,7 @@ function PropertiesTable({ properties }) {
     },
   ];
 
-  const deleteProperty = async (property) => {
+  const deleteProperty = async (property: Property) => {
     try {
       await deleteGlobalPropertyMutation({ id: property.id });
       notify(
@@ -88,17 +97,17 @@ function PropertiesTable({ properties }) {
     }
   };
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
     setSearchQuery(searchQuery);
   };
 
-  const handlePaginationChange = ({ page, pageSize }) => {
+  const handlePaginationChange = ({ page, pageSize }: { page: number, pageSize: number }) => {
     setPage(page);
     setPageSize(pageSize);
   };
 
-  const renderCell = (propertyId, cellIndex, value) => {
+  const renderCell = (propertyId: string, cellIndex: number, value: any) => {
     const property = properties.find((property) => property.id === propertyId);
     const column = headers[cellIndex];
 
@@ -134,12 +143,17 @@ function PropertiesTable({ properties }) {
   return (
     <>
       <Header
-        includeBorder
-        title="Properties"
-        description="Set global properties that are available for all Workflows."
-      ></Header>
+        className={styles.header}
+        includeBorder={false}
+        header={
+          <>
+            <HeaderTitle className={styles.headerTitle}>Properties</HeaderTitle>
+            <HeaderSubtitle>Set global properties that are available for all Workflows.</HeaderSubtitle>
+          </>
+        }
+      />
       <div className={styles.tableContainer}>
-        <div className={styles.header}>
+        <div className={styles.tableHeader}>
           <Search
             className={styles.search}
             id="properties-table-search"
@@ -156,12 +170,12 @@ function PropertiesTable({ properties }) {
             <DataTable
               rows={newProperties}
               headers={headers}
-              render={({ rows, headers, getHeaderProps }) => (
+              render={({ rows, headers, getHeaderProps }: { rows: any, headers: any, getHeaderProps: any }) => (
                 <TableContainer>
                   <Table>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header) => (
+                        {headers.map((header: any) => (
                           <TableHeader
                             id={header.key}
                             {...getHeaderProps({
@@ -176,9 +190,9 @@ function PropertiesTable({ properties }) {
                       </TableRow>
                     </TableHead>
                     <TableBody className={styles.tableBody}>
-                      {rows.map((row) => (
+                      {rows.map((row: any) => (
                         <TableRow key={row.id} data-testid="configuration-property-table-row">
-                          {row.cells.map((cell, cellIndex) => (
+                          {row.cells.map((cell: any, cellIndex: number) => (
                             <TableCell key={cell.id}>
                               <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
                             </TableCell>
@@ -203,12 +217,12 @@ function PropertiesTable({ properties }) {
             <DataTable
               rows={newProperties}
               headers={headers}
-              render={({ headers }) => (
+              render={({ headers }: { headers: any }) => (
                 <TableContainer>
                   <Table>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header) => (
+                        {headers.map((header: any) => (
                           <TableHeader
                             key={header.key}
                             id={header.key}

@@ -5,28 +5,28 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
   id="app"
 >
   <div>
-    <div
-      class="container"
+    <header
+      class="bx--bmrg-feature-header container"
     >
-      <div
-        class="content"
+      <section
+        class="bx--bmrg-feature-header__content"
       >
-        <div
-          class="info"
+        <hgroup
+          class="bx--bmrg-feature-header__header"
         >
-          <h1
-            class="title"
+          <h2
+            class="bx--bmrg-feature-header-text"
           >
             There are some
-          </h1>
-          <h2
-            class="subtitle"
+          </h2>
+          <h1
+            class="bx--bmrg-feature-header-text"
           >
             Insights
-          </h2>
-        </div>
-      </div>
-    </div>
+          </h1>
+        </hgroup>
+      </section>
+    </header>
     <div
       class="container"
     >

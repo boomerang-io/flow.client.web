@@ -1,19 +1,9 @@
 @import "Styles/mixins";
 
-.container {
-  align-items: center;
-  background: var(--cds-ui-01);
-  display: flex;
-  height: 4.6875rem;
-  justify-content: space-between;
-  position: initial;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-  :global .bx--assistive-text {
-    left: -6.75rem !important;
-  }
+.featureHeader {
+  padding: 1.5rem;
 }
+
 .saveContainer {
   height: 33rem;
 }

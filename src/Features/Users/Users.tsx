@@ -8,6 +8,9 @@ import {
   DataTableSkeleton,
   ErrorMessage,
   Error404,
+  FeatureHeader as Header, 
+  FeatureHeaderTitle as HeaderTitle, 
+  FeatureHeaderSubtitle as HeaderSubtitle, 
   OverflowMenu,
   OverflowMenuItem,
   Pagination,
@@ -15,7 +18,6 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import ChangeRole from "./ChangeRole";
 import UserDetails from "./UserDetails";
-import FeatureHeader from "Components/FeatureHeader";
 import debounce from "lodash/debounce";
 import moment from "moment";
 import queryString from "query-string";
@@ -36,10 +38,15 @@ interface FeatureLayoutProps {
 const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchChange }) => {
   return (
     <>
-      <FeatureHeader>
-        <h1 style={{ fontWeight: 600, margin: 0 }}>Users</h1>
-        <p>View and manage Flow users</p>
-      </FeatureHeader>
+      <Header
+        includeBorder={false}
+        header={
+          <>
+            <HeaderTitle style={{ margin: "0" }}>Users</HeaderTitle>
+            <HeaderSubtitle>View and manage Flow users.</HeaderSubtitle>
+          </>
+        }
+      />
       <Box p="2rem">
         <>
           <Box mb="1rem" maxWidth="20rem">

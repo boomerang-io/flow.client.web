@@ -9,31 +9,33 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
       class="container"
     >
       <header
-        class="container"
+        class="bx--bmrg-feature-header container"
       >
-        <div
-          class="container"
+        <section
+          class="bx--bmrg-feature-header__content"
         >
-          <hgroup>
-            <p
-              class="subtitle"
+          <hgroup
+            class="bx--bmrg-feature-header__header"
+          >
+            <h2
+              class="bx--bmrg-feature-header-text"
             >
               This is all of the
-            </p>
+            </h2>
             <h1
-              class="title"
+              class="bx--bmrg-feature-header-text"
             >
               Activity
             </h1>
           </hgroup>
-          <section
-            class="content"
-          >
-            <div
-              class="bx--skeleton__placeholder summarySkeleton"
-            />
-          </section>
-        </div>
+        </section>
+        <section
+          class="content"
+        >
+          <div
+            class="bx--skeleton__placeholder summarySkeleton"
+          />
+        </section>
       </header>
       <section
         aria-label="Activity"

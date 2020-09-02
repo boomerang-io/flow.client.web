@@ -1,9 +1,13 @@
 //@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
-import FeatureHeader from "Components/FeatureHeader";
 import ActivityHeaderWidget from "./ActivityHeaderWidget";
-import { SkeletonPlaceholder } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
+  SkeletonPlaceholder 
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { ArrowDownRight32, ArrowUpRight32 } from "@carbon/icons-react";
 import styles from "./activityHeader.module.scss";
 
@@ -29,12 +33,16 @@ function ActivityHeader({
   const emoji = successRatePercentage > 79 ? "🙌" : successRatePercentage > 49 ? "😮" : "😨";
 
   return (
-    <FeatureHeader includeBorder={false}>
-      <div className={styles.container}>
-        <hgroup>
-          <p className={styles.subtitle}>This is all of the</p>
-          <h1 className={styles.title}>Activity</h1>
-        </hgroup>
+    <Header
+      className={styles.container}
+      includeBorder={false}
+      header={
+        <>
+          <HeaderSubtitle>This is all of the</HeaderSubtitle>
+          <HeaderTitle>Activity</HeaderTitle>
+        </>
+      }
+      actions={
         <section className={styles.content}>
           {isLoading ? (
             <SkeletonPlaceholder className={styles.summarySkeleton} />
@@ -56,8 +64,8 @@ function ActivityHeader({
             </>
           )}
         </section>
-      </div>
-    </FeatureHeader>
+      }
+    />
   );
 }
 
