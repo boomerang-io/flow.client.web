@@ -5,36 +5,33 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
   id="app"
 >
   <div>
-    <div
-      class="container"
+    <header
+      class="bx--bmrg-feature-header header"
     >
-      <div
-        class="content"
+      <section
+        class="bx--bmrg-feature-header__content"
       >
-        <div
-          class="info"
+        <hgroup
+          class="bx--bmrg-feature-header__header"
         >
           <h1
-            class="title"
+            class="bx--bmrg-feature-header-text headerTitle"
           >
             Team Properties
           </h1>
-          <p
-            class="description"
+          <h2
+            class="bx--bmrg-feature-header-text"
           >
-            Set team properties that are accessible in all workflows for that team
-          </p>
-        </div>
-        <section
-          class="buttons"
-        />
-      </div>
-    </div>
+            Set team properties that are accessible in all workflows for that team.
+          </h2>
+        </hgroup>
+      </section>
+    </header>
     <div
       class="tableContainer"
     >
       <div
-        class="header"
+        class="tableHeader"
       >
         <div
           class="dropdown"

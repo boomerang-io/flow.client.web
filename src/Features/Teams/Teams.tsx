@@ -10,10 +10,12 @@ import {
   DataTableSkeleton,
   ErrorMessage,
   Error404,
+  FeatureHeader as Header, 
+  FeatureHeaderTitle as HeaderTitle, 
+  FeatureHeaderSubtitle as HeaderSubtitle, 
   Pagination,
   Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import FeatureHeader from "Components/FeatureHeader";
 import TeamDetailed from "Features/TeamDetailed";
 import AddTeamContent from "./AddTeamContent";
 import debounce from "lodash/debounce";
@@ -47,10 +49,15 @@ export default TeamsContainer;
 const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchChange }) => {
   return (
     <>
-      <FeatureHeader>
-        <h1 style={{ fontWeight: 600, margin: 0 }}>Teams</h1>
-        <p>View and manage Flow teams</p>
-      </FeatureHeader>
+      <Header
+        includeBorder={false}
+        header={
+          <>
+            <HeaderTitle style={{ margin: "0" }}>Teams</HeaderTitle>
+            <HeaderSubtitle>View and manage Flow teams.</HeaderSubtitle>
+          </>
+        }
+      />
       <Box p="2rem">
         <>
           <Box mb="1rem" maxWidth="20rem">

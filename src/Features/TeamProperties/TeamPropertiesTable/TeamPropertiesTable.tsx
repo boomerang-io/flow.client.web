@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { useMutation, queryCache } from "react-query";
 import { Box } from "reflexbox";
 import {
@@ -7,6 +6,9 @@ import {
   DataTable,
   Error,
   Error404,
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
   Pagination,
   DataTableSkeleton,
   notify,
@@ -14,12 +16,12 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
 import ActionsMenu from "./ActionsMenu";
-import Header from "Components/Header";
 import WombatMessage from "Components/WombatMessage";
 import { InputType } from "Constants";
 import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
 import { stringToPassword } from "Utils/stringHelper";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import { FlowTeam, Property } from "Types";
 import { Checkmark32, Close32 } from "@carbon/icons-react";
 import styles from "./teamPropertiesTable.module.scss";
 
@@ -57,16 +59,23 @@ const headers = [
   },
 ];
 
-TeamPropertiesTable.propTypes = {
-  activeTeam: PropTypes.object,
-  properties: PropTypes.array.isRequired,
-  propertiesAreLoading: PropTypes.bool,
-  propertiesError: PropTypes.object,
-  setActiveTeam: PropTypes.func.isRequired,
-  teams: PropTypes.array.isRequired,
+interface TeamPropertiesTableProps {
+  activeTeam: FlowTeam,
+  properties: Property[],
+  propertiesAreLoading: boolean,
+  propertiesError: any,
+  setActiveTeam(args: FlowTeam): void,
+  teams: FlowTeam[],
 };
 
-function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, propertiesError, setActiveTeam, teams }) {
+const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({ 
+  activeTeam, 
+  properties, 
+  propertiesAreLoading, 
+  propertiesError, 
+  setActiveTeam, 
+  teams 
+}) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
 
@@ -77,7 +86,7 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
     onSuccess: () => queryCache.invalidateQueries([teamPropertiesUrl]),
   });
 
-  const deleteTeamProperty = async (component) => {
+  const deleteTeamProperty = async (component: Property) => {
     try {
       await deleteTeamPropertyMutation({ teamId: activeTeam.id, configurationId: component.id });
       notify(
@@ -101,13 +110,13 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
     }
   };
 
-  const handlePaginationChange = ({ page, pageSize }) => {
+  const handlePaginationChange = ({ page, pageSize }: { page: number, pageSize: number }) => {
     setPage(page);
     setPageSize(pageSize);
   };
 
-  const renderCell = (propertyId, cellIndex, value) => {
-    const property = properties.find((property) => property.id === propertyId);
+  const renderCell = (propertyId: string, cellIndex: number, value: any) => {
+    const property = properties.find((property) => property.id === propertyId)!;
     const column = headers[cellIndex];
     switch (column.key) {
       case "value":
@@ -143,25 +152,30 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
   return (
     <>
       <Header
-        includeBorder
-        title="Team Properties"
-        description="Set team properties that are accessible in all workflows for that team"
+        className={styles.header}
+        includeBorder={false}
+        header={
+          <>
+            <HeaderTitle className={styles.headerTitle}>Team Properties</HeaderTitle>
+            <HeaderSubtitle>Set team properties that are accessible in all workflows for that team.</HeaderSubtitle>
+          </>
+        }
       />
       <div className={styles.tableContainer}>
-        <div className={styles.header}>
+        <div className={styles.tableHeader}>
           <div className={styles.dropdown}>
             <ComboBox
               data-testid="team-properties-combobox"
               id="team-properties-select"
               initialSelectedItem={activeTeam?.id ? activeTeam : null}
               items={sortByProp(teams, "name")}
-              itemToString={(item) => item?.name ?? ""}
+              itemToString={(item: { name: string }) => item?.name ?? ""}
               label="Teams"
-              onChange={({ selectedItem }) => {
+              onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
                 setActiveTeam(selectedItem);
               }}
               placeholder="Select a team"
-              shouldFilterItem={({ item, inputValue }) => item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())}
+              shouldFilterItem={({ item, inputValue }: { item: any, inputValue: string }) => item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())}
             />
           </div>
           {(activeTeam?.id || totalItems > 0) && (
@@ -177,12 +191,12 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
             <DataTable
               rows={properties}
               headers={headers}
-              render={({ rows, headers, getHeaderProps }) => (
+              render={({ rows, headers, getHeaderProps }: { rows: any, headers: any, getHeaderProps: any }) => (
                 <TableContainer>
                   <Table>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header, key) => (
+                        {headers.map((header: any, key: any) => (
                           <TableHeader
                             isSortab
                             key={`mode-table-key-${key}`}
@@ -198,10 +212,10 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
                       </TableRow>
                     </TableHead>
                     <TableBody className={styles.tableBody}>
-                      {rows.map((row) => {
+                      {rows.map((row: any) => {
                         return (
                           <TableRow key={row.id}>
-                            {row.cells.map((cell, cellIndex) => (
+                            {row.cells.map((cell: any, cellIndex: number) => (
                               <TableCell key={cell.id}>
                                 <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
                               </TableCell>
@@ -227,12 +241,12 @@ function TeamPropertiesTable({ activeTeam, properties, propertiesAreLoading, pro
             <DataTable
               rows={properties}
               headers={headers}
-              render={({ headers }) => (
+              render={({ headers }: { headers: any }) => (
                 <TableContainer>
                   <Table>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header, key) => (
+                        {headers.map((header: any, key: any) => (
                           <TableHeader
                             key={`no-team-config-table-key-${key}`}
                             className={`${styles.tableHeadHeader} ${styles[header.key]}`}

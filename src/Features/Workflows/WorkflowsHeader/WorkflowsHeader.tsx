@@ -1,6 +1,11 @@
 import React from "react";
-import { MultiSelect, Search } from "@boomerang-io/carbon-addons-boomerang-react";
-import FeatureHeader from "Components/FeatureHeader";
+import {
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
+  MultiSelect, 
+  Search 
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { FlowTeam } from "Types";
 import styles from "./workflowsHeader.module.scss";
 
@@ -24,12 +29,16 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
   workflowsCount,
 }) => {
   return (
-    <FeatureHeader className={styles.header}>
-      <div className={styles.container}>
-        <hgroup className={styles.info}>
-          <p className={styles.title}>These are your</p>
-          <h1 className={styles.subtitle}>{`Workflows (${workflowsCount})`}</h1>
-        </hgroup>
+    <Header
+      className={styles.container}
+      includeBorder={false}
+      header={
+        <>
+          <HeaderSubtitle>These are your</HeaderSubtitle>
+          <HeaderTitle>{`Workflows (${workflowsCount})`}</HeaderTitle>
+        </>
+      }
+      actions={
         <SearchFilterBar
           selectedTeams={selectedTeams}
           handleUpdateFilter={handleUpdateFilter}
@@ -37,8 +46,8 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
           teamsQuery={teamsQuery}
           teams={teams}
         />
-      </div>
-    </FeatureHeader>
+      }
+    />
   );
 };
 

@@ -1,35 +1,10 @@
 .container {
-  align-items: flex-start;
-  background: var(--cds-ui-01);
-  display: flex;
-  flex-direction: column;
-  height: 7.3125rem;
-  padding: 1.5rem;
-  position: initial;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-}
-.content {
-  align-items: center;
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-}
+  h1 {
+    margin: 0;
+  }
 
-.info {
-  overflow: hidden;
-}
-
-.title {
-  font-size: 1.25rem;
-  font-weight: 300;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.subtitle {
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 2.5rem;
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 300;
+  }
 }

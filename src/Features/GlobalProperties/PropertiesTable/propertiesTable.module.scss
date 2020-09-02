@@ -1,8 +1,17 @@
+.header {
+  padding: 1rem 2rem 0;
+}
+
+.headerTitle {
+  margin: 0;
+}
+
 .search {
   margin-bottom: 1.31rem;
   width: 20rem;
 }
-.header {
+
+.tableHeader {
   display: flex;
   justify-content: space-between;
 }
@@ -46,7 +55,6 @@
 }
 
 .tableCell {
-
   .tableSecured {
     height: 1.25rem;
     width: 1.25rem;

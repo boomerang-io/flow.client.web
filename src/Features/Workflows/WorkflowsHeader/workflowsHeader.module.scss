@@ -1,16 +1,13 @@
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-}
-
 .container {
-  background: var(--cds-ui-01);
-  display: flex;
-  justify-content: space-between;
-  height: 4.3125rem;
-  width: 100%;
-  z-index: 3;
+  h1 {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 300;
+  }
+
   :global .bx--search-input {
     background: var(--cds-ui-background);
     font-size: 0.875rem;
@@ -41,36 +38,10 @@
   }
 }
 
-.title {
-  font-size: 1.25rem;
-  font-weight: 300;
-  line-height: 1.5;
-  margin: 0;
-  overflow: hidden;
-}
-
-.subtitle {
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 2.5rem;
-  margin: 0rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.buttons {
-  display: flex;
-  justify-content: space-between;
-  flex-flow: row wrap;
-  button {
-    margin-top: 1rem;
-  }
-}
-
 .filterContainer {
   align-items: flex-end;
   display: flex;
+  margin-bottom: 1.5rem;
 }
 
 .search {

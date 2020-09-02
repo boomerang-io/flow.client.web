@@ -6,16 +6,26 @@ exports[`Settings --- Snapshot Capturing Snapshot of Settings 1`] = `
 >
   <div>
     <header
-      class="container"
+      class="bx--bmrg-feature-header header"
     >
-      <h1
-        style="font-weight: 600; margin: 0px;"
+      <section
+        class="bx--bmrg-feature-header__content"
       >
-        Settings
-      </h1>
-      <p>
-        Adjust Flow settings
-      </p>
+        <hgroup
+          class="bx--bmrg-feature-header__header"
+        >
+          <h1
+            class="bx--bmrg-feature-header-text headerTitle"
+          >
+            Settings
+          </h1>
+          <h2
+            class="bx--bmrg-feature-header-text"
+          >
+            Adjust Flow settings.
+          </h2>
+        </hgroup>
+      </section>
     </header>
     <div
       class="container css-xtq108"

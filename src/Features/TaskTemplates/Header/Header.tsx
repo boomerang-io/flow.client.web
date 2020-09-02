@@ -1,18 +1,18 @@
 import React from "react";
 import {
   Button,
-  ConfirmModal,
-  TooltipHover,
   ComposedModal,
-  ModalFlowForm,
-  ModalFooter,
-  ModalBody,
-  Tag,
-  TextArea,
+  ConfirmModal,
+  FeatureHeader,
   InlineNotification,
   Loading,
+  ModalBody,
+  ModalFlowForm,
+  ModalFooter,
+  Tag,
+  TextArea,
+  TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import FeatureHeader from "Components/FeatureHeader";
 import VersionHistory from "./VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
 import capitalize from "lodash/capitalize";
@@ -193,29 +193,9 @@ const Header: React.FC<HeaderProps> = ({
   changelogs.reverse();
 
   return (
-    <FeatureHeader includeBorder className={styles.featureHeader}>
-      <div className={styles.container}>
-        <hgroup>
-          <h1 className={styles.category}>{capitalize(selectedTaskTemplate.category)}</h1>
-          <div className={styles.infoContainer}>
-            {TaskIcon ? (
-              <TaskIcon.Icon style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
-            ) : (
-              <Bee20 alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
-            )}
-            <p className={styles.taskName}>{selectedTaskTemplate.name}</p>
-            {!isActive && (
-              <Tag className={styles.archivedTag} type="gray">
-                <ViewOff16 style={{ marginRight: "0.5rem" }} />
-                Archived
-              </Tag>
-            )}
-            <VersionHistory changelogs={changelogs} />
-          </div>
-          <h2 className={styles.lastUpdate}>{`Version ${revisionCount === 1 ? "created" : "updated"} ${moment(
-            lastUpdated.date
-          ).format("MMM DD, YYYY")} by ${lastUpdated.userName ?? "---"}`}</h2>
-        </hgroup>
+    <FeatureHeader 
+      className={styles.featureHeader}
+      actions={
         <div className={styles.buttons}>
           <VersionSwitcher
             revisions={selectedTaskTemplate.revisions}
@@ -311,7 +291,29 @@ const Header: React.FC<HeaderProps> = ({
             />
           )}
         </div>
-      </div>
+      }
+    >
+      <hgroup>
+        <h1 className={styles.category}>{capitalize(selectedTaskTemplate.category)}</h1>
+        <div className={styles.infoContainer}>
+          {TaskIcon ? (
+            <TaskIcon.Icon style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
+          ) : (
+            <Bee20 alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
+          )}
+          <p className={styles.taskName}>{selectedTaskTemplate.name}</p>
+          {!isActive && (
+            <Tag className={styles.archivedTag} type="gray">
+              <ViewOff16 style={{ marginRight: "0.5rem" }} />
+              Archived
+            </Tag>
+          )}
+          <VersionHistory changelogs={changelogs} />
+        </div>
+        <h2 className={styles.lastUpdate}>{`Version ${revisionCount === 1 ? "created" : "updated"} ${moment(
+          lastUpdated.date
+        ).format("MMM DD, YYYY")} by ${lastUpdated.userName ?? "---"}`}</h2>
+      </hgroup>
     </FeatureHeader>
   );
 };

@@ -6,161 +6,161 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
 >
   <div>
     <header
-      class="container header"
+      class="bx--bmrg-feature-header container"
     >
-      <div
-        class="container"
+      <section
+        class="bx--bmrg-feature-header__content"
       >
         <hgroup
-          class="info"
+          class="bx--bmrg-feature-header__header"
         >
-          <p
-            class="title"
+          <h2
+            class="bx--bmrg-feature-header-text"
           >
             These are your
-          </p>
+          </h2>
           <h1
-            class="subtitle"
+            class="bx--bmrg-feature-header-text"
           >
             Workflows (undefined)
           </h1>
         </hgroup>
+      </section>
+      <div
+        class="filterContainer"
+      >
         <div
-          class="filterContainer"
+          class="search"
         >
           <div
-            class="search"
+            aria-labelledby="search-team-workflows-search"
+            class="bx--search bx--search--xl"
+            role="search"
           >
-            <div
-              aria-labelledby="search-team-workflows-search"
-              class="bx--search bx--search--xl"
-              role="search"
+            <svg
+              aria-hidden="true"
+              class="bx--search-magnifier"
+              fill="currentColor"
+              focusable="false"
+              height="16"
+              preserveAspectRatio="xMidYMid meet"
+              viewBox="0 0 16 16"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+              />
+            </svg>
+            <label
+              class="bx--label"
+              for="search-team-workflows"
+              id="search-team-workflows-search"
+            >
+              Search for a workflow
+            </label>
+            <input
+              autocomplete="off"
+              class="bx--search-input"
+              data-testid="workflows-team-search"
+              disabled=""
+              id="search-team-workflows"
+              placeholder="Search for a workflow"
+              role="searchbox"
+              type="text"
+              value=""
+            />
+            <button
+              aria-label="Clear search input"
+              class="bx--search-close bx--search-close--hidden"
+              type="button"
             >
               <svg
                 aria-hidden="true"
-                class="bx--search-magnifier"
                 fill="currentColor"
                 focusable="false"
-                height="16"
+                height="20"
                 preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
+                viewBox="0 0 32 32"
+                width="20"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
+                  d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
                 />
               </svg>
-              <label
-                class="bx--label"
-                for="search-team-workflows"
-                id="search-team-workflows-search"
-              >
-                Search for a workflow
-              </label>
-              <input
-                autocomplete="off"
-                class="bx--search-input"
-                data-testid="workflows-team-search"
-                disabled=""
-                id="search-team-workflows"
-                placeholder="Search for a workflow"
-                role="searchbox"
-                type="text"
-                value=""
-              />
-              <button
-                aria-label="Clear search input"
-                class="bx--search-close bx--search-close--hidden"
+            </button>
+          </div>
+        </div>
+        <div
+          class="filter"
+        >
+          <div
+            class="bx--multi-select__wrapper bx--list-box__wrapper"
+          >
+            <label
+              class="bx--label bx--label--disabled"
+              for="b-search-filter__filter"
+              id="filterablemultiselect-label-1"
+            >
+              Filter by team
+            </label>
+            <div
+              class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box bx--list-box--disabled"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-labelledby="filterablemultiselect-label-1"
+                class="bx--list-box__field"
+                data-toggle="true"
+                role="button"
+                tabindex="-1"
                 type="button"
               >
-                <svg
-                  aria-hidden="true"
-                  fill="currentColor"
-                  focusable="false"
-                  height="20"
-                  preserveAspectRatio="xMidYMid meet"
-                  viewBox="0 0 32 32"
-                  width="20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div
-            class="filter"
-          >
-            <div
-              class="bx--multi-select__wrapper bx--list-box__wrapper"
-            >
-              <label
-                class="bx--label bx--label--disabled"
-                for="b-search-filter__filter"
-                id="filterablemultiselect-label-1"
-              >
-                Filter by team
-              </label>
-              <div
-                class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box bx--list-box--disabled"
-              >
-                <div
+                <input
+                  aria-autocomplete="list"
+                  aria-controls="b-search-filter__filter__menu"
                   aria-expanded="false"
-                  aria-haspopup="true"
-                  aria-labelledby="filterablemultiselect-label-1"
-                  class="bx--list-box__field"
-                  data-toggle="true"
-                  role="button"
-                  tabindex="-1"
-                  type="button"
-                >
-                  <input
-                    aria-autocomplete="list"
-                    aria-controls="b-search-filter__filter__menu"
-                    aria-expanded="false"
-                    autocomplete="off"
-                    class="bx--text-input bx--text-input--empty"
-                    disabled=""
-                    id="b-search-filter__filter"
-                    placeholder="Choose a team"
-                    role="combobox"
-                    value=""
-                  />
-                  
-                  <div
-                    class="bx--list-box__menu-icon"
-                  >
-                    <svg
-                      aria-label="Open menu"
-                      fill="currentColor"
-                      focusable="false"
-                      height="16"
-                      name="chevron--down"
-                      preserveAspectRatio="xMidYMid meet"
-                      role="img"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
-                      />
-                      <title>
-                        Open menu
-                      </title>
-                    </svg>
-                  </div>
-                </div>
-                <div
-                  aria-label="Choose an item"
-                  class="bx--list-box__menu"
-                  id="b-search-filter__filter__menu"
-                  role="listbox"
+                  autocomplete="off"
+                  class="bx--text-input bx--text-input--empty"
+                  disabled=""
+                  id="b-search-filter__filter"
+                  placeholder="Choose a team"
+                  role="combobox"
+                  value=""
                 />
+                
+                <div
+                  class="bx--list-box__menu-icon"
+                >
+                  <svg
+                    aria-label="Open menu"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    name="chevron--down"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
+                    />
+                    <title>
+                      Open menu
+                    </title>
+                  </svg>
+                </div>
               </div>
+              <div
+                aria-label="Choose an item"
+                class="bx--list-box__menu"
+                id="b-search-filter__filter__menu"
+                role="listbox"
+              />
             </div>
           </div>
         </div>
