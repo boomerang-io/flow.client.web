@@ -34,6 +34,7 @@ const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Feature
 const getUserUrl = serviceUrl.getUserProfile();
 const getNavigationUrl = serviceUrl.getNavigation();
 const getTeamsUrl = serviceUrl.getTeams();
+const platformSettingsUrl = serviceUrl.resourceSettings();
 const browser = detect();
 const allowedUserRoles = [UserType.Admin, UserType.Operator];
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
@@ -82,9 +83,17 @@ export default function App() {
     },
   });
 
-  const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading;
-  const hasError = userQuery.isError || navigationQuery.isError || teamsQuery.isError;
-  const hasData = userQuery.data && navigationQuery.data && teamsQuery.data;
+  const settingsQuery = useQuery({
+    queryKey: platformSettingsUrl,
+    queryFn: resolver.query(platformSettingsUrl),
+    config: {
+      enabled: Boolean(userQuery.data?.id),
+    },
+  });
+
+  const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading || settingsQuery.isLoading;
+  const hasError = userQuery.isError || navigationQuery.isError || teamsQuery.isError || settingsQuery.isError;
+  const hasData = userQuery.data && navigationQuery.data && teamsQuery.data && settingsQuery.data;
 
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
@@ -108,10 +117,12 @@ export default function App() {
       </Suspense>
     );
   }
-      
+
   if (hasData) {
+    //@ts-ignore
+    const canEditVerifiedTasks = settingsQuery.data[0].config.find((setting) => setting.key === "enable.tasks").value;
     return (
-      <FlagsProvider features={{ standalone: PRODUCT_STANDALONE }}>
+      <FlagsProvider features={{ standalone: PRODUCT_STANDALONE, canEditVerifiedTasks }}>
         <Navbar
           handleOnTutorialClick={() => setIsTutorialActive(true)}
           navigationData={navigationQuery.data}
