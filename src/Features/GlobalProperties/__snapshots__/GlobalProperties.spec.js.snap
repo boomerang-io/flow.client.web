@@ -14,20 +14,20 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
         <section
           class="bx--bmrg-feature-header__content"
         >
-          <hgroup
+          <div
             class="bx--bmrg-feature-header__header"
           >
             <h1
-              class="bx--bmrg-feature-header-text headerTitle"
+              class="bx--bmrg-feature-header-title headerTitle"
             >
               Properties
             </h1>
-            <h2
-              class="bx--bmrg-feature-header-text"
+            <p
+              class="bx--bmrg-feature-header-title"
             >
               Set global properties that are available for all Workflows.
-            </h2>
-          </hgroup>
+            </p>
+          </div>
         </section>
       </header>
       <div

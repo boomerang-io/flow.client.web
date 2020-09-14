@@ -110,20 +110,20 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
         <section
           class="bx--bmrg-feature-header__content"
         >
-          <hgroup
+          <div
             class="bx--bmrg-feature-header__header"
           >
-            <h2
-              class="bx--bmrg-feature-header-text"
+            <p
+              class="bx--bmrg-feature-header-title"
             >
               These are your
-            </h2>
+            </p>
             <h1
-              class="bx--bmrg-feature-header-text"
+              class="bx--bmrg-feature-header-title"
             >
               Workflows (2)
             </h1>
-          </hgroup>
+          </div>
         </section>
         <div
           class="filterContainer"

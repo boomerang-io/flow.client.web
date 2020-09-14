@@ -45,15 +45,15 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               </ol>
             </nav>
           </div>
-          <hgroup
+          <div
             class="bx--bmrg-feature-header__header"
           >
             <h1
-              class="bx--bmrg-feature-header-text"
+              class="bx--bmrg-feature-header-title"
             >
               Editor
             </h1>
-          </hgroup>
+          </div>
           <div
             class="bx--bmrg-feature-header__footer"
           >

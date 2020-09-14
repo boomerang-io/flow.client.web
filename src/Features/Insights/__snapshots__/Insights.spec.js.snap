@@ -11,20 +11,20 @@ exports[`WorkflowInsights --- Snapshot Capturing Snapshot of WorkflowInsights 1`
       <section
         class="bx--bmrg-feature-header__content"
       >
-        <hgroup
+        <div
           class="bx--bmrg-feature-header__header"
         >
-          <h2
-            class="bx--bmrg-feature-header-text"
+          <p
+            class="bx--bmrg-feature-header-title"
           >
             There are some
-          </h2>
+          </p>
           <h1
-            class="bx--bmrg-feature-header-text"
+            class="bx--bmrg-feature-header-title"
           >
             Insights
           </h1>
-        </hgroup>
+        </div>
       </section>
     </header>
     <div
