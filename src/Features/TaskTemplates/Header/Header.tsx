@@ -68,8 +68,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, ha
       modalTrigger={({ openModal }: ModalTriggerProps) => (
         <TooltipHover direction="bottom" tooltipText={"Save a new version or update the current one"}>
           <Button
-            className={styles.button}
-            style={{ width: "7.75rem" }}
+            className={styles.mainActionButton}
             disabled={!formikProps.isValid || !formikProps.dirty}
             size="field"
             renderIcon={Save16}
@@ -193,7 +192,7 @@ const Header: React.FC<HeaderProps> = ({
   changelogs.reverse();
 
   return (
-    <FeatureHeader 
+    <FeatureHeader
       className={styles.featureHeader}
       actions={
         <div className={styles.buttons}>
@@ -278,13 +277,7 @@ const Header: React.FC<HeaderProps> = ({
               affirmativeText="Restore this task"
               title="Restore"
               modalTrigger={({ openModal }: ModalTriggerProps) => (
-                <Button
-                  className={styles.button}
-                  style={{ width: "7.75rem" }}
-                  size="field"
-                  renderIcon={Reset16}
-                  onClick={openModal}
-                >
+                <Button className={styles.mainActionButton} size="field" renderIcon={Reset16} onClick={openModal}>
                   Restore
                 </Button>
               )}
@@ -293,27 +286,27 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       }
     >
-      <hgroup>
-        <h1 className={styles.category}>{capitalize(selectedTaskTemplate.category)}</h1>
-        <div className={styles.infoContainer}>
-          {TaskIcon ? (
-            <TaskIcon.Icon style={{ width: "1.5rem", height: "1.5rem", marginRight: "0.75rem" }} />
-          ) : (
-            <Bee20 alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
-          )}
-          <p className={styles.taskName}>{selectedTaskTemplate.name}</p>
-          {!isActive && (
-            <Tag className={styles.archivedTag} type="gray">
-              <ViewOff16 style={{ marginRight: "0.5rem" }} />
-              Archived
-            </Tag>
-          )}
-          <VersionHistory changelogs={changelogs} />
-        </div>
-        <h2 className={styles.lastUpdate}>{`Version ${revisionCount === 1 ? "created" : "updated"} ${moment(
-          lastUpdated.date
-        ).format("MMM DD, YYYY")} by ${lastUpdated.userName ?? "---"}`}</h2>
-      </hgroup>
+      <p className={styles.category}>{capitalize(selectedTaskTemplate.category)}</p>
+      <div className={styles.infoContainer}>
+        {TaskIcon ? (
+          <TaskIcon.Icon style={{ minWidth: "1.5rem", minHeight: "1.5rem", marginRight: "0.75rem" }} />
+        ) : (
+          <Bee20 alt={`${selectedTaskTemplate.name} icon`} className={styles.icon} />
+        )}
+        <h1 className={styles.taskName} title={selectedTaskTemplate.name}>
+          {selectedTaskTemplate.name}
+        </h1>
+        {!isActive && (
+          <Tag className={styles.archivedTag} type="gray">
+            <ViewOff16 style={{ marginRight: "0.5rem" }} />
+            Archived
+          </Tag>
+        )}
+        <VersionHistory changelogs={changelogs} />
+      </div>
+      <p className={styles.lastUpdate}>{`Version ${revisionCount === 1 ? "created" : "updated"} ${moment(
+        lastUpdated.date
+      ).format("MMM DD, YYYY")} by ${lastUpdated.userName ?? "---"}`}</p>
     </FeatureHeader>
   );
 };

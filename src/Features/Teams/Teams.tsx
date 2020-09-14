@@ -10,9 +10,9 @@ import {
   DataTableSkeleton,
   ErrorMessage,
   Error404,
-  FeatureHeader as Header, 
-  FeatureHeaderTitle as HeaderTitle, 
-  FeatureHeaderSubtitle as HeaderSubtitle, 
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
   Pagination,
   Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -54,7 +54,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
         header={
           <>
             <HeaderTitle style={{ margin: "0" }}>Teams</HeaderTitle>
-            <HeaderSubtitle>View and manage Flow teams.</HeaderSubtitle>
+            <HeaderSubtitle>View and manage Flow teams</HeaderSubtitle>
           </>
         }
       />

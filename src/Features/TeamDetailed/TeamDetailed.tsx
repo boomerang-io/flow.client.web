@@ -1,12 +1,12 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
-import { 
+import {
   ErrorMessage,
-  FeatureHeader, 
-  FeatureHeaderTitle as HeaderTitle, 
-  FeatureHeaderSubtitle as HeaderSubtitle, 
-  Loading
+  FeatureHeader,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
+  Loading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import Members from "./Members";
 import Settings from "./Settings";
@@ -27,7 +27,7 @@ const FeatureLayout: React.FC = ({ children }) => {
         header={
           <>
             <HeaderTitle style={{ margin: "0" }}>Teams</HeaderTitle>
-            <HeaderSubtitle>View and manage Flow teams.</HeaderSubtitle>
+            <HeaderSubtitle>View and manage Flow teams</HeaderSubtitle>
           </>
         }
       />

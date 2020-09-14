@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import matchSorter from "match-sorter";
 import { useMutation, queryCache } from "react-query";
-import { 
+import {
   DataTable,
   Error404,
   FeatureHeader as Header,
@@ -10,8 +10,8 @@ import {
   FeatureHeaderSubtitle as HeaderSubtitle,
   notify,
   Pagination,
-  Search, 
-  ToastNotification
+  Search,
+  ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import ActionsMenu from "./ActionsMenu";
 import CreateEditPropertiesModal from "./CreateEditPropertiesModal";
@@ -102,7 +102,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
     setSearchQuery(searchQuery);
   };
 
-  const handlePaginationChange = ({ page, pageSize }: { page: number, pageSize: number }) => {
+  const handlePaginationChange = ({ page, pageSize }: { page: number; pageSize: number }) => {
     setPage(page);
     setPageSize(pageSize);
   };
@@ -148,7 +148,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
         header={
           <>
             <HeaderTitle className={styles.headerTitle}>Properties</HeaderTitle>
-            <HeaderSubtitle>Set global properties that are available for all Workflows.</HeaderSubtitle>
+            <HeaderSubtitle>Set global properties that are available for all Workflows</HeaderSubtitle>
           </>
         }
       />
@@ -170,7 +170,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
             <DataTable
               rows={newProperties}
               headers={headers}
-              render={({ rows, headers, getHeaderProps }: { rows: any, headers: any, getHeaderProps: any }) => (
+              render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
                 <TableContainer>
                   <Table>
                     <TableHead>

@@ -32,17 +32,10 @@
 
   :global .bx--list-box__field {
     width: 16rem;
-    &:focus {
-    }
   }
 
   :global .bx--list-box__label {
     @include text-overflow-ellipsis();
-  }
-
-  :global .bx--list-box__selection--multi {
-    &:hover {
-    }
   }
 
   :global .bx--list-box__menu {
@@ -56,11 +49,6 @@
 
   :global .bx--list-box__menu-item--highlighted {
     text-decoration: none;
-  }
-
-  :global .bx--list-box__menu-item--active {
-    :global .bx--checkbox-label::before {
-    }
   }
 }
 .header {

@@ -22,12 +22,19 @@
 }
 
 .filtersContainer {
-  align-items: flex-end;
+  align-items: flex-start;
   display: flex;
   justify-content: space-between;
+  flex-flow: row wrap;
+  width: 100%;
+
+  :global .bx--form-item {
+    flex-grow: 0;
+  }
 }
 
 .dataFilters {
+  margin-bottom: 1rem;
   display: flex;
   > * + * {
     margin-left: 1.4rem;
@@ -36,8 +43,4 @@
 
 .dataFilter {
   width: 15.875rem;
-}
-
-.timeFilters {
-  align-self: flex-end;
 }
