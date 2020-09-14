@@ -241,6 +241,16 @@ export interface FlowUser {
   status: UserStatus;
 }
 
+export interface Property {
+  value: string,
+  readOnly: boolean,
+  id: string,
+  description: string,
+  key: string,
+  label: string,
+  type: string
+}
+
 // interface userInterface {
 //   email?: string;
 //   favoritePackages?: any;

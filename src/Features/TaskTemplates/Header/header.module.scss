@@ -1,22 +1,17 @@
 @import "Styles/mixins";
 
-.container {
+.featureHeader {
   align-items: center;
-  background: var(--cds-ui-01);
   display: flex;
-  height: 4.6875rem;
-  justify-content: space-between;
-  position: initial;
-  top: 0;
+  min-height: 7.3125rem;
   width: 100%;
-  z-index: 1;
-  :global .bx--assistive-text {
-    left: -6.75rem !important;
-  }
+  padding: 1.5rem 1.5rem 1rem;
 }
+
 .saveContainer {
-  height: 33rem;
+  max-height: 33rem;
 }
+
 .confirmModalText {
   font-size: 0.875rem;
   margin-bottom: 1rem;
@@ -26,12 +21,7 @@
   margin-bottom: 1rem;
   width: 36rem;
 }
-.featureHeader {
-  align-items: center;
-  display: flex;
-  height: 7rem;
-  width: 100%;
-}
+
 .archivedTag {
   background-color: var(--cds-icon-02);
   color: var(--cds-ui-02);
@@ -41,27 +31,39 @@
   }
 }
 .buttons {
+  align-self: flex-end;
   display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  flex-grow: 1;
+  > * {
+    margin: 1rem 0 0 1.5rem;
+  }
 }
+
 .copyButton {
-  margin-left: 0.625rem;
   width: 12.8125rem;
 }
 
 .resetButton {
-  margin-left: 0.625rem;
-  margin-right: 1.5rem;
   width: 10.875rem;
+}
+
+.mainActionButton {
+  width: 7.75rem;
 }
 
 .category {
   font-size: 0.875rem;
   line-height: 1.125rem;
-  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
 }
+
 .taskName {
   font-size: 1rem;
   line-height: 1.25rem;
+  margin: 0rem;
+  @include multiline-text-overflow-ellipsis();
 }
 .infoContainer {
   align-items: center;
