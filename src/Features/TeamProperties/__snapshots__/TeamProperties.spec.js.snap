@@ -14,20 +14,20 @@ exports[`TeamProperties --- Snapshot Test Capturing Snapshot of TeamProperties 1
         <section
           class="bx--bmrg-feature-header__content"
         >
-          <hgroup
+          <div
             class="bx--bmrg-feature-header__header"
           >
             <h1
-              class="bx--bmrg-feature-header-text headerTitle"
+              class="bx--bmrg-feature-header-title headerTitle"
             >
               Team Properties
             </h1>
-            <h2
-              class="bx--bmrg-feature-header-text"
+            <p
+              class="bx--bmrg-feature-header-title"
             >
               Set team properties that are accessible in all workflows for that team.
-            </h2>
-          </hgroup>
+            </p>
+          </div>
         </section>
       </header>
       <div

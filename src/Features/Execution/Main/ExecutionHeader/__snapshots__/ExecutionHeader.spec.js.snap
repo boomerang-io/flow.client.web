@@ -42,15 +42,15 @@ exports[`ExecutionHeader --- Snapshot Capturing Snapshot of ExecutionHeader 1`] 
             </ol>
           </nav>
         </div>
-        <hgroup
+        <div
           class="bx--bmrg-feature-header__header"
         >
           <h1
-            class="bx--bmrg-feature-header-text"
+            class="bx--bmrg-feature-header-title"
           >
             Workflow run detail
           </h1>
-        </hgroup>
+        </div>
       </section>
       <div
         class="content"

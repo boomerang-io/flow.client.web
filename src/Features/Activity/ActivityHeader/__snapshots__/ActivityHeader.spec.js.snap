@@ -11,20 +11,20 @@ exports[`ActivityHeader --- Snapshot Capturing Snapshot of ActivityHeader 1`] = 
       <section
         class="bx--bmrg-feature-header__content"
       >
-        <hgroup
+        <div
           class="bx--bmrg-feature-header__header"
         >
-          <h2
-            class="bx--bmrg-feature-header-text"
+          <p
+            class="bx--bmrg-feature-header-title"
           >
             This is all of the
-          </h2>
+          </p>
           <h1
-            class="bx--bmrg-feature-header-text"
+            class="bx--bmrg-feature-header-title"
           >
             Activity
           </h1>
-        </hgroup>
+        </div>
       </section>
       <section
         class="content"
