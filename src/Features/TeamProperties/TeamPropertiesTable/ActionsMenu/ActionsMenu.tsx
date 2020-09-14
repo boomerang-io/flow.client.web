@@ -1,17 +1,22 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { OverflowMenu, OverflowMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditTeamPropertiesModal from "../CreateEditTeamPropertiesModal";
+import { FlowTeam, Property } from "Types";
 
-OverflowMenuComponent.propTypes = {
-  team: PropTypes.object.isRequired,
-  property: PropTypes.object.isRequired,
-  properties: PropTypes.array.isRequired,
-  deleteTeamProperty: PropTypes.func.isRequired,
+interface OverflowMenuComponentProps {
+  team: FlowTeam;
+  property: Property;
+  properties: Property[];
+  deleteTeamProperty(args: Property): void;
 };
 
-function OverflowMenuComponent({ property, properties, deleteTeamProperty, team }) {
+const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({ 
+  property, 
+  properties, 
+  deleteTeamProperty, 
+  team 
+}) => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 

@@ -5,11 +5,13 @@ import {
   Accordion,
   Error404,
   ErrorMessage,
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
   SkeletonPlaceholder,
   notify,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import FeatureHeader from "Components/FeatureHeader";
 import SettingsSection from "./SettingsSection";
 import sortBy from "lodash/sortBy";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -27,10 +29,16 @@ const platformSettingsUrl = serviceUrl.resourceSettings();
 const FeatureLayout: React.FC = ({ children }) => {
   return (
     <>
-      <FeatureHeader>
-        <h1 style={{ fontWeight: 600, margin: 0 }}>Settings</h1>
-        <p>Adjust Flow settings</p>
-      </FeatureHeader>
+      <Header
+        className={styles.header}
+        includeBorder={false}
+        header={
+          <>
+            <HeaderTitle className={styles.headerTitle}>Settings</HeaderTitle>
+            <HeaderSubtitle>Adjust Flow settings</HeaderSubtitle>
+          </>
+        }
+      />
       <Box p="2rem" overflowY="auto" className={styles.container}>
         {children}
       </Box>

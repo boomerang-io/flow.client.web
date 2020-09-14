@@ -1,49 +1,20 @@
 @import "Styles/mixins";
 
 .container {
-  background-color: var(--cds-ui-01);
-  display: flex;
-  min-height: 4.3125rem;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.subtitle {
-  align-items: center;
-  color: var(--cds-text-01);
-  display: flex;
-  font-size: 0.875rem;
-  letter-spacing: 0.01rem;
-  line-height: 1.125rem;
-  margin-bottom: 0.75rem;
+  h1 {
+    margin: 0;
+  }
 }
 
 .workflowNameSkeleton {
   height: 1.125rem;
 }
 
-.activityLink {
-  font-size: 0.875rem;
-  letter-spacing: 0.01rem;
-  line-height: 1.125rem;
-
-  &:focus {
-    @include focus-outline();
-  }
-}
-
-.title {
-  color: var(--cds-text-01);
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 2.625rem;
-  margin: 0rem;
-}
-
 .content {
   align-items: center;
   display: flex;
-  margin-top: 1.125rem;
+  margin: 1.125rem 0 1.5rem 0;
+  overflow: hidden;
 }
 
 .data {

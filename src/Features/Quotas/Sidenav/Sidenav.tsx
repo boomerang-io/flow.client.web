@@ -1,14 +1,16 @@
 import React from "react";
-import { Link, matchPath, useLocation } from "react-router-dom";
-import cx from "classnames";
 import matchSorter from "match-sorter";
-import { Search } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  FeatureSideNav as SideNav,
+  FeatureSideNavLink as SideNavLink, 
+  FeatureSideNavLinks as SideNavLinks,
+  Search
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
-import { AppPath } from "Config/appConfig";
 import { FlowTeam } from "Types";
 import styles from "./Sidenav.module.scss";
 
-const DESCRIPTION = "Manage quotas for indivdiual teams";
+const DESCRIPTION = "Manage quotas for individiual teams";
 
 interface SideInfoProps {
   teams: FlowTeam[];
@@ -17,8 +19,6 @@ interface SideInfoProps {
 const SideInfo: React.FC<SideInfoProps> = ({ teams }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [teamsToDisplay, setTeamsToDisplay] = React.useState<Array<FlowTeam>>(teams);
-  const location = useLocation();
-  const globalMatch = matchPath(location.pathname, { path: AppPath.QuotasEdit });
 
   const handleOnSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchQuery = e.target.value;
@@ -27,7 +27,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ teams }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <SideNav className={styles.container} border="right">
       <h1 className={styles.title}>Team quotas</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
       <p className={styles.teamLabel}>Teams</p>
@@ -46,31 +46,14 @@ const SideInfo: React.FC<SideInfoProps> = ({ teams }) => {
           <p className={styles.info}>{`Showing ${teamsToDisplay.length} teams`}</p>
         </div>
       </div>
-      <section className={styles.taskSection}>
+      <SideNavLinks>
         {teamsToDisplay.map((team) => {
-          //@ts-ignore
-          return <Task team={team} isActive={globalMatch?.params?.teamId === team.id} />;
+          return (
+            <SideNavLink to={appLink.quotasEdit({ teamId: team.id })}>{team.name}</SideNavLink>
+          );
         })}
-      </section>
-    </div>
-  );
-};
-
-interface TaskProps {
-  isActive: boolean;
-  team: FlowTeam;
-}
-const Task: React.FC<TaskProps> = (props) => {
-  const { team } = props;
-
-  return (
-    <Link
-      className={cx(styles.team, { [styles.active]: props.isActive })}
-      to={appLink.quotasEdit({ teamId: team.id })}
-      id={team.id}
-    >
-      <p className={cx(styles.teamName, { [styles.active]: props.isActive })}>{team.name}</p>
-    </Link>
+      </SideNavLinks>
+    </SideNav>
   );
 };
 

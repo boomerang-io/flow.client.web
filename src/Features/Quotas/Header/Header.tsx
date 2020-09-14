@@ -2,6 +2,8 @@ import React from "react";
 import {
   Button,
   ComposedModal,
+  FeatureHeader, 
+  FeatureHeaderTitle as HeaderTitle,
   InlineNotification,
   Loading,
   ModalBody,
@@ -11,7 +13,6 @@ import {
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useMutation, queryCache } from "react-query";
-import FeatureHeader from "Components/FeatureHeader";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { Reset16 } from "@carbon/icons-react";
 import { ModalTriggerProps, FlowTeam, ComposedModalChildProps, FlowTeamQuotas } from "Types";
@@ -31,11 +32,10 @@ const Header: React.FC<HeaderProps> = ({
   defaultQuotasIsLoading,
 }) => {
   return (
-    <FeatureHeader includeBorder className={styles.featureHeader}>
-      <div className={styles.container}>
-        <hgroup>
-          <h1 className={styles.teamName}>{selectedTeam.name}</h1>
-        </hgroup>
+    <FeatureHeader
+      className={styles.featureHeader}
+      header={<HeaderTitle>{selectedTeam.name}</HeaderTitle>}
+      actions={
         <ComposedModal
           composedModalProps={{
             containerClassName: styles.modalContainer,
@@ -60,8 +60,8 @@ const Header: React.FC<HeaderProps> = ({
             />
           )}
         </ComposedModal>
-      </div>
-    </FeatureHeader>
+      }
+    />
   );
 };
 

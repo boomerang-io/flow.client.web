@@ -9,7 +9,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
       class="container"
     >
       <div
-        class="container"
+        class="bx--bmrg-feature-sidenav-container container --right-border"
       >
         <h1
           class="title"
@@ -162,51 +162,50 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             </button>
           </div>
         </div>
-        <ul
-          class="bx--accordion bx--accordion--end"
+        <section
+          class="bx--bmrg-feature-sidenav-links"
         >
-          <li
-            class="bx--accordion__item"
+          <ul
+            class="bx--accordion bx--accordion--end"
           >
-            <button
-              aria-controls="accordion-item-1"
-              aria-expanded="false"
-              class="bx--accordion__heading"
-              title="Artifactory (2)"
-              type="button"
+            <li
+              class="bx--accordion__item"
             >
-              <svg
-                aria-hidden="true"
-                class="bx--accordion__arrow"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <button
+                aria-controls="accordion-item-1"
+                aria-expanded="false"
+                class="bx--accordion__heading"
+                title="Artifactory (2)"
+                type="button"
               >
-                <path
-                  d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                />
-              </svg>
-              <div
-                class="bx--accordion__title"
-              >
-                Artifactory (2)
-              </div>
-            </button>
-            <div
-              class="bx--accordion__content"
-              id="accordion-item-1"
-            >
-              <a
-                class="task"
-                href="/admin/task-templates/5bd9b4115a5df954ad5ad8db/1"
-                id="5bd9b4115a5df954ad5ad8db"
-              >
+                <svg
+                  aria-hidden="true"
+                  class="bx--accordion__arrow"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                  />
+                </svg>
                 <div
-                  class="taskInfoContainer"
+                  class="bx--accordion__title"
+                >
+                  Artifactory (2)
+                </div>
+              </button>
+              <div
+                class="bx--accordion__content"
+                id="accordion-item-1"
+              >
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5bd9b4115a5df954ad5ad8db/1"
                 >
                   <svg
                     alt="Task node type download"
@@ -215,7 +214,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -224,452 +223,39 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M13 7L12.3 6.3 8.5 10.1 8.5 1 7.5 1 7.5 10.1 3.7 6.3 3 7 8 12zM13 12v2H3v-2H2v2l0 0c0 .6.4 1 1 1h10c.6 0 1-.4 1-1l0 0v-2H13z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Artifactory File Download
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5bd9d0825a5df954ad5bb5c3/1"
-                id="5bd9d0825a5df954ad5bb5c3"
-              >
-                <div
-                  class="taskInfoContainer"
-                >
-                  <svg
-                    alt="Task node type upload"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3 9L3.7 9.7 7.5 5.9 7.5 15 8.5 15 8.5 5.9 12.3 9.7 13 9 8 4zM3 4V2h10v2h1V2c0-.6-.4-1-1-1H3C2.4 1 2 1.4 2 2v2H3z"
-                    />
-                  </svg>
-                  <p
-                    class="taskName"
-                  >
-                    Artifactory File Upload
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li
-            class="bx--accordion__item"
-          >
-            <button
-              aria-controls="accordion-item-2"
-              aria-expanded="false"
-              class="bx--accordion__heading"
-              title="Boomerang (2)"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="bx--accordion__arrow"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                />
-              </svg>
-              <div
-                class="bx--accordion__title"
-              >
-                Boomerang (2)
-              </div>
-            </button>
-            <div
-              class="bx--accordion__content"
-              id="accordion-item-2"
-            >
-              <a
-                class="task"
-                href="/admin/task-templates/5bd98b105a5df954ad599bc2/1"
-                id="5bd98b105a5df954ad599bc2"
-              >
-                <div
-                  class="taskInfoContainer"
-                >
-                  <svg
-                    alt="Task node type message"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"
-                    />
-                    <path
-                      d="M8 10H24V12H8zM8 16H18V18H8z"
-                    />
-                  </svg>
-                  <p
-                    class="taskName"
-                  >
-                    Send Platform Email
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5d53016bd83be3cc84bae976/1"
-                id="5d53016bd83be3cc84bae976"
-              >
-                <div
-                  class="taskInfoContainer"
-                >
-                  <svg
-                    alt="Task node type message"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"
-                    />
-                    <path
-                      d="M8 10H24V12H8zM8 16H18V18H8z"
-                    />
-                  </svg>
-                  <p
-                    class="taskName"
-                  >
-                    Send Platform Notification
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li
-            class="bx--accordion__item"
-          >
-            <button
-              aria-controls="accordion-item-3"
-              aria-expanded="false"
-              class="bx--accordion__heading"
-              title="Communication (5)"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="bx--accordion__arrow"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                />
-              </svg>
-              <div
-                class="bx--accordion__title"
-              >
-                Communication (5)
-              </div>
-            </button>
-            <div
-              class="bx--accordion__content"
-              id="accordion-item-3"
-            >
-              <a
-                class="task"
-                href="/admin/task-templates/5e1bcd210351fdc9e42fe4e0/1"
-                id="5e1bcd210351fdc9e42fe4e0"
-              >
-                <div
-                  class="taskInfoContainer"
-                >
-                  <svg
-                    alt="Task node type message"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"
-                    />
-                    <path
-                      d="M8 10H24V12H8zM8 16H18V18H8z"
-                    />
-                  </svg>
-                  <p
-                    class="taskName"
-                  >
-                    Send Custom Slack Message
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5b92f794844d0700016ea217/1"
-                id="5b92f794844d0700016ea217"
-              >
-                <div
-                  class="taskInfoContainer"
-                >
-                  <svg
-                    alt="Task node type message"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"
-                    />
-                    <path
-                      d="M8 10H24V12H8zM8 16H18V18H8z"
-                    />
-                  </svg>
-                  <p
-                    class="taskName"
-                  >
-                    Send Simple Slack Message
-                  </p>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5e2866c8612203650e389491/1"
-                id="5e2866c8612203650e389491"
-              >
-                <div
-                  class="taskInfoContainer"
-                >
-                  <svg
-                    alt="Task node type message"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"
-                    />
-                    <path
-                      d="M8 10H24V12H8zM8 16H18V18H8z"
-                    />
-                  </svg>
-                  <p
-                    class="taskName"
-                  >
-                    Send Slack Message with File Contents
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5e670a1e2d5e6a302de4f41d/1"
-                id="5e670a1e2d5e6a302de4f41d"
-              >
-                <div
-                  class="taskInfoContainer"
-                >
-                  <svg
-                    alt="Task node type get, read"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
-                    />
-                  </svg>
-                  <p
-                    class="taskName"
-                  >
-                    Slack User Look Up
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5e1bf6ca0351fdc9e4319c3b/1"
-                id="5e1bf6ca0351fdc9e4319c3b"
-              >
-                <div
-                  class="taskInfoContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Artifactory File Download
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5bd9d0825a5df954ad5bb5c3/1"
                 >
                   <svg
                     alt="Task node type upload"
@@ -678,7 +264,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -687,75 +273,360 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M3 9L3.7 9.7 7.5 5.9 7.5 15 8.5 15 8.5 5.9 12.3 9.7 13 9 8 4zM3 4V2h10v2h1V2c0-.6-.4-1-1-1H3C2.4 1 2 1.4 2 2v2H3z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Upload Slack File with Message
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li
-            class="bx--accordion__item"
-          >
-            <button
-              aria-controls="accordion-item-4"
-              aria-expanded="false"
-              class="bx--accordion__heading"
-              title="File utilities (6)"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="bx--accordion__arrow"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                />
-              </svg>
-              <div
-                class="bx--accordion__title"
-              >
-                File utilities (6)
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Artifactory File Upload
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </button>
-            <div
-              class="bx--accordion__content"
-              id="accordion-item-4"
+            </li>
+            <li
+              class="bx--accordion__item"
             >
-              <a
-                class="task"
-                href="/admin/task-templates/5d1ed216988e7b6b6f7b3c1c/1"
-                id="5d1ed216988e7b6b6f7b3c1c"
+              <button
+                aria-controls="accordion-item-2"
+                aria-expanded="false"
+                class="bx--accordion__heading"
+                title="Boomerang (2)"
+                type="button"
               >
+                <svg
+                  aria-hidden="true"
+                  class="bx--accordion__arrow"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                  />
+                </svg>
                 <div
-                  class="taskInfoContainer"
+                  class="bx--accordion__title"
+                >
+                  Boomerang (2)
+                </div>
+              </button>
+              <div
+                class="bx--accordion__content"
+                id="accordion-item-2"
+              >
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5bd98b105a5df954ad599bc2/1"
+                >
+                  <svg
+                    alt="Task node type message"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="height: 1rem; width: 1rem;"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"
+                    />
+                    <path
+                      d="M8 10H24V12H8zM8 16H18V18H8z"
+                    />
+                  </svg>
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
+                  >
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Send Platform Email
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5d53016bd83be3cc84bae976/1"
+                >
+                  <svg
+                    alt="Task node type message"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="height: 1rem; width: 1rem;"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"
+                    />
+                    <path
+                      d="M8 10H24V12H8zM8 16H18V18H8z"
+                    />
+                  </svg>
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
+                  >
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Send Platform Notification
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li
+              class="bx--accordion__item"
+            >
+              <button
+                aria-controls="accordion-item-3"
+                aria-expanded="false"
+                class="bx--accordion__heading"
+                title="Communication (5)"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="bx--accordion__arrow"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                  />
+                </svg>
+                <div
+                  class="bx--accordion__title"
+                >
+                  Communication (5)
+                </div>
+              </button>
+              <div
+                class="bx--accordion__content"
+                id="accordion-item-3"
+              >
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5e1bcd210351fdc9e42fe4e0/1"
+                >
+                  <svg
+                    alt="Task node type message"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="height: 1rem; width: 1rem;"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"
+                    />
+                    <path
+                      d="M8 10H24V12H8zM8 16H18V18H8z"
+                    />
+                  </svg>
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
+                  >
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Send Custom Slack Message
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5b92f794844d0700016ea217/1"
+                >
+                  <svg
+                    alt="Task node type message"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="height: 1rem; width: 1rem;"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"
+                    />
+                    <path
+                      d="M8 10H24V12H8zM8 16H18V18H8z"
+                    />
+                  </svg>
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
+                  >
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Send Simple Slack Message
+                      </p>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5e2866c8612203650e389491/1"
+                >
+                  <svg
+                    alt="Task node type message"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="height: 1rem; width: 1rem;"
+                    viewBox="0 0 32 32"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M17.74,30,16,29l4-7h6a2,2,0,0,0,2-2V8a2,2,0,0,0-2-2H6A2,2,0,0,0,4,8V20a2,2,0,0,0,2,2h9v2H6a4,4,0,0,1-4-4V8A4,4,0,0,1,6,4H26a4,4,0,0,1,4,4V20a4,4,0,0,1-4,4H21.16Z"
+                    />
+                    <path
+                      d="M8 10H24V12H8zM8 16H18V18H8z"
+                    />
+                  </svg>
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
+                  >
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Send Slack Message with File Contents
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5e670a1e2d5e6a302de4f41d/1"
                 >
                   <svg
                     alt="Task node type get, read"
@@ -764,7 +635,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -773,38 +644,126 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Check File Contains String
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Slack User Look Up
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5e1bf6ca0351fdc9e4319c3b/1"
                 >
                   <svg
+                    alt="Task node type upload"
                     aria-hidden="true"
-                    fill="#0072C3"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
+                    style="height: 1rem; width: 1rem;"
+                    viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                      d="M3 9L3.7 9.7 7.5 5.9 7.5 15 8.5 15 8.5 5.9 12.3 9.7 13 9 8 4zM3 4V2h10v2h1V2c0-.6-.4-1-1-1H3C2.4 1 2 1.4 2 2v2H3z"
                     />
                   </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5c3fbc92352b1b51416952d1/1"
-                id="5c3fbc92352b1b51416952d1"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
+                  >
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Upload Slack File with Message
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </li>
+            <li
+              class="bx--accordion__item"
+            >
+              <button
+                aria-controls="accordion-item-4"
+                aria-expanded="false"
+                class="bx--accordion__heading"
+                title="File utilities (6)"
+                type="button"
               >
+                <svg
+                  aria-hidden="true"
+                  class="bx--accordion__arrow"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                  />
+                </svg>
                 <div
-                  class="taskInfoContainer"
+                  class="bx--accordion__title"
+                >
+                  File utilities (6)
+                </div>
+              </button>
+              <div
+                class="bx--accordion__content"
+                id="accordion-item-4"
+              >
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5d1ed216988e7b6b6f7b3c1c/1"
                 >
                   <svg
                     alt="Task node type get, read"
@@ -813,7 +772,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -822,38 +781,89 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Check File or Folder Exists
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Check File Contains String
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5c3fbc92352b1b51416952d1/1"
                 >
                   <svg
+                    alt="Task node type get, read"
                     aria-hidden="true"
-                    fill="#0072C3"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
+                    style="height: 1rem; width: 1rem;"
+                    viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                      d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                     />
                   </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5bd9d03a5a5df954ad5bb3b5/2"
-                id="5bd9d03a5a5df954ad5bb3b5"
-              >
-                <div
-                  class="taskInfoContainer"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
+                  >
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Check File or Folder Exists
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5bd9d03a5a5df954ad5bb3b5/2"
                 >
                   <svg
                     alt="Task node type add"
@@ -862,7 +872,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -874,87 +884,39 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M24 15L17 15 17 8 15 8 15 15 8 15 8 17 15 17 15 24 17 24 17 17 24 17z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Create File
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5c39015b352b1b51412e9c85/1"
-                id="5c39015b352b1b51412e9c85"
-              >
-                <div
-                  class="taskInfoContainer"
-                >
-                  <svg
-                    alt="Task node type get, read"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
-                    />
-                  </svg>
-                  <p
-                    class="taskName"
-                  >
-                    Read File to Property
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5c3fb7e2352b1b5141692f75/1"
-                id="5c3fb7e2352b1b5141692f75"
-              >
-                <div
-                  class="taskInfoContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Create File
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5c39015b352b1b51412e9c85/1"
                 >
                   <svg
                     alt="Task node type get, read"
@@ -963,7 +925,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -972,38 +934,89 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Read Properties From File
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Read File to Property
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5c3fb7e2352b1b5141692f75/1"
                 >
                   <svg
+                    alt="Task node type get, read"
                     aria-hidden="true"
-                    fill="#0072C3"
+                    fill="currentColor"
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
+                    style="height: 1rem; width: 1rem;"
+                    viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                      d="M15,14.3L10.7,10c1.9-2.3,1.6-5.8-0.7-7.7S4.2,0.7,2.3,3S0.7,8.8,3,10.7c2,1.7,5,1.7,7,0l4.3,4.3L15,14.3z M2,6.5	C2,4,4,2,6.5,2S11,4,11,6.5S9,11,6.5,11S2,9,2,6.5z"
                     />
                   </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5d1ed36a988e7b6b6f7b470b/1"
-                id="5d1ed36a988e7b6b6f7b470b"
-              >
-                <div
-                  class="taskInfoContainer"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
+                  >
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Read Properties From File
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5d1ed36a988e7b6b6f7b470b/1"
                 >
                   <svg
                     alt="Task node type edit"
@@ -1012,7 +1025,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1021,57 +1034,58 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Replace String in File
-                  </p>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li
-            class="bx--accordion__item"
-          >
-            <button
-              aria-controls="accordion-item-5"
-              aria-expanded="false"
-              class="bx--accordion__heading"
-              title="Github (4)"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="bx--accordion__arrow"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                />
-              </svg>
-              <div
-                class="bx--accordion__title"
-              >
-                Github (4)
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Replace String in File
+                      </p>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </button>
-            <div
-              class="bx--accordion__content"
-              id="accordion-item-5"
+            </li>
+            <li
+              class="bx--accordion__item"
             >
-              <a
-                class="task"
-                href="/admin/task-templates/5eab59eaaecb0800014e0ccb/3"
-                id="5eab59eaaecb0800014e0ccb"
+              <button
+                aria-controls="accordion-item-5"
+                aria-expanded="false"
+                class="bx--accordion__heading"
+                title="Github (4)"
+                type="button"
               >
+                <svg
+                  aria-hidden="true"
+                  class="bx--accordion__arrow"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                  />
+                </svg>
                 <div
-                  class="taskInfoContainer"
+                  class="bx--accordion__title"
+                >
+                  Github (4)
+                </div>
+              </button>
+              <div
+                class="bx--accordion__content"
+                id="accordion-item-5"
+              >
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5eab59eaaecb0800014e0ccb/3"
                 >
                   <svg
                     alt="Task node type automated task"
@@ -1080,7 +1094,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1093,38 +1107,39 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M17,30a1,1,0,0,1-.37-.07,1,1,0,0,1-.62-.79l-1-7,2-.28.75,5.27L21,24.52V17a1,1,0,0,1,.29-.71l4.07-4.07A8.94,8.94,0,0,0,28,5.86V4H26.14a8.94,8.94,0,0,0-6.36,2.64l-4.07,4.07A1,1,0,0,1,15,11H7.48L4.87,14.26l5.27.75-.28,2-7-1a1,1,0,0,1-.79-.62,1,1,0,0,1,.15-1l4-5A1,1,0,0,1,7,9h7.59l3.77-3.78A10.92,10.92,0,0,1,26.14,2H28a2,2,0,0,1,2,2V5.86a10.92,10.92,0,0,1-3.22,7.78L23,17.41V25a1,1,0,0,1-.38.78l-5,4A1,1,0,0,1,17,30Z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Find Issues and Label
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5eab5742aecb0800014e0c87/2"
-                id="5eab5742aecb0800014e0c87"
-              >
-                <div
-                  class="taskInfoContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Find Issues and Label
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5eab5742aecb0800014e0c87/2"
                 >
                   <svg
                     alt="Task node type automated task"
@@ -1133,7 +1148,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1146,38 +1161,39 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M17,30a1,1,0,0,1-.37-.07,1,1,0,0,1-.62-.79l-1-7,2-.28.75,5.27L21,24.52V17a1,1,0,0,1,.29-.71l4.07-4.07A8.94,8.94,0,0,0,28,5.86V4H26.14a8.94,8.94,0,0,0-6.36,2.64l-4.07,4.07A1,1,0,0,1,15,11H7.48L4.87,14.26l5.27.75-.28,2-7-1a1,1,0,0,1-.79-.62,1,1,0,0,1,.15-1l4-5A1,1,0,0,1,7,9h7.59l3.77-3.78A10.92,10.92,0,0,1,26.14,2H28a2,2,0,0,1,2,2V5.86a10.92,10.92,0,0,1-3.22,7.78L23,17.41V25a1,1,0,0,1-.38.78l-5,4A1,1,0,0,1,17,30Z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Find Issues and Remove
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5d25414c988e7b6b6fb3d5f7/1"
-                id="5d25414c988e7b6b6fb3d5f7"
-              >
-                <div
-                  class="taskInfoContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Find Issues and Remove
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5d25414c988e7b6b6fb3d5f7/1"
                 >
                   <svg
                     alt="Task node type API/HTTP call"
@@ -1186,7 +1202,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1195,38 +1211,39 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M26,22a3.86,3.86,0,0,0-2,.57l-3.09-3.1a6,6,0,0,0,0-6.94L24,9.43A3.86,3.86,0,0,0,26,10a4,4,0,1,0-4-4,3.86,3.86,0,0,0,.57,2l-3.1,3.09a6,6,0,0,0-6.94,0L9.43,8A3.86,3.86,0,0,0,10,6a4,4,0,1,0-4,4,3.86,3.86,0,0,0,2-.57l3.09,3.1a6,6,0,0,0,0,6.94L8,22.57A3.86,3.86,0,0,0,6,22a4,4,0,1,0,4,4,3.86,3.86,0,0,0-.57-2l3.1-3.09a6,6,0,0,0,6.94,0L22.57,24A3.86,3.86,0,0,0,22,26a4,4,0,1,0,4-4ZM26,4a2,2,0,1,1-2,2A2,2,0,0,1,26,4ZM4,6A2,2,0,1,1,6,8,2,2,0,0,1,4,6ZM6,28a2,2,0,1,1,2-2A2,2,0,0,1,6,28Zm10-8a4,4,0,1,1,4-4A4,4,0,0,1,16,20Zm10,8a2,2,0,1,1,2-2A2,2,0,0,1,26,28Z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Find Public Repositories in Org
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5d3145ee988e7b6b6f24d870/1"
-                id="5d3145ee988e7b6b6f24d870"
-              >
-                <div
-                  class="taskInfoContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Find Public Repositories in Org
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5d3145ee988e7b6b6f24d870/1"
                 >
                   <svg
                     alt="Task node type automated task"
@@ -1235,7 +1252,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1248,75 +1265,76 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M17,30a1,1,0,0,1-.37-.07,1,1,0,0,1-.62-.79l-1-7,2-.28.75,5.27L21,24.52V17a1,1,0,0,1,.29-.71l4.07-4.07A8.94,8.94,0,0,0,28,5.86V4H26.14a8.94,8.94,0,0,0-6.36,2.64l-4.07,4.07A1,1,0,0,1,15,11H7.48L4.87,14.26l5.27.75-.28,2-7-1a1,1,0,0,1-.79-.62,1,1,0,0,1,.15-1l4-5A1,1,0,0,1,7,9h7.59l3.77-3.78A10.92,10.92,0,0,1,26.14,2H28a2,2,0,0,1,2,2V5.86a10.92,10.92,0,0,1-3.22,7.78L23,17.41V25a1,1,0,0,1-.38.78l-5,4A1,1,0,0,1,17,30Z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Make Repositories Private
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li
-            class="bx--accordion__item"
-          >
-            <button
-              aria-controls="accordion-item-6"
-              aria-expanded="false"
-              class="bx--accordion__heading"
-              title="Servicenow (2)"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="bx--accordion__arrow"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                />
-              </svg>
-              <div
-                class="bx--accordion__title"
-              >
-                Servicenow (2)
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Make Repositories Private
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </button>
-            <div
-              class="bx--accordion__content"
-              id="accordion-item-6"
+            </li>
+            <li
+              class="bx--accordion__item"
             >
-              <a
-                class="task"
-                href="/admin/task-templates/5c69365b20cfafa2eaeed89c/1"
-                id="5c69365b20cfafa2eaeed89c"
+              <button
+                aria-controls="accordion-item-6"
+                aria-expanded="false"
+                class="bx--accordion__heading"
+                title="Servicenow (2)"
+                type="button"
               >
+                <svg
+                  aria-hidden="true"
+                  class="bx--accordion__arrow"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                  />
+                </svg>
                 <div
-                  class="taskInfoContainer"
+                  class="bx--accordion__title"
+                >
+                  Servicenow (2)
+                </div>
+              </button>
+              <div
+                class="bx--accordion__content"
+                id="accordion-item-6"
+              >
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5c69365b20cfafa2eaeed89c/1"
                 >
                   <svg
                     alt="Task node type API/HTTP call"
@@ -1325,7 +1343,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1334,38 +1352,39 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M26,22a3.86,3.86,0,0,0-2,.57l-3.09-3.1a6,6,0,0,0,0-6.94L24,9.43A3.86,3.86,0,0,0,26,10a4,4,0,1,0-4-4,3.86,3.86,0,0,0,.57,2l-3.1,3.09a6,6,0,0,0-6.94,0L9.43,8A3.86,3.86,0,0,0,10,6a4,4,0,1,0-4,4,3.86,3.86,0,0,0,2-.57l3.09,3.1a6,6,0,0,0,0,6.94L8,22.57A3.86,3.86,0,0,0,6,22a4,4,0,1,0,4,4,3.86,3.86,0,0,0-.57-2l3.1-3.09a6,6,0,0,0,6.94,0L22.57,24A3.86,3.86,0,0,0,22,26a4,4,0,1,0,4-4ZM26,4a2,2,0,1,1-2,2A2,2,0,0,1,26,4ZM4,6A2,2,0,1,1,6,8,2,2,0,0,1,4,6ZM6,28a2,2,0,1,1,2-2A2,2,0,0,1,6,28Zm10-8a4,4,0,1,1,4-4A4,4,0,0,1,16,20Zm10,8a2,2,0,1,1,2-2A2,2,0,0,1,26,28Z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Get Incidents
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5c6939c620cfafa2eaeef2ad/1"
-                id="5c6939c620cfafa2eaeef2ad"
-              >
-                <div
-                  class="taskInfoContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Get Incidents
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5c6939c620cfafa2eaeef2ad/1"
                 >
                   <svg
                     alt="Task node type automated task"
@@ -1374,7 +1393,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1387,75 +1406,76 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M17,30a1,1,0,0,1-.37-.07,1,1,0,0,1-.62-.79l-1-7,2-.28.75,5.27L21,24.52V17a1,1,0,0,1,.29-.71l4.07-4.07A8.94,8.94,0,0,0,28,5.86V4H26.14a8.94,8.94,0,0,0-6.36,2.64l-4.07,4.07A1,1,0,0,1,15,11H7.48L4.87,14.26l5.27.75-.28,2-7-1a1,1,0,0,1-.79-.62,1,1,0,0,1,.15-1l4-5A1,1,0,0,1,7,9h7.59l3.77-3.78A10.92,10.92,0,0,1,26.14,2H28a2,2,0,0,1,2,2V5.86a10.92,10.92,0,0,1-3.22,7.78L23,17.41V25a1,1,0,0,1-.38.78l-5,4A1,1,0,0,1,17,30Z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Update Incidents
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li
-            class="bx--accordion__item"
-          >
-            <button
-              aria-controls="accordion-item-7"
-              aria-expanded="false"
-              class="bx--accordion__heading"
-              title="Utilities (4)"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="bx--accordion__arrow"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                />
-              </svg>
-              <div
-                class="bx--accordion__title"
-              >
-                Utilities (4)
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Update Incidents
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </button>
-            <div
-              class="bx--accordion__content"
-              id="accordion-item-7"
+            </li>
+            <li
+              class="bx--accordion__item"
             >
-              <a
-                class="task"
-                href="/admin/task-templates/5c3d0401352b1b514150545b/2"
-                id="5c3d0401352b1b514150545b"
+              <button
+                aria-controls="accordion-item-7"
+                aria-expanded="false"
+                class="bx--accordion__heading"
+                title="Utilities (4)"
+                type="button"
               >
+                <svg
+                  aria-hidden="true"
+                  class="bx--accordion__arrow"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                  />
+                </svg>
                 <div
-                  class="taskInfoContainer"
+                  class="bx--accordion__title"
+                >
+                  Utilities (4)
+                </div>
+              </button>
+              <div
+                class="bx--accordion__content"
+                id="accordion-item-7"
+              >
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5c3d0401352b1b514150545b/2"
                 >
                   <svg
                     alt="Task node type API/HTTP call"
@@ -1464,7 +1484,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1473,38 +1493,39 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M26,22a3.86,3.86,0,0,0-2,.57l-3.09-3.1a6,6,0,0,0,0-6.94L24,9.43A3.86,3.86,0,0,0,26,10a4,4,0,1,0-4-4,3.86,3.86,0,0,0,.57,2l-3.1,3.09a6,6,0,0,0-6.94,0L9.43,8A3.86,3.86,0,0,0,10,6a4,4,0,1,0-4,4,3.86,3.86,0,0,0,2-.57l3.09,3.1a6,6,0,0,0,0,6.94L8,22.57A3.86,3.86,0,0,0,6,22a4,4,0,1,0,4,4,3.86,3.86,0,0,0-.57-2l3.1-3.09a6,6,0,0,0,6.94,0L22.57,24A3.86,3.86,0,0,0,22,26a4,4,0,1,0,4-4ZM26,4a2,2,0,1,1-2,2A2,2,0,0,1,26,4ZM4,6A2,2,0,1,1,6,8,2,2,0,0,1,4,6ZM6,28a2,2,0,1,1,2-2A2,2,0,0,1,6,28Zm10-8a4,4,0,1,1,4-4A4,4,0,0,1,16,20Zm10,8a2,2,0,1,1,2-2A2,2,0,0,1,26,28Z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Execute HTTP Call
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5c3907a1352b1b51412ed079/1"
-                id="5c3907a1352b1b51412ed079"
-              >
-                <div
-                  class="taskInfoContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Execute HTTP Call
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5c3907a1352b1b51412ed079/1"
                 >
                   <svg
                     alt="Task node type terminal"
@@ -1513,7 +1534,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="20"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1526,38 +1547,39 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M10.76 16.18L13.58 19.01 10.76 21.84 12.17 23.25 16.41 19.01 12.17 14.77 10.76 16.18z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Execute Shell
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5eab5488aecb0800014e0b87/2"
-                id="5eab5488aecb0800014e0b87"
-              >
-                <div
-                  class="taskInfoContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Execute Shell
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5eab5488aecb0800014e0b87/2"
                 >
                   <svg
                     alt="Task node type filter"
@@ -1566,7 +1588,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1575,38 +1597,39 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M18,28H14a2,2,0,0,1-2-2V18.41L4.59,11A2,2,0,0,1,4,9.59V6A2,2,0,0,1,6,4H26a2,2,0,0,1,2,2V9.59A2,2,0,0,1,27.41,11L20,18.41V26A2,2,0,0,1,18,28ZM6,6V9.59l8,8V26h4V17.59l8-8V6Z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Json Path To Property
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5bd97bea5a5df954ad592c06/1"
-                id="5bd97bea5a5df954ad592c06"
-              >
-                <div
-                  class="taskInfoContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Json Path To Property
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5bd97bea5a5df954ad592c06/1"
                 >
                   <svg
                     alt="Task node type power on/off"
@@ -1615,7 +1638,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 16 16"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1627,75 +1650,76 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M7.5 1H8.5V8H7.5z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Sleep
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li
-            class="bx--accordion__item"
-          >
-            <button
-              aria-controls="accordion-item-8"
-              aria-expanded="false"
-              class="bx--accordion__heading"
-              title="Workflow (2)"
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                class="bx--accordion__arrow"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                />
-              </svg>
-              <div
-                class="bx--accordion__title"
-              >
-                Workflow (2)
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Sleep
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
               </div>
-            </button>
-            <div
-              class="bx--accordion__content"
-              id="accordion-item-8"
+            </li>
+            <li
+              class="bx--accordion__item"
             >
-              <a
-                class="task"
-                href="/admin/task-templates/5d9e703dc90b5240508869e2/1"
-                id="5d9e703dc90b5240508869e2"
+              <button
+                aria-controls="accordion-item-8"
+                aria-expanded="false"
+                class="bx--accordion__heading"
+                title="Workflow (2)"
+                type="button"
               >
+                <svg
+                  aria-hidden="true"
+                  class="bx--accordion__arrow"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                  />
+                </svg>
                 <div
-                  class="taskInfoContainer"
+                  class="bx--accordion__title"
+                >
+                  Workflow (2)
+                </div>
+              </button>
+              <div
+                class="bx--accordion__content"
+                id="accordion-item-8"
+              >
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5d9e703dc90b5240508869e2/1"
                 >
                   <svg
                     alt="Task node type code"
@@ -1704,7 +1728,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1717,38 +1741,39 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       transform="rotate(-75 15.996 16)"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Run Custom Task
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-              <a
-                class="task"
-                href="/admin/task-templates/5c37af285616d5f3544568fd/1"
-                id="5c37af285616d5f3544568fd"
-              >
-                <div
-                  class="taskInfoContainer"
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Run Custom Task
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5c37af285616d5f3544568fd/1"
                 >
                   <svg
                     alt="Task node type switch"
@@ -1757,7 +1782,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     focusable="false"
                     height="16"
                     preserveAspectRatio="xMidYMid meet"
-                    style="will-change: auto;"
+                    style="height: 1rem; width: 1rem;"
                     viewBox="0 0 32 32"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
@@ -1766,34 +1791,40 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       d="M26,18a3.9962,3.9962,0,0,0-3.8579,3H17V11h5.1421a4,4,0,1,0,0-2H17a2.002,2.002,0,0,0-2,2v4H9.8579a4,4,0,1,0,0,2H15v4a2.002,2.002,0,0,0,2,2h5.1421A3.9934,3.9934,0,1,0,26,18ZM26,8a2,2,0,1,1-2,2A2.002,2.002,0,0,1,26,8ZM6,18a2,2,0,1,1,2-2A2.002,2.002,0,0,1,6,18Zm20,6a2,2,0,1,1,2-2A2.002,2.002,0,0,1,26,24Z"
                     />
                   </svg>
-                  <p
-                    class="taskName"
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
                   >
-                    Switch
-                  </p>
-                </div>
-                <div
-                  class="iconContainer"
-                >
-                  <svg
-                    aria-hidden="true"
-                    fill="#0072C3"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 32 32"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                    />
-                  </svg>
-                </div>
-              </a>
-            </div>
-          </li>
-        </ul>
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Switch
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </section>
       </div>
       <div
         class="css-1xvapcp"

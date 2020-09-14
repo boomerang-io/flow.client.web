@@ -1,40 +1,14 @@
 // import "Styles/mixins";
 
 .container {
-  background-color: var(--cds-ui-01);
-  border-right: 0.0625rem solid var(--cds-active-ui);
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 3rem);
-  // padding: 2rem 1rem;
   min-width: 21.875rem;
-  width: 20rem;
-  :global .bx--accordion {
-    overflow-y: auto;
-  }
-  :global .bx--accordion__content {
-    padding: 0 !important;
-  }
-  :global(.bx--accordion__item) {
-    list-style-type: none;
-    :global(.bx--accordion__arrow) {
-      position: absolute;
-      right: 1.5rem;
-    }
-    :global(.bx--accordion__title) {
-      color: var(--cds-text-01);
-      font-size: 0.875rem;
-      letter-spacing: 0.01rem;
-      line-height: 1.25rem;
-      text-transform: capitalize;
-    }
-  }
 }
 
 .teamLabel {
   padding-left: 1rem;
   margin-bottom: 1rem;
 }
+
 .searchSection {
   display: flex;
   padding-left: 1rem;
@@ -43,60 +17,11 @@
   :global .bx--search-close::before {
     background-color: var(--cds-ui-02);
   }
-  //   :global .bx--overflow-menu {
-  //     margin: 0 0.5rem;
-  //   }
 }
-// .filters {
-//   display: flex;
-//   flex-direction: column;
-//   width: 14.5rem;
-//   &:focus {
-//     outline: none;
-//   }
-// }
-// .filterHeader {
-//   align-items: center;
-//   border-bottom: 0.0625rem solid var(--cds-active-ui);
-//   display: flex;
-//   height: 3rem;
-//   justify-content: space-between;
-//   padding: 0.5rem;
-//   width: 100%;
-// }
-// .filterTitle {
-//   font-size: 1rem;
-//   font-weight: 600;
-// }
-// .resetFilter {
-//   color: var(--cds-link-01);
-//   cursor: pointer;
-//   font-size: 0.875rem;
-//   &:focus {
-//     @include focus-outline(var(--cds-interactive-01));
-//   }
-// }
-.sectionTitle {
-  color: var(--cds-text-02);
-  font-size: 0.75rem;
-  margin: 0.5rem 0.1rem;
-}
-// .filter {
-//   border-bottom: 0.0625rem solid var(--cds-active-ui);
-//   max-height: 24rem;
-//   overflow-y: auto;
-//   padding: 0.5rem;
-//   width: 100%;
-// }
+
 .teamContainer {
   display: flex;
   flex-direction: column;
-  //   min-height: 10rem;
-}
-.info {
-  display: flex;
-  flex-direction: column;
-  margin: 0.75rem 1rem;
 }
 .title {
   font-size: 2rem;
@@ -105,6 +30,7 @@
   padding: 0 1rem;
   margin-bottom: 0;
 }
+
 .description {
   font-size: 0.875rem;
   font-weight: 300;
@@ -118,56 +44,11 @@
   display: flex;
   justify-content: space-between;
 }
+
 .info {
   color: var(--cds-text-02);
+  display: flex;
+  flex-direction: column;
   font-size: 0.75rem;
   margin: 1rem;
-}
-// .expandCollapse {
-//   cursor: pointer;
-//   font-size: 0.75rem;
-//   margin: 1rem;
-//   &:focus {
-//     @include focus-outline(var(--cds-interactive-01));
-//   }
-// }
-.team {
-  align-items: center;
-  border-left: transparent 0.25rem solid;
-  cursor: pointer;
-  display: flex;
-  height: 3rem;
-  padding: 0 1rem;
-  width: 100%;
-  &.active {
-    background-color: var(--cds-selected-ui);
-    border-left-color: var(--cds-support-02);
-    svg {
-      fill: initial;
-    }
-  }
-  svg {
-    fill: var(--cds-text-02);
-  }
-}
-.teamName {
-  color: var(--cds-text-02);
-  font-size: 0.875rem;
-  margin-left: 0.5rem;
-  &.active {
-    color: var(--cds-text-01);
-  }
-}
-// .checkboxOption {
-//   align-items: center;
-//   display: flex;
-//   svg {
-//     height: 1rem;
-//     margin-right: 0.5rem;
-//     width: 1rem;
-//   }
-// }
-
-.taskSection {
-  overflow-y: scroll;
 }
