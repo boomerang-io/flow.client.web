@@ -22,7 +22,7 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
           <p
             class="bx--bmrg-feature-header-title"
           >
-            Set global properties that are available for all Workflows.
+            Set global properties that are available for all Workflows
           </p>
         </div>
       </section>

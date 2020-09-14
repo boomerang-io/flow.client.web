@@ -1,11 +1,10 @@
 .container {
   display: flex;
   height: 100%;
-  min-width: 960px;
   overflow-y: auto;
   width: 100%;
 }
-.wombat{
+.wombat {
   display: flex;
   flex-direction: column;
   height: 21rem;

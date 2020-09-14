@@ -35,7 +35,7 @@ const FeatureLayout: React.FC = ({ children }) => {
         header={
           <>
             <HeaderTitle className={styles.headerTitle}>Settings</HeaderTitle>
-            <HeaderSubtitle>Adjust Flow settings.</HeaderSubtitle>
+            <HeaderSubtitle>Adjust Flow settings</HeaderSubtitle>
           </>
         }
       />

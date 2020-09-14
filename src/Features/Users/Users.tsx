@@ -8,9 +8,9 @@ import {
   DataTableSkeleton,
   ErrorMessage,
   Error404,
-  FeatureHeader as Header, 
-  FeatureHeaderTitle as HeaderTitle, 
-  FeatureHeaderSubtitle as HeaderSubtitle, 
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
   OverflowMenu,
   OverflowMenuItem,
   Pagination,
@@ -43,7 +43,7 @@ const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchCha
         header={
           <>
             <HeaderTitle style={{ margin: "0" }}>Users</HeaderTitle>
-            <HeaderSubtitle>View and manage Flow users.</HeaderSubtitle>
+            <HeaderSubtitle>View and manage Flow users</HeaderSubtitle>
           </>
         }
       />

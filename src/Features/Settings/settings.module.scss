@@ -5,9 +5,8 @@
 }
 
 .container {
-  width: 100vw;
+  width: 100%;
   overflow-y: auto;
-  min-width: 60rem;
 
   :global .bx--accordion__content {
     padding-right: 1rem;
