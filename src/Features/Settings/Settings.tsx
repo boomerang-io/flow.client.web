@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, queryCache } from "react-query";
 import { Box } from "reflexbox";
 import {
   Accordion,
@@ -44,7 +44,9 @@ const Settings: React.FC = () => {
     queryFn: resolver.query(platformSettingsUrl),
   });
 
-  const [updateSettingMutator] = useMutation(resolver.putPlatformSettings);
+  const [updateSettingMutator] = useMutation(resolver.putPlatformSettings, {
+    onSuccess: () => queryCache.invalidateQueries([platformSettingsUrl]),
+  });
 
   const handleOnSave = async (
     values: { [key: string]: any },

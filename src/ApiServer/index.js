@@ -395,9 +395,13 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       });
 
       this.put(serviceUrl.resourceSettings(), (schema, request) => {
+        // let body = JSON.parse(request.requestBody);
+        // let settingSection = schema.settings.find(body[0].id);
+        // settingSection.update(body[0]);
+        // return schema.settings.all();
         let body = JSON.parse(request.requestBody);
-        let settingSection = schema.settings.find(body[0].id);
-        settingSection.update(body[0]);
+        const settings = schema.settings.all();
+        settings.update(body[0]);
         return schema.settings.all();
       });
 

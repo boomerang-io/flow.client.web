@@ -11,9 +11,10 @@ interface VersionSwitcherProps {
   };
   revisionCount: number;
   revisions: any;
+  canEdit: boolean;
 }
 
-const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRevision, revisionCount }) => {
+const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRevision, revisionCount, canEdit }) => {
   const history = useHistory();
   const params: { id: string } = useParams();
   const backVersion = () => {
@@ -33,26 +34,31 @@ const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRev
   };
 
   const renderBackButtons = (enabled: boolean) => {
+    const shouldNotDisplay = !enabled || !canEdit;
     return (
       <div className={styles.buttonList}>
-        <button className={styles.button} disabled={!enabled} onClick={fastBackVersion}>
-          <PageFirst16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="first version" />
+        <button className={styles.button} disabled={shouldNotDisplay} onClick={fastBackVersion}>
+          <PageFirst16 className={cx(styles.icon, { [styles.disabled]: shouldNotDisplay })} alt="first version" />
         </button>
-        <button className={styles.button} disabled={!enabled} onClick={backVersion}>
-          <ChevronLeft16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="back one version" />
+        <button className={styles.button} disabled={shouldNotDisplay} onClick={backVersion}>
+          <ChevronLeft16 className={cx(styles.icon, { [styles.disabled]: shouldNotDisplay })} alt="back one version" />
         </button>
       </div>
     );
   };
 
   const renderForwardButtons = (enabled: boolean) => {
+    const shouldNotDisplay = !enabled || !canEdit;
     return (
       <div className={styles.buttonList}>
-        <button className={styles.button} disabled={!enabled} onClick={forwardVersion}>
-          <ChevronRight16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="forward one version" />
+        <button className={styles.button} disabled={shouldNotDisplay} onClick={forwardVersion}>
+          <ChevronRight16
+            className={cx(styles.icon, { [styles.disabled]: shouldNotDisplay })}
+            alt="forward one version"
+          />
         </button>
-        <button className={styles.button} disabled={!enabled} onClick={fastForwardVersion}>
-          <PageLast16 className={cx(styles.icon, { [styles.disabled]: !enabled })} alt="last version" />
+        <button className={styles.button} disabled={shouldNotDisplay} onClick={fastForwardVersion}>
+          <PageLast16 className={cx(styles.icon, { [styles.disabled]: shouldNotDisplay })} alt="last version" />
         </button>
       </div>
     );
