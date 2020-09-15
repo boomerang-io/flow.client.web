@@ -119,8 +119,8 @@ export default function App() {
   }
 
   if (hasData) {
-    //@ts-ignore
-    const canEditVerifiedTasks = settingsQuery.data[0].config.find((setting) => setting.key === "enable.tasks").value;
+    const canEditVerifiedTasks =
+      settingsQuery.data[0].config.find((setting: { key: string }) => setting.key === "enable.tasks").value ?? false;
     return (
       <FlagsProvider features={{ standalone: PRODUCT_STANDALONE, canEditVerifiedTasks }}>
         <Navbar

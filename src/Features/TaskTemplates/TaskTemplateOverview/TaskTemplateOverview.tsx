@@ -1,5 +1,6 @@
 //@ts-nocheck
 import React from "react";
+import { useFeature } from "flagged";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import axios from "axios";
@@ -9,6 +10,7 @@ import {
   Tile,
   Button,
   Error404,
+  InlineNotification,
   notify,
   ToastNotification,
   Loading,
@@ -26,8 +28,9 @@ import { TemplateRequestType, FieldTypes } from "../constants";
 import { Draggable16, TrashCan16, Archive16, Bee16, Recommend16, Identification16 } from "@carbon/icons-react";
 import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
-import { appLink, AppPath } from "Config/appConfig";
+import { appLink, AppPath, FeatureFlag } from "Config/appConfig";
 import { DataDrivenInput } from "Types";
+import stringToBooleanHelper from "Utils/stringToBooleanHelper";
 import styles from "./taskTemplateOverview.module.scss";
 
 const ArchiveText: React.FC = () => (
@@ -88,6 +91,7 @@ interface FieldProps {
   deleteConfiguration: any;
   isOldVersion: any;
   isActive: any;
+  canEdit: boolean;
 }
 
 const Field: React.FC<FieldProps> = ({
@@ -100,6 +104,7 @@ const Field: React.FC<FieldProps> = ({
   deleteConfiguration,
   isOldVersion,
   isActive,
+  canEdit,
 }) => {
   return (
     <section className={styles.fieldSection} ref={innerRef} {...draggableProps}>
@@ -125,11 +130,12 @@ const Field: React.FC<FieldProps> = ({
           isOldVersion={isOldVersion}
           setFieldValue={setFieldValue}
           templateFields={fields}
+          canEdit={canEdit}
         />
         <TooltipHover direction="bottom" tooltipText={"Delete field"}>
           <Button
             className={styles.delete}
-            disabled={isOldVersion || !isActive}
+            disabled={isOldVersion || !isActive || !canEdit}
             iconDescription="delete-field"
             kind="ghost"
             onClick={() => deleteConfiguration(field)}
@@ -173,6 +179,8 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   });
 
   let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id) ?? {};
+  const canEditVerifiedTasks = stringToBooleanHelper(useFeature(FeatureFlag.CanEditVerifiedTasks));
+  const canEdit = !selectedTaskTemplate?.verified || (canEditVerifiedTasks && selectedTaskTemplate?.verified);
 
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
   const invalidVersion = params.version === "0" || params.version > selectedTaskTemplate.currentVersion;
@@ -427,6 +435,13 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
             <div className={styles.content}>
               <section className={styles.taskActions}>
                 <p className={styles.description}>Build the definition requirements for this task.</p>
+                {!canEdit && (
+                  <InlineNotification
+                    kind="info"
+                    title="Verified tasks are not editable"
+                    subtitle="Admins can adjust this configuration in global settings"
+                  />
+                )}
                 <ConfirmModal
                   affirmativeAction={() => handleArchiveTaskTemplate(selectedTaskTemplate)}
                   affirmativeText="Archive this task"
@@ -439,7 +454,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                       renderIcon={Archive16}
                       kind="ghost"
                       size="field"
-                      disabled={isOldVersion || !isActive}
+                      disabled={isOldVersion || !isActive || !canEdit}
                       className={styles.archive}
                       onClick={openModal}
                     >
@@ -460,6 +475,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                       isOldVersion={isOldVersion}
                       isActive={isActive}
                       nodeType={selectedTaskTemplate.nodeType}
+                      canEdit={canEdit}
                     />
                   </section>
                   <dl className={styles.dataList}>
@@ -523,6 +539,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                         templateFields={values.currentConfig}
                         isOldVersion={isOldVersion}
                         isActive={isActive}
+                        canEdit={canEdit}
                       />
                     </div>
                   </section>
@@ -544,6 +561,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                                     deleteConfiguration={deleteConfiguration}
                                     isOldVersion={isOldVersion}
                                     isActive={isActive}
+                                    canEdit={canEdit}
                                   />
                                 )}
                               </Draggable>

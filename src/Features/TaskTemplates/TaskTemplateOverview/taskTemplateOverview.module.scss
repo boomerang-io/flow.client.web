@@ -21,6 +21,11 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
+
+  :global .bx--inline-notification {
+    margin: 0.5rem 0 0 20rem;
+    position: absolute;
+  }
 }
 .archive {
   color: var(--cds-support-01);

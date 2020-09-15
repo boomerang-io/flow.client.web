@@ -1,4 +1,5 @@
 import React from "react";
+import { useFeature } from "flagged";
 import {
   Button,
   ConfirmModal,
@@ -21,7 +22,9 @@ import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
 import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
 import { FormikProps } from "formik";
+import { FeatureFlag } from "Config/appConfig";
 import { ComposedModalChildProps, ModalTriggerProps, TaskModel } from "Types";
+import stringToBooleanHelper from "Utils/stringToBooleanHelper";
 import styles from "./header.module.scss";
 
 interface SaveModalProps {
@@ -35,9 +38,10 @@ interface SaveModalProps {
     closeModal: () => void
   ) => void;
   isLoading: boolean;
+  canEdit: boolean;
 }
 
-const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, handleSubmit, isLoading }) => {
+const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, handleSubmit, isLoading, canEdit }) => {
   const [requestError, setRequestError] = React.useState<{ title?: string; subtitle?: string } | null>(null);
   const SaveMessage = () => {
     return (
@@ -70,7 +74,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, ha
           <Button
             className={styles.button}
             style={{ width: "7.75rem" }}
-            disabled={!formikProps.isValid || !formikProps.dirty}
+            disabled={!formikProps.isValid || !formikProps.dirty || !canEdit}
             size="field"
             renderIcon={Save16}
             iconDescription="Save a new version or update the current one"
@@ -191,6 +195,8 @@ const Header: React.FC<HeaderProps> = ({
     version: revision.version,
   }));
   changelogs.reverse();
+  const canEditVerifiedTasks = stringToBooleanHelper(useFeature(FeatureFlag.CanEditVerifiedTasks));
+  const canEdit = !selectedTaskTemplate?.verified || (canEditVerifiedTasks && selectedTaskTemplate?.verified);
 
   return (
     <FeatureHeader includeBorder className={styles.featureHeader}>
@@ -221,6 +227,7 @@ const Header: React.FC<HeaderProps> = ({
             revisions={selectedTaskTemplate.revisions}
             currentRevision={currentRevision}
             revisionCount={revisionCount}
+            canEdit={canEdit}
           />
           {!isOldVersion && isActive && (
             <ConfirmModal
@@ -232,7 +239,7 @@ const Header: React.FC<HeaderProps> = ({
                 <TooltipHover direction="bottom" tooltipText={"Restore the last save of this version"}>
                   <Button
                     className={styles.resetButton}
-                    disabled={!formikProps.dirty}
+                    disabled={!formikProps.dirty || !canEdit}
                     size="field"
                     kind="ghost"
                     renderIcon={Undo16}
@@ -270,6 +277,7 @@ const Header: React.FC<HeaderProps> = ({
                     kind="ghost"
                     renderIcon={Undo16}
                     onClick={openModal}
+                    disabled={!canEdit}
                   >
                     Copy to new version
                   </Button>
@@ -282,6 +290,7 @@ const Header: React.FC<HeaderProps> = ({
               formikProps={formikProps}
               handleSubmit={handleSaveTaskTemplate}
               isLoading={isLoading}
+              canEdit={canEdit}
             />
           ) : (
             <ConfirmModal
@@ -304,6 +313,7 @@ const Header: React.FC<HeaderProps> = ({
                   size="field"
                   renderIcon={Reset16}
                   onClick={openModal}
+                  disabled={!canEdit}
                 >
                   Restore
                 </Button>
