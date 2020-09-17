@@ -19,6 +19,7 @@ import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
+import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
@@ -243,6 +244,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           break;
         case NodeType.CustomTask:
           node = new CustomNodeModel(nodeObj);
+          break;
+        case NodeType.SetProperty:
+          node = new SetPropertyNodeModel(nodeObj);
           break;
         default:
         // no-op
