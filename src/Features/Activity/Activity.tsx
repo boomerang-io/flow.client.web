@@ -108,7 +108,6 @@ function WorkflowActivity() {
       ...queryString.parse(location.search, queryStringOptions),
       teamIds,
       workflowIds: undefined,
-
       page: 0,
     });
     return;
