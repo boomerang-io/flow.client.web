@@ -108,19 +108,25 @@ function WorkflowActivity() {
       ...queryString.parse(location.search, queryStringOptions),
       teamIds,
       workflowIds: undefined,
+
+      page: 0,
     });
     return;
   }
 
   function handleSelectWorkflows({ selectedItems }) {
     const workflowIds = selectedItems.length > 0 ? selectedItems.map((worflow) => worflow.id) : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), workflowIds: workflowIds });
+    updateHistorySearch({
+      ...queryString.parse(location.search, queryStringOptions),
+      workflowIds: workflowIds,
+      page: 0,
+    });
     return;
   }
 
   function handleSelectTriggers({ selectedItems }) {
     const triggers = selectedItems.length > 0 ? selectedItems.map((trigger) => trigger.value) : undefined;
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), triggers: triggers });
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), triggers: triggers, page: 0 });
     return;
   }
 
@@ -134,7 +140,7 @@ function WorkflowActivity() {
     let [fromDateObj, toDateObj] = dates;
     const fromDate = moment(fromDateObj).unix();
     const toDate = moment(toDateObj).unix();
-    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), fromDate, toDate });
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), fromDate, toDate, page: 0 });
     return;
   }
 
