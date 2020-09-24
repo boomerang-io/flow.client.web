@@ -5,36 +5,33 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
   id="app"
 >
   <div>
-    <div
-      class="container"
+    <header
+      class="bx--bmrg-feature-header header"
     >
-      <div
-        class="content"
+      <section
+        class="bx--bmrg-feature-header__content"
       >
         <div
-          class="info"
+          class="bx--bmrg-feature-header__header"
         >
           <h1
-            class="title"
+            class="bx--bmrg-feature-header-title headerTitle"
           >
             Properties
           </h1>
           <p
-            class="description"
+            class="bx--bmrg-feature-header-title"
           >
-            Set global properties that are available for all Workflows.
+            Set global properties that are available for all Workflows
           </p>
         </div>
-        <section
-          class="buttons"
-        />
-      </div>
-    </div>
+      </section>
+    </header>
     <div
       class="tableContainer"
     >
       <div
-        class="header"
+        class="tableHeader"
       >
         <div
           aria-labelledby="properties-table-search-search"

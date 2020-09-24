@@ -1,16 +1,20 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
-import { Loading, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  ErrorMessage,
+  FeatureHeader,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
+  Loading,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import Members from "./Members";
 import Settings from "./Settings";
 import Workflows from "./Workflows";
 import { AppPath } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./teamDetailed.module.scss";
-
 import { Box } from "reflexbox";
-import FeatureHeader from "Components/FeatureHeader";
 import Header from "./Header";
 
 import { useAppContext } from "Hooks";
@@ -18,10 +22,15 @@ import { useAppContext } from "Hooks";
 const FeatureLayout: React.FC = ({ children }) => {
   return (
     <>
-      <FeatureHeader>
-        <h1 style={{ fontWeight: 600, margin: 0 }}>Teams</h1>
-        <p>View and manage all of the Flow teams</p>
-      </FeatureHeader>
+      <FeatureHeader
+        includeBorder={false}
+        header={
+          <>
+            <HeaderTitle style={{ margin: "0" }}>Teams</HeaderTitle>
+            <HeaderSubtitle>View and manage Flow teams</HeaderSubtitle>
+          </>
+        }
+      />
       <Box p="1rem">{children}</Box>
     </>
   );
