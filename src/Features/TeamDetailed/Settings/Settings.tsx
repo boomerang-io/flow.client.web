@@ -1,14 +1,14 @@
 import React from "react";
-import queryString from "query-string";
 import { useQuery } from "react-query";
-import { Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Box } from "reflexbox";
+import { ErrorMessage, Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import UpdateTeamName from "./UpdateTeamName";
-import { Edit16 } from "@carbon/icons-react";
+import queryString from "query-string";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import EmptyState from "Components/EmptyState";
-import styles from "./Settings.module.scss";
 import { SortDirection } from "Constants";
+import { Edit16 } from "@carbon/icons-react";
 import { FlowTeam } from "Types";
+import styles from "./Settings.module.scss";
 
 const DEFAULT_ORDER = SortDirection.Desc;
 const DEFAULT_PAGE = 0;
@@ -31,8 +31,12 @@ export default function Settings({ team }: { team: FlowTeam }) {
     queryFn: resolver.query(teamsUrl),
   });
 
-  if (error) {
-    return <EmptyState />;
+  if (!error) {
+    return (
+      <Box mt="5rem">
+        <ErrorMessage />
+      </Box>
+    );
   }
 
   if (isLoading) {
