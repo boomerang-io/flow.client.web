@@ -1,5 +1,5 @@
 import React from "react";
-import TeamPropertiesTable from "./";
+import TeamPropertiesTable from ".";
 import { fireEvent } from "@testing-library/react";
 import { queryCaches } from "react-query";
 

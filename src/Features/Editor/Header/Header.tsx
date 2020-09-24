@@ -1,14 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import {
+  Breadcrumb,
+  BreadcrumbItem,
   Button,
   ConfirmModal,
   ComposedModal,
   DelayedRender,
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureNavTab as Tab,
+  FeatureNavTabs as Tabs,
   InlineLoading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import FeatureHeader from "Components/FeatureHeader";
-import Navigation from "./Navigation";
 import VersionCommentForm from "./VersionCommentForm";
 import VersionSwitcher from "./VersionSwitcher";
 import { appLink } from "Config/appConfig";
@@ -44,6 +48,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   revisionQuery,
   summaryData,
 }) => {
+  const { params: { teamId, workflowId } } = useRouteMatch();
   const { revisionCount, name } = summaryData;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;
@@ -56,84 +61,93 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   };
 
   return (
-    <FeatureHeader includeBorder className={styles.container}>
-      <section className={styles.header}>
-        <div className={styles.breadcrumbContainer}>
-          <Link className={styles.workflowsLink} to={appLink.workflows()}>
-            Workflows
-          </Link>
-          <span className={styles.breadcrumbDivider}>/</span>
-          <p className={styles.workflowName}>{name}</p>
-        </div>
-        <div className={styles.titleContainer}>
-          <h1 className={styles.title}>Editor</h1>
-        </div>
-      </section>
-      <section className={styles.workflowButtons}>
-        <VersionSwitcher
-          currentRevision={currentRevision}
-          disabled={isQueryLoading || !isOnDesigner}
-          onChangeVersion={changeRevision}
-          revisionCount={revisionCount}
-        />
-        <div className={styles.workflowActionContainer}>
-          <>
-            {isQueryLoading && (
-              <DelayedRender>
-                <InlineLoading description="Loading version..." style={{ height: "2.5rem" }} />
-              </DelayedRender>
-            )}
-            <ConfirmModal
-              affirmativeAction={resetVersionToLatestWithMessage}
-              children="A new version will be created"
-              title={`Set version ${currentRevision} to be the latest`}
-              modalTrigger={({ openModal }: ModalTriggerProps) => (
-                <Button
-                  disabled={!isOnDesigner}
-                  iconDescription="Set version to latest"
-                  kind="ghost"
-                  onClick={openModal}
-                  renderIcon={DocumentExport16}
-                  size="field"
-                  style={!isPreviousVersion || isQueryLoading ? { display: "none" } : null}
-                >
-                  {performActionButtonText}
-                </Button>
+    <Header
+      className={styles.container}
+      nav={
+        <Breadcrumb noTrailingSlash>
+          <BreadcrumbItem>
+            <Link to={appLink.workflows()}>Workflows</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <p>{name}</p>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      }
+      header={<HeaderTitle>Editor</HeaderTitle>}
+      footer={
+        <Tabs>
+          <Tab label="Workflow" to={appLink.editorDesigner({ teamId, workflowId })} />
+          <Tab label="Properties" to={appLink.editorProperties({ teamId, workflowId })} />
+          <Tab label="Configure" to={appLink.editorConfigure({ teamId, workflowId })} />
+          <Tab label="Change Log" to={appLink.editorChangelog({ teamId, workflowId })} />
+        </Tabs>
+      }
+      actions={
+        <section className={styles.workflowButtons}>
+          <VersionSwitcher
+            currentRevision={currentRevision}
+            disabled={isQueryLoading || !isOnDesigner}
+            onChangeVersion={changeRevision}
+            revisionCount={revisionCount}
+          />
+          <div className={styles.workflowActionContainer}>
+            <>
+              {isQueryLoading && (
+                <DelayedRender>
+                  <InlineLoading description="Loading version..." style={{ height: "2.5rem" }} />
+                </DelayedRender>
               )}
-            />
-            <ComposedModal
-              composedModalProps={{ containerClassName: styles.versionCommentModalContainer }}
-              modalHeaderProps={{
-                title: "Create New Version",
-                subtitle: "Enter a comment for record keeping",
-              }}
-              modalTrigger={({ openModal }: ModalTriggerProps) => (
-                <Button
-                  disabled={!isOnDesigner}
-                  iconDescription="Create new version"
-                  kind="ghost"
-                  onClick={openModal}
-                  renderIcon={Add16}
-                  size="field"
-                  style={isPreviousVersion || isQueryLoading ? { display: "none" } : null}
-                >
-                  {performActionButtonText}
-                </Button>
-              )}
-            >
-              {({ closeModal }: ComposedModalChildProps) => (
-                <VersionCommentForm
-                  closeModal={closeModal}
-                  createRevision={createRevision}
-                  revisionMutation={revisionMutation}
-                />
-              )}
-            </ComposedModal>
-          </>
-        </div>
-      </section>
-      <Navigation />
-    </FeatureHeader>
+              <ConfirmModal
+                affirmativeAction={resetVersionToLatestWithMessage}
+                children="A new version will be created"
+                title={`Set version ${currentRevision} to be the latest`}
+                modalTrigger={({ openModal }: ModalTriggerProps) => (
+                  <Button
+                    disabled={!isOnDesigner}
+                    iconDescription="Set version to latest"
+                    kind="ghost"
+                    onClick={openModal}
+                    renderIcon={DocumentExport16}
+                    size="field"
+                    style={!isPreviousVersion || isQueryLoading ? { display: "none" } : null}
+                  >
+                    {performActionButtonText}
+                  </Button>
+                )}
+              />
+              <ComposedModal
+                composedModalProps={{ containerClassName: styles.versionCommentModalContainer }}
+                modalHeaderProps={{
+                  title: "Create New Version",
+                  subtitle: "Enter a comment for record keeping",
+                }}
+                modalTrigger={({ openModal }: ModalTriggerProps) => (
+                  <Button
+                    disabled={!isOnDesigner}
+                    iconDescription="Create new version"
+                    kind="ghost"
+                    onClick={openModal}
+                    renderIcon={Add16}
+                    size="field"
+                    style={isPreviousVersion || isQueryLoading ? { display: "none" } : null}
+                  >
+                    {performActionButtonText}
+                  </Button>
+                )}
+              >
+                {({ closeModal }: ComposedModalChildProps) => (
+                  <VersionCommentForm
+                    closeModal={closeModal}
+                    createRevision={createRevision}
+                    revisionMutation={revisionMutation}
+                  />
+                )}
+              </ComposedModal>
+            </>
+          </div>
+        </section>
+      }
+    />
   );
 };
 

@@ -1,10 +1,20 @@
 import React from "react";
 import { useMutation, queryCache } from "react-query";
-import { Button, ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Button, 
+  ConfirmModal,
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
+  FeatureHeaderSubtitle as HeaderSubtitle,
+  FeatureNavTab as Tab,
+  FeatureNavTabs as Tabs,
+  notify, 
+  ToastNotification 
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Checkmark16, Close16 } from "@carbon/icons-react";
-import { Link } from "react-router-dom";
-import FeatureHeader from "Components/FeatureHeader";
-import Navigation from "./Navigation";
+import { Link, useLocation } from "react-router-dom";
 import { appLink } from "Config/appConfig";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 
@@ -13,6 +23,8 @@ import styles from "./Header.module.scss";
 import { FlowTeam } from "Types";
 
 function TeamDetailedHeader({ isActive, team, userType }: { isActive: boolean; team: FlowTeam; userType: string }) {
+  const location = useLocation();
+
   const [removeTeamMutator] = useMutation(resolver.putUpdateTeam, {
     onSuccess: () => queryCache.invalidateQueries(serviceUrl.getManageTeam({ teamId: team.id })),
   });
@@ -29,31 +41,43 @@ function TeamDetailedHeader({ isActive, team, userType }: { isActive: boolean; t
   };
 
   return (
-    <FeatureHeader includeBorder className={styles.container}>
-      <section className={styles.header}>
-        <div className={styles.breadcrumbContainer}>
-          <Link className={styles.teamsLink} to={appLink.teamList()}>
-            Teams
-          </Link>
-          <span className={styles.breadcrumbDivider}>/</span>
-          <p className={styles.teamName}>{team.name}</p>
-        </div>
-        <div className={styles.headerTitle}>
-          <h1 className={styles.title}>{team.name}</h1>
-        </div>
-        <h2 className={styles.subtitle}>
-          <div className={styles.status}>
-            {isActive ? <Checkmark16 style={{ fill: "#009d9a" }} /> : <Close16 style={{ fill: "#da1e28" }} />}
-            <p className={styles.statusText}>{isActive ? "Active" : "Inactive"}</p>
-          </div>
-          <span className={styles.statusDivider}>-</span>
-          {/*<div className={styles.dateText}>
-            Created on
-            <p style={{ marginLeft: "0.3rem" }}>{moment(team.dateCreated).format("MMMM DD, YYYY")}</p>
-           </div>*/}
-        </h2>
-      </section>
-      {isActive && (
+    <Header 
+      includeBorder 
+      className={styles.container}
+      nav={
+        <Breadcrumb noTrailingSlash>
+          <BreadcrumbItem>
+            <Link to={appLink.teamList()}>Teams</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <p>{team.name}</p>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      }
+      header={
+        <>
+          <HeaderTitle>{team.name}</HeaderTitle>
+          <HeaderSubtitle className={styles.subtitle}>
+            <div className={styles.status}>
+              {isActive ? <Checkmark16 style={{ fill: "#009d9a" }} /> : <Close16 style={{ fill: "#da1e28" }} />}
+              <p className={styles.statusText}>{isActive ? "Active" : "Inactive"}</p>
+            </div>
+            <span className={styles.statusDivider}>-</span>
+            {/*<div className={styles.dateText}>
+              Created on
+              <p style={{ marginLeft: "0.3rem" }}>{moment(team.dateCreated).format("MMMM DD, YYYY")}</p>
+            </div>*/}
+          </HeaderSubtitle>
+        </>
+      }
+      footer={
+        <Tabs>
+          <Tab exact label="Members" to={{ pathname: appLink.team({ teamId: team.id }), state: location.state }} />
+          <Tab exact label="Workflows" to={{ pathname: appLink.teamWorkflows({ teamId: team.id }), state: location.state }} />
+          <Tab exact label="Settings" to={{ pathname: appLink.teamSettings({ teamId: team.id }), state: location.state }} />
+        </Tabs>
+      }
+      actions={isActive && (
         <section className={styles.teamButtons}>
           <ConfirmModal
             affirmativeAction={() => removeTeam()}
@@ -79,8 +103,7 @@ function TeamDetailedHeader({ isActive, team, userType }: { isActive: boolean; t
           </ConfirmModal>
         </section>
       )}
-      <Navigation teamId={team.id} />
-    </FeatureHeader>
+    />
   );
 }
 

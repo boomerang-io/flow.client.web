@@ -1,16 +1,18 @@
 import React from "react";
-import { Link, useHistory, matchPath, useLocation } from "react-router-dom";
-import cx from "classnames";
+import { useHistory, matchPath, useLocation } from "react-router-dom";
 import capitalize from "lodash/capitalize";
 import sortBy from "lodash/sortBy";
 import matchSorter from "match-sorter";
 import {
-  Search,
   Accordion,
   AccordionItem,
   OverflowMenu,
   Checkbox,
   CheckboxList,
+  FeatureSideNav as SideNav,
+  FeatureSideNavLink as SideNavLink, 
+  FeatureSideNavLinks as SideNavLinks,
+  Search,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplate from "./AddTaskTemplate";
@@ -99,7 +101,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
   };
 
   return (
-    <div className={styles.container}>
+    <SideNav className={styles.container} border="right">
       <h1 className={styles.title}>Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
       <div className={styles.tasksContainer}>
@@ -172,23 +174,25 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
           </button>
         </div>
       </div>
-      <Accordion>
-        {tasksByCategory.map((category, index) => {
-          return (
-            <AccordionItem
-              title={`${category.name} (${category.tasks.length})`}
-              open={openCategories}
-              key={`${category.name}${index}`}
-            >
-              {category.tasks.map((task) => (
-                //@ts-ignore
-                <Task key={task.id} task={task} isActive={globalMatch?.params?.id === task.id} />
-              ))}
-            </AccordionItem>
-          );
-        })}
-      </Accordion>
-    </div>
+      <SideNavLinks>
+        <Accordion>
+          {tasksByCategory.map((category, index) => {
+            return (
+              <AccordionItem
+                title={`${category.name} (${category.tasks.length})`}
+                open={openCategories}
+                key={`${category.name}${index}`}
+              >
+                {category.tasks.map((task) => (
+                  //@ts-ignore
+                  <Task key={task.id} task={task} isActive={globalMatch?.params?.id === task.id} />
+                ))}
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+      </SideNavLinks>
+    </SideNav>
   );
 };
 
@@ -202,40 +206,38 @@ const Task: React.FC<TaskProps> = (props) => {
   const taskIsActive = task.status === TaskTemplateStatus.Active;
 
   return (
-    <Link
-      className={cx(styles.task, { [styles.active]: props.isActive })}
+    <SideNavLink
       to={appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })}
-      id={task.id}
+      icon={TaskIcon ? TaskIcon.Icon : Bee16}
     >
-      <div className={styles.taskInfoContainer}>
-        {TaskIcon ? <TaskIcon.Icon /> : <Bee16 />}
-        <p className={cx(styles.taskName, { [styles.active]: props.isActive })}>{task.name}</p>
+      <div className={styles.task}>
+        <p>{task.name}</p>
+        {(task.verified || !taskIsActive) && (
+          <div className={styles.iconContainer}>
+            {!taskIsActive && (
+              <TooltipHover direction="top" tooltipText="Archived Task">
+                <ViewOff16 fill="#4d5358" />
+              </TooltipHover>
+            )}
+            {task.verified && (
+              <TooltipHover
+                direction="top"
+                tooltipText={
+                  <div className={styles.tooltipContainer}>
+                    <strong>Verified</strong>
+                    <p style={{ marginTop: "0.5rem" }}>
+                      This task has been fully tested and verified right out of the box.
+                    </p>
+                  </div>
+                }
+              >
+                <Recommend16 />
+              </TooltipHover>
+            )}
+          </div>
+        )}
       </div>
-      {(task.verified || !taskIsActive) && (
-        <div className={styles.iconContainer}>
-          {!taskIsActive && (
-            <TooltipHover direction="top" tooltipText="Archived Task">
-              <ViewOff16 fill="#4d5358" />
-            </TooltipHover>
-          )}
-          {task.verified && (
-            <TooltipHover
-              direction="top"
-              tooltipText={
-                <div className={styles.tooltipContainer}>
-                  <strong>Verified</strong>
-                  <p style={{ marginTop: "0.5rem" }}>
-                    This task has been fully tested and verified right out of the box.
-                  </p>
-                </div>
-              }
-            >
-              <Recommend16 fill="#0072C3" />
-            </TooltipHover>
-          )}
-        </div>
-      )}
-    </Link>
+    </SideNavLink>
   );
 };
 

@@ -433,7 +433,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
               cancelRequestRef={cancelRequestRef}
             />
             <div className={styles.content}>
-              <section className={styles.taskActions}>
+              <section className={styles.taskActionsSection}>
                 <p className={styles.description}>Build the definition requirements for this task.</p>
                 {!canEdit && (
                   <InlineNotification
@@ -463,8 +463,8 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                   )}
                 />
               </section>
-              <div className={styles.actionContainer}>
-                <Tile className={styles.editDetails}>
+              <div className={styles.detailCardsContainer}>
+                <Tile className={styles.editDetailsCard}>
                   <section className={styles.editTitle}>
                     <h1>Basics</h1>
                     <EditTaskTemplateModal
@@ -478,7 +478,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                       canEdit={canEdit}
                     />
                   </section>
-                  <dl className={styles.dataList}>
+                  <dl className={styles.detailsDataList}>
                     <DetailDataElements value={values.name} label="Name" />
                     <DetailDataElements value={values.category} label="Category" />
                     <DetailDataElements value={values.icon} label="Icon" />
@@ -525,7 +525,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                     </section>
                   </dl>
                 </Tile>
-                <Tile className={styles.editFields}>
+                <Tile className={styles.editFieldsCard}>
                   <section className={styles.editTitle}>
                     <hgroup className={styles.fieldsTitle}>
                       <h1>Definition fields</h1>
@@ -546,7 +546,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                   <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId="droppable" direction="vertical">
                       {(provided) => (
-                        <section className={styles.fieldsContainer} ref={provided.innerRef}>
+                        <div className={styles.fieldsContainer} ref={provided.innerRef}>
                           {values.currentConfig?.length > 0 ? (
                             values.currentConfig.map((field, index) => (
                               <Draggable key={index} draggableId={index} index={index}>
@@ -576,7 +576,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                               <p className={styles.noFieldsText}>Add a field above to get started.</p>
                             </div>
                           )}
-                        </section>
+                        </div>
                       )}
                     </Droppable>
                   </DragDropContext>
