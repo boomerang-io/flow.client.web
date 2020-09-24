@@ -37,6 +37,7 @@
   }
 
   :global .react-lazylog-searchbar {
+    background: var(--cds-text-01);
     padding: 0.625rem;
     font-family: var(--cds-font-family);
   }
@@ -70,6 +71,7 @@
   }
 
   :global .react-lazylog {
+    background: var(--cds-text-01);
     color: var(--cds-ui-01);
     padding: 1rem 1rem 1rem 0;
     font-family: "IBM Plex Mono", monospace;
