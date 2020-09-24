@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
-import { Button, ComposedModal, Error404, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ComposedModal, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { WarningAlt16 } from "@carbon/icons-react";
 import WelcomeBanner from "Components/WelcomeBanner";
+import EmptyState from "Components/EmptyState";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
 import NoTeamsRedirectPrompt from "./NoAccessRedirectPrompt";
 import CreateWorkflow from "./CreateWorkflow";
@@ -139,7 +140,7 @@ export default function WorkflowsHome() {
             <NoTeamsRedirectPrompt />
           )}
           {searchQuery && filteredWorkflowsCount === 0 && (
-            <Error404 header={null} message={"Try a different search or team filter"} title="No workflows found" />
+            <EmptyState title="Looks like there's nothing here" message="No results from that search, try again." />
           )}
         </div>
       </div>

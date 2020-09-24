@@ -5,7 +5,6 @@ import {
   ComboBox,
   DataTable,
   Error,
-  Error404,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
@@ -16,6 +15,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
 import ActionsMenu from "./ActionsMenu";
+import EmptyState from "Components/EmptyState";
 import WombatMessage from "Components/WombatMessage";
 import { InputType } from "Constants";
 import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
@@ -60,21 +60,21 @@ const headers = [
 ];
 
 interface TeamPropertiesTableProps {
-  activeTeam: FlowTeam,
-  properties: Property[],
-  propertiesAreLoading: boolean,
-  propertiesError: any,
-  setActiveTeam(args: FlowTeam): void,
-  teams: FlowTeam[],
-};
+  activeTeam: FlowTeam;
+  properties: Property[];
+  propertiesAreLoading: boolean;
+  propertiesError: any;
+  setActiveTeam(args: FlowTeam): void;
+  teams: FlowTeam[];
+}
 
-const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({ 
-  activeTeam, 
-  properties, 
-  propertiesAreLoading, 
-  propertiesError, 
-  setActiveTeam, 
-  teams 
+const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
+  activeTeam,
+  properties,
+  propertiesAreLoading,
+  propertiesError,
+  setActiveTeam,
+  teams,
 }) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
@@ -110,7 +110,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
     }
   };
 
-  const handlePaginationChange = ({ page, pageSize }: { page: number, pageSize: number }) => {
+  const handlePaginationChange = ({ page, pageSize }: { page: number; pageSize: number }) => {
     setPage(page);
     setPageSize(pageSize);
   };
@@ -175,7 +175,9 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
                 setActiveTeam(selectedItem);
               }}
               placeholder="Select a team"
-              shouldFilterItem={({ item, inputValue }: { item: any, inputValue: string }) => item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())}
+              shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
+                item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
+              }
             />
           </div>
           {(activeTeam?.id || totalItems > 0) && (
@@ -191,7 +193,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
             <DataTable
               rows={properties}
               headers={headers}
-              render={({ rows, headers, getHeaderProps }: { rows: any, headers: any, getHeaderProps: any }) => (
+              render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
                 <TableContainer>
                   <Table>
                     <TableHead>
@@ -261,7 +263,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
               )}
             />
             {activeTeam ? (
-              <Error404 header={null} title="No team properties" message={null} />
+              <EmptyState header={null} title="No team properties" message={null} />
             ) : (
               <Box maxWidth="20rem" margin="0 auto">
                 <WombatMessage title="Select a team" />
@@ -272,6 +274,6 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
       </div>
     </>
   );
-}
+};
 
 export default TeamPropertiesTable;

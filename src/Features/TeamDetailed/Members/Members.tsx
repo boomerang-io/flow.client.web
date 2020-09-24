@@ -4,7 +4,6 @@ import ms from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { Link } from "react-router-dom";
 import {
-  Error404,
   Search,
   StructuredListWrapper,
   StructuredListHead,
@@ -14,6 +13,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
 import { FlowTeam, FlowUser } from "Types";
+import EmptyState from "Components/EmptyState";
 import AddMember from "./AddMember";
 import RemoveMember from "./RemoveMember";
 import styles from "./Members.module.scss";
@@ -104,7 +104,7 @@ const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, user 
           </StructuredListBody>
         </StructuredListWrapper>
       ) : (
-        <Error404 title="Nothing to see here" header={null} message={null} />
+        <EmptyState title="Looks like there's nothing here" message="No results from that search, try again." />
       )}
     </section>
   );
