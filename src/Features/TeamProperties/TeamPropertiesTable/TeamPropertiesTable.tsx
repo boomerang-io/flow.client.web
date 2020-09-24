@@ -200,7 +200,6 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
                       <TableRow className={styles.tableHeadRow}>
                         {headers.map((header: any, key: any) => (
                           <TableHeader
-                            isSortab
                             key={`mode-table-key-${key}`}
                             {...getHeaderProps({
                               className: `${styles.tableHeadHeader} ${styles[header.key]}`,
@@ -240,28 +239,6 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
           </>
         ) : (
           <>
-            <DataTable
-              rows={properties}
-              headers={headers}
-              render={({ headers }: { headers: any }) => (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header: any, key: any) => (
-                          <TableHeader
-                            key={`no-team-config-table-key-${key}`}
-                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
-                          >
-                            <span className="bx--table-header-label">{header.header}</span>
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                  </Table>
-                </TableContainer>
-              )}
-            />
             {activeTeam ? (
               <EmptyState header={null} title="No team properties" message={null} />
             ) : (

@@ -271,6 +271,7 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
               <TableBody>
                 {rows.map((row: any) => (
                   <TableRow
+                    className={styles.tableRow}
                     key={row.id}
                     data-testid="user-list-table-row"
                     onClick={() => handleNavigateToTeam(row.id)}
