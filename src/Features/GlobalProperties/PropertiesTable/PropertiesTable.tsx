@@ -213,32 +213,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
             />
           </>
         ) : (
-          <>
-            <DataTable
-              rows={newProperties}
-              headers={headers}
-              render={({ headers }: { headers: any }) => (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header: any) => (
-                          <TableHeader
-                            key={header.key}
-                            id={header.key}
-                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
-                          >
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                  </Table>
-                </TableContainer>
-              )}
-            />
-            <EmptyState title="Looks like there's nothing here" message="No results from that search, try again." />
-          </>
+          <EmptyState title="Looks like there's nothing here" message="No results from that search, try again." />
         )}
       </div>
     </>
