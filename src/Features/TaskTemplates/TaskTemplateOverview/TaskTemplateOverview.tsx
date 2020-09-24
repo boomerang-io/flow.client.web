@@ -8,7 +8,6 @@ import { useMutation, queryCache } from "react-query";
 import {
   Tile,
   Button,
-  Error404,
   notify,
   ToastNotification,
   Loading,
@@ -27,6 +26,7 @@ import { Draggable16, TrashCan16, Archive16, Bee16, Recommend16, Identification1
 import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
+import EmptyState from "Components/EmptyState";
 import { DataDrivenInput } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
 
@@ -354,7 +354,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
   if (templateNotFound)
     return (
-      <Error404
+      <EmptyState
         header="Task Template not found"
         title="Crikey. We can't find the template you are looking for."
         message=""

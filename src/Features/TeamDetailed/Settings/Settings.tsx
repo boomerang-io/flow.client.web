@@ -1,10 +1,11 @@
 import React from "react";
 import queryString from "query-string";
 import { useQuery } from "react-query";
-import { Error404, Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import UpdateTeamName from "./UpdateTeamName";
 import { Edit16 } from "@carbon/icons-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import EmptyState from "Components/EmptyState";
 import styles from "./Settings.module.scss";
 import { SortDirection } from "Constants";
 import { FlowTeam } from "Types";
@@ -31,7 +32,7 @@ export default function Settings({ team }: { team: FlowTeam }) {
   });
 
   if (error) {
-    return <Error404 />;
+    return <EmptyState />;
   }
 
   if (isLoading) {

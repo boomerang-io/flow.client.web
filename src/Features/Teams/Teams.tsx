@@ -9,7 +9,6 @@ import {
   DataTable,
   DataTableSkeleton,
   ErrorMessage,
-  Error404,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
@@ -17,6 +16,7 @@ import {
   Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import TeamDetailed from "Features/TeamDetailed";
+import EmptyState from "Components/EmptyState";
 import AddTeamContent from "./AddTeamContent";
 import debounce from "lodash/debounce";
 import queryString from "query-string";
@@ -307,6 +307,6 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
       />
     </>
   ) : (
-    <Error404 message={null} title="No teams found" header={null} />
+    <EmptyState message={null} title="No teams found" header={null} />
   );
 };
