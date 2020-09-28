@@ -29,10 +29,7 @@ export function TeamQuotasOverview({ teams }) {
 
   const teamData = teams.find((team) => team.id === teamId);
 
-  if (error)
-    return (
-      <EmptyState header="Team not found" title="Crikey. We can't find the team you are looking for." message="" />
-    );
+  if (error) return <EmptyState title="Team not found" message="Crikey. We can't find the team you are looking for." />;
 
   if (isLoading) {
     return <Loading />;

@@ -104,7 +104,7 @@ const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, user 
           </StructuredListBody>
         </StructuredListWrapper>
       ) : (
-        <EmptyState title="Looks like there's nothing here" message="No results from that search, try again." />
+        <EmptyState />
       )}
     </section>
   );

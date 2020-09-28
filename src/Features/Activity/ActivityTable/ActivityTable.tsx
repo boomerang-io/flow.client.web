@@ -219,11 +219,7 @@ function ActivityTable(props) {
                 </TableContainer>
               )}
             />
-            <EmptyState
-              message={"Execute some workflows or try changing the filters"}
-              title="No activity found"
-              header={null}
-            />
+            <EmptyState message={"Execute some workflows or try changing the filters"} title="No activity found" />
           </>
         )}
       </div>

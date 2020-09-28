@@ -354,11 +354,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
   if (templateNotFound)
     return (
-      <EmptyState
-        header="Task Template not found"
-        title="Crikey. We can't find the template you are looking for."
-        message=""
-      />
+      <EmptyState title="Task Template not found" message="Crikey. We can't find the template you are looking for." />
     );
 
   return (

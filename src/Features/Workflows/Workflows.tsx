@@ -139,9 +139,7 @@ export default function WorkflowsHome() {
           ) : (
             <NoTeamsRedirectPrompt />
           )}
-          {searchQuery && filteredWorkflowsCount === 0 && (
-            <EmptyState title="Looks like there's nothing here" message="No results from that search, try again." />
-          )}
+          {searchQuery && filteredWorkflowsCount === 0 && <EmptyState />}
         </div>
       </div>
     </>

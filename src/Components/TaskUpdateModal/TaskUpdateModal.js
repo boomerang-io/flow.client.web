@@ -117,7 +117,6 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
     return (
       <ModalForm>
         <EmptyState
-          header={null}
           title="Something's off here"
           message="We couldn't find ones of the tasks needed for the upgrade. Please contact support for assistance upgrading."
         />

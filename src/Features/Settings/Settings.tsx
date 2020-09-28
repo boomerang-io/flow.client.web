@@ -96,7 +96,7 @@ const Settings: React.FC = () => {
   return (
     <FeatureLayout>
       {!sortedPlatformSettings.length ? (
-        <EmptyState title="Looks like there's nothing here" message="No results from that search, try again." />
+        <EmptyState />
       ) : (
         <Accordion>
           {sortedPlatformSettings.map((settingsGroup, index) => (

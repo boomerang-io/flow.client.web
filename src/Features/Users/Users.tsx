@@ -288,6 +288,6 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
       </ComposedModal>
     </>
   ) : (
-    <EmptyState title="Looks like there's nothing here" message="No results from that search, try again." />
+    <EmptyState />
   );
 };
