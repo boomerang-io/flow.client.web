@@ -88,7 +88,7 @@ function Workflows({ team }: { team: FlowTeam }) {
           </StructuredListBody>
         </StructuredListWrapper>
       ) : (
-        <EmptyState title="Looks like there's nothing here" message="No results from that search, try again." />
+        <EmptyState />
       )}
     </section>
   );

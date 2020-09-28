@@ -240,7 +240,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
         ) : (
           <>
             {activeTeam ? (
-              <EmptyState header={null} title="No team properties" message={null} />
+              <EmptyState title="No team properties" message={null} />
             ) : (
               <Box maxWidth="20rem" margin="0 auto">
                 <WombatMessage title="Select a team" />

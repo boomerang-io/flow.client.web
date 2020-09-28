@@ -146,7 +146,7 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
             />
           </>
         ) : (
-          <EmptyState header={null} message={null} title="No change logs found" />
+          <EmptyState message={null} title="No change logs found" />
         )}
       </div>
     );

@@ -308,6 +308,6 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
       />
     </>
   ) : (
-    <EmptyState message={null} title="No teams found" header={null} />
+    <EmptyState message={null} title="No teams found" />
   );
 };
