@@ -24,7 +24,6 @@ import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
 import { FormikProps } from "formik";
 import { FeatureFlag } from "Config/appConfig";
 import { ComposedModalChildProps, ModalTriggerProps, TaskModel } from "Types";
-import stringToBooleanHelper from "Utils/stringToBooleanHelper";
 import styles from "./header.module.scss";
 
 interface SaveModalProps {
@@ -194,8 +193,8 @@ const Header: React.FC<HeaderProps> = ({
     version: revision.version,
   }));
   changelogs.reverse();
-  const canEditVerifiedTasks = stringToBooleanHelper(useFeature(FeatureFlag.CanEditVerifiedTasks));
-  const canEdit = !selectedTaskTemplate?.verified || (canEditVerifiedTasks && selectedTaskTemplate?.verified);
+  const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
+  const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
 
   return (
     <FeatureHeader

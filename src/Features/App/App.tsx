@@ -14,6 +14,7 @@ import { detect } from "detect-browser";
 import { UserType } from "Constants";
 import { AppPath, PRODUCT_STANDALONE } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import { stringToBooleanHelper } from "Utils/stringHelper";
 import { FlowTeam, FlowUser } from "Types";
 import styles from "./app.module.scss";
 
@@ -38,6 +39,7 @@ const platformSettingsUrl = serviceUrl.resourceSettings();
 const browser = detect();
 const allowedUserRoles = [UserType.Admin, UserType.Operator];
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
+const settingsWorkersName = "Workers";
 
 export default function App() {
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
@@ -119,10 +121,16 @@ export default function App() {
   }
 
   if (hasData) {
-    const canEditVerifiedTasks =
-      settingsQuery.data[0].config.find((setting: { key: string }) => setting.key === "enable.tasks").value ?? false;
+    const editVerifiedTasksEnabled = stringToBooleanHelper(
+      settingsQuery.data
+        .find((arr: any) => arr.name === settingsWorkersName)
+        ?.config?.find((setting: { key: string }) => setting.key === "enable.tasks").value ?? false
+    );
+    console.log("editVerifiedTasksEnabled");
+
+    console.log(editVerifiedTasksEnabled);
     return (
-      <FlagsProvider features={{ standalone: PRODUCT_STANDALONE, canEditVerifiedTasks }}>
+      <FlagsProvider features={{ standalone: PRODUCT_STANDALONE, editVerifiedTasksEnabled }}>
         <Navbar
           handleOnTutorialClick={() => setIsTutorialActive(true)}
           navigationData={navigationQuery.data}
