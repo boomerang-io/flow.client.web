@@ -74,5 +74,5 @@ export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true 
 
 export const FeatureFlag = {
   Standalone: "standalone",
-  CanEditVerifiedTasks: "canEditVerifiedTasks",
+  EditVerifiedTasksEnabled: "editVerifiedTasksEnabled",
 };

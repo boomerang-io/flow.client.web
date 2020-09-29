@@ -53,7 +53,7 @@ const Settings: React.FC = () => {
   });
 
   const [updateSettingMutator] = useMutation(resolver.putPlatformSettings, {
-    onSuccess: () => queryCache.invalidateQueries([platformSettingsUrl]),
+    onSuccess: () => queryCache.invalidateQueries(platformSettingsUrl),
   });
 
   const handleOnSave = async (

@@ -30,7 +30,6 @@ import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath, FeatureFlag } from "Config/appConfig";
 import { DataDrivenInput } from "Types";
-import stringToBooleanHelper from "Utils/stringToBooleanHelper";
 import styles from "./taskTemplateOverview.module.scss";
 
 const ArchiveText: React.FC = () => (
@@ -179,8 +178,8 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   });
 
   let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id) ?? {};
-  const canEditVerifiedTasks = stringToBooleanHelper(useFeature(FeatureFlag.CanEditVerifiedTasks));
-  const canEdit = !selectedTaskTemplate?.verified || (canEditVerifiedTasks && selectedTaskTemplate?.verified);
+  const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
+  const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
 
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
   const invalidVersion = params.version === "0" || params.version > selectedTaskTemplate.currentVersion;

@@ -4,7 +4,7 @@ import TemplateConfigModalContent from "./TemplateConfigModalContent";
 import { Add16, Edit16 } from "@carbon/icons-react";
 import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";
 
-interface TemplateConfigModal {
+interface TemplateConfigModalProps {
   field: DataDrivenInput;
   fieldKeys: string[];
   isActive: boolean;
@@ -15,7 +15,7 @@ interface TemplateConfigModal {
   canEdit: boolean;
 }
 
-const TemplateConfigModal: React.FC<TemplateConfigModal> = (props) => {
+const TemplateConfigModal: React.FC<TemplateConfigModalProps> = (props) => {
   const { isEdit, isOldVersion, isActive, canEdit } = props;
   const editTrigger = ({ openModal }: ModalTriggerProps) => {
     return isEdit ? (
