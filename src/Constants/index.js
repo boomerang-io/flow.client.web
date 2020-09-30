@@ -172,3 +172,7 @@ export const executionStatusList = [
   ExecutionStatus.Failure,
   ExecutionStatus.Invalid,
 ];
+
+export const ApprovalStatus = {
+  Submitted: "submitted",
+};

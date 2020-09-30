@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
-import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
+import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskExecutionLog from "./TaskExecutionLog";
 import TaskApprovalModal from "./TaskApprovalModal";
@@ -17,7 +17,7 @@ TaskItem.propTypes = {
 };
 
 function TaskItem({ flowActivityId, hidden, task, executionId }) {
-  const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName, isAwaitingApproval } = task;
+  const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName, approval } = task;
   const Icon = executionStatusIcon[flowTaskStatus];
   const statusClassName = styles[flowTaskStatus];
 
@@ -53,7 +53,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
           )}
-          {isAwaitingApproval && (
+          {approval && approval.status === ApprovalStatus.Submitted && (
             <TaskApprovalModal flowTaskId={taskId} flowTaskName={taskName} executionId={executionId} />
           )}
         </section>
