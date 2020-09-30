@@ -10,12 +10,12 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./taskApprovalModal.module.scss";
 
 interface TaskApprovalModalProps {
-  flowTaskId: string;
+  approvalId: string;
   flowTaskName: string;
   executionId: string;
 }
 
-const TaskApprovalModal: React.FC<TaskApprovalModalProps> = ({ flowTaskId, flowTaskName, executionId }) => {
+const TaskApprovalModal: React.FC<TaskApprovalModalProps> = ({ approvalId, flowTaskName, executionId }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const cancelRequestRef = React.useRef<{} | null>();
 
@@ -36,7 +36,7 @@ const TaskApprovalModal: React.FC<TaskApprovalModalProps> = ({ flowTaskId, flowT
 
   const handleApproval = async (approval: boolean) => {
     try {
-      await approvalMutator({ id: flowTaskId, approval });
+      await approvalMutator({ id: approvalId, approval });
       setIsOpen(false);
       notify(
         <ToastNotification

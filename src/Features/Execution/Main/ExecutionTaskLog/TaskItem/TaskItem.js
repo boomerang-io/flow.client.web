@@ -54,7 +54,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
           )}
           {approval && approval.status === ApprovalStatus.Submitted && (
-            <TaskApprovalModal flowTaskId={taskId} flowTaskName={taskName} executionId={executionId} />
+            <TaskApprovalModal approvalId={approval.id} flowTaskName={taskName} executionId={executionId} />
           )}
         </section>
       )}
