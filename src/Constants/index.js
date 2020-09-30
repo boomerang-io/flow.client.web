@@ -1,4 +1,4 @@
-import { CloseOutline32, CheckmarkOutline32, Error32, Timer32 } from "@carbon/icons-react";
+import { CloseOutline32, CheckmarkOutline32, Error32, InProgress32, Timer32 } from "@carbon/icons-react";
 
 /**
  * Primitve constants
@@ -24,6 +24,7 @@ export const ExecutionStatus = {
   Invalid: "invalid",
   NotStarted: "notstarted",
   Skipped: "skipped",
+  Waiting: "waiting",
 };
 
 export const ExecutionStatusCopy = {
@@ -33,6 +34,7 @@ export const ExecutionStatusCopy = {
   [ExecutionStatus.NotStarted]: "Not Started",
   [ExecutionStatus.Invalid]: "Invalid",
   [ExecutionStatus.Skipped]: "Skipped",
+  [ExecutionStatus.Waiting]: "Waiting",
 };
 
 export const InputProperty = {
@@ -76,6 +78,7 @@ export const InputTypeCopy = {
 };
 
 export const NodeType = {
+  Approval: "approval",
   CustomTask: "customTask",
   Decision: "decision",
   TemplateTask: "templateTask",
@@ -160,6 +163,7 @@ export const executionStatusIcon = {
   [ExecutionStatus.NotStarted]: Timer32,
   [ExecutionStatus.Invalid]: Error32,
   [ExecutionStatus.Skipped]: Error32,
+  [ExecutionStatus.Waiting]: InProgress32,
 };
 
 export const executionStatusList = [

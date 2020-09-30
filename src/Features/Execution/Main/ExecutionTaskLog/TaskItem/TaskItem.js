@@ -5,16 +5,19 @@ import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
 import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskExecutionLog from "./TaskExecutionLog";
+import TaskApprovalModal from "./TaskApprovalModal";
+
 import styles from "./taskItem.module.scss";
 
 TaskItem.propTypes = {
   flowActivityId: PropTypes.string.isRequired,
   hidden: PropTypes.bool.isRequired,
   task: PropTypes.object.isRequired,
+  executionId: PropTypes.string.isRequired,
 };
 
-function TaskItem({ flowActivityId, hidden, task }) {
-  const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName } = task;
+function TaskItem({ flowActivityId, hidden, task, executionId }) {
+  const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName, isAwaitingApproval } = task;
   const Icon = executionStatusIcon[flowTaskStatus];
   const statusClassName = styles[flowTaskStatus];
 
@@ -49,6 +52,9 @@ function TaskItem({ flowActivityId, hidden, task }) {
           <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
+          )}
+          {isAwaitingApproval && (
+            <TaskApprovalModal flowTaskId={taskId} flowTaskName={taskName} executionId={executionId} />
           )}
         </section>
       )}

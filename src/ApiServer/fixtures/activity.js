@@ -19,7 +19,22 @@ export default [
     ],
     steps: [
       {
+        isAwaitingApproval: true,
         activityId: "5ec51eca5a92d80001a2005d",
+        approval: {
+          id: "12345",
+          taskName: "Approve workflow",
+          activityId: "12345",
+          workflowId: "12345",
+          workflowName: "Workflow Name",
+          teamId: "12345",
+          teamName: "Team Name",
+          audit: {
+            approverId: "12345",
+            actionDate: 1601389025053,
+            result: true,
+          },
+        },
         duration: 6002,
         flowTaskStatus: "completed",
         id: "5ec51eca5a92d80001a20061",
@@ -30,6 +45,7 @@ export default [
         outputs: { "": "" },
       },
       {
+        isAwaitingApproval: false,
         activityId: "5ec51eca5a92d80001a2005d",
         duration: 4914,
         flowTaskStatus: "completed",
@@ -41,6 +57,7 @@ export default [
         outputs: { "": "" },
       },
       {
+        isAwaitingApproval: false,
         activityId: "5ec51eca5a92d80001a2005d",
         duration: 9292,
         flowTaskStatus: "failure",
@@ -52,6 +69,7 @@ export default [
         outputs: { "#Wed May 20 12:13:29 GMT 2020": "" },
       },
       {
+        isAwaitingApproval: false,
         activityId: "5ec51eca5a92d80001a2005d",
         duration: 10107,
         flowTaskStatus: "completed",
@@ -63,6 +81,7 @@ export default [
         outputs: { "#Wed May 20 12:13:39 GMT 2020": "" },
       },
       {
+        isAwaitingApproval: false,
         activityId: "5ec51eca5a92d80001a2005d",
         duration: 4145,
         flowTaskStatus: "completed",
@@ -74,6 +93,7 @@ export default [
         outputs: { "": "" },
       },
       {
+        isAwaitingApproval: false,
         activityId: "5ec51eca5a92d80001a2005d",
         duration: 8680,
         flowTaskStatus: "completed",

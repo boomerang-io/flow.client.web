@@ -1,0 +1,20 @@
+@import "Styles/mixins";
+
+.container {
+  max-width: 50rem;
+
+  :global .bx--modal-content {
+    padding-right: 1rem;
+  }
+}
+
+.trigger {
+  color: var(--cds-interactive-01);
+  cursor: pointer;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
+}

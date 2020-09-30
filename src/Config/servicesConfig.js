@@ -72,6 +72,7 @@ export const serviceUrl = {
   putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
   putRestoreTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}/activate`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
+  putWorkflowApproval: ({ id, approval }) => `${BASE_URL}/approvals/action?id=${id}&approve=${approval}`,
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_URL}/settings`,
 };
@@ -150,4 +151,6 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.putTeamQuotasDefault({ id }), method: HttpMethod.Put }),
   putTeamQuotas: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getTeamQuotas({ id }), body, method: HttpMethod.Put }),
+  putWorkflowApproval: ({ id, approval }) =>
+    cancellableResolver({ url: serviceUrl.putWorkflowApproval({ id, approval }), method: HttpMethod.Put }),
 };
