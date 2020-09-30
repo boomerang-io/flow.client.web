@@ -74,7 +74,15 @@ function ExecutionTaskLog({ workflowExecution }) {
       </section>
       <ul className={styles.tasklog}>
         {workflowExecution.status === QueryStatus.Success ? (
-          sortedTasks.map((step) => <TaskItem key={step.id} flowActivityId={id} hidden={isCollapsed} task={step} />)
+          sortedTasks.map((step) => (
+            <TaskItem
+              key={step.id}
+              flowActivityId={id}
+              hidden={isCollapsed}
+              task={step}
+              executionId={workflowExecution.data.id}
+            />
+          ))
         ) : (
           <SkeletonPlaceholder className={styles.taskLogSkeleton} />
         )}

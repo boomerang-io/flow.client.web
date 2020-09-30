@@ -1610,4 +1610,32 @@ export default [
     nodeType: "templateTask",
     verified: true,
   },
+  {
+    category: "workflow",
+    createdDate: "2020-01-09T00:01:00.000+00:00",
+    currentVersion: 1,
+    description: "Pauses workflow until approval is actioned.",
+    icon: "Edit",
+    id: "5f6379c974f51934044cbbd6",
+    lastModified: "2020-04-30T22:53:23.337+00:00",
+    name: "Manual Approval",
+    nodeType: "approval",
+    revisions: [
+      {
+        arguments: ["approval"],
+        changelog: {
+          date: "2020-04-30T22:53:23.337+00:00",
+          reason: "",
+          userId: "5e8a6c6cd0827100011c2a35",
+          userName: null,
+        },
+        command: "",
+        config: [],
+        image: "",
+        version: 1,
+      },
+    ],
+    status: "active",
+    verified: true,
+  },
 ];
