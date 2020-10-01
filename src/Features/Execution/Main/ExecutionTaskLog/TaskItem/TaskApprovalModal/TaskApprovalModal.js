@@ -64,8 +64,8 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }) {
   };
 
   const buttons = [
-    { icon: ThumbsDown16, label: "Reject", type: "negative", value: GateStatus.Approved },
-    { icon: ThumbsUp16, label: "Approve", type: "positive", value: GateStatus.Rejected },
+    { icon: ThumbsDown16, label: "Reject", type: "negative", value: GateStatus.Rejected },
+    { icon: ThumbsUp16, label: "Approve", type: "positive", value: GateStatus.Approved },
   ];
 
   return (
