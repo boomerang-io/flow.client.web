@@ -174,5 +174,7 @@ export const executionStatusList = [
 ];
 
 export const ApprovalStatus = {
+  Approved: "approved",
+  Rejected: "rejected",
   Submitted: "submitted",
 };

@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
-import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy } from "Constants";
+import { ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskExecutionLog from "./TaskExecutionLog";
 import TaskApprovalModal from "./TaskApprovalModal";
-
 import styles from "./taskItem.module.scss";
 
 TaskItem.propTypes = {
@@ -17,7 +17,7 @@ TaskItem.propTypes = {
 };
 
 function TaskItem({ flowActivityId, hidden, task, executionId }) {
-  const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName, approval } = task;
+  const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName, approval, taskType } = task;
   const Icon = executionStatusIcon[flowTaskStatus];
   const statusClassName = styles[flowTaskStatus];
 
@@ -49,12 +49,52 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
       </section>
       {!hidden && (
         <section className={styles.data}>
-          <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
+          {(taskType === NodeType.CustomTask || taskType === NodeType.TemplateTask) && (
+            <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
+          )}
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
           )}
           {approval && approval.status === ApprovalStatus.Submitted && (
-            <TaskApprovalModal approvalId={approval.id} flowTaskName={taskName} executionId={executionId} />
+            <ComposedModal
+              composedModalProps={{ shouldCloseOnOverlayClick: false }}
+              modalHeaderProps={{
+                title: "Pending manual approval",
+                subtitle: taskName,
+              }}
+              modalTrigger={({ openModal }) => (
+                <button className={styles.actionApprovalTrigger} onClick={openModal}>
+                  Action Approval
+                </button>
+              )}
+            >
+              {({ closeModal }) => (
+                <TaskApprovalModal
+                  approvalId={approval.id}
+                  flowTaskName={taskName}
+                  executionId={executionId}
+                  closeModal={closeModal}
+                />
+              )}
+            </ComposedModal>
+          )}
+          {approval && (approval.status === ApprovalStatus.Approved || approval.status === ApprovalStatus.Rejected) && (
+            <ComposedModal
+              composedModalProps={{ shouldCloseOnOverlayClick: true }}
+              modalTrigger={({ openModal }) => (
+                <button className={styles.viewApprovalTrigger} onClick={openModal}>
+                  View Approval
+                </button>
+              )}
+            >
+              {() => (
+                <ModalBody>
+                  <p>{`Manual Approval has been ${approval.status} by ${approval.audit.approverName}(${
+                    approval.audit.approverEmail
+                  }) at ${moment(approval.audit.actionDate).format("DD-MM-YY")}`}</p>
+                </ModalBody>
+              )}
+            </ComposedModal>
           )}
         </section>
       )}

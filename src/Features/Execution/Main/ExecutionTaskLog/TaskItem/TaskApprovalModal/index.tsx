@@ -1,1 +1,1 @@
-export { default } from "./TaskApprovalModal";
+export { default } from "./TaskApprovalModal.js";
