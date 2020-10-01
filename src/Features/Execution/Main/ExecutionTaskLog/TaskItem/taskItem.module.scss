@@ -9,6 +9,10 @@
     border-top: 0.25rem solid var(--cds-support-02);
   }
 
+  &.waiting {
+    border-top: 0.25rem solid var(--cds-support-03);
+  }
+
   &.failure {
     border-top: 0.25rem solid var(--flow-failure);
   }
@@ -104,6 +108,13 @@
     }
   }
 
+  &.waiting {
+    color: var(--cds-support-03);
+    svg {
+      fill: var(--cds-support-03);
+    }
+  }
+
   &.failure {
     color: var(--flow-failure);
     svg {
@@ -162,6 +173,28 @@
   color: var(--cds-text-01);
   font-size: 0.875rem;
   line-height: 1.125rem;
+}
+
+.viewApprovalTrigger {
+  color: var(--cds-interactive-01);
+  cursor: pointer;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
+}
+
+.actionApprovalTrigger {
+  color: var(--cds-support-03);
+  cursor: pointer;
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 @keyframes indeterminate {
