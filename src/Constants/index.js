@@ -171,6 +171,7 @@ export const executionStatusList = [
   ExecutionStatus.Completed,
   ExecutionStatus.Failure,
   ExecutionStatus.Invalid,
+  ExecutionStatus.Waiting,
 ];
 
 export const ApprovalStatus = {
