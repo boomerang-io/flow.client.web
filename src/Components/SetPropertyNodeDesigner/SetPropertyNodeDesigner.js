@@ -9,9 +9,9 @@ import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
-import styles from "./CustomTaskNodeDesigner.module.scss";
+import styles from "./SetPropertyNodeDesigner.module.scss";
 
-const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({ diagramEngine, node: designerNode }) {
+const SetPropertyNodeDesigner = React.memo(function SetPropertyNodeDesigner({ diagramEngine, node: designerNode }) {
   const { revisionDispatch, revisionState, summaryData, taskTemplatesData } = useEditorContext();
 
   /**
@@ -130,7 +130,7 @@ const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({ diag
         title={task.name}
       >
         <div className={styles.badgeContainer}>
-          <p className={styles.badgeText}>Custom</p>
+          <p className={styles.badgeText}>System</p>
         </div>
         {renderUpdateTaskVersion()}
         {renderConfigureTask()}
@@ -141,4 +141,4 @@ const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({ diag
   return null;
 });
 
-export default CustomTaskNodeDesigner;
+export default SetPropertyNodeDesigner;

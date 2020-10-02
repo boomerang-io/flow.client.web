@@ -1,8 +1,8 @@
 //@ts-nocheck
 import React from "react";
 import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
-import TemplateTaskNodeDesigner from "Components/TemplateTaskNodeDesigner";
-import TemplateTaskNodeExecution from "Components/TemplateTaskNodeExecution";
+import SetPropertyNodeDesigner from "Components/SetPropertyNodeDesigner";
+import SetPropertyNodeExecution from "Components/SetPropertyNodeExecution";
 import SetPropertyNodeModel from "./setPropertyNodeModel";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 
@@ -21,9 +21,9 @@ export default class SetPropertyNodeFactory extends AbstractNodeFactory {
   generateReactWidget(diagramEngine, node) {
     // If diagram model is locked we can infer that the app is viewing the activity execution
     if (diagramEngine.mode === WorkflowDagEngineMode.Executor) {
-      return <TemplateTaskNodeExecution node={node} diagramEngine={diagramEngine} />;
+      return <SetPropertyNodeExecution node={node} diagramEngine={diagramEngine} />;
     } else {
-      return <TemplateTaskNodeDesigner node={node} diagramEngine={diagramEngine} />;
+      return <SetPropertyNodeDesigner node={node} diagramEngine={diagramEngine} />;
     }
   }
 }
