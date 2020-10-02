@@ -80,7 +80,7 @@ export interface WorkflowSummary {
   triggers: {
     event: {
       enable: boolean;
-      topic: string;
+      subject: string;
     };
     scheduler: {
       enable: boolean;
@@ -242,13 +242,13 @@ export interface FlowUser {
 }
 
 export interface Property {
-  value: string,
-  readOnly: boolean,
-  id: string,
-  description: string,
-  key: string,
-  label: string,
-  type: string
+  value: string;
+  readOnly: boolean;
+  id: string;
+  description: string;
+  key: string;
+  label: string;
+  type: string;
 }
 
 // interface userInterface {

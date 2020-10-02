@@ -46,7 +46,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }) {
     const body = {
       id: approvalId,
       approved: values.status === GateStatus.Approved,
-      comment: values.comment,
+      comments: values.comment,
     };
     try {
       await approvalMutator({ body });

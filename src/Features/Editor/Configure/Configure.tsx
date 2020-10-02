@@ -39,7 +39,7 @@ interface FormProps {
   triggers: {
     event: {
       enable: boolean;
-      topic: string;
+      subject: string;
     };
     scheduler: {
       enable: boolean;
@@ -97,7 +97,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         triggers: {
           event: {
             enable: summaryData.triggers?.event?.enable ?? false,
-            topic: summaryData.triggers?.event?.topic ?? "",
+            subject: summaryData.triggers?.event?.subject ?? "",
           },
           scheduler: {
             enable: summaryData.triggers?.scheduler?.enable ?? false,
@@ -436,7 +436,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
               <div className={styles.toggleContainer}>
                 <Toggle
                   id="triggers.event.enable"
-                  label="Action Subscription"
+                  label="Custom Event"
                   toggled={values.triggers.event.enable}
                   onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.event.enable")}
                   tooltipContent="Enable workflow to be triggered by platform actions"
@@ -447,14 +447,14 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
               {values.triggers.event.enable && (
                 <div className={styles.subscriptionContainer}>
                   <TextInput
-                    id="triggers.event.topic"
-                    label="Topic"
+                    id="triggers.event.subject"
+                    label="Subject"
                     placeholder="Name"
-                    value={values.triggers.event.topic}
+                    value={values.triggers.event.subject}
                     onBlur={handleBlur}
                     onChange={this.handleOnChange}
                   />
-                  <div className={styles.toggleContainer}>
+                  {/*<div className={styles.toggleContainer}>
                     <Toggle
                       id="enableACCIntegration"
                       label="IBM Services ACC Integration"
@@ -464,7 +464,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                       tooltipProps={{ direction: "top" }}
                       reversed
                     />
-                  </div>
+              </div>*/}
                 </div>
               )}
             </div>

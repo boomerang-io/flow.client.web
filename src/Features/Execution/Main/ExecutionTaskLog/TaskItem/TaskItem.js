@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
 import { ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
+import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskExecutionLog from "./TaskExecutionLog";
 import TaskApprovalModal from "./TaskApprovalModal";
 import styles from "./taskItem.module.scss";
+//only want to display logs for custom and task templates
+const logTaskTypes = ["custom", "template"];
 
 TaskItem.propTypes = {
   flowActivityId: PropTypes.string.isRequired,
@@ -49,7 +51,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
       </section>
       {!hidden && (
         <section className={styles.data}>
-          {(taskType === NodeType.CustomTask || taskType === NodeType.TemplateTask) && (
+          {logTaskTypes.includes(taskType) && (
             <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
           )}
           {outputs && Object.keys(outputs).length > 0 && (
@@ -80,7 +82,13 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           )}
           {approval && (approval.status === ApprovalStatus.Approved || approval.status === ApprovalStatus.Rejected) && (
             <ComposedModal
-              composedModalProps={{ shouldCloseOnOverlayClick: true }}
+              composedModalProps={{
+                containerClassName: styles.approvalResultsModalContainer,
+                shouldCloseOnOverlayClick: true,
+              }}
+              modalHeaderProps={{
+                title: "Approval details",
+              }}
               modalTrigger={({ openModal }) => (
                 <button className={styles.viewApprovalTrigger} onClick={openModal}>
                   View Approval
@@ -89,9 +97,24 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
             >
               {() => (
                 <ModalBody>
-                  <p>{`Manual Approval has been ${approval.status} by ${approval.audit.approverName}(${
-                    approval.audit.approverEmail
-                  }) at ${moment(approval.audit.actionDate).format("DD-MM-YY")}`}</p>
+                  <section className={styles.detailedSection}>
+                    <span className={styles.sectionHeader}>Approval Status</span>
+                    <p className={styles.sectionDetail}>{approval.status}</p>
+                  </section>
+                  <section className={styles.detailedSection}>
+                    <span className={styles.sectionHeader}>Approver</span>
+                    <p
+                      className={styles.sectionDetail}
+                    >{`${approval.audit.approverName}(${approval.audit.approverEmail})`}</p>
+                  </section>
+                  <section className={styles.detailedSection}>
+                    <span className={styles.sectionHeader}>Approval submitted</span>
+                    <p className={styles.sectionDetail}>{moment(approval.audit.actionDate).format("DD-MM-YY")}</p>
+                  </section>
+                  <section className={styles.detailedSection}>
+                    <span className={styles.sectionHeader}>Approval comments</span>
+                    <p className={styles.sectionDetail}>{approval.audit.comments}</p>
+                  </section>
                 </ModalBody>
               )}
             </ComposedModal>
