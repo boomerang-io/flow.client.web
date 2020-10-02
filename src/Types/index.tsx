@@ -78,9 +78,12 @@ export interface WorkflowSummary {
   shortDescription: string;
   properties: [DataDrivenInput];
   triggers: {
-    event: {
+    manual: {
       enable: boolean;
-      subject: string;
+    };
+    custom: {
+      enable: boolean;
+      topic: string;
     };
     scheduler: {
       enable: boolean;
@@ -89,6 +92,14 @@ export interface WorkflowSummary {
       advancedCron: boolean;
     };
     webhook: {
+      enable: boolean;
+      token: string;
+    };
+    dockerhub: {
+      enable: boolean;
+      token: string;
+    };
+    slack: {
       enable: boolean;
       token: string;
     };

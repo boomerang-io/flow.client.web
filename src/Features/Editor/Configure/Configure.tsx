@@ -37,15 +37,26 @@ interface FormProps {
   name: string;
   shortDescription: string;
   triggers: {
-    event: {
+    manual: {
       enable: boolean;
-      subject: string;
+    };
+    custom: {
+      enable: boolean;
+      topic: string;
+    };
+    dockerhub: {
+      enable: boolean;
+      token: string;
     };
     scheduler: {
       enable: boolean;
       schedule: string;
       timezone: string | boolean;
       advancedCron: boolean;
+    };
+    slack: {
+      enable: boolean;
+      token: string;
     };
     webhook: {
       enable: boolean;
@@ -95,9 +106,12 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         selectedTeam: teams.find((team) => team.id === params.teamId) ?? { id: "" },
         shortDescription: summaryData?.shortDescription ?? "",
         triggers: {
-          event: {
-            enable: summaryData.triggers?.event?.enable ?? false,
-            subject: summaryData.triggers?.event?.subject ?? "",
+          manual: {
+            enable: summaryData.triggers?.manual?.enable ?? true,
+          },
+          custom: {
+            enable: summaryData.triggers?.custom?.enable ?? false,
+            topic: summaryData.triggers?.custom?.topic ?? "",
           },
           scheduler: {
             enable: summaryData.triggers?.scheduler?.enable ?? false,
@@ -108,6 +122,14 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           webhook: {
             enable: summaryData.triggers?.webhook?.enable ?? false,
             token: summaryData.triggers?.webhook?.token ?? "",
+          },
+          dockerhub: {
+            enable: summaryData.triggers?.dockerhub?.enable ?? false,
+            token: summaryData.triggers?.dockerhub?.token ?? "",
+          },
+          slack: {
+            enable: summaryData.triggers?.slack?.enable ?? false,
+            token: summaryData.triggers?.slack?.token ?? "",
           },
         },
       }}
@@ -120,7 +142,10 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         selectedTeam: Yup.object().shape({ name: Yup.string().required("Team is required") }),
         shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
         triggers: Yup.object().shape({
-          event: Yup.object().shape({
+          manual: Yup.object().shape({
+            enable: Yup.boolean(),
+          }),
+          custom: Yup.object().shape({
             enable: Yup.boolean(),
             topic: Yup.string(),
           }),
@@ -131,6 +156,14 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
             advancedCron: Yup.boolean(),
           }),
           webhook: Yup.object().shape({
+            enable: Yup.boolean(),
+            token: Yup.string(),
+          }),
+          dockerhub: Yup.object().shape({
+            enable: Yup.boolean(),
+            token: Yup.string(),
+          }),
+          slack: Yup.object().shape({
             enable: Yup.boolean(),
             token: Yup.string(),
           }),
@@ -182,20 +215,24 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
     };
   }
 
-  generateToken = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-    if (e) {
-      e.preventDefault();
-    }
+  generateToken = (tokenType: string) => {
     axios
-      .post(serviceUrl.postCreateWorkflowToken({ workflowId: this.props.summaryData.id }))
+      .post(serviceUrl.postCreateWorkflowToken({ workflowId: this.props.summaryData.id, tokenType }))
       .then((response) => {
-        this.props.formikProps.setFieldValue("triggers.webhook.token", response.data.token);
+        this.props.formikProps.setFieldValue(`triggers.${tokenType}.token`, response.data.token);
+
         notify(
-          <ToastNotification kind="success" title="Generate Token" subtitle="Successfully generated webhook token" />
+          <ToastNotification
+            kind="success"
+            title="Generate Token"
+            subtitle={`Successfully generated ${tokenType} token`}
+          />
         );
       })
       .catch((err) => {
-        notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create webhook token" />);
+        notify(
+          <ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to create ${tokenType} token`} />
+        );
       });
   };
 
@@ -315,66 +352,17 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
                 <Toggle
-                  id="triggers.webhook.enable"
-                  label="Webhook"
-                  toggled={values.triggers.webhook.enable}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
-                  tooltipContent="Enable workflow to be executed by a webhook"
-                  tooltipProps={{ direction: "top" }}
                   reversed
+                  id="triggers.manual.enable"
+                  data-testid="triggers.manual.enable"
+                  label="Manual"
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.manual.enable")}
+                  toggled={values.triggers.manual.enable}
+                  tooltipContent="Enable workflow to be executed manually"
+                  tooltipProps={{ direction: "top" }}
                 />
               </div>
-              {values.triggers.webhook.enable && !values.triggers.webhook.token && (
-                <div className={styles.webhookContainer}>
-                  <button className={styles.regenerateText} type="button" onClick={this.generateToken}>
-                    <p>Generate a token</p>
-                  </button>
-                </div>
-              )}
-
-              {values.triggers.webhook.enable && values.triggers.webhook.token && (
-                <div className={styles.webhookContainer}>
-                  <p className={styles.webhookTokenLabel}>API Token</p>
-                  <div className={styles.webhookWrapper}>
-                    <p className={styles.webhookToken}>
-                      {this.state.tokenTextType === "password"
-                        ? values.triggers.webhook.token.toString().replace(/./g, "*")
-                        : values.triggers.webhook.token}{" "}
-                    </p>
-                    <TooltipHover direction="top" content={this.state.showTokenText}>
-                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
-                        <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
-                      </button>
-                    </TooltipHover>
-                    <TooltipIcon direction="top" tooltipText={this.state.copyTokenText}>
-                      <CopyToClipboard text={values.triggers.webhook.token}>
-                        <button
-                          onClick={() => this.setState({ copyTokenText: "Copied Token" })}
-                          onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
-                          type="button"
-                        >
-                          <CopyFile16 fill={"#0072C3"} className={styles.webhookImg} alt="Copy token" />
-                        </button>
-                      </CopyToClipboard>
-                    </TooltipIcon>
-                  </div>
-                  <div>
-                    <ConfirmModal
-                      affirmativeAction={this.generateToken}
-                      children="The existing token will be invalidated."
-                      title="Generate a new Webhook Token?"
-                      modalTrigger={({ openModal }: { openModal: () => void }) => (
-                        <button className={styles.regenerateText} type="button" onClick={openModal}>
-                          <p>Generate a new token</p>
-                        </button>
-                      )}
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className={styles.triggerSection}>
-              <div className={styles.toggleContainer}>
+              <div className={styles.toggleContainer} style={{ marginTop: "1rem" }}>
                 <Toggle
                   reversed
                   id="triggers.scheduler.enable"
@@ -435,22 +423,211 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
                 <Toggle
-                  id="triggers.event.enable"
+                  id="triggers.webhook.enable"
+                  label="Webhook"
+                  toggled={values.triggers.webhook.enable}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
+                  tooltipContent="Enable workflow to be executed by a webhook"
+                  tooltipProps={{ direction: "top" }}
+                  reversed
+                />
+              </div>
+              {values.triggers.webhook.enable && !values.triggers.webhook.token && (
+                <div className={styles.webhookContainer}>
+                  <button className={styles.regenerateText} type="button" onClick={() => this.generateToken("webhook")}>
+                    <p>Generate a token</p>
+                  </button>
+                </div>
+              )}
+
+              {values.triggers.webhook.enable && values.triggers.webhook.token && (
+                <div className={styles.webhookContainer}>
+                  <p className={styles.webhookTokenLabel}>API Token</p>
+                  <div className={styles.webhookWrapper}>
+                    <p className={styles.webhookToken}>
+                      {this.state.tokenTextType === "password"
+                        ? values.triggers.webhook.token.toString().replace(/./g, "*")
+                        : values.triggers.webhook.token}{" "}
+                    </p>
+                    <TooltipHover direction="top" content={this.state.showTokenText}>
+                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
+                        <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
+                      </button>
+                    </TooltipHover>
+                    <TooltipIcon direction="top" tooltipText={this.state.copyTokenText}>
+                      <CopyToClipboard text={values.triggers.webhook.token}>
+                        <button
+                          onClick={() => this.setState({ copyTokenText: "Copied Token" })}
+                          onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                          type="button"
+                        >
+                          <CopyFile16 fill={"#0072C3"} className={styles.webhookImg} alt="Copy token" />
+                        </button>
+                      </CopyToClipboard>
+                    </TooltipIcon>
+                  </div>
+                  <div>
+                    <ConfirmModal
+                      affirmativeAction={() => this.generateToken("webhook")}
+                      children="The existing token will be invalidated."
+                      title="Generate a new Webhook Token?"
+                      modalTrigger={({ openModal }: { openModal: () => void }) => (
+                        <button className={styles.regenerateText} type="button" onClick={openModal}>
+                          <p>Generate a new token</p>
+                        </button>
+                      )}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className={styles.triggerSection}>
+              <div className={styles.toggleContainer}>
+                <Toggle
+                  id="triggers.dockerhub.enable"
+                  label="Dockerhub"
+                  toggled={values.triggers.dockerhub.enable}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.dockerhub.enable")}
+                  tooltipContent="Enable workflow to be executed in dockerhub"
+                  tooltipProps={{ direction: "top" }}
+                  reversed
+                />
+              </div>
+              {values.triggers.dockerhub.enable && !values.triggers.dockerhub.token && (
+                <div className={styles.webhookContainer}>
+                  <button
+                    className={styles.regenerateText}
+                    type="button"
+                    onClick={() => this.generateToken("dockerhub")}
+                  >
+                    <p>Generate a token</p>
+                  </button>
+                </div>
+              )}
+
+              {values.triggers.dockerhub.enable && values.triggers.dockerhub.token && (
+                <div className={styles.webhookContainer}>
+                  <p className={styles.webhookTokenLabel}>API Token</p>
+                  <div className={styles.webhookWrapper}>
+                    <p className={styles.webhookToken}>
+                      {this.state.tokenTextType === "password"
+                        ? values.triggers.dockerhub.token.toString().replace(/./g, "*")
+                        : values.triggers.dockerhub.token}{" "}
+                    </p>
+                    <TooltipHover direction="top" content={this.state.showTokenText}>
+                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
+                        <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
+                      </button>
+                    </TooltipHover>
+                    <TooltipIcon direction="top" tooltipText={this.state.copyTokenText}>
+                      <CopyToClipboard text={values.triggers.dockerhub.token}>
+                        <button
+                          onClick={() => this.setState({ copyTokenText: "Copied Token" })}
+                          onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                          type="button"
+                        >
+                          <CopyFile16 fill={"#0072C3"} className={styles.webhookImg} alt="Copy token" />
+                        </button>
+                      </CopyToClipboard>
+                    </TooltipIcon>
+                  </div>
+                  <div>
+                    <ConfirmModal
+                      affirmativeAction={() => this.generateToken("dockerhub")}
+                      children="The existing token will be invalidated."
+                      title="Generate a new Dockerhub Token?"
+                      modalTrigger={({ openModal }: { openModal: () => void }) => (
+                        <button className={styles.regenerateText} type="button" onClick={openModal}>
+                          <p>Generate a new token</p>
+                        </button>
+                      )}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className={styles.triggerSection}>
+              <div className={styles.toggleContainer}>
+                <Toggle
+                  id="triggers.slack.enable"
+                  label="Slack"
+                  toggled={values.triggers.slack.enable}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.slack.enable")}
+                  tooltipContent="Enable workflow to be executed via Slack"
+                  tooltipProps={{ direction: "top" }}
+                  reversed
+                />
+              </div>
+              {values.triggers.slack.enable && !values.triggers.slack.token && (
+                <div className={styles.webhookContainer}>
+                  <button className={styles.regenerateText} type="button" onClick={() => this.generateToken("slack")}>
+                    <p>Generate a token</p>
+                  </button>
+                </div>
+              )}
+
+              {values.triggers.slack.enable && values.triggers.slack.token && (
+                <div className={styles.webhookContainer}>
+                  <p className={styles.webhookTokenLabel}>API Token</p>
+                  <div className={styles.webhookWrapper}>
+                    <p className={styles.webhookToken}>
+                      {this.state.tokenTextType === "password"
+                        ? values.triggers.slack.token.toString().replace(/./g, "*")
+                        : values.triggers.slack.token}{" "}
+                    </p>
+                    <TooltipHover direction="top" content={this.state.showTokenText}>
+                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
+                        <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
+                      </button>
+                    </TooltipHover>
+                    <TooltipIcon direction="top" tooltipText={this.state.copyTokenText}>
+                      <CopyToClipboard text={values.triggers.slack.token}>
+                        <button
+                          onClick={() => this.setState({ copyTokenText: "Copied Token" })}
+                          onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
+                          type="button"
+                        >
+                          <CopyFile16 fill={"#0072C3"} className={styles.webhookImg} alt="Copy token" />
+                        </button>
+                      </CopyToClipboard>
+                    </TooltipIcon>
+                  </div>
+                  <div>
+                    <ConfirmModal
+                      affirmativeAction={() => this.generateToken("slack")}
+                      children="The existing token will be invalidated."
+                      title="Generate a new Slack Token?"
+                      modalTrigger={({ openModal }: { openModal: () => void }) => (
+                        <button className={styles.regenerateText} type="button" onClick={openModal}>
+                          <p>Generate a new token</p>
+                        </button>
+                      )}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className={styles.triggerSection}>
+              <div className={styles.toggleContainer}>
+                <Toggle
+                  id="triggers.custom.enable"
                   label="Custom Event"
-                  toggled={values.triggers.event.enable}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.event.enable")}
+                  toggled={values.triggers.custom.enable}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.custom.enable")}
                   tooltipContent="Enable workflow to be triggered by platform actions"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {values.triggers.event.enable && (
+              {values.triggers.custom.enable && (
                 <div className={styles.subscriptionContainer}>
                   <TextInput
-                    id="triggers.event.subject"
+                    id="triggers.custom.topic"
                     label="Subject"
                     placeholder="Name"
-                    value={values.triggers.event.subject}
+                    value={values.triggers.custom.topic}
                     onBlur={handleBlur}
                     onChange={this.handleOnChange}
                   />
@@ -469,7 +646,25 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
               )}
             </div>
           </div>
-          <hr className={styles.delimiter} />
+          {/*<hr className={styles.delimiter} />
+          <div className={styles.optionsContainer}>
+            <h1 className={styles.header}>Other Options</h1>
+            <h2 className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</h2>
+            <div className={styles.toggleContainer}>
+              <Toggle
+                id="enablePersistentStorage"
+                label="Enable Persistent Storage"
+                toggled={values.enablePersistentStorage}
+                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enablePersistentStorage")}
+                tooltipContent="Persist workflow data between executions"
+                tooltipProps={{ direction: "top" }}
+                reversed
+              />
+            </div>
+          </div>
+            <hr className={styles.delimiter} />*/}
+        </section>
+        <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
             <h1 className={styles.header}>Other Options</h1>
             <h2 className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</h2>
@@ -486,8 +681,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             </div>
           </div>
           <hr className={styles.delimiter} />
-        </section>
-        <section className={styles.smallCol}>
           <div className={styles.saveChangesContainer}>
             <Button
               size="field"
