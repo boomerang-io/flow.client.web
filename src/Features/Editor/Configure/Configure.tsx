@@ -201,6 +201,10 @@ interface ConfigureState {
   tokenTextType: string;
   showTokenText: string;
   copyTokenText: string;
+  tokenDockerhubTextType: string;
+  showDockerhubTokenText: string;
+  tokenSlackTextType: string;
+  showSlackTokenText: string;
   errors: object;
 }
 
@@ -211,6 +215,10 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
       tokenTextType: "password",
       showTokenText: "Show Token",
       copyTokenText: "Copy Token",
+      tokenDockerhubTextType: "password",
+      showDockerhubTokenText: "Show Token",
+      tokenSlackTextType: "password",
+      showSlackTokenText: "Show Token",
       errors: {},
     };
   }
@@ -244,11 +252,29 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
     this.props.formikProps.setFieldValue(id, value);
   };
 
-  handleShowToken = () => {
-    if (this.state.tokenTextType === "text") {
-      this.setState({ tokenTextType: "password", showTokenText: "Show Token" });
-    } else {
-      this.setState({ tokenTextType: "text", showTokenText: "Hide Token" });
+  handleShowToken = (tokenType: string) => {
+    switch (tokenType) {
+      case "webhook":
+        if (this.state.tokenTextType === "text") {
+          this.setState({ tokenTextType: "password", showTokenText: "Show Token" });
+        } else {
+          this.setState({ tokenTextType: "text", showTokenText: "Hide Token" });
+        }
+        break;
+      case "slack":
+        if (this.state.tokenSlackTextType === "text") {
+          this.setState({ tokenSlackTextType: "password", showSlackTokenText: "Show Token" });
+        } else {
+          this.setState({ tokenSlackTextType: "text", showSlackTokenText: "Hide Token" });
+        }
+        break;
+      case "dockerhub":
+        if (this.state.tokenDockerhubTextType === "text") {
+          this.setState({ tokenDockerhubTextType: "password", showDockerhubTokenText: "Show Token" });
+        } else {
+          this.setState({ tokenDockerhubTextType: "text", showDockerhubTokenText: "Hide Token" });
+        }
+        break;
     }
   };
 
@@ -450,7 +476,11 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                         : values.triggers.webhook.token}{" "}
                     </p>
                     <TooltipHover direction="top" content={this.state.showTokenText}>
-                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
+                      <button
+                        onClick={() => this.handleShowToken("webhook")}
+                        type="button"
+                        className={styles.showTextButton}
+                      >
                         <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
                       </button>
                     </TooltipHover>
@@ -511,12 +541,16 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   <p className={styles.webhookTokenLabel}>API Token</p>
                   <div className={styles.webhookWrapper}>
                     <p className={styles.webhookToken}>
-                      {this.state.tokenTextType === "password"
+                      {this.state.tokenDockerhubTextType === "password"
                         ? values.triggers.dockerhub.token.toString().replace(/./g, "*")
                         : values.triggers.dockerhub.token}{" "}
                     </p>
-                    <TooltipHover direction="top" content={this.state.showTokenText}>
-                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
+                    <TooltipHover direction="top" content={this.state.showDockerhubTokenText}>
+                      <button
+                        onClick={() => this.handleShowToken("dockerhub")}
+                        type="button"
+                        className={styles.showTextButton}
+                      >
                         <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
                       </button>
                     </TooltipHover>
@@ -573,12 +607,16 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   <p className={styles.webhookTokenLabel}>API Token</p>
                   <div className={styles.webhookWrapper}>
                     <p className={styles.webhookToken}>
-                      {this.state.tokenTextType === "password"
+                      {this.state.tokenSlackTextType === "password"
                         ? values.triggers.slack.token.toString().replace(/./g, "*")
                         : values.triggers.slack.token}{" "}
                     </p>
-                    <TooltipHover direction="top" content={this.state.showTokenText}>
-                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
+                    <TooltipHover direction="top" content={this.state.showSlackTokenText}>
+                      <button
+                        onClick={() => this.handleShowToken("slack")}
+                        type="button"
+                        className={styles.showTextButton}
+                      >
                         <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
                       </button>
                     </TooltipHover>
@@ -625,7 +663,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 <div className={styles.subscriptionContainer}>
                   <TextInput
                     id="triggers.custom.topic"
-                    label="Subject"
+                    label="Topic"
                     placeholder="Name"
                     value={values.triggers.custom.topic}
                     onBlur={handleBlur}
@@ -646,23 +684,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
               )}
             </div>
           </div>
-          {/*<hr className={styles.delimiter} />
-          <div className={styles.optionsContainer}>
-            <h1 className={styles.header}>Other Options</h1>
-            <h2 className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</h2>
-            <div className={styles.toggleContainer}>
-              <Toggle
-                id="enablePersistentStorage"
-                label="Enable Persistent Storage"
-                toggled={values.enablePersistentStorage}
-                onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enablePersistentStorage")}
-                tooltipContent="Persist workflow data between executions"
-                tooltipProps={{ direction: "top" }}
-                reversed
-              />
-            </div>
-          </div>
-            <hr className={styles.delimiter} />*/}
         </section>
         <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
