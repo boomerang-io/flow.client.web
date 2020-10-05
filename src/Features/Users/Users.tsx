@@ -7,7 +7,6 @@ import {
   DataTable,
   DataTableSkeleton,
   ErrorMessage,
-  Error404,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
@@ -17,6 +16,7 @@ import {
   Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import ChangeRole from "./ChangeRole";
+import EmptyState from "Components/EmptyState";
 import UserDetails from "./UserDetails";
 import debounce from "lodash/debounce";
 import moment from "moment";
@@ -288,6 +288,6 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
       </ComposedModal>
     </>
   ) : (
-    <Error404 message={null} title="No users found" header={null} />
+    <EmptyState />
   );
 };

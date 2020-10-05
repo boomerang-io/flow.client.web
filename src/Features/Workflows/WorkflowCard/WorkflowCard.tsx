@@ -107,7 +107,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
 
   const menuOptions = [
     {
-      itemText: "Edit Workflow",
+      itemText: "Edit",
       onClick: () => history.push(appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id })),
       primaryFocus: true,
     },
@@ -115,14 +115,13 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
       itemText: "View Activity",
       onClick: () => history.push(appLink.workflowActivity({ workflowId: workflow.id })),
     },
-
     {
-      itemText: "Export .json",
-      onClick: () => handleExportWorkflow(workflow),
+      itemText: "Update",
+      onClick: () => setIsUpdateWorkflowModalOpen(true),
     },
     {
-      itemText: "Update .json",
-      onClick: () => setIsUpdateWorkflowModalOpen(true),
+      itemText: "Export",
+      onClick: () => handleExportWorkflow(workflow),
     },
     {
       hasDivider: true,
@@ -276,7 +275,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
           }}
           title="Delete Workflow"
         >
-          Are you sure you want to delete this workflow? There's no going back from this Decision.
+          Are you sure you want to delete this workflow? There's no going back from this decision.
         </ConfirmModal>
       )}
     </div>

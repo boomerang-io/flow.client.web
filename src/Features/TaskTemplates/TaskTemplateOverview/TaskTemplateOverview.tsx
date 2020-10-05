@@ -7,28 +7,29 @@ import axios from "axios";
 import { useParams, useHistory, Prompt, matchPath } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import {
-  Tile,
   Button,
+  ConfirmModal,
   Error404,
   InlineNotification,
-  notify,
-  ToastNotification,
   Loading,
-  TooltipHover,
-  ConfirmModal,
+  notify,
+  Tile,
+  ToastNotification,
+  TooltipHover
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { formatErrorMessage } from "@boomerang-io/utils";
+import EmptyState from "Components/EmptyState";
 import EditTaskTemplateModal from "./EditTaskTemplateModal";
 import PreviewConfig from "./PreviewConfig";
 import TemplateConfigModal from "./TemplateConfigModal";
 import Header from "../Header";
+import { formatErrorMessage } from "@boomerang-io/utils";
 import { TaskTemplateStatus } from "Constants";
 import { TemplateRequestType, FieldTypes } from "../constants";
-import { Draggable16, TrashCan16, Archive16, Bee16, Recommend16, Identification16 } from "@carbon/icons-react";
 import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath, FeatureFlag } from "Config/appConfig";
+import { Draggable16, TrashCan16, Archive16, Bee16, Recommend16, Identification16 } from "@carbon/icons-react";
 import { DataDrivenInput } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
 
@@ -361,11 +362,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
 
   if (templateNotFound)
     return (
-      <Error404
-        header="Task Template not found"
-        title="Crikey. We can't find the template you are looking for."
-        message=""
-      />
+      <EmptyState title="Task Template not found" message="Crikey. We can't find the template you are looking for." />
     );
 
   return (

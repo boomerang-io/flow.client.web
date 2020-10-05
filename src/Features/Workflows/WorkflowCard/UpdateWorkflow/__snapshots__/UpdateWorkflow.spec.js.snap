@@ -33,7 +33,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
           <p
             class="bx--modal-header__heading bx--type-beta"
           >
-            Update .json file
+            Update Workflow
           </p>
           <button
             aria-label="Close"
@@ -64,7 +64,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
           <p
             class="bx--bmrg-modal-flow-form__title"
           >
-            Update a Workflow - Select the Workflow file you want to upload
+            Select the Workflow JSON file you want to update the current Workflow with. The Workflow id must match.
           </p>
           <div
             class="bx--modal-content"
