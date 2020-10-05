@@ -4,7 +4,6 @@ import matchSorter from "match-sorter";
 import { useMutation, queryCache } from "react-query";
 import {
   DataTable,
-  Error404,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
@@ -18,6 +17,7 @@ import CreateEditPropertiesModal from "./CreateEditPropertiesModal";
 import { stringToPassword } from "Utils/stringHelper";
 import { InputType } from "Constants";
 import { formatErrorMessage } from "@boomerang-io/utils";
+import EmptyState from "Components/EmptyState";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Property } from "Types";
 import { Checkmark32, Close32 } from "@carbon/icons-react";
@@ -213,32 +213,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
             />
           </>
         ) : (
-          <>
-            <DataTable
-              rows={newProperties}
-              headers={headers}
-              render={({ headers }: { headers: any }) => (
-                <TableContainer>
-                  <Table>
-                    <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header: any) => (
-                          <TableHeader
-                            key={header.key}
-                            id={header.key}
-                            className={`${styles.tableHeadHeader} ${styles[header.key]}`}
-                          >
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                  </Table>
-                </TableContainer>
-              )}
-            />
-            <Error404 header={null} title="No properties to be found" message={null} />
-          </>
+          <EmptyState title="Looks like there's nothing here" message="No results from that search, try again." />
         )}
       </div>
     </>
