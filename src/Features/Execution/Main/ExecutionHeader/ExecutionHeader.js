@@ -50,6 +50,7 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
                   <OutputPropertiesLog
                     flowTaskName={workflow.data.name}
                     flowTaskOutputs={workflowExecution.data.outputProperties}
+                    isOutput
                   />
                 </div>
               )}

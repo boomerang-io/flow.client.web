@@ -6,7 +6,7 @@ import { ModalBody, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-reac
 import PropertiesTable from "./PropertiesTable";
 import styles from "./outputPropertisLog.module.scss";
 
-function OutputPropertiesLog({ flowTaskName, flowTaskOutputs }) {
+function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }) {
   let arrayProps = [];
   Object.keys(flowTaskOutputs).forEach(
     (val, index) =>
@@ -39,7 +39,7 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs }) {
           <ModalBody>
             <Tabs>
               <Tab label="Table">
-                <PropertiesTable data={arrayProps} />
+                <PropertiesTable data={isOutput ? flowTaskOutputs : arrayProps} />
               </Tab>
               <Tab label="JSON">
                 <div className={styles.propertiesJson}>
