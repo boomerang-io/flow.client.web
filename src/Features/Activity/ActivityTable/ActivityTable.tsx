@@ -3,11 +3,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { settings } from "carbon-components";
 import { DataTableSkeleton, DataTable, Pagination } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Error404 } from "@boomerang-io/carbon-addons-boomerang-react";
 import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";
 import { getHumanizedDuration, isAccessibleEvent } from "@boomerang-io/utils";
+import EmptyState from "Components/EmptyState";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
 import styles from "./activityTable.module.scss";
 
@@ -219,11 +219,7 @@ function ActivityTable(props) {
                 </TableContainer>
               )}
             />
-            <Error404
-              message={"Execute some workflows or try changing the filters"}
-              title="No activity found"
-              header={null}
-            />
+            <EmptyState message={"Execute some workflows or try changing the filters"} title="No activity found" />
           </>
         )}
       </div>

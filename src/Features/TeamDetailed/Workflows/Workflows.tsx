@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {
-  Error404,
   Search,
   StructuredListWrapper,
   StructuredListHead,
@@ -9,7 +8,7 @@ import {
   StructuredListRow,
   StructuredListCell,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-
+import EmptyState from "Components/EmptyState";
 import ms from "match-sorter";
 import sortBy from "lodash/sortBy";
 import { appLink } from "Config/appConfig";
@@ -89,7 +88,7 @@ function Workflows({ team }: { team: FlowTeam }) {
           </StructuredListBody>
         </StructuredListWrapper>
       ) : (
-        <Error404 title="Nothing to see here" header={null} message={null} />
+        <EmptyState />
       )}
     </section>
   );
