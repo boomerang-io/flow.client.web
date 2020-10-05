@@ -2,10 +2,16 @@ import React from "react";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 import { render as rtlRender } from "@testing-library/react";
-import { ReactQueryConfigProvider } from "react-query";
+import { ReactQueryConfigProvider, setConsole } from "react-query";
 import { AppContextProvider } from "State/context";
 import { teams as teamsFixture, profile as userFixture } from "ApiServer/fixtures";
 import "@testing-library/jest-dom/extend-expect";
+
+setConsole({
+  log: () => {},
+  warn: () => {},
+  error: () => {},
+});
 
 function rtlRouterRender(
   ui,
