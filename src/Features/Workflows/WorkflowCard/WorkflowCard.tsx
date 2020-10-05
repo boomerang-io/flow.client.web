@@ -138,6 +138,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
 
   const hasReachedMonthlyRunLimit = quotas.maxWorkflowExecutionMonthly <= quotas.currentWorkflowExecutionMonthly;
 
+  const canRunManually = workflow?.triggers?.manual?.enable ?? false;
+
   return (
     <div className={styles.container}>
       <Link to={!isDeleting ? appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id }) : ""}>
@@ -177,7 +179,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
-                disabled={isDeleting || hasReachedMonthlyRunLimit}
+                disabled={isDeleting || hasReachedMonthlyRunLimit || !canRunManually}
                 iconDescription="Run Workflow"
                 renderIcon={Run20}
                 size="field"
@@ -209,7 +211,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
-                disabled={isDeleting || hasReachedMonthlyRunLimit}
+                disabled={isDeleting || hasReachedMonthlyRunLimit || !canRunManually}
                 iconDescription="Run Workflow"
                 renderIcon={Run20}
                 size="field"
