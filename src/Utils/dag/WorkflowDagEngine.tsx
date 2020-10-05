@@ -12,6 +12,7 @@ import TaskLinkFactory from "./taskLink/TaskLinkFactory";
 import TaskPortModel from "./taskPort/TaskPortModel";
 import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory";
 import ManualApprovalNodeFactory from "./manualApprovalNode/ManualApprovalNodeFactory";
+import SetPropertyNodeFactory from "./setPropertyNode/setPropertyNodeFactory";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 
 interface DagModel {
@@ -32,6 +33,7 @@ export default class WorkflowDagEngine {
     this.diagramEngine.registerNodeFactory(new SwitchNodeFactory());
     this.diagramEngine.registerNodeFactory(new ManualApprovalNodeFactory());
 
+    this.diagramEngine.registerNodeFactory(new SetPropertyNodeFactory());
     this.diagramEngine.mode = mode;
 
     //need to find a way to register port factory

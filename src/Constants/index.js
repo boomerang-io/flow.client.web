@@ -84,6 +84,7 @@ export const NodeType = {
   TemplateTask: "templateTask",
   StartEnd: "startend",
   Task: "task",
+  SetProperty: "setwfproperty",
 };
 
 export const QueryStatus = {

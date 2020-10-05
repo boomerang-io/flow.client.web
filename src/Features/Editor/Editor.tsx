@@ -20,6 +20,7 @@ import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
 import ManualApprovalNodeModel from "Utils/dag/manualApprovalNode/ManualApprovalNodeModel";
+import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
@@ -247,6 +248,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           break;
         case NodeType.Approval:
           node = new ManualApprovalNodeModel(nodeObj);
+          break;
+        case NodeType.SetProperty:
+          node = new SetPropertyNodeModel(nodeObj);
           break;
         default:
         // no-op
