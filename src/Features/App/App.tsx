@@ -126,11 +126,9 @@ export default function App() {
         .find((arr: any) => arr.name === settingsWorkersName)
         ?.config?.find((setting: { key: string }) => setting.key === "enable.tasks").value ?? false
     );
-    console.log("editVerifiedTasksEnabled");
 
-    console.log(editVerifiedTasksEnabled);
     return (
-      <FlagsProvider features={{ standalone: PRODUCT_STANDALONE, editVerifiedTasksEnabled }}>
+      <FlagsProvider features={{ standaloneModeEnabled: PRODUCT_STANDALONE, editVerifiedTasksEnabled }}>
         <Navbar
           handleOnTutorialClick={() => setIsTutorialActive(true)}
           navigationData={navigationQuery.data}
