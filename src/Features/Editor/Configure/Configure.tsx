@@ -409,6 +409,20 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   <ComposedModal
                     modalHeaderProps={{
                       title: "Build Webhook URL",
+                      subtitle: (
+                        <>
+                          <p>
+                            Build up a webhook URL for an external service to push events that map to this workflow.
+                          </p>
+                          <p style={{ marginTop: "0.5rem" }}>
+                            There are a veriety of different webhook types that provide additional functionality, for
+                            example the Slack type responds to the slack verification request.
+                            <a href="https://launch.boomerangplatform.net/docs/" style={{ marginLeft: "0.1rem" }}>
+                              Learn more here
+                            </a>
+                          </p>
+                        </>
+                      ),
                     }}
                     composedModalProps={{
                       containerClassName: styles.buildWebhookContainer,
