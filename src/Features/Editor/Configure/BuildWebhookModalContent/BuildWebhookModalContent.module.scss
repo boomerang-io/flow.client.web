@@ -4,6 +4,14 @@
   display: flex;
   margin-top: 1rem;
 
+  :global .bx--snippet--multi {
+    max-width: 95%;
+  }
+
+  :global .bx--copy-btn:hover {
+    background-color: #f2f4f8 !important;
+  }
+
   .actionButton {
     margin-left: 1rem;
     height: 1rem;
@@ -35,4 +43,24 @@
     width: 16rem;
     margin-bottom: 1rem;
   }
+}
+
+.sectionContainer {
+  margin-bottom: 1.5rem;
+}
+
+.sectionHeader {
+  margin-bottom: 0.5rem;
+  color: #4d5358;
+  font-size: 0.75rem;
+  letter-spacing: 0.00875rem;
+  line-height: 0.9375rem;
+}
+
+.sectionDetail {
+  color: #121619;
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.125rem;
+  padding-right: 20%;
 }
