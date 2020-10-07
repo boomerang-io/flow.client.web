@@ -19,8 +19,9 @@ import { QueryStatus } from "Constants";
 import { EventSchedule16, Save24 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
 import { WorkflowSummary } from "Types";
-import Token from "./Token";
+import BuildWebhookModalContent from "./BuildWebhookModalContent";
 import CreateToken from "./CreateToken";
+import Token from "./Token";
 import styles from "./configure.module.scss";
 
 interface FormProps {
@@ -403,6 +404,32 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   reversed
                 />
               </div>
+              {values.triggers.webhook.enable && (
+                <div className={styles.webhookContainer}>
+                  <ComposedModal
+                    modalHeaderProps={{
+                      title: "Build Webhook URL",
+                    }}
+                    composedModalProps={{
+                      containerClassName: styles.buildWebhookContainer,
+                      shouldCloseOnOverlayClick: true,
+                    }}
+                    modalTrigger={({ openModal }: { openModal: () => void }) => (
+                      <button className={styles.regenerateText} type="button" onClick={openModal}>
+                        <p>Build webhook URL</p>
+                      </button>
+                    )}
+                  >
+                    {({ closeModal }: { closeModal: () => void }) => (
+                      <BuildWebhookModalContent
+                        values={values}
+                        closeModal={closeModal}
+                        workflowId={this.props.summaryData.id}
+                      />
+                    )}
+                  </ComposedModal>
+                </div>
+              )}
             </div>
 
             <div className={styles.triggerSection}>
