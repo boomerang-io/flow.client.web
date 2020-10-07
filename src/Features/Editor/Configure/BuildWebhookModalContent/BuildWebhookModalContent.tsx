@@ -1,8 +1,8 @@
 //@ts-nocheck
 import React, { useState } from "react";
-import { Dropdown, ModalBody, ModalForm, TooltipIcon } from "@boomerang-io/carbon-addons-boomerang-react";
-import CopyToClipboard from "react-copy-to-clipboard";
-import { CopyFile16 } from "@carbon/icons-react";
+import { CodeSnippet, Dropdown, ModalBody, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import copy from "copy-to-clipboard";
+import { BASE_URL } from "Config/servicesConfig";
 import styles from "./BuildWebhookModalContent.module.scss";
 
 interface FormProps {
@@ -61,12 +61,10 @@ interface BuildWebhookModalContentProps {
 const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ workflowId, closeModal, values }) => {
   const [activeToken, setactiveToken] = useState(null);
   const [activeType, setActiveType] = useState({ label: "generic" });
-  const [copyTokenText, setCopyTokenText] = useState("Copy URL");
 
   const webhookURL = `/webhook?workflowId=${workflowId}&type=${activeType.label}&access_token=${activeToken?.token}`;
 
   const handleChangeToken = (token) => {
-    console.log(token);
     const tokenlabel = token.selectedItem?.label;
     const newSelectedToken = values.tokens.find((tok) => tok.label === tokenlabel);
     setactiveToken(newSelectedToken);
@@ -76,16 +74,6 @@ const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ wor
     const typeLabel = type.selectedItem?.label;
     const newSelectedType = webhookOptions.find((tok) => tok.label === typeLabel);
     setActiveType(newSelectedType);
-  };
-
-  const handleMouseClick = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    setCopyTokenText("Copied URL");
-  };
-
-  const handleMouseLeave = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    setCopyTokenText("Copy URL");
   };
 
   return (
@@ -113,22 +101,39 @@ const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ wor
             placeholder="Type"
           />
 
+          <section className={styles.sectionContainer}>
+            <span className={styles.sectionHeader}>Webhook Prefix</span>
+            <p className={styles.sectionDetail}> {`${BASE_URL}/listener/webhook`} </p>
+          </section>
+
+          <section className={styles.sectionContainer}>
+            <span className={styles.sectionHeader}>Token</span>
+            <p className={styles.sectionDetail}> {activeToken?.label ?? "---"} </p>
+          </section>
+
+          <section className={styles.sectionContainer}>
+            <span className={styles.sectionHeader}>Type</span>
+            <p className={styles.sectionDetail}> {activeType?.label ?? "---"} </p>
+          </section>
+
           {activeToken && activeType && (
-            <div className={styles.webhookurlContainer}>
-              <h3 className={styles.webhookURL}>{webhookURL}</h3>
-              <TooltipIcon direction="top" tooltipText={copyTokenText}>
-                <CopyToClipboard text={webhookURL}>
-                  <button
-                    className={styles.actionButton}
-                    onClick={handleMouseClick}
-                    onMouseLeave={handleMouseLeave}
-                    type="button"
-                  >
-                    <CopyFile16 fill={"#0072C3"} className={styles.actionIcon} alt="Copy URL" />
-                  </button>
-                </CopyToClipboard>
-              </TooltipIcon>
-            </div>
+            <>
+              <span className={styles.sectionHeader}>Webhook URL</span>
+              <div className={styles.webhookurlContainer}>
+                <CodeSnippet
+                  type="multi"
+                  copyButtonDescription="test"
+                  feedback="Copied to clipboard"
+                  onClick={() => copy(webhookURL)}
+                  light
+                >
+                  {`${BASE_URL}/
+                  listener/webhook?workflowId=${workflowId}
+                &type=${activeType.label}
+                &access_token=${encodeURI(activeToken?.token)}`}
+                </CodeSnippet>
+              </div>
+            </>
           )}
         </div>
       </ModalBody>
