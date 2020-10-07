@@ -87,26 +87,17 @@ const CreateTokenModalContent: React.FC<CreateTokenModalContentProps> = ({
   const [isError, setisError] = useState(false);
   const [isLoading, setisLoading] = useState(false);
 
-  const generateToken = (values: { label: string }) => {
+  const generateToken = async (values: { label: string }) => {
     setisLoading(true);
     axios
       .post(serviceUrl.postCreateWorkflowToken({ workflowId, label: encodeURI(values.label) }))
       .then((response) => {
         let newTokens = tokenData;
-        let tokenIndex = newTokens.findIndex((obj) => obj.label === values.label);
-
-        if (tokenIndex === -1) {
-          newTokens.push(response.data);
-        } else {
-          newTokens[tokenIndex].token = response.data.token;
-        }
-
+        newTokens.push({ token: response.data.token, label: values.label });
         formikPropsSetFieldValue(`tokens`, newTokens);
-
         setisLoading(false);
         setisError(false);
         closeModal();
-
         notify(<ToastNotification kind="success" title="Generate Token" subtitle={`Successfully generated token`} />);
       })
       .catch((err) => {
