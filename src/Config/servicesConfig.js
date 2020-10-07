@@ -66,8 +66,7 @@ export const serviceUrl = {
   patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
   postCreateWorkflow: () => `${BASE_URL}/workflow`,
   postCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/revision`,
-  postCreateWorkflowToken: ({ workflowId, tokenType }) =>
-    `${BASE_URL}/workflow/${workflowId}/trigger-token?type=${tokenType}`,
+  postCreateWorkflowToken: ({ workflowId, label }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
   postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
   postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,

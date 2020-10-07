@@ -9,12 +9,9 @@ import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
-import styles from "./ManualApprovalNodeDesigner.module.scss";
+import styles from "./WaitNodeDesigner.module.scss";
 
-const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigner({
-  diagramEngine,
-  node: designerNode,
-}) {
+const WaitNodeDesigner = React.memo(function WaitNodeDesigner({ diagramEngine, node: designerNode }) {
   const { revisionDispatch, revisionState, summaryData, taskTemplatesData } = useEditorContext();
 
   /**
@@ -144,4 +141,4 @@ const ManualApprovalNodeDesigner = React.memo(function ManualApprovalNodeDesigne
   return null;
 });
 
-export default ManualApprovalNodeDesigner;
+export default WaitNodeDesigner;
