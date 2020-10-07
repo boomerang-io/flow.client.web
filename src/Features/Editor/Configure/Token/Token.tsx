@@ -29,11 +29,11 @@ const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikProps
 
   const tokenToDisplay = isDisplayingPassword ? token.token : token.token.toString().replace(/./g, "*");
 
-  const deleteToken = () => {
+  const deleteToken = async () => {
     axios
       .delete(serviceUrl.postCreateWorkflowToken({ workflowId, label: encodeURI(token.label) }))
       .then(() => {
-        let newTokens = tokenData.filter((tok) => tok.label === token.label);
+        let newTokens = tokenData.filter((tok) => tok.label !== token.label);
 
         formikPropsSetFieldValue(`tokens`, newTokens);
 
