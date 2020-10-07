@@ -1,0 +1,55 @@
+@import "Styles/mixins";
+
+.detailedListContainer {
+  margin-bottom: 2rem;
+}
+
+.actionableNameContainer {
+  display: flex;
+  align-items: center;
+}
+
+.detailedListTitle {
+  color: var(--cds-icon-02);
+  font-size: 0.75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.detailedListDescription {
+  font-size: 0.875rem;
+}
+
+.teamEditIcon {
+  cursor: pointer;
+  height: 1rem;
+  margin-left: 1rem;
+  &:focus {
+    @include focus-outline();
+  }
+  path,
+  rect {
+    fill: var(--cds-interactive-01);
+  }
+}
+
+.actionContainer {
+  display: flex;
+
+  .actionButton {
+    margin-left: 1rem;
+  }
+
+  .actionIcon {
+    cursor: pointer;
+    height: 1rem;
+
+    &:focus {
+      @include focus-outline();
+    }
+    path,
+    rect {
+      fill: var(--cds-interactive-01);
+    }
+  }
+}

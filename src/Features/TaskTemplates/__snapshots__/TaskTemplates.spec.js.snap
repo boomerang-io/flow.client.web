@@ -30,7 +30,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             <p
               class="existingTasks"
             >
-              Existing Tasks (29)
+              Existing Tasks (30)
             </p>
             <button
               class="bx--btn bx--btn--field bx--btn--ghost"
@@ -153,7 +153,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
             <p
               class="info"
             >
-              Showing 29 tasks
+              Showing 30 tasks
             </p>
             <button
               class="expandCollapse"
@@ -1689,7 +1689,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                 aria-controls="accordion-item-8"
                 aria-expanded="false"
                 class="bx--accordion__heading"
-                title="Workflow (4)"
+                title="Workflow (5)"
                 type="button"
               >
                 <svg
@@ -1710,7 +1710,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                 <div
                   class="bx--accordion__title"
                 >
-                  Workflow (4)
+                  Workflow (5)
                 </div>
               </button>
               <div
@@ -1899,6 +1899,59 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                     >
                       <p>
                         Switch
+                      </p>
+                      <div
+                        class="iconContainer"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a
+                  class="bx--bmrg-feature-sidenav-link"
+                  href="/admin/task-templates/5f7dcf1ce1d3ce8d52ea45d4/1"
+                >
+                  <svg
+                    alt="Task node type power on/off"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    style="height: 1rem; width: 1rem;"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9	c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
+                    />
+                    <path
+                      d="M7.5 1H8.5V8H7.5z"
+                    />
+                  </svg>
+                  <div
+                    class="bx--bmrg-feature-sidenav-link-content"
+                  >
+                    <div
+                      class="task"
+                    >
+                      <p>
+                        Wait For Event
                       </p>
                       <div
                         class="iconContainer"

@@ -95,15 +95,13 @@ export interface WorkflowSummary {
       enable: boolean;
       token: string;
     };
-    dockerhub: {
-      enable: boolean;
-      token: string;
-    };
-    slack: {
-      enable: boolean;
-      token: string;
-    };
   };
+  tokens: [
+    {
+      token: string;
+      label: string;
+    }
+  ];
   flowTeamId: string;
   templateUpgradesAvailable: boolean;
 }
