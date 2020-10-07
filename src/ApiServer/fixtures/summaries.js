@@ -140,6 +140,16 @@ export default [
       webhook: { enable: false, token: "" },
       event: { enable: false, topic: "" },
     },
+    tokens: [
+      {
+        token: "9AC5B22ECBC5B6CC4F7CDA143BD372B9E8DB840795497F72F46A35C1CB20D22D",
+        label: "Dockerhub",
+      },
+      {
+        token: "D0620C75201487E7855263F8D4DE1D127AFFC8E97713BF10ED66FCFF6BF455F6",
+        label: "Slack",
+      },
+    ],
     enablePersistentStorage: true,
     enableACCIntegration: false,
     revisionCount: 2,

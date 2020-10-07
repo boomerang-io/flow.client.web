@@ -1685,4 +1685,36 @@ export default [
     currentVersion: 1,
     nodeType: "approval",
   },
+  {
+    id: "5f7dcf1ce1d3ce8d52ea45d4",
+    description: "Wait for event from an external system.",
+    lastModified: "2020-04-30T22:51:53.014+00:00",
+    name: "Wait For Event",
+    category: "workflow",
+    revisions: [
+      {
+        version: 1,
+        image: "",
+        command: null,
+        arguments: [],
+        config: [
+          {
+            placeholder: "",
+            readOnly: false,
+            description: "",
+            key: "topic",
+            label: "Topic",
+            type: "text",
+          },
+        ],
+        changelog: null,
+      },
+    ],
+    status: "active",
+    createdDate: "2020-01-09T00:01:00.000+00:00",
+    icon: "Power on/off",
+    verified: true,
+    currentVersion: 1,
+    nodeType: "eventwait",
+  },
 ];

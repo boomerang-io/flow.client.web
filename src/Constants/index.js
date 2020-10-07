@@ -85,6 +85,7 @@ export const NodeType = {
   StartEnd: "startend",
   Task: "task",
   SetProperty: "setwfproperty",
+  Wait: "eventwait",
 };
 
 export const QueryStatus = {

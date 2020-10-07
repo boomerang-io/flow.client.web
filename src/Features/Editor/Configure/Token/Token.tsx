@@ -1,0 +1,95 @@
+import React, { useState } from "react";
+import axios from "axios";
+import {
+  ConfirmModal,
+  notify,
+  ToastNotification,
+  TooltipHover,
+  TooltipIcon,
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import { serviceUrl } from "Config/servicesConfig";
+import { CopyFile16, TrashCan16, ViewFilled16 } from "@carbon/icons-react";
+import CopyToClipboard from "react-copy-to-clipboard";
+
+import styles from "./Token.module.scss";
+
+interface TokenProps {
+  token: {
+    token: string;
+    label: string;
+  };
+  tokenData: [TokenProps["token"]];
+  workflowId: string;
+  formikPropsSetFieldValue: Function;
+}
+
+const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikPropsSetFieldValue }) => {
+  const [isDisplayingPassword, setIsDisplayingPassword] = useState(false);
+  const [copyTokenText, setCopyTokenText] = useState("Copy Token");
+
+  const tokenToDisplay = isDisplayingPassword ? token.token : token.token.toString().replace(/./g, "*");
+
+  const deleteToken = (label: string) => {
+    axios
+      .post(serviceUrl.postCreateWorkflowToken({ workflowId, label: encodeURI(label) }))
+      .then(() => {
+        let newTokens = tokenData.filter((tok) => tok.label === label);
+
+        formikPropsSetFieldValue(`tokens`, newTokens);
+
+        notify(<ToastNotification kind="success" title="Delete Token" subtitle={`Successfully deleted token`} />);
+      })
+      .catch(() => {
+        notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to delete token`} />);
+      });
+  };
+
+  return (
+    <dl className={styles.detailedListContainer}>
+      <dt className={styles.detailedListTitle}>{tokenToDisplay}</dt>
+      <dd className={styles.actionableNameContainer}>
+        <span className={styles.detailedListDescription}>{token.label}</span>
+        <div className={styles.actionContainer}>
+          <TooltipHover direction="top" content={isDisplayingPassword ? "Hide Token" : "Show Token"}>
+            <button
+              className={styles.actionButton}
+              onClick={() => setIsDisplayingPassword(!isDisplayingPassword)}
+              type="button"
+            >
+              <ViewFilled16 fill={"#0072C3"} className={styles.actionIcon} alt="Show/Hide token" />
+            </button>
+          </TooltipHover>
+          <TooltipIcon direction="top" tooltipText={copyTokenText}>
+            <CopyToClipboard text={token.token}>
+              <button
+                className={styles.actionButton}
+                onClick={() => setCopyTokenText("Copied Token")}
+                onMouseLeave={() => setCopyTokenText("Copy Token")}
+                type="button"
+              >
+                <CopyFile16 fill={"#0072C3"} className={styles.actionIcon} alt="Copy token" />
+              </button>
+            </CopyToClipboard>
+          </TooltipIcon>
+          <div>
+            <ConfirmModal
+              affirmativeAction={deleteToken}
+              children="The existing token will be invalidated."
+              title="Delete a Webhook Token?"
+              affirmativeButtonProps={{ kind: "danger" }}
+              affirmativeText="Delete"
+              negativeText="Cancel"
+              modalTrigger={({ openModal }: { openModal: () => void }) => (
+                <button className={styles.actionButton} type="button" onClick={openModal}>
+                  <TrashCan16 fill={"#0072C3"} className={styles.actionIcon} alt="Regenerate token" />
+                </button>
+              )}
+            />
+          </div>
+        </div>
+      </dd>
+    </dl>
+  );
+};
+
+export default Token;
