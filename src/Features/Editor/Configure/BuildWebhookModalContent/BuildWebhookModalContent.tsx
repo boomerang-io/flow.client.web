@@ -108,7 +108,7 @@ const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ wor
 
           <section className={styles.sectionContainer}>
             <span className={styles.sectionHeader}>Token</span>
-            <p className={styles.sectionDetail}> {activeToken?.label ?? "---"} </p>
+            <p className={styles.sectionDetail}> {activeToken?.token ?? "---"} </p>
           </section>
 
           <section className={styles.sectionContainer}>
