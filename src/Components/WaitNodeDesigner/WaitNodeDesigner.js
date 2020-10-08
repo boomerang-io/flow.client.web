@@ -9,6 +9,7 @@ import WorkflowEditButton from "Components/WorkflowEditButton";
 import WorkflowWarningButton from "Components/WorkflowWarningButton";
 import WorkflowNode from "Components/WorkflowNode";
 import WorkflowTaskForm from "Components/WorkflowTaskForm";
+import { BASE_DOCUMENTATION_URL } from "Config/appConfig";
 import styles from "./WaitNodeDesigner.module.scss";
 
 const WaitNodeDesigner = React.memo(function WaitNodeDesigner({ diagramEngine, node: designerNode }) {
@@ -65,7 +66,14 @@ const WaitNodeDesigner = React.memo(function WaitNodeDesigner({ diagramEngine, n
         }}
         modalHeaderProps={{
           title: `Edit ${task?.name}`,
-          subtitle: task?.description || "Configure the inputs",
+          subtitle: (
+            <>
+              <p>{task?.description || "Configure the inputs"}</p>
+              <a href={`${BASE_DOCUMENTATION_URL}/introduction/overview`} style={{ marginTop: "0.5rem" }}>
+                Learn more here
+              </a>
+            </>
+          ),
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >
