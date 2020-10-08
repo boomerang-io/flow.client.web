@@ -64,6 +64,7 @@ const SwitchNodeDesigner = React.memo(function SwitchNodeDesigner({ diagramEngin
         }}
         modalHeaderProps={{
           title: task?.name,
+          subtitle: task?.description || "Configure the inputs",
         }}
         modalTrigger={({ openModal }) => <WorkflowEditButton className={styles.editButton} onClick={openModal} />}
       >

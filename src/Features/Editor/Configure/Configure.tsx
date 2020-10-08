@@ -14,7 +14,7 @@ import cx from "classnames";
 import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";
 import * as Yup from "yup";
-import { appLink } from "Config/appConfig";
+import { appLink, BASE_DOCUMENTATION_URL } from "Config/appConfig";
 import { QueryStatus } from "Constants";
 import { EventSchedule16, Save24 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
@@ -415,9 +415,12 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                             Build up a webhook URL for an external service to push events that map to this workflow.
                           </p>
                           <p style={{ marginTop: "0.5rem" }}>
-                            There are a veriety of different webhook types that provide additional functionality, for
+                            There are a variety of different webhook types that provide additional functionality, for
                             example the Slack type responds to the slack verification request.
-                            <a href="https://launch.boomerangplatform.net/docs/" style={{ marginLeft: "0.1rem" }}>
+                            <a
+                              href={`${BASE_DOCUMENTATION_URL}/introduction/overview`}
+                              style={{ marginLeft: "0.1rem" }}
+                            >
                               Learn more here
                             </a>
                           </p>
