@@ -68,10 +68,16 @@ const WaitNodeDesigner = React.memo(function WaitNodeDesigner({ diagramEngine, n
           title: `Edit ${task?.name}`,
           subtitle: (
             <>
-              <p>{task?.description || "Configure the inputs"}</p>
-              <a href={`${BASE_DOCUMENTATION_URL}/introduction/overview`} style={{ marginTop: "0.5rem" }}>
-                Learn more here
-              </a>
+              <p>
+                {task?.description || "Configure the inputs"}
+                <a
+                  href={`${BASE_DOCUMENTATION_URL}/architecture/eventing-architecture`}
+                  style={{ marginLeft: "0.2rem", marginRight: "0.2rem" }}
+                >
+                  View Wait for Event documentation
+                </a>
+                to learn more.
+              </p>
             </>
           ),
         }}

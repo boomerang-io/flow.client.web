@@ -10,7 +10,6 @@ import TaskApprovalModal from "./TaskApprovalModal";
 import styles from "./taskItem.module.scss";
 //only want to display logs for custom and task templates
 const logTaskTypes = ["custom", "template"];
-// const eventTaskType = "eventwait";
 
 TaskItem.propTypes = {
   flowActivityId: PropTypes.string.isRequired,
@@ -120,46 +119,6 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
               )}
             </ComposedModal>
           )}
-          {/*taskType === eventTaskType && (
-            <ComposedModal
-              composedModalProps={{
-                containerClassName: styles.approvalResultsModalContainer,
-                shouldCloseOnOverlayClick: true,
-              }}
-              modalHeaderProps={{
-                title: "Build wait for event url",
-                subtitle:
-                  "In order to wakeup your workflow and continue execution, you must provide an external event.",
-              }}
-              modalTrigger={({ openModal }) => (
-                <button className={styles.viewApprovalTrigger} onClick={openModal}>
-                  build wait url
-                </button>
-              )}
-            >
-              {() => (
-                ///webhook/wfe?workflowId={workflowId}&access_token={access_token}&topic={topic}&workflowActivityId={workflowActivityId
-                <ModalBody>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Workflow ID</span>
-                    <p className={styles.sectionDetail}>{approval.status}</p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Access Token</span>
-                    <p className={styles.sectionDetail}>retrieve from Workflow Configuration</p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approval submitted</span>
-                    <p className={styles.sectionDetail}>{moment(approval.audit.actionDate).format("DD-MM-YY")}</p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approval comments</span>
-                    <p className={styles.sectionDetail}>{approval.audit.comments}</p>
-                  </section>
-                </ModalBody>
-              )}
-            </ComposedModal>
-              )*/}
         </section>
       )}
     </li>

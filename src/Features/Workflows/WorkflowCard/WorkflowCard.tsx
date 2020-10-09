@@ -18,6 +18,7 @@ import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
 import fileDownload from "js-file-download";
+import { formatErrorMessage } from "@boomerang-io/utils";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
@@ -40,6 +41,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
 
   const history = useHistory();
+  const [errorMessage, seterrorMessage] = useState(null);
 
   const [deleteWorkflowMutator, { isLoading: isDeleting }] = useMutation(resolver.deleteWorkflow, {
     onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
@@ -100,7 +102,13 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
       } else {
         closeModal();
       }
-    } catch {
+    } catch (err) {
+      seterrorMessage(
+        formatErrorMessage({
+          error: err,
+          defaultMessage: "Run Workflow Failed",
+        })
+      );
       //no-op
     }
   };
@@ -227,6 +235,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
                 executeError={executeError}
                 executeWorkflow={handleExecuteWorkflow}
                 isExecuting={isExecuting}
+                errorMessage={errorMessage}
               />
             )}
           </ComposedModal>
