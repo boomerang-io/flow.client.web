@@ -104,6 +104,7 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
             <WorkflowPropertyHeader label={property.label} description={property.description} />
             <WorkflowPropertyRow title="Key" value={property.key} />
             <WorkflowPropertyRow title="Type" value={property.type} />
+            <WorkflowPropertyRow title="Event Payload JsonPath" value={property.jsonPath ?? "---"} />
             <WorkflowPropertyRow title="Default value" value={formatDefaultValue(property.defaultValue)} />
             <WorkflowPropertyRow
               title="Options"

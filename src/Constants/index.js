@@ -48,6 +48,7 @@ export const InputProperty = {
   ReadOnly: "readOnly",
   Required: "required",
   Type: "type",
+  JsonPath: "jsonPath",
 };
 
 export const InputType = {
