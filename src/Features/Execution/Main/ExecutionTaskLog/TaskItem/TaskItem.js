@@ -10,7 +10,7 @@ import TaskApprovalModal from "./TaskApprovalModal";
 import styles from "./taskItem.module.scss";
 //only want to display logs for custom and task templates
 const logTaskTypes = ["custom", "template"];
-const eventTaskType = "eventwait";
+// const eventTaskType = "eventwait";
 
 TaskItem.propTypes = {
   flowActivityId: PropTypes.string.isRequired,
