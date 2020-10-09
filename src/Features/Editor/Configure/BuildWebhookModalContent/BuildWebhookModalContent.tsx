@@ -59,7 +59,7 @@ interface BuildWebhookModalContentProps {
 }
 
 const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ workflowId, closeModal, values }) => {
-  const [activeToken, setactiveToken] = useState(null);
+  const [activeToken, setactiveToken] = useState(values.tokens.length > 0 ? values.tokens[0] : null);
   const [activeType, setActiveType] = useState({ label: "generic" });
 
   const webhookURL = `/webhook?workflowId=${workflowId}&type=${activeType.label}&access_token=${activeToken?.token}`;
