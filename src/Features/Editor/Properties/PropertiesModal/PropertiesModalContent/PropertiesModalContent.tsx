@@ -295,7 +295,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                   id={InputProperty.Description}
                   invalid={errors.description && touched.description}
                   invalidText={errors.description}
-                  labelText="Description"
+                  labelText="Description (optional)"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.description}
@@ -304,7 +304,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                   id={InputProperty.JsonPath}
                   invalid={errors.jsonPath && touched.jsonPath}
                   invalidText={errors.jsonPath}
-                  labelText="Event Payload JsonPath"
+                  labelText="Event Payload JsonPath (optional)"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.jsonPath}
