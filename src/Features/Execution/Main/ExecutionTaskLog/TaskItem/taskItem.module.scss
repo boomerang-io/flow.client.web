@@ -10,7 +10,8 @@
   }
 
   &.waiting {
-    border-top: 0.25rem solid var(--cds-support-03);
+    // border-top: 0.25rem solid var(--cds-support-03);
+    border-top: 0.25rem solid var(--flow-wait);
   }
 
   &.failure {
@@ -109,9 +110,12 @@
   }
 
   &.waiting {
-    color: var(--cds-support-03);
+    // color: var(--cds-support-03);
+    color: var(--flow-wait);
+
     svg {
-      fill: var(--cds-support-03);
+      // fill: var(--cds-support-03);
+      fill: var(--flow-wait);
     }
   }
 
@@ -187,7 +191,8 @@
 }
 
 .actionApprovalTrigger {
-  color: var(--cds-support-03);
+  // color: var(--cds-support-03);
+  color: var(--flow-wait);
   cursor: pointer;
   font-size: 0.875rem;
   line-height: 1.125rem;

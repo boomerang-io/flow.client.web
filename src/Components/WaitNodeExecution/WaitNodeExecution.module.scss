@@ -86,6 +86,11 @@
   border-color: var(--cds-support-02) !important;
 }
 
+.waiting {
+  border: 0.1875rem solid var(--flow-wait);
+  border-color: var(--flow-wait) !important;
+}
+
 .notstarted,
 .invalid,
 .skipped {
