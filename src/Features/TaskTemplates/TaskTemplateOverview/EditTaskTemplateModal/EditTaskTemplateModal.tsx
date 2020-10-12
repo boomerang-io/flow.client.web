@@ -7,6 +7,7 @@ import { Edit16 } from "@carbon/icons-react";
 import styles from "./editTaskTemplateModal.module.scss";
 
 EditTaskTemplateModal.propTypes = {
+  canEdit: PropTypes.bool,
   isActive: PropTypes.bool,
   nodeType: PropTypes.string.isRequired,
   isOldVersion: PropTypes.bool,
@@ -15,7 +16,7 @@ EditTaskTemplateModal.propTypes = {
   values: PropTypes.object.isRequired,
 };
 
-function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue, taskTemplates, values }) {
+function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue, taskTemplates, values, canEdit }) {
   const handleEditTaskTemplateModal = async ({ newValues }) => {
     setFieldValue("name", newValues.name);
     setFieldValue("description", newValues.description);
@@ -36,7 +37,7 @@ function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue
         <Button
           renderIcon={Edit16}
           iconDescription="edit-template"
-          disabled={isOldVersion || !isActive}
+          disabled={isOldVersion || !isActive || !canEdit}
           kind="ghost"
           size="field"
           onClick={openModal}

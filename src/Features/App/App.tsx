@@ -14,6 +14,7 @@ import { detect } from "detect-browser";
 import { UserType } from "Constants";
 import { AppPath, PRODUCT_STANDALONE } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import { stringToBooleanHelper } from "Utils/stringHelper";
 import { FlowTeam, FlowUser } from "Types";
 import styles from "./app.module.scss";
 
@@ -34,9 +35,11 @@ const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Feature
 const getUserUrl = serviceUrl.getUserProfile();
 const getNavigationUrl = serviceUrl.getNavigation();
 const getTeamsUrl = serviceUrl.getTeams();
+const platformSettingsUrl = serviceUrl.resourceSettings();
 const browser = detect();
 const allowedUserRoles = [UserType.Admin, UserType.Operator];
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
+const settingsWorkersName = "Workers";
 
 export default function App() {
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
@@ -82,9 +85,17 @@ export default function App() {
     },
   });
 
-  const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading;
-  const hasError = userQuery.isError || navigationQuery.isError || teamsQuery.isError;
-  const hasData = userQuery.data && navigationQuery.data && teamsQuery.data;
+  const settingsQuery = useQuery({
+    queryKey: platformSettingsUrl,
+    queryFn: resolver.query(platformSettingsUrl),
+    config: {
+      enabled: Boolean(userQuery.data?.id),
+    },
+  });
+
+  const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading || settingsQuery.isLoading;
+  const hasError = userQuery.isError || navigationQuery.isError || teamsQuery.isError || settingsQuery.isError;
+  const hasData = userQuery.data && navigationQuery.data && teamsQuery.data && settingsQuery.data;
 
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
@@ -108,10 +119,16 @@ export default function App() {
       </Suspense>
     );
   }
-      
+
   if (hasData) {
+    const editVerifiedTasksEnabled = stringToBooleanHelper(
+      settingsQuery.data
+        .find((arr: any) => arr.name === settingsWorkersName)
+        ?.config?.find((setting: { key: string }) => setting.key === "enable.tasks").value ?? false
+    );
+
     return (
-      <FlagsProvider features={{ standalone: PRODUCT_STANDALONE }}>
+      <FlagsProvider features={{ standaloneModeEnabled: PRODUCT_STANDALONE, editVerifiedTasksEnabled }}>
         <Navbar
           handleOnTutorialClick={() => setIsTutorialActive(true)}
           navigationData={navigationQuery.data}

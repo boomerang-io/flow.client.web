@@ -188,7 +188,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 class="bx--bmrg-text-input__label"
               >
                 <div>
-                  Description
+                  Description (optional)
                 </div>
               </div>
             </label>
@@ -200,6 +200,43 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                 id="description"
                 type="text"
                 value="Tim property"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="jsonPath"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Event Payload JsonPath (optional)
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--form__helper-text"
+            >
+              Retrieves value matching dot notation path in the event payload
+            </div>
+            <div
+              class="bx--text-input__field-wrapper"
+            >
+              <input
+                class="bx--text-input bx--text__input"
+                id="jsonPath"
+                placeholder="e.g. $.repository.image[2]"
+                title="e.g. $.repository.image[2]"
+                type="text"
+                value=""
               />
             </div>
           </div>

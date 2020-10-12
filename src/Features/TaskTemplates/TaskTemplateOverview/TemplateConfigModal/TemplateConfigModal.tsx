@@ -4,7 +4,7 @@ import TemplateConfigModalContent from "./TemplateConfigModalContent";
 import { Add16, Edit16 } from "@carbon/icons-react";
 import { ComposedModalChildProps, DataDrivenInput, ModalTriggerProps } from "Types";
 
-interface TemplateConfigModal {
+interface TemplateConfigModalProps {
   field: DataDrivenInput;
   fieldKeys: string[];
   isActive: boolean;
@@ -12,15 +12,16 @@ interface TemplateConfigModal {
   isOldVersion: boolean;
   setFieldValue: (key: string, value: any) => void;
   templateFields: DataDrivenInput[];
+  canEdit: boolean;
 }
 
-const TemplateConfigModal: React.FC<TemplateConfigModal> = (props) => {
-  const { isEdit, isOldVersion, isActive } = props;
+const TemplateConfigModal: React.FC<TemplateConfigModalProps> = (props) => {
+  const { isEdit, isOldVersion, isActive, canEdit } = props;
   const editTrigger = ({ openModal }: ModalTriggerProps) => {
     return isEdit ? (
       <TooltipHover direction="bottom" tooltipText={"Edit field"}>
         <Button
-          disabled={isOldVersion || !isActive}
+          disabled={isOldVersion || !isActive || !canEdit}
           iconDescription="Edit field"
           kind="ghost"
           onClick={openModal}
@@ -31,7 +32,7 @@ const TemplateConfigModal: React.FC<TemplateConfigModal> = (props) => {
     ) : (
       <TooltipHover direction="top" tooltipText={"Add a new field for this task"}>
         <Button
-          disabled={isOldVersion || !isActive}
+          disabled={isOldVersion || !isActive || !canEdit}
           iconDescription="Add field"
           kind="ghost"
           onClick={openModal}
