@@ -1,9 +1,8 @@
 import React from "react";
-import { useQuery, useMutation } from "react-query";
+import { useQuery, useMutation, queryCache } from "react-query";
 import { Box } from "reflexbox";
 import {
   Accordion,
-  Error404,
   ErrorMessage,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
@@ -14,6 +13,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import SettingsSection from "./SettingsSection";
 import sortBy from "lodash/sortBy";
+import EmptyState from "Components/EmptyState";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { DataDrivenInput } from "Types";
 import styles from "./settings.module.scss";
@@ -52,7 +52,9 @@ const Settings: React.FC = () => {
     queryFn: resolver.query(platformSettingsUrl),
   });
 
-  const [updateSettingMutator] = useMutation(resolver.putPlatformSettings);
+  const [updateSettingMutator] = useMutation(resolver.putPlatformSettings, {
+    onSuccess: () => queryCache.invalidateQueries(platformSettingsUrl),
+  });
 
   const handleOnSave = async (
     values: { [key: string]: any },
@@ -96,7 +98,7 @@ const Settings: React.FC = () => {
   return (
     <FeatureLayout>
       {!sortedPlatformSettings.length ? (
-        <Error404 header={null} title="No settings found" message={null} />
+        <EmptyState />
       ) : (
         <Accordion>
           {sortedPlatformSettings.map((settingsGroup, index) => (

@@ -2,19 +2,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import {
-  Tile,
-  Button,
-  Error404,
-  TooltipHover,
-  Loading,
-  ComposedModal,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Tile, Button, TooltipHover, Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ComposedModalChildProps, ModalTriggerProps, FlowTeamQuotas } from "Types";
 import { Edit16 } from "@carbon/icons-react";
 import ProgressBar from "Components/ProgressBar";
 import Header from "../Header";
 import QuotaEditModalContent from "./QuotaEditModalContent";
+import EmptyState from "Components/EmptyState";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import styles from "./TeamQuotasOverview.module.scss";
 
@@ -35,8 +29,7 @@ export function TeamQuotasOverview({ teams }) {
 
   const teamData = teams.find((team) => team.id === teamId);
 
-  if (error)
-    return <Error404 header="Team not found" title="Crikey. We can't find the team you are looking for." message="" />;
+  if (error) return <EmptyState title="Team not found" message="Crikey. We can't find the team you are looking for." />;
 
   if (isLoading) {
     return <Loading />;

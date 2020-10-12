@@ -38,7 +38,7 @@ const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onC
         containerClassName: styles.container,
       }}
       modalHeaderProps={{
-        title: "Update .json file",
+        title: "Update Workflow",
       }}
       onCloseModal={onCloseModal}
     >
@@ -46,7 +46,7 @@ const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onC
         confirmButtonText={isPosting ? "Updating..." : "Update"}
         handleImportWorkflow={handleImportWorkflow}
         isLoading={isPosting}
-        title="Update a Workflow - Select the Workflow file you want to upload"
+        title="Select the Workflow JSON file you want to update the current Workflow with. The Workflow id must match."
         workflowId={workflowId}
       />
     </ModalFlow>

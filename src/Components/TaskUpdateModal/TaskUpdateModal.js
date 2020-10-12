@@ -5,12 +5,12 @@ import {
   Button,
   DataDrivenInput,
   DynamicFormik,
-  Error404,
   ModalForm,
   ModalBody,
   ModalFooter,
   //TextInput,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import EmptyState from "Components/EmptyState";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import { WarningFilled16, WarningAlt16 } from "@carbon/icons-react";
@@ -116,8 +116,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
   if (!currentTaskTemplateVersion?.config || !newTaskTemplateVersion?.config) {
     return (
       <ModalForm>
-        <Error404
-          header={null}
+        <EmptyState
           title="Something's off here"
           message="We couldn't find ones of the tasks needed for the upgrade. Please contact support for assistance upgrading."
         />
