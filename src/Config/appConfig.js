@@ -73,5 +73,6 @@ export const appLink = {
 export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true };
 
 export const FeatureFlag = {
-  Standalone: "standalone",
+  StandaloneModeEnabled: "standaloneModeEnabled",
+  EditVerifiedTasksEnabled: "editVerifiedTasksEnabled",
 };
