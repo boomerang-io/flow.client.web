@@ -11,9 +11,10 @@ interface VersionSwitcherProps {
   };
   revisionCount: number;
   revisions: any;
+  canEdit: boolean;
 }
 
-const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRevision, revisionCount }) => {
+const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRevision, revisionCount, canEdit }) => {
   const history = useHistory();
   const params: { id: string } = useParams();
   const backVersion = () => {
