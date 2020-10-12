@@ -28,9 +28,9 @@ describe("Settings --- RTL", () => {
   test("Loads and opens section", async () => {
     rtlContextRouterRender(<Settings />);
     expect(screen.getByRole("heading", { name: /^Settings$/i })).toBeInTheDocument();
-    const section = await screen.findByRole("heading", { name: "Slack" });
+    const section = await screen.findByRole("heading", { name: "Workers" });
     fireEvent.click(section);
-    expect(screen.getByLabelText(/^Platform Users Channel$/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^Enable Debug$/i)).toBeInTheDocument();
   });
 });
 describe("Settings --- RTL", () => {

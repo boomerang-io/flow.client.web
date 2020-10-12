@@ -144,7 +144,7 @@ interface NavbarContainerProps {
 }
 
 export default function NavbarContainer({ handleOnTutorialClick, navigationData, userData }: NavbarContainerProps) {
-  const isStandaAloneMode = useFeature(FeatureFlag.Standalone);
+  const isStandaAloneMode = useFeature(FeatureFlag.StandaloneModeEnabled);
   const defaultUIShellProps = {
     baseLaunchEnvUrl: isStandaAloneMode ? null : CORE_ENV_URL,
     baseServiceUrl: isStandaAloneMode ? null : BASE_CORE_URL,
