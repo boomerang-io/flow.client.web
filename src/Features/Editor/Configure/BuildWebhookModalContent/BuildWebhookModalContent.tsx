@@ -62,7 +62,9 @@ const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ wor
   const [activeToken, setactiveToken] = useState(values.tokens.length > 0 ? values.tokens[0] : null);
   const [activeType, setActiveType] = useState({ label: "generic" });
 
-  const webhookURL = `/webhook?workflowId=${workflowId}&type=${activeType.label}&access_token=${activeToken?.token}`;
+  const webhookURL = `${BASE_URL}/listener/webhook?workflowId=${workflowId}&type=${
+    activeType.label
+  }&access_token=${encodeURI(activeToken?.token)}`;
 
   const handleChangeToken = (token) => {
     const tokenlabel = token.selectedItem?.label;
@@ -128,9 +130,9 @@ const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ wor
                   light
                 >
                   {`${BASE_URL}/
-                  listener/webhook?workflowId=${workflowId}
-                &type=${activeType.label}
-                &access_token=${encodeURI(activeToken?.token)}`}
+          listener/webhook?workflowId=${workflowId}
+          &type=${activeType.label}
+          &access_token=${encodeURI(activeToken?.token)}`}
                 </CodeSnippet>
               </div>
             </>
