@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import {
-  ConfirmModal,
-  notify,
-  ToastNotification,
-  TooltipHover,
-  TooltipIcon,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { ConfirmModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl } from "Config/servicesConfig";
 import { CopyFile16, TrashCan16, ViewFilled16 } from "@carbon/icons-react";
 import CopyToClipboard from "react-copy-to-clipboard";
-
+import { ModalTriggerProps } from "Types";
 import styles from "./Token.module.scss";
 
 interface TokenProps {
@@ -59,30 +53,34 @@ const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikProps
               <ViewFilled16 fill={"#0072C3"} className={styles.actionIcon} alt="Show/Hide token" />
             </button>
           </TooltipHover>
-          <TooltipIcon direction="top" tooltipText={copyTokenText}>
-            <CopyToClipboard text={token.token}>
-              <button
-                className={styles.actionButton}
-                onClick={() => setCopyTokenText("Copied Token")}
-                onMouseLeave={() => setCopyTokenText("Copy Token")}
-                type="button"
-              >
-                <CopyFile16 fill={"#0072C3"} className={styles.actionIcon} alt="Copy token" />
-              </button>
-            </CopyToClipboard>
-          </TooltipIcon>
+          <TooltipHover direction="top" content={copyTokenText}>
+            <div>
+              <CopyToClipboard text={token.token}>
+                <button
+                  className={styles.actionButton}
+                  onClick={() => setCopyTokenText("Copied Token")}
+                  onMouseLeave={() => setCopyTokenText("Copy Token")}
+                  type="button"
+                >
+                  <CopyFile16 fill={"#0072C3"} className={styles.actionIcon} alt="Copy token" />
+                </button>
+              </CopyToClipboard>
+            </div>
+          </TooltipHover>
           <div>
             <ConfirmModal
               affirmativeAction={deleteToken}
-              children="The existing token will be invalidated."
-              title="Delete a Webhook Token?"
+              children="The token will be invalidated"
+              title="Delete token"
               affirmativeButtonProps={{ kind: "danger" }}
               affirmativeText="Delete"
               negativeText="Cancel"
-              modalTrigger={({ openModal }: { openModal: () => void }) => (
-                <button className={styles.actionButton} type="button" onClick={openModal}>
-                  <TrashCan16 fill={"#0072C3"} className={styles.actionIcon} alt="Regenerate token" />
-                </button>
+              modalTrigger={({ openModal }: ModalTriggerProps) => (
+                <TooltipHover direction="top" content={"Delete"}>
+                  <button className={styles.actionButton} type="button" onClick={openModal}>
+                    <TrashCan16 fill={"#da1e28"} className={styles.actionIcon} alt="Delete token" />
+                  </button>
+                </TooltipHover>
               )}
             />
           </div>

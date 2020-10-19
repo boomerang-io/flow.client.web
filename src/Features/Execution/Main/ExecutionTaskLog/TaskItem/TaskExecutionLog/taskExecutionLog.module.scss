@@ -1,15 +1,7 @@
 @import "Styles/mixins";
 
 .trigger {
-  color: var(--cds-interactive-01);
-  cursor: pointer;
-  font-size: 0.875rem;
-  line-height: 1.125rem;
-  margin-right: 1.5rem;
-
-  &:focus {
-    @include focus-outline();
-  }
+  margin-left: -0.75rem;
 }
 
 .container {

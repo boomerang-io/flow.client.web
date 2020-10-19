@@ -432,9 +432,10 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                 <p className={styles.description}>Build the definition requirements for this task.</p>
                 {!canEdit && (
                   <InlineNotification
+                    lowContrast
                     kind="info"
                     title="Verified tasks are not editable"
-                    subtitle="Admins can adjust this configuration in global settings"
+                    subtitle="Admins can adjust this in global settings"
                   />
                 )}
                 <ConfirmModal

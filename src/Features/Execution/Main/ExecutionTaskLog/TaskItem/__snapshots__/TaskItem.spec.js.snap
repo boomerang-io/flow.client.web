@@ -106,7 +106,9 @@ exports[`TaskItem --- Snapshot Capturing Snapshot of TaskItem 1`] = `
         class="data"
       >
         <button
-          class="trigger"
+          class="bx--btn bx--btn--sm bx--btn--ghost"
+          tabindex="0"
+          type="button"
         >
           View Properties
         </button>

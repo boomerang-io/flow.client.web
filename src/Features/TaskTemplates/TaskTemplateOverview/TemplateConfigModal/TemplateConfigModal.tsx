@@ -51,7 +51,6 @@ const TemplateConfigModal: React.FC<TemplateConfigModalProps> = (props) => {
         title: "Are you sure?",
         children: "Your field will not be saved",
       }}
-      composedModalProps={{ shouldCloseOnOverlayClick: false }}
       modalHeaderProps={{
         title: isEdit ? "Edit field" : "Create field",
       }}

@@ -48,9 +48,9 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
               Object.keys(workflowExecution.data.outputProperties).length > 0 && (
                 <div className={styles.workflowOutputLog}>
                   <OutputPropertiesLog
+                    isOutput
                     flowTaskName={workflow.data.name}
                     flowTaskOutputs={workflowExecution.data.outputProperties}
-                    isOutput
                   />
                 </div>
               )}
