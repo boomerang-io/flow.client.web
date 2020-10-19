@@ -1,6 +1,7 @@
 @import "Styles/mixins";
 
 .detailedListContainer {
+  line-break: anywhere;
   margin-bottom: 2rem;
 }
 
@@ -46,10 +47,6 @@
 
     &:focus {
       @include focus-outline();
-    }
-    path,
-    rect {
-      fill: var(--cds-interactive-01);
     }
   }
 }

@@ -337,7 +337,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -444,7 +446,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -551,7 +555,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -658,7 +664,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -765,7 +773,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -872,7 +882,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -979,7 +991,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="actionApprovalTrigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   Action Approval
                 </button>
@@ -1002,11 +1016,14 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 Read-only
               </p>
               <button
-                class="editContainer"
+                class="bx--btn bx--btn--field bx--btn--ghost"
+                tabindex="0"
+                type="button"
               >
+                Edit Workflow
                 <svg
                   aria-hidden="true"
-                  class="editIcon"
+                  class="bx--btn__icon"
                   fill="currentColor"
                   focusable="false"
                   height="32"
@@ -1019,11 +1036,6 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
                   />
                 </svg>
-                <p
-                  class="editText"
-                >
-                  Edit Workflow
-                </p>
               </button>
             </div>
             <div

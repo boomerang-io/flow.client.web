@@ -241,7 +241,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
       <div aria-label="Configure" className={styles.wrapper} role="region">
         <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
-          <h2 className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</h2>
+          <p className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</p>
           <div className={styles.teamSelect}>
             <ComboBox
               id="selectedTeam"
@@ -319,7 +319,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
         </section>
         <section className={styles.largeCol}>
           <h1 className={styles.header}>Triggers</h1>
-          <h2 className={styles.subTitle}>Off - until you turn them on. (Feel the power).</h2>
+          <p className={styles.subTitle}>Off - until you turn them on. (Feel the power).</p>
           <div className={styles.triggerContainer}>
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
@@ -448,7 +448,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 </div>
               )}
             </div>
-
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
                 <Toggle
@@ -477,8 +476,8 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           </div>
           <hr className={styles.delimiter} />
           <h1 className={styles.header}>Tokens</h1>
-          <h2 className={styles.subTitle}>Customize how you run your workflow</h2>
-          <div className={styles.triggerContainer}>
+          <p className={styles.subTitle}>Customize how you run your workflow</p>
+          <div>
             <div className={styles.triggerSection}>
               {values.tokens.map((token) => (
                 <Token
@@ -499,7 +498,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
         <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
             <h1 className={styles.header}>Other Options</h1>
-            <h2 className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</h2>
+            <p className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</p>
             <div className={styles.toggleContainer}>
               <Toggle
                 id="enablePersistentStorage"

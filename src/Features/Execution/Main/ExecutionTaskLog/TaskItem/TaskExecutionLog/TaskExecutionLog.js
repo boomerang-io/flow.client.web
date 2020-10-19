@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
 import { LazyLog, ScrollFollow } from "react-lazylog";
@@ -33,9 +33,9 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
         label: `${flowTaskName}`,
       }}
       modalTrigger={({ openModal }) => (
-        <button className={styles.trigger} onClick={openModal}>
+        <Button className={styles.trigger} kind="ghost" size="small" onClick={openModal}>
           View Log
-        </button>
+        </Button>
       )}
     >
       {() => (

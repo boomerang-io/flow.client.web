@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useHistory } from "react-router-dom";
 import { appLink } from "Config/appConfig";
 import { Edit32 } from "@carbon/icons-react";
@@ -16,13 +17,14 @@ function WorkflowActions({ workflow }) {
   return (
     <div className={styles.container}>
       <p className={styles.messageText}>Read-only</p>
-      <button
-        className={styles.editContainer}
+      <Button
+        kind="ghost"
+        size="field"
         onClick={() => history.push(appLink.editorDesigner({ teamId: flowTeamId, workflowId: id }))}
+        renderIcon={Edit32}
       >
-        <Edit32 className={styles.editIcon} />
-        <p className={styles.editText}>Edit Workflow</p>
-      </button>
+        Edit Workflow
+      </Button>
     </div>
   );
 }

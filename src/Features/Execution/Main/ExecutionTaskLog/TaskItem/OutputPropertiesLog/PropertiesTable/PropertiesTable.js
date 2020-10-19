@@ -1,67 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { DataTable } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  StructuredListCell,
+  StructuredListBody,
+  StructuredListHead,
+  StructuredListRow,
+  StructuredListWrapper,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { NoDisplay } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./propertiesTable.module.scss";
 
-function PropertiesTable({ data: properties }) {
-  const headers = [
-    { header: "Property", key: "key" },
-    { header: "Value", key: "value" },
-  ];
-
-  const renderCell = (cellIndex, value) => {
-    const column = headers[cellIndex];
-
-    switch (column.header) {
-      case "Value":
-        return <code className={styles.code}>{value || "---"}</code>;
-      default:
-        return <p className={styles.tableTextarea}>{value || "---"}</p>;
+function PropertiesTable({ data: properties, hasJsonValues = false }) {
+  const formatPropertyValue = (value) => {
+    if (hasJsonValues) {
+      if (value && value !== '""')
+        try {
+          return JSON.parse(value);
+        } catch {
+          return "---";
+        }
+      return "---";
+    } else {
+      return value ?? "---";
     }
   };
-
-  const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
 
   return (
     <div className={styles.tableContainer}>
       {properties && properties.length > 0 ? (
-        <DataTable
-          rows={properties}
-          headers={headers}
-          render={({ rows, headers, getHeaderProps }) => (
-            <TableContainer>
-              <Table>
-                <TableHead>
-                  <TableRow className={styles.tableHeadRow}>
-                    {headers.map((header) => (
-                      <TableHeader
-                        id={header.key}
-                        {...getHeaderProps({
-                          header,
-                          className: `${styles.tableHeadHeader} ${styles[header.key]}`,
-                        })}
-                      >
-                        {header.header}
-                      </TableHeader>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody className={styles.tableBody}>
-                  {rows.map((row) => (
-                    <TableRow key={row.id} className={styles.tableRow}>
-                      {row.cells.map((cell, cellIndex) => (
-                        <TableCell key={cell.id}>
-                          <div className={styles.tableCell}>{renderCell(cellIndex, cell.value)}</div>
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          )}
-        />
+        <StructuredListWrapper selection>
+          <StructuredListHead>
+            <StructuredListRow head>
+              <StructuredListCell head>Property</StructuredListCell>
+              <StructuredListCell head>Value</StructuredListCell>
+            </StructuredListRow>
+          </StructuredListHead>
+          <StructuredListBody>
+            {properties.map((property, i) => (
+              <StructuredListRow key={`row-${i}`}>
+                <StructuredListCell>{property.key}</StructuredListCell>
+                <StructuredListCell>
+                  {<code className={styles.code}>{formatPropertyValue(property.value)}</code>}
+                </StructuredListCell>
+              </StructuredListRow>
+            ))}
+          </StructuredListBody>
+        </StructuredListWrapper>
       ) : (
         <NoDisplay text="No properties to display" />
       )}
