@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
-import { ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy } from "Constants";
+import { Button, ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskExecutionLog from "./TaskExecutionLog";
 import TaskApprovalModal from "./TaskApprovalModal";
+import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import styles from "./taskItem.module.scss";
-//only want to display logs for custom and task templates
+
 const logTaskTypes = ["custom", "template"];
 
 TaskItem.propTypes = {
@@ -42,11 +42,11 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
         {/* <p className={styles.subtitle}>Subtitle</p> */}
         <div className={styles.time}>
           <p className={styles.timeTitle}>Start time</p>
-          <time className={styles.timeValue}>{moment(startTime).format("hh:mm:ss A")}</time>
+          <time className={styles.timeValue}>{startTime ? moment(startTime).format("hh:mm:ss A") : "---"}</time>
         </div>
         <div className={styles.time}>
           <p className={styles.timeTitle}>Duration</p>
-          <time className={styles.timeValue}>{getHumanizedDuration(Math.round(parseInt(duration / 1000), 10))}</time>
+          <time className={styles.timeValue}>{getHumanizedDuration(Math.ceil(parseInt(duration / 1000), 10))}</time>
         </div>
       </section>
       {!hidden && (
@@ -59,15 +59,14 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           )}
           {approval && approval.status === ApprovalStatus.Submitted && (
             <ComposedModal
-              composedModalProps={{ shouldCloseOnOverlayClick: false }}
               modalHeaderProps={{
                 title: "Pending manual approval",
                 subtitle: taskName,
               }}
               modalTrigger={({ openModal }) => (
-                <button className={styles.actionApprovalTrigger} onClick={openModal}>
+                <Button size="small" kind="ghost" onClick={openModal}>
                   Action Approval
-                </button>
+                </Button>
               )}
             >
               {({ closeModal }) => (
@@ -90,9 +89,9 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                 title: "Approval details",
               }}
               modalTrigger={({ openModal }) => (
-                <button className={styles.viewApprovalTrigger} onClick={openModal}>
+                <Button size="small" kind="ghost" onClick={openModal}>
                   View Approval
-                </button>
+                </Button>
               )}
             >
               {() => (

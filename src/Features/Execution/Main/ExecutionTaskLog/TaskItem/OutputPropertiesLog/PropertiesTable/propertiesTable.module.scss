@@ -4,52 +4,15 @@
   margin-top: 1rem;
 }
 
-.tableHeadHeader {
-  font-size: 0.875rem;
-  font-weight: 600;
-  height: 3rem;
-  letter-spacing: 0.01rem;
-  line-height: 1.125rem;
-
-  button {
-    width: 100% !important;
-  }
-
-  &.key {
-    width: 20%;
-  }
-
-  &.value {
-    width: 80%;
-  }
-}
-
-.tableBody {
-  font-size: 0.875rem;
-  letter-spacing: 0.01rem;
-  line-height: 1.125rem;
-}
-
 
 
 .code {
   background-color: transparent;
   border-radius: 0.1875rem;
-  font-family: IBM Plex Mono, SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+  font-family: "IBM Plex Mono", SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 0.75rem;
   overflow: auto;
-  padding: 0.2em 0.4em;
-  white-space: pre;
-  word-wrap: normal;
-}
-
-.tableTextarea {
-  background: inherit;
-  margin-left: 0.25rem;
-  max-width: 100%;
-  resize: none;
-  text-align: left;
-  white-space: normal;
-  width: 90%;
   word-break: break-all;
+  padding: 0.2em 0.4em;
+  word-wrap: normal;
 }

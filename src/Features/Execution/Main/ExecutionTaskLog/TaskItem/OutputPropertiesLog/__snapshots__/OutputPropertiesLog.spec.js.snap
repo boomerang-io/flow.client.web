@@ -6,7 +6,9 @@ exports[`OutputPropertiesLog --- Snapshot Capturing Snapshot of OutputProperties
 >
   <div>
     <button
-      class="trigger"
+      class="bx--btn bx--btn--sm bx--btn--ghost"
+      tabindex="0"
+      type="button"
     >
       View Properties
     </button>

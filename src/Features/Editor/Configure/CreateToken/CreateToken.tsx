@@ -44,7 +44,7 @@ const CreateToken: React.FC<CreateTokenProps> = ({ tokenData, formikPropsSetFiel
         subtitle: "Select a label for the token",
       }}
       modalTrigger={({ openModal }: { openModal: () => void }) => (
-        <Button kind="ghost" renderIcon={Edit16} onClick={openModal} className={styles.editDetailsLink}>
+        <Button kind="ghost" size="field" renderIcon={Edit16} onClick={openModal} className={styles.addNewToken}>
           Add a new token
         </Button>
       )}

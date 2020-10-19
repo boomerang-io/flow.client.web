@@ -6,7 +6,9 @@ exports[`TaskExecutionLog --- Snapshot Capturing Snapshot of TaskExecutionLog 1`
 >
   <div>
     <button
-      class="trigger"
+      class="trigger bx--btn bx--btn--sm bx--btn--ghost"
+      tabindex="0"
+      type="button"
     >
       View Log
     </button>
