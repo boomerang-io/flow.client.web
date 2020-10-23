@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TaskApprovalModal --- Snapshot Capturing Snapshot of TaskApprovalModal 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <form
+      class="bx--bmrg-modal-form"
+    >
+      <div
+        class="bx--modal-content modalBody"
+      >
+        <section
+          class="approval"
+        >
+          <div
+            class="inputs"
+          >
+            <div
+              class="comment"
+            >
+              <div
+                class="bx--bmrg-text-area"
+              >
+                <div
+                  class="bx--form-item"
+                >
+                  <label
+                    class="bx--label"
+                    for="comment"
+                  >
+                    <div
+                      style="display: flex;"
+                    >
+                      <div>
+                        Comments (optional)
+                      </div>
+                    </div>
+                  </label>
+                  <div
+                    class="bx--text-area__wrapper"
+                  >
+                    <textarea
+                      class="bx--text-area commentArea"
+                      cols="50"
+                      id="comment"
+                      placeholder="Add some reasoning for your decision"
+                      rows="4"
+                    />
+                  </div>
+                </div>
+              </div>
+              <p
+                class="commentLength"
+              >
+                0/200
+              </p>
+            </div>
+            <div
+              class="bx--bmrg-decision-buttons"
+            >
+              <div
+                class="bx--form-item"
+              >
+                <div
+                  class="bx--radio-button-group decisionButtons"
+                >
+                  <label
+                    class="bx--bmrg-decision-button-wrapper"
+                    for="decision-buttons-REJECTED-0"
+                  >
+                    <input
+                      id="decision-buttons-REJECTED-0"
+                      name="decision-buttons"
+                      readonly=""
+                      type="radio"
+                      value="REJECTED"
+                    />
+                    <div
+                      class="bx--bmrg-decision-button bx--bmrg-decision-button--negative"
+                    >
+                      <span>
+                        Reject
+                      </span>
+                      <svg
+                        aria-hidden="true"
+                        class="bx--bmrg-decision-button-icon"
+                        fill="currentColor"
+                        focusable="false"
+                        height="16"
+                        preserveAspectRatio="xMidYMid meet"
+                        viewBox="0 0 32 32"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M26.76,21A3.64,3.64,0,0,0,30,17V11c0-3.65-1.56-8-9-8H2V17H8.46L12,22.37,13,28.71v.12A1.51,1.51,0,0,0,14.43,30H16a3.22,3.22,0,0,0,.76,0A3.64,3.64,0,0,0,20,26V21h6A3.22,3.22,0,0,0,26.76,21ZM8,15H4V5H8Zm20,2c0,1.44-.56,2-2,2H18v7c0,1.44-.56,2-2,2H14.87l-.14-1L14,21.63,10,15.7V5H21c4.78,0,7,1.91,7,6Z"
+                        />
+                      </svg>
+                    </div>
+                  </label>
+                  <label
+                    class="bx--bmrg-decision-button-wrapper"
+                    for="decision-buttons-APPROVED-1"
+                  >
+                    <input
+                      id="decision-buttons-APPROVED-1"
+                      name="decision-buttons"
+                      readonly=""
+                      type="radio"
+                      value="APPROVED"
+                    />
+                    <div
+                      class="bx--bmrg-decision-button bx--bmrg-decision-button--positive"
+                    >
+                      <span>
+                        Approve
+                      </span>
+                      <svg
+                        aria-hidden="true"
+                        class="bx--bmrg-decision-button-icon"
+                        fill="currentColor"
+                        focusable="false"
+                        height="16"
+                        preserveAspectRatio="xMidYMid meet"
+                        viewBox="0 0 32 32"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M26,11H20V6a3.64,3.64,0,0,0-3.24-4A3.22,3.22,0,0,0,16,2H14.43A1.51,1.51,0,0,0,13,3.17v.12L12,9.63,8.46,15H2V29H21c7.44,0,9-4.35,9-8V15a3.64,3.64,0,0,0-3.24-4A3.22,3.22,0,0,0,26,11ZM8,27H4V17H8Zm20-6c0,4.09-2.22,6-7,6H10V16.3l4-5.93L14.73,5l.14-1H16c1.44,0,2,.56,2,2v7h8c1.44,0,2,.56,2,2Z"
+                        />
+                      </svg>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div
+        class="bx--modal-footer"
+      >
+        <button
+          class="bx--btn bx--btn--secondary"
+          tabindex="0"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="bx--btn bx--btn--primary bx--btn--disabled"
+          disabled=""
+          tabindex="0"
+          type="submit"
+        >
+          Submit decisions
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+`;
