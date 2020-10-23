@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:14-alpine
 
 ARG ART_USER
 ARG ART_PASSWORD
