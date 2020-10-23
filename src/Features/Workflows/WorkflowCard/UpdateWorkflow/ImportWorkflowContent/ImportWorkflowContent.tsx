@@ -26,6 +26,7 @@ function checkIsValidWorkflow(data, workflowId) {
   });
 
   if (data.id !== workflowId) {
+    console.log("they are different");
     isValid = false;
   }
   //Validate if workflow has the latest structure for dag
@@ -41,8 +42,8 @@ const createInvalidTextMessage = (message) => `Whoops! ${message}. Please choose
 
 class ImportWorkflowContent extends Component {
   static propTypes = {
-    confirmButtonText: PropTypes.string.isRequired,
     closeModal: PropTypes.func,
+    confirmButtonText: PropTypes.string.isRequired,
     handleImportWorkflow: PropTypes.func,
     isLoading: PropTypes.bool,
     title: PropTypes.string.isRequired,
