@@ -17,12 +17,11 @@ describe("Settings", function () {
   });
 
   it("Update a section", function () {
-    cy.findByRole("heading", { name: /^Slack$/i }).click();
-    cy.findByLabelText(/^Platform Users Channel$/i)
-      .clear()
-      .type("#bmrg-flow-users");
-    cy.findAllByRole("button", { name: /save/i }).filter(":visible").click();
-    cy.findByText(/Update Settings/i).should("be.visible");
+    // cy.findByRole("heading", { name: /^Workers$/i }).click();
     cy.findAllByRole("button", { name: /save/i }).filter(":visible").should("be.disabled");
+    cy.findByLabelText(/^Default Image Path$/i)
+      .clear()
+      .type("testing/path");
+    cy.findAllByRole("button", { name: /save/i }).filter(":visible").should("be.enabled");
   });
 });
