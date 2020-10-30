@@ -10,6 +10,13 @@ export const PRODUCT_STANDALONE =
     ? true
     : false;
 
+export const EMBEDDED_MODE =
+  window._SERVER_DATA && window._SERVER_DATA.EMBEDDED_MODE
+    ? window._SERVER_DATA.EMBEDDED_MODE === "true"
+    : process.env.REACT_APP_EMBEDDED_MODE
+    ? true
+    : true;
+
 export const CORE_ENV_URL =
   window._SERVER_DATA && window._SERVER_DATA.CORE_ENV_URL ? window._SERVER_DATA.CORE_ENV_URL : "";
 
@@ -79,4 +86,5 @@ export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true 
 export const FeatureFlag = {
   StandaloneModeEnabled: "standaloneModeEnabled",
   EditVerifiedTasksEnabled: "editVerifiedTasksEnabled",
+  EmbeddedModeEnabled: "embeddedModeEnabled",
 };

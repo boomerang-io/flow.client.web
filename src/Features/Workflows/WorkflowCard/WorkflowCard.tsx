@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useFeature } from "flagged";
 import { useMutation, queryCache } from "react-query";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -19,7 +20,7 @@ import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
 import fileDownload from "js-file-download";
 import { formatErrorMessage } from "@boomerang-io/utils";
-import { appLink } from "Config/appConfig";
+import { appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
 import { Run20, Bee20 } from "@carbon/icons-react";
@@ -39,6 +40,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
+  const embeddedModeEnabled = useFeature(FeatureFlag.EmbeddedModeEnabled);
 
   const history = useHistory();
   const [errorMessage, seterrorMessage] = useState(null);
@@ -113,7 +115,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
     }
   };
 
-  const menuOptions = [
+  let menuOptions = [
     {
       itemText: "Edit",
       onClick: () => history.push(appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id })),
@@ -139,6 +141,10 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
     },
   ];
 
+  if (embeddedModeEnabled) {
+    menuOptions = menuOptions.filter((el) => el.itemText !== "View Activity");
+  }
+
   const formattedProperties = formatPropertiesForEdit();
 
   const { name, Icon = Bee20 } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
@@ -146,6 +152,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   const hasReachedMonthlyRunLimit = quotas.maxWorkflowExecutionMonthly <= quotas.currentWorkflowExecutionMonthly;
 
   const canRunManually = workflow?.triggers?.manual?.enable ?? false;
+
+  const isDisabled = !embeddedModeEnabled && (hasReachedMonthlyRunLimit || !canRunManually);
 
   return (
     <div className={styles.container}>
@@ -186,7 +194,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
-                disabled={isDeleting || hasReachedMonthlyRunLimit || !canRunManually}
+                disabled={isDeleting || isDisabled}
                 iconDescription="Run Workflow"
                 renderIcon={Run20}
                 size="field"
@@ -218,7 +226,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
-                disabled={isDeleting || hasReachedMonthlyRunLimit || !canRunManually}
+                disabled={isDeleting || isDisabled}
                 iconDescription="Run Workflow"
                 renderIcon={Run20}
                 size="field"

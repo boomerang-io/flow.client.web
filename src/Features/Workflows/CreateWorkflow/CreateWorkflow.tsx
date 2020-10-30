@@ -1,4 +1,5 @@
 import React from "react";
+import { useFeature } from "flagged";
 import { useMutation, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { ComposedModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -9,6 +10,7 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
 import { Add32 } from "@carbon/icons-react";
 import { FlowTeam, ComposedModalChildProps, ModalTriggerProps, WorkflowExport, CreateWorkflowSummary } from "Types";
+import { FeatureFlag } from "Config/appConfig";
 import styles from "./createWorkflow.module.scss";
 
 const workflowDagEngine = new WorkflowDagEngine({ dag: null });
@@ -21,6 +23,7 @@ interface CreateWorkflowProps {
 
 const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, teams, hasReachedWorkflowLimit }) => {
   const history = useHistory();
+  const embeddedModeEnabled = useFeature(FeatureFlag.EmbeddedModeEnabled);
 
   const [createWorkflowMutator, { error: workflowError, isLoading: workflowIsLoading }] = useMutation(
     resolver.postCreateWorkflow
@@ -78,7 +81,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, teams, hasReached
     <ComposedModal
       composedModalProps={{ containerClassName: styles.modalContainer }}
       modalTrigger={({ openModal }: ModalTriggerProps) =>
-        hasReachedWorkflowLimit ? (
+        !embeddedModeEnabled && hasReachedWorkflowLimit ? (
           <TooltipHover
             direction="top"
             tooltipText={

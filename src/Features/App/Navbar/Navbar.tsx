@@ -13,8 +13,7 @@ import {
   UIShell,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { BASE_CORE_URL } from "Config/servicesConfig";
-import { CORE_ENV_URL } from "Config/appConfig";
-import { appLink, FeatureFlag } from "Config/appConfig";
+import { CORE_ENV_URL, appLink, FeatureFlag } from "Config/appConfig";
 import { UserType } from "Constants";
 import { FlowUser } from "Types";
 
@@ -145,6 +144,7 @@ interface NavbarContainerProps {
 
 export default function NavbarContainer({ handleOnTutorialClick, navigationData, userData }: NavbarContainerProps) {
   const isStandaAloneMode = useFeature(FeatureFlag.StandaloneModeEnabled);
+  const embeddedModeEnabled = useFeature(FeatureFlag.EmbeddedModeEnabled);
   const defaultUIShellProps = {
     baseLaunchEnvUrl: isStandaAloneMode ? null : CORE_ENV_URL,
     baseServiceUrl: isStandaAloneMode ? null : BASE_CORE_URL,
@@ -160,9 +160,9 @@ export default function NavbarContainer({ handleOnTutorialClick, navigationData,
       </Helmet>
       <UIShell
         {...defaultUIShellProps}
-        onMenuClick={handleOnMenuClick(isAtLeastOperator, isStandaAloneMode)}
+        onMenuClick={embeddedModeEnabled ? null : handleOnMenuClick(isAtLeastOperator, isStandaAloneMode)}
         headerConfig={navigationData}
-        onTutorialClick={handleOnTutorialClick}
+        onTutorialClick={embeddedModeEnabled ? null : handleOnTutorialClick}
         user={userData}
         skipToContentProps={skipToContentProps}
       />

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useFeature } from "flagged";
 import { History } from "history";
 import { Formik, FormikProps } from "formik";
 import {
@@ -14,7 +15,7 @@ import cx from "classnames";
 import cronstrue from "cronstrue";
 import capitalize from "lodash/capitalize";
 import * as Yup from "yup";
-import { appLink, BASE_DOCUMENTATION_URL } from "Config/appConfig";
+import { appLink, BASE_DOCUMENTATION_URL, FeatureFlag } from "Config/appConfig";
 import { QueryStatus } from "Constants";
 import { EventSchedule16, Save24 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
@@ -78,6 +79,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
   teams,
   updateSummary,
 }) {
+  const embeddedModeEnabled = useFeature(FeatureFlag.EmbeddedModeEnabled);
   const handleOnSubmit = (values: { selectedTeam: { id: string } }) => {
     updateSummary({
       values,
@@ -151,6 +153,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       {(formikProps) =>
         isOnRoute ? (
           <Configure
+            embeddedModeEnabled={embeddedModeEnabled as boolean}
             formikProps={formikProps}
             summaryData={summaryData}
             summaryMutation={summaryMutation}
@@ -166,6 +169,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
 export default ConfigureContainer;
 
 interface ConfigureProps {
+  embeddedModeEnabled: boolean;
   formikProps: FormikProps<FormProps>;
   summaryData: WorkflowSummary;
   summaryMutation: {
@@ -317,184 +321,186 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             ))}
           </div>
         </section>
-        <section className={styles.largeCol}>
-          <h1 className={styles.header}>Triggers</h1>
-          <p className={styles.subTitle}>Off - until you turn them on. (Feel the power).</p>
-          <div className={styles.triggerContainer}>
-            <div className={styles.triggerSection}>
-              <div className={styles.toggleContainer}>
-                <Toggle
-                  reversed
-                  id="triggers.manual.enable"
-                  data-testid="triggers.manual.enable"
-                  label="Manual"
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.manual.enable")}
-                  toggled={values.triggers.manual.enable}
-                  tooltipContent="Enable workflow to be executed manually"
-                  tooltipProps={{ direction: "top" }}
-                />
-              </div>
-              <div className={styles.toggleContainer} style={{ marginTop: "1rem" }}>
-                <Toggle
-                  reversed
-                  id="triggers.scheduler.enable"
-                  data-testid="triggers.scheduler.enable"
-                  label="Scheduler"
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.scheduler.enable")}
-                  toggled={values.triggers.scheduler.enable}
-                  tooltipContent="Enable workflow to be executed by a schedule"
-                  tooltipProps={{ direction: "top" }}
-                />
-              </div>
-              <div className={styles.schedulerContainer}>
-                {values.triggers.scheduler.schedule &&
-                  values.triggers.scheduler.enable &&
-                  values.triggers.scheduler.timezone && (
-                    <div className={styles.informationWrapper}>
-                      <p className={styles.webhookTokenLabel}>Schedule</p>
-                      <div className={styles.informationCronMessage}>
-                        {`${cronstrue.toString(values.triggers.scheduler.schedule)} in ${
-                          values.triggers.scheduler.timezone
-                        }`}
-                      </div>
-                      {/*<div className={styles.informationTimeZone}>
+        {!this.props.embeddedModeEnabled && (
+          <section className={styles.largeCol}>
+            <h1 className={styles.header}>Triggers</h1>
+            <p className={styles.subTitle}>Off - until you turn them on. (Feel the power).</p>
+            <div className={styles.triggerContainer}>
+              <div className={styles.triggerSection}>
+                <div className={styles.toggleContainer}>
+                  <Toggle
+                    reversed
+                    id="triggers.manual.enable"
+                    data-testid="triggers.manual.enable"
+                    label="Manual"
+                    onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.manual.enable")}
+                    toggled={values.triggers.manual.enable}
+                    tooltipContent="Enable workflow to be executed manually"
+                    tooltipProps={{ direction: "top" }}
+                  />
+                </div>
+                <div className={styles.toggleContainer} style={{ marginTop: "1rem" }}>
+                  <Toggle
+                    reversed
+                    id="triggers.scheduler.enable"
+                    data-testid="triggers.scheduler.enable"
+                    label="Scheduler"
+                    onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.scheduler.enable")}
+                    toggled={values.triggers.scheduler.enable}
+                    tooltipContent="Enable workflow to be executed by a schedule"
+                    tooltipProps={{ direction: "top" }}
+                  />
+                </div>
+                <div className={styles.schedulerContainer}>
+                  {values.triggers.scheduler.schedule &&
+                    values.triggers.scheduler.enable &&
+                    values.triggers.scheduler.timezone && (
+                      <div className={styles.informationWrapper}>
+                        <p className={styles.webhookTokenLabel}>Schedule</p>
+                        <div className={styles.informationCronMessage}>
+                          {`${cronstrue.toString(values.triggers.scheduler.schedule)} in ${
+                            values.triggers.scheduler.timezone
+                          }`}
+                        </div>
+                        {/*<div className={styles.informationTimeZone}>
                         {`${values.triggers.scheduler.timezone} Timezone`}
                   </div>*/}
-                    </div>
+                      </div>
+                    )}
+                  {values.triggers.scheduler.enable && (
+                    <ComposedModal
+                      modalHeaderProps={{
+                        title: "Change schedule",
+                      }}
+                      modalTrigger={({ openModal }: { openModal: () => void }) => (
+                        <button
+                          className={styles.regenerateText}
+                          type="button"
+                          onClick={openModal}
+                          data-testid="launchCronModal"
+                        >
+                          <p>Change schedule</p>
+                          <EventSchedule16 className={styles.scheduleIcon} fill={"#0072C3"} />
+                        </button>
+                      )}
+                    >
+                      {({ closeModal }: { closeModal: () => void }) => (
+                        <CronJobModal
+                          advancedCron={values.triggers.scheduler.advancedCron}
+                          closeModal={closeModal}
+                          cronExpression={values.triggers.scheduler.schedule}
+                          handleOnChange={this.handleOnToggleChange}
+                          timeZone={values.triggers.scheduler.timezone}
+                        />
+                      )}
+                    </ComposedModal>
                   )}
-                {values.triggers.scheduler.enable && (
-                  <ComposedModal
-                    modalHeaderProps={{
-                      title: "Change schedule",
-                    }}
-                    modalTrigger={({ openModal }: { openModal: () => void }) => (
-                      <button
-                        className={styles.regenerateText}
-                        type="button"
-                        onClick={openModal}
-                        data-testid="launchCronModal"
-                      >
-                        <p>Change schedule</p>
-                        <EventSchedule16 className={styles.scheduleIcon} fill={"#0072C3"} />
-                      </button>
-                    )}
-                  >
-                    {({ closeModal }: { closeModal: () => void }) => (
-                      <CronJobModal
-                        advancedCron={values.triggers.scheduler.advancedCron}
-                        closeModal={closeModal}
-                        cronExpression={values.triggers.scheduler.schedule}
-                        handleOnChange={this.handleOnToggleChange}
-                        timeZone={values.triggers.scheduler.timezone}
-                      />
-                    )}
-                  </ComposedModal>
+                </div>
+              </div>
+              <div className={styles.triggerSection}>
+                <div className={styles.toggleContainer}>
+                  <Toggle
+                    id="triggers.webhook.enable"
+                    label="Webhook"
+                    toggled={values.triggers.webhook.enable}
+                    onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
+                    tooltipContent="Enable workflow to be executed by a webhook"
+                    tooltipProps={{ direction: "top" }}
+                    reversed
+                  />
+                </div>
+                {values.triggers.webhook.enable && (
+                  <div className={styles.webhookContainer}>
+                    <ComposedModal
+                      modalHeaderProps={{
+                        title: "Build Webhook URL",
+                        subtitle: (
+                          <>
+                            <p>
+                              Build up a webhook URL for an external service to push events that map to this workflow.
+                            </p>
+                            <p style={{ marginTop: "0.5rem" }}>
+                              There are a variety of different webhook types that provide additional functionality, for
+                              example the Slack type responds to the slack verification request.
+                              <a
+                                href={`${BASE_DOCUMENTATION_URL}/introduction/overview`}
+                                style={{ marginLeft: "0.1rem" }}
+                              >
+                                Learn more here
+                              </a>
+                            </p>
+                          </>
+                        ),
+                      }}
+                      composedModalProps={{
+                        containerClassName: styles.buildWebhookContainer,
+                        shouldCloseOnOverlayClick: true,
+                      }}
+                      modalTrigger={({ openModal }: { openModal: () => void }) => (
+                        <button className={styles.regenerateText} type="button" onClick={openModal}>
+                          <p>Build webhook URL</p>
+                        </button>
+                      )}
+                    >
+                      {({ closeModal }: { closeModal: () => void }) => (
+                        <BuildWebhookModalContent
+                          values={values}
+                          closeModal={closeModal}
+                          workflowId={this.props.summaryData.id}
+                        />
+                      )}
+                    </ComposedModal>
+                  </div>
+                )}
+              </div>
+              <div className={styles.triggerSection}>
+                <div className={styles.toggleContainer}>
+                  <Toggle
+                    id="triggers.custom.enable"
+                    label="Custom Event"
+                    toggled={values.triggers.custom.enable}
+                    onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.custom.enable")}
+                    tooltipContent="Enable workflow to be triggered by platform actions"
+                    tooltipProps={{ direction: "top" }}
+                    reversed
+                  />
+                </div>
+                {values.triggers.custom.enable && (
+                  <div className={styles.subscriptionContainer}>
+                    <TextInput
+                      id="triggers.custom.topic"
+                      label="Topic"
+                      placeholder="Name"
+                      value={values.triggers.custom.topic}
+                      onBlur={handleBlur}
+                      onChange={this.handleOnChange}
+                    />
+                  </div>
                 )}
               </div>
             </div>
-            <div className={styles.triggerSection}>
-              <div className={styles.toggleContainer}>
-                <Toggle
-                  id="triggers.webhook.enable"
-                  label="Webhook"
-                  toggled={values.triggers.webhook.enable}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
-                  tooltipContent="Enable workflow to be executed by a webhook"
-                  tooltipProps={{ direction: "top" }}
-                  reversed
-                />
-              </div>
-              {values.triggers.webhook.enable && (
-                <div className={styles.webhookContainer}>
-                  <ComposedModal
-                    modalHeaderProps={{
-                      title: "Build Webhook URL",
-                      subtitle: (
-                        <>
-                          <p>
-                            Build up a webhook URL for an external service to push events that map to this workflow.
-                          </p>
-                          <p style={{ marginTop: "0.5rem" }}>
-                            There are a variety of different webhook types that provide additional functionality, for
-                            example the Slack type responds to the slack verification request.
-                            <a
-                              href={`${BASE_DOCUMENTATION_URL}/introduction/overview`}
-                              style={{ marginLeft: "0.1rem" }}
-                            >
-                              Learn more here
-                            </a>
-                          </p>
-                        </>
-                      ),
-                    }}
-                    composedModalProps={{
-                      containerClassName: styles.buildWebhookContainer,
-                      shouldCloseOnOverlayClick: true,
-                    }}
-                    modalTrigger={({ openModal }: { openModal: () => void }) => (
-                      <button className={styles.regenerateText} type="button" onClick={openModal}>
-                        <p>Build webhook URL</p>
-                      </button>
-                    )}
-                  >
-                    {({ closeModal }: { closeModal: () => void }) => (
-                      <BuildWebhookModalContent
-                        values={values}
-                        closeModal={closeModal}
-                        workflowId={this.props.summaryData.id}
-                      />
-                    )}
-                  </ComposedModal>
-                </div>
-              )}
-            </div>
-            <div className={styles.triggerSection}>
-              <div className={styles.toggleContainer}>
-                <Toggle
-                  id="triggers.custom.enable"
-                  label="Custom Event"
-                  toggled={values.triggers.custom.enable}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.custom.enable")}
-                  tooltipContent="Enable workflow to be triggered by platform actions"
-                  tooltipProps={{ direction: "top" }}
-                  reversed
-                />
-              </div>
-              {values.triggers.custom.enable && (
-                <div className={styles.subscriptionContainer}>
-                  <TextInput
-                    id="triggers.custom.topic"
-                    label="Topic"
-                    placeholder="Name"
-                    value={values.triggers.custom.topic}
-                    onBlur={handleBlur}
-                    onChange={this.handleOnChange}
+            <hr className={styles.delimiter} />
+            <h1 className={styles.header}>Tokens</h1>
+            <p className={styles.subTitle}>Customize how you run your workflow</p>
+            <div>
+              <div className={styles.triggerSection}>
+                {values.tokens.map((token) => (
+                  <Token
+                    token={token}
+                    tokenData={values.tokens}
+                    formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
+                    workflowId={this.props.summaryData.id}
                   />
-                </div>
-              )}
+                ))}
+              </div>
+              <CreateToken
+                tokenData={values.tokens}
+                formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
+                workflowId={this.props.summaryData.id}
+              />
             </div>
-          </div>
-          <hr className={styles.delimiter} />
-          <h1 className={styles.header}>Tokens</h1>
-          <p className={styles.subTitle}>Customize how you run your workflow</p>
-          <div>
-            <div className={styles.triggerSection}>
-              {values.tokens.map((token) => (
-                <Token
-                  token={token}
-                  tokenData={values.tokens}
-                  formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
-                  workflowId={this.props.summaryData.id}
-                />
-              ))}
-            </div>
-            <CreateToken
-              tokenData={values.tokens}
-              formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
-              workflowId={this.props.summaryData.id}
-            />
-          </div>
-        </section>
+          </section>
+        )}
         <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
             <h1 className={styles.header}>Other Options</h1>

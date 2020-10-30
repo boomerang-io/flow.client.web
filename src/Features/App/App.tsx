@@ -12,7 +12,7 @@ import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import { UserType } from "Constants";
-import { AppPath, PRODUCT_STANDALONE } from "Config/appConfig";
+import { AppPath, PRODUCT_STANDALONE, EMBEDDED_MODE } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { stringToBooleanHelper } from "Utils/stringHelper";
 import { FlowTeam, FlowUser } from "Types";
@@ -128,7 +128,13 @@ export default function App() {
     );
 
     return (
-      <FlagsProvider features={{ standaloneModeEnabled: PRODUCT_STANDALONE, editVerifiedTasksEnabled }}>
+      <FlagsProvider
+        features={{
+          standaloneModeEnabled: PRODUCT_STANDALONE,
+          editVerifiedTasksEnabled,
+          embeddedModeEnabled: EMBEDDED_MODE,
+        }}
+      >
         <Navbar
           handleOnTutorialClick={() => setIsTutorialActive(true)}
           navigationData={navigationQuery.data}
@@ -137,6 +143,7 @@ export default function App() {
         <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
         <ErrorBoundary>
           <Main
+            isEmbeddedMode={EMBEDDED_MODE}
             isStandaloneMode={PRODUCT_STANDALONE}
             isTutorialActive={isTutorialActive}
             setIsTutorialActive={setIsTutorialActive}
@@ -153,6 +160,7 @@ export default function App() {
 }
 
 interface MainProps {
+  isEmbeddedMode: boolean;
   isStandaloneMode: boolean;
   isTutorialActive: boolean;
   setIsTutorialActive: (isTutorialActive: boolean) => void;
@@ -163,6 +171,7 @@ interface MainProps {
 }
 
 function Main({
+  isEmbeddedMode,
   isStandaloneMode,
   isTutorialActive,
   setIsTutorialActive,
@@ -191,51 +200,64 @@ function Main({
         teams: teamsData,
       }}
     >
-      <AppFeatures isStandaloneMode={isStandaloneMode} platformRole={platformRole} />
+      <AppFeatures isStandaloneMode={isStandaloneMode} platformRole={platformRole} isEmbeddedMode={isEmbeddedMode} />
     </AppContextProvider>
   );
 }
 
 interface AppFeaturesProps {
+  isEmbeddedMode: boolean;
   isStandaloneMode: boolean;
   platformRole: string;
 }
 
-const AppFeatures = React.memo(function AppFeatures({ isStandaloneMode, platformRole }: AppFeaturesProps) {
+const AppFeatures = React.memo(function AppFeatures({
+  isEmbeddedMode,
+  isStandaloneMode,
+  platformRole,
+}: AppFeaturesProps) {
   return (
     <main id="content" className={styles.container}>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<GlobalProperties />}
-            path={AppPath.Properties}
-            userRole={platformRole}
-          />
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<TeamProperties />}
-            path={AppPath.TeamProperties}
-            userRole={platformRole}
-          />
+          {!isEmbeddedMode && (
+            <ProtectedRoute
+              allowedUserRoles={allowedUserRoles}
+              component={<GlobalProperties />}
+              path={AppPath.Properties}
+              userRole={platformRole}
+            />
+          )}
+          {!isEmbeddedMode && (
+            <ProtectedRoute
+              allowedUserRoles={allowedUserRoles}
+              component={<TeamProperties />}
+              path={AppPath.TeamProperties}
+              userRole={platformRole}
+            />
+          )}
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}
             component={<TaskTemplates />}
             path={AppPath.TaskTemplates}
             userRole={platformRole}
           />
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<Quotas />}
-            path={AppPath.Quotas}
-            userRole={platformRole}
-          />
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<Settings />}
-            path={AppPath.Settings}
-            userRole={platformRole}
-          />
+          {!isEmbeddedMode && (
+            <ProtectedRoute
+              allowedUserRoles={allowedUserRoles}
+              component={<Quotas />}
+              path={AppPath.Quotas}
+              userRole={platformRole}
+            />
+          )}
+          {!isEmbeddedMode && (
+            <ProtectedRoute
+              allowedUserRoles={allowedUserRoles}
+              component={<Settings />}
+              path={AppPath.Settings}
+              userRole={platformRole}
+            />
+          )}
           {isStandaloneMode && (
             <ProtectedRoute
               allowedUserRoles={allowedUserRoles}
@@ -252,18 +274,24 @@ const AppFeatures = React.memo(function AppFeatures({ isStandaloneMode, platform
               userRole={platformRole}
             />
           )}
-          <Route path={AppPath.Execution}>
-            <Execution />
-          </Route>
-          <Route path={AppPath.Activity}>
-            <Activity />
-          </Route>
+          {!isEmbeddedMode && (
+            <Route path={AppPath.Execution}>
+              <Execution />
+            </Route>
+          )}
+          {!isEmbeddedMode && (
+            <Route path={AppPath.Activity}>
+              <Activity />
+            </Route>
+          )}
           <Route path={AppPath.Editor}>
             <Editor />
           </Route>
-          <Route path={AppPath.Insights}>
-            <Insights />
-          </Route>
+          {!isEmbeddedMode && (
+            <Route path={AppPath.Insights}>
+              <Insights />
+            </Route>
+          )}
           <Route path={AppPath.Workflows}>
             <Workflows />
           </Route>
