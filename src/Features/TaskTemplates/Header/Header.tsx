@@ -1,5 +1,4 @@
 import React from "react";
-import { useFeature } from "flagged";
 import {
   Button,
   ComposedModal,
@@ -22,7 +21,6 @@ import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
 import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
 import { FormikProps } from "formik";
-import { FeatureFlag } from "Config/appConfig";
 import { ComposedModalChildProps, ModalTriggerProps, TaskModel } from "Types";
 import styles from "./header.module.scss";
 
@@ -156,6 +154,7 @@ const SaveModal: React.FC<SaveModalProps> = ({ cancelRequestRef, formikProps, ha
 };
 
 interface HeaderProps {
+  editVerifiedTasksEnabled: boolean;
   cancelRequestRef: object;
   currentRevision: { version: number };
   formikProps: FormikProps<FormProps>;
@@ -174,6 +173,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({
+  editVerifiedTasksEnabled,
   selectedTaskTemplate,
   currentRevision,
   formikProps,
@@ -193,7 +193,6 @@ const Header: React.FC<HeaderProps> = ({
     version: revision.version,
   }));
   changelogs.reverse();
-  const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
 
   return (
