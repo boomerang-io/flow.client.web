@@ -22,13 +22,13 @@ it("Search Functionality", () => {
   cy.findByText("IBM Services Engineering (1)").should("be.visible");
   cy.get("[data-testid=workflow-card-title]").should("be.visible");
   cy.get("[data-testid=workflows-team-search]").type("nonexistent flow");
-  cy.findByText("IBM Services Engineering (0)").should("be.visible");
+  cy.findByText("Looks like there's nothing here").should("be.visible");
 });
 
 it("Create Flow", () => {
   cy.visit("/");
   cy.wait(1000);
-  cy.get("[data-testid=workflows-create-workflow-button]").click();
+  cy.get("[data-testid=workflows-create-workflow-button]").eq(0).click();
   cy.findByLabelText("Workflow Name").type("testing flow");
   cy.findByLabelText("Summary").type("example summary");
   cy.findByLabelText("Description").type("example description");

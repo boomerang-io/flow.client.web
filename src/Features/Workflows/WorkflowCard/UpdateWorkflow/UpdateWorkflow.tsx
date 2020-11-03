@@ -15,7 +15,7 @@ interface UpdateWorkflowProps {
 
 const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onCloseModal }) => {
   const [importWorkflowMutator, { isLoading: isPosting }] = useMutation(resolver.postImportWorkflow, {
-    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
+    onSuccess: async () => queryCache.invalidateQueries(serviceUrl.getTeams()),
   });
 
   const handleImportWorkflow = async (data: WorkflowExport, closeModal: () => void) => {
@@ -24,7 +24,9 @@ const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onC
       await importWorkflowMutator({ query, body: data });
       notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfully updated" />);
       closeModal();
-    } catch {}
+    } catch {
+      // no-op
+    }
   };
 
   return (

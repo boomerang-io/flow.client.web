@@ -2,7 +2,12 @@
 
 .CodeMirror {
   height: 36rem;
-  font-size: 1rem;
+  letter-spacing: inherit;
+  * {
+    font-size: 0.875rem;
+    letter-spacing: 0.06125rem;
+    font-family: "IBM Plex Mono", SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace !important;
+  }
 }
 
 .CodeMirror-sizer {
@@ -97,4 +102,17 @@ li.CodeMirror-hint-active {
   .bx--text-area__wrapper {
     width: 100%;
   }
+}
+
+.cm-s-material.CodeMirror {
+  background-color: var(--cds-text-01);
+}
+
+.cm-s-material .CodeMirror-gutters {
+  background-color: var(--cds-text-01);
+}
+
+.cm-s-material .CodeMirror-linenumber {
+  color: var(--cds-ui-04);
+  font-size: 0.75rem;
 }

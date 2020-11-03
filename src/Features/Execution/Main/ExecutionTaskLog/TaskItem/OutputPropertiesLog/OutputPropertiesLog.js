@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactJson from "react-json-view";
-import { ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ModalBody, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
 import PropertiesTable from "./PropertiesTable";
 import styles from "./outputPropertisLog.module.scss";
 
-function OutputPropertiesLog({ flowTaskName, flowTaskOutputs }) {
+function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }) {
   let arrayProps = [];
   Object.keys(flowTaskOutputs).forEach(
     (val, index) =>
@@ -29,9 +29,9 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs }) {
         label: `${flowTaskName}`,
       }}
       modalTrigger={({ openModal }) => (
-        <button className={styles.trigger} onClick={openModal}>
+        <Button kind="ghost" size="small" onClick={openModal}>
           View Properties
-        </button>
+        </Button>
       )}
     >
       {() => (
@@ -39,7 +39,7 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs }) {
           <ModalBody>
             <Tabs>
               <Tab label="Table">
-                <PropertiesTable data={arrayProps} />
+                <PropertiesTable hasJsonValues={!isOutput} data={isOutput ? flowTaskOutputs : arrayProps} />
               </Tab>
               <Tab label="JSON">
                 <div className={styles.propertiesJson}>

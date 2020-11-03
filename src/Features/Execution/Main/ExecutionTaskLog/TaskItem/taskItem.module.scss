@@ -9,6 +9,11 @@
     border-top: 0.25rem solid var(--cds-support-02);
   }
 
+  &.waiting {
+    // border-top: 0.25rem solid var(--cds-support-03);
+    border-top: 0.25rem solid var(--flow-wait);
+  }
+
   &.failure {
     border-top: 0.25rem solid var(--flow-failure);
   }
@@ -104,6 +109,16 @@
     }
   }
 
+  &.waiting {
+    // color: var(--cds-support-03);
+    color: var(--flow-wait);
+
+    svg {
+      // fill: var(--cds-support-03);
+      fill: var(--flow-wait);
+    }
+  }
+
   &.failure {
     color: var(--flow-failure);
     svg {
@@ -161,6 +176,30 @@
 .timeValue {
   color: var(--cds-text-01);
   font-size: 0.875rem;
+  line-height: 1.125rem;
+}
+
+.approvalResultsModalContainer {
+  max-height: 32.8125rem;
+  max-width: 37.5rem;
+}
+
+.detailedSection {
+  margin-bottom: 1.5rem;
+}
+
+.sectionHeader {
+  color: #4d5358;
+  font-size: 0.75rem;
+  letter-spacing: 0.00875rem;
+  line-height: 0.9375rem;
+  margin-bottom: 0.5rem;
+}
+
+.sectionDetail {
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
+  letter-spacing: 0.01rem;
   line-height: 1.125rem;
 }
 

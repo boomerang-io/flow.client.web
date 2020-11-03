@@ -1,36 +1,5 @@
 @import "Styles/mixins";
 
-@media (max-width: 768px) {
-  .wrapper {
-    flex-direction: column;
-  }
-
-  .largeCol {
-    border: 0;
-    width: 100%;
-    border-bottom: 0.0625rem solid var(--cds-text-03);
-  }
-
-  .smallCol {
-    border: 0;
-    order: -1;
-    width: 100%;
-    border-bottom: 0.0625rem solid var(--cds-text-03);
-  }
-
-  .delimiter {
-    border: 0;
-    border-bottom: 0.0625rem solid var(--cds-text-03);
-    margin-left: -2rem;
-    margin-right: -2rem;
-
-    &:last-child {
-      border-bottom: 0;
-    }
-  }
-}
-
-@media (min-width: 769px) {
   .largeCol {
     border-right: 0.0625rem solid var(--cds-text-03);
     width: 35%;
@@ -47,11 +16,10 @@
     margin-left: -2rem;
     margin-right: -2rem;
   }
-}
 
 .wrapper {
   display: flex;
-  height: calc(100vh - 12rem);
+  height: calc(100vh - 12.125rem);
   overflow: auto;
 
   :global .bx--text-area__wrapper {
@@ -324,4 +292,8 @@
 
 .scheduleIcon {
   margin-left: 0.5rem;
+}
+
+.buildWebhookContainer {
+  max-height: 44.5rem;
 }

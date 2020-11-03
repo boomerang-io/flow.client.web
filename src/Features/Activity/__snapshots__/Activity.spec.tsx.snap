@@ -156,11 +156,32 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                   Invalid
                 </a>
               </li>
+              <li
+                aria-controls="undefined__panel"
+                aria-selected="false"
+                class="bx--tabs__nav-item"
+                role="tab"
+                tabindex="-1"
+              >
+                <a
+                  class="bx--tabs__nav-link"
+                  href="#"
+                  tabindex="-1"
+                >
+                  Waiting
+                </a>
+              </li>
             </ul>
           </div>
           <div
             aria-hidden="false"
             class="bx--tab-content"
+            role="tabpanel"
+          />
+          <div
+            aria-hidden="true"
+            class="bx--tab-content"
+            hidden=""
             role="tabpanel"
           />
           <div

@@ -1,32 +1,27 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { History } from "history";
 import { Formik, FormikProps } from "formik";
 import {
   Button,
   ComboBox,
-  ConfirmModal,
   ComposedModal,
   TextArea,
   TextInput,
   Toggle,
-  notify,
-  ToastNotification,
-  TooltipHover,
-  TooltipIcon,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CronJobModal from "./CronJobModal";
 import cx from "classnames";
 import cronstrue from "cronstrue";
-import CopyToClipboard from "react-copy-to-clipboard";
 import capitalize from "lodash/capitalize";
 import * as Yup from "yup";
-import { appLink } from "Config/appConfig";
-import { serviceUrl } from "Config/servicesConfig";
+import { appLink, BASE_DOCUMENTATION_URL } from "Config/appConfig";
 import { QueryStatus } from "Constants";
-import { CopyFile16, EventSchedule16, Save24, ViewFilled16 } from "@carbon/icons-react";
+import { EventSchedule16, Save24 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
 import { WorkflowSummary } from "Types";
+import BuildWebhookModalContent from "./BuildWebhookModalContent";
+import CreateToken from "./CreateToken";
+import Token from "./Token";
 import styles from "./configure.module.scss";
 
 interface FormProps {
@@ -37,7 +32,10 @@ interface FormProps {
   name: string;
   shortDescription: string;
   triggers: {
-    event: {
+    manual: {
+      enable: boolean;
+    };
+    custom: {
       enable: boolean;
       topic: string;
     };
@@ -53,6 +51,12 @@ interface FormProps {
     };
   };
   selectedTeam: { id: string };
+  tokens: [
+    {
+      token: string;
+      label: string;
+    }
+  ];
 }
 
 interface ConfigureContainerProps {
@@ -95,9 +99,12 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         selectedTeam: teams.find((team) => team.id === params.teamId) ?? { id: "" },
         shortDescription: summaryData?.shortDescription ?? "",
         triggers: {
-          event: {
-            enable: summaryData.triggers?.event?.enable ?? false,
-            topic: summaryData.triggers?.event?.topic ?? "",
+          manual: {
+            enable: summaryData.triggers?.manual?.enable ?? true,
+          },
+          custom: {
+            enable: summaryData.triggers?.custom?.enable ?? false,
+            topic: summaryData.triggers?.custom?.topic ?? "",
           },
           scheduler: {
             enable: summaryData.triggers?.scheduler?.enable ?? false,
@@ -110,6 +117,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
             token: summaryData.triggers?.webhook?.token ?? "",
           },
         },
+        tokens: summaryData?.tokens ?? [],
       }}
       validationSchema={Yup.object().shape({
         description: Yup.string().max(250, "Description must not be greater than 250 characters"),
@@ -120,7 +128,10 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         selectedTeam: Yup.object().shape({ name: Yup.string().required("Team is required") }),
         shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
         triggers: Yup.object().shape({
-          event: Yup.object().shape({
+          manual: Yup.object().shape({
+            enable: Yup.boolean(),
+          }),
+          custom: Yup.object().shape({
             enable: Yup.boolean(),
             topic: Yup.string(),
           }),
@@ -182,22 +193,28 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
     };
   }
 
-  generateToken = (e: React.SyntheticEvent<HTMLButtonElement>) => {
-    if (e) {
-      e.preventDefault();
-    }
-    axios
-      .post(serviceUrl.postCreateWorkflowToken({ workflowId: this.props.summaryData.id }))
-      .then((response) => {
-        this.props.formikProps.setFieldValue("triggers.webhook.token", response.data.token);
-        notify(
-          <ToastNotification kind="success" title="Generate Token" subtitle="Successfully generated webhook token" />
-        );
-      })
-      .catch((err) => {
-        notify(<ToastNotification kind="error" title="Something's wrong" subtitle="Failed to create webhook token" />);
-      });
-  };
+  // generateToken = (label: string) => {
+  //   axios
+  //     .post(serviceUrl.postCreateWorkflowToken({ workflowId: this.props.summaryData.id }), { label: label })
+  //     .then((response) => {
+  //       let newTokens = this.props.formikProps.values.tokens;
+  //       let tokenIndex = newTokens.findIndex((obj) => obj.label == label);
+
+  //       if (tokenIndex === -1) {
+  //         newTokens.push(response.data);
+  //       } else {
+  //         newTokens[tokenIndex].token = response.data.token;
+  //       }
+
+  //       // this.props.formikProps.setFieldValue(`triggers.${tokenType}.token`, response.data.token);
+  //       this.props.formikProps.setFieldValue(`tokens`, newTokens);
+
+  //       notify(<ToastNotification kind="success" title="Generate Token" subtitle={`Successfully generated token`} />);
+  //     })
+  //     .catch((err) => {
+  //       notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to create token`} />);
+  //     });
+  // };
 
   handleOnChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     this.props.formikProps.handleChange(e);
@@ -205,14 +222,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
 
   handleOnToggleChange = (value: any, id: string) => {
     this.props.formikProps.setFieldValue(id, value);
-  };
-
-  handleShowToken = () => {
-    if (this.state.tokenTextType === "text") {
-      this.setState({ tokenTextType: "password", showTokenText: "Show Token" });
-    } else {
-      this.setState({ tokenTextType: "text", showTokenText: "Hide Token" });
-    }
   };
 
   handleTeamChange = ({ selectedItem }: { selectedItem: object }) => {
@@ -232,7 +241,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
       <div aria-label="Configure" className={styles.wrapper} role="region">
         <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
-          <h2 className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</h2>
+          <p className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</p>
           <div className={styles.teamSelect}>
             <ComboBox
               id="selectedTeam"
@@ -310,71 +319,22 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
         </section>
         <section className={styles.largeCol}>
           <h1 className={styles.header}>Triggers</h1>
-          <h2 className={styles.subTitle}>Off - until you turn them on. (Feel the power).</h2>
+          <p className={styles.subTitle}>Off - until you turn them on. (Feel the power).</p>
           <div className={styles.triggerContainer}>
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
                 <Toggle
-                  id="triggers.webhook.enable"
-                  label="Webhook"
-                  toggled={values.triggers.webhook.enable}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
-                  tooltipContent="Enable workflow to be executed by a webhook"
-                  tooltipProps={{ direction: "top" }}
                   reversed
+                  id="triggers.manual.enable"
+                  data-testid="triggers.manual.enable"
+                  label="Manual"
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.manual.enable")}
+                  toggled={values.triggers.manual.enable}
+                  tooltipContent="Enable workflow to be executed manually"
+                  tooltipProps={{ direction: "top" }}
                 />
               </div>
-              {values.triggers.webhook.enable && !values.triggers.webhook.token && (
-                <div className={styles.webhookContainer}>
-                  <button className={styles.regenerateText} type="button" onClick={this.generateToken}>
-                    <p>Generate a token</p>
-                  </button>
-                </div>
-              )}
-
-              {values.triggers.webhook.enable && values.triggers.webhook.token && (
-                <div className={styles.webhookContainer}>
-                  <p className={styles.webhookTokenLabel}>API Token</p>
-                  <div className={styles.webhookWrapper}>
-                    <p className={styles.webhookToken}>
-                      {this.state.tokenTextType === "password"
-                        ? values.triggers.webhook.token.toString().replace(/./g, "*")
-                        : values.triggers.webhook.token}{" "}
-                    </p>
-                    <TooltipHover direction="top" content={this.state.showTokenText}>
-                      <button onClick={this.handleShowToken} type="button" className={styles.showTextButton}>
-                        <ViewFilled16 fill={"#0072C3"} className={styles.webhookImg} alt="Show/Hide token" />
-                      </button>
-                    </TooltipHover>
-                    <TooltipIcon direction="top" tooltipText={this.state.copyTokenText}>
-                      <CopyToClipboard text={values.triggers.webhook.token}>
-                        <button
-                          onClick={() => this.setState({ copyTokenText: "Copied Token" })}
-                          onMouseLeave={() => this.setState({ copyTokenText: "Copy Token" })}
-                          type="button"
-                        >
-                          <CopyFile16 fill={"#0072C3"} className={styles.webhookImg} alt="Copy token" />
-                        </button>
-                      </CopyToClipboard>
-                    </TooltipIcon>
-                  </div>
-                  <div>
-                    <ConfirmModal
-                      affirmativeAction={this.generateToken}
-                      children="The existing token will be invalidated."
-                      title="Generate a new Webhook Token?"
-                      modalTrigger={({ openModal }: { openModal: () => void }) => (
-                        <button className={styles.regenerateText} type="button" onClick={openModal}>
-                          <p>Generate a new token</p>
-                        </button>
-                      )}
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className={styles.triggerSection}>
-              <div className={styles.toggleContainer}>
+              <div className={styles.toggleContainer} style={{ marginTop: "1rem" }}>
                 <Toggle
                   reversed
                   id="triggers.scheduler.enable"
@@ -435,44 +395,110 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <div className={styles.triggerSection}>
               <div className={styles.toggleContainer}>
                 <Toggle
-                  id="triggers.event.enable"
-                  label="Action Subscription"
-                  toggled={values.triggers.event.enable}
-                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.event.enable")}
+                  id="triggers.webhook.enable"
+                  label="Webhook"
+                  toggled={values.triggers.webhook.enable}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.webhook.enable")}
+                  tooltipContent="Enable workflow to be executed by a webhook"
+                  tooltipProps={{ direction: "top" }}
+                  reversed
+                />
+              </div>
+              {values.triggers.webhook.enable && (
+                <div className={styles.webhookContainer}>
+                  <ComposedModal
+                    modalHeaderProps={{
+                      title: "Build Webhook URL",
+                      subtitle: (
+                        <>
+                          <p>
+                            Build up a webhook URL for an external service to push events that map to this workflow.
+                          </p>
+                          <p style={{ marginTop: "0.5rem" }}>
+                            There are a variety of different webhook types that provide additional functionality, for
+                            example the Slack type responds to the slack verification request.
+                            <a
+                              href={`${BASE_DOCUMENTATION_URL}/introduction/overview`}
+                              style={{ marginLeft: "0.1rem" }}
+                            >
+                              Learn more here
+                            </a>
+                          </p>
+                        </>
+                      ),
+                    }}
+                    composedModalProps={{
+                      containerClassName: styles.buildWebhookContainer,
+                      shouldCloseOnOverlayClick: true,
+                    }}
+                    modalTrigger={({ openModal }: { openModal: () => void }) => (
+                      <button className={styles.regenerateText} type="button" onClick={openModal}>
+                        <p>Build webhook URL</p>
+                      </button>
+                    )}
+                  >
+                    {({ closeModal }: { closeModal: () => void }) => (
+                      <BuildWebhookModalContent
+                        values={values}
+                        closeModal={closeModal}
+                        workflowId={this.props.summaryData.id}
+                      />
+                    )}
+                  </ComposedModal>
+                </div>
+              )}
+            </div>
+            <div className={styles.triggerSection}>
+              <div className={styles.toggleContainer}>
+                <Toggle
+                  id="triggers.custom.enable"
+                  label="Custom Event"
+                  toggled={values.triggers.custom.enable}
+                  onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "triggers.custom.enable")}
                   tooltipContent="Enable workflow to be triggered by platform actions"
                   tooltipProps={{ direction: "top" }}
                   reversed
                 />
               </div>
-              {values.triggers.event.enable && (
+              {values.triggers.custom.enable && (
                 <div className={styles.subscriptionContainer}>
                   <TextInput
-                    id="triggers.event.topic"
+                    id="triggers.custom.topic"
                     label="Topic"
                     placeholder="Name"
-                    value={values.triggers.event.topic}
+                    value={values.triggers.custom.topic}
                     onBlur={handleBlur}
                     onChange={this.handleOnChange}
                   />
-                  <div className={styles.toggleContainer}>
-                    <Toggle
-                      id="enableACCIntegration"
-                      label="IBM Services ACC Integration"
-                      toggled={values.enableACCIntegration}
-                      onToggle={(checked: boolean) => this.handleOnToggleChange(checked, "enableACCIntegration")}
-                      tooltipContent="Enable workflow to be triggered by ACC subscription"
-                      tooltipProps={{ direction: "top" }}
-                      reversed
-                    />
-                  </div>
                 </div>
               )}
             </div>
           </div>
           <hr className={styles.delimiter} />
+          <h1 className={styles.header}>Tokens</h1>
+          <p className={styles.subTitle}>Customize how you run your workflow</p>
+          <div>
+            <div className={styles.triggerSection}>
+              {values.tokens.map((token) => (
+                <Token
+                  token={token}
+                  tokenData={values.tokens}
+                  formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
+                  workflowId={this.props.summaryData.id}
+                />
+              ))}
+            </div>
+            <CreateToken
+              tokenData={values.tokens}
+              formikPropsSetFieldValue={this.props.formikProps.setFieldValue}
+              workflowId={this.props.summaryData.id}
+            />
+          </div>
+        </section>
+        <section className={styles.smallCol}>
           <div className={styles.optionsContainer}>
             <h1 className={styles.header}>Other Options</h1>
-            <h2 className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</h2>
+            <p className={styles.subTitle}>They may look unassuming, but they’re stronger than you know.</p>
             <div className={styles.toggleContainer}>
               <Toggle
                 id="enablePersistentStorage"
@@ -486,8 +512,6 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             </div>
           </div>
           <hr className={styles.delimiter} />
-        </section>
-        <section className={styles.smallCol}>
           <div className={styles.saveChangesContainer}>
             <Button
               size="field"

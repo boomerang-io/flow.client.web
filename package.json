@@ -29,7 +29,7 @@
     "upgradePackage": "react-scripts upgradePackage"
   },
   "dependencies": {
-    "@boomerang-io/carbon-addons-boomerang-react": "0.0.17",
+    "@boomerang-io/carbon-addons-boomerang-react": "0.0.19",
     "@boomerang-io/styles": "0.0.1",
     "@boomerang-io/utils": "0.0.1",
     "@carbon/charts": "^0.16.24",
@@ -43,6 +43,7 @@
     "classnames": "^2.2.6",
     "closest": "0.0.1",
     "codemirror": "^5.48.4",
+    "copy-to-clipboard": "^3.3.1",
     "cronstrue": "^1.58.0",
     "d3": "<=5.9.2",
     "detect-browser": "^4.0.3",
