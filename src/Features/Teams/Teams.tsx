@@ -20,7 +20,7 @@ import EmptyState from "Components/EmptyState";
 import AddTeamContent from "./AddTeamContent";
 import debounce from "lodash/debounce";
 import queryString from "query-string";
-import { isAccessibleEvent } from "@boomerang-io/utils";
+import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import { SortDirection } from "Constants";
 import { AppPath, appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
@@ -275,7 +275,9 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
                     key={row.id}
                     data-testid="user-list-table-row"
                     onClick={() => handleNavigateToTeam(row.id)}
-                    onKeyDown={(e: React.SyntheticEvent) => isAccessibleEvent(e) && handleNavigateToTeam(row.id)}
+                    onKeyDown={(e: React.SyntheticEvent) =>
+                      isAccessibleKeyboardEvent(e) && handleNavigateToTeam(row.id)
+                    }
                     tabIndex={-1}
                   >
                     {row.cells.map((cell: any, cellIndex: any) => {

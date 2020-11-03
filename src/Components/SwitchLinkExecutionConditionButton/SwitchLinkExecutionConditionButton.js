@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { isAccessibleEvent } from "@boomerang-io/utils";
+import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import styles from "./SwitchLinkButton.module.scss";
 
 const ConditionButton = ({ displayText, ...rest }) => (
@@ -59,7 +59,7 @@ const SwitchLinkExecutionConditionButton = React.memo(function SwitchLinkExecuti
       className={cx(styles.container, className, styles[kind])}
       displayText={displayText}
       onClick={onClick}
-      onKeyDown={(e) => isAccessibleEvent(e) && onClick(e)}
+      onKeyDown={(e) => isAccessibleKeyboardEvent(e) && onClick(e)}
       role="button"
       tabIndex="0"
       {...rest}
