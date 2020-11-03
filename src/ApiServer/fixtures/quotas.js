@@ -4,10 +4,9 @@ export default {
   maxWorkflowStorage: 5,
   maxWorkflowExecutionTime: 30,
   maxConcurrentWorkflows: 4,
-  currentWorkflowCount: 10,
-  currentConcurrentWorkflows: 100,
+  currentWorkflowCount: 1,
+  currentConcurrentWorkflows: 0,
   currentWorkflowExecutionMonthly: 90,
-
   currentAverageExecutionTime: 2,
   currentWorkflowsPersistentStorage: 3,
 };

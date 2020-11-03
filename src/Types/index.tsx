@@ -78,7 +78,10 @@ export interface WorkflowSummary {
   shortDescription: string;
   properties: [DataDrivenInput];
   triggers: {
-    event: {
+    manual: {
+      enable: boolean;
+    };
+    custom: {
       enable: boolean;
       topic: string;
     };
@@ -93,6 +96,12 @@ export interface WorkflowSummary {
       token: string;
     };
   };
+  tokens: [
+    {
+      token: string;
+      label: string;
+    }
+  ];
   flowTeamId: string;
   templateUpgradesAvailable: boolean;
 }
@@ -242,13 +251,13 @@ export interface FlowUser {
 }
 
 export interface Property {
-  value: string,
-  readOnly: boolean,
-  id: string,
-  description: string,
-  key: string,
-  label: string,
-  type: string
+  value: string;
+  readOnly: boolean;
+  id: string;
+  description: string;
+  key: string;
+  label: string;
+  type: string;
 }
 
 // interface userInterface {

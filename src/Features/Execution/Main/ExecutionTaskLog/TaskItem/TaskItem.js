@@ -2,19 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
-import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
+import { Button, ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskExecutionLog from "./TaskExecutionLog";
+import TaskApprovalModal from "./TaskApprovalModal";
+import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import styles from "./taskItem.module.scss";
+
+const logTaskTypes = ["custom", "template"];
 
 TaskItem.propTypes = {
   flowActivityId: PropTypes.string.isRequired,
   hidden: PropTypes.bool.isRequired,
   task: PropTypes.object.isRequired,
+  executionId: PropTypes.string.isRequired,
 };
 
-function TaskItem({ flowActivityId, hidden, task }) {
-  const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName } = task;
+function TaskItem({ flowActivityId, hidden, task, executionId }) {
+  const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName, approval, taskType } = task;
   const Icon = executionStatusIcon[flowTaskStatus];
   const statusClassName = styles[flowTaskStatus];
 
@@ -37,18 +42,81 @@ function TaskItem({ flowActivityId, hidden, task }) {
         {/* <p className={styles.subtitle}>Subtitle</p> */}
         <div className={styles.time}>
           <p className={styles.timeTitle}>Start time</p>
-          <time className={styles.timeValue}>{moment(startTime).format("hh:mm:ss A")}</time>
+          <time className={styles.timeValue}>{startTime ? moment(startTime).format("hh:mm:ss A") : "---"}</time>
         </div>
         <div className={styles.time}>
           <p className={styles.timeTitle}>Duration</p>
-          <time className={styles.timeValue}>{getHumanizedDuration(Math.round(parseInt(duration / 1000), 10))}</time>
+          <time className={styles.timeValue}>{getHumanizedDuration(Math.ceil(parseInt(duration / 1000), 10))}</time>
         </div>
       </section>
       {!hidden && (
         <section className={styles.data}>
-          <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
+          {logTaskTypes.includes(taskType) && (
+            <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
+          )}
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
+          )}
+          {approval && approval.status === ApprovalStatus.Submitted && (
+            <ComposedModal
+              modalHeaderProps={{
+                title: "Pending manual approval",
+                subtitle: taskName,
+              }}
+              modalTrigger={({ openModal }) => (
+                <Button size="small" kind="ghost" onClick={openModal}>
+                  Action Approval
+                </Button>
+              )}
+            >
+              {({ closeModal }) => (
+                <TaskApprovalModal
+                  approvalId={approval.id}
+                  flowTaskName={taskName}
+                  executionId={executionId}
+                  closeModal={closeModal}
+                />
+              )}
+            </ComposedModal>
+          )}
+          {approval && (approval.status === ApprovalStatus.Approved || approval.status === ApprovalStatus.Rejected) && (
+            <ComposedModal
+              composedModalProps={{
+                containerClassName: styles.approvalResultsModalContainer,
+                shouldCloseOnOverlayClick: true,
+              }}
+              modalHeaderProps={{
+                title: "Approval details",
+              }}
+              modalTrigger={({ openModal }) => (
+                <Button size="small" kind="ghost" onClick={openModal}>
+                  View Approval
+                </Button>
+              )}
+            >
+              {() => (
+                <ModalBody>
+                  <section className={styles.detailedSection}>
+                    <span className={styles.sectionHeader}>Approval Status</span>
+                    <p className={styles.sectionDetail}>{approval.status}</p>
+                  </section>
+                  <section className={styles.detailedSection}>
+                    <span className={styles.sectionHeader}>Approver</span>
+                    <p
+                      className={styles.sectionDetail}
+                    >{`${approval.audit.approverName}(${approval.audit.approverEmail})`}</p>
+                  </section>
+                  <section className={styles.detailedSection}>
+                    <span className={styles.sectionHeader}>Approval submitted</span>
+                    <p className={styles.sectionDetail}>{moment(approval.audit.actionDate).format("DD-MM-YY")}</p>
+                  </section>
+                  <section className={styles.detailedSection}>
+                    <span className={styles.sectionHeader}>Approval comments</span>
+                    <p className={styles.sectionDetail}>{approval.audit.comments}</p>
+                  </section>
+                </ModalBody>
+              )}
+            </ComposedModal>
           )}
         </section>
       )}

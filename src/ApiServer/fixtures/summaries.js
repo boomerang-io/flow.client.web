@@ -140,6 +140,7 @@ export default [
       webhook: { enable: false, token: "" },
       event: { enable: false, topic: "" },
     },
+    tokens: [],
     enablePersistentStorage: true,
     enableACCIntegration: false,
     revisionCount: 2,

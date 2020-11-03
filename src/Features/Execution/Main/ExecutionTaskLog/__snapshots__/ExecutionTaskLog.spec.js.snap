@@ -222,12 +222,9 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
             class="data"
           >
             <button
-              class="trigger"
-            >
-              View Log
-            </button>
-            <button
-              class="trigger"
+              class="bx--btn bx--btn--sm bx--btn--ghost"
+              tabindex="0"
+              type="button"
             >
               View Properties
             </button>
@@ -334,12 +331,9 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
             class="data"
           >
             <button
-              class="trigger"
-            >
-              View Log
-            </button>
-            <button
-              class="trigger"
+              class="bx--btn bx--btn--sm bx--btn--ghost"
+              tabindex="0"
+              type="button"
             >
               View Properties
             </button>
@@ -348,12 +342,6 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
       </ul>
     </aside>
   </div>
-  <div
-    class="bx--bmrg-modal-portal"
-  />
-  <div
-    class="bx--bmrg-modal-portal"
-  />
   <div
     class="bx--bmrg-modal-portal"
   />

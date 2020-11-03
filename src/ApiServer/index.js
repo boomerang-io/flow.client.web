@@ -207,9 +207,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.summaries.create(workflow);
       });
 
-      this.post(serviceUrl.postCreateWorkflowToken({ workflowId: ":workflowId" }), (schema, request) => {
-        return { token: uuid() };
-      });
+      this.post(
+        serviceUrl.postCreateWorkflowToken({ workflowId: ":workflowId", label: ":label" }),
+        (schema, request) => {
+          return { token: uuid() };
+        }
+      );
 
       this.del(serviceUrl.getWorkflow({ id: ":workflowId" }), (schema, request) => {
         let { workflowId } = request.params;

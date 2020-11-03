@@ -51,6 +51,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ team, teams, hasReached
       };
 
       await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
+      queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
       history.push(appLink.editorDesigner({ teamId: team.id, workflowId }));
       notify(<ToastNotification kind="success" title="Create Workflow" subtitle="Successfully created workflow" />);
       return;

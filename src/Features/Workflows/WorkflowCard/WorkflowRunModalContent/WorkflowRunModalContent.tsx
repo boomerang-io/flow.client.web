@@ -12,6 +12,7 @@ interface WorkflowRunModalContentProps {
   executeError: any;
   executeWorkflow: (closeModal: () => void, redirect: boolean) => void;
   isExecuting: boolean;
+  errorMessage: { title: string; message: string } | null;
 }
 
 const WorkflowRunModalContent: React.FC<WorkflowRunModalContentProps> = ({
@@ -19,17 +20,13 @@ const WorkflowRunModalContent: React.FC<WorkflowRunModalContentProps> = ({
   executeError,
   executeWorkflow,
   isExecuting,
+  errorMessage,
 }) => {
   return (
     <ModalForm>
       {executeError && (
         <ModalBody>
-          <InlineNotification
-            lowContrast
-            kind="error"
-            title="Something's Wrong"
-            subtitle="Request to execute workflow failed"
-          />
+          <InlineNotification lowContrast kind="error" title={errorMessage?.title} subtitle={errorMessage?.message} />
         </ModalBody>
       )}
       <ModalFooter>

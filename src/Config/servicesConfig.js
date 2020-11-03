@@ -66,12 +66,13 @@ export const serviceUrl = {
   patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
   postCreateWorkflow: () => `${BASE_URL}/workflow`,
   postCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/revision`,
-  postCreateWorkflowToken: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/webhook-token`,
+  postCreateWorkflowToken: ({ workflowId, label }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
   postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
   postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
   putRestoreTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}/activate`,
   putTeamQuotasDefault: ({ id }) => `${BASE_URL}/teams/${id}/quotas/default`,
+  putWorkflowApproval: () => `${BASE_URL}/approvals/action`,
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_URL}/settings`,
 };
@@ -150,4 +151,6 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.putTeamQuotasDefault({ id }), method: HttpMethod.Put }),
   putTeamQuotas: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getTeamQuotas({ id }), body, method: HttpMethod.Put }),
+  putWorkflowApproval: ({ body }) =>
+    cancellableResolver({ url: serviceUrl.putWorkflowApproval(), body, method: HttpMethod.Put }),
 };

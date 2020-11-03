@@ -19,6 +19,9 @@ import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
+import ManualApprovalNodeModel from "Utils/dag/manualApprovalNode/ManualApprovalNodeModel";
+import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel";
+import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
@@ -170,6 +173,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         }
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
+        queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
       } catch (err) {
         notify(
           <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
@@ -243,6 +247,15 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           break;
         case NodeType.CustomTask:
           node = new CustomNodeModel(nodeObj);
+          break;
+        case NodeType.Approval:
+          node = new ManualApprovalNodeModel(nodeObj);
+          break;
+        case NodeType.SetProperty:
+          node = new SetPropertyNodeModel(nodeObj);
+          break;
+        case NodeType.Wait:
+          node = new WaitNodeModel(nodeObj);
           break;
         default:
         // no-op

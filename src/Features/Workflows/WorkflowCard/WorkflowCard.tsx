@@ -18,6 +18,7 @@ import UpdateWorkflow from "./UpdateWorkflow";
 import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
 import fileDownload from "js-file-download";
+import { formatErrorMessage } from "@boomerang-io/utils";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
@@ -40,6 +41,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
 
   const history = useHistory();
+  const [errorMessage, seterrorMessage] = useState(null);
 
   const [deleteWorkflowMutator, { isLoading: isDeleting }] = useMutation(resolver.deleteWorkflow, {
     onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
@@ -100,7 +102,13 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
       } else {
         closeModal();
       }
-    } catch {
+    } catch (err) {
+      seterrorMessage(
+        formatErrorMessage({
+          error: err,
+          defaultMessage: "Run Workflow Failed",
+        })
+      );
       //no-op
     }
   };
@@ -136,6 +144,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   const { name, Icon = Bee20 } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
 
   const hasReachedMonthlyRunLimit = quotas.maxWorkflowExecutionMonthly <= quotas.currentWorkflowExecutionMonthly;
+
+  const canRunManually = workflow?.triggers?.manual?.enable ?? false;
 
   return (
     <div className={styles.container}>
@@ -176,7 +186,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
-                disabled={isDeleting || hasReachedMonthlyRunLimit}
+                disabled={isDeleting || hasReachedMonthlyRunLimit || !canRunManually}
                 iconDescription="Run Workflow"
                 renderIcon={Run20}
                 size="field"
@@ -208,7 +218,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
-                disabled={isDeleting || hasReachedMonthlyRunLimit}
+                disabled={isDeleting || hasReachedMonthlyRunLimit || !canRunManually}
                 iconDescription="Run Workflow"
                 renderIcon={Run20}
                 size="field"
@@ -224,6 +234,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
                 executeError={executeError}
                 executeWorkflow={handleExecuteWorkflow}
                 isExecuting={isExecuting}
+                errorMessage={errorMessage}
               />
             )}
           </ComposedModal>

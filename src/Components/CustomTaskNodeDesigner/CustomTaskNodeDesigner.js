@@ -12,7 +12,6 @@ import WorkflowTaskForm from "Components/WorkflowTaskForm";
 import styles from "./CustomTaskNodeDesigner.module.scss";
 
 const CustomTaskNodeDesigner = React.memo(function CustomTaskNodeDesigner({ diagramEngine, node: designerNode }) {
-  console.log("here");
   const { revisionDispatch, revisionState, summaryData, taskTemplatesData } = useEditorContext();
 
   /**

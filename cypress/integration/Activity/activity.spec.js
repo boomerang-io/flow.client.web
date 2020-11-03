@@ -36,10 +36,17 @@ describe("Activity", function () {
       .click();
     cy.url().should("include", "workflowIds=5eb2c4085a92d80001a16d87");
     cy.findByPlaceholderText(/choose trigger type\(s\)/i).click();
-    cy.findByLabelText("cron").click();
+    // cy.findByLabelText("cron").click();
+    cy.findByText("cron").click();
     cy.url().should("include", "triggers=cron");
-    cy.findByLabelText("manual").click();
-    cy.findByLabelText("webhook").click();
+    // cy.findByLabelText("manual").click();
+    cy.findAllByText(/^manual/i)
+      .eq(0)
+      .click();
+    // cy.findByLabelText("webhook").click();
+    cy.findAllByText(/^webhook/i)
+      .eq(0)
+      .click();
     cy.url().should("include", "triggers=cron,manual,webhook");
   });
 

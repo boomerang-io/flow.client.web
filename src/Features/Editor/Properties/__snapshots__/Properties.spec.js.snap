@@ -61,6 +61,20 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           <dt
             class="fieldKey"
           >
+            Event Payload JsonPath
+          </dt>
+          <dd
+            class="fieldValue"
+          >
+            ---
+          </dd>
+        </dl>
+        <dl
+          class="fieldContainer"
+        >
+          <dt
+            class="fieldKey"
+          >
             Default value
           </dt>
           <dd

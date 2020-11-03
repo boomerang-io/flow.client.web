@@ -19,7 +19,22 @@ export default [
     ],
     steps: [
       {
+        isAwaitingApproval: true,
         activityId: "5ec51eca5a92d80001a2005d",
+        approval: {
+          id: "12345",
+          taskName: "Approve workflow",
+          activityId: "12345",
+          workflowId: "12345",
+          workflowName: "Workflow Name",
+          teamId: "12345",
+          teamName: "Team Name",
+          audit: {
+            approverId: "12345",
+            actionDate: 1601389025053,
+            result: true,
+          },
+        },
         duration: 6002,
         flowTaskStatus: "completed",
         id: "5ec51eca5a92d80001a20061",
@@ -30,6 +45,7 @@ export default [
         outputs: { "": "" },
       },
       {
+        isAwaitingApproval: false,
         activityId: "5ec51eca5a92d80001a2005d",
         duration: 4914,
         flowTaskStatus: "completed",
@@ -41,6 +57,7 @@ export default [
         outputs: { "": "" },
       },
       {
+        isAwaitingApproval: false,
         activityId: "5ec51eca5a92d80001a2005d",
         duration: 9292,
         flowTaskStatus: "failure",
@@ -52,6 +69,7 @@ export default [
         outputs: { "#Wed May 20 12:13:29 GMT 2020": "" },
       },
       {
+        isAwaitingApproval: false,
         activityId: "5ec51eca5a92d80001a2005d",
         duration: 10107,
         flowTaskStatus: "completed",
@@ -63,6 +81,7 @@ export default [
         outputs: { "#Wed May 20 12:13:39 GMT 2020": "" },
       },
       {
+        isAwaitingApproval: false,
         activityId: "5ec51eca5a92d80001a2005d",
         duration: 4145,
         flowTaskStatus: "completed",
@@ -74,6 +93,7 @@ export default [
         outputs: { "": "" },
       },
       {
+        isAwaitingApproval: false,
         activityId: "5ec51eca5a92d80001a2005d",
         duration: 8680,
         flowTaskStatus: "completed",
@@ -83,6 +103,31 @@ export default [
         taskId: "0821727a-b336-48ac-b42e-34f7b062dd8c",
         taskName: "Print Persistence Folder",
         outputs: { "#Wed May 20 12:13:52 GMT 2020": "" },
+      },
+      {
+        activityId: "5f74033d78c0d807c15532bd",
+        duration: 5143,
+        flowTaskStatus: "completed",
+        id: "5f74033e78c0d807c15532be",
+        order: 1,
+        startTime: 1601438526366,
+        taskId: "a74dfc84-e6f1-4efb-b50d-78307f7a67ab",
+        taskName: "Requires Approval",
+        taskType: "approval",
+        approval: {
+          id: "5f74033e78c0d807c15532bf",
+          activityId: "5f74033d78c0d807c15532bd",
+          taskActivityId: "5f74033e78c0d807c15532be",
+          workflowId: "5f4fc9e95683833cf0b1335b",
+          teamId: "5eebc4b3aea46a0d8238fbe5",
+          audit: {
+            approverId: "5e736fb0a97b78000125ebe3",
+            approverEmail: "mdroy@us.ibm.com",
+            approverName: "Marcus Roy",
+            actionDate: 1601438531484,
+          },
+          status: "submitted",
+        },
       },
     ],
     teamName: "IBM Services Engineering",

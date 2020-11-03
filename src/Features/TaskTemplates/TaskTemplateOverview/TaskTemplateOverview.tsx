@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React from "react";
-import { useFeature } from "flagged";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import axios from "axios";
@@ -9,13 +8,12 @@ import { useMutation, queryCache } from "react-query";
 import {
   Button,
   ConfirmModal,
-  Error404,
   InlineNotification,
   Loading,
   notify,
   Tile,
   ToastNotification,
-  TooltipHover
+  TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EmptyState from "Components/EmptyState";
@@ -28,7 +26,7 @@ import { TaskTemplateStatus } from "Constants";
 import { TemplateRequestType, FieldTypes } from "../constants";
 import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
-import { appLink, AppPath, FeatureFlag } from "Config/appConfig";
+import { appLink, AppPath } from "Config/appConfig";
 import { Draggable16, TrashCan16, Archive16, Bee16, Recommend16, Identification16 } from "@carbon/icons-react";
 import { DataDrivenInput } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
@@ -151,9 +149,10 @@ const Field: React.FC<FieldProps> = ({
 TaskTemplateOverview.propTypes = {
   taskTemplates: PropTypes.array.isRequired,
   updateTemplateInState: PropTypes.func.isRequired,
+  editVerifiedTasksEnabled: PropTypes.bool.isRequired,
 };
 
-export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
+export function TaskTemplateOverview({ taskTemplates, updateTemplateInState, editVerifiedTasksEnabled }) {
   const cancelRequestRef = React.useRef();
 
   const params = useParams();
@@ -179,7 +178,6 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
   });
 
   let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id) ?? {};
-  const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
 
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
@@ -418,6 +416,7 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
             />
             {(isLoading || archiveIsLoading || restoreIsLoading) && <Loading />}
             <Header
+              editVerifiedTasksEnabled={editVerifiedTasksEnabled}
               selectedTaskTemplate={selectedTaskTemplate}
               currentRevision={currentRevision}
               formikProps={formikProps}
@@ -433,9 +432,10 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState }) {
                 <p className={styles.description}>Build the definition requirements for this task.</p>
                 {!canEdit && (
                   <InlineNotification
+                    lowContrast
                     kind="info"
                     title="Verified tasks are not editable"
-                    subtitle="Admins can adjust this configuration in global settings"
+                    subtitle="Admins can adjust this in global settings"
                   />
                 )}
                 <ConfirmModal

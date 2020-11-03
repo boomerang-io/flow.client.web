@@ -12,12 +12,18 @@ import orderBy from "lodash/orderBy";
 import { TaskModel } from "Types";
 import { AppPath, appLink } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
+import { stringToBooleanHelper } from "Utils/stringHelper";
 import styles from "./taskTemplates.module.scss";
+
+const settingsWorkersName = "Workers";
 
 const TaskTemplatesContainer: React.FC = () => {
   const match = useRouteMatch();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
+  const platformSettingsUrl = serviceUrl.resourceSettings();
   const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
+
+  const { data: settingsData, error: settingsError, isLoading: settingsIsLoading } = useQuery(platformSettingsUrl);
 
   const addTemplateInState = (newTemplate: TaskModel) => {
     const updatedTemplatesData = [...taskTemplatesData];
@@ -34,11 +40,11 @@ const TaskTemplatesContainer: React.FC = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || settingsIsLoading) {
     return <Loading />;
   }
 
-  if (taskTemplatesDataError) {
+  if (taskTemplatesDataError || settingsError) {
     return (
       <div className={styles.container}>
         <ErrorDragon />
@@ -46,6 +52,11 @@ const TaskTemplatesContainer: React.FC = () => {
     );
   }
 
+  const editVerifiedTasksEnabled = stringToBooleanHelper(
+    settingsData
+      .find((arr: any) => arr.name === settingsWorkersName)
+      ?.config?.find((setting: { key: string }) => setting.key === "enable.tasks").value ?? false
+  );
   return (
     <div className={styles.container}>
       <Sidenav taskTemplates={taskTemplatesData} addTemplateInState={addTemplateInState} />
@@ -56,7 +67,11 @@ const TaskTemplatesContainer: React.FC = () => {
           </Box>
         </Route>
         <Route path={AppPath.TaskTemplateEdit}>
-          <TaskTemplateOverview taskTemplates={taskTemplatesData} updateTemplateInState={updateTemplateInState} />
+          <TaskTemplateOverview
+            editVerifiedTasksEnabled={editVerifiedTasksEnabled}
+            taskTemplates={taskTemplatesData}
+            updateTemplateInState={updateTemplateInState}
+          />
         </Route>
         <Redirect to={appLink.taskTemplates()} />
       </Switch>

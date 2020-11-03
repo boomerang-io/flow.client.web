@@ -337,12 +337,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
-                >
-                  View Log
-                </button>
-                <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -449,12 +446,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
-                >
-                  View Log
-                </button>
-                <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -561,12 +555,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
-                >
-                  View Log
-                </button>
-                <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -673,12 +664,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
-                >
-                  View Log
-                </button>
-                <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -785,12 +773,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
-                >
-                  View Log
-                </button>
-                <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
                 </button>
@@ -897,14 +882,120 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="trigger"
-                >
-                  View Log
-                </button>
-                <button
-                  class="trigger"
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
                 >
                   View Properties
+                </button>
+              </section>
+            </li>
+            <li
+              class="taskitem completed"
+            >
+              <div
+                class="progressBar"
+              />
+              <section
+                class="header"
+              >
+                <div
+                  class="title"
+                >
+                  <svg
+                    aria-label="completed"
+                    class="taskIcon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="32"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 21.414L9 16.413 10.413 15 14 18.586 21.585 11 23 12.415 14 21.414z"
+                    />
+                    <path
+                      d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
+                    />
+                  </svg>
+                  <p
+                    data-testid="taskitem-name"
+                    title="Requires Approval"
+                  >
+                    Requires Approval
+                  </p>
+                </div>
+                <div
+                  class="status completed"
+                >
+                  <svg
+                    aria-label="completed"
+                    class="statusIcon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="32"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 21.414L9 16.413 10.413 15 14 18.586 21.585 11 23 12.415 14 21.414z"
+                    />
+                    <path
+                      d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
+                    />
+                  </svg>
+                  <p>
+                    Succeeded
+                  </p>
+                </div>
+              </section>
+              <section
+                class="data"
+              >
+                <div
+                  class="time"
+                >
+                  <p
+                    class="timeTitle"
+                  >
+                    Start time
+                  </p>
+                  <time
+                    class="timeValue"
+                  >
+                    12:00:00 AM
+                  </time>
+                </div>
+                <div
+                  class="time"
+                >
+                  <p
+                    class="timeTitle"
+                  >
+                    Duration
+                  </p>
+                  <time
+                    class="timeValue"
+                  >
+                    5 seconds
+                  </time>
+                </div>
+              </section>
+              <section
+                class="data"
+              >
+                <button
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
+                >
+                  Action Approval
                 </button>
               </section>
             </li>
@@ -925,11 +1016,14 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 Read-only
               </p>
               <button
-                class="editContainer"
+                class="bx--btn bx--btn--field bx--btn--ghost"
+                tabindex="0"
+                type="button"
               >
+                Edit Workflow
                 <svg
                   aria-hidden="true"
-                  class="editIcon"
+                  class="bx--btn__icon"
                   fill="currentColor"
                   focusable="false"
                   height="32"
@@ -942,11 +1036,6 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
                   />
                 </svg>
-                <p
-                  class="editText"
-                >
-                  Edit Workflow
-                </p>
               </button>
             </div>
             <div
@@ -3071,21 +3160,6 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
       </section>
     </div>
   </div>
-  <div
-    class="bx--bmrg-modal-portal"
-  />
-  <div
-    class="bx--bmrg-modal-portal"
-  />
-  <div
-    class="bx--bmrg-modal-portal"
-  />
-  <div
-    class="bx--bmrg-modal-portal"
-  />
-  <div
-    class="bx--bmrg-modal-portal"
-  />
   <div
     class="bx--bmrg-modal-portal"
   />

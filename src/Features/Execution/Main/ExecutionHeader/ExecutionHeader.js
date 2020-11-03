@@ -10,6 +10,7 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { appLink } from "Config/appConfig";
 import moment from "moment";
+import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
 import { QueryStatus } from "Constants";
 import styles from "./executionHeader.module.scss";
 
@@ -43,6 +44,16 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
       actions={
         workflowExecution.status === QueryStatus.Success ? (
           <div className={styles.content}>
+            {workflowExecution.data.outputProperties &&
+              Object.keys(workflowExecution.data.outputProperties).length > 0 && (
+                <div className={styles.workflowOutputLog}>
+                  <OutputPropertiesLog
+                    isOutput
+                    flowTaskName={workflow.data.name}
+                    flowTaskOutputs={workflowExecution.data.outputProperties}
+                  />
+                </div>
+              )}
             <dl className={styles.data}>
               <dt className={styles.dataTitle}>Team</dt>
               <dd className={styles.dataValue}>{teamName}</dd>
