@@ -354,6 +354,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               class="bx--overflow-menu"
               style="border-radius: 0.25rem;"
               tabindex="0"
+              type="button"
             >
               <svg
                 aria-label="Filter"
@@ -403,7 +404,6 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   aria-controls="accordion-item-1"
                   aria-expanded="true"
                   class="bx--accordion__heading"
-                  title="workflow (5)"
                   type="button"
                 >
                   <svg
@@ -690,7 +690,6 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <button
                   aria-controls="accordion-item-2"
                   class="bx--accordion__heading"
-                  title="artifactory (2)"
                   type="button"
                 >
                   <svg
@@ -826,7 +825,6 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <button
                   aria-controls="accordion-item-3"
                   class="bx--accordion__heading"
-                  title="boomerang (2)"
                   type="button"
                 >
                   <svg
@@ -968,7 +966,6 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <button
                   aria-controls="accordion-item-4"
                   class="bx--accordion__heading"
-                  title="communication (5)"
                   type="button"
                 >
                   <svg
@@ -1242,7 +1239,6 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <button
                   aria-controls="accordion-item-5"
                   class="bx--accordion__heading"
-                  title="file utilities (6)"
                   type="button"
                 >
                   <svg
@@ -1558,7 +1554,6 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <button
                   aria-controls="accordion-item-6"
                   class="bx--accordion__heading"
-                  title="github (4)"
                   type="button"
                 >
                   <svg
@@ -1802,7 +1797,6 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <button
                   aria-controls="accordion-item-7"
                   class="bx--accordion__heading"
-                  title="servicenow (2)"
                   type="button"
                 >
                   <svg
@@ -1942,7 +1936,6 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 <button
                   aria-controls="accordion-item-8"
                   class="bx--accordion__heading"
-                  title="utilities (4)"
                   type="button"
                 >
                   <svg

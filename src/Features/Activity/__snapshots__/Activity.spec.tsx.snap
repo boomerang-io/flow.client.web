@@ -43,171 +43,187 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
       >
         <nav>
           <div
-            class="bx--tabs tabs"
-            role="navigation"
+            class="bx--tabs--scrollable"
           >
             <div
-              aria-label="listbox"
-              class="bx--tabs-trigger"
-              role="listbox"
-              tabindex="0"
+              class="tabs bx--tabs--scrollable"
             >
-              <a
-                class="bx--tabs-trigger-text"
-                href="#"
-                tabindex="-1"
+              <button
+                class="bx--tab--overflow-nav-button--hidden"
+                type="button"
               >
-                All
-              </a>
-              <svg
-                aria-hidden="true"
-                fill="currentColor"
-                focusable="false"
-                height="16"
-                preserveAspectRatio="xMidYMid meet"
-                viewBox="0 0 16 16"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 8L10 3 10.7 3.7 6.4 8 10.7 12.3 10 13z"
+                  />
+                </svg>
+              </button>
+              <ul
+                class="bx--tabs--scrollable__nav"
+                role="tablist"
               >
-                <path
-                  d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
-                />
-                <title>
-                  show menu options
-                </title>
-              </svg>
+                <li
+                  aria-controls="undefined__panel"
+                  aria-selected="true"
+                  class="bx--tabs--scrollable__nav-item bx--tabs__nav-item--selected bx--tabs--scrollable__nav-item--selected"
+                  role="tab"
+                  tabindex="-1"
+                >
+                  <a
+                    class="bx--tabs--scrollable__nav-link"
+                    href="#"
+                    tabindex="0"
+                  >
+                    All
+                  </a>
+                </li>
+                <li
+                  aria-controls="undefined__panel"
+                  aria-selected="false"
+                  class="bx--tabs--scrollable__nav-item"
+                  role="tab"
+                  tabindex="-1"
+                >
+                  <a
+                    class="bx--tabs--scrollable__nav-link"
+                    href="#"
+                    tabindex="-1"
+                  >
+                    In Progress
+                  </a>
+                </li>
+                <li
+                  aria-controls="undefined__panel"
+                  aria-selected="false"
+                  class="bx--tabs--scrollable__nav-item"
+                  role="tab"
+                  tabindex="-1"
+                >
+                  <a
+                    class="bx--tabs--scrollable__nav-link"
+                    href="#"
+                    tabindex="-1"
+                  >
+                    Succeeded
+                  </a>
+                </li>
+                <li
+                  aria-controls="undefined__panel"
+                  aria-selected="false"
+                  class="bx--tabs--scrollable__nav-item"
+                  role="tab"
+                  tabindex="-1"
+                >
+                  <a
+                    class="bx--tabs--scrollable__nav-link"
+                    href="#"
+                    tabindex="-1"
+                  >
+                    Failed
+                  </a>
+                </li>
+                <li
+                  aria-controls="undefined__panel"
+                  aria-selected="false"
+                  class="bx--tabs--scrollable__nav-item"
+                  role="tab"
+                  tabindex="-1"
+                >
+                  <a
+                    class="bx--tabs--scrollable__nav-link"
+                    href="#"
+                    tabindex="-1"
+                  >
+                    Invalid
+                  </a>
+                </li>
+                <li
+                  aria-controls="undefined__panel"
+                  aria-selected="false"
+                  class="bx--tabs--scrollable__nav-item"
+                  role="tab"
+                  tabindex="-1"
+                >
+                  <a
+                    class="bx--tabs--scrollable__nav-link"
+                    href="#"
+                    tabindex="-1"
+                  >
+                    Waiting
+                  </a>
+                </li>
+              </ul>
+              <button
+                class="bx--tab--overflow-nav-button--hidden"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                  />
+                </svg>
+              </button>
             </div>
-            <ul
-              class="bx--tabs__nav bx--tabs__nav--hidden"
-              role="tablist"
-            >
-              <li
-                aria-controls="undefined__panel"
-                aria-selected="true"
-                class="bx--tabs__nav-item bx--tabs__nav-item--selected"
-                role="tab"
-                tabindex="-1"
-              >
-                <a
-                  class="bx--tabs__nav-link"
-                  href="#"
-                  tabindex="0"
-                >
-                  All
-                </a>
-              </li>
-              <li
-                aria-controls="undefined__panel"
-                aria-selected="false"
-                class="bx--tabs__nav-item"
-                role="tab"
-                tabindex="-1"
-              >
-                <a
-                  class="bx--tabs__nav-link"
-                  href="#"
-                  tabindex="-1"
-                >
-                  In Progress
-                </a>
-              </li>
-              <li
-                aria-controls="undefined__panel"
-                aria-selected="false"
-                class="bx--tabs__nav-item"
-                role="tab"
-                tabindex="-1"
-              >
-                <a
-                  class="bx--tabs__nav-link"
-                  href="#"
-                  tabindex="-1"
-                >
-                  Succeeded
-                </a>
-              </li>
-              <li
-                aria-controls="undefined__panel"
-                aria-selected="false"
-                class="bx--tabs__nav-item"
-                role="tab"
-                tabindex="-1"
-              >
-                <a
-                  class="bx--tabs__nav-link"
-                  href="#"
-                  tabindex="-1"
-                >
-                  Failed
-                </a>
-              </li>
-              <li
-                aria-controls="undefined__panel"
-                aria-selected="false"
-                class="bx--tabs__nav-item"
-                role="tab"
-                tabindex="-1"
-              >
-                <a
-                  class="bx--tabs__nav-link"
-                  href="#"
-                  tabindex="-1"
-                >
-                  Invalid
-                </a>
-              </li>
-              <li
-                aria-controls="undefined__panel"
-                aria-selected="false"
-                class="bx--tabs__nav-item"
-                role="tab"
-                tabindex="-1"
-              >
-                <a
-                  class="bx--tabs__nav-link"
-                  href="#"
-                  tabindex="-1"
-                >
-                  Waiting
-                </a>
-              </li>
-            </ul>
+            <div
+              aria-hidden="false"
+              aria-live="polite"
+              class="bx--tab-content"
+              role="tabpanel"
+            />
+            <div
+              aria-hidden="true"
+              aria-live="polite"
+              class="bx--tab-content"
+              hidden=""
+              role="tabpanel"
+            />
+            <div
+              aria-hidden="true"
+              aria-live="polite"
+              class="bx--tab-content"
+              hidden=""
+              role="tabpanel"
+            />
+            <div
+              aria-hidden="true"
+              aria-live="polite"
+              class="bx--tab-content"
+              hidden=""
+              role="tabpanel"
+            />
+            <div
+              aria-hidden="true"
+              aria-live="polite"
+              class="bx--tab-content"
+              hidden=""
+              role="tabpanel"
+            />
+            <div
+              aria-hidden="true"
+              aria-live="polite"
+              class="bx--tab-content"
+              hidden=""
+              role="tabpanel"
+            />
           </div>
-          <div
-            aria-hidden="false"
-            class="bx--tab-content"
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="bx--tab-content"
-            hidden=""
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="bx--tab-content"
-            hidden=""
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="bx--tab-content"
-            hidden=""
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="bx--tab-content"
-            hidden=""
-            role="tabpanel"
-          />
-          <div
-            aria-hidden="true"
-            class="bx--tab-content"
-            hidden=""
-            role="tabpanel"
-          />
         </nav>
         <div
           class="filtersContainer"
@@ -224,32 +240,34 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                 <label
                   class="bx--label"
                   for="activity-teams-select"
-                  id="filterablemultiselect-label-1"
+                  id="activity-teams-select-label"
                 >
                   Filter by team
                 </label>
                 <div
+                  aria-expanded="false"
+                  aria-haspopup="listbox"
+                  aria-labelledby="activity-teams-select-label"
                   class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                  role="combobox"
                 >
                   <div
-                    aria-expanded="false"
                     aria-haspopup="true"
-                    aria-labelledby="filterablemultiselect-label-1"
+                    aria-labelledby="activity-teams-select-label"
                     class="bx--list-box__field"
                     data-toggle="true"
+                    id="activity-teams-select"
                     role="button"
                     tabindex="-1"
                     type="button"
                   >
                     <input
                       aria-autocomplete="list"
-                      aria-controls="activity-teams-select__menu"
-                      aria-expanded="false"
+                      aria-labelledby="activity-teams-select-label"
                       autocomplete="off"
                       class="bx--text-input bx--text-input--empty"
-                      id="activity-teams-select"
+                      id="activity-teams-select-input"
                       placeholder="Choose team(s)"
-                      role="combobox"
                       value=""
                     />
                     
@@ -275,77 +293,6 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                           Open menu
                         </title>
                       </svg>
-                    </div>
-                  </div>
-                  <div
-                    aria-label="Choose an item"
-                    class="bx--list-box__menu"
-                    id="activity-teams-select__menu"
-                    role="listbox"
-                  >
-                    <div
-                      class="bx--list-box__menu-item"
-                      id="downshift-0-item-0"
-                      title="IBM Services Engineering"
-                    >
-                      <div
-                        class="bx--list-box__menu-item__option"
-                      >
-                        <div
-                          class="bx--form-item bx--checkbox-wrapper"
-                        >
-                          <input
-                            class="bx--checkbox"
-                            id="downshift-0-item-0"
-                            name="IBM Services Engineering"
-                            readonly=""
-                            tabindex="-1"
-                            type="checkbox"
-                          />
-                          <label
-                            class="bx--checkbox-label"
-                            for="downshift-0-item-0"
-                          >
-                            <span
-                              class="bx--checkbox-label-text"
-                            >
-                              IBM Services Engineering
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="bx--list-box__menu-item"
-                      id="downshift-0-item-1"
-                      title="IBM Services Essentials"
-                    >
-                      <div
-                        class="bx--list-box__menu-item__option"
-                      >
-                        <div
-                          class="bx--form-item bx--checkbox-wrapper"
-                        >
-                          <input
-                            class="bx--checkbox"
-                            id="downshift-0-item-1"
-                            name="IBM Services Essentials"
-                            readonly=""
-                            tabindex="-1"
-                            type="checkbox"
-                          />
-                          <label
-                            class="bx--checkbox-label"
-                            for="downshift-0-item-1"
-                          >
-                            <span
-                              class="bx--checkbox-label-text"
-                            >
-                              IBM Services Essentials
-                            </span>
-                          </label>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -360,32 +307,34 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                 <label
                   class="bx--label"
                   for="activity-workflows-select"
-                  id="filterablemultiselect-label-2"
+                  id="activity-workflows-select-label"
                 >
                   Filter by workflow
                 </label>
                 <div
+                  aria-expanded="false"
+                  aria-haspopup="listbox"
+                  aria-labelledby="activity-workflows-select-label"
                   class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                  role="combobox"
                 >
                   <div
-                    aria-expanded="false"
                     aria-haspopup="true"
-                    aria-labelledby="filterablemultiselect-label-2"
+                    aria-labelledby="activity-workflows-select-label"
                     class="bx--list-box__field"
                     data-toggle="true"
+                    id="activity-workflows-select"
                     role="button"
                     tabindex="-1"
                     type="button"
                   >
                     <input
                       aria-autocomplete="list"
-                      aria-controls="activity-workflows-select__menu"
-                      aria-expanded="false"
+                      aria-labelledby="activity-workflows-select-label"
                       autocomplete="off"
                       class="bx--text-input bx--text-input--empty"
-                      id="activity-workflows-select"
+                      id="activity-workflows-select-input"
                       placeholder="Choose workflow(s)"
-                      role="combobox"
                       value=""
                     />
                     
@@ -411,77 +360,6 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                           Open menu
                         </title>
                       </svg>
-                    </div>
-                  </div>
-                  <div
-                    aria-label="Choose an item"
-                    class="bx--list-box__menu"
-                    id="activity-workflows-select__menu"
-                    role="listbox"
-                  >
-                    <div
-                      class="bx--list-box__menu-item"
-                      id="downshift-1-item-0"
-                      title="Essentials Training – Bot Efficiency [IBM Services Engineering]"
-                    >
-                      <div
-                        class="bx--list-box__menu-item__option"
-                      >
-                        <div
-                          class="bx--form-item bx--checkbox-wrapper"
-                        >
-                          <input
-                            class="bx--checkbox"
-                            id="downshift-1-item-0"
-                            name="Essentials Training – Bot Efficiency [IBM Services Engineering]"
-                            readonly=""
-                            tabindex="-1"
-                            type="checkbox"
-                          />
-                          <label
-                            class="bx--checkbox-label"
-                            for="downshift-1-item-0"
-                          >
-                            <span
-                              class="bx--checkbox-label-text"
-                            >
-                              Essentials Training – Bot Efficiency [IBM Services Engineering]
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="bx--list-box__menu-item"
-                      id="downshift-1-item-1"
-                      title="ML Train – Bot Efficiency [IBM Services Engineering]"
-                    >
-                      <div
-                        class="bx--list-box__menu-item__option"
-                      >
-                        <div
-                          class="bx--form-item bx--checkbox-wrapper"
-                        >
-                          <input
-                            class="bx--checkbox"
-                            id="downshift-1-item-1"
-                            name="ML Train – Bot Efficiency [IBM Services Engineering]"
-                            readonly=""
-                            tabindex="-1"
-                            type="checkbox"
-                          />
-                          <label
-                            class="bx--checkbox-label"
-                            for="downshift-1-item-1"
-                          >
-                            <span
-                              class="bx--checkbox-label-text"
-                            >
-                              ML Train – Bot Efficiency [IBM Services Engineering]
-                            </span>
-                          </label>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -496,32 +374,34 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                 <label
                   class="bx--label"
                   for="activity-triggers-select"
-                  id="filterablemultiselect-label-3"
+                  id="activity-triggers-select-label"
                 >
                   Filter by trigger
                 </label>
                 <div
+                  aria-expanded="false"
+                  aria-haspopup="listbox"
+                  aria-labelledby="activity-triggers-select-label"
                   class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                  role="combobox"
                 >
                   <div
-                    aria-expanded="false"
                     aria-haspopup="true"
-                    aria-labelledby="filterablemultiselect-label-3"
+                    aria-labelledby="activity-triggers-select-label"
                     class="bx--list-box__field"
                     data-toggle="true"
+                    id="activity-triggers-select"
                     role="button"
                     tabindex="-1"
                     type="button"
                   >
                     <input
                       aria-autocomplete="list"
-                      aria-controls="activity-triggers-select__menu"
-                      aria-expanded="false"
+                      aria-labelledby="activity-triggers-select-label"
                       autocomplete="off"
                       class="bx--text-input bx--text-input--empty"
-                      id="activity-triggers-select"
+                      id="activity-triggers-select-input"
                       placeholder="Choose trigger type(s)"
-                      role="combobox"
                       value=""
                     />
                     
@@ -547,109 +427,6 @@ exports[`WorkflowActivity --- Snapshot Capturing Snapshot of WorkflowActivity 1`
                           Open menu
                         </title>
                       </svg>
-                    </div>
-                  </div>
-                  <div
-                    aria-label="Choose an item"
-                    class="bx--list-box__menu"
-                    id="activity-triggers-select__menu"
-                    role="listbox"
-                  >
-                    <div
-                      class="bx--list-box__menu-item"
-                      id="downshift-2-item-0"
-                      title="cron"
-                    >
-                      <div
-                        class="bx--list-box__menu-item__option"
-                      >
-                        <div
-                          class="bx--form-item bx--checkbox-wrapper"
-                        >
-                          <input
-                            class="bx--checkbox"
-                            id="downshift-2-item-0"
-                            name="cron"
-                            readonly=""
-                            tabindex="-1"
-                            type="checkbox"
-                          />
-                          <label
-                            class="bx--checkbox-label"
-                            for="downshift-2-item-0"
-                          >
-                            <span
-                              class="bx--checkbox-label-text"
-                            >
-                              cron
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="bx--list-box__menu-item"
-                      id="downshift-2-item-1"
-                      title="manual"
-                    >
-                      <div
-                        class="bx--list-box__menu-item__option"
-                      >
-                        <div
-                          class="bx--form-item bx--checkbox-wrapper"
-                        >
-                          <input
-                            class="bx--checkbox"
-                            id="downshift-2-item-1"
-                            name="manual"
-                            readonly=""
-                            tabindex="-1"
-                            type="checkbox"
-                          />
-                          <label
-                            class="bx--checkbox-label"
-                            for="downshift-2-item-1"
-                          >
-                            <span
-                              class="bx--checkbox-label-text"
-                            >
-                              manual
-                            </span>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="bx--list-box__menu-item"
-                      id="downshift-2-item-2"
-                      title="webhook"
-                    >
-                      <div
-                        class="bx--list-box__menu-item__option"
-                      >
-                        <div
-                          class="bx--form-item bx--checkbox-wrapper"
-                        >
-                          <input
-                            class="bx--checkbox"
-                            id="downshift-2-item-2"
-                            name="webhook"
-                            readonly=""
-                            tabindex="-1"
-                            type="checkbox"
-                          />
-                          <label
-                            class="bx--checkbox-label"
-                            for="downshift-2-item-2"
-                          >
-                            <span
-                              class="bx--checkbox-label-text"
-                            >
-                              webhook
-                            </span>
-                          </label>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
