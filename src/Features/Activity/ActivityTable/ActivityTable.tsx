@@ -6,7 +6,7 @@ import { DataTableSkeleton, DataTable, Pagination } from "@boomerang-io/carbon-a
 import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";
-import { getHumanizedDuration, isAccessibleEvent } from "@boomerang-io/utils";
+import { getHumanizedDuration, isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import EmptyState from "Components/EmptyState";
 import { ExecutionStatusCopy, executionStatusIcon } from "Constants";
 import styles from "./activityTable.module.scss";
@@ -171,7 +171,7 @@ function ActivityTable(props) {
                           className={`${styles.tableRow} ${styles[row.cells[6].value]}`}
                           data-testid="configuration-property-table-row"
                           onClick={() => executionViewRedirect(row.id)}
-                          onKeyDown={(e) => isAccessibleEvent(e) && executionViewRedirect(row.id)}
+                          onKeyDown={(e) => isAccessibleKeyboardEvent(e) && executionViewRedirect(row.id)}
                           tabIndex={0}
                         >
                           {row.cells.map((cell, cellIndex) => (
