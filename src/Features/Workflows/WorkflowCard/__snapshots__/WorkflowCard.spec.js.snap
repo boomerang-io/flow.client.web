@@ -89,6 +89,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
         class="bx--overflow-menu"
         style="position: absolute; right: 0px;"
         tabindex="0"
+        type="button"
       >
         <svg
           aria-label="Overflow menu icon"

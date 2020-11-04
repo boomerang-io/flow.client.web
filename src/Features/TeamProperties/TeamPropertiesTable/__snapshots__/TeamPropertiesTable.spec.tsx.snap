@@ -40,11 +40,16 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
             class="bx--bmrg-select"
           >
             <div
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-labelledby="downshift-0-label"
               class="bx--list-box__wrapper"
+              role="combobox"
             >
               <label
                 class="bx--label"
                 for="team-properties-select"
+                id="downshift-0-label"
               >
                 <div
                   style="display: flex;"
@@ -55,29 +60,29 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
                 </div>
               </label>
               <div
+                aria-label="Choose an item"
                 class="bx--combo-box bx--list-box"
               >
                 <div
-                  aria-expanded="false"
                   aria-haspopup="true"
                   aria-label="open menu"
                   class="bx--list-box__field"
                   data-toggle="true"
+                  id="team-properties-select"
                   role="button"
                   tabindex="-1"
                   type="button"
                 >
                   <input
                     aria-autocomplete="list"
-                    aria-controls="team-properties-select__menu"
-                    aria-expanded="false"
-                    aria-label="Choose an item"
+                    aria-labelledby="downshift-0-label"
                     autocomplete="off"
                     class="bx--text-input"
                     data-testid="team-properties-combobox"
                     id="team-properties-select"
                     placeholder="Select a team"
-                    role="combobox"
+                    tabindex="0"
+                    type="text"
                     value="Allianz"
                   />
                   <div
