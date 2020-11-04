@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { isAccessibleEvent } from "@boomerang-io/utils";
+import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
 import { ModalFlow, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorView from "./TextEditorView";
 import styles from "./TextEditorModal.module.scss";
@@ -26,7 +26,7 @@ const TextEditorModal = (props) => {
           id={props.key}
           labelText={props.label}
           onClick={openModal}
-          onKeyDown={(e) => isAccessibleEvent(e) && openModal()}
+          onKeyDown={(e) => isAccessibleKeyboardEvent(e) && openModal()}
           placeholder={props.placeholder}
           style={{ cursor: "pointer" }}
           value={value}
