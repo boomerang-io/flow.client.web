@@ -5,6 +5,7 @@ import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
 import { Button, ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskExecutionLog from "./TaskExecutionLog";
+import ManualTaskModal from "./ManualTaskModal";
 import TaskApprovalModal from "./TaskApprovalModal";
 import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import styles from "./taskItem.module.scss";
@@ -57,7 +58,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
           )}
-          {approval && approval.status === ApprovalStatus.Submitted && (
+          {taskType === "approval" && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
               modalHeaderProps={{
                 title: "Pending manual approval",
@@ -79,45 +80,110 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
               )}
             </ComposedModal>
           )}
-          {approval && (approval.status === ApprovalStatus.Approved || approval.status === ApprovalStatus.Rejected) && (
+          {taskType === "manual" && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
-              composedModalProps={{
-                containerClassName: styles.approvalResultsModalContainer,
-                shouldCloseOnOverlayClick: true,
-              }}
               modalHeaderProps={{
-                title: "Approval details",
+                title: "Pending manual task",
+                subtitle: taskName,
               }}
               modalTrigger={({ openModal }) => (
                 <Button size="small" kind="ghost" onClick={openModal}>
-                  View Approval
+                  Action Manual Task
                 </Button>
               )}
             >
-              {() => (
-                <ModalBody>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approval Status</span>
-                    <p className={styles.sectionDetail}>{approval.status}</p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approver</span>
-                    <p
-                      className={styles.sectionDetail}
-                    >{`${approval.audit.approverName}(${approval.audit.approverEmail})`}</p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approval submitted</span>
-                    <p className={styles.sectionDetail}>{moment(approval.audit.actionDate).format("DD-MM-YY")}</p>
-                  </section>
-                  <section className={styles.detailedSection}>
-                    <span className={styles.sectionHeader}>Approval comments</span>
-                    <p className={styles.sectionDetail}>{approval.audit.comments}</p>
-                  </section>
-                </ModalBody>
+              {({ closeModal }) => (
+                <ManualTaskModal
+                  approvalId={approval?.id}
+                  flowTaskName={taskName}
+                  executionId={executionId}
+                  closeModal={closeModal}
+                  instructions={approval?.instructions}
+                />
               )}
             </ComposedModal>
           )}
+          {taskType === "approval" &&
+            (approval?.status === ApprovalStatus.Approved || approval?.status === ApprovalStatus.Rejected) && (
+              <ComposedModal
+                composedModalProps={{
+                  containerClassName: styles.approvalResultsModalContainer,
+                  shouldCloseOnOverlayClick: true,
+                }}
+                modalHeaderProps={{
+                  title: "Approval details",
+                }}
+                modalTrigger={({ openModal }) => (
+                  <Button size="small" kind="ghost" onClick={openModal}>
+                    View Approval
+                  </Button>
+                )}
+              >
+                {() => (
+                  <ModalBody>
+                    <section className={styles.detailedSection}>
+                      <span className={styles.sectionHeader}>Approval Status</span>
+                      <p className={styles.sectionDetail}>{approval.status}</p>
+                    </section>
+                    <section className={styles.detailedSection}>
+                      <span className={styles.sectionHeader}>Approver</span>
+                      <p
+                        className={styles.sectionDetail}
+                      >{`${approval.audit.approverName}(${approval.audit.approverEmail})`}</p>
+                    </section>
+                    <section className={styles.detailedSection}>
+                      <span className={styles.sectionHeader}>Approval submitted</span>
+                      <p className={styles.sectionDetail}>{moment(approval.audit.actionDate).format("DD-MM-YY")}</p>
+                    </section>
+                    <section className={styles.detailedSection}>
+                      <span className={styles.sectionHeader}>Approval comments</span>
+                      <p className={styles.sectionDetail}>{approval.audit.comments}</p>
+                    </section>
+                  </ModalBody>
+                )}
+              </ComposedModal>
+            )}
+
+          {taskType === "manual" &&
+            (approval?.status === ApprovalStatus.Approved || approval?.status === ApprovalStatus.Rejected) && (
+              <ComposedModal
+                composedModalProps={{
+                  containerClassName: styles.approvalResultsModalContainer,
+                  shouldCloseOnOverlayClick: true,
+                }}
+                modalHeaderProps={{
+                  title: "Manual Task details",
+                }}
+                modalTrigger={({ openModal }) => (
+                  <Button size="small" kind="ghost" onClick={openModal}>
+                    View Manual submission
+                  </Button>
+                )}
+              >
+                {() => (
+                  <ModalBody>
+                    <section className={styles.detailedSection}>
+                      <span className={styles.sectionHeader}>Status</span>
+                      <p className={styles.sectionDetail}>{approval.status}</p>
+                    </section>
+                    <section className={styles.detailedSection}>
+                      <span className={styles.sectionHeader}>Approver</span>
+                      <p
+                        className={styles.sectionDetail}
+                      >{`${approval.audit.approverName}(${approval.audit.approverEmail})`}</p>
+                    </section>
+                    <section className={styles.detailedSection}>
+                      <span className={styles.sectionHeader}>Submitted</span>
+                      <p className={styles.sectionDetail}>{moment(approval.audit.actionDate).format("DD-MM-YY")}</p>
+                    </section>
+                    <section className={styles.detailedSection}>
+                      <span className={styles.sectionHeader}>Instructions</span>
+                      <p className={styles.sectionDetail}>{approval?.instructions}</p>
+                    </section>
+                  </ModalBody>
+                )}
+              </ComposedModal>
+            )}
         </section>
       )}
     </li>
