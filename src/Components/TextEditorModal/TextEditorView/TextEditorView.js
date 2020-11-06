@@ -32,6 +32,7 @@ import "codemirror/addon/comment/comment.js";
 import "./styles.scss";
 
 TextEditorView.propTypes = {
+  closeModal: PropTypes.func.isRequired,
   isLanguageSelectorDisabled: PropTypes.bool,
   item: PropTypes.shape({
     name: PropTypes.string,
@@ -192,12 +193,12 @@ function TextEditorView(props) {
         <Toolbar className="b-task-text-area">
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Undo"
               tooltipPosition="bottom"
-              tooltipAlignment="end"
-              hasIconOnly
+              tooltipAlignment="start"
               renderIcon={Undo20}
               onClick={undo}
               className="b-task-text-area__button"
@@ -205,12 +206,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Redo"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={Redo20}
               onClick={redo}
               className="b-task-text-area__button"
@@ -218,12 +219,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Copy"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={Copy20}
               onClick={copy}
               className="b-task-text-area__button"
@@ -231,12 +232,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Cut"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={Cut20}
               onClick={cut}
               className="b-task-text-area__button"
@@ -244,12 +245,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Paste"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={Paste20}
               onClick={paste}
               className="b-task-text-area__button"
@@ -269,12 +270,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Find previous"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={ArrowUp16}
               onClick={findPrevious}
               className="b-task-text-area__button"
@@ -282,12 +283,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Find next"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={ArrowDown16}
               onClick={findNext}
               className="b-task-text-area__button"
@@ -339,7 +340,6 @@ function TextEditorView(props) {
             ...languageParams,
           }}
           onBeforeChange={(editor, data, value) => {
-            props.setShouldConfirmModalClose(true);
             setValue(value);
           }}
           //TB: trying to get autocomplete to work
@@ -355,6 +355,9 @@ function TextEditorView(props) {
         />
       </ModalBody>
       <ModalFooter>
+        <Button kind="secondary" onClick={props.closeModal}>
+          Cancel
+        </Button>
         <Button onClick={saveValue}>Update</Button>
       </ModalFooter>
     </>

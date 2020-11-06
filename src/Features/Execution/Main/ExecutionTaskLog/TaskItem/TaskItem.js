@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import moment from "moment";
-import getHumanizedDuration from "@boomerang-io/utils/lib/getHumanizedDuration";
+import ReactMarkdown from "react-markdown";
 import { Button, ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
-import OutputPropertiesLog from "./OutputPropertiesLog";
-import TaskExecutionLog from "./TaskExecutionLog";
 import ManualTaskModal from "./ManualTaskModal";
+import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskApprovalModal from "./TaskApprovalModal";
-import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy } from "Constants";
+import TaskExecutionLog from "./TaskExecutionLog";
+import moment from "moment";
+import { getHumanizedDuration } from "@boomerang-io/utils";
+import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
 import styles from "./taskItem.module.scss";
 
 const logTaskTypes = ["custom", "template"];
@@ -40,7 +41,6 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
         </div>
       </section>
       <section className={styles.data}>
-        {/* <p className={styles.subtitle}>Subtitle</p> */}
         <div className={styles.time}>
           <p className={styles.timeTitle}>Start time</p>
           <time className={styles.timeValue}>{startTime ? moment(startTime).format("hh:mm:ss A") : "---"}</time>
@@ -58,15 +58,15 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
           )}
-          {taskType === "approval" && approval?.status === ApprovalStatus.Submitted && (
+          {taskType === NodeType.Approval && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
               modalHeaderProps={{
                 title: "Pending manual approval",
                 subtitle: taskName,
               }}
               modalTrigger={({ openModal }) => (
-                <Button size="small" kind="ghost" onClick={openModal}>
-                  Action Approval
+                <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                  Action Manual Approval
                 </Button>
               )}
             >
@@ -80,14 +80,14 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
               )}
             </ComposedModal>
           )}
-          {taskType === "manual" && approval?.status === ApprovalStatus.Submitted && (
+          {taskType === NodeType.Manual && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
               modalHeaderProps={{
                 title: "Pending manual task",
                 subtitle: taskName,
               }}
               modalTrigger={({ openModal }) => (
-                <Button size="small" kind="ghost" onClick={openModal}>
+                <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
                   Action Manual Task
                 </Button>
               )}
@@ -103,7 +103,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
               )}
             </ComposedModal>
           )}
-          {taskType === "approval" &&
+          {taskType === NodeType.Approval &&
             (approval?.status === ApprovalStatus.Approved || approval?.status === ApprovalStatus.Rejected) && (
               <ComposedModal
                 composedModalProps={{
@@ -111,11 +111,11 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                   shouldCloseOnOverlayClick: true,
                 }}
                 modalHeaderProps={{
-                  title: "Approval details",
+                  title: "Manual Approval details",
                 }}
                 modalTrigger={({ openModal }) => (
-                  <Button size="small" kind="ghost" onClick={openModal}>
-                    View Approval
+                  <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                    View Manual Approval
                   </Button>
                 )}
               >
@@ -129,11 +129,13 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                       <span className={styles.sectionHeader}>Approver</span>
                       <p
                         className={styles.sectionDetail}
-                      >{`${approval.audit.approverName}(${approval.audit.approverEmail})`}</p>
+                      >{`${approval.audit.approverName} (${approval.audit.approverEmail})`}</p>
                     </section>
                     <section className={styles.detailedSection}>
                       <span className={styles.sectionHeader}>Approval submitted</span>
-                      <p className={styles.sectionDetail}>{moment(approval.audit.actionDate).format("DD-MM-YY")}</p>
+                      <p className={styles.sectionDetail}>
+                        {moment(approval.audit.actionDate).format("YYYY-MM-DD hh:mm A")}
+                      </p>
                     </section>
                     <section className={styles.detailedSection}>
                       <span className={styles.sectionHeader}>Approval comments</span>
@@ -143,8 +145,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                 )}
               </ComposedModal>
             )}
-
-          {taskType === "manual" &&
+          {taskType === NodeType.Manual &&
             (approval?.status === ApprovalStatus.Approved || approval?.status === ApprovalStatus.Rejected) && (
               <ComposedModal
                 composedModalProps={{
@@ -155,8 +156,8 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                   title: "Manual Task details",
                 }}
                 modalTrigger={({ openModal }) => (
-                  <Button size="small" kind="ghost" onClick={openModal}>
-                    View Manual Task Completion
+                  <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                    View Manual Task
                   </Button>
                 )}
               >
@@ -165,22 +166,26 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                     <section className={styles.detailedSection}>
                       <span className={styles.sectionHeader}>Status</span>
                       <p className={styles.sectionDetail}>{`${
-                        approval.status === "approved" ? "Successfully Completed" : "Unsuccessfully Completed"
+                        approval.status === ApprovalStatus.Approved
+                          ? "Successfully Completed"
+                          : "Unsuccessfully Completed"
                       }`}</p>
                     </section>
                     <section className={styles.detailedSection}>
                       <span className={styles.sectionHeader}>Approver</span>
                       <p
                         className={styles.sectionDetail}
-                      >{`${approval.audit.approverName}(${approval.audit.approverEmail})`}</p>
+                      >{`${approval.audit.approverName} (${approval.audit.approverEmail})`}</p>
                     </section>
                     <section className={styles.detailedSection}>
                       <span className={styles.sectionHeader}>Submitted</span>
-                      <p className={styles.sectionDetail}>{moment(approval.audit.actionDate).format("DD-MM-YY")}</p>
+                      <p className={styles.sectionDetail}>
+                        {moment(approval.audit.actionDate).format("YYYY-MM-DD hh:mm A")}
+                      </p>
                     </section>
                     <section className={styles.detailedSection}>
                       <span className={styles.sectionHeader}>Instructions</span>
-                      <p className={styles.sectionDetail}>{approval?.instructions}</p>
+                      <ReactMarkdown className="markdown-body" source={approval?.instructions} />
                     </section>
                   </ModalBody>
                 )}
