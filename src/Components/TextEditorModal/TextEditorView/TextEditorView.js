@@ -99,10 +99,9 @@ function TextEditorView(props) {
   }, [props.autoSuggestions]);
 
   const saveValue = () => {
-    props.setShouldConfirmModalClose(false);
     props.setTextAreaValue(value);
     props.formikSetFieldValue(value);
-    props.forceCloseModal();
+    props.closeModal();
   };
 
   const undo = () => {
