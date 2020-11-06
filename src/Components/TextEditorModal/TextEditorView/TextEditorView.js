@@ -160,10 +160,6 @@ function TextEditorView(props) {
     setLanguageParams(languages.find((value) => value.id === language.selectedItem.id).params);
   };
 
-  // const commentCode = () => {
-  //   editor.current.toggleComment();
-  // };
-
   //TB trying to get autocomplete to work
   const autoComplete = (cm) => {
     CodeMirror.showHint(cm, CodeMirror.hint.dictionaryHint, { completeSingle: false });
