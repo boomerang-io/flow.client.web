@@ -61,7 +61,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           {taskType === NodeType.Approval && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
               modalHeaderProps={{
-                title: "Pending manual approval",
+                title: "Action Manual Approval",
                 subtitle: taskName,
               }}
               modalTrigger={({ openModal }) => (
@@ -82,8 +82,11 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           )}
           {taskType === NodeType.Manual && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
+              composedModalProps={{
+                containerClassName: styles.actionManualTaskModalContainer,
+              }}
               modalHeaderProps={{
-                title: "Pending manual task",
+                title: "Action Manual Task",
                 subtitle: taskName,
               }}
               modalTrigger={({ openModal }) => (
