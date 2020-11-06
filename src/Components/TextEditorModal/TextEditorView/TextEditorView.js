@@ -17,6 +17,7 @@ import "codemirror/addon/fold/brace-fold.js";
 import "codemirror/addon/fold/indent-fold.js";
 import "codemirror/addon/fold/comment-fold.js";
 import "codemirror/addon/comment/comment.js";
+import "codemirror/mode/markdown/markdown";
 import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16 } from "@carbon/icons-react";
 import {
   ModalBody,
@@ -52,6 +53,7 @@ const languages = [
   { id: "shell", text: "Shell", params: { mode: "shell" } },
   { id: "text", text: "Text", params: { mode: "text/plain" } },
   { id: "yaml", text: "YAML", params: { mode: "yaml" } },
+  { id: "markdown", text: "Markdown", params: { mode: "markdown" } },
 ];
 
 function TextEditorView(props) {
