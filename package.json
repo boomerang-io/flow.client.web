@@ -72,7 +72,6 @@
     "react-router-dom": "5.1.2",
     "react-scripts": "3.4.1",
     "reflexbox": "^4.0.6",
-    "remark-gfm": "^1.0.0",
     "typeface-ibm-plex-sans": "0.0.75",
     "use-immer": "^0.4.0",
     "validator": "^10.7.1",
