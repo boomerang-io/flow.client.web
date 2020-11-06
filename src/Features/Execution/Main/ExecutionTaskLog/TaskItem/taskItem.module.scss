@@ -184,7 +184,12 @@
 }
 
 .approvalResultsModalContainer {
-  max-height: 36rem;
+  max-height: 40rem;
+  max-width: 75ch;
+}
+
+.actionManualTaskModalContainer {
+  max-height: 40rem;
   max-width: 75ch;
 }
 
