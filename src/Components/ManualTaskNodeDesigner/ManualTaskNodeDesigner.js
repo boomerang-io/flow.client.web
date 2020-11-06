@@ -78,6 +78,10 @@ const ManualTaskNodeDesigner = React.memo(function ManualTaskNodeDesigner({ diag
             onSave={handleOnSaveTaskConfig}
             taskNames={taskNames}
             task={task}
+            textEditorProps={{
+              isLanguageSelectorDisabled: true,
+              subtitle: "Enter instructions in markdown",
+            }}
           />
         )}
       </ComposedModal>

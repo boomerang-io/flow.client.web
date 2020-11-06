@@ -1,9 +1,21 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import CodeMirror from "codemirror";
 import { Controlled as CodeMirrorReact } from "react-codemirror2";
+import {
+  ModalBody,
+  ModalFooter,
+  Toolbar,
+  ToolbarItem,
+  Search,
+  Dropdown,
+  Button,
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16 } from "@carbon/icons-react";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
+import "codemirror/mode/markdown/markdown";
 import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/shell/shell";
 import "codemirror/mode/yaml/yaml";
@@ -17,21 +29,10 @@ import "codemirror/addon/fold/brace-fold.js";
 import "codemirror/addon/fold/indent-fold.js";
 import "codemirror/addon/fold/comment-fold.js";
 import "codemirror/addon/comment/comment.js";
-import "codemirror/mode/markdown/markdown";
-import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16 } from "@carbon/icons-react";
-import {
-  ModalBody,
-  ModalFooter,
-  Toolbar,
-  ToolbarItem,
-  Search,
-  Dropdown,
-  Button,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import CodeMirror from "codemirror";
 import "./styles.scss";
 
 TextEditorView.propTypes = {
+  isLanguageSelectorDisabled: PropTypes.bool,
   item: PropTypes.shape({
     name: PropTypes.string,
   }),
@@ -50,10 +51,10 @@ const languages = [
     text: "JavaScript/JSON",
     params: { hint: CodeMirror.hint.javascript, mode: { name: "javascript" } },
   },
+  { id: "markdown", text: "Markdown", params: { mode: "markdown" } },
   { id: "shell", text: "Shell", params: { mode: "shell" } },
   { id: "text", text: "Text", params: { mode: "text/plain" } },
   { id: "yaml", text: "YAML", params: { mode: "yaml" } },
-  { id: "markdown", text: "Markdown", params: { mode: "markdown" } },
 ];
 
 function TextEditorView(props) {
@@ -187,20 +188,7 @@ function TextEditorView(props) {
 
   return (
     <>
-      <ModalBody
-        style={{
-          maxWidth: "80rem",
-          maxHeight: "42rem",
-          height: "100%",
-          width: "100%",
-          margin: "auto",
-          overflowY: "auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          padding: "0 2rem",
-        }}
-      >
+      <ModalBody className="c-textEditorContainer">
         <Toolbar className="b-task-text-area">
           <ToolbarItem>
             <Button
@@ -305,38 +293,27 @@ function TextEditorView(props) {
               className="b-task-text-area__button"
             />
           </ToolbarItem>
-          {/* <ToolbarItem>
-            <Button
-              size="small"
-              kind="ghost"
-              iconDescription="Comment"
-              tooltipPosition="bottom"
-              tooltipAlignment="center"
-              hasIconOnly
-              renderIcon={Chat20}
-              onClick={commentCode}
-              className="b-task-text-area__button"
-            />
-          </ToolbarItem> */}
-          <ToolbarItem>
-            <div className="b-task-text-area__language-dropdown">
-              <Dropdown
-                id="dropdown-language"
-                type="default"
-                label="Language selection"
-                ariaLabel="Dropdown"
-                light={false}
-                initialSelectedItem={
-                  props.language
-                    ? languageOptions.find((languageOption) => languageOption.id === props.language)
-                    : languageOptions[0]
-                }
-                items={languageOptions}
-                itemToString={(item) => (item ? item.text : "")}
-                onChange={onChangeLanguage}
-              />
-            </div>
-          </ToolbarItem>
+          {!props.isLanguageSelectorDisabled && (
+            <ToolbarItem>
+              <div className="b-task-text-area__language-dropdown">
+                <Dropdown
+                  id="dropdown-language"
+                  type="default"
+                  label="Language selection"
+                  ariaLabel="Dropdown"
+                  light={false}
+                  initialSelectedItem={
+                    props.language
+                      ? languageOptions.find((languageOption) => languageOption.id === props.language)
+                      : languageOptions[0]
+                  }
+                  items={languageOptions}
+                  itemToString={(item) => (item ? item.text : "")}
+                  onChange={onChangeLanguage}
+                />
+              </div>
+            </ToolbarItem>
+          )}
         </Toolbar>
 
         <CodeMirrorReact

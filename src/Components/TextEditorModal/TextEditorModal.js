@@ -14,6 +14,7 @@ const TextEditorModal = (props) => {
       }}
       modalHeaderProps={{
         title: `Update ${props.label}`,
+        subtitle: props.subtitle,
       }}
       confirmModalProps={{
         title: "Are you sure?",

@@ -1,5 +1,18 @@
 @import "Styles/mixins";
 
+.c-textEditorContainer {
+  max-width: "80rem";
+  max-height: "42rem";
+  height: "100%";
+  width: "100%";
+  margin: "auto";
+  overflow-y: "auto";
+  display: "flex";
+  flex-direction: "column";
+  justify-content: "flex-start";
+  padding: "0 2rem";
+}
+
 .CodeMirror {
   height: 36rem;
   letter-spacing: inherit;
