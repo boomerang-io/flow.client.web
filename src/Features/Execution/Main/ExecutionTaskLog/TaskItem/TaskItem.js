@@ -156,7 +156,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                 }}
                 modalTrigger={({ openModal }) => (
                   <Button size="small" kind="ghost" onClick={openModal}>
-                    View Manual submission
+                    View Manual Task Completion
                   </Button>
                 )}
               >
@@ -164,7 +164,9 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                   <ModalBody>
                     <section className={styles.detailedSection}>
                       <span className={styles.sectionHeader}>Status</span>
-                      <p className={styles.sectionDetail}>{approval.status}</p>
+                      <p className={styles.sectionDetail}>{`${
+                        approval.status === "approved" ? "Successfully Completed" : "Unsuccessfully Completed"
+                      }`}</p>
                     </section>
                     <section className={styles.detailedSection}>
                       <span className={styles.sectionHeader}>Approver</span>
