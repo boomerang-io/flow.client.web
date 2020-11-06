@@ -1737,7 +1737,7 @@ export default [
             description: "",
             key: "instructions",
             label: "Instructions",
-            type: "textarea",
+            type: "texteditor::markdown",
             helperText: "Instructions for end user to follow to perform manual task.",
           },
         ],
