@@ -6,12 +6,12 @@ import {
   Button,
   InlineNotification,
   Loading,
-  ModalBody,
   ModalFooter,
   notify,
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import styles from "./ManualTaskModal.module.scss";
 
 function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }) {
   const cancelRequestRef = React.useRef();
@@ -53,19 +53,22 @@ function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }
 
   return (
     <>
-      <ModalBody>
-        {approvalsIsLoading ? <Loading /> : <ReactMarkdown plugins={[gfm]} children={instructions} />}
+      {approvalsIsLoading ? (
+        <Loading />
+      ) : (
+        <ReactMarkdown className={styles.markdownContainer} children={instructions} plugins={[gfm]} />
+      )}
 
-        {Boolean(approvalsError) && (
-          <InlineNotification
-            style={{ marginBottom: "0.5rem" }}
-            lowContrast
-            kind="error"
-            title={"Manual Task Failed"}
-            subtitle={"Something's Wrong"}
-          />
-        )}
-      </ModalBody>
+      {Boolean(approvalsError) && (
+        <InlineNotification
+          style={{ marginBottom: "0.5rem" }}
+          lowContrast
+          kind="error"
+          title={"Manual Task Failed"}
+          subtitle={"Something's Wrong"}
+        />
+      )}
+
       <ModalFooter>
         <Button kind="secondary" type="button" onClick={closeModal}>
           Cancel
