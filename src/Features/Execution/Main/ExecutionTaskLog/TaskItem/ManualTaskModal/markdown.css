@@ -1,12 +1,3 @@
-.markdown-body {
-  border-top: 0.0625rem solid var(--cds-skeleton-02);
-  padding-left: 1rem;
-  margin-bottom: 2rem;
-  overflow-y: scroll;
-  padding-right: 1rem;
-  padding-top: 1rem;
-}
-
 .markdown-body .octicon {
   display: inline-block;
   fill: currentColor;
@@ -60,7 +51,6 @@
   font-family: inherit;
   font-size: 14px;
   line-height: 1.3;
-  padding-bottom: 2rem;
   word-wrap: break-word;
 }
 

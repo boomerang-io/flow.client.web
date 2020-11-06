@@ -5,6 +5,8 @@ import {
   Button,
   InlineNotification,
   Loading,
+  ModalForm,
+  ModalBody,
   ModalFooter,
   notify,
   ToastNotification,
@@ -51,29 +53,32 @@ function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }
   };
 
   return (
-    <>
-      {approvalsIsLoading ? <Loading /> : <ReactMarkdown className="markdown-body" source={instructions} />}
-      {Boolean(approvalsError) && (
-        <InlineNotification
-          style={{ marginBottom: "0.5rem" }}
-          lowContrast
-          kind="error"
-          title={"Manual Task Failed"}
-          subtitle={"Something's Wrong"}
-        />
-      )}
+    <ModalForm>
+      {approvalsIsLoading && <Loading />}
+      <ModalBody>
+        <ReactMarkdown className="markdown-body" source={instructions} />
+        {Boolean(approvalsError) && (
+          <InlineNotification
+            style={{ marginBottom: "0.5rem" }}
+            lowContrast
+            kind="error"
+            title={"Manual Task Failed"}
+            subtitle={"Something's Wrong"}
+          />
+        )}
+      </ModalBody>
       <ModalFooter>
         <Button kind="secondary" type="button" onClick={closeModal}>
           Cancel
         </Button>
         <Button disabled={approvalsIsLoading} type="submit" kind="danger" onClick={() => handleSubmit(false)}>
-          Unsuccessfully Completed
+          Complete Unsuccessfully
         </Button>
         <Button disabled={approvalsIsLoading} type="submit" onClick={() => handleSubmit(true)}>
-          Successfully Completed
+          Complete Successfully
         </Button>
       </ModalFooter>
-    </>
+    </ModalForm>
   );
 }
 

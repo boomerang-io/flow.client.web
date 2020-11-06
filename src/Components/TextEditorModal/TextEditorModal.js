@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { isAccessibleKeyboardEvent } from "@boomerang-io/utils";
-import { ModalFlow, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ComposedModal, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorView from "./TextEditorView";
 import styles from "./TextEditorModal.module.scss";
 
 const TextEditorModal = (props) => {
   const [value, setValue] = useState(props.initialValue);
   return (
-    <ModalFlow
+    <ComposedModal
       composedModalProps={{
         containerClassName: styles.modalContainer,
       }}
@@ -35,13 +35,16 @@ const TextEditorModal = (props) => {
         />
       )}
     >
-      <TextEditorView
-        {...props}
-        language={props.type?.includes("::") ? props.type.split("::")[1] : undefined}
-        setTextAreaValue={setValue}
-        value={value}
-      />
-    </ModalFlow>
+      {({ closeModal }) => (
+        <TextEditorView
+          {...props}
+          closeModal={closeModal}
+          language={props.type?.includes("::") ? props.type.split("::")[1] : undefined}
+          setTextAreaValue={setValue}
+          value={value}
+        />
+      )}
+    </ComposedModal>
   );
 };
 
