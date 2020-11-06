@@ -80,7 +80,7 @@ const ManualTaskNodeDesigner = React.memo(function ManualTaskNodeDesigner({ diag
             task={task}
             textEditorProps={{
               isLanguageSelectorDisabled: true,
-              subtitle: "Enter instructions in markdown",
+              subtitle: "Enter instructions in Markdown",
             }}
           />
         )}
