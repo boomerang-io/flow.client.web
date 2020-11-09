@@ -29,7 +29,7 @@
     "upgradePackage": "react-scripts upgradePackage"
   },
   "dependencies": {
-    "@boomerang-io/carbon-addons-boomerang-react": "0.0.22-beta.3",
+    "@boomerang-io/carbon-addons-boomerang-react": "1.0.0",
     "@boomerang-io/styles": "0.0.1",
     "@boomerang-io/utils": "0.0.1",
     "@carbon/charts": "^0.16.24",
