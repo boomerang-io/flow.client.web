@@ -1,9 +1,21 @@
 /* eslint-disable no-template-curly-in-string */
 import React, { useRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import CodeMirror from "codemirror";
 import { Controlled as CodeMirrorReact } from "react-codemirror2";
+import {
+  ModalBody,
+  ModalFooter,
+  Toolbar,
+  ToolbarItem,
+  Search,
+  Dropdown,
+  Button,
+} from "@boomerang-io/carbon-addons-boomerang-react";
+import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16 } from "@carbon/icons-react";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
+import "codemirror/mode/markdown/markdown";
 import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/shell/shell";
 import "codemirror/mode/yaml/yaml";
@@ -17,20 +29,11 @@ import "codemirror/addon/fold/brace-fold.js";
 import "codemirror/addon/fold/indent-fold.js";
 import "codemirror/addon/fold/comment-fold.js";
 import "codemirror/addon/comment/comment.js";
-import { Undo20, Redo20, Copy20, Cut20, Paste20, ArrowUp16, ArrowDown16 } from "@carbon/icons-react";
-import {
-  ModalBody,
-  ModalFooter,
-  Toolbar,
-  ToolbarItem,
-  Search,
-  Dropdown,
-  Button,
-} from "@boomerang-io/carbon-addons-boomerang-react";
-import CodeMirror from "codemirror";
 import "./styles.scss";
 
 TextEditorView.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  isLanguageSelectorDisabled: PropTypes.bool,
   item: PropTypes.shape({
     name: PropTypes.string,
   }),
@@ -49,6 +52,7 @@ const languages = [
     text: "JavaScript/JSON",
     params: { hint: CodeMirror.hint.javascript, mode: { name: "javascript" } },
   },
+  { id: "markdown", text: "Markdown", params: { mode: "markdown" } },
   { id: "shell", text: "Shell", params: { mode: "shell" } },
   { id: "text", text: "Text", params: { mode: "text/plain" } },
   { id: "yaml", text: "YAML", params: { mode: "yaml" } },
@@ -95,10 +99,9 @@ function TextEditorView(props) {
   }, [props.autoSuggestions]);
 
   const saveValue = () => {
-    props.setShouldConfirmModalClose(false);
     props.setTextAreaValue(value);
     props.formikSetFieldValue(value);
-    props.forceCloseModal();
+    props.closeModal();
   };
 
   const undo = () => {
@@ -157,10 +160,6 @@ function TextEditorView(props) {
     setLanguageParams(languages.find((value) => value.id === language.selectedItem.id).params);
   };
 
-  // const commentCode = () => {
-  //   editor.current.toggleComment();
-  // };
-
   //TB trying to get autocomplete to work
   const autoComplete = (cm) => {
     CodeMirror.showHint(cm, CodeMirror.hint.dictionaryHint, { completeSingle: false });
@@ -185,29 +184,16 @@ function TextEditorView(props) {
 
   return (
     <>
-      <ModalBody
-        style={{
-          maxWidth: "80rem",
-          maxHeight: "42rem",
-          height: "100%",
-          width: "100%",
-          margin: "auto",
-          overflowY: "auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          padding: "0 2rem",
-        }}
-      >
+      <ModalBody className="c-textEditorContainer">
         <Toolbar className="b-task-text-area">
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Undo"
               tooltipPosition="bottom"
-              tooltipAlignment="end"
-              hasIconOnly
+              tooltipAlignment="start"
               renderIcon={Undo20}
               onClick={undo}
               className="b-task-text-area__button"
@@ -215,12 +201,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Redo"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={Redo20}
               onClick={redo}
               className="b-task-text-area__button"
@@ -228,12 +214,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Copy"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={Copy20}
               onClick={copy}
               className="b-task-text-area__button"
@@ -241,12 +227,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Cut"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={Cut20}
               onClick={cut}
               className="b-task-text-area__button"
@@ -254,12 +240,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Paste"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={Paste20}
               onClick={paste}
               className="b-task-text-area__button"
@@ -279,12 +265,12 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Find previous"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={ArrowUp16}
               onClick={findPrevious}
               className="b-task-text-area__button"
@@ -292,49 +278,38 @@ function TextEditorView(props) {
           </ToolbarItem>
           <ToolbarItem>
             <Button
+              hasIconOnly
               size="small"
               kind="ghost"
               iconDescription="Find next"
               tooltipPosition="bottom"
               tooltipAlignment="center"
-              hasIconOnly
               renderIcon={ArrowDown16}
               onClick={findNext}
               className="b-task-text-area__button"
             />
           </ToolbarItem>
-          {/* <ToolbarItem>
-            <Button
-              size="small"
-              kind="ghost"
-              iconDescription="Comment"
-              tooltipPosition="bottom"
-              tooltipAlignment="center"
-              hasIconOnly
-              renderIcon={Chat20}
-              onClick={commentCode}
-              className="b-task-text-area__button"
-            />
-          </ToolbarItem> */}
-          <ToolbarItem>
-            <div className="b-task-text-area__language-dropdown">
-              <Dropdown
-                id="dropdown-language"
-                type="default"
-                label="Language selection"
-                ariaLabel="Dropdown"
-                light={false}
-                initialSelectedItem={
-                  props.language
-                    ? languageOptions.find((languageOption) => languageOption.id === props.language)
-                    : languageOptions[0]
-                }
-                items={languageOptions}
-                itemToString={(item) => (item ? item.text : "")}
-                onChange={onChangeLanguage}
-              />
-            </div>
-          </ToolbarItem>
+          {!props.isLanguageSelectorDisabled && (
+            <ToolbarItem>
+              <div className="b-task-text-area__language-dropdown">
+                <Dropdown
+                  id="dropdown-language"
+                  type="default"
+                  label="Language selection"
+                  ariaLabel="Dropdown"
+                  light={false}
+                  initialSelectedItem={
+                    props.language
+                      ? languageOptions.find((languageOption) => languageOption.id === props.language)
+                      : languageOptions[0]
+                  }
+                  items={languageOptions}
+                  itemToString={(item) => (item ? item.text : "")}
+                  onChange={onChangeLanguage}
+                />
+              </div>
+            </ToolbarItem>
+          )}
         </Toolbar>
 
         <CodeMirrorReact
@@ -360,7 +335,6 @@ function TextEditorView(props) {
             ...languageParams,
           }}
           onBeforeChange={(editor, data, value) => {
-            props.setShouldConfirmModalClose(true);
             setValue(value);
           }}
           //TB: trying to get autocomplete to work
@@ -376,6 +350,9 @@ function TextEditorView(props) {
         />
       </ModalBody>
       <ModalFooter>
+        <Button kind="secondary" onClick={props.closeModal}>
+          Cancel
+        </Button>
         <Button onClick={saveValue}>Update</Button>
       </ModalFooter>
     </>

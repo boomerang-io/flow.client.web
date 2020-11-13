@@ -82,10 +82,11 @@ export const NodeType = {
   Approval: "approval",
   CustomTask: "customTask",
   Decision: "decision",
-  TemplateTask: "templateTask",
+  Manual: "manual",
+  SetProperty: "setwfproperty",
   StartEnd: "startend",
   Task: "task",
-  SetProperty: "setwfproperty",
+  TemplateTask: "templateTask",
   Wait: "eventwait",
 };
 

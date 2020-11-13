@@ -1,7 +1,15 @@
 @import "Styles/mixins";
 
+.c-textEditorContainer {
+  height: 100%;
+}
+
+.react-codemirror2 {
+  height: 90%;
+}
+
 .CodeMirror {
-  height: 36rem;
+  height: 100%;
   letter-spacing: inherit;
   * {
     font-size: 0.875rem;
