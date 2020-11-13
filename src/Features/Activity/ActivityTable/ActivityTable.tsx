@@ -144,7 +144,7 @@ function ActivityTable(props) {
               headers={headers}
               render={({ rows, headers, getHeaderProps }) => (
                 <TableContainer>
-                  <Table>
+                  <Table isSortable>
                     <TableHead>
                       <TableRow>
                         {headers.map((header) => (

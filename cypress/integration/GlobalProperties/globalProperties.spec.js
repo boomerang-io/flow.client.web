@@ -11,7 +11,7 @@ afterEach(() => {
   server.shutdown();
 });
 
-describe("globalProperties", function () {
+describe("Global Properties", function () {
   beforeEach(() => {
     cy.visit(appLink.properties());
   });

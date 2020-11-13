@@ -58,6 +58,17 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
         <div
           class="content"
         >
+          <div
+            class="workflowOutputLog"
+          >
+            <button
+              class="bx--btn bx--btn--sm bx--btn--ghost"
+              tabindex="0"
+              type="button"
+            >
+              View Properties
+            </button>
+          </div>
           <dl
             class="data"
           >
@@ -69,7 +80,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
             <dd
               class="dataValue"
             >
-              IBM Services Engineering
+              AMHTest2
             </dd>
           </dl>
           <dl
@@ -81,9 +92,11 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
               Initiated by
             </dt>
             <dd
-              class="dataValue"
+              aria-hidden="false"
+              aria-label="robot"
+              role="img"
             >
-              Iulian Corcoja
+              🤖
             </dd>
           </dl>
           <dl
@@ -97,7 +110,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
             <dd
               class="dataValue"
             >
-              manual
+              webhook
             </dd>
           </dl>
           <dl
@@ -137,7 +150,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
               <time
                 class="value"
               >
-                54s
+                31s
               </time>
             </div>
             <div
@@ -209,6 +222,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
               aria-describedby="sort-tooltip"
               class="bx--tooltip__trigger bx--tooltip--a11y taskbarButton bx--tooltip--top bx--tooltip--align-center"
               data-testid="taskbar-button"
+              type="button"
             >
               <span
                 class="bx--assistive-text"
@@ -269,9 +283,108 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   </svg>
                   <p
                     data-testid="taskitem-name"
-                    title="Print Persistence Folder"
+                    title="Set Output Property 1"
                   >
-                    Print Persistence Folder
+                    Set Output Property 1
+                  </p>
+                </div>
+                <div
+                  class="status completed"
+                >
+                  <svg
+                    aria-label="completed"
+                    class="statusIcon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="32"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 21.414L9 16.413 10.413 15 14 18.586 21.585 11 23 12.415 14 21.414z"
+                    />
+                    <path
+                      d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
+                    />
+                  </svg>
+                  <p>
+                    Succeeded
+                  </p>
+                </div>
+              </section>
+              <section
+                class="data"
+              >
+                <div
+                  class="time"
+                >
+                  <p
+                    class="timeTitle"
+                  >
+                    Start time
+                  </p>
+                  <time
+                    class="timeValue"
+                  >
+                    12:00:00 AM
+                  </time>
+                </div>
+                <div
+                  class="time"
+                >
+                  <p
+                    class="timeTitle"
+                  >
+                    Duration
+                  </p>
+                  <time
+                    class="timeValue"
+                  />
+                </div>
+              </section>
+              <section
+                class="data"
+              />
+            </li>
+            <li
+              class="taskitem completed"
+            >
+              <div
+                class="progressBar"
+              />
+              <section
+                class="header"
+              >
+                <div
+                  class="title"
+                >
+                  <svg
+                    aria-label="completed"
+                    class="taskIcon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="32"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="32"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14 21.414L9 16.413 10.413 15 14 18.586 21.585 11 23 12.415 14 21.414z"
+                    />
+                    <path
+                      d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
+                    />
+                  </svg>
+                  <p
+                    data-testid="taskitem-name"
+                    title="Json Path To Property 1"
+                  >
+                    Json Path To Property 1
                   </p>
                 </div>
                 <div
@@ -329,13 +442,20 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <time
                     class="timeValue"
                   >
-                    8 seconds
+                    3 seconds
                   </time>
                 </div>
               </section>
               <section
                 class="data"
               >
+                <button
+                  class="trigger bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
+                >
+                  View Log
+                </button>
                 <button
                   class="bx--btn bx--btn--sm bx--btn--ghost"
                   tabindex="0"
@@ -378,9 +498,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   </svg>
                   <p
                     data-testid="taskitem-name"
-                    title="Upload Incremented Version"
+                    title="Execute HTTP Call 1"
                   >
-                    Upload Incremented Version
+                    Execute HTTP Call 1
                   </p>
                 </div>
                 <div
@@ -438,13 +558,20 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <time
                     class="timeValue"
                   >
-                    4 seconds
+                    14 seconds
                   </time>
                 </div>
               </section>
               <section
                 class="data"
               >
+                <button
+                  class="trigger bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
+                >
+                  View Log
+                </button>
                 <button
                   class="bx--btn bx--btn--sm bx--btn--ghost"
                   tabindex="0"
@@ -487,9 +614,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   </svg>
                   <p
                     data-testid="taskitem-name"
-                    title="Create New Version File"
+                    title="Execute Shell 1"
                   >
-                    Create New Version File
+                    Execute Shell 1
                   </p>
                 </div>
                 <div
@@ -547,443 +674,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <time
                     class="timeValue"
                   >
-                    10 seconds
-                  </time>
-                </div>
-              </section>
-              <section
-                class="data"
-              >
-                <button
-                  class="bx--btn bx--btn--sm bx--btn--ghost"
-                  tabindex="0"
-                  type="button"
-                >
-                  View Properties
-                </button>
-              </section>
-            </li>
-            <li
-              class="taskitem failure"
-            >
-              <div
-                class="progressBar"
-              />
-              <section
-                class="header"
-              >
-                <div
-                  class="title"
-                >
-                  <svg
-                    aria-label="failure"
-                    class="taskIcon"
-                    fill="currentColor"
-                    focusable="false"
-                    height="32"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 32 32"
-                    width="32"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2C8.2,2,2,8.2,2,16s6.2,14,14,14s14-6.2,14-14S23.8,2,16,2z M16,28C9.4,28,4,22.6,4,16S9.4,4,16,4s12,5.4,12,12	S22.6,28,16,28z"
-                    />
-                    <path
-                      d="M21.4 23L16 17.6 10.6 23 9 21.4 14.4 16 9 10.6 10.6 9 16 14.4 21.4 9 23 10.6 17.6 16 23 21.4z"
-                    />
-                  </svg>
-                  <p
-                    data-testid="taskitem-name"
-                    title="Check Version File Type"
-                  >
-                    Check Version File Type
-                  </p>
-                </div>
-                <div
-                  class="status failure"
-                >
-                  <svg
-                    aria-label="failure"
-                    class="statusIcon"
-                    fill="currentColor"
-                    focusable="false"
-                    height="32"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 32 32"
-                    width="32"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16,2C8.2,2,2,8.2,2,16s6.2,14,14,14s14-6.2,14-14S23.8,2,16,2z M16,28C9.4,28,4,22.6,4,16S9.4,4,16,4s12,5.4,12,12	S22.6,28,16,28z"
-                    />
-                    <path
-                      d="M21.4 23L16 17.6 10.6 23 9 21.4 14.4 16 9 10.6 10.6 9 16 14.4 21.4 9 23 10.6 17.6 16 23 21.4z"
-                    />
-                  </svg>
-                  <p>
-                    Failed
-                  </p>
-                </div>
-              </section>
-              <section
-                class="data"
-              >
-                <div
-                  class="time"
-                >
-                  <p
-                    class="timeTitle"
-                  >
-                    Start time
-                  </p>
-                  <time
-                    class="timeValue"
-                  >
-                    12:00:00 AM
-                  </time>
-                </div>
-                <div
-                  class="time"
-                >
-                  <p
-                    class="timeTitle"
-                  >
-                    Duration
-                  </p>
-                  <time
-                    class="timeValue"
-                  >
-                    9 seconds
-                  </time>
-                </div>
-              </section>
-              <section
-                class="data"
-              >
-                <button
-                  class="bx--btn bx--btn--sm bx--btn--ghost"
-                  tabindex="0"
-                  type="button"
-                >
-                  View Properties
-                </button>
-              </section>
-            </li>
-            <li
-              class="taskitem completed"
-            >
-              <div
-                class="progressBar"
-              />
-              <section
-                class="header"
-              >
-                <div
-                  class="title"
-                >
-                  <svg
-                    aria-label="completed"
-                    class="taskIcon"
-                    fill="currentColor"
-                    focusable="false"
-                    height="32"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 32 32"
-                    width="32"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 21.414L9 16.413 10.413 15 14 18.586 21.585 11 23 12.415 14 21.414z"
-                    />
-                    <path
-                      d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
-                    />
-                  </svg>
-                  <p
-                    data-testid="taskitem-name"
-                    title="Download Latest Published Version"
-                  >
-                    Download Latest Published Version
-                  </p>
-                </div>
-                <div
-                  class="status completed"
-                >
-                  <svg
-                    aria-label="completed"
-                    class="statusIcon"
-                    fill="currentColor"
-                    focusable="false"
-                    height="32"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 32 32"
-                    width="32"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 21.414L9 16.413 10.413 15 14 18.586 21.585 11 23 12.415 14 21.414z"
-                    />
-                    <path
-                      d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
-                    />
-                  </svg>
-                  <p>
-                    Succeeded
-                  </p>
-                </div>
-              </section>
-              <section
-                class="data"
-              >
-                <div
-                  class="time"
-                >
-                  <p
-                    class="timeTitle"
-                  >
-                    Start time
-                  </p>
-                  <time
-                    class="timeValue"
-                  >
-                    12:00:00 AM
-                  </time>
-                </div>
-                <div
-                  class="time"
-                >
-                  <p
-                    class="timeTitle"
-                  >
-                    Duration
-                  </p>
-                  <time
-                    class="timeValue"
-                  >
-                    4 seconds
-                  </time>
-                </div>
-              </section>
-              <section
-                class="data"
-              >
-                <button
-                  class="bx--btn bx--btn--sm bx--btn--ghost"
-                  tabindex="0"
-                  type="button"
-                >
-                  View Properties
-                </button>
-              </section>
-            </li>
-            <li
-              class="taskitem completed"
-            >
-              <div
-                class="progressBar"
-              />
-              <section
-                class="header"
-              >
-                <div
-                  class="title"
-                >
-                  <svg
-                    aria-label="completed"
-                    class="taskIcon"
-                    fill="currentColor"
-                    focusable="false"
-                    height="32"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 32 32"
-                    width="32"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 21.414L9 16.413 10.413 15 14 18.586 21.585 11 23 12.415 14 21.414z"
-                    />
-                    <path
-                      d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
-                    />
-                  </svg>
-                  <p
-                    data-testid="taskitem-name"
-                    title="Download Train Samples"
-                  >
-                    Download Train Samples
-                  </p>
-                </div>
-                <div
-                  class="status completed"
-                >
-                  <svg
-                    aria-label="completed"
-                    class="statusIcon"
-                    fill="currentColor"
-                    focusable="false"
-                    height="32"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 32 32"
-                    width="32"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 21.414L9 16.413 10.413 15 14 18.586 21.585 11 23 12.415 14 21.414z"
-                    />
-                    <path
-                      d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
-                    />
-                  </svg>
-                  <p>
-                    Succeeded
-                  </p>
-                </div>
-              </section>
-              <section
-                class="data"
-              >
-                <div
-                  class="time"
-                >
-                  <p
-                    class="timeTitle"
-                  >
-                    Start time
-                  </p>
-                  <time
-                    class="timeValue"
-                  >
-                    12:00:00 AM
-                  </time>
-                </div>
-                <div
-                  class="time"
-                >
-                  <p
-                    class="timeTitle"
-                  >
-                    Duration
-                  </p>
-                  <time
-                    class="timeValue"
-                  >
-                    6 seconds
-                  </time>
-                </div>
-              </section>
-              <section
-                class="data"
-              >
-                <button
-                  class="bx--btn bx--btn--sm bx--btn--ghost"
-                  tabindex="0"
-                  type="button"
-                >
-                  View Properties
-                </button>
-              </section>
-            </li>
-            <li
-              class="taskitem completed"
-            >
-              <div
-                class="progressBar"
-              />
-              <section
-                class="header"
-              >
-                <div
-                  class="title"
-                >
-                  <svg
-                    aria-label="completed"
-                    class="taskIcon"
-                    fill="currentColor"
-                    focusable="false"
-                    height="32"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 32 32"
-                    width="32"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 21.414L9 16.413 10.413 15 14 18.586 21.585 11 23 12.415 14 21.414z"
-                    />
-                    <path
-                      d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
-                    />
-                  </svg>
-                  <p
-                    data-testid="taskitem-name"
-                    title="Requires Approval"
-                  >
-                    Requires Approval
-                  </p>
-                </div>
-                <div
-                  class="status completed"
-                >
-                  <svg
-                    aria-label="completed"
-                    class="statusIcon"
-                    fill="currentColor"
-                    focusable="false"
-                    height="32"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 32 32"
-                    width="32"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 21.414L9 16.413 10.413 15 14 18.586 21.585 11 23 12.415 14 21.414z"
-                    />
-                    <path
-                      d="M16,2A14,14,0,1,0,30,16,14,14,0,0,0,16,2Zm0,26A12,12,0,1,1,28,16,12,12,0,0,1,16,28Z"
-                    />
-                  </svg>
-                  <p>
-                    Succeeded
-                  </p>
-                </div>
-              </section>
-              <section
-                class="data"
-              >
-                <div
-                  class="time"
-                >
-                  <p
-                    class="timeTitle"
-                  >
-                    Start time
-                  </p>
-                  <time
-                    class="timeValue"
-                  >
-                    12:00:00 AM
-                  </time>
-                </div>
-                <div
-                  class="time"
-                >
-                  <p
-                    class="timeTitle"
-                  >
-                    Duration
-                  </p>
-                  <time
-                    class="timeValue"
-                  >
-                    5 seconds
+                    12 seconds
                   </time>
                 </div>
               </section>
@@ -1100,7 +791,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <g>
                   <g>
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1165,7 +856,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     stroke-width="20"
                   >
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1399,7 +1090,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <g>
                   <g>
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1464,7 +1155,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     stroke-width="20"
                   >
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1530,7 +1221,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <g>
                   <g>
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1595,7 +1286,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     stroke-width="20"
                   >
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1661,7 +1352,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <g>
                   <g>
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1726,7 +1417,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     stroke-width="20"
                   >
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1792,7 +1483,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <g>
                   <g>
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1857,7 +1548,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     stroke-width="20"
                   >
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1923,7 +1614,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <g>
                   <g>
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -1989,7 +1680,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     stroke-width="20"
                   >
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -2056,7 +1747,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 <g>
                   <g>
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -2122,7 +1813,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                     stroke-width="20"
                   >
                     <svg
-                      class="traversed locked"
+                      class="locked"
                     >
                       <g
                         transform="translate(NaN, NaN)"
@@ -2633,7 +2324,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 style="top: 396.30159063226193px; left: 588.7271929824564px;"
               >
                 <div
-                  class="node completed"
+                  class="node skipped"
                 >
                   <header
                     class="header"
@@ -2688,7 +2379,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 style="top: 540.5152367209439px; left: 2441.4174405167087px;"
               >
                 <div
-                  class="node completed"
+                  class="node skipped"
                 >
                   <header
                     class="header"
@@ -2747,7 +2438,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 style="top: 396.4666787931217px; left: 965.9297863121px;"
               >
                 <div
-                  class="node completed"
+                  class="node skipped"
                 >
                   <header
                     class="header"
@@ -2802,7 +2493,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 style="top: 396.3056611764126px; left: 1344.6179538804047px;"
               >
                 <div
-                  class="node failure"
+                  class="node skipped"
                 >
                   <header
                     class="header"
@@ -2861,7 +2552,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 style="top: 273.8076847036865px; left: 1722.2744351364279px;"
               >
                 <div
-                  class="node completed"
+                  class="node skipped"
                 >
                   <header
                     class="header"
@@ -2920,7 +2611,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 style="top: 395.94258425847954px; left: 2068.0136269066384px;"
               >
                 <div
-                  class="node completed"
+                  class="node skipped"
                 >
                   <header
                     class="header"

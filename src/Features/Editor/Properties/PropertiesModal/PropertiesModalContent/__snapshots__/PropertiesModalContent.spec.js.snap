@@ -31,22 +31,26 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               </div>
             </label>
             <div
-              class="bx--form__helper-text"
+              class="bx--text-input__field-outer-wrapper"
             >
-              Reference value for property in workflow. It can't be changed after property creation.
-            </div>
-            <div
-              class="bx--text-input__field-wrapper"
-            >
-              <input
-                class="bx--text-input bx--text__input"
-                id="key"
-                placeholder=".e.g. token"
-                readonly=""
-                title=".e.g. token"
-                type="text"
-                value="tim.property"
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="key"
+                  placeholder=".e.g. token"
+                  readonly=""
+                  title=".e.g. token"
+                  type="text"
+                  value="tim.property"
+                />
+              </div>
+              <div
+                class="bx--form__helper-text"
+              >
+                Reference value for property in workflow. It can't be changed after property creation.
+              </div>
             </div>
           </div>
         </div>
@@ -54,11 +58,16 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           class="bx--bmrg-select"
         >
           <div
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-labelledby="downshift-0-label"
             class="bx--list-box__wrapper"
+            role="combobox"
           >
             <label
               class="bx--label"
               for="type"
+              id="downshift-0-label"
             >
               <div
                 style="display: flex;"
@@ -69,28 +78,28 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               </div>
             </label>
             <div
+              aria-label="Choose an item"
               class="bx--combo-box bx--list-box"
             >
               <div
-                aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="open menu"
                 class="bx--list-box__field"
                 data-toggle="true"
+                id="type"
                 role="button"
                 tabindex="-1"
                 type="button"
               >
                 <input
                   aria-autocomplete="list"
-                  aria-controls="type__menu"
-                  aria-expanded="false"
-                  aria-label="Choose an item"
+                  aria-labelledby="downshift-0-label"
                   autocomplete="off"
                   class="bx--text-input"
                   id="type"
                   placeholder="Select an item"
-                  role="combobox"
+                  tabindex="0"
+                  type="text"
                   value="Text"
                 />
                 <div
@@ -161,16 +170,20 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                id="label"
-                placeholder="e.g. Token"
-                title="e.g. Token"
-                type="text"
-                value="Tim Property"
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="label"
+                  placeholder="e.g. Token"
+                  title="e.g. Token"
+                  type="text"
+                  value="Tim Property"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -193,14 +206,18 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                id="description"
-                type="text"
-                value="Tim property"
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="description"
+                  type="text"
+                  value="Tim property"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -223,67 +240,75 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               </div>
             </label>
             <div
-              class="bx--form__helper-text"
+              class="bx--text-input__field-outer-wrapper"
             >
-              Retrieves value matching dot notation path in the event payload
-            </div>
-            <div
-              class="bx--text-input__field-wrapper"
-            >
-              <input
-                class="bx--text-input bx--text__input"
-                id="jsonPath"
-                placeholder="e.g. $.repository.image[2]"
-                title="e.g. $.repository.image[2]"
-                type="text"
-                value=""
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="jsonPath"
+                  placeholder="e.g. $.repository.image[2]"
+                  title="e.g. $.repository.image[2]"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="bx--form__helper-text"
+              >
+                Retrieves value matching dot notation path in the event payload
+              </div>
             </div>
           </div>
         </div>
         <div
-          class="bx--bmrg-toggle --vertical"
+          class="bx--bmrg-toggle__container"
         >
           <div
-            class="bx--bmrg-toggle__title"
+            class="bx--bmrg-toggle --vertical"
           >
-            <label
-              class="bx--label"
-              for="required"
-              id="required-label"
-              style="margin-bottom: 0px;"
+            <div
+              class="bx--bmrg-toggle__title"
             >
-              Required
-            </label>
-          </div>
-          <div
-            class="bx--form-item"
-          >
-            <input
-              aria-labelledby="required-label"
-              class="bx--toggle-input"
-              data-testid="toggle-test-id"
-              id="required"
-              type="checkbox"
-            />
-            <label
-              aria-label="Toggle"
-              class="bx--toggle-input__label"
-              for="required"
+              <label
+                class="bx--label"
+                for="required"
+                id="required-label"
+                style="margin-bottom: 0px;"
+              >
+                Required
+              </label>
+            </div>
+            <div
+              class="bx--form-item"
             >
-              <span
-                class="bx--toggle__switch"
+              <input
+                aria-labelledby="required-label"
+                class="bx--toggle-input"
+                data-testid="toggle-test-id"
+                id="required"
+                type="checkbox"
+              />
+              <label
+                aria-label="Toggle"
+                class="bx--toggle-input__label"
+                for="required"
               >
                 <span
-                  aria-hidden="true"
-                  class="bx--toggle__text--off"
-                />
-                <span
-                  aria-hidden="true"
-                  class="bx--toggle__text--on"
-                />
-              </span>
-            </label>
+                  class="bx--toggle__switch"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="bx--toggle__text--off"
+                  />
+                  <span
+                    aria-hidden="true"
+                    class="bx--toggle__text--on"
+                  />
+                </span>
+              </label>
+            </div>
           </div>
         </div>
         <div
@@ -305,23 +330,27 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                data-testid="text-input"
-                id="defaultValue"
-                placeholder="Default Value"
-                title="Default Value"
-                type="text"
-                value="dogs"
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  data-testid="text-input"
+                  id="defaultValue"
+                  placeholder="Default Value"
+                  title="Default Value"
+                  type="text"
+                  value="dogs"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div
-        class="bx--modal-footer"
+        class="bx--modal-footer bx--btn-set"
       >
         <button
           class="bx--btn bx--btn--secondary"

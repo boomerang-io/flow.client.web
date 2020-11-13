@@ -14,22 +14,20 @@
     "docker:build": "docker build -t webapp .",
     "docker:run": "docker run -i -t -p 3000:3000 -e APP_ROOT=/app -e CORE_SERVICE_ENV_URL=http://localhost:8000 -e APP_ROOT=/local webapp",
     "eject": "react-scripts eject",
-    "lint": "eslint src",
+    "lint": "eslint -o lint-report.json ./src",
+    "lint:staged": "eslint ./src",
     "start": "react-scripts start",
     "start:pf": "cross-env REACT_APP_PORT_FORWARD=true react-scripts start",
     "prod": "run-s prod:rewriteAssetPaths prod:serve",
     "prod:serve": "npm run-script dev --prefix server",
-    "test": "react-scripts test --env=jsdom-fourteen",
-    "test:ci": "react-scripts test --coverage --env=jsdom-fourteen",
+    "test": "react-scripts test --coverage --env=jsdom-fourteen",
     "test:ci-cypress": "start-server-and-test start http://localhost:3000 test:cypress",
-    "test:coverage": "react-scripts test --coverage --env=jsdom-fourteen",
     "test:cypress": "$(npm bin)/cypress run --config video=false",
     "test:staged": "cross-env CI=true react-scripts test --passWithNoTests --findRelatedTests --bail --env=jsdom-fourteen",
-    "test:static": "eslint -f json -o lint-report.json ./src",
     "upgradePackage": "react-scripts upgradePackage"
   },
   "dependencies": {
-    "@boomerang-io/carbon-addons-boomerang-react": "0.0.19",
+    "@boomerang-io/carbon-addons-boomerang-react": "1.0.0",
     "@boomerang-io/styles": "0.0.1",
     "@boomerang-io/utils": "0.0.6",
     "@carbon/charts": "^0.16.24",
@@ -38,8 +36,8 @@
     "@projectstorm/react-diagrams": "^5.3.2",
     "axios": "0.19.2",
     "axios-hooks": "^2.1.0",
-    "carbon-components": "10.12.0",
-    "carbon-components-react": "7.12.0",
+    "carbon-components": "10.22.0",
+    "carbon-components-react": "7.22.0",
     "classnames": "^2.2.6",
     "closest": "0.0.1",
     "codemirror": "^5.48.4",
@@ -159,20 +157,20 @@
       "prettier --print-width 120 --write"
     ],
     "src/**/*.{js,jsx}": [
-      "npm run-script lint",
+      "npm run-script lint:staged",
       "npm run-script test:staged"
     ]
   },
   "jest": {
     "collectCoverageFrom": [
       "!**/*.spec.{js,jsx}",
-      "!**/assets/**",
-      "!**/apiServer/**",
-      "**/src/components/**/*.{js,jsx}",
-      "**/src/features/**/*.{js,jsx}",
-      "**/src/hooks/**/*.{js,jsx}",
-      "**/src/state/**/*.{js,jsx}",
-      "**/src/utils/**/*.{js,jsx}"
+      "!**/Assets/**",
+      "!**/ApiServer/**",
+      "**/src/Components/**/*.{js,jsx}",
+      "**/src/Features/**/*.{js,jsx}",
+      "**/src/Hooks/**/*.{js,jsx}",
+      "**/src/State/**/*.{js,jsx}",
+      "**/src/Utils/**/*.{js,jsx}"
     ]
   }
 }
