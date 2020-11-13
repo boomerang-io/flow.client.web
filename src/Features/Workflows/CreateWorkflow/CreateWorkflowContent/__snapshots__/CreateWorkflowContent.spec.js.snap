@@ -16,11 +16,16 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
           class="bx--bmrg-select"
         >
           <div
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-labelledby="downshift-0-label"
             class="bx--list-box__wrapper"
+            role="combobox"
           >
             <label
               class="bx--label"
               for="selectedTeam"
+              id="downshift-0-label"
             >
               <div
                 style="display: flex;"
@@ -31,29 +36,29 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
               </div>
             </label>
             <div
+              aria-label="Choose an item"
               class="bx--combo-box bx--list-box"
             >
               <div
-                aria-expanded="false"
                 aria-haspopup="true"
                 aria-label="open menu"
                 class="bx--list-box__field"
                 data-toggle="true"
+                id="selectedTeam"
                 role="button"
                 tabindex="-1"
                 type="button"
               >
                 <input
                   aria-autocomplete="list"
-                  aria-controls="selectedTeam__menu"
-                  aria-expanded="false"
-                  aria-label="Choose an item"
+                  aria-labelledby="downshift-0-label"
                   autocomplete="off"
-                  class="bx--text-input"
+                  class="bx--text-input bx--text-input--empty"
                   id="selectedTeam"
                   placeholder="Select a team"
-                  role="combobox"
                   styles="[object Object]"
+                  tabindex="0"
+                  type="text"
                   value=""
                 />
                 
@@ -103,14 +108,18 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                id="name"
-                type="text"
-                value=""
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="name"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -134,14 +143,18 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
             </div>
           </label>
           <div
-            class="bx--text-input__field-wrapper"
+            class="bx--text-input__field-outer-wrapper"
           >
-            <input
-              class="bx--text-input bx--text__input"
-              id="summary"
-              type="text"
-              value=""
-            />
+            <div
+              class="bx--text-input__field-wrapper"
+            >
+              <input
+                class="bx--text-input bx--text__input"
+                id="summary"
+                type="text"
+                value=""
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -167,6 +180,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
             class="bx--text-area__wrapper"
           >
             <textarea
+              aria-placeholder=""
               class="bx--text-area"
               cols="50"
               id="description"
@@ -366,7 +380,7 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
       </div>
     </div>
     <div
-      class="bx--modal-footer"
+      class="bx--modal-footer bx--btn-set"
     >
       <button
         class="bx--btn bx--btn--secondary"

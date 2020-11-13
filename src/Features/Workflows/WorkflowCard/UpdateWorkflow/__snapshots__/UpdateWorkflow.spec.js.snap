@@ -96,7 +96,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
             </div>
           </div>
           <div
-            class="bx--modal-footer"
+            class="bx--modal-footer bx--btn-set"
           >
             <button
               class="bx--btn bx--btn--secondary"

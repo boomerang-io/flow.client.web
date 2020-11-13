@@ -177,10 +177,10 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                   aria-hidden="true"
                   fill="currentColor"
                   focusable="false"
-                  height="20"
+                  height="16"
                   preserveAspectRatio="xMidYMid meet"
                   viewBox="0 0 32 32"
-                  width="20"
+                  width="16"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -199,32 +199,34 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
               <label
                 class="bx--label"
                 for="b-search-filter__filter"
-                id="filterablemultiselect-label-1"
+                id="b-search-filter__filter-label"
               >
                 Filter by team
               </label>
               <div
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-labelledby="b-search-filter__filter-label"
                 class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box"
+                role="combobox"
               >
                 <div
-                  aria-expanded="false"
                   aria-haspopup="true"
-                  aria-labelledby="filterablemultiselect-label-1"
+                  aria-labelledby="b-search-filter__filter-label"
                   class="bx--list-box__field"
                   data-toggle="true"
+                  id="b-search-filter__filter"
                   role="button"
                   tabindex="-1"
                   type="button"
                 >
                   <input
                     aria-autocomplete="list"
-                    aria-controls="b-search-filter__filter__menu"
-                    aria-expanded="false"
+                    aria-labelledby="b-search-filter__filter-label"
                     autocomplete="off"
                     class="bx--text-input bx--text-input--empty"
-                    id="b-search-filter__filter"
+                    id="b-search-filter__filter-input"
                     placeholder="Choose a team"
-                    role="combobox"
                     value=""
                   />
                   
@@ -250,77 +252,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                         Open menu
                       </title>
                     </svg>
-                  </div>
-                </div>
-                <div
-                  aria-label="Choose an item"
-                  class="bx--list-box__menu"
-                  id="b-search-filter__filter__menu"
-                  role="listbox"
-                >
-                  <div
-                    class="bx--list-box__menu-item"
-                    id="downshift-0-item-0"
-                    title="IBM Services Engineering"
-                  >
-                    <div
-                      class="bx--list-box__menu-item__option"
-                    >
-                      <div
-                        class="bx--form-item bx--checkbox-wrapper"
-                      >
-                        <input
-                          class="bx--checkbox"
-                          id="downshift-0-item-0"
-                          name="IBM Services Engineering"
-                          readonly=""
-                          tabindex="-1"
-                          type="checkbox"
-                        />
-                        <label
-                          class="bx--checkbox-label"
-                          for="downshift-0-item-0"
-                        >
-                          <span
-                            class="bx--checkbox-label-text"
-                          >
-                            IBM Services Engineering
-                          </span>
-                        </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="bx--list-box__menu-item"
-                    id="downshift-0-item-1"
-                    title="IBM Services Essentials"
-                  >
-                    <div
-                      class="bx--list-box__menu-item__option"
-                    >
-                      <div
-                        class="bx--form-item bx--checkbox-wrapper"
-                      >
-                        <input
-                          class="bx--checkbox"
-                          id="downshift-0-item-1"
-                          name="IBM Services Essentials"
-                          readonly=""
-                          tabindex="-1"
-                          type="checkbox"
-                        />
-                        <label
-                          class="bx--checkbox-label"
-                          for="downshift-0-item-1"
-                        >
-                          <span
-                            class="bx--checkbox-label-text"
-                          >
-                            IBM Services Essentials
-                          </span>
-                        </label>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -458,6 +389,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 class="bx--overflow-menu"
                 style="position: absolute; right: 0px;"
                 tabindex="0"
+                type="button"
               >
                 <svg
                   aria-label="Overflow menu icon"
@@ -644,6 +576,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 class="bx--overflow-menu"
                 style="position: absolute; right: 0px;"
                 tabindex="0"
+                type="button"
               >
                 <svg
                   aria-label="Overflow menu icon"

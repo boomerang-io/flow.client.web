@@ -172,7 +172,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
               headers={headers}
               render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
                 <TableContainer>
-                  <Table>
+                   <Table isSortable>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
                         {headers.map((header: any) => (

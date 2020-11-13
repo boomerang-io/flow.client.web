@@ -206,7 +206,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
         headers={headers}
         render={({ rows, headers, getHeaderProps }: any) => (
           <TableContainer>
-            <Table>
+            <Table isSortable>
               <TableHead>
                 <TableRow>
                   {headers.map((header: any) => (

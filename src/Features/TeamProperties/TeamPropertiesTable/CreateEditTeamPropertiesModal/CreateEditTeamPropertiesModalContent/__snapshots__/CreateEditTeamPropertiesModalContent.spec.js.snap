@@ -31,17 +31,21 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                id="key"
-                name="key"
-                placeholder="Key"
-                title="Key"
-                type="text"
-                value=""
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="key"
+                  name="key"
+                  placeholder="Key"
+                  title="Key"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -64,17 +68,21 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                id="label"
-                name="label"
-                placeholder="Label"
-                title="Label"
-                type="text"
-                value=""
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="label"
+                  name="label"
+                  placeholder="Label"
+                  title="Label"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -97,17 +105,21 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                id="description"
-                name="description"
-                placeholder="Description"
-                title="Description"
-                type="text"
-                value=""
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="description"
+                  name="description"
+                  placeholder="Description"
+                  title="Description"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -130,69 +142,77 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                id="value"
-                name="value"
-                placeholder="Value"
-                title="Value"
-                type="text"
-                value=""
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="value"
+                  name="value"
+                  placeholder="Value"
+                  title="Value"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
         <div
-          class="bx--bmrg-toggle --vertical"
+          class="bx--bmrg-toggle__container"
         >
           <div
-            class="bx--bmrg-toggle__title"
+            class="bx--bmrg-toggle --vertical"
           >
-            <label
-              class="bx--label"
-              for="secured-team-properties-toggle"
-              id="secured-team-properties-toggle-label"
-              style="margin-bottom: 0px;"
+            <div
+              class="bx--bmrg-toggle__title"
             >
-              Secured
-            </label>
-          </div>
-          <div
-            class="bx--form-item"
-          >
-            <input
-              aria-labelledby="secured-team-properties-toggle-label"
-              class="bx--toggle-input"
-              data-testid="secured-team-properties-toggle"
-              id="secured-team-properties-toggle"
-              name="secured"
-              type="checkbox"
-            />
-            <label
-              aria-label="Toggle"
-              class="bx--toggle-input__label"
-              for="secured-team-properties-toggle"
+              <label
+                class="bx--label"
+                for="secured-team-properties-toggle"
+                id="secured-team-properties-toggle-label"
+                style="margin-bottom: 0px;"
+              >
+                Secured
+              </label>
+            </div>
+            <div
+              class="bx--form-item"
             >
-              <span
-                class="bx--toggle__switch"
+              <input
+                aria-labelledby="secured-team-properties-toggle-label"
+                class="bx--toggle-input"
+                data-testid="secured-team-properties-toggle"
+                id="secured-team-properties-toggle"
+                name="secured"
+                type="checkbox"
+              />
+              <label
+                aria-label="Toggle"
+                class="bx--toggle-input__label"
+                for="secured-team-properties-toggle"
               >
                 <span
-                  aria-hidden="true"
-                  class="bx--toggle__text--off"
-                />
-                <span
-                  aria-hidden="true"
-                  class="bx--toggle__text--on"
-                />
-              </span>
-            </label>
+                  class="bx--toggle__switch"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="bx--toggle__text--off"
+                  />
+                  <span
+                    aria-hidden="true"
+                    class="bx--toggle__text--on"
+                  />
+                </span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
       <div
-        class="bx--modal-footer"
+        class="bx--modal-footer bx--btn-set"
       >
         <button
           class="bx--btn bx--btn--secondary"
