@@ -20,6 +20,7 @@ import CustomNodeModel from "Utils/dag/customTaskNode/CustomTaskNodeModel";
 import SwitchNodeModel from "Utils/dag/switchNode/SwitchNodeModel";
 import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel";
 import ManualApprovalNodeModel from "Utils/dag/manualApprovalNode/ManualApprovalNodeModel";
+import ManualTaskNodeModel from "Utils/dag/manualTaskNode/ManualTaskNodeModel";
 import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel";
 import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -247,6 +248,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           break;
         case NodeType.CustomTask:
           node = new CustomNodeModel(nodeObj);
+          break;
+        case NodeType.Manual:
+          node = new ManualTaskNodeModel(nodeObj);
           break;
         case NodeType.Approval:
           node = new ManualApprovalNodeModel(nodeObj);
