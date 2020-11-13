@@ -21,7 +21,7 @@
     "prod": "run-s prod:rewriteAssetPaths prod:serve",
     "prod:serve": "npm run-script dev --prefix server",
     "test": "react-scripts test --coverage --env=jsdom-fourteen",
-    "test:ci-cypress": "start-server-and-test start http://localhost:3000 cypress:run",
+    "test:ci-cypress": "start-server-and-test start http://localhost:3000 test:cypress",
     "test:cypress": "$(npm bin)/cypress run --config video=false",
     "test:staged": "cross-env CI=true react-scripts test --passWithNoTests --findRelatedTests --bail --env=jsdom-fourteen",
     "upgradePackage": "react-scripts upgradePackage"
