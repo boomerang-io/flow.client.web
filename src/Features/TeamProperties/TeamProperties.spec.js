@@ -26,7 +26,7 @@ describe("TeamProperties --- Snapshot Test", () => {
 describe("TeamProperties --- RTL", () => {
   test("Selects team from dropdown and shows table data", async () => {
     rtlContextRouterRender(<TeamProperties />);
-    const dropDown = await screen.findByLabelText("Teams");
+    const dropDown = await screen.findByPlaceholderText("Select a team");
     act(() => {
       fireEvent.click(dropDown);
     });

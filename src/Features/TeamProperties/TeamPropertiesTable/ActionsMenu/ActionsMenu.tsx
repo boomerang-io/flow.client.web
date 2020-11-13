@@ -69,7 +69,7 @@ const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
         affirmativeText="Delete"
         negativeText="Cancel"
         onCloseModal={() => setDeleteModalIsOpen(false)}
-        title={`Delete ${property.label}?`}
+        title={`Delete ${property?.label}?`}
       >
         Your team property will be gone. Forever.
       </ConfirmModal>

@@ -31,16 +31,20 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                data-testid="create-property-key"
-                id="key"
-                name="key"
-                type="text"
-                value="test.key"
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  data-testid="create-property-key"
+                  id="key"
+                  name="key"
+                  type="text"
+                  value="test.key"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -63,16 +67,20 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                data-testid="create-property-label"
-                id="label"
-                name="label"
-                type="text"
-                value=""
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  data-testid="create-property-label"
+                  id="label"
+                  name="label"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -95,16 +103,20 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                data-testid="create-property-description"
-                id="description"
-                name="description"
-                type="text"
-                value=""
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  data-testid="create-property-description"
+                  id="description"
+                  name="description"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -127,70 +139,78 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
               </div>
             </label>
             <div
-              class="bx--text-input__field-wrapper"
+              class="bx--text-input__field-outer-wrapper"
             >
-              <input
-                class="bx--text-input bx--text__input"
-                data-testid="create-property-value"
-                id="value"
-                name="value"
-                placeholder="Value"
-                title="Value"
-                type="text"
-                value="testing"
-              />
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  data-testid="create-property-value"
+                  id="value"
+                  name="value"
+                  placeholder="Value"
+                  title="Value"
+                  type="text"
+                  value="testing"
+                />
+              </div>
             </div>
           </div>
         </div>
         <div
-          class="bx--bmrg-toggle --vertical"
+          class="bx--bmrg-toggle__container"
         >
           <div
-            class="bx--bmrg-toggle__title"
+            class="bx--bmrg-toggle --vertical"
           >
-            <label
-              class="bx--label"
-              for="secured-global-properties-toggle"
-              id="secured-global-properties-toggle-label"
-              style="margin-bottom: 0px;"
+            <div
+              class="bx--bmrg-toggle__title"
             >
-              Secured
-            </label>
-          </div>
-          <div
-            class="bx--form-item"
-          >
-            <input
-              aria-labelledby="secured-global-properties-toggle-label"
-              class="bx--toggle-input"
-              data-testid="secured-global-properties-toggle"
-              id="secured-global-properties-toggle"
-              name="secured"
-              type="checkbox"
-            />
-            <label
-              aria-label="Toggle"
-              class="bx--toggle-input__label"
-              for="secured-global-properties-toggle"
+              <label
+                class="bx--label"
+                for="secured-global-properties-toggle"
+                id="secured-global-properties-toggle-label"
+                style="margin-bottom: 0px;"
+              >
+                Secured
+              </label>
+            </div>
+            <div
+              class="bx--form-item"
             >
-              <span
-                class="bx--toggle__switch"
+              <input
+                aria-labelledby="secured-global-properties-toggle-label"
+                class="bx--toggle-input"
+                data-testid="secured-global-properties-toggle"
+                id="secured-global-properties-toggle"
+                name="secured"
+                type="checkbox"
+              />
+              <label
+                aria-label="Toggle"
+                class="bx--toggle-input__label"
+                for="secured-global-properties-toggle"
               >
                 <span
-                  aria-hidden="true"
-                  class="bx--toggle__text--off"
-                />
-                <span
-                  aria-hidden="true"
-                  class="bx--toggle__text--on"
-                />
-              </span>
-            </label>
+                  class="bx--toggle__switch"
+                >
+                  <span
+                    aria-hidden="true"
+                    class="bx--toggle__text--off"
+                  />
+                  <span
+                    aria-hidden="true"
+                    class="bx--toggle__text--on"
+                  />
+                </span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
       <div
-        class="bx--modal-footer"
+        class="bx--modal-footer bx--btn-set"
       >
         <button
           class="bx--btn bx--btn--secondary"

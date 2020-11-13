@@ -28,7 +28,7 @@ describe("Editor -- properties", function () {
     cy.wait(1000);
     cy.get("[data-testid=create-property-button]").click();
     cy.findByLabelText("Key").type("testingKey");
-    cy.findByLabelText("Type").click();
+    cy.findByPlaceholderText("Select an item").click();
     cy.findByText("Boolean").click();
     cy.findByLabelText("Label").type("testing label");
 

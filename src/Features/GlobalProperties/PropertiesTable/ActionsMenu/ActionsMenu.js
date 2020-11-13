@@ -52,7 +52,7 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty }) => {
           deleteProperty(property);
         }}
         affirmativeButtonProps={{ kind: "danger" }}
-        title={`Delete ${property.label}?`}
+        title={`Delete ${property?.label}?`}
         negativeText="No"
         affirmativeText="Yes"
       >
