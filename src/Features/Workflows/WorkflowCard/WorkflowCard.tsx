@@ -117,7 +117,6 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
     {
       itemText: "Edit",
       onClick: () => history.push(appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id })),
-      primaryFocus: true,
     },
     {
       itemText: "View Activity",

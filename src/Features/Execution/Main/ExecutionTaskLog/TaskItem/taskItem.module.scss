@@ -149,6 +149,10 @@
   white-space: nowrap;
 }
 
+.modalTrigger {
+  margin-left: -0.75rem;
+}
+
 .subtitle {
   color: var(--cds-text-01);
   font-size: 0.75rem;
@@ -180,8 +184,13 @@
 }
 
 .approvalResultsModalContainer {
-  max-height: 32.8125rem;
-  max-width: 37.5rem;
+  max-height: 40rem;
+  max-width: 75ch;
+}
+
+.actionManualTaskModalContainer {
+  max-height: 40rem;
+  max-width: 75ch;
 }
 
 .detailedSection {

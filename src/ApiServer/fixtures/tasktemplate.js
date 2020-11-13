@@ -1717,4 +1717,43 @@ export default [
     currentVersion: 1,
     nodeType: "eventwait",
   },
+  {
+    id: "5fa4144bcb28924ba43ab57c",
+    description: "Pauses workflow until manual task is actioned.",
+    lastModified: "2020-04-30T22:53:23.337+00:00",
+    name: "Manual Task",
+    category: "workflow",
+    revisions: [
+      {
+        version: 1,
+        image: "",
+        command: "",
+        arguments: ["approval"],
+        config: [
+          {
+            required: true,
+            placeholder: "",
+            readOnly: false,
+            description: "",
+            key: "instructions",
+            label: "Instructions",
+            type: "texteditor::markdown",
+            helperText: "Instructions for end user to follow to perform manual task.",
+          },
+        ],
+        changelog: {
+          userId: "5e8a6c6cd0827100011c2a35",
+          reason: "",
+          date: "2020-04-30T22:53:23.337+00:00",
+          userName: null,
+        },
+      },
+    ],
+    status: "active",
+    createdDate: "2020-01-09T00:01:00.000+00:00",
+    icon: "Edit",
+    verified: true,
+    currentVersion: 1,
+    nodeType: "manual",
+  },
 ];

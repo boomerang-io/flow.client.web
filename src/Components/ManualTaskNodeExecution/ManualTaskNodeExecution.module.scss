@@ -1,0 +1,136 @@
+@import "Styles/mixins";
+
+:global .c-workflow-diagram-execution {
+  .node.srd-node {
+    cursor: initial;
+  }
+}
+
+.failure {
+  border: 0.1875rem solid var(--flow-failure);
+}
+
+.inProgress {
+  border: 0.1875rem solid var(--cds-interactive-01);
+}
+.disabled {
+  border: none;
+  opacity: 0.5;
+}
+
+.normal {
+  border: none;
+}
+
+.badgeContainer {
+  background-color: var(--cds-ui-01);
+  border: 1px solid var(--cds-text-02);
+  border-radius: 0.25rem;
+  left: -1.5rem;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  position: absolute;
+  top: -0.75rem;
+}
+
+.badgeText {
+  color: var(--cds-text-01);
+  font-size: 0.625rem;
+  line-height: 0.8125rem;
+}
+
+.failure {
+  border: 0.1875rem solid var(--flow-failure);
+  border-color: var(--flow-failure) !important;
+}
+
+.inProgress {
+  border: none;
+
+  .progressBar {
+    position: absolute;
+    display: block;
+    height: 0.1875rem;
+    top: -0.1875rem;
+    left: -0.09rem;
+    transition: width 0.3s linear;
+    width: 13.9rem;
+    overflow: hidden;
+
+    &:before {
+      content: "";
+      position: absolute;
+      background-color: var(--cds-interactive-01);
+      top: 0;
+      left: 0;
+      bottom: 0;
+      will-change: left, right;
+      animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      background-color: var(--cds-interactive-01);
+      top: 0;
+      left: 0;
+      bottom: 0;
+      will-change: left, right;
+      animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+      animation-delay: 1.15s;
+    }
+  }
+}
+
+.completed {
+  border: 0.1875rem solid var(--cds-support-02);
+  border-color: var(--cds-support-02) !important;
+}
+
+.waiting {
+  border: 0.1875rem solid var(--flow-wait);
+  border-color: var(--flow-wait) !important;
+}
+
+.notstarted,
+.invalid,
+.skipped {
+  border: none;
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.progressBar {
+  display: none;
+}
+
+@keyframes indeterminate {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+
+@keyframes indeterminate-short {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+  60% {
+    left: 107%;
+    right: -8%;
+  }
+  100% {
+    left: 107%;
+    right: -8%;
+  }
+}

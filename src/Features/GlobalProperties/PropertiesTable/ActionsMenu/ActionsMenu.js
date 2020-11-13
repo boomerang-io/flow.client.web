@@ -33,7 +33,7 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty }) => {
         data-testid="configuration-property-table-overflow-menu"
       >
         {menuOptions.map((option, index) => (
-          <OverflowMenuItem key={index} primaryFocus {...option} />
+          <OverflowMenuItem key={index} {...option} />
         ))}
       </OverflowMenu>
       <CreateEditPropertiesModal
