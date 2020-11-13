@@ -682,11 +682,18 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                 class="data"
               >
                 <button
-                  class="modalTrigger bx--btn bx--btn--sm bx--btn--ghost"
+                  class="trigger bx--btn bx--btn--sm bx--btn--ghost"
                   tabindex="0"
                   type="button"
                 >
-                  Action Manual Approval
+                  View Log
+                </button>
+                <button
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
+                >
+                  View Properties
                 </button>
               </section>
             </li>
