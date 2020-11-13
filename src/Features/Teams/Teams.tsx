@@ -249,7 +249,7 @@ const TeamListTable: React.FC<TeamListTableProps> = ({
         headers={headers}
         render={({ rows, headers, getHeaderProps }: any) => (
           <TableContainer>
-            <Table>
+            <Table isSortable>
               <TableHead>
                 <TableRow>
                   {headers.map((header: any) => (

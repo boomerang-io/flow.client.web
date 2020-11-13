@@ -1,7 +1,7 @@
 import React from "react";
 import queryString from "query-string";
 import { queryStringOptions } from "Config/appConfig";
-import { waitFor, screen } from "@testing-library/react";
+import { waitFor, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import WorkflowActivity from "./index";
 import { startApiServer } from "ApiServer";
@@ -28,6 +28,7 @@ describe("WorkflowActivity --- Snapshot", () => {
 describe("WorkflowActivity --- RTL", () => {
   const basicQuery = { order: "DESC", page: 0, size: 10, sort: "creationDate" };
   it("Select status tab correctly", async () => {
+    window.HTMLElement.prototype.scrollIntoView = function() {};
     const { history } = rtlContextRouterRender(<WorkflowActivity />);
 
     userEvent.click(screen.getByRole("tab", { name: /in progress/i }));

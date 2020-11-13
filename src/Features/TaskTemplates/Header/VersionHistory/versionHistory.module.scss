@@ -1,6 +1,7 @@
 @import "Styles/mixins";
 .button {
   align-items: center;
+  cursor: pointer;
   display: flex !important;
   justify-content: center;
   margin-left: 0.5rem;

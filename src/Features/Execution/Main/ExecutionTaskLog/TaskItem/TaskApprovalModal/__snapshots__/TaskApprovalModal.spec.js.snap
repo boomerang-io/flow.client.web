@@ -42,6 +42,7 @@ exports[`TaskApprovalModal --- Snapshot Capturing Snapshot of TaskApprovalModal 
                     class="bx--text-area__wrapper"
                   >
                     <textarea
+                      aria-placeholder="Add some reasoning for your decision"
                       class="bx--text-area commentArea"
                       cols="50"
                       id="comment"
@@ -141,7 +142,7 @@ exports[`TaskApprovalModal --- Snapshot Capturing Snapshot of TaskApprovalModal 
         </section>
       </div>
       <div
-        class="bx--modal-footer"
+        class="bx--modal-footer bx--btn-set"
       >
         <button
           class="bx--btn bx--btn--secondary"

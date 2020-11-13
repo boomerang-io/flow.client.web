@@ -278,7 +278,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.activitySummary[0];
       });
 
-      this.get(serviceUrl.getWorkflowExecution({ executionId: ":id" }));
+      this.get(serviceUrl.getWorkflowExecution({ executionId: ":id" }), (schema, request) => {
+        return schema.db.workflowExecution[0];
+      });
 
       /**
        * Manage Team
