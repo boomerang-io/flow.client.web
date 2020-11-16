@@ -153,10 +153,10 @@
     ]
   },
   "lint-staged": {
-    "*.{js,jsx,json,scss,css,md}": [
+    "*.{js,jsx,ts,tsx,json,scss,css,md}": [
       "prettier --print-width 120 --write"
     ],
-    "src/**/*.{js,jsx}": [
+    "src/**/*.{js,jsx,ts,tsx}": [
       "npm run-script lint:staged",
       "npm run-script test:staged"
     ]
