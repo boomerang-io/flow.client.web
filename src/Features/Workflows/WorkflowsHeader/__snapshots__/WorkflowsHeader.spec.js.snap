@@ -34,7 +34,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
         >
           <div
             aria-labelledby="search-team-workflows-search"
-            class="bx--search bx--search--xl"
+            class="bx--search bx--search--xl bx--search--disabled"
             role="search"
           >
             <svg
@@ -73,16 +73,17 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
             <button
               aria-label="Clear search input"
               class="bx--search-close bx--search-close--hidden"
+              disabled=""
               type="button"
             >
               <svg
                 aria-hidden="true"
                 fill="currentColor"
                 focusable="false"
-                height="20"
+                height="16"
                 preserveAspectRatio="xMidYMid meet"
                 viewBox="0 0 32 32"
-                width="20"
+                width="16"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -101,33 +102,35 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
             <label
               class="bx--label bx--label--disabled"
               for="b-search-filter__filter"
-              id="filterablemultiselect-label-1"
+              id="b-search-filter__filter-label"
             >
               Filter by team
             </label>
             <div
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-labelledby="b-search-filter__filter-label"
               class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box bx--list-box--disabled"
+              role="combobox"
             >
               <div
-                aria-expanded="false"
                 aria-haspopup="true"
-                aria-labelledby="filterablemultiselect-label-1"
+                aria-labelledby="b-search-filter__filter-label"
                 class="bx--list-box__field"
                 data-toggle="true"
+                id="b-search-filter__filter"
                 role="button"
                 tabindex="-1"
                 type="button"
               >
                 <input
                   aria-autocomplete="list"
-                  aria-controls="b-search-filter__filter__menu"
-                  aria-expanded="false"
+                  aria-labelledby="b-search-filter__filter-label"
                   autocomplete="off"
                   class="bx--text-input bx--text-input--empty"
                   disabled=""
-                  id="b-search-filter__filter"
+                  id="b-search-filter__filter-input"
                   placeholder="Choose a team"
-                  role="combobox"
                   value=""
                 />
                 
@@ -155,12 +158,6 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
                   </svg>
                 </div>
               </div>
-              <div
-                aria-label="Choose an item"
-                class="bx--list-box__menu"
-                id="b-search-filter__filter__menu"
-                role="listbox"
-              />
             </div>
           </div>
         </div>

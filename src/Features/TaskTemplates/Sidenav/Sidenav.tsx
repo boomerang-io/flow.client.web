@@ -97,6 +97,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
 
   const handleClearFilters = () => {
     setShowArchived(false);
+    setShowVerified(false);
     setActiveFilters([]);
   };
 

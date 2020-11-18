@@ -85,6 +85,4 @@ export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true 
 
 export const FeatureFlag = {
   StandaloneModeEnabled: "standaloneModeEnabled",
-  EditVerifiedTasksEnabled: "editVerifiedTasksEnabled",
-  EmbeddedModeEnabled: "embeddedModeEnabled",
 };

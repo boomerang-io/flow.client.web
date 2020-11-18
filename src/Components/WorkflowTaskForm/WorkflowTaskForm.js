@@ -62,6 +62,7 @@ class WorkflowTaskForm extends Component {
     node: PropTypes.object.isRequired,
     nodeConfig: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
+    textEditorProps: PropTypes.object,
     task: PropTypes.object.isRequired,
     taskNames: PropTypes.array.isRequired,
   };
@@ -96,6 +97,23 @@ class WorkflowTaskForm extends Component {
     };
   };
 
+  textEditorProps = ({ input, formikProps }) => {
+    const { values, setFieldValue } = formikProps;
+    const { key, type, ...rest } = input;
+    const itemConfig = TEXT_AREA_TYPES[type];
+
+    return {
+      autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
+      formikSetFieldValue: (value) => this.formikSetFieldValue(value, key, setFieldValue),
+      initialValue: values[key],
+      inputProperties: this.props.inputProperties,
+      item: input,
+      ...this.props.textEditorProps,
+      ...itemConfig,
+      ...rest,
+    };
+  };
+
   textInputProps = ({ formikProps, input }) => {
     const { errors, handleBlur, touched, values, setFieldValue } = formikProps;
     const { key, ...rest } = input;
@@ -122,7 +140,6 @@ class WorkflowTaskForm extends Component {
 
   render() {
     const { node, task, taskNames, nodeConfig } = this.props;
-
     const taskRevisions = task?.revisions ?? [];
 
     // Find the matching task config for the version
@@ -161,7 +178,7 @@ class WorkflowTaskForm extends Component {
           TextEditor: TextEditorInput,
         }}
         textAreaProps={this.textAreaProps}
-        textEditorProps={this.textAreaProps}
+        textEditorProps={this.textEditorProps}
         textInputProps={this.textInputProps}
         toggleProps={this.toggleProps}
       >

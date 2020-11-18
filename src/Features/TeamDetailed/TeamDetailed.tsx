@@ -1,6 +1,8 @@
 import React from "react";
 import { useQuery } from "react-query";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { useAppContext } from "Hooks";
+import { Box } from "reflexbox";
 import {
   ErrorMessage,
   FeatureHeader,
@@ -8,16 +10,13 @@ import {
   FeatureHeaderSubtitle as HeaderSubtitle,
   Loading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import Header from "./Header";
 import Members from "./Members";
 import Settings from "./Settings";
 import Workflows from "./Workflows";
 import { AppPath } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./teamDetailed.module.scss";
-import { Box } from "reflexbox";
-import Header from "./Header";
-
-import { useAppContext } from "Hooks";
 
 const FeatureLayout: React.FC = ({ children }) => {
   return (

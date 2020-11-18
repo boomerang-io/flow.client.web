@@ -9,13 +9,13 @@ interface OverflowMenuComponentProps {
   property: Property;
   properties: Property[];
   deleteTeamProperty(args: Property): void;
-};
+}
 
-const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({ 
-  property, 
-  properties, 
-  deleteTeamProperty, 
-  team 
+const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
+  property,
+  properties,
+  deleteTeamProperty,
+  team,
 }) => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -51,7 +51,7 @@ const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
         data-testid="team-property-menu-button"
       >
         {menuOptions.map((option, index) => (
-          <OverflowMenuItem key={index} primaryFocus {...option} />
+          <OverflowMenuItem key={index} {...option} />
         ))}
       </OverflowMenu>
       <CreateEditTeamPropertiesModal
@@ -69,12 +69,12 @@ const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
         affirmativeText="Delete"
         negativeText="Cancel"
         onCloseModal={() => setDeleteModalIsOpen(false)}
-        title={`Delete ${property.label}?`}
+        title={`Delete ${property?.label}?`}
       >
         Your team property will be gone. Forever.
       </ConfirmModal>
     </>
   );
-}
+};
 
 export default OverflowMenuComponent;

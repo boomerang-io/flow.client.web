@@ -106,7 +106,7 @@ class ChangeLogTable extends Component<ChangeLogTableProps> {
               headers={this.headers}
               render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
                 <TableContainer>
-                  <Table>
+                  <Table isSortable>
                     <TableHead>
                       <TableRow>
                         {headers.map((header: any) => (
