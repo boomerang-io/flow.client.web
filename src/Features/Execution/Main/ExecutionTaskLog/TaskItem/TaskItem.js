@@ -11,7 +11,7 @@ import { getHumanizedDuration } from "@boomerang-io/utils";
 import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
 import styles from "./taskItem.module.scss";
 
-const logTaskTypes = ["custom", "template"];
+const logTaskTypes = ["customtask", "template"];
 
 TaskItem.propTypes = {
   flowActivityId: PropTypes.string.isRequired,
