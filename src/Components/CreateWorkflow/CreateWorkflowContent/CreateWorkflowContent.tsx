@@ -23,8 +23,9 @@ interface CreateWorkflowContentProps {
   createWorkflow: (workflowSummary: CreateWorkflowSummary) => Promise<void>;
   existingWorkflowNames: string[];
   isLoading: boolean;
-  team: FlowTeam;
-  teams: FlowTeam[];
+  isSystem: boolean;
+  team: FlowTeam | null;
+  teams: FlowTeam[] | null;
 }
 
 const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
@@ -33,13 +34,14 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   createWorkflow,
   existingWorkflowNames = [],
   isLoading,
+  isSystem,
   team,
   teams,
 }) => {
   const handleSubmit = (values: any) => {
     const requestBody = {
       ...defaultWorkflowConfig,
-      flowTeamId: values.selectedTeam.id,
+      flowTeamId: values.selectedTeam?.id,
       name: values.name,
       shortDescription: values.summary,
       description: values.description,
@@ -60,7 +62,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       }}
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
-        selectedTeam: Yup.string().required("Team is required"),
+        selectedTeam: isSystem ? Yup.mixed() : Yup.string().required("Team is required"),
         name: Yup.string()
           .required("Name is required")
           .max(64, "Name must not be greater than 64 characters")
@@ -77,24 +79,26 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
             {isLoading && <Loading />}
             <ModalBody aria-label="inputs" className={styles.formBody}>
               <div className={styles.teamAndName}>
-                <ComboBox
-                  id="selectedTeam"
-                  styles={{ marginBottom: "2.5rem" }}
-                  onChange={({ selectedItem }: { selectedItem: ComboBoxItem }) =>
-                    setFieldValue("selectedTeam", selectedItem ? selectedItem : "")
-                  }
-                  items={teams}
-                  initialSelectedItem={values.selectedTeam}
-                  value={values.selectedTeam}
-                  itemToString={(item: ComboBoxItem) => (item ? item.name : "")}
-                  titleText="Team"
-                  placeholder="Select a team"
-                  invalid={errors.selectedTeam}
-                  invalidText={errors.selectedTeam}
-                  shouldFilterItem={({ item, inputValue }: { item: ComboBoxItem; inputValue: string }) =>
-                    item && item.name.toLowerCase().includes(inputValue.toLowerCase())
-                  }
-                />
+                {!isSystem && (
+                  <ComboBox
+                    id="selectedTeam"
+                    styles={{ marginBottom: "2.5rem" }}
+                    onChange={({ selectedItem }: { selectedItem: ComboBoxItem }) =>
+                      setFieldValue("selectedTeam", selectedItem ? selectedItem : "")
+                    }
+                    items={teams}
+                    initialSelectedItem={values.selectedTeam}
+                    value={values.selectedTeam}
+                    itemToString={(item: ComboBoxItem) => (item ? item.name : "")}
+                    titleText="Team"
+                    placeholder="Select a team"
+                    invalid={errors.selectedTeam}
+                    invalidText={errors.selectedTeam}
+                    shouldFilterItem={({ item, inputValue }: { item: ComboBoxItem; inputValue: string }) =>
+                      item && item.name.toLowerCase().includes(inputValue.toLowerCase())
+                    }
+                  />
+                )}
                 <TextInput
                   id="name"
                   labelText="Workflow Name"

@@ -26,10 +26,11 @@ interface CreateWorkflowContainerProps {
   createError: any;
   createWorkflow: (workflowData: CreateWorkflowSummary) => Promise<void>;
   isLoading: boolean;
+  isSystem: boolean;
   importError: any;
   importWorkflow: (workflowData: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
-  team: FlowTeam;
-  teams: FlowTeam[];
+  team: FlowTeam | null;
+  teams: FlowTeam[] | null;
 }
 
 const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
@@ -39,12 +40,13 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
   importError,
   importWorkflow,
   isLoading,
+  isSystem,
   team,
   teams,
 }) => {
   const [selectedOption, setSelectedOption] = React.useState(NEW_WORKFLOW);
 
-  const existingWorkflowNames = team.workflows.map((workflow) => workflow.name);
+  const existingWorkflowNames = team?.workflows.map((workflow) => workflow.name) ?? [];
 
   return (
     <ModalForm>
@@ -63,6 +65,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
           createError={createError}
           existingWorkflowNames={existingWorkflowNames}
           isLoading={isLoading}
+          isSystem={isSystem}
           team={team}
           teams={teams}
         />
@@ -73,6 +76,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
           importError={importError}
           importWorkflow={importWorkflow}
           isLoading={isLoading}
+          isSystem={isSystem}
           team={team}
           teams={teams}
         />

@@ -123,6 +123,15 @@ const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) =
             >
               Task Manager
             </SideNavMenuItem>
+
+            <SideNavMenuItem
+              activeClassName={ACTIVE_CLASS_NAME}
+              element={NavLink}
+              onClick={onMenuClose}
+              to={appLink.systemWorkflows()}
+            >
+              System Workflows
+            </SideNavMenuItem>
           </SideNavMenu>
         ) : (
           <></>
@@ -144,7 +153,7 @@ interface NavbarContainerProps {
 
 export default function NavbarContainer({ handleOnTutorialClick, navigationData, userData }: NavbarContainerProps) {
   const isStandaAloneMode = useFeature(FeatureFlag.StandaloneModeEnabled);
-  const embeddedModeEnabled = useFeature(FeatureFlag.EmbeddedModeEnabled);
+  // const embeddedModeEnabled = useFeature(FeatureFlag.EmbeddedModeEnabled);
   const defaultUIShellProps = {
     baseLaunchEnvUrl: isStandaAloneMode ? null : CORE_ENV_URL,
     baseServiceUrl: isStandaAloneMode ? null : BASE_CORE_URL,
@@ -160,9 +169,10 @@ export default function NavbarContainer({ handleOnTutorialClick, navigationData,
       </Helmet>
       <UIShell
         {...defaultUIShellProps}
-        onMenuClick={embeddedModeEnabled ? null : handleOnMenuClick(isAtLeastOperator, isStandaAloneMode)}
+        onMenuClick={handleOnMenuClick(isAtLeastOperator, isStandaAloneMode)}
         headerConfig={navigationData}
-        onTutorialClick={embeddedModeEnabled ? null : handleOnTutorialClick}
+        // onTutorialClick={embeddedModeEnabled ? null : handleOnTutorialClick}
+        onTutorialClick={handleOnTutorialClick}
         user={userData}
         skipToContentProps={skipToContentProps}
       />

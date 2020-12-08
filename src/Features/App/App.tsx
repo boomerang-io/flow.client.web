@@ -1,6 +1,6 @@
 import React, { lazy, useState, Suspense } from "react";
 import axios from "axios";
-import { FlagsProvider } from "flagged";
+import { FlagsProvider, useFeature, useFeatures } from "flagged";
 import { AppContextProvider } from "State/context";
 import { useQuery } from "react-query";
 import { Switch, Route, Redirect } from "react-router-dom";
@@ -12,7 +12,7 @@ import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
 import { UserType } from "Constants";
-import { AppPath, PRODUCT_STANDALONE, EMBEDDED_MODE } from "Config/appConfig";
+import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, FlowUser } from "Types";
 import styles from "./app.module.scss";
@@ -25,6 +25,7 @@ const GlobalProperties = lazy(() => import(/* webpackChunkName: "GlobalPropertie
 const Insights = lazy(() => import(/* webpackChunkName: "Insights" */ "Features/Insights"));
 const Quotas = lazy(() => import(/* webpackChunkName: "Quotas" */ "Features/Quotas"));
 const Settings = lazy(() => import(/* webpackChunkName: "Settings" */ "Features/Settings"));
+const SystemWorkflows = lazy(() => import(/* webpackChunkName: "SystemWorkflows" */ "Features/SystemWorkflows"));
 const TaskTemplates = lazy(() => import(/* webpackChunkName: "TaskTemplates" */ "Features/TaskTemplates"));
 const Teams = lazy(() => import(/* webpackChunkName: "Teams" */ "Features/Teams"));
 const TeamProperties = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/TeamProperties"));
@@ -61,6 +62,11 @@ export default function App() {
     }
   };
 
+  const featureQuery = useQuery({
+    queryKey: serviceUrl.getFeatureFlags(),
+    queryFn: resolver.query(serviceUrl.getFeatureFlags()),
+  });
+
   const userQuery = useQuery({
     queryKey: getUserUrl,
     queryFn: fetchUserResolver,
@@ -82,9 +88,9 @@ export default function App() {
     },
   });
 
-  const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading;
-  const hasError = userQuery.isError || navigationQuery.isError || teamsQuery.isError;
-  const hasData = userQuery.data && navigationQuery.data && teamsQuery.data;
+  const isLoading = userQuery.isLoading || navigationQuery.isLoading || teamsQuery.isLoading || featureQuery.isLoading;
+  const hasError = userQuery.isError || navigationQuery.isError || teamsQuery.isError || featureQuery.isError;
+  const hasData = userQuery.data && navigationQuery.data && teamsQuery.data && featureQuery.data;
 
   const handleSetActivationCode = (code: string) => {
     setActivationCode(code);
@@ -110,8 +116,27 @@ export default function App() {
   }
 
   if (hasData) {
+    const feature = featureQuery.data?.features;
+    console.log(feature);
+    console.log(feature["activity"]);
     return (
-      <FlagsProvider features={{ standaloneModeEnabled: PRODUCT_STANDALONE }}>
+      <FlagsProvider
+        features={{
+          TeamManagementEnabled: feature["team.management"],
+          WorkflowQuotasEnabled: feature["workflow.quotas"],
+          SettingsEnabled: feature["settings"],
+          UserManagementEnabled: feature["user.management"],
+          GlobalPropertiesEnabled: feature["global.properties"],
+          WorkflowTokensEnabled: feature["workflow.tokens"],
+          TaskManagerEnabled: feature["taskManager"],
+          EditVerifiedTasksEnabled: feature["enable.verified.tasks.edit"],
+          WorkflowTriggersEnabled: feature["workflow.triggers"],
+          TeamPropertiesEnabled: feature["team.properties"],
+
+          ActivityEnabled: feature["activity"],
+          InsightsEnabled: feature["insights"],
+        }}
+      >
         <Navbar
           handleOnTutorialClick={() => setIsTutorialActive(true)}
           navigationData={navigationQuery.data}
@@ -120,8 +145,6 @@ export default function App() {
         <OnBoardExpContainer isTutorialActive={isTutorialActive} setIsTutorialActive={setIsTutorialActive} />
         <ErrorBoundary>
           <Main
-            isEmbeddedMode={EMBEDDED_MODE}
-            isStandaloneMode={PRODUCT_STANDALONE}
             isTutorialActive={isTutorialActive}
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
@@ -137,8 +160,6 @@ export default function App() {
 }
 
 interface MainProps {
-  isEmbeddedMode: boolean;
-  isStandaloneMode: boolean;
   isTutorialActive: boolean;
   setIsTutorialActive: (isTutorialActive: boolean) => void;
   setShouldShowBrowserWarning: (shouldShowBrowserWarning: boolean) => void;
@@ -148,8 +169,6 @@ interface MainProps {
 }
 
 function Main({
-  isEmbeddedMode,
-  isStandaloneMode,
   isTutorialActive,
   setIsTutorialActive,
   setShouldShowBrowserWarning,
@@ -177,27 +196,35 @@ function Main({
         teams: teamsData,
       }}
     >
-      <AppFeatures isStandaloneMode={isStandaloneMode} platformRole={platformRole} isEmbeddedMode={isEmbeddedMode} />
+      <AppFeatures platformRole={platformRole} />
     </AppContextProvider>
   );
 }
 
 interface AppFeaturesProps {
-  isEmbeddedMode: boolean;
-  isStandaloneMode: boolean;
   platformRole: string;
 }
 
-const AppFeatures = React.memo(function AppFeatures({
-  isEmbeddedMode,
-  isStandaloneMode,
-  platformRole,
-}: AppFeaturesProps) {
+const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
+  const globalPropertiesEnabled = useFeature(FeatureFlag.GlobalPropertiesEnabled);
+  const teamPropertiesEnabled = useFeature(FeatureFlag.TeamPropertiesEnabled);
+  const taskManagerEnabled = useFeature(FeatureFlag.TaskManagerEnabled);
+  const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
+  const settingsEnabled = useFeature(FeatureFlag.SettingsEnabled);
+  const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
+  const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
+  const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
+  const insightsEnabled = useFeature(FeatureFlag.InsightsEnabled);
+
+  console.log("ACTIVITY ENABLED");
+  console.log(activityEnabled);
+  console.log(useFeatures());
+
   return (
     <main id="content" className={styles.container}>
       <Suspense fallback={<Loading />}>
         <Switch>
-          {!isEmbeddedMode && (
+          {globalPropertiesEnabled && (
             <ProtectedRoute
               allowedUserRoles={allowedUserRoles}
               component={<GlobalProperties />}
@@ -205,7 +232,7 @@ const AppFeatures = React.memo(function AppFeatures({
               userRole={platformRole}
             />
           )}
-          {!isEmbeddedMode && (
+          {teamPropertiesEnabled && (
             <ProtectedRoute
               allowedUserRoles={allowedUserRoles}
               component={<TeamProperties />}
@@ -213,13 +240,15 @@ const AppFeatures = React.memo(function AppFeatures({
               userRole={platformRole}
             />
           )}
-          <ProtectedRoute
-            allowedUserRoles={allowedUserRoles}
-            component={<TaskTemplates />}
-            path={AppPath.TaskTemplates}
-            userRole={platformRole}
-          />
-          {!isEmbeddedMode && (
+          {taskManagerEnabled && (
+            <ProtectedRoute
+              allowedUserRoles={allowedUserRoles}
+              component={<TaskTemplates />}
+              path={AppPath.TaskTemplates}
+              userRole={platformRole}
+            />
+          )}
+          {workflowQuotasEnabled && (
             <ProtectedRoute
               allowedUserRoles={allowedUserRoles}
               component={<Quotas />}
@@ -227,7 +256,7 @@ const AppFeatures = React.memo(function AppFeatures({
               userRole={platformRole}
             />
           )}
-          {!isEmbeddedMode && (
+          {settingsEnabled && (
             <ProtectedRoute
               allowedUserRoles={allowedUserRoles}
               component={<Settings />}
@@ -235,7 +264,7 @@ const AppFeatures = React.memo(function AppFeatures({
               userRole={platformRole}
             />
           )}
-          {isStandaloneMode && (
+          {teamManagementEnabled && (
             <ProtectedRoute
               allowedUserRoles={allowedUserRoles}
               component={<Teams />}
@@ -243,7 +272,7 @@ const AppFeatures = React.memo(function AppFeatures({
               userRole={platformRole}
             />
           )}
-          {isStandaloneMode && (
+          {userManagementEnabled && (
             <ProtectedRoute
               allowedUserRoles={allowedUserRoles}
               component={<Users />}
@@ -251,20 +280,25 @@ const AppFeatures = React.memo(function AppFeatures({
               userRole={platformRole}
             />
           )}
-          {!isEmbeddedMode && (
-            <Route path={AppPath.Execution}>
-              <Execution />
-            </Route>
-          )}
-          {!isEmbeddedMode && (
+
+          <Route path={AppPath.SystemWorkflows}>
+            <SystemWorkflows />
+          </Route>
+
+          <Route path={AppPath.Execution}>
+            <Execution />
+          </Route>
+
+          {activityEnabled && (
             <Route path={AppPath.Activity}>
               <Activity />
             </Route>
           )}
+
           <Route path={AppPath.Editor}>
             <Editor />
           </Route>
-          {!isEmbeddedMode && (
+          {insightsEnabled && (
             <Route path={AppPath.Insights}>
               <Insights />
             </Route>
@@ -272,6 +306,7 @@ const AppFeatures = React.memo(function AppFeatures({
           <Route path={AppPath.Workflows}>
             <Workflows />
           </Route>
+
           <Redirect exact from="/" to={AppPath.Workflows} />
           <Route path="*" component={Error404} />
         </Switch>

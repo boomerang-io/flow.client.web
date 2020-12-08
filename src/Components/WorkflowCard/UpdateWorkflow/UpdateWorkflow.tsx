@@ -8,7 +8,7 @@ import { WorkflowExport } from "Types";
 import styles from "./updateWorkflow.module.scss";
 
 interface UpdateWorkflowProps {
-  teamId: string;
+  teamId: string | null;
   workflowId: string;
   onCloseModal: () => void;
 }
@@ -19,7 +19,11 @@ const UpdateWorkflow: React.FC<UpdateWorkflowProps> = ({ teamId, workflowId, onC
   });
 
   const handleImportWorkflow = async (data: WorkflowExport, closeModal: () => void) => {
-    const query = queryString.stringify({ update: true, flowTeamId: teamId });
+    let query;
+    if (teamId) {
+      query = queryString.stringify({ update: true, flowTeamId: teamId });
+    } else query = queryString.stringify({ update: true, scope: "system" });
+
     try {
       await importWorkflowMutator({ query, body: data });
       notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfully updated" />);

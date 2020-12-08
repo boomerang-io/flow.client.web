@@ -3,8 +3,8 @@ import {
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   FeatureHeaderSubtitle as HeaderSubtitle,
-  MultiSelect, 
-  Search 
+  MultiSelect,
+  Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { FlowTeam } from "Types";
 import styles from "./workflowsHeader.module.scss";
@@ -12,15 +12,17 @@ import styles from "./workflowsHeader.module.scss";
 type HandleUpdateFilter = (query: { [key: string]: string | string[] | null }) => void;
 
 interface WorkflowsHeaderProps {
+  isSystem: boolean;
   handleUpdateFilter: HandleUpdateFilter;
   searchQuery: string | string[] | null;
-  selectedTeams: FlowTeam[];
-  teamsQuery: string[];
-  teams: FlowTeam[];
+  selectedTeams: FlowTeam[] | null;
+  teamsQuery: string[] | null;
+  teams: FlowTeam[] | null;
   workflowsCount: number;
 }
 
 const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
+  isSystem,
   selectedTeams,
   handleUpdateFilter,
   searchQuery,
@@ -40,6 +42,7 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
       }
       actions={
         <SearchFilterBar
+          isSystem={isSystem}
           selectedTeams={selectedTeams}
           handleUpdateFilter={handleUpdateFilter}
           searchQuery={searchQuery}
@@ -54,14 +57,16 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
 export default WorkflowsHeader;
 
 interface SearchFilterBarProps {
+  isSystem: boolean;
   handleUpdateFilter: HandleUpdateFilter;
   searchQuery: string | string[] | null;
-  selectedTeams: FlowTeam[];
-  teamsQuery: string[];
-  teams: FlowTeam[];
+  selectedTeams: FlowTeam[] | null;
+  teamsQuery: string[] | null;
+  teams: FlowTeam[] | null;
 }
 
 const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
+  isSystem,
   selectedTeams,
   handleUpdateFilter,
   searchQuery,
@@ -77,14 +82,14 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
     handleUpdateFilter({ query: e.currentTarget?.value ?? "" });
   };
 
-  const isTeamQueryActive = teamsQuery.length > 0;
-  const hasTeams = teams?.length > 0;
+  const isTeamQueryActive = teamsQuery && teamsQuery.length > 0;
+  const hasTeams = teams && teams.length > 0;
 
   return (
     <div className={styles.filterContainer}>
       <div className={styles.search}>
         <Search
-          disabled={!hasTeams}
+          disabled={isSystem ? false : !hasTeams}
           data-testid="workflows-team-search"
           id="search-team-workflows"
           labelText="Search for a workflow"
@@ -93,24 +98,26 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
           value={searchQuery}
         />
       </div>
-      <div className={styles.filter}>
-        <MultiSelect.Filterable
-          disabled={!hasTeams}
-          id="b-search-filter__filter"
-          invalid={false}
-          initialSelectedItems={
-            isTeamQueryActive && Array.isArray(selectedTeams)
-              ? selectedTeams.map((team) => ({ id: team.id, text: team.name }))
-              : []
-          }
-          items={Array.isArray(teams) ? teams.map((team) => ({ id: team.id, text: team.name })) : []}
-          itemToString={(team: { text: string }) => (team ? team.text : "")}
-          label={"Choose a team"}
-          onChange={handleOnMultiSelectChange}
-          placeholder={"Choose a team"}
-          titleText={"Filter by team"}
-        />
-      </div>
+      {teams && (
+        <div className={styles.filter}>
+          <MultiSelect.Filterable
+            disabled={!hasTeams}
+            id="b-search-filter__filter"
+            invalid={false}
+            initialSelectedItems={
+              isTeamQueryActive && Array.isArray(selectedTeams)
+                ? selectedTeams.map((team) => ({ id: team.id, text: team.name }))
+                : []
+            }
+            items={Array.isArray(teams) ? teams.map((team) => ({ id: team.id, text: team.name })) : []}
+            itemToString={(team: { text: string }) => (team ? team.text : "")}
+            label={"Choose a team"}
+            onChange={handleOnMultiSelectChange}
+            placeholder={"Choose a team"}
+            titleText={"Filter by team"}
+          />
+        </div>
+      )}
     </div>
   );
 };

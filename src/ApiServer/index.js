@@ -30,17 +30,19 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       activity: Model,
       changelog: Model,
       config: Model,
-      revision: Model,
-      summary: Model,
+      featureFlag: Model,
       insights: Model,
-      teamProperties: Model,
-      tasktemplate: Model,
-      team: Model,
-      manageTeamDetail: Model,
       manageTeam: Model,
+      manageTeamDetail: Model,
       manageUser: Model,
       quotas: Model,
+      revision: Model,
       setting: Model,
+      summary: Model,
+      systemWorkflow: Model,
+      tasktemplate: Model,
+      team: Model,
+      teamProperties: Model,
     },
 
     routes() {
@@ -65,6 +67,14 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.get(serviceUrl.getTeams(), (schema) => {
         return schema.db.teams;
+      });
+
+      this.get(serviceUrl.getFeatureFlags(), (schema) => {
+        return schema.db.featureFlags[0];
+      });
+
+      this.get(serviceUrl.getSystemWorkflows(), (schema) => {
+        return schema.db.systemWorkflows;
       });
 
       this.get(serviceUrl.getTeamQuotas({ id: ":id" }), (schema) => {

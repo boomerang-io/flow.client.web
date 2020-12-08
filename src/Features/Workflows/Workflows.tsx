@@ -10,9 +10,9 @@ import WelcomeBanner from "Components/WelcomeBanner";
 import EmptyState from "Components/EmptyState";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
 import NoTeamsRedirectPrompt from "./NoAccessRedirectPrompt";
-import CreateWorkflow from "./CreateWorkflow";
-import WorkflowsHeader from "./WorkflowsHeader";
-import WorkflowCard from "./WorkflowCard";
+import CreateWorkflow from "../../Components/CreateWorkflow";
+import WorkflowsHeader from "../../Components/WorkflowsHeader";
+import WorkflowCard from "../../Components/WorkflowCard";
 import queryString from "query-string";
 import { FlowTeam, ModalTriggerProps, ComposedModalChildProps, WorkflowSummary } from "Types";
 import { FeatureFlag } from "Config/appConfig";
@@ -126,6 +126,7 @@ export default function WorkflowsHome() {
         })}
       >
         <WorkflowsHeader
+          isSystem={false}
           handleUpdateFilter={handleUpdateFilter}
           searchQuery={searchQuery}
           selectedTeams={selectedTeams}
@@ -158,7 +159,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
   const hasTeamWorkflows = team.workflows?.length > 0;
   const hasFilteredWorkflows = team.filteredWorkflows?.length > 0;
   const hasReachedWorkflowLimit = team.workflowQuotas.maxWorkflowCount <= team.workflowQuotas.currentWorkflowCount;
-  const embeddedModeEnabled = useFeature(FeatureFlag.EmbeddedModeEnabled);
+  const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
 
   if (searchQuery && !hasFilteredWorkflows) {
     return null;
@@ -168,7 +169,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
     <section className={styles.sectionContainer}>
       <hgroup className={styles.header}>
         <h1 className={styles.team}>{`${team.name} (${team.workflows.length})`}</h1>
-        {!embeddedModeEnabled && (
+        {workflowQuotasEnabled && (
           <div className={styles.teamQuotaContainer}>
             <div className={styles.quotaDescriptionContainer}>
               <p
@@ -218,7 +219,14 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
         {team.filteredWorkflows.map((workflow) => (
           <WorkflowCard key={workflow.id} teamId={team.id} workflow={workflow} quotas={team.workflowQuotas} />
         ))}
-        {<CreateWorkflow team={team} teams={teams} hasReachedWorkflowLimit={hasReachedWorkflowLimit} />}
+        {
+          <CreateWorkflow
+            isSystem={false}
+            team={team}
+            teams={teams}
+            hasReachedWorkflowLimit={hasReachedWorkflowLimit}
+          />
+        }
       </div>
     </section>
   );

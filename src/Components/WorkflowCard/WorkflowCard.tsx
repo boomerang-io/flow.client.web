@@ -29,8 +29,8 @@ import { WorkflowSummary, ModalTriggerProps, ComposedModalChildProps, FlowTeamQu
 import styles from "./workflowCard.module.scss";
 
 interface WorkflowCardProps {
-  teamId: string;
-  quotas: FlowTeamQuotas;
+  teamId: string | null;
+  quotas: FlowTeamQuotas | null;
   workflow: WorkflowSummary;
 }
 
@@ -40,7 +40,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
-  const embeddedModeEnabled = useFeature(FeatureFlag.EmbeddedModeEnabled);
+  const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
+  const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
 
   const history = useHistory();
   const [errorMessage, seterrorMessage] = useState(null);
@@ -118,7 +119,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   let menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => history.push(appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id })),
+      onClick: () => history.push(appLink.editorDesigner({ workflowId: workflow.id })),
     },
     {
       itemText: "View Activity",
@@ -140,7 +141,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
     },
   ];
 
-  if (embeddedModeEnabled) {
+  if (!activityEnabled) {
     menuOptions = menuOptions.filter((el) => el.itemText !== "View Activity");
   }
 
@@ -148,15 +149,19 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
 
   const { name, Icon = Bee20 } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
 
-  const hasReachedMonthlyRunLimit = quotas.maxWorkflowExecutionMonthly <= quotas.currentWorkflowExecutionMonthly;
+  let hasReachedMonthlyRunLimit = false;
+
+  if (quotas) {
+    hasReachedMonthlyRunLimit = quotas?.maxWorkflowExecutionMonthly <= quotas?.currentWorkflowExecutionMonthly;
+  }
 
   const canRunManually = workflow?.triggers?.manual?.enable ?? false;
 
-  const isDisabled = !embeddedModeEnabled && (hasReachedMonthlyRunLimit || !canRunManually);
+  const isDisabled = workflowQuotasEnabled && (hasReachedMonthlyRunLimit || !canRunManually);
 
   return (
     <div className={styles.container}>
-      <Link to={!isDeleting ? appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id }) : ""}>
+      <Link to={!isDeleting ? appLink.editorDesigner({ workflowId: workflow.id }) : ""}>
         <section className={styles.details}>
           <div className={styles.iconContainer}>
             <Icon className={styles.icon} alt={`${name}`} />

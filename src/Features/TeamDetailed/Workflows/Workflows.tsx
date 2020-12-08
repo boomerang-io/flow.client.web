@@ -64,7 +64,7 @@ function Workflows({ team }: { team: FlowTeam }) {
                     <Link
                       className={styles.viewWorkflowLink}
                       to={{
-                        pathname: appLink.editorDesigner({ teamId: team.id, workflowId: workflow.id }),
+                        pathname: appLink.editorDesigner({ workflowId: workflow.id }),
                         state: { fromTeam: { id: team.id, name: team.name } },
                       }}
                     >

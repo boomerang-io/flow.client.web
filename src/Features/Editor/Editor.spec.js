@@ -25,7 +25,7 @@ describe("Editor --- Snapshot", () => {
       <Route path={AppPath.EditorDesigner}>
         <Editor />
       </Route>,
-      { route: appLink.editorDesigner({ teamId: "5e3a35ad8c222700018ccd39", workflowId: "5eb2c4085a92d80001a16d87" }) }
+      { route: appLink.editorDesigner({ workflowId: "5eb2c4085a92d80001a16d87" }) }
     );
     await findByText("Editor");
     expect(baseElement).toMatchSnapshot();

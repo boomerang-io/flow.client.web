@@ -79,12 +79,11 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
   teams,
   updateSummary,
 }) {
-  const embeddedModeEnabled = useFeature(FeatureFlag.EmbeddedModeEnabled);
+  const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
   const handleOnSubmit = (values: { selectedTeam: { id: string } }) => {
     updateSummary({
       values,
-      callback: () =>
-        history.push(appLink.editorConfigure({ teamId: values.selectedTeam.id, workflowId: params.workflowId })),
+      callback: () => history.push(appLink.editorConfigure({ workflowId: params.workflowId })),
     });
   };
 
@@ -153,7 +152,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       {(formikProps) =>
         isOnRoute ? (
           <Configure
-            embeddedModeEnabled={embeddedModeEnabled as boolean}
+            workflowTriggersEnabled={workflowTriggersEnabled as boolean}
             formikProps={formikProps}
             summaryData={summaryData}
             summaryMutation={summaryMutation}
@@ -169,7 +168,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
 export default ConfigureContainer;
 
 interface ConfigureProps {
-  embeddedModeEnabled: boolean;
+  workflowTriggersEnabled: boolean;
   formikProps: FormikProps<FormProps>;
   summaryData: WorkflowSummary;
   summaryMutation: {
@@ -321,7 +320,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             ))}
           </div>
         </section>
-        {!this.props.embeddedModeEnabled && (
+        {!this.props.workflowTriggersEnabled && (
           <section className={styles.largeCol}>
             <h1 className={styles.header}>Triggers</h1>
             <p className={styles.subTitle}>Off - until you turn them on. (Feel the power).</p>
