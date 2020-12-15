@@ -124,7 +124,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   workflowId,
 }) => {
   const location = useLocation();
-  const match: { params: { teamId: string; workflowId: string } } = useRouteMatch();
+  const match: { params: { workflowId: string } } = useRouteMatch();
   const { teams } = useAppContext();
   const isModalOpen = useIsModalOpen();
 
@@ -377,13 +377,13 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               match: routeMatch,
             }: {
               history: History;
-              match: { params: { teamId: string; workflowId: string } };
+              match: { params: { workflowId: string } };
             }) => (
               // Always render parent Configure component so state isn't lost when switching tabs
               // It is responsible for rendering its children, but Formik form management is always mounted
               <Configure
                 history={history}
-                isOnRoute={Boolean(routeMatch)}
+                // isOnRoute={Boolean(routeMatch)}
                 params={match.params}
                 summaryData={summaryData}
                 summaryMutation={summaryMutation}

@@ -25,6 +25,8 @@ import CreateToken from "./CreateToken";
 import Token from "./Token";
 import styles from "./configure.module.scss";
 
+import { useLocation } from "react-router-dom";
+
 interface FormProps {
   description: string;
   enableACCIntegration: boolean;
@@ -62,8 +64,7 @@ interface FormProps {
 
 interface ConfigureContainerProps {
   history: History;
-  isOnRoute: boolean;
-  params: { teamId: string; workflowId: string };
+  params: { workflowId: string };
   summaryData: WorkflowSummary;
   summaryMutation: { status: string };
   teams: Array<{ id: string }>;
@@ -72,7 +73,6 @@ interface ConfigureContainerProps {
 
 const ConfigureContainer = React.memo<ConfigureContainerProps>(function ConfigureContainer({
   history,
-  isOnRoute,
   params,
   summaryData,
   summaryMutation,
@@ -87,6 +87,9 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
     });
   };
 
+  const location = useLocation();
+  const isOnConfigurePath = appLink.editorConfigure({ workflowId: params.workflowId }) === location.pathname;
+
   return (
     <Formik
       enableReinitialize
@@ -97,7 +100,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         enablePersistentStorage: summaryData.enablePersistentStorage ?? false,
         icon: summaryData.icon ?? "",
         name: summaryData.name ?? "",
-        selectedTeam: teams.find((team) => team.id === params.teamId) ?? { id: "" },
+        selectedTeam: teams.find((team) => team?.id) ?? { id: "" },
         shortDescription: summaryData?.shortDescription ?? "",
         triggers: {
           manual: {
@@ -150,7 +153,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
       })}
     >
       {(formikProps) =>
-        isOnRoute ? (
+        isOnConfigurePath ? (
           <Configure
             workflowTriggersEnabled={workflowTriggersEnabled as boolean}
             formikProps={formikProps}
@@ -320,7 +323,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             ))}
           </div>
         </section>
-        {!this.props.workflowTriggersEnabled && (
+        {this.props.workflowTriggersEnabled && (
           <section className={styles.largeCol}>
             <h1 className={styles.header}>Triggers</h1>
             <p className={styles.subTitle}>Off - until you turn them on. (Feel the power).</p>

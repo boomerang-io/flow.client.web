@@ -1,4 +1,5 @@
 import React from "react";
+import { useFeature } from "flagged";
 import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
 import {
@@ -8,7 +9,7 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   SkeletonPlaceholder,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { appLink } from "Config/appConfig";
+import { appLink, FeatureFlag } from "Config/appConfig";
 import moment from "moment";
 import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
 import { QueryStatus } from "Constants";
@@ -21,7 +22,8 @@ ExecutionHeader.propTypes = {
 
 function ExecutionHeader({ history, workflow, workflowExecution }) {
   const { state } = history.location;
-  const { teamName, initiatedByUserName, trigger, creationDate } = workflowExecution.data;
+  const systemWorkflowsEnabled = useFeature(FeatureFlag.SystemWorkflowsEnabled);
+  const { teamName, initiatedByUserName, trigger, creationDate, scope } = workflowExecution.data;
 
   return (
     <Header
@@ -54,9 +56,15 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
                   />
                 </div>
               )}
+            {systemWorkflowsEnabled && (
+              <dl className={styles.data}>
+                <dt className={styles.dataTitle}>Scope</dt>
+                <dd className={styles.dataValue}>{scope ?? "---"}</dd>
+              </dl>
+            )}
             <dl className={styles.data}>
               <dt className={styles.dataTitle}>Team</dt>
-              <dd className={styles.dataValue}>{teamName}</dd>
+              <dd className={styles.dataValue}>{teamName ?? "---"}</dd>
             </dl>
             <dl className={styles.data}>
               <dt className={styles.dataTitle}>Initiated by</dt>

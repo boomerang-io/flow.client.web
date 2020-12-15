@@ -37,7 +37,10 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
       header={
         <>
           <HeaderSubtitle>These are your</HeaderSubtitle>
-          <HeaderTitle>{`Workflows (${workflowsCount})`}</HeaderTitle>
+          <HeaderTitle>
+            {isSystem ? `System ` : ``}
+            {`Workflows (${workflowsCount})`}
+          </HeaderTitle>
         </>
       }
       actions={

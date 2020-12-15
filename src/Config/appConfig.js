@@ -90,19 +90,6 @@ export const FeatureFlag = {
   /**
    * new Feature Flags
    */
-  // TeamManagementEnabled: "team.management",
-  // WorkflowQuotasEnabled: "workflow.quotas",
-  // SettingsEnabled: "settings",
-  // UserManagementEnabled: "user.management",
-  // GlobalPropertiesEnabled: "global.properties",
-  // WorkflowTokensEnabled: "workflow.tokens",
-  // TaskManagerEnabled: "taskManager",
-  // EditVerifiedTasksEnabled: "enable.verified.tasks.edit",
-  // WorkflowTriggersEnabled: "workflow.triggers",
-  // TeamPropertiesEnabled: "team.properties",
-
-  // ActivityEnabled: "activity",
-  // InsightsEnabled: "insights",
   TeamManagementEnabled: "TeamManagementEnabled",
   WorkflowQuotasEnabled: "WorkflowQuotasEnabled",
   SettingsEnabled: "SettingsEnabled",
@@ -116,4 +103,5 @@ export const FeatureFlag = {
 
   ActivityEnabled: "ActivityEnabled",
   InsightsEnabled: "InsightsEnabled",
+  SystemWorkflowsEnabled: "SystemWorkflowsEnabled",
 };

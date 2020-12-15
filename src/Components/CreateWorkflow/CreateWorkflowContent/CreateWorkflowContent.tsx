@@ -46,6 +46,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       shortDescription: values.summary,
       description: values.description,
       icon: values.icon,
+      scope: isSystem ? "system" : "team",
     };
     createWorkflow(requestBody);
   };
@@ -78,8 +79,8 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
           <>
             {isLoading && <Loading />}
             <ModalBody aria-label="inputs" className={styles.formBody}>
-              <div className={styles.teamAndName}>
-                {!isSystem && (
+              {!isSystem ? (
+                <div className={styles.teamAndName}>
                   <ComboBox
                     id="selectedTeam"
                     styles={{ marginBottom: "2.5rem" }}
@@ -98,7 +99,18 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                       item && item.name.toLowerCase().includes(inputValue.toLowerCase())
                     }
                   />
-                )}
+
+                  <TextInput
+                    id="name"
+                    labelText="Workflow Name"
+                    value={values.name}
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    invalid={errors.name && touched.name}
+                    invalidText={errors.name}
+                  />
+                </div>
+              ) : (
                 <TextInput
                   id="name"
                   labelText="Workflow Name"
@@ -108,7 +120,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                   invalid={errors.name && touched.name}
                   invalidText={errors.name}
                 />
-              </div>
+              )}
               <TextInput
                 id="summary"
                 labelText="Summary"

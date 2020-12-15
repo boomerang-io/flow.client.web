@@ -12,6 +12,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     inflect.irregular("config", "config");
     inflect.irregular("tasktemplate", "tasktemplate");
     inflect.irregular("insights", "insights");
+    inflect.irregular("flowNavigation", "flowNavigation");
   });
 
   return new Server({
@@ -43,6 +44,8 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       tasktemplate: Model,
       team: Model,
       teamProperties: Model,
+
+      flowNavigation: Model,
     },
 
     routes() {
@@ -61,8 +64,12 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.profile[0];
       });
 
-      this.get(serviceUrl.getNavigation(), (schema) => {
-        return schema.db.navigation[0];
+      this.get(serviceUrl.getPlatformNavigation(), (schema) => {
+        return schema.db.platformNavigation[0];
+      });
+
+      this.get(serviceUrl.getFlowNavigation(), (schema) => {
+        return schema.db.flowNavigation;
       });
 
       this.get(serviceUrl.getTeams(), (schema) => {

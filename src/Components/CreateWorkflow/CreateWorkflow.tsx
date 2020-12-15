@@ -74,7 +74,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ isSystem, team, teams, 
   const handleImportWorkflow = async (workflowExport: WorkflowExport, closeModal: () => void, team: FlowTeam) => {
     let query;
     if (!isSystem) {
-      query = queryString.stringify({ update: false, flowTeamId: team.id });
+      query = queryString.stringify({ update: false, flowTeamId: team.id, scope: "team" });
     } else query = queryString.stringify({ update: false, scope: "system" });
     try {
       await importWorkflowMutator({ query, body: workflowExport });
