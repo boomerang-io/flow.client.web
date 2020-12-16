@@ -11,6 +11,7 @@ import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
+import { UserType } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, FlowUser } from "Types";
@@ -36,6 +37,7 @@ const getPlatformNavigationUrl = serviceUrl.getPlatformNavigation();
 const getFlowNavigationUrl = serviceUrl.getFlowNavigation();
 const getTeamsUrl = serviceUrl.getTeams();
 const browser = detect();
+const allowedUserRoles = [UserType.Admin, UserType.Operator];
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
 export default function App() {
@@ -234,7 +236,6 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
   const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
   const insightsEnabled = useFeature(FeatureFlag.InsightsEnabled);
-  const systemWorkflowsEnabled = useFeature(FeatureFlag.SystemWorkflowsEnabled);
 
   return (
     <main id="content" className={styles.container}>
@@ -290,10 +291,10 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           />
 
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={allowedUserRoles}
             component={<SystemWorkflows />}
             path={AppPath.SystemWorkflows}
-            userRole={systemWorkflowsEnabled}
+            userRole={platformRole}
           />
 
           <ProtectedRoute

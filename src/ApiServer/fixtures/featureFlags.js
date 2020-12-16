@@ -13,6 +13,5 @@ export default {
     "boomerang.activation": false,
     insights: false,
     activity: true,
-    systemWorkflows: true,
   },
 };

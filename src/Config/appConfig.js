@@ -103,5 +103,4 @@ export const FeatureFlag = {
 
   ActivityEnabled: "ActivityEnabled",
   InsightsEnabled: "InsightsEnabled",
-  SystemWorkflowsEnabled: "SystemWorkflowsEnabled",
 };
