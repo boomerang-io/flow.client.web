@@ -42,7 +42,7 @@ export const AppPath = {
   Quotas: "/admin/quotas",
   QuotasEdit: "/admin/quotas/:teamId",
   Settings: "/admin/settings",
-  SystemWorkflows: "/system-workflows",
+  SystemWorkflows: "admin/system-workflows",
   TaskTemplates: "/admin/task-templates",
   TaskTemplateEdit: `/admin/task-templates/:id/:version`,
   Team: "/admin/teams/:teamId",
