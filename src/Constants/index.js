@@ -183,3 +183,5 @@ export const ApprovalStatus = {
   Rejected: "rejected",
   Submitted: "submitted",
 };
+
+export const allowedUserRoles = [UserType.Admin, UserType.Operator];

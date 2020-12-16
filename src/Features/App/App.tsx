@@ -11,7 +11,7 @@ import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
-import { UserType } from "Constants";
+import { allowedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { FlowTeam, FlowUser } from "Types";
@@ -37,7 +37,6 @@ const getPlatformNavigationUrl = serviceUrl.getPlatformNavigation();
 const getFlowNavigationUrl = serviceUrl.getFlowNavigation();
 const getTeamsUrl = serviceUrl.getTeams();
 const browser = detect();
-const allowedUserRoles = [UserType.Admin, UserType.Operator];
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
 export default function App() {
@@ -154,7 +153,6 @@ export default function App() {
 
           ActivityEnabled: feature["activity"],
           InsightsEnabled: feature["insights"],
-          SystemWorkflowsEnabled: feature["systemWorkflows"],
         }}
       >
         <Navbar

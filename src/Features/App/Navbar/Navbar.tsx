@@ -85,6 +85,7 @@ export default function NavbarContainer({
   userData,
   flowNavigationData,
 }: NavbarContainerProps) {
+  //TODO: needs to be removed. We are no longer using a Standalone feature
   const isStandaAloneMode = useFeature(FeatureFlag.StandaloneModeEnabled);
   const defaultUIShellProps = {
     baseLaunchEnvUrl: isStandaAloneMode ? null : CORE_ENV_URL,

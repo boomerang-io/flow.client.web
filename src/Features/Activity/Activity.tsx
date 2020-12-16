@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React from "react";
-import { useFeature } from "flagged";
 import { useAppContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { Error, Loading, MultiSelect as Select, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -11,9 +10,9 @@ import moment from "moment";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
 import ErrorDragon from "Components/ErrorDragon";
-import { FeatureFlag, queryStringOptions } from "Config/appConfig";
+import { queryStringOptions } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { executionStatusList, QueryStatus } from "Constants";
+import { executionStatusList, QueryStatus, allowedUserRoles } from "Constants";
 import { executionOptions } from "Constants/filterOptions";
 import styles from "./Activity.module.scss";
 
@@ -30,12 +29,13 @@ const activitySummaryQuery = queryString.stringify({
 });
 
 function WorkflowActivity() {
-  const { teams: teamsState } = useAppContext();
+  const { teams: teamsState, user } = useAppContext();
   const history = useHistory();
   const location = useLocation();
   const match = useRouteMatch();
 
-  const systemWorkflowsEnabled = useFeature(FeatureFlag.SystemWorkflowsEnabled);
+  const { type: platformRole }: { type: string } = user;
+  const systemWorkflowsEnabled = allowedUserRoles.includes(platformRole);
 
   const {
     order = DEFAULT_ORDER,

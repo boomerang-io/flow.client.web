@@ -1,5 +1,5 @@
 import React from "react";
-import { useFeature } from "flagged";
+import { useAppContext } from "Hooks";
 import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
 import {
@@ -9,10 +9,10 @@ import {
   FeatureHeaderTitle as HeaderTitle,
   SkeletonPlaceholder,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { appLink, FeatureFlag } from "Config/appConfig";
+import { appLink } from "Config/appConfig";
 import moment from "moment";
 import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
-import { QueryStatus } from "Constants";
+import { allowedUserRoles, QueryStatus } from "Constants";
 import styles from "./executionHeader.module.scss";
 
 ExecutionHeader.propTypes = {
@@ -22,7 +22,10 @@ ExecutionHeader.propTypes = {
 
 function ExecutionHeader({ history, workflow, workflowExecution }) {
   const { state } = history.location;
-  const systemWorkflowsEnabled = useFeature(FeatureFlag.SystemWorkflowsEnabled);
+  const { user } = useAppContext();
+
+  const { platformRole } = user;
+  const systemWorkflowsEnabled = allowedUserRoles.includes(platformRole);
   const { teamName, initiatedByUserName, trigger, creationDate, scope } = workflowExecution.data;
 
   return (
