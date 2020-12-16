@@ -100,7 +100,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         enablePersistentStorage: summaryData.enablePersistentStorage ?? false,
         icon: summaryData.icon ?? "",
         name: summaryData.name ?? "",
-        selectedTeam: teams.find((team) => team?.id) ?? { id: "" },
+        selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: "" },
         shortDescription: summaryData?.shortDescription ?? "",
         triggers: {
           manual: {
@@ -251,7 +251,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           <div className={styles.teamSelect}>
             <ComboBox
               id="selectedTeam"
-              initialSelectedItem={values?.selectedTeam}
+              initialSelectedItem={values.selectedTeam}
               invalid={Boolean(errors.selectedTeam)}
               invalidText={errors.selectedTeam}
               items={teams}
