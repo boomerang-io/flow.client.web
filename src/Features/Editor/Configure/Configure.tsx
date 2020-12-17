@@ -53,7 +53,8 @@ interface FormProps {
       token: string;
     };
   };
-  selectedTeam: { id: string };
+  selectedTeam: { id: null | string };
+
   tokens: [
     {
       token: string;
@@ -80,7 +81,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
   updateSummary,
 }) {
   const workflowTriggersEnabled = useFeature(FeatureFlag.WorkflowTriggersEnabled);
-  const handleOnSubmit = (values: { selectedTeam: { id: string } }) => {
+  const handleOnSubmit = (values: { selectedTeam: { id: null | string } }) => {
     updateSummary({
       values,
       callback: () => history.push(appLink.editorConfigure({ workflowId: params.workflowId })),
@@ -100,7 +101,8 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         enablePersistentStorage: summaryData.enablePersistentStorage ?? false,
         icon: summaryData.icon ?? "",
         name: summaryData.name ?? "",
-        selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: "" },
+        // selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: "" },
+        selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: null },
         shortDescription: summaryData?.shortDescription ?? "",
         triggers: {
           manual: {
@@ -129,7 +131,9 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
         enablePersistentStorage: Yup.boolean(),
         icon: Yup.string(),
         name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
-        selectedTeam: Yup.object().shape({ name: Yup.string().required("Team is required") }),
+        selectedTeam: summaryData?.flowTeamId
+          ? Yup.object().shape({ name: Yup.string().required("Team is required") })
+          : Yup.object().shape({ id: Yup.mixed() }),
         shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
         triggers: Yup.object().shape({
           manual: Yup.object().shape({
@@ -248,23 +252,25 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
         <section className={styles.largeCol}>
           <h1 className={styles.header}>General info</h1>
           <p className={styles.subTitle}>The bare necessities - you gotta fill out all these fields</p>
-          <div className={styles.teamSelect}>
-            <ComboBox
-              id="selectedTeam"
-              initialSelectedItem={values.selectedTeam}
-              invalid={Boolean(errors.selectedTeam)}
-              invalidText={errors.selectedTeam}
-              items={teams}
-              itemToString={(item: { name: string }) => item?.name ?? ""}
-              onChange={this.handleTeamChange}
-              value={values.selectedTeam}
-              label="Team"
-              placeholder="Select a team"
-              shouldFilterItem={({ item, inputValue }: { item: { name: string }; inputValue: string }) =>
-                item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
-              }
-            />
-          </div>
+          {this.props.summaryData?.flowTeamId && (
+            <div className={styles.teamSelect}>
+              <ComboBox
+                id="selectedTeam"
+                initialSelectedItem={values.selectedTeam}
+                invalid={Boolean(errors.selectedTeam)}
+                invalidText={errors.selectedTeam}
+                items={teams}
+                itemToString={(item: { name: string }) => item?.name ?? ""}
+                onChange={this.handleTeamChange}
+                value={values.selectedTeam}
+                label="Team"
+                placeholder="Select a team"
+                shouldFilterItem={({ item, inputValue }: { item: { name: string }; inputValue: string }) =>
+                  item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
+                }
+              />
+            </div>
+          )}
           <TextInput
             id="name"
             label="Name"
