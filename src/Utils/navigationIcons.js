@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Activity16,
   AddAlt16,
@@ -11,17 +10,17 @@ import {
   Chat16,
   Code16,
   Document16,
+  Home16,
   TrashCan16,
   Download16,
   Edit16,
   Filter16,
-  Home16,
   Idea16,
   Launch16,
   Locked16,
   Power16,
-  ReportData16,
   Restart16,
+  ReportData16,
   Rocket16,
   Search16,
   Settings16,
@@ -37,77 +36,77 @@ import {
 export const navigationIcons = [
   {
     name: "AddAlt16",
-    Icon: <AddAlt16 />,
+    Icon: AddAlt16,
   },
   {
     name: "Api16",
-    Icon: <Api16 />,
+    Icon: Api16,
   },
   {
     name: "Rocket16",
-    Icon: <Rocket16 />,
+    Icon: Rocket16,
   },
   {
     name: "Code16",
-    Icon: <Code16 />,
+    Icon: Code16,
   },
   {
     name: "Idea16",
-    Icon: <Idea16 />,
+    Icon: Idea16,
   },
   {
     name: "TrashCan16",
-    Icon: <TrashCan16 />,
+    Icon: TrashCan16,
   },
   {
     name: "Download16",
-    Icon: <Download16 />,
+    Icon: Download16,
   },
   {
     name: "Edit16",
-    Icon: <Edit16 />,
+    Icon: Edit16,
   },
 
   {
     name: "Filter16",
-    Icon: <Filter16 />,
+    Icon: Filter16,
   },
   {
     name: "Launch16",
-    Icon: <Launch16 />,
+    Icon: Launch16,
   },
   {
     name: "Chat16",
-    Icon: <Chat16 />,
+    Icon: Chat16,
   },
   {
     name: "Power16",
-    Icon: <Power16 />,
+    Icon: Power16,
   },
 
   {
     name: "Restart16",
-    Icon: <Restart16 />,
+    Icon: Restart16,
   },
   {
     name: "Search16",
-    Icon: <Search16 />,
+    Icon: Search16,
   },
   {
     name: "Fork16",
-    Icon: <Fork16 />,
+    Icon: Fork16,
   },
   {
     name: "Terminal20",
-    Icon: <Terminal20 />,
+    Icon: Terminal20,
   },
   {
     name: "Upload16",
-    Icon: <Upload16 />,
+    Icon: Upload16,
   },
   {
     name: "Task16",
-    Icon: <Task16 />,
+    Icon: Task16,
   },
   {
     name: "FlowData16",
@@ -130,12 +129,12 @@ export const navigationIcons = [
     Icon: Settings16,
   },
   {
-    name: "Home16",
-    Icon: Home16,
-  },
-  {
     name: "App16",
     Icon: App16,
+  },
+  {
+    name: "Home16",
+    Icon: Home16,
   },
   {
     name: "ReportData16",

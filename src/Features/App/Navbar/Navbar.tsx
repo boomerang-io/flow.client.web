@@ -16,6 +16,7 @@ import { BASE_CORE_URL } from "Config/servicesConfig";
 import { CORE_ENV_URL, FeatureFlag } from "Config/appConfig";
 import { FlowUser } from "Types";
 import { navigationIcons } from "Utils/navigationIcons";
+import { FlowData16 } from "@carbon/icons-react";
 
 const ACTIVE_CLASS_NAME = "bx--side-nav__link--current";
 
@@ -30,7 +31,7 @@ const handleOnMenuClick = (flowNavigationData: any) => ({
     <SideNav aria-label="nav" expanded={isOpen} isChildOfHeader={true}>
       <SideNavItems>
         {flowNavigationData.map((item) => {
-          const itemIcon = navigationIcons.find((icon) => icon.name === item.icon);
+          const itemIcon = navigationIcons.find((icon) => icon.name === item.icon) ?? FlowData16;
           if (item?.childLinks) {
             return (
               <SideNavMenu large title={item.name} renderIcon={itemIcon.Icon}>

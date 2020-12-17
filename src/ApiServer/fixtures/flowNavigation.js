@@ -1,48 +1,79 @@
 export default [
   {
+    name: "Home",
+    type: "link",
+    icon: "Home16",
+    link: "/",
+  },
+  {
+    name: "Components",
+    type: "link",
+    icon: "App16",
+    link: "/components",
+  },
+  {
+    name: "Pipelines",
+    type: "link",
+    icon: "Rocket16",
+    link: "/pipelines",
+  },
+  {
+    name: "Scorecard",
+    type: "link",
+    icon: "ReportData16",
+    link: "/scorecard",
+  },
+
+  {
+    name: "Insights",
+    type: "link",
+    icon: "Analytics16",
+    link: "/insights",
+  },
+  {
+    name: "Lib",
+    type: "link",
+    icon: "Document16",
+    link: "/components",
+  },
+  {
+    name: "Policies",
+    type: "link",
+    icon: "Locked16",
+    link: "/components",
+  },
+  {
+    name: "Manage",
+    type: "category",
+    icon: "SettingsAdjust16",
+    childLinks: [
+      {
+        name: "Policy Templates",
+        type: "link",
+        link: "/components",
+      },
+      {
+        name: "Team Properties",
+        type: "link",
+        link: "/teams/null/properties",
+      },
+    ],
+  },
+  {
     name: "Workflows",
     type: "link",
     icon: "FlowData16",
     link: "/workflows",
   },
   {
-    name: "Activity",
-    type: "link",
-    icon: "Activity16",
-    link: "/activity",
-  },
-  {
-    name: "Insights",
-    type: "link",
-    icon: "ChartScatter16",
-    link: "/insights",
-  },
-  {
-    name: "Management",
-    type: "category",
-    icon: "SettingsAdjust16",
-    childLinks: [
-      {
-        name: "Team Properties",
-        type: "link",
-        link: "/team-properties",
-      },
-    ],
-  },
-  {
-    name: "Admin",
+    name: "Administer",
     type: "category",
     icon: "Settings16",
     childLinks: [
       {
-        name: "Teams",
+        name: "Component Modes",
         type: "link",
-        link: "/admin/teams",
-      },
-      {
-        name: "Users",
-        type: "link",
-        link: "/admin/users",
+        link: "/admin/component-modes",
       },
       {
         name: "Properties",
@@ -50,9 +81,9 @@ export default [
         link: "/admin/properties",
       },
       {
-        name: "Quotas",
+        name: "SCM Repositories",
         type: "link",
-        link: "/admin/quotas",
+        link: "/admin/repositories",
       },
       {
         name: "Settings",
@@ -62,7 +93,7 @@ export default [
       {
         name: "Task Manager",
         type: "link",
-        link: "/admin/task-templates",
+        link: "/components",
       },
     ],
   },
