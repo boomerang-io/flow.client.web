@@ -23,7 +23,7 @@ function isInternalLink(navUrl: string) {
 }
 
 function getRelativePath(navUrl: string) {
-  return navUrl.substring(navUrl.indexOf(APP_ROOT));
+  return navUrl.substring(navUrl.indexOf(APP_ROOT) + APP_ROOT.length);
 }
 
 const handleOnMenuClick = (flowNavigationData: any) => ({
@@ -92,10 +92,7 @@ export default function NavbarContainer({
   userData,
   flowNavigationData,
 }: NavbarContainerProps) {
-  //TODO: needs to be removed. We are no longer using a Standalone feature
   const defaultUIShellProps = {
-    // baseLaunchEnvUrl: isStandaAloneMode ? null : CORE_ENV_URL,
-    // baseServiceUrl: isStandaAloneMode ? null : BASE_CORE_URL,
     renderLogo: true,
   };
 
