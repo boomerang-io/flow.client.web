@@ -85,8 +85,6 @@ export const appLink = {
 export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true };
 
 export const FeatureFlag = {
-  StandaloneModeEnabled: "standaloneModeEnabled",
-
   /**
    * new Feature Flags
    */

@@ -1,6 +1,5 @@
-// @ts-nocheck
+//@ts-nocheck
 import React from "react";
-import { useFeature } from "flagged";
 import { Helmet } from "react-helmet";
 import { NavLink } from "react-router-dom";
 import { SideNav } from "carbon-components-react";
@@ -12,13 +11,20 @@ import {
   SideNavMenuItem,
   UIShell,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { BASE_CORE_URL } from "Config/servicesConfig";
-import { CORE_ENV_URL, FeatureFlag } from "Config/appConfig";
+import { APP_ROOT } from "Config/appConfig";
 import { FlowUser } from "Types";
 import { navigationIcons } from "Utils/navigationIcons";
 import { FlowData16 } from "@carbon/icons-react";
 
 const ACTIVE_CLASS_NAME = "bx--side-nav__link--current";
+
+function isInternalLink(navUrl: string) {
+  return navUrl.includes(APP_ROOT);
+}
+
+function getRelativePath(navUrl: string) {
+  return navUrl.substring(navUrl.indexOf(APP_ROOT));
+}
 
 const handleOnMenuClick = (flowNavigationData: any) => ({
   isOpen,
@@ -36,32 +42,32 @@ const handleOnMenuClick = (flowNavigationData: any) => ({
             return (
               <SideNavMenu large title={item.name} renderIcon={itemIcon.Icon}>
                 {item.childLinks.map((childItem: any) => {
-                  return (
-                    <SideNavMenuItem
-                      activeClassName={ACTIVE_CLASS_NAME}
-                      element={NavLink}
-                      onClick={onMenuClose}
-                      to={childItem.link}
-                    >
-                      {childItem.name}
-                    </SideNavMenuItem>
-                  );
+                  let props = {
+                    large: true,
+                    renderIcon: itemIcon.Icon,
+                  };
+                  if (isInternalLink(childItem.link)) {
+                    props.to = getRelativePath(childItem.link);
+                    props.activeClassName = ACTIVE_CLASS_NAME;
+                    props.element = NavLink;
+                    props.onClick = onMenuClose;
+                  } else props.href = childItem.link;
+                  return <SideNavMenuItem {...props}>{childItem.name}</SideNavMenuItem>;
                 })}
               </SideNavMenu>
             );
           } else {
-            return (
-              <SideNavLink
-                large
-                activeClassName={ACTIVE_CLASS_NAME}
-                element={NavLink}
-                onClick={onMenuClose}
-                renderIcon={itemIcon.Icon}
-                to={item.link}
-              >
-                {item.name}
-              </SideNavLink>
-            );
+            let props = {
+              large: true,
+              renderIcon: itemIcon.Icon,
+            };
+            if (isInternalLink(item.link)) {
+              props.to = getRelativePath(item.link);
+              props.activeClassName = ACTIVE_CLASS_NAME;
+              props.element = NavLink;
+              props.onClick = onMenuClose;
+            } else props.href = item.link;
+            return <SideNavLink {...props}>{item.name}</SideNavLink>;
           }
         })}
       </SideNavItems>
@@ -87,11 +93,9 @@ export default function NavbarContainer({
   flowNavigationData,
 }: NavbarContainerProps) {
   //TODO: needs to be removed. We are no longer using a Standalone feature
-  const isStandaAloneMode = useFeature(FeatureFlag.StandaloneModeEnabled);
   const defaultUIShellProps = {
-    baseLaunchEnvUrl: isStandaAloneMode ? null : CORE_ENV_URL,
-    baseServiceUrl: isStandaAloneMode ? null : BASE_CORE_URL,
-    requirePlatformConsent: isStandaAloneMode ? false : true,
+    // baseLaunchEnvUrl: isStandaAloneMode ? null : CORE_ENV_URL,
+    // baseServiceUrl: isStandaAloneMode ? null : BASE_CORE_URL,
     renderLogo: true,
   };
 
