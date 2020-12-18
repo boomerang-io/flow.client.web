@@ -361,6 +361,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
                 revisionQuery={revisionQuery}
                 tasks={taskTemplatesData}
                 workflowDagEngine={workflowDagEngine}
+                workflowName={summaryData.name}
               />
             </Route>
             <Route path={AppPath.EditorProperties}>

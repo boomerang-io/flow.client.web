@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React from "react";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 import { Formik } from "formik";
 import axios from "axios";
 import { useParams, useHistory, Prompt, matchPath } from "react-router-dom";
@@ -395,6 +396,9 @@ export function TaskTemplateOverview({ taskTemplates, updateTemplateInState, edi
         };
         return (
           <div className={styles.container}>
+            <Helmet>
+              <title>{`Task manager - ${selectedTaskTemplate.name}`}</title>
+            </Helmet>
             <Prompt
               message={(location) => {
                 let prompt = true;

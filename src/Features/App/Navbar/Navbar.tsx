@@ -151,13 +151,14 @@ export default function NavbarContainer({ handleOnTutorialClick, navigationData,
     requirePlatformConsent: isStandaAloneMode ? false : true,
     renderLogo: true,
   };
-
+  const platformName = navigationData?.platform?.platformName ?? "Boomerang";
   const isAtLeastOperator = userData.type === UserType.Admin || userData.type === UserType.Operator;
   return (
     <>
-      <Helmet>
-        <title>{`Flow | ${navigationData.platform?.platformName ?? "Boomerang"}`}</title>
-      </Helmet>
+      <Helmet
+        defaultTitle={`Boomerang Flow`}
+        titleTemplate={`%s - Boomerang Flow - ${platformName}`}
+      />
       <UIShell
         {...defaultUIShellProps}
         onMenuClick={handleOnMenuClick(isAtLeastOperator, isStandaAloneMode)}

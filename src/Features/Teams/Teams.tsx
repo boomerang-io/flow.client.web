@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useQuery } from "Hooks";
 import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { Box } from "reflexbox";
@@ -49,6 +50,9 @@ export default TeamsContainer;
 const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchChange }) => {
   return (
     <>
+      <Helmet>
+        <title>Teams</title>
+      </Helmet>
       <Header
         includeBorder={false}
         header={
