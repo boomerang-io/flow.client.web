@@ -156,7 +156,7 @@ export default function NavbarContainer({ handleOnTutorialClick, navigationData,
   return (
     <>
       <Helmet
-        defaultTitle={`Boomerang Flow`}
+        defaultTitle={`Boomerang Flow - ${platformName}`}
         titleTemplate={`%s - Boomerang Flow - ${platformName}`}
       />
       <UIShell
