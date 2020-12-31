@@ -53,7 +53,7 @@ const TextEditorInput = (props) => {
  */
 function formatAutoSuggestProperties(inputProperties) {
   return inputProperties.map((parameter) => ({
-    value: `\${p:${parameter.key}}`,
+    value: `$(${parameter.key})`,
     label: parameter.key,
   }));
 }
