@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useAppContext } from "Hooks";
 import { useFeature } from "flagged";
 import { useMutation, queryCache } from "react-query";
 import { Link, useHistory } from "react-router-dom";
@@ -29,6 +30,7 @@ import { WorkflowSummary, ModalTriggerProps, ComposedModalChildProps, FlowTeamQu
 import styles from "./workflowCard.module.scss";
 
 interface WorkflowCardProps {
+  isSystem: boolean;
   teamId: string | null;
   quotas: FlowTeamQuotas | null;
   workflow: WorkflowSummary;
@@ -36,7 +38,8 @@ interface WorkflowCardProps {
 
 type FunctionAnyReturn = () => any;
 
-const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow }) => {
+const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, workflow }) => {
+  const { teams } = useAppContext();
   const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
@@ -46,9 +49,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   const history = useHistory();
   const [errorMessage, seterrorMessage] = useState(null);
 
-  const [deleteWorkflowMutator, { isLoading: isDeleting }] = useMutation(resolver.deleteWorkflow, {
-    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
-  });
+  const [deleteWorkflowMutator, { isLoading: isDeleting }] = useMutation(resolver.deleteWorkflow, {});
 
   const [executeWorkflowMutator, { error: executeError, isLoading: isExecuting }] = useMutation(
     (args: { id: string; properties: {} }) => {
@@ -70,9 +71,25 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   };
 
   const handleDeleteWorkflow = async () => {
+    const workflowId = workflow.id;
     try {
-      await deleteWorkflowMutator({ id: workflow.id });
-      notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
+      await deleteWorkflowMutator({ id: workflowId });
+      if (!isSystem) {
+        /**
+         * teams query takes a while. optomistic update here
+         */
+        const specificTeam = teams.find((team) => team.id === teamId);
+        const specificTeamIndex = teams.findIndex((team) => team.id === teamId);
+        const newTeamWorkflows = specificTeam?.workflows.filter((workflow) => workflow.id !== workflowId);
+        // @ts-ignore
+        teams[specificTeamIndex].workflows = newTeamWorkflows;
+        queryCache.setQueryData(serviceUrl.getTeams(), teams);
+        notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
+        queryCache.invalidateQueries(serviceUrl.getTeams());
+      } else {
+        notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
+        queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+      }
     } catch {
       notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete workflow failed" />);
     }
@@ -193,8 +210,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
         {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
           <ComposedModal
             modalHeaderProps={{
-              title: "Workflow Properties",
-              subtitle: "Provide property values for your workflow",
+              title: "Workflow Parameters",
+              subtitle: "Provide parameter values for your workflow",
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button

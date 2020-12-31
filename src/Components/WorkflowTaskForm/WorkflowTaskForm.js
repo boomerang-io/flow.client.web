@@ -38,7 +38,7 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
 };
 
 /**
- * @param {property} inputProperties - property object for workflow
+ * @param {parameter} inputProperties - parameter object for workflow
  * {
  *   defaultValue: String
  *   description: String
@@ -49,9 +49,9 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
  * }
  */
 function formatAutoSuggestProperties(inputProperties) {
-  return inputProperties.map((property) => ({
-    value: `\${p:${property.key}}`,
-    label: property.key,
+  return inputProperties.map((parameter) => ({
+    value: `\${p:${parameter.key}}`,
+    label: parameter.key,
   }));
 }
 

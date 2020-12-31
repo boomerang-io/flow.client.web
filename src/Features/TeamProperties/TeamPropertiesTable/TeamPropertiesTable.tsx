@@ -156,8 +156,8 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
         includeBorder={false}
         header={
           <>
-            <HeaderTitle className={styles.headerTitle}>Team Properties</HeaderTitle>
-            <HeaderSubtitle>Set team properties that are accessible in all workflows for that team.</HeaderSubtitle>
+            <HeaderTitle className={styles.headerTitle}>Team Parameters</HeaderTitle>
+            <HeaderSubtitle>Set team parameters that are accessible in all workflows for that team.</HeaderSubtitle>
           </>
         }
       />
@@ -165,8 +165,8 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
         <div className={styles.tableHeader}>
           <div className={styles.dropdown}>
             <ComboBox
-              data-testid="team-properties-combobox"
-              id="team-properties-select"
+              data-testid="team-parameters-combobox"
+              id="team-parameters-select"
               initialSelectedItem={activeTeam?.id ? activeTeam : null}
               items={sortByProp(teams, "name")}
               itemToString={(item: { name: string }) => item?.name ?? ""}
@@ -240,7 +240,7 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
         ) : (
           <>
             {activeTeam ? (
-              <EmptyState title="No team properties" message={null} />
+              <EmptyState title="No team parameters" message={null} />
             ) : (
               <Box maxWidth="20rem" margin="0 auto">
                 <WombatMessage title="Select a team" />

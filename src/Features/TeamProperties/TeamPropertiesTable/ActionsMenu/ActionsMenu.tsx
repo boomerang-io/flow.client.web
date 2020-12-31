@@ -48,7 +48,7 @@ const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
         flipped
         ariaLabel="Overflow menu"
         iconDescription="Overflow menu icon"
-        data-testid="team-property-menu-button"
+        data-testid="team-parameter-menu-button"
       >
         {menuOptions.map((option, index) => (
           <OverflowMenuItem key={index} {...option} />
@@ -71,7 +71,7 @@ const OverflowMenuComponent: React.FC<OverflowMenuComponentProps> = ({
         onCloseModal={() => setDeleteModalIsOpen(false)}
         title={`Delete ${property?.label}?`}
       >
-        Your team property will be gone. Forever.
+        Your team parameter will be gone. Forever.
       </ConfirmModal>
     </>
   );

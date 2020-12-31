@@ -49,11 +49,11 @@ class ConfigureSwitchModal extends React.Component {
             {!defaultState && (
               <div style={{ padding: "1rem 0rem 1rem 0rem" }}>
                 <TextArea
-                  id="property"
+                  id="parameter"
                   invalid={!switchCondition}
                   invalidText="Value is required"
-                  labelText="Switch Property Value"
-                  name="property"
+                  labelText="Switch Parameter Value"
+                  name="parameter"
                   placeholder="Enter a value"
                   onChange={(e) => this.setState({ switchCondition: e.target.value })}
                   style={{ resize: "none" }}

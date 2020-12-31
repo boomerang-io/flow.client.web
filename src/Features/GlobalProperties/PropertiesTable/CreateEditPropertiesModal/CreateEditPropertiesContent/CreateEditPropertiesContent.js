@@ -160,13 +160,13 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 type={values.secured ? "password" : "text"}
               />
               <Toggle
-                id="secured-global-properties-toggle"
+                id="secured-global-parameters-toggle"
                 labelText="Secured"
                 name="secured"
                 onChange={handleChange}
                 orientation="vertical"
                 toggled={values.secured}
-                data-testid="secured-global-properties-toggle"
+                data-testid="secured-global-parameters-toggle"
               />
               {addError && (
                 <InlineNotification

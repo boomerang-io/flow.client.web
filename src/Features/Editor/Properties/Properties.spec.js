@@ -10,9 +10,9 @@ const props = {
     properties: [
       {
         defaultValue: "pandas",
-        description: "Tim property",
-        key: "tim.property",
-        label: "Tim Property",
+        description: "Tim parameter",
+        key: "tim-parameter",
+        label: "Tim parameter",
         required: true,
         type: "select",
         optiions: ["pandas", "dogs"],
@@ -41,24 +41,24 @@ describe("Inputs --- Snapshot Test", () => {
 describe("Inputs --- RTL", () => {
   it("Render inputs correctly", async () => {
     const { queryByText } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
-    expect(queryByText("tim.property")).toBeInTheDocument();
+    expect(queryByText("tim-parameter")).toBeInTheDocument();
     await waitFor(() => {});
   });
 
-  it("Opens create new property modal", async () => {
+  it("Opens create new parameter modal", async () => {
     const { queryByText, getByTestId } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
 
-    //expect(queryByText(/Create a new property/i)).not.toBeInTheDocument();
+    //expect(queryByText(/Create a new parameter/i)).not.toBeInTheDocument();
 
-    //const modalTrigger = getByText(/Create a new property/i);
-    const modalTrigger = getByTestId("create-property-button");
+    //const modalTrigger = getByText(/Create a new parameter/i);
+    const modalTrigger = getByTestId("create-parameter-button");
     fireEvent.click(modalTrigger);
 
-    expect(queryByText(/Create a new property/i)).toBeInTheDocument();
+    expect(queryByText(/Create a new parameter/i)).toBeInTheDocument();
     await waitFor(() => {});
   });
 
-  it("Opens edit property modal", async () => {
+  it("Opens edit parameter modal", async () => {
     const { getByLabelText, queryByText } = rtlContextRouterRender(<Inputs {...props} />, { initialState });
 
     //expect(queryByText(/Let's update it/i)).not.toBeInTheDocument();

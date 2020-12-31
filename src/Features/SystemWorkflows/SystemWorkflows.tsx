@@ -59,7 +59,7 @@ export default function SystemWorkflows() {
     return (
       <div className={styles.workflows}>
         {filteredWorkflows.map((workflow: WorkflowSummary) => (
-          <WorkflowCard key={workflow.id} teamId={null} workflow={workflow} quotas={null} />
+          <WorkflowCard isSystem={true} key={workflow.id} teamId={null} workflow={workflow} quotas={null} />
         ))}
         {<CreateWorkflow isSystem={true} team={null} teams={null} hasReachedWorkflowLimit={false} />}
       </div>

@@ -217,7 +217,13 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
       </hgroup>
       <div className={styles.workflows}>
         {team.filteredWorkflows.map((workflow) => (
-          <WorkflowCard key={workflow.id} teamId={team.id} workflow={workflow} quotas={team.workflowQuotas} />
+          <WorkflowCard
+            isSystem={false}
+            key={workflow.id}
+            teamId={team.id}
+            workflow={workflow}
+            quotas={team.workflowQuotas}
+          />
         ))}
         {
           <CreateWorkflow

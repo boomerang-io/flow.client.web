@@ -3,7 +3,7 @@ import {
   AddAlt16,
   Analytics16,
   Api16,
-  App16,
+  Apps16,
   ChartScatter16,
   FlowData16,
   Fork16,
@@ -129,8 +129,8 @@ export const navigationIcons = [
     Icon: Settings16,
   },
   {
-    name: "App16",
-    Icon: App16,
+    name: "Apps16",
+    Icon: Apps16,
   },
   {
     name: "Home16",

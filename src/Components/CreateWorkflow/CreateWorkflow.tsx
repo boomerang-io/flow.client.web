@@ -1,5 +1,6 @@
 import React from "react";
 import { useFeature } from "flagged";
+import { useAppContext } from "Hooks";
 import { useMutation, queryCache } from "react-query";
 import { useHistory } from "react-router-dom";
 import { ComposedModal, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -23,6 +24,7 @@ interface CreateWorkflowProps {
 }
 
 const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ isSystem, team, teams, hasReachedWorkflowLimit }) => {
+  const { teams: teamState } = useAppContext();
   const history = useHistory();
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
 
@@ -34,19 +36,19 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ isSystem, team, teams, 
     createWorkflowRevisionMutator,
     { error: workflowRevisionError, isLoading: workflowRevisionIsLoading },
   ] = useMutation(resolver.postCreateWorkflowRevision, {
-    onSuccess: () =>
-      isSystem
-        ? queryCache.invalidateQueries(serviceUrl.getSystemWorkflows())
-        : queryCache.invalidateQueries(serviceUrl.getTeams()),
+    // onSuccess: () =>
+    //   isSystem
+    //     ? queryCache.invalidateQueries(serviceUrl.getSystemWorkflows())
+    //     : queryCache.invalidateQueries(serviceUrl.getTeams()),
   });
 
   const [importWorkflowMutator, { error: importError, isLoading: importIsLoading }] = useMutation(
     resolver.postImportWorkflow,
     {
-      onSuccess: () =>
-        isSystem
-          ? queryCache.invalidateQueries(serviceUrl.getSystemWorkflows())
-          : queryCache.invalidateQueries(serviceUrl.getTeams()),
+      // onSuccess: () =>
+      //   isSystem
+      //     ? queryCache.invalidateQueries(serviceUrl.getSystemWorkflows())
+      //     : queryCache.invalidateQueries(serviceUrl.getTeams()),
     }
   );
 
@@ -64,6 +66,12 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ isSystem, team, teams, 
       queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
       history.push(appLink.editorDesigner({ workflowId }));
       notify(<ToastNotification kind="success" title="Create Workflow" subtitle="Successfully created workflow" />);
+      if (isSystem) {
+        queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+      } else {
+        queryCache.invalidateQueries(serviceUrl.getTeams());
+      }
+
       return;
     } catch (e) {
       return;
@@ -78,7 +86,16 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ isSystem, team, teams, 
     } else query = queryString.stringify({ update: false, scope: "system" });
     try {
       await importWorkflowMutator({ query, body: workflowExport });
-      notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfullyupdated" />);
+      if (isSystem) {
+        notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfully updated" />);
+        queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+      } else {
+        //todo: fix refresh
+        teamState.find((t) => t.id === team.id)?.workflows.push(workflowExport);
+        queryCache.setQueryData(serviceUrl.getTeams(), teamState);
+        notify(<ToastNotification kind="success" title="Update Workflow" subtitle="Workflow successfully updated" />);
+        queryCache.invalidateQueries(serviceUrl.getTeams());
+      }
       closeModal();
     } catch (e) {
       //no-op

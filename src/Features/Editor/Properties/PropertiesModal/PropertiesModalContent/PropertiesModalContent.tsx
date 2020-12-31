@@ -222,7 +222,8 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
             .notOneOf(propertyKeys || [], "Enter a unique key value for this workflow")
             .test(
               "is-valid-key",
-              "Only alphanumeric, underscore, dash, and period characters allowed",
+              "Only alphanumeric and dash characters allowed",
+
               this.validateKey
             ),
           [InputProperty.Label]: Yup.string()
@@ -257,7 +258,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                 {isLoading && <Loading />}
                 <TextInput
                   readOnly={isEdit}
-                  helperText="Reference value for property in workflow. It can't be changed after property creation."
+                  helperText="Reference value for parameter in workflow. It can't be changed after parameter creation."
                   id={InputProperty.Key}
                   invalid={errors.key && touched.key}
                   invalidText={errors.key}
@@ -328,7 +329,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button disabled={!isValid || isLoading} type="submit" data-testid="property-modal-confirm-button">
+                <Button disabled={!isValid || isLoading} type="submit" data-testid="parameter-modal-confirm-button">
                   {isEdit ? (isLoading ? "Saving..." : "Save") : isLoading ? "Creating..." : "Create"}
                 </Button>
               </ModalFooter>
