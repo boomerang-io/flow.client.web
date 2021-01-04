@@ -19,6 +19,7 @@ import { UserType } from "Constants";
 import { FlowUser } from "Types";
 
 const ACTIVE_CLASS_NAME = "bx--side-nav__link--current";
+const BOOMERANG_FALLBACK = "Boomerang";
 
 const handleOnMenuClick = (isAtLeastOperator: boolean, isStandaAloneMode: any) => ({
   isOpen,
@@ -151,14 +152,16 @@ export default function NavbarContainer({ handleOnTutorialClick, navigationData,
     requirePlatformConsent: isStandaAloneMode ? false : true,
     renderLogo: true,
   };
-  const platformName = navigationData?.platform?.platformName ?? "Boomerang";
+  const platformName = navigationData.platform?.platformName;
+  const isBoomerangInPlatformName = platformName?.includes(BOOMERANG_FALLBACK);
+  const appTitle = !isBoomerangInPlatformName
+    ? `${BOOMERANG_FALLBACK} Flow - ${platformName}`
+    : `${BOOMERANG_FALLBACK} Flow`;
+
   const isAtLeastOperator = userData.type === UserType.Admin || userData.type === UserType.Operator;
   return (
     <>
-      <Helmet
-        defaultTitle={`Boomerang Flow - ${platformName}`}
-        titleTemplate={`%s - Boomerang Flow - ${platformName}`}
-      />
+      <Helmet defaultTitle={appTitle} titleTemplate={`%s - ${appTitle}`} />
       <UIShell
         {...defaultUIShellProps}
         onMenuClick={handleOnMenuClick(isAtLeastOperator, isStandaAloneMode)}
