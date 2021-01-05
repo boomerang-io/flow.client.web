@@ -106,7 +106,11 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
           .required("Enter a key")
           .max(128, "Key must not be greater than 128 characters")
           .notOneOf(propertyKeys || [], "Enter a unique key value for this parameter")
-          .test("is-valid-key", "Only alphanumeric, underscore, dash, and period characters allowed", validateKey),
+          .test(
+            "is-valid-key",
+            "Only alphanumeric, hyphen and underscore characters allowed. Must begin with a letter or underscore",
+            validateKey
+          ),
         value: Yup.string().required("Enter a value"),
         description: Yup.string(),
         secured: Yup.boolean(),

@@ -222,8 +222,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
             .notOneOf(propertyKeys || [], "Enter a unique key value for this workflow")
             .test(
               "is-valid-key",
-              "Only alphanumeric and dash characters allowed",
-
+              "Only alphanumeric, hyphen and underscore characters allowed. Must begin with a letter or underscore",
               this.validateKey
             ),
           [InputProperty.Label]: Yup.string()

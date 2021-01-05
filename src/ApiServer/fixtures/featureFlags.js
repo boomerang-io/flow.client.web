@@ -9,7 +9,7 @@ export default {
     taskManager: true,
     "enable.verified.tasks.edit": true,
     "workflow.triggers": true,
-    "team.properties": false,
+    "team.properties": true,
     "boomerang.activation": false,
     insights: false,
     activity: true,

@@ -4,7 +4,7 @@ import { CloseOutline32, CheckmarkOutline32, Error32, InProgress32, Timer32 } fr
  * Primitve constants
  */
 export const CREATED_DATE_FORMAT = "MMMM DD, YYYY";
-export const PROPERTY_KEY_REGEX = /^[a-zA-Z0-9-]+$/;
+export const PROPERTY_KEY_REGEX = /^[a-zA-Z_]([a-zA-Z0-9-_])*$/;
 
 /**
  * Enums
