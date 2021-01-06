@@ -59,6 +59,8 @@ export const serviceUrl = {
   getUserProfile: () => `${BASE_URL}/users/profile`,
 
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
+  getWorkflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
+
   getWorkflowChangelog: ({ workflowId, query }) =>
     `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
   getWorkflowImport: ({ query }) => `${BASE_URL}/workflow/import?${query}`,

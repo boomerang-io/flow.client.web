@@ -38,6 +38,7 @@ export default function EditorContainer() {
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
+  const getAvailableParametersUrl = serviceUrl.getWorkflowAvailableParameters({ workflowId });
 
   /**
    * Queries
@@ -45,6 +46,8 @@ export default function EditorContainer() {
   const summaryQuery = useQuery(getSummaryUrl);
   const revisionQuery = useQuery(getRevisionUrl, { refetchOnWindowFocus: false });
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
+
+  const availableParametersQuery = useQuery(getAvailableParametersUrl);
 
   /**
    * Mutations
@@ -61,19 +64,20 @@ export default function EditorContainer() {
 
   // Only show loading for the summary and task templates
   // Revision takes longer and we want to show a separate loading animation for it, plus prevent remounting everything
-  if (summaryQuery.isLoading || taskTemplatesQuery.isLoading) {
+  if (summaryQuery.isLoading || taskTemplatesQuery.isLoading || availableParametersQuery.isLoading) {
     return <Loading />;
   }
 
-  if (summaryQuery.error || taskTemplatesQuery.error) {
+  if (summaryQuery.error || taskTemplatesQuery.error || availableParametersQuery.error) {
     return <Error />;
   }
 
   // Don't block render if we don't have the revision data. We want to render the header and sidenav regardless
   // prevents unnecessary remounting when creating a new version or navigating to a previous one
-  if (summaryQuery.data && taskTemplatesQuery.data) {
+  if (summaryQuery.data && taskTemplatesQuery.data && availableParametersQuery.data) {
     return (
       <EditorStateContainer
+        availableParametersQueryData={availableParametersQuery.data}
         mutateRevision={mutateRevision}
         mutateSummary={mutateSummary}
         revisionMutation={revisionMutation}
@@ -91,6 +95,7 @@ export default function EditorContainer() {
 }
 
 interface EditorStateContainerProps {
+  availableParametersQueryData: Array<string>;
   mutateRevision: (
     variables: { workflowId: any; body: any },
     options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any }, Error> | undefined
@@ -113,6 +118,7 @@ interface EditorStateContainerProps {
  * Make function calls to mutate server data
  */
 const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
+  availableParametersQueryData,
   mutateRevision,
   mutateSummary,
   revisionMutation,
@@ -323,12 +329,13 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   const store = useMemo(() => {
     return {
+      availableParametersQueryData,
       revisionDispatch,
       revisionState,
       summaryData,
       taskTemplatesData,
     };
-  }, [revisionDispatch, revisionState, summaryData, taskTemplatesData]);
+  }, [availableParametersQueryData, revisionDispatch, revisionState, summaryData, taskTemplatesData]);
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine

@@ -13,12 +13,19 @@ import { BASE_DOCUMENTATION_URL } from "Config/appConfig";
 import styles from "./WaitNodeDesigner.module.scss";
 
 const WaitNodeDesigner = React.memo(function WaitNodeDesigner({ diagramEngine, node: designerNode }) {
-  const { revisionDispatch, revisionState, summaryData, taskTemplatesData } = useEditorContext();
+  const {
+    availableParametersQueryData,
+    revisionDispatch,
+    revisionState,
+    // summaryData,
+    taskTemplatesData,
+  } = useEditorContext();
 
   /**
    * Pull data off of context
    */
-  const inputProperties = summaryData.properties;
+  // const inputProperties = summaryData.properties;
+  const inputProperties = availableParametersQueryData;
   const nodeDag = revisionState.dag?.nodes?.find((revisionNode) => revisionNode.nodeId === designerNode.id) ?? {};
   const nodeConfig = revisionState.config[designerNode.id] ?? {};
   const task = taskTemplatesData.find((taskTemplate) => taskTemplate.id === designerNode.taskId);

@@ -1,6 +1,7 @@
 export { default as activityList } from "./activityList";
 export { default as activitySummary } from "./activitySummary";
 export { default as activity } from "./activity";
+export { default as availableParameters } from "./availableParameters";
 export { default as config } from "./config";
 export { default as changelogs } from "./changelogs";
 export { default as featureFlags } from "./featureFlags";

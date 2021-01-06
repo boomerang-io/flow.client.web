@@ -29,6 +29,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     // Register the data as a model so we can use the schema
     models: {
       activity: Model,
+      availableParameter: Model,
       changelog: Model,
       config: Model,
       featureFlag: Model,
@@ -78,6 +79,11 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.get(serviceUrl.getFeatureFlags(), (schema) => {
         return schema.db.featureFlags[0];
+      });
+
+      this.get(serviceUrl.getWorkflowAvailableParameters({ workflowId: ":workflowId" }), (schema) => {
+        // return schema.availableParameters.all();
+        return [];
       });
 
       this.get(serviceUrl.getSystemWorkflows(), (schema) => {
