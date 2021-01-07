@@ -118,7 +118,7 @@ const Field: React.FC<FieldProps> = ({
         data-testid={field.label}
         style={{ marginLeft: `${isOldVersion || !isActive ? "1.5rem" : "0"}` }}
       >
-        {`${FieldTypes[field.type]} - ${field.label}`}
+        {`${FieldTypes[field.type]} | ${field.label} - ${field.key}`}
       </dd>
       <div className={styles.actions}>
         <TemplateConfigModal
