@@ -53,7 +53,7 @@ export default function SystemWorkflows() {
     systemWorkflowsData.filter((workflow) => workflow.name.toLowerCase().includes(safeQuery)) ?? [];
 
   const renderWorkflows = () => {
-    if (!filteredWorkflows || filteredWorkflows?.length === 0) {
+    if (!filteredWorkflows || (filteredWorkflows?.length === 0 && searchQuery !== "")) {
       return <EmptyState />;
     }
     return (
