@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useQuery } from "Hooks";
 import { queryCache } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
@@ -59,6 +60,9 @@ const TaskTemplatesContainer: React.FC = () => {
   );
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>Task manager</title>
+      </Helmet>
       <Sidenav taskTemplates={taskTemplatesData} addTemplateInState={addTemplateInState} />
       <Switch>
         <Route exact path={match.path}>

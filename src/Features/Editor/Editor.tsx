@@ -368,6 +368,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
                 revisionQuery={revisionQuery}
                 tasks={taskTemplatesData}
                 workflowDagEngine={workflowDagEngine}
+                workflowName={summaryData.name}
               />
             </Route>
             <Route path={AppPath.EditorProperties}>
@@ -376,6 +377,28 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             <Route path={AppPath.EditorChangelog}>
               <ChangeLog summaryData={summaryData} />
             </Route>
+            <Route
+              path={AppPath.EditorConfigure}
+              children={({
+                history,
+                match: routeMatch,
+              }: {
+                history: History;
+                match: { params: { teamId: string; workflowId: string } };
+              }) => (
+                // Always render parent Configure component so state isn't lost when switching tabs
+                // It is responsible for rendering its children, but Formik form management is always mounted
+                <Configure
+                  history={history}
+                  // isOnRoute={Boolean(routeMatch)}
+                  params={match.params}
+                  summaryData={summaryData}
+                  summaryMutation={summaryMutation}
+                  teams={sortBy(teams, "name")}
+                  updateSummary={updateSummary}
+                />
+              )}
+            />
           </Switch>
           <Route
             path={AppPath.EditorConfigure}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import moment from "moment";
 import ms from "match-sorter";
 import sortBy from "lodash/sortBy";
@@ -33,6 +34,9 @@ const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, user 
 
   return (
     <section aria-label={`${team.name} Team Members`} className={styles.container}>
+      <Helmet>
+        <title>{`Members - ${team.name}`}</title>
+      </Helmet>
       <section className={styles.actionsContainer}>
         <div className={styles.leftActions}>
           <p className={styles.featureDescription}>These are the people who have access to workflows for this Team.</p>

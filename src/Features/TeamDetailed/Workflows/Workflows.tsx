@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import {
   Search,
@@ -22,6 +23,9 @@ function Workflows({ team }: { team: FlowTeam }) {
 
   return (
     <section aria-label={`${team.name} Team Workflows`} className={styles.container}>
+      <Helmet>
+        <title>{`Workflows - ${team.name}`}</title>
+      </Helmet>
       <section className={styles.actionsContainer}>
         <div className={styles.leftActions}>
           <p className={styles.featureDescription}>These are the workflows for this Team.</p>

@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React from "react";
 import { useMutation, queryCache } from "react-query";
+import { Helmet } from "react-helmet";
 import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowPropertiesModal from "./PropertiesModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
@@ -98,6 +99,9 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
 
   return (
     <div aria-label="Parameters" className={styles.container} role="region">
+      <Helmet>
+        <title>{`Parameters - ${summaryData.name}`}</title>
+      </Helmet>
       {properties.length > 0 &&
         properties.map((property: DataDrivenInput, index: number) => (
           <section key={`${property.id}-${index}`} className={styles.property}>

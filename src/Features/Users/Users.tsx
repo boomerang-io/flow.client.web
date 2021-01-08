@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useQuery } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
 import { Box } from "reflexbox";
@@ -38,6 +39,9 @@ interface FeatureLayoutProps {
 const FeatureLayout: React.FC<FeatureLayoutProps> = ({ children, handleSearchChange }) => {
   return (
     <>
+      <Helmet>
+        <title>Users</title>
+      </Helmet>
       <Header
         includeBorder={false}
         header={

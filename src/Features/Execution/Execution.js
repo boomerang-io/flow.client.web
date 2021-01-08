@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { ExecutionContextProvider } from "State/context";
 import { Box } from "reflexbox";
 import { useQuery } from "Hooks";
@@ -34,12 +35,22 @@ export default function ExecutionContainer() {
   // });
 
   if (taskTempaltesAreLoading || revisionIsLoading || summaryQuery.isLoading) {
-    return <Loading />;
+    return (
+      <>
+        <Helmet>
+          <title>Activity</title>
+        </Helmet>
+        <Loading />
+      </>
+    );
   }
 
   if (summaryQuery.error || revisionError || taskTemplatesError || executionQuery.error) {
     return (
       <Box mt="5rem">
+        <Helmet>
+          <title>Activity</title>
+        </Helmet>
         <ErrorMessage />
       </Box>
     );

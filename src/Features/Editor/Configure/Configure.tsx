@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
 import { History } from "history";
 import { Formik, FormikProps } from "formik";
@@ -92,83 +93,88 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
   const isOnConfigurePath = appLink.editorConfigure({ workflowId: params.workflowId }) === location.pathname;
 
   return (
-    <Formik
-      enableReinitialize
-      onSubmit={handleOnSubmit}
-      initialValues={{
-        description: summaryData.description ?? "",
-        enableACCIntegration: summaryData.enableACCIntegration ?? false,
-        enablePersistentStorage: summaryData.enablePersistentStorage ?? false,
-        icon: summaryData.icon ?? "",
-        name: summaryData.name ?? "",
-        // selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: "" },
-        selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: null },
-        shortDescription: summaryData?.shortDescription ?? "",
-        triggers: {
-          manual: {
-            enable: summaryData.triggers?.manual?.enable ?? true,
+    <>
+      <Helmet>
+        <title>{`Configure - ${summaryData.name}`}</title>
+      </Helmet>
+      <Formik
+        enableReinitialize
+        onSubmit={handleOnSubmit}
+        initialValues={{
+          description: summaryData.description ?? "",
+          enableACCIntegration: summaryData.enableACCIntegration ?? false,
+          enablePersistentStorage: summaryData.enablePersistentStorage ?? false,
+          icon: summaryData.icon ?? "",
+          name: summaryData.name ?? "",
+          // selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: "" },
+          selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: null },
+          shortDescription: summaryData?.shortDescription ?? "",
+          triggers: {
+            manual: {
+              enable: summaryData.triggers?.manual?.enable ?? true,
+            },
+            custom: {
+              enable: summaryData.triggers?.custom?.enable ?? false,
+              topic: summaryData.triggers?.custom?.topic ?? "",
+            },
+            scheduler: {
+              enable: summaryData.triggers?.scheduler?.enable ?? false,
+              schedule: summaryData.triggers?.scheduler?.schedule ?? "0 18 * * *",
+              timezone: summaryData.triggers?.scheduler?.timezone ?? false,
+              advancedCron: summaryData.triggers?.scheduler?.advancedCron ?? false,
+            },
+            webhook: {
+              enable: summaryData.triggers?.webhook?.enable ?? false,
+              token: summaryData.triggers?.webhook?.token ?? "",
+            },
           },
-          custom: {
-            enable: summaryData.triggers?.custom?.enable ?? false,
-            topic: summaryData.triggers?.custom?.topic ?? "",
-          },
-          scheduler: {
-            enable: summaryData.triggers?.scheduler?.enable ?? false,
-            schedule: summaryData.triggers?.scheduler?.schedule ?? "0 18 * * *",
-            timezone: summaryData.triggers?.scheduler?.timezone ?? false,
-            advancedCron: summaryData.triggers?.scheduler?.advancedCron ?? false,
-          },
-          webhook: {
-            enable: summaryData.triggers?.webhook?.enable ?? false,
-            token: summaryData.triggers?.webhook?.token ?? "",
-          },
-        },
-        tokens: summaryData?.tokens ?? [],
-      }}
-      validationSchema={Yup.object().shape({
-        description: Yup.string().max(250, "Description must not be greater than 250 characters"),
-        enableACCIntegration: Yup.boolean(),
-        enablePersistentStorage: Yup.boolean(),
-        icon: Yup.string(),
-        name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
-        selectedTeam: summaryData?.flowTeamId
-          ? Yup.object().shape({ name: Yup.string().required("Team is required") })
-          : Yup.object().shape({ id: Yup.mixed() }),
-        shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
-        triggers: Yup.object().shape({
-          manual: Yup.object().shape({
-            enable: Yup.boolean(),
+          tokens: summaryData?.tokens ?? [],
+        }}
+        validationSchema={Yup.object().shape({
+          description: Yup.string().max(250, "Description must not be greater than 250 characters"),
+          enableACCIntegration: Yup.boolean(),
+          enablePersistentStorage: Yup.boolean(),
+          icon: Yup.string(),
+          name: Yup.string().required("Name is required").max(64, "Name must not be greater than 64 characters"),
+          selectedTeam: summaryData?.flowTeamId
+            ? Yup.object().shape({ name: Yup.string().required("Team is required") })
+            : Yup.object().shape({ id: Yup.mixed() }),
+          shortDescription: Yup.string().max(128, "Summary must not be greater than 128 characters"),
+          triggers: Yup.object().shape({
+            manual: Yup.object().shape({
+              enable: Yup.boolean(),
+            }),
+            custom: Yup.object().shape({
+              enable: Yup.boolean(),
+              topic: Yup.string(),
+            }),
+            scheduler: Yup.object().shape({
+              enable: Yup.boolean(),
+              schedule: Yup.string(),
+              timezone: Yup.mixed(),
+              advancedCron: Yup.boolean(),
+            }),
+            webhook: Yup.object().shape({
+              enable: Yup.boolean(),
+              token: Yup.string(),
+            }),
           }),
-          custom: Yup.object().shape({
-            enable: Yup.boolean(),
-            topic: Yup.string(),
-          }),
-          scheduler: Yup.object().shape({
-            enable: Yup.boolean(),
-            schedule: Yup.string(),
-            timezone: Yup.mixed(),
-            advancedCron: Yup.boolean(),
-          }),
-          webhook: Yup.object().shape({
-            enable: Yup.boolean(),
-            token: Yup.string(),
-          }),
-        }),
-      })}
-    >
-      {(formikProps) =>
-        isOnConfigurePath ? (
-          <Configure
-            workflowTriggersEnabled={workflowTriggersEnabled as boolean}
-            formikProps={formikProps}
-            summaryData={summaryData}
-            summaryMutation={summaryMutation}
-            teams={teams}
-            updateSummary={updateSummary}
-          />
-        ) : null
-      }
-    </Formik>
+        })}
+      >
+        {(formikProps) =>
+          isOnConfigurePath ? (
+            <Configure
+              workflowTriggersEnabled={workflowTriggersEnabled as boolean}
+              formikProps={formikProps}
+              summaryData={summaryData}
+              summaryMutation={summaryMutation}
+              teams={teams}
+              updateSummary={updateSummary}
+            />
+          ) : null
+        }
+      </Formik>
+    </>
   );
 });
 

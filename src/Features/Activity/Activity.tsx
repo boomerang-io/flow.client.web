@@ -1,5 +1,6 @@
 //@ts-nocheck
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useAppContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
 import { Error, Loading, MultiSelect as Select, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -236,6 +237,9 @@ function WorkflowActivity() {
 
     return (
       <div className={styles.container}>
+        <Helmet>
+          <title>Activity</title>
+        </Helmet>
         <ActivityHeader
           inProgressActivities={activitySummaryState.data?.inProgress ?? 0}
           isLoading={activitySummaryState.status === QueryStatus.Loading}

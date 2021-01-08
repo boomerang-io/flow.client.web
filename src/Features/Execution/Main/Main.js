@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 import { withRouter } from "react-router-dom";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -54,6 +55,9 @@ class Main extends Component {
 
     return (
       <div className={styles.container}>
+        <Helmet>
+          <title>{`${workflow.data.name} - Activity`}</title>
+        </Helmet>
         <ExecutionHeader workflow={workflow} workflowExecution={workflowExecution} />
         <section aria-label="Executions" className={styles.executionResultContainer}>
           <ExecutionTaskLog workflowExecution={workflowExecution} />

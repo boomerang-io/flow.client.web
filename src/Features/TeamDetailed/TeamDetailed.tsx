@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { useAppContext } from "Hooks";
@@ -21,6 +22,9 @@ import styles from "./teamDetailed.module.scss";
 const FeatureLayout: React.FC = ({ children }) => {
   return (
     <>
+      <Helmet>
+        <title>Teams</title>
+      </Helmet>
       <FeatureHeader
         includeBorder={false}
         header={
