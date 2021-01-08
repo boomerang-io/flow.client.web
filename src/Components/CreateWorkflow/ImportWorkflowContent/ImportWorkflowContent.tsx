@@ -40,14 +40,15 @@ interface ImportWorkflowContentProps {
   closeModal(): void;
   existingWorkflowNames: string[];
   isLoading: boolean;
+  isSystem: boolean;
   importError: any;
   importWorkflow: (workflowExport: WorkflowExport, closeModal: () => void, team: FlowTeam) => Promise<void>;
-  teams: FlowTeam[];
-  team: FlowTeam;
+  teams: FlowTeam[] | null;
+  team: FlowTeam | null;
 }
 
 interface FormProps {
-  selectedTeam: FlowTeam;
+  selectedTeam: FlowTeam | null;
   name: string;
   summary: string;
   file: WorkflowExport | undefined;
@@ -57,6 +58,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
   closeModal,
   existingWorkflowNames,
   isLoading,
+  isSystem,
   importError,
   importWorkflow,
   team,
@@ -127,7 +129,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
       validateOnMount
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
-        selectedTeam: Yup.string().required("Team is required"),
+        selectedTeam: isSystem ? Yup.mixed() : Yup.string().required("Team is required"),
         name: Yup.string()
           .required("Please enter a name for your Workflow")
           .max(64, "Name must not be greater than 64 characters")
@@ -193,23 +195,25 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                   </div>
                 ) : (
                   <div className={styles.confirmInfoForm}>
-                    <ComboBox
-                      id="selectedTeam"
-                      styles={{ marginBottom: "2.5rem" }}
-                      onBlur={handleBlur}
-                      onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
-                        setFieldValue("selectedTeam", selectedItem ? selectedItem : "");
-                        handleChangeTeam(selectedItem);
-                      }}
-                      items={teams}
-                      initialSelectedItem={values.selectedTeam}
-                      value={values.selectedTeam}
-                      itemToString={(item: FlowTeam) => (item ? item.name : "")}
-                      titleText="Team"
-                      placeholder="Select a team"
-                      invalid={errors.selectedTeam}
-                      invalidText={errors.selectedTeam}
-                    />
+                    {!isSystem && (
+                      <ComboBox
+                        id="selectedTeam"
+                        styles={{ marginBottom: "2.5rem" }}
+                        onBlur={handleBlur}
+                        onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
+                          setFieldValue("selectedTeam", selectedItem ? selectedItem : "");
+                          handleChangeTeam(selectedItem);
+                        }}
+                        items={teams}
+                        initialSelectedItem={values.selectedTeam}
+                        value={values.selectedTeam}
+                        itemToString={(item: FlowTeam) => (item ? item.name : "")}
+                        titleText="Team"
+                        placeholder="Select a team"
+                        invalid={errors.selectedTeam}
+                        invalidText={errors.selectedTeam}
+                      />
+                    )}
                     <TextInput
                       id="name"
                       labelText="Workflow Name"

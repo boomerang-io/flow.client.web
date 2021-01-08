@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useFeature } from "flagged";
 import { useAppContext } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
 import { Button, ComposedModal, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import { WarningAlt16 } from "@carbon/icons-react";
+import cx from "classnames";
+import sortBy from "lodash/sortBy";
 import WelcomeBanner from "Components/WelcomeBanner";
 import EmptyState from "Components/EmptyState";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
 import NoTeamsRedirectPrompt from "./NoAccessRedirectPrompt";
-import CreateWorkflow from "./CreateWorkflow";
-import WorkflowsHeader from "./WorkflowsHeader";
-import WorkflowCard from "./WorkflowCard";
+import CreateWorkflow from "../../Components/CreateWorkflow";
+import WorkflowsHeader from "../../Components/WorkflowsHeader";
+import WorkflowCard from "../../Components/WorkflowCard";
 import queryString from "query-string";
-import cx from "classnames";
-import sortBy from "lodash/sortBy";
 import { FlowTeam, ModalTriggerProps, ComposedModalChildProps, WorkflowSummary } from "Types";
+import { FeatureFlag } from "Config/appConfig";
 import styles from "./workflowHome.module.scss";
 
 const BANNER_STORAGE_ID = "bmrg-flow-hideWelcomeBanner";
@@ -124,6 +126,7 @@ export default function WorkflowsHome() {
         })}
       >
         <WorkflowsHeader
+          isSystem={false}
           handleUpdateFilter={handleUpdateFilter}
           searchQuery={searchQuery}
           selectedTeams={selectedTeams}
@@ -156,6 +159,7 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
   const hasTeamWorkflows = team.workflows?.length > 0;
   const hasFilteredWorkflows = team.filteredWorkflows?.length > 0;
   const hasReachedWorkflowLimit = team.workflowQuotas.maxWorkflowCount <= team.workflowQuotas.currentWorkflowCount;
+  const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
 
   if (searchQuery && !hasFilteredWorkflows) {
     return null;
@@ -165,43 +169,45 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
     <section className={styles.sectionContainer}>
       <hgroup className={styles.header}>
         <h1 className={styles.team}>{`${team.name} (${team.workflows.length})`}</h1>
-        <div className={styles.teamQuotaContainer}>
-          <div className={styles.quotaDescriptionContainer}>
-            <p
-              className={styles.teamQuotaText}
-            >{`Workflow quota - ${team.workflowQuotas.currentWorkflowCount} of ${team.workflowQuotas.maxWorkflowCount} used`}</p>
-            {hasReachedWorkflowLimit && (
-              <TooltipHover
-                direction="top"
-                tooltipText={
-                  "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team administrator/owner to increase the quota."
-                }
-              >
-                <WarningAlt16 className={styles.warningIcon} />
-              </TooltipHover>
-            )}
+        {workflowQuotasEnabled && (
+          <div className={styles.teamQuotaContainer}>
+            <div className={styles.quotaDescriptionContainer}>
+              <p
+                className={styles.teamQuotaText}
+              >{`Workflow quota - ${team.workflowQuotas.currentWorkflowCount} of ${team.workflowQuotas.maxWorkflowCount} used`}</p>
+              {hasReachedWorkflowLimit && (
+                <TooltipHover
+                  direction="top"
+                  tooltipText={
+                    "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team administrator/owner to increase the quota."
+                  }
+                >
+                  <WarningAlt16 className={styles.warningIcon} />
+                </TooltipHover>
+              )}
+            </div>
+            <ComposedModal
+              composedModalProps={{
+                containerClassName: styles.quotaModalContainer,
+                shouldCloseOnOverlayClick: true,
+              }}
+              modalHeaderProps={{
+                title: `Team quotas - ${team.name}`,
+                subtitle:
+                  "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
+              }}
+              modalTrigger={({ openModal }: ModalTriggerProps) => (
+                <Button iconDescription="View quota details" kind="ghost" size="field" onClick={openModal}>
+                  View more quotas
+                </Button>
+              )}
+            >
+              {({ closeModal }: ComposedModalChildProps) => (
+                <WorkflowQuotaModalContent closeModal={closeModal} quotas={team?.workflowQuotas} />
+              )}
+            </ComposedModal>
           </div>
-          <ComposedModal
-            composedModalProps={{
-              containerClassName: styles.quotaModalContainer,
-              shouldCloseOnOverlayClick: true,
-            }}
-            modalHeaderProps={{
-              title: `Team quotas - ${team.name}`,
-              subtitle:
-                "Quotas are set by the administrator. If you have a concern about your allotted amounts, contact an admin.",
-            }}
-            modalTrigger={({ openModal }: ModalTriggerProps) => (
-              <Button iconDescription="View quota details" kind="ghost" size="field" onClick={openModal}>
-                View more quotas
-              </Button>
-            )}
-          >
-            {({ closeModal }: ComposedModalChildProps) => (
-              <WorkflowQuotaModalContent closeModal={closeModal} quotas={team?.workflowQuotas} />
-            )}
-          </ComposedModal>
-        </div>
+        )}
 
         {!hasTeamWorkflows && (
           <p className={styles.noWorkflowsMessage}>
@@ -211,9 +217,22 @@ const TeamWorkflows: React.FC<TeamWorkflowsProps> = ({ searchQuery, team, teams 
       </hgroup>
       <div className={styles.workflows}>
         {team.filteredWorkflows.map((workflow) => (
-          <WorkflowCard key={workflow.id} teamId={team.id} workflow={workflow} quotas={team.workflowQuotas} />
+          <WorkflowCard
+            isSystem={false}
+            key={workflow.id}
+            teamId={team.id}
+            workflow={workflow}
+            quotas={team.workflowQuotas}
+          />
         ))}
-        {<CreateWorkflow team={team} teams={teams} hasReachedWorkflowLimit={hasReachedWorkflowLimit} />}
+        {
+          <CreateWorkflow
+            isSystem={false}
+            team={team}
+            teams={teams}
+            hasReachedWorkflowLimit={hasReachedWorkflowLimit}
+          />
+        }
       </div>
     </section>
   );

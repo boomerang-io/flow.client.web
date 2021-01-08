@@ -76,7 +76,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
       notify(
         <ToastNotification
           kind="success"
-          title={"Property Deleted"}
+          title={"Parameter Deleted"}
           subtitle={`Request to delete ${property.label} succeeded`}
           data-testid="delete-prop-notification"
         />
@@ -84,7 +84,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
     } catch (err) {
       const errorMessages = formatErrorMessage({
         error: err,
-        defaultMessage: "Delete Property Failed",
+        defaultMessage: "Delete Parameter Failed",
       });
       notify(
         <ToastNotification
@@ -147,8 +147,8 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
         includeBorder={false}
         header={
           <>
-            <HeaderTitle className={styles.headerTitle}>Properties</HeaderTitle>
-            <HeaderSubtitle>Set global properties that are available for all Workflows</HeaderSubtitle>
+            <HeaderTitle className={styles.headerTitle}>Parameters</HeaderTitle>
+            <HeaderSubtitle>Set global parameters that are available for all Workflows</HeaderSubtitle>
           </>
         }
       />
@@ -156,7 +156,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
         <div className={styles.tableHeader}>
           <Search
             className={styles.search}
-            id="properties-table-search"
+            id="parameters-table-search"
             labelText="Search"
             placeHolderText="Search"
             onChange={handleSearchChange}
@@ -172,7 +172,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
               headers={headers}
               render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
                 <TableContainer>
-                   <Table isSortable>
+                  <Table isSortable>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
                         {headers.map((header: any) => (
@@ -191,7 +191,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
                     </TableHead>
                     <TableBody className={styles.tableBody}>
                       {rows.map((row: any) => (
-                        <TableRow key={row.id} data-testid="configuration-property-table-row">
+                        <TableRow key={row.id} data-testid="configuration-parameter-table-row">
                           {row.cells.map((cell: any, cellIndex: number) => (
                             <TableCell key={cell.id}>
                               <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>

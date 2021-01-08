@@ -1,4 +1,5 @@
 import React from "react";
+import { useAppContext } from "Hooks";
 import PropTypes from "prop-types";
 import { withRouter, Link } from "react-router-dom";
 import {
@@ -11,7 +12,7 @@ import {
 import { appLink } from "Config/appConfig";
 import moment from "moment";
 import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
-import { QueryStatus } from "Constants";
+import { allowedUserRoles, QueryStatus } from "Constants";
 import styles from "./executionHeader.module.scss";
 
 ExecutionHeader.propTypes = {
@@ -21,7 +22,11 @@ ExecutionHeader.propTypes = {
 
 function ExecutionHeader({ history, workflow, workflowExecution }) {
   const { state } = history.location;
-  const { teamName, initiatedByUserName, trigger, creationDate } = workflowExecution.data;
+  const { user } = useAppContext();
+
+  const { platformRole } = user;
+  const systemWorkflowsEnabled = allowedUserRoles.includes(platformRole);
+  const { teamName, initiatedByUserName, trigger, creationDate, scope } = workflowExecution.data;
 
   return (
     <Header
@@ -54,9 +59,15 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
                   />
                 </div>
               )}
+            {systemWorkflowsEnabled && (
+              <dl className={styles.data}>
+                <dt className={styles.dataTitle}>Scope</dt>
+                <dd className={styles.dataValue}>{scope ?? "---"}</dd>
+              </dl>
+            )}
             <dl className={styles.data}>
               <dt className={styles.dataTitle}>Team</dt>
-              <dd className={styles.dataValue}>{teamName}</dd>
+              <dd className={styles.dataValue}>{teamName ?? "---"}</dd>
             </dl>
             <dl className={styles.data}>
               <dt className={styles.dataTitle}>Initiated by</dt>

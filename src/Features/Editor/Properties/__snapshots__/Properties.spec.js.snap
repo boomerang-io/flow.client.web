@@ -6,7 +6,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
 >
   <div>
     <div
-      aria-label="Properties"
+      aria-label="Parameters"
       class="container"
       role="region"
     >
@@ -19,12 +19,12 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           <h1
             class="label"
           >
-            Tim Property
+            Tim parameter
           </h1>
           <p
             class="description"
           >
-            Tim property
+            Tim parameter
           </p>
         </div>
         <dl
@@ -38,7 +38,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           <dd
             class="fieldValue"
           >
-            tim.property
+            tim-parameter
           </dd>
         </dl>
         <dl
@@ -106,7 +106,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           alt="Workflow edit button"
           aria-label="Edit"
           class="button editContainer"
-          data-testid="edit-property-button"
+          data-testid="edit-parameter-button"
           role="button"
           style="will-change: auto;"
           tabindex="0"
@@ -155,7 +155,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
         <svg
           alt="Workflow close button"
           class="button deleteProperty"
-          data-testid="workflow-delete-property-button"
+          data-testid="workflow-delete-parameter-button"
           height="26px"
           role="button"
           tabindex="0"
@@ -200,7 +200,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
       </section>
       <button
         class="createPropertyCard"
-        data-testid="create-property-button"
+        data-testid="create-parameter-button"
       >
         <div
           class="createContainer"
@@ -224,7 +224,7 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           <p
             class="createText"
           >
-            Create a new property
+            Create a new parameter
           </p>
         </div>
       </button>

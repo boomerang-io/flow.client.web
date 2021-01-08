@@ -48,7 +48,9 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   revisionQuery,
   summaryData,
 }) => {
-  const { params: { teamId, workflowId } } = useRouteMatch();
+  const {
+    params: { workflowId },
+  } = useRouteMatch();
   const { revisionCount, name } = summaryData;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;
@@ -76,10 +78,10 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
       header={<HeaderTitle>Editor</HeaderTitle>}
       footer={
         <Tabs>
-          <Tab label="Workflow" to={appLink.editorDesigner({ teamId, workflowId })} />
-          <Tab label="Properties" to={appLink.editorProperties({ teamId, workflowId })} />
-          <Tab label="Configure" to={appLink.editorConfigure({ teamId, workflowId })} />
-          <Tab label="Change Log" to={appLink.editorChangelog({ teamId, workflowId })} />
+          <Tab label="Workflow" to={appLink.editorDesigner({ workflowId })} />
+          <Tab label="Parameters" to={appLink.editorProperties({ workflowId })} />
+          <Tab label="Configure" to={appLink.editorConfigure({ workflowId })} />
+          <Tab label="Change Log" to={appLink.editorChangelog({ workflowId })} />
         </Tabs>
       }
       actions={

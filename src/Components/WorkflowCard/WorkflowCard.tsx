@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useAppContext } from "Hooks";
+import { useFeature } from "flagged";
 import { useMutation, queryCache } from "react-query";
 import { Link, useHistory } from "react-router-dom";
 import {
@@ -19,7 +21,7 @@ import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
 import fileDownload from "js-file-download";
 import { formatErrorMessage } from "@boomerang-io/utils";
-import { appLink } from "Config/appConfig";
+import { appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
 import { Run20, Bee20 } from "@carbon/icons-react";
@@ -28,24 +30,26 @@ import { WorkflowSummary, ModalTriggerProps, ComposedModalChildProps, FlowTeamQu
 import styles from "./workflowCard.module.scss";
 
 interface WorkflowCardProps {
-  teamId: string;
-  quotas: FlowTeamQuotas;
+  isSystem: boolean;
+  teamId: string | null;
+  quotas: FlowTeamQuotas | null;
   workflow: WorkflowSummary;
 }
 
 type FunctionAnyReturn = () => any;
 
-const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow }) => {
+const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, workflow }) => {
+  const { teams } = useAppContext();
   const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isUpdateWorkflowModalOpen, setIsUpdateWorkflowModalOpen] = useState(false);
+  const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
+  const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
 
   const history = useHistory();
   const [errorMessage, seterrorMessage] = useState(null);
 
-  const [deleteWorkflowMutator, { isLoading: isDeleting }] = useMutation(resolver.deleteWorkflow, {
-    onSuccess: () => queryCache.invalidateQueries(serviceUrl.getTeams()),
-  });
+  const [deleteWorkflowMutator, { isLoading: isDeleting }] = useMutation(resolver.deleteWorkflow, {});
 
   const [executeWorkflowMutator, { error: executeError, isLoading: isExecuting }] = useMutation(
     (args: { id: string; properties: {} }) => {
@@ -67,9 +71,25 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
   };
 
   const handleDeleteWorkflow = async () => {
+    const workflowId = workflow.id;
     try {
-      await deleteWorkflowMutator({ id: workflow.id });
-      notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
+      await deleteWorkflowMutator({ id: workflowId });
+      if (!isSystem) {
+        /**
+         * teams query takes a while. optomistic update here
+         */
+        const specificTeam = teams.find((team) => team.id === teamId);
+        const specificTeamIndex = teams.findIndex((team) => team.id === teamId);
+        const newTeamWorkflows = specificTeam?.workflows.filter((workflow) => workflow.id !== workflowId);
+        // @ts-ignore
+        teams[specificTeamIndex].workflows = newTeamWorkflows;
+        queryCache.setQueryData(serviceUrl.getTeams(), teams);
+        notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
+        queryCache.invalidateQueries(serviceUrl.getTeams());
+      } else {
+        notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
+        queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+      }
     } catch {
       notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete workflow failed" />);
     }
@@ -113,10 +133,10 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
     }
   };
 
-  const menuOptions = [
+  let menuOptions = [
     {
       itemText: "Edit",
-      onClick: () => history.push(appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id })),
+      onClick: () => history.push(appLink.editorDesigner({ workflowId: workflow.id })),
     },
     {
       itemText: "View Activity",
@@ -138,17 +158,27 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
     },
   ];
 
+  if (!activityEnabled) {
+    menuOptions = menuOptions.filter((el) => el.itemText !== "View Activity");
+  }
+
   const formattedProperties = formatPropertiesForEdit();
 
   const { name, Icon = Bee20 } = workflowIcons.find((icon) => icon.name === workflow.icon) ?? {};
 
-  const hasReachedMonthlyRunLimit = quotas.maxWorkflowExecutionMonthly <= quotas.currentWorkflowExecutionMonthly;
+  let hasReachedMonthlyRunLimit = false;
+
+  if (quotas) {
+    hasReachedMonthlyRunLimit = quotas?.maxWorkflowExecutionMonthly <= quotas?.currentWorkflowExecutionMonthly;
+  }
 
   const canRunManually = workflow?.triggers?.manual?.enable ?? false;
 
+  const isDisabled = workflowQuotasEnabled && (hasReachedMonthlyRunLimit || !canRunManually);
+
   return (
     <div className={styles.container}>
-      <Link to={!isDeleting ? appLink.editorDesigner({ teamId: workflow.flowTeamId, workflowId: workflow.id }) : ""}>
+      <Link to={!isDeleting ? appLink.editorDesigner({ workflowId: workflow.id }) : ""}>
         <section className={styles.details}>
           <div className={styles.iconContainer}>
             <Icon className={styles.icon} alt={`${name}`} />
@@ -180,12 +210,12 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
         {Array.isArray(formattedProperties) && formattedProperties.length !== 0 ? (
           <ComposedModal
             modalHeaderProps={{
-              title: "Workflow Properties",
-              subtitle: "Provide property values for your workflow",
+              title: "Workflow Parameters",
+              subtitle: "Provide parameter values for your workflow",
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
-                disabled={isDeleting || hasReachedMonthlyRunLimit || !canRunManually}
+                disabled={isDeleting || isDisabled}
                 iconDescription="Run Workflow"
                 renderIcon={Run20}
                 size="field"
@@ -217,7 +247,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ teamId, quotas, workflow })
             }}
             modalTrigger={({ openModal }: ModalTriggerProps) => (
               <Button
-                disabled={isDeleting || hasReachedMonthlyRunLimit || !canRunManually}
+                disabled={isDeleting || isDisabled}
                 iconDescription="Run Workflow"
                 renderIcon={Run20}
                 size="field"

@@ -13,7 +13,7 @@ afterEach(() => {
 
 describe("Editor -- workflow", function () {
   beforeEach(() => {
-    cy.visit(appLink.editorDesigner({ teamId: "5e3a35ad8c222700018ccd39", workflowId: "5eb2c4085a92d80001a16d87" }));
+    cy.visit(appLink.editorDesigner({ workflowId: "5eb2c4085a92d80001a16d87" }));
   });
 
   it("Workflow Render", function () {

@@ -160,7 +160,7 @@ const TeamList: React.FC = () => {
           composedModalProps={{ shouldCloseOnOverlayClick: true }}
           modalHeaderProps={{
             title: "Create Team",
-            subtitle: `Scope your workflows and properties to a team`,
+            subtitle: `Scope your workflows and parameters to a team`,
           }}
           modalTrigger={({ openModal }: ModalTriggerProps) => (
             <Button
