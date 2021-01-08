@@ -289,19 +289,18 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
                   placeholder="Select a type"
                   titleText="Type"
                 />
-                {!isEdit && (
-                  <TextInput
-                    helperText="Reference value for field in task template config"
-                    id={InputProperty.Key}
-                    invalid={errors.key && touched.key}
-                    invalidText={errors.key}
-                    labelText="Key"
-                    onBlur={handleBlur}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
-                    placeholder="e.g. email"
-                    value={values.key}
-                  />
-                )}
+                <TextInput
+                  helperText="Reference value for field in task template config"
+                  id={InputProperty.Key}
+                  invalid={errors.key && touched.key}
+                  invalidText={errors.key}
+                  labelText="Key"
+                  disabled={isEdit}
+                  onBlur={handleBlur}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+                  placeholder="e.g. email"
+                  value={values.key}
+                />
                 <TextInput
                   id={InputProperty.Label}
                   invalid={errors.label && touched.label}

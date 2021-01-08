@@ -1756,4 +1756,109 @@ export default [
     currentVersion: 1,
     nodeType: "manual",
   },
+  {
+    "id": "5ff772c5daf8634981eee520",
+    "description": "Test for task input read only",
+    "lastModified": "2021-01-07T20:47:00.903+00:00",
+    "name": "TestInput",
+    "category": "Test",
+    "revisions": [
+    {
+    "version": 1,
+    "image": null,
+    "command": "",
+    "arguments": [
+    "test",
+    "input"
+    ],
+    "config": [],
+    "changelog": {
+    "userId": "5e7373c2a97b78000125ecaa",
+    "reason": "",
+    "date": "2021-01-07T20:44:53.940+00:00",
+    "userName": "Isabela Mayumi Kawabata Borges"
+    }
+    },
+    {
+    "version": 2,
+    "image": null,
+    "command": "",
+    "arguments": [],
+    "config": [
+    {
+    "required": false,
+    "placeholder": "",
+    "readOnly": false,
+    "description": "",
+    "key": "test",
+    "label": "Test",
+    "type": "text",
+    "helperText": "Testing input"
+    },
+    {
+    "required": false,
+    "placeholder": "",
+    "defaultValue": "Testing Text",
+    "readOnly": true,
+    "description": "",
+    "key": "testRead",
+    "label": "Test Read Only",
+    "type": "text",
+    "helperText": ""
+    }
+    ],
+    "changelog": {
+    "userId": "5e7373c2a97b78000125ecaa",
+    "reason": "Add inputs",
+    "date": "2021-01-07T20:46:17.477+00:00",
+    "userName": "Isabela Mayumi Kawabata Borges"
+    }
+    },
+    {
+    "version": 3,
+    "image": null,
+    "command": "",
+    "arguments": [
+    "test",
+    "input"
+    ],
+    "config": [
+    {
+    "required": false,
+    "placeholder": "",
+    "defaultValue": "aaaaaaaaaa",
+    "readOnly": false,
+    "description": "",
+    "key": "test",
+    "label": "Test",
+    "type": "text",
+    "helperText": "Testing input"
+    },
+    {
+    "required": false,
+    "placeholder": "",
+    "defaultValue": "Testing Text",
+    "readOnly": true,
+    "description": "",
+    "key": "testRead",
+    "label": "Test Read Only",
+    "type": "text",
+    "helperText": ""
+    }
+    ],
+    "changelog": {
+    "userId": "5e7373c2a97b78000125ecaa",
+    "reason": "Update values",
+    "date": "2021-01-07T20:47:00.903+00:00",
+    "userName": "Isabela Mayumi Kawabata Borges"
+    }
+    }
+    ],
+    "status": "active",
+    "createdDate": "2021-01-07T20:44:53.889+00:00",
+    "icon": "Validate",
+    "verified": false,
+    "currentVersion": 3,
+    "nodeType": "templateTask"
+    },
 ];
