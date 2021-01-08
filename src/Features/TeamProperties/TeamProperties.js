@@ -20,7 +20,7 @@ function TeamProperties() {
   return (
     <div className={styles.container}>
       <Helmet>
-        <title>Team Properties</title>
+        <title>Team Parameters</title>
       </Helmet>
       <TeamPropertiesTable
         teams={teams}

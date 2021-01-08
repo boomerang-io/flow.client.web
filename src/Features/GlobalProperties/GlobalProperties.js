@@ -27,7 +27,7 @@ function GlobalPropertiesContainer() {
   return (
     <div className={styles.container}>
       <Helmet>
-        <title>Properties</title>
+        <title>Global Parameters</title>
       </Helmet>
       <PropertiesTable properties={data} />
     </div>
