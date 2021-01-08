@@ -13,7 +13,7 @@ const AutoSuggestInput = (props) => {
   else
     return (
       <div key={props.id}>
-        <AutoSuggest {...props}>
+        <AutoSuggest {...props} initialValue={props?.inputProps?.defaultValue}>
           <TextInput tooltipContent={props.tooltipContent} />
         </AutoSuggest>
       </div>
