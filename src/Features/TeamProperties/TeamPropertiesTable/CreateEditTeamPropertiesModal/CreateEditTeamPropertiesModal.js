@@ -28,19 +28,19 @@ function CreateEditTeamPropertiesModal({ handleEditClose, isEdit, isOpen, proper
       modalTrigger={({ openModal }) =>
         !isEdit ? (
           <Button
-            data-testid="create-team-property-button"
+            data-testid="create-team-parameter-button"
             onClick={openModal}
-            iconDescription="Create Property"
+            iconDescription="Create Parameter"
             renderIcon={Add16}
             size="field"
             style={{ minWidth: "9rem" }}
           >
-            Create Property
+            Create Parameter
           </Button>
         ) : null
       }
       modalHeaderProps={{
-        title: isEdit && property ? `Edit ${property.label.toUpperCase()}` : "Create Property",
+        title: isEdit && property ? `Edit ${property.label.toUpperCase()}` : "Create Parameter",
       }}
       onCloseModal={() => {
         if (cancelRequestRef.current) cancelRequestRef.current();

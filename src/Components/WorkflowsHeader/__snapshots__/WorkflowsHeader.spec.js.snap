@@ -22,6 +22,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
           <h1
             class="bx--bmrg-feature-header-title"
           >
+            
             Workflows (undefined)
           </h1>
         </div>
@@ -91,74 +92,6 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
                 />
               </svg>
             </button>
-          </div>
-        </div>
-        <div
-          class="filter"
-        >
-          <div
-            class="bx--multi-select__wrapper bx--list-box__wrapper"
-          >
-            <label
-              class="bx--label bx--label--disabled"
-              for="b-search-filter__filter"
-              id="b-search-filter__filter-label"
-            >
-              Filter by team
-            </label>
-            <div
-              aria-expanded="false"
-              aria-haspopup="listbox"
-              aria-labelledby="b-search-filter__filter-label"
-              class="bx--multi-select bx--combo-box bx--multi-select--filterable bx--list-box bx--list-box--disabled"
-              role="combobox"
-            >
-              <div
-                aria-haspopup="true"
-                aria-labelledby="b-search-filter__filter-label"
-                class="bx--list-box__field"
-                data-toggle="true"
-                id="b-search-filter__filter"
-                role="button"
-                tabindex="-1"
-                type="button"
-              >
-                <input
-                  aria-autocomplete="list"
-                  aria-labelledby="b-search-filter__filter-label"
-                  autocomplete="off"
-                  class="bx--text-input bx--text-input--empty"
-                  disabled=""
-                  id="b-search-filter__filter-input"
-                  placeholder="Choose a team"
-                  value=""
-                />
-                
-                <div
-                  class="bx--list-box__menu-icon"
-                >
-                  <svg
-                    aria-label="Open menu"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    name="chevron--down"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
-                    />
-                    <title>
-                      Open menu
-                    </title>
-                  </svg>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>

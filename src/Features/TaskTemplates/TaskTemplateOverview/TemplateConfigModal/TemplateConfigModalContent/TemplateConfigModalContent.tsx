@@ -244,7 +244,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
             .notOneOf(fieldKeys || [], "Enter a unique key value for this field")
             .test(
               "is-valid-key",
-              "Only alphanumeric, underscore, dash, and period characters allowed",
+              "Only alphanumeric, hyphen and underscore characters allowed. Must begin with a letter or underscore",
               this.validateKey
             ),
           [InputProperty.Label]: Yup.string()

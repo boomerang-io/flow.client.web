@@ -12,7 +12,7 @@ WorkflowActions.propTypes = {
 
 function WorkflowActions({ workflow }) {
   let history = useHistory();
-  const { id, flowTeamId } = workflow;
+  const { id } = workflow;
 
   return (
     <div className={styles.container}>
@@ -20,7 +20,7 @@ function WorkflowActions({ workflow }) {
       <Button
         kind="ghost"
         size="field"
-        onClick={() => history.push(appLink.editorDesigner({ teamId: flowTeamId, workflowId: id }))}
+        onClick={() => history.push(appLink.editorDesigner({ workflowId: id }))}
         renderIcon={Edit32}
       >
         Edit Workflow

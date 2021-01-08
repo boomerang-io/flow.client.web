@@ -51,7 +51,7 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
       fireEvent.change(keyInputText, { target: { value: "rtlTestingKeyTest" } });
     });
 
-    expect(getByTestId("team-property-create-edit-submission-button")).toBeEnabled();
+    expect(getByTestId("team-parameter-create-edit-submission-button")).toBeEnabled();
     await waitFor(() => {});
   });
 
@@ -69,7 +69,7 @@ describe("CreateEditTeamPropertiesModalContent --- RTL Tests", () => {
       fireEvent.change(valueInputText, { target: { value: "Value Test" } });
       fireEvent.change(labelInputText, { target: { value: "Label Test" } });
       fireEvent.change(keyInputText, { target: { value: "rtlTestingKey" } });
-      fireEvent.click(getByTestId("team-property-create-edit-submission-button"));
+      fireEvent.click(getByTestId("team-parameter-create-edit-submission-button"));
     });
 
     await waitFor(() => {});

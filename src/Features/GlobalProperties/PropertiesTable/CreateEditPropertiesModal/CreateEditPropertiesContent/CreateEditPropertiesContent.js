@@ -102,7 +102,11 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
           .required("Enter a key")
           .max(128, "Key must not be greater than 128 characters")
           .notOneOf(propertyKeys || [], "Enter a unique key value for this property")
-          .test("is-valid-key", "Only alphanumeric, underscore, dash, and period characters allowed", validateKey),
+          .test(
+            "is-valid-key",
+            "Only alphanumeric, hyphen and underscore characters allowed. Must begin with a letter or underscore",
+            validateKey
+          ),
         value: Yup.string().required("Enter a value"),
         description: Yup.string(),
         secured: Yup.boolean(),
@@ -160,13 +164,13 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 type={values.secured ? "password" : "text"}
               />
               <Toggle
-                id="secured-global-properties-toggle"
+                id="secured-global-parameters-toggle"
                 labelText="Secured"
                 name="secured"
                 onChange={handleChange}
                 orientation="vertical"
                 toggled={values.secured}
-                data-testid="secured-global-properties-toggle"
+                data-testid="secured-global-parameters-toggle"
               />
               {addError && (
                 <InlineNotification

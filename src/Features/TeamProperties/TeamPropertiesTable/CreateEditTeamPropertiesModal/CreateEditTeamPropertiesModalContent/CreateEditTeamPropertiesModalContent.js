@@ -60,7 +60,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
         notify(
           <ToastNotification
             kind="success"
-            title={"Property Updated"}
+            title={"Parameter Updated"}
             subtitle={`Request to update ${response.data.label} succeeded`}
             data-testid="create-update-team-prop-notification"
           />
@@ -73,7 +73,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
         notify(
           <ToastNotification
             kind="success"
-            title={"Property Created"}
+            title={"Parameter Created"}
             subtitle={`Request to create ${response.data.label} succeeded`}
             data-testid="create-update-team-prop-notification"
           />
@@ -105,8 +105,12 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
         key: Yup.string()
           .required("Enter a key")
           .max(128, "Key must not be greater than 128 characters")
-          .notOneOf(propertyKeys || [], "Enter a unique key value for this property")
-          .test("is-valid-key", "Only alphanumeric, underscore, dash, and period characters allowed", validateKey),
+          .notOneOf(propertyKeys || [], "Enter a unique key value for this parameter")
+          .test(
+            "is-valid-key",
+            "Only alphanumeric, hyphen and underscore characters allowed. Must begin with a letter or underscore",
+            validateKey
+          ),
         value: Yup.string().required("Enter a value"),
         description: Yup.string(),
         secured: Yup.boolean(),
@@ -163,8 +167,8 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 type={values.secured ? "password" : "text"}
               />
               <Toggle
-                id="secured-team-properties-toggle"
-                data-testid="secured-team-properties-toggle"
+                id="secured-team-parameters-toggle"
+                data-testid="secured-team-parameters-toggle"
                 labelText="Secured"
                 name="secured"
                 onChange={handleChange}
@@ -175,7 +179,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 <InlineNotification
                   lowContrast
                   kind="error"
-                  subtitle={"Request to create property failed"}
+                  subtitle={"Request to create parameter failed"}
                   title={"Something's Wrong"}
                   data-testid="create-update-team-prop-notification"
                 />
@@ -184,7 +188,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 <InlineNotification
                   lowContrast
                   kind="error"
-                  subtitle={"Request to update property failed"}
+                  subtitle={"Request to update parameter failed"}
                   title={"Something's Wrong"}
                   data-testid="create-update-team-prop-notification"
                 />
@@ -195,7 +199,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 Cancel
               </Button>
               <Button
-                data-testid="team-property-create-edit-submission-button"
+                data-testid="team-parameter-create-edit-submission-button"
                 type="submit"
                 disabled={!isValid || loading}
               >

@@ -18,6 +18,7 @@ ActivityTable.propTypes = {
   isLoading: PropTypes.bool,
   location: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
+  systemWorkflowsEnabled: PropTypes.bool.isRequired,
   tableData: PropTypes.object,
   updateHistorySearch: PropTypes.func.isRequired,
 };
@@ -30,6 +31,7 @@ const headers = [
     key: "teamName",
     sortable: true,
   },
+  { header: "Scope", key: "scope" },
   {
     header: "Workflow",
     key: "workflowName",
@@ -57,8 +59,8 @@ const headers = [
   },
 ];
 
-function renderCell(cellIndex, value) {
-  const column = headers[cellIndex];
+function renderCell(headerList, cellIndex, value) {
+  const column = headerList[cellIndex];
 
   switch (column.key) {
     case "trigger":
@@ -87,6 +89,11 @@ function renderCell(cellIndex, value) {
 }
 
 function ActivityTable(props) {
+  let headerList = headers;
+  if (!props.systemWorkflowsEnabled) {
+    headerList = headers.filter((header) => header.key !== "scope");
+  }
+
   function handlePaginationChange({ page, pageSize }) {
     props.updateHistorySearch({
       ...queryString.parse(props.location.search),
@@ -121,8 +128,8 @@ function ActivityTable(props) {
         <DataTableSkeleton
           className={cx(`${prefix}--skeleton`, `${prefix}--data-table`, styles.tableSkeleton)}
           rowCount={10}
-          columnCount={headers.length}
-          headers={headers.map((header) => header.header)}
+          columnCount={headerList.length}
+          headers={headerList.map((header) => header.header)}
         />
       </div>
     );
@@ -141,7 +148,7 @@ function ActivityTable(props) {
           <>
             <DataTable
               rows={records}
-              headers={headers}
+              headers={headerList}
               render={({ rows, headers, getHeaderProps }) => (
                 <TableContainer>
                   <Table isSortable>
@@ -168,7 +175,7 @@ function ActivityTable(props) {
                       {rows.map((row) => (
                         <TableRow
                           key={row.id}
-                          className={`${styles.tableRow} ${styles[row.cells[6].value]}`}
+                          className={`${styles.tableRow} ${styles[row.cells[row.cells.length - 1].value]}`}
                           data-testid="configuration-property-table-row"
                           onClick={() => executionViewRedirect(row.id)}
                           onKeyDown={(e) => isAccessibleKeyboardEvent(e) && executionViewRedirect(row.id)}
@@ -176,7 +183,7 @@ function ActivityTable(props) {
                         >
                           {row.cells.map((cell, cellIndex) => (
                             <TableCell key={cell.id}>
-                              <div className={styles.tableCell}>{renderCell(cellIndex, cell.value)}</div>
+                              <div className={styles.tableCell}>{renderCell(headerList, cellIndex, cell.value)}</div>
                             </TableCell>
                           ))}
                         </TableRow>
@@ -198,7 +205,7 @@ function ActivityTable(props) {
           <>
             <DataTable
               rows={[]}
-              headers={headers}
+              headers={headerList}
               render={({ headers }) => (
                 <TableContainer>
                   <Table>
