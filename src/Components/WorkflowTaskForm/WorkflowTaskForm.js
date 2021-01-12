@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
-import { AutoSuggest, DynamicFormik, ModalForm, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  AutoSuggest,
+  DynamicFormik,
+  ModalForm,
+  TextInput,
+  TextArea,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
@@ -18,6 +24,16 @@ const AutoSuggestInput = (props) => {
         </AutoSuggest>
       </div>
     );
+};
+
+const TextAreaSuggestInput = (props) => {
+  return (
+    <div key={props.id}>
+      <AutoSuggest {...props} initialValue={props?.inputProps?.defaultValue}>
+        <TextArea tooltipContent={props.tooltipContent} />
+      </AutoSuggest>
+    </div>
+  );
 };
 
 const TextEditorInput = (props) => {
@@ -182,6 +198,7 @@ class WorkflowTaskForm extends Component {
         dataDrivenInputProps={{
           TextInput: AutoSuggestInput,
           TextEditor: TextEditorInput,
+          TextArea: TextAreaSuggestInput,
         }}
         textAreaProps={this.textAreaProps}
         textEditorProps={this.textEditorProps}
