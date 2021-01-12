@@ -53,7 +53,12 @@ interface PropertiesProps {
 
 const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
   const [mutateProperties, { isLoading: mutatePropertiesIsLoading }] = useMutation(
-    resolver.patchUpdateWorkflowProperties
+    resolver.patchUpdateWorkflowProperties,
+    {
+      onSuccess: () => {
+        queryCache.invalidateQueries(serviceUrl.getWorkflowAvailableParameters({ workflowId: summaryData.id }));
+      },
+    }
   );
 
   const handleUpdateProperties = async ({ property, type }: { property: DataDrivenInput; type: string }) => {
