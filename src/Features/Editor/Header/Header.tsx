@@ -51,7 +51,7 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   const {
     params: { workflowId },
   } = useRouteMatch();
-  const { revisionCount, name } = summaryData;
+  const { revisionCount, name, scope } = summaryData;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;
   const isQueryLoading = revisionQuery.status === QueryStatus.Loading;
@@ -68,7 +68,11 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
       nav={
         <Breadcrumb noTrailingSlash>
           <BreadcrumbItem>
-            <Link to={appLink.workflows()}>Workflows</Link>
+            {scope === "system" ? (
+              <Link to={appLink.systemWorkflows()}>System Workflows</Link>
+            ) : (
+              <Link to={appLink.workflows()}>Workflows</Link>
+            )}
           </BreadcrumbItem>
           <BreadcrumbItem isCurrentPage>
             <p>{name}</p>

@@ -2,7 +2,7 @@ export default [
   {
     properties: [],
     description: "",
-    flowTeamId: "5e3a35ad8c222700018ccd39",
+    flowTeamId: "5eb2c4085a92d80001a16d82",
     icon: "flow",
     id: "5eb2c4085a92d80001a16d87",
     name: "A system Workflow",
