@@ -33,12 +33,12 @@ const AutoSuggestInput = (props) => {
 const TextAreaSuggestInput = (props) => {
   //if we have a default value in the input. We want to show user it is disabled
   if (props?.inputProps?.defaultValue) {
-    return <TextArea {...props} disabled={true} value={props?.inputProps?.defaultValue} />;
+    return <TextArea {...props} disabled={true} value={props?.inputProps?.defaultValue} labelText={props?.label} />;
   }
   return (
     <div key={props.id}>
       <AutoSuggest {...props}>
-        <TextArea tooltipContent={props.tooltipContent} />
+        <TextArea tooltipContent={props.tooltipContent} labelText={props?.label} />
       </AutoSuggest>
     </div>
   );
