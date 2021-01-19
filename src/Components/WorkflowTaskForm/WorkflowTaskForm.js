@@ -14,12 +14,16 @@ import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
 import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = (props) => {
+  //if we have a default value in the input. We want to show user it is disabled
+  if (props?.inputProps?.defaultValue) {
+    return <TextInput {...props} disabled={true} value={props?.inputProps?.defaultValue} />;
+  }
   //number inputs doesn't support AutoSuggest setSelectionRange
   if (props.type === "number") return <TextInput {...props} onChange={(e) => props.onChange(e.target.value)} />;
   else
     return (
       <div key={props.id}>
-        <AutoSuggest {...props} initialValue={props?.inputProps?.defaultValue}>
+        <AutoSuggest {...props}>
           <TextInput tooltipContent={props.tooltipContent} />
         </AutoSuggest>
       </div>
@@ -27,9 +31,13 @@ const AutoSuggestInput = (props) => {
 };
 
 const TextAreaSuggestInput = (props) => {
+  //if we have a default value in the input. We want to show user it is disabled
+  if (props?.inputProps?.defaultValue) {
+    return <TextArea {...props} disabled={true} value={props?.inputProps?.defaultValue} />;
+  }
   return (
     <div key={props.id}>
-      <AutoSuggest {...props} initialValue={props?.inputProps?.defaultValue}>
+      <AutoSuggest {...props}>
         <TextArea tooltipContent={props.tooltipContent} />
       </AutoSuggest>
     </div>
@@ -111,6 +119,7 @@ class WorkflowTaskForm extends Component {
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
       formikSetFieldValue: (value) => this.formikSetFieldValue(value, key, setFieldValue),
+      onChange: (value) => this.formikSetFieldValue(value, key, setFieldValue),
       initialValue: values[key],
       inputProperties: this.props.inputProperties,
       item: input,
