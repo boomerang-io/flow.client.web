@@ -18,9 +18,10 @@ import styles from "./executionHeader.module.scss";
 ExecutionHeader.propTypes = {
   workflow: PropTypes.object.isRequired,
   workflowExecution: PropTypes.object.isRequired,
+  version: PropTypes.number.isRequired,
 };
 
-function ExecutionHeader({ history, workflow, workflowExecution }) {
+function ExecutionHeader({ history, workflow, workflowExecution, version }) {
   const { state } = history.location;
   const { user } = useAppContext();
 
@@ -68,6 +69,10 @@ function ExecutionHeader({ history, workflow, workflowExecution }) {
             <dl className={styles.data}>
               <dt className={styles.dataTitle}>Team</dt>
               <dd className={styles.dataValue}>{teamName ?? "---"}</dd>
+            </dl>
+            <dl className={styles.data}>
+              <dt className={styles.dataTitle}>Version</dt>
+              <dd className={styles.dataValue}>{version ?? "---"}</dd>
             </dl>
             <dl className={styles.data}>
               <dt className={styles.dataTitle}>Initiated by</dt>

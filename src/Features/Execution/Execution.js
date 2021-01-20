@@ -65,7 +65,12 @@ export default function ExecutionContainer() {
           workflowRevision: revisionData,
         }}
       >
-        <Main dag={revisionData.dag} workflow={summaryQuery} workflowExecution={executionQuery} />
+        <Main
+          dag={revisionData.dag}
+          workflow={summaryQuery}
+          workflowExecution={executionQuery}
+          version={revisionData.version}
+        />
       </ExecutionContextProvider>
     );
   }

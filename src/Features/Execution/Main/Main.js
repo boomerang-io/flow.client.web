@@ -17,6 +17,7 @@ class Main extends Component {
     dag: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowExecution: PropTypes.object.isRequired,
+    version: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -41,7 +42,7 @@ class Main extends Component {
   }
 
   render() {
-    const { workflow, workflowExecution } = this.props;
+    const { workflow, workflowExecution, version } = this.props;
     const { status, steps } = workflowExecution.data;
 
     const hasFinished = [ExecutionStatus.Completed, ExecutionStatus.Invalid, ExecutionStatus.Failure].includes(status);
@@ -58,7 +59,7 @@ class Main extends Component {
         <Helmet>
           <title>{`${workflow.data.name} - Activity`}</title>
         </Helmet>
-        <ExecutionHeader workflow={workflow} workflowExecution={workflowExecution} />
+        <ExecutionHeader workflow={workflow} workflowExecution={workflowExecution} version={version} />
         <section aria-label="Executions" className={styles.executionResultContainer}>
           <ExecutionTaskLog workflowExecution={workflowExecution} />
           <div className={styles.executionDesignerContainer} ref={this.diagramRef}>
