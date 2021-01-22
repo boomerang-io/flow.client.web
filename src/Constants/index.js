@@ -88,6 +88,8 @@ export const NodeType = {
   Task: "task",
   TemplateTask: "templateTask",
   Wait: "eventwait",
+  Acquirelock: "acquirelock",
+  Releaselock: "releaselock",
 };
 
 export const QueryStatus = {
