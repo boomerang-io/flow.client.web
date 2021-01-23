@@ -7,7 +7,7 @@ import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskApprovalModal from "./TaskApprovalModal";
 import TaskExecutionLog from "./TaskExecutionLog";
 import moment from "moment";
-import { getHumanizedDuration } from "@boomerang-io/utils";
+import dateHelper from "Utils/dateHelper";
 import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
 import styles from "./taskItem.module.scss";
 
@@ -24,6 +24,10 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
   const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName, approval, taskType } = task;
   const Icon = executionStatusIcon[flowTaskStatus];
   const statusClassName = styles[flowTaskStatus];
+
+  const calculatedDuration = Number.parseInt(duration)
+    ? dateHelper.timeMillisecondsToTimeUnit(duration)
+    : dateHelper.durationFromThenToNow(startTime) || "---";
 
   return (
     <li key={id} className={`${styles.taskitem} ${statusClassName}`}>
@@ -47,7 +51,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
         </div>
         <div className={styles.time}>
           <p className={styles.timeTitle}>Duration</p>
-          <time className={styles.timeValue}>{getHumanizedDuration(Math.ceil(parseInt(duration / 1000), 10))}</time>
+          <time className={styles.timeValue}>{calculatedDuration}</time>
         </div>
       </section>
       {!hidden && (
