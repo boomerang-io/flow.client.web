@@ -144,12 +144,12 @@ export default function App() {
           WorkflowQuotasEnabled: feature["workflow.quotas"],
           SettingsEnabled: feature["settings"],
           UserManagementEnabled: feature["user.management"],
-          GlobalPropertiesEnabled: feature["global.properties"],
+          GlobalParametersEnabled: feature["global.parameters"],
           WorkflowTokensEnabled: feature["workflow.tokens"],
           TaskManagerEnabled: feature["taskManager"],
           EditVerifiedTasksEnabled: feature["enable.verified.tasks.edit"],
           WorkflowTriggersEnabled: feature["workflow.triggers"],
-          TeamPropertiesEnabled: feature["team.properties"],
+          TeamParametersEnabled: feature["team.parameters"],
 
           ActivityEnabled: feature["activity"],
           InsightsEnabled: feature["insights"],
@@ -225,8 +225,8 @@ interface AppFeaturesProps {
 }
 
 const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
-  const globalPropertiesEnabled = useFeature(FeatureFlag.GlobalPropertiesEnabled);
-  const teamPropertiesEnabled = useFeature(FeatureFlag.TeamPropertiesEnabled);
+  const globalPropertiesEnabled = useFeature(FeatureFlag.GlobalParametersEnabled);
+  const teamPropertiesEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
   const taskManagerEnabled = useFeature(FeatureFlag.TaskManagerEnabled);
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const settingsEnabled = useFeature(FeatureFlag.SettingsEnabled);
