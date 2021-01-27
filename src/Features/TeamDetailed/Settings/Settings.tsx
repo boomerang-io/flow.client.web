@@ -32,7 +32,7 @@ export default function Settings({ team }: { team: FlowTeam }) {
     queryFn: resolver.query(teamsUrl),
   });
 
-  if (!error) {
+  if (error) {
     return (
       <Box mt="5rem">
         <Helmet>
@@ -44,7 +44,7 @@ export default function Settings({ team }: { team: FlowTeam }) {
   }
 
   if (isLoading) {
-    return( 
+    return (
       <>
         <Helmet>
           <title>{`Settings - ${team.name}`}</title>
