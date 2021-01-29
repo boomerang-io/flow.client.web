@@ -13,7 +13,6 @@ const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
 export default function ExecutionContainer() {
   const { workflowId, executionId } = useParams();
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
-  const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId });
   const getExecutionUrl = serviceUrl.getWorkflowExecution({ executionId });
 
   /**
@@ -23,18 +22,11 @@ export default function ExecutionContainer() {
   const executionQuery = useQuery(getExecutionUrl, {
     refetchInterval: 5000,
   });
-  const { data: revisionData, error: revisionError, isLoading: revisionIsLoading } = useQuery(getRevisionUrl);
   const { data: taskTemplatesData, error: taskTemplatesError, isLoading: taskTempaltesAreLoading } = useQuery(
     getTaskTemplatesUrl
   );
 
-  // const revisionQuery = useQuery(getRevisionUrl);
-  // const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
-  // const executionQuery = useQuery(getExecutionUrl, {
-  //   refetchInterval: 5000,
-  // });
-
-  if (taskTempaltesAreLoading || revisionIsLoading || summaryQuery.isLoading) {
+  if (taskTempaltesAreLoading || summaryQuery.isLoading) {
     return (
       <>
         <Helmet>
@@ -45,7 +37,7 @@ export default function ExecutionContainer() {
     );
   }
 
-  if (summaryQuery.error || revisionError || taskTemplatesError || executionQuery.error) {
+  if (summaryQuery.error || taskTemplatesError || executionQuery.error) {
     return (
       <Box mt="5rem">
         <Helmet>
@@ -56,24 +48,64 @@ export default function ExecutionContainer() {
     );
   }
 
-  if (revisionData && taskTemplatesData && executionQuery.data) {
+  if (taskTemplatesData && executionQuery.data) {
     return (
-      <ExecutionContextProvider
-        value={{
-          tasks: taskTemplatesData,
-          workflowExecution: executionQuery.data,
-          workflowRevision: revisionData,
-        }}
-      >
-        <Main
-          dag={revisionData.dag}
-          workflow={summaryQuery}
-          workflowExecution={executionQuery}
-          version={revisionData.version}
-        />
-      </ExecutionContextProvider>
+      <RevisionContainer
+        taskTemplatesData={taskTemplatesData}
+        executionQuery={executionQuery}
+        summaryQuery={summaryQuery}
+        workflowId={workflowId}
+      />
     );
   }
 
   return null;
+}
+
+function RevisionContainer({ executionQuery, summaryQuery, taskTemplatesData, workflowId }) {
+  const getRevisionUrl = serviceUrl.getWorkflowRevision({
+    workflowId,
+    revisionNumber: executionQuery?.data?.workflowRevisionVersion ?? undefined,
+  });
+
+  const { data: revisionData, error: revisionError, isLoading: revisionIsLoading } = useQuery(getRevisionUrl);
+
+  if (revisionIsLoading) {
+    return (
+      <>
+        <Helmet>
+          <title>Activity</title>
+        </Helmet>
+        <Loading />
+      </>
+    );
+  }
+
+  if (revisionError) {
+    return (
+      <Box mt="5rem">
+        <Helmet>
+          <title>Activity</title>
+        </Helmet>
+        <ErrorMessage />
+      </Box>
+    );
+  }
+
+  return (
+    <ExecutionContextProvider
+      value={{
+        tasks: taskTemplatesData,
+        workflowExecution: executionQuery.data,
+        workflowRevision: revisionData,
+      }}
+    >
+      <Main
+        dag={revisionData.dag}
+        workflow={summaryQuery}
+        workflowExecution={executionQuery}
+        version={revisionData.version}
+      />
+    </ExecutionContextProvider>
+  );
 }
