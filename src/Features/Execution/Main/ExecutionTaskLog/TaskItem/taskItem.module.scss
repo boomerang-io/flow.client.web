@@ -183,6 +183,25 @@
   line-height: 1.125rem;
 }
 
+.switchSection {
+  display: flex;
+}
+
+.switchTitle {
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
+  font-weight: 300;
+  line-height: 1.125rem;
+  // width: 4.8125rem;
+  margin-right: 1rem;
+}
+
+.switchValue {
+  color: var(--cds-text-01);
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+}
+
 .approvalResultsModalContainer {
   max-height: 40rem;
   max-width: 75ch;

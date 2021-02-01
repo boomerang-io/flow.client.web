@@ -21,7 +21,7 @@ TaskItem.propTypes = {
 };
 
 function TaskItem({ flowActivityId, hidden, task, executionId }) {
-  const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName, approval, taskType } = task;
+  const { duration, flowTaskStatus, id, outputs, startTime, taskId, taskName, approval, taskType, switchValue } = task;
   const Icon = executionStatusIcon[flowTaskStatus];
   const statusClassName = styles[flowTaskStatus];
 
@@ -61,6 +61,12 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           )}
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
+          )}
+          {taskType === NodeType.Decision && switchValue && (
+            <section className={styles.switchSection}>
+              <span className={styles.switchTitle}>Switch Value</span>
+              <p className={styles.switchValue}>{switchValue}</p>
+            </section>
           )}
           {taskType === NodeType.Approval && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
