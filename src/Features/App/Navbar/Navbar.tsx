@@ -98,9 +98,10 @@ export default function NavbarContainer({
   };
   const platformName = platformNavigationData.platform?.platformName;
   const isBoomerangInPlatformName = platformName?.includes(BOOMERANG_FALLBACK);
-  const appTitle = !isBoomerangInPlatformName
-    ? `${BOOMERANG_FALLBACK} Flow - ${platformName}`
-    : `${BOOMERANG_FALLBACK} Flow`;
+  const appTitle =
+    !isBoomerangInPlatformName && platformName
+      ? `${BOOMERANG_FALLBACK} Flow - ${platformName}`
+      : `${BOOMERANG_FALLBACK} Flow`;
 
   return (
     <>
