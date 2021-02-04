@@ -35,12 +35,13 @@ const TextAreaSuggestInput = (props) => {
     <div key={props.id}>
       <AutoSuggest
         {...props}
-        initialValue={props?.initialValue !== "" ? props?.initialValue : props?.inputProps?.defaultValue}
+        initialValue={props?.initialValue !== "" ? props?.initialValue : props?.item?.defaultValue}
       >
         <TextArea
           tooltipContent={props.tooltipContent}
           labelText={props?.label}
-          disabled={props?.inputProps?.readOnly}
+          disabled={props?.item?.readOnly}
+          helperText={props?.item?.helperText}
         />
       </AutoSuggest>
     </div>
