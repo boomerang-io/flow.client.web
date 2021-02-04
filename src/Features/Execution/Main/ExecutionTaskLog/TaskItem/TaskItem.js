@@ -53,6 +53,12 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           <p className={styles.timeTitle}>Duration</p>
           <time className={styles.timeValue}>{calculatedDuration}</time>
         </div>
+        {taskType === NodeType.Decision && (
+          <div className={styles.time}>
+            <p className={styles.timeTitle}>Value</p>
+            <time className={styles.timeValue}>{switchValue ?? ""}</time>
+          </div>
+        )}
       </section>
       {!hidden && (
         <section className={styles.data}>
@@ -61,12 +67,6 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           )}
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
-          )}
-          {taskType === NodeType.Decision && switchValue && (
-            <section className={styles.switchSection}>
-              <span className={styles.switchTitle}>Switch Value</span>
-              <p className={styles.switchValue}>{switchValue}</p>
-            </section>
           )}
           {taskType === NodeType.Approval && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
