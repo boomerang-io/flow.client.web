@@ -42,6 +42,7 @@ const TextAreaSuggestInput = (props) => {
           labelText={props?.label}
           disabled={props?.item?.readOnly}
           helperText={props?.item?.helperText}
+          placeholder={props?.item?.placeholder}
         />
       </AutoSuggest>
     </div>

@@ -18,9 +18,7 @@ function WorkflowActions({ workflow }) {
   const { id, scope } = workflow;
   const { user } = useAppContext();
   const { type } = user;
-  console.log(`platformRole: ${type}`);
   const systemWorkflowsEnabled = allowedUserRoles.includes(type);
-  console.log(`systemWorkflowsEnabled: ${systemWorkflowsEnabled}`);
 
   //don't show the edit workflow button if the workflow has system scope and the user doesn't have permission
   const showEditWorkflow = scope === "team" || (scope === "system" && systemWorkflowsEnabled);
