@@ -17,10 +17,23 @@
 }
 
 .s-switch-customvalue-desc {
+  color: #121619;
   font-size: 0.875rem;
+  letter-spacing: 0.01rem;
+  line-height: 1.25rem;
+  margin-bottom: 0.5rem;
   margin-top: 0.5rem;
 }
 
 .s-switch-customvalue-wildcard {
   padding-top: 0.5rem;
+}
+
+.s-switch-customvalue-tips-header {
+  margin-bottom: 0.1rem;
+}
+
+.s-switch-customvalue-wildcard-section {
+  display: flex;
+  align-items: center;
 }
