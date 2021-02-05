@@ -8,10 +8,11 @@ import TaskApprovalModal from "./TaskApprovalModal";
 import TaskExecutionLog from "./TaskExecutionLog";
 import moment from "moment";
 import dateHelper from "Utils/dateHelper";
-import { ApprovalStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
+import { ApprovalStatus, ExecutionStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
 import styles from "./taskItem.module.scss";
 
 const logTaskTypes = ["customtask", "template"];
+const logStatusTypes = [ExecutionStatus.Completed, ExecutionStatus.Failure, ExecutionStatus.InProgress];
 
 TaskItem.propTypes = {
   flowActivityId: PropTypes.string.isRequired,
@@ -62,7 +63,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
       </section>
       {!hidden && (
         <section className={styles.data}>
-          {logTaskTypes.includes(taskType) && (
+          {logTaskTypes.includes(taskType) && logStatusTypes.includes(flowTaskStatus) && (
             <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
           )}
           {outputs && Object.keys(outputs).length > 0 && (
