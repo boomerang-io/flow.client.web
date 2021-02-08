@@ -67,7 +67,7 @@ class ConfigureSwitchModal extends React.Component {
                   <p className="s-switch-customvalue-tips-header">Tips:</p>
                   <div className="s-switch-customvalue-wildcard-section">
                     <CodeSnippet type="inline" hideCopyButton>
-                      *
+                      .*
                     </CodeSnippet>
                     <p className="s-switch-customvalue-wildcard">can be used as a wildcard.</p>
                   </div>
