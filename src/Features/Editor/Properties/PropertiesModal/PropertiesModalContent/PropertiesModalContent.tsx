@@ -241,6 +241,7 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
       >
         {(formikProps) => {
           const {
+            dirty,
             values,
             touched,
             errors,
@@ -250,7 +251,6 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
             setFieldValue,
             isValid,
           } = formikProps;
-
           return (
             <ModalFlowForm onSubmit={handleSubmit} disabled={isLoading}>
               <ModalBody aria-label="inputs" className={styles.container}>
@@ -328,7 +328,11 @@ class PropertiesModalContent extends Component<PropertiesModalContentProps> {
                 <Button kind="secondary" onClick={this.props.closeModal} type="button">
                   Cancel
                 </Button>
-                <Button disabled={!isValid || isLoading} type="submit" data-testid="parameter-modal-confirm-button">
+                <Button
+                  disabled={!isValid || !dirty || isLoading}
+                  type="submit"
+                  data-testid="parameter-modal-confirm-button"
+                >
                   {isEdit ? (isLoading ? "Saving..." : "Save") : isLoading ? "Creating..." : "Create"}
                 </Button>
               </ModalFooter>

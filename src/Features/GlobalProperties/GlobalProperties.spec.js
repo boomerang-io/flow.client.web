@@ -19,7 +19,7 @@ afterEach(() => {
 describe("GlobalPropertiesContainer --- Snapshot Test", () => {
   it("Capturing Snapshot of GlobalPropertiesContainer", async () => {
     const { baseElement, findByText } = rtlRender(<GlobalPropertiesContainer />);
-    await findByText(/Set global properties that are available for all Workflows/i);
+    await findByText(/Set global parameters that are available for all Workflows/i);
 
     expect(baseElement).toMatchSnapshot();
   });
@@ -28,7 +28,7 @@ describe("GlobalPropertiesContainer --- Snapshot Test", () => {
 describe("GlobalPropertiesContainer --- RTL", () => {
   it("rtlRender the table and search correctly", async () => {
     const { findByText, getByPlaceholderText, queryAllByText } = rtlRender(<GlobalPropertiesContainer />);
-    await findByText(/Set global properties that are available for all Workflows/i);
+    await findByText(/Set global parameters that are available for all Workflows/i);
     expect(queryAllByText(/Test parameter/i).length).toBe(1);
     const searchProperty = getByPlaceholderText(/Search/i);
     act(() => {
@@ -43,7 +43,7 @@ describe("GlobalPropertiesContainer --- RTL", () => {
 
   it("Opens create parameter modal", async () => {
     const { getByTestId, queryByText, findByText } = rtlRender(<GlobalPropertiesContainer />);
-    await findByText(/Set global properties that are available for all Workflows/i);
+    await findByText(/Set global parameters that are available for all Workflows/i);
 
     expect(queryByText(/CREATE parameter/)).not.toBeInTheDocument();
 
@@ -57,7 +57,7 @@ describe("GlobalPropertiesContainer --- RTL", () => {
 
   it("Opens edit parameter modal", async () => {
     const { findByText, queryByText, getAllByTestId } = rtlRender(<GlobalPropertiesContainer />);
-    await findByText(/Set global properties that are available for all Workflows/i);
+    await findByText(/Set global parameters that are available for all Workflows/i);
     expect(queryByText(/EDIT TEST RTL/i)).not.toBeInTheDocument();
     act(() => {
       fireEvent.mouseOver(getAllByTestId("configuration-parameter-table-row")[0]);
@@ -75,7 +75,7 @@ describe("GlobalPropertiesContainer --- RTL", () => {
 
   it("Opens delete parameter modal", async () => {
     const { findByText, queryByText, getAllByTestId } = rtlRender(<GlobalPropertiesContainer />);
-    await findByText(/Set global properties that are available for all Workflows/i);
+    await findByText(/Set global parameters that are available for all Workflows/i);
     expect(queryByText(/DELETE TEST RTL/i)).not.toBeInTheDocument();
     act(() => {
       fireEvent.mouseOver(getAllByTestId("configuration-parameter-table-row")[0]);

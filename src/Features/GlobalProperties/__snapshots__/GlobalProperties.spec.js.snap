@@ -20,12 +20,12 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
             <h1
               class="bx--bmrg-feature-header-title headerTitle"
             >
-              Properties
+              Parameters
             </h1>
             <p
               class="bx--bmrg-feature-header-title"
             >
-              Set global properties that are available for all Workflows
+              Set global parameters that are available for all Workflows
             </p>
           </div>
         </section>
@@ -37,7 +37,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
           class="tableHeader"
         >
           <div
-            aria-labelledby="properties-table-search-search"
+            aria-labelledby="parameters-table-search-search"
             class="bx--search bx--search--xl search"
             role="search"
           >
@@ -58,15 +58,15 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
             </svg>
             <label
               class="bx--label"
-              for="properties-table-search"
-              id="properties-table-search-search"
+              for="parameters-table-search"
+              id="parameters-table-search-search"
             >
               Search
             </label>
             <input
               autocomplete="off"
               class="bx--search-input"
-              id="properties-table-search"
+              id="parameters-table-search"
               placeholder="Search"
               role="searchbox"
               type="text"
@@ -97,15 +97,15 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
           >
             <button
               class="bx--btn bx--btn--field bx--btn--primary"
-              data-testid="create-global-property-button"
+              data-testid="create-global-parameter-button"
               style="width: 12rem;"
               tabindex="0"
               type="button"
             >
-              Create Property
+              Create Parameter
               <svg
                 aria-hidden="true"
-                aria-label="Create Property"
+                aria-label="Create Parameter"
                 class="bx--btn__icon"
                 fill="currentColor"
                 focusable="false"
@@ -167,7 +167,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                            d="M16 4L6 14 7.41 15.41 15 7.83 15 28 17 28 17 7.83 24.59 15.41 26 14 16 4z"
                           />
                         </svg>
                         <svg
@@ -220,7 +220,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                            d="M16 4L6 14 7.41 15.41 15 7.83 15 28 17 28 17 7.83 24.59 15.41 26 14 16 4z"
                           />
                         </svg>
                         <svg
@@ -273,7 +273,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                            d="M16 4L6 14 7.41 15.41 15 7.83 15 28 17 28 17 7.83 24.59 15.41 26 14 16 4z"
                           />
                         </svg>
                         <svg
@@ -326,7 +326,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                            d="M16 4L6 14 7.41 15.41 15 7.83 15 28 17 28 17 7.83 24.59 15.41 26 14 16 4z"
                           />
                         </svg>
                         <svg
@@ -379,7 +379,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            d="M16 4L6 14 7.41 15.41 15 7.83 15 30 17 30 17 7.83 24.59 15.41 26 14 16 4z"
+                            d="M16 4L6 14 7.41 15.41 15 7.83 15 28 17 28 17 7.83 24.59 15.41 26 14 16 4z"
                           />
                         </svg>
                         <svg
@@ -413,7 +413,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                 class="tableBody"
               >
                 <tr
-                  data-testid="configuration-property-table-row"
+                  data-testid="configuration-parameter-table-row"
                 >
                   <td>
                     <div
@@ -422,7 +422,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                       <p
                         class="tableTextarea"
                       >
-                        Test property
+                        Test parameter
                       </p>
                     </div>
                   </td>
@@ -490,7 +490,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                         aria-haspopup="true"
                         aria-label="Overflow menu"
                         class="bx--overflow-menu"
-                        data-testid="configuration-property-table-overflow-menu"
+                        data-testid="configuration-parameter-table-overflow-menu"
                         tabindex="0"
                         type="button"
                       >
@@ -530,7 +530,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                   </td>
                 </tr>
                 <tr
-                  data-testid="configuration-property-table-row"
+                  data-testid="configuration-parameter-table-row"
                 >
                   <td>
                     <div
@@ -607,7 +607,7 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                         aria-haspopup="true"
                         aria-label="Overflow menu"
                         class="bx--overflow-menu"
-                        data-testid="configuration-property-table-overflow-menu"
+                        data-testid="configuration-parameter-table-overflow-menu"
                         tabindex="0"
                         type="button"
                       >

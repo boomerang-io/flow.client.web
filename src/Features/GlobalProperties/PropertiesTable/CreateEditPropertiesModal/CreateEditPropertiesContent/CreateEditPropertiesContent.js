@@ -120,7 +120,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
             {loading && <Loading />}
             <ModalBody aria-label="inputs">
               <TextInput
-                data-testid="create-property-key"
+                data-testid="create-parameter-key"
                 id="key"
                 labelText="Key"
                 name="key"
@@ -131,7 +131,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 invalidText={errors.key}
               />
               <TextInput
-                data-testid="create-property-label"
+                data-testid="create-parameter-label"
                 id="label"
                 labelText="Label"
                 name="label"
@@ -142,7 +142,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 invalidText={errors.label}
               />
               <TextInput
-                data-testid="create-property-description"
+                data-testid="create-parameter-description"
                 id="description"
                 labelText="Description"
                 name="description"
@@ -151,7 +151,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
                 onChange={handleChange}
               />
               <TextInput
-                data-testid="create-property-value"
+                data-testid="create-parameter-value"
                 id="value"
                 labelText="Value"
                 placeholder="Value"
@@ -198,7 +198,7 @@ function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKey
               <Button
                 type="submit"
                 disabled={!isValid || loading}
-                data-testid="global-property-create-submission-button"
+                data-testid="global-parameter-create-submission-button"
               >
                 {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating..." : "Create"}
               </Button>

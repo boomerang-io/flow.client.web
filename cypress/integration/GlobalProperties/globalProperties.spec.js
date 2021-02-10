@@ -22,21 +22,21 @@ describe("Global parameters", function () {
     cy.findByText("adding a test description").should("be.visible");
   });
 
-  it("Create a team parameter", function () {
+  it("Create a Global parameter", function () {
     cy.get("[data-testid=create-global-parameter-button]").click();
-    cy.get("[data-testid=create-parameter-key]").type("new.key");
+    cy.get("[data-testid=create-parameter-key]").type("newKey");
     cy.get("[data-testid=create-parameter-label]").type("new label");
     cy.get("[data-testid=create-parameter-description]").type("new description");
     cy.get("[data-testid=create-parameter-value]").type("new value");
     cy.get("[data-testid=global-parameter-create-submission-button]").click();
     cy.wait(1000);
     cy.findByText("new label").should("be.visible");
-    cy.findByText("new.key").should("be.visible");
+    cy.findByText("newKey").should("be.visible");
     cy.findByText("new description").should("be.visible");
     cy.findByText("new value").should("be.visible");
   });
 
-  it("Delete a team Parameter", function () {
+  it("Delete a Global Parameter", function () {
     cy.get("[data-testid=configuration-parameter-table-overflow-menu]").eq(0).click();
     cy.contains("Delete").click();
     cy.get(".bx--btn--danger").click();

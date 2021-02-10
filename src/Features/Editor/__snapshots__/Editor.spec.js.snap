@@ -1669,12 +1669,87 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                   <div
                     class="bx--accordion__title"
                   >
-                    utilities (4)
+                    test (1)
                   </div>
                 </button>
                 <div
                   class="bx--accordion__content"
                   id="accordion-item-7"
+                >
+                  <ul
+                    class="taskSection"
+                  >
+                    <li>
+                      <div
+                        aria-selected="false"
+                        class="bx--tile container"
+                        draggable="true"
+                        role="option"
+                        tabindex="0"
+                      >
+                        <svg
+                          alt="Task node type validate"
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M14 20.18L10.41 16.59 9 18 14 23 23 14 21.59 12.58 14 20.18z"
+                          />
+                          <path
+                            d="M25,5H22V4a2,2,0,0,0-2-2H12a2,2,0,0,0-2,2V5H7A2,2,0,0,0,5,7V28a2,2,0,0,0,2,2H25a2,2,0,0,0,2-2V7A2,2,0,0,0,25,5ZM12,4h8V8H12ZM25,28H7V7h3v3H22V7h3Z"
+                          />
+                        </svg>
+                        <p
+                          class="taskName"
+                        >
+                           
+                          TestInput
+                           
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li
+                class="bx--accordion__item"
+              >
+                <button
+                  aria-controls="accordion-item-8"
+                  class="bx--accordion__heading"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="bx--accordion__arrow"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                    />
+                  </svg>
+                  <div
+                    class="bx--accordion__title"
+                  >
+                    utilities (4)
+                  </div>
+                </button>
+                <div
+                  class="bx--accordion__content"
+                  id="accordion-item-8"
                 >
                   <ul
                     class="taskSection"
@@ -1885,7 +1960,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item bx--accordion__item--active"
               >
                 <button
-                  aria-controls="accordion-item-8"
+                  aria-controls="accordion-item-9"
                   aria-expanded="true"
                   class="bx--accordion__heading"
                   type="button"
@@ -1913,7 +1988,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-8"
+                  id="accordion-item-9"
                 >
                   <ul
                     class="taskSection"
@@ -2014,45 +2089,6 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         </svg>
                       </div>
                     </li>
-                  </ul>
-                </div>
-              </li>
-              <li
-                class="bx--accordion__item"
-              >
-                <button
-                  aria-controls="accordion-item-8"
-                  class="bx--accordion__heading"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="bx--accordion__arrow"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                    />
-                  </svg>
-                  <div
-                    class="bx--accordion__title"
-                  >
-                    test (1)
-                  </div>
-                </button>
-                <div
-                  class="bx--accordion__content"
-                  id="accordion-item-8"
-                >
-                  <ul
-                    class="taskSection"
-                  >
                     <li>
                       <div
                         aria-selected="false"
@@ -2062,82 +2098,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         tabindex="0"
                       >
                         <svg
-                          alt="Task node type validate"
-                          aria-hidden="true"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M14 20.18L10.41 16.59 9 18 14 23 23 14 21.59 12.58 14 20.18z"
-                          />
-                          <path
-                            d="M25,5H22V4a2,2,0,0,0-2-2H12a2,2,0,0,0-2,2V5H7A2,2,0,0,0,5,7V28a2,2,0,0,0,2,2H25a2,2,0,0,0,2-2V7A2,2,0,0,0,25,5ZM12,4h8V8H12ZM25,28H7V7h3v3H22V7h3Z"
-                          />
-                        </svg>
-                        <p
-                          class="taskName"
-                        >
-                           
-                          TestInput
-                           
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li
-                class="bx--accordion__item"
-              >
-                <button
-                  aria-controls="accordion-item-9"
-                  class="bx--accordion__heading"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="bx--accordion__arrow"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                    />
-                  </svg>
-                  <div
-                    class="bx--accordion__title"
-                  >
-                    utilities (4)
-                  </div>
-                </button>
-                <div
-                  class="bx--accordion__content"
-                  id="accordion-item-9"
-                >
-                  <ul
-                    class="taskSection"
-                  >
-                    <li>
-                      <div
-                        aria-selected="false"
-                        class="bx--tile container"
-                        draggable="true"
-                        role="option"
-                        tabindex="0"
-                      >
-                        <svg
-                          alt="Task node type API/HTTP call"
+                          alt="Task node type code"
                           aria-hidden="true"
                           fill="currentColor"
                           focusable="false"

@@ -13,7 +13,7 @@ afterEach(() => {
 
 describe("Team Parameters", function () {
   beforeEach(() => {
-    cy.visit(appLink.teamparameters());
+    cy.visit(appLink.teamProperties());
   });
 
   it("Filter by team and find parameters", function () {
@@ -28,14 +28,14 @@ describe("Team Parameters", function () {
     cy.get("[data-testid=team-parameters-combobox]").click();
     cy.contains("IBM Services Engineering").click();
     cy.get("[data-testid=create-team-parameter-button]").click();
-    cy.findByLabelText("Key").type("new.key");
+    cy.findByLabelText("Key").type("newKey");
     cy.findByLabelText("Label").type("new label");
     cy.findByLabelText("Description").type("new description");
     cy.findByLabelText("Value").type("new value");
     cy.get("[data-testid=team-parameter-create-edit-submission-button]").click();
     cy.wait(1000);
     cy.findByText("new label").should("be.visible");
-    cy.findByText("new.key").should("be.visible");
+    cy.findByText("newKey").should("be.visible");
     cy.findByText("new description").should("be.visible");
     cy.findByText("new value").should("be.visible");
   });

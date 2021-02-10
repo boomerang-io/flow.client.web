@@ -9,7 +9,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
       class="container"
     >
       <a
-        href="/teams/undefined/editor/undefined/workflow"
+        href="/editor/undefined/workflow"
       >
         <section
           class="details"
@@ -51,8 +51,7 @@ exports[`WorkflowCard --- Snapshot Capturing Snapshot of WorkflowCard 1`] = `
         class="launch"
       >
         <button
-          class="bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
-          disabled=""
+          class="bx--btn bx--btn--field bx--btn--primary"
           tabindex="0"
           type="button"
         >

@@ -1,7 +1,8 @@
 import React from "react";
 import { queryCaches } from "react-query";
 import { startApiServer } from "ApiServer";
-import { teams } from "ApiServer/fixtures";
+import { teams, profile } from "ApiServer/fixtures";
+import { AppContextProvider } from "State/context";
 import WorkflowCard from "./index";
 
 const props = {
@@ -23,7 +24,18 @@ afterEach(() => {
 
 describe("WorkflowCard --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowCard", () => {
-    const { baseElement } = rtlRouterRender(<WorkflowCard {...props} />);
+    const { baseElement } = rtlRouterRender(
+      <AppContextProvider
+        value={{
+          isTutorialActive: false,
+          setIsTutorialActive: () => {},
+          user: profile,
+          teams,
+        }}
+      >
+        <WorkflowCard {...props} />
+      </AppContextProvider>
+    );
     expect(baseElement).toMatchSnapshot();
   });
 });
