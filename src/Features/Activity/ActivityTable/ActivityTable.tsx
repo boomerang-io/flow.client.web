@@ -83,6 +83,12 @@ function renderCell(headerList, cellIndex, value) {
           <p className={styles.statusText}>{ExecutionStatusCopy[value ? value : "notstarted"]}</p>
         </div>
       );
+    case "scope":
+      return (
+        <p className={styles.tableTextarea} style={{ textTransform: "capitalize" }}>
+          {value || "---"}
+        </p>
+      );
     default:
       return <p className={styles.tableTextarea}>{value || "---"}</p>;
   }
