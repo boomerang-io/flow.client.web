@@ -15,6 +15,7 @@ export const [useAppContext, AppContextProvider] = createContext<AppContext>();
 
 type AppContext = {
   isTutorialActive: boolean;
+  communityUrl: string;
   setIsTutorialActive: (isActive: boolean) => void;
   user: FlowUser;
   teams: FlowTeam[];

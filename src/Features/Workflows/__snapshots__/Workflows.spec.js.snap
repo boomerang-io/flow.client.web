@@ -68,12 +68,12 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
         <h1
           class="title"
         >
-          Welcome to Flow
+          Welcome to your Workflows
         </h1>
         <p
           class="subtitle"
         >
-          Your new favorite tool
+          Turn ideation into Automation
         </p>
         <div
           class="buttons"

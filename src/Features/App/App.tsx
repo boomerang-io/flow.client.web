@@ -165,6 +165,7 @@ export default function App() {
         <ErrorBoundary>
           <Main
             isTutorialActive={isTutorialActive}
+            platformNavigationData={navigationQuery.data}
             setIsTutorialActive={setIsTutorialActive}
             setShouldShowBrowserWarning={setShouldShowBrowserWarning}
             shouldShowBrowserWarning={shouldShowBrowserWarning}
@@ -180,6 +181,7 @@ export default function App() {
 
 interface MainProps {
   isTutorialActive: boolean;
+  platformNavigationData: { platform: { communityUrl: string } };
   setIsTutorialActive: (isTutorialActive: boolean) => void;
   setShouldShowBrowserWarning: (shouldShowBrowserWarning: boolean) => void;
   shouldShowBrowserWarning: boolean;
@@ -189,6 +191,7 @@ interface MainProps {
 
 function Main({
   isTutorialActive,
+  platformNavigationData,
   setIsTutorialActive,
   setShouldShowBrowserWarning,
   shouldShowBrowserWarning,
@@ -210,6 +213,7 @@ function Main({
     <AppContextProvider
       value={{
         isTutorialActive,
+        communityUrl: platformNavigationData?.platform?.communityUrl ?? "",
         setIsTutorialActive,
         user: userData,
         teams: teamsData,

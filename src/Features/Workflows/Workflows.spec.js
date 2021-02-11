@@ -2,6 +2,8 @@ import React from "react";
 import WorkflowsHome from "./index";
 import { startApiServer } from "ApiServer";
 import { queryCaches } from "react-query";
+import { teams, profile } from "ApiServer/fixtures";
+import { AppContextProvider } from "State/context";
 
 jest.mock("@boomerang-io/carbon-addons-boomerang-react", () => ({
   ...jest.requireActual("@boomerang-io/carbon-addons-boomerang-react"),
@@ -38,7 +40,19 @@ afterEach(() => {
 
 describe("WorkflowsHome --- Snapshot", () => {
   it("Capturing Snapshot of WorkflowsHome", () => {
-    const { baseElement } = rtlContextRouterRender(<WorkflowsHome {...props} />);
+    const { baseElement } = rtlContextRouterRender(
+      <AppContextProvider
+        value={{
+          isTutorialActive: false,
+          communityUrl: "www.ibm.com",
+          setIsTutorialActive: () => {},
+          user: profile,
+          teams,
+        }}
+      >
+        <WorkflowsHome {...props} />
+      </AppContextProvider>
+    );
     expect(baseElement).toMatchSnapshot();
   });
 });
