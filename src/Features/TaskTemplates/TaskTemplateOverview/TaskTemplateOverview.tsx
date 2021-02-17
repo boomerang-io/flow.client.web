@@ -1,6 +1,5 @@
 //@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { Formik } from "formik";
 import axios from "axios";
@@ -29,7 +28,7 @@ import { taskIcons } from "Utils/taskIcons";
 import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
 import { Draggable16, TrashCan16, Archive16, Bee16, Recommend16, Identification16 } from "@carbon/icons-react";
-import { DataDrivenInput } from "Types";
+import { DataDrivenInput, TaskModel } from "Types";
 import styles from "./taskTemplateOverview.module.scss";
 
 const ArchiveText: React.FC = () => (
@@ -147,13 +146,17 @@ const Field: React.FC<FieldProps> = ({
   );
 };
 
-TaskTemplateOverview.propTypes = {
-  taskTemplates: PropTypes.array.isRequired,
-  updateTemplateInState: PropTypes.func.isRequired,
-  editVerifiedTasksEnabled: PropTypes.bool.isRequired,
+type TaskTemplateOverviewProps = {
+  taskTemplates: any[];
+  updateTemplateInState: (args: TaskModel) => void;
+  editVerifiedTasksEnabled: any;
 };
 
-export function TaskTemplateOverview({ taskTemplates, updateTemplateInState, editVerifiedTasksEnabled }) {
+export function TaskTemplateOverview({
+  taskTemplates,
+  updateTemplateInState,
+  editVerifiedTasksEnabled,
+}: TaskTemplateOverviewProps) {
   const cancelRequestRef = React.useRef();
 
   const params = useParams();

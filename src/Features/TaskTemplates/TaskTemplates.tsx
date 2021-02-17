@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { useFeature } from "flagged";
 import { useQuery } from "Hooks";
 import { queryCache } from "react-query";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
@@ -11,20 +12,22 @@ import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
 import orderBy from "lodash/orderBy";
 import { TaskModel } from "Types";
-import { AppPath, appLink } from "Config/appConfig";
+import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-import { stringToBooleanHelper } from "Utils/stringHelper";
+// import { stringToBooleanHelper } from "Utils/stringHelper";
 import styles from "./taskTemplates.module.scss";
 
-const settingsWorkersName = "Workers";
+// const settingsWorkersName = "Workers";
 
 const TaskTemplatesContainer: React.FC = () => {
   const match = useRouteMatch();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
   const platformSettingsUrl = serviceUrl.resourceSettings();
+  const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
 
-  const { data: settingsData, error: settingsError, isLoading: settingsIsLoading } = useQuery(platformSettingsUrl);
+  // const { data: settingsData, error: settingsError, isLoading: settingsIsLoading } = useQuery(platformSettingsUrl);
+  const { error: settingsError, isLoading: settingsIsLoading } = useQuery(platformSettingsUrl);
 
   const addTemplateInState = (newTemplate: TaskModel) => {
     const updatedTemplatesData = [...taskTemplatesData];
@@ -53,11 +56,12 @@ const TaskTemplatesContainer: React.FC = () => {
     );
   }
 
-  const editVerifiedTasksEnabled = stringToBooleanHelper(
-    settingsData
-      .find((arr: any) => arr.name === settingsWorkersName)
-      ?.config?.find((setting: { key: string }) => setting.key === "enable.tasks").value ?? false
-  );
+  // const editVerifiedTasksEnabled = stringToBooleanHelper(
+  //   settingsData
+  //     .find((arr: any) => arr.name === settingsWorkersName)
+  //     ?.config?.find((setting: { key: string }) => setting.key === "enable.tasks").value ?? false
+  // );
+
   return (
     <div className={styles.container}>
       <Helmet>
