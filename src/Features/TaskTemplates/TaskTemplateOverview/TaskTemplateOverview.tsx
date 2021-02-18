@@ -41,9 +41,6 @@ const ArchiveText: React.FC = () => (
       here. The task will remain functional in any existing Workflows to avoid breakage.
     </p>
     <p className={styles.confirmModalText}>You can restore an archived task later, if needed.</p>
-    <p className={styles.confirmModalText}>
-      If you need to permanently delete a task, contact a Boomerang Admin to help (bmrgjoe@bmrg.com).
-    </p>
   </>
 );
 
