@@ -47,7 +47,7 @@
     "detect-browser": "^4.0.3",
     "flagged": "^2.0.1",
     "formik": "^2.1.4",
-    "immer": "^6.0.5",
+    "immer": "^8.0.1",
     "js-file-download": "^0.4.4",
     "match-sorter": "^2.3.0",
     "moment-timezone": "^0.5.23",
