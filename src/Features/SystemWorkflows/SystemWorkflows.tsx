@@ -5,9 +5,9 @@ import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import EmptyState from "Components/EmptyState";
 import ErrorDragon from "Components/ErrorDragon";
 
-import CreateWorkflow from "../../Components/CreateWorkflow";
-import WorkflowsHeader from "../../Components/WorkflowsHeader";
-import WorkflowCard from "../../Components/WorkflowCard";
+import CreateWorkflow from "Components/CreateWorkflow";
+import WorkflowsHeader from "Components/WorkflowsHeader";
+import WorkflowCard from "Components/WorkflowCard";
 import queryString from "query-string";
 import { serviceUrl } from "Config/servicesConfig";
 import { WorkflowSummary } from "Types";
