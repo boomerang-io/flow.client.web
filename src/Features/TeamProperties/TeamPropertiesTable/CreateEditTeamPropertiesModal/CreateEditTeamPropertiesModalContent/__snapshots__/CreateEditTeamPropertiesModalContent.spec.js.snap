@@ -171,8 +171,8 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
             >
               <label
                 class="bx--label"
-                for="secured-team-properties-toggle"
-                id="secured-team-properties-toggle-label"
+                for="secured-team-parameters-toggle"
+                id="secured-team-parameters-toggle-label"
                 style="margin-bottom: 0px;"
               >
                 Secured
@@ -182,17 +182,17 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
               class="bx--form-item"
             >
               <input
-                aria-labelledby="secured-team-properties-toggle-label"
+                aria-labelledby="secured-team-parameters-toggle-label"
                 class="bx--toggle-input"
-                data-testid="secured-team-properties-toggle"
-                id="secured-team-properties-toggle"
+                data-testid="secured-team-parameters-toggle"
+                id="secured-team-parameters-toggle"
                 name="secured"
                 type="checkbox"
               />
               <label
                 aria-label="Toggle"
                 class="bx--toggle-input__label"
-                for="secured-team-properties-toggle"
+                for="secured-team-parameters-toggle"
               >
                 <span
                   class="bx--toggle__switch"
@@ -223,7 +223,7 @@ exports[`CreateEditTeamPropertiesModalContent --- Snapshot Test Capturing Snapsh
         </button>
         <button
           class="bx--btn bx--btn--primary"
-          data-testid="team-property-create-edit-submission-button"
+          data-testid="team-parameter-create-edit-submission-button"
           tabindex="0"
           type="submit"
         >

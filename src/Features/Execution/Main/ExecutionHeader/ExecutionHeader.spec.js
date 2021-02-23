@@ -1,9 +1,11 @@
 import React from "react";
 import ExecutionHeader from "./index";
 import { queryCaches } from "react-query";
-
+import { teams, profile } from "ApiServer/fixtures";
+import { AppContextProvider } from "State/context";
 const props = {
   workflowExecution: {
+    version: 1,
     status: "success",
     data: {
       teamName: "CAI Offerings",
@@ -26,7 +28,18 @@ afterEach(() => {
 
 describe("ExecutionHeader --- Snapshot", () => {
   it("Capturing Snapshot of ExecutionHeader", () => {
-    const { baseElement } = rtlRouterRender(<ExecutionHeader {...props} />);
+    const { baseElement } = rtlRouterRender(
+      <AppContextProvider
+        value={{
+          isTutorialActive: false,
+          setIsTutorialActive: () => {},
+          user: profile,
+          teams,
+        }}
+      >
+        <ExecutionHeader {...props} />
+      </AppContextProvider>
+    );
     expect(baseElement).toMatchSnapshot();
   });
 });

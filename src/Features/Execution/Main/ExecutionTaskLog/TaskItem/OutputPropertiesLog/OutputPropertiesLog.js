@@ -25,12 +25,12 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }) {
         children: "Your changes will not be saved",
       }}
       modalHeaderProps={{
-        title: "Output Properties",
+        title: "Output Parameters",
         label: `${flowTaskName}`,
       }}
       modalTrigger={({ openModal }) => (
         <Button kind="ghost" size="small" onClick={openModal}>
-          View Properties
+          View Parameters
         </Button>
       )}
     >

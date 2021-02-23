@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 import cx from "classnames";
 import moment from "moment";
 import queryString from "query-string";
@@ -221,6 +222,9 @@ export default function WorkflowInsights(location) {
 
   return (
     <>
+      <Helmet>
+        <title>Insights</title>
+      </Helmet>
       <InsightsHeader />
       <div className={styles.container}>{renderWidgets({ teamsList, workflowsFilter })}</div>
     </>

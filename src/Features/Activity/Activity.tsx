@@ -1,17 +1,19 @@
 //@ts-nocheck
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useAppContext, useQuery } from "Hooks";
 import { useHistory, useLocation, useRouteMatch } from "react-router-dom";
-import { Error, MultiSelect as Select, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Error, Loading, MultiSelect as Select, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
 import { DatePicker, DatePickerInput } from "carbon-components-react";
 import ActivityHeader from "./ActivityHeader";
 import ActivityTable from "./ActivityTable";
 import moment from "moment";
 import queryString from "query-string";
 import { sortByProp } from "@boomerang-io/utils";
+import ErrorDragon from "Components/ErrorDragon";
 import { queryStringOptions } from "Config/appConfig";
-import { serviceUrl } from "Config/servicesConfig";
-import { executionStatusList, QueryStatus } from "Constants";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { executionStatusList, QueryStatus, allowedUserRoles } from "Constants";
 import { executionOptions } from "Constants/filterOptions";
 import styles from "./Activity.module.scss";
 
@@ -28,10 +30,13 @@ const activitySummaryQuery = queryString.stringify({
 });
 
 function WorkflowActivity() {
-  const { teams: teamsState } = useAppContext();
+  const { teams: teamsState, user } = useAppContext();
   const history = useHistory();
   const location = useLocation();
   const match = useRouteMatch();
+
+  const { type: platformRole }: { type: string } = user;
+  const systemWorkflowsEnabled = allowedUserRoles.includes(platformRole);
 
   const {
     order = DEFAULT_ORDER,
@@ -81,6 +86,23 @@ function WorkflowActivity() {
   const activitySummaryState = useQuery(activitySummaryUrl);
   const activityStatusSummaryState = useQuery(activityStatusSummaryUrl);
   const activityState = useQuery(activityUrl);
+
+  const systemUrl = serviceUrl.getSystemWorkflows();
+
+  const {
+    data: systemWorkflowsData,
+    isLoading: systemWorkflowsIsLoading,
+    error: SystemWorkflowsError,
+  } = useQuery(systemUrl, resolver.query(systemUrl), { enabled: systemWorkflowsEnabled });
+
+  if (systemWorkflowsIsLoading) {
+    return <Loading />;
+  }
+
+  if (SystemWorkflowsError) {
+    return <ErrorDragon />;
+  }
+
   /**** End get some data ****/
 
   /** Start input handlers */
@@ -143,20 +165,21 @@ function WorkflowActivity() {
     return;
   }
 
-  function getWorkflowFilter(teamsData, selectedTeams) {
+  function getWorkflowFilter(teamsData, selectedTeams, systemWorkflowsData = []) {
     let workflowsList = [];
-    if (!selectedTeams.length) {
+    if (!selectedTeams.length && teamsData) {
       workflowsList = teamsData.reduce((acc, team) => {
         acc.push(...team.workflows);
         return acc;
       }, []);
-    } else {
+    } else if (selectedTeams) {
       workflowsList = selectedTeams.reduce((acc, team) => {
         acc.push(...team.workflows);
         return acc;
       }, []);
     }
-    let workflowsFilter = sortByProp(workflowsList, "name", "ASC");
+    let concatWorkflows = workflowsList.concat(systemWorkflowsData);
+    let workflowsFilter = sortByProp(concatWorkflows, "name", "ASC");
     return workflowsFilter;
   }
 
@@ -182,7 +205,7 @@ function WorkflowActivity() {
     );
   }
 
-  if (teamsState) {
+  if (teamsState || systemWorkflowsData) {
     const { workflowIds = "", triggers = "", statuses = "", teamIds = "" } = queryString.parse(
       location.search,
       queryStringOptions
@@ -194,17 +217,19 @@ function WorkflowActivity() {
     const selectedStatuses = typeof statuses === "string" ? [statuses] : statuses;
     const statusIndex = executionStatusList.indexOf(selectedStatuses[0]);
 
-    const teamsData = JSON.parse(JSON.stringify(teamsState));
+    const teamsData = teamsState && JSON.parse(JSON.stringify(teamsState));
 
-    const selectedTeams = teamsData.filter((team) => {
-      if (selectedTeamIds.find((id) => id === team.id)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    const selectedTeams =
+      teamsState &&
+      teamsData.filter((team) => {
+        if (selectedTeamIds.find((id) => id === team.id)) {
+          return true;
+        } else {
+          return false;
+        }
+      });
 
-    const workflowsFilter = getWorkflowFilter(teamsData, selectedTeams);
+    const workflowsFilter = getWorkflowFilter(teamsData, selectedTeams, systemWorkflowsData);
     const { data: statusWorkflowSummary, status: statusSummaryStatus } = activityStatusSummaryState;
     const maxDate = moment().format("MM/DD/YYYY");
 
@@ -212,6 +237,9 @@ function WorkflowActivity() {
 
     return (
       <div className={styles.container}>
+        <Helmet>
+          <title>Activity</title>
+        </Helmet>
         <ActivityHeader
           inProgressActivities={activitySummaryState.data?.inProgress ?? 0}
           isLoading={activitySummaryState.status === QueryStatus.Loading}
@@ -322,6 +350,7 @@ function WorkflowActivity() {
             isLoading={activityState.status === QueryStatus.Loading}
             location={location}
             match={match}
+            systemWorkflowsEnabled={systemWorkflowsEnabled}
             tableData={activityState.data}
             updateHistorySearch={updateHistorySearch}
           />

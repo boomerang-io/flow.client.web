@@ -215,7 +215,7 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               <time
                 class="timeValue"
               >
-                5 minutes
+                5 mins
               </time>
             </div>
           </section>
@@ -227,7 +227,7 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               tabindex="0"
               type="button"
             >
-              View Properties
+              View Parameters
             </button>
           </section>
         </li>
@@ -324,7 +324,7 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               <time
                 class="timeValue"
               >
-                5 minutes
+                5 mins
               </time>
             </div>
           </section>
@@ -336,7 +336,7 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
               tabindex="0"
               type="button"
             >
-              View Properties
+              View Parameters
             </button>
           </section>
         </li>

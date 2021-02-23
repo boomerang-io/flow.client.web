@@ -43,13 +43,13 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
                   readonly=""
                   title=".e.g. token"
                   type="text"
-                  value="tim.property"
+                  value="tim-property"
                 />
               </div>
               <div
                 class="bx--form__helper-text"
               >
-                Reference value for property in workflow. It can't be changed after property creation.
+                Reference value for parameter in workflow. It can't be changed after parameter creation.
               </div>
             </div>
           </div>
@@ -360,8 +360,9 @@ exports[`Inputs --- Snapshot Test Capturing Snapshot of Inputs 1`] = `
           Cancel
         </button>
         <button
-          class="bx--btn bx--btn--primary"
-          data-testid="property-modal-confirm-button"
+          class="bx--btn bx--btn--primary bx--btn--disabled"
+          data-testid="parameter-modal-confirm-button"
+          disabled=""
           tabindex="0"
           type="submit"
         >

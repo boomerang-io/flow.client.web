@@ -23,6 +23,9 @@ import ManualApprovalNodeModel from "Utils/dag/manualApprovalNode/ManualApproval
 import ManualTaskNodeModel from "Utils/dag/manualTaskNode/ManualTaskNodeModel";
 import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel";
 import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
+import AcquireLockNodeModel from "Utils/dag/acquireLockNode/AcquireLockNodeModel";
+import ReleaseLockNodeModel from "Utils/dag/releaseLockNode/ReleaseLockNodeModel";
+
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
 import { NodeType, WorkflowDagEngineMode } from "Constants";
@@ -38,6 +41,7 @@ export default function EditorContainer() {
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
+  const getAvailableParametersUrl = serviceUrl.getWorkflowAvailableParameters({ workflowId });
 
   /**
    * Queries
@@ -45,6 +49,8 @@ export default function EditorContainer() {
   const summaryQuery = useQuery(getSummaryUrl);
   const revisionQuery = useQuery(getRevisionUrl, { refetchOnWindowFocus: false });
   const taskTemplatesQuery = useQuery(getTaskTemplatesUrl);
+
+  const availableParametersQuery = useQuery(getAvailableParametersUrl);
 
   /**
    * Mutations
@@ -61,19 +67,20 @@ export default function EditorContainer() {
 
   // Only show loading for the summary and task templates
   // Revision takes longer and we want to show a separate loading animation for it, plus prevent remounting everything
-  if (summaryQuery.isLoading || taskTemplatesQuery.isLoading) {
+  if (summaryQuery.isLoading || taskTemplatesQuery.isLoading || availableParametersQuery.isLoading) {
     return <Loading />;
   }
 
-  if (summaryQuery.error || taskTemplatesQuery.error) {
+  if (summaryQuery.error || taskTemplatesQuery.error || availableParametersQuery.error) {
     return <Error />;
   }
 
   // Don't block render if we don't have the revision data. We want to render the header and sidenav regardless
   // prevents unnecessary remounting when creating a new version or navigating to a previous one
-  if (summaryQuery.data && taskTemplatesQuery.data) {
+  if (summaryQuery.data && taskTemplatesQuery.data && availableParametersQuery.data) {
     return (
       <EditorStateContainer
+        availableParametersQueryData={availableParametersQuery.data}
         mutateRevision={mutateRevision}
         mutateSummary={mutateSummary}
         revisionMutation={revisionMutation}
@@ -91,6 +98,7 @@ export default function EditorContainer() {
 }
 
 interface EditorStateContainerProps {
+  availableParametersQueryData: Array<string>;
   mutateRevision: (
     variables: { workflowId: any; body: any },
     options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any }, Error> | undefined
@@ -113,6 +121,7 @@ interface EditorStateContainerProps {
  * Make function calls to mutate server data
  */
 const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
+  availableParametersQueryData,
   mutateRevision,
   mutateSummary,
   revisionMutation,
@@ -124,7 +133,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   workflowId,
 }) => {
   const location = useLocation();
-  const match: { params: { teamId: string; workflowId: string } } = useRouteMatch();
+  const match: { params: { workflowId: string } } = useRouteMatch();
   const { teams } = useAppContext();
   const isModalOpen = useIsModalOpen();
 
@@ -261,6 +270,12 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         case NodeType.Wait:
           node = new WaitNodeModel(nodeObj);
           break;
+        case NodeType.Acquirelock:
+          node = new AcquireLockNodeModel(nodeObj);
+          break;
+        case NodeType.Releaselock:
+          node = new ReleaseLockNodeModel(nodeObj);
+          break;
         default:
         // no-op
       }
@@ -323,12 +338,13 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
 
   const store = useMemo(() => {
     return {
+      availableParametersQueryData,
       revisionDispatch,
       revisionState,
       summaryData,
       taskTemplatesData,
     };
-  }, [revisionDispatch, revisionState, summaryData, taskTemplatesData]);
+  }, [availableParametersQueryData, revisionDispatch, revisionState, summaryData, taskTemplatesData]);
 
   return (
     // Must create context to share state w/ nodes that are created by the DAG engine
@@ -361,6 +377,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
                 revisionQuery={revisionQuery}
                 tasks={taskTemplatesData}
                 workflowDagEngine={workflowDagEngine}
+                workflowName={summaryData.name}
               />
             </Route>
             <Route path={AppPath.EditorProperties}>
@@ -369,6 +386,28 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
             <Route path={AppPath.EditorChangelog}>
               <ChangeLog summaryData={summaryData} />
             </Route>
+            <Route
+              path={AppPath.EditorConfigure}
+              children={({
+                history,
+                match: routeMatch,
+              }: {
+                history: History;
+                match: { params: { teamId: string; workflowId: string } };
+              }) => (
+                // Always render parent Configure component so state isn't lost when switching tabs
+                // It is responsible for rendering its children, but Formik form management is always mounted
+                <Configure
+                  history={history}
+                  // isOnRoute={Boolean(routeMatch)}
+                  params={match.params}
+                  summaryData={summaryData}
+                  summaryMutation={summaryMutation}
+                  teams={sortBy(teams, "name")}
+                  updateSummary={updateSummary}
+                />
+              )}
+            />
           </Switch>
           <Route
             path={AppPath.EditorConfigure}
@@ -377,13 +416,13 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               match: routeMatch,
             }: {
               history: History;
-              match: { params: { teamId: string; workflowId: string } };
+              match: { params: { workflowId: string } };
             }) => (
               // Always render parent Configure component so state isn't lost when switching tabs
               // It is responsible for rendering its children, but Formik form management is always mounted
               <Configure
                 history={history}
-                isOnRoute={Boolean(routeMatch)}
+                // isOnRoute={Boolean(routeMatch)}
                 params={match.params}
                 summaryData={summaryData}
                 summaryMutation={summaryMutation}

@@ -48,8 +48,10 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
   revisionQuery,
   summaryData,
 }) => {
-  const { params: { teamId, workflowId } } = useRouteMatch();
-  const { revisionCount, name } = summaryData;
+  const {
+    params: { workflowId },
+  } = useRouteMatch();
+  const { revisionCount, name, scope } = summaryData;
   const { version: currentRevision } = revisionState;
   const isPreviousVersion = currentRevision < revisionCount;
   const isQueryLoading = revisionQuery.status === QueryStatus.Loading;
@@ -66,7 +68,11 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
       nav={
         <Breadcrumb noTrailingSlash>
           <BreadcrumbItem>
-            <Link to={appLink.workflows()}>Workflows</Link>
+            {scope === "system" ? (
+              <Link to={appLink.systemWorkflows()}>System Workflows</Link>
+            ) : (
+              <Link to={appLink.workflows()}>Workflows</Link>
+            )}
           </BreadcrumbItem>
           <BreadcrumbItem isCurrentPage>
             <p>{name}</p>
@@ -76,10 +82,10 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
       header={<HeaderTitle>Editor</HeaderTitle>}
       footer={
         <Tabs>
-          <Tab label="Workflow" to={appLink.editorDesigner({ teamId, workflowId })} />
-          <Tab label="Properties" to={appLink.editorProperties({ teamId, workflowId })} />
-          <Tab label="Configure" to={appLink.editorConfigure({ teamId, workflowId })} />
-          <Tab label="Change Log" to={appLink.editorChangelog({ teamId, workflowId })} />
+          <Tab label="Workflow" to={appLink.editorDesigner({ workflowId })} />
+          <Tab label="Parameters" to={appLink.editorProperties({ workflowId })} />
+          <Tab label="Configure" to={appLink.editorConfigure({ workflowId })} />
+          <Tab label="Change Log" to={appLink.editorChangelog({ workflowId })} />
         </Tabs>
       }
       actions={
