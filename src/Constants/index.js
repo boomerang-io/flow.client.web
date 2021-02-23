@@ -4,7 +4,7 @@ import { CloseOutline32, CheckmarkOutline32, Error32, InProgress32, Timer32 } fr
  * Primitve constants
  */
 export const CREATED_DATE_FORMAT = "MMMM DD, YYYY";
-export const PROPERTY_KEY_REGEX = /^[a-zA-Z0-9-._]+$/;
+export const PROPERTY_KEY_REGEX = /^[a-zA-Z_]([a-zA-Z0-9-_])*$/;
 
 /**
  * Enums
@@ -88,6 +88,8 @@ export const NodeType = {
   Task: "task",
   TemplateTask: "templateTask",
   Wait: "eventwait",
+  Acquirelock: "acquirelock",
+  Releaselock: "releaselock",
 };
 
 export const QueryStatus = {
@@ -183,3 +185,5 @@ export const ApprovalStatus = {
   Rejected: "rejected",
   Submitted: "submitted",
 };
+
+export const allowedUserRoles = [UserType.Admin, UserType.Operator];

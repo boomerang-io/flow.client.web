@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Helmet } from "react-helmet";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import { DelayedRender, Error, SkeletonPlaceholder, SkeletonText } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowZoom from "Components/WorkflowZoom";
@@ -16,6 +17,7 @@ interface DesignerContainerProps {
   revisionQuery: QueryResult<WorkflowRevision, Error>;
   tasks: Array<TaskModel>;
   workflowDagEngine: WorkflowDagEngine | null;
+  workflowName: string;
 }
 
 const DesignerContainer: React.FC<DesignerContainerProps> = ({
@@ -24,11 +26,15 @@ const DesignerContainer: React.FC<DesignerContainerProps> = ({
   revisionQuery,
   tasks,
   workflowDagEngine,
+  workflowName,
 }) => {
   const isRevisionLoading = revisionQuery.status === QueryStatus.Loading;
 
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>{`Workflow - ${workflowName}`}</title>
+      </Helmet>
       <Tasks tasks={tasks.filter((task) => task.status === TaskTemplateStatus.Active)} />
       {isRevisionLoading || !workflowDagEngine ? (
         <WorkflowSkeleton />

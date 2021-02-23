@@ -20,12 +20,12 @@ exports[`TeamProperties --- Snapshot Test Capturing Snapshot of TeamProperties 1
             <h1
               class="bx--bmrg-feature-header-title headerTitle"
             >
-              Team Properties
+              Team Parameters
             </h1>
             <p
               class="bx--bmrg-feature-header-title"
             >
-              Set team properties that are accessible in all workflows for that team.
+              Set team parameters that are accessible in all workflows for that team.
             </p>
           </div>
         </section>
@@ -51,7 +51,7 @@ exports[`TeamProperties --- Snapshot Test Capturing Snapshot of TeamProperties 1
               >
                 <label
                   class="bx--label"
-                  for="team-properties-select"
+                  for="team-parameters-select"
                   id="downshift-0-label"
                 >
                   <div
@@ -71,7 +71,7 @@ exports[`TeamProperties --- Snapshot Test Capturing Snapshot of TeamProperties 1
                     aria-label="open menu"
                     class="bx--list-box__field"
                     data-toggle="true"
-                    id="team-properties-select"
+                    id="team-parameters-select"
                     role="button"
                     tabindex="-1"
                     type="button"
@@ -81,8 +81,8 @@ exports[`TeamProperties --- Snapshot Test Capturing Snapshot of TeamProperties 1
                       aria-labelledby="downshift-0-label"
                       autocomplete="off"
                       class="bx--text-input bx--text-input--empty"
-                      data-testid="team-properties-combobox"
-                      id="team-properties-select"
+                      data-testid="team-parameters-combobox"
+                      id="team-parameters-select"
                       placeholder="Select a team"
                       tabindex="0"
                       type="text"

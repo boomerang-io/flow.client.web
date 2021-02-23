@@ -75,6 +75,7 @@ export interface WorkflowSummary {
   icon: string;
   name: string;
   revisionCount: number;
+  scope: string;
   shortDescription: string;
   properties: [DataDrivenInput];
   triggers: {

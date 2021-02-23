@@ -5,10 +5,10 @@ import { FeatureFlag } from "Config/appConfig";
 import { CORE_ENV_URL } from "Config/appConfig";
 
 const NoAccessRedirectPrompt = () => {
-  const isStandaAloneMode = useFeature(FeatureFlag.StandaloneModeEnabled);
+  const TeamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
 
-  const title = isStandaAloneMode ? "Welcome to Boomerang Flow" : "Crikey, how did you get here?!";
-  const message = isStandaAloneMode ? (
+  const title = TeamManagementEnabled ? "Welcome to Boomerang Flow" : "Crikey, how did you get here?!";
+  const message = TeamManagementEnabled ? (
     <p>
       You’re not a member of any teams yet. Before you can do much in this wonderful tool, please have an admin add you
       to a team.{" "}

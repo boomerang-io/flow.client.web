@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
-import { AutoSuggest, DynamicFormik, ModalForm, TextInput } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  AutoSuggest,
+  DynamicFormik,
+  ModalForm,
+  TextInput,
+  TextArea,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
@@ -13,11 +19,34 @@ const AutoSuggestInput = (props) => {
   else
     return (
       <div key={props.id}>
-        <AutoSuggest {...props}>
-          <TextInput tooltipContent={props.tooltipContent} />
+        <AutoSuggest
+          {...props}
+          initialValue={props?.initialValue !== "" ? props?.initialValue : props?.inputProps?.defaultValue}
+        >
+          <TextInput tooltipContent={props.tooltipContent} disabled={props?.inputProps?.readOnly} />
         </AutoSuggest>
       </div>
     );
+};
+
+const TextAreaSuggestInput = (props) => {
+  //if we have a default value in the input. We want to show user it is disabled
+  return (
+    <div key={props.id}>
+      <AutoSuggest
+        {...props}
+        initialValue={props?.initialValue !== "" ? props?.initialValue : props?.item?.defaultValue}
+      >
+        <TextArea
+          tooltipContent={props.tooltipContent}
+          labelText={props?.label}
+          disabled={props?.item?.readOnly}
+          helperText={props?.item?.helperText}
+          placeholder={props?.item?.placeholder}
+        />
+      </AutoSuggest>
+    </div>
+  );
 };
 
 const TextEditorInput = (props) => {
@@ -38,7 +67,7 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
 };
 
 /**
- * @param {property} inputProperties - property object for workflow
+ * @param {parameter} inputProperties - parameter object for workflow
  * {
  *   defaultValue: String
  *   description: String
@@ -48,10 +77,16 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
  *   type: String
  * }
  */
+// function formatAutoSuggestProperties(inputProperties) {
+//   return inputProperties.map((parameter) => ({
+//     value: `$(${parameter.key})`,
+//     label: parameter.key,
+//   }));
+// }
 function formatAutoSuggestProperties(inputProperties) {
-  return inputProperties.map((property) => ({
-    value: `\${p:${property.key}}`,
-    label: property.key,
+  return inputProperties.map((parameter) => ({
+    value: `$(${parameter})`,
+    label: parameter,
   }));
 }
 
@@ -89,6 +124,7 @@ class WorkflowTaskForm extends Component {
     return {
       autoSuggestions: formatAutoSuggestProperties(this.props.inputProperties),
       formikSetFieldValue: (value) => this.formikSetFieldValue(value, key, setFieldValue),
+      onChange: (value) => this.formikSetFieldValue(value, key, setFieldValue),
       initialValue: values[key],
       inputProperties: this.props.inputProperties,
       item: input,
@@ -141,7 +177,8 @@ class WorkflowTaskForm extends Component {
   render() {
     const { node, task, taskNames, nodeConfig } = this.props;
     const taskRevisions = task?.revisions ?? [];
-
+    console.log("nodeConfig");
+    console.log(nodeConfig);
     // Find the matching task config for the version
     const taskVersionConfig = nodeConfig
       ? taskRevisions.find((revision) => nodeConfig.taskVersion === revision.version)?.config ?? []
@@ -176,6 +213,7 @@ class WorkflowTaskForm extends Component {
         dataDrivenInputProps={{
           TextInput: AutoSuggestInput,
           TextEditor: TextEditorInput,
+          TextArea: TextAreaSuggestInput,
         }}
         textAreaProps={this.textAreaProps}
         textEditorProps={this.textEditorProps}

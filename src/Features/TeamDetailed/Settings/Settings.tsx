@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Box } from "reflexbox";
 import { ErrorMessage, Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -31,22 +32,35 @@ export default function Settings({ team }: { team: FlowTeam }) {
     queryFn: resolver.query(teamsUrl),
   });
 
-  if (!error) {
+  if (error) {
     return (
       <Box mt="5rem">
+        <Helmet>
+          <title>{`Settings - ${team.name}`}</title>
+        </Helmet>
         <ErrorMessage />
       </Box>
     );
   }
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <>
+        <Helmet>
+          <title>{`Settings - ${team.name}`}</title>
+        </Helmet>
+        <Loading />
+      </>
+    );
   }
 
   const teamNameList = teamsData.records.map((team: FlowTeam) => team.name);
 
   return (
     <section aria-label="Team Settings" className={styles.settingsContainer}>
+      <Helmet>
+        <title>{`Settings - ${team.name}`}</title>
+      </Helmet>
       <div className={styles.editTeamNameContainer}>
         <p className={styles.teamNameLabel}>Team Name</p>
         <div className={styles.actionableNameContainer}>

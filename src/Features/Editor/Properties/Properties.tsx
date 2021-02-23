@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React from "react";
 import { useMutation, queryCache } from "react-query";
+import { Helmet } from "react-helmet";
 import { ConfirmModal, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowPropertiesModal from "./PropertiesModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
@@ -52,7 +53,12 @@ interface PropertiesProps {
 
 const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
   const [mutateProperties, { isLoading: mutatePropertiesIsLoading }] = useMutation(
-    resolver.patchUpdateWorkflowProperties
+    resolver.patchUpdateWorkflowProperties,
+    {
+      onSuccess: () => {
+        queryCache.invalidateQueries(serviceUrl.getWorkflowAvailableParameters({ workflowId: summaryData.id }));
+      },
+    }
   );
 
   const handleUpdateProperties = async ({ property, type }: { property: DataDrivenInput; type: string }) => {
@@ -76,13 +82,13 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
       notify(
         <ToastNotification
           kind="success"
-          title={`${capitalize(type)} property`}
+          title={`${capitalize(type)} parameter`}
           subtitle={`Successfully performed operation`}
         />
       );
       queryCache.setQueryData(serviceUrl.getWorkflowSummary({ workflowId: summaryData.id }), data);
     } catch (e) {
-      notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} property`} />);
+      notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to ${type} parameter`} />);
     }
   };
 
@@ -97,7 +103,10 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
   const propertyKeys = properties.map((input: DataDrivenInput) => input.key);
 
   return (
-    <div aria-label="Properties" className={styles.container} role="region">
+    <div aria-label="Parameters" className={styles.container} role="region">
+      <Helmet>
+        <title>{`Parameters - ${summaryData.name}`}</title>
+      </Helmet>
       {properties.length > 0 &&
         properties.map((property: DataDrivenInput, index: number) => (
           <section key={`${property.id}-${index}`} className={styles.property}>
@@ -132,12 +141,12 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
                   affirmativeText="Delete"
                   negativeText="Cancel"
                   children="It will be gone. Forever."
-                  title="Delete Property"
+                  title="Delete Parameter"
                   modalTrigger={({ openModal }: ModalTriggerProps) => (
                     <WorkflowCloseButton
                       className={styles.deleteProperty}
                       onClick={openModal}
-                      data-testid="workflow-delete-property-button"
+                      data-testid="workflow-delete-parameter-button"
                     />
                   )}
                 />

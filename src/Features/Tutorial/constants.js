@@ -48,7 +48,7 @@ export const insightsScreens = {
 
 export const messageConfig = {
   welcomeHome: {
-    title: "Welcome to Boomerang Flow!",
+    title: "Welcome to your Workflows!",
     subTitle: "Want us to show you around?",
     leftButton: "No, thanks",
     rightButton: "Yes, please!",

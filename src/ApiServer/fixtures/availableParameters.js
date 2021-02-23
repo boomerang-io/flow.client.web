@@ -1,0 +1,21 @@
+// export default [
+//   "global.params.image",
+//   "params.image",
+//   "global.params.test",
+//   "params.test",
+//   "global.params.test.key",
+//   "params.test.key",
+//   "global.params.benTesting",
+//   "params.benTesting",
+//   "global.params.ben.key",
+//   "params.ben.key",
+//   "workflow.params.sleepTime",
+//   "params.sleepTime",
+//   "system.params.workflow-id",
+//   "params.workflow-id",
+//   "system.params.workflow-name",
+//   "params.workflow-name",
+//   "system.params.workflow-activity-id",
+//   "params.workflow-activity-id",
+// ];
+export default ["global.params.test", "params.test"];

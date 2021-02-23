@@ -5,7 +5,7 @@ export default [
     id: "5e83829b4bbc6e0001c51936",
     description: "adding a test description",
     key: "test.key",
-    label: "Test property",
+    label: "Test parameter",
     type: "text",
   },
   {

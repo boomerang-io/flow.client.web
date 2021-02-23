@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useQuery } from "Hooks";
 import { DelayedRender, DataTableSkeleton, SearchSkeleton } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorDragon from "Components/ErrorDragon";
@@ -35,6 +36,9 @@ const ChangeLog: React.FC<ChangeLogProps> = ({ summaryData }) => {
 
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>{`Change Log - ${summaryData.name}`}</title>
+      </Helmet>
       <ChangeLogTable changeLog={data} />
     </div>
   );

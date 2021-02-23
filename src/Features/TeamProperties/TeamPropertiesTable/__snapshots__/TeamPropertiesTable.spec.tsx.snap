@@ -17,12 +17,12 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
           <h1
             class="bx--bmrg-feature-header-title headerTitle"
           >
-            Team Properties
+            Team Parameters
           </h1>
           <p
             class="bx--bmrg-feature-header-title"
           >
-            Set team properties that are accessible in all workflows for that team.
+            Set team parameters that are accessible in all workflows for that team.
           </p>
         </div>
       </section>
@@ -48,7 +48,7 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
             >
               <label
                 class="bx--label"
-                for="team-properties-select"
+                for="team-parameters-select"
                 id="downshift-0-label"
               >
                 <div
@@ -68,7 +68,7 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
                   aria-label="open menu"
                   class="bx--list-box__field"
                   data-toggle="true"
-                  id="team-properties-select"
+                  id="team-parameters-select"
                   role="button"
                   tabindex="-1"
                   type="button"
@@ -78,8 +78,8 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
                     aria-labelledby="downshift-0-label"
                     autocomplete="off"
                     class="bx--text-input"
-                    data-testid="team-properties-combobox"
-                    id="team-properties-select"
+                    data-testid="team-parameters-combobox"
+                    id="team-parameters-select"
                     placeholder="Select a team"
                     tabindex="0"
                     type="text"
@@ -137,15 +137,15 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
         </div>
         <button
           class="bx--btn bx--btn--field bx--btn--primary"
-          data-testid="create-team-property-button"
+          data-testid="create-team-parameter-button"
           style="min-width: 9rem;"
           tabindex="0"
           type="button"
         >
-          Create Property
+          Create Parameter
           <svg
             aria-hidden="true"
-            aria-label="Create Property"
+            aria-label="Create Parameter"
             class="bx--btn__icon"
             fill="currentColor"
             focusable="false"
@@ -168,7 +168,7 @@ exports[`TeamPropertiesTable --- Snapshot Test Capturing Snapshot of TeamPropert
         <h1
           class="bx--bmrg-error-page__title"
         >
-          No team properties
+          No team parameters
         </h1>
         <section
           class="bx--bmrg-error-page__graphic"

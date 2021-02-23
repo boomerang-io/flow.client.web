@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Button, CodeSnippet, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ModalFlowForm, TextArea, Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
 import "./styles.scss";
 
@@ -47,24 +47,38 @@ class ConfigureSwitchModal extends React.Component {
 
           <div className="b-switch-customvalue">
             {!defaultState && (
-              <div style={{ padding: "1rem 0rem 1rem 0rem" }}>
+              <>
                 <TextArea
-                  id="property"
+                  id="parameter"
                   invalid={!switchCondition}
                   invalidText="Value is required"
-                  labelText="Switch Property Value"
-                  name="property"
+                  labelText="Switch Parameter Value"
+                  name="parameter"
                   placeholder="Enter a value"
                   onChange={(e) => this.setState({ switchCondition: e.target.value })}
                   style={{ resize: "none" }}
                   value={switchCondition}
                 />
                 <div className="s-switch-customvalue-desc">
-                  Enter the value(s) to match to take this arrow. Multiple values can be entered, one per line. Only one
+                  Enter the value(s) to match to take this path. Multiple values can be entered, one per line. Only one
                   must match for this connection to be valid.
                 </div>
-                <div className="s-switch-customvalue-wildcard">* can be used as a wildcard.</div>
-              </div>
+                <section>
+                  <p className="s-switch-customvalue-tips-header">Tips:</p>
+                  <div className="s-switch-customvalue-wildcard-section">
+                    <CodeSnippet type="inline" hideCopyButton>
+                      .*
+                    </CodeSnippet>
+                    <p className="s-switch-customvalue-wildcard">can be used as a wildcard.</p>
+                  </div>
+                  <div className="s-switch-customvalue-wildcard-section">
+                    <CodeSnippet type="inline" hideCopyButton>
+                      \w
+                    </CodeSnippet>
+                    <p className="s-switch-customvalue-wildcard">can be used as a wildcard of any word character.</p>
+                  </div>
+                </section>
+              </>
             )}
           </div>
         </ModalBody>

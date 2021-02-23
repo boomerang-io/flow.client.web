@@ -30,7 +30,7 @@ const OverflowMenuComponent = ({ property, properties, deleteProperty }) => {
         flipped
         ariaLabel="Overflow menu"
         iconDescription="Overflow menu icon"
-        data-testid="configuration-property-table-overflow-menu"
+        data-testid="configuration-parameter-table-overflow-menu"
       >
         {menuOptions.map((option, index) => (
           <OverflowMenuItem key={index} {...option} />

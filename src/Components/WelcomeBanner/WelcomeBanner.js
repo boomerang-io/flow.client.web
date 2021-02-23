@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
+import { useAppContext } from "Hooks";
 import { Close32, ChevronUp32 } from "@carbon/icons-react";
 import styles from "./welcomeBanner.module.scss";
 
@@ -11,10 +12,12 @@ WelcomeBanner.propTypes = {
   hide: PropTypes.func,
   isOpen: PropTypes.bool,
   openTutorial: PropTypes.func,
-  toggleIsOpen: PropTypes.func
+  toggleIsOpen: PropTypes.func,
 };
 
 export default function WelcomeBanner({ hide, isOpen, openTutorial, toggleIsOpen }) {
+  const { communityUrl } = useAppContext();
+
   return (
     <div className={cx(styles.container, { [styles.collapsed]: !isOpen })}>
       <section className={styles.closeHideButtons}>
@@ -28,8 +31,8 @@ export default function WelcomeBanner({ hide, isOpen, openTutorial, toggleIsOpen
         </button>
       </section>
       <div className={cx(styles.content, { [styles.closed]: !isOpen })}>
-        <h1 className={styles.title}>Welcome to Flow</h1>
-        <p className={styles.subtitle}>Your new favorite tool</p>
+        <h1 className={styles.title}>Welcome to your Workflows</h1>
+        <p className={styles.subtitle}>Turn ideation into Automation</p>
         <div className={cx(styles.buttons, { [styles.closed]: !isOpen })}>
           <button className={styles.button} disabled={!isOpen} onClick={openTutorial}>
             <p className={styles.buttonText}>Learn the basics</p>
@@ -40,7 +43,11 @@ export default function WelcomeBanner({ hide, isOpen, openTutorial, toggleIsOpen
           </button> */}
           <a
             className={styles.button}
-            href={`slack://channel?team=${SLACK_TEAM_ID}&id=${SLACK_FLOW_USERS_CHANNEL_ID}`}
+            href={
+              communityUrl.includes("ibm.com")
+                ? `slack://channel?team=${SLACK_TEAM_ID}&id=${SLACK_FLOW_USERS_CHANNEL_ID}`
+                : "https://join.slack.com/t/boomerang-io/shared_invite/zt-mbowhq50-nEikNcvzWVnlzh5DIuGGvg"
+            }
             tabIndex={isOpen ? 0 : -1}
           >
             <p className={styles.buttonText}>Slack us feedback</p>
