@@ -31,7 +31,7 @@ interface FormProps {
       token: string;
     };
   };
-  selectedTeam: { id: string };
+  selectedTeam: { id: string | null };
   tokens: [
     {
       token: string;

@@ -1,5 +1,6 @@
 //@ts-nocheck
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Tile, Button, TooltipHover, Loading, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -46,6 +47,9 @@ export function TeamQuotasOverview({ teams }) {
 
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>{`Quotas - ${teamData.name}`}</title>
+      </Helmet>
       <Header
         defaultQuotasError={defaultQuotasError}
         defaultQuotasIsLoading={defaultQuotasIsLoading}

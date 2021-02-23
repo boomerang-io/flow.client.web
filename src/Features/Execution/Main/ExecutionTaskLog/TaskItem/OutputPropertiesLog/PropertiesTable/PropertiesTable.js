@@ -31,7 +31,7 @@ function PropertiesTable({ data: properties, hasJsonValues = false }) {
         <StructuredListWrapper selection>
           <StructuredListHead>
             <StructuredListRow head>
-              <StructuredListCell head>Property</StructuredListCell>
+              <StructuredListCell head>Parameter</StructuredListCell>
               <StructuredListCell head>Value</StructuredListCell>
             </StructuredListRow>
           </StructuredListHead>
@@ -47,7 +47,7 @@ function PropertiesTable({ data: properties, hasJsonValues = false }) {
           </StructuredListBody>
         </StructuredListWrapper>
       ) : (
-        <NoDisplay text="No properties to display" />
+        <NoDisplay text="No parameters to display" />
       )}
     </div>
   );

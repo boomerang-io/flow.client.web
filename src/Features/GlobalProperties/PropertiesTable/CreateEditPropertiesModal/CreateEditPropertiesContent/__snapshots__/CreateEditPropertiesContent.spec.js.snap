@@ -38,7 +38,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
               >
                 <input
                   class="bx--text-input bx--text__input"
-                  data-testid="create-property-key"
+                  data-testid="create-parameter-key"
                   id="key"
                   name="key"
                   type="text"
@@ -74,7 +74,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
               >
                 <input
                   class="bx--text-input bx--text__input"
-                  data-testid="create-property-label"
+                  data-testid="create-parameter-label"
                   id="label"
                   name="label"
                   type="text"
@@ -110,7 +110,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
               >
                 <input
                   class="bx--text-input bx--text__input"
-                  data-testid="create-property-description"
+                  data-testid="create-parameter-description"
                   id="description"
                   name="description"
                   type="text"
@@ -146,7 +146,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
               >
                 <input
                   class="bx--text-input bx--text__input"
-                  data-testid="create-property-value"
+                  data-testid="create-parameter-value"
                   id="value"
                   name="value"
                   placeholder="Value"
@@ -169,8 +169,8 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
             >
               <label
                 class="bx--label"
-                for="secured-global-properties-toggle"
-                id="secured-global-properties-toggle-label"
+                for="secured-global-parameters-toggle"
+                id="secured-global-parameters-toggle-label"
                 style="margin-bottom: 0px;"
               >
                 Secured
@@ -180,17 +180,17 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
               class="bx--form-item"
             >
               <input
-                aria-labelledby="secured-global-properties-toggle-label"
+                aria-labelledby="secured-global-parameters-toggle-label"
                 class="bx--toggle-input"
-                data-testid="secured-global-properties-toggle"
-                id="secured-global-properties-toggle"
+                data-testid="secured-global-parameters-toggle"
+                id="secured-global-parameters-toggle"
                 name="secured"
                 type="checkbox"
               />
               <label
                 aria-label="Toggle"
                 class="bx--toggle-input__label"
-                for="secured-global-properties-toggle"
+                for="secured-global-parameters-toggle"
               >
                 <span
                   class="bx--toggle__switch"
@@ -221,7 +221,7 @@ exports[`CreateEditPropertiesContent --- Snapshot Test Capturing Snapshot of Cre
         </button>
         <button
           class="bx--btn bx--btn--primary"
-          data-testid="global-property-create-submission-button"
+          data-testid="global-parameter-create-submission-button"
           tabindex="0"
           type="submit"
         >

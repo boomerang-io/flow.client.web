@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "Hooks";
+import { Helmet } from "react-helmet";
 import { Box } from "reflexbox";
 import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -47,6 +48,9 @@ const QuotasContainer: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>Quotas</title>
+      </Helmet>
       <Sidenav teams={teamsData.records} />
       <Switch>
         <Route exact path={match.path}>

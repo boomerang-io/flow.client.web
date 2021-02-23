@@ -11,7 +11,7 @@ const props = {
   property: {
     defaultValue: "dogs",
     description: "Tim property",
-    key: "tim.property",
+    key: "tim-property",
     label: "Tim Property",
     required: false,
     type: "text",
@@ -80,7 +80,7 @@ describe("Inputs --- RTL", () => {
     await waitFor(() => {});
   });
 
-  it("Shouldn't save property without key, label and type defined", async () => {
+  it("Shouldn't save parameter without key, label and type defined", async () => {
     const { findByRole, getByPlaceholderText, getByLabelText, getByText } = rtlContextRouterRender(
       <Inputs {...props} isEdit={false} input={undefined} />
     );

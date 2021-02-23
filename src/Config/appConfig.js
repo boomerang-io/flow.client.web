@@ -10,6 +10,13 @@ export const PRODUCT_STANDALONE =
     ? true
     : false;
 
+export const EMBEDDED_MODE =
+  window._SERVER_DATA && window._SERVER_DATA.EMBEDDED_MODE
+    ? window._SERVER_DATA.EMBEDDED_MODE === "true"
+    : process.env.REACT_APP_EMBEDDED_MODE
+    ? true
+    : true;
+
 export const CORE_ENV_URL =
   window._SERVER_DATA && window._SERVER_DATA.CORE_ENV_URL ? window._SERVER_DATA.CORE_ENV_URL : "";
 
@@ -24,24 +31,25 @@ export const AppPath = {
   Root: "/",
   Error: "/error",
   Activity: "/activity",
-  Editor: "/teams/:teamId/editor/:workflowId",
-  EditorDesigner: `/teams/:teamId/editor/:workflowId/workflow`,
-  EditorConfigure: `/teams/:teamId/editor/:workflowId/configure`,
-  EditorChangelog: `/teams/:teamId/editor/:workflowId/changelog`,
-  EditorProperties: `/teams/:teamId/editor/:workflowId/properties`,
+  Editor: "/editor/:workflowId",
+  EditorDesigner: `/editor/:workflowId/workflow`,
+  EditorConfigure: `editor/:workflowId/configure`,
+  EditorChangelog: `/editor/:workflowId/changelog`,
+  EditorProperties: `/editor/:workflowId/parameters`,
   Execution: "/activity/:workflowId/execution/:executionId",
   Insights: "/insights",
-  Properties: "/admin/properties",
+  Properties: "/admin/parameters",
   Quotas: "/admin/quotas",
   QuotasEdit: "/admin/quotas/:teamId",
   Settings: "/admin/settings",
+  SystemWorkflows: "/admin/system-workflows",
   TaskTemplates: "/admin/task-templates",
   TaskTemplateEdit: `/admin/task-templates/:id/:version`,
   Team: "/admin/teams/:teamId",
   TeamSettings: "/admin/teams/:teamId/settings",
   TeamWorkflows: "/admin/teams/:teamId/workflows",
   TeamList: "/admin/teams",
-  TeamProperties: `/team-properties`,
+  TeamProperties: `/team-parameters`,
   User: "/admin/users/:userId",
   UserList: "/admin/users",
   Workflows: "/workflows",
@@ -49,22 +57,22 @@ export const AppPath = {
 
 export const appLink = {
   activity: () => `/activity`,
-  editor: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}`,
-  editorDesigner: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/workflow`,
-  editorConfigure: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/configure`,
-  editorChangelog: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/changelog`,
-  editorProperties: ({ teamId, workflowId }) => `/teams/${teamId}/editor/${workflowId}/properties`,
+  editorDesigner: ({ workflowId }) => `/editor/${workflowId}/workflow`,
+  editorConfigure: ({ workflowId }) => `/editor/${workflowId}/configure`,
+  editorChangelog: ({ workflowId }) => `/editor/${workflowId}/changelog`,
+  editorProperties: ({ workflowId }) => `/editor/${workflowId}/parameters`,
   execution: ({ executionId, workflowId }) => `/activity/${workflowId}/execution/${executionId}`,
   insights: () => "/insights",
-  properties: () => "/admin/properties",
+  properties: () => "/admin/parameters",
   manageUsers: () => "/admin/users",
   quotas: () => "/admin/quotas",
   quotasEdit: ({ teamId }) => `/admin/quotas/${teamId}`,
   settings: () => "/admin/settings",
+  systemWorkflows: () => "/admin/system-workflows",
   taskTemplates: () => "/admin/task-templates",
   taskTemplateEdit: ({ id, version }) => `/admin/task-templates/${id}/${version}`,
   taskTemplateEditSettings: ({ id, version }) => `/admin/task-templates/edit/${id}/${version}/settings`,
-  teamProperties: () => `/team-properties`,
+  teamProperties: () => `/team-parameters`,
   teamTaskTemplates: (teamId) => `/task-templates`,
   team: ({ teamId }) => `/admin/teams/${teamId}`,
   teamWorkflows: ({ teamId }) => `/admin/teams/${teamId}/workflows`,
@@ -77,5 +85,20 @@ export const appLink = {
 export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true };
 
 export const FeatureFlag = {
-  StandaloneModeEnabled: "standaloneModeEnabled",
+  /**
+   * new Feature Flags
+   */
+  TeamManagementEnabled: "TeamManagementEnabled",
+  WorkflowQuotasEnabled: "WorkflowQuotasEnabled",
+  SettingsEnabled: "SettingsEnabled",
+  UserManagementEnabled: "UserManagementEnabled",
+  GlobalParametersEnabled: "GlobalParametersEnabled",
+  WorkflowTokensEnabled: "WorkflowTokensEnabled",
+  TaskManagerEnabled: "TaskManagerEnabled",
+  EditVerifiedTasksEnabled: "EditVerifiedTasksEnabled",
+  WorkflowTriggersEnabled: "WorkflowTriggersEnabled",
+  TeamParametersEnabled: "TeamParametersEnabled",
+
+  ActivityEnabled: "ActivityEnabled",
+  InsightsEnabled: "InsightsEnabled",
 };

@@ -27,19 +27,19 @@ function CreateEditPropertiesModal({ isEdit, isOpen, handleEditClose, property, 
       modalTrigger={({ openModal }) =>
         !isEdit ? (
           <Button
-            data-testid="create-global-property-button"
-            iconDescription="Create Property"
+            data-testid="create-global-parameter-button"
+            iconDescription="Create Parameter"
             renderIcon={Add16}
             style={{ width: "12rem" }}
             size="field"
             onClick={openModal}
           >
-            Create Property
+            Create Parameter
           </Button>
         ) : null
       }
       modalHeaderProps={{
-        title: isEdit && property ? `Edit ${property.label}` : "Create Property",
+        title: isEdit && property ? `Edit ${property.label}` : "Create Parameter",
       }}
       onCloseModal={() => {
         if (cancelRequestRef.current) cancelRequestRef.current();

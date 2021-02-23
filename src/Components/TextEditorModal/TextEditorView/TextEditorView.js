@@ -89,7 +89,7 @@ function TextEditorView(props) {
         list: (!curWord
           ? []
           : autoSuggestions.filter(
-              (item) => (curWord.startsWith("${p:") && item.text.match(regex)) || item.displayText.match(regex)
+              (item) => (curWord.startsWith("$(") && item.text.match(regex)) || item.displayText.match(regex)
             )
         ).sort(),
         from: CodeMirror.Pos(cur.line, start),

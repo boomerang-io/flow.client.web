@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "Hooks";
+import { Helmet } from "react-helmet";
 import ErrorDragon from "Components/ErrorDragon";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import PropertiesTable from "./PropertiesTable";
@@ -25,6 +26,9 @@ function GlobalPropertiesContainer() {
 
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>Global Parameters</title>
+      </Helmet>
       <PropertiesTable properties={data} />
     </div>
   );

@@ -12,6 +12,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     inflect.irregular("config", "config");
     inflect.irregular("tasktemplate", "tasktemplate");
     inflect.irregular("insights", "insights");
+    inflect.irregular("flowNavigation", "flowNavigation");
   });
 
   return new Server({
@@ -28,19 +29,24 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     // Register the data as a model so we can use the schema
     models: {
       activity: Model,
+      availableParameter: Model,
       changelog: Model,
       config: Model,
-      revision: Model,
-      summary: Model,
+      featureFlag: Model,
       insights: Model,
-      teamProperties: Model,
-      tasktemplate: Model,
-      team: Model,
-      manageTeamDetail: Model,
       manageTeam: Model,
+      manageTeamDetail: Model,
       manageUser: Model,
       quotas: Model,
+      revision: Model,
       setting: Model,
+      summary: Model,
+      systemWorkflow: Model,
+      tasktemplate: Model,
+      team: Model,
+      teamProperties: Model,
+
+      flowNavigation: Model,
     },
 
     routes() {
@@ -59,12 +65,29 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.profile[0];
       });
 
-      this.get(serviceUrl.getNavigation(), (schema) => {
-        return schema.db.navigation[0];
+      this.get(serviceUrl.getPlatformNavigation(), (schema) => {
+        return schema.db.platformNavigation[0];
+      });
+
+      this.get(serviceUrl.getFlowNavigation(), (schema) => {
+        return schema.db.flowNavigation;
       });
 
       this.get(serviceUrl.getTeams(), (schema) => {
         return schema.db.teams;
+      });
+
+      this.get(serviceUrl.getFeatureFlags(), (schema) => {
+        return schema.db.featureFlags[0];
+      });
+
+      this.get(serviceUrl.getWorkflowAvailableParameters({ workflowId: ":workflowId" }), (schema) => {
+        // return schema.availableParameters.all();
+        return [];
+      });
+
+      this.get(serviceUrl.getSystemWorkflows(), (schema) => {
+        return schema.db.systemWorkflows;
       });
 
       this.get(serviceUrl.getTeamQuotas({ id: ":id" }), (schema) => {

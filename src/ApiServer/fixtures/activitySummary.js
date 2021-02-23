@@ -7,4 +7,5 @@ export default {
   invalid: 6,
   completed: 1854,
   skipped: 0,
+  waiting: 0,
 };

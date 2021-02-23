@@ -68,12 +68,12 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
         <h1
           class="title"
         >
-          Welcome to Flow
+          Welcome to your Workflows
         </h1>
         <p
           class="subtitle"
         >
-          Your new favorite tool
+          Turn ideation into Automation
         </p>
         <div
           class="buttons"
@@ -121,6 +121,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             <h1
               class="bx--bmrg-feature-header-title"
             >
+              
               Workflows (2)
             </h1>
           </div>
@@ -275,26 +276,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             >
               IBM Services Engineering (1)
             </h1>
-            <div
-              class="teamQuotaContainer"
-            >
-              <div
-                class="quotaDescriptionContainer"
-              >
-                <p
-                  class="teamQuotaText"
-                >
-                  Workflow quota - 1 of 10 used
-                </p>
-              </div>
-              <button
-                class="bx--btn bx--btn--field bx--btn--ghost"
-                tabindex="0"
-                type="button"
-              >
-                View more quotas
-              </button>
-            </div>
           </hgroup>
           <div
             class="workflows"
@@ -303,7 +284,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
               class="container"
             >
               <a
-                href="/teams/5e3a35ad8c222700018ccd39/editor/5eb2c4085a92d80001a16d87/workflow"
+                href="/editor/5eb2c4085a92d80001a16d87/workflow"
               >
                 <section
                   class="details"
@@ -351,8 +332,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 class="launch"
               >
                 <button
-                  class="bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
-                  disabled=""
+                  class="bx--btn bx--btn--field bx--btn--primary"
                   tabindex="0"
                   type="button"
                 >
@@ -462,26 +442,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             >
               IBM Services Essentials (1)
             </h1>
-            <div
-              class="teamQuotaContainer"
-            >
-              <div
-                class="quotaDescriptionContainer"
-              >
-                <p
-                  class="teamQuotaText"
-                >
-                  Workflow quota - 9 of 10 used
-                </p>
-              </div>
-              <button
-                class="bx--btn bx--btn--field bx--btn--ghost"
-                tabindex="0"
-                type="button"
-              >
-                View more quotas
-              </button>
-            </div>
           </hgroup>
           <div
             class="workflows"
@@ -490,7 +450,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
               class="container"
             >
               <a
-                href="/teams/5e3a35ad8c222700018ccd39/editor/5eb2c4085a92d80001a16d87/workflow"
+                href="/editor/5eb2c4085a92d80001a16d87/workflow"
               >
                 <section
                   class="details"
@@ -538,8 +498,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 class="launch"
               >
                 <button
-                  class="bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
-                  disabled=""
+                  class="bx--btn bx--btn--field bx--btn--primary"
                   tabindex="0"
                   type="button"
                 >
@@ -642,12 +601,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
       </div>
     </div>
   </div>
-  <div
-    class="bx--bmrg-modal-portal"
-  />
-  <div
-    class="bx--bmrg-modal-portal"
-  />
   <div
     class="bx--bmrg-modal-portal"
   />

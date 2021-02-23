@@ -28,8 +28,9 @@ describe("WorkflowActivity --- Snapshot", () => {
 describe("WorkflowActivity --- RTL", () => {
   const basicQuery = { order: "DESC", page: 0, size: 10, sort: "creationDate" };
   it("Select status tab correctly", async () => {
-    window.HTMLElement.prototype.scrollIntoView = function() {};
-    const { history } = rtlContextRouterRender(<WorkflowActivity />);
+    window.HTMLElement.prototype.scrollIntoView = function () {};
+    const { history, findByText } = rtlContextRouterRender(<WorkflowActivity />);
+    await findByText(/This is all of the/i);
 
     userEvent.click(screen.getByRole("tab", { name: /in progress/i }));
     await waitFor(() =>
@@ -52,7 +53,9 @@ describe("WorkflowActivity --- RTL", () => {
   });
 
   it("Filter by team", async () => {
-    const { history } = rtlContextRouterRender(<WorkflowActivity />);
+    const { history, findByText } = rtlContextRouterRender(<WorkflowActivity />);
+    await findByText(/This is all of the/i);
+
     userEvent.click(screen.getByRole("button", { name: /Filter by team/i }));
     userEvent.click(screen.getAllByTitle(/IBM Services Engineering/i)[0]);
 
@@ -64,7 +67,8 @@ describe("WorkflowActivity --- RTL", () => {
   });
 
   it("Filter by workflow", async () => {
-    const { history } = rtlContextRouterRender(<WorkflowActivity />);
+    const { history, findByText } = rtlContextRouterRender(<WorkflowActivity />);
+    await findByText(/This is all of the/i);
 
     userEvent.click(screen.getByRole("button", { name: /Filter by workflow/i }));
     userEvent.click(screen.getAllByText(/ML Train – Bot Efficiency \[IBM Services Engineering\]/i)[0]);
@@ -77,7 +81,8 @@ describe("WorkflowActivity --- RTL", () => {
   });
 
   it("Filter by trigger", async () => {
-    const { history } = rtlContextRouterRender(<WorkflowActivity />);
+    const { history, findByText } = rtlContextRouterRender(<WorkflowActivity />);
+    await findByText(/This is all of the/i);
 
     userEvent.click(screen.getByRole("button", { name: /Filter by trigger/i }));
     userEvent.click(screen.getAllByText("cron")[0]);

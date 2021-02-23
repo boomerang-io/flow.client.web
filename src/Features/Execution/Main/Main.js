@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Helmet } from "react-helmet";
 import { withRouter } from "react-router-dom";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -16,6 +17,7 @@ class Main extends Component {
     dag: PropTypes.object.isRequired,
     workflow: PropTypes.object.isRequired,
     workflowExecution: PropTypes.object.isRequired,
+    version: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -40,7 +42,7 @@ class Main extends Component {
   }
 
   render() {
-    const { workflow, workflowExecution } = this.props;
+    const { workflow, workflowExecution, version } = this.props;
     const { status, steps } = workflowExecution.data;
 
     const hasFinished = [ExecutionStatus.Completed, ExecutionStatus.Invalid, ExecutionStatus.Failure].includes(status);
@@ -54,7 +56,10 @@ class Main extends Component {
 
     return (
       <div className={styles.container}>
-        <ExecutionHeader workflow={workflow} workflowExecution={workflowExecution} />
+        <Helmet>
+          <title>{`${workflow.data.name} - Activity`}</title>
+        </Helmet>
+        <ExecutionHeader workflow={workflow} workflowExecution={workflowExecution} version={version} />
         <section aria-label="Executions" className={styles.executionResultContainer}>
           <ExecutionTaskLog workflowExecution={workflowExecution} />
           <div className={styles.executionDesignerContainer} ref={this.diagramRef}>

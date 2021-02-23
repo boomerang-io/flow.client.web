@@ -66,7 +66,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
               tabindex="0"
               type="button"
             >
-              View Properties
+              View Parameters
             </button>
           </div>
           <dl
@@ -81,6 +81,20 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
               class="dataValue"
             >
               AMHTest2
+            </dd>
+          </dl>
+          <dl
+            class="data"
+          >
+            <dt
+              class="dataTitle"
+            >
+              Version
+            </dt>
+            <dd
+              class="dataValue"
+            >
+              2
             </dd>
           </dl>
           <dl
@@ -342,7 +356,9 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   </p>
                   <time
                     class="timeValue"
-                  />
+                  >
+                    63 ms
+                  </time>
                 </div>
               </section>
               <section
@@ -442,7 +458,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <time
                     class="timeValue"
                   >
-                    3 seconds
+                    3 secs
                   </time>
                 </div>
               </section>
@@ -461,7 +477,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   tabindex="0"
                   type="button"
                 >
-                  View Properties
+                  View Parameters
                 </button>
               </section>
             </li>
@@ -558,7 +574,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <time
                     class="timeValue"
                   >
-                    14 seconds
+                    14 secs
                   </time>
                 </div>
               </section>
@@ -577,7 +593,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   tabindex="0"
                   type="button"
                 >
-                  View Properties
+                  View Parameters
                 </button>
               </section>
             </li>
@@ -674,7 +690,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   <time
                     class="timeValue"
                   >
-                    12 seconds
+                    12 secs
                   </time>
                 </div>
               </section>
@@ -693,7 +709,7 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   tabindex="0"
                   type="button"
                 >
-                  View Properties
+                  View Parameters
                 </button>
               </section>
             </li>

@@ -46,6 +46,7 @@ export default {
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
       teamName: "IBM Services Engineering",
+      scope: "system",
     },
     {
       creationDate: "2020-06-02T13:02:42.210+0000",
@@ -98,6 +99,7 @@ export default {
       shortDescription: "Train and store ML model for Bot Efficiency.",
       workflowName: "ML Train – Bot Efficiency",
       teamName: "IBM Services Engineering",
+      scope: "team",
     },
     {
       creationDate: "2020-05-19T11:48:19.577+0000",

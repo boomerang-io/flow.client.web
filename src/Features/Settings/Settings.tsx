@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useQuery, useMutation, queryCache } from "react-query";
 import { Box } from "reflexbox";
 import {
@@ -97,6 +98,9 @@ const Settings: React.FC = () => {
   const sortedPlatformSettings = sortBy(data, (settingObj) => settingObj.name);
   return (
     <FeatureLayout>
+      <Helmet>
+        <title>Settings</title>
+      </Helmet>
       {!sortedPlatformSettings.length ? (
         <EmptyState />
       ) : (

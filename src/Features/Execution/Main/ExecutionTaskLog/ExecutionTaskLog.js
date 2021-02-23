@@ -6,7 +6,7 @@ import orderBy from "lodash/orderBy";
 import { getSimplifiedDuration } from "Utils/timeHelper";
 import { QueryStatus } from "Constants";
 import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
-import { Arrows32, ChevronLeft32 } from "@carbon/icons-react";
+import { ArrowsVertical32, ChevronLeft32 } from "@carbon/icons-react";
 import styles from "./executionTaskLog.module.scss";
 
 ExecutionTaskLog.propTypes = {
@@ -68,7 +68,7 @@ function ExecutionTaskLog({ workflowExecution }) {
             onClick={toggleSort}
             tooltipText="Change sort direction (by start time)"
           >
-            <Arrows32 className={styles.taskbarArrows} />
+            <ArrowsVertical32 className={styles.taskbarArrows} />
           </TooltipIcon>
         )}
       </section>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { useAppContext } from "Hooks";
 import TeamPropertiesTable from "./TeamPropertiesTable";
@@ -18,6 +19,9 @@ function TeamProperties() {
   );
   return (
     <div className={styles.container}>
+      <Helmet>
+        <title>Team Parameters</title>
+      </Helmet>
       <TeamPropertiesTable
         teams={teams}
         properties={propertiesData ?? []}
