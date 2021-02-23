@@ -14,20 +14,13 @@ import orderBy from "lodash/orderBy";
 import { TaskModel } from "Types";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
-// import { stringToBooleanHelper } from "Utils/stringHelper";
 import styles from "./taskTemplates.module.scss";
-
-// const settingsWorkersName = "Workers";
 
 const TaskTemplatesContainer: React.FC = () => {
   const match = useRouteMatch();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
-  const platformSettingsUrl = serviceUrl.resourceSettings();
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
   const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
-
-  // const { data: settingsData, error: settingsError, isLoading: settingsIsLoading } = useQuery(platformSettingsUrl);
-  const { error: settingsError, isLoading: settingsIsLoading } = useQuery(platformSettingsUrl);
 
   const addTemplateInState = (newTemplate: TaskModel) => {
     const updatedTemplatesData = [...taskTemplatesData];
@@ -44,23 +37,17 @@ const TaskTemplatesContainer: React.FC = () => {
     }
   };
 
-  if (isLoading || settingsIsLoading) {
+  if (isLoading) {
     return <Loading />;
   }
 
-  if (taskTemplatesDataError || settingsError) {
+  if (taskTemplatesDataError) {
     return (
       <div className={styles.container}>
         <ErrorDragon />
       </div>
     );
   }
-
-  // const editVerifiedTasksEnabled = stringToBooleanHelper(
-  //   settingsData
-  //     .find((arr: any) => arr.name === settingsWorkersName)
-  //     ?.config?.find((setting: { key: string }) => setting.key === "enable.tasks").value ?? false
-  // );
 
   return (
     <div className={styles.container}>
