@@ -158,6 +158,12 @@ export function TaskTemplateOverview({
 
   const params = useParams();
   const history = useHistory();
+
+  const invalidateQueries = () => {
+    queryCache.invalidateQueries(serviceUrl.getTaskTemplates());
+    queryCache.invalidateQueries(serviceUrl.getFeatureFlags());
+  };
+
   const [uploadTaskTemplateMutation, { isLoading }] = useMutation(
     (args) => {
       const { promise, cancel } = resolver.putCreateTaskTemplate(args);
@@ -165,17 +171,17 @@ export function TaskTemplateOverview({
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
+      onSuccess: invalidateQueries,
     }
   );
   const [archiveTaskTemplateMutation, { isLoading: archiveIsLoading }] = useMutation(
     resolver.deleteArchiveTaskTemplate,
     {
-      onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
+      onSuccess: invalidateQueries,
     }
   );
   const [restoreTaskTemplateMutation, { isLoading: restoreIsLoading }] = useMutation(resolver.putRestoreTaskTemplate, {
-    onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTaskTemplates()]),
+    onSuccess: invalidateQueries,
   });
 
   let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id) ?? {};
