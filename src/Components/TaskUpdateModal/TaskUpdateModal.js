@@ -136,7 +136,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
 
   const addedInputs = newTaskTemplateVersion.config
     .filter((input) => !currentTaskTemplateVersion.config.find((currentInput) => currentInput.key === input.key))
-    .map((input) => input?.key);
+    .map((input) => `['${input?.key}']`);
 
   const handleSubmit = (values) => {
     onSave({ version: newTaskTemplateVersion.version, inputs: values });
@@ -248,6 +248,7 @@ const ChangeToAppearanceMap = {
   },
 };
 function StateHilighter({ children, hidden, type }) {
+  console.log(type, "UHHHHH");
   const { className, icon, text } = ChangeToAppearanceMap[type] ?? {};
 
   if (hidden) {
