@@ -179,6 +179,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
                       readOnly
                       value={nodeConfig.inputs[input.key]}
                       id={`${input.key}-current`}
+                      orientation={"vertical"}
                     />
                   </StateHilighter>
                 ))}
