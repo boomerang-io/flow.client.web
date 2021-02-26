@@ -1,21 +1,22 @@
 @import "Styles/mixins";
 
-  .largeCol {
-    border-right: 0.0625rem solid var(--cds-text-03);
-    width: 35%;
-  }
+.largeCol {
+  border-right: 0.0625rem solid var(--cds-text-03);
+  width: 35%;
+  height: 100vh;
+}
 
-  .smallCol {
-    border-right: 0.0625rem solid var(--cds-text-03);
-    width: 30%;
-  }
+.smallCol {
+  border-right: 0.0625rem solid var(--cds-text-03);
+  width: 30%;
+}
 
-  .delimiter {
-    border: 0;
-    border-top: 0.0625rem solid var(--cds-text-03);
-    margin-left: -2rem;
-    margin-right: -2rem;
-  }
+.delimiter {
+  border: 0;
+  border-top: 0.0625rem solid var(--cds-text-03);
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
 
 .wrapper {
   display: flex;

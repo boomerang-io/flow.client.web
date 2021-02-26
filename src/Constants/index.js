@@ -90,6 +90,7 @@ export const NodeType = {
   Wait: "eventwait",
   Acquirelock: "acquirelock",
   Releaselock: "releaselock",
+  RunWorkflow: "runworkflow",
 };
 
 export const QueryStatus = {
