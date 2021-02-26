@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
-import { Formik } from "formik";
 import { useAppContext, useEditorContext } from "Hooks";
 import {
   AutoSuggest,
@@ -115,13 +114,12 @@ function ConfigureInputsForm(props) {
     setFieldValue(id, value);
   };
 
-  const formikHandleChange = (e, handleChange) => {
-    handleChange(e);
-  };
+  //   const formikHandleChange = (e, handleChange) => {
+  //     handleChange(e);
+  //   };
 
   const handleOnSave = (values) => {
     props.node.taskName = values.taskName;
-    console.log(values);
     props.onSave(values);
     props.closeModal();
   };
@@ -188,19 +186,27 @@ function ConfigureInputsForm(props) {
     const { errors, touched, setFieldValue, values } = formikProps;
     const error = errors[otherProps.id];
     const touch = touched[otherProps.id];
+    const initialSelectedItem = values.workflowId
+      ? teamWorkflowMapped.find((workflow) => workflow.value === values.workflowId)
+      : "";
     return (
       <ComboBox
         id="workflow-select"
         onChange={({ selectedItem }) => {
           setFieldValue("workflowId", selectedItem?.value ?? "");
+          setActiveWorkflowId(selectedItem?.value ?? "");
           if (selectedItem?.value) {
-            setActiveProperties(teamWorkflows.find((workflow) => workflow.id === selectedItem?.value).properties);
+            const workflowProperties = teamWorkflows.find((workflow) => workflow.id === selectedItem?.value).properties;
+            setActiveProperties(
+              workflowProperties.map((property) => {
+                delete property.value;
+                return property;
+              })
+            );
           }
         }}
         items={teamWorkflowMapped}
-        initialSelectedItem={
-          values.workflowId ? teamWorkflowMapped.find((workflow) => workflow.id === values.workflowId) : ""
-        }
+        initialSelectedItem={initialSelectedItem}
         titleText="Workflow"
         placeholder="Select a workflow"
         invalid={error && touch}
@@ -214,7 +220,9 @@ function ConfigureInputsForm(props) {
   //     return properties.filter((property) => !property.readOnly);
   //   };
 
-  const { node, task, taskNames, nodeConfig } = props;
+  //   const { node, task, taskNames, nodeConfig } = props;
+  const { node, taskNames, nodeConfig } = props;
+
   //   const taskRevisions = task?.revisions ?? [];
   // Find the matching task config for the version
   //   const taskVersionConfig = nodeConfig
@@ -222,12 +230,18 @@ function ConfigureInputsForm(props) {
   //     : [];
   const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
 
-  console.log("nodeConfig");
-  console.log(nodeConfig);
-  //   const [activeProperties, setActiveProperties] = useState(nodeConfig?.inputs ?? []);
-  const [activeProperties, setActiveProperties] = useState([]);
-  console.log("activeProperties");
-  console.log(activeProperties);
+  const workflowProperties = nodeConfig?.inputs?.workflowId
+    ? teamWorkflows.find((workflow) => workflow.id === nodeConfig?.inputs?.workflowId).properties
+    : null;
+  const [activeProperties, setActiveProperties] = useState(
+    workflowProperties
+      ? workflowProperties.map((property) => {
+          delete property.value;
+          return property;
+        })
+      : []
+  );
+  const [activeWorkflowId, setActiveWorkflowId] = useState("");
 
   // Add the name input
   const inputs = [
@@ -250,15 +264,15 @@ function ConfigureInputsForm(props) {
     ...activeProperties,
   ];
 
-  const activeInputs = { workflowId: "" };
+  const activeInputs = {};
   activeProperties.forEach((prop) => {
-    activeInputs[prop.key] = prop.defaultValue;
+    activeInputs[prop.key] = props?.value ? props.value : prop.defaultValue;
   });
 
   return (
     <DynamicFormik
       allowCustomPropertySyntax
-      enablereinitialize
+      enableReinitialize
       validateOnMount
       validationSchemaExtension={Yup.object().shape({
         taskName: Yup.string()
@@ -266,7 +280,7 @@ function ConfigureInputsForm(props) {
           .notOneOf(takenTaskNames, "Enter a unique value for task name"),
         workflowId: Yup.string().required("Select a workflow"),
       })}
-      initialValues={{ taskName: node.taskName, ...activeInputs, ...nodeConfig.inputs }}
+      initialValues={{ taskName: node.taskName, workflowId: activeWorkflowId, ...activeInputs, ...nodeConfig.inputs }}
       inputs={inputs}
       onSubmit={handleOnSave}
       dataDrivenInputProps={{
