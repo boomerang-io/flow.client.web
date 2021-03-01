@@ -74,6 +74,7 @@ export interface WorkflowSummary {
   enablePersistentStorage: boolean;
   icon: string;
   name: string;
+  labels: Array<{ key: string; value: string }>;
   revisionCount: number;
   scope: string;
   shortDescription: string;

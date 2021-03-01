@@ -7,6 +7,7 @@ import {
   Button,
   ComboBox,
   ComposedModal,
+  Creatable,
   TextArea,
   TextInput,
   Toggle,
@@ -34,6 +35,7 @@ interface FormProps {
   enablePersistentStorage: boolean;
   icon: string;
   name: string;
+  labels: Array<string>;
   shortDescription: string;
   triggers: {
     manual: {
@@ -106,6 +108,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           enablePersistentStorage: summaryData.enablePersistentStorage ?? false,
           icon: summaryData.icon ?? "",
           name: summaryData.name ?? "",
+          labels: summaryData.labels ? summaryData.labels.map((label) => `${label.key}:${label.value}`) : [],
           // selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: "" },
           selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: null },
           shortDescription: summaryData?.shortDescription ?? "",
@@ -248,7 +251,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
     const {
       summaryMutation,
       teams,
-      formikProps: { dirty, errors, handleBlur, handleSubmit, touched, values },
+      formikProps: { dirty, errors, handleBlur, handleSubmit, touched, values, setFieldValue },
     } = this.props;
 
     const isLoading = summaryMutation.status === QueryStatus.Loading;
@@ -341,7 +344,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <p className={styles.subTitle}>Off - until you turn them on. (Feel the power).</p>
             <div className={styles.triggerContainer}>
               <div className={styles.triggerSection}>
-                <div className={styles.toggleContainer}>
+                <div className={styles.creatableContainer}>
                   <Toggle
                     reversed
                     id="triggers.manual.enable"
@@ -528,6 +531,23 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                 tooltipContent="Persist workflow data between executions"
                 tooltipProps={{ direction: "top" }}
                 reversed
+              />
+            </div>
+          </div>
+          <hr className={styles.delimiter} />
+          <div className={styles.labelsContainer}>
+            <h1 className={styles.header}>Custom Kubernetes Labels</h1>
+            <p className={styles.subTitle}>Create custom labels for Kubernetes.</p>
+            <div className={styles.toggleContainer}>
+              <Creatable
+                createKeyValuePair
+                id="labels"
+                keyLabelText="Label Key"
+                valueLabelText="Label Value"
+                onChange={(items: string) => setFieldValue("labels", items)}
+                keyPlaceholder="Enter a key"
+                valuePlaceholder="Enter a value"
+                value={values.labels}
               />
             </div>
           </div>
