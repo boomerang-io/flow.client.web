@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
 import { History } from "history";
-import { Formik, FormikProps } from "formik";
+import { Formik, FormikProps, FieldArray } from "formik";
 import {
   Button,
   ComboBox,
   ComposedModal,
-  Creatable,
+  Tag,
   TextArea,
   TextInput,
   Toggle,
@@ -24,6 +24,7 @@ import workflowIcons from "Assets/workflowIcons";
 import { WorkflowSummary } from "Types";
 import BuildWebhookModalContent from "./BuildWebhookModalContent";
 import CreateToken from "./CreateToken";
+import CustomLabel from "./CustomLabel";
 import Token from "./Token";
 import styles from "./configure.module.scss";
 
@@ -35,7 +36,7 @@ interface FormProps {
   enablePersistentStorage: boolean;
   icon: string;
   name: string;
-  labels: Array<string>;
+  labels: Array<{ key: string; value: string }>;
   shortDescription: string;
   triggers: {
     manual: {
@@ -108,7 +109,7 @@ const ConfigureContainer = React.memo<ConfigureContainerProps>(function Configur
           enablePersistentStorage: summaryData.enablePersistentStorage ?? false,
           icon: summaryData.icon ?? "",
           name: summaryData.name ?? "",
-          labels: summaryData.labels ? summaryData.labels.map((label) => `${label.key}:${label.value}`) : [],
+          labels: summaryData.labels ? summaryData.labels : [],
           // selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: "" },
           selectedTeam: teams.find((team) => team?.id === summaryData?.flowTeamId) ?? { id: null },
           shortDescription: summaryData?.shortDescription ?? "",
@@ -538,17 +539,25 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           <div className={styles.labelsContainer}>
             <h1 className={styles.header}>Custom Kubernetes Labels</h1>
             <p className={styles.subTitle}>Create custom labels for Kubernetes.</p>
-            <div className={styles.toggleContainer}>
-              <Creatable
-                createKeyValuePair
-                id="labels"
-                keyLabelText="Label Key"
-                valueLabelText="Label Value"
-                onChange={(items: string) => setFieldValue("labels", items)}
-                keyPlaceholder="Enter a key"
-                valuePlaceholder="Enter a value"
-                value={values.labels}
-              />
+            <div className={styles.labelsContainer}>
+              <div className={styles.tagsContainer}>
+                <FieldArray
+                  name="labels"
+                  render={(arrayHelpers) =>
+                    values.labels.map((label, index) => {
+                      return (
+                        <Tag
+                          type="teal"
+                          key={index}
+                          filter
+                          onClose={() => arrayHelpers.remove(index)}
+                        >{`${label.key}:${label.value}`}</Tag>
+                      );
+                    })
+                  }
+                />
+              </div>
+              <CustomLabel formikPropsSetFieldValue={setFieldValue} labels={values.labels} />
             </div>
           </div>
           <hr className={styles.delimiter} />
