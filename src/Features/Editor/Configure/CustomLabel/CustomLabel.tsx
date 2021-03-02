@@ -21,7 +21,7 @@ interface AddLabelProps {
 const keyPrefixRegex = /^[a-zA-Z0-9]*([.\1][a-zA-Z0-9]+)*$/;
 const keyNameAndValueRegex = /^[a-zA-Z0-9][a-zA-Z0-9-_.]*([a-zA-Z0-9])+$/;
 
-const AddLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels }) => {
+const CustomLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels }) => {
   const addLabel = ({ values }: { values: any }) => {
     const { key, value } = values;
     const newLabels = labels.concat({ key, value });
@@ -55,7 +55,7 @@ const AddLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels })
   );
 };
 
-export default AddLabel;
+export default CustomLabel;
 
 interface AddLabelModalContentProps {
   formikPropsSetFieldValue: Function;
@@ -86,7 +86,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
       return this.createError({ message: "Key Prefix must be a DNS subdomain not longer than 253 characters." });
     else
       return this.createError({
-        message: "Key Name must have only alphanumeric, dashes, underscores, dots and not longer than 63 characters.",
+        message: "Key Name must have only alphanumeric and between them dashes, underscores, dots and not longer than 63 characters.",
       });
   }
 
@@ -110,7 +110,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
           .test("validate-k8s-key", "Type a valid Kubernetes key", validateKey),
         value: Yup.string()
           .required("Enter a label value")
-          .test("validate-k8s-value", "Type a valid Kubernetes value", validateValue),
+          .test("validate-k8s-value", "Value must have only alphanumeric and between them dashes, underscores, dots and not longer than 63 characters.", validateValue),
       })}
     >
       {(formikProps) => {

@@ -24,6 +24,7 @@ import workflowIcons from "Assets/workflowIcons";
 import { WorkflowSummary } from "Types";
 import BuildWebhookModalContent from "./BuildWebhookModalContent";
 import CreateToken from "./CreateToken";
+//@ts-ignore
 import CustomLabel from "./CustomLabel";
 import Token from "./Token";
 import styles from "./configure.module.scss";
