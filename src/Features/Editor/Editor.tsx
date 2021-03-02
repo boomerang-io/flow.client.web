@@ -200,11 +200,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   const updateSummary = useCallback(
     async ({ values: formikValues, callback }) => {
       const flowTeamId = formikValues?.selectedTeam?.id;
-      const customLabels = formikValues.labels.map((label: string) => {
-        const keyValues = label.split(":");
-        return { key: keyValues[0], value: keyValues[1] };
-      });
-      const updatedWorkflow = { ...summaryData, ...formikValues, labels: customLabels, flowTeamId };
+      const updatedWorkflow = { ...summaryData, ...formikValues, flowTeamId };
 
       try {
         const { data } = await mutateSummary({ body: updatedWorkflow });
