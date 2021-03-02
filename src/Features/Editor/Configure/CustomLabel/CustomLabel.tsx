@@ -18,8 +18,8 @@ interface AddLabelProps {
   labels: Array<{ key: string; value: string }>;
 }
 
-const keyPrefixRegex = /^[a-zA-Z0-9]*([.\1][a-zA-Z0-9]+)*$/;
-const keyNameAndValueRegex = /^[a-zA-Z0-9][a-zA-Z0-9-_.]*([a-zA-Z0-9])+$/;
+const keyPrefixRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}([.\1][a-zA-Z0-9-]{1,63})*$/;
+const keyNameAndValueRegex = /^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,61}[a-zA-Z0-9]$/;
 
 const CustomLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels }) => {
   const addLabel = ({ values }: { values: any }) => {
@@ -79,11 +79,11 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
       key?.includes("/") && keyParts?.length === 2 ? keyPrefixRegex.test(prefix) && prefix?.length <= 253 : true;
     const isValidName =
       keyParts.length === 2
-        ? keyNameAndValueRegex.test(name) && name?.length <= 63
-        : keyNameAndValueRegex.test(key) && key?.length <= 63;
+        ? keyNameAndValueRegex.test(name)
+        : keyNameAndValueRegex.test(key);
     if (isValidPrefix && isValidName) return true;
     else if (!isValidPrefix)
-      return this.createError({ message: "Key Prefix must be a DNS subdomain not longer than 253 characters." });
+      return this.createError({ message: "Key Prefix must be a DNS subdomain not longer than 253 characters and each part not longer than 63 characters." });
     else
       return this.createError({
         message: "Key Name must have only alphanumeric and between them dashes, underscores, dots and not longer than 63 characters.",
@@ -91,7 +91,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
   }
 
   const validateValue = (value) => {
-    return keyNameAndValueRegex.test(value) && value?.length <= 63;
+    return keyNameAndValueRegex.test(value);
   };
 
   return (
