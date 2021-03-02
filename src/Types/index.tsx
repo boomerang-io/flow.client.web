@@ -184,6 +184,7 @@ export type ChangeLog = Array<ChangeLogItem>;
 export interface TaskModel {
   category: string;
   currentVersion: number;
+  enableLifecycle: boolean;
   id: string;
   icon: string;
   model: string;
