@@ -346,7 +346,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             <p className={styles.subTitle}>Off - until you turn them on. (Feel the power).</p>
             <div className={styles.triggerContainer}>
               <div className={styles.triggerSection}>
-                <div className={styles.creatableContainer}>
+                <div className={styles.toggleContainer}>
                   <Toggle
                     reversed
                     id="triggers.manual.enable"
