@@ -559,7 +559,7 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                               onClose={() => arrayHelpers.remove(index)}
                               selectedLabel={label}
                             >
-                              {`${label.key}:${label.value}`}
+                              {`${label.key}=${label.value}`}
                             </Tag>)}
                           labels={values.labels}
                           selectedLabel={{...label, index}}
