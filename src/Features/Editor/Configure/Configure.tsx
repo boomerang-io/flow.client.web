@@ -547,12 +547,23 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   render={(arrayHelpers) =>
                     values.labels.map((label, index) => {
                       return (
-                        <Tag
-                          type="teal"
-                          key={index}
-                          filter
-                          onClose={() => arrayHelpers.remove(index)}
-                        >{`${label.key}:${label.value}`}</Tag>
+                        <CustomLabel 
+                          formikPropsSetFieldValue={setFieldValue} 
+                          isEdit 
+                          editTrigger={({openModal}: { openModal: () => void }) =>(
+                            <Tag
+                              type="teal"
+                              key={index}
+                              filter
+                              onClick={openModal}
+                              onClose={() => arrayHelpers.remove(index)}
+                              selectedLabel={label}
+                            >
+                              {`${label.key}:${label.value}`}
+                            </Tag>)}
+                          labels={values.labels}
+                          selectedLabel={{...label, index}}
+                        />
                       );
                     })
                   }

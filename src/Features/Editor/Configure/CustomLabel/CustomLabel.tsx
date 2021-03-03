@@ -16,15 +16,25 @@ import styles from "./CustomLabel.module.scss";
 interface AddLabelProps {
   formikPropsSetFieldValue: Function;
   labels: Array<{ key: string; value: string }>;
+  isEdit?: boolean;
+  editTrigger?: React.ReactNode;
+  selectedLabel?: { key: string; value: string, index: number };
 }
 
 const keyPrefixRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,62}([.\1][a-zA-Z0-9-]{1,63})*$/;
 const keyNameAndValueRegex = /^[a-zA-Z0-9][a-zA-Z0-9-_.]{0,61}[a-zA-Z0-9]$/;
 
-const CustomLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels }) => {
+const CustomLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels, isEdit=false, editTrigger: EditTrigger, selectedLabel }) => {
   const addLabel = ({ values }: { values: any }) => {
     const { key, value } = values;
-    const newLabels = labels.concat({ key, value });
+    let newLabels;
+
+    if(isEdit) {
+      newLabels = [...labels];
+      newLabels.splice(selectedLabel?.index, 1, { key, value });
+    } else {
+      newLabels = labels.concat({ key, value });
+    }
     formikPropsSetFieldValue("labels", newLabels);
   };
 
@@ -34,10 +44,16 @@ const CustomLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels
         containerClassName: styles.modalContainer,
       }}
       modalHeaderProps={{
-        title: "Add Custom Label",
-        subtitle: "Create a key value pair for custom kubernetes label",
+        title: `${isEdit ? "Edit" : "Add"} Custom Label`,
+        subtitle: `${isEdit ? "Edit" : "Create"} a key value pair for custom kubernetes label`,
       }}
-      modalTrigger={({ openModal }: { openModal: () => void }) => (
+      modalTrigger={({ openModal }: { openModal: () => void }) => 
+      isEdit && EditTrigger ?
+      (
+        <EditTrigger openModal={openModal}/>
+      )
+      :
+      (
         <Button kind="ghost" size="field" renderIcon={Edit16} onClick={openModal} className={styles.addNewToken}>
           Add a new label
         </Button>
@@ -49,6 +65,8 @@ const CustomLabel: React.FC<AddLabelProps> = ({ formikPropsSetFieldValue, labels
           formikPropsSetFieldValue={formikPropsSetFieldValue}
           addLabel={addLabel}
           closeModal={closeModal}
+          isEdit={isEdit}
+          selectedLabel={selectedLabel}
         />
       )}
     </ComposedModal>
@@ -62,6 +80,8 @@ interface AddLabelModalContentProps {
   labels: Array<{ key: string; value: string }>;
   addLabel: Function;
   closeModal: Function;
+  isEdit: boolean;
+  selectedLabel?: { key: string; value: string, index: number };
 }
 
 const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
@@ -69,7 +89,11 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
   formikPropsSetFieldValue,
   closeModal,
   addLabel,
+  selectedLabel,
+  isEdit,
 }) => {
+  const affirmativeText = isEdit ? "Save" : "Add";
+
   function validateKey(key) {
     const keyParts: Array<string> | string = key?.split("/") ?? "";
     const prefix = keyParts[0];
@@ -97,8 +121,8 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
   return (
     <Formik
       initialValues={{
-        key: "",
-        value: "",
+        key: selectedLabel?.key ?? "",
+        value: selectedLabel?.value ??"",
       }}
       onSubmit={(values) => {
         addLabel({ values });
@@ -144,7 +168,7 @@ const AddLabelModalContent: React.FC<AddLabelModalContentProps> = ({
                 Cancel
               </Button>
               <Button disabled={Boolean(errors.key) || Boolean(errors.value) || !dirty} onClick={handleSubmit}>
-                Add
+                {affirmativeText}
               </Button>
             </ModalFooter>
           </ModalForm>
