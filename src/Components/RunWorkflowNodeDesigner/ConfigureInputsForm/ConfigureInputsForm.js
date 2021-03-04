@@ -230,7 +230,8 @@ function ConfigureInputsForm(props) {
 
   const activeInputs = {};
   activeProperties.forEach((prop) => {
-    activeInputs[prop.key] = props?.value ? props.value : prop.defaultValue;
+    // activeInputs[prop.key] = props?.value ? props.value : prop.defaultValue;
+    activeInputs[`['${prop?.key}']`] = props?.value ? props.value : prop.defaultValue;
   });
 
   const WorkflowSelectionInput = ({ formikProps, ...otherProps }) => {
