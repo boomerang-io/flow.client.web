@@ -6,8 +6,22 @@
   }
 }
 
+.headerNav {
+  display: flex;
+}
+
 .workflowNameSkeleton {
   height: 1.125rem;
+}
+
+.workflowAdvancedDetailTrigger {
+  align-items: center;
+  cursor: pointer;
+  display: flex !important;
+  justify-content: center;
+  &:focus {
+    @include focus-outline();
+  }
 }
 
 .content {
@@ -46,4 +60,43 @@
 
 .workflowOutputLog {
   margin-left: 0.5rem;
+}
+
+/**
+ * AdvancedDetail Modal
+ */
+
+.detailHeading {
+  margin: 1rem 0 0.5rem 0;
+}
+
+.workflowLabels {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.workflowLabelBubble {
+  margin-left: 0;
+}
+
+.kubernetes {
+  align-items: center;
+  display: flex;
+  margin-top: 1rem;
+  padding-right: 1rem;
+}
+
+.kubernetesCopyContainer {
+  height: 2rem;
+  margin-left: 0.5rem;
+  width: 2rem;
+}
+
+.kubernetesCopy {
+  justify-content: center;
+  width: 2rem;
+
+  :global .bx--btn__icon {
+    margin: 0;
+  }
 }
