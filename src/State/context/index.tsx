@@ -38,6 +38,7 @@ interface stepInterface {
   startTime: string;
   taskId: string;
   taskName: string;
+  runWorkflowActivityStatus: string;
 }
 
 interface workflowExecutionInterface {

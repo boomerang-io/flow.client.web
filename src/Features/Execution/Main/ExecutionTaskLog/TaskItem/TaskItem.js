@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactMarkdown from "react-markdown";
-import { Button, ComposedModal, Link, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
+import { Link } from "react-router-dom";
+import { Button, ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
 import ManualTaskModal from "./ManualTaskModal";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskApprovalModal from "./TaskApprovalModal";
@@ -37,9 +38,22 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
     switchValue,
     runWorkflowActivityId,
     runWorkflowId,
+    runWorkflowActivityStatus,
   } = task;
-  const Icon = executionStatusIcon[flowTaskStatus];
-  const statusClassName = styles[flowTaskStatus];
+  // const Icon = executionStatusIcon[flowTaskStatus];
+  // const statusClassName = styles[flowTaskStatus];
+  let statusClassName;
+  let Icon;
+  let runStatus;
+  if (taskType === NodeType.RunWorkflow) {
+    statusClassName = styles[runWorkflowActivityStatus];
+    Icon = executionStatusIcon[runWorkflowActivityStatus];
+    runStatus = runWorkflowActivityStatus;
+  } else {
+    statusClassName = styles[flowTaskStatus];
+    Icon = executionStatusIcon[flowTaskStatus];
+    runStatus = flowTaskStatus;
+  }
 
   const calculatedDuration = Number.parseInt(duration)
     ? dateHelper.timeMillisecondsToTimeUnit(duration)
@@ -50,14 +64,14 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
       <div className={styles.progressBar} />
       <section className={styles.header}>
         <div className={styles.title}>
-          <Icon aria-label={flowTaskStatus} className={styles.taskIcon} />
+          <Icon aria-label={runStatus} className={styles.taskIcon} />
           <p title={taskName} data-testid="taskitem-name">
             {taskName}
           </p>
         </div>
         <div className={`${styles.status} ${statusClassName}`}>
-          <Icon aria-label={flowTaskStatus} className={styles.statusIcon} />
-          <p>{ExecutionStatusCopy[flowTaskStatus]}</p>
+          <Icon aria-label={runStatus} className={styles.statusIcon} />
+          <p>{ExecutionStatusCopy[runStatus]}</p>
         </div>
       </section>
       <section className={styles.data}>
@@ -78,7 +92,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
       </section>
       {!hidden && (
         <section className={styles.data}>
-          {logTaskTypes.includes(taskType) && logStatusTypes.includes(flowTaskStatus) && (
+          {logTaskTypes.includes(taskType) && logStatusTypes.includes(runStatus) && (
             <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
           )}
           {outputs && Object.keys(outputs).length > 0 && (
@@ -87,9 +101,9 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           {taskType === NodeType.RunWorkflow && (
             <Link
               to={appLink.execution({ executionId: runWorkflowActivityId, workflowId: runWorkflowId })}
-              style={{ cursor: "pointer" }}
+              className={styles.viewActivityLink}
             >
-              {"View Activity"}
+              View Activity
             </Link>
           )}
           {taskType === NodeType.Approval && approval?.status === ApprovalStatus.Submitted && (
