@@ -248,7 +248,6 @@ const ChangeToAppearanceMap = {
   },
 };
 function StateHilighter({ children, hidden, type }) {
-  console.log(type, "UHHHHH");
   const { className, icon, text } = ChangeToAppearanceMap[type] ?? {};
 
   if (hidden) {
