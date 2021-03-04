@@ -291,6 +291,8 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
           >
             <li
               class="taskitem completed"
+              id="task-ecececb3-5334-41d1-bd02-449733f5d8f3"
+              tabindex="0"
             >
               <div
                 class="progressBar"
@@ -392,6 +394,8 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
             </li>
             <li
               class="taskitem completed"
+              id="task-225e86b9-e187-4d09-9e5f-a6f4d5778868"
+              tabindex="0"
             >
               <div
                 class="progressBar"
@@ -508,6 +512,8 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
             </li>
             <li
               class="taskitem completed"
+              id="task-ea1b88d6-2c85-416f-b45e-50f4f5fa3a94"
+              tabindex="0"
             >
               <div
                 class="progressBar"
@@ -624,6 +630,8 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
             </li>
             <li
               class="taskitem completed"
+              id="task-fe6a167c-4c2b-429d-ae68-9d1e3d030b37"
+              tabindex="0"
             >
               <div
                 class="progressBar"
