@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useQuery } from "react-query";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 import { useAppContext, useEditorContext } from "Hooks";
@@ -6,6 +7,8 @@ import {
   AutoSuggest,
   ComboBox,
   DynamicFormik,
+  ErrorMessage,
+  Loading,
   ModalForm,
   TextInput,
   TextArea,
@@ -13,6 +16,7 @@ import {
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
 import { TEXT_AREA_TYPES } from "Constants/formInputTypes";
+import { serviceUrl, resolver } from "Config/servicesConfig";
 import styles from "./WorkflowTaskForm.module.scss";
 
 const AutoSuggestInput = (props) => {
@@ -106,17 +110,52 @@ ConfigureInputsForm.propTypes = {
 function ConfigureInputsForm(props) {
   const { teams } = useAppContext();
   const { summaryData } = useEditorContext();
+  const [activeWorkflowId, setActiveWorkflowId] = useState("");
+  const { node, taskNames, nodeConfig } = props;
 
-  const teamWorkflows = teams.find((team) => team.id === summaryData?.flowTeamId)?.workflows;
-  const teamWorkflowMapped = teamWorkflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
+  const isSystem = summaryData?.scope === "system";
+
+  const { data: systemWorkflows, error, isLoading } = useQuery(
+    serviceUrl.getSystemWorkflows(),
+    resolver.query(serviceUrl.getSystemWorkflows()),
+    { enabled: isSystem }
+  );
+
+  let workflows = [];
+
+  if (isSystem) {
+    workflows = systemWorkflows?.filter((workflow) => workflow.id !== summaryData?.id);
+  } else {
+    workflows = teams
+      .find((team) => team.id === summaryData?.flowTeamId)
+      ?.workflows.filter((workflow) => workflow.id !== summaryData?.id);
+  }
+
+  const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
+
+  const workflowProperties = nodeConfig?.inputs?.workflowId
+    ? workflows.find((workflow) => workflow.id === nodeConfig?.inputs?.workflowId).properties
+    : null;
+  const [activeProperties, setActiveProperties] = useState(
+    workflowProperties
+      ? workflowProperties.map((property) => {
+          delete property.value;
+          return property;
+        })
+      : []
+  );
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <ErrorMessage />;
+  }
 
   const formikSetFieldValue = (value, id, setFieldValue) => {
     setFieldValue(id, value);
   };
-
-  //   const formikHandleChange = (e, handleChange) => {
-  //     handleChange(e);
-  //   };
 
   const handleOnSave = (values) => {
     props.node.taskName = values.taskName;
@@ -182,12 +221,24 @@ function ConfigureInputsForm(props) {
     };
   };
 
+  //   const formatPropertiesForEdit = () => {
+  //     const { properties = [] } = workflow;
+  //     return properties.filter((property) => !property.readOnly);
+  //   };
+
+  const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
+
+  const activeInputs = {};
+  activeProperties.forEach((prop) => {
+    activeInputs[prop.key] = props?.value ? props.value : prop.defaultValue;
+  });
+
   const WorkflowSelectionInput = ({ formikProps, ...otherProps }) => {
     const { errors, touched, setFieldValue, values } = formikProps;
     const error = errors[otherProps.id];
     const touch = touched[otherProps.id];
     const initialSelectedItem = values.workflowId
-      ? teamWorkflowMapped.find((workflow) => workflow.value === values.workflowId)
+      ? workflowsMapped.find((workflow) => workflow.value === values.workflowId)
       : "";
     return (
       <ComboBox
@@ -196,7 +247,7 @@ function ConfigureInputsForm(props) {
           setFieldValue("workflowId", selectedItem?.value ?? "");
           setActiveWorkflowId(selectedItem?.value ?? "");
           if (selectedItem?.value) {
-            const workflowProperties = teamWorkflows.find((workflow) => workflow.id === selectedItem?.value).properties;
+            const workflowProperties = workflows.find((workflow) => workflow.id === selectedItem?.value).properties;
             setActiveProperties(
               workflowProperties.map((property) => {
                 delete property.value;
@@ -205,7 +256,7 @@ function ConfigureInputsForm(props) {
             );
           }
         }}
-        items={teamWorkflowMapped}
+        items={workflowsMapped}
         initialSelectedItem={initialSelectedItem}
         titleText="Workflow"
         placeholder="Select a workflow"
@@ -214,34 +265,6 @@ function ConfigureInputsForm(props) {
       />
     );
   };
-
-  //   const formatPropertiesForEdit = () => {
-  //     const { properties = [] } = workflow;
-  //     return properties.filter((property) => !property.readOnly);
-  //   };
-
-  //   const { node, task, taskNames, nodeConfig } = props;
-  const { node, taskNames, nodeConfig } = props;
-
-  //   const taskRevisions = task?.revisions ?? [];
-  // Find the matching task config for the version
-  //   const taskVersionConfig = nodeConfig
-  //     ? taskRevisions.find((revision) => nodeConfig.taskVersion === revision.version)?.config ?? []
-  //     : [];
-  const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
-
-  const workflowProperties = nodeConfig?.inputs?.workflowId
-    ? teamWorkflows.find((workflow) => workflow.id === nodeConfig?.inputs?.workflowId).properties
-    : null;
-  const [activeProperties, setActiveProperties] = useState(
-    workflowProperties
-      ? workflowProperties.map((property) => {
-          delete property.value;
-          return property;
-        })
-      : []
-  );
-  const [activeWorkflowId, setActiveWorkflowId] = useState("");
 
   // Add the name input
   const inputs = [
@@ -263,11 +286,6 @@ function ConfigureInputsForm(props) {
     },
     ...activeProperties,
   ];
-
-  const activeInputs = {};
-  activeProperties.forEach((prop) => {
-    activeInputs[prop.key] = props?.value ? props.value : prop.defaultValue;
-  });
 
   return (
     <DynamicFormik

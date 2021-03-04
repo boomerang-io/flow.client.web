@@ -85,8 +85,11 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
           )}
           {taskType === NodeType.RunWorkflow && (
-            <Link to={appLink.execution({ executionId: runWorkflowActivityId, workflowId: runWorkflowId })}>
-              {"Activity"}
+            <Link
+              to={appLink.execution({ executionId: runWorkflowActivityId, workflowId: runWorkflowId })}
+              style={{ cursor: "pointer" }}
+            >
+              {"View Activity"}
             </Link>
           )}
           {taskType === NodeType.Approval && approval?.status === ApprovalStatus.Submitted && (
