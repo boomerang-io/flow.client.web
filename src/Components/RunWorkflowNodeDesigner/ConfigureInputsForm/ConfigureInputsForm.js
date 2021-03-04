@@ -49,6 +49,7 @@ const TextAreaSuggestInput = (props) => {
           disabled={props?.item?.readOnly}
           helperText={props?.item?.helperText}
           placeholder={props?.item?.placeholder}
+          id={`['${props.id}']`}
         />
       </AutoSuggest>
     </div>
@@ -65,7 +66,7 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
   const touch = touched[otherProps.id];
   return (
     <>
-      <TextInput {...otherProps} invalid={error && touch} invalidText={error} onChange={formikProps.handleChange} />
+      <TextInput {...otherProps} invalid={error && touch} id={`['${otherProps.id}']`} invalidText={error} onChange={formikProps.handleChange} />
       <hr className={styles.divider} />
       <h2 className={styles.inputsTitle}>Specifics</h2>
     </>
@@ -132,7 +133,6 @@ function ConfigureInputsForm(props) {
   }
 
   const workflowsMapped = workflows?.map((workflow) => ({ label: workflow.name, value: workflow.id })) ?? [];
-
   const workflowProperties = nodeConfig?.inputs?.workflowId
     ? workflows.find((workflow) => workflow.id === nodeConfig?.inputs?.workflowId).properties
     : null;
@@ -203,13 +203,13 @@ function ConfigureInputsForm(props) {
 
     return {
       autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
-      onChange: (value) => formikSetFieldValue(value, key, setFieldValue),
-      initialValue: values[key],
+      onChange: (value) => formikSetFieldValue(value, `['${key}']`, setFieldValue),
+      initialValue: values[`['${key}']`],
       inputProps: {
-        id: key,
+        id:`['${key}']`,
         onBlur: handleBlur,
-        invalid: touched[key] && errors[key],
-        invalidText: errors[key],
+        invalid: touched[`['${key}']`] && errors[`['${key}']`],
+        invalidText: errors[`['${key}']`],
         ...rest,
       },
     };
@@ -231,7 +231,7 @@ function ConfigureInputsForm(props) {
   const activeInputs = {};
   activeProperties.forEach((prop) => {
     // activeInputs[prop.key] = props?.value ? props.value : prop.defaultValue;
-    activeInputs[`['${prop?.key}']`] = props?.value ? props.value : prop.defaultValue;
+    activeInputs[prop?.key] = props?.value ? props.value : prop.defaultValue;
   });
 
   const WorkflowSelectionInput = ({ formikProps, ...otherProps }) => {
