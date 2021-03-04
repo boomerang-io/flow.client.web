@@ -1,21 +1,21 @@
 @import "Styles/mixins";
 
-  .largeCol {
-    border-right: 0.0625rem solid var(--cds-text-03);
-    width: 35%;
-  }
+.largeCol {
+  border-right: 0.0625rem solid var(--cds-text-03);
+  width: 35%;
+}
 
-  .smallCol {
-    border-right: 0.0625rem solid var(--cds-text-03);
-    width: 30%;
-  }
+.smallCol {
+  border-right: 0.0625rem solid var(--cds-text-03);
+  width: 30%;
+}
 
-  .delimiter {
-    border: 0;
-    border-top: 0.0625rem solid var(--cds-text-03);
-    margin-left: -2rem;
-    margin-right: -2rem;
-  }
+.delimiter {
+  border: 0;
+  border-top: 0.0625rem solid var(--cds-text-03);
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
 
 .wrapper {
   display: flex;
@@ -183,6 +183,14 @@
   margin-bottom: 0.5rem;
 }
 
+.tagsContainer {
+  margin-bottom: 0.5rem;
+
+  :global .bx--tag--filter {
+    margin-left: 0 !important;
+  }
+}
+
 .informationCronMessage,
 //.informationTimeZone,
 .webhookToken {
@@ -272,7 +280,8 @@
   }
 }
 
-.optionsContainer {
+.optionsContainer,
+.labelsContainer {
   padding-bottom: 2.5rem;
 }
 
