@@ -398,345 +398,10 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
               class="bx--accordion bx--accordion--end"
             >
               <li
-                class="bx--accordion__item bx--accordion__item--active"
-              >
-                <button
-                  aria-controls="accordion-item-1"
-                  aria-expanded="true"
-                  class="bx--accordion__heading"
-                  type="button"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="bx--accordion__arrow"
-                    fill="currentColor"
-                    focusable="false"
-                    height="16"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 16 16"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
-                    />
-                  </svg>
-                  <div
-                    class="bx--accordion__title"
-                  >
-                    workflow (6)
-                  </div>
-                </button>
-                <div
-                  class="bx--accordion__content"
-                  id="accordion-item-1"
-                >
-                  <ul
-                    class="taskSection"
-                  >
-                    <li>
-                      <div
-                        aria-selected="false"
-                        class="bx--tile container"
-                        draggable="true"
-                        role="option"
-                        tabindex="0"
-                      >
-                        <svg
-                          alt="Task node type edit"
-                          aria-hidden="true"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
-                          />
-                        </svg>
-                        <p
-                          class="taskName"
-                        >
-                           
-                          Manual Approval
-                           
-                        </p>
-                        <svg
-                          aria-hidden="true"
-                          fill="#0072C3"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                          />
-                        </svg>
-                      </div>
-                    </li>
-                    <li>
-                      <div
-                        aria-selected="false"
-                        class="bx--tile container"
-                        draggable="true"
-                        role="option"
-                        tabindex="0"
-                      >
-                        <svg
-                          alt="Task node type edit"
-                          aria-hidden="true"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
-                          />
-                        </svg>
-                        <p
-                          class="taskName"
-                        >
-                           
-                          Manual Task
-                           
-                        </p>
-                        <svg
-                          aria-hidden="true"
-                          fill="#0072C3"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                          />
-                        </svg>
-                      </div>
-                    </li>
-                    <li>
-                      <div
-                        aria-selected="false"
-                        class="bx--tile container"
-                        draggable="true"
-                        role="option"
-                        tabindex="0"
-                      >
-                        <svg
-                          alt="Task node type code"
-                          aria-hidden="true"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M31 16L24 23 22.59 21.59 28.17 16 22.59 10.41 24 9 31 16zM1 16L8 9 9.41 10.41 3.83 16 9.41 21.59 8 23 1 16z"
-                          />
-                          <path
-                            d="M5.91 15H26.080000000000002V17H5.91z"
-                            transform="rotate(-75 15.996 16)"
-                          />
-                        </svg>
-                        <p
-                          class="taskName"
-                        >
-                           
-                          Run Custom Task
-                           
-                        </p>
-                        <svg
-                          aria-hidden="true"
-                          fill="#0072C3"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                          />
-                        </svg>
-                      </div>
-                    </li>
-                    <li>
-                      <div
-                        aria-selected="false"
-                        class="bx--tile container"
-                        draggable="true"
-                        role="option"
-                        tabindex="0"
-                      >
-                        <svg
-                          alt="Task node type edit"
-                          aria-hidden="true"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
-                          />
-                        </svg>
-                        <p
-                          class="taskName"
-                        >
-                           
-                          Set Output Property
-                           
-                        </p>
-                        <svg
-                          aria-hidden="true"
-                          fill="#0072C3"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                          />
-                        </svg>
-                      </div>
-                    </li>
-                    <li>
-                      <div
-                        aria-selected="false"
-                        class="bx--tile container"
-                        draggable="true"
-                        role="option"
-                        tabindex="0"
-                      >
-                        <svg
-                          alt="Task node type switch"
-                          aria-hidden="true"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M26,18a3.9962,3.9962,0,0,0-3.8579,3H17V11h5.1421a4,4,0,1,0,0-2H17a2.002,2.002,0,0,0-2,2v4H9.8579a4,4,0,1,0,0,2H15v4a2.002,2.002,0,0,0,2,2h5.1421A3.9934,3.9934,0,1,0,26,18ZM26,8a2,2,0,1,1-2,2A2.002,2.002,0,0,1,26,8ZM6,18a2,2,0,1,1,2-2A2.002,2.002,0,0,1,6,18Zm20,6a2,2,0,1,1,2-2A2.002,2.002,0,0,1,26,24Z"
-                          />
-                        </svg>
-                        <p
-                          class="taskName"
-                        >
-                           
-                          Switch
-                           
-                        </p>
-                        <svg
-                          aria-hidden="true"
-                          fill="#0072C3"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                          />
-                        </svg>
-                      </div>
-                    </li>
-                    <li>
-                      <div
-                        aria-selected="false"
-                        class="bx--tile container"
-                        draggable="true"
-                        role="option"
-                        tabindex="0"
-                      >
-                        <svg
-                          alt="Task node type power on/off"
-                          aria-hidden="true"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 16 16"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9	c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
-                          />
-                          <path
-                            d="M7.5 1H8.5V8H7.5z"
-                          />
-                        </svg>
-                        <p
-                          class="taskName"
-                        >
-                           
-                          Wait For Event
-                           
-                        </p>
-                        <svg
-                          aria-hidden="true"
-                          fill="#0072C3"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          style="will-change: auto;"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
-                          />
-                        </svg>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-2"
+                  aria-controls="accordion-item-1"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -763,7 +428,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-2"
+                  id="accordion-item-1"
                 >
                   <ul
                     class="taskSection"
@@ -871,7 +536,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-3"
+                  aria-controls="accordion-item-2"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -898,7 +563,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-3"
+                  id="accordion-item-2"
                 >
                   <ul
                     class="taskSection"
@@ -1012,7 +677,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-4"
+                  aria-controls="accordion-item-3"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1039,7 +704,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-4"
+                  id="accordion-item-3"
                 >
                   <ul
                     class="taskSection"
@@ -1285,7 +950,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-5"
+                  aria-controls="accordion-item-4"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1312,7 +977,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-5"
+                  id="accordion-item-4"
                 >
                   <ul
                     class="taskSection"
@@ -1600,7 +1265,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-6"
+                  aria-controls="accordion-item-5"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1627,7 +1292,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-6"
+                  id="accordion-item-5"
                 >
                   <ul
                     class="taskSection"
@@ -1843,7 +1508,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-7"
+                  aria-controls="accordion-item-6"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -1870,7 +1535,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-7"
+                  id="accordion-item-6"
                 >
                   <ul
                     class="taskSection"
@@ -1982,7 +1647,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-8"
+                  aria-controls="accordion-item-7"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -2009,7 +1674,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-8"
+                  id="accordion-item-7"
                 >
                   <ul
                     class="taskSection"
@@ -2057,7 +1722,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 class="bx--accordion__item"
               >
                 <button
-                  aria-controls="accordion-item-9"
+                  aria-controls="accordion-item-8"
                   class="bx--accordion__heading"
                   type="button"
                 >
@@ -2084,7 +1749,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 </button>
                 <div
                   class="bx--accordion__content"
-                  id="accordion-item-9"
+                  id="accordion-item-8"
                 >
                   <ul
                     class="taskSection"
@@ -2269,6 +1934,341 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                         >
                            
                           Sleep
+                           
+                        </p>
+                        <svg
+                          aria-hidden="true"
+                          fill="#0072C3"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li
+                class="bx--accordion__item bx--accordion__item--active"
+              >
+                <button
+                  aria-controls="accordion-item-9"
+                  aria-expanded="true"
+                  class="bx--accordion__heading"
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="bx--accordion__arrow"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    preserveAspectRatio="xMidYMid meet"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11 8L6 13 5.3 12.3 9.6 8 5.3 3.7 6 3z"
+                    />
+                  </svg>
+                  <div
+                    class="bx--accordion__title"
+                  >
+                    workflow (6)
+                  </div>
+                </button>
+                <div
+                  class="bx--accordion__content"
+                  id="accordion-item-9"
+                >
+                  <ul
+                    class="taskSection"
+                  >
+                    <li>
+                      <div
+                        aria-selected="false"
+                        class="bx--tile container"
+                        draggable="true"
+                        role="option"
+                        tabindex="0"
+                      >
+                        <svg
+                          alt="Task node type edit"
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
+                          />
+                        </svg>
+                        <p
+                          class="taskName"
+                        >
+                           
+                          Manual Approval
+                           
+                        </p>
+                        <svg
+                          aria-hidden="true"
+                          fill="#0072C3"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        aria-selected="false"
+                        class="bx--tile container"
+                        draggable="true"
+                        role="option"
+                        tabindex="0"
+                      >
+                        <svg
+                          alt="Task node type edit"
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
+                          />
+                        </svg>
+                        <p
+                          class="taskName"
+                        >
+                           
+                          Manual Task
+                           
+                        </p>
+                        <svg
+                          aria-hidden="true"
+                          fill="#0072C3"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        aria-selected="false"
+                        class="bx--tile container"
+                        draggable="true"
+                        role="option"
+                        tabindex="0"
+                      >
+                        <svg
+                          alt="Task node type code"
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M31 16L24 23 22.59 21.59 28.17 16 22.59 10.41 24 9 31 16zM1 16L8 9 9.41 10.41 3.83 16 9.41 21.59 8 23 1 16z"
+                          />
+                          <path
+                            d="M5.91 15H26.080000000000002V17H5.91z"
+                            transform="rotate(-75 15.996 16)"
+                          />
+                        </svg>
+                        <p
+                          class="taskName"
+                        >
+                           
+                          Run Custom Task
+                           
+                        </p>
+                        <svg
+                          aria-hidden="true"
+                          fill="#0072C3"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        aria-selected="false"
+                        class="bx--tile container"
+                        draggable="true"
+                        role="option"
+                        tabindex="0"
+                      >
+                        <svg
+                          alt="Task node type edit"
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M2 26H30V28H2zM25.4 9c.8-.8.8-2 0-2.8 0 0 0 0 0 0l-3.6-3.6c-.8-.8-2-.8-2.8 0 0 0 0 0 0 0l-15 15V24h6.4L25.4 9zM20.4 4L24 7.6l-3 3L17.4 7 20.4 4zM6 22v-3.6l10-10 3.6 3.6-10 10H6z"
+                          />
+                        </svg>
+                        <p
+                          class="taskName"
+                        >
+                           
+                          Set Output Property
+                           
+                        </p>
+                        <svg
+                          aria-hidden="true"
+                          fill="#0072C3"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        aria-selected="false"
+                        class="bx--tile container"
+                        draggable="true"
+                        role="option"
+                        tabindex="0"
+                      >
+                        <svg
+                          alt="Task node type switch"
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M26,18a3.9962,3.9962,0,0,0-3.8579,3H17V11h5.1421a4,4,0,1,0,0-2H17a2.002,2.002,0,0,0-2,2v4H9.8579a4,4,0,1,0,0,2H15v4a2.002,2.002,0,0,0,2,2h5.1421A3.9934,3.9934,0,1,0,26,18ZM26,8a2,2,0,1,1-2,2A2.002,2.002,0,0,1,26,8ZM6,18a2,2,0,1,1,2-2A2.002,2.002,0,0,1,6,18Zm20,6a2,2,0,1,1,2-2A2.002,2.002,0,0,1,26,24Z"
+                          />
+                        </svg>
+                        <p
+                          class="taskName"
+                        >
+                           
+                          Switch
+                           
+                        </p>
+                        <svg
+                          aria-hidden="true"
+                          fill="#0072C3"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 32 32"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M16,2a9,9,0,0,0-6,15.69V30l6-4,6,4V17.69A9,9,0,0,0,16,2Zm4,24.26-2.89-1.92L16,23.6l-1.11.74L12,26.26V19.05a8.88,8.88,0,0,0,8,0ZM20.89,16A7,7,0,1,1,23,11,7,7,0,0,1,20.89,16Z"
+                          />
+                        </svg>
+                      </div>
+                    </li>
+                    <li>
+                      <div
+                        aria-selected="false"
+                        class="bx--tile container"
+                        draggable="true"
+                        role="option"
+                        tabindex="0"
+                      >
+                        <svg
+                          alt="Task node type power on/off"
+                          aria-hidden="true"
+                          fill="currentColor"
+                          focusable="false"
+                          height="16"
+                          preserveAspectRatio="xMidYMid meet"
+                          style="will-change: auto;"
+                          viewBox="0 0 16 16"
+                          width="16"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M11.2,2.9l-0.5,0.9c2.6,1.5,3.5,4.9,2,7.5s-4.9,3.5-7.5,2s-3.5-4.9-2-7.5c0.5-0.8,1.2-1.5,2-2L4.8,2.9	c-3.1,1.8-4.2,5.8-2.4,8.9s5.8,4.2,8.9,2.4s4.2-5.8,2.4-8.9C13.1,4.3,12.2,3.4,11.2,2.9z"
+                          />
+                          <path
+                            d="M7.5 1H8.5V8H7.5z"
+                          />
+                        </svg>
+                        <p
+                          class="taskName"
+                        >
+                           
+                          Wait For Event
                            
                         </p>
                         <svg

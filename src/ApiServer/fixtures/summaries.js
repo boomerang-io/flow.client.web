@@ -160,10 +160,6 @@ export default [
     ],
     scope: "team",
     tokens: [],
-    labels: [
-      { key: "asdasd", value: "asdasdasd" },
-      { key: "aaaaaeeee", value: "yay" },
-    ],
     enablePersistentStorage: true,
     enableACCIntegration: false,
     revisionCount: 2,
@@ -325,139 +321,139 @@ export default [
     templateUpgradesAvailable: false,
   },
   {
-    "properties": [
-    {
-    "required": true,
-    "placeholder": null,
-    "language": null,
-    "disabled": null,
-    "defaultValue": "",
-    "value": null,
-    "values": null,
-    "readOnly": false,
-    "jsonPath": null,
-    "description": "",
-    "key": "system.component.name",
-    "label": "Component Name",
-    "type": "text",
-    "minValueLength": null,
-    "maxValueLength": null,
-    "options": null,
-    "helperText": null
-    }
-    ],
-    "description": "",
-    "flowTeamId": "5e7cccb94bbc6e0001c51773",
-    "icon": "flow",
-    "id": "5e877e944bbc6e0001c51e6e",
-    "name": "Java - Deploy",
-    "shortDescription": "",
-    "status": "active",
-    "triggers": {
-    "manual": {
-    "enable": true,
-    "token": null,
-    "topic": null
-    },
-    "scheduler": {
-    "enable": false,
-    "schedule": "",
-    "timezone": "",
-    "advancedCron": false
-    },
-    "webhook": {
-    "enable": true,
-    "token": "***REMOVED***",
-    "topic": null
-    },
-    "dockerhub": {
-    "enable": false,
-    "token": null,
-    "topic": null
-    },
-    "slack": {
-    "enable": false,
-    "token": null,
-    "topic": null
-    },
-    "custom": {
-    "enable": false,
-    "token": null,
-    "topic": null
-    }
-    },
-    "tokens": [],
-    "enablePersistentStorage": false,
-    "scope": "team",
-    "revisionCount": 8,
-    "templateUpgradesAvailable": false
-    },
-    {
-      "properties": [
+    properties: [
       {
-      "required": true,
-      "placeholder": null,
-      "language": null,
-      "disabled": null,
-      "defaultValue": "",
-      "value": null,
-      "values": null,
-      "readOnly": false,
-      "jsonPath": null,
-      "description": "",
-      "key": "system.component.name",
-      "label": "Component Name",
-      "type": "text",
-      "minValueLength": null,
-      "maxValueLength": null,
-      "options": null,
-      "helperText": null
-      }
-      ],
-      "description": "Java - Build",
-      "flowTeamId": "5e3a35ad8c222700018ccd39",
-      "icon": "flow",
-      "id": "5e877d1f4bbc6e0001c51e12",
-      "name": "Java - Build",
-      "shortDescription": "Java - Build",
-      "status": "active",
-      "triggers": {
-      "manual": {
-      "enable": true,
-      "token": null,
-      "topic": null
+        required: true,
+        placeholder: null,
+        language: null,
+        disabled: null,
+        defaultValue: "",
+        value: null,
+        values: null,
+        readOnly: false,
+        jsonPath: null,
+        description: "",
+        key: "system.component.name",
+        label: "Component Name",
+        type: "text",
+        minValueLength: null,
+        maxValueLength: null,
+        options: null,
+        helperText: null,
       },
-      "scheduler": {
-      "enable": false,
-      "schedule": "",
-      "timezone": "",
-      "advancedCron": false
+    ],
+    description: "",
+    flowTeamId: "5e7cccb94bbc6e0001c51773",
+    icon: "flow",
+    id: "5e877e944bbc6e0001c51e6e",
+    name: "Java - Deploy",
+    shortDescription: "",
+    status: "active",
+    triggers: {
+      manual: {
+        enable: true,
+        token: null,
+        topic: null,
       },
-      "webhook": {
-      "enable": true,
-      "token": "***REMOVED***",
-      "topic": null
+      scheduler: {
+        enable: false,
+        schedule: "",
+        timezone: "",
+        advancedCron: false,
       },
-      "dockerhub": {
-      "enable": false,
-      "token": null,
-      "topic": null
+      webhook: {
+        enable: true,
+        token: "***REMOVED***",
+        topic: null,
       },
-      "slack": {
-      "enable": false,
-      "token": null,
-      "topic": null
+      dockerhub: {
+        enable: false,
+        token: null,
+        topic: null,
       },
-      "custom": {
-      "enable": false,
-      "token": null,
-      "topic": null
-      }
+      slack: {
+        enable: false,
+        token: null,
+        topic: null,
       },
-      "tokens": [],
-      "enablePersistentStorage": false,
-      "scope": "system",
-      "revisionCount": 16,
-      "templateUpgradesAvailable": false
+      custom: {
+        enable: false,
+        token: null,
+        topic: null,
       },
+    },
+    tokens: [],
+    enablePersistentStorage: false,
+    scope: "team",
+    revisionCount: 8,
+    templateUpgradesAvailable: false,
+  },
+  {
+    properties: [
+      {
+        required: true,
+        placeholder: null,
+        language: null,
+        disabled: null,
+        defaultValue: "",
+        value: null,
+        values: null,
+        readOnly: false,
+        jsonPath: null,
+        description: "",
+        key: "system.component.name",
+        label: "Component Name",
+        type: "text",
+        minValueLength: null,
+        maxValueLength: null,
+        options: null,
+        helperText: null,
+      },
+    ],
+    description: "Java - Build",
+    flowTeamId: "5e3a35ad8c222700018ccd39",
+    icon: "flow",
+    id: "5e877d1f4bbc6e0001c51e12",
+    name: "Java - Build",
+    shortDescription: "Java - Build",
+    status: "active",
+    triggers: {
+      manual: {
+        enable: true,
+        token: null,
+        topic: null,
+      },
+      scheduler: {
+        enable: false,
+        schedule: "",
+        timezone: "",
+        advancedCron: false,
+      },
+      webhook: {
+        enable: true,
+        token: "***REMOVED***",
+        topic: null,
+      },
+      dockerhub: {
+        enable: false,
+        token: null,
+        topic: null,
+      },
+      slack: {
+        enable: false,
+        token: null,
+        topic: null,
+      },
+      custom: {
+        enable: false,
+        token: null,
+        topic: null,
+      },
+    },
+    tokens: [],
+    enablePersistentStorage: false,
+    scope: "system",
+    revisionCount: 16,
+    templateUpgradesAvailable: false,
+  },
 ];
