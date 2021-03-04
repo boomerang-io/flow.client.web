@@ -212,6 +212,11 @@
   line-height: 1.125rem;
 }
 
+.viewActivityLink {
+  color: var(--cds-interactive-01);
+  font-size: 0.8rem;
+}
+
 @keyframes indeterminate {
   0% {
     left: -35%;

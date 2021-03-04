@@ -18,7 +18,7 @@ const RunWorkflowNodeExecution: React.FC<RunWorkflowNodeExecutionProps> = (props
   const task = tasks.find((task) => task.id === taskId);
   // const { steps } = workflowExecution;
   const stepTaskStatus = Array.isArray(workflowExecution.steps)
-    ? workflowExecution.steps.find((step) => step.taskId === id)?.flowTaskStatus
+    ? workflowExecution.steps.find((step) => step.taskId === id)?.runWorkflowActivityStatus
     : null;
   // const flowTaskStatus = stepTaskStatus ?? ExecutionStatus.Skipped;
   const flowTaskStatus = stepTaskStatus ? stepTaskStatus : ExecutionStatus.Skipped;
