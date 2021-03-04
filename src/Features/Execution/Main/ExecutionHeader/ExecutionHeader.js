@@ -1,18 +1,26 @@
 import React from "react";
 import { useAppContext } from "Hooks";
 import PropTypes from "prop-types";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link, useParams } from "react-router-dom";
+import CopyToClipboard from "react-copy-to-clipboard";
+import moment from "moment";
 import {
   Breadcrumb,
   BreadcrumbItem,
+  Button,
+  ComposedModal,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
+  ModalBody,
   SkeletonPlaceholder,
+  Tag,
+  TextArea,
+  TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { appLink } from "Config/appConfig";
-import moment from "moment";
 import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
+import { appLink } from "Config/appConfig";
 import { allowedUserRoles, QueryStatus } from "Constants";
+import { Catalog16, CopyFile16 } from "@carbon/icons-react";
 import styles from "./executionHeader.module.scss";
 
 ExecutionHeader.propTypes = {
@@ -33,18 +41,35 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }) {
     <Header
       className={styles.container}
       nav={
-        <Breadcrumb noTrailingSlash>
-          <BreadcrumbItem>
-            <Link to={state ? state.fromUrl : appLink.activity()}>{state ? state.fromText : "Activity"}</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem isCurrentPage>
-            {!workflow?.data?.name ? (
-              <SkeletonPlaceholder className={styles.workflowNameSkeleton} />
-            ) : (
-              <p>{workflow.data.name}</p>
-            )}
-          </BreadcrumbItem>
-        </Breadcrumb>
+        <div className={styles.headerNav}>
+          <Breadcrumb noTrailingSlash>
+            <BreadcrumbItem>
+              <Link to={state ? state.fromUrl : appLink.activity()}>{state ? state.fromText : "Activity"}</Link>
+            </BreadcrumbItem>
+            <BreadcrumbItem isCurrentPage>
+              {!workflow?.data?.name ? (
+                <SkeletonPlaceholder className={styles.workflowNameSkeleton} />
+              ) : (
+                <p>{workflow.data.name}</p>
+              )}
+            </BreadcrumbItem>
+          </Breadcrumb>
+          {workflow?.data && (
+            <ComposedModal
+              composedModalProps={{ shouldCloseOnOverlayClick: true }}
+              modalHeaderProps={{ title: "Advanced Detail" }}
+              modalTrigger={({ openModal }) => (
+                <TooltipHover direction="right" content="Advanced Detail">
+                  <button className={styles.workflowAdvancedDetailTrigger} onClick={openModal}>
+                    <Catalog16 />
+                  </button>
+                </TooltipHover>
+              )}
+            >
+              {() => <WorkflowAdvancedDetail workflow={workflow.data} />}
+            </ComposedModal>
+          )}
+        </div>
       }
       header={<HeaderTitle>Workflow run detail</HeaderTitle>}
       actions={
@@ -98,6 +123,55 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }) {
         )
       }
     />
+  );
+}
+
+function WorkflowAdvancedDetail({ workflow }) {
+  const { workflowId, executionId } = useParams();
+  const [copyTokenText, setCopyTokenText] = React.useState("Copy");
+
+  const labelTexts = [`boomerang.io/workflow-id=${workflowId}`, `boomerang.io/workflow-activity-id=${executionId}`];
+
+  if (Array.isArray(workflow.labels) && workflow.labels.length > 0) {
+    workflow.labels.forEach((label) => {
+      labelTexts.push(`${label.key}=${label.value}`);
+    });
+  }
+
+  const kubernetesCommand = `kubectl get pods -l ${labelTexts.join(",")}`;
+
+  return (
+    <ModalBody>
+      <h1 className={styles.detailHeading} style={{ marginTop: "0rem" }}>
+        Labels
+      </h1>
+      <div className={styles.workflowLabels}>
+        {labelTexts.map((label, index) => (
+          <Tag key={`${label}-${index}`} className={styles.workflowLabelBubble} type="teal">
+            {label}
+          </Tag>
+        ))}
+      </div>
+      <h1 className={styles.detailHeading}>Kubernetes Information</h1>
+      <div className={styles.kubernetes}>
+        <TextArea readOnly value={kubernetesCommand} />
+        <TooltipHover direction="top" content={copyTokenText} hideOnClick={false}>
+          <div className={styles.kubernetesCopyContainer}>
+            <CopyToClipboard text={kubernetesCommand}>
+              <Button
+                className={styles.kubernetesCopy}
+                iconDescription="copy-kubernetes"
+                kind="ghost"
+                onClick={() => setCopyTokenText("Copied!")}
+                onMouseLeave={() => setCopyTokenText("Copy")}
+                renderIcon={CopyFile16}
+                size="small"
+              />
+            </CopyToClipboard>
+          </div>
+        </TooltipHover>
+      </div>
+    </ModalBody>
   );
 }
 

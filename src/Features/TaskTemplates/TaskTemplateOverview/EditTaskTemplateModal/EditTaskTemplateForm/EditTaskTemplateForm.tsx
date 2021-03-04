@@ -4,8 +4,15 @@ import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import orderBy from "lodash/orderBy";
-import { ModalForm, TextInput, TextArea } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import {
+  Button,
+  ModalBody,
+  ModalFooter,
+  ModalForm,
+  TextInput,
+  TextArea,
+  Toggle,
+} from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
 import { NodeType } from "Constants";
@@ -39,6 +46,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         command: templateData.command,
         image: templateData.image,
         nodeType: nodeType,
+        enableLifecycle: templateData.enableLifecycle,
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
@@ -60,6 +68,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         }),
         command: Yup.string().nullable(),
         image: Yup.string().nullable(),
+        enableLifecycle: Yup.boolean(),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
@@ -137,6 +146,14 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onChange={handleChange}
                 invalid={errors.command && touched.command}
                 invalidText={errors.command}
+              />
+              <Toggle
+                id="enableLifecycle"
+                labelText="Enable Lifecycle"
+                name="enableLifecycle"
+                value={values.enableLifecycle}
+                onBlur={handleBlur}
+                onChange={handleChange}
               />
             </ModalBody>
             <ModalFooter>
