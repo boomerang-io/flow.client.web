@@ -1192,4 +1192,193 @@ export default [
     changelog: { userId: "5a0d52e9a1a0b20007f2287a", reason: "v0.0.16", date: "2020-05-18T15:09:17.889+0000" },
     templateUpgradesAvailable: false,
   },
+  {
+    "config": {
+    "nodes": [
+    {
+    "inputs": {
+    "channel": "#ise-notifications",
+    "icon": "",
+    "taskName": "Send Simple Slack Message 1",
+    "message": "Running Deploy: ${p:system.component.name}, powered by flow.",
+    "url": "***REMOVED***"
+    },
+    "nodeId": "c7253915-e9ad-486c-8453-0c850ae6a465",
+    "taskId": "5b92f794844d0700016ea217",
+    "type": "templateTask",
+    "taskVersion": 1
+    }
+    ]
+    },
+    "dag": {
+    "gridSize": 0,
+    "links": [
+    {
+    "type": "task",
+    "id": "6d417de4-9a9c-43d6-87d2-92742d2594c4",
+    "selected": false,
+    "source": "c7253915-e9ad-486c-8453-0c850ae6a465",
+    "sourcePort": "4724675f-5748-42f9-b8ee-498a31862e90",
+    "target": "186fb520-b09b-4cfb-a2fa-b95bf1aef426",
+    "targetPort": "ccdd91c5-72f9-428a-a988-72b638329f87",
+    "points": [
+    {
+    "id": "4654df19-e868-472d-8a7a-ee1eb01c8f4d",
+    "selected": false,
+    "x": 812,
+    "y": 395.921875
+    },
+    {
+    "id": "49836430-ea9f-486a-bd02-278ed3c535ee",
+    "selected": false,
+    "x": 984,
+    "y": 438
+    }
+    ],
+    "extras": {},
+    "labels": [],
+    "width": 3,
+    "color": "rgba(255,255,255,0.5)",
+    "curvyness": 50,
+    "executionCondition": "always",
+    "linkId": "6d417de4-9a9c-43d6-87d2-92742d2594c4",
+    "switchCondition": null
+    },
+    {
+    "type": "task",
+    "id": "468a8315-076e-4ebc-8667-fb4c4b7a97c0",
+    "selected": false,
+    "source": "d8db4a4a-a2a1-4147-877e-8f470b96bc40",
+    "sourcePort": "1c4d5ae0-019b-43bf-9638-9b7af2c367f9",
+    "target": "c7253915-e9ad-486c-8453-0c850ae6a465",
+    "targetPort": "cd4dfab1-cf83-4ca2-83e4-c47360342749",
+    "points": [
+    {
+    "id": "1b05fe48-ce1b-456a-ae65-9dbf5eef833d",
+    "selected": false,
+    "x": 460,
+    "y": 438
+    },
+    {
+    "id": "1beb5b97-228b-46db-bfe8-46e8c6a03eb4",
+    "selected": false,
+    "x": 560,
+    "y": 395.921875
+    }
+    ],
+    "extras": {},
+    "labels": [],
+    "width": 3,
+    "color": "rgba(255,255,255,0.5)",
+    "curvyness": 50,
+    "executionCondition": "always",
+    "linkId": "468a8315-076e-4ebc-8667-fb4c4b7a97c0",
+    "switchCondition": null
+    }
+    ],
+    "nodes": [
+    {
+    "nodeId": "d8db4a4a-a2a1-4147-877e-8f470b96bc40",
+    "type": "startend",
+    "selected": false,
+    "x": 300,
+    "y": 400,
+    "extras": {},
+    "ports": [
+    {
+    "nodePortId": "1c4d5ae0-019b-43bf-9638-9b7af2c367f9",
+    "type": "startend",
+    "selected": false,
+    "name": "right",
+    "links": [
+    "468a8315-076e-4ebc-8667-fb4c4b7a97c0"
+    ],
+    "position": "right",
+    "id": "1c4d5ae0-019b-43bf-9638-9b7af2c367f9"
+    }
+    ],
+    "passedName": "Start",
+    "templateUpgradeAvailable": false,
+    "id": "cc805009-b531-40fb-8723-2d19e97b0f35"
+    },
+    {
+    "nodeId": "186fb520-b09b-4cfb-a2fa-b95bf1aef426",
+    "type": "startend",
+    "selected": false,
+    "x": 1000,
+    "y": 400,
+    "extras": {},
+    "ports": [
+    {
+    "nodePortId": "ccdd91c5-72f9-428a-a988-72b638329f87",
+    "type": "startend",
+    "selected": false,
+    "name": "left",
+    "links": [
+    "6d417de4-9a9c-43d6-87d2-92742d2594c4"
+    ],
+    "position": "left",
+    "id": "ccdd91c5-72f9-428a-a988-72b638329f87"
+    }
+    ],
+    "passedName": "End",
+    "templateUpgradeAvailable": false,
+    "id": "a0456608-e14f-44ea-9069-95869ff605d3"
+    },
+    {
+    "nodeId": "c7253915-e9ad-486c-8453-0c850ae6a465",
+    "type": "templateTask",
+    "selected": false,
+    "x": 576,
+    "y": 355.922787193974,
+    "extras": {},
+    "ports": [
+    {
+    "nodePortId": "cd4dfab1-cf83-4ca2-83e4-c47360342749",
+    "type": "task",
+    "selected": false,
+    "name": "left",
+    "parentNode": "5b92f794844d0700016ea217",
+    "links": [
+    "468a8315-076e-4ebc-8667-fb4c4b7a97c0"
+    ],
+    "position": "left",
+    "id": "cd4dfab1-cf83-4ca2-83e4-c47360342749"
+    },
+    {
+    "nodePortId": "4724675f-5748-42f9-b8ee-498a31862e90",
+    "type": "task",
+    "selected": false,
+    "name": "right",
+    "parentNode": "5b92f794844d0700016ea217",
+    "links": [
+    "6d417de4-9a9c-43d6-87d2-92742d2594c4"
+    ],
+    "position": "right",
+    "id": "4724675f-5748-42f9-b8ee-498a31862e90"
+    }
+    ],
+    "passedName": "Send Simple Slack Message 1",
+    "taskId": "5b92f794844d0700016ea217",
+    "taskName": "Send Simple Slack Message 1",
+    "templateUpgradeAvailable": false,
+    "id": "2a84368a-4d0e-444f-825f-6a749500d50c"
+    }
+    ],
+    "offsetX": 0,
+    "offsetY": 0,
+    "zoom": 100,
+    "id": "2df79ac4-6c68-4d0a-a060-afbff485c150"
+    },
+    "id": "5e98dd2a2edace00016ef7c8",
+    "version": 8,
+    "workFlowId": "5e877e944bbc6e0001c51e6e",
+    "changelog": {
+    "userId": "5e736fb0a97b78000125ebe3",
+    "reason": "Updating the channel",
+    "date": "2020-04-16T22:33:14.966+00:00",
+    "userName": null
+    },
+    "templateUpgradesAvailable": false
+    },
 ];

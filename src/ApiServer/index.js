@@ -41,7 +41,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       revision: Model,
       setting: Model,
       summary: Model,
-      systemWorkflow: Model,
+      systemWorkflows: Model,
       tasktemplate: Model,
       team: Model,
       teamProperties: Model,
