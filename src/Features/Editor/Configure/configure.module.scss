@@ -179,9 +179,16 @@
   }
 }
 
-.informationWrapper,
+.informationWrapper {
+  margin-bottom: 0.5rem;
+}
+
 .tagsContainer {
   margin-bottom: 0.5rem;
+
+  :global .bx--tag--filter {
+    margin-left: 0 !important;
+  }
 }
 
 .informationCronMessage,
