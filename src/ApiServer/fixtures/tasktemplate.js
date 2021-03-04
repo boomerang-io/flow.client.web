@@ -31,6 +31,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5c39015b352b1b51412e9c85",
@@ -71,6 +72,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5d3145ee988e7b6b6f24d870",
@@ -113,6 +115,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5e1bcd210351fdc9e42fe4e0",
@@ -146,6 +149,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5d1ed36a988e7b6b6f7b470b",
@@ -196,6 +200,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: false,
+    enableLifecycle: false,
   },
   {
     id: "5bd98b105a5df954ad599bc2",
@@ -237,6 +242,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5b92f794844d0700016ea217",
@@ -294,6 +300,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: false,
+    enableLifecycle: false,
   },
   {
     id: "5e1bf6ca0351fdc9e4319c3b",
@@ -375,6 +382,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5c3fb7e2352b1b5141692f75",
@@ -415,6 +423,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5c6939c620cfafa2eaeef2ad",
@@ -487,6 +496,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5c3d0401352b1b514150545b",
@@ -627,6 +637,7 @@ export default [
     currentVersion: 2,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5c37af285616d5f3544568fd",
@@ -650,6 +661,7 @@ export default [
     currentVersion: 1,
     nodeType: "decision",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5bd9b4115a5df954ad5ad8db",
@@ -707,6 +719,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5eab5488aecb0800014e0b87",
@@ -769,6 +782,7 @@ export default [
     currentVersion: 2,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5d1ed216988e7b6b6f7b3c1c",
@@ -811,6 +825,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5bd9d0825a5df954ad5bb5c3",
@@ -861,6 +876,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5c3907a1352b1b51412ed079",
@@ -909,6 +925,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5d9e703dc90b5240508869e2",
@@ -950,6 +967,7 @@ export default [
     currentVersion: 1,
     nodeType: "customTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5c3fbc92352b1b51416952d1",
@@ -983,6 +1001,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5bd97bea5a5df954ad592c06",
@@ -1015,6 +1034,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5eab59eaaecb0800014e0ccb",
@@ -1200,6 +1220,7 @@ export default [
     currentVersion: 3,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5eab5742aecb0800014e0c87",
@@ -1296,6 +1317,7 @@ export default [
     currentVersion: 2,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5c69365b20cfafa2eaeed89c",
@@ -1368,6 +1390,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5d25414c988e7b6b6fb3d5f7",
@@ -1410,6 +1433,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5e2866c8612203650e389491",
@@ -1491,6 +1515,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5bd9d03a5a5df954ad5bb3b5",
@@ -1556,6 +1581,7 @@ export default [
     currentVersion: 2,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5d53016bd83be3cc84bae976",
@@ -1609,6 +1635,7 @@ export default [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
+    enableLifecycle: false,
   },
   {
     id: "5f6379c974f51934044cbbd4",
@@ -1656,6 +1683,7 @@ export default [
     verified: true,
     currentVersion: 1,
     nodeType: "setwfproperty",
+    enableLifecycle: false,
   },
   {
     id: "5f6379c974f51934044cbbd6",
@@ -1684,6 +1712,7 @@ export default [
     verified: true,
     currentVersion: 1,
     nodeType: "approval",
+    enableLifecycle: false,
   },
   {
     id: "5f7dcf1ce1d3ce8d52ea45d4",
@@ -1716,6 +1745,7 @@ export default [
     verified: true,
     currentVersion: 1,
     nodeType: "eventwait",
+    enableLifecycle: false,
   },
   {
     id: "5fa4144bcb28924ba43ab57c",
@@ -1755,110 +1785,106 @@ export default [
     verified: true,
     currentVersion: 1,
     nodeType: "manual",
+    enableLifecycle: false,
   },
   {
-    "id": "5ff772c5daf8634981eee520",
-    "description": "Test for task input read only",
-    "lastModified": "2021-01-07T20:47:00.903+00:00",
-    "name": "TestInput",
-    "category": "Test",
-    "revisions": [
-    {
-    "version": 1,
-    "image": null,
-    "command": "",
-    "arguments": [
-    "test",
-    "input"
+    id: "5ff772c5daf8634981eee520",
+    description: "Test for task input read only",
+    lastModified: "2021-01-07T20:47:00.903+00:00",
+    name: "TestInput",
+    category: "Test",
+    revisions: [
+      {
+        version: 1,
+        image: null,
+        command: "",
+        arguments: ["test", "input"],
+        config: [],
+        changelog: {
+          userId: "5e7373c2a97b78000125ecaa",
+          reason: "",
+          date: "2021-01-07T20:44:53.940+00:00",
+          userName: "Isabela Mayumi Kawabata Borges",
+        },
+      },
+      {
+        version: 2,
+        image: null,
+        command: "",
+        arguments: [],
+        config: [
+          {
+            required: false,
+            placeholder: "",
+            readOnly: false,
+            description: "",
+            key: "test",
+            label: "Test",
+            type: "text",
+            helperText: "Testing input",
+          },
+          {
+            required: false,
+            placeholder: "",
+            defaultValue: "Testing Text",
+            readOnly: true,
+            description: "",
+            key: "testRead",
+            label: "Test Read Only",
+            type: "text",
+            helperText: "",
+          },
+        ],
+        changelog: {
+          userId: "5e7373c2a97b78000125ecaa",
+          reason: "Add inputs",
+          date: "2021-01-07T20:46:17.477+00:00",
+          userName: "Isabela Mayumi Kawabata Borges",
+        },
+      },
+      {
+        version: 3,
+        image: null,
+        command: "",
+        arguments: ["test", "input"],
+        config: [
+          {
+            required: false,
+            placeholder: "",
+            defaultValue: "aaaaaaaaaa",
+            readOnly: false,
+            description: "",
+            key: "test",
+            label: "Test",
+            type: "text",
+            helperText: "Testing input",
+          },
+          {
+            required: false,
+            placeholder: "",
+            defaultValue: "Testing Text",
+            readOnly: true,
+            description: "",
+            key: "testRead",
+            label: "Test Read Only",
+            type: "text",
+            helperText: "",
+          },
+        ],
+        changelog: {
+          userId: "5e7373c2a97b78000125ecaa",
+          reason: "Update values",
+          date: "2021-01-07T20:47:00.903+00:00",
+          userName: "Isabela Mayumi Kawabata Borges",
+        },
+      },
     ],
-    "config": [],
-    "changelog": {
-    "userId": "5e7373c2a97b78000125ecaa",
-    "reason": "",
-    "date": "2021-01-07T20:44:53.940+00:00",
-    "userName": "Isabela Mayumi Kawabata Borges"
-    }
-    },
-    {
-    "version": 2,
-    "image": null,
-    "command": "",
-    "arguments": [],
-    "config": [
-    {
-    "required": false,
-    "placeholder": "",
-    "readOnly": false,
-    "description": "",
-    "key": "test",
-    "label": "Test",
-    "type": "text",
-    "helperText": "Testing input"
-    },
-    {
-    "required": false,
-    "placeholder": "",
-    "defaultValue": "Testing Text",
-    "readOnly": true,
-    "description": "",
-    "key": "testRead",
-    "label": "Test Read Only",
-    "type": "text",
-    "helperText": ""
-    }
-    ],
-    "changelog": {
-    "userId": "5e7373c2a97b78000125ecaa",
-    "reason": "Add inputs",
-    "date": "2021-01-07T20:46:17.477+00:00",
-    "userName": "Isabela Mayumi Kawabata Borges"
-    }
-    },
-    {
-    "version": 3,
-    "image": null,
-    "command": "",
-    "arguments": [
-    "test",
-    "input"
-    ],
-    "config": [
-    {
-    "required": false,
-    "placeholder": "",
-    "defaultValue": "aaaaaaaaaa",
-    "readOnly": false,
-    "description": "",
-    "key": "test",
-    "label": "Test",
-    "type": "text",
-    "helperText": "Testing input"
-    },
-    {
-    "required": false,
-    "placeholder": "",
-    "defaultValue": "Testing Text",
-    "readOnly": true,
-    "description": "",
-    "key": "testRead",
-    "label": "Test Read Only",
-    "type": "text",
-    "helperText": ""
-    }
-    ],
-    "changelog": {
-    "userId": "5e7373c2a97b78000125ecaa",
-    "reason": "Update values",
-    "date": "2021-01-07T20:47:00.903+00:00",
-    "userName": "Isabela Mayumi Kawabata Borges"
-    }
-    }
-    ],
-    "status": "active",
-    "createdDate": "2021-01-07T20:44:53.889+00:00",
-    "icon": "Validate",
-    "verified": false,
-    "currentVersion": 3,
-    "nodeType": "templateTask"
-    },
+    status: "active",
+    createdDate: "2021-01-07T20:44:53.889+00:00",
+    icon: "Validate",
+    verified: false,
+    currentVersion: 3,
+    nodeType: "templateTask",
+    enableLifecycle: true,
+  },
 ];
