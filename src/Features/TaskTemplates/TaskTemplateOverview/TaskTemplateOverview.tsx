@@ -52,6 +52,17 @@ interface DetailDataElementsProps {
 const DetailDataElements: React.FC<DetailDataElementsProps> = ({ label, value }) => {
   const TaskIcon = taskIcons.find((icon) => icon.name === value);
 
+  if (label === "Enable Lifecycle") {
+    return (
+      <section className={styles.infoSection}>
+        <dt className={styles.label}>{label}</dt>
+        <dd className={styles.value} data-testid={label}>
+          {value ? "True" : "False"}
+        </dd>
+      </section>
+    );
+  }
+
   return (
     <section className={styles.infoSection}>
       <dt className={styles.label}>{label}</dt>
@@ -248,6 +259,7 @@ export function TaskTemplateOverview({
         icon: values.icon,
         description: values.description,
         category: values.category,
+        enableLifecycle: values.enableLifecycle,
         revisions: newRevisions,
       };
     } else {
@@ -268,6 +280,7 @@ export function TaskTemplateOverview({
         icon: values.icon,
         description: values.description,
         category: values.category,
+        enableLifecycle: values.enableLifecycle,
         currentVersion: newVersion,
         revisions: newRevisions,
       };
@@ -375,6 +388,7 @@ export function TaskTemplateOverview({
       initialValues={{
         name: selectedTaskTemplate.name,
         description: selectedTaskTemplate.description,
+        enableLifecycle: selectedTaskTemplate.enableLifecycle,
         icon: selectedTaskTemplate.icon,
         image: currentRevision.image,
         category: selectedTaskTemplate.category,
@@ -492,6 +506,7 @@ export function TaskTemplateOverview({
                     <DetailDataElements value={values.arguments} label="Arguments" />
                     <DetailDataElements value={values.image} label="Image" />
                     <DetailDataElements value={values.command} label="Command" />
+                    <DetailDataElements value={values.enableLifecycle} label="Enable Lifecycle" />
                     <section className={styles.infoSection}>
                       <dt className={styles.label}>Contribution level</dt>
                       <div className={styles.basicIcon}>

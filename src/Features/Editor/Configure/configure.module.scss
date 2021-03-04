@@ -184,6 +184,14 @@
   margin-bottom: 0.5rem;
 }
 
+.tagsContainer {
+  margin-bottom: 0.5rem;
+
+  :global .bx--tag--filter {
+    margin-left: 0 !important;
+  }
+}
+
 .informationCronMessage,
 //.informationTimeZone,
 .webhookToken {
@@ -273,7 +281,8 @@
   }
 }
 
-.optionsContainer {
+.optionsContainer,
+.labelsContainer {
   padding-bottom: 2.5rem;
 }
 

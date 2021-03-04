@@ -164,6 +164,7 @@
   overflow-y: auto;
   opacity: 0.99;
   padding-bottom: 2rem;
+  scroll-behavior: smooth;
   transition: opacity $carbon-motion--timing--productive $carbon-motion--easing--productive;
   width: 100%;
 }

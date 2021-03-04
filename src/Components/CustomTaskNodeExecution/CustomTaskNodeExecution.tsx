@@ -23,6 +23,14 @@ const CustomTaskNodeExecution: React.FC<CustomTaskNodeExecutionProps> = (props) 
   // const flowTaskStatus = stepTaskStatus ?? ExecutionStatus.Skipped;
   const flowTaskStatus = stepTaskStatus ? stepTaskStatus : ExecutionStatus.Skipped;
 
+  const scrollToTask = () => {
+    const taskLogItem = document.getElementById(`task-${id}`);
+    if(taskLogItem){
+      taskLogItem.scrollIntoView();
+      taskLogItem.focus();
+    }
+  }
+
   return (
     <WorkflowNode
       category={task?.category}
@@ -33,6 +41,7 @@ const CustomTaskNodeExecution: React.FC<CustomTaskNodeExecutionProps> = (props) 
       node={props.node}
       subtitle={taskName}
       title={task?.name}
+      onClick={scrollToTask}
     >
       <div className={styles.progressBar} />
       <div className={styles.badgeContainer}>

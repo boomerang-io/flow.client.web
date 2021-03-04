@@ -33,6 +33,7 @@ export default function WorkflowNode({
   subtitleClass?: string;
   rightPortClass?: string;
   title?: string;
+  onClick?: () => void;
 }) {
   let Icon = () => <Bee16 alt="Task node type default" style={{ willChange: "auto" }} />;
 

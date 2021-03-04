@@ -21,6 +21,14 @@ export default function TemplateTaskNodeExecution({ node }) {
   const step = Array.isArray(steps) ? steps.find((step) => step.taskId === node.id) : {};
   const flowTaskStatus = step?.flowTaskStatus ?? ExecutionStatus.Skipped;
 
+  const scrollToTask = () => {
+    const taskLogItem = document.getElementById(`task-${node.id}`);
+    if(taskLogItem){
+      taskLogItem.scrollIntoView();
+      taskLogItem.focus();
+    }
+  }
+
   return (
     <WorkflowNode
       isExecution
@@ -31,6 +39,7 @@ export default function TemplateTaskNodeExecution({ node }) {
       node={node}
       subtitle={node.taskName}
       title={task?.name}
+      onClick={scrollToTask}
     >
       <div className={styles.progressBar} />
     </WorkflowNode>

@@ -59,8 +59,11 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
     ? dateHelper.timeMillisecondsToTimeUnit(duration)
     : dateHelper.durationFromThenToNow(startTime) || "---";
 
+    //console.log(task)
+
   return (
-    <li key={id} className={`${styles.taskitem} ${statusClassName}`}>
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+    <li key={id} id={`task-${taskId}`} tabIndex={0} className={`${styles.taskitem} ${statusClassName}`}>
       <div className={styles.progressBar} />
       <section className={styles.header}>
         <div className={styles.title}>

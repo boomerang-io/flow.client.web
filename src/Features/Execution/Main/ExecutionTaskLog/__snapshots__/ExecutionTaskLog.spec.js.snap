@@ -124,6 +124,8 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
       >
         <li
           class="taskitem inProgress"
+          id="task-ced6eda1-47b0-4b8a-bddc-1c0bf64e0b84"
+          tabindex="0"
         >
           <div
             class="progressBar"
@@ -233,6 +235,8 @@ exports[`ExecutionTaskLog --- Snapshot Capturing Snapshot of ExecutionTaskLog 1`
         </li>
         <li
           class="taskitem completed"
+          id="task-d53a65a5-be1b-4e58-b0e5-0173c5aabe47"
+          tabindex="0"
         >
           <div
             class="progressBar"
