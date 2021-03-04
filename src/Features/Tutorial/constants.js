@@ -198,8 +198,8 @@ export const designerGuideConfig = {
   },
   properties: {
     containerClassName: "c-onboard-screen--properties",
-    title: "Properties",
-    message: "Edit and delete workflow properties that can be used by the workflow as it executes.",
+    title: "Parameters",
+    message: "Edit and delete workflow parameters that can be used by the workflow as it executes.",
   },
 
   settings: {

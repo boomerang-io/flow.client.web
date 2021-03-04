@@ -53,7 +53,7 @@ const Token: React.FC<TokenProps> = ({ workflowId, token, tokenData, formikProps
               <ViewFilled16 fill={"#0072C3"} className={styles.actionIcon} alt="Show/Hide token" />
             </button>
           </TooltipHover>
-          <TooltipHover direction="top" content={copyTokenText}>
+          <TooltipHover direction="top" content={copyTokenText} hideOnClick={false}>
             <div>
               <CopyToClipboard text={token.token}>
                 <button

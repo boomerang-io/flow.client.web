@@ -74,6 +74,7 @@ export interface WorkflowSummary {
   enablePersistentStorage: boolean;
   icon: string;
   name: string;
+  labels: Array<{ key: string; value: string }>;
   revisionCount: number;
   scope: string;
   shortDescription: string;
@@ -184,6 +185,7 @@ export type ChangeLog = Array<ChangeLogItem>;
 export interface TaskModel {
   category: string;
   currentVersion: number;
+  enableLifecycle: boolean;
   id: string;
   icon: string;
   model: string;

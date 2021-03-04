@@ -46,7 +46,6 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
       class="bx--bmrg-modal-overlay --is-open"
     >
       <div
-        aria-modal="true"
         class="bx--bmrg-modal-container bx--bmrg-modal-composed-container modalContainer --is-open"
         role="dialog"
         tabindex="-1"

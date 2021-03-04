@@ -140,8 +140,30 @@ export default [
       webhook: { enable: false, token: "" },
       event: { enable: false, topic: "" },
     },
+    labels: [
+      {
+        key: "testing",
+        value: "defaultContainer",
+      },
+      {
+        key: "purpose",
+        value: "test",
+      },
+      {
+        key: "artifactoryusername",
+        value: "Artifactory Username",
+      },
+      {
+        key: "blablablablablabla5eb2c4085a92d80001a16d875eb2c4085a92d80001a16d87",
+        value: "5eb2c4085a92d80001a16d875eb2c4085a92d80001a16d875eb2c4085a92d80001a16d87",
+      },
+    ],
     scope: "team",
     tokens: [],
+    labels: [
+      { key: "asdasd", value: "asdasdasd" },
+      { key: "aaaaaeeee", value: "yay" },
+    ],
     enablePersistentStorage: true,
     enableACCIntegration: false,
     revisionCount: 2,
@@ -289,6 +311,12 @@ export default [
       webhook: { enable: false, token: "" },
       event: { enable: false, topic: "" },
     },
+    labels: [
+      {
+        key: "purpose",
+        value: "test",
+      },
+    ],
     scope: "system",
     tokens: [],
     enablePersistentStorage: true,

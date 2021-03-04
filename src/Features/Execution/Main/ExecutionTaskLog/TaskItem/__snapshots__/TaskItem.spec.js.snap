@@ -7,6 +7,8 @@ exports[`TaskItem --- Snapshot Capturing Snapshot of TaskItem 1`] = `
   <div>
     <li
       class="taskitem completed"
+      id="task-515c8b05-ceb0-470a-a58e-b8740b332a6a"
+      tabindex="0"
     >
       <div
         class="progressBar"

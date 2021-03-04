@@ -5,6 +5,10 @@
   position: relative;
   width: 100%;
 
+  &:focus {
+    @include focus-outline(var(--cds-interactive-01), -0.125rem);
+  }
+
   &.completed {
     border-top: 0.25rem solid var(--cds-support-02);
   }

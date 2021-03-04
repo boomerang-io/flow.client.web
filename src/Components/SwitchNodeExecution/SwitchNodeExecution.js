@@ -13,6 +13,15 @@ const SwitchNodeExecution = React.memo(function SwitchNodeExecution({ node }) {
   const step = Array.isArray(steps) ? steps.find((step) => step.taskId === node.id) : {};
   const flowTaskStatus = step?.flowTaskStatus ?? ExecutionStatus.Skipped;
 
+  const scrollToTask = () => {
+    const taskLogItem = document.getElementById(`task-${node.id}`);
+    if(taskLogItem){
+      taskLogItem.scrollIntoView();
+      taskLogItem.focus();
+    }
+  }
+
+
   return (
     <WorkflowNode
       isExecution
@@ -25,6 +34,7 @@ const SwitchNodeExecution = React.memo(function SwitchNodeExecution({ node }) {
       subtitle={node.taskName}
       subtitleClass={styles.subtitle}
       title="Switch"
+      onClick={scrollToTask}
     >
       <div className={styles.progressBar} />
       <div className={styles.badgeContainer}>
