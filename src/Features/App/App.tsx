@@ -3,7 +3,7 @@ import axios from "axios";
 import { FlagsProvider, useFeature } from "flagged";
 import { AppContextProvider } from "State/context";
 import { useQuery } from "react-query";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { Error404, Loading, NotificationsContainer, ProtectedRoute } from "@boomerang-io/carbon-addons-boomerang-react";
 import ErrorBoundary from "Components/ErrorBoundary";
 import ErrorDragon from "Components/ErrorDragon";
@@ -11,6 +11,7 @@ import OnBoardExpContainer from "Features/Tutorial";
 import Navbar from "./Navbar";
 import UnsupportedBrowserPrompt from "./UnsupportedBrowserPrompt";
 import { detect } from "detect-browser";
+import queryString from "query-string";
 import { allowedUserRoles } from "Constants";
 import { AppPath, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
@@ -34,12 +35,17 @@ const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Feature
 
 const getUserUrl = serviceUrl.getUserProfile();
 const getPlatformNavigationUrl = serviceUrl.getPlatformNavigation();
-const getFlowNavigationUrl = serviceUrl.getFlowNavigation();
 const getTeamsUrl = serviceUrl.getTeams();
 const browser = detect();
 const supportedBrowsers = ["chrome", "firefox", "safari", "edge"];
 
 export default function App() {
+  const location = useLocation();
+  const teamIds = queryString.parse(location.search).teams;
+  const teamIdsArray = teamIds === null || teamIds === undefined ? [] : teamIds.toString().split(",");
+  const query = teamIdsArray.length === 1 ? `?teamId=${teamIdsArray[0]}` : "";
+  const getFlowNavigationUrl = serviceUrl.getFlowNavigation({query});
+
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
     !supportedBrowsers.includes(browser?.name ?? "")
   );

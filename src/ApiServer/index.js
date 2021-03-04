@@ -2,7 +2,7 @@ import { Server, Serializer, Model } from "miragejs";
 import { inflections } from "inflected";
 import queryString from "query-string";
 import uuid from "uuid/v4";
-import { serviceUrl } from "Config/servicesConfig";
+import { serviceUrl, BASE_URL } from "Config/servicesConfig";
 import * as fixtures from "./fixtures";
 
 export function startApiServer({ environment = "test", timing = 0 } = {}) {
@@ -69,7 +69,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.platformNavigation[0];
       });
 
-      this.get(serviceUrl.getFlowNavigation(), (schema) => {
+      this.get(`${BASE_URL}/navigation`, (schema) => {
         return schema.db.flowNavigation;
       });
 

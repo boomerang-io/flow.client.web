@@ -136,7 +136,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
 
   const addedInputs = newTaskTemplateVersion.config
     .filter((input) => !currentTaskTemplateVersion.config.find((currentInput) => currentInput.key === input.key))
-    .map((input) => input?.key);
+    .map((input) => `['${input?.key}']`);
 
   const handleSubmit = (values) => {
     onSave({ version: newTaskTemplateVersion.version, inputs: values });
@@ -179,6 +179,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
                       readOnly
                       value={nodeConfig.inputs[input.key]}
                       id={`${input.key}-current`}
+                      orientation={input.type === "boolean" ? "vertical" : undefined}
                     />
                   </StateHilighter>
                 ))}
