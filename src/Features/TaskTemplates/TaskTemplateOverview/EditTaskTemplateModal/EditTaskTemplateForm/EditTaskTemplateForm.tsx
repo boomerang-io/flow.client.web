@@ -151,7 +151,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 id="enableLifecycle"
                 labelText="Enable Lifecycle"
                 name="enableLifecycle"
-                value={values.enableLifecycle}
+                toggled={values.enableLifecycle}
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
