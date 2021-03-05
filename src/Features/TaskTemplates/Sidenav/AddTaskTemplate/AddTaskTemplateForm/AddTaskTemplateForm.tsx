@@ -316,7 +316,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 id="enableLifecycle"
                 labelText="Enable Lifecycle"
                 name="enableLifecycle"
-                value={values.enableLifecycle}
+                toggled={values.enableLifecycle}
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
