@@ -4,13 +4,17 @@ import PropTypes from "prop-types";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
+  Button,
+  FileUploaderDropContainer,
+  FileUploaderItem,
+  Loading,
+  ModalBody,
+  ModalFooter,
   ModalFlowForm,
   TextInput,
   TextArea,
-  FileUploaderDropContainer,
-  FileUploaderItem,
+  Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { Button, ModalBody, ModalFooter, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
@@ -90,6 +94,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       description: values.description,
       category: values.category,
       currentVersion: 1,
+      enableLifecycle: values.enableLifecycle,
       revisions: [newRevisionConfig],
       icon: values.icon.value,
       nodeType: "templateTask",
@@ -105,6 +110,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
+      setFieldValue("enableLifecycle", fileData.enableLifecycle);
       selectedIcon &&
         setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
       setFieldValue("image", currentRevision.image);
@@ -121,6 +127,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         name: "",
         category: "",
         // category: categories[0],
+        enableLifecycle: false,
         icon: {},
         description: "",
         arguments: "",
@@ -133,6 +140,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           .required("Name is required")
           .notOneOf(taskTemplateNames, "Enter a unique value for task name"),
         category: Yup.string().required("Enter a category"),
+        enableLifecycle: Yup.boolean(),
         description: Yup.string()
           .lowercase()
           .min(4, "Description must be at least four characters")
@@ -303,6 +311,14 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 onChange={handleChange}
                 invalid={errors.command && touched.command}
                 invalidText={errors.command}
+              />
+              <Toggle
+                id="enableLifecycle"
+                labelText="Enable Lifecycle"
+                name="enableLifecycle"
+                value={values.enableLifecycle}
+                onBlur={handleBlur}
+                onChange={handleChange}
               />
             </ModalBody>
             <ModalFooter>
