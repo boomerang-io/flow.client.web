@@ -315,6 +315,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
               <Toggle
                 id="enableLifecycle"
                 labelText="Enable Lifecycle"
+                helperText="Enable to create lifecycle init and watcher containers to watch for result parameters"
                 name="enableLifecycle"
                 toggled={values.enableLifecycle}
                 onBlur={handleBlur}
