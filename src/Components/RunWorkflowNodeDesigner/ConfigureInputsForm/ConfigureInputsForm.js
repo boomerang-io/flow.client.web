@@ -27,7 +27,7 @@ const AutoSuggestInput = (props) => {
       <div key={props.id}>
         <AutoSuggest
           {...props}
-          initialValue={props?.initialValue !== "" ? props?.initialValue : props?.inputProps?.defaultValue}
+          initialValue={Boolean(props?.initialValue) ? props?.initialValue : props?.inputProps?.defaultValue}
         >
           <TextInput tooltipContent={props.tooltipContent} disabled={props?.inputProps?.readOnly} />
         </AutoSuggest>
@@ -66,7 +66,13 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
   const touch = touched[otherProps.id];
   return (
     <>
-      <TextInput {...otherProps} invalid={error && touch} id={`['${otherProps.id}']`} invalidText={error} onChange={formikProps.handleChange} />
+      <TextInput
+        {...otherProps}
+        invalid={error && touch}
+        id={`['${otherProps.id}']`}
+        invalidText={error}
+        onChange={formikProps.handleChange}
+      />
       <hr className={styles.divider} />
       <h2 className={styles.inputsTitle}>Specifics</h2>
     </>
@@ -204,9 +210,11 @@ function ConfigureInputsForm(props) {
     return {
       autoSuggestions: formatAutoSuggestProperties(props.inputProperties),
       onChange: (value) => formikSetFieldValue(value, `['${key}']`, setFieldValue),
-      initialValue: values[`['${key}']`],
+      // initialValue: values[`['${key}']`],
+      initialValue: values[key],
+
       inputProps: {
-        id:`['${key}']`,
+        id: `['${key}']`,
         onBlur: handleBlur,
         invalid: touched[`['${key}']`] && errors[`['${key}']`],
         invalidText: errors[`['${key}']`],
