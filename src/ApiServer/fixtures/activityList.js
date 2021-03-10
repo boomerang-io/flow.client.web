@@ -34,7 +34,7 @@ export default {
         { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "***REMOVED***",
+          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
         },
         { key: "db.host", value: "" },
         { key: "db.port", value: "" },
@@ -63,7 +63,7 @@ export default {
         { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "***REMOVED***",
+          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
         },
         { key: "db.host", value: "" },
         { key: "db.port", value: "" },
@@ -91,7 +91,7 @@ export default {
         { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "***REMOVED***",
+          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
         },
       ],
       description: "",
@@ -116,7 +116,7 @@ export default {
         { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "***REMOVED***",
+          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
         },
       ],
       description: "",
@@ -140,7 +140,7 @@ export default {
         { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "***REMOVED***",
+          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
         },
       ],
       description: "",
@@ -164,7 +164,7 @@ export default {
         { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "***REMOVED***",
+          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
         },
       ],
       description: "",
@@ -188,7 +188,7 @@ export default {
         { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "***REMOVED***",
+          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
         },
       ],
       description: "",
@@ -212,7 +212,7 @@ export default {
         { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "***REMOVED***",
+          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
         },
       ],
       description: "",
@@ -236,7 +236,7 @@ export default {
         { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "***REMOVED***",
+          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
         },
       ],
       description: "",
@@ -260,7 +260,7 @@ export default {
         { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "***REMOVED***",
+          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
         },
       ],
       description: "",

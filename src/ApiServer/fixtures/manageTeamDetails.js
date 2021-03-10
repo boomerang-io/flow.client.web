@@ -95,7 +95,7 @@ export default [
             placeholder: null,
             language: null,
             disabled: null,
-            defaultValue: "***REMOVED***",
+            defaultValue: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
             value: null,
             values: null,
             readOnly: false,

@@ -1201,7 +1201,7 @@ export default [
     "icon": "",
     "taskName": "Send Simple Slack Message 1",
     "message": "Running Deploy: ${p:system.component.name}, powered by flow.",
-    "url": "***REMOVED***"
+    "url": "https://hooks.slack.com/services/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"
     },
     "nodeId": "c7253915-e9ad-486c-8453-0c850ae6a465",
     "taskId": "5b92f794844d0700016ea217",
