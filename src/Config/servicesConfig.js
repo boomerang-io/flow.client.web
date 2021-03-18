@@ -48,6 +48,7 @@ export const serviceUrl = {
   getFlowNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,
   getSystemWorkflows: () => `${BASE_URL}/workflows/system`,
   getTaskTemplates: () => `${BASE_URL}/tasktemplate`,
+  getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,
   getTeams: () => `${BASE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_URL}/teams/${id}/properties`,
@@ -86,11 +87,12 @@ export const serviceUrl = {
   resourceSettings: () => `${BASE_URL}/settings`,
 };
 
-export const cancellableResolver = ({ url, method, body, ...config }) => {
+export const cancellableResolver = ({ url, method, body, headers, ...config }) => {
   // Create a new CancelToken source for this request
   const source = CancelToken.source();
   const promise = axios({
     ...config,
+    headers,
     method,
     url,
     data: body,
@@ -133,6 +135,13 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethod.Post }),
   putCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethod.Put }),
+  putCreateTaskYaml: ({ id, revision, body }) =>
+    cancellableResolver({
+      url: serviceUrl.getTaskTemplateYaml({ id, revision }),
+      body,
+      method: HttpMethod.Put,
+      headers: { "content-type": "application/x-yaml" },
+    }),
   postCreateTeam: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
   postExecuteWorkflow: ({ id, properties }) =>

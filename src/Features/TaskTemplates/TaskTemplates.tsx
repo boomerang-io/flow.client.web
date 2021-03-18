@@ -10,6 +10,7 @@ import ErrorDragon from "Components/ErrorDragon";
 import WombatMessage from "Components/WombatMessage";
 import Sidenav from "./Sidenav";
 import TaskTemplateOverview from "./TaskTemplateOverview";
+import TaskTemplateYamlEditor from "./TaskTemplateYamlEditor";
 import orderBy from "lodash/orderBy";
 import { TaskModel } from "Types";
 import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
@@ -60,6 +61,12 @@ const TaskTemplatesContainer: React.FC = () => {
           <Box maxWidth="24rem" margin="0 auto">
             <WombatMessage className={styles.wombat} title="Select a task or create one" />
           </Box>
+        </Route>
+        <Route path={AppPath.TaskTemplateYaml}>
+          <TaskTemplateYamlEditor
+            editVerifiedTasksEnabled={editVerifiedTasksEnabled}
+            taskTemplates={taskTemplatesData}
+          />
         </Route>
         <Route path={AppPath.TaskTemplateEdit}>
           <TaskTemplateOverview
