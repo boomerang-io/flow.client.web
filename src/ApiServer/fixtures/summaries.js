@@ -160,10 +160,6 @@ export default [
     ],
     scope: "team",
     tokens: [],
-    labels: [
-      { key: "asdasd", value: "asdasdasd" },
-      { key: "aaaaaeeee", value: "yay" },
-    ],
     enablePersistentStorage: true,
     enableACCIntegration: false,
     revisionCount: 2,

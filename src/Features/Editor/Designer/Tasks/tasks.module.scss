@@ -78,6 +78,12 @@
     padding: 0rem 0.625rem 0rem;
   }
 
+  .taskCategory {
+    :global .bx--accordion__title {
+      text-transform: none !important;
+    }
+  }
+
   .detail {
     align-items: baseline;
     display: flex;

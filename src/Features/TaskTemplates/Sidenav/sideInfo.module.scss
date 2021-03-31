@@ -78,6 +78,11 @@
   justify-content: space-between;
   padding: 1rem;
 }
+.taskCategory {
+  :global .bx--accordion__title {
+    text-transform: none !important;
+  }
+}
 .tasksInfo {
   align-items: center;
   display: flex;

@@ -1,6 +1,5 @@
 import React from "react";
 import { useHistory, matchPath, useLocation } from "react-router-dom";
-import capitalize from "lodash/capitalize";
 import sortBy from "lodash/sortBy";
 import matchSorter from "match-sorter";
 import {
@@ -56,8 +55,8 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
 
   let categories = tasksToDisplay
     .reduce((acc: string[], task: TaskModel) => {
-      const newCategory = !acc.find((category) => task.category.toLowerCase() === category?.toLowerCase());
-      if (newCategory) acc.push(capitalize(task.category));
+      const newCategory = !acc.find((category) => task.category === category);
+      if (newCategory) acc.push(task.category);
       return acc;
     }, [])
     .sort();
@@ -74,9 +73,9 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
     setTasksToDisplay(matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "name"] }));
   }, [taskTemplates, showArchived, showVerified, activeFilters, searchQuery]);
 
-  const tasksByCategory = categories.map((category) => ({
+  const tasksByCategory = categories.sort().map((category) => ({
     name: category,
-    tasks: sortBy(tasksToDisplay.filter((task) => capitalize(task.category) === category).sort(), "name"),
+    tasks: sortBy(tasksToDisplay.filter((task) => task.category === category).sort(), "name"),
   }));
 
   const handleOnSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -180,6 +179,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
           {tasksByCategory.map((category, index) => {
             return (
               <AccordionItem
+                className={styles.taskCategory}
                 title={`${category.name} (${category.tasks.length})`}
                 open={openCategories}
                 key={`${category.name}${index}`}

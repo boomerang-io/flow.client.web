@@ -15,7 +15,6 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import VersionHistory from "./VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
-import capitalize from "lodash/capitalize";
 import moment from "moment";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
@@ -293,7 +292,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       }
     >
-      <p className={styles.category}>{capitalize(selectedTaskTemplate.category)}</p>
+      <p className={styles.category}>{selectedTaskTemplate.category}</p>
       <div className={styles.infoContainer}>
         {TaskIcon ? (
           <TaskIcon.Icon style={{ minWidth: "1.5rem", minHeight: "1.5rem", marginRight: "0.75rem" }} />
