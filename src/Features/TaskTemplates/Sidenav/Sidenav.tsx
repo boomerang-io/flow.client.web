@@ -73,7 +73,7 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }
     setTasksToDisplay(matchSorter(tasksFilteredByType, searchQuery, { keys: ["category", "name"] }));
   }, [taskTemplates, showArchived, showVerified, activeFilters, searchQuery]);
 
-  const tasksByCategory = categories.sort().map((category) => ({
+  const tasksByCategory = categories.map((category) => ({
     name: category,
     tasks: sortBy(tasksToDisplay.filter((task) => task.category === category).sort(), "name"),
   }));
