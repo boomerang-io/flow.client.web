@@ -47,7 +47,8 @@ export const serviceUrl = {
   getPlatformNavigation: () => `${BASE_URL}/users/navigation`,
   getFlowNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,
   getSystemWorkflows: () => `${BASE_URL}/workflows/system`,
-  getTaskTemplates: () => `${BASE_URL}/tasktemplate`,
+  getWorkflowTaskTemplates: ({ workflowId }) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
+  getTaskTemplates: ({ query }) => `${BASE_URL}/tasktemplate${query ? "?" + query : ""}`,
   getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,
   getTeams: () => `${BASE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
@@ -132,9 +133,9 @@ export const resolver = {
   postCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethod.Post }),
+    cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
   putCreateTaskTemplate: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethod.Put }),
+    cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Put }),
   putCreateTaskYaml: ({ id, revision, body }) =>
     cancellableResolver({
       url: serviceUrl.getTaskTemplateYaml({ id, revision }),

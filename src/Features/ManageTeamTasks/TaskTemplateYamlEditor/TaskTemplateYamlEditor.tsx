@@ -50,7 +50,7 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
 
   // const [{ data: yamlData, loading: yamlLoading, error: yamlError }, fetchYaml] = useAxios(
   //   {
-  //     url: serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version }),
+  //     url: serviceUrl.getTaskTemplateYaml({ id: params.taskId, revision: params.version }),
   //     method: "get",
   //     headers: {
   //       "Content-type": "application/x-yaml",
@@ -60,11 +60,11 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
   // );
 
   const { data: yamlData, loading: yamlLoading, error: yamlError } = useQuery(
-    serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version })
+    serviceUrl.getTaskTemplateYaml({ id: params.taskId, revision: params.version })
   );
 
   const invalidateQueries = () => {
-    queryCache.invalidateQueries(serviceUrl.getTaskTemplates({ query: null }));
+    queryCache.invalidateQueries(serviceUrl.getTaskTemplates());
     queryCache.invalidateQueries(serviceUrl.getFeatureFlags());
   };
 
@@ -94,7 +94,7 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
     onSuccess: invalidateQueries,
   });
 
-  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id) ?? {};
+  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.taskId) ?? {};
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
 
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
@@ -187,13 +187,13 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
         response = await uploadTaskTemplateMutation({ body });
       } else if (requestType === TemplateRequestType.Overwrite) {
         response = await uploadTaskYamlMutation({
-          id: params.id,
+          id: params.taskId,
           revision: parseInt(params.version),
           body: values.yaml,
         });
       } else {
         response = await uploadTaskYamlMutation({
-          id: params.id,
+          id: params.taskId,
           revision: parseInt(params.version) + 1,
           body: values.yaml,
         });
@@ -210,7 +210,11 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
       resetForm();
       history.push(
         //@ts-ignore
-        appLink.taskTemplateYaml({ id: params.id, version: response.data.currentVersion })
+        appLink.manageTaskTemplateYaml({
+          teamId: params?.teamId,
+          taskId: params.taskId,
+          version: response.data.currentVersion,
+        })
       );
       updateTemplateInState(response.data);
       if (requestType !== TemplateRequestType.Copy) {

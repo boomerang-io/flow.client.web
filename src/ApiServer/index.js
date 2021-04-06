@@ -193,7 +193,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Task Templates
        */
-      const tasktemplatePath = serviceUrl.getTaskTemplates();
+      const tasktemplatePath = serviceUrl.getTaskTemplates({ workflowId: null });
       this.get(tasktemplatePath);
       this.put(tasktemplatePath, (schema, request) => {
         let body = JSON.parse(request.requestBody);

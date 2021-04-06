@@ -41,7 +41,7 @@ export default function EditorContainer() {
 
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
+  const getTaskTemplatesUrl = serviceUrl.getWorkflowTaskTemplates({ workflowId });
   const getAvailableParametersUrl = serviceUrl.getWorkflowAvailableParameters({ workflowId });
 
   /**

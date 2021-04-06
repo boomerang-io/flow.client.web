@@ -3,7 +3,8 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Formik } from "formik";
 import axios from "axios";
-import { useParams, useHistory, Prompt, matchPath } from "react-router-dom";
+import queryString from "query-string";
+import { useHistory, Prompt, matchPath, useParams } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import {
   Button,
@@ -171,7 +172,11 @@ export function TaskTemplateOverview({
   const history = useHistory();
 
   const invalidateQueries = () => {
-    queryCache.invalidateQueries(serviceUrl.getTaskTemplates({ query: null }));
+    queryCache.invalidateQueries(
+      erviceUrl.getTaskTemplates({
+        query: queryString.stringify({ teamId: params?.teamId, scope: "team" }),
+      })
+    );
     queryCache.invalidateQueries(serviceUrl.getFeatureFlags());
   };
 
@@ -195,7 +200,7 @@ export function TaskTemplateOverview({
     onSuccess: invalidateQueries,
   });
 
-  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.id) ?? {};
+  let selectedTaskTemplate = taskTemplates.find((taskTemplate) => taskTemplate.id === params.taskId) ?? {};
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
 
   const isActive = selectedTaskTemplate.status === TaskTemplateStatus.Active;
@@ -261,8 +266,8 @@ export function TaskTemplateOverview({
         category: values.category,
         enableLifecycle: values.enableLifecycle,
         revisions: newRevisions,
-        flowTeamId: null,
-        scope: "global",
+        scope: "team",
+        flowTeamId: params?.teamId,
       };
     } else {
       newRevisionConfig = {
@@ -285,8 +290,8 @@ export function TaskTemplateOverview({
         enableLifecycle: values.enableLifecycle,
         currentVersion: newVersion,
         revisions: newRevisions,
-        flowTeamId: null,
-        scope: "global",
+        scope: "team",
+        flowTeamId: params?.teamId,
       };
     }
 
@@ -306,7 +311,11 @@ export function TaskTemplateOverview({
       resetForm();
       history.push(
         //@ts-ignore
-        appLink.taskTemplateEdit({ id: params.id, version: response.data.currentVersion })
+        appLink.manageTaskTemplateEdit({
+          teamId: params.teamId,
+          id: params.taskId,
+          version: response.data.currentVersion,
+        })
       );
       updateTemplateInState(response.data);
       if (requestType !== TemplateRequestType.Copy) {

@@ -16,6 +16,7 @@ import {
   Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
+import { useParams } from "react-router-dom";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utils/taskIcons";
@@ -76,6 +77,7 @@ const readFile = (file) => {
 // ];
 
 function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTaskTemplate }) {
+  const params: { teamId: string } = useParams();
   let taskTemplateNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
   const orderedIcons = orderBy(taskIcons, ["name"]);
 
@@ -99,8 +101,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       icon: values.icon.value,
       nodeType: "templateTask",
       status: "active",
-      flowTeamId: null,
-      scope: "global",
+      scope: "team",
+      teamId: params?.teamId,
     };
     await handleAddTaskTemplate({ body, closeModal });
   };
