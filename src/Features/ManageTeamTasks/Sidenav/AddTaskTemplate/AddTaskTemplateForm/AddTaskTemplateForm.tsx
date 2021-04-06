@@ -102,7 +102,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       nodeType: "templateTask",
       status: "active",
       scope: "team",
-      teamId: params?.teamId,
+      flowTeamId: params?.teamId,
     };
     await handleAddTaskTemplate({ body, closeModal });
   };

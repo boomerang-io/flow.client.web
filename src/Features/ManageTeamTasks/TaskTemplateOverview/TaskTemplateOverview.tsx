@@ -173,7 +173,7 @@ export function TaskTemplateOverview({
 
   const invalidateQueries = () => {
     queryCache.invalidateQueries(
-      erviceUrl.getTaskTemplates({
+      serviceUrl.getTaskTemplates({
         query: queryString.stringify({ teamId: params?.teamId, scope: "team" }),
       })
     );

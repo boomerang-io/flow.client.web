@@ -16,21 +16,35 @@ interface VersionSwitcherProps {
 
 const VersionSwitcher: React.FC<VersionSwitcherProps> = ({ revisions, currentRevision, revisionCount, canEdit }) => {
   const history = useHistory();
-  const params: { id: string } = useParams();
+  const params: { taskId: string; teamId: string } = useParams();
   const backVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.id, version: currentRevision.version - 1 }));
+    history.push(
+      appLink.manageTaskTemplateEdit({
+        teamId: params.teamId,
+        taskId: params.taskId,
+        version: currentRevision.version - 1,
+      })
+    );
   };
 
   const fastBackVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.id, version: 1 }));
+    history.push(appLink.manageTaskTemplateEdit({ teamId: params.teamId, taskId: params.taskId, version: 1 }));
   };
 
   const forwardVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.id, version: currentRevision.version + 1 }));
+    history.push(
+      appLink.manageTaskTemplateEdit({
+        teamId: params.teamId,
+        taskId: params.taskId,
+        version: currentRevision.version + 1,
+      })
+    );
   };
 
   const fastForwardVersion = () => {
-    history.push(appLink.taskTemplateEdit({ id: params.id, version: revisions.length }));
+    history.push(
+      appLink.manageTaskTemplateEdit({ teamId: params.teamId, taskId: params.taskId, version: revisions.length })
+    );
   };
 
   const renderBackButtons = (enabled: boolean) => {
