@@ -1,4 +1,4 @@
-export default [
+const teamProperties = [
   {
     id: "5e3a35ad8c222700018ccd39",
     properties: [
@@ -43,3 +43,5 @@ export default [
     ],
   },
 ];
+
+export default teamProperties;

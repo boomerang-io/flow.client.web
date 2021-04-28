@@ -1,4 +1,4 @@
-export default [
+const summaries = [
   {
     properties: [
       {
@@ -24,7 +24,7 @@ export default [
         placeholder: null,
         language: null,
         disabled: null,
-        defaultValue: "iulian.corcoja@ro.ibm.com",
+        defaultValue: "testUSer@ibm.com",
         value: null,
         values: null,
         readOnly: false,
@@ -42,7 +42,7 @@ export default [
         placeholder: null,
         language: null,
         disabled: null,
-        defaultValue: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+        defaultValue: "test",
         value: null,
         values: null,
         readOnly: false,
@@ -155,7 +155,7 @@ export default [
       },
       {
         key: "blablablablablabla5eb2c4085a92d80001a16d875eb2c4085a92d80001a16d87",
-        value: "5eb2c4085a92d80001a16d875eb2c4085a92d80001a16d875eb2c4085a92d80001a16d87",
+        value: "test",
       },
     ],
     scope: "team",
@@ -191,7 +191,7 @@ export default [
         placeholder: null,
         language: null,
         disabled: null,
-        defaultValue: "iulian.corcoja@ro.ibm.com",
+        defaultValue: "testUSer@ibm.com",
         value: null,
         values: null,
         readOnly: false,
@@ -209,7 +209,7 @@ export default [
         placeholder: null,
         language: null,
         disabled: null,
-        defaultValue: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+        defaultValue: "test",
         value: null,
         values: null,
         readOnly: false,
@@ -363,7 +363,7 @@ export default [
       },
       webhook: {
         enable: true,
-        token: "C31FABC02867CE2701757948F0734CC8AE04661E6FA70D750A653E05341F88C9",
+        token: "test",
         topic: null,
       },
       dockerhub: {
@@ -431,7 +431,7 @@ export default [
       },
       webhook: {
         enable: true,
-        token: "D72334785AC1449C04F8E8E8E3A44F6002396BA692ACC9987AD610A1FA7B11BE",
+        token: "test",
         topic: null,
       },
       dockerhub: {
@@ -457,3 +457,5 @@ export default [
     templateUpgradesAvailable: false,
   },
 ];
+
+export default summaries;

@@ -1,4 +1,4 @@
-export default {
+const featureFlag = {
   features: {
     "team.management": true,
     "workflow.quotas": false,
@@ -15,3 +15,5 @@ export default {
     activity: true,
   },
 };
+
+export default featureFlag;

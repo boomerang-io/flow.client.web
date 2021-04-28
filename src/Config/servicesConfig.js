@@ -50,6 +50,8 @@ export const serviceUrl = {
   getWorkflowTaskTemplates: ({ workflowId }) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
   getTaskTemplates: ({ query }) => `${BASE_URL}/tasktemplate${query ? "?" + query : ""}`,
   getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,
+  putTaskTemplateYaml: ({ id, revision, comment }) =>
+    `${BASE_URL}/tasktemplate/${id}/yaml${`/${revision}`}${comment ? "?" + comment : ""}`,
   getTeams: () => `${BASE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_URL}/teams/${id}/properties`,
@@ -136,9 +138,9 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
   putCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Put }),
-  putCreateTaskYaml: ({ id, revision, body }) =>
+  putCreateTaskYaml: ({ id, revision, comment, body }) =>
     cancellableResolver({
-      url: serviceUrl.getTaskTemplateYaml({ id, revision }),
+      url: serviceUrl.putTaskTemplateYaml({ id, revision, comment }),
       body,
       method: HttpMethod.Put,
       headers: { "content-type": "application/x-yaml" },

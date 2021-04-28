@@ -8,7 +8,7 @@ import { DataDrivenInput } from "Types";
 import { SettingsGroup } from "../Settings";
 import styles from "./settingsSection.module.scss";
 
-interface SettingsSection {
+interface SettingsSectionProps {
   settingsGroup: SettingsGroup;
   onSave: (
     values: { [key: string]: any },
@@ -18,7 +18,7 @@ interface SettingsSection {
   index: string | number;
 }
 
-const SettingsSection: React.FC<SettingsSection> = ({ onSave, index, settingsGroup }) => {
+const SettingsSection: React.FC<SettingsSectionProps> = ({ onSave, index, settingsGroup }) => {
   //Needed to format input keys since formik interprets keys with dots as nested props
   // and input type so we can display secured fields
   const { user: userData } = useAppContext();

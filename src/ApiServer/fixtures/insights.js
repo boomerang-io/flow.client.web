@@ -1,4 +1,4 @@
-export default {
+const insights = {
   totalActivitiesExecuted: 1088,
   medianExecutionTime: 66982,
   executions: [
@@ -31,3 +31,5 @@ export default {
     },
   ],
 };
+
+export default insights;

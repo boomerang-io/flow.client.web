@@ -1,4 +1,4 @@
-export default {
+const profile = {
   id: "59aebd0c7424530fce952fde",
   email: "trbula@us.ibm.com",
   name: "Timothy Bula",
@@ -35,3 +35,5 @@ export default {
   teams: null,
   hasConsented: true,
 };
+
+export default profile;

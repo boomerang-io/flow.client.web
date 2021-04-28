@@ -1,4 +1,4 @@
-export default [
+const changelog = [
   {
     date: "2020-05-28T19:32:48.710+0000",
     reason: "Sorry. Removing changes.",
@@ -18,3 +18,5 @@ export default [
     workflowId: "5eb2c4085a92d80001a16d87",
   },
 ];
+
+export default changelog;

@@ -7,8 +7,9 @@
   background-color: var(--cds-ui-01);
   border: 0.0625rem solid var(--cds-interactive-01);
   cursor: grab;
-  display: flex;
-  height: 3.1875rem;
+  // display: flex;
+  // height: 3.1875rem;
+  height: 4.375rem;
   margin-bottom: 0.5rem;
   overflow: hidden;
   padding: 1rem;
@@ -18,6 +19,10 @@
     @include focus-outline();
   }
 
+  &.globalTask {
+    padding-top: 1.5625rem;
+  }
+
   .taskName {
     color: var(--cds-text-01);
     font-size: 0.875rem;
@@ -25,6 +30,40 @@
     padding-left: 1rem;
     width: 90%;
     @include text-overflow-ellipsis();
+  }
+
+  .taskSubtext {
+    color: #4d5358;
+    font-size: 0.75rem;
+    letter-spacing: 0.02rem;
+    line-height: 0.9375rem;
+    margin-left: 2rem;
+    margin-top: 0.25rem;
+  }
+  .taskIcon {
+    &.teamTask {
+      position: relative;
+      top: 0.5rem;
+    }
+  }
+
+  .tooltipHover {
+    &.teamTask {
+      position: relative;
+      top: 0.5rem;
+    }
+  }
+
+  .rowContainer {
+    display: flex;
+    flex-direction: row;
+    // margin-bottom: 0.25rem;
+  }
+
+  .columnContainer {
+    display: flex;
+
+    flex-direction: column;
   }
 }
 

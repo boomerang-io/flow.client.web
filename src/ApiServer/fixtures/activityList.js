@@ -1,4 +1,4 @@
-export default {
+const activityList = {
   pageable: {
     first: true,
     last: false,
@@ -88,10 +88,10 @@ export default {
       trigger: "manual",
       properties: [
         { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+        { key: "artifactory.username", value: "testUser@ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+          value: "TEST",
         },
       ],
       description: "",
@@ -113,10 +113,10 @@ export default {
       trigger: "manual",
       properties: [
         { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+        { key: "artifactory.username", value: "testUser@ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+          value: "TEST",
         },
       ],
       description: "",
@@ -137,10 +137,10 @@ export default {
       trigger: "manual",
       properties: [
         { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+        { key: "artifactory.username", value: "testUser@ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+          value: "TEST",
         },
       ],
       description: "",
@@ -161,10 +161,10 @@ export default {
       trigger: "manual",
       properties: [
         { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+        { key: "artifactory.username", value: "testUser@ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+          value: "TEST",
         },
       ],
       description: "",
@@ -185,10 +185,10 @@ export default {
       trigger: "manual",
       properties: [
         { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+        { key: "artifactory.username", value: "testUser@ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+          value: "TEST",
         },
       ],
       description: "",
@@ -209,10 +209,10 @@ export default {
       trigger: "manual",
       properties: [
         { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+        { key: "artifactory.username", value: "testUSer@ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+          value: "TEST",
         },
       ],
       description: "",
@@ -233,10 +233,10 @@ export default {
       trigger: "manual",
       properties: [
         { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+        { key: "artifactory.username", value: "testUSer@ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+          value: "TEST",
         },
       ],
       description: "",
@@ -257,10 +257,10 @@ export default {
       trigger: "manual",
       properties: [
         { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+        { key: "artifactory.username", value: "testUser" },
         {
           key: "artifactory.api_key",
-          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+          value: "TEST",
         },
       ],
       description: "",
@@ -271,3 +271,5 @@ export default {
     },
   ],
 };
+
+export default activityList;

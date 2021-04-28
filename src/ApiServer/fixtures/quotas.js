@@ -1,4 +1,4 @@
-export default {
+const quotas = {
   maxWorkflowCount: 10,
   maxWorkflowExecutionMonthly: 100,
   maxWorkflowStorage: 5,
@@ -10,3 +10,5 @@ export default {
   currentAverageExecutionTime: 2,
   currentWorkflowsPersistentStorage: 3,
 };
+
+export default quotas;

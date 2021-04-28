@@ -20,10 +20,10 @@
     "start:pf": "cross-env REACT_APP_PORT_FORWARD=true react-scripts start",
     "prod": "run-s prod:rewriteAssetPaths prod:serve",
     "prod:serve": "npm run-script dev --prefix server",
-    "test": "react-scripts test --coverage --env=jsdom-fourteen",
-    "test:ci-cypress": "start-server-and-test start http://localhost:3000 test:cypress",
+    "test": "cross-env TZ=UTC react-scripts test --coverage",
+    "test:ci-cypress": "start-server-and-test http://localhost:3000 cypress:run",
     "test:cypress": "$(npm bin)/cypress run --config video=false",
-    "test:staged": "cross-env CI=true react-scripts test --passWithNoTests --findRelatedTests --bail --env=jsdom-fourteen",
+    "test:staged": "cross-env TZ=UTC CI=true react-scripts test --passWithNoTests --findRelatedTests --bail",
     "upgradePackage": "react-scripts upgradePackage"
   },
   "dependencies": {
@@ -68,7 +68,7 @@
     "react-markdown": "^5.0.2",
     "react-query": "2.4.14",
     "react-router-dom": "5.1.2",
-    "react-scripts": "3.4.1",
+    "react-scripts": "4.0.3",
     "reflexbox": "^4.0.6",
     "typeface-ibm-plex-sans": "0.0.75",
     "use-immer": "^0.4.0",
@@ -76,7 +76,7 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.1.0",
+    "@commitlint/cli": "12.1.1",
     "@commitlint/config-conventional": "8.1.0",
     "@cypress/webpack-preprocessor": "^5.4.2",
     "@testing-library/cypress": "^6.0.0",
@@ -100,7 +100,7 @@
     "@types/reflexbox": "^4.0.1",
     "@types/validator": "^13.1.0",
     "@types/yup": "^0.29.3",
-    "commitizen": "4.0.3",
+    "commitizen": "4.2.3",
     "cross-env": "7.0.2",
     "cypress": "4.11.0",
     "cz-conventional-changelog": "3.1.0",
@@ -122,7 +122,8 @@
     "react-test-renderer": "^16.13.1",
     "start-server-and-test": "^1.10.11",
     "typescript": "^3.9.6",
-    "typescript-plugin-css-modules": "^2.4.0"
+    "typescript-plugin-css-modules": "^2.4.0",
+    "uuid": "^8.3.2"
   },
   "browserslist": {
     "production": [

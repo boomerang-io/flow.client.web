@@ -106,7 +106,7 @@ const TeamList: React.FC = () => {
     history.push({ search: queryStr });
     return;
   }
-
+  // eslint-disable-next-line
   const debouncedSearch = React.useCallback(
     debounce((query: string) => {
       updateHistorySearch({ query, page: 0 });

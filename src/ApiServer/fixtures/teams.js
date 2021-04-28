@@ -1,4 +1,4 @@
-export default [
+const teams = [
   {
     higherLevelGroupId: "5c41596cf32aa30001e9d444",
     id: "5e3a35ad8c222700018ccd39",
@@ -43,173 +43,173 @@ export default [
         templateUpgradesAvailable: false,
       },
       {
-        "properties": [
-        {
-        "required": true,
-        "placeholder": null,
-        "language": null,
-        "disabled": null,
-        "defaultValue": "",
-        "value": null,
-        "values": null,
-        "readOnly": false,
-        "jsonPath": null,
-        "description": "",
-        "key": "system.component.name",
-        "label": "Component Name",
-        "type": "text",
-        "minValueLength": null,
-        "maxValueLength": null,
-        "options": null,
-        "helperText": null
-        }
+        properties: [
+          {
+            required: true,
+            placeholder: null,
+            language: null,
+            disabled: null,
+            defaultValue: "",
+            value: null,
+            values: null,
+            readOnly: false,
+            jsonPath: null,
+            description: "",
+            key: "system.component.name",
+            label: "Component Name",
+            type: "text",
+            minValueLength: null,
+            maxValueLength: null,
+            options: null,
+            helperText: null,
+          },
         ],
-        "description": "",
-        "flowTeamId": "5e3a35ad8c222700018ccd39",
-        "icon": "flow",
-        "id": "5e877e944bbc6e0001c51e6e",
-        "name": "Java - Deploy",
-        "shortDescription": "",
-        "status": "active",
-        "triggers": {
-        "manual": {
-        "enable": true,
-        "token": null,
-        "topic": null
+        description: "",
+        flowTeamId: "5e3a35ad8c222700018ccd39",
+        icon: "flow",
+        id: "5e877e944bbc6e0001c51e6e",
+        name: "Java - Deploy",
+        shortDescription: "",
+        status: "active",
+        triggers: {
+          manual: {
+            enable: true,
+            token: null,
+            topic: null,
+          },
+          scheduler: {
+            enable: false,
+            schedule: "",
+            timezone: "",
+            advancedCron: false,
+          },
+          webhook: {
+            enable: true,
+            token: "test",
+            topic: null,
+          },
+          dockerhub: {
+            enable: false,
+            token: null,
+            topic: null,
+          },
+          slack: {
+            enable: false,
+            token: null,
+            topic: null,
+          },
+          custom: {
+            enable: false,
+            token: null,
+            topic: null,
+          },
         },
-        "scheduler": {
-        "enable": false,
-        "schedule": "",
-        "timezone": "",
-        "advancedCron": false
-        },
-        "webhook": {
-        "enable": true,
-        "token": "C31FABC02867CE2701757948F0734CC8AE04661E6FA70D750A653E05341F88C9",
-        "topic": null
-        },
-        "dockerhub": {
-        "enable": false,
-        "token": null,
-        "topic": null
-        },
-        "slack": {
-        "enable": false,
-        "token": null,
-        "topic": null
-        },
-        "custom": {
-        "enable": false,
-        "token": null,
-        "topic": null
-        }
-        },
-        "tokens": [],
-        "enablePersistentStorage": false,
-        "scope": "team",
-        "revisionCount": 8,
-        "templateUpgradesAvailable": false
-        },
-        {
-          "properties": [
-            {
-              "required": true,
-              "placeholder": null,
-              "language": null,
-              "disabled": null,
-              "defaultValue": "red",
-              "value": null,
-              "values": null,
-              "readOnly": false,
-              "jsonPath": null,
-              "description": "what color is it",
-              "key": "color",
-              "label": "Color",
-              "type": "select",
-              "minValueLength": null,
-              "maxValueLength": null,
-              "options": [
+        tokens: [],
+        enablePersistentStorage: false,
+        scope: "team",
+        revisionCount: 8,
+        templateUpgradesAvailable: false,
+      },
+      {
+        properties: [
+          {
+            required: true,
+            placeholder: null,
+            language: null,
+            disabled: null,
+            defaultValue: "red",
+            value: null,
+            values: null,
+            readOnly: false,
+            jsonPath: null,
+            description: "what color is it",
+            key: "color",
+            label: "Color",
+            type: "select",
+            minValueLength: null,
+            maxValueLength: null,
+            options: [
               {
-              "key": "red",
-              "value": "red"
+                key: "red",
+                value: "red",
               },
               {
-              "key": "green",
-              "value": "green"
+                key: "green",
+                value: "green",
               },
               {
-              "key": "blue",
-              "value": "blue"
-              }
-              ],
-              "helperText": null
+                key: "blue",
+                value: "blue",
               },
-              {
-              "required": true,
-              "placeholder": null,
-              "language": null,
-              "disabled": null,
-              "defaultValue": 1,
-              "value": null,
-              "values": null,
-              "readOnly": false,
-              "jsonPath": null,
-              "description": "Testing",
-              "key": "asdfasdf",
-              "label": "asdfasdf",
-              "type": "number",
-              "minValueLength": null,
-              "maxValueLength": null,
-              "options": null,
-              "helperText": null
-              }
-          ],
-          "description": "Java - Build",
-          "flowTeamId": "5e3a35ad8c222700018ccd39",
-          "icon": "flow",
-          "id": "5e877d1f4bbc6e0001c51e12",
-          "name": "Java - Build",
-          "shortDescription": "Java - Build",
-          "status": "active",
-          "triggers": {
-          "manual": {
-          "enable": true,
-          "token": null,
-          "topic": null
+            ],
+            helperText: null,
           },
-          "scheduler": {
-          "enable": false,
-          "schedule": "",
-          "timezone": "",
-          "advancedCron": false
+          {
+            required: true,
+            placeholder: null,
+            language: null,
+            disabled: null,
+            defaultValue: 1,
+            value: null,
+            values: null,
+            readOnly: false,
+            jsonPath: null,
+            description: "Testing",
+            key: "asdfasdf",
+            label: "asdfasdf",
+            type: "number",
+            minValueLength: null,
+            maxValueLength: null,
+            options: null,
+            helperText: null,
           },
-          "webhook": {
-          "enable": true,
-          "token": "D72334785AC1449C04F8E8E8E3A44F6002396BA692ACC9987AD610A1FA7B11BE",
-          "topic": null
+        ],
+        description: "Java - Build",
+        flowTeamId: "5e3a35ad8c222700018ccd39",
+        icon: "flow",
+        id: "5e877d1f4bbc6e0001c51e12",
+        name: "Java - Build",
+        shortDescription: "Java - Build",
+        status: "active",
+        triggers: {
+          manual: {
+            enable: true,
+            token: null,
+            topic: null,
           },
-          "dockerhub": {
-          "enable": false,
-          "token": null,
-          "topic": null
+          scheduler: {
+            enable: false,
+            schedule: "",
+            timezone: "",
+            advancedCron: false,
           },
-          "slack": {
-          "enable": false,
-          "token": null,
-          "topic": null
+          webhook: {
+            enable: true,
+            token: "test",
+            topic: null,
           },
-          "custom": {
-          "enable": false,
-          "token": null,
-          "topic": null
-          }
+          dockerhub: {
+            enable: false,
+            token: null,
+            topic: null,
           },
-          "tokens": [],
-          "enablePersistentStorage": false,
-          "scope": "system",
-          "revisionCount": 16,
-          "templateUpgradesAvailable": true
+          slack: {
+            enable: false,
+            token: null,
+            topic: null,
           },
+          custom: {
+            enable: false,
+            token: null,
+            topic: null,
+          },
+        },
+        tokens: [],
+        enablePersistentStorage: false,
+        scope: "system",
+        revisionCount: 16,
+        templateUpgradesAvailable: true,
+      },
     ],
     workflowQuotas: {
       maxWorkflowCount: 10,
@@ -253,7 +253,7 @@ export default [
             placeholder: null,
             language: null,
             disabled: null,
-            defaultValue: "iulian.corcoja@ro.ibm.com",
+            defaultValue: "testuser@ibm.com",
             value: null,
             values: null,
             readOnly: false,
@@ -271,7 +271,7 @@ export default [
             placeholder: null,
             language: null,
             disabled: null,
-            defaultValue: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+            defaultValue: "test",
             value: null,
             values: null,
             readOnly: false,
@@ -388,3 +388,5 @@ export default [
     },
   },
 ];
+
+export default teams;

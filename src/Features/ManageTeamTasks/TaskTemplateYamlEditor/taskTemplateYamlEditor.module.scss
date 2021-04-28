@@ -1,3 +1,4 @@
+@import "Styles/animation";
 @import "Styles/mixins";
 
 .container {
@@ -260,11 +261,17 @@
   display: flex;
   align-items: flex-start;
   overflow-y: hidden;
+  overflow-x: hidden;
+  height: 100%;
 }
 
 .codeMirrorContainer {
-  width: 140rem;
   height: 100%;
+  width: 150rem;
+  margin-right: 2rem;
+
+  &.collapsed {
+  }
 }
 
 .markdownContainer {
@@ -272,4 +279,40 @@
   height: 100%;
   padding: 1rem;
   overflow-y: scroll;
+
+  transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
+
+  width: 80rem;
+
+  &.collapsed {
+    transform: translate3d(1rem, 0, 0);
+
+    overflow-x: hidden;
+    width: 10rem;
+    .collapseButton {
+      transform: scale(-1, 1);
+      cursor: pointer;
+    }
+  }
+
+  .collapseButton {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    line-height: 0;
+    position: static;
+
+    &:focus {
+      @include focus-outline();
+    }
+  }
+
+  .collapseButtonImg {
+    height: 1rem;
+    width: 1rem;
+
+    path {
+      fill: var(--cds-brand-01);
+    }
+  }
 }

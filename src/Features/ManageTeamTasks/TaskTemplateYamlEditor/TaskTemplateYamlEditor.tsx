@@ -1,5 +1,7 @@
 //@ts-nocheck
-import React from "react";
+import React, { useState } from "react";
+import cx from "classnames";
+import queryString from "query-string";
 import { useQuery } from "Hooks";
 import { Helmet } from "react-helmet";
 import { Formik } from "formik";
@@ -7,6 +9,7 @@ import axios from "axios";
 import { useParams, useHistory, Prompt, matchPath } from "react-router-dom";
 import { useMutation, queryCache } from "react-query";
 import { InlineNotification, Loading, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
+import { ChevronRight32 } from "@carbon/icons-react";
 import EmptyState from "Components/EmptyState";
 import Header from "../Header";
 import { formatErrorMessage } from "@boomerang-io/utils";
@@ -16,6 +19,7 @@ import { resolver, serviceUrl } from "Config/servicesConfig";
 import { appLink, AppPath } from "Config/appConfig";
 import styles from "./taskTemplateYamlEditor.module.scss";
 import ReactMarkdown from "react-markdown";
+import { yamlInstructions } from "Constants";
 
 // import CodeMirror from "codemirror";
 import { Controlled as CodeMirrorReact } from "react-codemirror2";
@@ -34,9 +38,6 @@ import "codemirror/addon/fold/comment-fold.js";
 import "codemirror/addon/comment/comment.js";
 import "./markdown.css";
 
-const yamlInstructions =
-  "# Getting started with a Task\nTasks in Boomerang Flow follow the Tekton Task model along with Kubernetes standards and allow you to define what you want to happen at the execution of the task as well as parameters that are needed.\nFor more information, see [Getting to know Tasks](https://www.useboomerang.io/docs/boomerang-flow/getting-to-know/tasks).\n## Creating a Task in YAML\nThe YAML specification has three important sections to be aware of: metadata, params, and steps. \nIts important to note that the full Tekton task specification is not yet fully supported. We cannot run multi step tasks, nor do we allow resources to be specified. For more information, see [Known Issues and Limitations](https://www.useboomerang.io/docs/boomerang-flow/introduction/known-issues-limitations)\n### Metadata\nThis is the area where we store a series of annotations related to the end user experience.\n### Params\nThis is where you define Parametes that are needed for the exeuction of the task.\n### Steps\nThis is where xyz.";
-
 type TaskTemplateYamlEditorProps = {
   taskTemplates: any[];
   editVerifiedTasksEnabled: any;
@@ -47,6 +48,8 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
 
   const params = useParams();
   const history = useHistory();
+
+  const [docOpen, setDocOpen] = useState(true);
 
   // const [{ data: yamlData, loading: yamlLoading, error: yamlError }, fetchYaml] = useAxios(
   //   {
@@ -190,12 +193,14 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
           id: params.taskId,
           revision: parseInt(params.version),
           body: values.yaml,
+          comment: queryString.stringify({ comment: values.comments }),
         });
       } else {
         response = await uploadTaskYamlMutation({
           id: params.taskId,
           revision: parseInt(params.version) + 1,
           body: values.yaml,
+          comment: queryString.stringify({ comment: values.comments }),
         });
       }
       notify(
@@ -336,7 +341,7 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
               </section>
               <section className={styles.yamlContainer}>
                 <CodeMirrorReact
-                  className={styles.codeMirrorContainer}
+                  className={cx(styles.codeMirrorContainer, { [styles.yamlCollapsed]: !docOpen })}
                   //   editorDidMount={(cmeditor) => {
                   //     editor.current = cmeditor;
                   //     setDoc(cmeditor.getDoc());
@@ -373,8 +378,11 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
                   //     }
                   //   }}
                 />
-                <div className={styles.markdownContainer}>
-                  <ReactMarkdown className="markdown-body" source={yamlInstructions} />
+                <div className={cx(styles.markdownContainer, { [styles.collapsed]: !docOpen })}>
+                  <button className={styles.collapseButton} onClick={() => setDocOpen(!docOpen)}>
+                    <ChevronRight32 className={styles.collapseButtonImg} />
+                  </button>
+                  {docOpen && <ReactMarkdown className="markdown-body" source={yamlInstructions} />}
                 </div>
               </section>
             </div>

@@ -1,4 +1,4 @@
-export default [
+const flowNavigation = [
   {
     name: "Workflows",
     type: "link",
@@ -62,3 +62,5 @@ export default [
     ],
   },
 ];
+
+export default flowNavigation;
