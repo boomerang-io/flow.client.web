@@ -52,6 +52,7 @@ export const serviceUrl = {
   getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,
   putTaskTemplateYaml: ({ id, revision, comment }) =>
     `${BASE_URL}/tasktemplate/${id}/yaml${`/${revision}`}${comment ? "?" + comment : ""}`,
+  postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   getTeams: () => `${BASE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_URL}/teams/${id}/properties`,
@@ -119,7 +120,15 @@ export const resolver = {
   patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamUser({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
     cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
-
+  postValidateYaml: ({ body }) =>
+    axios({
+      method: "post",
+      url: serviceUrl.postValidateYaml(),
+      data: body,
+      headers: {
+        "content-type": "application/x-yaml",
+      },
+    }),
   patchTeamPropertyRequest: ({ teamId, configurationId, body }) =>
     cancellableResolver({
       url: serviceUrl.getTeamProperty({ teamId, configurationId }),

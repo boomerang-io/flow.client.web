@@ -267,10 +267,11 @@
 
 .codeMirrorContainer {
   height: 100%;
-  width: 150rem;
+  // width: 150rem;
   margin-right: 2rem;
-
-  &.collapsed {
+  min-width: 60%;
+  &.yamlCollapsed {
+    min-width: 90%;
   }
 }
 

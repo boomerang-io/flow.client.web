@@ -2,6 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
+import { useMutation } from "react-query";
 import * as Yup from "yup";
 import {
   Button,
@@ -21,6 +22,7 @@ import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utils/taskIcons";
 import { requiredTaskProps } from "./constants";
+import { resolver } from "Config/servicesConfig";
 import styles from "./addTaskTemplateForm.module.scss";
 
 AddTaskTemplateForm.propTypes = {
@@ -60,9 +62,10 @@ const readFile = (file) => {
 
     reader.onload = () => {
       try {
-        resolve(JSON.parse(reader.result));
+        // resolve(JSON.parse(reader.result));
+        resolve(reader.result);
       } catch (e) {
-        reject(new DOMException("Problem parsing input file as JSON"));
+        reject(new DOMException("Problem parsing input file as YAML"));
       }
     };
     reader.readAsText(file);
@@ -80,6 +83,10 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
   const params: { teamId: string } = useParams();
   let taskTemplateNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
   const orderedIcons = orderBy(taskIcons, ["name"]);
+
+  const [validateYamlMuatator, { error: validateYamlError, isLoading: validateYamlIsLoading }] = useMutation(
+    resolver.postValidateYaml
+  );
 
   const handleSubmit = async (values) => {
     const hasFile = values.file;
@@ -107,8 +114,10 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
     await handleAddTaskTemplate({ body, closeModal });
   };
   const getTemplateData = async (file, setFieldValue) => {
-    const fileData = await readFile(file);
-    const selectedIcon = orderedIcons.find((icon) => icon.name === fileData.icon);
+    const yamlData = await readFile(file);
+    const response = await validateYamlMuatator({ body: yamlData });
+    const fileData = response?.data;
+    const selectedIcon = orderedIcons.find((icon) => icon.name === fileData?.icon);
     if (checkIsValidTask(fileData)) {
       const currentRevision = fileData.revisions.find((revision) => revision.version === fileData.currentVersion);
       setFieldValue("name", fileData.name);
@@ -157,27 +166,26 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         arguments: Yup.string().required("Arguments are required"),
         command: Yup.string().nullable(),
         image: Yup.string().nullable(),
-        file: Yup.mixed()
-          .test(
-            "fileSize",
-            "File is larger than 1MiB",
-            // If it's bigger than 1MiB will display the error (1048576 bytes = 1 mebibyte)
-            (file) => (file?.size ? file.size < 1048576 : true)
-          )
-          .test("validFile", "File is invalid", async (file) => {
-            let isValid = true;
-            if (file) {
-              try {
-                let contents = await readFile(file);
-                isValid = checkIsValidTask(contents);
-              } catch (e) {
-                console.error(e);
-                isValid = false;
-              }
-            }
-            // Need to return promise for yup to do async validation
-            return Promise.resolve(isValid);
-          }),
+        file: Yup.mixed().test(
+          "fileSize",
+          "File is larger than 1MiB",
+          // If it's bigger than 1MiB will display the error (1048576 bytes = 1 mebibyte)
+          (file) => (file?.size ? file.size < 1048576 : true)
+        ),
+        // .test("validFile", "File is invalid", async (file) => {
+        //   let isValid = true;
+        //   if (file) {
+        //     try {
+        //       let contents = await readFile(file);
+        //       isValid = checkIsValidTask(contents);
+        //     } catch (e) {
+        //       console.error(e);
+        //       isValid = false;
+        //     }
+        //   }
+        //   // Need to return promise for yup to do async validation
+        //   return Promise.resolve(isValid);
+        // }),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
@@ -197,16 +205,16 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         return (
           <ModalFlowForm onSubmit={handleSubmit} className={styles.container}>
             <ModalBody>
-              {isLoading && <Loading />}
+              {(isLoading || validateYamlIsLoading) && <Loading />}
               <div>
                 <label className={styles.fileUploaderLabel} htmlFor="uploadTemplate">
                   Import task file (optional)
                 </label>
-                <p className={styles.fileUploaderHelper}>File type .json, can only upload one file</p>
+                <p className={styles.fileUploaderHelper}>File type .yaml, can only upload one file</p>
                 <FileUploaderDropContainer
                   id="uploadTemplate"
                   className={styles.fileUploader}
-                  accept={[".json"]}
+                  accept={[".yaml"]}
                   labelText={FILE_UPLOAD_MESSAGE}
                   name="Workflow"
                   multiple={false}
@@ -227,7 +235,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                     }}
                   />
                 )}
-                {Boolean(errors.file) && (
+                {Boolean(errors.file || validateYamlError) && (
                   <div className={styles.validMessage}>
                     <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
                     <p className={styles.message}>{createInvalidTextMessage}</p>
