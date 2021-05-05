@@ -1,6 +1,7 @@
 import React from "react";
 import { useAppContext } from "Hooks";
 import { useHistory } from "react-router-dom";
+import NoTeamsRedirectPrompt from "Components/NoTeamsRedirectPrompt";
 import { appLink } from "Config/appConfig";
 //@ts-ignore
 const ManageTeamTasksContainer: React.FC = () => {
@@ -10,7 +11,7 @@ const ManageTeamTasksContainer: React.FC = () => {
     history.push(appLink.manageTaskTemplates({ teamId: teams[0]?.id }));
     return null;
   } else {
-    return <p>no teams</p>;
+    return <NoTeamsRedirectPrompt />;
   }
 };
 
