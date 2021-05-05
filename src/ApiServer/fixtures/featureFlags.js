@@ -11,7 +11,7 @@ const featureFlag = {
     "workflow.triggers": true,
     "team.parameters": true,
     "boomerang.activation": false,
-    insights: false,
+    insights: true,
     activity: true,
   },
 };

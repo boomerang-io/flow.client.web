@@ -10,6 +10,7 @@ import { useAppContext } from "Hooks";
 import { useQuery } from "react-query";
 import { sortByProp } from "@boomerang-io/utils";
 import ErrorDragon from "Components/ErrorDragon";
+import NoTeamsRedirectPrompt from "Components/NoTeamsRedirectPrompt";
 import ChartsTile from "./ChartsTile";
 import InsightsHeader from "./InsightsHeader";
 import InsightsTile from "./InsightsTile";
@@ -131,6 +132,10 @@ export default function WorkflowInsights(location) {
   const renderWidgets = ({ teamsList, workflowsFilter }) => {
     if (insightsError) {
       return <ErrorDragon />;
+    }
+
+    if(teams.length === 0) {
+      return <NoTeamsRedirectPrompt className={styles.noTeams} />;
     }
 
     const hasSelectedTeam = selectedTeam.id !== "none";

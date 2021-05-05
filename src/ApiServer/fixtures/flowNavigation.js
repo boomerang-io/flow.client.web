@@ -25,7 +25,12 @@ const flowNavigation = [
       {
         name: "Team Parameters",
         type: "link",
-        link: "/team-parameters",
+        link: "/manage/team-parameters",
+      },
+      {
+        name: "Team Tasks",
+        type: "link",
+        link: "/manage/task-templates",
       },
     ],
   },

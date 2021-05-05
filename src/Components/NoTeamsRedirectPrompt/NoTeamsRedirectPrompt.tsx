@@ -4,7 +4,12 @@ import { Error403 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { FeatureFlag } from "Config/appConfig";
 import { CORE_ENV_URL } from "Config/appConfig";
 
-const NoAccessRedirectPrompt = () => {
+type NoTeamsRedirectPromptProps = {
+  className?: string; 
+  style?: object;
+}
+
+const NoTeamsRedirectPrompt = ({ className, style }: NoTeamsRedirectPromptProps) => {
   const TeamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
 
   const title = TeamManagementEnabled ? "Welcome to Boomerang Flow" : "Crikey, how did you get here?!";
@@ -21,10 +26,10 @@ const NoAccessRedirectPrompt = () => {
   );
 
   return (
-    <div style={{ paddingTop: "1rem" }}>
+    <div className={className} style={style}>
       <Error403 header={null} title={title} message={message} />
     </div>
   );
 };
 
-export default NoAccessRedirectPrompt;
+export default NoTeamsRedirectPrompt;
