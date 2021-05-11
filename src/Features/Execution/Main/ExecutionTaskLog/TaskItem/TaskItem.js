@@ -46,9 +46,9 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
   let Icon;
   let runStatus;
   if (taskType === NodeType.RunWorkflow) {
-    statusClassName = styles[runWorkflowActivityStatus];
-    Icon = executionStatusIcon[runWorkflowActivityStatus];
-    runStatus = runWorkflowActivityStatus;
+    statusClassName = styles[runWorkflowActivityStatus] ?? styles[flowTaskStatus];
+    Icon = executionStatusIcon[runWorkflowActivityStatus] ?? executionStatusIcon[flowTaskStatus];
+    runStatus = runWorkflowActivityStatus ?? flowTaskStatus;
   } else {
     statusClassName = styles[flowTaskStatus];
     Icon = executionStatusIcon[flowTaskStatus];
@@ -99,7 +99,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
           )}
-          {taskType === NodeType.RunWorkflow && (
+          {taskType === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
             <Link
               to={appLink.execution({ executionId: runWorkflowActivityId, workflowId: runWorkflowId })}
               className={styles.viewActivityLink}
