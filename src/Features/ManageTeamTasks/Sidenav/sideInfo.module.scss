@@ -6,6 +6,11 @@
   :global .bx--bmrg-feature-sidenav-link-content {
     width: 100%;
   }
+
+  :global .bx--dropdown__wrapper {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
 }
 .tools {
   display: flex;

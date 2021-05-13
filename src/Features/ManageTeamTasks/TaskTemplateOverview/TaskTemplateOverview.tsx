@@ -313,7 +313,7 @@ export function TaskTemplateOverview({
         //@ts-ignore
         appLink.manageTaskTemplateEdit({
           teamId: params.teamId,
-          id: params.taskId,
+          taskId: params.taskId,
           version: response.data.currentVersion,
         })
       );

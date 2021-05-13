@@ -41,26 +41,20 @@ import "./markdown.css";
 type TaskTemplateYamlEditorProps = {
   taskTemplates: any[];
   editVerifiedTasksEnabled: any;
+  updateTemplateInState: Function;
 };
 
-export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled }: TaskTemplateYamlEditorProps) {
+export function TaskTemplateYamlEditor({
+  taskTemplates,
+  editVerifiedTasksEnabled,
+  updateTemplateInState,
+}: TaskTemplateYamlEditorProps) {
   const cancelRequestRef = React.useRef();
 
   const params = useParams();
   const history = useHistory();
 
   const [docOpen, setDocOpen] = useState(true);
-
-  // const [{ data: yamlData, loading: yamlLoading, error: yamlError }, fetchYaml] = useAxios(
-  //   {
-  //     url: serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version }),
-  //     method: "get",
-  //     headers: {
-  //       "Content-type": "application/x-yaml",
-  //     },
-  //   }
-  //   // { manual: true }
-  // );
 
   const { data: yamlData, loading: yamlLoading, error: yamlError } = useQuery(
     serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version })
@@ -69,6 +63,10 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
   const invalidateQueries = () => {
     queryCache.invalidateQueries(serviceUrl.getTaskTemplates({ query: null }));
     queryCache.invalidateQueries(serviceUrl.getFeatureFlags());
+  };
+
+  const invalidateYaml = () => {
+    queryCache.invalidateQueries(serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version }));
   };
 
   const [uploadTaskYamlMutation, { isLoading: yamlUploadIsLoading }] = useMutation(
@@ -126,7 +124,8 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
         ...currentRevision,
         version: newVersion,
         changelog: {
-          reason: `Copy new version from ${values.currentConfig.version}`,
+          // reason: `Copy new version from ${values.currentConfig.version}`,
+          reason: `Copy new version from ${currentRevision.version}`,
         },
       };
       newRevisions.push(newRevisionConfig);
@@ -195,6 +194,7 @@ export function TaskTemplateYamlEditor({ taskTemplates, editVerifiedTasksEnabled
           body: values.yaml,
           comment: queryString.stringify({ comment: values.comments }),
         });
+        invalidateYaml();
       } else {
         response = await uploadTaskYamlMutation({
           id: params.id,

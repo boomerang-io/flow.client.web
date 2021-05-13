@@ -66,6 +66,7 @@ const TaskTemplatesContainer: React.FC = () => {
           <TaskTemplateYamlEditor
             editVerifiedTasksEnabled={editVerifiedTasksEnabled}
             taskTemplates={taskTemplatesData}
+            updateTemplateInState={updateTemplateInState}
           />
         </Route>
         <Route path={AppPath.TaskTemplateEdit}>
