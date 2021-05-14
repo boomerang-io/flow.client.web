@@ -94,6 +94,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 invalid={errors.category && touched.category}
                 invalidText={errors.category}
                 labelText="Category"
+                helperText="Categories have strict matching, type as you want to see it"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 placeholder="e.g. communication"
