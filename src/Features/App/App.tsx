@@ -30,6 +30,11 @@ const SystemWorkflows = lazy(() => import(/* webpackChunkName: "SystemWorkflows"
 const TaskTemplates = lazy(() => import(/* webpackChunkName: "TaskTemplates" */ "Features/TaskTemplates"));
 const Teams = lazy(() => import(/* webpackChunkName: "Teams" */ "Features/Teams"));
 const TeamProperties = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/TeamProperties"));
+const ManageTeamTasks = lazy(() => import(/* webpackChunkName: "ManageTeamTasks" */ "Features/ManageTeamTasks"));
+const ManageTeamTasksContainer = lazy(() =>
+  import(/* webpackChunkName: "ManageTeamTasksContainer" */ "Features/ManageTeamTasksContainer")
+);
+
 const Users = lazy(() => import(/* webpackChunkName: "TeamProperties" */ "Features/Users"));
 const Workflows = lazy(() => import(/* webpackChunkName: "Workflows" */ "Features/Workflows"));
 
@@ -44,7 +49,7 @@ export default function App() {
   const teamIds = queryString.parse(location.search).teams;
   const teamIdsArray = teamIds === null || teamIds === undefined ? [] : teamIds.toString().split(",");
   const query = teamIdsArray.length === 1 ? `?teamId=${teamIdsArray[0]}` : "";
-  const getFlowNavigationUrl = serviceUrl.getFlowNavigation({query});
+  const getFlowNavigationUrl = serviceUrl.getFlowNavigation({ query });
 
   const [shouldShowBrowserWarning, setShouldShowBrowserWarning] = useState(
     !supportedBrowsers.includes(browser?.name ?? "")
@@ -267,6 +272,20 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             allowedUserRoles={[true]}
             component={<TaskTemplates />}
             path={AppPath.TaskTemplates}
+            userRole={taskManagerEnabled}
+          />
+
+          <ProtectedRoute
+            allowedUserRoles={[true]}
+            component={<ManageTeamTasks />}
+            path={AppPath.ManageTaskTemplatesTeam}
+            userRole={taskManagerEnabled}
+          />
+
+          <ProtectedRoute
+            allowedUserRoles={[true]}
+            component={<ManageTeamTasksContainer />}
+            path={AppPath.ManageTaskTemplates}
             userRole={taskManagerEnabled}
           />
 

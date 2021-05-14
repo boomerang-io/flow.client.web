@@ -1,4 +1,4 @@
-export default [
+const config = [
   {
     value: "Test value",
     readOnly: false,
@@ -18,3 +18,5 @@ export default [
     type: "password",
   },
 ];
+
+export default config;

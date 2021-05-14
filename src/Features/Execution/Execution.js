@@ -8,10 +8,9 @@ import { Loading, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-rea
 import Main from "./Main";
 import { serviceUrl } from "Config/servicesConfig";
 
-const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
-
 export default function ExecutionContainer() {
   const { workflowId, executionId } = useParams();
+  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ workflowId });
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getExecutionUrl = serviceUrl.getWorkflowExecution({ executionId });
 

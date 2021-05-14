@@ -1,4 +1,4 @@
-export default [
+const activity = [
   {
     creationDate: "2020-05-20T12:12:58.963+0000",
     duration: 54703,
@@ -11,10 +11,10 @@ export default [
     trigger: "manual",
     properties: [
       { key: "tenant.name", value: "acc" },
-      { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+      { key: "artifactory.username", value: "testUser@ibm.com" },
       {
         key: "artifactory.api_key",
-        value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+        value: "TEST",
       },
     ],
     steps: [
@@ -133,3 +133,5 @@ export default [
     teamName: "IBM Services Engineering",
   },
 ];
+
+export default activity;

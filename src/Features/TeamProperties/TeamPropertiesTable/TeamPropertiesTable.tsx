@@ -16,6 +16,7 @@ import {
 import CreateEditTeamPropertiesModal from "./CreateEditTeamPropertiesModal";
 import ActionsMenu from "./ActionsMenu";
 import EmptyState from "Components/EmptyState";
+import NoTeamsRedirectPrompt from "Components/NoTeamsRedirectPrompt";
 import WombatMessage from "Components/WombatMessage";
 import { InputType } from "Constants";
 import { formatErrorMessage, sortByProp } from "@boomerang-io/utils";
@@ -161,94 +162,98 @@ const TeamPropertiesTable: React.FC<TeamPropertiesTableProps> = ({
           </>
         }
       />
-      <div className={styles.tableContainer}>
-        <div className={styles.tableHeader}>
-          <div className={styles.dropdown}>
-            <ComboBox
-              data-testid="team-parameters-combobox"
-              id="team-parameters-select"
-              initialSelectedItem={activeTeam?.id ? activeTeam : null}
-              items={sortByProp(teams, "name")}
-              itemToString={(item: { name: string }) => item?.name ?? ""}
-              label="Teams"
-              onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
-                setActiveTeam(selectedItem);
-              }}
-              placeholder="Select a team"
-              shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
-                item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
-              }
-            />
+      {teams.length === 0 ? (
+        <NoTeamsRedirectPrompt />
+      ) : (
+        <div className={styles.tableContainer}>
+          <div className={styles.tableHeader}>
+            <div className={styles.dropdown}>
+              <ComboBox
+                data-testid="team-parameters-combobox"
+                id="team-parameters-select"
+                initialSelectedItem={activeTeam?.id ? activeTeam : null}
+                items={sortByProp(teams, "name")}
+                itemToString={(item: { name: string }) => item?.name ?? ""}
+                label="Teams"
+                onChange={({ selectedItem }: { selectedItem: FlowTeam }) => {
+                  setActiveTeam(selectedItem);
+                }}
+                placeholder="Select a team"
+                shouldFilterItem={({ item, inputValue }: { item: any; inputValue: string }) =>
+                  item?.name?.toLowerCase()?.includes(inputValue.toLowerCase())
+                }
+              />
+            </div>
+            {(activeTeam?.id || totalItems > 0) && (
+              <CreateEditTeamPropertiesModal properties={properties} team={activeTeam} />
+            )}
           </div>
-          {(activeTeam?.id || totalItems > 0) && (
-            <CreateEditTeamPropertiesModal properties={properties} team={activeTeam} />
+          {propertiesAreLoading ? (
+            <DataTableSkeleton />
+          ) : propertiesError ? (
+            <Error />
+          ) : totalItems > 0 ? (
+            <>
+              <DataTable
+                rows={properties}
+                headers={headers}
+                render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
+                  <TableContainer>
+                    <Table isSortable>
+                      <TableHead>
+                        <TableRow className={styles.tableHeadRow}>
+                          {headers.map((header: any, key: any) => (
+                            <TableHeader
+                              key={`mode-table-key-${key}`}
+                              {...getHeaderProps({
+                                className: `${styles.tableHeadHeader} ${styles[header.key]}`,
+                                header,
+                                isSortable: header.sortable,
+                              })}
+                            >
+                              {header.header}
+                            </TableHeader>
+                          ))}
+                        </TableRow>
+                      </TableHead>
+                      <TableBody className={styles.tableBody}>
+                        {rows.map((row: any) => {
+                          return (
+                            <TableRow key={row.id}>
+                              {row.cells.map((cell: any, cellIndex: number) => (
+                                <TableCell key={cell.id}>
+                                  <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
+                                </TableCell>
+                              ))}
+                            </TableRow>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                )}
+              />
+              <Pagination
+                onChange={handlePaginationChange}
+                page={page}
+                pageSize={pageSize}
+                pageSizes={PAGE_SIZES}
+                totalItems={totalItems}
+              />
+            </>
+          ) : (
+            <>
+              {activeTeam ? (
+                <EmptyState title="No team parameters" message={null} />
+              ) : (
+                <Box maxWidth="20rem" margin="0 auto">
+                  <WombatMessage title="Select a team" />
+                </Box>
+              )}
+            </>
           )}
         </div>
-        {propertiesAreLoading ? (
-          <DataTableSkeleton />
-        ) : propertiesError ? (
-          <Error />
-        ) : totalItems > 0 ? (
-          <>
-            <DataTable
-              rows={properties}
-              headers={headers}
-              render={({ rows, headers, getHeaderProps }: { rows: any; headers: any; getHeaderProps: any }) => (
-                <TableContainer>
-                  <Table isSortable>
-                    <TableHead>
-                      <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header: any, key: any) => (
-                          <TableHeader
-                            key={`mode-table-key-${key}`}
-                            {...getHeaderProps({
-                              className: `${styles.tableHeadHeader} ${styles[header.key]}`,
-                              header,
-                              isSortable: header.sortable,
-                            })}
-                          >
-                            {header.header}
-                          </TableHeader>
-                        ))}
-                      </TableRow>
-                    </TableHead>
-                    <TableBody className={styles.tableBody}>
-                      {rows.map((row: any) => {
-                        return (
-                          <TableRow key={row.id}>
-                            {row.cells.map((cell: any, cellIndex: number) => (
-                              <TableCell key={cell.id}>
-                                <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
-                              </TableCell>
-                            ))}
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
-            />
-            <Pagination
-              onChange={handlePaginationChange}
-              page={page}
-              pageSize={pageSize}
-              pageSizes={PAGE_SIZES}
-              totalItems={totalItems}
-            />
-          </>
-        ) : (
-          <>
-            {activeTeam ? (
-              <EmptyState title="No team parameters" message={null} />
-            ) : (
-              <Box maxWidth="20rem" margin="0 auto">
-                <WombatMessage title="Select a team" />
-              </Box>
-            )}
-          </>
-        )}
-      </div>
+      )}
     </>
   );
 };

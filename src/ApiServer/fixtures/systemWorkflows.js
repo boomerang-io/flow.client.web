@@ -1,4 +1,4 @@
-export default [
+const systemWorkflows = [
   {
     properties: [],
     description: "",
@@ -21,3 +21,5 @@ export default [
     scope: "system",
   },
 ];
+
+export default systemWorkflows;

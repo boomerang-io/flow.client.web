@@ -1,6 +1,5 @@
 import React from "react";
 import Configure from "./index";
-import { fireEvent } from "@testing-library/react";
 import { queryCaches } from "react-query";
 import { teams, profile, summaries } from "ApiServer/fixtures";
 import { AppContextProvider } from "State/context";

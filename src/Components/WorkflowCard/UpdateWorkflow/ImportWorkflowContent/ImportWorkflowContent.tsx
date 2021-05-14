@@ -26,7 +26,6 @@ function checkIsValidWorkflow(data, workflowId) {
   });
 
   if (data.id !== workflowId) {
-    console.log("they are different");
     isValid = false;
   }
   //Validate if workflow has the latest structure for dag

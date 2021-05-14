@@ -8,8 +8,8 @@ import cx from "classnames";
 import sortBy from "lodash/sortBy";
 import WelcomeBanner from "Components/WelcomeBanner";
 import EmptyState from "Components/EmptyState";
+import NoTeamsRedirectPrompt from "Components/NoTeamsRedirectPrompt";
 import WorkflowQuotaModalContent from "./WorkflowQuotaModalContent";
-import NoTeamsRedirectPrompt from "./NoAccessRedirectPrompt";
 import CreateWorkflow from "../../Components/CreateWorkflow";
 import WorkflowsHeader from "../../Components/WorkflowsHeader";
 import WorkflowCard from "../../Components/WorkflowCard";
@@ -140,7 +140,7 @@ export default function WorkflowsHome() {
               return <TeamWorkflows key={team.id} searchQuery={safeQuery} team={team} teams={teams} />;
             })
           ) : (
-            <NoTeamsRedirectPrompt />
+            <NoTeamsRedirectPrompt style={{ paddingTop: "1rem" }} />
           )}
           {searchQuery && filteredWorkflowsCount === 0 && <EmptyState />}
         </div>

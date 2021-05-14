@@ -170,6 +170,7 @@ export default class Tasks extends Component<TaskProps> {
                   model={{ type: task.id, name: task.name, taskData: task }}
                   name={task.name}
                   verified={task.verified}
+                  scope={task.scope}
                 />
               ))}
             </ul>

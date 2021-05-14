@@ -1,5 +1,5 @@
 import { Api16, Document16, Email16, EventSchedule16, FlowData16, Notification16, Upload16 } from "@carbon/icons-react";
-
+// eslint-disable-next-line
 export default [
   { Icon: Api16, name: "api" },
   {

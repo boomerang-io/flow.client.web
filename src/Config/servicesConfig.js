@@ -47,7 +47,12 @@ export const serviceUrl = {
   getPlatformNavigation: () => `${BASE_URL}/users/navigation`,
   getFlowNavigation: ({ query }) => `${BASE_URL}/navigation${query}`,
   getSystemWorkflows: () => `${BASE_URL}/workflows/system`,
-  getTaskTemplates: () => `${BASE_URL}/tasktemplate`,
+  getWorkflowTaskTemplates: ({ workflowId }) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
+  getTaskTemplates: ({ query }) => `${BASE_URL}/tasktemplate${query ? "?" + query : ""}`,
+  getTaskTemplateYaml: ({ id, revision }) => `${BASE_URL}/tasktemplate/${id}/yaml${revision ? `/${revision}` : ""}`,
+  putTaskTemplateYaml: ({ id, revision, comment }) =>
+    `${BASE_URL}/tasktemplate/${id}/yaml${`/${revision}`}${comment ? "?" + comment : ""}`,
+  postValidateYaml: () => `${BASE_URL}/tasktemplate/yaml/validate`,
   getTeams: () => `${BASE_URL}/teams`,
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_URL}/teams/${id}/properties`,
@@ -86,11 +91,12 @@ export const serviceUrl = {
   resourceSettings: () => `${BASE_URL}/settings`,
 };
 
-export const cancellableResolver = ({ url, method, body, ...config }) => {
+export const cancellableResolver = ({ url, method, body, headers, ...config }) => {
   // Create a new CancelToken source for this request
   const source = CancelToken.source();
   const promise = axios({
     ...config,
+    headers,
     method,
     url,
     data: body,
@@ -114,7 +120,15 @@ export const resolver = {
   patchManageTeamUser: ({ teamId, body }) => axios.patch(serviceUrl.getManageTeamUser({ teamId }), body),
   patchManageUser: ({ body, userId }) =>
     cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
-
+  postValidateYaml: ({ body }) =>
+    axios({
+      method: "post",
+      url: serviceUrl.postValidateYaml(),
+      data: body,
+      headers: {
+        "content-type": "application/x-yaml",
+      },
+    }),
   patchTeamPropertyRequest: ({ teamId, configurationId, body }) =>
     cancellableResolver({
       url: serviceUrl.getTeamProperty({ teamId, configurationId }),
@@ -130,9 +144,16 @@ export const resolver = {
   postCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethod.Post }),
+    cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
   putCreateTaskTemplate: ({ body }) =>
-    cancellableResolver({ url: serviceUrl.getTaskTemplates(), body, method: HttpMethod.Put }),
+    cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Put }),
+  putCreateTaskYaml: ({ id, revision, comment, body }) =>
+    cancellableResolver({
+      url: serviceUrl.putTaskTemplateYaml({ id, revision, comment }),
+      body,
+      method: HttpMethod.Put,
+      headers: { "content-type": "application/x-yaml" },
+    }),
   postCreateTeam: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getManageTeamsCreate(), body, method: HttpMethod.Post }),
   postExecuteWorkflow: ({ id, properties }) =>

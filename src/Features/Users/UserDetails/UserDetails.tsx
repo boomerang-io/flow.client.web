@@ -6,12 +6,12 @@ import { CREATED_DATE_FORMAT } from "Constants";
 import { FlowUser } from "Types";
 import styles from "./UserDetails.module.scss";
 
-interface UserDetailsSection {
+interface UserDetailsSectionProps {
   label: string;
   value: any;
 }
 
-const UserDetailsSection: React.FC<UserDetailsSection> = ({ label, value }) => {
+const UserDetailsSection: React.FC<UserDetailsSectionProps> = ({ label, value }) => {
   return (
     <section className={styles.sectionContainer}>
       <dt className={styles.sectionHeader}>{label}</dt>

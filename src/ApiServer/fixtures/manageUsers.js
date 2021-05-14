@@ -1,4 +1,4 @@
-export default {
+const manageUsers = {
   totalPages: 1,
   totalElements: 2,
   last: true,
@@ -41,3 +41,5 @@ export default {
     },
   ],
 };
+
+export default manageUsers;

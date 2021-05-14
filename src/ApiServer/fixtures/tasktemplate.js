@@ -1,4 +1,4 @@
-export default [
+const taskTemplate = [
   {
     id: "5e670a1e2d5e6a302de4f41d",
     description: "Look up Slack user by email address",
@@ -1888,3 +1888,5 @@ export default [
     enableLifecycle: true,
   },
 ];
+
+export default taskTemplate;

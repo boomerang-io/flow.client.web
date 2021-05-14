@@ -89,7 +89,7 @@ const UserList: React.FC = () => {
     const queryStr = `?${queryString.stringify({ order, page, size, sort, ...props })}`;
     history.push({ search: queryStr });
   }
-
+  // eslint-disable-next-line
   const debouncedSearch = React.useCallback(
     debounce((query: string) => {
       updateHistorySearch({ query, page: 0 });

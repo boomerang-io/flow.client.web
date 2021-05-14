@@ -9,6 +9,7 @@ import WorkflowDagEngine, { createWorkflowRevisionBody } from "Utils/dag/Workflo
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
+import { formatErrorMessage } from "@boomerang-io/utils";
 import { Add32 } from "@carbon/icons-react";
 import { FlowTeam, ComposedModalChildProps, ModalTriggerProps, WorkflowExport, CreateWorkflowSummary } from "Types";
 import { FeatureFlag } from "Config/appConfig";
@@ -97,8 +98,12 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ isSystem, team, teams, 
         queryCache.invalidateQueries(serviceUrl.getTeams());
       }
       closeModal();
-    } catch (e) {
-      //no-op
+    } catch (err) {
+      const errorMessages = formatErrorMessage({
+        error: err,
+        defaultMessage: "Import Workflow Failed",
+      });
+      notify(<ToastNotification kind="error" title={errorMessages.title} subtitle={errorMessages.message} />);
     }
   };
 
