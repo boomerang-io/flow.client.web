@@ -97,7 +97,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 helperText="Categories have strict matching, type as you want to see it"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                placeholder="e.g. IBM Essentials"
+                placeholder="e.g. communication"
                 value={values.category}
               />
               <SelectIcon
