@@ -145,6 +145,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                 {workflowIcons.map(({ name, Icon }, index) => (
                   <label
                     key={index}
+                    //@ts-ignore
                     className={classnames({
                       icon: true,
                       "--active": values.icon === name,

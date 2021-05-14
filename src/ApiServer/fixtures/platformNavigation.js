@@ -1,4 +1,4 @@
-export default {
+const platformNavigation = {
   platform: {
     version: "7.1.0",
     name: "Boomerang Core",
@@ -32,3 +32,5 @@ export default {
   ],
   platformMessage: null,
 };
+
+export default platformNavigation;

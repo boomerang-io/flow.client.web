@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import { MemoryRouter } from "react-router";
 import CustomLegend from "./index";

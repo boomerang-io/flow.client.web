@@ -1,4 +1,4 @@
-export default [
+const flowNavigation = [
   {
     name: "Workflows",
     type: "link",
@@ -25,7 +25,12 @@ export default [
       {
         name: "Team Parameters",
         type: "link",
-        link: "/team-parameters",
+        link: "/manage/team-parameters",
+      },
+      {
+        name: "Team Tasks",
+        type: "link",
+        link: "/manage/task-templates",
       },
     ],
   },
@@ -62,3 +67,5 @@ export default [
     ],
   },
 ];
+
+export default flowNavigation;

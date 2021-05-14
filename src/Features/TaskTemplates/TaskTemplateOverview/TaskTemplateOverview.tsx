@@ -171,7 +171,7 @@ export function TaskTemplateOverview({
   const history = useHistory();
 
   const invalidateQueries = () => {
-    queryCache.invalidateQueries(serviceUrl.getTaskTemplates());
+    queryCache.invalidateQueries(serviceUrl.getTaskTemplates({ query: null }));
     queryCache.invalidateQueries(serviceUrl.getFeatureFlags());
   };
 
@@ -261,6 +261,8 @@ export function TaskTemplateOverview({
         category: values.category,
         enableLifecycle: values.enableLifecycle,
         revisions: newRevisions,
+        flowTeamId: null,
+        scope: "global",
       };
     } else {
       newRevisionConfig = {
@@ -283,6 +285,8 @@ export function TaskTemplateOverview({
         enableLifecycle: values.enableLifecycle,
         currentVersion: newVersion,
         revisions: newRevisions,
+        flowTeamId: null,
+        scope: "global",
       };
     }
 

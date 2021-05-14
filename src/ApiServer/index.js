@@ -1,7 +1,7 @@
 import { Server, Serializer, Model } from "miragejs";
 import { inflections } from "inflected";
 import queryString from "query-string";
-import uuid from "uuid/v4";
+import { v4 as uuid } from "uuid";
 import { serviceUrl, BASE_URL } from "Config/servicesConfig";
 import * as fixtures from "./fixtures";
 
@@ -41,7 +41,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       revision: Model,
       setting: Model,
       summary: Model,
-      systemWorkflow: Model,
+      systemWorkflows: Model,
       tasktemplate: Model,
       team: Model,
       teamProperties: Model,
@@ -193,7 +193,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Task Templates
        */
-      const tasktemplatePath = serviceUrl.getTaskTemplates();
+      const tasktemplatePath = serviceUrl.getTaskTemplates({ workflowId: null });
       this.get(tasktemplatePath);
       this.put(tasktemplatePath, (schema, request) => {
         let body = JSON.parse(request.requestBody);

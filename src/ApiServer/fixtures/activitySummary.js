@@ -1,4 +1,4 @@
-export default {
+const activitySummary = {
   all: 1969,
   notstarted: 0,
   inProgress: 27,
@@ -9,3 +9,5 @@ export default {
   skipped: 0,
   waiting: 0,
 };
+
+export default activitySummary;

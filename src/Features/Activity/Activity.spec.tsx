@@ -1,7 +1,7 @@
 import React from "react";
 import queryString from "query-string";
 import { queryStringOptions } from "Config/appConfig";
-import { waitFor, screen, fireEvent } from "@testing-library/react";
+import { waitFor, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import WorkflowActivity from "./index";
 import { startApiServer } from "ApiServer";

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from "react";
 import Settings from "./Settings";
 import { fireEvent, screen, waitFor } from "@testing-library/react";

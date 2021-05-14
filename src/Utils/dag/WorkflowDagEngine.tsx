@@ -17,6 +17,8 @@ import SetPropertyNodeFactory from "./setPropertyNode/setPropertyNodeFactory";
 import WaitNodeFactory from "./waitNode/waitNodeFactory";
 import AcquireLockNodeFactory from "./acquireLockNode/acquireLockNodeFactory";
 import ReleaseLockNodeFactory from "./releaseLockNode/releaseLockNodeFactory";
+import RunWorkflowNodeFactory from "./runWorkflowNode/RunWorkflowNodeFactory";
+
 import { NodeType, WorkflowDagEngineMode } from "Constants";
 
 interface DagModel {
@@ -41,6 +43,7 @@ export default class WorkflowDagEngine {
     this.diagramEngine.registerNodeFactory(new WaitNodeFactory());
     this.diagramEngine.registerNodeFactory(new AcquireLockNodeFactory());
     this.diagramEngine.registerNodeFactory(new ReleaseLockNodeFactory());
+    this.diagramEngine.registerNodeFactory(new RunWorkflowNodeFactory());
     this.diagramEngine.mode = mode;
 
     //need to find a way to register port factory

@@ -10,13 +10,15 @@ import {
   ModalFlowForm,
   ModalFooter,
   Tag,
+  FeatureNavTab as Tab,
+  FeatureNavTabs as Tabs,
   TextArea,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import VersionHistory from "./VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
-import capitalize from "lodash/capitalize";
 import moment from "moment";
+import { appLink } from "Config/appConfig";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
 import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
@@ -198,6 +200,20 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <FeatureHeader
       className={styles.featureHeader}
+      footer={
+        <Tabs>
+          <Tab
+            exact
+            label="Overview"
+            to={appLink.taskTemplateEdit({ id: selectedTaskTemplate.id, version: currentRevision.version })}
+          />
+          <Tab
+            exact
+            label="Yaml"
+            to={appLink.taskTemplateYaml({ id: selectedTaskTemplate.id, version: currentRevision.version })}
+          />
+        </Tabs>
+      }
       actions={
         <div className={styles.buttons}>
           <VersionSwitcher
@@ -293,7 +309,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       }
     >
-      <p className={styles.category}>{capitalize(selectedTaskTemplate.category)}</p>
+      <p className={styles.category}>{selectedTaskTemplate.category}</p>
       <div className={styles.infoContainer}>
         {TaskIcon ? (
           <TaskIcon.Icon style={{ minWidth: "1.5rem", minHeight: "1.5rem", marginRight: "0.75rem" }} />

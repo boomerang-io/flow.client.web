@@ -1,4 +1,4 @@
-export default [
+const managageTeamDetails = [
   {
     higherLevelGroupId: "5e73782ee04d700001a00249",
     id: "5e7cccb94bbc6e0001c51773",
@@ -244,3 +244,5 @@ export default [
     workflows: [],
   },
 ];
+
+export default managageTeamDetails;

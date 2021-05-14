@@ -192,6 +192,7 @@ export interface TaskModel {
   name: string;
   revisions: any[];
   status: string;
+  scope: string; //global or team
   verified: boolean;
 }
 

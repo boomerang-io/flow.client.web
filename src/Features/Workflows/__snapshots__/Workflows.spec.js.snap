@@ -122,7 +122,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
               class="bx--bmrg-feature-header-title"
             >
               
-              Workflows (2)
+              Workflows (4)
             </h1>
           </div>
         </section>
@@ -274,7 +274,7 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             <h1
               class="team"
             >
-              IBM Services Engineering (1)
+              IBM Services Engineering (3)
             </h1>
           </hgroup>
           <div
@@ -362,6 +362,299 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                   </svg>
                 </button>
               </section>
+              <button
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Overflow card menu"
+                class="bx--overflow-menu"
+                style="position: absolute; right: 0px;"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  aria-label="Overflow menu icon"
+                  class="bx--overflow-menu__icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  viewBox="0 0 32 32"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="16"
+                    cy="8"
+                    r="2"
+                  />
+                  <circle
+                    cx="16"
+                    cy="16"
+                    r="2"
+                  />
+                  <circle
+                    cx="16"
+                    cy="24"
+                    r="2"
+                  />
+                  <title>
+                    Overflow menu icon
+                  </title>
+                </svg>
+              </button>
+            </div>
+            <div
+              class="container"
+            >
+              <a
+                href="/editor/5e877e944bbc6e0001c51e6e/workflow"
+              >
+                <section
+                  class="details"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <svg
+                      alt="flow"
+                      aria-hidden="true"
+                      class="icon"
+                      fill="currentColor"
+                      focusable="false"
+                      height="16"
+                      preserveAspectRatio="xMidYMid meet"
+                      viewBox="0 0 32 32"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M20,23H11.86a4.17,4.17,0,0,0-.43-1L22,11.43A3.86,3.86,0,0,0,24,12a4,4,0,1,0-3.86-5H11.86a4,4,0,1,0,0,2h8.28a4.17,4.17,0,0,0,.43,1L10,20.57A3.86,3.86,0,0,0,8,20a4,4,0,1,0,3.86,5H20v3h8V20H20ZM8,10a2,2,0,1,1,2-2A2,2,0,0,1,8,10ZM24,6a2,2,0,1,1-2,2A2,2,0,0,1,24,6ZM8,26a2,2,0,1,1,2-2A2,2,0,0,1,8,26Zm14-4h4v4H22Z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="descriptionContainer"
+                  >
+                    <h1
+                      class="name"
+                      data-testid="workflow-card-title"
+                      title="Java - Deploy"
+                    >
+                      Java - Deploy
+                    </h1>
+                    <p
+                      class="description"
+                      title=""
+                    />
+                  </div>
+                </section>
+              </a>
+              <section
+                class="launch"
+              >
+                <button
+                  class="bx--btn bx--btn--field bx--btn--primary"
+                  tabindex="0"
+                  type="button"
+                >
+                  Run it
+                  <svg
+                    aria-hidden="true"
+                    aria-label="Run Workflow"
+                    class="bx--btn__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21,16a6,6,0,1,1-6,6,6,6,0,0,1,6-6m0-2a8,8,0,1,0,8,8,8,8,0,0,0-8-8Z"
+                    />
+                    <path
+                      d="M26,4H6A2,2,0,0,0,4,6V26a2,2,0,0,0,2,2h4V26H6V12H28V6A2,2,0,0,0,26,4ZM6,10V6H26v4Z"
+                    />
+                    <path
+                      d="M19 19L19 25 24 22 19 19z"
+                    />
+                  </svg>
+                </button>
+              </section>
+              <button
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-label="Overflow card menu"
+                class="bx--overflow-menu"
+                style="position: absolute; right: 0px;"
+                tabindex="0"
+                type="button"
+              >
+                <svg
+                  aria-label="Overflow menu icon"
+                  class="bx--overflow-menu__icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  viewBox="0 0 32 32"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="16"
+                    cy="8"
+                    r="2"
+                  />
+                  <circle
+                    cx="16"
+                    cy="16"
+                    r="2"
+                  />
+                  <circle
+                    cx="16"
+                    cy="24"
+                    r="2"
+                  />
+                  <title>
+                    Overflow menu icon
+                  </title>
+                </svg>
+              </button>
+            </div>
+            <div
+              class="container"
+            >
+              <a
+                href="/editor/5e877d1f4bbc6e0001c51e12/workflow"
+              >
+                <section
+                  class="details"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <svg
+                      alt="flow"
+                      aria-hidden="true"
+                      class="icon"
+                      fill="currentColor"
+                      focusable="false"
+                      height="16"
+                      preserveAspectRatio="xMidYMid meet"
+                      viewBox="0 0 32 32"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M20,23H11.86a4.17,4.17,0,0,0-.43-1L22,11.43A3.86,3.86,0,0,0,24,12a4,4,0,1,0-3.86-5H11.86a4,4,0,1,0,0,2h8.28a4.17,4.17,0,0,0,.43,1L10,20.57A3.86,3.86,0,0,0,8,20a4,4,0,1,0,3.86,5H20v3h8V20H20ZM8,10a2,2,0,1,1,2-2A2,2,0,0,1,8,10ZM24,6a2,2,0,1,1-2,2A2,2,0,0,1,24,6ZM8,26a2,2,0,1,1,2-2A2,2,0,0,1,8,26Zm14-4h4v4H22Z"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    class="descriptionContainer"
+                  >
+                    <h1
+                      class="name"
+                      data-testid="workflow-card-title"
+                      title="Java - Build"
+                    >
+                      Java - Build
+                    </h1>
+                    <p
+                      class="description"
+                      title="Java - Build"
+                    >
+                      Java - Build
+                    </p>
+                  </div>
+                </section>
+              </a>
+              <section
+                class="launch"
+              >
+                <button
+                  class="bx--btn bx--btn--field bx--btn--primary"
+                  tabindex="0"
+                  type="button"
+                >
+                  Run it
+                  <svg
+                    aria-hidden="true"
+                    aria-label="Run Workflow"
+                    class="bx--btn__icon"
+                    fill="currentColor"
+                    focusable="false"
+                    height="20"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 32 32"
+                    width="20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21,16a6,6,0,1,1-6,6,6,6,0,0,1,6-6m0-2a8,8,0,1,0,8,8,8,8,0,0,0-8-8Z"
+                    />
+                    <path
+                      d="M26,4H6A2,2,0,0,0,4,6V26a2,2,0,0,0,2,2h4V26H6V12H28V6A2,2,0,0,0,26,4ZM6,10V6H26v4Z"
+                    />
+                    <path
+                      d="M19 19L19 25 24 22 19 19z"
+                    />
+                  </svg>
+                </button>
+              </section>
+              <div
+                class="templatesWarningIcon"
+              >
+                <button
+                  aria-describedby="icon-tooltip-1"
+                  class="bx--tooltip__trigger bx--tooltip--a11y bx--tooltip--top bx--tooltip--align-center"
+                  type="button"
+                >
+                  <span
+                    class="bx--assistive-text"
+                    id="icon-tooltip-1"
+                  >
+                    New version of a task available! To update, edit your workflow.
+                  </span>
+                  <svg
+                    alt="Workflow warning button"
+                    class="button"
+                    height="26"
+                    role="button"
+                    style="will-change: auto;"
+                    tabindex="0"
+                    viewBox="0 0 26 26"
+                    width="26"
+                  >
+                    <title>
+                      x
+                    </title>
+                    <g
+                      fill="none"
+                      fill-rule="evenodd"
+                      transform="translate(1 1)"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        fill="#F9C100"
+                        r="12"
+                        stroke="#0072C3"
+                      />
+                      <path
+                        d="M18.5 18h-13c-.2 0-.3-.1-.4-.2-.1-.2-.1-.3 0-.5l6.5-12c.1-.3.4-.4.6-.2.1 0 .2.1.2.2l6.5 12c.1.2.1.3 0 .5 0 .1-.2.2-.4.2zM6.3 17h11.3L12 6.5 6.3 17zm5.2-7h1v3.5h-1V10zm.5 4.8c-.4 0-.8.3-.8.8s.3.8.8.8c.4 0 .8-.3.8-.8s-.4-.8-.8-.8z"
+                        fill="#000"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </div>
               <button
                 aria-expanded="false"
                 aria-haspopup="true"
@@ -601,6 +894,12 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
       </div>
     </div>
   </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
   <div
     class="bx--bmrg-modal-portal"
   />

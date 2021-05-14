@@ -45,14 +45,20 @@ export const AppPath = {
   SystemWorkflows: "/admin/system-workflows",
   TaskTemplates: "/admin/task-templates",
   TaskTemplateEdit: `/admin/task-templates/:id/:version`,
+  TaskTemplateYaml: `/admin/task-templates/:id/:version/yaml-editor`,
   Team: "/admin/teams/:teamId",
   TeamSettings: "/admin/teams/:teamId/settings",
   TeamWorkflows: "/admin/teams/:teamId/workflows",
   TeamList: "/admin/teams",
-  TeamProperties: `/team-parameters`,
+  TeamProperties: `/manage/team-parameters`,
   User: "/admin/users/:userId",
   UserList: "/admin/users",
   Workflows: "/workflows",
+
+  ManageTaskTemplates: `/manage/task-templates`,
+  ManageTaskTemplatesTeam: `/manage/task-templates/team/:teamId`,
+  ManageTaskTemplateEdit: `/manage/task-templates/team/:teamId/:taskId/:version`,
+  ManageTaskTemplateYaml: `/manage/task-templates/team/:teamId/:taskId/:version/yaml-editor`,
 };
 
 export const appLink = {
@@ -71,15 +77,20 @@ export const appLink = {
   systemWorkflows: () => "/admin/system-workflows",
   taskTemplates: () => "/admin/task-templates",
   taskTemplateEdit: ({ id, version }) => `/admin/task-templates/${id}/${version}`,
-  taskTemplateEditSettings: ({ id, version }) => `/admin/task-templates/edit/${id}/${version}/settings`,
-  teamProperties: () => `/team-parameters`,
-  teamTaskTemplates: (teamId) => `/task-templates`,
+  taskTemplateYaml: ({ id, version }) => `/admin/task-templates/${id}/${version}/yaml-editor`,
+  teamProperties: () => `/manage/team-parameters`,
+  teamTaskTemplates: () => `/manage/task-templates`,
   team: ({ teamId }) => `/admin/teams/${teamId}`,
   teamWorkflows: ({ teamId }) => `/admin/teams/${teamId}/workflows`,
   teamSettings: ({ teamId }) => `/admin/teams/${teamId}/settings`,
   teamList: () => "/admin/teams",
   workflows: () => "/workflows",
   workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
+
+  manageTaskTemplates: ({ teamId }) => `/manage/task-templates/team/${teamId}`,
+  manageTaskTemplateEdit: ({ teamId, taskId, version }) => `/manage/task-templates/team/${teamId}/${taskId}/${version}`,
+  manageTaskTemplateYaml: ({ teamId, taskId, version }) =>
+    `/manage/task-templates/team/${teamId}/${taskId}/${version}/yaml-editor`,
 };
 
 export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true };

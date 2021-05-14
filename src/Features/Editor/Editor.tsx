@@ -25,6 +25,7 @@ import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel
 import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
 import AcquireLockNodeModel from "Utils/dag/acquireLockNode/AcquireLockNodeModel";
 import ReleaseLockNodeModel from "Utils/dag/releaseLockNode/ReleaseLockNodeModel";
+import RunWorkflowNodeModel from "Utils/dag/runWorkflowNode/RunWorkflowNodeModel";
 
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
@@ -40,7 +41,7 @@ export default function EditorContainer() {
 
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates();
+  const getTaskTemplatesUrl = serviceUrl.getWorkflowTaskTemplates({ workflowId });
   const getAvailableParametersUrl = serviceUrl.getWorkflowAvailableParameters({ workflowId });
 
   /**
@@ -275,6 +276,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           break;
         case NodeType.Releaselock:
           node = new ReleaseLockNodeModel(nodeObj);
+          break;
+        case NodeType.RunWorkflow:
+          node = new RunWorkflowNodeModel(nodeObj);
           break;
         default:
         // no-op

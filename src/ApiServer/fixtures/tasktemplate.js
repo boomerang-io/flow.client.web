@@ -1,4 +1,4 @@
-export default [
+const taskTemplate = [
   {
     id: "5e670a1e2d5e6a302de4f41d",
     description: "Look up Slack user by email address",
@@ -122,7 +122,7 @@ export default [
     description: "Send custom slack message",
     lastModified: "2020-04-30T22:52:37.062+0000",
     name: "Send Custom Slack Message",
-    category: "communication",
+    category: "Communication",
     revisions: [
       {
         version: 1,
@@ -1888,3 +1888,5 @@ export default [
     enableLifecycle: true,
   },
 ];
+
+export default taskTemplate;
