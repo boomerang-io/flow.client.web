@@ -165,6 +165,14 @@ function WorkflowActivity() {
     return;
   }
 
+  const handleCloseSelectDate = (dates) => {
+    let [fromDateObj, toDateObj] = dates;
+    const selectedFromDate = moment(fromDateObj).unix();
+    const selectedToDate = moment(toDateObj).unix();
+    updateHistorySearch({ ...queryString.parse(location.search, queryStringOptions), fromDate: selectedFromDate === selectedToDate ? fromDate : selectedFromDate, toDate: selectedToDate , page: 0});
+    return;
+  }
+
   function getWorkflowFilter(teamsData, selectedTeams, systemWorkflowsData = []) {
     let workflowsList = [];
     if (!selectedTeams.length && teamsData) {
@@ -328,6 +336,7 @@ function WorkflowActivity() {
               datePickerType="range"
               maxDate={maxDate}
               onChange={handleSelectDate}
+              onClose={handleCloseSelectDate}
             >
               <DatePickerInput
                 autoComplete="off"
