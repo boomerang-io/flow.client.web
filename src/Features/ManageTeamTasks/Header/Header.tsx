@@ -19,7 +19,6 @@ import { useParams } from "react-router-dom";
 
 import VersionHistory from "./VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
-import capitalize from "lodash/capitalize";
 import moment from "moment";
 import { appLink } from "Config/appConfig";
 import { taskIcons } from "Utils/taskIcons";
