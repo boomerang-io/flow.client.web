@@ -122,7 +122,7 @@ const taskTemplate = [
     description: "Send custom slack message",
     lastModified: "2020-04-30T22:52:37.062+0000",
     name: "Send Custom Slack Message",
-    category: "communication",
+    category: "Communication",
     revisions: [
       {
         version: 1,

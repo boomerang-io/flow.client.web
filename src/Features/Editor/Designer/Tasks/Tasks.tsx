@@ -122,7 +122,7 @@ export default class Tasks extends Component<TaskProps> {
     //Create object with keys as the categories and values as tasks
     const sortedTasksByCategory = sortByProp(this.state.tasksToDisplay, "category");
     const catgegoriesWithTasks = sortedTasksByCategory.reduce((accum, task) => {
-      const formattedCategory = task.category?.toLowerCase();
+      const formattedCategory = task.category;
       if (!accum[formattedCategory]) {
         accum[formattedCategory] = [task];
       } else {
@@ -153,6 +153,7 @@ export default class Tasks extends Component<TaskProps> {
       <Accordion>
         {uniqueCategories.map((category) => (
           <AccordionItem
+            className={styles.taskCategory}
             title={`${category} (${catgegoriesWithTasks[category].length})`}
             open={
               this.state.isAccordionOpen || (category === FIRST_TASK_CATEGORY && this.state.firstTaskCategoryIsOpen)
