@@ -11,7 +11,6 @@ import {
   ModalForm,
   TextInput,
   TextArea,
-  Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
@@ -46,7 +45,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         command: templateData.command,
         image: templateData.image,
         nodeType: nodeType,
-        enableLifecycle: templateData.enableLifecycle,
+        script: templateData.script,
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
@@ -68,7 +67,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         }),
         command: Yup.string().nullable(),
         image: Yup.string().nullable(),
-        enableLifecycle: Yup.boolean(),
+        script: Yup.string().nullable(),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
@@ -148,14 +147,14 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 invalid={errors.command && touched.command}
                 invalidText={errors.command}
               />
-              <Toggle
-                id="enableLifecycle"
-                labelText="Enable Lifecycle"
-                helperText="Enable to create lifecycle init and watcher containers to watch for result parameters"
-                name="enableLifecycle"
-                toggled={values.enableLifecycle}
+              <TextArea
+                id="script"
+                invalid={errors.script && touched.script}
+                invalidText={errors.script}
+                labelText="Script (optional)"
                 onBlur={handleBlur}
                 onChange={handleChange}
+                value={values.script}
               />
             </ModalBody>
             <ModalFooter>

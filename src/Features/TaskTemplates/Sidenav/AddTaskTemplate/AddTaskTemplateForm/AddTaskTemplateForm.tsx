@@ -14,7 +14,6 @@ import {
   ModalFlowForm,
   TextInput,
   TextArea,
-  Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
 import SelectIcon from "Components/SelectIcon";
@@ -93,6 +92,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       arguments: values.arguments.trim().split(/\s{1,}/),
       image: values.image,
       command: values.command,
+      scipt: values.script,
       config: hasFile ? values.currentRevision.config : [],
       changelog: { reason: "" },
     };
@@ -101,7 +101,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       description: values.description,
       category: values.category,
       currentVersion: 1,
-      enableLifecycle: values.enableLifecycle,
       revisions: [newRevisionConfig],
       icon: values.icon.value,
       nodeType: "templateTask",
@@ -121,12 +120,12 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
-      setFieldValue("enableLifecycle", fileData.enableLifecycle);
       selectedIcon &&
         setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
       setFieldValue("image", currentRevision.image);
       setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
       setFieldValue("command", currentRevision.command ?? "");
+      setFieldValue("script", currentRevision.script ?? "");
       setFieldValue("currentRevision", currentRevision);
       setFieldValue("fileData", fileData);
     }
@@ -138,11 +137,11 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         name: "",
         category: "",
         // category: categories[0],
-        enableLifecycle: false,
         icon: {},
         description: "",
         arguments: "",
         command: "",
+        script: "",
         fileData: {},
         file: undefined,
       }}
@@ -151,7 +150,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           .required("Name is required")
           .notOneOf(taskTemplateNames, "Enter a unique value for task name"),
         category: Yup.string().required("Enter a category"),
-        enableLifecycle: Yup.boolean(),
         description: Yup.string()
           .lowercase()
           .min(4, "Description must be at least four characters")
@@ -163,6 +161,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         }),
         arguments: Yup.string().required("Arguments are required"),
         command: Yup.string().nullable(),
+        script: Yup.string().nullable(),
         image: Yup.string().nullable(),
         file: Yup.mixed().test(
           "fileSize",
@@ -323,14 +322,14 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalid={errors.command && touched.command}
                 invalidText={errors.command}
               />
-              <Toggle
-                id="enableLifecycle"
-                labelText="Enable Lifecycle"
-                helperText="Enable to create lifecycle init and watcher containers to watch for result parameters"
-                name="enableLifecycle"
-                toggled={values.enableLifecycle}
+              <TextArea
+                id="script"
+                invalid={errors.script && touched.script}
+                invalidText={errors.script}
+                labelText="Script (optional)"
                 onBlur={handleBlur}
                 onChange={handleChange}
+                value={values.script}
               />
             </ModalBody>
             <ModalFooter>

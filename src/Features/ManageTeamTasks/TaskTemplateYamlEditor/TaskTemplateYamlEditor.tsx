@@ -126,7 +126,6 @@ export function TaskTemplateYamlEditor({
         ...currentRevision,
         version: newVersion,
         changelog: {
-          // reason: `Copy new version from ${values.currentConfig.version}`,
           reason: `Copy new version from ${currentRevision.version}`,
         },
       };
@@ -137,50 +136,6 @@ export function TaskTemplateYamlEditor({
         revisions: newRevisions,
       };
     }
-    // else if (requestType === TemplateRequestType.Overwrite) {
-    //   newRevisionConfig = {
-    //     version: selectedTaskTemplate.currentVersion,
-    //     image: values.image,
-    //     command: values.command,
-    //     arguments: values.arguments.trim().split(/\s{1,}/),
-    //     config: values.currentConfig,
-    //     changelog: {
-    //       reason: values.comments,
-    //     },
-    //   };
-    //   newRevisions.splice(selectedTaskTemplate.currentVersion - 1, 1, newRevisionConfig);
-    //   body = {
-    //     ...selectedTaskTemplate,
-    //     name: values.name,
-    //     icon: values.icon,
-    //     description: values.description,
-    //     category: values.category,
-    //     enableLifecycle: values.enableLifecycle,
-    //     revisions: newRevisions,
-    //   };
-    // } else {
-    //   newRevisionConfig = {
-    //     version: newVersion,
-    //     image: values.image,
-    //     command: values.command,
-    //     arguments: values.arguments.trim().split(/\s{1,}/),
-    //     config: values.currentConfig,
-    //     changelog: {
-    //       reason: values.comments,
-    //     },
-    //   };
-    //   newRevisions.push(newRevisionConfig);
-    //   body = {
-    //     ...selectedTaskTemplate,
-    //     name: values.name,
-    //     icon: values.icon,
-    //     description: values.description,
-    //     category: values.category,
-    //     enableLifecycle: values.enableLifecycle,
-    //     currentVersion: newVersion,
-    //     revisions: newRevisions,
-    //   };
-    // }
 
     try {
       if (requestType !== TemplateRequestType.Copy) {

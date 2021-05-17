@@ -25,7 +25,6 @@ function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue
     setFieldValue("command", newValues.command);
     setFieldValue("image", newValues.image);
     setFieldValue("icon", newValues.icon.value);
-    setFieldValue("enableLifecycle", newValues.enableLifecycle);
   };
   return (
     <ComposedModal
