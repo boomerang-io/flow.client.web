@@ -1,5 +1,6 @@
 import React from "react";
 import { useAppContext } from "Hooks";
+import { useMutation, queryCache } from "react-query";
 import PropTypes from "prop-types";
 import { withRouter, Link, useParams } from "react-router-dom";
 import CopyToClipboard from "react-copy-to-clipboard";
@@ -9,18 +10,22 @@ import {
   BreadcrumbItem,
   Button,
   ComposedModal,
+  ConfirmModal,
   FeatureHeader as Header,
   FeatureHeaderTitle as HeaderTitle,
   ModalBody,
+  notify,
   SkeletonPlaceholder,
   Tag,
   TextArea,
+  ToastNotification,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
 import { appLink } from "Config/appConfig";
-import { allowedUserRoles, QueryStatus } from "Constants";
-import { Catalog16, CopyFile16 } from "@carbon/icons-react";
+import { allowedUserRoles, QueryStatus, ExecutionStatus } from "Constants";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { Catalog16, CopyFile16, StopOutline16 } from "@carbon/icons-react";
 import styles from "./executionHeader.module.scss";
 
 ExecutionHeader.propTypes = {
@@ -35,8 +40,21 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }) {
 
   const { platformRole } = user;
   const systemWorkflowsEnabled = allowedUserRoles.includes(platformRole);
-  const { teamName, initiatedByUserName, trigger, creationDate, scope } = workflowExecution.data;
+  const { teamName, initiatedByUserName, trigger, creationDate, scope, status, id } = workflowExecution.data;
+  const displayCancelButton = status === ExecutionStatus.InProgress || status === ExecutionStatus.Waiting || status === ExecutionStatus.NotStarted;
 
+  const [deleteCancelWorkflowMutation] = useMutation(resolver.deleteCancelWorkflow, {
+    onSuccess: () =>  queryCache.invalidateQueries(serviceUrl.getWorkflowExecution({executionId: id}))
+  });
+
+  const handleCancelWorkflow = async() => {
+    try {
+      await deleteCancelWorkflowMutation({ executionId: id });
+      notify(<ToastNotification kind="success" title="Cancel run" subtitle="Execution successfully cancelled" />);
+    } catch {
+      notify(<ToastNotification kind="error" title="Something's wrong" subtitle={`Failed to cancel this execution`} />);
+    }
+  }
   return (
     <Header
       className={styles.container}
@@ -116,6 +134,29 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }) {
             <dl className={styles.data}>
               <dt className={styles.dataTitle}>Start time</dt>
               <dd className={styles.dataValue}>{moment(creationDate).format("YYYY-MM-DD hh:mm A")}</dd>
+            </dl>
+            <dl className={styles.dataButton}>
+              {displayCancelButton && ( 
+                <ConfirmModal
+                  affirmativeAction={handleCancelWorkflow}
+                  affirmativeButtonProps={{kind: "danger"}}
+                  children="Are you sure? Once a workflow is cancelled it will stop executing."
+                  title="Cancel run"
+                  modalTrigger={({ openModal }) => (
+                    <Button
+                      className={styles.cancelRun}
+                      data-testid="cancel-run"
+                      kind="danger--ghost"
+                      iconDescription="Cancel run"
+                      onClick={openModal}
+                      renderIcon={StopOutline16}
+                      size="small"
+                    >
+                      Cancel run
+                    </Button>
+                  )}
+                />
+              )}
             </dl>
           </div>
         ) : (
