@@ -107,7 +107,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
               View Activity
             </Link>
           )}
-          {taskType === NodeType.Approval && approval?.status === ApprovalStatus.Submitted && (
+          {flowTaskStatus !== ExecutionStatus.Cancelled && taskType === NodeType.Approval && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
               modalHeaderProps={{
                 title: "Action Manual Approval",
@@ -129,7 +129,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
               )}
             </ComposedModal>
           )}
-          {taskType === NodeType.Manual && approval?.status === ApprovalStatus.Submitted && (
+          {flowTaskStatus !== ExecutionStatus.Cancelled && taskType === NodeType.Manual && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
               composedModalProps={{
                 containerClassName: styles.actionManualTaskModalContainer,

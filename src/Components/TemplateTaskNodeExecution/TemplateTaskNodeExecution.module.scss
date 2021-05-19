@@ -6,7 +6,7 @@
   }
 }
 
-.failure {
+.failure, .cancelled {
   border: 0.1875rem solid var(--flow-failure);
   border-color: var(--flow-failure) !important;
 }
