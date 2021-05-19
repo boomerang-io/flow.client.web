@@ -34,6 +34,8 @@ ExecutionHeader.propTypes = {
   version: PropTypes.number.isRequired,
 };
 
+const cancelSatusTypes = [ExecutionStatus.NotStarted, ExecutionStatus.Waiting, ExecutionStatus.InProgress];
+
 function ExecutionHeader({ history, workflow, workflowExecution, version }) {
   const { state } = history.location;
   const { user } = useAppContext();
@@ -41,7 +43,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }) {
   const { platformRole } = user;
   const systemWorkflowsEnabled = allowedUserRoles.includes(platformRole);
   const { teamName, initiatedByUserName, trigger, creationDate, scope, status, id } = workflowExecution.data;
-  const displayCancelButton = status === ExecutionStatus.InProgress || status === ExecutionStatus.Waiting || status === ExecutionStatus.NotStarted;
+  const displayCancelButton = cancelSatusTypes.includes(status);
 
   const [deleteCancelWorkflowMutation] = useMutation(resolver.deleteCancelWorkflow, {
     onSuccess: () =>  queryCache.invalidateQueries(serviceUrl.getWorkflowExecution({executionId: id}))

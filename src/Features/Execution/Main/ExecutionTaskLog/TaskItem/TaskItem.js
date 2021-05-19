@@ -93,7 +93,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
       </section>
       {!hidden && (
         <section className={styles.data}>
-          {logTaskTypes.includes(taskType) && logStatusTypes.includes(runStatus) && (
+          {((flowTaskStatus === ExecutionStatus.Cancelled && duration > 0) || (logTaskTypes.includes(taskType) && logStatusTypes.includes(runStatus))) && (
             <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
           )}
           {outputs && Object.keys(outputs).length > 0 && (
