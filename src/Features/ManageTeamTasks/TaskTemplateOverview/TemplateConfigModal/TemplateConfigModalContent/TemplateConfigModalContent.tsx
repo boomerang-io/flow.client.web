@@ -141,7 +141,7 @@ class TemplateConfigModalContent extends Component<TemplateConfigModalContentPro
               data-testid="select"
               id={InputProperty.DefaultValue}
               onChange={({ selectedItem }: { selectedItem: string }) =>
-                setFieldValue(selectedItem, InputProperty.DefaultValue)
+                setFieldValue(InputProperty.DefaultValue, selectedItem)
               }
               items={options || []}
               initialSelectedItem={values.defaultValue || {}}
