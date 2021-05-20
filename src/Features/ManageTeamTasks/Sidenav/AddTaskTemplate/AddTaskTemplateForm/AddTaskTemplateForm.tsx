@@ -6,6 +6,7 @@ import { useMutation } from "react-query";
 import * as Yup from "yup";
 import {
   Button,
+  Creatable,
   FileUploaderDropContainer,
   FileUploaderItem,
   Loading,
@@ -89,12 +90,17 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
 
   const handleSubmit = async (values) => {
     const hasFile = values.file;
+    let newEnvs = values.envs.map((env) => {
+      let index = env.indexOf(":");
+      return { name: env.substring(0, index), value: env.substring(index + 1, env.length) };
+    });
     let newRevisionConfig = {
       version: 1,
       arguments: values.arguments.trim().split(/\s{1,}/),
       image: values.image,
       command: values.command,
       script: values.script,
+      envs: newEnvs,
       config: hasFile ? values.currentRevision.config : [],
       changelog: { reason: "" },
     };
@@ -128,6 +134,10 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
       setFieldValue("command", currentRevision.command ?? "");
       setFieldValue("script", currentRevision.script ?? "");
+      const formattedEnvs = templateData.envs.map((env) => {
+        return `${env.name}:${env.value}`;
+      });
+      setFieldValue("envs", formattedEnvs ?? []);
       setFieldValue("currentRevision", currentRevision);
       setFieldValue("fileData", fileData);
     }
@@ -144,6 +154,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         arguments: "",
         command: "",
         script: "",
+        envs: [],
         fileData: {},
         file: undefined,
       }}
@@ -332,6 +343,14 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.script}
+              />
+              <Creatable
+                createKeyValuePair
+                id="envs"
+                onChange={(createdItems: string[]) => setFieldValue("envs", createdItems)}
+                keyLabelText="Environments (optional)"
+                placeholder="Enter env"
+                values={values.envs || []}
               />
             </ModalBody>
             <ModalFooter>

@@ -27,6 +27,12 @@ export interface DataDrivenInput {
   type?: string;
 }
 
+export interface ResultParameter {
+  name: string;
+  description: string;
+  value?: any;
+}
+
 export interface ModalTriggerProps {
   openModal(): void;
 }

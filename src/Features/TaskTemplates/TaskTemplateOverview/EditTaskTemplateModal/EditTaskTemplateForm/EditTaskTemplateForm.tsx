@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import orderBy from "lodash/orderBy";
 import {
   Button,
+  Creatable,
   ModalBody,
   ModalFooter,
   ModalForm,
@@ -34,6 +35,11 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
     await handleEditTaskTemplateModal({ newValues: values });
     closeModal();
   };
+
+  const formattedEnvs = templateData.envs.map((env) => {
+    return `${env.name}:${env.value}`;
+  });
+
   return (
     <Formik
       initialValues={{
@@ -46,6 +52,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         image: templateData.image,
         nodeType: nodeType,
         script: templateData.script,
+        envs: formattedEnvs,
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
@@ -155,6 +162,14 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.script}
+              />
+              <Creatable
+                createKeyValuePair
+                id="envs"
+                onChange={(createdItems: string[]) => setFieldValue("envs", createdItems)}
+                keyLabelText="Environments (optional)"
+                placeholder="Enter env"
+                values={values.envs || []}
               />
             </ModalBody>
             <ModalFooter>
