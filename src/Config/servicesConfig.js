@@ -31,6 +31,7 @@ export const BASE_CORE_USERS_URL = determineUrl(CORE_SERVICE_ENV_URL, "/users");
 
 export const serviceUrl = {
   deleteArchiveTaskTemplate: ({ id }) => `${BASE_URL}/tasktemplate/${id}`,
+  deleteCancelWorkflow: ({ executionId }) => `${BASE_URL}/activity/${executionId}/cancel`,
   getActivitySummary: ({ query }) => `${BASE_URL}/activity/summary${query ? "?" + query : ""}`,
   getActivity: ({ query }) => `${BASE_URL}/activity${query ? "?" + query : ""}`,
   getDefaultQuotas: () => `${BASE_URL}/quotas/default`,
@@ -111,6 +112,7 @@ export const resolver = {
   patchMutation: (request) => axios.patch(request),
   putMutation: (request) => axios.put(request),
   deleteArchiveTaskTemplate: ({ id }) => axios.delete(serviceUrl.deleteArchiveTaskTemplate({ id })),
+  deleteCancelWorkflow: ({ executionId }) => axios.delete(serviceUrl.deleteCancelWorkflow({ executionId })),
   deleteGlobalPropertyRequest: ({ id }) => axios.delete(serviceUrl.getGlobalProperty({ id })),
   deleteTeamPropertyRequest: ({ teamId, configurationId }) =>
     axios.delete(serviceUrl.getTeamProperty({ teamId, configurationId })),

@@ -113,7 +113,7 @@
     }
   }
 
-  &.failure {
+  &.failure, &.cancelled {
     td {
       background-color: #fcd0d3;
     }

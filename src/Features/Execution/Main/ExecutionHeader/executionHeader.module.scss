@@ -36,6 +36,11 @@
   margin-left: 2.5rem;
 }
 
+.dataButton {
+  color: var(--cds-text-01);
+  margin-left: 1.5rem;
+}
+
 .dataTitle {
   font-size: 0.875rem;
   font-weight: 300;
@@ -99,4 +104,8 @@
   :global .bx--btn__icon {
     margin: 0;
   }
+}
+
+.cancelRun {
+  margin-bottom: -1rem;
 }
