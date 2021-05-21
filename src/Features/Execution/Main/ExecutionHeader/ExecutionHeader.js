@@ -22,10 +22,11 @@ import {
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import OutputPropertiesLog from "Features/Execution/Main/ExecutionTaskLog/TaskItem/OutputPropertiesLog";
+import ErrorModal from "Components/ErrorModal";
 import { appLink } from "Config/appConfig";
 import { allowedUserRoles, QueryStatus, ExecutionStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { Catalog16, CopyFile16, StopOutline16 } from "@carbon/icons-react";
+import { Catalog16, CopyFile16, StopOutline16, Warning16 } from "@carbon/icons-react";
 import styles from "./executionHeader.module.scss";
 
 ExecutionHeader.propTypes = {
@@ -91,7 +92,24 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }) {
           )}
         </div>
       }
-      header={<HeaderTitle>Workflow run detail</HeaderTitle>}
+      header={
+        <div style={{display: "flex"}}>
+          <HeaderTitle>Workflow run detail</HeaderTitle>
+          {Boolean(workflowExecution?.data?.error?.code) && (
+            <ComposedModal
+              composedModalProps={{ shouldCloseOnOverlayClick: true }}
+              modalHeaderProps={{ title: "Execution Error" }}
+              modalTrigger={({ openModal }) => (
+                <Button className={styles.workflowErrorTrigger} kind={"ghost"} onClick={openModal} renderIcon={Warning16} size="small">
+                  View Execution Error
+                </Button>
+              )}
+            >
+              {() => <ErrorModal errorCode={workflowExecution?.data?.error?.code} errorMessage={workflowExecution?.data?.error?.message??""}/>}
+            </ComposedModal>
+          )}
+        </div>
+      }
       actions={
         workflowExecution.status === QueryStatus.Success ? (
           <div className={styles.content}>

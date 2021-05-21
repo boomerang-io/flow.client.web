@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import { Button, ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
+import ErrorModal from "Components/ErrorModal";
 import ManualTaskModal from "./ManualTaskModal";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskApprovalModal from "./TaskApprovalModal";
@@ -39,6 +40,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
     runWorkflowActivityId,
     runWorkflowId,
     runWorkflowActivityStatus,
+    error,
   } = task;
   // const Icon = executionStatusIcon[flowTaskStatus];
   // const statusClassName = styles[flowTaskStatus];
@@ -106,6 +108,23 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
             >
               View Activity
             </Link>
+          )}
+          {Boolean(error?.code) && (
+            <ComposedModal
+              modalHeaderProps={{
+                title: "View Task Error",
+                subtitle: taskName,
+              }}
+              modalTrigger={({ openModal }) => (
+                <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                  View Error
+                </Button>
+              )}
+            >
+              {({ closeModal }) => (
+                <ErrorModal errorCode={error?.code??""} errorMessage={error?.message??""}/>
+              )}
+            </ComposedModal>
           )}
           {flowTaskStatus !== ExecutionStatus.Cancelled && taskType === NodeType.Approval && approval?.status === ApprovalStatus.Submitted && (
             <ComposedModal
