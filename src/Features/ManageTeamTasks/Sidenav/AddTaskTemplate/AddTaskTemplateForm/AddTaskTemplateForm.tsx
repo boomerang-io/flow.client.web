@@ -33,7 +33,7 @@ AddTaskTemplateForm.propTypes = {
 };
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
-const createInvalidTextMessage = `Oops there was a problem with the upload, delete it and try again. The file should contain the required fields in this form and.`;
+const createInvalidTextMessage = `Oops there was a problem with the upload, delete it and try again. The file should contain the required fields in this form`;
 const createValidTextMessage = `Task file successfully imported!`;
 
 function checkIsValidTask(data) {
@@ -100,6 +100,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       image: values.image,
       command: values.command,
       script: values.script,
+      workingDir: values.workingDir,
       envs: newEnvs,
       config: hasFile ? values.currentRevision.config : [],
       changelog: { reason: "" },
@@ -138,6 +139,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         return `${env.name}:${env.value}`;
       });
       setFieldValue("envs", formattedEnvs ?? []);
+      setFieldValue("workingDir", currentRevision?.workingDir);
       setFieldValue("currentRevision", currentRevision);
       setFieldValue("fileData", fileData);
     }
@@ -154,6 +156,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         arguments: "",
         command: "",
         script: "",
+        workingDir: "",
         envs: [],
         fileData: {},
         file: undefined,
@@ -175,6 +178,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         arguments: Yup.string().required("Arguments are required"),
         command: Yup.string().nullable(),
         script: Yup.string().nullable(),
+        workingDir: Yup.string().nullable(),
         image: Yup.string().nullable(),
         file: Yup.mixed().test(
           "fileSize",
@@ -323,6 +327,15 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 onChange={handleChange}
                 invalid={errors.image && touched.image}
                 invalidText={errors.image}
+              />
+              <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
               />
               <TextInput
                 id="command"

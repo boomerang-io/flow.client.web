@@ -30,6 +30,8 @@ function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue
     setFieldValue("image", newValues.image);
     setFieldValue("icon", newValues.icon.value);
     setFieldValue("envs", newEnvs);
+    setFieldValue("script", newValues.script);
+    setFieldValue("workingDir", newValues.workingDir);
   };
   return (
     <ComposedModal

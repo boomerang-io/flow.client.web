@@ -318,6 +318,7 @@ export function TaskTemplateOverview({
         arguments: values.arguments.trim().split(/\s{1,}/),
         config: values.currentConfig,
         script: values.script,
+        workingDir: values.workingDir,
         results: values.result,
         envs: values.envs,
         changelog: {
@@ -343,6 +344,7 @@ export function TaskTemplateOverview({
         arguments: values.arguments.trim().split(/\s{1,}/),
         config: values.currentConfig,
         script: values.script,
+        workingDir: values.workingDir,
         results: values.result,
         envs: values.envs,
         changelog: {
@@ -475,6 +477,7 @@ export function TaskTemplateOverview({
         envs: currentRevision.envs ?? [],
         comments: "",
         script: currentRevision.script ?? "",
+        workingDir: currentRevision.workingDir ?? "",
       }}
       enableReinitialize={true}
     >
@@ -589,6 +592,7 @@ export function TaskTemplateOverview({
                     <DetailDataElements value={values.description} label="Description" />
                     <DetailDataElements value={values.arguments} label="Arguments" />
                     <DetailDataElements value={values.image} label="Image" />
+                    <DetailDataElements value={values.workingDir} label="Working Directory" />
                     <DetailDataElements value={values.command} label="Command" />
                     <DetailDataElements value={values.script} label="Script" />
                     <DetailDataElements value={values.envs} label="Envs" />

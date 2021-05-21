@@ -52,6 +52,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         image: templateData.image,
         nodeType: nodeType,
         script: templateData.script,
+        workingDir: templateData.workingDir,
         envs: formattedEnvs,
       }}
       validationSchema={Yup.object().shape({
@@ -75,6 +76,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         command: Yup.string().nullable(),
         image: Yup.string().nullable(),
         script: Yup.string().nullable(),
+        workingDir: Yup.string().nullable(),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
@@ -131,6 +133,15 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onChange={handleChange}
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
+              />
+              <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
               />
               <TextInput
                 id="image"

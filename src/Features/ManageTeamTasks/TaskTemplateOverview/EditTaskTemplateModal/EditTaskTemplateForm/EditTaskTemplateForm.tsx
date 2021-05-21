@@ -50,6 +50,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         arguments: templateData.arguments,
         command: templateData.command,
         script: templateData.script,
+        workingDir: templateData.workingDir,
         image: templateData.image,
         nodeType: nodeType,
         envs: formattedEnvs,
@@ -75,6 +76,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         command: Yup.string().nullable(),
         script: Yup.string().nullable(),
         image: Yup.string().nullable(),
+        workingDir: Yup.string().nullable(),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
@@ -142,6 +144,15 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onChange={handleChange}
                 invalid={errors.image && touched.image}
                 invalidText={errors.image}
+              />
+              <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
               />
               <TextInput
                 id="command"

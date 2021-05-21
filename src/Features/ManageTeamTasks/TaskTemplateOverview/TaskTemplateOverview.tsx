@@ -321,6 +321,7 @@ export function TaskTemplateOverview({
         image: values.image,
         command: values.command,
         script: values.script,
+        workingDir: values.workingDir,
         arguments: values.arguments.trim().split(/\s{1,}/),
         config: values.currentConfig,
         results: values.result,
@@ -346,6 +347,7 @@ export function TaskTemplateOverview({
         image: values.image,
         command: values.command,
         script: values.script,
+        workingDir: values.workingDir,
         arguments: values.arguments.trim().split(/\s{1,}/),
         config: values.currentConfig,
         results: values.result,
@@ -481,6 +483,7 @@ export function TaskTemplateOverview({
         arguments: currentRevision.arguments?.join(" ") ?? "",
         command: currentRevision.command ?? "",
         script: currentRevision.script ?? "",
+        workingDir: currentRevision.workingDir ?? "",
         result: currentRevision.results ?? [],
         envs: currentRevision.envs ?? [],
         comments: "",
@@ -598,6 +601,7 @@ export function TaskTemplateOverview({
                     <DetailDataElements value={values.description} label="Description" />
                     <DetailDataElements value={values.arguments} label="Arguments" />
                     <DetailDataElements value={values.image} label="Image" />
+                    <DetailDataElements value={values.workingDir} label="Working Directory" />
                     <DetailDataElements value={values.command} label="Command" />
                     <DetailDataElements value={values.script} label="Script" />
                     <DetailDataElements value={values.envs} label="Envs" />
