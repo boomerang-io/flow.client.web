@@ -24,6 +24,14 @@
   }
 }
 
+.workflowErrorTrigger {
+  align-items: center;
+  cursor: pointer;
+  display: flex !important;
+  justify-content: center;
+  margin-left: 1rem;
+}
+
 .content {
   align-items: center;
   display: flex;
