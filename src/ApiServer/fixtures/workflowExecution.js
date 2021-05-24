@@ -85,6 +85,18 @@ const workflowExecution = {
         "code":"001",
         "message":"This is a task level special error"
      },
+     results: [
+        {
+          "name": "organizations",
+          "description": "List of the organizations",
+          "value": "[{\"login\":\"Whitewater\",\"id\":8,\"node_id\":\"MDEyOk9yZ2FuaXphdGlvbjg=\",\"url\":\"https://github.ibm.com/api/v3/orgs/Whitewater\",\"repos_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/repos\",\"events_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/events\",\"hooks_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/hooks\",\"issues_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/issues\",\"members_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/members{/member}\",\"public_members_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/public_members{/member}\",\"avatar_url\":\"https://avatars.github.ibm.com/u/8?\",\"description\":\"\"}]"
+        },
+        {
+          "name": "test",
+          "description": "Test description",
+          "value": "Testing value"
+        }
+      ]
     },
     {
       activityId: "5f8e19ee8f268161b4beb242",
