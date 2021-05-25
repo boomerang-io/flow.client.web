@@ -8,52 +8,42 @@ import {
   StructuredListWrapper,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { NoDisplay } from "@boomerang-io/carbon-addons-boomerang-react";
-import styles from "./propertiesTable.module.scss";
+import styles from "./resultsTable.module.scss";
 
-function PropertiesTable({ data: properties, hasJsonValues = false }) {
-  const formatPropertyValue = (value) => {
-    if (hasJsonValues) {
-      if (value && value !== '""')
-        try {
-          return JSON.parse(value);
-        } catch {
-          return "---";
-        }
-      return "---";
-    } else {
-      return value ?? "---";
-    }
-  };
+function ResultsTable({ data: results }) {
+
   return (
     <div className={styles.tableContainer}>
-      {properties && properties.length > 0 ? (
+      {results && results.length > 0 ? (
         <StructuredListWrapper selection>
           <StructuredListHead>
             <StructuredListRow head>
-              <StructuredListCell head>Parameter</StructuredListCell>
+              <StructuredListCell head>Name</StructuredListCell>
+              <StructuredListCell head>Description</StructuredListCell>
               <StructuredListCell head>Value</StructuredListCell>
             </StructuredListRow>
           </StructuredListHead>
           <StructuredListBody>
-            {properties.map((property, i) => (
+            {results.map((result, i) => (
               <StructuredListRow key={`row-${i}`}>
-                <StructuredListCell>{property.key}</StructuredListCell>
+                <StructuredListCell>{result.name}</StructuredListCell>
+                <StructuredListCell>{result.description}</StructuredListCell>
                 <StructuredListCell>
-                  {<code className={styles.code}>{formatPropertyValue(property.value)}</code>}
+                  {<code className={styles.code}>{JSON.stringify(result.value, null, 2)}</code>}
                 </StructuredListCell>
               </StructuredListRow>
             ))}
           </StructuredListBody>
         </StructuredListWrapper>
       ) : (
-        <NoDisplay text="No parameters to display" />
+        <NoDisplay text="No results to display" />
       )}
     </div>
   );
 }
 
-PropertiesTable.propTypes = {
+ResultsTable.propTypes = {
   data: PropTypes.array.isRequired,
 };
 
-export default PropertiesTable;
+export default ResultsTable;

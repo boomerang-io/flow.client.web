@@ -8,6 +8,7 @@ import ManualTaskModal from "./ManualTaskModal";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskApprovalModal from "./TaskApprovalModal";
 import TaskExecutionLog from "./TaskExecutionLog";
+import TaskResults from "./TaskResults";
 import moment from "moment";
 import dateHelper from "Utils/dateHelper";
 import { ApprovalStatus, ExecutionStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
@@ -37,6 +38,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
     approval,
     taskType,
     switchValue,
+    results,
     runWorkflowActivityId,
     runWorkflowId,
     runWorkflowActivityStatus,
@@ -100,6 +102,9 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
           )}
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
+          )}
+          {Boolean(results?.length) && (
+            <TaskResults flowTaskName={taskName} flowTaskResults={results} />
           )}
           {taskType === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
             <Link
