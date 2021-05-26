@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import {
   Button,
   ComposedModal,
@@ -19,7 +20,7 @@ import VersionHistory from "./VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
 import moment from "moment";
 import { appLink } from "Config/appConfig";
-import { fileDownload } from "Utils/exportHelpers";
+import { serviceUrl } from "Config/servicesConfig";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
 import { Bee20, Download16, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
@@ -173,7 +174,6 @@ interface HeaderProps {
   isLoading: boolean;
   isOldVersion: boolean;
   selectedTaskTemplate: TaskModel;
-  yamlData?: any;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -187,8 +187,8 @@ const Header: React.FC<HeaderProps> = ({
   isActive,
   isLoading,
   cancelRequestRef,
-  yamlData,
 }) => {
+  const params: any = useParams();
   const TaskIcon = taskIcons.find((icon) => icon.name === selectedTaskTemplate.icon);
   const revisionCount = selectedTaskTemplate.revisions.length;
   const lastUpdated = selectedTaskTemplate?.revisions[revisionCount - 1]?.changelog ?? {};
@@ -199,10 +199,6 @@ const Header: React.FC<HeaderProps> = ({
   }));
   changelogs.reverse();
   const canEdit = !selectedTaskTemplate?.verified || (editVerifiedTasksEnabled && selectedTaskTemplate?.verified);
-
-  const handleExportYaml = () => {
-    fileDownload({ data: yamlData, filename: `${selectedTaskTemplate.name}.yaml`, mime: undefined });
-  };
 
   return (
     <FeatureHeader
@@ -333,13 +329,17 @@ const Header: React.FC<HeaderProps> = ({
           </Tag>
         )}
         <VersionHistory changelogs={changelogs} />
-        {yamlData ? (
-          <TooltipHover direction="right" content="Export latest saved revision of the YAML">
-            <button className={styles.exportYaml} onClick={handleExportYaml}>
-              <Download16 />
-            </button>
-          </TooltipHover>
-        ) : null}
+        <TooltipHover direction="right" content="Export latest saved revision of the YAML">
+          <a
+            className={styles.exportYaml}
+            href={serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version })}
+            download={`${selectedTaskTemplate.name}.yaml`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Download16 />
+          </a>
+        </TooltipHover>
       </div>
       <p className={styles.lastUpdate}>{`Version ${revisionCount === 1 ? "created" : "updated"} ${moment(
         lastUpdated.date
