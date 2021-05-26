@@ -278,6 +278,7 @@ export function TaskTemplateYamlEditor({
               isLoading={isLoading}
               isOldVersion={isOldVersion}
               cancelRequestRef={cancelRequestRef}
+              yamlData={yamlData}
             />
             <div className={styles.content}>
               <section className={styles.taskActionsSection}>
