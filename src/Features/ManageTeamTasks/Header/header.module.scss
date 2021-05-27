@@ -101,6 +101,19 @@
   font-weight: 600;
   line-height: 2.5rem;
 }
+
+.exportYaml {
+  align-items: center;
+  color: var(--cds-text-01);
+  cursor: pointer;
+  display: flex !important;
+  justify-content: center;
+  margin-left: 0.5rem;
+  &:focus {
+    @include focus-outline();
+  }
+}
+
 .lastUpdate {
   color: var(--cds-text-02);
   font-size: 0.75rem;
