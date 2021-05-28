@@ -307,3 +307,10 @@
 .buildWebhookContainer {
   max-height: 44.5rem;
 }
+
+.link {
+  color: var(--cds-interactive-01);
+  &:focus {
+    @include focus-outline;
+  }
+}

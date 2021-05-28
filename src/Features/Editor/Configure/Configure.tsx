@@ -539,7 +539,20 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           <hr className={styles.delimiter} />
           <div className={styles.labelsContainer}>
             <h1 className={styles.header}>Custom Labels</h1>
-            <p className={styles.subTitle}>Create custom labels that will be used at execution time and can be useful in debugging the workflow in Kubernetes.</p>
+            <p className={styles.subTitle}>
+              Create custom labels that will be used at execution time and can be useful in debugging the workflow in Kubernetes. 
+              <a
+                aria-describedby="new-window-aria-desc-0"
+                className={styles.link}
+                href={appLink.docsWorkflowEditor()}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-testid="docs-link"
+              >
+                For more details, check our Docs
+              </a>
+              .
+            </p>
             <div className={styles.labelsContainer}>
               <div className={styles.tagsContainer}>
                 <FieldArray
