@@ -310,6 +310,7 @@
 
 .link {
   color: var(--cds-interactive-01);
+  margin-left: 0.25rem;
   &:focus {
     @include focus-outline;
   }
