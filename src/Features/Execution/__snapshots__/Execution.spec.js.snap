@@ -73,11 +73,40 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
           <div
             class="bx--bmrg-feature-header__header"
           >
-            <h1
-              class="bx--bmrg-feature-header-title"
+            <div
+              style="display: flex;"
             >
-              Workflow run detail
-            </h1>
+              <h1
+                class="bx--bmrg-feature-header-title"
+              >
+                Workflow run detail
+              </h1>
+              <button
+                class="workflowErrorTrigger bx--btn bx--btn--sm bx--btn--ghost"
+                tabindex="0"
+                type="button"
+              >
+                View Execution Error
+                <svg
+                  aria-hidden="true"
+                  class="bx--btn__icon"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 16 16"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8,1C4.1,1,1,4.1,1,8s3.1,7,7,7s7-3.1,7-7S11.9,1,8,1z M8,14c-3.3,0-6-2.7-6-6s2.7-6,6-6s6,2.7,6,6S11.3,14,8,14z"
+                  />
+                  <path
+                    d="M7.5 4H8.5V9H7.5zM8 10.2c-.4 0-.8.3-.8.8s.3.8.8.8c.4 0 .8-.3.8-.8S8.4 10.2 8 10.2z"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </section>
         <div
@@ -163,9 +192,12 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
             <dd
               class="dataValue"
             >
-              2019-01-01 12:00 AM
+              2020-01-01 12:00 AM
             </dd>
           </dl>
+          <dl
+            class="dataButton"
+          />
         </div>
       </header>
       <section
@@ -743,6 +775,20 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   type="button"
                 >
                   View Parameters
+                </button>
+                <button
+                  class="bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
+                >
+                  View Results
+                </button>
+                <button
+                  class="modalTrigger bx--btn bx--btn--sm bx--btn--ghost"
+                  tabindex="0"
+                  type="button"
+                >
+                  View Error
                 </button>
               </section>
             </li>
@@ -2907,6 +2953,15 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
       </section>
     </div>
   </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
   <div
     class="bx--bmrg-modal-portal"
   />
