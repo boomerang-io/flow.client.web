@@ -175,7 +175,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           value: Yup.string().required(),
           label: Yup.string().required(),
         }),
-        arguments: Yup.string().required("Arguments are required"),
+        arguments: Yup.string(),
         command: Yup.string().nullable(),
         script: Yup.string().nullable(),
         workingDir: Yup.string().nullable(),
@@ -305,8 +305,19 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 value={values.description}
               />
               <TextInput
+                id="image"
+                labelText="Image (optional)"
+                helperText="Path to container image. If not specified, will use the systems default."
+                name="image"
+                value={values.image}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.image && touched.image}
+                invalidText={errors.image}
+              />
+              <TextInput
                 id="arguments"
-                labelText="Arguments"
+                labelText="Arguments (optional)"
                 helperText="Enter arguments delimited by a space character"
                 placeholder="e.g. system sleep"
                 name="arguments"
@@ -315,18 +326,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 onChange={handleChange}
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
-              />
-
-              <TextInput
-                id="image"
-                labelText="Image (optional)"
-                helperText="Path to container image"
-                name="image"
-                value={values.image}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.image && touched.image}
-                invalidText={errors.image}
               />
               <TextInput
                 id="workingDir"
