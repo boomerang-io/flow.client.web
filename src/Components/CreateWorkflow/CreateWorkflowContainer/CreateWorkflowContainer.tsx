@@ -63,7 +63,6 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
           closeModal={closeModal}
           createWorkflow={createWorkflow}
           createError={createError}
-          existingWorkflowNames={existingWorkflowNames}
           isLoading={isLoading}
           isSystem={isSystem}
           team={team}

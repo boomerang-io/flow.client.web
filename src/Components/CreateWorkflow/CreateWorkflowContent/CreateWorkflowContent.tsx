@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames/bind";
 import {
   ComboBox,
@@ -21,7 +21,6 @@ interface CreateWorkflowContentProps {
   closeModal: () => void;
   createError: object;
   createWorkflow: (workflowSummary: CreateWorkflowSummary) => Promise<void>;
-  existingWorkflowNames: string[];
   isLoading: boolean;
   isSystem: boolean;
   team: FlowTeam | null;
@@ -32,16 +31,24 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   closeModal,
   createError,
   createWorkflow,
-  existingWorkflowNames = [],
   isLoading,
   isSystem,
   team,
   teams,
 }) => {
+  const [selectedTeam, setSelectedTeam] = useState<FlowTeam | null>(team);
+  const formikRef = useRef<any>();
+
+  const existingWorkflowNames = selectedTeam?.workflows.map((workflow) => workflow.name) ?? [];
+
+  useEffect(() => {
+    formikRef.current?.validateForm();
+  }, [selectedTeam]);
+
   const handleSubmit = (values: any) => {
     const requestBody = {
       ...defaultWorkflowConfig,
-      flowTeamId: values.selectedTeam?.id,
+      flowTeamId: selectedTeam?.id,
       name: values.name,
       shortDescription: values.summary,
       description: values.description,
@@ -53,9 +60,9 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
 
   return (
     <Formik
+      innerRef={formikRef}
       initialErrors={{ name: "Name is required" }}
       initialValues={{
-        selectedTeam: team,
         name: "",
         summary: "",
         description: "",
@@ -63,7 +70,6 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       }}
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({
-        selectedTeam: isSystem ? Yup.mixed() : Yup.string().required("Team is required"),
         name: Yup.string()
           .required("Name is required")
           .max(64, "Name must not be greater than 64 characters")
@@ -84,17 +90,17 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                   <ComboBox
                     id="selectedTeam"
                     styles={{ marginBottom: "2.5rem" }}
-                    onChange={({ selectedItem }: { selectedItem: ComboBoxItem }) =>
-                      setFieldValue("selectedTeam", selectedItem ? selectedItem : "")
+                    onChange={({ selectedItem }: { selectedItem: FlowTeam }) =>
+                      setSelectedTeam(selectedItem ? selectedItem : null)
                     }
                     items={teams}
-                    initialSelectedItem={values.selectedTeam}
-                    value={values.selectedTeam}
+                    initialSelectedItem={selectedTeam}
+                    value={selectedTeam}
                     itemToString={(item: ComboBoxItem) => (item ? item.name : "")}
                     titleText="Team"
                     placeholder="Select a team"
-                    invalid={errors.selectedTeam}
-                    invalidText={errors.selectedTeam}
+                    invalid={!(isSystem || Boolean(selectedTeam))}
+                    invalidText="Team is required"
                     shouldFilterItem={({ item, inputValue }: { item: ComboBoxItem; inputValue: string }) =>
                       item && item.name.toLowerCase().includes(inputValue.toLowerCase())
                     }
