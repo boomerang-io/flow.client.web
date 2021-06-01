@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { CodeSnippet, Dropdown, ModalBody, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import copy from "copy-to-clipboard";
-import { BASE_URL } from "Config/servicesConfig";
+import { PRODUCT_SERVICE_ENV_URL } from "Config/servicesConfig";
 import styles from "./BuildWebhookModalContent.module.scss";
 
 interface FormProps {
@@ -62,7 +62,7 @@ const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ wor
   const [activeToken, setactiveToken] = useState(values.tokens.length > 0 ? values.tokens[0] : null);
   const [activeType, setActiveType] = useState({ label: "generic" });
 
-  const webhookURL = `${BASE_URL}/listener/webhook?workflowId=${workflowId}&type=${
+  const webhookURL = `${PRODUCT_SERVICE_ENV_URL}/listener/webhook?workflowId=${workflowId}&type=${
     activeType.label
   }&access_token=${encodeURI(activeToken?.token)}`;
 
@@ -105,7 +105,7 @@ const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ wor
 
           <section className={styles.sectionContainer}>
             <span className={styles.sectionHeader}>Webhook Prefix</span>
-            <p className={styles.sectionDetail}> {`${BASE_URL}/listener/webhook`} </p>
+            <p className={styles.sectionDetail}> {`${PRODUCT_SERVICE_ENV_URL}/listener/webhook`} </p>
           </section>
 
           <section className={styles.sectionContainer}>
