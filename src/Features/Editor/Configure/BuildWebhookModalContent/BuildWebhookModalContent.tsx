@@ -129,7 +129,7 @@ const BuildWebhookModalContent: React.FC<BuildWebhookModalContentProps> = ({ wor
                   onClick={() => copy(webhookURL)}
                   light
                 >
-                  {`${BASE_URL}/
+                  {`${PRODUCT_SERVICE_ENV_URL}/
           listener/webhook?workflowId=${workflowId}
           &type=${activeType.label}
           &access_token=${encodeURI(activeToken?.token)}`}
