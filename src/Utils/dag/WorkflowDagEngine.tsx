@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { DiagramEngine, DiagramModel } from "@projectstorm/react-diagrams";
 import CustomTaskNodeFactory from "./customTaskNode/CustomTaskNodeFactory";
+import ScriptNodeFactory from "./scriptNode/ScriptNodeFactory";
 import SimplePortFactory from "./simplePort/SimplePortFactory";
 import StartEndNodeFactory from "./startEndNode/StartEndNodeFactory";
 import StartEndNodeModel from "./startEndNode/StartEndNodeModel";
@@ -44,6 +45,7 @@ export default class WorkflowDagEngine {
     this.diagramEngine.registerNodeFactory(new AcquireLockNodeFactory());
     this.diagramEngine.registerNodeFactory(new ReleaseLockNodeFactory());
     this.diagramEngine.registerNodeFactory(new RunWorkflowNodeFactory());
+    this.diagramEngine.registerNodeFactory(new ScriptNodeFactory());
     this.diagramEngine.mode = mode;
 
     //need to find a way to register port factory
