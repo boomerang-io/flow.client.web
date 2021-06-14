@@ -91,6 +91,9 @@ export const appLink = {
   manageTaskTemplateEdit: ({ teamId, taskId, version }) => `/manage/task-templates/team/${teamId}/${taskId}/${version}`,
   manageTaskTemplateYaml: ({ teamId, taskId, version }) =>
     `/manage/task-templates/team/${teamId}/${taskId}/${version}/yaml-editor`,
+
+  //external apps
+  docsWorkflowEditor: () => `${BASE_DOCUMENTATION_URL}/how-to-guide/workflow-editor`,
 };
 
 export const queryStringOptions = { arrayFormat: "comma", skipEmptyString: true };
