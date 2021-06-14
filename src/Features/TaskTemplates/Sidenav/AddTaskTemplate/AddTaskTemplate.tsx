@@ -71,7 +71,7 @@ function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location 
       }}
       modalHeaderProps={{
         title: "Add a new task",
-        subtitle: "Import a task file to auto-populate these fields, or start from scratch. All fields are required.",
+        subtitle: "Import a task file to auto-populate these fields, or start from scratch.",
       }}
     >
       {({ closeModal }) => (
