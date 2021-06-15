@@ -113,6 +113,7 @@ export default function NavbarContainer({
         onTutorialClick={handleOnTutorialClick}
         user={userData}
         skipToContentProps={skipToContentProps}
+        appName="Flow"
       />
     </>
   );

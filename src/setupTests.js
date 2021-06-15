@@ -94,14 +94,13 @@ global.localStorage = localStorageMock;
 global.sessionStorage = sessionStorageMock;
 
 // Dates
-const DATE_TO_USE = new Date("Jan 1 2019 00:00:00 UTC");
-const _Date = Date;
-global.Date = jest.fn(() => DATE_TO_USE);
-global.Date.UTC = _Date.UTC;
-global.Date.parse = _Date.parse;
-global.Date.now = _Date.now;
 const moment = jest.requireActual("moment-timezone");
 jest.doMock("moment", () => {
   moment.tz.setDefault("UTC");
-  return moment;
+  moment.tz.guess(false);
+  const DATE_TO_USE = new Date("Jan 1 2020 00:00:00 UTC");
+  const mom = () => jest.requireActual("moment")(DATE_TO_USE);
+  mom.utc = jest.requireActual("moment").utc;
+  mom.fromNow = jest.requireActual("moment").fromNow;
+  return mom;
 });

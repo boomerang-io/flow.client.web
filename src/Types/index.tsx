@@ -27,6 +27,12 @@ export interface DataDrivenInput {
   type?: string;
 }
 
+export interface ResultParameter {
+  name: string;
+  description: string;
+  value?: any;
+}
+
 export interface ModalTriggerProps {
   openModal(): void;
 }
@@ -185,7 +191,6 @@ export type ChangeLog = Array<ChangeLogItem>;
 export interface TaskModel {
   category: string;
   currentVersion: number;
-  enableLifecycle: boolean;
   id: string;
   icon: string;
   model: string;

@@ -3,10 +3,12 @@ import PropTypes from "prop-types";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import { Button, ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
+import ErrorModal from "Components/ErrorModal";
 import ManualTaskModal from "./ManualTaskModal";
 import OutputPropertiesLog from "./OutputPropertiesLog";
 import TaskApprovalModal from "./TaskApprovalModal";
 import TaskExecutionLog from "./TaskExecutionLog";
+import TaskResults from "./TaskResults";
 import moment from "moment";
 import dateHelper from "Utils/dateHelper";
 import { ApprovalStatus, ExecutionStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
@@ -14,7 +16,7 @@ import styles from "./taskItem.module.scss";
 
 import { appLink } from "Config/appConfig";
 
-const logTaskTypes = ["customtask", "template"];
+const logTaskTypes = ["customtask", "template", "script"];
 const logStatusTypes = [ExecutionStatus.Completed, ExecutionStatus.Failure, ExecutionStatus.InProgress];
 
 TaskItem.propTypes = {
@@ -36,9 +38,11 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
     approval,
     taskType,
     switchValue,
+    results,
     runWorkflowActivityId,
     runWorkflowId,
     runWorkflowActivityStatus,
+    error,
   } = task;
   // const Icon = executionStatusIcon[flowTaskStatus];
   // const statusClassName = styles[flowTaskStatus];
@@ -93,12 +97,14 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
       </section>
       {!hidden && (
         <section className={styles.data}>
-          {logTaskTypes.includes(taskType) && logStatusTypes.includes(runStatus) && (
+          {((flowTaskStatus === ExecutionStatus.Cancelled && duration > 0) ||
+            (logTaskTypes.includes(taskType) && logStatusTypes.includes(runStatus))) && (
             <TaskExecutionLog flowActivityId={flowActivityId} flowTaskId={taskId} flowTaskName={taskName} />
           )}
           {outputs && Object.keys(outputs).length > 0 && (
             <OutputPropertiesLog flowTaskName={taskName} flowTaskOutputs={outputs} />
           )}
+          {Boolean(results?.length) && <TaskResults flowTaskName={taskName} flowTaskResults={results} />}
           {taskType === NodeType.RunWorkflow && runWorkflowActivityId && runWorkflowId && (
             <Link
               to={appLink.execution({ executionId: runWorkflowActivityId, workflowId: runWorkflowId })}
@@ -107,54 +113,73 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
               View Activity
             </Link>
           )}
-          {taskType === NodeType.Approval && approval?.status === ApprovalStatus.Submitted && (
+          {Boolean(error?.code) && (
             <ComposedModal
               modalHeaderProps={{
-                title: "Action Manual Approval",
+                title: "View Task Error",
                 subtitle: taskName,
               }}
               modalTrigger={({ openModal }) => (
                 <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
-                  Action Manual Approval
+                  View Error
                 </Button>
               )}
             >
-              {({ closeModal }) => (
-                <TaskApprovalModal
-                  approvalId={approval.id}
-                  flowTaskName={taskName}
-                  executionId={executionId}
-                  closeModal={closeModal}
-                />
-              )}
+              {({ closeModal }) => <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />}
             </ComposedModal>
           )}
-          {taskType === NodeType.Manual && approval?.status === ApprovalStatus.Submitted && (
-            <ComposedModal
-              composedModalProps={{
-                containerClassName: styles.actionManualTaskModalContainer,
-              }}
-              modalHeaderProps={{
-                title: "Action Manual Task",
-                subtitle: taskName,
-              }}
-              modalTrigger={({ openModal }) => (
-                <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
-                  Action Manual Task
-                </Button>
-              )}
-            >
-              {({ closeModal }) => (
-                <ManualTaskModal
-                  approvalId={approval?.id}
-                  flowTaskName={taskName}
-                  executionId={executionId}
-                  closeModal={closeModal}
-                  instructions={approval?.instructions}
-                />
-              )}
-            </ComposedModal>
-          )}
+          {flowTaskStatus !== ExecutionStatus.Cancelled &&
+            taskType === NodeType.Approval &&
+            approval?.status === ApprovalStatus.Submitted && (
+              <ComposedModal
+                modalHeaderProps={{
+                  title: "Action Manual Approval",
+                  subtitle: taskName,
+                }}
+                modalTrigger={({ openModal }) => (
+                  <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                    Action Manual Approval
+                  </Button>
+                )}
+              >
+                {({ closeModal }) => (
+                  <TaskApprovalModal
+                    approvalId={approval.id}
+                    flowTaskName={taskName}
+                    executionId={executionId}
+                    closeModal={closeModal}
+                  />
+                )}
+              </ComposedModal>
+            )}
+          {flowTaskStatus !== ExecutionStatus.Cancelled &&
+            taskType === NodeType.Manual &&
+            approval?.status === ApprovalStatus.Submitted && (
+              <ComposedModal
+                composedModalProps={{
+                  containerClassName: styles.actionManualTaskModalContainer,
+                }}
+                modalHeaderProps={{
+                  title: "Action Manual Task",
+                  subtitle: taskName,
+                }}
+                modalTrigger={({ openModal }) => (
+                  <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                    Action Manual Task
+                  </Button>
+                )}
+              >
+                {({ closeModal }) => (
+                  <ManualTaskModal
+                    approvalId={approval?.id}
+                    flowTaskName={taskName}
+                    executionId={executionId}
+                    closeModal={closeModal}
+                    instructions={approval?.instructions}
+                  />
+                )}
+              </ComposedModal>
+            )}
           {taskType === NodeType.Approval &&
             (approval?.status === ApprovalStatus.Approved || approval?.status === ApprovalStatus.Rejected) && (
               <ComposedModal

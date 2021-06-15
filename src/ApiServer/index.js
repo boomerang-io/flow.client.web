@@ -268,6 +268,13 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
 
+      this.get(
+        serviceUrl.getWorkflowTaskTemplates({ workflowId: ":workflowId" }),
+        (schema, request) => {
+          return schema.db.tasktemplate;
+        }
+      );
+
       this.post(serviceUrl.postCreateWorkflowRevision({ workflowId: ":workflowId" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
         let { workflowId } = request.params;
@@ -303,6 +310,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.get(serviceUrl.getWorkflowExecution({ executionId: ":id" }), (schema, request) => {
         return schema.db.workflowExecution[0];
+      });
+
+      this.delete(serviceUrl.deleteCancelWorkflow({ executionId: ":id" }), (schema, request) => {
+        return {};
       });
 
       /**

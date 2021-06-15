@@ -270,6 +270,7 @@ function WorkflowActivity() {
               <Tab label={statusWorkflowSummaryIsLoading ? "Failed" : `Failed (${statusWorkflowSummary.failure})`} />
               <Tab label={statusWorkflowSummaryIsLoading ? "Invalid" : `Invalid (${statusWorkflowSummary.invalid})`} />
               <Tab label={statusWorkflowSummaryIsLoading ? "Waiting" : `Waiting (${statusWorkflowSummary.waiting})`} />
+              <Tab label={statusWorkflowSummaryIsLoading ? "Cancelled" : `Cancelled (${statusWorkflowSummary.cancelled})`} />
             </Tabs>
           </nav>
           <div className={styles.filtersContainer}>

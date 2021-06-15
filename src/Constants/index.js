@@ -18,6 +18,7 @@ export const HttpMethod = {
 };
 
 export const ExecutionStatus = {
+  Cancelled: "cancelled",
   Completed: "completed",
   Failure: "failure",
   InProgress: "inProgress",
@@ -28,6 +29,7 @@ export const ExecutionStatus = {
 };
 
 export const ExecutionStatusCopy = {
+  [ExecutionStatus.Cancelled]: "Cancelled",
   [ExecutionStatus.Completed]: "Succeeded",
   [ExecutionStatus.Failure]: "Failed",
   [ExecutionStatus.InProgress]: "In Progress",
@@ -91,6 +93,7 @@ export const NodeType = {
   Acquirelock: "acquirelock",
   Releaselock: "releaselock",
   RunWorkflow: "runworkflow",
+  Script: "script",
 };
 
 export const QueryStatus = {
@@ -164,6 +167,7 @@ export const daysOfWeekCronList = [
 ];
 
 export const executionStatusIcon = {
+  [ExecutionStatus.Cancelled]: CloseOutline32,
   [ExecutionStatus.Completed]: CheckmarkOutline32,
   [ExecutionStatus.Failure]: CloseOutline32,
   [ExecutionStatus.InProgress]: Timer32,
@@ -179,6 +183,7 @@ export const executionStatusList = [
   ExecutionStatus.Failure,
   ExecutionStatus.Invalid,
   ExecutionStatus.Waiting,
+  ExecutionStatus.Cancelled,
 ];
 
 export const ApprovalStatus = {

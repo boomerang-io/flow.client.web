@@ -368,7 +368,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 aria-label="Overflow card menu"
                 class="bx--overflow-menu"
                 style="position: absolute; right: 0px;"
-                tabindex="0"
                 type="button"
               >
                 <svg
@@ -490,7 +489,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 aria-label="Overflow card menu"
                 class="bx--overflow-menu"
                 style="position: absolute; right: 0px;"
-                tabindex="0"
                 type="button"
               >
                 <svg
@@ -661,7 +659,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 aria-label="Overflow card menu"
                 class="bx--overflow-menu"
                 style="position: absolute; right: 0px;"
-                tabindex="0"
                 type="button"
               >
                 <svg
@@ -827,7 +824,6 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 aria-label="Overflow card menu"
                 class="bx--overflow-menu"
                 style="position: absolute; right: 0px;"
-                tabindex="0"
                 type="button"
               >
                 <svg

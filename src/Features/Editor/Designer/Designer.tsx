@@ -28,8 +28,7 @@ const DesignerContainer: React.FC<DesignerContainerProps> = ({
   workflowDagEngine,
   workflowName,
 }) => {
-  const isRevisionLoading = revisionQuery.status === QueryStatus.Loading;
-
+  const isRevisionLoading = revisionQuery.status === QueryStatus.Loading
   return (
     <div className={styles.container}>
       <Helmet>

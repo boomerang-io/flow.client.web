@@ -26,6 +26,7 @@ import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
 import AcquireLockNodeModel from "Utils/dag/acquireLockNode/AcquireLockNodeModel";
 import ReleaseLockNodeModel from "Utils/dag/releaseLockNode/ReleaseLockNodeModel";
 import RunWorkflowNodeModel from "Utils/dag/runWorkflowNode/RunWorkflowNodeModel";
+import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
 
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
@@ -279,6 +280,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           break;
         case NodeType.RunWorkflow:
           node = new RunWorkflowNodeModel(nodeObj);
+          break;
+        case NodeType.Script:
+          node = new ScriptNodeModel(nodeObj);
           break;
         default:
         // no-op
