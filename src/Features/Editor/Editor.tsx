@@ -38,7 +38,7 @@ export default function EditorContainer() {
   // Init revision number state is held here so we can easily refect the data on change via react-query
 
   const [revisionNumber, setRevisionNumber] = useState(0);
-  const { workflowId } = useParams();
+  const { workflowId }: { workflowId: string } = useParams();
 
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });

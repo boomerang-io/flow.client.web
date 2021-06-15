@@ -6366,7 +6366,7 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                 style="top: 396.56172278306974px; left: 2441.0579354956567px;"
               >
                 <div
-                  class="node node"
+                  class="node"
                 >
                   <header
                     class="header"
@@ -6414,15 +6414,6 @@ exports[`Editor --- Snapshot Capturing Snapshot of Editor 1`] = `
                     data-name="right"
                     data-nodeid="bcd28f73-7215-4159-a27f-0d49658d3d79"
                   />
-                  <div
-                    class="badgeContainer"
-                  >
-                    <p
-                      class="badgeText"
-                    >
-                      Custom
-                    </p>
-                  </div>
                   <svg
                     alt="Workflow edit button"
                     class="button editButton"
