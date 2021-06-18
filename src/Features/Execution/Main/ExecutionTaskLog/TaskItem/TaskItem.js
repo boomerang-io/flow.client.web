@@ -120,7 +120,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                 subtitle: taskName,
               }}
               modalTrigger={({ openModal }) => (
-                <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
+                <Button size="small" kind="ghost" onClick={openModal}>
                   View Error
                 </Button>
               )}
