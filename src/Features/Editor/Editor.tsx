@@ -186,6 +186,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
         queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
+        queryCache.removeQueries(serviceUrl.getWorkflowAvailableParameters({ workflowId }));
       } catch (err) {
         notify(
           <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
