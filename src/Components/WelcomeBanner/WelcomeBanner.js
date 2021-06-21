@@ -46,7 +46,7 @@ export default function WelcomeBanner({ hide, isOpen, openTutorial, toggleIsOpen
             href={
               communityUrl.includes("ibm.com")
                 ? `slack://channel?team=${SLACK_TEAM_ID}&id=${SLACK_FLOW_USERS_CHANNEL_ID}`
-                : "https://join.slack.com/t/boomerang-io/shared_invite/zt-mbowhq50-nEikNcvzWVnlzh5DIuGGvg"
+                : "https://join.slack.com/t/boomerang-io/shared_invite/zt-pxo2yw2o-c3~6YvWkKNrKIwhIBAKhaw"
             }
             tabIndex={isOpen ? 0 : -1}
           >

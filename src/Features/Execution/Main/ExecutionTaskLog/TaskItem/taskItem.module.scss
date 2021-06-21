@@ -18,7 +18,7 @@
     border-top: 0.25rem solid var(--flow-wait);
   }
 
-  &.failure {
+  &.failure, &.cancelled {
     border-top: 0.25rem solid var(--flow-failure);
   }
 
@@ -123,7 +123,7 @@
     }
   }
 
-  &.failure {
+  &.failure, &.cancelled {
     color: var(--flow-failure);
     svg {
       fill: var(--flow-failure);

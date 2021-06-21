@@ -24,6 +24,14 @@
   }
 }
 
+.workflowErrorTrigger {
+  align-items: center;
+  cursor: pointer;
+  display: flex !important;
+  justify-content: center;
+  margin-left: 1rem;
+}
+
 .content {
   align-items: center;
   display: flex;
@@ -34,6 +42,11 @@
 .data {
   color: var(--cds-text-01);
   margin-left: 2.5rem;
+}
+
+.dataButton {
+  color: var(--cds-text-01);
+  margin-left: 1.5rem;
 }
 
 .dataTitle {
@@ -99,4 +112,8 @@
   :global .bx--btn__icon {
     margin: 0;
   }
+}
+
+.cancelRun {
+  margin-bottom: -1rem;
 }

@@ -8,6 +8,7 @@ const activitySummary = {
   completed: 1854,
   skipped: 0,
   waiting: 0,
+  cancelled: 0,
 };
 
 export default activitySummary;

@@ -12,6 +12,7 @@ import {
   InlineNotification,
   Loading,
   notify,
+  Tag,
   Tile,
   ToastNotification,
   TooltipHover,
@@ -19,6 +20,7 @@ import {
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import EmptyState from "Components/EmptyState";
 import EditTaskTemplateModal from "./EditTaskTemplateModal";
+import TemplateParametersModal from "./TemplateParametersModal";
 import PreviewConfig from "./PreviewConfig";
 import TemplateConfigModal from "./TemplateConfigModal";
 import Header from "../Header";
@@ -53,12 +55,16 @@ interface DetailDataElementsProps {
 const DetailDataElements: React.FC<DetailDataElementsProps> = ({ label, value }) => {
   const TaskIcon = taskIcons.find((icon) => icon.name === value);
 
-  if (label === "Enable Lifecycle") {
+  if (label === "Envs") {
     return (
       <section className={styles.infoSection}>
         <dt className={styles.label}>{label}</dt>
-        <dd className={styles.value} data-testid={label}>
-          {value ? "True" : "False"}
+        <dd className={value?.length ? styles.value : styles.noValue} data-testid={label}>
+          {value?.length > 0
+            ? value.map((env) => {
+                return <Tag>{`${env.name}:${env.value}`}</Tag>;
+              })
+            : "Not defined yet"}
         </dd>
       </section>
     );
@@ -155,6 +161,67 @@ const Field: React.FC<FieldProps> = ({
   );
 };
 
+interface ResultProps {
+  result: any;
+  setFieldValue: any;
+  results: any;
+  DeleteResult: any;
+  isOldVersion: any;
+  isActive: any;
+  canEdit: boolean;
+  index: number;
+  resultKeys: string[];
+}
+
+const Result: React.FC<ResultProps> = ({
+  result,
+  setFieldValue,
+  results,
+  DeleteResult,
+  isOldVersion,
+  isActive,
+  canEdit,
+  index,
+  resultKeys,
+}) => {
+  return (
+    <section className={styles.fieldSection}>
+      <dd
+        className={styles.value}
+        data-testid={result.name}
+        // style={{ marginLeft: `${isOldVersion || !isActive ? "1.5rem" : "0"}` }}
+        style={{ paddingLeft: `1rem` }}
+      >
+        {`${result.name} | ${result.description}`}
+      </dd>
+      <div className={styles.actions}>
+        <TemplateParametersModal
+          result={result}
+          isEdit
+          index={index}
+          resultKeys={resultKeys}
+          setFieldValue={setFieldValue}
+          templateFields={results}
+          isOldVersion={isOldVersion}
+          isActive={isActive}
+          canEdit={canEdit}
+        />
+        <TooltipHover direction="bottom" tooltipText={"Delete result paramater"}>
+          <Button
+            className={styles.delete}
+            disabled={isOldVersion || !isActive || !canEdit}
+            iconDescription="delete-parameter"
+            kind="ghost"
+            onClick={() => DeleteResult(index)}
+            renderIcon={TrashCan16}
+            size="field"
+          />
+        </TooltipHover>
+      </div>
+    </section>
+  );
+};
+
 type TaskTemplateOverviewProps = {
   taskTemplates: any[];
   updateTemplateInState: (args: TaskModel) => void;
@@ -218,6 +285,8 @@ export function TaskTemplateOverview({
   const templateNotFound = !selectedTaskTemplate.id;
 
   const fieldKeys = currentRevision.config?.map((input: DataDrivenInput) => input.key) ?? [];
+  const resultKeys = currentRevision.result?.map((input: DataDrivenInput) => input.key) ?? [];
+
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -251,8 +320,12 @@ export function TaskTemplateOverview({
         version: selectedTaskTemplate.currentVersion,
         image: values.image,
         command: values.command,
+        script: values.script,
+        workingDir: values.workingDir,
         arguments: values.arguments.trim().split(/\s{1,}/),
         config: values.currentConfig,
+        results: values.result,
+        envs: values.envs,
         changelog: {
           reason: values.comments,
         },
@@ -264,7 +337,6 @@ export function TaskTemplateOverview({
         icon: values.icon,
         description: values.description,
         category: values.category,
-        enableLifecycle: values.enableLifecycle,
         revisions: newRevisions,
         scope: "team",
         flowTeamId: params?.teamId,
@@ -274,8 +346,12 @@ export function TaskTemplateOverview({
         version: newVersion,
         image: values.image,
         command: values.command,
+        script: values.script,
+        workingDir: values.workingDir,
         arguments: values.arguments.trim().split(/\s{1,}/),
         config: values.currentConfig,
+        results: values.result,
+        envs: values.envs,
         changelog: {
           reason: values.comments,
         },
@@ -287,7 +363,6 @@ export function TaskTemplateOverview({
         icon: values.icon,
         description: values.description,
         category: values.category,
-        enableLifecycle: values.enableLifecycle,
         currentVersion: newVersion,
         revisions: newRevisions,
         scope: "team",
@@ -401,13 +476,16 @@ export function TaskTemplateOverview({
       initialValues={{
         name: selectedTaskTemplate.name,
         description: selectedTaskTemplate.description,
-        enableLifecycle: selectedTaskTemplate.enableLifecycle,
         icon: selectedTaskTemplate.icon,
         image: currentRevision.image,
         category: selectedTaskTemplate.category,
         currentConfig: currentRevision.config ?? [],
         arguments: currentRevision.arguments?.join(" ") ?? "",
         command: currentRevision.command ?? "",
+        script: currentRevision.script ?? "",
+        workingDir: currentRevision.workingDir ?? "",
+        result: currentRevision.results ?? [],
+        envs: currentRevision.envs ?? [],
         comments: "",
       }}
       enableReinitialize={true}
@@ -420,6 +498,11 @@ export function TaskTemplateOverview({
           let newProperties = [].concat(values.currentConfig);
           newProperties.splice(configIndex, 1);
           setFieldValue("currentConfig", newProperties);
+        }
+        function DeleteResult(index) {
+          let newResults = [].concat(values.result);
+          newResults.splice(index, 1);
+          setFieldValue("result", newResults);
         }
         const onDragEnd = async (result) => {
           if (result.source && result.destination) {
@@ -518,8 +601,10 @@ export function TaskTemplateOverview({
                     <DetailDataElements value={values.description} label="Description" />
                     <DetailDataElements value={values.arguments} label="Arguments" />
                     <DetailDataElements value={values.image} label="Image" />
+                    <DetailDataElements value={values.workingDir} label="Working Directory" />
                     <DetailDataElements value={values.command} label="Command" />
-                    <DetailDataElements value={values.enableLifecycle} label="Enable Lifecycle" />
+                    <DetailDataElements value={values.script} label="Script" />
+                    <DetailDataElements value={values.envs} label="Envs" />
                     <section className={styles.infoSection}>
                       <dt className={styles.label}>Contribution level</dt>
                       <div className={styles.basicIcon}>
@@ -614,6 +699,44 @@ export function TaskTemplateOverview({
                       )}
                     </Droppable>
                   </DragDropContext>
+                </Tile>
+                <Tile className={styles.editFieldsCard}>
+                  <section className={styles.editTitleParameters}>
+                    <h1>Result Parameters</h1>
+                    <TemplateParametersModal
+                      resultKeys={resultKeys}
+                      setFieldValue={setFieldValue}
+                      templateFields={values.result}
+                      isOldVersion={isOldVersion}
+                      isActive={isActive}
+                      canEdit={canEdit}
+                    />
+                  </section>
+                  <div className={styles.fieldsContainer}>
+                    {values.result?.length > 0 ? (
+                      values.result.map((result, index) => (
+                        <Result
+                          result={result}
+                          setFieldValue={setFieldValue}
+                          results={values.result}
+                          DeleteResult={DeleteResult}
+                          isOldVersion={isOldVersion}
+                          isActive={isActive}
+                          canEdit={canEdit}
+                          index={index}
+                        />
+                      ))
+                    ) : (
+                      <div className={styles.noFieldsContainer}>
+                        <p className={styles.noFieldsTitle}>No Result Paramaters (yet)</p>
+                        <p className={styles.noFieldsText}>
+                          Result Parameters map to the output of a task. Provide the name and description for the
+                          variables that will be output as a results of this task.
+                        </p>
+                        <p className={styles.noFieldsText}>Add a result paramater above to get started.</p>
+                      </div>
+                    )}
+                  </div>
                 </Tile>
               </div>
             </div>

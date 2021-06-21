@@ -6,6 +6,7 @@ import { useMutation } from "react-query";
 import * as Yup from "yup";
 import {
   Button,
+  Creatable,
   FileUploaderDropContainer,
   FileUploaderItem,
   Loading,
@@ -14,7 +15,6 @@ import {
   ModalFlowForm,
   TextInput,
   TextArea,
-  Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
 import { useParams } from "react-router-dom";
@@ -33,7 +33,7 @@ AddTaskTemplateForm.propTypes = {
 };
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
-const createInvalidTextMessage = `Oops there was a problem with the upload, delete it and try again. The file should contain the required fields in this form and.`;
+const createInvalidTextMessage = `Oops there was a problem with the upload, delete it and try again. The file should contain the required fields in this form`;
 const createValidTextMessage = `Task file successfully imported!`;
 
 function checkIsValidTask(data) {
@@ -90,11 +90,18 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
 
   const handleSubmit = async (values) => {
     const hasFile = values.file;
+    let newEnvs = values.envs.map((env) => {
+      let index = env.indexOf(":");
+      return { name: env.substring(0, index), value: env.substring(index + 1, env.length) };
+    });
     let newRevisionConfig = {
       version: 1,
       arguments: values.arguments.trim().split(/\s{1,}/),
       image: values.image,
       command: values.command,
+      script: values.script,
+      workingDir: values.workingDir,
+      envs: newEnvs,
       config: hasFile ? values.currentRevision.config : [],
       changelog: { reason: "" },
     };
@@ -103,7 +110,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       description: values.description,
       category: values.category,
       currentVersion: 1,
-      enableLifecycle: values.enableLifecycle,
       revisions: [newRevisionConfig],
       icon: values.icon.value,
       nodeType: "templateTask",
@@ -123,12 +129,17 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       setFieldValue("name", fileData.name);
       setFieldValue("description", fileData.description);
       setFieldValue("category", fileData.category);
-      setFieldValue("enableLifecycle", fileData.enableLifecycle);
       selectedIcon &&
         setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
       setFieldValue("image", currentRevision.image);
       setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
       setFieldValue("command", currentRevision.command ?? "");
+      setFieldValue("script", currentRevision.script ?? "");
+      const formattedEnvs = templateData.envs.map((env) => {
+        return `${env.name}:${env.value}`;
+      });
+      setFieldValue("envs", formattedEnvs ?? []);
+      setFieldValue("workingDir", currentRevision?.workingDir);
       setFieldValue("currentRevision", currentRevision);
       setFieldValue("fileData", fileData);
     }
@@ -140,11 +151,13 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         name: "",
         category: "",
         // category: categories[0],
-        enableLifecycle: false,
         icon: {},
         description: "",
         arguments: "",
         command: "",
+        script: "",
+        workingDir: "",
+        envs: [],
         fileData: {},
         file: undefined,
       }}
@@ -153,7 +166,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           .required("Name is required")
           .notOneOf(taskTemplateNames, "Enter a unique value for task name"),
         category: Yup.string().required("Enter a category"),
-        enableLifecycle: Yup.boolean(),
         description: Yup.string()
           .lowercase()
           .min(4, "Description must be at least four characters")
@@ -163,8 +175,10 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
           value: Yup.string().required(),
           label: Yup.string().required(),
         }),
-        arguments: Yup.string().required("Arguments are required"),
+        arguments: Yup.string(),
         command: Yup.string().nullable(),
+        script: Yup.string().nullable(),
+        workingDir: Yup.string().nullable(),
         image: Yup.string().nullable(),
         file: Yup.mixed().test(
           "fileSize",
@@ -291,8 +305,19 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 value={values.description}
               />
               <TextInput
+                id="image"
+                labelText="Image (optional)"
+                helperText="Path to container image. If not specified, will use the systems default."
+                name="image"
+                value={values.image}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.image && touched.image}
+                invalidText={errors.image}
+              />
+              <TextInput
                 id="arguments"
-                labelText="Arguments"
+                labelText="Arguments (optional)"
                 helperText="Enter arguments delimited by a space character"
                 placeholder="e.g. system sleep"
                 name="arguments"
@@ -302,17 +327,14 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
               />
-
               <TextInput
-                id="image"
-                labelText="Image (optional)"
-                helperText="Path to container image"
-                name="image"
-                value={values.image}
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.image && touched.image}
-                invalidText={errors.image}
+                value={values.workingDir}
               />
               <TextInput
                 id="command"
@@ -325,14 +347,22 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalid={errors.command && touched.command}
                 invalidText={errors.command}
               />
-              <Toggle
-                id="enableLifecycle"
-                labelText="Enable Lifecycle"
-                helperText="Enable to create lifecycle init and watcher containers to watch for result parameters"
-                name="enableLifecycle"
-                toggled={values.enableLifecycle}
+              <TextArea
+                id="script"
+                invalid={errors.script && touched.script}
+                invalidText={errors.script}
+                labelText="Script (optional)"
                 onBlur={handleBlur}
                 onChange={handleChange}
+                value={values.script}
+              />
+              <Creatable
+                createKeyValuePair
+                id="envs"
+                onChange={(createdItems: string[]) => setFieldValue("envs", createdItems)}
+                keyLabelText="Environments (optional)"
+                placeholder="Enter env"
+                values={values.envs || []}
               />
             </ModalBody>
             <ModalFooter>

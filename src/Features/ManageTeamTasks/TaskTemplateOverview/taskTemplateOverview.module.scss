@@ -90,6 +90,24 @@
   }
 }
 
+.editTitleParameters {
+  align-items: center;
+  display: flex;
+
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  width: 100%;
+  :global .bx--btn__icon {
+    margin-left: 0 !important;
+  }
+
+  > h1 {
+    font-size: 1rem;
+    margin: 0;
+  }
+}
+
 .detailCardsContainer {
   --gap: 1.5rem;
   display: flex;
@@ -116,10 +134,11 @@
   display: flex;
   background-color: var(--cds-ui-01);
   border-radius: 0.25rem;
-  flex: 1 1 60%;
+  flex: 1 1 30%;
   flex-direction: column;
   padding-bottom: 1.5rem;
-  min-width: 28rem;
+  // min-width: 28rem;
+  min-width: 15rem;
   :global .bx--btn__icon {
     margin-left: 0 !important;
   }

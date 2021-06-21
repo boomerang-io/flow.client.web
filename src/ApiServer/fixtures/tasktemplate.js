@@ -31,7 +31,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5c39015b352b1b51412e9c85",
@@ -72,7 +71,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5d3145ee988e7b6b6f24d870",
@@ -115,7 +113,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5e1bcd210351fdc9e42fe4e0",
@@ -149,7 +146,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5d1ed36a988e7b6b6f7b470b",
@@ -200,7 +196,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: false,
-    enableLifecycle: false,
   },
   {
     id: "5bd98b105a5df954ad599bc2",
@@ -242,7 +237,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5b92f794844d0700016ea217",
@@ -300,7 +294,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: false,
-    enableLifecycle: false,
   },
   {
     id: "5e1bf6ca0351fdc9e4319c3b",
@@ -382,7 +375,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5c3fb7e2352b1b5141692f75",
@@ -423,7 +415,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5c6939c620cfafa2eaeef2ad",
@@ -496,7 +487,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5c3d0401352b1b514150545b",
@@ -637,7 +627,6 @@ const taskTemplate = [
     currentVersion: 2,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5c37af285616d5f3544568fd",
@@ -661,7 +650,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "decision",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5bd9b4115a5df954ad5ad8db",
@@ -719,7 +707,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5eab5488aecb0800014e0b87",
@@ -782,7 +769,6 @@ const taskTemplate = [
     currentVersion: 2,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5d1ed216988e7b6b6f7b3c1c",
@@ -825,7 +811,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5bd9d0825a5df954ad5bb5c3",
@@ -876,7 +861,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5c3907a1352b1b51412ed079",
@@ -925,7 +909,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5d9e703dc90b5240508869e2",
@@ -967,7 +950,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "customTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5c3fbc92352b1b51416952d1",
@@ -1001,7 +983,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5bd97bea5a5df954ad592c06",
@@ -1034,7 +1015,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5eab59eaaecb0800014e0ccb",
@@ -1220,7 +1200,6 @@ const taskTemplate = [
     currentVersion: 3,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5eab5742aecb0800014e0c87",
@@ -1317,7 +1296,6 @@ const taskTemplate = [
     currentVersion: 2,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5c69365b20cfafa2eaeed89c",
@@ -1390,7 +1368,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5d25414c988e7b6b6fb3d5f7",
@@ -1433,7 +1410,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5e2866c8612203650e389491",
@@ -1515,7 +1491,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5bd9d03a5a5df954ad5bb3b5",
@@ -1581,7 +1556,6 @@ const taskTemplate = [
     currentVersion: 2,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5d53016bd83be3cc84bae976",
@@ -1635,7 +1609,6 @@ const taskTemplate = [
     currentVersion: 1,
     nodeType: "templateTask",
     verified: true,
-    enableLifecycle: false,
   },
   {
     id: "5f6379c974f51934044cbbd4",
@@ -1683,7 +1656,6 @@ const taskTemplate = [
     verified: true,
     currentVersion: 1,
     nodeType: "setwfproperty",
-    enableLifecycle: false,
   },
   {
     id: "5f6379c974f51934044cbbd6",
@@ -1712,7 +1684,6 @@ const taskTemplate = [
     verified: true,
     currentVersion: 1,
     nodeType: "approval",
-    enableLifecycle: false,
   },
   {
     id: "5f7dcf1ce1d3ce8d52ea45d4",
@@ -1745,7 +1716,6 @@ const taskTemplate = [
     verified: true,
     currentVersion: 1,
     nodeType: "eventwait",
-    enableLifecycle: false,
   },
   {
     id: "5fa4144bcb28924ba43ab57c",
@@ -1785,7 +1755,6 @@ const taskTemplate = [
     verified: true,
     currentVersion: 1,
     nodeType: "manual",
-    enableLifecycle: false,
   },
   {
     id: "5ff772c5daf8634981eee520",
@@ -1885,7 +1854,6 @@ const taskTemplate = [
     verified: false,
     currentVersion: 3,
     nodeType: "templateTask",
-    enableLifecycle: true,
   },
 ];
 

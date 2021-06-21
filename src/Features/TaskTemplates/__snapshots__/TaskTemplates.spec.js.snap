@@ -124,7 +124,6 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               aria-label="Menu"
               class="bx--overflow-menu"
               style="border-radius: 0.25rem;"
-              tabindex="0"
               type="button"
             >
               <svg

@@ -491,7 +491,6 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                         aria-label="Overflow menu"
                         class="bx--overflow-menu"
                         data-testid="configuration-parameter-table-overflow-menu"
-                        tabindex="0"
                         type="button"
                       >
                         <svg
@@ -608,7 +607,6 @@ exports[`GlobalPropertiesContainer --- Snapshot Test Capturing Snapshot of Globa
                         aria-label="Overflow menu"
                         class="bx--overflow-menu"
                         data-testid="configuration-parameter-table-overflow-menu"
-                        tabindex="0"
                         type="button"
                       >
                         <svg

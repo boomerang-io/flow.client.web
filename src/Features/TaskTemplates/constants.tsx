@@ -1,7 +1,7 @@
 export const TemplateRequestType = {
   Copy: "copy",
   New: "new",
-  Overwrite: "overwrite"
+  Overwrite: "overwrite",
 };
 
 export const FieldTypes = {
@@ -18,7 +18,7 @@ export const FieldTypes = {
   "texteditor::yaml": "Text Editor - YAML",
   "texteditor::javascript": "Text Editor - JavaScript/JSON",
   time: "Time",
-  url: "URL"
+  url: "URL",
 };
 
 export interface FormProps {
@@ -27,8 +27,9 @@ export interface FormProps {
   icon: string;
   image: string;
   category: string;
-  currentConfig: {}
+  currentConfig: {};
   arguments: string;
   command: string;
+  script: string;
   comments: string;
 }

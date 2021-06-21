@@ -488,7 +488,6 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                       aria-label="Overflow menu"
                       class="bx--overflow-menu"
                       data-testid="configuration-parameter-table-overflow-menu"
-                      tabindex="0"
                       type="button"
                     >
                       <svg
@@ -605,7 +604,6 @@ exports[`PropertiesTable --- Snapshot Test Capturing Snapshot of PropertiesTable
                       aria-label="Overflow menu"
                       class="bx--overflow-menu"
                       data-testid="configuration-parameter-table-overflow-menu"
-                      tabindex="0"
                       type="button"
                     >
                       <svg

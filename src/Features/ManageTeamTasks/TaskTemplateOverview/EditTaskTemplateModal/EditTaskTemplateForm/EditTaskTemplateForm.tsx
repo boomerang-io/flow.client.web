@@ -6,12 +6,12 @@ import * as Yup from "yup";
 import orderBy from "lodash/orderBy";
 import {
   Button,
+  Creatable,
   ModalBody,
   ModalFooter,
   ModalForm,
   TextInput,
   TextArea,
-  Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
@@ -35,6 +35,11 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
     await handleEditTaskTemplateModal({ newValues: values });
     closeModal();
   };
+
+  const formattedEnvs = templateData.envs.map((env) => {
+    return `${env.name}:${env.value}`;
+  });
+
   return (
     <Formik
       initialValues={{
@@ -44,9 +49,11 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         description: templateData.description,
         arguments: templateData.arguments,
         command: templateData.command,
+        script: templateData.script,
+        workingDir: templateData.workingDir,
         image: templateData.image,
         nodeType: nodeType,
-        enableLifecycle: templateData.enableLifecycle,
+        envs: formattedEnvs,
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
@@ -67,8 +74,9 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
           then: Yup.string().required("Arguments are required"),
         }),
         command: Yup.string().nullable(),
+        script: Yup.string().nullable(),
         image: Yup.string().nullable(),
-        enableLifecycle: Yup.boolean(),
+        workingDir: Yup.string().nullable(),
       })}
       onSubmit={handleSubmit}
       initialErrors={[{ name: "Name required" }]}
@@ -138,6 +146,15 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 invalidText={errors.image}
               />
               <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
+              />
+              <TextInput
                 id="command"
                 labelText="Command (optional)"
                 helperText="Override the entry point of the container"
@@ -148,14 +165,22 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 invalid={errors.command && touched.command}
                 invalidText={errors.command}
               />
-              <Toggle
-                id="enableLifecycle"
-                labelText="Enable Lifecycle"
-                helperText="Enable to create lifecycle init and watcher containers to watch for result parameters"
-                name="enableLifecycle"
-                toggled={values.enableLifecycle}
+              <TextArea
+                id="script"
+                invalid={errors.script && touched.script}
+                invalidText={errors.script}
+                labelText="Script (optional)"
                 onBlur={handleBlur}
                 onChange={handleChange}
+                value={values.script}
+              />
+              <Creatable
+                createKeyValuePair
+                id="envs"
+                onChange={(createdItems: string[]) => setFieldValue("envs", createdItems)}
+                keyLabelText="Environments (optional)"
+                placeholder="Enter env"
+                values={values.envs || []}
               />
             </ModalBody>
             <ModalFooter>

@@ -18,6 +18,10 @@ EditTaskTemplateModal.propTypes = {
 
 function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue, taskTemplates, values, canEdit }) {
   const handleEditTaskTemplateModal = async ({ newValues }) => {
+    let newEnvs = newValues.envs.map((env) => {
+      let index = env.indexOf(":");
+      return { name: env.substring(0, index), value: env.substring(index + 1, env.length) };
+    });
     setFieldValue("name", newValues.name);
     setFieldValue("description", newValues.description);
     setFieldValue("category", newValues.category);
@@ -25,7 +29,9 @@ function EditTaskTemplateModal({ isActive, nodeType, isOldVersion, setFieldValue
     setFieldValue("command", newValues.command);
     setFieldValue("image", newValues.image);
     setFieldValue("icon", newValues.icon.value);
-    setFieldValue("enableLifecycle", newValues.enableLifecycle);
+    setFieldValue("envs", newEnvs);
+    setFieldValue("script", newValues.script);
+    setFieldValue("workingDir", newValues.workingDir);
   };
   return (
     <ComposedModal

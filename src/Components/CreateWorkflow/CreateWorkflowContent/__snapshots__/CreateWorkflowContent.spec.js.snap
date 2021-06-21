@@ -206,11 +206,9 @@ exports[`CreateWorkflowContent --- Snapshot Test Capturing Snapshot of CreateWor
             class="bx--text-area__wrapper"
           >
             <textarea
-              aria-placeholder=""
               class="bx--text-area"
               cols="50"
               id="description"
-              placeholder=""
               rows="4"
               style="resize: none; width: 100%;"
             />

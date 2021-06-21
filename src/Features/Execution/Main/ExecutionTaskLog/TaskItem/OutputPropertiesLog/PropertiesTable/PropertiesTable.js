@@ -24,7 +24,6 @@ function PropertiesTable({ data: properties, hasJsonValues = false }) {
       return value ?? "---";
     }
   };
-
   return (
     <div className={styles.tableContainer}>
       {properties && properties.length > 0 ? (

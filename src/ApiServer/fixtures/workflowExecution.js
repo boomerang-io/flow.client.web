@@ -81,6 +81,22 @@ const workflowExecution = {
       outputs: {
         "#Mon Oct 19 22:58:01 GMT 2020": "",
       },
+      error: {
+        code: "001",
+        message: "This is a task level special error",
+      },
+      results: [
+        {
+          name: "organizations",
+          description: "List of the organizations",
+          value: "Testing value",
+        },
+        {
+          name: "test",
+          description: "Test description",
+          value: "Testing value",
+        },
+      ],
     },
     {
       activityId: "5f8e19ee8f268161b4beb242",
@@ -130,6 +146,10 @@ const workflowExecution = {
   ],
   teamName: "AMHTest2",
   awaitingApproval: false,
+  error: {
+    code: "002",
+    message: "This is a top level special error",
+  },
 };
 
 export default workflowExecution;

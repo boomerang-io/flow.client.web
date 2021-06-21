@@ -43,7 +43,7 @@
     background-color: #92eeee;
   }
 
-  &.failure {
+  &.failure, &.cancelled {
     background-color: #fcd0d3;
   }
 
