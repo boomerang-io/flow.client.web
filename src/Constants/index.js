@@ -93,6 +93,7 @@ export const NodeType = {
   Acquirelock: "acquirelock",
   Releaselock: "releaselock",
   RunWorkflow: "runworkflow",
+  Script: "script",
 };
 
 export const QueryStatus = {

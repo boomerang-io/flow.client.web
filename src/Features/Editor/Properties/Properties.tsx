@@ -7,13 +7,16 @@ import WorkflowPropertiesModal from "./PropertiesModal";
 import WorkflowCloseButton from "Components/WorkflowCloseButton";
 import capitalize from "lodash/capitalize";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import { WorkflowPropertyUpdateType } from "Constants";
+import { InputType, WorkflowPropertyUpdateType } from "Constants";
 import { DataDrivenInput, ModalTriggerProps, WorkflowSummary } from "Types";
+import { stringToPassword } from "Utils/stringHelper";
 import styles from "./Properties.module.scss";
 
-const formatDefaultValue = (value: string | undefined) => {
+const formatDefaultValue = ({ type, value }: { type: string | undefined; value: string | undefined }) => {
   if (!value) {
     return "---";
+  } else if (type === InputType.Password) {
+    return stringToPassword(value);
   } else {
     return value;
   }
@@ -42,7 +45,7 @@ const WorkflowPropertyHeader: React.FC<WorkflowPropertyHeaderProps> = ({ label, 
   return (
     <div className={styles.headerContainer}>
       <h1 className={styles.label}>{label}</h1>
-      <p className={styles.description}>{formatDefaultValue(description)}</p>
+      <p className={styles.description}>{formatDefaultValue({ value: description })}</p>
     </div>
   );
 };
@@ -114,10 +117,15 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
             <WorkflowPropertyRow title="Key" value={property.key} />
             <WorkflowPropertyRow title="Type" value={property.type} />
             <WorkflowPropertyRow title="Event Payload JsonPath" value={property.jsonPath ?? "---"} />
-            <WorkflowPropertyRow title="Default value" value={formatDefaultValue(property.defaultValue)} />
+            <WorkflowPropertyRow
+              title="Default value"
+              value={formatDefaultValue({ type: property.type, value: property.defaultValue })}
+            />
             <WorkflowPropertyRow
               title="Options"
-              value={formatDefaultValue(property.options?.map((option: { key: string }) => option.key).join(", "))}
+              value={formatDefaultValue({
+                value: property.options?.map((option: { key: string }) => option.key).join(", "),
+              })}
             />
             {property.required ? (
               <p className={styles.required}>Required</p>

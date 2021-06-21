@@ -142,12 +142,16 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
     onSave({ version: newTaskTemplateVersion.version, inputs: values });
     closeModal();
   };
-
+  const formatInitialValues = {};
+  newTaskTemplateVersion.config.forEach(input => {
+    const initialValue = nodeConfig.inputs[input.key];
+    formatInitialValues[input.key] = Boolean(initialValue) ? initialValue : input.defaultValue;
+  });
   return (
     <DynamicFormik
       allowCustomPropertySyntax
       validateOnMount
-      initialValues={nodeConfig.inputs}
+      initialValues={formatInitialValues}
       inputs={newTaskTemplateVersion.config}
       onSubmit={handleSubmit}
       dataDrivenInputProps={{
@@ -177,7 +181,7 @@ export default function TaskUpdateModal({ closeModal, inputProperties, nodeConfi
                     <DataDrivenInput
                       {...input}
                       readOnly
-                      value={nodeConfig.inputs[input.key]}
+                      value={Boolean(nodeConfig.inputs[input.key]) ? nodeConfig.inputs[input.key] : input.defaultValue}
                       id={`${input.key}-current`}
                       orientation={input.type === "boolean" ? "vertical" : undefined}
                     />

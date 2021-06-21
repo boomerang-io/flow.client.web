@@ -28,6 +28,13 @@ export function revisionReducer(state, action) {
       state.hasUnsavedUpdates = true;
       return state;
     }
+    case RevisionActionTypes.UpdateNodeConfigWithResult: {
+      const { nodeId, inputs, outputs } = action.data;
+      state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
+      state.config[nodeId].outputs = outputs;
+      state.hasUnsavedUpdates = true;
+      return state;
+    }
     case RevisionActionTypes.UpdateNodeTaskVersion: {
       const { nodeId, inputs, version } = action.data;
       state.dag.nodes.find((node) => node.nodeId === nodeId).templateUpgradeAvailable = false;

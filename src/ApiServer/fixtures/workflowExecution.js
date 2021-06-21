@@ -81,22 +81,22 @@ const workflowExecution = {
       outputs: {
         "#Mon Oct 19 22:58:01 GMT 2020": "",
       },
-      error:{
-        "code":"001",
-        "message":"This is a task level special error"
-     },
-     results: [
+      error: {
+        code: "001",
+        message: "This is a task level special error",
+      },
+      results: [
         {
-          "name": "organizations",
-          "description": "List of the organizations",
-          "value": "[{\"login\":\"Whitewater\",\"id\":8,\"node_id\":\"MDEyOk9yZ2FuaXphdGlvbjg=\",\"url\":\"https://github.ibm.com/api/v3/orgs/Whitewater\",\"repos_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/repos\",\"events_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/events\",\"hooks_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/hooks\",\"issues_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/issues\",\"members_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/members{/member}\",\"public_members_url\":\"https://github.ibm.com/api/v3/orgs/Whitewater/public_members{/member}\",\"avatar_url\":\"https://avatars.github.ibm.com/u/8?\",\"description\":\"\"}]"
+          name: "organizations",
+          description: "List of the organizations",
+          value: "Testing value",
         },
         {
-          "name": "test",
-          "description": "Test description",
-          "value": "Testing value"
-        }
-      ]
+          name: "test",
+          description: "Test description",
+          value: "Testing value",
+        },
+      ],
     },
     {
       activityId: "5f8e19ee8f268161b4beb242",
@@ -146,10 +146,10 @@ const workflowExecution = {
   ],
   teamName: "AMHTest2",
   awaitingApproval: false,
-  error:{
-    "code":"002",
-    "message":"This is a top level special error"
- },
+  error: {
+    code: "002",
+    message: "This is a top level special error",
+  },
 };
 
 export default workflowExecution;

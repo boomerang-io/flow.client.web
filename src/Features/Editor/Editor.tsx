@@ -26,6 +26,7 @@ import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
 import AcquireLockNodeModel from "Utils/dag/acquireLockNode/AcquireLockNodeModel";
 import ReleaseLockNodeModel from "Utils/dag/releaseLockNode/ReleaseLockNodeModel";
 import RunWorkflowNodeModel from "Utils/dag/runWorkflowNode/RunWorkflowNodeModel";
+import ScriptNodeModel from "Utils/dag/scriptNode/ScriptNodeModel";
 
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { AppPath } from "Config/appConfig";
@@ -37,7 +38,7 @@ export default function EditorContainer() {
   // Init revision number state is held here so we can easily refect the data on change via react-query
 
   const [revisionNumber, setRevisionNumber] = useState(0);
-  const { workflowId } = useParams();
+  const { workflowId }: { workflowId: string } = useParams();
 
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
@@ -185,6 +186,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
         queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
+        queryCache.removeQueries(serviceUrl.getWorkflowAvailableParameters({ workflowId }));
       } catch (err) {
         notify(
           <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
@@ -279,6 +281,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           break;
         case NodeType.RunWorkflow:
           node = new RunWorkflowNodeModel(nodeObj);
+          break;
+        case NodeType.Script:
+          node = new ScriptNodeModel(nodeObj);
           break;
         default:
         // no-op

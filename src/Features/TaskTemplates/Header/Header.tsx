@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import {
   Button,
   ComposedModal,
@@ -19,9 +20,10 @@ import VersionHistory from "./VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
 import moment from "moment";
 import { appLink } from "Config/appConfig";
+import { serviceUrl } from "Config/servicesConfig";
 import { taskIcons } from "Utils/taskIcons";
 import { TemplateRequestType, FormProps } from "../constants";
-import { Bee20, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
+import { Bee20, Download16, Save16, Undo16, Reset16, ViewOff16 } from "@carbon/icons-react";
 import { FormikProps } from "formik";
 import { ComposedModalChildProps, ModalTriggerProps, TaskModel } from "Types";
 import styles from "./header.module.scss";
@@ -186,6 +188,7 @@ const Header: React.FC<HeaderProps> = ({
   isLoading,
   cancelRequestRef,
 }) => {
+  const params: any = useParams();
   const TaskIcon = taskIcons.find((icon) => icon.name === selectedTaskTemplate.icon);
   const revisionCount = selectedTaskTemplate.revisions.length;
   const lastUpdated = selectedTaskTemplate?.revisions[revisionCount - 1]?.changelog ?? {};
@@ -326,6 +329,17 @@ const Header: React.FC<HeaderProps> = ({
           </Tag>
         )}
         <VersionHistory changelogs={changelogs} />
+        <TooltipHover direction="right" content="Export latest saved revision of the YAML">
+          <a
+            className={styles.exportYaml}
+            href={serviceUrl.getTaskTemplateYaml({ id: params.id, revision: params.version })}
+            download={`${selectedTaskTemplate.name}.yaml`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Download16 />
+          </a>
+        </TooltipHover>
       </div>
       <p className={styles.lastUpdate}>{`Version ${revisionCount === 1 ? "created" : "updated"} ${moment(
         lastUpdated.date

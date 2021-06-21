@@ -31,10 +31,10 @@ const activityList = {
       trigger: "manual",
       properties: [
         { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+        { key: "artifactory.username", value: "ben@ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+          value: "testKey",
         },
         { key: "db.host", value: "" },
         { key: "db.port", value: "" },
@@ -60,10 +60,10 @@ const activityList = {
       trigger: "manual",
       properties: [
         { key: "tenant.name", value: "acc" },
-        { key: "artifactory.username", value: "iulian.corcoja@ro.ibm.com" },
+        { key: "artifactory.username", value: "ben@ibm.com" },
         {
           key: "artifactory.api_key",
-          value: "AKCp5emG5oc6qQy7jBbCZoZRD9QpApyMLTfZp6EGBmpz1rafd5JPY4v54gT82LwL94gZpbBoo",
+          value: "testKey",
         },
         { key: "db.host", value: "" },
         { key: "db.port", value: "" },

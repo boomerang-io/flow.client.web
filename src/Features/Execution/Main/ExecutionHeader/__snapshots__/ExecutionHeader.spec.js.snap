@@ -70,11 +70,15 @@ exports[`ExecutionHeader --- Snapshot Capturing Snapshot of ExecutionHeader 1`] 
         <div
           class="bx--bmrg-feature-header__header"
         >
-          <h1
-            class="bx--bmrg-feature-header-title"
+          <div
+            style="display: flex;"
           >
-            Workflow run detail
-          </h1>
+            <h1
+              class="bx--bmrg-feature-header-title"
+            >
+              Workflow run detail
+            </h1>
+          </div>
         </div>
       </section>
       <div
@@ -147,9 +151,12 @@ exports[`ExecutionHeader --- Snapshot Capturing Snapshot of ExecutionHeader 1`] 
           <dd
             class="dataValue"
           >
-            2019-01-01 12:00 AM
+            2020-01-01 12:00 AM
           </dd>
         </dl>
+        <dl
+          class="dataButton"
+        />
       </div>
     </header>
   </div>
