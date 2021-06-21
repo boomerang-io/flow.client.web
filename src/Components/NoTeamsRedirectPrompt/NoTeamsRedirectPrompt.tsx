@@ -27,7 +27,7 @@ const NoTeamsRedirectPrompt = ({ className, style }: NoTeamsRedirectPromptProps)
 
   return (
     <div className={className} style={style}>
-      <Error403 header={null} title={title} message={message} />
+      <Error403 header={null} title={title} message={message} theme="boomerang"/>
     </div>
   );
 };

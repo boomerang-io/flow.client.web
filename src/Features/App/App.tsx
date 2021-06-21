@@ -354,7 +354,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           </Route>
 
           <Redirect exact from="/" to={AppPath.Workflows} />
-          <Route path="*" component={Error404} />
+          <Route path="*" component={() => <Error404 theme="boomerang"/>} />
         </Switch>
       </Suspense>
       <NotificationsContainer enableMultiContainer />

@@ -19,6 +19,7 @@ const UnsupportedBrowserPrompt = ({ onDismissWarning }) => {
             </Button>
           </>
         }
+        theme="boomerang"
       />
     </div>
   );

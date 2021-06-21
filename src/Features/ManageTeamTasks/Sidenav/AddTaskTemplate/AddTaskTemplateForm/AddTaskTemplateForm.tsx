@@ -337,6 +337,15 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 value={values.workingDir}
               />
               <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
+              />
+              <TextInput
                 id="command"
                 labelText="Command (optional)"
                 helperText="Override the entry point of the container"
