@@ -79,7 +79,6 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
         setFieldError("file", "Problem parsing input file");
         reject(new DOMException("Problem parsing input file"));
       };
-      console.log("sdsadsada");
       reader.onload = () => {
         try {
           if (typeof reader.result === "string") {
