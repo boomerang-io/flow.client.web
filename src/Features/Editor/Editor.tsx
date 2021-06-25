@@ -168,8 +168,13 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   //Triggers the POST request for refresh availableParameters
   useEffect(() => {
     if(JSON.stringify(revisionConfig) !== JSON.stringify(revisionState)) {
+      const revision = {
+        changelog: revisionState.changelog,
+        config: revisionState.config,
+        dag: revisionState.dag,
+      };
       setRevisionConfig(revisionState);
-      parametersMutation({workflowId, body: revisionState})
+      parametersMutation({workflowId, body: {changelog: revision}})
     }
   }, [parametersMutation, workflowId, revisionState, revisionConfig]);
 
