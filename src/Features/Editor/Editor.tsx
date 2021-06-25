@@ -43,7 +43,7 @@ export default function EditorContainer() {
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
   const getTaskTemplatesUrl = serviceUrl.getWorkflowTaskTemplates({ workflowId });
-  const getAvailableParametersUrl = serviceUrl.getWorkflowAvailableParameters({ workflowId });
+  const getAvailableParametersUrl = serviceUrl.workflowAvailableParameters({ workflowId });
 
   /**
    * Queries
@@ -66,6 +66,9 @@ export default function EditorContainer() {
       queryCache.invalidateQueries(getSummaryUrl);
     },
   });
+  const [parametersMutation] = useMutation(resolver.postWorkflowAvailableParameters, {
+    onSuccess: (response) => queryCache.setQueryData(serviceUrl.workflowAvailableParameters({workflowId}), response.data),
+  });
 
   // Only show loading for the summary and task templates
   // Revision takes longer and we want to show a separate loading animation for it, plus prevent remounting everything
@@ -85,6 +88,7 @@ export default function EditorContainer() {
         availableParametersQueryData={availableParametersQuery.data}
         mutateRevision={mutateRevision}
         mutateSummary={mutateSummary}
+        parametersMutation={parametersMutation}
         revisionMutation={revisionMutation}
         revisionQuery={revisionQuery}
         summaryData={summaryQuery.data}
@@ -109,6 +113,10 @@ interface EditorStateContainerProps {
     variables: { body: any },
     options?: MutateOptions<AxiosResponse<any>, { body: any }, Error> | undefined
   ) => Promise<any>;
+  parametersMutation:(
+    variables: { workflowId: any; body: any; }, 
+    options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any; }, Error, unknown> | undefined 
+  ) => Promise<any>;
   revisionMutation: MutationResult<AxiosResponse<any>, Error>;
   revisionQuery: QueryResult<WorkflowRevision, Error>;
   summaryData: WorkflowSummary;
@@ -126,6 +134,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   availableParametersQueryData,
   mutateRevision,
   mutateSummary,
+  parametersMutation,
   revisionMutation,
   revisionQuery,
   summaryData,
@@ -145,6 +154,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     initRevisionReducerState(revisionQuery.data)
   );
 
+  const [revisionConfig, setRevisionConfig] = useState<WorkflowRevision>({...revisionState});
   // Reset the reducer state if there is new data
   useEffect(() => {
     if (revisionQuery.data) {
@@ -154,6 +164,14 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       });
     }
   }, [revisionDispatch, revisionQuery.data]);
+
+  //Triggers the POST request for refresh availableParameters
+  useEffect(() => {
+    if(JSON.stringify(revisionConfig) !== JSON.stringify(revisionState)) {
+      setRevisionConfig(revisionState);
+      parametersMutation({workflowId, body: revisionState})
+    }
+  }, [parametersMutation, workflowId, revisionState, revisionConfig]);
 
   /**
    *
@@ -186,7 +204,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
         queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
-        queryCache.removeQueries(serviceUrl.getWorkflowAvailableParameters({ workflowId }));
+        queryCache.removeQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
       } catch (err) {
         notify(
           <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
