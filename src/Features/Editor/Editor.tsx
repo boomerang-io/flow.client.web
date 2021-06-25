@@ -174,7 +174,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         dag: revisionState.dag,
       };
       setRevisionConfig(revisionState);
-      parametersMutation({workflowId, body: {changelog: revision}})
+      parametersMutation({workflowId, body: revision})
     }
   }, [parametersMutation, workflowId, revisionState, revisionConfig]);
 
