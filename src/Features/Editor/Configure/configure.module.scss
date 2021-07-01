@@ -1,16 +1,5 @@
 @import "Styles/mixins";
 
-.largeCol {
-  border-right: 0.0625rem solid var(--cds-text-03);
-  width: 35%;
-  height: 100vh;
-}
-
-.smallCol {
-  border-right: 0.0625rem solid var(--cds-text-03);
-  width: 30%;
-}
-
 .delimiter {
   border: 0;
   border-top: 0.0625rem solid var(--cds-text-03);
@@ -19,9 +8,13 @@
 }
 
 .wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: 35% 35% 30%;
+  grid-auto-rows: min-content;
   height: calc(100vh - 12.125rem);
+  min-width: 64rem;
   overflow: auto;
+  width: 100vw;
 
   :global .bx--text-area__wrapper {
     width: 100%;
@@ -49,7 +42,11 @@
 }
 
 .largeCol {
+  border-right: 0.0625rem solid var(--cds-text-03);
+  height: 100%;
+  min-height: fit-content;
   padding: 0 2rem 2rem 2rem;
+  width: 100%;
 
   &:last-child {
     border: 0;
@@ -57,8 +54,12 @@
 }
 
 .smallCol {
+  border-right: 0.0625rem solid var(--cds-text-03);
+  min-height: fit-content;
   padding: 0 2rem 2rem 2rem;
+  width: 100%;
 }
+
 .teamSelect {
   input + div[role="button"] {
     display: none;
@@ -71,16 +72,17 @@
   margin: 2rem 0 1rem 0;
 }
 
-.iconsWrapper {
-  display: flex;
-  flex-flow: wrap;
+.icons {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, 2.7rem);
 
   :global .bx--assistive-text {
     text-transform: capitalize;
   }
 }
 
-.iconLabel {
+.icon {
   align-items: center;
   border: 0.125rem solid transparent;
   border-radius: 5rem;
@@ -117,7 +119,7 @@
     }
   }
 
-  img {
+  svg {
     height: 2.5rem;
     padding: 0.25rem 0.425rem;
     width: 2.5rem;
@@ -130,16 +132,6 @@
   &:hover {
     background: #bae6ff;
   }
-
-  &:first-child {
-    margin: 0;
-  }
-}
-
-.icon {
-  height: 2.5rem;
-  padding: 0.25rem 0.425rem;
-  width: 2.5rem;
 }
 
 .toggleContainer {

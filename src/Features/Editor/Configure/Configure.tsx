@@ -11,6 +11,7 @@ import {
   TextArea,
   TextInput,
   Toggle,
+  TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import CronJobModal from "./CronJobModal";
 import cx from "classnames";
@@ -318,25 +319,27 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
             />
           </div>
           <h2 className={styles.iconTitle}>Pick an icon (any icon)</h2>
-          <div className={styles.iconsWrapper}>
+          <div className={styles.icons}>
             {workflowIcons.map(({ name, Icon }, index) => (
-              <label
-                className={cx(styles.iconLabel, {
-                  [styles.active]: values.icon === name,
-                })}
-                key={`icon-number-${index}`}
-                title={capitalize(name)}
-              >
-                <input
-                  id="icon"
-                  readOnly
-                  checked={values.icon === name}
-                  onClick={this.handleOnChange}
-                  value={name}
-                  type="radio"
-                />
-                <Icon key={`${name}-${index}`} alt={`${name} icon`} className={styles.icon} />
-              </label>
+              <TooltipHover direction="top" tooltipText={capitalize(name)}>
+                <label
+                  className={cx(styles.icon, {
+                    [styles.active]: values.icon === name,
+                  })}
+                  key={`icon-number-${index}`}
+                  title={capitalize(name)}
+                >
+                  <input
+                    id="icon"
+                    readOnly
+                    checked={values.icon === name}
+                    onClick={this.handleOnChange}
+                    value={name}
+                    type="radio"
+                  />
+                  <Icon key={`${name}-${index}`} alt={`${name} icon`} />
+                </label>
+              </TooltipHover>
             ))}
           </div>
         </section>
@@ -540,7 +543,8 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
           <div className={styles.labelsContainer}>
             <h1 className={styles.header}>Custom Labels</h1>
             <p className={styles.subTitle}>
-              Create custom labels that will be used at execution time and can be useful in debugging the workflow in Kubernetes. 
+              Create custom labels that will be used at execution time and can be useful in debugging the workflow in
+              Kubernetes.
               <a
                 aria-describedby="new-window-aria-desc-0"
                 className={styles.link}
@@ -560,10 +564,10 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                   render={(arrayHelpers) =>
                     values.labels.map((label, index) => {
                       return (
-                        <CustomLabel 
-                          formikPropsSetFieldValue={setFieldValue} 
-                          isEdit 
-                          editTrigger={({openModal}: { openModal: () => void }) =>(
+                        <CustomLabel
+                          formikPropsSetFieldValue={setFieldValue}
+                          isEdit
+                          editTrigger={({ openModal }: { openModal: () => void }) => (
                             <Tag
                               type="teal"
                               key={index}
@@ -573,9 +577,10 @@ class Configure extends Component<ConfigureProps, ConfigureState> {
                               selectedLabel={label}
                             >
                               {`${label.key}=${label.value}`}
-                            </Tag>)}
+                            </Tag>
+                          )}
                           labels={values.labels}
-                          selectedLabel={{...label, index}}
+                          selectedLabel={{ ...label, index }}
                         />
                       );
                     })
