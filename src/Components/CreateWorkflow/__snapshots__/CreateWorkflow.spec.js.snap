@@ -95,6 +95,7 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
           >
             <div
               class="bx--bmrg-radio-group"
+              style="--height: 6rem;"
             >
               <div
                 class="bx--form-item"
