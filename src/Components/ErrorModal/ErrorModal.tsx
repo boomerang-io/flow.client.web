@@ -1,18 +1,15 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
-import {
-  ModalForm,
-  ModalBody,
-} from "@boomerang-io/carbon-addons-boomerang-react";
+import { ModalForm, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./errorModal.module.scss";
-import "./markdown.css";
+import "Styles/markdown.css";
 
 interface ErrorModalProps {
   errorCode: string;
   errorMessage: string;
 }
 
-function ErrorModal({ errorCode, errorMessage }:ErrorModalProps) {
+function ErrorModal({ errorCode, errorMessage }: ErrorModalProps) {
   return (
     <ModalForm>
       <ModalBody>

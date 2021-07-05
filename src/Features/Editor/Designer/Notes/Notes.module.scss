@@ -1,0 +1,123 @@
+@import "Styles/animation";
+@import "Styles/mixins";
+
+.container {
+  background-color: var(--cds-ui-01);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-left: 2rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: transform $carbon-motion--timing--productive $carbon-motion--easing--productive;
+  z-index: 2;
+
+  &.collapsed {
+    transition: width 100ms $carbon-motion--easing--productive;
+    transform: translate3d(38rem, 0, 0);
+
+    .resizerContainer {
+      cursor: default;
+    }
+
+    .reactMde {
+      opacity: 0;
+    }
+
+    .chevron {
+      transform: scale(-1, 1);
+    }
+  }
+}
+
+.resizerContainer {
+  background-color: transparent;
+  border: none;
+  cursor: col-resize;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 2rem;
+
+  &:focus {
+    @include focus-outline($offset: -0.125rem);
+  }
+}
+
+.collapseButton {
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  padding-top: 0.25rem;
+  position: absolute;
+  left: 0.25rem;
+  top: 0.25rem;
+  width: 1.5rem;
+
+  &:focus {
+    @include focus-outline();
+  }
+}
+
+.chevron {
+  height: 1rem;
+  width: 1rem;
+
+  path {
+    fill: var(--cds-brand-02);
+  }
+}
+
+.notesIcon {
+  color: var(--cds-text-01);
+  margin-top: 0.5rem;
+}
+
+.reactMde {
+  height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+.reactMdePreview {
+  height: calc(100vh - 18rem);
+  overflow-y: auto;
+}
+
+.reactMdeTextArea {
+  min-height: calc(100vh - 18rem) !important;
+
+  &:focus {
+    @include focus-outline();
+  }
+}
+
+.tabButton {
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 0.125rem solid #b9bfc7 !important;
+  color: var(--cds-text-02);
+  font-weight: 300;
+  margin: 0 !important;
+  padding: 0 1.75rem 0.25rem;
+  transition: border-bottom 0.15s cubic-bezier(0.2, 0, 0.38, 0.9), color 0.15s cubic-bezier(0.2, 0, 0.38, 0.9);
+
+  &:hover {
+    border-bottom: 0.125rem solid var(--cds-hover-secondary) !important;
+    color: var(--cds-text-01);
+  }
+
+  &.selected {
+    border-bottom: 0.125rem solid var(--cds-support-02) !important;
+    color: var(--cds-text-01);
+    font-weight: 600;
+  }
+}
