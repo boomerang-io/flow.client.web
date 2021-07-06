@@ -44,8 +44,14 @@ function Notes({ markdown, updateNotes }: NotesProps) {
   const resize = (event: any) => {
     const mousePositionX = event.clientX;
     const increment = mousePositionX - startMousePositionX;
-    const newWidth = totalWidth - increment;
-    if (increment && newWidth > minWidth && newWidth < maxWidth) {
+    let newWidth = totalWidth - increment;
+
+    if (increment) {
+      if (newWidth < minWidth) {
+        newWidth = minWidth;
+      } else if (newWidth > maxWidth) {
+        newWidth = maxWidth;
+      }
       setTotalWidth(newWidth);
     }
   };
@@ -77,29 +83,32 @@ function Notes({ markdown, updateNotes }: NotesProps) {
           <RequestQuote24 className={styles.notesIcon} />
         </button>
       </button>
-      <ReactMde
-        value={markdown}
-        onChange={handleChangeMarkdown}
-        selectedTab={selectedTab}
-        onTabChange={setSelectedTab}
-        toolbarCommands={mdeToolbarCommands}
-        classes={{
-          reactMde: styles.reactMde,
-          textArea: styles.reactMdeTextArea,
-          preview: styles.reactMdePreview,
-        }}
-        childProps={{
-          writeButton: {
-            className: cx(styles.tabButton, { [styles.selected]: selectedTab === mdeTabs.Write }),
-          },
-          previewButton: {
-            className: cx(styles.tabButton, { [styles.selected]: selectedTab === mdeTabs.Preview }),
-          },
-        }}
-        generateMarkdownPreview={(markdown) =>
-          Promise.resolve(<ReactMarkdown className="markdown-body" source={markdown} />)
-        }
-      />
+      <div className={styles.notesContainer}>
+        <h1 className={styles.notesHeading}>Notes</h1>
+        <ReactMde
+          value={markdown}
+          onChange={handleChangeMarkdown}
+          selectedTab={selectedTab}
+          onTabChange={setSelectedTab}
+          toolbarCommands={mdeToolbarCommands}
+          classes={{
+            reactMde: styles.reactMde,
+            textArea: styles.reactMdeTextArea,
+            preview: styles.reactMdePreview,
+          }}
+          childProps={{
+            writeButton: {
+              className: cx(styles.tabButton, { [styles.selected]: selectedTab === mdeTabs.Write }),
+            },
+            previewButton: {
+              className: cx(styles.tabButton, { [styles.selected]: selectedTab === mdeTabs.Preview }),
+            },
+          }}
+          generateMarkdownPreview={(markdown) =>
+            Promise.resolve(<ReactMarkdown className="markdown-body" source={markdown} />)
+          }
+        />
+      </div>
     </aside>
   );
 }

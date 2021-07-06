@@ -79,20 +79,33 @@
   margin-top: 0.5rem;
 }
 
-.reactMde {
+.notesContainer {
   height: 100%;
+  width: 100%;
+}
+
+.notesHeading {
+  color: var(--cds-text-01);
+  font-size: 1.125rem;
+  font-weight: 300;
+  line-height: 1.4375rem;
+  margin: 1rem;
+}
+
+.reactMde {
+  height: calc(100% - 3.5rem);
   max-width: 100%;
   overflow: hidden;
   width: 100%;
 }
 
 .reactMdePreview {
-  height: calc(100vh - 18rem);
+  height: calc(100vh - 19.5rem);
   overflow-y: auto;
 }
 
 .reactMdeTextArea {
-  min-height: calc(100vh - 18rem) !important;
+  min-height: calc(100vh - 19.5rem) !important;
 
   &:focus {
     @include focus-outline();
