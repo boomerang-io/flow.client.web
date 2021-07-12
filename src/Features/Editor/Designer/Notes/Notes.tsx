@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import cx from "classnames";
 import ReactMde from "react-mde";
 import ReactMarkdown from "react-markdown";
-import { ChevronRight16, RequestQuote24 } from "@carbon/icons-react";
+import { ChevronRight16, DragHorizontal24, RequestQuote24 } from "@carbon/icons-react";
 import styles from "./Notes.module.scss";
 import "react-mde/lib/styles/css/react-mde-all.css";
 import "Styles/markdown.css";
@@ -82,6 +82,7 @@ function Notes({ markdown, updateNotes }: NotesProps) {
           <ChevronRight16 className={styles.chevron} />
           <RequestQuote24 className={styles.notesIcon} />
         </button>
+        {isSidenavOpen && <DragHorizontal24 className={styles.dragIcon} />}
       </button>
       <div className={styles.notesContainer}>
         <h1 className={styles.notesHeading}>Notes</h1>
