@@ -65,7 +65,6 @@ export const serviceUrl = {
   getUserProfile: () => `${BASE_URL}/users/profile`,
 
   getWorkflow: ({ id }) => `${BASE_URL}/workflow/${id}`,
-  getWorkflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
 
   getWorkflowChangelog: ({ workflowId, query }) =>
     `${BASE_URL}/workflow/${workflowId}/changelog${query ? "?" + query : ""}`,
@@ -90,6 +89,7 @@ export const serviceUrl = {
   putWorkflowApproval: () => `${BASE_URL}/approvals/action`,
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_URL}/settings`,
+  workflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
 };
 
 export const cancellableResolver = ({ url, method, body, headers, ...config }) => {
@@ -124,7 +124,7 @@ export const resolver = {
     cancellableResolver({ url: serviceUrl.resourceManageUser({ userId }), body, method: HttpMethod.Patch }),
   postValidateYaml: ({ body }) =>
     axios({
-      method: "post",
+      method: HttpMethod.Post,
       url: serviceUrl.postValidateYaml(),
       data: body,
       headers: {
@@ -169,6 +169,8 @@ export const resolver = {
   postImportWorkflow: ({ query, body }) => axios.post(serviceUrl.getWorkflowImport({ query }), body),
   postTeamPropertyRequest: ({ id, body }) =>
     cancellableResolver({ url: serviceUrl.getTeamProperties({ id }), body, method: HttpMethod.Post }),
+  postWorkflowAvailableParameters: ({ workflowId, body }) =>
+    axios.post(serviceUrl.workflowAvailableParameters({ workflowId }), body),
   putActivationApp: ({ body }) =>
     axios({
       method: HttpMethod.Put,

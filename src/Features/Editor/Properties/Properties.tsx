@@ -59,7 +59,7 @@ const Properties: React.FC<PropertiesProps> = ({ summaryData }) => {
     resolver.patchUpdateWorkflowProperties,
     {
       onSuccess: () => {
-        queryCache.invalidateQueries(serviceUrl.getWorkflowAvailableParameters({ workflowId: summaryData.id }));
+        queryCache.invalidateQueries(serviceUrl.workflowAvailableParameters({ workflowId: summaryData.id }));
       },
     }
   );
