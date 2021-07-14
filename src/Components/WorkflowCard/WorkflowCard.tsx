@@ -109,6 +109,7 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
 
   const handleDuplicateWorkflow = async (workflow: WorkflowSummary) => {
     const duplicateWorkflow = cloneDeep(workflow);
+    delete duplicateWorkflow.id;
     duplicateWorkflow.name = `${workflow.name} (duplicate)`;
     try {
       const { data: newWorkflow } = await createWorkflowMutator({ body: duplicateWorkflow });
