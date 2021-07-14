@@ -12,7 +12,7 @@ import {
   ToastNotification,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { serviceUrl, resolver } from "Config/servicesConfig";
-import "./markdown.css";
+import "Styles/markdown.css";
 
 function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }) {
   const cancelRequestRef = React.useRef();

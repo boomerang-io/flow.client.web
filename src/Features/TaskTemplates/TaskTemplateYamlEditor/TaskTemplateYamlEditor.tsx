@@ -36,7 +36,7 @@ import "codemirror/addon/fold/brace-fold.js";
 import "codemirror/addon/fold/indent-fold.js";
 import "codemirror/addon/fold/comment-fold.js";
 import "codemirror/addon/comment/comment.js";
-import "./markdown.css";
+import "Styles/markdown.css";
 
 type TaskTemplateYamlEditorProps = {
   taskTemplates: any[];

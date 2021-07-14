@@ -1,6 +1,8 @@
 .container {
   display: flex;
   height: calc(100vh - 12.125rem);
+  position: relative;
+  overflow-x: hidden;
 
   .workflowContainer {
     display: flex;

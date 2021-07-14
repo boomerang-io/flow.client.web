@@ -5,6 +5,7 @@ export const RevisionActionTypes = {
   Set: "SET",
   UpdateNodeConfig: "UPDATE_NODE_CONFIG",
   UpdateNodeTaskVersion: "UPDATE_NODE_TASK_VERSION",
+  UpdateNotes: "UPDATE_Notes",
 };
 
 export function revisionReducer(state, action) {
@@ -40,6 +41,12 @@ export function revisionReducer(state, action) {
       state.dag.nodes.find((node) => node.nodeId === nodeId).templateUpgradeAvailable = false;
       state.config[nodeId].taskVersion = version;
       state.config[nodeId].inputs = { ...state.config[nodeId].inputs, ...inputs };
+      state.hasUnsavedUpdates = true;
+      return state;
+    }
+    case RevisionActionTypes.UpdateNotes: {
+      const { markdown } = action.data;
+      state.markdown = markdown;
       state.hasUnsavedUpdates = true;
       return state;
     }

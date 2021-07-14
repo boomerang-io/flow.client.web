@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import { DelayedRender, Error, SkeletonPlaceholder, SkeletonText } from "@boomerang-io/carbon-addons-boomerang-react";
 import WorkflowZoom from "Components/WorkflowZoom";
+import Notes from "./Notes";
 import Tasks from "./Tasks";
 import cx from "classnames";
 import { TaskTemplateStatus, QueryStatus } from "Constants";
@@ -14,6 +15,8 @@ import styles from "./designer.module.scss";
 interface DesignerContainerProps {
   createNode: (workflowDagEngine: WorkflowDagEngine, event: React.DragEvent<HTMLDivElement>) => void;
   isModalOpen: boolean;
+  notes: string;
+  updateNotes: ({ markdown }: { markdown: string }) => void;
   revisionQuery: QueryResult<WorkflowRevision, Error>;
   tasks: Array<TaskModel>;
   workflowDagEngine: WorkflowDagEngine | null;
@@ -23,12 +26,14 @@ interface DesignerContainerProps {
 const DesignerContainer: React.FC<DesignerContainerProps> = ({
   createNode,
   isModalOpen,
+  notes,
+  updateNotes,
   revisionQuery,
   tasks,
   workflowDagEngine,
   workflowName,
 }) => {
-  const isRevisionLoading = revisionQuery.status === QueryStatus.Loading
+  const isRevisionLoading = revisionQuery.status === QueryStatus.Loading;
   return (
     <div className={styles.container}>
       <Helmet>
@@ -40,7 +45,10 @@ const DesignerContainer: React.FC<DesignerContainerProps> = ({
       ) : revisionQuery.error ? (
         <Error />
       ) : (
-        <Designer createNode={createNode} isModalOpen={isModalOpen} workflowDagEngine={workflowDagEngine} />
+        <>
+          <Designer createNode={createNode} isModalOpen={isModalOpen} workflowDagEngine={workflowDagEngine} />
+          <Notes markdown={notes} updateNotes={updateNotes} />
+        </>
       )}
     </div>
   );
