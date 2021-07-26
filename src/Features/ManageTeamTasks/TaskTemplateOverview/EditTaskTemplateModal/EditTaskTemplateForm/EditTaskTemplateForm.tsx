@@ -15,7 +15,6 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
-import { NodeType } from "Constants";
 
 EditTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func,
@@ -69,10 +68,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
           .min(4, "Description must be at least four characters")
           .max(200, "Description must be less than 60 characters")
           .required("Description is required"),
-        arguments: Yup.string().when("nodeType", {
-          is: (nodeType) => nodeType !== NodeType.CustomTask,
-          then: Yup.string().required("Arguments are required"),
-        }),
+        arguments: Yup.string().nullable(),
         command: Yup.string().nullable(),
         script: Yup.string().nullable(),
         image: Yup.string().nullable(),
@@ -122,10 +118,10 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onChange={handleChange}
                 value={values.description}
               />
-              <TextInput
+              <TextArea
                 id="arguments"
-                labelText="Arguments"
-                helperText="Enter arguments delimited by a space character"
+                labelText="Arguments (optional)"
+                helperText="Enter arguments delimited by a new line"
                 placeholder="e.g. system sleep"
                 name="arguments"
                 value={values.arguments}
@@ -154,7 +150,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onChange={handleChange}
                 value={values.workingDir}
               />
-              <TextInput
+              <TextArea
                 id="command"
                 labelText="Command (optional)"
                 helperText="Override the entry point of the container"

@@ -314,8 +314,8 @@ export function TaskTemplateOverview({
       newRevisionConfig = {
         version: selectedTaskTemplate.currentVersion,
         image: values.image,
-        command: values.command,
-        arguments: values.arguments.trim().split(/\s{1,}/),
+        command: values.command.trim().split(/\n{1,}/),
+        arguments: values.arguments.trim().split(/\n{1,}/),
         config: values.currentConfig,
         script: values.script,
         workingDir: values.workingDir,
@@ -340,8 +340,8 @@ export function TaskTemplateOverview({
       newRevisionConfig = {
         version: newVersion,
         image: values.image,
-        command: values.command,
-        arguments: values.arguments.trim().split(/\s{1,}/),
+        command: values.command.trim().split(/\n{1,}/),
+        arguments: values.arguments.trim().split(/\n{1,}/),
         config: values.currentConfig,
         script: values.script,
         workingDir: values.workingDir,

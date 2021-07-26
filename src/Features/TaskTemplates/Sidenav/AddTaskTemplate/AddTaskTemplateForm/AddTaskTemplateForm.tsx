@@ -94,9 +94,9 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
     });
     let newRevisionConfig = {
       version: 1,
-      arguments: values.arguments.trim().split(/\s{1,}/),
+      arguments: values.arguments.trim().split(/\n{1,}/),
       image: values.image,
-      command: values.command,
+      command: values.command.trim().split(/\n{1,}/),
       scipt: values.script,
       workingDir: values.workingDir,
       envs: newEnvs,
@@ -313,10 +313,10 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalid={errors.image && touched.image}
                 invalidText={errors.image}
               />
-              <TextInput
+              <TextArea
                 id="arguments"
                 labelText="Arguments (optional)"
-                helperText="Enter arguments delimited by a space character"
+                helperText="Enter arguments delimited by a new line"
                 placeholder="e.g. system sleep"
                 name="arguments"
                 value={values.arguments}
@@ -343,7 +343,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 onChange={handleChange}
                 value={values.workingDir}
               />
-              <TextInput
+              <TextArea
                 id="command"
                 labelText="Command (optional)"
                 helperText="Override the entry point of the container"
