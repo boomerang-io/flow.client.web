@@ -9,7 +9,7 @@ const taskTemplate = [
       {
         version: 1,
         image: "",
-        command: "",
+        command: ["npm start", "run test", "cd .."],
         arguments: ["slack", "lookUpUser"],
         config: [
           { placeholder: "", readOnly: false, description: "", key: "token", label: "Token", type: "text" },
