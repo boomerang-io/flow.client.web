@@ -71,22 +71,24 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
    * @param file {File}
    * @return {Promise}
    */
-  const readFile = (file: any): Promise<WorkflowExport> => {
+  const readFile = (file: any, setFieldError: (field: string, errorMsg: string) => void): Promise<WorkflowExport> => {
     const reader = new FileReader();
     return new Promise((resolve, reject) => {
       reader.onerror = () => {
         reader.abort();
+        setFieldError("file", "Problem parsing input file");
         reject(new DOMException("Problem parsing input file"));
       };
-
       reader.onload = () => {
         try {
           if (typeof reader.result === "string") {
             resolve(JSON.parse(reader.result));
           } else {
+            setFieldError("file", "Something went wrong");
             throw new Error();
           }
         } catch (e) {
+          setFieldError("file", "Problem parsing input file as JSON");
           reject(new DOMException("Problem parsing input file as JSON"));
           return;
         }
@@ -105,7 +107,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
   };
 
   const handleSubmit = async (values: any) => {
-    const fileData: WorkflowExport = await readFile(values.file);
+    const fileData: WorkflowExport = values.file.contents;
     importWorkflow(
       {
         ...fileData,
@@ -149,8 +151,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
             let isValid = true;
             if (file) {
               try {
-                let contents = await readFile(file);
-                isValid = checkIsValidWorkflow(contents);
+                isValid = checkIsValidWorkflow(file.contents);
               } catch (e) {
                 console.error(e);
                 isValid = false;
@@ -163,7 +164,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
       })}
     >
       {(props: FormikProps<FormProps>) => {
-        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue } = props;
+        const { values, touched, errors, isValid, handleChange, handleBlur, handleSubmit, setFieldValue, setFieldError } = props;
         return (
           <>
             {isLoading && <Loading />}
@@ -174,9 +175,17 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                 labelText={FILE_UPLOAD_MESSAGE}
                 name="Workflow"
                 multiple={false}
-                onAddFiles={(event: React.SyntheticEvent, { addedFiles }: { addedFiles: { name: string }[] }) =>
-                  setFieldValue("file", addedFiles[0])
-                }
+                onAddFiles={async (event: React.SyntheticEvent, { addedFiles }: { addedFiles: { name: string, size: number }[] }) => {
+                  let contents = await readFile(addedFiles[0], setFieldError);
+                  let fileInfo = {
+                    contents,
+                    size: addedFiles[0]?.size ?? 0,
+                    name: addedFiles[0]?.name ?? "",
+                  };
+                  setFieldValue("file", fileInfo);
+                  setFieldValue("name", contents?.name ?? "");
+                  setFieldValue("summary", contents?.shortDescription ?? "");
+                }}
               />
               {values.file && (
                 <FileUploaderItem
@@ -187,7 +196,7 @@ const ImportWorkflowContent: React.FC<ImportWorkflowContentProps> = ({
                   }}
                 />
               )}
-              {values.file ? (
+              {values.file || errors.file ? (
                 Boolean(errors.file) ? (
                   <div className={styles.validMessage}>
                     <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
