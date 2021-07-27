@@ -167,7 +167,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         description: Yup.string()
           .lowercase()
           .min(4, "Description must be at least four characters")
-          .max(200, "The description must be less than 60 characters")
+          .max(200, "The description must be less than 200 characters")
           .required("Description is required"),
         icon: Yup.object().shape({
           value: Yup.string().required(),
@@ -293,15 +293,18 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 selectedIcon={values.icon}
                 iconOptions={orderedIcons}
               />
-              <TextArea
-                id="description"
-                invalid={errors.description && touched.description}
-                invalidText={errors.description}
-                labelText="Description"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.description}
-              />
+              <div className={styles.description}>
+                <p className={styles.descriptionLength}>{values.description.length}/200</p>
+                <TextArea
+                  id="description"
+                  invalid={errors.description && touched.description}
+                  invalidText={errors.description}
+                  labelText="Description"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.description}
+                />
+              </div>
               <TextInput
                 id="image"
                 labelText="Image (optional)"
@@ -326,24 +329,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalidText={errors.arguments}
               />
               <TextInput
-                id="workingDir"
-                invalid={errors.workingDir && touched.workingDir}
-                invalidText={errors.workingDir}
-                labelText="Working Directory (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.workingDir}
-              />
-              <TextInput
-                id="workingDir"
-                invalid={errors.workingDir && touched.workingDir}
-                invalidText={errors.workingDir}
-                labelText="Working Directory (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.workingDir}
-              />
-              <TextInput
                 id="command"
                 labelText="Command (optional)"
                 helperText="Override the entry point of the container"
@@ -353,6 +338,15 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 onChange={handleChange}
                 invalid={errors.command && touched.command}
                 invalidText={errors.command}
+              />
+              <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
               />
               <TextArea
                 id="script"
