@@ -9,7 +9,8 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
+import capitalize from "lodash/capitalize";
+import { Button, ModalBody, ModalFooter, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
 import { defaultWorkflowConfig } from "./constants";
 import { ComboBoxItem, FlowTeam, CreateWorkflowSummary } from "Types";
@@ -148,24 +149,24 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
               />
               <h2 className={styles.iconsTitle}>Pick an icon (any icon)</h2>
               <div className={styles.icons}>
-                {workflowIcons.map(({ name, Icon }, index) => (
-                  <label
-                    key={index}
-                    //@ts-ignore
-                    className={classnames({
-                      icon: true,
-                      "--active": values.icon === name,
-                    })}
-                  >
-                    <input
-                      type="radio"
-                      value={name}
-                      readOnly
-                      onClick={() => setFieldValue("icon", name)}
-                      checked={values.icon === name}
-                    />
-                    <Icon key={`${name}-${index}`} alt={`${name} icon`} />
-                  </label>
+                {workflowIcons.map(({ name, Icon }: any, index) => (
+                  <TooltipHover direction="top" tooltipText={capitalize(name)}>
+                    <label
+                      key={index}
+                      className={classnames(styles.icon, {
+                        [styles.activeIcon]: values.icon === name,
+                      })}
+                    >
+                      <input
+                        type="radio"
+                        value={name}
+                        readOnly
+                        onClick={() => setFieldValue("icon", name)}
+                        checked={values.icon === name}
+                      />
+                      <Icon key={`${name}-${index}`} alt={`${name} icon`} />
+                    </label>
+                  </TooltipHover>
                 ))}
               </div>
               {createError && (
