@@ -15,7 +15,6 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
-import { NodeType } from "Constants";
 import styles from "./EditTaskTemplateForm.module.scss";
 
 EditTaskTemplateForm.propTypes = {
