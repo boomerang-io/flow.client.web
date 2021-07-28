@@ -96,9 +96,9 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
     });
     let newRevisionConfig = {
       version: 1,
-      arguments: values.arguments.trim().split(/\s{1,}/),
+      arguments: values.arguments.trim().split(/\n{1,}/),
       image: values.image,
-      command: values.command,
+      command: values.command.trim().split(/\n{1,}/),
       script: values.script,
       workingDir: values.workingDir,
       envs: newEnvs,
@@ -318,10 +318,21 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalid={errors.image && touched.image}
                 invalidText={errors.image}
               />
-              <TextInput
+              <TextArea
+                id="command"
+                labelText="Command (optional)"
+                helperText="Overrides the entry point of the container. Delimited by a new line."
+                name="command"
+                value={values.command}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.command && touched.command}
+                invalidText={errors.command}
+              />
+              <TextArea
                 id="arguments"
                 labelText="Arguments (optional)"
-                helperText="Enter arguments delimited by a space character"
+                helperText="Enter arguments delimited by a new line"
                 placeholder="e.g. system sleep"
                 name="arguments"
                 value={values.arguments}
@@ -330,16 +341,15 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
               />
-              <TextInput
-                id="command"
-                labelText="Command (optional)"
-                helperText="Override the entry point of the container"
-                name="command"
-                value={values.command}
+
+              <TextArea
+                id="script"
+                invalid={errors.script && touched.script}
+                invalidText={errors.script}
+                labelText="Script (optional)"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.command && touched.command}
-                invalidText={errors.command}
+                value={values.script}
               />
               <TextInput
                 id="workingDir"
@@ -349,15 +359,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.workingDir}
-              />
-              <TextArea
-                id="script"
-                invalid={errors.script && touched.script}
-                invalidText={errors.script}
-                labelText="Script (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.script}
               />
               <Creatable
                 createKeyValuePair

@@ -7,9 +7,10 @@ import WorkflowNode from "Components/WorkflowNode";
 import styles from "./SetPropertyNodeExecution.module.scss";
 
 import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel";
+import SetStatusNodeModel from "Utils/dag/setStatusNode/setStatusNodeModel";
 
 interface SetPropertyExecutionProps {
-  node: SetPropertyNodeModel;
+  node: SetPropertyNodeModel | SetStatusNodeModel;
 }
 
 const CustomTaskNodeExecution: React.FC<SetPropertyExecutionProps> = (props) => {

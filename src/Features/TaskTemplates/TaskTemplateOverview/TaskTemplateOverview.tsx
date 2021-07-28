@@ -314,8 +314,8 @@ export function TaskTemplateOverview({
       newRevisionConfig = {
         version: selectedTaskTemplate.currentVersion,
         image: values.image,
-        command: values.command,
-        arguments: values.arguments.trim().split(/\s{1,}/),
+        command: values.command.trim().split(/\n{1,}/),
+        arguments: values.arguments.trim().split(/\n{1,}/),
         config: values.currentConfig,
         script: values.script,
         workingDir: values.workingDir,
@@ -340,8 +340,8 @@ export function TaskTemplateOverview({
       newRevisionConfig = {
         version: newVersion,
         image: values.image,
-        command: values.command,
-        arguments: values.arguments.trim().split(/\s{1,}/),
+        command: values.command.trim().split(/\n{1,}/),
+        arguments: values.arguments.trim().split(/\n{1,}/),
         config: values.currentConfig,
         script: values.script,
         workingDir: values.workingDir,
@@ -471,8 +471,12 @@ export function TaskTemplateOverview({
         image: currentRevision.image,
         category: selectedTaskTemplate.category,
         currentConfig: currentRevision.config ?? [],
-        arguments: currentRevision.arguments?.join(" ") ?? "",
-        command: currentRevision.command ?? "",
+        arguments: Array.isArray(currentRevision.arguments)
+          ? currentRevision.arguments?.join("\n")
+          : currentRevision.arguments ?? "",
+        command: Array.isArray(currentRevision.command)
+          ? currentRevision.command?.join("\n")
+          : currentRevision.command ?? "",
         result: currentRevision.results ?? [],
         envs: currentRevision.envs ?? [],
         comments: "",
@@ -590,11 +594,11 @@ export function TaskTemplateOverview({
                     <DetailDataElements value={values.category} label="Category" />
                     <DetailDataElements value={values.icon} label="Icon" />
                     <DetailDataElements value={values.description} label="Description" />
-                    <DetailDataElements value={values.arguments} label="Arguments" />
                     <DetailDataElements value={values.image} label="Image" />
-                    <DetailDataElements value={values.workingDir} label="Working Directory" />
                     <DetailDataElements value={values.command} label="Command" />
+                    <DetailDataElements value={values.arguments} label="Arguments" />
                     <DetailDataElements value={values.script} label="Script" />
+                    <DetailDataElements value={values.workingDir} label="Working Directory" />
                     <DetailDataElements value={values.envs} label="Envs" />
                     <section className={styles.infoSection}>
                       <dt className={styles.label}>Contribution level</dt>

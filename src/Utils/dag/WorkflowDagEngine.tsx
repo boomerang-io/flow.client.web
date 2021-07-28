@@ -15,6 +15,7 @@ import TemplateTaskNodeFactory from "./templateTaskNode/TemplateTaskNodeFactory"
 import ManualApprovalNodeFactory from "./manualApprovalNode/ManualApprovalNodeFactory";
 import ManualTaskNodeFactory from "./manualTaskNode/ManualTaskNodeFactory";
 import SetPropertyNodeFactory from "./setPropertyNode/setPropertyNodeFactory";
+import SetStatusNodeFactory from "./setStatusNode/setStatusNodeFactory";
 import WaitNodeFactory from "./waitNode/waitNodeFactory";
 import AcquireLockNodeFactory from "./acquireLockNode/acquireLockNodeFactory";
 import ReleaseLockNodeFactory from "./releaseLockNode/releaseLockNodeFactory";
@@ -41,6 +42,7 @@ export default class WorkflowDagEngine {
     this.diagramEngine.registerNodeFactory(new ManualApprovalNodeFactory());
     this.diagramEngine.registerNodeFactory(new ManualTaskNodeFactory());
     this.diagramEngine.registerNodeFactory(new SetPropertyNodeFactory());
+    this.diagramEngine.registerNodeFactory(new SetStatusNodeFactory());
     this.diagramEngine.registerNodeFactory(new WaitNodeFactory());
     this.diagramEngine.registerNodeFactory(new AcquireLockNodeFactory());
     this.diagramEngine.registerNodeFactory(new ReleaseLockNodeFactory());

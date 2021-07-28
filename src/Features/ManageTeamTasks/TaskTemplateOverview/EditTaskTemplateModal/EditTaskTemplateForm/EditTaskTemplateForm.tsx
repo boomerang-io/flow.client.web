@@ -15,7 +15,6 @@ import {
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
-import { NodeType } from "Constants";
 import styles from "./EditTaskTemplateForm.module.scss";
 
 EditTaskTemplateForm.propTypes = {
@@ -70,10 +69,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
           .min(4, "Description must be at least four characters")
           .max(200, "Description must be less than 200 characters")
           .required("Description is required"),
-        arguments: Yup.string().when("nodeType", {
-          is: (nodeType) => nodeType !== NodeType.CustomTask,
-          then: Yup.string().required("Arguments are required"),
-        }),
+        arguments: Yup.string().nullable(),
         command: Yup.string().nullable(),
         script: Yup.string().nullable(),
         image: Yup.string().nullable(),
@@ -127,18 +123,6 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 />
               </div>
               <TextInput
-                id="arguments"
-                labelText="Arguments"
-                helperText="Enter arguments delimited by a space character"
-                placeholder="e.g. system sleep"
-                name="arguments"
-                value={values.arguments}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.arguments && touched.arguments}
-                invalidText={errors.arguments}
-              />
-              <TextInput
                 id="image"
                 labelText="Image (optional)"
                 helperText="Path to container image"
@@ -149,10 +133,10 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 invalid={errors.image && touched.image}
                 invalidText={errors.image}
               />
-              <TextInput
+              <TextArea
                 id="command"
                 labelText="Command (optional)"
-                helperText="Override the entry point of the container"
+                helperText="Overrides the entry point of the container. Delimited by a new line."
                 name="command"
                 value={values.command}
                 onBlur={handleBlur}
@@ -170,6 +154,18 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 value={values.workingDir}
               />
               <TextArea
+                id="arguments"
+                labelText="Arguments (optional)"
+                helperText="Enter arguments delimited by a new line"
+                placeholder="e.g. system sleep"
+                name="arguments"
+                value={values.arguments}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.arguments && touched.arguments}
+                invalidText={errors.arguments}
+              />
+              <TextArea
                 id="script"
                 invalid={errors.script && touched.script}
                 invalidText={errors.script}
@@ -177,6 +173,15 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.script}
+              />
+              <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
               />
               <Creatable
                 createKeyValuePair

@@ -22,6 +22,7 @@ import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel"
 import ManualApprovalNodeModel from "Utils/dag/manualApprovalNode/ManualApprovalNodeModel";
 import ManualTaskNodeModel from "Utils/dag/manualTaskNode/ManualTaskNodeModel";
 import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel";
+import SetStatusNodeModel from "Utils/dag/setStatusNode/setStatusNodeModel";
 import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
 import AcquireLockNodeModel from "Utils/dag/acquireLockNode/AcquireLockNodeModel";
 import ReleaseLockNodeModel from "Utils/dag/releaseLockNode/ReleaseLockNodeModel";
@@ -191,17 +192,18 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
    */
   const handleCreateRevision = useCallback(
     async ({ reason = "Update workflow", callback }) => {
-      const normilzedConfig = Object.values(revisionState.config).map((config: any) => ({
+      const normalizedConfig = Object.values(revisionState.config).map((config: any) => ({
         ...config,
         currentVersion: undefined,
         taskVersion: config.currentVersion || config.taskVersion,
       }));
-      const revisionConfig = { nodes: Object.values(normilzedConfig) };
+      const revisionConfig = { nodes: Object.values(normalizedConfig) };
 
       const revision = {
         dag: workflowDagEngine?.getDiagramEngine().getDiagramModel().serializeDiagram(),
         config: revisionConfig,
         changelog: { reason },
+        markdown: revisionState.markdown,
       };
 
       try {
@@ -222,7 +224,15 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         );
       }
     },
-    [mutateRevision, revisionDispatch, revisionState.config, setRevisionNumber, workflowDagEngine, workflowId]
+    [
+      mutateRevision,
+      revisionDispatch,
+      revisionState.config,
+      revisionState.markdown,
+      setRevisionNumber,
+      workflowDagEngine,
+      workflowId,
+    ]
   );
 
   /**
@@ -254,6 +264,16 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       }
     },
     [mutateSummary, summaryData, workflowId]
+  );
+
+  const handleUpdateNotes = useCallback(
+    ({ markdown }) => {
+      revisionDispatch({
+        type: RevisionActionTypes.UpdateNotes,
+        data: { markdown },
+      });
+    },
+    [revisionDispatch]
   );
 
   /**
@@ -298,6 +318,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           break;
         case NodeType.SetProperty:
           node = new SetPropertyNodeModel(nodeObj);
+          break;
+        case NodeType.SetStatus:
+          node = new SetStatusNodeModel(nodeObj);
           break;
         case NodeType.Wait:
           node = new WaitNodeModel(nodeObj);
@@ -359,7 +382,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   };
 
   const { revisionCount } = summaryData;
-  const { version } = revisionState;
+  const { markdown, version } = revisionState;
   const mode = version === revisionCount ? WorkflowDagEngineMode.Editor : WorkflowDagEngineMode.Viewer;
 
   useEffect(() => {
@@ -412,8 +435,10 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               <Designer
                 createNode={handleCreateNode}
                 isModalOpen={isModalOpen}
+                notes={markdown}
                 revisionQuery={revisionQuery}
                 tasks={taskTemplatesData}
+                updateNotes={handleUpdateNotes}
                 workflowDagEngine={workflowDagEngine}
                 workflowName={summaryData.name}
               />
