@@ -316,6 +316,17 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalidText={errors.image}
               />
               <TextArea
+                id="command"
+                labelText="Command (optional)"
+                helperText="Overrides the entry point of the container. Delimited by a new line."
+                name="command"
+                value={values.command}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.command && touched.command}
+                invalidText={errors.command}
+              />
+              <TextArea
                 id="arguments"
                 labelText="Arguments (optional)"
                 helperText="Enter arguments delimited by a new line"
@@ -327,35 +338,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
               />
-              <TextInput
-                id="workingDir"
-                invalid={errors.workingDir && touched.workingDir}
-                invalidText={errors.workingDir}
-                labelText="Working Directory (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.workingDir}
-              />
-              <TextInput
-                id="workingDir"
-                invalid={errors.workingDir && touched.workingDir}
-                invalidText={errors.workingDir}
-                labelText="Working Directory (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.workingDir}
-              />
-              <TextArea
-                id="command"
-                labelText="Command (optional)"
-                helperText="Override the entry point of the container"
-                name="command"
-                value={values.command}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.command && touched.command}
-                invalidText={errors.command}
-              />
               <TextArea
                 id="script"
                 invalid={errors.script && touched.script}
@@ -364,6 +346,15 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.script}
+              />
+              <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
               />
               <Creatable
                 createKeyValuePair

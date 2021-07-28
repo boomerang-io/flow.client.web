@@ -480,8 +480,12 @@ export function TaskTemplateOverview({
         image: currentRevision.image,
         category: selectedTaskTemplate.category,
         currentConfig: currentRevision.config ?? [],
-        arguments: Array.isArray(currentRevision.arguments) ? currentRevision.arguments?.join("\n") : currentRevision.arguments ?? "",
-        command: Array.isArray(currentRevision.command) ? currentRevision.command?.join("\n") : currentRevision.command ?? "",
+        arguments: Array.isArray(currentRevision.arguments)
+          ? currentRevision.arguments?.join("\n")
+          : currentRevision.arguments ?? "",
+        command: Array.isArray(currentRevision.command)
+          ? currentRevision.command?.join("\n")
+          : currentRevision.command ?? "",
         script: currentRevision.script ?? "",
         workingDir: currentRevision.workingDir ?? "",
         result: currentRevision.results ?? [],
@@ -599,11 +603,11 @@ export function TaskTemplateOverview({
                     <DetailDataElements value={values.category} label="Category" />
                     <DetailDataElements value={values.icon} label="Icon" />
                     <DetailDataElements value={values.description} label="Description" />
-                    <DetailDataElements value={values.arguments} label="Arguments" />
                     <DetailDataElements value={values.image} label="Image" />
-                    <DetailDataElements value={values.workingDir} label="Working Directory" />
                     <DetailDataElements value={values.command} label="Command" />
+                    <DetailDataElements value={values.arguments} label="Arguments" />
                     <DetailDataElements value={values.script} label="Script" />
+                    <DetailDataElements value={values.workingDir} label="Working Directory" />
                     <DetailDataElements value={values.envs} label="Envs" />
                     <section className={styles.infoSection}>
                       <dt className={styles.label}>Contribution level</dt>

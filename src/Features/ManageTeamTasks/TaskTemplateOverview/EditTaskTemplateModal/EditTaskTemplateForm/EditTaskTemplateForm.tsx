@@ -118,6 +118,28 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onChange={handleChange}
                 value={values.description}
               />
+              <TextInput
+                id="image"
+                labelText="Image (optional)"
+                helperText="Path to container image"
+                name="image"
+                value={values.image}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.image && touched.image}
+                invalidText={errors.image}
+              />
+              <TextArea
+                id="command"
+                labelText="Command (optional)"
+                helperText="Overrides the entry point of the container. Delimited by a new line."
+                name="command"
+                value={values.command}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.command && touched.command}
+                invalidText={errors.command}
+              />
               <TextArea
                 id="arguments"
                 labelText="Arguments (optional)"
@@ -130,16 +152,14 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
               />
-              <TextInput
-                id="image"
-                labelText="Image (optional)"
-                helperText="Path to container image"
-                name="image"
-                value={values.image}
+              <TextArea
+                id="script"
+                invalid={errors.script && touched.script}
+                invalidText={errors.script}
+                labelText="Script (optional)"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                invalid={errors.image && touched.image}
-                invalidText={errors.image}
+                value={values.script}
               />
               <TextInput
                 id="workingDir"
@@ -149,26 +169,6 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.workingDir}
-              />
-              <TextArea
-                id="command"
-                labelText="Command (optional)"
-                helperText="Override the entry point of the container"
-                name="command"
-                value={values.command}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.command && touched.command}
-                invalidText={errors.command}
-              />
-              <TextArea
-                id="script"
-                invalid={errors.script && touched.script}
-                invalidText={errors.script}
-                labelText="Script (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.script}
               />
               <Creatable
                 createKeyValuePair

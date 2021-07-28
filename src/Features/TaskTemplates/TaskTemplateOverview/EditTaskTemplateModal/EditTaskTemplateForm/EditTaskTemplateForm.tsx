@@ -118,27 +118,6 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onChange={handleChange}
                 value={values.description}
               />
-              <TextArea
-                id="arguments"
-                labelText="Arguments (optional)"
-                helperText="Enter arguments delimited by a new line"
-                placeholder="e.g. system sleep"
-                name="arguments"
-                value={values.arguments}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.arguments && touched.arguments}
-                invalidText={errors.arguments}
-              />
-              <TextInput
-                id="workingDir"
-                invalid={errors.workingDir && touched.workingDir}
-                invalidText={errors.workingDir}
-                labelText="Working Directory (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.workingDir}
-              />
               <TextInput
                 id="image"
                 labelText="Image (optional)"
@@ -162,6 +141,18 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 invalidText={errors.command}
               />
               <TextArea
+                id="arguments"
+                labelText="Arguments (optional)"
+                helperText="Enter arguments delimited by a new line"
+                placeholder="e.g. system sleep"
+                name="arguments"
+                value={values.arguments}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.arguments && touched.arguments}
+                invalidText={errors.arguments}
+              />
+              <TextArea
                 id="script"
                 invalid={errors.script && touched.script}
                 invalidText={errors.script}
@@ -169,6 +160,15 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.script}
+              />
+              <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
               />
               <Creatable
                 createKeyValuePair
