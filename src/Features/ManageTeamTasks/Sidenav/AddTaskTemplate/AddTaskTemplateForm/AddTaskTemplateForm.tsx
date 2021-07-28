@@ -169,7 +169,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         description: Yup.string()
           .lowercase()
           .min(4, "Description must be at least four characters")
-          .max(200, "The description must be less than 60 characters")
+          .max(200, "The description must be less than 200 characters")
           .required("Description is required"),
         icon: Yup.object().shape({
           value: Yup.string().required(),
@@ -295,15 +295,18 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 selectedIcon={values.icon}
                 iconOptions={orderedIcons}
               />
-              <TextArea
-                id="description"
-                invalid={errors.description && touched.description}
-                invalidText={errors.description}
-                labelText="Description"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.description}
-              />
+              <div className={styles.description}>
+                <p className={styles.descriptionLength}>{values.description.length}/200</p>
+                <TextArea
+                  id="description"
+                  invalid={errors.description && touched.description}
+                  invalidText={errors.description}
+                  labelText="Description"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.description}
+                />
+              </div>
               <TextInput
                 id="image"
                 labelText="Image (optional)"
@@ -338,6 +341,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
               />
+
               <TextArea
                 id="script"
                 invalid={errors.script && touched.script}
