@@ -4,7 +4,6 @@ import { useAppContext } from "Hooks";
 import { useFeature } from "flagged";
 import { useMutation, queryCache } from "react-query";
 import { Link, useHistory } from "react-router-dom";
-import cloneDeep from "lodash/cloneDeep";
 import {
   Button,
   ConfirmModal,
@@ -22,7 +21,6 @@ import WorkflowInputModalContent from "./WorkflowInputModalContent";
 import WorkflowRunModalContent from "./WorkflowRunModalContent";
 import fileDownload from "js-file-download";
 import { formatErrorMessage } from "@boomerang-io/utils";
-import WorkflowDagEngine, { createWorkflowRevisionBody } from "Utils/dag/WorkflowDagEngine";
 import { appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
@@ -30,8 +28,6 @@ import { Run20, Bee20 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
 import { ComposedModalChildProps, FlowTeamQuotas, ModalTriggerProps, WorkflowSummary } from "Types";
 import styles from "./workflowCard.module.scss";
-
-const workflowDagEngine = new WorkflowDagEngine({ dag: null });
 
 interface WorkflowCardProps {
   isSystem: boolean;
@@ -63,13 +59,9 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
     }
   );
 
-  const [createWorkflowMutator, { isLoading: createWorkflowIsLoading }] = useMutation(resolver.postCreateWorkflow);
+  const [duplicateWorkflowMutator, { isLoading: duplicateWorkflowIsLoading }] = useMutation(resolver.postDuplicateWorkflow);
 
-  const [createWorkflowRevisionMutator, { isLoading: createWorkflowRevisionIsLoading }] = useMutation(
-    resolver.postCreateWorkflowRevision
-  );
-
-  const isDuplicating = createWorkflowIsLoading || createWorkflowRevisionIsLoading;
+  const isDuplicating = duplicateWorkflowIsLoading;
 
   /**
    * Format properties to be edited in form by Formik. It doesn't work with property notation :(
@@ -108,21 +100,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
   };
 
   const handleDuplicateWorkflow = async (workflow: WorkflowSummary) => {
-    const duplicateWorkflow = cloneDeep(workflow);
-    delete duplicateWorkflow.id;
-    duplicateWorkflow.name = `${workflow.name} (duplicate)`;
     try {
-      const { data: newWorkflow } = await createWorkflowMutator({ body: duplicateWorkflow });
-      const workflowId = newWorkflow.id;
-      const dagProps = createWorkflowRevisionBody(workflowDagEngine, "Create workflow");
-      const workflowRevision = {
-        ...dagProps,
-        workflowId,
-      };
-
-      await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
-      queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
-      history.push(appLink.editorDesigner({ workflowId }));
+      await duplicateWorkflowMutator({ workflowId: workflow.id });
       notify(
         <ToastNotification kind="success" title="Duplicate Workflow" subtitle="Successfully duplicated workflow" />
       );
@@ -131,7 +110,6 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
       } else {
         queryCache.invalidateQueries(serviceUrl.getTeams());
       }
-
       return;
     } catch (e) {
       notify(
