@@ -16,6 +16,7 @@ import {
 import SelectIcon from "Components/SelectIcon";
 import { taskIcons } from "Utils/taskIcons";
 import { NodeType } from "Constants";
+import styles from "./EditTaskTemplateForm.module.scss";
 
 EditTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func,
@@ -67,12 +68,9 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
         description: Yup.string()
           .lowercase()
           .min(4, "Description must be at least four characters")
-          .max(200, "Description must be less than 60 characters")
+          .max(200, "Description must be less than 200 characters")
           .required("Description is required"),
-        arguments: Yup.string().when("nodeType", {
-          is: (nodeType) => nodeType !== NodeType.CustomTask,
-          then: Yup.string().required("Arguments are required"),
-        }),
+        arguments: Yup.string().nullable(),
         command: Yup.string().nullable(),
         image: Yup.string().nullable(),
         script: Yup.string().nullable(),
@@ -113,36 +111,18 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 selectedIcon={values.icon}
                 iconOptions={orderedIcons}
               />
-              <TextArea
-                id="description"
-                invalid={errors.description && touched.description}
-                invalidText={errors.description}
-                labelText="Description"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.description}
-              />
-              <TextInput
-                id="arguments"
-                labelText="Arguments"
-                helperText="Enter arguments delimited by a space character"
-                placeholder="e.g. system sleep"
-                name="arguments"
-                value={values.arguments}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.arguments && touched.arguments}
-                invalidText={errors.arguments}
-              />
-              <TextInput
-                id="workingDir"
-                invalid={errors.workingDir && touched.workingDir}
-                invalidText={errors.workingDir}
-                labelText="Working Directory (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.workingDir}
-              />
+              <div className={styles.description}>
+                <p className={styles.descriptionLength}>{values.description.length}/200</p>
+                <TextArea
+                  id="description"
+                  invalid={errors.description && touched.description}
+                  invalidText={errors.description}
+                  labelText="Description"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.description}
+                />
+              </div>
               <TextInput
                 id="image"
                 labelText="Image (optional)"
@@ -154,7 +134,7 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 invalid={errors.image && touched.image}
                 invalidText={errors.image}
               />
-              <TextInput
+              <TextArea
                 id="command"
                 labelText="Command (optional)"
                 helperText="Override the entry point of the container"
@@ -165,6 +145,18 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 invalid={errors.command && touched.command}
                 invalidText={errors.command}
               />
+               <TextArea
+                id="arguments"
+                labelText="Arguments (optional)"
+                helperText="Enter arguments delimited by a new line"
+                placeholder="e.g. system sleep"
+                name="arguments"
+                value={values.arguments}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.arguments && touched.arguments}
+                invalidText={errors.arguments}
+              />
               <TextArea
                 id="script"
                 invalid={errors.script && touched.script}
@@ -173,6 +165,15 @@ function EditTaskTemplateForm({ closeModal, handleEditTaskTemplateModal, nodeTyp
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.script}
+              />
+              <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
               />
               <Creatable
                 createKeyValuePair

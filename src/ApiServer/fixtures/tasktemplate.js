@@ -9,7 +9,7 @@ const taskTemplate = [
       {
         version: 1,
         image: "",
-        command: "",
+        command: ["npm start", "run test", "cd .."],
         arguments: ["slack", "lookUpUser"],
         config: [
           { placeholder: "", readOnly: false, description: "", key: "token", label: "Token", type: "text" },
@@ -1656,6 +1656,53 @@ const taskTemplate = [
     verified: true,
     currentVersion: 1,
     nodeType: "setwfproperty",
+  },
+  {
+    id: "5f6379c974f51934dadas0244ca0bbd4",
+    description: "Set Workflow Output Status aaaaaa",
+    lastModified: "2020-04-30T22:53:23.337+00:00",
+    name: "Set Output Status",
+    category: "workflow",
+    revisions: [
+      {
+        version: 1,
+        image: "",
+        command: "",
+        arguments: ["setwfstatus"],
+        config: [
+          {
+            placeholder: "",
+            readOnly: false,
+            description: "",
+            key: "output",
+            label: "Name",
+            type: "text",
+            helperText: "Only alphanumeric, underscore, dash, and period characters allowed",
+          },
+          {
+            placeholder: "",
+            readOnly: false,
+            description: "",
+            key: "value",
+            label: "Value",
+            type: "text",
+            helperText: "",
+          },
+        ],
+        changelog: {
+          userId: "5e8a6c6cd0827100011c2a35",
+          reason: "",
+          date: "2020-04-30T22:53:23.337+00:00",
+          userName: null,
+        },
+      },
+    ],
+    status: "active",
+    createdDate: "2020-01-09T00:01:00.000+00:00",
+    icon: "Edit",
+    verified: true,
+    currentVersion: 1,
+    nodeType: "setwfstatus",
   },
   {
     id: "5f6379c974f51934044cbbd6",
