@@ -94,6 +94,7 @@ export const NodeType = {
   Releaselock: "releaselock",
   RunWorkflow: "runworkflow",
   Script: "script",
+  SetStatus: "setwfstatus",
 };
 
 export const QueryStatus = {

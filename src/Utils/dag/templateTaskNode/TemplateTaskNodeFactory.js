@@ -3,11 +3,11 @@ import { AbstractNodeFactory } from "@projectstorm/react-diagrams";
 import TemplateTaskNodeDesigner from "Components/TemplateTaskNodeDesigner";
 import TemplateTaskNodeExecution from "Components/TemplateTaskNodeExecution";
 import TemplateTaskNodeModel from "./TemplateTaskNodeModel";
-import { WorkflowDagEngineMode } from "Constants";
+import { WorkflowDagEngineMode, NodeType } from "Constants";
 
 export default class TemplateTaskNodeFactory extends AbstractNodeFactory {
   constructor(diagramEngine) {
-    super("templateTask");
+    super(NodeType.TemplateTask);
     this.diagramEngine = diagramEngine;
   }
 
