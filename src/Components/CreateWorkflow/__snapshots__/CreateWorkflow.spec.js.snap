@@ -370,10 +370,9 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
               class="icons"
             >
               <label
-                class="icon activeIcon"
+                class="icon"
               >
                 <input
-                  checked=""
                   readonly=""
                   type="radio"
                   value="analytics"
@@ -422,9 +421,10 @@ exports[`CreateWorkflow --- Snapshot Test Capturing Snapshot of CreateWorkflow 1
                 </svg>
               </label>
               <label
-                class="icon"
+                class="icon activeIcon"
               >
                 <input
+                  checked=""
                   readonly=""
                   type="radio"
                   value="bot"

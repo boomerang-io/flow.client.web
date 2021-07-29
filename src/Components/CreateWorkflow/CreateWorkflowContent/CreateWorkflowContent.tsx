@@ -67,7 +67,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
         name: "",
         summary: "",
         description: "",
-        icon: workflowIcons[0].name,
+        icon: workflowIcons[2].name,
       }}
       onSubmit={handleSubmit}
       validationSchema={Yup.object().shape({

@@ -293,7 +293,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
               >
                 <a
                   class="bx--bmrg-feature-sidenav-link"
-                  href="/admin/task-templates/5d25414c988e7b6b6fb3d5f7/1"
+                  href="/admin/task-templates/5d25414c988e7b6b6fb3d5f7/3"
                 >
                   <svg
                     alt="Task node type API/HTTP call"
@@ -318,7 +318,7 @@ exports[`TaskTemplateManager --- Snapshot Capturing Snapshot of Task Templates 1
                       class="task"
                     >
                       <p>
-                        Find Public Repositories in Org
+                        Find Repositories in Org
                       </p>
                       <div
                         class="iconContainer"

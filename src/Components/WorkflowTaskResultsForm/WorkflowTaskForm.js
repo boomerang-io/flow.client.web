@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import * as Yup from "yup";
 import {
   AutoSuggest,
+  Creatable,
   DynamicFormik,
   ModalForm,
   TextInput,
   TextArea,
-  Tag,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button, ModalBody, ModalFooter } from "@boomerang-io/carbon-addons-boomerang-react";
 import TextEditorModal from "Components/TextEditorModal";
@@ -68,16 +68,17 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
 };
 
 const ResultsInput = ({ formikProps, ...otherProps }) => {
-  const outputs = otherProps.value;
   return (
     <>
       <hr className={styles.divider} />
       <h2 className={styles.inputsTitle}>Result Parameters</h2>
-      <div className={styles.resultParamsContainer}>
-        {outputs.map((output) => (
-          <Tag type="teal">{output}</Tag>
-        ))}
-      </div>
+      <Creatable
+        {...otherProps}
+        createKeyValuePair
+        keyLabelText="Name"
+        valueLabelText="Description"
+        onChange={(value) => formikProps.setFieldValue("outputs", value)}
+      />
     </>
   );
 };
