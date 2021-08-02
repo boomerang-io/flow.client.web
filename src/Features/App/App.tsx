@@ -287,10 +287,10 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           />
 
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={allowedUserRoles}
             component={<Quotas />}
             path={AppPath.Quotas}
-            userRole={workflowQuotasEnabled}
+            userRole={platformRole}
           />
 
           <ProtectedRoute
