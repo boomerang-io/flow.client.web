@@ -80,6 +80,7 @@ export const serviceUrl = {
   postCreateWorkflow: () => `${BASE_URL}/workflow`,
   postCreateWorkflowRevision: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/revision`,
   postCreateWorkflowToken: ({ workflowId, label }) => `${BASE_URL}/workflow/${workflowId}/token?label=${label}`,
+  postDuplicateWorkflow: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/duplicate`,
   postExecuteWorkflow: ({ id }) => `${BASE_URL}/execute/${id}`,
   // postImportWorkflow: ({ query }) => `${BASE_URL}/workflow/import?${query}`,
   // putActivationApp: () => `${BASE_CORE_USERS_URL}/register`,
@@ -147,6 +148,7 @@ export const resolver = {
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),
   postCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
+  postDuplicateWorkflow: ({workflowId}) => axios.post(serviceUrl.postDuplicateWorkflow({workflowId})),
   putCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Put }),
   putCreateTaskYaml: ({ id, revision, comment, body }) =>
