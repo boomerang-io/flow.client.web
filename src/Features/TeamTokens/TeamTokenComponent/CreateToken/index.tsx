@@ -3,11 +3,12 @@ import { Button, ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Add16 } from "@carbon/icons-react";
 import CreateServiceTokenForm from "./Form";
 import CreateServiceTokenResult from "./Result";
+import { FlowTeam } from "Types";
 import styles from "./createToken.module.scss";
 
-function CreateServiceTokenButton() {
+function CreateServiceTokenButton({activeTeam}: {activeTeam: FlowTeam|null}) {
   const [isTokenCreated, setIsTokenCreated] = React.useState(false);
-  const cancelRequestRef = React.useRef();
+  const cancelRequestRef = React.useRef<any>();
 
   return (
     <ModalFlow
@@ -15,7 +16,7 @@ function CreateServiceTokenButton() {
         containerClassName: isTokenCreated && styles.succesModalContainer,
         onAfterClose: () => setIsTokenCreated(false),
       }}
-      modalTrigger={({ openModal }) => (
+      modalTrigger={({ openModal }: { openModal: () => void }) => (
         <Button
           iconDescription="Create Token"
           onClick={openModal}
@@ -44,6 +45,7 @@ function CreateServiceTokenButton() {
       <CreateServiceTokenForm
         setIsTokenCreated={() => setIsTokenCreated(true)}
         cancelRequestRef={cancelRequestRef}
+        activeTeam={activeTeam}
       />
       <CreateServiceTokenResult />
     </ModalFlow>

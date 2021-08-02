@@ -2,20 +2,22 @@ import React, { useState } from "react";
 import moment from "moment";
 import cx from "classnames";
 import { settings } from "carbon-components";
+import { useAppContext } from "Hooks";
 import {
   ButtonSkeleton,
   DataTable,
   DataTableSkeleton,
   Error404,
   ErrorMessage,
+  FeatureHeader as Header,
+  FeatureHeaderTitle as HeaderTitle,
   Pagination,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import DeleteToken from "./DeleteToken";
 import CreateToken from "./CreateToken";
-import Header from "Components/Header";
-import { TokensPermissions } from "Config/permissionsConfig";
-import { useUserPermissions } from "Hooks";
-import { arrayPagination, sortByProp } from "Utils/arrayHelpers";
+import { arrayPagination, sortByProp } from "Utils/arrayHelper";
+import { Token } from "Types";
+import { UserRole } from "Constants";
 import styles from "./tokensComponent.module.scss";
 
 const { prefix } = settings;
@@ -51,24 +53,44 @@ const headers = [
   },
 ];
 
-const FeatureLayout = ({ children }) => {
+interface FeatureLayoutProps {
+  children: React.ReactNode;
+}
+
+const FeatureLayout = ({ children }: FeatureLayoutProps) => {
   return (
     <div className={styles.container}>
-      <Header title="Global Tokens" description="" />
+      <Header
+        className={styles.header}
+        includeBorder={false}
+        header={
+          <>
+            <HeaderTitle className={styles.headerTitle}>Global Tokens</HeaderTitle>
+          </>
+        }
+      />
       <div className={styles.content}>{children}</div>
     </div>
   );
 };
 
-function TokenComponent({ deleteToken, tokens, hasError, isLoading }) {
+interface GlobalTokensTableProps {
+  tokens: Token[];
+  isLoading: boolean;
+  hasError: any;
+  deleteToken(tokenId: string): void;
+}
+
+function GlobalTokenComponent({ deleteToken, tokens, hasError, isLoading }: GlobalTokensTableProps) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
   const [sortKey, setSortKey] = useState("creationDate");
   const [sortDirection, setSortDirection] = useState("DESC");
-  const deleteTokenAvailable = useUserPermissions()[TokensPermissions.deleteToken];
+  const { user } = useAppContext();
+  const deleteTokenAvailable = user.type === UserRole.Admin;
 
-  const renderCell = (tokenItemId, cellIndex, value) => {
-    const tokenDetails = tokens.find((token) => token.id === tokenItemId);
+  const renderCell = (tokenItemId: string, cellIndex: number, value: string) => {
+    const tokenDetails = tokens.find((token: Token) => token.id === tokenItemId);
     const column = headers[cellIndex];
     switch (column.key) {
       case "creationDate":
@@ -89,12 +111,12 @@ function TokenComponent({ deleteToken, tokens, hasError, isLoading }) {
     }
   };
 
-  const handlePaginationChange = ({ page, pageSize }) => {
+  const handlePaginationChange = ({ page, pageSize }: {page:number; pageSize: number;}) => {
     setPage(page);
     setPageSize(pageSize);
   };
 
-  function handleSort(e, { sortHeaderKey }) {
+  function handleSort(e: any, { sortHeaderKey }: {sortHeaderKey: string}) {
     const order = sortDirection === "ASC" ? "DESC" : "ASC";
     setSortKey(sortHeaderKey);
     setSortDirection(order);
@@ -135,14 +157,14 @@ function TokenComponent({ deleteToken, tokens, hasError, isLoading }) {
           <>
             <DataTable
               rows={arrayPagination(tokens, page, pageSize, sortKey, sortDirection)}
-              sortRow={(rows) => sortByProp(rows, sortKey, sortDirection.toLowerCase())}
+              sortRow={(rows: any) => sortByProp(rows, sortKey, sortDirection.toLowerCase())}
               headers={headers}
-              render={({ rows, headers, getHeaderProps }) => (
+              render={({ rows, headers, getHeaderProps }: {rows: any, headers: Array<{header:string; key: string; sortable: boolean;}>, getHeaderProps: any}) => (
                 <TableContainer>
                   <Table isSortable>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header) => (
+                        {headers.map((header: {header:string; key: string; sortable: boolean;}) => (
                           <TableHeader
                             id={header.key}
                             {...getHeaderProps({
@@ -160,9 +182,9 @@ function TokenComponent({ deleteToken, tokens, hasError, isLoading }) {
                       </TableRow>
                     </TableHead>
                     <TableBody className={styles.tableBody}>
-                      {rows.map((row) => (
+                      {rows.map((row: any) => (
                         <TableRow key={row.id} >
-                          {row.cells.map((cell, cellIndex) => (
+                          {row.cells.map((cell: any, cellIndex: number) => (
                             <TableCell key={cell.id} style={{ padding: "0" }}>
                               <div className={styles.tableCell}>{renderCell(row.id, cellIndex, cell.value)}</div>
                             </TableCell>
@@ -187,12 +209,12 @@ function TokenComponent({ deleteToken, tokens, hasError, isLoading }) {
             <DataTable
               rows={tokens}
               headers={headers}
-              render={({ headers }) => (
+              render={({ headers }: {headers: Array<{header:string; key: string; sortable: boolean;}>}) => (
                 <TableContainer>
                   <Table>
                     <TableHead>
                       <TableRow className={styles.tableHeadRow}>
-                        {headers.map((header) => (
+                        {headers.map((header: {header:string; key: string; sortable: boolean;}) => (
                           <TableHeader
                             key={header.key}
                             id={header.key}
@@ -217,4 +239,4 @@ function TokenComponent({ deleteToken, tokens, hasError, isLoading }) {
   return null;
 }
 
-export default TokenComponent;
+export default GlobalTokenComponent;

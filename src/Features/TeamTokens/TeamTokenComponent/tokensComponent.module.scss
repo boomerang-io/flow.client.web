@@ -12,6 +12,11 @@
   flex-direction: column;
   margin: 2.5rem 2.5rem 4.5rem 2.5rem;
 }
+
+.dropdown {
+  width: 20rem;
+}
+
 .tableSkeleton {
   thead {
     th:nth-of-type(1) {
@@ -44,8 +49,11 @@
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
+  padding: 1rem 2rem 0;
+}
+
+.headerTitle {
+  margin: 0;
 }
 
 .tableHeadHeader {
@@ -107,6 +115,6 @@
 .tokenContainer {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 1.31rem;
 }

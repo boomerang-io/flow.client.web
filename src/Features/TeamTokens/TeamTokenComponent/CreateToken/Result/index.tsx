@@ -4,7 +4,13 @@ import { ModalBody, ModalFooter, Button, TextInput, ModalFlowForm } from "@boome
 import { CopyFile16 } from "@carbon/icons-react";
 import styles from "./result.module.scss";
 
-const CreateServiceTokenResult = (props) => {
+interface CreateServiceTokenResultProps {
+  setShouldConfirmModalClose: (args: boolean) => void;
+  formData: any;
+  closeModal: () => void;
+}
+
+const CreateServiceTokenResult = (props: CreateServiceTokenResultProps | any) => {
   const handleCopyClick = () => {
     props.setShouldConfirmModalClose(false);
   };

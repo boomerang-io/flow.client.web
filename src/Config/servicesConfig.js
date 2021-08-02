@@ -155,8 +155,8 @@ export const resolver = {
   postCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
   postDuplicateWorkflow: ({workflowId}) => axios.post(serviceUrl.postDuplicateWorkflow({workflowId})),
-  postGlobalToken: ({body}) => axios.post(serviceUrl.postGlobalToken(), body),
-  postTeamToken: ({body}) => axios.post(serviceUrl.postTeamToken(), body),
+  postGlobalToken: ({body}) => cancellableResolver({ url: serviceUrl.postGlobalToken(), body, method: HttpMethod.Post }),
+  postTeamToken: ({body}) => cancellableResolver({ url: serviceUrl.postTeamToken(), body, method: HttpMethod.Post }),
   putCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Put }),
   putCreateTaskYaml: ({ id, revision, comment, body }) =>

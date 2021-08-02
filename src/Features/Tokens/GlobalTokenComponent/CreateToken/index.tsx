@@ -7,7 +7,7 @@ import styles from "./createToken.module.scss";
 
 function CreateServiceTokenButton() {
   const [isTokenCreated, setIsTokenCreated] = React.useState(false);
-  const cancelRequestRef = React.useRef();
+  const cancelRequestRef = React.useRef<any>();
 
   return (
     <ModalFlow
@@ -15,7 +15,7 @@ function CreateServiceTokenButton() {
         containerClassName: isTokenCreated && styles.succesModalContainer,
         onAfterClose: () => setIsTokenCreated(false),
       }}
-      modalTrigger={({ openModal }) => (
+      modalTrigger={({ openModal }: { openModal: () => void }) => (
         <Button
           iconDescription="Create Token"
           onClick={openModal}

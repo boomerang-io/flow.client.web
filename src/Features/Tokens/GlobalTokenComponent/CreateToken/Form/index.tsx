@@ -1,6 +1,5 @@
 import React from "react";
 import moment from "moment";
-import PropTypes from "prop-types";
 import * as Yup from "yup";
 import {
   ModalFlowForm,
@@ -17,6 +16,7 @@ import {
 import { Formik } from "formik";
 import { useMutation, queryCache } from "react-query";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import { TokenRequest } from "Types";
 import styles from "./form.module.scss";
 
 const InputKey = {
@@ -24,11 +24,13 @@ const InputKey = {
   Description: "description",
 };
 
-CreateServiceTokenForm.propTypes = {
-  closeModal: PropTypes.func,
-  goToStep: PropTypes.func,
-  saveValues: PropTypes.func,
-};
+interface CreateServiceTokenFormProps {
+  closeModal: () => void,
+  goToStep: (args: any) => void,
+  saveValues: (args: any) => void,
+  setIsTokenCreated: () => any,
+  cancelRequestRef: any;
+}
 
 function CreateServiceTokenForm({
   closeModal,
@@ -36,19 +38,19 @@ function CreateServiceTokenForm({
   saveValues,
   setIsTokenCreated,
   cancelRequestRef,
-}) {
+}: CreateServiceTokenFormProps | any) {
   const [postGlobalTokenRequestMutator, { isLoading: postGlobalTokenIsLoading, error: postGlobalTokenError }] = useMutation(
-    (args) => {
+    (args: {body: TokenRequest}) => {
       const { promise, cancel } = resolver.postGlobalToken(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries([serviceUrl.resourceTokens()]),
+      onSuccess: () => queryCache.invalidateQueries([serviceUrl.getGlobalTokens()]),
     }
   );
 
-  const createToken = async (values) => {
+  const createToken = async (values: any) => {
     const request = {
       expiryDate: values.date ? parseInt(moment.utc(values.date).startOf("day").format("x"), 10) : null,
       description: values.description,
@@ -65,7 +67,7 @@ function CreateServiceTokenForm({
     }
   };
 
-  const handleSelectDate = (setFieldValue, id, value) => {
+  const handleSelectDate = (setFieldValue: any, id: string, value: any) => {
     if (Array.isArray(value) && value[0]) {
       setFieldValue("date", String(moment.utc(value[0]).format("YYYY/MM/DD")));
     } else {
@@ -75,13 +77,17 @@ function CreateServiceTokenForm({
 
   return (
     <Formik
+      initialValues={{
+        date: "",
+        description: "",
+      }}
       validateOnMount
       onSubmit={(values) => createToken(values)}
       validationSchema={Yup.object().shape({
-        [InputKey.Date]: Yup.string()
+        [InputKey.ExpiryDate]: Yup.string()
           .max(10)
           .matches(/([12]\d{3}\/(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01]))/, "Enter a valid date"),
-        [InputKey.Description]: Yup.nullable().string(),
+        [InputKey.Description]: Yup.string().nullable(),
       })}
     >
       {({ errors, handleBlur, handleSubmit, setFieldValue, isValid, isSubmitting, values }) => {
@@ -93,13 +99,13 @@ function CreateServiceTokenForm({
                 id="token-date-picker"
                 dateFormat="Y/m/d"
                 datePickerType="single"
-                onChange={(value) => handleSelectDate(setFieldValue, InputKey.Date, value)}
+                onChange={(value: any) => handleSelectDate(setFieldValue, InputKey.ExpiryDate, value)}
                 minDate={moment.utc(new Date()).add(1, "days").format("YYYY/MM/DD")}
               >
                 <DatePickerInput
                   autoComplete="off"
                   data-testid="token-expiration-id"
-                  id={InputKey.Date}
+                  id={InputKey.ExpiryDate}
                   dateFormat="MM-DD-YYYY"
                   invalid={errors.date}
                   invalidText={errors.date}
@@ -115,7 +121,7 @@ function CreateServiceTokenForm({
                       </Tooltip>
                     </div>
                   }
-                  onChange={(value) => handleSelectDate(setFieldValue, InputKey.Date, value)}
+                  onChange={(value: any) => handleSelectDate(setFieldValue, InputKey.ExpiryDate, value)}
                   pattern={null}
                   placeholder="2063/04/05"
                 />
@@ -124,7 +130,7 @@ function CreateServiceTokenForm({
                 labelText="Description"
                 placeholder="Provide a short description for this Token"
                 id="description"
-                onChange={(value) => setFieldValue("description", value.target.value)}
+                onChange={(value: any) => setFieldValue("description", value.target.value)}
                 value={values.description}
               />
               {postGlobalTokenError ? (

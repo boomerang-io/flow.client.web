@@ -446,7 +446,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
       /**
        * Manage and Administer Tokens
        */
-      this.get(serviceUrl.getTeamTokens(), (schema) => {
+      this.get(serviceUrl.getTeamTokens({ teamId: ":teamId" }), (schema) => {
         return schema.db.tokens;
       });
 
