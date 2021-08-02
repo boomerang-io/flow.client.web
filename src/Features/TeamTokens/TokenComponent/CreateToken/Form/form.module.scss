@@ -1,0 +1,39 @@
+@import "Styles/mixins";
+
+.container {
+  :global .bx--list-box__wrapper {
+    width: 22rem;
+  }
+
+  :global .bx--inline-notification {
+    bottom: 4rem;
+    position: absolute;
+    width: 95%;
+  }
+
+  :global .bx--date-picker-container,
+  :global .bx--date-picker,
+  :global .bx--date-picker--single,
+  :global .bx--date-picker__input {
+    width: 22rem !important;
+  }
+
+}
+
+.scopeContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.inputLabelContainer {
+  display: flex;
+}
+
+.tooltip {
+  a {
+    display: inline-flex;
+    align-items: center;
+    color: var(--cds-inverse-link);
+  }
+}
