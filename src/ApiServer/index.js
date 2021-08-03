@@ -267,12 +267,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
 
-      this.get(
-        serviceUrl.getWorkflowTaskTemplates({ workflowId: ":workflowId" }),
-        (schema, request) => {
-          return schema.db.tasktemplate;
-        }
-      );
+      this.get(serviceUrl.getWorkflowTaskTemplates({ workflowId: ":workflowId" }), (schema, request) => {
+        return schema.db.tasktemplate;
+      });
 
       this.post(serviceUrl.postCreateWorkflowRevision({ workflowId: ":workflowId" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
@@ -460,13 +457,25 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
 
       this.post(serviceUrl.postGlobalToken(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
-        let newToken = { ...body, creatorId: "1", creationDate: Date.now(), creatorName: "Test User" };
+        let newToken = {
+          ...body,
+          creatorId: "1",
+          creationDate: Date.now(),
+          creatorName: "Test User",
+          tokenValue: "testglobal",
+        };
         return schema.tokens.create(newToken);
       });
 
       this.post(serviceUrl.postTeamToken(), (schema, request) => {
         let body = JSON.parse(request.requestBody);
-        let newToken = { ...body, creatorId: "1", creationDate: Date.now(), creatorName: "Test User" };
+        let newToken = {
+          ...body,
+          creatorId: "1",
+          creationDate: Date.now(),
+          creatorName: "Test User",
+          tokenValue: "testteam",
+        };
         return schema.tokens.create(newToken);
       });
 

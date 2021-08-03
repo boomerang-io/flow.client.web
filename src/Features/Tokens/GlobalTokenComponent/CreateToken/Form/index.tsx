@@ -25,10 +25,10 @@ const InputKey = {
 };
 
 interface CreateServiceTokenFormProps {
-  closeModal: () => void,
-  goToStep: (args: any) => void,
-  saveValues: (args: any) => void,
-  setIsTokenCreated: () => any,
+  closeModal: () => void;
+  goToStep: (args: any) => void;
+  saveValues: (args: any) => void;
+  setIsTokenCreated: () => any;
   cancelRequestRef: any;
 }
 
@@ -39,8 +39,11 @@ function CreateServiceTokenForm({
   setIsTokenCreated,
   cancelRequestRef,
 }: CreateServiceTokenFormProps | any) {
-  const [postGlobalTokenRequestMutator, { isLoading: postGlobalTokenIsLoading, error: postGlobalTokenError }] = useMutation(
-    (args: {body: TokenRequest}) => {
+  const [
+    postGlobalTokenRequestMutator,
+    { isLoading: postGlobalTokenIsLoading, error: postGlobalTokenError },
+  ] = useMutation(
+    (args: { body: TokenRequest }) => {
       const { promise, cancel } = resolver.postGlobalToken(args);
       cancelRequestRef.current = cancel;
       return promise;
@@ -58,7 +61,7 @@ function CreateServiceTokenForm({
 
     try {
       const response = await postGlobalTokenRequestMutator({ body: request });
-      const formData = { token: response.data.token };
+      const formData = { token: response.data.tokenValue };
       saveValues(formData);
       setIsTokenCreated();
       goToStep(1);

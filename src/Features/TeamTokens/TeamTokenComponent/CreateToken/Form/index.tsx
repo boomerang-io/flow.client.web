@@ -25,12 +25,12 @@ const InputKey = {
 };
 
 interface CreateServiceTokenFormProps {
-  closeModal: () => void,
-  goToStep: (args: any) => void,
-  saveValues: (args: any) => void,
-  setIsTokenCreated: () => any,
+  closeModal: () => void;
+  goToStep: (args: any) => void;
+  saveValues: (args: any) => void;
+  setIsTokenCreated: () => any;
   cancelRequestRef: any;
-  activeTeam: FlowTeam|null;
+  activeTeam: FlowTeam | null;
 }
 
 function CreateServiceTokenForm({
@@ -40,15 +40,15 @@ function CreateServiceTokenForm({
   setIsTokenCreated,
   cancelRequestRef,
   activeTeam,
-} : CreateServiceTokenFormProps | any) {
+}: CreateServiceTokenFormProps | any) {
   const [postTeamTokenRequestMutator, { isLoading: postTeamTokenIsLoading, error: postTeamTokenError }] = useMutation(
-    (args: {body: TeamTokenRequest}) => {
+    (args: { body: TeamTokenRequest }) => {
       const { promise, cancel } = resolver.postTeamToken(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTeamTokens({teamId: activeTeam.id})]),
+      onSuccess: () => queryCache.invalidateQueries([serviceUrl.getTeamTokens({ teamId: activeTeam.id })]),
     }
   );
 
@@ -61,7 +61,7 @@ function CreateServiceTokenForm({
 
     try {
       const response = await postTeamTokenRequestMutator({ body: request });
-      const formData = { token: response.data.token };
+      const formData = { token: response.data.tokenValue };
       saveValues(formData);
       setIsTokenCreated();
       goToStep(1);
