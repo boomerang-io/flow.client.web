@@ -21,12 +21,12 @@ const CreateServiceTokenResult = (props: CreateServiceTokenResultProps | any) =>
         <div className={styles.container}>
           <TextInput
             id="service-token"
-            labelText="Access Token"
+            labelText="Global Token"
             className={styles.token}
             value={props.formData.token}
           />
           <p className={styles.saveText}>
-            This is your unique access token and it is not-recoverable. If you lose this access token you will have to
+            This is your unique global token and it is not-recoverable. If you lose this global token you will have to
             delete it and create another one.
           </p>
         </div>

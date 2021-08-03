@@ -28,10 +28,7 @@ function CreateServiceTokenButton() {
         </Button>
       )}
       modalHeaderProps={{
-        title: !isTokenCreated ? `Create Access Token` : "Access token successfully created ",
-        subtitle:
-          !isTokenCreated &&
-          "To securely connect to the Boomerang platform, your service needs a Access Token with the appropriate scope.",
+        title: !isTokenCreated ? `Create Global Token` : "Global token successfully created ",
       }}
       confirmModalProps={{
         title: "Close this?",

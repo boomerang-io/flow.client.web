@@ -9,7 +9,6 @@ import styles from "./createToken.module.scss";
 function CreateServiceTokenButton({activeTeam}: {activeTeam: FlowTeam|null}) {
   const [isTokenCreated, setIsTokenCreated] = React.useState(false);
   const cancelRequestRef = React.useRef<any>();
-
   return (
     <ModalFlow
       composedModalProps={{
@@ -29,10 +28,7 @@ function CreateServiceTokenButton({activeTeam}: {activeTeam: FlowTeam|null}) {
         </Button>
       )}
       modalHeaderProps={{
-        title: !isTokenCreated ? `Create Access Token` : "Access token successfully created ",
-        subtitle:
-          !isTokenCreated &&
-          "To securely connect to the Boomerang platform, your service needs a Access Token with the appropriate scope.",
+        title: !isTokenCreated ? `Create Team Token` : "Team token successfully created ",
       }}
       confirmModalProps={{
         title: "Close this?",

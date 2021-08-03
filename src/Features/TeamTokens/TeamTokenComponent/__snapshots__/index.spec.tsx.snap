@@ -9,7 +9,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
       class="container"
     >
       <header
-        class="bx--bmrg-feature-header container"
+        class="bx--bmrg-feature-header header"
       >
         <section
           class="bx--bmrg-feature-header__content"
@@ -18,20 +18,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
             class="bx--bmrg-feature-header__header"
           >
             <h1
-              class="bx--bmrg-feature-header-title"
+              class="bx--bmrg-feature-header-title headerTitle"
             >
-              Access Tokens
+              Team Tokens
             </h1>
-            <p
-              class="bx--bmrg-feature-header-title"
-            >
-              Enable your services to securely connect to the platform
-            </p>
           </div>
         </section>
-        <section
-          class="buttons"
-        />
       </header>
       <div
         class="content"
@@ -39,6 +31,108 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
         <div
           class="tokenContainer"
         >
+          <div
+            class="dropdown"
+          >
+            <div
+              class="bx--bmrg-select"
+            >
+              <div
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                aria-labelledby="downshift-0-label"
+                class="bx--list-box__wrapper"
+                role="combobox"
+              >
+                <label
+                  class="bx--label"
+                  for="team-tokens-select"
+                  id="downshift-0-label"
+                >
+                  <div
+                    style="display: flex;"
+                  >
+                    <div>
+                      Teams
+                    </div>
+                  </div>
+                </label>
+                <div
+                  aria-label="Choose an item"
+                  class="bx--combo-box bx--list-box"
+                >
+                  <div
+                    aria-haspopup="true"
+                    aria-label="open menu"
+                    class="bx--list-box__field"
+                    data-toggle="true"
+                    id="team-tokens-select"
+                    role="button"
+                    tabindex="-1"
+                    type="button"
+                  >
+                    <input
+                      aria-autocomplete="list"
+                      aria-labelledby="downshift-0-label"
+                      autocomplete="off"
+                      class="bx--text-input"
+                      data-testid="team-tokens-combobox"
+                      id="team-tokens-select"
+                      placeholder="Select a team"
+                      tabindex="0"
+                      type="text"
+                      value="IBM Services Engineering"
+                    />
+                    <div
+                      aria-label="Clear Selection"
+                      class="bx--list-box__selection"
+                      role="button"
+                      tabindex="0"
+                      title="Clear selected item"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        fill="currentColor"
+                        focusable="false"
+                        height="16"
+                        preserveAspectRatio="xMidYMid meet"
+                        viewBox="0 0 32 32"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
+                        />
+                      </svg>
+                    </div>
+                    <div
+                      class="bx--list-box__menu-icon"
+                    >
+                      <svg
+                        aria-label="Open menu"
+                        fill="currentColor"
+                        focusable="false"
+                        height="16"
+                        name="chevron--down"
+                        preserveAspectRatio="xMidYMid meet"
+                        role="img"
+                        viewBox="0 0 16 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
+                        />
+                        <title>
+                          Open menu
+                        </title>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <button
             class="bx--btn bx--btn--field bx--btn--primary"
             data-testid="create-token-button"
@@ -81,65 +175,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                 >
                   <th
                     aria-sort="none"
-                    class="tableHeadHeader toolTemplateName"
+                    class="tableHeadHeader creatorName"
                     scope="col"
                   >
                     <button
-                      class="tableHeadHeader toolTemplateName bx--table-sort"
-                      id="toolTemplateName"
-                      type="button"
-                    >
-                      <span
-                        class="bx--table-sort__flex"
-                      >
-                        <div
-                          class="bx--table-header-label"
-                        >
-                          Service
-                        </div>
-                        <svg
-                          aria-label="Sort rows by this header in ascending order"
-                          class="bx--table-sort__icon"
-                          fill="currentColor"
-                          focusable="false"
-                          height="20"
-                          preserveAspectRatio="xMidYMid meet"
-                          role="img"
-                          viewBox="0 0 32 32"
-                          width="20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M16 4L6 14 7.41 15.41 15 7.83 15 28 17 28 17 7.83 24.59 15.41 26 14 16 4z"
-                          />
-                        </svg>
-                        <svg
-                          aria-label="Sort rows by this header in ascending order"
-                          class="bx--table-sort__icon-unsorted"
-                          fill="currentColor"
-                          focusable="false"
-                          height="20"
-                          preserveAspectRatio="xMidYMid meet"
-                          role="img"
-                          viewBox="0 0 32 32"
-                          width="20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M27.6 20.6L24 24.2 24 4 22 4 22 24.2 18.4 20.6 17 22 23 28 29 22zM9 4L3 10 4.4 11.4 8 7.8 8 28 10 28 10 7.8 13.6 11.4 15 10z"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </th>
-                  <th
-                    aria-sort="none"
-                    class="tableHeadHeader creatorUserEmail"
-                    scope="col"
-                  >
-                    <button
-                      class="tableHeadHeader creatorUserEmail bx--table-sort"
-                      id="creatorUserEmail"
+                      class="tableHeadHeader creatorName bx--table-sort"
+                      id="creatorName"
                       type="button"
                     >
                       <span
@@ -187,12 +228,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   </th>
                   <th
                     aria-sort="none"
-                    class="tableHeadHeader scope"
+                    class="tableHeadHeader description"
                     scope="col"
                   >
                     <button
-                      class="tableHeadHeader scope bx--table-sort"
-                      id="scope"
+                      class="tableHeadHeader description bx--table-sort"
+                      id="description"
                       type="button"
                     >
                       <span
@@ -201,7 +242,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                         <div
                           class="bx--table-header-label"
                         >
-                          Scope
+                          Description
                         </div>
                         <svg
                           aria-label="Sort rows by this header in ascending order"
@@ -240,12 +281,12 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                   </th>
                   <th
                     aria-sort="descending"
-                    class="tableHeadHeader createdDate"
+                    class="tableHeadHeader creationDate"
                     scope="col"
                   >
                     <button
-                      class="tableHeadHeader createdDate bx--table-sort bx--table-sort--active bx--table-sort--ascending"
-                      id="createdDate"
+                      class="tableHeadHeader creationDate bx--table-sort bx--table-sort--active bx--table-sort--ascending"
+                      id="creationDate"
                       type="button"
                     >
                       <span
@@ -355,9 +396,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                 aria-live="polite"
                 class="tableBody"
               >
-                <tr
-                  data-testid="configuration-property-table-row"
-                >
+                <tr>
                   <td
                     style="padding: 0px;"
                   >
@@ -367,7 +406,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                       <p
                         class="tableTextarea"
                       >
-                        ---
+                        Test User
                       </p>
                     </div>
                   </td>
@@ -380,33 +419,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                       <p
                         class="tableTextarea"
                       >
-                        Test User1
-                      </p>
-                    </div>
-                  </td>
-                  <td
-                    style="padding: 0px;"
-                  >
-                    <div
-                      class="tableCell"
-                    >
-                      <p
-                        class="tableTextarea"
-                      >
-                        core
-                      </p>
-                    </div>
-                  </td>
-                  <td
-                    style="padding: 0px;"
-                  >
-                    <div
-                      class="tableCell"
-                    >
-                      <p
-                        class="tableTextarea"
-                      >
-                        ---
+                        test token 2
                       </p>
                     </div>
                   </td>
@@ -429,39 +442,22 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     <div
                       class="tableCell"
                     >
-                      <button
-                        class="button bx--btn bx--btn--sm bx--btn--danger--ghost"
-                        data-testid="delete-token-button-12345qwer"
-                        tabindex="0"
-                        type="button"
+                      <p
+                        class="tableTextarea"
                       >
-                        <svg
-                          aria-hidden="true"
-                          aria-label="deleteToken"
-                          class="bx--btn__icon"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          role="img"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M12 12H14V24H12zM18 12H20V24H18z"
-                          />
-                          <path
-                            d="M4 6V8H6V28a2 2 0 002 2H24a2 2 0 002-2V8h2V6zM8 28V8H24V28zM12 2H20V4H12z"
-                          />
-                        </svg>
-                      </button>
+                        ---
+                      </p>
                     </div>
+                  </td>
+                  <td
+                    style="padding: 0px;"
+                  >
+                    <div
+                      class="tableCell"
+                    />
                   </td>
                 </tr>
-                <tr
-                  data-testid="configuration-property-table-row"
-                >
+                <tr>
                   <td
                     style="padding: 0px;"
                   >
@@ -471,7 +467,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                       <p
                         class="tableTextarea"
                       >
-                        ---
+                        Test User
                       </p>
                     </div>
                   </td>
@@ -484,33 +480,7 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                       <p
                         class="tableTextarea"
                       >
-                        Test User2
-                      </p>
-                    </div>
-                  </td>
-                  <td
-                    style="padding: 0px;"
-                  >
-                    <div
-                      class="tableCell"
-                    >
-                      <p
-                        class="tableTextarea"
-                      >
-                        ---
-                      </p>
-                    </div>
-                  </td>
-                  <td
-                    style="padding: 0px;"
-                  >
-                    <div
-                      class="tableCell"
-                    >
-                      <p
-                        class="tableTextarea"
-                      >
-                        ---
+                        test token
                       </p>
                     </div>
                   </td>
@@ -533,34 +503,19 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
                     <div
                       class="tableCell"
                     >
-                      <button
-                        class="button bx--btn bx--btn--sm bx--btn--danger--ghost"
-                        data-testid="delete-token-button-43242rddf"
-                        tabindex="0"
-                        type="button"
+                      <p
+                        class="tableTextarea"
                       >
-                        <svg
-                          aria-hidden="true"
-                          aria-label="deleteToken"
-                          class="bx--btn__icon"
-                          fill="currentColor"
-                          focusable="false"
-                          height="16"
-                          preserveAspectRatio="xMidYMid meet"
-                          role="img"
-                          viewBox="0 0 32 32"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M12 12H14V24H12zM18 12H20V24H18z"
-                          />
-                          <path
-                            d="M4 6V8H6V28a2 2 0 002 2H24a2 2 0 002-2V8h2V6zM8 28V8H24V28zM12 2H20V4H12z"
-                          />
-                        </svg>
-                      </button>
+                        January 01, 2020
+                      </p>
                     </div>
+                  </td>
+                  <td
+                    style="padding: 0px;"
+                  >
+                    <div
+                      class="tableCell"
+                    />
                   </td>
                 </tr>
               </tbody>
@@ -769,12 +724,6 @@ exports[`TokenComponent --- Snapshot Capturing Snapshot of TokenComponent 1`] = 
       </div>
     </div>
   </div>
-  <div
-    class="bx--bmrg-modal-portal"
-  />
-  <div
-    class="bx--bmrg-modal-portal"
-  />
   <div
     class="bx--bmrg-modal-portal"
   />

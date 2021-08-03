@@ -130,6 +130,7 @@ function CreateServiceTokenForm({
                 labelText="Description"
                 placeholder="Provide a short description for this Token"
                 id="description"
+                data-testid="token-description"
                 onChange={(value: any) => setFieldValue("description", value.target.value)}
                 value={values.description}
               />
@@ -139,7 +140,7 @@ function CreateServiceTokenForm({
                   className={styles.errorNotification}
                   kind="error"
                   title="Error"
-                  subtitle="Failed to create access token"
+                  subtitle="Failed to create global token"
                   style={{ marginTop: "1rem" }}
                 />
               ) : null}

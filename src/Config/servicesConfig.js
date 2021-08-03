@@ -56,7 +56,7 @@ export const serviceUrl = {
   getTeamProperty: ({ teamId, configurationId }) => `${BASE_URL}/teams/${teamId}/properties/${configurationId}`,
   getTeamProperties: ({ id }) => `${BASE_URL}/teams/${id}/properties`,
   getTeamQuotas: ({ id }) => `${BASE_URL}/teams/${id}/quotas`,
-  getTeamTokens: ({ teamId }) => `${BASE_URL}/tokens/teams/${teamId}`,
+  getTeamTokens: ({ teamId }) => `${BASE_URL}/tokens/team/${teamId}`,
   getUsers: () => `${BASE_URL}/users`,
   getUser: ({ userId }) => `${BASE_URL}/users/${userId}`,
   getUserTeams: ({ email }) => `${BASE_URL}/teams?userEmail=${email}`,
