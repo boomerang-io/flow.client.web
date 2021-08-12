@@ -96,9 +96,9 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
     });
     let newRevisionConfig = {
       version: 1,
-      arguments: values.arguments.trim().split(/\n{1,}/),
+      arguments: Boolean(values.arguments) ? values.arguments.trim().split(/\n{1,}/) : [],
       image: values.image,
-      command: values.command.trim().split(/\n{1,}/),
+      command: Boolean(values.command) ? values.command.trim().split(/\n{1,}/) : [],
       script: values.script,
       workingDir: values.workingDir,
       envs: newEnvs,
