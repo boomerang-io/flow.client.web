@@ -202,6 +202,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return taskTemplate;
       });
 
+      this.post(serviceUrl.postValidateYaml(), () => {
+        return {};
+      });
+
       /**
        * Workflows
        */
@@ -267,12 +271,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
 
-      this.get(
-        serviceUrl.getWorkflowTaskTemplates({ workflowId: ":workflowId" }),
-        (schema, request) => {
-          return schema.db.tasktemplate;
-        }
-      );
+      this.get(serviceUrl.getWorkflowTaskTemplates({ workflowId: ":workflowId" }), (schema, request) => {
+        return schema.db.tasktemplate;
+      });
 
       this.post(serviceUrl.postCreateWorkflowRevision({ workflowId: ":workflowId" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
