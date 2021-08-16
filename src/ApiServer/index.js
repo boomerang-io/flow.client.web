@@ -202,6 +202,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return taskTemplate;
       });
 
+      this.post(serviceUrl.postValidateYaml(), () => {
+        return {};
+      });
+
       /**
        * Workflows
        */
