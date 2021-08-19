@@ -781,13 +781,6 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
                   tabindex="0"
                   type="button"
                 >
-                  View Results
-                </button>
-                <button
-                  class="bx--btn bx--btn--sm bx--btn--ghost"
-                  tabindex="0"
-                  type="button"
-                >
                   View Error
                 </button>
               </section>
@@ -2953,9 +2946,6 @@ exports[`Execution --- Snapshot Capturing Snapshot of WorkflowExecutionContainer
       </section>
     </div>
   </div>
-  <div
-    class="bx--bmrg-modal-portal"
-  />
   <div
     class="bx--bmrg-modal-portal"
   />
