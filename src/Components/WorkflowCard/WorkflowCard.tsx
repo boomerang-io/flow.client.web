@@ -27,10 +27,11 @@ import { BASE_URL } from "Config/servicesConfig";
 import { Run20, Bee20 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
 import { ComposedModalChildProps, FlowTeamQuotas, ModalTriggerProps, WorkflowSummary } from "Types";
+import { WorkflowScope } from "Constants";
 import styles from "./workflowCard.module.scss";
 
 interface WorkflowCardProps {
-  isSystem: boolean;
+  scope: string;
   teamId: string | null;
   quotas: FlowTeamQuotas | null;
   workflow: WorkflowSummary;
@@ -38,7 +39,7 @@ interface WorkflowCardProps {
 
 type FunctionAnyReturn = () => any;
 
-const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, workflow }) => {
+const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, workflow }) => {
   const { teams } = useAppContext();
   const cancelRequestRef = React.useRef<FunctionAnyReturn | null>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -59,7 +60,9 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
     }
   );
 
-  const [duplicateWorkflowMutator, { isLoading: duplicateWorkflowIsLoading }] = useMutation(resolver.postDuplicateWorkflow);
+  const [duplicateWorkflowMutator, { isLoading: duplicateWorkflowIsLoading }] = useMutation(
+    resolver.postDuplicateWorkflow
+  );
 
   const isDuplicating = duplicateWorkflowIsLoading;
 
@@ -78,7 +81,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
     const workflowId = workflow.id;
     try {
       await deleteWorkflowMutator({ id: workflowId });
-      if (!isSystem) {
+      notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
+      if (scope === WorkflowScope.Team) {
         /**
          * teams query takes a while. optomistic update here
          */
@@ -88,11 +92,11 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
         // @ts-ignore
         teams[specificTeamIndex].workflows = newTeamWorkflows;
         queryCache.setQueryData(serviceUrl.getTeams(), teams);
-        notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
         queryCache.invalidateQueries(serviceUrl.getTeams());
-      } else {
-        notify(<ToastNotification kind="success" title="Delete Workflow" subtitle="Workflow successfully deleted" />);
+      } else if (scope === WorkflowScope.System) {
         queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+      } else {
+        queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
       }
     } catch {
       notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete workflow failed" />);
@@ -105,10 +109,12 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
       notify(
         <ToastNotification kind="success" title="Duplicate Workflow" subtitle="Successfully duplicated workflow" />
       );
-      if (isSystem) {
+      if (scope === WorkflowScope.System) {
         queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
-      } else {
+      } else if (scope === WorkflowScope.Team) {
         queryCache.invalidateQueries(serviceUrl.getTeams());
+      } else {
+        queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
       }
       return;
     } catch (e) {

@@ -53,7 +53,10 @@ export const AppPath = {
   TeamProperties: `/manage/team-parameters`,
   User: "/admin/users/:userId",
   UserList: "/admin/users",
+
   Workflows: "/workflows",
+  WorkflowsMine: "/workflows/mine",
+  WorkflowsTeams: "/workflows/teams",
 
   ManageTaskTemplates: `/manage/task-templates`,
   ManageTaskTemplatesTeam: `/manage/task-templates/team/:teamId`,
@@ -85,6 +88,8 @@ export const appLink = {
   teamSettings: ({ teamId }) => `/admin/teams/${teamId}/settings`,
   teamList: () => "/admin/teams",
   workflows: () => "/workflows",
+  workflowsMine: () => "/workflows/mine",
+  workflowsTeams: () => "/workflows/teams",
   workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
 
   manageTaskTemplates: ({ teamId }) => `/manage/task-templates/team/${teamId}`,
