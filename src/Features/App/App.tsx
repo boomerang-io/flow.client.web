@@ -270,7 +270,7 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
 
           <ProtectedRoute
             allowedUserRoles={[true]}
-            component={<TaskTemplates />}
+            component={<TaskTemplates isAdmin />}
             path={AppPath.TaskTemplates}
             userRole={taskManagerEnabled}
           />
