@@ -27,6 +27,7 @@ import {
   WorkflowRevision,
   WorkflowRevisionState,
 } from "Types";
+import { WorkflowScope } from "Constants";
 import styles from "./header.module.scss";
 
 interface DesignerHeaderProps {
@@ -68,10 +69,12 @@ const DesignerHeader: React.FC<DesignerHeaderProps> = ({
       nav={
         <Breadcrumb noTrailingSlash>
           <BreadcrumbItem>
-            {scope === "system" ? (
+            {scope === WorkflowScope.System ? (
               <Link to={appLink.systemWorkflows()}>System Workflows</Link>
+            ) : scope === WorkflowScope.Team ? (
+              <Link to={appLink.workflowsTeams()}>Workflows</Link>
             ) : (
-              <Link to={appLink.workflows()}>Workflows</Link>
+              <Link to={appLink.workflowsMine()}>My Workflows</Link>
             )}
           </BreadcrumbItem>
           <BreadcrumbItem isCurrentPage>
