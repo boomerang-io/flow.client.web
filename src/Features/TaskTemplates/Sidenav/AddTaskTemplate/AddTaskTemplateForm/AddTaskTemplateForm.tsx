@@ -17,6 +17,7 @@ import {
   TextArea,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
+import { useParams } from "react-router-dom";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utils/taskIcons";
@@ -27,6 +28,7 @@ import styles from "./addTaskTemplateForm.module.scss";
 AddTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
   taskTemplates: PropTypes.array.isRequired,
+  isAdmin: PropTypes.bool,
   isLoading: PropTypes.bool,
   handleAddTaskTemplate: PropTypes.func.isRequired,
 };
@@ -78,7 +80,8 @@ const readFile = (file) => {
 //   {value:"utilities" , label: "Utilities"}
 // ];
 
-function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTaskTemplate }) {
+function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, handleAddTaskTemplate }) {
+  const params: { teamId: string } = useParams();
   let taskTemplateNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
   const orderedIcons = orderBy(taskIcons, ["name"]);
 
@@ -92,12 +95,20 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       let index = env.indexOf(":");
       return { name: env.substring(0, index), value: env.substring(index + 1, env.length) };
     });
+    let flowTeamId, scope;
+    if(isAdmin) {
+      flowTeamId = null;
+      scope = "global";
+    } else {
+      flowTeamId = params?.teamId;
+      scope = "team";
+    }
     let newRevisionConfig = {
       version: 1,
       arguments: values.arguments.trim().split(/\s{1,}/),
       image: values.image,
       command: values.command,
-      scipt: values.script,
+      script: values.script,
       workingDir: values.workingDir,
       envs: newEnvs,
       config: hasFile ? values.currentRevision.config : [],
@@ -112,8 +123,8 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
       icon: values.icon.value,
       nodeType: "templateTask",
       status: "active",
-      flowTeamId: null,
-      scope: "global",
+      flowTeamId,
+      scope,
     };
     await handleAddTaskTemplate({ body, closeModal });
   };
