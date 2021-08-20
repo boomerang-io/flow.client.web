@@ -25,7 +25,7 @@ const userWorkflows = {
       flowTeamId: "5e3a35ad8c222700018ccd39",
       icon: "bot",
       id: "5eb2c4085a92d80001a16d87",
-      name: "ML Train – Bot Efficiency",
+      name: "Personal - ML Train – Bot Efficiency",
       shortDescription: "Train and store ML model for Bot Efficiency.",
       status: "active",
       triggers: {
@@ -64,7 +64,7 @@ const userWorkflows = {
       flowTeamId: "5e3a35ad8c222700018ccd39",
       icon: "cloud upload",
       id: "5e877e944bbc6e0001c51e6e",
-      name: "Java - Deploy",
+      name: "Personal - Java - Deploy",
       shortDescription: "",
       status: "active",
       triggers: {
@@ -164,7 +164,7 @@ const userWorkflows = {
       flowTeamId: "5e3a35ad8c222700018ccd38",
       icon: "delivery",
       id: "5e877d1f4bbc6e0001c51e12",
-      name: "Java - Build",
+      name: "Personal - Java - Build",
       shortDescription: "Java - Build",
       status: "active",
       triggers: {

@@ -22,7 +22,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
           <h1
             class="bx--bmrg-feature-header-title"
           >
-            My Workflows (undefined)
+            Workflows (undefined)
           </h1>
         </div>
         <div
@@ -41,7 +41,7 @@ exports[`WorkflowsHeader --- Snapshot Capturing Snapshot of WorkflowsHeader 1`] 
               class="bx--bmrg-feature-nav-tab"
               href="/workflows/teams"
             >
-              Teams
+              Team Workflows
             </a>
           </nav>
         </div>

@@ -155,25 +155,25 @@ export default function WorkflowsHome() {
           workflowsCount={workflowsCount}
         />
         <div aria-label="My Workflows" className={styles.content} role="region">
-          {filteredTeams.length > 0 ? (
-            <Switch>
-              <Route path={AppPath.WorkflowsMine}>
-                <UserWorkflows searchQuery={safeQuery} user={user} userWorkflowsQuery={userWorkflowsQuery} />
-              </Route>
-              <Route path={AppPath.WorkflowsTeams}>
-                {searchQuery && filteredWorkflowsCount === 0 ? (
+          <Switch>
+            <Route path={AppPath.WorkflowsMine}>
+              <UserWorkflows searchQuery={safeQuery} user={user} userWorkflowsQuery={userWorkflowsQuery} />
+            </Route>
+            <Route path={AppPath.WorkflowsTeams}>
+              {filteredTeams.length > 0 ? (
+                searchQuery && filteredWorkflowsCount === 0 ? (
                   <EmptyState />
                 ) : (
                   filteredTeams.map((team) => {
                     return <TeamWorkflows key={team.id} searchQuery={safeQuery} team={team} teams={teams} />;
                   })
-                )}
-              </Route>
-              <Redirect exact from={AppPath.Workflows} to={AppPath.WorkflowsMine} />
-            </Switch>
-          ) : (
-            <NoTeamsRedirectPrompt style={{ paddingTop: "1rem" }} />
-          )}
+                )
+              ) : (
+                <NoTeamsRedirectPrompt style={{ paddingTop: "1rem" }} />
+              )}
+            </Route>
+            <Redirect exact from={AppPath.Workflows} to={AppPath.WorkflowsMine} />
+          </Switch>
         </div>
       </div>
     </>

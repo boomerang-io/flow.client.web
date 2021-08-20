@@ -40,21 +40,27 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
       includeBorder={false}
       header={
         <>
-          <HeaderSubtitle>{scope === WorkflowScope.User ? "These are" : "These are your"}</HeaderSubtitle>
+          <HeaderSubtitle>These are your</HeaderSubtitle>
           <HeaderTitle>
             {scope === WorkflowScope.System
               ? `System Workflows (${workflowsCount})`
               : scope === WorkflowScope.Team
-              ? `Workflows (${workflowsCount})`
-              : `My Workflows (${workflowsCount})`}
+              ? `Team Workflows (${workflowsCount})`
+              : `Workflows (${workflowsCount})`}
           </HeaderTitle>
+          {scope === WorkflowScope.User && (
+            <HeaderSubtitle className={styles.headerMessage}>
+              Your personal playground to create and execute automation and work smarter. To collaborate on workflows,
+              create a team.
+            </HeaderSubtitle>
+          )}
         </>
       }
       footer={
         !(scope === WorkflowScope.System) && (
           <Tabs>
             <Tab label="My Workflows" to={appLink.workflowsMine()} />
-            <Tab label="Teams" to={appLink.workflowsTeams()} />
+            <Tab label="Team Workflows" to={appLink.workflowsTeams()} />
           </Tabs>
         )
       }
