@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import cronstrue from "cronstrue";
 import moment from "moment-timezone";
 import { Formik } from "formik";
@@ -13,7 +12,7 @@ import styles from "./cronJobModal.module.scss";
 //Timezones that don't have a match in Java and can't be saved via the service
 const exludedTimezones = ["GMT+0", "GMT-0", "ROC"];
 
-const cronDayNumberMap = {
+const cronDayNumberMap: {[key:string]: string} = {
   sunday: "SUN",
   monday: "MON",
   tuesday: "TUE",
@@ -23,16 +22,24 @@ const cronDayNumberMap = {
   saturday: "SAT",
 };
 
-export default class CronJobModal extends Component {
-  static propTypes = {
-    advancedCron: PropTypes.bool,
-    closeModal: PropTypes.func.isRequired,
-    cronExpression: PropTypes.string,
-    handleOnChange: PropTypes.func.isRequired,
-    timeZone: PropTypes.string,
-  };
+type Props = {
+  advancedCron?: boolean,
+  closeModal: () => void,
+  cronExpression?: string,
+  handleOnChange: (id: string, item: any) => void,
+  timeZone?: string | boolean,
+  timezoneOptions?: any;
+};
 
-  constructor(props) {
+type State = {
+  errorMessage?: string;
+  message: string | undefined;
+  defaultTimeZone: any
+};
+
+export default class CronJobModal extends Component<Props, State> {
+  
+  constructor(props: Props) {
     super(props);
     this.state = {
       errorMessage: undefined,
@@ -40,23 +47,24 @@ export default class CronJobModal extends Component {
       defaultTimeZone: moment.tz.guess(),
     };
 
+    //@ts-ignore
     this.timezoneOptions = moment.tz
       .names()
       .filter((tz) => !exludedTimezones.includes(tz))
       .map((element) => this.transformTimeZone(element));
   }
 
-  handleOnChange = (e, handleChange) => {
+  handleOnChange = (e: any, handleChange: (e: any) => void) => {
     this.validateCron(e.target.value);
     handleChange(e);
   };
 
-  handleTimeChange = (selectedItem, id, setFieldValue) => {
+  handleTimeChange = (selectedItem: any, id: string, setFieldValue: (id: string, item: any) => void) => {
     setFieldValue(id, selectedItem);
   };
 
   //receives input value from TextInput
-  validateCron = (value) => {
+  validateCron = (value: string) => {
     if (value === "1 1 1 1 1" || value === "* * * * *") {
       this.setState({ message: undefined, errorMessage: `Expression ${value} is not allowed for Boomerang Flow` });
       return false;
@@ -72,11 +80,11 @@ export default class CronJobModal extends Component {
   };
 
   // transform timeZone in { label, value } object
-  transformTimeZone = (timeZone) => {
+  transformTimeZone = (timeZone: string) => {
     return { label: `${timeZone} (UTC ${moment.tz(timeZone).format("Z")})`, value: timeZone };
   };
 
-  handleOnSave = (e, values) => {
+  handleOnSave = (e: any, values: any) => {
     e.preventDefault();
     const scheduleValue = values.advancedCron ? values.cronExpression : this.handleSchedule(values);
     this.props.handleOnChange(values.advancedCron, "triggers.scheduler.advancedCron");
@@ -88,9 +96,10 @@ export default class CronJobModal extends Component {
     this.props.closeModal();
   };
 
-  handleSchedule = (values) => {
-    let daysCron = [];
+  handleSchedule = (values: { days: Array<string>; time: string;}) => {
+    let daysCron:Array<string> | [] = [];
     Object.values(values.days).forEach((day) => {
+      //@ts-ignore
       daysCron.push(cronDayNumberMap[day]);
     });
     const timeCron = !values.time ? ["0", "0"] : values.time.split(":");
@@ -98,7 +107,7 @@ export default class CronJobModal extends Component {
     return cronExpression;
   };
 
-  handleCheckboxListChange = (setFieldValue, ...args) => {
+  handleCheckboxListChange = (setFieldValue: (id: string, value: any) => void, ...args : any) => {
     const currDays = args[args.length - 1];
     setFieldValue("days", currDays);
   };
@@ -109,7 +118,7 @@ export default class CronJobModal extends Component {
     const cronToData = cronToDateTime(!!cronExpression, cronExpression ? cronExpression : undefined);
     const { cronTime, selectedDays } = cronToData;
 
-    let activeDays = [];
+    let activeDays: string[] = [];
     Object.entries(selectedDays).forEach(([key, value]) => {
       if (value) {
         activeDays.push(key);
@@ -125,16 +134,16 @@ export default class CronJobModal extends Component {
           advancedCron: !!advancedCron,
           days: activeDays,
           time: cronTime || "18:00",
-          timeZone: timeZone ? this.transformTimeZone(timeZone) : this.transformTimeZone(defaultTimeZone),
+          timeZone: timeZone && typeof timeZone !== "boolean" ? this.transformTimeZone(timeZone) : this.transformTimeZone(defaultTimeZone),
         }}
         validationSchema={Yup.object().shape({
           cronExpression: Yup.string().when("advancedCron", {
             is: true,
-            then: (cron) => cron.required("Expression required"),
+            then: (cron: any) => cron.required("Expression required"),
           }),
           advancedCron: Yup.bool(),
           days: Yup.array(),
-          time: Yup.string().when("advancedCron", { is: false, then: (time) => time.required("Enter a time") }),
+          time: Yup.string().when("advancedCron", { is: false, then: (time: any) => time.required("Enter a time") }),
           timeZone: Yup.object().shape({ label: Yup.string(), value: Yup.string() }),
         })}
       >
@@ -160,7 +169,7 @@ export default class CronJobModal extends Component {
                       id="advancedCron"
                       labelText="Advanced controls"
                       name="advancedCron"
-                      onToggle={(value) => setFieldValue("advancedCron", value)}
+                      onToggle={(value: boolean) => setFieldValue("advancedCron", value)}
                       toggled={values.advancedCron}
                     />
                   </div>
@@ -174,7 +183,7 @@ export default class CronJobModal extends Component {
                           invalidText={errorMessage}
                           labelText="CRON Expression"
                           onBlur={handleBlur}
-                          onChange={(e) => this.handleOnChange(e, handleChange)}
+                          onChange={(e: any) => this.handleOnChange(e, handleChange)}
                           placeholder="Enter a CRON Expression"
                           value={values.cronExpression}
                         />
@@ -187,8 +196,9 @@ export default class CronJobModal extends Component {
                         <ComboBox
                           id="timeZone"
                           initialSelectedItem={values.timeZone}
+                          //@ts-ignore
                           items={this.timezoneOptions}
-                          onChange={({ selectedItem }) =>
+                          onChange={({ selectedItem }: { selectedItem: {label: string, value: string}}) =>
                             this.handleTimeChange(
                               selectedItem !== null ? selectedItem : { label: "", value: "" },
                               "timeZone",
@@ -221,8 +231,9 @@ export default class CronJobModal extends Component {
                           <ComboBox
                             id="timeZone"
                             initialSelectedItem={values.timeZone}
+                            //@ts-ignore
                             items={this.timezoneOptions}
-                            onChange={({ selectedItem }) =>
+                            onChange={({ selectedItem }: { selectedItem: {label: string, value: string}}) =>
                               this.handleTimeChange(
                                 selectedItem !== null ? selectedItem : { label: "", value: "" },
                                 "timeZone",
@@ -239,7 +250,7 @@ export default class CronJobModal extends Component {
                           initialSelectedItems={values.days}
                           labelText="Choose day(s)"
                           options={daysOfWeekCronList}
-                          onChange={(...args) => this.handleCheckboxListChange(setFieldValue, ...args)}
+                          onChange={(...args: any) => this.handleCheckboxListChange(setFieldValue, ...args)}
                         />
                       </div>
                     </>
@@ -253,7 +264,7 @@ export default class CronJobModal extends Component {
                 <Button
                   disabled={!isValid || (errorMessage && values.advancedCron)} //disable if the form is invalid or if there is an error message
                   type="submit"
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent) => {
                     this.handleOnSave(e, values);
                   }}
                 >

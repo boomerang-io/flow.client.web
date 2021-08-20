@@ -1,30 +1,39 @@
+//@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditPropertiesContent from "./CreateEditPropertiesContent";
 import { Add16 } from "@carbon/icons-react";
+import { Property } from "Types";
 import styles from "./createEditPropertiesModal.module.scss";
 
-function CreateEditPropertiesModal({ isEdit, isOpen, handleEditClose, property, properties }) {
+type Props = {
+  handleEditClose?: () => void;
+  isEdit?: boolean;
+  isOpen?: boolean;
+  property?: Property;
+  properties: Property[];
+};
+
+function CreateEditPropertiesModal({ isEdit, isOpen, handleEditClose, property, properties }: Props) {
   /**
    * arrays of values for making the key unique
    * filter out own value if editing a property, pass through all if creating
    */
-  let propertyKeys = [];
+  let propertyKeys: string[] | [] = [];
   if (Array.isArray(properties)) {
     propertyKeys = properties.map((propertyObj) => propertyObj.key);
     if (isEdit && property) {
       propertyKeys = propertyKeys.filter((propertyItem) => propertyItem !== property.key);
     }
   }
-  const cancelRequestRef = React.useRef();
+  const cancelRequestRef = React.useRef<any>();
 
   return (
     <ModalFlow
       isOpen={isOpen}
       composedModalProps={{ containerClassName: styles.modalContainer }}
-      modalTrigger={({ openModal }) =>
+      modalTrigger={({ openModal }: { openModal: () => void }) =>
         !isEdit ? (
           <Button
             data-testid="create-global-parameter-button"
@@ -55,13 +64,5 @@ function CreateEditPropertiesModal({ isEdit, isOpen, handleEditClose, property, 
     </ModalFlow>
   );
 }
-
-CreateEditPropertiesModal.propTypes = {
-  isOpen: PropTypes.bool,
-  isEdit: PropTypes.bool,
-  property: PropTypes.object,
-  properties: PropTypes.array,
-  handleEditClose: PropTypes.func,
-};
 
 export default CreateEditPropertiesModal;

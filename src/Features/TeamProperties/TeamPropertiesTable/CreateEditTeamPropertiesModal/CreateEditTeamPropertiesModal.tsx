@@ -1,31 +1,41 @@
+//@ts-nocheck
 import React from "react";
-import PropTypes from "prop-types";
 import { ModalFlow } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditTeamPropertiesModalContent from "./CreateEditTeamPropertiesModalContent";
 import { Add16 } from "@carbon/icons-react";
+import { Property, FlowTeam } from "Types";
 import styles from "./createEditTeamPropertiesModal.module.scss";
 
-function CreateEditTeamPropertiesModal({ handleEditClose, isEdit, isOpen, property, properties, team }) {
+type Props = {
+  handleEditClose?: () => void;
+  isEdit?: boolean;
+  isOpen?: boolean;
+  property?: Property;
+  properties: Property[];
+  team: FlowTeam;
+};
+
+function CreateEditTeamPropertiesModal({ handleEditClose, isEdit, isOpen, property, properties, team }: Props) {
   /**
    * arrays of values for making the key unique
    * filter out own value if editing a property, pass through all if creating
    */
-  let propertyKeys = [];
+  let propertyKeys: string[] | [] = [];
   if (Array.isArray(properties)) {
     propertyKeys = properties.map((configurationObj) => configurationObj.key);
     if (isEdit && property) {
       propertyKeys = propertyKeys.filter((propertyItem) => propertyItem !== property.key);
     }
   }
-  const cancelRequestRef = React.useRef();
+  const cancelRequestRef = React.useRef<any>();
 
   return (
     <ModalFlow
       isOpen={isOpen}
       composedModalProps={{ containerClassName: styles.modalContainer }}
       modalProps={{ shouldCloseOnOverlayClick: false }}
-      modalTrigger={({ openModal }) =>
+      modalTrigger={({ openModal }: { openModal: () => void }) =>
         !isEdit ? (
           <Button
             data-testid="create-team-parameter-button"
@@ -57,14 +67,5 @@ function CreateEditTeamPropertiesModal({ handleEditClose, isEdit, isOpen, proper
     </ModalFlow>
   );
 }
-
-CreateEditTeamPropertiesModal.propTypes = {
-  handleEditClose: PropTypes.func,
-  property: PropTypes.object,
-  properties: PropTypes.array.isRequired,
-  isEdit: PropTypes.bool,
-  isOpen: PropTypes.bool,
-  team: PropTypes.object.isRequired,
-};
 
 export default CreateEditTeamPropertiesModal;

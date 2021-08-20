@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import cx from "classnames";
 import { Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Toggle } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -12,13 +11,13 @@ import styles from "./taskExecutionLog.module.scss";
 const DEV_STREAM_URL =
   "https://gist.githubusercontent.com/helfi92/96d4444aa0ed46c5f9060a789d316100/raw/ba0d30a9877ea5cc23c7afcd44505dbc2bab1538/typical-live_backing.log";
 
-TaskExecutionLog.propTypes = {
-  flowActivityId: PropTypes.string.isRequired,
-  flowTaskId: PropTypes.string.isRequired,
-  flowTaskName: PropTypes.string.isRequired,
+type Props = {
+  flowActivityId: string;
+  flowTaskId: string;
+  flowTaskName: string;
 };
 
-export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskName }) {
+export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskName }: Props) {
   const [follow, setFollow] = React.useState(true);
   const [error, setError] = React.useState(false);
 
@@ -32,7 +31,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
         title: "Execution Log",
         label: `${flowTaskName}`,
       }}
-      modalTrigger={({ openModal }) => (
+      modalTrigger={({ openModal }: { openModal: () => void }) => (
         <Button className={styles.trigger} kind="ghost" size="small" onClick={openModal}>
           View Log
         </Button>
@@ -42,7 +41,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
         <ModalBody>
           <ScrollFollow
             startFollowing={true}
-            render={({ onScroll }) => (
+            render={({ onScroll }: { onScroll: () => void }) => (
               <>
                 <div className={styles.followToggle}>
                   <label
@@ -66,7 +65,7 @@ export default function TaskExecutionLog({ flowActivityId, flowTaskId, flowTaskN
                   }
                   follow={follow}
                   onScroll={onScroll}
-                  onError={(err) => setError(err)}
+                  onError={(err: boolean) => setError(err)}
                   selectableLines={true}
                   stream={true}
                   url={

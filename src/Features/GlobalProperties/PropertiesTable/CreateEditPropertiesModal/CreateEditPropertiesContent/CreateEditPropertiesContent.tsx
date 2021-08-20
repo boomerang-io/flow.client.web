@@ -1,102 +1,106 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useMutation, queryCache } from "react-query";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import {
   Button,
   InlineNotification,
+  Loading,
   ModalBody,
+  ModalFlowForm,
   ModalFooter,
+  notify,
+  ToastNotification,
   TextInput,
   Toggle,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ModalFlowForm, notify, ToastNotification, Loading } from "@boomerang-io/carbon-addons-boomerang-react";
-import { serviceUrl, resolver } from "Config/servicesConfig";
 import { InputType, PROPERTY_KEY_REGEX } from "Constants";
-import styles from "./createEditTeamPropertiesModalContent.module.scss";
+import { serviceUrl, resolver } from "Config/servicesConfig";
+import { Property } from "Types";
 
-function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, propertyKeys, team, cancelRequestRef }) {
-  const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: team.id });
+type Props = {
+  closeModal: () => void;
+  isEdit: boolean;
+  property: Property;
+  propertyKeys: string[];
+  cancelRequestRef: any;
+};
 
-  /** Add Team Property */
-  const [addTeamPropertyMutation, { isLoading: addIsLoading, error: addError }] = useMutation(
-    (args) => {
-      const { promise, cancel } = resolver.postTeamPropertyRequest(args);
+const configUrl = serviceUrl.getGlobalConfiguration();
+
+function CreateEditPropertiesContent({ closeModal, isEdit, property, propertyKeys, cancelRequestRef }: Props) {
+  /** Add property */
+  const [addGlobalPropertyMutation, { isLoading: addLoading, error: addError }] = useMutation(
+    (args: { body: Property }) => {
+      const { promise, cancel } = resolver.postGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries(teamPropertiesUrl),
+      onSuccess: () => queryCache.invalidateQueries(configUrl),
     }
   );
 
-  /** Update Team Property */
-  const [updateTeamPropertyMutation, { isLoading: updateIsLoading, error: updateError }] = useMutation(
-    (args) => {
-      const { promise, cancel } = resolver.patchTeamPropertyRequest(args);
+  /** Update property */
+  const [updateGlobalPropertyMutation, { isLoading: updateLoading, error: updateError }] = useMutation(
+    (args: { id: string; body: Property }) => {
+      const { promise, cancel } = resolver.patchGlobalPropertyRequest(args);
       cancelRequestRef.current = cancel;
       return promise;
     },
     {
-      onSuccess: () => queryCache.invalidateQueries(teamPropertiesUrl),
+      onSuccess: () => queryCache.invalidateQueries(configUrl),
     }
   );
 
-  const loading = addIsLoading || updateIsLoading;
+  const loading = addLoading || updateLoading;
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values: any) => {
     const type = values.secured ? InputType.Password : InputType.Text;
-    const newTeamProperty = isEdit ? { ...values, type, id: property.id } : { ...values, type };
-    delete newTeamProperty.secured;
+    const newProperty = isEdit ? { ...values, type, id: property.id } : { ...values, type };
+    delete newProperty.secured;
 
     if (isEdit) {
       try {
-        const response = await updateTeamPropertyMutation({
-          teamId: team.id,
-          configurationId: newTeamProperty.id,
-          body: newTeamProperty,
-        });
+        await updateGlobalPropertyMutation({ id: newProperty.id, body: newProperty });
         notify(
           <ToastNotification
             kind="success"
-            title={"Parameter Updated"}
-            subtitle={`Request to update ${response.data.label} succeeded`}
-            data-testid="create-update-team-prop-notification"
+            title={"Property Updated"}
+            subtitle={`Request to update ${newProperty.label} succeeded`}
+            data-testid="create-update-global-prop-notification"
           />
         );
         closeModal();
       } catch (err) {}
     } else {
       try {
-        const response = await addTeamPropertyMutation({ id: team.id, body: newTeamProperty });
+        await addGlobalPropertyMutation({ body: newProperty });
         notify(
           <ToastNotification
             kind="success"
-            title={"Parameter Created"}
-            subtitle={`Request to create ${response.data.label} succeeded`}
-            data-testid="create-update-team-prop-notification"
+            title="Property Created"
+            subtitle="Request to create property succeeded"
+            data-testid="create-update-global-prop-notification"
           />
         );
         closeModal();
-      } catch (err) {
-        //no-op
-      }
+      } catch (err) {}
     }
   };
 
   // Check if key contains alpahanumeric, underscore, dash, and period chars
-  const validateKey = (key) => {
+  const validateKey = (key: any) => {
     return PROPERTY_KEY_REGEX.test(key);
   };
 
   return (
     <Formik
       initialValues={{
-        value: property && property.value ? property.value : "",
-        key: property && property.key ? property.key : "",
         label: property && property.label ? property.label : "",
         description: property && property.description ? property.description : "",
+        key: property && property.key ? property.key : "",
+        value: property && property.value ? property.value : "",
         secured: property ? property.type === InputType.Password : false,
       }}
       onSubmit={handleSubmit}
@@ -105,7 +109,7 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
         key: Yup.string()
           .required("Enter a key")
           .max(128, "Key must not be greater than 128 characters")
-          .notOneOf(propertyKeys || [], "Enter a unique key value for this parameter")
+          .notOneOf(propertyKeys || [], "Enter a unique key value for this property")
           .test(
             "is-valid-key",
             "Only alphanumeric, hyphen and underscore characters allowed. Must begin with a letter or underscore",
@@ -121,12 +125,12 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
 
         return (
           <ModalFlowForm onSubmit={handleSubmit}>
-            <ModalBody aria-label="inputs" className={styles.formBody}>
-              {loading && <Loading />}
+            {loading && <Loading />}
+            <ModalBody aria-label="inputs">
               <TextInput
+                data-testid="create-parameter-key"
                 id="key"
                 labelText="Key"
-                placeholder="Key"
                 name="key"
                 value={values.key}
                 onBlur={handleBlur}
@@ -135,9 +139,9 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 invalidText={errors.key}
               />
               <TextInput
+                data-testid="create-parameter-label"
                 id="label"
                 labelText="Label"
-                placeholder="Label"
                 name="label"
                 value={values.label}
                 onBlur={handleBlur}
@@ -146,15 +150,16 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 invalidText={errors.label}
               />
               <TextInput
+                data-testid="create-parameter-description"
                 id="description"
                 labelText="Description"
-                placeholder="Description"
                 name="description"
                 value={values.description}
                 onBlur={handleBlur}
                 onChange={handleChange}
               />
               <TextInput
+                data-testid="create-parameter-value"
                 id="value"
                 labelText="Value"
                 placeholder="Value"
@@ -167,30 +172,30 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 type={values.secured ? "password" : "text"}
               />
               <Toggle
-                id="secured-team-parameters-toggle"
-                data-testid="secured-team-parameters-toggle"
+                id="secured-global-parameters-toggle"
                 labelText="Secured"
                 name="secured"
                 onChange={handleChange}
                 orientation="vertical"
                 toggled={values.secured}
+                data-testid="secured-global-parameters-toggle"
               />
               {addError && (
                 <InlineNotification
                   lowContrast
                   kind="error"
-                  subtitle={"Request to create parameter failed"}
-                  title={"Something's Wrong"}
-                  data-testid="create-update-team-prop-notification"
+                  title={"Create Property Failed"}
+                  subtitle={"Something's Wrong"}
+                  data-testid="create-update-global-prop-notification"
                 />
               )}
               {updateError && (
                 <InlineNotification
                   lowContrast
                   kind="error"
-                  subtitle={"Request to update parameter failed"}
-                  title={"Something's Wrong"}
-                  data-testid="create-update-team-prop-notification"
+                  title={"Update Property Failed"}
+                  subtitle={"Something's Wrong"}
+                  data-testid="create-update-global-prop-notification"
                 />
               )}
             </ModalBody>
@@ -199,9 +204,9 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
                 Cancel
               </Button>
               <Button
-                data-testid="team-parameter-create-edit-submission-button"
                 type="submit"
                 disabled={!isValid || loading}
+                data-testid="global-parameter-create-submission-button"
               >
                 {isEdit ? (loading ? "Saving..." : "Save") : loading ? "Creating..." : "Create"}
               </Button>
@@ -213,12 +218,4 @@ function CreateEditTeamPropertiesModalContent({ closeModal, isEdit, property, pr
   );
 }
 
-CreateEditTeamPropertiesModalContent.propTypes = {
-  isEdit: PropTypes.bool,
-  property: PropTypes.object,
-  propertyKeys: PropTypes.array.isRequired,
-  team: PropTypes.object.isRequired,
-  cancelRequestRef: PropTypes.object.isRequired,
-};
-
-export default CreateEditTeamPropertiesModalContent;
+export default CreateEditPropertiesContent;

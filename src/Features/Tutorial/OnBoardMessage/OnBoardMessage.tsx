@@ -1,12 +1,32 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import { Close20 } from "@carbon/icons-react";
 import bkgskyline from "Assets/svg/bkg-skyline.svg";
 import FadeAnimation from "Components/FadeAnimation";
 import "./styles.scss";
 
-const OnBoardMessage = (props) => {
+type Props = {
+  buttonsClassName?: string;
+  closeModal?: () => void;
+  contentClassName?: string;
+  finishButton?: string;
+  finishButtonClassName?: string;
+  finishImgsClassName?: string;
+  finishSubTitle?: string;
+  finishQuestionMark?: string;
+  goToScreen?: (screen: number) => void;
+  homeScreen?: boolean;
+  leftButton?: string;
+  modalClassName?: string;
+  nextScreen?: () => void;
+  returnScreen?: number;
+  rightButton?: string;
+  subTitle?: string;
+  subtitleClassName?: string;
+  title?: string;
+};
+
+const OnBoardMessage = (props: Props) => {
   const {
     title,
     subTitle,
@@ -56,7 +76,7 @@ const OnBoardMessage = (props) => {
             <div className="b-onboardExp__title">{title}</div>
             <div className={subtitleClassName}>{subTitle}</div>
             <div className={buttonsClassName}>
-              <Button size="field" onClick={() => goToScreen(returnScreen)}>
+              <Button size="field" onClick={() => returnScreen && goToScreen && goToScreen(returnScreen)}>
                 {leftButton}
               </Button>
               <Button size="field" onClick={nextScreen} style={{ marginLeft: "1rem" }}>
@@ -71,26 +91,6 @@ const OnBoardMessage = (props) => {
       </div>
     </FadeAnimation>
   );
-};
-
-OnBoardMessage.propTypes = {
-  title: PropTypes.string,
-  subTitle: PropTypes.string,
-  leftButton: PropTypes.string,
-  rightButton: PropTypes.string,
-  finishButton: PropTypes.string,
-  modalClassName: PropTypes.string,
-  contentClassName: PropTypes.string,
-  finishImgsClassName: PropTypes.string,
-  finishButtonClassName: PropTypes.string,
-  finishSubTitle: PropTypes.string,
-  finishQuestionMark: PropTypes.string,
-  subtitleClassName: PropTypes.string,
-  buttonsClassName: PropTypes.string,
-  nextScreen: PropTypes.func,
-  closeModal: PropTypes.func,
-  goToScreen: PropTypes.func,
-  returnScreen: PropTypes.number,
 };
 
 export default OnBoardMessage;

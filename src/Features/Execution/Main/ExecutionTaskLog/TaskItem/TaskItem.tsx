@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import { Button, ComposedModal, ModalBody } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -12,6 +11,7 @@ import TaskResults from "./TaskResults";
 import moment from "moment";
 import dateHelper from "Utils/dateHelper";
 import { ApprovalStatus, ExecutionStatus, executionStatusIcon, ExecutionStatusCopy, NodeType } from "Constants";
+import { WorkflowExecutionStep } from "Types";
 import styles from "./taskItem.module.scss";
 
 import { appLink } from "Config/appConfig";
@@ -19,14 +19,14 @@ import { appLink } from "Config/appConfig";
 const logTaskTypes = ["customtask", "template", "script"];
 const logStatusTypes = [ExecutionStatus.Completed, ExecutionStatus.Failure, ExecutionStatus.InProgress];
 
-TaskItem.propTypes = {
-  flowActivityId: PropTypes.string.isRequired,
-  hidden: PropTypes.bool.isRequired,
-  task: PropTypes.object.isRequired,
-  executionId: PropTypes.string.isRequired,
+type Props = {
+  flowActivityId: string;
+  hidden: boolean;
+  task: WorkflowExecutionStep;
+  executionId: string;
 };
 
-function TaskItem({ flowActivityId, hidden, task, executionId }) {
+function TaskItem({ flowActivityId, hidden, task, executionId }: Props) {
   const {
     duration,
     flowTaskStatus,
@@ -58,7 +58,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
     Icon = executionStatusIcon[flowTaskStatus];
     runStatus = flowTaskStatus;
   }
-
+  //@ts-ignore
   const calculatedDuration = Number.parseInt(duration)
     ? dateHelper.timeMillisecondsToTimeUnit(duration)
     : dateHelper.durationFromThenToNow(startTime) || "---";
@@ -119,13 +119,13 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                 title: "View Task Error",
                 subtitle: taskName,
               }}
-              modalTrigger={({ openModal }) => (
+              modalTrigger={({ openModal }: { openModal: () => void }) => (
                 <Button size="small" kind="ghost" onClick={openModal}>
                   View Error
                 </Button>
               )}
             >
-              {({ closeModal }) => <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />}
+              {({ closeModal }: { closeModal: () => void }) => <ErrorModal errorCode={error?.code ?? ""} errorMessage={error?.message ?? ""} />}
             </ComposedModal>
           )}
           {flowTaskStatus !== ExecutionStatus.Cancelled &&
@@ -136,16 +136,15 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                   title: "Action Manual Approval",
                   subtitle: taskName,
                 }}
-                modalTrigger={({ openModal }) => (
+                modalTrigger={({ openModal }: { openModal: () => void }) => (
                   <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
                     Action Manual Approval
                   </Button>
                 )}
               >
-                {({ closeModal }) => (
+                {({ closeModal }: { closeModal: () => void }) => (
                   <TaskApprovalModal
                     approvalId={approval.id}
-                    flowTaskName={taskName}
                     executionId={executionId}
                     closeModal={closeModal}
                   />
@@ -163,16 +162,15 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                   title: "Action Manual Task",
                   subtitle: taskName,
                 }}
-                modalTrigger={({ openModal }) => (
+                modalTrigger={({ openModal }: { openModal: () => void }) => (
                   <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
                     Action Manual Task
                   </Button>
                 )}
               >
-                {({ closeModal }) => (
+                {({ closeModal }: { closeModal: () => void }) => (
                   <ManualTaskModal
                     approvalId={approval?.id}
-                    flowTaskName={taskName}
                     executionId={executionId}
                     closeModal={closeModal}
                     instructions={approval?.instructions}
@@ -190,7 +188,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                 modalHeaderProps={{
                   title: "Manual Approval details",
                 }}
-                modalTrigger={({ openModal }) => (
+                modalTrigger={({ openModal }: { openModal: () => void }) => (
                   <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
                     View Manual Approval
                   </Button>
@@ -232,7 +230,7 @@ function TaskItem({ flowActivityId, hidden, task, executionId }) {
                 modalHeaderProps={{
                   title: "Manual Task details",
                 }}
-                modalTrigger={({ openModal }) => (
+                modalTrigger={({ openModal }: { openModal: () => void }) => (
                   <Button className={styles.modalTrigger} size="small" kind="ghost" onClick={openModal}>
                     View Manual Task
                   </Button>

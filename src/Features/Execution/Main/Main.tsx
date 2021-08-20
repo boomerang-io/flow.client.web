@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { withRouter } from "react-router-dom";
+import { QueryIdleResult, QueryLoadingResult, QuerySuccessResult } from "react-query";
 import { DiagramWidget } from "@projectstorm/react-diagrams";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
 import ExecutionHeader from "./ExecutionHeader";
@@ -10,17 +10,28 @@ import WorkflowActions from "./WorkflowActions";
 import WorkflowZoom from "Components/WorkflowZoom";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
 import { ExecutionStatus, QueryStatus, WorkflowDagEngineMode } from "Constants";
+import { WorkflowDag } from "Types";
 import styles from "./main.module.scss";
 
-class Main extends Component {
-  static propTypes = {
-    dag: PropTypes.object.isRequired,
-    workflow: PropTypes.object.isRequired,
-    workflowExecution: PropTypes.object.isRequired,
-    version: PropTypes.number.isRequired,
-  };
+type Props = {
+  dag: WorkflowDag;
+  workflow: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
+  workflowExecution: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
+  version: number;
+  history: any;
+  location: any;
+  match: any;
+};
 
-  constructor(props) {
+type State = {
+  workflowDagBoundingClientRect: any;
+};
+
+class Main extends Component<Props, State> {
+  workflowDagEngine: any;
+  diagramRef: any;
+
+  constructor(props: Props) {
     super(props);
     this.workflowDagEngine = new WorkflowDagEngine({
       dag: props.dag,
@@ -29,7 +40,7 @@ class Main extends Component {
     this.state = {
       workflowDagBoundingClientRect: {},
     };
-    this.diagramRef = React.createRef();
+    this.diagramRef = React.createRef<any>();
   }
 
   componentDidMount() {
@@ -47,7 +58,7 @@ class Main extends Component {
 
     const hasFinished = [ExecutionStatus.Completed, ExecutionStatus.Invalid, ExecutionStatus.Failure].includes(status);
 
-    const hasStarted = steps && steps.find((step) => step.flowTaskStatus !== ExecutionStatus.NotStarted);
+    const hasStarted = steps && steps.find((step: any) => step.flowTaskStatus !== ExecutionStatus.NotStarted);
 
     const isDiagramLoading =
       workflow.status === QueryStatus.Success &&

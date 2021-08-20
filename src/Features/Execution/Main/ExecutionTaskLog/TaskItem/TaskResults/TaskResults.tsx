@@ -1,13 +1,20 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ReactJson from "react-json-view";
 import { Button, ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ModalBody, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
 import ResultsTable from "./ResultsTable";
 import styles from "./taskResults.module.scss";
 
-function TaskResults({ flowTaskName, flowTaskResults }) {
+type Props = {
+  flowTaskName: string;
+  flowTaskResults: {
+    name: string;
+    description: string;
+    value: string;
+  }[];
+};
 
+function TaskResults({ flowTaskName, flowTaskResults }: Props) {
   return (
     <ComposedModal
       composedModalProps={{ containerClassName: styles.container, shouldCloseOnOverlayClick: true }}
@@ -19,7 +26,7 @@ function TaskResults({ flowTaskName, flowTaskResults }) {
         title: "Task Results",
         label: `${flowTaskName}`,
       }}
-      modalTrigger={({ openModal }) => (
+      modalTrigger={({ openModal }: { openModal: () => void }) => (
         <Button kind="ghost" size="small" onClick={openModal}>
           View Results
         </Button>
@@ -38,6 +45,7 @@ function TaskResults({ flowTaskName, flowTaskResults }) {
                     name={false}
                     src={flowTaskResults}
                     displayDataTypes={false}
+                    //@ts-ignore
                     enableDelete={false}
                     displayObjectSize={false}
                     enableEdit={false}
@@ -52,10 +60,5 @@ function TaskResults({ flowTaskName, flowTaskResults }) {
     </ComposedModal>
   );
 }
-
-TaskResults.propTypes = {
-  flowTaskName: PropTypes.string.isRequired,
-  flowTaskResults: PropTypes.object.isRequired,
-};
 
 export default TaskResults;

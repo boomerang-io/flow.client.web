@@ -1,16 +1,18 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { QueryIdleResult, QueryLoadingResult, QuerySuccessResult } from "react-query";
 import { ExecutionContextProvider } from "State/context";
 import { Box } from "reflexbox";
 import { useQuery } from "Hooks";
 import { useParams } from "react-router-dom";
 import { Loading, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
 import Main from "./Main";
+import { TaskModel } from "Types";
 import { serviceUrl } from "Config/servicesConfig";
 
 export default function ExecutionContainer() {
-  const { workflowId, executionId } = useParams();
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ workflowId });
+  const { workflowId, executionId } : { workflowId: string; executionId: string; } = useParams();
+  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ query: workflowId });
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getExecutionUrl = serviceUrl.getWorkflowExecution({ executionId });
 
@@ -61,7 +63,14 @@ export default function ExecutionContainer() {
   return null;
 }
 
-function RevisionContainer({ executionQuery, summaryQuery, taskTemplatesData, workflowId }) {
+type RevisionProps = {
+  executionQuery: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
+  summaryQuery: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
+  taskTemplatesData: TaskModel[];
+  workflowId: string;
+};
+
+function RevisionContainer({ executionQuery, summaryQuery, taskTemplatesData, workflowId }: RevisionProps) {
   const getRevisionUrl = serviceUrl.getWorkflowRevision({
     workflowId,
     revisionNumber: executionQuery?.data?.workflowRevisionVersion ?? undefined,

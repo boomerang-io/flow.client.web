@@ -18,7 +18,12 @@ import OnBoardGuideContainer from "./OnBoardGuideContainer";
 import OnBoardMessage from "./OnBoardMessage";
 import "./styles.scss";
 
-export default function OnBoardExpContainer({ isTutorialActive, setIsTutorialActive }) {
+type Props = {
+  isTutorialActive: boolean;
+  setIsTutorialActive: (prop: boolean) => void;
+};
+
+export default function OnBoardExpContainer({ isTutorialActive, setIsTutorialActive }: Props) {
   const [screen, setScreen] = useState(0);
   const location = useLocation();
 
@@ -30,7 +35,7 @@ export default function OnBoardExpContainer({ isTutorialActive, setIsTutorialAct
     setScreen((prevCount) => prevCount - 1);
   };
 
-  const goToScreen = (newScreen) => {
+  const goToScreen = (newScreen: any) => {
     setScreen(newScreen);
   };
 
@@ -45,9 +50,9 @@ export default function OnBoardExpContainer({ isTutorialActive, setIsTutorialAct
 
   const index = screen;
   const path = location.pathname;
-  let screens = {};
-  let guideConfig = {};
-  let message = {};
+  let screens: any = {};
+  let guideConfig : any= {};
+  let message: any = {};
 
   if (path.includes("/workflows")) {
     screens = homeScreens;

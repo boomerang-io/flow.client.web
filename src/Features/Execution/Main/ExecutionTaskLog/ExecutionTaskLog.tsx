@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { SkeletonPlaceholder, TooltipIcon } from "@boomerang-io/carbon-addons-boomerang-react";
+import { QueryIdleResult, QueryLoadingResult, QuerySuccessResult } from "react-query";
 import TaskItem from "./TaskItem";
 import orderBy from "lodash/orderBy";
 import { getSimplifiedDuration } from "Utils/timeHelper";
@@ -9,13 +9,13 @@ import { executionStatusIcon, ExecutionStatusCopy } from "Constants";
 import { ArrowsVertical32, ChevronLeft32 } from "@carbon/icons-react";
 import styles from "./executionTaskLog.module.scss";
 
-ExecutionTaskLog.propTypes = {
-  workflowExecution: PropTypes.object.isRequired,
+type Props = {
+  workflowExecution: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
 };
 
-function ExecutionTaskLog({ workflowExecution }) {
+function ExecutionTaskLog({ workflowExecution }: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [tasksSort, setTasksSort] = useState("desc");
+  const [tasksSort, setTasksSort] = useState<boolean | "desc" | "asc">("desc");
 
   const { id, duration, status, steps } = workflowExecution.data;
   const Icon = executionStatusIcon[status];
@@ -28,7 +28,7 @@ function ExecutionTaskLog({ workflowExecution }) {
     setTasksSort(tasksSort === "desc" ? "asc" : "desc");
   };
 
-  const sortedTasks = steps ? orderBy(steps, (step) => step.order, [tasksSort]) : [];
+  const sortedTasks = steps ? orderBy(steps, (step: any) => step.order, [tasksSort]) : [];
 
   return (
     <aside className={`${styles.container} ${isCollapsed ? styles.collapsed : ""}`}>

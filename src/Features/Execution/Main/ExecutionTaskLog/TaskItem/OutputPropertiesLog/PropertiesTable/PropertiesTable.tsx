@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
   StructuredListCell,
   StructuredListBody,
@@ -10,8 +9,19 @@ import {
 import { NoDisplay } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./propertiesTable.module.scss";
 
-function PropertiesTable({ data: properties, hasJsonValues = false }) {
-  const formatPropertyValue = (value) => {
+type Props = {
+  data: {
+    key: string;
+    value: string;
+  }[] |
+  {
+    [key: string]: string;
+  };
+  hasJsonValues: boolean;
+};
+
+function PropertiesTable({ data: properties, hasJsonValues = false }: Props) {
+  const formatPropertyValue = (value: string) => {
     if (hasJsonValues) {
       if (value && value !== '""')
         try {
@@ -35,7 +45,7 @@ function PropertiesTable({ data: properties, hasJsonValues = false }) {
             </StructuredListRow>
           </StructuredListHead>
           <StructuredListBody>
-            {properties.map((property, i) => (
+            {Array.isArray(properties) && properties.map((property: {key: string; value: string;}, i: number) => (
               <StructuredListRow key={`row-${i}`}>
                 <StructuredListCell>{property.key}</StructuredListCell>
                 <StructuredListCell>
@@ -51,9 +61,5 @@ function PropertiesTable({ data: properties, hasJsonValues = false }) {
     </div>
   );
 }
-
-PropertiesTable.propTypes = {
-  data: PropTypes.array.isRequired,
-};
 
 export default PropertiesTable;

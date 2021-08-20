@@ -24,11 +24,17 @@ const GateStatus = {
   Rejected: "REJECTED",
 };
 
-function TaskApprovalModal({ approvalId, executionId, closeModal }) {
-  const cancelRequestRef = React.useRef();
+type Props = {
+  approvalId: string;
+  executionId: string;
+  closeModal: () => void;
+};
+
+function TaskApprovalModal({ approvalId, executionId, closeModal }: Props) {
+  const cancelRequestRef = React.useRef<any>();
 
   const [approvalMutator, { isLoading: approvalsIsLoading, error: approvalsError }] = useMutation(
-    (args) => {
+    (args: { body: {id: string; approved: boolean; comments: string;} }) => {
       const { promise, cancel } = resolver.putWorkflowApproval(args);
       if (cancelRequestRef?.current) {
         cancelRequestRef.current = cancel;
@@ -42,7 +48,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }) {
     }
   );
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values: any) => {
     const body = {
       id: approvalId,
       approved: values.status === GateStatus.Approved,
@@ -111,7 +117,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal }) {
                       className={styles.decisionButtons}
                       items={buttons}
                       name={`decision-buttons`}
-                      onChange={(value) => setFieldValue(`status`, value)}
+                      onChange={(value: string) => setFieldValue(`status`, value)}
                       selectedItem={values?.status}
                     />
                   </div>

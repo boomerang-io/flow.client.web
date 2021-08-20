@@ -1,7 +1,6 @@
 import React from "react";
 import { useAppContext } from "Hooks";
-import { useMutation, queryCache } from "react-query";
-import PropTypes from "prop-types";
+import { useMutation, queryCache, QueryIdleResult, QueryLoadingResult, QuerySuccessResult } from "react-query";
 import { withRouter, Link, useParams } from "react-router-dom";
 import CopyToClipboard from "react-copy-to-clipboard";
 import moment from "moment";
@@ -27,17 +26,21 @@ import { appLink } from "Config/appConfig";
 import { allowedUserRoles, QueryStatus, ExecutionStatus } from "Constants";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import { Catalog16, CopyFile16, StopOutline16, Warning16 } from "@carbon/icons-react";
+import { WorkflowSummary } from "Types";
 import styles from "./executionHeader.module.scss";
 
-ExecutionHeader.propTypes = {
-  workflow: PropTypes.object.isRequired,
-  workflowExecution: PropTypes.object.isRequired,
-  version: PropTypes.number.isRequired,
+type Props = {
+  history: any;
+  location: any;
+  match: any;
+  workflow: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
+  workflowExecution: QueryIdleResult<any, Error> | QueryLoadingResult<any, Error> | QuerySuccessResult<any>;
+  version: number;
 };
 
 const cancelSatusTypes = [ExecutionStatus.NotStarted, ExecutionStatus.Waiting, ExecutionStatus.InProgress];
 
-function ExecutionHeader({ history, workflow, workflowExecution, version }) {
+function ExecutionHeader({ history, workflow, workflowExecution, version }: Props) {
   const { state } = history.location;
   const { user } = useAppContext();
 
@@ -79,7 +82,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }) {
             <ComposedModal
               composedModalProps={{ shouldCloseOnOverlayClick: true }}
               modalHeaderProps={{ title: "Advanced Detail" }}
-              modalTrigger={({ openModal }) => (
+              modalTrigger={({ openModal }: { openModal: () => void }) => (
                 <TooltipHover direction="right" content="Advanced Detail">
                   <button className={styles.workflowAdvancedDetailTrigger} onClick={openModal}>
                     <Catalog16 />
@@ -99,7 +102,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }) {
             <ComposedModal
               composedModalProps={{ shouldCloseOnOverlayClick: true }}
               modalHeaderProps={{ title: "Execution Error" }}
-              modalTrigger={({ openModal }) => (
+              modalTrigger={({ openModal }: { openModal: () => void }) => (
                 <Button className={styles.workflowErrorTrigger} kind={"ghost"} onClick={openModal} renderIcon={Warning16} size="small">
                   View Execution Error
                 </Button>
@@ -162,7 +165,7 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }) {
                   affirmativeButtonProps={{kind: "danger"}}
                   children="Are you sure? Once a workflow is cancelled it will stop executing."
                   title="Cancel run"
-                  modalTrigger={({ openModal }) => (
+                  modalTrigger={({ openModal }: { openModal: () => void }) => (
                     <Button
                       className={styles.cancelRun}
                       data-testid="cancel-run"
@@ -187,8 +190,8 @@ function ExecutionHeader({ history, workflow, workflowExecution, version }) {
   );
 }
 
-function WorkflowAdvancedDetail({ workflow }) {
-  const { workflowId, executionId } = useParams();
+function WorkflowAdvancedDetail({ workflow } : { workflow: WorkflowSummary }) {
+  const { workflowId, executionId } : { workflowId: string; executionId: string; } = useParams();
   const [copyTokenText, setCopyTokenText] = React.useState("Copy");
 
   const labelTexts = [`boomerang.io/workflow-id=${workflowId}`, `boomerang.io/workflow-activity-id=${executionId}`];

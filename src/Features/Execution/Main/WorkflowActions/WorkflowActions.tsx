@@ -1,19 +1,18 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useAppContext } from "Hooks";
-
 import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import { useHistory } from "react-router-dom";
 import { appLink } from "Config/appConfig";
 import { Edit32 } from "@carbon/icons-react";
 import { allowedUserRoles } from "Constants";
+import { WorkflowSummary } from "Types";
 import styles from "./WorkflowActions.module.scss";
 
-WorkflowActions.propTypes = {
-  workflow: PropTypes.object.isRequired,
+type Props = {
+  workflow: WorkflowSummary;
 };
 
-function WorkflowActions({ workflow }) {
+function WorkflowActions({ workflow }: Props) {
   let history = useHistory();
   const { id, scope } = workflow;
   const { user } = useAppContext();

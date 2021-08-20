@@ -1,10 +1,21 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Button } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ArrowRight16, ArrowLeft16, Close20 } from "@carbon/icons-react";
 import "./styles.scss";
 
-const OnBoardGuide = (props) => {
+type Props = {
+  closeModal: () => void;
+  containerClassName: string;
+  index: number;
+  guideConfig: any;
+  message: string;
+  nextScreen: () => void;
+  previousScreen: () => void;
+  screens: any;
+  title: string;
+};
+
+const OnBoardGuide = (props: Props) => {
   const {
     index,
     containerClassName,
@@ -84,18 +95,6 @@ const OnBoardGuide = (props) => {
       </footer>
     </section>
   );
-};
-
-OnBoardGuide.propTypes = {
-  containerClassName: PropTypes.string,
-  title: PropTypes.string,
-  message: PropTypes.string,
-  index: PropTypes.number,
-  nextScreen: PropTypes.func,
-  previousScreen: PropTypes.func,
-  closeModal: PropTypes.func,
-  screens: PropTypes.object,
-  guideConfig: PropTypes.object,
 };
 
 export default OnBoardGuide;

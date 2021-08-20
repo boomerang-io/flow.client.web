@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import { OverflowMenu, OverflowMenuItem } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ConfirmModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateEditPropertiesModal from "../CreateEditPropertiesModal";
+import { Property } from "Types";
 
-const OverflowMenuComponent = ({ property, properties, deleteProperty }) => {
+type Props = {
+  property: Property;
+  properties: Property[];
+  deleteProperty: (property: Property) => void;
+};
+
+const OverflowMenuComponent = ({ property, properties, deleteProperty }: Props) => {
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
 

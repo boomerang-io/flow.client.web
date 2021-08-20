@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
   StructuredListCell,
   StructuredListBody,
@@ -10,8 +9,15 @@ import {
 import { NoDisplay } from "@boomerang-io/carbon-addons-boomerang-react";
 import styles from "./resultsTable.module.scss";
 
-function ResultsTable({ data: results }) {
+type Props = {
+  data: {
+    name: string;
+    description: string;
+    value: string;
+  }[];
+};
 
+function ResultsTable({ data: results }: Props) {
   return (
     <div className={styles.tableContainer}>
       {results && results.length > 0 ? (
@@ -41,9 +47,5 @@ function ResultsTable({ data: results }) {
     </div>
   );
 }
-
-ResultsTable.propTypes = {
-  data: PropTypes.array.isRequired,
-};
 
 export default ResultsTable;

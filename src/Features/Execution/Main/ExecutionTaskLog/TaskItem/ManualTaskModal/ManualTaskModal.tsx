@@ -14,11 +14,18 @@ import {
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import "./markdown.css";
 
-function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }) {
-  const cancelRequestRef = React.useRef();
+type Props = {
+  approvalId: string;
+  executionId: string;
+  closeModal: () => void;
+  instructions: string;
+};
+
+function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }: Props) {
+  const cancelRequestRef = React.useRef<any>();
 
   const [approvalMutator, { isLoading: approvalsIsLoading, error: approvalsError }] = useMutation(
-    (args) => {
+    (args: { body: {id: string; approved: boolean;} }) => {
       const { promise, cancel } = resolver.putWorkflowApproval(args);
       if (cancelRequestRef?.current) {
         cancelRequestRef.current = cancel;
@@ -32,7 +39,7 @@ function TaskApprovalModal({ approvalId, executionId, closeModal, instructions }
     }
   );
 
-  const handleSubmit = async (approvalValue) => {
+  const handleSubmit = async (approvalValue: boolean) => {
     const body = {
       id: approvalId,
       approved: approvalValue,

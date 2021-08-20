@@ -1,15 +1,22 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ReactJson from "react-json-view";
 import { Button, ComposedModal, ModalForm } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ModalBody, Tabs, Tab } from "@boomerang-io/carbon-addons-boomerang-react";
 import PropertiesTable from "./PropertiesTable";
 import styles from "./outputPropertisLog.module.scss";
 
-function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }) {
-  let arrayProps = [];
+type Props = {
+  flowTaskName: string;
+  flowTaskOutputs: {
+    [key: string]: string;
+  };
+  isOutput?: boolean;
+};
+
+function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }: Props) {
+  let arrayProps: {id: string; key: string; value: string;}[] = [];
   Object.keys(flowTaskOutputs).forEach(
-    (val, index) =>
+    (val: string, index: number) =>
       (arrayProps = arrayProps.concat({
         id: `${val}-${index}`,
         key: val,
@@ -28,7 +35,7 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }) {
         title: "Output Parameters",
         label: `${flowTaskName}`,
       }}
-      modalTrigger={({ openModal }) => (
+      modalTrigger={({ openModal }: { openModal: () => void }) => (
         <Button kind="ghost" size="small" onClick={openModal}>
           View Parameters
         </Button>
@@ -47,6 +54,7 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }) {
                     name={false}
                     src={flowTaskOutputs}
                     displayDataTypes={false}
+                    //@ts-ignore
                     enableDelete={false}
                     displayObjectSize={false}
                     enableEdit={false}
@@ -61,10 +69,5 @@ function OutputPropertiesLog({ flowTaskName, flowTaskOutputs, isOutput }) {
     </ComposedModal>
   );
 }
-
-OutputPropertiesLog.propTypes = {
-  flowTaskName: PropTypes.string.isRequired,
-  flowTaskOutputs: PropTypes.object.isRequired,
-};
 
 export default OutputPropertiesLog;

@@ -1,8 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
 import OnBoardGuide from "./OnBoardGuide";
 
-const OnBoardGuideContainer = ({ index, nextScreen, previousScreen, closeModal, screens, guideConfig }) => {
+type Props = {
+  closeModal: () => void;
+  index: number;
+  guideConfig: any;
+  nextScreen: () => void;
+  previousScreen: () => void;
+  screens: any;
+};
+
+const OnBoardGuideContainer = ({ index, nextScreen, previousScreen, closeModal, screens, guideConfig }: Props) => {
   const basicConfig = { index, nextScreen, previousScreen, closeModal, screens, guideConfig };
 
   const determineProps = () => {
@@ -56,15 +64,6 @@ const OnBoardGuideContainer = ({ index, nextScreen, previousScreen, closeModal, 
 
   const props = determineProps();
   return <OnBoardGuide {...props} />;
-};
-
-OnBoardGuideContainer.propTypes = {
-  index: PropTypes.number,
-  nextScreen: PropTypes.func,
-  previousScreen: PropTypes.func,
-  closeModal: PropTypes.func,
-  screens: PropTypes.object,
-  guideConfig: PropTypes.object,
 };
 
 export default OnBoardGuideContainer;
