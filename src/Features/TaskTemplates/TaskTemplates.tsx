@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
 import { useFeature } from "flagged";
 import { useQuery } from "Hooks";
 import { queryCache } from "react-query";
-import { Route, Switch, useRouteMatch, Redirect, useParams } from "react-router-dom";
+import { Route, Switch, useRouteMatch, Redirect } from "react-router-dom";
 import { Box } from "reflexbox";
 import { Loading } from "@boomerang-io/carbon-addons-boomerang-react";
-import queryString from "query-string";
 import ErrorDragon from "Components/ErrorDragon";
 import WombatMessage from "Components/WombatMessage";
 import Sidenav from "./Sidenav";
@@ -18,21 +17,11 @@ import { AppPath, appLink, FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import styles from "./taskTemplates.module.scss";
 
-interface TaskTemplatesProps {
-  isAdmin?: boolean;
-}
-
-const TaskTemplatesContainer: React.FC<TaskTemplatesProps> = ({ isAdmin }) => {
-  const params: { teamId: string } = useParams();
-  const [activeTeam, setActiveTeam] = useState(params?.teamId ?? null);
+const TaskTemplatesContainer: React.FC = () => {
   const match = useRouteMatch();
-  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({
-    query: isAdmin ? null : queryString.stringify({ teamId: params?.teamId, scope: "team" }),
-  });
+  const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({ query: null });
   const editVerifiedTasksEnabled = useFeature(FeatureFlag.EditVerifiedTasksEnabled);
-  const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl, isAdmin ? {} : {
-    enabled: Boolean(activeTeam),
-  });
+  const { data: taskTemplatesData, error: taskTemplatesDataError, isLoading } = useQuery(getTaskTemplatesUrl);
 
   const addTemplateInState = (newTemplate: TaskModel) => {
     const updatedTemplatesData = [...taskTemplatesData];
@@ -61,22 +50,12 @@ const TaskTemplatesContainer: React.FC<TaskTemplatesProps> = ({ isAdmin }) => {
     );
   }
 
-  let sidenavProps: any = {
-    isAdmin,
-    taskTemplatesData,
-    addTemplateInState
-  }
-
-  if(!isAdmin) {
-    sidenavProps = { ...sidenavProps, activeTeam, setActiveTeam }
-  }
-
   return (
     <div className={styles.container}>
       <Helmet>
-        <title>Task manager</title>
+        <title>Task Manager</title>
       </Helmet>
-      <Sidenav {...sidenavProps} />
+      <Sidenav taskTemplates={taskTemplatesData} addTemplateInState={addTemplateInState} />
       <Switch>
         <Route exact path={match.path}>
           <Box maxWidth="24rem" margin="0 auto">

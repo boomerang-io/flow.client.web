@@ -1,23 +1,23 @@
 //@ts-nocheck
 import React from "react";
+import PropTypes from "prop-types";
 import { isCancel } from "axios";
 import { useMutation } from "react-query";
 import { notify, ToastNotification, Button, ComposedModal } from "@boomerang-io/carbon-addons-boomerang-react";
 import AddTaskTemplateForm from "./AddTaskTemplateForm";
 import { resolver } from "Config/servicesConfig";
 import { appLink } from "Config/appConfig";
-import { TaskModel } from "Types";
 import { Add16 } from "@carbon/icons-react";
 import styles from "./addTaskTemplate.module.scss";
 
-interface AddTaskTemplateProps {
-  addTemplateInState: Function,
-  isAdmin: boolean,
-  taskTemplates: TaskModel[],
-  history: any,
+AddTaskTemplate.propTypes = {
+  addTemplateInState: PropTypes.func.isRequired,
+  taskTemplates: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
-const AddTaskTemplate: React.FC<AddTaskTemplateProps> = ({ addTemplateInState, isAdmin, taskTemplates, history }) => {
+function AddTaskTemplate({ addTemplateInState, taskTemplates, history, location }) {
   const cancelRequestRef = React.useRef();
 
   const [CreateTaskTemplateMutation, { isLoading }] = useMutation((args) => {
@@ -38,13 +38,7 @@ const AddTaskTemplate: React.FC<AddTaskTemplateProps> = ({ addTemplateInState, i
         />
       );
       addTemplateInState(response.data);
-      if(isAdmin) {
-        history.push(appLink.taskTemplateEdit({ id: response.data.id, version: 1 }));
-      } else {
-        history.push(
-          appLink.manageTaskTemplateEdit({ taskId: response.data.id, version: 1, teamId: response.data.flowTeamId })
-        );
-      }
+      history.push(appLink.taskTemplateEdit({ id: response.data.id, version: 1 }));
       closeModal();
     } catch (err) {
       if (!isCancel(err)) {
@@ -84,7 +78,6 @@ const AddTaskTemplate: React.FC<AddTaskTemplateProps> = ({ addTemplateInState, i
         <AddTaskTemplateForm
           handleAddTaskTemplate={handleAddTaskTemplate}
           isLoading={isLoading}
-          isAdmin={isAdmin}
           taskTemplates={taskTemplates}
           closeModal={closeModal}
         />

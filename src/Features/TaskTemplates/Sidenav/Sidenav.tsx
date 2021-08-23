@@ -1,12 +1,10 @@
 import React from "react";
 import { useHistory, matchPath, useLocation } from "react-router-dom";
-import { useAppContext } from "Hooks";
 import sortBy from "lodash/sortBy";
 import matchSorter from "match-sorter";
 import {
   Accordion,
   AccordionItem,
-  Dropdown,
   OverflowMenu,
   Checkbox,
   CheckboxList,
@@ -28,15 +26,11 @@ import styles from "./sideInfo.module.scss";
 const DESCRIPTION = "Create and import tasks to add to the Flow Editor task list";
 
 interface SideInfoProps {
-  activeTeam?: string | string[] | null;
   addTemplateInState: (newTemplate: TaskModel) => void;
-  isAdmin: boolean;
-  setActiveTeam?: Function;
   taskTemplates: TaskModel[];
 }
 
-const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, isAdmin, setActiveTeam, activeTeam }) => {
-  const { teams } = useAppContext();
+const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [activeFilters, setActiveFilters] = React.useState<Array<string>>([]);
   const [tasksToDisplay, setTasksToDisplay] = React.useState<Array<TaskModel>>(
@@ -106,161 +100,115 @@ const SideInfo: React.FC<SideInfoProps> = ({ addTemplateInState, taskTemplates, 
     setActiveFilters([]);
   };
 
-  let teamOptions: any[] = [];
-  let selectedTeam: { id: string, name: string } | undefined | {} = {};
-
-  // only process teams if not on admin screen
-  if(!isAdmin) {
-    teamOptions = teams.map((team) => ({ id: team.id, name: team.name }));
-    selectedTeam = teamOptions.find((team) => team.id === activeTeam);
-  }
-
-  const handleSelectTeam = (selectedTeam: any) => {
-    if(setActiveTeam) setActiveTeam(selectedTeam?.selectedItem?.id);
-    history.push(appLink.manageTaskTemplates({ teamId: selectedTeam?.selectedItem?.id }));
-  };
-
   return (
     <SideNav className={styles.container} border="right">
       <h1 className={styles.title}>Task manager</h1>
       <p className={styles.description}>{DESCRIPTION}</p>
-      {!isAdmin && (
-        <Dropdown
-          id="dropdown-team"
-          type="default"
-          label="Team selection"
-          ariaLabel="Dropdown"
-          // light={false}
-          initialSelectedItem={selectedTeam}
-          items={teamOptions}
-          itemToString={(item: any) => (item ? item.name : "")}
-          onChange={handleSelectTeam}
-        />
-      )}
-      {taskTemplates && ( 
-        <>
-          <div className={styles.tasksContainer}>
-            <div className={styles.addTaskContainer}>
-              <p className={styles.existingTasks}>{`Existing Tasks (${taskTemplates.length})`}</p>
-              <AddTaskTemplate
-                addTemplateInState={addTemplateInState}
-                isAdmin={isAdmin}
-                taskTemplates={taskTemplates}
-                history={history}
-              />
-            </div>
-            <section className={styles.tools}>
-              <Search
-                data-testid="task-templates-search"
-                id="task-templates-search"
-                size="sm"
-                labelText="Search for a task"
-                onChange={handleOnSearchInputChange}
-                placeHolderText="Search for a task"
-                value={searchQuery}
-              />
-              <OverflowMenu
-                renderIcon={SettingsAdjust20}
-                style={{
-                  backgroundColor: showVerified || showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",
-                  borderRadius: "0.25rem",
-                }}
-                flipped={true}
-                menuOptionsClass={styles.filters}
-              >
-                <section className={styles.filterHeader}>
-                  <p className={styles.filterTitle}>Filters</p>
-                  <button className={styles.resetFilter} onClick={handleClearFilters}>
-                    Reset filters
-                  </button>
-                </section>
-                <section className={styles.filter}>
-                  <Checkbox
-                    id="archived-tasks"
-                    labelText="Show Archived Tasks"
-                    checked={showArchived}
-                    onChange={() => setShowArchived(!showArchived)}
-                  />
-                  <Checkbox
-                    id="verified-tasks"
-                    labelText={
-                      <div className={styles.checkboxOption}>
-                        <Recommend16 fill="#0072C3" style={{ willChange: "auto" }} /> <p>Verified Tasks</p>
-                      </div>
-                    }
-                    checked={showVerified}
-                    onChange={() => setShowVerified(!showVerified)}
-                  />
-                </section>
-                <section className={styles.filter}>
-                  <p className={styles.sectionTitle}>Filter by Task Type</p>
-                  <CheckboxList
-                    selectedItems={activeFilters}
-                    options={taskFilters}
-                    onChange={(checked: boolean, label: string) => handleCheckboxListChange(checked, label)}
-                  />
-                </section>
-              </OverflowMenu>
-            </section>
-            <div className={styles.tasksInfo}>
-              <p className={styles.info}>{`Showing ${tasksToDisplay.length} tasks`}</p>
-              <button className={styles.expandCollapse} onClick={() => setOpenCategories(!openCategories)}>
-                {openCategories ? "Collapse all" : "Expand all"}
+      <div className={styles.tasksContainer}>
+        <div className={styles.addTaskContainer}>
+          <p className={styles.existingTasks}>{`Existing Tasks (${taskTemplates.length})`}</p>
+          <AddTaskTemplate
+            addTemplateInState={addTemplateInState}
+            taskTemplates={taskTemplates}
+            history={history}
+            location={location}
+          />
+        </div>
+        <section className={styles.tools}>
+          <Search
+            data-testid="task-templates-search"
+            id="task-templates-search"
+            size="sm"
+            labelText="Search for a task"
+            onChange={handleOnSearchInputChange}
+            placeHolderText="Search for a task"
+            value={searchQuery}
+          />
+          <OverflowMenu
+            renderIcon={SettingsAdjust20}
+            style={{
+              backgroundColor: showVerified || showArchived || activeFilters.length > 0 ? "#3DDBD9" : "initial",
+              borderRadius: "0.25rem",
+            }}
+            flipped={true}
+            menuOptionsClass={styles.filters}
+          >
+            <section className={styles.filterHeader}>
+              <p className={styles.filterTitle}>Filters</p>
+              <button className={styles.resetFilter} onClick={handleClearFilters}>
+                Reset filters
               </button>
-            </div>
-          </div>
-          <SideNavLinks>
-            <Accordion>
-              {tasksByCategory.map((category, index) => {
-                return (
-                  <AccordionItem
-                    className={styles.taskCategory}
-                    title={`${category.name} (${category.tasks.length})`}
-                    open={openCategories}
-                    key={`${category.name}${index}`}
-                  >
-                    {category.tasks.map((task) => (
-                      <Task 
-                        key={task.id} 
-                        task={task}
-                        //@ts-ignore
-                        isActive={isAdmin ? globalMatch?.params?.id === task.id : activeTeam === task.id}
-                        isAdmin
-                        activeTeam={activeTeam}
-                      />
-                    ))}
-                  </AccordionItem>
-                );
-              })}
-            </Accordion>
-          </SideNavLinks>
-        </>
-      )}
+            </section>
+            <section className={styles.filter}>
+              <Checkbox
+                id="archived-tasks"
+                labelText="Show Archived Tasks"
+                checked={showArchived}
+                onChange={() => setShowArchived(!showArchived)}
+              />
+              <Checkbox
+                id="verified-tasks"
+                labelText={
+                  <div className={styles.checkboxOption}>
+                    <Recommend16 fill="#0072C3" style={{ willChange: "auto" }} /> <p>Verified Tasks</p>
+                  </div>
+                }
+                checked={showVerified}
+                onChange={() => setShowVerified(!showVerified)}
+              />
+            </section>
+            <section className={styles.filter}>
+              <p className={styles.sectionTitle}>Filter by Task Type</p>
+              <CheckboxList
+                selectedItems={activeFilters}
+                options={taskFilters}
+                onChange={(checked: boolean, label: string) => handleCheckboxListChange(checked, label)}
+              />
+            </section>
+          </OverflowMenu>
+        </section>
+        <div className={styles.tasksInfo}>
+          <p className={styles.info}>{`Showing ${tasksToDisplay.length} tasks`}</p>
+          <button className={styles.expandCollapse} onClick={() => setOpenCategories(!openCategories)}>
+            {openCategories ? "Collapse all" : "Expand all"}
+          </button>
+        </div>
+      </div>
+      <SideNavLinks>
+        <Accordion>
+          {tasksByCategory.map((category, index) => {
+            return (
+              <AccordionItem
+                className={styles.taskCategory}
+                title={`${category.name} (${category.tasks.length})`}
+                open={openCategories}
+                key={`${category.name}${index}`}
+              >
+                {category.tasks.map((task) => (
+                  //@ts-ignore
+                  <Task key={task.id} task={task} isActive={globalMatch?.params?.id === task.id} />
+                ))}
+              </AccordionItem>
+            );
+          })}
+        </Accordion>
+      </SideNavLinks>
     </SideNav>
   );
 };
 
 interface TaskProps {
   isActive: boolean;
-  isAdmin: boolean;
   task: TaskModel;
-  activeTeam?: string | string[] | null;
 }
 const Task: React.FC<TaskProps> = (props) => {
-  const { activeTeam, isAdmin, task } = props;
+  const { task } = props;
   const TaskIcon = taskIcons.find((icon) => icon.name === task.icon);
   const taskIsActive = task.status === TaskTemplateStatus.Active;
 
   return (
     <SideNavLink
-      to={isAdmin 
-        ? appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })
-        : appLink.manageTaskTemplateEdit({
-            teamId: activeTeam,
-            taskId: task.id,
-            version: task.currentVersion,
-          })
-      }
+      to={appLink.taskTemplateEdit({ id: task.id, version: task.currentVersion })}
       icon={TaskIcon ? TaskIcon.Icon : Bee16}
     >
       <div className={styles.task}>

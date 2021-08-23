@@ -9,6 +9,7 @@ import {
   Creatable,
   FileUploaderDropContainer,
   FileUploaderItem,
+  InlineNotification,
   Loading,
   ModalBody,
   ModalFooter,
@@ -16,8 +17,6 @@ import {
   TextInput,
   TextArea,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import { ErrorFilled32, CheckmarkFilled32 } from "@carbon/icons-react";
-import { useParams } from "react-router-dom";
 import SelectIcon from "Components/SelectIcon";
 import orderBy from "lodash/orderBy";
 import { taskIcons } from "Utils/taskIcons";
@@ -28,14 +27,11 @@ import styles from "./addTaskTemplateForm.module.scss";
 AddTaskTemplateForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
   taskTemplates: PropTypes.array.isRequired,
-  isAdmin: PropTypes.bool,
   isLoading: PropTypes.bool,
   handleAddTaskTemplate: PropTypes.func.isRequired,
 };
 
 const FILE_UPLOAD_MESSAGE = "Choose a file or drag one here";
-const createInvalidTextMessage = `Oops there was a problem with the upload, delete it and try again. The file should contain the required fields in this form`;
-const createValidTextMessage = `Task file successfully imported!`;
 
 function checkIsValidTask(data) {
   // Only check if the .json file contain the required key data
@@ -80,14 +76,14 @@ const readFile = (file) => {
 //   {value:"utilities" , label: "Utilities"}
 // ];
 
-function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, handleAddTaskTemplate }) {
-  const params: { teamId: string } = useParams();
+function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTaskTemplate }) {
   let taskTemplateNames = taskTemplates.map((taskTemplate) => taskTemplate.name);
   const orderedIcons = orderBy(taskIcons, ["name"]);
 
-  const [validateYamlMuatator, { error: validateYamlError, isLoading: validateYamlIsLoading }] = useMutation(
-    resolver.postValidateYaml
-  );
+  const [
+    validateYamlMuatator,
+    { error: validateYamlError, isLoading: validateYamlIsLoading, reset: resetValidateYaml },
+  ] = useMutation(resolver.postValidateYaml);
 
   const handleSubmit = async (values) => {
     const hasFile = values.file;
@@ -95,20 +91,12 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, ha
       let index = env.indexOf(":");
       return { name: env.substring(0, index), value: env.substring(index + 1, env.length) };
     });
-    let flowTeamId, scope;
-    if(isAdmin) {
-      flowTeamId = null;
-      scope = "global";
-    } else {
-      flowTeamId = params?.teamId;
-      scope = "team";
-    }
     let newRevisionConfig = {
       version: 1,
-      arguments: values.arguments.trim().split(/\s{1,}/),
+      arguments: Boolean(values.arguments) ? values.arguments.trim().split(/\n{1,}/) : [],
       image: values.image,
-      command: values.command,
-      script: values.script,
+      command: Boolean(values.command) ? values.command.trim().split(/\n{1,}/) : [],
+      scipt: values.script,
       workingDir: values.workingDir,
       envs: newEnvs,
       config: hasFile ? values.currentRevision.config : [],
@@ -123,34 +111,39 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, ha
       icon: values.icon.value,
       nodeType: "templateTask",
       status: "active",
-      flowTeamId,
-      scope,
+      flowTeamId: null,
+      scope: "global",
     };
     await handleAddTaskTemplate({ body, closeModal });
   };
-  const getTemplateData = async (file, setFieldValue) => {
-    const yamlData = await readFile(file);
-    const response = await validateYamlMuatator({ body: yamlData });
-    const fileData = response?.data;
-    const selectedIcon = orderedIcons.find((icon) => icon.name === fileData?.icon);
-    if (checkIsValidTask(fileData)) {
-      const currentRevision = fileData.revisions.find((revision) => revision.version === fileData.currentVersion);
-      setFieldValue("name", fileData.name);
-      setFieldValue("description", fileData.description);
-      setFieldValue("category", fileData.category);
-      selectedIcon &&
-        setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
-      setFieldValue("image", currentRevision.image);
-      setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
-      setFieldValue("command", currentRevision.command ?? "");
-      setFieldValue("script", currentRevision.script ?? "");
-      const formattedEnvs = templateData.envs.map((env) => {
-        return `${env.name}:${env.value}`;
-      });
-      setFieldValue("envs", formattedEnvs ?? []);
-      setFieldValue("workingDir", currentRevision?.workingDir);
-      setFieldValue("currentRevision", currentRevision);
-      setFieldValue("fileData", fileData);
+  const getTemplateData = async ({ file, setFieldValue }) => {
+    try {
+      const yamlData = await readFile(file);
+      setFieldValue("file", file);
+      const response = await validateYamlMuatator({ body: yamlData });
+      const fileData = response?.data;
+      const selectedIcon = orderedIcons.find((icon) => icon.name === fileData?.icon);
+      if (checkIsValidTask(fileData)) {
+        const currentRevision = fileData.revisions.find((revision) => revision.version === fileData.currentVersion);
+        setFieldValue("name", fileData.name);
+        setFieldValue("description", fileData.description);
+        setFieldValue("category", fileData.category);
+        selectedIcon &&
+          setFieldValue("icon", { value: selectedIcon.name, label: selectedIcon.name, icon: selectedIcon.Icon });
+        setFieldValue("image", currentRevision.image);
+        setFieldValue("arguments", currentRevision.arguments?.join(" ") ?? "");
+        setFieldValue("command", currentRevision.command ?? "");
+        setFieldValue("script", currentRevision.script ?? "");
+        const formattedEnvs = templateData.envs.map((env) => {
+          return `${env.name}:${env.value}`;
+        });
+        setFieldValue("envs", formattedEnvs ?? []);
+        setFieldValue("workingDir", currentRevision?.workingDir);
+        setFieldValue("currentRevision", currentRevision);
+        setFieldValue("fileData", fileData);
+      }
+    } catch (e) {
+      // noop
     }
   };
 
@@ -178,7 +171,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, ha
         description: Yup.string()
           .lowercase()
           .min(4, "Description must be at least four characters")
-          .max(200, "The description must be less than 60 characters")
+          .max(200, "The description must be less than 200 characters")
           .required("Description is required"),
         icon: Yup.object().shape({
           value: Yup.string().required(),
@@ -228,7 +221,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, ha
         return (
           <ModalFlowForm onSubmit={handleSubmit} className={styles.container}>
             <ModalBody>
-              {(isLoading || validateYamlIsLoading) && <Loading />}
+              {isLoading && <Loading />}
               <div>
                 <label className={styles.fileUploaderLabel} htmlFor="uploadTemplate">
                   Import task file (optional)
@@ -241,17 +234,19 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, ha
                   labelText={FILE_UPLOAD_MESSAGE}
                   name="Workflow"
                   multiple={false}
-                  onAddFiles={async (event, { addedFiles }) => {
-                    await setFieldValue("file", addedFiles[0]);
-                    getTemplateData(addedFiles[0], setFieldValue);
+                  onAddFiles={(event, { addedFiles }) => {
+                    getTemplateData({ file: addedFiles[0], setFieldValue });
                   }}
                 />
                 {values.file && (
                   <FileUploaderItem
                     name={values.file.name}
-                    status="edit"
+                    status={validateYamlIsLoading ? "uploading" : "edit"}
                     onDelete={() => {
                       setFieldValue("file", undefined);
+                      if (validateYamlError) {
+                        resetValidateYaml();
+                      }
                       if (!errors.file) {
                         resetForm();
                       }
@@ -259,22 +254,22 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, ha
                   />
                 )}
                 {Boolean(errors.file || validateYamlError) && (
-                  <div className={styles.validMessage}>
-                    <ErrorFilled32 aria-label="error-import-icon" className={styles.errorIcon} />
-                    <p className={styles.message}>{createInvalidTextMessage}</p>
-                  </div>
+                  <InlineNotification
+                    className={styles.fileUploaderNotification}
+                    lowContrast
+                    kind="error"
+                    title="Oops there was a problem with the upload. Delete it and try again."
+                    subtitle="The file should contain the required fields in this form."
+                  />
                 )}
-                {Boolean(values.file) && !Boolean(errors.file) && (
-                  <>
-                    <div className={styles.validMessage}>
-                      <CheckmarkFilled32 aria-label="error-import-icon" className={styles.successIcon} />
-                      <p className={styles.message}>{createValidTextMessage}</p>
-                    </div>
-                    <p className={styles.successMessage}>
-                      Check the details below. Task Definition fields were also imported, you can view them once you’ve
-                      saved this task.
-                    </p>
-                  </>
+                {Boolean(values.file) && !Boolean(errors.file) && !validateYamlError && !validateYamlIsLoading && (
+                  <InlineNotification
+                    className={styles.fileUploaderNotification}
+                    lowContrast
+                    kind="success"
+                    title="Task file successfully imported!"
+                    subtitle="Check the details below. Task Definition fields were also imported, you can view them once you’ve saved this task."
+                  />
                 )}
               </div>
               <TextInput
@@ -304,15 +299,18 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, ha
                 selectedIcon={values.icon}
                 iconOptions={orderedIcons}
               />
-              <TextArea
-                id="description"
-                invalid={errors.description && touched.description}
-                invalidText={errors.description}
-                labelText="Description"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.description}
-              />
+              <div className={styles.description}>
+                <p className={styles.descriptionLength}>{values.description.length}/200</p>
+                <TextArea
+                  id="description"
+                  invalid={errors.description && touched.description}
+                  invalidText={errors.description}
+                  labelText="Description"
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  value={values.description}
+                />
+              </div>
               <TextInput
                 id="image"
                 labelText="Image (optional)"
@@ -324,10 +322,21 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, ha
                 invalid={errors.image && touched.image}
                 invalidText={errors.image}
               />
-              <TextInput
+              <TextArea
+                id="command"
+                labelText="Command (optional)"
+                helperText="Overrides the entry point of the container. Delimited by a new line."
+                name="command"
+                value={values.command}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                invalid={errors.command && touched.command}
+                invalidText={errors.command}
+              />
+              <TextArea
                 id="arguments"
                 labelText="Arguments (optional)"
-                helperText="Enter arguments delimited by a space character"
+                helperText="Enter arguments delimited by a new line"
                 placeholder="e.g. system sleep"
                 name="arguments"
                 value={values.arguments}
@@ -335,35 +344,6 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, ha
                 onChange={handleChange}
                 invalid={errors.arguments && touched.arguments}
                 invalidText={errors.arguments}
-              />
-              <TextInput
-                id="workingDir"
-                invalid={errors.workingDir && touched.workingDir}
-                invalidText={errors.workingDir}
-                labelText="Working Directory (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.workingDir}
-              />
-              <TextInput
-                id="workingDir"
-                invalid={errors.workingDir && touched.workingDir}
-                invalidText={errors.workingDir}
-                labelText="Working Directory (optional)"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                value={values.workingDir}
-              />
-              <TextInput
-                id="command"
-                labelText="Command (optional)"
-                helperText="Override the entry point of the container"
-                name="command"
-                value={values.command}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                invalid={errors.command && touched.command}
-                invalidText={errors.command}
               />
               <TextArea
                 id="script"
@@ -373,6 +353,15 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isAdmin, isLoading, ha
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.script}
+              />
+              <TextInput
+                id="workingDir"
+                invalid={errors.workingDir && touched.workingDir}
+                invalidText={errors.workingDir}
+                labelText="Working Directory (optional)"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.workingDir}
               />
               <Creatable
                 createKeyValuePair

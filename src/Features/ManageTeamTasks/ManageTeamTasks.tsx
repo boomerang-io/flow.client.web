@@ -60,7 +60,7 @@ const TaskTemplatesContainer: React.FC = () => {
   return (
     <div className={styles.container}>
       <Helmet>
-        <title>Task manager</title>
+        <title>Team Tasks</title>
       </Helmet>
       <Sidenav
         taskTemplates={taskTemplatesData}

@@ -16,7 +16,7 @@ import {
   TextArea,
   TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
-import VersionHistory from "./VersionHistory";
+import VersionHistory from "Components/VersionHistory";
 import VersionSwitcher from "./VersionSwitcher";
 import moment from "moment";
 import { appLink } from "Config/appConfig";
