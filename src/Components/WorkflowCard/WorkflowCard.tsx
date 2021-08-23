@@ -150,6 +150,13 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
           state: { fromUrl: appLink.workflows(), fromText: "Workflows" },
         });
       } else {
+        if (scope === WorkflowScope.System) {
+          queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+        } else if (scope === WorkflowScope.Team) {
+          queryCache.invalidateQueries(serviceUrl.getTeams());
+        } else {
+          queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
+        }
         closeModal();
       }
     } catch (err) {
