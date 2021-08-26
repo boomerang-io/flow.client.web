@@ -26,7 +26,7 @@ import { serviceUrl, resolver } from "Config/servicesConfig";
 import { BASE_URL } from "Config/servicesConfig";
 import { Run20, Bee20 } from "@carbon/icons-react";
 import workflowIcons from "Assets/workflowIcons";
-import { WorkflowSummary, ModalTriggerProps, ComposedModalChildProps, FlowTeamQuotas } from "Types";
+import { ComposedModalChildProps, FlowTeamQuotas, ModalTriggerProps, WorkflowSummary } from "Types";
 import styles from "./workflowCard.module.scss";
 
 interface WorkflowCardProps {
@@ -58,6 +58,10 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
       return promise;
     }
   );
+
+  const [duplicateWorkflowMutator, { isLoading: duplicateWorkflowIsLoading }] = useMutation(resolver.postDuplicateWorkflow);
+
+  const isDuplicating = duplicateWorkflowIsLoading;
 
   /**
    * Format properties to be edited in form by Formik. It doesn't work with property notation :(
@@ -92,6 +96,26 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
       }
     } catch {
       notify(<ToastNotification kind="error" title="Something's Wrong" subtitle="Request to delete workflow failed" />);
+    }
+  };
+
+  const handleDuplicateWorkflow = async (workflow: WorkflowSummary) => {
+    try {
+      await duplicateWorkflowMutator({ workflowId: workflow.id });
+      notify(
+        <ToastNotification kind="success" title="Duplicate Workflow" subtitle="Successfully duplicated workflow" />
+      );
+      if (isSystem) {
+        queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+      } else {
+        queryCache.invalidateQueries(serviceUrl.getTeams());
+      }
+      return;
+    } catch (e) {
+      notify(
+        <ToastNotification kind="error" title="Something's Wrong" subtitle="Request to duplicate workflow failed" />
+      );
+      return;
     }
   };
 
@@ -151,6 +175,10 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
       onClick: () => handleExportWorkflow(workflow),
     },
     {
+      itemText: "Duplicate",
+      onClick: () => handleDuplicateWorkflow(workflow),
+    },
+    {
       hasDivider: true,
       itemText: "Delete",
       isDelete: true,
@@ -175,6 +203,16 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
   const canRunManually = workflow?.triggers?.manual?.enable ?? false;
 
   const isDisabled = workflowQuotasEnabled && (hasReachedMonthlyRunLimit || !canRunManually);
+
+  let loadingText = "";
+
+  if (isExecuting) {
+    loadingText = "Executing...";
+  } else if (isDuplicating) {
+    loadingText = "Duplicating...";
+  } else if (isDeleting) {
+    loadingText = "Deleting...";
+  }
 
   return (
     <div className={styles.container}>
@@ -276,9 +314,9 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ isSystem, teamId, quotas, w
           </TooltipIcon>
         </div>
       )}
-      {isDeleting || isExecuting ? (
+      {isDuplicating || isDeleting || isExecuting ? (
         <InlineLoading
-          description={isDeleting ? "Deleting..." : "Executing..."}
+          description={loadingText}
           style={{ position: "absolute", right: "0.5rem", top: "0", width: "fit-content" }}
         />
       ) : (

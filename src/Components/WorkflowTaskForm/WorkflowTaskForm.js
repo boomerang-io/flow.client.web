@@ -5,6 +5,7 @@ import {
   AutoSuggest,
   DynamicFormik,
   ModalForm,
+  Tag,
   TextInput,
   TextArea,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -64,6 +65,23 @@ const TaskNameTextInput = ({ formikProps, ...otherProps }) => {
       <h2 className={styles.inputsTitle}>Specifics</h2>
     </>
   );
+};
+
+const ResultsInput = ({ formikProps, ...otherProps }) => {
+  const outputs = otherProps.outputs;
+  if (!outputs || outputs.length === 0) return null;
+  else
+    return (
+      <>
+        <hr className={styles.divider} />
+        <h2 className={styles.inputsTitle}>Result Parameters</h2>
+        <div className={styles.resultParamsContainer}>
+          {outputs.map((output) => (
+            <Tag type="teal">{`${output.name}:${output.description}`}</Tag>
+          ))}
+        </div>
+      </>
+    );
 };
 
 /**
@@ -183,6 +201,10 @@ class WorkflowTaskForm extends Component {
       : [];
     const takenTaskNames = taskNames.filter((name) => name !== node.taskName);
 
+    const taskResults = nodeConfig
+      ? taskRevisions.find((revision) => nodeConfig.taskVersion === revision.version)?.results ?? []
+      : [];
+
     // Add the name input
     const inputs = [
       {
@@ -194,6 +216,12 @@ class WorkflowTaskForm extends Component {
         customComponent: TaskNameTextInput,
       },
       ...taskVersionConfig,
+      {
+        outputs: taskResults,
+        key: "outputs",
+        type: "custom",
+        customComponent: ResultsInput,
+      },
     ];
 
     return (

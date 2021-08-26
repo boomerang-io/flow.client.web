@@ -147,7 +147,6 @@ export default function App() {
 
   if (hasData) {
     const feature = featureQuery.data?.features;
-
     return (
       <FlagsProvider
         features={{
@@ -240,11 +239,8 @@ interface AppFeaturesProps {
 }
 
 const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
-  const globalPropertiesEnabled = useFeature(FeatureFlag.GlobalParametersEnabled);
   const teamPropertiesEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
   const taskManagerEnabled = useFeature(FeatureFlag.TaskManagerEnabled);
-  const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
-  const settingsEnabled = useFeature(FeatureFlag.SettingsEnabled);
   const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
   const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
@@ -255,10 +251,10 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
       <Suspense fallback={<Loading />}>
         <Switch>
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={allowedUserRoles}
             component={<GlobalProperties />}
             path={AppPath.Properties}
-            userRole={globalPropertiesEnabled}
+            userRole={platformRole}
           />
 
           <ProtectedRoute
@@ -269,10 +265,10 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           />
 
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={allowedUserRoles}
             component={<TaskTemplates />}
             path={AppPath.TaskTemplates}
-            userRole={taskManagerEnabled}
+            userRole={platformRole}
           />
 
           <ProtectedRoute
@@ -290,17 +286,17 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
           />
 
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={allowedUserRoles}
             component={<Quotas />}
             path={AppPath.Quotas}
-            userRole={workflowQuotasEnabled}
+            userRole={platformRole}
           />
 
           <ProtectedRoute
-            allowedUserRoles={[true]}
+            allowedUserRoles={allowedUserRoles}
             component={<Settings />}
             path={AppPath.Settings}
-            userRole={settingsEnabled}
+            userRole={platformRole}
           />
 
           <ProtectedRoute

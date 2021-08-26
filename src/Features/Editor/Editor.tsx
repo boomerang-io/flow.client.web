@@ -22,6 +22,7 @@ import TemplateNodeModel from "Utils/dag/templateTaskNode/TemplateTaskNodeModel"
 import ManualApprovalNodeModel from "Utils/dag/manualApprovalNode/ManualApprovalNodeModel";
 import ManualTaskNodeModel from "Utils/dag/manualTaskNode/ManualTaskNodeModel";
 import SetPropertyNodeModel from "Utils/dag/setPropertyNode/setPropertyNodeModel";
+import SetStatusNodeModel from "Utils/dag/setStatusNode/setStatusNodeModel";
 import WaitNodeModel from "Utils/dag/waitNode/waitNodeModel";
 import AcquireLockNodeModel from "Utils/dag/acquireLockNode/AcquireLockNodeModel";
 import ReleaseLockNodeModel from "Utils/dag/releaseLockNode/ReleaseLockNodeModel";
@@ -43,7 +44,7 @@ export default function EditorContainer() {
   const getSummaryUrl = serviceUrl.getWorkflowSummary({ workflowId });
   const getRevisionUrl = serviceUrl.getWorkflowRevision({ workflowId, revisionNumber });
   const getTaskTemplatesUrl = serviceUrl.getWorkflowTaskTemplates({ workflowId });
-  const getAvailableParametersUrl = serviceUrl.getWorkflowAvailableParameters({ workflowId });
+  const getAvailableParametersUrl = serviceUrl.workflowAvailableParameters({ workflowId });
 
   /**
    * Queries
@@ -66,6 +67,9 @@ export default function EditorContainer() {
       queryCache.invalidateQueries(getSummaryUrl);
     },
   });
+  const [parametersMutation] = useMutation(resolver.postWorkflowAvailableParameters, {
+    onSuccess: (response) => queryCache.setQueryData(serviceUrl.workflowAvailableParameters({workflowId}), response.data),
+  });
 
   // Only show loading for the summary and task templates
   // Revision takes longer and we want to show a separate loading animation for it, plus prevent remounting everything
@@ -85,6 +89,7 @@ export default function EditorContainer() {
         availableParametersQueryData={availableParametersQuery.data}
         mutateRevision={mutateRevision}
         mutateSummary={mutateSummary}
+        parametersMutation={parametersMutation}
         revisionMutation={revisionMutation}
         revisionQuery={revisionQuery}
         summaryData={summaryQuery.data}
@@ -109,6 +114,10 @@ interface EditorStateContainerProps {
     variables: { body: any },
     options?: MutateOptions<AxiosResponse<any>, { body: any }, Error> | undefined
   ) => Promise<any>;
+  parametersMutation:(
+    variables: { workflowId: any; body: any; }, 
+    options?: MutateOptions<AxiosResponse<any>, { workflowId: any; body: any; }, Error, unknown> | undefined 
+  ) => Promise<any>;
   revisionMutation: MutationResult<AxiosResponse<any>, Error>;
   revisionQuery: QueryResult<WorkflowRevision, Error>;
   summaryData: WorkflowSummary;
@@ -126,6 +135,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   availableParametersQueryData,
   mutateRevision,
   mutateSummary,
+  parametersMutation,
   revisionMutation,
   revisionQuery,
   summaryData,
@@ -145,6 +155,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     initRevisionReducerState(revisionQuery.data)
   );
 
+  const [revisionConfig, setRevisionConfig] = useState<WorkflowRevision>({...revisionState});
   // Reset the reducer state if there is new data
   useEffect(() => {
     if (revisionQuery.data) {
@@ -155,6 +166,25 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
     }
   }, [revisionDispatch, revisionQuery.data]);
 
+  //Triggers the POST request for refresh availableParameters
+  useEffect(() => {
+    if(JSON.stringify(revisionConfig) !== JSON.stringify(revisionState)) {
+      const normilzedConfig = Object.values(revisionState.config).map((config: any) => ({
+        ...config,
+        currentVersion: undefined,
+        taskVersion: config.currentVersion || config.taskVersion,
+      }));
+      const revisionConfig = { nodes: Object.values(normilzedConfig) };
+      const revision = {
+        changelog: revisionState.changelog,
+        config: revisionConfig,
+        dag: revisionState.dag,
+      };
+      setRevisionConfig(revisionState);
+      parametersMutation({workflowId, body: revision})
+    }
+  }, [parametersMutation, workflowId, revisionState, revisionConfig]);
+
   /**
    *
    * @param {string} reason - changelog reason for new version
@@ -162,17 +192,18 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
    */
   const handleCreateRevision = useCallback(
     async ({ reason = "Update workflow", callback }) => {
-      const normilzedConfig = Object.values(revisionState.config).map((config: any) => ({
+      const normalizedConfig = Object.values(revisionState.config).map((config: any) => ({
         ...config,
         currentVersion: undefined,
         taskVersion: config.currentVersion || config.taskVersion,
       }));
-      const revisionConfig = { nodes: Object.values(normilzedConfig) };
+      const revisionConfig = { nodes: Object.values(normalizedConfig) };
 
       const revision = {
         dag: workflowDagEngine?.getDiagramEngine().getDiagramModel().serializeDiagram(),
         config: revisionConfig,
         changelog: { reason },
+        markdown: revisionState.markdown,
       };
 
       try {
@@ -186,14 +217,22 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
         revisionDispatch({ type: RevisionActionTypes.Set, data });
         setRevisionNumber(data.version);
         queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
-        queryCache.removeQueries(serviceUrl.getWorkflowAvailableParameters({ workflowId }));
+        queryCache.removeQueries(serviceUrl.workflowAvailableParameters({ workflowId }));
       } catch (err) {
         notify(
           <ToastNotification kind="error" title="Something's Wrong" subtitle={`Failed to create workflow version`} />
         );
       }
     },
-    [mutateRevision, revisionDispatch, revisionState.config, setRevisionNumber, workflowDagEngine, workflowId]
+    [
+      mutateRevision,
+      revisionDispatch,
+      revisionState.config,
+      revisionState.markdown,
+      setRevisionNumber,
+      workflowDagEngine,
+      workflowId,
+    ]
   );
 
   /**
@@ -225,6 +264,16 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
       }
     },
     [mutateSummary, summaryData, workflowId]
+  );
+
+  const handleUpdateNotes = useCallback(
+    ({ markdown }) => {
+      revisionDispatch({
+        type: RevisionActionTypes.UpdateNotes,
+        data: { markdown },
+      });
+    },
+    [revisionDispatch]
   );
 
   /**
@@ -269,6 +318,9 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
           break;
         case NodeType.SetProperty:
           node = new SetPropertyNodeModel(nodeObj);
+          break;
+        case NodeType.SetStatus:
+          node = new SetStatusNodeModel(nodeObj);
           break;
         case NodeType.Wait:
           node = new WaitNodeModel(nodeObj);
@@ -330,7 +382,7 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
   };
 
   const { revisionCount } = summaryData;
-  const { version } = revisionState;
+  const { markdown, version } = revisionState;
   const mode = version === revisionCount ? WorkflowDagEngineMode.Editor : WorkflowDagEngineMode.Viewer;
 
   useEffect(() => {
@@ -383,8 +435,10 @@ const EditorStateContainer: React.FC<EditorStateContainerProps> = ({
               <Designer
                 createNode={handleCreateNode}
                 isModalOpen={isModalOpen}
+                notes={markdown}
                 revisionQuery={revisionQuery}
                 tasks={taskTemplatesData}
+                updateNotes={handleUpdateNotes}
                 workflowDagEngine={workflowDagEngine}
                 workflowName={summaryData.name}
               />

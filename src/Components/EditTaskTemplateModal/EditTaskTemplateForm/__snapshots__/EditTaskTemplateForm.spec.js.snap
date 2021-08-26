@@ -42,7 +42,7 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
                   placeholder="Enter a name"
                   title="Enter a name"
                   type="text"
-                  value=""
+                  value="Test name"
                 />
               </div>
               <div
@@ -177,73 +177,43 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
           </div>
         </div>
         <div
-          class="bx--bmrg-text-area"
+          class="description"
         >
-          <div
-            class="bx--form-item"
+          <p
+            class="descriptionLength"
           >
-            <label
-              class="bx--label"
-              for="description"
-            >
-              <div
-                style="display: flex;"
-              >
-                <div>
-                  Description
-                </div>
-              </div>
-            </label>
-            <div
-              class="bx--text-area__wrapper"
-            >
-              <textarea
-                class="bx--text-area"
-                cols="50"
-                id="description"
-                rows="4"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          class="bx--bmrg-text-input"
-        >
+            16
+            /200
+          </p>
           <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="bx--bmrg-text-area"
           >
-            <label
-              class="bx--label"
-              for="arguments"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Arguments
-                </div>
-              </div>
-            </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="bx--form-item"
             >
-              <div
-                class="bx--text-input__field-wrapper"
+              <label
+                class="bx--label"
+                for="description"
               >
-                <input
-                  class="bx--text-input bx--text__input"
-                  id="arguments"
-                  name="arguments"
-                  placeholder="e.g. system sleep"
-                  title="e.g. system sleep"
-                  type="text"
-                  value="slack"
-                />
-              </div>
+                <div
+                  style="display: flex;"
+                >
+                  <div>
+                    Description
+                  </div>
+                </div>
+              </label>
               <div
-                class="bx--form__helper-text"
+                class="bx--text-area__wrapper"
               >
-                Enter arguments delimited by a space character
+                <textarea
+                  class="bx--text-area"
+                  cols="50"
+                  id="description"
+                  rows="4"
+                >
+                  Test description
+                </textarea>
               </div>
             </div>
           </div>
@@ -289,51 +259,17 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
           </div>
         </div>
         <div
-          class="bx--bmrg-text-input"
+          class="bx--bmrg-text-area"
         >
           <div
-            class="bx--form-item bx--text-input-wrapper"
-          >
-            <label
-              class="bx--label"
-              for="workingDir"
-            >
-              <div
-                class="bx--bmrg-text-input__label"
-              >
-                <div>
-                  Working Directory (optional)
-                </div>
-              </div>
-            </label>
-            <div
-              class="bx--text-input__field-outer-wrapper"
-            >
-              <div
-                class="bx--text-input__field-wrapper"
-              >
-                <input
-                  class="bx--text-input bx--text__input"
-                  id="workingDir"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bx--bmrg-text-input"
-        >
-          <div
-            class="bx--form-item bx--text-input-wrapper"
+            class="bx--form-item"
           >
             <label
               class="bx--label"
               for="command"
             >
               <div
-                class="bx--bmrg-text-input__label"
+                style="display: flex;"
               >
                 <div>
                   Command (optional)
@@ -341,24 +277,60 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
               </div>
             </label>
             <div
-              class="bx--text-input__field-outer-wrapper"
+              class="bx--text-area__wrapper"
+            >
+              <textarea
+                class="bx--text-area"
+                cols="50"
+                id="command"
+                name="command"
+                rows="4"
+              />
+            </div>
+            <div
+              class="bx--form__helper-text"
+            >
+              Override the entry point of the container
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-area"
+        >
+          <div
+            class="bx--form-item"
+          >
+            <label
+              class="bx--label"
+              for="arguments"
             >
               <div
-                class="bx--text-input__field-wrapper"
+                style="display: flex;"
               >
-                <input
-                  class="bx--text-input bx--text__input"
-                  id="command"
-                  name="command"
-                  type="text"
-                  value=""
-                />
+                <div>
+                  Arguments (optional)
+                </div>
               </div>
-              <div
-                class="bx--form__helper-text"
+            </label>
+            <div
+              class="bx--text-area__wrapper"
+            >
+              <textarea
+                aria-placeholder="e.g. system sleep"
+                class="bx--text-area"
+                cols="50"
+                id="arguments"
+                name="arguments"
+                placeholder="e.g. system sleep"
+                rows="4"
               >
-                Override the entry point of the container
-              </div>
+                slack
+              </textarea>
+            </div>
+            <div
+              class="bx--form__helper-text"
+            >
+              Enter arguments delimited by a new line
             </div>
           </div>
         </div>
@@ -389,6 +361,40 @@ exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 
                 id="script"
                 rows="4"
               />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="workingDir"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Working Directory (optional)
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-outer-wrapper"
+            >
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="workingDir"
+                  type="text"
+                  value=""
+                />
+              </div>
             </div>
           </div>
         </div>

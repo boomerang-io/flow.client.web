@@ -29,7 +29,6 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
     // Register the data as a model so we can use the schema
     models: {
       activity: Model,
-      availableParameter: Model,
       changelog: Model,
       config: Model,
       featureFlag: Model,
@@ -81,7 +80,7 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.db.featureFlags[0];
       });
 
-      this.get(serviceUrl.getWorkflowAvailableParameters({ workflowId: ":workflowId" }), (schema) => {
+      this.get(serviceUrl.workflowAvailableParameters({ workflowId: ":workflowId" }), (schema) => {
         // return schema.availableParameters.all();
         return [];
       });
@@ -203,6 +202,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return taskTemplate;
       });
 
+      this.post(serviceUrl.postValidateYaml(), () => {
+        return {};
+      });
+
       /**
        * Workflows
        */
@@ -268,12 +271,9 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         }
       );
 
-      this.get(
-        serviceUrl.getWorkflowTaskTemplates({ workflowId: ":workflowId" }),
-        (schema, request) => {
-          return schema.db.tasktemplate;
-        }
-      );
+      this.get(serviceUrl.getWorkflowTaskTemplates({ workflowId: ":workflowId" }), (schema, request) => {
+        return schema.db.tasktemplate;
+      });
 
       this.post(serviceUrl.postCreateWorkflowRevision({ workflowId: ":workflowId" }), (schema, request) => {
         let body = JSON.parse(request.requestBody);
@@ -297,6 +297,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return schema.changelogs.where({ workflowId });
       });
 
+      //Workflow Available Parameters
+      this.post(serviceUrl.workflowAvailableParameters({ workflowId: ":workflowId" }), (schema, request) => {
+        return schema.db.availableParameters[0].data;
+      });
       /**
        * Activity
        */

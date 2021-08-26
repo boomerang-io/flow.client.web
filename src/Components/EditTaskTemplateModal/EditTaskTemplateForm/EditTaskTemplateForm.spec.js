@@ -3,6 +3,7 @@ import EditTaskTemplateForm from "./index";
 
 const mockfn = jest.fn();
 const mockRevision = {
+  name: "Test name",
   arguments: [
     "slack",
   ],
@@ -12,28 +13,30 @@ const mockRevision = {
     date: "2021-03-19T23:34:09.258+00:00",
     userName: "Test User"
   },
+  description: "Test description",
   command: [ ],
   config: [
-  {
-    required: false,
-    placeholder: "https://hooks.slack.com/services/...",
-    defaultValue: "",
-    readOnly: false,
-    description: "Found within your webhook integration settings",
-    key: "url",
-    label: "URL",
-    type: "text",
-    helperText: ""
-  }],
-    envs: [
-      {name: "test", value: "TEST"}
-    ],
-    image: "",
-    results: null,
-    script: null,
-    version: 1,
-    workingDir: null,
-  }
+    {
+      required: false,
+      placeholder: "https://hooks.slack.com/services/...",
+      defaultValue: "",
+      readOnly: false,
+      description: "Found within your webhook integration settings",
+      key: "url",
+      label: "URL",
+      type: "text",
+      helperText: ""
+    }
+  ],
+  envs: [
+    {name: "test", value: "TEST"}
+  ],
+  image: "",
+  results: null,
+  script: null,
+  version: 1,
+  workingDir: null,
+}
 const props = {
   closeModal: mockfn,
   handleEditTaskTemplateModal: mockfn,

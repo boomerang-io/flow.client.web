@@ -437,21 +437,6 @@ exports[`TaskTemplateOverview --- Snapshot Capturing Snapshot of Task Templates 
                 <dt
                   class="label"
                 >
-                  Arguments
-                </dt>
-                <dd
-                  class="value"
-                  data-testid="Arguments"
-                >
-                  slack lookUpUser
-                </dd>
-              </section>
-              <section
-                class="infoSection"
-              >
-                <dt
-                  class="label"
-                >
                   Image
                 </dt>
                 <dd
@@ -467,13 +452,15 @@ exports[`TaskTemplateOverview --- Snapshot Capturing Snapshot of Task Templates 
                 <dt
                   class="label"
                 >
-                  Working Directory
+                  Command
                 </dt>
                 <dd
-                  class="noValue"
-                  data-testid="Working Directory"
+                  class="value"
+                  data-testid="Command"
                 >
-                  Not defined yet
+                  npm start
+run test
+cd ..
                 </dd>
               </section>
               <section
@@ -482,13 +469,14 @@ exports[`TaskTemplateOverview --- Snapshot Capturing Snapshot of Task Templates 
                 <dt
                   class="label"
                 >
-                  Command
+                  Arguments
                 </dt>
                 <dd
-                  class="noValue"
-                  data-testid="Command"
+                  class="value"
+                  data-testid="Arguments"
                 >
-                  Not defined yet
+                  slack
+lookUpUser
                 </dd>
               </section>
               <section
@@ -502,6 +490,21 @@ exports[`TaskTemplateOverview --- Snapshot Capturing Snapshot of Task Templates 
                 <dd
                   class="noValue"
                   data-testid="Script"
+                >
+                  Not defined yet
+                </dd>
+              </section>
+              <section
+                class="infoSection"
+              >
+                <dt
+                  class="label"
+                >
+                  Working Directory
+                </dt>
+                <dd
+                  class="noValue"
+                  data-testid="Working Directory"
                 >
                   Not defined yet
                 </dd>

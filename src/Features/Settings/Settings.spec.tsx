@@ -7,6 +7,8 @@ import { startApiServer } from "ApiServer";
 import { serviceUrl } from "Config/servicesConfig";
 import { queryCaches } from "react-query";
 
+jest.setTimeout(60000);
+
 let server;
 
 beforeEach(() => {
