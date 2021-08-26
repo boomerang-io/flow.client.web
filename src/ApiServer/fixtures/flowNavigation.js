@@ -50,7 +50,7 @@ const flowNavigation = [
         link: "/admin/parameters",
       },
       {
-        name: "Quotas",
+        name: "Team Quotas",
         type: "link",
         link: "/admin/quotas",
       },

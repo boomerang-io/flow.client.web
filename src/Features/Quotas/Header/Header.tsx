@@ -2,7 +2,7 @@ import React from "react";
 import {
   Button,
   ComposedModal,
-  FeatureHeader, 
+  FeatureHeader,
   FeatureHeaderTitle as HeaderTitle,
   InlineNotification,
   Loading,
@@ -146,10 +146,10 @@ const RestoreModalContent: React.FC<restoreDefaultProps> = ({
                 {defaultQuotasError ? "---" : `${defaultQuotas.maxWorkflowExecutionMonthly}GB per Workflow`}
               </dt>
             </section>
-            {/*<section>
-        <dt className={styles.detailedTitle}>Maximum Workflow duration</dt>
-        <dt className={styles.detailedData}>{`${defaultQuotas.maxWorkflowExecutionTime} minutes`}</dt>
-      </section>*/}
+            <section>
+              <dt className={styles.detailedTitle}>Maximum Workflow duration</dt>
+              <dt className={styles.detailedData}>{`${defaultQuotas.maxWorkflowExecutionTime} minutes`}</dt>
+            </section>
             <section>
               <dt className={styles.detailedTitle}>Maximum concurrent Workflows</dt>
               <dt className={styles.detailedData}>

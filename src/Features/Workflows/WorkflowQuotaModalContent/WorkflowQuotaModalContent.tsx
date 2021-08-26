@@ -61,6 +61,12 @@ export default function WorkflowQuotaModalContent({
         valueUnit="GB"
       />
       <QuotaSection
+        description="Maximum amount of time that a single Workflow can take for one execution."
+        title="Execution time"
+        value={quotas.maxWorkflowExecutionTime}
+        valueUnit="minutes"
+      />
+      <QuotaSection
         title="Concurrent Workflows"
         description="Max number of Workflows able to run at the same time"
         value={quotas.maxConcurrentWorkflows}

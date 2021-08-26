@@ -216,6 +216,7 @@ const userWorkflows = {
     currentWorkflowCount: 1,
     currentConcurrentWorkflows: 0,
     currentWorkflowExecutionMonthly: 10,
+    currentAverageExecutionTime: 2,
     monthlymonthlyResetDate: "August 1, 2020",
   },
 };
