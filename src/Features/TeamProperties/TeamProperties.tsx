@@ -4,10 +4,11 @@ import { useQuery } from "react-query";
 import { useAppContext } from "Hooks";
 import TeamPropertiesTable from "./TeamPropertiesTable";
 import { serviceUrl, resolver } from "Config/servicesConfig";
+import { FlowTeam } from "Types";
 import styles from "./teamProperties.module.scss";
 
 function TeamProperties() {
-  const [activeTeam, setActiveTeam] = useState(null);
+  const [activeTeam, setActiveTeam] = useState<FlowTeam | null>(null);
   const { teams } = useAppContext();
 
   const teamPropertiesUrl = serviceUrl.getTeamProperties({ id: activeTeam?.id });
@@ -27,6 +28,7 @@ function TeamProperties() {
         properties={propertiesData ?? []}
         propertiesAreLoading={isLoading}
         propertiesError={propertiesError}
+        //@ts-ignore
         activeTeam={activeTeam}
         setActiveTeam={setActiveTeam}
       />

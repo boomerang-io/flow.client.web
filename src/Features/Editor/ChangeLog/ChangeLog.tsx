@@ -19,7 +19,6 @@ const ChangeLog: React.FC<ChangeLogProps> = ({ summaryData }) => {
     query: qs.stringify({ sort: "version", order: "DESC" }),
   });
   const { data, error, isLoading } = useQuery(getWorkflowChangelogUrl);
-
   if (isLoading)
     return (
       <DelayedRender>

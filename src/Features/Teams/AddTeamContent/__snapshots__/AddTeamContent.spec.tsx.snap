@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddTeamContent --- Snapshot Test Capturing Snapshot of AddTeamContent 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <form
+      class="bx--bmrg-modal-flow-form"
+    >
+      <div
+        class="bx--modal-content"
+      >
+        <div
+          class="modalInputContainer"
+        >
+          <div
+            class="bx--bmrg-text-input"
+          >
+            <div
+              class="bx--form-item bx--text-input-wrapper"
+            >
+              <label
+                class="bx--label"
+                for="team-update-name-id"
+              >
+                <div
+                  class="bx--bmrg-text-input__label"
+                >
+                  <div>
+                    Name
+                  </div>
+                </div>
+              </label>
+              <div
+                class="bx--text-input__field-outer-wrapper"
+              >
+                <div
+                  class="bx--text-input__field-wrapper"
+                >
+                  <input
+                    class="bx--text-input bx--text__input"
+                    data-testid="text-input-team-name"
+                    id="team-update-name-id"
+                    type="text"
+                    value=""
+                  />
+                </div>
+                <div
+                  class="bx--form__helper-text"
+                >
+                  Must be unique
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bx--modal-footer bx--btn-set"
+      >
+        <button
+          class="bx--btn bx--btn--secondary"
+          tabindex="0"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="bx--btn bx--btn--primary bx--btn--disabled"
+          data-testid="save-team-name"
+          disabled=""
+          tabindex="0"
+          type="button"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+`;

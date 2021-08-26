@@ -84,6 +84,7 @@ export const appLink = {
   teamWorkflows: ({ teamId }) => `/admin/teams/${teamId}/workflows`,
   teamSettings: ({ teamId }) => `/admin/teams/${teamId}/settings`,
   teamList: () => "/admin/teams",
+  userList: () => "/admin/users",
   workflows: () => "/workflows",
   workflowActivity: ({ workflowId }) => `/activity?page=0&size=10&workflowIds=${workflowId}`,
 

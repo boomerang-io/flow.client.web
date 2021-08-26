@@ -236,9 +236,9 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
                       if (cell.info.header === TableHeaderKey.Action) {
                         return (
                           <TableCell key={cell.id}>
-                            <OverflowMenu flipped>
-                              <OverflowMenuItem itemText="Change role" onClick={() => setChangeRoleUserId(row.id)} />
-                              <OverflowMenuItem itemText="View details" onClick={() => setViewDeatilsUserId(row.id)} />
+                            <OverflowMenu flipped data-testid="user-menu">
+                              <OverflowMenuItem itemText="Change role" onClick={() => setChangeRoleUserId(row.id)} data-testid="change-user-role"/>
+                              <OverflowMenuItem itemText="View details" onClick={() => setViewDeatilsUserId(row.id)} data-testid="view-user-details"/>
                             </OverflowMenu>
                           </TableCell>
                         );

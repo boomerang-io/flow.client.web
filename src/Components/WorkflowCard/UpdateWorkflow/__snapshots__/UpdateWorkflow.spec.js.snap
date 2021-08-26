@@ -23,8 +23,7 @@ exports[`ImportWorkflow --- Snapshot Test Capturing Snapshot of ImportWorkflow 1
       class="bx--bmrg-modal-overlay --is-open"
     >
       <div
-        aria-modal="true"
-        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container container --is-open"
+        class="bx--bmrg-modal-container bx--bmrg-modal-flow-container bx--modal-container modal-container-fix-width container --is-open"
         role="dialog"
         tabindex="-1"
       >

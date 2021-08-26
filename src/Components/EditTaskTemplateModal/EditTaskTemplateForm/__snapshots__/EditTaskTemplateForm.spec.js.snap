@@ -1,0 +1,541 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditTaskTemplateForm --- Snapshot Capturing Snapshot of Task Templates 1`] = `
+<body
+  id="app"
+>
+  <div>
+    <form
+      class="bx--bmrg-modal-form"
+    >
+      <div
+        aria-label="inputs"
+        class="bx--modal-content"
+      >
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="name"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Name
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-outer-wrapper"
+            >
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="name"
+                  placeholder="Enter a name"
+                  title="Enter a name"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="bx--form__helper-text"
+              >
+                Must be unique
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="category"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Category
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-outer-wrapper"
+            >
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="category"
+                  placeholder="e.g. communication"
+                  title="e.g. communication"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="bx--form__helper-text"
+              >
+                Categories have strict matching, type as you want to see it
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-select"
+        >
+          <div
+            aria-expanded="false"
+            aria-haspopup="listbox"
+            aria-labelledby="downshift-0-label"
+            class="bx--list-box__wrapper"
+            role="combobox"
+          >
+            <label
+              class="bx--label"
+              for="select-icon"
+              id="downshift-0-label"
+            >
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Icon
+                </div>
+              </div>
+            </label>
+            <div
+              aria-label="Choose an item"
+              class="bx--combo-box bx--list-box"
+            >
+              <div
+                aria-haspopup="true"
+                aria-label="open menu"
+                class="bx--list-box__field"
+                data-toggle="true"
+                id="select-icon"
+                role="button"
+                tabindex="-1"
+                type="button"
+              >
+                <input
+                  aria-autocomplete="list"
+                  aria-labelledby="downshift-0-label"
+                  autocomplete="off"
+                  class="bx--text-input bx--text-input--empty"
+                  id="select-icon"
+                  placeholder="Choose an icon"
+                  tabindex="0"
+                  type="text"
+                  value=""
+                />
+                
+                <div
+                  class="bx--list-box__menu-icon"
+                >
+                  <svg
+                    aria-label="Open menu"
+                    fill="currentColor"
+                    focusable="false"
+                    height="16"
+                    name="chevron--down"
+                    preserveAspectRatio="xMidYMid meet"
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11L3 6 3.7 5.3 8 9.6 12.3 5.3 13 6z"
+                    />
+                    <title>
+                      Open menu
+                    </title>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bx--form__helper-text"
+              id="combobox-helper-text-1"
+            >
+              Choose the icon that best fits this task
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-area"
+        >
+          <div
+            class="bx--form-item"
+          >
+            <label
+              class="bx--label"
+              for="description"
+            >
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Description
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-area__wrapper"
+            >
+              <textarea
+                class="bx--text-area"
+                cols="50"
+                id="description"
+                rows="4"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="arguments"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Arguments
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-outer-wrapper"
+            >
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="arguments"
+                  name="arguments"
+                  placeholder="e.g. system sleep"
+                  title="e.g. system sleep"
+                  type="text"
+                  value="slack"
+                />
+              </div>
+              <div
+                class="bx--form__helper-text"
+              >
+                Enter arguments delimited by a space character
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="image"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Image (optional)
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-outer-wrapper"
+            >
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="image"
+                  name="image"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="bx--form__helper-text"
+              >
+                Path to container image
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="workingDir"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Working Directory (optional)
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-outer-wrapper"
+            >
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="workingDir"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-input"
+        >
+          <div
+            class="bx--form-item bx--text-input-wrapper"
+          >
+            <label
+              class="bx--label"
+              for="command"
+            >
+              <div
+                class="bx--bmrg-text-input__label"
+              >
+                <div>
+                  Command (optional)
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-input__field-outer-wrapper"
+            >
+              <div
+                class="bx--text-input__field-wrapper"
+              >
+                <input
+                  class="bx--text-input bx--text__input"
+                  id="command"
+                  name="command"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <div
+                class="bx--form__helper-text"
+              >
+                Override the entry point of the container
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-text-area"
+        >
+          <div
+            class="bx--form-item"
+          >
+            <label
+              class="bx--label"
+              for="script"
+            >
+              <div
+                style="display: flex;"
+              >
+                <div>
+                  Script (optional)
+                </div>
+              </div>
+            </label>
+            <div
+              class="bx--text-area__wrapper"
+            >
+              <textarea
+                class="bx--text-area"
+                cols="50"
+                id="script"
+                rows="4"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bx--bmrg-creatable"
+        >
+          <div
+            class="bx--bmrg-creatable__input"
+          >
+            <div
+              class="bx--bmrg-creatable__key-value-inputs"
+            >
+              <div
+                class="bx--form-item bx--text-input-wrapper"
+              >
+                <label
+                  class="bx--label"
+                  for="envs-key"
+                >
+                  Environments (optional)
+                </label>
+                <div
+                  class="bx--text-input__field-outer-wrapper"
+                >
+                  <div
+                    class="bx--text-input__field-wrapper"
+                  >
+                    <input
+                      class="bx--text-input bx--text__input"
+                      id="envs-key"
+                      style="margin-bottom: 0rem; margin-top: 0px;"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <p
+                class="bx--bmrg-creatable__colon"
+                style="margin-top: 1.75rem;"
+              >
+                :
+              </p>
+              <div
+                class="bx--form-item bx--text-input-wrapper"
+              >
+                <div
+                  class="bx--text-input__field-outer-wrapper"
+                >
+                  <div
+                    class="bx--text-input__field-wrapper"
+                  >
+                    <input
+                      class="bx--text-input bx--text__input"
+                      id="envs-value"
+                      style="margin-bottom: 0rem; margin-top: 1.5rem;"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              class="bx--bmrg-creatable__button bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
+              disabled=""
+              tabindex="0"
+              type="button"
+            >
+              Add
+              <svg
+                aria-hidden="true"
+                aria-label="Add"
+                class="bx--btn__icon"
+                fill="currentColor"
+                focusable="false"
+                height="16"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                viewBox="0 0 32 32"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 15L17 8 15 8 15 15 8 15 8 17 15 17 15 24 17 24 17 17 24 17 24 15z"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="bx--bmrg-creatable__tags"
+          >
+            <div
+              aria-label="Clear filter test:TEST"
+              class="bx--tag bx--tag--filter bx--tag--teal"
+              id="tag-1"
+            >
+              <span
+                class="bx--tag__label"
+                title="test:TEST"
+              >
+                test:TEST
+              </span>
+              <button
+                aria-labelledby="tag-1"
+                class="bx--tag__close-icon"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  fill="currentColor"
+                  focusable="false"
+                  height="16"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 32 32"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M24 9.4L22.6 8 16 14.6 9.4 8 8 9.4 14.6 16 8 22.6 9.4 24 16 17.4 22.6 24 24 22.6 17.4 16 24 9.4z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bx--modal-footer bx--btn-set"
+      >
+        <button
+          class="bx--btn bx--btn--secondary"
+          tabindex="0"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class="bx--btn bx--btn--primary bx--btn--disabled"
+          disabled=""
+          tabindex="0"
+          type="submit"
+        >
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+`;
