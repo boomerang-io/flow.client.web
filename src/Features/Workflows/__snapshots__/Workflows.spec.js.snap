@@ -276,6 +276,26 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             >
               IBM Services Engineering (3)
             </h1>
+            <div
+              class="teamQuotaContainer"
+            >
+              <div
+                class="quotaDescriptionContainer"
+              >
+                <p
+                  class="teamQuotaText"
+                >
+                  Workflow quota - 1 of 10 used
+                </p>
+              </div>
+              <button
+                class="bx--btn bx--btn--field bx--btn--ghost"
+                tabindex="0"
+                type="button"
+              >
+                View more quotas
+              </button>
+            </div>
           </hgroup>
           <div
             class="workflows"
@@ -335,7 +355,8 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 class="launch"
               >
                 <button
-                  class="bx--btn bx--btn--field bx--btn--primary"
+                  class="bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
+                  disabled=""
                   tabindex="0"
                   type="button"
                 >
@@ -741,6 +762,26 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
             >
               IBM Services Essentials (1)
             </h1>
+            <div
+              class="teamQuotaContainer"
+            >
+              <div
+                class="quotaDescriptionContainer"
+              >
+                <p
+                  class="teamQuotaText"
+                >
+                  Workflow quota - 9 of 10 used
+                </p>
+              </div>
+              <button
+                class="bx--btn bx--btn--field bx--btn--ghost"
+                tabindex="0"
+                type="button"
+              >
+                View more quotas
+              </button>
+            </div>
           </hgroup>
           <div
             class="workflows"
@@ -809,7 +850,8 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
                 class="launch"
               >
                 <button
-                  class="bx--btn bx--btn--field bx--btn--primary"
+                  class="bx--btn bx--btn--field bx--btn--primary bx--btn--disabled"
+                  disabled=""
                   tabindex="0"
                   type="button"
                 >
@@ -911,6 +953,12 @@ exports[`WorkflowsHome --- Snapshot Capturing Snapshot of WorkflowsHome 1`] = `
       </div>
     </div>
   </div>
+  <div
+    class="bx--bmrg-modal-portal"
+  />
+  <div
+    class="bx--bmrg-modal-portal"
+  />
   <div
     class="bx--bmrg-modal-portal"
   />

@@ -23,14 +23,17 @@ interface MemberProps {
   isActive: boolean;
   memberList: FlowUser[];
   team: FlowTeam;
+  teamManagementEnabled: any;
   user: FlowUser;
 }
 
-const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, user }) => {
+const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, teamManagementEnabled, user }) => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const filteredMemberList = searchQuery ? ms(memberList, searchQuery, { keys: ["name", "email"] }) : memberList;
 
   const memberIdList = memberList?.map((member) => member.id);
+
+  const canEdit = isActive && teamManagementEnabled;
 
   return (
     <section aria-label={`${team.name} Team Members`} className={styles.container}>
@@ -50,7 +53,7 @@ const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, user 
             onChange={(e: React.FormEvent<HTMLInputElement>) => setSearchQuery(e.currentTarget.value)}
           />
         </div>
-        {isActive && (
+        {canEdit && (
           <div className={styles.rightActions}>
             <AddMember teamId={team.id} teamName={team.name} memberList={memberList} memberIdList={memberIdList} />
           </div>
@@ -81,7 +84,7 @@ const Members: React.FC<MemberProps> = ({ isActive, memberList = [], team, user 
                   <StructuredListCell>{member.email}</StructuredListCell>
                   <StructuredListCell>{moment(member.firstLoginDate).format("MMMM D, YYYY")}</StructuredListCell>
                   <StructuredListCell>
-                    {isActive && (
+                    {canEdit && (
                       <RemoveMember
                         member={member}
                         memberIdList={memberIdList}

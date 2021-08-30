@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { useFeature } from "flagged";
 import { useQuery } from "Hooks";
 import { useHistory, useLocation } from "react-router-dom";
 import { Box } from "reflexbox";
@@ -23,6 +24,7 @@ import debounce from "lodash/debounce";
 import moment from "moment";
 import queryString from "query-string";
 import { CREATED_DATE_FORMAT, SortDirection } from "Constants";
+import { FeatureFlag } from "Config/appConfig";
 import { serviceUrl } from "Config/servicesConfig";
 import { ComposedModalChildProps, FlowUser, PaginatedResponse } from "Types";
 
@@ -196,6 +198,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
   const [viewDetailsUserId, setViewDeatilsUserId] = React.useState(null);
   const [changeRoleUserId, setChangeRoleUserId] = React.useState(null);
   const cancelRequestRef = React.useRef<{} | null>();
+  const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
 
   const { TableContainer, Table, TableHead, TableRow, TableBody, TableCell, TableHeader } = DataTable;
   const { number: page, sort, totalElements, totalPages, records } = usersData;
@@ -237,8 +240,18 @@ const UsersTable: React.FC<UsersTableProps> = ({ handlePaginationChange, handleS
                         return (
                           <TableCell key={cell.id}>
                             <OverflowMenu flipped data-testid="user-menu">
-                              <OverflowMenuItem itemText="Change role" onClick={() => setChangeRoleUserId(row.id)} data-testid="change-user-role"/>
-                              <OverflowMenuItem itemText="View details" onClick={() => setViewDeatilsUserId(row.id)} data-testid="view-user-details"/>
+                              {userManagementEnabled && (
+                                <OverflowMenuItem
+                                  itemText="Change role"
+                                  onClick={() => setChangeRoleUserId(row.id)}
+                                  data-testid="change-user-role"
+                                />
+                              )}
+                              <OverflowMenuItem
+                                itemText="View details"
+                                onClick={() => setViewDeatilsUserId(row.id)}
+                                data-testid="view-user-details"
+                              />
                             </OverflowMenu>
                           </TableCell>
                         );
