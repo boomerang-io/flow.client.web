@@ -76,6 +76,7 @@ export const serviceUrl = {
   `${BASE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
   getWorkflowSummary: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/summary`,
   getWorkflowTaskTemplates: ({ workflowId }) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
+  getWorkflowTemplates: () => `${BASE_URL}/workflows/template`,
   patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/properties`,
   patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
   postCreateWorkflow: () => `${BASE_URL}/workflow`,

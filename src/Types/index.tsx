@@ -114,53 +114,54 @@ export interface WorkflowSummary {
   templateUpgradesAvailable: boolean;
 }
 
+export interface WorkflowDag {
+  gridSize: number;
+  id: string;
+  links: Array<{
+    color: string;
+    curvyness: number;
+    executionCondition: string;
+    extras: object;
+    id: string;
+    labels: Array<string>; //i think this type is right?
+    linkId: string;
+    selected: false;
+    source: string;
+    sourcePort: string;
+    switchCondition: string | null;
+    target: string;
+    targetPort: string;
+    type: string;
+    width: number;
+  }>;
+  nodes: Array<{
+    extras: {};
+    id: string;
+    nodeId: string;
+    passedName: string;
+    ports: Array<{
+      id: string;
+      links: Array<string>;
+      name: string;
+      nodePortId: string;
+      position: string;
+      selected: boolean;
+      type: string;
+    }>;
+    selected: boolean;
+    templateUpgradeAvailable: boolean;
+    type: string;
+    x: number;
+    y: number;
+  }>;
+  offsetX: number;
+  offsetY: number;
+  zoom: number;
+};
 export interface WorkflowRevision {
   changelog: ChangeLogItem;
   config: any;
-  dag: {
-    gridSize: number;
-    id: string;
-    links: Array<{
-      color: string;
-      curvyness: number;
-      executionCondition: string;
-      extras: object;
-      id: string;
-      labels: Array<string>; //i think this type is right?
-      linkId: string;
-      selected: false;
-      source: string;
-      sourcePort: string;
-      switchCondition: string | null;
-      target: string;
-      targetPort: string;
-      type: string;
-      width: number;
-    }>;
-    nodes: Array<{
-      extras: {};
-      id: string;
-      nodeId: string;
-      passedName: string;
-      ports: Array<{
-        id: string;
-        links: Array<string>;
-        name: string;
-        nodePortId: string;
-        position: string;
-        selected: boolean;
-        type: string;
-      }>;
-      selected: boolean;
-      templateUpgradeAvailable: boolean;
-      type: string;
-      x: number;
-      y: number;
-    }>;
-    offsetX: number;
-    offsetY: number;
-    zoom: number;
-  };
+  dag: WorkflowDag;
   id: string;
   templateUpgradesAvailable: boolean;
   version: number;
@@ -312,3 +313,15 @@ export interface ComboBoxItem {
   label?: string;
   value: string;
 }
+
+export interface WorkflowTemplate {
+  id: string;
+  icon: string;
+  name: string;
+  description: string;
+  parameters: {
+      label: string;
+      type: string;
+  }[];
+  dag: WorkflowDag;
+};

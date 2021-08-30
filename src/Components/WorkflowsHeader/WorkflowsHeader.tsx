@@ -8,6 +8,7 @@ import {
   MultiSelect,
   Search,
 } from "@boomerang-io/carbon-addons-boomerang-react";
+import CreateTemplateWorkflow from "Components/CreateTemplateWorkflow";
 import { appLink } from "Config/appConfig";
 import { FlowTeam } from "Types";
 import { WorkflowScope } from "Constants";
@@ -30,8 +31,8 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
   selectedTeams,
   handleUpdateFilter,
   searchQuery,
-  teamsQuery,
   teams,
+  teamsQuery,
   workflowsCount,
 }) => {
   return (
@@ -111,6 +112,9 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
 
   return (
     <div className={styles.filterContainer}>
+      <CreateTemplateWorkflow
+        teams={teams}
+      />
       <div className={styles.search}>
         <Search
           disabled={scope === WorkflowScope.Team ? !hasTeams : false}
