@@ -152,19 +152,17 @@ export default function App() {
     return (
       <FlagsProvider
         features={{
-          TeamManagementEnabled: feature["team.management"],
-          WorkflowQuotasEnabled: feature["workflow.quotas"],
-          SettingsEnabled: feature["settings"],
-          UserManagementEnabled: feature["user.management"],
-          GlobalParametersEnabled: feature["global.parameters"],
-          WorkflowTokensEnabled: feature["workflow.tokens"],
-          TaskManagerEnabled: feature["taskManager"],
-          EditVerifiedTasksEnabled: feature["enable.verified.tasks.edit"],
-          WorkflowTriggersEnabled: feature["workflow.triggers"],
-          TeamParametersEnabled: feature["team.parameters"],
-
           ActivityEnabled: feature["activity"],
+          EditVerifiedTasksEnabled: feature["enable.verified.tasks.edit"],
+          GlobalParametersEnabled: feature["global.parameters"],
           InsightsEnabled: feature["insights"],
+          TeamManagementEnabled: feature["team.management"],
+          TeamParametersEnabled: feature["team.parameters"],
+          TeamTasksEnabled: feature["team.tasks"],
+          UserManagementEnabled: feature["user.management"],
+          WorkflowQuotasEnabled: feature["workflow.quotas"],
+          WorkflowTokensEnabled: feature["workflow.tokens"],
+          WorkflowTriggersEnabled: feature["workflow.triggers"],
         }}
       >
         <Navbar
@@ -241,12 +239,10 @@ interface AppFeaturesProps {
 }
 
 const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
-  const teamPropertiesEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
-  const taskManagerEnabled = useFeature(FeatureFlag.TaskManagerEnabled);
-  const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
-  const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
   const insightsEnabled = useFeature(FeatureFlag.InsightsEnabled);
+  const teamPropertiesEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
+  const teamTasksEnabled = useFeature(FeatureFlag.TeamTasksEnabled);
 
   return (
     <main id="content" className={styles.container}>
@@ -277,14 +273,14 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             allowedUserRoles={[true]}
             component={<ManageTeamTasks />}
             path={AppPath.ManageTaskTemplatesTeam}
-            userRole={taskManagerEnabled}
+            userRole={teamTasksEnabled}
           />
 
           <ProtectedRoute
             allowedUserRoles={[true]}
             component={<ManageTeamTasksContainer />}
             path={AppPath.ManageTaskTemplates}
-            userRole={taskManagerEnabled}
+            userRole={teamTasksEnabled}
           />
 
           <ProtectedRoute
@@ -301,19 +297,13 @@ const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeature
             userRole={platformRole}
           />
 
-          <ProtectedRoute
-            allowedUserRoles={[true]}
-            component={<Teams />}
-            path={AppPath.TeamList}
-            userRole={teamManagementEnabled}
-          />
+          <Route path={AppPath.TeamList}>
+            <Teams />
+          </Route>
 
-          <ProtectedRoute
-            allowedUserRoles={[true]}
-            component={<Users />}
-            path={AppPath.UserList}
-            userRole={userManagementEnabled}
-          />
+          <Route path={AppPath.UserList}>
+            <Users />
+          </Route>
 
           <ProtectedRoute
             allowedUserRoles={allowedUserRoles}

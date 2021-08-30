@@ -91,6 +91,7 @@ export const appLink = {
   teamList: () => "/admin/teams",
   teamTokens: () => `/manage/team-tokens`,
   tokens: () => `/admin/tokens`,
+  userList: () => "/admin/users",
   workflows: () => "/workflows",
   workflowsMine: () => "/workflows/mine",
   workflowsTeams: () => "/workflows/teams",
@@ -111,17 +112,15 @@ export const FeatureFlag = {
   /**
    * new Feature Flags
    */
-  TeamManagementEnabled: "TeamManagementEnabled",
-  WorkflowQuotasEnabled: "WorkflowQuotasEnabled",
-  SettingsEnabled: "SettingsEnabled",
-  UserManagementEnabled: "UserManagementEnabled",
-  GlobalParametersEnabled: "GlobalParametersEnabled",
-  WorkflowTokensEnabled: "WorkflowTokensEnabled",
-  TaskManagerEnabled: "TaskManagerEnabled",
-  EditVerifiedTasksEnabled: "EditVerifiedTasksEnabled",
-  WorkflowTriggersEnabled: "WorkflowTriggersEnabled",
-  TeamParametersEnabled: "TeamParametersEnabled",
-
   ActivityEnabled: "ActivityEnabled",
+  EditVerifiedTasksEnabled: "EditVerifiedTasksEnabled",
+  GlobalParametersEnabled: "GlobalParametersEnabled",
   InsightsEnabled: "InsightsEnabled",
+  TeamManagementEnabled: "TeamManagementEnabled",
+  TeamParametersEnabled: "TeamParametersEnabled",
+  TeamTasksEnabled: "TeamTasksEnabled",
+  UserManagementEnabled: "UserManagementEnabled",
+  WorkflowQuotasEnabled: "WorkflowQuotasEnabled",
+  WorkflowTokensEnabled: "WorkflowTokensEnabled",
+  WorkflowTriggersEnabled: "WorkflowTriggersEnabled",
 };

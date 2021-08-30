@@ -204,7 +204,7 @@ function AddTaskTemplateForm({ closeModal, taskTemplates, isLoading, handleAddTa
         // }),
       })}
       onSubmit={handleSubmit}
-      initialErrors={[{ name: "Name required" }]}
+      validateOnMount={true}
     >
       {(props) => {
         const {

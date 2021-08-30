@@ -1,10 +1,11 @@
 import React from "react";
 import { Router } from "react-router-dom";
+import { FlagsProvider } from "flagged";
 import { createMemoryHistory } from "history";
 import { render as rtlRender } from "@testing-library/react";
 import { ReactQueryConfigProvider, setConsole } from "react-query";
 import { AppContextProvider } from "State/context";
-import { teams as teamsFixture, profile as userFixture } from "ApiServer/fixtures";
+import { featureFlags as featureFlagsFixture, teams as teamsFixture, profile as userFixture } from "ApiServer/fixtures";
 import "@testing-library/jest-dom/extend-expect";
 
 setConsole({
@@ -28,6 +29,22 @@ const defaultContextValue = {
   teams: teamsFixture,
 };
 
+const feature = featureFlagsFixture.features;
+
+const defaultFeatures = {
+  ActivityEnabled: feature["activity"],
+  EditVerifiedTasksEnabled: feature["enable.verified.tasks.edit"],
+  GlobalParametersEnabled: feature["global.parameters"],
+  InsightsEnabled: feature["insights"],
+  TeamManagementEnabled: feature["team.management"],
+  TeamParametersEnabled: feature["team.parameters"],
+  TeamTasksEnabled: feature["team.tasks"],
+  UserManagementEnabled: feature["user.management"],
+  WorkflowQuotasEnabled: feature["workflow.quotas"],
+  WorkflowTokensEnabled: feature["workflow.tokens"],
+  WorkflowTriggersEnabled: feature["workflow.triggers"],
+};
+
 function rtlContextRouterRender(
   ui,
   {
@@ -40,11 +57,13 @@ function rtlContextRouterRender(
 ) {
   return {
     ...rtlRender(
-      <AppContextProvider value={{ ...defaultContextValue, ...contextValue }}>
-        <ReactQueryConfigProvider config={{ queries: { retry: 0 }, mutations: { throwOnError: true } }}>
-          <Router history={history}>{ui}</Router>
-        </ReactQueryConfigProvider>
-      </AppContextProvider>,
+      <FlagsProvider features={defaultFeatures}>
+        <AppContextProvider value={{ ...defaultContextValue, ...contextValue }}>
+          <ReactQueryConfigProvider config={{ queries: { retry: 0 }, mutations: { throwOnError: true } }}>
+            <Router history={history}>{ui}</Router>
+          </ReactQueryConfigProvider>
+        </AppContextProvider>
+      </FlagsProvider>,
       options
     ),
     history,

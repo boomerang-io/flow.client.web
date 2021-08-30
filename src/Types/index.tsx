@@ -1,3 +1,7 @@
+import { number } from "prop-types";
+import { string } from "prop-types";
+import { boolean } from "yup";
+
 export enum PlatformRole {
   Admin = "admin",
   User = "user",
@@ -114,53 +118,54 @@ export interface WorkflowSummary {
   templateUpgradesAvailable: boolean;
 }
 
+export interface WorkflowDag {
+  gridSize: number;
+  id: string;
+  links: Array<{
+    color: string;
+    curvyness: number;
+    executionCondition: string;
+    extras: object;
+    id: string;
+    labels: Array<string>; //i think this type is right?
+    linkId: string;
+    selected: false;
+    source: string;
+    sourcePort: string;
+    switchCondition: string | null;
+    target: string;
+    targetPort: string;
+    type: string;
+    width: number;
+  }>;
+  nodes: Array<{
+    extras: {};
+    id: string;
+    nodeId: string;
+    passedName: string;
+    ports: Array<{
+      id: string;
+      links: Array<string>;
+      name: string;
+      nodePortId: string;
+      position: string;
+      selected: boolean;
+      type: string;
+    }>;
+    selected: boolean;
+    templateUpgradeAvailable: boolean;
+    type: string;
+    x: number;
+    y: number;
+  }>;
+  offsetX: number;
+  offsetY: number;
+  zoom: number;
+}
 export interface WorkflowRevision {
   changelog: ChangeLogItem;
   config: any;
-  dag: {
-    gridSize: number;
-    id: string;
-    links: Array<{
-      color: string;
-      curvyness: number;
-      executionCondition: string;
-      extras: object;
-      id: string;
-      labels: Array<string>; //i think this type is right?
-      linkId: string;
-      selected: false;
-      source: string;
-      sourcePort: string;
-      switchCondition: string | null;
-      target: string;
-      targetPort: string;
-      type: string;
-      width: number;
-    }>;
-    nodes: Array<{
-      extras: {};
-      id: string;
-      nodeId: string;
-      passedName: string;
-      ports: Array<{
-        id: string;
-        links: Array<string>;
-        name: string;
-        nodePortId: string;
-        position: string;
-        selected: boolean;
-        type: string;
-      }>;
-      selected: boolean;
-      templateUpgradeAvailable: boolean;
-      type: string;
-      x: number;
-      y: number;
-    }>;
-    offsetX: number;
-    offsetY: number;
-    zoom: number;
-  };
+  dag: WorkflowDag;
   id: string;
   templateUpgradesAvailable: boolean;
   version: number;
@@ -176,6 +181,79 @@ export interface WorkflowRevisionState extends WorkflowRevision {
   hasUnsavedUpdates: boolean;
 }
 
+export interface WorkflowExecutionStep {
+  activityId: string;
+  approval: {
+    id: string;
+    status: string;
+    instructions: string;
+    audit: {
+      approverId: string;
+      approverName: string;
+      approverEmail: string;
+      actionDate: number;
+      result: boolean;
+      comments: string;
+    };
+  };
+  duration: number;
+  flowTaskStatus: string;
+  id: string;
+  order: number;
+  startTime: string;
+  taskId: string;
+  taskName: string;
+  taskType: string;
+  preApproved: boolean;
+  runWorkflowActivityId: string;
+  runWorkflowId: string;
+  runWorkflowActivityStatus: string;
+  switchValue: string;
+  outputs: {
+    [key:string]: string;
+  };
+  error: {
+    code: string;
+    message: string;
+  };
+  results: Array<{
+    name: string;
+    description: string;
+    value: string;
+  }>
+}
+export interface WorkflowExecution {
+  creationDate: string;
+  duration: number;
+  id: string;
+  status: string;
+  workflowId: string;
+  workflowRevisionid: string;
+  trigger: string;
+  properties: ({
+      key: string;
+      value: string;
+  } | {
+      key: string;
+      value: null;
+  })[];
+  outputProperties: ({
+    key: string;
+    value: string;
+  } | {
+      key: string;
+      value: null;
+  })[];
+  steps: Array<WorkflowExecutionStep>;
+  teamName: string;
+  awaitingApproval: boolean;
+  error: {
+    code: string;
+    message: string;
+  };
+  initiatedByUserName: string;
+  scope: string;
+}
 export interface ChangeLogItem {
   date: string;
   reason: string;
@@ -257,6 +335,7 @@ export interface FlowUser {
   lastLoginDate: string;
   flowTeams: FlowTeam[];
   status: UserStatus;
+  platformRole: string;
 }
 
 export interface Property {

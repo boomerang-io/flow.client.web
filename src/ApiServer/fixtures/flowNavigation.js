@@ -45,9 +45,24 @@ const flowNavigation = [
     icon: "Settings16",
     childLinks: [
       {
-        name: "Parameters",
+        name: "Teams",
+        type: "link",
+        link: "/admin/teams",
+      },
+      {
+        name: "Users",
+        type: "link",
+        link: "/admin/users",
+      },
+      {
+        name: "Global Parameters",
         type: "link",
         link: "/admin/parameters",
+      },
+      {
+        name: "Global Tokens",
+        type: "link",
+        link: "/admin/tokens",
       },
       {
         name: "Team Quotas",
@@ -68,11 +83,6 @@ const flowNavigation = [
         name: "System Workflows",
         type: "link",
         link: "/admin/system-workflows",
-      },
-      {
-        name: "Global Tokens",
-        type: "link",
-        link: "/admin/tokens",
       },
     ],
   },

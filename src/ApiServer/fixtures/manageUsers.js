@@ -39,6 +39,17 @@ const manageUsers = {
       flowTeams: [],
       status: "active",
     },
+    {
+      id: "kg3p380ad09662744c240e12347",
+      email: "test@ibm.com",
+      name: "Test User",
+      isFirstVisit: true,
+      type: "admin",
+      firstLoginDate: "2020-07-21T15:35:25.369+00:00",
+      lastLoginDate: "2020-07-21T15:35:25.369+00:00",
+      flowTeams: [],
+      status: "active",
+    },
   ],
 };
 

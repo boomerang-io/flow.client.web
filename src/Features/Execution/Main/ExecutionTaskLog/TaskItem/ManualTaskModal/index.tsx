@@ -1,1 +1,1 @@
-export { default } from "./ManualTaskModal.js";
+export { default } from "./ManualTaskModal";

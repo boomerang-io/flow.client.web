@@ -28,6 +28,15 @@ const PAGE_SIZES = [DEFAULT_PAGE_SIZE, 25, 50];
 
 const configUrl = serviceUrl.getGlobalConfiguration();
 
+const defaultProperty = {
+  value: "",
+  readOnly: false,
+  id: "",
+  description: "",
+  key: "",
+  label: "",
+  type: "",
+};
 function PropertiesTable({ properties }: { properties: Property[] }) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(DEFAULT_PAGE_SIZE);
@@ -126,7 +135,7 @@ function PropertiesTable({ properties }: { properties: Property[] }) {
           <Close32 alt="unsecured" className={`${styles.tableSecured} ${styles.unsecured}`} />
         );
       case "actions":
-        return <ActionsMenu deleteProperty={deleteProperty} property={property} properties={properties} />;
+        return <ActionsMenu deleteProperty={deleteProperty} property={property ?? defaultProperty} properties={properties} />;
       default:
         return <p className={styles.tableTextarea}>{value || "---"}</p>;
     }
