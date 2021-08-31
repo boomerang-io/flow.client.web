@@ -86,7 +86,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       name: values.name,
       description: values.description,
       summary: values.summary,
-      icon: selectedTeam,
+      icon: values.icon,
       scope: scope === WorkflowScope.System ? scope : selectedOption,
       team: selectedOption === WorkflowScope.Team ? selectedTeam.id : undefined,
     };
