@@ -65,6 +65,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   workflowQuotasEnabled,
 }) => {
   const [selectedTeam, setSelectedTeam] = useState<FlowTeam | null>(team ?? null);
+  const [teamTouched, setTeamTouched] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = React.useState(scope);
   const formikRef = useRef<any>();
   const hasReachedUserWorkflowLimit = userWorkflows?.userQuotas?.maxWorkflowCount <= userWorkflows?.userQuotas?.currentWorkflowCount;
@@ -88,7 +89,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       summary: values.summary,
       icon: values.icon,
       scope: scope === WorkflowScope.System ? scope : selectedOption,
-      team: selectedOption === WorkflowScope.Team ? selectedTeam.id : undefined,
+      teamId: selectedOption === WorkflowScope.Team ? selectedTeam.id : undefined,
     };
     //@ts-ignore
     createWorkflow(formData.selectedWorkflow.id, requestBody);
@@ -146,16 +147,17 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                   <ComboBox
                     id="selectedTeam"
                     styles={{ marginBottom: "2.5rem" }}
-                    onChange={({ selectedItem }: { selectedItem: FlowTeam }) =>
-                      setSelectedTeam(selectedItem ? selectedItem : null)
-                    }
+                    onChange={({ selectedItem }: { selectedItem: FlowTeam }) =>{
+                      setTeamTouched(true);
+                      setSelectedTeam(selectedItem ? selectedItem : null);
+                    }}
                     items={teams}
                     initialSelectedItem={selectedTeam}
                     value={selectedTeam}
                     itemToString={(item: ComboBoxItem) => (item ? item.name : "")}
                     titleText="Team"
                     placeholder="Select a team"
-                    invalid={teamError}
+                    invalid={teamError && teamTouched}
                     invalidText="Team is required"
                     shouldFilterItem={({ item, inputValue }: { item: ComboBoxItem; inputValue: string }) =>
                       item && item.name.toLowerCase().includes(inputValue.toLowerCase())

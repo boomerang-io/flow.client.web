@@ -6,12 +6,20 @@
 }
 .templates {
   display: flex;
+  border-left: transparent 0.25rem solid;
   flex-direction: column;
   height: 100%;
   min-width: 15rem;
   margin-right: 1rem;
   max-width: 15rem;
   overflow-y: auto;
+  :global .bx--btn {
+    border-radius: 0;
+  }
+  .active {
+    background-color: var(--cds-ui-03);
+    border-left-color: var(--cds-interactive-01);
+  }
 }
 .template {
   align-items: center;

@@ -1,5 +1,6 @@
 //@ts-nocheck
 import React, { useState, useEffect } from "react";
+import cx from "classnames";
 import {
   Loading,
 } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -77,7 +78,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
               workflowTemplates?.map(template => {
                 const { name, Icon = Bee20 } = workflowIcons.find((icon) => icon.name === template.icon) ?? {};
                 return (
-                  <Button className={styles.template} kind="ghost" size="small" onClick={() => handleSelectTemplate(template)}>
+                  <Button className={cx(styles.template, { [styles.active]: selectedWorkflow?.id === template.id })} kind="ghost" size="small" onClick={() => handleSelectTemplate(template)}>
                     <Icon className={styles.icon} alt={`${name}`} />
                     <p className={styles.buttonText}>{template.name}</p>
                   </Button>
