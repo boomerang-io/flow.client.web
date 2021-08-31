@@ -43,6 +43,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
     mode: WorkflowDagEngineMode.Executor,
   }) : null);
 
+  
   useEffect(() => {
     if(currentDag){
       currentDag.getDiagramEngine().zoomToFit();

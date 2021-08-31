@@ -1,24 +1,18 @@
 //@ts-nocheck
 import React from "react";
 import { useFeature } from "flagged";
-import { useAppContext } from "Hooks";
 import { useMutation, queryCache, useQuery } from "react-query";
-import { useHistory, useParams } from "react-router-dom";
-import { Button, ModalFlow, notify, ToastNotification, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
+import { useHistory } from "react-router-dom";
+import { Button, ModalFlow, notify, ToastNotification } from "@boomerang-io/carbon-addons-boomerang-react";
 import CreateWorkflowContent from "./CreateWorkflowContent";
 import CreateWorkflowTemplates from "./CreateWorkflowTemplates";
-import WorkflowDagEngine, { createWorkflowRevisionBody } from "Utils/dag/WorkflowDagEngine";
 import { appLink } from "Config/appConfig";
 import { serviceUrl, resolver } from "Config/servicesConfig";
 import queryString from "query-string";
-import { formatErrorMessage } from "@boomerang-io/utils";
 import { Template32, Add32 } from "@carbon/icons-react";
 import {
   FlowTeam,
-  ComposedModalChildProps,
   ModalTriggerProps,
-  WorkflowSummary,
-  WorkflowTemplate,
 } from "Types";
 import { WorkflowScope } from "Constants";
 import { FeatureFlag } from "Config/appConfig";
@@ -31,6 +25,8 @@ interface CreateTemplateWorkflowProps {
 const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams }) => {
   const history = useHistory();
   const { teams: teamsIds } = queryString.parse(history.location.search);
+  const pathname = history.location.pathname;
+  const scope = pathname.includes("mine") ? WorkflowScope.User : pathname.includes("teams") ? WorkflowScope.Team :  WorkflowScope.System;
   const initialSelectedTeam = teamsIds?.length ? teams.find((team) => teamsIds.includes(team.id)) : null;
 
   const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
@@ -53,17 +49,17 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams }
     queryFn: resolver.query(getTaskTemplatesUrl),
   });
 
-  const [duplicateWorkflowMutator, { isLoading: duplicateWorkflowIsLoading, error: duplicateWorkflowError }] = useMutation(
-    resolver.postDuplicateWorkflow
+  const [createTemplateWorkflowMutator, { isLoading: createTemplateWorkflowIsLoading, error: createTemplateWorkflowError }] = useMutation(
+    resolver.postTemplateWorkflow
   );
 
-  const handleCreateWorkflow = async (workflowTemplate: WorkflowTemplate) => {
+  const handleCreateWorkflow = async (selectedTemplateId, requestBody) => {
     try {
-      const { data: newWorkflow } = await duplicateWorkflowMutator({ workflowId: workflowTemplate.id });
+      const { data: newWorkflow } = await createTemplateWorkflowMutator({ workflowId: selectedTemplateId, body: requestBody });
       const workflowId = newWorkflow.id;
 
       history.push(appLink.editorDesigner({ workflowId }));
-      notify(<ToastNotification kind="success" title="Create Workflow" subtitle="Successfully created workflow" />);
+      notify(<ToastNotification kind="success" title="Create Workflow" subtitle="Successfully created workflow from template" />);
       if (scope === WorkflowScope.System) {
         queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
       } else if (scope === WorkflowScope.Team) {
@@ -79,31 +75,16 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams }
       //no-op
     }
   };
-  const hasReachedWorkflowLimit  = false;
-  const isLoading = duplicateWorkflowIsLoading;
+  const isLoading = createTemplateWorkflowIsLoading;
 
   return (
     <ModalFlow
       composedModalProps={{ containerClassName: styles.modalContainer }}
-      modalTrigger={({ openModal }: ModalTriggerProps) => (
-        workflowQuotasEnabled && hasReachedWorkflowLimit ? (
-          <TooltipHover
-            direction="top"
-            tooltipText={
-              "This team has reached the maximum number of Workflows allowed - delete a Workflow to create a new one, or contact your Team administrator/owner to increase the quota."
-            }
-          >
-            <Button disabled renderIcon={Add32} kind="ghost" size="field" data-testid="workflows-create-workflow-template-button" >
-              <Template32 className={styles.addIcon} />
-              <p className={styles.text}>Templates</p>
-            </Button>
-          </TooltipHover>
-        ) : (
-          <Button onClick={openModal} renderIcon={Add32} kind="ghost" size="field" data-testid="workflows-create-workflow-template-button" >
-            <Template32 className={styles.addIcon} />
-            <p className={styles.text}>Templates</p>
-          </Button>
-        )
+      modalTrigger={({ openModal }: ModalTriggerProps) =>(
+        <Button onClick={openModal} renderIcon={Add32} kind="ghost" size="field" data-testid="workflows-create-workflow-template-button" >
+          <Template32 className={styles.addIcon} />
+          <p className={styles.text}>Templates</p>
+        </Button>
       )}
       modalHeaderProps={{
         title: "Create Workflow from Template",
@@ -118,11 +99,13 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams }
       />
       <CreateWorkflowContent
         createWorkflow={handleCreateWorkflow}
-        createError={duplicateWorkflowError}
+        createError={createTemplateWorkflowError}
         isLoading={isLoading}
+        scope={scope}
         team={initialSelectedTeam}
         teams={teams}
         userWorkflows={userWorkflows}
+        workflowQuotasEnabled={workflowQuotasEnabled}
       />
     </ModalFlow>
   );

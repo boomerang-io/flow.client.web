@@ -3,7 +3,6 @@ import { FlowTeam, FlowUser, TaskModel, WorkflowRevision, WorkflowSummary } from
 
 export function createContext<ContextType>() {
   const context = React.createContext<ContextType | undefined>(undefined);
-  console.log(context, "AHHHH");
   function useContext() {
     const contextValue = React.useContext(context);
     if (!contextValue) throw new Error("useContext must be inside a Provider with a value");
