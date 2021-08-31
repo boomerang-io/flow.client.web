@@ -13,7 +13,7 @@
     font-size: 0.875rem;
     height: 3rem;
   }
-  :global .b-search-filter {
+  :global .b-search-filtersearch {
     align-items: flex-end;
     align-self: flex-end;
     width: 36rem;
@@ -50,6 +50,7 @@
 
 .search {
   flex: 1 1 auto;
+  margin-left: 1rem;
   margin-right: 2rem;
 
   & .bx--search--lg.bx--search-input {

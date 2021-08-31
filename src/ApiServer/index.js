@@ -85,6 +85,10 @@ export function startApiServer({ environment = "test", timing = 0 } = {}) {
         return [];
       });
 
+      this.get(serviceUrl.getWorkflowTemplates(), (schema, request) => {
+        return schema.db.workflowTemplates;
+      });
+
       this.get(serviceUrl.getSystemWorkflows(), (schema) => {
         return schema.db.systemWorkflows;
       });

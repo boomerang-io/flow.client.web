@@ -391,3 +391,15 @@ export interface ComboBoxItem {
   label?: string;
   value: string;
 }
+
+export interface WorkflowTemplate {
+  id: string;
+  icon: string;
+  name: string;
+  description: string;
+  parameters: {
+      label: string;
+      type: string;
+  }[];
+  dag: WorkflowDag;
+};

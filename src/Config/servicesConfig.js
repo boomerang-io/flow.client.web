@@ -76,6 +76,7 @@ export const serviceUrl = {
   `${BASE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
   getWorkflowSummary: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/summary`,
   getWorkflowTaskTemplates: ({ workflowId }) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
+  getWorkflowTemplates: () => `${BASE_URL}/workflows/template`,
   patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/properties`,
   patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
   postCreateWorkflow: () => `${BASE_URL}/workflow`,
@@ -156,6 +157,7 @@ export const resolver = {
   postCreateTaskTemplate: ({ body }) =>
     cancellableResolver({ url: serviceUrl.getTaskTemplates({ query: null }), body, method: HttpMethod.Post }),
   postDuplicateWorkflow: ({workflowId}) => axios.post(serviceUrl.postDuplicateWorkflow({workflowId})),
+  postTemplateWorkflow: ({workflowId, body}) => axios.post(serviceUrl.postDuplicateWorkflow({workflowId}), body),
   postGlobalToken: ({body}) => cancellableResolver({ url: serviceUrl.postGlobalToken(), body, method: HttpMethod.Post }),
   postTeamToken: ({body}) => cancellableResolver({ url: serviceUrl.postTeamToken(), body, method: HttpMethod.Post }),
   putCreateTaskTemplate: ({ body }) =>
