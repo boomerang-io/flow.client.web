@@ -20,6 +20,7 @@ import { DataDrivenInput } from "Types";
 import styles from "./settings.module.scss";
 
 export type SettingsGroup = {
+  description: string;
   name: string;
   key: string;
   config: DataDrivenInput[];
