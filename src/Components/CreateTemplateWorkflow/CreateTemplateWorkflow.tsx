@@ -27,9 +27,9 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams }
   const { teams: teamsIds } = queryString.parse(history.location.search);
   const pathname = history.location.pathname;
   const scope = pathname.includes("mine") ? WorkflowScope.User : pathname.includes("teams") ? WorkflowScope.Team :  WorkflowScope.System;
-  const initialSelectedTeam = teamsIds?.length ? teams.find((team) => teamsIds.includes(team.id)) : null;
+  const initialSelectedTeam = teams && teamsIds?.length ? teams.find((team) => teamsIds.includes(team.id)) : null;
 
-  const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
+  const workflowQuotasEnabled:boolean = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const workflowTemplatesUrl = serviceUrl.getWorkflowTemplates();
   const userWorkflowsUrl = serviceUrl.getUserWorkflows();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({query:""});
@@ -53,7 +53,7 @@ const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams }
     resolver.postTemplateWorkflow
   );
 
-  const handleCreateWorkflow = async (selectedTemplateId, requestBody) => {
+  const handleCreateWorkflow = async (selectedTemplateId: string, requestBody: any) => {
     try {
       const { data: newWorkflow } = await createTemplateWorkflowMutator({ workflowId: selectedTemplateId, body: requestBody });
       const workflowId = newWorkflow.id;

@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React, { useState, useEffect } from "react";
 import {
   Loading,
@@ -10,7 +9,7 @@ import { Box } from "reflexbox";
 import WombatMessage from "Components/WombatMessage";
 import workflowIcons from "Assets/workflowIcons";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
-import { WorkflowTemplate, TaskTemplate } from "Types";
+import { WorkflowTemplate, TaskModel } from "Types";
 import { WorkflowDagEngineMode } from "Constants";
 import { Bee20 } from "@carbon/icons-react";
 import styles from "./createWorkflowTemplate.module.scss";
@@ -23,7 +22,7 @@ interface CreateWorkflowTemplatesProps {
   requestNextStep: any;
   workflowTemplates: WorkflowTemplate[];
   templatesError: any;
-  taskTemplates: TaskTemplate[]; 
+  taskTemplates: TaskModel[]; 
 }
 
 const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
@@ -91,6 +90,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
               value={{
                 tasks: taskTemplates,
                 workflowRevision: selectedWorkflow.revision,
+                //@ts-ignore
                 workflowExecution: {},
               }}
             >
@@ -120,7 +120,12 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
             </ExecutionContextProvider>
             :
             <Box maxWidth="30rem" margin="0 auto">
-              <WombatMessage className={styles.wombat} style={{margin:"0"}} title="Select a template to start with" />
+              <WombatMessage 
+                className={styles.wombat}
+                //@ts-ignore
+                style={{margin:"0"}} 
+                title="Select a template to start with" 
+              />
             </Box>
           }
           

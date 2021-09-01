@@ -323,5 +323,23 @@ export interface WorkflowTemplate {
       label: string;
       type: string;
   }[];
-  dag: WorkflowDag;
-};
+  revision: WorkflowRevision;
+}
+
+export interface UserQuotas {
+  maxWorkflowCount: number;
+  maxWorkflowExecutionMonthly: number;
+  maxWorkflowStorage: number;
+  maxWorkflowExecutionTime: number;
+  maxConcurrentWorkflows: number;
+  currentWorkflowCount: number;
+  currentConcurrentWorkflows: number;
+  currentWorkflowExecutionMonthly: number;
+  currentAverageExecutionTime: number;
+  monthlymonthlyResetDate: string;
+}
+
+export interface UserWorkflow {
+  userQuotas: UserQuotas;
+  workflows: WorkflowSummary[];
+}
