@@ -32,6 +32,7 @@ interface CreateWorkflowContainerProps {
   team?: FlowTeam | null;
   teams?: FlowTeam[] | null;
   workflows?: WorkflowSummary[];
+  workflowQuotasEnabled: boolean;
 }
 
 const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
@@ -45,6 +46,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
   team,
   teams,
   workflows,
+  workflowQuotasEnabled,
 }) => {
   const [selectedOption, setSelectedOption] = React.useState(NEW_WORKFLOW);
 
@@ -69,6 +71,7 @@ const CreateWorkflowContainer: React.FC<CreateWorkflowContainerProps> = ({
           scope={scope}
           team={team}
           teams={teams}
+          workflowQuotasEnabled={workflowQuotasEnabled}
         />
       ) : (
         <ImportWorkflowContent

@@ -155,6 +155,8 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
           team={team}
           teams={teams}
           workflows={workflows}
+          //@ts-ignore
+          workflowQuotasEnabled={workflowQuotasEnabled}
         />
       )}
     </ComposedModal>

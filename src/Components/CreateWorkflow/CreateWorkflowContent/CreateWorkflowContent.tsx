@@ -27,6 +27,7 @@ interface CreateWorkflowContentProps {
   scope: string;
   team?: FlowTeam | null;
   teams?: FlowTeam[] | null;
+  workflowQuotasEnabled: boolean;
 }
 
 const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
@@ -37,11 +38,15 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   scope,
   team,
   teams,
+  workflowQuotasEnabled,
 }) => {
   const [selectedTeam, setSelectedTeam] = useState<FlowTeam | null>(team ?? null);
   const formikRef = useRef<any>();
 
   const existingWorkflowNames = selectedTeam?.workflows.map((workflow) => workflow.name) ?? [];
+
+  const hasReachedTeamWorkflowLimit = selectedTeam && selectedTeam.workflowQuotas.maxWorkflowCount <= selectedTeam.workflowQuotas.currentWorkflowCount;
+  const createTeamWorkflowsDisabled = workflowQuotasEnabled && hasReachedTeamWorkflowLimit;
 
   useEffect(() => {
     formikRef.current?.validateForm();
@@ -178,6 +183,14 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                   subtitle="Request to create workflow failed"
                 />
               )}
+              {createTeamWorkflowsDisabled && (
+                <InlineNotification
+                  lowContrast
+                  kind="error"
+                  title="Quotas exceeded"
+                  subtitle="You cannot create new workflows for this team."
+                />
+              )}
             </ModalBody>
             <ModalFooter>
               <Button kind="secondary" onClick={closeModal} type="button">
@@ -185,7 +198,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
               </Button>
               <Button
                 data-testid="workflows-create-workflow-submit"
-                disabled={!isValid || isLoading}
+                disabled={!isValid || isLoading || createTeamWorkflowsDisabled}
                 onClick={handleSubmit}
               >
                 {isLoading ? "Creating..." : "Create"}

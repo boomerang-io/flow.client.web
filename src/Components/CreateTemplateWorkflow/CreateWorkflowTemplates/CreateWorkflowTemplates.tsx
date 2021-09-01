@@ -1,8 +1,9 @@
-//@ts-nocheck
 import React, { useState, useEffect } from "react";
 import cx from "classnames";
 import {
   Loading,
+  Tag,
+  TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ExecutionContextProvider } from "State/context";
 import { Button, ModalBody, ModalFlowForm, ModalFooter, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -11,11 +12,28 @@ import { Box } from "reflexbox";
 import WombatMessage from "Components/WombatMessage";
 import workflowIcons from "Assets/workflowIcons";
 import WorkflowDagEngine from "Utils/dag/WorkflowDagEngine";
-import { WorkflowTemplate, TaskTemplate } from "Types";
+import { WorkflowTemplate, TaskModel } from "Types";
 import { WorkflowDagEngineMode } from "Constants";
 import { Bee20 } from "@carbon/icons-react";
 import styles from "./createWorkflowTemplate.module.scss";
 
+export const TriggerType:{[key:string]: string} = {
+  Manual: "manual",
+  Scheduler: "scheduler",
+  Webhook: "webhook",
+  DockerHub: "dockerhub",
+  Slack: "slack",
+  Custom: "custom",
+};
+
+export const TriggerTypeLabel:{[key:string]: string} = {
+  [TriggerType.Manual]: "Manual",
+  [TriggerType.Scheduler]: "Scheduler",
+  [TriggerType.Webhook]: "Webhook",
+  [TriggerType.DockerHub]: "Docker Hub",
+  [TriggerType.Slack]: "Slack",
+  [TriggerType.Custom]: "Custom",
+};
 interface CreateWorkflowTemplatesProps {
   closeModal: () => void;
   saveValues: any;
@@ -24,7 +42,7 @@ interface CreateWorkflowTemplatesProps {
   requestNextStep: any;
   workflowTemplates: WorkflowTemplate[];
   templatesError: any;
-  taskTemplates: TaskTemplate[]; 
+  taskTemplates: TaskModel[]; 
 }
 
 const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
@@ -43,8 +61,8 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
     dag: formData.selectedWorkflow.revision.dag,
     mode: WorkflowDagEngineMode.Executor,
   }) : null);
+  const triggersList = selectedWorkflow ? Object.keys(selectedWorkflow.triggers).filter((trigger) => selectedWorkflow.triggers[trigger].enable) : [];
 
-  
   useEffect(() => {
     if(currentDag){
       currentDag.getDiagramEngine().zoomToFit();
@@ -92,10 +110,10 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
               value={{
                 tasks: taskTemplates,
                 workflowRevision: selectedWorkflow.revision,
+                //@ts-ignore
                 workflowExecution: {},
               }}
             >
-              
               <div className={styles.templateInfo}>
                 <DiagramWidget
                   allowLooseLinks={false}
@@ -117,11 +135,51 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
                   :
                   <p className={styles.text}>No parameters available.</p>
                 }
+                <span className={styles.title}>Triggers</span>
+                {
+                  triggersList.length ?
+                  <div className={styles.tagsContainer}>
+                    {
+                      triggersList.map((trigger) => {
+                        const currentTrigger = selectedWorkflow.triggers[trigger];
+                        switch(trigger) {
+                          case TriggerType.Scheduler:
+                            return (
+                              <TooltipHover direction="top" tooltipText={`${currentTrigger.schedule} - ${currentTrigger.timezone}`}>
+                                <div>
+                                  <Tag type="teal">{TriggerTypeLabel[trigger]}</Tag>
+                                </div>
+                              </TooltipHover>
+                            );
+                          case TriggerType.Custom:
+                            return (
+                              <TooltipHover direction="top" tooltipText={`Topic: ${currentTrigger.topic}`}>
+                                <div>
+                                  <Tag type="teal">{TriggerTypeLabel[trigger]}</Tag>
+                                </div>
+                              </TooltipHover>
+                            );
+                          default: 
+                            return (
+                              <Tag type="teal">{TriggerTypeLabel[trigger]}</Tag>
+                            );
+                        }
+                      })
+                    }
+                  </div>
+                  :
+                  <p className={styles.text}>No triggers available.</p>
+                }
               </div>
             </ExecutionContextProvider>
             :
             <Box maxWidth="30rem" margin="0 auto">
-              <WombatMessage className={styles.wombat} style={{margin:"0"}} title="Select a template to start with" />
+              <WombatMessage 
+                className={styles.wombat}
+                //@ts-ignore
+                style={{margin:"0"}} 
+                title="Select a template to start with" 
+              />
             </Box>
           }
           

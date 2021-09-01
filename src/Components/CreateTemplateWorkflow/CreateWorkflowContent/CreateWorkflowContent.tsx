@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React, { useState, useEffect, useRef } from "react";
 import classNames from "classnames/bind";
 import {
@@ -14,7 +13,7 @@ import * as Yup from "yup";
 import capitalize from "lodash/capitalize";
 import { Button, ModalBody, ModalFooter, ModalFlowForm, TooltipHover } from "@boomerang-io/carbon-addons-boomerang-react";
 import workflowIcons from "Assets/workflowIcons";
-import { ComboBoxItem, FlowTeam, WorkflowTemplate, WorkflowSummary } from "Types";
+import { ComboBoxItem, FlowTeam, WorkflowSummary, UserWorkflow } from "Types";
 import { WorkflowScope } from "Constants";
 import styles from "./createWorkflow.module.scss";
 
@@ -36,14 +35,14 @@ export const radioWorkflowOptions = [
 interface CreateWorkflowContentProps {
   closeModal: () => void;
   createError: any;
-  createWorkflow: (workflowSummary: WorkflowTemplate) => Promise<void>;
+  createWorkflow: (selectedTemplateId: string, requestBody: any) => Promise<void>;
   isLoading: boolean;
   team?: FlowTeam | null;
   teams?: FlowTeam[] | null;
   formData: any;
   saveValues: any;
   requestPreviousStep: any;
-  userWorkflows?: WorkflowSummary[];
+  userWorkflows?: UserWorkflow;
   systemWorkflows?: WorkflowSummary[];
   scope: string;
   workflowQuotasEnabled: boolean;
@@ -51,10 +50,8 @@ interface CreateWorkflowContentProps {
 
 const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   formData,
-  saveValues,
   requestPreviousStep,
   userWorkflows,
-  closeModal,
   createError,
   createWorkflow,
   isLoading,
@@ -68,8 +65,8 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
   const [teamTouched, setTeamTouched] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = React.useState(scope);
   const formikRef = useRef<any>();
-  const hasReachedUserWorkflowLimit = userWorkflows?.userQuotas?.maxWorkflowCount <= userWorkflows?.userQuotas?.currentWorkflowCount;
-  const hasReachedTeamWorkflowLimit = selectedTeam?.workflowQuotas?.maxWorkflowCount <= selectedTeam?.workflowQuotas?.currentWorkflowCount;
+  const hasReachedUserWorkflowLimit = userWorkflows && userWorkflows.userQuotas.maxWorkflowCount <= userWorkflows.userQuotas.currentWorkflowCount;
+  const hasReachedTeamWorkflowLimit = selectedTeam && selectedTeam.workflowQuotas.maxWorkflowCount <= selectedTeam.workflowQuotas.currentWorkflowCount;
 
   const createUserWorkflowsDisabled = workflowQuotasEnabled && hasReachedUserWorkflowLimit && selectedOption === WorkflowScope.User;
   const createTeamWorkflowsDisabled = workflowQuotasEnabled && hasReachedTeamWorkflowLimit && selectedOption === WorkflowScope.Team;
@@ -89,7 +86,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
       summary: values.summary,
       icon: values.icon,
       scope: scope === WorkflowScope.System ? scope : selectedOption,
-      teamId: selectedOption === WorkflowScope.Team ? selectedTeam.id : undefined,
+      teamId: selectedTeam && selectedOption === WorkflowScope.Team ? selectedTeam.id : undefined,
     };
     //@ts-ignore
     createWorkflow(formData.selectedWorkflow.id, requestBody);
