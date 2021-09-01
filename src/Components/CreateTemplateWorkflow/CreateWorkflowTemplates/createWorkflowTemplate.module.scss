@@ -42,6 +42,10 @@
   margin-top: 0 !important;
   overflow-y: auto;
   width: 100%;
+  
+  svg:not(:root) {
+    overflow: visible !important;
+  }
 }
 
 .diagramContainer {
