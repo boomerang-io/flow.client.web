@@ -47,67 +47,21 @@ const workflowTemplates = [
     {label: "Param2", type: "Type2"},
   ],
   revision: {
-  config: {
-  nodes: [
-  {
-  inputs: {
-  path: "",
-  shell: "",
-  taskName: "Execute Shell 1",
-  script: ""
-  },
-  nodeId: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
-  taskId: "5c3907a1352b1b51412ed079",
-  type: "script",
-  taskVersion: 2,
-  outputs: [ ]
-  }
-  ]
-  },
-  dag: {
-  gridSize: 0,
-  links: [
-  {
-  type: "task",
-  id: "f53779df-f82a-4bee-a959-73b752eff8dd",
-  selected: false,
-  source: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
-  sourcePort: "85769c48-671e-4725-92ee-fc993d4ccfba",
-  target: "7542e313-c82f-46ef-bcec-0ac7dc60bd17",
-  targetPort: "cfe0fd71-a003-4f72-a364-d9f6c2f27cee",
-  points: [
-  {
-  id: "622163c2-7013-489f-a117-633172e07c0b",
-  selected: false,
-  x: 904,
-  y: 444
-  },
-  {
-    id: "61096c6c9213e8611ae322dc",
-    name: "Test name2",
-    summary: "Test summary",
-    icon: "clean",
-    description: "Test System Workflow",
-    parameters: [
-      {label: "Param1", type: "Type1"},
-      {label: "Param2", type: "Type2"},
-    ],
-    revision: {
     config: {
     nodes: [
-      {
-        inputs: {
-          path: "",
-          shell: "",
-          taskName: "Execute Shell 1",
-          script: ""
-        },
-        nodeId: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
-        taskId: "5c3907a1352b1b51412ed079",
-        type: "script",
-        taskVersion: 2,
-        outputs: [ ]
-      }
+    {
+    inputs: {
+    path: "",
+    shell: "",
+    taskName: "Execute Shell 1",
+    script: ""
+    },
+    nodeId: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
+    taskId: "5c3907a1352b1b51412ed079",
+    type: "script",
+    taskVersion: 2,
+    outputs: [ ]
+    }
     ]
     },
     dag: {
@@ -115,21 +69,21 @@ const workflowTemplates = [
     links: [
     {
     type: "task",
-    id: "f53779df-f82a-4bee-a959-73b752eff8dd",
+    id: "30dc28f1-e5fe-4bfb-9cf2-ea164fadc63d",
     selected: false,
     source: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
-    sourcePort: "85769c48-671e-4725-92ee-fc993d4ccfba",
+    sourcePort: "e56cec36-ec7f-41a0-ae80-0f4808e23011",
     target: "7542e313-c82f-46ef-bcec-0ac7dc60bd17",
-    targetPort: "cfe0fd71-a003-4f72-a364-d9f6c2f27cee",
+    targetPort: "49c3476d-c222-4d6e-842b-b9e225cb6a21",
     points: [
     {
-    id: "622163c2-7013-489f-a117-633172e07c0b",
+    id: "300f2673-8715-4f3f-b05c-d16c92cd6a02",
     selected: false,
     x: 904,
     y: 444
     },
     {
-    id: "a145e288-2d97-4a6b-8b73-b5ec490b24b5",
+    id: "cb248bab-9544-4f80-ad9c-fdb7a0545892",
     selected: false,
     x: 984,
     y: 438
@@ -141,26 +95,26 @@ const workflowTemplates = [
     color: "rgba(255,255,255,0.5)",
     curvyness: 50,
     executionCondition: "always",
-    linkId: "f53779df-f82a-4bee-a959-73b752eff8dd",
+    linkId: "30dc28f1-e5fe-4bfb-9cf2-ea164fadc63d",
     switchCondition: null
     },
     {
     type: "task",
-    id: "b6c14f5f-9b93-4164-9a18-b30943120d64",
+    id: "114c2561-7616-49ff-968e-060006d60a4f",
     selected: false,
     source: "49e5c0c0-2d61-4913-86ff-1fda4e52d65c",
-    sourcePort: "aa6e2173-4fdb-4e28-baa2-00f2da970591",
+    sourcePort: "cb017f9e-d09f-4657-a2a6-87c1e8d2ea56",
     target: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
-    targetPort: "7725adc4-3dea-4ccb-b954-1abc21ccec91",
+    targetPort: "40dbc647-38f0-4411-b9fc-69d13755e4b9",
     points: [
     {
-    id: "d4600ff3-86a4-43c7-ad2e-076312b138cd",
+    id: "1baa6fe2-e267-4728-9409-d7304e5b7028",
     selected: false,
     x: 460,
     y: 438
     },
     {
-    id: "5b68889f-ac8b-4258-8c79-8c5112d38b89",
+    id: "8137c3ab-f867-4d96-9cc7-7d2382e98e74",
     selected: false,
     x: 652,
     y: 444
@@ -172,7 +126,7 @@ const workflowTemplates = [
     color: "rgba(255,255,255,0.5)",
     curvyness: 50,
     executionCondition: "always",
-    linkId: "b6c14f5f-9b93-4164-9a18-b30943120d64",
+    linkId: "114c2561-7616-49ff-968e-060006d60a4f",
     switchCondition: null
     }
     ],
@@ -186,20 +140,20 @@ const workflowTemplates = [
     extras: { },
     ports: [
     {
-    nodePortId: "aa6e2173-4fdb-4e28-baa2-00f2da970591",
+    nodePortId: "cb017f9e-d09f-4657-a2a6-87c1e8d2ea56",
     type: "startend",
     selected: false,
     name: "right",
     links: [
-    "b6c14f5f-9b93-4164-9a18-b30943120d64"
+    "114c2561-7616-49ff-968e-060006d60a4f"
     ],
     position: "right",
-    id: "aa6e2173-4fdb-4e28-baa2-00f2da970591"
+    id: "cb017f9e-d09f-4657-a2a6-87c1e8d2ea56"
     }
     ],
     passedName: "Start",
     templateUpgradeAvailable: false,
-    id: "44708f37-8156-464f-971b-f5dac3ba7a7b"
+    id: "47d9ddd9-4e5e-48ce-9287-b5cf798b56d5"
     },
     {
     nodeId: "7542e313-c82f-46ef-bcec-0ac7dc60bd17",
@@ -210,20 +164,20 @@ const workflowTemplates = [
     extras: { },
     ports: [
     {
-    nodePortId: "cfe0fd71-a003-4f72-a364-d9f6c2f27cee",
+    nodePortId: "49c3476d-c222-4d6e-842b-b9e225cb6a21",
     type: "startend",
     selected: false,
     name: "left",
     links: [
-    "f53779df-f82a-4bee-a959-73b752eff8dd"
+    "30dc28f1-e5fe-4bfb-9cf2-ea164fadc63d"
     ],
     position: "left",
-    id: "cfe0fd71-a003-4f72-a364-d9f6c2f27cee"
+    id: "49c3476d-c222-4d6e-842b-b9e225cb6a21"
     }
     ],
     passedName: "End",
     templateUpgradeAvailable: false,
-    id: "d4120bfe-ff13-4a6c-8a00-51de4265d538"
+    id: "aff2afb9-a4db-4169-a1f4-0836cec675ed"
     },
     {
     nodeId: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
@@ -234,41 +188,41 @@ const workflowTemplates = [
     extras: { },
     ports: [
     {
-    nodePortId: "7725adc4-3dea-4ccb-b954-1abc21ccec91",
+    nodePortId: "40dbc647-38f0-4411-b9fc-69d13755e4b9",
     type: "task",
     selected: false,
     name: "left",
     parentNode: "5c3907a1352b1b51412ed079",
     links: [
-    "b6c14f5f-9b93-4164-9a18-b30943120d64"
+    "114c2561-7616-49ff-968e-060006d60a4f"
     ],
     position: "left",
-    id: "7725adc4-3dea-4ccb-b954-1abc21ccec91"
+    id: "40dbc647-38f0-4411-b9fc-69d13755e4b9"
     },
     {
-    nodePortId: "85769c48-671e-4725-92ee-fc993d4ccfba",
+    nodePortId: "e56cec36-ec7f-41a0-ae80-0f4808e23011",
     type: "task",
     selected: false,
     name: "right",
     parentNode: "5c3907a1352b1b51412ed079",
     links: [
-    "f53779df-f82a-4bee-a959-73b752eff8dd"
+    "30dc28f1-e5fe-4bfb-9cf2-ea164fadc63d"
     ],
     position: "right",
-    id: "85769c48-671e-4725-92ee-fc993d4ccfba"
+    id: "e56cec36-ec7f-41a0-ae80-0f4808e23011"
     }
     ],
     passedName: "Execute Shell 1",
     taskId: "5c3907a1352b1b51412ed079",
     taskName: "Execute Shell 1",
     templateUpgradeAvailable: false,
-    id: "6ed99215-8b4a-4ee9-9514-70c56efe560f"
+    id: "85b03842-72fb-4126-a57a-5afed9be1ec2"
     }
     ],
     offsetX: 0,
     offsetY: 0,
     zoom: 100,
-    id: "d615ae66-70c8-4c91-9142-cadd2c8c0f28"
+    id: "9787adae-e0b5-480c-ae2d-cc8a218c33d5"
     },
     id: "611d28bd1fe9252079033f9c",
     version: 3,
@@ -280,204 +234,7 @@ const workflowTemplates = [
     userName: null
     },
     templateUpgradesAvailable: false
-    }
-  },
-  {
-    id: "61096c6c921333611ae38ddc",
-    name: "Test name3",
-    summary: "Test summary3",
-    icon: "cloud",
-    description: "Test System Workflow",
-    parameters: [],
-    revision: {
-    config: {
-    nodes: [
-      {
-        inputs: {
-          path: "",
-          shell: "",
-          taskName: "Execute Shell 1",
-          script: ""
-        },
-        nodeId: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
-        taskId: "5c3907a1352b1b51412ed079",
-        type: "script",
-        taskVersion: 2,
-        outputs: [ ]
-      }
-    ]
-    },
-    dag: {
-    gridSize: 0,
-    links: [
-    {
-    type: "task",
-    id: "f53779df-f82a-4bee-a959-73b752eff8dd",
-    selected: false,
-    source: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
-    sourcePort: "85769c48-671e-4725-92ee-fc993d4ccfba",
-    target: "7542e313-c82f-46ef-bcec-0ac7dc60bd17",
-    targetPort: "cfe0fd71-a003-4f72-a364-d9f6c2f27cee",
-    points: [
-    {
-    id: "622163c2-7013-489f-a117-633172e07c0b",
-    selected: false,
-    x: 904,
-    y: 444
-    },
-    {
-    id: "a145e288-2d97-4a6b-8b73-b5ec490b24b5",
-    selected: false,
-    x: 984,
-    y: 438
-    }
-    ],
-    extras: { },
-    labels: [ ],
-    width: 3,
-    color: "rgba(255,255,255,0.5)",
-    curvyness: 50,
-    executionCondition: "always",
-    linkId: "f53779df-f82a-4bee-a959-73b752eff8dd",
-    switchCondition: null
-    },
-    {
-    type: "task",
-    id: "b6c14f5f-9b93-4164-9a18-b30943120d64",
-    selected: false,
-    source: "49e5c0c0-2d61-4913-86ff-1fda4e52d65c",
-    sourcePort: "aa6e2173-4fdb-4e28-baa2-00f2da970591",
-    target: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
-    targetPort: "7725adc4-3dea-4ccb-b954-1abc21ccec91",
-    points: [
-    {
-    id: "d4600ff3-86a4-43c7-ad2e-076312b138cd",
-    selected: false,
-    x: 460,
-    y: 438
-    },
-    {
-    id: "5b68889f-ac8b-4258-8c79-8c5112d38b89",
-    selected: false,
-    x: 652,
-    y: 444
-    }
-    ],
-    extras: { },
-    labels: [ ],
-    width: 3,
-    color: "rgba(255,255,255,0.5)",
-    curvyness: 50,
-    executionCondition: "always",
-    linkId: "b6c14f5f-9b93-4164-9a18-b30943120d64",
-    switchCondition: null
-    }
-    ],
-    nodes: [
-    {
-    nodeId: "49e5c0c0-2d61-4913-86ff-1fda4e52d65c",
-    type: "startend",
-    selected: false,
-    x: 300,
-    y: 400,
-    extras: { },
-    ports: [
-    {
-    nodePortId: "aa6e2173-4fdb-4e28-baa2-00f2da970591",
-    type: "startend",
-    selected: false,
-    name: "right",
-    links: [
-    "b6c14f5f-9b93-4164-9a18-b30943120d64"
-    ],
-    position: "right",
-    id: "aa6e2173-4fdb-4e28-baa2-00f2da970591"
-    }
-    ],
-    passedName: "Start",
-    templateUpgradeAvailable: false,
-    id: "44708f37-8156-464f-971b-f5dac3ba7a7b"
-    },
-    {
-    nodeId: "7542e313-c82f-46ef-bcec-0ac7dc60bd17",
-    type: "startend",
-    selected: false,
-    x: 1000,
-    y: 400,
-    extras: { },
-    ports: [
-    {
-    nodePortId: "cfe0fd71-a003-4f72-a364-d9f6c2f27cee",
-    type: "startend",
-    selected: false,
-    name: "left",
-    links: [
-    "f53779df-f82a-4bee-a959-73b752eff8dd"
-    ],
-    position: "left",
-    id: "cfe0fd71-a003-4f72-a364-d9f6c2f27cee"
-    }
-    ],
-    passedName: "End",
-    templateUpgradeAvailable: false,
-    id: "d4120bfe-ff13-4a6c-8a00-51de4265d538"
-    },
-    {
-    nodeId: "89466a6a-9ab0-4f2e-8004-3995bcb93455",
-    type: "script",
-    selected: false,
-    x: 668,
-    y: 404,
-    extras: { },
-    ports: [
-    {
-    nodePortId: "7725adc4-3dea-4ccb-b954-1abc21ccec91",
-    type: "task",
-    selected: false,
-    name: "left",
-    parentNode: "5c3907a1352b1b51412ed079",
-    links: [
-    "b6c14f5f-9b93-4164-9a18-b30943120d64"
-    ],
-    position: "left",
-    id: "7725adc4-3dea-4ccb-b954-1abc21ccec91"
-    },
-    {
-    nodePortId: "85769c48-671e-4725-92ee-fc993d4ccfba",
-    type: "task",
-    selected: false,
-    name: "right",
-    parentNode: "5c3907a1352b1b51412ed079",
-    links: [
-    "f53779df-f82a-4bee-a959-73b752eff8dd"
-    ],
-    position: "right",
-    id: "85769c48-671e-4725-92ee-fc993d4ccfba"
-    }
-    ],
-    passedName: "Execute Shell 1",
-    taskId: "5c3907a1352b1b51412ed079",
-    taskName: "Execute Shell 1",
-    templateUpgradeAvailable: false,
-    id: "6ed99215-8b4a-4ee9-9514-70c56efe560f"
-    }
-    ],
-    offsetX: 0,
-    offsetY: 0,
-    zoom: 100,
-    id: "d615ae66-70c8-4c91-9142-cadd2c8c0f28"
-    },
-    id: "611d28bd1fe9252079033f9c",
-    version: 3,
-    workFlowId: "61096c6c9213e8611ae38ddc",
-    changelog: {
-    userId: "60a975123d611c38c010102e",
-    reason: "test",
-    date: "2021-08-18T15:35:25.625+00:00",
-    userName: null
-    },
-    templateUpgradesAvailable: false
-    }
+    }    
   }
 ];
 
