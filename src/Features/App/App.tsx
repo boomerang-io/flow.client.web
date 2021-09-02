@@ -241,7 +241,6 @@ interface AppFeaturesProps {
 const AppFeatures = React.memo(function AppFeatures({ platformRole }: AppFeaturesProps) {
   const teamPropertiesEnabled = useFeature(FeatureFlag.TeamParametersEnabled);
   const taskManagerEnabled = useFeature(FeatureFlag.TaskManagerEnabled);
-  const workflowQuotasEnabled = useFeature(FeatureFlag.WorkflowQuotasEnabled);
   const teamManagementEnabled = useFeature(FeatureFlag.TeamManagementEnabled);
   const userManagementEnabled = useFeature(FeatureFlag.UserManagementEnabled);
   const activityEnabled = useFeature(FeatureFlag.ActivityEnabled);
