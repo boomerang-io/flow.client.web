@@ -126,7 +126,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
               ) : (
                 <TextInput
                   id="name"
-                  labelText="Workflow Name"
+                  labelText={scope === WorkflowScope.Template ? "Template Name" : "Workflow Name"}
                   value={values.name}
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -180,7 +180,7 @@ const CreateWorkflowContent: React.FC<CreateWorkflowContentProps> = ({
                   lowContrast
                   kind="error"
                   title="Something's Wrong"
-                  subtitle="Request to create workflow failed"
+                  subtitle={`Request to create ${scope === WorkflowScope.Template ? "template" : "workflow"} failed`}
                 />
               )}
               {createTeamWorkflowsDisabled && (

@@ -95,6 +95,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         queryCache.invalidateQueries(serviceUrl.getTeams());
       } else if (scope === WorkflowScope.System) {
         queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
+      } else if (scope === WorkflowScope.Template) {
+        queryCache.invalidateQueries(serviceUrl.workflowTemplates());
       } else {
         queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
       }
@@ -113,6 +115,8 @@ const WorkflowCard: React.FC<WorkflowCardProps> = ({ scope, teamId, quotas, work
         queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
       } else if (scope === WorkflowScope.Team) {
         queryCache.invalidateQueries(serviceUrl.getTeams());
+      } else if (scope === WorkflowScope.Template) {
+        queryCache.invalidateQueries(serviceUrl.workflowTemplates());
       } else {
         queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
       }

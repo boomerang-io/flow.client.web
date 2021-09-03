@@ -61,7 +61,7 @@ export default function SystemWorkflows() {
           teamsQuery={null}
           teams={null}
           //@ts-ignore
-          workflowsCount={isWorkflowTemplates ? templatesWorkflowData?.length : systemWorkflowsData?.length}
+          workflowsCount={isWorkflowTemplates ? templatesWorkflowData?.length ?? 0 : systemWorkflowsData?.length ?? 0}
         />
         <div aria-label="Team Workflows" className={styles.content} role="region">
           <Switch>
@@ -85,8 +85,8 @@ export default function SystemWorkflows() {
                 />
               </section>
             </Route>
+            <Redirect exact from={AppPath.SystemWorkflows} to={AppPath.SystemManagementWorkflows} />
           </Switch>
-          <Redirect exact from={AppPath.SystemWorkflows} to={AppPath.SystemManagementWorkflows} />
         </div>
       </div>
     </>
