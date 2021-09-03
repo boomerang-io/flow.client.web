@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import cx from "classnames";
 import {
   Loading,
-  Tag,
-  TooltipHover,
+  // Tag,
+  // TooltipHover,
 } from "@boomerang-io/carbon-addons-boomerang-react";
 import { ExecutionContextProvider } from "State/context";
 import { Button, ModalBody, ModalFlowForm, ModalFooter, ErrorMessage } from "@boomerang-io/carbon-addons-boomerang-react";
@@ -61,7 +61,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
     dag: formData.selectedWorkflow.revision.dag,
     mode: WorkflowDagEngineMode.Executor,
   }) : null);
-  const triggersList = selectedWorkflow ? Object.keys(selectedWorkflow.triggers).filter((trigger) => selectedWorkflow.triggers[trigger].enable) : [];
+  // const triggersList = selectedWorkflow ? Object.keys(selectedWorkflow.triggers).filter((trigger) => selectedWorkflow.triggers[trigger].enable) : [];
 
   useEffect(() => {
     if(currentDag){
@@ -135,6 +135,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
                   :
                   <p className={styles.text}>No parameters available.</p>
                 }
+                {/* commented for possible future implementation of triggers detail
                 <span className={styles.title}>Triggers</span>
                 {
                   triggersList.length ?
@@ -169,7 +170,7 @@ const CreateWorkflowTemplates: React.FC<CreateWorkflowTemplatesProps> = ({
                   </div>
                   :
                   <p className={styles.text}>No triggers available.</p>
-                }
+                } */}
               </div>
             </ExecutionContextProvider>
             :

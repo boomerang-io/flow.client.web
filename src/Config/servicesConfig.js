@@ -76,7 +76,6 @@ export const serviceUrl = {
   `${BASE_URL}/workflow/${workflowId}/revision${revisionNumber ? "/" + revisionNumber : ""}`,
   getWorkflowSummary: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/summary`,
   getWorkflowTaskTemplates: ({ workflowId }) => `${BASE_URL}/tasktemplate/workflow/${workflowId}`,
-  getWorkflowTemplates: () => `${BASE_URL}/workflows/template`,
   patchUpdateWorkflowProperties: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/properties`,
   patchUpdateWorkflowSummary: () => `${BASE_URL}/workflow`,
   postCreateWorkflow: () => `${BASE_URL}/workflow`,
@@ -98,6 +97,7 @@ export const serviceUrl = {
   resourceManageUser: ({ userId }) => `${BASE_URL}/manage/users/${userId}`,
   resourceSettings: () => `${BASE_URL}/settings`,
   workflowAvailableParameters: ({ workflowId }) => `${BASE_URL}/workflow/${workflowId}/available-parameters`,
+  workflowTemplates: () => `${BASE_URL}/workflows/template`,
 };
 
 export const cancellableResolver = ({ url, method, body, headers, ...config }) => {
@@ -151,6 +151,7 @@ export const resolver = {
     axios.patch(serviceUrl.patchUpdateWorkflowProperties({ workflowId }), body),
   // postAddService: ({ body }) =>
   //   cancellableResolver({ url: serviceUrl.postAddService(), body, method: HttpMethod.Post }),
+  postCreateTemplate: ({ body }) => axios.post(serviceUrl.workflowTemplates(), body),
   postCreateWorkflow: ({ body }) => axios.post(serviceUrl.postCreateWorkflow(), body),
   postCreateWorkflowRevision: ({ workflowId, body }) =>
     axios.post(serviceUrl.postCreateWorkflowRevision({ workflowId }), body),

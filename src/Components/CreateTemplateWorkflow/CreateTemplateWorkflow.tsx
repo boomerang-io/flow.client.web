@@ -20,17 +20,16 @@ import styles from "./createWorkflow.module.scss";
 
 interface CreateTemplateWorkflowProps {
   teams?: FlowTeam[] | null;
+  scope: string;
 }
 
-const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams }) => {
+const CreateTemplateWorkflow: React.FC<CreateTemplateWorkflowProps> = ({ teams, scope }) => {
   const history = useHistory();
   const { teams: teamsIds } = queryString.parse(history.location.search);
-  const pathname = history.location.pathname;
-  const scope = pathname.includes("mine") ? WorkflowScope.User : pathname.includes("teams") ? WorkflowScope.Team :  WorkflowScope.System;
   const initialSelectedTeam = teams && teamsIds?.length ? teams.find((team) => teamsIds.includes(team.id)) : null;
 
   const workflowQuotasEnabled:boolean = useFeature(FeatureFlag.WorkflowQuotasEnabled);
-  const workflowTemplatesUrl = serviceUrl.getWorkflowTemplates();
+  const workflowTemplatesUrl = serviceUrl.workflowTemplates();
   const userWorkflowsUrl = serviceUrl.getUserWorkflows();
   const getTaskTemplatesUrl = serviceUrl.getTaskTemplates({query:""});
 

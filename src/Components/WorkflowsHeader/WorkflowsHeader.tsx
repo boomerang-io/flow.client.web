@@ -45,6 +45,8 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
           <HeaderTitle>
             {scope === WorkflowScope.System
               ? `System Workflows (${workflowsCount})`
+              : scope === WorkflowScope.Template
+              ? `Template Workflows (${workflowsCount})`
               : scope === WorkflowScope.Team
               ? `Team Workflows (${workflowsCount})`
               : `Workflows (${workflowsCount})`}
@@ -58,12 +60,15 @@ const WorkflowsHeader: React.FC<WorkflowsHeaderProps> = ({
         </>
       }
       footer={
-        !(scope === WorkflowScope.System) && (
-          <Tabs>
-            <Tab label="My Workflows" to={appLink.workflowsMine()} />
-            <Tab label="Team Workflows" to={appLink.workflowsTeams()} />
-          </Tabs>
-        )
+        !(scope === WorkflowScope.System || scope === WorkflowScope.Template)
+          ? (<Tabs>
+              <Tab label="My Workflows" to={appLink.workflowsMine()} />
+              <Tab label="Team Workflows" to={appLink.workflowsTeams()} />
+            </Tabs>)
+          :(<Tabs>
+              <Tab label="System" to={appLink.systemManagementWorkflows()} />
+              <Tab label="Templates" to={appLink.templatesWorkflows()} />
+            </Tabs>)
       }
       actions={
         <SearchFilterBar
@@ -112,17 +117,21 @@ const SearchFilterBar: React.FC<SearchFilterBarProps> = ({
 
   return (
     <div className={styles.filterContainer}>
-      <CreateTemplateWorkflow
-        teams={teams}
-      />
+      {
+        scope !== WorkflowScope.Template &&
+        <CreateTemplateWorkflow
+          teams={teams}
+          scope={scope}
+        />
+      }
       <div className={styles.search}>
         <Search
           disabled={scope === WorkflowScope.Team ? !hasTeams : false}
           data-testid="workflows-team-search"
           id="search-team-workflows"
-          labelText="Search for a workflow"
+          labelText={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
           onChange={handleOnSearchInputChange}
-          placeHolderText="Search for a workflow"
+          placeHolderText={`Search for a ${scope === WorkflowScope.Template ? "template" : "workflow"}`}
           value={searchQuery}
         />
       </div>

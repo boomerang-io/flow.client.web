@@ -42,6 +42,10 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
     resolver.postCreateWorkflow
   );
 
+  const [createTemplateMutator, { error: templateError, isLoading: templateIsLoading }] = useMutation(
+    resolver.postCreateTemplate
+  );
+
   const [
     createWorkflowRevisionMutator,
     { error: workflowRevisionError, isLoading: workflowRevisionIsLoading },
@@ -53,8 +57,13 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
 
   const handleCreateWorkflow = async (workflowSummary: CreateWorkflowSummary) => {
     try {
-      const { data: newWorkflow } = await createWorkflowMutator({ body: workflowSummary });
-      const workflowId = newWorkflow.id;
+      let newWorkflow;
+      if(scope !== WorkflowScope.Template) {
+        newWorkflow = await createWorkflowMutator({ body: workflowSummary });
+      } else {
+        newWorkflow = await createTemplateMutator({ body: workflowSummary });
+      }
+      const workflowId = newWorkflow.data.id;
       const dagProps = createWorkflowRevisionBody(workflowDagEngine, "Create workflow");
       const workflowRevision = {
         ...dagProps,
@@ -62,6 +71,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
       };
 
       await createWorkflowRevisionMutator({ workflowId, body: workflowRevision });
+      
       queryCache.removeQueries(serviceUrl.getWorkflowRevision({ workflowId, revisionNumber: null }));
       history.push(appLink.editorDesigner({ workflowId }));
       notify(<ToastNotification kind="success" title="Create Workflow" subtitle="Successfully created workflow" />);
@@ -69,10 +79,11 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
         queryCache.invalidateQueries(serviceUrl.getSystemWorkflows());
       } else if (scope === WorkflowScope.Team) {
         queryCache.invalidateQueries(serviceUrl.getTeams());
+      } else if (scope === WorkflowScope.Template) {
+        queryCache.invalidateQueries(serviceUrl.workflowTemplates());
       } else {
         queryCache.invalidateQueries(serviceUrl.getUserWorkflows());
       }
-
       return;
     } catch (e) {
       console.log(e);
@@ -109,7 +120,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
     }
   };
 
-  const isLoading = workflowIsLoading || workflowRevisionIsLoading || importIsLoading;
+  const isLoading = workflowIsLoading || workflowRevisionIsLoading || importIsLoading || templateIsLoading;
 
   return (
     <ComposedModal
@@ -130,7 +141,7 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
         ) : (
           <button className={styles.container} onClick={openModal} data-testid="workflows-create-workflow-button">
             <Add32 className={styles.addIcon} />
-            <p className={styles.text}>Create a new workflow</p>
+            <p className={styles.text}>{scope !== WorkflowScope.Template ? "Create a new Workflow" : "Create a new Template"}</p>
           </button>
         )
       }
@@ -139,14 +150,14 @@ const CreateWorkflow: React.FC<CreateWorkflowProps> = ({ scope, team, teams, has
         children: "Your request will not be saved",
       }}
       modalHeaderProps={{
-        title: "Create a new Workflow",
+        title: scope !== WorkflowScope.Template ? "Create a new Workflow" : "Create a new Template",
         subtitle: "Get started with these basics, then proceed to designing it out.",
       }}
     >
       {({ closeModal }: ComposedModalChildProps) => (
         <CreateWorkflowContainer
           closeModal={closeModal}
-          createError={workflowError || workflowRevisionError}
+          createError={workflowError || workflowRevisionError || templateError}
           createWorkflow={handleCreateWorkflow}
           importError={importError}
           importWorkflow={handleImportWorkflow}
